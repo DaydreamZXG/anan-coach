@@ -1,0 +1,33 @@
+from app.contracts.external_learning.models import (
+    AnswerIngestionVersion,
+    ContentLicenseRecord,
+    ContentMatchVersion,
+    LicenseDecision,
+    LicenseGrantCell,
+    LicenseGrantMatrix,
+    LicenseUseRequest,
+    LicenseSnapshotStatus,
+    OfflinePacketVersion,
+    RecognitionRevision,
+    SourceArtifactVersion,
+    canonical_grant_matrix_hash,
+    canonical_record_hash,
+    external_learning_contract_catalog,
+)
+
+__all__ = [
+    "AnswerIngestionVersion",
+    "ContentLicenseRecord",
+    "ContentMatchVersion",
+    "LicenseDecision",
+    "LicenseGrantCell",
+    "LicenseGrantMatrix",
+    "LicenseUseRequest",
+    "LicenseSnapshotStatus",
+    "OfflinePacketVersion",
+    "RecognitionRevision",
+    "SourceArtifactVersion",
+    "canonical_grant_matrix_hash",
+    "canonical_record_hash",
+    "external_learning_contract_catalog",
+]

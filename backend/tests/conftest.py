@@ -8,6 +8,7 @@ import socket
 import subprocess
 import tempfile
 from collections.abc import Iterator
+from importlib import import_module
 
 import pytest
 from sqlalchemy import create_engine, text
@@ -109,6 +110,11 @@ def _reset_test_schema(engine: Engine) -> None:
     schema_sql = Path(__file__).with_name("sql").joinpath("minimal_schema.sql").read_text()
     with engine.begin() as conn:
         for statement in _split_postgres_statements(schema_sql):
+            conn.execute(text(statement))
+        stage15 = import_module(
+            "migrations.versions.20260715_20_stage15_external_learning_foundation"
+        )
+        for statement in stage15._STATEMENTS:
             conn.execute(text(statement))
 
 

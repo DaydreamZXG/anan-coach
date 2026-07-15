@@ -160,6 +160,17 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
     db_engine: Engine,
 ) -> None:
     with db_engine.begin() as connection:
+        connection.execute(
+            text("drop table product.content_license_authorization_snapshots")
+        )
+        connection.execute(text("drop table product.content_license_heads"))
+        connection.execute(
+            text("drop table product.content_license_record_versions")
+        )
+        connection.execute(text("drop table product.content_license_commands"))
+        connection.execute(
+            text("drop function product.reject_content_license_history_mutation()")
+        )
         connection.execute(text("drop table learner.onboarding_progress_events"))
         connection.execute(text("drop table learner.onboarding_commands"))
         connection.execute(text("drop table learner.onboarding_progress"))
@@ -264,6 +275,11 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
             "daily_plan_tasks",
             "daily_plan_versions",
             "score_evidence",
+            "source_artifact_versions",
+            "recognition_revisions",
+            "content_match_versions",
+            "offline_packet_versions",
+            "answer_ingestion_versions",
             "task_execution_versions",
             "weekly_study_preference_versions",
         }.issubset(inspector.get_table_names(schema="learning"))
@@ -272,6 +288,10 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
             "essay_material_segments",
             "essay_rubric_versions",
             "essay_task_versions",
+            "content_license_commands",
+            "content_license_record_versions",
+            "content_license_heads",
+            "content_license_authorization_snapshots",
         }.issubset(inspector.get_table_names(schema="product"))
         assert {
             "qualification_facts",
@@ -778,3 +798,45 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
     finally:
         with db_engine.begin() as connection:
             connection.execute(text("drop table if exists public.alembic_version"))
+
+
+def test_stage15_migration_refuses_destructive_downgrade_with_facts(
+    db_engine: Engine,
+) -> None:
+    config = Config(str(BACKEND_ROOT / "alembic.ini"))
+    config.set_main_option(
+        "sqlalchemy.url", db_engine.url.render_as_string(hide_password=False)
+    )
+    command.stamp(config, "20260715_20")
+    with db_engine.begin() as connection:
+        connection.execute(
+            text(
+                """
+                insert into learner.users (user_id, display_name)
+                values ('00000000-0000-0000-0000-000000000231', 'stage15-user');
+
+                insert into learning.source_artifact_versions (
+                  artifact_version_id, artifact_id, owner_user_id, version_no,
+                  source_kind, state, object_ref, mime_type, content_sha256,
+                  byte_size, page_count, supersedes_artifact_version_id,
+                  contract_payload, created_at
+                ) values (
+                  '00000000-0000-0000-0000-000000000232',
+                  '00000000-0000-0000-0000-000000000233',
+                  '00000000-0000-0000-0000-000000000231', 1,
+                  'camera_image', 'uploaded', 'private/user/object.jpg',
+                  'image/jpeg', repeat('a', 64), 128, null, null,
+                  '{"contractVersion":"source-artifact@v1"}'::jsonb, now()
+                )
+                """
+            )
+        )
+
+    with pytest.raises(RuntimeError, match="destructive downgrade is forbidden"):
+        command.downgrade(config, "20260715_19")
+
+    assert "source_artifact_versions" in inspect(db_engine).get_table_names(
+        schema="learning"
+    )
+    with db_engine.begin() as connection:
+        connection.execute(text("drop table if exists public.alembic_version"))
