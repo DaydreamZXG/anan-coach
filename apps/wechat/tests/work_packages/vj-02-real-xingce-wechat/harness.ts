@@ -65,6 +65,23 @@ export function activeXingceSession(
                   assetId: "asset-1",
                   url: "https://assets.example.test/table.png",
                   altText: "两地公共服务数据表",
+                  originalOcrUrl: "https://assets.example.test/table.png",
+                  contentKind: "graph",
+                },
+              ],
+              content: [
+                {
+                  type: "paragraph",
+                  blockId: "material-block-1",
+                  text: "甲地与乙地公共服务数据。",
+                  html: null,
+                },
+              ],
+              anchors: [
+                {
+                  anchorId: "material-anchor-1",
+                  blockId: "material-block-1",
+                  label: "材料 1",
                 },
               ],
             },
@@ -244,16 +261,42 @@ export function createMemoryWechatStorage(): {
 function learnerQuestion(questionId: string, materialId: string | null, stem: string) {
   return {
     questionId,
-    contentVersionId: `content-${questionId}`,
+    contentVersionId: (questionId === "q-1" ? "b" : "c").repeat(64),
     materialId,
     moduleName: "资料分析",
     stem,
     stemHtml: null,
+    stemContent: [
+      {
+        type: "paragraph" as const,
+        blockId: `stem-${questionId}`,
+        text: stem,
+        html: null,
+      },
+    ],
     options: [
-      { optionId: "A", label: "A", text: "选项 A", html: null },
-      { optionId: "B", label: "B", text: "选项 B", html: null },
-      { optionId: "C", label: "C", text: "选项 C", html: null },
-      { optionId: "D", label: "D", text: "选项 D", html: null },
+      learnerOption(questionId, "A"),
+      learnerOption(questionId, "B"),
+      learnerOption(questionId, "C"),
+      learnerOption(questionId, "D"),
+    ],
+  };
+}
+
+function learnerOption(questionId: string, label: string) {
+  const text = `选项 ${label}`;
+  return {
+    optionId: label,
+    label,
+    text,
+    html: null,
+    content: [
+      {
+        type: "paragraph" as const,
+        blockId: `option-${questionId}-${label}`,
+        text,
+        html: null,
+      },
     ],
   };
 }

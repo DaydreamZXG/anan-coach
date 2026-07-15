@@ -29,6 +29,7 @@ from app.domains.qualification.router import router as qualification_router
 from app.domains.rank_system.router import router as rank_router
 from app.domains.review_session.router import router as review_session_router
 from app.domains.taskstream.router import router as taskstream_router
+from app.domains.task_help.router import router as task_help_router
 
 router = APIRouter()
 router.include_router(app_router)
@@ -51,6 +52,7 @@ router.include_router(onboarding_v2_router)
 router.include_router(position_decision_router)
 router.include_router(positions_router)
 router.include_router(taskstream_router)
+router.include_router(task_help_router)
 router.include_router(practice_router)
 router.include_router(progression_router)
 router.include_router(essay_router)

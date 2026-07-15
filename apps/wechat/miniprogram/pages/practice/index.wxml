@@ -7,11 +7,14 @@
   syncLabel="{{view ? view.syncLabel : '连接服务端'}}"
   materialAvailable="{{view && view.materialAvailable}}"
   answerSheetAvailable="{{status === 'ready' && sessionState === 'answering'}}"
-  toolsAvailable="{{false}}"
+  toolsAvailable="{{status === 'ready' && sessionState === 'answering'}}"
+  focusToolAvailable="{{status === 'ready'}}"
   footerAvailable="{{status === 'ready' && sessionState === 'answering'}}"
   bindexit="exit"
   bindmaterial="toggleMaterial"
   bindanswersheet="toggleAnswerSheet"
+  bindtools="openTaskTools"
+  bindfocustool="openFocusTool"
 >
   <view wx:if="{{status === 'loading'}}" class="page-state">
     <state-view state="loading" title="正在恢复真实作答" description="题组与断点均以服务端版本为准。" />
@@ -37,29 +40,27 @@
     </view>
 
     <block wx:if="{{sessionState === 'answering'}}">
-      <view wx:if="{{materialOpen && view.question.material}}" class="material-panel">
-        <view class="material-head">
-          <view>
-            <view class="material-eyebrow">给定材料</view>
-            <view class="material-title">{{view.question.material.title || '本题材料'}}</view>
-          </view>
-          <button class="text-action" bindtap="toggleMaterial">收起</button>
-        </view>
-        <rich-text wx:if="{{view.question.material.html}}" class="material-text material-rich" nodes="{{view.question.material.html}}"></rich-text>
-        <view wx:elif="{{view.question.material.text}}" class="material-text">{{view.question.material.text}}</view>
-        <view wx:for="{{view.question.material.assets}}" wx:key="assetId" class="material-asset">
-          <image src="{{item.url}}" mode="widthFix" aria-label="{{item.altText}}" />
-          <view class="asset-caption">{{item.altText}}</view>
-        </view>
-      </view>
+      <material-reader
+        wx:if="{{view.question.material}}"
+        title="{{view.question.material.title || '本题材料'}}"
+        blocks="{{view.question.material.content}}"
+        anchors="{{view.question.material.anchors}}"
+        state="{{materialReaderState}}"
+        bindstatechange="updateMaterialReader"
+      />
 
       <view class="question-hero">
         <view class="question-meta-row">
           <view class="module-pill">{{view.question.moduleName}}</view>
           <view class="position-label">{{view.question.positionLabel}}</view>
         </view>
-        <rich-text wx:if="{{view.question.stemHtml}}" class="question-stem question-rich" nodes="{{view.question.stemHtml}}"></rich-text>
-        <view wx:else class="question-stem">{{view.question.stem}}</view>
+        <content-renderer
+          class="question-stem question-rich-content"
+          style="--color-ink: #fff; --color-muted: rgba(255, 255, 255, 0.76);"
+          blocks="{{view.question.stemContent}}"
+          zoom="{{1}}"
+          preferences="{{displayPreferences}}"
+        />
       </view>
 
       <view class="option-list {{interactionLocked ? 'option-list--locked' : ''}}">
@@ -71,8 +72,12 @@
           bindtap="selectOption"
         >
           <view class="option-label">{{item.label}}</view>
-          <rich-text wx:if="{{item.html}}" class="option-copy option-rich" nodes="{{item.html}}"></rich-text>
-          <view wx:else class="option-copy">{{item.text}}</view>
+          <content-renderer
+            class="option-copy option-rich-content"
+            blocks="{{item.content}}"
+            zoom="{{1}}"
+            preferences="{{displayPreferences}}"
+          />
           <button class="eliminate-action" data-optionid="{{item.optionId}}" catchtap="toggleEliminated">{{item.eliminated ? '撤销排除' : '排除'}}</button>
         </view>
       </view>
@@ -155,6 +160,67 @@
       </view>
     </view>
   </block>
+
+  <view wx:if="{{toolsOpen}}" class="task-overlay" catchtap="closeTaskOverlay">
+    <view class="task-tool-panel" catchtap="noop">
+      <view class="overlay-head">
+        <view>
+          <view class="overlay-title">做题工具</view>
+          <view class="overlay-copy">专项训练 · 修改会随断点保存</view>
+        </view>
+        <button class="text-action" bindtap="closeTaskOverlay">关闭</button>
+      </view>
+      <view class="task-tool-grid">
+        <button class="task-tool-item" bindtap="toggleMarked">{{view.question.marked ? '取消标记' : '标记本题'}}</button>
+        <button wx:if="{{toolPolicy.dispute_report}}" class="task-tool-item" bindtap="openDispute">题目争议</button>
+        <button wx:if="{{toolPolicy.operation_help}}" class="task-tool-item" bindtap="openTaskHelp">操作/故障帮助</button>
+        <button class="task-tool-item {{displayPreferences.colorMode === 'eye_care' ? 'task-tool-item--active' : ''}}" bindtap="toggleDisplayEyeCare">护眼模式</button>
+      </view>
+      <view class="display-tool-row">
+        <button bindtap="decreaseDisplayFont">A−</button>
+        <view>字号 {{displayPreferences.fontScale * 100}}%</view>
+        <button bindtap="increaseDisplayFont">A＋</button>
+      </view>
+      <view class="locked-tools">公式卡、完整解析和解题 AI 在提交前不可用；国考模式不提供计算器。</view>
+    </view>
+  </view>
+
+  <view wx:if="{{helpOpen}}" class="task-overlay" catchtap="closeTaskOverlay">
+    <view class="task-help-panel" catchtap="noop">
+      <global-help
+        pageObjectReference="{{helpReference}}"
+        syncState="{{helpSyncState}}"
+        bindsubmit="submitTaskHelp"
+        bindclose="closeTaskOverlay"
+      />
+      <view wx:if="{{helpSubmitting}}" class="overlay-result">正在查询确定性帮助……</view>
+      <view wx:elif="{{helpGuidance}}" class="overlay-result">{{helpGuidance}}</view>
+    </view>
+  </view>
+
+  <view wx:if="{{disputeOpen}}" class="task-overlay" catchtap="closeTaskOverlay">
+    <view class="dispute-panel" catchtap="noop">
+      <view class="overlay-head">
+        <view>
+          <view class="overlay-title">题目异常或争议</view>
+          <view class="overlay-copy">继续作答不受影响；服务端会自动附带题面版本、断点和材料位置。</view>
+        </view>
+        <button class="text-action" bindtap="closeTaskOverlay">关闭</button>
+      </view>
+      <view class="dispute-categories">
+        <button
+          wx:for="{{disputeCategories}}"
+          wx:key="value"
+          class="dispute-category {{disputeCategory === item.value ? 'dispute-category--active' : ''}}"
+          data-category="{{item.value}}"
+          bindtap="selectDisputeCategory"
+        >{{item.label}}</button>
+      </view>
+      <textarea class="dispute-description" value="{{disputeDescription}}" maxlength="2000" placeholder="请描述具体问题；不要填写个人敏感信息。" bindinput="inputDisputeDescription"></textarea>
+      <button class="primary-button" loading="{{disputeSubmitting}}" disabled="{{disputeSubmitting}}" bindtap="submitDispute">提交争议记录</button>
+      <view wx:if="{{disputeReceipt}}" class="overlay-result">{{disputeReceipt}}</view>
+    </view>
+  </view>
 
   <view slot="footer" class="task-footer-actions" wx:if="{{status === 'ready' && sessionState === 'answering'}}">
     <button class="primary-button submit-button" disabled="{{!canSubmit || interactionLocked}}" bindtap="submitAttempt">{{canSubmit ? '交卷并查看结果' : '还有题目未处理'}}</button>

@@ -5,7 +5,10 @@
       <view class="task-title">{{title}}</view>
       <view class="task-mode">{{modeLabel}}</view>
     </view>
-    <view class="task-timer">{{elapsedLabel}}</view>
+    <view class="task-header-tools">
+      <view class="task-timer">{{elapsedLabel}}</view>
+      <button wx:if="{{focusToolAvailable}}" class="task-focus-tool" aria-label="打开作答小工具" bindtap="openFocusTool">•••</button>
+    </view>
   </view>
 
   <view class="task-progress-row">

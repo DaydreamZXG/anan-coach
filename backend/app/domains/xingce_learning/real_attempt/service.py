@@ -2,12 +2,8 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 from hashlib import sha256
-from html import escape
-from html.parser import HTMLParser
 import json
-import re
 from typing import Any
-from urllib.parse import urlsplit
 from uuid import uuid4
 
 from pydantic import BaseModel
@@ -28,10 +24,8 @@ from app.domains.xingce_learning.real_attempt.schemas import (
     CauseDecisionVersionProjection,
     ReflectionCommand,
     ReflectionVersionProjection,
-    SafeAsset,
-    SafeMaterial,
-    SafeOption,
-    SafeQuestion,
+    QuestionDisputeReceipt,
+    ReportQuestionDisputeCommand,
     SafeQuestionBundle,
     SaveCheckpointCommand,
     StartTaskSessionCommand,
@@ -42,40 +36,17 @@ from app.domains.xingce_learning.real_attempt.schemas import (
     XingceResultItem,
 )
 from app.domains.task_runtime.xingce_attempt import XingceTaskRuntimeRepository
+from app.domains.task_content.service import (
+    TaskContentContractError,
+    freeze_learner_bundle,
+    public_question_asset_url as _task_public_question_asset_url,
+    safe_rich_html as _task_safe_rich_html,
+)
 from app.platform.outbox import OutboxRepository
 
 
 SCORING_POLICY_VERSION = "xingce-objective-exact-v1"
-PUBLIC_QUESTION_ASSET_HOSTS = frozenset({"kg.xingguoxian.cn"})
-PUBLIC_QUESTION_ASSET_PATH_PREFIX = "/assets/"
 PUBLISHED_EXPLANATION_STATUSES = frozenset({"verified", "ai_rewrite_accepted"})
-RICH_TEXT_TAGS = frozenset(
-    {
-        "b",
-        "br",
-        "em",
-        "i",
-        "li",
-        "ol",
-        "p",
-        "span",
-        "strong",
-        "sub",
-        "sup",
-        "table",
-        "tbody",
-        "td",
-        "tfoot",
-        "th",
-        "thead",
-        "tr",
-        "u",
-        "ul",
-    }
-)
-RICH_TEXT_BLOCKED_TAGS = frozenset(
-    {"iframe", "object", "script", "style", "svg", "template"}
-)
 
 
 class XingceAttemptError(RuntimeError):
@@ -236,6 +207,125 @@ class XingceAttemptService:
         if row is None:
             raise _not_found()
         return self._projection(session, user_id=user_id, task_session=row)
+
+    def report_question_dispute(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        session_id: str,
+        command_id: str,
+        command: ReportQuestionDisputeCommand,
+        now: datetime | None = None,
+    ) -> QuestionDisputeReceipt:
+        created_at = _utc(now)
+        self._runtime_repository.lock_user(session, user_id=user_id)
+        existing = self._repository.question_dispute_by_idempotency_key(
+            session,
+            user_id=user_id,
+            idempotency_key=command_id,
+        )
+        if existing is not None:
+            expected = (
+                session_id,
+                command.question_id,
+                command.content_version_id,
+                command.category,
+                command.description,
+            )
+            actual = (
+                str(existing["session_id"]),
+                str(existing["question_id"]),
+                str(existing["content_version_id"]),
+                str(existing["category"]),
+                str(existing["description"]),
+            )
+            if actual != expected:
+                raise XingceAttemptError(
+                    "idempotency_key_reused",
+                    "同一幂等键不能用于不同的题目争议上报。",
+                    status_code=409,
+                )
+            return _dispute_receipt(existing)
+
+        task_session = self._required_session(
+            session,
+            user_id,
+            session_id,
+            for_update=False,
+        )
+        bundle = SafeQuestionBundle.model_validate(task_session["safe_bundle"])
+        question = next(
+            (
+                item
+                for item in bundle.questions
+                if item.question_id == command.question_id
+            ),
+            None,
+        )
+        if question is None or question.content_version_id != command.content_version_id:
+            raise XingceAttemptError(
+                "xingce_dispute_content_mismatch",
+                "争议上报必须绑定当前会话中冻结的题目与内容版本。",
+                status_code=409,
+            )
+        dispute_id = str(uuid4())
+        checkpoint = dict(task_session["checkpoint"])
+        answer_state = next(
+            (
+                dict(item)
+                for item in checkpoint.get("answers", [])
+                if str(item.get("questionId")) == command.question_id
+            ),
+            None,
+        )
+        evidence_context = {
+            "sessionRevision": int(task_session["revision"]),
+            "bundleVersionId": bundle.bundle_version_id,
+            "currentQuestionId": str(task_session["current_question_id"]),
+            "questionStateRef": (
+                f"sha256:{_hash(answer_state)}" if answer_state is not None else None
+            ),
+            "materialPosition": (
+                answer_state.get("materialPosition")
+                if answer_state is not None
+                else None
+            ),
+        }
+        row = self._repository.insert_question_dispute(
+            session,
+            values={
+                "dispute_id": dispute_id,
+                "user_id": user_id,
+                "session_id": session_id,
+                "question_id": command.question_id,
+                "content_version_id": command.content_version_id,
+                "category": command.category,
+                "description": command.description,
+                "evidence_context": _json(evidence_context),
+                "idempotency_key": command_id,
+                "created_at": created_at,
+            },
+        )
+        _append_contract_event(
+            self._outbox,
+            session,
+            event_type="xingce-question-dispute-filed@v1",
+            producer="xingce_learning",
+            aggregate_type="xingce_question_dispute",
+            aggregate_id=dispute_id,
+            aggregate_revision=1,
+            user_id=user_id,
+            command_id=command_id,
+            occurred_at=created_at,
+            payload={
+                "sessionId": session_id,
+                "questionId": command.question_id,
+                "contentVersionId": command.content_version_id,
+                "category": command.category,
+            },
+        )
+        return _dispute_receipt(row)
 
     def save_checkpoint(
         self,
@@ -1256,6 +1346,19 @@ def _subject_ref(user_id: str) -> str:
     return _hash({"scope": "event-subject", "subject": user_id})
 
 
+def _dispute_receipt(row: RowMapping) -> QuestionDisputeReceipt:
+    return QuestionDisputeReceipt(
+        disputeId=str(row["dispute_id"]),
+        sessionId=str(row["session_id"]),
+        questionId=str(row["question_id"]),
+        contentVersionId=str(row["content_version_id"]),
+        category=str(row["category"]),
+        description=str(row["description"]),
+        evidenceAttached=True,
+        createdAt=row["created_at"],
+    )
+
+
 def _assessment_key_hash(
     *,
     user_id: str,
@@ -1275,108 +1378,19 @@ def _assessment_key_hash(
 def _freeze_bundle(
     source_questions: list[dict[str, Any]],
 ) -> tuple[SafeQuestionBundle, dict[str, Any]]:
-    safe_questions: list[SafeQuestion] = []
-    scoring_questions: list[dict[str, Any]] = []
-    materials: dict[str, SafeMaterial] = {}
-    for source in source_questions:
-        content_version_id = question_content_version_id(source)
-        material_id: str | None = None
-        source_assets = [
-            {**asset, "public_url": public_url}
-            for asset in source["assets"]
-            if (public_url := _public_question_asset_url(asset.get("image_src")))
-            is not None
-        ]
-        if source.get("visual_required") and not source_assets:
-            raise XingceAttemptError(
-                "xingce_visual_asset_unavailable",
-                "这道图形题没有已发布且可由小程序安全访问的题图。",
-                status_code=503,
-            )
-        material_html = _safe_rich_html(source.get("material_html"))
-        stem_html = _safe_rich_html(source.get("stem_html"))
-        if source.get("material_text") or material_html or source_assets:
-            material_identity = {
-                "text": source.get("material_text"),
-                "html": material_html,
-                "assets": source_assets,
-            }
-            material_id = f"material-{_hash(material_identity)[:24]}"
-            if material_id not in materials:
-                materials[material_id] = SafeMaterial(
-                    materialId=material_id,
-                    title=None,
-                    text=source.get("material_text"),
-                    html=material_html,
-                    assets=[
-                        SafeAsset(
-                            assetId=str(asset["asset_id"]),
-                            url=str(asset["public_url"]),
-                            altText=f"{source.get('module_name') or '行测'}题目配图",
-                        )
-                        for asset in source_assets
-                    ],
-                )
-        options = [
-            SafeOption(
-                optionId=str(option["label"]).strip().upper(),
-                label=str(option["label"]),
-                text=str(option["option_text"]),
-                html=_safe_rich_html(option.get("option_html")),
-            )
-            for option in source["options"]
-        ]
-        correct_options = _answer_options(str(source["answer"]))
-        option_ids = {option.option_id for option in options}
-        if not correct_options or not set(correct_options).issubset(option_ids):
-            raise XingceAttemptError(
-                "xingce_answer_key_invalid",
-                "真实题目的答案键与冻结选项不一致。",
-                status_code=503,
-            )
-        safe_questions.append(
-            SafeQuestion(
-                questionId=str(source["question_id"]),
-                contentVersionId=content_version_id,
-                materialId=material_id,
-                moduleName=str(source.get("module_name") or "行测"),
-                stem=str(source["stem"]),
-                stemHtml=stem_html,
-                options=options,
-            )
+    try:
+        return freeze_learner_bundle(
+            source_questions,
+            scoring_policy_version=SCORING_POLICY_VERSION,
+            content_version_id=question_content_version_id,
+            published_explanation=_published_explanation,
         )
-        explanation, explanation_source = _published_explanation(source)
-        scoring_questions.append(
-            {
-                "questionId": str(source["question_id"]),
-                "contentVersionId": content_version_id,
-                "correctOptionIds": correct_options,
-                "explanation": explanation,
-                "explanationSource": explanation_source,
-            }
-        )
-    frozen_payload = {
-        "materials": [
-            item.model_dump(by_alias=True, mode="json") for item in materials.values()
-        ],
-        "questions": [
-            item.model_dump(by_alias=True, mode="json") for item in safe_questions
-        ],
-        "scoring": scoring_questions,
-        "scoringPolicyVersion": SCORING_POLICY_VERSION,
-    }
-    bundle_version_id = _hash(frozen_payload)
-    bundle = SafeQuestionBundle(
-        bundleVersionId=bundle_version_id,
-        bundleType="shared_material" if materials else "single",
-        materials=list(materials.values()),
-        questions=safe_questions,
-    )
-    return bundle, {
-        "bundleVersionId": bundle_version_id,
-        "scoringPolicyVersion": SCORING_POLICY_VERSION,
-        "questions": scoring_questions,
-    }
+    except TaskContentContractError as exc:
+        code = {
+            "visual_asset_unavailable": "xingce_visual_asset_unavailable",
+            "answer_key_invalid": "xingce_answer_key_invalid",
+        }.get(exc.code, "xingce_content_contract_invalid")
+        raise XingceAttemptError(code, exc.message, status_code=503) from exc
 
 
 def _published_explanation(source: dict[str, Any]) -> tuple[str | None, str | None]:
@@ -1388,82 +1402,8 @@ def _published_explanation(source: dict[str, Any]) -> tuple[str | None, str | No
     return preferred, str(source.get("analysis_source") or "published")
 
 
-class _SafeRichHTMLParser(HTMLParser):
-    def __init__(self) -> None:
-        super().__init__(convert_charrefs=True)
-        self.output: list[str] = []
-        self.open_tags: list[str] = []
-        self.blocked_depth = 0
-
-    def handle_starttag(
-        self,
-        tag: str,
-        attrs: list[tuple[str, str | None]],
-    ) -> None:
-        normalized = tag.casefold()
-        if self.blocked_depth:
-            if normalized in RICH_TEXT_BLOCKED_TAGS:
-                self.blocked_depth += 1
-            return
-        if normalized in RICH_TEXT_BLOCKED_TAGS:
-            self.blocked_depth = 1
-            return
-        if normalized not in RICH_TEXT_TAGS:
-            return
-        safe_attrs: list[str] = []
-        if normalized in {"td", "th"}:
-            for name, value in attrs:
-                if name.casefold() not in {"colspan", "rowspan"} or value is None:
-                    continue
-                candidate = value.strip()
-                if candidate.isdigit() and 1 <= int(candidate) <= 100:
-                    safe_attrs.append(f' {name.casefold()}="{candidate}"')
-        self.output.append(f"<{normalized}{''.join(safe_attrs)}>")
-        if normalized != "br":
-            self.open_tags.append(normalized)
-
-    def handle_startendtag(
-        self,
-        tag: str,
-        attrs: list[tuple[str, str | None]],
-    ) -> None:
-        self.handle_starttag(tag, attrs)
-        normalized = tag.casefold()
-        if normalized in self.open_tags:
-            self.handle_endtag(normalized)
-
-    def handle_endtag(self, tag: str) -> None:
-        normalized = tag.casefold()
-        if self.blocked_depth:
-            if normalized in RICH_TEXT_BLOCKED_TAGS:
-                self.blocked_depth -= 1
-            return
-        if normalized not in self.open_tags:
-            return
-        while self.open_tags:
-            current = self.open_tags.pop()
-            self.output.append(f"</{current}>")
-            if current == normalized:
-                break
-
-    def handle_data(self, data: str) -> None:
-        if not self.blocked_depth:
-            self.output.append(escape(data, quote=False))
-
-    def finish(self) -> str | None:
-        while self.open_tags:
-            self.output.append(f"</{self.open_tags.pop()}>")
-        value = "".join(self.output).strip()
-        return value or None
-
-
 def _safe_rich_html(value: object) -> str | None:
-    if not isinstance(value, str) or not value.strip():
-        return None
-    parser = _SafeRichHTMLParser()
-    parser.feed(value)
-    parser.close()
-    return parser.finish()
+    return _task_safe_rich_html(value)
 
 
 def _task_scope(task: RowMapping) -> tuple[str, str | None]:
@@ -1532,13 +1472,6 @@ def _api_review_state(state: str) -> str:
     }[state]
 
 
-def _answer_options(answer: str) -> list[str]:
-    tokens = [token for token in re.split(r"[^A-Za-z0-9]+", answer.upper()) if token]
-    if len(tokens) == 1 and len(tokens[0]) > 1 and tokens[0].isalpha():
-        return list(tokens[0])
-    return tokens
-
-
 def _require_revision(row: RowMapping, expected: int, *, state: str) -> None:
     if int(row["revision"]) != expected or row["state"] != state:
         raise _conflict("task session revision changed")
@@ -1579,20 +1512,4 @@ def _utc(value: datetime | None) -> datetime:
 
 
 def _public_question_asset_url(value: object) -> str | None:
-    if not isinstance(value, str):
-        return None
-    candidate = value.strip()
-    if not candidate:
-        return None
-    parsed = urlsplit(candidate)
-    if (
-        parsed.scheme.casefold() != "https"
-        or parsed.username is not None
-        or parsed.password is not None
-        or parsed.hostname is None
-        or parsed.hostname.casefold() not in PUBLIC_QUESTION_ASSET_HOSTS
-        or parsed.port not in {None, 443}
-        or not parsed.path.startswith(PUBLIC_QUESTION_ASSET_PATH_PREFIX)
-    ):
-        return None
-    return candidate
+    return _task_public_question_asset_url(value)

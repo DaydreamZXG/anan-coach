@@ -20,6 +20,7 @@ export const routes = {
   onboardingResult: "/pages/onboarding/result/index",
   diagnostic: "/pages/diagnostic/index",
   practice: "/pages/practice/index",
+  mockExam: "/pages/mock-exam/index",
   reflection: "/pages/reflection/index",
   essayTask: "/pages/essay-task/index",
   captureImport: "/pages/capture-import/index",
@@ -49,7 +50,11 @@ export interface AnswerIngestionRouteOptions {
 
 const registeredRoutePaths = new Set<string>(Object.values(routes));
 const tabRoutePaths = new Set<string>([routes.today, routes.positions, routes.profile]);
-const taskExecutionRoutePaths = new Set<string>([routes.practice, routes.essayTask]);
+const taskExecutionRoutePaths = new Set<string>([
+  routes.practice,
+  routes.mockExam,
+  routes.essayTask,
+]);
 
 export function registeredNavigationTarget(startUrl: string): RegisteredNavigationTarget | null {
   const normalized = startUrl.trim();
@@ -98,6 +103,13 @@ export function registeredTaskNavigationTarget(
     const query = parseQuery(navigation.url);
     if (!query || !parseXingceTaskMode(query.mode)) return null;
     if (query.planTaskId !== undefined && !isValidPlanTaskId(query.planTaskId)) return null;
+  }
+  if (path === routes.mockExam) {
+    const query = parseQuery(navigation.url);
+    if (!query) return null;
+    const keys = Object.keys(query);
+    if (keys.some((key) => key !== "sessionId")) return null;
+    if (query.sessionId !== undefined && !isValidPlanTaskId(query.sessionId)) return null;
   }
   return navigation;
 }

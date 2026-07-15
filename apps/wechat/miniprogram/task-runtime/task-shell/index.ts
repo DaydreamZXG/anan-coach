@@ -12,6 +12,7 @@ Component({
     materialAvailable: { type: Boolean, value: false },
     answerSheetAvailable: { type: Boolean, value: true },
     toolsAvailable: { type: Boolean, value: true },
+    focusToolAvailable: { type: Boolean, value: false },
     footerAvailable: { type: Boolean, value: true },
   },
   methods: {
@@ -26,6 +27,9 @@ Component({
     },
     openTools() {
       this.triggerEvent("tools");
+    },
+    openFocusTool() {
+      this.triggerEvent("focustool");
     },
   },
 });

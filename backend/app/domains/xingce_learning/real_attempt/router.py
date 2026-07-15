@@ -14,7 +14,9 @@ from app.domains.auth.repository import AuthenticatedUser
 from app.domains.planning.repository import PlanningContractError
 from app.domains.xingce_learning.real_attempt.schemas import (
     CauseDecisionCommand,
+    QuestionDisputeReceipt,
     ReflectionCommand,
+    ReportQuestionDisputeCommand,
     SaveCheckpointCommand,
     StartTaskSessionCommand,
     SubmitTaskSessionCommand,
@@ -95,6 +97,35 @@ def get_task_session(
             user_id=current_user.user_id,
             session_id=str(session_id),
         )
+        return public_success_envelope(request=request, response=response, data=result)
+    except XingceAttemptError as exc:
+        session.rollback()
+        return _error(request, exc)
+
+
+@router.post(
+    "/task-sessions/{session_id}/disputes",
+    response_model=PublicApiEnvelope[QuestionDisputeReceipt],
+)
+def report_question_dispute(
+    session_id: UUID,
+    request: Request,
+    response: Response,
+    command: ReportQuestionDisputeCommand,
+    command_id: Annotated[str, Depends(_idempotency_key)],
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+    service: Annotated[XingceAttemptService, Depends(get_xingce_attempt_service)],
+) -> PublicApiEnvelope[QuestionDisputeReceipt] | JSONResponse:
+    try:
+        result = service.report_question_dispute(
+            session,
+            user_id=current_user.user_id,
+            session_id=str(session_id),
+            command_id=command_id,
+            command=command,
+        )
+        session.commit()
         return public_success_envelope(request=request, response=response, data=result)
     except XingceAttemptError as exc:
         session.rollback()

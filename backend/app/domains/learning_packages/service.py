@@ -244,6 +244,7 @@ class LearningPackageService:
                 "renderRequest": render_request.model_dump(by_alias=True, mode="json"),
             },
             max_attempts=3,
+            run_after=now,
         )
         response_payload = packet.model_dump(by_alias=True, mode="json")
         self._repository.insert_command(

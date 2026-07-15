@@ -133,6 +133,7 @@ export function assertLearnerSafeSession(session: XingceTaskSession): XingceTask
     throw new Error("服务端行测会话版本无效。");
   }
   const questions = session.bundle.questions;
+  assertNoLearnerUnsafeKeys(session.bundle);
   if (questions.length === 0) throw new Error("服务端没有返回可作答题目。");
   const questionIds = questions.map((item) => item.questionId);
   if (new Set(questionIds).size !== questionIds.length) {
@@ -193,6 +194,31 @@ export function assertLearnerSafeSession(session: XingceTaskSession): XingceTask
     throw new Error("已完成会话缺少计划结算回执。");
   }
   return session;
+}
+
+const learnerUnsafeKeys = new Set([
+  "answer",
+  "correctanswer",
+  "correctoptionids",
+  "explanation",
+  "originalanalysis",
+  "preferredanalysis",
+  "storedanalysis",
+]);
+
+function assertNoLearnerUnsafeKeys(value: unknown): void {
+  if (Array.isArray(value)) {
+    value.forEach(assertNoLearnerUnsafeKeys);
+    return;
+  }
+  if (typeof value !== "object" || value === null) return;
+  for (const [key, nested] of Object.entries(value)) {
+    const normalized = key.replaceAll("_", "").toLowerCase();
+    if (learnerUnsafeKeys.has(normalized)) {
+      throw new Error("作答前题面含有答案或解析，页面已停止展示。");
+    }
+    assertNoLearnerUnsafeKeys(nested);
+  }
 }
 
 export function normalizeSessionAnswers(session: XingceTaskSession): XingceAnswerCheckpoint[] {

@@ -1,6 +1,7 @@
 import type { TodayDashboard } from "./generated/types.gen";
 import type { ApiClient } from "./client";
 import type { ApiEnvelope } from "../domain/contracts";
+import type { ContentAnchor, RichContentBlock } from "../task-runtime/content-renderer/model";
 
 export type XingceTaskMode = "practice" | "targeted" | "baseline" | "verification";
 export type XingceConfidence = "low" | "medium" | "high";
@@ -20,6 +21,8 @@ export interface XingceQuestionAsset {
   assetId: string;
   url: string;
   altText: string;
+  originalOcrUrl: string;
+  contentKind: "image" | "graph";
 }
 
 export interface XingceLearnerMaterial {
@@ -28,6 +31,8 @@ export interface XingceLearnerMaterial {
   text: string | null;
   html: string | null;
   assets: XingceQuestionAsset[];
+  content: RichContentBlock[];
+  anchors: ContentAnchor[];
 }
 
 export interface XingceLearnerOption {
@@ -35,6 +40,7 @@ export interface XingceLearnerOption {
   label: string;
   text: string;
   html: string | null;
+  content: RichContentBlock[];
 }
 
 /** Learner-safe question projection. Answers and explanations intentionally do not exist here. */
@@ -45,6 +51,7 @@ export interface XingceLearnerQuestion {
   moduleName: string;
   stem: string;
   stemHtml: string | null;
+  stemContent: RichContentBlock[];
   options: XingceLearnerOption[];
 }
 
@@ -164,6 +171,27 @@ export interface XingceCauseDecisionCommand {
   replacementCause?: string;
 }
 
+export type XingceQuestionDisputeCategory =
+  | "stem_error"
+  | "option_error"
+  | "answer_error"
+  | "material_mismatch"
+  | "image_unreadable"
+  | "other";
+
+export interface XingceQuestionDisputeCommand {
+  questionId: string;
+  contentVersionId: string;
+  category: XingceQuestionDisputeCategory;
+  description: string;
+}
+
+export interface XingceQuestionDisputeReceipt extends XingceQuestionDisputeCommand {
+  disputeId: string;
+  sessionId: string;
+  createdAt: string;
+}
+
 export class XingceLearningApi {
   constructor(private readonly client: ApiClient) {}
 
@@ -220,6 +248,18 @@ export class XingceLearningApi {
     return this.client.put<XingceTaskSession>(`${reviewPath(reviewId)}/cause-decision`, command, {
       idempotencyKey,
     });
+  }
+
+  reportDispute(
+    sessionId: string,
+    command: XingceQuestionDisputeCommand,
+    idempotencyKey: string,
+  ): Promise<ApiEnvelope<XingceQuestionDisputeReceipt>> {
+    return this.client.post<XingceQuestionDisputeReceipt>(
+      `${sessionPath(sessionId)}/disputes`,
+      command,
+      { idempotencyKey },
+    );
   }
 }
 

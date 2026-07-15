@@ -14,6 +14,7 @@
     "pages/onboarding/result/index",
     "pages/diagnostic/index",
     "pages/practice/index",
+    "pages/mock-exam/index",
     "pages/reflection/index",
     "pages/essay-task/index",
     "pages/capture-import/index",

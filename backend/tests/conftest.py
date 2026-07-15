@@ -121,6 +121,11 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in stage15_runtime._STATEMENTS:
             conn.execute(text(statement))
+        stage2 = import_module(
+            "migrations.versions.20260715_22_stage2_task_content_runtime"
+        )
+        for statement in stage2._STATEMENTS:
+            conn.execute(text(statement))
 
 
 def _split_postgres_statements(script: str) -> list[str]:

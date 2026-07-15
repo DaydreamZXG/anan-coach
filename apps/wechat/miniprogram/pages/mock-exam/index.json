@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "整卷模考",
+  "navigationStyle": "custom",
+  "disableScroll": true,
+  "usingComponents": {
+    "task-shell": "../../task-runtime/task-shell/index",
+    "state-view": "../../design-system/primitives/state-view/index",
+    "global-help": "../../task-runtime/global-help/index",
+    "content-renderer": "../../task-runtime/content-renderer/index",
+    "material-reader": "../../task-runtime/material-reader/index"
+  }
+}

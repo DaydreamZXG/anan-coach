@@ -385,7 +385,7 @@ def _seed_mock_qbank(db_session_factory: sessionmaker[Session]) -> str:
                           'objective',
                           'active',
                           :module_name,
-                          :module_name,
+                          'single_choice',
                           :stem,
                           'B',
                           false,
@@ -400,6 +400,30 @@ def _seed_mock_qbank(db_session_factory: sessionmaker[Session]) -> str:
                         "stem": f"{module_name} 第 {index} 题",
                     },
                 )
+                for option_index, label in enumerate(("A", "B", "C", "D")):
+                    session.execute(
+                        text(
+                            """
+                            insert into product.question_options (
+                              question_id,
+                              option_index,
+                              label,
+                              option_text
+                            ) values (
+                              :question_id,
+                              :option_index,
+                              :label,
+                              :option_text
+                            )
+                            """
+                        ),
+                        {
+                            "question_id": question_id,
+                            "option_index": option_index,
+                            "label": label,
+                            "option_text": f"选项 {label}",
+                        },
+                    )
                 session.execute(
                     text(
                         """

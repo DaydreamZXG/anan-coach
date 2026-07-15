@@ -59,6 +59,15 @@
 .pending-checkpoint .secondary-button {
   width: 100%;
 }
+material-reader {
+  display: block;
+  margin-bottom: 22rpx;
+}
+.question-rich-content,
+.option-rich-content {
+  display: block;
+  min-width: 0;
+}
 .material-panel {
   margin-bottom: 22rpx;
   padding: 28rpx;
@@ -406,6 +415,146 @@
 .task-footer-actions,
 .submit-button {
   width: 100%;
+}
+
+.task-overlay {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: flex-end;
+  background: rgba(20, 24, 45, 0.44);
+}
+
+.task-tool-panel,
+.task-help-panel,
+.dispute-panel {
+  box-sizing: border-box;
+  width: 100%;
+  max-height: 86vh;
+  overflow-y: auto;
+  padding: 30rpx var(--space-page-x) calc(30rpx + env(safe-area-inset-bottom));
+  border-radius: 34rpx 34rpx 0 0;
+  background: var(--color-surface);
+  box-shadow: 0 -20rpx 64rpx rgba(26, 31, 68, 0.2);
+}
+
+.task-help-panel {
+  padding: 0 0 calc(24rpx + env(safe-area-inset-bottom));
+}
+
+.overlay-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24rpx;
+}
+
+.overlay-title {
+  font-size: 32rpx;
+  font-weight: 820;
+}
+
+.overlay-copy {
+  margin-top: 7rpx;
+  color: var(--color-muted);
+  font-size: 21rpx;
+  line-height: 1.55;
+}
+
+.task-tool-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14rpx;
+  margin-top: 28rpx;
+}
+
+.task-tool-item,
+.display-tool-row button,
+.dispute-category {
+  margin: 0;
+  border: 1rpx solid var(--color-line);
+  background: var(--color-surface-soft);
+  color: var(--color-ink-secondary);
+}
+
+.task-tool-item {
+  min-height: 92rpx;
+  border-radius: var(--radius-compact);
+  font-size: 23rpx;
+  font-weight: 720;
+}
+
+.task-tool-item--active,
+.dispute-category--active {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-deep);
+}
+
+.display-tool-row {
+  display: grid;
+  grid-template-columns: 88rpx 1fr 88rpx;
+  align-items: center;
+  gap: 12rpx;
+  margin-top: 18rpx;
+  color: var(--color-muted);
+  font-family: var(--font-family-data);
+  font-size: 21rpx;
+  text-align: center;
+}
+
+.display-tool-row button {
+  min-height: 64rpx;
+  border-radius: 14rpx;
+  line-height: 64rpx;
+}
+
+.locked-tools,
+.overlay-result {
+  margin-top: 20rpx;
+  padding: 18rpx 20rpx;
+  border-radius: 16rpx;
+  background: var(--color-primary-soft);
+  color: var(--color-ink-secondary);
+  font-size: 21rpx;
+  line-height: 1.6;
+}
+
+.task-help-panel .overlay-result {
+  margin: 0 32rpx;
+}
+
+.dispute-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-top: 26rpx;
+}
+
+.dispute-category {
+  flex: none;
+  min-height: 58rpx;
+  padding: 0 18rpx;
+  border-radius: 999rpx;
+  font-size: 21rpx;
+  line-height: 58rpx;
+}
+
+.dispute-description {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 210rpx;
+  margin: 22rpx 0 18rpx;
+  padding: 20rpx;
+  border: 1rpx solid var(--color-line);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-soft);
+  font-size: 24rpx;
+  line-height: 1.65;
 }
 .result-workspace {
   padding-bottom: 30rpx;

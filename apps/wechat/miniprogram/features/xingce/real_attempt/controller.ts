@@ -171,7 +171,12 @@ export function checkpointCommand(runtime: TaskRuntimeState): XingceCheckpointCo
     .filter((answer): answer is QuestionAttemptDraft => Boolean(answer))
     .filter(
       (answer) =>
-        answer.skipped || answer.selectedOptionIds.length > 0 || answer.draftText.trim().length > 0,
+        answer.skipped ||
+        answer.selectedOptionIds.length > 0 ||
+        answer.eliminatedOptionIds.length > 0 ||
+        answer.marked ||
+        answer.draftText.trim().length > 0 ||
+        answer.materialPosition !== undefined,
     )
     .map((answer) => ({
       questionId: answer.questionId,

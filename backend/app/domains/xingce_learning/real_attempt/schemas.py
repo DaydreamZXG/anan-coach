@@ -1,11 +1,28 @@
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Literal
 from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from app.domains.planning.schemas import TodayDashboard
+from app.domains.task_content.schemas import (
+    ContentAnchor,
+    MaterialPosition,
+    RichContentBlock,
+    RichFormulaBlock,
+    RichGraphBlock,
+    RichImageBlock,
+    RichParagraphBlock,
+    RichTableBlock,
+    RichTableCell,
+    SafeAsset,
+    SafeMaterial,
+    SafeOption,
+    SafeQuestion,
+    SafeQuestionBundle,
+)
 
 
 class XingceModel(BaseModel):
@@ -14,12 +31,6 @@ class XingceModel(BaseModel):
 
 class StartTaskSessionCommand(XingceModel):
     plan_task_id: UUID = Field(alias="planTaskId")
-
-
-class MaterialPosition(XingceModel):
-    anchor_id: str = Field(alias="anchorId", min_length=1, max_length=240)
-    scroll_top: int = Field(alias="scrollTop", ge=0)
-    zoom: float = Field(ge=0.5, le=5)
 
 
 class AnswerCheckpoint(XingceModel):
@@ -57,10 +68,6 @@ class AnswerCheckpoint(XingceModel):
             raise ValueError("selected and eliminated options cannot overlap")
         if self.skipped and selected:
             raise ValueError("a skipped answer cannot select an option")
-        if not self.skipped and not selected and not (self.draft_text or "").strip():
-            raise ValueError(
-                "an answer must select an option, contain draft text, or be skipped"
-            )
         self.selected_option_ids = selected
         self.eliminated_option_ids = eliminated
         self.draft_text = self.draft_text.strip()
@@ -130,44 +137,47 @@ class CauseDecisionCommand(XingceModel):
         return self
 
 
-class SafeOption(XingceModel):
-    option_id: str = Field(alias="optionId")
-    label: str
-    text: str
-    html: str | None = None
+class ReportQuestionDisputeCommand(XingceModel):
+    model_config = ConfigDict(populate_by_name=True, extra="forbid")
+
+    question_id: str = Field(alias="questionId", min_length=1, max_length=240)
+    content_version_id: str = Field(
+        alias="contentVersionId", min_length=64, max_length=64
+    )
+    category: Literal[
+        "stem_error",
+        "option_error",
+        "answer_error",
+        "material_mismatch",
+        "image_unreadable",
+        "other",
+    ]
+    description: str = Field(min_length=2, max_length=2_000)
+
+    @model_validator(mode="after")
+    def normalize_description(self) -> "ReportQuestionDisputeCommand":
+        self.description = self.description.strip()
+        if len(self.description) < 2:
+            raise ValueError("description must contain at least two characters")
+        return self
 
 
-class SafeAsset(XingceModel):
-    asset_id: str = Field(alias="assetId")
-    url: str
-    alt_text: str = Field(alias="altText")
-
-
-class SafeMaterial(XingceModel):
-    material_id: str = Field(alias="materialId")
-    title: str | None = None
-    text: str | None = None
-    html: str | None = None
-    assets: list[SafeAsset]
-
-
-class SafeQuestion(XingceModel):
+class QuestionDisputeReceipt(XingceModel):
+    dispute_id: UUID = Field(alias="disputeId")
+    session_id: UUID = Field(alias="sessionId")
     question_id: str = Field(alias="questionId")
     content_version_id: str = Field(alias="contentVersionId")
-    material_id: str | None = Field(default=None, alias="materialId")
-    module_name: str = Field(alias="moduleName")
-    stem: str
-    stem_html: str | None = Field(default=None, alias="stemHtml")
-    options: list[SafeOption]
-
-
-class SafeQuestionBundle(XingceModel):
-    bundle_version_id: str = Field(
-        alias="bundleVersionId", min_length=64, max_length=64
-    )
-    bundle_type: Literal["single", "shared_material"] = Field(alias="bundleType")
-    materials: list[SafeMaterial]
-    questions: list[SafeQuestion] = Field(min_length=1)
+    category: Literal[
+        "stem_error",
+        "option_error",
+        "answer_error",
+        "material_mismatch",
+        "image_unreadable",
+        "other",
+    ]
+    description: str
+    evidence_attached: Literal[True] = Field(default=True, alias="evidenceAttached")
+    created_at: datetime = Field(alias="createdAt")
 
 
 class XingceResultItem(XingceModel):

@@ -1,5 +1,14 @@
 import { ApiClient, ApiClientError } from "../../api/client";
-import { XingceLearningApi, type XingceTaskSession } from "../../api/xingce-learning";
+import {
+  XingceLearningApi,
+  type XingceQuestionDisputeCategory,
+  type XingceTaskSession,
+} from "../../api/xingce-learning";
+import {
+  TaskHelpApi,
+  type TaskHelpCommand,
+  type TaskHelpPageObjectReference,
+} from "../../api/task-help";
 import { routes } from "../../app/navigation/routes";
 import { currentAuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";
@@ -37,6 +46,17 @@ import { publishLatestTodayDashboard } from "../../features/planning/runtime-sta
 import { createIdempotencyKey } from "../../platform/command-id";
 import { decideAutosave, decideExit } from "../../task-runtime/state/autosave";
 import { reduceTaskRuntime, unansweredQuestionIds } from "../../task-runtime/state/runtime";
+import type { ContentDisplayPreferences } from "../../task-runtime/content-renderer/model";
+import {
+  loadTaskDisplayPreferences,
+  storeTaskDisplayPreferences,
+} from "../../task-runtime/display-preferences";
+import {
+  createMaterialReaderState,
+  reduceMaterialReader,
+  type MaterialReaderState,
+} from "../../task-runtime/material-reader/state";
+import { taskToolPolicy, type TaskToolPolicy } from "../../task-runtime/tool-policy";
 
 type PageStatus = "loading" | "ready" | "error" | "unavailable";
 
@@ -49,6 +69,22 @@ interface PracticePageData {
   result: XingceResultView | null;
   sessionState: XingceTaskSession["state"] | "";
   materialOpen: boolean;
+  materialQuestionId: string;
+  materialReaderState: MaterialReaderState;
+  displayPreferences: ContentDisplayPreferences;
+  toolsOpen: boolean;
+  helpOpen: boolean;
+  disputeOpen: boolean;
+  toolPolicy: TaskToolPolicy;
+  helpReference: TaskHelpPageObjectReference | null;
+  helpSyncState: TaskHelpCommand["diagnostics"]["syncState"];
+  helpSubmitting: boolean;
+  helpGuidance: string;
+  disputeCategory: XingceQuestionDisputeCategory;
+  disputeDescription: string;
+  disputeSubmitting: boolean;
+  disputeReceipt: string;
+  disputeCategories: Array<{ value: XingceQuestionDisputeCategory; label: string }>;
   answerSheetOpen: boolean;
   interactionLocked: boolean;
   canSubmit: boolean;
@@ -69,6 +105,19 @@ interface PracticePageCustom {
   goLogin(): void;
   exit(): Promise<void>;
   toggleMaterial(): void;
+  updateMaterialReader(event: WechatMiniprogram.CustomEvent<{ state: MaterialReaderState }>): void;
+  openTaskTools(): void;
+  openFocusTool(): void;
+  closeTaskOverlay(): void;
+  openTaskHelp(): void;
+  submitTaskHelp(event: WechatMiniprogram.CustomEvent<TaskHelpCommand>): Promise<void>;
+  openDispute(): void;
+  selectDisputeCategory(event: WechatMiniprogram.BaseEvent): void;
+  inputDisputeDescription(event: WechatMiniprogram.Input): void;
+  submitDispute(): Promise<void>;
+  increaseDisplayFont(): void;
+  decreaseDisplayFont(): void;
+  toggleDisplayEyeCare(): void;
   toggleAnswerSheet(): void;
   selectQuestion(event: WechatMiniprogram.BaseEvent): void;
   selectOption(event: WechatMiniprogram.BaseEvent): void;
@@ -100,6 +149,29 @@ Page<PracticePageData, PracticePageCustom>({
     result: null,
     sessionState: "",
     materialOpen: false,
+    materialQuestionId: "",
+    materialReaderState: createMaterialReaderState(),
+    displayPreferences: { fontScale: 1, colorMode: "standard" },
+    toolsOpen: false,
+    helpOpen: false,
+    disputeOpen: false,
+    toolPolicy: taskToolPolicy("targeted", "answering"),
+    helpReference: null,
+    helpSyncState: "unknown",
+    helpSubmitting: false,
+    helpGuidance: "",
+    disputeCategory: "other",
+    disputeDescription: "",
+    disputeSubmitting: false,
+    disputeReceipt: "",
+    disputeCategories: [
+      { value: "stem_error", label: "题干有误" },
+      { value: "option_error", label: "选项有误" },
+      { value: "answer_error", label: "答案争议" },
+      { value: "material_mismatch", label: "材料不匹配" },
+      { value: "image_unreadable", label: "图片不清" },
+      { value: "other", label: "其他" },
+    ],
     answerSheetOpen: false,
     interactionLocked: false,
     canSubmit: false,
@@ -115,6 +187,11 @@ Page<PracticePageData, PracticePageCustom>({
 
   onLoad(options: Record<string, string | undefined>) {
     const runtime = runtimes.attach(this);
+    const displayPreferences = loadTaskDisplayPreferences();
+    this.setData({
+      displayPreferences,
+      materialReaderState: createMaterialReaderState(undefined, displayPreferences),
+    });
     runtime.requestedMode = parseXingceTaskMode(options.mode);
     runtime.planTaskId = isValidPlanTaskId(options.planTaskId) ? options.planTaskId.trim() : "";
     if (!runtime.requestedMode) {
@@ -258,7 +335,170 @@ Page<PracticePageData, PracticePageCustom>({
   },
 
   toggleMaterial() {
-    this.setData({ materialOpen: !this.data.materialOpen });
+    const event =
+      this.data.materialReaderState.mode === "question_first"
+        ? ({ type: "OPEN_DRAWER" } as const)
+        : ({ type: "RETURN_TO_QUESTION" } as const);
+    const materialReaderState = reduceMaterialReader(this.data.materialReaderState, event);
+    this.setData({
+      materialOpen: materialReaderState.mode !== "question_first",
+      materialReaderState,
+    });
+  },
+
+  updateMaterialReader(event) {
+    const runtime = runtimes.get(this);
+    if (!runtime?.task || this.data.interactionLocked) return;
+    const next = event.detail.state;
+    const questionId = runtime.task.questionOrder[runtime.task.currentQuestionIndex];
+    const attempt = questionId ? runtime.task.attempts[questionId] : undefined;
+    if (!attempt) return;
+    const preferencesChanged =
+      next.preferences.fontScale !== this.data.displayPreferences.fontScale ||
+      next.preferences.colorMode !== this.data.displayPreferences.colorMode;
+    this.setData({
+      materialOpen: next.mode !== "question_first",
+      materialReaderState: next,
+      displayPreferences: next.preferences,
+    });
+    if (preferencesChanged) storeTaskDisplayPreferences(next.preferences);
+    const current = attempt.materialPosition;
+    if (
+      current?.anchorId === next.position.anchorId &&
+      current.scrollTop === next.position.scrollTop &&
+      current.zoom === next.position.zoom
+    ) {
+      return;
+    }
+    runtime.task = reduceTaskRuntime(runtime.task, {
+      type: "MATERIAL_POSITION_CHANGED",
+      position: next.position,
+    });
+    void autosaveCheckpoint(this, runtime);
+  },
+
+  openTaskTools() {
+    const runtime = runtimes.get(this);
+    if (!runtime?.session || runtime.session.state !== "answering") return;
+    this.setData({ toolsOpen: true, helpOpen: false, disputeOpen: false });
+  },
+
+  openFocusTool() {
+    this.openTaskHelp();
+  },
+
+  closeTaskOverlay() {
+    this.setData({ toolsOpen: false, helpOpen: false, disputeOpen: false });
+  },
+
+  openTaskHelp() {
+    const runtime = runtimes.get(this);
+    if (!runtime?.session) return;
+    this.setData({
+      toolsOpen: false,
+      helpOpen: true,
+      disputeOpen: false,
+      helpReference: taskHelpReference(runtime.session),
+      helpGuidance: "",
+    });
+  },
+
+  async submitTaskHelp(event) {
+    if (this.data.helpSubmitting) return;
+    const auth = currentAuthSession();
+    if (!auth) return;
+    this.setData({ helpSubmitting: true, helpGuidance: "" });
+    try {
+      const api = new TaskHelpApi(new ApiClient(environment.apiBaseUrl, auth.accessToken));
+      const response = await api.submit(event.detail, await createIdempotencyKey("task-help"));
+      this.setData({ helpGuidance: `${response.data.title}：${response.data.steps.join("；")}` });
+    } catch (error) {
+      this.setData({ helpGuidance: errorMessage(error) });
+    } finally {
+      this.setData({ helpSubmitting: false });
+    }
+  },
+
+  openDispute() {
+    const runtime = runtimes.get(this);
+    if (!runtime?.session || runtime.session.state !== "answering") return;
+    this.setData({
+      toolsOpen: false,
+      helpOpen: false,
+      disputeOpen: true,
+      disputeCategory: "other",
+      disputeDescription: "",
+      disputeReceipt: "",
+    });
+  },
+
+  selectDisputeCategory(event) {
+    const value = String(event.currentTarget.dataset.category ?? "");
+    const category = this.data.disputeCategories.find((item) => item.value === value)?.value;
+    if (category) this.setData({ disputeCategory: category });
+  },
+
+  inputDisputeDescription(event) {
+    this.setData({ disputeDescription: event.detail.value });
+  },
+
+  async submitDispute() {
+    const runtime = runtimes.get(this);
+    const question = this.data.view?.question;
+    const description = this.data.disputeDescription.trim();
+    if (!runtime?.api || !runtime.session || !question || this.data.disputeSubmitting) return;
+    if (description.length < 2) {
+      void wx.showToast({ title: "请描述具体问题", icon: "none" });
+      return;
+    }
+    this.setData({ disputeSubmitting: true, disputeReceipt: "" });
+    try {
+      const response = await runtime.api.reportDispute(
+        runtime.session.sessionId,
+        {
+          questionId: question.questionId,
+          contentVersionId: question.contentVersionId,
+          category: this.data.disputeCategory,
+          description,
+        },
+        await createIdempotencyKey("xingce-dispute"),
+      );
+      this.setData({
+        disputeReceipt: `已记录 · ${response.data.disputeId}`,
+        disputeDescription: "",
+      });
+    } catch (error) {
+      this.setData({ disputeReceipt: errorMessage(error) });
+    } finally {
+      this.setData({ disputeSubmitting: false });
+    }
+  },
+
+  increaseDisplayFont() {
+    updateDisplayPreferences(this, {
+      ...this.data.displayPreferences,
+      fontScale: Math.min(
+        1.3,
+        Math.round((this.data.displayPreferences.fontScale + 0.1) * 10) / 10,
+      ),
+    });
+  },
+
+  decreaseDisplayFont() {
+    updateDisplayPreferences(this, {
+      ...this.data.displayPreferences,
+      fontScale: Math.max(
+        0.9,
+        Math.round((this.data.displayPreferences.fontScale - 0.1) * 10) / 10,
+      ),
+    });
+  },
+
+  toggleDisplayEyeCare() {
+    updateDisplayPreferences(this, {
+      ...this.data.displayPreferences,
+      colorMode: this.data.displayPreferences.colorMode === "eye_care" ? "standard" : "eye_care",
+    });
   },
 
   toggleAnswerSheet() {
@@ -477,6 +717,23 @@ function render(
   runtime: NonNullable<ReturnType<typeof runtimes.get>>,
 ): void {
   if (!runtime.session || !runtime.task) return;
+  const view = presentXingceTask(runtime.session, runtime.task);
+  const currentQuestionId = runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? "";
+  const currentAttempt = runtime.task.attempts[currentQuestionId];
+  const defaultAnchor = view.question.material?.anchors[0]?.anchorId ?? "material-start";
+  const materialPosition = currentAttempt?.materialPosition ?? {
+    anchorId: defaultAnchor,
+    scrollTop: 0,
+    zoom: 1,
+  };
+  const materialReaderState =
+    page.data.materialQuestionId === currentQuestionId
+      ? {
+          ...page.data.materialReaderState,
+          position: materialPosition,
+          preferences: page.data.displayPreferences,
+        }
+      : createMaterialReaderState(materialPosition, page.data.displayPreferences);
   const missing = unansweredQuestionIds(runtime.task);
   const answerSheetItems = runtime.task.questionOrder.map((questionId, index) => {
     const attempt = runtime.task?.attempts[questionId];
@@ -495,11 +752,20 @@ function render(
     status: "ready",
     errorTitle: "",
     errorMessage: "",
-    view: presentXingceTask(runtime.session, runtime.task),
+    view,
     result: presentXingceResult(runtime.session),
     sessionState: runtime.session.state,
     canSubmit: runtime.session.state === "answering" && missing.length === 0,
     answerSheetItems,
+    materialQuestionId: currentQuestionId,
+    materialOpen: materialReaderState.mode !== "question_first",
+    materialReaderState,
+    toolPolicy: taskToolPolicy(
+      runtime.session.mode === "verification" ? "retest" : "targeted",
+      runtime.session.state === "answering" ? "answering" : "submitted",
+    ),
+    helpReference: taskHelpReference(runtime.session),
+    helpSyncState: runtime.task.syncState,
   });
 }
 
@@ -724,4 +990,28 @@ function invalidateForAccountChange(
     sessionState: "",
     interactionLocked: true,
   });
+}
+
+function updateDisplayPreferences(
+  page: PracticePageInstance,
+  preferences: ContentDisplayPreferences,
+): void {
+  const materialReaderState = {
+    ...page.data.materialReaderState,
+    preferences,
+  };
+  page.setData({ displayPreferences: preferences, materialReaderState });
+  storeTaskDisplayPreferences(preferences);
+}
+
+function taskHelpReference(session: XingceTaskSession): TaskHelpPageObjectReference {
+  return {
+    pageCode: "C02",
+    route: routes.practice,
+    track: "xingce",
+    objectType: "task_session",
+    objectId: session.sessionId,
+    taskMode: session.mode === "verification" ? "retest" : session.mode,
+    lifecycle: session.state === "answering" ? "answering" : "submitted",
+  };
 }

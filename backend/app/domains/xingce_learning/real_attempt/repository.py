@@ -10,6 +10,59 @@ from sqlalchemy.orm import Session
 
 
 class XingceAttemptRepository:
+    def question_dispute_by_idempotency_key(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        idempotency_key: str,
+    ) -> RowMapping | None:
+        return (
+            session.execute(
+                text(
+                    """
+                    select *
+                    from learning.xingce_question_disputes
+                    where user_id = cast(:user_id as uuid)
+                      and idempotency_key = :idempotency_key
+                    """
+                ),
+                {"user_id": user_id, "idempotency_key": idempotency_key},
+            )
+            .mappings()
+            .one_or_none()
+        )
+
+    def insert_question_dispute(
+        self,
+        session: Session,
+        *,
+        values: dict[str, Any],
+    ) -> RowMapping:
+        return (
+            session.execute(
+                text(
+                    """
+                    insert into learning.xingce_question_disputes (
+                      dispute_id, user_id, session_kind, session_id, question_id,
+                      content_version_id, category, description,
+                      evidence_context, idempotency_key, created_at
+                    ) values (
+                      cast(:dispute_id as uuid), cast(:user_id as uuid),
+                      'xingce_task',
+                      cast(:session_id as uuid), :question_id,
+                      :content_version_id, :category, :description,
+                      cast(:evidence_context as jsonb), :idempotency_key, :created_at
+                    )
+                    returning *
+                    """
+                ),
+                values,
+            )
+            .mappings()
+            .one()
+        )
+
     def select_frozen_questions(
         self,
         session: Session,

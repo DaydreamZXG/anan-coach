@@ -160,6 +160,23 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
     db_engine: Engine,
 ) -> None:
     with db_engine.begin() as connection:
+        # conftest installs the current schema before this test reconstructs the
+        # audited v12 baseline. Remove every Stage 2 object so Alembic upgrades
+        # from the same database shape that production v12 actually had.
+        connection.execute(text("drop table learner.mock_exam_commands"))
+        connection.execute(text("drop index learner.mock_exam_one_assigned_per_owner_idx"))
+        for column in (
+            "scoring_snapshot",
+            "learner_bundle",
+            "checkpoint_updated_at",
+            "checkpoint",
+            "deadline_at",
+            "started_at",
+            "revision",
+        ):
+            connection.execute(
+                text(f"alter table learner.mock_exam_sessions drop column {column}")
+            )
         connection.execute(
             text("drop table product.question_visual_fingerprints")
         )

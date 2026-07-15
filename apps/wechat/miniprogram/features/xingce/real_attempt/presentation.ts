@@ -6,12 +6,14 @@ import type {
   XingceTaskSession,
 } from "../../../api/xingce-learning";
 import type { QuestionAttemptDraft, TaskRuntimeState } from "../../../task-runtime/contracts";
+import type { RichContentBlock } from "../../../task-runtime/content-renderer/model";
 
 export interface XingceOptionView {
   optionId: string;
   label: string;
   text: string;
   html: string | null;
+  content: RichContentBlock[];
   selected: boolean;
   eliminated: boolean;
 }
@@ -22,6 +24,7 @@ export interface XingceQuestionView {
   moduleName: string;
   stem: string;
   stemHtml: string | null;
+  stemContent: RichContentBlock[];
   positionLabel: string;
   options: XingceOptionView[];
   material: XingceLearnerMaterial | null;
@@ -156,6 +159,7 @@ function presentQuestion(
     moduleName: question.moduleName,
     stem: question.stem,
     stemHtml: question.stemHtml,
+    stemContent: question.stemContent,
     positionLabel: `第 ${String(index + 1)} / ${String(total)} 题`,
     options: question.options.map((option) => ({
       ...option,

@@ -106,6 +106,30 @@ describe("real xingce attempt contracts", () => {
     });
   });
 
+  it("checkpoints material, elimination and mark evidence before an option is selected", () => {
+    let runtime = runtimeFromXingceSession(activeXingceSession({ revision: 4 }));
+    runtime = reduceTaskRuntime(runtime, {
+      type: "OPTION_ELIMINATED",
+      optionId: "B",
+      eliminated: true,
+    });
+    runtime = reduceTaskRuntime(runtime, { type: "QUESTION_MARKED", marked: true });
+    runtime = reduceTaskRuntime(runtime, {
+      type: "MATERIAL_POSITION_CHANGED",
+      position: { anchorId: "material-table", scrollTop: 640, zoom: 1.5 },
+    });
+
+    expect(checkpointCommand(runtime).answers).toEqual([
+      expect.objectContaining({
+        questionId: "q-1",
+        selectedOptionIds: [],
+        eliminatedOptionIds: ["B"],
+        marked: true,
+        materialPosition: { anchorId: "material-table", scrollTop: 640, zoom: 1.5 },
+      }),
+    ]);
+  });
+
   it("requires cause decisions for incorrect, timeout, guessed and skipped results only", () => {
     expect(resultRequiresCauseDecision("correct")).toBe(false);
     for (const code of ["incorrect", "timeout", "guessed_correct", "skipped", "mixed"] as const) {

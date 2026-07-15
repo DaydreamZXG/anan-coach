@@ -1225,6 +1225,24 @@ export type ConfirmImportRecognitionCommand = {
 };
 
 /**
+ * ContentAnchor
+ */
+export type ContentAnchor = {
+    /**
+     * Anchorid
+     */
+    anchorId: string;
+    /**
+     * Blockid
+     */
+    blockId: string;
+    /**
+     * Label
+     */
+    label: string;
+};
+
+/**
  * ContentComponent
  */
 export type ContentComponent = 'question_prompt' | 'question_options' | 'reference_answer' | 'solution_explanation' | 'material_text' | 'material_table' | 'material_image' | 'rubric' | 'user_submission';
@@ -4011,7 +4029,89 @@ export type MockExamAnswer = {
     /**
      * Selectedanswer
      */
-    selectedAnswer: string;
+    selectedAnswer?: string | null;
+};
+
+/**
+ * MockExamAnswerCheckpoint
+ */
+export type MockExamAnswerCheckpoint = {
+    /**
+     * Drafttext
+     */
+    draftText?: string;
+    /**
+     * Eliminatedoptionids
+     */
+    eliminatedOptionIds?: Array<string>;
+    /**
+     * Marked
+     */
+    marked?: boolean;
+    materialPosition?: MaterialPosition | null;
+    /**
+     * Questionid
+     */
+    questionId: string;
+    /**
+     * Selectedanswer
+     */
+    selectedAnswer?: string | null;
+};
+
+/**
+ * MockExamCheckpoint
+ */
+export type MockExamCheckpoint = {
+    /**
+     * Answers
+     */
+    answers: Array<MockExamAnswerCheckpoint>;
+    /**
+     * Currentquestionid
+     */
+    currentQuestionId: string;
+};
+
+/**
+ * MockExamCheckpointReceipt
+ */
+export type MockExamCheckpointReceipt = {
+    checkpoint: MockExamCheckpoint;
+    /**
+     * Checkpointupdatedat
+     */
+    checkpointUpdatedAt: string;
+    /**
+     * Revision
+     */
+    revision: number;
+    /**
+     * Sessionid
+     */
+    sessionId: string;
+    /**
+     * Status
+     */
+    status: 'assigned';
+};
+
+/**
+ * MockExamCheckpointRequest
+ */
+export type MockExamCheckpointRequest = {
+    /**
+     * Answers
+     */
+    answers: Array<MockExamAnswerCheckpoint>;
+    /**
+     * Currentquestionid
+     */
+    currentQuestionId: string;
+    /**
+     * Expectedrevision
+     */
+    expectedRevision: number;
 };
 
 /**
@@ -4143,9 +4243,22 @@ export type MockExamSession = {
      */
     blueprint: Array<MockExamModuleBlueprint>;
     /**
+     * Bundleversionid
+     */
+    bundleVersionId: string;
+    checkpoint: MockExamCheckpoint;
+    /**
+     * Deadlineat
+     */
+    deadlineAt: string;
+    /**
      * Durationminutes
      */
     durationMinutes: number;
+    /**
+     * Materials
+     */
+    materials: Array<SafeMaterial>;
     /**
      * Questioncount
      */
@@ -4153,7 +4266,11 @@ export type MockExamSession = {
     /**
      * Questions
      */
-    questions: Array<QuestionDetail>;
+    questions: Array<SafeQuestion>;
+    /**
+     * Revision
+     */
+    revision: number;
     /**
      * Sessionid
      */
@@ -4162,6 +4279,10 @@ export type MockExamSession = {
      * Sourcegrounding
      */
     sourceGrounding: string;
+    /**
+     * Startedat
+     */
+    startedAt: string;
     /**
      * Status
      */
@@ -4202,6 +4323,10 @@ export type MockExamSubmitRequest = {
      * Answers
      */
     answers: Array<MockExamAnswer>;
+    /**
+     * Expectedrevision
+     */
+    expectedRevision?: number | null;
 };
 
 /**
@@ -6800,6 +6925,21 @@ export type PublicApiEnvelopeQualificationProfile = {
 };
 
 /**
+ * PublicApiEnvelope[QuestionDisputeReceipt]
+ */
+export type PublicApiEnvelopeQuestionDisputeReceipt = {
+    data: QuestionDisputeReceipt;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[RecognitionRevision]
  */
 export type PublicApiEnvelopeRecognitionRevision = {
@@ -6909,6 +7049,21 @@ export type PublicApiEnvelopeStudyPreferenceResult = {
  */
 export type PublicApiEnvelopeTaskExecutionCommandResult = {
     data: TaskExecutionCommandResult;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[TaskHelpResponse]
+ */
+export type PublicApiEnvelopeTaskHelpResponse = {
+    data: TaskHelpResponse;
     /**
      * Generatedat
      */
@@ -7316,6 +7471,44 @@ export type QuestionDetail = {
      * Visualrequired
      */
     visualRequired: boolean;
+};
+
+/**
+ * QuestionDisputeReceipt
+ */
+export type QuestionDisputeReceipt = {
+    /**
+     * Category
+     */
+    category: 'stem_error' | 'option_error' | 'answer_error' | 'material_mismatch' | 'image_unreadable' | 'other';
+    /**
+     * Contentversionid
+     */
+    contentVersionId: string;
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Description
+     */
+    description: string;
+    /**
+     * Disputeid
+     */
+    disputeId: string;
+    /**
+     * Evidenceattached
+     */
+    evidenceAttached?: true;
+    /**
+     * Questionid
+     */
+    questionId: string;
+    /**
+     * Sessionid
+     */
+    sessionId: string;
 };
 
 /**
@@ -7864,6 +8057,28 @@ export type RenewPacketCommand = {
 };
 
 /**
+ * ReportQuestionDisputeCommand
+ */
+export type ReportQuestionDisputeCommand = {
+    /**
+     * Category
+     */
+    category: 'stem_error' | 'option_error' | 'answer_error' | 'material_mismatch' | 'image_unreadable' | 'other';
+    /**
+     * Contentversionid
+     */
+    contentVersionId: string;
+    /**
+     * Description
+     */
+    description: string;
+    /**
+     * Questionid
+     */
+    questionId: string;
+};
+
+/**
  * ReportedScoreEvidenceRequest
  */
 export type ReportedScoreEvidenceRequest = {
@@ -8123,6 +8338,190 @@ export type ReviewVerdictResponse = {
 };
 
 /**
+ * RichFormulaBlock
+ */
+export type RichFormulaBlock = {
+    /**
+     * Blockid
+     */
+    blockId: string;
+    /**
+     * Display
+     */
+    display?: boolean;
+    /**
+     * Expression
+     */
+    expression: string;
+    /**
+     * Format
+     */
+    format?: 'latex';
+    /**
+     * Type
+     */
+    type?: 'formula';
+};
+
+/**
+ * RichGraphBlock
+ */
+export type RichGraphBlock = {
+    /**
+     * Alttext
+     */
+    altText: string;
+    /**
+     * Assetid
+     */
+    assetId: string;
+    /**
+     * Blockid
+     */
+    blockId: string;
+    /**
+     * Originalocrurl
+     */
+    originalOcrUrl: string;
+    /**
+     * Type
+     */
+    type?: 'graph';
+    /**
+     * Url
+     */
+    url: string;
+    /**
+     * Zoomable
+     */
+    zoomable?: true;
+};
+
+/**
+ * RichImageBlock
+ */
+export type RichImageBlock = {
+    /**
+     * Alttext
+     */
+    altText: string;
+    /**
+     * Assetid
+     */
+    assetId: string;
+    /**
+     * Blockid
+     */
+    blockId: string;
+    /**
+     * Originalocrurl
+     */
+    originalOcrUrl: string;
+    /**
+     * Type
+     */
+    type?: 'image';
+    /**
+     * Url
+     */
+    url: string;
+    /**
+     * Zoomable
+     */
+    zoomable?: true;
+};
+
+/**
+ * RichParagraphBlock
+ */
+export type RichParagraphBlock = {
+    /**
+     * Blockid
+     */
+    blockId: string;
+    /**
+     * Html
+     */
+    html?: string | null;
+    /**
+     * Text
+     */
+    text: string;
+    /**
+     * Type
+     */
+    type?: 'paragraph';
+};
+
+/**
+ * RichTableBlock
+ */
+export type RichTableBlock = {
+    /**
+     * Blockid
+     */
+    blockId: string;
+    /**
+     * Cells
+     */
+    cells: Array<RichTableCell>;
+    /**
+     * Columncount
+     */
+    columnCount: number;
+    /**
+     * Frozenheaderrows
+     */
+    frozenHeaderRows: number;
+    /**
+     * Horizontallyscrollable
+     */
+    horizontallyScrollable?: true;
+    /**
+     * Rowcount
+     */
+    rowCount: number;
+    /**
+     * Type
+     */
+    type?: 'table';
+};
+
+/**
+ * RichTableCell
+ */
+export type RichTableCell = {
+    /**
+     * Column
+     */
+    column: number;
+    /**
+     * Columnspan
+     */
+    columnSpan?: number;
+    /**
+     * Header
+     */
+    header?: boolean;
+    /**
+     * Html
+     */
+    html?: string | null;
+    /**
+     * Row
+     */
+    row: number;
+    /**
+     * Rowspan
+     */
+    rowSpan?: number;
+    /**
+     * Text
+     */
+    text: string;
+};
+
+/**
  * SafeAsset
  */
 export type SafeAsset = {
@@ -8135,6 +8534,14 @@ export type SafeAsset = {
      */
     assetId: string;
     /**
+     * Contentkind
+     */
+    contentKind: 'image' | 'graph';
+    /**
+     * Originalocrurl
+     */
+    originalOcrUrl: string;
+    /**
      * Url
      */
     url: string;
@@ -8145,9 +8552,17 @@ export type SafeAsset = {
  */
 export type SafeMaterial = {
     /**
+     * Anchors
+     */
+    anchors: Array<ContentAnchor>;
+    /**
      * Assets
      */
     assets: Array<SafeAsset>;
+    /**
+     * Content
+     */
+    content: Array<RichParagraphBlock | RichFormulaBlock | RichImageBlock | RichGraphBlock | RichTableBlock>;
     /**
      * Html
      */
@@ -8170,6 +8585,10 @@ export type SafeMaterial = {
  * SafeOption
  */
 export type SafeOption = {
+    /**
+     * Content
+     */
+    content: Array<RichParagraphBlock | RichFormulaBlock | RichImageBlock | RichGraphBlock | RichTableBlock>;
     /**
      * Html
      */
@@ -8216,6 +8635,10 @@ export type SafeQuestion = {
      * Stem
      */
     stem: string;
+    /**
+     * Stemcontent
+     */
+    stemContent: Array<RichParagraphBlock | RichFormulaBlock | RichImageBlock | RichGraphBlock | RichTableBlock>;
     /**
      * Stemhtml
      */
@@ -8916,6 +9339,70 @@ export type TaskExecutionVersion = {
      * Workitemkey
      */
     workItemKey: string;
+};
+
+/**
+ * TaskHelpRequest
+ */
+export type TaskHelpRequest = {
+    /**
+     * Mode
+     */
+    mode: 'practice' | 'targeted' | 'retest' | 'baseline' | 'verification' | 'mock';
+    /**
+     * Scope
+     */
+    scope: 'operation' | 'fault';
+    /**
+     * Sessionid
+     */
+    sessionId: string;
+};
+
+/**
+ * TaskHelpResponse
+ */
+export type TaskHelpResponse = {
+    /**
+     * Blockedcapabilities
+     */
+    blockedCapabilities: Array<'current_question_answer' | 'answer_analysis' | 'formula_card' | 'solution_ai'>;
+    /**
+     * Contentlookupperformed
+     */
+    contentLookupPerformed?: false;
+    /**
+     * Mode
+     */
+    mode: 'practice' | 'targeted' | 'retest' | 'baseline' | 'verification' | 'mock';
+    /**
+     * Permittedtools
+     */
+    permittedTools: Array<'navigation_help' | 'checkpoint_status' | 'timer_recovery' | 'exit_policy' | 'fault_retry' | 'dispute_entry'>;
+    /**
+     * Policyversion
+     */
+    policyVersion?: 'task-help-learner-safe-v1';
+    /**
+     * Scope
+     */
+    scope: 'operation' | 'fault';
+    /**
+     * Sessionid
+     */
+    sessionId: string;
+    /**
+     * Sessionstate
+     */
+    sessionState: string;
+    /**
+     * Steps
+     */
+    steps: Array<string>;
+    /**
+     * Title
+     */
+    title: string;
 };
 
 /**
@@ -10688,6 +11175,122 @@ export type CreateWeeklyMockExamApiV1MockExamsWeeklyPostResponses = {
 
 export type CreateWeeklyMockExamApiV1MockExamsWeeklyPostResponse = CreateWeeklyMockExamApiV1MockExamsWeeklyPostResponses[keyof CreateWeeklyMockExamApiV1MockExamsWeeklyPostResponses];
 
+export type GetMockExamSessionApiV1MockExamsSessionIdGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Session Id
+         */
+        session_id: string;
+    };
+    query?: never;
+    url: '/api/v1/mock-exams/{session_id}';
+};
+
+export type GetMockExamSessionApiV1MockExamsSessionIdGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetMockExamSessionApiV1MockExamsSessionIdGetError = GetMockExamSessionApiV1MockExamsSessionIdGetErrors[keyof GetMockExamSessionApiV1MockExamsSessionIdGetErrors];
+
+export type GetMockExamSessionApiV1MockExamsSessionIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: MockExamSession;
+};
+
+export type GetMockExamSessionApiV1MockExamsSessionIdGetResponse = GetMockExamSessionApiV1MockExamsSessionIdGetResponses[keyof GetMockExamSessionApiV1MockExamsSessionIdGetResponses];
+
+export type SaveMockExamCheckpointApiV1MockExamsSessionIdCheckpointPutData = {
+    body: MockExamCheckpointRequest;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Session Id
+         */
+        session_id: string;
+    };
+    query?: never;
+    url: '/api/v1/mock-exams/{session_id}/checkpoint';
+};
+
+export type SaveMockExamCheckpointApiV1MockExamsSessionIdCheckpointPutErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type SaveMockExamCheckpointApiV1MockExamsSessionIdCheckpointPutError = SaveMockExamCheckpointApiV1MockExamsSessionIdCheckpointPutErrors[keyof SaveMockExamCheckpointApiV1MockExamsSessionIdCheckpointPutErrors];
+
+export type SaveMockExamCheckpointApiV1MockExamsSessionIdCheckpointPutResponses = {
+    /**
+     * Successful Response
+     */
+    200: MockExamCheckpointReceipt;
+};
+
+export type SaveMockExamCheckpointApiV1MockExamsSessionIdCheckpointPutResponse = SaveMockExamCheckpointApiV1MockExamsSessionIdCheckpointPutResponses[keyof SaveMockExamCheckpointApiV1MockExamsSessionIdCheckpointPutResponses];
+
+export type ReportMockExamQuestionDisputeApiV1MockExamsSessionIdDisputesPostData = {
+    body: ReportQuestionDisputeCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Session Id
+         */
+        session_id: string;
+    };
+    query?: never;
+    url: '/api/v1/mock-exams/{session_id}/disputes';
+};
+
+export type ReportMockExamQuestionDisputeApiV1MockExamsSessionIdDisputesPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type ReportMockExamQuestionDisputeApiV1MockExamsSessionIdDisputesPostError = ReportMockExamQuestionDisputeApiV1MockExamsSessionIdDisputesPostErrors[keyof ReportMockExamQuestionDisputeApiV1MockExamsSessionIdDisputesPostErrors];
+
+export type ReportMockExamQuestionDisputeApiV1MockExamsSessionIdDisputesPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: QuestionDisputeReceipt;
+};
+
+export type ReportMockExamQuestionDisputeApiV1MockExamsSessionIdDisputesPostResponse = ReportMockExamQuestionDisputeApiV1MockExamsSessionIdDisputesPostResponses[keyof ReportMockExamQuestionDisputeApiV1MockExamsSessionIdDisputesPostResponses];
+
 export type GetMockExamReviewApiV1MockExamsSessionIdReviewGetData = {
     body?: never;
     headers?: {
@@ -10763,6 +11366,10 @@ export type MarkMockExamReviewViewedApiV1MockExamsSessionIdReviewViewPostRespons
 export type SubmitMockExamApiV1MockExamsSessionIdSubmitPostData = {
     body: MockExamSubmitRequest;
     headers?: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key'?: string | null;
         /**
          * Authorization
          */
@@ -16197,6 +16804,37 @@ export type ReportScoreEvidenceApiV2ScoreEvidenceReportedPostResponses = {
 
 export type ReportScoreEvidenceApiV2ScoreEvidenceReportedPostResponse = ReportScoreEvidenceApiV2ScoreEvidenceReportedPostResponses[keyof ReportScoreEvidenceApiV2ScoreEvidenceReportedPostResponses];
 
+export type GetTaskHelpApiV2TaskHelpPostData = {
+    body: TaskHelpRequest;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/task-help';
+};
+
+export type GetTaskHelpApiV2TaskHelpPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type GetTaskHelpApiV2TaskHelpPostError = GetTaskHelpApiV2TaskHelpPostErrors[keyof GetTaskHelpApiV2TaskHelpPostErrors];
+
+export type GetTaskHelpApiV2TaskHelpPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeTaskHelpResponse;
+};
+
+export type GetTaskHelpApiV2TaskHelpPostResponse = GetTaskHelpApiV2TaskHelpPostResponses[keyof GetTaskHelpApiV2TaskHelpPostResponses];
+
 export type DecideAttemptCauseApiV2XingceAttemptReviewsReviewIdCauseDecisionPutData = {
     body: CauseDecisionCommand;
     headers: {
@@ -16547,6 +17185,78 @@ export type SaveTaskSessionCheckpointApiV2XingceTaskSessionsSessionIdCheckpointP
 };
 
 export type SaveTaskSessionCheckpointApiV2XingceTaskSessionsSessionIdCheckpointPutResponse = SaveTaskSessionCheckpointApiV2XingceTaskSessionsSessionIdCheckpointPutResponses[keyof SaveTaskSessionCheckpointApiV2XingceTaskSessionsSessionIdCheckpointPutResponses];
+
+export type ReportQuestionDisputeApiV2XingceTaskSessionsSessionIdDisputesPostData = {
+    body: ReportQuestionDisputeCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Session Id
+         */
+        session_id: string;
+    };
+    query?: never;
+    url: '/api/v2/xingce/task-sessions/{session_id}/disputes';
+};
+
+export type ReportQuestionDisputeApiV2XingceTaskSessionsSessionIdDisputesPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ReportQuestionDisputeApiV2XingceTaskSessionsSessionIdDisputesPostError = ReportQuestionDisputeApiV2XingceTaskSessionsSessionIdDisputesPostErrors[keyof ReportQuestionDisputeApiV2XingceTaskSessionsSessionIdDisputesPostErrors];
+
+export type ReportQuestionDisputeApiV2XingceTaskSessionsSessionIdDisputesPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeQuestionDisputeReceipt;
+};
+
+export type ReportQuestionDisputeApiV2XingceTaskSessionsSessionIdDisputesPostResponse = ReportQuestionDisputeApiV2XingceTaskSessionsSessionIdDisputesPostResponses[keyof ReportQuestionDisputeApiV2XingceTaskSessionsSessionIdDisputesPostResponses];
 
 export type SubmitTaskSessionApiV2XingceTaskSessionsSessionIdSubmitPostData = {
     body: SubmitTaskSessionCommand;
