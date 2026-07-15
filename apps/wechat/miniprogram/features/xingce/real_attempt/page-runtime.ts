@@ -15,6 +15,8 @@ export interface XingcePageRuntime {
   timerHandle: ReturnType<typeof setInterval> | undefined;
   saveInFlight: boolean;
   submitInFlight: boolean;
+  lastAutosaveElapsedSeconds: number;
+  visible: boolean;
   disposed: boolean;
   requestEpoch: number;
 }
@@ -30,6 +32,8 @@ function createRuntime(): XingcePageRuntime {
     timerHandle: undefined,
     saveInFlight: false,
     submitInFlight: false,
+    lastAutosaveElapsedSeconds: 0,
+    visible: false,
     disposed: false,
     requestEpoch: 0,
   };
@@ -66,6 +70,7 @@ export class XingcePageRuntimeRegistry<TPage extends object> {
     const runtime = this.values.get(page);
     if (!runtime) return;
     runtime.disposed = true;
+    runtime.visible = false;
     runtime.requestEpoch += 1;
     if (runtime.timerHandle !== undefined) clearInterval(runtime.timerHandle);
     runtime.timerHandle = undefined;

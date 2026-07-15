@@ -147,12 +147,14 @@ describe("real xingce pending ownership", () => {
     const runtimeB = registry.attach(pageB);
     runtimeA.ownerUserId = "user-a";
     runtimeB.ownerUserId = "user-b";
+    runtimeA.visible = true;
     const epochA = registry.beginRequest(runtimeA);
 
     registry.detach(pageA);
 
     expect(registry.isCurrent(pageA, runtimeA, epochA)).toBe(false);
     expect(runtimeA.disposed).toBe(true);
+    expect(runtimeA.visible).toBe(false);
     expect(registry.owns(pageB, runtimeB)).toBe(true);
     expect(runtimeB.ownerUserId).toBe("user-b");
   });

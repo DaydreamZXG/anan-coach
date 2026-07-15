@@ -35,6 +35,7 @@ import {
 } from "../../features/xingce/real_attempt/pending-store";
 import { publishLatestTodayDashboard } from "../../features/planning/runtime-state";
 import { createIdempotencyKey } from "../../platform/command-id";
+import { decideAutosave, decideExit } from "../../task-runtime/state/autosave";
 import { reduceTaskRuntime, unansweredQuestionIds } from "../../task-runtime/state/runtime";
 
 type PageStatus = "loading" | "ready" | "error" | "unavailable";
@@ -146,6 +147,7 @@ Page<PracticePageData, PracticePageCustom>({
   onShow() {
     const runtime = runtimes.get(this);
     if (!runtime || runtime.disposed) return;
+    runtime.visible = true;
     if (!currentAccountOwns(runtime)) {
       invalidateForAccountChange(this, runtime);
       return;
@@ -158,8 +160,9 @@ Page<PracticePageData, PracticePageCustom>({
   onHide() {
     const runtime = runtimes.get(this);
     if (!runtime) return;
+    runtime.visible = false;
     stopTimer(runtime);
-    if (runtime.task?.syncState === "pending") void saveCheckpoint(this, runtime);
+    if (runtime.task) void autosaveCheckpoint(this, runtime, { leaving: true });
   },
 
   onUnload() {
@@ -231,22 +234,25 @@ Page<PracticePageData, PracticePageCustom>({
   async exit() {
     const runtime = runtimes.get(this);
     if (!runtime) return;
-    if (
-      runtime.session &&
-      ["submitted", "reflection_required", "cause_decision_required"].includes(
-        runtime.session.state,
-      )
-    ) {
+    const decision = decideExit(runtime.task);
+    if (decision.action === "blocked") {
       const result = await wx.showModal({
-        title: "复盘尚未完成",
-        content: "本次结果已经记录，但完成原话复盘前不会结算今日任务。你可以稍后从今日计划继续。",
+        title: decision.title,
+        content: `${decision.message} 你可以稍后从今日计划继续。`,
         confirmText: "仍要退出",
       });
       if (!result.confirm) return;
-    } else if (runtime.task?.syncState === "pending") {
+    } else if (decision.action === "save_then_leave") {
       await saveCheckpoint(this, runtime);
       const currentTask = runtimes.get(this)?.task;
       if (currentTask?.syncState !== "saved") return;
+    } else if (decision.action === "confirm") {
+      const result = await wx.showModal({
+        title: decision.title,
+        content: decision.message,
+        confirmText: "退出",
+      });
+      if (!result.confirm) return;
     }
     void wx.navigateBack();
   },
@@ -451,6 +457,9 @@ function applySession(
   runtime.task = retryablePending
     ? runtimeWithPendingCheckpoint(session, retryablePending.command)
     : runtimeFromXingceSession(session);
+  if (!retryablePending) {
+    runtime.lastAutosaveElapsedSeconds = runtime.task.totalElapsedSeconds;
+  }
   page.setData({
     hasPendingCheckpoint: retryablePending !== null,
     pendingCheckpointMessage: retryablePending
@@ -459,7 +468,7 @@ function applySession(
     interactionLocked: retryablePending !== null,
   });
   render(page, runtime);
-  if (session.state === "answering") startTimer(page, runtime);
+  if (session.state === "answering" && runtime.visible) startTimer(page, runtime);
   else stopTimer(runtime);
 }
 
@@ -522,6 +531,9 @@ async function saveCheckpoint(
   conflictRetry = true,
 ): Promise<void> {
   if (!runtime.api || !runtime.task || !runtime.session || runtime.saveInFlight) return;
+  const api = runtime.api;
+  const ownerUserId = runtime.ownerUserId;
+  const sessionId = runtime.session.sessionId;
   runtime.saveInFlight = true;
   stopTimer(runtime);
   runtime.task = reduceTaskRuntime(runtime.task, { type: "SAVE_REQUESTED" });
@@ -530,25 +542,28 @@ async function saveCheckpoint(
   const localDraft = runtime.task;
   let commandConfirmed = false;
   try {
-    let pending = loadPendingXingceCheckpoint(runtime.ownerUserId, runtime.session.sessionId);
+    let pending = loadPendingXingceCheckpoint(ownerUserId, sessionId);
     if (!pending) {
+      const command = checkpointCommand(runtime.task);
       pending = {
         kind: "checkpoint",
         planTaskId: runtime.planTaskId,
-        sessionId: runtime.session.sessionId,
+        sessionId,
         idempotencyKey: await createIdempotencyKey("xingce-save"),
-        command: checkpointCommand(runtime.task),
+        command,
       };
-      storePendingXingceCheckpoint(runtime.ownerUserId, pending);
+      storePendingXingceCheckpoint(ownerUserId, pending);
     }
-    await runtime.api.saveCheckpoint(pending.sessionId, pending.command, pending.idempotencyKey);
+    await api.saveCheckpoint(pending.sessionId, pending.command, pending.idempotencyKey);
     commandConfirmed = true;
-    clearPendingXingceCheckpoint(runtime.ownerUserId, pending.sessionId);
+    clearPendingXingceCheckpoint(ownerUserId, pending.sessionId);
+    if (!runtimes.owns(page, runtime)) return;
     if (!currentAccountOwns(runtime)) {
       invalidateForAccountChange(page, runtime);
       return;
     }
-    const current = await runtime.api.getSession(pending.sessionId);
+    const current = await api.getSession(pending.sessionId);
+    if (!runtimes.owns(page, runtime)) return;
     if (!currentAccountOwns(runtime)) {
       invalidateForAccountChange(page, runtime);
       return;
@@ -556,6 +571,7 @@ async function saveCheckpoint(
     page.setData({ hasPendingCheckpoint: false, pendingCheckpointMessage: "" });
     applySession(page, runtime, current.data);
   } catch (error) {
+    if (!runtimes.owns(page, runtime)) return;
     if (commandConfirmed) {
       page.setData({
         status: "error",
@@ -568,8 +584,9 @@ async function saveCheckpoint(
       return;
     }
     if (error instanceof ApiClientError && error.statusCode === 409 && conflictRetry) {
-      clearPendingXingceCheckpoint(runtime.ownerUserId, runtime.session.sessionId);
-      const current = await runtime.api.getSession(runtime.session.sessionId);
+      clearPendingXingceCheckpoint(ownerUserId, sessionId);
+      const current = await api.getSession(sessionId);
+      if (!runtimes.owns(page, runtime)) return;
       if (!currentAccountOwns(runtime)) {
         invalidateForAccountChange(page, runtime);
         return;
@@ -607,16 +624,39 @@ async function saveCheckpoint(
   }
 }
 
+async function autosaveCheckpoint(
+  page: PracticePageInstance,
+  runtime: NonNullable<ReturnType<typeof runtimes.get>>,
+  options: { leaving?: boolean } = {},
+): Promise<void> {
+  if (!runtime.task) return;
+  const decision = decideAutosave(runtime.task, {
+    saveInFlight: runtime.saveInFlight,
+    lastSavedElapsedSeconds: runtime.lastAutosaveElapsedSeconds,
+    intervalSeconds: 15,
+    leaving: options.leaving,
+  });
+  if (!decision.shouldSave) return;
+  await saveCheckpointIfPossible(page, runtime);
+}
+
 function startTimer(
   page: PracticePageInstance,
   runtime: NonNullable<ReturnType<typeof runtimes.get>>,
 ): void {
   stopTimer(runtime);
+  if (!runtime.visible) return;
   runtime.timerHandle = setInterval(() => {
-    if (!runtimes.owns(page, runtime) || !runtime.task || runtime.task.phase !== "answering")
+    if (
+      !runtimes.owns(page, runtime) ||
+      !runtime.visible ||
+      !runtime.task ||
+      runtime.task.phase !== "answering"
+    )
       return;
     runtime.task = reduceTaskRuntime(runtime.task, { type: "TICK", seconds: 1 });
     render(page, runtime);
+    void autosaveCheckpoint(page, runtime);
   }, 1_000);
 }
 

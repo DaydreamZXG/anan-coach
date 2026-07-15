@@ -199,9 +199,10 @@ function formatScore(value: number): string {
 function formatRetryAfter(value: string): string | null {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return null;
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  const hour = String(date.getHours()).padStart(2, "0");
-  const minute = String(date.getMinutes()).padStart(2, "0");
+  const chinaTime = new Date(date.getTime() + 8 * 60 * 60 * 1_000);
+  const month = String(chinaTime.getUTCMonth() + 1).padStart(2, "0");
+  const day = String(chinaTime.getUTCDate()).padStart(2, "0");
+  const hour = String(chinaTime.getUTCHours()).padStart(2, "0");
+  const minute = String(chinaTime.getUTCMinutes()).padStart(2, "0");
   return `${month}月${day}日 ${hour}:${minute}`;
 }

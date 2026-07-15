@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { decideAutosave, decideExit } from "../miniprogram/task-runtime/state/autosave";
 import {
   createTaskRuntime,
   reduceTaskRuntime,
@@ -386,5 +387,79 @@ describe("task runtime", () => {
         position: { anchorId: "", scrollTop: 0, zoom: 1 },
       }),
     ).toThrow(TaskTransitionError);
+  });
+  it("decides autosave from elapsed interval and page leave without double saving", () => {
+    let state = reduceTaskRuntime(
+      createTaskRuntime({ taskId: "autosave", mode: "practice", questionOrder: ["q1"] }),
+      { type: "TASK_STARTED", startedAt: "2026-07-15T05:00:00Z" },
+    );
+    state = reduceTaskRuntime(state, { type: "ANSWER_SELECTED", optionIds: ["A"] });
+    state = reduceTaskRuntime(state, { type: "TICK", seconds: 14 });
+
+    expect(
+      decideAutosave(state, {
+        saveInFlight: false,
+        lastSavedElapsedSeconds: 0,
+        intervalSeconds: 15,
+      }),
+    ).toMatchObject({ shouldSave: false, reason: "no_changes" });
+
+    state = reduceTaskRuntime(state, { type: "TICK", seconds: 1 });
+    expect(
+      decideAutosave(state, {
+        saveInFlight: false,
+        lastSavedElapsedSeconds: 0,
+        intervalSeconds: 15,
+      }),
+    ).toMatchObject({ shouldSave: true, reason: "interval" });
+
+    expect(
+      decideAutosave(state, {
+        saveInFlight: true,
+        lastSavedElapsedSeconds: 0,
+        intervalSeconds: 15,
+        leaving: true,
+      }),
+    ).toMatchObject({ shouldSave: false, reason: "in_flight" });
+    expect(
+      decideAutosave(state, {
+        saveInFlight: false,
+        lastSavedElapsedSeconds: 15,
+        intervalSeconds: 15,
+        leaving: true,
+      }),
+    ).toMatchObject({ shouldSave: true, reason: "leaving" });
+  });
+
+  it("centralizes exit decisions for blocked reflection, dirty checkpoints and mock timers", () => {
+    const mock = createTaskRuntime({
+      taskId: "mock-exit",
+      mode: "mock_exam",
+      questionOrder: ["q1"],
+    });
+    expect(decideExit(mock)).toMatchObject({
+      action: "confirm",
+      policy: "timer_continues",
+    });
+
+    let dirty = reduceTaskRuntime(
+      createTaskRuntime({ taskId: "dirty-exit", mode: "practice", questionOrder: ["q1"] }),
+      { type: "TASK_STARTED", startedAt: "2026-07-15T05:00:00Z" },
+    );
+    dirty = reduceTaskRuntime(dirty, { type: "QUESTION_SKIPPED" });
+    expect(decideExit(dirty)).toMatchObject({ action: "save_then_leave", syncState: "pending" });
+
+    const blocked = reduceTaskRuntime(dirty, {
+      type: "TASK_RESULT_RECEIVED",
+      receivedAt: "2026-07-15T05:01:00Z",
+      reviewId: "review-blocked",
+      causeDecisionRequired: true,
+      revision: 1,
+    });
+    expect(decideExit(blocked)).toMatchObject({
+      action: "blocked",
+      policy: "blocked",
+      syncState: "saved",
+    });
   });
 });

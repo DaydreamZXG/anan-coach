@@ -317,6 +317,18 @@ describe("essay drafting workflow", () => {
     expect(display.message).toContain("20/20");
     expect(display.message).toContain("07月14日 00:00");
   });
+
+  it("renders UTC quota recovery timestamps in China Standard Time", () => {
+    const display = presentReviewIntent(
+      reviewIntent({
+        status: "waiting_quota",
+        quota: { feature: "essay_review", used: 20, limit: 20, usageDate: "2026-07-13" },
+        retryAfter: "2026-07-13T16:00:00Z",
+      }),
+    );
+
+    expect(display.message).toContain("07月14日 00:00");
+  });
 });
 
 describe("essay artifact forms", () => {
