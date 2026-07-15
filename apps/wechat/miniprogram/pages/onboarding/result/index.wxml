@@ -1,0 +1,69 @@
+<view class="page result-page">
+  <view class="topbar">
+    <view class="brand-lockup">
+      <anan-companion size="small" intent="encouragement" context="report" animate />
+      <view><view class="eyebrow">岸岸 · 你的备考起点</view><view class="privacy-note">结论来自当前版本，不是永久标签</view></view>
+    </view>
+    <view class="step-number">06 / 06</view>
+  </view>
+  <view class="progress-track"><view class="progress-value"></view></view>
+
+  <view wx:if="{{!state || state.status === 'loading'}}" class="page-state">
+    <view class="result-orbit"><anan-companion size="large" intent="thinking" context="report" animate /></view>
+    <view class="state-title">正在对齐岗位、双科证据与时间版本</view>
+    <view class="state-copy">分差只会在行测和申论都满足正式证据门禁时出现。</view>
+  </view>
+
+  <view wx:elif="{{state.status === 'error'}}" class="page-state">
+    <view class="result-orbit"><anan-companion size="large" intent="rest" context="emotion" /></view>
+    <view class="state-title">备考起点没有生成完成</view>
+    <view class="state-copy">{{state.error.message}}</view>
+    <view wx:if="{{state.error.requestId}}" class="request-id">Request ID · {{state.error.requestId}}</view>
+    <ui-button label="重新生成" bind:action="retry" />
+  </view>
+
+  <block wx:else>
+    <view class="result-intro">
+      <view class="result-eyebrow">{{state.view.eyebrow}}</view>
+      <view class="result-title">{{state.view.title}}</view>
+      <view class="result-copy">{{state.view.description}}</view>
+    </view>
+
+    <view class="hero-card hero-card--{{state.view.status}}">
+      <view class="hero-label">目标岗位基准分差</view>
+      <view class="hero-gap type-data">{{state.view.gapLabel}}</view>
+      <view class="score-line">
+        <view><text>当前总分区间</text><strong class="type-data">{{state.view.currentTotalLabel}}</strong></view>
+        <view class="score-arrow">→</view>
+        <view><text>岗位目标区间</text><strong class="type-data">{{state.view.targetTotalLabel}}</strong></view>
+      </view>
+      <view class="hero-caption">{{state.view.gapCaption}}</view>
+      <view class="goal-label">{{state.view.goalLabel}}</view>
+    </view>
+
+    <view class="dual-track-card">
+      <view class="section-head"><view><view class="section-kicker">共享学习大脑</view><view class="section-title">行测 + 申论必须并行成立</view></view><view class="evidence-pill">{{state.view.evidenceLabel}}</view></view>
+      <view class="track-grid">
+        <view class="track-item track-item--xingce"><view class="track-dot"></view><view><text>行测区间</text><strong class="type-data">{{state.view.xingceLabel}}</strong></view></view>
+        <view class="track-item track-item--essay"><view class="track-dot"></view><view><text>申论区间</text><strong class="type-data">{{state.view.essayLabel}}</strong></view></view>
+      </view>
+      <view class="dual-track-note">单科成绩可以保留为部分证据，但不会被拿去和岗位总分直接相减；单篇申论 AI 训练估分也不会进入这里。</view>
+    </view>
+
+    <view class="budget-card">
+      <view class="budget-item"><text>工作日</text><strong class="type-data">{{state.view.weekdayBudgetLabel}}</strong></view>
+      <view class="budget-item"><text>周末</text><strong class="type-data">{{state.view.weekendBudgetLabel}}</strong></view>
+      <view class="budget-item"><text>5+1+1</text><strong>{{state.view.rhythmLabel}}</strong></view>
+    </view>
+    <view class="validity-line">{{state.view.validityLabel}}</view>
+
+    <view wx:if="{{state.pendingRecovery}}" class="recovery-banner">
+      上一次确认结果未知，页面已锁定原命令；重试只查询同一次确认，不会重复完成建档。
+    </view>
+    <view wx:if="{{state.error}}" class="error-banner">
+      <view>{{state.error.message}}</view>
+      <view wx:if="{{state.error.requestId}}" class="request-id">Request ID · {{state.error.requestId}}</view>
+    </view>
+    <ui-button label="{{state.pendingRecovery ? '查询原确认结果' : state.view.actionLabel}}" loading="{{state.saving}}" bind:action="acknowledge" />
+  </block>
+</view>

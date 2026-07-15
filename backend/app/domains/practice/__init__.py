@@ -1,0 +1,1 @@
+"""Objective-question practice domain."""

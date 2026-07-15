@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "aegis.schema.v0",
+  "affectedLayers": [
+    "ops",
+    "database",
+    "backend"
+  ],
+  "owners": [
+    "server-first knowledge base execution"
+  ],
+  "invariants": [
+    "Runtime API must read product-owned database tables, not local files or old project runtime state"
+  ],
+  "compatBoundary": "No hidden fallback auth/model/user path; no image serving through 2M API host; no staging schema as final runtime owner",
+  "nonGoals": [
+    "Implementing 行测/申论 full learning loop",
+    "Serving image assets from the API server"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "设置学习节奏",
+  "usingComponents": {
+    "anan-companion": "../../../design-system/companion/anan-companion/index",
+    "ui-button": "../../../design-system/primitives/ui-button/index"
+  }
+}

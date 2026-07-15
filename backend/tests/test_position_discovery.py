@@ -1,0 +1,620 @@
+from __future__ import annotations
+
+from collections.abc import Iterator
+from datetime import UTC, datetime, timedelta
+from uuid import uuid4
+
+import pytest
+from fastapi.testclient import TestClient
+from sqlalchemy import text
+from sqlalchemy.orm import Session, sessionmaker
+
+from app.db.session import get_db_session
+from app.domains.ability_estimation.schemas import ReportedScoreEvidenceRequest
+from app.domains.ability_estimation.service import AbilityEstimateService
+from app.domains.auth.repository import token_hash_for_tests
+from app.domains.positions.discovery import (
+    PositionComparisonError,
+    PositionDiscoveryCursorError,
+    PositionDiscoveryService,
+)
+from app.domains.qualification.gaps import QualificationGapService
+from app.domains.qualification.repository import (
+    FactEvidenceInput,
+    FactMutation,
+    QualificationRepository,
+)
+from app.domains.qualification.rule_releases import PositionRuleReleaseService
+from app.main import create_app
+
+
+NOW = datetime(2026, 7, 12, 18, tzinfo=UTC)
+COMPARISON_TOKEN = "position-comparison-route-token"
+
+
+def _seed_discovery_world(
+    factory: sessionmaker[Session],
+) -> tuple[str, dict[str, str]]:
+    user_id = str(uuid4())
+    specs = {
+        "eligible": {
+            "education": "本科及以上",
+            "major": "法学",
+            "remark": None,
+            "service": 2,
+            "headcount": 2,
+            "region": "江西",
+            "city": "赣州市",
+        },
+        "no_conditions": {
+            "education": "不限",
+            "major": "不限",
+            "remark": "无特殊要求",
+            "service": 0,
+            "headcount": 1,
+            "region": "江西",
+            "city": "南昌市",
+        },
+        "pending": {
+            "education": "本科",
+            "major": "法学类",
+            "remark": "须持有法律职业资格证书A证",
+            "service": 0,
+            "headcount": 5,
+            "region": "江西",
+            "city": "赣州市",
+        },
+        "ineligible": {
+            "education": "硕士研究生",
+            "major": "法学",
+            "remark": None,
+            "service": 0,
+            "headcount": 8,
+            "region": "北京",
+            "city": "北京市",
+        },
+    }
+    position_ids: dict[str, str] = {}
+    with factory.begin() as session:
+        session.execute(
+            text("insert into learner.users (user_id, display_name) values (:id, '学习者')"),
+            {"id": user_id},
+        )
+        for index, (key, spec) in enumerate(specs.items()):
+            position_id = str(uuid4())
+            position_ids[key] = position_id
+            session.execute(
+                text(
+                    """
+                    insert into product.positions (
+                      position_id, source_id, year, position_code, name,
+                      department_full, system_code, region, city, paper_type,
+                      headcount, education_min, major_required, political_req,
+                      service_min_yrs, remark
+                    ) values (
+                      :position_id, :source_id, 2026, :position_code, :name,
+                      :department, 'tax', :region, :city, 'administrativeLaw',
+                      :headcount, :education, :major, '不限', :service, :remark
+                    )
+                    """
+                ),
+                {
+                    "position_id": position_id,
+                    "source_id": f"discovery-{key}",
+                    "position_code": f"30011000900{index}",
+                    "name": f"{key}-一级行政执法员",
+                    "department": f"国家税务总局{spec['city']}测试局",
+                    **spec,
+                },
+            )
+        repository = QualificationRepository()
+        repository.replace_facts(
+            session,
+            user_id=user_id,
+            command_id="discovery-profile-v1",
+            mutations=[
+                FactMutation(
+                    key="education",
+                    value="本科",
+                    verification_status="reported",
+                    evidence=(FactEvidenceInput(source_type="learner_report"),),
+                ),
+                FactMutation(
+                    key="grassroots_years",
+                    value=2,
+                    verification_status="reported",
+                    evidence=(FactEvidenceInput(source_type="learner_report"),),
+                ),
+                FactMutation(
+                    key="major",
+                    value="法学",
+                    verification_status="reported",
+                    evidence=(FactEvidenceInput(source_type="learner_report"),),
+                ),
+            ],
+            now=NOW,
+        )
+        release_service = PositionRuleReleaseService()
+        release_id = release_service.ensure_draft(
+            session,
+            exam_code="guokao",
+            exam_year=2026,
+            rule_set_version="guokao-2026-rules-v1",
+            position_data_version="guokao-2026-discovery-v1",
+        )
+        release_service.compile_draft(session, release_id=release_id, compiled_at=NOW)
+        release_service.activate(session, release_id=release_id, activated_at=NOW)
+        _insert_score(session, position_ids["eligible"], 2024, 121.5)
+        _insert_score(session, position_ids["eligible"], 2025, 123.5)
+    return user_id, position_ids
+
+
+def test_discovery_orders_by_eligibility_before_headcount_and_exposes_direct_score(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id, ids = _seed_discovery_world(db_session_factory)
+    with db_session_factory() as session:
+        result = PositionDiscoveryService().search(
+            session,
+            user_id=user_id,
+            exam_year=None,
+            region=None,
+            city=None,
+            query=None,
+            limit=10,
+            cursor=None,
+        )
+
+    assert [item.position_id for item in result.items] == [
+        ids["eligible"],
+        ids["no_conditions"],
+        ids["pending"],
+        ids["ineligible"],
+    ]
+    assert [item.eligibility_status for item in result.items] == [
+        "eligible",
+        "eligible",
+        "needs_confirmation",
+        "ineligible",
+    ]
+    eligible = result.items[0]
+    assert eligible.met_count == 3
+    assert eligible.target_score is not None
+    assert eligible.target_score.recommended == 124.48
+    assert eligible.target_score.evidence_level == "direct"
+    assert "conditions_need_confirmation" in result.items[2].reason_codes
+    assert "hard_condition_not_met" in result.items[3].reason_codes
+
+
+def test_discovery_cursor_is_lossless_and_bound_to_profile_and_filters(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id, ids = _seed_discovery_world(db_session_factory)
+    service = PositionDiscoveryService()
+    with db_session_factory() as session:
+        first = service.search(
+            session,
+            user_id=user_id,
+            exam_year=2026,
+            region=None,
+            city=None,
+            query=None,
+            limit=2,
+            cursor=None,
+        )
+        second = service.search(
+            session,
+            user_id=user_id,
+            exam_year=2026,
+            region=None,
+            city=None,
+            query=None,
+            limit=2,
+            cursor=first.next_cursor,
+        )
+    assert first.has_more is True
+    assert second.has_more is False
+    assert {item.position_id for item in first.items + second.items} == set(ids.values())
+
+    with db_session_factory.begin() as session:
+        QualificationRepository().replace_facts(
+            session,
+            user_id=user_id,
+            command_id="discovery-profile-v2",
+            mutations=[
+                FactMutation(
+                    key="political_status",
+                    value="群众",
+                    verification_status="reported",
+                    evidence=(FactEvidenceInput(source_type="learner_report"),),
+                )
+            ],
+            now=NOW,
+        )
+    with pytest.raises(PositionDiscoveryCursorError):
+        with db_session_factory() as session:
+            service.search(
+                session,
+                user_id=user_id,
+                exam_year=2026,
+                region=None,
+                city=None,
+                query=None,
+                limit=2,
+                cursor=first.next_cursor,
+            )
+
+
+def test_discovery_applies_region_city_and_text_filters_before_evaluation(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id, ids = _seed_discovery_world(db_session_factory)
+    with db_session_factory() as session:
+        result = PositionDiscoveryService().search(
+            session,
+            user_id=user_id,
+            exam_year=2026,
+            region="江西",
+            city="赣州市",
+            query="pending",
+            limit=20,
+            cursor=None,
+        )
+    assert [item.position_id for item in result.items] == [ids["pending"]]
+
+
+def test_comparison_preserves_selection_order_and_returns_deterministic_highlights(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id, ids = _seed_discovery_world(db_session_factory)
+    selected = [ids["pending"], ids["eligible"], ids["ineligible"]]
+    with db_session_factory() as session:
+        result = PositionDiscoveryService().compare(
+            session,
+            user_id=user_id,
+            position_ids=selected,
+        )
+
+    assert [item.position_id for item in result.items] == selected
+    assert result.learner_profile_version == 2
+    assert result.rule_set_version == "guokao-2026-rules-v1"
+    assert result.position_data_version == "guokao-2026-discovery-v1"
+    assert result.items[0].paper_type == "administrativeLaw"
+    assert result.highlights.confirmed_eligible_position_ids == [ids["eligible"]]
+    assert result.highlights.largest_headcount_position_ids == [ids["ineligible"]]
+    assert result.highlights.lowest_target_score_position_ids == [ids["eligible"]]
+
+
+def test_comparison_rejects_positions_outside_the_active_release(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id, ids = _seed_discovery_world(db_session_factory)
+    with pytest.raises(PositionComparisonError, match="active guokao release"):
+        with db_session_factory() as session:
+            PositionDiscoveryService().compare(
+                session,
+                user_id=user_id,
+                position_ids=[ids["eligible"], str(uuid4())],
+            )
+
+
+def test_comparison_binds_facts_to_the_reported_profile_version(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id, ids = _seed_discovery_world(db_session_factory)
+
+    class ConcurrentProfileMutation(QualificationRepository):
+        def get_profile_version(self, session: Session, *, user_id: str) -> int:
+            profile_version = super().get_profile_version(session, user_id=user_id)
+            self.replace_facts(
+                session,
+                user_id=user_id,
+                command_id="concurrent-profile-change",
+                mutations=[
+                    FactMutation(
+                        key="education",
+                        value="硕士研究生",
+                        verification_status="reported",
+                        evidence=(FactEvidenceInput(source_type="learner_report"),),
+                    )
+                ],
+                now=NOW + timedelta(minutes=1),
+            )
+            return profile_version
+
+    with db_session_factory() as session:
+        result = PositionDiscoveryService(ConcurrentProfileMutation()).compare(
+            session,
+            user_id=user_id,
+            position_ids=[ids["ineligible"], ids["eligible"]],
+        )
+
+    assert result.learner_profile_version == 2
+    assert result.items[0].eligibility_status == "ineligible"
+    assert result.items[1].eligibility_status == "eligible"
+
+
+def test_qualification_gaps_only_reports_unresolved_inputs_that_affect_positions(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id, ids = _seed_discovery_world(db_session_factory)
+
+    with db_session_factory() as session:
+        summary = QualificationGapService().summarize(session, user_id=user_id)
+
+    assert summary.learner_profile_version == 2
+    assert summary.rule_set_version == "guokao-2026-rules-v1"
+    assert summary.position_data_version == "guokao-2026-discovery-v1"
+    assert summary.total_affected_positions == 1
+    assert summary.complete is False
+    assert {gap.fact_key for gap in summary.gaps} == {"major", "other_conditions"}
+    for gap in summary.gaps:
+        assert gap.gap_type == "position_confirmation"
+        assert gap.action == "review_position_requirement"
+        assert gap.affected_position_count == 1
+        assert gap.sample_position_ids == [ids["pending"]]
+        assert gap.sample_position_codes == ["300110009002"]
+
+
+def test_qualification_gaps_are_user_isolated_and_report_missing_facts(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _seed_discovery_world(db_session_factory)
+    user_id = str(uuid4())
+    with db_session_factory.begin() as session:
+        session.execute(
+            text("insert into learner.users (user_id, display_name) values (:id, '新学习者')"),
+            {"id": user_id},
+        )
+        session.execute(
+            text("insert into learner.profiles (user_id, profile_version) values (:id, 1)"),
+            {"id": user_id},
+        )
+
+    with db_session_factory() as session:
+        summary = QualificationGapService().summarize(session, user_id=user_id)
+
+    gaps = {(gap.fact_key, gap.gap_type): gap for gap in summary.gaps}
+    assert gaps[("education", "missing_fact")].affected_position_count == 3
+    assert gaps[("major", "missing_fact")].affected_position_count == 2
+    assert gaps[("grassroots_years", "missing_fact")].affected_position_count == 1
+    assert gaps[("major", "position_confirmation")].affected_position_count == 1
+    assert gaps[("other_conditions", "position_confirmation")].affected_position_count == 1
+    assert summary.total_affected_positions == 3
+
+
+def test_comparison_route_uses_authenticated_profile_and_returns_no_winner(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id, ids = _seed_discovery_world(db_session_factory)
+    _seed_session(db_session_factory, user_id=user_id, token=COMPARISON_TOKEN)
+    selected = [ids["pending"], ids["eligible"]]
+
+    response = _client(db_session_factory).post(
+        "/api/v2/positions/compare",
+        headers={"Authorization": f"Bearer {COMPARISON_TOKEN}"},
+        json={"positionIds": selected},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["requestId"]
+    assert [item["positionId"] for item in body["data"]["items"]] == selected
+    assert body["data"]["learnerProfileVersion"] == 2
+    assert body["data"]["ruleSetVersion"] == "guokao-2026-rules-v1"
+    assert "winnerPositionId" not in body["data"]
+    assert "recommendedPositionId" not in body["data"]
+
+    gaps = _client(db_session_factory).get(
+        "/api/v2/qualification/gaps",
+        headers={"Authorization": f"Bearer {COMPARISON_TOKEN}"},
+    )
+    assert gaps.status_code == 200
+    assert gaps.json()["data"]["learnerProfileVersion"] == 2
+    assert gaps.json()["data"]["gaps"][0]["samplePositionIds"] == [ids["pending"]]
+
+
+def test_workspace_and_fit_routes_bind_active_versions_ability_and_hard_requirements(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id, ids = _seed_discovery_world(db_session_factory)
+    _seed_session(db_session_factory, user_id=user_id, token=COMPARISON_TOKEN)
+    with db_session_factory.begin() as session:
+        session.execute(
+            text(
+                "update product.positions set has_extra_exam = true "
+                "where position_id = cast(:position_id as uuid)"
+            ),
+            {"position_id": ids["eligible"]},
+        )
+
+    client = _client(db_session_factory)
+    unavailable = client.get(
+        "/api/v2/positions/workspace",
+        headers={"Authorization": f"Bearer {COMPARISON_TOKEN}"},
+    )
+    assert unavailable.status_code == 200
+    unavailable_data = unavailable.json()["data"]
+    assert unavailable_data["examYear"] == 2026
+    assert unavailable_data["abilityEstimate"]["readiness"] == "unavailable"
+    unavailable_eligible = next(
+        item
+        for item in unavailable_data["items"]
+        if item["positionId"] == ids["eligible"]
+    )
+    assert unavailable_eligible["fit"]["status"] == "evidence_unavailable"
+    assert unavailable_eligible["fit"]["evidenceStatus"] == "unavailable"
+    assert unavailable_eligible["fit"]["band"] is None
+    assert unavailable_eligible["fit"]["scoreGap"] is None
+    assert unavailable_eligible["fit"]["evidenceReasonCodes"] == [
+        "ability_estimate_unavailable"
+    ]
+
+    pending = next(
+        item
+        for item in unavailable_data["items"]
+        if item["positionId"] == ids["pending"]
+    )
+    pending_burden = pending["fit"]["requirementsBurden"]
+    assert pending_burden["pendingRequirementCount"] > 0
+    assert pending_burden["pendingRequirementCount"] == len(
+        pending_burden["pendingRequirementIds"]
+    )
+    assert pending_burden["hardConditionNotMetCount"] == len(
+        pending_burden["hardConditionNotMetRequirementIds"]
+    )
+    assert "studyHours" not in pending_burden
+
+    with db_session_factory.begin() as session:
+        AbilityEstimateService().record_reported_score(
+            session,
+            user_id=user_id,
+            command_id="position-workspace-complete-ability",
+            report=ReportedScoreEvidenceRequest(
+                reported_context="full_mock",
+                xingce_score=65,
+                shenlun_score=55,
+                timed_status="timed",
+                occurred_at=NOW + timedelta(hours=1),
+            ),
+            now=NOW + timedelta(hours=2),
+        )
+
+    ready = client.get(
+        "/api/v2/positions/workspace",
+        headers={"Authorization": f"Bearer {COMPARISON_TOKEN}"},
+    )
+    assert ready.status_code == 200
+    ready_data = ready.json()["data"]
+    assert ready_data["abilityEstimate"]["readiness"] == "complete"
+    ready_eligible = next(
+        item for item in ready_data["items"] if item["positionId"] == ids["eligible"]
+    )
+    fit = ready_eligible["fit"]
+    assert fit["status"] == "overlap"
+    assert fit["evidenceStatus"] == "ready"
+    assert fit["band"] == "overlap"
+    assert fit["evidenceReasonCodes"] == []
+    assert fit["scoreGap"]["unit"] == "points"
+    assert fit["scoreGap"]["direction"] == "positive_means_target_above_current"
+    assert fit["scoreGap"]["lower"] == round(
+        ready_eligible["targetScore"]["lowerBound"]
+        - ready_data["abilityEstimate"]["estimate"]["total"]["upper"],
+        2,
+    )
+    assert fit["scoreGap"]["recommended"] == round(
+        ready_eligible["targetScore"]["recommended"]
+        - ready_data["abilityEstimate"]["estimate"]["total"]["recommended"],
+        2,
+    )
+    assert fit["scoreGap"]["upper"] == round(
+        ready_eligible["targetScore"]["upperBound"]
+        - ready_data["abilityEstimate"]["estimate"]["total"]["lower"],
+        2,
+    )
+    assert fit["requirementsBurden"]["additionalExamRequired"] is True
+
+    fit_response = client.get(
+        f"/api/v2/positions/{ids['eligible']}/fit",
+        headers={"Authorization": f"Bearer {COMPARISON_TOKEN}"},
+    )
+    assert fit_response.status_code == 200
+    assert fit_response.json()["data"]["fit"] == fit
+    assert fit_response.json()["data"]["position"]["positionId"] == ids["eligible"]
+
+    detail = client.get(
+        f"/api/v2/positions/{ids['eligible']}",
+        headers={"Authorization": f"Bearer {COMPARISON_TOKEN}"},
+    )
+    assert detail.status_code == 200
+    assert detail.json()["data"]["fit"] == fit
+
+
+def test_workspace_and_fit_reject_expired_target_basis_with_stable_error(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id, ids = _seed_discovery_world(db_session_factory)
+    _seed_session(db_session_factory, user_id=user_id, token=COMPARISON_TOKEN)
+    with db_session_factory.begin() as session:
+        session.execute(
+            text(
+                "update product.position_rule_releases "
+                "set activated_at = :expired_at where status = 'active'"
+            ),
+            {"expired_at": datetime.now(UTC) - timedelta(days=366)},
+        )
+
+    client = _client(db_session_factory)
+    workspace = client.get(
+        "/api/v2/positions/workspace",
+        headers={"Authorization": f"Bearer {COMPARISON_TOKEN}"},
+    )
+    fit = client.get(
+        f"/api/v2/positions/{ids['eligible']}/fit",
+        headers={"Authorization": f"Bearer {COMPARISON_TOKEN}"},
+    )
+
+    assert workspace.status_code == 409
+    assert workspace.json()["code"] == "target_score_basis_expired"
+    assert fit.status_code == 409
+    assert fit.json()["code"] == "target_score_basis_expired"
+
+
+def _client(factory: sessionmaker[Session]) -> TestClient:
+    app = create_app()
+
+    def override() -> Iterator[Session]:
+        with factory() as session:
+            yield session
+
+    app.dependency_overrides[get_db_session] = override
+    return TestClient(app)
+
+
+def _seed_session(factory: sessionmaker[Session], *, user_id: str, token: str) -> None:
+    with factory.begin() as session:
+        session.execute(
+            text(
+                """
+                insert into learner.app_sessions (
+                  session_id, user_id, session_token_hash, device_id, expires_at
+                ) values (
+                  :session_id, :user_id, :token_hash, 'wechat-comparison-test', :expires_at
+                )
+                """
+            ),
+            {
+                "session_id": str(uuid4()),
+                "user_id": user_id,
+                "token_hash": token_hash_for_tests(token),
+                "expires_at": datetime.now(UTC) + timedelta(days=1),
+            },
+        )
+
+
+def _insert_score(session: Session, position_id: str, year: int, score: float) -> None:
+    evidence_id = session.execute(
+        text(
+            """
+            insert into product.position_entry_score_evidence (
+              year, department_code, position_code, agency, bureau,
+              position_title, entry_score_min, source_name,
+              source_file_sha256, candidate_count
+            ) values (
+              :year, '360000', '300110009000', '国家税务总局测试局',
+              '机关处室', '一级行政执法员', :score, 'fixture', :sha, 5
+            ) returning evidence_id
+            """
+        ),
+        {"year": year, "score": score, "sha": f"{year:064d}"[-64:]},
+    ).scalar_one()
+    session.execute(
+        text(
+            """
+            insert into product.position_entry_score_links (
+              position_id, evidence_id, match_method, confidence
+            ) values (:position_id, :evidence_id, 'fixture', 'high')
+            """
+        ),
+        {"position_id": position_id, "evidence_id": evidence_id},
+    )

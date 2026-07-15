@@ -1,0 +1,162 @@
+<task-shell
+  title="{{view ? view.title : '真实行测训练'}}"
+  modeLabel="{{view ? view.modeLabel : '行测 Agent'}}"
+  current="{{view ? view.current : 1}}"
+  total="{{view ? view.total : 1}}"
+  elapsedLabel="{{view ? view.elapsedLabel : '00:00'}}"
+  syncLabel="{{view ? view.syncLabel : '连接服务端'}}"
+  materialAvailable="{{view && view.materialAvailable}}"
+  answerSheetAvailable="{{status === 'ready' && sessionState === 'answering'}}"
+  toolsAvailable="{{false}}"
+  footerAvailable="{{status === 'ready' && sessionState === 'answering'}}"
+  bindexit="exit"
+  bindmaterial="toggleMaterial"
+  bindanswersheet="toggleAnswerSheet"
+>
+  <view wx:if="{{status === 'loading'}}" class="page-state">
+    <state-view state="loading" title="正在恢复真实作答" description="题组与断点均以服务端版本为准。" />
+  </view>
+
+  <view wx:elif="{{status === 'error'}}" class="page-state">
+    <state-view state="error" title="{{errorTitle}}" description="{{errorMessage}}" actionText="重试" bindaction="retry" />
+  </view>
+
+  <view wx:elif="{{status === 'unavailable'}}" class="capability-state card">
+    <view class="capability-mark">真实学习证据门禁</view>
+    <view class="capability-title">{{errorTitle}}</view>
+    <view class="capability-copy">{{errorMessage}}</view>
+    <button wx:if="{{showLoginAction}}" class="secondary-button capability-action" bindtap="goLogin">重新登录</button>
+  </view>
+
+  <block wx:elif="{{status === 'ready' && view}}">
+    <view wx:if="{{errorMessage}}" class="inline-warning">{{errorMessage}}</view>
+    <view wx:if="{{hasPendingCheckpoint}}" class="pending-checkpoint card">
+      <view class="pending-checkpoint-title">上次断点保存结果未知</view>
+      <view class="pending-checkpoint-copy">{{pendingCheckpointMessage}}</view>
+      <button class="secondary-button" bindtap="retryPendingCheckpoint">按原命令重试</button>
+    </view>
+
+    <block wx:if="{{sessionState === 'answering'}}">
+      <view wx:if="{{materialOpen && view.question.material}}" class="material-panel">
+        <view class="material-head">
+          <view>
+            <view class="material-eyebrow">给定材料</view>
+            <view class="material-title">{{view.question.material.title || '本题材料'}}</view>
+          </view>
+          <button class="text-action" bindtap="toggleMaterial">收起</button>
+        </view>
+        <rich-text wx:if="{{view.question.material.html}}" class="material-text material-rich" nodes="{{view.question.material.html}}"></rich-text>
+        <view wx:elif="{{view.question.material.text}}" class="material-text">{{view.question.material.text}}</view>
+        <view wx:for="{{view.question.material.assets}}" wx:key="assetId" class="material-asset">
+          <image src="{{item.url}}" mode="widthFix" aria-label="{{item.altText}}" />
+          <view class="asset-caption">{{item.altText}}</view>
+        </view>
+      </view>
+
+      <view class="question-hero">
+        <view class="question-meta-row">
+          <view class="module-pill">{{view.question.moduleName}}</view>
+          <view class="position-label">{{view.question.positionLabel}}</view>
+        </view>
+        <rich-text wx:if="{{view.question.stemHtml}}" class="question-stem question-rich" nodes="{{view.question.stemHtml}}"></rich-text>
+        <view wx:else class="question-stem">{{view.question.stem}}</view>
+      </view>
+
+      <view class="option-list {{interactionLocked ? 'option-list--locked' : ''}}">
+        <view
+          wx:for="{{view.question.options}}"
+          wx:key="optionId"
+          class="option-card {{item.selected ? 'option-card--selected' : ''}} {{item.eliminated ? 'option-card--eliminated' : ''}}"
+          data-optionid="{{item.optionId}}"
+          bindtap="selectOption"
+        >
+          <view class="option-label">{{item.label}}</view>
+          <rich-text wx:if="{{item.html}}" class="option-copy option-rich" nodes="{{item.html}}"></rich-text>
+          <view wx:else class="option-copy">{{item.text}}</view>
+          <button class="eliminate-action" data-optionid="{{item.optionId}}" catchtap="toggleEliminated">{{item.eliminated ? '撤销排除' : '排除'}}</button>
+        </view>
+      </view>
+
+      <view class="thinking-card card">
+        <view class="thinking-head">
+          <view>
+            <view class="thinking-title">保留你的判断过程</view>
+            <view class="thinking-copy">草稿不会用于评分，但会和断点一起保存。</view>
+          </view>
+          <button class="mark-action {{view.question.marked ? 'mark-action--active' : ''}}" bindtap="toggleMarked">{{view.question.marked ? '已标记' : '标记题目'}}</button>
+        </view>
+        <textarea class="draft-input" value="{{view.question.draftText}}" maxlength="4000" placeholder="写下公式、排除理由或仍不确定的点……" bindinput="inputDraft"></textarea>
+        <view class="confidence-row">
+          <view class="confidence-label">作答信心</view>
+          <button
+            wx:for="{{confidenceOptions}}"
+            wx:key="value"
+            class="confidence-chip {{view.question.confidence === item.value ? 'confidence-chip--active' : ''}}"
+            data-confidence="{{item.value}}"
+            bindtap="selectConfidence"
+          >{{item.label}}</button>
+        </view>
+      </view>
+
+      <view class="question-actions">
+        <button class="secondary-button" disabled="{{view.current === 1 || interactionLocked}}" bindtap="previousQuestion">上一题</button>
+        <button class="skip-button" disabled="{{interactionLocked}}" bindtap="skipQuestion">{{view.question.skipped ? '已明确跳过' : '这题先放弃'}}</button>
+        <button class="secondary-button" disabled="{{view.current === view.total || interactionLocked}}" bindtap="nextQuestion">下一题</button>
+      </view>
+
+      <view wx:if="{{answerSheetOpen}}" class="answer-sheet-mask" catchtap="toggleAnswerSheet">
+        <view class="answer-sheet" catchtap="noop">
+          <view class="sheet-handle"></view>
+          <view class="sheet-head">
+            <view>
+              <view class="sheet-title">答题卡</view>
+              <view class="sheet-copy">{{view.answeredCount}} 已答 · {{view.skippedCount}} 跳过 · {{view.unansweredCount}} 未处理</view>
+            </view>
+            <button class="text-action" bindtap="toggleAnswerSheet">关闭</button>
+          </view>
+          <view class="sheet-grid">
+            <button
+              wx:for="{{answerSheetItems}}"
+              wx:key="index"
+              class="sheet-item sheet-item--{{item.state}} {{item.active ? 'sheet-item--active' : ''}}"
+              data-index="{{item.index}}"
+              bindtap="selectQuestion"
+            >{{item.label}}</button>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <view wx:else class="result-workspace">
+      <view class="result-hero">
+        <view class="result-eyebrow">服务端已按固定题面评分</view>
+        <view class="result-score"><text>{{result.correctCount}}</text> / {{result.totalCount}}</view>
+        <view class="result-title">{{result.headline}}</view>
+        <view class="result-copy">{{result.summary}}</view>
+      </view>
+      <view wx:for="{{result.items}}" wx:key="questionId" class="result-card card">
+        <view class="result-card-head">
+          <view class="result-status result-status--{{item.resultTone}}">{{item.resultLabel}}</view>
+          <view class="result-answer">你的答案 {{item.selectedLabel}} · 正确答案 {{item.correctLabel}}</view>
+        </view>
+        <view class="explanation">{{item.explanation}}</view>
+        <view class="explanation-source">{{item.explanationSource}}</view>
+      </view>
+      <view wx:if="{{sessionState !== 'completed'}}" class="reflection-gate card">
+        <view class="gate-mark">必做复盘</view>
+        <view class="gate-title">先写下你当时真实的想法</view>
+        <view class="gate-copy">AI 错因当前明确不可用，也不会收费。错因由你选择替换或跳过。</view>
+        <button class="primary-button" bindtap="openReflection">开始复盘</button>
+      </view>
+      <view wx:else class="completion-card card">
+        <view class="completion-mark">学习证据已结算</view>
+        <view class="completion-title">今日计划已经按本次真实结果重排</view>
+        <button class="primary-button" bindtap="returnToday">返回今日计划</button>
+      </view>
+    </view>
+  </block>
+
+  <view slot="footer" class="task-footer-actions" wx:if="{{status === 'ready' && sessionState === 'answering'}}">
+    <button class="primary-button submit-button" disabled="{{!canSubmit || interactionLocked}}" bindtap="submitAttempt">{{canSubmit ? '交卷并查看结果' : '还有题目未处理'}}</button>
+  </view>
+</task-shell>

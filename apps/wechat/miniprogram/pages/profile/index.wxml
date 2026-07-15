@@ -1,0 +1,76 @@
+<view class="page profile-page">
+  <view class="eyebrow">学习档案</view>
+  <view class="page-title">你的数据，只属于这个账户</view>
+  <view class="page-subtitle">资格、岗位和后续学习证据都绑定到服务端账户，更换设备不会丢失。</view>
+
+  <state-view wx:if="{{status === 'loading'}}" state="loading" />
+  <state-view
+    wx:elif="{{status === 'error'}}"
+    state="error"
+    title="账户档案没有加载成功"
+    description="{{errorMessage}}"
+    request-id="{{requestId}}"
+    action-text="重新加载"
+    bind:action="retry"
+  />
+
+  <block wx:else>
+    <view class="identity-card">
+      <view class="identity-head">
+        <view>
+          <view class="identity-kicker">内部学习账户</view>
+          <view class="identity-id">{{accountIdLabel}}</view>
+        </view>
+        <view class="status-pill"><text class="status-dot"></text>{{accountStatusLabel}}</view>
+      </view>
+      <view class="identity-grid">
+        <view><view class="metric-label">微信身份</view><view class="metric-value">{{wechatLinkedLabel}}</view></view>
+        <view><view class="metric-label">档案版本</view><view class="metric-value">v<text class="type-data">{{profileVersion}}</text></view></view>
+        <view><view class="metric-label">建立日期</view><view class="metric-value type-data">{{establishedLabel}}</view></view>
+      </view>
+    </view>
+
+    <view class="brain-card card">
+      <view class="brain-mark"></view>
+      <view>
+        <view class="brain-title">学习大脑正在建立证据</view>
+        <view class="brain-copy">当前已保存资格档案。能力、错因和计划将在真实作答闭环上线后按证据生成，这里不展示模拟数据。</view>
+      </view>
+    </view>
+
+    <view class="section-heading">
+      <view class="section-title">登录设备</view>
+      <view class="section-meta">{{sessions.length}} 个有效会话</view>
+    </view>
+    <view class="session-list card">
+      <view wx:for="{{sessions}}" wx:key="sessionId" class="session-row">
+        <view class="device-icon"><view class="device-screen"></view></view>
+        <view class="session-main">
+          <view class="session-title-row">
+            <view class="session-title">{{item.deviceLabel}}</view>
+            <view wx:if="{{item.isCurrent}}" class="current-tag">当前</view>
+          </view>
+          <view class="session-meta">{{item.lastSeenLabel}}</view>
+        </view>
+        <view
+          wx:if="{{!item.isCurrent}}"
+          class="session-action"
+          data-session-id="{{item.sessionId}}"
+          bindtap="revokeSession"
+        >{{revokingSessionId === item.sessionId ? '处理中…' : '退出'}}</view>
+      </view>
+    </view>
+
+    <view wx:if="{{errorMessage}}" class="operation-error">{{errorMessage}}</view>
+
+    <view class="section-heading">
+      <view class="section-title">账户安全</view>
+      <view class="section-meta">会话操作可审计</view>
+    </view>
+    <view class="security-actions">
+      <ui-button label="退出当前设备" variant="secondary" loading="{{loggingOut}}" bind:action="requestLogout" />
+      <ui-button label="退出全部设备" variant="text" loading="{{loggingOutAll}}" bind:action="requestLogoutAll" />
+    </view>
+    <view class="security-note">退出不会删除档案。完整的数据导出和账户删除将按隐私状态机提供，不使用本地清缓存冒充删除。</view>
+  </block>
+</view>

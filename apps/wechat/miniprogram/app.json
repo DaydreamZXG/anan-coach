@@ -1,0 +1,72 @@
+{
+  "pages": [
+    "pages/login/index",
+    "pages/today/index",
+    "pages/positions/index",
+    "pages/positions/search/index",
+    "pages/positions/detail/index",
+    "pages/positions/compare/index",
+    "pages/positions/goal/index",
+    "pages/positions/briefing/index",
+    "pages/profile/index",
+    "pages/onboarding/index",
+    "pages/onboarding/study-preference/index",
+    "pages/onboarding/result/index",
+    "pages/diagnostic/index",
+    "pages/practice/index",
+    "pages/reflection/index",
+    "pages/essay-task/index"
+  ],
+  "subPackages": [
+    {
+      "root": "packages/anan-thinking",
+      "name": "anan-thinking",
+      "pages": ["asset-entry/index"]
+    },
+    {
+      "root": "packages/anan-reminder",
+      "name": "anan-reminder",
+      "pages": ["asset-entry/index"]
+    },
+    {
+      "root": "packages/anan-encouragement",
+      "name": "anan-encouragement",
+      "pages": ["asset-entry/index"]
+    },
+    {
+      "root": "packages/anan-rest",
+      "name": "anan-rest",
+      "pages": ["asset-entry/index"]
+    },
+    {
+      "root": "packages/anan-deprioritize",
+      "name": "anan-deprioritize",
+      "pages": ["asset-entry/index"]
+    },
+    {
+      "root": "packages/anan-growth",
+      "name": "anan-growth",
+      "pages": ["asset-entry/index"]
+    }
+  ],
+  "window": {
+    "navigationBarTitleText": "上岸教练",
+    "navigationBarBackgroundColor": "#F7F8FC",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F7F8FC",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#667085",
+    "selectedColor": "#3156D3",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/today/index", "text": "今日" },
+      { "pagePath": "pages/positions/index", "text": "岗位" },
+      { "pagePath": "pages/profile/index", "text": "档案" }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

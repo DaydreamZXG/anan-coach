@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "aegis.schema.v0",
+  "taskId": "2026-07-03-onboarding-execution-near5-tag-weights",
+  "taskIntentRef": "docs/aegis/work/2026-07-03-onboarding-execution-near5-tag-weights/task-intent-draft.json",
+  "baselineRefs": [
+    "docs/aegis/specs/2026-07-03-onboarding-and-execution-fixes-spec.md#8",
+    "docs/aegis/specs/2026-07-03-onboarding-and-execution-fixes-spec.md#8.5",
+    "docs/aegis/specs/2026-07-03-method-cards-and-guokao-focus-spec.md#2.2"
+  ],
+  "scopeStatus": "within-section-8-and-8.5-product-weighting-and-knowledge-map-scope",
+  "compatStatus": "backend-contract-preserved-with-503-on-missing-derived-data",
+  "retirementStatus": "old-hardcoded-practice-selector-retired-from-backend-app-and-practice-selection-now-uses-knowledge-map-owner",
+  "newRiskSignals": [],
+  "decision": "continue"
+}

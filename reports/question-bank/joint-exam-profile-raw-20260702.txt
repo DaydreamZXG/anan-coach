@@ -1,0 +1,69 @@
+DROP TABLE
+SELECT 28127
+DROP TABLE
+SELECT 5677
+DROP TABLE
+SELECT 5677
+JOINT_OCCURRENCES|28127
+JOINT_DISTINCT_QUESTIONS|5677
+JOINT_PAPERS|143
+JOINT_PROVINCES|28
+JOINT_MULTI_PROVINCE_QUESTIONS|3147
+JOINT_MULTI_OCCURRENCE_QUESTIONS|3273
+JOINT_OCCURRENCE_COMPRESSION|occurrences|28127|questions|5677|occurrence_extra|22450
+JOINT_MULTI_PROVINCE_COMPRESSION|occurrences|25470|questions|3147|occurrence_extra|22323
+JOINT_RISK_BUCKET|plain_text|3783
+JOINT_RISK_BUCKET|material|1113
+JOINT_RISK_BUCKET|visual_or_multimodal|397
+JOINT_RISK_BUCKET|graphic|384
+JOINT_BY_KEY|2016年423联考|occurrences|3245|questions|304|papers|26|provinces|24
+JOINT_BY_KEY|2017年422联考|occurrences|3105|questions|1174|papers|26|provinces|24
+JOINT_BY_KEY|2019年420联考|occurrences|3035|questions|954|papers|26|provinces|22
+JOINT_BY_KEY|2013年413联考|occurrences|2772|questions|194|papers|1|provinces|18
+JOINT_BY_KEY|2018年421联考|occurrences|2725|questions|1089|papers|23|provinces|22
+JOINT_BY_KEY|2012年421联考|occurrences|2040|questions|163|papers|1|provinces|17
+JOINT_BY_KEY|2011年424联考|occurrences|2040|questions|149|papers|1|provinces|17
+JOINT_BY_KEY|2015年425联考|occurrences|1955|questions|305|papers|16|provinces|15
+JOINT_BY_KEY|2014年412联考|occurrences|1830|questions|227|papers|14|provinces|15
+JOINT_BY_KEY|2010年918联考|occurrences|1440|questions|132|papers|1|provinces|12
+JOINT_BY_KEY|2010年425联考|occurrences|1320|questions|126|papers|1|provinces|11
+JOINT_BY_KEY|2011年917联考|occurrences|720|questions|131|papers|1|provinces|6
+JOINT_BY_KEY|2012年915联考|occurrences|600|questions|142|papers|1|provinces|5
+JOINT_BY_KEY|2009年913联考|occurrences|480|questions|123|papers|1|provinces|4
+JOINT_BY_KEY|2009年426联考|occurrences|360|questions|121|papers|1|provinces|3
+JOINT_BY_KEY|2013年921联考|occurrences|240|questions|124|papers|1|provinces|2
+JOINT_BY_KEY|2016年9月政法干警联考|occurrences|110|questions|110|papers|1|provinces|1
+JOINT_BY_KEY|2015年9月政法干警联考|occurrences|110|questions|110|papers|1|provinces|1
+JOINT_REMAINING_CANDIDATE_DUP|auto_merge_plain_exact|plain_text_signature|groups|161|members|322|extra|161
+JOINT_REMAINING_CANDIDATE_DUP|review_visual_cluster|visual_html_signature|groups|2|members|8|extra|6
+JOINT_REMAINING_CANDIDATE_DUP|review_taxonomy_conflict|plain_text_signature|groups|2|members|4|extra|2
+JOINT_TOP_QUESTIONS|26|provinces|24|papers|25|years|2016-2016|常识判断|科技常识|洲际导弹通常指射程大于8000公里的远程弹道式导弹。目前，中国研制的洲际弹道导弹主要是什么系列的？
+JOINT_TOP_QUESTIONS|26|provinces|23|papers|25|years|2016-2016|判断推理|定义判断|不规则需求是指某些物品或者服务的市场需求在不同季节，或一周不同日子，甚至一天不同时间上下波动�
+JOINT_TOP_QUESTIONS|26|provinces|23|papers|25|years|2016-2016|判断推理|知识点|沟通：手机：金属
+JOINT_TOP_QUESTIONS|26|provinces|23|papers|25|years|2016-2016|常识判断|科技常识|关于疫苗，下列说法错误的是：
+JOINT_TOP_QUESTIONS|26|provinces|23|papers|25|years|2016-2016|常识判断|科技常识|下列哪组气体对环境的负面影响最大？
+JOINT_TOP_QUESTIONS|25|provinces|23|papers|24|years|2016-2016|常识判断|人文常识|关于古代思想家，下列对应错误的是：
+JOINT_TOP_QUESTIONS|25|provinces|23|papers|24|years|2016-2016|常识判断|法律常识|下列不属于夫妻共同财产的是：
+JOINT_TOP_QUESTIONS|25|provinces|22|papers|24|years|2016-2016|判断推理|类比推理|出行：雾霾：口罩
+JOINT_TOP_QUESTIONS|25|provinces|22|papers|24|years|2016-2016|判断推理|知识点|“气候难民”指的是生存因气候变暖等特殊气候因素而受到威胁的人们，这是一个逐渐扩大的族群。某基�
+JOINT_TOP_QUESTIONS|25|provinces|22|papers|24|years|2016-2016|判断推理|逻辑判断|某市为了实施文化强市战略，在2008年、2010年先后建成了两个图书馆，2008年底共办理市民借书证7万余个，�
+JOINT_TOP_QUESTIONS|25|provinces|22|papers|24|years|2016-2016|判断推理|逻辑判断|近日，火星车在加勒陨坑拍摄的图像发现，火星陨坑内的远古土壤存在着类似地球土壤裂纹剖面的土壤样�
+JOINT_TOP_QUESTIONS|25|provinces|22|papers|24|years|2016-2016|常识判断|科技常识|在生活中，下列哪一做法或现象与热胀冷缩无关：
+JOINT_TOP_QUESTIONS|24|provinces|22|papers|23|years|2016-2016|资料分析|倍数与比值相关|2015年1-3月，在销售费用、管理费用和财务费用中，占国有企业营业总成本的比重同比上升的有几项？
+JOINT_TOP_QUESTIONS|24|provinces|22|papers|23|years|2016-2016|判断推理|逻辑判断|人们在社会生活中常会面临选择，要么选择风险小，报酬低的机会；要么选择风险大，报酬高的机会。究�
+JOINT_TOP_QUESTIONS|24|provinces|22|papers|23|years|2016-2016|资料分析|倍数与比值相关|能够从上述资料中推出的是：
+JOINT_TOP_QUESTIONS|24|provinces|22|papers|23|years|2016-2016|资料分析|倍数与比值相关|2015年3月末，中央企业的资产负债率（负债总额÷资产总额）约在以下哪个范围内？
+JOINT_TOP_QUESTIONS|24|provinces|22|papers|23|years|2016-2016|数量关系|知识点|某企业原有职工110人，其中技术人员是非技术人员的10倍，今年招聘后，两类人员的人数之比未变，且现有
+JOINT_TOP_QUESTIONS|24|provinces|22|papers|23|years|2016-2016|常识判断|地理国情|下图所示的是哪种典型地貌？
+JOINT_TOP_QUESTIONS|24|provinces|22|papers|23|years|2016-2016|常识判断|法律常识|甲于2010年3月1日开始使用“红红太阳”牌商标，乙同年4月1日开始使用相同商标。商标局于2011年5月10日同�
+JOINT_TOP_QUESTIONS|24|provinces|22|papers|23|years|2016-2016|资料分析|倍数与比值相关|2014年1-3月，国有企业营业总收入最接近：
+JOINT_TOP_QUESTIONS|24|provinces|21|papers|23|years|2016-2016|判断推理|逻辑判断|一个没有普通话一级甲等证书的人不可能成为一个主持人，因为主持人不能发音不标准。上述论证还需基�
+JOINT_TOP_QUESTIONS|24|provinces|21|papers|23|years|2016-2016|判断推理|定义判断|生物学研究发现，成群的蚂蚁中，大部分蚂蚁很勤劳，寻找、搬运食物争先恐后，少数蚂蚁却东张西望不�
+JOINT_TOP_QUESTIONS|24|provinces|21|papers|23|years|2016-2016|判断推理|类比推理|黄连：苦涩
+JOINT_TOP_QUESTIONS|24|provinces|21|papers|23|years|2016-2016|数量关系|数学运算|2014年父亲、母亲的年龄之和是年龄之差的23倍，年龄之差是儿子年龄的，5年后母亲和儿子的年龄都是平方�
+JOINT_TOP_QUESTIONS|24|provinces|21|papers|23|years|2016-2016|判断推理|逻辑判断|有报道称，由于人类大量排放温室气体，过去150多年中全球气温一直在持续上升。但与1970年至1998年相比，
+JOINT_TOP_QUESTIONS|24|provinces|21|papers|23|years|2016-2016|常识判断|人文常识|关于当代文学，下列说法错误的是：
+JOINT_TOP_QUESTIONS|24|provinces|21|papers|23|years|2016-2016|判断推理|知识点|红叶子理论认为，一个人职业的成功不在于红叶子数目的多少，而在于他是否具备一片特别硕大的红叶子�
+JOINT_TOP_QUESTIONS|23|provinces|22|papers|22|years|2016-2016|常识判断|未入目录|下列关于党的重要思想，按提出时间先后顺序排列正确的是：①社会主义市场经济理论 ②“三个代表”重�
+JOINT_TOP_QUESTIONS|23|provinces|22|papers|22|years|2016-2016|常识判断|经济常识|假如某国出现比较严重的经济衰退，该国当局却不能运用货币政策进行调节。这个国家可能是：
+JOINT_TOP_QUESTIONS|23|provinces|22|papers|22|years|2016-2016|常识判断|科技常识|关于“螳螂捕蝉，黄雀在后”，下列说法错误的是：

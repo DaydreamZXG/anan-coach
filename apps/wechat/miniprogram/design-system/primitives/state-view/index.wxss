@@ -1,0 +1,86 @@
+.state-view {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.state-view--loading {
+  display: grid;
+  gap: 18rpx;
+}
+
+.state-skeleton {
+  height: 150rpx;
+  border-radius: var(--radius-card);
+  background: linear-gradient(90deg, #eceef7 25%, #f9faff 50%, #eceef7 75%);
+  background-size: 400% 100%;
+  animation: state-shimmer 1.4s ease infinite;
+}
+
+.state-skeleton--hero {
+  height: 260rpx;
+}
+
+.state-view:not(.state-view--loading) {
+  padding: 48rpx 32rpx;
+  border: 1rpx solid var(--color-line);
+  border-radius: var(--radius-card);
+  background: var(--color-surface-glass);
+  text-align: center;
+  box-shadow: var(--shadow-card);
+}
+
+.state-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64rpx;
+  height: 64rpx;
+  margin: 0 auto 20rpx;
+  border-radius: 22rpx;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-size: 32rpx;
+  font-weight: 800;
+}
+
+.state-view--error .state-icon {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.state-view--stale .state-icon {
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+.state-title {
+  font-size: var(--font-section);
+  font-weight: 750;
+}
+
+.state-description {
+  margin: 14rpx auto 0;
+  color: var(--color-muted);
+  font-size: 24rpx;
+  line-height: 1.6;
+}
+
+.state-request {
+  margin-top: 12rpx;
+  color: var(--color-faint);
+  font-family: monospace;
+  font-size: 20rpx;
+}
+
+.state-action {
+  margin-top: 26rpx;
+}
+
+@keyframes state-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}

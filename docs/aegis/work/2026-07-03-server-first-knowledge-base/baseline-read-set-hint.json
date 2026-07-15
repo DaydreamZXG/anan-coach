@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "aegis.schema.v0",
+  "candidateDocs": [
+    "docs/aegis/plans/2026-07-03-server-first-knowledge-base-implementation-plan.md",
+    "docs/ops/server-inventory.md",
+    "data/question-bank-export/MANIFEST.md"
+  ],
+  "whyRelevant": "These refs define server shape, data input size, source boundaries, and acceptance criteria",
+  "missingAuthority": []
+}

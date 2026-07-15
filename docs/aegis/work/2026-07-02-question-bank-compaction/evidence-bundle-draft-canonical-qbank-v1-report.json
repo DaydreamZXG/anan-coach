@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "aegis.schema.v0",
+  "artifactKey": "canonical-qbank-v1-report",
+  "type": "report",
+  "source": "reports/question-bank/canonical-qbank-v1-report-20260702.md",
+  "summary": "Documents accepted merge policy, canonical import counts, schema table responsibilities, verification checks, and remaining 82-group merge review queue.",
+  "verifier": "canonical_qbank.import_summary and psql integrity checks against local qb_compaction_20260702"
+}

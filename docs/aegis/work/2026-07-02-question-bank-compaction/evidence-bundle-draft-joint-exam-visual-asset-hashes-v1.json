@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "aegis.schema.v0",
+  "artifactKey": "joint-exam-visual-asset-hashes-v1",
+  "type": "asset-hash-evidence",
+  "source": "reports/question-bank/joint-exam-visual-asset-hash-summary-v1-20260702.csv",
+  "summary": "Hashes 26 visual asset files from 2 province-joint-exam visual clusters; both clusters have exact SHA-256 image-sequence matches and no missing files.",
+  "verifier": "python3 tools/question-bank/hash-visual-assets.py --root /Users/zxg/Documents/新项目"
+}

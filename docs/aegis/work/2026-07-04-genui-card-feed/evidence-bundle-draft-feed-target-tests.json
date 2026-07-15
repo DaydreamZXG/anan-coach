@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "aegis.schema.v0",
+  "artifactKey": "feed-target-tests",
+  "type": "command",
+  "source": "cd backend && . .venv/bin/activate && pytest tests/test_feed_today.py -q",
+  "summary": "5 feed tests passed: 14 payload schemas, taskstream consistency, mock review priority, mock due mapping, honest no-data goal gap.",
+  "verifier": "codex"
+}

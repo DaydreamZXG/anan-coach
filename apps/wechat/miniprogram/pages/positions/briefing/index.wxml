@@ -1,0 +1,75 @@
+<view class="page position-page briefing-page">
+  <view class="briefing-brand">
+    <anan-companion size="small" intent="thinking" context="report" animate />
+    <view>
+      <view class="eyebrow">D06 · 岸岸新手考情说明</view>
+      <view class="privacy-note">只解释服务端已有事实，不替你预测录取</view>
+    </view>
+  </view>
+
+  <state-view
+    wx:if="{{!state || state.status === 'idle' || state.status === 'loading'}}"
+    state="loading"
+    title="正在读取岗位考情"
+    description="对齐考试年度、岗位版本和目标分证据。"
+  />
+  <state-view
+    wx:elif="{{state.status !== 'ready'}}"
+    state="{{state.status === 'network' ? 'stale' : 'error'}}"
+    title="{{state.error.title}}"
+    description="{{state.error.message}}"
+    request-id="{{state.error.requestId}}"
+    action-text="{{state.error.retryable ? '重新读取' : ''}}"
+    bind:action="retry"
+  />
+
+  <block wx:else>
+    <view class="briefing-hero">
+      <view class="briefing-hero__meta">{{state.view.examLabel}} · {{state.view.positionCodeLabel}}</view>
+      <view class="briefing-hero__title">{{state.view.positionName}}</view>
+      <view class="briefing-hero__department">{{state.view.departmentFull}}</view>
+      <view class="briefing-hero__location">{{state.view.locationLabel}} · {{state.view.headcountLabel}}</view>
+    </view>
+
+    <view class="briefing-section">
+      <view class="briefing-section__number">01</view>
+      <view class="briefing-section__body">
+        <view class="briefing-section__title">你要准备什么</view>
+        <view class="briefing-fact">{{state.view.paperTypeLabel}}</view>
+        <view class="briefing-copy">{{state.view.subjectSummary}}</view>
+        <view class="briefing-warning">{{state.view.extraExamLabel}}</view>
+      </view>
+    </view>
+
+    <view class="briefing-section">
+      <view class="briefing-section__number">02</view>
+      <view class="briefing-section__body">
+        <view class="briefing-section__title">目标分怎么理解</view>
+        <view class="briefing-score type-data">{{state.view.targetScoreLabel}}</view>
+        <view class="briefing-evidence">{{state.view.targetEvidenceLabel}}</view>
+        <view class="briefing-copy">{{state.view.targetValidityLabel}}</view>
+        <view class="briefing-warning">这是备考目标区间，不是官方进面线，也不是录取概率。</view>
+      </view>
+    </view>
+
+    <view class="briefing-section">
+      <view class="briefing-section__number">03</view>
+      <view class="briefing-section__body">
+        <view class="briefing-section__title">系统现在知道多少</view>
+        <view class="briefing-fact">{{state.view.abilityStatusLabel}}</view>
+        <view class="briefing-copy">{{state.view.abilityNextStepLabel}}</view>
+      </view>
+    </view>
+
+    <view class="briefing-boundary">
+      <view class="briefing-boundary__title">你已有外部备考经验？</view>
+      <view class="briefing-boundary__copy">外部成绩、错题和报告属于你的学习证据，不会因为账号刚注册就被忽略；接入后必须由你确认，才会影响能力与计划。</view>
+    </view>
+
+    <view wx:if="{{state.trace}}" class="request-id">Request ID · {{state.trace.requestId}}</view>
+    <view class="briefing-actions">
+      <ui-button label="查看岗位资格依据" variant="secondary" bind:action="openPositionEvidence" />
+      <ui-button label="我明白了，进入今日" bind:action="enterToday" />
+    </view>
+  </block>
+</view>

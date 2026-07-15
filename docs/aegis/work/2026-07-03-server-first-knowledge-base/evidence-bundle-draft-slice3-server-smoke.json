@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "aegis.schema.v0",
+  "artifactKey": "slice3-server-smoke",
+  "type": "command",
+  "source": "remote PostgreSQL smoke verification",
+  "summary": "Verified source_qbank/canonical_qbank/ops row counts, public QuestionBank table count 0, ops count checks 12 matched and 6 recorded, PostgreSQL listening only on 127.0.0.1:5432, server disk 50G available.",
+  "verifier": "codex"
+}

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "aegis.schema.v0",
+  "taskId": "2026-07-02-question-bank-compaction",
+  "lastCheckpointRef": "docs/aegis/work/2026-07-02-question-bank-compaction/todo-checkpoint-draft.json",
+  "resumeInstruction": "Use commercial-execution-master-plan as the sole execution authority; do not execute old foundation or bridge plans directly.",
+  "knownPartialWork": [
+    "Reviewed Claude bridge plan and verified position database counts from /Users/zxg/Documents/公考选岗计划/data/gwy.db.",
+    "Created docs/aegis/plans/2026-07-02-commercial-execution-master-plan.md as execution authority.",
+    "Marked the foundation and bridge plans as superseded for execution while retaining them as references."
+  ],
+  "mustReadBeforeContinuing": [
+    "docs/aegis/work/2026-07-02-question-bank-compaction/10-intent.md",
+    "docs/aegis/work/2026-07-02-question-bank-compaction/20-checkpoint.md",
+    "docs/aegis/work/2026-07-02-question-bank-compaction/todo-checkpoint-draft.json"
+  ],
+  "unsafeToAssume": [
+    "Do not treat TS target-position adapter as source of truth; do not use gwy.db or canonical_qbank as runtime dependencies."
+  ]
+}

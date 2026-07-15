@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "aegis.schema.v0",
+  "requestedOutcome": "Implement section 8 near-5-year guokao tag weighting and section 8.5 knowledge-map product layer for planner/practice consumption.",
+  "goal": "Planner/practice should consume a product-layer guokao heat map through a canonical knowledge-map owner, not hardcoded module/year rules or AI-created free tags.",
+  "successEvidence": [
+    "product.exam_tag_weights materialized from real guokao rows with a 2022-2026 window.",
+    "product.knowledge_map_nodes materialized as the tag registry / learning map.",
+    "Backend practice/taskstream selection uses published text-supported knowledge-point nodes.",
+    "Missing derived data fails loudly instead of falling back.",
+    "Tests cover latest-five-year weighting, weighted practice selection, unsupported image nodes, free-tag rejection, and manual-node preservation."
+  ],
+  "stopCondition": "Stop when success evidence is satisfied or a blocker/risk requires pause.",
+  "nonGoals": [],
+  "scope": "product tag weight schema/script, product knowledge-map schema/script, backend query owner, planner/practice consumption tests",
+  "changeKinds": [
+    "implementation"
+  ],
+  "riskHints": []
+}

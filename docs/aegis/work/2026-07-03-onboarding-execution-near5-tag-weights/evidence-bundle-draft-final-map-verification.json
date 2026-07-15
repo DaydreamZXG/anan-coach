@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "aegis.schema.v0",
+  "artifactKey": "final-map-verification",
+  "type": "verification",
+  "source": "docs/aegis/work/2026-07-03-onboarding-execution-near5-tag-weights/90-evidence.md",
+  "summary": "Backend tests passed 53/53; production knowledge_map_nodes refreshed to 2462 guokao/xingce rows; workspace check passed.",
+  "verifier": "codex"
+}

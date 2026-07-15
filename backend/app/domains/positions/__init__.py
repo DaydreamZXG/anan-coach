@@ -1,0 +1,1 @@
+"""Guokao position search domain."""

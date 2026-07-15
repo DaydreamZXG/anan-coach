@@ -1,0 +1,45 @@
+# Local question-bank research assets
+data/question-bank-export/db/*.dump
+data/question-bank-export/files/
+data/local-pg/
+import-staging/
+
+# OS/editor noise
+.DS_Store
+
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+apps/wechat/project.private.config.json
+AccessKey.txt
+*AccessKey*
+*.pem
+*.key
+ops/secrets/
+
+# Local runtimes
+.venv/
+backend/.venv/
+node_modules/
+apps/wechat/node_modules/
+apps/wechat/miniprogram_npm/
+.local/
+.v0/
+.workbuddy/
+# Python build/test caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+
+# Xcode local build products
+DerivedData/
+apps/ios/DerivedData/
+apps/ios/Gongkao/.build/
+*.xcuserdata/
+.xcodebuildmcp/
+
+# Runtime logs
+backend/server.log
+apps/wechat/tests/visual/artifacts/

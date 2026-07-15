@@ -1,0 +1,76 @@
+<view class="page position-page position-compare-page">
+  <view class="eyebrow">D04 · 同版本决策表</view>
+  <view class="page-title">对比 {{state.positionIds.length}} 个岗位</view>
+  <view class="page-subtitle">只对齐服务端可验证维度，不生成“最适合”结论，也不把招录人数包装成录取概率。</view>
+
+  <state-view wx:if="{{!state || state.status === 'idle' || state.status === 'loading'}}" state="loading" />
+  <state-view
+    wx:elif="{{state.status === 'needsProfile'}}"
+    state="empty"
+    title="先完成资格建档"
+    description="岗位对比必须在同一资格档案版本下重新核验。"
+    request-id="{{state.error.requestId}}"
+    action-text="去建档"
+    bind:action="openOnboarding"
+  />
+  <state-view
+    wx:elif="{{state.status === 'noActiveRelease'}}"
+    state="empty"
+    title="候选岗位不在当前发布"
+    description="不能把旧年度或非激活发布中的岗位放入正式对比。"
+    request-id="{{state.error.requestId}}"
+  />
+  <state-view
+    wx:elif="{{state.status !== 'ready'}}"
+    state="{{state.status === 'network' ? 'stale' : 'error'}}"
+    title="{{state.error.title}}"
+    description="{{state.error.message}}"
+    request-id="{{state.error.requestId}}"
+    action-text="{{state.error.retryable ? '重新对齐' : ''}}"
+    bind:action="retry"
+  />
+
+  <block wx:else>
+    <view class="delivery-strip">
+      <text>档案 v{{state.learnerProfileVersion}} · 规则 {{state.ruleSetVersion}}</text>
+      <text>生成 {{state.delivery.generatedAtLabel}}</text>
+      <text wx:if="{{state.delivery.partial}}" class="delivery-strip__warning">{{state.delivery.partialLabel}}</text>
+      <text wx:if="{{state.delivery.stale}}" class="delivery-strip__warning">{{state.delivery.staleLabel}}</text>
+      <text wx:if="{{state.delivery.processing}}" class="delivery-strip__processing">{{state.delivery.processingLabel}}</text>
+      <text class="delivery-strip__request">Request ID · {{state.delivery.requestId}}</text>
+    </view>
+    <scroll-view class="comparison-scroll" scroll-x enable-flex>
+      <view class="comparison-track">
+        <view wx:for="{{state.items}}" wx:key="positionId" class="comparison-card">
+          <view class="position-card__top"><view class="status-pill status-pill--{{item.eligibilityTone}}">{{item.eligibilityLabel}}</view><view wx:if="{{item.isPrimaryGoal}}" class="primary-tag">当前主目标</view></view>
+          <view class="comparison-card__name">{{item.name}}</view>
+          <view class="comparison-card__department">{{item.departmentFull}}</view>
+          <view class="highlight-list"><view wx:for="{{item.highlightLabels}}" wx:for-item="label" wx:key="*this">{{label}}</view></view>
+          <view class="comparison-table">
+            <view><text>资格核验</text><strong>{{item.conditionSummary}}</strong></view>
+            <view><text>服务端分带</text><strong>{{item.fitView.bandLabel}} · {{item.fitView.statusDescription}}</strong></view>
+            <view><text>同版本分差</text><strong class="type-data">{{item.fitView.scoreGapRangeLabel}}</strong></view>
+            <view><text>建议点差</text><strong class="type-data">{{item.fitView.scoreGapRecommendedLabel}}</strong></view>
+            <view><text>双科证据</text><strong>{{item.fitView.evidenceStatusLabel}}</strong></view>
+            <view><text>资格负担</text><strong>{{item.fitView.requirementsBurdenLabel}}</strong></view>
+            <view><text>目标分区间</text><strong class="type-data">{{item.scoreLabel}}</strong></view>
+            <view><text>目标分有效期</text><strong>{{item.targetValidityLabel}}</strong></view>
+            <view><text>目标分生成时间</text><strong>{{item.targetGeneratedLabel}}</strong></view>
+            <view><text>样本证据</text><strong>{{item.scoreEvidenceLabel}}</strong></view>
+            <view><text>招录人数</text><strong class="type-data">{{item.headcount}}</strong></view>
+            <view><text>地区</text><strong>{{item.region}}{{item.city ? ' · ' + item.city : ''}}</strong></view>
+            <view><text>试卷类型</text><strong>{{item.paperTypeLabel}}</strong></view>
+          </view>
+          <view wx:if="{{item.fitView.evidenceReasonLabel}}" class="fit-card__reason">未形成分差的依据 · {{item.fitView.evidenceReasonLabel}}</view>
+          <view class="fit-card__audit">分差 Request ID · {{item.fitRequestId}}</view>
+          <view class="inline-link" data-id="{{item.positionId}}" bindtap="openPosition">查看逐条证据 →</view>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="capability-card capability-card--neutral">
+      <view class="capability-card__title">分带是区间关系，不是录取概率</view>
+      <view class="capability-card__copy">稳妥、匹配、冲刺只描述同年度能力区间与岗位目标区间的关系；资格待确认、不符合条件和额外考试仍单独展示。</view>
+    </view>
+    <view class="sticky-actions"><ui-button label="返回调整候选" variant="secondary" bind:action="returnToSearch" /></view>
+  </block>
+</view>

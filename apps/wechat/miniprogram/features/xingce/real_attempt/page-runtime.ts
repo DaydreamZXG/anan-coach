@@ -1,0 +1,77 @@
+import type {
+  XingceLearningApi,
+  XingceTaskMode,
+  XingceTaskSession,
+} from "../../../api/xingce-learning";
+import type { TaskRuntimeState } from "../../../task-runtime/contracts";
+
+export interface XingcePageRuntime {
+  api: XingceLearningApi | null;
+  ownerUserId: string;
+  planTaskId: string;
+  requestedMode: XingceTaskMode | null;
+  session: XingceTaskSession | null;
+  task: TaskRuntimeState | null;
+  timerHandle: ReturnType<typeof setInterval> | undefined;
+  saveInFlight: boolean;
+  submitInFlight: boolean;
+  disposed: boolean;
+  requestEpoch: number;
+}
+
+function createRuntime(): XingcePageRuntime {
+  return {
+    api: null,
+    ownerUserId: "",
+    planTaskId: "",
+    requestedMode: null,
+    session: null,
+    task: null,
+    timerHandle: undefined,
+    saveInFlight: false,
+    submitInFlight: false,
+    disposed: false,
+    requestEpoch: 0,
+  };
+}
+
+export class XingcePageRuntimeRegistry<TPage extends object> {
+  private readonly values = new WeakMap<TPage, XingcePageRuntime>();
+
+  attach(page: TPage): XingcePageRuntime {
+    this.detach(page);
+    const runtime = createRuntime();
+    this.values.set(page, runtime);
+    return runtime;
+  }
+
+  get(page: TPage): XingcePageRuntime | undefined {
+    return this.values.get(page);
+  }
+
+  owns(page: TPage, runtime: XingcePageRuntime): boolean {
+    return this.values.get(page) === runtime && !runtime.disposed;
+  }
+
+  beginRequest(runtime: XingcePageRuntime): number {
+    runtime.requestEpoch += 1;
+    return runtime.requestEpoch;
+  }
+
+  isCurrent(page: TPage, runtime: XingcePageRuntime, epoch: number): boolean {
+    return this.owns(page, runtime) && runtime.requestEpoch === epoch;
+  }
+
+  detach(page: TPage): void {
+    const runtime = this.values.get(page);
+    if (!runtime) return;
+    runtime.disposed = true;
+    runtime.requestEpoch += 1;
+    if (runtime.timerHandle !== undefined) clearInterval(runtime.timerHandle);
+    runtime.timerHandle = undefined;
+    runtime.api = null;
+    runtime.session = null;
+    runtime.task = null;
+    this.values.delete(page);
+  }
+}

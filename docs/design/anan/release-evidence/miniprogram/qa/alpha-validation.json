@@ -1,0 +1,180 @@
+{
+  "ok": true,
+  "assets": [
+    {
+      "path": "assets/stages/stage-1/master.png",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/stages/stage-1/hero-240@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/stages/stage-2/master.png",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/stages/stage-2/hero-240@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/stages/stage-3/master.png",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/stages/stage-3/hero-240@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/stages/stage-4/master.png",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/stages/stage-4/hero-240@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/companion/master.png",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/companion/inline-64@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/companion/card-160@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/companion/hero-240@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/thinking/master.png",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/thinking/inline-64@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/thinking/card-160@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/thinking/hero-240@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/reminder/master.png",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/reminder/inline-64@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/reminder/card-160@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/reminder/hero-240@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/encouragement/master.png",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/encouragement/inline-64@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/encouragement/card-160@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/encouragement/hero-240@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/rest/master.png",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/rest/inline-64@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/rest/card-160@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/rest/hero-240@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/deprioritize/master.png",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/deprioritize/inline-64@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/deprioritize/card-160@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/intents/deprioritize/hero-240@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/avatar/master.png",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/avatar/avatar-32@2x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "path": "assets/avatar/avatar-32@3x.webp",
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    }
+  ]
+}

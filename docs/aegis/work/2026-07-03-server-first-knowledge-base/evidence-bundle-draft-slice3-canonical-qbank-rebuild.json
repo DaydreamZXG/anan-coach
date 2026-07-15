@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "aegis.schema.v0",
+  "artifactKey": "slice3-canonical-qbank-rebuild",
+  "type": "command",
+  "source": "scripts/server_restore_canonical_qbank.sh",
+  "summary": "Restored qbank dump into source_qbank and rebuilt canonical_qbank from approved CSV artifacts. Import summary matched canonical total 55,214, objective 53,011, essay 2,203, explanations 53,011, knowledge links 23,103, accepted merge groups 243, removed duplicates 247, review queue 82.",
+  "verifier": "codex"
+}

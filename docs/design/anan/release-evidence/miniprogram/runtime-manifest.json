@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "characterId": "anan",
+  "displayName": "岸岸",
+  "releaseVersion": "1.0.0",
+  "staticManifest": "asset-manifest.json",
+  "animationManifest": "animation-manifest.json",
+  "visualStages": {
+    "stage-1": {"label": "初遇", "asset": "assets/stages/stage-1/hero-240@2x.webp"},
+    "stage-2": {"label": "熟悉", "asset": "assets/stages/stage-2/hero-240@2x.webp"},
+    "stage-3": {"label": "默契", "asset": "assets/stages/stage-3/hero-240@2x.webp"},
+    "stage-4": {"label": "并肩", "asset": "assets/stages/stage-4/hero-240@2x.webp"}
+  },
+  "intents": {
+    "companion": {
+      "staticRoot": "assets/intents/companion",
+      "animationId": "companion",
+      "accessibleLabel": "岸岸正在陪你继续学习",
+      "defaultPlayback": "loop"
+    },
+    "thinking": {
+      "staticRoot": "assets/intents/thinking",
+      "animationId": "thinking",
+      "accessibleLabel": "岸岸正在梳理当前信息",
+      "defaultPlayback": "loop"
+    },
+    "reminder": {
+      "staticRoot": "assets/intents/reminder",
+      "animationId": "reminder",
+      "accessibleLabel": "岸岸有一项提醒需要你确认",
+      "defaultPlayback": "once-hold"
+    },
+    "encouragement": {
+      "staticRoot": "assets/intents/encouragement",
+      "animationId": "encouragement",
+      "accessibleLabel": "岸岸正在为这次进步开心",
+      "defaultPlayback": "once-hold"
+    },
+    "rest": {
+      "staticRoot": "assets/intents/rest",
+      "animationId": "rest",
+      "accessibleLabel": "岸岸建议现在安心休息一下",
+      "defaultPlayback": "loop"
+    },
+    "deprioritize": {
+      "staticRoot": "assets/intents/deprioritize",
+      "animationId": "deprioritize",
+      "accessibleLabel": "岸岸建议暂时降低这件事的优先级",
+      "defaultPlayback": "once-hold"
+    }
+  },
+  "sizePolicy": {
+    "avatar-32": {"maxCssPx": 36, "asset2x": "assets/avatar/avatar-32@2x.webp", "asset3x": "assets/avatar/avatar-32@3x.webp"},
+    "inline-64": {"maxCssPx": 72, "variant": "inline-64@2x.webp"},
+    "animated-120": {"maxCssPx": 120, "cellPx": 240},
+    "card-160": {"maxCssPx": 180, "variant": "card-160@2x.webp"},
+    "hero-240": {"maxCssPx": 240, "variant": "hero-240@2x.webp", "load": "on-demand"}
+  },
+  "loadingGroups": {
+    "core": {
+      "budgetBytes": 358400,
+      "actualBytes": 266874,
+      "assets": [
+        "assets/avatar/avatar-32@2x.webp",
+        "assets/avatar/avatar-32@3x.webp",
+        "assets/intents/companion/inline-64@2x.webp",
+        "assets/intents/companion/card-160@2x.webp",
+        "assets/animations/companion/spritesheet.webp"
+      ]
+    },
+    "growth": {
+      "load": "on-demand",
+      "assets": [
+        "assets/stages/stage-1/hero-240@2x.webp",
+        "assets/stages/stage-2/hero-240@2x.webp",
+        "assets/stages/stage-3/hero-240@2x.webp",
+        "assets/stages/stage-4/hero-240@2x.webp"
+      ]
+    },
+    "intentAnimations": {
+      "load": "by-intent",
+      "maxSingleAssetBytes": 225280,
+      "assets": "assets/animations/{CompanionIntent}/spritesheet.webp"
+    }
+  },
+  "motionPolicy": {
+    "reducedMotion": "use-intent-static-keyframe",
+    "questionReading": "avatar-or-static-only",
+    "continuousLoopMaxCssPx": 120,
+    "largeHero": "static-or-single-one-shot",
+    "noFakeProgress": true
+  }
+}

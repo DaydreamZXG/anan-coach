@@ -1,0 +1,43 @@
+{
+  "name": "@gongkao/wechat-mini-program",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI 国考上岸教练微信小程序",
+  "scripts": {
+    "check": "npm run format:check && npm run structure:check && npm run anan:check && npm run api:check && npm run typecheck && npm run lint && npm run test",
+    "api:generate": "node scripts/generate-api.mjs",
+    "api:check": "node scripts/generate-api.mjs --check",
+    "format": "prettier --write \"**/*.{ts,js,json,mjs,md,html,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,js,json,mjs,md,html,css}\"",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint \"miniprogram/**/*.ts\" \"tests/**/*.ts\"",
+    "structure:check": "node scripts/validate-structure.mjs",
+    "anan:check": "node scripts/validate-anan-assets.mjs",
+    "test": "vitest run",
+    "visual:check": "node e2e/run-visual.mjs",
+    "visual:update": "node e2e/run-visual.mjs --update"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@hey-api/openapi-ts": "0.99.0",
+    "@typescript-eslint/eslint-plugin": "8.63.0",
+    "@typescript-eslint/parser": "8.63.0",
+    "eslint": "10.7.0",
+    "miniprogram-api-typings": "5.2.1",
+    "miniprogram-automator": "0.12.1",
+    "pixelmatch": "7.2.0",
+    "pngjs": "7.0.0",
+    "prettier": "3.9.5",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.63.0",
+    "vitest": "4.1.10"
+  },
+  "overrides": {
+    "jpeg-js": "0.4.4",
+    "minimist": "1.2.8",
+    "phin": "3.7.1"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "aegis.schema.v0",
+  "baselineRefs": [
+    "reports/question-bank/compaction-v1-report-20260702.md",
+    "docs/aegis/plans/2026-07-02-canonical-qbank-v1.md"
+  ],
+  "impactStatement": "docs/aegis/work/2026-07-02-question-bank-compaction/impact-statement-draft.json",
+  "compatPlan": "Compatibility boundary not yet refined.",
+  "retirementPlan": "Old QuestionBankQuestion is no longer treated as product canonical owner; source IDs are retained in source_question_map for audit.",
+  "evidenceBundle": [
+    "docs/aegis/work/2026-07-02-question-bank-compaction/evidence-bundle-draft-canonical-qbank-v1-report.json",
+    "docs/aegis/work/2026-07-02-question-bank-compaction/evidence-bundle-draft-canonical-qbank-v1.json",
+    "docs/aegis/work/2026-07-02-question-bank-compaction/evidence-bundle-draft-compaction-v1-report.json",
+    "docs/aegis/work/2026-07-02-question-bank-compaction/evidence-bundle-draft-joint-exam-compaction-v1.json",
+    "docs/aegis/work/2026-07-02-question-bank-compaction/evidence-bundle-draft-joint-exam-profile.json",
+    "docs/aegis/work/2026-07-02-question-bank-compaction/evidence-bundle-draft-joint-exam-visual-asset-hashes-v1.json"
+  ]
+}

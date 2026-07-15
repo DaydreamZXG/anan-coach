@@ -1,0 +1,17 @@
+Coding Tools MCP endpoint
+
+Primary URL:
+https://red-apples-vanish.loca.lt/mcp
+
+Deprecated URL:
+https://kg.xingguoxian.cn/coding-tools-mcp/mcp
+
+Authorization header:
+Authorization: Bearer <redacted>
+
+Notes:
+- Use the loca.lt URL for Fable/v0-style MCP clients.
+- The kg.xingguoxian.cn Caddy path may answer curl probes but has been unreliable in MCP clients.
+- localtunnel forwards red-apples-vanish.loca.lt to this Mac 127.0.0.1:8765.
+- MCP runs under screen watchdog `coding-tools-mcp`; SSH/Caddy path is not the preferred client path.
+- The live bearer token is managed outside the repository and must never be written to this file.

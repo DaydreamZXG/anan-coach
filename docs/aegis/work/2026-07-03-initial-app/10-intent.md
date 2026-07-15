@@ -1,0 +1,27 @@
+# Initial App - Task Intent
+
+- Requested outcome: today produce a runnable first version of 考公搭子.
+- Goal: establish backend API skeleton, iPhone/iPad SwiftUI app shell, local verification, and production-candidate health check.
+- Success evidence:
+  - backend tests pass;
+  - iPhone simulator build succeeds;
+  - iPad simulator build succeeds;
+  - iPhone app launches and UI snapshot shows first-screen content;
+  - `https://kg.xingguoxian.cn/health` returns ok.
+- Stop condition:
+  - done: all success evidence is satisfied;
+  - blocked: Xcode, server, DNS, or account access prevents verification;
+  - needs-verification: implementation exists but one evidence item is missing;
+  - scope-exceeded: work would require full qbank import, production auth, IAP records, or App Store release.
+- Non-goals:
+  - no full qbank import;
+  - no App Store IAP product creation;
+  - no complete Sign in with Apple backend validation;
+  - no old project continuation;
+  - no secrets committed to git.
+- Baseline refs:
+  - `docs/aegis/plans/2026-07-02-commercial-execution-master-plan.md`
+  - `docs/ops/server-inventory.md`
+- Compatibility boundary:
+  - runtime app code uses new `backend/` and `apps/ios/`;
+  - source qbank and `gwy.db` remain staging/import references only.

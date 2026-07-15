@@ -1,0 +1,70 @@
+<view class="page position-page position-goal-page">
+  <view class="eyebrow">D05 · 重要变更</view>
+  <view class="page-title">确认主目标影响</view>
+  <view class="page-subtitle">预览由服务端固定资格快照、目标分证据与当前目标版本；客户端只展示并提交你的确认。</view>
+
+  <state-view wx:if="{{!state || state.status === 'idle' || state.status === 'loading' || state.status === 'previewing'}}" state="{{state && state.status === 'previewing' ? 'processing' : 'loading'}}" title="正在生成影响预览" description="先重新核验资格，再固定目标分与计划失效项。" />
+  <state-view
+    wx:elif="{{state.status === 'needsProfile'}}"
+    state="empty"
+    title="先完成资格建档"
+    description="主目标必须绑定当前资格档案版本。"
+    request-id="{{state.error.requestId}}"
+    action-text="去建档"
+    bind:action="openOnboarding"
+  />
+  <state-view
+    wx:elif="{{state.status === 'noActiveRelease'}}"
+    state="empty"
+    title="目标岗位不在当前发布"
+    description="旧年度或未激活岗位不能成为主目标。"
+    request-id="{{state.error.requestId}}"
+  />
+  <state-view
+    wx:elif="{{state.status !== 'ready' && state.status !== 'confirming' && state.status !== 'confirmed'}}"
+    state="{{state.status === 'network' ? 'stale' : 'error'}}"
+    title="{{state.error.title}}"
+    description="{{state.error.message}}"
+    request-id="{{state.error.requestId}}"
+    action-text="{{state.status === 'versionConflict' ? '重新生成预览' : (state.error.retryable ? '重试原命令' : '')}}"
+    bind:action="retry"
+  />
+
+  <block wx:else>
+    <view wx:if="{{state.restoredPreview}}" class="processing-banner">已恢复本机尚未确认且仍在有效期内的服务端预览；确认时服务端仍会校验当前版本。</view>
+    <view wx:if="{{state.summary}}" class="goal-position-card"><view class="goal-position-card__label">候选主目标</view><view class="goal-position-card__name">{{state.summary.name}}</view><view>{{state.summary.departmentFull}}</view><text>{{state.summary.region}}{{state.summary.city ? ' · ' + state.summary.city : ''}} · 职位 {{state.summary.positionCode}}</text></view>
+    <view wx:if="{{state.preview}}" class="impact-card">
+      <view class="impact-card__head"><view><view class="eyebrow">服务端影响预览</view><view class="impact-card__title">{{state.preview.planImpact.changeType === 'goal_changed' ? '更换主目标' : '建立主目标'}}</view></view><view class="status-pill">{{state.previewView.expiryLabel}}</view></view>
+      <view class="impact-score"><view><text>原目标分</text><strong class="type-data">{{state.previewView.previousScoreLabel}}</strong></view><view class="impact-score__arrow">→</view><view><text>新目标分</text><strong class="type-data">{{state.previewView.nextScoreLabel}}</strong></view></view>
+      <view class="impact-delta">{{state.previewView.deltaLabel}}</view>
+      <view class="impact-evidence">目标分 {{state.preview.targetScore.lowerBound}}–{{state.preview.targetScore.upperBound}} · 样本 {{state.preview.targetScore.sampleCount}} · {{state.targetValidity.generatedLabel}} · {{state.targetValidity.label}}</view>
+      <view wx:if="{{!state.targetValidity.available}}" class="inline-warning">正式目标确认需要服务端返回目标分有效期；当前契约缺口不会由客户端补日期。</view>
+      <view wx:if="{{state.targetValidity.expired}}" class="inline-error">目标分证据已过期，请重新生成服务端预览。</view>
+    </view>
+
+    <view class="section-heading"><view class="section-title">将失效并重建</view><view class="section-meta">完全来自 planImpact.invalidates</view></view>
+    <view wx:if="{{state.invalidations.length}}" class="invalidation-list"><view wx:for="{{state.invalidations}}" wx:key="code"><text class="invalidation-dot"></text><view><strong>{{item.label}}</strong><text>服务端标识 · {{item.code}}</text></view></view></view>
+    <view wx:else class="capability-card"><view class="capability-card__title">服务端未返回计划失效项</view><view class="capability-card__copy">客户端不会硬编码“今日计划”“周计划”或“分差”影响；本次预览不能继续确认。</view></view>
+
+    <view wx:if="{{state.delivery}}" class="delivery-strip"><text>生成 {{state.delivery.generatedAtLabel}}</text><text class="delivery-strip__request">Request ID · {{state.delivery.requestId}}</text></view>
+    <view wx:if="{{state.status === 'confirmed'}}" class="success-card">主目标版本已确认。以上失效项将由服务端重建。<text wx:if="{{state.commandTrace}}">Request ID · {{state.commandTrace.requestId}}</text></view>
+    <view wx:if="{{state.status === 'confirmed' && state.offerExamBriefing}}" class="orientation-card">
+      <view class="orientation-card__eyebrow">第一次建立主目标</view>
+      <view class="orientation-card__title">你对国考和这个岗位熟悉吗？</view>
+      <view class="orientation-card__copy">账号是新的，不代表你是备考小白。由你自己选择是否查看基础考情，系统不会根据注册时间猜测。</view>
+      <view class="orientation-card__actions">
+        <ui-button label="我已熟悉，直接开始" variant="secondary" bind:action="finish" />
+        <ui-button label="我是小白，先看考情" bind:action="openBeginnerBriefing" />
+      </view>
+    </view>
+    <view wx:if="{{state.status !== 'confirmed' || !state.offerExamBriefing}}" class="sticky-actions">
+      <ui-button wx:if="{{state.status === 'confirmed' && !state.offerExamBriefing}}" label="返回岗位工作区" bind:action="finish" />
+      <block wx:else>
+        <block wx:if="{{state.status !== 'confirmed'}}">
+          <ui-button label="返回核对岗位" variant="secondary" bind:action="openDetail" />
+          <ui-button label="确认主目标变更" loading="{{state.status === 'confirming'}}" disabled="{{!state.preview || !state.invalidations.length || state.targetValidity.expired}}" bind:action="confirmGoal" />
+        </block>
+      </block>
+    </view>
+  </block>
+</view>

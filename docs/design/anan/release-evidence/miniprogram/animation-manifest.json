@@ -1,0 +1,312 @@
+{
+  "schemaVersion": 1,
+  "cell": 240,
+  "animations": [
+    {
+      "intent": "companion",
+      "frames": 6,
+      "fps": 8,
+      "playback": "loop",
+      "holdFrame": null,
+      "cell": {
+        "width": 240,
+        "height": 240
+      },
+      "sheet": "assets/animations/companion/spritesheet.webp",
+      "staticFallback": "assets/intents/companion/card-160@2x.webp",
+      "bytes": 186354,
+      "sha256": "fe24319f01ed4af9faa7000eecd6919d5b57b75c80a1982383be11a9c3a3a56a",
+      "frameRects": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 240,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 480,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 720,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 960,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 1200,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        }
+      ]
+    },
+    {
+      "intent": "thinking",
+      "frames": 6,
+      "fps": 8,
+      "playback": "loop",
+      "holdFrame": null,
+      "cell": {
+        "width": 240,
+        "height": 240
+      },
+      "sheet": "assets/animations/thinking/spritesheet.webp",
+      "staticFallback": "assets/intents/thinking/card-160@2x.webp",
+      "bytes": 210776,
+      "sha256": "5454f6dfe407ca54d34b9451e19945693094dd8a9c67f3b23e644880b7e3d4b1",
+      "frameRects": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 240,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 480,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 720,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 960,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 1200,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        }
+      ]
+    },
+    {
+      "intent": "reminder",
+      "frames": 6,
+      "fps": 6,
+      "playback": "once-hold",
+      "holdFrame": 3,
+      "cell": {
+        "width": 240,
+        "height": 240
+      },
+      "sheet": "assets/animations/reminder/spritesheet.webp",
+      "staticFallback": "assets/intents/reminder/card-160@2x.webp",
+      "bytes": 161196,
+      "sha256": "161b626edb60da22de4b549bfb6cfb3c69343f4028325975fbf27f55b7c85c92",
+      "frameRects": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 240,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 480,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 720,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 960,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 1200,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        }
+      ]
+    },
+    {
+      "intent": "encouragement",
+      "frames": 5,
+      "fps": 12,
+      "playback": "once-hold",
+      "holdFrame": 4,
+      "cell": {
+        "width": 240,
+        "height": 240
+      },
+      "sheet": "assets/animations/encouragement/spritesheet.webp",
+      "staticFallback": "assets/intents/encouragement/card-160@2x.webp",
+      "bytes": 84408,
+      "sha256": "8488b63ebb26d27d2f74d13949f208af37d2089ee803ec039f9220377b245438",
+      "frameRects": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 240,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 480,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 720,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 960,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        }
+      ]
+    },
+    {
+      "intent": "rest",
+      "frames": 6,
+      "fps": 5,
+      "playback": "loop",
+      "holdFrame": null,
+      "cell": {
+        "width": 240,
+        "height": 240
+      },
+      "sheet": "assets/animations/rest/spritesheet.webp",
+      "staticFallback": "assets/intents/rest/card-160@2x.webp",
+      "bytes": 220784,
+      "sha256": "bf4fbe20e6247327d0c58da90f9f688c29cb1f1392f9d9f62e4a8398f6a26855",
+      "frameRects": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 240,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 480,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 720,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 960,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 1200,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        }
+      ]
+    },
+    {
+      "intent": "deprioritize",
+      "frames": 5,
+      "fps": 8,
+      "playback": "once-hold",
+      "holdFrame": 4,
+      "cell": {
+        "width": 240,
+        "height": 240
+      },
+      "sheet": "assets/animations/deprioritize/spritesheet.webp",
+      "staticFallback": "assets/intents/deprioritize/card-160@2x.webp",
+      "bytes": 140538,
+      "sha256": "e32d05e63404987e6385856cb019a5874f08931b7c1a008824780caf4c7c848b",
+      "frameRects": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 240,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 480,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 720,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "x": 960,
+          "y": 0,
+          "width": 240,
+          "height": 240
+        }
+      ]
+    }
+  ]
+}

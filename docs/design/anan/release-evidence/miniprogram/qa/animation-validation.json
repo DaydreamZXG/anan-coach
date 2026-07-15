@@ -1,0 +1,448 @@
+{
+  "ok": true,
+  "animations": [
+    {
+      "intent": "companion",
+      "expectedFrames": 6,
+      "actualFrames": 6,
+      "sheetBytes": 186354,
+      "budgetBytes": 225280,
+      "withinBudget": true,
+      "registration": {
+        "scale": 0.4920273348519362,
+        "sourceMinY": 180,
+        "sourceMaxY": 619,
+        "frames": [
+          {
+            "index": 0,
+            "bbox": [
+              40,
+              13,
+              201,
+              226
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 1,
+            "bbox": [
+              31,
+              16,
+              210,
+              226
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 2,
+            "bbox": [
+              28,
+              15,
+              212,
+              226
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 3,
+            "bbox": [
+              28,
+              15,
+              213,
+              226
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 4,
+            "bbox": [
+              34,
+              15,
+              205,
+              226
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 5,
+            "bbox": [
+              47,
+              15,
+              195,
+              226
+            ],
+            "edgeContact": false
+          }
+        ]
+      },
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "intent": "thinking",
+      "expectedFrames": 6,
+      "actualFrames": 6,
+      "sheetBytes": 210776,
+      "budgetBytes": 225280,
+      "withinBudget": true,
+      "registration": {
+        "scale": 0.5806451612903226,
+        "sourceMinY": 274,
+        "sourceMaxY": 586,
+        "frames": [
+          {
+            "index": 0,
+            "bbox": [
+              17,
+              24,
+              223,
+              188
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 1,
+            "bbox": [
+              14,
+              29,
+              226,
+              190
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 2,
+            "bbox": [
+              31,
+              21,
+              209,
+              189
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 3,
+            "bbox": [
+              18,
+              31,
+              221,
+              190
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 4,
+            "bbox": [
+              38,
+              14,
+              201,
+              191
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 5,
+            "bbox": [
+              40,
+              26,
+              199,
+              191
+            ],
+            "edgeContact": false
+          }
+        ]
+      },
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "intent": "reminder",
+      "expectedFrames": 6,
+      "actualFrames": 6,
+      "sheetBytes": 161196,
+      "budgetBytes": 225280,
+      "withinBudget": true,
+      "registration": {
+        "scale": 0.4726477024070022,
+        "sourceMinY": 176,
+        "sourceMaxY": 633,
+        "frames": [
+          {
+            "index": 0,
+            "bbox": [
+              50,
+              17,
+              190,
+              225
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 1,
+            "bbox": [
+              54,
+              14,
+              188,
+              225
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 2,
+            "bbox": [
+              49,
+              18,
+              190,
+              225
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 3,
+            "bbox": [
+              48,
+              15,
+              192,
+              226
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 4,
+            "bbox": [
+              57,
+              14,
+              181,
+              225
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 5,
+            "bbox": [
+              49,
+              16,
+              190,
+              225
+            ],
+            "edgeContact": false
+          }
+        ]
+      },
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "intent": "encouragement",
+      "expectedFrames": 5,
+      "actualFrames": 5,
+      "sheetBytes": 84408,
+      "budgetBytes": 225280,
+      "withinBudget": true,
+      "registration": {
+        "scale": 0.3576158940397351,
+        "sourceMinY": 96,
+        "sourceMaxY": 700,
+        "frames": [
+          {
+            "index": 0,
+            "bbox": [
+              59,
+              124,
+              182,
+              226
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 1,
+            "bbox": [
+              57,
+              70,
+              183,
+              220
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 2,
+            "bbox": [
+              77,
+              13,
+              163,
+              189
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 3,
+            "bbox": [
+              65,
+              80,
+              176,
+              202
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 4,
+            "bbox": [
+              60,
+              144,
+              180,
+              227
+            ],
+            "edgeContact": false
+          }
+        ]
+      },
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "intent": "rest",
+      "expectedFrames": 6,
+      "actualFrames": 6,
+      "sheetBytes": 220784,
+      "budgetBytes": 225280,
+      "withinBudget": true,
+      "registration": {
+        "scale": 0.6244897959183674,
+        "sourceMinY": 263,
+        "sourceMaxY": 529,
+        "frames": [
+          {
+            "index": 0,
+            "bbox": [
+              17,
+              16,
+              224,
+              177
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 1,
+            "bbox": [
+              15,
+              16,
+              225,
+              177
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 2,
+            "bbox": [
+              16,
+              15,
+              224,
+              177
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 3,
+            "bbox": [
+              17,
+              16,
+              224,
+              177
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 4,
+            "bbox": [
+              15,
+              15,
+              224,
+              177
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 5,
+            "bbox": [
+              16,
+              16,
+              224,
+              177
+            ],
+            "edgeContact": false
+          }
+        ],
+        "runtimeInsetPixels": 1
+      },
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    },
+    {
+      "intent": "deprioritize",
+      "expectedFrames": 5,
+      "actualFrames": 5,
+      "sheetBytes": 140538,
+      "budgetBytes": 225280,
+      "withinBudget": true,
+      "registration": {
+        "scale": 0.416988416988417,
+        "sourceMinY": 136,
+        "sourceMaxY": 654,
+        "frames": [
+          {
+            "index": 0,
+            "bbox": [
+              51,
+              14,
+              190,
+              215
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 1,
+            "bbox": [
+              49,
+              20,
+              189,
+              216
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 2,
+            "bbox": [
+              49,
+              31,
+              191,
+              222
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 3,
+            "bbox": [
+              49,
+              30,
+              190,
+              227
+            ],
+            "edgeContact": false
+          },
+          {
+            "index": 4,
+            "bbox": [
+              50,
+              15,
+              189,
+              215
+            ],
+            "edgeContact": false
+          }
+        ]
+      },
+      "opaqueMagentaPixels": 0,
+      "transparentRgbResiduePixels": 0
+    }
+  ]
+}

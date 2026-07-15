@@ -1,0 +1,1 @@
+"""Daily court docket domain."""

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "aegis.schema.v0",
+  "taskId": "2026-07-04-genui-card-feed",
+  "lastCheckpointRef": "docs/aegis/work/2026-07-04-genui-card-feed/todo-checkpoint-draft.json",
+  "resumeInstruction": "If resumed, inspect backend/app/domains/feed plus tests/test_feed_today.py; do not change planner unless spec changes.",
+  "knownPartialWork": [
+    "Read feed spec and taskstream contract",
+    "Added feed schemas/service/router",
+    "Registered /api/v1/feed/today and README endpoint",
+    "Added schema/orchestrator tests",
+    "Ran full backend pytest"
+  ],
+  "mustReadBeforeContinuing": [
+    "docs/aegis/work/2026-07-04-genui-card-feed/10-intent.md",
+    "docs/aegis/work/2026-07-04-genui-card-feed/20-checkpoint.md",
+    "docs/aegis/work/2026-07-04-genui-card-feed/todo-checkpoint-draft.json"
+  ],
+  "unsafeToAssume": [
+    "Do not assume unsupported future card types have backend data; only schemas exist for them."
+  ]
+}

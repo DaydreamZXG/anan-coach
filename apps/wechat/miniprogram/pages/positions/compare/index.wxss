@@ -1,0 +1,5 @@
+@import "../../../features/positions/page-shell.wxss";
+
+.position-compare-page {
+  padding-bottom: 130rpx;
+}

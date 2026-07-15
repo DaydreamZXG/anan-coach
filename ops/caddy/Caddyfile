@@ -1,0 +1,19 @@
+kg.xingguoxian.cn {
+	handle_path /assets/fonts/* {
+		root * /srv/gongkao-dazi-public/fonts
+		header {
+			Access-Control-Allow-Origin "*"
+			Cache-Control "public, max-age=31536000, immutable"
+			X-Content-Type-Options "nosniff"
+		}
+		file_server
+	}
+
+	handle_path /coding-tools-mcp/* {
+		reverse_proxy 127.0.0.1:18765
+	}
+
+	handle {
+		reverse_proxy 127.0.0.1:8000
+	}
+}

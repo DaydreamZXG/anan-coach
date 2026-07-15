@@ -1,0 +1,10 @@
+.login-page { box-sizing: border-box; min-height: 100vh; padding: 112rpx 36rpx 56rpx; background: radial-gradient(circle at 80% 12%, rgba(82, 104, 255, 0.16) 0, transparent 34%), var(--color-canvas); }
+.hero-title { margin-top: 22rpx; font-size: 58rpx; font-weight: 850; line-height: 1.28; letter-spacing: -2rpx; }
+.hero-copy { margin-top: 24rpx; color: var(--color-muted); font-size: 28rpx; line-height: 1.7; }
+.promise { margin-top: 54rpx; }
+.promise-row { display: flex; align-items: center; gap: 16rpx; color: var(--color-muted); font-size: 24rpx; }
+.promise-row + .promise-row { margin-top: 22rpx; }
+.promise-dot { width: 12rpx; height: 12rpx; border-radius: 50%; background: var(--color-success); }
+.wechat-button { margin-top: 48rpx; }
+.legal { margin-top: 20rpx; color: var(--color-faint); font-size: 21rpx; line-height: 1.55; text-align: center; }
+.error-message { margin-top: 24rpx; padding: 18rpx; border-radius: 16rpx; background: var(--color-danger-soft); color: var(--color-danger); font-size: 23rpx; text-align: center; }

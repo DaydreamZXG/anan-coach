@@ -1,0 +1,100 @@
+<task-shell
+  title="真实作答复盘"
+  modeLabel="解题 Agent · 用户原话"
+  current="{{phase === 'reflection' ? 1 : phase === 'cause_decision' ? 2 : 3}}"
+  total="3"
+  elapsedLabel="--:--"
+  syncLabel="{{pendingMessage || (phase === 'completed' ? '证据已结算' : '等待你的确认')}}"
+  answerSheetAvailable="{{false}}"
+  toolsAvailable="{{false}}"
+  footerAvailable="{{false}}"
+  bindexit="exit"
+>
+  <view wx:if="{{status === 'loading'}}" class="page-state">
+    <state-view state="loading" title="正在恢复复盘版本" description="用户原话、错因决定与今日任务保持同一条证据链。" />
+  </view>
+
+  <view wx:elif="{{status === 'error'}}" class="page-state">
+    <state-view state="error" title="{{errorTitle}}" description="{{errorMessage}}" actionText="按原命令重试" bindaction="retry" />
+  </view>
+
+  <view wx:elif="{{status === 'unavailable'}}" class="capability-state card">
+    <view class="capability-mark">真实学习档案门禁</view>
+    <view class="capability-title">{{errorTitle}}</view>
+    <view class="capability-copy">{{errorMessage}}</view>
+    <button wx:if="{{showLoginAction}}" class="secondary-button capability-action" bindtap="goLogin">重新登录</button>
+  </view>
+
+  <view wx:elif="{{status === 'ready'}}" class="reflection-workspace">
+    <view class="reflection-hero">
+      <view class="hero-orbit hero-orbit--one"></view>
+      <view class="hero-orbit hero-orbit--two"></view>
+      <view class="hero-eyebrow">复盘不是认错，是让 AI 大脑真正认识你</view>
+      <view class="hero-title">先保留你当时真实的判断</view>
+      <view class="hero-copy">不会把一次答对直接算成掌握，也不会用 AI 猜测替代你的原话。</view>
+      <view wx:if="{{result}}" class="hero-score"><text>{{result.correctCount}}</text> / {{result.totalCount}} 题答对</view>
+    </view>
+
+    <view wx:if="{{hasPendingWrite}}" class="pending-write card">
+      <view class="pending-title">上次提交结果还不能确认</view>
+      <view class="pending-copy">{{pendingMessage}}</view>
+      <button class="secondary-button" bindtap="retry">按原命令重试</button>
+    </view>
+
+    <block wx:if="{{phase === 'reflection'}}">
+      <view class="section-heading">
+        <view>
+          <view class="section-title">你当时是怎么想的？</view>
+          <view class="section-meta">必填 · 原话进入个人学习档案</view>
+        </view>
+      </view>
+      <textarea class="thought-input" value="{{rawText}}" maxlength="4000" disabled="{{interactionLocked}}" placeholder="例如：我先排除了 A、D，但把题目问的‘不符合’看成了‘符合’……" bindinput="inputRawText"></textarea>
+
+      <view class="section-heading compact-heading">
+        <view>
+          <view class="section-title">给这次思路打标签</view>
+          <view class="section-meta">至少选择 1 项，可多选</view>
+        </view>
+      </view>
+      <view class="tag-grid">
+        <button wx:for="{{tagOptions}}" wx:key="code" class="tag-chip {{item.selected ? 'tag-chip--active' : ''}}" data-code="{{item.code}}" disabled="{{interactionLocked}}" bindtap="toggleTag">{{item.label}}</button>
+      </view>
+
+      <view class="detail-card card">
+        <view class="field-label">下次准备怎么做 <text>选填</text></view>
+        <textarea class="detail-input" value="{{strategyNote}}" maxlength="2000" disabled="{{interactionLocked}}" placeholder="写下一个具体动作，例如：先圈题目问法，再看选项。" bindinput="inputStrategyNote"></textarea>
+        <view class="field-label">仍然没想通的点 <text>选填</text></view>
+        <textarea class="detail-input" value="{{doubtNote}}" maxlength="2000" disabled="{{interactionLocked}}" placeholder="保留疑问，后续可交给贯穿全局的解答 Agent。" bindinput="inputDoubtNote"></textarea>
+      </view>
+      <button class="primary-button main-action" disabled="{{interactionLocked}}" bindtap="submitReflection">保存原话复盘</button>
+    </block>
+
+    <block wx:elif="{{phase === 'cause_decision'}}">
+      <view class="ai-boundary card">
+        <view class="boundary-icon">AI</view>
+        <view class="boundary-body">
+          <view class="boundary-title">AI 错因候选当前不可用</view>
+          <view class="boundary-copy">该场景尚未启用可靠模型与验证链，因此系统不生成猜测，也不会产生 AI 费用。</view>
+          <view class="boundary-meta">状态 unavailable · charged false</view>
+        </view>
+      </view>
+
+      <view class="section-heading">
+        <view>
+          <view class="section-title">错因决定权留给你</view>
+          <view class="section-meta">你可以自己补充，也可以明确跳过</view>
+        </view>
+      </view>
+      <textarea class="cause-input" value="{{replacementCause}}" maxlength="2000" disabled="{{interactionLocked}}" placeholder="用一句话写下你认可的错因，例如：没识别出这是两期比重差公式。" bindinput="inputReplacementCause"></textarea>
+      <button class="primary-button main-action" disabled="{{interactionLocked}}" bindtap="replaceCause">采用我的错因并结算</button>
+      <button class="skip-cause" disabled="{{interactionLocked}}" bindtap="skipCause">这次不归因，明确跳过</button>
+    </block>
+
+    <view wx:else class="completed-card card">
+      <view class="completed-mark">证据链完成</view>
+      <view class="completed-title">这次作答与复盘已经结算</view>
+      <view class="completed-copy">今日计划已按真实完成证据重排；本次记录不等于掌握，也不会虚构能力提升。</view>
+      <button class="primary-button main-action" bindtap="returnToday">查看新的今日计划</button>
+    </view>
+  </view>
+</task-shell>

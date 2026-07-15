@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "aegis.schema.v0",
+  "taskId": "2026-07-02-question-bank-compaction",
+  "requiredBaselineRefs": [
+    "data/question-bank-export/MANIFEST.md",
+    "data/question-bank-export/db/question-bank-subset-20260702.dump"
+  ],
+  "deliveredContextRefs": [],
+  "acknowledgedBeforePlanRefs": [
+    "User instruction: AI-cleaned explanations win when accepted",
+    "User instruction: essay explanations are not needed"
+  ],
+  "citedInPlanRefs": [
+    "reports/question-bank/compaction-v1-report-20260702.md"
+  ],
+  "missingRefs": [],
+  "decision": "continue"
+}

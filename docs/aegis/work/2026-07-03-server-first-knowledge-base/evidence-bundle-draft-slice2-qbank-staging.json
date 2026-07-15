@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "aegis.schema.v0",
+  "artifactKey": "slice2-qbank-staging",
+  "type": "command",
+  "source": "rsync + remote sha256sum/du/df verification",
+  "summary": "Transferred qbank dump, SQL, reports, and manifest to /srv/gongkao-dazi/import-staging/qbank. Dump checksum matches manifest; staging size is 309M; server root disk has 53G available.",
+  "verifier": "codex"
+}

@@ -1,0 +1,13 @@
+        joint_scope_decision         |      merge_decision      |      identity_bucket       | groups | joint_members | joint_occurrences 
+-------------------------------------+--------------------------+----------------------------+--------+---------------+-------------------
+ joint_singleton_or_nonduplicate     | singleton_keep           | plain_text_signature       |   3442 |          3442 |             18908
+ joint_singleton_or_nonduplicate     | singleton_keep           | material_context_signature |   1113 |          1113 |              4165
+ joint_singleton_or_nonduplicate     | singleton_keep           | visual_html_signature      |    388 |           388 |              1575
+ joint_singleton_or_nonduplicate     | singleton_keep           | graphic_asset_signature    |    384 |           384 |              1405
+ joint_auto_merge_candidate          | auto_merge_plain_exact   | plain_text_signature       |    161 |           322 |              1975
+ partial_overlap_not_joint_duplicate | auto_merge_plain_exact   | plain_text_signature       |     14 |            14 |                60
+ joint_visual_review                 | review_visual_cluster    | visual_html_signature      |      2 |             8 |                11
+ joint_taxonomy_review               | review_taxonomy_conflict | plain_text_signature       |      2 |             4 |                26
+ partial_overlap_not_joint_duplicate | review_visual_cluster    | visual_html_signature      |      1 |             1 |                 1
+(9 rows)
+

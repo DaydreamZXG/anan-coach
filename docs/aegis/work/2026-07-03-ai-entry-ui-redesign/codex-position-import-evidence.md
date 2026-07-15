@@ -1,0 +1,26 @@
+# Codex Position Import Evidence
+
+- Date: 2026-07-03
+- Scope: import `/Users/zxg/Documents/公考选岗计划/data/gwy.db` into production PostgreSQL product schema and investigate 2024 entry-score availability.
+- Boundary held: additive schema and upsert import only. No `DROP`, `TRUNCATE`, or delete against production data.
+- Added runtime product tables: `product.position_systems`, `product.positions`, `product.position_score_histories`, `product.position_score_links`, `product.system_score_histories`, `product.position_tags`.
+- Importer: `backend/app/importers/gwy_positions.py`, `scripts/import_gwy_positions.py`, and `scripts/verify_position_import.py`.
+- Local verification: `backend/.venv/bin/python -m pytest backend/tests` -> 37 passed, 1 warning.
+- Local verification: `scripts/full_verify.sh` -> backend 37 passed; iPhone 17 build succeeded; iPad Pro 13-inch (M5) build succeeded; Aegis workspace check passed.
+- Production source import: `/srv/gongkao-dazi/import-staging/gwy.db`.
+- Production imported counts: `systems=7`, `positions=60471`, `position_score_histories=15387`, `position_score_links=40739`, `system_score_histories=308`, `position_tags=0`.
+- Production coverage: 2024 `0/18947` positions with same-year score; 2025 `20317/20810` (97.6%); 2026 `20422/20714` (98.6%).
+- Production verification: `scripts/verify_position_import.py --source /srv/gongkao-dazi/import-staging/gwy.db` -> `ok=true`, no mismatches.
+- Remote verification: `/srv/gongkao-dazi/backend/.venv/bin/python -m pytest tests` -> 37 passed, 1 warning.
+- 2024 scrape attempt: downloaded `2024_guokao_interview_list_gemu.xlsx` from a public mirror page; file has 115,640 candidate rows and columns `职位代码` and `最低面试分数`.
+- 2024 scrape finding: code-only import is unsafe. The file has 2,070 `职位代码` values with conflicting minimum scores across different departments/positions. Exact `(职位代码, 招录机关+用人司局, 招考职位)` matching covers 15,277/18,947 source positions; loose department containment matching covers 18,382/18,947.
+- Residual risk: 2024 entry-score supplement needs a dedicated schema/importer keyed by department and position name, not the current `(position_code, year)` score-history uniqueness.
+- 2024 safe import schema added: `product.position_entry_score_evidence` keyed by `(year, department_code, position_code)` and `product.position_entry_score_links`; no changes to unsafe `product.position_score_histories` for 2024.
+- Importer added: `backend/app/importers/guokao_entry_scores.py` and `scripts/import_guokao_entry_scores.py`; candidate names and admission-ticket numbers are intentionally not stored, only岗位证据 and `candidate_count`.
+- Local verification: `backend/.venv/bin/python -m pytest backend/tests` -> 39 passed, 1 warning.
+- Local full-data dry run in temporary PostgreSQL: `evidence_rows=18383`, `linked_positions=18382`, `exact_links=15277`, `containment_links=3105`, `unlinked_evidence=1`, `stale_links=0`, 2024 coverage `18382/18947` (97.0%).
+- Remote verification: first plain `pytest` failed because the server lacks `initdb/pg_ctl`; rerun against an isolated temporary PostgreSQL database -> 39 passed, 1 warning. Production DB was not used for tests.
+- Production 2024 entry-score import source: `/srv/gongkao-dazi/import-staging/positions/2024_guokao_interview_list_gemu.xlsx`, sha256 `01c9a156771b4bbc401e7265d551572792642634a1d9464359c5192b1b1e99c0`.
+- Production 2024 entry-score import: `evidence_rows=18383`, `candidate_rows=115640`, `linked_positions=18382`, `exact_links=15277`, `containment_links=3105`, `unlinked_evidence=1`, `stale_links=0`, 2024 coverage `18382/18947` (97.0%).
+- Production privilege check: `gongkao_api` can `select` new entry-score tables and cannot `insert`; one-time import was run with a local postgres management connection after the API role correctly rejected writes.
+- Position vs recruit count clarification: 2026 has `20714` position rows and `38119` planned recruits; the remembered "3w+" figure is planned headcount, not岗位条数.

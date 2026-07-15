@@ -1,0 +1,11 @@
+              merge_policy              | canonical_questions | source_members | compacted_source_rows 
+----------------------------------------+---------------------+----------------+-----------------------
+ auto_plain_exact                       |                 241 |            482 |                   241
+ visual_asset_exact_supported           |                   2 |              8 |                     6
+ keep_separate_singleton_keep           |               52598 |          52598 |                     0
+ essay_keep_one_to_one                  |                2203 |           2203 |                     0
+ keep_separate_review_taxonomy_conflict |                  72 |             72 |                     0
+ keep_separate_review_visual_cluster    |                  50 |             50 |                     0
+ keep_separate_review_material_cluster  |                  48 |             48 |                     0
+(7 rows)
+

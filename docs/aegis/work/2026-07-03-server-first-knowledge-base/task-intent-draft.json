@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "aegis.schema.v0",
+  "requestedOutcome": "Execute the first server-first knowledge-base milestone for 考公搭子",
+  "goal": "Create a stable baseline and prepare the server database/schema/import staging path for canonical qbank import",
+  "successEvidence": [
+    "Aegis check passes, repository baseline is committed, server PostgreSQL/schema is active, and qbank import inputs are staged on the server"
+  ],
+  "stopCondition": "Stop when Slice 0-2 are verified, or if server package install/import transfer is blocked",
+  "nonGoals": [
+    "Implementing 行测/申论 full learning loop",
+    "Serving image assets from the API server"
+  ],
+  "scope": "Repository baseline, server PostgreSQL setup, schema boundaries, qbank import input transfer; no product API implementation in this slice",
+  "changeKinds": [
+    "ops+persistence"
+  ],
+  "riskHints": [
+    "Do not commit large data, secrets, local runtimes, or old project code; do not expose PostgreSQL publicly"
+  ]
+}

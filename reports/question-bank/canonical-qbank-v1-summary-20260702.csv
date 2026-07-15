@@ -1,0 +1,19 @@
+metric,value,note
+accepted_merge_groups,243,accepted duplicate groups
+accepted_merge_removed_duplicates,247,source question rows compacted by accepted duplicate groups
+accepted_merge_source_members,490,source question members in accepted duplicate groups
+canonical_explanations,53011,"non-essay explanation rows, AI accepted preferred when available"
+canonical_question_tag_rows,557844,deduped canonical tag rows
+canonical_questions_essay,2203,essay canonical questions kept one-to-one
+canonical_questions_objective,53011,objective canonical questions
+canonical_questions_total,55214,final canonical question count for v1 accepted merge policy
+exam_papers_imported,764,papers referenced by imported occurrences
+knowledge_chunk_links,23103,source knowledge chunks preserved with canonical IDs
+merge_review_queue_groups,82,candidate duplicate groups intentionally not merged in v1
+question_asset_refs,52112,image refs extracted from source question HTML
+question_occurrences_imported,104453,occurrence rows attached to canonical questions
+question_occurrences_quarantined,309,occurrence rows attached only to quarantined source questions
+question_tag_evidence_rows,560397,source tag links preserved with canonical IDs
+source_questions_mapped,55461,source questions mapped into canonical_qbank
+source_questions_quarantined,306,placeholder/non-candidate objective source questions excluded from canonical_question
+source_questions_total,55767,all rows in old QuestionBankQuestion

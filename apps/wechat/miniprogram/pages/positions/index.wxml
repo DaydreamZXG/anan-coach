@@ -1,0 +1,201 @@
+<view class="page position-page position-workspace">
+  <view class="position-hero">
+    <view class="position-hero__copy">
+      <view class="eyebrow">岗位 AGENT · 国考</view>
+      <view class="page-title">你的岗位决策工作区</view>
+      <view class="page-subtitle">资格结论、目标分和学习证据各自有版本；系统不会用单科分或客户端计算冒充岗位分差。</view>
+    </view>
+    <anan-companion size="medium" intent="thinking" context="plan" animate />
+  </view>
+
+  <view class="position-actions">
+    <ui-button label="搜索与筛选岗位" bind:action="openSearch" />
+  </view>
+
+  <state-view wx:if="{{!workspace || workspace.status === 'idle' || workspace.status === 'loading'}}" state="loading" />
+  <state-view
+    wx:elif="{{workspace.status === 'needsProfile'}}"
+    state="empty"
+    title="先完成资格建档"
+    description="没有你的真实资格事实，岗位 Agent 不会猜测可报范围。"
+    request-id="{{workspace.error.requestId}}"
+    action-text="去建档"
+    bind:action="openOnboarding"
+  />
+  <state-view
+    wx:elif="{{workspace.status === 'noActiveRelease'}}"
+    state="empty"
+    title="本年度岗位尚未正式发布"
+    description="没有激活的国考岗位与规则版本时，系统不会展示历史岗位冒充当前可报范围。"
+    request-id="{{workspace.error.requestId}}"
+  />
+  <state-view
+    wx:elif="{{workspace.status !== 'ready' && workspace.status !== 'empty'}}"
+    state="{{workspace.status === 'network' ? 'stale' : 'error'}}"
+    title="{{workspace.error.title}}"
+    description="{{workspace.error.message}}"
+    request-id="{{workspace.error.requestId}}"
+    action-text="重新加载"
+    bind:action="retryPositions"
+  />
+
+  <block wx:else>
+    <view wx:if="{{workspace.delivery}}" class="delivery-strip">
+      <text>{{workspace.examYear}} 国考 · 档案 v{{workspace.learnerProfileVersion}} · 规则 {{workspace.ruleSetVersion}}</text>
+      <text>生成 {{workspace.delivery.generatedAtLabel}}</text>
+      <text wx:if="{{workspace.delivery.partial}}" class="delivery-strip__warning">{{workspace.delivery.partialLabel}}</text>
+      <text wx:if="{{workspace.delivery.stale}}" class="delivery-strip__warning">{{workspace.delivery.staleLabel}}</text>
+      <text wx:if="{{workspace.delivery.processing}}" class="delivery-strip__processing">{{workspace.delivery.processingLabel}}</text>
+      <text class="delivery-strip__request">Request ID · {{workspace.delivery.requestId}}</text>
+    </view>
+    <view wx:if="{{workspace.refreshError}}" class="inline-warning">
+      <view>刷新失败，当前继续展示上次已加载版本。</view>
+      <view class="inline-link" bindtap="retryPositions">重新加载 · {{workspace.refreshError.requestId}}</view>
+    </view>
+
+    <view class="section-heading">
+      <view class="section-title">主目标</view>
+      <view class="section-meta">服务端目标版本</view>
+    </view>
+    <view wx:if="{{workspace.primaryGoal}}" class="position-card position-card--primary" data-id="{{workspace.primaryGoal.positionId}}" bindtap="openPosition">
+      <view class="position-card__top">
+        <view class="status-pill status-pill--{{workspace.primaryGoal.eligibilityTone}}">{{workspace.primaryGoal.eligibilityLabel}}</view>
+        <view class="primary-tag">当前主目标</view>
+      </view>
+      <view class="position-card__name">{{workspace.primaryGoal.name}}</view>
+      <view class="position-card__department">{{workspace.primaryGoal.departmentFull}}</view>
+      <view class="position-card__metrics">
+        <view><text>建议备考线</text><strong class="type-data">{{workspace.primaryGoal.scoreLabel}}</strong></view>
+        <view><text>岗位分带</text><strong>{{workspace.primaryGoal.fitView.bandLabel}}</strong></view>
+      </view>
+      <view class="position-card__evidence">{{workspace.primaryGoal.scoreEvidenceLabel}} · {{workspace.primaryGoal.targetGeneratedLabel}} · {{workspace.primaryGoal.targetValidityLabel}}</view>
+      <view class="position-card__fit">
+        <view class="status-pill status-pill--{{workspace.primaryGoal.fitView.statusTone}}">{{workspace.primaryGoal.fitView.statusLabel}}</view>
+        <text>{{workspace.primaryGoal.fitView.scoreGapRecommendedLabel}} · {{workspace.primaryGoal.fitView.evidenceStatusLabel}}</text>
+      </view>
+    </view>
+    <view wx:else class="capability-card capability-card--neutral">
+      <view class="capability-card__title">尚未建立主目标</view>
+      <view class="capability-card__copy">先搜索、核验并查看服务端影响预览，再由你确认主报岗位。</view>
+    </view>
+
+    <view class="section-heading">
+      <view class="section-title">候选范围</view>
+      <view class="section-meta">服务端区间关系 · 非录取概率</view>
+    </view>
+    <view wx:for="{{workspace.candidateItems}}" wx:key="positionId" class="position-card" data-id="{{item.positionId}}" bindtap="openPosition">
+      <view class="position-card__top">
+        <view class="status-pill status-pill--{{item.eligibilityTone}}">{{item.eligibilityLabel}}</view>
+        <view class="position-code">{{item.positionCode}}</view>
+      </view>
+      <view class="position-card__name">{{item.name}}</view>
+      <view class="position-card__department">{{item.departmentFull}}</view>
+      <view class="position-card__meta">{{item.region}}{{item.city ? ' · ' + item.city : ''}} · 招 {{item.headcount}} 人</view>
+      <view class="position-card__metrics">
+        <view><text>{{item.fitView.bandLabel}}区间</text><strong>{{item.fitView.statusDescription}}</strong></view>
+        <view><text>同版本分差</text><strong class="type-data">{{item.fitView.scoreGapRangeLabel}}</strong></view>
+      </view>
+      <view class="position-card__evidence">{{item.scoreEvidenceLabel}} · {{item.targetGeneratedLabel}} · {{item.targetValidityLabel}}</view>
+      <view class="fit-evidence fit-evidence--{{item.fitView.statusTone}}">
+        <view>{{item.fitView.evidenceStatusLabel}} · {{item.fitView.requirementsBurdenLabel}}</view>
+        <text wx:if="{{item.fitView.evidenceReasonLabel}}">{{item.fitView.evidenceReasonLabel}}</text>
+        <text wx:if="{{item.fitView.scoreGapDirectionLabel}}">{{item.fitView.scoreGapDirectionLabel}}</text>
+      </view>
+      <view class="position-card__footer">
+        <view class="compare-toggle {{item.comparisonSelected ? 'compare-toggle--selected' : ''}}" data-id="{{item.positionId}}" catchtap="toggleComparison">{{item.comparisonSelected ? '✓ 已加入对比' : '＋ 加入对比'}}</view>
+        <view>查看逐条依据 →</view>
+      </view>
+    </view>
+    <view wx:if="{{workspace.status === 'empty'}}" class="empty-inline">当前工作台没有符合筛选与资格范围的岗位；进入搜索页核对完整岗位发布。</view>
+    <view wx:elif="{{!workspace.candidateItems.length}}" class="empty-inline">当前工作台没有其他候选岗位，进入搜索页查看完整可报范围。</view>
+
+    <view class="section-heading">
+      <view class="section-title">资格缺口</view>
+      <view class="section-meta">只列影响岗位判断的事实</view>
+    </view>
+    <view wx:if="{{workspace.qualificationStatus === 'loading'}}" class="card"><text class="muted">正在按当前规则版本汇总…</text></view>
+    <view wx:elif="{{workspace.qualificationStatus === 'error'}}" class="inline-error">
+      <view>{{workspace.qualificationError.message}}</view>
+      <view class="inline-link" bindtap="retryQualification">重试 · {{workspace.qualificationError.requestId}}</view>
+    </view>
+    <view wx:elif="{{workspace.qualificationComplete}}" class="success-card">当前没有待补资格信息；不可报结论仍保留逐条依据。</view>
+    <view wx:else>
+      <view wx:for="{{workspace.qualificationGaps}}" wx:key="gapKey" class="gap-row">
+        <view>
+          <view class="gap-row__title">{{item.factLabel}} · {{item.statusLabel}}</view>
+          <view class="gap-row__copy">影响 {{item.affectedPositionCount}} 个岗位</view>
+        </view>
+        <view class="inline-link" data-action="{{item.action}}" data-code="{{item.samplePositionCodes[0]}}" bindtap="openGapAction">{{item.actionLabel}} →</view>
+      </view>
+    </view>
+
+    <view class="section-heading">
+      <view class="section-title">行测 + 申论总分证据</view>
+      <view class="section-meta">双轨缺一不可</view>
+    </view>
+    <view wx:if="{{workspace.ability}}" class="ability-card">
+      <view class="ability-card__head">
+        <view><view class="ability-card__kicker">共享学习大脑</view><view class="ability-card__title">{{workspace.ability.statusLabel}}</view></view>
+        <view class="status-pill">{{workspace.ability.confidenceLabel}}</view>
+      </view>
+      <view class="ability-card__scores">
+        <view><text>行测</text><strong class="type-data">{{workspace.ability.xingceLabel}}</strong></view>
+        <view><text>申论</text><strong class="type-data">{{workspace.ability.shenlunLabel}}</strong></view>
+        <view><text>总分</text><strong class="type-data">{{workspace.ability.totalLabel}}</strong></view>
+      </view>
+      <view class="ability-card__copy">{{workspace.ability.evidenceLabel}}</view>
+      <view class="ability-card__copy">{{workspace.ability.missingLabel}} · {{workspace.ability.gapBlockDetail}}</view>
+      <view wx:if="{{workspace.ability.conflictLabel}}" class="inline-warning">{{workspace.ability.conflictLabel}}</view>
+      <view class="inline-link" bindtap="openScoreSheet">{{workspace.ability.readiness === 'unavailable' ? '录入真实成绩证据' : '补充新的成绩证据'}} →</view>
+    </view>
+  </block>
+
+  <view wx:if="{{workspace && workspace.selectedIds.length > 0}}" class="comparison-dock">
+    <view><strong>已选 {{workspace.selectedIds.length}} / 3</strong><text>{{workspace.selectedIds.length < 2 ? '再选 1 个开始对比' : '服务端将重新对齐版本与分差'}}</text></view>
+    <view class="comparison-dock__clear" bindtap="clearComparison">清空</view>
+    <view class="comparison-dock__action {{workspace.selectedIds.length < 2 ? 'comparison-dock__action--disabled' : ''}}" bindtap="openComparison">对比</view>
+  </view>
+
+  <view wx:if="{{score && score.open}}" class="sheet-mask" catchtouchmove="noop" bindtap="closeScoreSheet"></view>
+  <view wx:if="{{score && score.open}}" class="position-sheet score-sheet">
+    <view class="sheet-handle"></view>
+    <view class="sheet-header">
+      <view><view class="eyebrow">成绩证据 · 本人确认</view><view class="sheet-title">{{score.supersedesEvidenceId ? '修正这条成绩证据' : '记录真实单科分'}}</view></view>
+      <view class="sheet-close" bindtap="closeScoreSheet">×</view>
+    </view>
+    <view class="sheet-copy">行测与申论分别记录；只有同一口径下两科证据完整时，服务端才生成总分估计。</view>
+    <view class="subsection-head"><view>历史版本</view><view wx:if="{{score.supersedesEvidenceId}}" class="inline-link" bindtap="startNewScoreEvidence">改为新增</view></view>
+    <view wx:if="{{score.historyStatus === 'loading'}}" class="empty-inline">正在读取历史版本…</view>
+    <view wx:elif="{{score.historyStatus === 'error'}}" class="inline-error"><view>{{score.historyError.message}}</view><view class="inline-link" bindtap="retryScoreHistory">重试</view></view>
+    <view wx:elif="{{!score.history.length}}" class="empty-inline">还没有成绩证据，这次将成为第一条。</view>
+    <scroll-view wx:else class="history-scroll" scroll-y>
+      <view wx:for="{{score.history}}" wx:key="evidenceId" class="history-row {{item.active ? '' : 'history-row--inactive'}}">
+        <view><view>{{item.contextLabel}} · {{item.dateLabel}}</view><text>{{item.scoreLabel}} · {{item.statusLabel}}</text></view>
+        <view wx:if="{{item.active}}" class="inline-link" data-id="{{item.evidenceId}}" bindtap="beginScoreCorrection">修正</view>
+      </view>
+    </scroll-view>
+    <view class="form-label">成绩来自</view>
+    <view class="choice-row">
+      <view class="choice {{score.scoreContext === 'official_exam' ? 'choice--active' : ''}}" data-value="official_exam" bindtap="chooseScoreContext">正式考试</view>
+      <view class="choice {{score.scoreContext === 'full_mock' ? 'choice--active' : ''}}" data-value="full_mock" bindtap="chooseScoreContext">整卷模考</view>
+      <view class="choice {{score.scoreContext === 'historical_estimate' ? 'choice--active' : ''}}" data-value="historical_estimate" bindtap="chooseScoreContext">历史估分</view>
+    </view>
+    <view class="score-inputs">
+      <view><text>行测</text><input type="digit" value="{{score.xingceScore}}" disabled="{{score.saving || score.submissionUncertain}}" placeholder="0–100" bindinput="inputXingceScore" /></view>
+      <view><text>申论</text><input type="digit" value="{{score.shenlunScore}}" disabled="{{score.saving || score.submissionUncertain}}" placeholder="0–100" bindinput="inputShenlunScore" /></view>
+    </view>
+    <view class="form-label">是否按规定限时完成</view>
+    <view class="choice-row">
+      <view class="choice {{score.scoreTimedStatus === 'timed' ? 'choice--active' : ''}}" data-value="timed" bindtap="chooseTimedStatus">是</view>
+      <view class="choice {{score.scoreTimedStatus === 'untimed' ? 'choice--active' : ''}}" data-value="untimed" bindtap="chooseTimedStatus">否</view>
+      <view class="choice {{score.scoreTimedStatus === 'unknown' ? 'choice--active' : ''}}" data-value="unknown" bindtap="chooseTimedStatus">不确定</view>
+    </view>
+    <view class="date-row"><text>作答日期</text><picker mode="date" value="{{score.scoreDate}}" end="{{score.todayDate}}" disabled="{{score.saving || score.submissionUncertain}}" bindchange="chooseScoreDate"><view>{{score.scoreDate}} ›</view></picker></view>
+    <view wx:if="{{score.validationError}}" class="inline-error">{{score.validationError}}</view>
+    <view wx:if="{{score.error}}" class="inline-error"><view>{{score.error.message}}</view><view wx:if="{{score.submissionUncertain}}">结果未知时必须使用原命令重试，输入已锁定以避免重复证据。</view><view wx:if="{{score.error.requestId}}">Request ID · {{score.error.requestId}}</view></view>
+    <view class="sheet-actions">
+      <ui-button label="取消" variant="secondary" disabled="{{score.submissionUncertain}}" bind:action="closeScoreSheet" />
+      <ui-button label="{{score.submissionUncertain ? '查询原命令结果' : (score.supersedesEvidenceId ? '生成修正版本' : '确认记录')}}" loading="{{score.saving}}" bind:action="submitScoreEvidence" />
+    </view>
+  </view>
+</view>

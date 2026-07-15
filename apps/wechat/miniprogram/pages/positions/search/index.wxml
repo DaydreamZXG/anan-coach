@@ -1,0 +1,85 @@
+<view class="page position-page position-search-page">
+  <view class="eyebrow">D02 · 资格约束搜索</view>
+  <view class="page-title">查找当前规则下的岗位</view>
+  <view class="page-subtitle">服务端先应用你的资格档案，再按关键词与地区缩小范围；搜索条件会在本机按账户恢复。</view>
+
+  <view class="filter-card">
+    <view class="search-input"><text>⌕</text><input value="{{state.filters.query}}" placeholder="部门、职位名称或职位代码" confirm-type="search" bindinput="inputQuery" bindconfirm="search" /></view>
+    <view class="filter-grid">
+      <view><text>考试年度</text><input type="number" maxlength="4" value="{{state.filters.examYear}}" placeholder="当前发布" bindinput="inputExamYear" /></view>
+      <view><text>省份</text><input value="{{state.filters.region}}" placeholder="不限" bindinput="inputRegion" /></view>
+      <view><text>城市</text><input value="{{state.filters.city}}" placeholder="不限" bindinput="inputCity" /></view>
+    </view>
+    <view class="filter-actions">
+      <ui-button label="清除" variant="secondary" bind:action="clearFilters" />
+      <ui-button label="按资格筛选" bind:action="search" />
+    </view>
+    <view wx:if="{{state.validationError}}" class="inline-error">{{state.validationError}}</view>
+  </view>
+
+  <state-view wx:if="{{!state || state.status === 'idle' || state.status === 'loading'}}" state="loading" />
+  <state-view
+    wx:elif="{{state.status === 'needsProfile'}}"
+    state="empty"
+    title="先完成资格建档"
+    description="岗位搜索必须基于真实资格事实，不能跳过建档展示伪可报范围。"
+    request-id="{{state.error.requestId}}"
+    action-text="去建档"
+    bind:action="openOnboarding"
+  />
+  <state-view
+    wx:elif="{{state.status === 'noActiveRelease'}}"
+    state="empty"
+    title="本年度岗位尚未正式发布"
+    description="当前没有激活的国考岗位与规则版本。"
+    request-id="{{state.error.requestId}}"
+  />
+  <state-view
+    wx:elif="{{state.status !== 'ready' && state.status !== 'empty'}}"
+    state="{{state.status === 'network' ? 'stale' : 'error'}}"
+    title="{{state.error.title}}"
+    description="{{state.error.message}}"
+    request-id="{{state.error.requestId}}"
+    action-text="重新加载"
+    bind:action="retry"
+  />
+  <state-view
+    wx:elif="{{state.status === 'empty'}}"
+    state="empty"
+    title="没有匹配的岗位"
+    description="当前资格事实和筛选条件共同作用后没有结果；可清除地区或关键词重新搜索。"
+    action-text="清除筛选"
+    bind:action="clearFilters"
+  />
+
+  <block wx:else>
+    <view class="delivery-strip">
+      <text>档案 v{{state.learnerProfileVersion}} · 规则 {{state.ruleSetVersion}}</text>
+      <text>生成 {{state.delivery.generatedAtLabel}}</text>
+      <text wx:if="{{state.delivery.partial}}" class="delivery-strip__warning">{{state.delivery.partialLabel}}</text>
+      <text wx:if="{{state.delivery.stale}}" class="delivery-strip__warning">{{state.delivery.staleLabel}}</text>
+      <text wx:if="{{state.delivery.processing}}" class="delivery-strip__processing">{{state.delivery.processingLabel}}</text>
+      <text class="delivery-strip__request">Request ID · {{state.delivery.requestId}}</text>
+    </view>
+    <view class="section-heading"><view class="section-title">筛选结果</view><view class="section-meta">已加载 {{state.items.length}} 个</view></view>
+    <view wx:for="{{state.items}}" wx:key="positionId" class="position-card" data-id="{{item.positionId}}" bindtap="openPosition">
+      <view class="position-card__top"><view class="status-pill status-pill--{{item.eligibilityTone}}">{{item.eligibilityLabel}}</view><view class="position-code">{{item.positionCode}}</view></view>
+      <view class="position-card__name">{{item.name}}</view>
+      <view class="position-card__department">{{item.departmentFull}}</view>
+      <view class="position-card__meta">{{item.region}}{{item.city ? ' · ' + item.city : ''}} · 招 {{item.headcount}} 人</view>
+      <view class="position-card__metrics"><view><text>资格核验</text><strong>{{item.conditionSummary}}</strong></view><view><text>建议备考线</text><strong class="type-data">{{item.scoreLabel}}</strong></view></view>
+      <view class="position-card__evidence">{{item.scoreEvidenceLabel}} · {{item.targetGeneratedLabel}} · {{item.targetValidityLabel}}</view>
+      <view class="position-card__footer"><view class="compare-toggle {{item.comparisonSelected ? 'compare-toggle--selected' : ''}}" data-id="{{item.positionId}}" catchtap="toggleComparison">{{item.comparisonSelected ? '✓ 已加入对比' : '＋ 加入对比'}}</view><view>查看依据 →</view></view>
+    </view>
+    <view wx:if="{{state.paginationStatus === 'error'}}" class="inline-error"><view>{{state.paginationError.message}}</view><view class="inline-link" bindtap="loadMore">继续加载 · {{state.paginationError.requestId}}</view></view>
+    <view wx:elif="{{state.paginationStatus === 'loading'}}" class="load-more">正在加载下一页…</view>
+    <view wx:elif="{{state.hasMore}}" class="load-more" bindtap="loadMore">加载更多</view>
+    <view wx:else class="list-end">已展示当前条件下的全部岗位</view>
+  </block>
+
+  <view wx:if="{{state && state.selectedIds.length > 0}}" class="comparison-dock">
+    <view><strong>已选 {{state.selectedIds.length}} / 3</strong><text>{{state.selectedIds.length < 2 ? '再选 1 个开始对比' : '按同一档案版本重新核验'}}</text></view>
+    <view class="comparison-dock__clear" bindtap="clearComparison">清空</view>
+    <view class="comparison-dock__action {{state.selectedIds.length < 2 ? 'comparison-dock__action--disabled' : ''}}" bindtap="openComparison">对比</view>
+  </view>
+</view>

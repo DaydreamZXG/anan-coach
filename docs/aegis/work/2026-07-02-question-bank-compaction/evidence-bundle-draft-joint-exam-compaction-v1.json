@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "aegis.schema.v0",
+  "artifactKey": "joint-exam-compaction-v1",
+  "type": "sql-view-export",
+  "source": "tools/question-bank/joint-exam-compaction-v1.sql",
+  "summary": "Creates strict province-joint-exam occurrence and candidate-group views; exports 161 plain exact duplicate groups, 2 visual review groups, and 2 taxonomy review groups.",
+  "verifier": "psql -h 127.0.0.1 -p 55432 -d qb_compaction_20260702 -v ON_ERROR_STOP=1 -f tools/question-bank/joint-exam-compaction-v1.sql"
+}

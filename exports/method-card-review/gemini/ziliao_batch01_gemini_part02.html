@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gemini 方法卡审计包：资料分析 batch01 part02</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+      color: #1f2430;
+      background: #fff;
+      line-height: 1.58;
+    }
+    header {
+      padding: 24px 28px;
+      border-bottom: 2px solid #202635;
+    }
+    header h1 { margin: 0 0 8px; font-size: 24px; }
+    header p { margin: 4px 0; color: #4f5668; font-size: 13px; }
+    .prompt {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border: 1px solid #cfd5e3;
+      background: #f8f9fc;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+    main { max-width: 1120px; margin: 0 auto; padding: 24px 28px; }
+    section.card { border-top: 3px solid #202635; margin: 0 0 30px; padding-top: 18px; }
+    .card-head { padding: 0 0 12px; border-bottom: 1px solid #d8dce8; }
+    .card-head h2 { margin: 0 0 8px; font-size: 22px; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+    .pill {
+      padding: 3px 7px;
+      border: 1px solid #d8dce8;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #475066;
+      background: #fafbff;
+    }
+    .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .box { border: 1px solid #d8dce8; border-radius: 8px; padding: 10px; background: #fbfcff; }
+    .box h3 { margin: 0 0 6px; font-size: 14px; }
+    .question { padding: 16px 0; border-top: 1px solid #d8dce8; break-inside: avoid; }
+    .question h3 { margin: 0 0 8px; font-size: 17px; }
+    .source { color: #697286; font-size: 12px; margin-bottom: 8px; }
+    .q-grid { display: block; }
+    details { margin: 8px 0; border: 1px solid #d8dce8; border-radius: 8px; padding: 8px 10px; background: #fff; }
+    summary { font-weight: 700; }
+    pre { white-space: pre-wrap; font-family: inherit; margin: 0; }
+    img { max-width: 100%; height: auto; border: 1px solid #d8dce8; border-radius: 6px; margin: 6px 0; }
+    ol, ul { margin-top: 6px; padding-left: 22px; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    @media print {
+      header { break-after: page; }
+      section.card { break-before: page; }
+      details, .box { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Gemini 方法卡审计包：资料分析 batch01 part02</h1>
+    <p>generated_at: 2026-07-03 20:03:44</p>
+    <p>source: exports/method-card-review/ziliao_batch01_review.html</p>
+    <div class="prompt">你是公务员国考行测资料分析教研审计员。请审计我上传的“方法卡 + 真题样本 + 答案解析”资料。<br><br>我们的产品不是普通刷题软件，而是 AI 教练：方法卡会被用于判分反馈、错因复盘、今日学习计划生成。你的任务是复核这些卡是否能作为稳定的教学 SOP。<br><br>请严格按以下边界工作：<br>1. 不要重写整套体系，不要另起一个新分类法。<br>2. 不要输出泛泛而谈的备考建议。<br>3. 不要因为一道题有多种解法就随意拆卡；只有“识别信号、适用条件、解法步骤、错因签名”无法共存时才建议拆。<br>4. 重点抓：卡片边界混乱、题型误套、步骤不可执行、时间预算不现实、错因 code 不可聚合、卡与卡重复。<br>5. 每张卡都要判断它到底更像“知识点 / 解法方法 / 题型 / 错因”，如果混杂，请指出。<br>6. 对每张卡抽样题进行回测判断：按该卡 recognition + method_steps 做，能不能在 50-65 秒内稳定选对。<br>7. 若样本题明显不属于该卡，也要指出是“抽样/tag 误命中”，不要硬说卡错。<br><br>输出必须使用下面结构：<br><br>## 总体结论<br>- 是否建议继续按当前资料分析卡包推进：<br>- 最大的 3 个风险：<br>- 最应该先修的 5 张卡：<br><br>## 卡片审计表<br>每张卡一条：<br>- card_id:<br>- title:<br>- card_type: 知识点 / 解法方法 / 题型 / 错因 / 混合不清<br>- verdict: keep / revise / split / merge / delete / resample<br>- confidence: high / medium / low<br>- boundary_problem:<br>- method_problem:<br>- sample_backtest: 通过 x/样本数；主要失败题号<br>- suggested_fix:<br>- affected_cards:<br><br>## 合并/拆分建议<br>只列真正需要动作的卡：<br>- action:<br>- cards:<br>- reason:<br>- new_boundary:<br><br>## 错因 code 治理<br>检查 error_signatures.code 是否重复、过细、过粗、不可用于判分反馈。<br><br>## 可直接改 YAML 的建议<br>只给需要改的字段，不要整张重写。</div>
+  </header>
+  <main>
+    <section class="card" id="mc_ziliao_zengzhangliang_jisuan_01">
+  <div class="card-head">
+    <h2>增长量计算：优先用现期和率</h2>
+    <div class="meta">
+      <span class="pill">mc_ziliao_zengzhangliang_jisuan_01</span>
+      <span class="pill">资料分析/增长量/增长量计算</span>
+      <span class="pill">限时 55 秒/题</span>
+      <span class="pill">抽样：exact_display_path</span>
+      <span class="pill">状态：draft</span>
+    </div>
+    <div class="card-grid">
+      <div class="box"><h3>识别信号</h3><p>题干问增加了多少、增长量、同比增量或环比增量</p></div>
+      <div class="box"><h3>精度规则</h3><p>r 可化成常见分数时用 n+1 公式；不能化分数时按选项差距估算</p><p class="muted">现期乘增长率算出来偏大，常是陷阱项</p></div>
+      <div class="box"><h3>适用</h3><ul><li>已知现期量和增长率</li><li>或材料直接给出现期量和基期量</li></ul><h3>排除</h3><ul><li>问增长率</li><li>问多个对象增长量大小排序</li></ul></div>
+      <div class="box"><h3>步骤</h3><ol><li>有现期和基期时，增长量 = 现期 - 基期</li><li>有现期和增长率时，增长量 = 现期 x r / (1 + r)</li><li>r 接近 1/n 时，用现期 / (n + 1) 速算增长量</li><li>负增长时增长量为负，问减少量时取绝对值</li></ol><h3>常见错因</h3><ul><li><code>growth_amount_use_current_times_rate</code>：直接用现期乘增长率，少除以 (1 + r)</li><li><code>growth_amount_negative_misread</code>：没区分增长量为负和减少量为正</li></ul></div>
+    </div>
+  </div>
+  
+<article class="question">
+  <h3>1. cq_dfc1a4230490d368456dd975</h3>
+  <div class="source">2025 四川 第91题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p><img height="372px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%9B%E5%B7%9D/2026%E5%B9%B4%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%80%83_%E9%80%89%E8%B0%83%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E8%AF%95%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0070_0238320b41b0626a.png" width="700px"/></p><p><img height="480px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%9B%E5%B7%9D/2026%E5%B9%B4%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%80%83_%E9%80%89%E8%B0%83%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E8%AF%95%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0072_c1aa912c2566756e.png" width="700px"/></p></details>
+      <details open><summary>题干</summary><p>2022年，全国原保险保费收入和全国保险赔付金额均高于上年同期水平的月份有几个?</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 2</li><li><strong>B.</strong> 3</li><li><strong>C.</strong> 4</li><li><strong>D.</strong> 5</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：B</strong></p><pre>定位图1可得：2022年全国原保险保费收入同比增长率大于0的月份有2月、3月、4月、5月、6月、7月、8月、9月、10月、11月；定位图2可得：2022年全国保险赔付金额同比增长率大于0的月份有1月、2月、3月、10月。综上可知，2022年全国原保险保费收入和全国保险赔付金额均高于上年同期水平的有2月、3月、10月，共3个月份。故正确答案为B。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>2. cq_f6b5b8084a01bca90355f371</h3>
+  <div class="source">2025 四川 第93题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p><img height="372px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%9B%E5%B7%9D/2026%E5%B9%B4%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%80%83_%E9%80%89%E8%B0%83%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E8%AF%95%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0085_c7a1ce0cb67314b1.png" width="700px"/></p><p><img height="480px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%9B%E5%B7%9D/2026%E5%B9%B4%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%80%83_%E9%80%89%E8%B0%83%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E8%AF%95%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0083_3b029fffc1ee2441.png" width="700px"/></p></details>
+      <details open><summary>题干</summary><p>将2022年四个季度按全国保险赔付金额从高到低排序，正确的是：</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 第一季度&gt;第四季度&gt;第二季度&gt;第三季度</li><li><strong>B.</strong> 第四季度&gt;第一季度&gt;第三季度&gt;第二季度</li><li><strong>C.</strong> 第一季度&gt;第四季度&gt;第三季度&gt;第二季度</li><li><strong>D.</strong> 第四季度&gt;第一季度&gt;第二季度&gt;第三季度</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：C</strong></p><pre>定位图2可得2022年1-12月全国保险赔付金额分别为：1901亿元、1157亿元、1455亿元、1007亿元、1033亿元、1215亿元、1177亿元、1247亿元、1288亿元、1128亿元、1365亿元、1512亿元。则2024年第一季度的全国保险赔付金额为：1901+1157+1455=4513亿元；第二季度为：1007+1033+1215=3255亿元；第三季度为：1177+1247+1288=3712亿元；第四季度为：1128+1365+1512=4005亿元。故2022年四个季度按全国保险赔付金额从高到低排序为：第一季度&gt;第四季度&gt;第三季度&gt;第二季度。故正确答案为C。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>3. cq_f8c7234a5ffda95680328180</h3>
+  <div class="source">2025 四川 第92题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p><img height="372px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%9B%E5%B7%9D/2026%E5%B9%B4%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%80%83_%E9%80%89%E8%B0%83%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E8%AF%95%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0070_0238320b41b0626a.png" width="700px"/></p><p><img height="480px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%9B%E5%B7%9D/2026%E5%B9%B4%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%80%83_%E9%80%89%E8%B0%83%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E8%AF%95%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0072_c1aa912c2566756e.png" width="700px"/></p></details>
+      <details open><summary>题干</summary><p>2022年，全国原保险保费当年累计收入第一次超过3万亿元是哪个月的？</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 7月</li><li><strong>B.</strong> 8月</li><li><strong>C.</strong> 9月</li><li><strong>D.</strong> 10月</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：A</strong></p><pre>定位图1可得：2022年1-10月各月全国原保险保费收入分别为9793亿元、3168亿元、4850亿元、3166亿元、3200亿元、4301亿元、3003亿元、3136亿元、3600亿元、2692亿元。则：1-7月全国原保险保费累计收入为9793+3168+4850+3166+3200+4301+30039800+3200+4900+3200+3200+4300+3000=31600亿元＞3万亿元。因此，2022年全国原保险保费当年累计收入第一次超过3万亿元是7月。故正确答案为A。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>4. cq_d9b8ed3a83f28a15ee871d96</h3>
+  <div class="source">2025 国考 第117题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        2024年，我国企业发明专利产业化平均收益（平均每件已产业化的有效专利产生的收益）为869.5万元/件，较上年增长4.8％。其中，战略性新兴产业和未来产业领域的企业发明专利产业化平均收益分别为939.1万元/件和1132.7万元/件。分企业规模看，中型企业发明专利产业化平均收益最高，为991.9万元/件，其次为大型企业和小型企业，分别为953.9万元/件和752.4万元/件，微型企业相对最低，为260.1万元/件。</p><p><img height="335px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%BD%E8%80%83/2026%E5%B9%B4%E5%9B%BD%E5%AE%B6%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88%E8%A1%8C%E6%94%BF%E6%89%A7%E6%B3%95%E5%8D%B7%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0115_0da96ee858fd3643.png" width="700px"/></p><p><img height="739px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%BD%E8%80%83/2026%E5%B9%B4%E5%9B%BD%E5%AE%B6%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88%E8%A1%8C%E6%94%BF%E6%89%A7%E6%B3%95%E5%8D%B7%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0118_c761b476b745115c.png" width="700px"/></p></details>
+      <details open><summary>题干</summary><p>将我国企业的发明专利、实用新型专利、外观设计专利按产业化率从高到低排序，则2020~2023年中次序与2024年次序一致的年份有几个？</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 0</li><li><strong>B.</strong> 1</li><li><strong>C.</strong> 2</li><li><strong>D.</strong> 3</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：B</strong></p><pre>定位统计表可得2020-2024年，我国企业的发明专利、实用新型专利、外观设计专利产业化率。将我国企业的各类专利按产业化率从高到低排序分别为：2020年，外观设计专利（51.6%）、发明专利（44.9%）、实用新型专利（42.0%）；2021年，外观设计专利（52.3%）、发明专利（46.8%）、实用新型专利（46.2%）；2022年，外观设计专利（58.7%）、发明专利（48.1%）、实用新型专利（44.9%）；2023年，外观设计专利（66.0%）、实用新型专利（57.1%）、发明专利（51.3%）；2024年，外观设计专利（63.5%）、实用新型专利（54.9%）、发明专利（53.3%）。则2020~2023年中次序与2024年次序一致的年份是2023年，共1个。故正确答案为B。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>5. cq_5f8ec279d554872690b19aac</h3>
+  <div class="source">2025 四川 第94题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p><img height="372px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%9B%E5%B7%9D/2026%E5%B9%B4%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%80%83_%E9%80%89%E8%B0%83%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E8%AF%95%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0070_0238320b41b0626a.png" width="700px"/></p><p><img height="480px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%9B%E5%B7%9D/2026%E5%B9%B4%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%80%83_%E9%80%89%E8%B0%83%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E8%AF%95%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0072_c1aa912c2566756e.png" width="700px"/></p></details>
+      <details open><summary>题干</summary><p>2022年下半年全国保险赔付金额与全国原保险保费收入比值最高的月份，当月保费收入同比约增加了多少亿元？</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 98</li><li><strong>B.</strong> 158</li><li><strong>C.</strong> 209</li><li><strong>D.</strong> 1628</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：A</strong></p><pre>根据题干“······同比约增加了多少亿元”，可判定本题为增长量计算问题。定位图1、2可得，2022年各月全国原保险保费收入、保险赔付金额。则2022年下半年全国保险赔付金额与全国原保险保费收入比值各月分别为：7月，；8月，；9月，；10月，；11月，；12月，，比较可得比值最高的月份是11月。定位图1可得11月全国原保险保费收入为2689亿元，同比增速为3.78%。根据公式：增长量，可得题干所求为亿元，只有A项符合。故正确答案为A。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>6. cq_adcca2ad8a60941a5a9cc749</h3>
+  <div class="source">2025 国考 第126题 · latestYear=2025 · visual=False</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        2025年清明假期3天，Y省接待游客2110.5万人次，同比增长6.4%；实现旅游收入107.8亿元，同比增长8.7%。全省4A级及以上景区接待游客657.5万人次，同比增长7.4%；纳入监测的13家红色旅游经典景区接待游客54.7万人次，同比增长5.1%。</p><p>        2025年“五一”假期5天，Y省接待游客4608.2万人次，同比增长18.7%；实现旅游收入295亿元，同比增长20.3%。全省4A级及以上景区接待游客1629.9万人次，同比增长14.3%；纳入监测的13家红色旅游经典景区接待游客119.5万人次，同比增长12.0%。</p><p>        2025年端午假期3天，Y省接待游客2321.0万人次，同比增长20.6%；实现旅游收入114.4亿元，同比增长25.6%。全省4A级及以上景区接待游客726.1万人次，同比增长18.9%；纳入监测的13家红色旅游经典景区接待游客54.4万人次，同比增长17.5%。</p></details>
+      <details open><summary>题干</summary><p>2025年清明假期、“五一”假期和端午假期，Y省接待游客总人次数比上年增长了：</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 超过1400万人次</li><li><strong>B.</strong> 1100万~1400万人次之间</li><li><strong>C.</strong> 800万~1100万人次之间</li><li><strong>D.</strong> 不到800万人次</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：B</strong></p><pre>根据题干“······接待游客总人次数比上年增长了”，结合选项带单位，可判定本题为增长量计算问题。定位文字材料第一、二、三段可得：2025年清明假期，Y省接待游客2110.5万人次，同比增长6.4%；“五一”假期，Y省接待游客4608.2万人次，同比增长18.7%；端午假期，Y省接待游客2321.0万人次，同比增长20.6%。根据公式：增长量，可得所求万人次，在B项范围内。故正确答案为B。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>7. cq_3c7c44e1430dabdef2d9a1d7</h3>
+  <div class="source">2025 国考 第120题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        2024年，我国企业发明专利产业化平均收益（平均每件已产业化的有效专利产生的收益）为869.5万元/件，较上年增长4.8％。其中，战略性新兴产业和未来产业领域的企业发明专利产业化平均收益分别为939.1万元/件和1132.7万元/件。分企业规模看，中型企业发明专利产业化平均收益最高，为991.9万元/件，其次为大型企业和小型企业，分别为953.9万元/件和752.4万元/件，微型企业相对最低，为260.1万元/件。</p><p><img height="335px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%BD%E8%80%83/2026%E5%B9%B4%E5%9B%BD%E5%AE%B6%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88%E8%A1%8C%E6%94%BF%E6%89%A7%E6%B3%95%E5%8D%B7%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0141_e895b9e84726a80d.png" width="700px"/></p><p><img height="739px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%BD%E8%80%83/2026%E5%B9%B4%E5%9B%BD%E5%AE%B6%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88%E8%A1%8C%E6%94%BF%E6%89%A7%E6%B3%95%E5%8D%B7%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0178_82f4d46e2ba686e5.png" width="700px"/></p></details>
+      <details open><summary>题干</summary><p>在①2023年未来产业领域企业发明专利产业化平均收益、②2024年小微企业发明专利产业化总体平均收益、③2023年金属制品业大型企业发明专利产业化率3项指标中，能够从上述资料中推出的有几项？</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 3项</li><li><strong>B.</strong> 2项</li><li><strong>C.</strong> 1项</li><li><strong>D.</strong> 0项</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：D</strong></p><pre>①定位文字材料可得：2024年，我国未来产业领域的企业发明专利产业化平均收益为1132.7万元/件。并未给出相较于2023年的增长率或增长量，故无法推出2023年未来产业领域企业发明专利产业化平均收益；②定位文字材料可得：2024年，小型企业发明专利产业化平均收益为752.4万元/件，微型企业为260.1万元/件。并未给出小型企业和微型企业已产业化的有效专利数量，故无法推出2024年小微企业发明专利产业化总体平均收益；③定位统计表可知2023年大型企业发明专利产业化率；定位柱状图可知2023年金属制品业企业发明专利产业化率。并未给出金属制品业大型企业发明专利产业化率的情况，故无法推出2023年金属制品业大型企业发明专利产业化率。综上，3项均无法推出。故正确答案为D。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>8. cq_c8fe27f8b76e548d68f12722</h3>
+  <div class="source">2025 国考 第116题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        2024年，我国企业发明专利产业化平均收益（平均每件已产业化的有效专利产生的收益）为869.5万元/件，较上年增长4.8％。其中，战略性新兴产业和未来产业领域的企业发明专利产业化平均收益分别为939.1万元/件和1132.7万元/件。分企业规模看，中型企业发明专利产业化平均收益最高，为991.9万元/件，其次为大型企业和小型企业，分别为953.9万元/件和752.4万元/件，微型企业相对最低，为260.1万元/件。</p><p><img height="335px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%BD%E8%80%83/2026%E5%B9%B4%E5%9B%BD%E5%AE%B6%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88%E8%A1%8C%E6%94%BF%E6%89%A7%E6%B3%95%E5%8D%B7%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0141_e895b9e84726a80d.png" width="700px"/></p><p><img height="739px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%BD%E8%80%83/2026%E5%B9%B4%E5%9B%BD%E5%AE%B6%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88%E8%A1%8C%E6%94%BF%E6%89%A7%E6%B3%95%E5%8D%B7%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0178_82f4d46e2ba686e5.png" width="700px"/></p></details>
+      <details open><summary>题干</summary><p>2024年，我国企业发明专利产业化平均收益比上年增长约多少万元/件？</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 60</li><li><strong>B.</strong> 50</li><li><strong>C.</strong> 40</li><li><strong>D.</strong> 30</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：C</strong></p><pre>根据题干“2024年······比上年增长约多少万元/件”，可判定本题为增长量计算问题。定位文字材料可得：2024年，我国企业发明专利产业化平均收益为869.5万元/件，较上年增长4.8%。根据公式：增长量，则所求万元/件，与C项最接近。故正确答案为C。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>9. cq_81c2e241052e7c6e99a31abe</h3>
+  <div class="source">2025 四川 第95题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p><img height="372px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%9B%E5%B7%9D/2026%E5%B9%B4%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%80%83_%E9%80%89%E8%B0%83%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E8%AF%95%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0070_0238320b41b0626a.png" width="700px"/></p><p><img height="480px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%9B%E5%B7%9D/2026%E5%B9%B4%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%80%83_%E9%80%89%E8%B0%83%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E8%AF%95%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0072_c1aa912c2566756e.png" width="700px"/></p></details>
+      <details open><summary>题干</summary><p>下列柱状图反映了2022年哪一段时间内，全国保险赔付金额环比增量的变化关系（横轴位置表示增量为0）？</p><p><img height="319px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%9B%E5%B7%9D/2026%E5%B9%B4%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%80%83_%E9%80%89%E8%B0%83%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E8%AF%95%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0112_83bb9d5dd2e7989e.png" width="600px"/></p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 3月-6月</li><li><strong>B.</strong> 6月-9月</li><li><strong>C.</strong> 8月-11月</li><li><strong>D.</strong> 9月-12月</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：D</strong></p><pre>根据题干“······环比增量的变化关系”，可判定本题为增长量比较问题。定位图2可得2022年1月-12月各月全国的保险赔付金额。根据题干柱状图可得，第二个月份的环比增长量为负数，其余均为正数，结合材料数据，9月为正增长，排除C项；其余选项中各月份环比增长量分别为：A项：3月，1455-1157=298；4月，1007-1455=-448；5月，1033-1007=26，3月环比增量＞5月环比增量，不符合柱状图变化趋势，排除；B项：6月，1215-1033=182；7月，1177-1215=-38，，不符合柱状图变化趋势，排除；D项：9月，1288-1247=41；10月，1128-1288=-160；11月，1365-1128=237；12月，1512-1365=147，符合柱状图变化趋势，当选。故正确答案为D。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>10. cq_c57d15202f32b55c31dad3da</h3>
+  <div class="source">2025 国考 第128题 · latestYear=2025 · visual=False</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        2025年清明假期3天，Y省接待游客2110.5万人次，同比增长6.4%；实现旅游收入107.8亿元，同比增长8.7%。全省4A级及以上景区接待游客657.5万人次，同比增长7.4%；纳入监测的13家红色旅游经典景区接待游客54.7万人次，同比增长5.1%。</p><p>        2025年“五一”假期5天，Y省接待游客4608.2万人次，同比增长18.7%；实现旅游收入295亿元，同比增长20.3%。全省4A级及以上景区接待游客1629.9万人次，同比增长14.3%；纳入监测的13家红色旅游经典景区接待游客119.5万人次，同比增长12.0%。</p><p>        2025年端午假期3天，Y省接待游客2321.0万人次，同比增长20.6%；实现旅游收入114.4亿元，同比增长25.6%。全省4A级及以上景区接待游客726.1万人次，同比增长18.9%；纳入监测的13家红色旅游经典景区接待游客54.4万人次，同比增长17.5%。</p></details>
+      <details open><summary>题干</summary><p>将Y省2024年清明假期、“五一”假期和端午假期日均实现旅游收入从高到低排列，以下正确的是：</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> “五一”、端午、清明</li><li><strong>B.</strong> 清明、“五一”、端午</li><li><strong>C.</strong> “五一”、清明、端午</li><li><strong>D.</strong> 清明、端午、“五一”</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：C</strong></p><pre>根据题干“将Y省2024年······日均······”，结合材料时间为2025年，可判定本题为基期平均数问题。定位文字材料第一、二、三段可得：2025年清明假期3天······实现旅游收入107.8亿元，同比增长8.7%；2025年“五一”假期5天······实现旅游收入295亿元，同比增长20.3%；2025年端午假期3天······实现旅游收入114.4亿元，同比增长25.6%。根据公式：基期量，则2024年清明假期日均实现旅游收入为亿元/天，2024年“五一”假期日均实现旅游收入为亿元/天，2024年端午假期日均实现旅游收入为亿元/天。故Y省2024年日均实现旅游收入从高到低排列为“五一”假期、清明假期、端午假期。故正确答案为C。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+</section>
+<section class="card" id="mc_ziliao_zengzhangliang_bijiao_01">
+  <div class="card-head">
+    <h2>增长量比较：大大则大，一大一小再算</h2>
+    <div class="meta">
+      <span class="pill">mc_ziliao_zengzhangliang_bijiao_01</span>
+      <span class="pill">资料分析/增长量/增长量比较</span>
+      <span class="pill">限时 60 秒/题</span>
+      <span class="pill">抽样：exact_display_path</span>
+      <span class="pill">状态：draft</span>
+    </div>
+    <div class="card-grid">
+      <div class="box"><h3>识别信号</h3><p>题干问哪个增长量最大、最小，或要求比较多个对象同比增量</p></div>
+      <div class="box"><h3>精度规则</h3><p>先用大大则大排除；只在一大一小时估算增长量</p><p class="muted">增长率最高不等于增长量最大</p></div>
+      <div class="box"><h3>适用</h3><ul><li>多个对象均给出现期量和增长率</li><li>题干目标是增长量大小而不是增长率大小</li></ul><h3>排除</h3><ul><li>只比较增长率</li><li>数据口径不同，不能直接横比</li></ul></div>
+      <div class="box"><h3>步骤</h3><ol><li>同时比较现期量和增长率，现期大且率大则增长量必大</li><li>现期小且率小的对象可先排除</li><li>一大一小时，用现期 x r / (1 + r) 估算关键候选</li><li>只精算最接近的两个候选</li></ol><h3>常见错因</h3><ul><li><code>growth_amount_compare_rate_only</code>：只按增长率大小比较增长量</li><li><code>growth_amount_compare_all_calculated</code>：每个选项都完整计算，耗时过长</li></ul></div>
+    </div>
+  </div>
+  
+<article class="question">
+  <h3>1. cq_72aca1d09548f9c9285cd043</h3>
+  <div class="source">2025 四川 第97题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        2024年一季度，全国规模以上文化及相关产业企业（以下简称“文化企业”）实现营业收入31057亿元，比上年同期增长8.5%；实现利润总额2116亿元；营业收入利润率（<img flag="tex" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%9B%E5%B7%9D/2026%E5%B9%B4%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%80%83_%E9%80%89%E8%B0%83%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E8%AF%95%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0095_f37591e4aced496a.png"/>）为6.81%，同比下降0.17个百分点。其中，文化新业态特征较为明显的16个行业小类实现营业收入12633亿元。增速快于全部规模以上文化企业3.4个百分点。</p><p>        分产业类型看，文化制造业实现营业收入9240亿元，比上年同期增长5.4%；文化批发和零售业5485亿元，增长6.8%；文化服务业16331亿元，增长10.9%。</p><p>        分领域看，文化核心领域实现营业收入20921亿元，比上年同期增长10.3%；文化相关领域实现营业收入10136亿元。</p><p>        分行业类别看，新闻信息服务实现营业收入4101亿元，比上年同期增长11.1%；内容创作生产7054亿元，增长12.0%；创意设计服务5219亿元，增长10.4%；文化传播渠道4026亿元，增长6.8%：文化投资运营145亿元，增长10.4%；文化娱乐休闲服务375亿元，增长10.5%；文化辅助生产和中介服务3583亿元，增长7.3%；文化装备生产1378亿元，增长6.0%；文化消费终端生产5175亿元，增长2.7%。</p><p>       分区域看，东部地区实现营业收入24759亿元，比上年同期增长9.2%；中部地区3491亿元，增长6.5%；西部地区2524亿元，增长4.9%；东北地区282亿元，增长5.0%。</p></details>
+      <details open><summary>题干</summary><p>2024年一季度，新闻信息服务业实现营业收入占全国规模以上文化企业实现营业收入的比重比上年同期：</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 下降了不到1个百分点</li><li><strong>B.</strong> 下降了1个百分点以上</li><li><strong>C.</strong> 上升了不到1个百分点</li><li><strong>D.</strong> 上升了1个百分点以上</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：C</strong></p><pre>根据题干“2024年一季度，······占······比重比上年同期”，可判定本题为两期比重问题。定位文字材料第一段可得：2024年一季度全国规模以上文化企业实现营业收入31057亿元（B），比上年同期增长8.5%（b），定位文字材料第四段可得：新闻信息服务实现营业收入4101亿元（A），比上年同期增长11.1%(a)。根据两期比重比较结论：部分增长率（a）&gt;整体增长率（b），比重上升，则11.1%＞8.5%，故比重上升，排除A、B两项。根据两期比重公式：两期比重，可得所求两期比重，对应C项。故正确答案为C。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>2. cq_9d89b483cb31a9957e01da62</h3>
+  <div class="source">2025 四川 第98题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        2024年一季度，全国规模以上文化及相关产业企业（以下简称“文化企业”）实现营业收入31057亿元，比上年同期增长8.5%；实现利润总额2116亿元；营业收入利润率（<img flag="tex" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%9B%E5%B7%9D/2026%E5%B9%B4%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%80%83_%E9%80%89%E8%B0%83%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E8%AF%95%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0099_3decda75cbff95cd.png"/>）为6.81%，同比下降0.17个百分点。其中，文化新业态特征较为明显的16个行业小类实现营业收入12633亿元。增速快于全部规模以上文化企业3.4个百分点。</p><p>        分产业类型看，文化制造业实现营业收入9240亿元，比上年同期增长5.4%；文化批发和零售业5485亿元，增长6.8%；文化服务业16331亿元，增长10.9%。</p><p>        分领域看，文化核心领域实现营业收入20921亿元，比上年同期增长10.3%；文化相关领域实现营业收入10136亿元。</p><p>        分行业类别看，新闻信息服务实现营业收入4101亿元，比上年同期增长11.1%；内容创作生产7054亿元，增长12.0%；创意设计服务5219亿元，增长10.4%；文化传播渠道4026亿元，增长6.8%：文化投资运营145亿元，增长10.4%；文化娱乐休闲服务375亿元，增长10.5%；文化辅助生产和中介服务3583亿元，增长7.3%；文化装备生产1378亿元，增长6.0%；文化消费终端生产5175亿元，增长2.7%。</p><p>       分区域看，东部地区实现营业收入24759亿元，比上年同期增长9.2%；中部地区3491亿元，增长6.5%；西部地区2524亿元，增长4.9%；东北地区282亿元，增长5.0%。</p></details>
+      <details open><summary>题干</summary><p>将①创意设计服务业、②文化娱乐休闲服务业和③文化辅助生产和中介服务业按2024年一季度实现营业收入同比增量从高到低排序，正确的是：</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> ①&gt;②&gt;③</li><li><strong>B.</strong> ①&gt;③&gt;②</li><li><strong>C.</strong> ②&gt;③&gt;①</li><li><strong>D.</strong> ②&gt;①&gt;③</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：B</strong></p><pre>根据题干“将······按2024年一季度实现营业收入同比增量从高到低排序”，可判定本题为增长量比较问题。定位文字材料第四段可得：（2024年一季度）创意设计服务5219亿元，增长10.4%；文化娱乐休闲服务375亿元，增长10.5%；文化辅助生产和中介服务3583亿元，增长7.3%。根据公式：增长量，则所求同比增量分别为：①创意设计服务业：亿元；②文化娱乐休闲服务业：亿元；③文化辅助生产和中介服务业：亿元。则同比增量从高到低排序为①&gt;③&gt;②。故正确答案为B。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>3. cq_60e15245ea31f24b8176eba5</h3>
+  <div class="source">2025 四川 第99题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        2024年一季度，全国规模以上文化及相关产业企业（以下简称“文化企业”）实现营业收入31057亿元，比上年同期增长8.5%；实现利润总额2116亿元；营业收入利润率（<img flag="tex" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%9B%E5%B7%9D/2026%E5%B9%B4%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%80%83_%E9%80%89%E8%B0%83%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E8%AF%95%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0099_3decda75cbff95cd.png"/>）为6.81%，同比下降0.17个百分点。其中，文化新业态特征较为明显的16个行业小类实现营业收入12633亿元。增速快于全部规模以上文化企业3.4个百分点。</p><p>        分产业类型看，文化制造业实现营业收入9240亿元，比上年同期增长5.4%；文化批发和零售业5485亿元，增长6.8%；文化服务业16331亿元，增长10.9%。</p><p>        分领域看，文化核心领域实现营业收入20921亿元，比上年同期增长10.3%；文化相关领域实现营业收入10136亿元。</p><p>        分行业类别看，新闻信息服务实现营业收入4101亿元，比上年同期增长11.1%；内容创作生产7054亿元，增长12.0%；创意设计服务5219亿元，增长10.4%；文化传播渠道4026亿元，增长6.8%：文化投资运营145亿元，增长10.4%；文化娱乐休闲服务375亿元，增长10.5%；文化辅助生产和中介服务3583亿元，增长7.3%；文化装备生产1378亿元，增长6.0%；文化消费终端生产5175亿元，增长2.7%。</p><p>       分区域看，东部地区实现营业收入24759亿元，比上年同期增长9.2%；中部地区3491亿元，增长6.5%；西部地区2524亿元，增长4.9%；东北地区282亿元，增长5.0%。</p></details>
+      <details open><summary>题干</summary><p>下列饼图中，最能准确反映2024年一季度全国规模以上文化企业实现营业收入中，文化制造业（黑色）、文化批发和零售业（斜线）和文化服务业（白色）占比关系的是：</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> <p><img height="151px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%9B%E5%B7%9D/2026%E5%B9%B4%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%80%83_%E9%80%89%E8%B0%83%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E8%AF%95%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0110_08c54d9e32cf37ed.png" width="151px"/></p></li><li><strong>B.</strong> <p><img height="151px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%9B%E5%B7%9D/2026%E5%B9%B4%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%80%83_%E9%80%89%E8%B0%83%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E8%AF%95%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0111_00514a1704cb16bb.png" width="151px"/></p></li><li><strong>C.</strong> <p><img height="151px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%9B%E5%B7%9D/2026%E5%B9%B4%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%80%83_%E9%80%89%E8%B0%83%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E8%AF%95%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0104_10e471e6b2054774.png" width="151px"/></p></li><li><strong>D.</strong> <p><img height="151px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%9B%E5%B7%9D/2026%E5%B9%B4%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%80%83_%E9%80%89%E8%B0%83%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E8%AF%95%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0105_53588164183179a1.png" width="151px"/></p></li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：B</strong></p><pre>根据题干“······2024年一季度······占比关系的是”，结合材料时间为2024年一季度，可判定本题为现期比重问题。定位文字材料第二段可得：分产业类型看，文化制造业实现营业收入9240亿元，文化批发和零售业5485亿元，文化服务业16331亿元。9240+5485&lt;16331，即文化服务业（白色）占比，排除C、D。文化批发和零售业实现营业收入最少，故其占比最低，则斜线部分面积应为最小，排除A项。故正确答案为B。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>4. cq_6650fd12aec49fd0953f6d5a</h3>
+  <div class="source">2025 四川 第100题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        2024年一季度，全国规模以上文化及相关产业企业（以下简称“文化企业”）实现营业收入31057亿元，比上年同期增长8.5%；实现利润总额2116亿元；营业收入利润率（<img flag="tex" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%9B%E5%B7%9D/2026%E5%B9%B4%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%80%83_%E9%80%89%E8%B0%83%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E8%AF%95%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0095_f37591e4aced496a.png"/>）为6.81%，同比下降0.17个百分点。其中，文化新业态特征较为明显的16个行业小类实现营业收入12633亿元。增速快于全部规模以上文化企业3.4个百分点。</p><p>        分产业类型看，文化制造业实现营业收入9240亿元，比上年同期增长5.4%；文化批发和零售业5485亿元，增长6.8%；文化服务业16331亿元，增长10.9%。</p><p>        分领域看，文化核心领域实现营业收入20921亿元，比上年同期增长10.3%；文化相关领域实现营业收入10136亿元。</p><p>        分行业类别看，新闻信息服务实现营业收入4101亿元，比上年同期增长11.1%；内容创作生产7054亿元，增长12.0%；创意设计服务5219亿元，增长10.4%；文化传播渠道4026亿元，增长6.8%：文化投资运营145亿元，增长10.4%；文化娱乐休闲服务375亿元，增长10.5%；文化辅助生产和中介服务3583亿元，增长7.3%；文化装备生产1378亿元，增长6.0%；文化消费终端生产5175亿元，增长2.7%。</p><p>       分区域看，东部地区实现营业收入24759亿元，比上年同期增长9.2%；中部地区3491亿元，增长6.5%；西部地区2524亿元，增长4.9%；东北地区282亿元，增长5.0%。</p></details>
+      <details open><summary>题干</summary><p>在①2023年一季度全国规模以上文化企业实现利润总额、②2023年一季度文化新业态特征较为明显的16个行业小类实现营业收入、③2024年一季度文化相关领域实现营业收入同比增速这3项指标中，能够从上述资料中推出的有几项？</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 0</li><li><strong>B.</strong> 1</li><li><strong>C.</strong> 2</li><li><strong>D.</strong> 3</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：D</strong></p><pre>①：定位文字材料第一段可得：2024年一季度，全国规模以上文化企业实现营业收入31057亿元，比上年同期增长8.5%；实现利润总额2116亿元；营业收入利润率（实现利润总额/实现营业收入）为6.81%，同比下降0.17个百分点。根据公式：部分=整体×比重，基期量，则2023年一季度全国规模以上文化企业实现利润总额亿元，可以推出；②：定位文字材料第一段可得：2024年一季度，全国规模以上文化企业实现营业收入31057亿元，比上年同期增长8.5%；其中文化新业态特征较为明显的16个行业小类实现营业收入12633亿元，增速快于全部规模以上文化企业3.4个百分点。根据公式：基期量，则2023年一季度文化新业态较为明显的16个行业小类实现营业收入亿元，可以推出；③：定位文字材料第一段和第三段可得：2024年一季度，全国规模以上文化企业实现营业收入31057亿元，比上年同期增长8.5%；分领域看，文化核心领域实现营业收入20921亿元，比上年同期增长10.3%；文化相关领域实现营业收入10136亿元。若2024年一季度文化相关领域实现营业收入同比增速为r，根据混合增长率的结论：总体增长率居中但不正中，偏向基数大的，距离与量成反比，则，可以推出。综上可知，①②③均可推出，共3项。故正确答案为D。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>5. cq_16cb130ffc6b96374c09f3de</h3>
+  <div class="source">2025 四川 第96题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        2024年一季度，全国规模以上文化及相关产业企业（以下简称“文化企业”）实现营业收入31057亿元，比上年同期增长8.5%；实现利润总额2116亿元；营业收入利润率（<img flag="tex" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%9B%E5%B7%9D/2026%E5%B9%B4%E5%9B%9B%E5%B7%9D%E7%9C%81%E8%80%83_%E9%80%89%E8%B0%83%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E8%AF%95%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0095_f37591e4aced496a.png"/>）为6.81%，同比下降0.17个百分点。其中，文化新业态特征较为明显的16个行业小类实现营业收入12633亿元。增速快于全部规模以上文化企业3.4个百分点。</p><p>        分产业类型看，文化制造业实现营业收入9240亿元，比上年同期增长5.4%；文化批发和零售业5485亿元，增长6.8%；文化服务业16331亿元，增长10.9%。</p><p>        分领域看，文化核心领域实现营业收入20921亿元，比上年同期增长10.3%；文化相关领域实现营业收入10136亿元。</p><p>        分行业类别看，新闻信息服务实现营业收入4101亿元，比上年同期增长11.1%；内容创作生产7054亿元，增长12.0%；创意设计服务5219亿元，增长10.4%；文化传播渠道4026亿元，增长6.8%：文化投资运营145亿元，增长10.4%；文化娱乐休闲服务375亿元，增长10.5%；文化辅助生产和中介服务3583亿元，增长7.3%；文化装备生产1378亿元，增长6.0%；文化消费终端生产5175亿元，增长2.7%。</p><p>       分区域看，东部地区实现营业收入24759亿元，比上年同期增长9.2%；中部地区3491亿元，增长6.5%；西部地区2524亿元，增长4.9%；东北地区282亿元，增长5.0%。</p></details>
+      <details open><summary>题干</summary><p>2024年第一季度，东部地区规模以上文化企业实现营业收入同比增量约占全国规模以上文化企业营业收入同比增量的：</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 86%</li><li><strong>B.</strong> 79%</li><li><strong>C.</strong> 73%</li><li><strong>D.</strong> 68%</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：A</strong></p><pre>根据题干“2024年······约占······”，可判定本题为现期比重问题。定位文字材料第一段可得：2024年一季度，全国规模以上文化企业实现营业收入31057亿元，比上年同期增长8.5%。定位文字材料第五段可得：东部地区实现营业收入24759亿元，比上年同期增长9.2%。根据公式：增长量，则2024年一季度，全国规模以上文化企业营业收入同比增量为亿元，东部地区规模以上文化企业实现营业收入同比增量为亿元。则有。故正确答案为A。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>6. cq_e917bfd45a15e3f76b6a1d4d</h3>
+  <div class="source">2024 天津 第116题 · latestYear=2024 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>截至2024年2月，我国公共充电桩数量为282.6万台，环比增加4.4万台，同比增长51.3%。其中直流充电桩123.9万台，环比增长2.1%；交流充电桩158.6万台，环比增长1.2%。</p><p><img height="465px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%A4%A9%E6%B4%A5/2025%E5%B9%B4%E5%A4%A9%E6%B4%A5%E5%B8%82%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0155_8ddee8371a5b2184.png" width="600px"/></p><p><img height="303px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%A4%A9%E6%B4%A5/2025%E5%B9%B4%E5%A4%A9%E6%B4%A5%E5%B8%82%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0158_41b495b8c5940b80.png" width="600px"/></p></details>
+      <details open><summary>题干</summary><p>截至2024年2月，我国交流充电桩数量环比增量比直流充电桩数量环比增量：</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 低不到1万台</li><li><strong>B.</strong> 低1万台以上</li><li><strong>C.</strong> 高不到1万台</li><li><strong>D.</strong> 高1万台以上</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：A</strong></p><pre>根据题干“截至2024年2月······环比增量比······环比增量”，可判定本题为增长量计算问题。定位文字材料可得：截至2024年2月，我国直流充电桩123.9万台，环比增长2.1%；交流充电桩158.6万台，环比增长1.2%。根据公式：增长量，则所求增长量差值万台，即低不到1万台。故正确答案为A。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>7. cq_1e5a2c3306c6dceeffc7d387</h3>
+  <div class="source">2024 上海 第115题 · latestYear=2024 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p><img height="320px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E4%B8%8A%E6%B5%B7/2025%E5%B9%B4%E4%B8%8A%E6%B5%B7%E5%B8%82%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88B%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0188_8bd0ce070a08f324.png" width="588px"/></p><p><img height="303px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E4%B8%8A%E6%B5%B7/2025%E5%B9%B4%E4%B8%8A%E6%B5%B7%E5%B8%82%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88B%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0181_2d3d6aec0ed8d39b.png" width="414px"/></p></details>
+      <details open><summary>题干</summary><p>关于2012-2022年中国音乐著作权协会会员人数及许可收入状况，能够从上述资料中推出的是：</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 2022年，数字网络许可收入不到1.6亿元</li><li><strong>B.</strong> 许可收入同比增量最大的年份，会员同比增长了600多人</li><li><strong>C.</strong> 如每年均保持2022年同比增量，2026年会员数将超过1.5万人</li><li><strong>D.</strong> 2016-2020年，许可总收入超过15亿元</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：D</strong></p><pre>A项：定位图1可知：2022年中国音乐著作权协会许可收入为41767万元；定位图2可知：2022年数字网络许可收入占比43%。根据公式：部分=整体×比重，则2022年数字网络许可收入=41767×43%&gt;40000×40%=16000万元=1.6亿元，错误；B项：定位图1可知2011-2022年各年份中国音乐著作权协会许可收入金额以及会员人数。根据公式：增长量=现期量-基期量，则2012-2022年中国音乐著作权协会许可收入金额同比增量分别为：2012年，万元；2013年，万元；2014年，万元；2015年，万元；2016年，万元；2017年，万元；2018年，万元；2019年，万元；2020年，万元；2021年，万元；2022年，41767-44255 18000+21000+31000+40000+40000=150000万元=15亿元，即超过15亿元，正确。故正确答案为D。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>8. cq_ae1c79c6ca84673f2f9f3b87</h3>
+  <div class="source">2024 天津 第105题 · latestYear=2024 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p><img height="400px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%A4%A9%E6%B4%A5/2025%E5%B9%B4%E5%A4%A9%E6%B4%A5%E5%B8%82%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0130_0cf13d727bb7ceb8.png" width="600px"/><img height="400px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%A4%A9%E6%B4%A5/2025%E5%B9%B4%E5%A4%A9%E6%B4%A5%E5%B8%82%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0116_e8aa007874b9a35b.png" width="600px"/></p></details>
+      <details open><summary>题干</summary><p>以下折线图最能反映2023年哪几个月天然气月度产量同比增量的变化趋势？</p><p><img height="185px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%A4%A9%E6%B4%A5/2025%E5%B9%B4%E5%A4%A9%E6%B4%A5%E5%B8%82%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0114_550831cb58b90090.png" width="300px"/></p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 5-8月</li><li><strong>B.</strong> 6-9月</li><li><strong>C.</strong> 7-10月</li><li><strong>D.</strong> 8-11月</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：D</strong></p><pre>根据题干“以下折线图最能反映2023年哪几个月······同比增量的变化趋势”，可判定本题为增长量比较问题。定位图2可知2022年3-12月、2023年3-12月天然气月度产量。根据公式：增长量=现期量-基期量。则2023年5-11月天然气月度产量同比增量分别为：5月：190-177=13亿立方米；6月：183-173=10亿立方米；7月：184-171=13亿立方米；8月：181-142=39亿立方米；9月：179-164=15亿立方米；10月：190-185=5亿立方米；11月：199-189=10亿立方米。综上可知，符合先下降两个月后上升趋势的为8-11月。故正确答案为D。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>9. cq_64461b9a62049a47f382a2ca</h3>
+  <div class="source">2024 天津 第102题 · latestYear=2024 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p><img height="400px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%A4%A9%E6%B4%A5/2025%E5%B9%B4%E5%A4%A9%E6%B4%A5%E5%B8%82%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0107_bddf4122f678c160.png" width="600px"/><img height="400px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%A4%A9%E6%B4%A5/2025%E5%B9%B4%E5%A4%A9%E6%B4%A5%E5%B8%82%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0094_71d106a0768f1bcc.png" width="600px"/></p></details>
+      <details open><summary>题干</summary><p>2022年，我国天然气第四季度进口量比第一季度多约多少万吨？</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 585</li><li><strong>B.</strong> 650</li><li><strong>C.</strong> 755</li><li><strong>D.</strong> 1240</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：C</strong></p><pre>根据题干“······比······多”，可判定本题为增长量计算问题。定位图1可得：2022年1-2月和3月，我国天然气进口量分别为1268万吨、798万吨；2022年10-12月，我国天然气进口量分别为761万吨、1032万吨、1028万吨。根据公式：增长量=现期量-基期量，可得2022年我国天然气第四季度进口量比第一季度多（761+1032+1028）-（1268+798）=2821-2066=755万吨。故正确答案为C。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>10. cq_68d70e1d736b4a7106735bb1</h3>
+  <div class="source">2024 天津 第104题 · latestYear=2024 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p><img height="400px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%A4%A9%E6%B4%A5/2025%E5%B9%B4%E5%A4%A9%E6%B4%A5%E5%B8%82%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0107_bddf4122f678c160.png" width="600px"/><img height="400px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%A4%A9%E6%B4%A5/2025%E5%B9%B4%E5%A4%A9%E6%B4%A5%E5%B8%82%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0094_71d106a0768f1bcc.png" width="600px"/></p></details>
+      <details open><summary>题干</summary><p>2023年3-12月，我国天然气月度进口量与月度产量的比值最高的月份是：</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 8月</li><li><strong>B.</strong> 9月</li><li><strong>C.</strong> 11月</li><li><strong>D.</strong> 12月</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：D</strong></p><pre>根据题干“······比值最高的月份”，可判定本题为比值比较问题。定位图1可得：2023年8月、9月、11月、12月我国天然气月度进口量分别为1086万吨、1015万吨、1095万吨、1265万吨。定位图2可得：2023年8月、9月、11月、12月我国天然气月度产量分别为181亿立方米、179亿立方米、199亿立方米、208亿立方米。则2023年8月、9月、11月、12月我国天然气月度进口量与月度产量的比值分别为：2023年8月：；2023年9月：；2023年11月：；2023年12月：。比较可得，比值最高的月份是2023年12月。故正确答案为D。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+</section>
+<section class="card" id="mc_ziliao_xianqi_bizhong_01">
+  <div class="card-head">
+    <h2>现期比重：先找部分和整体</h2>
+    <div class="meta">
+      <span class="pill">mc_ziliao_xianqi_bizhong_01</span>
+      <span class="pill">资料分析/比重问题/现期比重</span>
+      <span class="pill">限时 50 秒/题</span>
+      <span class="pill">抽样：exact_display_path</span>
+      <span class="pill">状态：draft</span>
+    </div>
+    <div class="card-grid">
+      <div class="box"><h3>识别信号</h3><p>题干问某部分占总体的比重、占比或百分点差</p></div>
+      <div class="box"><h3>精度规则</h3><p>比重题先估首位；百分点差小于2时再保留一位小数</p><p class="muted">百分点是两个百分数直接相减，不再除以原比重</p></div>
+      <div class="box"><h3>适用</h3><ul><li>材料给出同一时期的部分量和总体量</li><li>题干出现占、比重、占比、百分点</li></ul><h3>排除</h3><ul><li>问上一期比重</li><li>问两期比重变化</li></ul></div>
+      <div class="box"><h3>步骤</h3><ol><li>先圈部分量，再圈整体量，确认二者同一时期同一单位</li><li>比重 = 部分 / 整体</li><li>问百分点差时分别算两个比重再相减</li><li>选项粗时把整体化成便于除的整百、整千</li></ol><h3>常见错因</h3><ul><li><code>proportion_part_whole_reversed</code>：把整体和部分放反</li><li><code>percentage_point_as_percent</code>：把百分点差误当成百分比变化</li></ul></div>
+    </div>
+  </div>
+  
+<article class="question">
+  <h3>1. cq_a3936ee64968c1a34830cbab</h3>
+  <div class="source">2025 广东 第72题 · latestYear=2025 · visual=False</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        广东既是经济大省，也是人口大省、就业大省，数据显示，2024年广东净增74万人，新出生113.3万人；城镇新增就业超143万人，超额完成国家下达的110万人的年度就业任务，并且实现4386万异地务工人员稳定就业，是名副其实的就业超级“蓄水池”。</p><p>        今年以来，广东按照省委、省政府关于实施“百万英才汇南粤”行动计划的部署安排，围绕“粤聚英才、粤见未来”主题，广泛募集岗位、强化精准对接、提升优质服务、持续扩大声势。截至7月中旬，全省已吸纳超过100万应届高校毕业生留粤来粤就业创业，进一步夯实广东现代化产业体系的人才基座，充分彰显经济大省挑大梁的责任担当。</p><p>        “百万英才汇南粤”行动计划紧紧围绕广东现代化产业体系建设需要，聚焦20个战略性产业集群，突出新兴产业未来产业，充分发动知名科技企业拿出大量优质岗位，组织发动各类企事业单位动态募集120多万优质岗位，以具有竞争力的薪酬和岗位吸纳优秀高校毕业生，今年3至7月，累计组织2.1万家重点企业在“粤就业”小程序发布62.5万个岗位。其中，面向博士、硕士的8.6万个，面向本科生25.6万个，面向大专和各类技工学校学生28.3万个，年薪10万元以上岗位约26万个，年薪20万元以上岗位超6.5万个，年薪50万元以上甚至百万年薪的岗位超5000个。</p><p>        从留粤就业的省内应届高校毕业生情况看，今年1至7月，制造业吸纳毕业生约10万人，人数占比从2020年的14.72%提升到2025年的19.21%。其中，人工智能、机器人、半导体与集成电路、高端装备制造、新能源汽车、低空经济相关专业毕业生占四分之一，对发展新质生产力、建设现代化产业体系的人才支撑作用明显提升。</p></details>
+      <details open><summary>题干</summary><p>关于“百万英才汇南粤”行动计划，资料未提及（    ）。</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 紧紧围绕广东现代化产业体系建设需要</li><li><strong>B.</strong> 突出新兴产业未来产业</li><li><strong>C.</strong> 鼓励应届毕业生跨省就业创业</li><li><strong>D.</strong> 充分发动知名科技企业拿出大量优质岗位</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：C</strong></p><pre>定位资料第三段可知，“百万英才汇南粤”行动计划紧紧围绕广东现代化产业体系建设需要，对应A项；聚焦20个战略性产业集群，突出新兴产业未来产业，对应B项；充分发动知名科技企业拿出大量优质岗位，组织发动各类企事业单位动态募集120多万优质岗位，对应D项。定位资料第二段，按照省委、省政府关于实施“百万英才汇南粤”行动计划的部署安排，截至7月中旬，全省已吸纳超过100万应届高校毕业生留粤来粤就业创业，未提及鼓励应届毕业生跨省就业创业情况。本题为选非题，故正确答案为C。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>2. cq_d4dc6e1e15adfa967b6b95d7</h3>
+  <div class="source">2025 广东 第71题 · latestYear=2025 · visual=False</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        广东既是经济大省，也是人口大省、就业大省，数据显示，2024年广东净增74万人，新出生113.3万人；城镇新增就业超143万人，超额完成国家下达的110万人的年度就业任务，并且实现4386万异地务工人员稳定就业，是名副其实的就业超级“蓄水池”。</p><p>        今年以来，广东按照省委、省政府关于实施“百万英才汇南粤”行动计划的部署安排，围绕“粤聚英才、粤见未来”主题，广泛募集岗位、强化精准对接、提升优质服务、持续扩大声势。截至7月中旬，全省已吸纳超过100万应届高校毕业生留粤来粤就业创业，进一步夯实广东现代化产业体系的人才基座，充分彰显经济大省挑大梁的责任担当。</p><p>        “百万英才汇南粤”行动计划紧紧围绕广东现代化产业体系建设需要，聚焦20个战略性产业集群，突出新兴产业未来产业，充分发动知名科技企业拿出大量优质岗位，组织发动各类企事业单位动态募集120多万优质岗位，以具有竞争力的薪酬和岗位吸纳优秀高校毕业生，今年3至7月，累计组织2.1万家重点企业在“粤就业”小程序发布62.5万个岗位。其中，面向博士、硕士的8.6万个，面向本科生25.6万个，面向大专和各类技工学校学生28.3万个，年薪10万元以上岗位约26万个，年薪20万元以上岗位超6.5万个，年薪50万元以上甚至百万年薪的岗位超5000个。</p><p>        从留粤就业的省内应届高校毕业生情况看，今年1至7月，制造业吸纳毕业生约10万人，人数占比从2020年的14.72%提升到2025年的19.21%。其中，人工智能、机器人、半导体与集成电路、高端装备制造、新能源汽车、低空经济相关专业毕业生占四分之一，对发展新质生产力、建设现代化产业体系的人才支撑作用明显提升。</p></details>
+      <details open><summary>题干</summary><p>“百万英才汇南粤”行动计划围绕的主题是（    ）。</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> “好岗配优才”</li><li><strong>B.</strong> “粤聚英才、粤见未来”</li><li><strong>C.</strong> “魅力大湾区，活力新广东”</li><li><strong>D.</strong> “经济大省挑大梁，再造一个新广东”</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：B</strong></p><pre>定位文字材料第二段可得：今年以来，广东按照省委、省政府关于实施“百万英才汇南粤”行动计划的部署安排，围绕“粤聚英才、粤见未来”主题，对应B项。故正确答案为B。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>3. cq_d52d5c294bf717a594030cac</h3>
+  <div class="source">2025 广东 第73题 · latestYear=2025 · visual=False</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        广东既是经济大省，也是人口大省、就业大省，数据显示，2024年广东净增74万人，新出生113.3万人；城镇新增就业超143万人，超额完成国家下达的110万人的年度就业任务，并且实现4386万异地务工人员稳定就业，是名副其实的就业超级“蓄水池”。</p><p>        今年以来，广东按照省委、省政府关于实施“百万英才汇南粤”行动计划的部署安排，围绕“粤聚英才、粤见未来”主题，广泛募集岗位、强化精准对接、提升优质服务、持续扩大声势。截至7月中旬，全省已吸纳超过100万应届高校毕业生留粤来粤就业创业，进一步夯实广东现代化产业体系的人才基座，充分彰显经济大省挑大梁的责任担当。</p><p>        “百万英才汇南粤”行动计划紧紧围绕广东现代化产业体系建设需要，聚焦20个战略性产业集群，突出新兴产业未来产业，充分发动知名科技企业拿出大量优质岗位，组织发动各类企事业单位动态募集120多万优质岗位，以具有竞争力的薪酬和岗位吸纳优秀高校毕业生，今年3至7月，累计组织2.1万家重点企业在“粤就业”小程序发布62.5万个岗位。其中，面向博士、硕士的8.6万个，面向本科生25.6万个，面向大专和各类技工学校学生28.3万个，年薪10万元以上岗位约26万个，年薪20万元以上岗位超6.5万个，年薪50万元以上甚至百万年薪的岗位超5000个。</p><p>        从留粤就业的省内应届高校毕业生情况看，今年1至7月，制造业吸纳毕业生约10万人，人数占比从2020年的14.72%提升到2025年的19.21%。其中，人工智能、机器人、半导体与集成电路、高端装备制造、新能源汽车、低空经济相关专业毕业生占四分之一，对发展新质生产力、建设现代化产业体系的人才支撑作用明显提升。</p></details>
+      <details open><summary>题干</summary><p>2025年3至7月“粤就业”小程序发布的62.5万个岗位中，年薪10万元以上岗位占比（    ）。</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 在1成到2成之间</li><li><strong>B.</strong> 在2成到3成之间</li><li><strong>C.</strong> 在3成到4成之间</li><li><strong>D.</strong> 在4成到5成之间</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：D</strong></p><pre>根据题干“2025年3至7月······占比······”，结合材料时间为2025年3至7月，可判定本题为现期比重问题。定位文字材料第三段可得：2025年3至7月，累计组织2.1万家重点企业在“粤就业”小程序发布62.5万个岗位，其中，年薪10万元以上岗位约26万个。根据公式：比重，则题目所求，在D项范围内。故正确答案为D。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>4. cq_fb079fd2f0927a7dcfcbc12c</h3>
+  <div class="source">2025 广东 第75题 · latestYear=2025 · visual=False</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        广东既是经济大省，也是人口大省、就业大省，数据显示，2024年广东净增74万人，新出生113.3万人；城镇新增就业超143万人，超额完成国家下达的110万人的年度就业任务，并且实现4386万异地务工人员稳定就业，是名副其实的就业超级“蓄水池”。</p><p>        今年以来，广东按照省委、省政府关于实施“百万英才汇南粤”行动计划的部署安排，围绕“粤聚英才、粤见未来”主题，广泛募集岗位、强化精准对接、提升优质服务、持续扩大声势。截至7月中旬，全省已吸纳超过100万应届高校毕业生留粤来粤就业创业，进一步夯实广东现代化产业体系的人才基座，充分彰显经济大省挑大梁的责任担当。</p><p>        “百万英才汇南粤”行动计划紧紧围绕广东现代化产业体系建设需要，聚焦20个战略性产业集群，突出新兴产业未来产业，充分发动知名科技企业拿出大量优质岗位，组织发动各类企事业单位动态募集120多万优质岗位，以具有竞争力的薪酬和岗位吸纳优秀高校毕业生，今年3至7月，累计组织2.1万家重点企业在“粤就业”小程序发布62.5万个岗位。其中，面向博士、硕士的8.6万个，面向本科生25.6万个，面向大专和各类技工学校学生28.3万个，年薪10万元以上岗位约26万个，年薪20万元以上岗位超6.5万个，年薪50万元以上甚至百万年薪的岗位超5000个。</p><p>        从留粤就业的省内应届高校毕业生情况看，今年1至7月，制造业吸纳毕业生约10万人，人数占比从2020年的14.72%提升到2025年的19.21%。其中，人工智能、机器人、半导体与集成电路、高端装备制造、新能源汽车、低空经济相关专业毕业生占四分之一，对发展新质生产力、建设现代化产业体系的人才支撑作用明显提升。</p></details>
+      <details open><summary>题干</summary><p>根据资料，以下说法可以判断属实的是（    ）。</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 2024年，广东新出生人口超百万</li><li><strong>B.</strong> 2024年，广东省内应届高校毕业生中，本科生占比超40%</li><li><strong>C.</strong> 2025年上半年，广东超额完成国家下达的年度就业任务</li><li><strong>D.</strong> 2025年上半年，广东吸纳超百万应届高校毕业生留粤来粤就业创业</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：A</strong></p><pre>A项：定位文字材料第一段可得：数据显示，2024年广东新出生113.3万人，正确；B项：材料中并未提及2024年广东省内应届高校毕业生和本科生相关信息，故无法判断，错误；C项：定位文字材料第一段可得：2024年广东城镇新增就业超143万人，超额完成国家下达的110万人的年度就业任务，非2025年上半年，错误；D项：定位文字材料第二段可得：截至（2025年）7月中旬，全省已吸纳超过100万应届高校毕业生留粤来粤就业创业，非2025年上半年，错误。故正确答案为A。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>5. cq_d01ecdfe02e9d3bda42503a9</h3>
+  <div class="source">2025 广东 第74题 · latestYear=2025 · visual=False</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        广东既是经济大省，也是人口大省、就业大省，数据显示，2024年广东净增74万人，新出生113.3万人；城镇新增就业超143万人，超额完成国家下达的110万人的年度就业任务，并且实现4386万异地务工人员稳定就业，是名副其实的就业超级“蓄水池”。</p><p>        今年以来，广东按照省委、省政府关于实施“百万英才汇南粤”行动计划的部署安排，围绕“粤聚英才、粤见未来”主题，广泛募集岗位、强化精准对接、提升优质服务、持续扩大声势。截至7月中旬，全省已吸纳超过100万应届高校毕业生留粤来粤就业创业，进一步夯实广东现代化产业体系的人才基座，充分彰显经济大省挑大梁的责任担当。</p><p>        “百万英才汇南粤”行动计划紧紧围绕广东现代化产业体系建设需要，聚焦20个战略性产业集群，突出新兴产业未来产业，充分发动知名科技企业拿出大量优质岗位，组织发动各类企事业单位动态募集120多万优质岗位，以具有竞争力的薪酬和岗位吸纳优秀高校毕业生，今年3至7月，累计组织2.1万家重点企业在“粤就业”小程序发布62.5万个岗位。其中，面向博士、硕士的8.6万个，面向本科生25.6万个，面向大专和各类技工学校学生28.3万个，年薪10万元以上岗位约26万个，年薪20万元以上岗位超6.5万个，年薪50万元以上甚至百万年薪的岗位超5000个。</p><p>        从留粤就业的省内应届高校毕业生情况看，今年1至7月，制造业吸纳毕业生约10万人，人数占比从2020年的14.72%提升到2025年的19.21%。其中，人工智能、机器人、半导体与集成电路、高端装备制造、新能源汽车、低空经济相关专业毕业生占四分之一，对发展新质生产力、建设现代化产业体系的人才支撑作用明显提升。</p></details>
+      <details open><summary>题干</summary><p>2025年1至7月，留粤就业的人工智能、机器人、半导体与集成电路、高端装备制造、新能源汽车、低空经济相关专业省内应届高校毕业生约有（    ）万人。</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 2.5</li><li><strong>B.</strong> 5</li><li><strong>C.</strong> 7.5</li><li><strong>D.</strong> 10</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：A</strong></p><pre>根据题干“2025年1至7月······省内应届高校毕业生约有······万人”，结合材料时间为2025年1至7月及材料给出题干相关专业省内应届高校毕业生占比，可判定本题为现期比重问题。定位文字材料第四段可得：从留粤就业的省内应届高校毕业生情况看，今年（2025年）1至7月，制造业吸纳毕业生约10万人······其中，人工智能、机器人、半导体与集成电路、高端装备制造、新能源汽车、低空经济相关专业毕业生占四分之一。根据公式：部分=整体×比重，则所求万。故正确答案为A。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>6. cq_bd74cfd27f7e2be9738d51fb</h3>
+  <div class="source">2024 国考 第112题；2024 国考 第122题 · latestYear=2024 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p><img height="263px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%BD%E8%80%83/2025%E5%B9%B4%E5%9B%BD%E5%AE%B6%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88%E5%9C%B0%E5%B8%82%E7%BA%A7%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0078_99155c332fd29a4c.png" width="614px"/></p><p><img height="359px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%BD%E8%80%83/2025%E5%B9%B4%E5%9B%BD%E5%AE%B6%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88%E5%9C%B0%E5%B8%82%E7%BA%A7%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0094_b2e4bcd1e064f0e4.png" width="614px"/></p></details>
+      <details open><summary>题干</summary><p>以下批次中，公示的专精特新“小巨人”上市企业数量占同批次专精特新“小巨人”企业数量比重最高的是：</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 第二批次</li><li><strong>B.</strong> 第三批次</li><li><strong>C.</strong> 第四批次</li><li><strong>D.</strong> 第五批次</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：A</strong></p><pre>根据题干“以下批次中······占同批次······比重最高的是”，可判定本题为现期比重问题。定位统计图可知各批次公示的专精特新“小巨人”上市企业数量及企业数量，根据公式：比重，各批次公示的专精特新“小巨人”上市企业数量占同批次专精特新“小巨人”企业数量比重分别为：第二批次，；第三批次，；第四批次，；第五批次，，则第二批次公示的专精特新“小巨人”上市企业数量占同批次专精特新“小巨人”企业数量比重最高。故正确答案为A。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>7. cq_deb642ada54b2b47bfa7a779</h3>
+  <div class="source">2024 国考 第113题；2024 国考 第123题 · latestYear=2024 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p><img height="263px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%BD%E8%80%83/2025%E5%B9%B4%E5%9B%BD%E5%AE%B6%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88%E5%9C%B0%E5%B8%82%E7%BA%A7%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0078_99155c332fd29a4c.png" width="614px"/></p><p><img height="359px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%BD%E8%80%83/2025%E5%B9%B4%E5%9B%BD%E5%AE%B6%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88%E5%9C%B0%E5%B8%82%E7%BA%A7%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0094_b2e4bcd1e064f0e4.png" width="614px"/></p></details>
+      <details open><summary>题干</summary><p>已知2023年第五批次公示的专精特新“小巨人”企业分布于全国300个城市中，则这些城市平均每个有多少家第五批次公示的专精特新“小巨人”非上市企业？</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 不到11家</li><li><strong>B.</strong> 11-12家之间</li><li><strong>C.</strong> 12-13家之间</li><li><strong>D.</strong> 超过13家</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：B</strong></p><pre>根据题干“已知2023年第五批次公示······平均每个有多少家······”，结合材料给出2023年第五批次公示相关数据，可判定本题为现期平均数问题。定位统计图可得：2023年第五批次公示专精特新“小巨人”企业数量为3671家，专精特新“小巨人”上市企业数量为134家。根据平均数，可得全国300个城市中，平均每个城市第五批次公示的专精特新“小巨人”非上市企业数量家，在B项范围内。故正确答案为B。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>8. cq_9cc5efa4d527e02e2d6a6270</h3>
+  <div class="source">2024 国考 第114题；2024 国考 第124题 · latestYear=2024 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p><img height="263px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%BD%E8%80%83/2025%E5%B9%B4%E5%9B%BD%E5%AE%B6%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88%E5%9C%B0%E5%B8%82%E7%BA%A7%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0078_99155c332fd29a4c.png" width="614px"/></p><p><img height="359px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E5%9B%BD%E8%80%83/2025%E5%B9%B4%E5%9B%BD%E5%AE%B6%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88%E5%9C%B0%E5%B8%82%E7%BA%A7%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0094_b2e4bcd1e064f0e4.png" width="614px"/></p></details>
+      <details open><summary>题干</summary><p>2019-2023年，北京、上海、广州、深圳4个城市五批次累计公示的专精特新“小巨人”企业数量之和约占全国总数的：</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 35%</li><li><strong>B.</strong> 30%</li><li><strong>C.</strong> 25%</li><li><strong>D.</strong> 20%</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：D</strong></p><pre>根据题干“2019-2023年······约占······”，结合材料给出2019-2023年的相关数据，可判定本题为现期比重问题。定位统计图可得：2019-2023年我国五批次公示的专精特新“小巨人”企业数量分别为248家、1744家、2930家、4357家、3671家；定位统计表可得：2019-2023年北京、上海、广州、深圳4个城市五批次累计专精特新“小巨人”企业数量分别为840家、713家、249家、755家。根据公式：比重，可得题干所求。故正确答案为D。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>9. cq_1d05866bf82f6f1959770719</h3>
+  <div class="source">2024 国考 第127题 · latestYear=2024 · visual=False</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        2023年一季度，我国外贸进出口总额为9.89万亿元，同比增加0.45万亿元。其中，东部地区进出口7.75万亿元，同比增长2.9%；中西部、东北地区分别进出口1.84万亿元、2975.4亿元，同比分别增长12.6%、9.4%。</p><p>        2月份，东部地区进出口同比增速由1月份的下降11.1%转为增长7%，3月份增速扩大至15.8%。一季度有进出口实绩企业数量38.7万家，同比增长5.2%。一季度，东部地区出口高技术产品7741.7亿元，同比增长9.8%，占东部地区出口额比重为17.9%，同比提升0.7个百分点，其中3月增速为21%。</p><p>        一季度，中西部地区民营企业进出口1.08万亿元，同比增长32.8%，中西部地区对“一带一路”沿线国家进出口7400.9亿元，同比增长38%。一般贸易占中西部地区进出口总额的56.6%，同比提升4.9个百分点。</p><p>        一季度，东北地区黑色金属冶炼和压延加工业、汽车制造业、铁路船舶等其他运输设备制造业出口同比分别增长42.9%、62.3%、136.4%。化肥、种子分别进口25亿元、5867.6万元，同比分别增长117.8%、119.9%。</p></details>
+      <details open><summary>题干</summary><p>2023年一季度，东部地区外贸进口额约为多少万亿元？</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 2.2</li><li><strong>B.</strong> 2.8</li><li><strong>C.</strong> 3.4</li><li><strong>D.</strong> 4.0</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：C</strong></p><pre>根据题干“2023年一季度，东部地区外贸进口额约为多少万亿元”，结合材料给出2023年一季度东部地区外贸进出口总额、东部地区高技术产品出口额及其占东部地区出口额的比重，可判定本题为现期比重问题。定位文字材料第一段可得：2023年一季度，东部地区进出口7.75万亿元。定位文字材料第二段可得：（2023年）一季度，东部地区出口高技术产品7741.7亿元，占东部地区出口额比重为17.9%。根据公式：整体，则2023年一季度东部地区外贸出口额为万亿元。故2023年一季度东部地区外贸进口额为7.75-4.3=3.45万亿元，与C项最接近。故正确答案为C。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>10. cq_54639b29b8160b790d6ce70b</h3>
+  <div class="source">2024 广东 第71题 · latestYear=2024 · visual=False</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        党的二十大报告强调，教育、科技、人才是全面建设社会主义现代化国家的基础性、战略性支撑。近年来，广东紧紧围绕制造业当家、聚焦高质量发展，大力实施制造业当家技能人才支撑工程，加快建设一支规模宏大的知识型、技能型、创新型技能人才队伍。2023年，全省技能人才总量达1934万人，其中高技能人才657万人。</p><p>        为推动广东技工与广东制造共同成长，近年来，广东紧紧围绕壮大20个战略性产业集群，紧密对接产业升级和技术变革趋势，开展新产业工人职业技能提升工程，培育掌握新技术的产业新工匠。广东充分发挥经济大省、制造业大省的优势，将产教融合、校企合作融入技能人才培养全过程，打造了全国最大的技工教育体系。</p><p>        2023年，广东共有技工院校148所，实现21个地级以上市技师学院全覆盖；在校生65万人，占全国的七分之一；面向先进制造业、战略性新兴产业、现代服务业建设233个省级重点专业和50个特色专业；与100多家世界500强企业及国内800多家大型企业开展深度合作，实现教学与企业岗位无缝对接，精准培养产业急需人才。技工院校招生人数、教研成果、技能竞赛、就业率等九项主要指标均居全国第一。</p><p>        2022年世界技能大赛，广东共有11位选手代表国家参赛，获7金、1银、1铜和2个优胜奖，金牌数占全国三分之一，金牌数及奖牌数连续4届位居全国第一，展现了广东技能人才的精湛技能和职业风采。</p></details>
+      <details open><summary>题干</summary><p>2023年广东高技能人才是全省技能人才总量的（    ）。</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 12%</li><li><strong>B.</strong> 23%</li><li><strong>C.</strong> 34%</li><li><strong>D.</strong> 45%</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：C</strong></p><pre>根据题干“2023年······是······总量的”，结合选项为百分数，可判定本题为现期比重问题。定位文字材料第一段可知“2023年，全省技能人才总量达1934万人，其中高技能人才657万人”。根据公式：比重，可得所求比重为，只有C项符合。故正确答案为C。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+</section>
+<section class="card" id="mc_ziliao_liangqi_bizhong_01">
+  <div class="card-head">
+    <h2>两期比重：先看部分增速减整体增速</h2>
+    <div class="meta">
+      <span class="pill">mc_ziliao_liangqi_bizhong_01</span>
+      <span class="pill">资料分析/比重问题/两期比重</span>
+      <span class="pill">限时 65 秒/题</span>
+      <span class="pill">抽样：exact_display_path</span>
+      <span class="pill">状态：draft</span>
+    </div>
+    <div class="card-grid">
+      <div class="box"><h3>识别信号</h3><p>题干问比重上升、下降或比上年提高几个百分点</p></div>
+      <div class="box"><h3>精度规则</h3><p>先判升降；选项只问方向不算幅度，问百分点再估现期比重乘增速差</p><p class="muted">比重变化的正负只看部分增速和整体增速的大小</p></div>
+      <div class="box"><h3>适用</h3><ul><li>已知部分现期量、整体现期量及二者增速</li><li>题干比较两个时期的比重变化</li></ul><h3>排除</h3><ul><li>只问现期比重</li><li>缺少部分或整体的增长率</li></ul></div>
+      <div class="box"><h3>步骤</h3><ol><li>先比较部分增速 a 和整体增速 b</li><li>a 大于 b，比重上升；a 小于 b，比重下降</li><li>变化幅度约为现期比重 x (a - b) / (1 + a)</li><li>只问升降时不用计算百分点</li></ol><h3>常见错因</h3><ul><li><code>two_period_proportion_direction_wrong</code>：没用部分增速减整体增速判断升降</li><li><code>two_period_proportion_overcalculate</code>：只问升降仍完整计算百分点，浪费时间</li></ul></div>
+    </div>
+  </div>
+  
+<article class="question">
+  <h3>1. cq_424c690a1c80186e45dd3826</h3>
+  <div class="source">2025 浙江 第108题；2025 浙江 第98题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        2024年，中国化工新材料产业规模达到1655.6亿美元，居全球第一位。其次是美国，化工新材料产业规模为1455.0亿美元。</p><p><img height="245px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E6%B5%99%E6%B1%9F/2026%E5%B9%B4%E6%B5%99%E6%B1%9F%E7%9C%81%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88A%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0121_a65a1b3d5ea00e09.png" width="593px"/></p><p><img height="580px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E6%B5%99%E6%B1%9F/2026%E5%B9%B4%E6%B5%99%E6%B1%9F%E7%9C%81%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88A%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0122_7f8ea8d25dde353a.png" width="600px"/></p></details>
+      <details open><summary>题干</summary><p>假如汇率没有变动，2022~2024年中国化工新材料产业规模占全球比重的变化趋势为：</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 先增后降</li><li><strong>B.</strong> 先降后增</li><li><strong>C.</strong> 逐年增加</li><li><strong>D.</strong> 逐年下降</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：C</strong></p><pre>根据题干“······2022~2024年中国化工新材料产业规模占全球比重的变化趋势为”，可判定本题为两期比重问题。定位表1可得，2023年、2024年中国化工新材料产业规模同比增速分别为7.2%（）、10.9%（），2023年、2024年全球产业规模同比增速分别为3.3%（）、5.4%（）。根据两期比重比较结论：若部分增长率（a）&gt;整体增长率（b），则比重上升。2023年，7.2%（）&gt;3.3%（），比重增加；2024年，10.9%（）&gt;5.4%（），比重增加。则2022~2024年中国化工新材料产业规模占全球的比重逐年增加。故正确答案为C。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>2. cq_6a5122c1eb82ccd9711d516b</h3>
+  <div class="source">2025 浙江 第106题；2025 浙江 第96题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        2024年，中国化工新材料产业规模达到1655.6亿美元，居全球第一位。其次是美国，化工新材料产业规模为1455.0亿美元。</p><p><img height="245px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E6%B5%99%E6%B1%9F/2026%E5%B9%B4%E6%B5%99%E6%B1%9F%E7%9C%81%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88A%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0121_a65a1b3d5ea00e09.png" width="593px"/></p><p><img height="580px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E6%B5%99%E6%B1%9F/2026%E5%B9%B4%E6%B5%99%E6%B1%9F%E7%9C%81%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88A%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0122_7f8ea8d25dde353a.png" width="600px"/></p></details>
+      <details open><summary>题干</summary><p>2024年，中美两国化工新材料产业规模之和占全球比重约为：</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 52%</li><li><strong>B.</strong> 57%</li><li><strong>C.</strong> 63%</li><li><strong>D.</strong> 68%</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：D</strong></p><pre>根据题干“2024年······占······比重约为”，结合材料时间为2024年，可判定本题为现期比重问题。定位文字材料和统计表1可得：2024年，中国化工新材料产业规模达到1655.6亿美元，居全球第一位。其次是美国，化工新材料产业规模为1455.0亿美元；2024年全球化工新材料产业规模为4550.3亿美元。根据公式：比重，故所求为，与D项最接近。故正确答案为D。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>3. cq_ca70dc5a0a01216a5a724c46</h3>
+  <div class="source">2025 浙江 第107题；2025 浙江 第97题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        2024年，中国化工新材料产业规模达到1655.6亿美元，居全球第一位。其次是美国，化工新材料产业规模为1455.0亿美元。</p><p><img height="245px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E6%B5%99%E6%B1%9F/2026%E5%B9%B4%E6%B5%99%E6%B1%9F%E7%9C%81%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88A%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0123_574d6481ec9e603d.png" width="593px"/></p><p><img height="580px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E6%B5%99%E6%B1%9F/2026%E5%B9%B4%E6%B5%99%E6%B1%9F%E7%9C%81%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88A%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0125_a2d53845ffc669c6.png" width="600px"/></p></details>
+      <details open><summary>题干</summary><p>2022年，中国化工新材料产业规模同比增加值在以下哪个范围内？</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 不到600亿元</li><li><strong>B.</strong> 600~700亿元</li><li><strong>C.</strong> 700~800亿元</li><li><strong>D.</strong> 800亿元以上</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：B</strong></p><pre>根据题干“2022年······同比增加值······”，可判定本题为增长量计算问题。定位表1可得：2022年中国化工新材料产业规模为9919.3亿元，同比增长7.1%。根据公式：增长量，可得所求为亿元，在B项范围内。故正确答案为B。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>4. cq_22fb00365e543267a91be004</h3>
+  <div class="source">2025 浙江 第109题；2025 浙江 第104题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        2024年，中国化工新材料产业规模达到1655.6亿美元，居全球第一位。其次是美国，化工新材料产业规模为1455.0亿美元。</p><p><img height="245px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E6%B5%99%E6%B1%9F/2026%E5%B9%B4%E6%B5%99%E6%B1%9F%E7%9C%81%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88A%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0123_574d6481ec9e603d.png" width="593px"/></p><p><img height="580px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E6%B5%99%E6%B1%9F/2026%E5%B9%B4%E6%B5%99%E6%B1%9F%E7%9C%81%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88A%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0125_a2d53845ffc669c6.png" width="600px"/></p></details>
+      <details open><summary>题干</summary><p>根据资料推算汇率换算，化工新材料产业结构中，2024年中国产业规模占全球比重超过70%的有几类？</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 1</li><li><strong>B.</strong> 2</li><li><strong>C.</strong> 3</li><li><strong>D.</strong> 4</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：A</strong></p><pre>根据题干“······2024年······比重超过70%的有几类”，结合材料时间为2024年，可判定本题为现期比重问题。定位文字材料可得：2024年，中国化工新材料产业规模达到1655.6亿美元；定位统计表1可得：2024年，中国化工新材料产业规模为11787.7亿元；定位统计表2可得2024年全球及中国化工新材料各产业类别产业规模。换算汇率，1美元元。根据公式：比重，可得2024年化工新材料各产业类别中，中国产业规模占全球比重分别为：工程塑料和特种工程塑料，；高端聚烯烃，；聚氨酯材料，；高性能橡胶，；功能性膜材料，；新能源材料，；氟硅材料，；电子化学品，；高性能纤维，；其他材料，。比较可知，比重超过70%的只有新能源材料，共1类。故正确答案为A。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>5. cq_75ce841bbb48ad89f00c1a00</h3>
+  <div class="source">2025 浙江 第110题；2025 浙江 第100题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        2024年，中国化工新材料产业规模达到1655.6亿美元，居全球第一位。其次是美国，化工新材料产业规模为1455.0亿美元。</p><p><img height="245px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E6%B5%99%E6%B1%9F/2026%E5%B9%B4%E6%B5%99%E6%B1%9F%E7%9C%81%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88A%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0121_a65a1b3d5ea00e09.png" width="593px"/></p><p><img height="580px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E6%B5%99%E6%B1%9F/2026%E5%B9%B4%E6%B5%99%E6%B1%9F%E7%9C%81%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88A%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0122_7f8ea8d25dde353a.png" width="600px"/></p></details>
+      <details open><summary>题干</summary><p>化工新材料产业结构中，2024年全球产业规模最高的三类的产业规模之和约是最低的三类的产业规模之和的多少倍？（不包括“其他材料”）</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 3.2</li><li><strong>B.</strong> 4.7</li><li><strong>C.</strong> 5.3</li><li><strong>D.</strong> 6.1</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：A</strong></p><pre>根据题干“2024年······是······的多少倍”，结合材料时间为2024年，可判定本题为现期倍数问题。定位统计图2可得，2024年全球产业规模最高的三类产业分别为工程塑料和特种工程塑料869.6亿美元、高端聚烯烃765.7亿美元、聚氨酯材料595.1亿美元，全球产业规模最低的三类产业分别为高性能纤维160.2亿美元、电子化学品210.3亿美元、氟硅材料333.4亿美元，故所求倍。故正确答案为A。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>6. cq_6f2a72ffa8f1675e86540523</h3>
+  <div class="source">2025 浙江 第99题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        2024年，中国化工新材料产业规模达到1655.6亿美元，居全球第一位。其次是美国，化工新材料产业规模为1455.0亿美元。</p><p><img height="245px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E6%B5%99%E6%B1%9F/2026%E5%B9%B4%E6%B5%99%E6%B1%9F%E7%9C%81%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88C%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0092_a65a1b3d5ea00e09.png" width="593px"/></p><p><img height="580px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E6%B5%99%E6%B1%9F/2026%E5%B9%B4%E6%B5%99%E6%B1%9F%E7%9C%81%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88C%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0091_7f8ea8d25dde353a.png" width="600px"/></p></details>
+      <details open><summary>题干</summary><p>根据资料推算汇率换算，化工新材料产业结构中，2024年中国产业规模占全球比重超过70%的有几类？</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 1</li><li><strong>B.</strong> 2</li><li><strong>C.</strong> 3</li><li><strong>D.</strong> 4</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：A</strong></p><pre>根据题干“······2024年······比重超过70%的有几类”，结合材料时间为2024年，可判定本题为现期比重问题。定位文字材料可得：2024年，中国化工新材料产业规模达到1655.6亿美元；定位统计表1可得：2024年，中国化工新材料产业规模为11787.7亿元；定位统计表2可得2024年全球及中国化工新材料各产业类别产业规模。换算汇率，1美元元。根据公式：比重，可得2024年化工新材料各产业类别中，中国产业规模占全球比重分别为：工程塑料和特种工程塑料，；高端聚烯烃，；聚氨酯材料，；高性能橡胶，；功能性膜材料，；新能源材料，；氟硅材料，；电子化学品，；高性能纤维，；其他材料，。比较可知，比重超过70%的只有新能源材料，共1类。故正确答案为A。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>7. cq_b6c67b1646a1ce8cd9bf195b</h3>
+  <div class="source">2025 浙江 第101题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        2024年，中国化工新材料产业规模达到1655.6亿美元，居全球第一位。其次是美国，化工新材料产业规模为1455.0亿美元。</p><p><img height="245px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E6%B5%99%E6%B1%9F/2026%E5%B9%B4%E6%B5%99%E6%B1%9F%E7%9C%81%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88B%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0118_574d6481ec9e603d.png" width="593px"/></p><p><img height="580px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E6%B5%99%E6%B1%9F/2026%E5%B9%B4%E6%B5%99%E6%B1%9F%E7%9C%81%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88B%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0122_a2d53845ffc669c6.png" width="600px"/></p></details>
+      <details open><summary>题干</summary><p>2024年，中美两国化工新材料产业规模之和占全球比重约为：</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 52%</li><li><strong>B.</strong> 57%</li><li><strong>C.</strong> 63%</li><li><strong>D.</strong> 68%</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：D</strong></p><pre>根据题干“2024年······占······比重约为”，结合材料时间为2024年，可判定本题为现期比重问题。定位文字材料和统计表1可得：2024年，中国化工新材料产业规模达到1655.6亿美元，居全球第一位。其次是美国，化工新材料产业规模为1455.0亿美元；2024年全球化工新材料产业规模为4550.3亿美元。根据公式：比重，故所求为，与D项最接近。故正确答案为D。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>8. cq_eb0607ae9439fd5fc407db17</h3>
+  <div class="source">2025 浙江 第105题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        2024年，中国化工新材料产业规模达到1655.6亿美元，居全球第一位。其次是美国，化工新材料产业规模为1455.0亿美元。</p><p><img height="245px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E6%B5%99%E6%B1%9F/2026%E5%B9%B4%E6%B5%99%E6%B1%9F%E7%9C%81%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88B%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0118_574d6481ec9e603d.png" width="593px"/></p><p><img height="580px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E6%B5%99%E6%B1%9F/2026%E5%B9%B4%E6%B5%99%E6%B1%9F%E7%9C%81%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88B%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0122_a2d53845ffc669c6.png" width="600px"/></p></details>
+      <details open><summary>题干</summary><p>化工新材料产业结构中，2024年全球产业规模最高的三类的产业规模之和约是最低的三类的产业规模之和的多少倍？（不包括“其他材料”）</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 3.2</li><li><strong>B.</strong> 4.7</li><li><strong>C.</strong> 5.3</li><li><strong>D.</strong> 6.1</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：A</strong></p><pre>根据题干“2024年······是······的多少倍”，结合材料时间为2024年，可判定本题为现期倍数问题。定位统计图2可得，2024年全球产业规模最高的三类产业分别为工程塑料和特种工程塑料869.6亿美元、高端聚烯烃765.7亿美元、聚氨酯材料595.1亿美元，全球产业规模最低的三类产业分别为高性能纤维160.2亿美元、电子化学品210.3亿美元、氟硅材料333.4亿美元，故所求倍。故正确答案为A。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>9. cq_642fe5f6462c791c4558ea2a</h3>
+  <div class="source">2025 浙江 第102题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        2024年，中国化工新材料产业规模达到1655.6亿美元，居全球第一位。其次是美国，化工新材料产业规模为1455.0亿美元。</p><p><img height="245px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E6%B5%99%E6%B1%9F/2026%E5%B9%B4%E6%B5%99%E6%B1%9F%E7%9C%81%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88B%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0125_a65a1b3d5ea00e09.png" width="593px"/></p><p><img height="580px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E6%B5%99%E6%B1%9F/2026%E5%B9%B4%E6%B5%99%E6%B1%9F%E7%9C%81%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88B%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0127_7f8ea8d25dde353a.png" width="600px"/></p></details>
+      <details open><summary>题干</summary><p>2022年，中国化工新材料产业规模同比增加值在以下哪个范围内？</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 不到600亿元</li><li><strong>B.</strong> 600~700亿元</li><li><strong>C.</strong> 700~800亿元</li><li><strong>D.</strong> 800亿元以上</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：B</strong></p><pre>根据题干“2022年······同比增加值······”，可判定本题为增长量计算问题。定位表1可得：2022年中国化工新材料产业规模为9919.3亿元，同比增长7.1%。根据公式：增长量，可得所求为亿元，在B项范围内。故正确答案为B。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+
+<article class="question">
+  <h3>10. cq_be24c5518d6f686187d2c8e8</h3>
+  <div class="source">2025 浙江 第103题 · latestYear=2025 · visual=True</div>
+  <div class="q-grid">
+    <div>
+      <details open><summary>材料</summary><p>        2024年，中国化工新材料产业规模达到1655.6亿美元，居全球第一位。其次是美国，化工新材料产业规模为1455.0亿美元。</p><p><img height="245px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E6%B5%99%E6%B1%9F/2026%E5%B9%B4%E6%B5%99%E6%B1%9F%E7%9C%81%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88B%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0118_574d6481ec9e603d.png" width="593px"/></p><p><img height="580px" src="file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/data/question-bank-export/files/source-question-bank/fenbi-final-analysis-v1-20260613-assets/%E6%B5%99%E6%B1%9F/2026%E5%B9%B4%E6%B5%99%E6%B1%9F%E7%9C%81%E5%85%AC%E5%8A%A1%E5%91%98%E5%BD%95%E7%94%A8%E8%80%83%E8%AF%95%E3%80%8A%E8%A1%8C%E6%B5%8B%E3%80%8B%E9%A2%98%EF%BC%88B%E7%B1%BB%EF%BC%89%EF%BC%88%E7%BD%91%E5%8F%8B%E5%9B%9E%E5%BF%86%E7%89%88%EF%BC%89_images/img_0122_a2d53845ffc669c6.png" width="600px"/></p></details>
+      <details open><summary>题干</summary><p>假如汇率没有变动，2022~2024年中国化工新材料产业规模占全球比重的变化趋势为：</p></details>
+      <details open><summary>选项</summary><ol><li><strong>A.</strong> 先增后降</li><li><strong>B.</strong> 先降后增</li><li><strong>C.</strong> 逐年增加</li><li><strong>D.</strong> 逐年下降</li></ol></details>
+      <details open><summary>答案与解析</summary><p><strong>答案：C</strong></p><pre>根据题干“······2022~2024年中国化工新材料产业规模占全球比重的变化趋势为”，可判定本题为两期比重问题。定位表1可得，2023年、2024年中国化工新材料产业规模同比增速分别为7.2%（）、10.9%（），2023年、2024年全球产业规模同比增速分别为3.3%（）、5.4%（）。根据两期比重比较结论：若部分增长率（a）&gt;整体增长率（b），则比重上升。2023年，7.2%（）&gt;3.3%（），比重增加；2024年，10.9%（）&gt;5.4%（），比重增加。则2022~2024年中国化工新材料产业规模占全球的比重逐年增加。故正确答案为C。</pre></details>
+    </div>
+    
+  </div>
+</article>
+
+</section>
+  </main>
+</body>
+</html>

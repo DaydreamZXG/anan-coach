@@ -1,0 +1,30 @@
+<view class="task-shell {{footerAvailable ? '' : 'task-shell--no-footer'}}">
+  <view class="task-header">
+    <button class="task-header-action" aria-label="退出任务" bindtap="exit">退出</button>
+    <view class="task-header-center">
+      <view class="task-title">{{title}}</view>
+      <view class="task-mode">{{modeLabel}}</view>
+    </view>
+    <view class="task-timer">{{elapsedLabel}}</view>
+  </view>
+
+  <view class="task-progress-row">
+    <view class="task-progress-track">
+      <view class="task-progress-value" style="width: {{total > 0 ? current / total * 100 : 0}}%"></view>
+    </view>
+    <view class="task-progress-label">{{current}} / {{total}}</view>
+  </view>
+
+  <view class="task-context-row">
+    <button wx:if="{{materialAvailable}}" class="task-context-button" bindtap="openMaterial">材料</button>
+    <view class="task-sync">{{syncLabel}}</view>
+    <button wx:if="{{answerSheetAvailable}}" class="task-context-button" bindtap="openAnswerSheet">答题卡</button>
+  </view>
+
+  <view class="task-content"><slot></slot></view>
+
+  <view wx:if="{{footerAvailable}}" class="task-footer">
+    <button wx:if="{{toolsAvailable}}" class="task-tool-button" bindtap="openTools">工具</button>
+    <view class="task-footer-main"><slot name="footer"></slot></view>
+  </view>
+</view>

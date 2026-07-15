@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "aegis.schema.v0",
+  "artifactKey": "commercial-execution-master-plan",
+  "type": "plan",
+  "source": "docs/aegis/plans/2026-07-02-commercial-execution-master-plan.md",
+  "summary": "Merged commercial foundation and bridge plans into a single execution authority with auth slice, position import boundary, AI/photo boundary, manual announcements, entitlement usage audit, and no legacy runtime dependencies.",
+  "verifier": "python3 /Users/zxg/.codex/aegis/scripts/aegis-workspace.py check --root /Users/zxg/Documents/新项目"
+}

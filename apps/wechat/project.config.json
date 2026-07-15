@@ -1,0 +1,21 @@
+{
+  "appid": "wxa02a883c1807927b",
+  "projectname": "gongkao-ai-coach",
+  "description": "AI 国考上岸教练",
+  "miniprogramRoot": "miniprogram/",
+  "compileType": "miniprogram",
+  "setting": {
+    "useCompilerPlugins": ["typescript"],
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "urlCheck": true,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "minifyWXML": true
+  },
+  "simulatorType": "wechat",
+  "condition": {}
+}

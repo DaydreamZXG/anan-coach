@@ -1,0 +1,23 @@
+<view class="login-page">
+  <anan-companion intent="companion" size="large" context="home" label="岸岸欢迎你开始备考" />
+  <view class="eyebrow">AI 国考上岸教练</view>
+  <view class="hero-title">它不催你多刷题，<br />只帮你缩小分差。</view>
+  <view class="hero-copy">知道你能报什么岗、现在多少分、为什么错，以及今天最该做什么。</view>
+
+  <view class="promise card">
+    <view class="promise-row"><view class="promise-dot"></view><view>岗位资格与学习画像分别管理</view></view>
+    <view class="promise-row"><view class="promise-dot"></view><view>AI 结论必须有证据，并由你确认</view></view>
+    <view class="promise-row"><view class="promise-dot"></view><view>可以随时查看、导出和删除个人档案</view></view>
+  </view>
+
+  <view wx:if="{{errorMessage}}" class="error-message">{{errorMessage}}</view>
+  <ui-button
+    custom-class="wechat-button"
+    label="{{restoring ? '正在恢复登录…' : '微信登录并开始建档'}}"
+    variant="wechat"
+    loading="{{submitting || restoring}}"
+    disabled="{{submitting || restoring}}"
+    bindaction="login"
+  />
+  <view class="legal">登录即表示你已阅读隐私说明。我们只收集报考与学习所必需的信息。</view>
+</view>

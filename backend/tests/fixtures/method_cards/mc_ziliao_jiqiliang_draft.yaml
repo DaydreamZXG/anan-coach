@@ -1,0 +1,30 @@
+id: mc_ziliao_jiqiliang_draft_01
+exam_scope: guokao
+track: xingce
+module_name: 资料分析
+tag_path: 资料分析/基期与现期/基期量计算
+title: 基期量计算：待回测草稿
+recognition: 题干给出现期量和增长率，问上年或基期的量
+applicability:
+  include:
+    - 题干明确给出现期量
+  exclude:
+    - 问增长量而不是基期量
+method_steps:
+  - 基期 = 现期 / (1 + 增长率)
+error_signatures:
+  - code: base_period_formula_flip
+    description: 把基期公式记反
+fix_action: 做 {n} 题基期量同类题，限时 {sec} 秒/题
+time_budget_sec: 55
+accuracy_rule: 先估算，选项接近再精算
+pitfall: 增长率为负时注意符号
+author_note: AI 生成，等待人工回测
+validation:
+  tested_count: 0
+  passed_count: 0
+  sample_question_ids: []
+  reviewer:
+  reviewed_at:
+priority: 5
+status: draft

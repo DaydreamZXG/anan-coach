@@ -1,0 +1,10 @@
+<button
+  class="ui-button ui-button--{{variant}} {{block ? 'ui-button--block' : ''}} custom-class"
+  loading="{{loading}}"
+  disabled="{{disabled}}"
+  form-type="{{formType}}"
+  bindtap="handleTap"
+>
+  <slot wx:if="{{!label}}"></slot>
+  <text wx:else>{{label}}</text>
+</button>

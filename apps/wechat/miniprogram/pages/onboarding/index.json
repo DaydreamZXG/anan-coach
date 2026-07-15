@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "建立上岸档案",
+  "usingComponents": {
+    "anan-companion": "../../design-system/companion/anan-companion/index",
+    "ui-button": "../../design-system/primitives/ui-button/index"
+  }
+}

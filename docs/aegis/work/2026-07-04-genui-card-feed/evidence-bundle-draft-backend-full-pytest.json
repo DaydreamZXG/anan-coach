@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "aegis.schema.v0",
+  "artifactKey": "backend-full-pytest",
+  "type": "command",
+  "source": "cd backend && . .venv/bin/activate && pytest -q",
+  "summary": "Full backend suite passed: 67 passed, 1 Starlette/httpx deprecation warning.",
+  "verifier": "codex"
+}

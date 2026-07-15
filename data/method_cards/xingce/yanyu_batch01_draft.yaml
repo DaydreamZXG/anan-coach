@@ -1,0 +1,375 @@
+- id: mc_yanyu_shici_01
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/实词辨析
+  title: 实词辨析：先看搭配再看语境
+  recognition: 空格前后有名词、动词或形容词待选，选项是近义实词
+  applicability:
+    include:
+      - 选项为近义实词且空格所在句有明确语境线索
+      - 空格与前后词存在可判定的固定搭配
+    exclude:
+      - 空格考查关联词或虚词
+      - 选项是成语而非单字实词
+  method_steps:
+    - 读空格所在完整句，圈出与空格直接搭配的主语或宾语
+    - 排除明显不合搭配的选项，留两到三个候选
+    - 代回原句读，验剩余选项与前后句语境是否呼应
+    - 比两项的轻重和感情色彩，选与全文基调一致的
+  error_signatures:
+    - code: logic_fill_context_ignored
+      description: 只看空格近处搭配，忽略全文语境呼应
+    - code: logic_fill_synonym_confused
+      description: 近义词当可互换，忽略轻重或感情色彩差异
+  fix_action: 做 {n} 题实词辨析同类题，限时 {sec} 秒/题
+  time_budget_sec: 45
+  accuracy_rule: 先用搭配排除，再用语境内核；两项都可时比感情色彩
+  pitfall: 近义词大多都能搭配，区别在轻重和感情色彩，不在能不能填
+  author_note: AI 生成（GLM），基于言语高频考点方法论总结；待产品负责人按流水线回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer:
+    reviewed_at:
+  priority: 5
+  status: draft
+
+- id: mc_yanyu_chengyu_01
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/成语辨析
+  title: 成语辨析：先辨语义再验语境
+  recognition: 选项是四字成语，空格所在句描述某种行为或状态
+  applicability:
+    include:
+      - 选项均为成语且含义相近
+      - 空格前后有能限定成语褒贬或轻重的语境
+    exclude:
+      - 选项是实词而非成语
+      - 成语考查的是典故出处而非用法
+  method_steps:
+    - 标出每个成语的核心语义和褒贬，写在选项旁
+    - 读空格所在句，圈出能判定褒贬或轻重的关键词
+    - 排除褒贬方向与语境不符的选项
+    - 验剩余成语的适用对象是否与句中主语匹配
+  error_signatures:
+    - code: logic_fill_context_ignored
+      description: 只凭成语字面意思选，忽略句中语境限定
+    - code: logic_fill_synonym_confused
+      description: 近义成语当可互换，忽略适用对象或轻重
+  fix_action: 做 {n} 题成语辨析同类题，限时 {sec} 秒/题
+  time_budget_sec: 45
+  accuracy_rule: 褒贬方向先排除；对象错配再排除；最后比轻重
+  pitfall: 很多成语字面相近但适用对象不同，能用不等于用对
+  author_note: AI 生成（GLM），基于言语高频考点方法论总结；待产品负责人按流水线回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer:
+    reviewed_at:
+  priority: 5
+  status: draft
+
+- id: mc_yanyu_guanlianci_01
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/逻辑填空/关联词辨析
+  title: 关联词辨析：先判逻辑关系再配对
+  recognition: 空格处需填关联词，前后分句存在因果、转折、条件等关系
+  applicability:
+    include:
+      - 空格前后是完整分句且逻辑关系可判定
+      - 选项为成对关联词或单一关联词
+    exclude:
+      - 空格考查实词而非关联词
+      - 分句逻辑被省略号打断无法判定关系
+  method_steps:
+    - 读空格前后分句，判定是因果、转折、条件还是递进
+    - 排除方向与判定关系不符的关联词
+    - 验成对关联词的前后搭配是否成立
+    - 代入后通读，看语意是否通顺、逻辑是否自洽
+  error_signatures:
+    - code: logic_fill_context_ignored
+      description: 只看空格近处分句，忽略全文逻辑链
+    - code: logic_fill_conjunction_reversed
+      description: 把转折当因果、把条件当递进等逻辑判反
+  fix_action: 做 {n} 题关联词辨析同类题，限时 {sec} 秒/题
+  time_budget_sec: 45
+  accuracy_rule: 逻辑关系判定优先；成对词验前后呼应
+  pitfall: 关联词方向判反是最常见错误，先定关系再选词
+  author_note: AI 生成（GLM），基于言语高频考点方法论总结；待产品负责人按流水线回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer:
+    reviewed_at:
+  priority: 4
+  status: draft
+
+- id: mc_yanyu_zhuanzhe_01
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/片段阅读/主旨概括-转折结构
+  title: 转折结构主旨题：转折之后是重点
+  recognition: 文段出现"但是、然而、却、其实、事实上"等转折词，题干问主旨或作者态度
+  applicability:
+    include:
+      - 文段有明确转折词且问中心思想
+      - 转折后内容与选项能直接对应
+    exclude:
+      - 转折词出现在举例内部，非文段主干
+      - 双重转折需要还原原意的情况
+  method_steps:
+    - 通读时圈出转折词，直接跳到转折之后读
+    - 概括转折后语义，与选项逐个比对
+    - 排除只覆盖转折前内容的选项
+    - 两项都在转折后时，选与主题词更贴的
+  error_signatures:
+    - code: main_idea_turn_missed
+      description: 转折结构只看转折前，漏掉转折后主旨
+  fix_action: 做 {n} 题转折结构主旨同类题，限时 {sec} 秒/题
+  time_budget_sec: 55
+  accuracy_rule: 转折词后语义与选项主题词一致才可选，只沾边不选
+  pitfall: 转折之后才是作者真正想说的，转折前都是铺垫
+  author_note: AI 生成（GLM），基于言语高频考点方法论总结；待产品负责人按流水线回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer:
+    reviewed_at:
+  priority: 5
+  status: draft
+
+- id: mc_yanyu_zongfen_01
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/片段阅读/主旨概括-总分结构
+  title: 总分结构主旨题：首句立论，分述支撑
+  recognition: 文段首句提出观点，后文用"例如、比如、首先"等展开论证
+  applicability:
+    include:
+      - 首句是完整判断句且后文为展开论证
+      - 题干问主旨或中心论点
+    exclude:
+      - 首句是背景引入而非观点
+      - 文段是分总结构，观点在尾句
+  method_steps:
+    - 读首句判断是否为观点句，圈出主题词
+    - 扫后文，确认是举例、并列还是递进支撑
+    - 拿首句观点与选项比对主题词
+    - 排除只讲分述内容的选项
+  error_signatures:
+    - code: main_idea_detail_as_main
+      description: 把分述句当主旨句，选了举例内容
+  fix_action: 做 {n} 题总分结构主旨同类题，限时 {sec} 秒/题
+  time_budget_sec: 55
+  accuracy_rule: 主旨必含首句主题词；分述内容选项不选
+  pitfall: 分述句往往更长更具体，容易误当主旨
+  author_note: AI 生成（GLM），基于言语高频考点方法论总结；待产品负责人按流水线回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer:
+    reviewed_at:
+  priority: 5
+  status: draft
+
+- id: mc_yanyu_yitu_01
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/片段阅读/意图判断题
+  title: 意图判断题：主旨之上推一步
+  recognition: 题干问"意在说明、想表达、作者意图"，选项是言外之意
+  applicability:
+    include:
+      - 文段有明确主旨且选项含合理引申
+      - 主旨与意图之间逻辑可推
+    exclude:
+      - 选项是文段原话复述无引申
+      - 文段主旨本身已是要表述的意图
+  method_steps:
+    - 按主旨题方法先找出文段主旨
+    - 看主旨是否已直接回答意图，若是选主旨项
+    - 主旨偏描述时，推一步到作者想呼吁或强调的做法
+    - 排除超出主旨范畴的过度引申项
+  error_signatures:
+    - code: intent_over_infer
+      description: 意图题过度引申，选了主旨推不出的选项
+    - code: intent_under_infer
+      description: 引申不足，把主旨原话当意图
+  fix_action: 做 {n} 题意图判断同类题，限时 {sec} 秒/题
+  time_budget_sec: 55
+  accuracy_rule: 主旨能直接答意图就不引申；需要引申时只推一步
+  pitfall: 意图题不是越深越好，过度引申和引申不足都错
+  author_note: AI 生成（GLM），基于言语高频考点方法论总结；待产品负责人按流水线回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer:
+    reviewed_at:
+  priority: 5
+  status: draft
+
+- id: mc_yanyu_xijie_01
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/片段阅读/细节判断题
+  title: 细节判断题：选项回文比对
+  recognition: 题干问"符合或不符合文意、正确或错误的是"，选项是具体陈述
+  applicability:
+    include:
+      - 选项均为文段细节的具体陈述
+      - 题干要求判断对错
+    exclude:
+      - 题干问主旨或意图
+      - 选项需整体概括而非细节比对
+  method_steps:
+    - 读题干，判定选对还是选错
+    - 拿每个选项回原文定位，圈出对应句
+    - 比对选项与原文的主语、时态、范围、程度是否一致
+    - 找到一个明显不符的即定答案
+  error_signatures:
+    - code: detail_swap_subject
+      description: 偷换主语或客体，把甲做的事说成乙做
+    - code: detail_swap_time
+      description: 偷换时态或时间范围，把将来说成已发生
+  fix_action: 做 {n} 题细节判断同类题，限时 {sec} 秒/题
+  time_budget_sec: 60
+  accuracy_rule: 选项与原文逐项比对主语、时态、范围；一处不符即排除
+  pitfall: 细节题最爱偷换主语和时间，比对时盯这两处
+  author_note: AI 生成（GLM），基于言语高频考点方法论总结；待产品负责人按流水线回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer:
+    reviewed_at:
+  priority: 4
+  status: draft
+
+- id: mc_yanyu_biaoti_01
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/片段阅读/标题填入题
+  title: 标题填入题：覆盖全文，紧扣主题词
+  recognition: 题干要求为文段选标题，选项是短语或短句
+  applicability:
+    include:
+      - 文段有明确主题词且选项为标题形式
+      - 全文围绕一个对象展开
+    exclude:
+      - 文段是多对象并列无主线
+      - 选项需概括为完整论点而非标题
+  method_steps:
+    - 找文段反复出现的主题词
+    - 排除没有主题词的选项
+    - 比较剩余标题的覆盖范围，选能涵盖全文的
+    - 排除太窄只覆盖某段、太宽超出文意的选项
+  error_signatures:
+    - code: title_too_narrow
+      description: 标题只覆盖某一段，未涵盖全文
+    - code: title_too_broad
+      description: 标题过度宽泛，超出文段论述范围
+  fix_action: 做 {n} 题标题填入同类题，限时 {sec} 秒/题
+  time_budget_sec: 55
+  accuracy_rule: 必含主题词；覆盖范围与文段一致
+  pitfall: 标题不是越凝练越好，覆盖不全就是错
+  author_note: AI 生成（GLM），基于言语高频考点方法论总结；待产品负责人按流水线回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer:
+    reviewed_at:
+  priority: 4
+  status: draft
+
+- id: mc_yanyu_paixu_01
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/语句表达/语句排序题
+  title: 语句排序题：先定首句，再抓衔接信号
+  recognition: 给出若干打乱顺序的句子，要求排列成通顺文段
+  applicability:
+    include:
+      - 题干给出五到六个句子的乱序
+      - 选项为首尾句组合
+    exclude:
+      - 句子间逻辑被省略号打断
+      - 句子过长无法快速定位衔接
+  method_steps:
+    - 扫各句，排除不适合做首句的，如指代词或总结性连词开头的
+    - 找指代词、时间词、关联词，确定必须相邻的句对
+    - 拿首句加相邻句对匹配选项，排除不符的
+    - 剩两项时验尾句是否为总结或收束
+  error_signatures:
+    - code: sentence_order_head_wrong
+      description: 排序首句选错，整段逻辑崩
+    - code: sentence_order_link_missed
+      description: 漏抓指代或时间衔接信号，相邻句排错
+  fix_action: 做 {n} 题语句排序同类题，限时 {sec} 秒/题
+  time_budget_sec: 65
+  accuracy_rule: 首句先定；指代和时间信号定相邻；尾句验收束
+  pitfall: 指代词开头的句子几乎不可能是首句
+  author_note: AI 生成（GLM），基于言语高频考点方法论总结；待产品负责人按流水线回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer:
+    reviewed_at:
+  priority: 4
+  status: draft
+
+- id: mc_yanyu_tiankong_01
+  exam_scope: guokao
+  track: xingce
+  module_name: 言语理解与表达
+  tag_path: 言语理解与表达/语句表达/语句填空题
+  title: 语句填空题：看前后句逻辑定填什么
+  recognition: 文段中挖一句，要求填入最恰当的一句
+  applicability:
+    include:
+      - 空格在文段中间或末尾
+      - 前后句逻辑关系明确
+    exclude:
+      - 空格在段首且需概括全文
+      - 选项是标题而非完整句
+  method_steps:
+    - 读空格前一句，判定是提出观点、举例还是转折
+    - 读空格后一句，判定需要承接什么
+    - 据前后逻辑判定填总结句、过渡句还是例证句
+    - 代入选项通读，选语意衔接最顺的
+  error_signatures:
+    - code: sentence_fill_link_missed
+      description: 填空没看前后句逻辑衔接，凭语感选
+    - code: sentence_fill_position_wrong
+      description: 过渡句当总结句或反之，句种错配
+  fix_action: 做 {n} 题语句填空同类题，限时 {sec} 秒/题
+  time_budget_sec: 55
+  accuracy_rule: 前后句逻辑定句种；代入通读验衔接
+  pitfall: 语句填空不是填主旨，是填能承上启下的那句
+  author_note: AI 生成（GLM），基于言语高频考点方法论总结；待产品负责人按流水线回测
+  validation:
+    tested_count: 0
+    passed_count: 0
+    sample_question_ids: []
+    reviewer:
+    reviewed_at:
+  priority: 4
+  status: draft

@@ -1,0 +1,1 @@
+"""GenUI card feed domain."""

@@ -1,0 +1,24 @@
+<view wx:if="{{state === 'loading'}}" class="state-view state-view--loading" aria-label="正在加载">
+  <view class="state-skeleton state-skeleton--hero"></view>
+  <view class="state-skeleton"></view>
+  <view class="state-skeleton"></view>
+</view>
+
+<view wx:else class="state-view state-view--{{state}}">
+  <view class="state-icon" aria-hidden="true">
+    <text wx:if="{{state === 'empty'}}">＋</text>
+    <text wx:elif="{{state === 'error'}}">!</text>
+    <text wx:elif="{{state === 'processing'}}">…</text>
+    <text wx:else>↻</text>
+  </view>
+  <view class="state-title">{{title}}</view>
+  <view class="state-description">{{description}}</view>
+  <view wx:if="{{requestId}}" class="state-request">Request ID · {{requestId}}</view>
+  <ui-button
+    wx:if="{{actionText}}"
+    custom-class="state-action"
+    label="{{actionText}}"
+    variant="secondary"
+    bindaction="handleAction"
+  />
+</view>
