@@ -17,7 +17,10 @@
     "pages/diagnostic/index",
     "pages/practice/index",
     "pages/reflection/index",
-    "pages/essay-task/index"
+    "pages/essay-task/index",
+    "pages/capture-import/index",
+    "pages/learning-packets/index",
+    "pages/answer-ingestion/index"
   ],
   "tabs": [
     { "pagePath": "pages/today/index", "text": "今日" },

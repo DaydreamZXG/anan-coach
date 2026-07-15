@@ -161,6 +161,15 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
 ) -> None:
     with db_engine.begin() as connection:
         connection.execute(
+            text("drop table product.question_visual_fingerprints")
+        )
+        connection.execute(text("drop table product.question_content_heads"))
+        connection.execute(text("drop table product.question_content_versions"))
+        connection.execute(
+            text("drop function product.reject_question_content_version_mutation()")
+        )
+        connection.execute(text("drop index product.product_question_stem_trgm_idx"))
+        connection.execute(
             text("drop table product.content_license_authorization_snapshots")
         )
         connection.execute(text("drop table product.content_license_heads"))

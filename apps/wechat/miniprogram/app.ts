@@ -1,4 +1,7 @@
 import { configureForWechatEnvVersion, environment } from "./config/environment";
+import { ApiClient } from "./api/client";
+import { ExternalLearningApi } from "./api/external-learning";
+import { configureExternalLearningGatewayFactory } from "./features/external-learning/contracts";
 import { dataFontFaceManager, type DataFontLoadState } from "./platform/data-font";
 
 export interface CoachAppState {
@@ -13,6 +16,10 @@ App<{ globalData: CoachAppState }>({
   onLaunch() {
     const envVersion = wx.getAccountInfoSync().miniProgram.envVersion;
     configureForWechatEnvVersion(envVersion);
+    configureExternalLearningGatewayFactory(
+      (context) =>
+        new ExternalLearningApi(new ApiClient(environment.apiBaseUrl, context.accessToken)),
+    );
     if (environment.releaseChannel === "production" && environment.dataMode !== "api") {
       throw new Error("Production builds must use API data mode");
     }

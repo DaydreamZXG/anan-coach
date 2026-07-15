@@ -1,0 +1,76 @@
+@import "../../features/external-learning/page-shell.wxss";
+
+.packets-page state-view {
+  display: block;
+  margin-top: 34rpx;
+}
+
+.content-row,
+.packet-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.content-row {
+  min-height: 98rpx;
+  box-sizing: border-box;
+  margin-top: 12rpx;
+  padding: 18rpx 20rpx;
+  border: 1rpx solid var(--color-line);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-soft);
+}
+
+.content-row--selected {
+  border-color: rgba(82, 104, 255, 0.45);
+  background: var(--color-primary-soft);
+}
+
+.content-title {
+  font-weight: 800;
+}
+
+.content-check {
+  color: var(--color-primary);
+  font-size: 30rpx;
+  font-weight: 900;
+}
+
+.packet-head {
+  align-items: flex-start;
+}
+
+.packet-meta {
+  display: grid;
+  gap: 8rpx;
+  margin-top: 20rpx;
+  color: var(--color-muted);
+  font-size: 22rpx;
+  word-break: break-all;
+}
+
+.packet-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-top: 22rpx;
+}
+
+.packet-action {
+  min-height: 70rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 22rpx;
+  border-radius: var(--radius-control);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: 23rpx;
+  font-weight: 800;
+}
+
+.packet-action--secondary {
+  background: var(--color-primary-soft);
+  color: var(--color-primary-deep);
+}

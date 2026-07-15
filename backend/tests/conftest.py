@@ -116,6 +116,11 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in stage15._STATEMENTS:
             conn.execute(text(statement))
+        stage15_runtime = import_module(
+            "migrations.versions.20260715_21_stage15_external_learning_runtime"
+        )
+        for statement in stage15_runtime._STATEMENTS:
+            conn.execute(text(statement))
 
 
 def _split_postgres_statements(script: str) -> list[str]:

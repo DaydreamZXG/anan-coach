@@ -245,6 +245,36 @@ export type AccountSessionView = {
 };
 
 /**
+ * AnswerCandidateItem
+ */
+export type AnswerCandidateItem = {
+    /**
+     * Answer
+     */
+    answer: string;
+    /**
+     * Answerbindingcode
+     */
+    answerBindingCode: string;
+    /**
+     * Confidence
+     */
+    confidence?: number | null;
+    /**
+     * Itemid
+     */
+    itemId: string;
+    /**
+     * Orderno
+     */
+    orderNo: number;
+    /**
+     * Requirescorrection
+     */
+    requiresCorrection: boolean;
+};
+
+/**
  * AnswerCheckpoint
  */
 export type AnswerCheckpoint = {
@@ -281,6 +311,28 @@ export type AnswerCheckpoint = {
      * Skipped
      */
     skipped?: boolean;
+};
+
+/**
+ * AnswerEntry
+ */
+export type AnswerEntry = {
+    /**
+     * Answer
+     */
+    answer: string;
+    /**
+     * Bindingcode
+     */
+    bindingCode: string;
+    /**
+     * Confidence
+     */
+    confidence?: number | null;
+    /**
+     * Requirescorrection
+     */
+    requiresCorrection?: boolean;
 };
 
 /**
@@ -368,6 +420,114 @@ export type AnswerFeedback = {
 };
 
 /**
+ * AnswerIngestionVersion
+ */
+export type AnswerIngestionVersion = {
+    /**
+     * Candidatepayload
+     */
+    candidatePayload: {
+        [key: string]: unknown;
+    };
+    /**
+     * Committedfactref
+     */
+    committedFactRef?: string | null;
+    /**
+     * Confirmedat
+     */
+    confirmedAt?: string | null;
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'answer-ingestion@v1';
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Ingestionid
+     */
+    ingestionId: string;
+    /**
+     * Ingestionversionid
+     */
+    ingestionVersionId: string;
+    /**
+     * Inputmode
+     */
+    inputMode: 'answer_string' | 'answer_sheet_omr' | 'handwriting_ocr' | 'notes_app_export';
+    /**
+     * Owneruserid
+     */
+    ownerUserId: string;
+    /**
+     * Packetversionid
+     */
+    packetVersionId?: string | null;
+    /**
+     * Sourceartifactversionids
+     */
+    sourceArtifactVersionIds?: Array<string>;
+    /**
+     * Sourcelineagerefs
+     */
+    sourceLineageRefs: Array<string>;
+    /**
+     * State
+     */
+    state: 'candidate' | 'confirmed' | 'rejected' | 'committed' | 'conflict';
+    /**
+     * Targetwriter
+     */
+    targetWriter: 'xingce_learning' | 'essay_learning';
+    track: LearningTrack;
+    /**
+     * Versionno
+     */
+    versionNo: number;
+    /**
+     * Writercontractversion
+     */
+    writerContractVersion: string;
+};
+
+/**
+ * AnswerIngestionWorkspace
+ */
+export type AnswerIngestionWorkspace = {
+    /**
+     * Diagnosticeligibility
+     */
+    diagnosticEligibility: 'blocked_unconfirmed' | 'eligible_committed';
+    /**
+     * Expiresat
+     */
+    expiresAt: string | null;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    ingestion: AnswerIngestionVersion;
+    /**
+     * Items
+     */
+    items: Array<AnswerCandidateItem>;
+    /**
+     * Packetitemcount
+     */
+    packetItemCount: number | null;
+    /**
+     * Packettitle
+     */
+    packetTitle: string | null;
+    /**
+     * Partialreasons
+     */
+    partialReasons: Array<string>;
+};
+
+/**
  * AnswerSubmission
  */
 export type AnswerSubmission = {
@@ -379,6 +539,20 @@ export type AnswerSubmission = {
      * Selectedanswer
      */
     selectedAnswer: string;
+};
+
+/**
+ * AnswerTargetSnapshot
+ */
+export type AnswerTargetSnapshot = {
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Packets
+     */
+    packets: Array<PacketAnswerTarget>;
 };
 
 /**
@@ -539,6 +713,32 @@ export type AuthenticatedUserResponse = {
 };
 
 /**
+ * BoundingBox
+ */
+export type BoundingBox = {
+    /**
+     * Height
+     */
+    height: number;
+    /**
+     * Pageno
+     */
+    pageNo: number;
+    /**
+     * Width
+     */
+    width: number;
+    /**
+     * X
+     */
+    x: number;
+    /**
+     * Y
+     */
+    y: number;
+};
+
+/**
  * CalibrationNoteCard
  */
 export type CalibrationNoteCard = {
@@ -600,6 +800,11 @@ export type CalibrationSources = {
      */
     practiceAnswers: number;
 };
+
+/**
+ * CandidateState
+ */
+export type CandidateState = 'candidate' | 'confirmed' | 'rejected' | 'expired';
 
 /**
  * CauseDecisionCommand
@@ -943,6 +1148,18 @@ export type CompanionPromptPayload = {
 };
 
 /**
+ * CompleteUploadProjection
+ */
+export type CompleteUploadProjection = {
+    artifact: SourceArtifactVersion | null;
+    /**
+     * Replayed
+     */
+    replayed: boolean;
+    session: UploadSessionProjection;
+};
+
+/**
  * CompletionContract
  */
 export type CompletionContract = {
@@ -969,6 +1186,159 @@ export type CompletionContract = {
 };
 
 /**
+ * ConfirmAnswerCandidateCommand
+ */
+export type ConfirmAnswerCandidateCommand = {
+    /**
+     * Confirmation
+     */
+    confirmation: 'user_verified';
+    /**
+     * Expectedversionno
+     */
+    expectedVersionNo: number;
+};
+
+/**
+ * ConfirmImportMatchCommand
+ */
+export type ConfirmImportMatchCommand = {
+    /**
+     * Confirmedcontentversionid
+     */
+    confirmedContentVersionId: string;
+    /**
+     * Expectedversionno
+     */
+    expectedVersionNo: number;
+};
+
+/**
+ * ConfirmImportRecognitionCommand
+ */
+export type ConfirmImportRecognitionCommand = {
+    /**
+     * Expectedrevisionno
+     */
+    expectedRevisionNo: number;
+    learningTrack: LearningTrack;
+};
+
+/**
+ * ContentComponent
+ */
+export type ContentComponent = 'question_prompt' | 'question_options' | 'reference_answer' | 'solution_explanation' | 'material_text' | 'material_table' | 'material_image' | 'rubric' | 'user_submission';
+
+/**
+ * ContentMatchVersion
+ */
+export type ContentMatchVersion = {
+    /**
+     * Artifactversionid
+     */
+    artifactVersionId: string;
+    /**
+     * Candidates
+     */
+    candidates: Array<MatchCandidate>;
+    /**
+     * Confirmedcontentversionid
+     */
+    confirmedContentVersionId?: string | null;
+    /**
+     * Contentmatchid
+     */
+    contentMatchId: string;
+    /**
+     * Contentmatchversionid
+     */
+    contentMatchVersionId: string;
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'content-match@v1';
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Evaluationreason
+     */
+    evaluationReason: 'essay_incomplete' | 'no_eligible_candidate' | 'single_exact' | 'single_similar' | 'score_tie';
+    /**
+     * Inputfingerprint
+     */
+    inputFingerprint: string;
+    /**
+     * Matchingpolicyversion
+     */
+    matchingPolicyVersion: string;
+    /**
+     * Owneruserid
+     */
+    ownerUserId: string;
+    /**
+     * Recognitionrevisionid
+     */
+    recognitionRevisionId: string;
+    /**
+     * State
+     */
+    state: 'candidate' | 'confirmed' | 'rejected' | 'expired';
+    /**
+     * Supersedescontentmatchversionid
+     */
+    supersedesContentMatchVersionId?: string | null;
+    /**
+     * Versionno
+     */
+    versionNo: number;
+};
+
+/**
+ * CorrectAnswerCandidateCommand
+ */
+export type CorrectAnswerCandidateCommand = {
+    /**
+     * Entries
+     */
+    entries: Array<AnswerEntry>;
+    /**
+     * Expectedversionno
+     */
+    expectedVersionNo: number;
+};
+
+/**
+ * CorrectImportRecognitionCommand
+ */
+export type CorrectImportRecognitionCommand = {
+    /**
+     * Expectedrevisionno
+     */
+    expectedRevisionNo: number;
+    /**
+     * Segments
+     */
+    segments: Array<ImportSegmentCorrection>;
+};
+
+/**
+ * CorrectRecognitionCommand
+ */
+export type CorrectRecognitionCommand = {
+    correctedPayload: RecognitionCandidatePayload;
+    /**
+     * Expectedrevisionno
+     */
+    expectedRevisionNo: number;
+    /**
+     * Reason
+     */
+    reason: string;
+};
+
+/**
  * CourtStateSnapshot
  */
 export type CourtStateSnapshot = {
@@ -992,6 +1362,55 @@ export type CourtStateSnapshot = {
      * Stability
      */
     stability: number;
+};
+
+/**
+ * CreateAnswerCandidateCommand
+ */
+export type CreateAnswerCandidateCommand = {
+    /**
+     * Answerstring
+     */
+    answerString?: string | null;
+    /**
+     * Entries
+     */
+    entries?: Array<AnswerEntry>;
+    /**
+     * Inputmode
+     */
+    inputMode: 'answer_string' | 'answer_sheet_omr' | 'handwriting_ocr' | 'notes_app_export';
+    /**
+     * Packetversionid
+     */
+    packetVersionId: string;
+    /**
+     * Recognitionrevisionids
+     */
+    recognitionRevisionIds?: Array<string>;
+    /**
+     * Sourceartifactversionids
+     */
+    sourceArtifactVersionIds?: Array<string>;
+    track: LearningTrack;
+};
+
+/**
+ * CreatePacketCommand
+ */
+export type CreatePacketCommand = {
+    /**
+     * Expiresindays
+     */
+    expiresInDays?: number;
+    /**
+     * Items
+     */
+    items: Array<PacketContentInput>;
+    /**
+     * Renderformat
+     */
+    renderFormat: 'pdf' | 'note_app_file';
 };
 
 /**
@@ -3001,6 +3420,103 @@ export type HttpValidationError = {
 };
 
 /**
+ * ImportRecognitionSegment
+ */
+export type ImportRecognitionSegment = {
+    /**
+     * Confidence
+     */
+    confidence?: number | null;
+    /**
+     * Ordinal
+     */
+    ordinal: number;
+    /**
+     * Pageno
+     */
+    pageNo: number;
+    /**
+     * Requirescorrection
+     */
+    requiresCorrection: boolean;
+    /**
+     * Segmentid
+     */
+    segmentId: string;
+    /**
+     * State
+     */
+    state: 'candidate' | 'confirmed' | 'rejected';
+    /**
+     * Text
+     */
+    text: string;
+};
+
+/**
+ * ImportSegmentCorrection
+ */
+export type ImportSegmentCorrection = {
+    /**
+     * Segmentid
+     */
+    segmentId: string;
+    /**
+     * Text
+     */
+    text: string;
+};
+
+/**
+ * ImportWorkspace
+ */
+export type ImportWorkspace = {
+    artifact: SourceArtifactVersion | null;
+    /**
+     * Diagnosticeligibility
+     */
+    diagnosticEligibility: 'blocked_unconfirmed' | 'eligible_confirmed';
+    /**
+     * Expiresat
+     */
+    expiresAt: string | null;
+    /**
+     * Failurereason
+     */
+    failureReason: string | null;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Importid
+     */
+    importId: string;
+    match: ContentMatchVersion | null;
+    /**
+     * Partialreasons
+     */
+    partialReasons: Array<string>;
+    /**
+     * Pollafterms
+     */
+    pollAfterMs: number | null;
+    /**
+     * Processinglabel
+     */
+    processingLabel: string | null;
+    recognition: RecognitionRevision | null;
+    /**
+     * Recognitionsegments
+     */
+    recognitionSegments: Array<ImportRecognitionSegment>;
+    /**
+     * State
+     */
+    state: 'uploading' | 'processing' | 'review' | 'ready' | 'failed' | 'quarantined' | 'expired';
+};
+
+/**
  * KnowledgeChunk
  */
 export type KnowledgeChunk = {
@@ -3197,6 +3713,11 @@ export type LearnerProfileUpdate = {
 };
 
 /**
+ * LearningTrack
+ */
+export type LearningTrack = 'xingce' | 'essay';
+
+/**
  * LogoutAllResult
  */
 export type LogoutAllResult = {
@@ -3264,6 +3785,28 @@ export type MajorTreeResponse = {
      * Categories
      */
     categories: Array<MajorCategory>;
+};
+
+/**
+ * MatchCandidate
+ */
+export type MatchCandidate = {
+    /**
+     * Contentversionid
+     */
+    contentVersionId: string;
+    /**
+     * Evidencerefs
+     */
+    evidenceRefs: Array<string>;
+    /**
+     * Matchkind
+     */
+    matchKind: 'exact' | 'similar';
+    /**
+     * Score
+     */
+    score: number;
 };
 
 /**
@@ -3778,6 +4321,29 @@ export type ModuleAbilityEstimate = {
 };
 
 /**
+ * OMRMark
+ */
+export type OmrMark = {
+    /**
+     * Ambiguous
+     */
+    ambiguous?: boolean;
+    box: BoundingBox;
+    /**
+     * Confidence
+     */
+    confidence: number;
+    /**
+     * Itemno
+     */
+    itemNo: number;
+    /**
+     * Selectedoptions
+     */
+    selectedOptions: Array<string>;
+};
+
+/**
  * OfficialRankProfile
  */
 export type OfficialRankProfile = {
@@ -3837,6 +4403,87 @@ export type OfficialRankProfile = {
      * Xp To Next
      */
     xp_to_next?: number | null;
+};
+
+/**
+ * OfflinePacketItem
+ */
+export type OfflinePacketItem = {
+    /**
+     * Answerbindingcode
+     */
+    answerBindingCode: string;
+    /**
+     * Contentversionid
+     */
+    contentVersionId: string;
+    /**
+     * Orderno
+     */
+    orderNo: number;
+    /**
+     * Packetitemid
+     */
+    packetItemId: string;
+    track: LearningTrack;
+};
+
+/**
+ * OfflinePacketVersion
+ */
+export type OfflinePacketVersion = {
+    /**
+     * Artifactref
+     */
+    artifactRef?: string | null;
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'offline-packet@v1';
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Expiresat
+     */
+    expiresAt?: string | null;
+    /**
+     * Items
+     */
+    items: Array<OfflinePacketItem>;
+    /**
+     * Licensesnapshotrefs
+     */
+    licenseSnapshotRefs: Array<string>;
+    /**
+     * Manifestsha256
+     */
+    manifestSha256: string;
+    /**
+     * Owneruserid
+     */
+    ownerUserId: string;
+    /**
+     * Packetid
+     */
+    packetId: string;
+    /**
+     * Packetversionid
+     */
+    packetVersionId: string;
+    /**
+     * Renderformat
+     */
+    renderFormat: 'pdf' | 'note_app_file';
+    /**
+     * State
+     */
+    state: 'requested' | 'generating' | 'ready' | 'failed' | 'revoked' | 'expired';
+    /**
+     * Versionno
+     */
+    versionNo: number;
 };
 
 /**
@@ -4105,6 +4752,170 @@ export type OutlineSection = {
      * Sourcepointids
      */
     sourcePointIds: Array<string>;
+};
+
+/**
+ * PacketAccessProjection
+ */
+export type PacketAccessProjection = {
+    /**
+     * Downloadurl
+     */
+    downloadUrl: string;
+    /**
+     * Expiresat
+     */
+    expiresAt: string;
+    /**
+     * Filetype
+     */
+    fileType: 'pdf' | 'note_app_file';
+    /**
+     * Packetversionid
+     */
+    packetVersionId: string;
+};
+
+/**
+ * PacketAnswerTarget
+ */
+export type PacketAnswerTarget = {
+    /**
+     * Expiresat
+     */
+    expiresAt: string | null;
+    /**
+     * Itemcount
+     */
+    itemCount: number;
+    /**
+     * Packettitle
+     */
+    packetTitle: string;
+    /**
+     * Packetversionid
+     */
+    packetVersionId: string;
+    track: LearningTrack;
+    /**
+     * Versionlabel
+     */
+    versionLabel: string;
+};
+
+/**
+ * PacketContentCandidate
+ */
+export type PacketContentCandidate = {
+    /**
+     * Components
+     */
+    components: Array<ContentComponent>;
+    /**
+     * Contentlicenseid
+     */
+    contentLicenseId: string;
+    /**
+     * Contentversionid
+     */
+    contentVersionId: string;
+    /**
+     * Expectedauthorizationepoch
+     */
+    expectedAuthorizationEpoch: number;
+    /**
+     * Questionid
+     */
+    questionId: string;
+    /**
+     * Selectedbydefault
+     */
+    selectedByDefault: boolean;
+    /**
+     * Sourcelabel
+     */
+    sourceLabel: string;
+    /**
+     * Title
+     */
+    title: string;
+    track: LearningTrack;
+    /**
+     * Versionlabel
+     */
+    versionLabel: string;
+};
+
+/**
+ * PacketContentInput
+ */
+export type PacketContentInput = {
+    /**
+     * Components
+     */
+    components: Array<ContentComponent>;
+    /**
+     * Contentlicenseid
+     */
+    contentLicenseId: string;
+    /**
+     * Contentversionid
+     */
+    contentVersionId: string;
+    /**
+     * Expectedauthorizationepoch
+     */
+    expectedAuthorizationEpoch: number;
+    /**
+     * Questionid
+     */
+    questionId: string;
+    track: LearningTrack;
+};
+
+/**
+ * PacketListSnapshot
+ */
+export type PacketListSnapshot = {
+    /**
+     * Eligiblecontent
+     */
+    eligibleContent: Array<PacketContentCandidate>;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Packets
+     */
+    packets: Array<OfflinePacketVersion>;
+    /**
+     * Partialreasons
+     */
+    partialReasons: Array<string>;
+};
+
+/**
+ * PageSegment
+ */
+export type PageSegment = {
+    box: BoundingBox;
+    /**
+     * Confidence
+     */
+    confidence: number;
+    /**
+     * Segmentid
+     */
+    segmentId: string;
+    /**
+     * Segmentkind
+     */
+    segmentKind: 'question' | 'options' | 'material' | 'answer_area' | 'essay_prompt' | 'unknown';
+    /**
+     * Textspanrefs
+     */
+    textSpanRefs?: Array<string>;
 };
 
 /**
@@ -5410,6 +6221,13 @@ export type PriorityDecomposition = {
 };
 
 /**
+ * ProcessImportCommand
+ */
+export type ProcessImportCommand = {
+    learningTrack: LearningTrack;
+};
+
+/**
  * ProgressionEventResult
  */
 export type ProgressionEventResult = {
@@ -5491,6 +6309,51 @@ export type PublicApiEnvelopeAbilityEstimateCurrent = {
  */
 export type PublicApiEnvelopeAccountOverview = {
     data: AccountOverview;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[AnswerIngestionWorkspace]
+ */
+export type PublicApiEnvelopeAnswerIngestionWorkspace = {
+    data: AnswerIngestionWorkspace;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[AnswerTargetSnapshot]
+ */
+export type PublicApiEnvelopeAnswerTargetSnapshot = {
+    data: AnswerTargetSnapshot;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[CompleteUploadProjection]
+ */
+export type PublicApiEnvelopeCompleteUploadProjection = {
+    data: CompleteUploadProjection;
     /**
      * Generatedat
      */
@@ -5667,10 +6530,40 @@ export type PublicApiEnvelopeEssayTaskWorkspace = {
 };
 
 /**
+ * PublicApiEnvelope[ImportWorkspace]
+ */
+export type PublicApiEnvelopeImportWorkspace = {
+    data: ImportWorkspace;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[LogoutAllResult]
  */
 export type PublicApiEnvelopeLogoutAllResult = {
     data: LogoutAllResult;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[OfflinePacketVersion]
+ */
+export type PublicApiEnvelopeOfflinePacketVersion = {
+    data: OfflinePacketVersion;
     /**
      * Generatedat
      */
@@ -5701,6 +6594,36 @@ export type PublicApiEnvelopeOnboardingProgress = {
  */
 export type PublicApiEnvelopeOnboardingResultProjection = {
     data: OnboardingResultProjection;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[PacketAccessProjection]
+ */
+export type PublicApiEnvelopePacketAccessProjection = {
+    data: PacketAccessProjection;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[PacketListSnapshot]
+ */
+export type PublicApiEnvelopePacketListSnapshot = {
+    data: PacketListSnapshot;
     /**
      * Generatedat
      */
@@ -5877,6 +6800,21 @@ export type PublicApiEnvelopeQualificationProfile = {
 };
 
 /**
+ * PublicApiEnvelope[RecognitionRevision]
+ */
+export type PublicApiEnvelopeRecognitionRevision = {
+    data: RecognitionRevision;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[ReportedScoreEvidenceResult]
  */
 export type PublicApiEnvelopeReportedScoreEvidenceResult = {
@@ -5937,6 +6875,21 @@ export type PublicApiEnvelopeSessionRevocationResult = {
 };
 
 /**
+ * PublicApiEnvelope[StartUploadProjection]
+ */
+export type PublicApiEnvelopeStartUploadProjection = {
+    data: StartUploadProjection;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[StudyPreferenceResult]
  */
 export type PublicApiEnvelopeStudyPreferenceResult = {
@@ -5986,6 +6939,21 @@ export type PublicApiEnvelopeTaskSessionProjection = {
  */
 export type PublicApiEnvelopeTodayDashboard = {
     data: TodayDashboard;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[UploadSessionProjection]
+ */
+export type PublicApiEnvelopeUploadSessionProjection = {
+    data: UploadSessionProjection;
     /**
      * Generatedat
      */
@@ -6660,6 +7628,142 @@ export type RankSnapshot = {
 };
 
 /**
+ * RecognitionCandidatePayload
+ */
+export type RecognitionCandidatePayload = {
+    /**
+     * Correctionreason
+     */
+    correctionReason?: string | null;
+    kind: RecognitionKind;
+    /**
+     * Omrmarks
+     */
+    omrMarks?: Array<OmrMark>;
+    /**
+     * Pageimagesha256
+     */
+    pageImageSha256?: Array<string>;
+    /**
+     * Predecessorrevisionid
+     */
+    predecessorRevisionId?: string | null;
+    /**
+     * Processoroutputcontract
+     */
+    processorOutputContract: string;
+    /**
+     * Processorrequestidhash
+     */
+    processorRequestIdHash: string;
+    /**
+     * Requesthash
+     */
+    requestHash: string;
+    /**
+     * Schemaversion
+     */
+    schemaVersion?: 'recognition-candidate-payload@v1';
+    /**
+     * Segments
+     */
+    segments?: Array<PageSegment>;
+    /**
+     * Textspans
+     */
+    textSpans?: Array<TextSpan>;
+    /**
+     * Visualfingerprints
+     */
+    visualFingerprints?: Array<string>;
+};
+
+/**
+ * RecognitionDecisionCommand
+ */
+export type RecognitionDecisionCommand = {
+    /**
+     * Expectedrevisionno
+     */
+    expectedRevisionNo: number;
+};
+
+/**
+ * RecognitionKind
+ */
+export type RecognitionKind = 'printed_ocr' | 'handwriting_ocr' | 'exam_segmentation' | 'answer_sheet_omr';
+
+/**
+ * RecognitionRevision
+ */
+export type RecognitionRevision = {
+    /**
+     * Artifactversionid
+     */
+    artifactVersionId: string;
+    /**
+     * Candidatepayload
+     */
+    candidatePayload: {
+        [key: string]: unknown;
+    };
+    /**
+     * Confidence
+     */
+    confidence?: number | null;
+    /**
+     * Confirmedat
+     */
+    confirmedAt?: string | null;
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'recognition-revision@v1';
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Expiresat
+     */
+    expiresAt: string;
+    /**
+     * Inputsha256
+     */
+    inputSha256: string;
+    /**
+     * Outputsha256
+     */
+    outputSha256: string;
+    /**
+     * Owneruserid
+     */
+    ownerUserId: string;
+    /**
+     * Processorpolicyversion
+     */
+    processorPolicyVersion: string;
+    /**
+     * Processorroute
+     */
+    processorRoute: string;
+    recognitionKind: RecognitionKind;
+    /**
+     * Recognitionrevisionid
+     */
+    recognitionRevisionId: string;
+    /**
+     * Revisionno
+     */
+    revisionNo: number;
+    state: CandidateState;
+    /**
+     * Supersedesrecognitionrevisionid
+     */
+    supersedesRecognitionRevisionId?: string | null;
+};
+
+/**
  * ReflectionCommand
  */
 export type ReflectionCommand = {
@@ -6742,6 +7846,24 @@ export type ReflectionVersionProjection = {
 };
 
 /**
+ * RenewPacketCommand
+ */
+export type RenewPacketCommand = {
+    /**
+     * Expectedversionno
+     */
+    expectedVersionNo: number;
+    /**
+     * Expiredpacketversionid
+     */
+    expiredPacketVersionId: string;
+    /**
+     * Expiresindays
+     */
+    expiresInDays?: number;
+};
+
+/**
  * ReportedScoreEvidenceRequest
  */
 export type ReportedScoreEvidenceRequest = {
@@ -6777,6 +7899,20 @@ export type ReportedScoreEvidenceRequest = {
 export type ReportedScoreEvidenceResult = {
     estimate: AbilityEstimateVersion;
     evidence: ScoreEvidence;
+};
+
+/**
+ * ReprocessRecognitionCommand
+ */
+export type ReprocessRecognitionCommand = {
+    /**
+     * Expectedrevisionno
+     */
+    expectedRevisionNo: number;
+    /**
+     * Processorroute
+     */
+    processorRoute: string;
 };
 
 /**
@@ -6887,6 +8023,20 @@ export type RequirementConfirmationRequest = {
 export type RequirementConfirmationResult = {
     confirmation: RequirementConfirmation;
     eligibility: PositionEligibilitySnapshot;
+};
+
+/**
+ * RetryPacketCommand
+ */
+export type RetryPacketCommand = {
+    /**
+     * Expectedversionno
+     */
+    expectedVersionNo: number;
+    /**
+     * Failedpacketversionid
+     */
+    failedPacketVersionId: string;
 };
 
 /**
@@ -7265,6 +8415,87 @@ export type SessionRevocationResult = {
 };
 
 /**
+ * SourceArtifactState
+ */
+export type SourceArtifactState = 'uploaded' | 'available' | 'quarantined' | 'expired' | 'deleted';
+
+/**
+ * SourceArtifactVersion
+ */
+export type SourceArtifactVersion = {
+    /**
+     * Artifactid
+     */
+    artifactId: string;
+    /**
+     * Artifactversionid
+     */
+    artifactVersionId: string;
+    /**
+     * Bytesize
+     */
+    byteSize: number;
+    /**
+     * Contentsha256
+     */
+    contentSha256: string;
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'source-artifact@v1';
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Mimetype
+     */
+    mimeType: string;
+    /**
+     * Objectref
+     */
+    objectRef: string;
+    /**
+     * Owneruserid
+     */
+    ownerUserId: string;
+    /**
+     * Pagecount
+     */
+    pageCount?: number | null;
+    sourceKind: SourceKind;
+    state: SourceArtifactState;
+    /**
+     * Supersedesartifactversionid
+     */
+    supersedesArtifactVersionId?: string | null;
+    /**
+     * Versionno
+     */
+    versionNo: number;
+};
+
+/**
+ * SourceKind
+ */
+export type SourceKind = 'camera_image' | 'image_import' | 'pdf_upload' | 'answer_sheet' | 'notes_app_export';
+
+/**
+ * StartRecognitionCommand
+ */
+export type StartRecognitionCommand = {
+    /**
+     * Artifactversionid
+     */
+    artifactVersionId: string;
+    /**
+     * Processorroute
+     */
+    processorRoute?: string | null;
+    recognitionKind: RecognitionKind;
+};
+
+/**
  * StartTaskSessionCommand
  */
 export type StartTaskSessionCommand = {
@@ -7272,6 +8503,49 @@ export type StartTaskSessionCommand = {
      * Plantaskid
      */
     planTaskId: string;
+};
+
+/**
+ * StartUploadCommand
+ */
+export type StartUploadCommand = {
+    /**
+     * Bytesize
+     */
+    byteSize: number;
+    /**
+     * Contentsha256
+     */
+    contentSha256: string;
+    /**
+     * Mimetype
+     */
+    mimeType: string;
+    /**
+     * Originalfilename
+     */
+    originalFilename: string;
+    /**
+     * Pagecount
+     */
+    pageCount?: number | null;
+    /**
+     * Partsha256S
+     */
+    partSha256s?: Array<string>;
+    sourceKind: SourceKind;
+};
+
+/**
+ * StartUploadProjection
+ */
+export type StartUploadProjection = {
+    authorization: UploadAuthorizationProjection;
+    /**
+     * Replayed
+     */
+    replayed: boolean;
+    session: UploadSessionProjection;
 };
 
 /**
@@ -7809,6 +9083,25 @@ export type TaskSessionProjection = {
 };
 
 /**
+ * TextSpan
+ */
+export type TextSpan = {
+    box: BoundingBox;
+    /**
+     * Confidence
+     */
+    confidence: number;
+    /**
+     * Spanid
+     */
+    spanId: string;
+    /**
+     * Text
+     */
+    text: string;
+};
+
+/**
  * TodayAlert
  */
 export type TodayAlert = {
@@ -8118,6 +9411,144 @@ export type TrackMixItem = {
      */
     track: string;
 };
+
+/**
+ * UploadAuthorizationProjection
+ */
+export type UploadAuthorizationProjection = {
+    /**
+     * Expiresat
+     */
+    expiresAt: string;
+    mode: UploadMode;
+    /**
+     * Objectref
+     */
+    objectRef: string;
+    /**
+     * Partsize
+     */
+    partSize: number | null;
+    /**
+     * Parts
+     */
+    parts: Array<UploadPartAuthorizationProjection>;
+    /**
+     * Provideruploadid
+     */
+    providerUploadId: string | null;
+};
+
+/**
+ * UploadMode
+ */
+export type UploadMode = 'single_put' | 'multipart';
+
+/**
+ * UploadPartAuthorizationProjection
+ */
+export type UploadPartAuthorizationProjection = {
+    /**
+     * Bytesize
+     */
+    byteSize: number;
+    /**
+     * Contentsha256
+     */
+    contentSha256: string;
+    /**
+     * Expiresat
+     */
+    expiresAt: string;
+    /**
+     * Objectref
+     */
+    objectRef: string;
+    /**
+     * Partnumber
+     */
+    partNumber: number;
+    /**
+     * Requiredheaders
+     */
+    requiredHeaders: {
+        [key: string]: string;
+    };
+    /**
+     * Url
+     */
+    url: string;
+};
+
+/**
+ * UploadSessionProjection
+ */
+export type UploadSessionProjection = {
+    /**
+     * Artifactversionid
+     */
+    artifactVersionId: string;
+    /**
+     * Bytesize
+     */
+    byteSize: number;
+    /**
+     * Contentsha256
+     */
+    contentSha256: string;
+    /**
+     * Expiresat
+     */
+    expiresAt: string;
+    /**
+     * Failurecode
+     */
+    failureCode: string | null;
+    /**
+     * Mimetype
+     */
+    mimeType: string;
+    /**
+     * Originalfilename
+     */
+    originalFilename: string;
+    /**
+     * Pagecount
+     */
+    pageCount: number | null;
+    /**
+     * Partcount
+     */
+    partCount: number;
+    /**
+     * Partsize
+     */
+    partSize: number | null;
+    /**
+     * Recognitioneligible
+     */
+    recognitionEligible: boolean;
+    /**
+     * Revision
+     */
+    revision: number;
+    /**
+     * Sessionid
+     */
+    sessionId: string;
+    sourceKind: SourceKind;
+    state: UploadState;
+    uploadMode: UploadMode;
+    /**
+     * Uploadedpartcount
+     */
+    uploadedPartCount: number;
+};
+
+/**
+ * UploadState
+ */
+export type UploadState = 'awaiting_upload' | 'assembling' | 'uploaded' | 'scanning' | 'scan_failed' | 'finalizing' | 'quarantining' | 'rejecting' | 'available' | 'deduplicated' | 'quarantined' | 'expired' | 'failed';
 
 /**
  * ValidationError
@@ -11387,6 +12818,1752 @@ export type GetTaskWorkspaceApiV2EssayIntelligenceTasksTaskVersionIdWorkspaceGet
 };
 
 export type GetTaskWorkspaceApiV2EssayIntelligenceTasksTaskVersionIdWorkspaceGetResponse = GetTaskWorkspaceApiV2EssayIntelligenceTasksTaskVersionIdWorkspaceGetResponses[keyof GetTaskWorkspaceApiV2EssayIntelligenceTasksTaskVersionIdWorkspaceGetResponses];
+
+export type CreateCandidateApiV2ExternalLearningAnswerIngestionsPostData = {
+    body: CreateAnswerCandidateCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/external-learning/answer-ingestions';
+};
+
+export type CreateCandidateApiV2ExternalLearningAnswerIngestionsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type CreateCandidateApiV2ExternalLearningAnswerIngestionsPostError = CreateCandidateApiV2ExternalLearningAnswerIngestionsPostErrors[keyof CreateCandidateApiV2ExternalLearningAnswerIngestionsPostErrors];
+
+export type CreateCandidateApiV2ExternalLearningAnswerIngestionsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeAnswerIngestionWorkspace;
+};
+
+export type CreateCandidateApiV2ExternalLearningAnswerIngestionsPostResponse = CreateCandidateApiV2ExternalLearningAnswerIngestionsPostResponses[keyof CreateCandidateApiV2ExternalLearningAnswerIngestionsPostResponses];
+
+export type ListTargetsApiV2ExternalLearningAnswerIngestionsTargetsGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/external-learning/answer-ingestions/targets';
+};
+
+export type ListTargetsApiV2ExternalLearningAnswerIngestionsTargetsGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ListTargetsApiV2ExternalLearningAnswerIngestionsTargetsGetError = ListTargetsApiV2ExternalLearningAnswerIngestionsTargetsGetErrors[keyof ListTargetsApiV2ExternalLearningAnswerIngestionsTargetsGetErrors];
+
+export type ListTargetsApiV2ExternalLearningAnswerIngestionsTargetsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeAnswerTargetSnapshot;
+};
+
+export type ListTargetsApiV2ExternalLearningAnswerIngestionsTargetsGetResponse = ListTargetsApiV2ExternalLearningAnswerIngestionsTargetsGetResponses[keyof ListTargetsApiV2ExternalLearningAnswerIngestionsTargetsGetResponses];
+
+export type GetIngestionApiV2ExternalLearningAnswerIngestionsIngestionIdGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Ingestion Id
+         */
+        ingestion_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/answer-ingestions/{ingestion_id}';
+};
+
+export type GetIngestionApiV2ExternalLearningAnswerIngestionsIngestionIdGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetIngestionApiV2ExternalLearningAnswerIngestionsIngestionIdGetError = GetIngestionApiV2ExternalLearningAnswerIngestionsIngestionIdGetErrors[keyof GetIngestionApiV2ExternalLearningAnswerIngestionsIngestionIdGetErrors];
+
+export type GetIngestionApiV2ExternalLearningAnswerIngestionsIngestionIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeAnswerIngestionWorkspace;
+};
+
+export type GetIngestionApiV2ExternalLearningAnswerIngestionsIngestionIdGetResponse = GetIngestionApiV2ExternalLearningAnswerIngestionsIngestionIdGetResponses[keyof GetIngestionApiV2ExternalLearningAnswerIngestionsIngestionIdGetResponses];
+
+export type CorrectCandidateApiV2ExternalLearningAnswerIngestionsIngestionIdCandidatePutData = {
+    body: CorrectAnswerCandidateCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Ingestion Id
+         */
+        ingestion_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/answer-ingestions/{ingestion_id}/candidate';
+};
+
+export type CorrectCandidateApiV2ExternalLearningAnswerIngestionsIngestionIdCandidatePutErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type CorrectCandidateApiV2ExternalLearningAnswerIngestionsIngestionIdCandidatePutError = CorrectCandidateApiV2ExternalLearningAnswerIngestionsIngestionIdCandidatePutErrors[keyof CorrectCandidateApiV2ExternalLearningAnswerIngestionsIngestionIdCandidatePutErrors];
+
+export type CorrectCandidateApiV2ExternalLearningAnswerIngestionsIngestionIdCandidatePutResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeAnswerIngestionWorkspace;
+};
+
+export type CorrectCandidateApiV2ExternalLearningAnswerIngestionsIngestionIdCandidatePutResponse = CorrectCandidateApiV2ExternalLearningAnswerIngestionsIngestionIdCandidatePutResponses[keyof CorrectCandidateApiV2ExternalLearningAnswerIngestionsIngestionIdCandidatePutResponses];
+
+export type ConfirmCandidateApiV2ExternalLearningAnswerIngestionsIngestionIdConfirmPostData = {
+    body: ConfirmAnswerCandidateCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Ingestion Id
+         */
+        ingestion_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/answer-ingestions/{ingestion_id}/confirm';
+};
+
+export type ConfirmCandidateApiV2ExternalLearningAnswerIngestionsIngestionIdConfirmPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ConfirmCandidateApiV2ExternalLearningAnswerIngestionsIngestionIdConfirmPostError = ConfirmCandidateApiV2ExternalLearningAnswerIngestionsIngestionIdConfirmPostErrors[keyof ConfirmCandidateApiV2ExternalLearningAnswerIngestionsIngestionIdConfirmPostErrors];
+
+export type ConfirmCandidateApiV2ExternalLearningAnswerIngestionsIngestionIdConfirmPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeAnswerIngestionWorkspace;
+};
+
+export type ConfirmCandidateApiV2ExternalLearningAnswerIngestionsIngestionIdConfirmPostResponse = ConfirmCandidateApiV2ExternalLearningAnswerIngestionsIngestionIdConfirmPostResponses[keyof ConfirmCandidateApiV2ExternalLearningAnswerIngestionsIngestionIdConfirmPostResponses];
+
+export type GetImportApiV2ExternalLearningImportsImportIdGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Import Id
+         */
+        import_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/imports/{import_id}';
+};
+
+export type GetImportApiV2ExternalLearningImportsImportIdGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetImportApiV2ExternalLearningImportsImportIdGetError = GetImportApiV2ExternalLearningImportsImportIdGetErrors[keyof GetImportApiV2ExternalLearningImportsImportIdGetErrors];
+
+export type GetImportApiV2ExternalLearningImportsImportIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeImportWorkspace;
+};
+
+export type GetImportApiV2ExternalLearningImportsImportIdGetResponse = GetImportApiV2ExternalLearningImportsImportIdGetResponses[keyof GetImportApiV2ExternalLearningImportsImportIdGetResponses];
+
+export type ConfirmImportMatchApiV2ExternalLearningImportsImportIdMatchesContentMatchVersionIdConfirmPostData = {
+    body: ConfirmImportMatchCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Import Id
+         */
+        import_id: string;
+        /**
+         * Content Match Version Id
+         */
+        content_match_version_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/imports/{import_id}/matches/{content_match_version_id}/confirm';
+};
+
+export type ConfirmImportMatchApiV2ExternalLearningImportsImportIdMatchesContentMatchVersionIdConfirmPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ConfirmImportMatchApiV2ExternalLearningImportsImportIdMatchesContentMatchVersionIdConfirmPostError = ConfirmImportMatchApiV2ExternalLearningImportsImportIdMatchesContentMatchVersionIdConfirmPostErrors[keyof ConfirmImportMatchApiV2ExternalLearningImportsImportIdMatchesContentMatchVersionIdConfirmPostErrors];
+
+export type ConfirmImportMatchApiV2ExternalLearningImportsImportIdMatchesContentMatchVersionIdConfirmPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeImportWorkspace;
+};
+
+export type ConfirmImportMatchApiV2ExternalLearningImportsImportIdMatchesContentMatchVersionIdConfirmPostResponse = ConfirmImportMatchApiV2ExternalLearningImportsImportIdMatchesContentMatchVersionIdConfirmPostResponses[keyof ConfirmImportMatchApiV2ExternalLearningImportsImportIdMatchesContentMatchVersionIdConfirmPostResponses];
+
+export type ProcessImportApiV2ExternalLearningImportsImportIdProcessPostData = {
+    body: ProcessImportCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Import Id
+         */
+        import_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/imports/{import_id}/process';
+};
+
+export type ProcessImportApiV2ExternalLearningImportsImportIdProcessPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ProcessImportApiV2ExternalLearningImportsImportIdProcessPostError = ProcessImportApiV2ExternalLearningImportsImportIdProcessPostErrors[keyof ProcessImportApiV2ExternalLearningImportsImportIdProcessPostErrors];
+
+export type ProcessImportApiV2ExternalLearningImportsImportIdProcessPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeImportWorkspace;
+};
+
+export type ProcessImportApiV2ExternalLearningImportsImportIdProcessPostResponse = ProcessImportApiV2ExternalLearningImportsImportIdProcessPostResponses[keyof ProcessImportApiV2ExternalLearningImportsImportIdProcessPostResponses];
+
+export type CorrectImportRecognitionApiV2ExternalLearningImportsImportIdRecognitionsRecognitionRevisionIdPutData = {
+    body: CorrectImportRecognitionCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Import Id
+         */
+        import_id: string;
+        /**
+         * Recognition Revision Id
+         */
+        recognition_revision_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/imports/{import_id}/recognitions/{recognition_revision_id}';
+};
+
+export type CorrectImportRecognitionApiV2ExternalLearningImportsImportIdRecognitionsRecognitionRevisionIdPutErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type CorrectImportRecognitionApiV2ExternalLearningImportsImportIdRecognitionsRecognitionRevisionIdPutError = CorrectImportRecognitionApiV2ExternalLearningImportsImportIdRecognitionsRecognitionRevisionIdPutErrors[keyof CorrectImportRecognitionApiV2ExternalLearningImportsImportIdRecognitionsRecognitionRevisionIdPutErrors];
+
+export type CorrectImportRecognitionApiV2ExternalLearningImportsImportIdRecognitionsRecognitionRevisionIdPutResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeImportWorkspace;
+};
+
+export type CorrectImportRecognitionApiV2ExternalLearningImportsImportIdRecognitionsRecognitionRevisionIdPutResponse = CorrectImportRecognitionApiV2ExternalLearningImportsImportIdRecognitionsRecognitionRevisionIdPutResponses[keyof CorrectImportRecognitionApiV2ExternalLearningImportsImportIdRecognitionsRecognitionRevisionIdPutResponses];
+
+export type ConfirmImportRecognitionApiV2ExternalLearningImportsImportIdRecognitionsRecognitionRevisionIdConfirmPostData = {
+    body: ConfirmImportRecognitionCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Import Id
+         */
+        import_id: string;
+        /**
+         * Recognition Revision Id
+         */
+        recognition_revision_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/imports/{import_id}/recognitions/{recognition_revision_id}/confirm';
+};
+
+export type ConfirmImportRecognitionApiV2ExternalLearningImportsImportIdRecognitionsRecognitionRevisionIdConfirmPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ConfirmImportRecognitionApiV2ExternalLearningImportsImportIdRecognitionsRecognitionRevisionIdConfirmPostError = ConfirmImportRecognitionApiV2ExternalLearningImportsImportIdRecognitionsRecognitionRevisionIdConfirmPostErrors[keyof ConfirmImportRecognitionApiV2ExternalLearningImportsImportIdRecognitionsRecognitionRevisionIdConfirmPostErrors];
+
+export type ConfirmImportRecognitionApiV2ExternalLearningImportsImportIdRecognitionsRecognitionRevisionIdConfirmPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeImportWorkspace;
+};
+
+export type ConfirmImportRecognitionApiV2ExternalLearningImportsImportIdRecognitionsRecognitionRevisionIdConfirmPostResponse = ConfirmImportRecognitionApiV2ExternalLearningImportsImportIdRecognitionsRecognitionRevisionIdConfirmPostResponses[keyof ConfirmImportRecognitionApiV2ExternalLearningImportsImportIdRecognitionsRecognitionRevisionIdConfirmPostResponses];
+
+export type ListPacketsApiV2ExternalLearningPacketsGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/external-learning/packets';
+};
+
+export type ListPacketsApiV2ExternalLearningPacketsGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ListPacketsApiV2ExternalLearningPacketsGetError = ListPacketsApiV2ExternalLearningPacketsGetErrors[keyof ListPacketsApiV2ExternalLearningPacketsGetErrors];
+
+export type ListPacketsApiV2ExternalLearningPacketsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopePacketListSnapshot;
+};
+
+export type ListPacketsApiV2ExternalLearningPacketsGetResponse = ListPacketsApiV2ExternalLearningPacketsGetResponses[keyof ListPacketsApiV2ExternalLearningPacketsGetResponses];
+
+export type CreatePacketApiV2ExternalLearningPacketsPostData = {
+    body: CreatePacketCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/external-learning/packets';
+};
+
+export type CreatePacketApiV2ExternalLearningPacketsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type CreatePacketApiV2ExternalLearningPacketsPostError = CreatePacketApiV2ExternalLearningPacketsPostErrors[keyof CreatePacketApiV2ExternalLearningPacketsPostErrors];
+
+export type CreatePacketApiV2ExternalLearningPacketsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeOfflinePacketVersion;
+};
+
+export type CreatePacketApiV2ExternalLearningPacketsPostResponse = CreatePacketApiV2ExternalLearningPacketsPostResponses[keyof CreatePacketApiV2ExternalLearningPacketsPostResponses];
+
+export type RenewPacketApiV2ExternalLearningPacketsPacketIdRenewPostData = {
+    body: RenewPacketCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Packet Id
+         */
+        packet_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/packets/{packet_id}/renew';
+};
+
+export type RenewPacketApiV2ExternalLearningPacketsPacketIdRenewPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RenewPacketApiV2ExternalLearningPacketsPacketIdRenewPostError = RenewPacketApiV2ExternalLearningPacketsPacketIdRenewPostErrors[keyof RenewPacketApiV2ExternalLearningPacketsPacketIdRenewPostErrors];
+
+export type RenewPacketApiV2ExternalLearningPacketsPacketIdRenewPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeOfflinePacketVersion;
+};
+
+export type RenewPacketApiV2ExternalLearningPacketsPacketIdRenewPostResponse = RenewPacketApiV2ExternalLearningPacketsPacketIdRenewPostResponses[keyof RenewPacketApiV2ExternalLearningPacketsPacketIdRenewPostResponses];
+
+export type RetryPacketApiV2ExternalLearningPacketsPacketIdRetryPostData = {
+    body: RetryPacketCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Packet Id
+         */
+        packet_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/packets/{packet_id}/retry';
+};
+
+export type RetryPacketApiV2ExternalLearningPacketsPacketIdRetryPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RetryPacketApiV2ExternalLearningPacketsPacketIdRetryPostError = RetryPacketApiV2ExternalLearningPacketsPacketIdRetryPostErrors[keyof RetryPacketApiV2ExternalLearningPacketsPacketIdRetryPostErrors];
+
+export type RetryPacketApiV2ExternalLearningPacketsPacketIdRetryPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeOfflinePacketVersion;
+};
+
+export type RetryPacketApiV2ExternalLearningPacketsPacketIdRetryPostResponse = RetryPacketApiV2ExternalLearningPacketsPacketIdRetryPostResponses[keyof RetryPacketApiV2ExternalLearningPacketsPacketIdRetryPostResponses];
+
+export type GetPacketApiV2ExternalLearningPacketsPacketVersionIdGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Packet Version Id
+         */
+        packet_version_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/packets/{packet_version_id}';
+};
+
+export type GetPacketApiV2ExternalLearningPacketsPacketVersionIdGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetPacketApiV2ExternalLearningPacketsPacketVersionIdGetError = GetPacketApiV2ExternalLearningPacketsPacketVersionIdGetErrors[keyof GetPacketApiV2ExternalLearningPacketsPacketVersionIdGetErrors];
+
+export type GetPacketApiV2ExternalLearningPacketsPacketVersionIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeOfflinePacketVersion;
+};
+
+export type GetPacketApiV2ExternalLearningPacketsPacketVersionIdGetResponse = GetPacketApiV2ExternalLearningPacketsPacketVersionIdGetResponses[keyof GetPacketApiV2ExternalLearningPacketsPacketVersionIdGetResponses];
+
+export type AccessPacketApiV2ExternalLearningPacketsPacketVersionIdAccessPostData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Packet Version Id
+         */
+        packet_version_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/packets/{packet_version_id}/access';
+};
+
+export type AccessPacketApiV2ExternalLearningPacketsPacketVersionIdAccessPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type AccessPacketApiV2ExternalLearningPacketsPacketVersionIdAccessPostError = AccessPacketApiV2ExternalLearningPacketsPacketVersionIdAccessPostErrors[keyof AccessPacketApiV2ExternalLearningPacketsPacketVersionIdAccessPostErrors];
+
+export type AccessPacketApiV2ExternalLearningPacketsPacketVersionIdAccessPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopePacketAccessProjection;
+};
+
+export type AccessPacketApiV2ExternalLearningPacketsPacketVersionIdAccessPostResponse = AccessPacketApiV2ExternalLearningPacketsPacketVersionIdAccessPostResponses[keyof AccessPacketApiV2ExternalLearningPacketsPacketVersionIdAccessPostResponses];
+
+export type StartRecognitionApiV2ExternalLearningRecognitionsPostData = {
+    body: StartRecognitionCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/external-learning/recognitions';
+};
+
+export type StartRecognitionApiV2ExternalLearningRecognitionsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type StartRecognitionApiV2ExternalLearningRecognitionsPostError = StartRecognitionApiV2ExternalLearningRecognitionsPostErrors[keyof StartRecognitionApiV2ExternalLearningRecognitionsPostErrors];
+
+export type StartRecognitionApiV2ExternalLearningRecognitionsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeRecognitionRevision;
+};
+
+export type StartRecognitionApiV2ExternalLearningRecognitionsPostResponse = StartRecognitionApiV2ExternalLearningRecognitionsPostResponses[keyof StartRecognitionApiV2ExternalLearningRecognitionsPostResponses];
+
+export type GetRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Recognition Revision Id
+         */
+        recognition_revision_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/recognitions/{recognition_revision_id}';
+};
+
+export type GetRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdGetError = GetRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdGetErrors[keyof GetRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdGetErrors];
+
+export type GetRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeRecognitionRevision;
+};
+
+export type GetRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdGetResponse = GetRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdGetResponses[keyof GetRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdGetResponses];
+
+export type CorrectRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdCandidatePutData = {
+    body: CorrectRecognitionCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Recognition Revision Id
+         */
+        recognition_revision_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/recognitions/{recognition_revision_id}/candidate';
+};
+
+export type CorrectRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdCandidatePutErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type CorrectRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdCandidatePutError = CorrectRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdCandidatePutErrors[keyof CorrectRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdCandidatePutErrors];
+
+export type CorrectRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdCandidatePutResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeRecognitionRevision;
+};
+
+export type CorrectRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdCandidatePutResponse = CorrectRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdCandidatePutResponses[keyof CorrectRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdCandidatePutResponses];
+
+export type ConfirmRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdConfirmPostData = {
+    body: RecognitionDecisionCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Recognition Revision Id
+         */
+        recognition_revision_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/recognitions/{recognition_revision_id}/confirm';
+};
+
+export type ConfirmRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdConfirmPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ConfirmRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdConfirmPostError = ConfirmRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdConfirmPostErrors[keyof ConfirmRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdConfirmPostErrors];
+
+export type ConfirmRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdConfirmPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeRecognitionRevision;
+};
+
+export type ConfirmRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdConfirmPostResponse = ConfirmRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdConfirmPostResponses[keyof ConfirmRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdConfirmPostResponses];
+
+export type RejectRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdRejectPostData = {
+    body: RecognitionDecisionCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Recognition Revision Id
+         */
+        recognition_revision_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/recognitions/{recognition_revision_id}/reject';
+};
+
+export type RejectRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdRejectPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RejectRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdRejectPostError = RejectRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdRejectPostErrors[keyof RejectRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdRejectPostErrors];
+
+export type RejectRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdRejectPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeRecognitionRevision;
+};
+
+export type RejectRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdRejectPostResponse = RejectRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdRejectPostResponses[keyof RejectRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdRejectPostResponses];
+
+export type ReprocessRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdReprocessPostData = {
+    body: ReprocessRecognitionCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Recognition Revision Id
+         */
+        recognition_revision_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/recognitions/{recognition_revision_id}/reprocess';
+};
+
+export type ReprocessRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdReprocessPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ReprocessRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdReprocessPostError = ReprocessRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdReprocessPostErrors[keyof ReprocessRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdReprocessPostErrors];
+
+export type ReprocessRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdReprocessPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeRecognitionRevision;
+};
+
+export type ReprocessRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdReprocessPostResponse = ReprocessRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdReprocessPostResponses[keyof ReprocessRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdReprocessPostResponses];
+
+export type StartUploadApiV2ExternalLearningUploadsPostData = {
+    body: StartUploadCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/external-learning/uploads';
+};
+
+export type StartUploadApiV2ExternalLearningUploadsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type StartUploadApiV2ExternalLearningUploadsPostError = StartUploadApiV2ExternalLearningUploadsPostErrors[keyof StartUploadApiV2ExternalLearningUploadsPostErrors];
+
+export type StartUploadApiV2ExternalLearningUploadsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeStartUploadProjection;
+};
+
+export type StartUploadApiV2ExternalLearningUploadsPostResponse = StartUploadApiV2ExternalLearningUploadsPostResponses[keyof StartUploadApiV2ExternalLearningUploadsPostResponses];
+
+export type GetUploadApiV2ExternalLearningUploadsUploadSessionIdGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Upload Session Id
+         */
+        upload_session_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/uploads/{upload_session_id}';
+};
+
+export type GetUploadApiV2ExternalLearningUploadsUploadSessionIdGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetUploadApiV2ExternalLearningUploadsUploadSessionIdGetError = GetUploadApiV2ExternalLearningUploadsUploadSessionIdGetErrors[keyof GetUploadApiV2ExternalLearningUploadsUploadSessionIdGetErrors];
+
+export type GetUploadApiV2ExternalLearningUploadsUploadSessionIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeUploadSessionProjection;
+};
+
+export type GetUploadApiV2ExternalLearningUploadsUploadSessionIdGetResponse = GetUploadApiV2ExternalLearningUploadsUploadSessionIdGetResponses[keyof GetUploadApiV2ExternalLearningUploadsUploadSessionIdGetResponses];
+
+export type CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePostData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Upload Session Id
+         */
+        upload_session_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/uploads/{upload_session_id}/complete';
+};
+
+export type CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePostError = CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePostErrors[keyof CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePostErrors];
+
+export type CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeCompleteUploadProjection;
+};
+
+export type CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePostResponse = CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePostResponses[keyof CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePostResponses];
 
 export type AcknowledgeOnboardingResultApiV2OnboardingCompletePostData = {
     body: OnboardingResultAcknowledgement;

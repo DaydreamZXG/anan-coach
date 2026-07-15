@@ -22,6 +22,9 @@ export const routes = {
   practice: "/pages/practice/index",
   reflection: "/pages/reflection/index",
   essayTask: "/pages/essay-task/index",
+  captureImport: "/pages/capture-import/index",
+  learningPackets: "/pages/learning-packets/index",
+  answerIngestion: "/pages/answer-ingestion/index",
 } as const;
 
 export type RouteName = keyof typeof routes;
@@ -37,6 +40,11 @@ export interface PositionSearchRouteFilters {
   examYear?: string;
   region?: string;
   city?: string;
+}
+
+export interface AnswerIngestionRouteOptions {
+  packetVersionId?: string;
+  ingestionId?: string;
 }
 
 const registeredRoutePaths = new Set<string>(Object.values(routes));
@@ -124,6 +132,26 @@ export function positionGoalUrl(positionId: string): string {
 
 export function positionBriefingUrl(positionId: string): string {
   return withQuery(routes.positionBriefing, { positionId: requiredIdentifier(positionId) });
+}
+
+export function captureImportUrl(importId?: string): string {
+  return withQuery(routes.captureImport, {
+    importId: importId === undefined ? undefined : requiredIdentifier(importId),
+  });
+}
+
+export function answerIngestionUrl(options: AnswerIngestionRouteOptions = {}): string {
+  if (options.packetVersionId && options.ingestionId) {
+    throw new Error("Answer ingestion route accepts a packet or ingestion ID, not both");
+  }
+  return withQuery(routes.answerIngestion, {
+    packetVersionId:
+      options.packetVersionId === undefined
+        ? undefined
+        : requiredIdentifier(options.packetVersionId),
+    ingestionId:
+      options.ingestionId === undefined ? undefined : requiredIdentifier(options.ingestionId),
+  });
 }
 
 function parseQuery(url: string): Record<string, string> | null {

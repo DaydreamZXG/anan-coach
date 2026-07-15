@@ -1,4 +1,6 @@
 import {
+  answerIngestionUrl,
+  captureImportUrl,
   positionCompareUrl,
   positionDetailUrl,
   positionGoalUrl,
@@ -54,6 +56,7 @@ export function authenticatedReturnTarget(startUrl: string): RegisteredNavigatio
   if (path === routes.diagnostic || path === routes.reflection) {
     return rawQuery === undefined ? navigation : null;
   }
+  if (path === routes.learningPackets) return rawQuery === undefined ? navigation : null;
   if (path === routes.essayTask) return registeredTaskNavigationTarget(navigation.url);
 
   const query = parseExactQuery(rawQuery);
@@ -88,6 +91,23 @@ export function authenticatedReturnTarget(startUrl: string): RegisteredNavigatio
     } catch {
       return null;
     }
+  }
+  if (path === routes.captureImport) {
+    if (!hasOnlyKeys(query, ["importId"])) return null;
+    if (query.importId !== undefined && !validIdentifier(query.importId)) return null;
+    return requiredNavigationTarget(captureImportUrl(query.importId));
+  }
+  if (path === routes.answerIngestion) {
+    if (!hasOnlyKeys(query, ["packetVersionId", "ingestionId"])) return null;
+    if (query.packetVersionId !== undefined && !validIdentifier(query.packetVersionId)) return null;
+    if (query.ingestionId !== undefined && !validIdentifier(query.ingestionId)) return null;
+    if (query.packetVersionId !== undefined && query.ingestionId !== undefined) return null;
+    return requiredNavigationTarget(
+      answerIngestionUrl({
+        ...(query.packetVersionId !== undefined ? { packetVersionId: query.packetVersionId } : {}),
+        ...(query.ingestionId !== undefined ? { ingestionId: query.ingestionId } : {}),
+      }),
+    );
   }
   return null;
 }

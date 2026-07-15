@@ -1,0 +1,90 @@
+<view class="page external-page answer-page">
+  <view class="external-hero">
+    <view class="external-hero__copy">
+      <view class="external-eyebrow">答案回流 · 人工确认</view>
+      <view class="external-title">录入答案</view>
+      <view class="external-subtitle">答案串、答题卡或作答图片都会先生成候选；你修正并最终确认后，才会写入行测或申论学习证据。</view>
+    </view>
+    <anan-companion size="medium" intent="thinking" context="review" animate />
+  </view>
+
+  <state-view wx:if="{{configurationError}}" state="error" title="答案回流服务未完成配置" description="{{configurationError}}" />
+  <state-view wx:elif="{{!state || state.status === 'idle' || state.status === 'loading'}}" state="loading" />
+  <state-view wx:elif="{{state.status === 'empty'}}" state="empty" title="没有可录入的学习包" description="只有已就绪且尚未过期的学习包才能绑定答案。" action-text="去查看学习包" bind:action="openLearningPackets" />
+  <state-view wx:elif="{{state.status === 'error' && !state.workspace}}" state="error" title="{{state.error.title}}" description="{{state.error.message}}" request-id="{{state.error.requestId}}" action-text="{{state.pendingRecovery ? '恢复原提交' : '重新加载'}}" bind:action="retryLoad" />
+  <state-view wx:elif="{{state.status === 'expired'}}" state="stale" title="这次答案录入已失效" description="被拒绝、过期或版本不一致的候选不能写入学习证据。" action-text="重新录入" bind:action="resetDraft" />
+
+  <block wx:else>
+    <view wx:if="{{state.generatedAt}}" class="delivery-strip"><text>可用学习包 {{state.targets.length}} 份</text><text>生成于 {{state.generatedAt}}</text><text>Request ID · {{state.requestId}}</text></view>
+
+    <block wx:if="{{state.status === 'draft' || (state.status === 'error' && !state.workspace)}}">
+      <view class="section-head"><view class="section-head__title">选择学习包</view><view class="section-head__meta">答案将绑定该包版本</view></view>
+      <scroll-view class="target-scroll" scroll-x enable-flex>
+        <view wx:for="{{state.targets}}" wx:key="packetVersionId" class="target-card {{state.selectedPacketVersionId === item.packetVersionId ? 'target-card--selected' : ''}}" role="button" aria-label="选择 {{item.packetTitle}}" data-id="{{item.packetVersionId}}" bindtap="selectPacket">
+          <view class="target-track">{{item.trackLabel}}</view><view class="target-title">{{item.packetTitle}}</view><view class="card-copy">{{item.versionLabel}} · {{item.itemCount}} 题</view><view class="target-expiry">{{item.expiresAtLabel}}</view>
+        </view>
+      </scroll-view>
+
+      <view class="section-head"><view class="section-head__title">选择录入方式</view><view class="section-head__meta">先生成候选，后确认</view></view>
+      <view class="choice-row">
+        <view class="choice {{state.inputMode === 'answer_string' ? 'choice--active' : ''}}" role="button" aria-label="使用答案串" data-value="answer_string" bindtap="chooseMode">答案串</view>
+        <view class="choice {{state.inputMode === 'answer_image' ? 'choice--active' : ''}}" role="button" aria-label="使用答题卡或图片" data-value="answer_image" bindtap="chooseMode">答题卡 / 作答图片</view>
+      </view>
+
+      <view wx:if="{{state.inputMode === 'answer_string'}}" class="external-card answer-source">
+        <view class="card-title">粘贴答案串</view><view class="card-copy">可直接输入连续字母，或用空格、逗号、分号分隔，例如：ACBA 或 A, C, B, A。每题使用 A–H 中的一个选项。</view>
+        <textarea class="text-area answer-string" value="{{state.answerText}}" disabled="{{state.submitting || state.pendingRecovery}}" maxlength="2000" aria-label="答案串" placeholder="ACBA…" bindinput="inputAnswerString" />
+      </view>
+      <view wx:else class="external-card answer-source">
+        <view class="card-title">{{state.track === 'xingce' ? '拍摄答题卡' : '拍摄申论作答页'}}</view>
+        <view class="card-copy">{{state.track === 'xingce' ? '服务端会执行 OMR 识别并逐题给出置信度。' : '服务端会执行手写识别，你需要逐项核对文本。'}}</view>
+        <view class="answer-image-actions"><ui-button label="相机拍摄" variant="secondary" bind:action="chooseCameraAnswer" /><ui-button label="从相册选择" variant="secondary" bind:action="chooseAlbumAnswer" /></view>
+        <view wx:if="{{state.selectedFile}}" class="selected-file"><view>已选 {{state.selectedFile.displayName}}</view><text class="type-data">{{state.selectedFile.byteSize}} bytes</text></view>
+      </view>
+      <view wx:if="{{state.validationError}}" class="inline-error">{{state.validationError}}</view>
+      <view class="inline-warning">本步只生成候选，不会改变能力、错因或今日计划。</view>
+      <view class="action-stack"><ui-button label="{{state.pendingRecovery ? '查询原提交' : '识别并生成待核对答案'}}" loading="{{state.submitting}}" bind:action="createCandidate" /></view>
+    </block>
+
+    <block wx:elif="{{state.status === 'uploading' || state.status === 'processing'}}">
+      <view class="section-head"><view class="section-head__title">{{state.status === 'uploading' ? '正在上传作答图片' : '正在生成答案候选'}}</view><view class="section-head__meta">候选不影响诊断</view></view>
+      <view class="external-card">
+        <view wx:if="{{state.uploadProgress}}" class="upload-number type-data">{{state.uploadProgress.percent}}%</view>
+        <view wx:if="{{state.uploadProgress}}" class="progress-track"><view class="progress-bar" style="width: {{state.uploadProgress.percent}}%"></view></view>
+        <view class="card-copy">正在按学习包绑定码对齐题号和顺序。</view>
+      </view>
+    </block>
+
+    <block wx:elif="{{state.status === 'correction'}}">
+      <view class="delivery-strip"><text>{{state.workspace.packetTitle || '未命名学习包'}} · 答案 v{{state.workspace.ingestion.versionNo}}</text><text>输入方式 {{state.workspace.ingestion.inputMode}}</text><text>Request ID · {{state.workspace.requestId}}</text></view>
+      <view wx:if="{{state.workspace.partialReasons.length}}" class="inline-warning"><view>部分结果需要额外核对：</view><view wx:for="{{state.workspace.partialReasons}}" wx:key="*this">· {{item}}</view></view>
+      <view class="section-head"><view class="section-head__title">逐题核对</view><view class="section-head__meta">{{state.candidateItems.length}} 题 · 仍未写入</view></view>
+      <view wx:for="{{state.candidateItems}}" wx:key="itemId" class="answer-row">
+        <view class="answer-order type-data">{{item.orderNo}}</view>
+        <view class="answer-field">
+          <input wx:if="{{state.track === 'xingce'}}" class="text-input" value="{{item.answer}}" maxlength="1" disabled="{{state.submitting}}" data-id="{{item.itemId}}" aria-label="第 {{item.orderNo}} 题答案" bindinput="inputCandidate" />
+          <textarea wx:else class="text-area essay-answer" value="{{item.answer}}" maxlength="20000" disabled="{{state.submitting}}" data-id="{{item.itemId}}" aria-label="第 {{item.orderNo}} 题作答文本" bindinput="inputCandidate" />
+          <view class="answer-confidence answer-confidence--{{item.tone}}">{{item.confidenceLabel}}</view>
+        </view>
+        <view class="binding-code type-data">{{item.answerBindingCode}}</view>
+      </view>
+      <view wx:if="{{state.validationError}}" class="inline-error">{{state.validationError}}</view>
+      <view class="inline-warning">当前状态：已识别、待你确认，不影响学习诊断。</view>
+      <view class="action-stack"><ui-button label="下一步：最终确认" bind:action="requestConfirmation" /></view>
+    </block>
+
+    <block wx:elif="{{state.status === 'success'}}">
+      <state-view state="empty" title="答案已写入学习证据" description="候选已经人工确认并由目标学习写入器提交；后续诊断会保留这次来源谱系。" request-id="{{state.workspace.requestId}}" />
+      <view class="success-receipt external-card"><view class="card-title">写入回执</view><view class="card-copy type-data">{{state.workspace.ingestion.committedFactRef}}</view><view class="card-copy">写入器 {{state.workspace.ingestion.targetWriter}} · {{state.workspace.ingestion.writerContractVersion}}</view></view>
+      <view class="action-stack"><ui-button label="继续录入其他学习包" variant="secondary" bind:action="resetDraft" /></view>
+    </block>
+
+    <view wx:if="{{state.confirmationOpen}}" class="sheet-mask" catchtouchmove="noop"></view>
+    <view wx:if="{{state.confirmationOpen}}" class="confirmation-sheet">
+      <view class="sheet-title">确认写入 {{state.candidateItems.length}} 题答案？</view>
+      <view class="card-copy">确认后，系统会先生成已确认版本，再由 {{state.workspace.ingestion.targetWriter}} 写入学习证据。如果网络结果不确定，页面会使用原命令恢复，不会重复写入。</view>
+      <view wx:if="{{state.error}}" class="inline-error">{{state.error.message}}<view wx:if="{{state.error.requestId}}">Request ID · {{state.error.requestId}}</view></view>
+      <view class="sheet-actions"><ui-button label="返回修正" variant="secondary" disabled="{{state.submitting || state.pendingRecovery}}" bind:action="cancelConfirmation" /><ui-button label="{{state.pendingRecovery ? '恢复原确认命令' : '确认并写入'}}" loading="{{state.submitting}}" bind:action="confirmAndCommit" /></view>
+    </view>
+  </block>
+</view>

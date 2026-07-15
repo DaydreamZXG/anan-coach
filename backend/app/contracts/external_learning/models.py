@@ -180,6 +180,9 @@ class RecognitionRevision(StrictContract):
     output_sha256: Sha256Hex = Field(alias="outputSha256")
     candidate_payload: dict[str, object] = Field(alias="candidatePayload")
     confidence: float | None = Field(default=None, ge=0, le=1)
+    supersedes_recognition_revision_id: UUID | None = Field(
+        default=None, alias="supersedesRecognitionRevisionId"
+    )
     expires_at: AwareDatetime = Field(alias="expiresAt")
     confirmed_at: AwareDatetime | None = Field(default=None, alias="confirmedAt")
     created_at: AwareDatetime = Field(alias="createdAt")
@@ -188,6 +191,10 @@ class RecognitionRevision(StrictContract):
     def validate_confirmation(self) -> RecognitionRevision:
         if (self.state == CandidateState.CONFIRMED) != (self.confirmed_at is not None):
             raise ValueError("only confirmed recognition revisions have confirmedAt")
+        if (self.revision_no == 1) != (
+            self.supersedes_recognition_revision_id is None
+        ):
+            raise ValueError("recognition revision lineage is incomplete")
         return self
 
 
@@ -210,6 +217,13 @@ class ContentMatchVersion(StrictContract):
     version_no: int = Field(alias="versionNo", ge=1)
     state: Literal["candidate", "confirmed", "rejected", "expired"]
     candidates: tuple[MatchCandidate, ...]
+    evaluation_reason: Literal[
+        "essay_incomplete",
+        "no_eligible_candidate",
+        "single_exact",
+        "single_similar",
+        "score_tie",
+    ] = Field(alias="evaluationReason")
     confirmed_content_version_id: str | None = Field(
         default=None, alias="confirmedContentVersionId"
     )
@@ -225,6 +239,18 @@ class ContentMatchVersion(StrictContract):
         candidate_ids = [item.content_version_id for item in self.candidates]
         if len(candidate_ids) != len(set(candidate_ids)):
             raise ValueError("content match candidates must be unique")
+        if self.evaluation_reason in {"essay_incomplete", "no_eligible_candidate"}:
+            if self.candidates:
+                raise ValueError("non-match evaluation reasons cannot carry candidates")
+        elif self.evaluation_reason == "score_tie":
+            if len(self.candidates) < 2:
+                raise ValueError("score ties require at least two candidates")
+        elif len(self.candidates) != 1:
+            raise ValueError("single-match evaluation reasons require one candidate")
+        if self.evaluation_reason == "single_exact" and self.candidates[0].match_kind != "exact":
+            raise ValueError("single_exact requires an exact candidate")
+        if self.evaluation_reason == "single_similar" and self.candidates[0].match_kind != "similar":
+            raise ValueError("single_similar requires a similar candidate")
         if self.state == "confirmed":
             if self.confirmed_content_version_id not in candidate_ids:
                 raise ValueError("confirmed content must be one of the candidates")
@@ -286,7 +312,7 @@ class AnswerIngestionVersion(StrictContract):
     version_no: int = Field(alias="versionNo", ge=1)
     packet_version_id: UUID | None = Field(default=None, alias="packetVersionId")
     source_artifact_version_ids: tuple[UUID, ...] = Field(
-        alias="sourceArtifactVersionIds", min_length=1
+        default=(), alias="sourceArtifactVersionIds"
     )
     track: LearningTrack
     input_mode: Literal[
@@ -313,6 +339,11 @@ class AnswerIngestionVersion(StrictContract):
         }[self.track]
         if self.target_writer != expected_writer:
             raise ValueError("track must return to its canonical writer")
+        if self.input_mode == "answer_string":
+            if self.packet_version_id is None:
+                raise ValueError("answer strings require a packet version")
+        elif not self.source_artifact_version_ids:
+            raise ValueError("artifact-based answer ingestion requires source artifacts")
         if self.state in {"confirmed", "committed"} and self.confirmed_at is None:
             raise ValueError("confirmed answer ingestion requires confirmedAt")
         if self.state == "committed" and not self.committed_fact_ref:

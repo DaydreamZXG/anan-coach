@@ -1,0 +1,132 @@
+@import "../../features/external-learning/page-shell.wxss";
+
+.answer-page state-view {
+  display: block;
+  margin-top: 34rpx;
+}
+
+.target-scroll {
+  width: 100%;
+  white-space: nowrap;
+}
+
+.target-card {
+  display: inline-block;
+  width: 360rpx;
+  min-height: 196rpx;
+  box-sizing: border-box;
+  margin-right: 16rpx;
+  padding: 24rpx;
+  border: 1rpx solid var(--color-line);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  vertical-align: top;
+  white-space: normal;
+}
+
+.target-card--selected {
+  border-color: rgba(82, 104, 255, 0.5);
+  background: var(--color-primary-soft);
+}
+
+.target-track,
+.target-expiry {
+  color: var(--color-primary);
+  font-size: 21rpx;
+  font-weight: 800;
+}
+
+.target-title {
+  overflow: hidden;
+  margin-top: 12rpx;
+  font-size: 28rpx;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.target-expiry {
+  margin-top: 14rpx;
+}
+
+.answer-source {
+  margin-top: 20rpx;
+}
+
+.answer-string {
+  margin-top: 20rpx;
+}
+
+.answer-image-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14rpx;
+  margin-top: 22rpx;
+}
+
+.selected-file {
+  display: grid;
+  gap: 8rpx;
+  margin-top: 18rpx;
+  padding: 18rpx;
+  border-radius: var(--radius-compact);
+  background: var(--color-success-soft);
+  color: var(--color-success);
+  font-size: 22rpx;
+  word-break: break-all;
+}
+
+.upload-number {
+  color: var(--color-primary-deep);
+  font-size: 64rpx;
+  font-weight: 850;
+}
+
+.answer-row {
+  display: grid;
+  grid-template-columns: 58rpx 1fr 140rpx;
+  align-items: center;
+  gap: 16rpx;
+  margin-top: 14rpx;
+  padding: 18rpx;
+  border: 1rpx solid var(--color-line);
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+}
+
+.answer-order {
+  color: var(--color-primary-deep);
+  font-size: 30rpx;
+  font-weight: 850;
+  text-align: center;
+}
+
+.answer-field {
+  min-width: 0;
+}
+
+.essay-answer {
+  min-height: 220rpx;
+}
+
+.answer-confidence {
+  margin-top: 8rpx;
+  color: var(--color-success);
+  font-size: 20rpx;
+}
+
+.answer-confidence--warning {
+  color: var(--color-warning);
+}
+
+.binding-code {
+  overflow-wrap: anywhere;
+  color: var(--color-muted);
+  font-size: 18rpx;
+  text-align: right;
+}
+
+.success-receipt {
+  margin-top: 20rpx;
+  word-break: break-all;
+}

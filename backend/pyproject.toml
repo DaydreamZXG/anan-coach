@@ -15,6 +15,7 @@ dependencies = [
   "PyYAML>=6,<7",
   "openpyxl>=3.1,<4",
   "alembic>=1.18,<2",
+  "tos>=2.9,<3",
 ]
 
 [project.optional-dependencies]
@@ -32,3 +33,4 @@ include = ["app*"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
+addopts = ["--import-mode=importlib"]

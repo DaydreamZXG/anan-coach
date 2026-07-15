@@ -19,6 +19,7 @@ from app.domains.planning.xingce_completion import complete_xingce_plan_task
 from app.domains.planning.xingce_evidence import record_pending_xingce_evidence
 from app.domains.planning.xingce_start import start_xingce_plan_task
 from app.domains.xingce_learning.real_attempt.repository import XingceAttemptRepository
+from app.domains.xingce_learning.content_version import question_content_version_id
 from app.domains.xingce_learning.real_attempt.schemas import (
     AICauseCandidateState,
     AnswerCheckpoint,
@@ -1278,27 +1279,7 @@ def _freeze_bundle(
     scoring_questions: list[dict[str, Any]] = []
     materials: dict[str, SafeMaterial] = {}
     for source in source_questions:
-        content_source = {
-            key: source.get(key)
-            for key in (
-                "question_id",
-                "module_name",
-                "question_type",
-                "stem",
-                "stem_html",
-                "answer",
-                "material_text",
-                "material_html",
-                "preferred_analysis",
-                "analysis_source",
-                "analysis_status",
-                "prefer_ai_analysis",
-                "analysis_needs_review",
-                "options",
-                "assets",
-            )
-        }
-        content_version_id = _hash(content_source)
+        content_version_id = question_content_version_id(source)
         material_id: str | None = None
         source_assets = [
             {**asset, "public_url": public_url}

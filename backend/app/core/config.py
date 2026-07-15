@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import timedelta
 import os
 
 
@@ -15,6 +16,53 @@ class Settings:
     api_base_url: str = "https://kg.xingguoxian.cn"
     tos_bucket: str = "gongkao-dazi-prod"
     tos_region: str = "cn-guangzhou"
+    tos_endpoint: str = ""
+    tos_access_key: str = ""
+    tos_secret_key: str = ""
+    tos_quarantine_prefix: str = "private/quarantine/external-learning"
+    upload_quota_policy_version: str = ""
+    upload_maximum_pending_bytes_per_user: int = 0
+    upload_maximum_stored_bytes_per_user: int = 0
+    upload_scanner_base_url: str = ""
+    upload_scanner_api_key: str = ""
+    upload_scanner_release_id: str = ""
+    upload_scanner_https_host_allowlist: str = ""
+    upload_scanner_route: str = ""
+    upload_scanner_policy_version: str = ""
+    upload_scanner_dpa_version: str = ""
+    upload_scanner_mainland_only: bool = False
+    upload_scanner_maximum_definition_age: timedelta = timedelta(0)
+    recognition_processor_endpoint: str = ""
+    recognition_processor_token: str = ""
+    recognition_processor_release_id: str = ""
+    recognition_processor_https_host_allowlist: str = ""
+    recognition_processor_approvals_json: str = "[]"
+    recognition_default_import_route: str = ""
+    recognition_default_answer_route: str = ""
+    matching_policy_version: str = "external-hybrid-match-v1"
+    matching_similar_threshold: float = 0.86
+    matching_ambiguity_margin: float = 0.03
+    matching_text_weight: float = 0.75
+    matching_visual_weight: float = 0.25
+    matching_essay_min_prompt_chars: int = 30
+    matching_essay_require_material: bool = True
+    matching_maximum_candidates: int = 8
+    matching_sql_prefilter_threshold: float = 0.20
+    matching_sql_prefetch_factor: int = 5
+    matching_sql_maximum_prefetch: int = 100
+    packet_renderer_base_url: str = ""
+    packet_renderer_api_key: str = ""
+    packet_renderer_release_id: str = ""
+    packet_renderer_https_host_allowlist: str = ""
+    packet_renderer_dpa_confirmed: bool = False
+    packet_renderer_idempotency_header: str = ""
+    packet_renderer_request_id_header: str = ""
+    packet_access_ttl_seconds: int = 300
+    external_learning_worker_poll_seconds: float = 1.0
+    external_learning_maintenance_interval_seconds: int = 30
+    external_learning_upload_recovery_age_seconds: int = 60
+    external_learning_stale_claim_seconds: int = 900
+    external_learning_maintenance_batch_size: int = 100
     ai_provider_base_url: str = DEFAULT_AI_PROVIDER_BASE_URL
     ai_model: str = "gemini-3.5-flash"
     ai_api_key: str = ""
@@ -63,6 +111,115 @@ def get_settings() -> Settings:
         api_base_url=os.getenv("API_BASE_URL", "https://kg.xingguoxian.cn"),
         tos_bucket=os.getenv("TOS_BUCKET", "gongkao-dazi-prod"),
         tos_region=os.getenv("TOS_REGION", "cn-guangzhou"),
+        tos_endpoint=os.getenv("TOS_ENDPOINT", ""),
+        tos_access_key=os.getenv("TOS_ACCESS_KEY", ""),
+        tos_secret_key=os.getenv("TOS_SECRET_KEY", ""),
+        tos_quarantine_prefix=os.getenv(
+            "TOS_QUARANTINE_PREFIX", "private/quarantine/external-learning"
+        ),
+        upload_quota_policy_version=os.getenv("UPLOAD_QUOTA_POLICY_VERSION", ""),
+        upload_maximum_pending_bytes_per_user=int(
+            os.getenv("UPLOAD_MAXIMUM_PENDING_BYTES_PER_USER", "0")
+        ),
+        upload_maximum_stored_bytes_per_user=int(
+            os.getenv("UPLOAD_MAXIMUM_STORED_BYTES_PER_USER", "0")
+        ),
+        upload_scanner_base_url=os.getenv("UPLOAD_SCANNER_BASE_URL", ""),
+        upload_scanner_api_key=os.getenv("UPLOAD_SCANNER_API_KEY", ""),
+        upload_scanner_release_id=os.getenv("UPLOAD_SCANNER_RELEASE_ID", ""),
+        upload_scanner_https_host_allowlist=os.getenv(
+            "UPLOAD_SCANNER_HTTPS_HOST_ALLOWLIST", ""
+        ),
+        upload_scanner_route=os.getenv("UPLOAD_SCANNER_ROUTE", ""),
+        upload_scanner_policy_version=os.getenv(
+            "UPLOAD_SCANNER_POLICY_VERSION", ""
+        ),
+        upload_scanner_dpa_version=os.getenv("UPLOAD_SCANNER_DPA_VERSION", ""),
+        upload_scanner_mainland_only=_environment_bool(
+            "UPLOAD_SCANNER_MAINLAND_ONLY", default=False
+        ),
+        upload_scanner_maximum_definition_age=timedelta(
+            seconds=int(os.getenv("UPLOAD_SCANNER_MAXIMUM_DEFINITION_AGE_SECONDS", "0"))
+        ),
+        recognition_processor_endpoint=os.getenv(
+            "RECOGNITION_PROCESSOR_ENDPOINT", ""
+        ),
+        recognition_processor_token=os.getenv("RECOGNITION_PROCESSOR_TOKEN", ""),
+        recognition_processor_release_id=os.getenv(
+            "RECOGNITION_PROCESSOR_RELEASE_ID", ""
+        ),
+        recognition_processor_https_host_allowlist=os.getenv(
+            "RECOGNITION_PROCESSOR_HTTPS_HOST_ALLOWLIST", ""
+        ),
+        recognition_processor_approvals_json=os.getenv(
+            "RECOGNITION_PROCESSOR_APPROVALS_JSON", "[]"
+        ),
+        recognition_default_import_route=os.getenv(
+            "RECOGNITION_DEFAULT_IMPORT_ROUTE", ""
+        ),
+        recognition_default_answer_route=os.getenv(
+            "RECOGNITION_DEFAULT_ANSWER_ROUTE", ""
+        ),
+        matching_policy_version=os.getenv(
+            "MATCHING_POLICY_VERSION", "external-hybrid-match-v1"
+        ),
+        matching_similar_threshold=float(
+            os.getenv("MATCHING_SIMILAR_THRESHOLD", "0.86")
+        ),
+        matching_ambiguity_margin=float(
+            os.getenv("MATCHING_AMBIGUITY_MARGIN", "0.03")
+        ),
+        matching_text_weight=float(os.getenv("MATCHING_TEXT_WEIGHT", "0.75")),
+        matching_visual_weight=float(os.getenv("MATCHING_VISUAL_WEIGHT", "0.25")),
+        matching_essay_min_prompt_chars=int(
+            os.getenv("MATCHING_ESSAY_MIN_PROMPT_CHARS", "30")
+        ),
+        matching_essay_require_material=_environment_bool(
+            "MATCHING_ESSAY_REQUIRE_MATERIAL", default=True
+        ),
+        matching_maximum_candidates=int(
+            os.getenv("MATCHING_MAXIMUM_CANDIDATES", "8")
+        ),
+        matching_sql_prefilter_threshold=float(
+            os.getenv("MATCHING_SQL_PREFILTER_THRESHOLD", "0.20")
+        ),
+        matching_sql_prefetch_factor=int(
+            os.getenv("MATCHING_SQL_PREFETCH_FACTOR", "5")
+        ),
+        matching_sql_maximum_prefetch=int(
+            os.getenv("MATCHING_SQL_MAXIMUM_PREFETCH", "100")
+        ),
+        packet_renderer_base_url=os.getenv("PACKET_RENDERER_BASE_URL", ""),
+        packet_renderer_api_key=os.getenv("PACKET_RENDERER_API_KEY", ""),
+        packet_renderer_release_id=os.getenv("PACKET_RENDERER_RELEASE_ID", ""),
+        packet_renderer_https_host_allowlist=os.getenv(
+            "PACKET_RENDERER_HTTPS_HOST_ALLOWLIST", ""
+        ),
+        packet_renderer_dpa_confirmed=_environment_bool(
+            "PACKET_RENDERER_DPA_CONFIRMED", default=False
+        ),
+        packet_renderer_idempotency_header=os.getenv(
+            "PACKET_RENDERER_IDEMPOTENCY_HEADER", ""
+        ),
+        packet_renderer_request_id_header=os.getenv(
+            "PACKET_RENDERER_REQUEST_ID_HEADER", ""
+        ),
+        packet_access_ttl_seconds=int(os.getenv("PACKET_ACCESS_TTL_SECONDS", "300")),
+        external_learning_worker_poll_seconds=float(
+            os.getenv("EXTERNAL_LEARNING_WORKER_POLL_SECONDS", "1")
+        ),
+        external_learning_maintenance_interval_seconds=int(
+            os.getenv("EXTERNAL_LEARNING_MAINTENANCE_INTERVAL_SECONDS", "30")
+        ),
+        external_learning_upload_recovery_age_seconds=int(
+            os.getenv("EXTERNAL_LEARNING_UPLOAD_RECOVERY_AGE_SECONDS", "60")
+        ),
+        external_learning_stale_claim_seconds=int(
+            os.getenv("EXTERNAL_LEARNING_STALE_CLAIM_SECONDS", "900")
+        ),
+        external_learning_maintenance_batch_size=int(
+            os.getenv("EXTERNAL_LEARNING_MAINTENANCE_BATCH_SIZE", "100")
+        ),
         ai_provider_base_url=os.getenv(
             "AI_PROVIDER_BASE_URL", DEFAULT_AI_PROVIDER_BASE_URL
         ),
