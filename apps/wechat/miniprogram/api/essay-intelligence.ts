@@ -11,14 +11,29 @@ import type {
   EssayDraftingCompletionCommand,
   EssayDraftingCompletionResult,
   EssayFinding,
+  EssayFindingDecision,
   EssayLearningArtifactCommand,
   EssayLearningArtifactVersion,
+  EssayMasteryEvidenceRef,
+  EssayMasteryProjection,
+  EssayMasteryStateVersion,
   EssayReviewJobView,
   EssayReviewIntentView,
   EssayReviewQueueCommand,
   EssayReviewResponse,
+  EssayRewriteCommand,
+  EssayRewriteFindingResolution,
+  EssayRewritePlanTaskCompletionCommand,
+  EssayRewritePlanTaskCompletionResult,
+  EssayRewriteRecord,
+  EssayRewriteResult,
   EssayTaskArtifactState,
   EssayTaskWorkspace,
+  EssayTransferCommand,
+  EssayTransferPlanTaskCompletionCommand,
+  EssayTransferPlanTaskCompletionResult,
+  EssayTransferRecord,
+  EssayTransferResult,
   EssayWorkspaceMaterial,
   EssayWorkspaceMaterialSegment,
   EssayWorkspaceRubric,
@@ -62,7 +77,36 @@ export type {
   PointExtractionPayload,
   ReflectionPayload,
   ReviewAcknowledgementPayload,
+  EssayFindingDecision,
+  EssayMasteryEvidenceRef,
+  EssayMasteryProjection,
+  EssayMasteryStateVersion,
+  EssayRewriteFindingResolution,
 };
+
+export type EssayReflectionPayloadV2 = ReflectionPayload;
+export type EssayDraftingCompletionCommandV2 = EssayDraftingCompletionCommand;
+export type EssayFindingDecisionV1 = EssayFindingDecision;
+export type EssayFindingDecisionPayloadV1 = ReviewAcknowledgementPayload;
+
+export type EssayFindingDecisionArtifactCommand = Omit<
+  EssayLearningArtifactCommand,
+  "artifactType" | "payload"
+> & {
+  artifactType: "review_acknowledgement";
+  payload: EssayFindingDecisionPayloadV1;
+};
+
+export type EssayRewriteCommandV2 = EssayRewriteCommand;
+export type EssayRewriteRecordV2 = EssayRewriteRecord;
+export type EssayRewriteResultV2 = EssayRewriteResult;
+export type EssayTransferCommandV2 = EssayTransferCommand;
+export type EssayTransferRecordV2 = EssayTransferRecord;
+export type EssayTransferResultV2 = EssayTransferResult;
+export type EssayRewritePlanTaskCompletionCommandV2 = EssayRewritePlanTaskCompletionCommand;
+export type EssayRewritePlanTaskCompletionResultV2 = EssayRewritePlanTaskCompletionResult;
+export type EssayTransferPlanTaskCompletionCommandV2 = EssayTransferPlanTaskCompletionCommand;
+export type EssayTransferPlanTaskCompletionResultV2 = EssayTransferPlanTaskCompletionResult;
 
 export type EssayArtifactType = EssayLearningArtifactCommand["artifactType"];
 export type EssayPointCategory = ExtractedPoint["category"];
@@ -109,7 +153,7 @@ export class EssayIntelligenceApi {
   }
 
   completeDraftingPlanTask(
-    command: EssayDraftingCompletionCommand,
+    command: EssayDraftingCompletionCommandV2,
     idempotencyKey: string,
   ): Promise<ApiEnvelope<EssayDraftingCompletionResult>> {
     return this.client.post<EssayDraftingCompletionResult>(
@@ -163,7 +207,7 @@ export class EssayIntelligenceApi {
   }
 
   createArtifact(
-    command: EssayLearningArtifactCommand,
+    command: EssayLearningArtifactCommand | EssayFindingDecisionArtifactCommand,
     idempotencyKey: string,
   ): Promise<ApiEnvelope<EssayLearningArtifactVersion>> {
     return this.client.post<EssayLearningArtifactVersion>(
@@ -171,6 +215,52 @@ export class EssayIntelligenceApi {
       command,
       { idempotencyKey },
     );
+  }
+
+  createRewrite(
+    command: EssayRewriteCommandV2,
+    idempotencyKey: string,
+  ): Promise<ApiEnvelope<EssayRewriteResultV2>> {
+    return this.client.post<EssayRewriteResultV2>("/api/v2/essay-intelligence/rewrites", command, {
+      idempotencyKey,
+    });
+  }
+
+  completeRewritePlanTask(
+    command: EssayRewritePlanTaskCompletionCommandV2,
+    idempotencyKey: string,
+  ): Promise<ApiEnvelope<EssayRewritePlanTaskCompletionResultV2>> {
+    return this.client.post<EssayRewritePlanTaskCompletionResultV2>(
+      "/api/v2/essay-intelligence/rewrites/complete-plan-task",
+      command,
+      { idempotencyKey },
+    );
+  }
+
+  createTransfer(
+    command: EssayTransferCommandV2,
+    idempotencyKey: string,
+  ): Promise<ApiEnvelope<EssayTransferResultV2>> {
+    return this.client.post<EssayTransferResultV2>(
+      "/api/v2/essay-intelligence/transfers",
+      command,
+      { idempotencyKey },
+    );
+  }
+
+  completeTransferPlanTask(
+    command: EssayTransferPlanTaskCompletionCommandV2,
+    idempotencyKey: string,
+  ): Promise<ApiEnvelope<EssayTransferPlanTaskCompletionResultV2>> {
+    return this.client.post<EssayTransferPlanTaskCompletionResultV2>(
+      "/api/v2/essay-intelligence/transfers/complete-plan-task",
+      command,
+      { idempotencyKey },
+    );
+  }
+
+  getMastery(): Promise<ApiEnvelope<EssayMasteryProjection>> {
+    return this.client.get<EssayMasteryProjection>("/api/v2/essay-intelligence/mastery");
   }
 
   completePlanTask(

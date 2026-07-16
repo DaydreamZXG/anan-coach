@@ -44,8 +44,18 @@ def test_unresolved_essay_review_becomes_rewrite_instead_of_fixed_daily_prompt()
         essay=EssayPlanningSnapshot(
             "rewrite_due",
             "essay-task-v2",
+            material_bundle_version_id="essay-material-v2",
+            rubric_version_id="essay-rubric-v2",
             attempt_id="attempt-1",
+            answer_version_id="current-answer-1",
             review_version_id="review-1",
+            source_task_version_id="essay-task-v2",
+            source_material_bundle_version_id="essay-material-v2",
+            source_answer_version_id="original-answer-1",
+            finding_decision_artifact_version_id="decision-1",
+            mastery_state="rewrite_due",
+            mastery_ids=("mastery-1",),
+            mastery_version_ids=("mastery-version-1",),
         ),
         available_minutes=60,
     )
@@ -55,20 +65,49 @@ def test_unresolved_essay_review_becomes_rewrite_instead_of_fixed_daily_prompt()
     assert essay.estimated_minutes == 20
     assert "未解决 finding" in essay.reason
     assert any(ref["entityType"] == "essay_review_version" for ref in essay.evidence_refs)
+    assert "stage=essay_rewrite" in essay.start_url
+    assert "attemptId=attempt-1" in essay.start_url
+    assert "baseAnswerVersionId=original-answer-1" in essay.start_url
+    assert "basedOnAnswerVersionId=current-answer-1" in essay.start_url
+    assert {
+        ref["entityType"] for ref in essay.evidence_refs
+    } >= {
+        "essay_mastery_state_version",
+        "essay_source_answer_version",
+        "essay_finding_decision",
+    }
 
 
 def test_finished_rewrite_requires_fresh_material_transfer() -> None:
     candidates = build_dual_track_candidates(
         goal=_goal(),
         objective=ObjectivePlanningSnapshot(
-            False, 0, 1, "判断推理", "objective-v4", "available", None
+            False,
+            0,
+            1,
+            "判断推理",
+            "objective-v4",
+            "available",
+            None,
+            due_verification_mastery_id="00000000-0000-4000-8000-000000000001",
+            due_verification_version_id="00000000-0000-4000-8000-000000000002",
         ),
         essay=EssayPlanningSnapshot(
             "transfer_due",
-            "essay-task-v3",
+            "essay-target-task-v3",
+            material_bundle_version_id="essay-target-material-v3",
+            rubric_version_id="essay-target-rubric-v3",
             attempt_id="attempt-2",
+            answer_version_id="current-answer-2",
             review_version_id="review-2",
             rewrite_version_id="rewrite-2",
+            source_task_version_id="essay-source-task-v2",
+            source_material_bundle_version_id="essay-source-material-v2",
+            source_answer_version_id="source-answer-2",
+            finding_decision_artifact_version_id="decision-2",
+            mastery_state="transfer_due",
+            mastery_ids=("mastery-2",),
+            mastery_version_ids=("mastery-version-2",),
         ),
         available_minutes=60,
     )
@@ -76,6 +115,13 @@ def test_finished_rewrite_requires_fresh_material_transfer() -> None:
     essay = next(item for item in candidates.candidates if item.track == "essay")
     assert essay.stage == "essay_transfer"
     assert "不能证明能力稳定" in essay.reason
+    assert "taskVersionId=essay-target-task-v3" in essay.start_url
+    assert "sourceRewriteVersionId=rewrite-2" in essay.start_url
+    assert any(
+        ref["entityType"] == "essay_source_task_version"
+        and ref["entityId"] == "essay-source-task-v2"
+        for ref in essay.evidence_refs
+    )
 
 
 def test_missing_published_essay_content_is_explicitly_omitted() -> None:
@@ -160,6 +206,28 @@ def test_unavailable_objective_closure_has_no_synthetic_counts_or_candidates() -
         item.stage in {"objective_reflection", "objective_verification"}
         for item in candidates.candidates
     )
+
+
+def test_unavailable_essay_closure_is_a_capability_gap_not_fake_drafting() -> None:
+    reason = "transfer_due head lacks a distinct published task and material"
+    candidates = build_dual_track_candidates(
+        goal=_goal(),
+        objective=ObjectivePlanningSnapshot(
+            False, 0, 0, "资料分析", "objective-v1", "available", None
+        ),
+        essay=EssayPlanningSnapshot(
+            "closure_unavailable",
+            None,
+            pending_reason=reason,
+            closure_readiness="unavailable",
+            closure_unavailable_reason=reason,
+        ),
+        available_minutes=45,
+    )
+
+    assert candidates.capability_gaps["essayClosure"] == reason
+    assert candidates.omitted_track_reasons["essay"] == reason
+    assert not any(item.track == "essay" for item in candidates.candidates)
 
 
 def _goal(readiness: str = "complete") -> GoalPlanningSnapshot:

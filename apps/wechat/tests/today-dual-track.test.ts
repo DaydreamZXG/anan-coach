@@ -80,6 +80,25 @@ describe("today dual-track planning", () => {
     expect(essayView?.navigationUrl).toContain("planTaskId=task-shenlun-material");
   });
 
+  it("binds the authoritative plan task before opening a Xingce briefing", () => {
+    const [source] = prototypeToday.tasks;
+    if (!source || source.track !== "xingce") throw new Error("Xingce fixture is required");
+    const task = presentTodayDashboard({
+      ...prototypeToday,
+      tasks: [
+        {
+          ...source,
+          startUrl: "/pages/xingce-task-intro/index?mode=targeted",
+        },
+      ],
+    }).tasks[0];
+
+    expect(task?.canOpen).toBe(true);
+    expect(task?.navigationUrl).toBe(
+      "/pages/xingce-task-intro/index?mode=targeted&planTaskId=task-data",
+    );
+  });
+
   it("does not treat a registered static prototype as an executable task page", () => {
     const prototypeOnly = presentTodayDashboard({
       ...prototypeToday,

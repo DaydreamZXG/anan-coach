@@ -20,6 +20,10 @@ describe("real xingce task navigation", () => {
       mode: "navigateTo",
       url: "/pages/practice/index?mode=targeted&planTaskId=plan-task-2026-07-15",
     });
+    expect(registeredTaskNavigationTarget("/pages/practice/index?mode=verification")).toEqual({
+      mode: "navigateTo",
+      url: "/pages/practice/index?mode=verification",
+    });
   });
 
   it("rejects practice navigation without one valid mode", () => {
@@ -66,6 +70,37 @@ describe("real xingce task navigation", () => {
     expect(registeredTaskNavigationTarget("/pages/reflection/index")).toBeNull();
     expect(
       registeredTaskNavigationTarget("/pages/practice-prototype/index?mode=practice"),
+    ).toBeNull();
+  });
+
+  it("registers C08 as an authenticated non-task destination", () => {
+    expect(routes.xingceMastery).toBe("/pages/xingce-mastery/index");
+    expect(registeredNavigationTarget(routes.xingceMastery)).toEqual({
+      mode: "navigateTo",
+      url: "/pages/xingce-mastery/index",
+    });
+    expect(registeredTaskNavigationTarget(routes.xingceMastery)).toBeNull();
+  });
+
+  it("registers C01 only with one explicit plan task and briefing mode", () => {
+    const url = "/pages/xingce-task-intro/index?planTaskId=plan-task-2026-07-16&mode=targeted";
+    expect(routes.xingceTaskIntro).toBe("/pages/xingce-task-intro/index");
+    expect(registeredTaskNavigationTarget(url)).toEqual({ mode: "navigateTo", url });
+    expect(registeredTaskNavigationTarget(routes.xingceTaskIntro)).toBeNull();
+    expect(
+      registeredTaskNavigationTarget(
+        "/pages/xingce-task-intro/index?planTaskId=plan-task&mode=practice",
+      ),
+    ).toBeNull();
+    expect(
+      registeredTaskNavigationTarget(
+        "/pages/xingce-task-intro/index?planTaskId=plan-task&mode=verification&extra=1",
+      ),
+    ).toBeNull();
+    expect(
+      registeredTaskNavigationTarget(
+        "/pages/xingce-task-intro/index?planTaskId=first&planTaskId=second&mode=baseline",
+      ),
     ).toBeNull();
   });
 });

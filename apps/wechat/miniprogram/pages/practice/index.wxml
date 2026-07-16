@@ -134,23 +134,70 @@
 
     <view wx:else class="result-workspace">
       <view class="result-hero">
-        <view class="result-eyebrow">服务端已按固定题面评分</view>
+        <view class="result-eyebrow">服务端已按冻结事实合同评分</view>
         <view class="result-score"><text>{{result.correctCount}}</text> / {{result.totalCount}}</view>
         <view class="result-title">{{result.headline}}</view>
         <view class="result-copy">{{result.summary}}</view>
       </view>
+
+      <view wx:if="{{result.group}}" class="group-summary card group-summary--{{result.group.outcomeTone}}">
+        <view class="group-head">
+          <view>
+            <view class="group-kicker">3 题组结果</view>
+            <view class="group-title">{{result.group.outcomeLabel}}</view>
+          </view>
+          <view class="group-code type-data">{{result.group.outcome}}</view>
+        </view>
+        <view class="group-description">{{result.group.description}}</view>
+        <view class="group-counts">
+          <view wx:for="{{result.group.counts}}" wx:key="code" class="group-count-item">
+            <view class="group-count-value type-data">{{item.value}}</view>
+            <view class="group-count-label">{{item.label}}</view>
+          </view>
+        </view>
+        <view class="group-next">{{result.group.nextActionLabel}}</view>
+      </view>
+
+      <view wx:elif="{{result.availability === 'legacy_result_unavailable'}}" class="legacy-result card">
+        <view class="legacy-result-title">历史结果不提供新事实拆分</view>
+        <view class="legacy-result-copy">不补算真会、猜对、主动放弃、超建议用时或方法正确但计算错误。原结果只读保留。</view>
+        <view class="legacy-result-code type-data">legacy_result_unavailable</view>
+      </view>
+
+      <view wx:if="{{result.verification}}" class="verification-card card verification-card--{{result.verification.outcomeTone}}">
+        <view class="verification-head">
+          <view>
+            <view class="verification-kicker">{{result.verification.stageLabel}}</view>
+            <view class="verification-title">{{result.verification.outcomeLabel}}</view>
+          </view>
+          <view class="verification-evidence verification-evidence--{{result.verification.evidenceState}}">{{result.verification.evidenceLabel}}</view>
+        </view>
+        <view class="verification-description">{{result.verification.evidenceDescription}}</view>
+        <view class="verification-source type-data">{{result.verification.sourceVersionLabel}}</view>
+      </view>
+
       <view wx:for="{{result.items}}" wx:key="questionId" class="result-card card">
         <view class="result-card-head">
-          <view class="result-status result-status--{{item.resultTone}}">{{item.resultLabel}}</view>
+          <view>
+            <view class="result-position">{{item.positionLabel}}</view>
+            <view class="result-status result-status--{{item.resultTone}}">{{item.resultLabel}}</view>
+          </view>
           <view class="result-answer">你的答案 {{item.selectedLabel}} · 正确答案 {{item.correctLabel}}</view>
         </view>
+        <view class="result-facts">
+          <view>{{item.objectiveLabel}}</view>
+          <view>{{item.confidenceLabel}}</view>
+          <view>{{item.dispositionLabel}}</view>
+        </view>
+        <view class="timing-fact {{item.timingExceeded ? 'timing-fact--exceeded' : ''}}">{{item.timingLabel}}<text wx:if="{{item.timingExceeded}}">·只记录用时，不自动判错</text></view>
         <view class="explanation">{{item.explanation}}</view>
         <view class="explanation-source">{{item.explanationSource}}</view>
+        <button class="result-dispute" data-questionid="{{item.questionId}}" bindtap="openResultDispute">这题有争议</button>
       </view>
       <view wx:if="{{sessionState !== 'completed'}}" class="reflection-gate card">
         <view class="gate-mark">必做复盘</view>
         <view class="gate-title">先写下你当时真实的想法</view>
-        <view class="gate-copy">AI 错因当前明确不可用，也不会收费。错因由你选择替换或跳过。</view>
+        <view class="gate-copy">岸岸不会把猜对或超建议用时冒充为错因。错因与逐题解读由你确认。</view>
         <button class="primary-button" bindtap="openReflection">开始复盘</button>
       </view>
       <view wx:else class="completion-card card">

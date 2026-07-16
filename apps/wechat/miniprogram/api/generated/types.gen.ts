@@ -9,17 +9,61 @@ export type ClientOptions = {
  */
 export type AiCauseCandidateState = {
     /**
-     * Charged
+     * Candidateversionid
      */
-    charged?: false;
+    candidateVersionId?: string | null;
+    /**
+     * Causecode
+     */
+    causeCode?: string | null;
+    /**
+     * Entitlementpolicyversion
+     */
+    entitlementPolicyVersion?: 'included-with-canonical-practice@v1';
+    /**
+     * Evidencerefs
+     */
+    evidenceRefs?: Array<string>;
+    /**
+     * Explanation
+     */
+    explanation?: string | null;
+    /**
+     * Improvement
+     */
+    improvement?: string | null;
+    /**
+     * Limitations
+     */
+    limitations?: Array<string>;
+    /**
+     * Missingevidence
+     */
+    missingEvidence?: Array<string>;
+    /**
+     * Question
+     */
+    question?: string | null;
+    /**
+     * Quotastate
+     */
+    quotaState?: 'not_metered';
+    /**
+     * Rationale
+     */
+    rationale?: string | null;
     /**
      * Reason
      */
-    reason?: 'scenario_not_activated';
+    reason?: string | null;
     /**
      * State
      */
-    state?: 'unavailable';
+    state: 'unavailable' | 'processing' | 'candidate_ready' | 'followup_required' | 'evidence_insufficient' | 'terminated';
+    /**
+     * Summary
+     */
+    summary?: string | null;
 };
 
 /**
@@ -668,7 +712,7 @@ export type AttemptReviewProjection = {
     /**
      * State
      */
-    state: 'reflection_required' | 'cause_candidate_pending' | 'cause_decision_required' | 'immediate_verification_due';
+    state: 'reflection_required' | 'cause_candidate_pending' | 'cause_followup_required' | 'cause_decision_required' | 'cause_evidence_insufficient' | 'cause_agent_terminated' | 'immediate_verification_due' | 'mastery_recorded';
 };
 
 /**
@@ -802,18 +846,144 @@ export type CalibrationSources = {
 };
 
 /**
+ * CandidateConfirm
+ */
+export type CandidateConfirm = {
+    /**
+     * Applicability
+     */
+    applicability: Array<string>;
+    /**
+     * Baseversionid
+     */
+    baseVersionId: string;
+    /**
+     * Candidateid
+     */
+    candidateId: string;
+    /**
+     * Cardid
+     */
+    cardId: string;
+    /**
+     * Exclusions
+     */
+    exclusions: Array<string>;
+    /**
+     * Methodsteps
+     */
+    methodSteps: Array<string>;
+    /**
+     * Pitfalls
+     */
+    pitfalls: Array<string>;
+    /**
+     * Recognition
+     */
+    recognition: string;
+    rightsDeclaration: RightsDeclaration;
+    /**
+     * Title
+     */
+    title: string;
+};
+
+/**
  * CandidateState
  */
 export type CandidateState = 'candidate' | 'confirmed' | 'rejected' | 'expired';
+
+/**
+ * CandidateStatus
+ */
+export type CandidateStatus = 'processing' | 'ready' | 'failed' | 'expired';
+
+/**
+ * CardState
+ */
+export type CardState = 'private_draft' | 'automated_review' | 'trial' | 'community_validated' | 'revision_required' | 'rejected' | 'restricted' | 'retired';
+
+/**
+ * CardSubmit
+ */
+export type CardSubmit = {
+    /**
+     * Cardid
+     */
+    cardId: string;
+    /**
+     * Idempotencykey
+     */
+    idempotencyKey: string;
+    /**
+     * Versionid
+     */
+    versionId: string;
+};
+
+/**
+ * CardVersionView
+ */
+export type CardVersionView = {
+    /**
+     * Applicability
+     */
+    applicability: Array<string>;
+    /**
+     * Authorconfirmedat
+     */
+    authorConfirmedAt: string | null;
+    /**
+     * Baseversionid
+     */
+    baseVersionId: string | null;
+    /**
+     * Cardid
+     */
+    cardId: string;
+    /**
+     * Exclusions
+     */
+    exclusions: Array<string>;
+    /**
+     * Methodsteps
+     */
+    methodSteps: Array<string>;
+    /**
+     * Pitfalls
+     */
+    pitfalls: Array<string>;
+    /**
+     * Recognition
+     */
+    recognition: string | null;
+    rightsDeclaration: RightsDeclaration | null;
+    /**
+     * Title
+     */
+    title: string | null;
+    /**
+     * Versionid
+     */
+    versionId: string;
+    /**
+     * Versionnumber
+     */
+    versionNumber: number;
+};
 
 /**
  * CauseDecisionCommand
  */
 export type CauseDecisionCommand = {
     /**
+     * Candidateversionid
+     */
+    candidateVersionId?: string | null;
+    /**
      * Decision
      */
-    decision: 'replace' | 'skip';
+    decision: 'confirm' | 'reject' | 'replace' | 'defer' | 'skip';
     /**
      * Expectedrevision
      */
@@ -829,9 +999,17 @@ export type CauseDecisionCommand = {
  */
 export type CauseDecisionVersionProjection = {
     /**
+     * Candidateversionid
+     */
+    candidateVersionId?: string | null;
+    /**
+     * Confirmedcauseversionid
+     */
+    confirmedCauseVersionId?: string | null;
+    /**
      * Decision
      */
-    decision: 'replace' | 'skip';
+    decision: 'confirm' | 'reject' | 'replace' | 'defer' | 'skip';
     /**
      * Decisionversionid
      */
@@ -844,6 +1022,24 @@ export type CauseDecisionVersionProjection = {
      * Versionno
      */
     versionNo: number;
+};
+
+/**
+ * CauseFollowupCommand
+ */
+export type CauseFollowupCommand = {
+    /**
+     * Answer
+     */
+    answer: string;
+    /**
+     * Candidateversionid
+     */
+    candidateVersionId: string;
+    /**
+     * Expectedrevision
+     */
+    expectedRevision: number;
 };
 
 /**
@@ -1044,6 +1240,38 @@ export type CommerceProduct = {
 };
 
 /**
+ * CommunityRewardLedgerResponse
+ *
+ * Frozen public v2 ledger projection; detailed records stay internal.
+ */
+export type CommunityRewardLedgerResponse = {
+    /**
+     * Activepolicyversions
+     */
+    activePolicyVersions: Array<string>;
+    /**
+     * Aiquotabalance
+     */
+    aiQuotaBalance: number;
+    /**
+     * Awardids
+     */
+    awardIds: Array<string>;
+    /**
+     * Entitlementversion
+     */
+    entitlementVersion: string;
+    /**
+     * Entryids
+     */
+    entryIds: Array<string>;
+    /**
+     * Membershipsecondsbalance
+     */
+    membershipSecondsBalance: number;
+};
+
+/**
  * CompanionAskRequest
  */
 export type CompanionAskRequest = {
@@ -1225,6 +1453,28 @@ export type ConfirmImportRecognitionCommand = {
 };
 
 /**
+ * ConfirmReceipt
+ */
+export type ConfirmReceipt = {
+    /**
+     * Authorconfirmedat
+     */
+    authorConfirmedAt: string;
+    /**
+     * Cardid
+     */
+    cardId: string;
+    /**
+     * Versionid
+     */
+    versionId: string;
+    /**
+     * Versionnumber
+     */
+    versionNumber: number;
+};
+
+/**
  * ContentAnchor
  */
 export type ContentAnchor = {
@@ -1311,6 +1561,24 @@ export type ContentMatchVersion = {
      * Versionno
      */
     versionNo: number;
+};
+
+/**
+ * ContributionsResponse
+ */
+export type ContributionsResponse = {
+    /**
+     * Cardids
+     */
+    cardIds: Array<string>;
+    /**
+     * Nextcursor
+     */
+    nextCursor?: string | null;
+    /**
+     * Rewardentryids
+     */
+    rewardEntryIds: Array<string>;
 };
 
 /**
@@ -1466,6 +1734,129 @@ export type DailyCapacityCommandResult = {
 };
 
 /**
+ * DelayedVerificationReceipt
+ */
+export type DelayedVerificationReceipt = {
+    /**
+     * Recorded
+     */
+    recorded: boolean;
+    /**
+     * Verificationid
+     */
+    verificationId: string;
+};
+
+/**
+ * DelayedVerificationRecord
+ */
+export type DelayedVerificationRecord = {
+    /**
+     * Questionattemptid
+     */
+    questionAttemptId: string;
+    /**
+     * Questionversionid
+     */
+    questionVersionId: string;
+    /**
+     * Trialid
+     */
+    trialId: string;
+};
+
+/**
+ * DiscoveryCard
+ */
+export type DiscoveryCard = {
+    /**
+     * Applicability
+     */
+    applicability: Array<string>;
+    /**
+     * Cardversionid
+     */
+    cardVersionId: string;
+    /**
+     * Conservativescore
+     */
+    conservativeScore: number | null;
+    /**
+     * Evidencecount
+     */
+    evidenceCount: number;
+    /**
+     * Evidencepolicyversion
+     */
+    evidencePolicyVersion: string;
+    /**
+     * Exclusions
+     */
+    exclusions: Array<string>;
+    /**
+     * Isauthor
+     */
+    isAuthor?: false;
+    /**
+     * Methodsteps
+     */
+    methodSteps: Array<string>;
+    /**
+     * Pitfalls
+     */
+    pitfalls: Array<string>;
+    /**
+     * Recognition
+     */
+    recognition: string;
+    /**
+     * Riskflags
+     */
+    riskFlags: Array<string>;
+    /**
+     * Title
+     */
+    title: string;
+};
+
+/**
+ * DiscoveryRequest
+ */
+export type DiscoveryRequest = {
+    /**
+     * Applicability
+     */
+    applicability: Array<string>;
+    /**
+     * Cursor
+     */
+    cursor?: string | null;
+    track: Track;
+};
+
+/**
+ * DiscoveryResponse
+ */
+export type DiscoveryResponse = {
+    /**
+     * Cardversionids
+     */
+    cardVersionIds: Array<string>;
+    /**
+     * Cards
+     */
+    cards?: Array<DiscoveryCard>;
+    /**
+     * Nextcursor
+     */
+    nextCursor?: string | null;
+    /**
+     * Rankingpolicyversion
+     */
+    rankingPolicyVersion: string;
+};
+
+/**
  * DistrictInfo
  */
 export type DistrictInfo = {
@@ -1597,6 +1988,56 @@ export type DocketOption = {
      * Text
      */
     text: string;
+};
+
+/**
+ * DraftCreate
+ */
+export type DraftCreate = {
+    /**
+     * Applicability
+     */
+    applicability: Array<string>;
+    /**
+     * Idempotencykey
+     */
+    idempotencyKey: string;
+    /**
+     * Reflectionversionid
+     */
+    reflectionVersionId?: string | null;
+    /**
+     * Sourceartifactid
+     */
+    sourceArtifactId?: string | null;
+    /**
+     * Sourcetext
+     */
+    sourceText: string;
+    sourceType: SourceType;
+    track: Track;
+};
+
+/**
+ * DraftReceipt
+ */
+export type DraftReceipt = {
+    /**
+     * Candidatestatus
+     */
+    candidateStatus: 'processing' | 'ready' | 'failed';
+    /**
+     * Cardid
+     */
+    cardId: string;
+    /**
+     * Status
+     */
+    status?: 'private_draft';
+    /**
+     * Versionid
+     */
+    versionId: string;
 };
 
 /**
@@ -2170,6 +2611,28 @@ export type EssayFinding = {
 };
 
 /**
+ * EssayFindingDecision
+ */
+export type EssayFindingDecision = {
+    /**
+     * Decision
+     */
+    decision: 'accepted' | 'rejected' | 'uncertain';
+    /**
+     * Findingid
+     */
+    findingId: string;
+    /**
+     * Followupquestion
+     */
+    followUpQuestion?: string | null;
+    /**
+     * Learnerreason
+     */
+    learnerReason?: string | null;
+};
+
+/**
  * EssayLearningArtifactCommand
  */
 export type EssayLearningArtifactCommand = {
@@ -2279,6 +2742,132 @@ export type EssayLearningArtifactVersion = {
      * Taskversionid
      */
     taskVersionId: string;
+    /**
+     * Versionno
+     */
+    versionNo: number;
+};
+
+/**
+ * EssayMasteryEvidenceRef
+ */
+export type EssayMasteryEvidenceRef = {
+    /**
+     * Entityid
+     */
+    entityId: string;
+    /**
+     * Entitytype
+     */
+    entityType: string;
+    /**
+     * Owner
+     */
+    owner?: 'essay_intelligence';
+    /**
+     * Role
+     */
+    role: string;
+    /**
+     * Versionid
+     */
+    versionId: string;
+};
+
+/**
+ * EssayMasteryProjection
+ */
+export type EssayMasteryProjection = {
+    /**
+     * Contractversion
+     */
+    contractVersion: 'essay-mastery@v1';
+    /**
+     * Duecount
+     */
+    dueCount: number;
+    /**
+     * Items
+     */
+    items: Array<EssayMasteryStateVersion>;
+    /**
+     * Stablecount
+     */
+    stableCount: number;
+};
+
+/**
+ * EssayMasteryStateVersion
+ */
+export type EssayMasteryStateVersion = {
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Dueat
+     */
+    dueAt?: string | null;
+    /**
+     * Evidencerefs
+     */
+    evidenceRefs: Array<EssayMasteryEvidenceRef>;
+    /**
+     * Findingdecisionartifactversionid
+     */
+    findingDecisionArtifactVersionId: string;
+    /**
+     * Findingid
+     */
+    findingId: string;
+    /**
+     * Inputfingerprint
+     */
+    inputFingerprint: string;
+    /**
+     * Masteryid
+     */
+    masteryId: string;
+    /**
+     * Masteryversionid
+     */
+    masteryVersionId: string;
+    /**
+     * Policyversion
+     */
+    policyVersion: 'essay-mastery@v1';
+    /**
+     * Rewriteversionid
+     */
+    rewriteVersionId?: string | null;
+    /**
+     * Sourceanswerversionid
+     */
+    sourceAnswerVersionId: string;
+    /**
+     * Sourceattemptid
+     */
+    sourceAttemptId: string;
+    /**
+     * Sourcereviewversionid
+     */
+    sourceReviewVersionId: string;
+    /**
+     * Sourcetaskversionid
+     */
+    sourceTaskVersionId: string;
+    /**
+     * State
+     */
+    state: 'rewrite_due' | 'transfer_due' | 'stable_mastered' | 'withdrawn';
+    /**
+     * Supersedesmasteryversionid
+     */
+    supersedesMasteryVersionId?: string | null;
+    /**
+     * Transferverificationversionid
+     */
+    transferVerificationVersionId?: string | null;
     /**
      * Versionno
      */
@@ -2640,6 +3229,49 @@ export type EssayReviewResponse = {
 };
 
 /**
+ * EssayRewriteCommand
+ */
+export type EssayRewriteCommand = {
+    /**
+     * Answertext
+     */
+    answerText: string;
+    /**
+     * Attemptid
+     */
+    attemptId: string;
+    /**
+     * Baseanswerversionid
+     */
+    baseAnswerVersionId: string;
+    /**
+     * Basereviewversionid
+     */
+    baseReviewVersionId: string;
+    /**
+     * Basedonanswerversionid
+     */
+    basedOnAnswerVersionId: string;
+    /**
+     * Basedonrewriteversionid
+     */
+    basedOnRewriteVersionId?: string | null;
+    /**
+     * Findingdecisionartifactversionid
+     */
+    findingDecisionArtifactVersionId: string;
+    /**
+     * Resolutions
+     */
+    resolutions: Array<EssayRewriteFindingResolution>;
+    /**
+     * Sourcetype
+     */
+    sourceType: 'typed' | 'ocr_confirmed';
+    thinking?: EssayThinkingSnapshot | null;
+};
+
+/**
  * EssayRewriteConstraint
  */
 export type EssayRewriteConstraint = {
@@ -2651,6 +3283,24 @@ export type EssayRewriteConstraint = {
      * Value
      */
     value: string;
+};
+
+/**
+ * EssayRewriteFindingResolution
+ */
+export type EssayRewriteFindingResolution = {
+    /**
+     * Findingid
+     */
+    findingId: string;
+    /**
+     * Learnerevidence
+     */
+    learnerEvidence: string;
+    /**
+     * Status
+     */
+    status: 'resolved' | 'unresolved';
 };
 
 /**
@@ -2673,6 +3323,126 @@ export type EssayRewritePlan = {
      * Targetpointids
      */
     targetPointIds: Array<string>;
+};
+
+/**
+ * EssayRewritePlanTaskCompletionCommand
+ */
+export type EssayRewritePlanTaskCompletionCommand = {
+    /**
+     * Basedonexecutionversionid
+     */
+    basedOnExecutionVersionId?: string | null;
+    /**
+     * Elapsedminutes
+     */
+    elapsedMinutes: number;
+    /**
+     * Plantaskid
+     */
+    planTaskId: string;
+    rewrite: EssayRewriteCommand;
+};
+
+/**
+ * EssayRewritePlanTaskCompletionResult
+ */
+export type EssayRewritePlanTaskCompletionResult = {
+    answer: EssayAnswerVersion;
+    completion: TaskExecutionCommandResult;
+    /**
+     * Masteryversions
+     */
+    masteryVersions: Array<EssayMasteryStateVersion>;
+    rewrite: EssayRewriteRecord;
+};
+
+/**
+ * EssayRewriteRecord
+ */
+export type EssayRewriteRecord = {
+    /**
+     * Addressedfindingids
+     */
+    addressedFindingIds: Array<string>;
+    /**
+     * Attemptid
+     */
+    attemptId: string;
+    /**
+     * Baseanswerversionid
+     */
+    baseAnswerVersionId: string;
+    /**
+     * Basereviewversionid
+     */
+    baseReviewVersionId: string;
+    /**
+     * Contractversion
+     */
+    contractVersion: 'essay-rewrite-writer@v2';
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Findingdecisionartifactversionid
+     */
+    findingDecisionArtifactVersionId: string;
+    /**
+     * Inputfingerprint
+     */
+    inputFingerprint: string;
+    /**
+     * Outputfingerprint
+     */
+    outputFingerprint: string;
+    /**
+     * Policyversion
+     */
+    policyVersion: 'essay-mastery@v1';
+    /**
+     * Resolutionevidence
+     */
+    resolutionEvidence: {
+        [key: string]: string;
+    };
+    /**
+     * Rewriteversionid
+     */
+    rewriteVersionId: string;
+    /**
+     * Rewrittenanswerversionid
+     */
+    rewrittenAnswerVersionId: string;
+    /**
+     * Status
+     */
+    status: 'passed' | 'needs_revision';
+    /**
+     * Supersedesrewriteversionid
+     */
+    supersedesRewriteVersionId?: string | null;
+    /**
+     * Taskversionid
+     */
+    taskVersionId: string;
+    /**
+     * Unresolvedfindingids
+     */
+    unresolvedFindingIds: Array<string>;
+};
+
+/**
+ * EssayRewriteResult
+ */
+export type EssayRewriteResult = {
+    answer: EssayAnswerVersion;
+    /**
+     * Masteryversions
+     */
+    masteryVersions: Array<EssayMasteryStateVersion>;
+    rewrite: EssayRewriteRecord;
 };
 
 /**
@@ -2857,6 +3627,178 @@ export type EssayThinkingSnapshot = {
 };
 
 /**
+ * EssayTransferCommand
+ */
+export type EssayTransferCommand = {
+    /**
+     * Basedontransferverificationversionid
+     */
+    basedOnTransferVerificationVersionId?: string | null;
+    /**
+     * Sourcefindingdecisionartifactversionid
+     */
+    sourceFindingDecisionArtifactVersionId: string;
+    /**
+     * Sourcerewriteversionid
+     */
+    sourceRewriteVersionId: string;
+    /**
+     * Testedcriterioncodes
+     */
+    testedCriterionCodes: Array<string>;
+    /**
+     * Transferanswerversionid
+     */
+    transferAnswerVersionId: string;
+    /**
+     * Transferattemptid
+     */
+    transferAttemptId: string;
+    /**
+     * Transferfindingdecisionartifactversionid
+     */
+    transferFindingDecisionArtifactVersionId: string;
+    /**
+     * Transferreviewversionid
+     */
+    transferReviewVersionId: string;
+};
+
+/**
+ * EssayTransferPlanTaskCompletionCommand
+ */
+export type EssayTransferPlanTaskCompletionCommand = {
+    /**
+     * Basedonexecutionversionid
+     */
+    basedOnExecutionVersionId?: string | null;
+    /**
+     * Elapsedminutes
+     */
+    elapsedMinutes: number;
+    /**
+     * Plantaskid
+     */
+    planTaskId: string;
+    transfer: EssayTransferCommand;
+};
+
+/**
+ * EssayTransferPlanTaskCompletionResult
+ */
+export type EssayTransferPlanTaskCompletionResult = {
+    completion: TaskExecutionCommandResult;
+    /**
+     * Masteryversions
+     */
+    masteryVersions: Array<EssayMasteryStateVersion>;
+    transfer: EssayTransferRecord;
+};
+
+/**
+ * EssayTransferRecord
+ */
+export type EssayTransferRecord = {
+    /**
+     * Contractversion
+     */
+    contractVersion: 'essay-transfer-writer@v2';
+    /**
+     * Evidencepayload
+     */
+    evidencePayload: {
+        [key: string]: unknown;
+    };
+    /**
+     * Findingdecisionartifactversionid
+     */
+    findingDecisionArtifactVersionId: string;
+    /**
+     * Freshmaterialbundleversionid
+     */
+    freshMaterialBundleVersionId: string;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Inputfingerprint
+     */
+    inputFingerprint: string;
+    /**
+     * Outputfingerprint
+     */
+    outputFingerprint: string;
+    /**
+     * Policyversion
+     */
+    policyVersion: 'essay-mastery@v1';
+    /**
+     * Sourceattemptid
+     */
+    sourceAttemptId: string;
+    /**
+     * Sourcereviewversionid
+     */
+    sourceReviewVersionId: string;
+    /**
+     * Sourcerewriteversionid
+     */
+    sourceRewriteVersionId: string;
+    /**
+     * Sourcetaskversionid
+     */
+    sourceTaskVersionId: string;
+    /**
+     * Status
+     */
+    status: 'verified' | 'not_verified' | 'inconclusive';
+    /**
+     * Supersedesverificationversionid
+     */
+    supersedesVerificationVersionId?: string | null;
+    /**
+     * Testedcriterioncodes
+     */
+    testedCriterionCodes: Array<string>;
+    /**
+     * Transferanswerversionid
+     */
+    transferAnswerVersionId: string;
+    /**
+     * Transferattemptid
+     */
+    transferAttemptId: string;
+    /**
+     * Transferfindingdecisionartifactversionid
+     */
+    transferFindingDecisionArtifactVersionId: string;
+    /**
+     * Transferreviewversionid
+     */
+    transferReviewVersionId: string;
+    /**
+     * Transfertaskversionid
+     */
+    transferTaskVersionId: string;
+    /**
+     * Verificationversionid
+     */
+    verificationVersionId: string;
+};
+
+/**
+ * EssayTransferResult
+ */
+export type EssayTransferResult = {
+    /**
+     * Masteryversions
+     */
+    masteryVersions: Array<EssayMasteryStateVersion>;
+    transfer: EssayTransferRecord;
+};
+
+/**
  * EssayWorkspaceMaterial
  */
 export type EssayWorkspaceMaterial = {
@@ -2913,6 +3855,18 @@ export type EssayWorkspaceProgression = {
      */
     attemptId?: string | null;
     currentReview?: EssayWorkspaceReview | null;
+    /**
+     * Masterydueat
+     */
+    masteryDueAt?: string | null;
+    /**
+     * Masterystate
+     */
+    masteryState?: 'rewrite_due' | 'transfer_due' | 'stable_mastered' | null;
+    /**
+     * Masteryversionid
+     */
+    masteryVersionId?: string | null;
     reviewIntent?: EssayReviewIntentView | null;
     /**
      * Reviewjobid
@@ -3091,6 +4045,46 @@ export type EssayWorkspaceTask = {
      * Wordlimit
      */
     wordLimit: number;
+};
+
+/**
+ * ExposureCreate
+ */
+export type ExposureCreate = {
+    /**
+     * Applicabilitysnapshot
+     */
+    applicabilitySnapshot: Array<string>;
+    /**
+     * Cardversionid
+     */
+    cardVersionId: string;
+    /**
+     * Rankingpolicyversion
+     */
+    rankingPolicyVersion: string;
+};
+
+/**
+ * ExposureReceipt
+ */
+export type ExposureReceipt = {
+    /**
+     * Cardid
+     */
+    cardId: string;
+    /**
+     * Exposureid
+     */
+    exposureId: string;
+    /**
+     * Optedinat
+     */
+    optedInAt: string;
+    /**
+     * Versionid
+     */
+    versionId: string;
 };
 
 /**
@@ -3347,6 +4341,38 @@ export type FallbackPayload = {
 };
 
 /**
+ * FeedbackReceipt
+ */
+export type FeedbackReceipt = {
+    /**
+     * Recorded
+     */
+    recorded: boolean;
+    /**
+     * Voteid
+     */
+    voteId: string;
+};
+
+/**
+ * FeedbackRecord
+ */
+export type FeedbackRecord = {
+    /**
+     * Reasoncode
+     */
+    reasonCode: 'clear' | 'transferable' | 'too_specific' | 'unclear' | 'incorrect' | 'unsafe';
+    /**
+     * Trialid
+     */
+    trialId: string;
+    /**
+     * Vote
+     */
+    vote: 'helpful' | 'not_helpful';
+};
+
+/**
  * GoalGap
  */
 export type GoalGap = {
@@ -3532,6 +4558,20 @@ export type ImportWorkspace = {
      * State
      */
     state: 'uploading' | 'processing' | 'review' | 'ready' | 'failed' | 'quarantined' | 'expired';
+};
+
+/**
+ * ItemInterpretation
+ */
+export type ItemInterpretation = {
+    /**
+     * Interpretation
+     */
+    interpretation: string;
+    /**
+     * Questionid
+     */
+    questionId: string;
 };
 
 /**
@@ -3731,6 +4771,159 @@ export type LearnerProfileUpdate = {
 };
 
 /**
+ * LearningMediaArtifact
+ */
+export type LearningMediaArtifact = {
+    /**
+     * Artifactid
+     */
+    artifactId: string;
+    /**
+     * Artifactversionid
+     */
+    artifactVersionId: string;
+    /**
+     * Bytesize
+     */
+    byteSize: number;
+    /**
+     * Contentsha256
+     */
+    contentSha256: string;
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Durationmilliseconds
+     */
+    durationMilliseconds: number;
+    /**
+     * Mimetype
+     */
+    mimeType: string;
+    /**
+     * Purpose
+     */
+    purpose: 'reflection_voice';
+    /**
+     * Retentionpolicyversion
+     */
+    retentionPolicyVersion: string;
+    /**
+     * State
+     */
+    state: 'available' | 'deleted';
+    /**
+     * Versionno
+     */
+    versionNo: number;
+};
+
+/**
+ * LearningMediaAuthorization
+ */
+export type LearningMediaAuthorization = {
+    /**
+     * Expiresat
+     */
+    expiresAt: string;
+    /**
+     * Objectref
+     */
+    objectRef: string;
+    /**
+     * Requiredheaders
+     */
+    requiredHeaders: {
+        [key: string]: string;
+    };
+    /**
+     * Url
+     */
+    url: string;
+};
+
+/**
+ * LearningMediaUploadProjection
+ */
+export type LearningMediaUploadProjection = {
+    artifact?: LearningMediaArtifact | null;
+    authorization?: LearningMediaAuthorization | null;
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'learning-media-upload@v1';
+    /**
+     * Replayed
+     */
+    replayed: boolean;
+    session: LearningMediaUploadSession;
+};
+
+/**
+ * LearningMediaUploadSession
+ */
+export type LearningMediaUploadSession = {
+    /**
+     * Artifactid
+     */
+    artifactId: string;
+    /**
+     * Artifactversionid
+     */
+    artifactVersionId: string;
+    /**
+     * Bytesize
+     */
+    byteSize: number;
+    /**
+     * Contentsha256
+     */
+    contentSha256: string;
+    /**
+     * Durationmilliseconds
+     */
+    durationMilliseconds: number;
+    /**
+     * Expiresat
+     */
+    expiresAt: string;
+    /**
+     * Failurecode
+     */
+    failureCode?: string | null;
+    /**
+     * Mimetype
+     */
+    mimeType: string;
+    /**
+     * Originalfilename
+     */
+    originalFilename: string;
+    /**
+     * Purpose
+     */
+    purpose: 'reflection_voice';
+    /**
+     * Revision
+     */
+    revision: number;
+    /**
+     * State
+     */
+    state: 'awaiting_upload' | 'scanning' | 'available' | 'quarantined' | 'failed' | 'expired';
+    /**
+     * Updatedat
+     */
+    updatedAt: string;
+    /**
+     * Uploadsessionid
+     */
+    uploadSessionId: string;
+};
+
+/**
  * LearningTrack
  */
 export type LearningTrack = 'xingce' | 'essay';
@@ -3803,6 +4996,136 @@ export type MajorTreeResponse = {
      * Categories
      */
     categories: Array<MajorCategory>;
+};
+
+/**
+ * MasteryQueueAction
+ */
+export type MasteryQueueAction = {
+    /**
+     * Plantaskid
+     */
+    planTaskId?: string | null;
+    /**
+     * Starturl
+     */
+    startUrl?: string | null;
+    /**
+     * State
+     */
+    state: 'ready' | 'awaiting_plan' | 'not_applicable';
+};
+
+/**
+ * MasteryQueueItem
+ */
+export type MasteryQueueItem = {
+    action: MasteryQueueAction;
+    /**
+     * Bucket
+     */
+    bucket: 'pending_reflection' | 'due_verification' | 'stable_mastery' | 'invalidated';
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Dueat
+     */
+    dueAt?: string | null;
+    /**
+     * Evidencerefs
+     */
+    evidenceRefs: Array<string>;
+    /**
+     * Invalidationreason
+     */
+    invalidationReason?: 'content_withdrawn' | null;
+    /**
+     * Itemid
+     */
+    itemId: string;
+    /**
+     * Masteryid
+     */
+    masteryId?: string | null;
+    /**
+     * Masteryversionid
+     */
+    masteryVersionId?: string | null;
+    /**
+     * Modulename
+     */
+    moduleName?: string | null;
+    /**
+     * Questioncount
+     */
+    questionCount: number;
+    /**
+     * Reviewid
+     */
+    reviewId?: string | null;
+    /**
+     * Sessionid
+     */
+    sessionId?: string | null;
+    /**
+     * State
+     */
+    state: string;
+    /**
+     * Verificationstage
+     */
+    verificationStage?: string | null;
+};
+
+/**
+ * MasteryQueuePage
+ */
+export type MasteryQueuePage = {
+    /**
+     * Bucket
+     */
+    bucket: 'pending_reflection' | 'due_verification' | 'stable_mastery' | 'invalidated';
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'xingce-mastery-queue@v1';
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Items
+     */
+    items: Array<MasteryQueueItem>;
+    /**
+     * Nextcursor
+     */
+    nextCursor?: string | null;
+    summary: MasteryQueueSummary;
+};
+
+/**
+ * MasteryQueueSummary
+ */
+export type MasteryQueueSummary = {
+    /**
+     * Dueverificationcount
+     */
+    dueVerificationCount: number;
+    /**
+     * Invalidatedcount
+     */
+    invalidatedCount: number;
+    /**
+     * Pendingreflectioncount
+     */
+    pendingReflectionCount: number;
+    /**
+     * Stablemasterycount
+     */
+    stableMasteryCount: number;
 };
 
 /**
@@ -6475,6 +7798,21 @@ export type PublicApiEnvelopeAnswerTargetSnapshot = {
 };
 
 /**
+ * PublicApiEnvelope[CommunityRewardLedgerResponse]
+ */
+export type PublicApiEnvelopeCommunityRewardLedgerResponse = {
+    data: CommunityRewardLedgerResponse;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[CompleteUploadProjection]
  */
 export type PublicApiEnvelopeCompleteUploadProjection = {
@@ -6490,10 +7828,85 @@ export type PublicApiEnvelopeCompleteUploadProjection = {
 };
 
 /**
+ * PublicApiEnvelope[ConfirmReceipt]
+ */
+export type PublicApiEnvelopeConfirmReceipt = {
+    data: ConfirmReceipt;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[ContributionsResponse]
+ */
+export type PublicApiEnvelopeContributionsResponse = {
+    data: ContributionsResponse;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[DailyCapacityCommandResult]
  */
 export type PublicApiEnvelopeDailyCapacityCommandResult = {
     data: DailyCapacityCommandResult;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[DelayedVerificationReceipt]
+ */
+export type PublicApiEnvelopeDelayedVerificationReceipt = {
+    data: DelayedVerificationReceipt;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[DiscoveryResponse]
+ */
+export type PublicApiEnvelopeDiscoveryResponse = {
+    data: DiscoveryResponse;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[DraftReceipt]
+ */
+export type PublicApiEnvelopeDraftReceipt = {
+    data: DraftReceipt;
     /**
      * Generatedat
      */
@@ -6595,6 +8008,21 @@ export type PublicApiEnvelopeEssayLearningArtifactVersion = {
 };
 
 /**
+ * PublicApiEnvelope[EssayMasteryProjection]
+ */
+export type PublicApiEnvelopeEssayMasteryProjection = {
+    data: EssayMasteryProjection;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[EssayReviewJobView]
  */
 export type PublicApiEnvelopeEssayReviewJobView = {
@@ -6614,6 +8042,36 @@ export type PublicApiEnvelopeEssayReviewJobView = {
  */
 export type PublicApiEnvelopeEssayReviewResponse = {
     data: EssayReviewResponse;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[EssayRewritePlanTaskCompletionResult]
+ */
+export type PublicApiEnvelopeEssayRewritePlanTaskCompletionResult = {
+    data: EssayRewritePlanTaskCompletionResult;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[EssayRewriteResult]
+ */
+export type PublicApiEnvelopeEssayRewriteResult = {
+    data: EssayRewriteResult;
     /**
      * Generatedat
      */
@@ -6655,6 +8113,66 @@ export type PublicApiEnvelopeEssayTaskWorkspace = {
 };
 
 /**
+ * PublicApiEnvelope[EssayTransferPlanTaskCompletionResult]
+ */
+export type PublicApiEnvelopeEssayTransferPlanTaskCompletionResult = {
+    data: EssayTransferPlanTaskCompletionResult;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[EssayTransferResult]
+ */
+export type PublicApiEnvelopeEssayTransferResult = {
+    data: EssayTransferResult;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[ExposureReceipt]
+ */
+export type PublicApiEnvelopeExposureReceipt = {
+    data: ExposureReceipt;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[FeedbackReceipt]
+ */
+export type PublicApiEnvelopeFeedbackReceipt = {
+    data: FeedbackReceipt;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[ImportWorkspace]
  */
 export type PublicApiEnvelopeImportWorkspace = {
@@ -6670,10 +8188,40 @@ export type PublicApiEnvelopeImportWorkspace = {
 };
 
 /**
+ * PublicApiEnvelope[LearningMediaUploadProjection]
+ */
+export type PublicApiEnvelopeLearningMediaUploadProjection = {
+    data: LearningMediaUploadProjection;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[LogoutAllResult]
  */
 export type PublicApiEnvelopeLogoutAllResult = {
     data: LogoutAllResult;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[MasteryQueuePage]
+ */
+export type PublicApiEnvelopeMasteryQueuePage = {
+    data: MasteryQueuePage;
     /**
      * Generatedat
      */
@@ -6895,6 +8443,21 @@ export type PublicApiEnvelopePrimaryGoalPreview = {
 };
 
 /**
+ * PublicApiEnvelope[PublicCardDetail]
+ */
+export type PublicApiEnvelopePublicCardDetail = {
+    data: PublicCardDetail;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[QualificationGapSummary]
  */
 export type PublicApiEnvelopeQualificationGapSummary = {
@@ -6955,6 +8518,21 @@ export type PublicApiEnvelopeRecognitionRevision = {
 };
 
 /**
+ * PublicApiEnvelope[ReportReceipt]
+ */
+export type PublicApiEnvelopeReportReceipt = {
+    data: ReportReceipt;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[ReportedScoreEvidenceResult]
  */
 export type PublicApiEnvelopeReportedScoreEvidenceResult = {
@@ -6974,6 +8552,36 @@ export type PublicApiEnvelopeReportedScoreEvidenceResult = {
  */
 export type PublicApiEnvelopeRequirementConfirmationResult = {
     data: RequirementConfirmationResult;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[RetireReceipt]
+ */
+export type PublicApiEnvelopeRetireReceipt = {
+    data: RetireReceipt;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[ReviewOutcome]
+ */
+export type PublicApiEnvelopeReviewOutcome = {
+    data: ReviewOutcome;
     /**
      * Generatedat
      */
@@ -7019,6 +8627,21 @@ export type PublicApiEnvelopeSessionRevocationResult = {
  */
 export type PublicApiEnvelopeStartUploadProjection = {
     data: StartUploadProjection;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[StructureCandidate]
+ */
+export type PublicApiEnvelopeStructureCandidate = {
+    data: StructureCandidate;
     /**
      * Generatedat
      */
@@ -7105,6 +8728,21 @@ export type PublicApiEnvelopeTodayDashboard = {
 };
 
 /**
+ * PublicApiEnvelope[TrialReceipt]
+ */
+export type PublicApiEnvelopeTrialReceipt = {
+    data: TrialReceipt;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[UploadSessionProjection]
  */
 export type PublicApiEnvelopeUploadSessionProjection = {
@@ -7124,6 +8762,36 @@ export type PublicApiEnvelopeUploadSessionProjection = {
  */
 export type PublicApiEnvelopeWeeklyStudyPreference = {
     data: WeeklyStudyPreference;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[Workspace]
+ */
+export type PublicApiEnvelopeWorkspace = {
+    data: Workspace;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[XingceTaskBriefing]
+ */
+export type PublicApiEnvelopeXingceTaskBriefing = {
+    data: XingceTaskBriefing;
     /**
      * Generatedat
      */
@@ -7156,6 +8824,64 @@ export type PublicApiError = {
      * Requestid
      */
     requestId: string;
+};
+
+/**
+ * PublicCardDetail
+ */
+export type PublicCardDetail = {
+    /**
+     * Applicability
+     */
+    applicability: Array<string>;
+    /**
+     * Cardversionid
+     */
+    cardVersionId: string;
+    /**
+     * Conservativescore
+     */
+    conservativeScore: number | null;
+    /**
+     * Delayedverifiedcount
+     */
+    delayedVerifiedCount: number;
+    /**
+     * Evidencecount
+     */
+    evidenceCount: number;
+    /**
+     * Exclusions
+     */
+    exclusions: Array<string>;
+    /**
+     * Methodsteps
+     */
+    methodSteps: Array<string>;
+    /**
+     * Pitfalls
+     */
+    pitfalls: Array<string>;
+    /**
+     * Policyversion
+     */
+    policyVersion: string;
+    /**
+     * Recognition
+     */
+    recognition: string;
+    /**
+     * Riskflags
+     */
+    riskFlags: Array<string>;
+    /**
+     * Status
+     */
+    status: 'trial' | 'community_validated';
+    /**
+     * Title
+     */
+    title: string;
 };
 
 /**
@@ -7969,6 +9695,10 @@ export type ReflectionCommand = {
      */
     expectedRevision: number;
     /**
+     * Iteminterpretations
+     */
+    itemInterpretations?: Array<ItemInterpretation>;
+    /**
      * Rawtext
      */
     rawText: string;
@@ -7980,6 +9710,10 @@ export type ReflectionCommand = {
      * Tags
      */
     tags: Array<string>;
+    /**
+     * Voiceartifactversionids
+     */
+    voiceArtifactVersionIds?: Array<string>;
 };
 
 /**
@@ -7999,6 +9733,10 @@ export type ReflectionPayload = {
      */
     verificationPlan: string;
     /**
+     * Voiceartifactversionids
+     */
+    voiceArtifactVersionIds?: Array<string>;
+    /**
      * Whatithought
      */
     whatIThought: string;
@@ -8016,6 +9754,10 @@ export type ReflectionVersionProjection = {
      * Doubtnote
      */
     doubtNote?: string | null;
+    /**
+     * Iteminterpretations
+     */
+    itemInterpretations?: Array<ItemInterpretation>;
     /**
      * Rawtext
      */
@@ -8036,6 +9778,10 @@ export type ReflectionVersionProjection = {
      * Versionno
      */
     versionNo: number;
+    /**
+     * Voiceartifactversionids
+     */
+    voiceArtifactVersionIds?: Array<string>;
 };
 
 /**
@@ -8054,6 +9800,24 @@ export type RenewPacketCommand = {
      * Expiresindays
      */
     expiresInDays?: number;
+};
+
+/**
+ * ReportCreate
+ */
+export type ReportCreate = {
+    /**
+     * Cardversionid
+     */
+    cardVersionId: string;
+    /**
+     * Category
+     */
+    category: 'copyright' | 'incorrect' | 'unsafe' | 'advertising' | 'contact_information' | 'other_fixed';
+    /**
+     * Evidenceref
+     */
+    evidenceRef: string;
 };
 
 /**
@@ -8076,6 +9840,24 @@ export type ReportQuestionDisputeCommand = {
      * Questionid
      */
     questionId: string;
+};
+
+/**
+ * ReportReceipt
+ */
+export type ReportReceipt = {
+    /**
+     * Cardstatus
+     */
+    cardStatus: 'trial' | 'community_validated' | 'restricted';
+    /**
+     * Decision
+     */
+    decision?: 'pending' | 'confirmed' | 'rejected';
+    /**
+     * Reportid
+     */
+    reportId: string;
 };
 
 /**
@@ -8241,6 +10023,38 @@ export type RequirementConfirmationResult = {
 };
 
 /**
+ * RetireCard
+ */
+export type RetireCard = {
+    /**
+     * Cardid
+     */
+    cardId: string;
+    /**
+     * Headversionid
+     */
+    headVersionId: string;
+    /**
+     * Reasoncode
+     */
+    reasonCode: string;
+};
+
+/**
+ * RetireReceipt
+ */
+export type RetireReceipt = {
+    /**
+     * Cardid
+     */
+    cardId: string;
+    /**
+     * Status
+     */
+    status?: 'retired';
+};
+
+/**
  * RetryPacketCommand
  */
 export type RetryPacketCommand = {
@@ -8259,9 +10073,13 @@ export type RetryPacketCommand = {
  */
 export type ReviewAcknowledgementPayload = {
     /**
-     * Acknowledgedfindingids
+     * Contractversion
      */
-    acknowledgedFindingIds: Array<string>;
+    contractVersion?: 'essay-finding-decision@v1';
+    /**
+     * Decisions
+     */
+    decisions: Array<EssayFindingDecision>;
     /**
      * Learnerunderstanding
      */
@@ -8269,11 +10087,47 @@ export type ReviewAcknowledgementPayload = {
     /**
      * Priorityfindingids
      */
-    priorityFindingIds: Array<string>;
+    priorityFindingIds?: Array<string>;
     /**
      * Schematype
      */
     schemaType: 'review_acknowledgement';
+};
+
+/**
+ * ReviewOutcome
+ */
+export type ReviewOutcome = {
+    /**
+     * Cardid
+     */
+    cardId: string;
+    /**
+     * Checkcodes
+     */
+    checkCodes: [
+        string,
+        string,
+        string,
+        string,
+        string
+    ];
+    /**
+     * Policyversion
+     */
+    policyVersion: string;
+    /**
+     * Reviewid
+     */
+    reviewId: string;
+    /**
+     * Status
+     */
+    status: 'trial' | 'revision_required' | 'rejected';
+    /**
+     * Versionid
+     */
+    versionId: string;
 };
 
 /**
@@ -8520,6 +10374,11 @@ export type RichTableCell = {
      */
     text: string;
 };
+
+/**
+ * RightsDeclaration
+ */
+export type RightsDeclaration = 'original' | 'authorized_derivative' | 'private_third_party';
 
 /**
  * SafeAsset
@@ -8904,6 +10763,41 @@ export type SourceArtifactVersion = {
 export type SourceKind = 'camera_image' | 'image_import' | 'pdf_upload' | 'answer_sheet' | 'notes_app_export';
 
 /**
+ * SourceType
+ */
+export type SourceType = 'text' | 'voice_transcript' | 'handwriting_extraction' | 'reflection';
+
+/**
+ * StartLearningMediaUploadCommand
+ */
+export type StartLearningMediaUploadCommand = {
+    /**
+     * Bytesize
+     */
+    byteSize: number;
+    /**
+     * Contentsha256
+     */
+    contentSha256: string;
+    /**
+     * Durationmilliseconds
+     */
+    durationMilliseconds: number;
+    /**
+     * Mimetype
+     */
+    mimeType: 'audio/mpeg' | 'audio/mp4' | 'audio/aac';
+    /**
+     * Originalfilename
+     */
+    originalFilename: string;
+    /**
+     * Purpose
+     */
+    purpose: 'reflection_voice';
+};
+
+/**
  * StartRecognitionCommand
  */
 export type StartRecognitionCommand = {
@@ -9010,6 +10904,41 @@ export type StreakRestartPayload = {
      * Minitaskid
      */
     miniTaskId: string;
+};
+
+/**
+ * StructureCandidate
+ */
+export type StructureCandidate = {
+    /**
+     * Baseversionid
+     */
+    baseVersionId: string;
+    /**
+     * Candidateid
+     */
+    candidateId: string;
+    /**
+     * Failurecode
+     */
+    failureCode?: string | null;
+    /**
+     * Methodsteps
+     */
+    methodSteps: Array<string>;
+    /**
+     * Recognition
+     */
+    recognition: string;
+    /**
+     * Sourcespanrefs
+     */
+    sourceSpanRefs: Array<string>;
+    status?: CandidateStatus;
+    /**
+     * Title
+     */
+    title: string;
 };
 
 /**
@@ -9562,11 +11491,12 @@ export type TaskSessionProjection = {
     /**
      * State
      */
-    state: 'answering' | 'submitted' | 'reflection_required' | 'cause_decision_required' | 'completed';
+    state: 'answering' | 'submitted' | 'reflection_required' | 'cause_candidate_processing' | 'cause_followup_required' | 'cause_decision_required' | 'cause_evidence_insufficient' | 'cause_agent_terminated' | 'completed';
     /**
      * Totalelapsedseconds
      */
     totalElapsedSeconds: number;
+    verificationOutcome?: VerificationOutcomeProjection | null;
 };
 
 /**
@@ -9856,6 +11786,11 @@ export type TomorrowPreview = {
 };
 
 /**
+ * Track
+ */
+export type Track = 'xingce' | 'essay';
+
+/**
  * TrackAllocation
  */
 export type TrackAllocation = {
@@ -9897,6 +11832,46 @@ export type TrackMixItem = {
      * Track
      */
     track: string;
+};
+
+/**
+ * TrialComplete
+ */
+export type TrialComplete = {
+    /**
+     * Exposureid
+     */
+    exposureId: string;
+    /**
+     * Questionattemptid
+     */
+    questionAttemptId: string;
+    /**
+     * Questionversionid
+     */
+    questionVersionId: string;
+};
+
+/**
+ * TrialReceipt
+ */
+export type TrialReceipt = {
+    /**
+     * Delayedverificationdueat
+     */
+    delayedVerificationDueAt?: string | null;
+    /**
+     * Feedbackeligible
+     */
+    feedbackEligible: boolean;
+    /**
+     * Outcomecode
+     */
+    outcomeCode: string;
+    /**
+     * Trialid
+     */
+    trialId: string;
 };
 
 /**
@@ -10066,6 +12041,28 @@ export type ValidationError = {
 };
 
 /**
+ * VerificationOutcomeProjection
+ */
+export type VerificationOutcomeProjection = {
+    /**
+     * Evidencestate
+     */
+    evidenceState: 'valid' | 'pending_dispute' | 'confirmed_invalidated';
+    /**
+     * Outcome
+     */
+    outcome: 'passed' | 'not_passed' | 'disputed_or_invalidated';
+    /**
+     * Sourcemasteryversionid
+     */
+    sourceMasteryVersionId: string;
+    /**
+     * Verificationstage
+     */
+    verificationStage: 'immediate' | 'first_review' | 'delayed_review';
+};
+
+/**
  * WechatAuthSessionData
  */
 export type WechatAuthSessionData = {
@@ -10185,6 +12182,34 @@ export type WeeklyStudyPreference = {
 };
 
 /**
+ * Workspace
+ */
+export type Workspace = {
+    candidateStatus: CandidateStatus;
+    /**
+     * Cardid
+     */
+    cardId: string;
+    /**
+     * Headversionid
+     */
+    headVersionId: string;
+    /**
+     * Reviewstatus
+     */
+    reviewStatus: string;
+    status: CardState;
+    /**
+     * Versionids
+     */
+    versionIds: Array<string>;
+    /**
+     * Versions
+     */
+    versions?: Array<CardVersionView>;
+};
+
+/**
  * WrongClusterCard
  */
 export type WrongClusterCard = {
@@ -10238,9 +12263,14 @@ export type XingceAttemptResult = {
      */
     attemptId: string;
     /**
+     * Contractversion
+     */
+    contractVersion?: 'xingce-attempt-result@v2' | null;
+    /**
      * Correctcount
      */
     correctCount: number;
+    groupSummary?: XingceGroupSummary | null;
     /**
      * Items
      */
@@ -10253,6 +12283,64 @@ export type XingceAttemptResult = {
      * Totalcount
      */
     totalCount: number;
+};
+
+/**
+ * XingceBriefingAbandonment
+ */
+export type XingceBriefingAbandonment = {
+    /**
+     * Allowed
+     */
+    allowed?: true;
+    /**
+     * Requiresexplicitaction
+     */
+    requiresExplicitAction?: true;
+    /**
+     * Semantics
+     */
+    semantics?: 'active_abandon_is_not_automatic_error';
+};
+
+/**
+ * XingceBriefingCompletion
+ */
+export type XingceBriefingCompletion = {
+    /**
+     * Evidencetype
+     */
+    evidenceType: string;
+    /**
+     * Requiredmetrics
+     */
+    requiredMetrics: Array<'answer_verdict' | 'confidence_evidence' | 'timing_evidence' | 'reflection' | 'cause_decision'>;
+    /**
+     * Stablemasteryrequiresdelayedverification
+     */
+    stableMasteryRequiresDelayedVerification?: true;
+};
+
+/**
+ * XingceBriefingTiming
+ */
+export type XingceBriefingTiming = {
+    /**
+     * Behavior
+     */
+    behavior?: 'advisory';
+    /**
+     * Overtimeisrecorded
+     */
+    overtimeIsRecorded?: true;
+    /**
+     * Perquestiontargetseconds
+     */
+    perQuestionTargetSeconds: number;
+    /**
+     * Targetseconds
+     */
+    targetSeconds: number;
 };
 
 /**
@@ -10271,13 +12359,67 @@ export type XingceCompletionReceipt = {
 };
 
 /**
+ * XingceGroupSummary
+ */
+export type XingceGroupSummary = {
+    /**
+     * Activeabandon
+     */
+    activeAbandon: number;
+    /**
+     * Advisoryexceeded
+     */
+    advisoryExceeded: number;
+    /**
+     * Genuinecorrect
+     */
+    genuineCorrect: number;
+    /**
+     * Guessedcorrect
+     */
+    guessedCorrect: number;
+    /**
+     * Immediateverification
+     */
+    immediateVerification: boolean;
+    /**
+     * Methodcorrectcalculationerror
+     */
+    methodCorrectCalculationError: number;
+    /**
+     * Outcome
+     */
+    outcome: 'attained' | 'not_attained' | 'interrupted';
+    /**
+     * Pendingcause
+     */
+    pendingCause: boolean;
+    /**
+     * Pendingreflection
+     */
+    pendingReflection: boolean;
+    /**
+     * Scheduled
+     */
+    scheduled: boolean;
+};
+
+/**
  * XingceResultItem
  */
 export type XingceResultItem = {
     /**
+     * Confidenceevidence
+     */
+    confidenceEvidence?: 'low' | 'medium' | 'high' | 'unreported' | null;
+    /**
      * Correctoptionids
      */
     correctOptionIds: Array<string>;
+    /**
+     * Disposition
+     */
+    disposition?: 'answered' | 'active_abandon' | null;
     /**
      * Explanation
      */
@@ -10286,6 +12428,14 @@ export type XingceResultItem = {
      * Explanationsource
      */
     explanationSource?: string | null;
+    /**
+     * Factcontractversion
+     */
+    factContractVersion?: 'xingce-result-facts@v1' | null;
+    /**
+     * Objectiveverdict
+     */
+    objectiveVerdict?: 'correct' | 'incorrect' | 'unanswered' | null;
     /**
      * Questionid
      */
@@ -10298,6 +12448,82 @@ export type XingceResultItem = {
      * Selectedoptionids
      */
     selectedOptionIds: Array<string>;
+    timingEvidence?: XingceTimingEvidence | null;
+};
+
+/**
+ * XingceTaskBriefing
+ */
+export type XingceTaskBriefing = {
+    abandonment: XingceBriefingAbandonment;
+    completion: XingceBriefingCompletion;
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'xingce-task-briefing@v1';
+    /**
+     * Mode
+     */
+    mode: 'baseline' | 'targeted' | 'verification';
+    /**
+     * Modulename
+     */
+    moduleName?: string | null;
+    /**
+     * Plantaskid
+     */
+    planTaskId: string;
+    /**
+     * Planversionid
+     */
+    planVersionId: string;
+    /**
+     * Questioncount
+     */
+    questionCount?: 3;
+    /**
+     * Reason
+     */
+    reason: string;
+    /**
+     * Sourcemasteryversionid
+     */
+    sourceMasteryVersionId?: string | null;
+    /**
+     * Taskdefinitionversion
+     */
+    taskDefinitionVersion: string;
+    timing: XingceBriefingTiming;
+    /**
+     * Title
+     */
+    title: string;
+    /**
+     * Validuntil
+     */
+    validUntil: string;
+    /**
+     * Verificationstage
+     */
+    verificationStage?: 'immediate' | 'first_review' | 'delayed_review' | null;
+};
+
+/**
+ * XingceTimingEvidence
+ */
+export type XingceTimingEvidence = {
+    /**
+     * Advisoryseconds
+     */
+    advisorySeconds: number;
+    /**
+     * Elapsedseconds
+     */
+    elapsedSeconds: number;
+    /**
+     * Status
+     */
+    status: 'within_advisory' | 'advisory_exceeded';
 };
 
 /**
@@ -12545,6 +14771,991 @@ export type LoginWithWechatApiV2AuthWechatPostResponses = {
 
 export type LoginWithWechatApiV2AuthWechatPostResponse = LoginWithWechatApiV2AuthWechatPostResponses[keyof LoginWithWechatApiV2AuthWechatPostResponses];
 
+export type GetContributionsApiV2CommunityMethodCardsContributionsGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: {
+        /**
+         * Cursor
+         */
+        cursor?: string | null;
+    };
+    url: '/api/v2/community-method-cards/contributions';
+};
+
+export type GetContributionsApiV2CommunityMethodCardsContributionsGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetContributionsApiV2CommunityMethodCardsContributionsGetError = GetContributionsApiV2CommunityMethodCardsContributionsGetErrors[keyof GetContributionsApiV2CommunityMethodCardsContributionsGetErrors];
+
+export type GetContributionsApiV2CommunityMethodCardsContributionsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeContributionsResponse;
+};
+
+export type GetContributionsApiV2CommunityMethodCardsContributionsGetResponse = GetContributionsApiV2CommunityMethodCardsContributionsGetResponses[keyof GetContributionsApiV2CommunityMethodCardsContributionsGetResponses];
+
+export type DiscoverApiV2CommunityMethodCardsDiscoveryPostData = {
+    body: DiscoveryRequest;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/community-method-cards/discovery';
+};
+
+export type DiscoverApiV2CommunityMethodCardsDiscoveryPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type DiscoverApiV2CommunityMethodCardsDiscoveryPostError = DiscoverApiV2CommunityMethodCardsDiscoveryPostErrors[keyof DiscoverApiV2CommunityMethodCardsDiscoveryPostErrors];
+
+export type DiscoverApiV2CommunityMethodCardsDiscoveryPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeDiscoveryResponse;
+};
+
+export type DiscoverApiV2CommunityMethodCardsDiscoveryPostResponse = DiscoverApiV2CommunityMethodCardsDiscoveryPostResponses[keyof DiscoverApiV2CommunityMethodCardsDiscoveryPostResponses];
+
+export type CreateDraftApiV2CommunityMethodCardsDraftsPostData = {
+    body: DraftCreate;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/community-method-cards/drafts';
+};
+
+export type CreateDraftApiV2CommunityMethodCardsDraftsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type CreateDraftApiV2CommunityMethodCardsDraftsPostError = CreateDraftApiV2CommunityMethodCardsDraftsPostErrors[keyof CreateDraftApiV2CommunityMethodCardsDraftsPostErrors];
+
+export type CreateDraftApiV2CommunityMethodCardsDraftsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeDraftReceipt;
+};
+
+export type CreateDraftApiV2CommunityMethodCardsDraftsPostResponse = CreateDraftApiV2CommunityMethodCardsDraftsPostResponses[keyof CreateDraftApiV2CommunityMethodCardsDraftsPostResponses];
+
+export type CreateExposureApiV2CommunityMethodCardsExposuresPostData = {
+    body: ExposureCreate;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/community-method-cards/exposures';
+};
+
+export type CreateExposureApiV2CommunityMethodCardsExposuresPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type CreateExposureApiV2CommunityMethodCardsExposuresPostError = CreateExposureApiV2CommunityMethodCardsExposuresPostErrors[keyof CreateExposureApiV2CommunityMethodCardsExposuresPostErrors];
+
+export type CreateExposureApiV2CommunityMethodCardsExposuresPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeExposureReceipt;
+};
+
+export type CreateExposureApiV2CommunityMethodCardsExposuresPostResponse = CreateExposureApiV2CommunityMethodCardsExposuresPostResponses[keyof CreateExposureApiV2CommunityMethodCardsExposuresPostResponses];
+
+export type RecordFeedbackApiV2CommunityMethodCardsFeedbackPostData = {
+    body: FeedbackRecord;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/community-method-cards/feedback';
+};
+
+export type RecordFeedbackApiV2CommunityMethodCardsFeedbackPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RecordFeedbackApiV2CommunityMethodCardsFeedbackPostError = RecordFeedbackApiV2CommunityMethodCardsFeedbackPostErrors[keyof RecordFeedbackApiV2CommunityMethodCardsFeedbackPostErrors];
+
+export type RecordFeedbackApiV2CommunityMethodCardsFeedbackPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeFeedbackReceipt;
+};
+
+export type RecordFeedbackApiV2CommunityMethodCardsFeedbackPostResponse = RecordFeedbackApiV2CommunityMethodCardsFeedbackPostResponses[keyof RecordFeedbackApiV2CommunityMethodCardsFeedbackPostResponses];
+
+export type ReportCardApiV2CommunityMethodCardsReportsPostData = {
+    body: ReportCreate;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/community-method-cards/reports';
+};
+
+export type ReportCardApiV2CommunityMethodCardsReportsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ReportCardApiV2CommunityMethodCardsReportsPostError = ReportCardApiV2CommunityMethodCardsReportsPostErrors[keyof ReportCardApiV2CommunityMethodCardsReportsPostErrors];
+
+export type ReportCardApiV2CommunityMethodCardsReportsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeReportReceipt;
+};
+
+export type ReportCardApiV2CommunityMethodCardsReportsPostResponse = ReportCardApiV2CommunityMethodCardsReportsPostResponses[keyof ReportCardApiV2CommunityMethodCardsReportsPostResponses];
+
+export type CompleteTrialApiV2CommunityMethodCardsTrialsPostData = {
+    body: TrialComplete;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/community-method-cards/trials';
+};
+
+export type CompleteTrialApiV2CommunityMethodCardsTrialsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type CompleteTrialApiV2CommunityMethodCardsTrialsPostError = CompleteTrialApiV2CommunityMethodCardsTrialsPostErrors[keyof CompleteTrialApiV2CommunityMethodCardsTrialsPostErrors];
+
+export type CompleteTrialApiV2CommunityMethodCardsTrialsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeTrialReceipt;
+};
+
+export type CompleteTrialApiV2CommunityMethodCardsTrialsPostResponse = CompleteTrialApiV2CommunityMethodCardsTrialsPostResponses[keyof CompleteTrialApiV2CommunityMethodCardsTrialsPostResponses];
+
+export type RecordDelayedVerificationApiV2CommunityMethodCardsTrialsTrialIdDelayedVerificationsPostData = {
+    body: DelayedVerificationRecord;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Trial Id
+         */
+        trial_id: string;
+    };
+    query?: never;
+    url: '/api/v2/community-method-cards/trials/{trial_id}/delayed-verifications';
+};
+
+export type RecordDelayedVerificationApiV2CommunityMethodCardsTrialsTrialIdDelayedVerificationsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RecordDelayedVerificationApiV2CommunityMethodCardsTrialsTrialIdDelayedVerificationsPostError = RecordDelayedVerificationApiV2CommunityMethodCardsTrialsTrialIdDelayedVerificationsPostErrors[keyof RecordDelayedVerificationApiV2CommunityMethodCardsTrialsTrialIdDelayedVerificationsPostErrors];
+
+export type RecordDelayedVerificationApiV2CommunityMethodCardsTrialsTrialIdDelayedVerificationsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeDelayedVerificationReceipt;
+};
+
+export type RecordDelayedVerificationApiV2CommunityMethodCardsTrialsTrialIdDelayedVerificationsPostResponse = RecordDelayedVerificationApiV2CommunityMethodCardsTrialsTrialIdDelayedVerificationsPostResponses[keyof RecordDelayedVerificationApiV2CommunityMethodCardsTrialsTrialIdDelayedVerificationsPostResponses];
+
+export type GetPublicCardDetailApiV2CommunityMethodCardsVersionsCardVersionIdGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Card Version Id
+         */
+        card_version_id: string;
+    };
+    query?: never;
+    url: '/api/v2/community-method-cards/versions/{card_version_id}';
+};
+
+export type GetPublicCardDetailApiV2CommunityMethodCardsVersionsCardVersionIdGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetPublicCardDetailApiV2CommunityMethodCardsVersionsCardVersionIdGetError = GetPublicCardDetailApiV2CommunityMethodCardsVersionsCardVersionIdGetErrors[keyof GetPublicCardDetailApiV2CommunityMethodCardsVersionsCardVersionIdGetErrors];
+
+export type GetPublicCardDetailApiV2CommunityMethodCardsVersionsCardVersionIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopePublicCardDetail;
+};
+
+export type GetPublicCardDetailApiV2CommunityMethodCardsVersionsCardVersionIdGetResponse = GetPublicCardDetailApiV2CommunityMethodCardsVersionsCardVersionIdGetResponses[keyof GetPublicCardDetailApiV2CommunityMethodCardsVersionsCardVersionIdGetResponses];
+
+export type RetireCardApiV2CommunityMethodCardsCardIdRetirePostData = {
+    body: RetireCard;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Card Id
+         */
+        card_id: string;
+    };
+    query?: never;
+    url: '/api/v2/community-method-cards/{card_id}/retire';
+};
+
+export type RetireCardApiV2CommunityMethodCardsCardIdRetirePostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RetireCardApiV2CommunityMethodCardsCardIdRetirePostError = RetireCardApiV2CommunityMethodCardsCardIdRetirePostErrors[keyof RetireCardApiV2CommunityMethodCardsCardIdRetirePostErrors];
+
+export type RetireCardApiV2CommunityMethodCardsCardIdRetirePostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeRetireReceipt;
+};
+
+export type RetireCardApiV2CommunityMethodCardsCardIdRetirePostResponse = RetireCardApiV2CommunityMethodCardsCardIdRetirePostResponses[keyof RetireCardApiV2CommunityMethodCardsCardIdRetirePostResponses];
+
+export type GenerateCandidateApiV2CommunityMethodCardsCardIdStructureCandidatePostData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Card Id
+         */
+        card_id: string;
+    };
+    query?: never;
+    url: '/api/v2/community-method-cards/{card_id}/structure-candidate';
+};
+
+export type GenerateCandidateApiV2CommunityMethodCardsCardIdStructureCandidatePostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GenerateCandidateApiV2CommunityMethodCardsCardIdStructureCandidatePostError = GenerateCandidateApiV2CommunityMethodCardsCardIdStructureCandidatePostErrors[keyof GenerateCandidateApiV2CommunityMethodCardsCardIdStructureCandidatePostErrors];
+
+export type GenerateCandidateApiV2CommunityMethodCardsCardIdStructureCandidatePostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeStructureCandidate;
+};
+
+export type GenerateCandidateApiV2CommunityMethodCardsCardIdStructureCandidatePostResponse = GenerateCandidateApiV2CommunityMethodCardsCardIdStructureCandidatePostResponses[keyof GenerateCandidateApiV2CommunityMethodCardsCardIdStructureCandidatePostResponses];
+
+export type SubmitForReviewApiV2CommunityMethodCardsCardIdSubmitPostData = {
+    body: CardSubmit;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Card Id
+         */
+        card_id: string;
+    };
+    query?: never;
+    url: '/api/v2/community-method-cards/{card_id}/submit';
+};
+
+export type SubmitForReviewApiV2CommunityMethodCardsCardIdSubmitPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type SubmitForReviewApiV2CommunityMethodCardsCardIdSubmitPostError = SubmitForReviewApiV2CommunityMethodCardsCardIdSubmitPostErrors[keyof SubmitForReviewApiV2CommunityMethodCardsCardIdSubmitPostErrors];
+
+export type SubmitForReviewApiV2CommunityMethodCardsCardIdSubmitPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeReviewOutcome;
+};
+
+export type SubmitForReviewApiV2CommunityMethodCardsCardIdSubmitPostResponse = SubmitForReviewApiV2CommunityMethodCardsCardIdSubmitPostResponses[keyof SubmitForReviewApiV2CommunityMethodCardsCardIdSubmitPostResponses];
+
+export type ConfirmCandidateApiV2CommunityMethodCardsCardIdVersionsConfirmPostData = {
+    body: CandidateConfirm;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Card Id
+         */
+        card_id: string;
+    };
+    query?: never;
+    url: '/api/v2/community-method-cards/{card_id}/versions/confirm';
+};
+
+export type ConfirmCandidateApiV2CommunityMethodCardsCardIdVersionsConfirmPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ConfirmCandidateApiV2CommunityMethodCardsCardIdVersionsConfirmPostError = ConfirmCandidateApiV2CommunityMethodCardsCardIdVersionsConfirmPostErrors[keyof ConfirmCandidateApiV2CommunityMethodCardsCardIdVersionsConfirmPostErrors];
+
+export type ConfirmCandidateApiV2CommunityMethodCardsCardIdVersionsConfirmPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeConfirmReceipt;
+};
+
+export type ConfirmCandidateApiV2CommunityMethodCardsCardIdVersionsConfirmPostResponse = ConfirmCandidateApiV2CommunityMethodCardsCardIdVersionsConfirmPostResponses[keyof ConfirmCandidateApiV2CommunityMethodCardsCardIdVersionsConfirmPostResponses];
+
+export type GetWorkspaceApiV2CommunityMethodCardsCardIdWorkspaceGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Card Id
+         */
+        card_id: string;
+    };
+    query?: never;
+    url: '/api/v2/community-method-cards/{card_id}/workspace';
+};
+
+export type GetWorkspaceApiV2CommunityMethodCardsCardIdWorkspaceGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetWorkspaceApiV2CommunityMethodCardsCardIdWorkspaceGetError = GetWorkspaceApiV2CommunityMethodCardsCardIdWorkspaceGetErrors[keyof GetWorkspaceApiV2CommunityMethodCardsCardIdWorkspaceGetErrors];
+
+export type GetWorkspaceApiV2CommunityMethodCardsCardIdWorkspaceGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeWorkspace;
+};
+
+export type GetWorkspaceApiV2CommunityMethodCardsCardIdWorkspaceGetResponse = GetWorkspaceApiV2CommunityMethodCardsCardIdWorkspaceGetResponses[keyof GetWorkspaceApiV2CommunityMethodCardsCardIdWorkspaceGetResponses];
+
+export type GetRewardLedgerApiV2CommunityRewardsLedgerGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/community-rewards/ledger';
+};
+
+export type GetRewardLedgerApiV2CommunityRewardsLedgerGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetRewardLedgerApiV2CommunityRewardsLedgerGetError = GetRewardLedgerApiV2CommunityRewardsLedgerGetErrors[keyof GetRewardLedgerApiV2CommunityRewardsLedgerGetErrors];
+
+export type GetRewardLedgerApiV2CommunityRewardsLedgerGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeCommunityRewardLedgerResponse;
+};
+
+export type GetRewardLedgerApiV2CommunityRewardsLedgerGetResponse = GetRewardLedgerApiV2CommunityRewardsLedgerGetResponses[keyof GetRewardLedgerApiV2CommunityRewardsLedgerGetResponses];
+
 export type CreateEssayAnswerApiV2EssayIntelligenceAnswersPostData = {
     body: EssayAnswerCreateCommand;
     headers: {
@@ -12948,6 +16159,69 @@ export type CompleteEssayDraftingPlanTaskApiV2EssayIntelligenceDraftingCompleteP
 
 export type CompleteEssayDraftingPlanTaskApiV2EssayIntelligenceDraftingCompletePlanTaskPostResponse = CompleteEssayDraftingPlanTaskApiV2EssayIntelligenceDraftingCompletePlanTaskPostResponses[keyof CompleteEssayDraftingPlanTaskApiV2EssayIntelligenceDraftingCompletePlanTaskPostResponses];
 
+export type GetEssayMasteryApiV2EssayIntelligenceMasteryGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/essay-intelligence/mastery';
+};
+
+export type GetEssayMasteryApiV2EssayIntelligenceMasteryGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetEssayMasteryApiV2EssayIntelligenceMasteryGetError = GetEssayMasteryApiV2EssayIntelligenceMasteryGetErrors[keyof GetEssayMasteryApiV2EssayIntelligenceMasteryGetErrors];
+
+export type GetEssayMasteryApiV2EssayIntelligenceMasteryGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeEssayMasteryProjection;
+};
+
+export type GetEssayMasteryApiV2EssayIntelligenceMasteryGetResponse = GetEssayMasteryApiV2EssayIntelligenceMasteryGetResponses[keyof GetEssayMasteryApiV2EssayIntelligenceMasteryGetResponses];
+
 export type GetGroundedEssayReviewJobApiV2EssayIntelligenceReviewJobsJobIdGetData = {
     body?: never;
     headers?: {
@@ -13290,6 +16564,140 @@ export type GetGroundedEssayReviewApiV2EssayIntelligenceReviewsReviewVersionIdGe
 
 export type GetGroundedEssayReviewApiV2EssayIntelligenceReviewsReviewVersionIdGetResponse = GetGroundedEssayReviewApiV2EssayIntelligenceReviewsReviewVersionIdGetResponses[keyof GetGroundedEssayReviewApiV2EssayIntelligenceReviewsReviewVersionIdGetResponses];
 
+export type RecordEssayRewriteApiV2EssayIntelligenceRewritesPostData = {
+    body: EssayRewriteCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/essay-intelligence/rewrites';
+};
+
+export type RecordEssayRewriteApiV2EssayIntelligenceRewritesPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RecordEssayRewriteApiV2EssayIntelligenceRewritesPostError = RecordEssayRewriteApiV2EssayIntelligenceRewritesPostErrors[keyof RecordEssayRewriteApiV2EssayIntelligenceRewritesPostErrors];
+
+export type RecordEssayRewriteApiV2EssayIntelligenceRewritesPostResponses = {
+    /**
+     * Successful Response
+     */
+    201: PublicApiEnvelopeEssayRewriteResult;
+};
+
+export type RecordEssayRewriteApiV2EssayIntelligenceRewritesPostResponse = RecordEssayRewriteApiV2EssayIntelligenceRewritesPostResponses[keyof RecordEssayRewriteApiV2EssayIntelligenceRewritesPostResponses];
+
+export type RecordEssayRewriteAndCompletePlanTaskApiV2EssayIntelligenceRewritesCompletePlanTaskPostData = {
+    body: EssayRewritePlanTaskCompletionCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/essay-intelligence/rewrites/complete-plan-task';
+};
+
+export type RecordEssayRewriteAndCompletePlanTaskApiV2EssayIntelligenceRewritesCompletePlanTaskPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RecordEssayRewriteAndCompletePlanTaskApiV2EssayIntelligenceRewritesCompletePlanTaskPostError = RecordEssayRewriteAndCompletePlanTaskApiV2EssayIntelligenceRewritesCompletePlanTaskPostErrors[keyof RecordEssayRewriteAndCompletePlanTaskApiV2EssayIntelligenceRewritesCompletePlanTaskPostErrors];
+
+export type RecordEssayRewriteAndCompletePlanTaskApiV2EssayIntelligenceRewritesCompletePlanTaskPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeEssayRewritePlanTaskCompletionResult;
+};
+
+export type RecordEssayRewriteAndCompletePlanTaskApiV2EssayIntelligenceRewritesCompletePlanTaskPostResponse = RecordEssayRewriteAndCompletePlanTaskApiV2EssayIntelligenceRewritesCompletePlanTaskPostResponses[keyof RecordEssayRewriteAndCompletePlanTaskApiV2EssayIntelligenceRewritesCompletePlanTaskPostResponses];
+
 export type GetCurrentTaskArtifactsApiV2EssayIntelligenceTasksTaskVersionIdArtifactsCurrentGetData = {
     body?: never;
     headers?: {
@@ -13425,6 +16833,140 @@ export type GetTaskWorkspaceApiV2EssayIntelligenceTasksTaskVersionIdWorkspaceGet
 };
 
 export type GetTaskWorkspaceApiV2EssayIntelligenceTasksTaskVersionIdWorkspaceGetResponse = GetTaskWorkspaceApiV2EssayIntelligenceTasksTaskVersionIdWorkspaceGetResponses[keyof GetTaskWorkspaceApiV2EssayIntelligenceTasksTaskVersionIdWorkspaceGetResponses];
+
+export type RecordEssayTransferApiV2EssayIntelligenceTransfersPostData = {
+    body: EssayTransferCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/essay-intelligence/transfers';
+};
+
+export type RecordEssayTransferApiV2EssayIntelligenceTransfersPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RecordEssayTransferApiV2EssayIntelligenceTransfersPostError = RecordEssayTransferApiV2EssayIntelligenceTransfersPostErrors[keyof RecordEssayTransferApiV2EssayIntelligenceTransfersPostErrors];
+
+export type RecordEssayTransferApiV2EssayIntelligenceTransfersPostResponses = {
+    /**
+     * Successful Response
+     */
+    201: PublicApiEnvelopeEssayTransferResult;
+};
+
+export type RecordEssayTransferApiV2EssayIntelligenceTransfersPostResponse = RecordEssayTransferApiV2EssayIntelligenceTransfersPostResponses[keyof RecordEssayTransferApiV2EssayIntelligenceTransfersPostResponses];
+
+export type RecordEssayTransferAndCompletePlanTaskApiV2EssayIntelligenceTransfersCompletePlanTaskPostData = {
+    body: EssayTransferPlanTaskCompletionCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/essay-intelligence/transfers/complete-plan-task';
+};
+
+export type RecordEssayTransferAndCompletePlanTaskApiV2EssayIntelligenceTransfersCompletePlanTaskPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RecordEssayTransferAndCompletePlanTaskApiV2EssayIntelligenceTransfersCompletePlanTaskPostError = RecordEssayTransferAndCompletePlanTaskApiV2EssayIntelligenceTransfersCompletePlanTaskPostErrors[keyof RecordEssayTransferAndCompletePlanTaskApiV2EssayIntelligenceTransfersCompletePlanTaskPostErrors];
+
+export type RecordEssayTransferAndCompletePlanTaskApiV2EssayIntelligenceTransfersCompletePlanTaskPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeEssayTransferPlanTaskCompletionResult;
+};
+
+export type RecordEssayTransferAndCompletePlanTaskApiV2EssayIntelligenceTransfersCompletePlanTaskPostResponse = RecordEssayTransferAndCompletePlanTaskApiV2EssayIntelligenceTransfersCompletePlanTaskPostResponses[keyof RecordEssayTransferAndCompletePlanTaskApiV2EssayIntelligenceTransfersCompletePlanTaskPostResponses];
 
 export type CreateCandidateApiV2ExternalLearningAnswerIngestionsPostData = {
     body: CreateAnswerCandidateCommand;
@@ -15172,6 +18714,213 @@ export type CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePos
 
 export type CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePostResponse = CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePostResponses[keyof CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePostResponses];
 
+export type StartLearningMediaUploadApiV2LearningMediaUploadsPostData = {
+    body: StartLearningMediaUploadCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/learning-media/uploads';
+};
+
+export type StartLearningMediaUploadApiV2LearningMediaUploadsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type StartLearningMediaUploadApiV2LearningMediaUploadsPostError = StartLearningMediaUploadApiV2LearningMediaUploadsPostErrors[keyof StartLearningMediaUploadApiV2LearningMediaUploadsPostErrors];
+
+export type StartLearningMediaUploadApiV2LearningMediaUploadsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeLearningMediaUploadProjection;
+};
+
+export type StartLearningMediaUploadApiV2LearningMediaUploadsPostResponse = StartLearningMediaUploadApiV2LearningMediaUploadsPostResponses[keyof StartLearningMediaUploadApiV2LearningMediaUploadsPostResponses];
+
+export type GetLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Upload Session Id
+         */
+        upload_session_id: string;
+    };
+    query?: never;
+    url: '/api/v2/learning-media/uploads/{upload_session_id}';
+};
+
+export type GetLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdGetError = GetLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdGetErrors[keyof GetLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdGetErrors];
+
+export type GetLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeLearningMediaUploadProjection;
+};
+
+export type GetLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdGetResponse = GetLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdGetResponses[keyof GetLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdGetResponses];
+
+export type CompleteLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdCompletePostData = {
+    body?: never;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Upload Session Id
+         */
+        upload_session_id: string;
+    };
+    query?: never;
+    url: '/api/v2/learning-media/uploads/{upload_session_id}/complete';
+};
+
+export type CompleteLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdCompletePostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type CompleteLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdCompletePostError = CompleteLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdCompletePostErrors[keyof CompleteLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdCompletePostErrors];
+
+export type CompleteLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdCompletePostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeLearningMediaUploadProjection;
+};
+
+export type CompleteLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdCompletePostResponse = CompleteLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdCompletePostResponses[keyof CompleteLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdCompletePostResponses];
+
 export type AcknowledgeOnboardingResultApiV2OnboardingCompletePostData = {
     body: OnboardingResultAcknowledgement;
     headers: {
@@ -16907,6 +20656,78 @@ export type DecideAttemptCauseApiV2XingceAttemptReviewsReviewIdCauseDecisionPutR
 
 export type DecideAttemptCauseApiV2XingceAttemptReviewsReviewIdCauseDecisionPutResponse = DecideAttemptCauseApiV2XingceAttemptReviewsReviewIdCauseDecisionPutResponses[keyof DecideAttemptCauseApiV2XingceAttemptReviewsReviewIdCauseDecisionPutResponses];
 
+export type SubmitAttemptCauseFollowupApiV2XingceAttemptReviewsReviewIdCauseFollowupPutData = {
+    body: CauseFollowupCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Review Id
+         */
+        review_id: string;
+    };
+    query?: never;
+    url: '/api/v2/xingce/attempt-reviews/{review_id}/cause-followup';
+};
+
+export type SubmitAttemptCauseFollowupApiV2XingceAttemptReviewsReviewIdCauseFollowupPutErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type SubmitAttemptCauseFollowupApiV2XingceAttemptReviewsReviewIdCauseFollowupPutError = SubmitAttemptCauseFollowupApiV2XingceAttemptReviewsReviewIdCauseFollowupPutErrors[keyof SubmitAttemptCauseFollowupApiV2XingceAttemptReviewsReviewIdCauseFollowupPutErrors];
+
+export type SubmitAttemptCauseFollowupApiV2XingceAttemptReviewsReviewIdCauseFollowupPutResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeTaskSessionProjection;
+};
+
+export type SubmitAttemptCauseFollowupApiV2XingceAttemptReviewsReviewIdCauseFollowupPutResponse = SubmitAttemptCauseFollowupApiV2XingceAttemptReviewsReviewIdCauseFollowupPutResponses[keyof SubmitAttemptCauseFollowupApiV2XingceAttemptReviewsReviewIdCauseFollowupPutResponses];
+
 export type SubmitAttemptReflectionApiV2XingceAttemptReviewsReviewIdReflectionPutData = {
     body: ReflectionCommand;
     headers: {
@@ -16978,6 +20799,150 @@ export type SubmitAttemptReflectionApiV2XingceAttemptReviewsReviewIdReflectionPu
 };
 
 export type SubmitAttemptReflectionApiV2XingceAttemptReviewsReviewIdReflectionPutResponse = SubmitAttemptReflectionApiV2XingceAttemptReviewsReviewIdReflectionPutResponses[keyof SubmitAttemptReflectionApiV2XingceAttemptReviewsReviewIdReflectionPutResponses];
+
+export type GetMasteryQueueApiV2XingceMasteryQueueGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: {
+        /**
+         * Bucket
+         */
+        bucket?: 'pending_reflection' | 'due_verification' | 'stable_mastery' | 'invalidated';
+        /**
+         * Cursor
+         */
+        cursor?: string | null;
+        /**
+         * Pagesize
+         */
+        pageSize?: number;
+    };
+    url: '/api/v2/xingce/mastery-queue';
+};
+
+export type GetMasteryQueueApiV2XingceMasteryQueueGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetMasteryQueueApiV2XingceMasteryQueueGetError = GetMasteryQueueApiV2XingceMasteryQueueGetErrors[keyof GetMasteryQueueApiV2XingceMasteryQueueGetErrors];
+
+export type GetMasteryQueueApiV2XingceMasteryQueueGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeMasteryQueuePage;
+};
+
+export type GetMasteryQueueApiV2XingceMasteryQueueGetResponse = GetMasteryQueueApiV2XingceMasteryQueueGetResponses[keyof GetMasteryQueueApiV2XingceMasteryQueueGetResponses];
+
+export type GetXingceTaskBriefingApiV2XingcePlanTasksPlanTaskIdBriefingGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Plan Task Id
+         */
+        plan_task_id: string;
+    };
+    query?: never;
+    url: '/api/v2/xingce/plan-tasks/{plan_task_id}/briefing';
+};
+
+export type GetXingceTaskBriefingApiV2XingcePlanTasksPlanTaskIdBriefingGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetXingceTaskBriefingApiV2XingcePlanTasksPlanTaskIdBriefingGetError = GetXingceTaskBriefingApiV2XingcePlanTasksPlanTaskIdBriefingGetErrors[keyof GetXingceTaskBriefingApiV2XingcePlanTasksPlanTaskIdBriefingGetErrors];
+
+export type GetXingceTaskBriefingApiV2XingcePlanTasksPlanTaskIdBriefingGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeXingceTaskBriefing;
+};
+
+export type GetXingceTaskBriefingApiV2XingcePlanTasksPlanTaskIdBriefingGetResponse = GetXingceTaskBriefingApiV2XingcePlanTasksPlanTaskIdBriefingGetResponses[keyof GetXingceTaskBriefingApiV2XingcePlanTasksPlanTaskIdBriefingGetResponses];
 
 export type StartOrResumeTaskSessionApiV2XingceTaskSessionsPostData = {
     body: StartTaskSessionCommand;

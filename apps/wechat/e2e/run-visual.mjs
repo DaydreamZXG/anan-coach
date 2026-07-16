@@ -19,11 +19,21 @@ const cliPath =
 const updateBaselines = process.argv.includes("--update");
 const maximumDifferentPixelRatio = 0.003;
 const scenarioFilter = process.env.VISUAL_SCENARIO?.trim() ?? "";
+const requestedScenarioIds = new Set(
+  scenarioFilter
+    .split(",")
+    .map((value) => value.trim())
+    .filter(Boolean),
+);
 const selectedScenarios = scenarioFilter
-  ? visualScenarios.filter((scenario) => scenario.id === scenarioFilter)
+  ? visualScenarios.filter((scenario) => requestedScenarioIds.has(scenario.id))
   : visualScenarios;
 
-assert.ok(selectedScenarios.length > 0, `Unknown visual scenario: ${scenarioFilter}`);
+assert.equal(
+  selectedScenarios.length,
+  requestedScenarioIds.size || visualScenarios.length,
+  `Unknown visual scenario filter: ${scenarioFilter}`,
+);
 
 await access(cliPath, constants.X_OK);
 await mkdir(baselineDirectory, { recursive: true });
@@ -38,6 +48,7 @@ const miniProgram = await automator.launch({
 });
 const runtimeFailures = [];
 miniProgram.on("exception", (event) => runtimeFailures.push(String(event?.message ?? event)));
+await freezeVisualAnimationClock(miniProgram);
 await miniProgram.mockWxMethod("request", {
   data: {
     code: "visual_test_request_blocked",
@@ -82,12 +93,16 @@ async function captureScenario(program, scenario) {
   if (Object.keys(resetData).length > 0) {
     await page.setData(resetData);
   }
-  await page.setData(flattenSetData(structuredClone(scenario.data)));
+  const fixtureData = flattenSetData(structuredClone(scenario.data));
+  await page.setData(fixtureData);
   await page.waitFor(800);
   if (scenario.scrollTop) {
     await program.pageScrollTo(scenario.scrollTop);
     await page.waitFor(200);
   }
+  // Page timers may keep rendering after the controller has settled. The scenario owns
+  // deterministic screenshot data, so restore it once after layout/scroll stabilization.
+  await page.setData(fixtureData);
   const appliedData = await page.data();
   for (const [key, expected] of Object.entries(scenario.data)) {
     assert.deepEqual(appliedData[key], expected, `${scenario.id} fixture was overwritten: ${key}`);
@@ -126,6 +141,20 @@ async function captureScenario(program, scenario) {
   }
 }
 
+async function freezeVisualAnimationClock(program) {
+  await program.evaluate(function installDeterministicVisualClock() {
+    if (globalThis.__gongkaoVisualOriginalSetInterval) return;
+    const originalSetInterval = globalThis.setInterval;
+    globalThis.__gongkaoVisualOriginalSetInterval = originalSetInterval;
+    globalThis.setInterval = function visualSetInterval(callback, delay, ...args) {
+      // 岸岸 core animation is contractually fixed at 8 fps (125 ms). Visual tests
+      // keep frame zero while leaving page polling/countdown timers operational.
+      if (delay === 125) return originalSetInterval(function holdVisualFrame() {}, delay);
+      return originalSetInterval(callback, delay, ...args);
+    };
+  });
+}
+
 function flattenSetData(data) {
   const result = {};
   for (const [key, value] of Object.entries(data)) flattenValue(key, value, result);
@@ -157,6 +186,9 @@ async function waitForControllerSettlement(page, scenario) {
 
 function controllerHasSettled(route, data) {
   const path = route.split("?", 1)[0];
+  if (path.startsWith("/pages/community-")) {
+    return remoteStatusHasSettled(data.pageState);
+  }
   if (path === "/pages/onboarding/index") return data.loadingProfile === false;
   if (path === "/pages/positions/index") {
     return (
@@ -164,6 +196,7 @@ function controllerHasSettled(route, data) {
       !["idle", "loading"].includes(data.workspace?.qualificationStatus)
     );
   }
+  if (remoteStatusHasSettled(data.status)) return true;
   return remoteStatusHasSettled(data.state?.status);
 }
 

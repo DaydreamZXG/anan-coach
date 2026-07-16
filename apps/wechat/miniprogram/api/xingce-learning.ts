@@ -1,4 +1,26 @@
-import type { TodayDashboard } from "./generated/types.gen";
+import type {
+  AiCauseCandidateState as GeneratedAiCauseCandidateState,
+  AttemptReviewProjection as GeneratedAttemptReviewProjection,
+  CauseDecisionCommand as GeneratedCauseDecisionCommand,
+  CauseDecisionVersionProjection as GeneratedCauseDecisionVersionProjection,
+  CauseFollowupCommand as GeneratedCauseFollowupCommand,
+  ItemInterpretation as GeneratedItemInterpretation,
+  MasteryQueueAction as GeneratedMasteryQueueAction,
+  MasteryQueueItem as GeneratedMasteryQueueItem,
+  MasteryQueuePage as GeneratedMasteryQueuePage,
+  MasteryQueueSummary as GeneratedMasteryQueueSummary,
+  QuestionDisputeReceipt as GeneratedQuestionDisputeReceipt,
+  ReflectionCommand as GeneratedReflectionCommand,
+  ReflectionVersionProjection as GeneratedReflectionVersionProjection,
+  ReportQuestionDisputeCommand as GeneratedReportQuestionDisputeCommand,
+  VerificationOutcomeProjection as GeneratedVerificationOutcomeProjection,
+  XingceAttemptResult as GeneratedXingceAttemptResult,
+  XingceCompletionReceipt as GeneratedXingceCompletionReceipt,
+  XingceGroupSummary as GeneratedXingceGroupSummary,
+  XingceResultItem as GeneratedXingceResultItem,
+  XingceTaskBriefing as GeneratedXingceTaskBriefing,
+  XingceTimingEvidence as GeneratedXingceTimingEvidence,
+} from "./generated/types.gen";
 import type { ApiClient } from "./client";
 import type { ApiEnvelope } from "../domain/contracts";
 import type { ContentAnchor, RichContentBlock } from "../task-runtime/content-renderer/model";
@@ -6,10 +28,21 @@ import type { ContentAnchor, RichContentBlock } from "../task-runtime/content-re
 export type XingceTaskMode = "practice" | "targeted" | "baseline" | "verification";
 export type XingceConfidence = "low" | "medium" | "high";
 export type XingceSessionState =
-  "answering" | "submitted" | "reflection_required" | "cause_decision_required" | "completed";
-export type XingceResultCode =
-  "correct" | "incorrect" | "timeout" | "guessed_correct" | "skipped" | "mixed";
-export type XingceCauseDecision = "replace" | "skip";
+  | "answering"
+  | "submitted"
+  | "reflection_required"
+  | "cause_candidate_processing"
+  | "cause_followup_required"
+  | "cause_decision_required"
+  | "cause_evidence_insufficient"
+  | "cause_agent_terminated"
+  | "completed";
+export type XingceResultCode = GeneratedXingceAttemptResult["resultCode"];
+export type XingceCauseDecision = GeneratedCauseDecisionCommand["decision"];
+export type XingceObjectiveVerdict = NonNullable<GeneratedXingceResultItem["objectiveVerdict"]>;
+export type XingceDisposition = NonNullable<GeneratedXingceResultItem["disposition"]>;
+export type XingceConfidenceEvidence = NonNullable<GeneratedXingceResultItem["confidenceEvidence"]>;
+export type XingceItemInterpretationCode = "method_correct_calculation_error";
 
 export interface XingceMaterialPosition {
   anchorId: string;
@@ -86,61 +119,33 @@ export interface XingceSubmitCommand {
   totalElapsedSeconds: number;
 }
 
-export interface XingceResultItem {
-  questionId: string;
-  resultCode: Exclude<XingceResultCode, "mixed">;
-  selectedOptionIds: string[];
-  correctOptionIds: string[];
-  explanation: string | null;
-  explanationSource: string | null;
-}
+export type XingceResultItem = GeneratedXingceResultItem;
+export type XingceTimingEvidence = GeneratedXingceTimingEvidence;
+export type XingceGroupSummary = GeneratedXingceGroupSummary;
+export type XingceAttemptResult = GeneratedXingceAttemptResult;
 
-export interface XingceAttemptResult {
-  attemptId: string;
-  resultCode: XingceResultCode;
-  correctCount: number;
-  totalCount: number;
-  items: XingceResultItem[];
-}
+export type XingceItemInterpretation = Omit<GeneratedItemInterpretation, "interpretation"> & {
+  interpretation: XingceItemInterpretationCode;
+};
 
-export interface XingceReflectionVersion {
-  reflectionVersionId: string;
-  rawText: string;
-  tags: string[];
-  strategyNote: string | null;
-  doubtNote: string | null;
-  versionNo: number;
-}
+export type XingceReflectionVersion = Omit<
+  GeneratedReflectionVersionProjection,
+  "itemInterpretations"
+> & {
+  itemInterpretations?: XingceItemInterpretation[];
+};
 
-export interface XingceCauseDecisionVersion {
-  decisionVersionId: string;
-  decision: XingceCauseDecision;
-  replacementCause: string | null;
-  versionNo: number;
-}
-
-export interface XingceAttemptReview {
-  reviewId: string;
-  revision: number;
-  state:
-    | "reflection_required"
-    | "cause_candidate_pending"
-    | "cause_decision_required"
-    | "immediate_verification_due";
-  aiCandidate: {
-    state: "unavailable";
-    reason: string;
-    charged: false;
-  };
-  reflection: XingceReflectionVersion | null;
-  causeDecision: XingceCauseDecisionVersion | null;
-}
-
-export interface XingceCompletionReceipt {
-  receiptId: string;
-  settlementStatus: "completed" | "late_evidence_linked";
-  plan: TodayDashboard;
-}
+export type XingceCauseDecisionVersion = GeneratedCauseDecisionVersionProjection;
+export type XingceCauseCandidate = GeneratedAiCauseCandidateState;
+export type XingceAttemptReview = Omit<
+  GeneratedAttemptReviewProjection,
+  "aiCandidate" | "reflection" | "causeDecision"
+> & {
+  aiCandidate: XingceCauseCandidate;
+  reflection?: XingceReflectionVersion | null;
+  causeDecision?: XingceCauseDecisionVersion | null;
+};
+export type XingceCompletionReceipt = GeneratedXingceCompletionReceipt;
 
 export interface XingceTaskSession {
   sessionId: string;
@@ -153,43 +158,48 @@ export interface XingceTaskSession {
   answers: XingceAnswerCheckpoint[];
   totalElapsedSeconds: number;
   result: XingceAttemptResult | null;
+  verificationOutcome: XingceVerificationOutcome | null;
   review: XingceAttemptReview | null;
   completion: XingceCompletionReceipt | null;
 }
 
-export interface XingceReflectionCommand {
-  expectedRevision: number;
-  rawText: string;
-  tags: string[];
-  strategyNote?: string;
-  doubtNote?: string;
-}
+export type XingceReflectionCommand = Omit<GeneratedReflectionCommand, "itemInterpretations"> & {
+  itemInterpretations?: XingceItemInterpretation[];
+};
 
-export interface XingceCauseDecisionCommand {
-  expectedRevision: number;
-  decision: XingceCauseDecision;
-  replacementCause?: string;
-}
+export type XingceVerificationOutcome = GeneratedVerificationOutcomeProjection;
 
-export type XingceQuestionDisputeCategory =
-  | "stem_error"
-  | "option_error"
-  | "answer_error"
-  | "material_mismatch"
-  | "image_unreadable"
-  | "other";
+export type XingceCauseDecisionCommand = Omit<
+  GeneratedCauseDecisionCommand,
+  "candidateVersionId" | "decision"
+> & {
+  candidateVersionId: string;
+  decision: Exclude<XingceCauseDecision, "skip">;
+};
 
-export interface XingceQuestionDisputeCommand {
-  questionId: string;
-  contentVersionId: string;
-  category: XingceQuestionDisputeCategory;
-  description: string;
-}
+export type XingceCauseFollowupCommand = GeneratedCauseFollowupCommand;
 
-export interface XingceQuestionDisputeReceipt extends XingceQuestionDisputeCommand {
-  disputeId: string;
-  sessionId: string;
-  createdAt: string;
+export type XingceQuestionDisputeCategory = GeneratedReportQuestionDisputeCommand["category"];
+
+export type XingceQuestionDisputeCommand = GeneratedReportQuestionDisputeCommand;
+export type XingceQuestionDisputeReceipt = GeneratedQuestionDisputeReceipt;
+
+export type XingceBriefingMode = GeneratedXingceTaskBriefing["mode"];
+export type XingceBriefingMetric =
+  GeneratedXingceTaskBriefing["completion"]["requiredMetrics"][number];
+export type XingceTaskBriefing = GeneratedXingceTaskBriefing;
+
+export type XingceMasteryQueueBucket = GeneratedMasteryQueuePage["bucket"];
+export type XingceMasteryQueueActionState = GeneratedMasteryQueueAction["state"];
+export type XingceMasteryQueueSummary = GeneratedMasteryQueueSummary;
+export type XingceMasteryQueueAction = GeneratedMasteryQueueAction;
+export type XingceMasteryQueueItem = GeneratedMasteryQueueItem;
+export type XingceMasteryQueuePage = GeneratedMasteryQueuePage;
+
+export interface XingceMasteryQueueQuery {
+  bucket: XingceMasteryQueueBucket;
+  cursor?: string;
+  pageSize?: number;
 }
 
 export class XingceLearningApi {
@@ -203,6 +213,12 @@ export class XingceLearningApi {
       "/api/v2/xingce/task-sessions",
       { planTaskId },
       { idempotencyKey },
+    );
+  }
+
+  getTaskBriefing(planTaskId: string): Promise<ApiEnvelope<XingceTaskBriefing>> {
+    return this.client.get<XingceTaskBriefing>(
+      `/api/v2/xingce/plan-tasks/${encodeURIComponent(requiredId(planTaskId, "planTaskId"))}/briefing`,
     );
   }
 
@@ -250,6 +266,16 @@ export class XingceLearningApi {
     });
   }
 
+  submitCauseFollowup(
+    reviewId: string,
+    command: XingceCauseFollowupCommand,
+    idempotencyKey: string,
+  ): Promise<ApiEnvelope<XingceTaskSession>> {
+    return this.client.put<XingceTaskSession>(`${reviewPath(reviewId)}/cause-followup`, command, {
+      idempotencyKey,
+    });
+  }
+
   reportDispute(
     sessionId: string,
     command: XingceQuestionDisputeCommand,
@@ -259,6 +285,22 @@ export class XingceLearningApi {
       `${sessionPath(sessionId)}/disputes`,
       command,
       { idempotencyKey },
+    );
+  }
+
+  getMasteryQueue(query: XingceMasteryQueueQuery): Promise<ApiEnvelope<XingceMasteryQueuePage>> {
+    const pageSize = query.pageSize ?? 30;
+    if (!Number.isInteger(pageSize) || pageSize < 1 || pageSize > 100) {
+      throw new Error("Xingce mastery queue pageSize must be an integer between 1 and 100");
+    }
+    const params = [`bucket=${encodeURIComponent(query.bucket)}`, `pageSize=${String(pageSize)}`];
+    if (query.cursor !== undefined) {
+      const cursor = query.cursor.trim();
+      if (!cursor) throw new Error("Xingce mastery queue cursor must not be empty");
+      params.push(`cursor=${encodeURIComponent(cursor)}`);
+    }
+    return this.client.get<XingceMasteryQueuePage>(
+      `/api/v2/xingce/mastery-queue?${params.join("&")}`,
     );
   }
 }

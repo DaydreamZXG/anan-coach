@@ -1,0 +1,69 @@
+<view class="page community-page">
+  <view class="community-hero">
+    <view class="hero-kicker">方法共创 · C21</view>
+    <view class="hero-title">把你的方法先说清楚</view>
+    <view class="hero-copy">先保存为仅你可见的草稿。岸岸只整理候选结构，不替你确认事实，也不会用来训练模型。</view>
+    <view class="privacy-strip">
+      <view class="privacy-dot"></view>
+      <view>原始文字、语音转写、手写识别与复盘内容保持私有；送审后公开的只有你确认过的方法表达。</view>
+    </view>
+  </view>
+
+  <state-view
+    wx:if="{{pageState !== 'default'}}"
+    state="{{pageState}}"
+    title="{{stateTitle}}"
+    description="{{stateDescription}}"
+    action-text="{{stateActionLabel}}"
+    request-id="{{requestId}}"
+    bind:action="stateAction"
+  />
+
+  <block wx:if="{{pageState === 'default'}}">
+    <view class="community-section">
+      <view class="section-label">01 · 选择来源</view>
+      <view class="section-title">这些内容都只进入你的私有草稿</view>
+      <view class="choice-grid">
+        <view
+          wx:for="{{sourceOptions}}"
+          wx:key="value"
+          class="choice-card {{sourceType === item.value ? 'choice-card--active' : ''}}"
+          data-value="{{item.value}}"
+          bindtap="chooseSource"
+        >
+          <view class="choice-title">{{item.label}}</view>
+          <view class="choice-copy">{{item.description}}</view>
+        </view>
+      </view>
+      <view wx:if="{{sourceArtifactBound}}" class="success-note">已绑定当前账号通过私有安全检查的来源素材；服务端还会再次核验归属。</view>
+      <view wx:elif="{{sourceType === 'voice_transcript' || sourceType === 'handwriting_extraction'}}" class="warning-note">请从语音复盘或手写识别完成页进入。没有私有素材版本时不能保存为该来源。</view>
+    </view>
+
+    <view class="community-section">
+      <view class="section-label">02 · 学习方向</view>
+      <view class="fixed-actions">
+        <button class="action-button {{track === 'xingce' ? '' : 'secondary-button'}}" data-value="xingce" bindtap="chooseTrack">行测</button>
+        <button class="action-button {{track === 'essay' ? '' : 'secondary-button'}}" data-value="essay" bindtap="chooseTrack">申论</button>
+      </view>
+      <label class="field-label">你的原始表达</label>
+      <textarea
+        class="text-area"
+        value="{{sourceText}}"
+        maxlength="6000"
+        placeholder="例如：我判断数量关系是否该跳过，会先看……"
+        bindinput="inputSource"
+      />
+      <label class="field-label">适用题型或场景</label>
+      <input
+        class="text-input"
+        value="{{applicabilityText}}"
+        maxlength="300"
+        placeholder="用逗号分隔，例如：资料分析，增长率比较"
+        bindinput="inputApplicability"
+      />
+      <view class="boundary-note">保存后仍是私有草稿。你必须逐项编辑并确认 AI 候选，之后才能申请五项检查。</view>
+      <view wx:if="{{formMessage}}" class="warning-note">{{formMessage}}</view>
+      <button class="action-button" loading="{{submitting}}" disabled="{{submitting}}" bindtap="submitDraft">保存私有草稿</button>
+    </view>
+  </block>
+</view>

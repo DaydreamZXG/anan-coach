@@ -329,6 +329,29 @@
         <textarea class="essay-textarea essay-textarea--compact" value="{{drafting.whatIWillChange}}" maxlength="3000" data-field="whatIWillChange" placeholder="写成可执行动作，例如：先归并同类事实，再写上位概念。" bindinput="inputDraftingField"></textarea>
         <view class="field-label">怎么验证改法有效 <text class="field-hint">必填</text></view>
         <textarea class="essay-textarea essay-textarea--compact" value="{{drafting.verificationPlan}}" maxlength="2000" data-field="verificationPlan" placeholder="例如：下一道同题型逐点核对材料覆盖和概念层级。" bindinput="inputDraftingField"></textarea>
+
+        <view class="voice-panel">
+          <view class="voice-heading">
+            <view>
+              <view class="field-label voice-title">语音复盘 <text class="field-optional">选填</text></view>
+              <view class="field-help">{{voiceSummary.segmentCountLabel}} · {{voiceSummary.totalSizeLabel}}，仅提交通过安全检查的服务端版本。</view>
+            </view>
+            <button wx:if="{{!voiceRecording}}" class="voice-button" disabled="{{!voiceSummary.canRecord}}" bindtap="startVoiceRecording">录一段</button>
+            <button wx:else class="voice-button voice-button--recording" bindtap="stopVoiceRecording">结束录音</button>
+          </view>
+          <view wx:for="{{voiceSegmentViews}}" wx:key="segmentId" class="voice-segment voice-segment--{{item.stateTone}}">
+            <view>
+              <view class="voice-segment-title">{{item.sequenceLabel}} · {{item.durationLabel}} · {{item.sizeLabel}}</view>
+              <view class="voice-state">{{item.stateLabel}}</view>
+              <view wx:if="{{item.failureMessage}}" class="voice-failure">{{item.failureMessage}}</view>
+            </view>
+            <view class="voice-actions">
+              <button class="voice-link" data-segment-id="{{item.segmentId}}" disabled="{{!item.canOperate}}" bindtap="playVoiceSegment">{{voicePlayingSegmentId === item.segmentId ? '停止' : '试听'}}</button>
+              <button class="voice-link voice-link--danger" data-segment-id="{{item.segmentId}}" disabled="{{!item.canOperate}}" bindtap="removeVoiceSegment">删除</button>
+            </view>
+          </view>
+          <button wx:if="{{voiceSummary.hasUnready}}" class="secondary-button voice-upload" disabled="{{submissionStatus === 'submitting'}}" bindtap="uploadVoiceSegments">上传并等待安全检查</button>
+        </view>
       </view>
 
       <view wx:if="{{reviewDisplay.state !== 'idle'}}" class="review-status-card review-status-card--{{reviewDisplay.state}}">
@@ -405,24 +428,113 @@
       </view>
     </block>
 
+    <block wx:elif="{{capability.stage === 'essay_rewrite' && rewriteDraft}}">
+      <view class="closure-guide card">
+        <view class="review-guide-title">二次改写版本</view>
+        <view>本次只回应你在问题决策版本中明确认可的问题。</view>
+        <view>新答案、逐条修正证据和掌握状态由 essay-rewrite-writer@v2 同步写入。</view>
+      </view>
+      <view class="closure-card card">
+        <view class="field-label">答案录入来源</view>
+        <picker range="{{closureSourceTypeLabels}}" value="{{rewriteDraft.sourceTypeIndex}}" bindchange="changeRewriteSourceType">
+          <view class="essay-select">{{closureSourceTypeLabels[rewriteDraft.sourceTypeIndex]}} <text>›</text></view>
+        </picker>
+        <view class="field-label">改写后答案 <text class="field-hint">{{rewriteDraft.answerText.length}} / 10000</text></view>
+        <textarea class="essay-textarea essay-answer-textarea" value="{{rewriteDraft.answerText}}" maxlength="10000" data-field="answerText" placeholder="写入完整新答案，不覆盖原答案版本。" bindinput="inputRewriteField"></textarea>
+        <view class="field-label">本次改写思路 <text class="field-optional">选填</text></view>
+        <textarea class="essay-textarea essay-textarea--compact" value="{{rewriteDraft.userThought}}" maxlength="3000" data-field="userThought" placeholder="你如何调整找点、概括或结构？" bindinput="inputRewriteField"></textarea>
+      </view>
+      <view wx:for="{{rewriteDraft.resolutions}}" wx:key="findingId" class="closure-card card">
+        <view class="closure-finding-index">问题 {{index + 1}}</view>
+        <view class="finding-diagnosis">{{item.diagnosis}}</view>
+        <view class="finding-action">建议动作：{{item.action}}</view>
+        <view class="field-label">修正结果</view>
+        <picker range="{{findingResolutionLabels}}" value="{{item.statusIndex}}" data-index="{{index}}" bindchange="changeRewriteResolution">
+          <view class="essay-select">{{findingResolutionLabels[item.statusIndex]}} <text>›</text></view>
+        </picker>
+        <view class="field-label">新答案中的证据</view>
+        <textarea class="essay-textarea essay-textarea--compact" value="{{item.learnerEvidence}}" maxlength="2000" data-index="{{index}}" placeholder="指出你改了哪句、哪个要点或哪一层结构。" bindinput="inputRewriteEvidence"></textarea>
+      </view>
+    </block>
+
+    <block wx:elif="{{capability.stage === 'essay_transfer'}}">
+      <view class="closure-guide card">
+        <view class="review-guide-title">新题迁移验证</view>
+        <view>当前题目与材料由规划冻结，作答、评阅和问题决策都建立新版本。</view>
+        <view>只能明确选择源评阅与新评阅的共同评分维度，不会猜测验证项。</view>
+      </view>
+
+      <block wx:if="{{transferDraft.phase === 'drafting'}}">
+        <view class="closure-card card">
+          <view class="field-label">答案录入来源</view>
+          <picker range="{{closureSourceTypeLabels}}" value="{{transferDraft.sourceTypeIndex}}" bindchange="changeTransferSourceType">
+            <view class="essay-select">{{closureSourceTypeLabels[transferDraft.sourceTypeIndex]}} <text>›</text></view>
+          </picker>
+          <view class="field-label">实际作答分钟 <text class="field-optional">选填</text></view>
+          <input class="essay-input type-data" type="number" value="{{transferDraft.elapsedMinutesText}}" data-field="elapsedMinutesText" placeholder="留空按本页计时" bindinput="inputTransferField" />
+          <view class="field-label">新题答案 <text class="field-hint">{{transferDraft.answerText.length}} / 10000</text></view>
+          <textarea class="essay-textarea essay-answer-textarea" value="{{transferDraft.answerText}}" maxlength="10000" data-field="answerText" placeholder="只作答当前新题，不复用源题答案。" bindinput="inputTransferField"></textarea>
+          <view class="field-label">作答时的真实思路 <text class="field-optional">选填</text></view>
+          <textarea class="essay-textarea essay-textarea--compact" value="{{transferDraft.userThought}}" maxlength="3000" data-field="userThought" placeholder="记录你如何尝试迁移上次的改法。" bindinput="inputTransferField"></textarea>
+        </view>
+      </block>
+
+      <view wx:elif="{{transferDraft.phase === 'review_queued' || transferDraft.phase === 'attempt_saved' || transferDraft.phase === 'answer_saved'}}" class="review-status-card review-status-card--running">
+        <view class="review-status-mark">新题证据链执行中</view>
+        <view class="review-status-title">作答草稿与已写入版本指针已按账号和规划任务保存</view>
+        <view class="review-status-copy">页面重载后会从已确认的作答、答案或评阅 job 继续，不会重新造一条证据链。</view>
+      </view>
+
+      <block wx:elif="{{transferDraft.phase === 'review_ready' || transferDraft.phase === 'decision_saved'}}">
+        <view class="closure-card card">
+          <view class="review-guide-title">明确选择迁移验证维度</view>
+          <checkbox-group bindchange="changeTransferCriteria">
+            <label wx:for="{{criterionOptions}}" wx:key="criterionCode" class="criterion-option {{item.checked ? 'criterion-option--checked' : ''}}">
+              <checkbox value="{{item.criterionCode}}" checked="{{item.checked}}" color="#5268ff" />
+              <view>{{item.label}} <text class="type-data">{{item.criterionCode}}</text></view>
+            </label>
+          </checkbox-group>
+        </view>
+        <view wx:for="{{transferDraft.decisions}}" wx:key="findingId" class="closure-card card">
+          <view class="closure-finding-index">新题问题 {{index + 1}}</view>
+          <view class="finding-diagnosis">{{item.diagnosis}}</view>
+          <view class="finding-action">建议动作：{{item.action}}</view>
+          <view class="field-label">我的决定</view>
+          <picker range="{{findingDecisionLabels}}" value="{{item.decisionIndex}}" data-index="{{index}}" bindchange="changeTransferDecision">
+            <view class="essay-select">{{findingDecisionLabels[item.decisionIndex]}} <text>›</text></view>
+          </picker>
+          <view wx:if="{{item.decision === 'rejected' || item.decision === 'uncertain'}}">
+            <view class="field-label">理由</view>
+            <textarea class="essay-textarea essay-textarea--compact" value="{{item.learnerReason}}" maxlength="2000" data-index="{{index}}" data-field="learnerReason" placeholder="写明你不认可或存疑的证据。" bindinput="inputTransferDecisionField"></textarea>
+          </view>
+          <view wx:if="{{item.decision === 'uncertain'}}">
+            <view class="field-label">待追问内容</view>
+            <textarea class="essay-textarea essay-textarea--compact" value="{{item.followUpQuestion}}" maxlength="1000" data-index="{{index}}" data-field="followUpQuestion" placeholder="需要核对什么材料或评分规则？" bindinput="inputTransferDecisionField"></textarea>
+          </view>
+        </view>
+        <view class="closure-card card">
+          <view class="field-label">我对新题评阅的理解</view>
+          <textarea class="essay-textarea essay-textarea--compact" value="{{transferDraft.learnerUnderstanding}}" maxlength="3000" data-field="learnerUnderstanding" placeholder="用自己的话总结，不默认认可 AI 结论。" bindinput="inputTransferField"></textarea>
+        </view>
+      </block>
+    </block>
+
     <block wx:elif="{{capability.stage === 'essay_review'}}">
       <view class="review-guide card">
         <view class="review-guide-title">确认规则</view>
-        <view>1. 必须阅读并确认本版评阅的全部问题。</view>
-        <view>2. 再选择 <text class="type-data">1–3</text> 个本次优先修正问题。</view>
+        <view>1. 对本版每个评阅问题逐条选择认可、不认可或存疑。</view>
+        <view>2. 仅从“认可”的问题中选择 <text class="type-data">1–3</text> 个本次优先修正项。</view>
         <view>3. 用自己的话说清理解，AI 结论不会被默认认可。</view>
       </view>
-      <checkbox-group bindchange="changeAcknowledgedFindings">
-        <view wx:for="{{view.findings}}" wx:key="findingId" class="finding-card card finding-card--{{item.severity}}">
+      <view wx:for="{{view.findings}}" wx:key="findingId" class="finding-card card finding-card--{{item.severity}}">
           <view class="finding-heading">
             <view class="finding-tags">
               <view class="pill">{{item.typeLabel}}</view>
               <view class="pill severity-pill severity-pill--{{item.severity}}">{{item.severityLabel}}</view>
             </view>
-            <label class="finding-check">
-              <checkbox value="{{item.findingId}}" checked="{{item.acknowledged}}" color="#5268ff" />
-              <text>已理解</text>
-            </label>
+            <picker range="{{findingDecisionLabels}}" value="{{item.decisionIndex}}" data-index="{{index}}" bindchange="changeReviewFindingDecision">
+              <view class="essay-select">{{findingDecisionLabels[item.decisionIndex]}} <text>›</text></view>
+            </picker>
           </view>
           <view class="finding-label">问题诊断</view>
           <view class="finding-diagnosis">{{item.diagnosis}}</view>
@@ -436,8 +548,11 @@
             <view class="evidence-quote-label">材料证据</view>
             <view>“{{item.materialEvidenceSummary}}”</view>
           </view>
-        </view>
-      </checkbox-group>
+          <view wx:if="{{item.decision === 'rejected' || item.decision === 'uncertain'}}" class="field-label">我的理由</view>
+          <textarea wx:if="{{item.decision === 'rejected' || item.decision === 'uncertain'}}" class="essay-textarea essay-textarea--compact" value="{{item.learnerReason}}" maxlength="2000" data-index="{{index}}" data-field="learnerReason" placeholder="指出你不认可或存疑的具体证据。" bindinput="inputReviewFindingDecisionField"></textarea>
+          <view wx:if="{{item.decision === 'uncertain'}}" class="field-label">待追问内容</view>
+          <textarea wx:if="{{item.decision === 'uncertain'}}" class="essay-textarea essay-textarea--compact" value="{{item.followUpQuestion}}" maxlength="1000" data-index="{{index}}" data-field="followUpQuestion" placeholder="写下需要 AI 或老师继续解释的问题。" bindinput="inputReviewFindingDecisionField"></textarea>
+      </view>
       <view class="form-card card">
         <view class="field-label">本次优先修正 <text class="field-hint">选 1–3 个</text></view>
         <checkbox-group bindchange="changePriorityFindings">
@@ -450,6 +565,13 @@
         <textarea class="essay-textarea" value="{{review.learnerUnderstanding}}" maxlength="3000" placeholder="例如：我不是没看到这句材料，而是把现象当成了原因……" bindinput="inputLearnerUnderstanding"></textarea>
       </view>
     </block>
+
+    <view wx:if="{{closureResult}}" class="closure-result closure-result--{{closureResult.statusTone}} card">
+      <view class="closure-result-mark">{{closureResult.statusLabel}}</view>
+      <view class="closure-result-mastery">掌握状态：{{closureResult.masteryLabel}}</view>
+      <view class="closure-result-version type-data">{{closureResult.versionId}}</view>
+      <view class="closure-result-planning">{{closureResult.planningMessage}}</view>
+    </view>
 
     <view wx:if="{{submissionMessage}}" class="submission-message submission-message--{{submissionStatus}}">
       {{submissionMessage}}
@@ -464,7 +586,7 @@
       disabled="{{!canSubmit || submissionStatus === 'submitting'}}"
       bindtap="submitStage"
     >
-      {{submissionStatus === 'submitting' ? (capability.stage === 'essay_drafting' ? '正在原子提交…' : '正在写入…') : capability.stage === 'essay_drafting' ? (draftAvailable ? '提交作答与复盘' : '确认答案并提交复盘') : hasSavedEvidence ? '保存新版本' : '提交本阶段证据'}}
+      {{submissionStatus === 'submitting' ? (capability.stage === 'essay_drafting' ? '正在原子提交…' : '正在写入…') : capability.stage === 'essay_drafting' ? (draftAvailable ? '提交作答与复盘' : '确认答案并提交复盘') : capability.stage === 'essay_rewrite' ? '提交改写与修正证据' : capability.stage === 'essay_transfer' ? (transferDraft.phase === 'drafting' ? '提交新题作答' : '提交迁移决策与验证') : hasSavedEvidence ? '保存新版本' : '提交本阶段证据'}}
     </button>
   </view>
 </task-shell>

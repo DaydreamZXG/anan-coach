@@ -34,10 +34,20 @@ export interface OutlineSectionDraft {
 }
 
 export interface ReviewDraft {
-  acknowledgedFindingIds: string[];
+  decisions: ReviewFindingDecisionDraft[];
   priorityFindingIds: string[];
   learnerUnderstanding: string;
 }
+
+export interface ReviewFindingDecisionDraft {
+  findingId: string;
+  decision: "" | "accepted" | "rejected" | "uncertain";
+  decisionIndex: number;
+  learnerReason: string;
+  followUpQuestion: string;
+}
+
+export const reviewDecisionValues = ["", "accepted", "rejected", "uncertain"] as const;
 
 export interface EssayFormDrafts {
   overallTheme: string;
@@ -103,7 +113,20 @@ export function initialEssayFormDrafts(workspace: EssayTaskWorkspace): EssayForm
       plannedWordsText: String(section.plannedWords),
     })) ?? [newOutlineSectionDraft()],
     review: {
-      acknowledgedFindingIds: acknowledgementPayload?.acknowledgedFindingIds ?? [],
+      decisions:
+        workspace.progression.currentReview?.findings.map((finding) => {
+          const saved = acknowledgementPayload?.decisions.find(
+            (item) => item.findingId === finding.findingId,
+          );
+          const decision = saved?.decision ?? "";
+          return {
+            findingId: finding.findingId,
+            decision,
+            decisionIndex: reviewDecisionValues.indexOf(decision),
+            learnerReason: saved?.learnerReason ?? "",
+            followUpQuestion: saved?.followUpQuestion ?? "",
+          };
+        }) ?? [],
       priorityFindingIds: acknowledgementPayload?.priorityFindingIds ?? [],
       learnerUnderstanding: acknowledgementPayload?.learnerUnderstanding ?? "",
     },
@@ -257,27 +280,48 @@ function reviewPayload(
     workspace.progression.currentReview?.findings.map((item) => item.findingId) ?? [],
   );
   if (findingIds.size === 0) throw new EssayFormError("评阅结果未返回可确认的 finding 证据。");
-  const acknowledged = requiredIds(
-    drafts.review.acknowledgedFindingIds,
-    "请逐条阅读并勾选你已确认的评阅问题。",
-  );
-  if (acknowledged.length !== findingIds.size) {
-    throw new EssayFormError("请阅读并确认本版评阅的全部问题。");
+  if (
+    drafts.review.decisions.length !== findingIds.size ||
+    new Set(drafts.review.decisions.map((item) => item.findingId)).size !== findingIds.size ||
+    drafts.review.decisions.some((item) => !findingIds.has(item.findingId))
+  ) {
+    throw new EssayFormError("评阅问题版本已变化，请刷新后重新逐条决定。");
   }
+  const decisions = drafts.review.decisions.map((item) => {
+    if (!item.decision) {
+      throw new EssayFormError("请对本版评阅的全部问题逐条选择认可、不认可或存疑。");
+    }
+    const learnerReason = item.learnerReason.trim();
+    const followUpQuestion = item.followUpQuestion.trim();
+    if (item.decision === "rejected" && !learnerReason) {
+      throw new EssayFormError("不认可评阅问题时必须写明理由。");
+    }
+    if (item.decision === "uncertain" && (!learnerReason || !followUpQuestion)) {
+      throw new EssayFormError("对评阅问题存疑时必须写明理由和待追问内容。");
+    }
+    return {
+      findingId: item.findingId,
+      decision: item.decision,
+      ...(learnerReason ? { learnerReason } : {}),
+      ...(followUpQuestion ? { followUpQuestion } : {}),
+    };
+  });
   const priorities = requiredIds(
     drafts.review.priorityFindingIds,
     "请选择 1–3 个本次优先修正问题。",
   );
   if (priorities.length > 3) throw new EssayFormError("优先修正问题最多选择 3 个。");
   if (
-    acknowledged.some((id) => !findingIds.has(id)) ||
-    priorities.some((id) => !acknowledged.includes(id))
+    priorities.some(
+      (id) => !decisions.some((item) => item.findingId === id && item.decision === "accepted"),
+    )
   ) {
     throw new EssayFormError("评阅问题版本已变化，请刷新后重新确认。");
   }
   return {
     schemaType: "review_acknowledgement",
-    acknowledgedFindingIds: acknowledged,
+    contractVersion: "essay-finding-decision@v1",
+    decisions,
     priorityFindingIds: priorities,
     learnerUnderstanding: required(
       drafts.review.learnerUnderstanding,

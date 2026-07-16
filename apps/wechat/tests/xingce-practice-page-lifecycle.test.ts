@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import type {
   XingceCheckpointCommand,
+  XingceTaskMode,
   XingceTaskSession,
 } from "../miniprogram/api/xingce-learning";
 import { environment } from "../miniprogram/config/environment";
@@ -59,6 +60,17 @@ describe("xingce practice page lifecycle", () => {
     expect(runtime.setData).toHaveBeenCalledTimes(writesBeforeLateResponse);
     expect(vi.getTimerCount()).toBe(0);
   });
+
+  it("starts a server-owned verification task through the same real attempt page", async () => {
+    vi.useFakeTimers();
+    const runtime = await createPracticePage(undefined, "verification");
+
+    expect(runtime.page.data.status).toBe("ready");
+    expect((runtime.page.data.view as { modeLabel: string }).modeLabel).toBe("行测 Agent·独立验证");
+    expect(runtime.requests[0]?.method).toBe("POST");
+    expect(runtime.requests[0]?.data).toEqual({ planTaskId: xingceIds.planTask });
+    runtime.page.onUnload.call(runtime.page);
+  });
 });
 
 type RequestInterceptor = (
@@ -66,9 +78,12 @@ type RequestInterceptor = (
   session: XingceTaskSession,
 ) => boolean;
 
-async function createPracticePage(intercept?: RequestInterceptor) {
+async function createPracticePage(
+  intercept?: RequestInterceptor,
+  mode: XingceTaskMode = "targeted",
+) {
   let captured: CapturedPracticePage | undefined;
-  let session = activeXingceSession();
+  let session = activeXingceSession({ mode });
   const requests: WechatMiniprogram.RequestOption[] = [];
   const { wxStorage } = createMemoryWechatStorage();
   const request = vi.fn((options: WechatMiniprogram.RequestOption) => {
@@ -80,6 +95,7 @@ async function createPracticePage(intercept?: RequestInterceptor) {
     if (options.method === "PUT") {
       const command = options.data as XingceCheckpointCommand;
       session = activeXingceSession({
+        mode,
         revision: command.expectedRevision + 1,
         answers: command.answers,
       });
@@ -121,7 +137,7 @@ async function createPracticePage(intercept?: RequestInterceptor) {
     data: JSON.parse(JSON.stringify(captured.data)) as Record<string, unknown>,
     setData,
   };
-  page.onLoad.call(page, { mode: "targeted", planTaskId: xingceIds.planTask });
+  page.onLoad.call(page, { mode, planTaskId: xingceIds.planTask });
   page.onShow.call(page);
   await flushMicrotasks();
   expect(page.data.status).toBe("ready");

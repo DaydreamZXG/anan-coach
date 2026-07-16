@@ -39,6 +39,25 @@
     </view>
 
     <view class="section-heading">
+      <view class="section-title">社区方法卡</view>
+      <view class="section-meta">只看版本化证据</view>
+    </view>
+    <view class="community-entry-list card">
+      <view class="community-entry" bindtap="openCommunityDraft">
+        <view><view class="community-entry-title">创建私有草稿</view><view class="community-entry-copy">岸岸只整理候选，确认后才能送审</view></view>
+        <view class="community-entry-arrow">›</view>
+      </view>
+      <view class="community-entry" bindtap="openCommunityTrial">
+        <view><view class="community-entry-title">试用资料分析方法</view><view class="community-entry-copy">用独立新题与延时复测验证</view></view>
+        <view class="community-entry-arrow">›</view>
+      </view>
+      <view class="community-entry" bindtap="openCommunityContributions">
+        <view><view class="community-entry-title">我的贡献与奖励</view><view class="community-entry-copy">查看版本、政策、权益与不可变回执</view></view>
+        <view class="community-entry-arrow">›</view>
+      </view>
+    </view>
+
+    <view class="section-heading">
       <view class="section-title">登录设备</view>
       <view class="section-meta">{{sessions.length}} 个有效会话</view>
     </view>

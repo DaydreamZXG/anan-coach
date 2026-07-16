@@ -27,6 +27,7 @@ apps/wechat/miniprogram_npm/
 .local/
 .v0/
 .workbuddy/
+.product-governance/
 # Python build/test caches
 __pycache__/
 *.py[cod]

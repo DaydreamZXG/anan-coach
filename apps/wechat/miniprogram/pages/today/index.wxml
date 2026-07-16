@@ -245,7 +245,10 @@
           </view>
         </view>
       </view>
-      <view class="section-meta">{{view.dueSummary}}</view>
+      <view class="section-side">
+        <view class="section-meta">{{view.dueSummary}}</view>
+        <button class="mastery-link" bindtap="openMasteryQueue">错题与掌握 →</button>
+      </view>
     </view>
 
     <view class="plan-explanation card">

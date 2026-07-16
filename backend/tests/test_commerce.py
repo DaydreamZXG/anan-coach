@@ -36,7 +36,7 @@ def test_commerce_catalog_contract(db_session_factory: sessionmaker[Session]) ->
     ]
     assert body["freeQuotas"][0] == {
         "feature": "companion_ask",
-        "title": "鹿鸣 AI 问答",
+        "title": "岸岸 AI 问答",
         "limit": 3,
         "used": 0,
         "remaining": 3,

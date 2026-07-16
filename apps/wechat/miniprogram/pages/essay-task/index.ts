@@ -4,18 +4,51 @@ import {
   type EssayCurrentReviewEnsureCommand,
   type EssayReviewIntentView,
   type EssayReviewJobView,
+  type EssayReviewResponse,
+  type EssayRewriteResultV2,
   type EssayTaskWorkspace,
 } from "../../api/essay-intelligence";
 import { ApiClient, ApiClientError } from "../../api/client";
+import { LearningMediaApi } from "../../api/learning-media";
 import { routes } from "../../app/navigation/routes";
 import { currentAuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";
 import {
   essayStageCapability,
   inferEssayStageFromMode,
+  parseEssayWriterContext,
   parseEssayTaskStage,
   type EssayStageCapability,
 } from "../../features/essay-task/capabilities";
+import {
+  buildRewriteCommand,
+  buildRewritePlanTaskCompletionCommand,
+  closureSourceTypeLabels,
+  closureSourceTypeValues,
+  criterionOptions,
+  EssayClosureError,
+  findingDecisionLabels,
+  findingDecisionValues,
+  findingResolutionLabels,
+  findingResolutionValues,
+  initialRewriteDraft,
+  initialTransferDraft,
+  masterySummary,
+  acceptedFindingIdsFromWorkspace,
+  type CriterionOption,
+  type EssayRewriteDraft,
+  type EssayTransferDraft,
+} from "../../features/essay-task/closure";
+import {
+  advanceEssayTransferFlow,
+  pollEssayTransferReview,
+  transferPhaseMessage,
+} from "../../features/essay-task/closure-flow";
+import {
+  clearEssayClosureDraft,
+  loadEssayClosureDraft,
+  storeEssayClosureDraft,
+} from "../../features/essay-task/closure-store";
 import {
   answerSourceTypeLabels,
   answerSourceTypeValues,
@@ -42,6 +75,7 @@ import {
   newPointDraft,
   pointCategoryLabels,
   pointCategoryValues,
+  reviewDecisionValues,
   type EssayFormDrafts,
   type MaterialAnnotationDraft,
   type OutlineSectionDraft,
@@ -76,6 +110,30 @@ import {
 } from "../../features/essay-task/pending-store";
 import { publishLatestTodayDashboard } from "../../features/planning/runtime-state";
 import { createIdempotencyKey } from "../../platform/command-id";
+import {
+  validateVoiceCollection,
+  type ReflectionVoiceSegment,
+} from "../../features/learning-media/contracts";
+import {
+  clearReflectionLearningMediaDraft,
+  loadReflectionLearningMediaDraft,
+  storeReflectionLearningMediaDraft,
+} from "../../features/learning-media/draft-store";
+import {
+  deleteLocalVoice,
+  ensureRecordPermission,
+  persistRecordedVoice,
+  requestRecordSetting,
+  WechatVoicePreview,
+  WechatVoiceRecorder,
+} from "../../features/learning-media/platform";
+import {
+  presentReflectionVoiceSegments,
+  presentReflectionVoiceSummary,
+  type ReflectionVoiceSegmentView,
+  type ReflectionVoiceSummaryView,
+} from "../../features/learning-media/presentation";
+import { ReflectionVoiceUploadCoordinator } from "../../features/learning-media/upload-controller";
 
 type PageStatus = "loading" | "ready" | "error" | "unavailable";
 type SubmissionStatus = "idle" | "submitting" | "saved" | "error";
@@ -110,6 +168,27 @@ interface EssayTaskPageData {
   reflectionCauseOptions: Array<{ code: string; label: string; checked: boolean }>;
   reviewDisplay: ReviewDisplay;
   canRegenerateReview: boolean;
+  rewriteDraft: EssayRewriteDraft | null;
+  transferDraft: EssayTransferDraft;
+  closureReview: EssayReviewResponse | null;
+  criterionOptions: CriterionOption[];
+  closureSourceTypeLabels: string[];
+  findingResolutionLabels: string[];
+  findingDecisionLabels: string[];
+  closureResult: ClosureResultView | null;
+  voiceSegments: ReflectionVoiceSegment[];
+  voiceSegmentViews: ReflectionVoiceSegmentView[];
+  voiceSummary: ReflectionVoiceSummaryView;
+  voiceRecording: boolean;
+  voicePlayingSegmentId: string;
+}
+
+interface ClosureResultView {
+  statusLabel: string;
+  statusTone: "success" | "warning" | "danger";
+  versionId: string;
+  masteryLabel: string;
+  planningMessage: string;
 }
 
 interface PointPageDraft extends PointDraft {
@@ -121,7 +200,10 @@ interface OutlineSectionPageDraft extends OutlineSectionDraft {
 }
 
 interface FindingPageView extends FindingView {
-  acknowledged: boolean;
+  decision: ReviewDraft["decisions"][number]["decision"];
+  decisionIndex: number;
+  learnerReason: string;
+  followUpQuestion: string;
   priority: boolean;
   priorityDisabled: boolean;
 }
@@ -150,7 +232,8 @@ interface EssayTaskPageCustom {
   removeOutlineSection(event: WechatMiniprogram.BaseEvent): void;
   inputOutlineField(event: WechatMiniprogram.Input): void;
   changeOutlineSources(event: WechatMiniprogram.CustomEvent<{ value: string[] }>): void;
-  changeAcknowledgedFindings(event: WechatMiniprogram.CustomEvent<{ value: string[] }>): void;
+  changeReviewFindingDecision(event: WechatMiniprogram.CustomEvent<{ value: string }>): void;
+  inputReviewFindingDecisionField(event: WechatMiniprogram.Input): void;
   changePriorityFindings(event: WechatMiniprogram.CustomEvent<{ value: string[] }>): void;
   inputLearnerUnderstanding(event: WechatMiniprogram.Input): void;
   inputDraftingField(event: WechatMiniprogram.Input): void;
@@ -166,6 +249,25 @@ interface EssayTaskPageCustom {
   pollGroundedReview(): Promise<void>;
   regenerateGroundedReview(): Promise<void>;
   loadExistingReview(reviewVersionId: string): Promise<void>;
+  loadClosureContext(): Promise<void>;
+  inputRewriteField(event: WechatMiniprogram.Input): void;
+  changeRewriteSourceType(event: WechatMiniprogram.CustomEvent<{ value: string }>): void;
+  changeRewriteResolution(event: WechatMiniprogram.CustomEvent<{ value: string }>): void;
+  inputRewriteEvidence(event: WechatMiniprogram.Input): void;
+  inputTransferField(event: WechatMiniprogram.Input): void;
+  changeTransferSourceType(event: WechatMiniprogram.CustomEvent<{ value: string }>): void;
+  changeTransferDecision(event: WechatMiniprogram.CustomEvent<{ value: string }>): void;
+  inputTransferDecisionField(event: WechatMiniprogram.Input): void;
+  changeTransferCriteria(event: WechatMiniprogram.CustomEvent<{ value: string[] }>): void;
+  submitRewrite(): Promise<void>;
+  submitTransfer(): Promise<void>;
+  resumeTransfer(): Promise<void>;
+  pollTransferReview(): Promise<void>;
+  startVoiceRecording(): Promise<void>;
+  stopVoiceRecording(): void;
+  uploadVoiceSegments(): Promise<void>;
+  playVoiceSegment(event: WechatMiniprogram.BaseEvent): void;
+  removeVoiceSegment(event: WechatMiniprogram.BaseEvent): Promise<void>;
 }
 
 type EssayTaskPageInstance = WechatMiniprogram.Page.Instance<
@@ -174,7 +276,7 @@ type EssayTaskPageInstance = WechatMiniprogram.Page.Instance<
 >;
 
 const emptyReview: ReviewDraft = {
-  acknowledgedFindingIds: [],
+  decisions: [],
   priorityFindingIds: [],
   learnerUnderstanding: "",
 };
@@ -185,6 +287,8 @@ const idleReviewDisplay: ReviewDisplay = {
   message: "",
   result: null,
 };
+
+const emptyVoiceSummary = presentReflectionVoiceSummary([]);
 
 const pageRuntimes = new EssayTaskPageRuntimeRegistry<EssayTaskPageInstance>();
 
@@ -219,6 +323,19 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     reflectionCauseOptions: reflectionCauseOptions([]),
     reviewDisplay: idleReviewDisplay,
     canRegenerateReview: false,
+    rewriteDraft: null,
+    transferDraft: initialTransferDraft(),
+    closureReview: null,
+    criterionOptions: [],
+    closureSourceTypeLabels,
+    findingResolutionLabels,
+    findingDecisionLabels,
+    closureResult: null,
+    voiceSegments: [],
+    voiceSegmentViews: [],
+    voiceSummary: emptyVoiceSummary,
+    voiceRecording: false,
+    voicePlayingSegmentId: "",
   },
 
   onLoad(options: Record<string, string | undefined>) {
@@ -228,6 +345,9 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     runtime.basedOnExecutionVersionId = options.basedOnExecutionVersionId?.trim() || undefined;
     runtime.activeStage =
       parseEssayTaskStage(options.stage) ?? inferEssayStageFromMode(options.mode);
+    runtime.writerContext = runtime.activeStage
+      ? parseEssayWriterContext(runtime.activeStage, options)
+      : null;
     runtime.startedAt = Date.now();
     startTimer(this, runtime);
 
@@ -239,7 +359,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       });
       return;
     }
-    const capability = essayStageCapability(runtime.activeStage);
+    const capability = essayStageCapability(runtime.activeStage, runtime.writerContext);
     this.setData({ capability });
     if (!capability.writable) {
       this.setData({
@@ -282,9 +402,30 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
             planTaskId: runtime.activePlanTaskId,
           })
         : null;
-    runtime.api = new EssayIntelligenceApi(
-      new ApiClient(environment.apiBaseUrl, session.accessToken),
-    );
+    if (runtime.activeStage === "essay_rewrite" || runtime.activeStage === "essay_transfer") {
+      const writerContext = runtime.writerContext;
+      if (writerContext?.kind === "rewrite") {
+        runtime.closureDraft = loadEssayClosureDraft(session.userId, {
+          kind: "rewrite",
+          taskVersionId: runtime.activeTaskVersionId,
+          planTaskId: runtime.activePlanTaskId,
+          writerContext,
+        });
+      } else if (writerContext?.kind === "transfer") {
+        runtime.closureDraft = loadEssayClosureDraft(session.userId, {
+          kind: "transfer",
+          taskVersionId: runtime.activeTaskVersionId,
+          planTaskId: runtime.activePlanTaskId,
+          writerContext,
+        });
+      }
+    }
+    const client = new ApiClient(environment.apiBaseUrl, session.accessToken);
+    runtime.api = new EssayIntelligenceApi(client);
+    runtime.learningMediaApi = new LearningMediaApi(client);
+    runtime.voiceUploadCoordinator = new ReflectionVoiceUploadCoordinator(runtime.learningMediaApi);
+    runtime.voiceRecorder = new WechatVoiceRecorder();
+    runtime.voicePreview = new WechatVoicePreview();
     void this.loadWorkspace();
   },
 
@@ -295,6 +436,12 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     if (runtime.startedAt > 0) startTimer(this, runtime);
     if (this.data.status === "ready" && runtime.activeReviewJobId) {
       scheduleReviewPoll(this, runtime, 0);
+    } else if (
+      this.data.status === "ready" &&
+      runtime.activeStage === "essay_transfer" &&
+      this.data.transferDraft.phase === "review_queued"
+    ) {
+      scheduleTransferPoll(this, runtime, 0);
     } else if (
       this.data.status === "ready" &&
       runtime.activeReviewIntent &&
@@ -310,6 +457,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     runtime.pageVisible = false;
     stopTimer(runtime);
     stopReviewPoll(runtime);
+    runtime.voiceRecorder?.stop();
+    runtime.voicePreview?.stop();
   },
 
   onUnload() {
@@ -341,8 +490,19 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         pendingReview?.ensure?.jobId ??
         workspace.progression.reviewJobId ??
         "";
-      const capability = essayStageCapability(activeStage);
+      const capability = essayStageCapability(activeStage, runtime.writerContext);
       const draftingStage = activeStage === "essay_drafting";
+      const closureStage = activeStage === "essay_rewrite" || activeStage === "essay_transfer";
+      if (
+        activeStage === "essay_transfer" &&
+        runtime.writerContext?.kind === "transfer" &&
+        workspace.material.materialBundleVersionId !==
+          runtime.writerContext.targetMaterialBundleVersionId
+      ) {
+        throw new EssayClosureError(
+          "工作区材料版本与规划冻结的新材料不一致，不能用其他材料代替迁移题。",
+        );
+      }
       const drafts =
         runtime.pendingCompletion?.taskVersionId === activeTaskVersionId &&
         runtime.pendingCompletion.stage === activeStage
@@ -366,6 +526,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         blockingReason,
         canSubmit:
           capability.writable &&
+          !closureStage &&
           (!blockingReason ||
             runtime.pendingCompletion !== null ||
             runtime.pendingDraftingSubmission !== null) &&
@@ -404,6 +565,13 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         ...pageDrafts.drafts,
       });
       if (draftingStage) {
+        const voiceDraft = loadReflectionLearningMediaDraft(
+          runtime.activeUserId,
+          voiceDraftScope(runtime.activePlanTaskId),
+        );
+        applyVoiceSegments(this, voiceDraft.voiceSegments);
+      }
+      if (draftingStage) {
         if (runtime.pendingDraftingSubmission?.phase === "completion_pending") {
           void this.resumeDraftingSubmission();
         } else if (runtime.activeReviewIntent) {
@@ -420,6 +588,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         } else if (workspace.progression.reviewVersionId) {
           void this.loadExistingReview(workspace.progression.reviewVersionId);
         }
+      } else if (closureStage) {
+        void this.loadClosureContext();
       }
     } catch (error) {
       if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
@@ -593,10 +763,16 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     this.setData({ outlineSections: sections, submissionStatus: "idle" });
   },
 
-  changeAcknowledgedFindings(event: WechatMiniprogram.CustomEvent<{ value: string[] }>) {
-    const acknowledged = event.detail.value;
+  changeReviewFindingDecision(event: WechatMiniprogram.CustomEvent<{ value: string }>) {
+    const index = datasetIndex(event);
+    const current = this.data.review.decisions[index];
+    const decisionIndex = Number(event.detail.value);
+    const decision = reviewDecisionValues[decisionIndex];
+    if (!current || decision === undefined) return;
+    const decisions = [...this.data.review.decisions];
+    decisions[index] = { ...current, decision, decisionIndex };
     const priorities = this.data.review.priorityFindingIds.filter((id) =>
-      acknowledged.includes(id),
+      decisions.some((item) => item.findingId === id && item.decision === "accepted"),
     );
     markDraftChanged();
     const view = this.data.view
@@ -604,9 +780,18 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           ...this.data.view,
           findings: this.data.view.findings.map((item) => ({
             ...item,
-            acknowledged: acknowledged.includes(item.findingId),
+            ...(item.findingId === current.findingId
+              ? {
+                  decision,
+                  decisionIndex,
+                  learnerReason: current.learnerReason,
+                  followUpQuestion: current.followUpQuestion,
+                }
+              : {}),
             priority: priorities.includes(item.findingId),
-            priorityDisabled: !acknowledged.includes(item.findingId),
+            priorityDisabled: !decisions.some(
+              (draft) => draft.findingId === item.findingId && draft.decision === "accepted",
+            ),
           })),
         }
       : null;
@@ -614,9 +799,32 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       view,
       review: {
         ...this.data.review,
-        acknowledgedFindingIds: acknowledged,
+        decisions,
         priorityFindingIds: priorities,
       },
+      submissionStatus: "idle",
+    });
+  },
+
+  inputReviewFindingDecisionField(event: WechatMiniprogram.Input) {
+    const index = datasetIndex(event);
+    const field = String(event.currentTarget.dataset.field ?? "");
+    const current = this.data.review.decisions[index];
+    if (!current || (field !== "learnerReason" && field !== "followUpQuestion")) return;
+    const decisions = [...this.data.review.decisions];
+    decisions[index] = { ...current, [field]: event.detail.value };
+    const view = this.data.view
+      ? {
+          ...this.data.view,
+          findings: this.data.view.findings.map((item) =>
+            item.findingId === current.findingId ? { ...item, [field]: event.detail.value } : item,
+          ),
+        }
+      : null;
+    markDraftChanged();
+    this.setData({
+      view,
+      review: { ...this.data.review, decisions },
       submissionStatus: "idle",
     });
   },
@@ -731,10 +939,620 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     });
   },
 
+  async loadClosureContext() {
+    const runtime = pageRuntimes.get(this);
+    const workspace = this.data.workspace;
+    if (!runtime?.api || !runtime.writerContext || !workspace) return;
+    const requestEpoch = pageRuntimes.beginRequest(runtime);
+    try {
+      if (runtime.writerContext.kind === "rewrite") {
+        const context = runtime.writerContext;
+        const review = (await runtime.api.getGroundedReview(context.baseReviewVersionId)).data;
+        if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+        if (
+          review.status !== "completed" ||
+          review.attemptId !== context.attemptId ||
+          review.answerVersionId !== context.baseAnswerVersionId ||
+          context.basedOnAnswerVersionId !== context.baseAnswerVersionId
+        ) {
+          throw new EssayClosureError("规划冻结的原作答、原答案与完整评阅不是同一条版本链。");
+        }
+        const acceptedFindingIds = acceptedFindingIdsFromWorkspace(
+          workspace,
+          context.findingDecisionArtifactVersionId,
+          context.baseReviewVersionId,
+        );
+        const stored = runtime.closureDraft?.kind === "rewrite" ? runtime.closureDraft : null;
+        const rewriteDraft = stored?.draft ?? initialRewriteDraft(review, acceptedFindingIds);
+        if (
+          rewriteDraft.resolutions.length !== acceptedFindingIds.length ||
+          rewriteDraft.resolutions.some((item) => !acceptedFindingIds.includes(item.findingId))
+        ) {
+          throw new EssayClosureError("本地改写草稿与当前问题决策版本不一致。");
+        }
+        runtime.rewriteReview = review;
+        this.setData({
+          closureReview: review,
+          rewriteDraft,
+          canSubmit: !stored?.atomicCommand && !stored?.terminalConflict,
+          draftLocked: Boolean(stored?.atomicCommand),
+          submissionStatus: stored?.idempotencyKey ? "error" : "idle",
+          submissionMessage: stored?.terminalConflict
+            ? "改写所属计划或证据版本已失效，必须从最新今日计划重新进入。"
+            : stored?.idempotencyKey
+              ? "上次改写命令未获得完整终态，将使用同一幂等键重试。"
+              : "",
+        });
+        if (stored?.atomicCommand && !stored.terminalConflict) void this.submitRewrite();
+        return;
+      }
+
+      const context = runtime.writerContext;
+      if (
+        workspace.task.taskVersionId !== context.targetTaskVersionId ||
+        workspace.material.materialBundleVersionId !== context.targetMaterialBundleVersionId
+      ) {
+        throw new EssayClosureError("新题或新材料与规划冻结版本不一致。");
+      }
+      const mastery = (await runtime.api.getMastery()).data;
+      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      const sourceItems = mastery.items.filter(
+        (item) =>
+          item.state === "transfer_due" &&
+          item.rewriteVersionId === context.sourceRewriteVersionId &&
+          item.findingDecisionArtifactVersionId === context.sourceFindingDecisionArtifactVersionId,
+      );
+      const sourceReviewVersionIds = [
+        ...new Set(sourceItems.map((item) => item.sourceReviewVersionId)),
+      ];
+      if (!sourceItems.length || sourceReviewVersionIds.length !== 1) {
+        throw new EssayClosureError(
+          "源改写没有唯一的 transfer_due 掌握头，不能猜测要验证的源评阅。",
+        );
+      }
+      const sourceReviewVersionId = sourceReviewVersionIds[0];
+      if (!sourceReviewVersionId) throw new EssayClosureError("源评阅版本缺失。");
+      const sourceReview = (await runtime.api.getGroundedReview(sourceReviewVersionId)).data;
+      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (sourceReview.status !== "completed") {
+        throw new EssayClosureError("源评阅不是完整终态，不能进行迁移比较。");
+      }
+      runtime.transferSourceReview = sourceReview;
+      const stored = runtime.closureDraft?.kind === "transfer" ? runtime.closureDraft : null;
+      const transferDraft = stored?.draft ?? initialTransferDraft();
+      let transferReview: EssayReviewResponse | null = null;
+      if (transferDraft.reviewVersionId) {
+        transferReview = (await runtime.api.getGroundedReview(transferDraft.reviewVersionId)).data;
+        if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+        runtime.transferReview = transferReview;
+      }
+      this.setData({
+        transferDraft,
+        closureReview: transferReview,
+        criterionOptions: transferReview
+          ? criterionOptions(sourceReview, transferReview, transferDraft.selectedCriterionCodes)
+          : [],
+        canSubmit: ["drafting", "review_ready", "decision_saved"].includes(transferDraft.phase),
+        draftLocked: !["drafting", "review_ready"].includes(transferDraft.phase),
+        submissionStatus: stored ? "error" : "idle",
+        submissionMessage:
+          transferDraft.phase === "context_invalid"
+            ? "迁移所属计划或证据版本已失效，必须从最新今日计划重新进入。"
+            : stored
+              ? "已恢复按账号与规划任务隔离的迁移草稿和版本指针。"
+              : "",
+      });
+      if (["attempt_saved", "answer_saved", "decision_saved"].includes(transferDraft.phase)) {
+        void this.resumeTransfer();
+      } else if (transferDraft.phase === "review_queued") {
+        scheduleTransferPoll(this, runtime, 0);
+      }
+    } catch (error) {
+      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      this.setData({
+        canSubmit: false,
+        submissionStatus: "error",
+        submissionMessage: closureErrorMessage(error),
+        blockingReason: closureErrorMessage(error),
+      });
+    }
+  },
+
+  inputRewriteField(event: WechatMiniprogram.Input) {
+    const draft = this.data.rewriteDraft;
+    const field = String(event.currentTarget.dataset.field ?? "");
+    if (
+      !draft ||
+      !["answerText", "userThought", "pointFindingText", "outlineText"].includes(field)
+    ) {
+      return;
+    }
+    const rewriteDraft = { ...draft, [field]: event.detail.value };
+    this.setData({ rewriteDraft, submissionStatus: "idle", submissionMessage: "" });
+    persistRewriteDraft(this, rewriteDraft, false);
+  },
+
+  changeRewriteSourceType(event: WechatMiniprogram.CustomEvent<{ value: string }>) {
+    const draft = this.data.rewriteDraft;
+    const index = Number(event.detail.value);
+    const sourceType = closureSourceTypeValues[index];
+    if (!draft || !sourceType) return;
+    const rewriteDraft = { ...draft, sourceType, sourceTypeIndex: index };
+    this.setData({ rewriteDraft, submissionStatus: "idle", submissionMessage: "" });
+    persistRewriteDraft(this, rewriteDraft, false);
+  },
+
+  changeRewriteResolution(event: WechatMiniprogram.CustomEvent<{ value: string }>) {
+    const draft = this.data.rewriteDraft;
+    const index = datasetIndex(event);
+    const statusIndex = Number(event.detail.value);
+    const status = findingResolutionValues[statusIndex];
+    if (!draft || status === undefined || !draft.resolutions[index]) return;
+    const resolutions = [...draft.resolutions];
+    resolutions[index] = {
+      ...resolutions[index],
+      status,
+      statusIndex,
+    } as (typeof resolutions)[number];
+    const rewriteDraft = { ...draft, resolutions };
+    this.setData({ rewriteDraft, submissionStatus: "idle", submissionMessage: "" });
+    persistRewriteDraft(this, rewriteDraft, false);
+  },
+
+  inputRewriteEvidence(event: WechatMiniprogram.Input) {
+    const draft = this.data.rewriteDraft;
+    const index = datasetIndex(event);
+    if (!draft || !draft.resolutions[index]) return;
+    const resolutions = [...draft.resolutions];
+    resolutions[index] = {
+      ...resolutions[index],
+      learnerEvidence: event.detail.value,
+    } as (typeof resolutions)[number];
+    const rewriteDraft = { ...draft, resolutions };
+    this.setData({ rewriteDraft, submissionStatus: "idle", submissionMessage: "" });
+    persistRewriteDraft(this, rewriteDraft, false);
+  },
+
+  inputTransferField(event: WechatMiniprogram.Input) {
+    const field = String(event.currentTarget.dataset.field ?? "");
+    if (
+      ![
+        "answerText",
+        "userThought",
+        "pointFindingText",
+        "outlineText",
+        "elapsedMinutesText",
+        "learnerUnderstanding",
+      ].includes(field)
+    ) {
+      return;
+    }
+    const transferDraft = { ...this.data.transferDraft, [field]: event.detail.value };
+    this.setData({ transferDraft, submissionStatus: "idle", submissionMessage: "" });
+    persistTransferDraft(this, transferDraft);
+  },
+
+  changeTransferSourceType(event: WechatMiniprogram.CustomEvent<{ value: string }>) {
+    const index = Number(event.detail.value);
+    const sourceType = closureSourceTypeValues[index];
+    if (!sourceType) return;
+    const transferDraft = { ...this.data.transferDraft, sourceType, sourceTypeIndex: index };
+    this.setData({ transferDraft, submissionStatus: "idle", submissionMessage: "" });
+    persistTransferDraft(this, transferDraft);
+  },
+
+  changeTransferDecision(event: WechatMiniprogram.CustomEvent<{ value: string }>) {
+    const index = datasetIndex(event);
+    const decisionIndex = Number(event.detail.value);
+    const decision = findingDecisionValues[decisionIndex];
+    const current = this.data.transferDraft.decisions[index];
+    if (decision === undefined || !current) return;
+    const decisions = [...this.data.transferDraft.decisions];
+    decisions[index] = { ...current, decision, decisionIndex };
+    const transferDraft = { ...this.data.transferDraft, decisions };
+    this.setData({ transferDraft, submissionStatus: "idle", submissionMessage: "" });
+    persistTransferDraft(this, transferDraft);
+  },
+
+  inputTransferDecisionField(event: WechatMiniprogram.Input) {
+    const index = datasetIndex(event);
+    const field = String(event.currentTarget.dataset.field ?? "");
+    const current = this.data.transferDraft.decisions[index];
+    if (!current || (field !== "learnerReason" && field !== "followUpQuestion")) return;
+    const decisions = [...this.data.transferDraft.decisions];
+    decisions[index] = { ...current, [field]: event.detail.value };
+    const transferDraft = { ...this.data.transferDraft, decisions };
+    this.setData({ transferDraft, submissionStatus: "idle", submissionMessage: "" });
+    persistTransferDraft(this, transferDraft);
+  },
+
+  changeTransferCriteria(event: WechatMiniprogram.CustomEvent<{ value: string[] }>) {
+    const selectedCriterionCodes = event.detail.value;
+    const allowed = this.data.criterionOptions.map((item) => item.criterionCode);
+    if (selectedCriterionCodes.some((code) => !allowed.includes(code))) return;
+    const transferDraft = { ...this.data.transferDraft, selectedCriterionCodes };
+    this.setData({
+      transferDraft,
+      criterionOptions: this.data.criterionOptions.map((item) => ({
+        ...item,
+        checked: selectedCriterionCodes.includes(item.criterionCode),
+      })),
+      submissionStatus: "idle",
+      submissionMessage: "",
+    });
+    persistTransferDraft(this, transferDraft);
+  },
+
+  async submitRewrite() {
+    const runtime = pageRuntimes.get(this);
+    const draft = this.data.rewriteDraft;
+    if (
+      !runtime?.api ||
+      runtime.writerContext?.kind !== "rewrite" ||
+      !runtime.rewriteReview ||
+      !this.data.workspace ||
+      !draft ||
+      this.data.submissionStatus === "submitting"
+    ) {
+      return;
+    }
+    const requestEpoch = pageRuntimes.beginRequest(runtime);
+    try {
+      const existing = runtime.closureDraft?.kind === "rewrite" ? runtime.closureDraft : null;
+      let atomicCommand = existing?.atomicCommand;
+      let idempotencyKey = existing?.idempotencyKey;
+      if (!atomicCommand || !idempotencyKey) {
+        const acceptedFindingIds = acceptedFindingIdsFromWorkspace(
+          this.data.workspace,
+          runtime.writerContext.findingDecisionArtifactVersionId,
+          runtime.writerContext.baseReviewVersionId,
+        );
+        const rewrite = buildRewriteCommand(runtime.writerContext, draft, acceptedFindingIds);
+        atomicCommand = buildRewritePlanTaskCompletionCommand(
+          rewrite,
+          runtime.activePlanTaskId,
+          Math.max(1, Math.ceil(currentElapsedSeconds(runtime) / 60)),
+          runtime.basedOnExecutionVersionId,
+        );
+        idempotencyKey = await createIdempotencyKey("essay-rewrite-complete-plan-task");
+        if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+        runtime.closureDraft = {
+          kind: "rewrite",
+          taskVersionId: runtime.activeTaskVersionId,
+          planTaskId: runtime.activePlanTaskId,
+          writerContext: runtime.writerContext,
+          draft,
+          idempotencyKey,
+          atomicCommand,
+        };
+        storeEssayClosureDraft(runtime.activeUserId, runtime.closureDraft);
+      }
+      this.setData({
+        submissionStatus: "submitting",
+        submissionMessage: "正在同一事务写入新答案、逐条修正证据、掌握状态并结算规划任务…",
+        draftLocked: true,
+        canSubmit: false,
+      });
+      const result = (await runtime.api.completeRewritePlanTask(atomicCommand, idempotencyKey))
+        .data;
+      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      publishLatestTodayDashboard(result.completion.plan);
+      clearEssayClosureDraft(runtime.activeUserId, runtime.activePlanTaskId);
+      runtime.closureDraft = null;
+      applyRewriteResult(this, result);
+    } catch (error) {
+      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      const terminalConflict = isTerminalClosureConflict(error);
+      if (terminalConflict && runtime.closureDraft?.kind === "rewrite") {
+        runtime.closureDraft = { ...runtime.closureDraft, terminalConflict: true };
+        storeEssayClosureDraft(runtime.activeUserId, runtime.closureDraft);
+      }
+      this.setData({
+        submissionStatus: "error",
+        submissionMessage: terminalConflict
+          ? "改写任务的计划或证据版本已变化；原子事务没有部分写入。请从最新今日计划重新进入。"
+          : closureErrorMessage(error),
+        draftLocked:
+          runtime.closureDraft?.kind === "rewrite" && Boolean(runtime.closureDraft.atomicCommand),
+        canSubmit: !terminalConflict,
+        ...(terminalConflict
+          ? { blockingReason: "当前改写上下文已失效，不会循环重试旧命令。" }
+          : {}),
+      });
+    }
+  },
+
+  async submitTransfer() {
+    await this.resumeTransfer();
+  },
+
+  async resumeTransfer() {
+    const runtime = pageRuntimes.get(this);
+    const workspace = this.data.workspace;
+    if (
+      !runtime?.api ||
+      runtime.writerContext?.kind !== "transfer" ||
+      !workspace ||
+      this.data.submissionStatus === "submitting"
+    ) {
+      return;
+    }
+    const requestEpoch = pageRuntimes.beginRequest(runtime);
+    let draft = this.data.transferDraft;
+    try {
+      this.setData({
+        submissionStatus: "submitting",
+        submissionMessage: transferPhaseMessage(draft.phase),
+        draftLocked: true,
+        canSubmit: false,
+      });
+      const flow = await advanceEssayTransferFlow({
+        api: runtime.api,
+        workspace,
+        writerContext: runtime.writerContext,
+        draft,
+        planTaskId: runtime.activePlanTaskId,
+        ...(runtime.basedOnExecutionVersionId
+          ? { basedOnExecutionVersionId: runtime.basedOnExecutionVersionId }
+          : {}),
+        elapsedSeconds: Math.max(1, currentElapsedSeconds(runtime)),
+        allowedCriterionCodes: this.data.criterionOptions.map((item) => item.criterionCode),
+        createIdempotencyKey,
+        persist: (nextDraft) => {
+          draft = nextDraft;
+          persistTransferDraft(this, nextDraft);
+        },
+        isActive: () => pageRuntimes.isCurrent(this, runtime, requestEpoch),
+      });
+      if (flow.state === "stale") return;
+      draft = flow.draft;
+      if (flow.state === "awaiting_review") {
+        this.setData({
+          transferDraft: draft,
+          submissionStatus: "submitting",
+          submissionMessage: "新题答案已保存，证据化评阅正在排队。",
+        });
+        scheduleTransferPoll(this, runtime, 0);
+        return;
+      }
+      publishLatestTodayDashboard(flow.result.completion.plan);
+      clearEssayClosureDraft(runtime.activeUserId, runtime.activePlanTaskId);
+      runtime.closureDraft = null;
+      applyTransferCompletion(this, {
+        status: flow.result.transfer.status,
+        versionId: flow.result.transfer.verificationVersionId,
+        masteryLabel: masterySummary(flow.result.masteryVersions),
+      });
+    } catch (error) {
+      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      const terminalConflict = isTerminalClosureConflict(error);
+      if (terminalConflict) {
+        draft = { ...draft, phase: "context_invalid" };
+        persistTransferDraft(this, draft);
+      }
+      this.setData({
+        transferDraft: draft,
+        submissionStatus: "error",
+        submissionMessage: terminalConflict
+          ? "迁移任务的计划或证据版本已变化；原子事务没有部分写入。请从最新今日计划重新进入。"
+          : closureErrorMessage(error),
+        draftLocked: !["drafting", "review_ready"].includes(draft.phase),
+        canSubmit: ["drafting", "review_ready", "decision_saved"].includes(draft.phase),
+        ...(terminalConflict
+          ? { blockingReason: "当前迁移上下文已失效，不会循环重试旧命令。" }
+          : {}),
+      });
+    }
+  },
+
+  async pollTransferReview() {
+    const runtime = pageRuntimes.get(this);
+    const draft = this.data.transferDraft;
+    if (
+      !runtime?.api ||
+      runtime.activeStage !== "essay_transfer" ||
+      draft.phase !== "review_queued" ||
+      !draft.reviewJobId ||
+      runtime.reviewPollInFlight ||
+      !runtime.pageVisible
+    ) {
+      return;
+    }
+    const requestEpoch = pageRuntimes.beginRequest(runtime);
+    runtime.reviewPollInFlight = true;
+    stopReviewPoll(runtime);
+    try {
+      const sourceReview = runtime.transferSourceReview;
+      if (!sourceReview) throw new EssayClosureError("源评阅尚未加载。");
+      const poll = await pollEssayTransferReview(runtime.api, draft, sourceReview);
+      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (poll.state === "pending") {
+        this.setData({
+          submissionStatus: "submitting",
+          submissionMessage:
+            poll.job.status === "queued"
+              ? "新题评阅正在排队。"
+              : "新题评阅正在核对答案与材料证据。",
+        });
+        scheduleTransferPoll(this, runtime, 2_000);
+        return;
+      }
+      runtime.transferReview = poll.review;
+      persistTransferDraft(this, poll.draft);
+      this.setData({
+        transferDraft: poll.draft,
+        closureReview: poll.review,
+        criterionOptions: poll.criterionOptions,
+        submissionStatus: "idle",
+        submissionMessage: "新题评阅已完成，请逐条做决定并明确选择本次验证维度。",
+        draftLocked: false,
+        canSubmit: true,
+      });
+    } catch (error) {
+      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      this.setData({
+        submissionStatus: "error",
+        submissionMessage: closureErrorMessage(error),
+        canSubmit: false,
+        draftLocked: true,
+      });
+    } finally {
+      runtime.reviewPollInFlight = false;
+    }
+  },
+
+  async startVoiceRecording() {
+    const runtime = pageRuntimes.get(this);
+    if (!runtime?.voiceRecorder || this.data.voiceRecording || !this.data.voiceSummary.canRecord) {
+      return;
+    }
+    let permission = await ensureRecordPermission();
+    if (permission === "denied" && (await requestRecordSetting())) permission = "granted";
+    if (permission !== "granted") {
+      this.setData({
+        submissionStatus: "error",
+        submissionMessage: "未获得麦克风权限，没有建立任何假录音。",
+      });
+      return;
+    }
+    this.setData({ voiceRecording: true, submissionMessage: "正在录制这次复盘…" });
+    runtime.voiceRecorder.start(
+      (recorded) => {
+        void (async () => {
+          try {
+            const localPath = await persistRecordedVoice(recorded.tempFilePath);
+            if (!pageRuntimes.owns(this, runtime)) return;
+            const segmentId = await createIdempotencyKey("essay-reflection-voice");
+            if (!pageRuntimes.owns(this, runtime)) return;
+            const segment: ReflectionVoiceSegment = {
+              segmentId,
+              localPath,
+              originalFilename: `reflection-${segmentId.slice(-20)}.mp3`,
+              mimeType: recorded.mimeType,
+              byteSize: recorded.byteSize,
+              durationMilliseconds: recorded.durationMilliseconds,
+              state: "local",
+            };
+            const segments = [...this.data.voiceSegments, segment];
+            validateVoiceCollection(segments);
+            persistVoiceSegments(runtime, segments);
+            applyVoiceSegments(this, segments);
+            this.setData({
+              voiceRecording: false,
+              submissionStatus: "idle",
+              submissionMessage: "录音已保存为本地草稿，提交前需上传并通过安全检查。",
+            });
+          } catch (error) {
+            if (!pageRuntimes.owns(this, runtime)) return;
+            this.setData({
+              voiceRecording: false,
+              submissionStatus: "error",
+              submissionMessage: closureErrorMessage(error),
+            });
+          }
+        })();
+      },
+      (error) => {
+        if (!pageRuntimes.owns(this, runtime)) return;
+        this.setData({
+          voiceRecording: false,
+          submissionStatus: "error",
+          submissionMessage: error.message,
+        });
+      },
+    );
+  },
+
+  stopVoiceRecording() {
+    pageRuntimes.get(this)?.voiceRecorder?.stop();
+  },
+
+  async uploadVoiceSegments() {
+    const runtime = pageRuntimes.get(this);
+    if (!runtime?.voiceUploadCoordinator || !this.data.voiceSegments.length) return;
+    const requestEpoch = pageRuntimes.beginRequest(runtime);
+    this.setData({
+      submissionStatus: "submitting",
+      submissionMessage: "正在上传复盘录音并等待安全检查…",
+    });
+    try {
+      const segments = await runtime.voiceUploadCoordinator.uploadAll(
+        this.data.voiceSegments,
+        (next) => {
+          if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+          persistVoiceSegments(runtime, next);
+          applyVoiceSegments(this, next);
+        },
+        () => pageRuntimes.isCurrent(this, runtime, requestEpoch),
+      );
+      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      persistVoiceSegments(runtime, segments);
+      applyVoiceSegments(this, segments);
+      const failed = segments.some((segment) => segment.state !== "available");
+      this.setData({
+        submissionStatus: failed ? "error" : "idle",
+        submissionMessage: failed
+          ? "有录音未就绪，本地草稿与幂等上传指针已保留。"
+          : "所有录音已通过安全检查，可随结构化复盘提交。",
+      });
+    } catch (error) {
+      if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      this.setData({ submissionStatus: "error", submissionMessage: closureErrorMessage(error) });
+    }
+  },
+
+  playVoiceSegment(event: WechatMiniprogram.BaseEvent) {
+    const runtime = pageRuntimes.get(this);
+    const segmentId = String(event.currentTarget.dataset.segmentId ?? "");
+    const segment = this.data.voiceSegments.find((item) => item.segmentId === segmentId);
+    if (!runtime?.voicePreview || !segment) return;
+    runtime.voicePreview.play(
+      segment.localPath,
+      () => {
+        this.setData({ voicePlayingSegmentId: "" });
+      },
+      (error) => {
+        this.setData({
+          voicePlayingSegmentId: "",
+          submissionStatus: "error",
+          submissionMessage: error.message,
+        });
+      },
+    );
+    this.setData({
+      voicePlayingSegmentId: this.data.voicePlayingSegmentId === segmentId ? "" : segmentId,
+    });
+  },
+
+  async removeVoiceSegment(event: WechatMiniprogram.BaseEvent) {
+    const runtime = pageRuntimes.get(this);
+    const segmentId = String(event.currentTarget.dataset.segmentId ?? "");
+    const segment = this.data.voiceSegments.find((item) => item.segmentId === segmentId);
+    if (!runtime || !segment || ["authorizing", "uploading", "scanning"].includes(segment.state))
+      return;
+    try {
+      await deleteLocalVoice(segment.localPath);
+      if (!pageRuntimes.owns(this, runtime)) return;
+      const segments = this.data.voiceSegments.filter((item) => item.segmentId !== segmentId);
+      persistVoiceSegments(runtime, segments);
+      applyVoiceSegments(this, segments);
+    } catch (error) {
+      this.setData({ submissionStatus: "error", submissionMessage: closureErrorMessage(error) });
+    }
+  },
+
   async submitStage() {
     const runtime = pageRuntimes.get(this);
     if (runtime?.activeStage === "essay_drafting") {
       await this.submitDrafting();
+      return;
+    }
+    if (runtime?.activeStage === "essay_rewrite") {
+      await this.submitRewrite();
+      return;
+    }
+    if (runtime?.activeStage === "essay_transfer") {
+      await this.submitTransfer();
       return;
     }
     await this.submitArtifact();
@@ -754,6 +1572,17 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     const requestEpoch = pageRuntimes.beginRequest(runtime);
     try {
       if (!runtime.pendingDraftingSubmission) {
+        if (this.data.voiceSegments.some((segment) => segment.state !== "available")) {
+          throw new EssayDraftingError(
+            "请先上传或删除未就绪录音；上传失败时作答和录音草稿都会保留。",
+          );
+        }
+        const voiceArtifactVersionIds = this.data.voiceSegments.map((segment) => {
+          if (!segment.artifactVersionId) {
+            throw new EssayDraftingError("已就绪录音缺少服务端素材版本。");
+          }
+          return segment.artifactVersionId;
+        });
         const command = buildDraftingCompletionCommand(
           this.data.workspace,
           this.data.drafting,
@@ -763,6 +1592,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
             ...(runtime.basedOnExecutionVersionId
               ? { basedOnExecutionVersionId: runtime.basedOnExecutionVersionId }
               : {}),
+            voiceArtifactVersionIds,
           },
         );
         const idempotencyKey = await createIdempotencyKey("essay-drafting-complete");
@@ -829,6 +1659,10 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       runtime.pendingDraftingSubmission = recovery;
       runtime.activeReviewIntent = result.reviewIntent;
       storeDraftingSubmission(runtime.activeUserId, recovery);
+      clearReflectionLearningMediaDraft(
+        runtime.activeUserId,
+        voiceDraftScope(runtime.activePlanTaskId),
+      );
       publishLatestTodayDashboard(result.completion.plan);
       const workspace = this.data.workspace;
       this.setData({
@@ -1181,6 +2015,176 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
   },
 });
 
+function persistRewriteDraft(
+  page: EssayTaskPageInstance,
+  draft: EssayRewriteDraft,
+  preserveIdempotencyKey: boolean,
+): void {
+  const runtime = pageRuntimes.get(page);
+  if (
+    !runtime ||
+    runtime.activeStage !== "essay_rewrite" ||
+    runtime.writerContext?.kind !== "rewrite"
+  ) {
+    return;
+  }
+  const existing = runtime.closureDraft?.kind === "rewrite" ? runtime.closureDraft : null;
+  runtime.closureDraft = {
+    kind: "rewrite",
+    taskVersionId: runtime.activeTaskVersionId,
+    planTaskId: runtime.activePlanTaskId,
+    writerContext: runtime.writerContext,
+    draft,
+    ...(preserveIdempotencyKey && existing?.idempotencyKey
+      ? { idempotencyKey: existing.idempotencyKey }
+      : {}),
+  };
+  storeEssayClosureDraft(runtime.activeUserId, runtime.closureDraft);
+}
+
+function persistTransferDraft(page: EssayTaskPageInstance, draft: EssayTransferDraft): void {
+  const runtime = pageRuntimes.get(page);
+  if (
+    !runtime ||
+    runtime.activeStage !== "essay_transfer" ||
+    runtime.writerContext?.kind !== "transfer"
+  ) {
+    return;
+  }
+  runtime.closureDraft = {
+    kind: "transfer",
+    taskVersionId: runtime.activeTaskVersionId,
+    planTaskId: runtime.activePlanTaskId,
+    writerContext: runtime.writerContext,
+    draft,
+  };
+  storeEssayClosureDraft(runtime.activeUserId, runtime.closureDraft);
+}
+
+function applyRewriteResult(page: EssayTaskPageInstance, result: EssayRewriteResultV2): void {
+  applyRewriteCompletion(page, {
+    status: result.rewrite.status,
+    versionId: result.rewrite.rewriteVersionId,
+    masteryLabel: masterySummary(result.masteryVersions),
+  });
+}
+
+function applyRewriteCompletion(
+  page: EssayTaskPageInstance,
+  result: {
+    status: "passed" | "needs_revision";
+    versionId: string;
+    masteryLabel: string;
+  },
+): void {
+  const passed = result.status === "passed";
+  page.setData({
+    closureResult: {
+      statusLabel: passed ? "改写通过" : "仍需修正",
+      statusTone: passed ? "success" : "warning",
+      versionId: result.versionId,
+      masteryLabel: result.masteryLabel,
+      planningMessage:
+        "改写 writer 与掌握状态已验证，对应规划任务已用 essay_rewrite_version 正式证据结算。",
+    },
+    hasSavedEvidence: true,
+    submissionStatus: "saved",
+    submissionMessage: passed
+      ? "新答案与逐条修正证据已保存，掌握状态已转为待迁移。"
+      : "新答案已保存，未解决问题仍保持待改写。",
+    draftLocked: true,
+    canSubmit: false,
+  });
+}
+
+function applyTransferCompletion(
+  page: EssayTaskPageInstance,
+  result: {
+    status: "verified" | "not_verified" | "inconclusive";
+    versionId: string;
+    masteryLabel: string;
+  },
+): void {
+  const tone: ClosureResultView["statusTone"] =
+    result.status === "verified"
+      ? "success"
+      : result.status === "not_verified"
+        ? "danger"
+        : "warning";
+  const label = {
+    verified: "迁移已验证",
+    not_verified: "迁移未验证",
+    inconclusive: "迁移证据不充分",
+  }[result.status];
+  page.setData({
+    closureResult: {
+      statusLabel: label,
+      statusTone: tone,
+      versionId: result.versionId,
+      masteryLabel: result.masteryLabel,
+      planningMessage:
+        "迁移 writer 与掌握状态已验证，对应规划任务已用 essay_transfer_verification 正式证据结算。",
+    },
+    transferDraft: { ...page.data.transferDraft, phase: "completed" },
+    hasSavedEvidence: true,
+    submissionStatus: "saved",
+    submissionMessage: `迁移验证已形成不可变版本：${label}。`,
+    draftLocked: true,
+    canSubmit: false,
+  });
+}
+
+function scheduleTransferPoll(
+  page: EssayTaskPageInstance,
+  runtime: EssayTaskPageRuntime,
+  delayMs: number,
+): void {
+  stopReviewPoll(runtime);
+  if (!runtime.pageVisible || runtime.disposed) return;
+  runtime.reviewPollHandle = setTimeout(() => {
+    runtime.reviewPollHandle = undefined;
+    if (pageRuntimes.owns(page, runtime)) void page.pollTransferReview();
+  }, delayMs);
+}
+
+function closureErrorMessage(error: unknown): string {
+  if (error instanceof EssayClosureError || error instanceof EssayDraftingError) {
+    return error.message;
+  }
+  if (error instanceof ApiClientError) {
+    return `${error.message}（请求 ${error.requestId}）`;
+  }
+  return error instanceof Error ? error.message : "申论证据命令未获得完整终态。";
+}
+
+function isTerminalClosureConflict(error: unknown): boolean {
+  return error instanceof ApiClientError && error.statusCode === 409;
+}
+
+function voiceDraftScope(planTaskId: string): string {
+  return `essay-drafting:${planTaskId}`;
+}
+
+function persistVoiceSegments(
+  runtime: EssayTaskPageRuntime,
+  segments: ReflectionVoiceSegment[],
+): void {
+  const scope = voiceDraftScope(runtime.activePlanTaskId);
+  const current = loadReflectionLearningMediaDraft(runtime.activeUserId, scope);
+  storeReflectionLearningMediaDraft(runtime.activeUserId, scope, {
+    ...current,
+    voiceSegments: segments,
+  });
+}
+
+function applyVoiceSegments(page: EssayTaskPageInstance, segments: ReflectionVoiceSegment[]): void {
+  page.setData({
+    voiceSegments: segments,
+    voiceSegmentViews: presentReflectionVoiceSegments(segments),
+    voiceSummary: presentReflectionVoiceSummary(segments),
+  });
+}
+
 function datasetIndex(event: WechatMiniprogram.BaseEvent): number {
   return Number(event.currentTarget.dataset.index ?? -1);
 }
@@ -1391,12 +2395,20 @@ function decorateDrafts(
     },
     view: {
       ...view,
-      findings: view.findings.map((item) => ({
-        ...item,
-        acknowledged: drafts.review.acknowledgedFindingIds.includes(item.findingId),
-        priority: drafts.review.priorityFindingIds.includes(item.findingId),
-        priorityDisabled: !drafts.review.acknowledgedFindingIds.includes(item.findingId),
-      })),
+      findings: view.findings.map((item) => {
+        const decision = drafts.review.decisions.find(
+          (draft) => draft.findingId === item.findingId,
+        );
+        return {
+          ...item,
+          decision: decision?.decision ?? "",
+          decisionIndex: decision?.decisionIndex ?? 0,
+          learnerReason: decision?.learnerReason ?? "",
+          followUpQuestion: decision?.followUpQuestion ?? "",
+          priority: drafts.review.priorityFindingIds.includes(item.findingId),
+          priorityDisabled: decision?.decision !== "accepted",
+        };
+      }),
     },
   };
 }

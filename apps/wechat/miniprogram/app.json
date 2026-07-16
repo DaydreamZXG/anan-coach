@@ -13,13 +13,19 @@
     "pages/onboarding/study-preference/index",
     "pages/onboarding/result/index",
     "pages/diagnostic/index",
+    "pages/xingce-task-intro/index",
     "pages/practice/index",
     "pages/mock-exam/index",
     "pages/reflection/index",
+    "pages/xingce-mastery/index",
     "pages/essay-task/index",
     "pages/capture-import/index",
     "pages/learning-packets/index",
-    "pages/answer-ingestion/index"
+    "pages/answer-ingestion/index",
+    "pages/community-draft/index",
+    "pages/community-structure/index",
+    "pages/community-trial/index",
+    "pages/community-contributions/index"
   ],
   "subPackages": [
     {

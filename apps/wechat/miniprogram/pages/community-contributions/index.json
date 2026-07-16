@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "我的方法贡献",
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#F3F5FB",
+  "usingComponents": {
+    "state-view": "../../design-system/primitives/state-view/index"
+  }
+}

@@ -1,0 +1,83 @@
+<view class="page mastery-page">
+  <view class="mastery-hero">
+    <view class="hero-eyebrow">行测学习证据 · C08</view>
+    <view class="hero-title">错题与掌握</view>
+    <view class="hero-copy">掌握不是一次答对。岸岸会保留复盘、首次复测和延时验证的版本证据。</view>
+    <view wx:if="{{generatedAtLabel}}" class="hero-updated type-data">{{generatedAtLabel}}</view>
+  </view>
+
+  <view class="bucket-tabs" role="tablist" aria-label="错题与掌握分组">
+    <view
+      wx:for="{{tabs}}"
+      wx:key="bucket"
+      class="bucket-tab {{item.active ? 'bucket-tab--active' : ''}}"
+      role="tab"
+      aria-selected="{{item.active}}"
+      data-bucket="{{item.bucket}}"
+      bindtap="selectBucket"
+    >
+      <text>{{item.label}}</text>
+      <text class="bucket-count type-data">{{item.count}}</text>
+    </view>
+  </view>
+
+  <state-view wx:if="{{status === 'loading'}}" state="loading" title="正在加载掌握队列" description="按当前账号读取服务端权威版本。" />
+
+  <state-view
+    wx:elif="{{status === 'error'}}"
+    state="error"
+    title="{{errorTitle}}"
+    description="{{errorMessage}}"
+    request-id="{{requestId}}"
+    action-text="重新加载"
+    bind:action="retry"
+  />
+
+  <view wx:elif="{{status === 'unavailable'}}" class="account-gate">
+    <state-view state="error" title="{{errorTitle}}" description="{{errorMessage}}" />
+    <ui-button wx:if="{{showLoginAction}}" label="重新登录" bind:action="goLogin" />
+  </view>
+
+  <block wx:else>
+    <view wx:if="{{activeBucket === 'invalidated'}}" class="withdrawn-notice">
+      <view class="notice-title">内容已撤回，不再污染掌握判断</view>
+      <view class="notice-copy">这里仅保留撤回事实和历史证据；撤回项目不会进入复盘、复测或稳定掌握统计。</view>
+    </view>
+
+    <view wx:if="{{partialErrorMessage}}" class="partial-warning">
+      <view>{{partialErrorMessage}}</view>
+      <view wx:if="{{partialRequestId}}" class="type-data">Request ID · {{partialRequestId}}</view>
+      <button class="warning-action" bindtap="retryLoadMore">按原游标重试</button>
+    </view>
+
+    <state-view wx:if="{{!items.length}}" state="empty" title="{{emptyTitle}}" description="{{emptyDescription}}" />
+
+    <view wx:for="{{items}}" wx:key="itemId" class="mastery-card {{item.invalidated ? 'mastery-card--invalidated' : ''}}">
+      <view class="card-head">
+        <view class="card-title-wrap">
+          <view class="card-title">{{item.title}}</view>
+          <view class="card-stage">{{item.stageLabel}}</view>
+        </view>
+        <view class="state-pill state-pill--{{item.bucket}}">{{item.stateLabel}}</view>
+      </view>
+      <view class="evidence-row">
+        <text>{{item.dateLabel}}</text>
+        <text>{{item.questionLabel}}</text>
+        <text>{{item.evidenceLabel}}</text>
+      </view>
+      <view wx:if="{{item.invalidated}}" class="invalidated-copy">题目内容已确认撤回。原始证据继续可回放，但不会再参与错因、能力或掌握计算。</view>
+      <button
+        wx:if="{{item.actionAvailable}}"
+        class="card-action {{item.actionState === 'awaiting_plan' ? 'card-action--secondary' : ''}}"
+        data-itemid="{{item.itemId}}"
+        bindtap="openItem"
+      >{{item.actionLabel}}</button>
+    </view>
+
+    <view wx:if="{{items.length}}" class="pagination">
+      <button wx:if="{{hasMore && !loadingMore && !partialErrorMessage}}" class="load-more" bindtap="loadMore">加载更多</button>
+      <view wx:elif="{{loadingMore}}" class="page-note">正在读取下一页权威版本…</view>
+      <view wx:elif="{{!hasMore}}" class="page-note">已显示当前分组全部记录</view>
+    </view>
+  </block>
+</view>

@@ -14,6 +14,7 @@ from tests.test_planning_routes import (
     _client,
     _seed_learner_and_published_essay_content,
 )
+from tests.test_xingce_cause_agent_workflow import SequenceProvider, _run_one
 
 
 def test_vj_02_real_xingce_server_as_01(
@@ -288,9 +289,20 @@ def test_vj_02_real_xingce_server_as_03(
     ]
     assert result["review"]["state"] == "reflection_required"
     assert result["review"]["aiCandidate"] == {
-        "state": "unavailable",
-        "reason": "scenario_not_activated",
-        "charged": False,
+        "state": "processing",
+        "candidateVersionId": None,
+        "reason": None,
+        "causeCode": None,
+        "summary": None,
+        "improvement": None,
+        "question": None,
+        "rationale": None,
+        "explanation": None,
+        "missingEvidence": [],
+        "evidenceRefs": [],
+        "limitations": [],
+        "quotaState": "not_metered",
+        "entitlementPolicyVersion": "included-with-canonical-practice@v1",
     }
     with db_session_factory() as session:
         session_owner = session.execute(
@@ -456,7 +468,7 @@ def test_vj_02_real_xingce_server_as_03(
 def test_vj_02_real_xingce_server_as_04(
     db_session_factory: sessionmaker[Session],
 ) -> None:
-    """User voice is versioned before cause choice; unavailable AI is never charged."""
+    """User voice is versioned before the audited AI candidate and learner choice."""
 
     client, auth, started = _started_session(
         db_session_factory,
@@ -494,31 +506,44 @@ def test_vj_02_real_xingce_server_as_04(
     )
     assert reflected_response.status_code == 200, reflected_response.text
     reflected = reflected_response.json()["data"]
-    assert reflected["state"] == "cause_decision_required"
-    assert reflected["review"]["state"] == "cause_decision_required"
+    assert reflected["state"] == "cause_candidate_processing"
+    assert reflected["review"]["state"] == "cause_candidate_pending"
     assert reflected["review"]["reflection"]["rawText"] == reflection_payload["rawText"]
     assert reflected["review"]["reflection"]["tags"] == reflection_payload["tags"]
     assert reflected["review"]["causeDecision"] is None
-    assert reflected["review"]["aiCandidate"] == {
-        "state": "unavailable",
-        "reason": "scenario_not_activated",
-        "charged": False,
-    }
+    assert reflected["review"]["aiCandidate"]["state"] == "processing"
+    assert reflected["review"]["aiCandidate"]["quotaState"] == "not_metered"
+
+    _run_one(db_session_factory, SequenceProvider(["candidate_ready"]))
+    ready_response = client.get(
+        f"/api/v2/xingce/task-sessions/{started['sessionId']}",
+        headers=auth,
+    )
+    assert ready_response.status_code == 200, ready_response.text
+    ready = ready_response.json()["data"]
+    assert ready["state"] == "cause_decision_required"
+    assert ready["review"]["state"] == "cause_decision_required"
+    assert ready["review"]["aiCandidate"]["state"] == "candidate_ready"
+    assert ready["review"]["aiCandidate"]["candidateVersionId"]
+    assert ready["review"]["aiCandidate"]["quotaState"] == "not_metered"
 
     decided_response = client.put(
         f"/api/v2/xingce/attempt-reviews/{review_id}/cause-decision",
-        headers={**auth, "Idempotency-Key": "cause-skip-as04"},
+        headers={**auth, "Idempotency-Key": "cause-reject-as04"},
         json={
-            "expectedRevision": reflected["review"]["revision"],
-            "decision": "skip",
-            "replacementCause": None,
+            "expectedRevision": ready["review"]["revision"],
+            "candidateVersionId": ready["review"]["aiCandidate"][
+                "candidateVersionId"
+            ],
+            "decision": "reject",
         },
     )
     assert decided_response.status_code == 200, decided_response.text
     decided = decided_response.json()["data"]
     assert decided["state"] == "completed"
     assert decided["review"]["state"] == "immediate_verification_due"
-    assert decided["review"]["causeDecision"]["decision"] == "skip"
+    assert decided["review"]["causeDecision"]["decision"] == "reject"
+    assert decided["review"]["causeDecision"]["confirmedCauseVersionId"] is None
     assert decided["completion"]["receiptId"]
     assert decided["completion"]["plan"]["planVersionId"]
 

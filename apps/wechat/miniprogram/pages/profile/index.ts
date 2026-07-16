@@ -18,6 +18,7 @@ import {
   clearAllPositionState,
   clearPositionStateForUser,
 } from "../../features/positions/state-store";
+import { routes } from "../../app/navigation/routes";
 
 type SessionView = AccountSessionView & {
   lastSeenLabel: string;
@@ -94,6 +95,20 @@ Page({
 
   retry() {
     void this.loadAccount();
+  },
+
+  openCommunityDraft() {
+    void wx.navigateTo({ url: routes.communityDraft });
+  },
+
+  openCommunityTrial() {
+    void wx.navigateTo({
+      url: `${routes.communityTrial}?track=xingce&applicability=${encodeURIComponent("资料分析")}`,
+    });
+  },
+
+  openCommunityContributions() {
+    void wx.navigateTo({ url: routes.communityContributions });
   },
 
   revokeSession(event: WechatMiniprogram.BaseEvent) {

@@ -18,7 +18,7 @@ from tests.test_xingce_learning_routes import (
 )
 
 
-def test_all_correct_reflection_then_skip_cause_completes_plan_and_replays(
+def test_all_correct_reflection_rejects_unsupported_cause_and_completes_plan(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     client, auth, task, submitted = _submitted_attempt(
@@ -51,12 +51,14 @@ def test_all_correct_reflection_then_skip_cause_completes_plan_and_replays(
     assert replay.status_code == 200, replay.text
     reflected = response.json()["data"]
     assert replay.json()["data"] == reflected
-    assert reflected["state"] == "cause_decision_required"
-    assert reflected["review"]["state"] == "cause_decision_required"
+    assert reflected["state"] == "cause_evidence_insufficient"
+    assert reflected["review"]["state"] == "cause_evidence_insufficient"
+    candidate_id = reflected["review"]["aiCandidate"]["candidateVersionId"]
     cause_headers = {**auth, "Idempotency-Key": "complete-cause-planning"}
     cause_payload = {
         "expectedRevision": reflected["review"]["revision"],
-        "decision": "skip",
+        "candidateVersionId": candidate_id,
+        "decision": "reject",
         "replacementCause": None,
     }
     cause = client.put(
@@ -75,7 +77,7 @@ def test_all_correct_reflection_then_skip_cause_completes_plan_and_replays(
     assert cause_replay.json()["data"] == completed
     assert completed["state"] == "completed"
     assert completed["review"]["state"] == "immediate_verification_due"
-    assert completed["review"]["causeDecision"]["decision"] == "skip"
+    assert completed["review"]["causeDecision"]["decision"] == "reject"
     assert completed["completion"]["receiptId"]
     assert all(
         planned["id"] != task["id"]
@@ -122,7 +124,7 @@ def test_all_correct_reflection_then_skip_cause_completes_plan_and_replays(
             session.execute(
                 text("select count(*) from learning.xingce_attempt_review_versions")
             ).scalar_one()
-            == 4
+            == 3
         )
         assert (
             session.execute(
@@ -184,13 +186,15 @@ def test_started_session_can_complete_after_source_plan_expires(
 
     assert response.status_code == 200, response.text
     reflected = response.json()["data"]
-    assert reflected["state"] == "cause_decision_required"
+    assert reflected["state"] == "cause_evidence_insufficient"
+    candidate_id = reflected["review"]["aiCandidate"]["candidateVersionId"]
     cause = client.put(
         f"/api/v2/xingce/attempt-reviews/{review['reviewId']}/cause-decision",
         headers={**auth, "Idempotency-Key": "late-cause-planning"},
         json={
             "expectedRevision": reflected["review"]["revision"],
-            "decision": "skip",
+            "candidateVersionId": candidate_id,
+            "decision": "reject",
             "replacementCause": None,
         },
     )
@@ -225,7 +229,7 @@ def test_started_session_can_complete_after_source_plan_expires(
             session.execute(
                 text("select count(*) from learning.xingce_attempt_review_versions")
             ).scalar_one()
-            == 4
+            == 3
         )
 
 
@@ -235,23 +239,38 @@ def test_abandoned_plan_execution_is_preserved_and_late_evidence_is_linked(
     client, auth, task, submitted = _submitted_attempt(
         db_session_factory,
         token="xingce-planning-late-link-token",
-        choices=["D", "B", "C"],
+        choices=["A", "B", "C"],
     )
     with db_session_factory() as session:
-        execution_id = session.execute(
+        execution = session.execute(
             text(
-                "select execution_version_id::text "
-                "from learning.task_execution_versions "
-                "where task_id = cast(:task_id as uuid) and status = 'in_progress'"
+                """
+                select execution.execution_version_id::text,
+                       execution.elapsed_minutes,
+                       plan.valid_until > now() as plan_is_valid,
+                       not exists (
+                         select 1 from learning.daily_plan_versions successor
+                         where successor.supersedes_plan_version_id =
+                               plan.plan_version_id
+                       ) as plan_is_current
+                from learning.task_execution_versions execution
+                join learning.daily_plan_versions plan
+                  on plan.plan_version_id = execution.plan_version_id
+                where execution.task_id = cast(:task_id as uuid)
+                  and execution.status = 'in_progress'
+                """
             ),
             {"task_id": task["id"]},
-        ).scalar_one()
+        ).mappings().one()
+        execution_id = str(execution["execution_version_id"])
+        assert execution["plan_is_valid"] is True
+        assert execution["plan_is_current"] is True
     abandoned = client.put(
         f"/api/v2/plans/tasks/{task['id']}/execution",
         headers={**auth, "Idempotency-Key": "abandon-started-xingce"},
         json={
             "status": "abandoned",
-            "elapsedMinutes": 3,
+            "elapsedMinutes": max(3, int(execution["elapsed_minutes"])),
             "evidenceRefs": [],
             "abandonmentReason": "当日计划结束，但保留已开始作答的复盘入口。",
             "basedOnExecutionVersionId": execution_id,
@@ -265,9 +284,9 @@ def test_abandoned_plan_execution_is_preserved_and_late_evidence_is_linked(
         headers={**auth, "Idempotency-Key": "late-link-reflection"},
         json={
             "expectedRevision": review["revision"],
-            "rawText": "计划结束后我仍补完复盘，主要是漏看了题干限定词。",
-            "tags": ["题干审读"],
-            "strategyNote": "下次先圈限定词。",
+            "rawText": "计划结束后我仍补完复盘；虽然答对，但第一题判断过程并不稳定。",
+            "tags": ["判断稳定性"],
+            "strategyNote": "下次写出完整判断依据。",
             "doubtNote": None,
         },
     )
@@ -278,8 +297,11 @@ def test_abandoned_plan_execution_is_preserved_and_late_evidence_is_linked(
         headers={**auth, "Idempotency-Key": "late-link-cause"},
         json={
             "expectedRevision": reflected_data["review"]["revision"],
+            "candidateVersionId": reflected_data["review"]["aiCandidate"][
+                "candidateVersionId"
+            ],
             "decision": "replace",
-            "replacementCause": "我漏看了题干限定词。",
+            "replacementCause": "第一题虽答对，但判断依据不完整。",
         },
     )
     assert decided.status_code == 200, decided.text
@@ -304,45 +326,164 @@ def test_abandoned_plan_execution_is_preserved_and_late_evidence_is_linked(
         )
 
 
-def test_objective_verification_is_explicitly_outside_this_release_unit(
+def test_due_mastery_version_runs_independent_verification_and_schedules_first_review(
     db_session_factory: sessionmaker[Session],
 ) -> None:
-    token = "xingce-verification-boundary-token"
-    _seed_learner_and_published_essay_content(
+    client, auth, _task, submitted = _submitted_attempt(
         db_session_factory,
-        access_token=token,
+        token="xingce-verification-runtime-token",
+        choices=["A", "B", "C"],
     )
-    _seed_objective_questions(db_session_factory)
-    client = _client(db_session_factory)
-    auth = {"Authorization": f"Bearer {token}"}
-    task = _xingce_task(client, auth)
-    with db_session_factory.begin() as session:
-        session.execute(
-            text(
-                """
-                update learning.daily_plan_tasks
-                set stage = 'objective_verification', kind = 'verification'
-                where task_id = cast(:task_id as uuid)
-                """
-            ),
-            {"task_id": task["id"]},
-        )
-
-    response = client.post(
+    review = submitted["review"]
+    reflected = client.put(
+        f"/api/v2/xingce/attempt-reviews/{review['reviewId']}/reflection",
+        headers={**auth, "Idempotency-Key": "mastery-initial-reflection"},
+        json={
+            "expectedRevision": review["revision"],
+            "rawText": "我已经确认这组题的判断依据，下一步需要独立新题验证。",
+            "tags": ["判断依据"],
+            "strategyNote": "新题仍先圈限定词。",
+            "doubtNote": None,
+        },
+    )
+    assert reflected.status_code == 200, reflected.text
+    reflected_data = reflected.json()["data"]
+    initial_candidate_id = reflected_data["review"]["aiCandidate"][
+        "candidateVersionId"
+    ]
+    decided = client.put(
+        f"/api/v2/xingce/attempt-reviews/{review['reviewId']}/cause-decision",
+        headers={**auth, "Idempotency-Key": "mastery-initial-decision"},
+        json={
+            "expectedRevision": reflected_data["review"]["revision"],
+            "candidateVersionId": initial_candidate_id,
+            "decision": "reject",
+            "replacementCause": None,
+        },
+    )
+    assert decided.status_code == 200, decided.text
+    decided_data = decided.json()["data"]
+    verification_task = next(
+        (
+            task
+            for task in decided_data["completion"]["plan"]["tasks"]
+            if task["stage"] == "objective_verification"
+        ),
+        None,
+    )
+    assert verification_task is not None, {
+        "stages": [
+            task["stage"] for task in decided_data["completion"]["plan"]["tasks"]
+        ],
+        "dueVerificationCount": decided_data["completion"]["plan"][
+            "dueVerificationCount"
+        ],
+        "inputVersions": decided_data["completion"]["plan"]["inputVersions"],
+    }
+    started = client.post(
         "/api/v2/xingce/task-sessions",
-        headers={**auth, "Idempotency-Key": "verification-outside-ru"},
-        json={"planTaskId": task["id"]},
+        headers={**auth, "Idempotency-Key": "mastery-verification-start"},
+        json={"planTaskId": verification_task["id"]},
     )
+    assert started.status_code == 200, started.text
+    verification = started.json()["data"]
+    assert verification["mode"] == "verification"
+    question_ids = [
+        question["questionId"] for question in verification["bundle"]["questions"]
+    ]
+    assert question_ids == [
+        "xingce-route-question-4",
+        "xingce-route-question-5",
+        "xingce-route-question-6",
+    ]
+    correct_choices = ["D", "A", "B"]
+    checkpoint = client.put(
+        f"/api/v2/xingce/task-sessions/{verification['sessionId']}/checkpoint",
+        headers={**auth, "Idempotency-Key": "mastery-verification-checkpoint"},
+        json={
+            "expectedRevision": verification["revision"],
+            "currentQuestionId": question_ids[-1],
+            "answers": [
+                {
+                    "questionId": question_id,
+                    "selectedOptionIds": [choice],
+                    "eliminatedOptionIds": [],
+                    "confidence": "high",
+                    "marked": False,
+                    "skipped": False,
+                    "elapsedSeconds": 45 + index,
+                    "draftText": "",
+                    "materialPosition": None,
+                }
+                for index, (question_id, choice) in enumerate(
+                    zip(question_ids, correct_choices, strict=True)
+                )
+            ],
+            "totalElapsedSeconds": 150,
+        },
+    )
+    assert checkpoint.status_code == 200, checkpoint.text
+    submitted_verification = client.post(
+        f"/api/v2/xingce/task-sessions/{verification['sessionId']}/submit",
+        headers={**auth, "Idempotency-Key": "mastery-verification-submit"},
+        json={
+            "expectedRevision": checkpoint.json()["data"]["revision"],
+            "totalElapsedSeconds": 155,
+        },
+    )
+    assert submitted_verification.status_code == 200, submitted_verification.text
+    verification_review = submitted_verification.json()["data"]["review"]
+    verification_reflection = client.put(
+        f"/api/v2/xingce/attempt-reviews/{verification_review['reviewId']}/reflection",
+        headers={**auth, "Idempotency-Key": "mastery-verification-reflection"},
+        json={
+            "expectedRevision": verification_review["revision"],
+            "rawText": "三道独立新题都能说明判断依据，没有沿用原题答案。",
+            "tags": ["独立验证"],
+            "strategyNote": "首次间隔复测继续检查迁移。",
+            "doubtNote": None,
+        },
+    )
+    assert verification_reflection.status_code == 200, verification_reflection.text
+    verification_reflected = verification_reflection.json()["data"]
+    verification_candidate_id = verification_reflected["review"]["aiCandidate"][
+        "candidateVersionId"
+    ]
+    completed = client.put(
+        f"/api/v2/xingce/attempt-reviews/{verification_review['reviewId']}/cause-decision",
+        headers={**auth, "Idempotency-Key": "mastery-verification-decision"},
+        json={
+            "expectedRevision": verification_reflected["review"]["revision"],
+            "candidateVersionId": verification_candidate_id,
+            "decision": "reject",
+            "replacementCause": None,
+        },
+    )
+    assert completed.status_code == 200, completed.text
+    assert completed.json()["data"]["review"]["state"] == "mastery_recorded"
 
-    assert response.status_code == 409
-    assert response.json()["code"] == "xingce_plan_task_unavailable"
     with db_session_factory() as session:
-        assert (
+        versions = list(
             session.execute(
-                text("select count(*) from learning.xingce_task_sessions")
-            ).scalar_one()
-            == 0
+                text(
+                    """
+                    select version_no, state, verification_stage, due_at,
+                           rating, used_question_ids,
+                           source_session_id::text
+                    from learning.xingce_mastery_state_versions
+                    order by version_no
+                    """
+                )
+            ).mappings()
         )
+    assert len(versions) == 2
+    assert versions[0]["state"] == "reflected"
+    assert versions[0]["verification_stage"] == "immediate"
+    assert versions[1]["state"] == "provisionally_mastered"
+    assert versions[1]["verification_stage"] == "first_review"
+    assert versions[1]["rating"] == 3
+    assert len(versions[1]["used_question_ids"]) == 6
+    assert versions[1]["source_session_id"] == verification["sessionId"]
 
 
 def test_xingce_migration_downgrade_guard_detects_personal_records(
@@ -385,7 +526,7 @@ def _submitted_attempt(
     choices: list[str],
 ) -> tuple[TestClient, dict[str, str], dict[str, Any], dict[str, Any]]:
     _seed_learner_and_published_essay_content(factory, access_token=token)
-    _seed_objective_questions(factory)
+    _seed_objective_questions(factory, count=6)
     client = _client(factory)
     auth = {"Authorization": f"Bearer {token}"}
     task = _xingce_task(client, auth)

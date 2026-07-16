@@ -1,0 +1,223 @@
+.briefing-page {
+  padding-bottom: 88rpx;
+}
+
+.briefing-page state-view {
+  display: block;
+  margin-top: 30rpx;
+}
+
+.expired-state,
+.account-gate {
+  padding-top: 12rpx;
+}
+
+.expired-state ui-button,
+.account-gate ui-button {
+  display: block;
+  margin-top: 16rpx;
+}
+
+.recovery-note {
+  margin-bottom: 18rpx;
+  padding: 18rpx 22rpx;
+  border: 1rpx solid rgba(22, 119, 94, 0.15);
+  border-radius: 18rpx;
+  background: #eaf8f2;
+  color: #16775e;
+  font-size: 21rpx;
+}
+
+.briefing-hero {
+  overflow: hidden;
+  padding: 38rpx 34rpx;
+  border-radius: 34rpx;
+  background: linear-gradient(145deg, #17235d 0%, #354dc1 66%, #684bab 122%);
+  box-shadow: 0 22rpx 56rpx rgba(35, 48, 122, 0.22);
+  color: #fff;
+}
+
+.hero-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18rpx;
+}
+
+.mode-pill {
+  padding: 8rpx 14rpx;
+  border: 1rpx solid rgba(185, 255, 246, 0.28);
+  border-radius: 999rpx;
+  background: rgba(185, 255, 246, 0.1);
+  color: #b9fff6;
+  font-size: 20rpx;
+  font-weight: 780;
+}
+
+.scope-label {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 21rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hero-title {
+  margin-top: 28rpx;
+  font-size: 40rpx;
+  font-weight: 860;
+  line-height: 1.38;
+}
+
+.hero-reason {
+  margin-top: 14rpx;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 23rpx;
+  line-height: 1.7;
+}
+
+.hero-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10rpx;
+  margin-top: 28rpx;
+  padding-top: 24rpx;
+  border-top: 1rpx solid rgba(255, 255, 255, 0.12);
+}
+
+.hero-metrics view {
+  min-width: 0;
+}
+
+.hero-metrics text,
+.hero-metrics small {
+  display: block;
+}
+
+.hero-metrics text {
+  overflow: hidden;
+  font-family: var(--font-family-data);
+  font-size: 27rpx;
+  font-weight: 820;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hero-metrics small {
+  margin-top: 5rpx;
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 18rpx;
+}
+
+.briefing-card {
+  margin-top: 20rpx;
+  padding: 28rpx;
+  border: 1rpx solid var(--color-line);
+  border-radius: 26rpx;
+  background: var(--color-surface);
+  box-shadow: 0 12rpx 34rpx rgba(45, 52, 94, 0.05);
+}
+
+.verification-card {
+  border-color: rgba(82, 104, 255, 0.2);
+  background: linear-gradient(145deg, #f4f6ff, #fff);
+}
+
+.abandonment-card {
+  border-color: rgba(163, 88, 32, 0.14);
+  background: #fffaf3;
+}
+
+.section-eyebrow {
+  color: var(--color-primary);
+  font-size: 19rpx;
+  font-weight: 780;
+  letter-spacing: 2rpx;
+}
+
+.abandonment-card .section-eyebrow {
+  color: var(--color-warning);
+}
+
+.section-title {
+  margin-top: 10rpx;
+  color: var(--color-ink);
+  font-size: 28rpx;
+  font-weight: 820;
+}
+
+.section-copy {
+  margin-top: 12rpx;
+  color: var(--color-muted);
+  font-size: 22rpx;
+  line-height: 1.7;
+}
+
+.evidence-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+  margin-top: 20rpx;
+}
+
+.evidence-chip {
+  padding: 10rpx 15rpx;
+  border-radius: 999rpx;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-deep);
+  font-size: 20rpx;
+  font-weight: 720;
+}
+
+.timing-note {
+  display: flex;
+  gap: 18rpx;
+  margin: 20rpx 0 28rpx;
+  padding: 24rpx;
+  border-radius: 22rpx;
+  background: #eef9f7;
+}
+
+.timing-mark {
+  display: flex;
+  width: 70rpx;
+  height: 70rpx;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 22rpx;
+  background: #16775e;
+  color: #fff;
+  font-size: 20rpx;
+  font-weight: 800;
+}
+
+.timing-title {
+  color: #12634f;
+  font-size: 24rpx;
+  font-weight: 800;
+}
+
+.timing-copy {
+  margin-top: 8rpx;
+  color: var(--color-muted);
+  font-size: 21rpx;
+  line-height: 1.6;
+}
+
+.version-note {
+  display: grid;
+  gap: 6rpx;
+  margin-bottom: 22rpx;
+  color: var(--color-faint);
+  font-size: 18rpx;
+  word-break: break-all;
+}
+
+.start-boundary {
+  margin-top: 12rpx;
+  color: var(--color-faint);
+  font-size: 19rpx;
+  line-height: 1.55;
+  text-align: center;
+}

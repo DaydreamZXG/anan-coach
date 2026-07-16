@@ -1,17 +1,34 @@
-import type { EssayIntelligenceApi, EssayReviewIntentView } from "../../api/essay-intelligence";
-import type { EssayTaskStage } from "./capabilities";
+import type {
+  EssayIntelligenceApi,
+  EssayReviewIntentView,
+  EssayReviewResponse,
+} from "../../api/essay-intelligence";
+import type { LearningMediaApi } from "../../api/learning-media";
+import type { EssayWriterContext, EssayTaskStage } from "./capabilities";
+import type { EssayClosureDraft } from "./closure-store";
 import type { PendingEssayDraftingSubmission } from "./drafting";
 import type { PendingPlanTaskCompletion } from "./pending-store";
+import type { WechatVoicePreview, WechatVoiceRecorder } from "../learning-media/platform";
+import type { ReflectionVoiceUploadCoordinator } from "../learning-media/upload-controller";
 
 export interface EssayTaskPageRuntime {
   api: EssayIntelligenceApi | null;
+  learningMediaApi: LearningMediaApi | null;
+  voiceUploadCoordinator: ReflectionVoiceUploadCoordinator | null;
+  voiceRecorder: WechatVoiceRecorder | null;
+  voicePreview: WechatVoicePreview | null;
   activeStage: EssayTaskStage | null;
+  writerContext: EssayWriterContext | null;
   activeTaskVersionId: string;
   activePlanTaskId: string;
   activeUserId: string;
   basedOnExecutionVersionId: string | undefined;
   pendingCompletion: PendingPlanTaskCompletion | null;
   pendingDraftingSubmission: PendingEssayDraftingSubmission | null;
+  closureDraft: EssayClosureDraft | null;
+  rewriteReview: EssayReviewResponse | null;
+  transferSourceReview: EssayReviewResponse | null;
+  transferReview: EssayReviewResponse | null;
   activeReviewIntent: EssayReviewIntentView | null;
   activeReviewJobId: string;
   startedAt: number;
@@ -28,13 +45,22 @@ export interface EssayTaskPageRuntime {
 export function createEssayTaskPageRuntime(): EssayTaskPageRuntime {
   return {
     api: null,
+    learningMediaApi: null,
+    voiceUploadCoordinator: null,
+    voiceRecorder: null,
+    voicePreview: null,
     activeStage: null,
+    writerContext: null,
     activeTaskVersionId: "",
     activePlanTaskId: "",
     activeUserId: "",
     basedOnExecutionVersionId: undefined,
     pendingCompletion: null,
     pendingDraftingSubmission: null,
+    closureDraft: null,
+    rewriteReview: null,
+    transferSourceReview: null,
+    transferReview: null,
     activeReviewIntent: null,
     activeReviewJobId: "",
     startedAt: 0,
@@ -99,9 +125,19 @@ export class EssayTaskPageRuntimeRegistry<TPage extends object> {
     runtime.reviewPollInFlight = false;
     runtime.pageVisible = false;
     runtime.api = null;
+    runtime.learningMediaApi = null;
+    runtime.voiceRecorder?.dispose();
+    runtime.voicePreview?.dispose();
+    runtime.voiceUploadCoordinator = null;
+    runtime.voiceRecorder = null;
+    runtime.voicePreview = null;
     runtime.activeUserId = "";
     runtime.pendingCompletion = null;
     runtime.pendingDraftingSubmission = null;
+    runtime.closureDraft = null;
+    runtime.rewriteReview = null;
+    runtime.transferSourceReview = null;
+    runtime.transferReview = null;
     runtime.activeReviewIntent = null;
   }
 }

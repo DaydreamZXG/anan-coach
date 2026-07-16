@@ -100,7 +100,10 @@ class XingceTaskRuntimeRepository:
                 where task.task_id = cast(:task_id as uuid)
                   and task.user_id = cast(:user_id as uuid)
                   and task.track = 'xingce'
-                  and task.stage in ('objective_baseline', 'objective_practice')
+                  and task.stage in (
+                    'objective_baseline', 'objective_practice',
+                    'objective_verification'
+                  )
                   and plan.valid_until > :now
                   and not exists (
                     select 1 from learning.daily_plan_versions newer
@@ -183,6 +186,7 @@ class XingceTaskRuntimeRepository:
                   session_id, user_id, source_plan_task_id, source_plan_version_id,
                   local_date, work_item_key, mode, state, revision,
                   bundle_version_id, safe_bundle, scoring_bundle,
+                  source_mastery_id, source_mastery_version_id,
                   current_question_id, checkpoint, total_elapsed_seconds,
                   created_at, updated_at
                 ) values (
@@ -190,7 +194,9 @@ class XingceTaskRuntimeRepository:
                   cast(:source_plan_task_id as uuid), cast(:source_plan_version_id as uuid),
                   :local_date, :work_item_key, :mode, 'active', 1,
                   :bundle_version_id, cast(:safe_bundle as jsonb),
-                  cast(:scoring_bundle as jsonb), :current_question_id,
+                  cast(:scoring_bundle as jsonb),
+                  cast(:source_mastery_id as uuid),
+                  cast(:source_mastery_version_id as uuid), :current_question_id,
                   cast(:checkpoint as jsonb), 0, :created_at, :created_at
                 ) returning *
                 """

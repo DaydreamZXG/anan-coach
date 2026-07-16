@@ -42,6 +42,8 @@
 .essay-workspace--locked .drafting-card,
 .essay-workspace--locked .drafting-guide,
 .essay-workspace--locked .review-guide,
+.essay-workspace--locked .closure-guide,
+.essay-workspace--locked .closure-card,
 .essay-workspace--locked .finding-card,
 .essay-workspace--locked .form-card,
 .essay-workspace--locked .add-button {
@@ -281,6 +283,180 @@
 
 .drafting-card {
   margin-top: 18rpx;
+}
+
+.closure-guide,
+.closure-card {
+  margin-top: 18rpx;
+}
+
+.closure-guide {
+  color: var(--color-muted);
+  font-size: 22rpx;
+  line-height: 1.72;
+}
+
+.closure-guide view + view {
+  margin-top: 8rpx;
+}
+
+.closure-finding-index {
+  color: var(--color-primary);
+  font-family: var(--font-family-data);
+  font-size: 20rpx;
+  font-weight: 800;
+}
+
+.criterion-option {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  margin-top: 12rpx;
+  padding: 18rpx;
+  border: 1rpx solid var(--color-line);
+  border-radius: 18rpx;
+  color: var(--color-ink-secondary);
+  font-size: 22rpx;
+}
+
+.criterion-option--checked {
+  border-color: rgba(82, 104, 255, 0.35);
+  background: var(--color-primary-soft);
+}
+
+.closure-result {
+  margin-top: 22rpx;
+  border: 1rpx solid rgba(82, 104, 255, 0.16);
+}
+
+.closure-result--success {
+  border-color: rgba(22, 131, 99, 0.2);
+  background: var(--color-success-soft);
+}
+
+.closure-result--warning {
+  border-color: rgba(163, 88, 32, 0.2);
+  background: var(--color-warning-soft);
+}
+
+.closure-result--danger {
+  border-color: rgba(193, 78, 59, 0.2);
+  background: var(--color-danger-soft);
+}
+
+.closure-result-mark {
+  font-size: 30rpx;
+  font-weight: 820;
+}
+
+.closure-result-mastery,
+.closure-result-version,
+.closure-result-planning {
+  margin-top: 12rpx;
+  color: var(--color-ink-secondary);
+  font-size: 21rpx;
+  line-height: 1.6;
+}
+
+.closure-result-version {
+  color: var(--color-muted);
+  word-break: break-all;
+}
+
+.voice-panel {
+  margin-top: 28rpx;
+  padding-top: 24rpx;
+  border-top: 1rpx solid var(--color-line);
+}
+
+.voice-heading,
+.voice-segment,
+.voice-actions {
+  display: flex;
+  align-items: center;
+}
+
+.voice-heading,
+.voice-segment {
+  justify-content: space-between;
+  gap: 18rpx;
+}
+
+.voice-title {
+  margin-top: 0;
+}
+
+.voice-button,
+.voice-link {
+  min-height: 58rpx;
+  margin: 0;
+  padding: 0 18rpx;
+  border: 1rpx solid rgba(82, 104, 255, 0.24);
+  border-radius: 16rpx;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-size: 20rpx;
+  line-height: 58rpx;
+}
+
+.voice-button--recording {
+  border-color: rgba(193, 78, 59, 0.24);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.voice-segment {
+  margin-top: 14rpx;
+  padding: 18rpx;
+  border: 1rpx solid var(--color-line);
+  border-radius: 18rpx;
+  background: var(--color-surface);
+}
+
+.voice-segment--success {
+  border-color: rgba(22, 131, 99, 0.2);
+}
+
+.voice-segment--error {
+  border-color: rgba(193, 78, 59, 0.2);
+}
+
+.voice-segment-title {
+  color: var(--color-ink-secondary);
+  font-size: 21rpx;
+  font-weight: 740;
+}
+
+.voice-state,
+.voice-failure {
+  margin-top: 6rpx;
+  color: var(--color-muted);
+  font-size: 19rpx;
+}
+
+.voice-failure {
+  color: var(--color-danger);
+}
+
+.voice-actions {
+  flex: none;
+  gap: 8rpx;
+}
+
+.voice-link {
+  min-height: 50rpx;
+  padding: 0 12rpx;
+  line-height: 50rpx;
+}
+
+.voice-link--danger {
+  border-color: rgba(193, 78, 59, 0.2);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.voice-upload {
+  margin-top: 16rpx;
 }
 
 .drafting-meta-grid {

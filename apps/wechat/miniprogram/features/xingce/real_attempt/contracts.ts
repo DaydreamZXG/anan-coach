@@ -1,6 +1,8 @@
 import type {
   XingceAnswerCheckpoint,
-  XingceResultCode,
+  XingceAttemptResult,
+  XingceItemInterpretation,
+  XingceResultItem,
   XingceTaskMode,
   XingceTaskSession,
 } from "../../../api/xingce-learning";
@@ -68,9 +70,6 @@ export function resolveXingcePlanTaskId(
   mode: XingceTaskMode,
   requestedPlanTaskId?: string,
 ): string {
-  if (mode === "verification") {
-    throw new XingcePlanResolutionError("间隔验证不属于本次真实行测训练交付，不能伪装为专项训练。");
-  }
   const stage = planStageForXingceMode(mode);
   const candidates = dashboard.tasks.filter((task) => {
     if (
@@ -106,10 +105,6 @@ export function resolveXingcePlanTaskId(
   const candidate = candidates[0];
   if (!candidate) throw new XingcePlanResolutionError("当前行测任务无法解析。");
   return candidate.id;
-}
-
-export function resultRequiresCauseDecision(resultCode: XingceResultCode): boolean {
-  return resultCode !== "correct";
 }
 
 export function emptyXingceAnswer(questionId: string): XingceAnswerCheckpoint {
@@ -185,6 +180,18 @@ export function assertLearnerSafeSession(session: XingceTaskSession): XingceTask
   if (session.state !== "answering" && (session.result === null || session.review === null)) {
     throw new Error("已交卷会话缺少客观结果或复盘标识。");
   }
+  if (session.result) {
+    if (isFactoredXingceResult(session.result)) {
+      assertFactoredXingceResult(
+        session.result,
+        questionIds,
+        session.review?.reflection?.itemInterpretations ?? [],
+      );
+      assertVerificationOutcome(session);
+    } else {
+      assertLegacyResultIsNotMixed(session);
+    }
+  }
   if (session.review) {
     if (!Number.isInteger(session.review.revision) || session.review.revision < 1) {
       throw new Error("复盘版本无效。");
@@ -194,6 +201,158 @@ export function assertLearnerSafeSession(session: XingceTaskSession): XingceTask
     throw new Error("已完成会话缺少计划结算回执。");
   }
   return session;
+}
+
+export function isFactoredXingceResult(result: XingceAttemptResult): boolean {
+  return result.contractVersion === "xingce-attempt-result@v2";
+}
+
+export function assertFactoredXingceResult(
+  result: XingceAttemptResult,
+  questionIds: readonly string[],
+  itemInterpretations: readonly XingceItemInterpretation[] = [],
+): XingceAttemptResult {
+  if (result.contractVersion !== "xingce-attempt-result@v2" || !result.groupSummary) {
+    throw new Error("行测结果不是冻结的事实拆分合同。");
+  }
+  if (result.totalCount !== 3 || result.items.length !== 3 || questionIds.length !== 3) {
+    throw new Error("行测组结果必须绑定完整的 3 题组。");
+  }
+  const itemIds = result.items.map((item) => item.questionId);
+  if (
+    new Set(itemIds).size !== itemIds.length ||
+    itemIds.some((questionId) => !questionIds.includes(questionId))
+  ) {
+    throw new Error("行测结果题目与冻结题组不匹配。");
+  }
+  result.items.forEach(assertFactoredResultItem);
+  assertInterpretations(itemInterpretations, result.items);
+  const summary = result.groupSummary;
+  const genuineCorrect = result.items.filter(
+    (item) =>
+      item.objectiveVerdict === "correct" &&
+      (item.confidenceEvidence === "medium" || item.confidenceEvidence === "high"),
+  ).length;
+  const guessedCorrect = result.items.filter(
+    (item) => item.objectiveVerdict === "correct" && item.confidenceEvidence === "low",
+  ).length;
+  const activeAbandon = result.items.filter((item) => item.disposition === "active_abandon").length;
+  const advisoryExceeded = result.items.filter(
+    (item) => item.timingEvidence?.status === "advisory_exceeded",
+  ).length;
+  const methodCorrectCalculationError = itemInterpretations.length;
+  if (
+    summary.genuineCorrect !== genuineCorrect ||
+    summary.guessedCorrect !== guessedCorrect ||
+    summary.activeAbandon !== activeAbandon ||
+    summary.advisoryExceeded !== advisoryExceeded ||
+    summary.methodCorrectCalculationError !== methodCorrectCalculationError
+  ) {
+    throw new Error("行测 3 题组计数与逐题事实不一致。");
+  }
+  const expectedOutcome =
+    activeAbandon === 3 ? "interrupted" : genuineCorrect === 3 ? "attained" : "not_attained";
+  if (summary.outcome !== expectedOutcome) {
+    throw new Error("行测 3 题组结论与逐题事实不一致。");
+  }
+  return result;
+}
+
+export function methodInterpretationEligibleQuestionIds(result: XingceAttemptResult): string[] {
+  return result.items
+    .filter((item) => item.objectiveVerdict === "incorrect" && item.disposition === "answered")
+    .map((item) => item.questionId);
+}
+
+function assertFactoredResultItem(item: XingceResultItem): void {
+  if (
+    item.factContractVersion !== "xingce-result-facts@v1" ||
+    item.objectiveVerdict == null ||
+    item.disposition == null ||
+    item.confidenceEvidence == null ||
+    item.timingEvidence == null
+  ) {
+    throw new Error("行测逐题结果缺少客观、处置、信心或计时事实。");
+  }
+  if (
+    item.disposition === "active_abandon" &&
+    (item.objectiveVerdict !== "unanswered" || item.selectedOptionIds.length > 0)
+  ) {
+    throw new Error("主动放弃不能被混成答错或已选答案。");
+  }
+  const timing = item.timingEvidence;
+  if (
+    !Number.isInteger(timing.elapsedSeconds) ||
+    timing.elapsedSeconds < 0 ||
+    !Number.isInteger(timing.advisorySeconds) ||
+    timing.advisorySeconds < 1 ||
+    (timing.status === "advisory_exceeded") !== timing.elapsedSeconds > timing.advisorySeconds
+  ) {
+    throw new Error("行测逐题建议用时事实不一致。");
+  }
+}
+
+function assertInterpretations(
+  interpretations: readonly XingceItemInterpretation[],
+  items: readonly XingceResultItem[],
+): void {
+  if (interpretations.length > 3) throw new Error("单次复盘最多标记 3 条逐题解读。");
+  const ids = interpretations.map((item) => item.questionId);
+  const eligible = new Set(
+    items
+      .filter((item) => item.objectiveVerdict === "incorrect" && item.disposition === "answered")
+      .map((item) => item.questionId),
+  );
+  if (
+    new Set(ids).size !== ids.length ||
+    interpretations.some(
+      (item) =>
+        (item as unknown as Record<string, unknown>).interpretation !==
+          "method_correct_calculation_error" || !eligible.has(item.questionId),
+    )
+  ) {
+    throw new Error("方法正确但计算错误只能绑定本次已作答的客观错题。");
+  }
+}
+
+function assertVerificationOutcome(session: XingceTaskSession): void {
+  const outcome = session.verificationOutcome;
+  if (session.mode !== "verification") {
+    if (outcome) throw new Error("非复测会话不应携带复测结论。");
+    return;
+  }
+  if (!outcome || !outcome.sourceMasteryVersionId.trim()) {
+    throw new Error("复测结果缺少冻结掌握版本或结论。");
+  }
+  const allAnsweredCorrect = session.result?.items.every(
+    (item) => item.objectiveVerdict === "correct" && item.disposition === "answered",
+  );
+  if (
+    (outcome.outcome === "passed" && (outcome.evidenceState !== "valid" || !allAnsweredCorrect)) ||
+    (outcome.outcome === "not_passed" &&
+      (outcome.evidenceState !== "valid" || allAnsweredCorrect)) ||
+    (outcome.outcome === "disputed_or_invalidated" && outcome.evidenceState === "valid")
+  ) {
+    throw new Error("复测结论与客观结果或证据状态不一致。");
+  }
+}
+
+function assertLegacyResultIsNotMixed(session: XingceTaskSession): void {
+  const result = session.result;
+  if (!result) return;
+  const hasNewFacts =
+    result.groupSummary != null ||
+    result.items.some(
+      (item) =>
+        item.factContractVersion != null ||
+        item.objectiveVerdict != null ||
+        item.disposition != null ||
+        item.confidenceEvidence != null ||
+        item.timingEvidence != null,
+    );
+  if (hasNewFacts || session.verificationOutcome !== null) {
+    throw new Error("历史行测结果混入了未冻结的新事实。");
+  }
 }
 
 const learnerUnsafeKeys = new Set([

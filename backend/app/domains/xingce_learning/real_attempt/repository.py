@@ -63,12 +63,92 @@ class XingceAttemptRepository:
             .one()
         )
 
+    def session_has_question_dispute(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        session_id: str,
+    ) -> bool:
+        return bool(
+            session.execute(
+                text(
+                    """
+                    select exists (
+                      select 1 from learning.xingce_question_disputes
+                      where user_id = cast(:user_id as uuid)
+                        and session_kind = 'xingce_task'
+                        and session_id = cast(:session_id as uuid)
+                    )
+                    """
+                ),
+                {"user_id": user_id, "session_id": session_id},
+            ).scalar_one()
+        )
+
+    def verification_source(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        mastery_version_id: str,
+    ) -> RowMapping | None:
+        return (
+            session.execute(
+                text(
+                    """
+                    select mastery_version_id, mastery_id, verification_stage,
+                           state, due_at
+                    from learning.xingce_mastery_state_versions
+                    where user_id = cast(:user_id as uuid)
+                      and mastery_version_id = cast(:mastery_version_id as uuid)
+                    """
+                ),
+                {
+                    "user_id": user_id,
+                    "mastery_version_id": mastery_version_id,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
+
+    def session_content_is_currently_eligible(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        session_id: str,
+    ) -> bool:
+        return bool(
+            session.execute(
+                text(
+                    """
+                    select not exists (
+                      select 1
+                      from learning.xingce_assessments assessment
+                      left join product.questions question
+                        on question.question_id = assessment.question_id
+                      where assessment.user_id = cast(:user_id as uuid)
+                        and assessment.session_id = cast(:session_id as uuid)
+                        and (
+                          question.question_id is null
+                          or question.status not in ('active', 'canonical')
+                        )
+                    )
+                    """
+                ),
+                {"user_id": user_id, "session_id": session_id},
+            ).scalar_one()
+        )
+
     def select_frozen_questions(
         self,
         session: Session,
         *,
         module_name: str | None,
         limit: int,
+        excluded_question_ids: list[str] | None = None,
     ) -> list[dict[str, Any]]:
         rows = (
             session.execute(
@@ -93,6 +173,9 @@ class XingceAttemptRepository:
                     cast(:module_name as text) is null
                     or question.module_name = cast(:module_name as text)
                   )
+                  and not (
+                    question.question_id = any(cast(:excluded_question_ids as text[]))
+                  )
                   and (
                     not question.visual_required
                     or exists (
@@ -113,7 +196,11 @@ class XingceAttemptRepository:
                 limit :limit
                 """
                 ),
-                {"module_name": module_name, "limit": limit},
+                {
+                    "module_name": module_name,
+                    "excluded_question_ids": excluded_question_ids or [],
+                    "limit": limit,
+                },
             )
             .mappings()
             .all()
@@ -312,13 +399,16 @@ class XingceAttemptRepository:
                     """
                 insert into learning.xingce_cause_decision_versions (
                   decision_version_id, command_id, user_id, review_id, session_id,
-                  version_no, decision, replacement_cause,
+                  version_no, decision, replacement_cause, candidate_version_id,
+                  confirmed_cause_version_id,
                   supersedes_decision_version_id, created_at
                 ) values (
                   cast(:decision_version_id as uuid), :command_id,
                   cast(:user_id as uuid), cast(:review_id as uuid),
                   cast(:session_id as uuid), :version_no, :decision,
-                  :replacement_cause, cast(:supersedes_decision_version_id as uuid),
+                  :replacement_cause, cast(:candidate_version_id as uuid),
+                  cast(:confirmed_cause_version_id as uuid),
+                  cast(:supersedes_decision_version_id as uuid),
                   :created_at
                 ) returning *
                 """
@@ -342,13 +432,17 @@ class XingceAttemptRepository:
                 insert into learning.xingce_cause_candidate_versions (
                   candidate_version_id, command_id, user_id, review_id, session_id,
                   version_no, state, reason_code, charged,
-                  input_version_refs, created_at
+                  input_version_refs, agent_run_id, payload, output_fingerprint,
+                  entitlement_policy_version, supersedes_candidate_version_id,
+                  created_at
                 ) values (
                   cast(:candidate_version_id as uuid), :command_id,
                   cast(:user_id as uuid), cast(:review_id as uuid),
-                  cast(:session_id as uuid), :version_no, 'unavailable',
-                  'scenario_not_activated', false,
-                  cast(:input_version_refs as jsonb), :created_at
+                  cast(:session_id as uuid), :version_no, :state,
+                  :reason_code, false, cast(:input_version_refs as jsonb),
+                  cast(:agent_run_id as uuid), cast(:payload as jsonb),
+                  :output_fingerprint, :entitlement_policy_version,
+                  cast(:supersedes_candidate_version_id as uuid), :created_at
                 ) returning *
                 """
                 ),
@@ -378,6 +472,35 @@ class XingceAttemptRepository:
             .one_or_none()
         )
 
+    def latest_cause_candidate(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        review_id: str,
+    ) -> RowMapping | None:
+        return (
+            session.execute(
+                text(
+                    """
+                    select candidate.*
+                    from learning.xingce_cause_candidate_versions candidate
+                    where candidate.user_id = cast(:user_id as uuid)
+                      and candidate.review_id = cast(:review_id as uuid)
+                      and not exists (
+                        select 1 from learning.xingce_cause_candidate_versions successor
+                        where successor.supersedes_candidate_version_id =
+                              candidate.candidate_version_id
+                      )
+                    order by candidate.version_no desc limit 1
+                    """
+                ),
+                {"user_id": user_id, "review_id": review_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
+
     def cause_decision(
         self,
         session: Session,
@@ -396,6 +519,33 @@ class XingceAttemptRepository:
             )
             .mappings()
             .one_or_none()
+        )
+
+    def verification_started_for_review(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        review_id: str,
+    ) -> bool:
+        return bool(
+            session.execute(
+                text(
+                    """
+                    select exists (
+                      select 1
+                      from learning.xingce_mastery_state_versions mastery
+                      join learning.xingce_task_sessions verification
+                        on verification.source_mastery_id = mastery.mastery_id
+                       and verification.user_id = mastery.user_id
+                      where mastery.user_id = cast(:user_id as uuid)
+                        and mastery.source_review_id = cast(:review_id as uuid)
+                        and verification.mode = 'verification'
+                    )
+                    """
+                ),
+                {"user_id": user_id, "review_id": review_id},
+            ).scalar_one()
         )
 
     def insert_plan_evidence(

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Annotated, Literal
+from typing import Annotated, Any, Literal
 from uuid import UUID
 
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, model_validator
@@ -146,15 +146,45 @@ class OutlinePayload(ArtifactContractModel):
         return self
 
 
+class EssayFindingDecision(ArtifactContractModel):
+    finding_id: str = Field(alias="findingId", min_length=1, max_length=120)
+    decision: Literal["accepted", "rejected", "uncertain"]
+    learner_reason: str | None = Field(
+        default=None,
+        alias="learnerReason",
+        min_length=1,
+        max_length=2000,
+    )
+    follow_up_question: str | None = Field(
+        default=None,
+        alias="followUpQuestion",
+        min_length=1,
+        max_length=1000,
+    )
+
+    @model_validator(mode="after")
+    def validate_decision_evidence(self) -> "EssayFindingDecision":
+        if self.decision == "rejected" and self.learner_reason is None:
+            raise ValueError("rejected finding requires learnerReason")
+        if self.decision == "uncertain" and (
+            self.learner_reason is None or self.follow_up_question is None
+        ):
+            raise ValueError(
+                "uncertain finding requires learnerReason and followUpQuestion"
+            )
+        return self
+
+
 class ReviewAcknowledgementPayload(ArtifactContractModel):
     schema_type: Literal["review_acknowledgement"] = Field(alias="schemaType")
-    acknowledged_finding_ids: list[str] = Field(
-        alias="acknowledgedFindingIds",
-        min_length=1,
+    contract_version: Literal["essay-finding-decision@v1"] = Field(
+        default="essay-finding-decision@v1",
+        alias="contractVersion",
     )
+    decisions: list[EssayFindingDecision] = Field(min_length=1)
     priority_finding_ids: list[str] = Field(
         alias="priorityFindingIds",
-        min_length=1,
+        default_factory=list,
         max_length=3,
     )
     learner_understanding: str = Field(
@@ -163,21 +193,52 @@ class ReviewAcknowledgementPayload(ArtifactContractModel):
         max_length=3000,
     )
 
+    @model_validator(mode="before")
+    @classmethod
+    def upgrade_legacy_acknowledgement(cls, value: Any) -> Any:
+        if not isinstance(value, dict) or "decisions" in value:
+            return value
+        acknowledged = value.get("acknowledgedFindingIds")
+        if not isinstance(acknowledged, list):
+            return value
+        upgraded = dict(value)
+        upgraded.pop("acknowledgedFindingIds", None)
+        upgraded["contractVersion"] = "essay-finding-decision@v1"
+        upgraded["decisions"] = [
+            {"findingId": finding_id, "decision": "accepted"}
+            for finding_id in acknowledged
+        ]
+        return upgraded
+
     @model_validator(mode="after")
     def validate_findings(self) -> "ReviewAcknowledgementPayload":
-        acknowledged = self.acknowledged_finding_ids
+        finding_ids = [item.finding_id for item in self.decisions]
         priorities = self.priority_finding_ids
-        if len(acknowledged) != len(set(acknowledged)):
-            raise ValueError("acknowledged finding IDs must be unique")
+        if len(finding_ids) != len(set(finding_ids)):
+            raise ValueError("finding decision IDs must be unique")
         if len(priorities) != len(set(priorities)):
             raise ValueError("priority finding IDs must be unique")
-        if not set(priorities).issubset(acknowledged):
-            raise ValueError("priority findings must be acknowledged")
+        accepted = {
+            item.finding_id for item in self.decisions if item.decision == "accepted"
+        }
+        if not set(priorities).issubset(accepted):
+            raise ValueError("priority findings must be accepted")
         return self
+
+    @property
+    def accepted_finding_ids(self) -> list[str]:
+        return [
+            item.finding_id for item in self.decisions if item.decision == "accepted"
+        ]
 
 
 class ReflectionPayload(ArtifactContractModel):
     schema_type: Literal["reflection"] = Field(alias="schemaType")
+    voice_artifact_version_ids: list[UuidText] = Field(
+        default_factory=list,
+        alias="voiceArtifactVersionIds",
+        max_length=3,
+    )
     cause_codes: list[
         Literal[
             "missed_material",
@@ -205,6 +266,10 @@ class ReflectionPayload(ArtifactContractModel):
     def validate_causes(self) -> "ReflectionPayload":
         if len(self.cause_codes) != len(set(self.cause_codes)):
             raise ValueError("reflection cause codes must be unique")
+        if len(self.voice_artifact_version_ids) != len(
+            set(self.voice_artifact_version_ids)
+        ):
+            raise ValueError("reflection voice artifact versions must be unique")
         return self
 
 
@@ -398,6 +463,12 @@ class EssayWorkspaceProgression(ArtifactContractModel):
         default=None,
         alias="transferStatus",
     )
+    mastery_state: Literal["rewrite_due", "transfer_due", "stable_mastered"] | None = Field(
+        default=None,
+        alias="masteryState",
+    )
+    mastery_version_id: UUID | None = Field(default=None, alias="masteryVersionId")
+    mastery_due_at: AwareDatetime | None = Field(default=None, alias="masteryDueAt")
     current_review: "EssayWorkspaceReview | None" = Field(
         default=None,
         alias="currentReview",

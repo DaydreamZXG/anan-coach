@@ -1,5 +1,5 @@
 import type {
-  EssayDraftingCompletionCommand,
+  EssayDraftingCompletionCommandV2,
   EssayReviewIntentView,
   EssayReviewQueueCommand,
   EssayTaskWorkspace,
@@ -63,7 +63,7 @@ export interface PendingEssayDraftingCompletion {
   draft: EssayDraftingDraft;
   completion: {
     idempotencyKey: string;
-    command: EssayDraftingCompletionCommand;
+    command: EssayDraftingCompletionCommandV2;
   };
 }
 
@@ -114,8 +114,9 @@ export function buildDraftingCompletionCommand(
   context: {
     planTaskId: string;
     basedOnExecutionVersionId?: string;
+    voiceArtifactVersionIds?: string[];
   },
-): EssayDraftingCompletionCommand {
+): EssayDraftingCompletionCommandV2 {
   const rubricVersionId = workspace.rubricAvailability.rubric?.rubricVersionId;
   if (!rubricVersionId || workspace.rubricAvailability.status !== "published") {
     throw new EssayDraftingError("提交答案需要绑定已发布的评分规程版本。");
@@ -142,7 +143,16 @@ export function buildDraftingCompletionCommand(
     throw new EssayDraftingError("复盘问题来源不能重复。");
   }
 
-  const attempt: EssayDraftingCompletionCommand["attempt"] = existingAttemptId
+  const voiceArtifactVersionIds = context.voiceArtifactVersionIds ?? [];
+  if (
+    voiceArtifactVersionIds.length > 3 ||
+    new Set(voiceArtifactVersionIds).size !== voiceArtifactVersionIds.length ||
+    voiceArtifactVersionIds.some((value) => !value.trim())
+  ) {
+    throw new EssayDraftingError("语音复盘版本必须是最多 3 个不重复的已就绪服务端版本。");
+  }
+
+  const attempt: EssayDraftingCompletionCommandV2["attempt"] = existingAttemptId
     ? { mode: "existing", attemptId: existingAttemptId }
     : {
         mode: "create",
@@ -152,7 +162,7 @@ export function buildDraftingCompletionCommand(
       };
   const pointFindingText = optional(draft.pointFindingText);
   const outlineText = optional(draft.outlineText);
-  const answer: EssayDraftingCompletionCommand["answer"] = existingAnswerVersionId
+  const answer: EssayDraftingCompletionCommandV2["answer"] = existingAnswerVersionId
     ? { mode: "existing", answerVersionId: existingAnswerVersionId }
     : {
         mode: "create",
@@ -185,6 +195,7 @@ export function buildDraftingCompletionCommand(
       whatIThought: userThought,
       whatIWillChange,
       verificationPlan,
+      voiceArtifactVersionIds: [...voiceArtifactVersionIds],
     },
     ...(context.basedOnExecutionVersionId
       ? { basedOnExecutionVersionId: context.basedOnExecutionVersionId }
@@ -334,7 +345,7 @@ function validReceipt(value: unknown): value is DraftingCompletionReceipt {
 function validCompletionCommand(
   value: unknown,
   context: { taskVersionId: string; planTaskId: string },
-): value is EssayDraftingCompletionCommand {
+): value is EssayDraftingCompletionCommandV2 {
   if (
     !isRecord(value) ||
     value.taskVersionId !== context.taskVersionId ||
@@ -377,6 +388,7 @@ function validCompletionCommand(
       answer.thinking.userThought.trim().length > 0 &&
       optionalNullableString(answer.basedOnAnswerVersionId));
   const causeCodes = reflection.causeCodes;
+  const voiceArtifactVersionIds = reflection.voiceArtifactVersionIds;
   const reflectionValid =
     reflection.schemaType === "reflection" &&
     Array.isArray(causeCodes) &&
@@ -388,7 +400,11 @@ function validCompletionCommand(
     typeof reflection.whatIWillChange === "string" &&
     reflection.whatIWillChange.trim().length > 0 &&
     typeof reflection.verificationPlan === "string" &&
-    reflection.verificationPlan.trim().length > 0;
+    reflection.verificationPlan.trim().length > 0 &&
+    Array.isArray(voiceArtifactVersionIds) &&
+    voiceArtifactVersionIds.length <= 3 &&
+    voiceArtifactVersionIds.every((item) => typeof item === "string" && item.trim().length > 0) &&
+    new Set(voiceArtifactVersionIds).size === voiceArtifactVersionIds.length;
   return (
     attemptValid &&
     answerValid &&

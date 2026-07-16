@@ -1,0 +1,52 @@
+@import "../../features/community-method-cards/page-shell.wxss";
+
+.compact-area {
+  min-height: 132rpx;
+}
+
+.rights-row {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  margin-top: 14rpx;
+  padding: 20rpx;
+  border: 1rpx solid var(--color-line);
+  border-radius: 20rpx;
+  background: var(--color-surface-soft);
+}
+
+.rights-row--active {
+  border-color: rgba(82, 104, 255, 0.42);
+  background: var(--color-primary-soft);
+}
+
+.rights-radio {
+  display: flex;
+  width: 38rpx;
+  height: 38rpx;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx solid var(--color-primary);
+  border-radius: 50%;
+  color: var(--color-primary);
+  font-size: 22rpx;
+  font-weight: 850;
+}
+
+.check-row {
+  display: grid;
+  grid-template-columns: 64rpx 1fr;
+  margin-top: 12rpx;
+  padding: 18rpx 20rpx;
+  border-radius: 18rpx;
+  background: var(--color-surface-soft);
+  color: var(--color-ink-secondary);
+  font-size: 22rpx;
+}
+
+.check-row text:first-child {
+  color: var(--color-primary);
+  font-family: var(--font-family-data);
+  font-weight: 800;
+}

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "社区方法试用",
+  "backgroundColor": "#F3F5FB",
+  "usingComponents": {
+    "state-view": "../../design-system/primitives/state-view/index"
+  }
+}

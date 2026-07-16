@@ -16,6 +16,7 @@ dependencies = [
   "openpyxl>=3.1,<4",
   "alembic>=1.18,<2",
   "tos>=2.9,<3",
+  "fsrs>=6.3.1,<7",
 ]
 
 [project.optional-dependencies]

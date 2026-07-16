@@ -4,7 +4,12 @@ import type {
   XingceTaskMode,
   XingceTaskSession,
 } from "../../../api/xingce-learning";
-import type { QuestionAttemptDraft, TaskMode, TaskPhase } from "../../../task-runtime/contracts";
+import type {
+  QuestionAttemptDraft,
+  TaskMode,
+  TaskPhase,
+  TaskServerState,
+} from "../../../task-runtime/contracts";
 import { createTaskRuntime, reduceTaskRuntime } from "../../../task-runtime/state/runtime";
 import type { TaskRuntimeState } from "../../../task-runtime/contracts";
 import { assertLearnerSafeSession, normalizeSessionAnswers } from "./contracts";
@@ -119,7 +124,7 @@ export function runtimeFromXingceSession(sessionValue: XingceTaskSession): TaskR
     attempts,
     totalElapsedSeconds: session.totalElapsedSeconds,
     revision: session.revision,
-    serverState: session.state,
+    serverState: runtimeServerState(session.state),
     phase,
     reflectionRequired: session.review !== null,
     reflectionCompleted: session.review?.reflection !== null,
@@ -205,8 +210,26 @@ export function checkpointCommand(runtime: TaskRuntimeState): XingceCheckpointCo
 function phaseForServerState(state: XingceTaskSession["state"]): TaskPhase {
   if (state === "answering") return "answering";
   if (state === "reflection_required") return "feedback";
-  if (state === "cause_decision_required") return "candidate_review";
+  if (
+    [
+      "cause_candidate_processing",
+      "cause_followup_required",
+      "cause_decision_required",
+      "cause_evidence_insufficient",
+      "cause_agent_terminated",
+    ].includes(state)
+  ) {
+    return "candidate_review";
+  }
   return "summary";
+}
+
+function runtimeServerState(state: XingceTaskSession["state"]): TaskServerState {
+  if (state === "answering" || state === "submitted" || state === "reflection_required") {
+    return state;
+  }
+  if (state === "completed") return "completed";
+  return "cause_decision_required";
 }
 
 function runtimeMode(mode: XingceTaskMode): TaskMode {

@@ -19,7 +19,29 @@ export interface EssayStageCapability {
   artifactType: EssayArtifactType | null;
   writable: boolean;
   unavailableReason: string;
+  planningCompletionWritable: boolean;
 }
+
+export interface EssayRewriteWriterContext {
+  kind: "rewrite";
+  attemptId: string;
+  baseReviewVersionId: string;
+  baseAnswerVersionId: string;
+  findingDecisionArtifactVersionId: string;
+  basedOnAnswerVersionId: string;
+  basedOnRewriteVersionId?: string;
+}
+
+export interface EssayTransferWriterContext {
+  kind: "transfer";
+  targetTaskVersionId: string;
+  targetMaterialBundleVersionId: string;
+  sourceRewriteVersionId: string;
+  sourceFindingDecisionArtifactVersionId: string;
+  basedOnTransferVerificationVersionId?: string;
+}
+
+export type EssayWriterContext = EssayRewriteWriterContext | EssayTransferWriterContext;
 
 const capabilities: Record<EssayTaskStage, EssayStageCapability> = {
   essay_material_reading: {
@@ -29,6 +51,7 @@ const capabilities: Record<EssayTaskStage, EssayStageCapability> = {
     artifactType: "material_annotation",
     writable: true,
     unavailableReason: "",
+    planningCompletionWritable: true,
   },
   essay_point_extraction: {
     stage: "essay_point_extraction",
@@ -37,6 +60,7 @@ const capabilities: Record<EssayTaskStage, EssayStageCapability> = {
     artifactType: "point_extraction",
     writable: true,
     unavailableReason: "",
+    planningCompletionWritable: true,
   },
   essay_outlining: {
     stage: "essay_outlining",
@@ -45,6 +69,7 @@ const capabilities: Record<EssayTaskStage, EssayStageCapability> = {
     artifactType: "outline",
     writable: true,
     unavailableReason: "",
+    planningCompletionWritable: true,
   },
   essay_review: {
     stage: "essay_review",
@@ -53,6 +78,7 @@ const capabilities: Record<EssayTaskStage, EssayStageCapability> = {
     artifactType: "review_acknowledgement",
     writable: true,
     unavailableReason: "",
+    planningCompletionWritable: true,
   },
   essay_drafting: {
     stage: "essay_drafting",
@@ -61,6 +87,7 @@ const capabilities: Record<EssayTaskStage, EssayStageCapability> = {
     artifactType: null,
     writable: true,
     unavailableReason: "",
+    planningCompletionWritable: true,
   },
   essay_rewrite: {
     stage: "essay_rewrite",
@@ -68,7 +95,8 @@ const capabilities: Record<EssayTaskStage, EssayStageCapability> = {
     modeLabel: "申论 Agent · 评阅后改写",
     artifactType: null,
     writable: false,
-    unavailableReason: "改写必须同时绑定原答案、评阅版本和新答案版本；对应答案写入能力尚未开放。",
+    unavailableReason: "改写入口缺少原作答、评阅、原答案或问题决策版本，不能建立真实改写命令。",
+    planningCompletionWritable: false,
   },
   essay_transfer: {
     stage: "essay_transfer",
@@ -76,7 +104,8 @@ const capabilities: Record<EssayTaskStage, EssayStageCapability> = {
     modeLabel: "申论 Agent · 新材料验证",
     artifactType: null,
     writable: false,
-    unavailableReason: "迁移验证必须写入独立答案和验证版本；当前页面不会用普通笔记代替迁移证据。",
+    unavailableReason: "迁移入口缺少新题、新材料、源改写或源问题决策版本，不能建立真实迁移链。",
+    planningCompletionWritable: false,
   },
 };
 
@@ -86,8 +115,74 @@ export const writableEssayStages = new Set<EssayTaskStage>(
     .map((item) => item.stage),
 );
 
-export function essayStageCapability(stage: EssayTaskStage): EssayStageCapability {
-  return capabilities[stage];
+export function essayStageCapability(
+  stage: EssayTaskStage,
+  writerContext?: EssayWriterContext | null,
+): EssayStageCapability {
+  const capability = capabilities[stage];
+  if (stage === "essay_rewrite" && writerContext?.kind === "rewrite") {
+    return {
+      ...capability,
+      writable: true,
+      unavailableReason: "",
+      planningCompletionWritable: true,
+    };
+  }
+  if (stage === "essay_transfer" && writerContext?.kind === "transfer") {
+    return {
+      ...capability,
+      writable: true,
+      unavailableReason: "",
+      planningCompletionWritable: true,
+    };
+  }
+  return capability;
+}
+
+export function parseEssayWriterContext(
+  stage: EssayTaskStage,
+  options: Record<string, string | undefined>,
+): EssayWriterContext | null {
+  if (stage === "essay_rewrite") {
+    const requiredValues = {
+      attemptId: normalized(options.attemptId),
+      baseReviewVersionId: normalized(options.baseReviewVersionId),
+      baseAnswerVersionId: normalized(options.baseAnswerVersionId),
+      findingDecisionArtifactVersionId: normalized(options.findingDecisionArtifactVersionId),
+      basedOnAnswerVersionId: normalized(options.basedOnAnswerVersionId),
+    };
+    if (Object.values(requiredValues).some((value) => !value)) return null;
+    return {
+      kind: "rewrite",
+      ...requiredValues,
+      ...(normalized(options.basedOnRewriteVersionId)
+        ? { basedOnRewriteVersionId: normalized(options.basedOnRewriteVersionId) }
+        : {}),
+    };
+  }
+  if (stage === "essay_transfer") {
+    const requiredValues = {
+      targetTaskVersionId: normalized(options.taskVersionId),
+      targetMaterialBundleVersionId: normalized(options.materialBundleVersionId),
+      sourceRewriteVersionId: normalized(options.sourceRewriteVersionId),
+      sourceFindingDecisionArtifactVersionId: normalized(
+        options.sourceFindingDecisionArtifactVersionId,
+      ),
+    };
+    if (Object.values(requiredValues).some((value) => !value)) return null;
+    return {
+      kind: "transfer",
+      ...requiredValues,
+      ...(normalized(options.basedOnTransferVerificationVersionId)
+        ? {
+            basedOnTransferVerificationVersionId: normalized(
+              options.basedOnTransferVerificationVersionId,
+            ),
+          }
+        : {}),
+    };
+  }
+  return null;
 }
 
 export function parseEssayTaskStage(value: string | undefined): EssayTaskStage | null {
@@ -111,9 +206,21 @@ export function withEssayTaskContext(
   planTaskId: string,
   basedOnExecutionVersionId?: string,
 ): string {
-  const separator = startUrl.includes("?") ? "&" : "?";
-  const executionContext = basedOnExecutionVersionId
-    ? `&basedOnExecutionVersionId=${encodeURIComponent(basedOnExecutionVersionId)}`
-    : "";
-  return `${startUrl}${separator}stage=${encodeURIComponent(stage)}&planTaskId=${encodeURIComponent(planTaskId)}${executionContext}`;
+  const [path, rawQuery = ""] = startUrl.split("?", 2);
+  const pairs = rawQuery
+    .split("&")
+    .filter(Boolean)
+    .filter((item) => {
+      const key = decodeURIComponent(item.split("=", 1)[0] ?? "");
+      return !["stage", "planTaskId", "basedOnExecutionVersionId"].includes(key);
+    });
+  pairs.push(`stage=${encodeURIComponent(stage)}`, `planTaskId=${encodeURIComponent(planTaskId)}`);
+  if (basedOnExecutionVersionId) {
+    pairs.push(`basedOnExecutionVersionId=${encodeURIComponent(basedOnExecutionVersionId)}`);
+  }
+  return `${path ?? startUrl}?${pairs.join("&")}`;
+}
+
+function normalized(value: string | undefined): string {
+  return value?.trim() ?? "";
 }

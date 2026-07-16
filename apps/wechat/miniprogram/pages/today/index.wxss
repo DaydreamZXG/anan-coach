@@ -354,6 +354,21 @@
   background: var(--color-warning-soft);
   color: var(--color-warning);
 }
+.section-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8rpx;
+}
+.mastery-link {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--color-primary);
+  font-size: 22rpx;
+  font-weight: 700;
+  line-height: 1.4;
+}
 .plan-explanation {
   margin-top: -18rpx;
   color: var(--color-muted);

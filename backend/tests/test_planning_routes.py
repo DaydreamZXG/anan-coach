@@ -16,10 +16,17 @@ from app.db.session import get_db_session
 from app.domains.auth.repository import token_hash_for_tests
 from app.domains.essay_intelligence.learning_service import EssayLearningArtifactService
 from app.domains.essay_intelligence.router import get_essay_learning_artifact_service
+from app.domains.essay_intelligence.closure.service import EssayClosureService
+from app.domains.essay_intelligence.router import get_essay_closure_service
 from app.domains.planning.repository import (
     PlanningRepository,
     _review_is_learning_eligible,
     _weakest_dimension,
+)
+from app.domains.planning.candidates import (
+    GoalPlanningSnapshot,
+    ObjectivePlanningSnapshot,
+    build_dual_track_candidates,
 )
 from app.domains.planning.router import get_planning_service
 from app.domains.planning.schemas import DailyCapacityCommand
@@ -191,12 +198,10 @@ def test_today_plan_route_uses_the_authenticated_learner(
     assert response.status_code == 200
     body = response.json()["data"]
     assert {task["track"] for task in body["tasks"]} == {"xingce", "essay"}
-    assert body["dueReflectionCount"] is None
-    assert body["dueVerificationCount"] is None
-    assert body["inputVersions"]["objectiveClosure"] == "unavailable"
-    assert "canonical writer" in body["dualTrackExplanation"]["capabilityGaps"][
-        "objectiveClosure"
-    ]
+    assert body["dueReflectionCount"] == 0
+    assert body["dueVerificationCount"] == 0
+    assert body["inputVersions"]["objectiveClosure"] != "unavailable"
+    assert body["dualTrackExplanation"]["capabilityGaps"] == {}
     assert not any(
         task["stage"] in {"objective_reflection", "objective_verification"}
         for task in body["tasks"]
@@ -906,6 +911,413 @@ def test_orphan_essay_attempt_remains_drafting_due_instead_of_evaluation_pending
     assert snapshot.answer_version_id is None
     assert snapshot.review_version_id is None
     assert snapshot.pending_reason is None
+
+
+def test_essay_planning_consumes_canonical_mastery_heads_and_distinct_transfer(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    from tests.test_essay_closure_writers import (
+        _insert_fresh_content,
+        _post_decision,
+        _seed_fresh_answer,
+    )
+    from tests.test_essay_learning_artifacts import (
+        _client as essay_client,
+        _content_ids,
+        _insert_completed_review,
+        _seed_answer_without_review,
+    )
+
+    token = "essay-planning-mastery-token"
+    user_id = _seed_learner_and_published_essay_content(
+        db_session_factory,
+        access_token=token,
+    )
+    ids = _content_ids(db_session_factory)
+    answer_id, attempt_id = _seed_answer_without_review(
+        db_session_factory,
+        user_id=user_id,
+        ids=ids,
+    )
+    review_id = _insert_completed_review(
+        db_session_factory,
+        user_id=user_id,
+        ids=ids,
+        answer_id=answer_id,
+    )
+    client = essay_client(db_session_factory)
+    app = cast(Any, client.app)
+    app.dependency_overrides[get_essay_closure_service] = lambda: (
+        EssayClosureService(now=lambda: NOW)
+    )
+    auth = {"Authorization": f"Bearer {token}"}
+    decision_id = _post_decision(
+        client,
+        auth,
+        key="essay-planning-source-decision",
+        ids=ids,
+        review_id=review_id,
+        decision="accepted",
+    )
+    repository = PlanningRepository()
+    with db_session_factory() as session:
+        goal = repository.goal_and_ability(session, user_id=user_id)
+        rewrite_due = repository.essay_snapshot(
+            session,
+            user_id=user_id,
+            goal=goal,
+        )
+    assert rewrite_due.next_stage == "rewrite_due"
+    assert rewrite_due.mastery_state == "rewrite_due"
+    assert rewrite_due.mastery_version_ids
+    assert rewrite_due.source_answer_version_id == answer_id
+    rewrite_candidate = next(
+        item
+        for item in build_dual_track_candidates(
+            goal=GoalPlanningSnapshot(
+                readiness="unavailable",
+                positive_gap=True,
+                goal_version_id=None,
+                ability_estimate_version_id=None,
+            ),
+            objective=ObjectivePlanningSnapshot(
+                False, 0, 0, None, None, "available", None
+            ),
+            essay=rewrite_due,
+            available_minutes=60,
+        ).candidates
+        if item.track == "essay"
+    )
+    assert rewrite_candidate.stage == "essay_rewrite"
+    assert f"taskVersionId={ids['task']}" in rewrite_candidate.start_url
+    assert f"findingDecisionArtifactVersionId={decision_id}" in (
+        rewrite_candidate.start_url
+    )
+    with db_session_factory.begin() as session:
+        plan = PlanningService(now=lambda: NOW).get_or_create_today(
+            session,
+            user_id=user_id,
+            now=NOW,
+            local_date=NOW.date(),
+        )
+    rewrite_task = next(item for item in plan.tasks if item.stage == "essay_rewrite")
+
+    # Fresh content exists before completion so the owner-committed rewrite can
+    # atomically replan the next canonical transfer task.
+    fresh_ids = _insert_fresh_content(db_session_factory)
+
+    rewrite_payload = {
+        "attemptId": attempt_id,
+        "baseReviewVersionId": review_id,
+        "baseAnswerVersionId": answer_id,
+        "findingDecisionArtifactVersionId": decision_id,
+        "basedOnAnswerVersionId": answer_id,
+        "basedOnRewriteVersionId": None,
+        "sourceType": "typed",
+        "answerText": "将基层治理材料概括为责任与协同两类问题。",
+        "thinking": None,
+        "resolutions": [
+            {
+                "findingId": "finding-1",
+                "status": "resolved",
+                "learnerEvidence": "使用了可复用的上位概念",
+            }
+        ],
+    }
+    atomic_rewrite_payload = {
+        "rewrite": rewrite_payload,
+        "planTaskId": str(rewrite_task.id),
+        "elapsedMinutes": 20,
+        "basedOnExecutionVersionId": None,
+    }
+    with db_session_factory() as session:
+        rewrite_counts_before = {
+            "answers": session.execute(
+                text("select count(*) from learning.essay_answer_versions")
+            ).scalar_one(),
+            "rewrites": session.execute(
+                text("select count(*) from learning.essay_rewrite_versions")
+            ).scalar_one(),
+            "mastery": session.execute(
+                text("select count(*) from learning.essay_mastery_state_versions")
+            ).scalar_one(),
+            "executions": session.execute(
+                text("select count(*) from learning.task_execution_versions")
+            ).scalar_one(),
+            "outbox": session.execute(
+                text("select count(*) from platform.outbox_events")
+            ).scalar_one(),
+        }
+    rolled_back_rewrite = client.post(
+        "/api/v2/essay-intelligence/rewrites/complete-plan-task",
+        headers={**auth, "Idempotency-Key": "essay-atomic-rewrite-rollback"},
+        json={**atomic_rewrite_payload, "planTaskId": str(uuid4())},
+    )
+    assert rolled_back_rewrite.status_code == 409, rolled_back_rewrite.text
+    with db_session_factory() as session:
+        assert {
+            "answers": session.execute(
+                text("select count(*) from learning.essay_answer_versions")
+            ).scalar_one(),
+            "rewrites": session.execute(
+                text("select count(*) from learning.essay_rewrite_versions")
+            ).scalar_one(),
+            "mastery": session.execute(
+                text("select count(*) from learning.essay_mastery_state_versions")
+            ).scalar_one(),
+            "executions": session.execute(
+                text("select count(*) from learning.task_execution_versions")
+            ).scalar_one(),
+            "outbox": session.execute(
+                text("select count(*) from platform.outbox_events")
+            ).scalar_one(),
+        } == rewrite_counts_before
+
+    rewritten = client.post(
+        "/api/v2/essay-intelligence/rewrites/complete-plan-task",
+        headers={**auth, "Idempotency-Key": "essay-atomic-rewrite-complete"},
+        json=atomic_rewrite_payload,
+    )
+    assert rewritten.status_code == 200, rewritten.text
+    rewrite_result = rewritten.json()["data"]
+    rewrite = rewrite_result["rewrite"]
+    assert rewrite_result["completion"]["execution"]["status"] == "complete"
+    assert rewrite_result["completion"]["execution"]["evidenceRefs"] == [
+        {
+            "owner": "essay_intelligence",
+            "entityType": "essay_rewrite_version",
+            "entityId": rewrite["rewriteVersionId"],
+            "versionId": rewrite["rewriteVersionId"],
+            "role": None,
+        }
+    ]
+    rewrite_replay = client.post(
+        "/api/v2/essay-intelligence/rewrites/complete-plan-task",
+        headers={**auth, "Idempotency-Key": "essay-atomic-rewrite-complete"},
+        json=atomic_rewrite_payload,
+    )
+    assert rewrite_replay.status_code == 200
+    assert rewrite_replay.json()["data"] == rewrite_result
+    rewrite_conflict = client.post(
+        "/api/v2/essay-intelligence/rewrites/complete-plan-task",
+        headers={**auth, "Idempotency-Key": "essay-atomic-rewrite-complete"},
+        json={**atomic_rewrite_payload, "elapsedMinutes": 21},
+    )
+    assert rewrite_conflict.status_code == 409
+    with db_session_factory() as session:
+        assert repository.execution_evidence_exists(
+            session,
+            user_id=user_id,
+            task=cast(
+                Any,
+                {
+                    "stage": "essay_rewrite",
+                    "evidence_refs": list(rewrite_candidate.evidence_refs),
+                    "created_at": NOW,
+                },
+            ),
+            evidence_type="essay_rewrite_version",
+            owner="essay_intelligence",
+            entity_id=rewrite["rewriteVersionId"],
+            version_id=rewrite["rewriteVersionId"],
+            submitted_evidence={},
+        )
+
+    with db_session_factory() as session:
+        transfer_due = repository.essay_snapshot(
+            session,
+            user_id=user_id,
+            goal=repository.goal_and_ability(session, user_id=user_id),
+        )
+    assert transfer_due.next_stage == "transfer_due"
+    assert transfer_due.task_version_id == fresh_ids["task"]
+    assert transfer_due.material_bundle_version_id == fresh_ids["material"]
+    assert transfer_due.source_task_version_id == ids["task"]
+    assert transfer_due.rewrite_version_id == rewrite["rewriteVersionId"]
+    transfer_candidate = next(
+        item
+        for item in build_dual_track_candidates(
+            goal=GoalPlanningSnapshot(
+                readiness="unavailable",
+                positive_gap=True,
+                goal_version_id=None,
+                ability_estimate_version_id=None,
+            ),
+            objective=ObjectivePlanningSnapshot(
+                False, 0, 0, None, None, "available", None
+            ),
+            essay=transfer_due,
+            available_minutes=60,
+        ).candidates
+        if item.track == "essay"
+    )
+    assert "stage=essay_transfer" in transfer_candidate.start_url
+    assert f"sourceRewriteVersionId={rewrite['rewriteVersionId']}" in (
+        transfer_candidate.start_url
+    )
+    assert {
+        item["entityType"] for item in transfer_candidate.evidence_refs
+    } >= {
+        "essay_mastery_state_version",
+        "essay_source_task_version",
+        "essay_source_answer_version",
+        "essay_rewrite_version",
+    }
+    transfer_task = next(
+        item
+        for item in rewrite_result["completion"]["plan"]["tasks"]
+        if item["stage"] == "essay_transfer"
+    )
+
+    transfer_answer_id, transfer_attempt_id = _seed_fresh_answer(
+        db_session_factory,
+        user_id=user_id,
+        ids=fresh_ids,
+    )
+    transfer_review_id = _insert_completed_review(
+        db_session_factory,
+        user_id=user_id,
+        ids=fresh_ids,
+        answer_id=transfer_answer_id,
+    )
+    transfer_decision_id = _post_decision(
+        client,
+        auth,
+        key="essay-planning-transfer-decision",
+        ids=fresh_ids,
+        review_id=transfer_review_id,
+        decision="rejected",
+    )
+    transfer_payload = {
+        "sourceRewriteVersionId": rewrite["rewriteVersionId"],
+        "sourceFindingDecisionArtifactVersionId": decision_id,
+        "transferAttemptId": transfer_attempt_id,
+        "transferAnswerVersionId": transfer_answer_id,
+        "transferReviewVersionId": transfer_review_id,
+        "transferFindingDecisionArtifactVersionId": transfer_decision_id,
+        "basedOnTransferVerificationVersionId": None,
+        "testedCriterionCodes": ["point_coverage"],
+    }
+    atomic_transfer_payload = {
+        "transfer": transfer_payload,
+        "planTaskId": transfer_task["id"],
+        "elapsedMinutes": transfer_task["estimatedMinutes"],
+        "basedOnExecutionVersionId": None,
+    }
+    with db_session_factory() as session:
+        transfer_counts_before = {
+            "transfers": session.execute(
+                text(
+                    "select count(*) from "
+                    "learning.essay_transfer_verification_versions"
+                )
+            ).scalar_one(),
+            "mastery": session.execute(
+                text("select count(*) from learning.essay_mastery_state_versions")
+            ).scalar_one(),
+            "executions": session.execute(
+                text("select count(*) from learning.task_execution_versions")
+            ).scalar_one(),
+            "outbox": session.execute(
+                text("select count(*) from platform.outbox_events")
+            ).scalar_one(),
+        }
+    rolled_back_transfer = client.post(
+        "/api/v2/essay-intelligence/transfers/complete-plan-task",
+        headers={**auth, "Idempotency-Key": "essay-atomic-transfer-rollback"},
+        json={**atomic_transfer_payload, "planTaskId": str(uuid4())},
+    )
+    assert rolled_back_transfer.status_code == 409, rolled_back_transfer.text
+    with db_session_factory() as session:
+        assert {
+            "transfers": session.execute(
+                text(
+                    "select count(*) from "
+                    "learning.essay_transfer_verification_versions"
+                )
+            ).scalar_one(),
+            "mastery": session.execute(
+                text("select count(*) from learning.essay_mastery_state_versions")
+            ).scalar_one(),
+            "executions": session.execute(
+                text("select count(*) from learning.task_execution_versions")
+            ).scalar_one(),
+            "outbox": session.execute(
+                text("select count(*) from platform.outbox_events")
+            ).scalar_one(),
+        } == transfer_counts_before
+
+    verified = client.post(
+        "/api/v2/essay-intelligence/transfers/complete-plan-task",
+        headers={**auth, "Idempotency-Key": "essay-atomic-transfer-complete"},
+        json=atomic_transfer_payload,
+    )
+    assert verified.status_code == 200, verified.text
+    transfer_result = verified.json()["data"]
+    verification_id = transfer_result["transfer"]["verificationVersionId"]
+    assert transfer_result["completion"]["execution"]["status"] == "complete"
+    assert transfer_result["completion"]["execution"]["evidenceRefs"] == [
+        {
+            "owner": "essay_intelligence",
+            "entityType": "essay_transfer_verification",
+            "entityId": verification_id,
+            "versionId": verification_id,
+            "role": None,
+        }
+    ]
+    transfer_replay = client.post(
+        "/api/v2/essay-intelligence/transfers/complete-plan-task",
+        headers={**auth, "Idempotency-Key": "essay-atomic-transfer-complete"},
+        json=atomic_transfer_payload,
+    )
+    assert transfer_replay.status_code == 200
+    assert transfer_replay.json()["data"] == transfer_result
+    transfer_conflict = client.post(
+        "/api/v2/essay-intelligence/transfers/complete-plan-task",
+        headers={**auth, "Idempotency-Key": "essay-atomic-transfer-complete"},
+        json={**atomic_transfer_payload, "elapsedMinutes": 1},
+    )
+    assert transfer_conflict.status_code == 409
+    with db_session_factory() as session:
+        assert repository.execution_evidence_exists(
+            session,
+            user_id=user_id,
+            task=cast(
+                Any,
+                {
+                    "stage": "essay_transfer",
+                    "evidence_refs": list(transfer_candidate.evidence_refs),
+                    "created_at": NOW,
+                },
+            ),
+            evidence_type="essay_transfer_verification",
+            owner="essay_intelligence",
+            entity_id=verification_id,
+            version_id=verification_id,
+            submitted_evidence={},
+        )
+        stable = repository.essay_snapshot(
+            session,
+            user_id=user_id,
+            goal=repository.goal_and_ability(session, user_id=user_id),
+        )
+        assert session.execute(
+            text(
+                "select count(*) from learning.score_evidence "
+                "where user_id = cast(:user_id as uuid)"
+            ),
+            {"user_id": user_id},
+        ).scalar_one() == 0
+        assert session.execute(
+            text(
+                "select count(*) from learning.ability_estimate_versions "
+                "where user_id = cast(:user_id as uuid)"
+            ),
+            {"user_id": user_id},
+        ).scalar_one() == 0
+    assert stable.next_stage == "content_unavailable"
+    assert stable.mastery_state == "stable_mastered"
+    assert "不重复生成复写或迁移训练" in str(stable.pending_reason)
 
 
 def _seed_learner_and_published_essay_content(

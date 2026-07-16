@@ -19,7 +19,7 @@ afterEach(() => {
 });
 
 describe("VJ-02 real xingce WeChat AS-04", () => {
-  it("requires user text and tags, shows AI unavailable, then commits replace and Today receipt", async () => {
+  it("保留用户原话，展示岸岸候选，并绑定候选版本替换错因", async () => {
     let captured: CapturedReflectionPage | undefined;
     const { wxStorage } = createMemoryWechatStorage();
     const showToast = vi.fn<(options: WechatMiniprogram.ShowToastOption) => Promise<void>>(() =>
@@ -65,7 +65,7 @@ describe("VJ-02 real xingce WeChat AS-04", () => {
       expect(page.data.status).toBe("ready");
     });
     expect(page.data.phase).toBe("reflection");
-    expect(page.data.result).toMatchObject({ correctCount: 0, totalCount: 2 });
+    expect(page.data.result).toMatchObject({ correctCount: 0, totalCount: 3 });
 
     await page.submitReflection.call(page);
     expect(showToast.mock.calls[0]?.[0].title).toContain("真实想法");
@@ -82,13 +82,15 @@ describe("VJ-02 real xingce WeChat AS-04", () => {
       expectedRevision: 1,
       rawText: "我把‘不符合’看成了‘符合’。",
       tags: ["misread"],
+      itemInterpretations: [],
     });
     const reflectionHeaders: unknown = writes[0]?.header;
     expect(idempotencyHeader(reflectionHeaders)).toMatch(/^xingce-reflection-/u);
-    expect(reflectedXingceSession().review?.aiCandidate).toEqual({
-      state: "unavailable",
-      reason: "scenario_not_activated",
-      charged: false,
+    expect(reflectedXingceSession().review?.aiCandidate).toMatchObject({
+      state: "candidate_ready",
+      candidateVersionId: xingceIds.candidate,
+      summary: "题干方向识别错误",
+      quotaState: "not_metered",
     });
 
     page.inputReplacementCause.call(page, inputEvent("题干方向识别错误"));
@@ -98,6 +100,7 @@ describe("VJ-02 real xingce WeChat AS-04", () => {
       method: "PUT",
       data: {
         expectedRevision: 2,
+        candidateVersionId: xingceIds.candidate,
         decision: "replace",
         replacementCause: "题干方向识别错误",
       },
@@ -109,19 +112,23 @@ describe("VJ-02 real xingce WeChat AS-04", () => {
   });
 
   it.each(["timeout", "guessed_correct"] as const)(
-    "%s results retain the mandatory review and explicit skip decision path",
+    "%s results retain the mandatory review and explicit reject decision path",
     (resultCode) => {
       const submitted = submittedXingceSession(resultCode);
       expect(submitted.state).toBe("reflection_required");
       expect(submitted.review).toMatchObject({
         state: "reflection_required",
-        aiCandidate: { state: "unavailable", charged: false },
+        aiCandidate: { state: "unavailable", quotaState: "not_metered" },
       });
-      const skipped = completedXingceSession("skip");
-      expect(skipped.review?.causeDecision).toEqual(
-        expect.objectContaining({ decision: "skip", replacementCause: null }),
+      const rejected = completedXingceSession("reject");
+      expect(rejected.review?.causeDecision).toEqual(
+        expect.objectContaining({
+          candidateVersionId: xingceIds.candidate,
+          decision: "reject",
+          replacementCause: null,
+        }),
       );
-      expect(skipped.completion?.receiptId).toBe(xingceIds.receipt);
+      expect(rejected.completion?.receiptId).toBe(xingceIds.receipt);
     },
   );
 });

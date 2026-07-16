@@ -24,6 +24,24 @@ from app.domains.essay_intelligence.learning_schemas import (
 from app.domains.essay_intelligence.learning_service import (
     EssayLearningArtifactService,
 )
+from app.domains.essay_intelligence.closure.schemas import (
+    EssayRewriteCommand,
+    EssayRewritePlanTaskCompletionCommand,
+    EssayRewritePlanTaskCompletionResult,
+    EssayRewriteResult,
+    EssayTransferCommand,
+    EssayTransferPlanTaskCompletionCommand,
+    EssayTransferPlanTaskCompletionResult,
+    EssayTransferResult,
+)
+from app.domains.essay_intelligence.closure.service import (
+    EssayClosureContractError,
+    EssayClosureNotFound,
+    EssayClosureService,
+    EssayTransferContentGapError,
+)
+from app.domains.essay_intelligence.mastery.schemas import EssayMasteryProjection
+from app.domains.essay_intelligence.mastery.service import EssayMasteryService
 from app.domains.essay_intelligence.drafting_schemas import (
     EssayDraftingCompletionCommand,
     EssayDraftingCompletionResult,
@@ -75,6 +93,10 @@ def get_essay_drafting_completion_service() -> EssayDraftingCompletionService:
 
 def get_essay_learning_artifact_service() -> EssayLearningArtifactService:
     return EssayLearningArtifactService()
+
+
+def get_essay_closure_service() -> EssayClosureService:
+    return EssayClosureService()
 
 
 def _idempotency_key(
@@ -141,6 +163,165 @@ def create_essay_answer(
     except EssayWorkflowContractError as exc:
         session.rollback()
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+
+
+@router.post(
+    "/rewrites",
+    response_model=PublicApiEnvelope[EssayRewriteResult],
+    status_code=status.HTTP_201_CREATED,
+)
+def record_essay_rewrite(
+    request: Request,
+    response: Response,
+    command: EssayRewriteCommand,
+    command_id: Annotated[str, Depends(_idempotency_key)],
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> PublicApiEnvelope[EssayRewriteResult]:
+    try:
+        result = EssayClosureService().record_rewrite(
+            session,
+            user_id=current_user.user_id,
+            command_id=f"{current_user.user_id}:{command_id}",
+            command=command,
+        )
+        session.commit()
+        return public_success_envelope(request=request, response=response, data=result)
+    except (EssayClosureNotFound, EssayWorkflowNotFound) as exc:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+    except (EssayClosureContractError, EssayWorkflowContractError) as exc:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+
+
+@router.post(
+    "/rewrites/complete-plan-task",
+    response_model=PublicApiEnvelope[EssayRewritePlanTaskCompletionResult],
+)
+def record_essay_rewrite_and_complete_plan_task(
+    request: Request,
+    response: Response,
+    command: EssayRewritePlanTaskCompletionCommand,
+    command_id: Annotated[str, Depends(_idempotency_key)],
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+    closure: Annotated[EssayClosureService, Depends(get_essay_closure_service)],
+) -> PublicApiEnvelope[EssayRewritePlanTaskCompletionResult] | Response:
+    try:
+        result = closure.record_rewrite_and_complete_plan_task(
+            session,
+            user_id=current_user.user_id,
+            command_id=f"{current_user.user_id}:{command_id}",
+            command=command,
+        )
+        session.commit()
+        return public_success_envelope(request=request, response=response, data=result)
+    except (EssayClosureNotFound, EssayWorkflowNotFound) as exc:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+    except PlanningTaskExpiredError as exc:
+        session.rollback()
+        return planning_task_expired_response(request=request, error=exc)
+    except (
+        EssayClosureContractError,
+        EssayWorkflowContractError,
+        PlanningContractError,
+    ) as exc:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+
+
+@router.post(
+    "/transfers",
+    response_model=PublicApiEnvelope[EssayTransferResult],
+    status_code=status.HTTP_201_CREATED,
+)
+def record_essay_transfer(
+    request: Request,
+    response: Response,
+    command: EssayTransferCommand,
+    command_id: Annotated[str, Depends(_idempotency_key)],
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> PublicApiEnvelope[EssayTransferResult]:
+    try:
+        result = EssayClosureService().record_transfer(
+            session,
+            user_id=current_user.user_id,
+            command_id=f"{current_user.user_id}:{command_id}",
+            command=command,
+        )
+        session.commit()
+        return public_success_envelope(request=request, response=response, data=result)
+    except EssayTransferContentGapError as exc:
+        session.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=exc.detail.model_dump(by_alias=True, mode="json"),
+        ) from exc
+    except EssayClosureNotFound as exc:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+    except EssayClosureContractError as exc:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+
+
+@router.post(
+    "/transfers/complete-plan-task",
+    response_model=PublicApiEnvelope[EssayTransferPlanTaskCompletionResult],
+)
+def record_essay_transfer_and_complete_plan_task(
+    request: Request,
+    response: Response,
+    command: EssayTransferPlanTaskCompletionCommand,
+    command_id: Annotated[str, Depends(_idempotency_key)],
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+    closure: Annotated[EssayClosureService, Depends(get_essay_closure_service)],
+) -> PublicApiEnvelope[EssayTransferPlanTaskCompletionResult] | Response:
+    try:
+        result = closure.record_transfer_and_complete_plan_task(
+            session,
+            user_id=current_user.user_id,
+            command_id=f"{current_user.user_id}:{command_id}",
+            command=command,
+        )
+        session.commit()
+        return public_success_envelope(request=request, response=response, data=result)
+    except EssayTransferContentGapError as exc:
+        session.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=exc.detail.model_dump(by_alias=True, mode="json"),
+        ) from exc
+    except EssayClosureNotFound as exc:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+    except PlanningTaskExpiredError as exc:
+        session.rollback()
+        return planning_task_expired_response(request=request, error=exc)
+    except (EssayClosureContractError, PlanningContractError) as exc:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+
+
+@router.get(
+    "/mastery",
+    response_model=PublicApiEnvelope[EssayMasteryProjection],
+)
+def get_essay_mastery(
+    request: Request,
+    response: Response,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> PublicApiEnvelope[EssayMasteryProjection]:
+    result = EssayMasteryService().projection(
+        session,
+        user_id=current_user.user_id,
+    )
+    return public_success_envelope(request=request, response=response, data=result)
 
 
 @router.post(

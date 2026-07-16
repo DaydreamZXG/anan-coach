@@ -90,6 +90,37 @@
   font-size: 23rpx;
   line-height: 1.65;
 }
+.community-entry-list {
+  padding-top: 2rpx;
+  padding-bottom: 2rpx;
+}
+.community-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+  min-height: 116rpx;
+}
+.community-entry + .community-entry {
+  border-top: 1rpx solid var(--color-line);
+}
+.community-entry-title {
+  color: var(--color-ink);
+  font-size: 27rpx;
+  font-weight: 750;
+}
+.community-entry-copy {
+  margin-top: 8rpx;
+  color: var(--color-muted);
+  font-size: 21rpx;
+  line-height: 1.5;
+}
+.community-entry-arrow {
+  flex: 0 0 auto;
+  color: var(--color-primary);
+  font-size: 44rpx;
+  font-weight: 500;
+}
 .session-list {
   padding-top: 4rpx;
   padding-bottom: 4rpx;

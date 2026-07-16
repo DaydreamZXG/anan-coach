@@ -190,6 +190,7 @@ function draftingCompletion(): PendingEssayDraftingCompletion {
         },
         reflection: {
           schemaType: "reflection",
+          voiceArtifactVersionIds: [],
           causeCodes: ["expression"],
           whatIThought: draft.userThought,
           whatIWillChange: draft.whatIWillChange,

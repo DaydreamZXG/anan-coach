@@ -34,7 +34,7 @@ PRODUCTS: tuple[ProductConfig, ...] = (
         price_band="CNY_29_39",
         sort_order=10,
         feature_highlights=(
-            "鹿鸣 AI 问答每日 60 次",
+            "岸岸 AI 问答每日 60 次",
             "申论 AI 批改每日 20 次",
             "外部错题解析每日 30 次",
             "岗位风险解释和计划重排高额度",
@@ -60,7 +60,7 @@ PRODUCTS: tuple[ProductConfig, ...] = (
 FEATURE_QUOTAS: tuple[FeatureQuotaConfig, ...] = (
     FeatureQuotaConfig(
         feature="companion_ask",
-        title="鹿鸣 AI 问答",
+        title="岸岸 AI 问答",
         period="day",
         free_limit=3,
         pro_limit=60,

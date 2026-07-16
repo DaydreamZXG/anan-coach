@@ -2779,3 +2779,7 @@ create table ai_audit.interaction_logs (
   metadata jsonb not null default '{}'::jsonb,
   created_at timestamptz not null default now()
 );
+
+-- Stage 3.5 community method-card and reward tables are intentionally applied
+-- by migration 20260716_28 in the test bootstrap. Keeping them migration-owned
+-- exercises the exact additive DDL and append-only triggers used in production.

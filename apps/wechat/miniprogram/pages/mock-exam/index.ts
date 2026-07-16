@@ -26,7 +26,7 @@ import {
   type MaterialReaderState,
 } from "../../task-runtime/material-reader/state";
 import { reduceTaskRuntime } from "../../task-runtime/state/runtime";
-import { taskToolPolicy, type TaskToolPolicy } from "../../task-runtime/tool-policy";
+import { taskToolPolicy, type TaskToolPolicy } from "../../task-runtime/tool-policy/index";
 import {
   clearPendingMockCheckpoint,
   clearPendingMockSubmit,

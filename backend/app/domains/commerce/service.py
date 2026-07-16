@@ -58,8 +58,8 @@ class CommerceService:
 
     def get_entitlement(self, *, user_id: str) -> CommerceEntitlementResponse:
         self._repository.sync_product_catalog()
-        entitlement = self._repository.get_entitlement(user_id=user_id)
         now = self._now()
+        entitlement = self._repository.get_entitlement(user_id=user_id, at=now)
         usage = self._repository.list_usage_for_periods(
             user_id=user_id,
             usage_dates_by_feature={
@@ -85,12 +85,14 @@ class CommerceService:
         feature: str,
         reservation_key: str,
         business_key: str,
+        server_session_ref: str | None = None,
         commit: bool = True,
     ) -> FeatureUsageReservation:
-        entitlement = self._repository.get_entitlement(user_id=user_id)
+        now = self._now()
+        entitlement = self._repository.get_entitlement(user_id=user_id, at=now)
         tier = "pro" if entitlement.tier == "pro" and entitlement.is_active else "free"
         quota = quota_for_feature(feature)
-        usage_date = _usage_period_start(period=quota.period, now=self._now())
+        usage_date = _usage_period_start(period=quota.period, now=now)
         try:
             return self._repository.reserve_feature_usage(
                 user_id=user_id,
@@ -100,9 +102,23 @@ class CommerceService:
                 usage_date=usage_date,
                 limit=quota.pro_limit if tier == "pro" else quota.free_limit,
                 tier=tier,
+                server_session_ref=server_session_ref,
                 commit=commit,
             )
         except CommerceQuotaExceededError as exc:
+            reward_reservation = self._repository.reserve_reward_feature_usage(
+                user_id=user_id,
+                feature=feature,
+                reservation_key=reservation_key,
+                business_key=business_key,
+                server_session_ref=(
+                    server_session_ref or f"commerce-session:{business_key}"
+                ),
+                reserved_at=now,
+                commit=commit,
+            )
+            if reward_reservation is not None:
+                return reward_reservation
             raise CommerceQuotaExceededError(
                 exc.feature,
                 used=exc.used,
@@ -113,6 +129,30 @@ class CommerceService:
                     usage_date=exc.usage_date or usage_date,
                 ),
             ) from exc
+
+    def activate_reward_membership(
+        self,
+        *,
+        award_id: UUID,
+        beneficiary_user_id: UUID,
+        activation_key: str,
+        membership_entitlement_ref: str,
+        purchase_history_snapshot_ref: str,
+        evidence_refs: tuple[str, ...],
+        commit: bool = True,
+    ):
+        if not evidence_refs:
+            raise ValueError("membership reward activation requires evidence")
+        return self._repository.activate_reward_membership(
+            award_id=award_id,
+            beneficiary_user_id=beneficiary_user_id,
+            activation_key=activation_key,
+            membership_entitlement_ref=membership_entitlement_ref,
+            purchase_history_snapshot_ref=purchase_history_snapshot_ref,
+            evidence_refs=evidence_refs,
+            activated_at=self._now(),
+            commit=commit,
+        )
 
     def refund_feature_usage(
         self,

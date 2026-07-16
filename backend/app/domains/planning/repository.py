@@ -521,6 +521,90 @@ class PlanningRepository:
             ),
             {"user_id": user_id},
         ).scalar_one_or_none()
+        due_reflections = list(
+            session.execute(
+                text(
+                    """
+                    select review.review_version_id::text,
+                           review.review_id::text,
+                           review.session_id::text
+                    from learning.xingce_attempt_review_versions review
+                    join learning.xingce_task_sessions task_session
+                      on task_session.session_id = review.session_id
+                     and task_session.user_id = review.user_id
+                    where review.user_id = cast(:user_id as uuid)
+                      and review.state in (
+                        'reflection_due', 'cause_candidate_pending',
+                        'cause_decision_due'
+                      )
+                      and task_session.state = 'submitted'
+                      and not exists (
+                        select 1
+                        from learning.xingce_attempt_review_versions successor
+                        where successor.supersedes_review_version_id =
+                              review.review_version_id
+                      )
+                    order by review.created_at, review.review_id
+                    """
+                ),
+                {"user_id": user_id},
+            ).mappings()
+        )
+        due_mastery = list(
+            session.execute(
+                text(
+                    """
+                    select mastery.mastery_id::text,
+                           mastery.mastery_version_id::text
+                    from learning.xingce_mastery_state_versions mastery
+                    where mastery.user_id = cast(:user_id as uuid)
+                      and mastery.due_at is not null
+                      and mastery.due_at <= :now
+                      and not exists (
+                        select 1
+                        from learning.xingce_mastery_state_versions successor
+                        where successor.supersedes_mastery_version_id =
+                              mastery.mastery_version_id
+                      )
+                    order by mastery.due_at, mastery.created_at, mastery.mastery_id
+                    """
+                ),
+                {"user_id": user_id, "now": now},
+            ).mappings()
+        )
+        latest_mastery_version_id = session.execute(
+            text(
+                """
+                select mastery.mastery_version_id::text
+                from learning.xingce_mastery_state_versions mastery
+                where mastery.user_id = cast(:user_id as uuid)
+                  and not exists (
+                    select 1
+                    from learning.xingce_mastery_state_versions successor
+                    where successor.supersedes_mastery_version_id =
+                          mastery.mastery_version_id
+                  )
+                order by mastery.created_at desc, mastery.mastery_version_id desc
+                limit 1
+                """
+            ),
+            {"user_id": user_id},
+        ).scalar_one_or_none()
+        first_reflection = due_reflections[0] if due_reflections else None
+        first_mastery = due_mastery[0] if due_mastery else None
+        source_version_id = (
+            str(first_mastery["mastery_version_id"])
+            if first_mastery is not None
+            else (
+                str(first_reflection["review_version_id"])
+                if first_reflection is not None
+                else (
+                    str(latest_mastery_version_id)
+                    if latest_mastery_version_id is not None
+                    else goal.estimate_version_id
+                )
+            )
+        )
         return ObjectivePlanningSnapshot(
             baseline_required=(
                 goal.estimate_version_id is None
@@ -528,15 +612,36 @@ class PlanningRepository:
                 or goal.estimate_valid_until is None
                 or _as_utc(goal.estimate_valid_until) <= _as_utc(now)
             ),
-            due_reflection_count=None,
-            due_verification_count=None,
+            due_reflection_count=len(due_reflections),
+            due_verification_count=len(due_mastery),
             weakest_module=str(weakest) if weakest else None,
-            source_version_id=goal.estimate_version_id,
-            closure_readiness="unavailable",
-            closure_unavailable_reason=(
-                "行测结构化复盘、掌握状态与间隔验证的 canonical writer "
-                "尚未发布；规划 Agent 不生成可执行的复盘/验证闭环，"
-                "也不将未知数量误报为 0。"
+            source_version_id=source_version_id,
+            closure_readiness="available",
+            closure_unavailable_reason=None,
+            due_reflection_session_id=(
+                str(first_reflection["session_id"])
+                if first_reflection is not None
+                else None
+            ),
+            due_reflection_review_id=(
+                str(first_reflection["review_id"])
+                if first_reflection is not None
+                else None
+            ),
+            due_reflection_version_id=(
+                str(first_reflection["review_version_id"])
+                if first_reflection is not None
+                else None
+            ),
+            due_verification_mastery_id=(
+                str(first_mastery["mastery_id"])
+                if first_mastery is not None
+                else None
+            ),
+            due_verification_version_id=(
+                str(first_mastery["mastery_version_id"])
+                if first_mastery is not None
+                else None
             ),
         )
 
@@ -617,6 +722,7 @@ class PlanningRepository:
                   attempt.task_version_id::text,
                   attempt.material_bundle_version_id::text,
                   attempt.rubric_version_id::text,
+                  attempt.submitted_at,
                   task.question_type,
                   task.word_limit,
                   task.maximum_score,
@@ -698,6 +804,13 @@ class PlanningRepository:
             ),
             {"user_id": user_id},
         ).mappings().one_or_none()
+        closure_snapshot = self._essay_mastery_snapshot(
+            session,
+            user_id=user_id,
+            latest_attempt=latest,
+        )
+        if closure_snapshot is not None:
+            return closure_snapshot
         artifacts = session.execute(
             text(
                 """
@@ -926,6 +1039,412 @@ class PlanningRepository:
                 else None
             ),
         )
+
+    def _essay_mastery_snapshot(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        latest_attempt: RowMapping | None,
+    ) -> EssayPlanningSnapshot | None:
+        heads = list(
+            session.execute(
+                text(
+                    """
+                    select mastery.*
+                    from learning.essay_mastery_state_versions mastery
+                    where mastery.user_id = cast(:user_id as uuid)
+                      and mastery.state <> 'withdrawn'
+                      and not exists (
+                        select 1 from learning.essay_mastery_state_versions successor
+                        where successor.supersedes_mastery_version_id =
+                              mastery.mastery_version_id
+                      )
+                    order by mastery.due_at nulls last, mastery.created_at,
+                             mastery.finding_decision_artifact_version_id,
+                             mastery.finding_id
+                    """
+                ),
+                {"user_id": user_id},
+            ).mappings()
+        )
+        if not heads:
+            return None
+        due_heads = [
+            item
+            for item in heads
+            if item["state"] in {"rewrite_due", "transfer_due"}
+            and item["due_at"] is not None
+            and _as_utc(item["due_at"]) <= datetime.now(UTC)
+        ]
+        if not due_heads:
+            scheduled = [
+                item
+                for item in heads
+                if item["state"] in {"rewrite_due", "transfer_due"}
+            ]
+            if scheduled:
+                earliest = min(scheduled, key=lambda item: item["due_at"])
+                return EssayPlanningSnapshot(
+                    "content_unavailable",
+                    None,
+                    pending_reason=(
+                        "申论闭环已有 canonical head，但尚未到复写或迁移验证时间；"
+                        "规划不会提前制造重复训练。"
+                    ),
+                    mastery_state=str(earliest["state"]),  # type: ignore[arg-type]
+                    mastery_version_ids=tuple(
+                        str(item["mastery_version_id"]) for item in scheduled
+                    ),
+                    mastery_ids=tuple(
+                        str(item["mastery_id"]) for item in scheduled
+                    ),
+                )
+            consumed_attempt_ids = {
+                str(item["source_attempt_id"]) for item in heads
+            }
+            transfer_version_ids = [
+                str(item["transfer_verification_version_id"])
+                for item in heads
+                if item["transfer_verification_version_id"] is not None
+            ]
+            for transfer_version_id in transfer_version_ids:
+                transfer_attempt_id = session.execute(
+                    text(
+                        "select transfer_attempt_id::text "
+                        "from learning.essay_transfer_verification_versions "
+                        "where verification_version_id = cast(:version_id as uuid) "
+                        "and user_id = cast(:user_id as uuid)"
+                    ),
+                    {"version_id": transfer_version_id, "user_id": user_id},
+                ).scalar_one_or_none()
+                if transfer_attempt_id is not None:
+                    consumed_attempt_ids.add(str(transfer_attempt_id))
+            if latest_attempt is not None and str(
+                latest_attempt["attempt_id"]
+            ) not in consumed_attempt_ids:
+                return None
+            return EssayPlanningSnapshot(
+                "content_unavailable",
+                None,
+                pending_reason=(
+                    "当前申论 finding 已通过独立迁移验证并稳定掌握；"
+                    "在出现新的真实作答或未解决证据前，不重复生成复写或迁移训练。"
+                ),
+                mastery_state="stable_mastered",
+                mastery_version_ids=tuple(
+                    str(item["mastery_version_id"]) for item in heads
+                ),
+                mastery_ids=tuple(str(item["mastery_id"]) for item in heads),
+            )
+
+        decision_id = str(due_heads[0]["finding_decision_artifact_version_id"])
+        group = [
+            item
+            for item in heads
+            if str(item["finding_decision_artifact_version_id"]) == decision_id
+        ]
+        states = {str(item["state"]) for item in group}
+        if "stable_mastered" in states or not states.issubset(
+            {"rewrite_due", "transfer_due"}
+        ):
+            return _essay_closure_gap(
+                "申论掌握度 current head 状态互相冲突，无法确定唯一可写闭环。"
+            )
+        identity = {
+            (
+                str(item["source_task_version_id"]),
+                str(item["source_attempt_id"]),
+                str(item["source_answer_version_id"]),
+                str(item["source_review_version_id"]),
+            )
+            for item in group
+        }
+        if len(identity) != 1:
+            return _essay_closure_gap(
+                "申论掌握度 current head 的来源题目、作答或评阅不一致。"
+            )
+        rewrite_ids = {
+            str(item["rewrite_version_id"])
+            for item in group
+            if item["rewrite_version_id"] is not None
+        }
+        if len(rewrite_ids) > 1:
+            return _essay_closure_gap(
+                "申论掌握度 current head 绑定了不同 source rewrite 版本。"
+            )
+        context = session.execute(
+            text(
+                """
+                select
+                  mastery.mastery_version_id,
+                  source_attempt.attempt_id::text as source_attempt_id,
+                  source_attempt.task_version_id::text as source_task_version_id,
+                  source_attempt.material_bundle_version_id::text
+                    as source_material_bundle_version_id,
+                  source_attempt.rubric_version_id::text as source_rubric_version_id,
+                  source_task.question_type, source_task.word_limit,
+                  source_task.maximum_score, source_task.state as source_task_state,
+                  source_material.completeness as source_material_completeness,
+                  source_rubric.state as source_rubric_state,
+                  source_answer.answer_version_id::text as source_answer_version_id,
+                  current_answer.answer_version_id::text as current_answer_version_id,
+                  source_review.review_version_id::text as source_review_version_id,
+                  source_review.status as source_review_status,
+                  source_review.grounding_contract_version,
+                  source_review.grounding_report,
+                  source_review.execution_fingerprint,
+                  source_review.findings,
+                  source_review.rewrite_plan,
+                  decision.artifact_version_id::text as decision_artifact_version_id,
+                  decision.artifact_type as decision_artifact_type,
+                  decision.review_version_id::text as decision_review_version_id,
+                  decision.task_version_id::text as decision_task_version_id,
+                  decision.material_bundle_version_id::text
+                    as decision_material_bundle_version_id,
+                  decision.rubric_version_id::text as decision_rubric_version_id,
+                  rewrite.rewrite_version_id::text,
+                  rewrite.writer_contract_version as rewrite_contract_version,
+                  rewrite.writer_policy_version as rewrite_policy_version,
+                  rewrite.analysis_payload as rewrite_analysis_payload,
+                  transfer.verification_version_id::text
+                    as transfer_verification_version_id
+                from learning.essay_mastery_state_versions mastery
+                left join learning.essay_attempts source_attempt
+                  on source_attempt.attempt_id = mastery.source_attempt_id
+                 and source_attempt.user_id = mastery.user_id
+                 and source_attempt.task_version_id = mastery.source_task_version_id
+                left join product.essay_task_versions source_task
+                  on source_task.task_version_id = source_attempt.task_version_id
+                left join product.essay_material_bundle_versions source_material
+                  on source_material.material_bundle_version_id =
+                     source_attempt.material_bundle_version_id
+                 and source_material.task_version_id = source_attempt.task_version_id
+                left join product.essay_rubric_versions source_rubric
+                  on source_rubric.rubric_version_id = source_attempt.rubric_version_id
+                 and source_rubric.task_version_id = source_attempt.task_version_id
+                 and source_rubric.material_bundle_version_id =
+                     source_attempt.material_bundle_version_id
+                left join learning.essay_answer_versions source_answer
+                  on source_answer.answer_version_id = mastery.source_answer_version_id
+                 and source_answer.attempt_id = mastery.source_attempt_id
+                 and source_answer.user_id = mastery.user_id
+                 and source_answer.task_version_id = mastery.source_task_version_id
+                left join lateral (
+                  select answer.*
+                  from learning.essay_answer_versions answer
+                  where answer.attempt_id = mastery.source_attempt_id
+                    and answer.user_id = mastery.user_id
+                    and answer.task_version_id = mastery.source_task_version_id
+                    and not exists (
+                      select 1 from learning.essay_answer_versions successor
+                      where successor.supersedes_answer_version_id =
+                            answer.answer_version_id
+                    )
+                  order by answer.version_no desc, answer.created_at desc
+                  limit 1
+                ) current_answer on true
+                left join learning.essay_review_versions source_review
+                  on source_review.review_version_id = mastery.source_review_version_id
+                 and source_review.attempt_id = mastery.source_attempt_id
+                 and source_review.user_id = mastery.user_id
+                 and source_review.task_version_id = mastery.source_task_version_id
+                 and source_review.answer_version_id = mastery.source_answer_version_id
+                left join learning.essay_learning_artifact_versions decision
+                  on decision.artifact_version_id =
+                     mastery.finding_decision_artifact_version_id
+                 and decision.user_id = mastery.user_id
+                 and not exists (
+                   select 1 from learning.essay_learning_artifact_versions successor
+                   where successor.supersedes_artifact_version_id =
+                         decision.artifact_version_id
+                 )
+                left join learning.essay_rewrite_versions rewrite
+                  on rewrite.rewrite_version_id = mastery.rewrite_version_id
+                 and rewrite.user_id = mastery.user_id
+                 and rewrite.base_review_version_id = mastery.source_review_version_id
+                 and rewrite.finding_decision_artifact_version_id =
+                     mastery.finding_decision_artifact_version_id
+                 and not exists (
+                   select 1 from learning.essay_rewrite_versions successor
+                   where successor.supersedes_rewrite_version_id =
+                         rewrite.rewrite_version_id
+                 )
+                left join learning.essay_transfer_verification_versions transfer
+                  on transfer.verification_version_id =
+                     mastery.transfer_verification_version_id
+                 and transfer.user_id = mastery.user_id
+                where mastery.mastery_version_id = cast(:mastery_version_id as uuid)
+                  and mastery.user_id = cast(:user_id as uuid)
+                """
+            ),
+            {
+                "mastery_version_id": str(group[0]["mastery_version_id"]),
+                "user_id": user_id,
+            },
+        ).mappings().one()
+        gap = _essay_closure_context_gap(context, decision_id=decision_id)
+        if gap is not None:
+            return _essay_closure_gap(gap)
+        expected_rewrite_id = next(iter(rewrite_ids), None)
+        if expected_rewrite_id != _optional_str(context["rewrite_version_id"]):
+            return _essay_closure_gap(
+                "申论掌握度 head 引用的 rewrite 不是当前 owned writer 版本。"
+            )
+        if expected_rewrite_id is not None and (
+            context["rewrite_contract_version"] != "essay-rewrite-writer@v2"
+            or context["rewrite_policy_version"] != "essay-mastery@v1"
+        ):
+            return _essay_closure_gap(
+                "申论掌握度 head 引用了非 canonical essay rewrite writer。"
+            )
+        transfer_ids = {
+            str(item["transfer_verification_version_id"])
+            for item in group
+            if item["transfer_verification_version_id"] is not None
+        }
+        if len(transfer_ids) > 1 or next(iter(transfer_ids), None) != _optional_str(
+            context["transfer_verification_version_id"]
+        ):
+            return _essay_closure_gap(
+                "申论掌握度 head 引用的 transfer verification 不一致。"
+            )
+
+        stage = "rewrite_due" if "rewrite_due" in states else "transfer_due"
+        rewrite_version_id = _optional_str(context["rewrite_version_id"])
+        if stage == "transfer_due":
+            if (
+                rewrite_version_id is None
+                or context["rewrite_contract_version"] != "essay-rewrite-writer@v2"
+                or context["rewrite_policy_version"] != "essay-mastery@v1"
+                or not isinstance(context["rewrite_analysis_payload"], dict)
+                or context["rewrite_analysis_payload"].get("status") != "passed"
+            ):
+                return _essay_closure_gap(
+                    "申论 transfer_due head 缺少当前、已通过的 essay-rewrite-writer@v2 源稿。"
+                )
+            target = self._essay_fresh_transfer_content(
+                session,
+                source_task_version_id=str(context["source_task_version_id"]),
+                source_material_bundle_version_id=str(
+                    context["source_material_bundle_version_id"]
+                ),
+            )
+            if target is None:
+                return _essay_closure_gap(
+                    "申论迁移验证缺少不同题目和材料的已发布任务，essay-transfer writer 当前不可执行。"
+                )
+            task_version_id = str(target["task_version_id"])
+            material_bundle_version_id = str(target["material_bundle_version_id"])
+            rubric_version_id = str(target["rubric_version_id"])
+            question_type = str(target["question_type"])
+            word_limit = int(target["word_limit"])
+            maximum_score = float(target["maximum_score"])
+        else:
+            task_version_id = str(context["source_task_version_id"])
+            material_bundle_version_id = str(
+                context["source_material_bundle_version_id"]
+            )
+            rubric_version_id = str(context["source_rubric_version_id"])
+            question_type = str(context["question_type"])
+            word_limit = int(context["word_limit"])
+            maximum_score = float(context["maximum_score"])
+        ordered = sorted(group, key=lambda item: str(item["finding_id"]))
+        return EssayPlanningSnapshot(
+            stage,  # type: ignore[arg-type]
+            task_version_id,
+            material_bundle_version_id=material_bundle_version_id,
+            rubric_version_id=rubric_version_id,
+            question_type=question_type,
+            word_limit=word_limit,
+            maximum_score=maximum_score,
+            attempt_id=str(context["source_attempt_id"]),
+            answer_version_id=str(context["current_answer_version_id"]),
+            review_version_id=str(context["source_review_version_id"]),
+            rewrite_version_id=rewrite_version_id,
+            transfer_verification_version_id=_optional_str(
+                context["transfer_verification_version_id"]
+            ),
+            review_acknowledgement_version_id=decision_id,
+            weakest_dimension=_weakest_dimension(
+                context["findings"],
+                context["rewrite_plan"],
+            ),
+            mastery_state=stage,
+            mastery_version_ids=tuple(
+                str(item["mastery_version_id"]) for item in ordered
+            ),
+            mastery_ids=tuple(str(item["mastery_id"]) for item in ordered),
+            source_task_version_id=str(context["source_task_version_id"]),
+            source_material_bundle_version_id=str(
+                context["source_material_bundle_version_id"]
+            ),
+            source_answer_version_id=str(context["source_answer_version_id"]),
+            finding_decision_artifact_version_id=decision_id,
+        )
+
+    def _essay_fresh_transfer_content(
+        self,
+        session: Session,
+        *,
+        source_task_version_id: str,
+        source_material_bundle_version_id: str,
+    ) -> RowMapping | None:
+        return session.execute(
+            text(
+                """
+                select task.task_version_id::text, task.question_type,
+                       task.word_limit, task.maximum_score,
+                       material.material_bundle_version_id::text,
+                       rubric.rubric_version_id::text
+                from product.essay_task_versions task
+                join product.essay_material_bundle_versions material
+                  on material.task_version_id = task.task_version_id
+                 and material.completeness = 'complete'
+                join product.essay_rubric_versions rubric
+                  on rubric.task_version_id = task.task_version_id
+                 and rubric.material_bundle_version_id =
+                     material.material_bundle_version_id
+                 and rubric.state = 'published'
+                where task.state = 'published'
+                  and task.task_key like 'guokao%'
+                  and task.task_version_id <> cast(:source_task_id as uuid)
+                  and material.material_bundle_version_id <>
+                      cast(:source_material_id as uuid)
+                  and not exists (
+                    select 1 from product.essay_task_versions successor
+                    where successor.task_key = task.task_key
+                      and successor.version_no > task.version_no
+                      and successor.state = 'published'
+                  )
+                  and not exists (
+                    select 1 from product.essay_material_bundle_versions successor
+                    where successor.task_version_id = material.task_version_id
+                      and successor.version_no > material.version_no
+                      and successor.completeness = 'complete'
+                  )
+                  and not exists (
+                    select 1 from product.essay_rubric_versions successor
+                    where successor.task_version_id = rubric.task_version_id
+                      and successor.material_bundle_version_id =
+                          rubric.material_bundle_version_id
+                      and successor.version_no > rubric.version_no
+                      and successor.state = 'published'
+                  )
+                  and exists (
+                    select 1 from product.essay_material_segments segment
+                    where segment.material_bundle_version_id =
+                          material.material_bundle_version_id
+                  )
+                order by task.created_at desc, task.task_version_id
+                limit 1
+                """
+            ),
+            {
+                "source_task_id": source_task_version_id,
+                "source_material_id": source_material_bundle_version_id,
+            },
+        ).mappings().one_or_none()
 
     def recent_track_minutes(
         self,
@@ -1326,6 +1845,20 @@ class PlanningRepository:
         expected_answer_version = expected_ref("essay_answer_version")
         expected_review_version = expected_ref("essay_review_version")
         expected_rewrite_version = expected_ref("essay_rewrite_version")
+        expected_source_task_version = expected_ref("essay_source_task_version")
+        expected_source_material_version = expected_ref(
+            "essay_source_material_bundle_version"
+        )
+        expected_source_answer_version = expected_ref(
+            "essay_source_answer_version"
+        )
+        expected_finding_decision = expected_ref("essay_finding_decision")
+        expected_mastery_versions = [
+            str(item["versionId"])
+            for item in task["evidence_refs"]
+            if item.get("entityType") == "essay_mastery_state_version"
+            and item.get("versionId")
+        ]
         expected_material_annotation = expected_ref("essay_material_annotation")
         expected_point_extraction = expected_ref("essay_point_extraction")
         artifact_types = {
@@ -1539,8 +2072,10 @@ class PlanningRepository:
         elif evidence_type == "essay_rewrite_version":
             if (
                 expected_attempt_id is None
-                or expected_answer_version is None
+                or expected_source_answer_version is None
                 or expected_review_version is None
+                or expected_finding_decision is None
+                or not expected_mastery_versions
             ):
                 return False
             statement = """
@@ -1556,9 +2091,14 @@ class PlanningRepository:
                   and rewrite.task_version_id = cast(:task_version_id as uuid)
                   and rewrite.base_review_version_id = cast(:review_version_id as uuid)
                   and rewrite.base_answer_version_id = cast(:answer_version_id as uuid)
+                  and rewrite.finding_decision_artifact_version_id =
+                      cast(:finding_decision_id as uuid)
+                  and rewrite.writer_contract_version = 'essay-rewrite-writer@v2'
+                  and rewrite.writer_policy_version = 'essay-mastery@v1'
                   and attempt.material_bundle_version_id =
                       cast(:material_bundle_version_id as uuid)
                   and attempt.rubric_version_id = cast(:rubric_version_id as uuid)
+                  and rewrite.created_at >= :task_created_at
                   and not exists (
                     select 1 from learning.essay_rewrite_versions successor
                     where successor.supersedes_rewrite_version_id =
@@ -1573,13 +2113,18 @@ class PlanningRepository:
             params = {
                 "attempt_id": expected_attempt_id,
                 "review_version_id": expected_review_version,
-                "answer_version_id": expected_answer_version,
+                "answer_version_id": expected_source_answer_version,
+                "finding_decision_id": expected_finding_decision,
             }
         elif evidence_type == "essay_transfer_verification":
             if (
                 expected_attempt_id is None
                 or expected_review_version is None
                 or expected_rewrite_version is None
+                or expected_source_task_version is None
+                or expected_source_material_version is None
+                or expected_finding_decision is None
+                or not expected_mastery_versions
             ):
                 return False
             statement = """
@@ -1587,6 +2132,8 @@ class PlanningRepository:
                 from learning.essay_transfer_verification_versions transfer
                 join learning.essay_rewrite_versions source_rewrite
                   on source_rewrite.rewrite_version_id = cast(:rewrite_version_id as uuid)
+                 and transfer.source_rewrite_version_id =
+                     source_rewrite.rewrite_version_id
                  and source_rewrite.user_id = transfer.user_id
                  and source_rewrite.attempt_id = transfer.source_attempt_id
                  and source_rewrite.base_review_version_id =
@@ -1599,6 +2146,23 @@ class PlanningRepository:
                   and transfer.user_id = cast(:user_id as uuid)
                   and transfer.source_attempt_id = cast(:attempt_id as uuid)
                   and transfer.source_review_version_id = cast(:review_version_id as uuid)
+                  and transfer.finding_decision_artifact_version_id =
+                      cast(:finding_decision_id as uuid)
+                  and transfer.writer_contract_version = 'essay-transfer-writer@v2'
+                  and transfer.writer_policy_version = 'essay-mastery@v1'
+                  and source_rewrite.task_version_id =
+                      cast(:source_task_version_id as uuid)
+                  and source_rewrite.writer_contract_version =
+                      'essay-rewrite-writer@v2'
+                  and exists (
+                    select 1 from learning.essay_attempts source_attempt
+                    where source_attempt.attempt_id = transfer.source_attempt_id
+                      and source_attempt.user_id = transfer.user_id
+                      and source_attempt.task_version_id =
+                          cast(:source_task_version_id as uuid)
+                      and source_attempt.material_bundle_version_id =
+                          cast(:source_material_version_id as uuid)
+                  )
                   and transfer.transfer_task_version_id = cast(:task_version_id as uuid)
                   and transfer.fresh_material_bundle_version_id =
                       cast(:material_bundle_version_id as uuid)
@@ -1606,6 +2170,10 @@ class PlanningRepository:
                       cast(:material_bundle_version_id as uuid)
                   and transfer_attempt.rubric_version_id =
                       cast(:rubric_version_id as uuid)
+                  and transfer.transfer_task_version_id <>
+                      cast(:source_task_version_id as uuid)
+                  and transfer.fresh_material_bundle_version_id <>
+                      cast(:source_material_version_id as uuid)
                   and transfer.generated_at >= source_rewrite.created_at
                   and not exists (
                     select 1 from learning.essay_rewrite_versions successor
@@ -1628,10 +2196,13 @@ class PlanningRepository:
                 "attempt_id": expected_attempt_id,
                 "review_version_id": expected_review_version,
                 "rewrite_version_id": expected_rewrite_version,
+                "finding_decision_id": expected_finding_decision,
+                "source_task_version_id": expected_source_task_version,
+                "source_material_version_id": expected_source_material_version,
             }
         else:
             return False
-        return (
+        canonical_evidence = (
             session.execute(
                 text(statement),
                 {
@@ -1646,6 +2217,47 @@ class PlanningRepository:
             ).scalar_one_or_none()
             is not None
         )
+        if not canonical_evidence:
+            return False
+        if evidence_type not in {
+            "essay_rewrite_version",
+            "essay_transfer_verification",
+        }:
+            return True
+        link_column = (
+            "rewrite_version_id"
+            if evidence_type == "essay_rewrite_version"
+            else "transfer_verification_version_id"
+        )
+        for mastery_version_id in expected_mastery_versions:
+            linked = session.execute(
+                text(
+                    f"""
+                    select 1
+                    from learning.essay_mastery_state_versions source
+                    join learning.essay_mastery_state_versions successor
+                      on successor.supersedes_mastery_version_id =
+                         source.mastery_version_id
+                     and successor.mastery_id = source.mastery_id
+                     and successor.user_id = source.user_id
+                    where source.mastery_version_id = cast(:mastery_version_id as uuid)
+                      and source.user_id = cast(:user_id as uuid)
+                      and source.finding_decision_artifact_version_id =
+                          cast(:finding_decision_id as uuid)
+                      and successor.{link_column} = cast(:entity_id as uuid)
+                      and successor.policy_version = 'essay-mastery@v1'
+                    """
+                ),
+                {
+                    "mastery_version_id": mastery_version_id,
+                    "user_id": user_id,
+                    "finding_decision_id": expected_finding_decision,
+                    "entity_id": entity_id,
+                },
+            ).scalar_one_or_none()
+            if linked is None:
+                return False
+        return True
 
     def insert_task_execution(
         self,
@@ -1839,6 +2451,66 @@ def _fingerprint(payload: dict[str, Any]) -> str:
 
 def _optional_float(value: Any) -> float | None:
     return float(value) if value is not None else None
+
+
+def _essay_closure_gap(reason: str) -> EssayPlanningSnapshot:
+    return EssayPlanningSnapshot(
+        "closure_unavailable",
+        None,
+        pending_reason=reason,
+        closure_readiness="unavailable",
+        closure_unavailable_reason=reason,
+    )
+
+
+def _essay_closure_context_gap(
+    context: RowMapping,
+    *,
+    decision_id: str,
+) -> str | None:
+    required = {
+        "source attempt": context["source_attempt_id"],
+        "source task": context["source_task_version_id"],
+        "source material": context["source_material_bundle_version_id"],
+        "source rubric": context["source_rubric_version_id"],
+        "source answer": context["source_answer_version_id"],
+        "current answer": context["current_answer_version_id"],
+        "source review": context["source_review_version_id"],
+        "finding decision": context["decision_artifact_version_id"],
+    }
+    missing = [name for name, value in required.items() if value is None]
+    if missing:
+        return "申论闭环缺少 canonical " + "、".join(missing) + "，不可生成可写任务。"
+    if (
+        context["source_task_state"] != "published"
+        or context["source_material_completeness"] != "complete"
+        or context["source_rubric_state"] != "published"
+    ):
+        return "申论掌握度来源题目、材料或评分规程已不再可消费。"
+    grounding = context["grounding_report"]
+    if (
+        context["source_review_status"] != "completed"
+        or context["grounding_contract_version"] != "essay-grounding-v2"
+        or not isinstance(grounding, dict)
+        or grounding.get("verified") is not True
+        or grounding.get("eligibleForLearning") is not True
+        or context["execution_fingerprint"] is None
+    ):
+        return "申论掌握度来源评阅未通过 canonical grounded learning 门禁。"
+    if (
+        str(context["decision_artifact_version_id"]) != decision_id
+        or context["decision_artifact_type"] != "review_acknowledgement"
+        or str(context["decision_review_version_id"])
+        != str(context["source_review_version_id"])
+        or str(context["decision_task_version_id"])
+        != str(context["source_task_version_id"])
+        or str(context["decision_material_bundle_version_id"])
+        != str(context["source_material_bundle_version_id"])
+        or str(context["decision_rubric_version_id"])
+        != str(context["source_rubric_version_id"])
+    ):
+        return "申论掌握度 head 与 finding decision 的精确来源不一致。"
+    return None
 
 
 def _optional_str(value: Any) -> str | None:

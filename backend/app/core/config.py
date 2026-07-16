@@ -75,6 +75,26 @@ class Settings:
     ai_companion_provider_replay_retention_seconds: int = 0
     ai_companion_max_input_bytes: int = 0
     ai_companion_max_output_bytes: int = 0
+    ai_xingce_cause_model: str = "gemini-3.5-flash"
+    ai_xingce_cause_provider_release_id: str = ""
+    ai_xingce_cause_provider_https_host_allowlist: str = ""
+    ai_xingce_cause_provider_dpa_confirmed: bool = False
+    ai_xingce_cause_provider_idempotency_capability: str = ""
+    ai_xingce_cause_provider_idempotency_key_header: str = ""
+    ai_xingce_cause_provider_request_id_header: str = ""
+    ai_xingce_cause_provider_replay_retention_seconds: int = 0
+    ai_xingce_cause_max_input_bytes: int = 0
+    ai_xingce_cause_max_output_bytes: int = 0
+    ai_community_candidate_model: str = "gemini-3.5-flash"
+    ai_community_candidate_provider_release_id: str = ""
+    ai_community_candidate_provider_https_host_allowlist: str = ""
+    ai_community_candidate_provider_dpa_confirmed: bool = False
+    ai_community_candidate_provider_idempotency_capability: str = ""
+    ai_community_candidate_provider_idempotency_key_header: str = ""
+    ai_community_candidate_provider_request_id_header: str = ""
+    ai_community_candidate_provider_replay_retention_seconds: int = 0
+    ai_community_candidate_max_input_bytes: int = 0
+    ai_community_candidate_max_output_bytes: int = 0
     ai_essay_review_model: str = "gemini-3.5-flash"
     ai_essay_rubric_generator_model: str = ""
     ai_essay_rubric_critic_model: str = ""
@@ -257,6 +277,83 @@ def get_settings() -> Settings:
         ),
         ai_companion_max_output_bytes=int(
             os.getenv("AI_COMPANION_MAX_OUTPUT_BYTES", "0")
+        ),
+        ai_xingce_cause_model=os.getenv(
+            "AI_XINGCE_CAUSE_MODEL",
+            os.getenv("AI_MODEL", "gemini-3.5-flash"),
+        ),
+        ai_xingce_cause_provider_release_id=os.getenv(
+            "AI_XINGCE_CAUSE_PROVIDER_RELEASE_ID",
+            "",
+        ),
+        ai_xingce_cause_provider_https_host_allowlist=os.getenv(
+            "AI_XINGCE_CAUSE_PROVIDER_HTTPS_HOST_ALLOWLIST",
+            "",
+        ),
+        ai_xingce_cause_provider_dpa_confirmed=_environment_bool(
+            "AI_XINGCE_CAUSE_PROVIDER_DPA_CONFIRMED",
+            default=False,
+        ),
+        ai_xingce_cause_provider_idempotency_capability=os.getenv(
+            "AI_XINGCE_CAUSE_PROVIDER_IDEMPOTENCY_CAPABILITY",
+            "",
+        ),
+        ai_xingce_cause_provider_idempotency_key_header=os.getenv(
+            "AI_XINGCE_CAUSE_PROVIDER_IDEMPOTENCY_KEY_HEADER",
+            "",
+        ),
+        ai_xingce_cause_provider_request_id_header=os.getenv(
+            "AI_XINGCE_CAUSE_PROVIDER_REQUEST_ID_HEADER",
+            "",
+        ),
+        ai_xingce_cause_provider_replay_retention_seconds=int(
+            os.getenv("AI_XINGCE_CAUSE_PROVIDER_REPLAY_RETENTION_SECONDS", "0")
+        ),
+        ai_xingce_cause_max_input_bytes=int(
+            os.getenv("AI_XINGCE_CAUSE_MAX_INPUT_BYTES", "0")
+        ),
+        ai_xingce_cause_max_output_bytes=int(
+            os.getenv("AI_XINGCE_CAUSE_MAX_OUTPUT_BYTES", "0")
+        ),
+        ai_community_candidate_model=os.getenv(
+            "AI_COMMUNITY_CANDIDATE_MODEL",
+            os.getenv("AI_MODEL", "gemini-3.5-flash"),
+        ),
+        ai_community_candidate_provider_release_id=os.getenv(
+            "AI_COMMUNITY_CANDIDATE_PROVIDER_RELEASE_ID",
+            "",
+        ),
+        ai_community_candidate_provider_https_host_allowlist=os.getenv(
+            "AI_COMMUNITY_CANDIDATE_PROVIDER_HTTPS_HOST_ALLOWLIST",
+            "",
+        ),
+        ai_community_candidate_provider_dpa_confirmed=_environment_bool(
+            "AI_COMMUNITY_CANDIDATE_PROVIDER_DPA_CONFIRMED",
+            default=False,
+        ),
+        ai_community_candidate_provider_idempotency_capability=os.getenv(
+            "AI_COMMUNITY_CANDIDATE_PROVIDER_IDEMPOTENCY_CAPABILITY",
+            "",
+        ),
+        ai_community_candidate_provider_idempotency_key_header=os.getenv(
+            "AI_COMMUNITY_CANDIDATE_PROVIDER_IDEMPOTENCY_KEY_HEADER",
+            "",
+        ),
+        ai_community_candidate_provider_request_id_header=os.getenv(
+            "AI_COMMUNITY_CANDIDATE_PROVIDER_REQUEST_ID_HEADER",
+            "",
+        ),
+        ai_community_candidate_provider_replay_retention_seconds=int(
+            os.getenv(
+                "AI_COMMUNITY_CANDIDATE_PROVIDER_REPLAY_RETENTION_SECONDS",
+                "0",
+            )
+        ),
+        ai_community_candidate_max_input_bytes=int(
+            os.getenv("AI_COMMUNITY_CANDIDATE_MAX_INPUT_BYTES", "0")
+        ),
+        ai_community_candidate_max_output_bytes=int(
+            os.getenv("AI_COMMUNITY_CANDIDATE_MAX_OUTPUT_BYTES", "0")
         ),
         ai_essay_review_model=os.getenv(
             "AI_ESSAY_REVIEW_MODEL",

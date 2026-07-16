@@ -158,6 +158,7 @@ class SQLQuestionContentCatalog:
             max(maximum_candidates, maximum_candidates * self._prefetch_factor),
         )
         visual = list(dict.fromkeys(query.visual_fingerprints))
+        search_grams = _search_grams(normalized)
         rows = self._session.execute(
             text(
                 """
@@ -168,7 +169,11 @@ class SQLQuestionContentCatalog:
                  and version.content_version_id = head.content_version_id
                 where version.track = :track
                   and (
-                    similarity(version.normalized_search_text, :normalized) >= :threshold
+                    (
+                      select count(*)::double precision
+                      from unnest(cast(:search_grams as text[])) gram
+                      where strpos(version.normalized_search_text, gram) > 0
+                    ) / cardinality(cast(:search_grams as text[])) >= :threshold
                     or (
                       cardinality(cast(:visual as text[])) > 0
                       and exists (
@@ -188,7 +193,11 @@ class SQLQuestionContentCatalog:
                       and visual.content_version_id = version.content_version_id
                       and visual.fingerprint_sha256 = any(cast(:visual as text[]))
                   ) desc,
-                  similarity(version.normalized_search_text, :normalized) desc,
+                  (
+                    select count(*)::double precision
+                    from unnest(cast(:search_grams as text[])) gram
+                    where strpos(version.normalized_search_text, gram) > 0
+                  ) / cardinality(cast(:search_grams as text[])) desc,
                   version.content_version_id
                 limit :prefetch
                 """
@@ -196,6 +205,7 @@ class SQLQuestionContentCatalog:
             {
                 "track": query.track.value,
                 "normalized": normalized,
+                "search_grams": search_grams,
                 "threshold": self._threshold,
                 "visual": visual,
                 "prefetch": prefetch,
@@ -367,6 +377,17 @@ def _snapshot_search_text(snapshot: Mapping[str, Any]) -> str:
                 *options,
                 str(snapshot.get("material_text") or ""),
             )
+        )
+    )
+
+
+def _search_grams(normalized: str) -> list[str]:
+    if len(normalized) == 1:
+        return [normalized]
+    return list(
+        dict.fromkeys(
+            normalized[index : index + 2]
+            for index in range(len(normalized) - 1)
         )
     )
 

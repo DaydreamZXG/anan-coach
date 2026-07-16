@@ -56,7 +56,7 @@ import {
   reduceMaterialReader,
   type MaterialReaderState,
 } from "../../task-runtime/material-reader/state";
-import { taskToolPolicy, type TaskToolPolicy } from "../../task-runtime/tool-policy";
+import { taskToolPolicy, type TaskToolPolicy } from "../../task-runtime/tool-policy/index";
 
 type PageStatus = "loading" | "ready" | "error" | "unavailable";
 
@@ -81,6 +81,7 @@ interface PracticePageData {
   helpSubmitting: boolean;
   helpGuidance: string;
   disputeCategory: XingceQuestionDisputeCategory;
+  disputeQuestionId: string;
   disputeDescription: string;
   disputeSubmitting: boolean;
   disputeReceipt: string;
@@ -112,6 +113,7 @@ interface PracticePageCustom {
   openTaskHelp(): void;
   submitTaskHelp(event: WechatMiniprogram.CustomEvent<TaskHelpCommand>): Promise<void>;
   openDispute(): void;
+  openResultDispute(event: WechatMiniprogram.BaseEvent): void;
   selectDisputeCategory(event: WechatMiniprogram.BaseEvent): void;
   inputDisputeDescription(event: WechatMiniprogram.Input): void;
   submitDispute(): Promise<void>;
@@ -161,6 +163,7 @@ Page<PracticePageData, PracticePageCustom>({
     helpSubmitting: false,
     helpGuidance: "",
     disputeCategory: "other",
+    disputeQuestionId: "",
     disputeDescription: "",
     disputeSubmitting: false,
     disputeReceipt: "",
@@ -422,14 +425,20 @@ Page<PracticePageData, PracticePageCustom>({
   openDispute() {
     const runtime = runtimes.get(this);
     if (!runtime?.session || runtime.session.state !== "answering") return;
-    this.setData({
-      toolsOpen: false,
-      helpOpen: false,
-      disputeOpen: true,
-      disputeCategory: "other",
-      disputeDescription: "",
-      disputeReceipt: "",
-    });
+    const questionId = this.data.view?.question.questionId;
+    if (questionId) showDispute(this, questionId);
+  },
+
+  openResultDispute(event) {
+    const runtime = runtimes.get(this);
+    const questionId = String(event.currentTarget.dataset.questionid ?? "");
+    if (
+      !runtime?.session?.result?.items.some((item) => item.questionId === questionId) ||
+      runtime.session.state === "answering"
+    ) {
+      return;
+    }
+    showDispute(this, questionId);
   },
 
   selectDisputeCategory(event) {
@@ -444,7 +453,10 @@ Page<PracticePageData, PracticePageCustom>({
 
   async submitDispute() {
     const runtime = runtimes.get(this);
-    const question = this.data.view?.question;
+    const questionId = this.data.disputeQuestionId || this.data.view?.question.questionId;
+    const question = runtime?.session?.bundle.questions.find(
+      (candidate) => candidate.questionId === questionId,
+    );
     const description = this.data.disputeDescription.trim();
     if (!runtime?.api || !runtime.session || !question || this.data.disputeSubmitting) return;
     if (description.length < 2) {
@@ -467,6 +479,15 @@ Page<PracticePageData, PracticePageCustom>({
         disputeReceipt: `已记录 · ${response.data.disputeId}`,
         disputeDescription: "",
       });
+      if (runtime.session.state !== "answering") {
+        const refreshed = await runtime.api.getSession(runtime.session.sessionId);
+        if (!runtimes.owns(this, runtime) || !currentAccountOwns(runtime)) return;
+        applySession(this, runtime, refreshed.data);
+        this.setData({
+          disputeOpen: true,
+          disputeReceipt: `已记录 · ${response.data.disputeId}·复测证据状态已刷新`,
+        });
+      }
     } catch (error) {
       this.setData({ disputeReceipt: errorMessage(error) });
     } finally {
@@ -681,6 +702,18 @@ Page<PracticePageData, PracticePageCustom>({
 
   noop() {},
 });
+
+function showDispute(page: PracticePageInstance, questionId: string): void {
+  page.setData({
+    toolsOpen: false,
+    helpOpen: false,
+    disputeOpen: true,
+    disputeQuestionId: questionId,
+    disputeCategory: "other",
+    disputeDescription: "",
+    disputeReceipt: "",
+  });
+}
 
 function applySession(
   page: PracticePageInstance,

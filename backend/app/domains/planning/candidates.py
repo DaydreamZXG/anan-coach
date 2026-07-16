@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from hashlib import sha256
 from typing import Literal
 
 from app.domains.planning.engine import PriorityBreakdown, TaskCandidate
@@ -8,6 +9,7 @@ from app.domains.planning.engine import PriorityBreakdown, TaskCandidate
 
 AbilityReadiness = Literal["unavailable", "partial", "complete", "stale"]
 ObjectiveClosureReadiness = Literal["available", "unavailable"]
+EssayClosureReadiness = Literal["available", "unavailable"]
 EssayNextStage = Literal[
     "content_unavailable",
     "baseline_due",
@@ -19,6 +21,7 @@ EssayNextStage = Literal[
     "rewrite_due",
     "transfer_due",
     "practice_due",
+    "closure_unavailable",
 ]
 
 
@@ -39,6 +42,11 @@ class ObjectivePlanningSnapshot:
     source_version_id: str | None
     closure_readiness: ObjectiveClosureReadiness
     closure_unavailable_reason: str | None
+    due_reflection_session_id: str | None = None
+    due_reflection_review_id: str | None = None
+    due_reflection_version_id: str | None = None
+    due_verification_mastery_id: str | None = None
+    due_verification_version_id: str | None = None
 
     def __post_init__(self) -> None:
         if self.closure_readiness == "available":
@@ -49,6 +57,21 @@ class ObjectivePlanningSnapshot:
                 raise ValueError("available objective closure requires canonical due counts")
             if self.closure_unavailable_reason is not None:
                 raise ValueError("available objective closure cannot have an unavailable reason")
+            if self.due_reflection_count > 0 and not all(
+                (
+                    self.due_reflection_session_id,
+                    self.due_reflection_review_id,
+                    self.due_reflection_version_id,
+                )
+            ):
+                raise ValueError("due reflection requires a frozen review source")
+            if self.due_verification_count > 0 and not all(
+                (
+                    self.due_verification_mastery_id,
+                    self.due_verification_version_id,
+                )
+            ):
+                raise ValueError("due verification requires a frozen mastery source")
             return
         if (
             self.due_reflection_count is not None
@@ -79,6 +102,26 @@ class EssayPlanningSnapshot:
     review_acknowledgement_version_id: str | None = None
     weakest_dimension: str | None = None
     pending_reason: str | None = None
+    closure_readiness: EssayClosureReadiness = "available"
+    closure_unavailable_reason: str | None = None
+    mastery_state: Literal["rewrite_due", "transfer_due", "stable_mastered"] | None = None
+    mastery_version_ids: tuple[str, ...] = ()
+    mastery_ids: tuple[str, ...] = ()
+    source_task_version_id: str | None = None
+    source_material_bundle_version_id: str | None = None
+    source_answer_version_id: str | None = None
+    finding_decision_artifact_version_id: str | None = None
+
+    def __post_init__(self) -> None:
+        if len(self.mastery_ids) != len(self.mastery_version_ids):
+            raise ValueError("essay mastery IDs and version IDs must align")
+        if self.closure_readiness == "unavailable":
+            if not self.closure_unavailable_reason:
+                raise ValueError("unavailable essay closure requires an explicit reason")
+            if self.next_stage != "closure_unavailable":
+                raise ValueError("unavailable essay closure cannot publish a writable stage")
+        elif self.closure_unavailable_reason is not None:
+            raise ValueError("available essay closure cannot carry an unavailable reason")
 
 
 @dataclass(frozen=True)
@@ -123,6 +166,9 @@ def build_dual_track_candidates(
     if objective.closure_readiness == "unavailable":
         assert objective.closure_unavailable_reason is not None
         capability_gaps["objectiveClosure"] = objective.closure_unavailable_reason
+    if essay.closure_readiness == "unavailable":
+        assert essay.closure_unavailable_reason is not None
+        capability_gaps["essayClosure"] = essay.closure_unavailable_reason
     return CandidateSet(
         candidates=tuple(candidates),
         omitted_track_reasons=omitted,
@@ -148,30 +194,33 @@ def _objective_candidates(
                 "versionId": snapshot.source_version_id,
             }
         )
+    if snapshot.due_verification_mastery_id and snapshot.due_verification_version_id:
+        evidence.append(
+            {
+                "owner": "objective_learning",
+                "entityType": "xingce_mastery_state_version",
+                "entityId": snapshot.due_verification_mastery_id,
+                "versionId": snapshot.due_verification_version_id,
+                "role": "due_verification",
+            }
+        )
+    if snapshot.due_reflection_review_id and snapshot.due_reflection_version_id:
+        evidence.append(
+            {
+                "owner": "objective_learning",
+                "entityType": "xingce_attempt_review_version",
+                "entityId": snapshot.due_reflection_review_id,
+                "versionId": snapshot.due_reflection_version_id,
+                "role": "due_reflection",
+            }
+        )
     time_fit = _time_fit(20, available_minutes)
     candidates: list[TaskCandidate] = []
-    if snapshot.baseline_required:
-        candidates.append(
-            TaskCandidate(
-                candidate_key="xingce-baseline",
-                track="xingce",
-                stage="objective_baseline",
-                kind="practice",
-                title="完成一组行测受控基线",
-                reason="当前行测能力证据缺失或已过期，先补可比较基线，再决定模块投入。",
-                estimated_minutes=20,
-                completion_rule="完成固定题组、记录用时与信心，并形成新的行测证据版本。",
-                start_url="/pages/practice/index?mode=baseline",
-                evidence_refs=tuple(evidence),
-                priority=PriorityBreakdown(
-                    goal_gain=0.65 if goal.positive_gap else 0.45,
-                    ability_gain=0.95,
-                    verification_urgency=0.70,
-                    time_fit=time_fit,
-                    load_penalty=0.15,
-                ),
-            )
-        )
+    if snapshot.baseline_required and not (
+        (snapshot.due_verification_count or 0) > 0
+        or (snapshot.due_reflection_count or 0) > 0
+    ):
+        candidates.append(_baseline_candidate(goal, evidence, time_fit))
         return candidates
 
     if (
@@ -188,14 +237,14 @@ def _objective_candidates(
                 reason=f"有 {snapshot.due_verification_count} 项已到验证时间，继续拖延会降低结论可信度。",
                 estimated_minutes=15,
                 completion_rule="完成独立变式题并说明判断依据，验证结果写回掌握状态。",
-                start_url="/pages/practice/index?mode=verification",
+                start_url="/pages/xingce-task-intro/index?mode=verification",
                 evidence_refs=tuple(evidence),
                 priority=PriorityBreakdown(
                     goal_gain=0.65 if goal.positive_gap else 0.45,
-                    ability_gain=0.80,
-                    verification_urgency=0.95,
-                    time_fit=_time_fit(15, available_minutes),
-                    load_penalty=0.10,
+                    ability_gain=0.90,
+                    verification_urgency=1.0,
+                    time_fit=max(time_fit, _time_fit(15, available_minutes)),
+                    load_penalty=0.05,
                 ),
             )
         )
@@ -213,17 +262,24 @@ def _objective_candidates(
                 reason=f"有 {snapshot.due_reflection_count} 项错误尚未形成可验证的修复动作。",
                 estimated_minutes=15,
                 completion_rule="确认原始思路、错因候选和下一次识别信号。",
-                start_url="/pages/reflection/index",
+                start_url=(
+                    "/pages/reflection/index?sessionId="
+                    f"{snapshot.due_reflection_session_id}&reviewId="
+                    f"{snapshot.due_reflection_review_id}"
+                ),
                 evidence_refs=tuple(evidence),
                 priority=PriorityBreakdown(
                     goal_gain=0.60 if goal.positive_gap else 0.42,
-                    ability_gain=0.75,
-                    verification_urgency=0.88,
-                    time_fit=_time_fit(15, available_minutes),
-                    load_penalty=0.08,
+                    ability_gain=0.85,
+                    verification_urgency=0.98,
+                    time_fit=max(time_fit, _time_fit(15, available_minutes)),
+                    load_penalty=0.05,
                 ),
             )
         )
+    if snapshot.baseline_required:
+        candidates.append(_baseline_candidate(goal, evidence, time_fit))
+        return candidates
     module = snapshot.weakest_module or "国考高频模块"
     candidates.append(
         TaskCandidate(
@@ -235,7 +291,7 @@ def _objective_candidates(
             reason=f"当前证据中「{module}」的改善收益最高，先做短题组再复盘。",
             estimated_minutes=20,
             completion_rule="完成题组并记录答案、用时、修改、跳题和信心。",
-            start_url="/pages/practice/index?mode=targeted",
+            start_url="/pages/xingce-task-intro/index?mode=targeted",
             evidence_refs=tuple(evidence),
             priority=PriorityBreakdown(
                 goal_gain=0.72 if goal.positive_gap else 0.50,
@@ -249,13 +305,43 @@ def _objective_candidates(
     return candidates
 
 
+def _baseline_candidate(
+    goal: GoalPlanningSnapshot,
+    evidence: list[dict[str, str]],
+    time_fit: float,
+) -> TaskCandidate:
+    return TaskCandidate(
+        candidate_key="xingce-baseline",
+        track="xingce",
+        stage="objective_baseline",
+        kind="practice",
+        title="完成一组行测受控基线",
+        reason="当前行测能力证据缺失或已过期，先补可比较基线，再决定模块投入。",
+        estimated_minutes=20,
+        completion_rule="完成固定题组、记录用时与信心，并形成新的行测证据版本。",
+        start_url="/pages/xingce-task-intro/index?mode=baseline",
+        evidence_refs=tuple(evidence),
+        priority=PriorityBreakdown(
+            goal_gain=0.65 if goal.positive_gap else 0.45,
+            ability_gain=0.95,
+            verification_urgency=0.70,
+            time_fit=time_fit,
+            load_penalty=0.15,
+        ),
+    )
+
+
 def _essay_candidate(
     *,
     goal: GoalPlanningSnapshot,
     snapshot: EssayPlanningSnapshot,
     available_minutes: int,
 ) -> TaskCandidate | None:
-    if snapshot.next_stage in {"content_unavailable", "evaluation_pending"} or snapshot.task_version_id is None:
+    if (
+        snapshot.next_stage
+        in {"content_unavailable", "evaluation_pending", "closure_unavailable"}
+        or snapshot.task_version_id is None
+    ):
         return None
     evidence = _shared_evidence(goal)
     evidence.append(
@@ -285,6 +371,10 @@ def _essay_candidate(
         ("essay_review_version", snapshot.review_version_id),
         ("essay_rewrite_version", snapshot.rewrite_version_id),
         ("essay_transfer_verification", snapshot.transfer_verification_version_id),
+        (
+            "essay_finding_decision",
+            snapshot.finding_decision_artifact_version_id,
+        ),
         ("essay_material_annotation", snapshot.material_annotation_version_id),
         ("essay_point_extraction", snapshot.point_extraction_version_id),
         ("essay_outline", snapshot.outline_version_id),
@@ -292,6 +382,37 @@ def _essay_candidate(
             "essay_review_acknowledgement",
             snapshot.review_acknowledgement_version_id,
         ),
+    ):
+        if entity_id:
+            evidence.append(
+                {
+                    "owner": "essay_intelligence",
+                    "entityType": entity_type,
+                    "entityId": entity_id,
+                    "versionId": entity_id,
+                }
+            )
+    for mastery_id, mastery_version_id in zip(
+        snapshot.mastery_ids,
+        snapshot.mastery_version_ids,
+        strict=True,
+    ):
+        evidence.append(
+            {
+                "owner": "essay_intelligence",
+                "entityType": "essay_mastery_state_version",
+                "entityId": mastery_id,
+                "versionId": mastery_version_id,
+                "role": "canonical_head",
+            }
+        )
+    for entity_type, entity_id in (
+        ("essay_source_task_version", snapshot.source_task_version_id),
+        (
+            "essay_source_material_bundle_version",
+            snapshot.source_material_bundle_version_id,
+        ),
+        ("essay_source_answer_version", snapshot.source_answer_version_id),
     ):
         if entity_id:
             evidence.append(
@@ -361,6 +482,14 @@ def _essay_candidate(
     stage, title, reason, minutes, completion, mode, ability_gain, urgency = definitions[
         snapshot.next_stage
     ]
+    start_url = (
+        _essay_closure_start_url(snapshot, stage)
+        if stage in {"essay_rewrite", "essay_transfer"}
+        else (
+            f"/pages/essay-task/index?mode={mode}&stage={stage}"
+            f"&taskVersionId={snapshot.task_version_id}"
+        )
+    )
     return TaskCandidate(
         candidate_key=_essay_candidate_key(snapshot, stage),
         track="essay",
@@ -370,7 +499,7 @@ def _essay_candidate(
         reason=reason,
         estimated_minutes=minutes,
         completion_rule=completion,
-        start_url=f"/pages/essay-task/index?mode={mode}&taskVersionId={snapshot.task_version_id}",
+        start_url=start_url,
         evidence_refs=tuple(evidence),
         priority=PriorityBreakdown(
             goal_gain=0.72 if goal.positive_gap else 0.50,
@@ -415,10 +544,56 @@ def _essay_candidate_key(snapshot: EssayPlanningSnapshot, stage: str) -> str:
         snapshot.point_extraction_version_id,
         snapshot.outline_version_id,
         snapshot.review_acknowledgement_version_id,
+        snapshot.finding_decision_artifact_version_id,
+        *snapshot.mastery_version_ids,
     )
     suffix = ":".join(value for value in evidence_versions if value)
     base = f"essay:{stage}:{snapshot.task_version_id}"
-    return f"{base}:{suffix}" if suffix else base
+    return f"{base}:{sha256(suffix.encode()).hexdigest()}" if suffix else base
+
+
+def _essay_closure_start_url(snapshot: EssayPlanningSnapshot, stage: str) -> str:
+    if stage == "essay_rewrite":
+        required = {
+            "attemptId": snapshot.attempt_id,
+            "baseReviewVersionId": snapshot.review_version_id,
+            "baseAnswerVersionId": snapshot.source_answer_version_id,
+            "findingDecisionArtifactVersionId": (
+                snapshot.finding_decision_artifact_version_id
+            ),
+            "basedOnAnswerVersionId": snapshot.answer_version_id,
+        }
+        if any(value is None for value in required.values()):
+            raise ValueError("essay rewrite candidate lacks a frozen writer source")
+        query = "&".join(f"{key}={value}" for key, value in required.items())
+        if snapshot.rewrite_version_id:
+            query += f"&basedOnRewriteVersionId={snapshot.rewrite_version_id}"
+        return (
+            "/pages/essay-task/index?mode=rewrite&stage=essay_rewrite"
+            f"&taskVersionId={snapshot.task_version_id}&{query}"
+        )
+    if (
+        not snapshot.rewrite_version_id
+        or not snapshot.finding_decision_artifact_version_id
+        or not snapshot.material_bundle_version_id
+        or not snapshot.source_task_version_id
+        or not snapshot.source_material_bundle_version_id
+    ):
+        raise ValueError("essay transfer candidate lacks a frozen writer source")
+    if (
+        snapshot.task_version_id == snapshot.source_task_version_id
+        or snapshot.material_bundle_version_id
+        == snapshot.source_material_bundle_version_id
+    ):
+        raise ValueError("essay transfer candidate must bind distinct content")
+    return (
+        "/pages/essay-task/index?mode=transfer&stage=essay_transfer"
+        f"&taskVersionId={snapshot.task_version_id}"
+        f"&materialBundleVersionId={snapshot.material_bundle_version_id}"
+        f"&sourceRewriteVersionId={snapshot.rewrite_version_id}"
+        f"&sourceFindingDecisionArtifactVersionId="
+        f"{snapshot.finding_decision_artifact_version_id}"
+    )
 
 
 def _essay_drafting_minutes(question_type: str | None, word_limit: int | None) -> int:

@@ -413,6 +413,33 @@ class AuthRepository:
             email=row["email"],
         )
 
+    def get_active_session(self, *, access_token: str, user_id: str) -> SessionRecord | None:
+        """Resolve the exact authenticated app session behind a bearer token."""
+        row = self._session.execute(
+            text(
+                """
+                select session_id::text as session_id, device_id, created_at,
+                       last_seen_at, expires_at
+                from learner.app_sessions
+                where session_token_hash = :session_token_hash
+                  and user_id = cast(:user_id as uuid)
+                  and revoked_at is null
+                  and expires_at > now()
+                """
+            ),
+            {"session_token_hash": _token_hash(access_token), "user_id": user_id},
+        ).mappings().one_or_none()
+        if row is None:
+            return None
+        return SessionRecord(
+            session_id=str(row["session_id"]),
+            device_id=str(row["device_id"]),
+            created_at=row["created_at"],
+            last_seen_at=row["last_seen_at"],
+            expires_at=row["expires_at"],
+            is_current=True,
+        )
+
     def revoke_session(self, access_token: str, *, reason: str = "user_logout") -> None:
         revoked = self._session.execute(
             text(

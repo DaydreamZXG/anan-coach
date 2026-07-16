@@ -9,9 +9,9 @@ import {
 import {
   assertLearnerSafeSession,
   resolveXingcePlanTaskId,
-  resultRequiresCauseDecision,
 } from "../miniprogram/features/xingce/real_attempt/contracts";
 import { XingcePageRuntimeRegistry } from "../miniprogram/features/xingce/real_attempt/page-runtime";
+import { presentXingceResult } from "../miniprogram/features/xingce/real_attempt/presentation";
 import {
   clearXingcePendingForUser,
   loadPendingXingceReflection,
@@ -41,7 +41,9 @@ describe("real xingce attempt contracts", () => {
       xingceIds.planTask,
     );
     expect(() => resolveXingcePlanTaskId(dashboard, "baseline")).toThrow();
-    expect(() => resolveXingcePlanTaskId(dashboard, "verification")).toThrow("不属于");
+    expect(resolveXingcePlanTaskId(todayWithXingceTask("verification"), "verification")).toBe(
+      xingceIds.planTask,
+    );
     expect(() => resolveXingcePlanTaskId(dashboard, "targeted", "another-task")).toThrow(
       "不在当前 Today",
     );
@@ -130,11 +132,50 @@ describe("real xingce attempt contracts", () => {
     ]);
   });
 
-  it("requires cause decisions for incorrect, timeout, guessed and skipped results only", () => {
-    expect(resultRequiresCauseDecision("correct")).toBe(false);
-    for (const code of ["incorrect", "timeout", "guessed_correct", "skipped", "mixed"] as const) {
-      expect(resultRequiresCauseDecision(code)).toBe(true);
+  it("keeps timing separate from the verdict and exposes old scoring sessions as read-only", () => {
+    const timed = submittedXingceSession("timeout");
+    expect(() => assertLearnerSafeSession(timed)).not.toThrow();
+    expect(timed.result?.items[0]).toMatchObject({
+      objectiveVerdict: "incorrect",
+      timingEvidence: { status: "advisory_exceeded" },
+    });
+
+    const legacy = submittedXingceSession();
+    if (!legacy.result) throw new Error("fixture result is required");
+    legacy.result.contractVersion = null;
+    legacy.result.groupSummary = null;
+    legacy.result.items = legacy.result.items.map((item) => ({
+      ...item,
+      factContractVersion: null,
+      objectiveVerdict: null,
+      disposition: null,
+      confidenceEvidence: null,
+      timingEvidence: null,
+    }));
+    expect(() => assertLearnerSafeSession(legacy)).not.toThrow();
+    expect(presentXingceResult(legacy)).toMatchObject({
+      availability: "legacy_result_unavailable",
+      items: [],
+      group: null,
+      verification: null,
+    });
+
+    const omittedLegacy = submittedXingceSession();
+    if (!omittedLegacy.result) throw new Error("fixture result is required");
+    delete omittedLegacy.result.contractVersion;
+    delete omittedLegacy.result.groupSummary;
+    for (const item of omittedLegacy.result.items) {
+      delete item.factContractVersion;
+      delete item.objectiveVerdict;
+      delete item.disposition;
+      delete item.confidenceEvidence;
+      delete item.timingEvidence;
     }
+    expect(() => assertLearnerSafeSession(omittedLegacy)).not.toThrow();
+
+    const mixed = submittedXingceSession();
+    if (mixed.result) mixed.result.contractVersion = null;
+    expect(() => assertLearnerSafeSession(mixed)).toThrow("历史行测结果");
   });
 });
 
@@ -185,12 +226,13 @@ describe("real xingce pending ownership", () => {
 });
 
 describe("XingceLearningApi", () => {
-  it("sends CAS and idempotency headers for checkpoint, submit, reflection and decision writers", async () => {
+  it("sends CAS, candidate bindings and idempotency headers for every writer", async () => {
     const requests: WechatMiniprogram.RequestOption[] = [];
     const responses = [
       activeXingceSession({ revision: 2 }),
       submittedXingceSession(),
       { ...submittedXingceSession(), revision: 5 },
+      { ...submittedXingceSession(), revision: 6 },
       completedXingceSession(),
     ];
     const request = vi.fn((options: WechatMiniprogram.RequestOption) => {
@@ -224,19 +266,35 @@ describe("XingceLearningApi", () => {
     );
     await api.decideCause(
       xingceIds.review,
-      { expectedRevision: 2, decision: "skip" },
+      {
+        expectedRevision: 3,
+        candidateVersionId: xingceIds.candidate,
+        decision: "reject",
+      },
       "decision-key",
     );
 
-    expect(requests.map((item) => item.method)).toEqual(["PUT", "POST", "PUT", "PUT"]);
+    await api.submitCauseFollowup(
+      xingceIds.review,
+      {
+        expectedRevision: 2,
+        candidateVersionId: xingceIds.candidate,
+        answer: "当时没看到否定词。",
+      },
+      "followup-key",
+    );
+
+    expect(requests.map((item) => item.method)).toEqual(["PUT", "POST", "PUT", "PUT", "PUT"]);
     expect(requests.map((item) => idempotencyHeader(item.header))).toEqual([
       "save-key",
       "submit-key",
       "reflection-key",
       "decision-key",
+      "followup-key",
     ]);
     expect(requests[2]?.url).toContain(`/attempt-reviews/${xingceIds.review}/reflection`);
     expect(requests[3]?.url).toContain(`/attempt-reviews/${xingceIds.review}/cause-decision`);
+    expect(requests[4]?.url).toContain(`/attempt-reviews/${xingceIds.review}/cause-followup`);
   });
 });
 

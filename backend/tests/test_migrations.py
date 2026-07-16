@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from importlib import import_module
 from pathlib import Path
 
 from alembic import command
@@ -161,8 +162,32 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
 ) -> None:
     with db_engine.begin() as connection:
         # conftest installs the current schema before this test reconstructs the
-        # audited v12 baseline. Remove every Stage 2 object so Alembic upgrades
+        # audited v12 baseline. Remove every later object so Alembic upgrades
         # from the same database shape that production v12 actually had.
+        migration30 = import_module(
+            "migrations.versions.20260716_30_community_production_closure"
+        )
+        migration28 = import_module(
+            "migrations.versions.20260716_28_community_method_cards"
+        )
+        later_tables = (
+            *migration30._DROP_ORDER,
+            ("community_method_card_delayed_verifications", "product"),
+            *migration28._DROP_ORDER,
+        )
+        for table_name, schema_name in later_tables:
+            connection.execute(
+                text(f"drop table if exists {schema_name}.{table_name} cascade")
+            )
+        for function_name in (
+            "commerce.validate_community_membership_activation",
+            "commerce.validate_community_ai_reservation_event",
+            "commerce.validate_community_ai_reservation",
+            "product.enforce_community_policy_resource_update",
+            "commerce.reject_community_reward_history_mutation",
+            "product.reject_community_method_history_mutation",
+        ):
+            connection.execute(text(f"drop function if exists {function_name}()"))
         connection.execute(text("drop table learner.mock_exam_commands"))
         connection.execute(text("drop index learner.mock_exam_one_assigned_per_owner_idx"))
         for column in (
@@ -179,6 +204,14 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
             )
         connection.execute(
             text("drop table product.question_visual_fingerprints")
+        )
+        connection.execute(text("drop table product.question_quality_heads"))
+        connection.execute(
+            text("drop table product.question_quality_decision_disputes")
+        )
+        connection.execute(text("drop table product.question_quality_commands"))
+        connection.execute(
+            text("drop table product.question_quality_decision_versions")
         )
         connection.execute(text("drop table product.question_content_heads"))
         connection.execute(text("drop table product.question_content_versions"))
@@ -216,6 +249,9 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
         connection.execute(
             text("drop function commerce.enforce_feature_usage_reservation_update()")
         )
+        connection.execute(text("drop table ai_audit.agent_tool_call_events"))
+        connection.execute(text("drop table ai_audit.agent_run_versions"))
+        connection.execute(text("drop table ai_audit.agent_definition_releases"))
         connection.execute(text("drop table ai_audit.essay_review_model_calls"))
         connection.execute(text("drop table ai_audit.essay_review_checkpoints"))
         connection.execute(text("drop table ai_audit.model_call_ledger cascade"))
@@ -866,3 +902,89 @@ def test_stage15_migration_refuses_destructive_downgrade_with_facts(
     )
     with db_engine.begin() as connection:
         connection.execute(text("drop table if exists public.alembic_version"))
+
+
+def test_stage35_community_method_card_migration(
+    db_engine: Engine,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    migration = import_module(
+        "migrations.versions.20260716_28_community_method_cards"
+    )
+    existing = set(inspect(db_engine).get_table_names(schema="product"))
+    if "community_method_cards" not in existing:
+        with db_engine.begin() as connection:
+            for statement in migration._STATEMENTS:
+                connection.execute(text(statement))
+
+    product_tables = set(inspect(db_engine).get_table_names(schema="product"))
+    commerce_tables = set(inspect(db_engine).get_table_names(schema="commerce"))
+    assert {
+        "community_method_cards",
+        "community_method_card_versions",
+        "community_method_card_candidates",
+        "community_method_card_reviews",
+        "community_method_card_review_checks",
+        "community_method_card_exposures",
+        "community_method_card_trials",
+        "community_method_card_votes",
+        "community_method_card_reports",
+        "community_method_card_effect_policies",
+        "community_method_card_effect_projections",
+        "community_method_card_milestone_events",
+    } <= product_tables
+    assert {
+        "community_reward_policies",
+        "community_reward_awards",
+        "community_reward_cap_buckets",
+        "community_reward_ledger_entries",
+    } <= commerce_tables
+    assert "method_cards" in product_tables
+    with db_engine.begin() as connection:
+        append_only_triggers = set(
+            connection.execute(
+                text(
+                    """
+                    select trigger_name
+                    from information_schema.triggers
+                    where trigger_schema in ('product', 'commerce')
+                      and trigger_name like 'community_%_append_only'
+                    """
+                )
+            ).scalars()
+        )
+    assert {
+        "community_method_card_versions_append_only",
+        "community_method_card_trials_append_only",
+        "community_reward_policies_append_only",
+        "community_reward_ledger_entries_append_only",
+    } <= append_only_triggers
+
+    connection = db_engine.connect()
+    transaction = connection.begin()
+    try:
+        connection.execute(
+            text(
+                """
+                insert into learner.users (user_id, display_name)
+                values ('00000000-0000-0000-0000-000000000351', 'stage35-author')
+                on conflict (user_id) do nothing;
+
+                insert into product.community_method_cards (
+                  card_id, author_user_id, track, state,
+                  head_version_id, state_version, created_at, updated_at
+                ) values (
+                  '00000000-0000-0000-0000-000000000352',
+                  '00000000-0000-0000-0000-000000000351',
+                  'xingce', 'private_draft', null, 1, now(), now()
+                )
+                """
+            )
+        )
+        assert migration._has_records(connection) is True
+        monkeypatch.setattr(migration.op, "get_bind", lambda: connection)
+        with pytest.raises(RuntimeError, match="destructive downgrade is forbidden"):
+            migration.downgrade()
+    finally:
+        transaction.rollback()
+        connection.close()

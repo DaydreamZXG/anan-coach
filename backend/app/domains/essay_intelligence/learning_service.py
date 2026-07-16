@@ -8,6 +8,7 @@ from typing import Any
 from uuid import UUID, uuid4
 
 from sqlalchemy.engine import RowMapping
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.domains.essay_intelligence.learning_repository import (
@@ -32,8 +33,10 @@ from app.domains.essay_intelligence.learning_schemas import (
     MaterialAnnotationPayload,
     OutlinePayload,
     PointExtractionPayload,
+    ReflectionPayload,
     ReviewAcknowledgementPayload,
 )
+from app.domains.essay_intelligence.mastery.service import EssayMasteryService
 from app.domains.essay_intelligence.schemas import EssayFinding
 from app.domains.essay_intelligence.workflow_schemas import (
     EssayReviewIntentView,
@@ -41,6 +44,7 @@ from app.domains.essay_intelligence.workflow_schemas import (
 )
 from app.domains.planning.schemas import PlanningEvidenceRef, TaskExecutionCommand
 from app.domains.planning.service import PlanningService
+from app.domains.learning_media.repository import LearningMediaRepository
 from app.platform.outbox import OutboxRepository
 
 
@@ -180,6 +184,48 @@ class EssayLearningArtifactService:
             },
         )
         artifact = _artifact_from_row(row)
+        if isinstance(command.payload, ReviewAcknowledgementPayload):
+            assert review_id is not None and rubric_id is not None
+            review = self._repository.completed_review(
+                session,
+                user_id=user_id,
+                review_version_id=review_id,
+                task_version_id=task_id,
+                material_bundle_version_id=material_id,
+                rubric_version_id=rubric_id,
+            )
+            if review is None:
+                raise EssayArtifactContractError(
+                    "Review decision lost its current grounded review dependency"
+                )
+            EssayMasteryService().reconcile_finding_decisions(
+                session,
+                user_id=user_id,
+                command_id=f"{command_id}:mastery",
+                artifact=artifact,
+                review=review,
+                payload=command.payload,
+                recorded_at=created_at,
+            )
+        if isinstance(command.payload, ReflectionPayload) and (
+            command.payload.voice_artifact_version_ids
+        ):
+            try:
+                LearningMediaRepository().bind_available_artifacts(
+                    session,
+                    user_id=user_id,
+                    artifact_version_ids=[
+                        str(item)
+                        for item in command.payload.voice_artifact_version_ids
+                    ],
+                    entity_type="essay_reflection",
+                    entity_version_id=str(artifact.artifact_version_id),
+                    created_at=created_at,
+                )
+            except (ValueError, IntegrityError) as exc:
+                raise EssayArtifactContractError(
+                    "Reflection voice artifact is unavailable, duplicated, or already bound"
+                ) from exc
         self._outbox.append(
             session,
             deduplication_key=f"essay-learning-artifact:{artifact.artifact_version_id}",
@@ -513,7 +559,7 @@ class EssayLearningArtifactService:
                 for item in review["findings"]
                 if isinstance(item, dict) and item.get("findingId")
             }
-            if not finding_ids or set(payload.acknowledged_finding_ids) != finding_ids:
+            if not finding_ids or {item.finding_id for item in payload.decisions} != finding_ids:
                 raise EssayArtifactContractError(
                     "Review acknowledgement must cover every finding in the review"
                 )

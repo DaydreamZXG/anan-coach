@@ -1,5 +1,6 @@
 import type {
   XingceCauseDecisionCommand,
+  XingceCauseFollowupCommand,
   XingceCheckpointCommand,
   XingceReflectionCommand,
   XingceSubmitCommand,
@@ -48,11 +49,20 @@ export interface PendingXingceCauseDecision {
   command: XingceCauseDecisionCommand;
 }
 
+export interface PendingXingceCauseFollowup {
+  kind: "cause_followup";
+  sessionId: string;
+  reviewId: string;
+  idempotencyKey: string;
+  command: XingceCauseFollowupCommand;
+}
+
 type PendingXingceCommand =
   | PendingXingceStart
   | PendingXingceCheckpoint
   | PendingXingceSubmit
   | PendingXingceReflection
+  | PendingXingceCauseFollowup
   | PendingXingceCauseDecision;
 
 export interface XingcePendingStore {
@@ -68,6 +78,9 @@ export interface XingcePendingStore {
   storeReflection(ownerUserId: string, pending: PendingXingceReflection): void;
   loadReflection(ownerUserId: string, reviewId: string): PendingXingceReflection | null;
   clearReflection(ownerUserId: string, reviewId: string): void;
+  storeCauseFollowup(ownerUserId: string, pending: PendingXingceCauseFollowup): void;
+  loadCauseFollowup(ownerUserId: string, reviewId: string): PendingXingceCauseFollowup | null;
+  clearCauseFollowup(ownerUserId: string, reviewId: string): void;
   storeCauseDecision(ownerUserId: string, pending: PendingXingceCauseDecision): void;
   loadCauseDecision(ownerUserId: string, reviewId: string): PendingXingceCauseDecision | null;
   clearCauseDecision(ownerUserId: string, reviewId: string): void;
@@ -146,6 +159,24 @@ export function clearPendingXingceReflection(ownerUserId: string, reviewId: stri
   clear(ownerUserId, "reflection", reviewId);
 }
 
+export function storePendingXingceCauseFollowup(
+  ownerUserId: string,
+  pending: PendingXingceCauseFollowup,
+): void {
+  store(ownerUserId, "cause-followup", pending.reviewId, pending);
+}
+
+export function loadPendingXingceCauseFollowup(
+  ownerUserId: string,
+  reviewId: string,
+): PendingXingceCauseFollowup | null {
+  return load(ownerUserId, "cause-followup", reviewId, isPendingCauseFollowup);
+}
+
+export function clearPendingXingceCauseFollowup(ownerUserId: string, reviewId: string): void {
+  clear(ownerUserId, "cause-followup", reviewId);
+}
+
 export function storePendingXingceCauseDecision(
   ownerUserId: string,
   pending: PendingXingceCauseDecision,
@@ -188,6 +219,9 @@ export const wechatXingcePendingStore: XingcePendingStore = {
   storeReflection: storePendingXingceReflection,
   loadReflection: loadPendingXingceReflection,
   clearReflection: clearPendingXingceReflection,
+  storeCauseFollowup: storePendingXingceCauseFollowup,
+  loadCauseFollowup: loadPendingXingceCauseFollowup,
+  clearCauseFollowup: clearPendingXingceCauseFollowup,
   storeCauseDecision: storePendingXingceCauseDecision,
   loadCauseDecision: loadPendingXingceCauseDecision,
   clearCauseDecision: clearPendingXingceCauseDecision,
@@ -263,8 +297,24 @@ function isPendingReflection(value: unknown): value is PendingXingceReflection {
   return baseReviewCommand(value, "reflection") && isRecord(value.command);
 }
 
+function isPendingCauseFollowup(value: unknown): value is PendingXingceCauseFollowup {
+  return (
+    baseReviewCommand(value, "cause_followup") &&
+    isRecord(value.command) &&
+    typeof value.command.expectedRevision === "number" &&
+    typeof value.command.candidateVersionId === "string" &&
+    typeof value.command.answer === "string"
+  );
+}
+
 function isPendingCauseDecision(value: unknown): value is PendingXingceCauseDecision {
-  return baseReviewCommand(value, "cause_decision") && isRecord(value.command);
+  return (
+    baseReviewCommand(value, "cause_decision") &&
+    isRecord(value.command) &&
+    typeof value.command.expectedRevision === "number" &&
+    typeof value.command.candidateVersionId === "string" &&
+    ["confirm", "reject", "replace", "defer"].includes(String(value.command.decision))
+  );
 }
 
 function base(
@@ -290,7 +340,7 @@ function baseSessionCommand(
 
 function baseReviewCommand(
   value: unknown,
-  kind: "reflection" | "cause_decision",
+  kind: "reflection" | "cause_followup" | "cause_decision",
 ): value is Record<string, unknown> {
   return (
     base(value, kind) && typeof value.sessionId === "string" && typeof value.reviewId === "string"

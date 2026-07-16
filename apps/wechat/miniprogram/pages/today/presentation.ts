@@ -276,7 +276,9 @@ function presentTask(task: TodayTask): TaskView {
   const contextualStartUrl =
     task.track === "essay"
       ? withEssayTaskContext(task.startUrl, task.stage, task.id, task.execution?.executionVersionId)
-      : task.startUrl;
+      : task.track === "xingce"
+        ? withXingcePlanTaskContext(task.startUrl, task.stage, task.id)
+        : task.startUrl;
   const navigation = terminal ? null : registeredTaskNavigationTarget(contextualStartUrl);
   return {
     id: task.id,
@@ -310,6 +312,18 @@ function presentTask(task: TodayTask): TaskView {
         ? "该工作项已终止，不能重复开始。"
         : "该页面尚未接入真实学习证据与任务执行写入，暂不开放。",
   };
+}
+
+function withXingcePlanTaskContext(startUrl: string, stage: TaskStage, planTaskId: string): string {
+  if (
+    stage !== "objective_baseline" &&
+    stage !== "objective_practice" &&
+    stage !== "objective_verification"
+  ) {
+    return startUrl;
+  }
+  const separator = startUrl.includes("?") ? "&" : "?";
+  return `${startUrl}${separator}planTaskId=${encodeURIComponent(planTaskId)}`;
 }
 
 function presentAllocation(allocation: TrackAllocation): TrackAllocationView {

@@ -19,13 +19,19 @@ export const routes = {
   onboardingStudyPreference: "/pages/onboarding/study-preference/index",
   onboardingResult: "/pages/onboarding/result/index",
   diagnostic: "/pages/diagnostic/index",
+  xingceTaskIntro: "/pages/xingce-task-intro/index",
   practice: "/pages/practice/index",
   mockExam: "/pages/mock-exam/index",
   reflection: "/pages/reflection/index",
+  xingceMastery: "/pages/xingce-mastery/index",
   essayTask: "/pages/essay-task/index",
   captureImport: "/pages/capture-import/index",
   learningPackets: "/pages/learning-packets/index",
   answerIngestion: "/pages/answer-ingestion/index",
+  communityDraft: "/pages/community-draft/index",
+  communityStructure: "/pages/community-structure/index",
+  communityTrial: "/pages/community-trial/index",
+  communityContributions: "/pages/community-contributions/index",
 } as const;
 
 export type RouteName = keyof typeof routes;
@@ -51,6 +57,7 @@ export interface AnswerIngestionRouteOptions {
 const registeredRoutePaths = new Set<string>(Object.values(routes));
 const tabRoutePaths = new Set<string>([routes.today, routes.positions, routes.profile]);
 const taskExecutionRoutePaths = new Set<string>([
+  routes.xingceTaskIntro,
   routes.practice,
   routes.mockExam,
   routes.essayTask,
@@ -103,6 +110,17 @@ export function registeredTaskNavigationTarget(
     const query = parseQuery(navigation.url);
     if (!query || !parseXingceTaskMode(query.mode)) return null;
     if (query.planTaskId !== undefined && !isValidPlanTaskId(query.planTaskId)) return null;
+  }
+  if (path === routes.xingceTaskIntro) {
+    const query = parseQuery(navigation.url);
+    if (
+      !query ||
+      Object.keys(query).some((key) => key !== "planTaskId" && key !== "mode") ||
+      !isValidPlanTaskId(query.planTaskId) ||
+      (query.mode !== "baseline" && query.mode !== "targeted" && query.mode !== "verification")
+    ) {
+      return null;
+    }
   }
   if (path === routes.mockExam) {
     const query = parseQuery(navigation.url);

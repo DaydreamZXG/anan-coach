@@ -47,7 +47,7 @@ remain eligible for Pro.
 
 | Feature | Free | Pro | Period |
 |---|---:|---:|---|
-| 鹿鸣 AI 问答 (`companion_ask`) | 3 | 60 | Day |
+| 岸岸 AI 问答 (`companion_ask`) | 3 | 60 | Day |
 | 申论 AI 批改 (`essay_review`) | 1 | 20 | Day |
 | 外部错题解析 (`external_wrong_intake`) | 1 | 30 | Day |
 | 拍照解析 (`photo_explain`) | 1 | 30 | Day |

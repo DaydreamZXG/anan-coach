@@ -1,0 +1,73 @@
+<view class="page community-page">
+  <view class="community-hero">
+    <view class="hero-kicker">我的贡献 · C24</view>
+    <view class="hero-title">版本、效果与奖励都可追溯</view>
+    <view class="hero-copy">每次确认生成独立版本。审核与效果不会跨版本继承；奖励只认已发布政策和服务端不可变流水。</view>
+    <view class="privacy-strip">
+      <view class="privacy-dot"></view>
+      <view>奖励不是现金、不能提现或转让。可用余额与消费、撤回都以服务端权益投影和不可变回执为准。</view>
+    </view>
+  </view>
+
+  <state-view
+    wx:if="{{pageState !== 'default'}}"
+    state="{{pageState}}"
+    title="{{stateTitle}}"
+    description="{{stateDescription}}"
+    action-text="{{stateActionLabel}}"
+    request-id="{{requestId}}"
+    bind:action="stateAction"
+  />
+
+  <view wx:if="{{partialMessage}}" class="warning-note">{{partialMessage}}</view>
+
+  <block wx:if="{{pageState === 'default' || pageState === 'partial'}}">
+    <view class="community-section">
+      <view class="section-label">奖励政策</view>
+      <view class="section-title">{{activePolicyVersions.length ? '已发布政策有效' : '当前无已发布政策'}}</view>
+      <view class="{{activePolicyVersions.length ? 'boundary-note' : 'warning-note'}}">{{policyMessage}}</view>
+    </view>
+
+    <view wx:for="{{cards}}" wx:key="cardId" class="community-card">
+      <view class="card-headline">
+        <view>
+          <view class="section-label type-data">{{item.cardId}}</view>
+          <view class="section-title">{{item.stateLabel}}</view>
+        </view>
+        <view class="state-badge">{{item.reviewLabel}}</view>
+      </view>
+      <view class="boundary-note">效果证据仅属于版本 {{item.headVersionId}}；新版本不会继承旧版本效果。</view>
+      <view wx:for="{{item.versions}}" wx:key="versionId" class="version-row">
+        <view class="version-number type-data">{{item.versionLabel}}</view>
+        <view class="version-body">
+          <view class="choice-title">{{item.title}}</view>
+          <view class="choice-copy">{{item.confirmedLabel}} · {{item.versionId}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="community-section">
+      <view class="section-label">可用权益</view>
+      <view class="section-title">不含已预留额度与已激活会员时长</view>
+      <view class="balance-grid">
+        <view><text>AI 奖励额度</text><strong>{{aiQuotaBalance}}次</strong></view>
+        <view><text>未激活会员</text><strong>{{membershipBalanceLabel}}</strong></view>
+      </view>
+      <view class="boundary-note">权益投影版本 · {{entitlementVersion}}</view>
+    </view>
+
+    <view class="community-section">
+      <view class="section-label">不可变回执</view>
+      <view class="section-title">奖励批次与流水编号</view>
+      <view wx:if="{{!awardIds.length && !entryIds.length}}" class="section-copy">当前没有服务端奖励或流水回执。</view>
+      <view wx:for="{{awardIds}}" wx:key="*this" class="ledger-row">
+        <view class="choice-title">奖励批次</view>
+        <view class="choice-copy type-data">{{item}}</view>
+      </view>
+      <view wx:for="{{entryIds}}" wx:key="*this" class="ledger-row">
+        <view class="choice-title">奖励流水</view>
+        <view class="choice-copy type-data">{{item}}</view>
+      </view>
+    </view>
+  </block>
+</view>

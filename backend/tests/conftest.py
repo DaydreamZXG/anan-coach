@@ -126,6 +126,47 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in stage2._STATEMENTS:
             conn.execute(text(statement))
+        stage3_mastery = import_module(
+            "migrations.versions.20260716_23_xingce_mastery_scheduler"
+        )
+        for statement in stage3_mastery._STATEMENTS:
+            conn.execute(text(statement))
+        stage3_cause_agent = import_module(
+            "migrations.versions.20260716_24_xingce_cause_agent"
+        )
+        for statement in stage3_cause_agent._STATEMENTS:
+            conn.execute(text(statement))
+        essay_closure = import_module(
+            "migrations.versions.20260716_25_essay_closure_mastery"
+        )
+        for statement in essay_closure._STATEMENTS:
+            conn.execute(text(statement))
+        learning_media = import_module(
+            "migrations.versions.20260716_26_learning_media"
+        )
+        for statement in learning_media._STATEMENTS:
+            conn.execute(text(statement))
+        question_quality = import_module(
+            "migrations.versions.20260716_27_question_quality_decisions"
+        )
+        for statement in question_quality._STATEMENTS:
+            conn.execute(text(statement))
+        community_cards = import_module(
+            "migrations.versions.20260716_28_community_method_cards"
+        )
+        for statement in community_cards._STATEMENTS:
+            conn.execute(text(statement))
+        community_delayed = import_module(
+            "migrations.versions.20260716_29_community_delayed_verifications"
+        )
+        community_delayed._assert_no_mutable_outcomes(conn)
+        for statement in community_delayed._STATEMENTS:
+            conn.execute(text(statement))
+        community_production = import_module(
+            "migrations.versions.20260716_30_community_production_closure"
+        )
+        for statement in community_production._STATEMENTS:
+            conn.execute(text(statement))
 
 
 def _split_postgres_statements(script: str) -> list[str]:

@@ -53,6 +53,7 @@ interface TodayPageCustom {
   submitCapacity(): Promise<void>;
   reloadAfterCapacityConflict(): void;
   openTask(event: WechatMiniprogram.BaseEvent): void;
+  openMasteryQueue(): void;
   openOnboarding(): void;
   retry(): void;
 }
@@ -229,6 +230,10 @@ Page<TodayPageData, TodayPageCustom>({
       return;
     }
     void wx.navigateTo({ url: task.navigationUrl });
+  },
+
+  openMasteryQueue() {
+    void wx.navigateTo({ url: routes.xingceMastery });
   },
 
   openOnboarding() {

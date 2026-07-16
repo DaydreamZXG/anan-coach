@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 from collections.abc import Callable
-from typing import Annotated
+from datetime import UTC, datetime
+from typing import Annotated, Literal
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, Header, Request, Response
+from fastapi import APIRouter, Depends, Header, Query, Request, Response
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
@@ -14,6 +15,7 @@ from app.domains.auth.repository import AuthenticatedUser
 from app.domains.planning.repository import PlanningContractError
 from app.domains.xingce_learning.real_attempt.schemas import (
     CauseDecisionCommand,
+    CauseFollowupCommand,
     QuestionDisputeReceipt,
     ReflectionCommand,
     ReportQuestionDisputeCommand,
@@ -25,6 +27,11 @@ from app.domains.xingce_learning.real_attempt.schemas import (
 from app.domains.xingce_learning.real_attempt.service import (
     XingceAttemptError,
     XingceAttemptService,
+)
+from app.domains.xingce_learning.mastery.schemas import MasteryQueuePage
+from app.domains.xingce_learning.mastery.service import (
+    XingceMasteryCursorError,
+    XingceMasteryService,
 )
 from app.platform.http import (
     COMMON_API_ERROR_RESPONSES,
@@ -45,12 +52,57 @@ def get_xingce_attempt_service() -> XingceAttemptService:
     return XingceAttemptService()
 
 
+def get_xingce_mastery_service() -> XingceMasteryService:
+    return XingceMasteryService()
+
+
 def _idempotency_key(
     value: Annotated[
         str, Header(alias="Idempotency-Key", min_length=8, max_length=160)
     ],
 ) -> str:
     return value
+
+
+@router.get(
+    "/mastery-queue",
+    response_model=PublicApiEnvelope[MasteryQueuePage],
+)
+def get_mastery_queue(
+    request: Request,
+    response: Response,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+    service: Annotated[XingceMasteryService, Depends(get_xingce_mastery_service)],
+    bucket: Annotated[
+        Literal[
+            "pending_reflection",
+            "due_verification",
+            "stable_mastery",
+            "invalidated",
+        ],
+        Query(),
+    ] = "pending_reflection",
+    cursor: Annotated[str | None, Query(min_length=1, max_length=800)] = None,
+    page_size: Annotated[int, Query(alias="pageSize", ge=1, le=100)] = 30,
+) -> PublicApiEnvelope[MasteryQueuePage] | JSONResponse:
+    try:
+        result = service.queue(
+            session,
+            user_id=current_user.user_id,
+            bucket=bucket,
+            cursor=cursor,
+            page_size=page_size,
+            now=datetime.now(UTC),
+        )
+        return public_success_envelope(request=request, response=response, data=result)
+    except XingceMasteryCursorError:
+        return public_error_response(
+            request=request,
+            status_code=422,
+            code="xingce_mastery_cursor_invalid",
+            message="复测队列游标无效，请从当前分组第一页重新加载。",
+        )
 
 
 @router.post(
@@ -207,6 +259,34 @@ def submit_attempt_reflection(
         response=response,
         session=session,
         operation=lambda: service.submit_reflection(
+            session,
+            user_id=current_user.user_id,
+            review_id=str(review_id),
+            command_id=command_id,
+            command=command,
+        ),
+    )
+
+
+@router.put(
+    "/attempt-reviews/{review_id}/cause-followup",
+    response_model=PublicApiEnvelope[TaskSessionProjection],
+)
+def submit_attempt_cause_followup(
+    review_id: UUID,
+    request: Request,
+    response: Response,
+    command: CauseFollowupCommand,
+    command_id: Annotated[str, Depends(_idempotency_key)],
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+    service: Annotated[XingceAttemptService, Depends(get_xingce_attempt_service)],
+) -> PublicApiEnvelope[TaskSessionProjection] | JSONResponse:
+    return _write(
+        request=request,
+        response=response,
+        session=session,
+        operation=lambda: service.submit_cause_followup(
             session,
             user_id=current_user.user_id,
             review_id=str(review_id),

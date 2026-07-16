@@ -82,6 +82,8 @@ class FeatureUsageReservation:
     reserved_at: datetime
     consumed_at: datetime | None
     refunded_at: datetime | None
+    source: str = "catalog"
+    award_id: UUID | None = None
 
 
 class CommerceRepository:
@@ -141,7 +143,13 @@ class CommerceRepository:
             return None
         return _product_from_row(row)
 
-    def get_entitlement(self, *, user_id: str) -> EntitlementRecord:
+    def get_entitlement(
+        self,
+        *,
+        user_id: str,
+        at: datetime | None = None,
+    ) -> EntitlementRecord:
+        at = at or datetime.now(UTC)
         row = self._session.execute(
             text(
                 """
@@ -155,14 +163,21 @@ class CommerceRepository:
                 where user_id = cast(:user_id as uuid)
                   and tier <> 'free'
                   and subscription_end is not null
-                  and subscription_end > now()
+                  and subscription_end > :at
                 order by subscription_end desc
                 limit 1
                 """
             ),
-            {"user_id": user_id},
+            {"user_id": user_id, "at": at},
         ).mappings().first()
-        if row is None:
+        from app.domains.commerce.reward_entitlements import (
+            RewardEntitlementRepository,
+        )
+
+        reward_period = RewardEntitlementRepository(
+            self._session
+        ).active_membership_period(user_id=user_id, at=at)
+        if row is None and reward_period is None:
             return EntitlementRecord(
                 tier="free",
                 source="free",
@@ -170,12 +185,24 @@ class CommerceRepository:
                 subscription_end=None,
                 product_ids=[],
             )
+        purchase_start = row["subscription_start"] if row is not None else None
+        purchase_end = row["subscription_end"] if row is not None else None
+        reward_start = reward_period[0] if reward_period is not None else None
+        reward_end = reward_period[1] if reward_period is not None else None
+        starts = [value for value in (purchase_start, reward_start) if value is not None]
+        ends = [value for value in (purchase_end, reward_end) if value is not None]
         return EntitlementRecord(
-            tier=str(row["tier"]),
-            source=str(row["source"]),
-            subscription_start=row["subscription_start"],
-            subscription_end=row["subscription_end"],
-            product_ids=list(row["product_ids"] or []),
+            tier="pro",
+            source=(
+                "merged"
+                if row is not None and reward_period is not None
+                else "reward"
+                if reward_period is not None
+                else str(row["source"])
+            ),
+            subscription_start=min(starts),
+            subscription_end=max(ends),
+            product_ids=list(row["product_ids"] or []) if row is not None else [],
         )
 
     def list_usage_for_periods(
@@ -216,6 +243,7 @@ class CommerceRepository:
         usage_date: date,
         limit: int,
         tier: str,
+        server_session_ref: str | None = None,
         commit: bool = True,
     ) -> FeatureUsageReservation:
         _validate_reservation_identity(
@@ -267,6 +295,27 @@ class CommerceRepository:
             if commit:
                 self._session.commit()
             return existing
+        reward_existing = self._reward_reservation_by_key(
+            reservation_key=reservation_key,
+            for_update=True,
+        )
+        if reward_existing is not None:
+            validated = self.reserve_reward_feature_usage(
+                user_id=user_id,
+                feature=feature,
+                reservation_key=reservation_key,
+                business_key=business_key,
+                server_session_ref=(
+                    server_session_ref or f"commerce-session:{business_key}"
+                ),
+                reserved_at=datetime.now(UTC),
+                commit=commit,
+            )
+            if validated is None:
+                raise CommerceReservationContractError(
+                    "Reward reservation disappeared during replay"
+                )
+            return validated
 
         row = self._session.execute(
             text(
@@ -414,6 +463,48 @@ class CommerceRepository:
             current_used_count=int(row["used_count"]),
         )
 
+    def reserve_reward_feature_usage(
+        self,
+        *,
+        user_id: str,
+        feature: str,
+        reservation_key: str,
+        business_key: str,
+        server_session_ref: str,
+        reserved_at: datetime,
+        commit: bool = True,
+    ) -> FeatureUsageReservation | None:
+        base_existing = self._reservation_by_key(
+            reservation_key=reservation_key,
+            for_update=True,
+        )
+        if base_existing is not None:
+            if (
+                base_existing.user_id != user_id
+                or base_existing.feature != feature
+                or base_existing.business_key != business_key
+            ):
+                raise CommerceReservationContractError(
+                    "Reservation key already belongs to different immutable input"
+                )
+            if commit:
+                self._session.commit()
+            return base_existing
+        from app.domains.commerce.reward_entitlements import (
+            RewardEntitlementRepository,
+        )
+
+        record = RewardEntitlementRepository(self._session).reserve_ai_usage(
+            user_id=user_id,
+            feature=feature,
+            reservation_key=reservation_key,
+            business_key=business_key,
+            server_session_ref=server_session_ref,
+            reserved_at=reserved_at,
+            commit=commit,
+        )
+        return _reward_feature_usage_reservation(record) if record is not None else None
+
     def refund_feature_usage(
         self,
         *,
@@ -425,7 +516,20 @@ class CommerceRepository:
             for_update=True,
         )
         if reservation is None:
-            raise CommerceQuotaRefundError("Feature usage reservation does not exist")
+            from app.domains.commerce.reward_entitlements import (
+                RewardEntitlementContractError,
+                RewardEntitlementRepository,
+            )
+
+            try:
+                released = RewardEntitlementRepository(self._session).release_ai_usage(
+                    reservation_key=reservation_key,
+                    occurred_at=datetime.now(UTC),
+                    commit=commit,
+                )
+            except RewardEntitlementContractError as exc:
+                raise CommerceQuotaRefundError(str(exc)) from exc
+            return _reward_feature_usage_reservation(released)
         if reservation.status == "refunded":
             if commit:
                 self._session.commit()
@@ -508,9 +612,20 @@ class CommerceRepository:
             for_update=True,
         )
         if reservation is None:
-            raise CommerceReservationContractError(
-                "Feature usage reservation does not exist"
+            from app.domains.commerce.reward_entitlements import (
+                RewardEntitlementContractError,
+                RewardEntitlementRepository,
             )
+
+            try:
+                consumed = RewardEntitlementRepository(self._session).consume_ai_usage(
+                    reservation_key=reservation_key,
+                    occurred_at=datetime.now(UTC),
+                    commit=commit,
+                )
+            except RewardEntitlementContractError as exc:
+                raise CommerceReservationContractError(str(exc)) from exc
+            return _reward_feature_usage_reservation(consumed)
         if reservation.status == "consumed":
             if commit:
                 self._session.commit()
@@ -569,9 +684,21 @@ class CommerceRepository:
             for_update=True,
         )
         if reservation is None:
-            raise CommerceReservationContractError(
-                "Feature usage reservation does not exist"
+            from app.domains.commerce.reward_entitlements import (
+                RewardEntitlementContractError,
+                RewardEntitlementRepository,
             )
+
+            try:
+                bound = RewardEntitlementRepository(self._session).bind_ai_usage_job(
+                    reservation_key=reservation_key,
+                    job_id=job_id,
+                    occurred_at=datetime.now(UTC),
+                    commit=commit,
+                )
+            except RewardEntitlementContractError as exc:
+                raise CommerceReservationContractError(str(exc)) from exc
+            return _reward_feature_usage_reservation(bound)
         if reservation.job_id is not None:
             if reservation.job_id != job_id:
                 raise CommerceReservationContractError(
@@ -633,6 +760,49 @@ class CommerceRepository:
         return _feature_usage_reservation_from_row(
             row,
             current_used_count=int(row["current_used_count"]),
+        )
+
+    def _reward_reservation_by_key(
+        self,
+        *,
+        reservation_key: str,
+        for_update: bool,
+    ) -> FeatureUsageReservation | None:
+        from app.domains.commerce.reward_entitlements import (
+            RewardEntitlementRepository,
+        )
+
+        record = RewardEntitlementRepository(self._session).find_ai_reservation(
+            reservation_key=reservation_key,
+            for_update=for_update,
+        )
+        return _reward_feature_usage_reservation(record) if record is not None else None
+
+    def activate_reward_membership(
+        self,
+        *,
+        award_id: UUID,
+        beneficiary_user_id: UUID,
+        activation_key: str,
+        membership_entitlement_ref: str,
+        purchase_history_snapshot_ref: str,
+        evidence_refs: tuple[str, ...],
+        activated_at: datetime,
+        commit: bool = True,
+    ):
+        from app.domains.commerce.reward_entitlements import (
+            RewardEntitlementRepository,
+        )
+
+        return RewardEntitlementRepository(self._session).activate_membership_award(
+            award_id=award_id,
+            beneficiary_user_id=beneficiary_user_id,
+            activation_key=activation_key,
+            membership_entitlement_ref=membership_entitlement_ref,
+            purchase_history_snapshot_ref=purchase_history_snapshot_ref,
+            evidence_refs=evidence_refs,
+            activated_at=activated_at,
+            commit=commit,
         )
 
     def record_verified_transaction(
@@ -1070,4 +1240,24 @@ def _feature_usage_reservation_from_row(
         reserved_at=row["reserved_at"],
         consumed_at=row["consumed_at"],
         refunded_at=row["refunded_at"],
+    )
+
+
+def _reward_feature_usage_reservation(record: Any) -> FeatureUsageReservation:
+    return FeatureUsageReservation(
+        reservation_id=record.reservation_id,
+        reservation_key=record.reservation_key,
+        user_id=record.user_id,
+        feature=record.feature,
+        used=record.value,
+        limit=record.value,
+        usage_date=record.reserved_at.date(),
+        business_key=record.business_key,
+        status=record.status,
+        job_id=record.job_id,
+        reserved_at=record.reserved_at,
+        consumed_at=record.consumed_at,
+        refunded_at=record.refunded_at,
+        source="community_reward",
+        award_id=record.award_id,
     )

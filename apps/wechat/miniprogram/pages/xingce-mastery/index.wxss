@@ -1,0 +1,251 @@
+.mastery-page {
+  padding-bottom: 88rpx;
+}
+
+.mastery-page state-view {
+  display: block;
+  margin-top: 30rpx;
+}
+
+.mastery-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 38rpx 34rpx;
+  border-radius: 34rpx;
+  background: linear-gradient(142deg, #17235d 0%, #354dc1 68%, #6352b5 116%);
+  box-shadow: 0 22rpx 54rpx rgba(35, 48, 122, 0.22);
+  color: #fff;
+}
+
+.mastery-hero::after {
+  position: absolute;
+  top: -94rpx;
+  right: -64rpx;
+  width: 248rpx;
+  height: 248rpx;
+  border: 1rpx solid rgba(117, 244, 225, 0.25);
+  border-radius: 50%;
+  background: rgba(117, 244, 225, 0.05);
+  content: "";
+}
+
+.hero-eyebrow {
+  color: #b9fff6;
+  font-size: 20rpx;
+  font-weight: 780;
+  letter-spacing: 2rpx;
+}
+
+.hero-title {
+  margin-top: 14rpx;
+  font-size: 42rpx;
+  font-weight: 860;
+}
+
+.hero-copy {
+  max-width: 560rpx;
+  margin-top: 14rpx;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 23rpx;
+  line-height: 1.7;
+}
+
+.hero-updated {
+  margin-top: 20rpx;
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 19rpx;
+}
+
+.bucket-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8rpx;
+  margin-top: 26rpx;
+  padding: 8rpx;
+  border: 1rpx solid var(--color-line);
+  border-radius: 22rpx;
+  background: var(--color-surface);
+}
+
+.bucket-tab {
+  display: flex;
+  min-width: 0;
+  min-height: 76rpx;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16rpx;
+  color: var(--color-muted);
+  font-size: 20rpx;
+}
+
+.bucket-tab--active {
+  background: var(--color-primary-soft);
+  color: var(--color-primary-deep);
+  font-weight: 780;
+}
+
+.bucket-count {
+  margin-top: 3rpx;
+  font-size: 23rpx;
+  font-weight: 820;
+}
+
+.account-gate {
+  margin-top: 26rpx;
+}
+
+.account-gate ui-button {
+  display: block;
+  margin-top: 18rpx;
+}
+
+.withdrawn-notice,
+.partial-warning {
+  margin-top: 24rpx;
+  padding: 24rpx;
+  border-radius: 22rpx;
+}
+
+.withdrawn-notice {
+  border: 1rpx solid rgba(176, 64, 76, 0.16);
+  background: #fff4f5;
+}
+
+.notice-title {
+  color: #9d3545;
+  font-size: 25rpx;
+  font-weight: 800;
+}
+
+.notice-copy,
+.invalidated-copy {
+  margin-top: 10rpx;
+  color: var(--color-muted);
+  font-size: 21rpx;
+  line-height: 1.65;
+}
+
+.partial-warning {
+  border: 1rpx solid rgba(163, 88, 32, 0.15);
+  background: var(--color-warning-soft);
+  color: var(--color-ink-secondary);
+  font-size: 22rpx;
+  line-height: 1.6;
+}
+
+.warning-action {
+  min-height: 62rpx;
+  margin: 14rpx 0 0;
+  padding: 0 18rpx;
+  border: 0;
+  border-radius: 16rpx;
+  background: rgba(163, 88, 32, 0.1);
+  color: var(--color-warning);
+  font-size: 21rpx;
+  font-weight: 760;
+  line-height: 62rpx;
+}
+
+.mastery-card {
+  margin-top: 18rpx;
+  padding: 28rpx;
+  border: 1rpx solid var(--color-line);
+  border-radius: 26rpx;
+  background: var(--color-surface);
+  box-shadow: 0 12rpx 34rpx rgba(45, 52, 94, 0.06);
+}
+
+.mastery-card--invalidated {
+  border-color: rgba(176, 64, 76, 0.16);
+  background: #fffafa;
+}
+
+.card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18rpx;
+}
+
+.card-title-wrap {
+  min-width: 0;
+  flex: 1;
+}
+
+.card-title {
+  color: var(--color-ink);
+  font-size: 28rpx;
+  font-weight: 820;
+  line-height: 1.45;
+}
+
+.card-stage {
+  margin-top: 7rpx;
+  color: var(--color-muted);
+  font-size: 21rpx;
+}
+
+.state-pill {
+  flex: none;
+  padding: 8rpx 13rpx;
+  border-radius: 999rpx;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-deep);
+  font-size: 19rpx;
+  font-weight: 760;
+}
+
+.state-pill--stable_mastery {
+  background: #eaf8f2;
+  color: #16775e;
+}
+
+.state-pill--invalidated {
+  background: #fdebed;
+  color: #9d3545;
+}
+
+.evidence-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx 20rpx;
+  margin-top: 22rpx;
+  color: var(--color-muted);
+  font-size: 20rpx;
+}
+
+.card-action,
+.load-more {
+  width: 100%;
+  min-height: 78rpx;
+  margin: 24rpx 0 0;
+  border: 0;
+  border-radius: 19rpx;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: 23rpx;
+  font-weight: 800;
+  line-height: 78rpx;
+}
+
+.card-action--secondary,
+.load-more {
+  background: var(--color-primary-soft);
+  color: var(--color-primary-deep);
+}
+
+.pagination {
+  margin-top: 22rpx;
+}
+
+.load-more {
+  margin-top: 0;
+}
+
+.page-note {
+  padding: 24rpx 0;
+  color: var(--color-faint);
+  font-size: 20rpx;
+  text-align: center;
+}

@@ -586,7 +586,14 @@ class PlanningService:
             "dailyCapacity": capacity.capacity_version_id,
             "positionGoal": goal_ability.goal_version_id or "unavailable",
             "abilityEstimate": goal_ability.estimate_version_id or "unavailable",
-            "objectiveClosure": objective.closure_readiness,
+            "objectiveClosure": (
+                objective.source_version_id or objective.closure_readiness
+            ),
+            "essayClosure": (
+                essay.mastery_version_ids[0]
+                if essay.mastery_version_ids
+                else essay.closure_readiness
+            ),
             "essayTask": essay.task_version_id or "unavailable",
             "essayMaterialBundle": essay.material_bundle_version_id or "unavailable",
             "essayRubric": essay.rubric_version_id or "unavailable",
@@ -1082,6 +1089,7 @@ def _completion_contract(candidate: TaskCandidate) -> CompletionContract:
     evidence_type_by_stage = {
         "objective_baseline": "question_attempt",
         "objective_practice": "question_attempt",
+        "objective_reflection": "reflection_artifact",
         "objective_verification": "question_attempt",
         "essay_material_reading": "essay_material_annotation",
         "essay_point_extraction": "essay_point_extraction",
@@ -1105,7 +1113,10 @@ def _completion_contract(candidate: TaskCandidate) -> CompletionContract:
             "满足验收条件并提交证据",
             "用户主动结束并记录未完成原因",
         ],
-        requires_reflection=candidate.stage == "essay_drafting",
+        requires_reflection=candidate.stage in {
+            "objective_reflection",
+            "essay_drafting",
+        },
         completion_evidence_types=evidence_types,
     )
 

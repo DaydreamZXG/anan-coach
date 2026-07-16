@@ -22,7 +22,7 @@ describe("VJ-02 real xingce WeChat AS-02", () => {
     const singleView = presentXingceTask(single, singleRuntime);
     expect(singleView.materialAvailable).toBe(false);
     expect(singleView.sharedMaterial).toBe(false);
-    expect(singleView.unansweredCount).toBe(2);
+    expect(singleView.unansweredCount).toBe(3);
     expect(presentXingceResult(single)).toBeNull();
 
     const shared = activeXingceSession({ sharedMaterial: true });
@@ -42,17 +42,21 @@ describe("VJ-02 real xingce WeChat AS-02", () => {
   it("keeps unanswered and explicit skipped answers distinct in runtime and checkpoint", () => {
     const session = activeXingceSession({ answers: [answer("q-1", ["B"])] });
     let runtime = runtimeFromXingceSession(session);
-    expect(unansweredQuestionIds(runtime)).toEqual(["q-2"]);
+    expect(unansweredQuestionIds(runtime)).toEqual(["q-2", "q-3"]);
     runtime = reduceTaskRuntime(runtime, { type: "QUESTION_CHANGED", index: 1 });
     runtime = reduceTaskRuntime(runtime, { type: "QUESTION_SKIPPED" });
 
+    expect(unansweredQuestionIds(runtime)).toEqual(["q-3"]);
+    runtime = reduceTaskRuntime(runtime, { type: "QUESTION_CHANGED", index: 2 });
+    runtime = reduceTaskRuntime(runtime, { type: "QUESTION_SKIPPED" });
     expect(unansweredQuestionIds(runtime)).toEqual([]);
     const view = presentXingceTask(session, runtime);
-    expect(view).toMatchObject({ answeredCount: 1, skippedCount: 1, unansweredCount: 0 });
+    expect(view).toMatchObject({ answeredCount: 1, skippedCount: 2, unansweredCount: 0 });
     expect(checkpointCommand(runtime).answers).toEqual(
       expect.arrayContaining([
         expect.objectContaining({ questionId: "q-1", selectedOptionIds: ["B"], skipped: false }),
         expect.objectContaining({ questionId: "q-2", selectedOptionIds: [], skipped: true }),
+        expect.objectContaining({ questionId: "q-3", selectedOptionIds: [], skipped: true }),
       ]),
     );
   });

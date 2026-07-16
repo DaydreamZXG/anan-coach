@@ -98,6 +98,7 @@ describe("essay drafting workflow", () => {
       },
       reflection: {
         schemaType: "reflection",
+        voiceArtifactVersionIds: [],
         causeCodes: ["wrong_abstraction", "weak_structure"],
         whatIThought: draft.userThought,
         whatIWillChange: draft.whatIWillChange,
@@ -377,24 +378,47 @@ describe("essay artifact forms", () => {
     expect(stageBlockingReason("essay_point_extraction", workspace)).toContain("材料地图");
   });
 
-  it("requires acknowledgement to cover every finding while limiting priorities", () => {
+  it("requires one explicit decision per finding while limiting priorities to accepted findings", () => {
     const workspace = createWorkspace({ rubric: true, review: true });
     const drafts = initialEssayFormDrafts(workspace);
     drafts.review = {
-      acknowledgedFindingIds: ["finding-1"],
+      decisions: [
+        {
+          findingId: "finding-1",
+          decision: "accepted",
+          decisionIndex: 1,
+          learnerReason: "",
+          followUpQuestion: "",
+        },
+      ],
       priorityFindingIds: ["finding-1"],
       learnerUnderstanding: "我把现象误写成原因，下一版要回到材料关系。",
     };
-    expect(() => buildArtifactCommand("essay_review", workspace, drafts)).toThrow("全部问题");
+    expect(() => buildArtifactCommand("essay_review", workspace, drafts)).toThrow("版本已变化");
 
-    drafts.review.acknowledgedFindingIds = ["finding-1", "finding-2"];
+    drafts.review.decisions.push({
+      findingId: "finding-2",
+      decision: "uncertain",
+      decisionIndex: 3,
+      learnerReason: "材料是否足以支撑这个归因还不确定。",
+      followUpQuestion: "请指出该归因对应的材料句。",
+    });
     expect(buildArtifactCommand("essay_review", workspace, drafts)).toMatchObject({
       artifactType: "review_acknowledgement",
       rubricVersionId: "rubric-version-1",
       reviewVersionId: "review-version-1",
       payload: {
         schemaType: "review_acknowledgement",
-        acknowledgedFindingIds: ["finding-1", "finding-2"],
+        contractVersion: "essay-finding-decision@v1",
+        decisions: [
+          { findingId: "finding-1", decision: "accepted" },
+          {
+            findingId: "finding-2",
+            decision: "uncertain",
+            learnerReason: "材料是否足以支撑这个归因还不确定。",
+            followUpQuestion: "请指出该归因对应的材料句。",
+          },
+        ],
         priorityFindingIds: ["finding-1"],
       },
     });
@@ -535,6 +559,7 @@ describe("EssayIntelligenceApi", () => {
         },
         reflection: {
           schemaType: "reflection",
+          voiceArtifactVersionIds: [],
           causeCodes: ["expression"],
           whatIThought: "真实思路",
           whatIWillChange: "压缩重复表达",
