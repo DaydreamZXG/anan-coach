@@ -18,7 +18,6 @@ from app.domains.commerce.stage8_repository import (
 )
 from app.domains.commerce.stage8_schemas import (
     PolicyAcceptances,
-    RetakeEnrollmentRequest,
     WechatOrderCreateRequest,
     WechatRefundRequest,
     WeeklyReflectionConfirmRequest,
@@ -210,6 +209,29 @@ def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -
     user_id = _seed_wechat_user(db_session)
     evidence_id = uuid4()
     report_id = uuid4()
+    experience_id = uuid4()
+    db_session.execute(
+        text(
+            """
+            insert into learner.preparation_experience_versions (
+              experience_version_id, command_id, user_id, version_no,
+              declaration_status, first_systematic, external_learning,
+              prior_guokao_exam, retake, prior_exam_years, source_type,
+              input_fingerprint, created_at
+            ) values (
+              cast(:experience_id as uuid), :command_id,
+              cast(:user_id as uuid), 1, 'declared', false, true, true, true,
+              '[2024]'::jsonb, 'user_confirmed', repeat('a', 64), :now
+            )
+            """
+        ),
+        {
+            "experience_id": str(experience_id),
+            "command_id": f"privacy-experience-{uuid4().hex}",
+            "user_id": user_id,
+            "now": now,
+        },
+    )
     db_session.execute(
         text(
             """
@@ -309,6 +331,8 @@ def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -
         user_id=user_id, export_id=export.export_request_id
     )
     assert payload.payload["contractVersion"] == "personal-data-export@v1"
+    assert payload.payload["preparationExperience"][0]["retake"] is True
+    assert payload.payload["preparationExperience"][0]["prior_exam_years"] == [2024]
     assert payload.payload_sha256 == completed.payload_sha256
 
     deletion = service.request_deletion(
@@ -358,6 +382,26 @@ def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -
     assert erased_score["total_score"] == 0
     assert erased_score["command_payload"] == {}
     assert erased_score["erased_at"] is not None
+    erased_experience = db_session.execute(
+        text(
+            """
+            select declaration_status, first_systematic, external_learning,
+                   prior_guokao_exam, retake, prior_exam_years,
+                   input_fingerprint, erased_at
+            from learner.preparation_experience_versions
+            where experience_version_id = cast(:experience_id as uuid)
+            """
+        ),
+        {"experience_id": str(experience_id)},
+    ).mappings().one()
+    assert erased_experience["declaration_status"] == "legacy_not_collected"
+    assert erased_experience["first_systematic"] is False
+    assert erased_experience["external_learning"] is False
+    assert erased_experience["prior_guokao_exam"] is False
+    assert erased_experience["retake"] is False
+    assert erased_experience["prior_exam_years"] == []
+    assert erased_experience["input_fingerprint"] == "0" * 64
+    assert erased_experience["erased_at"] is not None
     erased_report = db_session.execute(
         text(
             """
@@ -427,68 +471,6 @@ def test_free_cold_start_hides_offers_and_rejects_forged_order(
                     reward_policy_version="forged-reward",
                     marketing_policy_version="forged-marketing",
                 ),
-            ),
-        )
-
-
-def test_retake_score_is_training_input_not_refund_or_reward_input(
-    db_session: Session,
-) -> None:
-    now = datetime.now(UTC)
-    user_id = _seed_wechat_user(db_session)
-    evidence_id = uuid4()
-    db_session.execute(
-        text(
-            """
-            insert into learning.score_evidence (
-              evidence_id, command_id, user_id, exam_code, exam_year,
-              source_type, reported_context, xingce_score, shenlun_score,
-              total_score, timed_status, verification_status, occurred_at,
-              command_payload
-            ) values (
-              cast(:evidence_id as uuid), :command_id, cast(:user_id as uuid),
-              'guokao', 2026, 'self_report', 'official_exam', 61, 54, 115,
-              'timed', 'user_confirmed', :occurred_at, '{}'::jsonb
-            )
-            """
-        ),
-        {
-            "evidence_id": str(evidence_id),
-            "command_id": f"retake-score-{uuid4().hex}",
-            "user_id": user_id,
-            "occurred_at": now,
-        },
-    )
-    db_session.commit()
-    service = _commerce_service(
-        db_session,
-        gateway=FakeWechatPayGateway(now=now),
-        settings=Settings(
-            wechat_mini_app_id="stage8-test-app",
-            wechat_pay_mch_id="stage8-test-merchant",
-        ),
-        now=now,
-    )
-    request = RetakeEnrollmentRequest(
-        command_key="retake-enrollment-command-0001",
-        source_score_evidence_id=evidence_id,
-        target_exam_year=2027,
-    )
-    created = service.enroll_retake(user_id=user_id, request=request)
-    replayed = service.enroll_retake(user_id=user_id, request=request)
-    assert replayed.program.program_version_id == created.program.program_version_id
-    assert created.program.refund_uses_score is False
-    assert created.program.reward_uses_score is False
-    assert created.program.training_uses_score is True
-    assert "不参与退款或现金奖励" in created.program.loss_structure.limitation
-
-    with pytest.raises(Stage8CommerceConflict, match="different retake enrollment"):
-        service.enroll_retake(
-            user_id=user_id,
-            request=RetakeEnrollmentRequest(
-                command_key=request.command_key,
-                source_score_evidence_id=uuid4(),
-                target_exam_year=2027,
             ),
         )
 

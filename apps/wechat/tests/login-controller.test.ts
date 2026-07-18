@@ -21,7 +21,7 @@ describe("wechat login controller", () => {
       deviceId: "device-1",
     });
     expect(harness.spies.commitSession).toHaveBeenCalledWith(session());
-    expect(harness.spies.navigate).toHaveBeenCalledWith("qualification");
+    expect(harness.spies.navigate).toHaveBeenCalledWith("preparation_experience");
     expect(harness.states.at(-1)).toEqual({
       restoring: false,
       submitting: false,
@@ -39,7 +39,7 @@ describe("wechat login controller", () => {
     expect(harness.spies.restoreProgress).toHaveBeenCalledTimes(1);
     expect(harness.spies.authenticate).not.toHaveBeenCalled();
     expect(harness.spies.requestCode).not.toHaveBeenCalled();
-    expect(harness.spies.navigate).toHaveBeenCalledWith("qualification");
+    expect(harness.spies.navigate).toHaveBeenCalledWith("preparation_experience");
     expect(harness.states.at(-1)).toEqual({
       restoring: false,
       submitting: false,
@@ -250,7 +250,9 @@ function session(
     onboardingProgress: {
       completed,
       completedAt: null,
-      nextStep: completed ? "workspace" : "qualification",
+      experienceProfileVersion: completed ? 1 : null,
+      experienceReady: completed,
+      nextStep: completed ? "workspace" : "preparation_experience",
       progressVersion: 1,
       qualificationProfileVersion: null,
       qualificationReady: false,

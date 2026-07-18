@@ -3,6 +3,9 @@ import type {
   OnboardingProgress,
   OnboardingResultAcknowledgement,
   OnboardingResultProjection,
+  PreparationExperienceProfile,
+  PreparationExperienceResult,
+  PreparationExperienceWrite,
   QualificationMilestoneCommand,
   StudyPreferenceResult,
   StudyPreferenceWrite,
@@ -15,6 +18,23 @@ export class OnboardingApi {
 
   getProgress(): Promise<ApiEnvelope<OnboardingProgress>> {
     return this.client.get<OnboardingProgress>("/api/v2/onboarding/progress");
+  }
+
+  getPreparationExperience(): Promise<ApiEnvelope<PreparationExperienceProfile>> {
+    return this.client.get<PreparationExperienceProfile>(
+      "/api/v2/onboarding/preparation-experience",
+    );
+  }
+
+  putPreparationExperience(
+    command: PreparationExperienceWrite,
+    idempotencyKey: string,
+  ): Promise<ApiEnvelope<PreparationExperienceResult>> {
+    return this.client.put<PreparationExperienceResult>(
+      "/api/v2/onboarding/preparation-experience",
+      command,
+      { idempotencyKey },
+    );
   }
 
   completeQualification(

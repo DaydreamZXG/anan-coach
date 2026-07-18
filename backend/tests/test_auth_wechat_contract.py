@@ -73,7 +73,10 @@ def test_wechat_login_creates_identity_profile_and_internal_session(
     assert body["data"]["tokenType"] == "Bearer"
     assert body["data"]["accessToken"].startswith("gkd_")
     assert body["data"]["onboardingComplete"] is False
-    assert body["data"]["onboardingProgress"]["nextStep"] == "qualification"
+    assert (
+        body["data"]["onboardingProgress"]["nextStep"]
+        == "preparation_experience"
+    )
     assert body["data"]["onboardingProgress"]["completed"] is False
     user_id = body["data"]["user"]["userId"]
 

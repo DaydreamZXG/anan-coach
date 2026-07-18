@@ -13,7 +13,21 @@ class OnboardingV2Model(BaseModel):
     model_config = ConfigDict(populate_by_name=True, extra="forbid")
 
 
-OnboardingNextStep = Literal["qualification", "study_preference", "result", "workspace"]
+OnboardingNextStep = Literal[
+    "preparation_experience",
+    "qualification",
+    "study_preference",
+    "result",
+    "workspace",
+]
+OnboardingResultNextAction = Literal[
+    "enter_workspace",
+    "record_baseline",
+    "choose_position",
+    "review_exam_briefing",
+    "import_prior_evidence",
+    "start_retake_recovery",
+]
 Weekday = Literal[
     "monday",
     "tuesday",
@@ -27,6 +41,12 @@ Weekday = Literal[
 
 class OnboardingProgress(OnboardingV2Model):
     progress_version: int = Field(alias="progressVersion", ge=1)
+    experience_ready: bool = Field(alias="experienceReady")
+    experience_profile_version: int | None = Field(
+        default=None,
+        alias="experienceProfileVersion",
+        ge=1,
+    )
     qualification_ready: bool = Field(alias="qualificationReady")
     qualification_profile_version: int | None = Field(
         default=None,
@@ -45,6 +65,69 @@ class OnboardingProgress(OnboardingV2Model):
     completed: bool
     updated_at: datetime = Field(alias="updatedAt")
     completed_at: datetime | None = Field(default=None, alias="completedAt")
+
+
+class PreparationExperienceWrite(OnboardingV2Model):
+    expected_experience_version: int = Field(alias="expectedExperienceVersion", ge=0)
+    expected_progress_version: int = Field(alias="expectedProgressVersion", ge=1)
+    first_systematic: bool = Field(alias="firstSystematic")
+    external_learning: bool = Field(alias="externalLearning")
+    prior_guokao_exam: bool = Field(alias="priorGuokaoExam")
+    retake: bool
+    prior_exam_years: list[int] = Field(
+        default_factory=list,
+        alias="priorExamYears",
+        max_length=20,
+    )
+
+    @model_validator(mode="after")
+    def validate_experience(self) -> "PreparationExperienceWrite":
+        experienced = self.external_learning or self.prior_guokao_exam or self.retake
+        if self.first_systematic == experienced:
+            raise ValueError(
+                "firstSystematic must be exclusive with experienced preparation modes"
+            )
+        if self.retake and not self.prior_guokao_exam:
+            raise ValueError("retake requires priorGuokaoExam")
+        if self.prior_exam_years and not self.prior_guokao_exam:
+            raise ValueError("priorExamYears require priorGuokaoExam")
+        if any(year < 2000 or year > 2100 for year in self.prior_exam_years):
+            raise ValueError("priorExamYears must be between 2000 and 2100")
+        if self.prior_exam_years != sorted(set(self.prior_exam_years)):
+            raise ValueError("priorExamYears must be sorted and unique")
+        return self
+
+
+class PreparationExperienceProfile(OnboardingV2Model):
+    experience_version_id: str = Field(alias="experienceVersionId")
+    experience_version: int = Field(alias="experienceVersion", ge=1)
+    declaration_status: Literal["declared", "legacy_not_collected"] = Field(
+        alias="declarationStatus"
+    )
+    first_systematic: bool = Field(alias="firstSystematic")
+    external_learning: bool = Field(alias="externalLearning")
+    prior_guokao_exam: bool = Field(alias="priorGuokaoExam")
+    retake: bool
+    prior_exam_years: list[int] = Field(alias="priorExamYears")
+    source_type: Literal["user_confirmed", "user_revised", "migration"] = Field(
+        alias="sourceType"
+    )
+    recommended_entry: Literal[
+        "guided_first_start",
+        "import_external_evidence",
+        "retake_loss_recovery",
+        "legacy_unspecified",
+    ] = Field(alias="recommendedEntry")
+    created_at: datetime = Field(alias="createdAt")
+    supersedes_experience_version_id: str | None = Field(
+        default=None,
+        alias="supersedesExperienceVersionId",
+    )
+
+
+class PreparationExperienceResult(OnboardingV2Model):
+    experience: PreparationExperienceProfile
+    progress: OnboardingProgress
 
 
 class QualificationMilestoneCommand(OnboardingV2Model):
@@ -155,6 +238,9 @@ class OnboardingResultProjection(OnboardingV2Model):
         alias="qualificationProfileVersion",
         ge=1,
     )
+    preparation_experience: PreparationExperienceProfile = Field(
+        alias="preparationExperience"
+    )
     ability_estimate: AbilityEstimateVersion | None = Field(
         default=None,
         alias="abilityEstimate",
@@ -165,11 +251,7 @@ class OnboardingResultProjection(OnboardingV2Model):
     )
     score_gap: OnboardingScoreGap | None = Field(default=None, alias="scoreGap")
     weekly_preference: WeeklyStudyPreference = Field(alias="weeklyPreference")
-    next_action: Literal[
-        "enter_workspace",
-        "record_baseline",
-        "choose_position",
-    ] = Field(alias="nextAction")
+    next_action: OnboardingResultNextAction = Field(alias="nextAction")
     generated_at: datetime = Field(alias="generatedAt")
     valid_until: datetime = Field(alias="validUntil")
 

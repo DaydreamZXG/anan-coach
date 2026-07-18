@@ -1,8 +1,14 @@
 import type {
   OnboardingResultAcknowledgement,
+  PreparationExperienceWrite,
   QualificationFactInput,
   QualificationMilestoneCommand,
 } from "../../api/generated/types.gen";
+import {
+  buildPreparationExperienceCommand,
+  validatePreparationExperience,
+  type PreparationExperienceDraft,
+} from "./preparation-experience";
 import {
   qualificationFactsFingerprint,
   qualificationFactsFromDraft,
@@ -34,6 +40,12 @@ export interface PendingStudyPreferenceCommand {
   command: StudyPreferenceCommandPayload;
 }
 
+export interface PendingPreparationExperienceCommand {
+  idempotencyKey: string;
+  draft: PreparationExperienceDraft;
+  command: PreparationExperienceWrite;
+}
+
 export interface PendingQualificationProfileCommand {
   phase: "profile";
   idempotencyKey: string;
@@ -54,6 +66,45 @@ export type PendingQualificationCommand =
 export interface PendingResultAcknowledgement {
   idempotencyKey: string;
   command: OnboardingResultAcknowledgement;
+}
+
+export function storePendingPreparationExperience(
+  ownerUserId: string,
+  value: PendingPreparationExperienceCommand,
+  nowMs = Date.now(),
+): void {
+  const owner = required(ownerUserId, "userId");
+  if (!isPendingPreparationExperienceCommand(value)) {
+    throw new Error("Refusing to persist an invalid preparation-experience command");
+  }
+  const createdAtMs = validNow(nowMs);
+  const envelope: PendingEnvelope<PendingPreparationExperienceCommand> = {
+    schemaVersion: ONBOARDING_PENDING_SCHEMA_VERSION,
+    ownerUserId: owner,
+    createdAtMs,
+    expiresAtMs: createdAtMs + ONBOARDING_PENDING_TTL_MS,
+    payload: value,
+  };
+  wx.setStorageSync(preparationExperienceStorageKey(owner), envelope);
+}
+
+export function loadPendingPreparationExperience(
+  ownerUserId: string,
+  nowMs = Date.now(),
+): PendingPreparationExperienceCommand | null {
+  const owner = required(ownerUserId, "userId");
+  const key = preparationExperienceStorageKey(owner);
+  const value: unknown = wx.getStorageSync(key);
+  if (value === undefined || value === null || value === "") return null;
+  if (!isEnvelope(value, owner, validNow(nowMs), isPendingPreparationExperienceCommand)) {
+    wx.removeStorageSync(key);
+    return null;
+  }
+  return value.payload;
+}
+
+export function clearPendingPreparationExperience(ownerUserId: string): void {
+  wx.removeStorageSync(preparationExperienceStorageKey(required(ownerUserId, "userId")));
 }
 
 export function storePendingQualification(
@@ -174,6 +225,7 @@ export function clearPendingResultAcknowledgement(ownerUserId: string): void {
 }
 
 export function clearOnboardingPendingForUser(ownerUserId: string): void {
+  clearPendingPreparationExperience(ownerUserId);
   clearPendingQualification(ownerUserId);
   clearPendingStudyPreference(ownerUserId);
   clearPendingResultAcknowledgement(ownerUserId);
@@ -214,6 +266,27 @@ function isPendingResultAcknowledgement(value: unknown): value is PendingResultA
     value.command.acknowledgeResult === true &&
     Object.keys(value.command).length === 2
   );
+}
+
+function isPendingPreparationExperienceCommand(
+  value: unknown,
+): value is PendingPreparationExperienceCommand {
+  if (!isRecord(value) || !isRecord(value.draft) || !isRecord(value.command)) return false;
+  if (typeof value.idempotencyKey !== "string" || value.idempotencyKey.length < 8) return false;
+  const rawDraft: unknown = value.draft;
+  if (!isPreparationExperienceDraft(rawDraft) || validatePreparationExperience(rawDraft)) {
+    return false;
+  }
+  const command = value.command as unknown as PreparationExperienceWrite;
+  try {
+    const rebuilt = buildPreparationExperienceCommand(rawDraft, {
+      expectedExperienceVersion: command.expectedExperienceVersion,
+      expectedProgressVersion: command.expectedProgressVersion,
+    });
+    return canonicalJson(rebuilt) === canonicalJson(command);
+  } catch {
+    return false;
+  }
 }
 
 function isPendingQualificationCommand(value: unknown): value is PendingQualificationCommand {
@@ -263,6 +336,10 @@ function storageKey(ownerUserId: string): string {
   return `${storageRoot}.${encodeURIComponent(ownerUserId)}.study-preference`;
 }
 
+function preparationExperienceStorageKey(ownerUserId: string): string {
+  return `${storageRoot}.${encodeURIComponent(ownerUserId)}.preparation-experience`;
+}
+
 function qualificationStorageKey(ownerUserId: string): string {
   return `${storageRoot}.${encodeURIComponent(ownerUserId)}.qualification`;
 }
@@ -300,6 +377,17 @@ function isQualificationDraft(value: unknown): value is QualificationDraft {
     Number.isSafeInteger(value.grassrootsYears) &&
     typeof value.hukou === "string" &&
     Object.keys(value).length === 6
+  );
+}
+
+function isPreparationExperienceDraft(value: unknown): value is PreparationExperienceDraft {
+  return (
+    isRecord(value) &&
+    typeof value.firstSystematic === "boolean" &&
+    typeof value.externalLearning === "boolean" &&
+    typeof value.priorGuokaoExam === "boolean" &&
+    typeof value.retake === "boolean" &&
+    Object.keys(value).length === 4
   );
 }
 

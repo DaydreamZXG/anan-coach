@@ -427,6 +427,28 @@ export const visualScenarios = [
     },
   },
   {
+    id: "a03-preparation-experience-ready",
+    route: "/pages/onboarding/preparation-experience/index",
+    authenticated: true,
+    data: {
+      state: {
+        status: "ready",
+        draft: {
+          firstSystematic: false,
+          externalLearning: true,
+          priorGuokaoExam: true,
+          retake: true,
+        },
+        progressVersion: 1,
+        experienceVersion: 0,
+        saving: false,
+        pendingRecovery: false,
+        validationError: "",
+        error: null,
+      },
+    },
+  },
+  {
     id: "a04-qualification-review",
     route: "/pages/onboarding/index",
     authenticated: true,
@@ -531,6 +553,34 @@ export const visualScenarios = [
           rhythmLabel: "周六模考 · 周日恢复",
           validityLabel: "本结果有效至 2027.07.12",
         },
+      },
+    },
+  },
+  {
+    id: "a08-retake-workspace-ready",
+    route: "/pages/retake/index",
+    authenticated: true,
+    data: {
+      state: {
+        status: "ready",
+        targetExamYear: 2026,
+        evidence: [
+          {
+            evidenceId: "retake-evidence-2024",
+            examYear: 2024,
+            sourceLabel: "本人确认实考",
+            xingceLabel: "61",
+            essayLabel: "54",
+            totalLabel: "115",
+            selected: true,
+          },
+        ],
+        selectedEvidenceId: "retake-evidence-2024",
+        program: null,
+        scoreUseBoundary: "往年成绩只用于失分结构和训练优先级；不参与退款、现金奖励或上岸承诺。",
+        saving: false,
+        pendingRecovery: false,
+        error: null,
       },
     },
   },

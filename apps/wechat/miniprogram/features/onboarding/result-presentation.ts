@@ -3,7 +3,7 @@ import type {
   OnboardingResultProjection,
 } from "../../api/generated/types.gen";
 
-export type OnboardingResultAction = "enter_workspace" | "record_baseline" | "choose_position";
+export type OnboardingResultAction = OnboardingResultProjection["nextAction"];
 
 export interface OnboardingResultView {
   status: OnboardingResultProjection["status"];
@@ -78,7 +78,7 @@ export function onboardingResultView(result: OnboardingResultProjection): Onboar
         title: baselineTitle(result),
         description:
           "先补充同一口径下的行测与申论真实成绩。单科分、旧档案分和单篇 AI 训练估分都不会被拿来凑总分。",
-        actionLabel: "补充双科成绩证据",
+        actionLabel: baselineActionLabel(result.nextAction),
       };
     case "position_selection_required":
       return {
@@ -99,6 +99,17 @@ export function onboardingResultView(result: OnboardingResultProjection): Onboar
         actionLabel: "查看资格与岗位依据",
       };
   }
+}
+
+function baselineActionLabel(action: OnboardingResultAction): string {
+  return {
+    enter_workspace: "进入今日工作台",
+    record_baseline: "开始双科起点诊断",
+    choose_position: "选择主目标岗位",
+    review_exam_briefing: "先看考情，再开始诊断",
+    import_prior_evidence: "导入已有成绩与学习资料",
+    start_retake_recovery: "建立二战失分回收计划",
+  }[action];
 }
 
 function baselineTitle(result: OnboardingResultProjection): string {

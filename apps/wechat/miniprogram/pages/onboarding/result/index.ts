@@ -1,7 +1,11 @@
 import { ApiClient } from "../../../api/client";
 import { OnboardingApi } from "../../../api/onboarding";
 import { clearPendingAuthReturn, loadPendingAuthReturn } from "../../../app/navigation/auth-return";
-import { onboardingNavigationTarget, routes } from "../../../app/navigation/routes";
+import {
+  onboardingNavigationTarget,
+  onboardingResultActionTarget,
+  routes,
+} from "../../../app/navigation/routes";
 import { PageControllerRegistry } from "../../../app/runtime/controller-registry";
 import { currentAuthSession } from "../../../auth/session";
 import {
@@ -65,7 +69,13 @@ function mountController(page: OnboardingResultPage): void {
       if (runtimes.owns(page, runtime)) page.setData({ state });
     },
     onAdvance: (navigation) => {
-      if (runtimes.owns(page, runtime)) navigateResult(navigation, session.userId);
+      if (runtimes.owns(page, runtime)) {
+        navigateResult(
+          navigation,
+          session.userId,
+          page.data.state?.result?.primaryGoal?.positionId,
+        );
+      }
     },
     isSessionCurrent: () => {
       const current = currentAuthSession();
@@ -77,7 +87,11 @@ function mountController(page: OnboardingResultPage): void {
   void controller.load();
 }
 
-function navigateResult(navigation: OnboardingResultNavigation, userId: string): void {
+function navigateResult(
+  navigation: OnboardingResultNavigation,
+  userId: string,
+  positionId?: string,
+): void {
   if (navigation.kind === "action") {
     const pendingReturn = loadPendingAuthReturn(userId);
     if (pendingReturn) {
@@ -90,8 +104,9 @@ function navigateResult(navigation: OnboardingResultNavigation, userId: string):
       });
       return;
     }
-    const target = navigation.action === "enter_workspace" ? routes.today : routes.positions;
-    void wx.switchTab({ url: target });
+    const target = onboardingResultActionTarget(navigation.action, positionId);
+    if (target.mode === "switchTab") void wx.switchTab({ url: target.url });
+    else void wx.redirectTo({ url: target.url });
     return;
   }
   if (navigation.step === "result") return;

@@ -50,7 +50,12 @@
 
     <view wx:if="{{state.delivery}}" class="delivery-strip"><text>生成 {{state.delivery.generatedAtLabel}}</text><text class="delivery-strip__request">Request ID · {{state.delivery.requestId}}</text></view>
     <view wx:if="{{state.status === 'confirmed'}}" class="success-card">主目标版本已确认。以上失效项将由服务端重建。<text wx:if="{{state.commandTrace}}">Request ID · {{state.commandTrace.requestId}}</text></view>
-    <view wx:if="{{state.status === 'confirmed' && state.offerExamBriefing}}" class="orientation-card">
+    <view wx:if="{{state.status === 'confirmed' && state.offerExamBriefing && resolvingPostGoalAction}}" class="orientation-card">
+      <view class="orientation-card__eyebrow">正在对齐首日入口</view>
+      <view class="orientation-card__title">主目标已确认，正在读取你的备考经历</view>
+      <view class="orientation-card__copy">不会再用“新账号”猜测你是不是小白。</view>
+    </view>
+    <view wx:elif="{{state.status === 'confirmed' && state.offerExamBriefing && postGoalAction === 'review_exam_briefing'}}" class="orientation-card">
       <view class="orientation-card__eyebrow">第一次建立主目标</view>
       <view class="orientation-card__title">你对国考和这个岗位熟悉吗？</view>
       <view class="orientation-card__copy">账号是新的，不代表你是备考小白。由你自己选择是否查看基础考情，系统不会根据注册时间猜测。</view>
@@ -59,8 +64,21 @@
         <ui-button label="我是小白，先看考情" bind:action="openBeginnerBriefing" />
       </view>
     </view>
-    <view wx:if="{{state.status !== 'confirmed' || !state.offerExamBriefing}}" class="sticky-actions">
-      <ui-button wx:if="{{state.status === 'confirmed' && !state.offerExamBriefing}}" label="返回岗位工作区" bind:action="finish" />
+    <view wx:elif="{{state.status === 'confirmed' && state.offerExamBriefing && postGoalAction === 'import_prior_evidence'}}" class="orientation-card">
+      <view class="orientation-card__eyebrow">复用已有学习成果</view>
+      <view class="orientation-card__title">下一步先把外部成绩与资料接进来</view>
+      <view class="orientation-card__copy">已有学习不会被当成空白起点；导入后仍由你确认，才会影响能力和计划。</view>
+      <view class="orientation-card__actions"><ui-button label="稍后再导入" variant="secondary" bind:action="finish" /><ui-button label="导入已有证据" bind:action="openRecommendedEntry" /></view>
+    </view>
+    <view wx:elif="{{state.status === 'confirmed' && state.offerExamBriefing && postGoalAction === 'start_retake_recovery'}}" class="orientation-card">
+      <view class="orientation-card__eyebrow">二战失分回收</view>
+      <view class="orientation-card__title">先用往年实考成绩还原失分结构</view>
+      <view class="orientation-card__copy">跨年原始分不直接计算提分，也不参与退款或现金奖励。</view>
+      <view class="orientation-card__actions"><ui-button label="稍后再做" variant="secondary" bind:action="finish" /><ui-button label="建立失分回收计划" bind:action="openRecommendedEntry" /></view>
+    </view>
+    <view wx:if="{{state.status === 'confirmed' && state.offerExamBriefing && postGoalError}}" class="inline-error">{{postGoalError}}</view>
+    <view wx:if="{{state.status !== 'confirmed' || !state.offerExamBriefing || postGoalError || (postGoalAction && postGoalAction !== 'review_exam_briefing' && postGoalAction !== 'import_prior_evidence' && postGoalAction !== 'start_retake_recovery')}}" class="sticky-actions">
+      <ui-button wx:if="{{state.status === 'confirmed'}}" label="{{state.offerExamBriefing ? '进入今日计划' : '返回岗位工作区'}}" bind:action="finish" />
       <block wx:else>
         <block wx:if="{{state.status !== 'confirmed'}}">
           <ui-button label="返回核对岗位" variant="secondary" bind:action="openDetail" />

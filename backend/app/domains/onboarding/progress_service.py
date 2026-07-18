@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime
-from typing import Any
-
 from sqlalchemy.orm import Session
 
 from sqlalchemy import text
@@ -21,7 +19,11 @@ from app.domains.onboarding.v2_schemas import (
     OnboardingResultAcknowledgement,
     OnboardingPrimaryGoal,
     OnboardingResultProjection,
+    OnboardingResultNextAction,
     OnboardingScoreGap,
+    PreparationExperienceProfile,
+    PreparationExperienceResult,
+    PreparationExperienceWrite,
     QualificationMilestoneCommand,
     StudyPreferenceResult,
     StudyPreferenceWrite,
@@ -47,6 +49,151 @@ class OnboardingProgressService:
 
     def get_progress(self, session: Session, *, user_id: str) -> OnboardingProgress:
         return self._repository.get_progress(session, user_id=user_id)
+
+    def get_preparation_experience(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+    ) -> PreparationExperienceProfile:
+        experience = self._repository.current_experience(session, user_id=user_id)
+        if experience is None:
+            raise OnboardingProgressError(
+                "preparation_experience_missing",
+                "尚未确认备考经历。",
+            )
+        return experience
+
+    def record_preparation_experience(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        command_id: str,
+        command: PreparationExperienceWrite,
+        now: datetime | None = None,
+    ) -> PreparationExperienceResult:
+        recorded_at = now or datetime.now(UTC)
+        request_payload = command.model_dump(by_alias=True, mode="json")
+        progress = self._repository.get_progress(
+            session,
+            user_id=user_id,
+            for_update=True,
+        )
+        replay = self._repository.get_command(
+            session,
+            command_id=command_id,
+            user_id=user_id,
+            command_type="preparation_experience_recorded",
+            request_payload=request_payload,
+        )
+        if replay is not None:
+            return PreparationExperienceResult.model_validate(replay)
+        self._require_progress_version(progress, command.expected_progress_version)
+
+        current_row = self._repository.current_experience_row(session, user_id=user_id)
+        current_version = int(current_row["version_no"]) if current_row is not None else 0
+        if current_version != command.expected_experience_version:
+            raise OnboardingProgressError(
+                "preparation_experience_version_conflict",
+                "备考经历已更新，请刷新后再确认。",
+                details={
+                    "expectedVersion": command.expected_experience_version,
+                    "currentVersion": current_version,
+                },
+            )
+        if progress.completed:
+            raise OnboardingProgressError(
+                "onboarding_already_completed",
+                "建档已经完成；后续经历变更必须进入学习档案版本链。",
+            )
+
+        current_is_same = bool(
+            current_row is not None
+            and str(current_row["declaration_status"]) == "declared"
+            and bool(current_row["first_systematic"]) == command.first_systematic
+            and bool(current_row["external_learning"]) == command.external_learning
+            and bool(current_row["prior_guokao_exam"]) == command.prior_guokao_exam
+            and bool(current_row["retake"]) == command.retake
+            and [int(value) for value in current_row["prior_exam_years"]]
+            == command.prior_exam_years
+        )
+        if current_is_same:
+            experience = self._repository.current_experience(session, user_id=user_id)
+            assert experience is not None
+            experience_changed = False
+        else:
+            experience = self._repository.append_experience(
+                session,
+                user_id=user_id,
+                command_id=command_id,
+                first_systematic=command.first_systematic,
+                external_learning=command.external_learning,
+                prior_guokao_exam=command.prior_guokao_exam,
+                retake=command.retake,
+                prior_exam_years=command.prior_exam_years,
+                now=recorded_at,
+            )
+            experience_changed = True
+
+        progress_changed = not progress.completed and (
+            not progress.experience_ready
+            or progress.experience_profile_version != experience.experience_version
+        )
+        before_version = progress.progress_version
+        if progress_changed:
+            progress = self._repository.advance_progress(
+                session,
+                user_id=user_id,
+                experience_ready=True,
+                experience_profile_version=experience.experience_version,
+                qualification_ready=progress.qualification_ready,
+                qualification_profile_version=progress.qualification_profile_version,
+                study_preference_ready=progress.study_preference_ready,
+                study_preference_version=progress.study_preference_version,
+                result_acknowledged=False,
+                now=recorded_at,
+            )
+
+        result = PreparationExperienceResult(
+            experience=experience,
+            progress=progress,
+        )
+        response_payload = result.model_dump(by_alias=True, mode="json")
+        self._repository.record_command(
+            session,
+            command_id=command_id,
+            user_id=user_id,
+            command_type="preparation_experience_recorded",
+            request_payload=request_payload,
+            response_payload=response_payload,
+            now=recorded_at,
+        )
+        if progress_changed:
+            self._repository.record_progress_event(
+                session,
+                command_id=command_id,
+                user_id=user_id,
+                event_type="preparation_experience_recorded",
+                before_version=before_version,
+                progress=progress,
+                now=recorded_at,
+            )
+        if experience_changed:
+            self._outbox.append(
+                session,
+                deduplication_key=f"preparation-experience:{command_id}",
+                aggregate_type="preparation_experience",
+                aggregate_id=user_id,
+                event_type="onboarding.preparation_experience_recorded",
+                payload={
+                    "userId": user_id,
+                    "experienceVersionId": experience.experience_version_id,
+                    "experienceVersion": experience.experience_version,
+                    "recommendedEntry": experience.recommended_entry,
+                },
+            )
+        return result
 
     def complete_qualification_milestone(
         self,
@@ -74,6 +221,11 @@ class OnboardingProgressService:
         if replay is not None:
             return OnboardingProgress.model_validate(replay)
         self._require_progress_version(progress, command.expected_progress_version)
+        if not progress.experience_ready:
+            raise OnboardingProgressError(
+                "preparation_experience_required",
+                "请先确认备考经历，再继续资格建档。",
+            )
 
         profile_version, fact_keys = self._repository.qualification_state(
             session,
@@ -110,6 +262,8 @@ class OnboardingProgressService:
             progress = self._repository.advance_progress(
                 session,
                 user_id=user_id,
+                experience_ready=progress.experience_ready,
+                experience_profile_version=progress.experience_profile_version,
                 qualification_ready=True,
                 qualification_profile_version=profile_version,
                 study_preference_ready=progress.study_preference_ready,
@@ -175,13 +329,22 @@ class OnboardingProgressService:
     ) -> OnboardingResultProjection:
         generated_at = now or datetime.now(UTC)
         progress = self._repository.get_progress(session, user_id=user_id)
-        if not progress.result_ready or progress.qualification_profile_version is None:
+        if (
+            not progress.result_ready
+            or progress.experience_profile_version is None
+            or progress.qualification_profile_version is None
+        ):
             raise OnboardingProgressError(
                 "onboarding_result_not_ready",
                 "建档结果尚未生成。",
                 details={"nextStep": progress.next_step},
             )
         preference = self.get_study_preference(session, user_id=user_id)
+        experience = self._repository.experience_by_version(
+            session,
+            user_id=user_id,
+            version_no=progress.experience_profile_version,
+        )
         target_owner = PositionTargetScoreOwner()
         try:
             context = target_owner.active_context(
@@ -265,6 +428,7 @@ class OnboardingProgressService:
                 ),
                 progress_version=progress.progress_version,
                 qualification_profile_version=progress.qualification_profile_version,
+                preparation_experience=experience,
                 ability_estimate=ability.estimate,
                 primary_goal=None,
                 score_gap=None,
@@ -306,11 +470,12 @@ class OnboardingProgressService:
                 reason_code=reason,
                 progress_version=progress.progress_version,
                 qualification_profile_version=progress.qualification_profile_version,
+                preparation_experience=experience,
                 ability_estimate=ability.estimate,
                 primary_goal=primary_goal,
                 score_gap=None,
                 weekly_preference=preference,
-                next_action="record_baseline",
+                next_action=_baseline_next_action(experience),
                 generated_at=generated_at,
                 valid_until=(
                     min(target_score.valid_until, ability.estimate.valid_until)
@@ -337,6 +502,7 @@ class OnboardingProgressService:
             reason_code="ready",
             progress_version=progress.progress_version,
             qualification_profile_version=progress.qualification_profile_version,
+            preparation_experience=experience,
             ability_estimate=estimate,
             primary_goal=primary_goal,
             score_gap=gap,
@@ -372,6 +538,21 @@ class OnboardingProgressService:
         if replay is not None:
             return StudyPreferenceResult.model_validate(replay)
         self._require_progress_version(progress, command.expected_progress_version)
+        if progress.completed:
+            raise OnboardingProgressError(
+                "onboarding_already_completed",
+                "建档已经完成；后续时间调整请使用每日容量或学习偏好设置。",
+            )
+        if not progress.experience_ready:
+            raise OnboardingProgressError(
+                "preparation_experience_required",
+                "请先确认备考经历，再设置正式学习节奏。",
+            )
+        if not progress.qualification_ready:
+            raise OnboardingProgressError(
+                "onboarding_qualification_required",
+                "请先完成资格建档，再设置正式学习节奏。",
+            )
 
         current_row = self._repository.current_preference_row(session, user_id=user_id)
         current_confirmed_version = (
@@ -438,6 +619,8 @@ class OnboardingProgressService:
             progress = self._repository.advance_progress(
                 session,
                 user_id=user_id,
+                experience_ready=progress.experience_ready,
+                experience_profile_version=progress.experience_profile_version,
                 qualification_ready=progress.qualification_ready,
                 qualification_profile_version=progress.qualification_profile_version,
                 study_preference_ready=True,
@@ -544,6 +727,8 @@ class OnboardingProgressService:
             progress = self._repository.advance_progress(
                 session,
                 user_id=user_id,
+                experience_ready=progress.experience_ready,
+                experience_profile_version=progress.experience_profile_version,
                 qualification_ready=True,
                 qualification_profile_version=progress.qualification_profile_version,
                 study_preference_ready=True,
@@ -580,6 +765,7 @@ class OnboardingProgressService:
                 payload={
                     "userId": user_id,
                     "progressVersion": progress.progress_version,
+                    "experienceProfileVersion": progress.experience_profile_version,
                     "qualificationProfileVersion": progress.qualification_profile_version,
                     "studyPreferenceVersion": progress.study_preference_version,
                 },
@@ -621,6 +807,8 @@ class OnboardingProgressService:
         progress = self._repository.advance_progress(
             session,
             user_id=user_id,
+            experience_ready=progress.experience_ready,
+            experience_profile_version=progress.experience_profile_version,
             qualification_ready=False,
             qualification_profile_version=None,
             study_preference_ready=progress.study_preference_ready,
@@ -676,3 +864,15 @@ class OnboardingProgressService:
                     "nextStep": progress.next_step,
                 },
             )
+
+
+def _baseline_next_action(
+    experience: PreparationExperienceProfile,
+) -> OnboardingResultNextAction:
+    if experience.retake:
+        return "start_retake_recovery"
+    if experience.external_learning or experience.prior_guokao_exam:
+        return "import_prior_evidence"
+    if experience.first_systematic:
+        return "review_exam_briefing"
+    return "record_baseline"

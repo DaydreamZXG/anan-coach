@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timedelta
 from hashlib import sha256
 import json
 from uuid import UUID, uuid4
@@ -333,6 +333,11 @@ class DataRightsRepository:
             "profile": self._one_json(
                 "select * from learner.profiles where user_id = cast(:user_id as uuid)", user_id
             ),
+            "preparationExperience": self._many_json(
+                "select * from learner.preparation_experience_versions "
+                "where user_id = cast(:user_id as uuid) order by version_no",
+                user_id,
+            ),
             "scoreEvidence": self._many_json(
                 "select * from learning.score_evidence where user_id = cast(:user_id as uuid) order by occurred_at", user_id
             ),
@@ -604,6 +609,21 @@ class DataRightsRepository:
             (
                 "profiles",
                 "delete from learner.profiles where user_id = cast(:user_id as uuid)",
+            ),
+            (
+                "preparation_experience",
+                """
+                update learner.preparation_experience_versions
+                set declaration_status = 'legacy_not_collected',
+                    first_systematic = false,
+                    external_learning = false,
+                    prior_guokao_exam = false,
+                    retake = false,
+                    prior_exam_years = '[]'::jsonb,
+                    input_fingerprint = repeat('0', 64),
+                    erased_at = :now
+                where user_id = cast(:user_id as uuid)
+                """,
             ),
             (
                 "qualification_profiles",

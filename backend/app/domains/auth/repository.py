@@ -629,12 +629,13 @@ class AuthRepository:
             text(
                 """
                 insert into learner.onboarding_progress (
-                  user_id, progress_version, qualification_ready,
+                  user_id, progress_version, experience_ready,
+                  experience_profile_version, qualification_ready,
                   qualification_profile_version, study_preference_ready,
                   study_preference_version, result_ready,
                   result_acknowledged, completed, created_at, updated_at
                 ) values (
-                  cast(:user_id as uuid), 1, false, null, false, null,
+                  cast(:user_id as uuid), 1, false, null, false, null, false, null,
                   false, false, false, now(), now()
                 )
                 on conflict (user_id) do nothing

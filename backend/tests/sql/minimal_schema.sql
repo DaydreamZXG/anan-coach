@@ -2363,7 +2363,8 @@ create table learner.onboarding_progress (
     study_preference_ready = (study_preference_version is not null)
     and (study_preference_version is null or study_preference_version >= 1)
   ),
-  check (result_ready = (qualification_ready and study_preference_ready)),
+  constraint onboarding_progress_result_ready_check
+    check (result_ready = (qualification_ready and study_preference_ready)),
   check (result_acknowledged = completed),
   check (not completed or (result_ready and completed_at is not null)),
   check (completed or completed_at is null),
@@ -2374,7 +2375,7 @@ create table learner.onboarding_progress (
 create table learner.onboarding_commands (
   command_id text primary key check (char_length(command_id) between 8 and 260),
   user_id uuid not null references learner.users(user_id),
-  command_type text not null check (
+  command_type text not null constraint onboarding_commands_type_check check (
     command_type in (
       'qualification_completed', 'qualification_invalidated',
       'study_preference_recorded', 'result_acknowledged'
@@ -2392,7 +2393,7 @@ create table learner.onboarding_progress_events (
   event_id uuid primary key,
   command_id text not null unique references learner.onboarding_commands(command_id),
   user_id uuid not null references learner.users(user_id),
-  event_type text not null check (
+  event_type text not null constraint onboarding_progress_events_type_check check (
     event_type in (
       'qualification_completed', 'qualification_invalidated',
       'study_preference_recorded', 'result_acknowledged'

@@ -36,6 +36,7 @@ from app.domains.qualification.router import router as qualification_router
 from app.domains.rank_system.router import router as rank_router
 from app.domains.review_session.router import router as review_session_router
 from app.domains.reporting.router import router as reporting_router
+from app.domains.retake.router import router as retake_router
 from app.domains.taskstream.router import router as taskstream_router
 from app.domains.task_help.router import router as task_help_router
 from app.domains.xingce_learning.briefing.router import router as xingce_briefing_router
@@ -82,5 +83,6 @@ router.include_router(feed_router)
 router.include_router(rank_router)
 router.include_router(review_session_router)
 router.include_router(reporting_router)
+router.include_router(retake_router)
 router.include_router(qualification_router)
 router.include_router(internal_services_router)

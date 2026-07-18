@@ -301,6 +301,12 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
         connection.execute(text("drop table learner.onboarding_progress_events"))
         connection.execute(text("drop table learner.onboarding_commands"))
         connection.execute(text("drop table learner.onboarding_progress"))
+        connection.execute(text("drop table learner.preparation_experience_versions"))
+        connection.execute(
+            text(
+                "drop function learner.enforce_preparation_experience_immutability()"
+            )
+        )
         connection.execute(
             text("drop function learner.enforce_onboarding_progress_transition()")
         )
@@ -607,21 +613,28 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
                 text(
                     """
                     select progress.qualification_ready,
+                           progress.experience_ready,
                            progress.study_preference_ready,
                            progress.completed,
                            profile.onboarding_complete,
-                           preference.weekday_minutes
+                           preference.weekday_minutes,
+                           experience.declaration_status
                     from learner.onboarding_progress progress
                     join learner.profiles profile using (user_id)
                     left join learning.weekly_study_preference_versions preference
                       on preference.user_id = progress.user_id
                      and preference.version_no = progress.study_preference_version
+                    left join learner.preparation_experience_versions experience
+                      on experience.user_id = progress.user_id
+                     and experience.version_no = progress.experience_profile_version
                     where progress.user_id =
                       '00000000-0000-0000-0000-000000000221'
                     """
                 )
             ).mappings().one()
             assert scheduled["qualification_ready"] is True
+            assert scheduled["experience_ready"] is True
+            assert scheduled["declaration_status"] == "legacy_not_collected"
             assert scheduled["study_preference_ready"] is True
             assert scheduled["completed"] is True
             assert scheduled["onboarding_complete"] is True
@@ -631,17 +644,24 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
                 text(
                     """
                     select progress.qualification_ready,
+                           progress.experience_ready,
                            progress.study_preference_ready,
                            progress.completed,
-                           profile.onboarding_complete
+                           profile.onboarding_complete,
+                           experience.declaration_status
                     from learner.onboarding_progress progress
                     join learner.profiles profile using (user_id)
+                    left join learner.preparation_experience_versions experience
+                      on experience.user_id = progress.user_id
+                     and experience.version_no = progress.experience_profile_version
                     where progress.user_id =
                       '00000000-0000-0000-0000-000000000222'
                     """
                 )
             ).mappings().one()
             assert no_schedule["qualification_ready"] is True
+            assert no_schedule["experience_ready"] is True
+            assert no_schedule["declaration_status"] == "legacy_not_collected"
             assert no_schedule["study_preference_ready"] is False
             assert no_schedule["completed"] is False
             assert no_schedule["onboarding_complete"] is False
@@ -879,6 +899,7 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
                 "learning.task_execution_versions",
                 "learning.weekly_study_preference_versions",
                 "learner.onboarding_commands",
+                "learner.preparation_experience_versions",
                 "learner.onboarding_progress_events",
                 "product.essay_material_bundle_versions",
                 "product.essay_material_segments",

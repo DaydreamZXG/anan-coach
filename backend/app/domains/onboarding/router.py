@@ -33,6 +33,9 @@ from app.domains.onboarding.v2_schemas import (
     OnboardingProgress,
     OnboardingResultProjection,
     OnboardingResultAcknowledgement,
+    PreparationExperienceProfile,
+    PreparationExperienceResult,
+    PreparationExperienceWrite,
     QualificationMilestoneCommand,
     StudyPreferenceResult,
     StudyPreferenceWrite,
@@ -174,6 +177,57 @@ def get_onboarding_progress(
     return public_success_envelope(request=request, response=response, data=progress)
 
 
+@v2_router.get(
+    "/preparation-experience",
+    response_model=PublicApiEnvelope[PreparationExperienceProfile],
+)
+def get_preparation_experience(
+    request: Request,
+    response: Response,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> PublicApiEnvelope[PreparationExperienceProfile] | JSONResponse:
+    try:
+        experience = OnboardingProgressService().get_preparation_experience(
+            session,
+            user_id=current_user.user_id,
+        )
+        return public_success_envelope(
+            request=request,
+            response=response,
+            data=experience,
+        )
+    except OnboardingProgressError as exc:
+        session.rollback()
+        return _onboarding_error_response(request, exc)
+
+
+@v2_router.put(
+    "/preparation-experience",
+    response_model=PublicApiEnvelope[PreparationExperienceResult],
+)
+def put_preparation_experience(
+    request: Request,
+    response: Response,
+    command: PreparationExperienceWrite,
+    idempotency_key: Annotated[str, Depends(_v2_idempotency_key)],
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> PublicApiEnvelope[PreparationExperienceResult] | JSONResponse:
+    try:
+        result = OnboardingProgressService().record_preparation_experience(
+            session,
+            user_id=current_user.user_id,
+            command_id=f"{current_user.user_id}:{idempotency_key}",
+            command=command,
+        )
+        session.commit()
+        return public_success_envelope(request=request, response=response, data=result)
+    except OnboardingProgressError as exc:
+        session.rollback()
+        return _onboarding_error_response(request, exc)
+
+
 @v2_router.post(
     "/qualification/complete",
     response_model=PublicApiEnvelope[OnboardingProgress],
@@ -300,7 +354,12 @@ def _onboarding_error_response(
 ) -> JSONResponse:
     status_code = (
         status.HTTP_404_NOT_FOUND
-        if exc.code in {"qualification_profile_missing", "study_preference_missing"}
+        if exc.code
+        in {
+            "preparation_experience_missing",
+            "qualification_profile_missing",
+            "study_preference_missing",
+        }
         else status.HTTP_409_CONFLICT
     )
     return public_error_response(

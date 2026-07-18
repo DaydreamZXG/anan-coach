@@ -289,6 +289,8 @@ function profile(draft: QualificationDraft, profileVersion: number): Qualificati
 function progress(changes: Partial<OnboardingProgress> = {}): OnboardingProgress {
   return {
     progressVersion: 2,
+    experienceReady: true,
+    experienceProfileVersion: 1,
     qualificationReady: false,
     qualificationProfileVersion: null,
     studyPreferenceReady: false,

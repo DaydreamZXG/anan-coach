@@ -23,10 +23,6 @@ from app.domains.commerce.stage8_schemas import (
     PolicyAcceptances,
     ProcessRewardProgress,
     RefundEligibility,
-    RetakeEnrollmentRequest,
-    RetakeLossStructure,
-    RetakeProgramResponse,
-    RetakeProgramView,
     Stage8Catalog,
     WechatNotificationAck,
     WechatOffer,
@@ -367,18 +363,6 @@ class Stage8CommerceService:
             progress=_reward_progress(order, facts),
         )
 
-    def enroll_retake(
-        self, *, user_id: str, request: RetakeEnrollmentRequest
-    ) -> RetakeProgramResponse:
-        record = self._repository.enroll_retake(
-            user_id=user_id,
-            command_key=request.command_key,
-            source_score_evidence_id=request.source_score_evidence_id,
-            target_exam_year=request.target_exam_year,
-            now=self._now(),
-        )
-        return RetakeProgramResponse(program=_retake_view(record))
-
     def dashboard(self, *, user_id: str) -> CommerceDashboard:
         orders = self._repository.list_orders(user_id=user_id)
         latest = next((item for item in orders if item.paid_at is not None), None)
@@ -387,7 +371,6 @@ class Stage8CommerceService:
             if latest is not None
             else None
         )
-        retake = self._repository.current_retake_program(user_id=user_id)
         return CommerceDashboard(
             catalog=self.catalog(),
             entitlement=self._entitlement_service.get_entitlement(user_id=user_id),
@@ -398,7 +381,6 @@ class Stage8CommerceService:
             reward_progress=_reward_progress(latest, facts)
             if latest is not None and facts is not None
             else None,
-            retake_program=_retake_view(retake) if retake is not None else None,
         )
 
     def reconcile_pending(self) -> dict[str, int]:
@@ -785,22 +767,6 @@ def _reward_progress(order: OrderRecord, facts: RewardFacts) -> ProcessRewardPro
         awarded_rewards=facts.awarded_rewards,
         pending_rewards=facts.pending_rewards,
         score_fields_used=False,
-    )
-
-
-def _retake_view(record: Any) -> RetakeProgramView:
-    loss = record.loss_structure
-    return RetakeProgramView(
-        program_version_id=record.program_version_id,
-        source_score_evidence_id=record.source_score_evidence_id,
-        source_exam_year=record.source_exam_year,
-        target_exam_year=record.target_exam_year,
-        state=record.state,
-        loss_structure=RetakeLossStructure.model_validate(loss),
-        refund_uses_score=False,
-        reward_uses_score=False,
-        training_uses_score=True,
-        created_at=record.created_at,
     )
 
 

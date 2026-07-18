@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  onboardingResultActionTarget,
   positionBriefingUrl,
   positionCompareUrl,
   positionDetailUrl,
@@ -9,6 +10,28 @@ import {
 } from "../miniprogram/app/navigation/routes";
 
 describe("position deep links", () => {
+  it("routes each onboarding result without inventing a missing briefing target", () => {
+    expect(onboardingResultActionTarget("enter_workspace")).toEqual({
+      mode: "switchTab",
+      url: "/pages/today/index",
+    });
+    expect(onboardingResultActionTarget("import_prior_evidence")).toEqual({
+      mode: "navigateTo",
+      url: "/pages/external-report/index",
+    });
+    expect(onboardingResultActionTarget("start_retake_recovery")).toEqual({
+      mode: "navigateTo",
+      url: "/pages/retake/index",
+    });
+    expect(onboardingResultActionTarget("review_exam_briefing", "position/1")).toEqual({
+      mode: "navigateTo",
+      url: "/pages/positions/briefing/index?positionId=position%2F1",
+    });
+    expect(() => onboardingResultActionTarget("review_exam_briefing")).toThrow(
+      "explicit position ID",
+    );
+  });
+
   it("builds registered detail and goal routes with encoded identifiers", () => {
     expect(positionDetailUrl("position/1")).toBe(
       "/pages/positions/detail/index?positionId=position%2F1",

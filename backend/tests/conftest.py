@@ -214,6 +214,11 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in six_modules._TEST_STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
+        preparation_experience = import_module(
+            "migrations.versions.20260718_40_preparation_experience_retake_owner"
+        )
+        for statement in preparation_experience._TEST_STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
 
 
 def _split_postgres_statements(script: str) -> list[str]:

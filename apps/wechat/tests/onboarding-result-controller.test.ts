@@ -130,6 +130,7 @@ function resultProjection(): OnboardingResultProjection {
     reasonCode: "primary_goal_missing",
     progressVersion: 3,
     qualificationProfileVersion: 2,
+    preparationExperience: preparationExperience(),
     abilityEstimate: null,
     primaryGoal: null,
     scoreGap: null,
@@ -156,6 +157,8 @@ function resultProjection(): OnboardingResultProjection {
 function completedProgress(): OnboardingProgress {
   return {
     progressVersion: 4,
+    experienceReady: true,
+    experienceProfileVersion: 1,
     qualificationReady: true,
     qualificationProfileVersion: 2,
     studyPreferenceReady: true,
@@ -166,6 +169,23 @@ function completedProgress(): OnboardingProgress {
     completed: true,
     updatedAt: "2026-07-13T00:01:00Z",
     completedAt: "2026-07-13T00:01:00Z",
+  };
+}
+
+function preparationExperience() {
+  return {
+    experienceVersionId: "experience-1",
+    experienceVersion: 1,
+    declarationStatus: "declared" as const,
+    firstSystematic: true,
+    externalLearning: false,
+    priorGuokaoExam: false,
+    retake: false,
+    priorExamYears: [],
+    sourceType: "user_confirmed" as const,
+    recommendedEntry: "guided_first_start" as const,
+    createdAt: "2026-07-13T00:00:00Z",
+    supersedesExperienceVersionId: null,
   };
 }
 

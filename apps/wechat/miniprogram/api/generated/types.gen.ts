@@ -1376,7 +1376,6 @@ export type CommerceDashboard = {
      */
     orders: Array<WechatOrderView>;
     refundEligibility?: RefundEligibility | null;
-    retakeProgram?: RetakeProgramView | null;
     rewardProgress?: ProcessRewardProgress | null;
 };
 
@@ -7657,9 +7656,17 @@ export type OnboardingProgress = {
      */
     completedAt?: string | null;
     /**
+     * Experienceprofileversion
+     */
+    experienceProfileVersion?: number | null;
+    /**
+     * Experienceready
+     */
+    experienceReady: boolean;
+    /**
      * Nextstep
      */
-    nextStep: 'qualification' | 'study_preference' | 'result' | 'workspace';
+    nextStep: 'preparation_experience' | 'qualification' | 'study_preference' | 'result' | 'workspace';
     /**
      * Progressversion
      */
@@ -7720,7 +7727,8 @@ export type OnboardingResultProjection = {
     /**
      * Nextaction
      */
-    nextAction: 'enter_workspace' | 'record_baseline' | 'choose_position';
+    nextAction: 'enter_workspace' | 'record_baseline' | 'choose_position' | 'review_exam_briefing' | 'import_prior_evidence' | 'start_retake_recovery';
+    preparationExperience: PreparationExperienceProfile;
     primaryGoal?: OnboardingPrimaryGoal | null;
     /**
      * Progressversion
@@ -9319,6 +9327,102 @@ export type PracticeTask = {
 };
 
 /**
+ * PreparationExperienceProfile
+ */
+export type PreparationExperienceProfile = {
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Declarationstatus
+     */
+    declarationStatus: 'declared' | 'legacy_not_collected';
+    /**
+     * Experienceversion
+     */
+    experienceVersion: number;
+    /**
+     * Experienceversionid
+     */
+    experienceVersionId: string;
+    /**
+     * Externallearning
+     */
+    externalLearning: boolean;
+    /**
+     * Firstsystematic
+     */
+    firstSystematic: boolean;
+    /**
+     * Priorexamyears
+     */
+    priorExamYears: Array<number>;
+    /**
+     * Priorguokaoexam
+     */
+    priorGuokaoExam: boolean;
+    /**
+     * Recommendedentry
+     */
+    recommendedEntry: 'guided_first_start' | 'import_external_evidence' | 'retake_loss_recovery' | 'legacy_unspecified';
+    /**
+     * Retake
+     */
+    retake: boolean;
+    /**
+     * Sourcetype
+     */
+    sourceType: 'user_confirmed' | 'user_revised' | 'migration';
+    /**
+     * Supersedesexperienceversionid
+     */
+    supersedesExperienceVersionId?: string | null;
+};
+
+/**
+ * PreparationExperienceResult
+ */
+export type PreparationExperienceResult = {
+    experience: PreparationExperienceProfile;
+    progress: OnboardingProgress;
+};
+
+/**
+ * PreparationExperienceWrite
+ */
+export type PreparationExperienceWrite = {
+    /**
+     * Expectedexperienceversion
+     */
+    expectedExperienceVersion: number;
+    /**
+     * Expectedprogressversion
+     */
+    expectedProgressVersion: number;
+    /**
+     * Externallearning
+     */
+    externalLearning: boolean;
+    /**
+     * Firstsystematic
+     */
+    firstSystematic: boolean;
+    /**
+     * Priorexamyears
+     */
+    priorExamYears?: Array<number>;
+    /**
+     * Priorguokaoexam
+     */
+    priorGuokaoExam: boolean;
+    /**
+     * Retake
+     */
+    retake: boolean;
+};
+
+/**
  * PrimaryAction
  */
 export type PrimaryAction = {
@@ -10575,6 +10679,36 @@ export type PublicApiEnvelopePositionWorkspaceResponse = {
 };
 
 /**
+ * PublicApiEnvelope[PreparationExperienceProfile]
+ */
+export type PublicApiEnvelopePreparationExperienceProfile = {
+    data: PreparationExperienceProfile;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[PreparationExperienceResult]
+ */
+export type PublicApiEnvelopePreparationExperienceResult = {
+    data: PreparationExperienceResult;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[PrimaryGoalConfirmResponse]
  */
 export type PublicApiEnvelopePrimaryGoalConfirmResponse = {
@@ -10770,10 +10904,25 @@ export type PublicApiEnvelopeRequirementConfirmationResult = {
 };
 
 /**
- * PublicApiEnvelope[RetakeProgramResponse]
+ * PublicApiEnvelope[RetakeEnrollmentResult]
  */
-export type PublicApiEnvelopeRetakeProgramResponse = {
-    data: RetakeProgramResponse;
+export type PublicApiEnvelopeRetakeEnrollmentResult = {
+    data: RetakeEnrollmentResult;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[RetakeWorkspace]
+ */
+export type PublicApiEnvelopeRetakeWorkspace = {
+    data: RetakeWorkspace;
     /**
      * Generatedat
      */
@@ -12601,17 +12750,16 @@ export type RequirementConfirmationResult = {
  */
 export type RetakeEnrollmentRequest = {
     /**
-     * Commandkey
-     */
-    commandKey: string;
-    /**
      * Sourcescoreevidenceid
      */
     sourceScoreEvidenceId: string;
-    /**
-     * Targetexamyear
-     */
-    targetExamYear: number;
+};
+
+/**
+ * RetakeEnrollmentResult
+ */
+export type RetakeEnrollmentResult = {
+    program: RetakeProgramView;
 };
 
 /**
@@ -12638,13 +12786,6 @@ export type RetakeLossStructure = {
      * Xingcescore
      */
     xingceScore?: number | null;
-};
-
-/**
- * RetakeProgramResponse
- */
-export type RetakeProgramResponse = {
-    program: RetakeProgramView;
 };
 
 /**
@@ -12688,6 +12829,59 @@ export type RetakeProgramView = {
      * Trainingusesscore
      */
     trainingUsesScore: true;
+};
+
+/**
+ * RetakeScoreEvidenceOption
+ */
+export type RetakeScoreEvidenceOption = {
+    /**
+     * Essayscore
+     */
+    essayScore?: number | null;
+    /**
+     * Evidenceid
+     */
+    evidenceId: string;
+    /**
+     * Examyear
+     */
+    examYear: number;
+    /**
+     * Occurredat
+     */
+    occurredAt: string;
+    /**
+     * Sourcetype
+     */
+    sourceType: 'self_report' | 'official_exam';
+    /**
+     * Totalscore
+     */
+    totalScore?: number | null;
+    /**
+     * Xingcescore
+     */
+    xingceScore?: number | null;
+};
+
+/**
+ * RetakeWorkspace
+ */
+export type RetakeWorkspace = {
+    /**
+     * Eligiblescoreevidence
+     */
+    eligibleScoreEvidence: Array<RetakeScoreEvidenceOption>;
+    program?: RetakeProgramView | null;
+    /**
+     * Scoreuseboundary
+     */
+    scoreUseBoundary: string;
+    /**
+     * Targetexamyear
+     */
+    targetExamYear: number;
 };
 
 /**
@@ -18491,69 +18685,6 @@ export type GetRefundEligibilityApiV2CommerceRefundEligibilityGetResponses = {
 };
 
 export type GetRefundEligibilityApiV2CommerceRefundEligibilityGetResponse = GetRefundEligibilityApiV2CommerceRefundEligibilityGetResponses[keyof GetRefundEligibilityApiV2CommerceRefundEligibilityGetResponses];
-
-export type EnrollRetakeProgramApiV2CommerceRetakeProgramsPostData = {
-    body: RetakeEnrollmentRequest;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
-    path?: never;
-    query?: never;
-    url: '/api/v2/commerce/retake-programs';
-};
-
-export type EnrollRetakeProgramApiV2CommerceRetakeProgramsPostErrors = {
-    /**
-     * The request is invalid for the current business state.
-     */
-    400: PublicApiError;
-    /**
-     * Authentication is required or no longer valid.
-     */
-    401: PublicApiError;
-    /**
-     * The authenticated account cannot perform this action.
-     */
-    403: PublicApiError;
-    /**
-     * The requested resource does not exist.
-     */
-    404: PublicApiError;
-    /**
-     * The request conflicts with the current resource revision.
-     */
-    409: PublicApiError;
-    /**
-     * The request body or parameters failed validation.
-     */
-    422: PublicApiError;
-    /**
-     * The request exceeded a controlled rate or quota.
-     */
-    429: PublicApiError;
-    /**
-     * The server could not complete the request.
-     */
-    500: PublicApiError;
-    /**
-     * A required service is temporarily unavailable.
-     */
-    503: PublicApiError;
-};
-
-export type EnrollRetakeProgramApiV2CommerceRetakeProgramsPostError = EnrollRetakeProgramApiV2CommerceRetakeProgramsPostErrors[keyof EnrollRetakeProgramApiV2CommerceRetakeProgramsPostErrors];
-
-export type EnrollRetakeProgramApiV2CommerceRetakeProgramsPostResponses = {
-    /**
-     * Successful Response
-     */
-    200: PublicApiEnvelopeRetakeProgramResponse;
-};
-
-export type EnrollRetakeProgramApiV2CommerceRetakeProgramsPostResponse = EnrollRetakeProgramApiV2CommerceRetakeProgramsPostResponses[keyof EnrollRetakeProgramApiV2CommerceRetakeProgramsPostResponses];
 
 export type CreateVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersPostData = {
     body: VirtualPaymentOrderCreateRequest;
@@ -24511,6 +24642,136 @@ export type AcknowledgeOnboardingResultApiV2OnboardingCompletePostResponses = {
 
 export type AcknowledgeOnboardingResultApiV2OnboardingCompletePostResponse = AcknowledgeOnboardingResultApiV2OnboardingCompletePostResponses[keyof AcknowledgeOnboardingResultApiV2OnboardingCompletePostResponses];
 
+export type GetPreparationExperienceApiV2OnboardingPreparationExperienceGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/onboarding/preparation-experience';
+};
+
+export type GetPreparationExperienceApiV2OnboardingPreparationExperienceGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetPreparationExperienceApiV2OnboardingPreparationExperienceGetError = GetPreparationExperienceApiV2OnboardingPreparationExperienceGetErrors[keyof GetPreparationExperienceApiV2OnboardingPreparationExperienceGetErrors];
+
+export type GetPreparationExperienceApiV2OnboardingPreparationExperienceGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopePreparationExperienceProfile;
+};
+
+export type GetPreparationExperienceApiV2OnboardingPreparationExperienceGetResponse = GetPreparationExperienceApiV2OnboardingPreparationExperienceGetResponses[keyof GetPreparationExperienceApiV2OnboardingPreparationExperienceGetResponses];
+
+export type PutPreparationExperienceApiV2OnboardingPreparationExperiencePutData = {
+    body: PreparationExperienceWrite;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/onboarding/preparation-experience';
+};
+
+export type PutPreparationExperienceApiV2OnboardingPreparationExperiencePutErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type PutPreparationExperienceApiV2OnboardingPreparationExperiencePutError = PutPreparationExperienceApiV2OnboardingPreparationExperiencePutErrors[keyof PutPreparationExperienceApiV2OnboardingPreparationExperiencePutErrors];
+
+export type PutPreparationExperienceApiV2OnboardingPreparationExperiencePutResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopePreparationExperienceResult;
+};
+
+export type PutPreparationExperienceApiV2OnboardingPreparationExperiencePutResponse = PutPreparationExperienceApiV2OnboardingPreparationExperiencePutResponses[keyof PutPreparationExperienceApiV2OnboardingPreparationExperiencePutResponses];
+
 export type GetOnboardingProgressApiV2OnboardingProgressGetData = {
     body?: never;
     headers?: {
@@ -26751,6 +27012,136 @@ export type GetReportProjectionApiV2ReportingReportsReportKindGetResponses = {
 };
 
 export type GetReportProjectionApiV2ReportingReportsReportKindGetResponse = GetReportProjectionApiV2ReportingReportsReportKindGetResponses[keyof GetReportProjectionApiV2ReportingReportsReportKindGetResponses];
+
+export type GetRetakeWorkspaceApiV2RetakeGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/retake';
+};
+
+export type GetRetakeWorkspaceApiV2RetakeGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetRetakeWorkspaceApiV2RetakeGetError = GetRetakeWorkspaceApiV2RetakeGetErrors[keyof GetRetakeWorkspaceApiV2RetakeGetErrors];
+
+export type GetRetakeWorkspaceApiV2RetakeGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeRetakeWorkspace;
+};
+
+export type GetRetakeWorkspaceApiV2RetakeGetResponse = GetRetakeWorkspaceApiV2RetakeGetResponses[keyof GetRetakeWorkspaceApiV2RetakeGetResponses];
+
+export type EnrollRetakeProgramApiV2RetakeProgramsPostData = {
+    body: RetakeEnrollmentRequest;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/retake/programs';
+};
+
+export type EnrollRetakeProgramApiV2RetakeProgramsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type EnrollRetakeProgramApiV2RetakeProgramsPostError = EnrollRetakeProgramApiV2RetakeProgramsPostErrors[keyof EnrollRetakeProgramApiV2RetakeProgramsPostErrors];
+
+export type EnrollRetakeProgramApiV2RetakeProgramsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeRetakeEnrollmentResult;
+};
+
+export type EnrollRetakeProgramApiV2RetakeProgramsPostResponse = EnrollRetakeProgramApiV2RetakeProgramsPostResponses[keyof EnrollRetakeProgramApiV2RetakeProgramsPostResponses];
 
 export type GetScoreEvidenceHistoryApiV2ScoreEvidenceGetData = {
     body?: never;

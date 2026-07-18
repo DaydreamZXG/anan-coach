@@ -1,0 +1,55 @@
+<view class="s9-page s9-page--with-dock experience-page">
+  <view class="s9-hero">
+    <view class="s9-eyebrow">先确认你从哪里出发</view>
+    <view class="s9-title">你不是统一模板里的“新用户”</view>
+    <view class="s9-subtitle">这一步只决定第一条学习路径。已有经历可以多选，岸岸不会让你把会的内容重学一遍。</view>
+  </view>
+
+  <view wx:if="{{!state || state.status === 'loading'}}" class="page-state">
+    <anan-companion size="large" intent="thinking" context="plan" animate />
+    <view class="state-title">正在确认建档起点</view>
+    <view class="state-copy">会核对上一次保存是否已经生效。</view>
+  </view>
+
+  <view wx:elif="{{state.status === 'error'}}" class="page-state">
+    <anan-companion size="large" intent="rest" context="emotion" />
+    <view class="state-title">备考经历没有加载完成</view>
+    <view class="state-copy">{{state.error.message}}</view>
+    <view wx:if="{{state.error.requestId}}" class="request-id">Request ID · {{state.error.requestId}}</view>
+    <ui-button label="重新读取" bind:action="retry" />
+  </view>
+
+  <block wx:else>
+    <view wx:if="{{state.pendingRecovery}}" class="recovery-banner">
+      上一次确认结果未知，选项已锁定；重试只查询同一命令，不会重复写入经历版本。
+    </view>
+
+    <view class="choice-list">
+      <view class="choice-card {{state.draft.firstSystematic ? 'choice-card--selected' : ''}}" data-choice="firstSystematic" bindtap="selectChoice">
+        <view class="choice-icon">01</view>
+        <view class="choice-body"><view class="choice-title">第一次系统备考</view><view class="choice-copy">先看可选岗位和考情，再建立双科起点。</view></view>
+        <view class="choice-check">{{state.draft.firstSystematic ? '✓' : ''}}</view>
+      </view>
+      <view class="choice-card {{state.draft.externalLearning ? 'choice-card--selected' : ''}}" data-choice="externalLearning" bindtap="selectChoice">
+        <view class="choice-icon">02</view>
+        <view class="choice-body"><view class="choice-title">已经在外部学习</view><view class="choice-copy">后续导入讲义、笔记或模考证据，先复用已有成果。</view></view>
+        <view class="choice-check">{{state.draft.externalLearning ? '✓' : ''}}</view>
+      </view>
+      <view class="choice-card {{state.draft.priorGuokaoExam ? 'choice-card--selected' : ''}}" data-choice="priorGuokaoExam" bindtap="selectChoice">
+        <view class="choice-icon">03</view>
+        <view class="choice-body"><view class="choice-title">参加过往年国考</view><view class="choice-copy">实考成绩只用于定位，不直接跨年计算提分。</view></view>
+        <view class="choice-check">{{state.draft.priorGuokaoExam ? '✓' : ''}}</view>
+      </view>
+      <view class="choice-card choice-card--retake {{state.draft.retake ? 'choice-card--selected' : ''}}" data-choice="retake" bindtap="selectChoice">
+        <view class="choice-icon">04</view>
+        <view class="choice-body"><view class="choice-title">二战或多次备考</view><view class="choice-copy">从失分结构开始，跳过去年已经掌握的内容。</view></view>
+        <view class="choice-check">{{state.draft.retake ? '✓' : ''}}</view>
+      </view>
+    </view>
+
+    <view class="boundary-note">选择二战会自动包含“参加过往年国考”。成绩不用于退款、现金奖励或上岸承诺。</view>
+    <view wx:if="{{state.validationError}}" class="error-banner">{{state.validationError}}</view>
+    <view wx:if="{{state.error}}" class="error-banner"><view>{{state.error.message}}</view><view wx:if="{{state.error.requestId}}" class="request-id">Request ID · {{state.error.requestId}}</view></view>
+    <view class="s9-action-dock"><button class="s9-primary-button" loading="{{state.saving}}" bindtap="submit">{{state.pendingRecovery ? '查询原确认结果' : '确认经历，继续建档'}}</button></view>
+  </block>
+</view>

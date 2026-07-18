@@ -98,6 +98,8 @@ export function completedProgress(): OnboardingProgress {
   return {
     completed: true,
     completedAt: "2026-07-15T00:00:00Z",
+    experienceProfileVersion: 1,
+    experienceReady: true,
     nextStep: "workspace",
     progressVersion: 4,
     qualificationProfileVersion: 1,
@@ -116,6 +118,8 @@ export function incompleteProgress(
   return {
     completed: false,
     completedAt: null,
+    experienceProfileVersion: 1,
+    experienceReady: true,
     nextStep,
     progressVersion: 1,
     qualificationProfileVersion: null,

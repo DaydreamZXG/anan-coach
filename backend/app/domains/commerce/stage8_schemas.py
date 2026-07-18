@@ -209,37 +209,6 @@ class WeeklyReflectionConfirmationView(CommerceBaseModel):
     progress: ProcessRewardProgress
 
 
-class RetakeEnrollmentRequest(CommerceBaseModel):
-    command_key: str = Field(alias="commandKey", min_length=8, max_length=160)
-    source_score_evidence_id: UUID = Field(alias="sourceScoreEvidenceId")
-    target_exam_year: int = Field(alias="targetExamYear", ge=2001, le=2100)
-
-
-class RetakeLossStructure(CommerceBaseModel):
-    xingce_score: float | None = Field(default=None, alias="xingceScore")
-    essay_score: float | None = Field(default=None, alias="essayScore")
-    available_tracks: list[Literal["xingce", "essay"]] = Field(alias="availableTracks")
-    training_focus: list[str] = Field(alias="trainingFocus")
-    limitation: str
-
-
-class RetakeProgramView(CommerceBaseModel):
-    program_version_id: UUID = Field(alias="programVersionId")
-    source_score_evidence_id: UUID = Field(alias="sourceScoreEvidenceId")
-    source_exam_year: int = Field(alias="sourceExamYear")
-    target_exam_year: int = Field(alias="targetExamYear")
-    state: Literal["active", "completed", "withdrawn"]
-    loss_structure: RetakeLossStructure = Field(alias="lossStructure")
-    refund_uses_score: Literal[False] = Field(alias="refundUsesScore")
-    reward_uses_score: Literal[False] = Field(alias="rewardUsesScore")
-    training_uses_score: Literal[True] = Field(alias="trainingUsesScore")
-    created_at: datetime = Field(alias="createdAt")
-
-
-class RetakeProgramResponse(CommerceBaseModel):
-    program: RetakeProgramView
-
-
 class RefundEligibility(CommerceBaseModel):
     eligible: bool
     application_deadline: datetime | None = Field(
@@ -261,10 +230,6 @@ class CommerceDashboard(CommerceBaseModel):
     reward_progress: ProcessRewardProgress | None = Field(
         default=None, alias="rewardProgress"
     )
-    retake_program: RetakeProgramView | None = Field(
-        default=None, alias="retakeProgram"
-    )
-
     @model_validator(mode="after")
     def active_order_has_commercial_state(self) -> "CommerceDashboard":
         if self.reward_progress is not None and not any(

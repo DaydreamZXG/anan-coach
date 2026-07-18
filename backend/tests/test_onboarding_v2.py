@@ -41,8 +41,13 @@ def test_v2_onboarding_progress_is_resumable_idempotent_and_auditable(
     token = auth["accessToken"]
     user_id = auth["user"]["userId"]
     assert auth["onboardingComplete"] is False
-    assert auth["onboardingProgress"]["nextStep"] == "qualification"
+    assert auth["onboardingProgress"]["nextStep"] == "preparation_experience"
     headers = {"Authorization": f"Bearer {token}"}
+
+    experience = _record_preparation_experience(client, headers=headers)
+    assert experience["experience"]["recommendedEntry"] == "guided_first_start"
+    assert experience["progress"]["progressVersion"] == 2
+    assert experience["progress"]["nextStep"] == "qualification"
 
     facts = client.put(
         "/api/v2/qualification/profile",
@@ -66,12 +71,12 @@ def test_v2_onboarding_progress_is_resumable_idempotent_and_auditable(
         "/api/v2/onboarding/qualification/complete",
         headers={**headers, "Idempotency-Key": "qualification-ready-a02"},
         json={
-            "expectedProgressVersion": 1,
+            "expectedProgressVersion": 2,
             "qualificationProfileVersion": 2,
         },
     )
     assert qualification.status_code == 200
-    assert qualification.json()["data"]["progressVersion"] == 2
+    assert qualification.json()["data"]["progressVersion"] == 3
     assert qualification.json()["data"]["nextStep"] == "study_preference"
 
     resumed = client.post(
@@ -87,7 +92,7 @@ def test_v2_onboarding_progress_is_resumable_idempotent_and_auditable(
 
     preference_command = {
         "expectedPreferenceVersion": 0,
-        "expectedProgressVersion": 2,
+        "expectedProgressVersion": 3,
         "timezone": "Asia/Shanghai",
         "effectiveFrom": "2026-07-14",
         "weekdayMinutes": 90,
@@ -110,7 +115,7 @@ def test_v2_onboarding_progress_is_resumable_idempotent_and_auditable(
         preference_data["preference"]["temporaryAdjustmentEndpoint"]
         == "/api/v2/plans/today/capacity"
     )
-    assert preference_data["progress"]["progressVersion"] == 3
+    assert preference_data["progress"]["progressVersion"] == 4
     assert preference_data["progress"]["nextStep"] == "result"
 
     replay = client.put(
@@ -140,7 +145,7 @@ def test_v2_onboarding_progress_is_resumable_idempotent_and_auditable(
     completed = client.post(
         "/api/v2/onboarding/complete",
         headers={**headers, "Idempotency-Key": "acknowledge-result-a06"},
-        json={"expectedProgressVersion": 3, "acknowledgeResult": True},
+        json={"expectedProgressVersion": 4, "acknowledgeResult": True},
     )
     assert completed.status_code == 200
     assert completed.json()["data"]["completed"] is True
@@ -170,14 +175,14 @@ def test_v2_onboarding_progress_is_resumable_idempotent_and_auditable(
         ).mappings().one()
         assert projection["onboarding_complete"] is True
         assert projection["completed"] is True
-        assert projection["progress_version"] == 4
+        assert projection["progress_version"] == 5
         assert session.execute(
             text(
                 "select count(*) from learner.onboarding_progress_events "
                 "where user_id = cast(:user_id as uuid)"
             ),
             {"user_id": user_id},
-        ).scalar_one() == 3
+        ).scalar_one() == 4
         assert session.execute(
             text(
                 "select count(*) from learning.weekly_study_preference_versions "
@@ -191,7 +196,7 @@ def test_v2_onboarding_progress_is_resumable_idempotent_and_auditable(
                 "where aggregate_id = :user_id and event_type like 'onboarding.%'"
             ),
             {"user_id": user_id},
-        ).scalar_one() == 2
+        ).scalar_one() == 3
 
 
 def test_v2_onboarding_returns_stable_missing_and_version_errors(
@@ -217,11 +222,23 @@ def test_v2_onboarding_returns_stable_missing_and_version_errors(
         except DBAPIError:
             session.rollback()
 
-    missing = client.post(
+    experience_required = client.post(
         "/api/v2/onboarding/qualification/complete",
         headers={**headers, "Idempotency-Key": "qualification-missing-a02"},
         json={
             "expectedProgressVersion": 1,
+            "qualificationProfileVersion": 1,
+        },
+    )
+    assert experience_required.status_code == 409
+    assert experience_required.json()["code"] == "preparation_experience_required"
+
+    _record_preparation_experience(client, headers=headers)
+    missing = client.post(
+        "/api/v2/onboarding/qualification/complete",
+        headers={**headers, "Idempotency-Key": "qualification-incomplete-a03"},
+        json={
+            "expectedProgressVersion": 2,
             "qualificationProfileVersion": 1,
         },
     )
@@ -269,6 +286,7 @@ def test_qualification_revision_invalidates_only_an_open_milestone(
         json={"code": "login", "deviceId": "wechat-qualification-revision"},
     ).json()["data"]
     headers = {"Authorization": f"Bearer {login['accessToken']}"}
+    _record_preparation_experience(client, headers=headers)
     original_facts = [
         {"key": "education", "value": "本科"},
         {"key": "major", "value": "法学"},
@@ -285,7 +303,7 @@ def test_qualification_revision_invalidates_only_an_open_milestone(
         "/api/v2/onboarding/qualification/complete",
         headers={**headers, "Idempotency-Key": "qualification-confirmed"},
         json={
-            "expectedProgressVersion": 1,
+            "expectedProgressVersion": 2,
             "qualificationProfileVersion": 2,
         },
     )
@@ -306,7 +324,7 @@ def test_qualification_revision_invalidates_only_an_open_milestone(
     assert revised.status_code == 200
     assert revised.json()["data"]["profileVersion"] == 3
     progress = client.get("/api/v2/onboarding/progress", headers=headers).json()["data"]
-    assert progress["progressVersion"] == 3
+    assert progress["progressVersion"] == 4
     assert progress["qualificationReady"] is False
     assert progress["qualificationProfileVersion"] is None
     assert progress["nextStep"] == "qualification"
@@ -338,6 +356,13 @@ def test_onboarding_result_requires_parallel_current_scores_before_gap(
     ).json()["data"]
     user_id = login["user"]["userId"]
     headers = {"Authorization": f"Bearer {login['accessToken']}"}
+    experience = _record_preparation_experience(
+        client,
+        headers=headers,
+        first_systematic=False,
+        external_learning=True,
+    )
+    assert experience["experience"]["recommendedEntry"] == "import_external_evidence"
     facts = [
         {"key": "education", "value": "本科"},
         {"key": "major", "value": "法学"},
@@ -353,14 +378,14 @@ def test_onboarding_result_requires_parallel_current_scores_before_gap(
     client.post(
         "/api/v2/onboarding/qualification/complete",
         headers={**headers, "Idempotency-Key": "result-qualification"},
-        json={"expectedProgressVersion": 1, "qualificationProfileVersion": 2},
+        json={"expectedProgressVersion": 2, "qualificationProfileVersion": 2},
     )
     client.put(
         "/api/v2/onboarding/study-preference",
         headers={**headers, "Idempotency-Key": "result-preference"},
         json={
             "expectedPreferenceVersion": 0,
-            "expectedProgressVersion": 2,
+            "expectedProgressVersion": 3,
             "timezone": "Asia/Shanghai",
             "effectiveFrom": "2026-07-14",
             "weekdayMinutes": 90,
@@ -385,6 +410,7 @@ def test_onboarding_result_requires_parallel_current_scores_before_gap(
     assert partial_data["abilityEstimate"]["xingce"] is not None
     assert partial_data["abilityEstimate"]["shenlun"] is None
     assert partial_data["scoreGap"] is None
+    assert partial_data["nextAction"] == "import_prior_evidence"
 
     _seed_complete_successor_estimate(db_session_factory, user_id=user_id)
     complete = client.get("/api/v2/onboarding/result", headers=headers)
@@ -413,6 +439,32 @@ def _client(factory: sessionmaker[Session]) -> TestClient:
     app.dependency_overrides[get_db_session] = override
     app.dependency_overrides[get_wechat_identity_exchange] = lambda: _WechatExchange()
     return TestClient(app)
+
+
+def _record_preparation_experience(
+    client: TestClient,
+    *,
+    headers: dict[str, str],
+    first_systematic: bool = True,
+    external_learning: bool = False,
+    prior_guokao_exam: bool = False,
+    retake: bool = False,
+) -> dict[str, object]:
+    response = client.put(
+        "/api/v2/onboarding/preparation-experience",
+        headers={**headers, "Idempotency-Key": f"preparation-{uuid4()}"},
+        json={
+            "expectedExperienceVersion": 0,
+            "expectedProgressVersion": 1,
+            "firstSystematic": first_systematic,
+            "externalLearning": external_learning,
+            "priorGuokaoExam": prior_guokao_exam,
+            "retake": retake,
+            "priorExamYears": [],
+        },
+    )
+    assert response.status_code == 200, response.text
+    return response.json()["data"]
 
 
 def _seed_active_release(factory: sessionmaker[Session]) -> None:

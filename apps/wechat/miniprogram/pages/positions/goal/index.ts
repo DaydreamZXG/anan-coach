@@ -1,10 +1,13 @@
 import { ApiClient } from "../../../api/client";
+import type { OnboardingResultProjection } from "../../../api/generated/types.gen";
+import { OnboardingApi } from "../../../api/onboarding";
 import { QualificationApi } from "../../../api/qualification";
 import { loginUrlForReturn } from "../../../app/navigation/auth-return";
 import {
   positionBriefingUrl,
   positionDetailUrl,
   positionGoalUrl,
+  onboardingResultActionTarget,
   routes,
 } from "../../../app/navigation/routes";
 import { currentAuthSession } from "../../../auth/session";
@@ -20,6 +23,9 @@ import { PositionStateStore } from "../../../features/positions/state-store";
 
 interface PositionGoalPageData {
   state: PositionGoalState | null;
+  postGoalAction: OnboardingResultProjection["nextAction"] | "";
+  resolvingPostGoalAction: boolean;
+  postGoalError: string;
 }
 
 interface PositionGoalPageCustom {
@@ -28,6 +34,7 @@ interface PositionGoalPageCustom {
   openDetail(): void;
   confirmGoal(): void;
   openBeginnerBriefing(): void;
+  openRecommendedEntry(): void;
   finish(): void;
 }
 
@@ -39,12 +46,18 @@ type PositionGoalPage = WechatMiniprogram.Page.Instance<
 interface GoalPageController extends PositionController {
   goal: PositionGoalController;
   hasShown: boolean;
+  postGoalResolutionStarted: boolean;
 }
 
 const runtimes = new PositionPageRuntimeRegistry<PositionGoalPage, GoalPageController>();
 
 Page<PositionGoalPageData, PositionGoalPageCustom>({
-  data: { state: null },
+  data: {
+    state: null,
+    postGoalAction: "",
+    resolvingPostGoalAction: false,
+    postGoalError: "",
+  },
 
   onLoad(options: Record<string, string | undefined>) {
     const positionId = options.positionId?.trim() ?? "";
@@ -56,17 +69,30 @@ Page<PositionGoalPageData, PositionGoalPageCustom>({
       return;
     }
     const runtime = runtimes.attach(this);
+    const onboardingApi = new OnboardingApi(new ApiClient(undefined, session.accessToken));
     const controller = new PositionGoalController({
       api: new QualificationApi(new ApiClient(undefined, session.accessToken)),
       store: new PositionStateStore(session.userId),
       positionId,
       onChange: (state) => {
-        if (runtimes.owns(this, runtime)) this.setData({ state });
+        if (!runtimes.owns(this, runtime)) return;
+        this.setData({ state });
+        const pageController = runtime.controller;
+        if (
+          state.status === "confirmed" &&
+          state.offerExamBriefing &&
+          pageController &&
+          !pageController.postGoalResolutionStarted
+        ) {
+          pageController.postGoalResolutionStarted = true;
+          void resolvePostGoalAction(this, runtime, onboardingApi);
+        }
       },
     });
     runtime.controller = {
       goal: controller,
       hasShown: false,
+      postGoalResolutionStarted: false,
       dispose: () => {
         controller.dispose();
       },
@@ -120,9 +146,40 @@ Page<PositionGoalPageData, PositionGoalPageCustom>({
     if (positionId) void wx.navigateTo({ url: positionBriefingUrl(positionId) });
   },
 
+  openRecommendedEntry() {
+    const action = this.data.postGoalAction;
+    if (!action) return;
+    const target = onboardingResultActionTarget(action, this.data.state?.positionId);
+    if (target.mode === "switchTab") void wx.switchTab({ url: target.url });
+    else void wx.redirectTo({ url: target.url });
+  },
+
   finish() {
     void wx.switchTab({
       url: this.data.state?.offerExamBriefing ? routes.today : routes.positions,
     });
   },
 });
+
+async function resolvePostGoalAction(
+  page: PositionGoalPage,
+  runtime: ReturnType<typeof runtimes.attach>,
+  api: OnboardingApi,
+): Promise<void> {
+  page.setData({ resolvingPostGoalAction: true, postGoalError: "" });
+  try {
+    const response = await api.getResult();
+    if (!runtimes.owns(page, runtime)) return;
+    page.setData({
+      postGoalAction: response.data.nextAction,
+      resolvingPostGoalAction: false,
+      postGoalError: "",
+    });
+  } catch {
+    if (!runtimes.owns(page, runtime)) return;
+    page.setData({
+      resolvingPostGoalAction: false,
+      postGoalError: "主目标已经确认，但首日入口没有读取完成，请重新进入该岗位。",
+    });
+  }
+}

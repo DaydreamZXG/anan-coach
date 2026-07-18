@@ -112,17 +112,6 @@ class RewardFacts:
     pending_rewards: list[str]
 
 
-@dataclass(frozen=True)
-class RetakeRecord:
-    program_version_id: UUID
-    source_score_evidence_id: UUID
-    source_exam_year: int
-    target_exam_year: int
-    state: str
-    loss_structure: dict[str, object]
-    created_at: datetime
-
-
 class Stage8CommerceRepository:
     def __init__(self, session: Session) -> None:
         self._session = session
@@ -1298,135 +1287,6 @@ class Stage8CommerceRepository:
         ).scalars()
         return sorted({str(value) for value in values})
 
-    def current_retake_program(self, *, user_id: str) -> RetakeRecord | None:
-        row = self._session.execute(
-            text(
-                """
-                select * from learning.retake_program_versions
-                where user_id = cast(:user_id as uuid) and state = 'active'
-                order by version_no desc limit 1
-                """
-            ),
-            {"user_id": user_id},
-        ).mappings().one_or_none()
-        return _retake(row) if row is not None else None
-
-    def enroll_retake(
-        self,
-        *,
-        user_id: str,
-        command_key: str,
-        source_score_evidence_id: UUID,
-        target_exam_year: int,
-        now: datetime,
-    ) -> RetakeRecord:
-        self._session.execute(
-            text("select pg_advisory_xact_lock(hashtextextended(:key, 0))"),
-            {"key": f"retake-program:{user_id}"},
-        )
-        existing = self._session.execute(
-            text(
-                """
-                select * from learning.retake_program_versions
-                where user_id = cast(:user_id as uuid) and command_key = :command_key
-                """
-            ),
-            {"user_id": user_id, "command_key": command_key},
-        ).mappings().one_or_none()
-        if existing is not None:
-            if (
-                UUID(str(existing["source_score_evidence_id"]))
-                != source_score_evidence_id
-                or int(existing["target_exam_year"]) != target_exam_year
-            ):
-                raise Stage8CommerceConflict(
-                    "command key already belongs to a different retake enrollment"
-                )
-            self._session.commit()
-            return _retake(existing)
-        evidence = self._session.execute(
-            text(
-                """
-                select * from learning.score_evidence
-                where evidence_id = cast(:evidence_id as uuid)
-                  and user_id = cast(:user_id as uuid)
-                  and verification_status in ('user_confirmed', 'system_verified')
-                """
-            ),
-            {"evidence_id": str(source_score_evidence_id), "user_id": user_id},
-        ).mappings().one_or_none()
-        if evidence is None:
-            raise Stage8CommerceConflict("retake program requires confirmed owned score evidence")
-        source_year = int(evidence["exam_year"])
-        if target_exam_year != source_year + 1:
-            raise Stage8CommerceConflict("retake target year must immediately follow source year")
-        active = self.current_retake_program(user_id=user_id)
-        if active is not None:
-            raise Stage8CommerceConflict("an active retake program already exists")
-        xingce = float(evidence["xingce_score"]) if evidence["xingce_score"] is not None else None
-        essay = float(evidence["shenlun_score"]) if evidence["shenlun_score"] is not None else None
-        tracks = [name for name, value in (("xingce", xingce), ("essay", essay)) if value is not None]
-        ranked = sorted(
-            ((name, value) for name, value in (("xingce", xingce), ("essay", essay)) if value is not None),
-            key=lambda item: item[1],
-        )
-        focus = [
-            ("先用行测模块证据细分速度、正确率与错因" if name == "xingce" else "先用申论新材料复原要点、结构与表达失分")
-            for name, _ in ranked
-        ]
-        loss_structure: dict[str, object] = {
-            "xingceScore": xingce,
-            "essayScore": essay,
-            "availableTracks": tracks,
-            "trainingFocus": focus,
-            "limitation": "上年度原始分只建立失分结构；跨年度难度不同，不直接计算提分，也不参与退款或现金奖励。",
-        }
-        program_version_id = uuid4()
-        program_id = uuid4()
-        row = self._session.execute(
-            text(
-                """
-                insert into learning.retake_program_versions (
-                  program_version_id, program_id, command_key, user_id,
-                  source_score_evidence_id, source_exam_year, target_exam_year,
-                  version_no, state, loss_structure, score_use_boundary,
-                  evidence_refs, input_fingerprint, created_at
-                ) values (
-                  cast(:program_version_id as uuid), cast(:program_id as uuid),
-                  :command_key, cast(:user_id as uuid), cast(:evidence_id as uuid),
-                  :source_year, :target_year, 1, 'active',
-                  cast(:loss_structure as jsonb),
-                  cast(:score_use_boundary as jsonb),
-                  cast(:evidence_refs as jsonb), :input_fingerprint, :now
-                ) returning *
-                """
-            ),
-            {
-                "program_version_id": str(program_version_id),
-                "program_id": str(program_id),
-                "command_key": command_key,
-                "user_id": user_id,
-                "evidence_id": str(source_score_evidence_id),
-                "source_year": source_year,
-                "target_year": target_exam_year,
-                "loss_structure": _json(loss_structure),
-                "score_use_boundary": _json(
-                    {"refund": False, "cashReward": False, "training": True}
-                ),
-                "evidence_refs": _json([f"score-evidence:{source_score_evidence_id}"]),
-                "input_fingerprint": _fingerprint(
-                    {
-                        "sourceScoreEvidenceId": str(source_score_evidence_id),
-                        "targetExamYear": target_exam_year,
-                        "lossStructure": loss_structure,
-                    }
-                ),
-                "now": now,
-            },
-        ).mappings().one()
-        self._session.commit()
-        return _retake(row)
-
     def _active_entitlement_end(
         self, *, user_id: UUID, now: datetime
     ) -> datetime | None:
@@ -1645,18 +1505,6 @@ def _refund(row: RowMapping) -> RefundRecord:
         ),
         requested_at=row["requested_at"],
         processed_at=row["processed_at"],
-    )
-
-
-def _retake(row: RowMapping) -> RetakeRecord:
-    return RetakeRecord(
-        program_version_id=UUID(str(row["program_version_id"])),
-        source_score_evidence_id=UUID(str(row["source_score_evidence_id"])),
-        source_exam_year=int(row["source_exam_year"]),
-        target_exam_year=int(row["target_exam_year"]),
-        state=str(row["state"]),
-        loss_structure=dict(row["loss_structure"]),
-        created_at=row["created_at"],
     )
 
 

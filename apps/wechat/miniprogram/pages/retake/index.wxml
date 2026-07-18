@@ -1,0 +1,54 @@
+<view class="s9-page s9-page--with-dock retake-page">
+  <view class="s9-hero">
+    <view class="s9-eyebrow">二战失分回收计划</view>
+    <view class="s9-title">别把去年会的内容再学一遍</view>
+    <view class="s9-subtitle">先用往年国考实考成绩定位，再由新训练证据拆到行测六模块与申论失分结构。</view>
+  </view>
+
+  <view wx:if="{{!state || state.status === 'loading'}}" class="page-state">
+    <anan-companion size="large" intent="thinking" context="report" animate />
+    <view class="state-title">正在读取往年实考证据</view>
+    <view class="state-copy">模考成绩不会混入二战实考起点。</view>
+  </view>
+
+  <view wx:elif="{{state.status === 'error'}}" class="page-state">
+    <anan-companion size="large" intent="rest" context="emotion" />
+    <view class="state-title">失分回收计划没有加载完成</view>
+    <view class="state-copy">{{state.error.message}}</view>
+    <view wx:if="{{state.error.requestId}}" class="request-id">Request ID · {{state.error.requestId}}</view>
+    <ui-button label="重新读取" bind:action="retry" />
+  </view>
+
+  <block wx:else>
+    <view class="target-strip"><text class="target-strip__label">目标考试年度</text><text class="target-strip__year type-data">{{state.targetExamYear}}</text></view>
+
+    <view wx:if="{{state.program}}" class="program-card">
+      <view class="program-kicker">计划已经生效</view>
+      <view class="program-title">{{state.program.sourceExamYear}} → {{state.program.targetExamYear}} 失分回收</view>
+      <view class="track-row"><view wx:for="{{state.program.lossStructure.trainingFocus}}" wx:key="*this" class="focus-item">{{item}}</view></view>
+      <view class="boundary-note">{{state.program.lossStructure.limitation}}</view>
+      <view class="s9-action-dock"><button class="s9-primary-button" bindtap="enterToday">进入今日计划</button></view>
+    </view>
+
+    <block wx:elif="{{state.evidence.length > 0}}">
+      <view class="section-title">选择一份实考成绩作为起点</view>
+      <view class="evidence-list">
+        <view wx:for="{{state.evidence}}" wx:key="evidenceId" class="evidence-card {{item.selected ? 'evidence-card--selected' : ''}}" data-evidence-id="{{item.evidenceId}}" bindtap="selectEvidence">
+          <view class="evidence-head"><view><text class="evidence-year type-data">{{item.examYear}}</text><text class="evidence-source">{{item.sourceLabel}}</text></view><view class="evidence-check">{{item.selected ? '✓' : ''}}</view></view>
+          <view class="score-grid"><view class="score-cell"><text class="score-label">行测</text><text class="score-value type-data">{{item.xingceLabel}}</text></view><view class="score-cell"><text class="score-label">申论</text><text class="score-value type-data">{{item.essayLabel}}</text></view><view class="score-cell"><text class="score-label">总分</text><text class="score-value type-data">{{item.totalLabel}}</text></view></view>
+        </view>
+      </view>
+      <view class="boundary-note">{{state.scoreUseBoundary}}</view>
+      <view wx:if="{{state.pendingRecovery}}" class="recovery-banner">上一次创建结果未知，本次只查询同一个计划命令。</view>
+      <view wx:if="{{state.error}}" class="error-banner"><view>{{state.error.message}}</view><view wx:if="{{state.error.requestId}}" class="request-id">Request ID · {{state.error.requestId}}</view></view>
+      <view class="s9-action-dock"><button class="s9-primary-button" loading="{{state.saving}}" bindtap="startProgram">{{state.pendingRecovery ? '查询原计划结果' : '建立失分回收计划'}}</button></view>
+    </block>
+
+    <view wx:else class="empty-card">
+      <anan-companion size="large" intent="thinking" context="report" />
+      <view class="empty-title">还没有可用的往年国考实考成绩</view>
+      <view class="empty-copy">先录入或识别成绩截图并由你确认。外部模考可以进入能力档案，但不会冒充实考成绩。</view>
+      <ui-button label="导入往年成绩" bind:action="importEvidence" />
+    </view>
+  </block>
+</view>

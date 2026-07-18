@@ -1,4 +1,5 @@
 import { parseEssayTaskStage, writableEssayStages } from "../../features/essay-task/capabilities";
+import type { OnboardingResultProjection } from "../../api/generated/types.gen";
 import type { OnboardingNextStep } from "../../features/onboarding/types";
 import {
   isValidPlanTaskId,
@@ -19,8 +20,10 @@ export const routes = {
   privacy: "/pages/privacy/index",
   support: "/pages/support/index",
   onboarding: "/pages/onboarding/index",
+  onboardingPreparationExperience: "/pages/onboarding/preparation-experience/index",
   onboardingStudyPreference: "/pages/onboarding/study-preference/index",
   onboardingResult: "/pages/onboarding/result/index",
+  retake: "/pages/retake/index",
   xingceTaskIntro: "/pages/xingce-task-intro/index",
   practice: "/pages/practice/index",
   mockExam: "/pages/mock-exam/index",
@@ -105,6 +108,7 @@ export function registeredNavigationTarget(startUrl: string): RegisteredNavigati
 
 export function onboardingNavigationTarget(step: OnboardingNextStep): RegisteredNavigationTarget {
   const path = {
+    preparation_experience: routes.onboardingPreparationExperience,
     qualification: routes.onboarding,
     study_preference: routes.onboardingStudyPreference,
     result: routes.onboardingResult,
@@ -112,6 +116,34 @@ export function onboardingNavigationTarget(step: OnboardingNextStep): Registered
   }[step];
   const target = registeredNavigationTarget(path);
   if (!target) throw new Error(`Onboarding step is not registered: ${step}`);
+  return target;
+}
+
+export function onboardingResultActionTarget(
+  action: OnboardingResultProjection["nextAction"],
+  positionId?: string,
+): RegisteredNavigationTarget {
+  let url: string;
+  switch (action) {
+    case "enter_workspace":
+    case "record_baseline":
+      url = routes.today;
+      break;
+    case "choose_position":
+      url = routes.positions;
+      break;
+    case "review_exam_briefing":
+      url = positionBriefingUrl(requiredIdentifier(positionId ?? ""));
+      break;
+    case "import_prior_evidence":
+      url = routes.externalReport;
+      break;
+    case "start_retake_recovery":
+      url = routes.retake;
+      break;
+  }
+  const target = registeredNavigationTarget(url);
+  if (!target) throw new Error(`Onboarding result action is not registered: ${action}`);
   return target;
 }
 

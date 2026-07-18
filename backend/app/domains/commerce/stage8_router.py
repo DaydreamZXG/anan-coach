@@ -20,8 +20,6 @@ from app.domains.commerce.stage8_schemas import (
     CommerceDashboard,
     ProcessRewardProgress,
     RefundEligibility,
-    RetakeEnrollmentRequest,
-    RetakeProgramResponse,
     Stage8Catalog,
     VirtualPaymentOrderCreateRequest,
     WechatOrderCreateResponse,
@@ -219,23 +217,6 @@ def confirm_weekly_reflection(
         data=service.confirm_weekly_reflection(
             user_id=current_user.user_id, request=body
         ),
-    )
-
-
-@router.post(
-    "/retake-programs", response_model=PublicApiEnvelope[RetakeProgramResponse]
-)
-def enroll_retake_program(
-    body: RetakeEnrollmentRequest,
-    request: Request,
-    response: Response,
-    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
-    service: Annotated[Stage8CommerceService, Depends(get_stage8_commerce_service)],
-) -> PublicApiEnvelope[RetakeProgramResponse]:
-    return public_success_envelope(
-        request=request,
-        response=response,
-        data=service.enroll_retake(user_id=current_user.user_id, request=body),
     )
 
 

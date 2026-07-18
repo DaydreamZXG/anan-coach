@@ -142,6 +142,8 @@ function api(overrides: Partial<StudyApi> = {}): StudyApi {
 function progress(): OnboardingProgress {
   return {
     progressVersion: 2,
+    experienceReady: true,
+    experienceProfileVersion: 1,
     qualificationReady: true,
     qualificationProfileVersion: 1,
     studyPreferenceReady: false,
