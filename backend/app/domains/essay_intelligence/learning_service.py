@@ -679,7 +679,12 @@ def _review_intent_from_progression(
         quota = EssayReviewQuota(
             feature=row["review_intent_quota_feature"],
             used=int(row["review_intent_quota_used"]),
-            limit=int(row["review_intent_quota_limit"]),
+            access_mode=row["review_intent_quota_access_mode"],
+            limit=(
+                int(row["review_intent_quota_limit"])
+                if row["review_intent_quota_limit"] is not None
+                else None
+            ),
             usage_date=row["review_intent_quota_usage_date"],
         )
     return EssayReviewIntentView(

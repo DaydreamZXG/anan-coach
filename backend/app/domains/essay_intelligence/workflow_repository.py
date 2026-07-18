@@ -319,7 +319,7 @@ class EssayReviewWorkflowRepository:
                   material_bundle_version_id, rubric_version_id, review_scope,
                   version_no, status, input_fingerprint, intent_fingerprint,
                   state_fingerprint, job_id, quota_feature, quota_usage_date,
-                  quota_used, quota_limit, retry_after,
+                  quota_used, quota_access_mode, quota_limit, retry_after,
                   supersedes_intent_version_id, created_at
                 ) values (
                   cast(:intent_version_id as uuid), cast(:intent_id as uuid),
@@ -329,7 +329,8 @@ class EssayReviewWorkflowRepository:
                   cast(:rubric_version_id as uuid), :review_scope,
                   :version_no, :status, :input_fingerprint, :intent_fingerprint,
                   :state_fingerprint, cast(:job_id as uuid), :quota_feature,
-                  :quota_usage_date, :quota_used, :quota_limit, :retry_after,
+                  :quota_usage_date, :quota_used, :quota_access_mode,
+                  :quota_limit, :retry_after,
                   cast(:supersedes_intent_version_id as uuid), :created_at
                 )
                 returning *
@@ -771,7 +772,8 @@ def review_intent_from_row(row: RowMapping) -> EssayReviewIntentView:
         quota = EssayReviewQuota(
             feature=row["quota_feature"],
             used=int(row["quota_used"]),
-            limit=int(row["quota_limit"]),
+            access_mode=row["quota_access_mode"],
+            limit=int(row["quota_limit"]) if row["quota_limit"] is not None else None,
             usage_date=row["quota_usage_date"],
         )
     job_status = row.get("job_status")

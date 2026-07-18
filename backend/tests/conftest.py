@@ -107,7 +107,9 @@ def db_session(db_session_factory: sessionmaker[Session]) -> Iterator[Session]:
 
 def _reset_test_schema(engine: Engine) -> None:
     _drop_test_schema(engine)
-    schema_sql = Path(__file__).with_name("sql").joinpath("minimal_schema.sql").read_text()
+    schema_sql = (
+        Path(__file__).with_name("sql").joinpath("minimal_schema.sql").read_text()
+    )
     with engine.begin() as conn:
         for statement in _split_postgres_statements(schema_sql):
             conn.execute(text(statement))
@@ -150,9 +152,7 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in essay_closure._STATEMENTS:
             conn.execute(text(statement))
-        learning_media = import_module(
-            "migrations.versions.20260716_26_learning_media"
-        )
+        learning_media = import_module("migrations.versions.20260716_26_learning_media")
         for statement in learning_media._STATEMENTS:
             conn.execute(text(statement))
         question_quality = import_module(
@@ -186,9 +186,7 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in stage6_reporting._STATEMENTS:
             conn.execute(text(statement))
-        ai_governance = import_module(
-            "migrations.versions.20260716_34_ai_governance"
-        )
+        ai_governance = import_module("migrations.versions.20260716_34_ai_governance")
         for statement in ai_governance._STATEMENTS:
             conn.execute(text(statement))
         stage8 = import_module(
@@ -205,6 +203,11 @@ def _reset_test_schema(engine: Engine) -> None:
             "migrations.versions.20260718_37_stage15_completion"
         )
         for statement in stage15_completion._TEST_STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
+        free_cold_start = import_module(
+            "migrations.versions.20260718_38_free_cold_start_access"
+        )
+        for statement in free_cold_start._TEST_STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
 
 

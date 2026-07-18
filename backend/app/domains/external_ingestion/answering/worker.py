@@ -6,14 +6,12 @@ from uuid import NAMESPACE_URL, UUID, uuid5
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 
-from app.contracts.external_learning.models import LearningTrack
 from app.core.config import Settings
 from app.domains.ai.governance.repository import AIGovernanceRepository, generic_evidence_ref
 from app.domains.ai.model_cost import ModelCallLedgerRepository, ModelPriceCard, ModelTokenUsage
 from app.domains.commerce.app_store import AppStoreSignedTransactionVerifier
 from app.domains.commerce.repository import CommerceRepository
 from app.domains.commerce.service import CommerceService
-from app.domains.external_ingestion.answering.models import ExternalAIAnswerVersion
 from app.domains.external_ingestion.answering.provider import (
     ExternalAIAnswerProvider,
     ExternalAIAnswerProviderError,
@@ -245,4 +243,6 @@ class ExternalAIAnswerWorker:
         return CommerceService(
             repository=CommerceRepository(session),
             app_store_verifier=AppStoreSignedTransactionVerifier(self._settings),
+            commercial_mode=self._settings.commercial_mode,
+            usage_access_mode=self._settings.usage_access_mode,
         )

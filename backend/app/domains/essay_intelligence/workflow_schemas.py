@@ -22,9 +22,7 @@ class EssayAttemptCreateCommand(EssayContractModel):
     source_context: Literal["in_program", "paper", "external"] = Field(
         alias="sourceContext"
     )
-    timed_status: Literal["timed", "untimed", "unknown"] = Field(
-        alias="timedStatus"
-    )
+    timed_status: Literal["timed", "untimed", "unknown"] = Field(alias="timedStatus")
     elapsed_seconds: int | None = Field(default=None, alias="elapsedSeconds", ge=1)
 
     @model_validator(mode="after")
@@ -94,8 +92,17 @@ class EssayCurrentReviewEnsureCommand(EssayContractModel):
 class EssayReviewQuota(EssayContractModel):
     feature: Literal["essay_review"]
     used: int = Field(ge=0)
-    limit: int = Field(ge=1)
+    access_mode: Literal["unlimited", "entitlement_quota"] = Field(alias="accessMode")
+    limit: int | None = Field(default=None, ge=1)
     usage_date: date = Field(alias="usageDate")
+
+    @model_validator(mode="after")
+    def metered_quota_requires_limit(self) -> "EssayReviewQuota":
+        if self.access_mode == "entitlement_quota" and self.limit is None:
+            raise ValueError("metered essay quota requires a limit")
+        if self.access_mode == "unlimited" and self.limit is not None:
+            raise ValueError("unlimited essay access cannot expose a quota limit")
+        return self
 
 
 class EssayReviewIntentView(EssayContractModel):
@@ -109,7 +116,9 @@ class EssayReviewIntentView(EssayContractModel):
     material_bundle_version_id: UUID = Field(alias="materialBundleVersionId")
     rubric_version_id: UUID = Field(alias="rubricVersionId")
     review_scope: Literal["grounded_full"] = Field(alias="reviewScope")
-    input_fingerprint: str = Field(alias="inputFingerprint", min_length=64, max_length=64)
+    input_fingerprint: str = Field(
+        alias="inputFingerprint", min_length=64, max_length=64
+    )
     intent_fingerprint: str = Field(
         alias="intentFingerprint",
         min_length=64,
@@ -137,7 +146,9 @@ class EssayReviewIntentView(EssayContractModel):
     def validate_state_shape(self) -> "EssayReviewIntentView":
         if self.status == "pending":
             if any((self.job_id, self.job_status, self.quota, self.retry_after)):
-                raise ValueError("pending review intent cannot carry queue or quota state")
+                raise ValueError(
+                    "pending review intent cannot carry queue or quota state"
+                )
         elif self.status == "waiting_quota":
             if self.job_id is not None or self.job_status is not None:
                 raise ValueError("quota-waiting review intent cannot carry a job")

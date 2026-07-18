@@ -4,6 +4,7 @@ from collections.abc import Callable
 from datetime import UTC, date, datetime, time, timedelta
 from uuid import UUID
 
+from app.core.config import CommercialMode, UsageAccessMode
 from app.domains.commerce.app_store import (
     AppStoreTransactionVerificationError,
     AppStoreSignedTransactionVerifier,
@@ -36,24 +37,45 @@ class CommerceTransactionMismatchError(RuntimeError):
     pass
 
 
+class CommerceUnavailableError(RuntimeError):
+    pass
+
+
 class CommerceService:
     def __init__(
         self,
         *,
         repository: CommerceRepository,
         app_store_verifier: AppStoreSignedTransactionVerifier,
+        commercial_mode: CommercialMode,
+        usage_access_mode: UsageAccessMode,
         now: Callable[[], datetime] | None = None,
     ) -> None:
         self._repository = repository
         self._app_store_verifier = app_store_verifier
+        self._commercial_mode = commercial_mode
+        self._usage_access_mode = usage_access_mode
         self._now = now or (lambda: datetime.now(UTC))
 
     def get_catalog(self) -> CommerceCatalogResponse:
         self._repository.sync_product_catalog()
         return CommerceCatalogResponse(
-            products=[_product_response(product) for product in self._repository.list_products()],
-            free_quotas=_quota_responses(tier="free", usage={}),
-            pro_quotas=_quota_responses(tier="pro", usage={}),
+            commercial_mode=self._commercial_mode,
+            purchasing_enabled=self._commercial_mode == "paid",
+            products=(
+                [
+                    _product_response(product)
+                    for product in self._repository.list_products()
+                ]
+                if self._commercial_mode == "paid"
+                else []
+            ),
+            free_quotas=_quota_responses(
+                tier="free", usage={}, access_mode=self._usage_access_mode
+            ),
+            pro_quotas=_quota_responses(
+                tier="pro", usage={}, access_mode=self._usage_access_mode
+            ),
         )
 
     def get_entitlement(self, *, user_id: str) -> CommerceEntitlementResponse:
@@ -68,12 +90,18 @@ class CommerceService:
             },
         )
         return CommerceEntitlementResponse(
-            tier="pro" if entitlement.tier == "pro" and entitlement.is_active else "free",
+            tier="pro"
+            if entitlement.tier == "pro" and entitlement.is_active
+            else "free",
             source=entitlement.source,
             is_active=entitlement.is_active,
             subscription_start=entitlement.subscription_start,
             subscription_end=entitlement.subscription_end,
-            feature_quotas=_quota_responses(tier=entitlement.tier, usage=usage),
+            feature_quotas=_quota_responses(
+                tier=entitlement.tier,
+                usage=usage,
+                access_mode=self._usage_access_mode,
+            ),
             product_ids=entitlement.product_ids,
             unlocked_features=self._repository.unlocked_features(user_id=user_id),
             server_time=now,
@@ -102,6 +130,7 @@ class CommerceService:
                 business_key=business_key,
                 usage_date=usage_date,
                 limit=quota.pro_limit if tier == "pro" else quota.free_limit,
+                access_mode=self._usage_access_mode,
                 tier=tier,
                 server_session_ref=server_session_ref,
                 commit=commit,
@@ -196,6 +225,10 @@ class CommerceService:
         user_id: str,
         request: AppStoreTransactionRequest,
     ) -> AppStoreTransactionResponse:
+        if self._commercial_mode != "paid":
+            raise CommerceUnavailableError(
+                "commercial transactions are disabled during free cold start"
+            )
         self._repository.sync_product_catalog()
         product = self._repository.get_product(request.product_id)
         if product is None:
@@ -203,9 +236,13 @@ class CommerceService:
 
         transaction = self._app_store_verifier.verify(request.signed_transaction_info)
         if transaction.product_id != request.product_id:
-            raise CommerceTransactionMismatchError("productId does not match signed transaction")
+            raise CommerceTransactionMismatchError(
+                "productId does not match signed transaction"
+            )
         if transaction.transaction_id != request.transaction_id:
-            raise CommerceTransactionMismatchError("transactionId does not match signed transaction")
+            raise CommerceTransactionMismatchError(
+                "transactionId does not match signed transaction"
+            )
         if transaction.original_transaction_id != request.original_transaction_id:
             raise CommerceTransactionMismatchError(
                 "originalTransactionId does not match signed transaction"
@@ -260,7 +297,9 @@ class CommerceService:
         request: AppStoreNotificationRequest,
     ) -> AppStoreNotificationResponse:
         self._repository.sync_product_catalog()
-        notification = self._app_store_verifier.verify_notification(request.signed_payload)
+        notification = self._app_store_verifier.verify_notification(
+            request.signed_payload
+        )
         inserted = self._repository.record_notification_event(
             notification_uuid=notification.notification_uuid,
             notification_type=notification.notification_type,
@@ -278,7 +317,9 @@ class CommerceService:
         processed = False
         event_user_id: str | None = None
         if notification.signed_transaction_info:
-            transaction = self._app_store_verifier.verify(notification.signed_transaction_info)
+            transaction = self._app_store_verifier.verify(
+                notification.signed_transaction_info
+            )
             product = self._repository.get_product(transaction.product_id)
             if product is not None and transaction.app_account_token is not None:
                 verification_status = _transaction_status(transaction)
@@ -297,7 +338,10 @@ class CommerceService:
                     signed_transaction_info=notification.signed_transaction_info,
                     verification_status=verification_status,
                 )
-                if verification_status == "verified_active" and transaction.expires_date is None:
+                if (
+                    verification_status == "verified_active"
+                    and transaction.expires_date is None
+                ):
                     raise AppStoreTransactionVerificationError(
                         "Subscription transaction must include expiresDate"
                     )
@@ -334,7 +378,10 @@ class CommerceService:
 def _transaction_status(transaction: VerifiedAppStoreTransaction) -> str:
     if transaction.revocation_date is not None:
         return "verified_revoked"
-    if transaction.expires_date is not None and transaction.expires_date <= datetime.now(UTC):
+    if (
+        transaction.expires_date is not None
+        and transaction.expires_date <= datetime.now(UTC)
+    ):
         return "verified_expired"
     return "verified_active"
 
@@ -387,6 +434,7 @@ def _quota_responses(
     *,
     tier: str,
     usage: dict[str, int],
+    access_mode: UsageAccessMode,
 ) -> list[CommerceFeatureQuota]:
     responses: list[CommerceFeatureQuota] = []
     for quota in FEATURE_QUOTAS:
@@ -396,9 +444,12 @@ def _quota_responses(
             CommerceFeatureQuota(
                 feature=quota.feature,
                 title=quota.title,
-                limit=limit,
+                access_mode=access_mode,
+                limit=limit if access_mode == "entitlement_quota" else None,
                 used=used,
-                remaining=max(0, limit - used),
+                remaining=(
+                    max(0, limit - used) if access_mode == "entitlement_quota" else None
+                ),
                 period=quota.period,  # type: ignore[arg-type]
             )
         )

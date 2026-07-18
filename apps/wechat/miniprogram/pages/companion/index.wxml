@@ -51,7 +51,7 @@
     <view wx:if="{{answer.allowedActions.length}}" class="action-list">
       <button wx:for="{{answer.allowedActions}}" wx:key="label" class="brain-secondary action-button" data-index="{{index}}" bindtap="handleAction">{{item.label}}</button>
     </view>
-    <view class="brain-warning">剩余额度 {{answer.quotaRemaining}} / {{answer.quota.limit}}；学习状态版本 {{answer.knowledgeFreshness}}。</view>
+    <view class="brain-warning">{{answer.quotaUnlimited ? '冷启动期间正常使用不限会员额度' : '剩余额度 ' + answer.quotaRemaining + ' / ' + answer.quota.limit}}；学习状态版本 {{answer.knowledgeFreshness}}。</view>
   </view>
 
   <view class="companion-composer">

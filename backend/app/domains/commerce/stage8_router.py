@@ -35,6 +35,7 @@ from app.domains.commerce.stage8_schemas import (
 from app.domains.commerce.wechat_virtual_payment import Stage8VirtualPaymentService
 from app.domains.commerce.stage8_service import (
     Stage8CommerceService,
+    Stage8CommerceUnavailable,
     Stage8PaymentPending,
     Stage8RefundIneligible,
 )
@@ -63,7 +64,9 @@ def get_catalog(
     response: Response,
     service: Annotated[Stage8CommerceService, Depends(get_stage8_commerce_service)],
 ) -> PublicApiEnvelope[Stage8Catalog]:
-    return public_success_envelope(request=request, response=response, data=service.catalog())
+    return public_success_envelope(
+        request=request, response=response, data=service.catalog()
+    )
 
 
 @router.get("/dashboard", response_model=PublicApiEnvelope[CommerceDashboard])
@@ -264,6 +267,13 @@ async def receive_virtual_payment_event(
 
 
 def stage8_exception_response(request: Request, exc: Exception) -> JSONResponse:
+    if isinstance(exc, Stage8CommerceUnavailable):
+        return public_error_response(
+            request=request,
+            status_code=status.HTTP_409_CONFLICT,
+            code="commerce_not_open",
+            message="当前处于免费冷启动阶段，不开放购买。",
+        )
     if isinstance(exc, Stage8CommerceNotFound):
         return public_error_response(
             request=request,
@@ -275,7 +285,11 @@ def stage8_exception_response(request: Request, exc: Exception) -> JSONResponse:
         return public_error_response(
             request=request,
             status_code=status.HTTP_409_CONFLICT,
-            code=(exc.code if isinstance(exc, Stage8RefundIneligible) else "commerce_state_conflict"),
+            code=(
+                exc.code
+                if isinstance(exc, Stage8RefundIneligible)
+                else "commerce_state_conflict"
+            ),
             message="当前订单或权益状态不允许此操作。",
         )
     if isinstance(exc, Stage8PaymentPending):

@@ -40,9 +40,12 @@ def get_commerce_service(
         Depends(get_app_store_transaction_verifier),
     ],
 ) -> CommerceService:
+    settings = get_settings()
     return CommerceService(
         repository=repository,
         app_store_verifier=app_store_verifier,
+        commercial_mode=settings.commercial_mode,
+        usage_access_mode=settings.usage_access_mode,
     )
 
 

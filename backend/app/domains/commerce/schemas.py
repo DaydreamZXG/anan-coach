@@ -13,6 +13,7 @@ class CommerceBaseModel(BaseModel):
 CommerceTier = Literal["free", "pro"]
 CommerceBillingPeriod = Literal["monthly", "yearly"]
 CommerceQuotaPeriod = Literal["day", "month"]
+CommerceAccessMode = Literal["unlimited", "entitlement_quota"]
 CommerceTransactionStatus = Literal[
     "verified_active",
     "verified_expired",
@@ -23,9 +24,10 @@ CommerceTransactionStatus = Literal[
 class CommerceFeatureQuota(CommerceBaseModel):
     feature: str
     title: str
-    limit: int
+    access_mode: CommerceAccessMode = Field(alias="accessMode")
+    limit: int | None
     used: int
-    remaining: int
+    remaining: int | None
     period: CommerceQuotaPeriod
 
 
@@ -41,6 +43,8 @@ class CommerceProduct(CommerceBaseModel):
 
 
 class CommerceCatalogResponse(CommerceBaseModel):
+    commercial_mode: Literal["free_cold_start", "paid"] = Field(alias="commercialMode")
+    purchasing_enabled: bool = Field(alias="purchasingEnabled")
     products: list[CommerceProduct]
     free_quotas: list[CommerceFeatureQuota] = Field(alias="freeQuotas")
     pro_quotas: list[CommerceFeatureQuota] = Field(alias="proQuotas")
@@ -54,16 +58,16 @@ class CommerceEntitlementResponse(CommerceBaseModel):
     subscription_end: datetime | None = Field(default=None, alias="subscriptionEnd")
     feature_quotas: list[CommerceFeatureQuota] = Field(alias="featureQuotas")
     product_ids: list[str] = Field(alias="productIds")
-    unlocked_features: list[str] = Field(
-        default_factory=list, alias="unlockedFeatures"
-    )
+    unlocked_features: list[str] = Field(default_factory=list, alias="unlockedFeatures")
     server_time: datetime = Field(alias="serverTime")
 
 
 class AppStoreTransactionRequest(CommerceBaseModel):
     product_id: str = Field(alias="productId", min_length=3, max_length=120)
     transaction_id: str = Field(alias="transactionId", min_length=3, max_length=120)
-    original_transaction_id: str = Field(alias="originalTransactionId", min_length=3, max_length=120)
+    original_transaction_id: str = Field(
+        alias="originalTransactionId", min_length=3, max_length=120
+    )
     signed_transaction_info: str = Field(alias="signedTransactionInfo", min_length=32)
 
 

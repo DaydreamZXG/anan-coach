@@ -107,7 +107,13 @@ describe("essay task page lifecycle", () => {
       workspace(
         "task-a",
         reviewIntent("waiting_quota", {
-          quota: { feature: "essay_review", used: 20, limit: 20, usageDate: "2026-07-13" },
+          quota: {
+            feature: "essay_review",
+            accessMode: "entitlement_quota",
+            used: 20,
+            limit: 20,
+            usageDate: "2026-07-13",
+          },
           retryAfter: "2099-07-14T00:00:00+08:00",
         }),
       ),

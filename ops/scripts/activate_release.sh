@@ -28,7 +28,8 @@ runtime_units=(
   gongkao-dazi-external-learning-worker
   gongkao-dazi-data-rights-worker
 )
-if [[ -n "${WECHAT_VIRTUAL_PAY_OFFER_ID:-}" \
+if [[ "${COMMERCIAL_MODE:-free_cold_start}" == "paid" \
+  && -n "${WECHAT_VIRTUAL_PAY_OFFER_ID:-}" \
   && -n "${WECHAT_VIRTUAL_PAY_APP_KEY:-}" \
   && -n "${WECHAT_VIRTUAL_PAY_MESSAGE_TOKEN:-}" \
   && -n "${WECHAT_VIRTUAL_PAY_MESSAGE_ENCODING_AES_KEY:-}" ]]; then

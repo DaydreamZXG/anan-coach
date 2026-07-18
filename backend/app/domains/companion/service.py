@@ -5,7 +5,7 @@ from datetime import UTC, datetime, timedelta
 from hashlib import sha256
 import json
 from typing import Any, Literal, TypeVar
-from uuid import NAMESPACE_URL, UUID, uuid5
+from uuid import NAMESPACE_URL, uuid5
 
 from httpx import HTTPStatusError, NetworkError, TimeoutException
 from pydantic import BaseModel
@@ -13,7 +13,7 @@ from sqlalchemy.orm import Session
 
 from app.core.config import Settings, get_settings
 from app.domains.ai.audit import AIAuditRepository
-from app.domains.ai.governance.contracts import EvidenceReference, IntentDecision
+from app.domains.ai.governance.contracts import IntentDecision
 from app.domains.ai.governance.repository import (
     AIGovernanceReleaseError,
     AIGovernanceRepository,
@@ -54,7 +54,6 @@ from app.domains.companion.commands import (
 from app.domains.companion.repository import (
     CompanionContextRecord,
     CompanionRepository,
-    ExternalQuestionIntakeRecord,
     KnowledgeMapCandidateRecord,
 )
 from app.domains.companion.schemas import (
@@ -586,6 +585,7 @@ class CompanionService:
         return AIQuotaState(
             feature=quota.feature,
             used=quota.used,
+            access_mode=quota.access_mode,
             limit=quota.limit,
             date=entitlement.server_time.date().isoformat(),
         )
@@ -1697,6 +1697,7 @@ def _quota_state(quota: FeatureUsageReservation) -> AIQuotaState:
     return AIQuotaState(
         feature=quota.feature,
         used=quota.used,
-        limit=quota.limit,
+        access_mode=quota.access_mode,
+        limit=quota.limit if quota.access_mode == "entitlement_quota" else None,
         date=quota.usage_date.isoformat(),
     )

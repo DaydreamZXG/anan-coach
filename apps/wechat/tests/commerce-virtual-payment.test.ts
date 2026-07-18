@@ -13,6 +13,10 @@ import { presentCommercialPolicies } from "../miniprogram/features/commerce/poli
 import commerceSource from "../miniprogram/api/commerce.ts?raw";
 // @ts-expect-error Vite exposes TypeScript source through its raw asset loader.
 import membershipSource from "../miniprogram/pages/membership/index.ts?raw";
+// @ts-expect-error Vite exposes WXML source through its raw asset loader.
+import membershipTemplate from "../miniprogram/pages/membership/index.wxml?raw";
+// @ts-expect-error Vite exposes WXML source through its raw asset loader.
+import profileTemplate from "../miniprogram/pages/profile/index.wxml?raw";
 
 afterEach(() => {
   vi.unstubAllGlobals();
@@ -121,6 +125,14 @@ describe("WeChat virtual payment", () => {
     expect(membershipSource).toContain("freshWechatLoginCode");
     expect(membershipSource).toContain("reconcileUntilSettled");
     expect(membershipSource).not.toContain("requestWechatPayment");
+  });
+
+  it("keeps paid code private while free cold start owns the public UI", () => {
+    expect(profileTemplate).not.toContain("会员与保障");
+    expect(profileTemplate).not.toContain("openMembership");
+    expect(membershipTemplate).toContain("冷启动期间，完整能力免费开放");
+    expect(membershipTemplate).toContain('wx:elif="{{freeColdStart}}"');
+    expect(membershipTemplate).toContain('wx:if="{{offer && paymentEnabled}}"');
   });
 
   it("renders purchase promises only from the versioned server policy content", () => {

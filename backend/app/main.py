@@ -17,6 +17,7 @@ from app.domains.commerce.stage8_repository import (
 )
 from app.domains.commerce.stage8_router import stage8_exception_response
 from app.domains.commerce.stage8_service import (
+    Stage8CommerceUnavailable,
     Stage8PaymentPending,
     Stage8RefundIneligible,
 )
@@ -69,6 +70,7 @@ def create_app() -> FastAPI:
     app.add_exception_handler(Exception, unexpected_exception_response)
     for exception_type in (
         Stage8CommerceConflict,
+        Stage8CommerceUnavailable,
         Stage8CommerceNotFound,
         Stage8PaymentPending,
         Stage8RefundIneligible,

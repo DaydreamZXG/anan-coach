@@ -39,7 +39,10 @@ from app.domains.commerce.stage8_schemas import (
     WechatRefundView,
     WechatVirtualPaymentParameters,
 )
-from app.domains.commerce.stage8_service import Stage8PaymentPending
+from app.domains.commerce.stage8_service import (
+    Stage8CommerceUnavailable,
+    Stage8PaymentPending,
+)
 from app.domains.commerce.wechat_pay import (
     WechatPayConfigurationError,
     WechatPayProtocolError,
@@ -206,7 +209,10 @@ class StableAccessTokenProvider:
         client: httpx.Client,
         now_epoch: Callable[[], float] | None = None,
     ) -> None:
-        if not settings.wechat_mini_app_id.strip() or not settings.wechat_mini_app_secret.strip():
+        if (
+            not settings.wechat_mini_app_id.strip()
+            or not settings.wechat_mini_app_secret.strip()
+        ):
             raise WechatVirtualPaymentConfigurationError(
                 "WECHAT_MINI_APP_ID and WECHAT_MINI_APP_SECRET are required"
             )
@@ -585,9 +591,7 @@ class WechatMessageCrypto:
         message_length = struct.unpack("!I", full[16:20])[0]
         end = 20 + message_length
         if end > len(full):
-            raise WechatVirtualPaymentProtocolError(
-                "WeChat message length is invalid"
-            )
+            raise WechatVirtualPaymentProtocolError("WeChat message length is invalid")
         message = full[20:end]
         app_id = full[end:]
         if not hmac.compare_digest(app_id, self._app_id):
@@ -633,6 +637,10 @@ class Stage8VirtualPaymentService:
     def create_order(
         self, *, user_id: str, request: VirtualPaymentOrderCreateRequest
     ) -> WechatOrderCreateResponse:
+        if self._settings.commercial_mode != "paid":
+            raise Stage8CommerceUnavailable(
+                "commercial ordering is disabled during free cold start"
+            )
         if request.client_platform == "ios" and self._gateway.env != 0:
             raise Stage8CommerceConflict(
                 "iOS virtual payment is unavailable in the WeChat sandbox"
@@ -660,7 +668,9 @@ class Stage8VirtualPaymentService:
             "amountMinor": offer.amount_minor,
             "serviceDays": offer.service_days,
             "automaticRenewal": False,
-            "iosPaymentProcessor": "Apple" if request.client_platform == "ios" else None,
+            "iosPaymentProcessor": "Apple"
+            if request.client_platform == "ios"
+            else None,
             "policies": [
                 {
                     "policyVersion": item.policy_version,
@@ -778,9 +788,7 @@ class Stage8VirtualPaymentService:
                         out_refund_no=refund.out_refund_no
                     )
                 ),
-                entitlement=self._entitlement_service.get_entitlement(
-                    user_id=user_id
-                ),
+                entitlement=self._entitlement_service.get_entitlement(user_id=user_id),
                 provider_action="app_store_required",
                 provider_action_url="https://reportaproblem.apple.com/",
                 provider_action_message=(
@@ -913,10 +921,11 @@ class Stage8VirtualPaymentService:
             raise Stage8CommerceConflict("order does not use WeChat virtual payment")
         if order.state in {"refunded", "closed"}:
             return order
-        if (
-            not include_refunds
-            and order.state in {"paid", "partially_refunded", "refund_processing"}
-        ):
+        if not include_refunds and order.state in {
+            "paid",
+            "partially_refunded",
+            "refund_processing",
+        }:
             return order
         provider = self._gateway.query_order(
             open_id=order.payer_open_id,
@@ -995,9 +1004,7 @@ class Stage8VirtualPaymentService:
                 provider_channel_order_id=provider.channel_order_id,
                 provider_delivery_state="provided",
             )
-            order = self._repository.order_by_trade_no(
-                out_trade_no=order.out_trade_no
-            )
+            order = self._repository.order_by_trade_no(out_trade_no=order.out_trade_no)
         refunded_minor = provider.paid_fee - provider.left_fee
         if refunded_minor <= 0 or refunded_minor > order.amount_minor:
             raise WechatVirtualPaymentProtocolError(
@@ -1159,7 +1166,10 @@ class Stage8VirtualPaymentService:
                         "completed refund was replayed with different provider facts"
                     )
                 return {"ErrCode": 0, "ErrMsg": "success"}
-            if refund_fee <= 0 or refund_fee > order.amount_minor - order.refunded_minor:
+            if (
+                refund_fee <= 0
+                or refund_fee > order.amount_minor - order.refunded_minor
+            ):
                 raise WechatVirtualPaymentProtocolError(
                     "refund event amount exceeds the locally refundable balance"
                 )
@@ -1186,8 +1196,7 @@ class Stage8VirtualPaymentService:
                 )
             if (
                 order.client_platform != "ios"
-                and _required_string(payload, "MchRefundId")
-                != refund.out_refund_no
+                and _required_string(payload, "MchRefundId") != refund.out_refund_no
             ):
                 raise WechatVirtualPaymentProtocolError(
                     "refund event number does not match the local refund request"

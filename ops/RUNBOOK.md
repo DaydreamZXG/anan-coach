@@ -11,7 +11,9 @@
 
 ## 支付与退款
 
-- **当前状态（2026-07-18）：停用。** 生产不得配置四个 `WECHAT_VIRTUAL_PAY_*` 密钥，`gongkao-dazi-commerce-worker` 必须保持 stopped；客户端会员页不得提供购买动作。以下内容仅在产品负责人重新启用支付后作为上线门禁执行。
+- **当前状态（2026-07-18）：免费冷启动。** 生产必须设置 `COMMERCIAL_MODE=free_cold_start`，不得配置四个 `WECHAT_VIRTUAL_PAY_*` 密钥，`gongkao-dazi-commerce-worker` 必须保持 stopped；客户端不得提供购买动作。服务端目录返回空商品，即使伪造客户端订单请求也必须拒绝。以下内容仅在产品负责人重新启用支付后作为上线门禁执行。
+- 免费冷启动同时设置 `USAGE_ACCESS_MODE=unlimited`。系统继续记录实际调用次数用于成本、安全和滥用识别，但不得按会员日额度拒绝正常用户；反爬、并发、恶意文件和账号共享控制独立生效。
+- 重新收费必须作为独立发布：先完成商品与规则审核，再同时设置 `COMMERCIAL_MODE=paid` 和全部虚拟支付密钥；仅配置密钥不会启动商业对账 worker。
 - 固定 30 天会员属于虚拟商品，生产只允许微信小程序虚拟支付。API 与商业对账 worker 必须同时配置 `WECHAT_VIRTUAL_PAY_ENV=0`、`WECHAT_VIRTUAL_PAY_OFFER_ID`、`WECHAT_VIRTUAL_PAY_APP_KEY`、`WECHAT_VIRTUAL_PAY_MESSAGE_TOKEN`、`WECHAT_VIRTUAL_PAY_MESSAGE_ENCODING_AES_KEY`；密钥不得提交到仓库。
 - 微信后台商品 ID 必须为 `founder_experience_30d`，价格必须为 6900 分。消息推送采用 JSON、安全模式，地址为 `https://kg.xingguoxian.cn/api/v2/commerce/wechat/virtual-payment/events`。
 - iOS 只允许现网虚拟支付，不支持沙箱。要求 iOS 15+、微信 8.0.68+，且小程序后台已配置简称。iOS 退款由用户在 App Store 发起；服务端仅根据 `founder-refund@v2` 返回退款建议，最终决定权属于 Apple。

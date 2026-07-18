@@ -23,7 +23,10 @@ from app.domains.commerce.stage8_schemas import (
     WechatRefundRequest,
     WeeklyReflectionConfirmRequest,
 )
-from app.domains.commerce.stage8_service import Stage8CommerceService
+from app.domains.commerce.stage8_service import (
+    Stage8CommerceService,
+    Stage8CommerceUnavailable,
+)
 from app.domains.commerce.wechat_pay import (
     WechatNotification,
     WechatOrderQueryResult,
@@ -131,6 +134,7 @@ def test_founder_order_payment_refund_and_unified_entitlement(db_session: Sessio
     now = datetime.now(UTC)
     user_id = _seed_wechat_user(db_session)
     settings = Settings(
+        commercial_mode="paid",
         wechat_mini_app_id="stage8-test-app",
         wechat_pay_mch_id="stage8-test-merchant",
         wechat_pay_order_expiry_seconds=1800,
@@ -390,6 +394,43 @@ def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -
     ).scalar_one() == 0
 
 
+def test_free_cold_start_hides_offers_and_rejects_forged_order(
+    db_session: Session,
+) -> None:
+    now = datetime.now(UTC)
+    user_id = _seed_wechat_user(db_session)
+    service = _commerce_service(
+        db_session,
+        gateway=FakeWechatPayGateway(now=now),
+        settings=Settings(
+            commercial_mode="free_cold_start",
+            usage_access_mode="unlimited",
+            wechat_mini_app_id="stage8-test-app",
+        ),
+        now=now,
+    )
+    catalog = service.catalog()
+
+    assert catalog.commercial_mode == "free_cold_start"
+    assert catalog.ordering_enabled is False
+    assert catalog.offers == []
+    with pytest.raises(Stage8CommerceUnavailable, match="free cold start"):
+        service.create_order(
+            user_id=user_id,
+            request=WechatOrderCreateRequest(
+                command_key="forged-free-order-0001",
+                offer_version_id=uuid4(),
+                expected_amount_minor=6900,
+                accepted_policies=PolicyAcceptances(
+                    service_terms_version="forged-service",
+                    refund_policy_version="forged-refund",
+                    reward_policy_version="forged-reward",
+                    marketing_policy_version="forged-marketing",
+                ),
+            ),
+        )
+
+
 def test_retake_score_is_training_input_not_refund_or_reward_input(
     db_session: Session,
 ) -> None:
@@ -458,6 +499,7 @@ def test_four_weekly_reflections_issue_process_reward_and_replay_safely(
     paid_at = datetime.now(UTC)
     user_id = _seed_wechat_user(db_session)
     settings = Settings(
+        commercial_mode="paid",
         wechat_mini_app_id="stage8-test-app",
         wechat_pay_mch_id="stage8-test-merchant",
         wechat_pay_order_expiry_seconds=1800,
@@ -577,6 +619,8 @@ def _commerce_service(
         entitlement_service=CommerceService(
             repository=base_repository,
             app_store_verifier=AppStoreSignedTransactionVerifier(settings),
+            commercial_mode=settings.commercial_mode,
+            usage_access_mode=settings.usage_access_mode,
             now=lambda: now,
         ),
         gateway=gateway,

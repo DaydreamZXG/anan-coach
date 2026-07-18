@@ -23,6 +23,7 @@ from app.domains.commerce.service import (
     CommerceProductNotFoundError,
     CommerceService,
     CommerceTransactionMismatchError,
+    CommerceUnavailableError,
 )
 
 router = APIRouter(prefix="/api/v1/commerce", tags=["commerce"])
@@ -57,12 +58,20 @@ def register_app_store_transaction(
             user_id=current_user.user_id,
             request=request,
         )
+    except CommerceUnavailableError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Commercial purchasing is not open",
+        ) from exc
     except CommerceProductNotFoundError as exc:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="IAP product is not configured",
         ) from exc
-    except (CommerceTransactionMismatchError, AppStoreTransactionVerificationError) as exc:
+    except (
+        CommerceTransactionMismatchError,
+        AppStoreTransactionVerificationError,
+    ) as exc:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="App Store transaction verification failed",
@@ -84,7 +93,11 @@ def register_app_store_notification(
 ) -> AppStoreNotificationResponse:
     try:
         return service.register_app_store_notification(request=request)
-    except (CommerceTransactionMismatchError, AppStoreTransactionVerificationError, ValueError) as exc:
+    except (
+        CommerceTransactionMismatchError,
+        AppStoreTransactionVerificationError,
+        ValueError,
+    ) as exc:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="App Store notification verification failed",

@@ -1,15 +1,46 @@
 <view class="s9-page s9-page--with-dock membership-page">
   <view class="s9-hero">
-    <view class="s9-title">第一次付钱，也可以安心试</view>
-    <view class="s9-subtitle">{{offer ? offer.subtitle : '具体服务期、权益和退款规则以服务端当前版本为准。'}}</view>
-    <view class="s9-chip-row">
+    <view class="s9-title">{{freeColdStart ? '冷启动期间，完整能力免费开放' : '第一次付钱，也可以安心试'}}</view>
+    <view class="s9-subtitle">{{freeColdStart ? '所有注册用户直接使用，不需要购买，也不会创建支付订单。' : (offer ? offer.subtitle : '具体服务期、权益和退款规则以服务端当前版本为准。')}}</view>
+    <view wx:if="{{!freeColdStart}}" class="s9-chip-row">
       <view class="s9-chip s9-chip--gold">创始体验官</view>
       <view class="s9-chip s9-chip--primary">{{offer ? offer.remainingLabel : '名额待确认'}}</view>
+    </view>
+    <view wx:else class="s9-chip-row">
+      <view class="s9-chip s9-chip--primary">公开免费</view>
+      <view class="s9-chip">阶段性开放</view>
     </view>
   </view>
 
   <state-view wx:if="{{status === 'loading'}}" custom-class="membership-state-view" state="loading" />
   <state-view wx:elif="{{status === 'error'}}" custom-class="membership-state-view" state="error" title="会员信息没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
+
+  <block wx:elif="{{freeColdStart}}">
+    <view class="s9-stack">
+      <view class="s9-card s9-card--primary founder-card">
+        <view class="s9-card-kicker">当前开放状态</view>
+        <view class="s9-card-title">注册后即可使用岸岸</view>
+        <view class="s9-card-copy">岗位、训练、申论批改、拍照搜题、报告与学习档案按正式服务质量开放，不区分会员身份。</view>
+        <view class="s9-card-meta">无需付费 · 不创建订单 · 不自动续费</view>
+      </view>
+
+      <view class="s9-card guarantee-card">
+        <view class="s9-card-kicker">阶段说明</view>
+        <view class="s9-card-title">免费是当前产品状态，不是永久承诺</view>
+        <view class="s9-card-copy">如果未来启用收费，会在购买入口开放前单独展示商品、价格、服务内容和退款规则；不会把本页视为你同意了任何付费条款。</view>
+        <view class="s9-card-meta">服务端状态：{{dashboard.catalog.commercialMode}}</view>
+      </view>
+    </view>
+
+    <view class="s9-section">
+      <view class="s9-section-head"><view class="s9-section-title">当前边界</view><view class="s9-section-meta">{{entitlementPeriod}}</view></view>
+      <view class="s9-list">
+        <view class="s9-list-row"><view class="feature-check">✓</view><view class="s9-list-main"><view class="s9-list-title">没有会员购买入口</view><view class="s9-list-copy">客户端即使伪造请求，服务端也会拒绝创建订单。</view></view></view>
+        <view class="s9-list-row"><view class="feature-check">✓</view><view class="s9-list-main"><view class="s9-list-title">学习数据不受会员状态影响</view><view class="s9-list-copy">作答、档案、计划、私人资料和导出属于你的学习数据。</view></view></view>
+        <view class="s9-list-row"><view class="feature-check">✓</view><view class="s9-list-main"><view class="s9-list-title">免费开放不等于允许滥用</view><view class="s9-list-copy">批量爬题、脚本刷模型、恶意文件和账号共享仍会被安全系统阻止。</view></view></view>
+      </view>
+    </view>
+  </block>
 
   <block wx:else>
     <view class="s9-stack">

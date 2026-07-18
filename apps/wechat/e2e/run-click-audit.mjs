@@ -24,7 +24,7 @@ const journeys = [
   ["submitted-mock-report", submittedMockReport],
   ["essay-compose-actions", essayComposeActions],
   ["report-return-today", reportReturnToday],
-  ["membership-virtual-payment", membershipVirtualPayment],
+  ["free-cold-start-access", freeColdStartAccess],
   ["profile-menu", profileMenu],
 ];
 const journeyFilter = process.env.JOURNEY?.trim() ?? "";
@@ -222,21 +222,13 @@ async function reportReturnToday(program) {
   await waitForPath(program, "/pages/today/index", "report did not return to today's plan");
 }
 
-async function membershipVirtualPayment(program) {
-  await setAuthentication(program, true);
-  await installCommerceMocks(program);
-  const page = await openVisualScenario(program, "g01-membership-ready", { keepMocks: true });
-  await (await requiredElement(page, ".accept-row")).tap();
-  await waitForData(page, (data) => data.accepted === true, "membership policy acceptance failed");
-  await (await requiredElement(page, ".s9-primary-button")).tap();
-  await waitForData(page, (data) => data.paying === false, "membership payment did not settle");
-  const audit = await program.evaluate(function readCommerceAudit() {
-    return {
-      virtualPaymentCalled: Boolean(globalThis.__ananClickAuditVirtualPayment),
-    };
-  });
-  assert.equal(audit.virtualPaymentCalled, true, "virtual payment was not invoked");
-  await installNetworkGuard(program);
+async function freeColdStartAccess(program) {
+  const page = await openVisualScenario(program, "g01-open-access-ready");
+  const data = await page.data();
+  assert.equal(data.freeColdStart, true, "open-access page is not in free cold-start mode");
+  assert.equal(data.dashboard?.catalog?.orderingEnabled, false, "ordering must be disabled");
+  assert.equal(await page.$(".accept-row"), null, "free mode exposed policy acceptance");
+  assert.equal(await page.$(".s9-action-dock"), null, "free mode exposed a purchase action");
 }
 
 async function profileMenu(program) {
@@ -244,11 +236,6 @@ async function profileMenu(program) {
   let rows = await page.$$(".profile-menu-row");
   assert.ok(rows.length >= 4, "profile menu should expose primary account links");
   await rows[2].tap();
-  await waitForPath(program, "/pages/membership/index", "profile membership link did not navigate");
-
-  page = await openVisualScenario(program, "f09-profile-ready");
-  rows = await page.$$(".profile-menu-row");
-  await rows[3].tap();
   await waitForPath(program, "/pages/privacy/index", "profile privacy link did not navigate");
 }
 
@@ -373,38 +360,6 @@ async function installXingceMocks(program) {
   });
 }
 
-async function installCommerceMocks(program) {
-  await restoreWxMethodIfMocked(program, "request");
-  await restoreWxMethodIfMocked(program, "login");
-  await restoreWxMethodIfMocked(program, "getDeviceInfo");
-  await restoreWxMethodIfMocked(program, "canIUse");
-  await restoreWxMethodIfMocked(program, "requestVirtualPayment");
-  await program.mockWxMethod("request", {
-    data: envelope(createCommerceAuditResponse()),
-    statusCode: 200,
-    header: {},
-    cookies: [],
-    errMsg: "request:ok",
-  });
-  await program.evaluate(function installAuditCommerceMocks() {
-    globalThis.__ananClickAuditVirtualPayment = false;
-    wx.getDeviceInfo = function auditGetDeviceInfo() {
-      return { platform: "android" };
-    };
-    wx.login = function auditLogin(options) {
-      options.success?.({ code: "click-audit-payment-code", errMsg: "login:ok" });
-    };
-    wx.canIUse = function auditCanIUse(capability) {
-      return capability === "requestVirtualPayment";
-    };
-    wx.requestVirtualPayment = function auditVirtualPayment(options) {
-      globalThis.__ananClickAuditVirtualPayment = true;
-      globalThis.__ananClickAuditVirtualPaymentPayload = options;
-      options.success?.({ errMsg: "requestVirtualPayment:ok" });
-    };
-  });
-}
-
 async function setAuthentication(program, authenticated) {
   await program.evaluate(function applyClickAuditSession(hasSession) {
     const storageKey = "gongkao.auth.session.v1";
@@ -510,47 +465,6 @@ function createXingceSession() {
     verificationOutcome: null,
     review: null,
     completion: null,
-  };
-}
-
-function createCommerceAuditResponse() {
-  const offer = {
-    offerVersionId: "founder-30d-v1",
-    title: "岸岸创始体验",
-    amountMinor: 9900,
-    cohortRemaining: 18,
-    recruitmentState: "open",
-    featureHighlights: ["AI 学习大脑与每日计划", "岗位资格与分差判断", "申论证据化评阅"],
-    policies: [
-      { policyKind: "service_terms", policyVersion: "service@v1", title: "服务规则" },
-      { policyKind: "refund", policyVersion: "refund@v1", title: "30 天退款保障" },
-      { policyKind: "process_reward", policyVersion: "reward@v1", title: "学习过程奖励" },
-      { policyKind: "marketing", policyVersion: "marketing@v1", title: "不承诺提分或上岸" },
-    ],
-  };
-  const awaitingOrder = {
-    orderId: "click-audit-order",
-    state: "awaiting_payment",
-    paidAt: null,
-    paymentChannel: "wechat_virtual_payment",
-    clientPlatform: "android",
-    virtualPayment: {
-      signData: '{"goodsId":"founder-30d-v1"}',
-      paySig: "pay-sig",
-      signature: "signature",
-      mode: "short_series_goods",
-    },
-  };
-  return {
-    entitlement: { tier: "free", subscriptionEnd: null },
-    catalog: { offers: [offer] },
-    orders: [],
-    rewardProgress: { effectiveDays: 7, weeklyReflections: 2, coreCompletionRatio: 0.68 },
-    refundEligibility: null,
-    order: awaitingOrder,
-    ...awaitingOrder,
-    state: "paid",
-    paidAt: "2026-07-18T00:00:00Z",
   };
 }
 

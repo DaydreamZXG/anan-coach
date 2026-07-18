@@ -210,6 +210,8 @@ def _commerce_service(session: Session) -> CommerceService:
     return CommerceService(
         repository=CommerceRepository(session),
         app_store_verifier=None,  # type: ignore[arg-type]
+        commercial_mode="paid",
+        usage_access_mode="entitlement_quota",
         now=lambda: NOW,
     )
 

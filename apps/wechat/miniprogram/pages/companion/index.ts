@@ -10,7 +10,8 @@ import {
 } from "../../features/learning-brain/presentation";
 
 type CompanionAnswerView = CompanionAskResponse & {
-  quotaRemaining: number;
+  quotaRemaining: number | null;
+  quotaUnlimited: boolean;
   stateLabel: string;
   confidenceLabel: string;
 };
@@ -107,7 +108,9 @@ Page({
         companionIntent: data.companionIntent,
         answer: {
           ...data,
-          quotaRemaining: Math.max(0, data.quota.limit - data.quota.used),
+          quotaRemaining:
+            data.quota.limit === null ? null : Math.max(0, data.quota.limit - data.quota.used),
+          quotaUnlimited: data.quota.accessMode === "unlimited",
           stateLabel: stateLabels[data.semanticState],
           confidenceLabel: { low: "低置信", medium: "中置信", high: "高置信" }[data.confidence],
         },

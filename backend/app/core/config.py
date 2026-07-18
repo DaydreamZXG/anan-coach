@@ -3,9 +3,13 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import timedelta
 import os
+from typing import Literal, cast
 
 
 DEFAULT_AI_PROVIDER_BASE_URL = "https://ai-provider.invalid/v1"
+
+CommercialMode = Literal["free_cold_start", "paid"]
+UsageAccessMode = Literal["unlimited", "entitlement_quota"]
 
 
 @dataclass(frozen=True)
@@ -13,6 +17,8 @@ class Settings:
     app_name: str = "考公搭子"
     app_slug: str = "gongkao-dazi"
     environment: str = "local"
+    commercial_mode: CommercialMode = "free_cold_start"
+    usage_access_mode: UsageAccessMode = "unlimited"
     api_base_url: str = "https://kg.xingguoxian.cn"
     tos_bucket: str = "gongkao-dazi-prod"
     tos_region: str = "cn-guangzhou"
@@ -152,7 +158,7 @@ class Settings:
     wechat_virtual_pay_message_encoding_aes_key: str = ""
     privacy_export_expiry_seconds: int = 86400
     operations_metrics_token: str = ""
-    required_database_revision: str = "20260718_37"
+    required_database_revision: str = "20260718_38"
     support_jwt_jwks_url: str = ""
     support_jwt_issuer: str = ""
     support_jwt_audience: str = ""
@@ -162,6 +168,8 @@ class Settings:
 def get_settings() -> Settings:
     return Settings(
         environment=os.getenv("APP_ENV", "local"),
+        commercial_mode=_commercial_mode(),
+        usage_access_mode=_usage_access_mode(),
         api_base_url=os.getenv("API_BASE_URL", "https://kg.xingguoxian.cn"),
         tos_bucket=os.getenv("TOS_BUCKET", "gongkao-dazi-prod"),
         tos_region=os.getenv("TOS_REGION", "cn-guangzhou"),
@@ -541,7 +549,7 @@ def get_settings() -> Settings:
         ),
         operations_metrics_token=os.getenv("OPERATIONS_METRICS_TOKEN", ""),
         required_database_revision=os.getenv(
-            "REQUIRED_DATABASE_REVISION", "20260718_37"
+            "REQUIRED_DATABASE_REVISION", "20260718_38"
         ),
         support_jwt_jwks_url=os.getenv("SUPPORT_JWT_JWKS_URL", ""),
         support_jwt_issuer=os.getenv("SUPPORT_JWT_ISSUER", ""),
@@ -560,3 +568,19 @@ def _environment_bool(name: str, *, default: bool) -> bool:
     if normalized in {"0", "false", "no", "off"}:
         return False
     raise ValueError(f"{name} must be an explicit boolean")
+
+
+def _commercial_mode() -> CommercialMode:
+    value = os.getenv("COMMERCIAL_MODE", "free_cold_start").strip().lower()
+    if value not in {"free_cold_start", "paid"}:
+        raise ValueError("COMMERCIAL_MODE must be either 'free_cold_start' or 'paid'")
+    return cast(CommercialMode, value)
+
+
+def _usage_access_mode() -> UsageAccessMode:
+    value = os.getenv("USAGE_ACCESS_MODE", "unlimited").strip().lower()
+    if value not in {"unlimited", "entitlement_quota"}:
+        raise ValueError(
+            "USAGE_ACCESS_MODE must be either 'unlimited' or 'entitlement_quota'"
+        )
+    return cast(UsageAccessMode, value)

@@ -71,6 +71,10 @@ export type AiCauseCandidateState = {
  */
 export type AiQuotaState = {
     /**
+     * Accessmode
+     */
+    accessMode: 'unlimited' | 'entitlement_quota';
+    /**
      * Date
      */
     date: string;
@@ -81,7 +85,7 @@ export type AiQuotaState = {
     /**
      * Limit
      */
-    limit: number;
+    limit: number | null;
     /**
      * Used
      */
@@ -1340,6 +1344,10 @@ export type CohortAnnualScore = {
  */
 export type CommerceCatalogResponse = {
     /**
+     * Commercialmode
+     */
+    commercialMode: 'free_cold_start' | 'paid';
+    /**
      * Freequotas
      */
     freeQuotas: Array<CommerceFeatureQuota>;
@@ -1351,6 +1359,10 @@ export type CommerceCatalogResponse = {
      * Products
      */
     products: Array<CommerceProduct>;
+    /**
+     * Purchasingenabled
+     */
+    purchasingEnabled: boolean;
 };
 
 /**
@@ -1415,13 +1427,17 @@ export type CommerceEntitlementResponse = {
  */
 export type CommerceFeatureQuota = {
     /**
+     * Accessmode
+     */
+    accessMode: 'unlimited' | 'entitlement_quota';
+    /**
      * Feature
      */
     feature: string;
     /**
      * Limit
      */
-    limit: number;
+    limit: number | null;
     /**
      * Period
      */
@@ -1429,7 +1445,7 @@ export type CommerceFeatureQuota = {
     /**
      * Remaining
      */
-    remaining: number;
+    remaining: number | null;
     /**
      * Title
      */
@@ -3814,13 +3830,17 @@ export type EssayReviewQueueCommand = {
  */
 export type EssayReviewQuota = {
     /**
+     * Accessmode
+     */
+    accessMode: 'unlimited' | 'entitlement_quota';
+    /**
      * Feature
      */
     feature: 'essay_review';
     /**
      * Limit
      */
-    limit: number;
+    limit?: number | null;
     /**
      * Usagedate
      */
@@ -13458,9 +13478,17 @@ export type SourceType = 'text' | 'voice_transcript' | 'handwriting_extraction' 
  */
 export type Stage8Catalog = {
     /**
+     * Commercialmode
+     */
+    commercialMode: 'free_cold_start' | 'paid';
+    /**
      * Offers
      */
     offers: Array<WechatOffer>;
+    /**
+     * Orderingenabled
+     */
+    orderingEnabled: boolean;
     /**
      * Servertime
      */

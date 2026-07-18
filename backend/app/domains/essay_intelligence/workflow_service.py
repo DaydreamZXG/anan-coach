@@ -43,8 +43,12 @@ from app.domains.essay_intelligence.workflow_schemas import (
     EssayReviewQuota,
 )
 from app.contracts.external_learning.models import CandidateState, RecognitionKind
-from app.domains.external_ingestion.recognition.models import RecognitionCandidatePayload
-from app.domains.external_ingestion.recognition.repository import SQLRecognitionRepository
+from app.domains.external_ingestion.recognition.models import (
+    RecognitionCandidatePayload,
+)
+from app.domains.external_ingestion.recognition.repository import (
+    SQLRecognitionRepository,
+)
 from app.platform.jobs import BackgroundJob, BackgroundJobRepository
 from app.platform.outbox import OutboxRepository
 
@@ -122,9 +126,7 @@ class EssayReviewWorkflowService:
                 "user_id": user_id,
                 "task_version_id": str(command.task_version_id),
                 "task_key": source["task_key"],
-                "material_bundle_version_id": str(
-                    command.material_bundle_version_id
-                ),
+                "material_bundle_version_id": str(command.material_bundle_version_id),
                 "rubric_version_id": str(command.rubric_version_id),
                 "source_context": command.source_context,
                 "timed_status": command.timed_status,
@@ -287,7 +289,6 @@ class EssayReviewWorkflowService:
         )
         return EssayAnswerCreateResult(answer=answer)
 
-
     def _validated_answer_source_evidence(
         self,
         session: Session,
@@ -321,7 +322,10 @@ class EssayReviewWorkflowService:
             owner_user_id=revision.owner_user_id,
             recognition_kind=revision.recognition_kind.value,
         )
-        if head is None or head.recognition_revision_id != revision.recognition_revision_id:
+        if (
+            head is None
+            or head.recognition_revision_id != revision.recognition_revision_id
+        ):
             raise EssayWorkflowContractError(
                 "OCR source recognition has been superseded; confirm the current revision"
             )
@@ -698,6 +702,7 @@ class EssayReviewWorkflowService:
         quota = EssayReviewQuota(
             feature="essay_review",
             used=denial.used,
+            access_mode="entitlement_quota",
             limit=denial.limit,
             usage_date=denial.usage_date,
         )
@@ -791,7 +796,9 @@ class EssayReviewWorkflowService:
                 "versionNo": version_no,
                 "status": status,
                 "jobId": str(job.job_id) if job else None,
-                "quota": quota.model_dump(by_alias=True, mode="json") if quota else None,
+                "quota": quota.model_dump(by_alias=True, mode="json")
+                if quota
+                else None,
                 "retryAfter": retry_after.isoformat() if retry_after else None,
                 "supersedesIntentVersionId": str(supersedes) if supersedes else None,
             }
@@ -822,6 +829,7 @@ class EssayReviewWorkflowService:
                 "quota_feature": quota.feature if quota else None,
                 "quota_usage_date": quota.usage_date if quota else None,
                 "quota_used": quota.used if quota else None,
+                "quota_access_mode": quota.access_mode if quota else None,
                 "quota_limit": quota.limit if quota else None,
                 "retry_after": retry_after,
                 "supersedes_intent_version_id": (
@@ -931,9 +939,7 @@ class EssayReviewWorkflowService:
                 raise EssayWorkflowContractError(
                     "Grounded review execution history is inconsistent"
                 )
-            latest_attempt_no = int(
-                latest_job.payload.get("executionAttemptNo", 0)
-            )
+            latest_attempt_no = int(latest_job.payload.get("executionAttemptNo", 0))
             if latest_attempt_no < 1:
                 raise EssayWorkflowContractError(
                     "Grounded review execution history lacks an attempt number"
@@ -960,9 +966,7 @@ class EssayReviewWorkflowService:
                 )
                 return self._job_view(session, user_id=user_id, job=latest_job)
             if latest_job.status == "succeeded":
-                latest_review_id = UUID(
-                    str(latest_job.payload["reviewVersionId"])
-                )
+                latest_review_id = UUID(str(latest_job.payload["reviewVersionId"]))
                 latest_review = self._repository.review_by_id(
                     session,
                     user_id=user_id,
@@ -1055,9 +1059,7 @@ class EssayReviewWorkflowService:
             reservation = commerce_service.reserve_feature_usage(
                 user_id=user_id,
                 feature="essay_review",
-                reservation_key=(
-                    f"essay-review:{user_id}:{execution_fingerprint}"
-                ),
+                reservation_key=(f"essay-review:{user_id}:{execution_fingerprint}"),
                 business_key=execution_fingerprint,
                 commit=False,
             )
@@ -1095,6 +1097,7 @@ class EssayReviewWorkflowService:
                 "feature": reservation.feature,
                 "used": reservation.used,
                 "limit": reservation.limit,
+                "accessMode": reservation.access_mode,
                 "usageDate": reservation.usage_date.isoformat(),
                 "source": reservation.source,
             },
@@ -1138,9 +1141,7 @@ class EssayReviewWorkflowService:
                 "inputFingerprint": input_fingerprint,
                 "executionFingerprint": execution_fingerprint,
                 "executionAttemptNo": execution_attempt_no,
-                "supersedesReviewVersionId": payload[
-                    "supersedesReviewVersionId"
-                ],
+                "supersedesReviewVersionId": payload["supersedesReviewVersionId"],
             },
         )
         self._record_review_intent_queued(
@@ -1255,7 +1256,12 @@ def _job_quota(job: BackgroundJob) -> EssayReviewQuota:
         quota = EssayReviewQuota(
             feature=payload["feature"],
             used=int(payload["used"]),
-            limit=int(payload["limit"]),
+            access_mode=payload["accessMode"],
+            limit=(
+                int(payload["limit"])
+                if payload["accessMode"] == "entitlement_quota"
+                else None
+            ),
             usage_date=date.fromisoformat(str(payload["usageDate"])),
         )
     except (KeyError, TypeError, ValueError) as exc:

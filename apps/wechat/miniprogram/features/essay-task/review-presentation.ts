@@ -47,6 +47,13 @@ export function presentReviewIntent(intent: EssayReviewIntentView): ReviewDispla
         "服务端没有返回额度恢复时间或额度快照，页面不会猜测等待时间。请重新加载核对状态。",
       );
     }
+    if (intent.quota.accessMode !== "entitlement_quota" || intent.quota.limit === null) {
+      return safeTerminal(
+        "failed",
+        "评阅额度状态冲突",
+        "服务端把不限量访问写成了额度等待，页面不会展示错误限制。请重新加载核对状态。",
+      );
+    }
     const retryLabel = formatRetryAfter(intent.retryAfter);
     if (!retryLabel) {
       return safeTerminal(

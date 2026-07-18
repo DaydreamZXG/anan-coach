@@ -6,13 +6,14 @@ from uuid import UUID
 
 from pydantic import Field, model_validator
 
+from app.core.config import CommercialMode
 from app.domains.commerce.schemas import CommerceBaseModel, CommerceEntitlementResponse
 
 
 class CommercialPolicySnapshot(CommerceBaseModel):
     policy_version: str = Field(alias="policyVersion")
-    policy_kind: Literal["service_terms", "refund", "process_reward", "marketing"] = Field(
-        alias="policyKind"
+    policy_kind: Literal["service_terms", "refund", "process_reward", "marketing"] = (
+        Field(alias="policyKind")
     )
     title: str
     content: dict[str, object]
@@ -42,6 +43,8 @@ class WechatOffer(CommerceBaseModel):
 
 
 class Stage8Catalog(CommerceBaseModel):
+    commercial_mode: CommercialMode = Field(alias="commercialMode")
+    ordering_enabled: bool = Field(alias="orderingEnabled")
     offers: list[WechatOffer]
     server_time: datetime = Field(alias="serverTime")
 
@@ -68,7 +71,9 @@ class VirtualPaymentOrderCreateRequest(CommerceBaseModel):
     offer_version_id: UUID = Field(alias="offerVersionId")
     expected_amount_minor: int = Field(alias="expectedAmountMinor", gt=0)
     accepted_policies: PolicyAcceptances = Field(alias="acceptedPolicies")
-    payment_login_code: str = Field(alias="paymentLoginCode", min_length=1, max_length=256)
+    payment_login_code: str = Field(
+        alias="paymentLoginCode", min_length=1, max_length=256
+    )
     client_platform: WechatClientPlatform = Field(alias="clientPlatform")
 
 
@@ -183,7 +188,9 @@ class ProcessRewardProgress(CommerceBaseModel):
     weekly_reflections_required: int = Field(alias="weeklyReflectionsRequired", gt=0)
     core_tasks_completed: int = Field(alias="coreTasksCompleted", ge=0)
     core_tasks_due: int = Field(alias="coreTasksDue", ge=0)
-    core_completion_ratio: float | None = Field(default=None, alias="coreCompletionRatio")
+    core_completion_ratio: float | None = Field(
+        default=None, alias="coreCompletionRatio"
+    )
     awarded_rewards: list[str] = Field(alias="awardedRewards")
     pending_rewards: list[str] = Field(alias="pendingRewards")
     score_fields_used: Literal[False] = Field(alias="scoreFieldsUsed")
@@ -235,7 +242,9 @@ class RetakeProgramResponse(CommerceBaseModel):
 
 class RefundEligibility(CommerceBaseModel):
     eligible: bool
-    application_deadline: datetime | None = Field(default=None, alias="applicationDeadline")
+    application_deadline: datetime | None = Field(
+        default=None, alias="applicationDeadline"
+    )
     remaining_refundable_minor: int = Field(alias="remainingRefundableMinor", ge=0)
     prior_process_rewards_minor: int = Field(alias="priorProcessRewardsMinor", ge=0)
     blocking_code: str | None = Field(default=None, alias="blockingCode")
@@ -252,7 +261,9 @@ class CommerceDashboard(CommerceBaseModel):
     reward_progress: ProcessRewardProgress | None = Field(
         default=None, alias="rewardProgress"
     )
-    retake_program: RetakeProgramView | None = Field(default=None, alias="retakeProgram")
+    retake_program: RetakeProgramView | None = Field(
+        default=None, alias="retakeProgram"
+    )
 
     @model_validator(mode="after")
     def active_order_has_commercial_state(self) -> "CommerceDashboard":

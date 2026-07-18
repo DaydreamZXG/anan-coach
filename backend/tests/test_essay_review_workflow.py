@@ -1072,6 +1072,8 @@ def _commerce(session: Session) -> CommerceService:
     return CommerceService(
         repository=CommerceRepository(session),
         app_store_verifier=cast(Any, object()),
+        commercial_mode="paid",
+        usage_access_mode="entitlement_quota",
         now=lambda: NOW,
     )
 

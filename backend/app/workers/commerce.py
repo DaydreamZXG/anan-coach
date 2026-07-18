@@ -36,6 +36,8 @@ def run() -> None:
             entitlement_service=CommerceService(
                 repository=base_repository,
                 app_store_verifier=AppStoreSignedTransactionVerifier(settings),
+                commercial_mode=settings.commercial_mode,
+                usage_access_mode=settings.usage_access_mode,
             ),
             gateway=WechatVirtualPaymentClient(settings),
             settings=settings,

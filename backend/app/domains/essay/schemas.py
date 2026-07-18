@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Literal
+
 from pydantic import BaseModel, ConfigDict, Field
 
 
@@ -29,5 +31,6 @@ class EssayTask(EssayBaseModel):
 class AIQuotaState(EssayBaseModel):
     feature: str
     used: int
-    limit: int
+    access_mode: Literal["unlimited", "entitlement_quota"] = Field(alias="accessMode")
+    limit: int | None
     date: str

@@ -295,7 +295,13 @@ describe("essay drafting workflow", () => {
       answerVersionId: "answer-version-1",
       reviewVersionId: "review-version-1",
       reviewStatus: "completed" as const,
-      quota: { feature: "essay_review" as const, used: 1, limit: 20, usageDate: "2026-07-13" },
+      quota: {
+        feature: "essay_review" as const,
+        accessMode: "entitlement_quota" as const,
+        used: 1,
+        limit: 20,
+        usageDate: "2026-07-13",
+      },
       createdAt: "2026-07-13T00:00:00Z",
       completedAt: "2026-07-13T00:01:00Z",
       review: completedReview(),
@@ -309,7 +315,13 @@ describe("essay drafting workflow", () => {
     const display = presentReviewIntent(
       reviewIntent({
         status: "waiting_quota",
-        quota: { feature: "essay_review", used: 20, limit: 20, usageDate: "2026-07-13" },
+        quota: {
+          feature: "essay_review",
+          accessMode: "entitlement_quota",
+          used: 20,
+          limit: 20,
+          usageDate: "2026-07-13",
+        },
         retryAfter: "2026-07-14T00:00:00+08:00",
       }),
     );
@@ -327,7 +339,13 @@ describe("essay drafting workflow", () => {
     const display = presentReviewIntent(
       reviewIntent({
         status: "waiting_quota",
-        quota: { feature: "essay_review", used: 20, limit: 20, usageDate: "2026-07-13" },
+        quota: {
+          feature: "essay_review",
+          accessMode: "entitlement_quota",
+          used: 20,
+          limit: 20,
+          usageDate: "2026-07-13",
+        },
         retryAfter: "2026-07-13T16:00:00Z",
       }),
     );

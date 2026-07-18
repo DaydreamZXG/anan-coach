@@ -508,6 +508,7 @@ class EssayLearningArtifactRepository:
                        review_intent.quota_feature as review_intent_quota_feature,
                        review_intent.quota_usage_date as review_intent_quota_usage_date,
                        review_intent.quota_used as review_intent_quota_used,
+                       review_intent.quota_access_mode as review_intent_quota_access_mode,
                        review_intent.quota_limit as review_intent_quota_limit,
                        review_intent.retry_after as review_intent_retry_after,
                        review_intent.supersedes_intent_version_id as review_intent_supersedes_id,

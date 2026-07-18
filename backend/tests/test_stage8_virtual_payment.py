@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from base64 import b64encode
-from datetime import UTC, datetime
+from dataclasses import replace
+from datetime import UTC, datetime, timedelta
 from hashlib import sha256
 import hmac
 import json
@@ -38,9 +39,10 @@ from app.domains.commerce.wechat_virtual_payment import (
     WechatVirtualPaymentConfig,
     WechatVirtualPaymentProtocolError,
 )
+from app.domains.commerce.stage8_service import Stage8CommerceUnavailable
 
 
-NOW = datetime(2026, 7, 18, 12, 0, tzinfo=UTC)
+NOW = datetime.now(UTC) + timedelta(days=1)
 
 
 class FakeIdentityExchange:
@@ -123,9 +125,7 @@ class FakeVirtualPaymentGateway:
 def test_request_virtual_payment_signature_uses_fresh_matching_session() -> None:
     session_key = "one-time-session-key"
     identity = FakeIdentityExchange(open_id="openid-owner", session_key=session_key)
-    http_client = httpx.Client(
-        base_url="https://api.weixin.qq.com", trust_env=False
-    )
+    http_client = httpx.Client(base_url="https://api.weixin.qq.com", trust_env=False)
     client = WechatVirtualPaymentClient(
         _settings(),
         config=_virtual_config(),
@@ -149,7 +149,9 @@ def test_request_virtual_payment_signature_uses_fresh_matching_session() -> None
         '"attach":"order:00000000-0000-0000-0000-000000000001"}'
     )
     assert payment.sign_data == expected_sign_data
-    assert payment.pay_sig == _hmac("app-key-test", "requestVirtualPayment&" + expected_sign_data)
+    assert payment.pay_sig == _hmac(
+        "app-key-test", "requestVirtualPayment&" + expected_sign_data
+    )
     assert payment.signature == _hmac(session_key, expected_sign_data)
 
     identity.open_id = "openid-another-user"
@@ -163,6 +165,45 @@ def test_request_virtual_payment_signature_uses_fresh_matching_session() -> None
             attach="order:00000000-0000-0000-0000-000000000002",
         )
     http_client.close()
+
+
+def test_free_cold_start_rejects_forged_virtual_payment_order(
+    db_session: Session,
+) -> None:
+    user_id, _ = _seed_wechat_user(db_session)
+    gateway = FakeVirtualPaymentGateway()
+    free_settings = replace(_settings(), commercial_mode="free_cold_start")
+    service = Stage8VirtualPaymentService(
+        repository=Stage8CommerceRepository(db_session),
+        entitlement_service=CommerceService(
+            repository=CommerceRepository(db_session),
+            app_store_verifier=AppStoreSignedTransactionVerifier(free_settings),
+            commercial_mode="free_cold_start",
+            usage_access_mode="unlimited",
+            now=lambda: NOW,
+        ),
+        gateway=gateway,
+        settings=free_settings,
+        now=lambda: NOW,
+    )
+    with pytest.raises(Stage8CommerceUnavailable, match="free cold start"):
+        service.create_order(
+            user_id=user_id,
+            request=VirtualPaymentOrderCreateRequest(
+                command_key="forged-free-order-0001",
+                offer_version_id=uuid4(),
+                expected_amount_minor=6900,
+                accepted_policies=PolicyAcceptances(
+                    service_terms_version="forged-service",
+                    refund_policy_version="forged-refund",
+                    reward_policy_version="forged-reward",
+                    marketing_policy_version="forged-marketing",
+                ),
+                payment_login_code="fresh-login-code",
+                client_platform="android",
+            ),
+        )
+    assert gateway.prepared == []
 
 
 def test_ios_payment_reconciliation_grants_once_and_records_apple_route(
@@ -427,6 +468,8 @@ def _service(
     entitlement_service = CommerceService(
         repository=CommerceRepository(session),
         app_store_verifier=AppStoreSignedTransactionVerifier(settings),
+        commercial_mode="paid",
+        usage_access_mode="entitlement_quota",
         now=lambda: NOW,
     )
     return Stage8VirtualPaymentService(
@@ -490,6 +533,7 @@ def _provider_result(
 
 def _settings() -> Settings:
     return Settings(
+        commercial_mode="paid",
         wechat_mini_app_id="stage8-test-app",
         wechat_mini_app_secret="stage8-test-secret",
         wechat_virtual_pay_offer_id="offer-test",

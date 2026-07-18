@@ -1,14 +1,17 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime, timedelta
-from typing import Any, cast
+from typing import Annotated, Any, cast
 from uuid import uuid4
 
+from fastapi import Depends
 from fastapi.testclient import TestClient
 from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
 
 from app.domains.auth.repository import token_hash_for_tests
+from app.db.session import get_db_session
+from app.domains.commerce.deps import get_commerce_service
 from app.domains.commerce.repository import CommerceRepository
 from app.domains.commerce.service import CommerceService
 from app.domains.essay_intelligence.drafting_service import (
@@ -388,6 +391,7 @@ def test_quota_waiting_is_durable_without_rolling_back_drafting_facts(
     assert completed.status_code == 200, completed.text
     result = completed.json()["data"]
     assert result["reviewIntent"]["status"] == "pending"
+    _set_metered_commerce(context["client"])
     ensure_payload = {
         "taskVersionId": context["ids"]["task"],
         "materialBundleVersionId": context["ids"]["material"],
@@ -612,6 +616,21 @@ def _set_drafting_now(client: object, now: datetime) -> None:
     )
 
 
+def _set_metered_commerce(client: object) -> None:
+    def override(
+        session: Annotated[Session, Depends(get_db_session)],
+    ) -> CommerceService:
+        return CommerceService(
+            repository=CommerceRepository(session),
+            app_store_verifier=cast(Any, object()),
+            commercial_mode="paid",
+            usage_access_mode="entitlement_quota",
+        )
+
+    app = cast(Any, cast(TestClient, client).app)
+    app.dependency_overrides[get_commerce_service] = override
+
+
 def _create_command(context: dict[str, object]) -> dict[str, object]:
     ids = context["ids"]
     task = context["task"]
@@ -705,6 +724,8 @@ def _exhaust_review_quota(
         service = CommerceService(
             repository=CommerceRepository(session),
             app_store_verifier=cast(Any, object()),
+            commercial_mode="paid",
+            usage_access_mode="entitlement_quota",
             now=lambda: datetime.now(UTC),
         )
         service.reserve_feature_usage(

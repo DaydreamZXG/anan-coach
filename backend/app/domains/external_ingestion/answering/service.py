@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from hashlib import sha256
 import json
-from uuid import NAMESPACE_URL, UUID, uuid4, uuid5
+from uuid import NAMESPACE_URL, UUID, uuid5
 
 from sqlalchemy import text
 from sqlalchemy.orm import Session
@@ -225,6 +225,8 @@ class ExternalAIAnswerService:
         return CommerceService(
             repository=CommerceRepository(self._session),
             app_store_verifier=AppStoreSignedTransactionVerifier(self._settings),
+            commercial_mode=self._settings.commercial_mode,
+            usage_access_mode=self._settings.usage_access_mode,
         )
 
 

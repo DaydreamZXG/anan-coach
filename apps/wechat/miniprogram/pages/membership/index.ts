@@ -70,8 +70,9 @@ Page({
     weeklyReflectionsRequired: 0,
     coreRatioLabel: "尚无到期任务",
     clientPlatform: "",
-    paymentDisclosure: "微信虚拟支付 · 单次购买 · 不自动续费",
-    paymentEnabled: environment.virtualPaymentEnabled,
+    freeColdStart: true,
+    paymentDisclosure: "冷启动期间不会创建支付订单",
+    paymentEnabled: false,
   },
 
   onShow() {
@@ -86,7 +87,8 @@ Page({
       const api = new CommerceApi(new ApiClient(undefined, token));
       const response = await api.dashboard();
       const dashboard = response.data;
-      if (recoverPending) {
+      const freeColdStart = dashboard.catalog.commercialMode === "free_cold_start";
+      if (recoverPending && dashboard.catalog.orderingEnabled) {
         const pending = dashboard.orders.find((item) => {
           const order = item as typeof item & { paymentChannel?: string };
           return (
@@ -105,12 +107,16 @@ Page({
         }
       }
       let platform: WechatClientPlatform | "" = "";
-      try {
-        platform = currentWechatPaymentPlatform();
-      } catch {
-        platform = "";
+      if (dashboard.catalog.orderingEnabled) {
+        try {
+          platform = currentWechatPaymentPlatform();
+        } catch {
+          platform = "";
+        }
       }
-      const rawOffer = dashboard.catalog.offers[0] ?? null;
+      const rawOffer = dashboard.catalog.orderingEnabled
+        ? (dashboard.catalog.offers[0] ?? null)
+        : null;
       const policyViews = rawOffer ? presentCommercialPolicies(rawOffer.policies) : [];
       const refundPolicy = policyViews.find((item) => item.policyKind === "refund");
       const offer = rawOffer
@@ -127,14 +133,21 @@ Page({
       this.setData({
         status: "ready",
         dashboard,
+        freeColdStart,
         offer,
         policies: policyViews,
         refundPolicyTitle: refundPolicy?.title ?? "退款规则",
         refundPolicyLabel: refundPolicy?.contentLabel ?? "",
-        entitlementLabel: dashboard.entitlement.tier === "pro" ? "陪练会员" : "免费版",
-        entitlementPeriod: dashboard.entitlement.subscriptionEnd
-          ? `有效至 ${dashboard.entitlement.subscriptionEnd.slice(0, 10)}`
-          : "当前无付费权益",
+        entitlementLabel: freeColdStart
+          ? "冷启动免费"
+          : dashboard.entitlement.tier === "pro"
+            ? "陪练会员"
+            : "免费版",
+        entitlementPeriod: freeColdStart
+          ? "所有注册用户开放"
+          : dashboard.entitlement.subscriptionEnd
+            ? `有效至 ${dashboard.entitlement.subscriptionEnd.slice(0, 10)}`
+            : "当前无付费权益",
         effectiveDays: dashboard.rewardProgress?.effectiveDays ?? 0,
         effectiveDaysRequired: dashboard.rewardProgress?.effectiveDaysRequired ?? 0,
         weeklyReflections: dashboard.rewardProgress?.weeklyReflections ?? 0,
@@ -144,11 +157,14 @@ Page({
             ? "尚无到期任务"
             : `${String(Math.round(ratio * 100))}%`,
         clientPlatform: platform,
-        paymentDisclosure: !environment.virtualPaymentEnabled
-          ? "会员购买暂未开放，当前不会创建支付订单"
-          : platform === "ios"
-            ? "iOS 由 Apple 收款 · 退款需在 App Store 申请 · 最终结果由 Apple 决定"
-            : "微信虚拟支付 · 单次购买 · 不自动续费",
+        paymentEnabled: dashboard.catalog.orderingEnabled && environment.virtualPaymentEnabled,
+        paymentDisclosure: freeColdStart
+          ? "冷启动期间不会创建支付订单"
+          : !environment.virtualPaymentEnabled
+            ? "会员购买暂未开放，当前不会创建支付订单"
+            : platform === "ios"
+              ? "iOS 由 Apple 收款 · 退款需在 App Store 申请 · 最终结果由 Apple 决定"
+              : "微信虚拟支付 · 单次购买 · 不自动续费",
       });
     } catch (error) {
       const apiError = error instanceof ApiClientError ? error : undefined;

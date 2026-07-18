@@ -3,12 +3,13 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import UTC, date, datetime
 import json
-from typing import Any
+from typing import Any, cast
 from uuid import UUID, uuid4
 
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
+from app.core.config import UsageAccessMode
 from app.domains.commerce.catalog import PRODUCTS, ProductConfig
 
 
@@ -75,6 +76,7 @@ class FeatureUsageReservation:
     feature: str
     used: int
     limit: int
+    access_mode: UsageAccessMode
     usage_date: date
     business_key: str
     status: str
@@ -284,6 +286,7 @@ class CommerceRepository:
         business_key: str,
         usage_date: date,
         limit: int,
+        access_mode: UsageAccessMode,
         tier: str,
         server_session_ref: str | None = None,
         commit: bool = True,
@@ -293,7 +296,9 @@ class CommerceRepository:
             business_key=business_key,
             feature=feature,
         )
-        if limit < 1:
+        if access_mode == "unlimited":
+            limit = max(1, limit)
+        elif limit < 1:
             self.log_entitlement_event(
                 user_id=user_id,
                 action="quota_denied",
@@ -368,6 +373,7 @@ class CommerceRepository:
                   usage_date,
                   used_count,
                   limit_count,
+                  access_mode,
                   updated_at
                 ) values (
                   cast(:user_id as uuid),
@@ -375,15 +381,18 @@ class CommerceRepository:
                   :usage_date,
                   1,
                   :limit_count,
+                  :access_mode,
                   now()
                 )
                 on conflict (user_id, feature, usage_date) do update set
                   used_count = commerce.entitlement_usage_daily.used_count + 1,
                   limit_count = excluded.limit_count,
+                  access_mode = excluded.access_mode,
                   updated_at = now()
-                where commerce.entitlement_usage_daily.used_count
-                  < excluded.limit_count
-                returning used_count, limit_count
+                where excluded.access_mode = 'unlimited'
+                   or commerce.entitlement_usage_daily.used_count
+                      < excluded.limit_count
+                returning used_count, limit_count, access_mode
                 """
             ),
             {
@@ -391,6 +400,7 @@ class CommerceRepository:
                 "feature": feature,
                 "usage_date": usage_date,
                 "limit_count": limit,
+                "access_mode": access_mode,
             },
         ).mappings().first()
         if row is None:
@@ -446,6 +456,7 @@ class CommerceRepository:
                   usage_date,
                   limit_count,
                   usage_count_at_reservation,
+                  access_mode,
                   status,
                   business_key,
                   job_id,
@@ -461,6 +472,7 @@ class CommerceRepository:
                   :usage_date,
                   :limit_count,
                   :used_count,
+                  :access_mode,
                   'reserved',
                   :business_key,
                   null,
@@ -480,6 +492,7 @@ class CommerceRepository:
                 "usage_date": usage_date,
                 "limit_count": int(row["limit_count"]),
                 "used_count": int(row["used_count"]),
+                "access_mode": str(row["access_mode"]),
                 "business_key": business_key,
             },
         ).mappings().one()
@@ -491,6 +504,7 @@ class CommerceRepository:
             metadata={
                 "tier": tier,
                 "limit": limit,
+                "accessMode": access_mode,
                 "used": int(row["used_count"]),
                 "reservationId": str(reservation_id),
                 "reservationKey": reservation_key,
@@ -1285,6 +1299,7 @@ def _feature_usage_reservation_from_row(
         feature=str(row["feature"]),
         used=current_used_count,
         limit=int(row["limit_count"]),
+        access_mode=cast(UsageAccessMode, str(row["access_mode"])),
         usage_date=row["usage_date"],
         business_key=str(row["business_key"]),
         status=str(row["status"]),
@@ -1303,6 +1318,7 @@ def _reward_feature_usage_reservation(record: Any) -> FeatureUsageReservation:
         feature=record.feature,
         used=record.value,
         limit=record.value,
+        access_mode="entitlement_quota",
         usage_date=record.reserved_at.date(),
         business_key=record.business_key,
         status=record.status,

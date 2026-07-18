@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections.abc import Iterator
 from datetime import UTC, datetime, timedelta
+from typing import Any, cast
 from uuid import uuid4
 
 import pytest
@@ -9,6 +10,7 @@ from fastapi.testclient import TestClient
 from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
 
+from app.core.config import CommercialMode, UsageAccessMode
 from app.db.session import get_db_session
 from app.domains.auth.repository import token_hash_for_tests
 from app.domains.commerce.app_store import (
@@ -16,7 +18,10 @@ from app.domains.commerce.app_store import (
     VerifiedAppStoreNotification,
     VerifiedAppStoreTransaction,
 )
-from app.domains.commerce.deps import get_app_store_transaction_verifier
+from app.domains.commerce.deps import (
+    get_app_store_transaction_verifier,
+    get_commerce_service,
+)
 from app.domains.commerce.repository import CommerceQuotaExceededError, CommerceRepository
 from app.domains.commerce.schemas import AppStoreTransactionRequest
 from app.domains.commerce.service import CommerceService
@@ -37,6 +42,7 @@ def test_commerce_catalog_contract(db_session_factory: sessionmaker[Session]) ->
     assert body["freeQuotas"][0] == {
         "feature": "companion_ask",
         "title": "岸岸 AI 问答",
+        "accessMode": "entitlement_quota",
         "limit": 3,
         "used": 0,
         "remaining": 3,
@@ -62,6 +68,46 @@ def test_entitlement_defaults_to_free(
     assert body["isActive"] is True
     assert body["featureQuotas"][0]["limit"] == 3
     assert body["productIds"] == []
+
+
+def test_free_cold_start_hides_products_disables_iap_and_exposes_unlimited_access(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _seed_user(db_session_factory, token="cold-start-token")
+    client = _make_client(
+        db_session_factory,
+        commercial_mode="free_cold_start",
+        usage_access_mode="unlimited",
+    )
+
+    catalog = client.get("/api/v1/commerce/catalog")
+    entitlement = client.get(
+        "/api/v1/commerce/entitlement",
+        headers={"Authorization": "Bearer cold-start-token"},
+    )
+    purchase = client.post(
+        "/api/v1/commerce/app-store/transactions",
+        headers={"Authorization": "Bearer cold-start-token"},
+        json={
+            "productId": "gongkao_ai_pro_monthly",
+            "transactionId": "forged-cold-start-transaction",
+            "originalTransactionId": "forged-cold-start-original",
+            "signedTransactionInfo": "forged.cold.start.transaction." + ("x" * 40),
+        },
+    )
+
+    assert catalog.status_code == 200
+    assert catalog.json()["commercialMode"] == "free_cold_start"
+    assert catalog.json()["purchasingEnabled"] is False
+    assert catalog.json()["products"] == []
+    assert entitlement.status_code == 200
+    assert all(
+        item["accessMode"] == "unlimited"
+        and item["limit"] is None
+        and item["remaining"] is None
+        for item in entitlement.json()["featureQuotas"]
+    )
+    assert purchase.status_code == 409
 
 
 def test_verified_active_app_store_transaction_grants_pro(
@@ -153,6 +199,8 @@ def test_feature_usage_switches_to_pro_limit_after_purchase(
     with db_session_factory() as session:
         service = CommerceService(
             repository=CommerceRepository(session),
+            commercial_mode="paid",
+            usage_access_mode="entitlement_quota",
             app_store_verifier=StaticAppStoreTransactionVerifier(
                 _verified_transaction(
                     product_id="gongkao_ai_pro_monthly",
@@ -175,6 +223,8 @@ def test_feature_usage_switches_to_pro_limit_after_purchase(
     with db_session_factory() as session:
         service = CommerceService(
             repository=CommerceRepository(session),
+            commercial_mode="paid",
+            usage_access_mode="entitlement_quota",
             app_store_verifier=StaticAppStoreTransactionVerifier(
                 _verified_transaction(
                     product_id="gongkao_ai_pro_monthly",
@@ -214,6 +264,8 @@ def test_monthly_feature_usage_does_not_reset_next_day(
     with db_session_factory() as session:
         service = CommerceService(
             repository=CommerceRepository(session),
+            commercial_mode="paid",
+            usage_access_mode="entitlement_quota",
             app_store_verifier=StaticAppStoreTransactionVerifier(
                 _verified_transaction(
                     product_id="gongkao_ai_pro_monthly",
@@ -273,6 +325,8 @@ def test_daily_feature_usage_resets_next_day(
     with db_session_factory() as session:
         service = CommerceService(
             repository=CommerceRepository(session),
+            commercial_mode="paid",
+            usage_access_mode="entitlement_quota",
             app_store_verifier=StaticAppStoreTransactionVerifier(
                 _verified_transaction(
                     product_id="gongkao_ai_pro_monthly",
@@ -378,6 +432,8 @@ def test_app_store_notification_revocation_expires_pro_entitlement(
     with db_session_factory() as session:
         service = CommerceService(
             repository=CommerceRepository(session),
+            commercial_mode="paid",
+            usage_access_mode="entitlement_quota",
             app_store_verifier=StaticAppStoreTransactionVerifier(
                 _verified_transaction(
                     product_id="gongkao_ai_pro_monthly",
@@ -447,6 +503,8 @@ def test_revoked_monthly_transaction_does_not_expire_active_yearly_entitlement(
     with db_session_factory() as session:
         service = CommerceService(
             repository=CommerceRepository(session),
+            commercial_mode="paid",
+            usage_access_mode="entitlement_quota",
             app_store_verifier=StaticAppStoreTransactionVerifier(
                 _verified_transaction(
                     product_id="gongkao_ai_pro_monthly",
@@ -470,6 +528,8 @@ def test_revoked_monthly_transaction_does_not_expire_active_yearly_entitlement(
     with db_session_factory() as session:
         service = CommerceService(
             repository=CommerceRepository(session),
+            commercial_mode="paid",
+            usage_access_mode="entitlement_quota",
             app_store_verifier=StaticAppStoreTransactionVerifier(
                 _verified_transaction(
                     product_id="gongkao_ai_pro_yearly",
@@ -557,6 +617,8 @@ def test_revoked_original_transaction_does_not_expire_later_renewal_in_same_chai
     with db_session_factory() as session:
         service = CommerceService(
             repository=CommerceRepository(session),
+            commercial_mode="paid",
+            usage_access_mode="entitlement_quota",
             app_store_verifier=StaticAppStoreTransactionVerifier(
                 _verified_transaction(
                     product_id="gongkao_ai_pro_monthly",
@@ -580,6 +642,8 @@ def test_revoked_original_transaction_does_not_expire_later_renewal_in_same_chai
     with db_session_factory() as session:
         service = CommerceService(
             repository=CommerceRepository(session),
+            commercial_mode="paid",
+            usage_access_mode="entitlement_quota",
             app_store_verifier=StaticAppStoreTransactionVerifier(
                 _verified_transaction(
                     product_id="gongkao_ai_pro_yearly",
@@ -655,6 +719,8 @@ def test_duplicate_app_store_notification_is_not_reprocessed(
     with db_session_factory() as session:
         service = CommerceService(
             repository=CommerceRepository(session),
+            commercial_mode="paid",
+            usage_access_mode="entitlement_quota",
             app_store_verifier=StaticAppStoreTransactionVerifier(
                 _verified_transaction(
                     product_id="gongkao_ai_pro_monthly",
@@ -771,6 +837,8 @@ def _make_client(
     db_session_factory: sessionmaker[Session],
     *,
     verifier: StaticAppStoreTransactionVerifier | None = None,
+    commercial_mode: CommercialMode = "paid",
+    usage_access_mode: UsageAccessMode = "entitlement_quota",
 ) -> TestClient:
     app = create_app()
 
@@ -779,6 +847,17 @@ def _make_client(
             yield session
 
     app.dependency_overrides[get_db_session] = override_db_session
+
+    def override_commerce_service() -> Iterator[CommerceService]:
+        with db_session_factory() as session:
+            yield CommerceService(
+                repository=CommerceRepository(session),
+                app_store_verifier=verifier or cast(Any, object()),
+                commercial_mode=commercial_mode,
+                usage_access_mode=usage_access_mode,
+            )
+
+    app.dependency_overrides[get_commerce_service] = override_commerce_service
     if verifier is not None:
         app.dependency_overrides[get_app_store_transaction_verifier] = lambda: verifier
     return TestClient(app)

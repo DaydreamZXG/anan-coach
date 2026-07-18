@@ -939,7 +939,7 @@ create table learning.essay_review_intent_versions (
   created_at timestamptz not null default now(),
   unique (intent_id, version_no),
   unique (user_id, answer_version_id, review_scope, version_no),
-  check (
+  constraint essay_review_intent_state_shape_check check (
     (status = 'pending' and num_nonnulls(job_id, quota_feature, quota_usage_date, quota_used, quota_limit, retry_after) = 0)
     or (status = 'waiting_quota' and job_id is null and quota_feature = 'essay_review' and num_nonnulls(quota_usage_date, quota_used, quota_limit, retry_after) = 4 and quota_limit >= 0 and quota_used >= quota_limit)
     or (status = 'queued' and job_id is not null and quota_feature = 'essay_review' and retry_after is null and num_nonnulls(quota_usage_date, quota_used, quota_limit) = 3 and quota_limit >= 1 and quota_used between 1 and quota_limit)
@@ -1598,6 +1598,7 @@ create table commerce.feature_usage_reservations (
   usage_date date not null,
   limit_count integer not null check (limit_count > 0),
   usage_count_at_reservation integer not null
+    constraint feature_usage_reservation_count_check
     check (usage_count_at_reservation between 1 and limit_count),
   status text not null check (status in ('reserved', 'consumed', 'refunded')),
   business_key text not null check (char_length(business_key) between 1 and 300),

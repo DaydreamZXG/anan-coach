@@ -8,7 +8,6 @@ from typing import Any
 from uuid import UUID
 
 from app.core.config import Settings
-from app.domains.commerce.schemas import CommerceEntitlementResponse
 from app.domains.commerce.service import CommerceService
 from app.domains.commerce.stage8_repository import (
     OfferRecord,
@@ -63,6 +62,10 @@ class Stage8RefundIneligible(RuntimeError):
         self.code = code
 
 
+class Stage8CommerceUnavailable(RuntimeError):
+    """The commercial engine exists, but the active product mode forbids sales."""
+
+
 class Stage8CommerceService:
     def __init__(
         self,
@@ -79,22 +82,37 @@ class Stage8CommerceService:
         self._settings = settings
         self._now = now or (lambda: datetime.now(UTC))
         if not 300 <= settings.wechat_pay_order_expiry_seconds <= 7200:
-            raise ValueError("WECHAT_PAY_ORDER_EXPIRY_SECONDS must be between 300 and 7200")
+            raise ValueError(
+                "WECHAT_PAY_ORDER_EXPIRY_SECONDS must be between 300 and 7200"
+            )
 
     def catalog(self) -> Stage8Catalog:
         now = self._now()
+        ordering_enabled = self._settings.commercial_mode == "paid"
         return Stage8Catalog(
-            offers=[self._offer_view(item) for item in self._repository.list_active_offers(now=now)],
+            commercial_mode=self._settings.commercial_mode,
+            ordering_enabled=ordering_enabled,
+            offers=(
+                [
+                    self._offer_view(item)
+                    for item in self._repository.list_active_offers(now=now)
+                ]
+                if ordering_enabled
+                else []
+            ),
             server_time=now,
         )
 
     def create_order(
         self, *, user_id: str, request: WechatOrderCreateRequest
     ) -> WechatOrderCreateResponse:
+        self.require_ordering_enabled()
         now = self._now()
         offer = self._repository.offer_by_id(request.offer_version_id, now=now)
         if request.expected_amount_minor != offer.amount_minor:
-            raise Stage8CommerceConflict("offer amount changed; refresh catalog before payment")
+            raise Stage8CommerceConflict(
+                "offer amount changed; refresh catalog before payment"
+            )
         self._validate_policy_acceptances(offer, request.accepted_policies)
         policies = self._repository.policies(_offer_policy_versions(offer))
         terms_snapshot: dict[str, object] = {
@@ -134,7 +152,8 @@ class Stage8CommerceService:
                 user_id=user_id, app_id=self._settings.wechat_mini_app_id
             ),
             terms_snapshot=terms_snapshot,
-            expires_at=now + timedelta(seconds=self._settings.wechat_pay_order_expiry_seconds),
+            expires_at=now
+            + timedelta(seconds=self._settings.wechat_pay_order_expiry_seconds),
         )
         payment: WechatPrepayResult | None = None
         if order.state == "awaiting_payment" and order.prepay_id:
@@ -155,16 +174,29 @@ class Stage8CommerceService:
                     )
                 except WechatPayTransportUncertain as exc:
                     self._repository.mark_order_uncertain(order_id=order.order_id)
-                    raise Stage8PaymentPending("payment order outcome requires reconciliation") from exc
+                    raise Stage8PaymentPending(
+                        "payment order outcome requires reconciliation"
+                    ) from exc
                 self._repository.mark_order_awaiting_payment(
                     order_id=order.order_id, prepay_id=payment.prepay_id
                 )
-                order = self._repository.order_by_id(user_id=user_id, order_id=order.order_id)
+                order = self._repository.order_by_id(
+                    user_id=user_id, order_id=order.order_id
+                )
         return WechatOrderCreateResponse(order=_order_view(order, payment=payment))
+
+    def require_ordering_enabled(self) -> None:
+        if self._settings.commercial_mode != "paid":
+            raise Stage8CommerceUnavailable(
+                "commercial ordering is disabled during free cold start"
+            )
 
     def list_orders(self, *, user_id: str) -> WechatOrderList:
         return WechatOrderList(
-            items=[_order_view(item) for item in self._repository.list_orders(user_id=user_id)]
+            items=[
+                _order_view(item)
+                for item in self._repository.list_orders(user_id=user_id)
+            ]
         )
 
     def reconcile_order(self, *, user_id: str, order_id: UUID) -> WechatOrderView:
@@ -173,7 +205,13 @@ class Stage8CommerceService:
 
     def close_order(self, *, user_id: str, order_id: UUID) -> WechatOrderView:
         order = self._repository.order_by_id(user_id=user_id, order_id=order_id)
-        if order.state in {"paid", "partially_refunded", "refund_processing", "refunded", "closed"}:
+        if order.state in {
+            "paid",
+            "partially_refunded",
+            "refund_processing",
+            "refunded",
+            "closed",
+        }:
             return _order_view(order)
         reconciled = self._reconcile_order_record(order)
         if reconciled.paid_at is not None or reconciled.state == "closed":
@@ -184,7 +222,9 @@ class Stage8CommerceService:
             self._repository.mark_order_uncertain(order_id=order.order_id)
             raise Stage8PaymentPending("close outcome requires reconciliation") from exc
         self._repository.mark_order_closed(order_id=order.order_id, at=self._now())
-        return _order_view(self._repository.order_by_id(user_id=user_id, order_id=order_id))
+        return _order_view(
+            self._repository.order_by_id(user_id=user_id, order_id=order_id)
+        )
 
     def payment_notification(
         self, *, headers: Mapping[str, str], body: bytes
@@ -352,8 +392,12 @@ class Stage8CommerceService:
             catalog=self.catalog(),
             entitlement=self._entitlement_service.get_entitlement(user_id=user_id),
             orders=[_order_view(item) for item in orders],
-            refund_eligibility=self._refund_eligibility(latest) if latest is not None else None,
-            reward_progress=_reward_progress(latest, facts) if latest is not None and facts is not None else None,
+            refund_eligibility=self._refund_eligibility(latest)
+            if latest is not None
+            else None,
+            reward_progress=_reward_progress(latest, facts)
+            if latest is not None and facts is not None
+            else None,
             retake_program=_retake_view(retake) if retake is not None else None,
         )
 
@@ -438,7 +482,10 @@ class Stage8CommerceService:
     def _validate_notification_merchant(self, notification: WechatNotification) -> None:
         if notification.resource_type != "encrypt-resource":
             raise WechatPayProtocolError("unexpected WeChat notification resource type")
-        if _required_string(notification.resource, "mchid") != self._settings.wechat_pay_mch_id:
+        if (
+            _required_string(notification.resource, "mchid")
+            != self._settings.wechat_pay_mch_id
+        ):
             raise WechatPayProtocolError("notification merchant does not match runtime")
         app_id = notification.resource.get("appid")
         if app_id is not None and app_id != self._settings.wechat_mini_app_id:
@@ -454,10 +501,18 @@ class Stage8CommerceService:
             "marketing_policy_version": offer.marketing_policy_version,
         }
         if any(getattr(accepted, key) != value for key, value in expected.items()):
-            raise Stage8CommerceConflict("commercial policy version changed; accept current policies")
+            raise Stage8CommerceConflict(
+                "commercial policy version changed; accept current policies"
+            )
 
     def _reconcile_order_record(self, order: OrderRecord) -> OrderRecord:
-        if order.state in {"paid", "partially_refunded", "refund_processing", "refunded", "closed"}:
+        if order.state in {
+            "paid",
+            "partially_refunded",
+            "refund_processing",
+            "refunded",
+            "closed",
+        }:
             return order
         provider = self._gateway.query_order(out_trade_no=order.out_trade_no)
         self._validate_payment(order, provider)
@@ -471,8 +526,14 @@ class Stage8CommerceService:
         self, order: OrderRecord, provider: WechatOrderQueryResult
     ) -> None:
         self._validate_payment(order, provider)
-        if provider.trade_state != "SUCCESS" or not provider.transaction_id or not provider.success_time:
-            raise WechatPayProtocolError("payment notification does not describe a successful trade")
+        if (
+            provider.trade_state != "SUCCESS"
+            or not provider.transaction_id
+            or not provider.success_time
+        ):
+            raise WechatPayProtocolError(
+                "payment notification does not describe a successful trade"
+            )
         service_days = int(order.terms_snapshot.get("serviceDays", 0))
         if service_days <= 0:
             raise Stage8CommerceConflict("order service term snapshot is invalid")
@@ -488,7 +549,10 @@ class Stage8CommerceService:
     def _validate_payment(order: OrderRecord, provider: WechatOrderQueryResult) -> None:
         if provider.out_trade_no != order.out_trade_no:
             raise WechatPayProtocolError("provider order number mismatch")
-        if provider.amount_minor != order.amount_minor or provider.currency != order.currency:
+        if (
+            provider.amount_minor != order.amount_minor
+            or provider.currency != order.currency
+        ):
             raise WechatPayProtocolError("provider payment amount mismatch")
         if provider.payer_open_id and provider.payer_open_id != order.payer_open_id:
             raise WechatPayProtocolError("provider payer identity mismatch")
@@ -497,7 +561,8 @@ class Stage8CommerceService:
         process_rewards = sum(
             item.amount_minor
             for item in self._refunds_for_order(order)
-            if item.refund_kind == "weekly_reflection_reward" and item.state == "succeeded"
+            if item.refund_kind == "weekly_reflection_reward"
+            and item.state == "succeeded"
         )
         deadline = order.paid_at + timedelta(days=30) if order.paid_at else None
         remaining = max(order.amount_minor - order.refunded_minor, 0)
@@ -548,7 +613,9 @@ class Stage8CommerceService:
                 provider_status="UNKNOWN",
                 processed_at=None,
             )
-            raise Stage8PaymentPending("refund outcome requires reconciliation") from exc
+            raise Stage8PaymentPending(
+                "refund outcome requires reconciliation"
+            ) from exc
         self._apply_refund_result(refund, result)
         return self._repository.refund_by_number(out_refund_no=refund.out_refund_no)
 
@@ -557,7 +624,10 @@ class Stage8CommerceService:
     ) -> None:
         if result.out_refund_no != refund.out_refund_no:
             raise WechatPayProtocolError("provider refund number mismatch")
-        if result.amount_minor != refund.amount_minor or result.currency != refund.currency:
+        if (
+            result.amount_minor != refund.amount_minor
+            or result.currency != refund.currency
+        ):
             raise WechatPayProtocolError("provider refund amount mismatch")
         state = {
             "SUCCESS": "succeeded",
@@ -591,7 +661,10 @@ class Stage8CommerceService:
         if facts.effective_days >= 20 and "membership_15d" not in facts.awarded_rewards:
             self._repository.grant_membership_reward(
                 order=order,
-                evidence_refs=[f"effective-days:{facts.effective_days}", f"order:{order.order_id}"],
+                evidence_refs=[
+                    f"effective-days:{facts.effective_days}",
+                    f"order:{order.order_id}",
+                ],
                 now=self._now(),
             )
         ratio = (
@@ -599,13 +672,22 @@ class Stage8CommerceService:
             if facts.core_tasks_due > 0
             else None
         )
-        if ratio is not None and ratio >= 0.8 and "special_diagnostic" not in facts.awarded_rewards:
+        if (
+            ratio is not None
+            and ratio >= 0.8
+            and "special_diagnostic" not in facts.awarded_rewards
+        ):
             self._repository.grant_special_diagnostic(
                 order=order,
-                evidence_refs=[f"core-completion:{facts.core_tasks_completed}/{facts.core_tasks_due}"],
+                evidence_refs=[
+                    f"core-completion:{facts.core_tasks_completed}/{facts.core_tasks_due}"
+                ],
                 now=self._now(),
             )
-        if facts.weekly_reflections >= 4 and "weekly_reflection_cny30" not in facts.awarded_rewards:
+        if (
+            facts.weekly_reflections >= 4
+            and "weekly_reflection_cny30" not in facts.awarded_rewards
+        ):
             if order.state not in {"paid", "partially_refunded", "refund_processing"}:
                 return self._repository.reward_facts(order=order, as_of=self._now())
             if order.amount_minor - order.refunded_minor < 3000:
@@ -622,7 +704,11 @@ class Stage8CommerceService:
                 order=order,
                 command_key=f"weekly-reward:{order.order_id}",
                 request_fingerprint=_fingerprint(
-                    {"orderId": str(order.order_id), "rewardMinor": 3000, "weeklyReflections": 4}
+                    {
+                        "orderId": str(order.order_id),
+                        "rewardMinor": 3000,
+                        "weeklyReflections": 4,
+                    }
                 ),
                 refund_kind="weekly_reflection_reward",
                 reason="完成四次周复盘的学习过程奖励",
@@ -727,7 +813,9 @@ def _offer_policy_versions(offer: OfferRecord) -> tuple[str, ...]:
     )
 
 
-def _payment_notification_result(notification: WechatNotification) -> WechatOrderQueryResult:
+def _payment_notification_result(
+    notification: WechatNotification,
+) -> WechatOrderQueryResult:
     resource = notification.resource
     amount = _required_mapping(resource, "amount")
     payer = _required_mapping(resource, "payer")
@@ -789,5 +877,7 @@ def _required_datetime(payload: Mapping[str, Any], key: str) -> datetime:
 
 
 def _fingerprint(value: object) -> str:
-    payload = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    payload = json.dumps(
+        value, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    )
     return sha256(payload.encode("utf-8")).hexdigest()

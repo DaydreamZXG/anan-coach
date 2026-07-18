@@ -561,6 +561,7 @@ def test_companion_ask_is_quota_gated_and_audited(
     assert body["quota"] == {
         "feature": "companion_ask",
         "used": 1,
+        "accessMode": "entitlement_quota",
         "limit": 3,
         "date": datetime.now(UTC).date().isoformat(),
     }
@@ -728,7 +729,7 @@ def test_external_wrong_question_rejects_free_tag_and_does_not_write_memory(
 def test_external_wrong_question_rejects_image_unsupported_node(
     db_session_factory: sessionmaker[Session],
 ) -> None:
-    user_id = _seed_user(db_session_factory, token="image-token")
+    _seed_user(db_session_factory, token="image-token")
     _seed_knowledge_map(db_session_factory)
     client = _make_client(db_session_factory)
 
@@ -1493,6 +1494,8 @@ def _companion_service(
             app_store_verifier=StaticAppStoreTransactionVerifier(
                 _verified_transaction()
             ),
+            commercial_mode="paid",
+            usage_access_mode="entitlement_quota",
         ),
         ai_provider=provider,  # type: ignore[arg-type]
         session=session,

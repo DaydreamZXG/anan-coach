@@ -127,10 +127,6 @@ Page({
     void wx.navigateTo({ url: routes.reportCenter });
   },
 
-  openMembership() {
-    void wx.navigateTo({ url: routes.membership });
-  },
-
   openPrivacy() {
     void wx.navigateTo({ url: routes.privacy });
   },

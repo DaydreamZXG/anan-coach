@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import UTC, datetime
+from datetime import datetime
 import json
 from typing import Protocol
 from uuid import uuid4
@@ -77,6 +77,8 @@ class CauseAgentWorkflow:
         return CommerceService(
             repository=CommerceRepository(session),
             app_store_verifier=AppStoreSignedTransactionVerifier(self._settings),
+            commercial_mode=self._settings.commercial_mode,
+            usage_access_mode=self._settings.usage_access_mode,
         )
 
     def start_after_reflection(
@@ -225,7 +227,10 @@ class CauseAgentWorkflow:
         )
         if run is None or str(run["state"]) != "followup_required":
             raise CauseAgentWorkflowError("cause_followup_run_not_current")
-        if int(run["followup_round"]) >= CAUSE_AGENT_DEFINITION.budget.max_followup_rounds:
+        if (
+            int(run["followup_round"])
+            >= CAUSE_AGENT_DEFINITION.budget.max_followup_rounds
+        ):
             raise CauseAgentWorkflowError("cause_followup_budget_exhausted")
         payload = dict(candidate["payload"])
         question = str(payload.get("question", "")).strip()
@@ -264,8 +269,7 @@ class CauseAgentWorkflow:
             user_id=user_id,
             feature="xingce_cause_analysis",
             reservation_key=(
-                f"xingce-cause:{user_id}:{review['review_id']}:"
-                f"round:{followup_round}"
+                f"xingce-cause:{user_id}:{review['review_id']}:round:{followup_round}"
             ),
             business_key=f"xingce-cause-run:{run['run_id']}:round:{followup_round}",
             commit=False,

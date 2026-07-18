@@ -132,6 +132,47 @@ def test_quota_denial_audit_commits_without_partial_reservation(
         ).scalar_one() == 1
 
 
+def test_unlimited_cold_start_tracks_usage_without_member_quota_denial(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id = _seed_user(db_session_factory)
+    with db_session_factory() as session:
+        service = CommerceService(
+            repository=CommerceRepository(session),
+            app_store_verifier=cast(Any, object()),
+            commercial_mode="free_cold_start",
+            usage_access_mode="unlimited",
+            now=lambda: NOW,
+        )
+        reservations = [
+            service.reserve_feature_usage(
+                user_id=user_id,
+                feature="essay_review",
+                reservation_key=f"essay-review:{user_id}:unlimited-{index}",
+                business_key=f"unlimited-{index}",
+            )
+            for index in range(3)
+        ]
+        zero_quota_feature = service.reserve_feature_usage(
+            user_id=user_id,
+            feature="study_plan_regeneration",
+            reservation_key=f"study-plan:{user_id}:unlimited",
+            business_key="unlimited-study-plan",
+        )
+
+        assert [item.used for item in reservations] == [1, 2, 3]
+        assert all(item.access_mode == "unlimited" for item in reservations)
+        assert zero_quota_feature.access_mode == "unlimited"
+        assert session.execute(
+            text(
+                "select count(*) from commerce.entitlement_audit_logs "
+                "where user_id = cast(:user_id as uuid) "
+                "and action = 'quota_denied'"
+            ),
+            {"user_id": user_id},
+        ).scalar_one() == 0
+
+
 def test_refund_is_idempotent_and_only_releases_its_own_reservation(
     db_session_factory: sessionmaker[Session],
 ) -> None:
@@ -223,6 +264,8 @@ def _service(session: Session) -> CommerceService:
     return CommerceService(
         repository=CommerceRepository(session),
         app_store_verifier=cast(Any, object()),
+        commercial_mode="paid",
+        usage_access_mode="entitlement_quota",
         now=lambda: NOW,
     )
 
