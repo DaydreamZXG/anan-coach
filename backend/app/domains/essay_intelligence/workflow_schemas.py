@@ -39,12 +39,40 @@ class EssayAttemptCreateCommand(EssayContractModel):
 class EssayAnswerCreateCommand(EssayContractModel):
     attempt_id: UUID = Field(alias="attemptId")
     source_type: Literal["typed", "ocr_confirmed"] = Field(alias="sourceType")
+    source_artifact_version_id: UUID | None = Field(
+        default=None,
+        alias="sourceArtifactVersionId",
+        strict=False,
+    )
+    recognition_revision_id: UUID | None = Field(
+        default=None,
+        alias="recognitionRevisionId",
+        strict=False,
+    )
     answer_text: str = Field(alias="answerText", min_length=1, max_length=10000)
     thinking: EssayThinkingSnapshot | None = None
     based_on_answer_version_id: UUID | None = Field(
         default=None,
         alias="basedOnAnswerVersionId",
     )
+
+    @model_validator(mode="after")
+    def validate_source_evidence(self) -> "EssayAnswerCreateCommand":
+        has_evidence = (
+            self.source_artifact_version_id is not None
+            and self.recognition_revision_id is not None
+        )
+        if self.source_type == "ocr_confirmed" and not has_evidence:
+            raise ValueError(
+                "ocr_confirmed answers require sourceArtifactVersionId and "
+                "recognitionRevisionId"
+            )
+        if self.source_type == "typed" and (
+            self.source_artifact_version_id is not None
+            or self.recognition_revision_id is not None
+        ):
+            raise ValueError("typed answers cannot carry OCR source evidence")
+        return self
 
 
 class EssayReviewQueueCommand(EssayContractModel):

@@ -1,0 +1,16 @@
+{
+  "name": "hunyuan-essay-grader",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Closed CloudBase Hunyuan transport for the essay scoring candidate pipeline",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test runtime.test.js"
+  },
+  "engines": {
+    "node": ">=16.13"
+  },
+  "dependencies": {
+    "wx-server-sdk": "4.0.2"
+  }
+}

@@ -1,0 +1,34 @@
+<view class="brain-page">
+  <view class="brain-hero">
+    <view class="brain-kicker">计划依据</view>
+    <view class="brain-title">今天为什么这样排</view>
+    <view class="brain-copy">每个任务都能追溯到目标、能力证据和可用时间。</view>
+  </view>
+  <state-view wx:if="{{status === 'loading'}}" state="loading" />
+  <state-view wx:elif="{{status === 'error'}}" state="error" title="计划依据没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
+  <block wx:elif="{{basis}}">
+    <view class="brain-card">
+      <view class="brain-pill">目标匹配 · 计划 v{{basis.versionNo}}</view>
+      <view class="brain-value">{{basis.headline}}</view>
+      <view class="brain-note">{{basis.rationale}}</view>
+    </view>
+    <view class="brain-section-head"><view class="brain-section-title">排序公式</view><view class="brain-section-meta">{{basis.policy.algorithmVersion}}</view></view>
+    <view class="brain-card brain-grid">
+      <view wx:for="{{policyMetrics}}" wx:key="label" class="brain-metric"><view class="brain-label">{{item.label}}</view><text class="brain-metric__value type-data">{{item.value}}</text></view>
+    </view>
+    <view class="brain-section-head"><view class="brain-section-title">任务逐项依据</view><view class="brain-section-meta">{{tasks.length}} 项</view></view>
+    <view wx:for="{{tasks}}" wx:key="taskId" class="brain-card">
+      <view class="brain-row-title">{{item.order}} · {{item.trackLabel}} · {{item.title}}</view>
+      <view class="brain-note">{{item.reason}}</view>
+      <view class="brain-grid" style="margin-top: 18rpx">
+        <view class="brain-metric"><view class="brain-label">综合优先级</view><text class="brain-metric__value type-data">{{item.priorityLabel}}</text></view>
+        <view class="brain-metric"><view class="brain-label">证据</view><text class="brain-metric__value">{{item.evidenceLabel}}</text></view>
+      </view>
+    </view>
+    <view class="brain-section-head"><view class="brain-section-title">什么时候失效</view></view>
+    <view class="brain-card">
+      <view wx:for="{{basis.invalidationConditions}}" wx:key="*this" class="brain-row"><view class="brain-row-main"><view class="brain-row-copy">{{index + 1}}. {{item}}</view></view></view>
+    </view>
+    <view wx:if="{{basis.conflicts.length}}" class="brain-warning">存在能力或内容门禁冲突：{{conflictLabel}}</view>
+  </block>
+</view>

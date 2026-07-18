@@ -1,0 +1,18 @@
+<view class="center-page">
+  <view class="center-hero"><view class="center-kicker">模考与报告</view><view class="center-title">所有成绩，最后都要变成下一步</view><view class="center-copy">整卷模考、外部成绩和周报告统一进入学习证据链，不混淆不同分数口径。</view></view>
+  <state-view wx:if="{{status === 'loading'}}" state="loading" />
+  <state-view wx:elif="{{status === 'error'}}" state="error" title="报告中心没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
+  <block wx:elif="{{center}}">
+    <view class="center-time">数据生成于 {{generatedAtLabel}}</view>
+    <view class="section-head"><view class="section-title">自有标准卷</view><view class="section-copy">版本化题面 · 平衡表现指数</view></view>
+    <view wx:if="{{papers.length}}" class="paper-list">
+      <view wx:for="{{papers}}" wx:key="paperVersionId" class="paper-card" data-index="{{index}}" bindtap="openPaper"><view class="paper-top"><view class="paper-status">{{item.statusLabel}}</view><view class="paper-version">{{item.scoringPolicyVersionId}}</view></view><view class="paper-title">{{item.title}}</view><view class="paper-meta">{{item.questionCount}} 题 · {{item.durationMinutes}} 分钟</view><view class="paper-definition">{{item.metricDefinition}}</view><view class="paper-action">{{item.actionLabel}} →</view></view>
+    </view>
+    <view wx:else class="paper-card paper-card--empty"><view class="paper-title">本周标准卷还未领取</view><view class="paper-definition">开始后会固定题面版本、计分策略和曝光控制策略。</view></view>
+    <button class="center-primary" loading="{{startingMock}}" bindtap="startWeeklyMock">{{papers.length ? '领取 / 恢复本周标准卷' : '开始本周标准卷'}}</button>
+    <view class="external-card" bindtap="openExternalScore"><view><view class="external-kicker">外部模考单</view><view class="external-title">上传粉笔等平台的模考成绩截图</view><view class="external-copy">OCR 与结构化字段分两次确认，未确认不进能力估计。</view></view><view class="external-arrow">›</view></view>
+    <view wx:if="{{center.latestExternalReport}}" class="latest-card"><view class="latest-label">最近确认的外部成绩</view><view class="latest-title">{{center.latestExternalReport.platformName}} · {{center.latestExternalReport.examName}}</view><view class="latest-meta">{{center.latestExternalReport.totalScore || '双科未完整'}} · {{center.latestExternalReport.confirmationMessage}}</view></view>
+    <view class="section-head"><view class="section-title">正式报告</view><view class="section-copy">5 类投影 · 同一证据语义</view></view>
+    <view class="report-grid"><view wx:for="{{center.reportCards}}" wx:key="reportKind" class="report-card report-card--{{item.state}}" data-index="{{index}}" bindtap="openReport"><view class="report-card__state">{{item.state === 'ready' ? '已就绪' : item.state === 'partial' ? '部分证据' : '待积累'}}</view><view class="report-card__title">{{item.title}}</view><view class="report-card__copy">{{item.subtitle}}</view><view class="report-card__arrow">查看 →</view></view></view>
+  </block>
+</view>

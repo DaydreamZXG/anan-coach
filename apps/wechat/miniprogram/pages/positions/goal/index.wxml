@@ -1,7 +1,9 @@
-<view class="page position-page position-goal-page">
-  <view class="eyebrow">D05 · 重要变更</view>
-  <view class="page-title">确认主目标影响</view>
-  <view class="page-subtitle">预览由服务端固定资格快照、目标分证据与当前目标版本；客户端只展示并提交你的确认。</view>
+<view class="s9-page position-page position-goal-page">
+  <view class="s9-hero">
+    <view class="s9-kicker">主目标变更</view>
+    <view class="s9-title">换目标可以，但先看计划会怎么变</view>
+    <view class="s9-subtitle">确认前先固定资格、目标分证据和会被重建的计划范围。</view>
+  </view>
 
   <state-view wx:if="{{!state || state.status === 'idle' || state.status === 'loading' || state.status === 'previewing'}}" state="{{state && state.status === 'previewing' ? 'processing' : 'loading'}}" title="正在生成影响预览" description="先重新核验资格，再固定目标分与计划失效项。" />
   <state-view
@@ -32,10 +34,10 @@
 
   <block wx:else>
     <view wx:if="{{state.restoredPreview}}" class="processing-banner">已恢复本机尚未确认且仍在有效期内的服务端预览；确认时服务端仍会校验当前版本。</view>
-    <view wx:if="{{state.summary}}" class="goal-position-card"><view class="goal-position-card__label">候选主目标</view><view class="goal-position-card__name">{{state.summary.name}}</view><view>{{state.summary.departmentFull}}</view><text>{{state.summary.region}}{{state.summary.city ? ' · ' + state.summary.city : ''}} · 职位 {{state.summary.positionCode}}</text></view>
+    <view wx:if="{{state.summary}}" class="goal-position-card"><view class="goal-position-card__label">候选主目标</view><view class="goal-position-card__name">{{state.summary.name}}</view><view class="goal-position-card__department">{{state.summary.departmentFull}}</view><text class="goal-position-card__meta">{{state.summary.region}}{{state.summary.city ? ' · ' + state.summary.city : ''}} · 职位 {{state.summary.positionCode}}</text></view>
     <view wx:if="{{state.preview}}" class="impact-card">
       <view class="impact-card__head"><view><view class="eyebrow">服务端影响预览</view><view class="impact-card__title">{{state.preview.planImpact.changeType === 'goal_changed' ? '更换主目标' : '建立主目标'}}</view></view><view class="status-pill">{{state.previewView.expiryLabel}}</view></view>
-      <view class="impact-score"><view><text>原目标分</text><strong class="type-data">{{state.previewView.previousScoreLabel}}</strong></view><view class="impact-score__arrow">→</view><view><text>新目标分</text><strong class="type-data">{{state.previewView.nextScoreLabel}}</strong></view></view>
+      <view class="impact-score"><view class="impact-score__item"><text class="impact-score__label">原目标分</text><text class="impact-score__value type-data">{{state.previewView.previousScoreLabel}}</text></view><view class="impact-score__arrow">→</view><view class="impact-score__item"><text class="impact-score__label">新目标分</text><text class="impact-score__value type-data">{{state.previewView.nextScoreLabel}}</text></view></view>
       <view class="impact-delta">{{state.previewView.deltaLabel}}</view>
       <view class="impact-evidence">目标分 {{state.preview.targetScore.lowerBound}}–{{state.preview.targetScore.upperBound}} · 样本 {{state.preview.targetScore.sampleCount}} · {{state.targetValidity.generatedLabel}} · {{state.targetValidity.label}}</view>
       <view wx:if="{{!state.targetValidity.available}}" class="inline-warning">正式目标确认需要服务端返回目标分有效期；当前契约缺口不会由客户端补日期。</view>
@@ -43,7 +45,7 @@
     </view>
 
     <view class="section-heading"><view class="section-title">将失效并重建</view><view class="section-meta">完全来自 planImpact.invalidates</view></view>
-    <view wx:if="{{state.invalidations.length}}" class="invalidation-list"><view wx:for="{{state.invalidations}}" wx:key="code"><text class="invalidation-dot"></text><view><strong>{{item.label}}</strong><text>服务端标识 · {{item.code}}</text></view></view></view>
+    <view wx:if="{{state.invalidations.length}}" class="invalidation-list"><view wx:for="{{state.invalidations}}" wx:key="code" class="invalidation-item"><text class="invalidation-dot"></text><view class="invalidation-item__copy"><text class="invalidation-item__title">{{item.label}}</text><text class="invalidation-item__meta">服务端标识 · {{item.code}}</text></view></view></view>
     <view wx:else class="capability-card"><view class="capability-card__title">服务端未返回计划失效项</view><view class="capability-card__copy">客户端不会硬编码“今日计划”“周计划”或“分差”影响；本次预览不能继续确认。</view></view>
 
     <view wx:if="{{state.delivery}}" class="delivery-strip"><text>生成 {{state.delivery.generatedAtLabel}}</text><text class="delivery-strip__request">Request ID · {{state.delivery.requestId}}</text></view>

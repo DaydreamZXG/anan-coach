@@ -1,6 +1,6 @@
 import { currentAuthSession } from "../../auth/session";
 import { loginUrlForReturn } from "../../app/navigation/auth-return";
-import { answerIngestionUrl, routes } from "../../app/navigation/routes";
+import { answerIngestionUrl, learningPacketsUrl, routes } from "../../app/navigation/routes";
 import { requireExternalLearningGateway } from "../../features/external-learning/contracts";
 import { externalLearningError } from "../../features/external-learning/error";
 import { ExternalLearningPageRuntimeRegistry } from "../../features/external-learning/page-runtime";
@@ -45,10 +45,12 @@ Page<LearningPacketsPageData, LearningPacketsPageCustom>({
     configurationError: "",
   },
 
-  onLoad() {
+  onLoad(options: Record<string, string | undefined>) {
+    const contentVersionId = options.contentVersionId?.trim();
+    const returnTo = learningPacketsUrl(contentVersionId ? { contentVersionId } : {});
     const session = currentAuthSession();
     if (!session) {
-      void wx.reLaunch({ url: loginUrlForReturn(routes.learningPackets) });
+      void wx.reLaunch({ url: loginUrlForReturn(returnTo) });
       return;
     }
     try {
@@ -62,7 +64,11 @@ Page<LearningPacketsPageData, LearningPacketsPageCustom>({
       });
       runtimes.attach(this, controller);
       this.setData({ state: controller.snapshot(), configurationError: "" });
-      void controller.load();
+      void controller.load().then(() => {
+        if (contentVersionId && runtimes.owns(this, controller)) {
+          controller.selectOnlyContent(contentVersionId);
+        }
+      });
     } catch (error) {
       this.setData({ configurationError: externalLearningError(error).message });
     }

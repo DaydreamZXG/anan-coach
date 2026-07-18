@@ -1,0 +1,82 @@
+<view class="s9-page s9-page--with-dock membership-page">
+  <view class="s9-hero">
+    <view class="s9-title">第一次付钱，也可以安心试</view>
+    <view class="s9-subtitle">{{offer ? offer.subtitle : '具体服务期、权益和退款规则以服务端当前版本为准。'}}</view>
+    <view class="s9-chip-row">
+      <view class="s9-chip s9-chip--gold">创始体验官</view>
+      <view class="s9-chip s9-chip--primary">{{offer ? offer.remainingLabel : '名额待确认'}}</view>
+    </view>
+  </view>
+
+  <state-view wx:if="{{status === 'loading'}}" custom-class="membership-state-view" state="loading" />
+  <state-view wx:elif="{{status === 'error'}}" custom-class="membership-state-view" state="error" title="会员信息没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
+
+  <block wx:else>
+    <view class="s9-stack">
+      <view class="s9-card s9-card--primary founder-card">
+        <view class="s9-card-kicker">创始体验</view>
+        <view class="founder-head">
+          <view>
+            <view class="s9-card-title">{{offer ? offer.title : '岸岸会员'}}</view>
+            <view class="founder-duration type-data">{{offer ? offer.serviceDays + ' 天' : '服务期待确认'}}</view>
+          </view>
+          <view wx:if="{{offer}}" class="founder-price type-data">{{offer.amountLabel}}</view>
+        </view>
+        <view class="s9-card-copy">实际开放能力、额度和服务级别以下方实时权益清单为准，未交付能力不会写入售卖页。</view>
+        <view class="s9-card-meta">{{offer ? offer.remainingLabel : entitlementPeriod}} · 单次购买 · 不自动续费</view>
+        <view class="payment-disclosure">{{paymentDisclosure}}</view>
+      </view>
+
+      <view class="s9-card guarantee-card">
+        <view class="s9-card-kicker">保障规则</view>
+        <view class="s9-card-title">{{refundPolicyTitle}}</view>
+        <view class="s9-card-copy">{{refundPolicyLabel || '当前没有可固化的退款政策，不开放购买。'}}</view>
+        <view class="s9-card-meta">政策在付款前完整展示并随订单固化 · iOS 最终退款结果由 Apple 决定</view>
+      </view>
+    </view>
+
+    <view wx:if="{{offer}}" class="s9-section">
+      <view class="s9-section-head"><view class="s9-section-title">你会得到什么</view><view class="s9-section-meta">当前权益：{{entitlementLabel}}</view></view>
+      <view class="s9-list">
+        <view class="s9-list-row" wx:for="{{offer.featureHighlights}}" wx:key="*this">
+          <view class="feature-check">✓</view><view class="s9-list-main"><view class="s9-list-title">{{item}}</view></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="s9-section">
+      <view class="s9-section-head"><view class="s9-section-title">购买与退款规则</view><view class="s9-section-meta">版本随订单固化</view></view>
+      <view class="s9-list">
+        <view class="s9-list-row policy-row" wx:for="{{policies}}" wx:key="policyVersion">
+          <view class="s9-list-main"><view class="s9-list-title">{{item.title}}</view><view class="s9-list-copy">{{item.contentLabel}}</view></view>
+          <view class="policy-version type-data">{{item.policyVersion}}</view>
+        </view>
+      </view>
+      <view wx:if="{{paymentEnabled}}" class="accept-row" bindtap="toggleAccepted"><view class="checkbox {{accepted ? 'checked' : ''}}">{{accepted ? '✓' : ''}}</view><view>我已阅读并接受当前规则</view></view>
+    </view>
+
+    <view class="s9-section">
+      <view class="s9-section-head"><view class="s9-section-title">学习过程奖励</view><view class="s9-section-meta">不读取成绩字段</view></view>
+      <view class="reward-grid">
+        <view class="reward-card"><view class="reward-value type-data">{{effectiveDays}}/{{effectiveDaysRequired || '—'}}</view><view class="reward-title">有效学习日</view><view class="reward-copy">达成后按订单固化规则发放</view></view>
+        <view class="reward-card"><view class="reward-value type-data">{{weeklyReflections}}/{{weeklyReflectionsRequired || '—'}}</view><view class="reward-title">周复盘</view><view class="reward-copy">达成后按订单固化规则发放</view></view>
+        <view class="reward-card"><view class="reward-value type-data">{{coreRatioLabel}}</view><view class="reward-title">核心任务</view><view class="reward-copy">按订单固化门槛解锁奖励</view></view>
+      </view>
+    </view>
+
+    <view wx:if="{{dashboard.refundEligibility}}" class="s9-section">
+      <view class="s9-card {{dashboard.refundEligibility.eligible ? 's9-card--primary' : ''}}">
+        <view class="s9-card-kicker">退款状态</view>
+        <view class="s9-card-title">当前订单退款资格</view>
+        <view class="s9-card-copy">服务端依据订单固化政策计算；已返过程现金奖励计入累计退回金额。</view>
+        <button wx:if="{{dashboard.refundEligibility.eligible}}" class="refund-button" loading="{{refunding}}" bindtap="requestRefund">申请原路退款</button>
+        <view wx:else class="s9-card-meta">当前不可申请：{{dashboard.refundEligibility.blockingCode}}</view>
+      </view>
+    </view>
+    <view wx:if="{{errorMessage}}" class="s9-inline-error">{{errorMessage}}</view>
+
+    <view wx:if="{{offer && paymentEnabled}}" class="s9-action-dock">
+      <button class="s9-primary-button {{!accepted || offer.recruitmentState === 'paused' || offer.recruitmentState === 'sold_out' ? 's9-primary-button--disabled' : ''}}" loading="{{paying}}" disabled="{{!accepted || offer.recruitmentState === 'paused' || offer.recruitmentState === 'sold_out'}}" bindtap="buy">{{accepted ? '安全支付 ' + offer.amountLabel : '阅读并确认规则后购买'}}</button>
+    </view>
+  </block>
+</view>

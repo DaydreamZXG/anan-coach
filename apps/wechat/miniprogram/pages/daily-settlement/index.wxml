@@ -1,0 +1,17 @@
+<view class="brain-page">
+  <view class="brain-hero"><view class="brain-kicker">每日结算</view><view class="brain-title">今天学了什么，要落成明天能用的证据</view><view class="brain-copy">不只统计完成数，也记录哪些判断被证实、哪些需要改。</view></view>
+  <state-view wx:if="{{status === 'loading'}}" state="loading" />
+  <state-view wx:elif="{{status === 'error'}}" state="error" title="结算没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
+  <block wx:elif="{{settlement}}">
+    <view class="brain-card brain-grid">
+      <view class="brain-metric"><view class="brain-label">实际投入</view><text class="brain-metric__value type-data">{{settlement.elapsedMinutes}} 分</text></view>
+      <view class="brain-metric"><view class="brain-label">计划容量</view><text class="brain-metric__value type-data">{{settlement.scheduledMinutes}} 分</text></view>
+      <view class="brain-metric"><view class="brain-label">完成闭环</view><text class="brain-metric__value type-data">{{settlement.completedTaskCount}}</text></view>
+      <view class="brain-metric"><view class="brain-label">结转债务</view><text class="brain-metric__value type-data">0</text></view>
+    </view>
+    <view class="brain-card"><view class="brain-row-title">{{settlement.summary}}</view></view>
+    <view class="brain-section-head"><view class="brain-section-title">任务证据</view><view class="brain-section-meta">{{tasks.length}} 项</view></view>
+    <view wx:for="{{tasks}}" wx:key="taskId" class="brain-card"><view class="brain-row"><view class="brain-row-main"><view class="brain-row-title">{{item.trackLabel}} · {{item.title}}</view><view class="brain-row-copy">{{item.statusLabel}} · 实际 {{item.elapsedMinutes}} / 计划 {{item.plannedMinutes}} 分钟 · {{item.evidenceRefs.length}} 条完成证据</view></view><view class="brain-pill">{{item.statusLabel}}</view></view></view>
+    <view wx:if="{{settlement.newRisks.length}}" class="brain-warning">{{riskLabel}}</view>
+  </block>
+</view>

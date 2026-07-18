@@ -12,6 +12,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.engine import RowMapping
 from sqlalchemy.orm import Session
 
+from app.domains.commerce.repository import CommerceQuotaExceededError
 from app.domains.planning.xingce_completion import complete_xingce_plan_task
 from app.domains.planning.xingce_evidence import record_pending_xingce_evidence
 from app.domains.planning.xingce_start import start_xingce_plan_task
@@ -915,6 +916,12 @@ class XingceAttemptService:
                 "解题 Agent 生产配置未通过安全校验，复盘尚未进入 AI 处理。",
                 status_code=503,
             ) from exc
+        except CommerceQuotaExceededError as exc:
+            raise XingceAttemptError(
+                "xingce_cause_quota_exhausted",
+                "今日行测错因分析额度已用完，本次复盘未写入。",
+                status_code=429,
+            ) from exc
         if task_session["state"] != "submitted":
             raise _conflict("task session is not awaiting track settlement")
         _append_state_event(
@@ -1008,6 +1015,12 @@ class XingceAttemptService:
             )
         except CauseAgentWorkflowError as exc:
             raise _conflict(exc.code) from exc
+        except CommerceQuotaExceededError as exc:
+            raise XingceAttemptError(
+                "xingce_cause_quota_exhausted",
+                "今日行测错因分析额度已用完，追问未写入。",
+                status_code=429,
+            ) from exc
         projection = self._projection(
             session,
             user_id=user_id,
@@ -2117,6 +2130,7 @@ def _candidate_projection(candidate: RowMapping | None) -> AICauseCandidateState
         missingEvidence=payload.get("missingEvidence", []),
         evidenceRefs=payload.get("evidenceRefs", []),
         limitations=payload.get("limitations", []),
+        quotaState=payload.get("quotaState", "consumed"),
     )
 
 

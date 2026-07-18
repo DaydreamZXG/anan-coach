@@ -1,0 +1,2 @@
+@import "../../features/learning-brain/page-shell.wxss";
+.history-card { border-left: 6rpx solid var(--color-primary); }

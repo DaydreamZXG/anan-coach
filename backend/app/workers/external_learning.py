@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session
 from app.core.config import Settings, get_settings
 from app.db.session import get_session_factory
 from app.domains.external_ingestion.composition import build_upload_service
+from app.domains.external_ingestion.answering.worker import ExternalAIAnswerWorker
 from app.domains.external_ingestion.upload.service import UploadService
 from app.domains.learning_packages.composition import build_packet_render_worker
 from app.domains.learning_packages.worker import PacketRenderWorker
@@ -28,6 +29,7 @@ class ExternalLearningWorker:
         session: Session,
         settings: Settings,
         packet_worker: PacketRenderWorker | None = None,
+        answer_worker: ExternalAIAnswerWorker | None = None,
         upload_service: UploadService | None = None,
         jobs: BackgroundJobRepository | None = None,
     ) -> None:
@@ -38,6 +40,7 @@ class ExternalLearningWorker:
             session=session,
             settings=settings,
         )
+        self._answer_worker = answer_worker or ExternalAIAnswerWorker(settings=settings)
         self._uploads = upload_service or build_upload_service(
             session=session,
             settings=settings,
@@ -54,6 +57,10 @@ class ExternalLearningWorker:
                 seconds=self._settings.external_learning_maintenance_interval_seconds
             )
         try:
+            did_work = self._answer_worker.process_next(self._session) is not None or did_work
+        except Exception:
+            LOGGER.exception("external AI answer job failed unexpectedly")
+        try:
             did_work = self._packet_worker.process_next(self._session) is not None or did_work
         except Exception:
             LOGGER.exception("packet render job failed unexpectedly")
@@ -63,7 +70,10 @@ class ExternalLearningWorker:
         try:
             stale_jobs = self._jobs.requeue_stale(
                 self._session,
-                job_types=PacketRenderWorker.JOB_TYPES,
+                job_types=(
+                    *PacketRenderWorker.JOB_TYPES,
+                    *ExternalAIAnswerWorker.JOB_TYPES,
+                ),
                 stale_before=now
                 - timedelta(
                     seconds=self._settings.external_learning_stale_claim_seconds

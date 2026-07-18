@@ -73,6 +73,13 @@ FEATURE_QUOTAS: tuple[FeatureQuotaConfig, ...] = (
         pro_limit=20,
     ),
     FeatureQuotaConfig(
+        feature="xingce_cause_analysis",
+        title="行测错因分析",
+        period="day",
+        free_limit=5,
+        pro_limit=100,
+    ),
+    FeatureQuotaConfig(
         feature="external_wrong_intake",
         title="外部错题解析",
         period="day",

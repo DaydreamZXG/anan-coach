@@ -11,6 +11,21 @@ from starlette.responses import Response
 
 from app.api.router import router
 from app.core.config import get_settings
+from app.domains.commerce.stage8_repository import (
+    Stage8CommerceConflict,
+    Stage8CommerceNotFound,
+)
+from app.domains.commerce.stage8_router import stage8_exception_response
+from app.domains.commerce.stage8_service import (
+    Stage8PaymentPending,
+    Stage8RefundIneligible,
+)
+from app.domains.commerce.wechat_pay import (
+    WechatPayConfigurationError,
+    WechatPayProtocolError,
+)
+from app.domains.data_rights.repository import DataRightsConflict, DataRightsNotFound
+from app.domains.data_rights.router import data_rights_exception_response
 from app.platform.http import (
     REQUEST_ID_HEADER,
     http_exception_response,
@@ -41,13 +56,28 @@ def create_app() -> FastAPI:
         request.state.request_id = request_id
         response = await call_next(request)
         response.headers[REQUEST_ID_HEADER] = request_id
-        if request.url.path == "/health" or request.url.path.startswith("/api/"):
+        if (
+            request.url.path == "/health"
+            or request.url.path.startswith("/api/")
+            or request.url.path.startswith("/internal-runtime/")
+        ):
             response.headers["Cache-Control"] = API_CACHE_CONTROL
         return response
 
     app.add_exception_handler(StarletteHTTPException, http_exception_response)
     app.add_exception_handler(RequestValidationError, validation_exception_response)
     app.add_exception_handler(Exception, unexpected_exception_response)
+    for exception_type in (
+        Stage8CommerceConflict,
+        Stage8CommerceNotFound,
+        Stage8PaymentPending,
+        Stage8RefundIneligible,
+        WechatPayConfigurationError,
+        WechatPayProtocolError,
+    ):
+        app.add_exception_handler(exception_type, stage8_exception_response)
+    for exception_type in (DataRightsConflict, DataRightsNotFound):
+        app.add_exception_handler(exception_type, data_rights_exception_response)
     app.include_router(router)
     # FastAPI builds the included-router candidate graph lazily. Materialize the
     # public route-context iterator while construction is still single-threaded

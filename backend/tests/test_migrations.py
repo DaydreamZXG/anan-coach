@@ -164,12 +164,63 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
         # conftest installs the current schema before this test reconstructs the
         # audited v12 baseline. Remove every later object so Alembic upgrades
         # from the same database shape that production v12 actually had.
+        migration35 = import_module(
+            "migrations.versions.20260717_35_commerce_privacy_operations"
+        )
         migration30 = import_module(
             "migrations.versions.20260716_30_community_production_closure"
+        )
+        migration34 = import_module(
+            "migrations.versions.20260716_34_ai_governance"
         )
         migration28 = import_module(
             "migrations.versions.20260716_28_community_method_cards"
         )
+        definitions = connection.execute(
+            text(
+                "select definition from privacy.append_only_function_snapshots "
+                "order by function_name"
+            )
+        ).scalars()
+        for definition in definitions:
+            connection.exec_driver_sql(str(definition))
+        connection.execute(
+            text("drop function if exists privacy.erasure_authorized(jsonb)")
+        )
+        for table_name in reversed(migration35._PRIVACY_TABLES):
+            connection.execute(
+                text(f"drop table if exists privacy.{table_name} cascade")
+            )
+        for table_name in reversed(migration35._COMMERCE_TABLES):
+            connection.execute(
+                text(f"drop table if exists commerce.{table_name} cascade")
+            )
+        connection.execute(
+            text("drop table if exists learning.retake_program_versions cascade")
+        )
+        connection.execute(
+            text("alter table learning.score_evidence drop column if exists erased_at")
+        )
+        connection.execute(
+            text("drop function if exists commerce.enforce_stage8_state_transition()")
+        )
+        connection.execute(text("drop schema if exists privacy cascade"))
+        connection.execute(
+            text(
+                "delete from commerce.iap_products "
+                "where product_id = 'founder_experience_30d'"
+            )
+        )
+        for table_name in reversed(migration34._TABLES):
+            connection.execute(
+                text(f"drop table if exists ai_audit.{table_name} cascade")
+            )
+        for function_name in (
+            "ai_audit.validate_external_ai_operation",
+            "ai_audit.validate_model_call_attribution",
+            "ai_audit.validate_ai_scenario_deployment",
+        ):
+            connection.execute(text(f"drop function if exists {function_name}()"))
         later_tables = (
             *migration30._DROP_ORDER,
             ("community_method_card_delayed_verifications", "product"),
@@ -188,8 +239,25 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
             "product.reject_community_method_history_mutation",
         ):
             connection.execute(text(f"drop function if exists {function_name}()"))
+        connection.execute(
+            text("drop table learner.mock_exam_trajectory_events cascade")
+        )
+        connection.execute(
+            text(
+                "alter table learner.mock_exam_sessions "
+                "drop column scoring_policy_version_id, "
+                "drop column paper_version_id"
+            )
+        )
+        connection.execute(text("drop table product.mock_exam_paper_versions cascade"))
+        connection.execute(
+            text("drop table product.mock_exam_scoring_policy_versions cascade")
+        )
         connection.execute(text("drop table learner.mock_exam_commands"))
         connection.execute(text("drop index learner.mock_exam_one_assigned_per_owner_idx"))
+        connection.execute(
+            text("drop table learner.mock_exam_session_supersessions")
+        )
         for column in (
             "scoring_snapshot",
             "learner_bundle",
@@ -249,6 +317,17 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
         connection.execute(
             text("drop function commerce.enforce_feature_usage_reservation_update()")
         )
+        for table_name in (
+            "app_store_transactions",
+            "app_store_notification_events",
+            "entitlement_usage_daily",
+            "entitlement_audit_logs",
+            "user_entitlements",
+            "iap_products",
+        ):
+            connection.execute(
+                text(f"drop table commerce.{table_name}")
+            )
         connection.execute(text("drop table ai_audit.agent_tool_call_events"))
         connection.execute(text("drop table ai_audit.agent_run_versions"))
         connection.execute(text("drop table ai_audit.agent_definition_releases"))
@@ -284,6 +363,67 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
         connection.execute(text("alter table learner.profiles drop column profile_version"))
         connection.execute(text("drop table learner.wechat_identities"))
         connection.execute(text("drop schema platform cascade"))
+        connection.execute(
+            text(
+                """
+                insert into learner.users (user_id, display_name)
+                values ('00000000-0000-0000-0000-000000000241', 'legacy-duplicate-mock');
+
+                insert into product.questions (
+                  question_id, domain, status, module_name, question_type, stem, answer
+                ) values (
+                  'q-legacy-duplicate-mock', 'objective', 'active',
+                  '判断推理', 'single_choice', '迁移保留题目', 'A'
+                );
+
+                insert into product.question_options (
+                  question_id, option_index, label, option_text
+                ) values
+                  ('q-legacy-duplicate-mock', 1, 'A', '正确选项'),
+                  ('q-legacy-duplicate-mock', 2, 'B', '干扰选项');
+
+                insert into learner.mock_exam_sessions (
+                  session_id, user_id, exam_scope, track, status,
+                  question_ids, blueprint, answers, review_payload,
+                  review_viewed_at, submitted_at, created_at, updated_at
+                ) values
+                (
+                  '00000000-0000-0000-0000-000000000242',
+                  '00000000-0000-0000-0000-000000000241',
+                  'guokao', 'xingce', 'assigned',
+                  '["q-legacy-duplicate-mock"]'::jsonb,
+                  jsonb_build_array(jsonb_build_object(
+                    'moduleName', '判断推理', 'questionCount', 1
+                  )),
+                  null, null,
+                  null, null, '2026-07-01T00:00:00Z', '2026-07-01T00:00:00Z'
+                ),
+                (
+                  '00000000-0000-0000-0000-000000000243',
+                  '00000000-0000-0000-0000-000000000241',
+                  'guokao', 'xingce', 'assigned',
+                  '["q-legacy-duplicate-mock"]'::jsonb,
+                  jsonb_build_array(jsonb_build_object(
+                    'moduleName', '判断推理', 'questionCount', 1
+                  )),
+                  null, null,
+                  null, null, '2026-07-01T00:01:00Z', '2026-07-01T00:01:00Z'
+                ),
+                (
+                  '00000000-0000-0000-0000-000000000244',
+                  '00000000-0000-0000-0000-000000000241',
+                  'guokao', 'xingce', 'reviewed',
+                  '["q-legacy-duplicate-mock"]'::jsonb,
+                  jsonb_build_object(
+                    'modules', jsonb_build_object('判断推理', 1)
+                  ),
+                  '[]'::jsonb, '{}'::jsonb,
+                  '2026-07-01T00:03:00Z', '2026-07-01T00:02:00Z',
+                  '2026-07-01T00:02:00Z', '2026-07-01T00:03:00Z'
+                );
+                """
+            )
+        )
 
     config = Config(str(BACKEND_ROOT / "alembic.ini"))
     config.set_main_option("sqlalchemy.url", db_engine.url.render_as_string(hide_password=False))
@@ -297,6 +437,9 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
         inspector = inspect(db_engine)
         assert "wechat_identities" in inspector.get_table_names(schema="learner")
         assert "account_events" in inspector.get_table_names(schema="learner")
+        assert "mock_exam_session_supersessions" in inspector.get_table_names(
+            schema="learner"
+        )
         assert set(inspector.get_table_names(schema="platform")) == {
             "background_jobs",
             "companion_paid_commands",
@@ -324,6 +467,64 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
                 schema="platform",
             )
         })
+        with db_engine.connect() as connection:
+            assigned_sessions = connection.execute(
+                text(
+                    """
+                    select session_id::text
+                    from learner.mock_exam_sessions
+                    where user_id = '00000000-0000-0000-0000-000000000241'
+                      and status = 'assigned'
+                    """
+                )
+            ).scalars().all()
+            kept_session = connection.execute(
+                text(
+                    """
+                    select scoring_policy_version_id,
+                           learner_bundle->>'bundleVersionId' as bundle_version_id,
+                           jsonb_array_length(learner_bundle->'questions') as question_count,
+                           checkpoint->>'currentQuestionId' as current_question_id
+                    from learner.mock_exam_sessions
+                    where session_id = '00000000-0000-0000-0000-000000000242'
+                    """
+                )
+            ).mappings().one()
+            reviewed_paper_blueprint_type = connection.execute(
+                text(
+                    """
+                    select jsonb_typeof(paper.blueprint)
+                    from learner.mock_exam_sessions session
+                    join product.mock_exam_paper_versions paper
+                      on paper.paper_version_id = session.paper_version_id
+                    where session.session_id =
+                      '00000000-0000-0000-0000-000000000244'
+                    """
+                )
+            ).scalar_one()
+            archived = connection.execute(
+                text(
+                    """
+                    select archived_session_id::text, kept_session_id::text,
+                           original_row->>'status' as original_status
+                    from learner.mock_exam_session_supersessions
+                    where owner_user_id = '00000000-0000-0000-0000-000000000241'
+                    """
+                )
+            ).mappings().one()
+        assert assigned_sessions == ["00000000-0000-0000-0000-000000000242"]
+        assert kept_session["scoring_policy_version_id"] == (
+            "mock-balanced-performance-index-v1"
+        )
+        assert len(str(kept_session["bundle_version_id"])) == 64
+        assert kept_session["question_count"] == 1
+        assert kept_session["current_question_id"] == "q-legacy-duplicate-mock"
+        assert reviewed_paper_blueprint_type == "array"
+        assert archived == {
+            "archived_session_id": "00000000-0000-0000-0000-000000000243",
+            "kept_session_id": "00000000-0000-0000-0000-000000000242",
+            "original_status": "assigned",
+        }
         assert {
             "ability_estimate_versions",
             "essay_answer_versions",
@@ -344,6 +545,10 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
             "answer_ingestion_versions",
             "task_execution_versions",
             "weekly_study_preference_versions",
+            "inference_candidate_versions",
+            "learner_brain_profile_versions",
+            "strategy_decision_versions",
+            "weekly_plan_versions",
         }.issubset(inspector.get_table_names(schema="learning"))
         assert {
             "essay_material_bundle_versions",
@@ -374,6 +579,14 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
         assert "feature_usage_reservations" in inspector.get_table_names(
             schema="commerce"
         )
+        assert {
+            "iap_products",
+            "user_entitlements",
+            "app_store_transactions",
+            "app_store_notification_events",
+            "entitlement_usage_daily",
+            "entitlement_audit_logs",
+        }.issubset(inspector.get_table_names(schema="commerce"))
         profile_columns = {
             column["name"]
             for column in inspector.get_columns("profiles", schema="learner")
@@ -844,6 +1057,44 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
                     )
                 )
 
+        with db_engine.begin() as connection:
+            connection.execute(
+                text(
+                    "drop trigger mock_exam_session_supersessions_append_only "
+                    "on learner.mock_exam_session_supersessions"
+                )
+            )
+            connection.execute(
+                text(
+                    "delete from learner.mock_exam_session_supersessions "
+                    "where owner_user_id = "
+                    "'00000000-0000-0000-0000-000000000241'"
+                )
+            )
+            connection.execute(
+                text(
+                    "delete from learner.mock_exam_sessions "
+                    "where user_id = '00000000-0000-0000-0000-000000000241'"
+                )
+            )
+            connection.execute(
+                text(
+                    "delete from product.question_content_heads "
+                    "where question_id = 'q-legacy-duplicate-mock'"
+                )
+            )
+            connection.execute(
+                text(
+                    "drop trigger question_content_versions_append_only "
+                    "on product.question_content_versions"
+                )
+            )
+            connection.execute(
+                text(
+                    "delete from product.question_content_versions "
+                    "where question_id = 'q-legacy-duplicate-mock'"
+                )
+            )
         command.downgrade(config, "20260713_09")
         downgraded = inspect(db_engine)
         assert set(downgraded.get_table_names(schema="learning")) == {

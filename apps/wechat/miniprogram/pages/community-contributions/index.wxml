@@ -1,8 +1,8 @@
 <view class="page community-page">
   <view class="community-hero">
-    <view class="hero-kicker">我的贡献 · C24</view>
-    <view class="hero-title">版本、效果与奖励都可追溯</view>
-    <view class="hero-copy">每次确认生成独立版本。审核与效果不会跨版本继承；奖励只认已发布政策和服务端不可变流水。</view>
+    <view class="hero-kicker">我的方法贡献</view>
+    <view class="hero-title">你贡献的不是答案，是可验证的方法</view>
+    <view class="hero-copy">查看草稿、试用、已发布和被退回的原因，并保留撤回权。</view>
     <view class="privacy-strip">
       <view class="privacy-dot"></view>
       <view>奖励不是现金、不能提现或转让。可用余额与消费、撤回都以服务端权益投影和不可变回执为准。</view>
@@ -11,6 +11,7 @@
 
   <state-view
     wx:if="{{pageState !== 'default'}}"
+    custom-class="community-state-view"
     state="{{pageState}}"
     title="{{stateTitle}}"
     description="{{stateDescription}}"
@@ -50,8 +51,8 @@
       <view class="section-label">可用权益</view>
       <view class="section-title">不含已预留额度与已激活会员时长</view>
       <view class="balance-grid">
-        <view><text>AI 奖励额度</text><strong>{{aiQuotaBalance}}次</strong></view>
-        <view><text>未激活会员</text><strong>{{membershipBalanceLabel}}</strong></view>
+        <view class="balance-item"><text class="balance-item__label">AI 奖励额度</text><text class="balance-item__value">{{aiQuotaBalance}}次</text></view>
+        <view class="balance-item"><text class="balance-item__label">未激活会员</text><text class="balance-item__value">{{membershipBalanceLabel}}</text></view>
       </view>
       <view class="boundary-note">权益投影版本 · {{entitlementVersion}}</view>
     </view>

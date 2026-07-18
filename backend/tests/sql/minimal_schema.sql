@@ -871,6 +871,8 @@ create table learning.essay_answer_versions (
   task_version_id uuid not null,
   version_no integer not null check (version_no >= 1),
   source_type text not null check (source_type in ('typed', 'ocr_confirmed')),
+  source_artifact_version_id uuid,
+  recognition_revision_id uuid,
   answer_text text not null check (char_length(answer_text) > 0),
   answer_sha256 text not null check (length(answer_sha256) = 64),
   thinking_payload jsonb,
@@ -884,6 +886,10 @@ create table learning.essay_answer_versions (
   check ((thinking_payload is null and thinking_sha256 is null) or (thinking_payload is not null and thinking_sha256 is not null and length(thinking_sha256) = 64)),
   check (thinking_payload is null or jsonb_typeof(thinking_payload) = 'object'),
   check (supersedes_answer_version_id is null or supersedes_answer_version_id <> answer_version_id),
+  check (
+    (source_type = 'typed' and source_artifact_version_id is null and recognition_revision_id is null)
+    or (source_type = 'ocr_confirmed' and source_artifact_version_id is not null and recognition_revision_id is not null)
+  ),
   foreign key (attempt_id, user_id, task_version_id)
     references learning.essay_attempts(attempt_id, user_id, task_version_id),
   foreign key (supersedes_answer_version_id, attempt_id, user_id, task_version_id)
@@ -893,6 +899,10 @@ create table learning.essay_answer_versions (
 create unique index learning_essay_answer_one_successor_idx
   on learning.essay_answer_versions(supersedes_answer_version_id)
   where supersedes_answer_version_id is not null;
+
+create index learning_essay_answer_recognition_idx
+  on learning.essay_answer_versions(recognition_revision_id)
+  where recognition_revision_id is not null;
 
 create function learning.reject_essay_intelligence_mutation()
 returns trigger language plpgsql as $$

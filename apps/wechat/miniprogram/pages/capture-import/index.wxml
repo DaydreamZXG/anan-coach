@@ -1,11 +1,10 @@
-<view class="page external-page capture-page">
-  <view class="external-hero">
-    <view class="external-hero__copy">
-      <view class="external-eyebrow">外部学习 · 私有导入</view>
-      <view class="external-title">把纸面题目带回你的学习流</view>
-      <view class="external-subtitle">文件先经过安全检查、分页和 OCR；只有你确认文本与匹配后，才可进入后续学习。</view>
+<view class="capture-page {{state && state.status === 'idle' ? 'capture-page--camera' : ''}}">
+  <view class="capture-nav">
+    <view class="capture-nav__side" role="button" aria-label="返回" bindtap="goBack">‹</view>
+    <view class="capture-nav__title">
+      {{state && state.status === 'review' ? '确认识别结果' : (state && state.status === 'success' ? '搜题结果' : '拍照搜题')}}
     </view>
-    <anan-companion size="medium" intent="thinking" context="plan" animate />
+    <view class="capture-nav__side capture-nav__side--text" role="button" bindtap="chooseCamera">{{state && state.status === 'review' ? '重拍' : ''}}</view>
   </view>
 
   <state-view
@@ -16,110 +15,158 @@
   />
 
   <block wx:elif="{{state}}">
-    <view wx:if="{{state.status === 'idle'}}">
-      <view class="section-head"><view class="section-head__title">选择题目科目</view><view class="section-head__meta">影响后续处理路由</view></view>
-      <view class="choice-row">
-        <view class="choice {{state.learningTrack === 'xingce' ? 'choice--active' : ''}}" role="button" aria-label="选择行测" data-value="xingce" bindtap="chooseTrack">行测</view>
-        <view class="choice {{state.learningTrack === 'essay' ? 'choice--active' : ''}}" role="button" aria-label="选择申论" data-value="essay" bindtap="chooseTrack">申论</view>
+    <block wx:if="{{state.status === 'idle'}}">
+      <view class="capture-mode-switch">
+        <view class="capture-mode {{mode === 'search' ? 'capture-mode--active' : ''}}" data-mode="search" bindtap="chooseMode">单题搜题</view>
+        <view class="capture-mode {{mode === 'import' ? 'capture-mode--active' : ''}}" data-mode="import" bindtap="chooseMode">单题资料导入</view>
       </view>
 
-      <view class="section-head"><view class="section-head__title">导入方式</view><view class="section-head__meta">原图上传 · 不压缩</view></view>
-      <view class="external-card source-card">
-        <view class="source-icon">◉</view><view class="source-copy"><view class="card-title">相机拍题</view><view class="card-copy">适合单页、单题或纸质材料，单张上限 20 MB。</view></view>
-        <view class="source-action" role="button" aria-label="打开相机拍题" bindtap="chooseCamera">拍摄 →</view>
+      <view class="camera-stage">
+        <view class="camera-chip">自动识别行测 / 申论</view>
+        <view class="camera-document">
+          <view class="camera-document__label">题目区域</view>
+          <view class="camera-document__line camera-document__line--wide"></view>
+          <view class="camera-document__line"></view>
+          <view class="camera-document__line camera-document__line--short"></view>
+          <view class="camera-options">A　　B　　C　　D</view>
+          <view class="scan-corner scan-corner--tl"></view>
+          <view class="scan-corner scan-corner--tr"></view>
+          <view class="scan-corner scan-corner--bl"></view>
+          <view class="scan-corner scan-corner--br"></view>
+        </view>
+        <view class="camera-hint">
+          {{mode === 'search' ? '将题干、材料和选项完整放入画面' : '可导入多页材料或多题 PDF，系统会逐题拆分和确认'}}
+        </view>
       </view>
-      <view class="external-card source-card">
-        <view class="source-icon">▧</view><view class="source-copy"><view class="card-title">从相册导入</view><view class="card-copy">支持 JPG、PNG 原图，单张上限 20 MB。</view></view>
-        <view class="source-action" role="button" aria-label="从相册选择题目" bindtap="chooseAlbum">选择 →</view>
+
+      <view class="capture-note">✓　先确认识别内容，再发起搜索</view>
+      <view class="capture-track-row">
+        <view class="capture-track {{state.learningTrack === 'xingce' ? 'capture-track--active' : ''}}" data-value="xingce" bindtap="chooseTrack">行测</view>
+        <view class="capture-track {{state.learningTrack === 'essay' ? 'capture-track--active' : ''}}" data-value="essay" bindtap="chooseTrack">申论</view>
       </view>
-      <view class="external-card source-card">
-        <view class="source-icon">PDF</view><view class="source-copy"><view class="card-title">导入 PDF</view><view class="card-copy">支持整卷或多页材料，文件上限 50 MB；页数与安全约束由服务端复核。</view></view>
-        <view class="source-action" role="button" aria-label="选择 PDF 文件" bindtap="choosePdf">选文件 →</view>
+
+      <view wx:if="{{mode === 'search'}}" class="capture-controls">
+        <view class="capture-control" role="button" aria-label="从相册选择题目" bindtap="chooseAlbum"><view class="capture-control__icon">▧</view><text>相册</text></view>
+        <view class="capture-shutter" role="button" aria-label="打开相机拍题" bindtap="chooseCamera"><view class="capture-shutter__core"></view></view>
+        <view class="capture-control capture-control--quiet"><view class="capture-control__icon">✓</view><text>原图</text></view>
       </view>
-      <view wx:if="{{state.validationError}}" class="inline-error">{{state.validationError}}</view>
-      <view class="inline-note">账户私有文件不用于跨用户展示或模型训练。未确认结果始终标记为“不影响诊断”。</view>
+      <view wx:else class="import-actions">
+        <button class="import-action" bindtap="chooseAlbum">从相册选择图片</button>
+        <button class="import-action import-action--primary" bindtap="choosePdf">导入 PDF</button>
+      </view>
+      <view wx:if="{{state.validationError}}" class="capture-error">{{state.validationError}}</view>
+      <view class="capture-privacy">图片仅用于本次识别与个人学习，不进入公共题库或模型训练</view>
+    </block>
+
+    <block wx:elif="{{state.status === 'uploading'}}">
+      <view class="capture-content">
+        <view class="s9-hero">
+          <view class="s9-kicker">安全上传</view>
+          <view class="s9-title">正在读取题面</view>
+          <view class="s9-subtitle">原图会先完成完整性、安全与归属校验，再进入 OCR。</view>
+        </view>
+        <view class="capture-progress-card">
+          <view class="capture-progress-number type-data">{{state.uploadProgress ? state.uploadProgress.percent : 0}}%</view>
+          <view class="capture-progress-track"><view class="capture-progress-bar" style="width: {{state.uploadProgress ? state.uploadProgress.percent : 0}}%"></view></view>
+          <view class="capture-progress-file">{{state.selectedFile.displayName}}</view>
+        </view>
+      </view>
+    </block>
+
+    <view wx:elif="{{state.status === 'processing'}}" class="capture-content">
+      <state-view state="processing" title="正在识别题面" description="{{state.workspace && state.workspace.processingLabel ? state.workspace.processingLabel : '正在分页、分区并识别文字。'}}" request-id="{{state.workspace ? state.workspace.requestId : ''}}" />
     </view>
 
-    <view wx:elif="{{state.status === 'uploading'}}">
-      <view class="section-head"><view class="section-head__title">正在加密上传</view><view class="section-head__meta">{{state.selectedFile.displayName}}</view></view>
-      <view class="external-card">
-        <view class="upload-number type-data">{{state.uploadProgress ? state.uploadProgress.percent : 0}}%</view>
-        <view class="progress-track"><view class="progress-bar" style="width: {{state.uploadProgress ? state.uploadProgress.percent : 0}}%"></view></view>
-        <view class="card-copy">上传完成后仍需经过文件安全检查、去重、分页与识别处理。</view>
-      </view>
+    <view wx:elif="{{state.status === 'expired'}}" class="capture-content">
+      <state-view state="stale" title="这次识别已过期" description="过期结果不能继续确认，请重新拍摄原题。" action-text="重新选择题目" bind:action="restart" />
     </view>
 
-    <state-view
-      wx:elif="{{state.status === 'processing'}}"
-      state="processing"
-      title="正在分页与识别"
-      description="{{state.workspace && state.workspace.processingLabel ? state.workspace.processingLabel : '正在安全处理文件，完成后会进入人工核对。'}}"
-      request-id="{{state.workspace ? state.workspace.requestId : ''}}"
-    />
+    <view wx:elif="{{state.status === 'quarantined'}}" class="capture-content">
+      <state-view state="error" title="文件没有通过安全检查" description="该文件不会进入 OCR、匹配或学习诊断。" request-id="{{state.workspace ? state.workspace.requestId : ''}}" action-text="选择其他文件" bind:action="restart" />
+    </view>
 
-    <state-view
-      wx:elif="{{state.status === 'expired'}}"
-      state="stale"
-      title="导入版本已过期"
-      description="过期的 OCR 或匹配候选不能被确认，请重新导入原文件。"
-    />
-
-    <state-view
-      wx:elif="{{state.status === 'quarantined'}}"
-      state="error"
-      title="文件已隔离"
-      description="文件未通过安全检查，不会进入 OCR、匹配或学习诊断。"
-      request-id="{{state.workspace ? state.workspace.requestId : ''}}"
-    />
-
-    <state-view
-      wx:elif="{{state.status === 'error'}}"
-      state="error"
-      title="{{state.error ? state.error.title : '处理没有完成'}}"
-      description="{{state.error ? state.error.message : '请重新导入或刷新当前版本。'}}"
-      request-id="{{state.error ? state.error.requestId : ''}}"
-      action-text="{{state.pendingRecovery || state.workspace ? '恢复当前操作' : ''}}"
-      bind:action="retryImport"
-    />
+    <view wx:elif="{{state.status === 'error'}}" class="capture-content">
+      <state-view state="error" title="{{state.error ? state.error.title : '处理没有完成'}}" description="{{state.error ? state.error.message : '请重新拍摄或刷新当前版本。'}}" request-id="{{state.error ? state.error.requestId : ''}}" action-text="{{state.pendingRecovery || state.workspace ? '恢复当前操作' : ''}}" bind:action="retryImport" />
+    </view>
 
     <block wx:elif="{{state.status === 'review'}}">
-      <view class="delivery-strip">
-        <text>OCR {{state.workspace.recognition.recognitionKind}} · v{{state.workspace.recognition.revisionNo}}</text>
-        <text wx:if="{{state.workspace.match}}">匹配策略 {{state.workspace.match.matchingPolicyVersion}}</text>
-        <text wx:else>匹配尚未开始</text>
-        <text>Request ID · {{state.workspace.requestId}}</text>
-      </view>
-      <view wx:if="{{state.workspace.partialReasons.length}}" class="inline-warning">
-        <view>本次结果不完整，请逐项核对：</view>
-        <view wx:for="{{state.workspace.partialReasons}}" wx:key="*this">· {{item}}</view>
-      </view>
-      <view class="section-head"><view class="section-head__title">核对 OCR 文本</view><view class="section-head__meta">{{state.segments.length}} 个片段</view></view>
-      <view wx:for="{{state.segments}}" wx:key="segmentId" class="external-card segment-card">
-        <view class="segment-head"><view>第 {{item.pageNo}} 页 · 片段 {{item.ordinal}}</view><view class="status-pill status-pill--{{item.tone}}">{{item.confidenceLabel}}</view></view>
-        <textarea class="text-area segment-input" value="{{item.text}}" disabled="{{state.submitting || state.reviewStep === 'match'}}" data-id="{{item.segmentId}}" aria-label="第 {{item.ordinal}} 个 OCR 文本" bindinput="inputSegment" />
-      </view>
+      <view class="capture-content capture-content--review">
+        <view class="source-preview">
+          <image wx:if="{{state.selectedFile && state.selectedFile.mimeType !== 'application/pdf'}}" class="source-preview__image" src="{{state.selectedFile.localPath}}" mode="aspectFill" />
+          <view wx:else class="source-preview__pdf">PDF</view>
+          <view class="source-preview__quality"><text class="source-preview__quality-title">画面已读取</text><text>请核对文字和题型</text></view>
+        </view>
 
-      <block wx:if="{{state.reviewStep === 'match'}}">
-        <view class="section-head"><view class="section-head__title">确认内容匹配</view><view class="section-head__meta">OCR 已确认 · 候选仍待确认</view></view>
-        <view wx:if="{{!state.workspace.match}}" class="inline-warning">识别已确认，但服务端尚未返回匹配版本；当前不能进入学习诊断。</view>
-        <view wx:elif="{{!state.workspace.match.candidates.length}}" class="inline-warning">没有可确认的匹配结果，当前导入不能进入学习诊断。</view>
-        <block wx:if="{{state.workspace.match}}">
-          <view wx:for="{{state.workspace.match.candidates}}" wx:key="contentVersionId" class="match-row {{state.selectedContentVersionId === item.contentVersionId ? 'match-row--selected' : ''}}" role="button" aria-label="选择匹配 {{item.contentVersionId}}" data-id="{{item.contentVersionId}}" bindtap="selectMatch">
-            <view><view class="match-title">{{item.matchKind === 'exact' ? '精确匹配' : '相似题目'}}</view><view class="card-copy type-data">{{item.contentVersionId}}</view></view>
-            <view class="match-score type-data">{{item.score}}</view>
+        <view class="recognized-type-card">
+          <view class="recognized-type-copy"><text class="recognized-type-copy__label">识别题型</text><text class="recognized-type-copy__value">{{state.learningTrack === 'xingce' ? '行测' : '申论'}} · {{state.workspace.recognition.recognitionKind}}</text></view>
+          <view class="recognized-type-actions">
+            <text class="recognized-type-action {{state.learningTrack === 'xingce' ? 'is-active' : ''}}" data-value="xingce" bindtap="chooseTrack">行测</text>
+            <text class="recognized-type-action {{state.learningTrack === 'essay' ? 'is-active' : ''}}" data-value="essay" bindtap="chooseTrack">申论</text>
+          </view>
+        </view>
+
+        <view class="ocr-card">
+          <view class="ocr-card__head"><text class="ocr-card__title">识别文字</text><text class="ocr-card__count">{{state.segments.length}} 个片段</text></view>
+          <view wx:for="{{state.segments}}" wx:key="segmentId" class="ocr-segment">
+            <view class="ocr-segment__meta"><text>第 {{item.pageNo}} 页 · 片段 {{item.ordinal}}</text><text class="status-{{item.tone}}">{{item.confidenceLabel}}</text></view>
+            <textarea class="ocr-segment__input" value="{{item.text}}" disabled="{{state.submitting || state.reviewStep === 'match'}}" data-id="{{item.segmentId}}" aria-label="第 {{item.ordinal}} 个 OCR 文本" bindinput="inputSegment" />
+          </view>
+        </view>
+
+        <view wx:if="{{state.reviewStep === 'recognition'}}" class="capture-completeness">✓　请确认题干、材料和选项都已识别完整</view>
+
+        <block wx:else>
+          <view class="capture-completeness">✓　已拆分 {{state.workspace.questionUnits.length}} 道题，每题独立确认</view>
+          <view class="question-unit-tabs">
+            <view wx:for="{{state.workspace.questionUnits}}" wx:key="questionUnitId" class="question-unit-tab {{index === state.activeQuestionUnitIndex ? 'is-active' : ''}}" data-index="{{index}}" bindtap="selectQuestionUnit">{{item.ordinal}}</view>
+          </view>
+          <view wx:if="{{state.activeQuestionUnit && state.activeQuestionUnit.state === 'unmatched' && !state.activeQuestionUnit.aiAnswer}}" class="capture-warning">题库未命中。可以申请 AI 估算解析，它不是官方答案，确认后也只供参考。</view>
+          <block wx:if="{{state.activeQuestionUnit && state.activeQuestionUnit.match}}">
+            <view wx:for="{{state.activeQuestionUnit.match.candidates}}" wx:key="contentVersionId" class="match-choice {{state.selectedContentVersionId === item.contentVersionId ? 'match-choice--selected' : ''}}" data-id="{{item.contentVersionId}}" bindtap="selectMatch">
+              <view class="match-choice__copy"><text class="match-choice__kind">{{item.matchKind === 'exact' ? '精确匹配' : '相似题目'}}</text><text class="match-choice__version type-data">{{item.contentVersionId}}</text></view>
+              <view class="match-choice__score type-data">{{item.score}}</view>
+            </view>
+          </block>
+          <button wx:if="{{state.activeQuestionUnit && state.activeQuestionUnit.state === 'unmatched' && !state.activeQuestionUnit.aiAnswer}}" class="capture-secondary" loading="{{state.submitting}}" bindtap="requestAIAnswer">申请 AI 估算解析</button>
+          <view wx:if="{{state.activeQuestionUnit && state.activeQuestionUnit.aiAnswer && (state.activeQuestionUnit.aiAnswer.state === 'requested' || state.activeQuestionUnit.aiAnswer.state === 'processing')}}" class="capture-warning">AI 正在解题，页面会自动刷新。</view>
+          <view wx:if="{{state.activeQuestionUnit && state.activeQuestionUnit.aiAnswer && (state.activeQuestionUnit.aiAnswer.state === 'candidate' || state.activeQuestionUnit.aiAnswer.state === 'confirmed')}}" class="result-answer-card">
+            <text class="result-answer-card__label">AI 估算解析 · 不是官方答案</text>
+            <text class="result-answer-card__title">{{state.activeQuestionUnit.aiAnswer.answerText}}</text>
+            <text class="result-reason-card__copy">{{state.activeQuestionUnit.aiAnswer.explanation}}</text>
+            <button wx:if="{{state.activeQuestionUnit.aiAnswer.state === 'candidate'}}" class="capture-secondary" loading="{{state.submitting}}" bindtap="confirmAIAnswer">我已核对，仅作参考</button>
           </view>
         </block>
-      </block>
-      <view wx:if="{{state.validationError}}" class="inline-error">{{state.validationError}}</view>
-      <view class="inline-warning">当前步骤确认前：不影响能力评估、错因和计划。匹配最终确认后：只是取得进入后续作答流程的资格，不会伪造作答成绩。</view>
-      <view class="action-stack"><ui-button label="{{state.reviewStep === 'recognition' ? '确认 OCR，开始匹配' : '确认内容匹配'}}" loading="{{state.submitting}}" disabled="{{state.reviewStep === 'match' && (!state.workspace.match || !state.workspace.match.candidates.length)}}" bind:action="confirmImport" /></view>
+
+        <view wx:if="{{state.validationError}}" class="capture-error">{{state.validationError}}</view>
+        <view class="capture-boundary">确认前不会写入能力画像、错因或今日计划。</view>
+      </view>
+      <view class="capture-dock">
+        <button wx:if="{{state.reviewStep === 'recognition' || (state.activeQuestionUnit && state.activeQuestionUnit.state === 'match_review')}}" class="capture-primary" loading="{{state.submitting}}" bindtap="confirmImport">
+          {{state.reviewStep === 'recognition' ? '确认识别文字' : '确认并查看结果'}}
+        </button>
+      </view>
     </block>
 
     <block wx:elif="{{state.status === 'success'}}">
-      <state-view state="empty" title="题目版本已确认" description="这批内容已经通过 OCR 与匹配确认；后续作答证据仍需单独录入和确认。" request-id="{{state.workspace.requestId}}" />
-      <view class="action-stack">
-        <ui-button label="生成我的学习包" bind:action="openLearningPackets" />
-        <ui-button label="录入学习包答案" variant="secondary" bind:action="openAnswerIngestion" />
+      <view class="capture-content capture-content--result">
+        <view class="matched-banner"><text class="matched-banner__title">{{state.workspace.questionUnits.length}} 道题已逐题完成</text><text class="matched-banner__note">结果只在你的账户内使用</text></view>
+        <view class="result-question-card">
+          <view class="result-chip">{{state.learningTrack === 'xingce' ? '行测' : '申论'}}</view>
+          <view wx:for="{{state.segments}}" wx:key="segmentId" class="result-segment">{{item.text}}</view>
+        </view>
+        <view wx:for="{{state.workspace.questionUnits}}" wx:key="questionUnitId" class="result-answer-card {{item.referenceAnswer || item.aiAnswer ? '' : 'result-answer-card--empty'}}">
+          <text class="result-answer-card__label">第 {{item.ordinal}} 题 · {{item.referenceAnswer ? '授权参考答案' : 'AI 估算解析'}}</text>
+          <text class="result-answer-card__title">{{item.referenceAnswer ? item.referenceAnswer.answerText : (item.aiAnswer ? item.aiAnswer.answerText : '当前暂无可展示的答案')}}</text>
+          <view class="result-answer-card__version type-data">{{item.referenceAnswer ? (item.referenceAnswer.matchKind === 'exact' ? '原题精确匹配 · 仅供核对' : '相似题匹配 · 请结合题面核对') : 'AI 生成 · 不是官方答案'}}</view>
+        </view>
+        <view class="result-reason-card">
+          <text class="result-reason-card__title">这次匹配如何产生</text>
+          <text class="result-reason-card__copy">系统先识别题面，再在当前授权范围内比较题干、选项、材料与图片特征；最终版本由你亲自确认。</text>
+        </view>
+        <view class="capture-boundary">参考答案不会冒充你的作答，也不会写入能力画像；录入你的真实答案后才会形成学习证据。</view>
+        <button class="capture-primary" bindtap="openLearningPackets">生成这道题的学习包</button>
+        <button class="capture-secondary" bindtap="openAnswerIngestion">录入已有学习包答案</button>
+        <button class="capture-secondary" bindtap="restart">继续拍下一题</button>
       </view>
     </block>
   </block>

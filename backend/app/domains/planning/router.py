@@ -11,6 +11,13 @@ from app.domains.auth.deps import get_current_user
 from app.domains.auth.repository import AuthenticatedUser
 from app.domains.planning.errors import PlanningTaskExpiredError
 from app.domains.planning.http import planning_task_expired_response
+from app.domains.planning.insights_schemas import (
+    DailySettlementView,
+    PlanBasisView,
+    PlanChangeHistory,
+    WeeklyPlanVersion,
+)
+from app.domains.planning.insights_service import PlanningInsightsService
 from app.domains.planning.repository import PlanningContractError
 from app.domains.planning.schemas import (
     DailyCapacityCommand,
@@ -38,6 +45,10 @@ def get_planning_service() -> PlanningService:
     return PlanningService()
 
 
+def get_planning_insights_service() -> PlanningInsightsService:
+    return PlanningInsightsService()
+
+
 def _idempotency_key(
     value: Annotated[str, Header(alias="Idempotency-Key", min_length=8, max_length=160)],
 ) -> str:
@@ -62,6 +73,72 @@ def get_today_plan(
     except PlanningContractError as exc:
         session.rollback()
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+
+
+@router.get("/today/basis", response_model=PublicApiEnvelope[PlanBasisView])
+def get_today_plan_basis(
+    request: Request,
+    response: Response,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+    insights: Annotated[PlanningInsightsService, Depends(get_planning_insights_service)],
+) -> PublicApiEnvelope[PlanBasisView]:
+    try:
+        result = insights.plan_basis(session, user_id=current_user.user_id)
+        session.commit()
+        return public_success_envelope(request=request, response=response, data=result)
+    except PlanningContractError as exc:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+
+
+@router.get(
+    "/today/settlement",
+    response_model=PublicApiEnvelope[DailySettlementView],
+)
+def get_today_plan_settlement(
+    request: Request,
+    response: Response,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+    insights: Annotated[PlanningInsightsService, Depends(get_planning_insights_service)],
+) -> PublicApiEnvelope[DailySettlementView]:
+    try:
+        result = insights.daily_settlement(session, user_id=current_user.user_id)
+        session.commit()
+        return public_success_envelope(request=request, response=response, data=result)
+    except PlanningContractError as exc:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+
+
+@router.get("/week", response_model=PublicApiEnvelope[WeeklyPlanVersion])
+def get_weekly_plan(
+    request: Request,
+    response: Response,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+    insights: Annotated[PlanningInsightsService, Depends(get_planning_insights_service)],
+) -> PublicApiEnvelope[WeeklyPlanVersion]:
+    try:
+        result = insights.weekly_plan(session, user_id=current_user.user_id)
+        session.commit()
+        return public_success_envelope(request=request, response=response, data=result)
+    except PlanningContractError as exc:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+
+
+@router.get("/history", response_model=PublicApiEnvelope[PlanChangeHistory])
+def get_plan_change_history(
+    request: Request,
+    response: Response,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+    insights: Annotated[PlanningInsightsService, Depends(get_planning_insights_service)],
+) -> PublicApiEnvelope[PlanChangeHistory]:
+    result = insights.plan_history(session, user_id=current_user.user_id)
+    return public_success_envelope(request=request, response=response, data=result)
 
 
 @router.put(

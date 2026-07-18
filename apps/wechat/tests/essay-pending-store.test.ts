@@ -159,6 +159,8 @@ function draftingCompletion(): PendingEssayDraftingCompletion {
     elapsedMinutesText: "30",
     sourceType: "typed",
     sourceTypeIndex: 0,
+    sourceArtifactVersionId: "",
+    recognitionRevisionId: "",
     reflectionCauseCodes: ["expression"],
     whatIWillChange: "SENSITIVE-REFLECTION",
     verificationPlan: "下一题检查表达",

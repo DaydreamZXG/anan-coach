@@ -1,7 +1,9 @@
-<view class="page position-page position-detail-page">
-  <view class="eyebrow">D03 · 证据与风险</view>
-  <view class="page-title">{{state.summaryView ? state.summaryView.name : '岗位逐条资格核验'}}</view>
-  <view class="page-subtitle">{{state.summaryView ? state.summaryView.departmentFull : '深链已恢复资格核验；岗位摘要等待正式 v2 详情契约。'}}</view>
+<view class="s9-page position-page position-detail-page">
+  <view class="s9-hero">
+    <view class="s9-kicker">岗位详情</view>
+    <view class="s9-title">{{state.summaryView ? state.summaryView.name : '岗位逐条资格核验'}}</view>
+    <view class="s9-subtitle">把资格、竞争与个人匹配拆开看，所有判断都保留依据。</view>
+  </view>
 
   <state-view wx:if="{{!state || state.status === 'idle' || state.status === 'loading'}}" state="loading" />
   <state-view
@@ -43,7 +45,7 @@
 
     <view wx:if="{{state.summaryView}}" class="detail-hero">
       <view class="detail-hero__top"><view class="status-pill status-pill--{{state.summaryView.eligibilityTone}}">{{state.summaryView.eligibilityLabel}}</view><view class="position-code">{{state.summaryView.positionCode}}</view></view>
-      <view class="detail-hero__score"><text>建议备考线</text><strong class="type-data">{{state.summaryView.scoreLabel}}</strong></view>
+      <view class="detail-hero__score"><text class="detail-hero__score-label">建议备考线</text><text class="detail-hero__score-value type-data">{{state.summaryView.scoreLabel}}</text></view>
       <view class="detail-hero__meta">{{state.summaryView.region}}{{state.summaryView.city ? ' · ' + state.summaryView.city : ''}} · 招 {{state.summaryView.headcount}} 人</view>
       <view class="detail-hero__evidence">{{state.summaryView.scoreEvidenceLabel}} · {{state.summaryView.targetGeneratedLabel}} · {{state.summaryView.targetValidityLabel}}</view>
       <view wx:if="{{state.summaryView.targetScoreExpired}}" class="inline-warning">目标分证据已过期，不能用于目标确认。</view>
@@ -57,8 +59,8 @@
       </view>
       <view class="fit-card__description">{{state.fit.statusDescription}}</view>
       <view class="fit-card__metrics">
-        <view><text>同版本分差区间</text><strong class="type-data">{{state.fit.scoreGapRangeLabel}}</strong></view>
-        <view><text>建议点差</text><strong class="type-data">{{state.fit.scoreGapRecommendedLabel}}</strong></view>
+        <view class="fit-card__metric"><text class="fit-card__metric-label">同版本分差区间</text><text class="fit-card__metric-value type-data">{{state.fit.scoreGapRangeLabel}}</text></view>
+        <view class="fit-card__metric"><text class="fit-card__metric-label">建议点差</text><text class="fit-card__metric-value type-data">{{state.fit.scoreGapRecommendedLabel}}</text></view>
       </view>
       <view wx:if="{{state.fit.scoreGapDirectionLabel}}" class="fit-card__note">{{state.fit.scoreGapDirectionLabel}}</view>
       <view class="fit-card__burden">{{state.fit.requirementsBurdenLabel}}</view>
@@ -74,9 +76,9 @@
         <view class="status-pill">{{state.ability.confidenceLabel}}</view>
       </view>
       <view class="ability-card__scores">
-        <view><text>行测</text><strong class="type-data">{{state.ability.xingceLabel}}</strong></view>
-        <view><text>申论</text><strong class="type-data">{{state.ability.shenlunLabel}}</strong></view>
-        <view><text>总分</text><strong class="type-data">{{state.ability.totalLabel}}</strong></view>
+        <view class="ability-score"><text class="ability-score__label">行测</text><text class="ability-score__value type-data">{{state.ability.xingceLabel}}</text></view>
+        <view class="ability-score"><text class="ability-score__label">申论</text><text class="ability-score__value type-data">{{state.ability.shenlunLabel}}</text></view>
+        <view class="ability-score"><text class="ability-score__label">总分</text><text class="ability-score__value type-data">{{state.ability.totalLabel}}</text></view>
       </view>
       <view class="ability-card__copy">{{state.ability.evidenceLabel}} · {{state.ability.missingLabel}}</view>
       <view wx:if="{{state.ability.conflictLabel}}" class="inline-warning">{{state.ability.conflictLabel}}</view>
@@ -84,17 +86,19 @@
 
     <view class="section-heading"><view class="section-title">硬条件逐条核验</view><view class="section-meta">快照 {{state.snapshotId}}</view></view>
     <view wx:if="{{!state.checks.length}}" class="empty-inline">当前规则编译结果没有额外硬条件；报名前仍需核对官方公告。</view>
+    <view class="requirement-card-grid">
     <view wx:for="{{state.checks}}" wx:key="requirementId" class="requirement-card">
       <view class="requirement-card__head"><view class="status-pill status-pill--{{item.statusTone}}">{{item.statusLabel}}</view><view class="requirement-card__field">{{item.field}}</view></view>
       <view class="requirement-card__condition">{{item.conditionLabel}}</view>
       <view class="requirement-card__evidence">{{item.evidenceLabel}}</view>
       <view wx:if="{{item.sourceReference}}" class="requirement-card__source">来源 · {{item.sourceReference}}</view>
       <view wx:if="{{item.operator === 'manual_review'}}" class="confirmation-actions">
-        <view data-requirement-id="{{item.requirementId}}" data-response="satisfied" bindtap="confirmRequirement">符合</view>
-        <view data-requirement-id="{{item.requirementId}}" data-response="uncertain" bindtap="confirmRequirement">不确定</view>
-        <view data-requirement-id="{{item.requirementId}}" data-response="not_satisfied" bindtap="confirmRequirement">不符合</view>
+        <view class="confirmation-action" data-requirement-id="{{item.requirementId}}" data-response="satisfied" bindtap="confirmRequirement">符合</view>
+        <view class="confirmation-action" data-requirement-id="{{item.requirementId}}" data-response="uncertain" bindtap="confirmRequirement">不确定</view>
+        <view class="confirmation-action" data-requirement-id="{{item.requirementId}}" data-response="not_satisfied" bindtap="confirmRequirement">不符合</view>
       </view>
       <view wx:if="{{state.confirmingRequirementId === item.requirementId}}" class="processing-banner">正在生成新资格档案版本并重新核验…</view>
+    </view>
     </view>
     <view wx:if="{{state.confirmationMessage}}" class="success-card">{{state.confirmationMessage}}<text wx:if="{{state.commandTrace}}">Request ID · {{state.commandTrace.requestId}}</text></view>
     <view wx:if="{{state.commandError}}" class="inline-error"><view>{{state.commandError.message}}</view><view wx:if="{{state.commandError.requestId}}">Request ID · {{state.commandError.requestId}}</view></view>

@@ -1,12 +1,9 @@
-<view class="page preference-page">
-  <view class="topbar">
-    <view class="brand-lockup">
-      <anan-companion size="small" intent="thinking" context="plan" animate />
-      <view><view class="eyebrow">岸岸 · 建立上岸档案</view><view class="privacy-note">时间用于约束计划，不用于催促你</view></view>
-    </view>
-    <view class="step-number">05 / 06</view>
+<view class="s9-page s9-page--with-dock preference-page">
+  <view class="s9-hero">
+    <view class="s9-title">让计划适合你的真实生活</view>
+    <view class="s9-subtitle">告诉岸岸什么时候能学、一次能专注多久，以及你不想被怎样打扰。</view>
+    <view wx:if="{{state && state.draft}}" class="s9-chip-row"><view class="s9-chip s9-chip--primary">工作日 {{state.draft.weekdayMinutes}} 分钟</view><view class="s9-chip">周末 {{state.draft.weekendMinutes}} 分钟</view></view>
   </view>
-  <view class="progress-track"><view class="progress-value"></view></view>
 
   <view wx:if="{{!state || state.status === 'loading'}}" class="page-state">
     <anan-companion size="large" intent="thinking" context="plan" animate />
@@ -23,22 +20,17 @@
   </view>
 
   <block wx:else>
-    <view class="intro">
-      <view class="page-title">计划要尊重你的时间，<br />不是把你压垮。</view>
-      <view class="page-subtitle">先固定常规周；某一天临时变忙，之后在今日页单独调整，不改写这份长期节奏。</view>
-    </view>
-
     <view wx:if="{{state.pendingRecovery}}" class="recovery-banner">
       <view class="recovery-mark">↻</view>
       <view><view class="recovery-title">上一次保存结果还不确定</view><view class="recovery-copy">输入已锁定；本次只会用同一命令查询，不会重复创建时间版本。</view></view>
     </view>
 
-    <view class="budget-card">
+    <view class="budget-card s9-card">
       <view class="budget-row">
         <view><view class="field-label">工作日可学习</view><view class="field-copy">用于普通训练日的容量上限</view></view>
         <view class="stepper">
           <view class="stepper-button" data-field="weekdayMinutes" data-delta="-15" bindtap="adjustMinutes">−</view>
-          <view class="stepper-value type-data">{{state.draft.weekdayMinutes}}<text> 分钟</text></view>
+          <view class="stepper-value type-data">{{state.draft.weekdayMinutes}}<text class="stepper-value__unit"> 分钟</text></view>
           <view class="stepper-button" data-field="weekdayMinutes" data-delta="15" bindtap="adjustMinutes">＋</view>
         </view>
       </view>
@@ -47,13 +39,13 @@
         <view><view class="field-label">周末可学习</view><view class="field-copy">容纳模考或完整材料训练</view></view>
         <view class="stepper">
           <view class="stepper-button" data-field="weekendMinutes" data-delta="-30" bindtap="adjustMinutes">−</view>
-          <view class="stepper-value type-data">{{state.draft.weekendMinutes}}<text> 分钟</text></view>
+          <view class="stepper-value type-data">{{state.draft.weekendMinutes}}<text class="stepper-value__unit"> 分钟</text></view>
           <view class="stepper-button" data-field="weekendMinutes" data-delta="30" bindtap="adjustMinutes">＋</view>
         </view>
       </view>
     </view>
 
-    <view class="schedule-card">
+    <view class="schedule-card s9-card">
       <view class="schedule-head"><view><view class="field-label">整卷模考日</view><view class="field-copy">每周一次稳定标尺</view></view><view class="schedule-tag">1 天</view></view>
       <view class="weekday-row">
         <view wx:for="{{weekdays}}" wx:key="value" class="weekday-chip {{state.draft.mockExamDay === item.value ? 'weekday-chip--mock' : ''}}" data-field="mockExamDay" data-value="{{item.value}}" bindtap="selectDay">{{item.label}}</view>
@@ -66,17 +58,17 @@
     </view>
 
     <view class="rhythm-strip">
-      <view><strong class="type-data">{{state.summary.focusedTrainingDays}}</strong><text>针对训练</text></view>
-      <view><strong class="type-data">{{state.summary.mockExamDays}}</strong><text>整卷模考</text></view>
-      <view><strong class="type-data">{{state.summary.recoveryDays}}</strong><text>恢复日</text></view>
+      <view class="rhythm-item"><text class="rhythm-item__value type-data">{{state.summary.focusedTrainingDays}}</text><text class="rhythm-item__label">针对训练</text></view>
+      <view class="rhythm-item"><text class="rhythm-item__value type-data">{{state.summary.mockExamDays}}</text><text class="rhythm-item__label">整卷模考</text></view>
+      <view class="rhythm-item"><text class="rhythm-item__value type-data">{{state.summary.recoveryDays}}</text><text class="rhythm-item__label">恢复日</text></view>
     </view>
-    <view class="weekly-total">常规周容量约 <text class="type-data">{{state.summary.weeklyMinutes}}</text> 分钟；行测和申论在同一容量内并行选择，不预先把某一科当剩余时间。</view>
+    <view class="weekly-total">常规周容量约 <text class="weekly-total__value type-data">{{state.summary.weeklyMinutes}}</text> 分钟；行测和申论在同一容量内并行选择，不预先把某一科当剩余时间。</view>
 
     <view wx:if="{{state.validationError}}" class="error-banner">{{state.validationError}}</view>
     <view wx:if="{{state.error}}" class="error-banner">
       <view>{{state.error.message}}</view>
       <view wx:if="{{state.error.requestId}}" class="request-id">Request ID · {{state.error.requestId}}</view>
     </view>
-    <ui-button label="{{state.pendingRecovery ? '查询原保存结果' : '确认周节奏并查看起点'}}" loading="{{state.saving}}" bind:action="submit" />
+    <view class="s9-action-dock"><button class="s9-primary-button" loading="{{state.saving}}" bindtap="submit">{{state.pendingRecovery ? '查询原保存结果' : '保存节奏并查看起点'}}</button></view>
   </block>
 </view>

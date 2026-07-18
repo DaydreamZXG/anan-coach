@@ -256,8 +256,8 @@ function causeCandidate(
     missingEvidence: [],
     evidenceRefs: [],
     limitations: [],
-    quotaState: "not_metered",
-    entitlementPolicyVersion: "included-with-canonical-practice@v1",
+    quotaState: "reserved",
+    entitlementPolicyVersion: "metered-model-round@v1",
   };
 }
 

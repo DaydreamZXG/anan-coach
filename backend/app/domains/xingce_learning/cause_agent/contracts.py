@@ -7,7 +7,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 CAUSE_CANDIDATE_CONTRACT_VERSION = "cause-candidate@v2"
 CAUSE_DECISION_CONTRACT_VERSION = "cause-decision@v2"
-ENTITLEMENT_POLICY_VERSION = "included-with-canonical-practice@v1"
+ENTITLEMENT_POLICY_VERSION = "metered-model-round@v1"
 
 
 class CauseModel(BaseModel):

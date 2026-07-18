@@ -1,10 +1,11 @@
-<view class="page position-page briefing-page">
-  <view class="briefing-brand">
-    <anan-companion size="small" intent="thinking" context="report" animate />
+<view class="s9-page position-page briefing-page">
+  <view class="s9-hero briefing-intro">
     <view>
-      <view class="eyebrow">D06 · 岸岸新手考情说明</view>
-      <view class="privacy-note">只解释服务端已有事实，不替你预测录取</view>
+      <view class="s9-kicker">岸岸 · 新手考情</view>
+      <view class="s9-title">第一次考？先把这场考试讲明白</view>
+      <view class="s9-subtitle">只解释已经确认的岗位事实，不替你预测录取。</view>
     </view>
+    <anan-companion size="small" intent="thinking" context="report" animate />
   </view>
 
   <state-view

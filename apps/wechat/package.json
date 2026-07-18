@@ -4,7 +4,7 @@
   "private": true,
   "description": "AI 国考上岸教练微信小程序",
   "scripts": {
-    "check": "npm run format:check && npm run structure:check && npm run anan:check && npm run api:check && npm run typecheck && npm run lint && npm run test",
+    "check": "npm run format:check && npm run structure:check && npm run visual:coverage && npm run anan:check && npm run api:check && npm run typecheck && npm run lint && npm run test",
     "api:generate": "node scripts/generate-api.mjs",
     "api:check": "node scripts/generate-api.mjs --check",
     "format": "prettier --write \"**/*.{ts,js,json,mjs,md,html,css}\"",
@@ -12,9 +12,13 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"miniprogram/**/*.ts\" \"tests/**/*.ts\"",
     "structure:check": "node scripts/validate-structure.mjs",
+    "visual:coverage": "node scripts/validate-visual-coverage.mjs",
     "anan:check": "node scripts/validate-anan-assets.mjs",
-    "test": "vitest run",
+    "test": "vitest run tests",
     "visual:check": "node e2e/run-visual.mjs",
+    "runtime:check": "VISUAL_RUNTIME_ONLY=1 node e2e/run-visual.mjs",
+    "journey:check": "node e2e/run-click-audit.mjs",
+    "tablet:check": "vitest run tests/tablet-layout.test.ts",
     "visual:update": "node e2e/run-visual.mjs --update"
   },
   "devDependencies": {

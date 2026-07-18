@@ -22,6 +22,7 @@ from sqlalchemy.orm import Session, sessionmaker
 from app.core.config import Settings
 from app.db.session import get_db_session
 from app.domains.ai.audit import AIAuditRepository
+from app.domains.ai.governance.contracts import IntentDecision
 from app.domains.ai.model_cost import ModelPriceCard, ModelTokenUsage
 from app.domains.ai.provider import (
     AICompanionAnswerResult,
@@ -43,9 +44,11 @@ from app.domains.companion.service import (
     CompanionCommandFailure,
     CompanionProviderUncertain,
     CompanionService,
+    _allowed_actions,
     _build_persona_prompt,
-    _citations,
+    _context_retrieval_candidates,
     _context_payload,
+    _information_action,
 )
 from app.main import create_app
 
@@ -84,9 +87,10 @@ class FakeCompanionAIProvider:
     def prepare_companion_question(
         self,
         *,
-        scenario: str,
+        route_decision: dict[str, object],
         question_text: str,
         context: dict[str, object],
+        sources: list[dict[str, object]],
         persona: str | None = None,
     ) -> dict[str, object]:
         return {
@@ -94,9 +98,12 @@ class FakeCompanionAIProvider:
             "promptVersion": self.prompt_version,
             "schemaVersion": self.schema_version,
             "providerReplayRetentionSeconds": 604_800,
-            "scenario": scenario,
+            "modelTier": route_decision["modelTier"],
+            "model": self.model,
+            "routeDecision": route_decision,
             "questionText": question_text,
             "context": context,
+            "sources": sources,
             "persona": persona,
         }
 
@@ -114,6 +121,10 @@ class FakeCompanionAIProvider:
                 return cached
             context = prepared["context"]
             assert isinstance(context, dict)
+            sources = prepared["sources"]
+            assert isinstance(sources, list) and sources
+            source_ref = sources[0]["sourceRef"]
+            assert isinstance(source_ref, str)
             answer = (
                 f"基于 {context['practiceAnswers']} 次练习，"
                 "先修复资料分析增长率。"
@@ -121,6 +132,9 @@ class FakeCompanionAIProvider:
             result = AICompanionAnswerResult(
                 answer=answer,
                 next_actions=["回看增长率方法卡", "再做 3 道同类题"],
+                source_refs=[source_ref],
+                confidence="medium",
+                limitations=["仅基于当前已确认学习证据。"],
                 latency_ms=12,
                 response_summary=(
                     '{"answer":"ok","nextActions":["回看增长率方法卡"]}'
@@ -201,15 +215,17 @@ class ZeroRetentionTimeoutProvider(TimeoutAfterAcceptOnceProvider):
     def prepare_companion_question(
         self,
         *,
-        scenario: str,
+        route_decision: dict[str, object],
         question_text: str,
         context: dict[str, object],
+        sources: list[dict[str, object]],
         persona: str | None = None,
     ) -> dict[str, object]:
         prepared = super().prepare_companion_question(
-            scenario=scenario,
+            route_decision=route_decision,
             question_text=question_text,
             context=context,
+            sources=sources,
             persona=persona,
         )
         prepared["providerReplayRetentionSeconds"] = 0
@@ -309,14 +325,17 @@ def test_companion_brain_carries_essay_review_reflection_and_plan_without_raw_an
         "todayOmissionReason": None,
     }
     assert "answerText" not in str(payload)
-    assert [item.kind for item in _citations(context)] == [
-        "learner_memory",
+    assert [item.reference.kind for item in _context_retrieval_candidates(context)] == [
+        "learner_activity",
         "essay_learning",
         "target_position",
     ]
     persona = _build_persona_prompt(context)
+    assert "岸岸" in persona
     assert "同时负责行测和申论" in persona
     assert "不得直接据此推断岗位总分差" in persona
+    assert "沈砚" not in persona
+    assert "主公" not in persona
 
 
 def test_companion_context_uses_only_current_canonical_essay_evidence(
@@ -442,9 +461,10 @@ def test_production_companion_provider_fails_closed_without_verified_replay_cont
 ) -> None:
     provider = AIProvider(replace(_production_companion_settings(), **override))
     prepared = provider.prepare_companion_question(
-        scenario="how_to_learn",
+        route_decision=_provider_route_decision(),
         question_text="如何提升？",
         context={"practiceAnswers": 1},
+        sources=_grounding_sources(),
     )
 
     with pytest.raises(AIProviderConfigurationError, match=message):
@@ -467,7 +487,9 @@ def test_production_provider_replay_uses_identical_key_and_request_bytes() -> No
                     {
                         "message": {
                             "content": (
-                                '{"answer":"按方法卡练习","nextActions":["做三道题"]}'
+                                '{"answer":"按方法卡练习","nextActions":["做三道题"],'
+                                '"sourceRefs":["test-source"],"confidence":"medium",'
+                                '"limitations":[]}'
                             )
                         }
                     }
@@ -486,10 +508,12 @@ def test_production_provider_replay_uses_identical_key_and_request_bytes() -> No
         client_factory=lambda: httpx.Client(transport=transport),
     )
     prepared = provider.prepare_companion_question(
-        scenario="how_to_learn",
+        route_decision=_provider_route_decision(),
         question_text="资料分析怎么补？",
         context={"practiceAnswers": 3},
+        sources=_grounding_sources(),
     )
+    assert prepared["body"]["response_format"]["type"] == "json_schema"
 
     first = provider.answer_prepared_companion_question(
         prepared=prepared,
@@ -522,9 +546,13 @@ def test_companion_ask_is_quota_gated_and_audited(
             "Idempotency-Key": "companion-ask-audit-1",
         },
         json={
-            "scenario": "how_to_learn",
             "questionText": "资料分析增长率怎么补？",
-            "nodeId": "km_growth",
+            "context": {
+                "routeId": "pages/companion/index",
+                "workspace": "training",
+                "objectRefs": [],
+                "learnerStateVersion": "test-state-v1",
+            },
         },
     )
 
@@ -537,13 +565,18 @@ def test_companion_ask_is_quota_gated_and_audited(
         "date": datetime.now(UTC).date().isoformat(),
     }
     assert "资料分析增长率" in body["answer"]
-    assert [item["kind"] for item in body["citations"]] == [
-        "learner_memory",
-        "essay_learning",
-        "target_position",
-        "method_card",
+    assert body["semanticState"] == "ready"
+    assert body["respondingAgent"] == "tutor"
+    assert body["citations"][0]["version"]
+    assert body["citations"][0]["anchor"]
+    assert body["allowedActions"] == [
+        {
+            "kind": "open_training",
+            "label": "查看今日训练安排",
+            "targetRef": "/pages/today/index",
+            "requiresConfirmation": False,
+        }
     ]
-
     with db_session_factory() as session:
         log = session.execute(
             text(
@@ -558,17 +591,28 @@ def test_companion_ask_is_quota_gated_and_audited(
         assert log["feature"] == "companion_ask"
         assert log["provider"] == "fake_companion_provider"
         assert log["status"] == "succeeded"
-        assert log["metadata"]["scenario"] == "how_to_learn"
-        assert log["metadata"]["context"]["baselineShenlunScore"] == 55.0
-        assert log["metadata"]["context"]["essay"] == {
-            "attemptCount": 0,
-            "currentAbilityEstimate": None,
-            "groundedReviewCount": 0,
-            "latestGroundedReview": None,
-            "latestStructuredReflection": None,
-            "todayOmissionReason": None,
-            "todayPlanTask": None,
-        }
+        assert log["metadata"]["scenario"] == "tutoring_explanation"
+        assert "context" not in log["metadata"]
+
+
+def test_companion_buttons_use_deterministic_executable_targets() -> None:
+    planner = _intent_decision("planner", "plan_explanation")
+    position = _intent_decision("position", "position_explanation")
+    tutor = _intent_decision("tutor", "learning_explanation")
+
+    assert _allowed_actions(decision=planner)[0].model_dump(by_alias=True) == {
+        "kind": "adjust_plan_preview",
+        "label": "预览今日计划调整",
+        "targetRef": "/pages/day-adjustment/index",
+        "requiresConfirmation": True,
+    }
+    assert _allowed_actions(decision=position)[0].target_ref == "/pages/positions/index"
+    assert _information_action(tutor).model_dump(by_alias=True) == {
+        "kind": "supply_information",
+        "label": "拍题或导入学习资料",
+        "targetRef": "/pages/capture-import/index",
+        "requiresConfirmation": False,
+    }
 
 
 def test_external_wrong_question_requires_existing_supported_map_node(
@@ -1460,10 +1504,61 @@ def _companion_service(
 
 def _ask_body() -> dict[str, object]:
     return {
-        "scenario": "how_to_learn",
         "questionText": "资料分析增长率怎么补？",
-        "nodeId": "km_growth",
+        "context": {
+            "routeId": "pages/companion/index",
+            "workspace": "training",
+            "objectRefs": [],
+            "learnerStateVersion": "test-state-v1",
+        },
     }
+
+
+def _provider_route_decision() -> dict[str, object]:
+    return {
+        "scenarioKey": "tutoring_explanation",
+        "respondingAgent": "tutor",
+        "answerType": "learning_explanation",
+        "modelTier": "small",
+        "policyDecision": "answer",
+        "companionIntent": "thinking",
+        "reasonCodes": ["test"],
+    }
+
+
+def _intent_decision(responding_agent: str, answer_type: str) -> IntentDecision:
+    return IntentDecision.model_validate(
+        {
+            "scenarioKey": (
+                "position_explanation"
+                if responding_agent == "position"
+                else "planning_explanation"
+                if responding_agent == "planner"
+                else "tutoring_explanation"
+            ),
+            "respondingAgent": responding_agent,
+            "answerType": answer_type,
+            "modelTier": "small",
+            "policyDecision": "answer",
+            "companionIntent": "thinking",
+            "reasonCodes": ["test"],
+        }
+    )
+
+
+def _grounding_sources() -> list[dict[str, object]]:
+    return [
+        {
+            "sourceRef": "test-source",
+            "kind": "learner_activity",
+            "title": "学习记录",
+            "version": "test-v1",
+            "anchor": "summary",
+            "trustScope": "learner_activity",
+            "untrustedInput": False,
+            "content": "已完成 3 次练习。",
+        }
+    ]
 
 
 def _production_companion_settings() -> Settings:
@@ -1471,6 +1566,8 @@ def _production_companion_settings() -> Settings:
         environment="production",
         ai_provider_base_url="https://provider.example.com/v1",
         ai_model="approved-companion-model",
+        ai_small_model="approved-companion-small-model",
+        ai_high_capability_model="approved-companion-high-model",
         ai_api_key="test-api-key",
         ai_companion_provider_release_id="companion-provider-2026-07-13",
         ai_companion_provider_https_host_allowlist="provider.example.com",

@@ -1,0 +1,11 @@
+[Unit]
+Description=Run Gongkao Dazi backup every six hours
+
+[Timer]
+OnCalendar=*-*-* 00/6:15:00
+Persistent=true
+RandomizedDelaySec=300
+Unit=gongkao-dazi-backup.service
+
+[Install]
+WantedBy=timers.target

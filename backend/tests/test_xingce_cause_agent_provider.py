@@ -93,6 +93,11 @@ def test_provider_sends_idempotency_key_and_parses_structured_output() -> None:
     assert len(result.provider_request_id_fingerprint or "") == 64
     assert captured["headers"]["idempotency-key"] == "xingce-cause:run-1:round:0"
     assert captured["body"]["model"] == "gemini-3.5-flash"
+    assert captured["body"]["response_format"]["type"] == "json_schema"
+    assert (
+        captured["body"]["response_format"]["json_schema"]["schema"]["properties"]
+        ["output"]
+    )
 
 
 def _production_settings(**changes: object) -> Settings:

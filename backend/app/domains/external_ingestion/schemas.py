@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import Literal
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from app.contracts.external_learning.models import (
     ContentMatchVersion,
@@ -43,9 +43,18 @@ class StartUploadCommand(IngestionModel):
 class StartRecognitionCommand(IngestionModel):
     artifact_version_id: UUID = Field(alias="artifactVersionId")
     recognition_kind: RecognitionKind = Field(alias="recognitionKind")
+    packet_version_id: UUID | None = Field(default=None, alias="packetVersionId")
     processor_route: str | None = Field(
         default=None, alias="processorRoute", min_length=1, max_length=160
     )
+
+    @model_validator(mode="after")
+    def sealed_omr_context(self) -> "StartRecognitionCommand":
+        if (self.recognition_kind == RecognitionKind.ANSWER_SHEET_OMR) != (
+            self.packet_version_id is not None
+        ):
+            raise ValueError("answer-sheet OMR requires exactly one packet version")
+        return self
 
 
 class CorrectRecognitionCommand(IngestionModel):
@@ -60,6 +69,7 @@ class RecognitionDecisionCommand(IngestionModel):
 
 class ReprocessRecognitionCommand(RecognitionDecisionCommand):
     processor_route: str = Field(alias="processorRoute", min_length=1, max_length=160)
+    packet_version_id: UUID | None = Field(default=None, alias="packetVersionId")
 
 
 class ProcessImportCommand(IngestionModel):
@@ -86,6 +96,17 @@ class ConfirmImportMatchCommand(IngestionModel):
     )
 
 
+class RequestImportAIAnswerCommand(IngestionModel):
+    question_unit_id: str = Field(alias="questionUnitId", pattern=r"^[0-9a-f]{64}$")
+    learning_track: LearningTrack = Field(alias="learningTrack")
+
+
+class ConfirmImportAIAnswerCommand(IngestionModel):
+    expected_output_fingerprint: str = Field(
+        alias="expectedOutputFingerprint", pattern=r"^[0-9a-f]{64}$"
+    )
+
+
 class ImportRecognitionSegment(IngestionModel):
     segment_id: str = Field(alias="segmentId")
     page_no: int = Field(alias="pageNo", ge=1)
@@ -94,6 +115,52 @@ class ImportRecognitionSegment(IngestionModel):
     confidence: float | None = Field(default=None, ge=0, le=1)
     state: Literal["candidate", "confirmed", "rejected"]
     requires_correction: bool = Field(alias="requiresCorrection")
+
+
+class ImportReferenceAnswer(IngestionModel):
+    source_type: Literal["authorized_reference"] = Field(alias="sourceType")
+    match_kind: Literal["exact", "similar"] = Field(alias="matchKind")
+    answer_text: str = Field(alias="answerText", min_length=1, max_length=200_000)
+    content_version_id: str = Field(
+        alias="contentVersionId", pattern=r"^[0-9a-f]{64}$"
+    )
+    authorization_state: Literal["authorized_current"] = Field(
+        alias="authorizationState"
+    )
+    learning_impact: Literal["reference_only"] = Field(alias="learningImpact")
+
+
+class ImportAIAnswer(IngestionModel):
+    answer_version_id: UUID = Field(alias="answerVersionId")
+    state: Literal["requested", "processing", "candidate", "confirmed", "failed"]
+    answer_text: str | None = Field(alias="answerText")
+    explanation: str | None
+    key_points: tuple[str, ...] = Field(alias="keyPoints")
+    confidence: Literal["low", "medium", "high"] | None
+    limitations: tuple[str, ...]
+    output_fingerprint: str | None = Field(
+        alias="outputFingerprint", pattern=r"^[0-9a-f]{64}$"
+    )
+    failure_code: str | None = Field(alias="failureCode")
+    source_type: Literal["ai_estimated"] = Field(
+        default="ai_estimated", alias="sourceType"
+    )
+    learning_impact: Literal["reference_only"] = Field(
+        default="reference_only", alias="learningImpact"
+    )
+
+
+class ImportQuestionUnit(IngestionModel):
+    question_unit_id: str = Field(alias="questionUnitId", pattern=r"^[0-9a-f]{64}$")
+    ordinal: int = Field(ge=1)
+    segment_ids: tuple[str, ...] = Field(alias="segmentIds", min_length=1)
+    match: ContentMatchVersion | None
+    reference_answer: ImportReferenceAnswer | None = Field(alias="referenceAnswer")
+    ai_answer: ImportAIAnswer | None = Field(alias="aiAnswer")
+    state: Literal[
+        "recognition_review", "match_review", "unmatched", "ready"
+    ]
+    partial_reasons: tuple[str, ...] = Field(alias="partialReasons")
 
 
 class ImportWorkspace(IngestionModel):
@@ -106,7 +173,7 @@ class ImportWorkspace(IngestionModel):
     recognition_segments: tuple[ImportRecognitionSegment, ...] = Field(
         alias="recognitionSegments"
     )
-    match: ContentMatchVersion | None
+    question_units: tuple[ImportQuestionUnit, ...] = Field(alias="questionUnits")
     partial_reasons: tuple[str, ...] = Field(alias="partialReasons")
     failure_reason: str | None = Field(alias="failureReason")
     processing_label: str | None = Field(alias="processingLabel")

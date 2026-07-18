@@ -280,6 +280,22 @@ class LearningPackageService:
             raise LearningPackageError("packet_not_found", "学习包不存在。", status_code=404)
         return packet
 
+    def get_render_request(
+        self, *, user_id: str, packet_version_id: UUID
+    ) -> PacketRenderRequest:
+        """Returns the immutable render manifest behind an owned packet version."""
+
+        packet = self.get_packet(user_id=user_id, packet_version_id=packet_version_id)
+        payload = self._required_render_payload(packet.packet_id)
+        request = PacketRenderRequest.model_validate(payload["renderRequest"])
+        return request.model_copy(
+            update={
+                "packet_version_id": packet.packet_version_id,
+                "manifest_sha256": packet.manifest_sha256,
+                "expires_at": packet.expires_at.isoformat() if packet.expires_at else "",
+            }
+        )
+
     def list_packets(self, *, user_id: str) -> tuple[OfflinePacketVersion, ...]:
         return self._repository.list_packets(self._session, user_id=user_id)
 

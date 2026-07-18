@@ -19,7 +19,7 @@ export type AiCauseCandidateState = {
     /**
      * Entitlementpolicyversion
      */
-    entitlementPolicyVersion?: 'included-with-canonical-practice@v1';
+    entitlementPolicyVersion?: 'metered-model-round@v1';
     /**
      * Evidencerefs
      */
@@ -47,7 +47,7 @@ export type AiCauseCandidateState = {
     /**
      * Quotastate
      */
-    quotaState?: 'not_metered';
+    quotaState?: 'reserved' | 'consumed' | 'not_charged';
     /**
      * Rationale
      */
@@ -86,6 +86,24 @@ export type AiQuotaState = {
      * Used
      */
     used: number;
+};
+
+/**
+ * AbilityBand
+ */
+export type AbilityBand = {
+    /**
+     * Lower
+     */
+    lower: number;
+    /**
+     * Recommended
+     */
+    recommended: number;
+    /**
+     * Upper
+     */
+    upper: number;
 };
 
 /**
@@ -222,6 +240,52 @@ export type AbilityEvidenceSummary = {
      * Xingceevidencecount
      */
     xingceEvidenceCount: number;
+};
+
+/**
+ * AccountDeletionCreateRequest
+ */
+export type AccountDeletionCreateRequest = {
+    /**
+     * Commandkey
+     */
+    commandKey: string;
+    /**
+     * Confirmationphrase
+     */
+    confirmationPhrase: string;
+};
+
+/**
+ * AccountDeletionView
+ */
+export type AccountDeletionView = {
+    /**
+     * Completedat
+     */
+    completedAt?: string | null;
+    /**
+     * Deletionmanifest
+     */
+    deletionManifest?: {
+        [key: string]: unknown;
+    } | null;
+    /**
+     * Deletionrequestid
+     */
+    deletionRequestId: string;
+    /**
+     * Failurecode
+     */
+    failureCode?: string | null;
+    /**
+     * Requestedat
+     */
+    requestedAt: string;
+    /**
+     * State
+     */
+    state: 'queued' | 'running' | 'completed' | 'failed';
 };
 
 /**
@@ -783,6 +847,110 @@ export type BoundingBox = {
 };
 
 /**
+ * BrainCandidateSummary
+ */
+export type BrainCandidateSummary = {
+    /**
+     * Accepted
+     */
+    accepted: number;
+    /**
+     * Awaitingconfirmation
+     */
+    awaitingConfirmation: number;
+    /**
+     * Expired
+     */
+    expired: number;
+    /**
+     * Rejected
+     */
+    rejected: number;
+};
+
+/**
+ * BrainDecisionSummary
+ */
+export type BrainDecisionSummary = {
+    /**
+     * Activestrategycount
+     */
+    activeStrategyCount: number;
+    /**
+     * Currentplanversionid
+     */
+    currentPlanVersionId?: string | null;
+    /**
+     * Currentweeklyplanversionid
+     */
+    currentWeeklyPlanVersionId?: string | null;
+    /**
+     * Reviewduecount
+     */
+    reviewDueCount: number;
+};
+
+/**
+ * BrainEvidenceRef
+ */
+export type BrainEvidenceRef = {
+    /**
+     * Entityid
+     */
+    entityId: string;
+    /**
+     * Entitytype
+     */
+    entityType: string;
+    /**
+     * Occurredat
+     */
+    occurredAt?: string | null;
+    /**
+     * Owner
+     */
+    owner: string;
+    /**
+     * Role
+     */
+    role?: string | null;
+    /**
+     * Versionid
+     */
+    versionId?: string | null;
+};
+
+/**
+ * BrainEvidenceSummary
+ */
+export type BrainEvidenceSummary = {
+    /**
+     * Essaymasterycount
+     */
+    essayMasteryCount: number;
+    /**
+     * Latestevidenceat
+     */
+    latestEvidenceAt?: string | null;
+    /**
+     * Scoreevidencecount
+     */
+    scoreEvidenceCount: number;
+    /**
+     * Taskexecutioncount
+     */
+    taskExecutionCount: number;
+    /**
+     * Xingceattemptcount
+     */
+    xingceAttemptCount: number;
+    /**
+     * Xingcemasterycount
+     */
+    xingceMasteryCount: number;
+};
+
+/**
  * CalibrationNoteCard
  */
 export type CalibrationNoteCard = {
@@ -1043,6 +1211,58 @@ export type CauseFollowupCommand = {
 };
 
 /**
+ * ChartSpec
+ */
+export type ChartSpec = {
+    /**
+     * Chartid
+     */
+    chartId: string;
+    /**
+     * Charttype
+     */
+    chartType: 'confidence_trend' | 'module_bullet' | 'speed_accuracy_quadrant' | 'error_heatmap' | 'score_gap_waterfall' | 'weekly_completion';
+    /**
+     * Confidence
+     */
+    confidence: 'not_applicable' | 'low' | 'medium' | 'high';
+    /**
+     * Data
+     */
+    data: Array<{
+        [key: string]: unknown;
+    }>;
+    /**
+     * Definition
+     */
+    definition: string;
+    /**
+     * Evidencerefs
+     */
+    evidenceRefs: Array<string>;
+    /**
+     * Partialreasons
+     */
+    partialReasons?: Array<string>;
+    /**
+     * Period
+     */
+    period: string;
+    /**
+     * Summary
+     */
+    summary: string;
+    /**
+     * Title
+     */
+    title: string;
+    /**
+     * Unit
+     */
+    unit: string;
+};
+
+/**
  * CityInfo
  */
 export type CityInfo = {
@@ -1134,6 +1354,21 @@ export type CommerceCatalogResponse = {
 };
 
 /**
+ * CommerceDashboard
+ */
+export type CommerceDashboard = {
+    catalog: Stage8Catalog;
+    entitlement: CommerceEntitlementResponse;
+    /**
+     * Orders
+     */
+    orders: Array<WechatOrderView>;
+    refundEligibility?: RefundEligibility | null;
+    retakeProgram?: RetakeProgramView | null;
+    rewardProgress?: ProcessRewardProgress | null;
+};
+
+/**
  * CommerceEntitlementResponse
  */
 export type CommerceEntitlementResponse = {
@@ -1169,6 +1404,10 @@ export type CommerceEntitlementResponse = {
      * Tier
      */
     tier: 'free' | 'pro';
+    /**
+     * Unlockedfeatures
+     */
+    unlockedFeatures?: Array<string>;
 };
 
 /**
@@ -1240,6 +1479,34 @@ export type CommerceProduct = {
 };
 
 /**
+ * CommercialPolicySnapshot
+ */
+export type CommercialPolicySnapshot = {
+    /**
+     * Content
+     */
+    content: {
+        [key: string]: unknown;
+    };
+    /**
+     * Contentsha256
+     */
+    contentSha256: string;
+    /**
+     * Policykind
+     */
+    policyKind: 'service_terms' | 'refund' | 'process_reward' | 'marketing';
+    /**
+     * Policyversion
+     */
+    policyVersion: string;
+    /**
+     * Title
+     */
+    title: string;
+};
+
+/**
  * CommunityRewardLedgerResponse
  *
  * Frozen public v2 ledger projection; detailed records stay internal.
@@ -1272,21 +1539,36 @@ export type CommunityRewardLedgerResponse = {
 };
 
 /**
+ * CompanionAllowedAction
+ */
+export type CompanionAllowedAction = {
+    /**
+     * Kind
+     */
+    kind: 'view_evidence' | 'add_reflection' | 'adjust_plan_preview' | 'supply_information' | 'open_training' | 'open_position_workspace' | 'refresh_context';
+    /**
+     * Label
+     */
+    label: string;
+    /**
+     * Requiresconfirmation
+     */
+    requiresConfirmation: boolean;
+    /**
+     * Targetref
+     */
+    targetRef?: string | null;
+};
+
+/**
  * CompanionAskRequest
  */
 export type CompanionAskRequest = {
-    /**
-     * Nodeid
-     */
-    nodeId?: string | null;
+    context: GlobalAskContext;
     /**
      * Questiontext
      */
     questionText: string;
-    /**
-     * Scenario
-     */
-    scenario: 'why_wrong' | 'how_to_learn' | 'should_skip_module';
 };
 
 /**
@@ -1294,22 +1576,59 @@ export type CompanionAskRequest = {
  */
 export type CompanionAskResponse = {
     /**
+     * Allowedactions
+     */
+    allowedActions: Array<CompanionAllowedAction>;
+    /**
      * Answer
      */
     answer: string;
+    /**
+     * Answerid
+     */
+    answerId: string;
+    /**
+     * Answertype
+     */
+    answerType: string;
     /**
      * Citations
      */
     citations: Array<CompanionCitation>;
     /**
-     * Nextactions
+     * Companionintent
      */
-    nextActions: Array<string>;
+    companionIntent: 'companion' | 'thinking' | 'reminder' | 'encouragement' | 'rest' | 'deprioritize';
+    /**
+     * Confidence
+     */
+    confidence: 'low' | 'medium' | 'high';
+    highImpactDecision?: CompanionHighImpactDecision | null;
+    /**
+     * Knowledgefreshness
+     */
+    knowledgeFreshness: string;
+    /**
+     * Limitations
+     */
+    limitations: Array<string>;
+    /**
+     * Policydecision
+     */
+    policyDecision: string;
     quota: AiQuotaState;
     /**
-     * Scenario
+     * Respondingagent
      */
-    scenario: 'why_wrong' | 'how_to_learn' | 'should_skip_module';
+    respondingAgent: 'position' | 'tutor' | 'planner';
+    /**
+     * Scenariokey
+     */
+    scenarioKey: string;
+    /**
+     * Semanticstate
+     */
+    semanticState: 'ready' | 'evidence_insufficient' | 'permission_denied' | 'security_blocked' | 'quota_exhausted' | 'provider_pending' | 'failed';
 };
 
 /**
@@ -1317,13 +1636,17 @@ export type CompanionAskResponse = {
  */
 export type CompanionCitation = {
     /**
+     * Anchor
+     */
+    anchor: string;
+    /**
      * Kind
      */
-    kind: 'learner_memory' | 'essay_learning' | 'method_card' | 'target_position' | 'knowledge_map';
+    kind: string;
     /**
      * Sourceid
      */
-    sourceId?: string | null;
+    sourceId: string;
     /**
      * Summary
      */
@@ -1332,6 +1655,36 @@ export type CompanionCitation = {
      * Title
      */
     title: string;
+    /**
+     * Version
+     */
+    version: string;
+};
+
+/**
+ * CompanionHighImpactDecision
+ */
+export type CompanionHighImpactDecision = {
+    /**
+     * Decisiontype
+     */
+    decisionType: 'position_explanation' | 'strategic_deprioritization';
+    /**
+     * Evidencerefs
+     */
+    evidenceRefs: Array<string>;
+    /**
+     * Prohibitedmutations
+     */
+    prohibitedMutations: Array<'qualification' | 'primary_goal' | 'strategy'>;
+    /**
+     * Requiresconfirmation
+     */
+    requiresConfirmation?: true;
+    /**
+     * Status
+     */
+    status: 'explain_only' | 'evidence_insufficient';
 };
 
 /**
@@ -1425,6 +1778,16 @@ export type ConfirmAnswerCandidateCommand = {
      * Expectedversionno
      */
     expectedVersionNo: number;
+};
+
+/**
+ * ConfirmImportAIAnswerCommand
+ */
+export type ConfirmImportAiAnswerCommand = {
+    /**
+     * Expectedoutputfingerprint
+     */
+    expectedOutputFingerprint: string;
 };
 
 /**
@@ -1545,6 +1908,10 @@ export type ContentMatchVersion = {
      * Owneruserid
      */
     ownerUserId: string;
+    /**
+     * Questionunitid
+     */
+    questionUnitId: string;
     /**
      * Recognitionrevisionid
      */
@@ -1731,6 +2098,166 @@ export type DailyCapacityCommand = {
 export type DailyCapacityCommandResult = {
     capacity: TodayCapacity;
     plan: TodayDashboard;
+};
+
+/**
+ * DailySettlementView
+ */
+export type DailySettlementView = {
+    /**
+     * Abandonedtaskcount
+     */
+    abandonedTaskCount: number;
+    /**
+     * Carryovertaskcount
+     */
+    carryOverTaskCount?: 0;
+    /**
+     * Completedtaskcount
+     */
+    completedTaskCount: number;
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'daily-settlement@v1';
+    /**
+     * Elapsedminutes
+     */
+    elapsedMinutes: number;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Localdate
+     */
+    localDate: string;
+    /**
+     * Newrisks
+     */
+    newRisks: Array<string>;
+    /**
+     * Opentaskcount
+     */
+    openTaskCount: number;
+    /**
+     * Planversionid
+     */
+    planVersionId: string;
+    /**
+     * Scheduledminutes
+     */
+    scheduledMinutes: number;
+    /**
+     * Status
+     */
+    status: 'empty' | 'not_started' | 'in_progress' | 'partial' | 'complete';
+    /**
+     * Summary
+     */
+    summary: string;
+    /**
+     * Tasks
+     */
+    tasks: Array<SettlementTask>;
+};
+
+/**
+ * DataCategoryView
+ */
+export type DataCategoryView = {
+    /**
+     * Category
+     */
+    category: string;
+    /**
+     * Itemcount
+     */
+    itemCount: number;
+    /**
+     * Retention
+     */
+    retention: string;
+    /**
+     * Title
+     */
+    title: string;
+};
+
+/**
+ * DataExportCreateRequest
+ */
+export type DataExportCreateRequest = {
+    /**
+     * Commandkey
+     */
+    commandKey: string;
+};
+
+/**
+ * DataExportPayload
+ */
+export type DataExportPayload = {
+    /**
+     * Exportrequestid
+     */
+    exportRequestId: string;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Payload
+     */
+    payload: {
+        [key: string]: unknown;
+    };
+    /**
+     * Payloadsha256
+     */
+    payloadSha256: string;
+    /**
+     * Policyversion
+     */
+    policyVersion: string;
+};
+
+/**
+ * DataExportView
+ */
+export type DataExportView = {
+    /**
+     * Bytesize
+     */
+    byteSize?: number | null;
+    /**
+     * Completedat
+     */
+    completedAt?: string | null;
+    /**
+     * Expiresat
+     */
+    expiresAt?: string | null;
+    /**
+     * Exportrequestid
+     */
+    exportRequestId: string;
+    /**
+     * Failurecode
+     */
+    failureCode?: string | null;
+    /**
+     * Payloadsha256
+     */
+    payloadSha256?: string | null;
+    /**
+     * Requestedat
+     */
+    requestedAt: string;
+    /**
+     * State
+     */
+    state: 'queued' | 'running' | 'completed' | 'failed' | 'expired';
 };
 
 /**
@@ -2148,6 +2675,79 @@ export type EntryScoreStats = {
 };
 
 /**
+ * ErrorPatternDetail
+ */
+export type ErrorPatternDetail = {
+    /**
+     * Counterevidence
+     */
+    counterevidence: Array<BrainEvidenceRef>;
+    /**
+     * Interpretation
+     */
+    interpretation: string;
+    /**
+     * Limitations
+     */
+    limitations: Array<string>;
+    pattern: ErrorPatternSummary;
+    /**
+     * Supportingevidence
+     */
+    supportingEvidence: Array<BrainEvidenceRef>;
+};
+
+/**
+ * ErrorPatternSummary
+ */
+export type ErrorPatternSummary = {
+    /**
+     * Causecode
+     */
+    causeCode: string;
+    /**
+     * Confidence
+     */
+    confidence: 'unknown' | 'low' | 'medium' | 'high';
+    /**
+     * Counterevidencecount
+     */
+    counterevidenceCount: number;
+    /**
+     * Displayname
+     */
+    displayName: string;
+    /**
+     * Evidencerefs
+     */
+    evidenceRefs: Array<BrainEvidenceRef>;
+    /**
+     * Latestobservedat
+     */
+    latestObservedAt: string;
+    /**
+     * Modulekey
+     */
+    moduleKey: string;
+    /**
+     * Occurrencecount
+     */
+    occurrenceCount: number;
+    /**
+     * Patternid
+     */
+    patternId: string;
+    /**
+     * Status
+     */
+    status: 'confirmed' | 'counterevidence' | 'retired';
+    /**
+     * Track
+     */
+    track: 'xingce' | 'essay';
+};
+
+/**
  * EssayAnswerCreateCommand
  */
 export type EssayAnswerCreateCommand = {
@@ -2164,6 +2764,14 @@ export type EssayAnswerCreateCommand = {
      */
     basedOnAnswerVersionId?: string | null;
     /**
+     * Recognitionrevisionid
+     */
+    recognitionRevisionId?: string | null;
+    /**
+     * Sourceartifactversionid
+     */
+    sourceArtifactVersionId?: string | null;
+    /**
      * Sourcetype
      */
     sourceType: 'typed' | 'ocr_confirmed';
@@ -2175,6 +2783,20 @@ export type EssayAnswerCreateCommand = {
  */
 export type EssayAnswerCreateResult = {
     answer: EssayAnswerVersion;
+};
+
+/**
+ * EssayAnswerDiffSegment
+ */
+export type EssayAnswerDiffSegment = {
+    /**
+     * Operation
+     */
+    operation: 'equal' | 'delete' | 'insert';
+    /**
+     * Text
+     */
+    text: string;
 };
 
 /**
@@ -2205,6 +2827,14 @@ export type EssayAnswerVersion = {
      * Inputfingerprint
      */
     inputFingerprint: string;
+    /**
+     * Recognitionrevisionid
+     */
+    recognitionRevisionId?: string | null;
+    /**
+     * Sourceartifactversionid
+     */
+    sourceArtifactVersionId?: string | null;
     /**
      * Sourcetype
      */
@@ -2454,6 +3084,14 @@ export type EssayDraftingAnswerCreate = {
      */
     mode: 'create';
     /**
+     * Recognitionrevisionid
+     */
+    recognitionRevisionId?: string | null;
+    /**
+     * Sourceartifactversionid
+     */
+    sourceArtifactVersionId?: string | null;
+    /**
      * Sourcetype
      */
     sourceType: 'typed' | 'ocr_confirmed';
@@ -2630,6 +3268,63 @@ export type EssayFindingDecision = {
      * Learnerreason
      */
     learnerReason?: string | null;
+};
+
+/**
+ * EssayHandwritingArtifactAccess
+ */
+export type EssayHandwritingArtifactAccess = {
+    /**
+     * Artifactversionid
+     */
+    artifactVersionId: string;
+    /**
+     * Expiresat
+     */
+    expiresAt: string;
+    /**
+     * Imageurl
+     */
+    imageUrl: string;
+    /**
+     * Mimetype
+     */
+    mimeType: string;
+};
+
+/**
+ * EssayHandwritingCorrectionCommand
+ */
+export type EssayHandwritingCorrectionCommand = {
+    correctedPayload: RecognitionCandidatePayload;
+    /**
+     * Expectedrevisionno
+     */
+    expectedRevisionNo: number;
+    /**
+     * Reason
+     */
+    reason: string;
+};
+
+/**
+ * EssayHandwritingDecisionCommand
+ */
+export type EssayHandwritingDecisionCommand = {
+    /**
+     * Expectedrevisionno
+     */
+    expectedRevisionNo: number;
+};
+
+/**
+ * EssayHandwritingStartCommand
+ */
+export type EssayHandwritingStartCommand = {
+    /**
+     * Artifactversionid
+     */
+    artifactVersionId: string;
 };
 
 /**
@@ -3261,14 +3956,35 @@ export type EssayRewriteCommand = {
      */
     findingDecisionArtifactVersionId: string;
     /**
+     * Recognitionrevisionid
+     */
+    recognitionRevisionId?: string | null;
+    /**
      * Resolutions
      */
     resolutions: Array<EssayRewriteFindingResolution>;
+    /**
+     * Sourceartifactversionid
+     */
+    sourceArtifactVersionId?: string | null;
     /**
      * Sourcetype
      */
     sourceType: 'typed' | 'ocr_confirmed';
     thinking?: EssayThinkingSnapshot | null;
+};
+
+/**
+ * EssayRewriteComparison
+ */
+export type EssayRewriteComparison = {
+    /**
+     * Diffsegments
+     */
+    diffSegments: Array<EssayAnswerDiffSegment>;
+    originalAnswer: EssayAnswerVersion;
+    rewrite: EssayRewriteRecord;
+    rewrittenAnswer: EssayAnswerVersion;
 };
 
 /**
@@ -3854,6 +4570,7 @@ export type EssayWorkspaceProgression = {
      * Attemptid
      */
     attemptId?: string | null;
+    currentAnswer?: EssayAnswerVersion | null;
     currentReview?: EssayWorkspaceReview | null;
     /**
      * Masterydueat
@@ -4088,6 +4805,144 @@ export type ExposureReceipt = {
 };
 
 /**
+ * ExternalAIAnswerPayload
+ */
+export type ExternalAiAnswerPayload = {
+    /**
+     * Answer
+     */
+    answer: string;
+    /**
+     * Confidence
+     */
+    confidence: 'low' | 'medium' | 'high';
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'external-question-answer-output@v1';
+    /**
+     * Explanation
+     */
+    explanation: string;
+    /**
+     * Keypoints
+     */
+    keyPoints: Array<string>;
+    /**
+     * Limitations
+     */
+    limitations: Array<string>;
+    /**
+     * Sourcesegmentrefs
+     */
+    sourceSegmentRefs: Array<string>;
+};
+
+/**
+ * ExternalAIAnswerVersion
+ */
+export type ExternalAiAnswerVersion = {
+    /**
+     * Answerid
+     */
+    answerId: string;
+    answerPayload?: ExternalAiAnswerPayload | null;
+    /**
+     * Answerversionid
+     */
+    answerVersionId: string;
+    /**
+     * Artifactversionid
+     */
+    artifactVersionId: string;
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'external-ai-answer-version@v1';
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Failurecode
+     */
+    failureCode?: string | null;
+    /**
+     * Importid
+     */
+    importId: string;
+    /**
+     * Inputfingerprint
+     */
+    inputFingerprint: string;
+    /**
+     * Jobid
+     */
+    jobId?: string | null;
+    learningTrack: LearningTrack;
+    /**
+     * Model
+     */
+    model?: string | null;
+    /**
+     * Modelcallid
+     */
+    modelCallId?: string | null;
+    /**
+     * Outputfingerprint
+     */
+    outputFingerprint?: string | null;
+    /**
+     * Owneruserid
+     */
+    ownerUserId: string;
+    /**
+     * Promptversion
+     */
+    promptVersion?: string | null;
+    /**
+     * Provider
+     */
+    provider?: string | null;
+    /**
+     * Providerrequestidfingerprint
+     */
+    providerRequestIdFingerprint?: string | null;
+    /**
+     * Questionunitid
+     */
+    questionUnitId: string;
+    /**
+     * Recognitionrevisionid
+     */
+    recognitionRevisionId: string;
+    /**
+     * Reservationid
+     */
+    reservationId?: string | null;
+    /**
+     * Reservationsource
+     */
+    reservationSource?: 'catalog' | 'community_reward' | null;
+    /**
+     * Schemaversion
+     */
+    schemaVersion?: string | null;
+    /**
+     * State
+     */
+    state: 'requested' | 'processing' | 'candidate' | 'confirmed' | 'failed';
+    /**
+     * Supersedesanswerversionid
+     */
+    supersedesAnswerVersionId?: string | null;
+    /**
+     * Versionno
+     */
+    versionNo: number;
+};
+
+/**
  * ExternalCaptureNudgeCard
  */
 export type ExternalCaptureNudgeCard = {
@@ -4122,6 +4977,164 @@ export type ExternalCaptureNudgePayload = {
      * Text
      */
     text: string;
+};
+
+/**
+ * ExternalMockReportConfirmCommand
+ */
+export type ExternalMockReportConfirmCommand = {
+    /**
+     * Expectedreportversionid
+     */
+    expectedReportVersionId: string;
+};
+
+/**
+ * ExternalMockReportDraftCommand
+ */
+export type ExternalMockReportDraftCommand = {
+    /**
+     * Artifactversionid
+     */
+    artifactVersionId: string;
+    /**
+     * Durationminutes
+     */
+    durationMinutes?: number | null;
+    /**
+     * Examname
+     */
+    examName: string;
+    /**
+     * Modulescores
+     */
+    moduleScores?: {
+        [key: string]: number;
+    };
+    /**
+     * Occurredat
+     */
+    occurredAt: string;
+    /**
+     * Platformname
+     */
+    platformName: string;
+    /**
+     * Recognitionrevisionid
+     */
+    recognitionRevisionId: string;
+    /**
+     * Shenlunscore
+     */
+    shenlunScore?: number | null;
+    /**
+     * Timedstatus
+     */
+    timedStatus: 'timed' | 'untimed' | 'unknown';
+    /**
+     * Totalscore
+     */
+    totalScore?: number | null;
+    /**
+     * Xingcescore
+     */
+    xingceScore?: number | null;
+};
+
+/**
+ * ExternalMockReportProjection
+ */
+export type ExternalMockReportProjection = {
+    /**
+     * Abilityimpact
+     */
+    abilityImpact: 'blocked_until_confirmed' | 'entered_estimate' | 'trend_only';
+    /**
+     * Artifactversionid
+     */
+    artifactVersionId: string;
+    /**
+     * Confirmationmessage
+     */
+    confirmationMessage: string;
+    /**
+     * Confirmedat
+     */
+    confirmedAt: string | null;
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Durationminutes
+     */
+    durationMinutes: number | null;
+    /**
+     * Estimateversionid
+     */
+    estimateVersionId: string | null;
+    /**
+     * Evidencegrade
+     */
+    evidenceGrade: 'candidate_unconfirmed' | 'ability_eligible' | 'trend_only_untimed' | 'trend_only_incomplete' | 'trend_only_stale';
+    /**
+     * Examname
+     */
+    examName: string;
+    /**
+     * Modulescores
+     */
+    moduleScores: {
+        [key: string]: number;
+    };
+    /**
+     * Occurredat
+     */
+    occurredAt: string;
+    /**
+     * Platformname
+     */
+    platformName: string;
+    /**
+     * Recognitionrevisionid
+     */
+    recognitionRevisionId: string;
+    /**
+     * Reportid
+     */
+    reportId: string;
+    /**
+     * Reportversionid
+     */
+    reportVersionId: string;
+    /**
+     * Scoreevidenceid
+     */
+    scoreEvidenceId: string | null;
+    /**
+     * Shenlunscore
+     */
+    shenlunScore: number | null;
+    /**
+     * State
+     */
+    state: 'candidate' | 'confirmed' | 'rejected';
+    /**
+     * Timedstatus
+     */
+    timedStatus: 'timed' | 'untimed' | 'unknown';
+    /**
+     * Totalscore
+     */
+    totalScore: number | null;
+    /**
+     * Versionno
+     */
+    versionNo: number;
+    /**
+     * Xingcescore
+     */
+    xingceScore: number | null;
 };
 
 /**
@@ -4227,6 +5240,41 @@ export type ExternalQuestionResolveResponse = {
      * Status
      */
     status: 'pending_confirmation' | 'rejected' | 'confirmed';
+};
+
+/**
+ * ExternalScoreRecognitionCorrectionCommand
+ */
+export type ExternalScoreRecognitionCorrectionCommand = {
+    correctedPayload: RecognitionCandidatePayload;
+    /**
+     * Expectedrevisionno
+     */
+    expectedRevisionNo: number;
+    /**
+     * Reason
+     */
+    reason: string;
+};
+
+/**
+ * ExternalScoreRecognitionDecisionCommand
+ */
+export type ExternalScoreRecognitionDecisionCommand = {
+    /**
+     * Expectedrevisionno
+     */
+    expectedRevisionNo: number;
+};
+
+/**
+ * ExternalScoreRecognitionStartCommand
+ */
+export type ExternalScoreRecognitionStartCommand = {
+    /**
+     * Artifactversionid
+     */
+    artifactVersionId: string;
 };
 
 /**
@@ -4373,6 +5421,54 @@ export type FeedbackRecord = {
 };
 
 /**
+ * GlobalAskContext
+ */
+export type GlobalAskContext = {
+    /**
+     * Learnerstateversion
+     */
+    learnerStateVersion: string;
+    /**
+     * Objectrefs
+     */
+    objectRefs?: Array<GlobalAskObjectRef>;
+    /**
+     * Routeid
+     */
+    routeId: string;
+    /**
+     * Taskmode
+     */
+    taskMode?: 'practice' | 'retest' | 'mock' | 'essay' | null;
+    /**
+     * Taskstage
+     */
+    taskStage?: 'reading' | 'answering' | 'submitted' | 'reviewing' | null;
+    /**
+     * Workspace
+     */
+    workspace: 'today' | 'training' | 'position' | 'profile';
+};
+
+/**
+ * GlobalAskObjectRef
+ */
+export type GlobalAskObjectRef = {
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Type
+     */
+    type: 'position' | 'question' | 'material' | 'attempt' | 'plan' | 'report';
+    /**
+     * Version
+     */
+    version: string;
+};
+
+/**
  * GoalGap
  */
 export type GoalGap = {
@@ -4464,6 +5560,85 @@ export type HttpValidationError = {
 };
 
 /**
+ * ImportAIAnswer
+ */
+export type ImportAiAnswer = {
+    /**
+     * Answertext
+     */
+    answerText: string | null;
+    /**
+     * Answerversionid
+     */
+    answerVersionId: string;
+    /**
+     * Confidence
+     */
+    confidence: 'low' | 'medium' | 'high' | null;
+    /**
+     * Explanation
+     */
+    explanation: string | null;
+    /**
+     * Failurecode
+     */
+    failureCode: string | null;
+    /**
+     * Keypoints
+     */
+    keyPoints: Array<string>;
+    /**
+     * Learningimpact
+     */
+    learningImpact?: 'reference_only';
+    /**
+     * Limitations
+     */
+    limitations: Array<string>;
+    /**
+     * Outputfingerprint
+     */
+    outputFingerprint: string | null;
+    /**
+     * Sourcetype
+     */
+    sourceType?: 'ai_estimated';
+    /**
+     * State
+     */
+    state: 'requested' | 'processing' | 'candidate' | 'confirmed' | 'failed';
+};
+
+/**
+ * ImportQuestionUnit
+ */
+export type ImportQuestionUnit = {
+    aiAnswer: ImportAiAnswer | null;
+    match: ContentMatchVersion | null;
+    /**
+     * Ordinal
+     */
+    ordinal: number;
+    /**
+     * Partialreasons
+     */
+    partialReasons: Array<string>;
+    /**
+     * Questionunitid
+     */
+    questionUnitId: string;
+    referenceAnswer: ImportReferenceAnswer | null;
+    /**
+     * Segmentids
+     */
+    segmentIds: Array<string>;
+    /**
+     * State
+     */
+    state: 'recognition_review' | 'match_review' | 'unmatched' | 'ready';
+};
+
+/**
  * ImportRecognitionSegment
  */
 export type ImportRecognitionSegment = {
@@ -4495,6 +5670,36 @@ export type ImportRecognitionSegment = {
      * Text
      */
     text: string;
+};
+
+/**
+ * ImportReferenceAnswer
+ */
+export type ImportReferenceAnswer = {
+    /**
+     * Answertext
+     */
+    answerText: string;
+    /**
+     * Authorizationstate
+     */
+    authorizationState: 'authorized_current';
+    /**
+     * Contentversionid
+     */
+    contentVersionId: string;
+    /**
+     * Learningimpact
+     */
+    learningImpact: 'reference_only';
+    /**
+     * Matchkind
+     */
+    matchKind: 'exact' | 'similar';
+    /**
+     * Sourcetype
+     */
+    sourceType: 'authorized_reference';
 };
 
 /**
@@ -4536,7 +5741,6 @@ export type ImportWorkspace = {
      * Importid
      */
     importId: string;
-    match: ContentMatchVersion | null;
     /**
      * Partialreasons
      */
@@ -4549,6 +5753,10 @@ export type ImportWorkspace = {
      * Processinglabel
      */
     processingLabel: string | null;
+    /**
+     * Questionunits
+     */
+    questionUnits: Array<ImportQuestionUnit>;
     recognition: RecognitionRevision | null;
     /**
      * Recognitionsegments
@@ -4558,6 +5766,90 @@ export type ImportWorkspace = {
      * State
      */
     state: 'uploading' | 'processing' | 'review' | 'ready' | 'failed' | 'quarantined' | 'expired';
+};
+
+/**
+ * InferenceCandidateVersion
+ */
+export type InferenceCandidateVersion = {
+    /**
+     * Candidateid
+     */
+    candidateId: string;
+    /**
+     * Candidateversionid
+     */
+    candidateVersionId: string;
+    /**
+     * Confidence
+     */
+    confidence: number;
+    /**
+     * Confirmationstatus
+     */
+    confirmationStatus: 'not_required' | 'pending' | 'confirmed' | 'rejected';
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Evidencerefs
+     */
+    evidenceRefs: Array<BrainEvidenceRef>;
+    /**
+     * Expiresat
+     */
+    expiresAt: string;
+    /**
+     * Inferencetype
+     */
+    inferenceType: 'error_pattern' | 'module_interpretation' | 'strategy_recommendation' | 'planning_explanation';
+    /**
+     * Inputfingerprint
+     */
+    inputFingerprint: string;
+    /**
+     * Policyversion
+     */
+    policyVersion: string;
+    /**
+     * Producerid
+     */
+    producerId: string;
+    /**
+     * Producertype
+     */
+    producerType: 'rule' | 'agent';
+    /**
+     * Requiresuserconfirmation
+     */
+    requiresUserConfirmation: boolean;
+    /**
+     * Status
+     */
+    status: 'pending_validation' | 'awaiting_confirmation' | 'accepted' | 'rejected' | 'expired';
+    /**
+     * Supersedescandidateversionid
+     */
+    supersedesCandidateVersionId?: string | null;
+    /**
+     * Validfrom
+     */
+    validFrom: string;
+    /**
+     * Validationstatus
+     */
+    validationStatus: 'pending' | 'valid' | 'invalid';
+    /**
+     * Value
+     */
+    value: {
+        [key: string]: unknown;
+    };
+    /**
+     * Versionno
+     */
+    versionNo: number;
 };
 
 /**
@@ -4768,6 +6060,74 @@ export type LearnerProfileUpdate = {
      * Targetregion
      */
     targetRegion: string;
+};
+
+/**
+ * LearningBrainProfileVersion
+ */
+export type LearningBrainProfileVersion = {
+    ability: AbilityEstimateCurrent;
+    /**
+     * Algorithmversion
+     */
+    algorithmVersion?: 'learning-brain-profile@v1';
+    candidateSummary: BrainCandidateSummary;
+    /**
+     * Conflicts
+     */
+    conflicts: Array<string>;
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'learning-brain-profile@v1';
+    decisionSummary: BrainDecisionSummary;
+    /**
+     * Errorpatterns
+     */
+    errorPatterns: Array<ErrorPatternSummary>;
+    evidenceSummary: BrainEvidenceSummary;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Inputfingerprint
+     */
+    inputFingerprint: string;
+    /**
+     * Inputversions
+     */
+    inputVersions: {
+        [key: string]: string;
+    };
+    /**
+     * Modules
+     */
+    modules: Array<ModuleAbility>;
+    /**
+     * Profileversionid
+     */
+    profileVersionId: string;
+    /**
+     * Readiness
+     */
+    readiness: 'unavailable' | 'partial' | 'ready' | 'stale' | 'conflicted';
+    /**
+     * Sourcerefs
+     */
+    sourceRefs: Array<BrainEvidenceRef>;
+    /**
+     * Supersedesprofileversionid
+     */
+    supersedesProfileVersionId?: string | null;
+    /**
+     * Validuntil
+     */
+    validUntil: string;
+    /**
+     * Versionno
+     */
+    versionNo: number;
 };
 
 /**
@@ -5520,6 +6880,24 @@ export type MockExamModuleReview = {
 };
 
 /**
+ * MockExamPerformanceRange
+ */
+export type MockExamPerformanceRange = {
+    /**
+     * Lower
+     */
+    lower: number;
+    /**
+     * Recommended
+     */
+    recommended: number;
+    /**
+     * Upper
+     */
+    upper: number;
+};
+
+/**
  * MockExamReview
  */
 export type MockExamReview = {
@@ -5532,6 +6910,22 @@ export type MockExamReview = {
      */
     estimatedScore: number;
     /**
+     * Intervaldefinition
+     */
+    intervalDefinition: string;
+    /**
+     * Metricdefinition
+     */
+    metricDefinition: string;
+    /**
+     * Metricname
+     */
+    metricName: 'balanced_performance_index';
+    /**
+     * Metricunit
+     */
+    metricUnit: 'index_points';
+    /**
      * Modules
      */
     modules: Array<MockExamModuleReview>;
@@ -5539,6 +6933,19 @@ export type MockExamReview = {
      * Nextweekreason
      */
     nextWeekReason: string;
+    /**
+     * Paperversionid
+     */
+    paperVersionId: string;
+    /**
+     * Performanceindex
+     */
+    performanceIndex: number;
+    performanceRange: MockExamPerformanceRange;
+    /**
+     * Scoringpolicyversionid
+     */
+    scoringPolicyVersionId: string;
     /**
      * Sessionid
      */
@@ -5583,6 +6990,14 @@ export type MockExamSession = {
      */
     materials: Array<SafeMaterial>;
     /**
+     * Nexttrajectoryeventseq
+     */
+    nextTrajectoryEventSeq: number;
+    /**
+     * Paperversionid
+     */
+    paperVersionId: string;
+    /**
      * Questioncount
      */
     questionCount: number;
@@ -5594,6 +7009,22 @@ export type MockExamSession = {
      * Revision
      */
     revision: number;
+    /**
+     * Scoremetricdefinition
+     */
+    scoreMetricDefinition: string;
+    /**
+     * Scoremetricname
+     */
+    scoreMetricName: string;
+    /**
+     * Scoremetricunit
+     */
+    scoreMetricUnit: string;
+    /**
+     * Scoringpolicyversionid
+     */
+    scoringPolicyVersionId: string;
     /**
      * Sessionid
      */
@@ -5668,6 +7099,64 @@ export type MockExamSubmitResponse = {
 };
 
 /**
+ * MockExamTrajectoryEventCommand
+ */
+export type MockExamTrajectoryEventCommand = {
+    /**
+     * Clientoccurredat
+     */
+    clientOccurredAt: string;
+    /**
+     * Eventseq
+     */
+    eventSeq: number;
+    /**
+     * Eventtype
+     */
+    eventType: 'visited' | 'answer_changed' | 'mark_changed' | 'skipped' | 'left' | 'resumed';
+    /**
+     * Payload
+     */
+    payload?: {
+        [key: string]: string | number | number | boolean | null;
+    };
+    /**
+     * Questionid
+     */
+    questionId?: string | null;
+    /**
+     * Sessionrevision
+     */
+    sessionRevision: number;
+};
+
+/**
+ * MockExamTrajectoryEventReceipt
+ */
+export type MockExamTrajectoryEventReceipt = {
+    /**
+     * Acceptedat
+     */
+    acceptedAt: string;
+    /**
+     * Eventseq
+     */
+    eventSeq: number;
+    /**
+     * Eventtype
+     */
+    eventType: string;
+    /**
+     * Sessionid
+     */
+    sessionId: string;
+    /**
+     * Trajectoryeventid
+     */
+    trajectoryEventId: string;
+};
+
+/**
  * MockExamWrongCluster
  */
 export type MockExamWrongCluster = {
@@ -5691,6 +7180,52 @@ export type MockExamWrongCluster = {
      * Wrongcount
      */
     wrongCount: number;
+};
+
+/**
+ * MockPaperSummary
+ */
+export type MockPaperSummary = {
+    /**
+     * Durationminutes
+     */
+    durationMinutes: number;
+    /**
+     * Metricdefinition
+     */
+    metricDefinition: string;
+    /**
+     * Metricname
+     */
+    metricName: string;
+    /**
+     * Metricunit
+     */
+    metricUnit: string;
+    /**
+     * Paperversionid
+     */
+    paperVersionId: string;
+    /**
+     * Questioncount
+     */
+    questionCount: number;
+    /**
+     * Scoringpolicyversionid
+     */
+    scoringPolicyVersionId: string;
+    /**
+     * Sessionid
+     */
+    sessionId: string | null;
+    /**
+     * Status
+     */
+    status: 'available' | 'in_progress' | 'submitted';
+    /**
+     * Title
+     */
+    title: string;
 };
 
 /**
@@ -5744,6 +7279,69 @@ export type MockReviewPendingPayload = {
      * Taskid
      */
     taskId: string;
+};
+
+/**
+ * ModuleAbility
+ */
+export type ModuleAbility = {
+    /**
+     * Averageseconds
+     */
+    averageSeconds?: number | null;
+    /**
+     * Confidence
+     */
+    confidence: 'unknown' | 'low' | 'medium' | 'high';
+    /**
+     * Conflictcodes
+     */
+    conflictCodes: Array<string>;
+    /**
+     * Correctrate
+     */
+    correctRate?: number | null;
+    /**
+     * Displayname
+     */
+    displayName: string;
+    /**
+     * Duecount
+     */
+    dueCount: number;
+    /**
+     * Evidencecount
+     */
+    evidenceCount: number;
+    /**
+     * Evidencerefs
+     */
+    evidenceRefs: Array<BrainEvidenceRef>;
+    /**
+     * Freshness
+     */
+    freshness: 'current' | 'stale' | 'unavailable';
+    /**
+     * Latestevidenceat
+     */
+    latestEvidenceAt?: string | null;
+    /**
+     * Modulekey
+     */
+    moduleKey: string;
+    /**
+     * Readiness
+     */
+    readiness: 'unavailable' | 'developing' | 'reliable' | 'stale' | 'conflicted';
+    scoreBand?: AbilityBand | null;
+    /**
+     * Stablemasterycount
+     */
+    stableMasteryCount: number;
+    /**
+     * Track
+     */
+    track: 'xingce' | 'essay';
 };
 
 /**
@@ -6479,6 +8077,170 @@ export type PlacementTestTask = {
 };
 
 /**
+ * PlanBasisTask
+ */
+export type PlanBasisTask = {
+    /**
+     * Estimatedminutes
+     */
+    estimatedMinutes: number;
+    /**
+     * Evidencerefs
+     */
+    evidenceRefs: Array<PlanningEvidenceRef>;
+    /**
+     * Order
+     */
+    order: number;
+    priorityBreakdown: PriorityDecomposition;
+    /**
+     * Priorityscore
+     */
+    priorityScore: number;
+    /**
+     * Reason
+     */
+    reason: string;
+    /**
+     * Taskid
+     */
+    taskId: string;
+    /**
+     * Title
+     */
+    title: string;
+    /**
+     * Track
+     */
+    track: 'xingce' | 'essay' | 'recovery' | 'mock';
+};
+
+/**
+ * PlanBasisView
+ */
+export type PlanBasisView = {
+    /**
+     * Conflicts
+     */
+    conflicts: Array<string>;
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'plan-basis@v1';
+    /**
+     * Daymode
+     */
+    dayMode: 'normal' | 'mock' | 'recovery' | 'unavailable';
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Headline
+     */
+    headline: string;
+    /**
+     * Inputversions
+     */
+    inputVersions: {
+        [key: string]: string;
+    };
+    /**
+     * Invalidationconditions
+     */
+    invalidationConditions: Array<string>;
+    /**
+     * Localdate
+     */
+    localDate: string;
+    /**
+     * Planversionid
+     */
+    planVersionId: string;
+    policy: PriorityPolicy;
+    /**
+     * Rationale
+     */
+    rationale: string;
+    /**
+     * Replanreasoncodes
+     */
+    replanReasonCodes: Array<string>;
+    /**
+     * Tasks
+     */
+    tasks: Array<PlanBasisTask>;
+    /**
+     * Versionno
+     */
+    versionNo: number;
+};
+
+/**
+ * PlanChangeEntry
+ */
+export type PlanChangeEntry = {
+    /**
+     * Changedinputkeys
+     */
+    changedInputKeys: Array<string>;
+    /**
+     * Daymode
+     */
+    dayMode: 'normal' | 'mock' | 'recovery' | 'unavailable';
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Headline
+     */
+    headline: string;
+    /**
+     * Localdate
+     */
+    localDate: string;
+    /**
+     * Planversionid
+     */
+    planVersionId: string;
+    /**
+     * Replanreasoncodes
+     */
+    replanReasonCodes: Array<string>;
+    /**
+     * Scheduledminutes
+     */
+    scheduledMinutes: number;
+    /**
+     * Supersedesplanversionid
+     */
+    supersedesPlanVersionId?: string | null;
+    /**
+     * Taskcount
+     */
+    taskCount: number;
+    /**
+     * Versionno
+     */
+    versionNo: number;
+};
+
+/**
+ * PlanChangeHistory
+ */
+export type PlanChangeHistory = {
+    /**
+     * Items
+     */
+    items: Array<PlanChangeEntry>;
+    /**
+     * Nextcursor
+     */
+    nextCursor?: string | null;
+};
+
+/**
  * PlanningEvidenceRef
  */
 export type PlanningEvidenceRef = {
@@ -6520,6 +8282,28 @@ export type PointExtractionPayload = {
      * Sourcematerialannotationversionid
      */
     sourceMaterialAnnotationVersionId: string;
+};
+
+/**
+ * PolicyAcceptances
+ */
+export type PolicyAcceptances = {
+    /**
+     * Marketingpolicyversion
+     */
+    marketingPolicyVersion: string;
+    /**
+     * Refundpolicyversion
+     */
+    refundPolicyVersion: string;
+    /**
+     * Rewardpolicyversion
+     */
+    rewardPolicyVersion: string;
+    /**
+     * Servicetermsversion
+     */
+    serviceTermsVersion: string;
 };
 
 /**
@@ -7669,10 +9453,128 @@ export type PriorityDecomposition = {
 };
 
 /**
+ * PriorityPolicy
+ */
+export type PriorityPolicy = {
+    /**
+     * Abilitygainweight
+     */
+    abilityGainWeight: number;
+    /**
+     * Algorithmversion
+     */
+    algorithmVersion: string;
+    /**
+     * Goalgainweight
+     */
+    goalGainWeight: number;
+    /**
+     * Loadpenaltyweight
+     */
+    loadPenaltyWeight: number;
+    /**
+     * Timefitweight
+     */
+    timeFitWeight: number;
+    /**
+     * Trackbalancemaxbonus
+     */
+    trackBalanceMaxBonus: number;
+    /**
+     * Verificationurgencyweight
+     */
+    verificationUrgencyWeight: number;
+};
+
+/**
+ * PrivacyOverview
+ */
+export type PrivacyOverview = {
+    /**
+     * Accountdeletioneffect
+     */
+    accountDeletionEffect: Array<string>;
+    /**
+     * Categories
+     */
+    categories: Array<DataCategoryView>;
+    /**
+     * Policytitle
+     */
+    policyTitle: string;
+    /**
+     * Policyversion
+     */
+    policyVersion: string;
+    /**
+     * Rawmaterialretention
+     */
+    rawMaterialRetention: string;
+    /**
+     * Servertime
+     */
+    serverTime: string;
+};
+
+/**
  * ProcessImportCommand
  */
 export type ProcessImportCommand = {
     learningTrack: LearningTrack;
+};
+
+/**
+ * ProcessRewardProgress
+ */
+export type ProcessRewardProgress = {
+    /**
+     * Awardedrewards
+     */
+    awardedRewards: Array<string>;
+    /**
+     * Corecompletionratio
+     */
+    coreCompletionRatio?: number | null;
+    /**
+     * Coretaskscompleted
+     */
+    coreTasksCompleted: number;
+    /**
+     * Coretasksdue
+     */
+    coreTasksDue: number;
+    /**
+     * Effectivedays
+     */
+    effectiveDays: number;
+    /**
+     * Effectivedaysrequired
+     */
+    effectiveDaysRequired: number;
+    /**
+     * Orderid
+     */
+    orderId: string;
+    /**
+     * Pendingrewards
+     */
+    pendingRewards: Array<string>;
+    /**
+     * Policyversion
+     */
+    policyVersion: string;
+    /**
+     * Scorefieldsused
+     */
+    scoreFieldsUsed: false;
+    /**
+     * Weeklyreflections
+     */
+    weeklyReflections: number;
+    /**
+     * Weeklyreflectionsrequired
+     */
+    weeklyReflectionsRequired: number;
 };
 
 /**
@@ -7753,6 +9655,21 @@ export type PublicApiEnvelopeAbilityEstimateCurrent = {
 };
 
 /**
+ * PublicApiEnvelope[AccountDeletionView]
+ */
+export type PublicApiEnvelopeAccountDeletionView = {
+    data: AccountDeletionView;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[AccountOverview]
  */
 export type PublicApiEnvelopeAccountOverview = {
@@ -7798,10 +9715,40 @@ export type PublicApiEnvelopeAnswerTargetSnapshot = {
 };
 
 /**
+ * PublicApiEnvelope[CommerceDashboard]
+ */
+export type PublicApiEnvelopeCommerceDashboard = {
+    data: CommerceDashboard;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[CommunityRewardLedgerResponse]
  */
 export type PublicApiEnvelopeCommunityRewardLedgerResponse = {
     data: CommunityRewardLedgerResponse;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[CompanionAskResponse]
+ */
+export type PublicApiEnvelopeCompanionAskResponse = {
+    data: CompanionAskResponse;
     /**
      * Generatedat
      */
@@ -7873,6 +9820,51 @@ export type PublicApiEnvelopeDailyCapacityCommandResult = {
 };
 
 /**
+ * PublicApiEnvelope[DailySettlementView]
+ */
+export type PublicApiEnvelopeDailySettlementView = {
+    data: DailySettlementView;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[DataExportPayload]
+ */
+export type PublicApiEnvelopeDataExportPayload = {
+    data: DataExportPayload;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[DataExportView]
+ */
+export type PublicApiEnvelopeDataExportView = {
+    data: DataExportView;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[DelayedVerificationReceipt]
  */
 export type PublicApiEnvelopeDelayedVerificationReceipt = {
@@ -7907,6 +9899,21 @@ export type PublicApiEnvelopeDiscoveryResponse = {
  */
 export type PublicApiEnvelopeDraftReceipt = {
     data: DraftReceipt;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[ErrorPatternDetail]
+ */
+export type PublicApiEnvelopeErrorPatternDetail = {
+    data: ErrorPatternDetail;
     /**
      * Generatedat
      */
@@ -7993,6 +10000,21 @@ export type PublicApiEnvelopeEssayDraftingCompletionResult = {
 };
 
 /**
+ * PublicApiEnvelope[EssayHandwritingArtifactAccess]
+ */
+export type PublicApiEnvelopeEssayHandwritingArtifactAccess = {
+    data: EssayHandwritingArtifactAccess;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[EssayLearningArtifactVersion]
  */
 export type PublicApiEnvelopeEssayLearningArtifactVersion = {
@@ -8042,6 +10064,21 @@ export type PublicApiEnvelopeEssayReviewJobView = {
  */
 export type PublicApiEnvelopeEssayReviewResponse = {
     data: EssayReviewResponse;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[EssayRewriteComparison]
+ */
+export type PublicApiEnvelopeEssayRewriteComparison = {
+    data: EssayRewriteComparison;
     /**
      * Generatedat
      */
@@ -8158,6 +10195,36 @@ export type PublicApiEnvelopeExposureReceipt = {
 };
 
 /**
+ * PublicApiEnvelope[ExternalAIAnswerVersion]
+ */
+export type PublicApiEnvelopeExternalAiAnswerVersion = {
+    data: ExternalAiAnswerVersion;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[ExternalMockReportProjection]
+ */
+export type PublicApiEnvelopeExternalMockReportProjection = {
+    data: ExternalMockReportProjection;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[FeedbackReceipt]
  */
 export type PublicApiEnvelopeFeedbackReceipt = {
@@ -8177,6 +10244,21 @@ export type PublicApiEnvelopeFeedbackReceipt = {
  */
 export type PublicApiEnvelopeImportWorkspace = {
     data: ImportWorkspace;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[LearningBrainProfileVersion]
+ */
+export type PublicApiEnvelopeLearningBrainProfileVersion = {
+    data: LearningBrainProfileVersion;
     /**
      * Generatedat
      */
@@ -8222,6 +10304,36 @@ export type PublicApiEnvelopeLogoutAllResult = {
  */
 export type PublicApiEnvelopeMasteryQueuePage = {
     data: MasteryQueuePage;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[MockExamTrajectoryEventReceipt]
+ */
+export type PublicApiEnvelopeMockExamTrajectoryEventReceipt = {
+    data: MockExamTrajectoryEventReceipt;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[ModuleAbility]
+ */
+export type PublicApiEnvelopeModuleAbility = {
+    data: ModuleAbility;
     /**
      * Generatedat
      */
@@ -8297,6 +10409,36 @@ export type PublicApiEnvelopePacketAccessProjection = {
  */
 export type PublicApiEnvelopePacketListSnapshot = {
     data: PacketListSnapshot;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[PlanBasisView]
+ */
+export type PublicApiEnvelopePlanBasisView = {
+    data: PlanBasisView;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[PlanChangeHistory]
+ */
+export type PublicApiEnvelopePlanChangeHistory = {
+    data: PlanChangeHistory;
     /**
      * Generatedat
      */
@@ -8443,6 +10585,21 @@ export type PublicApiEnvelopePrimaryGoalPreview = {
 };
 
 /**
+ * PublicApiEnvelope[PrivacyOverview]
+ */
+export type PublicApiEnvelopePrivacyOverview = {
+    data: PrivacyOverview;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[PublicCardDetail]
  */
 export type PublicApiEnvelopePublicCardDetail = {
@@ -8518,6 +10675,36 @@ export type PublicApiEnvelopeRecognitionRevision = {
 };
 
 /**
+ * PublicApiEnvelope[ReportCenterProjection]
+ */
+export type PublicApiEnvelopeReportCenterProjection = {
+    data: ReportCenterProjection;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[ReportProjection]
+ */
+export type PublicApiEnvelopeReportProjection = {
+    data: ReportProjection;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[ReportReceipt]
  */
 export type PublicApiEnvelopeReportReceipt = {
@@ -8552,6 +10739,21 @@ export type PublicApiEnvelopeReportedScoreEvidenceResult = {
  */
 export type PublicApiEnvelopeRequirementConfirmationResult = {
     data: RequirementConfirmationResult;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[RetakeProgramResponse]
+ */
+export type PublicApiEnvelopeRetakeProgramResponse = {
+    data: RetakeProgramResponse;
     /**
      * Generatedat
      */
@@ -8623,10 +10825,55 @@ export type PublicApiEnvelopeSessionRevocationResult = {
 };
 
 /**
+ * PublicApiEnvelope[Stage8Catalog]
+ */
+export type PublicApiEnvelopeStage8Catalog = {
+    data: Stage8Catalog;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[StartUploadProjection]
  */
 export type PublicApiEnvelopeStartUploadProjection = {
     data: StartUploadProjection;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[StrategyCandidateResult]
+ */
+export type PublicApiEnvelopeStrategyCandidateResult = {
+    data: StrategyCandidateResult;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[StrategyDecisionResult]
+ */
+export type PublicApiEnvelopeStrategyDecisionResult = {
+    data: StrategyDecisionResult;
     /**
      * Generatedat
      */
@@ -8743,10 +10990,130 @@ export type PublicApiEnvelopeTrialReceipt = {
 };
 
 /**
+ * PublicApiEnvelope[Union[ProcessRewardProgress, NoneType]]
+ */
+export type PublicApiEnvelopeUnionProcessRewardProgressNoneType = {
+    data: ProcessRewardProgress | null;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[Union[RefundEligibility, NoneType]]
+ */
+export type PublicApiEnvelopeUnionRefundEligibilityNoneType = {
+    data: RefundEligibility | null;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[UploadSessionProjection]
  */
 export type PublicApiEnvelopeUploadSessionProjection = {
     data: UploadSessionProjection;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[WechatOrderCreateResponse]
+ */
+export type PublicApiEnvelopeWechatOrderCreateResponse = {
+    data: WechatOrderCreateResponse;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[WechatOrderList]
+ */
+export type PublicApiEnvelopeWechatOrderList = {
+    data: WechatOrderList;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[WechatOrderView]
+ */
+export type PublicApiEnvelopeWechatOrderView = {
+    data: WechatOrderView;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[WechatRefundResponse]
+ */
+export type PublicApiEnvelopeWechatRefundResponse = {
+    data: WechatRefundResponse;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[WeeklyPlanVersion]
+ */
+export type PublicApiEnvelopeWeeklyPlanVersion = {
+    data: WeeklyPlanVersion;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[WeeklyReflectionConfirmationView]
+ */
+export type PublicApiEnvelopeWeeklyReflectionConfirmationView = {
+    data: WeeklyReflectionConfirmationView;
     /**
      * Generatedat
      */
@@ -9422,6 +11789,34 @@ export type QuestionTag = {
 };
 
 /**
+ * QuestionUnit
+ *
+ * A server-sealed, independently matchable question inside an artifact.
+ */
+export type QuestionUnit = {
+    /**
+     * Materialsegmentrefs
+     */
+    materialSegmentRefs?: Array<string>;
+    /**
+     * Optionsegmentrefs
+     */
+    optionSegmentRefs?: Array<string>;
+    /**
+     * Ordinal
+     */
+    ordinal: number;
+    /**
+     * Promptsegmentrefs
+     */
+    promptSegmentRefs: Array<string>;
+    /**
+     * Questionunitid
+     */
+    questionUnitId: string;
+};
+
+/**
  * QuotaNoticeCard
  */
 export type QuotaNoticeCard = {
@@ -9575,6 +11970,10 @@ export type RecognitionCandidatePayload = {
      * Processorrequestidhash
      */
     processorRequestIdHash: string;
+    /**
+     * Questionunits
+     */
+    questionUnits?: Array<QuestionUnit>;
     /**
      * Requesthash
      */
@@ -9785,6 +12184,36 @@ export type ReflectionVersionProjection = {
 };
 
 /**
+ * RefundEligibility
+ */
+export type RefundEligibility = {
+    /**
+     * Applicationdeadline
+     */
+    applicationDeadline?: string | null;
+    /**
+     * Blockingcode
+     */
+    blockingCode?: string | null;
+    /**
+     * Eligible
+     */
+    eligible: boolean;
+    /**
+     * Priorprocessrewardsminor
+     */
+    priorProcessRewardsMinor: number;
+    /**
+     * Remainingrefundableminor
+     */
+    remainingRefundableMinor: number;
+    /**
+     * Scoreevidencerequired
+     */
+    scoreEvidenceRequired: false;
+};
+
+/**
  * RenewPacketCommand
  */
 export type RenewPacketCommand = {
@@ -9803,6 +12232,77 @@ export type RenewPacketCommand = {
 };
 
 /**
+ * ReportCardSummary
+ */
+export type ReportCardSummary = {
+    /**
+     * Reportkind
+     */
+    reportKind: 'single_set' | 'weekly' | 'mock' | 'position_gap' | 'global';
+    /**
+     * Route
+     */
+    route: string;
+    /**
+     * State
+     */
+    state: 'ready' | 'partial' | 'empty';
+    /**
+     * Subtitle
+     */
+    subtitle: string;
+    /**
+     * Title
+     */
+    title: string;
+};
+
+/**
+ * ReportCenterProjection
+ */
+export type ReportCenterProjection = {
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    latestExternalReport: ExternalMockReportProjection | null;
+    /**
+     * Reportcards
+     */
+    reportCards: Array<ReportCardSummary>;
+    /**
+     * Standardpapers
+     */
+    standardPapers: Array<MockPaperSummary>;
+};
+
+/**
+ * ReportConclusion
+ */
+export type ReportConclusion = {
+    /**
+     * Detail
+     */
+    detail: string;
+    /**
+     * Evidencerefs
+     */
+    evidenceRefs: Array<string>;
+    /**
+     * Headline
+     */
+    headline: string;
+    /**
+     * Nextaction
+     */
+    nextAction: string;
+    /**
+     * Nextplanevidencerefs
+     */
+    nextPlanEvidenceRefs: Array<string>;
+};
+
+/**
  * ReportCreate
  */
 export type ReportCreate = {
@@ -9818,6 +12318,45 @@ export type ReportCreate = {
      * Evidenceref
      */
     evidenceRef: string;
+};
+
+/**
+ * ReportProjection
+ */
+export type ReportProjection = {
+    /**
+     * Chartcontractversion
+     */
+    chartContractVersion?: 'report-chart@v1';
+    /**
+     * Charts
+     */
+    charts: Array<ChartSpec>;
+    conclusion: ReportConclusion;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Projectionversionid
+     */
+    projectionVersionId: string;
+    /**
+     * Reportkind
+     */
+    reportKind: 'single_set' | 'weekly' | 'mock' | 'position_gap' | 'global';
+    /**
+     * State
+     */
+    state: 'ready' | 'partial' | 'empty';
+    /**
+     * Subjectref
+     */
+    subjectRef: string;
+    /**
+     * Title
+     */
+    title: string;
 };
 
 /**
@@ -9907,9 +12446,24 @@ export type ReprocessRecognitionCommand = {
      */
     expectedRevisionNo: number;
     /**
+     * Packetversionid
+     */
+    packetVersionId?: string | null;
+    /**
      * Processorroute
      */
     processorRoute: string;
+};
+
+/**
+ * RequestImportAIAnswerCommand
+ */
+export type RequestImportAiAnswerCommand = {
+    learningTrack: LearningTrack;
+    /**
+     * Questionunitid
+     */
+    questionUnitId: string;
 };
 
 /**
@@ -10020,6 +12574,100 @@ export type RequirementConfirmationRequest = {
 export type RequirementConfirmationResult = {
     confirmation: RequirementConfirmation;
     eligibility: PositionEligibilitySnapshot;
+};
+
+/**
+ * RetakeEnrollmentRequest
+ */
+export type RetakeEnrollmentRequest = {
+    /**
+     * Commandkey
+     */
+    commandKey: string;
+    /**
+     * Sourcescoreevidenceid
+     */
+    sourceScoreEvidenceId: string;
+    /**
+     * Targetexamyear
+     */
+    targetExamYear: number;
+};
+
+/**
+ * RetakeLossStructure
+ */
+export type RetakeLossStructure = {
+    /**
+     * Availabletracks
+     */
+    availableTracks: Array<'xingce' | 'essay'>;
+    /**
+     * Essayscore
+     */
+    essayScore?: number | null;
+    /**
+     * Limitation
+     */
+    limitation: string;
+    /**
+     * Trainingfocus
+     */
+    trainingFocus: Array<string>;
+    /**
+     * Xingcescore
+     */
+    xingceScore?: number | null;
+};
+
+/**
+ * RetakeProgramResponse
+ */
+export type RetakeProgramResponse = {
+    program: RetakeProgramView;
+};
+
+/**
+ * RetakeProgramView
+ */
+export type RetakeProgramView = {
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    lossStructure: RetakeLossStructure;
+    /**
+     * Programversionid
+     */
+    programVersionId: string;
+    /**
+     * Refundusesscore
+     */
+    refundUsesScore: false;
+    /**
+     * Rewardusesscore
+     */
+    rewardUsesScore: false;
+    /**
+     * Sourceexamyear
+     */
+    sourceExamYear: number;
+    /**
+     * Sourcescoreevidenceid
+     */
+    sourceScoreEvidenceId: string;
+    /**
+     * State
+     */
+    state: 'active' | 'completed' | 'withdrawn';
+    /**
+     * Targetexamyear
+     */
+    targetExamYear: number;
+    /**
+     * Trainingusesscore
+     */
+    trainingUsesScore: true;
 };
 
 /**
@@ -10697,6 +13345,44 @@ export type SessionRevocationResult = {
 };
 
 /**
+ * SettlementTask
+ */
+export type SettlementTask = {
+    /**
+     * Elapsedminutes
+     */
+    elapsedMinutes: number;
+    /**
+     * Evidencerefs
+     */
+    evidenceRefs: Array<PlanningEvidenceRef>;
+    /**
+     * Plannedminutes
+     */
+    plannedMinutes: number;
+    /**
+     * Riskcode
+     */
+    riskCode?: string | null;
+    /**
+     * Status
+     */
+    status: 'ready' | 'in_progress' | 'complete' | 'abandoned';
+    /**
+     * Taskid
+     */
+    taskId: string;
+    /**
+     * Title
+     */
+    title: string;
+    /**
+     * Track
+     */
+    track: 'xingce' | 'essay' | 'recovery' | 'mock';
+};
+
+/**
  * SourceArtifactState
  */
 export type SourceArtifactState = 'uploaded' | 'available' | 'quarantined' | 'expired' | 'deleted';
@@ -10768,6 +13454,20 @@ export type SourceKind = 'camera_image' | 'image_import' | 'pdf_upload' | 'answe
 export type SourceType = 'text' | 'voice_transcript' | 'handwriting_extraction' | 'reflection';
 
 /**
+ * Stage8Catalog
+ */
+export type Stage8Catalog = {
+    /**
+     * Offers
+     */
+    offers: Array<WechatOffer>;
+    /**
+     * Servertime
+     */
+    serverTime: string;
+};
+
+/**
  * StartLearningMediaUploadCommand
  */
 export type StartLearningMediaUploadCommand = {
@@ -10805,6 +13505,10 @@ export type StartRecognitionCommand = {
      * Artifactversionid
      */
     artifactVersionId: string;
+    /**
+     * Packetversionid
+     */
+    packetVersionId?: string | null;
     /**
      * Processorroute
      */
@@ -10863,6 +13567,145 @@ export type StartUploadProjection = {
      */
     replayed: boolean;
     session: UploadSessionProjection;
+};
+
+/**
+ * StrategyCandidateCommand
+ */
+export type StrategyCandidateCommand = {
+    /**
+     * Basedonprofileversionid
+     */
+    basedOnProfileVersionId: string;
+    /**
+     * Decisiontype
+     */
+    decisionType: 'exam_skip' | 'phase_deprioritize' | 'strategic_abandon';
+    /**
+     * Effectiveuntil
+     */
+    effectiveUntil: string;
+    /**
+     * Rationale
+     */
+    rationale: string;
+    /**
+     * Reviewat
+     */
+    reviewAt: string;
+    /**
+     * Scopekey
+     */
+    scopeKey: string;
+    /**
+     * Scopetype
+     */
+    scopeType: 'track' | 'module' | 'question_type';
+};
+
+/**
+ * StrategyCandidateResult
+ */
+export type StrategyCandidateResult = {
+    candidate: InferenceCandidateVersion;
+};
+
+/**
+ * StrategyDecisionCommand
+ */
+export type StrategyDecisionCommand = {
+    /**
+     * Action
+     */
+    action: 'confirm' | 'reject';
+    /**
+     * Basedoncandidateversionid
+     */
+    basedOnCandidateVersionId: string;
+};
+
+/**
+ * StrategyDecisionResult
+ */
+export type StrategyDecisionResult = {
+    candidate: InferenceCandidateVersion;
+    decision: StrategyDecisionVersion;
+};
+
+/**
+ * StrategyDecisionVersion
+ */
+export type StrategyDecisionVersion = {
+    /**
+     * Benefitevidence
+     */
+    benefitEvidence: {
+        [key: string]: unknown;
+    };
+    /**
+     * Candidateversionid
+     */
+    candidateVersionId: string;
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Decisionid
+     */
+    decisionId: string;
+    /**
+     * Decisiontype
+     */
+    decisionType: 'exam_skip' | 'phase_deprioritize' | 'strategic_abandon';
+    /**
+     * Decisionversionid
+     */
+    decisionVersionId: string;
+    /**
+     * Effectivefrom
+     */
+    effectiveFrom: string;
+    /**
+     * Effectiveuntil
+     */
+    effectiveUntil: string;
+    /**
+     * Evidencerefs
+     */
+    evidenceRefs: Array<BrainEvidenceRef>;
+    /**
+     * Inputfingerprint
+     */
+    inputFingerprint: string;
+    /**
+     * Policyversion
+     */
+    policyVersion?: 'strategy-decision@v1';
+    /**
+     * Rationale
+     */
+    rationale: string;
+    /**
+     * Reviewat
+     */
+    reviewAt: string;
+    /**
+     * Scopekey
+     */
+    scopeKey: string;
+    /**
+     * Scopetype
+     */
+    scopeType: 'track' | 'module' | 'question_type';
+    /**
+     * Status
+     */
+    status: 'active' | 'rejected' | 'expired' | 'review_due' | 'retired';
+    /**
+     * Versionno
+     */
+    versionNo: number;
 };
 
 /**
@@ -11007,6 +13850,78 @@ export type SubmitTaskSessionCommand = {
      * Totalelapsedseconds
      */
     totalElapsedSeconds: number;
+};
+
+/**
+ * SupportOrderView
+ */
+export type SupportOrderView = {
+    /**
+     * Amountminor
+     */
+    amountMinor: number;
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Currency
+     */
+    currency: string;
+    /**
+     * Outtradeno
+     */
+    outTradeNo: string;
+    /**
+     * Paidat
+     */
+    paidAt: string | null;
+    /**
+     * Refundedminor
+     */
+    refundedMinor: number;
+    /**
+     * Refunds
+     */
+    refunds: Array<SupportRefundView>;
+    /**
+     * State
+     */
+    state: string;
+    /**
+     * Updatedat
+     */
+    updatedAt: string;
+};
+
+/**
+ * SupportRefundView
+ */
+export type SupportRefundView = {
+    /**
+     * Amountminor
+     */
+    amountMinor: number;
+    /**
+     * Outrefundno
+     */
+    outRefundNo: string;
+    /**
+     * Processedat
+     */
+    processedAt: string | null;
+    /**
+     * Refundkind
+     */
+    refundKind: string;
+    /**
+     * Requestedat
+     */
+    requestedAt: string;
+    /**
+     * State
+     */
+    state: string;
 };
 
 /**
@@ -12063,6 +14978,33 @@ export type VerificationOutcomeProjection = {
 };
 
 /**
+ * VirtualPaymentOrderCreateRequest
+ */
+export type VirtualPaymentOrderCreateRequest = {
+    acceptedPolicies: PolicyAcceptances;
+    /**
+     * Clientplatform
+     */
+    clientPlatform: 'ios' | 'android' | 'harmony' | 'windows';
+    /**
+     * Commandkey
+     */
+    commandKey: string;
+    /**
+     * Expectedamountminor
+     */
+    expectedAmountMinor: number;
+    /**
+     * Offerversionid
+     */
+    offerVersionId: string;
+    /**
+     * Paymentlogincode
+     */
+    paymentLoginCode: string;
+};
+
+/**
  * WechatAuthSessionData
  */
 export type WechatAuthSessionData = {
@@ -12113,6 +15055,448 @@ export type WechatLoginRequest = {
      * Deviceid
      */
     deviceId: string;
+};
+
+/**
+ * WechatOffer
+ */
+export type WechatOffer = {
+    /**
+     * Amountminor
+     */
+    amountMinor: number;
+    /**
+     * Automaticrenewal
+     */
+    automaticRenewal: false;
+    /**
+     * Cohortlimit
+     */
+    cohortLimit?: number | null;
+    /**
+     * Cohortpaidcount
+     */
+    cohortPaidCount: number;
+    /**
+     * Cohortremaining
+     */
+    cohortRemaining?: number | null;
+    /**
+     * Cohortreservedcount
+     */
+    cohortReservedCount: number;
+    /**
+     * Currency
+     */
+    currency: 'CNY';
+    /**
+     * Featurehighlights
+     */
+    featureHighlights: Array<string>;
+    /**
+     * Offercode
+     */
+    offerCode: string;
+    /**
+     * Offerversionid
+     */
+    offerVersionId: string;
+    /**
+     * Policies
+     */
+    policies: Array<CommercialPolicySnapshot>;
+    /**
+     * Productid
+     */
+    productId: string;
+    /**
+     * Recruitmentstate
+     */
+    recruitmentState: 'open' | 'review_required' | 'paused' | 'sold_out';
+    /**
+     * Servicedays
+     */
+    serviceDays: number;
+    /**
+     * Subtitle
+     */
+    subtitle: string;
+    /**
+     * Title
+     */
+    title: string;
+    /**
+     * Versionno
+     */
+    versionNo: number;
+};
+
+/**
+ * WechatOrderCreateResponse
+ */
+export type WechatOrderCreateResponse = {
+    order: WechatOrderView;
+};
+
+/**
+ * WechatOrderList
+ */
+export type WechatOrderList = {
+    /**
+     * Items
+     */
+    items: Array<WechatOrderView>;
+};
+
+/**
+ * WechatOrderView
+ */
+export type WechatOrderView = {
+    /**
+     * Amountminor
+     */
+    amountMinor: number;
+    /**
+     * Clientplatform
+     */
+    clientPlatform?: 'ios' | 'android' | 'harmony' | 'windows' | null;
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Currency
+     */
+    currency: 'CNY';
+    /**
+     * Expiresat
+     */
+    expiresAt: string;
+    /**
+     * Offerversionid
+     */
+    offerVersionId: string;
+    /**
+     * Orderid
+     */
+    orderId: string;
+    /**
+     * Outtradeno
+     */
+    outTradeNo: string;
+    /**
+     * Paidat
+     */
+    paidAt?: string | null;
+    payment?: WechatPaymentParameters | null;
+    /**
+     * Paymentchannel
+     */
+    paymentChannel?: 'wechat_jsapi' | 'wechat_virtual_payment';
+    /**
+     * Refundedminor
+     */
+    refundedMinor: number;
+    /**
+     * State
+     */
+    state: 'creating' | 'awaiting_payment' | 'paid' | 'partially_refunded' | 'refund_processing' | 'refunded' | 'closed' | 'payment_uncertain';
+    /**
+     * Termssnapshotsha256
+     */
+    termsSnapshotSha256: string;
+    /**
+     * Title
+     */
+    title: string;
+    virtualPayment?: WechatVirtualPaymentParameters | null;
+};
+
+/**
+ * WechatPaymentParameters
+ */
+export type WechatPaymentParameters = {
+    /**
+     * Noncestr
+     */
+    nonceStr: string;
+    /**
+     * Package
+     */
+    package: string;
+    /**
+     * Paysign
+     */
+    paySign: string;
+    /**
+     * Signtype
+     */
+    signType: 'RSA';
+    /**
+     * Timestamp
+     */
+    timeStamp: string;
+};
+
+/**
+ * WechatRefundRequest
+ */
+export type WechatRefundRequest = {
+    /**
+     * Commandkey
+     */
+    commandKey: string;
+    /**
+     * Reason
+     */
+    reason: 'not_suitable';
+};
+
+/**
+ * WechatRefundResponse
+ */
+export type WechatRefundResponse = {
+    entitlement: CommerceEntitlementResponse;
+    /**
+     * Provideraction
+     */
+    providerAction?: 'none' | 'app_store_required';
+    /**
+     * Provideractionmessage
+     */
+    providerActionMessage?: string | null;
+    /**
+     * Provideractionurl
+     */
+    providerActionUrl?: string | null;
+    refund: WechatRefundView;
+};
+
+/**
+ * WechatRefundView
+ */
+export type WechatRefundView = {
+    /**
+     * Amountminor
+     */
+    amountMinor: number;
+    /**
+     * Currency
+     */
+    currency: 'CNY';
+    /**
+     * Orderid
+     */
+    orderId: string;
+    /**
+     * Outrefundno
+     */
+    outRefundNo: string;
+    /**
+     * Policyversion
+     */
+    policyVersion: string;
+    /**
+     * Processedat
+     */
+    processedAt?: string | null;
+    /**
+     * Refundid
+     */
+    refundId: string;
+    /**
+     * Refundkind
+     */
+    refundKind: 'not_suitable' | 'weekly_reflection_reward' | 'late_payment_reversal';
+    /**
+     * Requestedat
+     */
+    requestedAt: string;
+    /**
+     * State
+     */
+    state: 'requested' | 'processing' | 'succeeded' | 'closed' | 'abnormal' | 'provider_uncertain';
+};
+
+/**
+ * WechatVirtualPaymentParameters
+ */
+export type WechatVirtualPaymentParameters = {
+    /**
+     * Mode
+     */
+    mode: 'short_series_goods';
+    /**
+     * Paysig
+     */
+    paySig: string;
+    /**
+     * Signdata
+     */
+    signData: string;
+    /**
+     * Signature
+     */
+    signature: string;
+};
+
+/**
+ * WeeklyPlanDay
+ */
+export type WeeklyPlanDay = {
+    /**
+     * Completedtaskcount
+     */
+    completedTaskCount: number;
+    /**
+     * Dailyplanversionid
+     */
+    dailyPlanVersionId?: string | null;
+    /**
+     * Explanation
+     */
+    explanation: string;
+    /**
+     * Localdate
+     */
+    localDate: string;
+    /**
+     * Mode
+     */
+    mode: 'training' | 'mock' | 'recovery';
+    /**
+     * Plannedminutes
+     */
+    plannedMinutes: number;
+    /**
+     * Scheduledminutes
+     */
+    scheduledMinutes: number;
+    /**
+     * Status
+     */
+    status: 'past' | 'today' | 'upcoming';
+    /**
+     * Totaltaskcount
+     */
+    totalTaskCount: number;
+    /**
+     * Weekday
+     */
+    weekday: number;
+};
+
+/**
+ * WeeklyPlanVersion
+ */
+export type WeeklyPlanVersion = {
+    /**
+     * Algorithmversion
+     */
+    algorithmVersion?: 'weekly-rhythm@v1';
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'weekly-plan@v1';
+    /**
+     * Days
+     */
+    days: [
+        WeeklyPlanDay,
+        WeeklyPlanDay,
+        WeeklyPlanDay,
+        WeeklyPlanDay,
+        WeeklyPlanDay,
+        WeeklyPlanDay,
+        WeeklyPlanDay
+    ];
+    /**
+     * Evidencerefs
+     */
+    evidenceRefs: Array<PlanningEvidenceRef>;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Inputfingerprint
+     */
+    inputFingerprint: string;
+    /**
+     * Inputversions
+     */
+    inputVersions: {
+        [key: string]: string;
+    };
+    /**
+     * Replanreasoncodes
+     */
+    replanReasonCodes: Array<string>;
+    /**
+     * Rhythm
+     */
+    rhythm: '5+1+1';
+    /**
+     * Supersedesweeklyplanversionid
+     */
+    supersedesWeeklyPlanVersionId?: string | null;
+    /**
+     * Validuntil
+     */
+    validUntil: string;
+    /**
+     * Versionno
+     */
+    versionNo: number;
+    /**
+     * Weekstart
+     */
+    weekStart: string;
+    /**
+     * Weeklyplanversionid
+     */
+    weeklyPlanVersionId: string;
+    /**
+     * Weeklypreferenceversionid
+     */
+    weeklyPreferenceVersionId: string;
+};
+
+/**
+ * WeeklyReflectionConfirmRequest
+ */
+export type WeeklyReflectionConfirmRequest = {
+    /**
+     * Commandkey
+     */
+    commandKey: string;
+    /**
+     * Orderid
+     */
+    orderId: string;
+    /**
+     * Reportversionid
+     */
+    reportVersionId: string;
+};
+
+/**
+ * WeeklyReflectionConfirmationView
+ */
+export type WeeklyReflectionConfirmationView = {
+    /**
+     * Confirmationid
+     */
+    confirmationId: string;
+    /**
+     * Confirmedat
+     */
+    confirmedAt: string;
+    progress: ProcessRewardProgress;
+    /**
+     * Weekstart
+     */
+    weekStart: string;
 };
 
 /**
@@ -14771,6 +18155,752 @@ export type LoginWithWechatApiV2AuthWechatPostResponses = {
 
 export type LoginWithWechatApiV2AuthWechatPostResponse = LoginWithWechatApiV2AuthWechatPostResponses[keyof LoginWithWechatApiV2AuthWechatPostResponses];
 
+export type GetCatalogApiV2CommerceCatalogGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v2/commerce/catalog';
+};
+
+export type GetCatalogApiV2CommerceCatalogGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetCatalogApiV2CommerceCatalogGetError = GetCatalogApiV2CommerceCatalogGetErrors[keyof GetCatalogApiV2CommerceCatalogGetErrors];
+
+export type GetCatalogApiV2CommerceCatalogGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeStage8Catalog;
+};
+
+export type GetCatalogApiV2CommerceCatalogGetResponse = GetCatalogApiV2CommerceCatalogGetResponses[keyof GetCatalogApiV2CommerceCatalogGetResponses];
+
+export type GetDashboardApiV2CommerceDashboardGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/commerce/dashboard';
+};
+
+export type GetDashboardApiV2CommerceDashboardGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetDashboardApiV2CommerceDashboardGetError = GetDashboardApiV2CommerceDashboardGetErrors[keyof GetDashboardApiV2CommerceDashboardGetErrors];
+
+export type GetDashboardApiV2CommerceDashboardGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeCommerceDashboard;
+};
+
+export type GetDashboardApiV2CommerceDashboardGetResponse = GetDashboardApiV2CommerceDashboardGetResponses[keyof GetDashboardApiV2CommerceDashboardGetResponses];
+
+export type ListOrdersApiV2CommerceOrdersGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/commerce/orders';
+};
+
+export type ListOrdersApiV2CommerceOrdersGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ListOrdersApiV2CommerceOrdersGetError = ListOrdersApiV2CommerceOrdersGetErrors[keyof ListOrdersApiV2CommerceOrdersGetErrors];
+
+export type ListOrdersApiV2CommerceOrdersGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeWechatOrderList;
+};
+
+export type ListOrdersApiV2CommerceOrdersGetResponse = ListOrdersApiV2CommerceOrdersGetResponses[keyof ListOrdersApiV2CommerceOrdersGetResponses];
+
+export type GetProcessRewardsApiV2CommerceProcessRewardsGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/commerce/process-rewards';
+};
+
+export type GetProcessRewardsApiV2CommerceProcessRewardsGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetProcessRewardsApiV2CommerceProcessRewardsGetError = GetProcessRewardsApiV2CommerceProcessRewardsGetErrors[keyof GetProcessRewardsApiV2CommerceProcessRewardsGetErrors];
+
+export type GetProcessRewardsApiV2CommerceProcessRewardsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeUnionProcessRewardProgressNoneType;
+};
+
+export type GetProcessRewardsApiV2CommerceProcessRewardsGetResponse = GetProcessRewardsApiV2CommerceProcessRewardsGetResponses[keyof GetProcessRewardsApiV2CommerceProcessRewardsGetResponses];
+
+export type GetRefundEligibilityApiV2CommerceRefundEligibilityGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/commerce/refund-eligibility';
+};
+
+export type GetRefundEligibilityApiV2CommerceRefundEligibilityGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetRefundEligibilityApiV2CommerceRefundEligibilityGetError = GetRefundEligibilityApiV2CommerceRefundEligibilityGetErrors[keyof GetRefundEligibilityApiV2CommerceRefundEligibilityGetErrors];
+
+export type GetRefundEligibilityApiV2CommerceRefundEligibilityGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeUnionRefundEligibilityNoneType;
+};
+
+export type GetRefundEligibilityApiV2CommerceRefundEligibilityGetResponse = GetRefundEligibilityApiV2CommerceRefundEligibilityGetResponses[keyof GetRefundEligibilityApiV2CommerceRefundEligibilityGetResponses];
+
+export type EnrollRetakeProgramApiV2CommerceRetakeProgramsPostData = {
+    body: RetakeEnrollmentRequest;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/commerce/retake-programs';
+};
+
+export type EnrollRetakeProgramApiV2CommerceRetakeProgramsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type EnrollRetakeProgramApiV2CommerceRetakeProgramsPostError = EnrollRetakeProgramApiV2CommerceRetakeProgramsPostErrors[keyof EnrollRetakeProgramApiV2CommerceRetakeProgramsPostErrors];
+
+export type EnrollRetakeProgramApiV2CommerceRetakeProgramsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeRetakeProgramResponse;
+};
+
+export type EnrollRetakeProgramApiV2CommerceRetakeProgramsPostResponse = EnrollRetakeProgramApiV2CommerceRetakeProgramsPostResponses[keyof EnrollRetakeProgramApiV2CommerceRetakeProgramsPostResponses];
+
+export type CreateVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersPostData = {
+    body: VirtualPaymentOrderCreateRequest;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/commerce/virtual-payment/orders';
+};
+
+export type CreateVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type CreateVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersPostError = CreateVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersPostErrors[keyof CreateVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersPostErrors];
+
+export type CreateVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeWechatOrderCreateResponse;
+};
+
+export type CreateVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersPostResponse = CreateVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersPostResponses[keyof CreateVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersPostResponses];
+
+export type ReconcileVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersOrderIdReconcilePostData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Order Id
+         */
+        order_id: string;
+    };
+    query?: never;
+    url: '/api/v2/commerce/virtual-payment/orders/{order_id}/reconcile';
+};
+
+export type ReconcileVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersOrderIdReconcilePostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ReconcileVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersOrderIdReconcilePostError = ReconcileVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersOrderIdReconcilePostErrors[keyof ReconcileVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersOrderIdReconcilePostErrors];
+
+export type ReconcileVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersOrderIdReconcilePostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeWechatOrderView;
+};
+
+export type ReconcileVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersOrderIdReconcilePostResponse = ReconcileVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersOrderIdReconcilePostResponses[keyof ReconcileVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersOrderIdReconcilePostResponses];
+
+export type RequestVirtualPaymentRefundApiV2CommerceVirtualPaymentOrdersOrderIdRefundsPostData = {
+    body: WechatRefundRequest;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Order Id
+         */
+        order_id: string;
+    };
+    query?: never;
+    url: '/api/v2/commerce/virtual-payment/orders/{order_id}/refunds';
+};
+
+export type RequestVirtualPaymentRefundApiV2CommerceVirtualPaymentOrdersOrderIdRefundsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RequestVirtualPaymentRefundApiV2CommerceVirtualPaymentOrdersOrderIdRefundsPostError = RequestVirtualPaymentRefundApiV2CommerceVirtualPaymentOrdersOrderIdRefundsPostErrors[keyof RequestVirtualPaymentRefundApiV2CommerceVirtualPaymentOrdersOrderIdRefundsPostErrors];
+
+export type RequestVirtualPaymentRefundApiV2CommerceVirtualPaymentOrdersOrderIdRefundsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeWechatRefundResponse;
+};
+
+export type RequestVirtualPaymentRefundApiV2CommerceVirtualPaymentOrdersOrderIdRefundsPostResponse = RequestVirtualPaymentRefundApiV2CommerceVirtualPaymentOrdersOrderIdRefundsPostResponses[keyof RequestVirtualPaymentRefundApiV2CommerceVirtualPaymentOrdersOrderIdRefundsPostResponses];
+
+export type VerifyVirtualPaymentEventEndpointApiV2CommerceWechatVirtualPaymentEventsGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v2/commerce/wechat/virtual-payment/events';
+};
+
+export type VerifyVirtualPaymentEventEndpointApiV2CommerceWechatVirtualPaymentEventsGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type VerifyVirtualPaymentEventEndpointApiV2CommerceWechatVirtualPaymentEventsGetError = VerifyVirtualPaymentEventEndpointApiV2CommerceWechatVirtualPaymentEventsGetErrors[keyof VerifyVirtualPaymentEventEndpointApiV2CommerceWechatVirtualPaymentEventsGetErrors];
+
+export type VerifyVirtualPaymentEventEndpointApiV2CommerceWechatVirtualPaymentEventsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: string;
+};
+
+export type VerifyVirtualPaymentEventEndpointApiV2CommerceWechatVirtualPaymentEventsGetResponse = VerifyVirtualPaymentEventEndpointApiV2CommerceWechatVirtualPaymentEventsGetResponses[keyof VerifyVirtualPaymentEventEndpointApiV2CommerceWechatVirtualPaymentEventsGetResponses];
+
+export type ReceiveVirtualPaymentEventApiV2CommerceWechatVirtualPaymentEventsPostData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v2/commerce/wechat/virtual-payment/events';
+};
+
+export type ReceiveVirtualPaymentEventApiV2CommerceWechatVirtualPaymentEventsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ReceiveVirtualPaymentEventApiV2CommerceWechatVirtualPaymentEventsPostError = ReceiveVirtualPaymentEventApiV2CommerceWechatVirtualPaymentEventsPostErrors[keyof ReceiveVirtualPaymentEventApiV2CommerceWechatVirtualPaymentEventsPostErrors];
+
+export type ReceiveVirtualPaymentEventApiV2CommerceWechatVirtualPaymentEventsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: unknown;
+};
+
+export type ConfirmWeeklyReflectionApiV2CommerceWeeklyReflectionsPostData = {
+    body: WeeklyReflectionConfirmRequest;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/commerce/weekly-reflections';
+};
+
+export type ConfirmWeeklyReflectionApiV2CommerceWeeklyReflectionsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ConfirmWeeklyReflectionApiV2CommerceWeeklyReflectionsPostError = ConfirmWeeklyReflectionApiV2CommerceWeeklyReflectionsPostErrors[keyof ConfirmWeeklyReflectionApiV2CommerceWeeklyReflectionsPostErrors];
+
+export type ConfirmWeeklyReflectionApiV2CommerceWeeklyReflectionsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeWeeklyReflectionConfirmationView;
+};
+
+export type ConfirmWeeklyReflectionApiV2CommerceWeeklyReflectionsPostResponse = ConfirmWeeklyReflectionApiV2CommerceWeeklyReflectionsPostResponses[keyof ConfirmWeeklyReflectionApiV2CommerceWeeklyReflectionsPostResponses];
+
 export type GetContributionsApiV2CommunityMethodCardsContributionsGetData = {
     body?: never;
     headers?: {
@@ -15756,6 +19886,466 @@ export type GetRewardLedgerApiV2CommunityRewardsLedgerGetResponses = {
 
 export type GetRewardLedgerApiV2CommunityRewardsLedgerGetResponse = GetRewardLedgerApiV2CommunityRewardsLedgerGetResponses[keyof GetRewardLedgerApiV2CommunityRewardsLedgerGetResponses];
 
+export type AskCompanionV2ApiV2CompanionAskPostData = {
+    body: CompanionAskRequest;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/companion/ask';
+};
+
+export type AskCompanionV2ApiV2CompanionAskPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type AskCompanionV2ApiV2CompanionAskPostError = AskCompanionV2ApiV2CompanionAskPostErrors[keyof AskCompanionV2ApiV2CompanionAskPostErrors];
+
+export type AskCompanionV2ApiV2CompanionAskPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeCompanionAskResponse;
+};
+
+export type AskCompanionV2ApiV2CompanionAskPostResponse = AskCompanionV2ApiV2CompanionAskPostResponses[keyof AskCompanionV2ApiV2CompanionAskPostResponses];
+
+export type RequestDeletionApiV2DataRightsDeletionsPostData = {
+    body: AccountDeletionCreateRequest;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/data-rights/deletions';
+};
+
+export type RequestDeletionApiV2DataRightsDeletionsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RequestDeletionApiV2DataRightsDeletionsPostError = RequestDeletionApiV2DataRightsDeletionsPostErrors[keyof RequestDeletionApiV2DataRightsDeletionsPostErrors];
+
+export type RequestDeletionApiV2DataRightsDeletionsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeAccountDeletionView;
+};
+
+export type RequestDeletionApiV2DataRightsDeletionsPostResponse = RequestDeletionApiV2DataRightsDeletionsPostResponses[keyof RequestDeletionApiV2DataRightsDeletionsPostResponses];
+
+export type DeletionStatusApiV2DataRightsDeletionsDeletionIdGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Deletion Id
+         */
+        deletion_id: string;
+    };
+    query?: never;
+    url: '/api/v2/data-rights/deletions/{deletion_id}';
+};
+
+export type DeletionStatusApiV2DataRightsDeletionsDeletionIdGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type DeletionStatusApiV2DataRightsDeletionsDeletionIdGetError = DeletionStatusApiV2DataRightsDeletionsDeletionIdGetErrors[keyof DeletionStatusApiV2DataRightsDeletionsDeletionIdGetErrors];
+
+export type DeletionStatusApiV2DataRightsDeletionsDeletionIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeAccountDeletionView;
+};
+
+export type DeletionStatusApiV2DataRightsDeletionsDeletionIdGetResponse = DeletionStatusApiV2DataRightsDeletionsDeletionIdGetResponses[keyof DeletionStatusApiV2DataRightsDeletionsDeletionIdGetResponses];
+
+export type CreateExportApiV2DataRightsExportsPostData = {
+    body: DataExportCreateRequest;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/data-rights/exports';
+};
+
+export type CreateExportApiV2DataRightsExportsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type CreateExportApiV2DataRightsExportsPostError = CreateExportApiV2DataRightsExportsPostErrors[keyof CreateExportApiV2DataRightsExportsPostErrors];
+
+export type CreateExportApiV2DataRightsExportsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeDataExportView;
+};
+
+export type CreateExportApiV2DataRightsExportsPostResponse = CreateExportApiV2DataRightsExportsPostResponses[keyof CreateExportApiV2DataRightsExportsPostResponses];
+
+export type ExportStatusApiV2DataRightsExportsExportIdGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Export Id
+         */
+        export_id: string;
+    };
+    query?: never;
+    url: '/api/v2/data-rights/exports/{export_id}';
+};
+
+export type ExportStatusApiV2DataRightsExportsExportIdGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ExportStatusApiV2DataRightsExportsExportIdGetError = ExportStatusApiV2DataRightsExportsExportIdGetErrors[keyof ExportStatusApiV2DataRightsExportsExportIdGetErrors];
+
+export type ExportStatusApiV2DataRightsExportsExportIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeDataExportView;
+};
+
+export type ExportStatusApiV2DataRightsExportsExportIdGetResponse = ExportStatusApiV2DataRightsExportsExportIdGetResponses[keyof ExportStatusApiV2DataRightsExportsExportIdGetResponses];
+
+export type ExportPayloadApiV2DataRightsExportsExportIdPayloadGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Export Id
+         */
+        export_id: string;
+    };
+    query?: never;
+    url: '/api/v2/data-rights/exports/{export_id}/payload';
+};
+
+export type ExportPayloadApiV2DataRightsExportsExportIdPayloadGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ExportPayloadApiV2DataRightsExportsExportIdPayloadGetError = ExportPayloadApiV2DataRightsExportsExportIdPayloadGetErrors[keyof ExportPayloadApiV2DataRightsExportsExportIdPayloadGetErrors];
+
+export type ExportPayloadApiV2DataRightsExportsExportIdPayloadGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeDataExportPayload;
+};
+
+export type ExportPayloadApiV2DataRightsExportsExportIdPayloadGetResponse = ExportPayloadApiV2DataRightsExportsExportIdPayloadGetResponses[keyof ExportPayloadApiV2DataRightsExportsExportIdPayloadGetResponses];
+
+export type OverviewApiV2DataRightsOverviewGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/data-rights/overview';
+};
+
+export type OverviewApiV2DataRightsOverviewGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type OverviewApiV2DataRightsOverviewGetError = OverviewApiV2DataRightsOverviewGetErrors[keyof OverviewApiV2DataRightsOverviewGetErrors];
+
+export type OverviewApiV2DataRightsOverviewGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopePrivacyOverview;
+};
+
+export type OverviewApiV2DataRightsOverviewGetResponse = OverviewApiV2DataRightsOverviewGetResponses[keyof OverviewApiV2DataRightsOverviewGetResponses];
+
 export type CreateEssayAnswerApiV2EssayIntelligenceAnswersPostData = {
     body: EssayAnswerCreateCommand;
     headers: {
@@ -16158,6 +20748,285 @@ export type CompleteEssayDraftingPlanTaskApiV2EssayIntelligenceDraftingCompleteP
 };
 
 export type CompleteEssayDraftingPlanTaskApiV2EssayIntelligenceDraftingCompletePlanTaskPostResponse = CompleteEssayDraftingPlanTaskApiV2EssayIntelligenceDraftingCompletePlanTaskPostResponses[keyof CompleteEssayDraftingPlanTaskApiV2EssayIntelligenceDraftingCompletePlanTaskPostResponses];
+
+export type AccessEssayHandwritingArtifactApiV2EssayIntelligenceHandwritingArtifactsArtifactVersionIdAccessPostData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Artifact Version Id
+         */
+        artifact_version_id: string;
+    };
+    query?: never;
+    url: '/api/v2/essay-intelligence/handwriting-artifacts/{artifact_version_id}/access';
+};
+
+export type AccessEssayHandwritingArtifactApiV2EssayIntelligenceHandwritingArtifactsArtifactVersionIdAccessPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type AccessEssayHandwritingArtifactApiV2EssayIntelligenceHandwritingArtifactsArtifactVersionIdAccessPostError = AccessEssayHandwritingArtifactApiV2EssayIntelligenceHandwritingArtifactsArtifactVersionIdAccessPostErrors[keyof AccessEssayHandwritingArtifactApiV2EssayIntelligenceHandwritingArtifactsArtifactVersionIdAccessPostErrors];
+
+export type AccessEssayHandwritingArtifactApiV2EssayIntelligenceHandwritingArtifactsArtifactVersionIdAccessPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeEssayHandwritingArtifactAccess;
+};
+
+export type AccessEssayHandwritingArtifactApiV2EssayIntelligenceHandwritingArtifactsArtifactVersionIdAccessPostResponse = AccessEssayHandwritingArtifactApiV2EssayIntelligenceHandwritingArtifactsArtifactVersionIdAccessPostResponses[keyof AccessEssayHandwritingArtifactApiV2EssayIntelligenceHandwritingArtifactsArtifactVersionIdAccessPostResponses];
+
+export type StartEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsPostData = {
+    body: EssayHandwritingStartCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/essay-intelligence/handwriting-recognitions';
+};
+
+export type StartEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type StartEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsPostError = StartEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsPostErrors[keyof StartEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsPostErrors];
+
+export type StartEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeRecognitionRevision;
+};
+
+export type StartEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsPostResponse = StartEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsPostResponses[keyof StartEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsPostResponses];
+
+export type CorrectEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsRecognitionRevisionIdCandidatePutData = {
+    body: EssayHandwritingCorrectionCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Recognition Revision Id
+         */
+        recognition_revision_id: string;
+    };
+    query?: never;
+    url: '/api/v2/essay-intelligence/handwriting-recognitions/{recognition_revision_id}/candidate';
+};
+
+export type CorrectEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsRecognitionRevisionIdCandidatePutErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type CorrectEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsRecognitionRevisionIdCandidatePutError = CorrectEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsRecognitionRevisionIdCandidatePutErrors[keyof CorrectEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsRecognitionRevisionIdCandidatePutErrors];
+
+export type CorrectEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsRecognitionRevisionIdCandidatePutResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeRecognitionRevision;
+};
+
+export type CorrectEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsRecognitionRevisionIdCandidatePutResponse = CorrectEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsRecognitionRevisionIdCandidatePutResponses[keyof CorrectEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsRecognitionRevisionIdCandidatePutResponses];
+
+export type ConfirmEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsRecognitionRevisionIdConfirmPostData = {
+    body: EssayHandwritingDecisionCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Recognition Revision Id
+         */
+        recognition_revision_id: string;
+    };
+    query?: never;
+    url: '/api/v2/essay-intelligence/handwriting-recognitions/{recognition_revision_id}/confirm';
+};
+
+export type ConfirmEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsRecognitionRevisionIdConfirmPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ConfirmEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsRecognitionRevisionIdConfirmPostError = ConfirmEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsRecognitionRevisionIdConfirmPostErrors[keyof ConfirmEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsRecognitionRevisionIdConfirmPostErrors];
+
+export type ConfirmEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsRecognitionRevisionIdConfirmPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeRecognitionRevision;
+};
+
+export type ConfirmEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsRecognitionRevisionIdConfirmPostResponse = ConfirmEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsRecognitionRevisionIdConfirmPostResponses[keyof ConfirmEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRecognitionsRecognitionRevisionIdConfirmPostResponses];
 
 export type GetEssayMasteryApiV2EssayIntelligenceMasteryGetData = {
     body?: never;
@@ -16698,6 +21567,74 @@ export type RecordEssayRewriteAndCompletePlanTaskApiV2EssayIntelligenceRewritesC
 
 export type RecordEssayRewriteAndCompletePlanTaskApiV2EssayIntelligenceRewritesCompletePlanTaskPostResponse = RecordEssayRewriteAndCompletePlanTaskApiV2EssayIntelligenceRewritesCompletePlanTaskPostResponses[keyof RecordEssayRewriteAndCompletePlanTaskApiV2EssayIntelligenceRewritesCompletePlanTaskPostResponses];
 
+export type GetEssayRewriteComparisonApiV2EssayIntelligenceRewritesRewriteVersionIdComparisonGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Rewrite Version Id
+         */
+        rewrite_version_id: string;
+    };
+    query?: never;
+    url: '/api/v2/essay-intelligence/rewrites/{rewrite_version_id}/comparison';
+};
+
+export type GetEssayRewriteComparisonApiV2EssayIntelligenceRewritesRewriteVersionIdComparisonGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetEssayRewriteComparisonApiV2EssayIntelligenceRewritesRewriteVersionIdComparisonGetError = GetEssayRewriteComparisonApiV2EssayIntelligenceRewritesRewriteVersionIdComparisonGetErrors[keyof GetEssayRewriteComparisonApiV2EssayIntelligenceRewritesRewriteVersionIdComparisonGetErrors];
+
+export type GetEssayRewriteComparisonApiV2EssayIntelligenceRewritesRewriteVersionIdComparisonGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeEssayRewriteComparison;
+};
+
+export type GetEssayRewriteComparisonApiV2EssayIntelligenceRewritesRewriteVersionIdComparisonGetResponse = GetEssayRewriteComparisonApiV2EssayIntelligenceRewritesRewriteVersionIdComparisonGetResponses[keyof GetEssayRewriteComparisonApiV2EssayIntelligenceRewritesRewriteVersionIdComparisonGetResponses];
+
 export type GetCurrentTaskArtifactsApiV2EssayIntelligenceTasksTaskVersionIdArtifactsCurrentGetData = {
     body?: never;
     headers?: {
@@ -16967,6 +21904,78 @@ export type RecordEssayTransferAndCompletePlanTaskApiV2EssayIntelligenceTransfer
 };
 
 export type RecordEssayTransferAndCompletePlanTaskApiV2EssayIntelligenceTransfersCompletePlanTaskPostResponse = RecordEssayTransferAndCompletePlanTaskApiV2EssayIntelligenceTransfersCompletePlanTaskPostResponses[keyof RecordEssayTransferAndCompletePlanTaskApiV2EssayIntelligenceTransfersCompletePlanTaskPostResponses];
+
+export type ConfirmImportAiAnswerApiV2ExternalLearningAiAnswersAnswerVersionIdConfirmPostData = {
+    body: ConfirmImportAiAnswerCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Answer Version Id
+         */
+        answer_version_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/ai-answers/{answer_version_id}/confirm';
+};
+
+export type ConfirmImportAiAnswerApiV2ExternalLearningAiAnswersAnswerVersionIdConfirmPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ConfirmImportAiAnswerApiV2ExternalLearningAiAnswersAnswerVersionIdConfirmPostError = ConfirmImportAiAnswerApiV2ExternalLearningAiAnswersAnswerVersionIdConfirmPostErrors[keyof ConfirmImportAiAnswerApiV2ExternalLearningAiAnswersAnswerVersionIdConfirmPostErrors];
+
+export type ConfirmImportAiAnswerApiV2ExternalLearningAiAnswersAnswerVersionIdConfirmPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeExternalAiAnswerVersion;
+};
+
+export type ConfirmImportAiAnswerApiV2ExternalLearningAiAnswersAnswerVersionIdConfirmPostResponse = ConfirmImportAiAnswerApiV2ExternalLearningAiAnswersAnswerVersionIdConfirmPostResponses[keyof ConfirmImportAiAnswerApiV2ExternalLearningAiAnswersAnswerVersionIdConfirmPostResponses];
 
 export type CreateCandidateApiV2ExternalLearningAnswerIngestionsPostData = {
     body: CreateAnswerCandidateCommand;
@@ -17377,6 +22386,78 @@ export type GetImportApiV2ExternalLearningImportsImportIdGetResponses = {
 };
 
 export type GetImportApiV2ExternalLearningImportsImportIdGetResponse = GetImportApiV2ExternalLearningImportsImportIdGetResponses[keyof GetImportApiV2ExternalLearningImportsImportIdGetResponses];
+
+export type RequestImportAiAnswerApiV2ExternalLearningImportsImportIdAiAnswersPostData = {
+    body: RequestImportAiAnswerCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Import Id
+         */
+        import_id: string;
+    };
+    query?: never;
+    url: '/api/v2/external-learning/imports/{import_id}/ai-answers';
+};
+
+export type RequestImportAiAnswerApiV2ExternalLearningImportsImportIdAiAnswersPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RequestImportAiAnswerApiV2ExternalLearningImportsImportIdAiAnswersPostError = RequestImportAiAnswerApiV2ExternalLearningImportsImportIdAiAnswersPostErrors[keyof RequestImportAiAnswerApiV2ExternalLearningImportsImportIdAiAnswersPostErrors];
+
+export type RequestImportAiAnswerApiV2ExternalLearningImportsImportIdAiAnswersPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeExternalAiAnswerVersion;
+};
+
+export type RequestImportAiAnswerApiV2ExternalLearningImportsImportIdAiAnswersPostResponse = RequestImportAiAnswerApiV2ExternalLearningImportsImportIdAiAnswersPostResponses[keyof RequestImportAiAnswerApiV2ExternalLearningImportsImportIdAiAnswersPostResponses];
 
 export type ConfirmImportMatchApiV2ExternalLearningImportsImportIdMatchesContentMatchVersionIdConfirmPostData = {
     body: ConfirmImportMatchCommand;
@@ -18714,6 +23795,348 @@ export type CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePos
 
 export type CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePostResponse = CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePostResponses[keyof CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePostResponses];
 
+export type GetLearningBrainErrorPatternApiV2LearningBrainErrorPatternsPatternIdGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Pattern Id
+         */
+        pattern_id: string;
+    };
+    query?: never;
+    url: '/api/v2/learning-brain/error-patterns/{pattern_id}';
+};
+
+export type GetLearningBrainErrorPatternApiV2LearningBrainErrorPatternsPatternIdGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetLearningBrainErrorPatternApiV2LearningBrainErrorPatternsPatternIdGetError = GetLearningBrainErrorPatternApiV2LearningBrainErrorPatternsPatternIdGetErrors[keyof GetLearningBrainErrorPatternApiV2LearningBrainErrorPatternsPatternIdGetErrors];
+
+export type GetLearningBrainErrorPatternApiV2LearningBrainErrorPatternsPatternIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeErrorPatternDetail;
+};
+
+export type GetLearningBrainErrorPatternApiV2LearningBrainErrorPatternsPatternIdGetResponse = GetLearningBrainErrorPatternApiV2LearningBrainErrorPatternsPatternIdGetResponses[keyof GetLearningBrainErrorPatternApiV2LearningBrainErrorPatternsPatternIdGetResponses];
+
+export type GetLearningBrainModuleApiV2LearningBrainModulesTrackModuleKeyGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Track
+         */
+        track: 'xingce' | 'essay';
+        /**
+         * Module Key
+         */
+        module_key: string;
+    };
+    query?: never;
+    url: '/api/v2/learning-brain/modules/{track}/{module_key}';
+};
+
+export type GetLearningBrainModuleApiV2LearningBrainModulesTrackModuleKeyGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetLearningBrainModuleApiV2LearningBrainModulesTrackModuleKeyGetError = GetLearningBrainModuleApiV2LearningBrainModulesTrackModuleKeyGetErrors[keyof GetLearningBrainModuleApiV2LearningBrainModulesTrackModuleKeyGetErrors];
+
+export type GetLearningBrainModuleApiV2LearningBrainModulesTrackModuleKeyGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeModuleAbility;
+};
+
+export type GetLearningBrainModuleApiV2LearningBrainModulesTrackModuleKeyGetResponse = GetLearningBrainModuleApiV2LearningBrainModulesTrackModuleKeyGetResponses[keyof GetLearningBrainModuleApiV2LearningBrainModulesTrackModuleKeyGetResponses];
+
+export type GetLearningBrainProfileApiV2LearningBrainProfileGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/learning-brain/profile';
+};
+
+export type GetLearningBrainProfileApiV2LearningBrainProfileGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetLearningBrainProfileApiV2LearningBrainProfileGetError = GetLearningBrainProfileApiV2LearningBrainProfileGetErrors[keyof GetLearningBrainProfileApiV2LearningBrainProfileGetErrors];
+
+export type GetLearningBrainProfileApiV2LearningBrainProfileGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeLearningBrainProfileVersion;
+};
+
+export type GetLearningBrainProfileApiV2LearningBrainProfileGetResponse = GetLearningBrainProfileApiV2LearningBrainProfileGetResponses[keyof GetLearningBrainProfileApiV2LearningBrainProfileGetResponses];
+
+export type CreateLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesPostData = {
+    body: StrategyCandidateCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/learning-brain/strategy-candidates';
+};
+
+export type CreateLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type CreateLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesPostError = CreateLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesPostErrors[keyof CreateLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesPostErrors];
+
+export type CreateLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeStrategyCandidateResult;
+};
+
+export type CreateLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesPostResponse = CreateLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesPostResponses[keyof CreateLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesPostResponses];
+
+export type DecideLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesCandidateIdDecisionPostData = {
+    body: StrategyDecisionCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Candidate Id
+         */
+        candidate_id: string;
+    };
+    query?: never;
+    url: '/api/v2/learning-brain/strategy-candidates/{candidate_id}/decision';
+};
+
+export type DecideLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesCandidateIdDecisionPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type DecideLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesCandidateIdDecisionPostError = DecideLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesCandidateIdDecisionPostErrors[keyof DecideLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesCandidateIdDecisionPostErrors];
+
+export type DecideLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesCandidateIdDecisionPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeStrategyDecisionResult;
+};
+
+export type DecideLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesCandidateIdDecisionPostResponse = DecideLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesCandidateIdDecisionPostResponses[keyof DecideLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesCandidateIdDecisionPostResponses];
+
 export type StartLearningMediaUploadApiV2LearningMediaUploadsPostData = {
     body: StartLearningMediaUploadCommand;
     headers: {
@@ -18920,6 +24343,78 @@ export type CompleteLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdC
 };
 
 export type CompleteLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdCompletePostResponse = CompleteLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdCompletePostResponses[keyof CompleteLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdCompletePostResponses];
+
+export type RecordMockExamTrajectoryEventApiV2MockExamsSessionIdTrajectoryEventsPostData = {
+    body: MockExamTrajectoryEventCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Session Id
+         */
+        session_id: string;
+    };
+    query?: never;
+    url: '/api/v2/mock-exams/{session_id}/trajectory-events';
+};
+
+export type RecordMockExamTrajectoryEventApiV2MockExamsSessionIdTrajectoryEventsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RecordMockExamTrajectoryEventApiV2MockExamsSessionIdTrajectoryEventsPostError = RecordMockExamTrajectoryEventApiV2MockExamsSessionIdTrajectoryEventsPostErrors[keyof RecordMockExamTrajectoryEventApiV2MockExamsSessionIdTrajectoryEventsPostErrors];
+
+export type RecordMockExamTrajectoryEventApiV2MockExamsSessionIdTrajectoryEventsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeMockExamTrajectoryEventReceipt;
+};
+
+export type RecordMockExamTrajectoryEventApiV2MockExamsSessionIdTrajectoryEventsPostResponse = RecordMockExamTrajectoryEventApiV2MockExamsSessionIdTrajectoryEventsPostResponses[keyof RecordMockExamTrajectoryEventApiV2MockExamsSessionIdTrajectoryEventsPostResponses];
 
 export type AcknowledgeOnboardingResultApiV2OnboardingCompletePostData = {
     body: OnboardingResultAcknowledgement;
@@ -19311,6 +24806,69 @@ export type PutWeeklyStudyPreferenceApiV2OnboardingStudyPreferencePutResponses =
 
 export type PutWeeklyStudyPreferenceApiV2OnboardingStudyPreferencePutResponse = PutWeeklyStudyPreferenceApiV2OnboardingStudyPreferencePutResponses[keyof PutWeeklyStudyPreferenceApiV2OnboardingStudyPreferencePutResponses];
 
+export type GetPlanChangeHistoryApiV2PlansHistoryGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/plans/history';
+};
+
+export type GetPlanChangeHistoryApiV2PlansHistoryGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetPlanChangeHistoryApiV2PlansHistoryGetError = GetPlanChangeHistoryApiV2PlansHistoryGetErrors[keyof GetPlanChangeHistoryApiV2PlansHistoryGetErrors];
+
+export type GetPlanChangeHistoryApiV2PlansHistoryGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopePlanChangeHistory;
+};
+
+export type GetPlanChangeHistoryApiV2PlansHistoryGetResponse = GetPlanChangeHistoryApiV2PlansHistoryGetResponses[keyof GetPlanChangeHistoryApiV2PlansHistoryGetResponses];
+
 export type RecordTaskExecutionApiV2PlansTasksTaskIdExecutionPutData = {
     body: TaskExecutionCommand;
     headers: {
@@ -19446,6 +25004,69 @@ export type GetTodayPlanApiV2PlansTodayGetResponses = {
 
 export type GetTodayPlanApiV2PlansTodayGetResponse = GetTodayPlanApiV2PlansTodayGetResponses[keyof GetTodayPlanApiV2PlansTodayGetResponses];
 
+export type GetTodayPlanBasisApiV2PlansTodayBasisGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/plans/today/basis';
+};
+
+export type GetTodayPlanBasisApiV2PlansTodayBasisGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetTodayPlanBasisApiV2PlansTodayBasisGetError = GetTodayPlanBasisApiV2PlansTodayBasisGetErrors[keyof GetTodayPlanBasisApiV2PlansTodayBasisGetErrors];
+
+export type GetTodayPlanBasisApiV2PlansTodayBasisGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopePlanBasisView;
+};
+
+export type GetTodayPlanBasisApiV2PlansTodayBasisGetResponse = GetTodayPlanBasisApiV2PlansTodayBasisGetResponses[keyof GetTodayPlanBasisApiV2PlansTodayBasisGetResponses];
+
 export type SetTodayCapacityApiV2PlansTodayCapacityPutData = {
     body: DailyCapacityCommand;
     headers: {
@@ -19512,6 +25133,132 @@ export type SetTodayCapacityApiV2PlansTodayCapacityPutResponses = {
 };
 
 export type SetTodayCapacityApiV2PlansTodayCapacityPutResponse = SetTodayCapacityApiV2PlansTodayCapacityPutResponses[keyof SetTodayCapacityApiV2PlansTodayCapacityPutResponses];
+
+export type GetTodayPlanSettlementApiV2PlansTodaySettlementGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/plans/today/settlement';
+};
+
+export type GetTodayPlanSettlementApiV2PlansTodaySettlementGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetTodayPlanSettlementApiV2PlansTodaySettlementGetError = GetTodayPlanSettlementApiV2PlansTodaySettlementGetErrors[keyof GetTodayPlanSettlementApiV2PlansTodaySettlementGetErrors];
+
+export type GetTodayPlanSettlementApiV2PlansTodaySettlementGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeDailySettlementView;
+};
+
+export type GetTodayPlanSettlementApiV2PlansTodaySettlementGetResponse = GetTodayPlanSettlementApiV2PlansTodaySettlementGetResponses[keyof GetTodayPlanSettlementApiV2PlansTodaySettlementGetResponses];
+
+export type GetWeeklyPlanApiV2PlansWeekGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/plans/week';
+};
+
+export type GetWeeklyPlanApiV2PlansWeekGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetWeeklyPlanApiV2PlansWeekGetError = GetWeeklyPlanApiV2PlansWeekGetErrors[keyof GetWeeklyPlanApiV2PlansWeekGetErrors];
+
+export type GetWeeklyPlanApiV2PlansWeekGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeWeeklyPlanVersion;
+};
+
+export type GetWeeklyPlanApiV2PlansWeekGetResponse = GetWeeklyPlanApiV2PlansWeekGetResponses[keyof GetWeeklyPlanApiV2PlansWeekGetResponses];
 
 export type ConfirmPrimaryPositionGoalApiV2PositionGoalsPrimaryPutData = {
     body: PrimaryGoalConfirmRequest;
@@ -20423,6 +26170,560 @@ export type UpdateQualificationProfileApiV2QualificationProfilePutResponses = {
 
 export type UpdateQualificationProfileApiV2QualificationProfilePutResponse = UpdateQualificationProfileApiV2QualificationProfilePutResponses[keyof UpdateQualificationProfileApiV2QualificationProfilePutResponses];
 
+export type GetReportCenterApiV2ReportingCenterGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/reporting/center';
+};
+
+export type GetReportCenterApiV2ReportingCenterGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetReportCenterApiV2ReportingCenterGetError = GetReportCenterApiV2ReportingCenterGetErrors[keyof GetReportCenterApiV2ReportingCenterGetErrors];
+
+export type GetReportCenterApiV2ReportingCenterGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeReportCenterProjection;
+};
+
+export type GetReportCenterApiV2ReportingCenterGetResponse = GetReportCenterApiV2ReportingCenterGetResponses[keyof GetReportCenterApiV2ReportingCenterGetResponses];
+
+export type CreateExternalMockReportDraftApiV2ReportingExternalMocksPostData = {
+    body: ExternalMockReportDraftCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/reporting/external-mocks';
+};
+
+export type CreateExternalMockReportDraftApiV2ReportingExternalMocksPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type CreateExternalMockReportDraftApiV2ReportingExternalMocksPostError = CreateExternalMockReportDraftApiV2ReportingExternalMocksPostErrors[keyof CreateExternalMockReportDraftApiV2ReportingExternalMocksPostErrors];
+
+export type CreateExternalMockReportDraftApiV2ReportingExternalMocksPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeExternalMockReportProjection;
+};
+
+export type CreateExternalMockReportDraftApiV2ReportingExternalMocksPostResponse = CreateExternalMockReportDraftApiV2ReportingExternalMocksPostResponses[keyof CreateExternalMockReportDraftApiV2ReportingExternalMocksPostResponses];
+
+export type GetExternalMockReportApiV2ReportingExternalMocksReportVersionIdGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Report Version Id
+         */
+        report_version_id: string;
+    };
+    query?: never;
+    url: '/api/v2/reporting/external-mocks/{report_version_id}';
+};
+
+export type GetExternalMockReportApiV2ReportingExternalMocksReportVersionIdGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetExternalMockReportApiV2ReportingExternalMocksReportVersionIdGetError = GetExternalMockReportApiV2ReportingExternalMocksReportVersionIdGetErrors[keyof GetExternalMockReportApiV2ReportingExternalMocksReportVersionIdGetErrors];
+
+export type GetExternalMockReportApiV2ReportingExternalMocksReportVersionIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeExternalMockReportProjection;
+};
+
+export type GetExternalMockReportApiV2ReportingExternalMocksReportVersionIdGetResponse = GetExternalMockReportApiV2ReportingExternalMocksReportVersionIdGetResponses[keyof GetExternalMockReportApiV2ReportingExternalMocksReportVersionIdGetResponses];
+
+export type ConfirmExternalMockReportApiV2ReportingExternalMocksReportVersionIdConfirmPostData = {
+    body: ExternalMockReportConfirmCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Report Version Id
+         */
+        report_version_id: string;
+    };
+    query?: never;
+    url: '/api/v2/reporting/external-mocks/{report_version_id}/confirm';
+};
+
+export type ConfirmExternalMockReportApiV2ReportingExternalMocksReportVersionIdConfirmPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ConfirmExternalMockReportApiV2ReportingExternalMocksReportVersionIdConfirmPostError = ConfirmExternalMockReportApiV2ReportingExternalMocksReportVersionIdConfirmPostErrors[keyof ConfirmExternalMockReportApiV2ReportingExternalMocksReportVersionIdConfirmPostErrors];
+
+export type ConfirmExternalMockReportApiV2ReportingExternalMocksReportVersionIdConfirmPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeExternalMockReportProjection;
+};
+
+export type ConfirmExternalMockReportApiV2ReportingExternalMocksReportVersionIdConfirmPostResponse = ConfirmExternalMockReportApiV2ReportingExternalMocksReportVersionIdConfirmPostResponses[keyof ConfirmExternalMockReportApiV2ReportingExternalMocksReportVersionIdConfirmPostResponses];
+
+export type StartExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsPostData = {
+    body: ExternalScoreRecognitionStartCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/reporting/external-score-recognitions';
+};
+
+export type StartExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type StartExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsPostError = StartExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsPostErrors[keyof StartExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsPostErrors];
+
+export type StartExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeRecognitionRevision;
+};
+
+export type StartExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsPostResponse = StartExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsPostResponses[keyof StartExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsPostResponses];
+
+export type CorrectExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsRecognitionRevisionIdCandidatePutData = {
+    body: ExternalScoreRecognitionCorrectionCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Recognition Revision Id
+         */
+        recognition_revision_id: string;
+    };
+    query?: never;
+    url: '/api/v2/reporting/external-score-recognitions/{recognition_revision_id}/candidate';
+};
+
+export type CorrectExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsRecognitionRevisionIdCandidatePutErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type CorrectExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsRecognitionRevisionIdCandidatePutError = CorrectExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsRecognitionRevisionIdCandidatePutErrors[keyof CorrectExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsRecognitionRevisionIdCandidatePutErrors];
+
+export type CorrectExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsRecognitionRevisionIdCandidatePutResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeRecognitionRevision;
+};
+
+export type CorrectExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsRecognitionRevisionIdCandidatePutResponse = CorrectExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsRecognitionRevisionIdCandidatePutResponses[keyof CorrectExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsRecognitionRevisionIdCandidatePutResponses];
+
+export type ConfirmExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsRecognitionRevisionIdConfirmPostData = {
+    body: ExternalScoreRecognitionDecisionCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Recognition Revision Id
+         */
+        recognition_revision_id: string;
+    };
+    query?: never;
+    url: '/api/v2/reporting/external-score-recognitions/{recognition_revision_id}/confirm';
+};
+
+export type ConfirmExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsRecognitionRevisionIdConfirmPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ConfirmExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsRecognitionRevisionIdConfirmPostError = ConfirmExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsRecognitionRevisionIdConfirmPostErrors[keyof ConfirmExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsRecognitionRevisionIdConfirmPostErrors];
+
+export type ConfirmExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsRecognitionRevisionIdConfirmPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeRecognitionRevision;
+};
+
+export type ConfirmExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsRecognitionRevisionIdConfirmPostResponse = ConfirmExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsRecognitionRevisionIdConfirmPostResponses[keyof ConfirmExternalScoreRecognitionApiV2ReportingExternalScoreRecognitionsRecognitionRevisionIdConfirmPostResponses];
+
+export type GetReportProjectionApiV2ReportingReportsReportKindGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Report Kind
+         */
+        report_kind: 'single_set' | 'weekly' | 'mock' | 'position_gap' | 'global';
+    };
+    query?: {
+        /**
+         * Subjectref
+         */
+        subjectRef?: string;
+    };
+    url: '/api/v2/reporting/reports/{report_kind}';
+};
+
+export type GetReportProjectionApiV2ReportingReportsReportKindGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetReportProjectionApiV2ReportingReportsReportKindGetError = GetReportProjectionApiV2ReportingReportsReportKindGetErrors[keyof GetReportProjectionApiV2ReportingReportsReportKindGetErrors];
+
+export type GetReportProjectionApiV2ReportingReportsReportKindGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeReportProjection;
+};
+
+export type GetReportProjectionApiV2ReportingReportsReportKindGetResponse = GetReportProjectionApiV2ReportingReportsReportKindGetResponses[keyof GetReportProjectionApiV2ReportingReportsReportKindGetResponses];
+
 export type GetScoreEvidenceHistoryApiV2ScoreEvidenceGetData = {
     body?: never;
     headers?: {
@@ -21314,3 +27615,98 @@ export type HealthHealthGetResponses = {
 };
 
 export type HealthHealthGetResponse = HealthHealthGetResponses[keyof HealthHealthGetResponses];
+
+export type MetricsInternalMetricsGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/internal/metrics';
+};
+
+export type MetricsInternalMetricsGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type MetricsInternalMetricsGetError = MetricsInternalMetricsGetErrors[keyof MetricsInternalMetricsGetErrors];
+
+export type MetricsInternalMetricsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: string;
+};
+
+export type MetricsInternalMetricsGetResponse = MetricsInternalMetricsGetResponses[keyof MetricsInternalMetricsGetResponses];
+
+export type SupportCommerceOrderInternalSupportCommerceOrdersOutTradeNoGetData = {
+    body?: never;
+    headers: {
+        /**
+         * X-Support-Ticket
+         */
+        'X-Support-Ticket': string;
+        /**
+         * X-Support-Reason
+         */
+        'X-Support-Reason': string;
+        /**
+         * Authorization
+         */
+        authorization?: string | null;
+    };
+    path: {
+        /**
+         * Out Trade No
+         */
+        out_trade_no: string;
+    };
+    query?: never;
+    url: '/internal/support/commerce/orders/{out_trade_no}';
+};
+
+export type SupportCommerceOrderInternalSupportCommerceOrdersOutTradeNoGetErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type SupportCommerceOrderInternalSupportCommerceOrdersOutTradeNoGetError = SupportCommerceOrderInternalSupportCommerceOrdersOutTradeNoGetErrors[keyof SupportCommerceOrderInternalSupportCommerceOrdersOutTradeNoGetErrors];
+
+export type SupportCommerceOrderInternalSupportCommerceOrdersOutTradeNoGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: SupportOrderView;
+};
+
+export type SupportCommerceOrderInternalSupportCommerceOrdersOutTradeNoGetResponse = SupportCommerceOrderInternalSupportCommerceOrdersOutTradeNoGetResponses[keyof SupportCommerceOrderInternalSupportCommerceOrdersOutTradeNoGetResponses];
+
+export type ReadyReadyGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/ready';
+};
+
+export type ReadyReadyGetResponses = {
+    /**
+     * Response Ready Ready Get
+     *
+     * Successful Response
+     */
+    200: {
+        [key: string]: string;
+    };
+};
+
+export type ReadyReadyGetResponse = ReadyReadyGetResponses[keyof ReadyReadyGetResponses];

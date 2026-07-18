@@ -107,6 +107,7 @@ class EssayDraftingCompletionService:
             command_id=command_id,
             command=command,
             attempt_id=attempt.attempt_id,
+            recorded_at=recorded_at,
         )
         self._require_exact_bindings(
             command=command,
@@ -308,6 +309,7 @@ class EssayDraftingCompletionService:
         command_id: str,
         command: EssayDraftingCompletionCommand,
         attempt_id: UUID,
+        recorded_at: datetime,
     ) -> EssayAnswerVersion:
         answer_input = command.answer
         if isinstance(answer_input, EssayDraftingAnswerCreate):
@@ -318,6 +320,8 @@ class EssayDraftingCompletionService:
                 command=EssayAnswerCreateCommand(
                     attempt_id=attempt_id,
                     source_type=answer_input.source_type,
+                    source_artifact_version_id=answer_input.source_artifact_version_id,
+                    recognition_revision_id=answer_input.recognition_revision_id,
                     answer_text=answer_input.answer_text,
                     thinking=answer_input.thinking,
                     based_on_answer_version_id=(
@@ -326,6 +330,7 @@ class EssayDraftingCompletionService:
                         else None
                     ),
                 ),
+                now=recorded_at,
             ).answer
         row = self._workflow_repository.current_answer(
             session,

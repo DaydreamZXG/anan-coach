@@ -7,14 +7,17 @@
   syncLabel="{{view ? view.syncLabel : '连接服务端'}}"
   materialAvailable="{{view && view.materialAvailable}}"
   answerSheetAvailable="{{status === 'ready' && sessionState === 'answering'}}"
+  draftAvailable="{{status === 'ready' && sessionState === 'answering'}}"
+  timerPausable="{{status === 'ready' && sessionState === 'answering'}}"
+  timerPaused="{{taskPaused}}"
   toolsAvailable="{{status === 'ready' && sessionState === 'answering'}}"
-  focusToolAvailable="{{status === 'ready'}}"
   footerAvailable="{{status === 'ready' && sessionState === 'answering'}}"
   bindexit="exit"
   bindmaterial="toggleMaterial"
   bindanswersheet="toggleAnswerSheet"
+  binddraft="toggleDraft"
+  bindtimer="toggleTaskPause"
   bindtools="openTaskTools"
-  bindfocustool="openFocusTool"
 >
   <view wx:if="{{status === 'loading'}}" class="page-state">
     <state-view state="loading" title="正在恢复真实作答" description="题组与断点均以服务端版本为准。" />
@@ -40,73 +43,57 @@
     </view>
 
     <block wx:if="{{sessionState === 'answering'}}">
-      <material-reader
-        wx:if="{{view.question.material}}"
-        title="{{view.question.material.title || '本题材料'}}"
-        blocks="{{view.question.material.content}}"
-        anchors="{{view.question.material.anchors}}"
-        state="{{materialReaderState}}"
-        bindstatechange="updateMaterialReader"
-      />
-
-      <view class="question-hero">
-        <view class="question-meta-row">
-          <view class="module-pill">{{view.question.moduleName}}</view>
-          <view class="position-label">{{view.question.positionLabel}}</view>
-        </view>
-        <content-renderer
-          class="question-stem question-rich-content"
-          style="--color-ink: #fff; --color-muted: rgba(255, 255, 255, 0.76);"
-          blocks="{{view.question.stemContent}}"
-          zoom="{{1}}"
-          preferences="{{displayPreferences}}"
-        />
-      </view>
-
-      <view class="option-list {{interactionLocked ? 'option-list--locked' : ''}}">
-        <view
-          wx:for="{{view.question.options}}"
-          wx:key="optionId"
-          class="option-card {{item.selected ? 'option-card--selected' : ''}} {{item.eliminated ? 'option-card--eliminated' : ''}}"
-          data-optionid="{{item.optionId}}"
-          bindtap="selectOption"
-        >
-          <view class="option-label">{{item.label}}</view>
-          <content-renderer
-            class="option-copy option-rich-content"
-            blocks="{{item.content}}"
-            zoom="{{1}}"
-            preferences="{{displayPreferences}}"
+      <view class="practice-workspace {{view.question.material ? 'practice-workspace--with-material' : 'practice-workspace--single'}}">
+        <view wx:if="{{view.question.material}}" class="material-reader-shell">
+          <material-reader
+            title="{{view.question.material.title || '本题材料'}}"
+            blocks="{{view.question.material.content}}"
+            anchors="{{view.question.material.anchors}}"
+            state="{{materialReaderState}}"
+            bindstatechange="updateMaterialReader"
           />
-          <button class="eliminate-action" data-optionid="{{item.optionId}}" catchtap="toggleEliminated">{{item.eliminated ? '撤销排除' : '排除'}}</button>
         </view>
-      </view>
 
-      <view class="thinking-card card">
-        <view class="thinking-head">
-          <view>
-            <view class="thinking-title">保留你的判断过程</view>
-            <view class="thinking-copy">草稿不会用于评分，但会和断点一起保存。</view>
+        <view class="practice-question-pane">
+          <view class="question-hero">
+            <view class="question-meta-row">
+              <view class="module-pill">{{view.question.moduleName}}</view>
+              <view class="position-label">{{view.question.positionLabel}}</view>
+            </view>
+            <content-renderer
+              class="question-stem question-rich-content"
+              style="--color-ink: #17211f; --color-muted: #354541;"
+              blocks="{{view.question.stemContent}}"
+              zoom="{{1}}"
+              preferences="{{displayPreferences}}"
+            />
           </view>
-          <button class="mark-action {{view.question.marked ? 'mark-action--active' : ''}}" bindtap="toggleMarked">{{view.question.marked ? '已标记' : '标记题目'}}</button>
-        </view>
-        <textarea class="draft-input" value="{{view.question.draftText}}" maxlength="4000" placeholder="写下公式、排除理由或仍不确定的点……" bindinput="inputDraft"></textarea>
-        <view class="confidence-row">
-          <view class="confidence-label">作答信心</view>
-          <button
-            wx:for="{{confidenceOptions}}"
-            wx:key="value"
-            class="confidence-chip {{view.question.confidence === item.value ? 'confidence-chip--active' : ''}}"
-            data-confidence="{{item.value}}"
-            bindtap="selectConfidence"
-          >{{item.label}}</button>
-        </view>
-      </view>
 
-      <view class="question-actions">
-        <button class="secondary-button" disabled="{{view.current === 1 || interactionLocked}}" bindtap="previousQuestion">上一题</button>
-        <button class="skip-button" disabled="{{interactionLocked}}" bindtap="skipQuestion">{{view.question.skipped ? '已明确跳过' : '这题先放弃'}}</button>
-        <button class="secondary-button" disabled="{{view.current === view.total || interactionLocked}}" bindtap="nextQuestion">下一题</button>
+          <view class="option-list {{interactionLocked ? 'option-list--locked' : ''}}">
+            <view
+              wx:for="{{view.question.options}}"
+              wx:key="optionId"
+              class="option-card {{item.selected ? 'option-card--selected' : ''}} {{item.eliminated ? 'option-card--eliminated' : ''}}"
+              hover-class="option--hover"
+              data-optionid="{{item.optionId}}"
+              bindtap="selectOption"
+            >
+              <view class="option-label">{{item.label}}</view>
+              <content-renderer
+                class="option-copy option-rich-content"
+                blocks="{{item.content}}"
+                zoom="{{1}}"
+                preferences="{{displayPreferences}}"
+              />
+              <button class="eliminate-action" hover-class="item--hover" data-optionid="{{item.optionId}}" catchtap="toggleEliminated">{{item.eliminated ? '撤销排除' : '排除'}}</button>
+            </view>
+          </view>
+
+          <view class="question-actions">
+            <button class="secondary-button question-action" hover-class="secondary-button--hover" disabled="{{view.current === 1 || interactionLocked}}" bindtap="previousQuestion">上一题</button>
+            <button class="skip-button question-action" hover-class="item--hover" disabled="{{interactionLocked}}" bindtap="skipQuestion">{{view.question.skipped ? '已明确跳过' : '这题先放弃'}}</button>
+          </view>
+        </view>
       </view>
 
       <view wx:if="{{answerSheetOpen}}" class="answer-sheet-mask" catchtap="toggleAnswerSheet">
@@ -130,12 +117,48 @@
           </view>
         </view>
       </view>
+
+      <view wx:if="{{draftOpen}}" class="answer-sheet-mask" catchtap="toggleDraft" catchtouchmove="noop">
+        <view class="answer-sheet draft-sheet" catchtap="noop">
+          <view class="sheet-handle"></view>
+          <view class="thinking-head">
+            <view>
+              <view class="thinking-title">草稿纸</view>
+              <view class="thinking-copy">当前第 {{view.current}} / {{view.total}} 题 · 随断点自动保存</view>
+            </view>
+            <button class="mark-action {{view.question.marked ? 'mark-action--active' : ''}}" bindtap="toggleMarked">{{view.question.marked ? '已标记' : '标记'}}</button>
+          </view>
+          <textarea class="draft-input draft-input--sheet" value="{{view.question.draftText}}" maxlength="4000" placeholder="写下公式、排除理由或仍不确定的点……" bindinput="inputDraft"></textarea>
+          <view class="confidence-row">
+            <view class="confidence-label">作答信心</view>
+            <button
+              wx:for="{{confidenceOptions}}"
+              wx:key="value"
+              class="confidence-chip {{view.question.confidence === item.value ? 'confidence-chip--active' : ''}}"
+              data-confidence="{{item.value}}"
+              bindtap="selectConfidence"
+            >{{item.label}}</button>
+          </view>
+          <button class="primary-button draft-sheet-action" bindtap="toggleDraft">收起草稿，继续作答</button>
+        </view>
+      </view>
+
+      <view wx:if="{{taskPaused}}" class="pause-mask" catchtouchmove="noop">
+        <view class="pause-card">
+          <view class="pause-play" aria-hidden="true"></view>
+          <view class="pause-title">训练已暂停</view>
+          <view class="pause-time type-data">{{view.elapsedLabel}}</view>
+          <view class="pause-copy">暂停期间不计入作答用时。材料位置、答案和草稿均已保留。</view>
+          <button class="primary-button" bindtap="toggleTaskPause">继续作答</button>
+          <button class="pause-exit" bindtap="exit">结束训练</button>
+        </view>
+      </view>
     </block>
 
     <view wx:else class="result-workspace">
       <view class="result-hero">
         <view class="result-eyebrow">服务端已按冻结事实合同评分</view>
-        <view class="result-score"><text>{{result.correctCount}}</text> / {{result.totalCount}}</view>
+        <view class="result-score"><text class="result-score__value">{{result.correctCount}}</text> / {{result.totalCount}}</view>
         <view class="result-title">{{result.headline}}</view>
         <view class="result-copy">{{result.summary}}</view>
       </view>
@@ -185,11 +208,11 @@
           <view class="result-answer">你的答案 {{item.selectedLabel}} · 正确答案 {{item.correctLabel}}</view>
         </view>
         <view class="result-facts">
-          <view>{{item.objectiveLabel}}</view>
-          <view>{{item.confidenceLabel}}</view>
-          <view>{{item.dispositionLabel}}</view>
+          <view class="result-fact">{{item.objectiveLabel}}</view>
+          <view class="result-fact">{{item.confidenceLabel}}</view>
+          <view class="result-fact">{{item.dispositionLabel}}</view>
         </view>
-        <view class="timing-fact {{item.timingExceeded ? 'timing-fact--exceeded' : ''}}">{{item.timingLabel}}<text wx:if="{{item.timingExceeded}}">·只记录用时，不自动判错</text></view>
+        <view class="timing-fact {{item.timingExceeded ? 'timing-fact--exceeded' : ''}}">{{item.timingLabel}}<text wx:if="{{item.timingExceeded}}" class="timing-fact__note">·只记录用时，不自动判错</text></view>
         <view class="explanation">{{item.explanation}}</view>
         <view class="explanation-source">{{item.explanationSource}}</view>
         <button class="result-dispute" data-questionid="{{item.questionId}}" bindtap="openResultDispute">这题有争议</button>
@@ -224,9 +247,9 @@
         <button class="task-tool-item {{displayPreferences.colorMode === 'eye_care' ? 'task-tool-item--active' : ''}}" bindtap="toggleDisplayEyeCare">护眼模式</button>
       </view>
       <view class="display-tool-row">
-        <button bindtap="decreaseDisplayFont">A−</button>
+        <button class="display-tool-button" bindtap="decreaseDisplayFont">A−</button>
         <view>字号 {{displayPreferences.fontScale * 100}}%</view>
-        <button bindtap="increaseDisplayFont">A＋</button>
+        <button class="display-tool-button" bindtap="increaseDisplayFont">A＋</button>
       </view>
       <view class="locked-tools">公式卡、完整解析和解题 AI 在提交前不可用；国考模式不提供计算器。</view>
     </view>
@@ -270,6 +293,6 @@
   </view>
 
   <view slot="footer" class="task-footer-actions" wx:if="{{status === 'ready' && sessionState === 'answering'}}">
-    <button class="primary-button submit-button" disabled="{{!canSubmit || interactionLocked}}" bindtap="submitAttempt">{{canSubmit ? '交卷并查看结果' : '还有题目未处理'}}</button>
+    <button class="primary-button submit-button" disabled="{{interactionLocked}}" bindtap="footerAction">{{view.current < view.total ? '下一题' : (canSubmit ? '交卷并查看结果' : '查看未完成题目')}}</button>
   </view>
 </task-shell>

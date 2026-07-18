@@ -232,25 +232,48 @@ class AuthRepository:
             ).mappings().first()
 
             if existing is None:
-                user_id = str(uuid4())
-                self._session.execute(
-                    text(
-                        """
-                        insert into learner.users (
-                          user_id,
-                          display_name,
-                          created_at,
-                          updated_at
-                        ) values (
-                          cast(:user_id as uuid),
-                          null,
-                          now(),
-                          now()
-                        )
-                        """
-                    ),
-                    {"user_id": user_id},
-                )
+                union_owner = None
+                if claims.union_id:
+                    union_owner = self._session.execute(
+                        text(
+                            """
+                            select u.user_id::text as user_id, u.display_name,
+                                   u.email, u.account_status
+                            from learner.wechat_identities wi
+                            join learner.users u on u.user_id = wi.user_id
+                            where wi.union_id = :union_id
+                            order by wi.last_login_at desc
+                            limit 1
+                            """
+                        ),
+                        {"union_id": claims.union_id},
+                    ).mappings().one_or_none()
+                if union_owner is not None:
+                    user_id = str(union_owner["user_id"])
+                    self._ensure_account_available(
+                        user_id=user_id,
+                        account_status=str(union_owner["account_status"]),
+                    )
+                else:
+                    user_id = str(uuid4())
+                    self._session.execute(
+                        text(
+                            """
+                            insert into learner.users (
+                              user_id,
+                              display_name,
+                              created_at,
+                              updated_at
+                            ) values (
+                              cast(:user_id as uuid),
+                              null,
+                              now(),
+                              now()
+                            )
+                            """
+                        ),
+                        {"user_id": user_id},
+                    )
                 self._session.execute(
                     text(
                         """
@@ -291,8 +314,10 @@ class AuthRepository:
                 return AuthenticatedUser(
                     user_id=user_id,
                     learner_key=user_id,
-                    display_name=None,
-                    email=None,
+                    display_name=(
+                        union_owner["display_name"] if union_owner is not None else None
+                    ),
+                    email=union_owner["email"] if union_owner is not None else None,
                 )
 
             user_id = str(existing["user_id"])

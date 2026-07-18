@@ -41,6 +41,22 @@ class EssayClosureRepository:
             {"user_id": user_id, "command_id": command_id},
         ).mappings().one_or_none()
 
+    def rewrite_by_id(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        rewrite_version_id: str,
+    ) -> RowMapping | None:
+        return session.execute(
+            text(
+                "select * from learning.essay_rewrite_versions "
+                "where user_id = cast(:user_id as uuid) "
+                "and rewrite_version_id = cast(:rewrite_id as uuid)"
+            ),
+            {"user_id": user_id, "rewrite_id": rewrite_version_id},
+        ).mappings().one_or_none()
+
     def rewrite_source(
         self,
         session: Session,

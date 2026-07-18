@@ -2,42 +2,101 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from app.domains.essay.schemas import AIQuotaState
+from app.domains.ai.governance.contracts import GlobalAskContext
 
 
 class CompanionBaseModel(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
 
-CompanionScenario = Literal["why_wrong", "how_to_learn", "should_skip_module"]
-
-
 class CompanionAskRequest(CompanionBaseModel):
-    scenario: CompanionScenario
     question_text: str = Field(alias="questionText", min_length=4, max_length=800)
-    node_id: str | None = Field(default=None, alias="nodeId")
+    context: GlobalAskContext
 
 
 class CompanionCitation(CompanionBaseModel):
-    kind: Literal[
-        "learner_memory",
-        "essay_learning",
-        "method_card",
-        "target_position",
-        "knowledge_map",
-    ]
+    kind: str = Field(min_length=1, max_length=80)
     title: str
-    source_id: str | None = Field(default=None, alias="sourceId")
+    source_id: str = Field(alias="sourceId")
+    version: str
+    anchor: str
     summary: str
 
 
+class CompanionAllowedAction(CompanionBaseModel):
+    kind: Literal[
+        "view_evidence",
+        "add_reflection",
+        "adjust_plan_preview",
+        "supply_information",
+        "open_training",
+        "open_position_workspace",
+        "refresh_context",
+    ]
+    label: str = Field(min_length=1, max_length=80)
+    target_ref: str | None = Field(default=None, alias="targetRef", max_length=1024)
+    requires_confirmation: bool = Field(alias="requiresConfirmation")
+
+
+class CompanionHighImpactDecision(CompanionBaseModel):
+    decision_type: Literal["position_explanation", "strategic_deprioritization"] = Field(
+        alias="decisionType"
+    )
+    status: Literal["explain_only", "evidence_insufficient"]
+    evidence_refs: list[str] = Field(alias="evidenceRefs", max_length=20)
+    requires_confirmation: Literal[True] = Field(
+        default=True, alias="requiresConfirmation"
+    )
+    prohibited_mutations: list[Literal["qualification", "primary_goal", "strategy"]] = Field(
+        alias="prohibitedMutations", min_length=1
+    )
+
+    @model_validator(mode="after")
+    def explained_decision_has_evidence(self) -> "CompanionHighImpactDecision":
+        if self.status == "explain_only" and not self.evidence_refs:
+            raise ValueError("an explain-only high-impact decision requires evidence")
+        return self
+
+
 class CompanionAskResponse(CompanionBaseModel):
-    scenario: CompanionScenario
+    answer_id: str = Field(alias="answerId")
+    semantic_state: Literal[
+        "ready",
+        "evidence_insufficient",
+        "permission_denied",
+        "security_blocked",
+        "quota_exhausted",
+        "provider_pending",
+        "failed",
+    ] = Field(alias="semanticState")
+    scenario_key: str = Field(alias="scenarioKey")
+    responding_agent: Literal["position", "tutor", "planner"] = Field(
+        alias="respondingAgent"
+    )
+    answer_type: str = Field(alias="answerType")
+    policy_decision: str = Field(alias="policyDecision")
+    companion_intent: Literal[
+        "companion",
+        "thinking",
+        "reminder",
+        "encouragement",
+        "rest",
+        "deprioritize",
+    ] = Field(alias="companionIntent")
     answer: str
     citations: list[CompanionCitation]
-    next_actions: list[str] = Field(alias="nextActions")
+    confidence: Literal["low", "medium", "high"]
+    limitations: list[str] = Field(max_length=8)
+    knowledge_freshness: str = Field(alias="knowledgeFreshness")
+    allowed_actions: list[CompanionAllowedAction] = Field(
+        alias="allowedActions", max_length=3
+    )
+    high_impact_decision: CompanionHighImpactDecision | None = Field(
+        default=None, alias="highImpactDecision"
+    )
     quota: AIQuotaState
 
 

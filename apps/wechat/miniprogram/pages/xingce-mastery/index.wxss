@@ -1,36 +1,23 @@
 .mastery-page {
-  padding-bottom: 88rpx;
+  padding-bottom: calc(88rpx + env(safe-area-inset-bottom));
 }
 
-.mastery-page state-view {
+.mastery-state-view {
   display: block;
   margin-top: 30rpx;
 }
 
 .mastery-hero {
-  position: relative;
-  overflow: hidden;
-  padding: 38rpx 34rpx;
-  border-radius: 34rpx;
-  background: linear-gradient(142deg, #17235d 0%, #354dc1 68%, #6352b5 116%);
-  box-shadow: 0 22rpx 54rpx rgba(35, 48, 122, 0.22);
-  color: #fff;
+  padding: 10rpx 0 8rpx;
+  color: var(--color-ink);
 }
 
 .mastery-hero::after {
-  position: absolute;
-  top: -94rpx;
-  right: -64rpx;
-  width: 248rpx;
-  height: 248rpx;
-  border: 1rpx solid rgba(117, 244, 225, 0.25);
-  border-radius: 50%;
-  background: rgba(117, 244, 225, 0.05);
-  content: "";
+  display: none;
 }
 
 .hero-eyebrow {
-  color: #b9fff6;
+  color: var(--color-primary);
   font-size: 20rpx;
   font-weight: 780;
   letter-spacing: 2rpx;
@@ -38,21 +25,21 @@
 
 .hero-title {
   margin-top: 14rpx;
-  font-size: 42rpx;
+  font-size: 52rpx;
   font-weight: 860;
 }
 
 .hero-copy {
   max-width: 560rpx;
   margin-top: 14rpx;
-  color: rgba(255, 255, 255, 0.76);
-  font-size: 23rpx;
+  color: var(--color-ink-secondary);
+  font-size: 25rpx;
   line-height: 1.7;
 }
 
 .hero-updated {
   margin-top: 20rpx;
-  color: rgba(255, 255, 255, 0.56);
+  color: var(--color-muted);
   font-size: 19rpx;
 }
 
@@ -95,7 +82,7 @@
   margin-top: 26rpx;
 }
 
-.account-gate ui-button {
+.mastery-state-action {
   display: block;
   margin-top: 18rpx;
 }
@@ -153,7 +140,7 @@
   border: 1rpx solid var(--color-line);
   border-radius: 26rpx;
   background: var(--color-surface);
-  box-shadow: 0 12rpx 34rpx rgba(45, 52, 94, 0.06);
+  box-shadow: 0 12rpx 34rpx rgba(32, 67, 58, 0.06);
 }
 
 .mastery-card--invalidated {

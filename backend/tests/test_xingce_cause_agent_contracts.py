@@ -31,7 +31,7 @@ def test_cause_agent_definition_freezes_tools_and_budgets() -> None:
         "maxConsecutiveNoProgress": 2,
     }
     assert len(CAUSE_AGENT_DEFINITION.fingerprint) == 64
-    assert ENTITLEMENT_POLICY_VERSION == "included-with-canonical-practice@v1"
+    assert ENTITLEMENT_POLICY_VERSION == "metered-model-round@v1"
 
 
 def test_grounded_candidate_must_use_published_taxonomy_and_evidence() -> None:

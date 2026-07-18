@@ -59,7 +59,7 @@
   margin-top: 18rpx;
 }
 
-.balance-grid view {
+.balance-item {
   display: flex;
   flex-direction: column;
   gap: 6rpx;
@@ -68,12 +68,12 @@
   background: rgba(255, 255, 255, 0.72);
 }
 
-.balance-grid text {
+.balance-item__label {
   color: var(--color-muted);
   font-size: 18rpx;
 }
 
-.balance-grid strong {
+.balance-item__value {
   color: var(--color-success);
   font-family: var(--font-family-data);
   font-size: 26rpx;

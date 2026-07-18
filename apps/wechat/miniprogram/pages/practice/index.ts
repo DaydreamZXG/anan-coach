@@ -87,6 +87,8 @@ interface PracticePageData {
   disputeReceipt: string;
   disputeCategories: Array<{ value: XingceQuestionDisputeCategory; label: string }>;
   answerSheetOpen: boolean;
+  draftOpen: boolean;
+  taskPaused: boolean;
   interactionLocked: boolean;
   canSubmit: boolean;
   hasPendingCheckpoint: boolean;
@@ -121,6 +123,8 @@ interface PracticePageCustom {
   decreaseDisplayFont(): void;
   toggleDisplayEyeCare(): void;
   toggleAnswerSheet(): void;
+  toggleDraft(): void;
+  toggleTaskPause(): void;
   selectQuestion(event: WechatMiniprogram.BaseEvent): void;
   selectOption(event: WechatMiniprogram.BaseEvent): void;
   toggleEliminated(event: WechatMiniprogram.BaseEvent): void;
@@ -130,6 +134,7 @@ interface PracticePageCustom {
   inputDraft(event: WechatMiniprogram.Input): void;
   previousQuestion(): void;
   nextQuestion(): void;
+  footerAction(): void;
   submitAttempt(): Promise<void>;
   openReflection(): void;
   returnToday(): void;
@@ -176,6 +181,8 @@ Page<PracticePageData, PracticePageCustom>({
       { value: "other", label: "其他" },
     ],
     answerSheetOpen: false,
+    draftOpen: false,
+    taskPaused: false,
     interactionLocked: false,
     canSubmit: false,
     hasPendingCheckpoint: false,
@@ -383,7 +390,13 @@ Page<PracticePageData, PracticePageCustom>({
   openTaskTools() {
     const runtime = runtimes.get(this);
     if (!runtime?.session || runtime.session.state !== "answering") return;
-    this.setData({ toolsOpen: true, helpOpen: false, disputeOpen: false });
+    this.setData({
+      toolsOpen: true,
+      helpOpen: false,
+      disputeOpen: false,
+      draftOpen: false,
+      answerSheetOpen: false,
+    });
   },
 
   openFocusTool() {
@@ -391,7 +404,7 @@ Page<PracticePageData, PracticePageCustom>({
   },
 
   closeTaskOverlay() {
-    this.setData({ toolsOpen: false, helpOpen: false, disputeOpen: false });
+    this.setData({ toolsOpen: false, helpOpen: false, disputeOpen: false, draftOpen: false });
   },
 
   openTaskHelp() {
@@ -523,7 +536,59 @@ Page<PracticePageData, PracticePageCustom>({
   },
 
   toggleAnswerSheet() {
-    this.setData({ answerSheetOpen: !this.data.answerSheetOpen });
+    this.setData({
+      answerSheetOpen: !this.data.answerSheetOpen,
+      draftOpen: false,
+      toolsOpen: false,
+      helpOpen: false,
+      disputeOpen: false,
+    });
+  },
+
+  toggleDraft() {
+    const runtime = runtimes.get(this);
+    if (!runtime?.session || runtime.session.state !== "answering") return;
+    this.setData({
+      draftOpen: !this.data.draftOpen,
+      answerSheetOpen: false,
+      toolsOpen: false,
+      helpOpen: false,
+      disputeOpen: false,
+    });
+  },
+
+  toggleTaskPause() {
+    const runtime = runtimes.get(this);
+    if (!runtime?.task || runtime.task.phase !== "answering") return;
+    const taskPaused = !this.data.taskPaused;
+    this.setData({
+      taskPaused,
+      answerSheetOpen: false,
+      draftOpen: false,
+      toolsOpen: false,
+      helpOpen: false,
+      disputeOpen: false,
+    });
+    if (taskPaused) {
+      stopTimer(runtime);
+      void autosaveCheckpoint(this, runtime);
+    } else {
+      startTimer(this, runtime);
+    }
+  },
+
+  footerAction() {
+    const view = this.data.view;
+    if (!view || this.data.interactionLocked) return;
+    if (view.current < view.total) {
+      this.nextQuestion();
+      return;
+    }
+    if (this.data.canSubmit) {
+      void this.submitAttempt();
+      return;
+    }
+    this.toggleAnswerSheet();
   },
 
   selectQuestion(event) {
@@ -944,7 +1009,7 @@ function startTimer(
   runtime: NonNullable<ReturnType<typeof runtimes.get>>,
 ): void {
   stopTimer(runtime);
-  if (!runtime.visible) return;
+  if (!runtime.visible || page.data.taskPaused) return;
   runtime.timerHandle = setInterval(() => {
     if (
       !runtimes.owns(page, runtime) ||

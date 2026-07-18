@@ -121,6 +121,15 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in stage15_runtime._STATEMENTS:
             conn.execute(text(statement))
+        conn.execute(
+            text(
+                "alter table learning.essay_answer_versions "
+                "add constraint essay_answer_recognition_evidence_fk "
+                "foreign key (recognition_revision_id, user_id, source_artifact_version_id) "
+                "references learning.recognition_revisions("
+                "recognition_revision_id, owner_user_id, artifact_version_id)"
+            )
+        )
         stage2 = import_module(
             "migrations.versions.20260715_22_stage2_task_content_runtime"
         )
@@ -167,6 +176,36 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in community_production._STATEMENTS:
             conn.execute(text(statement))
+        learning_brain = import_module(
+            "migrations.versions.20260716_31_learning_brain_planning"
+        )
+        for statement in learning_brain._STATEMENTS:
+            conn.execute(text(statement))
+        stage6_reporting = import_module(
+            "migrations.versions.20260716_33_stage6_mock_reporting"
+        )
+        for statement in stage6_reporting._STATEMENTS:
+            conn.execute(text(statement))
+        ai_governance = import_module(
+            "migrations.versions.20260716_34_ai_governance"
+        )
+        for statement in ai_governance._STATEMENTS:
+            conn.execute(text(statement))
+        stage8 = import_module(
+            "migrations.versions.20260717_35_commerce_privacy_operations"
+        )
+        for statement in stage8._STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
+        virtual_payment = import_module(
+            "migrations.versions.20260717_36_wechat_virtual_payment"
+        )
+        for statement in virtual_payment._STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
+        stage15_completion = import_module(
+            "migrations.versions.20260718_37_stage15_completion"
+        )
+        for statement in stage15_completion._TEST_STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
 
 
 def _split_postgres_statements(script: str) -> list[str]:
@@ -253,3 +292,4 @@ def _drop_test_schema(engine: Engine) -> None:
         conn.execute(text("drop schema if exists commerce cascade"))
         conn.execute(text("drop schema if exists platform cascade"))
         conn.execute(text("drop schema if exists learning cascade"))
+        conn.execute(text("drop schema if exists privacy cascade"))

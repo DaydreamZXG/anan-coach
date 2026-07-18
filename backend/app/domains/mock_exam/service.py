@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import UTC, datetime, timedelta
 from hashlib import sha256
 import json
+from math import sqrt
 from typing import Any
 from uuid import uuid4
 
@@ -20,11 +21,14 @@ from app.domains.mock_exam.schemas import (
     MockExamCheckpointRequest,
     MockExamModuleBlueprint,
     MockExamModuleReview,
+    MockExamPerformanceRange,
     MockExamReview,
     MockExamSession,
     MockExamSubmitRequest,
     MockExamSubmitResponse,
     MockExamWrongCluster,
+    MockExamTrajectoryEventCommand,
+    MockExamTrajectoryEventReceipt,
 )
 from app.domains.progression.service import ProgressionService
 from app.domains.task_content.schemas import SafeQuestionBundle
@@ -41,7 +45,7 @@ from app.domains.xingce_learning.real_attempt.schemas import (
 
 WEEKLY_MOCK_TASK_ID = "weekly-guokao-mock-exam"
 MOCK_DURATION_MINUTES = 120
-MOCK_SCORING_POLICY_VERSION = "mock-objective-exact-v1"
+MOCK_SCORING_POLICY_VERSION = "mock-balanced-performance-index-v1"
 GUOKAO_MOCK_BLUEPRINT: list[tuple[str, int]] = [
     ("常识判断", 20),
     ("言语理解与表达", 40),
@@ -112,6 +116,37 @@ class MockExamService:
             )
         bundle, scoring_snapshot = self._freeze_questions(question_ids)
         started_at = datetime.now(UTC)
+        paper_fingerprint = _hash(
+            {
+                "bundleVersionId": bundle.bundle_version_id,
+                "questionIds": question_ids,
+                "blueprint": blueprint_payload,
+                "durationMinutes": MOCK_DURATION_MINUTES,
+                "scoringPolicyVersionId": MOCK_SCORING_POLICY_VERSION,
+            }
+        )
+        paper_version_id = self._repository.get_or_create_paper_version(
+            paper_key=f"weekly-guokao:{paper_fingerprint[:24]}",
+            title="国考行测 135 题整卷模考",
+            duration_minutes=MOCK_DURATION_MINUTES,
+            question_ids=question_ids,
+            blueprint=blueprint_payload,
+            learner_bundle_version_id=bundle.bundle_version_id,
+            scoring_policy_version_id=MOCK_SCORING_POLICY_VERSION,
+            exposure_policy={
+                "policyVersion": "mock-exposure@v1",
+                "lookbackDays": 60,
+                "excludeRecentPractice": True,
+                "excludeRecentMock": True,
+            },
+            equivalence_metadata={
+                "status": "structural_index",
+                "blueprintVersion": "guokao-xingce-135@v1",
+                "officialScoreComparable": False,
+            },
+            content_fingerprint=paper_fingerprint,
+            published_at=started_at,
+        )
         checkpoint = {
             "currentQuestionId": bundle.questions[0].question_id,
             "answers": [],
@@ -123,6 +158,8 @@ class MockExamService:
             checkpoint=checkpoint,
             learner_bundle=bundle.model_dump(by_alias=True, mode="json"),
             scoring_snapshot=scoring_snapshot,
+            paper_version_id=paper_version_id,
+            scoring_policy_version_id=MOCK_SCORING_POLICY_VERSION,
             started_at=started_at,
             deadline_at=started_at + timedelta(minutes=MOCK_DURATION_MINUTES),
         )
@@ -281,9 +318,11 @@ class MockExamService:
         )
         if not submitted:
             raise MockExamSubmissionError("Mock exam revision changed before submit")
-        self._progression_service.record_mock_exam(
+        submitted_at = datetime.now(UTC)
+        self._record_submitted_trajectory(
             user_id=user_id,
-            estimated_score=review.estimated_score,
+            record=mock_session,
+            submitted_at=submitted_at,
         )
         response = MockExamSubmitResponse(
             session_id=session_id,
@@ -302,6 +341,105 @@ class MockExamService:
             )
         self._repository.commit()
         return response
+
+    def record_trajectory_event(
+        self,
+        *,
+        user_id: str,
+        session_id: str,
+        command_id: str,
+        command: MockExamTrajectoryEventCommand,
+        now: datetime | None = None,
+    ) -> MockExamTrajectoryEventReceipt:
+        timestamp = (now or datetime.now(UTC)).astimezone(UTC)
+        request_fingerprint = _hash(
+            {
+                "sessionId": session_id,
+                "event": command.model_dump(by_alias=True, mode="json"),
+            }
+        )
+        self._repository.lock_user(user_id=user_id)
+        existing = self._repository.trajectory_event_by_command(
+            user_id=user_id, command_id=command_id
+        )
+        if existing is not None:
+            if existing["request_fingerprint"] != request_fingerprint:
+                raise MockExamCheckpointError("Trajectory command ID was reused")
+            return MockExamTrajectoryEventReceipt(
+                trajectoryEventId=str(existing["trajectory_event_id"]),
+                sessionId=str(existing["session_id"]),
+                eventSeq=int(existing["event_seq"]),
+                eventType=str(existing["event_type"]),
+                acceptedAt=existing["created_at"],
+            )
+        record = self._required_session(user_id=user_id, session_id=session_id)
+        if record.status != "assigned":
+            raise MockExamCheckpointError(
+                "Only an assigned mock exam accepts trajectory events"
+            )
+        if command.session_revision > record.revision:
+            raise MockExamCheckpointError("Trajectory session revision is ahead of server state")
+        if command.client_occurred_at.astimezone(UTC) > timestamp:
+            raise MockExamCheckpointError("Trajectory event cannot occur in the future")
+        if command.question_id is not None and command.question_id not in record.question_ids:
+            raise MockExamCheckpointError("Trajectory question is outside assigned paper")
+        trajectory_event_id = str(uuid4())
+        self._repository.record_trajectory_event(
+            trajectory_event_id=trajectory_event_id,
+            command_id=command_id,
+            user_id=user_id,
+            session_id=session_id,
+            event_seq=command.event_seq,
+            event_type=command.event_type,
+            question_id=command.question_id,
+            client_occurred_at=command.client_occurred_at.astimezone(UTC),
+            session_revision=command.session_revision,
+            payload=command.payload,
+            request_fingerprint=request_fingerprint,
+            created_at=timestamp,
+        )
+        self._repository.commit()
+        return MockExamTrajectoryEventReceipt(
+            trajectoryEventId=trajectory_event_id,
+            sessionId=session_id,
+            eventSeq=command.event_seq,
+            eventType=command.event_type,
+            acceptedAt=timestamp,
+        )
+
+    def _record_submitted_trajectory(
+        self,
+        *,
+        user_id: str,
+        record: MockExamSessionRecord,
+        submitted_at: datetime,
+    ) -> None:
+        command_id = f"mock-submit:{record.session_id}:{record.revision}"
+        if self._repository.trajectory_event_by_command(
+            user_id=user_id, command_id=command_id
+        ) is not None:
+            return
+        payload = {
+            "paperVersionId": record.paper_version_id,
+            "scoringPolicyVersionId": record.scoring_policy_version_id,
+            "answerCount": len(record.question_ids),
+        }
+        self._repository.record_trajectory_event(
+            trajectory_event_id=str(uuid4()),
+            command_id=command_id,
+            user_id=user_id,
+            session_id=record.session_id,
+            event_seq=self._repository.next_trajectory_event_seq(
+                session_id=record.session_id
+            ),
+            event_type="submitted",
+            question_id=None,
+            client_occurred_at=submitted_at,
+            session_revision=record.revision + 1,
+            payload=payload,
+            request_fingerprint=_hash(payload),
+            created_at=submitted_at,
+        )
 
     def report_question_dispute(
         self,
@@ -445,6 +583,12 @@ class MockExamService:
             deadlineAt=record.deadline_at,
             checkpoint=checkpoint,
             bundleVersionId=bundle.bundle_version_id,
+            paperVersionId=record.paper_version_id,
+            scoringPolicyVersionId=record.scoring_policy_version_id,
+            scoreMetricName=record.score_metric_name,
+            scoreMetricUnit=record.score_metric_unit,
+            scoreMetricDefinition=record.score_metric_definition,
+            nextTrajectoryEventSeq=record.next_trajectory_event_seq,
             materials=bundle.materials,
             questions=bundle.questions,
             sourceGrounding=(
@@ -536,7 +680,17 @@ class MockExamService:
                     ),
                 )
             )
-        estimated_score = round(correct_count / len(assigned_questions) * 100, 1)
+        if record := self._repository.get_session(
+            session_id=session_id, user_id=user_id
+        ):
+            scoring_policy_version_id = record.scoring_policy_version_id
+            paper_version_id = record.paper_version_id
+            metric_definition = record.score_metric_definition
+        else:
+            raise MockExamSubmissionError("Mock paper version disappeared")
+        performance_index, performance_range = _balanced_performance_index(
+            modules
+        )
         wrong_clusters = [
             MockExamWrongCluster(
                 node_id=str(row["node_id"]),
@@ -552,8 +706,22 @@ class MockExamService:
         ]
         return MockExamReview(
             session_id=session_id,
-            estimated_score=estimated_score,
-            estimate_source="按本次 135 题正确率折算，未使用全国分位。",
+            estimated_score=performance_index,
+            estimate_source=(
+                "兼容字段：值为五模块平衡表现指数，"
+                "不是国考原始分，不使用全国分位。"
+            ),
+            performanceIndex=performance_index,
+            performanceRange=performance_range,
+            metricName="balanced_performance_index",
+            metricUnit="index_points",
+            metricDefinition=metric_definition,
+            intervalDefinition=(
+                "各模块使用 95% Wilson 二项区间后按模块权重合成；"
+                "只表达本卷答题样本不确定性，不是官方成绩区间。"
+            ),
+            paperVersionId=paper_version_id,
+            scoringPolicyVersionId=scoring_policy_version_id,
             submitted_at=datetime.now(UTC).isoformat(),
             viewed=False,
             modules=modules,
@@ -584,13 +752,51 @@ def _bundle_from_record(record: MockExamSessionRecord) -> SafeQuestionBundle:
     if (
         not scoring
         or scoring.get("bundleVersionId") != bundle.bundle_version_id
-        or scoring.get("scoringPolicyVersion") != MOCK_SCORING_POLICY_VERSION
+        or scoring.get("scoringPolicyVersion") != record.scoring_policy_version_id
         or not isinstance(scoring.get("questions"), list)
     ):
         raise MockExamUnavailableError(
             "Assigned session has no matching immutable scoring snapshot"
         )
     return bundle
+
+
+def _balanced_performance_index(
+    modules: list[MockExamModuleReview],
+) -> tuple[float, MockExamPerformanceRange]:
+    if {item.module_name for item in modules} != {
+        module_name for module_name, _ in GUOKAO_MOCK_BLUEPRINT
+    }:
+        raise MockExamSubmissionError(
+            "Balanced performance index requires every published module"
+        )
+    module_weight = 1 / len(GUOKAO_MOCK_BLUEPRINT)
+    recommended = sum(item.accuracy * module_weight for item in modules) * 100
+    bounds = [_wilson_interval(item.correct, item.total) for item in modules]
+    lower = sum(bound[0] * module_weight for bound in bounds) * 100
+    upper = sum(bound[1] * module_weight for bound in bounds) * 100
+    score = round(recommended, 1)
+    return score, MockExamPerformanceRange(
+        lower=round(lower, 1), recommended=score, upper=round(upper, 1)
+    )
+
+
+def _wilson_interval(correct: int, total: int) -> tuple[float, float]:
+    if total <= 0:
+        raise MockExamSubmissionError("Module interval requires at least one question")
+    z = 1.959963984540054
+    proportion = correct / total
+    denominator = 1 + z * z / total
+    center = (proportion + z * z / (2 * total)) / denominator
+    margin = (
+        z
+        * sqrt(
+            proportion * (1 - proportion) / total
+            + z * z / (4 * total * total)
+        )
+        / denominator
+    )
+    return max(0.0, center - margin), min(1.0, center + margin)
 
 
 def _checkpoint_receipt(record: MockExamSessionRecord) -> MockExamCheckpointReceipt:

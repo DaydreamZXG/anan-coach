@@ -63,6 +63,8 @@ describe("essay drafting workflow", () => {
     draft.sourceContextIndex = 1;
     draft.sourceType = "ocr_confirmed";
     draft.sourceTypeIndex = 1;
+    draft.sourceArtifactVersionId = "artifact-version-1";
+    draft.recognitionRevisionId = "essay-handwriting-revision-1";
     draft.elapsedMinutesText = "35";
     draft.reflectionCauseCodes = ["wrong_abstraction", "weak_structure"];
     draft.whatIWillChange = "先归并材料事实，再写上位概念。";
@@ -89,6 +91,8 @@ describe("essay drafting workflow", () => {
       answer: {
         mode: "create",
         sourceType: "ocr_confirmed",
+        sourceArtifactVersionId: "artifact-version-1",
+        recognitionRevisionId: "essay-handwriting-revision-1",
         answerText: draft.answerText,
         thinking: {
           userThought: draft.userThought,

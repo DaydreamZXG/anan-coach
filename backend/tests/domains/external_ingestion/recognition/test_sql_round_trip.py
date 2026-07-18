@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime, timedelta
+from decimal import Decimal
 from uuid import UUID, uuid4
 
 from sqlalchemy import text
@@ -113,6 +114,11 @@ def test_sql_repositories_preserve_immutable_recognition_and_match_lineage(
         route="ocr-primary",
         provider="vendor",
         providerRelease=SQLRoundTripProcessor.provider_release,
+        modelRelease="sql-ocr-model@v1",
+        promptVersion="recognition-processor-policy@v1",
+        priceVersion="ocr-price@v1",
+        billingUnit="image",
+        unitPriceCny="0.01",
         approvedKinds=(RecognitionKind.PRINTED_OCR,),
         approvedMimeTypes=("image/jpeg",),
         dataRegion="mainland_china",
@@ -147,6 +153,21 @@ def test_sql_repositories_preserve_immutable_recognition_and_match_lineage(
     assert recognition_repository.revision(
         recognition_revision_id=confirmed.recognition_revision_id
     ) == confirmed
+    cost = db_session.execute(
+        text(
+            "select scenario_key, operation, model, billing_unit, unit_count, "
+            "total_cost_cny, status from ai_audit.external_ai_operation_ledger "
+            "where operation_key = :operation_key"
+        ),
+        {"operation_key": f"recognition:{candidate.recognition_revision_id}"},
+    ).mappings().one()
+    assert cost["scenario_key"] == "recognition_printed_ocr"
+    assert cost["operation"] == "recognition_process"
+    assert cost["model"] == "sql-ocr-model@v1"
+    assert cost["billing_unit"] == "image"
+    assert cost["unit_count"] == 1
+    assert cost["total_cost_cny"] == Decimal("0.01")
+    assert cost["status"] == "succeeded"
 
     indexed = IndexedContent(
         contentVersionId="question-content-version-sql-1",
@@ -177,6 +198,7 @@ def test_sql_repositories_preserve_immutable_recognition_and_match_lineage(
     )
     match_candidate, evaluation = matching.evaluate(
         owner_user_id=owner,
+        question_unit_id="a" * 64,
         recognition=confirmed,
         query=MatchQuery(
             track="xingce",

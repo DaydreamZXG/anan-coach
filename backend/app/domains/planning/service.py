@@ -24,6 +24,7 @@ from app.domains.planning.engine import (
 )
 from app.domains.planning.lifecycle import require_executable_plan_task
 from app.domains.planning.repository import (
+    ActiveStrategyDecision,
     CapacitySnapshot,
     GoalAbilitySnapshot,
     PlanningContractError,
@@ -51,9 +52,17 @@ from app.platform.outbox import OutboxRepository
 
 
 PLAN_CONTRACT_VERSION = "daily-plan-v3"
-PLAN_ALGORITHM_VERSION = "dual-track-evidence-priority-v2"
+PLAN_ALGORITHM_VERSION = "dual-track-evidence-priority-v3"
 PLAN_BASIS = "evidence_priority_v2"
 SHANGHAI = ZoneInfo("Asia/Shanghai")
+STRATEGY_ADJUSTABLE_STAGES = {
+    "objective_practice",
+    "essay_material_reading",
+    "essay_point_extraction",
+    "essay_outlining",
+    "essay_drafting",
+}
+STRATEGY_PRIORITY_FACTOR = 0.35
 
 
 class PlanningService:
@@ -473,6 +482,11 @@ class PlanningService:
             essay=essay,
             available_minutes=remaining_minutes,
         )
+        strategy_decisions = self._repository.active_strategy_decisions(
+            session,
+            user_id=user_id,
+            now=generated_at,
+        )
         recent_minutes = self._repository.recent_track_minutes(
             session,
             user_id=user_id,
@@ -492,6 +506,9 @@ class PlanningService:
         )
         if mock_due:
             all_candidates.append(_mock_candidate(preference, remaining_minutes))
+        all_candidates, strategy_omissions, strategy_reason_codes = (
+            _apply_strategy_decisions(all_candidates, strategy_decisions)
+        )
         execution_by_work_item = {
             str(item["work_item_key"]): item for item in execution_inputs
         }
@@ -533,7 +550,10 @@ class PlanningService:
             recovery_day=recovery_day,
             selection=selection.tasks,
         )
-        omitted_track_reasons = dict(candidates.omitted_track_reasons)
+        omitted_track_reasons = {
+            **candidates.omitted_track_reasons,
+            **strategy_omissions,
+        }
         if mock_due and remaining_minutes < 120:
             omitted_track_reasons["mock"] = (
                 "周度标准卷需要连续 120 分钟；今日容量不足，保留正常双轨训练并等待重新安排模考时段。"
@@ -561,6 +581,21 @@ class PlanningService:
             )
             for item in execution_inputs
         )
+        plan_evidence.extend(
+            PlanningEvidenceRef(
+                owner="learning_brain",
+                entity_type="strategy_decision_version",
+                entity_id=item.decision_id,
+                version_id=item.decision_version_id,
+                role=item.decision_type,
+            )
+            for item in strategy_decisions
+        )
+        plan_evidence.extend(
+            PlanningEvidenceRef.model_validate(ref)
+            for item in strategy_decisions
+            for ref in item.evidence_refs
+        )
         plan_evidence = [
             PlanningEvidenceRef.model_validate(item)
             for item in _unique_refs(
@@ -580,6 +615,20 @@ class PlanningService:
                 ]
             }
         )
+        strategy_state = [
+            {
+                "decisionVersionId": item.decision_version_id,
+                "decisionType": item.decision_type,
+                "scopeType": item.scope_type,
+                "scopeKey": item.scope_key,
+                "effectiveFrom": item.effective_from.isoformat(),
+                "effectiveUntil": item.effective_until.isoformat(),
+                "reviewAt": item.review_at.isoformat(),
+                "inputFingerprint": item.input_fingerprint,
+            }
+            for item in strategy_decisions
+        ]
+        strategy_state_fingerprint = _fingerprint({"decisions": strategy_state})
         input_versions = {
             "profile": str(profile.profile_version),
             "weeklyPreference": preference.preference_version_id,
@@ -598,6 +647,7 @@ class PlanningService:
             "essayMaterialBundle": essay.material_bundle_version_id or "unavailable",
             "essayRubric": essay.rubric_version_id or "unavailable",
             "taskExecutionState": execution_state_fingerprint,
+            "strategyDecisions": strategy_state_fingerprint,
         }
         input_payload = {
             "algorithmVersion": PLAN_ALGORITHM_VERSION,
@@ -622,6 +672,7 @@ class PlanningService:
                 }
                 for item in execution_inputs
             ],
+            "strategyDecisions": strategy_state,
             "dayMode": day_mode,
         }
         input_fingerprint = _fingerprint(input_payload)
@@ -661,17 +712,20 @@ class PlanningService:
             "daily_capacity_changed",
             "essay_review_state_changed",
             "task_execution_recorded",
+            "strategy_decision_changed",
         ]
         valid_until = datetime.combine(day + timedelta(days=1), time.min, SHANGHAI).astimezone(
             UTC
         )
-        replan_codes = list(selection.explanation_codes)
+        replan_codes = [*selection.explanation_codes, *strategy_reason_codes]
         if previous is not None:
             previous_inputs = dict(previous["input_versions"])
             if previous_inputs.get("dailyCapacity") != capacity.capacity_version_id:
                 replan_codes.append("daily_capacity_changed")
             if previous_inputs.get("taskExecutionState") != execution_state_fingerprint:
                 replan_codes.append("task_execution_recorded")
+            if previous_inputs.get("strategyDecisions") != strategy_state_fingerprint:
+                replan_codes.append("strategy_decision_changed")
         if not preference.confirmed:
             replan_codes.append("weekly_preference_pending_confirmation")
         if not capacity.confirmed:
@@ -822,6 +876,115 @@ def _remaining_candidate(
         return candidate
     remaining = max(1, candidate.estimated_minutes - int(execution["elapsed_minutes"]))
     return replace(candidate, estimated_minutes=remaining)
+
+
+def _apply_strategy_decisions(
+    candidates: list[TaskCandidate],
+    decisions: list[ActiveStrategyDecision],
+) -> tuple[list[TaskCandidate], dict[str, str], list[str]]:
+    if not decisions:
+        return candidates, {}, []
+
+    adjusted: list[TaskCandidate] = []
+    removed_tracks: set[str] = set()
+    reason_codes: list[str] = []
+    for candidate in candidates:
+        matching = [
+            decision
+            for decision in decisions
+            if _strategy_matches_candidate(decision, candidate)
+        ]
+        if not matching:
+            adjusted.append(candidate)
+            continue
+
+        decision_refs = tuple(
+            {
+                "owner": "learning_brain",
+                "entityType": "strategy_decision_version",
+                "entityId": decision.decision_id,
+                "versionId": decision.decision_version_id,
+                "role": decision.decision_type,
+            }
+            for decision in matching
+        )
+        if candidate.stage not in STRATEGY_ADJUSTABLE_STAGES:
+            adjusted.append(candidate)
+            reason_codes.append("strategy_preserved_required_closure")
+            continue
+
+        if any(
+            decision.decision_type == "strategic_abandon" for decision in matching
+        ):
+            removed_tracks.add(candidate.track)
+            reason_codes.append("strategy_abandon_applied")
+            continue
+
+        phase_decisions = [
+            decision
+            for decision in matching
+            if decision.decision_type == "phase_deprioritize"
+        ]
+        if phase_decisions:
+            priority = candidate.priority
+            candidate = replace(
+                candidate,
+                reason=(
+                    f"{candidate.reason} 已确认对该范围阶段降权；"
+                    "保留证据收益，但让位于当前更高优先级闭环。"
+                ),
+                evidence_refs=tuple(
+                    _unique_refs([*candidate.evidence_refs, *decision_refs])
+                ),
+                priority=replace(
+                    priority,
+                    goal_gain=round(
+                        priority.goal_gain * STRATEGY_PRIORITY_FACTOR,
+                        4,
+                    ),
+                    ability_gain=round(
+                        priority.ability_gain * STRATEGY_PRIORITY_FACTOR,
+                        4,
+                    ),
+                ),
+            )
+            reason_codes.append("strategy_phase_deprioritize_applied")
+
+        if any(decision.decision_type == "exam_skip" for decision in matching):
+            candidate = replace(
+                candidate,
+                reason=(
+                    f"{candidate.reason} 已确认考场跳过策略；"
+                    "该策略只约束考场取舍，不自动删除学习证据或到期闭环。"
+                ),
+                evidence_refs=tuple(
+                    _unique_refs([*candidate.evidence_refs, *decision_refs])
+                ),
+            )
+            reason_codes.append("strategy_exam_skip_active")
+        adjusted.append(candidate)
+
+    omissions: dict[str, str] = {}
+    for track in removed_tracks:
+        if not any(candidate.track == track for candidate in adjusted):
+            omissions[track] = (
+                "该轨道当前唯一的新练习命中已确认的战略放弃范围；"
+                "到期复盘、验证和重写仍会按证据门禁保留。"
+            )
+    return adjusted, omissions, list(dict.fromkeys(reason_codes))
+
+
+def _strategy_matches_candidate(
+    decision: ActiveStrategyDecision,
+    candidate: TaskCandidate,
+) -> bool:
+    if decision.scope_type == "track":
+        return decision.scope_key == candidate.track
+    if decision.scope_type == "module":
+        return decision.scope_key in candidate.strategy_module_keys
+    if decision.scope_type == "question_type":
+        return decision.scope_key == candidate.strategy_question_type
+    return False
 
 
 def _capacity_from_row(row: RowMapping) -> CapacitySnapshot:

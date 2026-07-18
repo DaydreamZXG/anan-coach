@@ -29,6 +29,12 @@ class MockExamSession(MockExamBaseModel):
     deadline_at: datetime = Field(alias="deadlineAt")
     checkpoint: "MockExamCheckpoint"
     bundle_version_id: str = Field(alias="bundleVersionId", min_length=64, max_length=64)
+    paper_version_id: str = Field(alias="paperVersionId")
+    scoring_policy_version_id: str = Field(alias="scoringPolicyVersionId")
+    score_metric_name: str = Field(alias="scoreMetricName")
+    score_metric_unit: str = Field(alias="scoreMetricUnit")
+    score_metric_definition: str = Field(alias="scoreMetricDefinition")
+    next_trajectory_event_seq: int = Field(alias="nextTrajectoryEventSeq", ge=1)
     materials: list[SafeMaterial]
     questions: list[SafeQuestion]
     source_grounding: str = Field(alias="sourceGrounding")
@@ -132,6 +138,12 @@ class MockExamModuleReview(MockExamBaseModel):
     change_from_previous: float | None = Field(default=None, alias="changeFromPrevious")
 
 
+class MockExamPerformanceRange(MockExamBaseModel):
+    lower: float = Field(ge=0, le=100)
+    recommended: float = Field(ge=0, le=100)
+    upper: float = Field(ge=0, le=100)
+
+
 class MockExamWrongCluster(MockExamBaseModel):
     node_id: str = Field(alias="nodeId")
     display_path: str = Field(alias="displayPath")
@@ -144,6 +156,14 @@ class MockExamReview(MockExamBaseModel):
     session_id: str = Field(alias="sessionId")
     estimated_score: float = Field(alias="estimatedScore")
     estimate_source: str = Field(alias="estimateSource")
+    performance_index: float = Field(alias="performanceIndex", ge=0, le=100)
+    performance_range: MockExamPerformanceRange = Field(alias="performanceRange")
+    metric_name: Literal["balanced_performance_index"] = Field(alias="metricName")
+    metric_unit: Literal["index_points"] = Field(alias="metricUnit")
+    metric_definition: str = Field(alias="metricDefinition")
+    interval_definition: str = Field(alias="intervalDefinition")
+    paper_version_id: str = Field(alias="paperVersionId")
+    scoring_policy_version_id: str = Field(alias="scoringPolicyVersionId")
     submitted_at: str = Field(alias="submittedAt")
     viewed: bool
     modules: list[MockExamModuleReview]
@@ -155,3 +175,35 @@ class MockExamSubmitResponse(MockExamBaseModel):
     session_id: str = Field(alias="sessionId")
     status: Literal["submitted", "reviewed"]
     review: MockExamReview
+
+
+class MockExamTrajectoryEventCommand(MockExamBaseModel):
+    model_config = ConfigDict(populate_by_name=True, extra="forbid")
+
+    event_seq: int = Field(alias="eventSeq", ge=1)
+    event_type: Literal[
+        "visited", "answer_changed", "mark_changed", "skipped", "left", "resumed"
+    ] = Field(alias="eventType")
+    question_id: str | None = Field(default=None, alias="questionId", min_length=1, max_length=240)
+    client_occurred_at: datetime = Field(alias="clientOccurredAt")
+    session_revision: int = Field(alias="sessionRevision", ge=1)
+    payload: dict[str, str | int | float | bool | None] = Field(default_factory=dict)
+
+    @model_validator(mode="after")
+    def validate_question_scope(self) -> "MockExamTrajectoryEventCommand":
+        if self.event_type in {"visited", "answer_changed", "mark_changed", "skipped"}:
+            if self.question_id is None:
+                raise ValueError("question events require questionId")
+        elif self.question_id is not None:
+            raise ValueError("lifecycle events cannot bind questionId")
+        if self.client_occurred_at.tzinfo is None:
+            raise ValueError("clientOccurredAt must include timezone")
+        return self
+
+
+class MockExamTrajectoryEventReceipt(MockExamBaseModel):
+    trajectory_event_id: str = Field(alias="trajectoryEventId")
+    session_id: str = Field(alias="sessionId")
+    event_seq: int = Field(alias="eventSeq")
+    event_type: str = Field(alias="eventType")
+    accepted_at: datetime = Field(alias="acceptedAt")

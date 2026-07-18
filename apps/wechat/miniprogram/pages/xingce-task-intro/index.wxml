@@ -1,10 +1,11 @@
-<view class="page briefing-page">
+<view class="s9-page s9-page--with-dock briefing-page">
   <view wx:if="{{status === 'default' || status === 'loading'}}">
-    <state-view state="loading" title="正在读取任务说明" description="载入说明不会创建作答会话，也不会开始计时。" />
+    <state-view custom-class="briefing-state-view" state="loading" title="正在读取任务说明" description="载入说明不会创建作答会话，也不会开始计时。" />
   </view>
 
   <state-view
     wx:elif="{{status === 'error'}}"
+    custom-class="briefing-state-view"
     state="error"
     title="{{errorTitle}}"
     description="{{errorMessage}}"
@@ -14,68 +15,55 @@
   />
 
   <view wx:elif="{{status === 'expired'}}" class="expired-state">
-    <state-view state="error" title="{{errorTitle}}" description="{{errorMessage}}" request-id="{{requestId}}" />
-    <ui-button label="重新读取服务端说明" variant="secondary" bind:action="retry" />
-    <ui-button label="返回今日计划" bind:action="returnToday" />
+    <state-view custom-class="briefing-state-view" state="error" title="{{errorTitle}}" description="{{errorMessage}}" request-id="{{requestId}}" />
+    <ui-button custom-class="briefing-state-action" label="重新读取服务端说明" variant="secondary" bind:action="retry" />
+    <ui-button custom-class="briefing-state-action" label="返回今日计划" bind:action="returnToday" />
   </view>
 
   <view wx:elif="{{status === 'unavailable'}}" class="account-gate">
-    <state-view state="error" title="{{errorTitle}}" description="{{errorMessage}}" />
-    <ui-button wx:if="{{showLoginAction}}" label="重新登录" bind:action="goLogin" />
+    <state-view custom-class="briefing-state-view" state="error" title="{{errorTitle}}" description="{{errorMessage}}" />
+    <ui-button wx:if="{{showLoginAction}}" custom-class="briefing-state-action" label="重新登录" bind:action="goLogin" />
   </view>
 
   <block wx:else>
     <view wx:if="{{recovered}}" class="recovery-note">已恢复并读取当前服务端权威说明。</view>
-
-    <view class="briefing-hero">
-      <view class="hero-topline">
-        <view class="mode-pill">{{view.modeLabel}}</view>
-        <view class="scope-label">{{view.scopeLabel}}</view>
-      </view>
-      <view class="hero-title">{{view.title}}</view>
-      <view class="hero-reason">{{view.reason}}</view>
-      <view class="hero-metrics">
-        <view><text>{{view.questionCountLabel}}</text><small>固定题量</small></view>
-        <view><text>{{view.targetTimeLabel}}</text><small>建议时长</small></view>
-        <view><text>{{view.perQuestionTimeLabel}}</text><small>仅作参考</small></view>
+    <view class="s9-hero">
+      <view class="s9-title">这组题只验证一个问题</view>
+      <view class="s9-subtitle">先知道为什么做、做多长、完成后看什么，再进入训练。</view>
+      <view class="s9-chip-row">
+        <view class="s9-chip s9-chip--primary">{{view.scopeLabel}}</view>
+        <view class="s9-chip">{{view.targetTimeLabel}}</view>
       </view>
     </view>
 
-    <view wx:if="{{view.verificationStageLabel}}" class="verification-card briefing-card">
-      <view class="section-eyebrow">本次复测阶段</view>
-      <view class="section-title">{{view.verificationStageLabel}}</view>
-      <view class="section-copy">{{view.sourceMasteryLabel}}</view>
-    </view>
-
-    <view class="briefing-card">
-      <view class="section-eyebrow">本次验收证据</view>
-      <view class="section-title">不只看 3 题做对几题</view>
-      <view class="evidence-grid">
-        <view wx:for="{{view.evidenceItems}}" wx:key="code" class="evidence-chip">{{item.label}}</view>
+    <view class="s9-stack">
+      <view class="s9-card s9-card--primary">
+        <view class="s9-card-kicker">本次目标 · {{view.modeLabel}}</view>
+        <view class="s9-card-title">{{view.title}}</view>
+        <view class="s9-metric">{{view.questionCountLabel}}</view>
+        <view class="s9-card-copy">{{view.reason}}</view>
+        <view class="s9-card-meta">单题参考 {{view.perQuestionTimeLabel}} · {{view.validUntilLabel}}</view>
       </view>
-      <view class="section-copy">一次正确不会直接标记稳定掌握；仍需通过延时验证。</view>
-    </view>
 
-    <view class="briefing-card abandonment-card">
-      <view class="section-eyebrow">主动放弃的含义</view>
-      <view class="section-title">不会自动算成知识错误</view>
-      <view class="section-copy">只有你明确点击“放弃”才会记录。它会保留为时间或策略证据，但不会被岸岸擅自归因为不会。</view>
-    </view>
+      <view wx:if="{{view.verificationStageLabel}}" class="s9-card">
+        <view class="s9-card-kicker">本次复测阶段</view>
+        <view class="s9-card-title">{{view.verificationStageLabel}}</view>
+        <view class="s9-card-copy">{{view.sourceMasteryLabel}}</view>
+      </view>
 
-    <view class="timing-note">
-      <view class="timing-mark">计时</view>
-      <view>
-        <view class="timing-title">建议时长，不是强制倒计时</view>
-        <view class="timing-copy">超过单题参考时间会如实记录，但不会中断作答或自动交卷。</view>
+      <view class="s9-card">
+        <view class="s9-card-kicker">完成后</view>
+        <view class="s9-card-title">只复盘最有价值的题</view>
+        <view class="evidence-grid">
+          <view wx:for="{{view.evidenceItems}}" wx:key="code" class="evidence-chip">{{item.label}}</view>
+        </view>
+        <view class="s9-card-copy">一次正确不会直接标记稳定掌握；主动放弃也不会自动算成知识错误。</view>
+        <view class="s9-card-meta type-data">{{view.planVersionLabel}}</view>
       </view>
     </view>
 
-    <view class="version-note type-data">
-      <view>{{view.validUntilLabel}}</view>
-      <view>{{view.planVersionLabel}}</view>
+    <view class="s9-action-dock">
+      <button class="s9-primary-button" loading="{{starting}}" bindtap="startTask">开始专项训练</button>
     </view>
-
-    <ui-button label="开始任务" loading="{{starting}}" bind:action="startTask" />
-    <view class="start-boundary">点击后才进入真实作答并由服务端创建或恢复会话。</view>
   </block>
 </view>

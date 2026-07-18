@@ -32,7 +32,7 @@
       <view class="hero-eyebrow">复盘不是认错，是让岸岸真正认识你</view>
       <view class="hero-title">先保留你当时真实的判断</view>
       <view class="hero-copy">不会把一次答对直接算成掌握，岸岸也不会用猜测替代你的原话。</view>
-      <view wx:if="{{result}}" class="hero-score"><text>{{result.correctCount}}</text> / {{result.totalCount}} 题答对</view>
+      <view wx:if="{{result}}" class="hero-score"><text class="hero-score__value">{{result.correctCount}}</text> / {{result.totalCount}} 题答对</view>
     </view>
 
     <view wx:if="{{result && result.availability === 'legacy_result_unavailable'}}" class="legacy-result-notice card">
@@ -59,7 +59,7 @@
       <view class="voice-card card">
         <view class="voice-header">
           <view>
-            <view class="voice-title">补充语音复盘 <text>选填</text></view>
+            <view class="voice-title">补充语音复盘 <text class="voice-title__optional">选填</text></view>
             <view class="voice-copy">最多 3 段，单段最长 3 分钟，总计不超过 15MB。</view>
           </view>
           <view class="voice-count">{{voiceSummary.segmentCountLabel}}</view>
@@ -91,8 +91,8 @@
             </view>
             <view wx:if="{{item.failureMessage}}" class="voice-failure">{{item.failureMessage}}</view>
             <view class="voice-actions">
-              <button data-id="{{item.segmentId}}" disabled="{{interactionLocked || voiceBusy || !item.canOperate}}" bindtap="rerecordVoice">重录</button>
-              <button data-id="{{item.segmentId}}" disabled="{{interactionLocked || voiceBusy || !item.canOperate}}" bindtap="deleteVoice">删除</button>
+              <button class="voice-action-button" data-id="{{item.segmentId}}" disabled="{{interactionLocked || voiceBusy || !item.canOperate}}" bindtap="rerecordVoice">重录</button>
+              <button class="voice-action-button" data-id="{{item.segmentId}}" disabled="{{interactionLocked || voiceBusy || !item.canOperate}}" bindtap="deleteVoice">删除</button>
             </view>
           </view>
         </view>
@@ -134,9 +134,9 @@
       </view>
 
       <view class="detail-card card">
-        <view class="field-label">下次准备怎么做 <text>选填</text></view>
+        <view class="field-label">下次准备怎么做 <text class="field-label__optional">选填</text></view>
         <textarea class="detail-input" value="{{strategyNote}}" maxlength="2000" disabled="{{interactionLocked}}" placeholder="写下一个具体动作，例如：先圈题目问法，再看选项。" bindinput="inputStrategyNote"></textarea>
-        <view class="field-label">仍然没想通的点 <text>选填</text></view>
+        <view class="field-label">仍然没想通的点 <text class="field-label__optional">选填</text></view>
         <textarea class="detail-input" value="{{doubtNote}}" maxlength="2000" disabled="{{interactionLocked}}" placeholder="保留疑问，后续可交给岸岸继续跟进。" bindinput="inputDoubtNote"></textarea>
       </view>
       <button class="primary-button main-action" disabled="{{interactionLocked || voiceBusy || isRecording}}" bindtap="submitReflection">保存原话复盘</button>

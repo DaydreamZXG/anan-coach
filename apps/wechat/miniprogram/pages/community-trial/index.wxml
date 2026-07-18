@@ -1,8 +1,8 @@
 <view class="page community-page">
   <view class="community-hero">
-    <view class="hero-kicker">独立试用 · C23</view>
-    <view class="hero-title">先试新题，再评价方法</view>
-    <view class="hero-copy">方法卡只在你主动加入时出现，绝不自动塞进岸岸的今日任务。作者不能评价自己，也不展示原始票数榜。</view>
+    <view class="hero-kicker">社区方法试用</view>
+    <view class="hero-title">先小范围验证，再决定是否公开</view>
+    <view class="hero-copy">同类考生试用后只回传结构化结果，不交换原题和个人资料。</view>
     <view class="privacy-strip">
       <view class="privacy-dot"></view>
       <view>效果只按当前版本、合格曝光、独立新题与延时验证计算；后续编辑不会继承旧版本成绩。</view>
@@ -11,6 +11,7 @@
 
   <state-view
     wx:if="{{pageState !== 'default'}}"
+    custom-class="community-state-view"
     state="{{pageState}}"
     title="{{stateTitle}}"
     description="{{stateDescription}}"
@@ -50,8 +51,8 @@
       <view wx:for="{{selectedCard.pitfalls}}" wx:key="index" class="boundary-item">— {{item}}</view>
 
       <view wx:if="{{!selectedCard.canTrial}}" class="warning-note">这是你的方法卡。作者不能试用、投票或制造自己的效果证据。</view>
-      <button wx:if="{{!exposureId}}" class="action-button" disabled="{{interactionLocked || !selectedCard.canTrial}}" bindtap="optIn">主动加入这一版本试用</button>
-      <button wx:elif="{{!trialId}}" class="action-button" disabled="{{interactionLocked || !evidenceReady}}" bindtap="completeTrial">核验独立新题结果</button>
+      <button wx:if="{{!exposureId}}" class="action-button {{interactionLocked || !selectedCard.canTrial ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked || !selectedCard.canTrial}}" bindtap="optIn">主动加入这一版本试用</button>
+      <button wx:elif="{{!trialId}}" class="action-button {{interactionLocked || !evidenceReady ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked || !evidenceReady}}" bindtap="completeTrial">核验独立新题结果</button>
       <view wx:if="{{trialMessage}}" class="{{feedbackEligible ? 'success-note' : 'boundary-note'}}">{{trialMessage}}</view>
     </view>
 
@@ -72,7 +73,7 @@
         >{{item.label}}</view>
       </view>
       <view class="boundary-note">没有自由评论、聊天或外链入口。平台只接收固定选项与版本化证据。</view>
-      <button class="action-button" disabled="{{interactionLocked || feedbackRecorded}}" bindtap="submitFeedback">{{feedbackRecorded ? '反馈已记录' : '提交固定反馈'}}</button>
+      <button class="action-button {{interactionLocked || feedbackRecorded ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked || feedbackRecorded}}" bindtap="submitFeedback">{{feedbackRecorded ? '反馈已记录' : '提交固定反馈'}}</button>
     </view>
 
     <view wx:if="{{exposureId}}" class="community-section">
@@ -87,7 +88,7 @@
           bindtap="chooseReportCategory"
         >{{item.label}}</view>
       </view>
-      <button class="action-button danger-button" disabled="{{interactionLocked}}" bindtap="submitReport">提交举报</button>
+      <button class="action-button danger-button {{interactionLocked ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked}}" bindtap="submitReport">提交举报</button>
       <view wx:if="{{reportMessage}}" class="success-note">{{reportMessage}}</view>
     </view>
   </block>

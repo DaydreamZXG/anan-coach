@@ -1,12 +1,9 @@
-<view class="page result-page">
-  <view class="topbar">
-    <view class="brand-lockup">
-      <anan-companion size="small" intent="encouragement" context="report" animate />
-      <view><view class="eyebrow">岸岸 · 你的备考起点</view><view class="privacy-note">结论来自当前版本，不是永久标签</view></view>
-    </view>
-    <view class="step-number">06 / 06</view>
+<view class="s9-page s9-page--with-dock result-page">
+  <view class="s9-hero">
+    <view class="s9-title">你不是从零开始，只是证据还没归位</view>
+    <view class="s9-subtitle">岸岸已经把目标、成绩与时间合成第一版备考判断。</view>
+    <view wx:if="{{state && state.view}}" class="s9-chip-row"><view class="s9-chip s9-chip--gold">{{state.view.eyebrow}}</view><view class="s9-chip s9-chip--primary">{{state.view.evidenceLabel}}</view></view>
   </view>
-  <view class="progress-track"><view class="progress-value"></view></view>
 
   <view wx:if="{{!state || state.status === 'loading'}}" class="page-state">
     <view class="result-orbit"><anan-companion size="large" intent="thinking" context="report" animate /></view>
@@ -23,37 +20,32 @@
   </view>
 
   <block wx:else>
-    <view class="result-intro">
-      <view class="result-eyebrow">{{state.view.eyebrow}}</view>
-      <view class="result-title">{{state.view.title}}</view>
-      <view class="result-copy">{{state.view.description}}</view>
-    </view>
-
     <view class="hero-card hero-card--{{state.view.status}}">
-      <view class="hero-label">目标岗位基准分差</view>
+      <view class="hero-label">当前起点</view>
+      <view class="hero-summary">{{state.view.title}}</view>
       <view class="hero-gap type-data">{{state.view.gapLabel}}</view>
       <view class="score-line">
-        <view><text>当前总分区间</text><strong class="type-data">{{state.view.currentTotalLabel}}</strong></view>
+        <view class="score-line__cell"><text class="score-line__label">当前总分区间</text><text class="score-line__value type-data">{{state.view.currentTotalLabel}}</text></view>
         <view class="score-arrow">→</view>
-        <view><text>岗位目标区间</text><strong class="type-data">{{state.view.targetTotalLabel}}</strong></view>
+        <view class="score-line__cell"><text class="score-line__label">岗位目标区间</text><text class="score-line__value type-data">{{state.view.targetTotalLabel}}</text></view>
       </view>
       <view class="hero-caption">{{state.view.gapCaption}}</view>
       <view class="goal-label">{{state.view.goalLabel}}</view>
     </view>
 
-    <view class="dual-track-card">
+    <view class="dual-track-card s9-card">
       <view class="section-head"><view><view class="section-kicker">共享学习大脑</view><view class="section-title">行测 + 申论必须并行成立</view></view><view class="evidence-pill">{{state.view.evidenceLabel}}</view></view>
       <view class="track-grid">
-        <view class="track-item track-item--xingce"><view class="track-dot"></view><view><text>行测区间</text><strong class="type-data">{{state.view.xingceLabel}}</strong></view></view>
-        <view class="track-item track-item--essay"><view class="track-dot"></view><view><text>申论区间</text><strong class="type-data">{{state.view.essayLabel}}</strong></view></view>
+        <view class="track-item track-item--xingce"><view class="track-dot"></view><view><text class="track-item__label">行测区间</text><text class="track-item__value type-data">{{state.view.xingceLabel}}</text></view></view>
+        <view class="track-item track-item--essay"><view class="track-dot"></view><view><text class="track-item__label">申论区间</text><text class="track-item__value type-data">{{state.view.essayLabel}}</text></view></view>
       </view>
       <view class="dual-track-note">单科成绩可以保留为部分证据，但不会被拿去和岗位总分直接相减；单篇申论 AI 训练估分也不会进入这里。</view>
     </view>
 
     <view class="budget-card">
-      <view class="budget-item"><text>工作日</text><strong class="type-data">{{state.view.weekdayBudgetLabel}}</strong></view>
-      <view class="budget-item"><text>周末</text><strong class="type-data">{{state.view.weekendBudgetLabel}}</strong></view>
-      <view class="budget-item"><text>5+1+1</text><strong>{{state.view.rhythmLabel}}</strong></view>
+      <view class="budget-item"><text class="budget-item__label">工作日</text><text class="budget-item__value type-data">{{state.view.weekdayBudgetLabel}}</text></view>
+      <view class="budget-item"><text class="budget-item__label">周末</text><text class="budget-item__value type-data">{{state.view.weekendBudgetLabel}}</text></view>
+      <view class="budget-item"><text class="budget-item__label">5+1+1</text><text class="budget-item__value">{{state.view.rhythmLabel}}</text></view>
     </view>
     <view class="validity-line">{{state.view.validityLabel}}</view>
 
@@ -64,6 +56,6 @@
       <view>{{state.error.message}}</view>
       <view wx:if="{{state.error.requestId}}" class="request-id">Request ID · {{state.error.requestId}}</view>
     </view>
-    <ui-button label="{{state.pendingRecovery ? '查询原确认结果' : state.view.actionLabel}}" loading="{{state.saving}}" bind:action="acknowledge" />
+    <view class="s9-action-dock"><button class="s9-primary-button" loading="{{state.saving}}" bindtap="acknowledge">{{state.pendingRecovery ? '查询原确认结果' : state.view.actionLabel}}</button></view>
   </block>
 </view>

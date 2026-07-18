@@ -10,6 +10,8 @@ from sqlalchemy.engine import RowMapping
 from sqlalchemy.orm import Session
 
 from app.core.config import Settings
+from app.domains.ai.governance.contracts import AICallAttribution
+from app.domains.ai.governance.repository import AIGovernanceRepository
 
 
 MILLION = Decimal("1000000")
@@ -151,6 +153,7 @@ class ModelCallLedgerRepository:
         schema_version: str,
         price_card: ModelPriceCard,
         input_fingerprint: str,
+        attribution: AICallAttribution,
         started_at: datetime | None = None,
     ) -> ModelCallRecord:
         values = {
@@ -222,8 +225,19 @@ class ModelCallLedgerRepository:
                 raise ModelCallLedgerError(
                     "An existing model call key refers to a different provider contract"
                 )
+            AIGovernanceRepository().insert_model_call_attribution(
+                session,
+                call_id=existing.call_id,
+                attribution=attribution,
+            )
             return existing
-        return _record(row)
+        record = _record(row)
+        AIGovernanceRepository().insert_model_call_attribution(
+            session,
+            call_id=record.call_id,
+            attribution=attribution,
+        )
+        return record
 
     def get_existing(
         self,

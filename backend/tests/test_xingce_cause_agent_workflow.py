@@ -47,8 +47,8 @@ def test_reflection_worker_candidate_and_confirmation_are_one_audited_chain(
         "missingEvidence": [],
         "evidenceRefs": [],
         "limitations": [],
-        "quotaState": "not_metered",
-        "entitlementPolicyVersion": "included-with-canonical-practice@v1",
+        "quotaState": "reserved",
+        "entitlementPolicyVersion": "metered-model-round@v1",
     }
 
     provider = SequenceProvider(["candidate_ready"])
@@ -63,7 +63,7 @@ def test_reflection_worker_candidate_and_confirmation_are_one_audited_chain(
     assert candidate_view["state"] == "cause_decision_required"
     assert candidate["state"] == "candidate_ready"
     assert candidate["causeCode"] == "stem_misread"
-    assert candidate["quotaState"] == "not_metered"
+    assert candidate["quotaState"] == "consumed"
     assert "charged" not in candidate
 
     decision = client.put(

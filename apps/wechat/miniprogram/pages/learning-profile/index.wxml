@@ -1,0 +1,25 @@
+<view class="brain-page">
+  <view class="brain-hero"><view class="brain-kicker">学习档案</view><view class="brain-title">岸岸现在知道什么，也要让你看得见</view><view class="brain-copy">目标、成绩、练习、申论和外部资料按证据来源组成个人知识库。</view></view>
+  <state-view wx:if="{{status === 'loading'}}" state="loading" />
+  <state-view wx:elif="{{status === 'error'}}" state="error" title="学习档案没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
+  <block wx:elif="{{profile}}">
+    <view class="brain-card"><view class="brain-row"><view><view class="brain-label">画像版本</view><view class="brain-value">v{{profile.versionNo}}</view></view><view class="brain-pill">{{profile.readiness}}</view></view><view class="brain-note">所有数字都引用当前输入指纹 {{fingerprintLabel}}</view></view>
+    <view class="brain-card brain-grid">
+      <view class="brain-metric"><view class="brain-label">总分区间</view><text class="brain-metric__value type-data">{{totalScoreLabel}}</text></view>
+      <view class="brain-metric"><view class="brain-label">行测区间</view><text class="brain-metric__value type-data">{{xingceScoreLabel}}</text></view>
+      <view class="brain-metric"><view class="brain-label">申论区间</view><text class="brain-metric__value type-data">{{essayScoreLabel}}</text></view>
+      <view class="brain-metric"><view class="brain-label">证据总数</view><text class="brain-metric__value type-data">{{evidenceCountLabel}}</text></view>
+      <view class="brain-metric"><view class="brain-label">闭环执行</view><text class="brain-metric__value type-data">{{executionCountLabel}}</text></view>
+      <view class="brain-metric"><view class="brain-label">生效取舍</view><text class="brain-metric__value type-data">{{profile.decisionSummary.activeStrategyCount}}</text></view>
+    </view>
+    <view wx:if="{{profile.decisionSummary.reviewDueCount}}" class="brain-warning">{{profile.decisionSummary.reviewDueCount}} 个战略取舍已到复评时间，不能继续静默生效。</view>
+    <view class="brain-section-head"><view class="brain-section-title">模块画像</view><view class="brain-section-meta">{{modules.length}} 个有证据模块</view></view>
+    <view class="brain-card">
+      <view wx:if="{{!modules.length}}" class="brain-empty">完成真实作答、复盘和迁移验证后才会生成模块画像。</view>
+      <view wx:for="{{modules}}" wx:key="moduleKey" class="brain-row" data-track="{{item.track}}" data-key="{{item.moduleKey}}" bindtap="openModule"><view class="brain-row-main"><view class="brain-row-title">{{item.track === 'xingce' ? '行测' : '申论'}} · {{item.displayName}}</view><view class="brain-row-copy">{{item.metricLabel}} · {{item.readinessLabel}} · 到期 {{item.dueCount}}</view></view><view class="brain-arrow">›</view></view>
+    </view>
+    <view class="brain-section-head"><view class="brain-section-title">已确认错误模式</view><view class="brain-section-meta">{{profile.errorPatterns.length}} 项</view></view>
+    <view class="brain-card"><view wx:if="{{!profile.errorPatterns.length}}" class="brain-empty">没有用户确认或 grounded review 支持的错误模式。</view><view wx:for="{{profile.errorPatterns}}" wx:key="patternId" class="brain-row" data-id="{{item.patternId}}" bindtap="openPattern"><view class="brain-row-main"><view class="brain-row-title">{{item.displayName}}</view><view class="brain-row-copy">{{item.moduleKey}} · {{item.occurrenceCount}} 次 · 反证 {{item.counterevidenceCount}}</view></view><view class="brain-arrow">›</view></view></view>
+    <button class="brain-action" bindtap="openCompanion">带着当前证据问岸岸</button>
+  </block>
+</view>

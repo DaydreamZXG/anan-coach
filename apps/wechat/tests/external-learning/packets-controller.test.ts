@@ -58,6 +58,56 @@ describe("learning packets controller", () => {
     });
   });
 
+  it("locks packet creation to the confirmed content selected by the capture result", async () => {
+    const createPacket = vi.fn(() => Promise.resolve(packet({ state: "generating" })));
+    const [firstEligibleContent] = packetList().eligibleContent;
+    expect(firstEligibleContent).toBeDefined();
+    if (!firstEligibleContent) return;
+    const controller = createController(
+      gateway({
+        createPacket,
+        listPackets: () =>
+          Promise.resolve(
+            packetList({
+              eligibleContent: [
+                ...packetList().eligibleContent,
+                {
+                  ...firstEligibleContent,
+                  questionId: "question-2",
+                  contentVersionId: "content-version-2",
+                  track: "essay",
+                  title: "申论概括题",
+                },
+              ],
+            }),
+          ),
+      }),
+    );
+    await controller.load();
+
+    expect(controller.selectOnlyContent("content-version-2")).toBe(true);
+    expect(controller.snapshot()).toMatchObject({
+      track: "essay",
+      selectedContentVersionIds: ["content-version-2"],
+    });
+    await controller.create();
+
+    expect(createPacket).toHaveBeenCalledWith(
+      expect.objectContaining({
+        items: [expect.objectContaining({ contentVersionId: "content-version-2", track: "essay" })],
+      }),
+      expect.any(String),
+    );
+  });
+
+  it("does not silently replace an unavailable capture result with unrelated content", async () => {
+    const controller = createController();
+    await controller.load();
+
+    expect(controller.selectOnlyContent("missing-content-version")).toBe(false);
+    expect(controller.snapshot().validationError).toContain("不能生成学习包");
+  });
+
   it("creates a new version for failed and expired packets with distinct legal commands", async () => {
     const failed = packet({ state: "failed", artifactRef: null });
     const expired = packet({

@@ -1,6 +1,6 @@
 @import "../../features/external-learning/page-shell.wxss";
 
-.answer-page state-view {
+.answer-state-view {
   display: block;
   margin-top: 34rpx;
 }
@@ -25,7 +25,7 @@
 }
 
 .target-card--selected {
-  border-color: rgba(82, 104, 255, 0.5);
+  border-color: rgba(0, 151, 139, 0.5);
   background: var(--color-primary-soft);
 }
 

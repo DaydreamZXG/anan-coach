@@ -5,7 +5,7 @@ import {
   type CaptureImportState,
 } from "../../miniprogram/features/external-learning/capture-controller";
 import type { LocalImportFile } from "../../miniprogram/features/external-learning/contracts";
-import { contentMatch, gateway, importWorkspace, recognition } from "./fixtures";
+import { contentMatch, gateway, importWorkspace, questionUnit, recognition } from "./fixtures";
 
 afterEach(() => {
   vi.useRealTimers();
@@ -40,7 +40,7 @@ describe("capture import controller", () => {
             state: "processing",
             recognition: null,
             recognitionSegments: [],
-            match: null,
+            questionUnits: [],
             processingLabel: "正在执行印刷体 OCR",
             pollAfterMs: 800,
           }),
@@ -84,7 +84,7 @@ describe("capture import controller", () => {
             state: "confirmed",
             confirmedAt: "2026-07-15T02:00:00Z",
           }),
-          match: contentMatch(),
+          questionUnits: [questionUnit()],
         }),
       ),
     );
@@ -93,10 +93,23 @@ describe("capture import controller", () => {
         importWorkspace({
           state: "ready",
           recognition: recognition({ state: "confirmed", confirmedAt: "2026-07-15T02:00:00Z" }),
-          match: contentMatch({
-            state: "confirmed",
-            confirmedContentVersionId: "content-version-1",
-          }),
+          questionUnits: [
+            questionUnit({
+              state: "ready",
+              match: contentMatch({
+                state: "confirmed",
+                confirmedContentVersionId: "content-version-1",
+              }),
+              referenceAnswer: {
+                sourceType: "authorized_reference",
+                matchKind: "exact",
+                answerText: "A",
+                contentVersionId: "content-version-1",
+                authorizationState: "authorized_current",
+                learningImpact: "reference_only",
+              },
+            }),
+          ],
           diagnosticEligibility: "eligible_confirmed",
         }),
       ),
@@ -138,7 +151,103 @@ describe("capture import controller", () => {
     );
     expect(controller.snapshot()).toMatchObject({
       status: "success",
-      workspace: { diagnosticEligibility: "eligible_confirmed" },
+      workspace: {
+        diagnosticEligibility: "eligible_confirmed",
+        questionUnits: [{ referenceAnswer: { answerText: "A", learningImpact: "reference_only" } }],
+      },
+    });
+  });
+
+  it("requests and confirms an unmatched AI answer without treating it as diagnostic evidence", async () => {
+    const unmatched = questionUnit({
+      state: "unmatched",
+      match: contentMatch({ candidates: [], evaluationReason: "no_eligible_candidate" }),
+    });
+    const candidate = questionUnit({
+      ...unmatched,
+      aiAnswer: {
+        answerVersionId: "ai-answer-version-1",
+        state: "candidate",
+        answerText: "A",
+        explanation: "依据上传题面给出估算解析。",
+        keyPoints: ["核对题干条件"],
+        confidence: "medium",
+        limitations: ["不是官方答案"],
+        outputFingerprint: "e".repeat(64),
+        failureCode: null,
+        sourceType: "ai_estimated",
+        learningImpact: "reference_only",
+      },
+    });
+    const candidateAnswer = candidate.aiAnswer;
+    if (!candidateAnswer) throw new Error("Expected an AI answer candidate in test setup");
+    const confirmed = questionUnit({
+      ...candidate,
+      state: "ready",
+      aiAnswer: { ...candidateAnswer, state: "confirmed" },
+    });
+    const requestAIAnswer = vi.fn(() => Promise.resolve());
+    const confirmAIAnswer = vi.fn(() => Promise.resolve());
+    const getImport = vi
+      .fn()
+      .mockResolvedValueOnce(
+        importWorkspace({
+          recognition: recognition({ state: "confirmed", confirmedAt: "2026-07-15T02:00:00Z" }),
+          questionUnits: [candidate],
+        }),
+      )
+      .mockResolvedValueOnce(
+        importWorkspace({
+          state: "ready",
+          recognition: recognition({ state: "confirmed", confirmedAt: "2026-07-15T02:00:00Z" }),
+          questionUnits: [confirmed],
+          diagnosticEligibility: "blocked_unconfirmed",
+        }),
+      );
+    const controller = new CaptureImportController({
+      gateway: gateway({
+        beginImport: () =>
+          Promise.resolve(
+            importWorkspace({
+              recognition: recognition({
+                state: "confirmed",
+                confirmedAt: "2026-07-15T02:00:00Z",
+              }),
+              questionUnits: [unmatched],
+            }),
+          ),
+        requestAIAnswer,
+        confirmAIAnswer,
+        getImport,
+      }),
+      onChange: vi.fn(),
+      createCommandKey: (prefix) => Promise.resolve(`${prefix}-key`),
+    });
+
+    await controller.startImport(image());
+    await controller.requestAIAnswer();
+    expect(requestAIAnswer).toHaveBeenCalledWith(
+      {
+        importId: "import-1",
+        questionUnitId: "d".repeat(64),
+        learningTrack: "xingce",
+      },
+      "external-ai-answer-key",
+    );
+    expect(controller.snapshot().activeQuestionUnit?.aiAnswer?.state).toBe("candidate");
+
+    await controller.confirmAIAnswer();
+    expect(confirmAIAnswer).toHaveBeenCalledWith(
+      {
+        answerVersionId: "ai-answer-version-1",
+        expectedOutputFingerprint: "e".repeat(64),
+      },
+      "external-ai-answer-confirm-key",
+    );
+    expect(controller.snapshot()).toMatchObject({
+      status: "success",
+      workspace: { diagnosticEligibility: "blocked_unconfirmed" },
+      activeQuestionUnit: { state: "ready", aiAnswer: { state: "confirmed" } },
     });
   });
 
@@ -161,6 +270,33 @@ describe("capture import controller", () => {
     expect(beginImport.mock.calls[1]?.[0]).toEqual(beginImport.mock.calls[0]?.[0]);
     expect(beginImport.mock.calls[1]?.[1]).toBe("stable-import-command");
     expect(controller.snapshot()).toMatchObject({ status: "review", pendingRecovery: false });
+  });
+
+  it("starts a clean capture after reset and ignores the previous operation result", async () => {
+    let resolve!: (value: ReturnType<typeof importWorkspace>) => void;
+    const pending = new Promise<ReturnType<typeof importWorkspace>>((complete) => {
+      resolve = complete;
+    });
+    const controller = new CaptureImportController({
+      gateway: gateway({ beginImport: () => pending }),
+      onChange: vi.fn(),
+      createCommandKey: () => Promise.resolve("import-command-reset"),
+    });
+    controller.setTrack("essay");
+
+    const submission = controller.startImport(image());
+    await Promise.resolve();
+    controller.reset();
+    expect(controller.snapshot()).toMatchObject({
+      status: "idle",
+      learningTrack: "essay",
+      selectedFile: null,
+      workspace: null,
+    });
+
+    resolve(importWorkspace({ state: "ready" }));
+    await submission;
+    expect(controller.snapshot()).toMatchObject({ status: "idle", workspace: null });
   });
 
   it("does not publish a late upload response after disposal", async () => {

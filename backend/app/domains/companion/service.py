@@ -2,7 +2,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
-from typing import Any, TypeVar
+from hashlib import sha256
+import json
+from typing import Any, Literal, TypeVar
+from uuid import NAMESPACE_URL, UUID, uuid5
 
 from httpx import HTTPStatusError, NetworkError, TimeoutException
 from pydantic import BaseModel
@@ -10,6 +13,18 @@ from sqlalchemy.orm import Session
 
 from app.core.config import Settings, get_settings
 from app.domains.ai.audit import AIAuditRepository
+from app.domains.ai.governance.contracts import EvidenceReference, IntentDecision
+from app.domains.ai.governance.repository import (
+    AIGovernanceReleaseError,
+    AIGovernanceRepository,
+)
+from app.domains.ai.governance.retrieval import (
+    AuthorizedHybridRetriever,
+    ObjectAuthorizationError,
+    RetrievalBundle,
+    context_candidate,
+)
+from app.domains.ai.governance.routing import GlobalAskPolicyError, route_global_question
 from app.domains.ai.model_cost import (
     ModelCallLedgerError,
     ModelCallLedgerRepository,
@@ -45,7 +60,9 @@ from app.domains.companion.repository import (
 from app.domains.companion.schemas import (
     CompanionAskRequest,
     CompanionAskResponse,
+    CompanionAllowedAction,
     CompanionCitation,
+    CompanionHighImpactDecision,
     ExternalQuestionConfirmRequest,
     ExternalQuestionConfirmResponse,
     ExternalQuestionResolveRequest,
@@ -59,8 +76,8 @@ COMPANION_ASK_FEATURE = "companion_ask"
 EXTERNAL_WRONG_INTAKE_FEATURE = "external_wrong_intake"
 MIN_EXTRACTION_CONFIDENCE = 0.70
 MIN_NODE_CONFIDENCE = 0.75
-COMPANION_ASK_REQUEST_CONTRACT = "companion-ask-command-v1"
-COMPANION_ASK_RESPONSE_CONTRACT = "companion-ask-response-v1"
+COMPANION_ASK_REQUEST_CONTRACT = "global-ask-command@v2"
+COMPANION_ASK_RESPONSE_CONTRACT = "grounded-answer@v2"
 EXTERNAL_RESOLVE_REQUEST_CONTRACT = "external-question-resolve-command-v1"
 EXTERNAL_RESOLVE_RESPONSE_CONTRACT = "external-question-resolve-response-v1"
 
@@ -127,6 +144,24 @@ class CompanionService:
         request: CompanionAskRequest,
     ) -> CompanionAskResponse:
         request_payload = request.model_dump(by_alias=True, mode="json")
+        try:
+            decision = route_global_question(
+                question=request.question_text,
+                context=request.context,
+            )
+        except GlobalAskPolicyError as exc:
+            raise CompanionCommandFailure(
+                status_code=403,
+                detail="This page is not authorized to request that AI context",
+                error_code=exc.code,
+            ) from exc
+        if decision.policy_decision != "answer":
+            return self._policy_response(
+                user_id=user_id,
+                idempotency_key=idempotency_key,
+                request=request,
+                decision=decision,
+            )
         existing = self._commands.find(
             self._session,
             user_id=user_id,
@@ -138,25 +173,71 @@ class CompanionService:
         else:
             context = self._repository.get_context(
                 user_id=user_id,
-                node_id=request.node_id,
+                node_id=None,
             )
+            current_state_version = _context_state_version(
+                context,
+                fallback=request.context.learner_state_version,
+            )
+            if current_state_version != request.context.learner_state_version:
+                return self._stale_context_response(
+                    user_id=user_id,
+                    idempotency_key=idempotency_key,
+                    request=request,
+                    decision=decision,
+                    current_state_version=current_state_version,
+                )
             context_payload = _context_payload(context)
+            try:
+                retrieval = AuthorizedHybridRetriever(self._session).retrieve(
+                    user_id=user_id,
+                    question=request.question_text,
+                    context=request.context,
+                    context_sources=_context_retrieval_candidates(context),
+                )
+            except ObjectAuthorizationError as exc:
+                self._session.rollback()
+                raise CompanionCommandFailure(
+                    status_code=403,
+                    detail="Referenced AI context is not owned by this account",
+                    error_code="context_reference_forbidden",
+                ) from exc
+            AIGovernanceRepository().record_retrieval_bundle(
+                self._session,
+                user_id=user_id,
+                scenario_key=decision.scenario_key,
+                route_id=request.context.route_id,
+                workspace=request.context.workspace,
+                bundle=retrieval,
+            )
+            if not retrieval.sources or not _high_impact_evidence_ready(
+                decision=decision,
+                retrieval=retrieval,
+            ):
+                self._session.commit()
+                return self._evidence_insufficient_response(
+                    user_id=user_id,
+                    idempotency_key=idempotency_key,
+                    request=request,
+                    decision=decision,
+                    retrieval=retrieval,
+                )
             persona = _build_persona_prompt(context)
             provider_request = self._ai_provider.prepare_companion_question(
-                scenario=request.scenario,
+                route_decision=decision.model_dump(by_alias=True, mode="json"),
                 question_text=request.question_text,
                 context=context_payload,
+                sources=_provider_sources(retrieval),
                 persona=persona,
             )
             execution_payload = {
-                "contractVersion": "companion-ask-execution-v1",
+                "contractVersion": "companion-ask-execution@v2",
                 "request": request_payload,
+                "routeDecision": decision.model_dump(by_alias=True, mode="json"),
                 "providerRequest": provider_request,
                 "context": context_payload,
-                "citations": [
-                    item.model_dump(by_alias=True, mode="json")
-                    for item in _citations(context)
-                ],
+                "learnerStateVersion": current_state_version,
+                "retrievalBundle": retrieval.model_dump(by_alias=True, mode="json"),
             }
         prepared = self._prepare_paid_command(
             user_id=user_id,
@@ -184,6 +265,9 @@ class CompanionService:
             self._session.commit()
             return replay
         provider_request = _companion_provider_request(command)
+        route_decision = IntentDecision.model_validate(
+            command.execution_payload["routeDecision"]
+        )
         command = self._commands.begin_provider_attempt(
             self._session,
             command_id=command.command_id,
@@ -192,6 +276,11 @@ class CompanionService:
             result = self._ai_provider.answer_prepared_companion_question(
                 prepared=provider_request,
                 idempotency_key=command.provider_idempotency_key,
+            )
+            _validate_provider_source_refs(
+                result.source_refs,
+                command.execution_payload["retrievalBundle"],
+                result=result,
             )
         except AIProviderConfigurationError as exc:
             if (
@@ -202,7 +291,7 @@ class CompanionService:
                     command=command,
                     learner_key=learner_key,
                     request_summary=request.question_text[:200],
-                    scenario=request.scenario,
+                    scenario=route_decision.scenario_key,
                     error_code="provider_execution_configuration_changed",
                 )
                 raise AssertionError(
@@ -220,7 +309,7 @@ class CompanionService:
                 prepared=prepared,
                 learner_key=learner_key,
                 request_summary=request.question_text[:200],
-                scenario=request.scenario,
+                scenario=route_decision.scenario_key,
                 status_code=503,
                 detail="AI provider is not configured",
                 error_code="provider_configuration_invalid",
@@ -238,7 +327,7 @@ class CompanionService:
                 prepared=prepared,
                 learner_key=learner_key,
                 request_summary=request.question_text[:200],
-                scenario=request.scenario,
+                scenario=route_decision.scenario_key,
                 status_code=502,
                 detail="AI companion answer failed",
                 error_code=exc.code,
@@ -257,7 +346,7 @@ class CompanionService:
                     command=command,
                     learner_key=learner_key,
                     request_summary=request.question_text[:200],
-                    scenario=request.scenario,
+                    scenario=route_decision.scenario_key,
                     error_code=f"provider_http_{provider_status}",
                 )
             assert prepared.model_call is not None
@@ -272,7 +361,7 @@ class CompanionService:
                 prepared=prepared,
                 learner_key=learner_key,
                 request_summary=request.question_text[:200],
-                scenario=request.scenario,
+                scenario=route_decision.scenario_key,
                 status_code=502,
                 detail="AI companion answer failed",
                 error_code=f"provider_http_{provider_status}",
@@ -285,7 +374,7 @@ class CompanionService:
                 command=command,
                 learner_key=learner_key,
                 request_summary=request.question_text[:200],
-                scenario=request.scenario,
+                scenario=route_decision.scenario_key,
                 error_code="provider_transport_uncertain",
             )
             raise AssertionError("uncertain provider failure must raise") from exc
@@ -294,7 +383,7 @@ class CompanionService:
                 command=command,
                 learner_key=learner_key,
                 request_summary=request.question_text[:200],
-                scenario=request.scenario,
+                scenario=route_decision.scenario_key,
                 error_code="provider_outcome_unknown",
             )
             raise AssertionError("uncertain provider failure must raise") from exc
@@ -317,23 +406,46 @@ class CompanionService:
             learner_key=learner_key,
             feature=COMPANION_ASK_FEATURE,
             provider=self._ai_provider.provider_name,
-            model=self._ai_provider.model,
+            model=str(provider_request["model"]),
             status="succeeded",
             request_summary=request.question_text[:200],
             response_summary=result.response_summary,
             latency_ms=result.latency_ms,
             metadata={
-                "scenario": request.scenario,
-                "context": command.execution_payload["context"],
+                "scenario": route_decision.scenario_key,
+                "respondingAgent": route_decision.responding_agent,
+                "retrievalBundleId": command.execution_payload[
+                    "retrievalBundle"
+                ]["bundleId"],
+                "learnerStateVersion": command.execution_payload[
+                    "learnerStateVersion"
+                ],
                 "commandId": str(command.command_id),
             },
             commit=False,
         )
+        citations = _selected_citations(
+            command.execution_payload["retrievalBundle"],
+            result.source_refs,
+        )
         response = CompanionAskResponse(
-            scenario=command.execution_payload["request"]["scenario"],
+            answerId=str(command.command_id),
+            semanticState="ready",
+            scenarioKey=route_decision.scenario_key,
+            respondingAgent=route_decision.responding_agent,
+            answerType=route_decision.answer_type,
+            policyDecision=route_decision.policy_decision,
+            companionIntent=route_decision.companion_intent,
             answer=result.answer,
-            next_actions=result.next_actions,
-            citations=command.execution_payload["citations"],
+            citations=citations,
+            confidence=result.confidence,
+            limitations=result.limitations,
+            knowledgeFreshness=command.execution_payload["learnerStateVersion"],
+            allowedActions=_allowed_actions(decision=route_decision),
+            highImpactDecision=_high_impact_decision(
+                decision=route_decision,
+                citations=citations,
+            ),
             quota=_quota_state(quota),
         )
         response_payload = response.model_dump(by_alias=True, mode="json")
@@ -353,6 +465,130 @@ class CompanionService:
         )
         self._session.commit()
         return response
+
+    def _policy_response(
+        self,
+        *,
+        user_id: str,
+        idempotency_key: str,
+        request: CompanionAskRequest,
+        decision: IntentDecision,
+    ) -> CompanionAskResponse:
+        if decision.policy_decision == "security_blocked":
+            semantic_state = "security_blocked"
+            answer = "这条问题包含试图改变系统权限或读取内部指令的内容，系统没有把它交给模型。"
+            limitations = ["未调用模型，也未读取或修改任何学习事实。"]
+        else:
+            semantic_state = "permission_denied"
+            answer = "当前仍在作答阶段，只能解释界面和作答规则；提交后才能讨论答案、方法或参考要点。"
+            limitations = ["作答前不会泄露答案、排除结论、范文或定向改写。"]
+        return CompanionAskResponse(
+            answerId=_deterministic_answer_id(user_id, idempotency_key),
+            semanticState=semantic_state,
+            scenarioKey=decision.scenario_key,
+            respondingAgent=decision.responding_agent,
+            answerType=decision.answer_type,
+            policyDecision=decision.policy_decision,
+            companionIntent=decision.companion_intent,
+            answer=answer,
+            citations=[],
+            confidence="high",
+            limitations=limitations,
+            knowledgeFreshness=request.context.learner_state_version,
+            allowedActions=[],
+            highImpactDecision=None,
+            quota=self._current_quota_state(user_id=user_id),
+        )
+
+    def _evidence_insufficient_response(
+        self,
+        *,
+        user_id: str,
+        idempotency_key: str,
+        request: CompanionAskRequest,
+        decision: IntentDecision,
+        retrieval: RetrievalBundle,
+    ) -> CompanionAskResponse:
+        reason = (
+            "可用资料中的指令性内容已被安全策略隔离，当前没有可用于回答的证据。"
+            if retrieval.security_decision == "all_sources_blocked"
+            else "当前学习大脑和已确认资料里没有足够证据支持这个结论。"
+        )
+        retrieval_payload = retrieval.model_dump(by_alias=True, mode="json")
+        citations = _selected_citations(
+            retrieval_payload,
+            [item.reference.source_id for item in retrieval.sources],
+        )
+        return CompanionAskResponse(
+            answerId=_deterministic_answer_id(user_id, idempotency_key),
+            semanticState="evidence_insufficient",
+            scenarioKey=decision.scenario_key,
+            respondingAgent=decision.responding_agent,
+            answerType=decision.answer_type,
+            policyDecision="evidence_required",
+            companionIntent="reminder",
+            answer=reason,
+            citations=citations,
+            confidence="low",
+            limitations=["系统没有让模型补齐缺失事实，也没有消耗本次 AI 额度。"],
+            knowledgeFreshness=request.context.learner_state_version,
+            allowedActions=[_information_action(decision)],
+            highImpactDecision=_high_impact_decision(
+                decision=decision,
+                citations=citations,
+                status="evidence_insufficient",
+            ),
+            quota=self._current_quota_state(user_id=user_id),
+        )
+
+    def _stale_context_response(
+        self,
+        *,
+        user_id: str,
+        idempotency_key: str,
+        request: CompanionAskRequest,
+        decision: IntentDecision,
+        current_state_version: str,
+    ) -> CompanionAskResponse:
+        return CompanionAskResponse(
+            answerId=_deterministic_answer_id(user_id, idempotency_key),
+            semanticState="evidence_insufficient",
+            scenarioKey=decision.scenario_key,
+            respondingAgent=decision.responding_agent,
+            answerType=decision.answer_type,
+            policyDecision="evidence_required",
+            companionIntent="reminder",
+            answer="你的学习证据在打开页面后发生了变化，请刷新后再问。",
+            citations=[],
+            confidence="high",
+            limitations=["本次未调用模型，也未消耗 AI 额度。"],
+            knowledgeFreshness=current_state_version,
+            allowedActions=[
+                CompanionAllowedAction(
+                    kind="refresh_context",
+                    label="刷新学习证据",
+                    targetRef=None,
+                    requiresConfirmation=False,
+                )
+            ],
+            highImpactDecision=None,
+            quota=self._current_quota_state(user_id=user_id),
+        )
+
+    def _current_quota_state(self, *, user_id: str) -> AIQuotaState:
+        entitlement = self._commerce_service.get_entitlement(user_id=user_id)
+        quota = next(
+            item
+            for item in entitlement.feature_quotas
+            if item.feature == COMPANION_ASK_FEATURE
+        )
+        self._session.commit()
+        return AIQuotaState(
+            feature=quota.feature,
+            used=quota.used,
+            limit=quota.limit,
+            date=entitlement.server_time.date().isoformat(),
+        )
 
     def resolve_external_question(
         self,
@@ -621,9 +857,9 @@ class CompanionService:
                 )
                 provider_identity = (
                     self._ai_provider.provider_name,
-                    self._ai_provider.model,
-                    self._ai_provider.prompt_version,
-                    self._ai_provider.schema_version,
+                    str(provider_request["model"]),
+                    str(provider_request["promptVersion"]),
+                    str(provider_request["schemaVersion"]),
                 )
                 if model_call is not None and (
                     model_call.provider,
@@ -648,6 +884,13 @@ class CompanionService:
                     price_card = self._price_card or ModelPriceCard.from_settings(
                         self._settings
                     )
+                    attribution = _companion_attribution(
+                        session=self._session,
+                        settings=self._settings,
+                        provider_identity=provider_identity,
+                        execution_payload=record.execution_payload,
+                        reservation=reservation,
+                    )
                     model_call = self._model_calls.begin(
                         self._session,
                         call_key=provider_key,
@@ -661,8 +904,13 @@ class CompanionService:
                         schema_version=provider_identity[3],
                         price_card=price_card,
                         input_fingerprint=input_fingerprint,
+                        attribution=attribution,
                     )
-                except (ModelCostConfigurationError, ModelCallLedgerError) as exc:
+                except (
+                    AIGovernanceReleaseError,
+                    ModelCostConfigurationError,
+                    ModelCallLedgerError,
+                ) as exc:
                     self._preflight_provider_failure(
                         record=record,
                         reservation=reservation,
@@ -671,6 +919,29 @@ class CompanionService:
                         error_code="model_cost_configuration_invalid",
                     )
                     raise AssertionError("model preflight failure must raise") from exc
+            else:
+                try:
+                    attribution = _companion_attribution(
+                        session=self._session,
+                        settings=self._settings,
+                        provider_identity=provider_identity,
+                        execution_payload=record.execution_payload,
+                        reservation=reservation,
+                    )
+                    AIGovernanceRepository().insert_model_call_attribution(
+                        self._session,
+                        call_id=model_call.call_id,
+                        attribution=attribution,
+                    )
+                except AIGovernanceReleaseError as exc:
+                    self._preflight_provider_failure(
+                        record=record,
+                        reservation=reservation,
+                        model_call=model_call,
+                        user_id=user_id,
+                        error_code="ai_release_not_evaluated",
+                    )
+                    raise AssertionError("AI release gate failure must raise") from exc
             if model_call.status != "running":
                 raise CompanionCommandStateError(
                     "Open Companion command requires a running model-call ledger"
@@ -1013,10 +1284,13 @@ def _companion_provider_request(
     execution = command.execution_payload
     provider_request = execution.get("providerRequest")
     if (
-        execution.get("contractVersion") != "companion-ask-execution-v1"
+        execution.get("contractVersion") != "companion-ask-execution@v2"
         or not isinstance(execution.get("request"), dict)
         or not isinstance(execution.get("context"), dict)
-        or not isinstance(execution.get("citations"), list)
+        or not isinstance(execution.get("routeDecision"), dict)
+        or not isinstance(execution.get("retrievalBundle"), dict)
+        or not isinstance(execution.get("learnerStateVersion"), str)
+        or not execution["learnerStateVersion"]
         or not isinstance(provider_request, dict)
         or command.provider_idempotency_key is None
     ):
@@ -1024,6 +1298,32 @@ def _companion_provider_request(
             "Stored Companion execution checkpoint is invalid"
         )
     return dict(provider_request)
+
+
+def _companion_attribution(
+    *,
+    session: Session,
+    settings: Settings,
+    provider_identity: tuple[str, str, str, str],
+    execution_payload: dict[str, Any],
+    reservation: FeatureUsageReservation,
+):
+    decision = IntentDecision.model_validate(execution_payload["routeDecision"])
+    bundle = RetrievalBundle.model_validate(execution_payload["retrievalBundle"])
+    return AIGovernanceRepository().attribution(
+        session,
+        environment=settings.environment,
+        scenario_key=decision.scenario_key,
+        operation="companion_answer",
+        provider=provider_identity[0],
+        model=provider_identity[1],
+        prompt_version=provider_identity[2],
+        schema_version=provider_identity[3],
+        evidence_refs=tuple(item.reference for item in bundle.sources),
+        retrieval_bundle_id=bundle.bundle_id,
+        reservation_id=reservation.reservation_id,
+        reservation_source=reservation.source,
+    )
 
 
 def _context_payload(context: CompanionContextRecord) -> dict[str, object]:
@@ -1048,6 +1348,7 @@ def _context_payload(context: CompanionContextRecord) -> dict[str, object]:
             "todayPlanTask": context.today_essay_plan,
             "todayOmissionReason": context.essay_plan_omission_reason,
         },
+        "learningBrain": context.learning_brain_profile,
         "rank": {
             "level": context.rank_level,
             "name": context.rank_name,
@@ -1058,66 +1359,287 @@ def _context_payload(context: CompanionContextRecord) -> dict[str, object]:
     }
 
 
+def _context_state_version(
+    context: CompanionContextRecord,
+    *,
+    fallback: str,
+) -> str:
+    if context.learning_brain_profile is None:
+        return fallback
+    return str(context.learning_brain_profile["profileVersionId"])
+
+
 def _build_persona_prompt(context: CompanionContextRecord) -> str:
-    """为 AI 搭子注入「师爷」人格：古风口吻、知考生品级、只基于 learner_context。"""
-    rank_name = context.rank_name or "九品县令"
-    rank_level = context.rank_level if context.rank_level is not None else 9
-    fame = context.fame or 0
-    streak = context.consecutive_days or 0
-    xp = context.xp or 0
+    """Return the product-owned 岸岸 persona without legacy role-play prompts."""
+    del context
     return (
-        "你的身份是考生的「师爷」（幕僚），名唤「沈砚」，字明远。"
-        "你陪考生一步步考取功名，口吻古雅亲切、如老友促膝，但一切建言必须且只能基于传入的 learner_context，"
+        "你是公考学习搭子岸岸，表达直接、亲切、克制，不使用官场角色扮演、古风称呼或夸张鼓励。"
+        "一切建言必须且只能基于传入的 learner_context，"
         "不得编造课程、分数、岗位、错题或方法卡；若 learner_context 数据不足，须直说数据不足并给出采集动作。"
+        "learningBrain 中的能力、模块、错误模式与计划结论都带版本；解释时应引用其版本和证据，"
+        "不得把本次回答、用户情绪或未确认候选写成新的能力事实。"
         "你同时负责行测和申论：申论建议必须优先引用 grounded review、结构化复盘和今日申论计划；"
         "system_compiled/unverified 评分规程下的单题分数只能称为低置信 AI 训练估分，"
         "不得冒充官方分数，也不得直接据此推断岗位总分差。"
-        f"考生当前官阶为「{rank_name}」（品级 {rank_level}/9），声望 {fame}，连续在用 {streak} 天，政绩 XP 为 {xp}。"
-        "你始终以「主公」称呼考生；若主公已近高品或政绩日进，可在开头以「恭喜主公」「主公近日精进」等口吻温言勉励，"
-        "但不得虚构具体分数或名次。结尾可附一句叮咛，长短克制，莫要喧宾夺主。"
+        "回答先给结论，再说明证据与局限，最后给出一到三个可执行动作。"
     )
 
 
-def _citations(context: CompanionContextRecord) -> list[CompanionCitation]:
-    citations = [
-        CompanionCitation(
-            kind="learner_memory",
-            title="学习记录",
-            source_id=None,
-            summary=(
-                f"{context.practice_answers} 次行测作答，{context.wrong_answers} 次错误，"
-                f"{context.mock_exams} 次模考；{context.essay_attempts} 次申论作答。"
-            ),
+def _context_retrieval_candidates(context: CompanionContextRecord) -> tuple[Any, ...]:
+    candidates: list[Any] = []
+    activity = {
+        "practiceAnswers": context.practice_answers,
+        "wrongAnswers": context.wrong_answers,
+        "mockExams": context.mock_exams,
+        "latestMockScore": context.latest_mock_score,
+        "topWrongModules": context.top_wrong_modules,
+    }
+    if any((context.practice_answers, context.wrong_answers, context.mock_exams)):
+        candidates.append(
+            context_candidate(
+                kind="learner_activity",
+                source_id="learner-activity-summary",
+                version=_stable_payload_version(activity),
+                anchor="current-summary",
+                title="行测与模考学习记录",
+                text_value=json.dumps(activity, ensure_ascii=False, sort_keys=True),
+                trust_scope="learner_activity",
+                source_weight=0.9,
+            )
         )
-    ]
+    if context.learning_brain_profile is not None:
+        profile = context.learning_brain_profile
+        candidates.append(
+            context_candidate(
+                kind="learning_brain",
+                source_id=str(profile["profileVersionId"]),
+                version=str(profile["versionNo"]),
+                anchor="profile-evidence",
+                title=f"学习画像 v{profile['versionNo']}",
+                text_value=json.dumps(profile, ensure_ascii=False, sort_keys=True),
+                trust_scope="learning_brain",
+                source_weight=1.0,
+            )
+        )
     if _has_essay_context(context):
-        citations.append(
-            CompanionCitation(
+        essay = {
+            "estimate": context.current_shenlun_estimate,
+            "review": context.latest_essay_review,
+            "reflection": context.latest_essay_reflection,
+            "todayPlan": context.today_essay_plan,
+            "omissionReason": context.essay_plan_omission_reason,
+            "summary": _essay_citation_summary(context),
+        }
+        candidates.append(
+            context_candidate(
                 kind="essay_learning",
+                source_id="essay-learning-current",
+                version=_stable_payload_version(essay),
+                anchor="grounded-review-reflection-plan",
                 title="申论学习证据",
-                source_id=None,
-                summary=_essay_citation_summary(context),
+                text_value=json.dumps(essay, ensure_ascii=False, sort_keys=True),
+                trust_scope="essay_learning",
+                source_weight=0.95,
             )
         )
     if context.position_group or context.target_score is not None:
-        citations.append(
-            CompanionCitation(
+        position = {
+            "targetExam": context.target_exam,
+            "positionGroup": context.position_group,
+            "targetScore": context.target_score,
+            "baselineXingceScore": context.baseline_xingce_score,
+            "baselineShenlunScore": context.baseline_shenlun_score,
+        }
+        candidates.append(
+            context_candidate(
                 kind="target_position",
+                source_id="target-position-current",
+                version=_stable_payload_version(position),
+                anchor="selected-goal",
                 title=context.position_group or "目标岗位",
-                source_id=None,
-                summary=f"目标分 {context.target_score:g}" if context.target_score is not None else "已选择目标岗位。",
+                text_value=json.dumps(position, ensure_ascii=False, sort_keys=True),
+                trust_scope="target_position",
+                source_weight=1.0,
             )
         )
     for card in context.method_cards:
-        citations.append(
-            CompanionCitation(
+        candidates.append(
+            context_candidate(
                 kind="method_card",
-                title=str(card["title"]),
                 source_id=str(card["id"]),
-                summary=str(card["fix_action"]),
+                version=_stable_payload_version(dict(card)),
+                anchor="fix-action",
+                title=str(card["title"]),
+                text_value=f"{card['title']}：{card['fix_action']}；{card['tag_path']}",
+                trust_scope="published_method_card",
+                source_weight=0.9,
             )
         )
-    return citations
+    return tuple(candidates)
+
+
+def _provider_sources(bundle: RetrievalBundle) -> list[dict[str, Any]]:
+    return [
+        {
+            "sourceRef": item.reference.source_id,
+            "kind": item.reference.kind,
+            "title": item.reference.title,
+            "version": item.reference.version,
+            "anchor": item.reference.anchor,
+            "trustScope": item.trust_scope,
+            "untrustedInput": item.untrusted_input,
+            "content": item.excerpt,
+        }
+        for item in bundle.sources
+    ]
+
+
+def _validate_provider_source_refs(
+    source_refs: list[str],
+    retrieval_payload: dict[str, Any],
+    *,
+    result: Any,
+) -> None:
+    bundle = RetrievalBundle.model_validate(retrieval_payload)
+    allowed = {item.reference.source_id for item in bundle.sources}
+    if set(source_refs) - allowed:
+        raise AIProviderResponseError(
+            "AI provider cited evidence outside the authorized retrieval bundle",
+            code="provider_grounding_invalid",
+            usage=result.usage,
+            latency_ms=result.latency_ms,
+            output_fingerprint=result.output_fingerprint,
+            provider_request_id_header=result.provider_request_id_header,
+            provider_request_id_fingerprint=result.provider_request_id_fingerprint,
+        )
+
+
+def _selected_citations(
+    retrieval_payload: dict[str, Any],
+    source_refs: list[str],
+) -> list[CompanionCitation]:
+    bundle = RetrievalBundle.model_validate(retrieval_payload)
+    selected = {item.reference.source_id: item for item in bundle.sources}
+    return [
+        CompanionCitation(
+            kind=selected[source_ref].reference.kind,
+            title=selected[source_ref].reference.title,
+            sourceId=source_ref,
+            version=selected[source_ref].reference.version,
+            anchor=selected[source_ref].reference.anchor,
+            summary=selected[source_ref].excerpt,
+        )
+        for source_ref in source_refs
+    ]
+
+
+def _allowed_actions(
+    *,
+    decision: IntentDecision,
+) -> list[CompanionAllowedAction]:
+    if decision.answer_type == "position_explanation":
+        return [
+            CompanionAllowedAction(
+                kind="open_position_workspace",
+                label="查看岗位判断",
+                targetRef="/pages/positions/index",
+                requiresConfirmation=False,
+            )
+        ]
+    if decision.answer_type in {"plan_explanation", "strategic_deprioritization"}:
+        return [
+            CompanionAllowedAction(
+                kind="adjust_plan_preview",
+                label="预览今日计划调整",
+                targetRef="/pages/day-adjustment/index",
+                requiresConfirmation=True,
+            )
+        ]
+    return [
+        CompanionAllowedAction(
+            kind="open_training",
+            label="查看今日训练安排",
+            targetRef="/pages/today/index",
+            requiresConfirmation=False,
+        )
+    ]
+
+
+def _information_action(decision: IntentDecision) -> CompanionAllowedAction:
+    if decision.responding_agent == "position":
+        label = "补充岗位与资格信息"
+        target_ref = "/pages/positions/index"
+    elif decision.responding_agent == "planner":
+        label = "去完成今日学习任务"
+        target_ref = "/pages/today/index"
+    else:
+        label = "拍题或导入学习资料"
+        target_ref = "/pages/capture-import/index"
+    return CompanionAllowedAction(
+        kind="supply_information",
+        label=label,
+        targetRef=target_ref,
+        requiresConfirmation=False,
+    )
+
+
+def _high_impact_decision(
+    *,
+    decision: IntentDecision,
+    citations: list[CompanionCitation],
+    status: Literal["explain_only", "evidence_insufficient"] = "explain_only",
+) -> CompanionHighImpactDecision | None:
+    if decision.answer_type not in {
+        "position_explanation",
+        "strategic_deprioritization",
+    }:
+        return None
+    decision_type = (
+        "position_explanation"
+        if decision.answer_type == "position_explanation"
+        else "strategic_deprioritization"
+    )
+    prohibited = (
+        ["qualification", "primary_goal"]
+        if decision_type == "position_explanation"
+        else ["strategy", "primary_goal"]
+    )
+    return CompanionHighImpactDecision(
+        decisionType=decision_type,
+        status=status,
+        evidenceRefs=[item.source_id for item in citations],
+        requiresConfirmation=True,
+        prohibitedMutations=prohibited,
+    )
+
+
+def _high_impact_evidence_ready(
+    *,
+    decision: IntentDecision,
+    retrieval: RetrievalBundle,
+) -> bool:
+    kinds = {item.reference.kind for item in retrieval.sources}
+    if decision.answer_type == "position_explanation":
+        return "target_position" in kinds
+    if decision.answer_type == "strategic_deprioritization":
+        return {"learning_brain", "learner_activity"}.issubset(kinds)
+    return True
+
+
+def _stable_payload_version(payload: Any) -> str:
+    return sha256(
+        json.dumps(
+            payload,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+            default=str,
+        ).encode("utf-8")
+    ).hexdigest()
+
+
+def _deterministic_answer_id(user_id: str, idempotency_key: str) -> str:
+    return str(uuid5(NAMESPACE_URL, f"companion-answer:{user_id}:{idempotency_key}"))
 
 
 def _has_essay_context(context: CompanionContextRecord) -> bool:

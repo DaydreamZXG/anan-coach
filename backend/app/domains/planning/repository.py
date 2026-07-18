@@ -79,6 +79,21 @@ class GoalAbilitySnapshot:
     evidence_summary: dict[str, Any] | None
 
 
+@dataclass(frozen=True)
+class ActiveStrategyDecision:
+    decision_version_id: str
+    decision_id: str
+    decision_type: str
+    scope_type: str
+    scope_key: str
+    rationale: str
+    evidence_refs: tuple[dict[str, Any], ...]
+    effective_from: datetime
+    effective_until: datetime
+    review_at: datetime
+    input_fingerprint: str
+
+
 class PlanningRepository:
     def lock_user(self, session: Session, *, user_id: str) -> None:
         owner = session.execute(
@@ -493,6 +508,63 @@ class PlanningRepository:
                 else None
             ),
         )
+
+    def active_strategy_decisions(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        now: datetime,
+    ) -> list[ActiveStrategyDecision]:
+        rows = session.execute(
+            text(
+                """
+                select
+                  decision.decision_version_id::text,
+                  decision.decision_id::text,
+                  decision.decision_type,
+                  decision.scope_type,
+                  decision.scope_key,
+                  decision.rationale,
+                  decision.evidence_refs,
+                  decision.effective_from,
+                  decision.effective_until,
+                  decision.review_at,
+                  decision.input_fingerprint
+                from learning.strategy_decision_versions decision
+                where decision.user_id = cast(:user_id as uuid)
+                  and decision.status = 'active'
+                  and decision.effective_from <= :now
+                  and decision.effective_until > :now
+                  and decision.review_at > :now
+                  and not exists (
+                    select 1
+                    from learning.strategy_decision_versions successor
+                    where successor.supersedes_decision_version_id =
+                          decision.decision_version_id
+                  )
+                order by decision.decision_type, decision.scope_type,
+                         decision.scope_key, decision.decision_version_id
+                """
+            ),
+            {"user_id": user_id, "now": now},
+        ).mappings()
+        return [
+            ActiveStrategyDecision(
+                decision_version_id=str(row["decision_version_id"]),
+                decision_id=str(row["decision_id"]),
+                decision_type=str(row["decision_type"]),
+                scope_type=str(row["scope_type"]),
+                scope_key=str(row["scope_key"]),
+                rationale=str(row["rationale"]),
+                evidence_refs=tuple(dict(item) for item in row["evidence_refs"]),
+                effective_from=_as_utc(row["effective_from"]),
+                effective_until=_as_utc(row["effective_until"]),
+                review_at=_as_utc(row["review_at"]),
+                input_fingerprint=str(row["input_fingerprint"]),
+            )
+            for row in rows
+        ]
 
     def objective_snapshot(
         self,
@@ -1038,6 +1110,11 @@ class PlanningRepository:
                 if _review_is_learning_eligible(latest)
                 else None
             ),
+            weakest_dimension_key=(
+                _weakest_dimension_key(latest["findings"], latest["rewrite_plan"])
+                if _review_is_learning_eligible(latest)
+                else None
+            ),
         )
 
     def _essay_mastery_snapshot(
@@ -1367,6 +1444,10 @@ class PlanningRepository:
             ),
             review_acknowledgement_version_id=decision_id,
             weakest_dimension=_weakest_dimension(
+                context["findings"],
+                context["rewrite_plan"],
+            ),
+            weakest_dimension_key=_weakest_dimension_key(
                 context["findings"],
                 context["rewrite_plan"],
             ),
@@ -2403,8 +2484,6 @@ def _review_is_learning_eligible(review: Any) -> bool:
 
 
 def _weakest_dimension(findings: Any, rewrite_plan: Any = None) -> str | None:
-    if not isinstance(findings, list):
-        return None
     labels = {
         "point_finding": "找点与要点完整度",
         "abstraction": "概括抽象度",
@@ -2413,10 +2492,25 @@ def _weakest_dimension(findings: Any, rewrite_plan: Any = None) -> str | None:
         "format": "格式规范",
         "unsupported_claim": "材料依据",
     }
+    key = _weakest_dimension_key(findings, rewrite_plan)
+    return labels.get(key) if key is not None else None
+
+
+def _weakest_dimension_key(findings: Any, rewrite_plan: Any = None) -> str | None:
+    if not isinstance(findings, list):
+        return None
+    recognized_types = {
+        "point_finding",
+        "abstraction",
+        "structure",
+        "expression",
+        "format",
+        "unsupported_claim",
+    }
     recognized = [
         finding
         for finding in findings
-        if isinstance(finding, dict) and finding.get("type") in labels
+        if isinstance(finding, dict) and finding.get("type") in recognized_types
     ]
     by_id = {
         str(finding["findingId"]): finding
@@ -2432,14 +2526,14 @@ def _weakest_dimension(findings: Any, rewrite_plan: Any = None) -> str | None:
         for finding_id in priority_ids:
             finding = by_id.get(str(finding_id))
             if finding is not None:
-                return labels[str(finding["type"])]
+                return str(finding["type"])
     severity_order = {"high": 0, "medium": 1, "low": 2}
     for finding in sorted(
         recognized,
         key=lambda item: severity_order.get(str(item.get("severity")), 3),
     ):
-        if isinstance(finding, dict) and finding.get("type") in labels:
-            return labels[str(finding["type"])]
+        if isinstance(finding, dict) and finding.get("type") in recognized_types:
+            return str(finding["type"])
     return None
 
 

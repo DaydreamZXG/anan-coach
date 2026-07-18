@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import Annotated, Literal
+from uuid import UUID
 
 from pydantic import Field, model_validator
 
@@ -52,12 +53,31 @@ EssayDraftingAttemptInput = Annotated[
 class EssayDraftingAnswerCreate(EssayContractModel):
     mode: Literal["create"]
     source_type: Literal["typed", "ocr_confirmed"] = Field(alias="sourceType")
+    source_artifact_version_id: UUID | None = Field(
+        default=None,
+        alias="sourceArtifactVersionId",
+        strict=False,
+    )
+    recognition_revision_id: UUID | None = Field(
+        default=None,
+        alias="recognitionRevisionId",
+        strict=False,
+    )
     answer_text: str = Field(alias="answerText", min_length=1, max_length=10000)
     thinking: EssayThinkingSnapshot
     based_on_answer_version_id: UuidText | None = Field(
         default=None,
         alias="basedOnAnswerVersionId",
     )
+
+    @model_validator(mode="after")
+    def validate_source_evidence(self) -> "EssayDraftingAnswerCreate":
+        if self.source_type == "ocr_confirmed":
+            if self.source_artifact_version_id is None or self.recognition_revision_id is None:
+                raise ValueError("OCR drafting answers require confirmed recognition evidence")
+        elif self.source_artifact_version_id is not None or self.recognition_revision_id is not None:
+            raise ValueError("typed drafting answers cannot carry OCR evidence")
+        return self
 
 
 class EssayDraftingAnswerExisting(EssayContractModel):

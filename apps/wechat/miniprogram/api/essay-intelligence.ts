@@ -22,6 +22,7 @@ import type {
   EssayReviewQueueCommand,
   EssayReviewResponse,
   EssayRewriteCommand,
+  EssayRewriteComparison,
   EssayRewriteFindingResolution,
   EssayRewritePlanTaskCompletionCommand,
   EssayRewritePlanTaskCompletionResult,
@@ -100,6 +101,7 @@ export type EssayFindingDecisionArtifactCommand = Omit<
 export type EssayRewriteCommandV2 = EssayRewriteCommand;
 export type EssayRewriteRecordV2 = EssayRewriteRecord;
 export type EssayRewriteResultV2 = EssayRewriteResult;
+export type EssayRewriteComparisonV1 = EssayRewriteComparison;
 export type EssayTransferCommandV2 = EssayTransferCommand;
 export type EssayTransferRecordV2 = EssayTransferRecord;
 export type EssayTransferResultV2 = EssayTransferResult;
@@ -224,6 +226,12 @@ export class EssayIntelligenceApi {
     return this.client.post<EssayRewriteResultV2>("/api/v2/essay-intelligence/rewrites", command, {
       idempotencyKey,
     });
+  }
+
+  getRewriteComparison(rewriteVersionId: string): Promise<ApiEnvelope<EssayRewriteComparisonV1>> {
+    return this.client.get<EssayRewriteComparisonV1>(
+      `/api/v2/essay-intelligence/rewrites/${encodeURIComponent(rewriteVersionId)}/comparison`,
+    );
   }
 
   completeRewritePlanTask(

@@ -133,10 +133,13 @@ export interface ContentMatchVersion {
   contentMatchId: string;
   artifactVersionId: string;
   recognitionRevisionId: string;
+  questionUnitId: string;
   ownerUserId: string;
   versionNo: number;
   state: "candidate" | "confirmed" | "rejected" | "expired";
   candidates: readonly MatchCandidate[];
+  evaluationReason:
+    "essay_incomplete" | "no_eligible_candidate" | "single_exact" | "single_similar" | "score_tie";
   confirmedContentVersionId: string | null;
   matchingPolicyVersion: string;
   inputFingerprint: string;

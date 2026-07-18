@@ -301,8 +301,8 @@ def test_vj_02_real_xingce_server_as_03(
         "missingEvidence": [],
         "evidenceRefs": [],
         "limitations": [],
-        "quotaState": "not_metered",
-        "entitlementPolicyVersion": "included-with-canonical-practice@v1",
+        "quotaState": "reserved",
+        "entitlementPolicyVersion": "metered-model-round@v1",
     }
     with db_session_factory() as session:
         session_owner = session.execute(
@@ -512,7 +512,7 @@ def test_vj_02_real_xingce_server_as_04(
     assert reflected["review"]["reflection"]["tags"] == reflection_payload["tags"]
     assert reflected["review"]["causeDecision"] is None
     assert reflected["review"]["aiCandidate"]["state"] == "processing"
-    assert reflected["review"]["aiCandidate"]["quotaState"] == "not_metered"
+    assert reflected["review"]["aiCandidate"]["quotaState"] == "reserved"
 
     _run_one(db_session_factory, SequenceProvider(["candidate_ready"]))
     ready_response = client.get(
@@ -525,7 +525,7 @@ def test_vj_02_real_xingce_server_as_04(
     assert ready["review"]["state"] == "cause_decision_required"
     assert ready["review"]["aiCandidate"]["state"] == "candidate_ready"
     assert ready["review"]["aiCandidate"]["candidateVersionId"]
-    assert ready["review"]["aiCandidate"]["quotaState"] == "not_metered"
+    assert ready["review"]["aiCandidate"]["quotaState"] == "consumed"
 
     decided_response = client.put(
         f"/api/v2/xingce/attempt-reviews/{review_id}/cause-decision",

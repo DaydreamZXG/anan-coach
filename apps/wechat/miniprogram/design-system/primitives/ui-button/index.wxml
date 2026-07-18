@@ -1,8 +1,9 @@
 <button
-  class="ui-button ui-button--{{variant}} {{block ? 'ui-button--block' : ''}} custom-class"
+  class="ui-button ui-button--{{variant}} {{block ? 'ui-button--block' : ''}} {{disabled ? 'ui-button--disabled' : ''}} custom-class"
   loading="{{loading}}"
   disabled="{{disabled}}"
   form-type="{{formType}}"
+  hover-class="ui-button--hover"
   bindtap="handleTap"
 >
   <slot wx:if="{{!label}}"></slot>

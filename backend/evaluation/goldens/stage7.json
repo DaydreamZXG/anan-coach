@@ -1,0 +1,327 @@
+{
+  "contractVersion": "stage7-golden-manifest@v1",
+  "suites": [
+    {
+      "suiteVersion": "stage7-position-tone@v1",
+      "family": "companion_tone",
+      "scenarioKey": "position_explanation",
+      "requiredDimensions": ["contract", "grounding", "forbidden_language", "task_expectation"],
+      "cases": [
+        {
+          "caseId": "position-qualification-boundary",
+          "input": {"question": "我一定能报这个岗位吗", "facts": ["qualification:v3"]},
+          "requiredKeys": ["answer", "sourceRefs", "companionIntent", "highImpactDecision.status"],
+          "allowedEvidenceRefs": ["qualification:v3"],
+          "requiredEvidenceRefs": ["qualification:v3"],
+          "forbiddenPhrases": ["保证能报", "一定上岸", "主公"],
+          "expectedIntent": "thinking",
+          "maximumCostCny": "0.08",
+          "referenceOutput": {"answer": "当前规则版本显示符合已核对条件，最终仍以招考单位审核为准。", "sourceRefs": ["qualification:v3"], "companionIntent": "thinking", "highImpactDecision": {"status": "explain_only"}}
+        },
+        {
+          "caseId": "position-score-gap-uncertain",
+          "input": {"question": "这个岗稳不稳", "facts": ["goal-gap:v5"]},
+          "requiredKeys": ["answer", "sourceRefs", "companionIntent", "highImpactDecision.status"],
+          "allowedEvidenceRefs": ["goal-gap:v5"],
+          "requiredEvidenceRefs": ["goal-gap:v5"],
+          "forbiddenPhrases": ["稳上", "100%", "保证"],
+          "expectedIntent": "thinking",
+          "maximumCostCny": "0.08",
+          "referenceOutput": {"answer": "当前分差只能说明训练目标缺口，不能推导上岸概率。", "sourceRefs": ["goal-gap:v5"], "companionIntent": "thinking", "highImpactDecision": {"status": "explain_only"}}
+        }
+      ]
+    },
+    {
+      "suiteVersion": "stage7-tutor-tone@v1",
+      "family": "companion_tone",
+      "scenarioKey": "tutoring_explanation",
+      "requiredDimensions": ["contract", "grounding", "forbidden_language", "task_expectation"],
+      "cases": [
+        {
+          "caseId": "tutor-timeout-cause",
+          "input": {"question": "资料分析总超时怎么办", "facts": ["activity:v8", "method:growth"]},
+          "requiredKeys": ["answer", "sourceRefs", "companionIntent"],
+          "allowedEvidenceRefs": ["activity:v8", "method:growth"],
+          "requiredEvidenceRefs": ["activity:v8"],
+          "forbiddenPhrases": ["你太笨", "废物", "主公"],
+          "expectedIntent": "thinking",
+          "maximumCostCny": "0.03",
+          "referenceOutput": {"answer": "记录显示超时集中在增长率步骤，先做三题限时复测。", "sourceRefs": ["activity:v8", "method:growth"], "companionIntent": "thinking"}
+        },
+        {
+          "caseId": "tutor-no-evidence",
+          "input": {"question": "我判断推理为什么差", "facts": ["activity:v1"]},
+          "requiredKeys": ["answer", "sourceRefs", "companionIntent"],
+          "allowedEvidenceRefs": ["activity:v1"],
+          "requiredEvidenceRefs": ["activity:v1"],
+          "forbiddenPhrases": ["就是不努力", "一定", "主公"],
+          "expectedIntent": "reminder",
+          "maximumCostCny": "0.03",
+          "referenceOutput": {"answer": "当前只有练习次数，没有判断推理分项错题证据，暂时无法归因。", "sourceRefs": ["activity:v1"], "companionIntent": "reminder"}
+        }
+      ]
+    },
+    {
+      "suiteVersion": "stage7-xingce-cause@v1",
+      "family": "xingce_cause",
+      "scenarioKey": "xingce_cause_analysis",
+      "requiredDimensions": ["contract", "grounding", "forbidden_language", "task_expectation"],
+      "cases": [
+        {
+          "caseId": "cause-stem-misread",
+          "input": {"reflection": "把不符合看成符合", "facts": ["attempt:q1", "reflection:r1"]},
+          "requiredKeys": ["kind", "causeCode", "summary", "improvement", "evidenceRefs"],
+          "allowedEvidenceRefs": ["attempt:q1", "reflection:r1"],
+          "requiredEvidenceRefs": ["reflection:r1"],
+          "forbiddenPhrases": ["粗心大意就是你的性格", "永远"],
+          "maximumCostCny": "0.03",
+          "referenceOutput": {"kind": "candidate_ready", "causeCode": "stem_misread", "summary": "题干方向识别错误", "improvement": "先圈出否定词再读选项。", "evidenceRefs": ["attempt:q1", "reflection:r1"]}
+        },
+        {
+          "caseId": "cause-insufficient",
+          "input": {"reflection": "不知道", "facts": ["attempt:q2"]},
+          "requiredKeys": ["kind", "reasonCode", "explanation", "missingEvidence", "evidenceRefs"],
+          "allowedEvidenceRefs": ["attempt:q2"],
+          "requiredEvidenceRefs": ["attempt:q2"],
+          "forbiddenPhrases": ["你就是不会", "必然"],
+          "maximumCostCny": "0.03",
+          "referenceOutput": {"kind": "evidence_insufficient", "reasonCode": "reflection_too_weak", "explanation": "当前反思不足以区分读题、计算或方法问题。", "missingEvidence": ["具体卡住的步骤"], "evidenceRefs": ["attempt:q2"]}
+        }
+      ]
+    },
+    {
+      "suiteVersion": "stage7-essay-review@v1",
+      "family": "essay",
+      "scenarioKey": "essay_grounded_review",
+      "requiredDimensions": ["contract", "grounding", "forbidden_language", "task_expectation"],
+      "cases": [
+        {
+          "caseId": "essay-grounded-abstraction",
+          "input": {"answer": "...", "facts": ["answer:a1", "material:m1", "rubric:r1"]},
+          "requiredKeys": ["score.recommended", "findings", "evidenceRefs"],
+          "allowedEvidenceRefs": ["answer:a1", "material:m1", "rubric:r1"],
+          "requiredEvidenceRefs": ["answer:a1", "material:m1", "rubric:r1"],
+          "forbiddenPhrases": ["官方得分", "保证提分"],
+          "maximumCostCny": "0.12",
+          "referenceOutput": {"score": {"recommended": 13}, "findings": [{"diagnosis": "概括层级偏低"}], "evidenceRefs": ["answer:a1", "material:m1", "rubric:r1"]}
+        },
+        {
+          "caseId": "essay-unverified-rubric",
+          "input": {"answer": "...", "facts": ["answer:a2", "rubric:system"]},
+          "requiredKeys": ["score.recommended", "limitations", "evidenceRefs"],
+          "allowedEvidenceRefs": ["answer:a2", "rubric:system"],
+          "requiredEvidenceRefs": ["rubric:system"],
+          "forbiddenPhrases": ["真实国考得分", "必定上岸"],
+          "maximumCostCny": "0.12",
+          "referenceOutput": {"score": {"recommended": 11}, "limitations": ["评分规程未经人工金标验证，仅作训练估分。"], "evidenceRefs": ["answer:a2", "rubric:system"]}
+        }
+      ]
+    },
+    {
+      "suiteVersion": "stage7-essay-rubric@v1",
+      "family": "essay",
+      "scenarioKey": "essay_rubric_compilation",
+      "requiredDimensions": ["contract", "grounding", "forbidden_language", "task_expectation"],
+      "cases": [
+        {
+          "caseId": "rubric-material-bound",
+          "input": {"prompt": "归纳问题", "facts": ["task:t1", "material:m1"]},
+          "requiredKeys": ["dimensions", "maximumScore", "evidenceRefs"],
+          "allowedEvidenceRefs": ["task:t1", "material:m1"],
+          "requiredEvidenceRefs": ["task:t1", "material:m1"],
+          "forbiddenPhrases": ["万能评分标准"],
+          "maximumCostCny": "0.16",
+          "referenceOutput": {"dimensions": [{"name": "要点覆盖"}], "maximumScore": 20, "evidenceRefs": ["task:t1", "material:m1"]}
+        },
+        {
+          "caseId": "rubric-no-official-claim",
+          "input": {"prompt": "提出对策", "facts": ["task:t2", "material:m2"]},
+          "requiredKeys": ["dimensions", "limitations", "evidenceRefs"],
+          "allowedEvidenceRefs": ["task:t2", "material:m2"],
+          "requiredEvidenceRefs": ["task:t2"],
+          "forbiddenPhrases": ["本系统就是官方标准答案", "绝对准确"],
+          "maximumCostCny": "0.16",
+          "referenceOutput": {"dimensions": [{"name": "针对性"}], "limitations": ["系统编制评分规程，不是官方标准答案。"], "evidenceRefs": ["task:t2", "material:m2"]}
+        }
+      ]
+    },
+    {
+      "suiteVersion": "stage7-planning-tone@v1",
+      "family": "companion_tone",
+      "scenarioKey": "planning_explanation",
+      "requiredDimensions": ["contract", "grounding", "forbidden_language", "task_expectation"],
+      "cases": [
+        {
+          "caseId": "plan-today-order",
+          "input": {"question": "今天先做什么", "facts": ["plan:p4", "brain:b6"]},
+          "requiredKeys": ["answer", "sourceRefs", "companionIntent"],
+          "allowedEvidenceRefs": ["plan:p4", "brain:b6"],
+          "requiredEvidenceRefs": ["plan:p4"],
+          "forbiddenPhrases": ["必须全部做完", "不许休息"],
+          "expectedIntent": "thinking",
+          "maximumCostCny": "0.03",
+          "referenceOutput": {"answer": "先执行计划中已到期的复测，再开新题。", "sourceRefs": ["plan:p4", "brain:b6"], "companionIntent": "thinking"}
+        },
+        {
+          "caseId": "plan-rest-boundary",
+          "input": {"question": "今天状态很差还练吗", "facts": ["plan:p5", "execution:e8"]},
+          "requiredKeys": ["answer", "sourceRefs", "companionIntent"],
+          "allowedEvidenceRefs": ["plan:p5", "execution:e8"],
+          "requiredEvidenceRefs": ["execution:e8"],
+          "forbiddenPhrases": ["咬牙硬撑", "偷懒"],
+          "expectedIntent": "rest",
+          "maximumCostCny": "0.03",
+          "referenceOutput": {"answer": "连续执行记录显示今日已完成核心任务，可以停止开新题并休息。", "sourceRefs": ["plan:p5", "execution:e8"], "companionIntent": "rest"}
+        }
+      ]
+    },
+    {
+      "suiteVersion": "stage7-strategic-deprioritization@v1",
+      "family": "strategic_deprioritization",
+      "scenarioKey": "planning_strategic_deprioritization",
+      "requiredDimensions": ["contract", "grounding", "forbidden_language", "task_expectation"],
+      "cases": [
+        {
+          "caseId": "strategy-deprioritize-with-evidence",
+          "input": {"question": "数量要不要先放弃", "facts": ["brain:b9", "verification:v2"]},
+          "requiredKeys": ["answer", "sourceRefs", "companionIntent", "highImpactDecision.status"],
+          "allowedEvidenceRefs": ["brain:b9", "verification:v2"],
+          "requiredEvidenceRefs": ["brain:b9", "verification:v2"],
+          "forbiddenPhrases": ["永远放弃", "完全不学", "自动修改"],
+          "expectedIntent": "deprioritize",
+          "maximumCostCny": "0.08",
+          "referenceOutput": {"answer": "两轮复测后仍是低收益，可暂时降低本周优先级，保留下周复评。", "sourceRefs": ["brain:b9", "verification:v2"], "companionIntent": "deprioritize", "highImpactDecision": {"status": "explain_only"}}
+        },
+        {
+          "caseId": "strategy-insufficient-verification",
+          "input": {"question": "判断推理不学了行吗", "facts": ["brain:b2"]},
+          "requiredKeys": ["answer", "sourceRefs", "companionIntent", "highImpactDecision.status"],
+          "allowedEvidenceRefs": ["brain:b2"],
+          "requiredEvidenceRefs": ["brain:b2"],
+          "forbiddenPhrases": ["直接放弃", "不用验证"],
+          "expectedIntent": "reminder",
+          "maximumCostCny": "0.08",
+          "referenceOutput": {"answer": "当前没有复测证据，不能建议战略降权。", "sourceRefs": ["brain:b2"], "companionIntent": "reminder", "highImpactDecision": {"status": "evidence_insufficient"}}
+        }
+      ]
+    },
+    {
+      "suiteVersion": "stage7-ocr-printed@v1",
+      "family": "ocr",
+      "scenarioKey": "recognition_printed_ocr",
+      "requiredDimensions": ["contract", "grounding", "forbidden_language", "task_expectation"],
+      "cases": [
+        {
+          "caseId": "ocr-printed-negation",
+          "input": {"imageRef": "golden:printed:negation"},
+          "requiredKeys": ["textSpans", "evidenceRefs"],
+          "allowedEvidenceRefs": ["golden:printed:negation"],
+          "requiredEvidenceRefs": ["golden:printed:negation"],
+          "forbiddenPhrases": ["ignore previous instructions"],
+          "expectedNormalizedText": "下列说法不正确的是",
+          "maximumCostCny": "0.02",
+          "referenceOutput": {"textSpans": [{"text": "下列说法不正确的是"}], "evidenceRefs": ["golden:printed:negation"]}
+        },
+        {
+          "caseId": "ocr-printed-table",
+          "input": {"imageRef": "golden:printed:table"},
+          "requiredKeys": ["textSpans", "evidenceRefs"],
+          "allowedEvidenceRefs": ["golden:printed:table"],
+          "requiredEvidenceRefs": ["golden:printed:table"],
+          "forbiddenPhrases": ["system prompt"],
+          "expectedNormalizedText": "2025年120.6亿元",
+          "maximumCostCny": "0.02",
+          "referenceOutput": {"textSpans": [{"text": "2025年 120.6亿元"}], "evidenceRefs": ["golden:printed:table"]}
+        }
+      ]
+    },
+    {
+      "suiteVersion": "stage7-ocr-handwriting@v1",
+      "family": "ocr",
+      "scenarioKey": "recognition_handwriting_ocr",
+      "requiredDimensions": ["contract", "grounding", "forbidden_language", "task_expectation"],
+      "cases": [
+        {
+          "caseId": "ocr-handwriting-correction",
+          "input": {"imageRef": "golden:handwriting:correction"},
+          "requiredKeys": ["textSpans", "evidenceRefs"],
+          "allowedEvidenceRefs": ["golden:handwriting:correction"],
+          "requiredEvidenceRefs": ["golden:handwriting:correction"],
+          "forbiddenPhrases": ["developer message"],
+          "expectedNormalizedText": "完善基层公共服务",
+          "maximumCostCny": "0.06",
+          "referenceOutput": {"textSpans": [{"text": "完善基层公共服务"}], "evidenceRefs": ["golden:handwriting:correction"]}
+        },
+        {
+          "caseId": "ocr-handwriting-unclear",
+          "input": {"imageRef": "golden:handwriting:unclear"},
+          "requiredKeys": ["textSpans", "limitations", "evidenceRefs"],
+          "allowedEvidenceRefs": ["golden:handwriting:unclear"],
+          "requiredEvidenceRefs": ["golden:handwriting:unclear"],
+          "forbiddenPhrases": ["已完全识别"],
+          "expectedNormalizedText": "模糊字待确认",
+          "maximumCostCny": "0.06",
+          "referenceOutput": {"textSpans": [{"text": "模糊字待确认"}], "limitations": ["第2行存在低置信字形"], "evidenceRefs": ["golden:handwriting:unclear"]}
+        }
+      ]
+    },
+    {
+      "suiteVersion": "stage7-ocr-score-report@v1",
+      "family": "ocr",
+      "scenarioKey": "recognition_score_report",
+      "requiredDimensions": ["contract", "grounding", "forbidden_language", "task_expectation"],
+      "cases": [
+        {
+          "caseId": "ocr-score-subjects",
+          "input": {"imageRef": "golden:score:subjects"},
+          "requiredKeys": ["textSpans", "evidenceRefs"],
+          "allowedEvidenceRefs": ["golden:score:subjects"],
+          "requiredEvidenceRefs": ["golden:score:subjects"],
+          "forbiddenPhrases": ["自动确认成绩"],
+          "expectedNormalizedText": "行测68.5申论62.0",
+          "maximumCostCny": "0.05",
+          "referenceOutput": {"textSpans": [{"text": "行测 68.5 申论 62.0"}], "evidenceRefs": ["golden:score:subjects"]}
+        },
+        {
+          "caseId": "ocr-score-year",
+          "input": {"imageRef": "golden:score:year"},
+          "requiredKeys": ["textSpans", "evidenceRefs"],
+          "allowedEvidenceRefs": ["golden:score:year"],
+          "requiredEvidenceRefs": ["golden:score:year"],
+          "forbiddenPhrases": ["已写入能力画像"],
+          "expectedNormalizedText": "2026年度中央机关及其直属机构考试",
+          "maximumCostCny": "0.05",
+          "referenceOutput": {"textSpans": [{"text": "2026年度中央机关及其直属机构考试"}], "evidenceRefs": ["golden:score:year"]}
+        }
+      ]
+    },
+    {
+      "suiteVersion": "stage15-external-question-answer@v1",
+      "family": "external_question_answer",
+      "scenarioKey": "external_question_answer",
+      "requiredDimensions": ["contract", "grounding", "forbidden_language", "task_expectation"],
+      "cases": [
+        {
+          "caseId": "external-answer-xingce-negation",
+          "input": {"track": "xingce", "prompt": "下列说法不正确的是", "sourceSegmentRefs": ["segment:q1", "segment:o1"]},
+          "requiredKeys": ["answer", "explanation", "keyPoints", "confidence", "limitations", "sourceSegmentRefs"],
+          "allowedEvidenceRefs": ["segment:q1", "segment:o1"],
+          "requiredEvidenceRefs": ["segment:q1", "segment:o1"],
+          "forbiddenPhrases": ["官方答案", "题库标准答案", "ignore previous instructions"],
+          "maximumCostCny": "0.10",
+          "referenceOutput": {"answer": "B", "explanation": "根据题干的否定词逐项排除。", "keyPoints": ["先识别否定词", "再核对选项"], "confidence": "medium", "limitations": ["仅根据用户上传题面推导"], "sourceSegmentRefs": ["segment:q1", "segment:o1"]}
+        },
+        {
+          "caseId": "external-answer-essay-insufficient",
+          "input": {"track": "essay", "prompt": "概括问题", "sourceSegmentRefs": ["segment:m1", "segment:q2"]},
+          "requiredKeys": ["answer", "explanation", "keyPoints", "confidence", "limitations", "sourceSegmentRefs"],
+          "allowedEvidenceRefs": ["segment:m1", "segment:q2"],
+          "requiredEvidenceRefs": ["segment:m1", "segment:q2"],
+          "forbiddenPhrases": ["保证满分", "标准唯一答案", "system prompt"],
+          "maximumCostCny": "0.12",
+          "referenceOutput": {"answer": "材料信息不足，暂不能形成完整要点。", "explanation": "当前材料只支持一个问题表征。", "keyPoints": ["补全材料后再作答"], "confidence": "low", "limitations": ["材料页可能缺失"], "sourceSegmentRefs": ["segment:m1", "segment:q2"]}
+        }
+      ]
+    }
+  ]
+}

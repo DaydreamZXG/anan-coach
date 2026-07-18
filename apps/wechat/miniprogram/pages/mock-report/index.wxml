@@ -1,0 +1,11 @@
+<view class="report-page">
+  <state-view wx:if="{{status === 'loading'}}" state="loading" />
+  <state-view wx:elif="{{status === 'error'}}" state="error" title="模考报告没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
+  <block wx:elif="{{report}}">
+    <view class="report-hero"><view class="report-kicker">{{report.title}}</view><view class="report-title">分数只是结果，失分结构才决定下一步</view><view class="report-copy">按模块、时间和错误原因拆解，不用一次成绩替代长期判断。</view><view class="report-meta"><view class="report-meta__item">{{generatedAtLabel}}</view><view class="report-meta__item">{{evidenceCount}} 条证据</view><view class="report-meta__item">{{report.chartContractVersion}}</view></view></view>
+    <view wx:if="{{partial}}" class="report-banner">该报告存在证据缺口，已有结论按部分状态展示，不会填充假数据。</view>
+    <state-view wx:if="{{empty}}" class="report-state" state="empty" title="还没有可报告的整卷证据" description="交卷后才会生成模块表现、速度与错因图。" />
+    <view class="report-conclusion"><view class="report-conclusion__label">当前结论</view><view class="report-conclusion__headline">{{report.conclusion.headline}}</view><view class="report-conclusion__detail">{{report.conclusion.detail}}</view><view class="report-next">{{report.conclusion.nextAction}} · 计划引用 {{planEvidenceCount}} 条</view><button class="report-next-action" bindtap="openNextAction">回到今日计划</button></view>
+    <view class="report-chart-list"><report-chart wx:for="{{report.charts}}" wx:key="chartId" chart="{{item}}" /></view>
+  </block>
+</view>

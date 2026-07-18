@@ -1,0 +1,22 @@
+{
+  "contractVersion": "owner-content-attestation@v1",
+  "attestationId": "anan-owner-question-bank-20260718",
+  "ownerActorId": "product-owner:daydreamzxg",
+  "reviewerActorId": "rights-reviewer:catalog-release",
+  "decidedAt": "2026-07-18T00:00:00+08:00",
+  "sourceDatasetIds": [
+    "essay-gkzhenti-raw-20260621",
+    "essay-guokao-2024",
+    "fenbi-final-analysis-dedup-v2-20260613"
+  ],
+  "rightsBasis": "Owner attests that the listed datasets are controlled by the product for the explicitly granted product uses. This record does not represent a claim of original authorship over examination questions.",
+  "allowedProductUses": [
+    "authenticated cross-user retrieval and matching",
+    "account-owner reference-answer display",
+    "account-owner private print and note export",
+    "account-owner AI grounding for an answer request"
+  ],
+  "modelTrainingUse": "prohibited",
+  "defaultDecision": "deny",
+  "withdrawalPolicyRef": "content-rights-withdrawal@v1"
+}

@@ -54,6 +54,9 @@ class CommerceEntitlementResponse(CommerceBaseModel):
     subscription_end: datetime | None = Field(default=None, alias="subscriptionEnd")
     feature_quotas: list[CommerceFeatureQuota] = Field(alias="featureQuotas")
     product_ids: list[str] = Field(alias="productIds")
+    unlocked_features: list[str] = Field(
+        default_factory=list, alias="unlockedFeatures"
+    )
     server_time: datetime = Field(alias="serverTime")
 
 

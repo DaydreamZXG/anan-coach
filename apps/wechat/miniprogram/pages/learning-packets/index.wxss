@@ -1,6 +1,6 @@
 @import "../../features/external-learning/page-shell.wxss";
 
-.packets-page state-view {
+.packets-state-view {
   display: block;
   margin-top: 34rpx;
 }
@@ -24,7 +24,7 @@
 }
 
 .content-row--selected {
-  border-color: rgba(82, 104, 255, 0.45);
+  border-color: rgba(0, 151, 139, 0.45);
   background: var(--color-primary-soft);
 }
 

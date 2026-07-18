@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "学习档案",
   "usingComponents": {
+    "anan-companion": "../../design-system/companion/anan-companion/index",
     "state-view": "../../design-system/primitives/state-view/index",
     "ui-button": "../../design-system/primitives/ui-button/index"
   }

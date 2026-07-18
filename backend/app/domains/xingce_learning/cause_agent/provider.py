@@ -13,6 +13,13 @@ from pydantic import ValidationError
 
 from app.core.config import DEFAULT_AI_PROVIDER_BASE_URL, Settings
 from app.domains.ai.model_cost import ModelTokenUsage
+from app.domains.ai.provider_contract import (
+    parse_provider_json_object,
+    provider_failure_is_retryable,
+    provider_request_audit,
+    validate_processing_approval,
+    validate_provider_audit_contract,
+)
 from app.domains.xingce_learning.cause_agent.contracts import (
     CauseAgentEvidence,
     CauseAgentOutput,
@@ -124,29 +131,32 @@ class CauseAgentProvider:
             raise CauseAgentProviderConfigurationError(
                 "cause-agent provider host is not allowlisted"
             )
-        if not self._settings.ai_xingce_cause_provider_dpa_confirmed:
-            raise CauseAgentProviderConfigurationError(
-                "cause-agent provider DPA confirmation is required"
+        try:
+            validate_processing_approval(
+                self._settings,
+                dpa_confirmed=(
+                    self._settings.ai_xingce_cause_provider_dpa_confirmed
+                ),
             )
-        if (
-            self._settings.ai_xingce_cause_provider_idempotency_capability.strip()
-            != "replayable_queryable"
-        ):
-            raise CauseAgentProviderConfigurationError(
-                "cause-agent provider requires replayable/queryable idempotency"
+            validate_provider_audit_contract(
+                idempotency_capability=(
+                    self._settings.ai_xingce_cause_provider_idempotency_capability
+                ),
+                idempotency_key_header=(
+                    self._settings.ai_xingce_cause_provider_idempotency_key_header
+                ),
+                request_id_source=(
+                    self._settings.ai_xingce_cause_provider_request_id_header
+                ),
+                replay_retention_seconds=(
+                    self._settings.ai_xingce_cause_provider_replay_retention_seconds
+                ),
             )
-        for value in (
-            self._settings.ai_xingce_cause_provider_idempotency_key_header,
-            self._settings.ai_xingce_cause_provider_request_id_header,
-        ):
-            if re.fullmatch(r"[A-Za-z0-9-]+", value.strip()) is None:
-                raise CauseAgentProviderConfigurationError(
-                    "cause-agent provider audit headers are required"
-                )
+        except ValueError as exc:
+            raise CauseAgentProviderConfigurationError(str(exc)) from exc
         if (
             self._settings.ai_xingce_cause_max_input_bytes <= 0
             or self._settings.ai_xingce_cause_max_output_bytes <= 0
-            or self._settings.ai_xingce_cause_provider_replay_retention_seconds < 604_800
         ):
             raise CauseAgentProviderConfigurationError(
                 "cause-agent provider size and replay limits are not production safe"
@@ -168,6 +178,9 @@ class CauseAgentProvider:
                 "followup_required；否则返回 evidence_insufficient。只返回 JSON。"
             ),
             "requiredContract": CAUSE_AGENT_SCHEMA_VERSION,
+            "requiredOutputSchema": CauseAgentProviderEnvelope.model_json_schema(
+                by_alias=True
+            ),
             "evidence": evidence.model_dump(by_alias=True, mode="json"),
             "followupAnswer": followup_answer,
         }
@@ -181,6 +194,16 @@ class CauseAgentProvider:
                 },
             ],
             "temperature": 0.1,
+            "response_format": {
+                "type": "json_schema",
+                "json_schema": {
+                    "name": "xingce_cause_candidate",
+                    "strict": True,
+                    "schema": CauseAgentProviderEnvelope.model_json_schema(
+                        by_alias=True
+                    ),
+                },
+            },
         }
         encoded = json.dumps(body, ensure_ascii=False, sort_keys=True).encode("utf-8")
         if (
@@ -211,10 +234,19 @@ class CauseAgentProvider:
             raise CauseAgentProviderError(
                 "provider_transport_uncertain",
                 "cause-agent provider outcome is uncertain",
-                retryable=True,
+                retryable=provider_failure_is_retryable(
+                    idempotency_capability=(
+                        self._settings.ai_xingce_cause_provider_idempotency_capability
+                    )
+                ),
             ) from exc
         except httpx.HTTPStatusError as exc:
-            retryable = exc.response.status_code in {408, 429} or exc.response.status_code >= 500
+            retryable = provider_failure_is_retryable(
+                idempotency_capability=(
+                    self._settings.ai_xingce_cause_provider_idempotency_capability
+                ),
+                status_code=exc.response.status_code,
+            )
             raise CauseAgentProviderError(
                 f"provider_http_{exc.response.status_code}",
                 "cause-agent provider rejected the request",
@@ -223,6 +255,8 @@ class CauseAgentProvider:
         latency_ms = int((time.monotonic() - started) * 1000)
         try:
             envelope = response.json()
+            if envelope.get("model") is not None and envelope.get("model") != self.model:
+                raise ValueError("provider model drifted")
             usage = _usage(envelope["usage"])
             content = envelope["choices"][0]["message"]["content"]
             if not isinstance(content, str):
@@ -233,7 +267,9 @@ class CauseAgentProvider:
                 > self._settings.ai_xingce_cause_max_output_bytes
             ):
                 raise ValueError("output exceeds configured capacity")
-            parsed = CauseAgentProviderEnvelope.model_validate_json(content)
+            parsed = CauseAgentProviderEnvelope.model_validate(
+                parse_provider_json_object(content)
+            )
         except (KeyError, IndexError, TypeError, ValueError, ValidationError) as exc:
             output_fingerprint = sha256(
                 json.dumps(envelope if "envelope" in locals() else {}, sort_keys=True).encode()
@@ -247,17 +283,20 @@ class CauseAgentProvider:
                 latency_ms=latency_ms,
             ) from exc
         output_fingerprint = sha256(content.encode("utf-8")).hexdigest()
-        header = self._settings.ai_xingce_cause_provider_request_id_header.strip().casefold()
-        request_id = response.headers.get(header) if header else None
+        request_id_source, request_id_fingerprint = provider_request_audit(
+            response=response,
+            envelope=envelope,
+            configured_source=(
+                self._settings.ai_xingce_cause_provider_request_id_header
+            ),
+        )
         return CauseAgentProviderResult(
             output=parsed.output,
             usage=usage,
             output_fingerprint=output_fingerprint,
             latency_ms=latency_ms,
-            provider_request_id_header=(header or None) if request_id else None,
-            provider_request_id_fingerprint=(
-                sha256(request_id.encode()).hexdigest() if request_id else None
-            ),
+            provider_request_id_header=request_id_source,
+            provider_request_id_fingerprint=request_id_fingerprint,
         )
 
 

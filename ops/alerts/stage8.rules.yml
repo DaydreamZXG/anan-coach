@@ -1,0 +1,18 @@
+groups:
+  - name: stage8-commerce-privacy
+    rules:
+      - alert: WechatPaymentOutcomeUncertain
+        expr: anan_wechat_payment_uncertain_orders > 0
+        for: 10m
+        labels: { severity: critical }
+        annotations: { summary: "微信支付订单超过 10 分钟未完成对账" }
+      - alert: WechatRefundStale
+        expr: anan_wechat_stale_refunds > 0
+        for: 5m
+        labels: { severity: critical }
+        annotations: { summary: "微信退款超过 15 分钟未完成" }
+      - alert: DataRightsJobFailed
+        expr: anan_privacy_deletions_failed + anan_privacy_exports_failed > 0
+        for: 5m
+        labels: { severity: critical }
+        annotations: { summary: "用户数据导出或账户删除任务失败" }

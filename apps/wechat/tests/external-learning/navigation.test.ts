@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   answerIngestionUrl,
   captureImportUrl,
+  learningPacketsUrl,
   registeredNavigationTarget,
   routes,
 } from "../../miniprogram/app/navigation/routes";
@@ -26,6 +27,9 @@ describe("external learning navigation", () => {
       url: routes.answerIngestion,
     });
     expect(captureImportUrl("import/1")).toBe("/pages/capture-import/index?importId=import%2F1");
+    expect(learningPacketsUrl({ contentVersionId: "content/1" })).toBe(
+      "/pages/learning-packets/index?contentVersionId=content%2F1",
+    );
     expect(answerIngestionUrl({ packetVersionId: "packet/1" })).toBe(
       "/pages/answer-ingestion/index?packetVersionId=packet%2F1",
     );
@@ -39,8 +43,10 @@ describe("external learning navigation", () => {
 
   it("preserves only allowlisted external-learning destinations across login", () => {
     const capture = captureImportUrl("import-1");
+    const packets = learningPacketsUrl({ contentVersionId: "content-version-1" });
     const answer = answerIngestionUrl({ packetVersionId: "packet-1" });
     expect(authenticatedReturnTarget(capture)).toEqual({ mode: "navigateTo", url: capture });
+    expect(authenticatedReturnTarget(packets)).toEqual({ mode: "navigateTo", url: packets });
     expect(loginReturnTarget(encodeURIComponent(answer))).toEqual({
       mode: "navigateTo",
       url: answer,
@@ -63,5 +69,6 @@ describe("external learning navigation", () => {
     expect(
       authenticatedReturnTarget(`${routes.captureImport}?importId=${"a".repeat(201)}`),
     ).toBeNull();
+    expect(authenticatedReturnTarget(`${routes.learningPackets}?unexpected=1`)).toBeNull();
   });
 });

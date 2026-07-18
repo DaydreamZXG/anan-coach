@@ -42,6 +42,9 @@ from app.domains.essay_intelligence.workflow_schemas import (
     EssayReviewQueueCommand,
     EssayReviewQuota,
 )
+from app.contracts.external_learning.models import CandidateState, RecognitionKind
+from app.domains.external_ingestion.recognition.models import RecognitionCandidatePayload
+from app.domains.external_ingestion.recognition.repository import SQLRecognitionRepository
 from app.platform.jobs import BackgroundJob, BackgroundJobRepository
 from app.platform.outbox import OutboxRepository
 
@@ -211,6 +214,12 @@ class EssayReviewWorkflowService:
             raise EssayWorkflowContractError(
                 "Answer changed; reload the current version before saving"
             )
+        source_evidence = self._validated_answer_source_evidence(
+            session,
+            user_id=user_id,
+            command=command,
+            at=created_at,
+        )
         thinking = (
             command.thinking.model_dump(by_alias=True, mode="json")
             if command.thinking
@@ -226,6 +235,8 @@ class EssayReviewWorkflowService:
                 "task_version_id": str(attempt["task_version_id"]),
                 "version_no": int(current["version_no"]) + 1 if current else 1,
                 "source_type": command.source_type,
+                "source_artifact_version_id": source_evidence[0],
+                "recognition_revision_id": source_evidence[1],
                 "answer_text": command.answer_text,
                 "answer_sha256": sha256(
                     command.answer_text.encode("utf-8")
@@ -259,12 +270,78 @@ class EssayReviewWorkflowService:
                 "taskVersionId": str(answer.task_version_id),
                 "versionNo": answer.version_no,
                 "sourceType": answer.source_type,
+                "sourceArtifactVersionId": (
+                    str(answer.source_artifact_version_id)
+                    if answer.source_artifact_version_id is not None
+                    else None
+                ),
+                "recognitionRevisionId": (
+                    str(answer.recognition_revision_id)
+                    if answer.recognition_revision_id is not None
+                    else None
+                ),
                 "answerSha256": answer.answer_sha256,
                 "thinkingSha256": answer.thinking_sha256,
                 "inputFingerprint": fingerprint,
             },
         )
         return EssayAnswerCreateResult(answer=answer)
+
+
+    def _validated_answer_source_evidence(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        command: EssayAnswerCreateCommand,
+        at: datetime,
+    ) -> tuple[str | None, str | None]:
+        if command.source_type == "typed":
+            return None, None
+        assert command.source_artifact_version_id is not None
+        assert command.recognition_revision_id is not None
+        repository = SQLRecognitionRepository(session)
+        revision = repository.revision(
+            recognition_revision_id=command.recognition_revision_id
+        )
+        if revision is None or str(revision.owner_user_id) != user_id:
+            raise EssayWorkflowContractError(
+                "OCR source recognition does not belong to the learner"
+            )
+        if revision.artifact_version_id != command.source_artifact_version_id:
+            raise EssayWorkflowContractError(
+                "OCR source artifact does not match the recognition revision"
+            )
+        if revision.recognition_kind != RecognitionKind.HANDWRITING_OCR:
+            raise EssayWorkflowContractError(
+                "Essay OCR answers require a handwriting recognition revision"
+            )
+        head = repository.head(
+            artifact_version_id=revision.artifact_version_id,
+            owner_user_id=revision.owner_user_id,
+            recognition_kind=revision.recognition_kind.value,
+        )
+        if head is None or head.recognition_revision_id != revision.recognition_revision_id:
+            raise EssayWorkflowContractError(
+                "OCR source recognition has been superseded; confirm the current revision"
+            )
+        if revision.state != CandidateState.CONFIRMED or revision.expires_at <= at:
+            raise EssayWorkflowContractError(
+                "OCR source recognition must be confirmed and unexpired"
+            )
+        artifact = repository.artifact(
+            artifact_version_id=revision.artifact_version_id,
+            owner_user_id=revision.owner_user_id,
+        )
+        if artifact is None:
+            raise EssayWorkflowContractError("OCR source artifact is unavailable")
+        payload = RecognitionCandidatePayload.model_validate(revision.candidate_payload)
+        canonical_text = "\n".join(span.text for span in payload.text_spans)
+        if command.answer_text != canonical_text:
+            raise EssayWorkflowContractError(
+                "Essay answer text must exactly match the confirmed OCR revision"
+            )
+        return str(revision.artifact_version_id), str(revision.recognition_revision_id)
 
     def ensure_review_intent(
         self,
@@ -1019,6 +1096,7 @@ class EssayReviewWorkflowService:
                 "used": reservation.used,
                 "limit": reservation.limit,
                 "usageDate": reservation.usage_date.isoformat(),
+                "source": reservation.source,
             },
         }
         job = self._jobs.enqueue(

@@ -14,7 +14,7 @@ from app.domains.mock_exam.service import GUOKAO_MOCK_BLUEPRINT
 from app.main import create_app
 
 
-def test_weekly_mock_exam_full_loop_feeds_workbench_and_calibration(
+def test_weekly_mock_exam_full_loop_feeds_workbench_without_faking_score_calibration(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     user_id = _seed_user(db_session_factory, token="mock-token")
@@ -50,9 +50,14 @@ def test_weekly_mock_exam_full_loop_feeds_workbench_and_calibration(
 
     assert submitted.status_code == 200
     review = submitted.json()["review"]
-    assert review["estimatedScore"] == 98.5
+    assert review["estimatedScore"] == 98.0
+    assert review["performanceIndex"] == 98.0
+    assert review["metricName"] == "balanced_performance_index"
+    assert review["scoringPolicyVersionId"] == "mock-balanced-performance-index-v1"
+    assert review["performanceRange"]["lower"] < 98.0
+    assert review["performanceRange"]["upper"] > 98.0
     assert review["viewed"] is False
-    assert "未使用全国分位" in review["estimateSource"]
+    assert "不是国考原始分" in review["estimateSource"]
     assert review["wrongClusters"][0]["methodCardIds"] == ["mc_mock"]
     assert "上周模考" in review["nextWeekReason"]
 
@@ -62,10 +67,8 @@ def test_weekly_mock_exam_full_loop_feeds_workbench_and_calibration(
     )
     assert calibration.status_code == 200
     ability = calibration.json()
-    assert ability["confidence"] == "high"
-    assert ability["xingceScore"] == 98.5
-    assert ability["sources"]["mockExams"] == 1
-    assert "1 次模考" in ability["dataLine"]
+    assert ability["sources"]["mockExams"] == 0
+    assert ability["xingceScore"] != 98.0
 
     workbench_before_view = client.get(
         "/api/v1/workbench/preview",
@@ -88,7 +91,7 @@ def test_weekly_mock_exam_full_loop_feeds_workbench_and_calibration(
     )
     assert today.status_code == 200
     body = today.json()
-    assert body["calibration"]["confidence"] == "high"
+    assert body["calibration"]["confidence"] == "low"
     assert body["tasks"][0]["kind"] == "xingce_practice"
     assert "上周模考" in body["rationale"]
 
@@ -517,6 +520,30 @@ def _seed_unviewed_mock_review(
     user_id: str,
 ) -> None:
     with db_session_factory() as session:
+        paper_version_id = str(uuid4())
+        session.execute(
+            text(
+                """
+                insert into product.mock_exam_paper_versions (
+                  paper_version_id, paper_key, version_no, state, exam_scope,
+                  track, title, duration_minutes, question_ids, blueprint,
+                  learner_bundle_version_id, scoring_policy_version_id,
+                  exposure_policy, equivalence_metadata, content_fingerprint,
+                  published_at, created_at
+                ) values (
+                  cast(:paper_version_id as uuid), :paper_key, 1, 'retired',
+                  'guokao', 'xingce', '测试历史卷', 120,
+                  '[]'::jsonb, '[]'::jsonb, 'fixture-bundle',
+                  'mock-objective-exact-v1', '{}'::jsonb, '{}'::jsonb,
+                  repeat('a', 64), now(), now()
+                )
+                """
+            ),
+            {
+                "paper_version_id": paper_version_id,
+                "paper_key": f"fixture:{paper_version_id}",
+            },
+        )
         session.execute(
             text(
                 """
@@ -529,6 +556,8 @@ def _seed_unviewed_mock_review(
                   question_ids,
                   blueprint,
                   review_payload,
+                  paper_version_id,
+                  scoring_policy_version_id,
                   submitted_at,
                   created_at,
                   updated_at
@@ -550,12 +579,14 @@ def _seed_unviewed_mock_review(
                     'wrongClusters', '[]'::jsonb,
                     'nextWeekReason', '上周模考资料分析 62.5%，本周加练基期量。'
                   ),
+                  cast(:paper_version_id as uuid),
+                  'mock-objective-exact-v1',
                   now(),
                   now(),
                   now()
                 )
                 """
             ),
-            {"user_id": user_id},
+            {"user_id": user_id, "paper_version_id": paper_version_id},
         )
         session.commit()

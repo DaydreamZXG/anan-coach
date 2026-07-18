@@ -104,6 +104,9 @@ def test_provider_sends_only_full_product_source_and_two_strict_calls() -> None:
         assert "考生" not in serialized
         assert all(segment.text in serialized for segment in source.segments)
         assert captured["body"]["response_format"]["json_schema"]["strict"] is True
+        assert captured["body"]["response_format"]["json_schema"]["schema"] == (
+            captured["user"]["requiredOutputSchema"]
+        )
     assert "generatorCandidate" not in seen[0]["user"]
     assert "generatorCandidate" in seen[1]["user"]
     assert generated.provider_request_id_sha256 == _hash(

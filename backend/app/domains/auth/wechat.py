@@ -40,6 +40,15 @@ class WechatIdentityClaims:
     session_key_hash: str
 
 
+@dataclass(frozen=True)
+class WechatPaymentSession:
+    """Short-lived payment signing material; callers must never persist session_key."""
+
+    app_id: str
+    open_id: str
+    session_key: str
+
+
 class WechatIdentityExchange:
     def __init__(
         self,
@@ -51,6 +60,33 @@ class WechatIdentityExchange:
         self._transport = transport
 
     def exchange(self, *, code: str) -> WechatIdentityClaims:
+        app_id, payload = self._exchange_payload(code=code)
+        open_id = _optional_str(payload.get("openid"))
+        session_key = _optional_str(payload.get("session_key"))
+        if not open_id or not session_key:
+            raise WechatLoginTransportError("Wechat response is missing identity fields")
+        return WechatIdentityClaims(
+            app_id=app_id,
+            open_id=open_id,
+            union_id=_optional_str(payload.get("unionid")),
+            session_key_hash=sha256(session_key.encode("utf-8")).hexdigest(),
+        )
+
+    def exchange_payment_session(self, *, code: str) -> WechatPaymentSession:
+        """Exchange a fresh wx.login code for one in-memory virtual-payment signature."""
+
+        app_id, payload = self._exchange_payload(code=code)
+        open_id = _optional_str(payload.get("openid"))
+        session_key = _optional_str(payload.get("session_key"))
+        if not open_id or not session_key:
+            raise WechatLoginTransportError("Wechat response is missing payment session fields")
+        return WechatPaymentSession(
+            app_id=app_id,
+            open_id=open_id,
+            session_key=session_key,
+        )
+
+    def _exchange_payload(self, *, code: str) -> tuple[str, dict[str, Any]]:
         app_id = self._settings.wechat_mini_app_id.strip()
         app_secret = self._settings.wechat_mini_app_secret.strip()
         if not app_id or not app_secret:
@@ -87,16 +123,7 @@ class WechatIdentityExchange:
                 error_message=_optional_str(payload.get("errmsg")) or "unknown error",
             )
 
-        open_id = _optional_str(payload.get("openid"))
-        session_key = _optional_str(payload.get("session_key"))
-        if not open_id or not session_key:
-            raise WechatLoginTransportError("Wechat response is missing identity fields")
-        return WechatIdentityClaims(
-            app_id=app_id,
-            open_id=open_id,
-            union_id=_optional_str(payload.get("unionid")),
-            session_key_hash=sha256(session_key.encode("utf-8")).hexdigest(),
-        )
+        return app_id, payload
 
 
 def _optional_str(value: Any) -> str | None:

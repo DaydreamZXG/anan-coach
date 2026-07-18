@@ -1,10 +1,10 @@
-<view wx:if="{{state === 'loading'}}" class="state-view state-view--loading" aria-label="正在加载">
+<view wx:if="{{state === 'loading'}}" class="state-view state-view--loading custom-class" aria-label="正在加载">
   <view class="state-skeleton state-skeleton--hero"></view>
   <view class="state-skeleton"></view>
   <view class="state-skeleton"></view>
 </view>
 
-<view wx:else class="state-view state-view--{{state}}">
+<view wx:else class="state-view state-view--{{state}} custom-class">
   <view class="state-icon" aria-hidden="true">
     <text wx:if="{{state === 'empty'}}">＋</text>
     <text wx:elif="{{state === 'error'}}">!</text>

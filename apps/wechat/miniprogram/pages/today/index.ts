@@ -54,6 +54,11 @@ interface TodayPageCustom {
   reloadAfterCapacityConflict(): void;
   openTask(event: WechatMiniprogram.BaseEvent): void;
   openMasteryQueue(): void;
+  openPlanBasis(): void;
+  openDayAdjustment(): void;
+  openDailySettlement(): void;
+  openWeeklyPlan(): void;
+  openCaptureImport(): void;
   openOnboarding(): void;
   retry(): void;
 }
@@ -234,6 +239,26 @@ Page<TodayPageData, TodayPageCustom>({
 
   openMasteryQueue() {
     void wx.navigateTo({ url: routes.xingceMastery });
+  },
+
+  openPlanBasis() {
+    void wx.navigateTo({ url: routes.planBasis });
+  },
+
+  openDayAdjustment() {
+    void wx.navigateTo({ url: routes.dayAdjustment });
+  },
+
+  openDailySettlement() {
+    void wx.navigateTo({ url: routes.dailySettlement });
+  },
+
+  openWeeklyPlan() {
+    void wx.navigateTo({ url: routes.weeklyPlan });
+  },
+
+  openCaptureImport() {
+    void wx.navigateTo({ url: routes.captureImport });
   },
 
   openOnboarding() {

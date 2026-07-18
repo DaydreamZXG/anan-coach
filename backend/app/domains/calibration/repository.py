@@ -48,16 +48,25 @@ class CalibrationRepository:
                   ) as practice_correct,
                   (
                     select count(*)
-                    from learner.mock_exam_sessions
-                    where user_id = cast(:user_id as uuid)
-                      and review_payload is not null
+                    from learner.mock_exam_sessions session
+                    join product.mock_exam_scoring_policy_versions policy
+                      on policy.scoring_policy_version_id =
+                         session.scoring_policy_version_id
+                    where session.user_id = cast(:user_id as uuid)
+                      and session.review_payload is not null
+                      and policy.calibration_status = 'sample_calibrated'
                   ) as mock_exams,
                   (
                     select cast(review_payload ->> 'estimatedScore' as numeric)
-                    from learner.mock_exam_sessions
-                    where user_id = cast(:user_id as uuid)
-                      and review_payload ? 'estimatedScore'
-                    order by submitted_at desc nulls last, created_at desc
+                    from learner.mock_exam_sessions session
+                    join product.mock_exam_scoring_policy_versions policy
+                      on policy.scoring_policy_version_id =
+                         session.scoring_policy_version_id
+                    where session.user_id = cast(:user_id as uuid)
+                      and session.review_payload ? 'estimatedScore'
+                      and policy.calibration_status = 'sample_calibrated'
+                    order by session.submitted_at desc nulls last,
+                             session.created_at desc
                     limit 1
                   ) as latest_mock_score,
                   (

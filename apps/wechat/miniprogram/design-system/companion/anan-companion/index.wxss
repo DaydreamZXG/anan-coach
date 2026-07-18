@@ -50,12 +50,7 @@
 
 .anan__viewport,
 .anan__static,
-anan-growth,
-anan-thinking,
-anan-reminder,
-anan-encouragement,
-anan-rest,
-anan-deprioritize {
+.anan__embedded {
   display: block;
   width: 100%;
   height: 100%;

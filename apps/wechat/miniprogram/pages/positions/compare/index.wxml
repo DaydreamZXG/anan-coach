@@ -1,7 +1,9 @@
-<view class="page position-page position-compare-page">
-  <view class="eyebrow">D04 · 同版本决策表</view>
-  <view class="page-title">对比 {{state.positionIds.length}} 个岗位</view>
-  <view class="page-subtitle">只对齐服务端可验证维度，不生成“最适合”结论，也不把招录人数包装成录取概率。</view>
+<view class="s9-page position-page position-compare-page">
+  <view class="s9-hero">
+    <view class="s9-kicker">岗位对比 · {{state.positionIds.length}} 个候选</view>
+    <view class="s9-title">两个岗位，差别不只在竞争比</view>
+    <view class="s9-subtitle">在同一档案版本下，对齐资格、分差、证据和额外考试。</view>
+  </view>
 
   <state-view wx:if="{{!state || state.status === 'idle' || state.status === 'loading'}}" state="loading" />
   <state-view
@@ -45,21 +47,21 @@
           <view class="position-card__top"><view class="status-pill status-pill--{{item.eligibilityTone}}">{{item.eligibilityLabel}}</view><view wx:if="{{item.isPrimaryGoal}}" class="primary-tag">当前主目标</view></view>
           <view class="comparison-card__name">{{item.name}}</view>
           <view class="comparison-card__department">{{item.departmentFull}}</view>
-          <view class="highlight-list"><view wx:for="{{item.highlightLabels}}" wx:for-item="label" wx:key="*this">{{label}}</view></view>
+          <view class="highlight-list"><view wx:for="{{item.highlightLabels}}" wx:for-item="label" wx:key="*this" class="highlight-item">{{label}}</view></view>
           <view class="comparison-table">
-            <view><text>资格核验</text><strong>{{item.conditionSummary}}</strong></view>
-            <view><text>服务端分带</text><strong>{{item.fitView.bandLabel}} · {{item.fitView.statusDescription}}</strong></view>
-            <view><text>同版本分差</text><strong class="type-data">{{item.fitView.scoreGapRangeLabel}}</strong></view>
-            <view><text>建议点差</text><strong class="type-data">{{item.fitView.scoreGapRecommendedLabel}}</strong></view>
-            <view><text>双科证据</text><strong>{{item.fitView.evidenceStatusLabel}}</strong></view>
-            <view><text>资格负担</text><strong>{{item.fitView.requirementsBurdenLabel}}</strong></view>
-            <view><text>目标分区间</text><strong class="type-data">{{item.scoreLabel}}</strong></view>
-            <view><text>目标分有效期</text><strong>{{item.targetValidityLabel}}</strong></view>
-            <view><text>目标分生成时间</text><strong>{{item.targetGeneratedLabel}}</strong></view>
-            <view><text>样本证据</text><strong>{{item.scoreEvidenceLabel}}</strong></view>
-            <view><text>招录人数</text><strong class="type-data">{{item.headcount}}</strong></view>
-            <view><text>地区</text><strong>{{item.region}}{{item.city ? ' · ' + item.city : ''}}</strong></view>
-            <view><text>试卷类型</text><strong>{{item.paperTypeLabel}}</strong></view>
+            <view class="comparison-row"><text class="comparison-row__label">资格核验</text><text class="comparison-row__value">{{item.conditionSummary}}</text></view>
+            <view class="comparison-row"><text class="comparison-row__label">服务端分带</text><text class="comparison-row__value">{{item.fitView.bandLabel}} · {{item.fitView.statusDescription}}</text></view>
+            <view class="comparison-row"><text class="comparison-row__label">同版本分差</text><text class="comparison-row__value type-data">{{item.fitView.scoreGapRangeLabel}}</text></view>
+            <view class="comparison-row"><text class="comparison-row__label">建议点差</text><text class="comparison-row__value type-data">{{item.fitView.scoreGapRecommendedLabel}}</text></view>
+            <view class="comparison-row"><text class="comparison-row__label">双科证据</text><text class="comparison-row__value">{{item.fitView.evidenceStatusLabel}}</text></view>
+            <view class="comparison-row"><text class="comparison-row__label">资格负担</text><text class="comparison-row__value">{{item.fitView.requirementsBurdenLabel}}</text></view>
+            <view class="comparison-row"><text class="comparison-row__label">目标分区间</text><text class="comparison-row__value type-data">{{item.scoreLabel}}</text></view>
+            <view class="comparison-row"><text class="comparison-row__label">目标分有效期</text><text class="comparison-row__value">{{item.targetValidityLabel}}</text></view>
+            <view class="comparison-row"><text class="comparison-row__label">目标分生成时间</text><text class="comparison-row__value">{{item.targetGeneratedLabel}}</text></view>
+            <view class="comparison-row"><text class="comparison-row__label">样本证据</text><text class="comparison-row__value">{{item.scoreEvidenceLabel}}</text></view>
+            <view class="comparison-row"><text class="comparison-row__label">招录人数</text><text class="comparison-row__value type-data">{{item.headcount}}</text></view>
+            <view class="comparison-row"><text class="comparison-row__label">地区</text><text class="comparison-row__value">{{item.region}}{{item.city ? ' · ' + item.city : ''}}</text></view>
+            <view class="comparison-row"><text class="comparison-row__label">试卷类型</text><text class="comparison-row__value">{{item.paperTypeLabel}}</text></view>
           </view>
           <view wx:if="{{item.fitView.evidenceReasonLabel}}" class="fit-card__reason">未形成分差的依据 · {{item.fitView.evidenceReasonLabel}}</view>
           <view class="fit-card__audit">分差 Request ID · {{item.fitRequestId}}</view>

@@ -336,6 +336,124 @@ class AbilityEstimateService:
             estimate=estimate,
         )
 
+    def record_external_mock_score(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        command_id: str,
+        source_report_version_id: str,
+        occurred_at: datetime,
+        xingce_score: float | None,
+        shenlun_score: float | None,
+        now: datetime | None = None,
+    ) -> ReportedScoreEvidenceResult:
+        """Publish an explicitly confirmed, timed external mock as score evidence.
+
+        The reporting owner decides whether a report is eligible. This owner only
+        accepts the canonical component scores and keeps all ability writes here.
+        """
+
+        timestamp = _as_utc(now or datetime.now(UTC))
+        evidence_at = _as_utc(occurred_at)
+        if evidence_at > timestamp:
+            raise AbilityEstimateContractError("Score evidence cannot occur in the future")
+        if evidence_at + timedelta(days=MAX_EVIDENCE_AGE_DAYS) <= timestamp:
+            raise AbilityEstimateContractError(
+                f"Score evidence must be newer than {MAX_EVIDENCE_AGE_DAYS} days"
+            )
+        if xingce_score is None and shenlun_score is None:
+            raise AbilityEstimateContractError(
+                "External mock evidence requires a component score"
+            )
+        owner = session.execute(
+            text(
+                "select user_id from learner.users "
+                "where user_id = cast(:user_id as uuid) for update"
+            ),
+            {"user_id": user_id},
+        ).scalar_one_or_none()
+        if owner is None:
+            raise AbilityEstimateContractError("Learner does not exist")
+        release = self._qualification.active_release(session, exam_code="guokao")
+        payload = {
+            "userId": user_id,
+            "examCode": release.exam_code,
+            "examYear": release.exam_year,
+            "sourceType": "external_mock",
+            "sourceReportVersionId": source_report_version_id,
+            "occurredAt": evidence_at.isoformat(),
+            "xingceScore": xingce_score,
+            "shenlunScore": shenlun_score,
+            "timedStatus": "timed",
+            "verificationStatus": "user_confirmed",
+        }
+        existing = self._evidence_for_command(session, command_id)
+        if existing is not None:
+            if existing["command_payload"] != payload:
+                raise AbilityEstimateContractError(
+                    "An existing command ID refers to different score evidence"
+                )
+            return ReportedScoreEvidenceResult(
+                evidence=_evidence_schema(existing),
+                estimate=self._estimate_created_for_evidence(
+                    session,
+                    user_id=user_id,
+                    exam_code=release.exam_code,
+                    exam_year=release.exam_year,
+                    evidence_id=str(existing["evidence_id"]),
+                ),
+            )
+        evidence_id = str(uuid4())
+        total_score = (
+            round(xingce_score + shenlun_score, 2)
+            if xingce_score is not None and shenlun_score is not None
+            else None
+        )
+        row = session.execute(
+            text(
+                """
+                insert into learning.score_evidence (
+                  evidence_id, command_id, user_id, exam_code, exam_year,
+                  source_type, reported_context, xingce_score, shenlun_score,
+                  total_score, timed_status, verification_status, occurred_at,
+                  supersedes_evidence_id, command_payload, created_at
+                ) values (
+                  cast(:evidence_id as uuid), :command_id, cast(:user_id as uuid),
+                  :exam_code, :exam_year, 'external_mock', null,
+                  :xingce_score, :shenlun_score, :total_score, 'timed',
+                  'user_confirmed', :occurred_at, null,
+                  cast(:command_payload as jsonb), :created_at
+                )
+                returning *
+                """
+            ),
+            {
+                "evidence_id": evidence_id,
+                "command_id": command_id,
+                "user_id": user_id,
+                "exam_code": release.exam_code,
+                "exam_year": release.exam_year,
+                "xingce_score": xingce_score,
+                "shenlun_score": shenlun_score,
+                "total_score": total_score,
+                "occurred_at": evidence_at,
+                "command_payload": json.dumps(payload, ensure_ascii=False, sort_keys=True),
+                "created_at": timestamp,
+            },
+        ).mappings().one()
+        estimate = self._get_or_create_estimate(
+            session,
+            user_id=user_id,
+            exam_code=release.exam_code,
+            exam_year=release.exam_year,
+            generated_at=timestamp,
+        )
+        return ReportedScoreEvidenceResult(
+            evidence=_evidence_schema(row),
+            estimate=estimate,
+        )
+
     def _evidence_for_command(self, session: Session, command_id: str) -> RowMapping | None:
         return session.execute(
             text("select * from learning.score_evidence where command_id = :command_id"),

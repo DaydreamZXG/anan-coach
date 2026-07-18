@@ -5,7 +5,7 @@ from datetime import timedelta
 import os
 
 
-DEFAULT_AI_PROVIDER_BASE_URL = "https://gemini-web2api.ergouapi.co/v1"
+DEFAULT_AI_PROVIDER_BASE_URL = "https://ai-provider.invalid/v1"
 
 
 @dataclass(frozen=True)
@@ -35,10 +35,21 @@ class Settings:
     recognition_processor_endpoint: str = ""
     recognition_processor_token: str = ""
     recognition_processor_release_id: str = ""
+    recognition_processor_adapter: str = "private_contract"
+    recognition_processor_model: str = ""
+    recognition_processor_actual_model: str = ""
+    recognition_processor_allow_insecure_http: bool = False
+    recognition_processor_insecure_http_origin: str = ""
+    recognition_processor_max_input_bytes: int = 0
+    recognition_processor_max_output_bytes: int = 0
+    recognition_processor_max_pages: int = 0
     recognition_processor_https_host_allowlist: str = ""
     recognition_processor_approvals_json: str = "[]"
     recognition_default_import_route: str = ""
     recognition_default_answer_route: str = ""
+    recognition_default_essay_handwriting_route: str = ""
+    recognition_default_external_score_report_route: str = ""
+    source_artifact_access_ttl_seconds: int = 300
     matching_policy_version: str = "external-hybrid-match-v1"
     matching_similar_threshold: float = 0.86
     matching_ambiguity_margin: float = 0.03
@@ -65,7 +76,10 @@ class Settings:
     external_learning_maintenance_batch_size: int = 100
     ai_provider_base_url: str = DEFAULT_AI_PROVIDER_BASE_URL
     ai_model: str = "gemini-3.5-flash"
+    ai_small_model: str = ""
+    ai_high_capability_model: str = ""
     ai_api_key: str = ""
+    ai_provider_operator_approval_ref: str = ""
     ai_companion_provider_release_id: str = ""
     ai_companion_provider_https_host_allowlist: str = ""
     ai_companion_provider_dpa_confirmed: bool = False
@@ -107,6 +121,7 @@ class Settings:
     ai_essay_review_provider_idempotency_capability: str = ""
     ai_essay_review_provider_idempotency_key_header: str = ""
     ai_essay_review_provider_request_id_header: str = ""
+    ai_essay_review_provider_replay_retention_seconds: int = 0
     ai_essay_review_max_input_bytes: int = 0
     ai_essay_review_max_output_bytes: int = 0
     ai_price_version: str = ""
@@ -119,9 +134,28 @@ class Settings:
     app_store_apple_id: str = "6786934387"
     app_store_root_certificate_paths: str = ""
     bundle_id: str = "com.xingguoxian.gongkaodazi"
-    wechat_mini_app_id: str = "wxa02a883c1807927b"
+    wechat_mini_app_id: str = "wx42824c7f7bfbf4b2"
     wechat_mini_app_secret: str = ""
     wechat_api_base_url: str = "https://api.weixin.qq.com"
+    wechat_pay_mch_id: str = ""
+    wechat_pay_merchant_serial: str = ""
+    wechat_pay_merchant_private_key_path: str = ""
+    wechat_pay_api_v3_key: str = ""
+    wechat_pay_platform_certificates_json: str = ""
+    wechat_pay_notify_url: str = ""
+    wechat_pay_refund_notify_url: str = ""
+    wechat_pay_order_expiry_seconds: int = 1800
+    wechat_virtual_pay_offer_id: str = ""
+    wechat_virtual_pay_app_key: str = ""
+    wechat_virtual_pay_env: int = 0
+    wechat_virtual_pay_message_token: str = ""
+    wechat_virtual_pay_message_encoding_aes_key: str = ""
+    privacy_export_expiry_seconds: int = 86400
+    operations_metrics_token: str = ""
+    required_database_revision: str = "20260718_37"
+    support_jwt_jwks_url: str = ""
+    support_jwt_issuer: str = ""
+    support_jwt_audience: str = ""
     database_url: str = ""
 
 
@@ -151,9 +185,7 @@ def get_settings() -> Settings:
             "UPLOAD_SCANNER_HTTPS_HOST_ALLOWLIST", ""
         ),
         upload_scanner_route=os.getenv("UPLOAD_SCANNER_ROUTE", ""),
-        upload_scanner_policy_version=os.getenv(
-            "UPLOAD_SCANNER_POLICY_VERSION", ""
-        ),
+        upload_scanner_policy_version=os.getenv("UPLOAD_SCANNER_POLICY_VERSION", ""),
         upload_scanner_dpa_version=os.getenv("UPLOAD_SCANNER_DPA_VERSION", ""),
         upload_scanner_mainland_only=_environment_bool(
             "UPLOAD_SCANNER_MAINLAND_ONLY", default=False
@@ -161,12 +193,32 @@ def get_settings() -> Settings:
         upload_scanner_maximum_definition_age=timedelta(
             seconds=int(os.getenv("UPLOAD_SCANNER_MAXIMUM_DEFINITION_AGE_SECONDS", "0"))
         ),
-        recognition_processor_endpoint=os.getenv(
-            "RECOGNITION_PROCESSOR_ENDPOINT", ""
-        ),
+        recognition_processor_endpoint=os.getenv("RECOGNITION_PROCESSOR_ENDPOINT", ""),
         recognition_processor_token=os.getenv("RECOGNITION_PROCESSOR_TOKEN", ""),
         recognition_processor_release_id=os.getenv(
             "RECOGNITION_PROCESSOR_RELEASE_ID", ""
+        ),
+        recognition_processor_adapter=os.getenv(
+            "RECOGNITION_PROCESSOR_ADAPTER", "private_contract"
+        ),
+        recognition_processor_model=os.getenv("RECOGNITION_PROCESSOR_MODEL", ""),
+        recognition_processor_actual_model=os.getenv(
+            "RECOGNITION_PROCESSOR_ACTUAL_MODEL", ""
+        ),
+        recognition_processor_allow_insecure_http=_environment_bool(
+            "RECOGNITION_PROCESSOR_ALLOW_INSECURE_HTTP", default=False
+        ),
+        recognition_processor_insecure_http_origin=os.getenv(
+            "RECOGNITION_PROCESSOR_INSECURE_HTTP_ORIGIN", ""
+        ),
+        recognition_processor_max_input_bytes=int(
+            os.getenv("RECOGNITION_PROCESSOR_MAX_INPUT_BYTES", "0")
+        ),
+        recognition_processor_max_output_bytes=int(
+            os.getenv("RECOGNITION_PROCESSOR_MAX_OUTPUT_BYTES", "0")
+        ),
+        recognition_processor_max_pages=int(
+            os.getenv("RECOGNITION_PROCESSOR_MAX_PAGES", "0")
         ),
         recognition_processor_https_host_allowlist=os.getenv(
             "RECOGNITION_PROCESSOR_HTTPS_HOST_ALLOWLIST", ""
@@ -180,15 +232,22 @@ def get_settings() -> Settings:
         recognition_default_answer_route=os.getenv(
             "RECOGNITION_DEFAULT_ANSWER_ROUTE", ""
         ),
+        recognition_default_essay_handwriting_route=os.getenv(
+            "RECOGNITION_DEFAULT_ESSAY_HANDWRITING_ROUTE", ""
+        ),
+        recognition_default_external_score_report_route=os.getenv(
+            "RECOGNITION_DEFAULT_EXTERNAL_SCORE_REPORT_ROUTE", ""
+        ),
+        source_artifact_access_ttl_seconds=int(
+            os.getenv("SOURCE_ARTIFACT_ACCESS_TTL_SECONDS", "300")
+        ),
         matching_policy_version=os.getenv(
             "MATCHING_POLICY_VERSION", "external-hybrid-match-v1"
         ),
         matching_similar_threshold=float(
             os.getenv("MATCHING_SIMILAR_THRESHOLD", "0.86")
         ),
-        matching_ambiguity_margin=float(
-            os.getenv("MATCHING_AMBIGUITY_MARGIN", "0.03")
-        ),
+        matching_ambiguity_margin=float(os.getenv("MATCHING_AMBIGUITY_MARGIN", "0.03")),
         matching_text_weight=float(os.getenv("MATCHING_TEXT_WEIGHT", "0.75")),
         matching_visual_weight=float(os.getenv("MATCHING_VISUAL_WEIGHT", "0.25")),
         matching_essay_min_prompt_chars=int(
@@ -197,9 +256,7 @@ def get_settings() -> Settings:
         matching_essay_require_material=_environment_bool(
             "MATCHING_ESSAY_REQUIRE_MATERIAL", default=True
         ),
-        matching_maximum_candidates=int(
-            os.getenv("MATCHING_MAXIMUM_CANDIDATES", "8")
-        ),
+        matching_maximum_candidates=int(os.getenv("MATCHING_MAXIMUM_CANDIDATES", "8")),
         matching_sql_prefilter_threshold=float(
             os.getenv("MATCHING_SQL_PREFILTER_THRESHOLD", "0.20")
         ),
@@ -244,7 +301,13 @@ def get_settings() -> Settings:
             "AI_PROVIDER_BASE_URL", DEFAULT_AI_PROVIDER_BASE_URL
         ),
         ai_model=os.getenv("AI_MODEL", "gemini-3.5-flash"),
+        ai_small_model=os.getenv("AI_SMALL_MODEL", ""),
+        ai_high_capability_model=os.getenv("AI_HIGH_CAPABILITY_MODEL", ""),
         ai_api_key=os.getenv("AI_API_KEY", ""),
+        ai_provider_operator_approval_ref=os.getenv(
+            "AI_PROVIDER_OPERATOR_APPROVAL_REF",
+            "",
+        ),
         ai_companion_provider_release_id=os.getenv(
             "AI_COMPANION_PROVIDER_RELEASE_ID",
             "",
@@ -401,6 +464,12 @@ def get_settings() -> Settings:
             "AI_ESSAY_REVIEW_PROVIDER_REQUEST_ID_HEADER",
             "",
         ),
+        ai_essay_review_provider_replay_retention_seconds=int(
+            os.getenv(
+                "AI_ESSAY_REVIEW_PROVIDER_REPLAY_RETENTION_SECONDS",
+                "0",
+            )
+        ),
         ai_essay_review_max_input_bytes=int(
             os.getenv("AI_ESSAY_REVIEW_MAX_INPUT_BYTES", "0")
         ),
@@ -437,13 +506,46 @@ def get_settings() -> Settings:
         ),
         wechat_mini_app_id=os.getenv(
             "WECHAT_MINI_APP_ID",
-            "wxa02a883c1807927b",
+            "wx42824c7f7bfbf4b2",
         ),
         wechat_mini_app_secret=os.getenv("WECHAT_MINI_APP_SECRET", ""),
         wechat_api_base_url=os.getenv(
             "WECHAT_API_BASE_URL",
             "https://api.weixin.qq.com",
         ),
+        wechat_pay_mch_id=os.getenv("WECHAT_PAY_MCH_ID", ""),
+        wechat_pay_merchant_serial=os.getenv("WECHAT_PAY_MERCHANT_SERIAL", ""),
+        wechat_pay_merchant_private_key_path=os.getenv(
+            "WECHAT_PAY_MERCHANT_PRIVATE_KEY_PATH", ""
+        ),
+        wechat_pay_api_v3_key=os.getenv("WECHAT_PAY_API_V3_KEY", ""),
+        wechat_pay_platform_certificates_json=os.getenv(
+            "WECHAT_PAY_PLATFORM_CERTIFICATES_JSON", ""
+        ),
+        wechat_pay_notify_url=os.getenv("WECHAT_PAY_NOTIFY_URL", ""),
+        wechat_pay_refund_notify_url=os.getenv("WECHAT_PAY_REFUND_NOTIFY_URL", ""),
+        wechat_pay_order_expiry_seconds=int(
+            os.getenv("WECHAT_PAY_ORDER_EXPIRY_SECONDS", "1800")
+        ),
+        wechat_virtual_pay_offer_id=os.getenv("WECHAT_VIRTUAL_PAY_OFFER_ID", ""),
+        wechat_virtual_pay_app_key=os.getenv("WECHAT_VIRTUAL_PAY_APP_KEY", ""),
+        wechat_virtual_pay_env=int(os.getenv("WECHAT_VIRTUAL_PAY_ENV", "0")),
+        wechat_virtual_pay_message_token=os.getenv(
+            "WECHAT_VIRTUAL_PAY_MESSAGE_TOKEN", ""
+        ),
+        wechat_virtual_pay_message_encoding_aes_key=os.getenv(
+            "WECHAT_VIRTUAL_PAY_MESSAGE_ENCODING_AES_KEY", ""
+        ),
+        privacy_export_expiry_seconds=int(
+            os.getenv("PRIVACY_EXPORT_EXPIRY_SECONDS", "86400")
+        ),
+        operations_metrics_token=os.getenv("OPERATIONS_METRICS_TOKEN", ""),
+        required_database_revision=os.getenv(
+            "REQUIRED_DATABASE_REVISION", "20260718_37"
+        ),
+        support_jwt_jwks_url=os.getenv("SUPPORT_JWT_JWKS_URL", ""),
+        support_jwt_issuer=os.getenv("SUPPORT_JWT_ISSUER", ""),
+        support_jwt_audience=os.getenv("SUPPORT_JWT_AUDIENCE", ""),
         database_url=os.getenv("DATABASE_URL", ""),
     )
 

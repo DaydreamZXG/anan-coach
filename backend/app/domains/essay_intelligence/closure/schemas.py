@@ -38,6 +38,16 @@ class EssayRewriteCommand(EssayContractModel):
         strict=False,
     )
     source_type: Literal["typed", "ocr_confirmed"] = Field(alias="sourceType")
+    source_artifact_version_id: UUID | None = Field(
+        default=None,
+        alias="sourceArtifactVersionId",
+        strict=False,
+    )
+    recognition_revision_id: UUID | None = Field(
+        default=None,
+        alias="recognitionRevisionId",
+        strict=False,
+    )
     answer_text: str = Field(alias="answerText", min_length=1, max_length=10000)
     thinking: EssayThinkingSnapshot | None = None
     resolutions: list[EssayRewriteFindingResolution] = Field(min_length=1)
@@ -47,6 +57,11 @@ class EssayRewriteCommand(EssayContractModel):
         finding_ids = [item.finding_id for item in self.resolutions]
         if len(finding_ids) != len(set(finding_ids)):
             raise ValueError("rewrite finding resolutions must be unique")
+        if self.source_type == "ocr_confirmed":
+            if self.source_artifact_version_id is None or self.recognition_revision_id is None:
+                raise ValueError("OCR rewrite requires confirmed recognition evidence")
+        elif self.source_artifact_version_id is not None or self.recognition_revision_id is not None:
+            raise ValueError("typed rewrite cannot carry OCR evidence")
         return self
 
 
@@ -81,6 +96,18 @@ class EssayRewriteResult(EssayContractModel):
     answer: EssayAnswerVersion
     rewrite: EssayRewriteRecord
     mastery_versions: list[EssayMasteryStateVersion] = Field(alias="masteryVersions")
+
+
+class EssayAnswerDiffSegment(EssayContractModel):
+    operation: Literal["equal", "delete", "insert"]
+    text: str = Field(min_length=1, max_length=10000)
+
+
+class EssayRewriteComparison(EssayContractModel):
+    rewrite: EssayRewriteRecord
+    original_answer: EssayAnswerVersion = Field(alias="originalAnswer")
+    rewritten_answer: EssayAnswerVersion = Field(alias="rewrittenAnswer")
+    diff_segments: list[EssayAnswerDiffSegment] = Field(alias="diffSegments")
 
 
 class EssayRewritePlanTaskCompletionCommand(EssayContractModel):

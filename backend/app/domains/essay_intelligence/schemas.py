@@ -333,6 +333,14 @@ class EssayAnswerVersion(EssayContractModel):
     task_version_id: UUID = Field(alias="taskVersionId")
     version_no: int = Field(alias="versionNo", ge=1)
     source_type: Literal["typed", "ocr_confirmed"] = Field(alias="sourceType")
+    source_artifact_version_id: UUID | None = Field(
+        default=None,
+        alias="sourceArtifactVersionId",
+    )
+    recognition_revision_id: UUID | None = Field(
+        default=None,
+        alias="recognitionRevisionId",
+    )
     answer_text: str = Field(alias="answerText", min_length=1, max_length=10000)
     answer_sha256: Sha256 = Field(alias="answerSha256")
     thinking: EssayThinkingSnapshot | None = None
@@ -351,6 +359,17 @@ class EssayAnswerVersion(EssayContractModel):
         _validate_text_hash(self.answer_text, self.answer_sha256, "answerSha256")
         if self.supersedes_answer_version_id == self.answer_version_id:
             raise ValueError("answer version cannot supersede itself")
+        has_evidence = (
+            self.source_artifact_version_id is not None
+            and self.recognition_revision_id is not None
+        )
+        if self.source_type == "ocr_confirmed" and not has_evidence:
+            raise ValueError("OCR answer version requires immutable source evidence")
+        if self.source_type == "typed" and (
+            self.source_artifact_version_id is not None
+            or self.recognition_revision_id is not None
+        ):
+            raise ValueError("typed answer version cannot carry OCR source evidence")
         return self
 
 

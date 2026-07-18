@@ -90,7 +90,7 @@ describe("VJ-02 real xingce WeChat AS-04", () => {
       state: "candidate_ready",
       candidateVersionId: xingceIds.candidate,
       summary: "题干方向识别错误",
-      quotaState: "not_metered",
+      quotaState: "consumed",
     });
 
     page.inputReplacementCause.call(page, inputEvent("题干方向识别错误"));
@@ -118,7 +118,7 @@ describe("VJ-02 real xingce WeChat AS-04", () => {
       expect(submitted.state).toBe("reflection_required");
       expect(submitted.review).toMatchObject({
         state: "reflection_required",
-        aiCandidate: { state: "unavailable", quotaState: "not_metered" },
+        aiCandidate: { state: "unavailable", quotaState: "reserved" },
       });
       const rejected = completedXingceSession("reject");
       expect(rejected.review?.causeDecision).toEqual(

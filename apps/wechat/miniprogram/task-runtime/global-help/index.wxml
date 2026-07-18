@@ -18,5 +18,5 @@
       <text class="help-kind">{{item.category === 'operation' ? '操作' : '故障'}}</text>
     </button>
   </view>
-  <button class="help-submit" disabled="{{!selectedIssueCode}}" bindtap="submit">提交帮助请求</button>
+  <button class="help-submit {{!selectedIssueCode ? 'help-submit--disabled' : ''}}" disabled="{{!selectedIssueCode}}" bindtap="submit">提交帮助请求</button>
 </view>

@@ -17,6 +17,10 @@ from app.domains.ai.model_cost import (
     ModelCallRecord,
     ModelPriceCard,
 )
+from app.domains.ai.governance.repository import (
+    AIGovernanceRepository,
+    generic_evidence_ref,
+)
 from app.domains.commerce.repository import CommerceRepository
 from app.domains.essay_intelligence.grounded_provider import (
     GroundedEssayReviewProvider,
@@ -412,6 +416,22 @@ class GroundedEssayReviewWorker:
             schema_version=GROUNDED_REVIEW_PROVIDER_SCHEMA_VERSION,
             price_card=self._price_card,
             input_fingerprint=input_fingerprint,
+            attribution=AIGovernanceRepository().attribution(
+                session,
+                environment=self._settings.environment,
+                scenario_key="essay_grounded_review",
+                operation=f"grounded_review_{phase}",
+                provider=self._provider.provider_name,
+                model=self._provider.model,
+                prompt_version=GROUNDED_REVIEW_PROMPT_VERSION,
+                schema_version=GROUNDED_REVIEW_PROVIDER_SCHEMA_VERSION,
+                evidence_refs=_job_evidence_refs(job),
+                retrieval_bundle_id=None,
+                reservation_id=UUID(str(job.payload["quotaReservation"]["reservationId"])),
+                reservation_source=str(
+                    job.payload["quotaReservation"].get("source", "catalog")
+                ),
+            ),
         )
         session.commit()
         started = time.monotonic()
@@ -998,6 +1018,27 @@ def _fingerprint(value: object) -> str:
             separators=(",", ":"),
         ).encode("utf-8")
     ).hexdigest()
+
+
+def _job_evidence_refs(job: BackgroundJob):
+    request = job.payload["request"]
+    return (
+        generic_evidence_ref(
+            kind="essay_attempt",
+            source_id=str(request["attemptId"]),
+            version=str(request["taskVersionId"]),
+        ),
+        generic_evidence_ref(
+            kind="essay_answer",
+            source_id=str(request["answerVersionId"]),
+            version=str(request["answerVersionId"]),
+        ),
+        generic_evidence_ref(
+            kind="essay_review_execution",
+            source_id=str(job.payload["reviewVersionId"]),
+            version=str(job.payload["executionFingerprint"]),
+        ),
+    )
 
 
 def _provider_request_audit_pair_valid(

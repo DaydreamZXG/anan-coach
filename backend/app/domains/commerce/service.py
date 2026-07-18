@@ -75,6 +75,7 @@ class CommerceService:
             subscription_end=entitlement.subscription_end,
             feature_quotas=_quota_responses(tier=entitlement.tier, usage=usage),
             product_ids=entitlement.product_ids,
+            unlocked_features=self._repository.unlocked_features(user_id=user_id),
             server_time=now,
         )
 

@@ -19,13 +19,13 @@ from app.domains.essay_intelligence.schemas import (
 
 
 RUBRIC_AI_PIPELINE_VERSION = "guokao-essay-rubric-ai-pipeline-v1"
-RUBRIC_AI_GENERATOR_PROMPT_VERSION = "guokao-essay-rubric-generator-prompt-v1"
+RUBRIC_AI_GENERATOR_PROMPT_VERSION = "guokao-essay-rubric-generator-prompt-v2"
 RUBRIC_AI_GENERATOR_SCHEMA_VERSION = "guokao-essay-rubric-generator-schema-v1"
-RUBRIC_AI_CRITIC_PROMPT_VERSION = "guokao-essay-rubric-critic-prompt-v1"
+RUBRIC_AI_CRITIC_PROMPT_VERSION = "guokao-essay-rubric-critic-prompt-v2"
 RUBRIC_AI_CRITIC_SCHEMA_VERSION = "guokao-essay-rubric-critic-schema-v1"
 RUBRIC_AI_COMPILER_VERSION = "guokao-essay-rubric-compiler-v1"
 RUBRIC_AI_COMPILATION_PROMPT_VERSION = (
-    "guokao-essay-rubric-generator-v1+critic-v1"
+    "guokao-essay-rubric-generator-v2+critic-v2"
 )
 
 

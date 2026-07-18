@@ -1,0 +1,5 @@
+{
+  "navigationBarTitleText": "申论改写对照",
+  "backgroundColor": "#EDF3F1",
+  "usingComponents": { "state-view": "../../design-system/primitives/state-view/index" }
+}

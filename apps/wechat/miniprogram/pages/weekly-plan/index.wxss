@@ -1,0 +1,8 @@
+@import "../../features/learning-brain/page-shell.wxss";
+.day-card { border-left: 8rpx solid var(--color-primary); }
+.day-card--mock { border-left-color: #e09b3f; }
+.day-card--recovery { border-left-color: #42aa91; }
+.day-card--today { box-shadow: 0 0 0 3rpx rgba(0, 151, 139, 0.16), var(--shadow-card); }
+.day-progress { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12rpx; margin-top: 14rpx; color: var(--color-muted); font-size: 19rpx; }
+.day-progress__item { padding: 12rpx; border-radius: 14rpx; background: var(--color-surface-soft); }
+.day-progress__value { display: block; margin-top: 4rpx; color: var(--color-ink-secondary); font-size: 20rpx; }

@@ -1,95 +1,61 @@
-<view class="page profile-page">
-  <view class="eyebrow">学习档案</view>
-  <view class="page-title">你的数据，只属于这个账户</view>
-  <view class="page-subtitle">资格、岗位和后续学习证据都绑定到服务端账户，更换设备不会丢失。</view>
+<view class="s9-page profile-page">
+  <view class="profile-topbar"><view><view class="profile-kicker">账户、权益与长期学习档案</view><view class="profile-title">我的</view></view><button class="settings-button" aria-label="数据与隐私设置" bindtap="openPrivacy">⌁</button></view>
 
-  <state-view wx:if="{{status === 'loading'}}" state="loading" />
-  <state-view
-    wx:elif="{{status === 'error'}}"
-    state="error"
-    title="账户档案没有加载成功"
-    description="{{errorMessage}}"
-    request-id="{{requestId}}"
-    action-text="重新加载"
-    bind:action="retry"
-  />
+  <state-view wx:if="{{status === 'loading'}}" custom-class="profile-state" state="loading" />
+  <state-view wx:elif="{{status === 'error'}}" custom-class="profile-state" state="error" title="账户档案没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
 
   <block wx:else>
-    <view class="identity-card">
-      <view class="identity-head">
-        <view>
-          <view class="identity-kicker">内部学习账户</view>
-          <view class="identity-id">{{accountIdLabel}}</view>
+    <view class="s9-card profile-hero">
+      <view class="profile-head">
+        <view class="profile-avatar"><anan-companion size="small" intent="encouragement" context="home" /></view>
+        <view class="profile-head-copy"><view class="profile-name">岸岸学员</view><view class="profile-caption">账户 {{accountIdLabel}} · {{accountStatusLabel}}</view></view>
+        <view class="profile-level">v{{profileVersion}}</view>
+      </view>
+      <view class="profile-stats">
+        <view class="profile-stat"><text class="profile-stat__value">{{wechatLinkedLabel}}</text><text class="profile-stat__label">微信身份</text></view>
+        <view class="profile-stat"><text class="profile-stat__value type-data">{{profileVersion}}</text><text class="profile-stat__label">档案版本</text></view>
+        <view class="profile-stat"><text class="profile-stat__value type-data">{{sessions.length}}</text><text class="profile-stat__label">登录设备</text></view>
+        <view class="profile-stat"><text class="profile-stat__value type-data">{{establishedLabel}}</text><text class="profile-stat__label">建立日期</text></view>
+      </view>
+    </view>
+
+    <view class="profile-menu s9-list">
+      <view class="profile-menu-row" bindtap="openLearningProfile"><view class="menu-icon">档</view><view class="s9-list-main"><view class="s9-list-title">学习档案</view><view class="s9-list-copy">记录学习轨迹、能力证据与成长</view></view><view class="menu-arrow">›</view></view>
+      <view class="profile-menu-row" bindtap="openCompanion"><view class="menu-icon">岸</view><view class="s9-list-main"><view class="s9-list-title">问岸岸</view><view class="s9-list-copy">带着当前任务与证据继续追问</view></view><view class="menu-arrow">›</view></view>
+      <view class="profile-menu-row" bindtap="openMembership"><view class="menu-icon">享</view><view class="s9-list-main"><view class="s9-list-title">会员与保障</view><view class="s9-list-copy">查看当前权益、过程奖励和退款规则</view></view><view class="menu-arrow">›</view></view>
+      <view class="profile-menu-row" bindtap="openPrivacy"><view class="menu-icon">隐</view><view class="s9-list-main"><view class="s9-list-title">数据与隐私</view><view class="s9-list-copy">数据使用说明、导出与删除</view></view><view class="menu-arrow">›</view></view>
+      <view class="profile-menu-row" bindtap="openSupport"><view class="menu-icon">群</view><view class="s9-list-main"><view class="s9-list-title">备考群与客服</view><view class="s9-list-copy">群二维码上线后可在这里扫码加入</view></view><view class="menu-arrow">›</view></view>
+      <view class="profile-menu-row" bindtap="openReportCenter"><view class="menu-icon">报</view><view class="s9-list-main"><view class="s9-list-title">模考与报告</view><view class="s9-list-copy">标准卷、外部模考单和学习报告</view></view><view class="menu-arrow">›</view></view>
+    </view>
+
+    <view class="s9-card companion-quote">
+      <view class="quote-main"><view class="s9-card-kicker">岸岸 · 当前档案</view><view class="s9-card-copy">你的资格、岗位与学习证据都绑定到这个账户，更换设备不会丢失；任何 AI 判断都可以返回原始依据。</view></view>
+      <anan-companion size="small" intent="thinking" context="home" />
+    </view>
+
+    <view class="s9-section">
+      <view class="s9-section-head"><view class="s9-section-title">更多工具</view><view class="s9-section-meta">同一证据版本</view></view>
+      <view class="s9-list">
+        <view class="s9-list-row" bindtap="openPlanHistory"><view class="s9-list-main"><view class="s9-list-title">计划变更记录</view><view class="s9-list-copy">查看每次重排的版本与输入变化</view></view><view class="menu-arrow">›</view></view>
+        <view class="s9-list-row" bindtap="openCommunityDraft"><view class="s9-list-main"><view class="s9-list-title">创建私有方法草稿</view><view class="s9-list-copy">先整理自己的方法，再决定是否分享</view></view><view class="menu-arrow">›</view></view>
+        <view class="s9-list-row" bindtap="openCommunityTrial"><view class="s9-list-main"><view class="s9-list-title">社区方法试用</view><view class="s9-list-copy">用独立新题和延时复测验证</view></view><view class="menu-arrow">›</view></view>
+        <view class="s9-list-row" bindtap="openCommunityContributions"><view class="s9-list-main"><view class="s9-list-title">我的方法贡献</view><view class="s9-list-copy">查看草稿、试用、发布与撤回记录</view></view><view class="menu-arrow">›</view></view>
+      </view>
+    </view>
+
+    <view class="s9-section">
+      <view class="s9-section-head"><view class="s9-section-title">登录设备</view><view class="s9-section-meta">{{sessions.length}} 个有效会话</view></view>
+      <view class="s9-list">
+        <view wx:for="{{sessions}}" wx:key="sessionId" class="s9-list-row session-row">
+          <view class="device-icon"><view class="device-screen"></view></view>
+          <view class="s9-list-main"><view class="session-title-row"><view class="s9-list-title">{{item.deviceLabel}}</view><view wx:if="{{item.isCurrent}}" class="current-tag">当前</view></view><view class="s9-list-copy">{{item.lastSeenLabel}}</view></view>
+          <view wx:if="{{!item.isCurrent}}" class="session-action" data-session-id="{{item.sessionId}}" bindtap="revokeSession">{{revokingSessionId === item.sessionId ? '处理中…' : '退出'}}</view>
         </view>
-        <view class="status-pill"><text class="status-dot"></text>{{accountStatusLabel}}</view>
-      </view>
-      <view class="identity-grid">
-        <view><view class="metric-label">微信身份</view><view class="metric-value">{{wechatLinkedLabel}}</view></view>
-        <view><view class="metric-label">档案版本</view><view class="metric-value">v<text class="type-data">{{profileVersion}}</text></view></view>
-        <view><view class="metric-label">建立日期</view><view class="metric-value type-data">{{establishedLabel}}</view></view>
       </view>
     </view>
 
-    <view class="brain-card card">
-      <view class="brain-mark"></view>
-      <view>
-        <view class="brain-title">学习大脑正在建立证据</view>
-        <view class="brain-copy">当前已保存资格档案。能力、错因和计划将在真实作答闭环上线后按证据生成，这里不展示模拟数据。</view>
-      </view>
-    </view>
-
-    <view class="section-heading">
-      <view class="section-title">社区方法卡</view>
-      <view class="section-meta">只看版本化证据</view>
-    </view>
-    <view class="community-entry-list card">
-      <view class="community-entry" bindtap="openCommunityDraft">
-        <view><view class="community-entry-title">创建私有草稿</view><view class="community-entry-copy">岸岸只整理候选，确认后才能送审</view></view>
-        <view class="community-entry-arrow">›</view>
-      </view>
-      <view class="community-entry" bindtap="openCommunityTrial">
-        <view><view class="community-entry-title">试用资料分析方法</view><view class="community-entry-copy">用独立新题与延时复测验证</view></view>
-        <view class="community-entry-arrow">›</view>
-      </view>
-      <view class="community-entry" bindtap="openCommunityContributions">
-        <view><view class="community-entry-title">我的贡献与奖励</view><view class="community-entry-copy">查看版本、政策、权益与不可变回执</view></view>
-        <view class="community-entry-arrow">›</view>
-      </view>
-    </view>
-
-    <view class="section-heading">
-      <view class="section-title">登录设备</view>
-      <view class="section-meta">{{sessions.length}} 个有效会话</view>
-    </view>
-    <view class="session-list card">
-      <view wx:for="{{sessions}}" wx:key="sessionId" class="session-row">
-        <view class="device-icon"><view class="device-screen"></view></view>
-        <view class="session-main">
-          <view class="session-title-row">
-            <view class="session-title">{{item.deviceLabel}}</view>
-            <view wx:if="{{item.isCurrent}}" class="current-tag">当前</view>
-          </view>
-          <view class="session-meta">{{item.lastSeenLabel}}</view>
-        </view>
-        <view
-          wx:if="{{!item.isCurrent}}"
-          class="session-action"
-          data-session-id="{{item.sessionId}}"
-          bindtap="revokeSession"
-        >{{revokingSessionId === item.sessionId ? '处理中…' : '退出'}}</view>
-      </view>
-    </view>
-
-    <view wx:if="{{errorMessage}}" class="operation-error">{{errorMessage}}</view>
-
-    <view class="section-heading">
-      <view class="section-title">账户安全</view>
-      <view class="section-meta">会话操作可审计</view>
-    </view>
-    <view class="security-actions">
-      <ui-button label="退出当前设备" variant="secondary" loading="{{loggingOut}}" bind:action="requestLogout" />
-      <ui-button label="退出全部设备" variant="text" loading="{{loggingOutAll}}" bind:action="requestLogoutAll" />
-    </view>
-    <view class="security-note">退出不会删除档案。完整的数据导出和账户删除将按隐私状态机提供，不使用本地清缓存冒充删除。</view>
+    <view wx:if="{{errorMessage}}" class="s9-inline-error">{{errorMessage}}</view>
+    <view class="security-actions"><button class="s9-secondary-button" loading="{{loggingOut}}" bindtap="requestLogout">退出当前设备</button><button class="logout-all" loading="{{loggingOutAll}}" bindtap="requestLogoutAll">退出全部设备</button></view>
+    <view class="security-note">退出不会删除档案。数据导出和账户删除请在“数据与隐私”中操作。</view>
   </block>
 </view>

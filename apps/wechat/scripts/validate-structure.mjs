@@ -127,10 +127,47 @@ const appStyles = readFileSync(resolve(miniprogramRoot, "app.wxss"), "utf8");
 for (const requiredImport of [
   "design-system/tokens/index.wxss",
   "design-system/primitives/index.wxss",
+  "design-system/responsive/index.wxss",
 ]) {
   if (!appStyles.includes(requiredImport)) {
     failures.push(`app.wxss must import ${requiredImport}`);
   }
+}
+
+const componentSelectorTagPattern = new RegExp(
+  "(^|[\\s>+~(])[a-z][a-z0-9-]*(?=$|[\\s>+~.#:[(])",
+  "u",
+);
+const componentStylePaths = walkFiles(miniprogramRoot).filter(
+  (path) =>
+    path.endsWith(".wxss") &&
+    path !== resolve(miniprogramRoot, "app.wxss") &&
+    path !== resolve(miniprogramRoot, "design-system/tokens/index.wxss") &&
+    path !== resolve(miniprogramRoot, "design-system/responsive/index.wxss"),
+);
+for (const stylePath of componentStylePaths) {
+  const stylesheet = readFileSync(stylePath, "utf8")
+    .replace(/\/\*[\s\S]*?\*\//gu, "")
+    .replace(/@import\s+[^;]+;/gu, "");
+  for (const rule of stylesheet.matchAll(/([^{}]+)\{/gu)) {
+    const prelude = rule[1]?.trim() ?? "";
+    if (!prelude || prelude.startsWith("@")) continue;
+    for (const selector of prelude.split(",").map((value) => value.trim())) {
+      if (
+        selector.includes("[") ||
+        /(^|[\s>+~])#[A-Za-z_-]/u.test(selector) ||
+        componentSelectorTagPattern.test(selector)
+      ) {
+        failures.push(
+          `Component WXSS must use class selectors only: ${relative(root, stylePath)} -> ${selector}`,
+        );
+      }
+    }
+  }
+}
+
+if (appConfig.window?.pageOrientation !== "auto") {
+  failures.push("app.json window.pageOrientation must remain auto for tablet rotation support");
 }
 
 if (failures.length > 0) {

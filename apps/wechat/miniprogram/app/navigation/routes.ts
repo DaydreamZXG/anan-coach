@@ -15,15 +15,27 @@ export const routes = {
   positionGoal: "/pages/positions/goal/index",
   positionBriefing: "/pages/positions/briefing/index",
   profile: "/pages/profile/index",
+  membership: "/pages/membership/index",
+  privacy: "/pages/privacy/index",
+  support: "/pages/support/index",
   onboarding: "/pages/onboarding/index",
   onboardingStudyPreference: "/pages/onboarding/study-preference/index",
   onboardingResult: "/pages/onboarding/result/index",
-  diagnostic: "/pages/diagnostic/index",
   xingceTaskIntro: "/pages/xingce-task-intro/index",
   practice: "/pages/practice/index",
   mockExam: "/pages/mock-exam/index",
+  reportCenter: "/pages/report-center/index",
+  mockReport: "/pages/mock-report/index",
+  externalReport: "/pages/external-report/index",
+  reportOverview: "/pages/report-overview/index",
+  globalReport: "/pages/global-report/index",
   reflection: "/pages/reflection/index",
   xingceMastery: "/pages/xingce-mastery/index",
+  essayMaterial: "/pages/essay-material/index",
+  essayCompose: "/pages/essay-compose/index",
+  essayReview: "/pages/essay-review/index",
+  essayRewrite: "/pages/essay-rewrite/index",
+  essayEvidence: "/pages/essay-evidence/index",
   essayTask: "/pages/essay-task/index",
   captureImport: "/pages/capture-import/index",
   learningPackets: "/pages/learning-packets/index",
@@ -32,6 +44,15 @@ export const routes = {
   communityStructure: "/pages/community-structure/index",
   communityTrial: "/pages/community-trial/index",
   communityContributions: "/pages/community-contributions/index",
+  planBasis: "/pages/plan-basis/index",
+  dayAdjustment: "/pages/day-adjustment/index",
+  dailySettlement: "/pages/daily-settlement/index",
+  weeklyPlan: "/pages/weekly-plan/index",
+  learningProfile: "/pages/learning-profile/index",
+  abilityModule: "/pages/ability-module/index",
+  errorPattern: "/pages/error-pattern/index",
+  companion: "/pages/companion/index",
+  planHistory: "/pages/plan-history/index",
 } as const;
 
 export type RouteName = keyof typeof routes;
@@ -52,6 +73,14 @@ export interface PositionSearchRouteFilters {
 export interface AnswerIngestionRouteOptions {
   packetVersionId?: string;
   ingestionId?: string;
+}
+
+export interface LearningPacketsRouteOptions {
+  contentVersionId?: string;
+}
+
+export interface CompanionRouteOptions {
+  question?: string;
 }
 
 const registeredRoutePaths = new Set<string>(Object.values(routes));
@@ -170,6 +199,15 @@ export function captureImportUrl(importId?: string): string {
   });
 }
 
+export function learningPacketsUrl(options: LearningPacketsRouteOptions = {}): string {
+  return withQuery(routes.learningPackets, {
+    contentVersionId:
+      options.contentVersionId === undefined
+        ? undefined
+        : requiredIdentifier(options.contentVersionId),
+  });
+}
+
 export function answerIngestionUrl(options: AnswerIngestionRouteOptions = {}): string {
   if (options.packetVersionId && options.ingestionId) {
     throw new Error("Answer ingestion route accepts a packet or ingestion ID, not both");
@@ -181,6 +219,12 @@ export function answerIngestionUrl(options: AnswerIngestionRouteOptions = {}): s
         : requiredIdentifier(options.packetVersionId),
     ingestionId:
       options.ingestionId === undefined ? undefined : requiredIdentifier(options.ingestionId),
+  });
+}
+
+export function companionUrl(options: CompanionRouteOptions = {}): string {
+  return withQuery(routes.companion, {
+    question: options.question?.trim(),
   });
 }
 

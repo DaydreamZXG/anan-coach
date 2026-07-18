@@ -37,13 +37,47 @@ export interface ImportRecognitionSegment {
   requiresCorrection: boolean;
 }
 
+export interface ImportReferenceAnswer {
+  sourceType: "authorized_reference";
+  matchKind: "exact" | "similar";
+  answerText: string;
+  contentVersionId: string;
+  authorizationState: "authorized_current";
+  learningImpact: "reference_only";
+}
+
+export interface ImportAIAnswer {
+  answerVersionId: string;
+  state: "requested" | "processing" | "candidate" | "confirmed" | "failed";
+  answerText: string | null;
+  explanation: string | null;
+  keyPoints: readonly string[];
+  confidence: "low" | "medium" | "high" | null;
+  limitations: readonly string[];
+  outputFingerprint: string | null;
+  failureCode: string | null;
+  sourceType: "ai_estimated";
+  learningImpact: "reference_only";
+}
+
+export interface ImportQuestionUnit {
+  questionUnitId: string;
+  ordinal: number;
+  segmentIds: readonly string[];
+  match: ContentMatchVersion | null;
+  referenceAnswer: ImportReferenceAnswer | null;
+  aiAnswer: ImportAIAnswer | null;
+  state: "recognition_review" | "match_review" | "unmatched" | "ready";
+  partialReasons: readonly string[];
+}
+
 export interface ImportWorkspace {
   importId: string;
   state: "uploading" | "processing" | "review" | "ready" | "failed" | "quarantined" | "expired";
   artifact: SourceArtifactVersion | null;
   recognition: RecognitionRevision | null;
   recognitionSegments: readonly ImportRecognitionSegment[];
-  match: ContentMatchVersion | null;
+  questionUnits: readonly ImportQuestionUnit[];
   partialReasons: readonly string[];
   failureReason: string | null;
   processingLabel: string | null;
@@ -78,6 +112,17 @@ export interface MatchConfirmationCommand {
   contentMatchVersionId: string;
   expectedVersionNo: number;
   confirmedContentVersionId: string;
+}
+
+export interface AIAnswerRequestCommand {
+  importId: string;
+  questionUnitId: string;
+  learningTrack: LearningTrack;
+}
+
+export interface AIAnswerConfirmationCommand {
+  answerVersionId: string;
+  expectedOutputFingerprint: string;
 }
 
 export interface PacketContentCandidate {
@@ -216,6 +261,8 @@ export interface ExternalLearningGateway {
     idempotencyKey: string,
   ): Promise<ImportWorkspace>;
   confirmMatch(command: MatchConfirmationCommand, idempotencyKey: string): Promise<ImportWorkspace>;
+  requestAIAnswer(command: AIAnswerRequestCommand, idempotencyKey: string): Promise<void>;
+  confirmAIAnswer(command: AIAnswerConfirmationCommand, idempotencyKey: string): Promise<void>;
 
   listPackets(): Promise<PacketListSnapshot>;
   createPacket(command: CreatePacketCommand, idempotencyKey: string): Promise<OfflinePacketVersion>;

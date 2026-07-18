@@ -10,6 +10,7 @@ import {
 } from "../../api/essay-intelligence";
 import { ApiClient, ApiClientError } from "../../api/client";
 import { LearningMediaApi } from "../../api/learning-media";
+import { EssayHandwritingApi } from "../../api/essay-handwriting";
 import { routes } from "../../app/navigation/routes";
 import { currentAuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";
@@ -134,6 +135,23 @@ import {
   type ReflectionVoiceSummaryView,
 } from "../../features/learning-media/presentation";
 import { ReflectionVoiceUploadCoordinator } from "../../features/learning-media/upload-controller";
+import {
+  canonicalHandwritingText,
+  confirmedHandwritingBinding,
+  confirmHandwritingSpan,
+  correctionSpans,
+  editHandwritingSpan,
+  emptyHandwritingState,
+  EssayHandwritingError,
+  needsRecognitionCorrection,
+  reviewingHandwritingState,
+  type EssayHandwritingState,
+} from "../../features/essay-handwriting/workflow";
+import {
+  chooseSourceImage,
+  ensureCameraPermission,
+  requestCameraSetting,
+} from "../../platform/source-image";
 
 type PageStatus = "loading" | "ready" | "error" | "unavailable";
 type SubmissionStatus = "idle" | "submitting" | "saved" | "error";
@@ -181,6 +199,8 @@ interface EssayTaskPageData {
   voiceSummary: ReflectionVoiceSummaryView;
   voiceRecording: boolean;
   voicePlayingSegmentId: string;
+  handwriting: EssayHandwritingState;
+  workbenchLinks: Array<{ label: string; url: string }>;
 }
 
 interface ClosureResultView {
@@ -240,6 +260,11 @@ interface EssayTaskPageCustom {
   changeDraftingSourceContext(event: WechatMiniprogram.CustomEvent<{ value: string }>): void;
   changeDraftingTimedStatus(event: WechatMiniprogram.CustomEvent<{ value: string }>): void;
   changeDraftingSourceType(event: WechatMiniprogram.CustomEvent<{ value: string }>): void;
+  chooseHandwritingImage(event: WechatMiniprogram.BaseEvent): Promise<void>;
+  inputHandwritingSpan(event: WechatMiniprogram.Input): void;
+  toggleHandwritingSpan(event: WechatMiniprogram.BaseEvent): void;
+  confirmHandwriting(): Promise<void>;
+  openWorkbench(event: WechatMiniprogram.BaseEvent): void;
   changeReflectionCauses(event: WechatMiniprogram.CustomEvent<{ value: string[] }>): void;
   submitStage(): Promise<void>;
   submitArtifact(): Promise<void>;
@@ -336,6 +361,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     voiceSummary: emptyVoiceSummary,
     voiceRecording: false,
     voicePlayingSegmentId: "",
+    handwriting: emptyHandwritingState(),
+    workbenchLinks: [],
   },
 
   onLoad(options: Record<string, string | undefined>) {
@@ -422,6 +449,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     }
     const client = new ApiClient(environment.apiBaseUrl, session.accessToken);
     runtime.api = new EssayIntelligenceApi(client);
+    runtime.essayHandwritingApi = new EssayHandwritingApi(client);
     runtime.learningMediaApi = new LearningMediaApi(client);
     runtime.voiceUploadCoordinator = new ReflectionVoiceUploadCoordinator(runtime.learningMediaApi);
     runtime.voiceRecorder = new WechatVoiceRecorder();
@@ -554,6 +582,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
             : "",
         drafting,
         reflectionCauseOptions: reflectionCauseOptions(drafting.reflectionCauseCodes),
+        workbenchLinks: essayWorkbenchLinks(workspace, runtime.activePlanTaskId),
         draftAvailable:
           !draftingStage ||
           (pendingDrafting
@@ -602,6 +631,11 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           : "工作区没有成功加载，请稍后重试。",
       });
     }
+  },
+
+  openWorkbench(event: WechatMiniprogram.BaseEvent) {
+    const url = String(event.currentTarget.dataset.url ?? "");
+    if (url) void wx.navigateTo({ url });
   },
 
   retry() {
@@ -874,8 +908,23 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       return;
     }
     markDraftChanged();
+    const invalidatesOcr =
+      field === "answerText" && this.data.drafting.sourceType === "ocr_confirmed";
     this.setData({
-      drafting: { ...this.data.drafting, [field]: event.detail.value },
+      drafting: {
+        ...this.data.drafting,
+        [field]: event.detail.value,
+        ...(invalidatesOcr ? { sourceArtifactVersionId: "", recognitionRevisionId: "" } : {}),
+      },
+      ...(invalidatesOcr
+        ? {
+            handwriting: {
+              ...this.data.handwriting,
+              phase: "review" as const,
+              message: "正文已改动，请重新逐段核对并确认 OCR 版本。",
+            },
+          }
+        : {}),
       submissionStatus: "idle",
       submissionMessage: "",
     });
@@ -920,10 +969,162 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     if (!value) return;
     markDraftChanged();
     this.setData({
-      drafting: { ...this.data.drafting, sourceType: value, sourceTypeIndex: index },
+      drafting: {
+        ...this.data.drafting,
+        sourceType: value,
+        sourceTypeIndex: index,
+        ...(value === "typed" ? { sourceArtifactVersionId: "", recognitionRevisionId: "" } : {}),
+      },
       submissionStatus: "idle",
       submissionMessage: "",
     });
+  },
+
+  async chooseHandwritingImage(event: WechatMiniprogram.BaseEvent) {
+    const runtime = pageRuntimes.get(this);
+    if (!runtime?.essayHandwritingApi || this.data.handwriting.phase === "uploading") return;
+    const source = event.currentTarget.dataset.source === "camera" ? "camera" : "album";
+    try {
+      if (source === "camera") {
+        let permission = await ensureCameraPermission();
+        if (permission === "denied" && (await requestCameraSetting())) permission = "granted";
+        if (permission !== "granted") {
+          throw new EssayHandwritingError("未获得相机权限，没有上传任何手写答案。");
+        }
+      }
+      const file = await chooseSourceImage(source, "申论手写答案.jpg");
+      if (!file) return;
+      this.setData({
+        handwriting: {
+          ...emptyHandwritingState(),
+          phase: "uploading",
+          localImagePath: file.localPath,
+          message: "正在安全上传原图并执行手写识别…",
+        },
+      });
+      const idempotencyKey = await createIdempotencyKey("essay-handwriting");
+      const revision = await runtime.essayHandwritingApi.createRecognition(
+        file,
+        idempotencyKey,
+        (progress) => {
+          if (!pageRuntimes.owns(this, runtime)) return;
+          this.setData({
+            handwriting: {
+              ...this.data.handwriting,
+              progressPercent: progress.percent,
+            },
+          });
+        },
+      );
+      if (!pageRuntimes.owns(this, runtime)) return;
+      this.setData({ handwriting: reviewingHandwritingState(revision, file.localPath) });
+    } catch (error) {
+      if (!pageRuntimes.owns(this, runtime)) return;
+      this.setData({
+        handwriting: {
+          ...this.data.handwriting,
+          phase: "error",
+          message: handwritingErrorMessage(error),
+        },
+      });
+    }
+  },
+
+  inputHandwritingSpan(event: WechatMiniprogram.Input) {
+    const spanId = String(event.currentTarget.dataset.spanId ?? "");
+    if (!spanId) return;
+    this.setData({
+      handwriting: editHandwritingSpan(this.data.handwriting, spanId, event.detail.value),
+    });
+  },
+
+  toggleHandwritingSpan(event: WechatMiniprogram.BaseEvent) {
+    const spanId = String(event.currentTarget.dataset.spanId ?? "");
+    if (!spanId) return;
+    this.setData({
+      handwriting: confirmHandwritingSpan(this.data.handwriting, spanId),
+    });
+  },
+
+  async confirmHandwriting() {
+    const runtime = pageRuntimes.get(this);
+    const sourceRevision = this.data.handwriting.revision;
+    if (!runtime?.essayHandwritingApi || !sourceRevision) return;
+    try {
+      const spans = correctionSpans(this.data.handwriting);
+      const answerText = canonicalHandwritingText(this.data.handwriting);
+      this.setData({
+        handwriting: {
+          ...this.data.handwriting,
+          phase: "confirming",
+          message: "正在写入用户修订版本并确认整份 OCR 文本…",
+        },
+      });
+      let candidate = sourceRevision;
+      if (needsRecognitionCorrection(this.data.handwriting)) {
+        candidate = await runtime.essayHandwritingApi.correctRecognition(
+          sourceRevision,
+          spans,
+          await createIdempotencyKey("essay-handwriting-correct"),
+        );
+      }
+      const confirmed = await runtime.essayHandwritingApi.confirmRecognition(
+        candidate,
+        await createIdempotencyKey("essay-handwriting-confirm"),
+      );
+      if (!pageRuntimes.owns(this, runtime)) return;
+      const binding = confirmedHandwritingBinding(confirmed);
+      if (runtime.activeStage === "essay_drafting") {
+        this.setData({
+          drafting: {
+            ...this.data.drafting,
+            answerText,
+            sourceType: "ocr_confirmed",
+            sourceTypeIndex: 1,
+            ...binding,
+          },
+        });
+      } else if (runtime.activeStage === "essay_rewrite" && this.data.rewriteDraft) {
+        const rewriteDraft = {
+          ...this.data.rewriteDraft,
+          answerText,
+          sourceType: "ocr_confirmed" as const,
+          sourceTypeIndex: 1,
+          ...binding,
+        };
+        persistRewriteDraft(this, rewriteDraft, false);
+        this.setData({ rewriteDraft });
+      } else if (runtime.activeStage === "essay_transfer") {
+        const transferDraft = {
+          ...this.data.transferDraft,
+          answerText,
+          sourceType: "ocr_confirmed" as const,
+          sourceTypeIndex: 1,
+          ...binding,
+        };
+        persistTransferDraft(this, transferDraft);
+        this.setData({ transferDraft });
+      }
+      this.setData({
+        handwriting: {
+          ...this.data.handwriting,
+          revision: confirmed,
+          phase: "confirmed",
+          message: "原图、机器识别、用户修订和确认版本已形成完整证据链。",
+        },
+        submissionStatus: "idle",
+        submissionMessage: "已将确认后的 OCR 正文写入当前答案。",
+      });
+    } catch (error) {
+      if (!pageRuntimes.owns(this, runtime)) return;
+      this.setData({
+        handwriting: {
+          ...this.data.handwriting,
+          phase: "error",
+          message: handwritingErrorMessage(error),
+        },
+      });
+    }
   },
 
   changeReflectionCauses(event: WechatMiniprogram.CustomEvent<{ value: string[] }>) {
@@ -1067,7 +1268,13 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     ) {
       return;
     }
-    const rewriteDraft = { ...draft, [field]: event.detail.value };
+    const rewriteDraft = {
+      ...draft,
+      [field]: event.detail.value,
+      ...(field === "answerText" && draft.sourceType === "ocr_confirmed"
+        ? { sourceArtifactVersionId: "", recognitionRevisionId: "" }
+        : {}),
+    };
     this.setData({ rewriteDraft, submissionStatus: "idle", submissionMessage: "" });
     persistRewriteDraft(this, rewriteDraft, false);
   },
@@ -1077,7 +1284,12 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     const index = Number(event.detail.value);
     const sourceType = closureSourceTypeValues[index];
     if (!draft || !sourceType) return;
-    const rewriteDraft = { ...draft, sourceType, sourceTypeIndex: index };
+    const rewriteDraft = {
+      ...draft,
+      sourceType,
+      sourceTypeIndex: index,
+      ...(sourceType === "typed" ? { sourceArtifactVersionId: "", recognitionRevisionId: "" } : {}),
+    };
     this.setData({ rewriteDraft, submissionStatus: "idle", submissionMessage: "" });
     persistRewriteDraft(this, rewriteDraft, false);
   },
@@ -1127,7 +1339,13 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     ) {
       return;
     }
-    const transferDraft = { ...this.data.transferDraft, [field]: event.detail.value };
+    const transferDraft = {
+      ...this.data.transferDraft,
+      [field]: event.detail.value,
+      ...(field === "answerText" && this.data.transferDraft.sourceType === "ocr_confirmed"
+        ? { sourceArtifactVersionId: "", recognitionRevisionId: "" }
+        : {}),
+    };
     this.setData({ transferDraft, submissionStatus: "idle", submissionMessage: "" });
     persistTransferDraft(this, transferDraft);
   },
@@ -1136,7 +1354,12 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     const index = Number(event.detail.value);
     const sourceType = closureSourceTypeValues[index];
     if (!sourceType) return;
-    const transferDraft = { ...this.data.transferDraft, sourceType, sourceTypeIndex: index };
+    const transferDraft = {
+      ...this.data.transferDraft,
+      sourceType,
+      sourceTypeIndex: index,
+      ...(sourceType === "typed" ? { sourceArtifactVersionId: "", recognitionRevisionId: "" } : {}),
+    };
     this.setData({ transferDraft, submissionStatus: "idle", submissionMessage: "" });
     persistTransferDraft(this, transferDraft);
   },
@@ -2155,6 +2378,43 @@ function closureErrorMessage(error: unknown): string {
     return `${error.message}（请求 ${error.requestId}）`;
   }
   return error instanceof Error ? error.message : "申论证据命令未获得完整终态。";
+}
+
+function handwritingErrorMessage(error: unknown): string {
+  if (error instanceof EssayHandwritingError) return error.message;
+  if (error instanceof ApiClientError) {
+    return `${error.message}（请求 ${error.requestId}）`;
+  }
+  return error instanceof Error ? error.message : "手写识别没有形成可确认版本。";
+}
+
+function essayWorkbenchLinks(
+  workspace: EssayTaskWorkspace,
+  planTaskId: string,
+): Array<{ label: string; url: string }> {
+  const task = encodeURIComponent(workspace.task.taskVersionId);
+  const plan = encodeURIComponent(planTaskId);
+  const suffix = `taskVersionId=${task}&planTaskId=${plan}`;
+  const links = [
+    { label: "材料地图", url: `${routes.essayMaterial}?${suffix}` },
+    { label: "要点与正文", url: `${routes.essayCompose}?${suffix}` },
+  ];
+  const reviewVersionId = workspace.progression.reviewVersionId;
+  if (reviewVersionId) {
+    const review = encodeURIComponent(reviewVersionId);
+    links.push(
+      { label: "AI 评阅", url: `${routes.essayReview}?${suffix}&reviewVersionId=${review}` },
+      { label: "评阅证据", url: `${routes.essayEvidence}?${suffix}&reviewVersionId=${review}` },
+    );
+  }
+  const rewriteVersionId = workspace.progression.rewriteVersionId;
+  if (rewriteVersionId) {
+    links.push({
+      label: "改写对照",
+      url: `${routes.essayRewrite}?${suffix}&rewriteVersionId=${encodeURIComponent(rewriteVersionId)}`,
+    });
+  }
+  return links;
 }
 
 function isTerminalClosureConflict(error: unknown): boolean {

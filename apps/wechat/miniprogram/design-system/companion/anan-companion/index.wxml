@@ -19,39 +19,46 @@
     mode="aspectFit"
     aria-hidden="true"
   />
-  <anan-growth
+  <view
     wx:elif="{{renderGrowth}}"
-    visual-stage="{{visualStage}}"
+    class="anan__embedded"
     aria-hidden="true"
-  />
-  <anan-thinking
+  >
+    <anan-growth visual-stage="{{visualStage}}" />
+  </view>
+  <view
     wx:elif="{{renderIntentPackage && resolvedIntent === 'thinking'}}"
-    size="{{resolvedSize}}"
-    animate="{{motionAllowed}}"
+    class="anan__embedded"
     aria-hidden="true"
-  />
-  <anan-reminder
+  >
+    <anan-thinking size="{{resolvedSize}}" animate="{{motionAllowed}}" />
+  </view>
+  <view
     wx:elif="{{renderIntentPackage && resolvedIntent === 'reminder'}}"
-    size="{{resolvedSize}}"
-    animate="{{motionAllowed}}"
+    class="anan__embedded"
     aria-hidden="true"
-  />
-  <anan-encouragement
+  >
+    <anan-reminder size="{{resolvedSize}}" animate="{{motionAllowed}}" />
+  </view>
+  <view
     wx:elif="{{renderIntentPackage && resolvedIntent === 'encouragement'}}"
-    size="{{resolvedSize}}"
-    animate="{{motionAllowed}}"
+    class="anan__embedded"
     aria-hidden="true"
-  />
-  <anan-rest
+  >
+    <anan-encouragement size="{{resolvedSize}}" animate="{{motionAllowed}}" />
+  </view>
+  <view
     wx:elif="{{renderIntentPackage && resolvedIntent === 'rest'}}"
-    size="{{resolvedSize}}"
-    animate="{{motionAllowed}}"
+    class="anan__embedded"
     aria-hidden="true"
-  />
-  <anan-deprioritize
+  >
+    <anan-rest size="{{resolvedSize}}" animate="{{motionAllowed}}" />
+  </view>
+  <view
     wx:elif="{{renderIntentPackage && resolvedIntent === 'deprioritize'}}"
-    size="{{resolvedSize}}"
-    animate="{{motionAllowed}}"
+    class="anan__embedded"
     aria-hidden="true"
-  />
+  >
+    <anan-deprioritize size="{{resolvedSize}}" animate="{{motionAllowed}}" />
+  </view>
 </view>

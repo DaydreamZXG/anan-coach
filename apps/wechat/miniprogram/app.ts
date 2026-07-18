@@ -2,17 +2,17 @@ import { configureForWechatEnvVersion, environment } from "./config/environment"
 import { ApiClient } from "./api/client";
 import { ExternalLearningApi } from "./api/external-learning";
 import { configureExternalLearningGatewayFactory } from "./features/external-learning/contracts";
-import { dataFontFaceManager, type DataFontLoadState } from "./platform/data-font";
+import { productFontFaceManager, type ProductFontLoadState } from "./platform/product-font";
 
 export interface CoachAppState {
   accessToken?: string;
   userId?: string;
   requestId?: string;
-  dataFont: Readonly<DataFontLoadState>;
+  productFont: Readonly<ProductFontLoadState>;
 }
 
 App<{ globalData: CoachAppState }>({
-  globalData: { dataFont: dataFontFaceManager.snapshot() },
+  globalData: { productFont: productFontFaceManager.snapshot() },
   onLaunch() {
     const envVersion = wx.getAccountInfoSync().miniProgram.envVersion;
     configureForWechatEnvVersion(envVersion);
@@ -24,32 +24,31 @@ App<{ globalData: CoachAppState }>({
       throw new Error("Production builds must use API data mode");
     }
     const realtimeLogger = wx.getRealtimeLogManager();
-    realtimeLogger.addFilterMsg("data-font");
-    dataFontFaceManager.subscribe((state) => {
-      this.globalData.dataFont = state;
+    realtimeLogger.addFilterMsg("product-font");
+    productFontFaceManager.subscribe((state) => {
+      this.globalData.productFont = state;
       if (state.status === "failed" || state.status === "invalid_configuration") {
-        realtimeLogger.error("data-font-unavailable", {
+        realtimeLogger.error("product-font-unavailable", {
           attempt: state.attempt,
-          resultStatus: state.resultStatus,
-          sourceUrl: state.sourceUrl,
+          faces: state.faces,
           trigger: state.lastTrigger,
         });
       } else if (state.status === "loaded") {
-        realtimeLogger.info("data-font-loaded", {
+        realtimeLogger.info("product-font-loaded", {
           attempt: state.attempt,
-          sourceUrl: state.sourceUrl,
+          faces: state.faces,
           trigger: state.lastTrigger,
         });
       }
     });
     wx.onNetworkStatusChange((status) => {
       if (status.isConnected) {
-        void dataFontFaceManager.retry(environment.fontAssets, "network_reconnected");
+        void productFontFaceManager.retry(environment.fontAssets, "network_reconnected");
       }
     });
-    void dataFontFaceManager.load(environment.fontAssets, "app_launch");
+    void productFontFaceManager.load(environment.fontAssets, "app_launch");
   },
   onShow() {
-    void dataFontFaceManager.retry(environment.fontAssets, "app_show_retry");
+    void productFontFaceManager.retry(environment.fontAssets, "app_show_retry");
   },
 });

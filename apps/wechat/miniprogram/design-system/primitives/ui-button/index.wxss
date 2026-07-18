@@ -46,6 +46,12 @@
   box-shadow: none;
 }
 
-.ui-button[disabled] {
+.ui-button--hover {
+  transform: scale(0.982);
+  opacity: 0.88;
+  transition: transform 0.08s cubic-bezier(0.2, 0, 0.2, 1), opacity 0.08s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.ui-button--disabled {
   opacity: 0.5;
 }

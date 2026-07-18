@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Header, HTTPException, status
+from fastapi import APIRouter, Depends, Header, HTTPException, Request, Response, status
 from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
@@ -29,8 +29,20 @@ from app.domains.companion.service import (
     ExternalQuestionConfirmationError,
     ExternalQuestionIntakeNotFoundError,
 )
+from app.domains.learning_brain.service import LearningBrainContractError, LearningBrainService
+from app.domains.qualification.repository import PositionRuleReleaseUnavailable
+from app.platform.http import (
+    COMMON_API_ERROR_RESPONSES,
+    PublicApiEnvelope,
+    public_success_envelope,
+)
 
 router = APIRouter(prefix="/api/v1/companion", tags=["companion"])
+v2_router = APIRouter(
+    prefix="/api/v2/companion",
+    tags=["companion"],
+    responses=COMMON_API_ERROR_RESPONSES,
+)
 
 IdempotencyKey = Annotated[
     str,
@@ -82,6 +94,43 @@ def ask_companion(
             status_code=exc.status_code,
             detail=exc.detail,
         ) from exc
+
+
+@v2_router.post(
+    "/ask",
+    response_model=PublicApiEnvelope[CompanionAskResponse],
+)
+def ask_companion_v2(
+    command: CompanionAskRequest,
+    request: Request,
+    response: Response,
+    idempotency_key: IdempotencyKey,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+    service: Annotated[CompanionService, Depends(get_companion_service)],
+) -> PublicApiEnvelope[CompanionAskResponse]:
+    try:
+        LearningBrainService().get_or_create_profile(
+            session,
+            user_id=current_user.user_id,
+        )
+        result = service.ask(
+            user_id=current_user.user_id,
+            learner_key=current_user.learner_key,
+            idempotency_key=idempotency_key,
+            request=command,
+        )
+        return public_success_envelope(request=request, response=response, data=result)
+    except CompanionCommandConflict as exc:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Idempotency key was already used with a different request",
+        ) from exc
+    except (LearningBrainContractError, PositionRuleReleaseUnavailable) as exc:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+    except CompanionCommandFailure as exc:
+        raise HTTPException(status_code=exc.status_code, detail=exc.detail) from exc
 
 
 @router.post(

@@ -161,6 +161,32 @@ export class LearningPacketsController {
     });
   }
 
+  selectOnlyContent(contentVersionId: string): boolean {
+    if (!this.canEdit() || (this.state.status !== "ready" && this.state.status !== "empty")) {
+      return false;
+    }
+    const normalized = contentVersionId.trim();
+    const candidate = this.state.eligibleContent.find(
+      (item) => item.contentVersionId === normalized,
+    );
+    if (!candidate) {
+      this.patch({
+        validationError: "这道题当前不能生成学习包，请返回拍题结果重新确认授权版本。",
+      });
+      return false;
+    }
+    this.patch({
+      track: candidate.track,
+      selectedContentVersionIds: [candidate.contentVersionId],
+      eligibleContent: this.state.eligibleContent.map((item) => ({
+        ...item,
+        selected: item.contentVersionId === candidate.contentVersionId,
+      })),
+      validationError: "",
+    });
+    return true;
+  }
+
   setRenderFormat(renderFormat: "pdf" | "note_app_file"): void {
     if (this.canEdit()) this.patch({ renderFormat, validationError: "" });
   }

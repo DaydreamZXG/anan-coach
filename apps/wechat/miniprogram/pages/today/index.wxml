@@ -1,7 +1,15 @@
-<view class="page">
-  <view class="eyebrow">AI 上岸教练</view>
-  <view class="page-title">今天，只做最值钱的事</view>
-  <view class="page-subtitle">岗位目标、能力证据和可用时间共同决定今天的行动。</view>
+<view class="s9-page today-page">
+  <view class="today-topbar">
+    <view>
+      <view class="today-kicker">岸岸 · 今日计划</view>
+      <view class="today-heading">今日</view>
+    </view>
+    <button class="today-capture" bindtap="openCaptureImport">
+      <text class="today-capture__icon">⌁</text>
+      <text>拍题</text>
+    </button>
+  </view>
+  <view class="today-intro">今天只做最值钱的事。岗位目标、能力证据和可用时间共同决定行动。</view>
 
   <block wx:if="{{status === 'loading'}}">
     <view class="top-space"><state-view state="loading" /></view>
@@ -18,89 +26,70 @@
   </view>
 
   <block wx:elif="{{view}}">
-    <view class="goal-card top-space">
-      <view class="row">
-        <view>
-          <view class="goal-label">主目标</view>
+    <view class="focus-dashboard card top-space">
+      <view class="dashboard-hero-strip">
+        <view class="dashboard-hero-main">
+          <view class="goal-label">今日备考主目标</view>
           <view class="goal-name">{{view.positionName}}</view>
+          <view class="goal-evidence">{{view.evidenceSummary}}</view>
         </view>
-        <view class="pill">{{view.confidence}}</view>
+        <view class="dashboard-hero-side">
+          <view class="pill {{view.capacityStatusLabel === '已确认容量版本' ? 'pill--success' : ''}}">{{view.capacityStatusLabel}}</view>
+        </view>
       </view>
-      <view wx:if="{{view.hasCompleteGoalGap}}" class="gap-row">
-        <view>
-          <view class="score-value">{{view.currentScore}}</view>
+
+      <view wx:if="{{view.hasCompleteGoalGap}}" class="gap-brief-row">
+        <view class="gap-brief-item">
           <view class="score-label">当前总分估计</view>
+          <view class="score-value">{{view.currentScore}} <text class="score-unit">分</text></view>
         </view>
         <view class="gap-arrow">→</view>
-        <view>
-          <view class="score-value">{{view.targetScore}}</view>
+        <view class="gap-brief-item">
           <view class="score-label">岗位备考线</view>
+          <view class="score-value">{{view.targetScore}} <text class="score-unit">分</text></view>
         </view>
-        <view class="gap-number">差 <text class="type-data">{{view.scoreGap}}</text> 分</view>
+        <view class="gap-badge">
+          差 <text class="type-data">{{view.scoreGap}}</text> 分
+        </view>
       </view>
       <view wx:else class="gap-unavailable">
         <view class="gap-unavailable-title">{{view.gapStateLabel}}</view>
         <view class="gap-unavailable-copy">{{view.gapGuidance}}</view>
       </view>
-      <view class="goal-evidence">{{view.evidenceSummary}}</view>
-    </view>
 
-    <view class="coach-card">
-      <anan-companion intent="thinking" size="medium" context="plan" label="岸岸正在解释今日计划" />
-      <view class="coach-content">
-        <view class="coach-mark">岸岸判断</view>
+      <view class="coach-insight-box">
+        <view class="coach-insight-header">
+          <anan-companion intent="thinking" size="small" context="plan" label="岸岸判断" />
+          <view class="coach-mark">AI 导读建议 · {{view.confidence}}</view>
+        </view>
         <view class="coach-headline">{{view.headline}}</view>
         <view class="coach-copy">{{view.rationale}}</view>
       </view>
-    </view>
 
-    <view class="capacity card">
-      <view class="capacity-header">
-        <view class="capacity-copy">
-          <view class="capacity-kicker">今日学习容量</view>
-          <view class="capacity-title"
-            >可用 <text class="type-data">{{view.availableMinutes}}</text> 分钟</view
-          >
-          <view class="caption">{{view.capacitySourceLabel}}</view>
+      <view class="capacity-bar">
+        <view class="capacity-bar-info">
+          <view class="capacity-bar-title">
+            今日可用 <text class="type-data">{{view.availableMinutes}}</text> 分钟
+          </view>
+          <view class="capacity-bar-meta">
+            精力 {{view.energy}}/5 · 压力 {{view.stress}}/5 · {{view.capacitySourceLabel}}
+          </view>
         </view>
-        <view class="capacity-header-actions">
-          <view
-            class="pill {{view.capacityStatusLabel === '已确认容量版本' ? 'pill--success' : ''}}"
-            >{{view.capacityStatusLabel}}</view
-          >
-          <button class="capacity-edit-button" bindtap="toggleCapacityEditor">
-            {{capacityEditorOpen ? '收起' : '确认 / 修改'}}
-          </button>
-        </view>
-      </view>
-
-      <view class="capacity-snapshot">
-        <view class="capacity-snapshot-item">
-          <text>精力</text>
-          <view><text class="type-data">{{view.energy}}</text> / 5 · {{energyLabel}}</view>
-        </view>
-        <view class="capacity-snapshot-item">
-          <text>压力</text>
-          <view><text class="type-data">{{view.stress}}</text> / 5 · {{stressLabel}}</view>
-        </view>
-        <view class="capacity-snapshot-item">
-          <text>时间把握</text>
-          <view
-            ><text class="type-data">{{view.confidenceLevel}}</text> / 5 · {{confidenceLabel}}</view
-          >
-        </view>
+        <button class="capacity-edit-button" bindtap="toggleCapacityEditor">
+          {{capacityEditorOpen ? '收起调整' : '调整容量'}}
+        </button>
       </view>
 
       <view wx:if="{{capacityEditorOpen && capacityDraft}}" class="capacity-editor">
         <view class="capacity-field">
           <view class="capacity-field-heading">
-            <view>
+            <view class="capacity-field-copy">
               <view class="capacity-field-label">今日真实可用时间</view>
               <view class="capacity-field-help">包含做题、复盘和申论作答的总时间</view>
             </view>
             <view class="capacity-minute-input">
               <input
-                class="type-data"
+                class="type-data capacity-minute-input__control"
                 type="number"
                 maxlength="4"
                 value="{{capacityDraft.availableMinutes}}"
@@ -114,7 +103,7 @@
 
         <view class="capacity-field">
           <view class="capacity-field-heading">
-            <view>
+            <view class="capacity-field-copy">
               <view class="capacity-field-label">当前精力</view>
               <view class="capacity-field-help">现在可以持续专注的状态</view>
             </view>
@@ -126,7 +115,8 @@
             <button
               wx:for="{{capacityScaleOptions}}"
               wx:key="*this"
-              class="capacity-scale-option {{capacityDraft.energy === item ? 'capacity-scale-option--active' : ''}}"
+              class="capacity-scale-option {{capacityDraft.energy === item ? 'capacity-scale-option--active' : ''}} {{capacitySubmission === 'submitting' || capacitySubmission === 'conflict' ? 'capacity-scale-option--disabled' : ''}}"
+              hover-class="item--hover"
               data-field="energy"
               data-value="{{item}}"
               disabled="{{capacitySubmission === 'submitting' || capacitySubmission === 'conflict'}}"
@@ -139,7 +129,7 @@
 
         <view class="capacity-field">
           <view class="capacity-field-heading">
-            <view>
+            <view class="capacity-field-copy">
               <view class="capacity-field-label">当前压力</view>
               <view class="capacity-field-help">以你的主观感受为准，不做价值判断</view>
             </view>
@@ -151,7 +141,8 @@
             <button
               wx:for="{{capacityScaleOptions}}"
               wx:key="*this"
-              class="capacity-scale-option {{capacityDraft.stress === item ? 'capacity-scale-option--active' : ''}}"
+              class="capacity-scale-option {{capacityDraft.stress === item ? 'capacity-scale-option--active' : ''}} {{capacitySubmission === 'submitting' || capacitySubmission === 'conflict' ? 'capacity-scale-option--disabled' : ''}}"
+              hover-class="item--hover"
               data-field="stress"
               data-value="{{item}}"
               disabled="{{capacitySubmission === 'submitting' || capacitySubmission === 'conflict'}}"
@@ -169,7 +160,7 @@
 
         <view class="capacity-field">
           <view class="capacity-field-heading">
-            <view>
+            <view class="capacity-field-copy">
               <view class="capacity-field-label">时间可兑现把握</view>
               <view class="capacity-field-help">今天真正能留出这段时间的确定程度</view>
             </view>
@@ -182,7 +173,7 @@
             <button
               wx:for="{{capacityScaleOptions}}"
               wx:key="*this"
-              class="capacity-scale-option {{capacityDraft.confidenceLevel === item ? 'capacity-scale-option--active' : ''}}"
+              class="capacity-scale-option {{capacityDraft.confidenceLevel === item ? 'capacity-scale-option--active' : ''}} {{capacitySubmission === 'submitting' || capacitySubmission === 'conflict' ? 'capacity-scale-option--disabled' : ''}}"
               data-field="confidenceLevel"
               data-value="{{item}}"
               disabled="{{capacitySubmission === 'submitting' || capacitySubmission === 'conflict'}}"
@@ -213,7 +204,7 @@
         </button>
         <button
           wx:else
-          class="primary-button capacity-submit"
+          class="primary-button capacity-submit {{!capacityWriteAllowed || capacitySubmission === 'submitting' ? 'capacity-submit--disabled' : ''}}"
           loading="{{capacitySubmission === 'submitting'}}"
           disabled="{{!capacityWriteAllowed || capacitySubmission === 'submitting'}}"
           bindtap="submitCapacity"
@@ -268,9 +259,16 @@
         wx:key="track"
         class="omitted-reason"
       >
-        <text>{{omission.trackLabel}}未安排</text>
+        <text class="omitted-reason__label">{{omission.trackLabel}}未安排</text>
         <text>{{omission.reason}}</text>
       </view>
+    </view>
+
+    <view class="plan-tools card">
+      <button class="plan-tool" hover-class="item--hover" bindtap="openPlanBasis"><text>为什么这样排</text><text class="plan-tool__arrow">→</text></button>
+      <button class="plan-tool" hover-class="item--hover" bindtap="openDayAdjustment"><text>调整今天安排</text><text class="plan-tool__arrow">→</text></button>
+      <button class="plan-tool" hover-class="item--hover" bindtap="openDailySettlement"><text>进入每日结算</text><text class="plan-tool__arrow">→</text></button>
+      <button class="plan-tool" hover-class="item--hover" bindtap="openWeeklyPlan"><text>5+1+1 周计划</text><text class="plan-tool__arrow">→</text></button>
     </view>
 
     <view wx:if="{{view.isRecoveryDay}}" class="recovery-note"
@@ -279,13 +277,14 @@
 
     <view wx:if="{{!view.hasTasks}}" class="task-empty card">
       <view>当前没有通过容量和内容门禁的可执行任务。</view>
-      <text>规划缺口已如实保留，不会用占位任务冒充今日安排。</text>
+      <text class="task-empty__note">规划缺口已如实保留，不会用占位任务冒充今日安排。</text>
     </view>
 
     <view
       wx:for="{{view.tasks}}"
       wx:key="id"
       class="task card {{item.canOpen ? '' : 'task--disabled'}}"
+      hover-class="{{item.canOpen ? 'card--hover' : ''}}"
       data-id="{{item.id}}"
       bindtap="openTask"
     >
@@ -334,6 +333,6 @@
       </view>
     </view>
 
-    <button class="setup-link" bindtap="openOnboarding">查看建档与诊断主链 →</button>
+    <button class="setup-link" bindtap="openOnboarding">修改建档与学习设置 →</button>
   </block>
 </view>

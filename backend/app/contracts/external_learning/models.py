@@ -213,6 +213,7 @@ class ContentMatchVersion(StrictContract):
     content_match_id: UUID = Field(alias="contentMatchId")
     artifact_version_id: UUID = Field(alias="artifactVersionId")
     recognition_revision_id: UUID = Field(alias="recognitionRevisionId")
+    question_unit_id: Sha256Hex = Field(alias="questionUnitId")
     owner_user_id: UUID = Field(alias="ownerUserId")
     version_no: int = Field(alias="versionNo", ge=1)
     state: Literal["candidate", "confirmed", "rejected", "expired"]

@@ -111,6 +111,34 @@ Page({
     void wx.navigateTo({ url: routes.communityContributions });
   },
 
+  openLearningProfile() {
+    void wx.navigateTo({ url: routes.learningProfile });
+  },
+
+  openCompanion() {
+    void wx.navigateTo({ url: routes.companion });
+  },
+
+  openPlanHistory() {
+    void wx.navigateTo({ url: routes.planHistory });
+  },
+
+  openReportCenter() {
+    void wx.navigateTo({ url: routes.reportCenter });
+  },
+
+  openMembership() {
+    void wx.navigateTo({ url: routes.membership });
+  },
+
+  openPrivacy() {
+    void wx.navigateTo({ url: routes.privacy });
+  },
+
+  openSupport() {
+    void wx.navigateTo({ url: routes.support });
+  },
+
   revokeSession(event: WechatMiniprogram.BaseEvent) {
     const sessionId = String(event.currentTarget.dataset.sessionId ?? "");
     const session = this.data.sessions.find((item) => item.sessionId === sessionId);

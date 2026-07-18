@@ -227,6 +227,7 @@ def test_exact_text_and_visual_match_stays_candidate_until_user_confirms() -> No
 
     candidate, evaluation = matching.evaluate(
         owner_user_id=OWNER,
+        question_unit_id="a" * 64,
         recognition=recognition(),
         query=query(),
         idempotency_key="match-1",
@@ -246,6 +247,7 @@ def test_unconfirmed_or_expired_recognition_never_enters_matching() -> None:
     with pytest.raises(MatchTransitionError, match="user-confirmed"):
         matching.evaluate(
             owner_user_id=OWNER,
+        question_unit_id="a" * 64,
             recognition=recognition(state=CandidateState.CANDIDATE),
             query=query(),
             idempotency_key="candidate-recognition",
@@ -258,6 +260,7 @@ def test_unconfirmed_or_expired_recognition_never_enters_matching() -> None:
     with pytest.raises(MatchTransitionError, match="superseded"):
         superseded_matching.evaluate(
             owner_user_id=OWNER,
+        question_unit_id="a" * 64,
             recognition=recognition(),
             query=query(),
             idempotency_key="superseded-recognition",
@@ -266,6 +269,7 @@ def test_unconfirmed_or_expired_recognition_never_enters_matching() -> None:
     with pytest.raises(MatchTransitionError, match="current"):
         matching.evaluate(
             owner_user_id=OWNER,
+        question_unit_id="a" * 64,
             recognition=expired,
             query=query(),
             idempotency_key="expired-recognition",
@@ -295,6 +299,7 @@ def test_private_content_from_another_account_and_unlicensed_catalog_are_exclude
 
     _, evaluation = matching.evaluate(
         owner_user_id=OWNER,
+        question_unit_id="a" * 64,
         recognition=recognition(),
         query=query(),
         idempotency_key="privacy-match",
@@ -310,6 +315,7 @@ def test_score_tie_is_deterministic_and_never_auto_selects() -> None:
 
     candidate, evaluation = matching.evaluate(
         owner_user_id=OWNER,
+        question_unit_id="a" * 64,
         recognition=recognition(),
         query=query(),
         idempotency_key="tie-match",
@@ -339,6 +345,7 @@ def test_similarity_threshold_is_inclusive_but_below_threshold_is_excluded(monke
 
     _, evaluation = matching.evaluate(
         owner_user_id=OWNER,
+        question_unit_id="a" * 64,
         recognition=recognition(),
         query=MatchQuery(track="xingce", promptText="query"),
         idempotency_key="threshold",
@@ -366,6 +373,7 @@ def test_essay_completeness_gate_refuses_incomplete_queries(prompt, materials) -
 
     candidate, evaluation = matching.evaluate(
         owner_user_id=OWNER,
+        question_unit_id="a" * 64,
         recognition=recognition(),
         query=MatchQuery(track="essay", promptText=prompt, materialTexts=materials),
         idempotency_key=f"essay-{len(prompt)}-{len(materials)}",
@@ -380,12 +388,14 @@ def test_evaluate_replay_and_changed_request_conflict() -> None:
     matching, repo = service(provider)
     first, first_evaluation = matching.evaluate(
         owner_user_id=OWNER,
+        question_unit_id="a" * 64,
         recognition=recognition(),
         query=query(),
         idempotency_key="replay",
     )
     replay, replay_evaluation = matching.evaluate(
         owner_user_id=OWNER,
+        question_unit_id="a" * 64,
         recognition=recognition(),
         query=query(),
         idempotency_key="replay",
@@ -398,6 +408,7 @@ def test_evaluate_replay_and_changed_request_conflict() -> None:
     with pytest.raises(MatchIdempotencyConflict):
         matching.evaluate(
             owner_user_id=OWNER,
+        question_unit_id="a" * 64,
             recognition=recognition(),
             query=query(prompt="完全不同的一道题"),
             idempotency_key="replay",
@@ -408,6 +419,7 @@ def test_stale_competing_match_decision_loses_head_compare_and_swap() -> None:
     matching, _ = service(content("question-v1"))
     candidate, _ = matching.evaluate(
         owner_user_id=OWNER,
+        question_unit_id="a" * 64,
         recognition=recognition(),
         query=query(),
         idempotency_key="decision-source",
@@ -435,6 +447,7 @@ def test_external_answer_requires_recognition_match_and_answer_confirmation() ->
     matching, _ = service(provider)
     candidate, _ = matching.evaluate(
         owner_user_id=OWNER,
+        question_unit_id="a" * 64,
         recognition=recognition(),
         query=query(),
         idempotency_key="answer-match",
@@ -450,6 +463,8 @@ def test_external_answer_requires_recognition_match_and_answer_confirmation() ->
         owner_user_id=OWNER, recognition=recognition(), match=match
     )
     assert answer is not None
+    assert answer.answer_text == "答案 A，依法可以撤回行政许可。"
+    assert "solutionExplanation" not in answer.model_dump(by_alias=True)
 
     before = matching.evidence_admission(
         recognition=recognition(), match=match, answer=answer
@@ -474,6 +489,7 @@ def test_ai_answer_is_last_layer_fails_closed_and_still_needs_user_confirmation(
     matching, _ = service(item)
     candidate, _ = matching.evaluate(
         owner_user_id=OWNER,
+        question_unit_id="a" * 64,
         recognition=recognition(),
         query=query(),
         idempotency_key="ai-match",
@@ -520,6 +536,7 @@ def test_revoked_authorization_snapshot_blocks_previously_confirmed_answer_evide
     matching, _ = service(content("question-v1"), authorization=authorization)
     candidate, _ = matching.evaluate(
         owner_user_id=OWNER,
+        question_unit_id="a" * 64,
         recognition=recognition(),
         query=query(),
         idempotency_key="revoked-match",

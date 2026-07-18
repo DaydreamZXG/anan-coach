@@ -983,7 +983,7 @@ def _seed_answer_without_review(
                 "attempt_id": attempt_id,
                 "user_id": user_id,
                 "task_id": ids["task"],
-                "answer_sha": "3" * 64,
+                "answer_sha": sha256("基层治理存在执行问题。".encode("utf-8")).hexdigest(),
                 "input_sha": "4" * 64,
             },
         )

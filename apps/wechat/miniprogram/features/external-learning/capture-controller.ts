@@ -2,6 +2,7 @@ import type { LearningTrack } from "../../api/external-learning-contracts";
 import { createIdempotencyKey } from "../../platform/command-id";
 import type {
   ExternalLearningGateway,
+  ImportQuestionUnit,
   ImportWorkspace,
   LocalImportFile,
   UploadProgress,
@@ -26,6 +27,8 @@ export interface CaptureImportState {
   selectedFile: LocalImportFile | null;
   uploadProgress: UploadProgress | null;
   workspace: ImportWorkspace | null;
+  activeQuestionUnit: ImportQuestionUnit | null;
+  activeQuestionUnitIndex: number;
   reviewStep: "recognition" | "match";
   segments: RecognitionSegmentView[];
   selectedContentVersionId: string;
@@ -39,7 +42,13 @@ export interface CaptureImportState {
 export interface CaptureImportControllerOptions {
   gateway: Pick<
     ExternalLearningGateway,
-    "beginImport" | "getImport" | "reviseRecognition" | "confirmRecognition" | "confirmMatch"
+    | "beginImport"
+    | "getImport"
+    | "reviseRecognition"
+    | "confirmRecognition"
+    | "confirmMatch"
+    | "requestAIAnswer"
+    | "confirmAIAnswer"
   >;
   onChange: (state: CaptureImportState) => void;
   createCommandKey?: (prefix: string) => Promise<string>;
@@ -78,21 +87,7 @@ export class CaptureImportController {
     this.createCommandKey = options.createCommandKey ?? createIdempotencyKey;
     this.schedule = options.schedule ?? ((callback, delayMs) => setTimeout(callback, delayMs));
     this.cancelSchedule = options.cancelSchedule ?? clearTimeout;
-    this.state = {
-      status: "idle",
-      learningTrack: "xingce",
-      selectedFile: null,
-      uploadProgress: null,
-      workspace: null,
-      reviewStep: "recognition",
-      segments: [],
-      selectedContentVersionId: "",
-      dirty: false,
-      submitting: false,
-      pendingRecovery: false,
-      validationError: "",
-      error: null,
-    };
+    this.state = initialCaptureState("xingce");
   }
 
   snapshot(): CaptureImportState {
@@ -102,6 +97,18 @@ export class CaptureImportController {
   setTrack(track: LearningTrack): void {
     if (!this.canEdit()) return;
     this.patch({ learningTrack: track, validationError: "" });
+  }
+
+  reset(): void {
+    if (!this.isActive()) return;
+    const learningTrack = this.state.learningTrack;
+    this.operationEpoch += 1;
+    this.commandPreparing = false;
+    this.pendingImport = null;
+    this.pendingConfirmation = null;
+    this.clearPoll();
+    this.state = initialCaptureState(learningTrack);
+    this.publish();
   }
 
   async startImport(file: LocalImportFile): Promise<void> {
@@ -217,10 +224,84 @@ export class CaptureImportController {
       this.state.workspace?.recognition?.state !== "confirmed"
     )
       return;
-    const exists = this.state.workspace.match?.candidates.some(
+    const exists = this.state.activeQuestionUnit?.match?.candidates.some(
       (candidate) => candidate.contentVersionId === contentVersionId,
     );
     if (exists) this.patch({ selectedContentVersionId: contentVersionId, validationError: "" });
+  }
+
+  selectQuestionUnit(index: number): void {
+    const workspace = this.state.workspace;
+    if (
+      !workspace ||
+      !Number.isInteger(index) ||
+      index < 0 ||
+      index >= workspace.questionUnits.length
+    )
+      return;
+    const activeQuestionUnit = workspace.questionUnits[index] ?? null;
+    if (!activeQuestionUnit) return;
+    this.patch({
+      activeQuestionUnitIndex: index,
+      activeQuestionUnit,
+      selectedContentVersionId:
+        activeQuestionUnit.match?.confirmedContentVersionId ??
+        activeQuestionUnit.match?.candidates.at(0)?.contentVersionId ??
+        "",
+      validationError: "",
+    });
+  }
+
+  async requestAIAnswer(): Promise<void> {
+    const workspace = this.state.workspace;
+    const unit = this.state.activeQuestionUnit;
+    if (!workspace || !unit || unit.state !== "unmatched" || this.state.submitting) return;
+    const epoch = ++this.operationEpoch;
+    this.patch({ submitting: true, validationError: "", error: null });
+    try {
+      const key = await this.createCommandKey("external-ai-answer");
+      await this.gateway.requestAIAnswer(
+        {
+          importId: workspace.importId,
+          questionUnitId: unit.questionUnitId,
+          learningTrack: this.state.learningTrack,
+        },
+        key,
+      );
+      if (this.isCurrent(epoch)) await this.load(workspace.importId);
+    } catch (error) {
+      if (this.isCurrent(epoch))
+        this.patch({ submitting: false, error: externalLearningError(error) });
+    }
+  }
+
+  async confirmAIAnswer(): Promise<void> {
+    const workspace = this.state.workspace;
+    const answer = this.state.activeQuestionUnit?.aiAnswer;
+    if (
+      !workspace ||
+      !answer ||
+      answer.state !== "candidate" ||
+      !answer.outputFingerprint ||
+      this.state.submitting
+    )
+      return;
+    const epoch = ++this.operationEpoch;
+    this.patch({ submitting: true, validationError: "", error: null });
+    try {
+      const key = await this.createCommandKey("external-ai-answer-confirm");
+      await this.gateway.confirmAIAnswer(
+        {
+          answerVersionId: answer.answerVersionId,
+          expectedOutputFingerprint: answer.outputFingerprint,
+        },
+        key,
+      );
+      if (this.isCurrent(epoch)) await this.load(workspace.importId);
+    } catch (error) {
+      if (this.isCurrent(epoch))
+        this.patch({ submitting: false, error: externalLearningError(error) });
+    }
   }
 
   async confirm(): Promise<void> {
@@ -242,12 +323,17 @@ export class CaptureImportController {
       this.patch({ validationError: "请补全所有标记为待确认的题目文本。" });
       return;
     }
-    if (!confirmingRecognition && !workspace.match) {
-      this.patch({ validationError: "识别已确认，但服务端尚未返回可复核的匹配版本。" });
+    const activeUnit = this.state.activeQuestionUnit;
+    if (!confirmingRecognition && (!activeUnit || !activeUnit.match)) {
+      this.patch({ validationError: "识别已确认，但当前题目尚未返回可复核的匹配版本。" });
+      return;
+    }
+    if (!confirmingRecognition && activeUnit?.state === "unmatched") {
+      this.patch({ validationError: "题库未命中，可以申请 AI 估算解析，不会冒充官方答案。" });
       return;
     }
     if (!confirmingRecognition && !this.state.selectedContentVersionId) {
-      this.patch({ validationError: "请选择一个匹配结果；没有可确认结果时不能写入学习证据。" });
+      this.patch({ validationError: "请选择当前题目的一个匹配结果。" });
       return;
     }
     this.commandPreparing = true;
@@ -302,7 +388,10 @@ export class CaptureImportController {
       if (currentRecognition.state !== "confirmed") {
         throw new Error("Recognition must be confirmed before content matching");
       }
-      const currentMatch = requiredMatch(current);
+      if (!activeUnit) {
+        throw new Error("An active question unit is required before content matching");
+      }
+      const currentMatch = requiredMatch(current, activeUnit.questionUnitId);
       if (currentMatch.state === "candidate") {
         current = await this.gateway.confirmMatch(
           {
@@ -340,14 +429,24 @@ export class CaptureImportController {
   private applyWorkspace(workspace: ImportWorkspace): void {
     this.clearPoll();
     const status = captureStatus(workspace.state);
+    const previousId = this.state.activeQuestionUnit?.questionUnitId;
+    const activeIndex = Math.max(
+      0,
+      previousId
+        ? workspace.questionUnits.findIndex((unit) => unit.questionUnitId === previousId)
+        : workspace.questionUnits.findIndex((unit) => unit.state !== "ready"),
+    );
+    const activeQuestionUnit = workspace.questionUnits[activeIndex] ?? null;
     const selected =
-      workspace.match?.confirmedContentVersionId ??
-      workspace.match?.candidates.at(0)?.contentVersionId ??
+      activeQuestionUnit?.match?.confirmedContentVersionId ??
+      activeQuestionUnit?.match?.candidates.at(0)?.contentVersionId ??
       "";
     this.state = {
       ...this.state,
       status,
       workspace,
+      activeQuestionUnit,
+      activeQuestionUnitIndex: activeIndex,
       reviewStep: workspace.recognition?.state === "confirmed" ? "match" : "recognition",
       segments: workspace.recognitionSegments.map(recognitionSegmentView),
       selectedContentVersionId: selected,
@@ -369,7 +468,13 @@ export class CaptureImportController {
           : null,
     };
     this.publish();
-    if (workspace.state === "processing" || workspace.state === "uploading") {
+    if (
+      workspace.state === "processing" ||
+      workspace.state === "uploading" ||
+      workspace.questionUnits.some((unit) =>
+        unit.aiAnswer ? ["requested", "processing"].includes(unit.aiAnswer.state) : false,
+      )
+    ) {
       const delay = Math.min(Math.max(workspace.pollAfterMs ?? 2_000, 800), 10_000);
       this.pollHandle = this.schedule(() => {
         this.pollHandle = undefined;
@@ -435,9 +540,12 @@ function requiredRecognition(workspace: ImportWorkspace) {
   return workspace.recognition;
 }
 
-function requiredMatch(workspace: ImportWorkspace) {
-  if (!workspace.match) throw new Error("Import workspace has no content match version");
-  return workspace.match;
+function requiredMatch(workspace: ImportWorkspace, questionUnitId: string) {
+  const match = workspace.questionUnits.find(
+    (unit) => unit.questionUnitId === questionUnitId,
+  )?.match;
+  if (!match) throw new Error("Import question unit has no content match version");
+  return match;
 }
 
 function normalizeProgress(progress: UploadProgress): UploadProgress {
@@ -460,6 +568,26 @@ function captureStatus(state: ImportWorkspace["state"]): CaptureImportState["sta
   }[state] as CaptureImportState["status"];
 }
 
+function initialCaptureState(learningTrack: LearningTrack): CaptureImportState {
+  return {
+    status: "idle",
+    learningTrack,
+    selectedFile: null,
+    uploadProgress: null,
+    workspace: null,
+    activeQuestionUnit: null,
+    activeQuestionUnitIndex: 0,
+    reviewStep: "recognition",
+    segments: [],
+    selectedContentVersionId: "",
+    dirty: false,
+    submitting: false,
+    pendingRecovery: false,
+    validationError: "",
+    error: null,
+  };
+}
+
 function cloneState(state: CaptureImportState): CaptureImportState {
   return {
     ...state,
@@ -469,10 +597,23 @@ function cloneState(state: CaptureImportState): CaptureImportState {
       ? {
           ...state.workspace,
           recognitionSegments: state.workspace.recognitionSegments.map((item) => ({ ...item })),
+          questionUnits: state.workspace.questionUnits.map((unit) => ({
+            ...unit,
+            segmentIds: [...unit.segmentIds],
+            partialReasons: [...unit.partialReasons],
+            aiAnswer: unit.aiAnswer
+              ? {
+                  ...unit.aiAnswer,
+                  keyPoints: [...unit.aiAnswer.keyPoints],
+                  limitations: [...unit.aiAnswer.limitations],
+                }
+              : null,
+          })),
           partialReasons: [...state.workspace.partialReasons],
         }
       : null,
     segments: state.segments.map((segment) => ({ ...segment })),
+    activeQuestionUnit: state.activeQuestionUnit ? { ...state.activeQuestionUnit } : null,
     error: state.error ? { ...state.error } : null,
   };
 }

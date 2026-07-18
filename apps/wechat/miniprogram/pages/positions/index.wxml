@@ -1,9 +1,9 @@
-<view class="page position-page position-workspace">
+<view class="s9-page position-page position-workspace">
   <view class="position-hero">
     <view class="position-hero__copy">
-      <view class="eyebrow">岗位 AGENT · 国考</view>
-      <view class="page-title">你的岗位决策工作区</view>
-      <view class="page-subtitle">资格结论、目标分和学习证据各自有版本；系统不会用单科分或客户端计算冒充岗位分差。</view>
+      <view class="s9-kicker">国考 · 岗位库</view>
+      <view class="s9-title">岗位决策</view>
+      <view class="s9-subtitle">先确认能不能报，再比较竞争、分差与个人匹配。</view>
     </view>
     <anan-companion size="medium" intent="thinking" context="plan" animate />
   </view>
@@ -57,7 +57,7 @@
       <view class="section-title">主目标</view>
       <view class="section-meta">服务端目标版本</view>
     </view>
-    <view wx:if="{{workspace.primaryGoal}}" class="position-card position-card--primary" data-id="{{workspace.primaryGoal.positionId}}" bindtap="openPosition">
+    <view wx:if="{{workspace.primaryGoal}}" class="position-card position-card--primary" hover-class="card--hover" data-id="{{workspace.primaryGoal.positionId}}" bindtap="openPosition">
       <view class="position-card__top">
         <view class="status-pill status-pill--{{workspace.primaryGoal.eligibilityTone}}">{{workspace.primaryGoal.eligibilityLabel}}</view>
         <view class="primary-tag">当前主目标</view>
@@ -65,13 +65,13 @@
       <view class="position-card__name">{{workspace.primaryGoal.name}}</view>
       <view class="position-card__department">{{workspace.primaryGoal.departmentFull}}</view>
       <view class="position-card__metrics">
-        <view><text>建议备考线</text><strong class="type-data">{{workspace.primaryGoal.scoreLabel}}</strong></view>
-        <view><text>岗位分带</text><strong>{{workspace.primaryGoal.fitView.bandLabel}}</strong></view>
+        <view class="position-metric"><text class="position-card__metric-label">建议备考线</text><text class="position-card__metric-value type-data">{{workspace.primaryGoal.scoreLabel}}</text></view>
+        <view class="position-metric"><text class="position-card__metric-label">岗位分带</text><text class="position-card__metric-value">{{workspace.primaryGoal.fitView.bandLabel}}</text></view>
       </view>
       <view class="position-card__evidence">{{workspace.primaryGoal.scoreEvidenceLabel}} · {{workspace.primaryGoal.targetGeneratedLabel}} · {{workspace.primaryGoal.targetValidityLabel}}</view>
       <view class="position-card__fit">
         <view class="status-pill status-pill--{{workspace.primaryGoal.fitView.statusTone}}">{{workspace.primaryGoal.fitView.statusLabel}}</view>
-        <text>{{workspace.primaryGoal.fitView.scoreGapRecommendedLabel}} · {{workspace.primaryGoal.fitView.evidenceStatusLabel}}</text>
+        <text class="position-card__fit-copy">{{workspace.primaryGoal.fitView.scoreGapRecommendedLabel}} · {{workspace.primaryGoal.fitView.evidenceStatusLabel}}</text>
       </view>
     </view>
     <view wx:else class="capability-card capability-card--neutral">
@@ -83,7 +83,8 @@
       <view class="section-title">候选范围</view>
       <view class="section-meta">服务端区间关系 · 非录取概率</view>
     </view>
-    <view wx:for="{{workspace.candidateItems}}" wx:key="positionId" class="position-card" data-id="{{item.positionId}}" bindtap="openPosition">
+    <view class="position-card-grid">
+    <view wx:for="{{workspace.candidateItems}}" wx:key="positionId" class="position-card" hover-class="card--hover" data-id="{{item.positionId}}" bindtap="openPosition">
       <view class="position-card__top">
         <view class="status-pill status-pill--{{item.eligibilityTone}}">{{item.eligibilityLabel}}</view>
         <view class="position-code">{{item.positionCode}}</view>
@@ -92,19 +93,20 @@
       <view class="position-card__department">{{item.departmentFull}}</view>
       <view class="position-card__meta">{{item.region}}{{item.city ? ' · ' + item.city : ''}} · 招 {{item.headcount}} 人</view>
       <view class="position-card__metrics">
-        <view><text>{{item.fitView.bandLabel}}区间</text><strong>{{item.fitView.statusDescription}}</strong></view>
-        <view><text>同版本分差</text><strong class="type-data">{{item.fitView.scoreGapRangeLabel}}</strong></view>
+        <view class="position-metric"><text class="position-card__metric-label">{{item.fitView.bandLabel}}区间</text><text class="position-card__metric-value">{{item.fitView.statusDescription}}</text></view>
+        <view class="position-metric"><text class="position-card__metric-label">同版本分差</text><text class="position-card__metric-value type-data">{{item.fitView.scoreGapRangeLabel}}</text></view>
       </view>
       <view class="position-card__evidence">{{item.scoreEvidenceLabel}} · {{item.targetGeneratedLabel}} · {{item.targetValidityLabel}}</view>
       <view class="fit-evidence fit-evidence--{{item.fitView.statusTone}}">
         <view>{{item.fitView.evidenceStatusLabel}} · {{item.fitView.requirementsBurdenLabel}}</view>
-        <text wx:if="{{item.fitView.evidenceReasonLabel}}">{{item.fitView.evidenceReasonLabel}}</text>
+        <text wx:if="{{item.fitView.evidenceReasonLabel}}" class="fit-evidence__reason">{{item.fitView.evidenceReasonLabel}}</text>
         <text wx:if="{{item.fitView.scoreGapDirectionLabel}}">{{item.fitView.scoreGapDirectionLabel}}</text>
       </view>
       <view class="position-card__footer">
         <view class="compare-toggle {{item.comparisonSelected ? 'compare-toggle--selected' : ''}}" data-id="{{item.positionId}}" catchtap="toggleComparison">{{item.comparisonSelected ? '✓ 已加入对比' : '＋ 加入对比'}}</view>
         <view>查看逐条依据 →</view>
       </view>
+    </view>
     </view>
     <view wx:if="{{workspace.status === 'empty'}}" class="empty-inline">当前工作台没有符合筛选与资格范围的岗位；进入搜索页核对完整岗位发布。</view>
     <view wx:elif="{{!workspace.candidateItems.length}}" class="empty-inline">当前工作台没有其他候选岗位，进入搜索页查看完整可报范围。</view>
@@ -139,9 +141,9 @@
         <view class="status-pill">{{workspace.ability.confidenceLabel}}</view>
       </view>
       <view class="ability-card__scores">
-        <view><text>行测</text><strong class="type-data">{{workspace.ability.xingceLabel}}</strong></view>
-        <view><text>申论</text><strong class="type-data">{{workspace.ability.shenlunLabel}}</strong></view>
-        <view><text>总分</text><strong class="type-data">{{workspace.ability.totalLabel}}</strong></view>
+        <view class="ability-score"><text class="ability-score__label">行测</text><text class="ability-score__value type-data">{{workspace.ability.xingceLabel}}</text></view>
+        <view class="ability-score"><text class="ability-score__label">申论</text><text class="ability-score__value type-data">{{workspace.ability.shenlunLabel}}</text></view>
+        <view class="ability-score"><text class="ability-score__label">总分</text><text class="ability-score__value type-data">{{workspace.ability.totalLabel}}</text></view>
       </view>
       <view class="ability-card__copy">{{workspace.ability.evidenceLabel}}</view>
       <view class="ability-card__copy">{{workspace.ability.missingLabel}} · {{workspace.ability.gapBlockDetail}}</view>
@@ -151,7 +153,7 @@
   </block>
 
   <view wx:if="{{workspace && workspace.selectedIds.length > 0}}" class="comparison-dock">
-    <view><strong>已选 {{workspace.selectedIds.length}} / 3</strong><text>{{workspace.selectedIds.length < 2 ? '再选 1 个开始对比' : '服务端将重新对齐版本与分差'}}</text></view>
+    <view class="comparison-dock__summary"><text class="comparison-dock__title">已选 {{workspace.selectedIds.length}} / 3</text><text class="comparison-dock__note">{{workspace.selectedIds.length < 2 ? '再选 1 个开始对比' : '服务端将重新对齐版本与分差'}}</text></view>
     <view class="comparison-dock__clear" bindtap="clearComparison">清空</view>
     <view class="comparison-dock__action {{workspace.selectedIds.length < 2 ? 'comparison-dock__action--disabled' : ''}}" bindtap="openComparison">对比</view>
   </view>
@@ -170,7 +172,7 @@
     <view wx:elif="{{!score.history.length}}" class="empty-inline">还没有成绩证据，这次将成为第一条。</view>
     <scroll-view wx:else class="history-scroll" scroll-y>
       <view wx:for="{{score.history}}" wx:key="evidenceId" class="history-row {{item.active ? '' : 'history-row--inactive'}}">
-        <view><view>{{item.contextLabel}} · {{item.dateLabel}}</view><text>{{item.scoreLabel}} · {{item.statusLabel}}</text></view>
+        <view><view>{{item.contextLabel}} · {{item.dateLabel}}</view><text class="history-row__meta">{{item.scoreLabel}} · {{item.statusLabel}}</text></view>
         <view wx:if="{{item.active}}" class="inline-link" data-id="{{item.evidenceId}}" bindtap="beginScoreCorrection">修正</view>
       </view>
     </scroll-view>
@@ -181,8 +183,8 @@
       <view class="choice {{score.scoreContext === 'historical_estimate' ? 'choice--active' : ''}}" data-value="historical_estimate" bindtap="chooseScoreContext">历史估分</view>
     </view>
     <view class="score-inputs">
-      <view><text>行测</text><input type="digit" value="{{score.xingceScore}}" disabled="{{score.saving || score.submissionUncertain}}" placeholder="0–100" bindinput="inputXingceScore" /></view>
-      <view><text>申论</text><input type="digit" value="{{score.shenlunScore}}" disabled="{{score.saving || score.submissionUncertain}}" placeholder="0–100" bindinput="inputShenlunScore" /></view>
+      <view class="score-input"><text class="score-input__label">行测</text><input class="score-input__control" type="digit" value="{{score.xingceScore}}" disabled="{{score.saving || score.submissionUncertain}}" placeholder="0–100" bindinput="inputXingceScore" /></view>
+      <view class="score-input"><text class="score-input__label">申论</text><input class="score-input__control" type="digit" value="{{score.shenlunScore}}" disabled="{{score.saving || score.submissionUncertain}}" placeholder="0–100" bindinput="inputShenlunScore" /></view>
     </view>
     <view class="form-label">是否按规定限时完成</view>
     <view class="choice-row">

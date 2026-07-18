@@ -35,6 +35,7 @@ class CompanionContextRecord:
     fame: int | None = None
     consecutive_days: int | None = None
     xp: int | None = None
+    learning_brain_profile: dict[str, object] | None = None
 
 
 @dataclass(frozen=True)
@@ -394,6 +395,27 @@ class CompanionRepository:
             ),
             {"user_id": user_id},
         ).mappings().one_or_none()
+        learning_brain = self._session.execute(
+            text(
+                """
+                select profile_version_id, version_no, readiness,
+                       ability_snapshot, evidence_summary, module_abilities,
+                       error_patterns, decision_summary, conflicts,
+                       input_fingerprint, generated_at, valid_until
+                  from learning.learner_brain_profile_versions profile
+                 where profile.user_id = cast(:user_id as uuid)
+                   and not exists (
+                     select 1
+                       from learning.learner_brain_profile_versions successor
+                      where successor.supersedes_profile_version_id =
+                            profile.profile_version_id
+                   )
+                 order by profile.version_no desc
+                 limit 1
+                """
+            ),
+            {"user_id": user_id},
+        ).mappings().one_or_none()
         return CompanionContextRecord(
             target_exam=profile["target_exam"] if profile else None,
             position_group=profile["position_group"] if profile else None,
@@ -446,6 +468,24 @@ class CompanionRepository:
             fame=int(rank["fame"]) if rank and rank["fame"] is not None else None,
             consecutive_days=int(rank["consecutive_days"]) if rank and rank["consecutive_days"] is not None else None,
             xp=int(rank["xp"]) if rank and rank["xp"] is not None else None,
+            learning_brain_profile=(
+                {
+                    "profileVersionId": str(learning_brain["profile_version_id"]),
+                    "versionNo": int(learning_brain["version_no"]),
+                    "readiness": str(learning_brain["readiness"]),
+                    "ability": dict(learning_brain["ability_snapshot"]),
+                    "evidenceSummary": dict(learning_brain["evidence_summary"]),
+                    "modules": list(learning_brain["module_abilities"]),
+                    "errorPatterns": list(learning_brain["error_patterns"]),
+                    "decisionSummary": dict(learning_brain["decision_summary"]),
+                    "conflicts": list(learning_brain["conflicts"]),
+                    "inputFingerprint": str(learning_brain["input_fingerprint"]),
+                    "generatedAt": learning_brain["generated_at"].isoformat(),
+                    "validUntil": learning_brain["valid_until"].isoformat(),
+                }
+                if learning_brain is not None
+                else None
+            ),
         )
 
     def resolve_candidate(

@@ -6,9 +6,9 @@ import json
 
 GROUNDING_CONTRACT_VERSION = "essay-grounding-v2"
 REVIEW_CONTRACT_VERSION = "essay-review-v2"
-GROUNDED_REVIEW_PROVIDER_SCHEMA_VERSION = "essay-provider-review-v2"
+GROUNDED_REVIEW_PROVIDER_SCHEMA_VERSION = "essay-provider-review-v4"
 RUBRIC_CONTRACT_VERSION = "guokao-essay-rubric-v1"
-GROUNDED_REVIEW_PROMPT_VERSION = "grounded-essay-review-v1"
+GROUNDED_REVIEW_PROMPT_VERSION = "grounded-essay-review-v4"
 GROUNDED_REVIEW_PROVIDER_NAME = "openai_compatible"
 REVIEW_EXECUTION_CONTRACT_VERSION = "essay-review-execution-v1"
 

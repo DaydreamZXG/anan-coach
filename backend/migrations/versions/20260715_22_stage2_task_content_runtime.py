@@ -45,6 +45,11 @@ def downgrade() -> None:
     )
     op.drop_table("mock_exam_commands", schema="learner")
     op.execute("drop index if exists learner.mock_exam_one_assigned_per_owner_idx")
+    op.execute(
+        "drop trigger if exists mock_exam_session_supersessions_append_only "
+        "on learner.mock_exam_session_supersessions"
+    )
+    op.drop_table("mock_exam_session_supersessions", schema="learner")
     for column in (
         "scoring_snapshot",
         "learner_bundle",
@@ -69,7 +74,8 @@ def _has_stage2_runtime_records(bind: Connection) -> bool:
                 "or checkpoint ? 'bundle' "
                 "or learner_bundle <> '{}'::jsonb "
                 "or scoring_snapshot <> '{}'::jsonb "
-                ") or exists (select 1 from learner.mock_exam_commands)"
+                ") or exists (select 1 from learner.mock_exam_commands) "
+                "or exists (select 1 from learner.mock_exam_session_supersessions)"
             )
         ).scalar_one()
     )
@@ -131,6 +137,80 @@ _STATEMENTS = (
             )
           )
         )
+    """,
+    """
+    create table learner.mock_exam_session_supersessions (
+      archived_session_id uuid primary key,
+      owner_user_id uuid not null references learner.users(user_id),
+      kept_session_id uuid not null references learner.mock_exam_sessions(session_id),
+      exam_scope text not null,
+      track text not null,
+      original_row jsonb not null check (jsonb_typeof(original_row) = 'object'),
+      reason text not null check (reason = 'duplicate_assigned_session'),
+      archived_at timestamptz not null,
+      check (archived_session_id <> kept_session_id)
+    )
+    """,
+    """
+    create index learner_mock_exam_supersessions_owner_archived_idx
+      on learner.mock_exam_session_supersessions(owner_user_id, archived_at desc)
+    """,
+    """
+    create trigger mock_exam_session_supersessions_append_only
+      before update or delete on learner.mock_exam_session_supersessions
+      for each row execute function learning.reject_xingce_fact_mutation()
+    """,
+    """
+    with ranked as (
+      select
+        session_id,
+        user_id,
+        exam_scope,
+        track,
+        first_value(session_id) over (
+          partition by user_id, exam_scope, track
+          order by created_at, session_id
+        ) as kept_session_id,
+        row_number() over (
+          partition by user_id, exam_scope, track
+          order by created_at, session_id
+        ) as duplicate_rank
+      from learner.mock_exam_sessions
+      where status = 'assigned'
+    )
+    insert into learner.mock_exam_session_supersessions (
+      archived_session_id, owner_user_id, kept_session_id,
+      exam_scope, track, original_row, reason, archived_at
+    )
+    select
+      ranked.session_id,
+      ranked.user_id,
+      ranked.kept_session_id,
+      ranked.exam_scope,
+      ranked.track,
+      to_jsonb(session),
+      'duplicate_assigned_session',
+      now()
+    from ranked
+    join learner.mock_exam_sessions session
+      on session.session_id = ranked.session_id
+    where ranked.duplicate_rank > 1
+    on conflict (archived_session_id) do nothing
+    """,
+    """
+    delete from learner.mock_exam_sessions session
+    using learner.mock_exam_session_supersessions supersession
+    where session.session_id = supersession.archived_session_id
+      and supersession.reason = 'duplicate_assigned_session'
+    """,
+    """
+    do $$
+    begin
+      if exists (select 1 from pg_roles where rolname = 'gongkao_api') then
+        execute 'revoke all privileges on learner.mock_exam_session_supersessions from gongkao_api';
+      end if;
+    end;
+    $$
     """,
     """
     create unique index mock_exam_one_assigned_per_owner_idx

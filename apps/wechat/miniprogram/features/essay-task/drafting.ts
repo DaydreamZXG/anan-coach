@@ -45,6 +45,8 @@ export interface EssayDraftingDraft {
   elapsedMinutesText: string;
   sourceType: (typeof answerSourceTypeValues)[number];
   sourceTypeIndex: number;
+  sourceArtifactVersionId: string;
+  recognitionRevisionId: string;
   reflectionCauseCodes: ReflectionCauseCode[];
   whatIWillChange: string;
   verificationPlan: string;
@@ -101,6 +103,8 @@ export function initialEssayDraftingDraft(workspace?: EssayTaskWorkspace): Essay
     elapsedMinutesText: "",
     sourceType: "typed",
     sourceTypeIndex: 0,
+    sourceArtifactVersionId: "",
+    recognitionRevisionId: "",
     reflectionCauseCodes: reflection ? [...reflection.causeCodes] : [],
     whatIWillChange: reflection?.whatIWillChange ?? "",
     verificationPlan: reflection?.verificationPlan ?? "",
@@ -168,6 +172,9 @@ export function buildDraftingCompletionCommand(
         mode: "create",
         sourceType: draft.sourceType,
         answerText: answerText(draft.answerText),
+        ...(draft.sourceType === "ocr_confirmed"
+          ? ocrBinding(draft.sourceArtifactVersionId, draft.recognitionRevisionId)
+          : {}),
         thinking: {
           userThought,
           ...(pointFindingText ? { pointFindingText } : {}),
@@ -300,11 +307,18 @@ function resolveElapsedSeconds(
 }
 
 function answerText(value: string): string {
-  const normalized = required(value, "请先完成申论答案再提交。");
-  if (normalized.length > 10_000) {
+  if (!value.trim()) throw new EssayDraftingError("请先完成申论答案再提交。");
+  if (value.length > 10_000) {
     throw new EssayDraftingError("答案不能超过 10000 字。");
   }
-  return normalized;
+  return value;
+}
+
+function ocrBinding(sourceArtifactVersionId: string, recognitionRevisionId: string) {
+  if (!sourceArtifactVersionId.trim() || !recognitionRevisionId.trim()) {
+    throw new EssayDraftingError("OCR 答案必须先完成逐段核对并确认识别版本。");
+  }
+  return { sourceArtifactVersionId, recognitionRevisionId };
 }
 
 function required(value: string, message: string): string {
@@ -383,6 +397,13 @@ function validCompletionCommand(
       ) &&
       typeof answer.answerText === "string" &&
       answer.answerText.trim().length > 0 &&
+      (answer.sourceType === "ocr_confirmed"
+        ? typeof answer.sourceArtifactVersionId === "string" &&
+          answer.sourceArtifactVersionId.length > 0 &&
+          typeof answer.recognitionRevisionId === "string" &&
+          answer.recognitionRevisionId.length > 0
+        : answer.sourceArtifactVersionId === undefined &&
+          answer.recognitionRevisionId === undefined) &&
       isRecord(answer.thinking) &&
       typeof answer.thinking.userThought === "string" &&
       answer.thinking.userThought.trim().length > 0 &&
@@ -426,12 +447,16 @@ function validDraft(value: unknown): value is EssayDraftingDraft {
     Number.isInteger(value.sourceContextIndex) &&
     Number.isInteger(value.timedStatusIndex) &&
     Number.isInteger(value.sourceTypeIndex) &&
+    typeof value.sourceArtifactVersionId === "string" &&
+    typeof value.recognitionRevisionId === "string" &&
     typeof value.sourceContext === "string" &&
     sourceContextValues.includes(value.sourceContext as (typeof sourceContextValues)[number]) &&
     typeof value.timedStatus === "string" &&
     timedStatusValues.includes(value.timedStatus as (typeof timedStatusValues)[number]) &&
     typeof value.sourceType === "string" &&
     answerSourceTypeValues.includes(value.sourceType as (typeof answerSourceTypeValues)[number]) &&
+    (value.sourceType === "typed" ||
+      (value.sourceArtifactVersionId.length > 0 && value.recognitionRevisionId.length > 0)) &&
     Array.isArray(value.reflectionCauseCodes) &&
     value.reflectionCauseCodes.every((item: unknown) =>
       reflectionCauseValues.includes(item as ReflectionCauseCode),

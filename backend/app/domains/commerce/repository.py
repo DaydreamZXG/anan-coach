@@ -112,7 +112,7 @@ class CommerceRepository:
                   sort_order,
                   feature_highlights
                 from commerce.iap_products
-                where is_active = true
+                where is_active = true and platform = 'ios'
                 order by sort_order, product_id
                 """
             )
@@ -135,6 +135,7 @@ class CommerceRepository:
                 from commerce.iap_products
                 where product_id = :product_id
                   and is_active = true
+                  and platform = 'ios'
                 """
             ),
             {"product_id": product_id},
@@ -177,7 +178,21 @@ class CommerceRepository:
         reward_period = RewardEntitlementRepository(
             self._session
         ).active_membership_period(user_id=user_id, at=at)
-        if row is None and reward_period is None:
+        grant_rows = self._session.execute(
+            text(
+                """
+                select source_type, product_id, starts_at, ends_at
+                from commerce.entitlement_grants
+                where user_id = cast(:user_id as uuid)
+                  and state = 'active'
+                  and starts_at <= :at
+                  and ends_at > :at
+                order by ends_at desc, grant_id
+                """
+            ),
+            {"user_id": user_id, "at": at},
+        ).mappings().all()
+        if row is None and reward_period is None and not grant_rows:
             return EntitlementRecord(
                 tier="free",
                 source="free",
@@ -189,21 +204,48 @@ class CommerceRepository:
         purchase_end = row["subscription_end"] if row is not None else None
         reward_start = reward_period[0] if reward_period is not None else None
         reward_end = reward_period[1] if reward_period is not None else None
-        starts = [value for value in (purchase_start, reward_start) if value is not None]
-        ends = [value for value in (purchase_end, reward_end) if value is not None]
+        grant_starts = [item["starts_at"] for item in grant_rows]
+        grant_ends = [item["ends_at"] for item in grant_rows]
+        starts = [
+            value
+            for value in (purchase_start, reward_start, *grant_starts)
+            if value is not None
+        ]
+        ends = [
+            value
+            for value in (purchase_end, reward_end, *grant_ends)
+            if value is not None
+        ]
+        sources = set()
+        if row is not None:
+            sources.add(str(row["source"]))
+        if reward_period is not None:
+            sources.add("reward")
+        sources.update(str(item["source_type"]) for item in grant_rows)
+        product_ids = set(list(row["product_ids"] or []) if row is not None else [])
+        product_ids.update(str(item["product_id"]) for item in grant_rows)
         return EntitlementRecord(
             tier="pro",
-            source=(
-                "merged"
-                if row is not None and reward_period is not None
-                else "reward"
-                if reward_period is not None
-                else str(row["source"])
-            ),
+            source=next(iter(sources)) if len(sources) == 1 else "merged",
             subscription_start=min(starts),
             subscription_end=max(ends),
-            product_ids=list(row["product_ids"] or []) if row is not None else [],
+            product_ids=sorted(product_ids),
         )
+
+    def unlocked_features(self, *, user_id: str) -> list[str]:
+        values = self._session.execute(
+            text(
+                """
+                select reward_type
+                from commerce.process_reward_awards
+                where user_id = cast(:user_id as uuid)
+                  and state = 'granted'
+                  and reward_type = 'special_diagnostic'
+                """
+            ),
+            {"user_id": user_id},
+        ).scalars()
+        return sorted({str(value) for value in values})
 
     def list_usage_for_periods(
         self,
@@ -760,6 +802,16 @@ class CommerceRepository:
         return _feature_usage_reservation_from_row(
             row,
             current_used_count=int(row["current_used_count"]),
+        )
+
+    def feature_usage_reservation_by_key(
+        self, *, reservation_key: str, for_update: bool = False
+    ) -> FeatureUsageReservation | None:
+        """Resolve either catalog or reward quota reservation by stable key."""
+        return self._reservation_by_key(
+            reservation_key=reservation_key, for_update=for_update
+        ) or self._reward_reservation_by_key(
+            reservation_key=reservation_key, for_update=for_update
         )
 
     def _reward_reservation_by_key(

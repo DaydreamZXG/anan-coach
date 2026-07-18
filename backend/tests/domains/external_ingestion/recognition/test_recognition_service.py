@@ -20,10 +20,12 @@ from app.domains.external_ingestion.recognition.models import (
     ProcessorResult,
     PageSegment,
     RecognitionCandidatePayload,
+    QuestionUnit,
     TextSpan,
 )
 from app.domains.external_ingestion.recognition.processor import ProcessorRegistry
 from app.domains.external_ingestion.recognition.service import RecognitionService
+from app.domains.external_ingestion.recognition.service import _question_units
 
 
 NOW = datetime(2026, 7, 15, 12, tzinfo=UTC)
@@ -39,6 +41,7 @@ class Repo:
                 artifactVersionId=ARTIFACT,
                 ownerUserId=OWNER,
                 state="available",
+                sourceKind="camera_image",
                 objectRef="tos://private/user-101/artifact-301",
                 mimeType="image/jpeg",
                 contentSha256="1" * 64,
@@ -46,6 +49,7 @@ class Repo:
         }
         self.revisions = {}
         self.locks: list[str] = []
+        self.operations: list[dict[str, object]] = []
 
     def lock(self, *, key: str) -> None:
         self.locks.append(key)
@@ -70,6 +74,9 @@ class Repo:
         if revision.recognition_revision_id in self.revisions:
             raise AssertionError("duplicate recognition revision")
         self.revisions[revision.recognition_revision_id] = revision
+
+    def record_external_operation(self, *, values):
+        self.operations.append(dict(values))
 
 
 class Processor:
@@ -107,6 +114,11 @@ def approval(*, valid_until: datetime = NOW + timedelta(days=30)) -> ProcessorAp
         route="private-ocr-primary",
         provider="approved-ocr-vendor",
         providerRelease="release-2026-07-01",
+        modelRelease="ocr-model-2026-07-01",
+        promptVersion="recognition-processor-policy@v1",
+        priceVersion="ocr-price@2026-07",
+        billingUnit="image",
+        unitPriceCny="0.01",
         approvedKinds=(RecognitionKind.PRINTED_OCR,),
         approvedMimeTypes=("image/jpeg",),
         dataRegion="mainland_china",
@@ -383,6 +395,13 @@ def test_text_span_ids_are_unique_and_segment_refs_must_resolve() -> None:
                 confidence=0.9,
             ),
         ),
+        "questionUnits": (
+            QuestionUnit(
+                questionUnitId="7" * 64,
+                ordinal=1,
+                promptSegmentRefs=("segment-1",),
+            ),
+        ),
         "processorRequestIdHash": "8" * 64,
         "processorOutputContract": "recognition-processor-output@v1",
         "requestHash": "9" * 64,
@@ -414,3 +433,31 @@ def test_text_span_ids_are_unique_and_segment_refs_must_resolve() -> None:
             textSpanRefs=("span-1", "span-1"),
             confidence=0.9,
         )
+
+
+def test_multi_question_segmentation_shares_material_and_isolates_options() -> None:
+    def segment(segment_id: str, kind: str, y: float) -> PageSegment:
+        return PageSegment(
+            segmentId=segment_id,
+            segmentKind=kind,
+            box=BoundingBox(pageNo=1, x=0.1, y=y, width=0.8, height=0.08),
+            confidence=0.95,
+        )
+
+    units = _question_units(
+        input_sha256="a" * 64,
+        segments=(
+            segment("material-1", "material", 0.05),
+            segment("question-1", "question", 0.20),
+            segment("options-1", "options", 0.30),
+            segment("question-2", "question", 0.50),
+            segment("options-2", "options", 0.60),
+        ),
+    )
+
+    assert [unit.ordinal for unit in units] == [1, 2]
+    assert units[0].material_segment_refs == ("material-1",)
+    assert units[1].material_segment_refs == ("material-1",)
+    assert units[0].option_segment_refs == ("options-1",)
+    assert units[1].option_segment_refs == ("options-2",)
+    assert units[0].question_unit_id != units[1].question_unit_id

@@ -17,6 +17,7 @@ from app.domains.auth.wechat import (
     WechatIdentityExchange,
     WechatLoginRejectedError,
 )
+from app.domains.auth.repository import AuthRepository
 from app.main import create_app
 
 APP_ID = "wx-test-app"
@@ -138,6 +139,34 @@ def test_wechat_login_is_idempotent_for_same_app_and_openid(
             session.execute(text("select count(*) from learner.app_sessions")).scalar_one()
             == 2
         )
+
+
+def test_union_id_reuses_one_account_across_wechat_app_endpoints(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    with db_session_factory() as session:
+        repository = AuthRepository(session)
+        first = repository.upsert_wechat_user(
+            claims=WechatIdentityClaims(
+                app_id="wx-mini-app",
+                open_id="mini-open-id",
+                union_id="shared-union-id",
+                session_key_hash=sha256(b"first-session").hexdigest(),
+            )
+        )
+        second = repository.upsert_wechat_user(
+            claims=WechatIdentityClaims(
+                app_id="wx-other-approved-endpoint",
+                open_id="other-open-id",
+                union_id="shared-union-id",
+                session_key_hash=sha256(b"second-session").hexdigest(),
+            )
+        )
+        assert first.user_id == second.user_id
+        assert session.execute(text("select count(*) from learner.users")).scalar_one() == 1
+        assert session.execute(
+            text("select count(*) from learner.wechat_identities")
+        ).scalar_one() == 2
 
 
 def test_account_session_inventory_revocation_and_logout_all(

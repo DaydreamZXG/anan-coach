@@ -16,7 +16,7 @@
 }
 
 .rights-row--active {
-  border-color: rgba(82, 104, 255, 0.42);
+  border-color: rgba(0, 151, 139, 0.42);
   background: var(--color-primary-soft);
 }
 
@@ -45,7 +45,7 @@
   font-size: 22rpx;
 }
 
-.check-row text:first-child {
+.check-row__number {
   color: var(--color-primary);
   font-family: var(--font-family-data);
   font-weight: 800;

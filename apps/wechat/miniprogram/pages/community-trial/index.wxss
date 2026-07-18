@@ -113,7 +113,7 @@
 }
 
 .reason-chip--active {
-  border-color: rgba(82, 104, 255, 0.4);
+  border-color: rgba(0, 151, 139, 0.4);
   background: var(--color-primary-soft);
   color: var(--color-primary-deep);
 }

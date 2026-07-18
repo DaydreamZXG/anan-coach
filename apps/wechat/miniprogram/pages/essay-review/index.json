@@ -1,0 +1,5 @@
+{
+  "navigationBarTitleText": "申论 AI 评阅",
+  "backgroundColor": "#EDF3F1",
+  "usingComponents": { "state-view": "../../design-system/primitives/state-view/index" }
+}

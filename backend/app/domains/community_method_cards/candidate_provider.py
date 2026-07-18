@@ -11,6 +11,13 @@ import httpx
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from app.core.config import DEFAULT_AI_PROVIDER_BASE_URL, Settings
+from app.domains.ai.provider_contract import (
+    BODY_REQUEST_ID_SOURCE,
+    parse_provider_json_object,
+    provider_request_audit,
+    validate_processing_approval,
+    validate_provider_audit_contract,
+)
 from app.domains.community_method_cards.schemas import Track
 
 
@@ -156,29 +163,31 @@ class CommunityCandidateHttpProvider:
             )
         if not self._settings.ai_api_key:
             raise CandidateProviderConfigurationError("AI_API_KEY is required")
-        if not self._settings.ai_community_candidate_provider_dpa_confirmed:
-            raise CandidateProviderConfigurationError(
-                "candidate provider DPA confirmation is required"
+        try:
+            validate_processing_approval(
+                self._settings,
+                dpa_confirmed=(
+                    self._settings.ai_community_candidate_provider_dpa_confirmed
+                ),
             )
+            validate_provider_audit_contract(
+                idempotency_capability=(
+                    self._settings.ai_community_candidate_provider_idempotency_capability
+                ),
+                idempotency_key_header=(
+                    self._settings.ai_community_candidate_provider_idempotency_key_header
+                ),
+                request_id_source=(
+                    self._settings.ai_community_candidate_provider_request_id_header
+                ),
+                replay_retention_seconds=(
+                    self._settings.ai_community_candidate_provider_replay_retention_seconds
+                ),
+            )
+        except ValueError as exc:
+            raise CandidateProviderConfigurationError(str(exc)) from exc
         if (
-            self._settings.ai_community_candidate_provider_idempotency_capability
-            != "replayable_queryable"
-        ):
-            raise CandidateProviderConfigurationError(
-                "candidate provider must support replayable/queryable idempotency"
-            )
-        headers = (
-            self._settings.ai_community_candidate_provider_idempotency_key_header,
-            self._settings.ai_community_candidate_provider_request_id_header,
-        )
-        if any(re.fullmatch(r"[A-Za-z0-9-]+", item.strip()) is None for item in headers):
-            raise CandidateProviderConfigurationError(
-                "candidate provider audit headers are required"
-            )
-        if (
-            self._settings.ai_community_candidate_provider_replay_retention_seconds
-            < 604_800
-            or self._settings.ai_community_candidate_max_input_bytes <= 0
+            self._settings.ai_community_candidate_max_input_bytes <= 0
             or self._settings.ai_community_candidate_max_output_bytes <= 0
         ):
             raise CandidateProviderConfigurationError(
@@ -239,18 +248,19 @@ class CommunityCandidateHttpProvider:
         idempotency_key = sha256(
             f"{context.source_version_id}:{self._model_policy_version}:{context.source_hash}".encode()
         ).hexdigest()
-        headers = {
+        headers: dict[str, str] = {
             "Authorization": f"Bearer {self._settings.ai_api_key}",
             "Content-Type": "application/json",
             (
                 self._settings.ai_community_candidate_provider_idempotency_key_header.strip()
                 or "Idempotency-Key"
             ): idempotency_key,
-            (
-                self._settings.ai_community_candidate_provider_request_id_header.strip()
-                or "X-Request-ID"
-            ): f"community-candidate-{idempotency_key[:32]}",
         }
+        request_id_source = (
+            self._settings.ai_community_candidate_provider_request_id_header.strip()
+        )
+        if request_id_source and request_id_source != BODY_REQUEST_ID_SOURCE:
+            headers[request_id_source] = f"community-candidate-{idempotency_key[:32]}"
         try:
             with self._client_factory() as client:
                 response = client.post(
@@ -260,6 +270,18 @@ class CommunityCandidateHttpProvider:
                 )
             response.raise_for_status()
             envelope = response.json()
+            if envelope.get("model") is not None and envelope.get("model") != self._model:
+                raise ValueError("provider model drifted")
+            _, request_id_fingerprint = provider_request_audit(
+                response=response,
+                envelope=envelope,
+                configured_source=request_id_source,
+            )
+            if (
+                self._settings.environment.strip().casefold() == "production"
+                and request_id_fingerprint is None
+            ):
+                raise ValueError("provider request ID is missing")
             raw = envelope["choices"][0]["message"]["content"]
             if not isinstance(raw, str):
                 raise TypeError("candidate content must be text")
@@ -269,7 +291,7 @@ class CommunityCandidateHttpProvider:
                 > self._settings.ai_community_candidate_max_output_bytes
             ):
                 raise ValueError("candidate output exceeds configured capacity")
-            parsed = _CandidateEnvelope.model_validate_json(raw)
+            parsed = _CandidateEnvelope.model_validate(parse_provider_json_object(raw))
             _validate_source_spans(
                 parsed.source_span_refs,
                 source_version_id=context.source_version_id,

@@ -45,6 +45,8 @@ class TaskCandidate:
     evidence_refs: tuple[dict[str, str], ...]
     priority: PriorityBreakdown
     mandatory: bool = False
+    strategy_module_keys: tuple[str, ...] = ()
+    strategy_question_type: str | None = None
 
     def __post_init__(self) -> None:
         if not self.candidate_key.strip():
@@ -55,6 +57,13 @@ class TaskCandidate:
             raise ValueError("candidate text fields are required")
         if not self.start_url.startswith("/"):
             raise ValueError("start_url must be an internal absolute path")
+        if any(not value.strip() for value in self.strategy_module_keys):
+            raise ValueError("strategy module keys cannot contain blank values")
+        if (
+            self.strategy_question_type is not None
+            and not self.strategy_question_type.strip()
+        ):
+            raise ValueError("strategy question type cannot be blank")
 
 
 @dataclass(frozen=True)

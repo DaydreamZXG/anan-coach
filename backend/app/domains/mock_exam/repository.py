@@ -23,6 +23,12 @@ class MockExamSessionRecord:
     checkpoint: dict[str, Any]
     learner_bundle: dict[str, Any]
     scoring_snapshot: dict[str, Any]
+    paper_version_id: str
+    scoring_policy_version_id: str
+    score_metric_name: str
+    score_metric_unit: str
+    score_metric_definition: str
+    next_trajectory_event_seq: int
     checkpoint_updated_at: datetime
     created_at: datetime
     submitted_at: datetime | None
@@ -231,6 +237,8 @@ class MockExamRepository:
         checkpoint: dict[str, Any],
         learner_bundle: dict[str, Any],
         scoring_snapshot: dict[str, Any],
+        paper_version_id: str,
+        scoring_policy_version_id: str,
         started_at: datetime,
         deadline_at: datetime,
     ) -> str:
@@ -252,6 +260,8 @@ class MockExamRepository:
                   checkpoint,
                   learner_bundle,
                   scoring_snapshot,
+                  paper_version_id,
+                  scoring_policy_version_id,
                   checkpoint_updated_at,
                   created_at,
                   updated_at
@@ -269,6 +279,8 @@ class MockExamRepository:
                   cast(:checkpoint as jsonb),
                   cast(:learner_bundle as jsonb),
                   cast(:scoring_snapshot as jsonb),
+                  cast(:paper_version_id as uuid),
+                  :scoring_policy_version_id,
                   :started_at,
                   :started_at,
                   :started_at
@@ -283,6 +295,8 @@ class MockExamRepository:
                 "checkpoint": json.dumps(checkpoint, ensure_ascii=False),
                 "learner_bundle": json.dumps(learner_bundle, ensure_ascii=False),
                 "scoring_snapshot": json.dumps(scoring_snapshot, ensure_ascii=False),
+                "paper_version_id": paper_version_id,
+                "scoring_policy_version_id": scoring_policy_version_id,
                 "started_at": started_at,
                 "deadline_at": deadline_at,
             },
@@ -310,12 +324,32 @@ class MockExamRepository:
                   checkpoint,
                   learner_bundle,
                   scoring_snapshot,
+                  paper_version_id,
+                  scoring_policy_version_id,
+                  score_metric_name,
+                  score_metric_unit,
+                  score_metric_definition,
+                  next_trajectory_event_seq,
                   checkpoint_updated_at,
                   created_at,
                   submitted_at,
                   review_payload,
                   review_viewed_at
-                from learner.mock_exam_sessions
+                from (
+                  select session.*,
+                         policy.metric_name as score_metric_name,
+                         policy.metric_unit as score_metric_unit,
+                         policy.definition as score_metric_definition,
+                         (
+                           select coalesce(max(event.event_seq), 0) + 1
+                           from learner.mock_exam_trajectory_events event
+                           where event.session_id = session.session_id
+                         ) as next_trajectory_event_seq
+                  from learner.mock_exam_sessions session
+                  join product.mock_exam_scoring_policy_versions policy
+                    on policy.scoring_policy_version_id =
+                       session.scoring_policy_version_id
+                ) mock_exam_sessions
                 where session_id = cast(:session_id as uuid)
                   and user_id = cast(:user_id as uuid)
                 """
@@ -336,12 +370,168 @@ class MockExamRepository:
             checkpoint=dict(row["checkpoint"]),
             learner_bundle=dict(row["learner_bundle"]),
             scoring_snapshot=dict(row["scoring_snapshot"]),
+            paper_version_id=str(row["paper_version_id"]),
+            scoring_policy_version_id=str(row["scoring_policy_version_id"]),
+            score_metric_name=str(row["score_metric_name"]),
+            score_metric_unit=str(row["score_metric_unit"]),
+            score_metric_definition=str(row["score_metric_definition"]),
+            next_trajectory_event_seq=int(row["next_trajectory_event_seq"]),
             checkpoint_updated_at=row["checkpoint_updated_at"],
             created_at=row["created_at"],
             submitted_at=row["submitted_at"],
             review_payload=dict(row["review_payload"]) if row["review_payload"] else None,
             review_viewed_at=row["review_viewed_at"],
         )
+
+    def get_or_create_paper_version(
+        self,
+        *,
+        paper_key: str,
+        title: str,
+        duration_minutes: int,
+        question_ids: list[str],
+        blueprint: list[dict[str, object]],
+        learner_bundle_version_id: str,
+        scoring_policy_version_id: str,
+        exposure_policy: dict[str, Any],
+        equivalence_metadata: dict[str, Any],
+        content_fingerprint: str,
+        published_at: datetime,
+    ) -> str:
+        paper_version_id = str(uuid4())
+        row = self._session.execute(
+            text(
+                """
+                insert into product.mock_exam_paper_versions (
+                  paper_version_id, paper_key, version_no, state, exam_scope,
+                  track, title, duration_minutes, question_ids, blueprint,
+                  learner_bundle_version_id, scoring_policy_version_id,
+                  exposure_policy, equivalence_metadata, content_fingerprint,
+                  published_at, created_at
+                ) values (
+                  cast(:paper_version_id as uuid), :paper_key, 1, 'published',
+                  'guokao', 'xingce', :title, :duration_minutes,
+                  cast(:question_ids as jsonb), cast(:blueprint as jsonb),
+                  :learner_bundle_version_id, :scoring_policy_version_id,
+                  cast(:exposure_policy as jsonb),
+                  cast(:equivalence_metadata as jsonb), :content_fingerprint,
+                  :published_at, :published_at
+                ) on conflict (content_fingerprint, scoring_policy_version_id)
+                  do nothing
+                returning paper_version_id::text
+                """
+            ),
+            {
+                "paper_version_id": paper_version_id,
+                "paper_key": paper_key,
+                "title": title,
+                "duration_minutes": duration_minutes,
+                "question_ids": json.dumps(question_ids, ensure_ascii=False),
+                "blueprint": json.dumps(blueprint, ensure_ascii=False),
+                "learner_bundle_version_id": learner_bundle_version_id,
+                "scoring_policy_version_id": scoring_policy_version_id,
+                "exposure_policy": json.dumps(exposure_policy, ensure_ascii=False),
+                "equivalence_metadata": json.dumps(
+                    equivalence_metadata, ensure_ascii=False
+                ),
+                "content_fingerprint": content_fingerprint,
+                "published_at": published_at,
+            },
+        ).scalar_one_or_none()
+        if row is not None:
+            return str(row)
+        existing = self._session.execute(
+            text(
+                """
+                select paper_version_id::text
+                from product.mock_exam_paper_versions
+                where content_fingerprint = :content_fingerprint
+                  and scoring_policy_version_id = :scoring_policy_version_id
+                """
+            ),
+            {
+                "content_fingerprint": content_fingerprint,
+                "scoring_policy_version_id": scoring_policy_version_id,
+            },
+        ).scalar_one_or_none()
+        if existing is None:
+            raise RuntimeError("mock paper identity conflicted without an equivalent version")
+        return str(existing)
+
+    def record_trajectory_event(
+        self,
+        *,
+        trajectory_event_id: str,
+        command_id: str,
+        user_id: str,
+        session_id: str,
+        event_seq: int,
+        event_type: str,
+        question_id: str | None,
+        client_occurred_at: datetime,
+        session_revision: int,
+        payload: dict[str, Any],
+        request_fingerprint: str,
+        created_at: datetime,
+    ) -> None:
+        self._session.execute(
+            text(
+                """
+                insert into learner.mock_exam_trajectory_events (
+                  trajectory_event_id, command_id, user_id, session_id,
+                  event_seq, event_type, question_id, client_occurred_at,
+                  session_revision, payload, request_fingerprint, created_at
+                ) values (
+                  cast(:trajectory_event_id as uuid), :command_id,
+                  cast(:user_id as uuid), cast(:session_id as uuid),
+                  :event_seq, :event_type, :question_id, :client_occurred_at,
+                  :session_revision, cast(:payload as jsonb),
+                  :request_fingerprint, :created_at
+                )
+                """
+            ),
+            {
+                "trajectory_event_id": trajectory_event_id,
+                "command_id": command_id,
+                "user_id": user_id,
+                "session_id": session_id,
+                "event_seq": event_seq,
+                "event_type": event_type,
+                "question_id": question_id,
+                "client_occurred_at": client_occurred_at,
+                "session_revision": session_revision,
+                "payload": json.dumps(payload, ensure_ascii=False, sort_keys=True),
+                "request_fingerprint": request_fingerprint,
+                "created_at": created_at,
+            },
+        )
+
+    def trajectory_event_by_command(
+        self, *, user_id: str, command_id: str
+    ) -> dict[str, Any] | None:
+        row = self._session.execute(
+            text(
+                """
+                select * from learner.mock_exam_trajectory_events
+                where user_id = cast(:user_id as uuid) and command_id = :command_id
+                """
+            ),
+            {"user_id": user_id, "command_id": command_id},
+        ).mappings().one_or_none()
+        return dict(row) if row is not None else None
+
+    def next_trajectory_event_seq(self, *, session_id: str) -> int:
+        value = self._session.execute(
+            text(
+                """
+                select coalesce(max(event_seq), 0) + 1
+                from learner.mock_exam_trajectory_events
+                where session_id = cast(:session_id as uuid)
+                """
+            ),
+            {"session_id": session_id},
+        ).scalar_one()
+        return int(value)
 
     def get_previous_module_accuracy(
         self,

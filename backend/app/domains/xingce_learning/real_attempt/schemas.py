@@ -337,12 +337,12 @@ class AICauseCandidateState(XingceModel):
     missing_evidence: list[str] = Field(default_factory=list, alias="missingEvidence")
     evidence_refs: list[str] = Field(default_factory=list, alias="evidenceRefs")
     limitations: list[str] = Field(default_factory=list)
-    quota_state: Literal["not_metered"] = Field(
-        default="not_metered",
+    quota_state: Literal["reserved", "consumed", "not_charged"] = Field(
+        default="reserved",
         alias="quotaState",
     )
-    entitlement_policy_version: Literal["included-with-canonical-practice@v1"] = Field(
-        default="included-with-canonical-practice@v1",
+    entitlement_policy_version: Literal["metered-model-round@v1"] = Field(
+        default="metered-model-round@v1",
         alias="entitlementPolicyVersion",
     )
 

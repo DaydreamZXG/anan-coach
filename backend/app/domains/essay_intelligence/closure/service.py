@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from difflib import SequenceMatcher
 from collections.abc import Callable
 from datetime import UTC, datetime
 from hashlib import sha256
@@ -13,6 +14,8 @@ from sqlalchemy.orm import Session
 from app.domains.essay_intelligence.closure.repository import EssayClosureRepository
 from app.domains.essay_intelligence.closure.schemas import (
     EssayRewriteCommand,
+    EssayAnswerDiffSegment,
+    EssayRewriteComparison,
     EssayRewritePlanTaskCompletionCommand,
     EssayRewritePlanTaskCompletionResult,
     EssayRewriteRecord,
@@ -175,6 +178,8 @@ class EssayClosureService:
             command=EssayAnswerCreateCommand(
                 attempt_id=command.attempt_id,
                 source_type=command.source_type,
+                source_artifact_version_id=command.source_artifact_version_id,
+                recognition_revision_id=command.recognition_revision_id,
                 answer_text=command.answer_text,
                 thinking=command.thinking,
                 based_on_answer_version_id=command.based_on_answer_version_id,
@@ -272,6 +277,65 @@ class EssayClosureService:
             answer=answer,
             rewrite=_rewrite_from_row(row),
             mastery_versions=mastery,
+        )
+
+    def rewrite_comparison(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        rewrite_version_id: str,
+    ) -> EssayRewriteComparison:
+        rewrite = self._repository.rewrite_by_id(
+            session,
+            user_id=user_id,
+            rewrite_version_id=rewrite_version_id,
+        )
+        if rewrite is None:
+            raise EssayClosureNotFound("Owned essay rewrite version does not exist")
+        original = self._repository.answer_by_id(
+            session,
+            user_id=user_id,
+            answer_version_id=str(rewrite["base_answer_version_id"]),
+        )
+        rewritten = self._repository.answer_by_id(
+            session,
+            user_id=user_id,
+            answer_version_id=str(rewrite["rewritten_answer_version_id"]),
+        )
+        if original is None or rewritten is None:
+            raise EssayClosureContractError(
+                "Rewrite comparison lost an immutable answer version"
+            )
+        original_answer = answer_from_row(original)
+        rewritten_answer = answer_from_row(rewritten)
+        matcher = SequenceMatcher(
+            None,
+            original_answer.answer_text,
+            rewritten_answer.answer_text,
+            autojunk=False,
+        )
+        segments: list[EssayAnswerDiffSegment] = []
+        for operation, left_start, left_end, right_start, right_end in matcher.get_opcodes():
+            if operation in {"equal", "delete", "replace"} and left_end > left_start:
+                segments.append(
+                    EssayAnswerDiffSegment(
+                        operation="equal" if operation == "equal" else "delete",
+                        text=original_answer.answer_text[left_start:left_end],
+                    )
+                )
+            if operation in {"insert", "replace"} and right_end > right_start:
+                segments.append(
+                    EssayAnswerDiffSegment(
+                        operation="insert",
+                        text=rewritten_answer.answer_text[right_start:right_end],
+                    )
+                )
+        return EssayRewriteComparison(
+            rewrite=_rewrite_from_row(rewrite),
+            original_answer=original_answer,
+            rewritten_answer=rewritten_answer,
+            diff_segments=segments,
         )
 
     def record_rewrite_and_complete_plan_task(

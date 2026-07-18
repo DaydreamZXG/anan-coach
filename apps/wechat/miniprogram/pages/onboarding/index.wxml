@@ -1,4 +1,4 @@
-<view class="page onboarding">
+<view class="s9-page s9-page--with-dock onboarding">
   <view wx:if="{{loadingProfile}}" class="loading-state">
     <anan-companion size="large" intent="thinking" context="plan" animate />
     <view class="loading-title">正在恢复你的资格档案</view>
@@ -11,30 +11,22 @@
     <ui-button label="重新读取" bind:action="retryLoad" />
   </view>
   <block wx:elif="{{!saved}}">
-    <view class="topbar">
-      <view class="brand-lockup">
-        <anan-companion size="small" intent="thinking" context="plan" animate />
-        <view>
-          <view class="eyebrow">岸岸 · 建立上岸档案</view>
-          <view class="privacy-note">仅用于资格判断与学习规划</view>
-        </view>
-      </view>
-      <view class="step-number">0{{current + 1}} / 04</view>
+    <view class="s9-hero">
+      <view class="s9-title">先把你真正要去的地方说清楚</view>
+      <view class="s9-subtitle">三分钟建立目标、经历与可用时间，岸岸再给建议。</view>
+      <view class="s9-chip-row"><view class="s9-chip s9-chip--primary">约 3 分钟</view><view class="s9-chip">可稍后修改</view></view>
     </view>
 
-    <view class="progress-track">
-      <view class="progress-value progress-value--{{current}}"></view>
-    </view>
-    <view class="step-tabs">
-      <view wx:for="{{steps}}" wx:key="label" class="step-tab {{index <= current ? 'step-tab--active' : ''}}">{{item.label}}</view>
+    <view class="progress-track"><view class="progress-value progress-value--{{current}}"></view></view>
+
+    <view class="s9-card s9-card--primary onboarding-step-card">
+      <view class="s9-card-kicker">第 {{current + 1}} 步 · {{steps[current].label}}</view>
+      <view class="s9-card-title">{{steps[current].title}}</view>
+      <view class="s9-card-copy">{{steps[current].copy}}</view>
+      <view class="step-count type-data">{{current + 1}} / 4</view>
     </view>
 
-    <view class="intro">
-      <view class="page-title">{{steps[current].title}}</view>
-      <view class="page-subtitle">{{steps[current].copy}}</view>
-    </view>
-
-    <view class="form-card">
+    <view class="form-card s9-card">
       <block wx:if="{{current === 0}}">
         <view class="field-label">最高学历</view>
         <view class="choice-grid choice-grid--four">
@@ -44,7 +36,7 @@
         </view>
         <view class="field-label field-label--spaced">毕业证专业名称</view>
         <view class="input-shell {{major ? 'input-shell--filled' : ''}}">
-          <input value="{{major}}" maxlength="80" placeholder="例如：法学、汉语言文学" bindinput="inputMajor" />
+          <input class="input-shell__control" value="{{major}}" maxlength="80" placeholder="例如：法学、汉语言文学" bindinput="inputMajor" />
           <view class="input-badge">原文</view>
         </view>
         <view class="field-help">请按毕业证填写，不要只填“经管类”“计算机类”。专业大类会由岗位规则单独核验。</view>
@@ -76,7 +68,7 @@
         <view class="field-help">按公告口径填写；岗位要求 2 年时，1 年 11 个月不会被算作满足。</view>
         <view class="field-label field-label--spaced">户籍或生源地限制核验</view>
         <view class="input-shell {{hukou ? 'input-shell--filled' : ''}}">
-          <input value="{{hukou}}" maxlength="60" placeholder="选填，例如：江西省赣州市" bindinput="inputHukou" />
+          <input class="input-shell__control" value="{{hukou}}" maxlength="60" placeholder="选填，例如：江西省赣州市" bindinput="inputHukou" />
           <view class="input-badge input-badge--optional">选填</view>
         </view>
         <view class="notice-card">
@@ -91,12 +83,12 @@
           <view class="review-caption">保存后形成新的资格档案版本</view>
         </view>
         <view class="review-list">
-          <view class="review-row"><text>学历</text><text>{{education}}</text></view>
-          <view class="review-row"><text>专业</text><text>{{major}}</text></view>
-          <view class="review-row"><text>应届身份</text><text>{{freshGraduate === 'true' ? '是' : '否'}}</text></view>
-          <view class="review-row"><text>政治面貌</text><text>{{politicalStatus}}</text></view>
-          <view class="review-row"><text>基层经历</text><text>{{grassrootsYears === 5 ? '5 年以上' : grassrootsYears + ' 年'}}</text></view>
-          <view class="review-row"><text>户籍 / 生源地</text><text>{{hukou || '未填写，相关岗位将待确认'}}</text></view>
+          <view class="review-row"><text class="review-row__label">学历</text><text class="review-row__value">{{education}}</text></view>
+          <view class="review-row"><text class="review-row__label">专业</text><text class="review-row__value">{{major}}</text></view>
+          <view class="review-row"><text class="review-row__label">应届身份</text><text class="review-row__value">{{freshGraduate === 'true' ? '是' : '否'}}</text></view>
+          <view class="review-row"><text class="review-row__label">政治面貌</text><text class="review-row__value">{{politicalStatus}}</text></view>
+          <view class="review-row"><text class="review-row__label">基层经历</text><text class="review-row__value">{{grassrootsYears === 5 ? '5 年以上' : grassrootsYears + ' 年'}}</text></view>
+          <view class="review-row"><text class="review-row__label">户籍 / 生源地</text><text class="review-row__value">{{hukou || '未填写，相关岗位将待确认'}}</text></view>
         </view>
         <view class="confirm-copy">我确认以上内容来自本人真实情况。后续修改会生成新版本，已有岗位结论将自动重新核验。</view>
       </block>
@@ -111,10 +103,10 @@
     </view>
     <view wx:if="{{error}}" class="error-banner">{{error}}</view>
     <view wx:if="{{requestId}}" class="request-id">Request ID · {{requestId}}</view>
-    <view class="footer-actions">
-      <ui-button wx:if="{{current > 0}}" label="返回" variant="secondary" block="{{false}}" bind:action="previous" />
-      <view class="footer-primary">
-        <ui-button label="{{primaryActionLabel}}" loading="{{saving}}" bind:action="next" />
+    <view class="s9-action-dock">
+      <view class="s9-action-row">
+        <button wx:if="{{current > 0}}" class="s9-secondary-button" bindtap="previous">返回</button>
+        <button class="s9-primary-button" loading="{{saving}}" bindtap="next">{{primaryActionLabel}}</button>
       </view>
     </view>
   </block>
@@ -125,9 +117,9 @@
     <view class="success-title">岸岸已经记住你了</view>
     <view class="success-copy">下一步逐个核验岗位硬条件。每一条“可报”都能看到依据；不确定的地方会明确请你确认。</view>
     <view class="success-points">
-      <view><text>✓</text>事实已按版本保存</view>
-      <view><text>✓</text>修改后自动重新核验</view>
-      <view><text>✓</text>AI 不替你猜资格条件</view>
+      <view class="success-point"><text class="success-point__check">✓</text>事实已按版本保存</view>
+      <view class="success-point"><text class="success-point__check">✓</text>修改后自动重新核验</view>
+      <view class="success-point"><text class="success-point__check">✓</text>AI 不替你猜资格条件</view>
     </view>
     <ui-button label="继续设置学习节奏" bind:action="continueOnboarding" />
   </view>

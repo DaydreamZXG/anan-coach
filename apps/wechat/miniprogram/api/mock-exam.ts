@@ -82,6 +82,12 @@ export interface MockExamLearnerSession {
   questionCount: number;
   blueprint: MockExamModuleBlueprint[];
   bundleVersionId: string;
+  paperVersionId: string;
+  scoringPolicyVersionId: string;
+  scoreMetricName: string;
+  scoreMetricUnit: string;
+  scoreMetricDefinition: string;
+  nextTrajectoryEventSeq: number;
   materials: MockExamLearnerMaterial[];
   questions: MockExamLearnerQuestion[];
   revision: number;
@@ -136,10 +142,27 @@ export interface MockExamSubmitReceipt {
   review: {
     estimatedScore: number;
     estimateSource: string;
+    performanceIndex: number;
+    performanceRange: { lower: number; recommended: number; upper: number };
+    metricName: "balanced_performance_index";
+    metricUnit: "index_points";
+    metricDefinition: string;
+    intervalDefinition: string;
+    paperVersionId: string;
+    scoringPolicyVersionId: string;
     submittedAt: string;
     modules: MockExamModuleResult[];
     nextWeekReason: string;
   };
+}
+
+export interface MockExamTrajectoryCommand {
+  eventSeq: number;
+  eventType: "visited" | "answer_changed" | "mark_changed" | "skipped" | "left" | "resumed";
+  questionId: string | null;
+  clientOccurredAt: string;
+  sessionRevision: number;
+  payload: Record<string, string | number | boolean | null>;
 }
 
 export class MockExamApi {
@@ -197,6 +220,18 @@ export class MockExamApi {
       { idempotencyKey },
     );
     return mapDisputeReceipt(unwrapApiResponse(response));
+  }
+
+  async recordTrajectory(
+    sessionId: string,
+    command: MockExamTrajectoryCommand,
+    idempotencyKey: string,
+  ): Promise<void> {
+    await this.client.post(
+      `/api/v2/mock-exams/${encodeURIComponent(sessionId)}/trajectory-events`,
+      command,
+      { idempotencyKey },
+    );
   }
 }
 
@@ -272,6 +307,21 @@ export function mapLearnerSafeMockSession(value: unknown): MockExamLearnerSessio
     questionCount: questions.length,
     blueprint: optionalArray(field(source, "blueprint")).map(mapBlueprint),
     bundleVersionId: versionIdField(source, ["bundleVersionId", "bundle_version_id"]),
+    paperVersionId: stringField(source, ["paperVersionId", "paper_version_id"]),
+    scoringPolicyVersionId: stringField(source, [
+      "scoringPolicyVersionId",
+      "scoring_policy_version_id",
+    ]),
+    scoreMetricName: stringField(source, ["scoreMetricName", "score_metric_name"]),
+    scoreMetricUnit: stringField(source, ["scoreMetricUnit", "score_metric_unit"]),
+    scoreMetricDefinition: stringField(source, [
+      "scoreMetricDefinition",
+      "score_metric_definition",
+    ]),
+    nextTrajectoryEventSeq: integerField(source, [
+      "nextTrajectoryEventSeq",
+      "next_trajectory_event_seq",
+    ]),
     materials,
     questions,
     revision,
@@ -459,6 +509,17 @@ function mapSubmitReceipt(value: unknown): MockExamSubmitReceipt {
     review: {
       estimatedScore: numberField(review, ["estimatedScore", "estimated_score"]),
       estimateSource: stringField(review, ["estimateSource", "estimate_source"]),
+      performanceIndex: numberField(review, ["performanceIndex", "performance_index"]),
+      performanceRange: mapPerformanceRange(field(review, "performanceRange")),
+      metricName: "balanced_performance_index",
+      metricUnit: "index_points",
+      metricDefinition: stringField(review, ["metricDefinition", "metric_definition"]),
+      intervalDefinition: stringField(review, ["intervalDefinition", "interval_definition"]),
+      paperVersionId: stringField(review, ["paperVersionId", "paper_version_id"]),
+      scoringPolicyVersionId: stringField(review, [
+        "scoringPolicyVersionId",
+        "scoring_policy_version_id",
+      ]),
       submittedAt: isoInstantField(review, ["submittedAt", "submitted_at"]),
       modules: optionalArray(field(review, "modules")).map((item) => {
         const module = record(item, "mock module result");
@@ -471,6 +532,19 @@ function mapSubmitReceipt(value: unknown): MockExamSubmitReceipt {
       }),
       nextWeekReason: stringField(review, ["nextWeekReason", "next_week_reason"]),
     },
+  };
+}
+
+function mapPerformanceRange(value: unknown): {
+  lower: number;
+  recommended: number;
+  upper: number;
+} {
+  const source = record(value, "mock performance range");
+  return {
+    lower: numberField(source, ["lower"]),
+    recommended: numberField(source, ["recommended"]),
+    upper: numberField(source, ["upper"]),
   };
 }
 

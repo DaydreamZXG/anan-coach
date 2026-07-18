@@ -8,10 +8,11 @@ from tests.test_xingce_cause_agent_workflow import (
     _reflect,
     _run_one,
 )
+from app.domains.xingce_learning.cause_agent.provider import CauseAgentProviderError
 from tests.test_xingce_planning_closure import _submitted_attempt
 
 
-def test_cause_agent_is_included_not_reserved_and_each_logical_round_costs_once(
+def test_cause_agent_reserves_and_consumes_each_logical_round_once(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     client, auth, _task, submitted = _submitted_attempt(
@@ -33,19 +34,23 @@ def test_cause_agent_is_included_not_reserved_and_each_logical_round_costs_once(
         headers=auth,
     ).json()["data"]
     candidate = current["review"]["aiCandidate"]
-    assert candidate["quotaState"] == "not_metered"
+    assert candidate["quotaState"] == "consumed"
     assert candidate["entitlementPolicyVersion"] == (
-        "included-with-canonical-practice@v1"
+        "metered-model-round@v1"
     )
     assert "charged" not in candidate
 
     with db_session_factory() as session:
-        assert session.execute(
+        reservation = session.execute(
             text(
-                "select count(*) from commerce.feature_usage_reservations "
-                "where feature in ('xingce_cause_analysis', 'xingce_cause_agent')"
+                "select status, feature from commerce.feature_usage_reservations "
+                "where feature = 'xingce_cause_analysis'"
             )
-        ).scalar_one() == 0
+        ).mappings().one()
+        assert dict(reservation) == {
+            "status": "consumed",
+            "feature": "xingce_cause_analysis",
+        }
         ledger = session.execute(
             text(
                 "select status, feature, operation, input_tokens, output_tokens, "
@@ -81,7 +86,7 @@ def test_all_correct_high_confidence_skips_provider_and_still_publishes_audit_st
     assert view["state"] == "cause_evidence_insufficient"
     assert view["review"]["aiCandidate"]["state"] == "evidence_insufficient"
     assert view["review"]["aiCandidate"]["reason"] == "all_correct_high_confidence"
-    assert view["review"]["aiCandidate"]["quotaState"] == "not_metered"
+    assert view["review"]["aiCandidate"]["quotaState"] == "not_charged"
     with db_session_factory() as session:
         assert session.execute(
             text("select count(*) from platform.background_jobs")
@@ -100,6 +105,57 @@ def test_all_correct_high_confidence_skips_provider_and_still_publishes_audit_st
             "model_call_count": 0,
             "tool_call_count": 0,
         }
+
+
+def test_definitive_unbilled_provider_failure_refunds_reserved_quota(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    client, auth, _task, submitted = _submitted_attempt(
+        db_session_factory,
+        token="cause-agent-refund-token",
+        choices=["D", "B", "C"],
+    )
+    _reflect(
+        client,
+        auth,
+        submitted["review"],
+        key="cause-refund-reflection",
+    )
+    provider = DefinitiveFailureProvider([])
+    _run_one(db_session_factory, provider)
+
+    current = client.get(
+        f"/api/v2/xingce/task-sessions/{submitted['sessionId']}",
+        headers=auth,
+    ).json()["data"]
+    assert current["review"]["aiCandidate"]["quotaState"] == "not_charged"
+    with db_session_factory() as session:
+        reservation = session.execute(
+            text(
+                "select status from commerce.feature_usage_reservations "
+                "where feature = 'xingce_cause_analysis'"
+            )
+        ).scalar_one()
+        assert reservation == "refunded"
+        assert session.execute(
+            text(
+                "select used_count from commerce.entitlement_usage_daily "
+                "where feature = 'xingce_cause_analysis'"
+            )
+        ).scalar_one() == 0
+        assert session.execute(
+            text("select status from ai_audit.model_call_ledger")
+        ).scalar_one() == "failed"
+
+
+class DefinitiveFailureProvider(SequenceProvider):
+    def generate(self, **kwargs):
+        del kwargs
+        raise CauseAgentProviderError(
+            "provider_request_rejected",
+            "provider rejected before processing",
+            retryable=False,
+        )
 
 
 def _run_none(

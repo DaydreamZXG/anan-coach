@@ -14,7 +14,10 @@ from app.contracts.external_learning.models import (
     RecognitionKind,
     RecognitionRevision,
 )
+from app.domains.external_ingestion.answering.models import ExternalAIAnswerVersion
 from app.domains.external_ingestion.matching.models import MatchQuery
+from app.domains.external_ingestion.answering.repository import ExternalAIAnswerRepository
+from app.domains.external_ingestion.matching.errors import MatchingAuthorizationError
 from app.domains.external_ingestion.matching.repository import SQLContentMatchRepository
 from app.domains.external_ingestion.matching.service import MatchingService
 from app.domains.external_ingestion.recognition.models import (
@@ -27,6 +30,9 @@ from app.domains.external_ingestion.schemas import (
     ConfirmImportMatchCommand,
     CorrectImportRecognitionCommand,
     ImportRecognitionSegment,
+    ImportAIAnswer,
+    ImportQuestionUnit,
+    ImportReferenceAnswer,
     ImportWorkspace,
 )
 from app.domains.external_ingestion.upload.repository import PostgresUploadRepository
@@ -54,6 +60,7 @@ class ExternalImportWorkspaceService:
         self._matching = matching_service
         self._recognition_repository = SQLRecognitionRepository(session)
         self._match_repository = SQLContentMatchRepository(session)
+        self._answer_repository = ExternalAIAnswerRepository(session)
         self._uploads = PostgresUploadRepository(session=session)
         self._clock = clock or (lambda: datetime.now(UTC))
 
@@ -138,17 +145,26 @@ class ExternalImportWorkspaceService:
             expected_revision_no=expected_revision_no,
             idempotency_key=f"{idempotency_key}:recognition",
         )
-        match, _ = self._matching.evaluate(
-            owner_user_id=owner_user_id,
-            recognition=confirmed,
-            query=_match_query(confirmed, track=learning_track),
-            idempotency_key=f"{idempotency_key}:match",
-        )
+        payload = RecognitionCandidatePayload.model_validate(confirmed.candidate_payload)
+        matches: list[ContentMatchVersion] = []
+        for unit in payload.question_units:
+            match, _ = self._matching.evaluate(
+                owner_user_id=owner_user_id,
+                recognition=confirmed,
+                question_unit_id=unit.question_unit_id,
+                query=_match_query(
+                    confirmed,
+                    track=learning_track,
+                    question_unit_id=unit.question_unit_id,
+                ),
+                idempotency_key=f"{idempotency_key}:match:{unit.question_unit_id}",
+            )
+            matches.append(match)
         return self.workspace(
             owner_user_id=owner_user_id,
             import_id=import_id,
             preferred_recognition=confirmed,
-            preferred_match=match,
+            preferred_matches=tuple(matches),
             learning_track=learning_track,
         )
 
@@ -193,7 +209,7 @@ class ExternalImportWorkspaceService:
             owner_user_id=owner_user_id,
             import_id=import_id,
             preferred_recognition=recognition,
-            preferred_match=confirmed,
+            preferred_matches=(confirmed,),
         )
 
     def workspace(
@@ -202,7 +218,7 @@ class ExternalImportWorkspaceService:
         owner_user_id: UUID,
         import_id: UUID,
         preferred_recognition: RecognitionRevision | None = None,
-        preferred_match: ContentMatchVersion | None = None,
+        preferred_matches: tuple[ContentMatchVersion, ...] = (),
         learning_track: LearningTrack | None = None,
     ) -> ImportWorkspace:
         upload = self._required_upload(owner_user_id=owner_user_id, import_id=import_id)
@@ -210,26 +226,63 @@ class ExternalImportWorkspaceService:
         recognition = preferred_recognition or self._current_import_recognition(
             owner_user_id=owner_user_id, artifact_version_id=upload.artifact_version_id
         )
-        match = preferred_match or (
-            self._current_match(recognition.recognition_revision_id)
-            if recognition is not None
-            else None
-        )
+        matches = {
+            item.question_unit_id: item
+            for item in (
+                self._current_matches(recognition.recognition_revision_id)
+                if recognition is not None
+                else ()
+            )
+        }
+        matches.update({item.question_unit_id: item for item in preferred_matches})
         state, processing_label, poll_after, failure_reason = _workspace_state(
             upload_state=upload.state.value,
             recognition=recognition,
-            match=match,
+            matches=tuple(matches.values()),
             failure_code=upload.failure_code,
         )
         reasons: list[str] = []
         if recognition is not None and recognition.state == CandidateState.CANDIDATE:
             reasons.append("识别结果必须由你确认，确认前不会进行题库匹配。")
-        if match is not None:
-            reasons.extend(_match_reasons(match))
-        if learning_track is not None and recognition is not None:
-            query = _match_query(recognition, track=learning_track)
-            if learning_track == LearningTrack.ESSAY and not query.material_texts:
-                reasons.append("申论材料不完整时只能保存识别结果，不能给出可靠原题或答案结论。")
+        question_units = _workspace_units(
+            recognition=recognition,
+            matches=matches,
+            owner_user_id=owner_user_id,
+            matching=self._matching,
+            learning_track=learning_track,
+            ai_answers={
+                unit.question_unit_id: answer
+                for unit in (
+                    RecognitionCandidatePayload.model_validate(
+                        recognition.candidate_payload
+                    ).question_units
+                    if recognition is not None
+                    else ()
+                )
+                if (
+                    answer := self._answer_repository.current_for_unit(
+                        owner_user_id=owner_user_id,
+                        import_id=import_id,
+                        question_unit_id=unit.question_unit_id,
+                    )
+                )
+                is not None
+            },
+        )
+        for unit in question_units:
+            reasons.extend(unit.partial_reasons)
+        if (
+            recognition is not None
+            and recognition.state == CandidateState.CONFIRMED
+            and question_units
+            and all(unit.state == "ready" for unit in question_units)
+        ):
+            state, processing_label, poll_after, failure_reason = (
+                "ready",
+                None,
+                None,
+                None,
+            )
         return ImportWorkspace(
             importId=import_id,
             state=state,
@@ -238,7 +291,7 @@ class ExternalImportWorkspaceService:
             recognitionSegments=(
                 _segments(recognition) if recognition is not None else ()
             ),
-            match=match,
+            questionUnits=question_units,
             partialReasons=tuple(dict.fromkeys(reasons)),
             failureReason=failure_reason,
             processingLabel=processing_label,
@@ -246,7 +299,11 @@ class ExternalImportWorkspaceService:
             expiresAt=upload.expires_at,
             diagnosticEligibility=(
                 "eligible_confirmed"
-                if match is not None and match.state == "confirmed"
+                if question_units
+                and all(
+                    item.match is not None and item.match.state == CandidateState.CONFIRMED
+                    for item in question_units
+                )
                 else "blocked_unconfirmed"
             ),
             generatedAt=self._clock(),
@@ -289,24 +346,27 @@ class ExternalImportWorkspaceService:
             recognition_kind=RecognitionKind.EXAM_SEGMENTATION.value,
         )
 
-    def _current_match(
+    def _current_matches(
         self, recognition_revision_id: UUID
-    ) -> ContentMatchVersion | None:
-        version_id = self._session.execute(
+    ) -> tuple[ContentMatchVersion, ...]:
+        version_ids = self._session.execute(
             text(
                 """
-                select content_match_version_id
+                select distinct on (question_unit_id) content_match_version_id
                 from learning.content_match_versions
                 where recognition_revision_id = :recognition_revision_id
-                order by version_no desc limit 1
+                order by question_unit_id, version_no desc
                 """
             ),
             {"recognition_revision_id": str(recognition_revision_id)},
-        ).scalar_one_or_none()
-        return (
-            self._match_repository.version(content_match_version_id=version_id)
-            if version_id is not None
-            else None
+        ).scalars().all()
+        return tuple(
+            item
+            for item in (
+                self._match_repository.version(content_match_version_id=version_id)
+                for version_id in version_ids
+            )
+            if item is not None
         )
 
     def _recognition_belongs_to_import(
@@ -390,23 +450,48 @@ def _segments(recognition: RecognitionRevision) -> tuple[ImportRecognitionSegmen
     return tuple(result)
 
 
-def _match_query(recognition: RecognitionRevision, *, track: LearningTrack) -> MatchQuery:
+def _match_query(
+    recognition: RecognitionRevision,
+    *,
+    track: LearningTrack,
+    question_unit_id: str,
+) -> MatchQuery:
     payload = RecognitionCandidatePayload.model_validate(recognition.candidate_payload)
     spans = {item.span_id: item.text for item in payload.text_spans}
+    unit = next(
+        (item for item in payload.question_units if item.question_unit_id == question_unit_id),
+        None,
+    )
+    if unit is None:
+        raise ExternalImportError(
+            "question_unit_not_found", "题目分区已变化，请刷新后重试。", status_code=409
+        )
+    segment_ids = {
+        *unit.prompt_segment_refs,
+        *unit.option_segment_refs,
+        *unit.material_segment_refs,
+    }
 
-    def text_for(kind: str) -> tuple[str, ...]:
+    def text_for(refs: tuple[str, ...]) -> tuple[str, ...]:
+        refs_set = set(refs)
         return tuple(
             "\n".join(spans[ref] for ref in segment.text_span_refs if ref in spans).strip()
             for segment in payload.segments
-            if segment.segment_kind == kind
+            if segment.segment_id in refs_set
         )
 
-    prompts = (*text_for("question"), *text_for("essay_prompt"))
-    options = text_for("options")
-    materials = text_for("material")
+    prompts = text_for(unit.prompt_segment_refs)
+    options = text_for(unit.option_segment_refs)
+    materials = text_for(unit.material_segment_refs)
     prompt = "\n".join(item for item in prompts if item).strip()
     if not prompt:
-        prompt = "\n".join(item.text for item in payload.text_spans).strip()
+        prompt = "\n".join(
+            spans[ref]
+            for segment in payload.segments
+            if segment.segment_id in segment_ids
+            for ref in segment.text_span_refs
+            if ref in spans
+        ).strip()
     return MatchQuery(
         track=track,
         promptText=prompt,
@@ -414,6 +499,102 @@ def _match_query(recognition: RecognitionRevision, *, track: LearningTrack) -> M
         materialTexts=tuple(item for item in materials if item),
         visualFingerprints=payload.visual_fingerprints,
     )
+
+
+def _workspace_units(
+    *,
+    recognition: RecognitionRevision | None,
+    matches: dict[str, ContentMatchVersion],
+    owner_user_id: UUID,
+    matching: MatchingService,
+    learning_track: LearningTrack | None,
+    ai_answers: dict[str, ExternalAIAnswerVersion],
+) -> tuple[ImportQuestionUnit, ...]:
+    if recognition is None:
+        return ()
+    payload = RecognitionCandidatePayload.model_validate(recognition.candidate_payload)
+    units: list[ImportQuestionUnit] = []
+    for unit in payload.question_units:
+        match = matches.get(unit.question_unit_id)
+        unit_reasons: list[str] = list(_match_reasons(match)) if match else []
+        reference_answer = None
+        ai_answer = None
+        stored_ai = ai_answers.get(unit.question_unit_id)
+        if stored_ai is not None:
+            payload_value = stored_ai.answer_payload
+            ai_answer = ImportAIAnswer(
+                answerVersionId=stored_ai.answer_version_id,
+                state=stored_ai.state,
+                answerText=payload_value.answer if payload_value else None,
+                explanation=payload_value.explanation if payload_value else None,
+                keyPoints=payload_value.key_points if payload_value else (),
+                confidence=payload_value.confidence if payload_value else None,
+                limitations=payload_value.limitations if payload_value else (),
+                outputFingerprint=stored_ai.output_fingerprint,
+                failureCode=stored_ai.failure_code,
+            )
+        if learning_track == LearningTrack.ESSAY:
+            query = _match_query(
+                recognition,
+                track=learning_track,
+                question_unit_id=unit.question_unit_id,
+            )
+            if not query.material_texts:
+                unit_reasons.append(
+                    "申论材料不完整，不能给出可靠原题或 AI 答案结论。"
+                )
+        if stored_ai is not None and stored_ai.state == "confirmed":
+            unit_state = "ready"
+        elif recognition.state == CandidateState.CANDIDATE:
+            unit_state = "recognition_review"
+        elif match is None or (
+            match.evaluation_reason in {"essay_incomplete", "no_eligible_candidate"}
+            and not match.candidates
+        ):
+            unit_state = "unmatched"
+        elif match.state == "candidate":
+            unit_state = "match_review"
+        elif match.state == "confirmed":
+            unit_state = "ready"
+            try:
+                answer = matching.stored_answer_candidate(
+                    owner_user_id=owner_user_id,
+                    recognition=recognition,
+                    match=match,
+                )
+            except MatchingAuthorizationError:
+                unit_reasons.append("已匹配原题，但当前授权不允许展示参考答案。")
+            else:
+                if answer is None:
+                    unit_reasons.append("已匹配原题，但题库暂无可展示的参考答案。")
+                elif answer.layer in {"exact", "similar"} and answer.content_version_id:
+                    reference_answer = ImportReferenceAnswer(
+                        sourceType="authorized_reference",
+                        matchKind=answer.layer,
+                        answerText=answer.answer_text,
+                        contentVersionId=answer.content_version_id,
+                        authorizationState="authorized_current",
+                        learningImpact="reference_only",
+                    )
+        else:
+            unit_state = "unmatched"
+        units.append(
+            ImportQuestionUnit(
+                questionUnitId=unit.question_unit_id,
+                ordinal=unit.ordinal,
+                segmentIds=(
+                    *unit.material_segment_refs,
+                    *unit.prompt_segment_refs,
+                    *unit.option_segment_refs,
+                ),
+                match=match,
+                referenceAnswer=reference_answer,
+                aiAnswer=ai_answer,
+                state=unit_state,
+                partialReasons=tuple(dict.fromkeys(unit_reasons)),
+            )
+        )
+    return tuple(units)
 
 
 def _match_reasons(match: ContentMatchVersion) -> tuple[str, ...]:
@@ -431,7 +612,7 @@ def _workspace_state(
     *,
     upload_state: str,
     recognition: RecognitionRevision | None,
-    match: ContentMatchVersion | None,
+    matches: tuple[ContentMatchVersion, ...],
     failure_code: str | None,
 ) -> tuple[str, str | None, int | None, str | None]:
     if upload_state == "awaiting_upload":
@@ -456,6 +637,6 @@ def _workspace_state(
         return "processing", "等待识别处理", 2_000, None
     if recognition.state in {CandidateState.REJECTED, CandidateState.EXPIRED}:
         return "failed", None, None, "识别结果已拒绝或过期。"
-    if match is not None and match.state == "confirmed":
+    if matches and all(match.state == "confirmed" for match in matches):
         return "ready", None, None, None
     return "review", None, None, None

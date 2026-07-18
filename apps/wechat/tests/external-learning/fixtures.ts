@@ -10,6 +10,7 @@ import type {
   AnswerTargetSnapshot,
   ExternalLearningGateway,
   ImportWorkspace,
+  ImportQuestionUnit,
   PacketListSnapshot,
 } from "../../miniprogram/features/external-learning/contracts";
 
@@ -64,6 +65,7 @@ export function contentMatch(overrides: Partial<ContentMatchVersion> = {}): Cont
     contentMatchId: "match-1",
     artifactVersionId: "artifact-version-1",
     recognitionRevisionId: "recognition-1",
+    questionUnitId: "d".repeat(64),
     ownerUserId: "user-1",
     versionNo: 1,
     state: "candidate",
@@ -75,6 +77,7 @@ export function contentMatch(overrides: Partial<ContentMatchVersion> = {}): Cont
         evidenceRefs: ["fingerprint:1"],
       },
     ],
+    evaluationReason: "single_exact",
     confirmedContentVersionId: null,
     matchingPolicyVersion: "matching-policy@v1",
     inputFingerprint: "visual-text-fingerprint-1",
@@ -101,7 +104,7 @@ export function importWorkspace(overrides: Partial<ImportWorkspace> = {}): Impor
         requiresCorrection: false,
       },
     ],
-    match: null,
+    questionUnits: [],
     partialReasons: [],
     failureReason: null,
     processingLabel: null,
@@ -110,6 +113,20 @@ export function importWorkspace(overrides: Partial<ImportWorkspace> = {}): Impor
     diagnosticEligibility: "blocked_unconfirmed",
     generatedAt: "2026-07-15T01:03:00Z",
     requestId: "request-import-1",
+    ...overrides,
+  };
+}
+
+export function questionUnit(overrides: Partial<ImportQuestionUnit> = {}): ImportQuestionUnit {
+  return {
+    questionUnitId: "d".repeat(64),
+    ordinal: 1,
+    segmentIds: ["segment-1"],
+    match: contentMatch(),
+    referenceAnswer: null,
+    aiAnswer: null,
+    state: "match_review",
+    partialReasons: [],
     ...overrides,
   };
 }
@@ -241,7 +258,7 @@ export function gateway(overrides: Partial<ExternalLearningGateway> = {}): Exter
       Promise.resolve(
         importWorkspace({
           recognition: recognition({ state: "confirmed", confirmedAt: "2026-07-15T01:09:00Z" }),
-          match: contentMatch(),
+          questionUnits: [questionUnit()],
         }),
       ),
     confirmMatch: () =>
@@ -249,13 +266,20 @@ export function gateway(overrides: Partial<ExternalLearningGateway> = {}): Exter
         importWorkspace({
           state: "ready",
           recognition: recognition({ state: "confirmed", confirmedAt: "2026-07-15T01:09:00Z" }),
-          match: contentMatch({
-            state: "confirmed",
-            confirmedContentVersionId: "content-version-1",
-          }),
+          questionUnits: [
+            questionUnit({
+              state: "ready",
+              match: contentMatch({
+                state: "confirmed",
+                confirmedContentVersionId: "content-version-1",
+              }),
+            }),
+          ],
           diagnosticEligibility: "eligible_confirmed",
         }),
       ),
+    requestAIAnswer: () => Promise.resolve(),
+    confirmAIAnswer: () => Promise.resolve(),
     listPackets: () => Promise.resolve(packetList()),
     createPacket: () => Promise.resolve(packet({ state: "generating", artifactRef: null })),
     retryPacket: () =>

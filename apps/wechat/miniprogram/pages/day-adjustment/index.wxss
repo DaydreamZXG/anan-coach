@@ -1,0 +1,7 @@
+@import "../../features/learning-brain/page-shell.wxss";
+.minute-input { margin-top: 14rpx; padding: 20rpx; border-radius: 20rpx; background: var(--color-surface-soft); font-size: 42rpx; font-weight: 820; }
+.scale-section { margin-bottom: 28rpx; }
+.scale-row { display: flex; gap: 10rpx; margin-top: 14rpx; }
+.scale-option { display: flex; box-sizing: border-box; flex: 1 1 0; width: 0; min-width: 0; height: 64rpx; margin: 0; padding: 0; align-items: center; justify-content: center; border-radius: 16rpx; background: var(--color-surface-soft); color: var(--color-muted); line-height: 64rpx; }
+.scale-option--active { background: var(--color-primary); color: #fff; }
+.success-note { margin-top: 16rpx; padding: 18rpx; border-radius: 18rpx; background: #eaf8f2; color: #1c6b50; font-size: 20rpx; line-height: 1.6; }

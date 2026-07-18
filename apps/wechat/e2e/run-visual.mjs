@@ -17,6 +17,8 @@ const artifactDirectory = path.resolve(projectRoot, "tests/visual/artifacts");
 const cliPath =
   process.env.WECHAT_DEVTOOLS_CLI ?? "/Applications/wechatwebdevtools.app/Contents/MacOS/cli";
 const updateBaselines = process.argv.includes("--update");
+const runtimeOnly = process.env.VISUAL_RUNTIME_ONLY === "1";
+const captureOnly = process.env.VISUAL_CAPTURE_ONLY === "1";
 const maximumDifferentPixelRatio = 0.003;
 const scenarioFilter = process.env.VISUAL_SCENARIO?.trim() ?? "";
 const requestedScenarioIds = new Set(
@@ -40,14 +42,30 @@ await mkdir(baselineDirectory, { recursive: true });
 await rm(artifactDirectory, { recursive: true, force: true });
 await mkdir(artifactDirectory, { recursive: true });
 
-const miniProgram = await automator.launch({
-  cliPath,
-  projectPath: projectRoot,
-  timeout: 60_000,
-  trustProject: true,
-});
+const automationEndpoint = process.env.WECHAT_DEVTOOLS_AUTOMATION_ENDPOINT?.trim();
+const miniProgram = automationEndpoint
+  ? await automator.connect({ wsEndpoint: automationEndpoint })
+  : await automator.launch({
+      cliPath,
+      projectPath: projectRoot,
+      timeout: 60_000,
+      trustProject: true,
+    });
 const runtimeFailures = [];
+const runtimeWarnings = [];
+const captureRecords = [];
 miniProgram.on("exception", (event) => runtimeFailures.push(String(event?.message ?? event)));
+if (runtimeOnly || captureOnly) {
+  miniProgram.on("console", (event) => {
+    const message = consoleEventText(event);
+    if (
+      /received type-uncompatible value/u.test(message) ||
+      /wx\.(?:saveFile|removeSavedFile) 即将废弃/u.test(message)
+    ) {
+      runtimeWarnings.push(message);
+    }
+  });
+}
 await freezeVisualAnimationClock(miniProgram);
 await miniProgram.mockWxMethod("request", {
   data: {
@@ -63,10 +81,34 @@ await miniProgram.mockWxMethod("request", {
 
 try {
   for (const scenario of selectedScenarios) {
-    await captureScenario(miniProgram, scenario);
+    process.stdout.write(`[audit] ${scenario.id} ... `);
+    await withTimeout(
+      captureScenario(miniProgram, scenario),
+      45_000,
+      `${scenario.id} did not settle within 45 seconds`,
+    );
+    process.stdout.write("ok\n");
+  }
+  if (captureOnly) {
+    await writeFile(
+      path.resolve(artifactDirectory, "audit-manifest.json"),
+      `${JSON.stringify(
+        {
+          systemInfo: await miniProgram.systemInfo(),
+          scenarios: captureRecords,
+        },
+        null,
+        2,
+      )}\n`,
+    );
   }
 } finally {
-  await miniProgram.close();
+  await withTimeout(
+    setAuthentication(miniProgram, false),
+    5_000,
+    "Visual authentication fixture did not clear cleanly",
+  );
+  await withTimeout(miniProgram.close(), 10_000, "Automation connection did not close cleanly");
 }
 
 assert.deepEqual(
@@ -74,8 +116,13 @@ assert.deepEqual(
   [],
   `Mini Program runtime exceptions:\n${runtimeFailures.join("\n")}`,
 );
+assert.deepEqual(
+  runtimeWarnings,
+  [],
+  `Mini Program runtime warnings:\n${runtimeWarnings.join("\n")}`,
+);
 process.stdout.write(
-  `${updateBaselines ? "Updated" : "Verified"} ${String(selectedScenarios.length)} visual scenarios.\n`,
+  `${runtimeOnly ? "Audited" : captureOnly ? "Captured" : updateBaselines ? "Updated" : "Verified"} ${String(selectedScenarios.length)} ${runtimeOnly ? "runtime" : "visual"} scenarios.\n`,
 );
 
 async function captureScenario(program, scenario) {
@@ -85,15 +132,7 @@ async function captureScenario(program, scenario) {
   const page = await program.reLaunch(scenario.route);
   assert.ok(page, `Unable to open ${scenario.route}`);
   await waitForControllerSettlement(page, scenario);
-  const resetData = Object.fromEntries(
-    Object.entries(scenario.data)
-      .filter(([, value]) => typeof value === "object" && value !== null)
-      .map(([key, value]) => [key, Array.isArray(value) ? [] : {}]),
-  );
-  if (Object.keys(resetData).length > 0) {
-    await page.setData(resetData);
-  }
-  const fixtureData = flattenSetData(structuredClone(scenario.data));
+  const fixtureData = structuredClone(scenario.data);
   await page.setData(fixtureData);
   await page.waitFor(800);
   if (scenario.scrollTop) {
@@ -103,14 +142,36 @@ async function captureScenario(program, scenario) {
   // Page timers may keep rendering after the controller has settled. The scenario owns
   // deterministic screenshot data, so restore it once after layout/scroll stabilization.
   await page.setData(fixtureData);
+  // automator resolves setData after the page data commit, while WXML/component layout can
+  // still be one render behind. Wait for that final deterministic frame before asserting and
+  // capturing, otherwise a completed network-error frame can be photographed with fixture data.
+  await page.waitFor(120);
   const appliedData = await page.data();
-  for (const [key, expected] of Object.entries(scenario.data)) {
-    assert.deepEqual(appliedData[key], expected, `${scenario.id} fixture was overwritten: ${key}`);
+  if (!runtimeOnly) {
+    for (const [key, expected] of Object.entries(scenario.data)) {
+      assert.deepEqual(
+        appliedData[key],
+        expected,
+        `${scenario.id} fixture was overwritten: ${key}`,
+      );
+    }
   }
 
+  if (runtimeOnly) return;
   const currentPath = path.resolve(artifactDirectory, `${scenario.id}.png`);
   const baselinePath = path.resolve(baselineDirectory, `${scenario.id}.png`);
   await program.screenshot({ path: currentPath });
+  if (captureOnly) {
+    const current = await readPng(currentPath);
+    captureRecords.push({
+      id: scenario.id,
+      route: scenario.route,
+      width: current.width,
+      height: current.height,
+      artifact: path.relative(projectRoot, currentPath),
+    });
+    return;
+  }
   if (updateBaselines) {
     const current = await readFile(currentPath);
     await writeFile(baselinePath, current);
@@ -141,6 +202,27 @@ async function captureScenario(program, scenario) {
   }
 }
 
+async function withTimeout(promise, timeoutMs, message) {
+  let timeoutHandle;
+  const timeout = new Promise((_, reject) => {
+    timeoutHandle = setTimeout(() => reject(new Error(message)), timeoutMs);
+  });
+  try {
+    return await Promise.race([promise, timeout]);
+  } finally {
+    clearTimeout(timeoutHandle);
+  }
+}
+
+function consoleEventText(event) {
+  if (typeof event === "string") return event;
+  try {
+    return JSON.stringify(event);
+  } catch {
+    return String(event);
+  }
+}
+
 async function freezeVisualAnimationClock(program) {
   await program.evaluate(function installDeterministicVisualClock() {
     if (globalThis.__gongkaoVisualOriginalSetInterval) return;
@@ -155,27 +237,8 @@ async function freezeVisualAnimationClock(program) {
   });
 }
 
-function flattenSetData(data) {
-  const result = {};
-  for (const [key, value] of Object.entries(data)) flattenValue(key, value, result);
-  return result;
-}
-
-function flattenValue(path, value, result) {
-  if (typeof value !== "object" || value === null || Array.isArray(value)) {
-    result[path] = value;
-    return;
-  }
-  const entries = Object.entries(value);
-  if (entries.length === 0) {
-    result[path] = {};
-    return;
-  }
-  for (const [key, child] of entries) flattenValue(`${path}.${key}`, child, result);
-}
-
 async function waitForControllerSettlement(page, scenario) {
-  if (scenario.authenticated !== true) return;
+  if (scenario.authenticated !== true || scenario.skipControllerSettlement === true) return;
   for (let attempt = 0; attempt < 100; attempt += 1) {
     const data = await page.data();
     if (controllerHasSettled(scenario.route, data)) return;
@@ -186,6 +249,7 @@ async function waitForControllerSettlement(page, scenario) {
 
 function controllerHasSettled(route, data) {
   const path = route.split("?", 1)[0];
+  if (path === "/pages/companion/index") return true;
   if (path.startsWith("/pages/community-")) {
     return remoteStatusHasSettled(data.pageState);
   }

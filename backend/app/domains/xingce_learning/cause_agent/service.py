@@ -13,6 +13,9 @@ from app.domains.ai.agent_runtime.contracts import (
     CAUSE_AGENT_DEFINITION,
     fingerprint,
 )
+from app.domains.commerce.app_store import AppStoreSignedTransactionVerifier
+from app.domains.commerce.repository import FeatureUsageReservation, CommerceRepository
+from app.domains.commerce.service import CommerceService
 from app.domains.xingce_learning.cause_agent.contracts import (
     ENTITLEMENT_POLICY_VERSION,
 )
@@ -70,6 +73,12 @@ class CauseAgentWorkflow:
         self._jobs = jobs or BackgroundJobRepository()
         self._outbox = outbox or OutboxRepository()
 
+    def _commerce(self, session: Session) -> CommerceService:
+        return CommerceService(
+            repository=CommerceRepository(session),
+            app_store_verifier=AppStoreSignedTransactionVerifier(self._settings),
+        )
+
     def start_after_reflection(
         self,
         session: Session,
@@ -98,6 +107,13 @@ class CauseAgentWorkflow:
             )
         self._provider.validate_configuration()
         run_id = str(uuid4())
+        reservation = self._commerce(session).reserve_feature_usage(
+            user_id=user_id,
+            feature="xingce_cause_analysis",
+            reservation_key=f"xingce-cause:{user_id}:{review['review_id']}:round:0",
+            business_key=f"xingce-cause-run:{run_id}:round:0",
+            commit=False,
+        )
         input_refs = [
             f"reflection-version:{reflection_version_id}",
             f"attempt-group:{task_session['attempt_group_id']}",
@@ -121,6 +137,7 @@ class CauseAgentWorkflow:
             input_fingerprint=input_fingerprint,
             followup_round=0,
             command_id=command_id,
+            reservation=reservation,
         )
         job = self._jobs.enqueue(
             session,
@@ -130,6 +147,11 @@ class CauseAgentWorkflow:
             payload=payload,
             max_attempts=3,
             run_after=created_at,
+        )
+        self._commerce(session).bind_feature_usage_reservation_job(
+            reservation=reservation,
+            job_id=job.job_id,
+            commit=False,
         )
         run = self._repository.insert_run_version(
             session,
@@ -176,7 +198,11 @@ class CauseAgentWorkflow:
             event_type="xingce-cause-agent-queued@v1",
             revision=int(run["version_no"]),
             occurred_at=created_at,
-            payload={"jobId": str(job.job_id), "quotaState": "not_metered"},
+            payload={
+                "jobId": str(job.job_id),
+                "quotaState": "reserved",
+                "reservationId": str(reservation.reservation_id),
+            },
         )
         return queued_review
 
@@ -234,6 +260,16 @@ class CauseAgentWorkflow:
                 "round": followup_round,
             }
         )
+        reservation = self._commerce(session).reserve_feature_usage(
+            user_id=user_id,
+            feature="xingce_cause_analysis",
+            reservation_key=(
+                f"xingce-cause:{user_id}:{review['review_id']}:"
+                f"round:{followup_round}"
+            ),
+            business_key=f"xingce-cause-run:{run['run_id']}:round:{followup_round}",
+            commit=False,
+        )
         job_payload = self._job_payload(
             run_id=str(run["run_id"]),
             user_id=user_id,
@@ -243,6 +279,7 @@ class CauseAgentWorkflow:
             input_fingerprint=input_fingerprint,
             followup_round=followup_round,
             command_id=command_id,
+            reservation=reservation,
             prior_evidence=self._prior_evidence(session, run),
         )
         job = self._jobs.enqueue(
@@ -253,6 +290,11 @@ class CauseAgentWorkflow:
             payload=job_payload,
             max_attempts=3,
             run_after=created_at,
+        )
+        self._commerce(session).bind_feature_usage_reservation_job(
+            reservation=reservation,
+            job_id=job.job_id,
+            commit=False,
         )
         queued = self._repository.insert_run_version(
             session,
@@ -330,6 +372,7 @@ class CauseAgentWorkflow:
             "explanation": "本组全部高信心答对，没有足够错误证据生成错因候选。",
             "missingEvidence": ["真实错误、超时、蒙对或主动放弃证据"],
             "evidenceRefs": input_refs,
+            "quotaState": "not_charged",
         }
         self._attempts.insert_cause_candidate(
             session,
@@ -422,6 +465,7 @@ class CauseAgentWorkflow:
         input_fingerprint: str,
         followup_round: int,
         command_id: str,
+        reservation: FeatureUsageReservation,
         prior_evidence: dict[str, object] | None = None,
     ) -> dict[str, object]:
         payload: dict[str, object] = {
@@ -442,6 +486,9 @@ class CauseAgentWorkflow:
             "promptVersion": self._provider.prompt_version,
             "schemaVersion": self._provider.schema_version,
             "entitlementPolicyVersion": ENTITLEMENT_POLICY_VERSION,
+            "reservationId": str(reservation.reservation_id),
+            "reservationKey": reservation.reservation_key,
+            "reservationSource": reservation.source,
         }
         if prior_evidence is not None:
             payload["priorEvidence"] = prior_evidence

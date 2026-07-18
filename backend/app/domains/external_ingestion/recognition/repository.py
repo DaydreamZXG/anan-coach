@@ -29,10 +29,13 @@ class RecognitionRepositoryPort(Protocol):
 
     def insert(self, revision: RecognitionRevision) -> None: ...
 
+    def record_external_operation(self, *, values: dict[str, object]) -> None: ...
+
 
 class SQLRecognitionRepository:
-    def __init__(self, session: Session) -> None:
+    def __init__(self, session: Session, *, environment: str = "local") -> None:
         self._session = session
+        self._environment = environment
 
     def lock(self, *, key: str) -> None:
         self._session.execute(
@@ -46,7 +49,7 @@ class SQLRecognitionRepository:
         row = self._session.execute(
             text(
                 """
-                select artifact_version_id, owner_user_id, state, object_ref,
+                select artifact_version_id, owner_user_id, state, source_kind, object_ref,
                        mime_type, content_sha256, page_count
                 from learning.source_artifact_versions
                 where artifact_version_id = :artifact_version_id
@@ -156,6 +159,82 @@ class SQLRecognitionRepository:
                 ),
                 "confirmed_at": revision.confirmed_at,
                 "created_at": revision.created_at,
+            },
+        )
+
+    def record_external_operation(self, *, values: dict[str, object]) -> None:
+        from app.domains.ai.governance.catalog import scenario_policy
+        from app.domains.ai.governance.repository import AIGovernanceReleaseError
+
+        scenario_key = str(values["scenario_key"])
+        operation = str(values["operation"])
+        policy = scenario_policy(scenario_key)  # type: ignore[arg-type]
+        deployment_id = None
+        evaluation_state = "local_unreleased"
+        if self._environment.strip().casefold() == "production":
+            deployment_id = self._session.execute(
+                text(
+                    """
+                    select deployment_id from ai_audit.scenario_deployments
+                    where scenario_key = :scenario_key
+                      and operation = :operation
+                      and provider = :provider
+                      and model = :model
+                      and prompt_version = :prompt_version
+                      and schema_version = :schema_version
+                      and evaluation_suite_version = :evaluation_suite_version
+                      and not exists (
+                        select 1 from ai_audit.scenario_deployments successor
+                        where successor.supersedes_deployment_id =
+                              scenario_deployments.deployment_id
+                      )
+                    order by published_at desc
+                    limit 1
+                    """
+                ),
+                {
+                    **values,
+                    "evaluation_suite_version": policy.evaluation_suite_version,
+                },
+            ).scalar_one_or_none()
+            if deployment_id is None:
+                raise AIGovernanceReleaseError(
+                    "No evaluated production deployment matches this recognition operation"
+                )
+            evaluation_state = "passed"
+        self._session.execute(
+            text(
+                """
+                insert into ai_audit.external_ai_operation_ledger (
+                  operation_id, operation_key, user_id, scenario_key, operation,
+                  responding_agent, impact_level, model_tier, deployment_id,
+                  evaluation_state, provider, provider_release, prompt_version,
+                  model, schema_version, price_version, billing_unit, unit_count,
+                  unit_price_cny, total_cost_cny, status, input_fingerprint,
+                  output_fingerprint, evidence_refs, reservation_id,
+                  reservation_source, latency_ms, error_code, completed_at
+                ) values (
+                  cast(:operation_id as uuid), :operation_key,
+                  cast(:user_id as uuid), :scenario_key, :operation,
+                  :responding_agent, :impact_level, :model_tier,
+                  cast(:deployment_id as uuid), :evaluation_state, :provider,
+                  :provider_release, :prompt_version, :model, :schema_version,
+                  :price_version, :billing_unit, :unit_count, :unit_price_cny,
+                  round(:unit_count * :unit_price_cny, 8), 'succeeded',
+                  :input_fingerprint, :output_fingerprint,
+                  cast(:evidence_refs as jsonb), null, null, :latency_ms,
+                  null, :completed_at
+                )
+                on conflict (operation_key) do nothing
+                """
+            ),
+            {
+                **values,
+                "responding_agent": policy.responding_agent,
+                "impact_level": policy.impact_level,
+                "model_tier": policy.model_tier,
+                "deployment_id": deployment_id,
+                "evaluation_state": evaluation_state,
             },
         )
 

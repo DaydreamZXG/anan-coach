@@ -4,6 +4,7 @@ import type {
   EssayReviewResponse,
 } from "../../api/essay-intelligence";
 import type { LearningMediaApi } from "../../api/learning-media";
+import type { EssayHandwritingApi } from "../../api/essay-handwriting";
 import type { EssayWriterContext, EssayTaskStage } from "./capabilities";
 import type { EssayClosureDraft } from "./closure-store";
 import type { PendingEssayDraftingSubmission } from "./drafting";
@@ -14,6 +15,7 @@ import type { ReflectionVoiceUploadCoordinator } from "../learning-media/upload-
 export interface EssayTaskPageRuntime {
   api: EssayIntelligenceApi | null;
   learningMediaApi: LearningMediaApi | null;
+  essayHandwritingApi: EssayHandwritingApi | null;
   voiceUploadCoordinator: ReflectionVoiceUploadCoordinator | null;
   voiceRecorder: WechatVoiceRecorder | null;
   voicePreview: WechatVoicePreview | null;
@@ -46,6 +48,7 @@ export function createEssayTaskPageRuntime(): EssayTaskPageRuntime {
   return {
     api: null,
     learningMediaApi: null,
+    essayHandwritingApi: null,
     voiceUploadCoordinator: null,
     voiceRecorder: null,
     voicePreview: null,
@@ -126,6 +129,7 @@ export class EssayTaskPageRuntimeRegistry<TPage extends object> {
     runtime.pageVisible = false;
     runtime.api = null;
     runtime.learningMediaApi = null;
+    runtime.essayHandwritingApi = null;
     runtime.voiceRecorder?.dispose();
     runtime.voicePreview?.dispose();
     runtime.voiceUploadCoordinator = null;

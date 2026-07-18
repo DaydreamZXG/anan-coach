@@ -8,7 +8,9 @@ import {
   type MockExamLearnerQuestion,
   type MockExamLearnerSession,
   type MockExamSubmitReceipt,
+  type MockExamTrajectoryCommand,
 } from "../../api/mock-exam";
+import { routes } from "../../app/navigation/routes";
 import { TaskHelpApi, type TaskHelpCommand } from "../../api/task-help";
 import { currentAuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";
@@ -28,14 +30,19 @@ import {
 import { reduceTaskRuntime } from "../../task-runtime/state/runtime";
 import { taskToolPolicy, type TaskToolPolicy } from "../../task-runtime/tool-policy/index";
 import {
+  appendPendingMockTrajectory,
   clearPendingMockCheckpoint,
   clearPendingMockSubmit,
   loadPendingMockCheckpoint,
   loadPendingMockSubmit,
+  loadPendingMockTrajectory,
+  removePendingMockTrajectory,
+  replacePendingMockTrajectory,
   storePendingMockCheckpoint,
   storePendingMockSubmit,
   type PendingMockCheckpoint,
   type PendingMockSubmit,
+  type PendingMockTrajectoryEvent,
 } from "./pending-store";
 import {
   buildMockCheckpointCommand,
@@ -84,6 +91,7 @@ interface MockExamPageData {
   syncLabel: string;
   answerSheetItems: MockAnswerSheetItem[];
   answerSheetOpen: boolean;
+  draftOpen: boolean;
   materialOpen: boolean;
   toolsOpen: boolean;
   helpOpen: boolean;
@@ -120,6 +128,7 @@ interface MockExamPageCustom {
   nextQuestion(): void;
   selectQuestion(event: WechatMiniprogram.BaseEvent): void;
   toggleAnswerSheet(): void;
+  toggleDraft(): void;
   toggleMaterial(): void;
   updateMaterialPosition(
     event: WechatMiniprogram.CustomEvent<{ position: MaterialReaderPosition }>,
@@ -141,6 +150,7 @@ interface MockExamPageCustom {
   submitDispute(): Promise<void>;
   submitExam(): Promise<void>;
   returnToday(): void;
+  openMockReport(): void;
   noop(): void;
 }
 
@@ -160,6 +170,8 @@ interface PageRuntime {
   mutationVersion: number;
   dirtyQuestionIds: Set<string>;
   savePromise?: Promise<boolean>;
+  trajectoryPromise?: Promise<boolean>;
+  nextTrajectoryEventSeq: number;
   submitInFlight: boolean;
 }
 
@@ -191,6 +203,7 @@ Page<MockExamPageData, MockExamPageCustom>({
     syncLabel: "连接服务端",
     answerSheetItems: [],
     answerSheetOpen: false,
+    draftOpen: false,
     materialOpen: false,
     toolsOpen: false,
     helpOpen: false,
@@ -250,6 +263,7 @@ Page<MockExamPageData, MockExamPageCustom>({
       disposed: false,
       mutationVersion: 0,
       dirtyQuestionIds: new Set<string>(),
+      nextTrajectoryEventSeq: 1,
       submitInFlight: false,
     });
     void this.loadExam();
@@ -266,6 +280,10 @@ Page<MockExamPageData, MockExamPageCustom>({
     if (runtime.session && runtime.task && this.data.status === "ready") {
       refreshClock(this, runtime);
       startClock(this, runtime);
+      queueTrajectory(runtime, "resumed", null, {
+        currentQuestionId: currentQuestionId(runtime),
+        remainingSeconds: remainingMockSeconds(runtime.session.deadlineAt, Date.now()),
+      });
     }
   },
 
@@ -275,6 +293,12 @@ Page<MockExamPageData, MockExamPageCustom>({
     runtime.visible = false;
     stopClock(runtime);
     clearAutosave(runtime);
+    if (runtime.session && runtime.task && this.data.status === "ready") {
+      queueTrajectory(runtime, "left", null, {
+        currentQuestionId: currentQuestionId(runtime),
+        answeredCount: countMockAnswers(runtime.task).answered,
+      });
+    }
     void saveCheckpoint(this, runtime);
   },
 
@@ -306,7 +330,9 @@ Page<MockExamPageData, MockExamPageCustom>({
       }
       runtime.session = session;
       runtime.task = runtimeFromMockSession(session, Date.now());
+      initializeTrajectory(runtime, session);
       applyRuntimeToPage(this, runtime, "已恢复服务端断点");
+      queueTrajectory(runtime, "visited", currentQuestionId(runtime), { entry: "session_load" });
 
       const pendingSubmit = loadPendingMockSubmit(runtime.ownerUserId, session.sessionId);
       if (pendingSubmit) {
@@ -357,7 +383,12 @@ Page<MockExamPageData, MockExamPageCustom>({
   },
 
   selectOption(event) {
-    mutateTask(this, { type: "ANSWER_SELECTED", optionIds: [dataset(event, "optionid")] });
+    const optionId = dataset(event, "optionid");
+    mutateTask(this, { type: "ANSWER_SELECTED", optionIds: [optionId] });
+    const runtime = requiredRuntime(this);
+    queueTrajectory(runtime, "answer_changed", currentQuestionId(runtime), {
+      selectedOptionId: optionId,
+    });
   },
 
   toggleEliminated(event) {
@@ -369,11 +400,17 @@ Page<MockExamPageData, MockExamPageCustom>({
       optionId,
       eliminated: !current.eliminatedOptionIds.includes(optionId),
     });
+    queueTrajectory(runtime, "answer_changed", currentQuestionId(runtime), {
+      interaction: "option_elimination",
+      optionId,
+    });
   },
 
   toggleMarked() {
     const runtime = requiredRuntime(this);
-    mutateTask(this, { type: "QUESTION_MARKED", marked: !currentAttempt(runtime).marked });
+    const marked = !currentAttempt(runtime).marked;
+    mutateTask(this, { type: "QUESTION_MARKED", marked });
+    queueTrajectory(runtime, "mark_changed", currentQuestionId(runtime), { marked });
   },
 
   inputDraft(event) {
@@ -391,17 +428,34 @@ Page<MockExamPageData, MockExamPageCustom>({
   selectQuestion(event) {
     const runtime = requiredRuntime(this);
     const index = Number(dataset(event, "index"));
+    const previousQuestionId = currentQuestionId(runtime);
+    const skipped = currentAttempt(runtime).selectedOptionIds.length === 0;
     markCurrentQuestionDirty(runtime);
     runtime.task = reduceTaskRuntime(requiredTask(runtime), { type: "QUESTION_CHANGED", index });
     runtime.mutationVersion += 1;
     this.setData({ answerSheetOpen: false });
     applyRuntimeToPage(this, runtime, "待保存");
     scheduleAutosave(this, runtime);
+    if (skipped) {
+      queueTrajectory(runtime, "skipped", previousQuestionId, { destinationIndex: index });
+    }
+    queueTrajectory(runtime, "visited", currentQuestionId(runtime), { source: "answer_sheet" });
   },
 
   toggleAnswerSheet() {
     this.setData({
       answerSheetOpen: !this.data.answerSheetOpen,
+      draftOpen: false,
+      toolsOpen: false,
+      helpOpen: false,
+    });
+  },
+
+  toggleDraft() {
+    if (this.data.status !== "ready" || !this.data.question) return;
+    this.setData({
+      draftOpen: !this.data.draftOpen,
+      answerSheetOpen: false,
       toolsOpen: false,
       helpOpen: false,
     });
@@ -447,7 +501,12 @@ Page<MockExamPageData, MockExamPageCustom>({
   },
 
   toggleTools() {
-    this.setData({ toolsOpen: !this.data.toolsOpen, answerSheetOpen: false, helpOpen: false });
+    this.setData({
+      toolsOpen: !this.data.toolsOpen,
+      answerSheetOpen: false,
+      draftOpen: false,
+      helpOpen: false,
+    });
   },
 
   openFocusedTool() {
@@ -455,7 +514,7 @@ Page<MockExamPageData, MockExamPageCustom>({
   },
 
   openHelp() {
-    this.setData({ helpOpen: true, toolsOpen: false, answerSheetOpen: false });
+    this.setData({ helpOpen: true, toolsOpen: false, answerSheetOpen: false, draftOpen: false });
   },
 
   closeHelp() {
@@ -593,6 +652,16 @@ Page<MockExamPageData, MockExamPageCustom>({
     void wx.switchTab({ url: "/pages/today/index" });
   },
 
+  openMockReport() {
+    const runtime = runtimes.get(this);
+    const sessionId = runtime?.session?.sessionId ?? runtime?.requestedSessionId;
+    void wx.navigateTo({
+      url: sessionId
+        ? `${routes.mockReport}?sessionId=${encodeURIComponent(sessionId)}`
+        : routes.mockReport,
+    });
+  },
+
   noop() {},
 });
 
@@ -614,11 +683,15 @@ function moveQuestion(page: MockExamPageInstance, delta: number): void {
   const task = requiredTask(runtime);
   const index = task.currentQuestionIndex + delta;
   if (index < 0 || index >= task.questionOrder.length) return;
+  const previousQuestionId = currentQuestionId(runtime);
+  const skipped = currentAttempt(runtime).selectedOptionIds.length === 0;
   markCurrentQuestionDirty(runtime);
   runtime.task = reduceTaskRuntime(task, { type: "QUESTION_CHANGED", index });
   runtime.mutationVersion += 1;
   applyRuntimeToPage(page, runtime, "待保存");
   scheduleAutosave(page, runtime);
+  if (skipped) queueTrajectory(runtime, "skipped", previousQuestionId, { direction: delta });
+  queueTrajectory(runtime, "visited", currentQuestionId(runtime), { direction: delta });
 }
 
 function applyRuntimeToPage(
@@ -848,6 +921,9 @@ async function executeSubmit(
       }
     }
     if (runtimes.get(page) !== runtime) return;
+    if (!(await flushTrajectory(runtime))) {
+      throw new Error("考试轨迹尚未得到服务端确认，请保持网络后重试交卷。");
+    }
     if (pending)
       runtime.task = runtimeWithPendingMockSubmit(requiredTask(runtime), pending.command);
     const session = requiredSession(runtime);
@@ -987,6 +1063,111 @@ function currentAttempt(runtime: PageRuntime) {
   const attempt = questionId ? task.attempts[questionId] : undefined;
   if (!attempt) throw new Error("Current mock attempt is unavailable");
   return attempt;
+}
+
+function currentQuestionId(runtime: PageRuntime): string {
+  const task = requiredTask(runtime);
+  const questionId = task.questionOrder[task.currentQuestionIndex];
+  if (!questionId) throw new Error("Current mock question is unavailable");
+  return questionId;
+}
+
+function initializeTrajectory(runtime: PageRuntime, session: MockExamLearnerSession): void {
+  const pending = loadPendingMockTrajectory(runtime.ownerUserId, session.sessionId);
+  runtime.nextTrajectoryEventSeq = Math.max(
+    session.nextTrajectoryEventSeq,
+    ...pending.map((item) => item.command.eventSeq + 1),
+  );
+  if (pending.length > 0) void flushTrajectory(runtime);
+}
+
+function queueTrajectory(
+  runtime: PageRuntime,
+  eventType: MockExamTrajectoryCommand["eventType"],
+  questionId: string | null,
+  payload: MockExamTrajectoryCommand["payload"],
+): void {
+  const session = runtime.session;
+  if (!session || session.status !== "assigned" || runtime.disposed) return;
+  const eventSeq = runtime.nextTrajectoryEventSeq;
+  runtime.nextTrajectoryEventSeq += 1;
+  const now = new Date().toISOString();
+  const pending: PendingMockTrajectoryEvent = {
+    ownerUserId: runtime.ownerUserId,
+    sessionId: session.sessionId,
+    idempotencyKey: `mock-trajectory:${session.sessionId}:${String(eventSeq)}`,
+    command: {
+      eventSeq,
+      eventType,
+      questionId,
+      clientOccurredAt: now,
+      sessionRevision: session.revision,
+      payload,
+    },
+    storedAt: now,
+  };
+  appendPendingMockTrajectory(pending);
+  void flushTrajectory(runtime);
+}
+
+function flushTrajectory(runtime: PageRuntime): Promise<boolean> {
+  if (runtime.trajectoryPromise) return runtime.trajectoryPromise;
+  const operation = performTrajectoryFlush(runtime);
+  runtime.trajectoryPromise = operation;
+  void operation.finally(() => {
+    if (runtime.trajectoryPromise === operation) delete runtime.trajectoryPromise;
+  });
+  return operation;
+}
+
+async function performTrajectoryFlush(runtime: PageRuntime): Promise<boolean> {
+  const session = runtime.session;
+  if (!session) return true;
+  let rebased = false;
+  while (!runtime.disposed) {
+    const pending = loadPendingMockTrajectory(runtime.ownerUserId, session.sessionId);
+    const item = pending.at(0);
+    if (!item) return true;
+    try {
+      await runtime.api.recordTrajectory(item.sessionId, item.command, item.idempotencyKey);
+      removePendingMockTrajectory(runtime.ownerUserId, item.sessionId, item.idempotencyKey);
+    } catch (error) {
+      if (!(error instanceof ApiClientError) || error.statusCode !== 409 || rebased) return false;
+      try {
+        const latest = await runtime.api.getSession(session.sessionId);
+        if (latest.status !== "assigned") {
+          replacePendingMockTrajectory(runtime.ownerUserId, session.sessionId, []);
+          return true;
+        }
+        runtime.session = latest;
+        rebaseTrajectory(runtime, latest.nextTrajectoryEventSeq);
+        rebased = true;
+      } catch {
+        return false;
+      }
+    }
+  }
+  return false;
+}
+
+function rebaseTrajectory(runtime: PageRuntime, firstEventSeq: number): void {
+  const session = requiredSession(runtime);
+  const pending = loadPendingMockTrajectory(runtime.ownerUserId, session.sessionId).map(
+    (item, index): PendingMockTrajectoryEvent => {
+      const eventSeq = firstEventSeq + index;
+      return {
+        ...item,
+        idempotencyKey: `mock-trajectory:${session.sessionId}:${String(eventSeq)}:rebase`,
+        command: {
+          ...item.command,
+          eventSeq,
+          sessionRevision: session.revision,
+        },
+      };
+    },
+  );
+  replacePendingMockTrajectory(runtime.ownerUserId, session.sessionId, pending);
+  runtime.nextTrajectoryEventSeq = firstEventSeq + pending.length;
 }
 
 function markCurrentQuestionDirty(runtime: PageRuntime): void {

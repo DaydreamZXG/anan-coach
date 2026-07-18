@@ -1,17 +1,27 @@
 @import "design-system/tokens/index.wxss";
 @import "design-system/primitives/index.wxss";
+@import "design-system/stage9/screen.wxss";
+@import "design-system/responsive/index.wxss";
 
 page {
   min-height: 100%;
   background: var(--color-canvas);
   color: var(--color-ink);
   font-family: var(--font-family-reading);
+  font-synthesis: none;
   font-size: 28rpx;
 }
 
 .type-data {
   font-family: var(--font-family-data);
   font-variant-numeric: tabular-nums;
+}
+
+button,
+input,
+textarea {
+  font-family: var(--font-family-ui);
+  font-synthesis: none;
 }
 
 button::after {

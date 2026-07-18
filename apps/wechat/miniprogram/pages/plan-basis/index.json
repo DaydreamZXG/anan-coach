@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "计划依据",
+  "backgroundColor": "#EDF3F1",
+  "usingComponents": {
+    "state-view": "../../design-system/primitives/state-view/index"
+  }
+}

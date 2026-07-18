@@ -1,8 +1,8 @@
 <view class="page community-page">
   <view class="community-hero">
-    <view class="hero-kicker">结构确认 · C22</view>
-    <view class="hero-title">AI 只给候选，你来定稿</view>
-    <view class="hero-copy">逐项编辑识别信号、步骤、适用范围与边界。确认会生成不可变版本，效果证据只属于对应版本。</view>
+    <view class="hero-kicker">确认方法结构</view>
+    <view class="hero-title">一套方法，必须说清适用和不适用</view>
+    <view class="hero-copy">社区内容按问题、步骤、条件、反例和验证证据统一表达。</view>
     <view class="privacy-strip">
       <view class="privacy-dot"></view>
       <view>当前状态：{{cardStateLabel || '读取中'}}。未经作者确认的候选不能发布，也不会成为岸岸的学习事实。</view>
@@ -11,6 +11,7 @@
 
   <state-view
     wx:if="{{pageState !== 'default'}}"
+    custom-class="community-state-view"
     state="{{pageState}}"
     title="{{stateTitle}}"
     description="{{stateDescription}}"
@@ -53,18 +54,18 @@
         </view>
       </view>
       <view wx:if="{{formMessage}}" class="warning-note">{{formMessage}}</view>
-      <button class="action-button" disabled="{{interactionLocked}}" bindtap="confirmStructure">确认并生成不可变版本</button>
-      <button class="action-button secondary-button" disabled="{{interactionLocked || !confirmedVersionId || !canPublish}}" bindtap="submitReview">申请五项检查</button>
+      <button class="action-button {{interactionLocked ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked}}" bindtap="confirmStructure">确认并生成不可变版本</button>
+      <button class="action-button secondary-button {{interactionLocked || !confirmedVersionId || !canPublish ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked || !confirmedVersionId || !canPublish}}" bindtap="submitReview">申请五项检查</button>
     </view>
 
     <view class="community-section review-checks">
       <view class="section-label">公开门槛</view>
       <view class="section-title">固定五项检查，一个都不能跳过</view>
-      <view class="check-row"><text>01</text><text>重复内容</text></view>
-      <view class="check-row"><text>02</text><text>版权与权利</text></view>
-      <view class="check-row"><text>03</text><text>内容安全</text></view>
-      <view class="check-row"><text>04</text><text>知识正确性</text></view>
-      <view class="check-row"><text>05</text><text>方法与答案一致性</text></view>
+      <view class="check-row"><text class="check-row__number">01</text><text>重复内容</text></view>
+      <view class="check-row"><text class="check-row__number">02</text><text>版权与权利</text></view>
+      <view class="check-row"><text class="check-row__number">03</text><text>内容安全</text></view>
+      <view class="check-row"><text class="check-row__number">04</text><text>知识正确性</text></view>
+      <view class="check-row"><text class="check-row__number">05</text><text>方法与答案一致性</text></view>
       <view wx:if="{{reviewMessage}}" class="success-note">{{reviewMessage}}</view>
     </view>
   </block>

@@ -1,14 +1,16 @@
-<view class="page position-page position-search-page">
-  <view class="eyebrow">D02 · 资格约束搜索</view>
-  <view class="page-title">查找当前规则下的岗位</view>
-  <view class="page-subtitle">服务端先应用你的资格档案，再按关键词与地区缩小范围；搜索条件会在本机按账户恢复。</view>
+<view class="s9-page position-page position-search-page">
+  <view class="s9-hero">
+    <view class="s9-kicker">岗位筛选</view>
+    <view class="s9-title">先筛能报的，再看值不值得冲</view>
+    <view class="s9-subtitle">资格档案先排除不符合项，再按关键词和地区缩小范围。</view>
+  </view>
 
   <view class="filter-card">
-    <view class="search-input"><text>⌕</text><input value="{{state.filters.query}}" placeholder="部门、职位名称或职位代码" confirm-type="search" bindinput="inputQuery" bindconfirm="search" /></view>
+    <view class="search-input"><text>⌕</text><input class="search-input__control" value="{{state.filters.query}}" placeholder="部门、职位名称或职位代码" confirm-type="search" bindinput="inputQuery" bindconfirm="search" /></view>
     <view class="filter-grid">
-      <view><text>考试年度</text><input type="number" maxlength="4" value="{{state.filters.examYear}}" placeholder="当前发布" bindinput="inputExamYear" /></view>
-      <view><text>省份</text><input value="{{state.filters.region}}" placeholder="不限" bindinput="inputRegion" /></view>
-      <view><text>城市</text><input value="{{state.filters.city}}" placeholder="不限" bindinput="inputCity" /></view>
+      <view class="filter-grid__item"><text class="filter-grid__label">考试年度</text><input class="filter-grid__control" type="number" maxlength="4" value="{{state.filters.examYear}}" placeholder="当前发布" bindinput="inputExamYear" /></view>
+      <view class="filter-grid__item"><text class="filter-grid__label">省份</text><input class="filter-grid__control" value="{{state.filters.region}}" placeholder="不限" bindinput="inputRegion" /></view>
+      <view class="filter-grid__item"><text class="filter-grid__label">城市</text><input class="filter-grid__control" value="{{state.filters.city}}" placeholder="不限" bindinput="inputCity" /></view>
     </view>
     <view class="filter-actions">
       <ui-button label="清除" variant="secondary" bind:action="clearFilters" />
@@ -62,14 +64,16 @@
       <text class="delivery-strip__request">Request ID · {{state.delivery.requestId}}</text>
     </view>
     <view class="section-heading"><view class="section-title">筛选结果</view><view class="section-meta">已加载 {{state.items.length}} 个</view></view>
+    <view class="position-card-grid">
     <view wx:for="{{state.items}}" wx:key="positionId" class="position-card" data-id="{{item.positionId}}" bindtap="openPosition">
       <view class="position-card__top"><view class="status-pill status-pill--{{item.eligibilityTone}}">{{item.eligibilityLabel}}</view><view class="position-code">{{item.positionCode}}</view></view>
       <view class="position-card__name">{{item.name}}</view>
       <view class="position-card__department">{{item.departmentFull}}</view>
       <view class="position-card__meta">{{item.region}}{{item.city ? ' · ' + item.city : ''}} · 招 {{item.headcount}} 人</view>
-      <view class="position-card__metrics"><view><text>资格核验</text><strong>{{item.conditionSummary}}</strong></view><view><text>建议备考线</text><strong class="type-data">{{item.scoreLabel}}</strong></view></view>
+      <view class="position-card__metrics"><view class="position-metric"><text class="position-card__metric-label">资格核验</text><text class="position-card__metric-value">{{item.conditionSummary}}</text></view><view class="position-metric"><text class="position-card__metric-label">建议备考线</text><text class="position-card__metric-value type-data">{{item.scoreLabel}}</text></view></view>
       <view class="position-card__evidence">{{item.scoreEvidenceLabel}} · {{item.targetGeneratedLabel}} · {{item.targetValidityLabel}}</view>
       <view class="position-card__footer"><view class="compare-toggle {{item.comparisonSelected ? 'compare-toggle--selected' : ''}}" data-id="{{item.positionId}}" catchtap="toggleComparison">{{item.comparisonSelected ? '✓ 已加入对比' : '＋ 加入对比'}}</view><view>查看依据 →</view></view>
+    </view>
     </view>
     <view wx:if="{{state.paginationStatus === 'error'}}" class="inline-error"><view>{{state.paginationError.message}}</view><view class="inline-link" bindtap="loadMore">继续加载 · {{state.paginationError.requestId}}</view></view>
     <view wx:elif="{{state.paginationStatus === 'loading'}}" class="load-more">正在加载下一页…</view>
@@ -78,7 +82,7 @@
   </block>
 
   <view wx:if="{{state && state.selectedIds.length > 0}}" class="comparison-dock">
-    <view><strong>已选 {{state.selectedIds.length}} / 3</strong><text>{{state.selectedIds.length < 2 ? '再选 1 个开始对比' : '按同一档案版本重新核验'}}</text></view>
+    <view class="comparison-dock__summary"><text class="comparison-dock__title">已选 {{state.selectedIds.length}} / 3</text><text class="comparison-dock__note">{{state.selectedIds.length < 2 ? '再选 1 个开始对比' : '按同一档案版本重新核验'}}</text></view>
     <view class="comparison-dock__clear" bindtap="clearComparison">清空</view>
     <view class="comparison-dock__action {{state.selectedIds.length < 2 ? 'comparison-dock__action--disabled' : ''}}" bindtap="openComparison">对比</view>
   </view>

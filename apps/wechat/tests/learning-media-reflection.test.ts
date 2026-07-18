@@ -14,7 +14,10 @@ import {
   maximumReflectionVoiceTotalBytes,
   type ReflectionVoiceSegment,
 } from "../miniprogram/features/learning-media/contracts";
-import { ensureRecordPermission } from "../miniprogram/features/learning-media/platform";
+import {
+  ensureRecordPermission,
+  persistRecordedVoice,
+} from "../miniprogram/features/learning-media/platform";
 import {
   LearningMediaOperationCancelled,
   ReflectionVoiceUploadCoordinator,
@@ -407,6 +410,26 @@ describe("reflection learning-media local boundary", () => {
 
     await expect(ensureRecordPermission()).resolves.toBe("denied");
     expect(authorize).not.toHaveBeenCalled();
+  });
+
+  it("persists recorded voice drafts with FileSystemManager.copyFile", async () => {
+    const copyFile = vi.fn((options: WechatMiniprogram.CopyFileOption) => {
+      options.success?.({ errCode: 0, errMsg: "copyFile:ok" });
+    });
+    vi.stubGlobal("wx", {
+      env: { USER_DATA_PATH: "/user-data" },
+      getFileSystemManager: () => ({ copyFile }),
+    });
+
+    const localPath = await persistRecordedVoice("/tmp/reflection.mp3");
+
+    expect(copyFile).toHaveBeenCalledOnce();
+    const copyOptions = copyFile.mock.calls[0]?.[0];
+    expect(copyOptions?.srcPath).toBe("/tmp/reflection.mp3");
+    expect(copyOptions?.destPath).toMatch(
+      /^\/user-data\/anan-reflection-voice-\d+-[a-z0-9]+\.mp3$/u,
+    );
+    expect(localPath).toBe(copyOptions?.destPath);
   });
 
   it("PUTs exact bytes with only the server-required headers", async () => {

@@ -1,8 +1,8 @@
 <view class="page community-page">
   <view class="community-hero">
-    <view class="hero-kicker">方法共创 · C21</view>
-    <view class="hero-title">把你的方法先说清楚</view>
-    <view class="hero-copy">先保存为仅你可见的草稿。岸岸只整理候选结构，不替你确认事实，也不会用来训练模型。</view>
+    <view class="hero-kicker">创建方法草稿</view>
+    <view class="hero-title">先把你的方法说清楚，再决定要不要分享</view>
+    <view class="hero-copy">草稿默认私有；系统只抽取方法结构，不公开原始错题和资料。</view>
     <view class="privacy-strip">
       <view class="privacy-dot"></view>
       <view>原始文字、语音转写、手写识别与复盘内容保持私有；送审后公开的只有你确认过的方法表达。</view>
@@ -11,6 +11,7 @@
 
   <state-view
     wx:if="{{pageState !== 'default'}}"
+    custom-class="community-state-view"
     state="{{pageState}}"
     title="{{stateTitle}}"
     description="{{stateDescription}}"
@@ -63,7 +64,7 @@
       />
       <view class="boundary-note">保存后仍是私有草稿。你必须逐项编辑并确认 AI 候选，之后才能申请五项检查。</view>
       <view wx:if="{{formMessage}}" class="warning-note">{{formMessage}}</view>
-      <button class="action-button" loading="{{submitting}}" disabled="{{submitting}}" bindtap="submitDraft">保存私有草稿</button>
+      <button class="action-button {{submitting ? 'action-button--disabled' : ''}}" loading="{{submitting}}" disabled="{{submitting}}" bindtap="submitDraft">保存私有草稿</button>
     </view>
   </block>
 </view>

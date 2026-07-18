@@ -82,6 +82,7 @@ class MatchingService:
         *,
         owner_user_id: UUID,
         recognition: RecognitionRevision,
+        question_unit_id: str,
         query: MatchQuery,
         idempotency_key: str,
     ) -> tuple[ContentMatchVersion, MatchEvaluation]:
@@ -91,6 +92,7 @@ class MatchingService:
             {
                 "recognitionRevisionId": str(recognition.recognition_revision_id),
                 "recognitionOutputSha256": recognition.output_sha256,
+                "questionUnitId": question_unit_id,
                 "policyVersion": self._policy.policy_version,
                 "query": query.model_dump(by_alias=True, mode="json"),
             }
@@ -103,7 +105,8 @@ class MatchingService:
         )
         match_id = uuid5(
             NAMESPACE_URL,
-            f"content-match:{owner_user_id}:{recognition.recognition_revision_id}",
+            f"content-match:{owner_user_id}:{recognition.recognition_revision_id}:"
+            f"{question_unit_id}",
         )
         version_id = _command_id(owner_user_id, "evaluate", idempotency_key)
         existing = self._repository.version(content_match_version_id=version_id)
@@ -144,6 +147,7 @@ class MatchingService:
             contentMatchId=match_id,
             artifactVersionId=recognition.artifact_version_id,
             recognitionRevisionId=recognition.recognition_revision_id,
+            questionUnitId=question_unit_id,
             ownerUserId=owner_user_id,
             versionNo=1,
             state="candidate",
@@ -497,6 +501,7 @@ class MatchingService:
             contentMatchId=source.content_match_id,
             artifactVersionId=source.artifact_version_id,
             recognitionRevisionId=source.recognition_revision_id,
+            questionUnitId=source.question_unit_id,
             ownerUserId=owner_user_id,
             versionNo=head.version_no + 1,
             state=state,

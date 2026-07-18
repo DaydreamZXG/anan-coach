@@ -2,7 +2,8 @@ export type DataMode = "prototype" | "api";
 export type ReleaseChannel = "development" | "staging" | "production";
 
 export interface FontAssetConfiguration {
-  mapleMonoUrl: string | null;
+  mapleMonoCnRegularUrl: string | null;
+  mapleMonoCnBoldUrl: string | null;
   ownedHttpsOrigins: string[];
 }
 
@@ -11,16 +12,21 @@ export interface Environment {
   dataMode: DataMode;
   fontAssets: FontAssetConfiguration;
   releaseChannel: ReleaseChannel;
+  supportGroupQrImageUrl: string | null;
+  virtualPaymentEnabled: boolean;
 }
 
 export const environment: Environment = {
   apiBaseUrl: "https://kg.xingguoxian.cn",
   dataMode: "api",
   fontAssets: {
-    mapleMonoUrl: "https://kg.xingguoxian.cn/assets/fonts/maple-mono-data-v7.9.ttf",
+    mapleMonoCnRegularUrl: "https://kg.xingguoxian.cn/assets/fonts/maple-mono-cn-regular-v7.9.woff",
+    mapleMonoCnBoldUrl: "https://kg.xingguoxian.cn/assets/fonts/maple-mono-cn-bold-v7.9.woff",
     ownedHttpsOrigins: ["https://kg.xingguoxian.cn"],
   },
   releaseChannel: "development",
+  supportGroupQrImageUrl: null,
+  virtualPaymentEnabled: false,
 };
 
 export function configureForWechatEnvVersion(
@@ -30,9 +36,12 @@ export function configureForWechatEnvVersion(
     apiBaseUrl: environment.apiBaseUrl,
     dataMode: "api",
     fontAssets: {
-      mapleMonoUrl: environment.fontAssets.mapleMonoUrl,
+      mapleMonoCnRegularUrl: environment.fontAssets.mapleMonoCnRegularUrl,
+      mapleMonoCnBoldUrl: environment.fontAssets.mapleMonoCnBoldUrl,
       ownedHttpsOrigins: [...environment.fontAssets.ownedHttpsOrigins],
     },
+    supportGroupQrImageUrl: environment.supportGroupQrImageUrl,
+    virtualPaymentEnabled: environment.virtualPaymentEnabled,
     releaseChannel:
       envVersion === "release" ? "production" : envVersion === "trial" ? "staging" : "development",
   };

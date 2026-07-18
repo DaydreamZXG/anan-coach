@@ -21,6 +21,14 @@ interface IntentVisualHost {
   setData(patch: Partial<IntentVisualData>): void;
 }
 
+interface AnimationHost {
+  setData(patch: { frameOffsetPercent: number }): void;
+}
+
+type AnimationConfig =
+  | { frames: number; fps: number; playback: "loop"; holdFrame: null }
+  | { frames: number; fps: number; playback: "once-hold"; holdFrame: number };
+
 interface ActiveAnimation {
   timer: ReturnType<typeof setInterval>;
   frameIndex: number;
@@ -88,7 +96,11 @@ function syncIntentVisual(host: IntentVisualHost, registration: IntentVisualRegi
 }
 
 function startIntentAnimation(host: IntentVisualHost, intent: PackagedAnanIntent): void {
-  const config = ANAN_ANIMATIONS[intent];
+  startAnanAnimation(host, ANAN_ANIMATIONS[intent]);
+}
+
+export function startAnanAnimation(host: AnimationHost, config: AnimationConfig): void {
+  stopAnanAnimation(host);
   const active: ActiveAnimation = {
     frameIndex: 0,
     timer: setInterval(() => {
@@ -107,13 +119,17 @@ function startIntentAnimation(host: IntentVisualHost, intent: PackagedAnanIntent
       }
       current.frameIndex = config.holdFrame;
       host.setData({ frameOffsetPercent: (config.holdFrame * 100) / config.frames });
-      stopIntentAnimation(host, false);
+      stopAnanAnimation(host, false);
     }, 1000 / config.fps),
   };
   activeAnimations.set(host, active);
 }
 
 function stopIntentAnimation(host: IntentVisualHost, reset = true): void {
+  stopAnanAnimation(host, reset);
+}
+
+export function stopAnanAnimation(host: AnimationHost, reset = true): void {
   const active = activeAnimations.get(host);
   if (active) clearInterval(active.timer);
   activeAnimations.delete(host);

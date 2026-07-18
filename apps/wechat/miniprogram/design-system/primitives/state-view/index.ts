@@ -5,6 +5,7 @@ Component({
   options: {
     virtualHost: true,
   },
+  externalClasses: ["custom-class"],
   properties: {
     state: { type: String, value: defaultState },
     title: { type: String, value: "" },

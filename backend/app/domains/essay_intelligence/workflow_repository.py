@@ -249,13 +249,17 @@ class EssayReviewWorkflowRepository:
                 insert into learning.essay_answer_versions (
                   answer_version_id, command_id, attempt_id, user_id,
                   task_version_id, version_no, source_type, answer_text,
+                  source_artifact_version_id, recognition_revision_id,
                   answer_sha256, thinking_payload, thinking_sha256,
                   input_fingerprint, supersedes_answer_version_id, created_at
                 ) values (
                   cast(:answer_version_id as uuid), :command_id,
                   cast(:attempt_id as uuid), cast(:user_id as uuid),
                   cast(:task_version_id as uuid), :version_no, :source_type,
-                  :answer_text, :answer_sha256, cast(:thinking_payload as jsonb),
+                  :answer_text,
+                  cast(:source_artifact_version_id as uuid),
+                  cast(:recognition_revision_id as uuid),
+                  :answer_sha256, cast(:thinking_payload as jsonb),
                   :thinking_sha256, :input_fingerprint,
                   cast(:supersedes_answer_version_id as uuid), :created_at
                 )
@@ -370,6 +374,8 @@ class EssayReviewWorkflowRepository:
                   rubric.created_at as rubric_created_at,
                   answer.answer_version_id, answer.version_no as answer_version_no,
                   answer.source_type, answer.answer_text, answer.answer_sha256,
+                  answer.source_artifact_version_id,
+                  answer.recognition_revision_id,
                   answer.thinking_payload, answer.thinking_sha256,
                   answer.input_fingerprint as answer_fingerprint,
                   answer.supersedes_answer_version_id,
@@ -747,6 +753,8 @@ def answer_from_row(row: RowMapping) -> EssayAnswerVersion:
         task_version_id=row["task_version_id"],
         version_no=row["version_no"],
         source_type=row["source_type"],
+        source_artifact_version_id=row["source_artifact_version_id"],
+        recognition_revision_id=row["recognition_revision_id"],
         answer_text=row["answer_text"],
         answer_sha256=row["answer_sha256"],
         thinking=thinking,
@@ -929,6 +937,8 @@ def _context(
         task_version_id=row["task_version_id"],
         version_no=row["answer_version_no"],
         source_type=row["source_type"],
+        source_artifact_version_id=row["source_artifact_version_id"],
+        recognition_revision_id=row["recognition_revision_id"],
         answer_text=row["answer_text"],
         answer_sha256=row["answer_sha256"],
         thinking=(

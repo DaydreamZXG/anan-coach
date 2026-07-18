@@ -207,13 +207,17 @@ export function withEssayTaskContext(
   basedOnExecutionVersionId?: string,
 ): string {
   const [path, rawQuery = ""] = startUrl.split("?", 2);
-  const pairs = rawQuery
-    .split("&")
-    .filter(Boolean)
-    .filter((item) => {
-      const key = decodeURIComponent(item.split("=", 1)[0] ?? "");
-      return !["stage", "planTaskId", "basedOnExecutionVersionId"].includes(key);
-    });
+  const pairs: string[] = [];
+  try {
+    for (const item of rawQuery.split("&").filter(Boolean)) {
+      const [rawKey = "", rawValue = ""] = item.split("=", 2);
+      const key = decodeURIComponent(rawKey);
+      decodeURIComponent(rawValue);
+      if (!["stage", "planTaskId", "basedOnExecutionVersionId"].includes(key)) pairs.push(item);
+    }
+  } catch {
+    return startUrl;
+  }
   pairs.push(`stage=${encodeURIComponent(stage)}`, `planTaskId=${encodeURIComponent(planTaskId)}`);
   if (basedOnExecutionVersionId) {
     pairs.push(`basedOnExecutionVersionId=${encodeURIComponent(basedOnExecutionVersionId)}`);

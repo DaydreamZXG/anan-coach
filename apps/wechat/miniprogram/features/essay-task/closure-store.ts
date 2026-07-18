@@ -2,7 +2,7 @@ import type { EssayRewriteDraft, EssayTransferDraft } from "./closure";
 import type { EssayRewritePlanTaskCompletionCommandV2 } from "../../api/essay-intelligence";
 import type { EssayRewriteWriterContext, EssayTransferWriterContext } from "./capabilities";
 
-const schemaVersion = 1 as const;
+const schemaVersion = 2 as const;
 const storageRoot = `gongkao.essay.closure.v${String(schemaVersion)}`;
 const ttlMilliseconds = 7 * 24 * 60 * 60 * 1_000;
 

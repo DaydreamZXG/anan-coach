@@ -27,12 +27,18 @@ from app.domains.external_ingestion.schemas import (
     ReprocessRecognitionCommand,
     ImportWorkspace,
     ProcessImportCommand,
+    RequestImportAIAnswerCommand,
+    ConfirmImportAIAnswerCommand,
     StartRecognitionCommand,
 )
 from app.contracts.external_learning.models import RecognitionRevision
 from app.domains.external_ingestion.recognition.errors import RecognitionError
 from app.domains.external_ingestion.recognition.errors import ProcessorConfigurationError
 from app.domains.external_ingestion.recognition.repository import SQLRecognitionRepository
+from app.domains.external_ingestion.recognition.models import (
+    OMRExpectedItem,
+    OMRLayout,
+)
 from app.domains.external_ingestion.recognition_runtime import build_recognition_service
 from app.domains.external_ingestion.matching.errors import MatchingError
 from app.domains.external_ingestion.matching.runtime import (
@@ -44,6 +50,14 @@ from app.domains.external_ingestion.workspace import (
     ExternalImportWorkspaceService,
 )
 from app.domains.external_ingestion.upload.models import StartUploadRequest, UploadContractError
+from app.domains.external_ingestion.answering.models import ExternalAIAnswerVersion
+from app.domains.external_ingestion.answering.service import (
+    ExternalAIAnswerError,
+    ExternalAIAnswerService,
+)
+from app.domains.commerce.repository import CommerceQuotaExceededError
+from app.domains.learning_packages.composition import build_learning_package_service
+from app.domains.learning_packages.service import LearningPackageError
 from app.domains.external_ingestion.upload.repository import PostgresUploadRepository
 from app.domains.external_ingestion.upload.service import (
     UploadIdempotencyConflict,
@@ -172,6 +186,68 @@ def _import_service(session: Session) -> ExternalImportWorkspaceService:
             ),
         ).service,
     )
+
+
+@router.post(
+    "/imports/{import_id}/ai-answers",
+    response_model=PublicApiEnvelope[ExternalAIAnswerVersion],
+)
+def request_import_ai_answer(
+    import_id: UUID,
+    request: Request,
+    response: Response,
+    command: RequestImportAIAnswerCommand,
+    idempotency_key: IdempotencyKey,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> PublicApiEnvelope[ExternalAIAnswerVersion]:
+    try:
+        version = ExternalAIAnswerService(
+            session=session, settings=get_settings()
+        ).request(
+            owner_user_id=UUID(current_user.user_id),
+            import_id=import_id,
+            question_unit_id=command.question_unit_id,
+            learning_track=command.learning_track,
+            idempotency_key=idempotency_key,
+        )
+        session.commit()
+        return public_success_envelope(request=request, response=response, data=version)
+    except CommerceQuotaExceededError as exc:
+        session.rollback()
+        raise HTTPException(status_code=429, detail="本期 AI 拍题解析次数已用完。") from exc
+    except ExternalAIAnswerError as exc:
+        session.rollback()
+        raise HTTPException(status_code=exc.status_code, detail=exc.message) from exc
+
+
+@router.post(
+    "/ai-answers/{answer_version_id}/confirm",
+    response_model=PublicApiEnvelope[ExternalAIAnswerVersion],
+)
+def confirm_import_ai_answer(
+    answer_version_id: UUID,
+    request: Request,
+    response: Response,
+    command: ConfirmImportAIAnswerCommand,
+    idempotency_key: IdempotencyKey,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> PublicApiEnvelope[ExternalAIAnswerVersion]:
+    try:
+        version = ExternalAIAnswerService(
+            session=session, settings=get_settings()
+        ).confirm(
+            owner_user_id=UUID(current_user.user_id),
+            answer_version_id=answer_version_id,
+            expected_output_fingerprint=command.expected_output_fingerprint,
+            idempotency_key=idempotency_key,
+        )
+        session.commit()
+        return public_success_envelope(request=request, response=response, data=version)
+    except ExternalAIAnswerError as exc:
+        session.rollback()
+        raise HTTPException(status_code=exc.status_code, detail=exc.message) from exc
 
 
 @router.post(
@@ -335,6 +411,16 @@ def start_recognition(
             recognition_kind=command.recognition_kind,
             processor_route=processor_route,
             idempotency_key=idempotency_key,
+            omr_layout=(
+                _owned_omr_layout(
+                    session=session,
+                    settings=settings,
+                    user_id=current_user.user_id,
+                    packet_version_id=command.packet_version_id,
+                )
+                if command.packet_version_id is not None
+                else None
+            ),
         )
         session.commit()
         return public_success_envelope(request=request, response=response, data=result)
@@ -452,12 +538,69 @@ def reprocess_recognition(
             expected_revision_no=command.expected_revision_no,
             processor_route=command.processor_route,
             idempotency_key=idempotency_key,
+            omr_layout=(
+                _owned_omr_layout(
+                    session=session,
+                    settings=get_settings(),
+                    user_id=current_user.user_id,
+                    packet_version_id=command.packet_version_id,
+                )
+                if command.packet_version_id is not None
+                else None
+            ),
         )
         session.commit()
         return public_success_envelope(request=request, response=response, data=result)
     except RecognitionError as exc:
         session.rollback()
         raise HTTPException(status_code=409, detail=str(exc)) from exc
+
+
+def _owned_omr_layout(
+    *,
+    session: Session,
+    settings,
+    user_id: str,
+    packet_version_id: UUID | None,
+) -> OMRLayout:
+    if packet_version_id is None:
+        raise ProcessorConfigurationError("OMR packet version is required")
+    try:
+        packages = build_learning_package_service(session=session, settings=settings)
+        packet = packages.get_packet(
+            user_id=user_id,
+            packet_version_id=packet_version_id,
+        )
+        if packet.state != "ready":
+            raise ProcessorConfigurationError("OMR packet is not ready")
+        if any(item.track.value != "xingce" for item in packet.items):
+            raise ProcessorConfigurationError("OMR packet contains non-objective content")
+        render_request = packages.get_render_request(
+            user_id=user_id,
+            packet_version_id=packet_version_id,
+        )
+    except LearningPackageError as exc:
+        raise ProcessorConfigurationError("OMR packet manifest is unavailable") from exc
+    contents = {item.order_no: item for item in render_request.contents}
+    expected: list[OMRExpectedItem] = []
+    for item in sorted(packet.items, key=lambda value: value.order_no):
+        rendered = contents.get(item.order_no)
+        labels = tuple(
+            str(option.get("label", "")).strip().upper()
+            for option in (rendered.options if rendered is not None else ())
+        )
+        if (
+            rendered is None
+            or len(labels) < 2
+            or len(labels) > 8
+            or len(labels) != len(set(labels))
+            or any(label not in "ABCDEFGH" for label in labels)
+        ):
+            raise ProcessorConfigurationError(
+                "OMR packet does not contain a complete objective option layout"
+            )
+        expected.append(OMRExpectedItem(itemNo=item.order_no, optionLabels=labels))
+    return OMRLayout(packetVersionId=packet_version_id, items=tuple(expected))
 
 
 def _raise_upload_error(exc: Exception) -> None:

@@ -37,7 +37,11 @@ from app.domains.essay_intelligence.learning_schemas import (
     ReviewAcknowledgementPayload,
 )
 from app.domains.essay_intelligence.mastery.service import EssayMasteryService
-from app.domains.essay_intelligence.schemas import EssayFinding
+from app.domains.essay_intelligence.schemas import (
+    EssayAnswerVersion,
+    EssayFinding,
+    EssayThinkingSnapshot,
+)
 from app.domains.essay_intelligence.workflow_schemas import (
     EssayReviewIntentView,
     EssayReviewQuota,
@@ -635,6 +639,31 @@ def _progression_from_row(row: RowMapping | None) -> EssayWorkspaceProgression:
                 ],
             )
             if row["review_version_id"] is not None
+            else None
+        ),
+        current_answer=(
+            EssayAnswerVersion(
+                answer_version_id=row["answer_version_id"],
+                attempt_id=row["attempt_id"],
+                user_id=row["answer_user_id"],
+                task_version_id=row["answer_task_version_id"],
+                version_no=row["answer_version_no"],
+                source_type=row["answer_source_type"],
+                source_artifact_version_id=row["answer_source_artifact_version_id"],
+                recognition_revision_id=row["answer_recognition_revision_id"],
+                answer_text=row["answer_text"],
+                answer_sha256=row["answer_sha256"],
+                thinking=(
+                    EssayThinkingSnapshot.model_validate(row["thinking_payload"])
+                    if row["thinking_payload"] is not None
+                    else None
+                ),
+                thinking_sha256=row["thinking_sha256"],
+                input_fingerprint=row["answer_input_fingerprint"],
+                supersedes_answer_version_id=row["supersedes_answer_version_id"],
+                created_at=row["answer_created_at"],
+            )
+            if row["answer_version_id"] is not None
             else None
         ),
     )

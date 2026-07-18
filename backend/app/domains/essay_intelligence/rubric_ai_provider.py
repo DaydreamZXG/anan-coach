@@ -11,6 +11,11 @@ import httpx
 
 from app.core.config import Settings
 from app.domains.ai.model_cost import ModelTokenUsage
+from app.domains.ai.provider_contract import (
+    parse_provider_json_object,
+    provider_failure_is_retryable,
+    provider_request_audit,
+)
 from app.domains.essay_intelligence.grounded_provider import (
     validate_grounded_review_provider_security,
 )
@@ -149,8 +154,10 @@ class GuokaoRubricAIProvider:
             else RUBRIC_AI_CRITIC_PROMPT_VERSION
         )
         system_prompt = _GENERATOR_PROMPT if is_generator else _CRITIC_PROMPT
+        output_schema = schema_type.model_json_schema(by_alias=True)
         provider_input: dict[str, Any] = {
             "promptVersion": prompt_version,
+            "requiredOutputSchema": output_schema,
             "taskAndCompleteMaterial": document.model_dump(
                 by_alias=True,
                 mode="json",
@@ -181,7 +188,7 @@ class GuokaoRubricAIProvider:
                 "json_schema": {
                     "name": f"guokao_essay_rubric_{phase}",
                     "strict": True,
-                    "schema": schema_type.model_json_schema(by_alias=True),
+                    "schema": output_schema,
                 },
             },
         }
@@ -220,21 +227,29 @@ class GuokaoRubricAIProvider:
             raise RubricAIProviderError(
                 "rubric_provider_transport_failed",
                 "Rubric AI provider transport failed",
-                retryable=True,
+                retryable=provider_failure_is_retryable(
+                    idempotency_capability=(
+                        self._settings.ai_essay_review_provider_idempotency_capability
+                    )
+                ),
             ) from exc
         except httpx.HTTPStatusError as exc:
             raise RubricAIProviderError(
                 "rubric_provider_http_failed",
                 f"Rubric AI provider returned HTTP {exc.response.status_code}",
-                retryable=(
-                    exc.response.status_code == 429
-                    or exc.response.status_code >= 500
+                retryable=provider_failure_is_retryable(
+                    idempotency_capability=(
+                        self._settings.ai_essay_review_provider_idempotency_capability
+                    ),
+                    status_code=exc.response.status_code,
                 ),
             ) from exc
 
         try:
             envelope = response.json()
             usage = _parse_usage(envelope["usage"])
+            if envelope.get("model") is not None and envelope.get("model") != model:
+                raise ValueError("provider model drifted")
         except (KeyError, TypeError, ValueError) as exc:
             raise RubricAIProviderError(
                 "rubric_provider_response_invalid",
@@ -242,20 +257,19 @@ class GuokaoRubricAIProvider:
                 # A successful HTTP response can already be billable. Preserve the
                 # logical call and replay the exact provider idempotency key until
                 # usage can be audited instead of writing a false zero-cost failure.
-                retryable=True,
+                retryable=provider_failure_is_retryable(
+                    idempotency_capability=(
+                        self._settings.ai_essay_review_provider_idempotency_capability
+                    )
+                ),
             ) from exc
 
-        request_id_header = (
-            self._settings.ai_essay_review_provider_request_id_header.strip().casefold()
-        )
-        raw_request_id = (
-            response.headers.get(request_id_header) if request_id_header else None
-        )
-        request_id = raw_request_id.strip() if raw_request_id else None
-        provider_request_id_sha256 = (
-            sha256(request_id.encode("utf-8")).hexdigest()
-            if request_id is not None
-            else None
+        _, provider_request_id_sha256 = provider_request_audit(
+            response=response,
+            envelope=envelope,
+            configured_source=(
+                self._settings.ai_essay_review_provider_request_id_header
+            ),
         )
         try:
             content = envelope["choices"][0]["message"]["content"]
@@ -289,7 +303,13 @@ class GuokaoRubricAIProvider:
                 provider_request_id_sha256=provider_request_id_sha256,
             )
         try:
-            payload = schema_type.model_validate_json(content)
+            payload = schema_type.model_validate_json(
+                json.dumps(
+                    parse_provider_json_object(content),
+                    ensure_ascii=False,
+                    separators=(",", ":"),
+                )
+            )
         except ValueError as exc:
             raise RubricAIMeteredProviderError(
                 "rubric_provider_response_invalid",
@@ -302,7 +322,7 @@ class GuokaoRubricAIProvider:
 
         if (
             self._settings.environment.strip().casefold() == "production"
-            and not request_id
+            and not provider_request_id_sha256
         ):
             raise RubricAIMeteredProviderError(
                 "rubric_provider_request_id_missing",

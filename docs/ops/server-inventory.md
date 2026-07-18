@@ -49,16 +49,23 @@
   - Do not commit AccessKey values.
   - Runtime credentials belong in a root-only server env file or managed secret store.
 
-## AI Provider
+## AI Providers
 
-- Provider role: temporary Gemini reverse proxy for development and early production.
-- Base URL: `https://gemini-web2api.ergouapi.co/v1`
-- Chat completions path: `/chat/completions`
-- Initial model: `gemini-3.5-flash`
+- Text generation: OpenAI-compatible Gemini gateway at `https://gemini-web2api.ergouapi.co/v1`, chat completions path `/chat/completions`, model `gemini-3.5-flash`.
+- Text gateway contract verified on `2026-07-18`: JSON object/schema output and token usage are available; the response body `id` is the audit request identifier. Repeating the same `Idempotency-Key` creates a new call, so the runtime truthfully marks it `nonreplayable_audited` and does not automatically retry ambiguous failures.
+- Vision/OCR: operator Grok gateway at `http://34.96.236.81:8317/v1`, requested model `grok-4.5`, observed release `grok-4.5-build-free`. Plain HTTP is an explicit owner-approved exception restricted to that exact origin; it is not a general insecure-transport allowance.
+- Production routing boundary: Gemini handles companion, planning explanation,行测错因、申论评阅/rubric、社区候选和未命中题目估算解析；Grok handles printed OCR, handwriting OCR, OMR and score-report vision extraction.
+- Every production scenario still requires a passing golden evaluation and an active `ai_audit.scenario_deployments` record matching provider, model, prompt and schema before serving user traffic.
 - Secret handling:
-  - API key was provided in chat on `2026-07-03`; do not commit it.
-  - Store runtime key only in a root-only server env file or managed secret store.
-  - Prefer rotating the key before public production because it has appeared in chat history.
+  - Provider keys were supplied in chat; they are never stored in the repository or release artifact.
+  - Runtime keys belong only in `/etc/gongkao-dazi/api.env` with mode `0600` or a managed secret store.
+  - Rotate both keys before public launch because they have appeared in chat history.
+
+## Deferred Operations
+
+- Virtual payment: intentionally disabled on `2026-07-18`; payment secrets are absent and `gongkao-dazi-commerce-worker` remains stopped.
+- Database backups: intentionally deferred on `2026-07-18`; no production backup timer is enabled. Recovery guarantees must not be advertised until the target, encryption key, retention and restore rehearsal are complete.
+- Customer support: the mini-program exposes a truthful placeholder. A controlled group QR can be enabled later through runtime configuration; enterprise support administration remains closed until a real IdP is supplied.
 
 ## Apple Developer / App Store Connect
 

@@ -1,0 +1,51 @@
+# 岸岸小程序值班与客服手册
+
+本手册只描述生产操作。任何人不得在数据库里手工改订单、退款、权益、删除任务或支付通知状态。
+
+## 发布与回滚
+
+1. CI 必须通过 `scripts/full_verify.sh`，并生成带 SHA-256 的不可变制品。
+2. `ops/scripts/release_staging.sh` 上传制品，远端 `activate_release.sh` 核对摘要、建独立虚拟环境、执行 Alembic，再原子切换 `current` 软链接。
+3. `/ready` 只在数据库版本精确等于 `REQUIRED_DATABASE_REVISION` 且阶段 8 表存在时返回成功。
+4. 应用故障可执行 `ops/scripts/rollback_release.sh <release-id>` 切回上一个已验收制品。数据库迁移不做破坏性降级；本阶段迁移为向后兼容的增量迁移。
+
+## 支付与退款
+
+- **当前状态（2026-07-18）：停用。** 生产不得配置四个 `WECHAT_VIRTUAL_PAY_*` 密钥，`gongkao-dazi-commerce-worker` 必须保持 stopped；客户端会员页不得提供购买动作。以下内容仅在产品负责人重新启用支付后作为上线门禁执行。
+- 固定 30 天会员属于虚拟商品，生产只允许微信小程序虚拟支付。API 与商业对账 worker 必须同时配置 `WECHAT_VIRTUAL_PAY_ENV=0`、`WECHAT_VIRTUAL_PAY_OFFER_ID`、`WECHAT_VIRTUAL_PAY_APP_KEY`、`WECHAT_VIRTUAL_PAY_MESSAGE_TOKEN`、`WECHAT_VIRTUAL_PAY_MESSAGE_ENCODING_AES_KEY`；密钥不得提交到仓库。
+- 微信后台商品 ID 必须为 `founder_experience_30d`，价格必须为 6900 分。消息推送采用 JSON、安全模式，地址为 `https://kg.xingguoxian.cn/api/v2/commerce/wechat/virtual-payment/events`。
+- iOS 只允许现网虚拟支付，不支持沙箱。要求 iOS 15+、微信 8.0.68+，且小程序后台已配置简称。iOS 退款由用户在 App Store 发起；服务端仅根据 `founder-refund@v2` 返回退款建议，最终决定权属于 Apple。
+- `WechatPaymentOutcomeUncertain` 报警：确认商业对账 worker 存活和微信 xpay API 连通性。worker 必须按 `out_trade_no` 查询后推进状态，禁止重新创建同一逻辑订单。
+- `WechatRefundStale` 报警：按支付订单调用 xpay 查单核对退款结果；结果不明时保持原状态，不得再生成退款意图。
+- 客户端的 `requestVirtualPayment:ok` 不是到账依据，只有安全模式加密推送或 xpay 主动查单能发放权益。
+- 30 天“不合适”退款与成绩无关，客服不得要求提分证明、任务完成率或访谈。
+
+## 客服数据权限
+
+- **当前状态（2026-07-18）：群二维码占位。** 小程序只展示尚未开放的客服群入口；配置受控二维码后才能开放预览。企业 IdP 客服后台保持关闭。
+- 客服不得拥有生产数据库账号，也不得使用 `/internal/metrics` 的运维密钥查用户数据。
+- 只能使用企业 IdP 签发的 RS256 JWT，且 token 必须包含 `commerce_support` 角色。
+- 查订单必须提供 `X-Support-Ticket` 和 `X-Support-Reason`。接口只返回订单/退款状态、金额和时间，不返回 `user_id`、微信 OpenID、学习记录或付款时条款快照。
+- 每次读取都写入 `privacy.support_access_audit_events`，审计事件不可更改或删除。
+
+## 个人数据任务
+
+- `DataRightsJobFailed` 报警必须当班处理。先修复对象存储或数据库故障，再由任务系统按原 `job_key` 重试；不手工伪造 `completed`。
+- 删除任务会先冻结登录，再删对象文件、擦除原始表达/派生画像/AI 摘要，最后删身份映射和会话。只保留不含用户内容的法定账务和安全审计事实。
+
+## 备份与恢复
+
+- **当前状态（2026-07-18）：暂缓启用。** `gongkao-dazi-backup.timer` 必须保持 disabled/inactive；在启用前不宣称有生产恢复保障。
+- 重新启用时，systemd timer 每 6 小时执行 `backup.sh`：`pg_dump` 自容器格式、`pg_restore --list` 校验、age 收件人加密、SHA-256 摘要，保留 35 天。`BACKUP_DIRECTORY` 必须是已配置跨故障域复制的持久目录。
+- 恢复演练只能使用隔离数据库：设置 `RESTORE_DATABASE_URL`、`BACKUP_FILE`、`AGE_IDENTITY_FILE` 后执行 `restore_rehearsal.sh`。成功标准是摘要、解密、完整恢复和阶段 8 关键表查询全部通过。
+
+## AI 供应商发布
+
+- 文本生成统一使用 Gemini gateway，视觉/OCR 统一使用 Grok gateway；密钥只存在 root-only `/etc/gongkao-dazi/api.env`。
+- 每次改 provider、model、prompt 或 schema，必须先执行对应真实黄金集脚本：`release_recognition_ai.py`、`release_text_ai.py` 和 `release_external_question_answer_ai.py`。
+- 只有脚本实际调用供应商、通过合同/grounding/禁用语/成本门禁并写入匹配的 `ai_audit.scenario_deployments` 后，场景才允许接流量。不得手工插入 deployment 或用假响应发布。
+- Gemini gateway 不重放相同 `Idempotency-Key`；网络超时和不确定 5xx 不自动重试，须保留失败调用审计并由新命令显式重做。
+
+## 上线前外部门禁
+
+以下不能用代码伪造完成：微信虚拟支付权限与商品审核、iOS 虚拟支付权限、真实 Android/iOS 支付和退款演练、企业 IdP 角色配置、staging 主机及密钥、跨故障域备份目标与真实恢复演练、教培广告/退款文案律师审核。

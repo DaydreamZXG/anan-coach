@@ -91,7 +91,8 @@ class SQLContentMatchRepository:
             text(
                 """
                 select content_match_version_id, content_match_id,
-                       artifact_version_id, recognition_revision_id, owner_user_id,
+                       artifact_version_id, recognition_revision_id, question_unit_id,
+                       owner_user_id,
                        version_no, state, candidates, confirmed_content_version_id,
                        evaluation_reason,
                        matching_policy_version, input_fingerprint,
@@ -112,7 +113,8 @@ class SQLContentMatchRepository:
             text(
                 """
                 select content_match_version_id, content_match_id,
-                       artifact_version_id, recognition_revision_id, owner_user_id,
+                       artifact_version_id, recognition_revision_id, question_unit_id,
+                       owner_user_id,
                        version_no, state, candidates, confirmed_content_version_id,
                        evaluation_reason,
                        matching_policy_version, input_fingerprint,
@@ -139,14 +141,16 @@ class SQLContentMatchRepository:
                 """
                 insert into learning.content_match_versions (
                   content_match_version_id, content_match_id,
-                  artifact_version_id, recognition_revision_id, owner_user_id,
+                  artifact_version_id, recognition_revision_id, question_unit_id,
+                  owner_user_id,
                   version_no, state, candidates, confirmed_content_version_id,
                   evaluation_reason,
                   matching_policy_version, input_fingerprint,
                   supersedes_content_match_version_id, contract_payload, created_at
                 ) values (
                   :content_match_version_id, :content_match_id,
-                  :artifact_version_id, :recognition_revision_id, :owner_user_id,
+                  :artifact_version_id, :recognition_revision_id, :question_unit_id,
+                  :owner_user_id,
                   :version_no, :state, cast(:candidates as jsonb),
                   :confirmed_content_version_id, :evaluation_reason,
                   :matching_policy_version,
@@ -160,6 +164,7 @@ class SQLContentMatchRepository:
                 "content_match_id": str(version.content_match_id),
                 "artifact_version_id": str(version.artifact_version_id),
                 "recognition_revision_id": str(version.recognition_revision_id),
+                "question_unit_id": version.question_unit_id,
                 "owner_user_id": str(version.owner_user_id),
                 "version_no": version.version_no,
                 "state": version.state,
@@ -191,6 +196,7 @@ def _version(row) -> ContentMatchVersion:
         "contentMatchId": str(row["content_match_id"]),
         "artifactVersionId": str(row["artifact_version_id"]),
         "recognitionRevisionId": str(row["recognition_revision_id"]),
+        "questionUnitId": str(row["question_unit_id"]),
         "ownerUserId": str(row["owner_user_id"]),
         "versionNo": row["version_no"],
         "state": row["state"],

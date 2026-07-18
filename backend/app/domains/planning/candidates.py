@@ -101,6 +101,7 @@ class EssayPlanningSnapshot:
     outline_version_id: str | None = None
     review_acknowledgement_version_id: str | None = None
     weakest_dimension: str | None = None
+    weakest_dimension_key: str | None = None
     pending_reason: str | None = None
     closure_readiness: EssayClosureReadiness = "available"
     closure_unavailable_reason: str | None = None
@@ -300,6 +301,7 @@ def _objective_candidates(
                 time_fit=time_fit,
                 load_penalty=0.12,
             ),
+            strategy_module_keys=(module,),
         )
     )
     return candidates
@@ -508,6 +510,10 @@ def _essay_candidate(
             time_fit=_time_fit(minutes, available_minutes),
             load_penalty=0.18 if minutes >= 25 else 0.10,
         ),
+        strategy_module_keys=(
+            (snapshot.weakest_dimension_key,) if snapshot.weakest_dimension_key else ()
+        ),
+        strategy_question_type=snapshot.question_type,
     )
 
 

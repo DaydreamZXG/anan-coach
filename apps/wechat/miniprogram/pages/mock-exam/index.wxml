@@ -7,13 +7,13 @@
   syncLabel="{{syncLabel}}"
   materialAvailable="{{status === 'ready' && question && question.material}}"
   answerSheetAvailable="{{status === 'ready'}}"
-  focusToolAvailable="{{status === 'ready'}}"
+  draftAvailable="{{status === 'ready' && question}}"
   toolsAvailable="{{status === 'ready'}}"
   footerAvailable="{{status === 'ready'}}"
   bindexit="exit"
   bindmaterial="toggleMaterial"
   bindanswersheet="toggleAnswerSheet"
-  bindfocustool="openFocusedTool"
+  binddraft="toggleDraft"
   bindtools="toggleTools"
 >
   <view wx:if="{{status === 'loading'}}" class="page-state">
@@ -34,8 +34,9 @@
   <view wx:elif="{{status === 'submitted' && receipt}}" class="submitted-workspace">
     <view class="submitted-hero">
       <view class="submitted-mark">整卷已交卷</view>
-      <view class="submitted-score"><text>{{receipt.review.estimatedScore}}</text> 分</view>
-      <view class="submitted-source">{{receipt.review.estimateSource}}</view>
+      <view class="submitted-score"><text class="submitted-score__value">{{receipt.review.performanceIndex}}</text> 表现点</view>
+      <view class="submitted-source">样本区间 {{receipt.review.performanceRange.lower}}–{{receipt.review.performanceRange.upper}} 表现点</view>
+      <view class="submitted-source">{{receipt.review.metricDefinition}}</view>
     </view>
     <view class="submitted-note card">
       <view class="submitted-note-title">交卷前未提供解析、公式卡或解题 AI</view>
@@ -43,14 +44,17 @@
     </view>
     <view class="module-result card" wx:for="{{receipt.review.modules}}" wx:key="moduleName">
       <view>{{item.moduleName}}</view>
-      <view class="module-result-data type-data">{{item.correct}} / {{item.total}} · {{item.accuracy}}%</view>
+      <view class="module-result-data type-data">{{item.correct}} / {{item.total}} · 正确率 {{item.accuracy * 100}}%</view>
     </view>
     <view class="next-week card">{{receipt.review.nextWeekReason}}</view>
-    <button class="primary-button" bindtap="returnToday">返回今日计划</button>
+    <button class="primary-button" bindtap="openMockReport">查看正式模考报告</button>
+    <button class="secondary-button" bindtap="returnToday">返回今日计划</button>
   </view>
 
   <view wx:elif="{{status === 'submitted'}}" class="page-state">
     <state-view state="empty" title="本场模考已经交卷" description="答案解析只在正式报告页按权限展示。" />
+    <button class="primary-button" bindtap="openMockReport">查看正式模考报告</button>
+    <button class="secondary-button" bindtap="returnToday">返回今日计划</button>
   </view>
 
   <view wx:elif="{{status === 'ready' && question}}" class="mock-paper mock-paper--{{fontScale}} {{eyeCare ? 'mock-paper--eye-care' : ''}}">
@@ -63,68 +67,62 @@
       <view class="deadline-copy">离开页面也不会暂停</view>
     </view>
 
-    <material-reader
-      wx:if="{{materialOpen && question.material}}"
-      title="{{question.material.title || '共享材料'}}"
-      blocks="{{question.material.content}}"
-      anchors="{{question.material.anchors}}"
-      state="{{materialReaderState}}"
-      bindstatechange="updateMaterialReaderState"
-      bindpositionchange="updateMaterialPosition"
-    />
+    <view class="mock-workspace {{materialOpen && question.material ? 'mock-workspace--with-material' : 'mock-workspace--single'}}">
+      <material-reader
+        wx:if="{{materialOpen && question.material}}"
+        class="mock-material-pane"
+        title="{{question.material.title || '共享材料'}}"
+        blocks="{{question.material.content}}"
+        anchors="{{question.material.anchors}}"
+        state="{{materialReaderState}}"
+        bindstatechange="updateMaterialReaderState"
+        bindpositionchange="updateMaterialPosition"
+      />
 
-    <view class="question-card">
-      <view class="question-meta">
-        <view class="module-pill">{{question.moduleName}}</view>
-        <view class="question-position type-data">{{current}} / {{total}}</view>
-      </view>
-      <view class="question-stem">
-        <content-renderer
-          blocks="{{question.stemContent}}"
-          zoom="1"
-          preferences="{{contentPreferences}}"
-          freeze-first-column
-          freeze-header
-        />
-      </view>
-    </view>
-
-    <view class="option-list {{interactionLocked ? 'option-list--locked' : ''}}">
-      <view
-        wx:for="{{question.options}}"
-        wx:key="optionId"
-        class="option-card {{item.selected ? 'option-card--selected' : ''}} {{item.eliminated ? 'option-card--eliminated' : ''}}"
-        data-optionid="{{item.optionId}}"
-        bindtap="selectOption"
-      >
-        <view class="option-label">{{item.label}}</view>
-        <view class="option-copy">
-          <content-renderer
-            blocks="{{item.content}}"
-            zoom="1"
-            preferences="{{contentPreferences}}"
-            freeze-first-column
-            freeze-header
-          />
+      <view class="mock-question-pane">
+        <view class="question-card">
+          <view class="question-meta">
+            <view class="module-pill">{{question.moduleName}}</view>
+            <view class="question-position type-data">{{current}} / {{total}}</view>
+          </view>
+          <view class="question-stem">
+            <content-renderer
+              blocks="{{question.stemContent}}"
+              zoom="1"
+              preferences="{{contentPreferences}}"
+              freeze-first-column
+              freeze-header
+            />
+          </view>
         </view>
-        <button class="eliminate-action" data-optionid="{{item.optionId}}" catchtap="toggleEliminated">{{item.eliminated ? '撤销排除' : '排除'}}</button>
-      </view>
-    </view>
 
-    <view class="draft-card card">
-      <view class="draft-head">
-        <view>
-          <view class="draft-title">草稿</view>
-          <view class="draft-copy">随断点保存，不参与评分。</view>
+        <view class="option-list {{interactionLocked ? 'option-list--locked' : ''}}">
+          <view
+            wx:for="{{question.options}}"
+            wx:key="optionId"
+            class="option-card {{item.selected ? 'option-card--selected' : ''}} {{item.eliminated ? 'option-card--eliminated' : ''}}"
+            data-optionid="{{item.optionId}}"
+            bindtap="selectOption"
+          >
+            <view class="option-label">{{item.label}}</view>
+            <view class="option-copy">
+              <content-renderer
+                blocks="{{item.content}}"
+                zoom="1"
+                preferences="{{contentPreferences}}"
+                freeze-first-column
+                freeze-header
+              />
+            </view>
+            <button class="eliminate-action" data-optionid="{{item.optionId}}" catchtap="toggleEliminated">{{item.eliminated ? '撤销排除' : '排除'}}</button>
+          </view>
         </view>
-        <button class="mark-button {{question.marked ? 'mark-button--active' : ''}}" bindtap="toggleMarked">{{question.marked ? '已标记' : '标记题目'}}</button>
-      </view>
-      <textarea class="draft-input" value="{{question.draftText}}" maxlength="4000" placeholder="记录计算、排除过程或检查点……" bindinput="inputDraft"></textarea>
-    </view>
 
-    <view class="question-navigation">
-      <button class="secondary-button" disabled="{{current === 1 || interactionLocked}}" bindtap="previousQuestion">上一题</button>
-      <button class="secondary-button" disabled="{{current === total || interactionLocked}}" bindtap="nextQuestion">下一题</button>
+        <view class="question-navigation">
+          <button class="secondary-button" disabled="{{current === 1 || interactionLocked}}" bindtap="previousQuestion">上一题</button>
+          <button class="secondary-button" disabled="{{current === total || interactionLocked}}" bindtap="nextQuestion">下一题</button>
+        </view>
+      </view>
     </view>
   </view>
 
@@ -148,6 +146,21 @@
           >{{item.label}}</button>
         </view>
       </scroll-view>
+    </view>
+  </view>
+
+  <view wx:if="{{draftOpen && question}}" class="overlay-mask" catchtap="toggleDraft" catchtouchmove="noop">
+    <view class="bottom-sheet draft-sheet" catchtap="noop">
+      <view class="sheet-head">
+        <view>
+          <view class="sheet-title">草稿纸</view>
+          <view class="sheet-copy">当前第 {{current}} / {{total}} 题 · 随断点自动保存</view>
+        </view>
+        <button class="mark-button {{question.marked ? 'mark-button--active' : ''}}" bindtap="toggleMarked">{{question.marked ? '已标记' : '标记'}}</button>
+      </view>
+      <textarea class="draft-input draft-input--sheet" value="{{question.draftText}}" maxlength="4000" placeholder="记录计算、排除过程或检查点……" bindinput="inputDraft"></textarea>
+      <view class="mock-timer-notice">整卷模考使用服务端绝对截止时间，打开草稿不会暂停计时。</view>
+      <button class="primary-button draft-sheet-action" bindtap="toggleDraft">收起草稿，继续作答</button>
     </view>
   </view>
 

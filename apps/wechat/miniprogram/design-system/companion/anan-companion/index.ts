@@ -7,6 +7,7 @@ import {
   type AnanVisualStage,
   type ResolvedAnanVisual,
 } from "./runtime";
+import { startAnanAnimation, stopAnanAnimation } from "./intent-visual";
 
 interface CompanionData {
   renderable: boolean;
@@ -36,9 +37,6 @@ interface CompanionHost {
   };
   setData(patch: Partial<CompanionData>): void;
 }
-
-const coreAnimationTimers = new WeakMap<object, ReturnType<typeof setInterval>>();
-const coreFrameIndexes = new WeakMap<object, number>();
 
 Component({
   options: {
@@ -141,21 +139,16 @@ function applyResolved(host: CompanionHost, resolved: ResolvedAnanVisual): void 
 }
 
 function startCoreAnimation(host: CompanionHost): void {
-  if (coreAnimationTimers.has(host)) return;
-  coreFrameIndexes.set(host, 0);
-  const timer = setInterval(() => {
-    const next = ((coreFrameIndexes.get(host) ?? 0) + 1) % 6;
-    coreFrameIndexes.set(host, next);
-    host.setData({ frameOffsetPercent: (next * 100) / 6 });
-  }, 125);
-  coreAnimationTimers.set(host, timer);
+  startAnanAnimation(host, {
+    frames: 6,
+    fps: 8,
+    playback: "loop",
+    holdFrame: null,
+  });
 }
 
 function stopCoreAnimation(host: CompanionHost): void {
-  const timer = coreAnimationTimers.get(host);
-  if (timer !== undefined) clearInterval(timer);
-  coreAnimationTimers.delete(host);
-  coreFrameIndexes.delete(host);
+  stopAnanAnimation(host);
 }
 
 export type { AnanContext, AnanIntent, AnanMotion, AnanSize, AnanVisualStage };

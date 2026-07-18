@@ -42,18 +42,26 @@
       <view class="hero-eyebrow">申论学习工作台</view>
       <view class="hero-title">{{capability.title}}</view>
       <view class="hero-meta">
-        <view>{{view.questionTypeLabel}}</view>
-        <view><text class="type-data">{{view.wordLimit}}</text> 字</view>
-        <view><text class="type-data">{{view.maximumScore}}</text> 分</view>
+        <view class="hero-meta__item">{{view.questionTypeLabel}}</view>
+        <view class="hero-meta__item"><text class="type-data">{{view.wordLimit}}</text> 字</view>
+        <view class="hero-meta__item"><text class="type-data">{{view.maximumScore}}</text> 分</view>
       </view>
       <view class="hero-version">{{view.currentVersionLabel}}</view>
     </view>
+
+    <scroll-view class="workbench-nav" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="workbench-nav-inner">
+        <button wx:for="{{workbenchLinks}}" wx:key="url" class="workbench-nav-chip" data-url="{{item.url}}" bindtap="openWorkbench">{{item.label}}</button>
+      </view>
+    </scroll-view>
 
     <view class="rubric-note {{workspace.rubricAvailability.status === 'published' ? 'rubric-note--ready' : ''}}">
       <view class="rubric-note-title">{{view.rubricStatusLabel}}</view>
       <view class="rubric-note-copy">{{view.rubricStatusDetail}}</view>
     </view>
 
+    <view class="essay-workbench-grid">
+      <view class="essay-context-pane">
     <view class="section-heading">
       <view class="section-title">题干与要求</view>
       <view class="section-meta">作答约束</view>
@@ -82,7 +90,7 @@
           bindtap="scrollToMaterial"
         >
           <text>{{item.label}}</text>
-          <text class="type-data">{{item.segmentCount}} 段</text>
+          <text class="directory-chip__count type-data">{{item.segmentCount}} 段</text>
         </button>
       </view>
     </scroll-view>
@@ -101,7 +109,9 @@
         </view>
       </view>
     </view>
+      </view>
 
+      <view class="essay-action-pane">
     <view class="section-heading">
       <view>
         <view class="section-title">本阶段作业</view>
@@ -111,7 +121,7 @@
 
     <view wx:if="{{blockingReason}}" class="blocking-note">
       <view class="blocking-title">当前阶段不可提交</view>
-      <view>{{blockingReason}}</view>
+      <view class="blocking-note__copy">{{blockingReason}}</view>
     </view>
 
     <block wx:if="{{capability.stage === 'essay_material_reading'}}">
@@ -194,7 +204,7 @@
         <view class="field-label">材料出处 <text class="field-hint">至少选 1 段</text></view>
         <checkbox-group data-index="{{index}}" bindchange="changePointSources">
           <label wx:for="{{item.sourceOptions}}" wx:for-item="segment" wx:key="segmentId" class="source-option">
-            <checkbox value="{{segment.segmentId}}" checked="{{segment.checked}}" color="#5268ff" />
+            <checkbox value="{{segment.segmentId}}" checked="{{segment.checked}}" color="#00978B" />
             <view>
               <view class="source-label">{{segment.directoryLabel}} · {{segment.paragraphLabel}}</view>
               <view class="source-preview">{{segment.text}}</view>
@@ -237,7 +247,7 @@
         <view class="field-label">支撑要点 <text class="field-hint">至少选 1 个</text></view>
         <checkbox-group data-index="{{index}}" bindchange="changeOutlineSources">
           <label wx:for="{{item.pointOptions}}" wx:for-item="point" wx:key="pointId" class="point-option">
-            <checkbox value="{{point.pointId}}" checked="{{point.checked}}" color="#5268ff" />
+            <checkbox value="{{point.pointId}}" checked="{{point.checked}}" color="#00978B" />
             <view>{{point.label}}</view>
           </label>
         </checkbox-group>
@@ -248,9 +258,9 @@
     <block wx:elif="{{capability.stage === 'essay_drafting'}}">
       <block wx:if="{{draftAvailable}}">
         <view class="drafting-guide card">
-        <view class="review-guide-title">正式作答版本</view>
-        <view>一次提交会在同一事务中写入作答、结构化复盘，并完成对应的今日申论任务。</view>
-        <view>任一版本或证据不一致都会整笔回滚；提交成功后才会另行排队证据化 AI 评阅。</view>
+        <view class="review-guide-title drafting-guide__line">正式作答版本</view>
+        <view class="drafting-guide__line">一次提交会在同一事务中写入作答、结构化复盘，并完成对应的今日申论任务。</view>
+        <view class="drafting-guide__line">任一版本或证据不一致都会整笔回滚；提交成功后才会另行排队证据化 AI 评阅。</view>
         </view>
 
         <view class="drafting-card card">
@@ -273,7 +283,23 @@
           <view class="essay-select">{{answerSourceTypeLabels[drafting.sourceTypeIndex]}} <text>›</text></view>
         </picker>
         <view wx:if="{{drafting.sourceType === 'ocr_confirmed'}}" class="source-confirmation-note">
-          仅在你已经逐字核对 OCR 文本后选择；未确认的识别结果不能进入评阅。
+          OCR 必须由本页上传原图、逐段核对并确认；手工选择来源不能绕过证据校验。
+        </view>
+        <view wx:if="{{drafting.sourceType === 'ocr_confirmed'}}" class="handwriting-card">
+          <view class="handwriting-title">手写答案识别</view>
+          <view class="handwriting-actions">
+            <button class="secondary-action handwriting-action" data-source="camera" bindtap="chooseHandwritingImage">拍照识别</button>
+            <button class="secondary-action handwriting-action" data-source="album" bindtap="chooseHandwritingImage">选择原图</button>
+          </view>
+          <image wx:if="{{handwriting.localImagePath}}" class="handwriting-original" src="{{handwriting.localImagePath}}" mode="widthFix"></image>
+          <view wx:if="{{handwriting.phase === 'uploading'}}" class="field-help">上传与识别 {{handwriting.progressPercent}}%</view>
+          <view wx:if="{{handwriting.message}}" class="source-confirmation-note">{{handwriting.message}}</view>
+          <view wx:for="{{handwriting.spans}}" wx:key="spanId" class="handwriting-span">
+            <view class="handwriting-span-meta">第 {{item.box.pageNo}} 页 · 置信度 {{item.confidenceLabel}}</view>
+            <textarea class="essay-textarea essay-textarea--compact" value="{{item.text}}" maxlength="10000" data-span-id="{{item.spanId}}" bindinput="inputHandwritingSpan"></textarea>
+            <button class="span-confirm {{item.checked ? 'span-confirm--checked' : ''}}" data-span-id="{{item.spanId}}" bindtap="toggleHandwritingSpan">{{item.checked ? '已逐字核对' : '核对这一段'}}</button>
+          </view>
+          <button wx:if="{{handwriting.phase === 'review' || handwriting.phase === 'error'}}" class="primary-action" bindtap="confirmHandwriting">确认全部 OCR 文本</button>
         </view>
         <view wx:if="{{drafting.timedStatus === 'timed'}}">
           <view class="field-label">实际作答分钟 <text class="field-optional">选填</text></view>
@@ -321,7 +347,7 @@
         <view class="field-label">主要问题来源 <text class="field-hint">至少选 1 项</text></view>
         <checkbox-group class="reflection-cause-grid" bindchange="changeReflectionCauses">
           <label wx:for="{{reflectionCauseOptions}}" wx:key="code" class="reflection-cause-option {{item.checked ? 'reflection-cause-option--checked' : ''}}">
-            <checkbox value="{{item.code}}" checked="{{item.checked}}" color="#5268ff" />
+            <checkbox value="{{item.code}}" checked="{{item.checked}}" color="#00978B" />
             <text>{{item.label}}</text>
           </label>
         </checkbox-group>
@@ -360,7 +386,7 @@
         <view class="review-status-copy">{{reviewDisplay.message}}</view>
         <button
           wx:if="{{canRegenerateReview}}"
-          class="review-regenerate-button"
+          class="review-regenerate-button {{submissionStatus === 'submitting' ? 'review-regenerate-button--disabled' : ''}}"
           loading="{{submissionStatus === 'submitting'}}"
           disabled="{{submissionStatus === 'submitting'}}"
           bindtap="regenerateGroundedReview"
@@ -430,15 +456,30 @@
 
     <block wx:elif="{{capability.stage === 'essay_rewrite' && rewriteDraft}}">
       <view class="closure-guide card">
-        <view class="review-guide-title">二次改写版本</view>
-        <view>本次只回应你在问题决策版本中明确认可的问题。</view>
-        <view>新答案、逐条修正证据和掌握状态由 essay-rewrite-writer@v2 同步写入。</view>
+        <view class="review-guide-title closure-guide__line">二次改写版本</view>
+        <view class="closure-guide__line">本次只回应你在问题决策版本中明确认可的问题。</view>
+        <view class="closure-guide__line">新答案、逐条修正证据和掌握状态由 essay-rewrite-writer@v2 同步写入。</view>
       </view>
       <view class="closure-card card">
         <view class="field-label">答案录入来源</view>
         <picker range="{{closureSourceTypeLabels}}" value="{{rewriteDraft.sourceTypeIndex}}" bindchange="changeRewriteSourceType">
           <view class="essay-select">{{closureSourceTypeLabels[rewriteDraft.sourceTypeIndex]}} <text>›</text></view>
         </picker>
+        <view wx:if="{{rewriteDraft.sourceType === 'ocr_confirmed'}}" class="handwriting-card">
+          <view class="handwriting-title">上传改写手稿</view>
+          <view class="handwriting-actions">
+            <button class="secondary-action handwriting-action" data-source="camera" bindtap="chooseHandwritingImage">拍照识别</button>
+            <button class="secondary-action handwriting-action" data-source="album" bindtap="chooseHandwritingImage">选择原图</button>
+          </view>
+          <image wx:if="{{handwriting.localImagePath}}" class="handwriting-original" src="{{handwriting.localImagePath}}" mode="widthFix"></image>
+          <view wx:if="{{handwriting.message}}" class="source-confirmation-note">{{handwriting.message}}</view>
+          <view wx:for="{{handwriting.spans}}" wx:key="spanId" class="handwriting-span">
+            <view class="handwriting-span-meta">第 {{item.box.pageNo}} 页 · 置信度 {{item.confidenceLabel}}</view>
+            <textarea class="essay-textarea essay-textarea--compact" value="{{item.text}}" data-span-id="{{item.spanId}}" bindinput="inputHandwritingSpan"></textarea>
+            <button class="span-confirm {{item.checked ? 'span-confirm--checked' : ''}}" data-span-id="{{item.spanId}}" bindtap="toggleHandwritingSpan">{{item.checked ? '已逐字核对' : '核对这一段'}}</button>
+          </view>
+          <button wx:if="{{handwriting.phase === 'review' || handwriting.phase === 'error'}}" class="primary-action" bindtap="confirmHandwriting">确认全部 OCR 文本</button>
+        </view>
         <view class="field-label">改写后答案 <text class="field-hint">{{rewriteDraft.answerText.length}} / 10000</text></view>
         <textarea class="essay-textarea essay-answer-textarea" value="{{rewriteDraft.answerText}}" maxlength="10000" data-field="answerText" placeholder="写入完整新答案，不覆盖原答案版本。" bindinput="inputRewriteField"></textarea>
         <view class="field-label">本次改写思路 <text class="field-optional">选填</text></view>
@@ -459,9 +500,9 @@
 
     <block wx:elif="{{capability.stage === 'essay_transfer'}}">
       <view class="closure-guide card">
-        <view class="review-guide-title">新题迁移验证</view>
-        <view>当前题目与材料由规划冻结，作答、评阅和问题决策都建立新版本。</view>
-        <view>只能明确选择源评阅与新评阅的共同评分维度，不会猜测验证项。</view>
+        <view class="review-guide-title closure-guide__line">新题迁移验证</view>
+        <view class="closure-guide__line">当前题目与材料由规划冻结，作答、评阅和问题决策都建立新版本。</view>
+        <view class="closure-guide__line">只能明确选择源评阅与新评阅的共同评分维度，不会猜测验证项。</view>
       </view>
 
       <block wx:if="{{transferDraft.phase === 'drafting'}}">
@@ -470,6 +511,21 @@
           <picker range="{{closureSourceTypeLabels}}" value="{{transferDraft.sourceTypeIndex}}" bindchange="changeTransferSourceType">
             <view class="essay-select">{{closureSourceTypeLabels[transferDraft.sourceTypeIndex]}} <text>›</text></view>
           </picker>
+          <view wx:if="{{transferDraft.sourceType === 'ocr_confirmed'}}" class="handwriting-card">
+            <view class="handwriting-title">上传迁移题手稿</view>
+            <view class="handwriting-actions">
+              <button class="secondary-action handwriting-action" data-source="camera" bindtap="chooseHandwritingImage">拍照识别</button>
+              <button class="secondary-action handwriting-action" data-source="album" bindtap="chooseHandwritingImage">选择原图</button>
+            </view>
+            <image wx:if="{{handwriting.localImagePath}}" class="handwriting-original" src="{{handwriting.localImagePath}}" mode="widthFix"></image>
+            <view wx:if="{{handwriting.message}}" class="source-confirmation-note">{{handwriting.message}}</view>
+            <view wx:for="{{handwriting.spans}}" wx:key="spanId" class="handwriting-span">
+              <view class="handwriting-span-meta">第 {{item.box.pageNo}} 页 · 置信度 {{item.confidenceLabel}}</view>
+              <textarea class="essay-textarea essay-textarea--compact" value="{{item.text}}" data-span-id="{{item.spanId}}" bindinput="inputHandwritingSpan"></textarea>
+              <button class="span-confirm {{item.checked ? 'span-confirm--checked' : ''}}" data-span-id="{{item.spanId}}" bindtap="toggleHandwritingSpan">{{item.checked ? '已逐字核对' : '核对这一段'}}</button>
+            </view>
+            <button wx:if="{{handwriting.phase === 'review' || handwriting.phase === 'error'}}" class="primary-action" bindtap="confirmHandwriting">确认全部 OCR 文本</button>
+          </view>
           <view class="field-label">实际作答分钟 <text class="field-optional">选填</text></view>
           <input class="essay-input type-data" type="number" value="{{transferDraft.elapsedMinutesText}}" data-field="elapsedMinutesText" placeholder="留空按本页计时" bindinput="inputTransferField" />
           <view class="field-label">新题答案 <text class="field-hint">{{transferDraft.answerText.length}} / 10000</text></view>
@@ -490,7 +546,7 @@
           <view class="review-guide-title">明确选择迁移验证维度</view>
           <checkbox-group bindchange="changeTransferCriteria">
             <label wx:for="{{criterionOptions}}" wx:key="criterionCode" class="criterion-option {{item.checked ? 'criterion-option--checked' : ''}}">
-              <checkbox value="{{item.criterionCode}}" checked="{{item.checked}}" color="#5268ff" />
+              <checkbox value="{{item.criterionCode}}" checked="{{item.checked}}" color="#00978B" />
               <view>{{item.label}} <text class="type-data">{{item.criterionCode}}</text></view>
             </label>
           </checkbox-group>
@@ -576,12 +632,14 @@
     <view wx:if="{{submissionMessage}}" class="submission-message submission-message--{{submissionStatus}}">
       {{submissionMessage}}
     </view>
+      </view>
+    </view>
   </view>
 
   <view slot="footer" class="footer-content">
     <view wx:if="{{submissionMessage}}" class="footer-message">{{submissionMessage}}</view>
     <button
-      class="primary-button submit-button"
+      class="primary-button submit-button {{!canSubmit || submissionStatus === 'submitting' ? 'submit-button--disabled' : ''}}"
       loading="{{submissionStatus === 'submitting'}}"
       disabled="{{!canSubmit || submissionStatus === 'submitting'}}"
       bindtap="submitStage"

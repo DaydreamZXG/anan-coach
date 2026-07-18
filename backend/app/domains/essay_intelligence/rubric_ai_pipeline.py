@@ -14,6 +14,10 @@ from app.domains.ai.model_cost import (
     ModelCallRecord,
     ModelPriceCard,
 )
+from app.domains.ai.governance.repository import (
+    AIGovernanceRepository,
+    generic_evidence_ref,
+)
 from app.domains.essay_intelligence.rubric_ai_contracts import (
     RUBRIC_AI_COMPILATION_PROMPT_VERSION,
     RUBRIC_AI_COMPILER_VERSION,
@@ -390,6 +394,26 @@ class GuokaoRubricAIPipeline:
             schema_version=schema_version,
             price_card=self._price_card,
             input_fingerprint=input_fingerprint,
+            attribution=AIGovernanceRepository().attribution(
+                session,
+                environment=self._settings.environment,
+                scenario_key="essay_rubric_compilation",
+                operation=f"rubric_{phase}",
+                provider=self._provider.provider_name,
+                model=model,
+                prompt_version=prompt_version,
+                schema_version=schema_version,
+                evidence_refs=(
+                    generic_evidence_ref(
+                        kind="essay_rubric_compilation_input",
+                        source_id=input_fingerprint,
+                        version=input_fingerprint,
+                    ),
+                ),
+                retrieval_bundle_id=None,
+                reservation_id=None,
+                reservation_source=None,
+            ),
         )
         session.commit()
         if record.status == "failed":

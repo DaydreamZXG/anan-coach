@@ -1,4 +1,5 @@
 import { sha256Hex } from "../../api/sha256";
+import { persistUserDataFile } from "../../platform/persistent-file";
 import type { InspectedVoiceFile } from "./contracts";
 
 export interface RecordedVoiceFile {
@@ -92,17 +93,11 @@ export class WechatVoiceRecorder {
 }
 
 export async function persistRecordedVoice(tempFilePath: string): Promise<string> {
-  const fileSystem = wx.getFileSystemManager();
-  return new Promise((resolve, reject) => {
-    fileSystem.saveFile({
-      tempFilePath,
-      success: (result) => {
-        resolve(result.savedFilePath);
-      },
-      fail: () => {
-        reject(new Error("录音草稿未能保存到本机。"));
-      },
-    });
+  return persistUserDataFile({
+    tempFilePath,
+    filenamePrefix: "anan-reflection-voice",
+    extension: "mp3",
+    failureMessage: "录音草稿未能保存到本机。",
   });
 }
 

@@ -6,6 +6,7 @@ from uuid import UUID
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, model_validator
 
 from app.domains.essay_intelligence.schemas import (
+    EssayAnswerVersion,
     EssayFinding,
     EssayRubricMaterialEvidence,
 )
@@ -472,6 +473,10 @@ class EssayWorkspaceProgression(ArtifactContractModel):
     current_review: "EssayWorkspaceReview | None" = Field(
         default=None,
         alias="currentReview",
+    )
+    current_answer: EssayAnswerVersion | None = Field(
+        default=None,
+        alias="currentAnswer",
     )
 
 

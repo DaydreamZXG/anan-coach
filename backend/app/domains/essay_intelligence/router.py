@@ -6,6 +6,8 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, Header, HTTPException, Request, Response, status
 from sqlalchemy.orm import Session
 
+from app.contracts.external_learning.models import RecognitionRevision
+from app.core.config import get_settings
 from app.db.session import get_db_session
 from app.domains.auth.deps import get_current_user
 from app.domains.auth.repository import AuthenticatedUser
@@ -28,6 +30,7 @@ from app.domains.essay_intelligence.closure.schemas import (
     EssayRewriteCommand,
     EssayRewritePlanTaskCompletionCommand,
     EssayRewritePlanTaskCompletionResult,
+    EssayRewriteComparison,
     EssayRewriteResult,
     EssayTransferCommand,
     EssayTransferPlanTaskCompletionCommand,
@@ -42,6 +45,18 @@ from app.domains.essay_intelligence.closure.service import (
 )
 from app.domains.essay_intelligence.mastery.schemas import EssayMasteryProjection
 from app.domains.essay_intelligence.mastery.service import EssayMasteryService
+from app.domains.essay_intelligence.handwriting_schemas import (
+    EssayHandwritingArtifactAccess,
+    EssayHandwritingCorrectionCommand,
+    EssayHandwritingDecisionCommand,
+    EssayHandwritingStartCommand,
+)
+from app.domains.essay_intelligence.handwriting_service import EssayHandwritingService
+from app.domains.external_ingestion.recognition.errors import (
+    ProcessorConfigurationError,
+    RecognitionError,
+    RecognitionNotFound,
+)
 from app.domains.essay_intelligence.drafting_schemas import (
     EssayDraftingCompletionCommand,
     EssayDraftingCompletionResult,
@@ -78,6 +93,7 @@ from app.platform.http import (
     PublicApiEnvelope,
     public_success_envelope,
 )
+from app.platform.private_object_access import TosPrivateObjectAccessSigner
 
 
 router = APIRouter(
@@ -85,6 +101,12 @@ router = APIRouter(
     tags=["essay-intelligence"],
     responses=COMMON_API_ERROR_RESPONSES,
 )
+
+
+def _idempotency_key(
+    value: Annotated[str, Header(alias="Idempotency-Key", min_length=8, max_length=160)],
+) -> str:
+    return value
 
 
 def get_essay_drafting_completion_service() -> EssayDraftingCompletionService:
@@ -99,10 +121,155 @@ def get_essay_closure_service() -> EssayClosureService:
     return EssayClosureService()
 
 
-def _idempotency_key(
-    value: Annotated[str, Header(alias="Idempotency-Key", min_length=8, max_length=160)],
-) -> str:
-    return value
+@router.post(
+    "/handwriting-recognitions",
+    response_model=PublicApiEnvelope[RecognitionRevision],
+)
+def start_essay_handwriting_recognition(
+    request: Request,
+    response: Response,
+    command: EssayHandwritingStartCommand,
+    command_id: Annotated[str, Depends(_idempotency_key)],
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> PublicApiEnvelope[RecognitionRevision]:
+    try:
+        result = EssayHandwritingService().start(
+            session,
+            settings=get_settings(),
+            user_id=UUID(current_user.user_id),
+            command=command,
+            idempotency_key=command_id,
+        )
+        session.commit()
+        return public_success_envelope(request=request, response=response, data=result)
+    except ProcessorConfigurationError as exc:
+        session.rollback()
+        raise HTTPException(status_code=503, detail="申论手写识别服务配置无效。") from exc
+    except RecognitionError as exc:
+        session.rollback()
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+
+
+@router.put(
+    "/handwriting-recognitions/{recognition_revision_id}/candidate",
+    response_model=PublicApiEnvelope[RecognitionRevision],
+)
+def correct_essay_handwriting_recognition(
+    recognition_revision_id: UUID,
+    request: Request,
+    response: Response,
+    command: EssayHandwritingCorrectionCommand,
+    command_id: Annotated[str, Depends(_idempotency_key)],
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> PublicApiEnvelope[RecognitionRevision]:
+    try:
+        result = EssayHandwritingService().correct(
+            session,
+            settings=get_settings(),
+            user_id=UUID(current_user.user_id),
+            recognition_revision_id=recognition_revision_id,
+            command=command,
+            idempotency_key=command_id,
+        )
+        session.commit()
+        return public_success_envelope(request=request, response=response, data=result)
+    except RecognitionNotFound as exc:
+        session.rollback()
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except RecognitionError as exc:
+        session.rollback()
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+
+
+@router.post(
+    "/handwriting-recognitions/{recognition_revision_id}/confirm",
+    response_model=PublicApiEnvelope[RecognitionRevision],
+)
+def confirm_essay_handwriting_recognition(
+    recognition_revision_id: UUID,
+    request: Request,
+    response: Response,
+    command: EssayHandwritingDecisionCommand,
+    command_id: Annotated[str, Depends(_idempotency_key)],
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> PublicApiEnvelope[RecognitionRevision]:
+    try:
+        result = EssayHandwritingService().confirm(
+            session,
+            settings=get_settings(),
+            user_id=UUID(current_user.user_id),
+            recognition_revision_id=recognition_revision_id,
+            command=command,
+            idempotency_key=command_id,
+        )
+        session.commit()
+        return public_success_envelope(request=request, response=response, data=result)
+    except RecognitionNotFound as exc:
+        session.rollback()
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except RecognitionError as exc:
+        session.rollback()
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+
+
+@router.post(
+    "/handwriting-artifacts/{artifact_version_id}/access",
+    response_model=PublicApiEnvelope[EssayHandwritingArtifactAccess],
+)
+def access_essay_handwriting_artifact(
+    artifact_version_id: UUID,
+    request: Request,
+    response: Response,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> PublicApiEnvelope[EssayHandwritingArtifactAccess]:
+    settings = get_settings()
+    try:
+        result = EssayHandwritingService(
+            access_signer=TosPrivateObjectAccessSigner(
+                settings,
+                maximum_ttl_seconds=900,
+            )
+        ).artifact_access(
+            session,
+            user_id=UUID(current_user.user_id),
+            artifact_version_id=artifact_version_id,
+            ttl_seconds=settings.source_artifact_access_ttl_seconds,
+        )
+        return public_success_envelope(request=request, response=response, data=result)
+    except RecognitionNotFound as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except (ProcessorConfigurationError, ValueError) as exc:
+        raise HTTPException(status_code=503, detail="申论手写原图访问配置无效。") from exc
+    except RecognitionError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+
+
+@router.get(
+    "/rewrites/{rewrite_version_id}/comparison",
+    response_model=PublicApiEnvelope[EssayRewriteComparison],
+)
+def get_essay_rewrite_comparison(
+    rewrite_version_id: UUID,
+    request: Request,
+    response: Response,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> PublicApiEnvelope[EssayRewriteComparison]:
+    try:
+        result = EssayClosureService().rewrite_comparison(
+            session,
+            user_id=current_user.user_id,
+            rewrite_version_id=str(rewrite_version_id),
+        )
+        return public_success_envelope(request=request, response=response, data=result)
+    except EssayClosureNotFound as exc:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
+    except EssayClosureContractError as exc:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
 
 
 @router.post(

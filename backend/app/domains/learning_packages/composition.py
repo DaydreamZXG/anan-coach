@@ -1,9 +1,5 @@
 from __future__ import annotations
 
-from datetime import UTC, datetime
-from urllib.parse import urlsplit
-
-import tos
 from app.core.config import Settings
 from app.domains.content_catalog.licensing.service import ContentLicenseService
 from app.domains.learning_packages.renderer import (
@@ -12,53 +8,13 @@ from app.domains.learning_packages.renderer import (
 )
 from app.domains.learning_packages.worker import PacketRenderWorker
 from app.domains.learning_packages.service import LearningPackageService
+from app.platform.private_object_access import TosPrivateObjectAccessSigner
 from sqlalchemy.orm import Session
 
 
-class TosPacketArtifactAccessSigner:
+class TosPacketArtifactAccessSigner(TosPrivateObjectAccessSigner):
     def __init__(self, settings: Settings) -> None:
-        if not all(
-            value.strip()
-            for value in (
-                settings.tos_access_key,
-                settings.tos_secret_key,
-                settings.tos_endpoint,
-                settings.tos_region,
-                settings.tos_bucket,
-            )
-        ):
-            raise ValueError("TOS packet access configuration is incomplete")
-        self._bucket = settings.tos_bucket
-        self._client = tos.TosClientV2(
-            settings.tos_access_key,
-            settings.tos_secret_key,
-            settings.tos_endpoint,
-            settings.tos_region,
-        )
-
-    def sign_download(self, *, artifact_ref: str, expires_at: datetime) -> str:
-        parsed = urlsplit(artifact_ref)
-        if (
-            parsed.scheme != "tos"
-            or parsed.netloc != self._bucket
-            or not parsed.path.startswith("/private/")
-            or parsed.query
-            or parsed.fragment
-        ):
-            raise ValueError("packet artifact is not in the approved private TOS bucket")
-        seconds = int((expires_at.astimezone(UTC) - datetime.now(UTC)).total_seconds())
-        if not 1 <= seconds <= 900:
-            raise ValueError("packet access authorization must expire within 15 minutes")
-        output = self._client.pre_signed_url(
-            tos.HttpMethodType.Http_Method_Get,
-            self._bucket,
-            parsed.path.removeprefix("/"),
-            expires=seconds,
-        )
-        url = str(output.signed_url)
-        if not url.startswith("https://"):
-            raise ValueError("packet download authorization must use HTTPS")
-        return url
+        super().__init__(settings, maximum_ttl_seconds=900)
 
 
 def build_learning_package_service(

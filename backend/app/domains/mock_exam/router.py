@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Header, HTTPException, status
+from fastapi import APIRouter, Depends, Header, HTTPException, Request, Response, status
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db_session
@@ -20,6 +20,8 @@ from app.domains.mock_exam.schemas import (
     MockExamSession,
     MockExamSubmitRequest,
     MockExamSubmitResponse,
+    MockExamTrajectoryEventCommand,
+    MockExamTrajectoryEventReceipt,
 )
 from app.domains.mock_exam.service import (
     MockExamNotFoundError,
@@ -33,8 +35,18 @@ from app.domains.xingce_learning.real_attempt.schemas import (
     QuestionDisputeReceipt,
     ReportQuestionDisputeCommand,
 )
+from app.platform.http import (
+    COMMON_API_ERROR_RESPONSES,
+    PublicApiEnvelope,
+    public_success_envelope,
+)
 
 router = APIRouter(prefix="/api/v1/mock-exams", tags=["mock-exams"])
+v2_router = APIRouter(
+    prefix="/api/v2/mock-exams",
+    tags=["mock-exams-v2"],
+    responses=COMMON_API_ERROR_RESPONSES,
+)
 
 
 def _required_idempotency_key(
@@ -204,3 +216,30 @@ def mark_mock_exam_review_viewed(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Mock exam review not found",
         ) from exc
+
+
+@v2_router.post(
+    "/{session_id}/trajectory-events",
+    response_model=PublicApiEnvelope[MockExamTrajectoryEventReceipt],
+)
+def record_mock_exam_trajectory_event(
+    session_id: str,
+    request: Request,
+    response: Response,
+    command: MockExamTrajectoryEventCommand,
+    command_id: Annotated[str, Depends(_required_idempotency_key)],
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    service: Annotated[MockExamService, Depends(get_mock_exam_service)],
+) -> PublicApiEnvelope[MockExamTrajectoryEventReceipt]:
+    try:
+        result = service.record_trajectory_event(
+            user_id=current_user.user_id,
+            session_id=session_id,
+            command_id=command_id,
+            command=command,
+        )
+        return public_success_envelope(request=request, response=response, data=result)
+    except MockExamNotFoundError as exc:
+        raise HTTPException(status_code=404, detail="模考会话不存在。") from exc
+    except MockExamCheckpointError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc

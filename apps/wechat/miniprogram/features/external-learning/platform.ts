@@ -1,54 +1,16 @@
 import type { LocalAnswerImageFile, LocalImportFile } from "./contracts";
+import {
+  chooseSourceImage,
+  ensureCameraPermission,
+  requestCameraSetting,
+} from "../../platform/source-image";
 
-export async function ensureCameraPermission(): Promise<"granted" | "denied"> {
-  const setting = await wx.getSetting();
-  if (setting.authSetting["scope.camera"] === true) return "granted";
-  if (setting.authSetting["scope.camera"] === false) return "denied";
-  try {
-    await wx.authorize({ scope: "scope.camera" });
-    return "granted";
-  } catch {
-    return "denied";
-  }
-}
-
-export async function requestCameraSetting(): Promise<boolean> {
-  const result = await wx.showModal({
-    title: "需要相机权限",
-    content: "相机仅用于拍摄你要导入的题目或答题卡，未确认的识别结果不会进入学习诊断。",
-    confirmText: "去设置",
-    cancelText: "暂不开启",
-  });
-  if (!result.confirm) return false;
-  const setting = await wx.openSetting();
-  return setting.authSetting["scope.camera"] === true;
-}
+export { ensureCameraPermission, requestCameraSetting };
 
 export async function chooseQuestionImage(
   source: "camera" | "album",
 ): Promise<LocalImportFile | null> {
-  try {
-    const result = await wx.chooseMedia({
-      count: 1,
-      mediaType: ["image"],
-      sourceType: [source],
-      sizeType: ["original"],
-    });
-    const file = result.tempFiles.at(0);
-    if (!file) return null;
-    const path = file.tempFilePath;
-    return {
-      localPath: path,
-      displayName: fileName(path, source === "camera" ? "拍照题目.jpg" : "相册题目.jpg"),
-      sourceKind: source === "camera" ? "camera_image" : "image_import",
-      mimeType: imageMimeType(path),
-      byteSize: file.size,
-      pageCount: null,
-    };
-  } catch (error) {
-    if (isUserCancellation(error)) return null;
-    throw error;
-  }
+  return chooseSourceImage(source, source === "camera" ? "拍照题目.jpg" : "相册题目.jpg");
 }
 
 export async function chooseQuestionPdf(): Promise<LocalImportFile | null> {
@@ -96,10 +58,6 @@ export async function openPacketFile(
     return;
   }
   await wx.openDocument({ filePath: localFilePath, fileType: "pdf", showMenu: true });
-}
-
-function imageMimeType(path: string): "image/jpeg" | "image/png" {
-  return path.toLowerCase().split("?", 1)[0]?.endsWith(".png") ? "image/png" : "image/jpeg";
 }
 
 function fileName(path: string, fallback: string): string {

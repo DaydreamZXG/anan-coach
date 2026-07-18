@@ -1,16 +1,16 @@
 <view class="page external-page packets-page">
   <view class="external-hero">
     <view class="external-hero__copy">
-      <view class="external-eyebrow">外部学习 · 版本化导出</view>
-      <view class="external-title">我的学习包</view>
-      <view class="external-subtitle">每份学习包固定题目版本、顺序、答案绑定码和授权快照；失败重试不会生成重复任务。</view>
+      <view class="external-eyebrow">我的学习包</view>
+      <view class="external-title">上传的资料，要变成能用的学习对象</view>
+      <view class="external-subtitle">每个学习包保留来源、解析状态、知识点和关联任务；原始文件可单独删除。</view>
     </view>
     <anan-companion size="medium" intent="thinking" context="plan" animate />
   </view>
 
-  <state-view wx:if="{{configurationError}}" state="error" title="学习包服务未完成配置" description="{{configurationError}}" />
-  <state-view wx:elif="{{!state || state.status === 'idle' || state.status === 'loading'}}" state="loading" />
-  <state-view wx:elif="{{state.status === 'error' && !state.packets.length}}" state="error" title="{{state.error.title}}" description="{{state.error.message}}" request-id="{{state.error.requestId}}" action-text="重新加载" bind:action="retryLoad" />
+  <state-view wx:if="{{configurationError}}" custom-class="packets-state-view" state="error" title="学习包服务未完成配置" description="{{configurationError}}" />
+  <state-view wx:elif="{{!state || state.status === 'idle' || state.status === 'loading'}}" custom-class="packets-state-view" state="loading" />
+  <state-view wx:elif="{{state.status === 'error' && !state.packets.length}}" custom-class="packets-state-view" state="error" title="{{state.error.title}}" description="{{state.error.message}}" request-id="{{state.error.requestId}}" action-text="重新加载" bind:action="retryLoad" />
 
   <block wx:else>
     <view class="delivery-strip">
@@ -48,7 +48,7 @@
     </view>
 
     <view class="section-head"><view class="section-head__title">历史学习包</view><view class="section-head__meta">版本与有效期独立管理</view></view>
-    <state-view wx:if="{{!state.packets.length}}" state="empty" title="还没有学习包" description="选择已确认题目后生成第一份；候选 OCR 不会出现在这里。" />
+    <state-view wx:if="{{!state.packets.length}}" custom-class="packets-state-view" state="empty" title="还没有学习包" description="选择已确认题目后生成第一份；候选 OCR 不会出现在这里。" />
     <view wx:for="{{state.packets}}" wx:key="packetVersionId" class="external-card packet-card">
       <view class="packet-head">
         <view><view class="card-title">学习包 {{item.packetId}}</view><view class="card-copy">{{item.versionLabel}} · {{item.itemCountLabel}} · {{item.renderFormat === 'pdf' ? 'PDF' : '笔记文件'}}</view></view>

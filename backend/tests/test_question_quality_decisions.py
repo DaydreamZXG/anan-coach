@@ -213,12 +213,35 @@ def _seed_quality_case(db_session_factory: sessionmaker[Session]) -> dict[str, s
         session.execute(
             text(
                 """
+                insert into product.mock_exam_paper_versions (
+                  paper_version_id, paper_key, version_no, state, exam_scope,
+                  track, title, duration_minutes, question_ids, blueprint,
+                  learner_bundle_version_id, scoring_policy_version_id,
+                  exposure_policy, equivalence_metadata, content_fingerprint,
+                  published_at, created_at
+                ) values (
+                  '00000000-0000-4000-8000-000000000633',
+                  'quality-dispute-fixture', 1, 'retired', 'guokao', 'xingce',
+                  '质量争议测试卷', 120, '[]'::jsonb, '[]'::jsonb,
+                  'fixture-bundle', 'mock-objective-exact-v1', '{}'::jsonb,
+                  '{}'::jsonb, repeat('b', 64), :created_at, :created_at
+                )
+                """
+            ),
+            {"created_at": NOW},
+        )
+        session.execute(
+            text(
+                """
                 insert into learner.mock_exam_sessions (
                   session_id, user_id, exam_scope, track, status,
-                  question_ids, blueprint, created_at, updated_at
+                  question_ids, blueprint, paper_version_id,
+                  scoring_policy_version_id, created_at, updated_at
                 ) values (
                   cast(:session_id as uuid), cast(:user_id as uuid), 'guokao',
                   'xingce', 'assigned', '[]'::jsonb, '{}'::jsonb,
+                  '00000000-0000-4000-8000-000000000633',
+                  'mock-objective-exact-v1',
                   :created_at, :created_at
                 )
                 """

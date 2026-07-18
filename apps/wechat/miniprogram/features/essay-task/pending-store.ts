@@ -3,7 +3,7 @@ import { parseEssayTaskStage, type EssayTaskStage } from "./capabilities";
 import { isPendingEssayDraftingSubmission, type PendingEssayDraftingSubmission } from "./drafting";
 import type { EssayFormDrafts } from "./forms";
 
-export const ESSAY_PENDING_SCHEMA_VERSION = 3 as const;
+export const ESSAY_PENDING_SCHEMA_VERSION = 4 as const;
 export const ESSAY_PENDING_TTL_MS = 7 * 24 * 60 * 60 * 1_000;
 
 const storageRoot = `gongkao.essay.pending.v${String(ESSAY_PENDING_SCHEMA_VERSION)}`;

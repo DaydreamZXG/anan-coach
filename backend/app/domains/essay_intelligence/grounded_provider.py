@@ -12,7 +12,18 @@ import httpx
 
 from app.core.config import DEFAULT_AI_PROVIDER_BASE_URL, Settings
 from app.domains.ai.model_cost import ModelTokenUsage
+from app.domains.ai.provider_contract import (
+    parse_provider_json_object,
+    provider_failure_is_retryable,
+    provider_request_audit,
+    validate_processing_approval,
+    validate_provider_audit_contract,
+)
 from app.domains.essay_intelligence.grounding import GroundedReviewContext
+from app.domains.essay_intelligence.normalization import (
+    NORMALIZATION_CONTRACT,
+    normalize_grounding_text,
+)
 from app.domains.essay_intelligence.provider_document import (
     PreparedGroundedReviewProviderInput,
     prepare_grounded_review_provider_input,
@@ -110,32 +121,27 @@ def validate_grounded_review_provider_security(settings: Settings) -> None:
         raise GroundedReviewProviderConfigurationError(
             "Grounded review provider host is not allowlisted"
         )
-    if not settings.ai_essay_review_provider_dpa_confirmed:
-        raise GroundedReviewProviderConfigurationError(
-            "Grounded review provider DPA confirmation is required in production"
+    try:
+        validate_processing_approval(
+            settings,
+            dpa_confirmed=settings.ai_essay_review_provider_dpa_confirmed,
         )
-    if (
-        settings.ai_essay_review_provider_idempotency_capability.strip()
-        != "replayable_queryable"
-    ):
-        raise GroundedReviewProviderConfigurationError(
-            "Production grounded review requires verified replayable/queryable "
-            "provider idempotency"
+        validate_provider_audit_contract(
+            idempotency_capability=(
+                settings.ai_essay_review_provider_idempotency_capability
+            ),
+            idempotency_key_header=(
+                settings.ai_essay_review_provider_idempotency_key_header
+            ),
+            request_id_source=(
+                settings.ai_essay_review_provider_request_id_header
+            ),
+            replay_retention_seconds=(
+                settings.ai_essay_review_provider_replay_retention_seconds
+            ),
         )
-    idempotency_key_header = (
-        settings.ai_essay_review_provider_idempotency_key_header.strip().casefold()
-    )
-    if re.fullmatch(r"[a-z0-9-]+", idempotency_key_header) is None:
-        raise GroundedReviewProviderConfigurationError(
-            "AI_ESSAY_REVIEW_PROVIDER_IDEMPOTENCY_KEY_HEADER is required in production"
-        )
-    request_id_header = (
-        settings.ai_essay_review_provider_request_id_header.strip().casefold()
-    )
-    if re.fullmatch(r"[a-z0-9-]+", request_id_header) is None:
-        raise GroundedReviewProviderConfigurationError(
-            "AI_ESSAY_REVIEW_PROVIDER_REQUEST_ID_HEADER is required in production"
-        )
+    except ValueError as exc:
+        raise GroundedReviewProviderConfigurationError(str(exc)) from exc
 
 
 class GroundedReviewProviderError(RuntimeError):
@@ -248,9 +254,18 @@ class GroundedEssayReviewProvider:
         idempotency_key: str | None,
     ) -> GroundedReviewProviderResult:
         self._validate_configuration()
+        output_schema = _provider_output_schema()
         system_prompt = (
             "你是国家公务员考试申论训练评阅引擎。只依据传入的固定题目、完整材料、"
             "评分规程和考生答案工作。必须返回符合 JSON Schema 的单个 JSON 对象。"
+            "返回对象的顶层必须直接是 requiredOutputSchema 定义的 score、dimensions、"
+            "pointCoverage、claimEvidence、findings、rewritePlan，不得增加 reviewOutput、"
+            "result、data 或 providerSchemaVersion 等包装字段。"
+            "findings 至少返回一项，rewritePlan.priorityFindingIds 至少引用其中一项，"
+            "不得用空数组表示没有问题。"
+            "证据引用只返回对应匿名段落引用和逐字原文 quote；不要计算或返回"
+            "normalization、normalizedStart、normalizedEnd 或 quoteSha256。规范化、"
+            "唯一定位、字符区间和密码学摘要全部由服务端生成。"
             "每个 criterion 和 rubric point 必须恰好覆盖一次；总分、维度分和要点分"
             "必须分别守恒。所有材料与答案引用都必须使用传入的 normalizedText 原文，"
             "给出 nfkc_whitespace_v1、半开区间字符偏移和该规范化切片的 SHA-256。"
@@ -258,6 +273,7 @@ class GroundedEssayReviewProvider:
             "该规程下置信度只能为 low，分数只能解释为 AI 训练估分区间。"
         )
         user_document: dict[str, Any] = {
+            "requiredOutputSchema": output_schema,
             "reviewInput": prepared_input.document.model_dump(
                 by_alias=True,
                 mode="json",
@@ -286,9 +302,7 @@ class GroundedEssayReviewProvider:
                 "json_schema": {
                     "name": "grounded_essay_review",
                     "strict": True,
-                    "schema": EssayProviderReviewPayload.model_json_schema(
-                        by_alias=True
-                    ),
+                    "schema": output_schema,
                 },
             },
         }
@@ -328,19 +342,30 @@ class GroundedEssayReviewProvider:
             raise GroundedReviewProviderError(
                 "provider_transport_failed",
                 "Grounded review provider transport failed",
-                retryable=True,
+                retryable=provider_failure_is_retryable(
+                    idempotency_capability=(
+                        self._settings.ai_essay_review_provider_idempotency_capability
+                    )
+                ),
             ) from exc
         except httpx.HTTPStatusError as exc:
             status = exc.response.status_code
             raise GroundedReviewProviderError(
                 "provider_http_failed",
                 f"Grounded review provider returned HTTP {status}",
-                retryable=status == 429 or status >= 500,
+                retryable=provider_failure_is_retryable(
+                    idempotency_capability=(
+                        self._settings.ai_essay_review_provider_idempotency_capability
+                    ),
+                    status_code=status,
+                ),
             ) from exc
 
         try:
             data = response.json()
             usage = _parse_usage(data["usage"])
+            if data.get("model") is not None and data.get("model") != self.model:
+                raise ValueError("provider model drifted")
         except (KeyError, TypeError, ValueError, json.JSONDecodeError) as exc:
             raise GroundedReviewProviderError(
                 "provider_envelope_invalid",
@@ -348,19 +373,13 @@ class GroundedEssayReviewProvider:
                 retryable=False,
             ) from exc
 
-        request_id_header = (
-            self._settings.ai_essay_review_provider_request_id_header.strip().casefold()
+        audit_header, request_id_fingerprint = provider_request_audit(
+            response=response,
+            envelope=data,
+            configured_source=(
+                self._settings.ai_essay_review_provider_request_id_header
+            ),
         )
-        raw_request_id = (
-            response.headers.get(request_id_header) if request_id_header else None
-        )
-        request_id = raw_request_id.strip() if raw_request_id else None
-        request_id_fingerprint = (
-            sha256(request_id.encode("utf-8")).hexdigest()
-            if request_id is not None
-            else None
-        )
-        audit_header = request_id_header if request_id is not None else None
         envelope_fingerprint = sha256(
             json.dumps(
                 data,
@@ -415,17 +434,17 @@ class GroundedEssayReviewProvider:
                 provider_request_id_fingerprint=request_id_fingerprint,
             )
         try:
-            parsed = json.loads(content)
-        except (json.JSONDecodeError, RecursionError):
+            parsed = parse_provider_json_object(content)
+        except (ValueError, json.JSONDecodeError, RecursionError):
             parsed = None
-        payload = (
-            prepared_input.references.restore_payload(parsed)
-            if isinstance(parsed, dict)
-            else None
-        )
+        payload = None
+        if isinstance(parsed, dict):
+            payload = prepared_input.references.restore_payload(
+                _seal_evidence_anchors(parsed, prepared_input)
+            )
         if (
             self._settings.environment.strip().casefold() == "production"
-            and request_id is None
+            and request_id_fingerprint is None
         ):
             raise GroundedReviewMeteredProviderError(
                 "provider_request_id_missing",
@@ -464,6 +483,92 @@ class GroundedEssayReviewProvider:
             raise GroundedReviewProviderConfigurationError(
                 "AI_ESSAY_REVIEW_MAX_OUTPUT_BYTES must be configured"
             )
+
+
+def _provider_output_schema() -> dict[str, Any]:
+    """Expose only model-owned fields; evidence digests belong to the server."""
+    schema = EssayProviderReviewPayload.model_json_schema(by_alias=True)
+    definitions = schema.get("$defs")
+    if not isinstance(definitions, dict):
+        raise GroundedReviewProviderConfigurationError(
+            "Grounded review output schema has no definitions"
+        )
+    changed = 0
+    for definition in definitions.values():
+        if not isinstance(definition, dict):
+            continue
+        properties = definition.get("properties")
+        if not isinstance(properties, dict):
+            continue
+        server_owned_fields = {
+            "quoteSha256",
+            "normalization",
+            "normalizedStart",
+            "normalizedEnd",
+        }
+        if "quote" not in properties or not server_owned_fields.issubset(properties):
+            continue
+        for field in server_owned_fields:
+            properties.pop(field)
+        required = definition.get("required")
+        if isinstance(required, list):
+            definition["required"] = [
+                item for item in required if item not in server_owned_fields
+            ]
+        changed += 1
+    if changed != 2:
+        raise GroundedReviewProviderConfigurationError(
+            "Grounded review output schema evidence boundary drifted"
+        )
+    return schema
+
+
+def _seal_evidence_anchors(
+    payload: dict[str, Any],
+    prepared_input: PreparedGroundedReviewProviderInput,
+) -> dict[str, Any]:
+    """Resolve model quotes against immutable anonymous source segments."""
+    material_segments = {
+        item.segment_ref: item.normalized_text
+        for item in prepared_input.document.material.segments
+    }
+    answer_segments = {
+        item.segment_ref: item.normalized_text
+        for item in prepared_input.document.answer.segments
+    }
+
+    def visit(value: Any) -> None:
+        if isinstance(value, list):
+            for item in value:
+                visit(item)
+            return
+        if not isinstance(value, dict):
+            return
+        quote = value.get("quote")
+        segment_id = value.get("segmentId")
+        segments = (
+            answer_segments
+            if "answerVersionId" in value
+            else material_segments if "materialBundleVersionId" in value else None
+        )
+        if isinstance(quote, str) and isinstance(segment_id, str) and segments:
+            normalized_quote = normalize_grounding_text(quote)
+            source = segments.get(segment_id)
+            if source is not None:
+                start = source.find(normalized_quote)
+                is_unique = start >= 0 and source.find(normalized_quote, start + 1) < 0
+                if is_unique:
+                    value["normalization"] = NORMALIZATION_CONTRACT
+                    value["normalizedStart"] = start
+                    value["normalizedEnd"] = start + len(normalized_quote)
+                    value["quoteSha256"] = sha256(
+                        normalized_quote.encode("utf-8")
+                    ).hexdigest()
+        for item in value.values():
+            visit(item)
+
+    visit(payload)
+    return payload
 
 
 def _parse_usage(value: Any) -> ModelTokenUsage:

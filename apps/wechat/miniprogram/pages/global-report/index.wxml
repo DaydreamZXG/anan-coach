@@ -1,0 +1,11 @@
+<view class="report-page">
+  <state-view wx:if="{{status === 'loading'}}" state="loading" />
+  <state-view wx:elif="{{status === 'error'}}" state="error" title="全局报告没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
+  <block wx:elif="{{report}}">
+    <view class="report-hero"><view class="report-kicker">{{report.title}}</view><view class="report-title">把分差、能力和行动放在一张图里</view><view class="report-copy">能力趋势、模块、速度、错因、岗位分差与计划执行共用同一证据语义。</view><view class="report-meta"><view class="report-meta__item">{{generatedAtLabel}}</view><view class="report-meta__item">{{evidenceCount}} 条证据</view><view class="report-meta__item">6 类图表</view></view></view>
+    <view wx:if="{{partial}}" class="report-banner">有些轨道还没有正式证据，缺失图表保持空状态。</view>
+    <state-view wx:if="{{empty}}" class="report-state" state="empty" title="全局报告正在等待真实证据" description="完成题组、整卷或确认一条外部成绩后再生成。" />
+    <view class="report-conclusion"><view class="report-conclusion__label">全局判断</view><view class="report-conclusion__headline">{{report.conclusion.headline}}</view><view class="report-conclusion__detail">{{report.conclusion.detail}}</view><view class="report-next">{{report.conclusion.nextAction}} · 计划引用 {{planEvidenceCount}} 条</view><button class="report-next-action" bindtap="openNextAction">回到今日计划</button></view>
+    <view class="report-chart-list"><report-chart wx:for="{{report.charts}}" wx:key="chartId" chart="{{item}}" /></view>
+  </block>
+</view>

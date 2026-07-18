@@ -4,7 +4,9 @@ Revision ID: 20260715_21
 Revises: 20260715_20
 """
 
-from typing import Sequence
+from datetime import UTC, datetime
+import json
+from typing import Any, Sequence
 
 from alembic import op
 import sqlalchemy as sa
@@ -99,26 +101,155 @@ def _has_runtime_records(bind: Connection) -> bool:
 
 
 def _publish_existing_question_versions(bind: Connection) -> None:
-    from sqlalchemy.orm import Session
-
     from app.domains.external_ingestion.matching.catalog import (
-        SQLQuestionContentCatalog,
+        ContentPublicationError,
+        _snapshot_search_text,
+        _track,
+        _VERSION_FIELDS,
+    )
+    from app.domains.xingce_learning.content_version import (
+        question_content_version_id,
     )
 
-    question_ids = tuple(
-        str(value)
-        for value in bind.execute(
-            sa.text(
-                "select question_id from product.questions "
-                "where status in ('active', 'canonical') order by question_id"
+    batch: list[dict[str, Any]] = []
+    question_count = 0
+    rows = bind.execute(sa.text(_EXISTING_QUESTION_SNAPSHOTS)).mappings()
+    for row in rows:
+        source = dict(row)
+        question_id = str(source["question_id"])
+        track = _track(str(source.pop("domain")))
+        snapshot = {key: source.get(key) for key in _VERSION_FIELDS}
+        if not str(snapshot.get("stem") or "").strip():
+            raise ContentPublicationError(
+                f"question {question_id!r} requires a non-empty stem"
             )
-        ).scalars()
+        normalized_search_text = _snapshot_search_text(snapshot)
+        if not normalized_search_text:
+            raise ContentPublicationError(
+                f"question {question_id!r} has no searchable normalized text"
+            )
+        batch.append(
+            {
+                "content_version_id": question_content_version_id(snapshot),
+                "question_id": question_id,
+                "track": track.value,
+                "snapshot_payload": json.dumps(
+                    snapshot, ensure_ascii=False, sort_keys=True
+                ),
+                "normalized_search_text": normalized_search_text,
+                "created_at": datetime.now(UTC),
+            }
+        )
+        question_count += 1
+        if len(batch) >= 250:
+            _write_publication_batch(bind, batch)
+            batch.clear()
+    if batch:
+        _write_publication_batch(bind, batch)
+
+    published_count = int(
+        bind.execute(sa.text("select count(*) from product.question_content_heads"))
+        .scalar_one()
     )
-    session = Session(bind=bind)
-    catalog = SQLQuestionContentCatalog(session)
-    for question_id in question_ids:
-        catalog.publish_current(question_id=question_id)
-    session.flush()
+    if published_count != question_count:
+        raise RuntimeError(
+            "existing question publication count mismatch: "
+            f"expected {question_count}, published {published_count}"
+        )
+
+
+def _write_publication_batch(
+    bind: Connection,
+    batch: list[dict[str, Any]],
+) -> None:
+    bind.execute(
+        sa.text(
+            """
+            insert into product.question_content_versions (
+              content_version_id, question_id, track, snapshot_payload,
+              normalized_search_text, created_at
+            ) values (
+              :content_version_id, :question_id, :track,
+              cast(:snapshot_payload as jsonb), :normalized_search_text,
+              :created_at
+            )
+            on conflict (content_version_id) do nothing
+            """
+        ),
+        batch,
+    )
+    bind.execute(
+        sa.text(
+            """
+            insert into product.question_content_heads (
+              question_id, content_version_id, updated_at
+            ) values (:question_id, :content_version_id, :created_at)
+            on conflict (question_id) do update
+            set content_version_id = excluded.content_version_id,
+                updated_at = excluded.updated_at
+            where product.question_content_heads.content_version_id
+                  is distinct from excluded.content_version_id
+            """
+        ),
+        batch,
+    )
+
+
+_EXISTING_QUESTION_SNAPSHOTS = """
+select
+  question.question_id,
+  question.domain,
+  question.module_name,
+  question.question_type,
+  question.stem,
+  question.stem_html,
+  question.answer,
+  question.material_text,
+  question.material_html,
+  explanation.preferred_analysis,
+  explanation.analysis_source,
+  explanation.analysis_status,
+  explanation.prefer_ai_analysis,
+  explanation.analysis_needs_review,
+  coalesce(
+    (
+      select jsonb_agg(
+        jsonb_build_object(
+          'label', option.label,
+          'option_text', option.option_text,
+          'option_html', option.option_html
+        ) order by option.option_index
+      )
+      from product.question_options option
+      where option.question_id = question.question_id
+    ),
+    '[]'::jsonb
+  ) as options,
+  coalesce(
+    (
+      select jsonb_agg(
+        jsonb_build_object(
+          'asset_id', asset.asset_id,
+          'part_kind', asset.part_kind,
+          'part_index', asset.part_index,
+          'image_ordinal', asset.image_ordinal,
+          'image_src', asset.image_src,
+          'object_key', asset.object_key,
+          'is_representative_asset', asset.is_representative_asset
+        ) order by asset.part_kind nulls last, asset.part_index nulls last,
+                   asset.image_ordinal nulls last, asset.asset_id
+      )
+      from product.question_assets asset
+      where asset.question_id = question.question_id
+    ),
+    '[]'::jsonb
+  ) as assets
+from product.questions question
+left join product.question_explanations explanation
+  on explanation.question_id = question.question_id
+where question.status in ('active', 'canonical')
+order by question.question_id
+"""
 
 
 _STATEMENTS = (

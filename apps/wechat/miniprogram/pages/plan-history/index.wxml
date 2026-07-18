@@ -1,0 +1,13 @@
+<view class="brain-page">
+  <view class="brain-hero"><view class="brain-kicker">计划变更记录</view><view class="brain-title">每次变化，都能解释为什么</view><view class="brain-copy">目标、时间与证据变化形成完整记录，避免计划悄悄漂移。</view></view>
+  <state-view wx:if="{{status === 'loading'}}" state="loading" />
+  <state-view wx:elif="{{status === 'error'}}" state="error" title="变更记录没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
+  <block wx:elif="{{status === 'ready'}}">
+    <view wx:if="{{!items.length}}" class="brain-card brain-empty">还没有计划版本。完成建档和时间确认后会生成第一版。</view>
+    <view wx:for="{{items}}" wx:key="planVersionId" class="brain-card history-card">
+      <view class="brain-row"><view><view class="brain-pill">v{{item.versionNo}} · {{item.dayMode}}</view><view class="brain-value">{{item.headline}}</view></view><view class="brain-section-meta">{{item.generatedLabel}}</view></view>
+      <view class="brain-grid"><view class="brain-metric"><view class="brain-label">任务</view><text class="brain-metric__value type-data">{{item.taskCount}}</text></view><view class="brain-metric"><view class="brain-label">分钟</view><text class="brain-metric__value type-data">{{item.scheduledMinutes}}</text></view></view>
+      <view class="brain-note">变更原因：{{item.reasonLabel}}</view><view class="brain-note">变化输入：{{item.changedInputLabel}}</view>
+    </view>
+  </block>
+</view>

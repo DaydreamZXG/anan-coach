@@ -31,6 +31,9 @@ def test_mock_runtime_is_safe_recoverable_idempotent_and_allows_late_submit(
     assert created_response.status_code == 200, created_response.text
     created = created_response.json()
     assert created["revision"] == 1
+    assert created["paperVersionId"]
+    assert created["scoringPolicyVersionId"] == "mock-balanced-performance-index-v1"
+    assert created["scoreMetricName"] == "balanced_performance_index"
     assert created["checkpoint"]["currentQuestionId"] == created["questions"][0]["questionId"]
     _assert_no_forbidden_learner_keys(created)
     help_response = client.post(
@@ -59,6 +62,20 @@ def test_mock_runtime_is_safe_recoverable_idempotent_and_allows_late_submit(
     assert "detail" not in help_error.json()
 
     question = created["questions"][0]
+    trajectory = client.post(
+        f"/api/v2/mock-exams/{created['sessionId']}/trajectory-events",
+        headers={**auth, "Idempotency-Key": "stage6-trajectory-visited-0001"},
+        json={
+            "eventSeq": 1,
+            "eventType": "visited",
+            "questionId": question["questionId"],
+            "clientOccurredAt": datetime.now(UTC).isoformat(),
+            "sessionRevision": 1,
+            "payload": {"source": "question_card"},
+        },
+    )
+    assert trajectory.status_code == 200, trajectory.text
+    assert trajectory.json()["data"]["eventSeq"] == 1
     checkpoint_body = {
         "expectedRevision": 1,
         "currentQuestionId": question["questionId"],
@@ -216,6 +233,21 @@ def test_mock_runtime_is_safe_recoverable_idempotent_and_allows_late_submit(
     )
     assert submitted.status_code == 200, submitted.text
     assert submitted.json()["review"]["estimatedScore"] == 0
+    assert submitted.json()["review"]["performanceIndex"] == 0
+    with db_session_factory() as session:
+        trajectory_events = session.execute(
+            text(
+                """
+                select event_seq, event_type, session_revision
+                from learner.mock_exam_trajectory_events
+                where session_id = cast(:session_id as uuid)
+                order by event_seq
+                """
+            ),
+            {"session_id": created["sessionId"]},
+        ).mappings().all()
+    assert [row["event_type"] for row in trajectory_events] == ["visited", "submitted"]
+    assert trajectory_events[-1]["session_revision"] == 4
 
     disputed = client.post(
         f"/api/v1/mock-exams/{created['sessionId']}/disputes",
@@ -336,7 +368,11 @@ def test_expired_mock_can_submit_without_writing_a_checkpoint_first(
         },
     )
     assert submitted.status_code == 200, submitted.text
-    assert submitted.json()["review"]["estimatedScore"] == 0.7
+    review = submitted.json()["review"]
+    assert review["estimatedScore"] == 1.0
+    assert review["performanceIndex"] == 1.0
+    assert review["metricName"] == "balanced_performance_index"
+    assert review["paperVersionId"] == created["paperVersionId"]
 
 
 def test_xingce_dispute_is_bound_to_frozen_content_and_server_evidence(

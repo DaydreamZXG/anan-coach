@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime, timedelta
+from importlib import import_module
 from uuid import UUID, uuid4
 
 from sqlalchemy import text
@@ -77,6 +78,44 @@ class FakePacketRenderer(PacketRenderer):
             artifactSha256="c" * 64,
             providerRequestId="render-request-1",
         )
+
+
+def test_existing_question_publication_migration_does_not_accumulate_advisory_locks(
+    db_session: Session,
+) -> None:
+    db_session.execute(
+        text(
+            """
+            insert into product.questions (
+              question_id, domain, status, module_name, question_type, stem, answer
+            )
+            select
+              'q-migration-' || value,
+              'objective',
+              'active',
+              '判断推理',
+              'single',
+              '迁移题目 ' || value,
+              'A'
+            from generate_series(1, 40) value
+            """
+        )
+    )
+    migration = import_module(
+        "migrations.versions.20260715_21_stage15_external_learning_runtime"
+    )
+
+    migration._publish_existing_question_versions(db_session.connection())
+
+    assert db_session.execute(
+        text("select count(*) from product.question_content_heads")
+    ).scalar_one() == 40
+    assert db_session.execute(
+        text(
+            "select count(*) from pg_locks "
+            "where pid = pg_backend_pid() and locktype = 'advisory'"
+        )
+    ).scalar_one() == 0
 
 
 def test_packet_render_and_confirmed_answer_round_trip(db_session: Session) -> None:

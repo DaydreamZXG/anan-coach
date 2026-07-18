@@ -81,6 +81,22 @@ def test_rewrite_and_fresh_transfer_are_atomic_owned_and_replayable(
     assert all(
         item["state"] != "stable_mastered" for item in rewrite["masteryVersions"]
     )
+    comparison_response = client.get(
+        "/api/v2/essay-intelligence/rewrites/"
+        f"{rewrite['rewrite']['rewriteVersionId']}/comparison",
+        headers=headers,
+    )
+    assert comparison_response.status_code == 200, comparison_response.text
+    comparison = comparison_response.json()["data"]
+    assert comparison["originalAnswer"]["answerVersionId"] == base_answer_id
+    assert comparison["rewrittenAnswer"]["answerVersionId"] == rewrite["answer"][
+        "answerVersionId"
+    ]
+    assert {item["operation"] for item in comparison["diffSegments"]} == {
+        "equal",
+        "delete",
+        "insert",
+    }
     replay = client.post(
         "/api/v2/essay-intelligence/rewrites",
         headers={**headers, "Idempotency-Key": "essay-rewrite-writer-0001"},

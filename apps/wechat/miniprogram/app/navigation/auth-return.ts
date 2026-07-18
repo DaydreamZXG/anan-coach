@@ -1,6 +1,7 @@
 import {
   answerIngestionUrl,
   captureImportUrl,
+  learningPacketsUrl,
   positionCompareUrl,
   positionDetailUrl,
   positionGoalUrl,
@@ -53,10 +54,9 @@ export function authenticatedReturnTarget(startUrl: string): RegisteredNavigatio
   if (path === routes.today || path === routes.positions || path === routes.profile) {
     return rawQuery === undefined ? navigation : null;
   }
-  if (path === routes.diagnostic || path === routes.reflection) {
+  if (path === routes.reflection) {
     return rawQuery === undefined ? navigation : null;
   }
-  if (path === routes.learningPackets) return rawQuery === undefined ? navigation : null;
   if (path === routes.essayTask) return registeredTaskNavigationTarget(navigation.url);
 
   const query = parseExactQuery(rawQuery);
@@ -96,6 +96,16 @@ export function authenticatedReturnTarget(startUrl: string): RegisteredNavigatio
     if (!hasOnlyKeys(query, ["importId"])) return null;
     if (query.importId !== undefined && !validIdentifier(query.importId)) return null;
     return requiredNavigationTarget(captureImportUrl(query.importId));
+  }
+  if (path === routes.learningPackets) {
+    if (!hasOnlyKeys(query, ["contentVersionId"])) return null;
+    if (query.contentVersionId !== undefined && !validIdentifier(query.contentVersionId))
+      return null;
+    return requiredNavigationTarget(
+      learningPacketsUrl(
+        query.contentVersionId === undefined ? {} : { contentVersionId: query.contentVersionId },
+      ),
+    );
   }
   if (path === routes.answerIngestion) {
     if (!hasOnlyKeys(query, ["packetVersionId", "ingestionId"])) return null;

@@ -13,6 +13,7 @@ import {
   ingestion,
   packet,
   packetList,
+  questionUnit,
   recognition,
   sourceArtifact,
 } from "./fixtures";
@@ -34,7 +35,7 @@ describe("external learning API gateway", () => {
         envelope(
           withoutRequestId(
             importWorkspace({
-              match: null,
+              questionUnits: [],
               recognition: recognition(),
               diagnosticEligibility: "blocked_unconfirmed",
             }),
@@ -93,7 +94,7 @@ describe("external learning API gateway", () => {
       .fn()
       .mockResolvedValueOnce(envelope(startUpload(file, digest, "multipart")))
       .mockResolvedValueOnce(envelope(completeUpload(file, digest)))
-      .mockResolvedValueOnce(envelope(withoutRequestId(importWorkspace({ match: null }))));
+      .mockResolvedValueOnce(envelope(withoutRequestId(importWorkspace({ questionUnits: [] }))));
     const rawRequest = vi.fn((options: WechatMiniprogram.RequestOption<ArrayBuffer>) => {
       expect(options).toMatchObject({
         url: "https://tos.example.test/private/object?partNumber=1",
@@ -134,7 +135,7 @@ describe("external learning API gateway", () => {
           withoutRequestId(
             importWorkspace({
               recognition: recognition({ state: "confirmed", confirmedAt: "2026-07-15T01:00:00Z" }),
-              match: contentMatch(),
+              questionUnits: [questionUnit()],
             }),
           ),
         ),
@@ -145,10 +146,15 @@ describe("external learning API gateway", () => {
             importWorkspace({
               state: "ready",
               recognition: recognition({ state: "confirmed", confirmedAt: "2026-07-15T01:00:00Z" }),
-              match: contentMatch({
-                state: "confirmed",
-                confirmedContentVersionId: "content-version-1",
-              }),
+              questionUnits: [
+                questionUnit({
+                  state: "ready",
+                  match: contentMatch({
+                    state: "confirmed",
+                    confirmedContentVersionId: "content-version-1",
+                  }),
+                }),
+              ],
               diagnosticEligibility: "eligible_confirmed",
             }),
           ),
@@ -165,7 +171,7 @@ describe("external learning API gateway", () => {
       },
       "recognition-command",
     );
-    expect(afterRecognition.match?.state).toBe("candidate");
+    expect(afterRecognition.questionUnits[0]?.match?.state).toBe("candidate");
     await api.confirmMatch(
       {
         importId: "import-1",
@@ -232,12 +238,13 @@ describe("external learning API gateway", () => {
       });
       return {} as WechatMiniprogram.DownloadTask;
     });
-    const saveFile = vi.fn((options: WechatMiniprogram.SaveFileOption) => {
-      options.success?.({ savedFilePath: "/saved/packet.pdf", errMsg: "saveFile:ok" });
+    const copyFile = vi.fn((options: WechatMiniprogram.CopyFileOption) => {
+      options.success?.({ errCode: 0, errMsg: "copyFile:ok" });
     });
     vi.stubGlobal("wx", {
+      env: { USER_DATA_PATH: "/user-data" },
       downloadFile,
-      getFileSystemManager: () => ({ saveFile }),
+      getFileSystemManager: () => ({ copyFile }),
     });
 
     const grant = await new ExternalLearningApi(client({ post })).getPacketAccess(
@@ -250,10 +257,13 @@ describe("external learning API gateway", () => {
       }),
     );
     expect(downloadFile.mock.calls[0]?.[0]).not.toHaveProperty("header");
-    expect(saveFile).toHaveBeenCalledWith(
-      expect.objectContaining({ tempFilePath: "/tmp/downloaded.pdf" }),
+    expect(copyFile).toHaveBeenCalledOnce();
+    const copyOptions = copyFile.mock.calls[0]?.[0];
+    expect(copyOptions?.srcPath).toBe("/tmp/downloaded.pdf");
+    expect(copyOptions?.destPath).toMatch(
+      /^\/user-data\/anan-learning-packet-\d+-[a-z0-9]+\.pdf$/u,
     );
-    expect(grant.localFilePath).toBe("/saved/packet.pdf");
+    expect(grant.localFilePath).toBe(copyOptions?.destPath);
   });
 
   it("sends answer binding codes for corrections and atomically confirms the ingestion", async () => {
@@ -346,7 +356,11 @@ describe("external learning API gateway", () => {
     expect(post).toHaveBeenNthCalledWith(
       3,
       "/api/v2/external-learning/recognitions",
-      { artifactVersionId: "artifact-version-1", recognitionKind: "answer_sheet_omr" },
+      {
+        artifactVersionId: "artifact-version-1",
+        recognitionKind: "answer_sheet_omr",
+        packetVersionId: "packet-version-1",
+      },
       { idempotencyKey: "answer-image-command:recognition", timeoutMs: 60_000 },
     );
     expect(post).toHaveBeenNthCalledWith(

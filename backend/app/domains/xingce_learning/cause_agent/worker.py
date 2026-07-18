@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import UTC, datetime, timedelta
 import json
 from typing import Any
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 from pydantic import TypeAdapter, ValidationError
 from sqlalchemy import text
@@ -20,6 +20,11 @@ from app.domains.ai.model_cost import (
     ModelCallLedgerRepository,
     ModelPriceCard,
 )
+from app.domains.ai.governance.repository import (
+    AIGovernanceRepository,
+    generic_evidence_ref,
+)
+from app.domains.commerce.repository import CommerceRepository
 from app.domains.xingce_learning.cause_agent.contracts import (
     CauseAgentEvidence,
     CauseAgentOutput,
@@ -130,6 +135,7 @@ class CauseAgentWorker:
         try:
             evidence = self._load_or_execute_tools(session, job=job, run=run)
         except AgentRuntimeViolation as exc:
+            self._refund_reservation_if_open(session, job=job)
             return self._publish_termination(
                 session,
                 job=job,
@@ -156,6 +162,7 @@ class CauseAgentWorker:
                 followup_round=int(run["followup_round"]),
             )
         except AgentRuntimeViolation as exc:
+            self._refund_reservation_if_open(session, job=job)
             return self._publish_termination(
                 session,
                 job=job,
@@ -172,6 +179,7 @@ class CauseAgentWorker:
                 evidence=evidence,
             )
         except CauseAgentProviderConfigurationError:
+            self._refund_reservation_if_open(session, job=job)
             return self._publish_termination(
                 session,
                 job=job,
@@ -333,6 +341,27 @@ class CauseAgentWorker:
             schema_version=str(run["schema_version"]),
             price_card=self._price_card,
             input_fingerprint=input_fingerprint,
+            attribution=AIGovernanceRepository().attribution(
+                session,
+                environment=self._settings.environment,
+                scenario_key="xingce_cause_analysis",
+                operation="cause_candidate_generate",
+                provider=str(run["provider"]),
+                model=str(run["model"]),
+                prompt_version=str(run["prompt_version"]),
+                schema_version=str(run["schema_version"]),
+                evidence_refs=tuple(
+                    generic_evidence_ref(
+                        kind="xingce_cause_evidence",
+                        source_id=value,
+                        version=value,
+                    )
+                    for value in sorted(evidence.allowed_evidence_refs)
+                ),
+                retrieval_bundle_id=None,
+                reservation_id=UUID(str(job.payload["reservationId"])),
+                reservation_source=str(job.payload["reservationSource"]),
+            ),
         )
         session.commit()
         try:
@@ -351,7 +380,8 @@ class CauseAgentWorker:
                         output_fingerprint=exc.output_fingerprint,
                         latency_ms=exc.latency_ms,
                     )
-                    session.commit()
+                self._consume_reservation(session, job=job)
+                session.commit()
             elif record.status == "running" and not exc.retryable:
                 self._ledger.fail(
                     session,
@@ -359,6 +389,7 @@ class CauseAgentWorker:
                     error_code=exc.code,
                     latency_ms=exc.latency_ms,
                 )
+                self._refund_reservation_if_open(session, job=job)
                 session.commit()
             raise
         if record.status == "succeeded":
@@ -376,6 +407,7 @@ class CauseAgentWorker:
                 output_fingerprint=result.output_fingerprint,
                 latency_ms=result.latency_ms,
             )
+        self._consume_reservation(session, job=job)
         current_job = self._jobs.by_id(session, job_id=job.job_id)
         base = current_job.result if current_job and current_job.result else {}
         self._jobs.checkpoint(
@@ -392,6 +424,7 @@ class CauseAgentWorker:
                 "providerRequestIdFingerprint": (
                     result.provider_request_id_fingerprint
                 ),
+                "quotaState": "consumed",
             },
         )
         session.commit()
@@ -428,6 +461,15 @@ class CauseAgentWorker:
             "contractVersion": "cause-candidate@v2",
             **output.model_dump(by_alias=True, mode="json"),
         }
+        result_checkpoint = current_job.result
+        quota_state = (
+            str(result_checkpoint.get("quotaState"))
+            if isinstance(result_checkpoint, dict)
+            and result_checkpoint.get("quotaState")
+            in {"consumed", "reserved", "not_charged"}
+            else "reserved"
+        )
+        payload["quotaState"] = quota_state
         candidate_state = published_state or output.kind
         if termination_reason is not None:
             payload["terminationReason"] = termination_reason
@@ -537,7 +579,7 @@ class CauseAgentWorker:
                 "payload": {
                     "candidateVersionId": candidate_id,
                     "state": candidate_state,
-                    "quotaState": "not_metered",
+                    "quotaState": quota_state,
                 },
                 "schemaVersion": 1,
             },
@@ -639,6 +681,9 @@ class CauseAgentWorker:
             "promptVersion",
             "schemaVersion",
             "entitlementPolicyVersion",
+            "reservationId",
+            "reservationKey",
+            "reservationSource",
         }
         if not required.issubset(payload):
             raise JobContractError("cause-agent job payload is incomplete")
@@ -653,6 +698,56 @@ class CauseAgentWorker:
             or payload["schemaVersion"] != self._provider.schema_version
         ):
             raise JobContractError("cause-agent queued release differs from worker release")
+
+    def _consume_reservation(self, session: Session, *, job: BackgroundJob) -> None:
+        CommerceRepository(session).consume_feature_usage(
+            reservation_key=str(job.payload["reservationKey"]),
+            commit=False,
+        )
+
+    def _refund_reservation_if_open(
+        self,
+        session: Session,
+        *,
+        job: BackgroundJob,
+    ) -> None:
+        source = str(job.payload["reservationSource"])
+        reservation_key = str(job.payload["reservationKey"])
+        if source == "catalog":
+            status = session.execute(
+                text(
+                    "select status from commerce.feature_usage_reservations "
+                    "where reservation_key = :reservation_key"
+                ),
+                {"reservation_key": reservation_key},
+            ).scalar_one_or_none()
+        elif source == "community_reward":
+            status = session.execute(
+                text(
+                    "select coalesce(event.event_type, 'reserved') "
+                    "from commerce.community_reward_ai_usage_reservations reservation "
+                    "left join commerce.community_reward_ai_usage_reservation_events event "
+                    "on event.reservation_id = reservation.reservation_id "
+                    "where reservation.reservation_key = :reservation_key"
+                ),
+                {"reservation_key": reservation_key},
+            ).scalar_one_or_none()
+        else:
+            raise JobContractError("cause-agent reservation source is unsupported")
+        if status == "reserved":
+            CommerceRepository(session).refund_feature_usage(
+                reservation_key=reservation_key,
+                commit=False,
+            )
+            if job.claim_token is not None:
+                current = self._jobs.by_id(session, job_id=job.job_id)
+                base = current.result if current is not None and current.result else {}
+                self._jobs.checkpoint(
+                    session,
+                    job_id=job.job_id,
+                    claim_token=job.claim_token,
+                    result={**base, "quotaState": "not_charged"},
+                )
 
 
 def _next_run_values(

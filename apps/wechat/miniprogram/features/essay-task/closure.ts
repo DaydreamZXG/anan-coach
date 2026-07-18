@@ -33,6 +33,8 @@ export interface EssayRewriteDraft {
   answerText: string;
   sourceType: (typeof closureSourceTypeValues)[number];
   sourceTypeIndex: number;
+  sourceArtifactVersionId: string;
+  recognitionRevisionId: string;
   userThought: string;
   pointFindingText: string;
   outlineText: string;
@@ -64,6 +66,8 @@ export interface EssayTransferDraft {
   answerText: string;
   sourceType: (typeof closureSourceTypeValues)[number];
   sourceTypeIndex: number;
+  sourceArtifactVersionId: string;
+  recognitionRevisionId: string;
   userThought: string;
   pointFindingText: string;
   outlineText: string;
@@ -139,6 +143,8 @@ export function initialRewriteDraft(
     answerText: "",
     sourceType: "typed",
     sourceTypeIndex: 0,
+    sourceArtifactVersionId: "",
+    recognitionRevisionId: "",
     userThought: "",
     pointFindingText: "",
     outlineText: "",
@@ -161,6 +167,8 @@ export function initialTransferDraft(): EssayTransferDraft {
     answerText: "",
     sourceType: "typed",
     sourceTypeIndex: 0,
+    sourceArtifactVersionId: "",
+    recognitionRevisionId: "",
     userThought: "",
     pointFindingText: "",
     outlineText: "",
@@ -230,7 +238,7 @@ export function buildRewriteCommand(
   draft: EssayRewriteDraft,
   acceptedFindingIds: readonly string[],
 ): EssayRewriteCommandV2 {
-  const answerText = required(draft.answerText, "请先完成改写答案。", 10_000);
+  const answerText = answerBody(draft.answerText, "请先完成改写答案。");
   const accepted = [...acceptedFindingIds];
   if (!accepted.length || new Set(accepted).size !== accepted.length) {
     throw new EssayClosureError("本次改写没有可验证的已认可问题。");
@@ -267,6 +275,9 @@ export function buildRewriteCommand(
       ? { basedOnRewriteVersionId: context.basedOnRewriteVersionId }
       : {}),
     sourceType: draft.sourceType,
+    ...(draft.sourceType === "ocr_confirmed"
+      ? ocrBinding(draft.sourceArtifactVersionId, draft.recognitionRevisionId)
+      : {}),
     answerText,
     ...(thinking ? { thinking } : {}),
     resolutions,
@@ -304,7 +315,10 @@ export function buildTransferAnswerCommand(
   return {
     attemptId: required(attemptId, "迁移作答记录尚未建立。"),
     sourceType: draft.sourceType,
-    answerText: required(draft.answerText, "请先完成新题答案。", 10_000),
+    ...(draft.sourceType === "ocr_confirmed"
+      ? ocrBinding(draft.sourceArtifactVersionId, draft.recognitionRevisionId)
+      : {}),
+    answerText: answerBody(draft.answerText, "请先完成新题答案。"),
     ...(thinking ? { thinking } : {}),
   };
 }
@@ -465,6 +479,21 @@ function required(value: string, message: string, maximum?: number): string {
     throw new EssayClosureError(`${message}内容不能超过 ${String(maximum)} 字。`);
   }
   return normalized;
+}
+
+function answerBody(value: string, message: string): string {
+  if (!value.trim()) throw new EssayClosureError(message);
+  if (value.length > 10_000) {
+    throw new EssayClosureError(`${message}内容不能超过 10000 字。`);
+  }
+  return value;
+}
+
+function ocrBinding(sourceArtifactVersionId: string, recognitionRevisionId: string) {
+  if (!sourceArtifactVersionId.trim() || !recognitionRevisionId.trim()) {
+    throw new EssayClosureError("OCR 答案必须先完成逐段核对并确认识别版本。");
+  }
+  return { sourceArtifactVersionId, recognitionRevisionId };
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {

@@ -125,6 +125,28 @@ def test_provider_request_contains_only_minimized_anonymous_review_document() ->
     body = json.loads(client.content)
     user_message = json.loads(body["messages"][1]["content"])
     review_input = user_message["reviewInput"]
+    required_output_schema = user_message["requiredOutputSchema"]
+    assert set(required_output_schema["properties"]) == {
+        "score",
+        "dimensions",
+        "pointCoverage",
+        "claimEvidence",
+        "findings",
+        "rewritePlan",
+    }
+    assert body["response_format"]["json_schema"]["schema"] == (
+        required_output_schema
+    )
+    for definition_name in ("AnswerEvidenceRef", "MaterialEvidenceRef"):
+        evidence_schema = required_output_schema["$defs"][definition_name]
+        for server_owned_field in (
+            "quoteSha256",
+            "normalization",
+            "normalizedStart",
+            "normalizedEnd",
+        ):
+            assert server_owned_field not in evidence_schema["properties"]
+            assert server_owned_field not in evidence_schema["required"]
     forbidden_keys = {
         "userId",
         "attemptId",
@@ -179,6 +201,52 @@ def test_provider_reference_map_round_trips_output_without_exposing_domain_ids()
     assert prepared.references.restore_payload(anonymous) == internal
 
 
+def test_provider_seals_evidence_hashes_after_restoring_anonymous_references() -> None:
+    context = _context()
+    prepared = prepare_grounded_review_provider_input(context)
+    anonymous = prepared.references.anonymize_payload(
+        _output().model_dump(by_alias=True, mode="json")
+    )
+
+    def remove_server_owned_anchors(value: object) -> None:
+        if isinstance(value, list):
+            for item in value:
+                remove_server_owned_anchors(item)
+        elif isinstance(value, dict):
+            for field in (
+                "quoteSha256",
+                "normalization",
+                "normalizedStart",
+                "normalizedEnd",
+            ):
+                value.pop(field, None)
+            for item in value.values():
+                remove_server_owned_anchors(item)
+
+    remove_server_owned_anchors(anonymous)
+    response = _ProviderResponse(
+        envelope={
+            "choices": [
+                {"message": {"content": json.dumps(anonymous, ensure_ascii=False)}}
+            ],
+            "usage": {
+                "prompt_tokens": 10,
+                "completion_tokens": 2,
+                "prompt_tokens_details": {"cached_tokens": 0},
+            },
+        }
+    )
+    result = GroundedEssayReviewProvider(
+        _provider_settings(environment="local"),
+        client_factory=lambda: _ProviderClient(response),  # type: ignore[arg-type]
+    ).generate(context=context, request=_request(), idempotency_key="seal-key")
+
+    parsed = EssayProviderReviewPayload.model_validate_json(
+        json.dumps(result.payload, ensure_ascii=False)
+    )
+    assert parsed == _output()
+
+
 def test_repair_never_forwards_internal_violation_detail_or_domain_references() -> None:
     context = _context()
     client = _ProviderClient()
@@ -228,6 +296,10 @@ def test_repair_never_forwards_internal_violation_detail_or_domain_references() 
         ({"ai_essay_review_provider_idempotency_capability": ""}, "replayable"),
         ({"ai_essay_review_provider_idempotency_key_header": ""}, "KEY_HEADER"),
         ({"ai_essay_review_provider_request_id_header": ""}, "REQUEST_ID_HEADER"),
+        (
+            {"ai_essay_review_provider_replay_retention_seconds": 0},
+            "REPLAY_RETENTION_SECONDS",
+        ),
     ],
 )
 def test_production_provider_security_contract_rejects_unapproved_configuration(
@@ -1005,6 +1077,7 @@ def _provider_settings(*, environment: str) -> Settings:
             "X-Provider-Idempotency-Key"
         ),
         ai_essay_review_provider_request_id_header="X-Provider-Request-Id",
+        ai_essay_review_provider_replay_retention_seconds=604_800,
         ai_essay_review_max_input_bytes=10_000_000,
         ai_essay_review_max_output_bytes=1_000_000,
     )

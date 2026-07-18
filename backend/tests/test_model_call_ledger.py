@@ -12,6 +12,10 @@ from app.domains.ai.model_cost import (
     ModelPriceCard,
     ModelTokenUsage,
 )
+from app.domains.ai.governance.repository import (
+    AIGovernanceRepository,
+    generic_evidence_ref,
+)
 
 
 def test_model_call_ledger_allows_one_terminal_transition_then_is_immutable(
@@ -31,6 +35,10 @@ def test_model_call_ledger_allows_one_terminal_transition_then_is_immutable(
         schema_version="schema-v1",
         price_card=_price_card(),
         input_fingerprint="a" * 64,
+        attribution=_attribution(
+            db_session,
+            operation="grounded_review_initial",
+        ),
     )
     repository.succeed(
         db_session,
@@ -164,6 +172,10 @@ def test_model_call_ledger_replay_uses_the_original_price_snapshot(
         schema_version="schema-v1",
         price_card=original_price,
         input_fingerprint="e" * 64,
+        attribution=_attribution(
+            db_session,
+            operation="grounded_review_initial",
+        ),
     )
     db_session.commit()
 
@@ -180,6 +192,10 @@ def test_model_call_ledger_replay_uses_the_original_price_snapshot(
         schema_version="schema-v1",
         price_card=replacement_price,
         input_fingerprint="e" * 64,
+        attribution=_attribution(
+            db_session,
+            operation="grounded_review_initial",
+        ),
     )
     assert replay.call_id == original.call_id
     assert replay.price_card == original_price
@@ -242,6 +258,10 @@ def test_model_call_ledger_rounds_components_before_conserving_total(
         schema_version="schema-v1",
         price_card=price_card,
         input_fingerprint="1" * 64,
+        attribution=_attribution(
+            db_session,
+            operation="grounded_review_initial",
+        ),
     )
     repository.succeed(
         db_session,
@@ -274,4 +294,27 @@ def _price_card() -> ModelPriceCard:
         input_cny_per_million=Decimal("2"),
         cached_input_cny_per_million=Decimal("0.5"),
         output_cny_per_million=Decimal("4"),
+    )
+
+
+def _attribution(session: Session, *, operation: str):
+    return AIGovernanceRepository().attribution(
+        session,
+        environment="test",
+        scenario_key="essay_grounded_review",
+        operation=operation,
+        provider="provider@release",
+        model="model-release",
+        prompt_version="prompt-v1",
+        schema_version="schema-v1",
+        evidence_refs=(
+            generic_evidence_ref(
+                kind="test_evidence",
+                source_id="ledger-test-evidence",
+                version="v1",
+            ),
+        ),
+        retrieval_bundle_id=None,
+        reservation_id=None,
+        reservation_source=None,
     )

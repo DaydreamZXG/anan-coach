@@ -1,6 +1,10 @@
 import { currentAuthSession } from "../../auth/session";
 import { loginUrlForReturn } from "../../app/navigation/auth-return";
-import { answerIngestionUrl, captureImportUrl, routes } from "../../app/navigation/routes";
+import {
+  answerIngestionUrl,
+  captureImportUrl,
+  learningPacketsUrl,
+} from "../../app/navigation/routes";
 import {
   CaptureImportController,
   type CaptureImportState,
@@ -18,6 +22,7 @@ import {
 interface CaptureImportPageData {
   state: CaptureImportState | null;
   configurationError: string;
+  mode: "search" | "import";
 }
 
 interface CaptureImportPageCustom {
@@ -25,12 +30,18 @@ interface CaptureImportPageCustom {
   chooseAlbum(): Promise<void>;
   choosePdf(): Promise<void>;
   chooseTrack(event: WechatMiniprogram.BaseEvent): void;
+  chooseMode(event: WechatMiniprogram.BaseEvent): void;
   inputSegment(event: WechatMiniprogram.Input): void;
   selectMatch(event: WechatMiniprogram.BaseEvent): void;
+  selectQuestionUnit(event: WechatMiniprogram.BaseEvent): void;
+  requestAIAnswer(): void;
+  confirmAIAnswer(): void;
   confirmImport(): void;
   retryImport(): void;
+  restart(): void;
   openLearningPackets(): void;
   openAnswerIngestion(): void;
+  goBack(): void;
 }
 
 type CaptureImportPage = WechatMiniprogram.Page.Instance<
@@ -47,6 +58,7 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
   data: {
     state: null,
     configurationError: "",
+    mode: "search",
   },
 
   onLoad(options: Record<string, string | undefined>) {
@@ -102,6 +114,11 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     if (value === "xingce" || value === "essay") runtimes.get(this)?.setTrack(value);
   },
 
+  chooseMode(event) {
+    const mode = String(event.currentTarget.dataset.mode ?? "");
+    if (mode === "search" || mode === "import") this.setData({ mode });
+  },
+
   inputSegment(event) {
     runtimes
       .get(this)
@@ -110,6 +127,18 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
 
   selectMatch(event) {
     runtimes.get(this)?.selectMatch(String(event.currentTarget.dataset.id ?? ""));
+  },
+
+  selectQuestionUnit(event) {
+    runtimes.get(this)?.selectQuestionUnit(Number(event.currentTarget.dataset.index));
+  },
+
+  requestAIAnswer() {
+    void runtimes.get(this)?.requestAIAnswer();
+  },
+
+  confirmAIAnswer() {
+    void runtimes.get(this)?.confirmAIAnswer();
   },
 
   confirmImport() {
@@ -123,12 +152,26 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     else void controller.refresh();
   },
 
+  restart() {
+    runtimes.get(this)?.reset();
+  },
+
   openLearningPackets() {
-    void wx.navigateTo({ url: routes.learningPackets });
+    const contentVersionId =
+      this.data.state?.activeQuestionUnit?.match?.confirmedContentVersionId?.trim() ?? "";
+    if (!contentVersionId) {
+      void wx.showToast({ title: "请先确认匹配的题目版本", icon: "none" });
+      return;
+    }
+    void wx.navigateTo({ url: learningPacketsUrl({ contentVersionId }) });
   },
 
   openAnswerIngestion() {
     void wx.navigateTo({ url: answerIngestionUrl() });
+  },
+
+  goBack() {
+    void wx.navigateBack();
   },
 });
 
