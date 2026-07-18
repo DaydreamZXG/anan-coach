@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+from app.contracts.guokao_xingce import (
+    GUOKAO_XINGCE_CATALOG_VERSION,
+    GUOKAO_XINGCE_PLACEMENT_PLAN,
+)
 from app.domains.knowledge.schemas import QuestionDetail
 from app.domains.knowledge.service import KnowledgeService
 from app.domains.memory.repository import LearnerProfileRecord
 from app.domains.onboarding.repository import (
-    OnboardingProfileIncompleteError,
     OnboardingProfileRecord,
     OnboardingRepository,
 )
@@ -22,15 +25,9 @@ from app.domains.study_budget import (
 )
 
 
-PLACEMENT_TASK_ID = "placement-xingce-30"
+PLACEMENT_TASK_ID = f"placement-xingce-30:{GUOKAO_XINGCE_CATALOG_VERSION}"
 PLACEMENT_DURATION_MINUTES = 35
-PLACEMENT_PLAN = [
-    ("资料分析", 8, 20.0),
-    ("判断推理", 8, 25.0),
-    ("言语理解", 8, 25.0),
-    ("数量关系", 4, 15.0),
-    ("常识判断", 2, 15.0),
-]
+PLACEMENT_PLAN = GUOKAO_XINGCE_PLACEMENT_PLAN
 PLACEMENT_MATERIAL_TEXT_MAX_LENGTH = 5000
 
 
@@ -118,7 +115,7 @@ class OnboardingService:
                 questions.append(question)
         return PlacementTestTask(
             task_id=PLACEMENT_TASK_ID,
-            title="行测 30 题能力基线",
+            title="国考行测六模块 30 题能力基线",
             duration_minutes=PLACEMENT_DURATION_MINUTES,
             question_count=len(questions),
             module_plan=[

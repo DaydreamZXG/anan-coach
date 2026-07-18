@@ -6940,7 +6940,7 @@ export type MockExamReview = {
     /**
      * Metricname
      */
-    metricName: 'balanced_performance_index';
+    metricName: 'balanced_performance_index' | 'question_weighted_performance_index';
     /**
      * Metricunit
      */

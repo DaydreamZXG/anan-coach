@@ -158,7 +158,9 @@ class MockExamReview(MockExamBaseModel):
     estimate_source: str = Field(alias="estimateSource")
     performance_index: float = Field(alias="performanceIndex", ge=0, le=100)
     performance_range: MockExamPerformanceRange = Field(alias="performanceRange")
-    metric_name: Literal["balanced_performance_index"] = Field(alias="metricName")
+    metric_name: Literal[
+        "balanced_performance_index", "question_weighted_performance_index"
+    ] = Field(alias="metricName")
     metric_unit: Literal["index_points"] = Field(alias="metricUnit")
     metric_definition: str = Field(alias="metricDefinition")
     interval_definition: str = Field(alias="intervalDefinition")

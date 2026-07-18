@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session, sessionmaker
 
 from app.db.session import get_db_session
 from app.domains.auth.repository import token_hash_for_tests
-from app.domains.onboarding.service import PLACEMENT_TASK_ID
+from app.domains.onboarding.service import PLACEMENT_PLAN, PLACEMENT_TASK_ID
 from app.main import create_app
 
 
@@ -198,7 +198,7 @@ def test_placement_test_uses_real_questions_and_persists_baseline(
     assert body["taskId"] == PLACEMENT_TASK_ID
     assert body["baselineSource"] == "placement_test"
     assert body["estimatedXingceScore"] == 100.0
-    assert len(body["moduleResults"]) == 5
+    assert len(body["moduleResults"]) == 6
 
     with db_session_factory() as session:
         profile = session.execute(
@@ -581,13 +581,7 @@ def _seed_unmatched_position(db_session_factory: sessionmaker[Session]) -> None:
 
 
 def _seed_placement_questions(db_session_factory: sessionmaker[Session]) -> None:
-    modules = [
-        ("资料分析", 8),
-        ("判断推理", 8),
-        ("言语理解", 8),
-        ("数量关系", 4),
-        ("常识判断", 2),
-    ]
+    modules = [(module, count) for module, count, _weight in PLACEMENT_PLAN]
     with db_session_factory() as session:
         for module_name, count in modules:
             for index in range(count):

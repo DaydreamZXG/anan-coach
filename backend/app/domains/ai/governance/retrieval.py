@@ -360,7 +360,7 @@ def _semantic_overlap(question: str, candidate: _Candidate) -> float:
         ("计划", "今天", "安排", "任务", "复测"),
         ("错因", "做错", "失分", "方法"),
         ("申论", "材料", "要点", "结构", "改写"),
-        ("行测", "资料分析", "判断推理", "言语", "数量", "常识"),
+        ("行测", "政治理论", "资料分析", "判断推理", "言语", "数量", "常识"),
     )
     question_groups = {
         index for index, group in enumerate(groups) if any(term in question for term in group)

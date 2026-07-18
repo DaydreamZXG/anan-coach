@@ -28,6 +28,7 @@ class MockExamSessionRecord:
     score_metric_name: str
     score_metric_unit: str
     score_metric_definition: str
+    score_module_weights: dict[str, float]
     next_trajectory_event_seq: int
     checkpoint_updated_at: datetime
     created_at: datetime
@@ -70,6 +71,10 @@ class MockExamRepository:
         module_name: str,
         limit: int,
     ) -> list[str]:
+        # ``question_type`` is a knowledge-taxonomy leaf in the imported bank
+        # (for example ``新思想``), not the response format. Objective domain,
+        # answer-label and option integrity are the authoritative single-choice
+        # eligibility contract below.
         since = datetime.now(UTC) - timedelta(days=60)
         rows = self._session.execute(
             text(
@@ -88,7 +93,6 @@ class MockExamRepository:
                  and kmn.near5_occurrence_count > 0
                 where q.status = 'active'
                   and q.domain = 'objective'
-                  and q.question_type = 'single_choice'
                   and nullif(trim(q.answer), '') is not null
                   and q.module_name = :module_name
                   and exists (
@@ -329,6 +333,7 @@ class MockExamRepository:
                   score_metric_name,
                   score_metric_unit,
                   score_metric_definition,
+                  score_module_weights,
                   next_trajectory_event_seq,
                   checkpoint_updated_at,
                   created_at,
@@ -340,6 +345,7 @@ class MockExamRepository:
                          policy.metric_name as score_metric_name,
                          policy.metric_unit as score_metric_unit,
                          policy.definition as score_metric_definition,
+                         policy.module_weights as score_module_weights,
                          (
                            select coalesce(max(event.event_seq), 0) + 1
                            from learner.mock_exam_trajectory_events event
@@ -375,6 +381,10 @@ class MockExamRepository:
             score_metric_name=str(row["score_metric_name"]),
             score_metric_unit=str(row["score_metric_unit"]),
             score_metric_definition=str(row["score_metric_definition"]),
+            score_module_weights={
+                str(key): float(value)
+                for key, value in dict(row["score_module_weights"]).items()
+            },
             next_trajectory_event_seq=int(row["next_trajectory_event_seq"]),
             checkpoint_updated_at=row["checkpoint_updated_at"],
             created_at=row["created_at"],

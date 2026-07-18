@@ -1760,11 +1760,11 @@ export const visualScenarios = [
       papers: [
         {
           paperVersionId: "visual-paper-v1",
-          scoringPolicyVersionId: "mock-balanced-performance-index-v1",
+          scoringPolicyVersionId: "mock-question-weighted-performance-index-v2",
           title: "国考行测 135 题整卷模考",
           questionCount: 135,
           durationMinutes: 120,
-          metricDefinition: "五个行测模块各占 20 点，不是国考原始分。",
+          metricDefinition: "六个行测模块按标准卷题量占比加权，不是国考原始分。",
           status: "in_progress",
           statusLabel: "作答中",
           actionLabel: "继续作答",

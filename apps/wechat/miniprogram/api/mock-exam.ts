@@ -144,7 +144,7 @@ export interface MockExamSubmitReceipt {
     estimateSource: string;
     performanceIndex: number;
     performanceRange: { lower: number; recommended: number; upper: number };
-    metricName: "balanced_performance_index";
+    metricName: "balanced_performance_index" | "question_weighted_performance_index";
     metricUnit: "index_points";
     metricDefinition: string;
     intervalDefinition: string;
@@ -503,6 +503,17 @@ function mapSubmitReceipt(value: unknown): MockExamSubmitReceipt {
   if (status !== "submitted" && status !== "reviewed") {
     throw new Error("Mock submit status is invalid");
   }
+  const metricName = stringField(review, ["metricName", "metric_name"]);
+  if (
+    metricName !== "balanced_performance_index" &&
+    metricName !== "question_weighted_performance_index"
+  ) {
+    throw new Error("Mock score metric is invalid");
+  }
+  const metricUnit = stringField(review, ["metricUnit", "metric_unit"]);
+  if (metricUnit !== "index_points") {
+    throw new Error("Mock score metric unit is invalid");
+  }
   return {
     sessionId: stringField(source, ["sessionId", "session_id"]),
     status,
@@ -511,8 +522,8 @@ function mapSubmitReceipt(value: unknown): MockExamSubmitReceipt {
       estimateSource: stringField(review, ["estimateSource", "estimate_source"]),
       performanceIndex: numberField(review, ["performanceIndex", "performance_index"]),
       performanceRange: mapPerformanceRange(field(review, "performanceRange")),
-      metricName: "balanced_performance_index",
-      metricUnit: "index_points",
+      metricName,
+      metricUnit,
       metricDefinition: stringField(review, ["metricDefinition", "metric_definition"]),
       intervalDefinition: stringField(review, ["intervalDefinition", "interval_definition"]),
       paperVersionId: stringField(review, ["paperVersionId", "paper_version_id"]),

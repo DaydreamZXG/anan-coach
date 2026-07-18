@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import UTC, date, datetime
 from uuid import uuid4
 
+from app.contracts.guokao_xingce import GUOKAO_XINGCE_MODULE_NAMES
 from app.domains.docket.repository import DocketRepository
 from app.domains.docket.schemas import (
     CourtStateSnapshot,
@@ -23,6 +24,11 @@ from app.domains.progression.service import (
 OPEN_COURT_CARD_COUNT = 10
 
 _MODULE_WORLD: dict[str, tuple[str, str, str]] = {
+    "政治理论": (
+        "朝政理论奏报",
+        "研判朝政纲要",
+        "治国理政要义交织，请大人辨明理论与政策依据。",
+    ),
     "资料分析": (
         "州府钱粮急件",
         "核算全县钱粮",
@@ -49,6 +55,9 @@ _MODULE_WORLD: dict[str, tuple[str, str, str]] = {
         "工役、路程、钱粮相互牵扯，请大人速算定夺。",
     ),
 }
+
+if set(_MODULE_WORLD) != set(GUOKAO_XINGCE_MODULE_NAMES):
+    raise RuntimeError("docket presentation must cover the current guokao modules")
 
 
 class DocketService:

@@ -50,12 +50,14 @@ def test_weekly_mock_exam_full_loop_feeds_workbench_without_faking_score_calibra
 
     assert submitted.status_code == 200
     review = submitted.json()["review"]
-    assert review["estimatedScore"] == 98.0
-    assert review["performanceIndex"] == 98.0
-    assert review["metricName"] == "balanced_performance_index"
-    assert review["scoringPolicyVersionId"] == "mock-balanced-performance-index-v1"
-    assert review["performanceRange"]["lower"] < 98.0
-    assert review["performanceRange"]["upper"] > 98.0
+    assert review["estimatedScore"] == 98.5
+    assert review["performanceIndex"] == 98.5
+    assert review["metricName"] == "question_weighted_performance_index"
+    assert review["scoringPolicyVersionId"] == (
+        "mock-question-weighted-performance-index-v2"
+    )
+    assert review["performanceRange"]["lower"] < 98.5
+    assert review["performanceRange"]["upper"] > 98.5
     assert review["viewed"] is False
     assert "不是国考原始分" in review["estimateSource"]
     assert review["wrongClusters"][0]["methodCardIds"] == ["mc_mock"]
@@ -255,6 +257,7 @@ def _seed_user(db_session_factory: sessionmaker[Session], *, token: str) -> str:
 
 def _seed_mock_qbank(db_session_factory: sessionmaker[Session]) -> str:
     module_slugs = {
+        "政治理论": "zhengzhi",
         "常识判断": "changshi",
         "言语理解与表达": "yanyu",
         "数量关系": "shuliang",
@@ -289,8 +292,8 @@ def _seed_mock_qbank(db_session_factory: sessionmaker[Session]) -> str:
                   'mc_mock',
                   'guokao',
                   'xingce',
-                  '常识判断',
-                  '高频常识判断',
+                  '政治理论',
+                  '高频政治理论',
                   '模考错题修复卡',
                   '模考错题',
                   '{}'::jsonb,
@@ -311,7 +314,7 @@ def _seed_mock_qbank(db_session_factory: sessionmaker[Session]) -> str:
         for module_name, count in GUOKAO_MOCK_BLUEPRINT:
             slug = module_slugs[module_name]
             tag_value = f"高频{module_name}"
-            method_card_ids = '["mc_mock"]' if module_name == "常识判断" else "[]"
+            method_card_ids = '["mc_mock"]' if module_name == "政治理论" else "[]"
             session.execute(
                 text(
                     """
@@ -388,7 +391,7 @@ def _seed_mock_qbank(db_session_factory: sessionmaker[Session]) -> str:
                           'objective',
                           'active',
                           :module_name,
-                          'single_choice',
+                          '知识点',
                           :stem,
                           'B',
                           false,

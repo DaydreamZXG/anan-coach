@@ -9,6 +9,10 @@ from uuid import uuid4
 
 from pydantic import ValidationError
 
+from app.contracts.guokao_xingce import (
+    GUOKAO_XINGCE_CATALOG_VERSION,
+    GUOKAO_XINGCE_VICE_PROVINCIAL_BLUEPRINT,
+)
 from app.domains.knowledge.service import KnowledgeService
 from app.domains.mock_exam.repository import (
     AssignedQuestionRecord,
@@ -45,14 +49,8 @@ from app.domains.xingce_learning.real_attempt.schemas import (
 
 WEEKLY_MOCK_TASK_ID = "weekly-guokao-mock-exam"
 MOCK_DURATION_MINUTES = 120
-MOCK_SCORING_POLICY_VERSION = "mock-balanced-performance-index-v1"
-GUOKAO_MOCK_BLUEPRINT: list[tuple[str, int]] = [
-    ("常识判断", 20),
-    ("言语理解与表达", 40),
-    ("数量关系", 15),
-    ("判断推理", 40),
-    ("资料分析", 20),
-]
+MOCK_SCORING_POLICY_VERSION = "mock-question-weighted-performance-index-v2"
+GUOKAO_MOCK_BLUEPRINT = GUOKAO_XINGCE_VICE_PROVINCIAL_BLUEPRINT
 
 
 class MockExamUnavailableError(RuntimeError):
@@ -141,7 +139,8 @@ class MockExamService:
             },
             equivalence_metadata={
                 "status": "structural_index",
-                "blueprintVersion": "guokao-xingce-135@v1",
+                "blueprintVersion": "guokao-xingce-135-six-module@v2",
+                "moduleCatalogVersion": GUOKAO_XINGCE_CATALOG_VERSION,
                 "officialScoreComparable": False,
             },
             content_fingerprint=paper_fingerprint,
@@ -637,6 +636,12 @@ class MockExamService:
         assigned_questions: list[AssignedQuestionRecord],
         answers: dict[str, str | None],
     ) -> MockExamReview:
+        record = self._repository.get_session(
+            session_id=session_id, user_id=user_id
+        )
+        if record is None:
+            raise MockExamSubmissionError("Mock paper version disappeared")
+        published_modules = _published_module_names(record.blueprint)
         by_module: dict[str, dict[str, int]] = {}
         wrong_question_ids: list[str] = []
         correct_count = 0
@@ -659,7 +664,7 @@ class MockExamService:
             user_id=user_id, before_session_id=session_id
         )
         modules = []
-        for module_name, _ in GUOKAO_MOCK_BLUEPRINT:
+        for module_name in published_modules:
             values = by_module.get(module_name, {"correct": 0, "total": 0})
             accuracy = (
                 round(values["correct"] / values["total"], 4)
@@ -680,16 +685,9 @@ class MockExamService:
                     ),
                 )
             )
-        if record := self._repository.get_session(
-            session_id=session_id, user_id=user_id
-        ):
-            scoring_policy_version_id = record.scoring_policy_version_id
-            paper_version_id = record.paper_version_id
-            metric_definition = record.score_metric_definition
-        else:
-            raise MockExamSubmissionError("Mock paper version disappeared")
-        performance_index, performance_range = _balanced_performance_index(
-            modules
+        performance_index, performance_range = _performance_index(
+            modules,
+            module_weights=record.score_module_weights,
         )
         wrong_clusters = [
             MockExamWrongCluster(
@@ -707,21 +705,18 @@ class MockExamService:
         return MockExamReview(
             session_id=session_id,
             estimated_score=performance_index,
-            estimate_source=(
-                "兼容字段：值为五模块平衡表现指数，"
-                "不是国考原始分，不使用全国分位。"
-            ),
+            estimate_source=_estimate_source(record.score_metric_name),
             performanceIndex=performance_index,
             performanceRange=performance_range,
-            metricName="balanced_performance_index",
-            metricUnit="index_points",
-            metricDefinition=metric_definition,
+            metricName=record.score_metric_name,
+            metricUnit=record.score_metric_unit,
+            metricDefinition=record.score_metric_definition,
             intervalDefinition=(
-                "各模块使用 95% Wilson 二项区间后按模块权重合成；"
+                "各模块使用 95% Wilson 二项区间后按已发布策略权重合成；"
                 "只表达本卷答题样本不确定性，不是官方成绩区间。"
             ),
-            paperVersionId=paper_version_id,
-            scoringPolicyVersionId=scoring_policy_version_id,
+            paperVersionId=record.paper_version_id,
+            scoringPolicyVersionId=record.scoring_policy_version_id,
             submitted_at=datetime.now(UTC).isoformat(),
             viewed=False,
             modules=modules,
@@ -761,24 +756,68 @@ def _bundle_from_record(record: MockExamSessionRecord) -> SafeQuestionBundle:
     return bundle
 
 
-def _balanced_performance_index(
+def _performance_index(
     modules: list[MockExamModuleReview],
+    *,
+    module_weights: dict[str, float],
 ) -> tuple[float, MockExamPerformanceRange]:
-    if {item.module_name for item in modules} != {
-        module_name for module_name, _ in GUOKAO_MOCK_BLUEPRINT
-    }:
+    module_names = {item.module_name for item in modules}
+    if module_names != set(module_weights):
         raise MockExamSubmissionError(
-            "Balanced performance index requires every published module"
+            "Performance index modules do not match the published scoring policy"
         )
-    module_weight = 1 / len(GUOKAO_MOCK_BLUEPRINT)
-    recommended = sum(item.accuracy * module_weight for item in modules) * 100
-    bounds = [_wilson_interval(item.correct, item.total) for item in modules]
-    lower = sum(bound[0] * module_weight for bound in bounds) * 100
-    upper = sum(bound[1] * module_weight for bound in bounds) * 100
+    if any(weight <= 0 for weight in module_weights.values()) or abs(
+        sum(module_weights.values()) - 1.0
+    ) > 1e-6:
+        raise MockExamSubmissionError("Published scoring policy weights are invalid")
+    recommended = sum(
+        item.accuracy * module_weights[item.module_name] for item in modules
+    ) * 100
+    weighted_bounds = [
+        (
+            _wilson_interval(item.correct, item.total),
+            module_weights[item.module_name],
+        )
+        for item in modules
+    ]
+    lower = sum(bound[0] * weight for bound, weight in weighted_bounds) * 100
+    upper = sum(bound[1] * weight for bound, weight in weighted_bounds) * 100
     score = round(recommended, 1)
     return score, MockExamPerformanceRange(
         lower=round(lower, 1), recommended=score, upper=round(upper, 1)
     )
+
+
+def _published_module_names(blueprint: list[dict[str, Any]]) -> tuple[str, ...]:
+    names: list[str] = []
+    for item in blueprint:
+        module_name = item.get("moduleName")
+        question_count = item.get("questionCount")
+        if (
+            not isinstance(module_name, str)
+            or not module_name.strip()
+            or not isinstance(question_count, int)
+            or question_count <= 0
+        ):
+            raise MockExamSubmissionError("Published mock blueprint is invalid")
+        names.append(module_name.strip())
+    if not names or len(names) != len(set(names)):
+        raise MockExamSubmissionError("Published mock blueprint modules are invalid")
+    return tuple(names)
+
+
+def _estimate_source(metric_name: str) -> str:
+    if metric_name == "balanced_performance_index":
+        return (
+            "兼容字段：值为历史五模块等权表现指数，"
+            "不是国考原始分，不使用全国分位。"
+        )
+    if metric_name == "question_weighted_performance_index":
+        return (
+            "兼容字段：值为当前六模块按标准卷题量加权表现指数，"
+            "不是国考原始分，不使用全国分位。"
+        )
+    raise MockExamSubmissionError("Published scoring metric is unsupported")
 
 
 def _wilson_interval(correct: int, total: int) -> tuple[float, float]:

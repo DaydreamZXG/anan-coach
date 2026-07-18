@@ -1,5 +1,5 @@
 import type { TodayDashboard } from "../api/generated/types.gen";
-import type { LearningProfile, PositionWorkspace } from "../domain/contracts";
+import type { PositionWorkspace } from "../domain/contracts";
 
 const scoreConfidence = "medium" as const;
 
@@ -266,23 +266,4 @@ export const prototypePositions: PositionWorkspace = {
       evidenceSummary: "近 2 年同系统岗位样本 5 个",
     },
   ],
-};
-
-export const prototypeLearningProfile: LearningProfile = {
-  xingce: { lower: 61, upper: 65, confidence: "medium" },
-  shenlun: { lower: 60, upper: 64, confidence: "low" },
-  evidenceCount: 94,
-  modules: [
-    { name: "资料分析", accuracy: 0.58, averageSeconds: 104, trend: "up" },
-    { name: "判断推理", accuracy: 0.72, averageSeconds: 71, trend: "stable" },
-    { name: "言语理解", accuracy: 0.66, averageSeconds: 76, trend: "down" },
-    { name: "数量关系", accuracy: 0.31, averageSeconds: 188, trend: "stable" },
-  ],
-  errorPatterns: [
-    { name: "条件定位不完整", count: 7, evidenceLevel: "high" },
-    { name: "计算路径过长", count: 5, evidenceLevel: "medium" },
-    { name: "主旨与意图区分不稳", count: 4, evidenceLevel: "medium" },
-  ],
-  weeklyClosedLoops: 6,
-  weeklyPlanCompletion: 0.78,
 };

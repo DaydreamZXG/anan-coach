@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import UTC, date, datetime, timedelta
 
+from app.contracts.guokao_xingce import GUOKAO_XINGCE_MODULE_NAMES
 from app.domains.calibration.schemas import AbilityEstimate
 from app.domains.calibration.service import CalibrationService
 from app.domains.knowledge.service import KnowledgeService, WeightedPracticeSelection
@@ -458,9 +459,9 @@ def _rationale(
     return f"{source}，{calibration_line}，今天只排短任务，先适配碎片时间。"
 
 
-# MARK: - 每日轮换（按星期 + 弱点选行测模块，周末主攻最弱项）
+# MARK: - 每日轮换（六模块连续轮换 + 周末主攻最弱项）
 
-_XINGCE_ROTATION = ["常识判断", "言语理解与表达", "数量关系", "判断推理", "资料分析"]
+_XINGCE_ROTATION = GUOKAO_XINGCE_MODULE_NAMES
 
 
 def _accuracy_pct(raw: float) -> float:
@@ -469,9 +470,9 @@ def _accuracy_pct(raw: float) -> float:
 
 
 def _daily_rotation_module(today: date, calibration: AbilityEstimate) -> str | None:
-    """按星期轮换行测模块；周末主攻最弱项。返回 None 表示交由默认高频节点选择。
+    """按日期连续轮换六模块；周末主攻最弱项。
 
-    - 周一~周五：依次轮换五大模块，保证每周各模块都练到。
+    - 周一~周五：按绝对日期推进六模块，不把第六模块永久排除在工作日外。
     - 周六/周日：主攻校准出的最弱模块（样本≥10 且胜率<50%）；无弱项则回退 None。
     """
     weekday = today.weekday()  # 0=Mon … 6=Sun
@@ -482,4 +483,4 @@ def _daily_rotation_module(today: date, calibration: AbilityEstimate) -> str | N
     ]
     if weekday >= 5:
         return weak_modules[0] if weak_modules else None
-    return _XINGCE_ROTATION[weekday]
+    return _XINGCE_ROTATION[today.toordinal() % len(_XINGCE_ROTATION)]

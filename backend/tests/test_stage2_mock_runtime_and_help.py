@@ -32,8 +32,10 @@ def test_mock_runtime_is_safe_recoverable_idempotent_and_allows_late_submit(
     created = created_response.json()
     assert created["revision"] == 1
     assert created["paperVersionId"]
-    assert created["scoringPolicyVersionId"] == "mock-balanced-performance-index-v1"
-    assert created["scoreMetricName"] == "balanced_performance_index"
+    assert created["scoringPolicyVersionId"] == (
+        "mock-question-weighted-performance-index-v2"
+    )
+    assert created["scoreMetricName"] == "question_weighted_performance_index"
     assert created["checkpoint"]["currentQuestionId"] == created["questions"][0]["questionId"]
     _assert_no_forbidden_learner_keys(created)
     help_response = client.post(
@@ -369,9 +371,9 @@ def test_expired_mock_can_submit_without_writing_a_checkpoint_first(
     )
     assert submitted.status_code == 200, submitted.text
     review = submitted.json()["review"]
-    assert review["estimatedScore"] == 1.0
-    assert review["performanceIndex"] == 1.0
-    assert review["metricName"] == "balanced_performance_index"
+    assert review["estimatedScore"] == 0.7
+    assert review["performanceIndex"] == 0.7
+    assert review["metricName"] == "question_weighted_performance_index"
     assert review["paperVersionId"] == created["paperVersionId"]
 
 

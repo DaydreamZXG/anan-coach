@@ -209,6 +209,11 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in free_cold_start._TEST_STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
+        six_modules = import_module(
+            "migrations.versions.20260718_39_guokao_xingce_six_modules"
+        )
+        for statement in six_modules._TEST_STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
 
 
 def _split_postgres_statements(script: str) -> list[str]:
