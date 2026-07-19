@@ -95,21 +95,8 @@ class HttpMalwareScannerClient:
 
 
 def build_upload_service(*, session: Session, settings: Settings) -> UploadService:
-    storage_settings = TosStorageSettings(
-        bucket=settings.tos_bucket,
-        region=settings.tos_region,
-        endpoint=settings.tos_endpoint,
-        quarantine_prefix=settings.tos_quarantine_prefix,
-    )
-    storage = TosPrivateObjectStorageAdapter(
-        settings=storage_settings,
-        client=VolcengineTosSdkFacade.from_credentials(
-            access_key=settings.tos_access_key,
-            secret_key=settings.tos_secret_key,
-            endpoint=settings.tos_endpoint,
-            region=settings.tos_region,
-        ),
-    )
+    storage = build_private_object_storage(settings)
+
     scanner_client = HttpMalwareScannerClient(settings)
     scanner_approval = ScannerApproval(
         provider_route=settings.upload_scanner_route,
@@ -138,6 +125,24 @@ def build_upload_service(*, session: Session, settings: Settings) -> UploadServi
                     settings.upload_maximum_stored_bytes_per_user
                 ),
             ),
+        ),
+    )
+
+
+def build_private_object_storage(settings: Settings) -> TosPrivateObjectStorageAdapter:
+    storage_settings = TosStorageSettings(
+        bucket=settings.tos_bucket,
+        region=settings.tos_region,
+        endpoint=settings.tos_endpoint,
+        quarantine_prefix=settings.tos_quarantine_prefix,
+    )
+    return TosPrivateObjectStorageAdapter(
+        settings=storage_settings,
+        client=VolcengineTosSdkFacade.from_credentials(
+            access_key=settings.tos_access_key,
+            secret_key=settings.tos_secret_key,
+            endpoint=settings.tos_endpoint,
+            region=settings.tos_region,
         ),
     )
 

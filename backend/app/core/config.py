@@ -53,6 +53,15 @@ class Settings:
     recognition_default_answer_route: str = ""
     recognition_default_essay_handwriting_route: str = ""
     recognition_default_external_score_report_route: str = ""
+    myscript_endpoint: str = "https://cloud.myscript.com/api/v4.0/iink/recognize/"
+    myscript_https_host_allowlist: str = "cloud.myscript.com"
+    myscript_application_key: str = ""
+    myscript_hmac_key: str = ""
+    myscript_provider_release_id: str = ""
+    myscript_model_release: str = "iink-math-v4.4"
+    myscript_price_version: str = ""
+    myscript_unit_price_cny: str = ""
+    myscript_deployment_id: str = ""
     source_artifact_access_ttl_seconds: int = 300
     matching_policy_version: str = "external-hybrid-match-v1"
     matching_similar_threshold: float = 0.86
@@ -169,7 +178,7 @@ class Settings:
     wechat_virtual_pay_message_encoding_aes_key: str = ""
     privacy_export_expiry_seconds: int = 86400
     operations_metrics_token: str = ""
-    required_database_revision: str = "20260719_43"
+    required_database_revision: str = "20260719_44"
     support_jwt_jwks_url: str = ""
     support_jwt_issuer: str = ""
     support_jwt_audience: str = ""
@@ -251,6 +260,20 @@ def get_settings() -> Settings:
         recognition_default_external_score_report_route=os.getenv(
             "RECOGNITION_DEFAULT_EXTERNAL_SCORE_REPORT_ROUTE", ""
         ),
+        myscript_endpoint=os.getenv(
+            "MYSCRIPT_ENDPOINT",
+            "https://cloud.myscript.com/api/v4.0/iink/recognize/",
+        ),
+        myscript_https_host_allowlist=os.getenv(
+            "MYSCRIPT_HTTPS_HOST_ALLOWLIST", "cloud.myscript.com"
+        ),
+        myscript_application_key=os.getenv("MYSCRIPT_APPLICATION_KEY", ""),
+        myscript_hmac_key=os.getenv("MYSCRIPT_HMAC_KEY", ""),
+        myscript_provider_release_id=os.getenv("MYSCRIPT_PROVIDER_RELEASE_ID", ""),
+        myscript_model_release=os.getenv("MYSCRIPT_MODEL_RELEASE", "iink-math-v4.4"),
+        myscript_price_version=os.getenv("MYSCRIPT_PRICE_VERSION", ""),
+        myscript_unit_price_cny=os.getenv("MYSCRIPT_UNIT_PRICE_CNY", ""),
+        myscript_deployment_id=os.getenv("MYSCRIPT_DEPLOYMENT_ID", ""),
         source_artifact_access_ttl_seconds=int(
             os.getenv("SOURCE_ARTIFACT_ACCESS_TTL_SECONDS", "300")
         ),
@@ -597,7 +620,7 @@ def get_settings() -> Settings:
         ),
         operations_metrics_token=os.getenv("OPERATIONS_METRICS_TOKEN", ""),
         required_database_revision=os.getenv(
-            "REQUIRED_DATABASE_REVISION", "20260719_43"
+            "REQUIRED_DATABASE_REVISION", "20260719_44"
         ),
         support_jwt_jwks_url=os.getenv("SUPPORT_JWT_JWKS_URL", ""),
         support_jwt_issuer=os.getenv("SUPPORT_JWT_ISSUER", ""),

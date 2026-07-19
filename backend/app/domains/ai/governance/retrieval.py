@@ -254,64 +254,44 @@ class AuthorizedHybridRetriever:
         rows = self._session.execute(
             text(
                 """
-                select recognition.recognition_revision_id,
-                       recognition.artifact_version_id,
-                       recognition.recognition_kind,
-                       recognition.candidate_payload,
-                       artifact.source_kind,
-                       artifact.content_sha256
-                from learning.recognition_revisions recognition
-                join learning.source_artifact_versions artifact
-                  on artifact.artifact_version_id = recognition.artifact_version_id
-                 and artifact.owner_user_id = recognition.owner_user_id
-                where recognition.owner_user_id = cast(:user_id as uuid)
-                  and recognition.state = 'confirmed'
-                  and artifact.state = 'available'
+                select source.source_id, source.source_version_id, source.title,
+                       page.page_no, chunk.chunk_id, chunk.anchor, chunk.content
+                from learning.private_knowledge_source_versions source
+                join learning.private_knowledge_page_versions page
+                  on page.source_version_id = source.source_version_id
+                 and page.owner_user_id = source.owner_user_id
+                join learning.private_knowledge_chunks chunk
+                  on chunk.page_version_id = page.page_version_id
+                 and chunk.owner_user_id = page.owner_user_id
+                where source.owner_user_id = cast(:user_id as uuid)
                   and not exists (
-                    select 1 from learning.recognition_revisions successor
-                    where successor.supersedes_recognition_revision_id =
-                          recognition.recognition_revision_id
+                    select 1 from learning.private_knowledge_source_versions successor
+                    where successor.supersedes_source_version_id =
+                          source.source_version_id
                   )
-                order by recognition.created_at desc
-                limit 40
+                order by source.created_at desc, page.page_no, chunk.ordinal
+                limit 120
                 """
             ),
             {"user_id": user_id},
         ).mappings()
-        candidates: list[_Candidate] = []
-        for row in rows:
-            payload = dict(row["candidate_payload"])
-            spans = payload.get("textSpans")
-            if not isinstance(spans, list):
-                continue
-            texts = [
-                str(item.get("text", "")).strip()
-                for item in spans
-                if isinstance(item, dict) and str(item.get("text", "")).strip()
-            ]
-            value = "\n".join(texts)
-            if not value:
-                continue
-            recognition_id = str(row["recognition_revision_id"])
-            candidates.append(
-                _Candidate(
-                    reference=EvidenceReference(
-                        kind="user_material",
-                        sourceId=f"recognition:{recognition_id}",
-                        version=recognition_id,
-                        anchor="text-spans",
-                        title=_private_material_title(
-                            source_kind=str(row["source_kind"]),
-                            recognition_kind=str(row["recognition_kind"]),
-                        ),
-                    ),
-                    text=value,
-                    trust_scope="owner_private_material",
-                    source_weight=0.85,
-                    untrusted_input=True,
-                )
+        return tuple(
+            _Candidate(
+                reference=EvidenceReference(
+                    kind="user_material",
+                    sourceId=f"private-source:{row['source_id']}",
+                    version=str(row["source_version_id"]),
+                    anchor=f"page:{row['page_no']}:chunk:{row['chunk_id']}",
+                    title=str(row["title"]),
+                ),
+                text=str(row["content"]),
+                trust_scope="owner_private_material",
+                source_weight=0.85,
+                untrusted_input=True,
             )
-        return tuple(candidates)
+            for row in rows
+            if str(row["content"]).strip()
+        )
 
 
 def context_candidate(
@@ -412,23 +392,6 @@ def _mmr_select(
 def _excerpt(value: str) -> str:
     collapsed = " ".join(value.split())
     return collapsed[:2000]
-
-
-def _private_material_title(*, source_kind: str, recognition_kind: str) -> str:
-    source_label = {
-        "camera_image": "拍摄资料",
-        "image_import": "图片资料",
-        "pdf_upload": "PDF 资料",
-        "answer_sheet": "答题材料",
-        "notes_app_export": "笔记资料",
-    }.get(source_kind, "个人资料")
-    recognition_label = {
-        "printed_ocr": "印刷文字",
-        "handwriting_ocr": "手写文字",
-        "exam_segmentation": "试卷分段",
-        "answer_sheet_omr": "答题卡识别",
-    }.get(recognition_kind, "识别内容")
-    return f"{source_label} · {recognition_label}"
 
 
 def _fingerprint(value: Any) -> str:

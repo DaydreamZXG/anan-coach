@@ -24,6 +24,7 @@ from app.domains.learning_packages.router import router as learning_packages_rou
 from app.domains.learning_media.router import router as learning_media_router
 from app.domains.learning_brain.router import router as learning_brain_router
 from app.domains.memory.router import router as memory_router
+from app.domains.math_ink.router import router as math_ink_router
 from app.domains.method_cards.router import router as method_cards_router
 from app.domains.mock_exam.router import router as mock_exam_router, v2_router as mock_exam_v2_router
 from app.domains.onboarding.router import router as onboarding_router, v2_router as onboarding_v2_router
@@ -33,6 +34,7 @@ from app.domains.processor_disclosure.router import router as processor_disclosu
 from app.domains.positions.router import router as positions_router
 from app.domains.practice.router import router as practice_router
 from app.domains.progression.router import router as progression_router
+from app.domains.private_knowledge.router import router as private_knowledge_router
 from app.domains.qualification.router import router as qualification_router
 from app.domains.rank_system.router import router as rank_router
 from app.domains.review_session.router import router as review_session_router
@@ -64,6 +66,7 @@ router.include_router(learning_packages_router)
 router.include_router(learning_media_router)
 router.include_router(learning_brain_router)
 router.include_router(memory_router)
+router.include_router(math_ink_router)
 router.include_router(method_cards_router)
 router.include_router(mock_exam_router)
 router.include_router(mock_exam_v2_router)
@@ -78,6 +81,7 @@ router.include_router(task_help_router)
 router.include_router(xingce_briefing_router)
 router.include_router(practice_router)
 router.include_router(progression_router)
+router.include_router(private_knowledge_router)
 router.include_router(essay_router)
 router.include_router(essay_intelligence_router)
 router.include_router(external_ingestion_router)

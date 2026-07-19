@@ -48,6 +48,14 @@
 - 每次改 provider、model、prompt 或 schema，必须先执行对应真实黄金集脚本：`release_recognition_ai.py`、`release_text_ai.py` 和 `release_external_question_answer_ai.py`。
 - 只有脚本实际调用供应商、通过合同/grounding/禁用语/成本门禁并写入匹配的 `ai_audit.scenario_deployments` 后，场景才允许接流量。不得手工插入 deployment 或用假响应发布。
 - Gemini gateway 不重放相同 `Idempotency-Key`；网络超时和不确定 5xx 不自动重试，须保留失败调用审计并由新命令显式重做。
+- MyScript 必须同时配置精确 HTTPS 识别端点、host 白名单、provider/model/price 版本和已验收 deployment；`MYSCRIPT_APPLICATION_KEY` 与 `MYSCRIPT_HMAC_KEY` 只存在 API 主机的 root-only env，不进入小程序、日志或仓库。
+- 真实笔迹启用前，`processor_release_records` 必须对精确端点指纹、`handwriting_math_recognition` 用途和 `handwriting_strokes` 类别有效批准；现有 blocked 记录不可手工改成 approved，须追加有完整证据的新发布。
+
+## 私人资料与删除
+
+- `gongkao-dazi-external-learning-worker` 同时负责私人资料删除任务；API 发布 `20260719_44` 后若不启动该 worker，用户删除会停留在 `queued`，不得宣称已删除。
+- 删除成功标准是对象存储删除、OCR/匹配载荷擦除、source/page/chunk/index 级联清理和 `privacy.private_material_deletion_requests.state=completed` 同时成立；不得只隐藏页面条目。
+- Markdown 导回必须携带当前导出版本的 `anan_*` 血缘字段；冲突时拒绝覆盖，由用户重新导出当前版本。
 
 ## 上线前外部门禁
 

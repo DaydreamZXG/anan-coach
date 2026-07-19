@@ -1,0 +1,61 @@
+<view class="s9-page private-page">
+  <view class="private-hero">
+    <view class="s9-card-kicker">只属于你的检索资料</view>
+    <view class="private-title">讲义、笔记与岸岸引用同一版本</view>
+    <view class="private-copy">资料不会用于训练基础模型，也不会跨账户复用。上传不代表学会；岸岸回答会精确标出资料、页码和切片。</view>
+  </view>
+
+  <state-view wx:if="{{status === 'loading'}}" state="loading" title="正在读取私人资料" />
+  <state-view wx:elif="{{status === 'error'}}" state="error" title="私人资料库没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重试" bind:action="retry" />
+
+  <block wx:else>
+    <view class="s9-card import-card">
+      <view class="s9-section-title">加入私人资料</view>
+      <input class="title-input private-input" value="{{title}}" maxlength="200" placeholder="资料标题（不填则使用文件名）" bindinput="inputTitle" />
+      <picker range="{{documentKinds}}" range-key="label" value="{{documentKindIndex}}" bindchange="selectDocumentKind">
+        <view class="kind-picker">类型：{{documentKinds[documentKindIndex].label}} <text>⌄</text></view>
+      </picker>
+      <view class="import-actions">
+        <button class="private-action" disabled="{{busy}}" bindtap="chooseImage">图片讲义</button>
+        <button class="private-action" disabled="{{busy}}" bindtap="choosePdf">PDF</button>
+        <button class="private-action" disabled="{{busy}}" bindtap="chooseMarkdown">Markdown</button>
+      </view>
+      <view wx:if="{{busy}}" class="progress-copy">安全上传与处理 {{uploadPercent}}%</view>
+      <view wx:if="{{importTarget}}" class="roundtrip-note">正在导回《{{importTarget.title}}》v{{importTarget.versionNo}}；保存后会生成新版本，不覆盖旧版。</view>
+    </view>
+
+    <view wx:if="{{reviewRevision}}" class="s9-card review-card">
+      <view class="s9-section-title">逐段核对 OCR</view>
+      <view class="review-copy">低置信文字必须由你修正。确认后才会建立私人检索切片。</view>
+      <view wx:for="{{reviewSpans}}" wx:key="spanId" class="review-span">
+        <view class="review-label">第 {{index + 1}} 段 · {{item.confidenceLabel}}</view>
+        <textarea class="review-textarea" data-index="{{index}}" value="{{item.text}}" maxlength="100000" bindinput="inputReviewSpan"></textarea>
+      </view>
+      <view class="review-actions"><button class="private-action secondary" bindtap="cancelReview">取消</button><button class="private-action primary" loading="{{busy}}" bindtap="confirmReview">确认并建立索引</button></view>
+    </view>
+
+    <view class="s9-card search-card">
+      <view class="s9-section-title">验证检索与引用</view>
+      <view class="search-row"><input class="private-input search-input" value="{{query}}" placeholder="例如：资料分析基期量怎么算" bindinput="inputQuery" /><button class="private-action search-button" loading="{{searching}}" bindtap="search">检索</button></view>
+      <view wx:if="{{citations.length === 0}}" class="empty-copy">输入问题后可查看岸岸能命中的具体页码与原文切片。</view>
+      <view wx:for="{{citations}}" wx:key="chunkId" class="citation-card">
+        <view class="citation-head"><text>{{item.title}} · 第 {{item.pageNo}} 页</text><text>{{item.finalScore}}</text></view>
+        <view class="citation-copy">{{item.excerpt}}</view>
+      </view>
+    </view>
+
+    <view class="s9-section">
+      <view class="s9-section-head"><view class="s9-section-title">当前资料</view><view class="s9-section-meta">{{sources.length}} 份</view></view>
+      <view wx:if="{{sources.length === 0}}" class="s9-card empty-library">还没有私人资料。Markdown 可直接进入；图片和 PDF 会先让你核对 OCR。</view>
+      <view wx:for="{{sources}}" wx:key="sourceId" class="s9-card source-card">
+        <view class="source-head"><view><view class="source-title">{{item.title}}</view><view class="source-meta">v{{item.versionNo}} · {{item.pageCount}} 页 · {{item.chunkCount}} 个引用切片</view></view><view class="kind-tag">{{item.documentKind}}</view></view>
+        <view class="source-actions">
+          <button class="private-action source-action" data-source-id="{{item.sourceId}}" bindtap="exportMarkdown">导出 Markdown</button>
+          <button class="private-action source-action" data-source-id="{{item.sourceId}}" bindtap="prepareRoundTrip">导回新版本</button>
+          <button class="private-action source-action danger" data-source-id="{{item.sourceId}}" bindtap="deleteSource">删除</button>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{errorMessage}}" class="s9-inline-error">{{errorMessage}}<text wx:if="{{requestId}}"> · {{requestId}}</text></view>
+  </block>
+</view>

@@ -4,8 +4,7 @@ import type { ApiClient } from "./client";
 import type { StartUploadCommand, UploadMode, UploadState } from "./generated/types.gen";
 import { sha256Hex } from "./sha256";
 import type {
-  LocalAnswerImageFile,
-  LocalImportFile,
+  LocalSourceArtifactFile,
   UploadProgress,
 } from "../features/external-learning/contracts";
 
@@ -73,7 +72,7 @@ export class SourceArtifactApi {
   constructor(private readonly client: ApiClient) {}
 
   async upload(
-    file: LocalImportFile | LocalAnswerImageFile,
+    file: LocalSourceArtifactFile,
     idempotencyKey: string,
     onProgress: (progress: UploadProgress) => void,
   ): Promise<UploadedArtifact> {
@@ -93,7 +92,7 @@ export class SourceArtifactApi {
       mimeType: file.mimeType,
       byteSize: file.byteSize,
       contentSha256: fileInfo.digest,
-      pageCount: file.sourceKind === "pdf_upload" ? file.pageCount : null,
+      pageCount: file.sourceKind === "pdf_upload" ? (file.pageCount ?? null) : null,
       ...(partSha256s.length ? { partSha256s } : {}),
     };
     const started = await this.client.post<StartUploadProjection>(
@@ -116,7 +115,10 @@ export class SourceArtifactApi {
       { timeoutMs: 60_000 },
     );
     onProgress(progress(file.byteSize, file.byteSize));
-    if (!completed.data.artifact || !completed.data.session.recognitionEligible) {
+    if (
+      !completed.data.artifact ||
+      (file.mimeType !== "text/markdown" && !completed.data.session.recognitionEligible)
+    ) {
       throw uploadTerminalError(completed.data.session);
     }
     return {
@@ -151,7 +153,7 @@ function getFileInfo(filePath: string): Promise<{ size: number; digest: string }
 }
 
 async function uploadPartDigests(
-  file: LocalImportFile | LocalAnswerImageFile,
+  file: LocalSourceArtifactFile,
   onProgress: (progress: UploadProgress) => void,
 ): Promise<string[]> {
   if (!requiresMultipart(file)) {
@@ -173,12 +175,12 @@ async function uploadPartDigests(
   return digests;
 }
 
-function requiresMultipart(file: LocalImportFile | LocalAnswerImageFile): boolean {
+function requiresMultipart(file: LocalSourceArtifactFile): boolean {
   return file.mimeType === "application/pdf" || file.byteSize > multipartPartBytes;
 }
 
 async function uploadAuthorizedFile(
-  file: LocalImportFile | LocalAnswerImageFile,
+  file: LocalSourceArtifactFile,
   authorization: UploadAuthorizationProjection,
   expectedDigests: readonly string[],
   onProgress: (progress: UploadProgress) => void,
@@ -241,7 +243,7 @@ function readFile(filePath: string, position: number, length: number): Promise<A
 }
 
 function validateUploadAuthorization(
-  file: LocalImportFile | LocalAnswerImageFile,
+  file: LocalSourceArtifactFile,
   authorization: UploadAuthorizationProjection,
   expectedDigests: readonly string[],
 ): UploadPartAuthorizationProjection[] {
@@ -295,7 +297,7 @@ function validateUploadAuthorization(
 
 function assertUploadReplay(
   session: UploadSessionProjection,
-  file: LocalImportFile | LocalAnswerImageFile,
+  file: LocalSourceArtifactFile,
   digest: string,
   expectedPartCount: number,
 ): void {

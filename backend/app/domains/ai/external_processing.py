@@ -169,6 +169,35 @@ class ExternalProcessingRepository:
         production_authorization_required: bool,
         dispatched_at: datetime | None = None,
     ) -> UUID:
+        return self.record_external_operation_dispatch(
+            session,
+            operation_id=operation_id,
+            user_id=user_id,
+            scenario_key=scenario_key,
+            purpose="recognition_process",
+            data_categories=("uploaded_image",),
+            declared_provider_release=declared_provider_release,
+            provider_endpoint_fingerprint=provider_endpoint_fingerprint,
+            input_fingerprint=input_fingerprint,
+            production_authorization_required=production_authorization_required,
+            dispatched_at=dispatched_at,
+        )
+
+    def record_external_operation_dispatch(
+        self,
+        session: Session,
+        *,
+        operation_id: UUID,
+        user_id: str,
+        scenario_key: str,
+        purpose: str,
+        data_categories: tuple[str, ...],
+        declared_provider_release: str,
+        provider_endpoint_fingerprint: str,
+        input_fingerprint: str,
+        production_authorization_required: bool,
+        dispatched_at: datetime | None = None,
+    ) -> UUID:
         return self._record(
             session,
             model_call_id=None,
@@ -176,8 +205,8 @@ class ExternalProcessingRepository:
             community_candidate_id=None,
             user_id=user_id,
             scenario_key=scenario_key,
-            purpose="recognition_process",
-            data_categories=("uploaded_image",),
+            purpose=purpose,
+            data_categories=data_categories,
             declared_provider_release=declared_provider_release,
             provider_endpoint_fingerprint=provider_endpoint_fingerprint,
             input_fingerprint=input_fingerprint,

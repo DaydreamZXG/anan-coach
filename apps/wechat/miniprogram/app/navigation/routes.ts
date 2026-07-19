@@ -42,6 +42,7 @@ export const routes = {
   essayTask: "/pages/essay-task/index",
   captureImport: "/pages/capture-import/index",
   learningPackets: "/pages/learning-packets/index",
+  privateKnowledge: "/pages/private-knowledge/index",
   answerIngestion: "/pages/answer-ingestion/index",
   communityDraft: "/pages/community-draft/index",
   communityStructure: "/pages/community-structure/index",

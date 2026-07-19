@@ -37,6 +37,7 @@
     "pages/essay-task/index",
     "pages/capture-import/index",
     "pages/learning-packets/index",
+    "pages/private-knowledge/index",
     "pages/answer-ingestion/index",
     "pages/community-draft/index",
     "pages/community-structure/index",

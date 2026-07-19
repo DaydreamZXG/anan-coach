@@ -1796,6 +1796,20 @@ export type ConfirmAnswerCandidateCommand = {
 };
 
 /**
+ * ConfirmFormulaCommand
+ */
+export type ConfirmFormulaCommand = {
+    /**
+     * Expectedversionno
+     */
+    expectedVersionNo: number;
+    /**
+     * Latex
+     */
+    latex: string;
+};
+
+/**
  * ConfirmImportAIAnswerCommand
  */
 export type ConfirmImportAiAnswerCommand = {
@@ -2079,6 +2093,36 @@ export type CreatePacketCommand = {
      * Renderformat
      */
     renderFormat: 'pdf' | 'note_app_file';
+};
+
+/**
+ * CreatePrivateSourceCommand
+ */
+export type CreatePrivateSourceCommand = {
+    /**
+     * Artifactversionid
+     */
+    artifactVersionId: string;
+    /**
+     * Documentkind
+     */
+    documentKind: 'lecture' | 'note' | 'summary';
+    /**
+     * Expectedversionno
+     */
+    expectedVersionNo?: number | null;
+    /**
+     * Recognitionrevisionid
+     */
+    recognitionRevisionId?: string | null;
+    /**
+     * Sourceid
+     */
+    sourceId?: string | null;
+    /**
+     * Title
+     */
+    title: string;
 };
 
 /**
@@ -5440,6 +5484,60 @@ export type FeedbackRecord = {
 };
 
 /**
+ * FormulaVersion
+ */
+export type FormulaVersion = {
+    /**
+     * Confirmedat
+     */
+    confirmedAt: string | null;
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Formulaid
+     */
+    formulaId: string;
+    /**
+     * Formulaversionid
+     */
+    formulaVersionId: string;
+    /**
+     * Latex
+     */
+    latex: string;
+    /**
+     * Questionid
+     */
+    questionId: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+    /**
+     * Sessionid
+     */
+    sessionId: string;
+    /**
+     * Source
+     */
+    source: 'myscript_candidate' | 'user_confirmed';
+    /**
+     * State
+     */
+    state: 'candidate' | 'confirmed' | 'rejected';
+    /**
+     * Supersedesformulaversionid
+     */
+    supersedesFormulaVersionId: string | null;
+    /**
+     * Versionno
+     */
+    versionNo: number;
+};
+
+/**
  * GlobalAskContext
  */
 export type GlobalAskContext = {
@@ -5869,6 +5967,24 @@ export type InferenceCandidateVersion = {
      * Versionno
      */
     versionNo: number;
+};
+
+/**
+ * InkStroke
+ */
+export type InkStroke = {
+    /**
+     * T
+     */
+    t: Array<number>;
+    /**
+     * X
+     */
+    x: Array<number>;
+    /**
+     * Y
+     */
+    y: Array<number>;
 };
 
 /**
@@ -6378,6 +6494,36 @@ export type MajorTreeResponse = {
 };
 
 /**
+ * MarkdownExport
+ */
+export type MarkdownExport = {
+    /**
+     * Content
+     */
+    content: string;
+    /**
+     * Contentsha256
+     */
+    contentSha256: string;
+    /**
+     * Filename
+     */
+    filename: string;
+    /**
+     * Sourceid
+     */
+    sourceId: string;
+    /**
+     * Sourceversionid
+     */
+    sourceVersionId: string;
+    /**
+     * Versionno
+     */
+    versionNo: number;
+};
+
+/**
  * MasteryQueueAction
  */
 export type MasteryQueueAction = {
@@ -6623,6 +6769,25 @@ export type MaterialPosition = {
      * Zoom
      */
     zoom: number;
+};
+
+/**
+ * MathInkRecognitionResult
+ */
+export type MathInkRecognitionResult = {
+    /**
+     * Failurecode
+     */
+    failureCode: string | null;
+    formula: FormulaVersion | null;
+    /**
+     * Requestid
+     */
+    requestId: string;
+    /**
+     * State
+     */
+    state: 'candidate' | 'failed';
 };
 
 /**
@@ -9641,6 +9806,168 @@ export type PrivacyOverview = {
 };
 
 /**
+ * PrivateCitation
+ */
+export type PrivateCitation = {
+    /**
+     * Anchor
+     */
+    anchor: string;
+    /**
+     * Chunkid
+     */
+    chunkId: string;
+    /**
+     * Excerpt
+     */
+    excerpt: string;
+    /**
+     * Finalscore
+     */
+    finalScore: number;
+    /**
+     * Lexicalscore
+     */
+    lexicalScore: number;
+    /**
+     * Pageno
+     */
+    pageNo: number;
+    /**
+     * Sourceid
+     */
+    sourceId: string;
+    /**
+     * Sourceversionid
+     */
+    sourceVersionId: string;
+    /**
+     * Title
+     */
+    title: string;
+    /**
+     * Vectorscore
+     */
+    vectorScore: number;
+};
+
+/**
+ * PrivateSearchResult
+ */
+export type PrivateSearchResult = {
+    /**
+     * Citations
+     */
+    citations: Array<PrivateCitation>;
+    /**
+     * Policyversion
+     */
+    policyVersion?: 'private-knowledge-search@v1';
+    /**
+     * Queryfingerprint
+     */
+    queryFingerprint: string;
+};
+
+/**
+ * PrivateSourceDeletionView
+ */
+export type PrivateSourceDeletionView = {
+    /**
+     * Completedat
+     */
+    completedAt?: string | null;
+    /**
+     * Deletionrequestid
+     */
+    deletionRequestId: string;
+    /**
+     * Failurecode
+     */
+    failureCode?: string | null;
+    /**
+     * Requestedat
+     */
+    requestedAt: string;
+    /**
+     * Sourceid
+     */
+    sourceId: string;
+    /**
+     * Sourceversioncount
+     */
+    sourceVersionCount: number;
+    /**
+     * State
+     */
+    state: 'queued' | 'running' | 'completed' | 'failed';
+};
+
+/**
+ * PrivateSourceList
+ */
+export type PrivateSourceList = {
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Sources
+     */
+    sources: Array<PrivateSourceSummary>;
+};
+
+/**
+ * PrivateSourceSummary
+ */
+export type PrivateSourceSummary = {
+    /**
+     * Artifactversionid
+     */
+    artifactVersionId: string;
+    /**
+     * Chunkcount
+     */
+    chunkCount: number;
+    /**
+     * Contentsha256
+     */
+    contentSha256: string;
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Documentkind
+     */
+    documentKind: 'lecture' | 'note' | 'summary';
+    /**
+     * Pagecount
+     */
+    pageCount: number;
+    /**
+     * Recognitionrevisionid
+     */
+    recognitionRevisionId: string | null;
+    /**
+     * Sourceid
+     */
+    sourceId: string;
+    /**
+     * Sourceversionid
+     */
+    sourceVersionId: string;
+    /**
+     * Title
+     */
+    title: string;
+    /**
+     * Versionno
+     */
+    versionNo: number;
+};
+
+/**
  * ProcessImportCommand
  */
 export type ProcessImportCommand = {
@@ -9699,6 +10026,96 @@ export type ProcessRewardProgress = {
      * Weeklyreflectionsrequired
      */
     weeklyReflectionsRequired: number;
+};
+
+/**
+ * ProcessorDisclosure
+ */
+export type ProcessorDisclosure = {
+    /**
+     * Datacategories
+     */
+    dataCategories: Array<string>;
+    /**
+     * Dataregion
+     */
+    dataRegion: string;
+    /**
+     * Deletionsupport
+     */
+    deletionSupport: string;
+    /**
+     * Displayname
+     */
+    displayName: string;
+    /**
+     * Evidence
+     */
+    evidence: {
+        [key: string]: unknown;
+    };
+    /**
+     * Modeltraininguse
+     */
+    modelTrainingUse: string;
+    /**
+     * Operatorname
+     */
+    operatorName: string | null;
+    /**
+     * Processorreleaseid
+     */
+    processorReleaseId: string;
+    /**
+     * Providerrelease
+     */
+    providerRelease: string;
+    /**
+     * Purposes
+     */
+    purposes: Array<string>;
+    /**
+     * Realuserstatus
+     */
+    realUserStatus: 'approved' | 'blocked' | 'synthetic_only' | 'retired';
+    /**
+     * Retentionpolicy
+     */
+    retentionPolicy: string;
+    /**
+     * Retentionseconds
+     */
+    retentionSeconds: number | null;
+    /**
+     * Transportsecurity
+     */
+    transportSecurity: string;
+    /**
+     * Validuntil
+     */
+    validUntil: string | null;
+    /**
+     * Verifiedat
+     */
+    verifiedAt: string;
+};
+
+/**
+ * ProcessorDisclosureList
+ */
+export type ProcessorDisclosureList = {
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'external-processor-disclosure@v1';
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Processors
+     */
+    processors: Array<ProcessorDisclosure>;
 };
 
 /**
@@ -10364,6 +10781,21 @@ export type PublicApiEnvelopeFeedbackReceipt = {
 };
 
 /**
+ * PublicApiEnvelope[FormulaVersion]
+ */
+export type PublicApiEnvelopeFormulaVersion = {
+    data: FormulaVersion;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[ImportWorkspace]
  */
 export type PublicApiEnvelopeImportWorkspace = {
@@ -10424,10 +10856,40 @@ export type PublicApiEnvelopeLogoutAllResult = {
 };
 
 /**
+ * PublicApiEnvelope[MarkdownExport]
+ */
+export type PublicApiEnvelopeMarkdownExport = {
+    data: MarkdownExport;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[MasteryQueuePage]
  */
 export type PublicApiEnvelopeMasteryQueuePage = {
     data: MasteryQueuePage;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[MathInkRecognitionResult]
+ */
+export type PublicApiEnvelopeMathInkRecognitionResult = {
+    data: MathInkRecognitionResult;
     /**
      * Generatedat
      */
@@ -10743,6 +11205,81 @@ export type PublicApiEnvelopePrimaryGoalPreview = {
  */
 export type PublicApiEnvelopePrivacyOverview = {
     data: PrivacyOverview;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[PrivateSearchResult]
+ */
+export type PublicApiEnvelopePrivateSearchResult = {
+    data: PrivateSearchResult;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[PrivateSourceDeletionView]
+ */
+export type PublicApiEnvelopePrivateSourceDeletionView = {
+    data: PrivateSourceDeletionView;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[PrivateSourceList]
+ */
+export type PublicApiEnvelopePrivateSourceList = {
+    data: PrivateSourceList;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[PrivateSourceSummary]
+ */
+export type PublicApiEnvelopePrivateSourceSummary = {
+    data: PrivateSourceSummary;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[ProcessorDisclosureList]
+ */
+export type PublicApiEnvelopeProcessorDisclosureList = {
+    data: ProcessorDisclosureList;
     /**
      * Generatedat
      */
@@ -12248,6 +12785,32 @@ export type RecognitionRevision = {
      * Supersedesrecognitionrevisionid
      */
     supersedesRecognitionRevisionId?: string | null;
+};
+
+/**
+ * RecognizeMathInkCommand
+ */
+export type RecognizeMathInkCommand = {
+    /**
+     * Questionid
+     */
+    questionId: string;
+    /**
+     * Scalex
+     */
+    scaleX: number;
+    /**
+     * Scaley
+     */
+    scaleY: number;
+    /**
+     * Sessionid
+     */
+    sessionId: string;
+    /**
+     * Strokes
+     */
+    strokes: Array<InkStroke>;
 };
 
 /**
@@ -24503,6 +25066,141 @@ export type CompleteLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdC
 
 export type CompleteLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdCompletePostResponse = CompleteLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdCompletePostResponses[keyof CompleteLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdCompletePostResponses];
 
+export type ConfirmFormulaApiV2MathInkFormulasFormulaVersionIdConfirmPostData = {
+    body: ConfirmFormulaCommand;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Formula Version Id
+         */
+        formula_version_id: string;
+    };
+    query?: never;
+    url: '/api/v2/math-ink/formulas/{formula_version_id}/confirm';
+};
+
+export type ConfirmFormulaApiV2MathInkFormulasFormulaVersionIdConfirmPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ConfirmFormulaApiV2MathInkFormulasFormulaVersionIdConfirmPostError = ConfirmFormulaApiV2MathInkFormulasFormulaVersionIdConfirmPostErrors[keyof ConfirmFormulaApiV2MathInkFormulasFormulaVersionIdConfirmPostErrors];
+
+export type ConfirmFormulaApiV2MathInkFormulasFormulaVersionIdConfirmPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeFormulaVersion;
+};
+
+export type ConfirmFormulaApiV2MathInkFormulasFormulaVersionIdConfirmPostResponse = ConfirmFormulaApiV2MathInkFormulasFormulaVersionIdConfirmPostResponses[keyof ConfirmFormulaApiV2MathInkFormulasFormulaVersionIdConfirmPostResponses];
+
+export type RecognizeFormulaApiV2MathInkRecognitionsPostData = {
+    body: RecognizeMathInkCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/math-ink/recognitions';
+};
+
+export type RecognizeFormulaApiV2MathInkRecognitionsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RecognizeFormulaApiV2MathInkRecognitionsPostError = RecognizeFormulaApiV2MathInkRecognitionsPostErrors[keyof RecognizeFormulaApiV2MathInkRecognitionsPostErrors];
+
+export type RecognizeFormulaApiV2MathInkRecognitionsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeMathInkRecognitionResult;
+};
+
+export type RecognizeFormulaApiV2MathInkRecognitionsPostResponse = RecognizeFormulaApiV2MathInkRecognitionsPostResponses[keyof RecognizeFormulaApiV2MathInkRecognitionsPostResponses];
+
 export type RecordMockExamTrajectoryEventApiV2MockExamsSessionIdTrajectoryEventsPostData = {
     body: MockExamTrajectoryEventCommand;
     headers: {
@@ -26265,6 +26963,432 @@ export type GetPositionTargetScoreV2ApiV2PositionsPositionIdTargetScoreGetRespon
 };
 
 export type GetPositionTargetScoreV2ApiV2PositionsPositionIdTargetScoreGetResponse = GetPositionTargetScoreV2ApiV2PositionsPositionIdTargetScoreGetResponses[keyof GetPositionTargetScoreV2ApiV2PositionsPositionIdTargetScoreGetResponses];
+
+export type ExternalAiProcessorsApiV2PrivacyExternalAiProcessorsGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v2/privacy/external-ai-processors';
+};
+
+export type ExternalAiProcessorsApiV2PrivacyExternalAiProcessorsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeProcessorDisclosureList;
+};
+
+export type ExternalAiProcessorsApiV2PrivacyExternalAiProcessorsGetResponse = ExternalAiProcessorsApiV2PrivacyExternalAiProcessorsGetResponses[keyof ExternalAiProcessorsApiV2PrivacyExternalAiProcessorsGetResponses];
+
+export type DeletionStatusApiV2PrivateKnowledgeDeletionsDeletionIdGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Deletion Id
+         */
+        deletion_id: string;
+    };
+    query?: never;
+    url: '/api/v2/private-knowledge/deletions/{deletion_id}';
+};
+
+export type DeletionStatusApiV2PrivateKnowledgeDeletionsDeletionIdGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type DeletionStatusApiV2PrivateKnowledgeDeletionsDeletionIdGetError = DeletionStatusApiV2PrivateKnowledgeDeletionsDeletionIdGetErrors[keyof DeletionStatusApiV2PrivateKnowledgeDeletionsDeletionIdGetErrors];
+
+export type DeletionStatusApiV2PrivateKnowledgeDeletionsDeletionIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopePrivateSourceDeletionView;
+};
+
+export type DeletionStatusApiV2PrivateKnowledgeDeletionsDeletionIdGetResponse = DeletionStatusApiV2PrivateKnowledgeDeletionsDeletionIdGetResponses[keyof DeletionStatusApiV2PrivateKnowledgeDeletionsDeletionIdGetResponses];
+
+export type SearchSourcesApiV2PrivateKnowledgeSearchGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query: {
+        /**
+         * Q
+         */
+        q: string;
+        /**
+         * Limit
+         */
+        limit?: number;
+    };
+    url: '/api/v2/private-knowledge/search';
+};
+
+export type SearchSourcesApiV2PrivateKnowledgeSearchGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type SearchSourcesApiV2PrivateKnowledgeSearchGetError = SearchSourcesApiV2PrivateKnowledgeSearchGetErrors[keyof SearchSourcesApiV2PrivateKnowledgeSearchGetErrors];
+
+export type SearchSourcesApiV2PrivateKnowledgeSearchGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopePrivateSearchResult;
+};
+
+export type SearchSourcesApiV2PrivateKnowledgeSearchGetResponse = SearchSourcesApiV2PrivateKnowledgeSearchGetResponses[keyof SearchSourcesApiV2PrivateKnowledgeSearchGetResponses];
+
+export type ListSourcesApiV2PrivateKnowledgeSourcesGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/private-knowledge/sources';
+};
+
+export type ListSourcesApiV2PrivateKnowledgeSourcesGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ListSourcesApiV2PrivateKnowledgeSourcesGetError = ListSourcesApiV2PrivateKnowledgeSourcesGetErrors[keyof ListSourcesApiV2PrivateKnowledgeSourcesGetErrors];
+
+export type ListSourcesApiV2PrivateKnowledgeSourcesGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopePrivateSourceList;
+};
+
+export type ListSourcesApiV2PrivateKnowledgeSourcesGetResponse = ListSourcesApiV2PrivateKnowledgeSourcesGetResponses[keyof ListSourcesApiV2PrivateKnowledgeSourcesGetResponses];
+
+export type CreateSourceApiV2PrivateKnowledgeSourcesPostData = {
+    body: CreatePrivateSourceCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/private-knowledge/sources';
+};
+
+export type CreateSourceApiV2PrivateKnowledgeSourcesPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type CreateSourceApiV2PrivateKnowledgeSourcesPostError = CreateSourceApiV2PrivateKnowledgeSourcesPostErrors[keyof CreateSourceApiV2PrivateKnowledgeSourcesPostErrors];
+
+export type CreateSourceApiV2PrivateKnowledgeSourcesPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopePrivateSourceSummary;
+};
+
+export type CreateSourceApiV2PrivateKnowledgeSourcesPostResponse = CreateSourceApiV2PrivateKnowledgeSourcesPostResponses[keyof CreateSourceApiV2PrivateKnowledgeSourcesPostResponses];
+
+export type DeleteSourceApiV2PrivateKnowledgeSourcesSourceIdDeleteData = {
+    body?: never;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Source Id
+         */
+        source_id: string;
+    };
+    query?: never;
+    url: '/api/v2/private-knowledge/sources/{source_id}';
+};
+
+export type DeleteSourceApiV2PrivateKnowledgeSourcesSourceIdDeleteErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type DeleteSourceApiV2PrivateKnowledgeSourcesSourceIdDeleteError = DeleteSourceApiV2PrivateKnowledgeSourcesSourceIdDeleteErrors[keyof DeleteSourceApiV2PrivateKnowledgeSourcesSourceIdDeleteErrors];
+
+export type DeleteSourceApiV2PrivateKnowledgeSourcesSourceIdDeleteResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopePrivateSourceDeletionView;
+};
+
+export type DeleteSourceApiV2PrivateKnowledgeSourcesSourceIdDeleteResponse = DeleteSourceApiV2PrivateKnowledgeSourcesSourceIdDeleteResponses[keyof DeleteSourceApiV2PrivateKnowledgeSourcesSourceIdDeleteResponses];
+
+export type ExportMarkdownApiV2PrivateKnowledgeSourcesSourceIdMarkdownGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Source Id
+         */
+        source_id: string;
+    };
+    query?: never;
+    url: '/api/v2/private-knowledge/sources/{source_id}/markdown';
+};
+
+export type ExportMarkdownApiV2PrivateKnowledgeSourcesSourceIdMarkdownGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ExportMarkdownApiV2PrivateKnowledgeSourcesSourceIdMarkdownGetError = ExportMarkdownApiV2PrivateKnowledgeSourcesSourceIdMarkdownGetErrors[keyof ExportMarkdownApiV2PrivateKnowledgeSourcesSourceIdMarkdownGetErrors];
+
+export type ExportMarkdownApiV2PrivateKnowledgeSourcesSourceIdMarkdownGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeMarkdownExport;
+};
+
+export type ExportMarkdownApiV2PrivateKnowledgeSourcesSourceIdMarkdownGetResponse = ExportMarkdownApiV2PrivateKnowledgeSourcesSourceIdMarkdownGetResponses[keyof ExportMarkdownApiV2PrivateKnowledgeSourcesSourceIdMarkdownGetResponses];
 
 export type GetQualificationGapsApiV2QualificationGapsGetData = {
     body?: never;

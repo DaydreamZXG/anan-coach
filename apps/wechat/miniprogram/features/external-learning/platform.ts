@@ -43,6 +43,7 @@ export async function chooseAnswerImage(
     sourceKind: "answer_sheet",
     mimeType: file.mimeType,
     byteSize: file.byteSize,
+    pageCount: null,
   };
 }
 

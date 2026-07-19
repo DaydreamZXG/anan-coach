@@ -10,11 +10,13 @@ from sqlalchemy.orm import Session
 from app.core.config import Settings, get_settings
 from app.db.session import get_session_factory
 from app.domains.external_ingestion.composition import build_upload_service
+from app.domains.external_ingestion.composition import build_private_object_storage
 from app.domains.external_ingestion.answering.worker import ExternalAIAnswerWorker
 from app.domains.external_ingestion.upload.service import UploadService
 from app.domains.learning_packages.composition import build_packet_render_worker
 from app.domains.learning_packages.worker import PacketRenderWorker
 from app.platform.jobs import BackgroundJobRepository
+from app.domains.private_knowledge.worker import PrivateKnowledgeDeletionWorker
 
 
 LOGGER = logging.getLogger("external_learning_worker")
@@ -32,6 +34,7 @@ class ExternalLearningWorker:
         answer_worker: ExternalAIAnswerWorker | None = None,
         upload_service: UploadService | None = None,
         jobs: BackgroundJobRepository | None = None,
+        private_knowledge_worker: PrivateKnowledgeDeletionWorker | None = None,
     ) -> None:
         _validate_worker_settings(settings)
         self._session = session
@@ -46,6 +49,9 @@ class ExternalLearningWorker:
             settings=settings,
         )
         self._jobs = jobs or BackgroundJobRepository()
+        self._private_knowledge_worker = private_knowledge_worker or PrivateKnowledgeDeletionWorker(
+            storage=build_private_object_storage(settings), jobs=self._jobs
+        )
         self._next_maintenance_at = datetime.min.replace(tzinfo=UTC)
 
     def run_once(self, *, now: datetime | None = None) -> bool:
@@ -56,6 +62,13 @@ class ExternalLearningWorker:
             self._next_maintenance_at = current + timedelta(
                 seconds=self._settings.external_learning_maintenance_interval_seconds
             )
+        try:
+            did_work = (
+                self._private_knowledge_worker.process_next(self._session) is not None
+                or did_work
+            )
+        except Exception:
+            LOGGER.exception("private knowledge deletion job failed unexpectedly")
         try:
             did_work = self._answer_worker.process_next(self._session) is not None or did_work
         except Exception:
@@ -73,6 +86,7 @@ class ExternalLearningWorker:
                 job_types=(
                     *PacketRenderWorker.JOB_TYPES,
                     *ExternalAIAnswerWorker.JOB_TYPES,
+                    *PrivateKnowledgeDeletionWorker.JOB_TYPES,
                 ),
                 stale_before=now
                 - timedelta(

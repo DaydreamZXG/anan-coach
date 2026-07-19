@@ -73,7 +73,7 @@ describe("CloudBase Hunyuan function contract", () => {
     await expect(handle(request({ model: "caller-owned" }))).rejects.toThrow(
       "request fields do not match the v1 contract",
     );
-    await expect(handle(request({ purpose: "essay_score_candidate" }))).rejects.toThrow(
+    await expect(handle(request({ purpose: "caller_owned_purpose" }))).rejects.toThrow(
       "purpose is not enabled in this release",
     );
   });

@@ -358,6 +358,28 @@ class DataRightsRepository:
             "contentMatches": self._many_json(
                 "select * from learning.content_match_versions where owner_user_id = cast(:user_id as uuid) order by created_at", user_id
             ),
+            "privateKnowledgeSources": self._many_json(
+                "select source_version_id, source_id, version_no, title, document_kind, "
+                "artifact_version_id, recognition_revision_id, canonical_markdown, "
+                "content_sha256, supersedes_source_version_id, created_at "
+                "from learning.private_knowledge_source_versions "
+                "where owner_user_id = cast(:user_id as uuid) order by source_id, version_no",
+                user_id,
+            ),
+            "mathInkRequests": self._many_json(
+                "select request_id, session_id, question_id, input_fingerprint, ink_payload, "
+                "provider_release, state, output_fingerprint, failure_code, latency_ms, "
+                "created_at, completed_at from learning.math_ink_commands "
+                "where owner_user_id = cast(:user_id as uuid) order by created_at",
+                user_id,
+            ),
+            "mathFormulaVersions": self._many_json(
+                "select formula_version_id, formula_id, request_id, session_id, question_id, "
+                "version_no, state, latex, source, supersedes_formula_version_id, "
+                "created_at, confirmed_at from learning.math_formula_versions "
+                "where owner_user_id = cast(:user_id as uuid) order by formula_id, version_no",
+                user_id,
+            ),
             "essayAnswers": self._many_json(
                 "select * from learning.essay_answer_versions where user_id = cast(:user_id as uuid) order by created_at", user_id
             ),
@@ -820,6 +842,29 @@ class DataRightsRepository:
                 update learning.external_mock_report_commands
                 set response_payload = '{}'::jsonb
                 where user_id = cast(:user_id as uuid)
+                """,
+            ),
+            (
+                "private_knowledge_sources",
+                """
+                delete from learning.private_knowledge_source_versions
+                where owner_user_id = cast(:user_id as uuid)
+                """,
+            ),
+            (
+                "math_ink_commands",
+                """
+                update learning.math_ink_commands
+                set ink_payload = jsonb_build_object('strokes', '[]'::jsonb)
+                where owner_user_id = cast(:user_id as uuid)
+                """,
+            ),
+            (
+                "math_formula_versions",
+                """
+                update learning.math_formula_versions
+                set latex = '[deleted]'
+                where owner_user_id = cast(:user_id as uuid)
                 """,
             ),
             (

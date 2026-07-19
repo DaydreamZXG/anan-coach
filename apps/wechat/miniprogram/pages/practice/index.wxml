@@ -129,6 +129,17 @@
             <button class="mark-action {{view.question.marked ? 'mark-action--active' : ''}}" bindtap="toggleMarked">{{view.question.marked ? '已标记' : '标记'}}</button>
           </view>
           <textarea class="draft-input draft-input--sheet" value="{{view.question.draftText}}" maxlength="4000" placeholder="写下公式、排除理由或仍不确定的点……" bindinput="inputDraft"></textarea>
+          <button class="math-ink-entry" bindtap="toggleMathInk">{{mathInkOpen ? '收起手写公式' : '手写公式识别'}}</button>
+          <view wx:if="{{mathInkOpen}}" class="math-ink-panel">
+            <view class="math-ink-tip">手写只生成候选；核对或修改 LaTeX 后，才会进入当前题草稿。</view>
+            <math-ink-pad recognizing="{{mathInkRecognizing}}" bind:recognize="recognizeMathInk" />
+            <view wx:if="{{mathInkCandidate}}" class="math-ink-review">
+              <view class="confidence-label">识别候选</view>
+              <textarea class="math-ink-latex" value="{{mathInkLatex}}" maxlength="4000" bindinput="inputMathInkLatex"></textarea>
+              <button class="primary-button" loading="{{mathInkRecognizing}}" bindtap="confirmMathInk">确认并写入草稿</button>
+            </view>
+            <view wx:if="{{mathInkError}}" class="inline-warning">{{mathInkError}}</view>
+          </view>
           <view class="confidence-row">
             <view class="confidence-label">作答信心</view>
             <button

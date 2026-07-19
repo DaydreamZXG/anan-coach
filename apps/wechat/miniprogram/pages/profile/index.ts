@@ -115,6 +115,10 @@ Page({
     void wx.navigateTo({ url: routes.learningProfile });
   },
 
+  openPrivateKnowledge() {
+    void wx.navigateTo({ url: routes.privateKnowledge });
+  },
+
   openCompanion() {
     void wx.navigateTo({ url: routes.companion });
   },

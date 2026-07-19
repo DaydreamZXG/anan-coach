@@ -509,6 +509,9 @@ def default_upload_policy() -> UploadPolicy:
     pdf_rule = FileTypeRule(
         "application/pdf", frozenset({".pdf"}), 100 * 1024 * 1024
     )
+    markdown_rule = FileTypeRule(
+        "text/markdown", frozenset({".md", ".markdown"}), 2 * 1024 * 1024
+    )
     return UploadPolicy(
         policy_version="external-upload-policy@v1",
         session_ttl_seconds=15 * 60,
@@ -517,6 +520,6 @@ def default_upload_policy() -> UploadPolicy:
             SourceKind.IMAGE_IMPORT: image_rules,
             SourceKind.PDF_UPLOAD: (pdf_rule,),
             SourceKind.ANSWER_SHEET: (*image_rules, pdf_rule),
-            SourceKind.NOTES_APP_EXPORT: (pdf_rule,),
+            SourceKind.NOTES_APP_EXPORT: (pdf_rule, markdown_rule),
         },
     )

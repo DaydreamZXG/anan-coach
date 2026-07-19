@@ -49,10 +49,7 @@ test("rejects unknown fields and unknown purposes", async () => {
     createModel: () => ({ generateText: async () => ({ text: "PONG" }) }),
   });
   await assert.rejects(() => main({ ...request(), model: "caller-owned" }), HunyuanTransportError);
-  await assert.rejects(
-    () => main(request({ purpose: "unknown" })),
-    HunyuanTransportError,
-  );
+  await assert.rejects(() => main(request({ purpose: "unknown" })), HunyuanTransportError);
 });
 
 test("accepts formal scoring only with the closed two-message contract", async () => {
@@ -61,7 +58,7 @@ test("accepts formal scoring only with the closed two-message contract", async (
     createModel: () => ({
       generateText: async (input) => {
         providerInput = input;
-        return { text: "{\"score\":{}}" };
+        return { text: '{"score":{}}' };
       },
     }),
   });
@@ -75,7 +72,7 @@ test("accepts formal scoring only with the closed two-message contract", async (
     }),
   );
   assert.equal(providerInput.temperature, 0);
-  assert.equal(result.text, "{\"score\":{}}");
+  assert.equal(result.text, '{"score":{}}');
   await assert.rejects(
     () =>
       main(

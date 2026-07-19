@@ -1,4 +1,5 @@
 import { ApiClient, ApiClientError } from "../../api/client";
+import { MathInkApi, type FormulaVersion, type InkStroke } from "../../api/math-ink";
 import {
   XingceLearningApi,
   type XingceQuestionDisputeCategory,
@@ -88,6 +89,11 @@ interface PracticePageData {
   disputeCategories: Array<{ value: XingceQuestionDisputeCategory; label: string }>;
   answerSheetOpen: boolean;
   draftOpen: boolean;
+  mathInkOpen: boolean;
+  mathInkRecognizing: boolean;
+  mathInkCandidate: FormulaVersion | null;
+  mathInkLatex: string;
+  mathInkError: string;
   taskPaused: boolean;
   interactionLocked: boolean;
   canSubmit: boolean;
@@ -132,6 +138,10 @@ interface PracticePageCustom {
   toggleMarked(): void;
   skipQuestion(): void;
   inputDraft(event: WechatMiniprogram.Input): void;
+  toggleMathInk(): void;
+  recognizeMathInk(event: WechatMiniprogram.CustomEvent<{ strokes: InkStroke[] }>): Promise<void>;
+  inputMathInkLatex(event: WechatMiniprogram.Input): void;
+  confirmMathInk(): Promise<void>;
   previousQuestion(): void;
   nextQuestion(): void;
   footerAction(): void;
@@ -182,6 +192,11 @@ Page<PracticePageData, PracticePageCustom>({
     ],
     answerSheetOpen: false,
     draftOpen: false,
+    mathInkOpen: false,
+    mathInkRecognizing: false,
+    mathInkCandidate: null,
+    mathInkLatex: "",
+    mathInkError: "",
     taskPaused: false,
     interactionLocked: false,
     canSubmit: false,
@@ -671,6 +686,94 @@ Page<PracticePageData, PracticePageCustom>({
       text: event.detail.value,
     });
     render(this, runtime);
+  },
+
+  toggleMathInk() {
+    const runtime = runtimes.get(this);
+    if (!runtime?.session || runtime.session.state !== "answering") return;
+    this.setData({
+      mathInkOpen: !this.data.mathInkOpen,
+      mathInkCandidate: null,
+      mathInkLatex: "",
+      mathInkError: "",
+    });
+  },
+
+  async recognizeMathInk(event) {
+    const runtime = runtimes.get(this);
+    const questionId = runtime?.task?.questionOrder[runtime.task.currentQuestionIndex];
+    const auth = currentAuthSession();
+    if (!runtime?.session || !questionId || !auth || this.data.mathInkRecognizing) return;
+    this.setData({ mathInkRecognizing: true, mathInkCandidate: null, mathInkError: "" });
+    try {
+      const result = await new MathInkApi(
+        new ApiClient(environment.apiBaseUrl, auth.accessToken),
+      ).recognize(
+        {
+          sessionId: runtime.session.sessionId,
+          questionId,
+          scaleX: 0.264583,
+          scaleY: 0.264583,
+          strokes: event.detail.strokes,
+        },
+        await createIdempotencyKey("math-ink"),
+      );
+      if (result.state !== "candidate" || !result.formula) {
+        this.setData({
+          mathInkRecognizing: false,
+          mathInkError: "这次没有形成可确认公式，请清空后重新书写。",
+        });
+        return;
+      }
+      this.setData({
+        mathInkRecognizing: false,
+        mathInkCandidate: result.formula,
+        mathInkLatex: result.formula.latex,
+      });
+    } catch (error) {
+      this.setData({
+        mathInkRecognizing: false,
+        mathInkError: error instanceof ApiClientError ? error.message : "公式识别失败，请重试。",
+      });
+    }
+  },
+
+  inputMathInkLatex(event) {
+    this.setData({ mathInkLatex: event.detail.value });
+  },
+
+  async confirmMathInk() {
+    const runtime = runtimes.get(this);
+    const auth = currentAuthSession();
+    const candidate = this.data.mathInkCandidate;
+    const latex = this.data.mathInkLatex.trim();
+    if (!runtime?.task || !auth || !candidate || !latex || this.data.mathInkRecognizing) return;
+    this.setData({ mathInkRecognizing: true, mathInkError: "" });
+    try {
+      const confirmed = await new MathInkApi(
+        new ApiClient(environment.apiBaseUrl, auth.accessToken),
+      ).confirm(candidate, latex);
+      const questionId = runtime.task.questionOrder[runtime.task.currentQuestionIndex];
+      const attempt = questionId ? runtime.task.attempts[questionId] : undefined;
+      const prefix = attempt?.draftText.trim() ? `${attempt.draftText.trim()}\n` : "";
+      runtime.task = reduceTaskRuntime(runtime.task, {
+        type: "DRAFT_CHANGED",
+        text: `${prefix}公式：\\(${confirmed.latex}\\)`,
+      });
+      this.setData({
+        mathInkRecognizing: false,
+        mathInkOpen: false,
+        mathInkCandidate: null,
+        mathInkLatex: "",
+      });
+      render(this, runtime);
+      await saveCheckpoint(this, runtime);
+    } catch (error) {
+      this.setData({
+        mathInkRecognizing: false,
+        mathInkError: error instanceof ApiClientError ? error.message : "公式确认失败，请重试。",
+      });
+    }
   },
 
   previousQuestion() {

@@ -10,7 +10,16 @@ import type {
 
 export type ImportSourceKind = Extract<SourceKind, "camera_image" | "image_import" | "pdf_upload">;
 
-export interface LocalImportFile {
+export interface LocalSourceArtifactFile {
+  localPath: string;
+  displayName: string;
+  sourceKind: SourceKind;
+  mimeType: string;
+  byteSize: number;
+  pageCount?: number | null;
+}
+
+export interface LocalImportFile extends LocalSourceArtifactFile {
   localPath: string;
   displayName: string;
   sourceKind: ImportSourceKind;
@@ -19,12 +28,13 @@ export interface LocalImportFile {
   pageCount: number | null;
 }
 
-export interface LocalAnswerImageFile {
+export interface LocalAnswerImageFile extends LocalSourceArtifactFile {
   localPath: string;
   displayName: string;
   sourceKind: "answer_sheet";
   mimeType: "image/jpeg" | "image/png";
   byteSize: number;
+  pageCount?: null;
 }
 
 export interface ImportRecognitionSegment {
