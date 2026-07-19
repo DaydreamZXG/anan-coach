@@ -8,11 +8,14 @@ import automator from "miniprogram-automator";
 import pixelmatch from "pixelmatch";
 import { PNG } from "pngjs";
 
+import { readPageData, setPageData } from "./page-data-bridge.mjs";
+import { consoleEventText, isActionableRuntimeWarning } from "./runtime-warning-policy.mjs";
 import { visualScenarios } from "./visual-scenarios.mjs";
 
 const currentDirectory = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(currentDirectory, "..");
 const baselineDirectory = path.resolve(projectRoot, "tests/visual/baselines");
+const baselineProfilePath = path.resolve(projectRoot, "tests/visual/baseline-profile.json");
 const artifactDirectory = path.resolve(projectRoot, "tests/visual/artifacts");
 const cliPath =
   process.env.WECHAT_DEVTOOLS_CLI ?? "/Applications/wechatwebdevtools.app/Contents/MacOS/cli";
@@ -58,14 +61,10 @@ miniProgram.on("exception", (event) => runtimeFailures.push(String(event?.messag
 if (runtimeOnly || captureOnly) {
   miniProgram.on("console", (event) => {
     const message = consoleEventText(event);
-    if (
-      /received type-uncompatible value/u.test(message) ||
-      /wx\.(?:saveFile|removeSavedFile) 即将废弃/u.test(message)
-    ) {
-      runtimeWarnings.push(message);
-    }
+    if (isActionableRuntimeWarning(message)) runtimeWarnings.push(message);
   });
 }
+if (!runtimeOnly) await assertBaselineDeviceProfile(miniProgram);
 await freezeVisualAnimationClock(miniProgram);
 await miniProgram.mockWxMethod("request", {
   data: {
@@ -133,7 +132,7 @@ async function captureScenario(program, scenario) {
   assert.ok(page, `Unable to open ${scenario.route}`);
   await waitForControllerSettlement(page, scenario);
   const fixtureData = structuredClone(scenario.data);
-  await page.setData(fixtureData);
+  await setPageData(program, page, fixtureData);
   await page.waitFor(800);
   if (scenario.scrollTop) {
     await program.pageScrollTo(scenario.scrollTop);
@@ -141,12 +140,12 @@ async function captureScenario(program, scenario) {
   }
   // Page timers may keep rendering after the controller has settled. The scenario owns
   // deterministic screenshot data, so restore it once after layout/scroll stabilization.
-  await page.setData(fixtureData);
+  await setPageData(program, page, fixtureData);
   // automator resolves setData after the page data commit, while WXML/component layout can
   // still be one render behind. Wait for that final deterministic frame before asserting and
   // capturing, otherwise a completed network-error frame can be photographed with fixture data.
   await page.waitFor(120);
-  const appliedData = await page.data();
+  const appliedData = await readPageData(program, page);
   if (!runtimeOnly) {
     for (const [key, expected] of Object.entries(scenario.data)) {
       assert.deepEqual(
@@ -214,15 +213,6 @@ async function withTimeout(promise, timeoutMs, message) {
   }
 }
 
-function consoleEventText(event) {
-  if (typeof event === "string") return event;
-  try {
-    return JSON.stringify(event);
-  } catch {
-    return String(event);
-  }
-}
-
 async function freezeVisualAnimationClock(program) {
   await program.evaluate(function installDeterministicVisualClock() {
     if (globalThis.__gongkaoVisualOriginalSetInterval) return;
@@ -240,7 +230,7 @@ async function freezeVisualAnimationClock(program) {
 async function waitForControllerSettlement(page, scenario) {
   if (scenario.authenticated !== true || scenario.skipControllerSettlement === true) return;
   for (let attempt = 0; attempt < 100; attempt += 1) {
-    const data = await page.data();
+    const data = await readPageData(miniProgram, page);
     if (controllerHasSettled(scenario.route, data)) return;
     await page.waitFor(100);
   }
@@ -260,12 +250,49 @@ function controllerHasSettled(route, data) {
       !["idle", "loading"].includes(data.workspace?.qualificationStatus)
     );
   }
-  if (remoteStatusHasSettled(data.status)) return true;
-  return remoteStatusHasSettled(data.state?.status);
+  if (Object.prototype.hasOwnProperty.call(data, "status")) {
+    return remoteStatusHasSettled(data.status);
+  }
+  if (
+    typeof data.state === "object" &&
+    data.state !== null &&
+    Object.prototype.hasOwnProperty.call(data.state, "status")
+  ) {
+    return remoteStatusHasSettled(data.state.status);
+  }
+  // Static and platform-only pages do not own an asynchronous controller state.
+  return true;
 }
 
 function remoteStatusHasSettled(status) {
   return typeof status === "string" && !["idle", "loading", "previewing"].includes(status);
+}
+
+async function assertBaselineDeviceProfile(program) {
+  const [profileSource, systemInfo] = await Promise.all([
+    readFile(baselineProfilePath, "utf8"),
+    program.systemInfo(),
+  ]);
+  const profile = JSON.parse(profileSource);
+  assert.equal(profile.schemaVersion, 1, "Unsupported visual baseline profile schema");
+  for (const field of [
+    "model",
+    "platform",
+    "windowWidth",
+    "windowHeight",
+    "pixelRatio",
+    "statusBarHeight",
+    "fontSizeSetting",
+    "language",
+    "deviceOrientation",
+    "SDKVersion",
+  ]) {
+    assert.equal(
+      systemInfo[field],
+      profile[field],
+      `Visual baseline device mismatch for ${field}; select the certified profile before capture`,
+    );
+  }
 }
 
 async function setAuthentication(program, authenticated) {

@@ -7,7 +7,7 @@ import base64
 import json
 from pathlib import Path
 import re
-from typing import Annotated, Any, Callable, Literal
+from typing import Annotated, Callable, Literal
 
 import httpx
 from PIL import Image, ImageOps

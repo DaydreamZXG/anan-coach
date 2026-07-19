@@ -214,7 +214,7 @@ if __name__ == "__main__":
     sql = generate_sql()
     with open("major_catalog_seed.sql", "w", encoding="utf-8") as f:
         f.write(sql)
-    print(f"Generated major_catalog_seed.sql")
+    print("Generated major_catalog_seed.sql")
     print(f"Categories: {len(CATEGORIES)}")
     print(f"Sub-categories: {len(SUB_CATEGORIES)}")
     total = sum(len(m) for _, _, m in SUB_CATEGORIES)

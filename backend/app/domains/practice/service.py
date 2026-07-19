@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from app.domains.knowledge.service import KnowledgeService, QuestionNotFoundError
+from app.domains.knowledge.service import KnowledgeService
 from app.domains.memory.service import LearnerMemoryService
 from app.domains.practice.schemas import AnswerFeedback, PracticeTask
 from app.domains.taskstream.service import TODAY_XINGCE_TASK_ID

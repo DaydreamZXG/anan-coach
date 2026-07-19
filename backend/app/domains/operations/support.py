@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import datetime
 from hashlib import sha256
@@ -81,9 +80,11 @@ class SupportJwtVerifier:
         self._audience = settings.support_jwt_audience
         if signing_key_resolver is None:
             client = PyJWKClient(settings.support_jwt_jwks_url, cache_keys=True)
-            signing_key_resolver = lambda token: client.get_signing_key_from_jwt(
-                token
-            ).key
+
+            def resolve_signing_key(token: str) -> Any:
+                return client.get_signing_key_from_jwt(token).key
+
+            signing_key_resolver = resolve_signing_key
         self._resolve_signing_key = signing_key_resolver
 
     def verify(self, authorization: str) -> SupportPrincipal:

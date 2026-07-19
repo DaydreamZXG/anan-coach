@@ -3,7 +3,6 @@ from __future__ import annotations
 from datetime import UTC, datetime, timedelta
 from hashlib import sha256
 import json
-from typing import Any
 from uuid import UUID, uuid4
 
 from sqlalchemy.engine import RowMapping

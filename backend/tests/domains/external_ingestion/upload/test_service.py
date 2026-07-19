@@ -20,7 +20,6 @@ from app.domains.external_ingestion.upload.models import (
     ScannerRuntimeApproval,
     StartUploadRequest,
     UploadAuditEvent,
-    UploadAuthorization,
     UploadMode,
     UploadPartAuthorization,
     UploadCommandReceipt,

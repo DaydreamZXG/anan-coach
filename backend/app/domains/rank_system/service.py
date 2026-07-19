@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from datetime import date
-from typing import Any
 
 from app.domains.rank_system.repository import RankRepository
 from app.domains.rank_system.schemas import (

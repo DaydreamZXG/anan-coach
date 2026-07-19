@@ -12,7 +12,6 @@ from app.domains.external_ingestion.upload.models import (
     MultipartUploadHandle,
     ScanReceipt,
     UploadAuditEvent,
-    UploadAuthorization,
     UploadCommandReceipt,
     UploadReservation,
     UploadSession,

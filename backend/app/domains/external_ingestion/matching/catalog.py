@@ -4,7 +4,6 @@ from collections.abc import Callable, Mapping
 from datetime import UTC, datetime
 import json
 from typing import Any
-from uuid import NAMESPACE_URL, uuid5
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
@@ -13,8 +12,6 @@ from app.domains.external_ingestion.matching.fingerprint import normalize_text
 from app.domains.external_ingestion.matching.models import (
     IndexedContent,
     MatchQuery,
-    VisualFingerprintApproval,
-    VisualFingerprintResult,
 )
 from app.domains.xingce_learning.content_version import question_content_version_id
 

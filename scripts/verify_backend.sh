@@ -12,6 +12,7 @@ else
 fi
 
 cd "$ROOT/backend"
+"$PY" -m ruff check .
 "$PY" -m pytest
 
 HEADS="$("$PY" -m alembic heads | sed '/^[[:space:]]*$/d')"

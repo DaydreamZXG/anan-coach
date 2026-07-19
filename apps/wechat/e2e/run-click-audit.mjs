@@ -6,6 +6,9 @@ import { fileURLToPath } from "node:url";
 
 import automator from "miniprogram-automator";
 
+import { invokePageHandler, readPageData, setPageData } from "./page-data-bridge.mjs";
+import { interactionEvidenceKinds, pageInteractionMatrix } from "./page-interaction-matrix.mjs";
+import { consoleEventText, isActionableRuntimeWarning } from "./runtime-warning-policy.mjs";
 import { visualScenarios } from "./visual-scenarios.mjs";
 
 const currentDirectory = path.dirname(fileURLToPath(import.meta.url));
@@ -14,19 +17,25 @@ const cliPath =
   process.env.WECHAT_DEVTOOLS_CLI ?? "/Applications/wechatwebdevtools.app/Contents/MacOS/cli";
 const automationEndpoint = process.env.WECHAT_DEVTOOLS_AUTOMATION_ENDPOINT?.trim();
 const scenarioById = new Map(visualScenarios.map((scenario) => [scenario.id, scenario]));
-const journeys = [
-  ["login-success", loginSuccess],
-  ["today-primary-task", todayPrimaryTask],
-  ["today-capture-entry", todayCaptureEntry],
-  ["capture-mode-track", captureModeTrack],
-  ["capture-restart", captureRestart],
-  ["xingce-toolbar", xingceToolbar],
-  ["submitted-mock-report", submittedMockReport],
-  ["essay-compose-actions", essayComposeActions],
-  ["report-return-today", reportReturnToday],
-  ["free-cold-start-access", freeColdStartAccess],
-  ["profile-menu", profileMenu],
+const pageJourneys = pageInteractionMatrix.map((contract) => [
+  contract.id,
+  pagePurposeJourney(contract),
+]);
+const literalDomJourneys = [
+  ["deep-login-success", loginSuccess],
+  ["deep-today-primary-task", todayPrimaryTask],
+  ["deep-today-capture-entry", todayCaptureEntry],
+  ["deep-capture-mode-track", captureModeTrack],
+  ["deep-capture-restart", captureRestart],
+  ["deep-xingce-toolbar", xingceToolbar],
+  ["deep-submitted-mock-report", submittedMockReport],
+  ["deep-essay-compose-actions", essayComposeActions],
+  ["deep-report-return-today", reportReturnToday],
+  ["deep-free-cold-start-access", freeColdStartAccess],
+  ["deep-profile-menu", profileMenu],
 ];
+const journeys =
+  process.env.LITERAL_DOM_AUDIT === "1" ? [...pageJourneys, ...literalDomJourneys] : pageJourneys;
 const journeyFilter = process.env.JOURNEY?.trim() ?? "";
 const requestedJourneyNames = new Set(
   journeyFilter
@@ -60,13 +69,7 @@ const runtimeWarnings = [];
 miniProgram.on("exception", (event) => runtimeFailures.push(String(event?.message ?? event)));
 miniProgram.on("console", (event) => {
   const message = consoleEventText(event);
-  if (
-    /received type-uncompatible value/u.test(message) ||
-    /wx\.(?:saveFile|removeSavedFile) 即将废弃/u.test(message) ||
-    /\b(?:GET|POST|PUT|DELETE)\b.+\/api\/v2\/.+\b(?:401|404)\b/u.test(message)
-  ) {
-    runtimeWarnings.push(message);
-  }
+  if (isActionableRuntimeWarning(message)) runtimeWarnings.push(message);
 });
 
 try {
@@ -88,13 +91,69 @@ assert.deepEqual(
   [],
   `Mini Program runtime warnings:\n${runtimeWarnings.join("\n")}`,
 );
-process.stdout.write(`Audited ${String(selectedJourneys.length)} click journeys.\n`);
+process.stdout.write(
+  `Audited ${String(selectedJourneys.length)} mock-backed page binding/controller journeys; ` +
+    "this command is not literal DOM tap, real-backend, or device evidence.\n",
+);
+
+function pagePurposeJourney(contract) {
+  return async (program) => {
+    if (contract.route === "pages/login/index") {
+      const loginPage = await openVisualScenario(program, contract.scenarioId);
+      await installLoginMocks(program);
+      await invokePageHandler(program, loginPage, "login");
+      await waitForPath(program, "/pages/today/index", "login did not switch to today");
+      await installNetworkGuard(program);
+      return;
+    }
+    const page = await openVisualScenario(program, contract.scenarioId);
+    const interaction = contract.primaryInteraction;
+    if (interaction.evidence === interactionEvidenceKinds.RUNTIME_READ_ONLY) {
+      assert.equal(interaction.handler, null);
+      return;
+    }
+    if (interaction.evidence === interactionEvidenceKinds.PLATFORM_DEVICE) {
+      assert.ok(interaction.handler, `${contract.route} platform action is not declared`);
+      return;
+    }
+
+    const beforePath = normalizeRoutePath(page.path);
+    const beforeData = await readPageData(program, page);
+    await invokePageHandler(program, page, interaction.handler, interaction.dataset);
+    await page.waitFor(1_200);
+
+    const currentPage = await program.currentPage();
+    const afterPath = normalizeRoutePath(currentPage?.path);
+    const afterData =
+      normalizeRoutePath(currentPage?.path) === beforePath
+        ? await readPageData(program, page)
+        : null;
+    if (interaction.observable) {
+      assert.ok(
+        afterPath !== beforePath || JSON.stringify(afterData) !== JSON.stringify(beforeData),
+        `${contract.route} primary interaction ${interaction.handler} produced no observable effect`,
+      );
+    }
+  };
+}
 
 async function runJourney(name, journey) {
   process.stdout.write(`[journey] ${name} ... `);
+  const failureOffset = runtimeFailures.length;
+  const warningOffset = runtimeWarnings.length;
   await withTimeout(journey(miniProgram), 60_000, `${name} did not finish within 60 seconds`);
   const settledPage = await miniProgram.currentPage();
   await settledPage?.waitFor(800);
+  assert.deepEqual(
+    runtimeFailures.slice(failureOffset),
+    [],
+    `${name} emitted Mini Program runtime exceptions:\n${runtimeFailures.slice(failureOffset).join("\n")}`,
+  );
+  assert.deepEqual(
+    runtimeWarnings.slice(warningOffset),
+    [],
+    `${name} emitted Mini Program runtime warnings:\n${runtimeWarnings.slice(warningOffset).join("\n")}`,
+  );
   process.stdout.write("ok\n");
 }
 
@@ -113,7 +172,7 @@ async function loginSuccess(program) {
     await waitForPath(program, "/pages/today/index", "login did not switch to today");
   } catch (error) {
     const currentPage = await program.currentPage();
-    const data = await page.data();
+    const data = await readPageData(program, page);
     const audit = await program.evaluate(function readLoginAudit() {
       return {
         loginCalled: Boolean(globalThis.__ananClickAuditLoginCalled),
@@ -159,8 +218,8 @@ async function captureModeTrack(program) {
 
 async function captureRestart(program) {
   const page = await openVisualScenario(program, "h01-capture-search-idle");
-  const current = await page.data();
-  await page.setData({
+  const current = await readPageData(program, page);
+  await setPageData(program, page, {
     state: {
       ...current.state,
       status: "success",
@@ -198,7 +257,7 @@ async function xingceToolbar(program) {
 
 async function submittedMockReport(program) {
   const page = await openVisualScenario(program, "c06-mock-exam-answering");
-  await page.setData({ status: "submitted", receipt: null });
+  await setPageData(program, page, { status: "submitted", receipt: null });
   await (await requiredElement(page, ".page-state .primary-button")).tap();
   await waitForPath(program, "/pages/mock-report/index", "submitted mock did not open its report");
 }
@@ -224,7 +283,7 @@ async function reportReturnToday(program) {
 
 async function freeColdStartAccess(program) {
   const page = await openVisualScenario(program, "g01-open-access-ready");
-  const data = await page.data();
+  const data = await readPageData(program, page);
   assert.equal(data.freeColdStart, true, "open-access page is not in free cold-start mode");
   assert.equal(data.dashboard?.catalog?.orderingEnabled, false, "ordering must be disabled");
   assert.equal(await page.$(".accept-row"), null, "free mode exposed policy acceptance");
@@ -252,7 +311,7 @@ async function openVisualScenario(program, id, options = {}) {
       : await program.reLaunch(scenario.route);
   assert.ok(page, `Unable to open ${scenario.route}`);
   await page.waitFor(400);
-  await page.setData(structuredClone(scenario.data));
+  await setPageData(program, page, structuredClone(scenario.data));
   if (scenario.scrollTop) await program.pageScrollTo(scenario.scrollTop);
   await page.waitFor(160);
   return page;
@@ -279,7 +338,7 @@ function normalizeRoutePath(routePath) {
 }
 
 async function waitForData(page, predicate, message) {
-  await waitForPredicate(async () => predicate(await page.data()), message);
+  await waitForPredicate(async () => predicate(await readPageData(miniProgram, page)), message);
 }
 
 async function waitForPredicate(predicate, message) {
@@ -307,8 +366,6 @@ async function installNetworkGuard(program) {
 }
 
 async function installLoginMocks(program) {
-  await restoreWxMethodIfMocked(program, "request");
-  await restoreWxMethodIfMocked(program, "login");
   await program.mockWxMethod("request", {
     data: envelope({
       accessToken: "click-audit-access-token",
@@ -350,7 +407,6 @@ async function installLoginMocks(program) {
 }
 
 async function installXingceMocks(program) {
-  await restoreWxMethodIfMocked(program, "request");
   await program.mockWxMethod("request", {
     data: envelope(createXingceSession()),
     statusCode: 200,
@@ -387,14 +443,6 @@ async function freezeAuditAnimationClock(program) {
       return originalSetInterval(callback, delay, ...args);
     };
   });
-}
-
-async function restoreWxMethodIfMocked(program, method) {
-  try {
-    await program.restoreWxMethod(method);
-  } catch {
-    // The method may not have been mocked by miniprogram-automator in this run.
-  }
 }
 
 function createXingceSession() {
@@ -485,14 +533,5 @@ async function withTimeout(promise, timeoutMs, message) {
     return await Promise.race([promise, timeout]);
   } finally {
     clearTimeout(timeoutHandle);
-  }
-}
-
-function consoleEventText(event) {
-  if (typeof event === "string") return event;
-  try {
-    return JSON.stringify(event);
-  } catch {
-    return String(event);
   }
 }

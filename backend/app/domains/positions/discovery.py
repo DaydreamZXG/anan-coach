@@ -25,7 +25,6 @@ from app.domains.positions.schemas import (
     PositionWorkspaceResponse,
     TargetScoreRange,
 )
-from app.domains.positions.service import PositionNotFoundError
 from app.domains.positions.target_scores import (
     PositionTargetScoreOwner,
     TargetScoreVersionConflictError,

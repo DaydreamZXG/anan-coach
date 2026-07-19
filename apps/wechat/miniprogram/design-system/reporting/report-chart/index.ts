@@ -38,8 +38,9 @@ Component({
 
 export function reportChartRows(chart: ChartSpec): ReportChartRowView[] {
   if (!REPORT_CHART_TYPES.includes(chart.chartType)) return [];
-  const max = maxValue(chart);
-  return chart.data.map((raw, index) => {
+  const data = chartData(chart);
+  const max = maxValue(chart.chartType, data);
+  return data.map((raw, index) => {
     const row = asRecord(raw);
     const mapped = mapRow(chart.chartType, row, index);
     const widthValue = widthValueFor(chart.chartType, row);
@@ -117,8 +118,15 @@ function mapRow(
   };
 }
 
-function maxValue(chart: ChartSpec): number {
-  return Math.max(1, ...chart.data.map((row) => widthValueFor(chart.chartType, asRecord(row))));
+function chartData(chart: ChartSpec): Array<Record<string, unknown>> {
+  if (Array.isArray(chart.data)) return chart.data;
+  throw new TypeError(
+    `Invalid ChartSpec ${chart.chartId}: data must be an array, received ${Object.prototype.toString.call(chart.data)} ${JSON.stringify(chart.data)}`,
+  );
+}
+
+function maxValue(chartType: ChartSpec["chartType"], data: Array<Record<string, unknown>>): number {
+  return Math.max(1, ...data.map((row) => widthValueFor(chartType, asRecord(row))));
 }
 
 function widthValueFor(chartType: ChartSpec["chartType"], row: Record<string, unknown>): number {

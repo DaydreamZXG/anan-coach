@@ -19,7 +19,6 @@ from app.domains.knowledge.schemas import (
     QuestionExplanation,
     QuestionOccurrence,
     QuestionOption,
-    QuestionSearchResponse,
     QuestionSummary,
     QuestionTag,
 )

@@ -8,19 +8,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from app.domains.planning.schemas import TodayDashboard
 from app.domains.task_content.schemas import (
-    ContentAnchor,
     MaterialPosition,
-    RichContentBlock,
-    RichFormulaBlock,
-    RichGraphBlock,
-    RichImageBlock,
-    RichParagraphBlock,
-    RichTableBlock,
-    RichTableCell,
-    SafeAsset,
-    SafeMaterial,
-    SafeOption,
-    SafeQuestion,
     SafeQuestionBundle,
 )
 

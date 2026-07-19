@@ -23,6 +23,7 @@ jobs:
       - run: npm ci
         working-directory: apps/wechat
       - run: scripts/verify.sh
+      - run: ops/scripts/rehearse_artifact_switch.sh
       - run: RELEASE_ID='${{ inputs.release_id }}' ops/scripts/build_immutable_artifact.sh
       - uses: actions/upload-artifact@v4
         with:

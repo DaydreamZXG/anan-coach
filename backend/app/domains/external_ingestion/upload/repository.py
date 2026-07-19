@@ -10,7 +10,6 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.contracts.external_learning.models import (
-    SourceArtifactState,
     SourceArtifactVersion,
     SourceKind,
 )

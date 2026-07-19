@@ -1751,10 +1751,10 @@ export const visualScenarios = [
         knowledgeFreshness: "visual-brain-v9",
         allowedActions: [
           {
-            kind: "view_evidence",
-            label: "查看本次依据",
-            targetRef: "mastery-v9",
-            requiresConfirmation: false,
+            kind: "adjust_plan_preview",
+            label: "预览今日计划调整",
+            targetRef: "/pages/day-adjustment/index",
+            requiresConfirmation: true,
           },
         ],
         highImpactDecision: null,
