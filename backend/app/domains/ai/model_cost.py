@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
+from hashlib import sha256
 from uuid import UUID, uuid4
 
 from sqlalchemy import text
@@ -12,6 +13,7 @@ from sqlalchemy.orm import Session
 from app.core.config import Settings
 from app.domains.ai.governance.contracts import AICallAttribution
 from app.domains.ai.governance.repository import AIGovernanceRepository
+from app.domains.ai.external_processing import ExternalProcessingRepository
 
 
 MILLION = Decimal("1000000")
@@ -154,6 +156,10 @@ class ModelCallLedgerRepository:
         price_card: ModelPriceCard,
         input_fingerprint: str,
         attribution: AICallAttribution,
+        processor_release_id: str | None = None,
+        processor_endpoint_fingerprint: str | None = None,
+        processing_purpose: str | None = None,
+        processing_data_categories: tuple[str, ...] = (),
         started_at: datetime | None = None,
     ) -> ModelCallRecord:
         values = {
@@ -230,6 +236,15 @@ class ModelCallLedgerRepository:
                 call_id=existing.call_id,
                 attribution=attribution,
             )
+            self._record_processing_receipt(
+                session,
+                record=existing,
+                attribution=attribution,
+                processor_release_id=processor_release_id,
+                processor_endpoint_fingerprint=processor_endpoint_fingerprint,
+                processing_purpose=processing_purpose,
+                processing_data_categories=processing_data_categories,
+            )
             return existing
         record = _record(row)
         AIGovernanceRepository().insert_model_call_attribution(
@@ -237,7 +252,53 @@ class ModelCallLedgerRepository:
             call_id=record.call_id,
             attribution=attribution,
         )
+        self._record_processing_receipt(
+            session,
+            record=record,
+            attribution=attribution,
+            processor_release_id=processor_release_id,
+            processor_endpoint_fingerprint=processor_endpoint_fingerprint,
+            processing_purpose=processing_purpose,
+            processing_data_categories=processing_data_categories,
+        )
         return record
+
+    def _record_processing_receipt(
+        self,
+        session: Session,
+        *,
+        record: ModelCallRecord,
+        attribution: AICallAttribution,
+        processor_release_id: str | None,
+        processor_endpoint_fingerprint: str | None,
+        processing_purpose: str | None,
+        processing_data_categories: tuple[str, ...],
+    ) -> None:
+        production = attribution.evaluation_state == "passed"
+        if production and (
+            not processor_release_id
+            or not processor_endpoint_fingerprint
+            or not processing_purpose
+            or not processing_data_categories
+        ):
+            raise ModelCallLedgerError(
+                "production model calls require an explicit processor release receipt"
+            )
+        ExternalProcessingRepository().record_model_dispatch(
+            session,
+            call_id=record.call_id,
+            user_id=str(record.user_id) if record.user_id is not None else None,
+            scenario_key=attribution.scenario_key,
+            purpose=processing_purpose or record.operation,
+            data_categories=processing_data_categories or ("synthetic_test",),
+            declared_provider_release=processor_release_id or record.provider,
+            provider_endpoint_fingerprint=(
+                processor_endpoint_fingerprint
+                or sha256(record.provider.encode("utf-8")).hexdigest()
+            ),
+            input_fingerprint=record.input_fingerprint,
+            production_authorization_required=production,
+        )
 
     def get_existing(
         self,

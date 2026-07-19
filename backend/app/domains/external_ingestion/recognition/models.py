@@ -249,14 +249,9 @@ class ProcessorApproval(StrictModel):
     dpa_evidence_ref: NonBlank = Field(alias="dpaEvidenceRef")
     security_review_ref: NonBlank = Field(alias="securityReviewRef")
     approval_receipt_ref: NonBlank = Field(alias="approvalReceiptRef")
-    transport_security: Literal["tls", "plaintext_http_operator_accepted"] = Field(
-        default="tls", alias="transportSecurity"
-    )
-    provider_data_handling: Literal[
-        "contracted_zero_retention", "operator_accepted_external_processing"
-    ] = Field(default="contracted_zero_retention", alias="providerDataHandling")
-    operator_acceptance_ref: NonBlank | None = Field(
-        default=None, alias="operatorAcceptanceRef"
+    transport_security: Literal["tls"] = Field(default="tls", alias="transportSecurity")
+    provider_data_handling: Literal["contracted_zero_retention"] = Field(
+        default="contracted_zero_retention", alias="providerDataHandling"
     )
     model_training_use: Literal["prohibited"] = Field(
         default="prohibited", alias="modelTrainingUse"
@@ -275,15 +270,6 @@ class ProcessorApproval(StrictModel):
             raise ValueError("approvedKinds must be unique")
         if len(self.approved_mime_types) != len(set(self.approved_mime_types)):
             raise ValueError("approvedMimeTypes must be unique")
-        has_operator_exception = (
-            self.data_region == "operator_selected_external"
-            or self.transport_security == "plaintext_http_operator_accepted"
-            or self.provider_data_handling == "operator_accepted_external_processing"
-        )
-        if has_operator_exception != (self.operator_acceptance_ref is not None):
-            raise ValueError(
-                "operator-selected external processing requires one acceptance reference"
-            )
         if (
             self.provider_data_handling == "contracted_zero_retention"
             and self.provider_retention_seconds != 0

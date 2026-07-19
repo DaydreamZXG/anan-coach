@@ -219,6 +219,11 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in preparation_experience._TEST_STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
+        external_ai_boundary = import_module(
+            "migrations.versions.20260719_41_external_ai_data_boundary"
+        )
+        for statement in external_ai_boundary._TEST_STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
 
 
 def _split_postgres_statements(script: str) -> list[str]:

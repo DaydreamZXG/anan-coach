@@ -19,7 +19,6 @@ AI_SETTINGS = {
     "AI_MODEL": "gemini-3.5-flash",
     "AI_SMALL_MODEL": "gemini-3.5-flash",
     "AI_HIGH_CAPABILITY_MODEL": "gemini-3.5-flash",
-    "AI_PROVIDER_OPERATOR_APPROVAL_REF": "owner-decision-2026-07-18",
     "AI_COMPANION_PROVIDER_RELEASE_ID": "gemini-web2api-2026-07-18.1",
     "AI_COMPANION_PROVIDER_HTTPS_HOST_ALLOWLIST": "gemini-web2api.ergouapi.co",
     "AI_COMPANION_PROVIDER_DPA_CONFIRMED": "false",

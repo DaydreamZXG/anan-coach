@@ -4,10 +4,13 @@ from datetime import datetime
 from decimal import Decimal
 import json
 from typing import Any, Protocol
+from uuid import UUID
 
 from sqlalchemy import text
 from sqlalchemy.engine import RowMapping
 from sqlalchemy.orm import Session
+
+from app.domains.ai.external_processing import ExternalProcessingRepository
 
 
 class CommunityRepositoryPort(Protocol):
@@ -19,8 +22,9 @@ class CommunityRepositoryPort(Protocol):
 class CommunityMethodCardRepository:
     """PostgreSQL owner for community cards; official product.method_cards is untouched."""
 
-    def __init__(self, session: Session) -> None:
+    def __init__(self, session: Session, *, environment: str = "local") -> None:
         self._session = session
+        self._environment = environment
 
     def lock(self, identity: str) -> None:
         self._session.execute(
@@ -281,6 +285,47 @@ class CommunityMethodCardRepository:
                 "completed_at": completed_at,
             },
         ).mappings().one()
+
+    def record_candidate_external_processing(
+        self,
+        *,
+        candidate_id: str,
+        author_user_id: str,
+        provider_release_id: str,
+        provider_endpoint_fingerprint: str,
+        input_fingerprint: str,
+        dispatched_at: datetime,
+    ) -> None:
+        ExternalProcessingRepository().record_community_candidate_dispatch(
+            self._session,
+            candidate_id=UUID(candidate_id),
+            user_id=author_user_id,
+            declared_provider_release=provider_release_id,
+            provider_endpoint_fingerprint=provider_endpoint_fingerprint,
+            input_fingerprint=input_fingerprint,
+            production_authorization_required=(
+                self._environment.strip().casefold() == "production"
+            ),
+            dispatched_at=dispatched_at,
+        )
+
+    def assert_candidate_external_processing_authorized(
+        self,
+        *,
+        provider_release_id: str,
+        provider_endpoint_fingerprint: str,
+        checked_at: datetime,
+    ) -> None:
+        if self._environment.strip().casefold() != "production":
+            return
+        ExternalProcessingRepository().require_active_release(
+            self._session,
+            declared_provider_release=provider_release_id,
+            provider_endpoint_fingerprint=provider_endpoint_fingerprint,
+            purpose="community_candidate_generate",
+            data_categories=("community_content",),
+            at=checked_at,
+        )
 
     def confirmed_version_by_id(self, version_id: str) -> RowMapping | None:
         return self._session.execute(

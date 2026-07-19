@@ -44,8 +44,6 @@ class Settings:
     recognition_processor_adapter: str = "private_contract"
     recognition_processor_model: str = ""
     recognition_processor_actual_model: str = ""
-    recognition_processor_allow_insecure_http: bool = False
-    recognition_processor_insecure_http_origin: str = ""
     recognition_processor_max_input_bytes: int = 0
     recognition_processor_max_output_bytes: int = 0
     recognition_processor_max_pages: int = 0
@@ -85,7 +83,6 @@ class Settings:
     ai_small_model: str = ""
     ai_high_capability_model: str = ""
     ai_api_key: str = ""
-    ai_provider_operator_approval_ref: str = ""
     ai_companion_provider_release_id: str = ""
     ai_companion_provider_https_host_allowlist: str = ""
     ai_companion_provider_dpa_confirmed: bool = False
@@ -158,7 +155,7 @@ class Settings:
     wechat_virtual_pay_message_encoding_aes_key: str = ""
     privacy_export_expiry_seconds: int = 86400
     operations_metrics_token: str = ""
-    required_database_revision: str = "20260718_40"
+    required_database_revision: str = "20260719_41"
     support_jwt_jwks_url: str = ""
     support_jwt_issuer: str = ""
     support_jwt_audience: str = ""
@@ -212,12 +209,6 @@ def get_settings() -> Settings:
         recognition_processor_model=os.getenv("RECOGNITION_PROCESSOR_MODEL", ""),
         recognition_processor_actual_model=os.getenv(
             "RECOGNITION_PROCESSOR_ACTUAL_MODEL", ""
-        ),
-        recognition_processor_allow_insecure_http=_environment_bool(
-            "RECOGNITION_PROCESSOR_ALLOW_INSECURE_HTTP", default=False
-        ),
-        recognition_processor_insecure_http_origin=os.getenv(
-            "RECOGNITION_PROCESSOR_INSECURE_HTTP_ORIGIN", ""
         ),
         recognition_processor_max_input_bytes=int(
             os.getenv("RECOGNITION_PROCESSOR_MAX_INPUT_BYTES", "0")
@@ -312,10 +303,6 @@ def get_settings() -> Settings:
         ai_small_model=os.getenv("AI_SMALL_MODEL", ""),
         ai_high_capability_model=os.getenv("AI_HIGH_CAPABILITY_MODEL", ""),
         ai_api_key=os.getenv("AI_API_KEY", ""),
-        ai_provider_operator_approval_ref=os.getenv(
-            "AI_PROVIDER_OPERATOR_APPROVAL_REF",
-            "",
-        ),
         ai_companion_provider_release_id=os.getenv(
             "AI_COMPANION_PROVIDER_RELEASE_ID",
             "",
@@ -549,7 +536,7 @@ def get_settings() -> Settings:
         ),
         operations_metrics_token=os.getenv("OPERATIONS_METRICS_TOKEN", ""),
         required_database_revision=os.getenv(
-            "REQUIRED_DATABASE_REVISION", "20260718_40"
+            "REQUIRED_DATABASE_REVISION", "20260719_41"
         ),
         support_jwt_jwks_url=os.getenv("SUPPORT_JWT_JWKS_URL", ""),
         support_jwt_issuer=os.getenv("SUPPORT_JWT_ISSUER", ""),

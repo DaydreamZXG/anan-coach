@@ -20,6 +20,7 @@ from app.domains.ai.model_cost import (
     ModelCallLedgerRepository,
     ModelPriceCard,
 )
+from app.domains.ai.external_processing import endpoint_fingerprint
 from app.domains.ai.governance.repository import (
     AIGovernanceRepository,
     generic_evidence_ref,
@@ -170,7 +171,7 @@ class CauseAgentWorker:
                 code=exc.code,
                 evidence=evidence,
             )
-        except (ValueError, ValidationError) as exc:
+        except (ValueError, ValidationError):
             return self._publish_termination(
                 session,
                 job=job,
@@ -362,6 +363,12 @@ class CauseAgentWorker:
                 reservation_id=UUID(str(job.payload["reservationId"])),
                 reservation_source=str(job.payload["reservationSource"]),
             ),
+            processor_release_id=self._provider.provider_release_id,
+            processor_endpoint_fingerprint=endpoint_fingerprint(
+                self._settings.ai_provider_base_url
+            ),
+            processing_purpose="cause_candidate_generate",
+            processing_data_categories=("learning_evidence", "learner_answer"),
         )
         session.commit()
         try:

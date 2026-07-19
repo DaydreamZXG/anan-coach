@@ -842,7 +842,9 @@ def build_community_method_card_service(
     settings: Settings,
     authenticated_session: AuthenticatedSessionContext,
 ) -> CommunityMethodCardService:
-    repository = CommunityMethodCardRepository(session)
+    repository = CommunityMethodCardRepository(
+        session, environment=settings.environment
+    )
     candidate_resource = repository.published_policy_resource("candidate_generation")
     review_resource = repository.published_policy_resource("automated_review")
     report_resource = repository.published_policy_resource("report_decision")

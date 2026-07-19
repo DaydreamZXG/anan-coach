@@ -12,6 +12,7 @@ from sqlalchemy.orm import Session, sessionmaker
 from app.domains.auth.repository import token_hash_for_tests
 from tests.test_planning_routes import (
     _client,
+    _seed_active_route_day_preference,
     _seed_learner_and_published_essay_content,
 )
 from tests.test_xingce_cause_agent_workflow import SequenceProvider, _run_one
@@ -809,6 +810,7 @@ def _seed_second_learner(
             ),
             {"user_id": user_id},
         )
+        _seed_active_route_day_preference(session, user_id=user_id)
     return user_id
 
 

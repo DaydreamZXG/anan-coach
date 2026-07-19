@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime, timedelta
+from decimal import Decimal
 from uuid import uuid4
 
 import pytest
@@ -9,6 +10,11 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.core.config import Settings
+from app.domains.ai.governance.repository import (
+    AIGovernanceRepository,
+    generic_evidence_ref,
+)
+from app.domains.ai.model_cost import ModelCallLedgerRepository, ModelPriceCard
 from app.domains.commerce.app_store import AppStoreSignedTransactionVerifier
 from app.domains.commerce.repository import CommerceRepository
 from app.domains.commerce.service import CommerceService
@@ -292,6 +298,49 @@ def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -
         ),
         {"log_id": f"privacy-log-{uuid4().hex}", "user_id": user_id},
     )
+    ModelCallLedgerRepository().begin(
+        db_session,
+        call_key="privacy-external-processing-receipt",
+        user_id=user_id,
+        job_id=None,
+        feature="companion_ask",
+        operation="companion_answer",
+        provider="local-processor",
+        model="local-model",
+        prompt_version="prompt-v1",
+        schema_version="schema-v1",
+        price_card=ModelPriceCard(
+            version="price-v1",
+            input_cny_per_million=Decimal("1"),
+            cached_input_cny_per_million=Decimal("0"),
+            output_cny_per_million=Decimal("1"),
+        ),
+        input_fingerprint="9" * 64,
+        attribution=AIGovernanceRepository().attribution(
+            db_session,
+            environment="local",
+            scenario_key="tutoring_explanation",
+            operation="companion_answer",
+            provider="local-processor",
+            model="local-model",
+            prompt_version="prompt-v1",
+            schema_version="schema-v1",
+            evidence_refs=(
+                generic_evidence_ref(
+                    kind="privacy_test",
+                    source_id="privacy-test",
+                    version="v1",
+                ),
+            ),
+            retrieval_bundle_id=None,
+            reservation_id=None,
+            reservation_source=None,
+        ),
+        processor_release_id="local-processor-release",
+        processor_endpoint_fingerprint="8" * 64,
+        processing_purpose="companion_answer",
+        processing_data_categories=("learner_question",),
+    )
     db_session.commit()
     with pytest.raises(DBAPIError, match="append-only"):
         db_session.execute(
@@ -333,6 +382,9 @@ def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -
     assert payload.payload["contractVersion"] == "personal-data-export@v1"
     assert payload.payload["preparationExperience"][0]["retake"] is True
     assert payload.payload["preparationExperience"][0]["prior_exam_years"] == [2024]
+    assert payload.payload["externalProcessingReceipts"][0][
+        "declared_provider_release"
+    ] == "local-processor-release"
     assert payload.payload_sha256 == completed.payload_sha256
 
     deletion = service.request_deletion(
@@ -359,6 +411,16 @@ def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -
     assert user["email"] is None
     assert user["is_active"] is False
     assert user["account_status"] == "disabled"
+    deletion_events = db_session.execute(
+        text(
+            """
+            select disposition from privacy.external_processing_deletion_events
+            where deletion_request_id = cast(:deletion_id as uuid)
+            """
+        ),
+        {"deletion_id": str(deletion.deletion_request_id)},
+    ).scalars().all()
+    assert deletion_events == ["not_dispatched_local_unreleased"]
     assert db_session.execute(
         text(
             "select count(*) from learner.profiles "

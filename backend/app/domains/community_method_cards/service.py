@@ -1081,6 +1081,13 @@ class CommunityMethodCardService:
         if existing is not None:
             return existing
         created_at = self._clock()
+        self._repository.assert_candidate_external_processing_authorized(
+            provider_release_id=self._candidate_provider.provider_release_id,
+            provider_endpoint_fingerprint=(
+                self._candidate_provider.provider_endpoint_fingerprint
+            ),
+            checked_at=created_at,
+        )
         payload: dict[str, Any] | None = None
         source_refs: list[str] = []
         failure_code: str | None = None
@@ -1107,7 +1114,7 @@ class CommunityMethodCardService:
             status = CandidateStatus.FAILED.value
             failure_code = exc.code
         candidate_id = _stable_id("candidate", author_user_id, fingerprint)
-        return self._repository.insert_candidate(
+        candidate = self._repository.insert_candidate(
             candidate_id=candidate_id,
             card_id=card_id,
             source_version_id=str(_get(version, "version_id")),
@@ -1122,6 +1129,17 @@ class CommunityMethodCardService:
             created_at=created_at,
             completed_at=self._clock(),
         )
+        self._repository.record_candidate_external_processing(
+            candidate_id=candidate_id,
+            author_user_id=author_user_id,
+            provider_release_id=self._candidate_provider.provider_release_id,
+            provider_endpoint_fingerprint=(
+                self._candidate_provider.provider_endpoint_fingerprint
+            ),
+            input_fingerprint=fingerprint,
+            dispatched_at=created_at,
+        )
+        return candidate
 
     def _owned_card(
         self, card_id: str, author_user_id: str, *, for_update: bool = False

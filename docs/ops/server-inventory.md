@@ -53,8 +53,8 @@
 
 - Text generation: OpenAI-compatible Gemini gateway at `https://gemini-web2api.ergouapi.co/v1`, chat completions path `/chat/completions`, model `gemini-3.5-flash`.
 - Text gateway contract verified on `2026-07-18`: JSON object/schema output and token usage are available; the response body `id` is the audit request identifier. Repeating the same `Idempotency-Key` creates a new call, so the runtime truthfully marks it `nonreplayable_audited` and does not automatically retry ambiguous failures.
-- Vision/OCR: operator Grok gateway at `http://34.96.236.81:8317/v1`, requested model `grok-4.5`, observed release `grok-4.5-build-free`. Plain HTTP is an explicit owner-approved exception restricted to that exact origin; it is not a general insecure-transport allowance.
-- Production routing boundary: Gemini handles companion, planning explanation,行测错因、申论评阅/rubric、社区候选和未命中题目估算解析；Grok handles printed OCR, handwriting OCR, OMR and score-report vision extraction.
+- Vision/OCR: the former operator Grok gateway at `http://34.96.236.81:8317/v1` is blocked for learner content because it is plaintext HTTP. Re-enable only through an HTTPS endpoint whose processor release, zero-retention terms, training prohibition, and operator identity are published in `ai_audit.processor_release_records`.
+- Intended routing boundary: Gemini-compatible text processing covers companion, planning explanation, 行测错因、申论评阅/rubric、社区候选和未命中题目解析；vision processing covers printed OCR, handwriting OCR, OMR and score-report extraction. Neither route may receive learner content until its exact processor release is published as `approved`.
 - Every production scenario still requires a passing golden evaluation and an active `ai_audit.scenario_deployments` record matching provider, model, prompt and schema before serving user traffic.
 - Secret handling:
   - Provider keys were supplied in chat; they are never stored in the repository or release artifact.

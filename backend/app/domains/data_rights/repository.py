@@ -65,6 +65,7 @@ class DataRightsRepository:
                   (select count(*) from learning.source_artifact_versions where owner_user_id = cast(:user_id as uuid)) as material_count,
                   (select count(*) from learning.report_projection_versions where user_id = cast(:user_id as uuid)) as report_count,
                   (select count(*) from ai_audit.model_call_ledger where user_id = cast(:user_id as uuid)) as ai_count,
+                  (select count(*) from ai_audit.external_ai_operation_ledger where user_id = cast(:user_id as uuid)) as external_ai_count,
                   (select count(*) from commerce.wechat_orders where user_id = cast(:user_id as uuid)) as order_count
                 """
             ),
@@ -97,7 +98,11 @@ class DataRightsRepository:
                 DataCategoryView(
                     category="reports_and_ai",
                     title="报告与 AI 处理记录",
-                    item_count=int(counts["report_count"]) + int(counts["ai_count"]),
+                    item_count=(
+                        int(counts["report_count"])
+                        + int(counts["ai_count"])
+                        + int(counts["external_ai_count"])
+                    ),
                     retention="账户存续期间；审计事实按合规周期留存",
                 ),
                 DataCategoryView(
@@ -371,6 +376,25 @@ class DataRightsRepository:
             "aiProcessingLedger": self._many_json(
                 "select call_id, feature, operation, provider, model, prompt_version, schema_version, status, input_tokens, cached_input_tokens, output_tokens, started_at, completed_at from ai_audit.model_call_ledger where user_id = cast(:user_id as uuid) order by started_at", user_id
             ),
+            "externalProcessingReceipts": self._many_json(
+                """
+                select receipt.receipt_id, receipt.scenario_key, receipt.purpose,
+                       receipt.data_categories, receipt.declared_provider_release,
+                       receipt.authorization_state, receipt.input_fingerprint,
+                       receipt.dispatched_at, release.display_name,
+                       release.operator_name, release.real_user_status,
+                       release.model_training_use, release.retention_policy,
+                       release.retention_seconds, release.deletion_support,
+                       release.evidence
+                from ai_audit.external_processing_receipts receipt
+                left join ai_audit.processor_release_records release
+                  on release.processor_release_record_id =
+                     receipt.processor_release_record_id
+                where receipt.user_id = cast(:user_id as uuid)
+                order by receipt.dispatched_at
+                """,
+                user_id,
+            ),
             "commerce": self._many_json(
                 "select order_id, out_trade_no, currency, amount_minor, refunded_minor, state, paid_at, created_at from commerce.wechat_orders where user_id = cast(:user_id as uuid) order by created_at", user_id
             ),
@@ -509,6 +533,11 @@ class DataRightsRepository:
             user_id=user_id,
             now=now,
         )
+        external_processing = self._record_external_processing_deletion(
+            deletion_id=deletion_id,
+            user_id=user_id,
+            now=now,
+        )
         self._session.execute(
             text("delete from privacy.data_export_payloads where user_id = cast(:user_id as uuid)"),
             {"user_id": user_id},
@@ -554,6 +583,7 @@ class DataRightsRepository:
             "profileIdentifiersCleared": True,
             "paymentOpenIdCleared": True,
             "personalContentErased": erased_rows,
+            "externalProcessing": external_processing,
             "accountRecoverable": False,
             "retainedFacts": [
                 "statutory_financial_ledger",
@@ -593,6 +623,72 @@ class DataRightsRepository:
             now=now,
         )
         return manifest
+
+    def _record_external_processing_deletion(
+        self,
+        *,
+        deletion_id: UUID,
+        user_id: str,
+        now: datetime,
+    ) -> dict[str, int]:
+        self._session.execute(
+            text(
+                """
+                insert into privacy.external_processing_deletion_events (
+                  deletion_event_id, deletion_request_id, receipt_id,
+                  processor_release_record_id, disposition, evidence, recorded_at
+                )
+                select
+                  gen_random_uuid(), cast(:deletion_id as uuid), receipt.receipt_id,
+                  receipt.processor_release_record_id,
+                  case
+                    when receipt.authorization_state = 'real_user_approved'
+                      then 'not_required_zero_retention'
+                    else 'not_dispatched_local_unreleased'
+                  end,
+                  jsonb_build_object(
+                    'authorizationState', receipt.authorization_state,
+                    'declaredProviderRelease', receipt.declared_provider_release,
+                    'retentionPolicy', coalesce(release.retention_policy, 'local_unreleased'),
+                    'receiptId', receipt.receipt_id::text
+                  ),
+                  :now
+                from ai_audit.external_processing_receipts receipt
+                left join ai_audit.processor_release_records release
+                  on release.processor_release_record_id =
+                     receipt.processor_release_record_id
+                where receipt.user_id = cast(:user_id as uuid)
+                on conflict (deletion_request_id, receipt_id) do nothing
+                """
+            ),
+            {
+                "deletion_id": str(deletion_id),
+                "user_id": user_id,
+                "now": now,
+            },
+        )
+        counts = self._session.execute(
+            text(
+                """
+                select disposition, count(*) as event_count
+                from privacy.external_processing_deletion_events
+                where deletion_request_id = cast(:deletion_id as uuid)
+                group by disposition
+                """
+            ),
+            {"deletion_id": str(deletion_id)},
+        ).mappings()
+        by_disposition = {
+            str(row["disposition"]): int(row["event_count"]) for row in counts
+        }
+        return {
+            "zeroRetentionReceipts": by_disposition.get(
+                "not_required_zero_retention", 0
+            ),
+            "localUnreleasedReceipts": by_disposition.get(
+                "not_dispatched_local_unreleased", 0
+            ),
+        }
 
     def _erase_personal_content(
         self,

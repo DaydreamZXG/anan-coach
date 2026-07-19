@@ -43,7 +43,8 @@
 
 ## AI 供应商发布
 
-- 文本生成统一使用 Gemini gateway，视觉/OCR 统一使用 Grok gateway；密钥只存在 root-only `/etc/gongkao-dazi/api.env`。
+- 文本与视觉调用只能使用 `ai_audit.processor_release_records` 中处于 `approved` 且与发布版本、HTTPS 端点指纹、用途和数据类别精确匹配的处理商；密钥只存在 root-only `/etc/gongkao-dazi/api.env`。
+- 发布前在 API 主机执行 `python /srv/gongkao-dazi/ops/scripts/audit_external_ai_boundary.py --verify-private-object`；它会读取一个真实私有对象核验 SHA-256，并检查迁移切点后所有模型、OCR 和方法卡调用都有处理凭证。输出不包含密钥、原文或对象地址。
 - 每次改 provider、model、prompt 或 schema，必须先执行对应真实黄金集脚本：`release_recognition_ai.py`、`release_text_ai.py` 和 `release_external_question_answer_ai.py`。
 - 只有脚本实际调用供应商、通过合同/grounding/禁用语/成本门禁并写入匹配的 `ai_audit.scenario_deployments` 后，场景才允许接流量。不得手工插入 deployment 或用假响应发布。
 - Gemini gateway 不重放相同 `Idempotency-Key`；网络超时和不确定 5xx 不自动重试，须保留失败调用审计并由新命令显式重做。

@@ -27,12 +27,8 @@ def test_provider_json_transport_accepts_only_bare_or_single_fenced_objects() ->
         parse_provider_json_object('[{"answer":"ok"}]')
 
 
-def test_operator_approval_is_an_explicit_alternative_to_a_dpa_claim() -> None:
-    validate_processing_approval(
-        Settings(ai_provider_operator_approval_ref="owner-decision-2026-07-18"),
-        dpa_confirmed=False,
-    )
-    with pytest.raises(ValueError, match="DPA"):
+def test_operator_approval_cannot_replace_processor_evidence() -> None:
+    with pytest.raises(ValueError, match="processor DPA/data terms"):
         validate_processing_approval(Settings(), dpa_confirmed=False)
 
 

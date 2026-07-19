@@ -29,6 +29,7 @@ from app.domains.mock_exam.router import router as mock_exam_router, v2_router a
 from app.domains.onboarding.router import router as onboarding_router, v2_router as onboarding_v2_router
 from app.domains.operations.router import router as operations_router
 from app.domains.position_decision.router import router as position_decision_router
+from app.domains.processor_disclosure.router import router as processor_disclosure_router
 from app.domains.positions.router import router as positions_router
 from app.domains.practice.router import router as practice_router
 from app.domains.progression.router import router as progression_router
@@ -70,6 +71,7 @@ router.include_router(onboarding_router)
 router.include_router(onboarding_v2_router)
 router.include_router(operations_router)
 router.include_router(position_decision_router)
+router.include_router(processor_disclosure_router)
 router.include_router(positions_router)
 router.include_router(taskstream_router)
 router.include_router(task_help_router)

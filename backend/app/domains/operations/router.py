@@ -10,6 +10,11 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
+from app.domains.ai.external_processing import (
+    ExternalProcessingAuthorizationError,
+    ExternalProcessingRepository,
+    endpoint_fingerprint,
+)
 from app.db.session import get_db_session
 from app.domains.operations.support import (
     SupportAuthenticationError,
@@ -92,6 +97,90 @@ def ready(session: Annotated[Session, Depends(get_db_session)]) -> dict[str, str
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="position rule release is not ready",
         )
+    if settings.environment.strip().casefold() == "production":
+        dpa_checks = (
+            settings.ai_companion_provider_dpa_confirmed,
+            settings.ai_xingce_cause_provider_dpa_confirmed,
+            settings.ai_community_candidate_provider_dpa_confirmed,
+            settings.ai_essay_review_provider_dpa_confirmed,
+        )
+        if not all(dpa_checks):
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="external AI processor terms are not verified",
+            )
+        endpoint = endpoint_fingerprint(settings.ai_provider_base_url)
+        requirements = (
+            (
+                settings.ai_companion_provider_release_id,
+                "companion_answer",
+                ("learner_question", "learning_evidence"),
+            ),
+            (
+                settings.ai_companion_provider_release_id,
+                "external_question_answer_generate",
+                ("recognized_question",),
+            ),
+            (
+                settings.ai_xingce_cause_provider_release_id,
+                "cause_candidate_generate",
+                ("learning_evidence", "learner_answer"),
+            ),
+            (
+                settings.ai_community_candidate_provider_release_id,
+                "community_candidate_generate",
+                ("community_content",),
+            ),
+            (
+                settings.ai_essay_rubric_provider_release_id,
+                "rubric_generator",
+                ("public_exam_material",),
+            ),
+            (
+                settings.ai_essay_rubric_provider_release_id,
+                "rubric_critic",
+                ("public_exam_material",),
+            ),
+            (
+                settings.ai_essay_review_provider_release_id,
+                "grounded_review_generator",
+                ("essay_answer", "public_exam_material", "grading_rubric"),
+            ),
+            (
+                settings.ai_essay_review_provider_release_id,
+                "grounded_review_repair",
+                ("essay_answer", "public_exam_material", "grading_rubric"),
+            ),
+        )
+        try:
+            processor_releases = ExternalProcessingRepository()
+            for provider_release, purpose, data_categories in requirements:
+                processor_releases.require_active_release(
+                    session,
+                    declared_provider_release=provider_release,
+                    provider_endpoint_fingerprint=endpoint,
+                    purpose=purpose,
+                    data_categories=data_categories,
+                    at=checked_at,
+                )
+            if settings.recognition_processor_endpoint.strip():
+                processor_releases.require_active_release(
+                    session,
+                    declared_provider_release=(
+                        settings.recognition_processor_release_id
+                    ),
+                    provider_endpoint_fingerprint=endpoint_fingerprint(
+                        settings.recognition_processor_endpoint
+                    ),
+                    purpose="recognition_process",
+                    data_categories=("uploaded_image",),
+                    at=checked_at,
+                )
+        except (ExternalProcessingAuthorizationError, ValueError) as exc:
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="external AI processor release is not ready",
+            ) from exc
     return {
         "status": "ready",
         "migration": str(migration),

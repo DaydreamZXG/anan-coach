@@ -44,11 +44,11 @@ def validate_processing_approval(
     *,
     dpa_confirmed: bool,
 ) -> None:
-    if dpa_confirmed:
-        return
-    if not settings.ai_provider_operator_approval_ref.strip():
+    del settings
+    if not dpa_confirmed:
         raise ValueError(
-            "provider DPA confirmation or explicit operator approval reference is required"
+            "verified processor DPA/data terms are required; an operator decision cannot "
+            "substitute for processor evidence"
         )
 
 

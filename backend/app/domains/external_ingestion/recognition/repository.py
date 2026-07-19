@@ -9,6 +9,7 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.contracts.external_learning.models import RecognitionRevision
+from app.domains.ai.external_processing import ExternalProcessingRepository
 from app.domains.external_ingestion.recognition.models import ArtifactInput
 
 
@@ -33,9 +34,16 @@ class RecognitionRepositoryPort(Protocol):
 
 
 class SQLRecognitionRepository:
-    def __init__(self, session: Session, *, environment: str = "local") -> None:
+    def __init__(
+        self,
+        session: Session,
+        *,
+        environment: str = "local",
+        processor_endpoint_fingerprint: str | None = None,
+    ) -> None:
         self._session = session
         self._environment = environment
+        self._processor_endpoint_fingerprint = processor_endpoint_fingerprint
 
     def lock(self, *, key: str) -> None:
         self._session.execute(
@@ -161,13 +169,11 @@ class SQLRecognitionRepository:
                 "created_at": revision.created_at,
             },
         )
-
     def record_external_operation(self, *, values: dict[str, object]) -> None:
         from app.domains.ai.governance.catalog import scenario_policy
         from app.domains.ai.governance.repository import AIGovernanceReleaseError
 
         scenario_key = str(values["scenario_key"])
-        operation = str(values["operation"])
         policy = scenario_policy(scenario_key)  # type: ignore[arg-type]
         deployment_id = None
         evaluation_state = "local_unreleased"
@@ -236,6 +242,26 @@ class SQLRecognitionRepository:
                 "deployment_id": deployment_id,
                 "evaluation_state": evaluation_state,
             },
+        )
+        endpoint_fingerprint = self._processor_endpoint_fingerprint
+        if self._environment.strip().casefold() == "production" and not endpoint_fingerprint:
+            raise AIGovernanceReleaseError(
+                "production recognition requires a processor endpoint fingerprint"
+            )
+        ExternalProcessingRepository().record_recognition_dispatch(
+            self._session,
+            operation_id=UUID(str(values["operation_id"])),
+            user_id=str(values["user_id"]),
+            scenario_key=scenario_key,
+            declared_provider_release=str(values["provider_release"]),
+            provider_endpoint_fingerprint=(
+                endpoint_fingerprint
+                or sha256(str(values["provider"]).encode("utf-8")).hexdigest()
+            ),
+            input_fingerprint=str(values["input_fingerprint"]),
+            production_authorization_required=(
+                self._environment.strip().casefold() == "production"
+            ),
         )
 
 

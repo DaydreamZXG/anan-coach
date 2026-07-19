@@ -12,6 +12,7 @@ import httpx
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
 
 from app.core.config import DEFAULT_AI_PROVIDER_BASE_URL, Settings
+from app.domains.ai.external_processing import validate_minimized_external_payload
 from app.domains.ai.model_cost import ModelTokenUsage
 from app.domains.ai.provider_contract import (
     parse_provider_json_object,
@@ -169,6 +170,10 @@ class AIProvider:
                 by_alias=True
             ),
         }
+        try:
+            validate_minimized_external_payload(user_prompt)
+        except ValueError as exc:
+            raise AIProviderConfigurationError(str(exc)) from exc
         model_tier = str(route_decision["modelTier"])
         selected_model = self.model_for_tier(model_tier)
         return {
@@ -421,6 +426,10 @@ class AIProvider:
                 self._settings.ai_companion_provider_replay_retention_seconds
             ),
         )
+        try:
+            validate_minimized_external_payload(body)
+        except ValueError as exc:
+            raise AIProviderConfigurationError(str(exc)) from exc
         encoded_body = json.dumps(
             body,
             ensure_ascii=False,

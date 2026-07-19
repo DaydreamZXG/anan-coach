@@ -10,6 +10,7 @@ from typing import Any, Callable, Literal
 import httpx
 
 from app.core.config import Settings
+from app.domains.ai.external_processing import validate_minimized_external_payload
 from app.domains.ai.model_cost import ModelTokenUsage
 from app.domains.ai.provider_contract import (
     parse_provider_json_object,
@@ -192,6 +193,14 @@ class GuokaoRubricAIProvider:
                 },
             },
         }
+        try:
+            validate_minimized_external_payload(provider_input)
+        except ValueError as exc:
+            raise RubricAIProviderError(
+                "rubric_provider_input_not_minimized",
+                str(exc),
+                retryable=False,
+            ) from exc
         encoded_body = json.dumps(
             body,
             ensure_ascii=False,

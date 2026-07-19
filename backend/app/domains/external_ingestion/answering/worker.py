@@ -9,6 +9,7 @@ from sqlalchemy import text
 from app.core.config import Settings
 from app.domains.ai.governance.repository import AIGovernanceRepository, generic_evidence_ref
 from app.domains.ai.model_cost import ModelCallLedgerRepository, ModelPriceCard, ModelTokenUsage
+from app.domains.ai.external_processing import endpoint_fingerprint
 from app.domains.commerce.app_store import AppStoreSignedTransactionVerifier
 from app.domains.commerce.repository import CommerceRepository
 from app.domains.commerce.service import CommerceService
@@ -124,6 +125,14 @@ class ExternalAIAnswerWorker:
             price_card=ModelPriceCard.from_settings(self._settings),
             input_fingerprint=str(job.payload["inputFingerprint"]),
             attribution=attribution,
+            processor_release_id=(
+                self._settings.ai_companion_provider_release_id.strip()
+            ),
+            processor_endpoint_fingerprint=endpoint_fingerprint(
+                self._settings.ai_provider_base_url
+            ),
+            processing_purpose="external_question_answer_generate",
+            processing_data_categories=("recognized_question",),
         )
         session.commit()
         result = self._provider.generate(

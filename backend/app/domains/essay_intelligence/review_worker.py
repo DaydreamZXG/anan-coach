@@ -17,6 +17,7 @@ from app.domains.ai.model_cost import (
     ModelCallRecord,
     ModelPriceCard,
 )
+from app.domains.ai.external_processing import endpoint_fingerprint
 from app.domains.ai.governance.repository import (
     AIGovernanceRepository,
     generic_evidence_ref,
@@ -57,7 +58,6 @@ from app.domains.essay_intelligence.schemas import (
 )
 from app.domains.essay_intelligence.workflow_repository import (
     EssayReviewWorkflowRepository,
-    EssayWorkflowNotFound,
 )
 from app.domains.essay_intelligence.workflow_service import (
     ESSAY_REVIEW_JOB_TYPE,
@@ -431,6 +431,18 @@ class GroundedEssayReviewWorker:
                 reservation_source=str(
                     job.payload["quotaReservation"].get("source", "catalog")
                 ),
+            ),
+            processor_release_id=(
+                self._settings.ai_essay_review_provider_release_id.strip()
+            ),
+            processor_endpoint_fingerprint=endpoint_fingerprint(
+                self._settings.ai_provider_base_url
+            ),
+            processing_purpose=f"grounded_review_{phase}",
+            processing_data_categories=(
+                "essay_answer",
+                "public_exam_material",
+                "grading_rubric",
             ),
         )
         session.commit()

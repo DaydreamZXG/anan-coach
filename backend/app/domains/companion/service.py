@@ -32,6 +32,7 @@ from app.domains.ai.model_cost import (
     ModelCostConfigurationError,
     ModelPriceCard,
 )
+from app.domains.ai.external_processing import endpoint_fingerprint
 from app.domains.ai.provider import (
     AIProvider,
     AIProviderConfigurationError,
@@ -905,6 +906,22 @@ class CompanionService:
                         price_card=price_card,
                         input_fingerprint=input_fingerprint,
                         attribution=attribution,
+                        processor_release_id=str(
+                            provider_request.get("providerReleaseId")
+                            or self._settings.ai_companion_provider_release_id
+                            or "local-unreleased"
+                        ),
+                        processor_endpoint_fingerprint=str(
+                            provider_request.get("providerEndpointFingerprint")
+                            or endpoint_fingerprint(
+                                self._settings.ai_provider_base_url
+                            )
+                        ),
+                        processing_purpose="companion_answer",
+                        processing_data_categories=(
+                            "learner_question",
+                            "learning_evidence",
+                        ),
                     )
                 except (
                     AIGovernanceReleaseError,

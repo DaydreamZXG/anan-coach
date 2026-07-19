@@ -11,6 +11,10 @@ import httpx
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from app.core.config import DEFAULT_AI_PROVIDER_BASE_URL, Settings
+from app.domains.ai.external_processing import (
+    endpoint_fingerprint,
+    validate_minimized_external_payload,
+)
 from app.domains.ai.provider_contract import (
     BODY_REQUEST_ID_SOURCE,
     parse_provider_json_object,
@@ -64,6 +68,12 @@ class CandidateProvider(Protocol):
     @property
     def model_policy_version(self) -> str: ...
 
+    @property
+    def provider_release_id(self) -> str: ...
+
+    @property
+    def provider_endpoint_fingerprint(self) -> str: ...
+
     def generate(self, context: CandidateContext) -> CandidateContent: ...
 
 
@@ -115,6 +125,14 @@ class CommunityCandidateHttpProvider:
     @property
     def model_policy_version(self) -> str:
         return self._model_policy_version
+
+    @property
+    def provider_release_id(self) -> str:
+        return self._provider_release_id
+
+    @property
+    def provider_endpoint_fingerprint(self) -> str:
+        return endpoint_fingerprint(self._settings.ai_provider_base_url)
 
     def validate_configuration(self) -> None:
         configured = self._settings.ai_community_candidate_model.strip()
@@ -239,6 +257,10 @@ class CommunityCandidateHttpProvider:
                 },
             },
         }
+        try:
+            validate_minimized_external_payload(document)
+        except ValueError as exc:
+            raise CandidateProviderError("provider_input_not_minimized") from exc
         encoded = json.dumps(body, ensure_ascii=False, sort_keys=True).encode("utf-8")
         if (
             self._settings.ai_community_candidate_max_input_bytes > 0
@@ -327,6 +349,14 @@ class CandidateProviderUnavailable:
     @property
     def model_policy_version(self) -> str:
         return self._model_policy_version
+
+    @property
+    def provider_release_id(self) -> str:
+        return "local-unreleased"
+
+    @property
+    def provider_endpoint_fingerprint(self) -> str:
+        return sha256(b"community-candidate-unavailable").hexdigest()
 
     def generate(self, context: CandidateContext) -> CandidateContent:
         del context

@@ -6,6 +6,7 @@ from hashlib import sha256
 import json
 from typing import Any, cast
 from uuid import uuid4
+from zoneinfo import ZoneInfo
 
 from fastapi.testclient import TestClient
 import pytest
@@ -1372,6 +1373,8 @@ def _seed_learner_and_published_essay_content(
             ),
             {"user_id": user_id},
         )
+        if access_token:
+            _seed_active_route_day_preference(session, user_id=user_id)
         session.execute(
             text(
                 """
@@ -1507,6 +1510,42 @@ def _seed_learner_and_published_essay_content(
                 },
             )
     return user_id
+
+
+def _seed_active_route_day_preference(session: Session, *, user_id: str) -> None:
+    route_local_date = datetime.now(ZoneInfo("Asia/Shanghai")).date()
+    route_rest_weekday = route_local_date.isoweekday() % 7 + 1
+    route_mock_weekday = route_rest_weekday % 7 + 1
+    session.execute(
+        text(
+            """
+            insert into learning.weekly_study_preference_versions (
+              preference_version_id, command_id, user_id, version_no,
+              timezone, weekday_minutes, weekend_minutes, long_block_minutes,
+              fragment_minutes, regular_rest_weekday, regular_mock_weekday,
+              effective_from, source_type, confirmed, input_fingerprint,
+              supersedes_preference_version_id, created_at
+            ) values (
+              cast(:preference_version_id as uuid), :command_id,
+              cast(:user_id as uuid), 2, 'Asia/Shanghai', 45, 45, 45, 25,
+              :rest_weekday, :mock_weekday, :effective_from,
+              'user_confirmed', true, :input_fingerprint, null, :created_at
+            )
+            """
+        ),
+        {
+            "preference_version_id": str(uuid4()),
+            "command_id": f"test-active-route-day:{user_id}",
+            "user_id": user_id,
+            "rest_weekday": route_rest_weekday,
+            "mock_weekday": route_mock_weekday,
+            "effective_from": route_local_date,
+            "input_fingerprint": sha256(
+                f"test-active-route-day:{user_id}".encode()
+            ).hexdigest(),
+            "created_at": datetime.now(UTC),
+        },
+    )
 
 
 def _published_essay_content_ids(

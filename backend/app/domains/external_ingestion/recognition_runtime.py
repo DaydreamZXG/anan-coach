@@ -6,6 +6,7 @@ from urllib.parse import urlsplit
 from sqlalchemy.orm import Session
 
 from app.core.config import Settings
+from app.domains.ai.external_processing import endpoint_fingerprint
 from app.domains.external_ingestion.recognition.errors import ProcessorConfigurationError
 from app.domains.external_ingestion.recognition.grok_vision import (
     GrokVisionRecognitionProcessor,
@@ -32,14 +33,9 @@ def build_recognition_service(*, session: Session, settings: Settings) -> Recogn
             "RECOGNITION_PROCESSOR_APPROVALS_JSON is invalid"
         ) from exc
     adapter = settings.recognition_processor_adapter.strip().casefold()
-    plaintext_http = urlsplit(endpoint).scheme.casefold() == "http"
-    if any(
-        (approval.transport_security == "plaintext_http_operator_accepted")
-        != plaintext_http
-        for approval in approvals
-    ):
+    if any(approval.transport_security != "tls" for approval in approvals):
         raise ProcessorConfigurationError(
-            "recognition approval transport does not match the configured endpoint"
+            "recognition approvals must require TLS"
         )
     if adapter == "private_contract":
         processor = HTTPRecognitionProcessor(
@@ -72,7 +68,11 @@ def build_recognition_service(*, session: Session, settings: Settings) -> Recogn
             "RECOGNITION_PROCESSOR_ADAPTER is unsupported"
         )
     return RecognitionService(
-        repository=SQLRecognitionRepository(session, environment=settings.environment),
+        repository=SQLRecognitionRepository(
+            session,
+            environment=settings.environment,
+            processor_endpoint_fingerprint=endpoint_fingerprint(endpoint),
+        ),
         processors=ProcessorRegistry(
             approvals,
             {approval.route: processor for approval in approvals},
@@ -117,20 +117,8 @@ def _approved_endpoint(settings: Settings) -> str:
         raise ProcessorConfigurationError(
             "recognition processor endpoint is not an approved host"
         )
-    scheme = parsed.scheme.casefold()
-    if scheme == "https":
-        return value.rstrip("/")
-    insecure_origin = settings.recognition_processor_insecure_http_origin.rstrip("/")
-    endpoint_origin = f"{scheme}://{parsed.netloc}"
-    if not (
-        scheme == "http"
-        and settings.recognition_processor_adapter.strip().casefold()
-        == "grok_vision_chat_completions"
-        and settings.recognition_processor_allow_insecure_http
-        and insecure_origin
-        and endpoint_origin == insecure_origin
-    ):
+    if parsed.scheme.casefold() != "https":
         raise ProcessorConfigurationError(
-            "recognition processor plaintext HTTP origin is not explicitly approved"
+            "recognition processor must use HTTPS for learner content"
         )
     return value.rstrip("/")

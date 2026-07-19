@@ -11,6 +11,7 @@ from urllib.parse import urlsplit
 import httpx
 
 from app.core.config import DEFAULT_AI_PROVIDER_BASE_URL, Settings
+from app.domains.ai.external_processing import validate_minimized_external_payload
 from app.domains.ai.model_cost import ModelTokenUsage
 from app.domains.ai.provider_contract import (
     parse_provider_json_object,
@@ -30,7 +31,6 @@ from app.domains.essay_intelligence.provider_document import (
 )
 from app.domains.essay_intelligence.review_contracts import (
     GROUNDED_REVIEW_PROVIDER_NAME,
-    GROUNDED_REVIEW_PROVIDER_SCHEMA_VERSION,
 )
 from app.domains.essay_intelligence.schemas import (
     EssayProviderReviewPayload,
@@ -306,6 +306,14 @@ class GroundedEssayReviewProvider:
                 },
             },
         }
+        try:
+            validate_minimized_external_payload(user_document)
+        except ValueError as exc:
+            raise GroundedReviewProviderError(
+                "provider_input_not_minimized",
+                str(exc),
+                retryable=False,
+            ) from exc
         encoded_body = json.dumps(
             body,
             ensure_ascii=False,

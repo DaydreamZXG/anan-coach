@@ -3,7 +3,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from hashlib import sha256
 import json
-import re
 import time
 from typing import Callable
 from urllib.parse import urlparse
@@ -12,6 +11,7 @@ import httpx
 from pydantic import ValidationError
 
 from app.core.config import DEFAULT_AI_PROVIDER_BASE_URL, Settings
+from app.domains.ai.external_processing import validate_minimized_external_payload
 from app.domains.ai.model_cost import ModelTokenUsage
 from app.domains.ai.provider_contract import (
     parse_provider_json_object,
@@ -205,6 +205,10 @@ class CauseAgentProvider:
                 },
             },
         }
+        try:
+            validate_minimized_external_payload(prompt)
+        except ValueError as exc:
+            raise CauseAgentProviderConfigurationError(str(exc)) from exc
         encoded = json.dumps(body, ensure_ascii=False, sort_keys=True).encode("utf-8")
         if (
             self._settings.ai_xingce_cause_max_input_bytes > 0

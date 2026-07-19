@@ -9,6 +9,7 @@ import httpx
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from app.core.config import Settings
+from app.domains.ai.external_processing import validate_minimized_external_payload
 from app.domains.ai.model_cost import ModelTokenUsage
 from app.domains.ai.provider import AIProvider
 from app.domains.ai.provider_contract import (
@@ -94,6 +95,26 @@ class ExternalAIAnswerProvider:
         idempotency_key: str,
     ) -> ExternalAIAnswerProviderResult:
         self.validate_configuration()
+        user_document = {
+            "track": query.track.value,
+            "prompt": query.prompt_text,
+            "options": query.option_texts,
+            "materials": query.material_texts,
+            "sourceSegmentRefs": source_segment_refs,
+            "requiredSchema": {
+                "answer": "answer or recommended response",
+                "explanation": "step-by-step explanation",
+                "keyPoints": ["1-12 concise points"],
+                "confidence": "low | medium | high",
+                "limitations": ["0-12 explicit limitations"],
+            },
+        }
+        try:
+            validate_minimized_external_payload(user_document)
+        except ValueError as exc:
+            raise ExternalAIAnswerProviderError(
+                "external_answer_input_not_minimized", retryable=False
+            ) from exc
         body = {
             "model": self.model,
             "messages": [
@@ -112,20 +133,7 @@ class ExternalAIAnswerProvider:
                 {
                     "role": "user",
                     "content": json.dumps(
-                        {
-                            "track": query.track.value,
-                            "prompt": query.prompt_text,
-                            "options": query.option_texts,
-                            "materials": query.material_texts,
-                            "sourceSegmentRefs": source_segment_refs,
-                            "requiredSchema": {
-                                "answer": "answer or recommended response",
-                                "explanation": "step-by-step explanation",
-                                "keyPoints": ["1-12 concise points"],
-                                "confidence": "low | medium | high",
-                                "limitations": ["0-12 explicit limitations"],
-                            },
-                        },
+                        user_document,
                         ensure_ascii=False,
                         sort_keys=True,
                         separators=(",", ":"),

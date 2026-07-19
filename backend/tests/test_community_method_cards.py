@@ -50,6 +50,8 @@ NOW = datetime(2026, 7, 16, 6, tzinfo=UTC)
 class _CandidateProvider:
     prompt_version = "community-structure-prompt@1"
     model_policy_version = "community-structure-model-policy@1"
+    provider_release_id = "local-community-candidate"
+    provider_endpoint_fingerprint = "0" * 64
 
     def generate(self, context: CandidateContext) -> CandidateContent:
         return CandidateContent(
@@ -402,6 +404,12 @@ class _MemoryRepository:
             (values["author_user_id"], values["input_fingerprint"])
         ] = values["candidate_id"]
         return row
+
+    def record_candidate_external_processing(self, **values: Any) -> None:
+        del values
+
+    def assert_candidate_external_processing_authorized(self, **values: Any) -> None:
+        del values
 
     def candidate(self, candidate_id: str) -> dict[str, Any] | None:
         return self.candidates.get(candidate_id)

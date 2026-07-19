@@ -14,6 +14,7 @@ from app.domains.ai.model_cost import (
     ModelCallRecord,
     ModelPriceCard,
 )
+from app.domains.ai.external_processing import endpoint_fingerprint
 from app.domains.ai.governance.repository import (
     AIGovernanceRepository,
     generic_evidence_ref,
@@ -414,6 +415,14 @@ class GuokaoRubricAIPipeline:
                 reservation_id=None,
                 reservation_source=None,
             ),
+            processor_release_id=(
+                self._settings.ai_essay_rubric_provider_release_id.strip()
+            ),
+            processor_endpoint_fingerprint=endpoint_fingerprint(
+                self._settings.ai_provider_base_url
+            ),
+            processing_purpose=f"rubric_{phase}",
+            processing_data_categories=("public_exam_material",),
         )
         session.commit()
         if record.status == "failed":
