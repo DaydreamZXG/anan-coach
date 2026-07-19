@@ -47,9 +47,11 @@
 
 ## 备份与恢复
 
-- **当前状态（2026-07-18）：暂缓启用。** `gongkao-dazi-backup.timer` 必须保持 disabled/inactive；在启用前不宣称有生产恢复保障。
-- 重新启用时，systemd timer 每 6 小时执行 `backup.sh`：`pg_dump` 自容器格式、`pg_restore --list` 校验、age 收件人加密、SHA-256 摘要，保留 35 天。`BACKUP_DIRECTORY` 必须是已配置跨故障域复制的持久目录。
-- 恢复演练只能使用隔离数据库：设置 `RESTORE_DATABASE_URL`、`BACKUP_FILE`、`AGE_IDENTITY_FILE` 后执行 `restore_rehearsal.sh`。成功标准是摘要、解密、完整恢复和阶段 8 关键表查询全部通过。
+- **当前状态（2026-07-19）：工程合同已完成，生产仍暂缓启用。** `BACKUP_ENABLED=false`，`gongkao-dazi-backup.timer` 必须保持 disabled/inactive；没有真实备份制品和签名恢复报告前，不宣称有生产恢复保障。
+- 启用前必须冻结 `BACKUP_RETENTION_DAYS`、跨故障域 `BACKUP_TARGET_ID`、独立 age 收件人、制品签名密钥和演练报告签名密钥。`BACKUP_DATABASE_URL` 只接受 libpq URL，不得内嵌密码；密码由 mode `0600` 的 `PGPASSFILE` 提供。制品签名私钥、演练报告签名私钥与 age 解密身份不得和备份制品放在同一故障域。
+- `backup.sh` 在同一 PostgreSQL 可重复读快照中导出自容器 dump，将精确迁移版本、dump 摘要和 9 张关键表行数放入加密 manifest；然后对 age 密文做 SHA-256 和独立非对称签名。任一检查失败不发布 `.backup.age` 完成标记。
+- 恢复演练必须新建空数据库，设置 `RESTORE_REHEARSAL_ACK=isolated-disposable-database`，且 `RESTORE_TARGET_ENVIRONMENT_ID` 不能等于制品的生产环境 ID。`restore_rehearsal.sh` 先验摘要、签名、age 完整性、安全成员集和空库，恢复后精确比对迁移版本与 9 张表行数，最后产出同时带 SHA-256 和非对称签名的 JSON 演练报告；同一制品的多次演练不得覆盖历史报告。
+- 生产启用门禁：人工核对目标复制策略，手工执行一次备份，在另一故障域执行恢复演练，将制品、签名和报告摘要归档，再 enable timer。不得先开 timer 后补演练。
 
 ## AI 供应商发布
 

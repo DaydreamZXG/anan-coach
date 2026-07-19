@@ -64,7 +64,7 @@
 ## Deferred Operations
 
 - Virtual payment: intentionally disabled on `2026-07-18`; payment secrets are absent and `gongkao-dazi-commerce-worker` remains stopped.
-- Database backups: intentionally deferred on `2026-07-18`; no production backup timer is enabled. Recovery guarantees must not be advertised until the target, encryption key, retention and restore rehearsal are complete.
+- Database backups: intentionally deferred as of `2026-07-19`; `BACKUP_ENABLED=false` and no production timer is enabled. The repository now has a fail-closed, snapshot-consistent, encrypted and signed artifact contract plus an isolated empty-database restore verifier. This is engineering readiness only: the real cross-failure-domain target, retention, keys, first artifact and signed restore report are absent, so no production recovery guarantee exists yet.
 - Customer support: the mini-program exposes a truthful placeholder. A controlled group QR can be enabled later through runtime configuration; enterprise support administration remains closed until a real IdP is supplied.
 
 ## Apple Developer / App Store Connect

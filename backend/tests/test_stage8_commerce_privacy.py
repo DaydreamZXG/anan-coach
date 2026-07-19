@@ -39,7 +39,10 @@ from app.domains.commerce.wechat_pay import (
     WechatRefundResult,
 )
 from app.domains.data_rights.repository import CONFIRMATION_PHRASE, DataRightsRepository
-from app.domains.data_rights.schemas import AccountDeletionCreateRequest, DataExportCreateRequest
+from app.domains.data_rights.schemas import (
+    AccountDeletionCreateRequest,
+    DataExportCreateRequest,
+)
 from app.domains.data_rights.service import DataRightsService
 from app.domains.data_rights.worker import DataRightsWorker
 
@@ -121,9 +124,13 @@ class FakeWechatPayGateway:
     def query_refund(self, *, out_refund_no: str) -> WechatRefundResult:
         return self.refunds[out_refund_no]
 
-    def verify_notification(self, *, headers: object, body: bytes) -> WechatNotification:
+    def verify_notification(
+        self, *, headers: object, body: bytes
+    ) -> WechatNotification:
         del headers, body
-        raise AssertionError("notification verification is not used in this contract test")
+        raise AssertionError(
+            "notification verification is not used in this contract test"
+        )
 
 
 class FakeStorage:
@@ -135,7 +142,9 @@ class FakeStorage:
         self.deleted.append(object_ref)
 
 
-def test_founder_order_payment_refund_and_unified_entitlement(db_session: Session) -> None:
+def test_founder_order_payment_refund_and_unified_entitlement(
+    db_session: Session,
+) -> None:
     now = datetime.now(UTC)
     user_id = _seed_wechat_user(db_session)
     settings = Settings(
@@ -216,6 +225,8 @@ def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -
     evidence_id = uuid4()
     report_id = uuid4()
     experience_id = uuid4()
+    task_resource_id = uuid4()
+    task_lease_id = uuid4()
     db_session.execute(
         text(
             """
@@ -297,6 +308,49 @@ def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -
             """
         ),
         {"log_id": f"privacy-log-{uuid4().hex}", "user_id": user_id},
+    )
+    db_session.execute(
+        text(
+            """
+            insert into learning.task_edit_leases (
+              resource_type, resource_id, user_id, lease_id, generation,
+              device_id, device_label, reconciliation_state, server_revision,
+              acquired_at, last_seen_at
+            ) values (
+              'mock_exam_session', cast(:resource_id as uuid), cast(:user_id as uuid),
+              cast(:lease_id as uuid), 1, 'privacy-device-00000000000001',
+              '隐私测试 iPad', 'clean', 1, :now, :now
+            )
+            """
+        ),
+        {
+            "resource_id": str(task_resource_id),
+            "user_id": user_id,
+            "lease_id": str(task_lease_id),
+            "now": now,
+        },
+    )
+    db_session.execute(
+        text(
+            """
+            insert into learning.task_edit_events (
+              event_id, user_id, resource_type, resource_id, lease_id,
+              generation, device_id, device_label, event_type,
+              resource_revision, metadata, created_at
+            ) values (
+              gen_random_uuid(), cast(:user_id as uuid), 'mock_exam_session',
+              cast(:resource_id as uuid), cast(:lease_id as uuid), 1,
+              'privacy-device-00000000000001', '隐私测试 iPad',
+              'acquired', 1, '{}'::jsonb, :now
+            )
+            """
+        ),
+        {
+            "resource_id": str(task_resource_id),
+            "user_id": user_id,
+            "lease_id": str(task_lease_id),
+            "now": now,
+        },
     )
     ModelCallLedgerRepository().begin(
         db_session,
@@ -382,9 +436,12 @@ def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -
     assert payload.payload["contractVersion"] == "personal-data-export@v1"
     assert payload.payload["preparationExperience"][0]["retake"] is True
     assert payload.payload["preparationExperience"][0]["prior_exam_years"] == [2024]
-    assert payload.payload["externalProcessingReceipts"][0][
-        "declared_provider_release"
-    ] == "local-processor-release"
+    assert (
+        payload.payload["externalProcessingReceipts"][0]["declared_provider_release"]
+        == "local-processor-release"
+    )
+    assert payload.payload["taskEditLeases"][0]["device_label"] == "隐私测试 iPad"
+    assert payload.payload["taskEditEvents"][0]["event_type"] == "acquired"
     assert payload.payload_sha256 == completed.payload_sha256
 
     deletion = service.request_deletion(
@@ -397,65 +454,104 @@ def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -
     assert deletion.state == "queued"
     completed_deletion_job = worker.process_next(db_session)
     assert completed_deletion_job is not None
-    assert (
-        completed_deletion_job.status == "succeeded"
-    ), completed_deletion_job.last_error_message
-    user = db_session.execute(
-        text(
-            "select display_name, email, is_active, account_status "
-            "from learner.users where user_id = cast(:user_id as uuid)"
-        ),
-        {"user_id": user_id},
-    ).mappings().one()
+    assert completed_deletion_job.status == "succeeded", (
+        completed_deletion_job.last_error_message
+    )
+    user = (
+        db_session.execute(
+            text(
+                "select display_name, email, is_active, account_status "
+                "from learner.users where user_id = cast(:user_id as uuid)"
+            ),
+            {"user_id": user_id},
+        )
+        .mappings()
+        .one()
+    )
     assert user["display_name"] is None
     assert user["email"] is None
     assert user["is_active"] is False
     assert user["account_status"] == "disabled"
-    deletion_events = db_session.execute(
-        text(
-            """
+    deletion_events = (
+        db_session.execute(
+            text(
+                """
             select disposition from privacy.external_processing_deletion_events
             where deletion_request_id = cast(:deletion_id as uuid)
             """
-        ),
-        {"deletion_id": str(deletion.deletion_request_id)},
-    ).scalars().all()
+            ),
+            {"deletion_id": str(deletion.deletion_request_id)},
+        )
+        .scalars()
+        .all()
+    )
     assert deletion_events == ["not_dispatched_local_unreleased"]
-    assert db_session.execute(
-        text(
-            "select count(*) from learner.profiles "
-            "where user_id = cast(:user_id as uuid)"
-        ),
-        {"user_id": user_id},
-    ).scalar_one() == 0
-    erased_score = db_session.execute(
-        text(
-            """
+    assert (
+        db_session.execute(
+            text(
+                "select count(*) from learner.profiles "
+                "where user_id = cast(:user_id as uuid)"
+            ),
+            {"user_id": user_id},
+        ).scalar_one()
+        == 0
+    )
+    assert (
+        db_session.execute(
+            text(
+                "select count(*) from learning.task_edit_leases "
+                "where user_id = cast(:user_id as uuid)"
+            ),
+            {"user_id": user_id},
+        ).scalar_one()
+        == 0
+    )
+    assert (
+        db_session.execute(
+            text(
+                "select count(*) from learning.task_edit_events "
+                "where user_id = cast(:user_id as uuid)"
+            ),
+            {"user_id": user_id},
+        ).scalar_one()
+        == 0
+    )
+    erased_score = (
+        db_session.execute(
+            text(
+                """
             select xingce_score, shenlun_score, total_score,
                    command_payload, erased_at
             from learning.score_evidence
             where evidence_id = cast(:evidence_id as uuid)
             """
-        ),
-        {"evidence_id": str(evidence_id)},
-    ).mappings().one()
+            ),
+            {"evidence_id": str(evidence_id)},
+        )
+        .mappings()
+        .one()
+    )
     assert erased_score["xingce_score"] == 0
     assert erased_score["shenlun_score"] == 0
     assert erased_score["total_score"] == 0
     assert erased_score["command_payload"] == {}
     assert erased_score["erased_at"] is not None
-    erased_experience = db_session.execute(
-        text(
-            """
+    erased_experience = (
+        db_session.execute(
+            text(
+                """
             select declaration_status, first_systematic, external_learning,
                    prior_guokao_exam, retake, prior_exam_years,
                    input_fingerprint, erased_at
             from learner.preparation_experience_versions
             where experience_version_id = cast(:experience_id as uuid)
             """
-        ),
-        {"experience_id": str(experience_id)},
-    ).mappings().one()
+            ),
+            {"experience_id": str(experience_id)},
+        )
+        .mappings()
+        .one()
+    )
     assert erased_experience["declaration_status"] == "legacy_not_collected"
     assert erased_experience["first_systematic"] is False
     assert erased_experience["external_learning"] is False
@@ -464,40 +560,55 @@ def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -
     assert erased_experience["prior_exam_years"] == []
     assert erased_experience["input_fingerprint"] == "0" * 64
     assert erased_experience["erased_at"] is not None
-    erased_report = db_session.execute(
-        text(
-            """
+    erased_report = (
+        db_session.execute(
+            text(
+                """
             select payload, evidence_refs, next_plan_evidence_refs
             from learning.report_projection_versions
             where projection_version_id = cast(:report_id as uuid)
             """
-        ),
-        {"report_id": str(report_id)},
-    ).mappings().one()
+            ),
+            {"report_id": str(report_id)},
+        )
+        .mappings()
+        .one()
+    )
     assert erased_report["payload"] == {}
     assert erased_report["evidence_refs"] == []
     assert erased_report["next_plan_evidence_refs"] == []
-    assert db_session.execute(
-        text("select count(*) from ai_audit.interaction_logs where learner_key = :user_id"),
-        {"user_id": user_id},
-    ).scalar_one() == 0
-    assert db_session.execute(
-        text(
-            """
+    assert (
+        db_session.execute(
+            text(
+                "select count(*) from ai_audit.interaction_logs where learner_key = :user_id"
+            ),
+            {"user_id": user_id},
+        ).scalar_one()
+        == 0
+    )
+    assert (
+        db_session.execute(
+            text(
+                """
             select count(*) from privacy.deletion_events
             where deletion_request_id = cast(:deletion_id as uuid)
               and phase = 'personal_rows_erased'
             """
-        ),
-        {"deletion_id": str(deletion.deletion_request_id)},
-    ).scalar_one() == 1
-    assert db_session.execute(
-        text(
-            "select count(*) from learner.wechat_identities "
-            "where user_id = cast(:user_id as uuid)"
-        ),
-        {"user_id": user_id},
-    ).scalar_one() == 0
+            ),
+            {"deletion_id": str(deletion.deletion_request_id)},
+        ).scalar_one()
+        == 1
+    )
+    assert (
+        db_session.execute(
+            text(
+                "select count(*) from learner.wechat_identities "
+                "where user_id = cast(:user_id as uuid)"
+            ),
+            {"user_id": user_id},
+        ).scalar_one()
+        == 0
+    )
 
 
 def test_free_cold_start_hides_offers_and_rejects_forged_order(
@@ -616,16 +727,20 @@ def test_four_weekly_reflections_issue_process_reward_and_replay_safely(
 
     assert confirmation.progress.weekly_reflections == 4
     assert "weekly_reflection_cny30" in confirmation.progress.awarded_rewards
-    refund = db_session.execute(
-        text(
-            """
+    refund = (
+        db_session.execute(
+            text(
+                """
             select state, amount_minor from commerce.wechat_refunds
             where order_id = cast(:order_id as uuid)
               and refund_kind = 'weekly_reflection_reward'
             """
-        ),
-        {"order_id": str(created.order.order_id)},
-    ).mappings().one()
+            ),
+            {"order_id": str(created.order.order_id)},
+        )
+        .mappings()
+        .one()
+    )
     assert refund["state"] == "succeeded"
     assert refund["amount_minor"] == 3000
 

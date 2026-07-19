@@ -88,6 +88,25 @@ async function createPracticePage(
   const { wxStorage } = createMemoryWechatStorage();
   const request = vi.fn((options: WechatMiniprogram.RequestOption) => {
     requests.push(options);
+    if (options.url.endsWith("/api/v2/task-editing/leases")) {
+      options.success?.(
+        apiSuccess({
+          state: "owned",
+          resourceType: "xingce_task_session",
+          resourceId: session.sessionId,
+          leaseId: "00000000-0000-4000-8000-000000000901",
+          generation: 1,
+          deviceId: "mp-device-test-000000000000000001",
+          deviceLabel: "当前微信设备",
+          serverRevision: session.revision,
+          localBaseRevision: null,
+          acquiredAt: "2026-07-19T00:00:00Z",
+          lastSeenAt: "2026-07-19T00:00:00Z",
+          takenOverAt: null,
+        }),
+      );
+      return;
+    }
     if (options.method === "POST") {
       options.success?.(apiSuccess(session));
       return;

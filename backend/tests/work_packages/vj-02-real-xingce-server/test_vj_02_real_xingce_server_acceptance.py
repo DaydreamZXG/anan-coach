@@ -16,6 +16,7 @@ from tests.test_planning_routes import (
     _seed_learner_and_published_essay_content,
 )
 from tests.test_xingce_cause_agent_workflow import SequenceProvider, _run_one
+from tests.task_editing_helpers import claim_task_edit_headers
 
 
 def test_vj_02_real_xingce_server_as_01(
@@ -439,21 +440,22 @@ def test_vj_02_real_xingce_server_as_03(
                 "assessmentKeyHash": str(assessment["assessment_key_hash"]),
                 "reviewRef": f"xingce-review:{review_id}",
                 "contentVersionRef": str(assessment["content_version_id"]),
-                "scoringPolicyVersionRef": str(
-                    assessment["scoring_policy_version"]
-                ),
+                "scoringPolicyVersionRef": str(assessment["scoring_policy_version"]),
                 "resultCode": str(assessment["result_code"]),
                 "acceptanceId": "",
             }
-            assert assessment["assessment_key_hash"] == sha256(
-                "\n".join(
-                    (
-                        attempt_envelope["subjectRef"],
-                        f"attempt-record:{attempt_id}",
-                        str(assessment["scoring_policy_version"]),
-                    )
-                ).encode("utf-8")
-            ).hexdigest()
+            assert (
+                assessment["assessment_key_hash"]
+                == sha256(
+                    "\n".join(
+                        (
+                            attempt_envelope["subjectRef"],
+                            f"attempt-record:{attempt_id}",
+                            str(assessment["scoring_policy_version"]),
+                        )
+                    ).encode("utf-8")
+                ).hexdigest()
+            )
         assert (
             session.execute(
                 text(
@@ -533,9 +535,7 @@ def test_vj_02_real_xingce_server_as_04(
         headers={**auth, "Idempotency-Key": "cause-reject-as04"},
         json={
             "expectedRevision": ready["review"]["revision"],
-            "candidateVersionId": ready["review"]["aiCandidate"][
-                "candidateVersionId"
-            ],
+            "candidateVersionId": ready["review"]["aiCandidate"]["candidateVersionId"],
             "decision": "reject",
         },
     )
@@ -630,7 +630,18 @@ def _started_session(
         json={"planTaskId": task["id"]},
     )
     assert response.status_code == 200, response.text
-    return client, auth, response.json()["data"]
+    started = response.json()["data"]
+    auth = {
+        **auth,
+        **claim_task_edit_headers(
+            client,
+            auth,
+            resource_type="xingce_task_session",
+            resource_id=started["sessionId"],
+            revision=started["revision"],
+        ),
+    }
+    return client, auth, started
 
 
 def _xingce_task(client: TestClient, auth: dict[str, str]) -> dict[str, Any]:

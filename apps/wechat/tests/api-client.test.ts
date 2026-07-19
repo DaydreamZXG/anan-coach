@@ -74,6 +74,8 @@ describe("ApiClient", () => {
       expect(options.header).toMatchObject({
         Authorization: "Bearer session-token",
         "Idempotency-Key": "attempt-1",
+        "X-Task-Edit-Lease": "00000000-0000-4000-8000-000000000903",
+        "X-Task-Edit-Generation": "4",
       });
       expect(String(options.header?.["X-Request-ID"])).toMatch(/^mp-/u);
       options.success?.({
@@ -96,7 +98,13 @@ describe("ApiClient", () => {
     await new ApiClient("https://api.example.test", "session-token").post<TestPayload>(
       "/attempts",
       { answer: "B" },
-      { idempotencyKey: "attempt-1" },
+      {
+        idempotencyKey: "attempt-1",
+        taskEditLease: {
+          leaseId: "00000000-0000-4000-8000-000000000903",
+          generation: 4,
+        },
+      },
     );
 
     expect(request).toHaveBeenCalledOnce();

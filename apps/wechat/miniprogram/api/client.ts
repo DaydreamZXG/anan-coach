@@ -6,6 +6,7 @@ type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 export interface ApiRequestOptions {
   idempotencyKey?: string;
   timeoutMs?: number;
+  taskEditLease?: { leaseId: string; generation: number };
 }
 
 export class ApiClientError extends Error {
@@ -81,6 +82,12 @@ export class ApiClient {
           "Content-Type": "application/json",
           "X-Request-ID": correlationId,
           ...(options?.idempotencyKey ? { "Idempotency-Key": options.idempotencyKey } : {}),
+          ...(options?.taskEditLease
+            ? {
+                "X-Task-Edit-Lease": options.taskEditLease.leaseId,
+                "X-Task-Edit-Generation": String(options.taskEditLease.generation),
+              }
+            : {}),
           ...(this.accessToken ? { Authorization: `Bearer ${this.accessToken}` } : {}),
         },
         success: (response) => {

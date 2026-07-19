@@ -9,10 +9,15 @@ from app.domains.planning.router import router as planning_router
 from app.domains.auth.router import router as auth_router, wechat_router
 from app.domains.calibration.router import router as calibration_router
 from app.domains.coach_notifications.router import router as coach_notifications_router
-from app.domains.companion.router import router as companion_router, v2_router as companion_v2_router
+from app.domains.companion.router import (
+    router as companion_router,
+    v2_router as companion_v2_router,
+)
 from app.domains.commerce.router import router as commerce_router
 from app.domains.commerce.stage8_router import router as stage8_commerce_router
-from app.domains.community_method_cards.router import router as community_method_cards_router
+from app.domains.community_method_cards.router import (
+    router as community_method_cards_router,
+)
 from app.domains.community_rewards.router import router as community_rewards_router
 from app.domains.docket.router import router as docket_router
 from app.domains.data_rights.router import router as data_rights_router
@@ -27,11 +32,19 @@ from app.domains.learning_brain.router import router as learning_brain_router
 from app.domains.memory.router import router as memory_router
 from app.domains.math_ink.router import router as math_ink_router
 from app.domains.method_cards.router import router as method_cards_router
-from app.domains.mock_exam.router import router as mock_exam_router, v2_router as mock_exam_v2_router
-from app.domains.onboarding.router import router as onboarding_router, v2_router as onboarding_v2_router
+from app.domains.mock_exam.router import (
+    router as mock_exam_router,
+    v2_router as mock_exam_v2_router,
+)
+from app.domains.onboarding.router import (
+    router as onboarding_router,
+    v2_router as onboarding_v2_router,
+)
 from app.domains.operations.router import router as operations_router
 from app.domains.position_decision.router import router as position_decision_router
-from app.domains.processor_disclosure.router import router as processor_disclosure_router
+from app.domains.processor_disclosure.router import (
+    router as processor_disclosure_router,
+)
 from app.domains.positions.router import router as positions_router
 from app.domains.practice.router import router as practice_router
 from app.domains.progression.router import router as progression_router
@@ -43,6 +56,7 @@ from app.domains.reporting.router import router as reporting_router
 from app.domains.retake.router import router as retake_router
 from app.domains.taskstream.router import router as taskstream_router
 from app.domains.task_help.router import router as task_help_router
+from app.domains.task_editing.router import router as task_editing_router
 from app.domains.xingce_learning.briefing.router import router as xingce_briefing_router
 from app.internal_services.router import router as internal_services_router
 
@@ -80,6 +94,7 @@ router.include_router(processor_disclosure_router)
 router.include_router(positions_router)
 router.include_router(taskstream_router)
 router.include_router(task_help_router)
+router.include_router(task_editing_router)
 router.include_router(xingce_briefing_router)
 router.include_router(practice_router)
 router.include_router(progression_router)

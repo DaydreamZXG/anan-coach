@@ -16,6 +16,7 @@ from tests.test_xingce_learning_routes import (
     _seed_objective_questions,
     _xingce_task,
 )
+from tests.task_editing_helpers import claim_task_edit_headers
 
 
 def test_all_correct_reflection_rejects_unsupported_cause_and_completes_plan(
@@ -242,9 +243,10 @@ def test_abandoned_plan_execution_is_preserved_and_late_evidence_is_linked(
         choices=["A", "B", "C"],
     )
     with db_session_factory() as session:
-        execution = session.execute(
-            text(
-                """
+        execution = (
+            session.execute(
+                text(
+                    """
                 select execution.execution_version_id::text,
                        execution.elapsed_minutes,
                        plan.valid_until > now() as plan_is_valid,
@@ -259,9 +261,12 @@ def test_abandoned_plan_execution_is_preserved_and_late_evidence_is_linked(
                 where execution.task_id = cast(:task_id as uuid)
                   and execution.status = 'in_progress'
                 """
-            ),
-            {"task_id": task["id"]},
-        ).mappings().one()
+                ),
+                {"task_id": task["id"]},
+            )
+            .mappings()
+            .one()
+        )
         execution_id = str(execution["execution_version_id"])
         assert execution["plan_is_valid"] is True
         assert execution["plan_is_current"] is True
@@ -348,9 +353,7 @@ def test_due_mastery_version_runs_independent_verification_and_schedules_first_r
     )
     assert reflected.status_code == 200, reflected.text
     reflected_data = reflected.json()["data"]
-    initial_candidate_id = reflected_data["review"]["aiCandidate"][
-        "candidateVersionId"
-    ]
+    initial_candidate_id = reflected_data["review"]["aiCandidate"]["candidateVersionId"]
     decided = client.put(
         f"/api/v2/xingce/attempt-reviews/{review['reviewId']}/cause-decision",
         headers={**auth, "Idempotency-Key": "mastery-initial-decision"},
@@ -387,6 +390,16 @@ def test_due_mastery_version_runs_independent_verification_and_schedules_first_r
     )
     assert started.status_code == 200, started.text
     verification = started.json()["data"]
+    auth = {
+        **auth,
+        **claim_task_edit_headers(
+            client,
+            auth,
+            resource_type="xingce_task_session",
+            resource_id=verification["sessionId"],
+            revision=verification["revision"],
+        ),
+    }
     assert verification["mode"] == "verification"
     question_ids = [
         question["questionId"] for question in verification["bundle"]["questions"]
@@ -537,6 +550,16 @@ def _submitted_attempt(
     )
     assert start.status_code == 200, start.text
     started = start.json()["data"]
+    auth = {
+        **auth,
+        **claim_task_edit_headers(
+            client,
+            auth,
+            resource_type="xingce_task_session",
+            resource_id=started["sessionId"],
+            revision=started["revision"],
+        ),
+    }
     questions = started["bundle"]["questions"]
     checkpoint = client.put(
         f"/api/v2/xingce/task-sessions/{started['sessionId']}/checkpoint",

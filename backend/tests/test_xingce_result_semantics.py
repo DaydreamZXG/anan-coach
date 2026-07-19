@@ -18,6 +18,7 @@ from tests.test_planning_routes import (
     _seed_learner_and_published_essay_content,
 )
 from tests.test_xingce_learning_routes import _seed_objective_questions, _xingce_task
+from tests.task_editing_helpers import claim_task_edit_headers
 
 
 def test_result_projection_separates_verdict_disposition_confidence_and_timing(
@@ -123,15 +124,17 @@ def test_result_projection_separates_verdict_disposition_confidence_and_timing(
             {"session_id": started["sessionId"]},
         ).scalar_one()
         assert scoring["timingPolicy"]["perQuestionAdvisorySeconds"] == advisory
-        assert {item["advisorySeconds"] for item in scoring["questions"]} == {
-            advisory
-        }
-        rows = session.execute(
-            text(
-                "select result_code, correct, result_snapshot "
-                "from learning.xingce_assessments order by created_at, question_id"
+        assert {item["advisorySeconds"] for item in scoring["questions"]} == {advisory}
+        rows = (
+            session.execute(
+                text(
+                    "select result_code, correct, result_snapshot "
+                    "from learning.xingce_assessments order by created_at, question_id"
+                )
             )
-        ).mappings().all()
+            .mappings()
+            .all()
+        )
         assert [row["result_code"] for row in rows] == [
             "correct",
             "guessed_correct",
@@ -207,8 +210,7 @@ def test_result_session_is_account_isolated(
 
 def test_group_interruption_and_failed_verification_are_deterministic() -> None:
     abandoned = [
-        _fact_item(index, verdict="unanswered", abandoned=True)
-        for index in range(3)
+        _fact_item(index, verdict="unanswered", abandoned=True) for index in range(3)
     ]
     summary = _group_summary(
         abandoned,
@@ -258,8 +260,7 @@ def test_group_interruption_and_failed_verification_are_deterministic() -> None:
     assert unreported_summary.outcome == "not_attained"
 
     genuine_correct = [
-        _fact_item(index, verdict="correct", abandoned=False)
-        for index in range(3)
+        _fact_item(index, verdict="correct", abandoned=False) for index in range(3)
     ]
     immediate = _group_summary(
         genuine_correct,
@@ -293,7 +294,18 @@ def _started_session(
         json={"planTaskId": task["id"]},
     )
     assert response.status_code == 200, response.text
-    return client, auth, task, response.json()["data"]
+    started = response.json()["data"]
+    auth = {
+        **auth,
+        **claim_task_edit_headers(
+            client,
+            auth,
+            resource_type="xingce_task_session",
+            resource_id=started["sessionId"],
+            revision=started["revision"],
+        ),
+    }
+    return client, auth, task, started
 
 
 def _answer(
@@ -336,9 +348,7 @@ def _fact_item(
         factContractVersion="xingce-result-facts@v1",
         objectiveVerdict=verdict,
         disposition="active_abandon" if abandoned else "answered",
-        confidenceEvidence=(
-            confidence or ("unreported" if abandoned else "high")
-        ),
+        confidenceEvidence=(confidence or ("unreported" if abandoned else "high")),
         timingEvidence={
             "status": "within_advisory",
             "elapsedSeconds": 20,

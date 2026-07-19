@@ -12,6 +12,7 @@ from app.db.session import get_db_session
 from app.domains.auth.repository import token_hash_for_tests
 from app.domains.mock_exam.service import GUOKAO_MOCK_BLUEPRINT
 from app.main import create_app
+from tests.task_editing_helpers import claim_task_edit_headers
 
 
 def test_weekly_mock_exam_full_loop_feeds_workbench_without_faking_score_calibration(
@@ -19,21 +20,37 @@ def test_weekly_mock_exam_full_loop_feeds_workbench_without_faking_score_calibra
 ) -> None:
     user_id = _seed_user(db_session_factory, token="mock-token")
     excluded_question_id = _seed_mock_qbank(db_session_factory)
-    _seed_recent_answer(db_session_factory, user_id=user_id, question_id=excluded_question_id)
+    _seed_recent_answer(
+        db_session_factory, user_id=user_id, question_id=excluded_question_id
+    )
     client = _make_client(db_session_factory)
+    auth = {"Authorization": "Bearer mock-token"}
 
     created = client.post(
         "/api/v1/mock-exams/weekly",
-        headers={"Authorization": "Bearer mock-token"},
+        headers=auth,
     )
 
     assert created.status_code == 200
     exam = created.json()
+    auth = {
+        **auth,
+        **claim_task_edit_headers(
+            client,
+            auth,
+            resource_type="mock_exam_session",
+            resource_id=exam["sessionId"],
+            revision=exam["revision"],
+        ),
+    }
     assert exam["questionCount"] == 135
     question_ids = [item["questionId"] for item in exam["questions"]]
     assert excluded_question_id not in question_ids
     assert exam["durationMinutes"] == 120
-    assert exam["sourceGrounding"] == "product.questions + product.knowledge_map_nodes + learner.mock_exam_sessions"
+    assert (
+        exam["sourceGrounding"]
+        == "product.questions + product.knowledge_map_nodes + learner.mock_exam_sessions"
+    )
 
     answers = [
         {
@@ -44,8 +61,8 @@ def test_weekly_mock_exam_full_loop_feeds_workbench_without_faking_score_calibra
     ]
     submitted = client.post(
         f"/api/v1/mock-exams/{exam['sessionId']}/submit",
-        headers={"Authorization": "Bearer mock-token"},
-        json={"answers": answers},
+        headers=auth,
+        json={"expectedRevision": exam["revision"], "answers": answers},
     )
 
     assert submitted.status_code == 200
@@ -78,7 +95,10 @@ def test_weekly_mock_exam_full_loop_feeds_workbench_without_faking_score_calibra
     )
     assert workbench_before_view.status_code == 200
     assert workbench_before_view.json()["sections"][0]["id"] == "mock_exam"
-    assert workbench_before_view.json()["sections"][0]["objects"][0]["payload"]["viewed"] is False
+    assert (
+        workbench_before_view.json()["sections"][0]["objects"][0]["payload"]["viewed"]
+        is False
+    )
 
     viewed = client.post(
         f"/api/v1/mock-exams/{exam['sessionId']}/review/view",
@@ -104,19 +124,33 @@ def test_mock_exam_submission_requires_all_assigned_questions(
     _seed_user(db_session_factory, token="mock-incomplete-token")
     _seed_mock_qbank(db_session_factory)
     client = _make_client(db_session_factory)
+    auth = {"Authorization": "Bearer mock-incomplete-token"}
 
     created = client.post(
         "/api/v1/mock-exams/weekly",
-        headers={"Authorization": "Bearer mock-incomplete-token"},
+        headers=auth,
     )
     assert created.status_code == 200
     exam = created.json()
+    auth = {
+        **auth,
+        **claim_task_edit_headers(
+            client,
+            auth,
+            resource_type="mock_exam_session",
+            resource_id=exam["sessionId"],
+            revision=exam["revision"],
+        ),
+    }
     first_question = exam["questions"][0]["questionId"]
 
     submitted = client.post(
         f"/api/v1/mock-exams/{exam['sessionId']}/submit",
-        headers={"Authorization": "Bearer mock-incomplete-token"},
-        json={"answers": [{"questionId": first_question, "selectedAnswer": "B"}]},
+        headers=auth,
+        json={
+            "expectedRevision": exam["revision"],
+            "answers": [{"questionId": first_question, "selectedAnswer": "B"}],
+        },
     )
 
     assert submitted.status_code == 409
@@ -139,7 +173,10 @@ def test_taskstream_prioritizes_unviewed_mock_review(
     body = response.json()
     assert body["alerts"][0]["id"] == "mock-review-unviewed"
     assert body["tasks"][0]["kind"] == "mock_exam_review"
-    assert body["tasks"][0]["sourceGrounding"] == "learner.mock_exam_sessions.review_payload"
+    assert (
+        body["tasks"][0]["sourceGrounding"]
+        == "learner.mock_exam_sessions.review_payload"
+    )
 
 
 def test_taskstream_schedules_weekly_mock_when_missing_this_week(

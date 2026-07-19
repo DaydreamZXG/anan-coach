@@ -50,16 +50,21 @@ class DataRightsRepository:
         self._jobs = jobs or BackgroundJobRepository()
 
     def overview(self, *, user_id: str, now: datetime) -> PrivacyOverview:
-        policy = self._session.execute(
-            text(
-                "select title, content from privacy.policy_versions "
-                "where policy_version = :version and state = 'active'"
-            ),
-            {"version": POLICY_VERSION},
-        ).mappings().one()
-        counts = self._session.execute(
-            text(
-                """
+        policy = (
+            self._session.execute(
+                text(
+                    "select title, content from privacy.policy_versions "
+                    "where policy_version = :version and state = 'active'"
+                ),
+                {"version": POLICY_VERSION},
+            )
+            .mappings()
+            .one()
+        )
+        counts = (
+            self._session.execute(
+                text(
+                    """
                 select
                   (select count(*) from learning.score_evidence where user_id = cast(:user_id as uuid)) as score_count,
                   (select count(*) from learning.source_artifact_versions where owner_user_id = cast(:user_id as uuid)) as material_count,
@@ -67,11 +72,15 @@ class DataRightsRepository:
                   (select count(*) from ai_audit.model_call_ledger where user_id = cast(:user_id as uuid)) as ai_count,
                   (select count(*) from ai_audit.external_ai_operation_ledger where user_id = cast(:user_id as uuid)) as external_ai_count,
                   (select count(*) from commerce.wechat_orders where user_id = cast(:user_id as uuid)) as order_count,
-                  (select count(*) from messaging.coach_notification_deliveries where user_id = cast(:user_id as uuid)) as notification_count
+                  (select count(*) from messaging.coach_notification_deliveries where user_id = cast(:user_id as uuid)) as notification_count,
+                  (select count(*) from learning.task_edit_events where user_id = cast(:user_id as uuid)) as device_activity_count
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
         content = dict(policy["content"])
         return PrivacyOverview(
             policy_version=POLICY_VERSION,
@@ -113,6 +122,12 @@ class DataRightsRepository:
                     retention="账户存续期间；注销时删除消息偏好与发送记录",
                 ),
                 DataCategoryView(
+                    category="device_activity",
+                    title="作答设备与接管记录",
+                    item_count=int(counts["device_activity_count"]),
+                    retention="账户存续期间；注销时删除设备标识与接管事件",
+                ),
+                DataCategoryView(
                     category="commerce",
                     title="订单与权益",
                     item_count=int(counts["order_count"]),
@@ -123,6 +138,7 @@ class DataRightsRepository:
                 "立即冻结登录并撤销全部设备会话",
                 "删除微信/Apple 身份映射与私有上传对象",
                 "删除 AI 督学偏好、授权、发送与打开记录",
+                "删除作答设备标识、编辑租约与接管记录",
                 "清除显示名、邮箱和支付 OpenID",
                 "仅保留无法用于恢复账户的审计与法定账务事实",
             ],
@@ -144,9 +160,10 @@ class DataRightsRepository:
             payload={"exportRequestId": str(export_id), "userId": user_id},
             max_attempts=3,
         )
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 insert into privacy.data_export_requests (
                   export_request_id, command_key, user_id, policy_version,
                   state, job_id, requested_at
@@ -155,20 +172,25 @@ class DataRightsRepository:
                   :policy_version, 'queued', cast(:job_id as uuid), :now
                 ) returning *
                 """
-            ),
-            {
-                "export_id": str(export_id),
-                "command_key": command_key,
-                "user_id": user_id,
-                "policy_version": POLICY_VERSION,
-                "job_id": str(job.job_id),
-                "now": now,
-            },
-        ).mappings().one()
+                ),
+                {
+                    "export_id": str(export_id),
+                    "command_key": command_key,
+                    "user_id": user_id,
+                    "policy_version": POLICY_VERSION,
+                    "job_id": str(job.job_id),
+                    "now": now,
+                },
+            )
+            .mappings()
+            .one()
+        )
         self._session.commit()
         return _export_view(row)
 
-    def export_by_id(self, *, user_id: str, export_id: UUID, now: datetime) -> DataExportView:
+    def export_by_id(
+        self, *, user_id: str, export_id: UUID, now: datetime
+    ) -> DataExportView:
         self._session.execute(
             text(
                 """
@@ -194,14 +216,18 @@ class DataRightsRepository:
             ),
             {"export_id": str(export_id), "user_id": user_id},
         )
-        row = self._session.execute(
-            text(
-                "select * from privacy.data_export_requests "
-                "where export_request_id = cast(:export_id as uuid) "
-                "and user_id = cast(:user_id as uuid)"
-            ),
-            {"export_id": str(export_id), "user_id": user_id},
-        ).mappings().one_or_none()
+        row = (
+            self._session.execute(
+                text(
+                    "select * from privacy.data_export_requests "
+                    "where export_request_id = cast(:export_id as uuid) "
+                    "and user_id = cast(:user_id as uuid)"
+                ),
+                {"export_id": str(export_id), "user_id": user_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
         self._session.commit()
         if row is None:
             raise DataRightsNotFound("export")
@@ -211,18 +237,26 @@ class DataRightsRepository:
         self, *, user_id: str, export_id: UUID, now: datetime
     ) -> DataExportPayload:
         view = self.export_by_id(user_id=user_id, export_id=export_id, now=now)
-        if view.state != "completed" or view.expires_at is None or view.expires_at <= now:
+        if (
+            view.state != "completed"
+            or view.expires_at is None
+            or view.expires_at <= now
+        ):
             raise DataRightsConflict("export payload is not available")
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 select payload, created_at from privacy.data_export_payloads
                 where export_request_id = cast(:export_id as uuid)
                   and user_id = cast(:user_id as uuid)
                 """
-            ),
-            {"export_id": str(export_id), "user_id": user_id},
-        ).mappings().one_or_none()
+                ),
+                {"export_id": str(export_id), "user_id": user_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
         if row is None or view.payload_sha256 is None:
             raise DataRightsConflict("completed export payload is missing")
         return DataExportPayload(
@@ -242,7 +276,9 @@ class DataRightsRepository:
         now: datetime,
     ) -> AccountDeletionView:
         if confirmation_phrase != CONFIRMATION_PHRASE:
-            raise DataRightsConflict("account deletion confirmation phrase does not match")
+            raise DataRightsConflict(
+                "account deletion confirmation phrase does not match"
+            )
         existing = self._deletion_by_command(user_id=user_id, command_key=command_key)
         if existing is not None:
             return existing
@@ -259,7 +295,9 @@ class DataRightsRepository:
             {"user_id": user_id},
         ).scalar_one()
         if pending_financial:
-            raise DataRightsConflict("pending payment or refund must settle before deletion")
+            raise DataRightsConflict(
+                "pending payment or refund must settle before deletion"
+            )
         deletion_id = uuid4()
         job = self._jobs.enqueue(
             self._session,
@@ -270,9 +308,10 @@ class DataRightsRepository:
             max_attempts=5,
         )
         phrase_hash = sha256(confirmation_phrase.encode("utf-8")).hexdigest()
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 insert into privacy.account_deletion_requests (
                   deletion_request_id, command_key, user_id, policy_version,
                   confirmation_phrase_hash, state, job_id, requested_at
@@ -281,17 +320,20 @@ class DataRightsRepository:
                   :policy_version, :phrase_hash, 'queued', cast(:job_id as uuid), :now
                 ) returning *
                 """
-            ),
-            {
-                "deletion_id": str(deletion_id),
-                "command_key": command_key,
-                "user_id": user_id,
-                "policy_version": POLICY_VERSION,
-                "phrase_hash": phrase_hash,
-                "job_id": str(job.job_id),
-                "now": now,
-            },
-        ).mappings().one()
+                ),
+                {
+                    "deletion_id": str(deletion_id),
+                    "command_key": command_key,
+                    "user_id": user_id,
+                    "policy_version": POLICY_VERSION,
+                    "phrase_hash": phrase_hash,
+                    "job_id": str(job.job_id),
+                    "now": now,
+                },
+            )
+            .mappings()
+            .one()
+        )
         self._session.execute(
             text(
                 """
@@ -322,14 +364,18 @@ class DataRightsRepository:
         return _deletion_view(row)
 
     def deletion_by_id(self, *, user_id: str, deletion_id: UUID) -> AccountDeletionView:
-        row = self._session.execute(
-            text(
-                "select * from privacy.account_deletion_requests "
-                "where deletion_request_id = cast(:deletion_id as uuid) "
-                "and user_id = cast(:user_id as uuid)"
-            ),
-            {"deletion_id": str(deletion_id), "user_id": user_id},
-        ).mappings().one_or_none()
+        row = (
+            self._session.execute(
+                text(
+                    "select * from privacy.account_deletion_requests "
+                    "where deletion_request_id = cast(:deletion_id as uuid) "
+                    "and user_id = cast(:user_id as uuid)"
+                ),
+                {"deletion_id": str(deletion_id), "user_id": user_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
         if row is None:
             raise DataRightsNotFound("deletion")
         return _deletion_view(row)
@@ -344,7 +390,8 @@ class DataRightsRepository:
                 user_id,
             ),
             "profile": self._one_json(
-                "select * from learner.profiles where user_id = cast(:user_id as uuid)", user_id
+                "select * from learner.profiles where user_id = cast(:user_id as uuid)",
+                user_id,
             ),
             "preparationExperience": self._many_json(
                 "select * from learner.preparation_experience_versions "
@@ -352,19 +399,24 @@ class DataRightsRepository:
                 user_id,
             ),
             "scoreEvidence": self._many_json(
-                "select * from learning.score_evidence where user_id = cast(:user_id as uuid) order by occurred_at", user_id
+                "select * from learning.score_evidence where user_id = cast(:user_id as uuid) order by occurred_at",
+                user_id,
             ),
             "qualificationFacts": self._many_json(
-                "select * from learner.qualification_facts where user_id = cast(:user_id as uuid) order by recorded_at", user_id
+                "select * from learner.qualification_facts where user_id = cast(:user_id as uuid) order by recorded_at",
+                user_id,
             ),
             "sourceMaterials": self._many_json(
-                "select artifact_version_id, source_kind, state, mime_type, content_sha256, byte_size, page_count, created_at from learning.source_artifact_versions where owner_user_id = cast(:user_id as uuid) order by created_at", user_id
+                "select artifact_version_id, source_kind, state, mime_type, content_sha256, byte_size, page_count, created_at from learning.source_artifact_versions where owner_user_id = cast(:user_id as uuid) order by created_at",
+                user_id,
             ),
             "recognitionRevisions": self._many_json(
-                "select * from learning.recognition_revisions where owner_user_id = cast(:user_id as uuid) order by created_at", user_id
+                "select * from learning.recognition_revisions where owner_user_id = cast(:user_id as uuid) order by created_at",
+                user_id,
             ),
             "contentMatches": self._many_json(
-                "select * from learning.content_match_versions where owner_user_id = cast(:user_id as uuid) order by created_at", user_id
+                "select * from learning.content_match_versions where owner_user_id = cast(:user_id as uuid) order by created_at",
+                user_id,
             ),
             "privateKnowledgeSources": self._many_json(
                 "select source_version_id, source_id, version_no, title, document_kind, "
@@ -389,22 +441,28 @@ class DataRightsRepository:
                 user_id,
             ),
             "essayAnswers": self._many_json(
-                "select * from learning.essay_answer_versions where user_id = cast(:user_id as uuid) order by created_at", user_id
+                "select * from learning.essay_answer_versions where user_id = cast(:user_id as uuid) order by created_at",
+                user_id,
             ),
             "essayReviews": self._many_json(
-                "select * from learning.essay_review_versions where user_id = cast(:user_id as uuid) order by generated_at", user_id
+                "select * from learning.essay_review_versions where user_id = cast(:user_id as uuid) order by generated_at",
+                user_id,
             ),
             "dailyPlans": self._many_json(
-                "select * from learning.daily_plan_versions where user_id = cast(:user_id as uuid) order by local_date, version_no", user_id
+                "select * from learning.daily_plan_versions where user_id = cast(:user_id as uuid) order by local_date, version_no",
+                user_id,
             ),
             "taskExecutions": self._many_json(
-                "select * from learning.task_execution_versions where user_id = cast(:user_id as uuid) order by local_date, recorded_at", user_id
+                "select * from learning.task_execution_versions where user_id = cast(:user_id as uuid) order by local_date, recorded_at",
+                user_id,
             ),
             "reports": self._many_json(
-                "select * from learning.report_projection_versions where user_id = cast(:user_id as uuid) order by generated_at", user_id
+                "select * from learning.report_projection_versions where user_id = cast(:user_id as uuid) order by generated_at",
+                user_id,
             ),
             "aiProcessingLedger": self._many_json(
-                "select call_id, feature, operation, provider, model, prompt_version, schema_version, status, input_tokens, cached_input_tokens, output_tokens, started_at, completed_at from ai_audit.model_call_ledger where user_id = cast(:user_id as uuid) order by started_at", user_id
+                "select call_id, feature, operation, provider, model, prompt_version, schema_version, status, input_tokens, cached_input_tokens, output_tokens, started_at, completed_at from ai_audit.model_call_ledger where user_id = cast(:user_id as uuid) order by started_at",
+                user_id,
             ),
             "externalProcessingReceipts": self._many_json(
                 """
@@ -459,14 +517,33 @@ class DataRightsRepository:
                 "where user_id = cast(:user_id as uuid) order by occurred_at",
                 user_id,
             ),
+            "taskEditLeases": self._many_json(
+                "select resource_type, resource_id, lease_id, generation, device_id, "
+                "device_label, reconciliation_state, local_base_revision, server_revision, "
+                "acquired_at, last_seen_at, taken_over_at "
+                "from learning.task_edit_leases where user_id = cast(:user_id as uuid) "
+                "order by last_seen_at",
+                user_id,
+            ),
+            "taskEditEvents": self._many_json(
+                "select event_id, resource_type, resource_id, lease_id, generation, "
+                "device_id, device_label, event_type, resource_revision, "
+                "local_base_revision, resolution, metadata, created_at "
+                "from learning.task_edit_events where user_id = cast(:user_id as uuid) "
+                "order by created_at, event_id",
+                user_id,
+            ),
             "commerce": self._many_json(
-                "select order_id, out_trade_no, currency, amount_minor, refunded_minor, state, paid_at, created_at from commerce.wechat_orders where user_id = cast(:user_id as uuid) order by created_at", user_id
+                "select order_id, out_trade_no, currency, amount_minor, refunded_minor, state, paid_at, created_at from commerce.wechat_orders where user_id = cast(:user_id as uuid) order by created_at",
+                user_id,
             ),
             "entitlementGrants": self._many_json(
-                "select * from commerce.entitlement_grants where user_id = cast(:user_id as uuid) order by created_at", user_id
+                "select * from commerce.entitlement_grants where user_id = cast(:user_id as uuid) order by created_at",
+                user_id,
             ),
             "retakePrograms": self._many_json(
-                "select * from learning.retake_program_versions where user_id = cast(:user_id as uuid) order by created_at", user_id
+                "select * from learning.retake_program_versions where user_id = cast(:user_id as uuid) order by created_at",
+                user_id,
             ),
         }
 
@@ -479,7 +556,9 @@ class DataRightsRepository:
         now: datetime,
         expires_after: timedelta,
     ) -> None:
-        encoded = json.dumps(payload, ensure_ascii=False, sort_keys=True, default=str).encode("utf-8")
+        encoded = json.dumps(
+            payload, ensure_ascii=False, sort_keys=True, default=str
+        ).encode("utf-8")
         digest = sha256(encoded).hexdigest()
         self._session.execute(
             text(
@@ -603,19 +682,27 @@ class DataRightsRepository:
             now=now,
         )
         self._session.execute(
-            text("delete from privacy.data_export_payloads where user_id = cast(:user_id as uuid)"),
+            text(
+                "delete from privacy.data_export_payloads where user_id = cast(:user_id as uuid)"
+            ),
             {"user_id": user_id},
         )
         self._session.execute(
-            text("delete from learner.wechat_identities where user_id = cast(:user_id as uuid)"),
+            text(
+                "delete from learner.wechat_identities where user_id = cast(:user_id as uuid)"
+            ),
             {"user_id": user_id},
         )
         self._session.execute(
-            text("delete from learner.apple_identities where user_id = cast(:user_id as uuid)"),
+            text(
+                "delete from learner.apple_identities where user_id = cast(:user_id as uuid)"
+            ),
             {"user_id": user_id},
         )
         self._session.execute(
-            text("delete from learner.app_sessions where user_id = cast(:user_id as uuid)"),
+            text(
+                "delete from learner.app_sessions where user_id = cast(:user_id as uuid)"
+            ),
             {"user_id": user_id},
         )
         self._session.execute(
@@ -779,6 +866,16 @@ class DataRightsRepository:
                 "account erasure waits for in-flight coach notifications to settle"
             )
         statements: tuple[tuple[str, str], ...] = (
+            (
+                "task_edit_events",
+                "delete from learning.task_edit_events "
+                "where user_id = cast(:user_id as uuid)",
+            ),
+            (
+                "task_edit_leases",
+                "delete from learning.task_edit_leases "
+                "where user_id = cast(:user_id as uuid)",
+            ),
             (
                 "coach_notification_jobs",
                 """
@@ -1203,26 +1300,36 @@ class DataRightsRepository:
             now=now,
         )
 
-    def _export_by_command(self, *, user_id: str, command_key: str) -> DataExportView | None:
-        row = self._session.execute(
-            text(
-                "select * from privacy.data_export_requests "
-                "where user_id = cast(:user_id as uuid) and command_key = :command_key"
-            ),
-            {"user_id": user_id, "command_key": command_key},
-        ).mappings().one_or_none()
+    def _export_by_command(
+        self, *, user_id: str, command_key: str
+    ) -> DataExportView | None:
+        row = (
+            self._session.execute(
+                text(
+                    "select * from privacy.data_export_requests "
+                    "where user_id = cast(:user_id as uuid) and command_key = :command_key"
+                ),
+                {"user_id": user_id, "command_key": command_key},
+            )
+            .mappings()
+            .one_or_none()
+        )
         return _export_view(row) if row is not None else None
 
     def _deletion_by_command(
         self, *, user_id: str, command_key: str
     ) -> AccountDeletionView | None:
-        row = self._session.execute(
-            text(
-                "select * from privacy.account_deletion_requests "
-                "where user_id = cast(:user_id as uuid) and command_key = :command_key"
-            ),
-            {"user_id": user_id, "command_key": command_key},
-        ).mappings().one_or_none()
+        row = (
+            self._session.execute(
+                text(
+                    "select * from privacy.account_deletion_requests "
+                    "where user_id = cast(:user_id as uuid) and command_key = :command_key"
+                ),
+                {"user_id": user_id, "command_key": command_key},
+            )
+            .mappings()
+            .one_or_none()
+        )
         return _deletion_view(row) if row is not None else None
 
     def _append_deletion_event(
@@ -1255,7 +1362,11 @@ class DataRightsRepository:
         )
 
     def _one_json(self, query: str, user_id: str) -> dict[str, object] | None:
-        row = self._session.execute(text(query), {"user_id": user_id}).mappings().one_or_none()
+        row = (
+            self._session.execute(text(query), {"user_id": user_id})
+            .mappings()
+            .one_or_none()
+        )
         return _jsonable(dict(row)) if row is not None else None
 
     def _many_json(self, query: str, user_id: str) -> list[dict[str, object]]:
@@ -1287,7 +1398,9 @@ def _deletion_view(row: object) -> AccountDeletionView:
         requested_at=row["requested_at"],
         completed_at=row["completed_at"],
         deletion_manifest=(
-            dict(row["deletion_manifest"]) if row["deletion_manifest"] is not None else None
+            dict(row["deletion_manifest"])
+            if row["deletion_manifest"] is not None
+            else None
         ),
         failure_code=row["failure_code"],
     )

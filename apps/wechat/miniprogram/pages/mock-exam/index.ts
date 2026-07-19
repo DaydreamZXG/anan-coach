@@ -10,6 +10,13 @@ import {
   type MockExamSubmitReceipt,
   type MockExamTrajectoryCommand,
 } from "../../api/mock-exam";
+import { TaskEditingApi } from "../../api/task-editing";
+import type { TaskEditOwnership } from "../../features/task-editing/coordinator";
+import {
+  acquireTaskEditOwnership,
+  resolveRevisionConflict,
+  TaskEditTakeoverDeclined,
+} from "../../features/task-editing/coordinator";
 import { routes } from "../../app/navigation/routes";
 import { TaskHelpApi, type TaskHelpCommand } from "../../api/task-help";
 import { currentAuthSession } from "../../auth/session";
@@ -160,6 +167,8 @@ interface PageRuntime {
   ownerUserId: string;
   api: MockExamApi;
   helpApi: TaskHelpApi;
+  editingApi: TaskEditingApi;
+  editOwnership?: TaskEditOwnership;
   requestedSessionId: string;
   session?: MockExamLearnerSession;
   task?: TaskRuntimeState;
@@ -258,6 +267,7 @@ Page<MockExamPageData, MockExamPageCustom>({
       ownerUserId: auth.userId,
       api: new MockExamApi(client),
       helpApi: new TaskHelpApi(client),
+      editingApi: new TaskEditingApi(client),
       requestedSessionId: options.sessionId?.trim() ?? "",
       visible: false,
       disposed: false,
@@ -328,6 +338,36 @@ Page<MockExamPageData, MockExamPageCustom>({
         });
         return;
       }
+      const pendingSubmitBeforeClaim = loadPendingMockSubmit(
+        runtime.ownerUserId,
+        session.sessionId,
+      );
+      const pendingCheckpointBeforeClaim = loadPendingMockCheckpoint(
+        runtime.ownerUserId,
+        session.sessionId,
+      );
+      const localBaseRevision =
+        pendingCheckpointBeforeClaim?.command.expectedRevision ??
+        pendingSubmitBeforeClaim?.command.expectedRevision ??
+        session.revision;
+      runtime.editOwnership = await acquireTaskEditOwnership(
+        runtime.editingApi,
+        "mock_exam_session",
+        session.sessionId,
+        localBaseRevision,
+        pendingSubmitBeforeClaim !== undefined || pendingCheckpointBeforeClaim !== undefined,
+      );
+      if (runtime.editOwnership.conflictChoice === "use_server") {
+        clearPendingMockSubmit(runtime.ownerUserId, session.sessionId);
+        clearPendingMockCheckpoint(runtime.ownerUserId, session.sessionId);
+      } else if (runtime.editOwnership.conflictChoice === "use_this_device") {
+        await rebasePendingMockAfterChoice(
+          runtime,
+          session,
+          pendingCheckpointBeforeClaim,
+          pendingSubmitBeforeClaim,
+        );
+      }
       runtime.session = session;
       runtime.task = runtimeFromMockSession(session, Date.now());
       initializeTrajectory(runtime, session);
@@ -353,6 +393,14 @@ Page<MockExamPageData, MockExamPageCustom>({
       startClock(this, runtime);
     } catch (error) {
       if (runtimes.get(this) !== runtime) return;
+      if (error instanceof TaskEditTakeoverDeclined) {
+        this.setData({
+          status: "unavailable",
+          errorTitle: "此设备没有编辑权",
+          errorMessage: "模考仍由另一台设备作答。计时不会暂停；需要继续时请重新进入并确认接管。",
+        });
+        return;
+      }
       failPage(this, error, "整卷恢复失败");
     }
   },
@@ -824,7 +872,12 @@ async function performCheckpointSave(
   runtime.task = reduceTaskRuntime(requiredTask(runtime), { type: "SAVE_REQUESTED" });
   page.setData({ syncLabel: "正在保存" });
   try {
-    const receipt = await runtime.api.saveCheckpoint(session.sessionId, command, idempotencyKey);
+    const receipt = await runtime.api.saveCheckpoint(
+      session.sessionId,
+      command,
+      idempotencyKey,
+      requiredMockEditToken(runtime),
+    );
     clearPendingMockCheckpoint(runtime.ownerUserId, session.sessionId);
     if (runtimes.get(page) !== runtime) return true;
     const updated = sessionWithCheckpointReceipt(session, receipt);
@@ -845,6 +898,31 @@ async function performCheckpointSave(
     return true;
   } catch (error) {
     if (runtimes.get(page) !== runtime) return false;
+    if (
+      error instanceof ApiClientError &&
+      error.statusCode === 409 &&
+      error.payload?.code === "task_edit_owned_elsewhere"
+    ) {
+      delete runtime.editOwnership;
+      stopClock(runtime);
+      runtime.task = reduceTaskRuntime(requiredTask(runtime), {
+        type: "SAVE_FAILED",
+        requestId: error.requestId,
+      });
+      page.setData({
+        interactionLocked: true,
+        syncLabel: "另一台设备已接管",
+        errorMessage: "本机草稿仍保留；重新进入并确认接管后，系统会让你选择本机或云端进度。",
+      });
+      return false;
+    }
+    if (
+      error instanceof ApiClientError &&
+      error.statusCode === 409 &&
+      error.payload?.code === "mock_revision_conflict"
+    ) {
+      return resolveMockCheckpointConflict(page, runtime, task, command.expectedRevision);
+    }
     runtime.task = reduceTaskRuntime(requiredTask(runtime), {
       type: "SAVE_FAILED",
       requestId: error instanceof ApiClientError ? error.requestId : "mock-checkpoint-failed",
@@ -869,6 +947,7 @@ async function resumePendingCheckpoint(
         pending.sessionId,
         pending.command,
         pending.idempotencyKey,
+        requiredMockEditToken(runtime),
       );
       clearPendingMockCheckpoint(runtime.ownerUserId, pending.sessionId);
       if (runtime.disposed) return true;
@@ -940,20 +1019,7 @@ async function executeSubmit(
         storedAt: new Date().toISOString(),
       } satisfies PendingMockSubmit);
     storePendingMockSubmit(submission);
-    const receipt = await submitWithRevisionRecovery(runtime, submission);
-    if (!receipt) {
-      clearPendingMockSubmit(runtime.ownerUserId, session.sessionId);
-      clearPendingMockCheckpoint(runtime.ownerUserId, session.sessionId);
-      stopClock(runtime);
-      page.setData({
-        status: "submitted",
-        interactionLocked: true,
-        syncLabel: "已在其他设备交卷",
-        errorMessage: "服务端确认本场已经交卷，请从正式模考报告查看结果。",
-        toolPolicy: taskToolPolicy("mock", "submitted"),
-      });
-      return;
-    }
+    const receipt = await submitWithLease(runtime, submission);
     const committedSession = requiredSession(runtime);
     const task = requiredTask(runtime);
     clearPendingMockSubmit(runtime.ownerUserId, session.sessionId);
@@ -985,42 +1051,79 @@ async function executeSubmit(
     });
   } catch (error) {
     if (runtime.disposed) return;
+    const lostEditing =
+      error instanceof ApiClientError &&
+      error.statusCode === 409 &&
+      error.payload?.code === "task_edit_owned_elsewhere";
+    if (lostEditing) {
+      delete runtime.editOwnership;
+      stopClock(runtime);
+    }
     page.setData({
-      interactionLocked: false,
-      syncLabel: "交卷结果待确认",
-      errorMessage: errorMessage(error, "交卷结果未知，已保留同一命令供恢复时继续确认。"),
+      interactionLocked: lostEditing,
+      syncLabel: lostEditing ? "另一台设备已接管" : "交卷结果待确认",
+      errorMessage: lostEditing
+        ? "本机交卷命令仍保留；重新进入并确认接管后再提交。"
+        : errorMessage(error, "交卷结果未知，已保留同一命令供恢复时继续确认。"),
     });
   } finally {
     runtime.submitInFlight = false;
   }
 }
 
-async function submitWithRevisionRecovery(
+async function submitWithLease(
   runtime: PageRuntime,
   submission: PendingMockSubmit,
-): Promise<MockExamSubmitReceipt | null> {
+): Promise<MockExamSubmitReceipt> {
   try {
     return await runtime.api.submit(
       submission.sessionId,
       submission.command,
       submission.idempotencyKey,
+      requiredMockEditToken(runtime),
     );
   } catch (error) {
-    if (!(error instanceof ApiClientError) || error.statusCode !== 409) throw error;
+    if (
+      !(error instanceof ApiClientError) ||
+      error.statusCode !== 409 ||
+      error.payload?.code !== "mock_submission_conflict"
+    ) {
+      throw error;
+    }
+    const ownership = runtime.editOwnership;
+    if (!ownership) throw error;
+    const resolved = await resolveRevisionConflict(
+      runtime.editingApi,
+      ownership.lease,
+      submission.command.expectedRevision,
+    );
+    runtime.editOwnership = resolved;
     const latest = await runtime.api.getSession(submission.sessionId);
+    if (latest.status !== "assigned") {
+      clearPendingMockSubmit(runtime.ownerUserId, submission.sessionId);
+      throw new Error("云端已经完成交卷，当前设备不再重复提交。", { cause: error });
+    }
+    const serverTask = runtimeFromMockSession(latest, Date.now());
+    const selectedTask =
+      resolved.conflictChoice === "use_this_device"
+        ? runtimeWithPendingMockSubmit(serverTask, submission.command)
+        : serverTask;
     runtime.session = latest;
-    if (latest.status !== "assigned") return null;
-    runtime.task = runtimeWithServerRevision(requiredTask(runtime), latest);
-    const refreshed: PendingMockSubmit = {
-      kind: "submit",
-      ownerUserId: runtime.ownerUserId,
-      sessionId: latest.sessionId,
-      idempotencyKey: await createIdempotencyKey("mock-submit"),
-      command: buildMockSubmitCommand(requiredTask(runtime)),
+    runtime.task = selectedTask;
+    const rebased: PendingMockSubmit = {
+      ...submission,
+      idempotencyKey: await createIdempotencyKey("mock-submit-resolved"),
+      command: buildMockSubmitCommand(selectedTask),
       storedAt: new Date().toISOString(),
     };
-    storePendingMockSubmit(refreshed);
-    return runtime.api.submit(refreshed.sessionId, refreshed.command, refreshed.idempotencyKey);
+    clearPendingMockSubmit(runtime.ownerUserId, submission.sessionId);
+    storePendingMockSubmit(rebased);
+    return runtime.api.submit(
+      rebased.sessionId,
+      rebased.command,
+      rebased.idempotencyKey,
+      requiredMockEditToken(runtime),
+    );
   }
 }
 
@@ -1170,6 +1273,113 @@ function rebaseTrajectory(runtime: PageRuntime, firstEventSeq: number): void {
   runtime.nextTrajectoryEventSeq = firstEventSeq + pending.length;
 }
 
+async function rebasePendingMockAfterChoice(
+  runtime: PageRuntime,
+  session: MockExamLearnerSession,
+  checkpoint: PendingMockCheckpoint | undefined,
+  submission: PendingMockSubmit | undefined,
+): Promise<void> {
+  let localTask = runtimeFromMockSession(session, Date.now());
+  const storedAt = new Date().toISOString();
+  if (checkpoint) {
+    localTask = runtimeWithPendingMockCheckpoint(localTask, checkpoint.command);
+    clearPendingMockCheckpoint(runtime.ownerUserId, session.sessionId);
+    storePendingMockCheckpoint({
+      ...checkpoint,
+      idempotencyKey: await createIdempotencyKey("mock-checkpoint-resolved"),
+      command: buildMockCheckpointCommand(localTask),
+      storedAt,
+    });
+  }
+  if (submission) {
+    localTask = runtimeWithPendingMockSubmit(localTask, submission.command);
+    clearPendingMockSubmit(runtime.ownerUserId, session.sessionId);
+    storePendingMockSubmit({
+      ...submission,
+      idempotencyKey: await createIdempotencyKey("mock-submit-resolved"),
+      command: buildMockSubmitCommand(localTask),
+      storedAt,
+    });
+  }
+}
+
+async function resolveMockCheckpointConflict(
+  page: MockExamPageInstance,
+  runtime: PageRuntime,
+  localTask: TaskRuntimeState,
+  localBaseRevision: number,
+): Promise<boolean> {
+  const ownership = runtime.editOwnership;
+  if (!ownership) throw new Error("当前设备编辑权没有初始化");
+  try {
+    const resolved = await resolveRevisionConflict(
+      runtime.editingApi,
+      ownership.lease,
+      localBaseRevision,
+    );
+    runtime.editOwnership = resolved;
+    const latest = await runtime.api.getSession(ownership.lease.resourceId);
+    clearPendingMockCheckpoint(runtime.ownerUserId, ownership.lease.resourceId);
+    if (latest.status !== "assigned") {
+      stopClock(runtime);
+      page.setData({
+        status: "submitted",
+        interactionLocked: true,
+        syncLabel: "本场已交卷",
+        errorMessage: "云端已结束本场模考，当前设备不再写入离线草稿。",
+      });
+      return true;
+    }
+    runtime.session = latest;
+    if (resolved.conflictChoice === "use_server") {
+      runtime.task = runtimeFromMockSession(latest, Date.now());
+      runtime.dirtyQuestionIds.clear();
+      applyRuntimeToPage(page, runtime, "已使用云端进度");
+      return true;
+    }
+    const localCommand = buildMockCheckpointCommand(localTask);
+    runtime.task = runtimeWithPendingMockCheckpoint(
+      runtimeFromMockSession(latest, Date.now()),
+      localCommand,
+    );
+    runtime.dirtyQuestionIds = new Set(runtime.task.questionOrder);
+    runtime.mutationVersion += 1;
+    const command = buildMockCheckpointCommand(runtime.task);
+    const idempotencyKey = await createIdempotencyKey("mock-checkpoint-resolved");
+    storePendingMockCheckpoint({
+      kind: "checkpoint",
+      ownerUserId: runtime.ownerUserId,
+      sessionId: latest.sessionId,
+      idempotencyKey,
+      command,
+      storedAt: new Date().toISOString(),
+    });
+    const receipt = await runtime.api.saveCheckpoint(
+      latest.sessionId,
+      command,
+      idempotencyKey,
+      requiredMockEditToken(runtime),
+    );
+    clearPendingMockCheckpoint(runtime.ownerUserId, latest.sessionId);
+    const updated = sessionWithCheckpointReceipt(latest, receipt);
+    runtime.session = updated;
+    runtime.task = runtimeFromMockSession(updated, Date.now());
+    runtime.dirtyQuestionIds.clear();
+    applyRuntimeToPage(page, runtime, "已按你的选择保留本机草稿");
+    return true;
+  } catch (error) {
+    runtime.task = reduceTaskRuntime(requiredTask(runtime), {
+      type: "SAVE_FAILED",
+      requestId: error instanceof ApiClientError ? error.requestId : "mock-conflict-failed",
+    });
+    page.setData({
+      syncLabel: "冲突尚未解决",
+      errorMessage: errorMessage(error, "冲突选择没有得到服务端确认，请保持当前页面后重试。"),
+    });
+    return false;
+  }
+}
+
 function markCurrentQuestionDirty(runtime: PageRuntime): void {
   const task = requiredTask(runtime);
   const questionId = task.questionOrder[task.currentQuestionIndex];
@@ -1191,6 +1401,12 @@ function requiredTask(runtime: PageRuntime): TaskRuntimeState {
 function requiredSession(runtime: PageRuntime): MockExamLearnerSession {
   if (!runtime.session) throw new Error("Mock session has not loaded");
   return runtime.session;
+}
+
+function requiredMockEditToken(runtime: PageRuntime): { leaseId: string; generation: number } {
+  const token = runtime.editOwnership?.token;
+  if (!token) throw new Error("当前设备尚未取得模考编辑权");
+  return token;
 }
 
 function sessionWithCheckpointReceipt(

@@ -1,5 +1,6 @@
 import { ApiClient, ApiClientError } from "../../api/client";
 import { MathInkApi, type FormulaVersion, type InkStroke } from "../../api/math-ink";
+import { TaskEditingApi } from "../../api/task-editing";
 import {
   XingceLearningApi,
   type XingceQuestionDisputeCategory,
@@ -44,6 +45,11 @@ import {
   storePendingXingceSubmit,
 } from "../../features/xingce/real_attempt/pending-store";
 import { publishLatestTodayDashboard } from "../../features/planning/runtime-state";
+import {
+  acquireTaskEditOwnership,
+  resolveRevisionConflict,
+  TaskEditTakeoverDeclined,
+} from "../../features/task-editing/coordinator";
 import { createIdempotencyKey } from "../../platform/command-id";
 import { decideAutosave, decideExit } from "../../task-runtime/state/autosave";
 import { reduceTaskRuntime, unansweredQuestionIds } from "../../task-runtime/state/runtime";
@@ -242,7 +248,9 @@ Page<PracticePageData, PracticePageCustom>({
       return;
     }
     runtime.ownerUserId = auth.userId;
-    runtime.api = new XingceLearningApi(new ApiClient(environment.apiBaseUrl, auth.accessToken));
+    const client = new ApiClient(environment.apiBaseUrl, auth.accessToken);
+    runtime.api = new XingceLearningApi(client);
+    runtime.editingApi = new TaskEditingApi(client);
     void this.loadTask();
   },
 
@@ -289,7 +297,10 @@ Page<PracticePageData, PracticePageCustom>({
           invalidateForAccountChange(this, runtime);
           return;
         }
-        applySession(this, runtime, response.data);
+        const localOverride = await acquireEditingForSession(runtime, response.data);
+        if (!runtimes.isCurrent(this, runtime, epoch)) return;
+        applySession(this, runtime, response.data, localOverride);
+        if (localOverride) await saveCheckpoint(this, runtime);
         return;
       }
       if (!runtime.planTaskId) {
@@ -318,9 +329,20 @@ Page<PracticePageData, PracticePageCustom>({
         return;
       }
       clearPendingXingceStart(runtime.ownerUserId, runtime.planTaskId);
-      applySession(this, runtime, response.data);
+      const localOverride = await acquireEditingForSession(runtime, response.data);
+      if (!runtimes.isCurrent(this, runtime, epoch)) return;
+      applySession(this, runtime, response.data, localOverride);
+      if (localOverride) await saveCheckpoint(this, runtime);
     } catch (error) {
       if (!runtimes.isCurrent(this, runtime, epoch)) return;
+      if (error instanceof TaskEditTakeoverDeclined) {
+        this.setData({
+          status: "unavailable",
+          errorTitle: "此设备没有编辑权",
+          errorMessage: "任务仍由另一台设备作答。需要在此设备继续时，请重新进入并确认接管。",
+        });
+        return;
+      }
       handlePageError(this, error, "真实行测任务尚未载入");
     }
   },
@@ -816,29 +838,33 @@ Page<PracticePageData, PracticePageCustom>({
         pending.sessionId,
         pending.command,
         pending.idempotencyKey,
+        requiredEditToken(runtime),
       );
       clearPendingXingceSubmit(runtime.ownerUserId, pending.sessionId);
       applySession(this, runtime, response.data);
       stopTimer(runtime);
     } catch (error) {
-      if (error instanceof ApiClientError && error.statusCode === 409) {
-        clearPendingXingceSubmit(runtime.ownerUserId, runtime.session.sessionId);
-        try {
-          const current = await runtime.api.getSession(runtime.session.sessionId);
-          applySession(this, runtime, current.data);
-          this.setData({
-            errorMessage: "服务端版本已更新，已加载权威断点。请确认当前答题卡后重新交卷。",
-          });
-          return;
-        } catch (reloadError) {
-          handleInlineError(this, runtime, reloadError, "无法重新加载服务端权威断点。");
-          return;
-        }
+      if (
+        error instanceof ApiClientError &&
+        error.statusCode === 409 &&
+        error.payload?.code === "task_edit_owned_elsewhere"
+      ) {
+        runtime.editOwnership = null;
+        stopTimer(runtime);
+        this.setData({
+          errorMessage: "另一台设备已接管本任务。本机交卷命令仍保留；重新进入并确认接管后再提交。",
+        });
+        return;
       }
       handleInlineError(this, runtime, error, "交卷结果尚未确认，请重试同一命令。");
     } finally {
       runtime.submitInFlight = false;
-      if (runtimes.owns(this, runtime)) this.setData({ interactionLocked: false });
+      if (runtimes.owns(this, runtime)) {
+        this.setData({
+          interactionLocked:
+            runtime.session.state === "answering" && runtime.editOwnership === null,
+        });
+      }
     }
   },
 
@@ -887,17 +913,22 @@ function applySession(
   page: PracticePageInstance,
   runtime: NonNullable<ReturnType<typeof runtimes.get>>,
   session: XingceTaskSession,
+  localOverride: ReturnType<typeof runtimeFromXingceSession> | null = null,
 ): void {
   runtime.session = session;
   runtime.planTaskId = session.planTaskId;
-  const pending = loadPendingXingceCheckpoint(runtime.ownerUserId, session.sessionId);
+  const pending = localOverride
+    ? null
+    : loadPendingXingceCheckpoint(runtime.ownerUserId, session.sessionId);
   const retryablePending = session.state === "answering" ? pending : null;
   if (pending && !retryablePending) {
     clearPendingXingceCheckpoint(runtime.ownerUserId, session.sessionId);
   }
-  runtime.task = retryablePending
-    ? runtimeWithPendingCheckpoint(session, retryablePending.command)
-    : runtimeFromXingceSession(session);
+  runtime.task =
+    localOverride ??
+    (retryablePending
+      ? runtimeWithPendingCheckpoint(session, retryablePending.command)
+      : runtimeFromXingceSession(session));
   if (!retryablePending) {
     runtime.lastAutosaveElapsedSeconds = runtime.task.totalElapsedSeconds;
   }
@@ -1008,8 +1039,8 @@ async function saveCheckpoint(
   page.setData({ interactionLocked: true });
   const localDraft = runtime.task;
   let commandConfirmed = false;
+  let pending = loadPendingXingceCheckpoint(ownerUserId, sessionId);
   try {
-    let pending = loadPendingXingceCheckpoint(ownerUserId, sessionId);
     if (!pending) {
       const command = checkpointCommand(runtime.task);
       pending = {
@@ -1021,7 +1052,12 @@ async function saveCheckpoint(
       };
       storePendingXingceCheckpoint(ownerUserId, pending);
     }
-    await api.saveCheckpoint(pending.sessionId, pending.command, pending.idempotencyKey);
+    await api.saveCheckpoint(
+      pending.sessionId,
+      pending.command,
+      pending.idempotencyKey,
+      requiredEditToken(runtime),
+    );
     commandConfirmed = true;
     clearPendingXingceCheckpoint(ownerUserId, pending.sessionId);
     if (!runtimes.owns(page, runtime)) return;
@@ -1050,20 +1086,31 @@ async function saveCheckpoint(
       });
       return;
     }
-    if (error instanceof ApiClientError && error.statusCode === 409 && conflictRetry) {
-      clearPendingXingceCheckpoint(ownerUserId, sessionId);
+    if (
+      error instanceof ApiClientError &&
+      error.statusCode === 409 &&
+      conflictRetry &&
+      error.payload?.code === "xingce_revision_conflict"
+    ) {
+      if (!pending) throw error;
+      const ownership = runtime.editOwnership;
+      const editingApi = runtime.editingApi;
+      if (!ownership || !editingApi) throw error;
+      const resolved = await resolveRevisionConflict(
+        editingApi,
+        ownership.lease,
+        pending.command.expectedRevision,
+      );
+      runtime.editOwnership = resolved;
       const current = await api.getSession(sessionId);
       if (!runtimes.owns(page, runtime)) return;
-      if (!currentAccountOwns(runtime)) {
-        invalidateForAccountChange(page, runtime);
-        return;
-      }
-      runtime.session = current.data;
-      if (current.data.state !== "answering") {
+      clearPendingXingceCheckpoint(ownerUserId, sessionId);
+      if (resolved.conflictChoice === "use_server" || current.data.state !== "answering") {
         page.setData({ hasPendingCheckpoint: false, pendingCheckpointMessage: "" });
         applySession(page, runtime, current.data);
         return;
       }
+      runtime.session = current.data;
       runtime.task = mergePendingDraft(current.data, localDraft);
       runtime.saveInFlight = false;
       await saveCheckpoint(page, runtime, false);
@@ -1089,6 +1136,50 @@ async function saveCheckpoint(
       page.setData({ interactionLocked: false });
     }
   }
+}
+
+async function acquireEditingForSession(
+  runtime: NonNullable<ReturnType<typeof runtimes.get>>,
+  session: XingceTaskSession,
+): Promise<ReturnType<typeof runtimeFromXingceSession> | null> {
+  if (session.state !== "answering") {
+    runtime.editOwnership = null;
+    return null;
+  }
+  if (!runtime.editingApi) throw new Error("设备编辑权服务没有初始化");
+  const pending = loadPendingXingceCheckpoint(runtime.ownerUserId, session.sessionId);
+  const ownership = await acquireTaskEditOwnership(
+    runtime.editingApi,
+    "xingce_task_session",
+    session.sessionId,
+    pending?.command.expectedRevision ?? session.revision,
+    pending !== null,
+  );
+  runtime.editOwnership = ownership;
+  if (ownership.conflictChoice === "use_server") {
+    clearPendingXingceCheckpoint(runtime.ownerUserId, session.sessionId);
+    return null;
+  }
+  if (ownership.conflictChoice === "use_this_device" && pending) {
+    clearPendingXingceCheckpoint(runtime.ownerUserId, session.sessionId);
+    const local = runtimeWithPendingCheckpoint(session, pending.command);
+    storePendingXingceCheckpoint(runtime.ownerUserId, {
+      ...pending,
+      idempotencyKey: await createIdempotencyKey("xingce-save-resolved"),
+      command: checkpointCommand(local),
+    });
+    return local;
+  }
+  return null;
+}
+
+function requiredEditToken(runtime: NonNullable<ReturnType<typeof runtimes.get>>): {
+  leaseId: string;
+  generation: number;
+} {
+  const token = runtime.editOwnership?.token;
+  if (!token) throw new Error("当前设备尚未取得任务编辑权");
+  return token;
 }
 
 async function autosaveCheckpoint(

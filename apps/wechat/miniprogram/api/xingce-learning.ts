@@ -23,6 +23,7 @@ import type {
 } from "./generated/types.gen";
 import type { ApiClient } from "./client";
 import type { ApiEnvelope } from "../domain/contracts";
+import type { TaskEditLeaseToken } from "./task-editing";
 import type { ContentAnchor, RichContentBlock } from "../task-runtime/content-renderer/model";
 
 export type XingceTaskMode = "practice" | "targeted" | "baseline" | "verification";
@@ -230,9 +231,11 @@ export class XingceLearningApi {
     sessionId: string,
     command: XingceCheckpointCommand,
     idempotencyKey: string,
+    lease: TaskEditLeaseToken,
   ): Promise<ApiEnvelope<XingceTaskSession>> {
     return this.client.put<XingceTaskSession>(`${sessionPath(sessionId)}/checkpoint`, command, {
       idempotencyKey,
+      taskEditLease: lease,
     });
   }
 
@@ -240,9 +243,11 @@ export class XingceLearningApi {
     sessionId: string,
     command: XingceSubmitCommand,
     idempotencyKey: string,
+    lease: TaskEditLeaseToken,
   ): Promise<ApiEnvelope<XingceTaskSession>> {
     return this.client.post<XingceTaskSession>(`${sessionPath(sessionId)}/submit`, command, {
       idempotencyKey,
+      taskEditLease: lease,
     });
   }
 

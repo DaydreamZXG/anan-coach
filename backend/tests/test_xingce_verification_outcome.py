@@ -9,6 +9,7 @@ from tests.test_xingce_cause_agent_workflow import (
     _run_one,
 )
 from tests.test_xingce_planning_closure import _submitted_attempt
+from tests.task_editing_helpers import claim_task_edit_headers
 
 
 def test_verification_outcome_binds_source_and_treats_dispute_as_pending(
@@ -49,6 +50,16 @@ def test_verification_outcome_binds_source_and_treats_dispute_as_pending(
     )
     assert started.status_code == 200, started.text
     verification = started.json()["data"]
+    auth = {
+        **auth,
+        **claim_task_edit_headers(
+            client,
+            auth,
+            resource_type="xingce_task_session",
+            resource_id=verification["sessionId"],
+            revision=verification["revision"],
+        ),
+    }
     questions = verification["bundle"]["questions"]
     assert [item["questionId"] for item in questions] == [
         "xingce-route-question-4",
@@ -143,24 +154,29 @@ def test_verification_outcome_binds_source_and_treats_dispute_as_pending(
     assert pending["evidenceState"] != "confirmed_invalidated"
 
     with db_session_factory() as session:
-        stored = session.execute(
-            text(
-                "select source_mastery_version_id::text, scoring_bundle "
-                "from learning.xingce_task_sessions "
-                "where session_id = cast(:session_id as uuid)"
-            ),
-            {"session_id": verification["sessionId"]},
-        ).mappings().one()
-        assert stored["source_mastery_version_id"] == outcome[
-            "sourceMasteryVersionId"
-        ]
+        stored = (
+            session.execute(
+                text(
+                    "select source_mastery_version_id::text, scoring_bundle "
+                    "from learning.xingce_task_sessions "
+                    "where session_id = cast(:session_id as uuid)"
+                ),
+                {"session_id": verification["sessionId"]},
+            )
+            .mappings()
+            .one()
+        )
+        assert stored["source_mastery_version_id"] == outcome["sourceMasteryVersionId"]
         assert stored["scoring_bundle"]["verificationContext"] == {
             "sourceMasteryVersionId": outcome["sourceMasteryVersionId"],
             "verificationStage": "immediate",
         }
-        assert session.execute(
-            text("select count(*) from learning.xingce_question_disputes")
-        ).scalar_one() == 1
+        assert (
+            session.execute(
+                text("select count(*) from learning.xingce_question_disputes")
+            ).scalar_one()
+            == 1
+        )
 
 
 def _answer(question_id: str, choice: str, elapsed_seconds: int) -> dict:

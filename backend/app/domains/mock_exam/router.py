@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Request, Response, status
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db_session
@@ -13,6 +14,12 @@ from app.domains.knowledge.service import KnowledgeService
 from app.domains.mock_exam.repository import MockExamRepository
 from app.domains.progression.deps import get_progression_service
 from app.domains.progression.service import ProgressionService
+from app.domains.task_editing.router import (
+    get_task_editing_service,
+    task_edit_lease_token,
+)
+from app.domains.task_editing.schemas import TaskEditLeaseToken
+from app.domains.task_editing.service import TaskEditingError, TaskEditingService
 from app.domains.mock_exam.schemas import (
     MockExamReview,
     MockExamCheckpointRequest,
@@ -38,6 +45,7 @@ from app.domains.xingce_learning.real_attempt.schemas import (
 from app.platform.http import (
     COMMON_API_ERROR_RESPONSES,
     PublicApiEnvelope,
+    public_error_response,
     public_success_envelope,
 )
 
@@ -60,7 +68,9 @@ def _required_idempotency_key(
 def get_mock_exam_service(
     session: Annotated[Session, Depends(get_db_session)],
     knowledge_service: Annotated[KnowledgeService, Depends(get_knowledge_service)],
-    progression_service: Annotated[ProgressionService, Depends(get_progression_service)],
+    progression_service: Annotated[
+        ProgressionService, Depends(get_progression_service)
+    ],
 ) -> MockExamService:
     return MockExamService(
         repository=MockExamRepository(session),
@@ -104,17 +114,29 @@ def get_mock_exam_session(
 @router.put("/{session_id}/checkpoint", response_model=MockExamCheckpointReceipt)
 def save_mock_exam_checkpoint(
     session_id: str,
-    request: MockExamCheckpointRequest,
+    command: MockExamCheckpointRequest,
+    http_request: Request,
     idempotency_key: Annotated[str, Depends(_required_idempotency_key)],
     current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    db_session: Annotated[Session, Depends(get_db_session)],
     service: Annotated[MockExamService, Depends(get_mock_exam_service)],
-) -> MockExamCheckpointReceipt:
+    editing: Annotated[TaskEditingService, Depends(get_task_editing_service)],
+    lease: Annotated[TaskEditLeaseToken | None, Depends(task_edit_lease_token)],
+) -> MockExamCheckpointReceipt | JSONResponse:
     try:
+        editing.authorize_write(
+            db_session,
+            user_id=current_user.user_id,
+            resource_type="mock_exam_session",
+            resource_id=session_id,
+            token=lease,
+            expected_revision=command.expected_revision,
+        )
         return service.save_checkpoint(
             user_id=current_user.user_id,
             session_id=session_id,
             idempotency_key=idempotency_key,
-            request=request,
+            request=command,
         )
     except MockExamNotFoundError as exc:
         raise HTTPException(
@@ -122,28 +144,46 @@ def save_mock_exam_checkpoint(
             detail="Mock exam not found",
         ) from exc
     except MockExamCheckpointError as exc:
-        raise HTTPException(
+        return public_error_response(
+            request=http_request,
             status_code=status.HTTP_409_CONFLICT,
-            detail=str(exc),
-        ) from exc
+            code=exc.code,
+            message=str(exc),
+        )
+    except TaskEditingError:
+        raise
 
 
 @router.post("/{session_id}/submit", response_model=MockExamSubmitResponse)
 def submit_mock_exam(
     session_id: str,
-    request: MockExamSubmitRequest,
+    command: MockExamSubmitRequest,
+    http_request: Request,
     current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    db_session: Annotated[Session, Depends(get_db_session)],
     service: Annotated[MockExamService, Depends(get_mock_exam_service)],
+    editing: Annotated[TaskEditingService, Depends(get_task_editing_service)],
+    lease: Annotated[TaskEditLeaseToken | None, Depends(task_edit_lease_token)],
     idempotency_key: Annotated[
         str | None,
         Header(alias="Idempotency-Key", min_length=8, max_length=160),
     ] = None,
-) -> MockExamSubmitResponse:
+) -> MockExamSubmitResponse | JSONResponse:
     try:
+        if command.expected_revision is None:
+            raise MockExamSubmissionError("Mock submission requires expectedRevision")
+        editing.authorize_write(
+            db_session,
+            user_id=current_user.user_id,
+            resource_type="mock_exam_session",
+            resource_id=session_id,
+            token=lease,
+            expected_revision=command.expected_revision,
+        )
         return service.submit_mock(
             user_id=current_user.user_id,
             session_id=session_id,
-            request=request,
+            request=command,
             idempotency_key=idempotency_key,
         )
     except MockExamNotFoundError as exc:
@@ -152,10 +192,14 @@ def submit_mock_exam(
             detail="Mock exam not found",
         ) from exc
     except (MockExamSubmissionError, MockExamCheckpointError) as exc:
-        raise HTTPException(
+        return public_error_response(
+            request=http_request,
             status_code=status.HTTP_409_CONFLICT,
-            detail="Mock exam submission is invalid",
-        ) from exc
+            code=exc.code,
+            message=str(exc),
+        )
+    except TaskEditingError:
+        raise
 
 
 @router.post("/{session_id}/disputes", response_model=QuestionDisputeReceipt)

@@ -62,11 +62,15 @@ class MockExamNotFoundError(LookupError):
 
 
 class MockExamSubmissionError(RuntimeError):
-    pass
+    def __init__(self, message: str, *, code: str = "mock_submission_invalid") -> None:
+        super().__init__(message)
+        self.code = code
 
 
 class MockExamCheckpointError(RuntimeError):
-    pass
+    def __init__(self, message: str, *, code: str = "mock_checkpoint_invalid") -> None:
+        super().__init__(message)
+        self.code = code
 
 
 class MockExamDisputeError(RuntimeError):
@@ -197,7 +201,9 @@ class MockExamService:
 
         record = self._required_session(user_id=user_id, session_id=session_id)
         if record.status != "assigned":
-            raise MockExamCheckpointError("Only assigned mock exams can be changed")
+            raise MockExamCheckpointError(
+                "Only assigned mock exams can be changed", code="mock_exam_not_editable"
+            )
         bundle = _bundle_from_record(record)
         questions = {question.question_id: question for question in bundle.questions}
         if request.current_question_id not in questions:
@@ -211,13 +217,16 @@ class MockExamService:
             if question is None:
                 raise MockExamCheckpointError("Checkpoint question is not assigned")
             valid_options = {option.option_id for option in question.options}
-            if answer.selected_answer is not None and answer.selected_answer not in valid_options:
+            if (
+                answer.selected_answer is not None
+                and answer.selected_answer not in valid_options
+            ):
                 raise MockExamCheckpointError("Selected answer is not a frozen option")
             if not set(answer.eliminated_option_ids).issubset(valid_options):
-                raise MockExamCheckpointError("Eliminated answer is not a frozen option")
-            merged[answer.question_id] = answer.model_dump(
-                by_alias=True, mode="json"
-            )
+                raise MockExamCheckpointError(
+                    "Eliminated answer is not a frozen option"
+                )
+            merged[answer.question_id] = answer.model_dump(by_alias=True, mode="json")
         checkpoint = {
             "currentQuestionId": request.current_question_id,
             "answers": [merged[key] for key in sorted(merged)],
@@ -230,8 +239,19 @@ class MockExamService:
             updated_at=updated_at,
         )
         if saved is None:
+            current = self._required_session(user_id=user_id, session_id=session_id)
+            if current.status != "assigned":
+                raise MockExamCheckpointError(
+                    "Mock exam is no longer editable", code="mock_exam_not_editable"
+                )
+            if current.deadline_at <= updated_at:
+                raise MockExamCheckpointError(
+                    "Mock exam checkpoint deadline passed",
+                    code="mock_exam_deadline_passed",
+                )
             raise MockExamCheckpointError(
-                "Checkpoint revision changed, session ended, or deadline passed"
+                "Mock exam revision changed before checkpoint",
+                code="mock_revision_conflict",
             )
         response = _checkpoint_receipt(saved)
         payload = response.model_dump(by_alias=True, mode="json")
@@ -278,9 +298,7 @@ class MockExamService:
         if mock_session.status != "assigned":
             raise MockExamSubmissionError("Only assigned mock exams can be submitted")
         assigned_ids = mock_session.question_ids
-        answers = {
-            item.question_id: item.selected_answer for item in request.answers
-        }
+        answers = {item.question_id: item.selected_answer for item in request.answers}
         if set(answers) != set(assigned_ids):
             raise MockExamSubmissionError(
                 "Mock exam submission must include every assigned question exactly once"
@@ -290,9 +308,10 @@ class MockExamService:
             raise MockExamSubmissionError("Assigned question set is no longer complete")
         by_id = {question.question_id: question for question in assigned_questions}
         for question_id, selected_answer in answers.items():
-            if selected_answer is not None and selected_answer not in by_id[
-                question_id
-            ].valid_option_ids:
+            if (
+                selected_answer is not None
+                and selected_answer not in by_id[question_id].valid_option_ids
+            ):
                 raise MockExamSubmissionError(
                     f"Selected answer is outside option set for {question_id}"
                 )
@@ -316,7 +335,15 @@ class MockExamService:
             expected_revision=expected_revision,
         )
         if not submitted:
-            raise MockExamSubmissionError("Mock exam revision changed before submit")
+            current = self._required_session(user_id=user_id, session_id=session_id)
+            if current.status != "assigned":
+                raise MockExamSubmissionError(
+                    "Mock exam is no longer editable", code="mock_exam_not_editable"
+                )
+            raise MockExamSubmissionError(
+                "Mock exam revision changed before submit",
+                code="mock_submission_conflict",
+            )
         submitted_at = datetime.now(UTC)
         self._record_submitted_trajectory(
             user_id=user_id,
@@ -377,11 +404,18 @@ class MockExamService:
                 "Only an assigned mock exam accepts trajectory events"
             )
         if command.session_revision > record.revision:
-            raise MockExamCheckpointError("Trajectory session revision is ahead of server state")
+            raise MockExamCheckpointError(
+                "Trajectory session revision is ahead of server state"
+            )
         if command.client_occurred_at.astimezone(UTC) > timestamp:
             raise MockExamCheckpointError("Trajectory event cannot occur in the future")
-        if command.question_id is not None and command.question_id not in record.question_ids:
-            raise MockExamCheckpointError("Trajectory question is outside assigned paper")
+        if (
+            command.question_id is not None
+            and command.question_id not in record.question_ids
+        ):
+            raise MockExamCheckpointError(
+                "Trajectory question is outside assigned paper"
+            )
         trajectory_event_id = str(uuid4())
         self._repository.record_trajectory_event(
             trajectory_event_id=trajectory_event_id,
@@ -414,9 +448,12 @@ class MockExamService:
         submitted_at: datetime,
     ) -> None:
         command_id = f"mock-submit:{record.session_id}:{record.revision}"
-        if self._repository.trajectory_event_by_command(
-            user_id=user_id, command_id=command_id
-        ) is not None:
+        if (
+            self._repository.trajectory_event_by_command(
+                user_id=user_id, command_id=command_id
+            )
+            is not None
+        ):
             return
         payload = {
             "paperVersionId": record.paper_version_id,
@@ -483,7 +520,10 @@ class MockExamService:
             ),
             None,
         )
-        if question is None or question.content_version_id != command.content_version_id:
+        if (
+            question is None
+            or question.content_version_id != command.content_version_id
+        ):
             raise MockExamDisputeError("Dispute content version is not assigned")
         answer_state = next(
             (
@@ -527,16 +567,12 @@ class MockExamService:
         return _dispute_receipt(row)
 
     def get_review(self, *, user_id: str, session_id: str) -> MockExamReview:
-        session = self._repository.get_session(
-            session_id=session_id, user_id=user_id
-        )
+        session = self._repository.get_session(session_id=session_id, user_id=user_id)
         if session is None or session.review_payload is None:
             raise MockExamNotFoundError(session_id)
         return MockExamReview(**session.review_payload)
 
-    def mark_review_viewed(
-        self, *, user_id: str, session_id: str
-    ) -> MockExamReview:
+    def mark_review_viewed(self, *, user_id: str, session_id: str) -> MockExamReview:
         session = self._repository.mark_review_viewed(
             session_id=session_id, user_id=user_id
         )
@@ -599,9 +635,7 @@ class MockExamService:
     def _required_session(
         self, *, user_id: str, session_id: str
     ) -> MockExamSessionRecord:
-        record = self._repository.get_session(
-            session_id=session_id, user_id=user_id
-        )
+        record = self._repository.get_session(session_id=session_id, user_id=user_id)
         if record is None:
             raise MockExamNotFoundError(session_id)
         return record
@@ -636,9 +670,7 @@ class MockExamService:
         assigned_questions: list[AssignedQuestionRecord],
         answers: dict[str, str | None],
     ) -> MockExamReview:
-        record = self._repository.get_session(
-            session_id=session_id, user_id=user_id
-        )
+        record = self._repository.get_session(session_id=session_id, user_id=user_id)
         if record is None:
             raise MockExamSubmissionError("Mock paper version disappeared")
         published_modules = _published_module_names(record.blueprint)
@@ -695,8 +727,7 @@ class MockExamService:
                 display_path=str(row["display_path"]),
                 wrong_count=int(row["wrong_count"]),
                 method_card_ids=list(row["method_card_ids"] or []),
-                fix_action=row["fix_action"]
-                or "先回看该知识点方法卡，再做同类题。",
+                fix_action=row["fix_action"] or "先回看该知识点方法卡，再做同类题。",
             )
             for row in self._repository.get_wrong_clusters(
                 wrong_question_ids=wrong_question_ids
@@ -742,7 +773,9 @@ def _bundle_from_record(record: MockExamSessionRecord) -> SafeQuestionBundle:
             "Assigned session learner bundle is malformed"
         ) from exc
     if [question.question_id for question in bundle.questions] != record.question_ids:
-        raise MockExamUnavailableError("Frozen bundle does not match assigned question set")
+        raise MockExamUnavailableError(
+            "Frozen bundle does not match assigned question set"
+        )
     scoring = record.scoring_snapshot
     if (
         not scoring
@@ -766,13 +799,14 @@ def _performance_index(
         raise MockExamSubmissionError(
             "Performance index modules do not match the published scoring policy"
         )
-    if any(weight <= 0 for weight in module_weights.values()) or abs(
-        sum(module_weights.values()) - 1.0
-    ) > 1e-6:
+    if (
+        any(weight <= 0 for weight in module_weights.values())
+        or abs(sum(module_weights.values()) - 1.0) > 1e-6
+    ):
         raise MockExamSubmissionError("Published scoring policy weights are invalid")
-    recommended = sum(
-        item.accuracy * module_weights[item.module_name] for item in modules
-    ) * 100
+    recommended = (
+        sum(item.accuracy * module_weights[item.module_name] for item in modules) * 100
+    )
     weighted_bounds = [
         (
             _wilson_interval(item.correct, item.total),
@@ -808,10 +842,7 @@ def _published_module_names(blueprint: list[dict[str, Any]]) -> tuple[str, ...]:
 
 def _estimate_source(metric_name: str) -> str:
     if metric_name == "balanced_performance_index":
-        return (
-            "兼容字段：值为历史五模块等权表现指数，"
-            "不是国考原始分，不使用全国分位。"
-        )
+        return "兼容字段：值为历史五模块等权表现指数，不是国考原始分，不使用全国分位。"
     if metric_name == "question_weighted_performance_index":
         return (
             "兼容字段：值为当前六模块按标准卷题量加权表现指数，"
@@ -829,10 +860,7 @@ def _wilson_interval(correct: int, total: int) -> tuple[float, float]:
     center = (proportion + z * z / (2 * total)) / denominator
     margin = (
         z
-        * sqrt(
-            proportion * (1 - proportion) / total
-            + z * z / (4 * total * total)
-        )
+        * sqrt(proportion * (1 - proportion) / total + z * z / (4 * total * total))
         / denominator
     )
     return max(0.0, center - margin), min(1.0, center + margin)
@@ -851,8 +879,7 @@ def _checkpoint_receipt(record: MockExamSessionRecord) -> MockExamCheckpointRece
 def _validate_single_choice_snapshot(scoring_snapshot: dict[str, Any]) -> None:
     questions = scoring_snapshot.get("questions")
     if not isinstance(questions, list) or any(
-        not isinstance(item, dict)
-        or len(item.get("correctOptionIds", [])) != 1
+        not isinstance(item, dict) or len(item.get("correctOptionIds", [])) != 1
         for item in questions
     ):
         raise MockExamUnavailableError(

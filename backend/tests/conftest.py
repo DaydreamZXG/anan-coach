@@ -239,10 +239,11 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in step6._TEST_STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
-        step7 = import_module(
-            "migrations.versions.20260719_45_coach_notifications"
-        )
+        step7 = import_module("migrations.versions.20260719_45_coach_notifications")
         for statement in step7._TEST_STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
+        step8 = import_module("migrations.versions.20260719_46_task_editing_recovery")
+        for statement in step8._TEST_STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
 
 

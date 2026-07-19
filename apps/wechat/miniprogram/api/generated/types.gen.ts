@@ -825,6 +825,24 @@ export type AuthenticatedUserResponse = {
 };
 
 /**
+ * BeginTaskEditConflictCommand
+ */
+export type BeginTaskEditConflictCommand = {
+    /**
+     * Expectedgeneration
+     */
+    expectedGeneration: number;
+    /**
+     * Expectedleaseid
+     */
+    expectedLeaseId: string;
+    /**
+     * Localbaserevision
+     */
+    localBaseRevision: number;
+};
+
+/**
  * BoundingBox
  */
 export type BoundingBox = {
@@ -1278,6 +1296,36 @@ export type CityInfo = {
      * Name
      */
     name: string;
+};
+
+/**
+ * ClaimTaskEditLeaseCommand
+ */
+export type ClaimTaskEditLeaseCommand = {
+    /**
+     * Deviceid
+     */
+    deviceId: string;
+    /**
+     * Devicelabel
+     */
+    deviceLabel: string;
+    /**
+     * Haslocalchanges
+     */
+    hasLocalChanges: boolean;
+    /**
+     * Localbaserevision
+     */
+    localBaseRevision?: number | null;
+    /**
+     * Resourceid
+     */
+    resourceId: string;
+    /**
+     * Resourcetype
+     */
+    resourceType: 'xingce_task_session' | 'mock_exam_session';
 };
 
 /**
@@ -11866,6 +11914,21 @@ export type PublicApiEnvelopeStudyPreferenceResult = {
 };
 
 /**
+ * PublicApiEnvelope[TaskEditLeaseProjection]
+ */
+export type PublicApiEnvelopeTaskEditLeaseProjection = {
+    data: TaskEditLeaseProjection;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[TaskExecutionCommandResult]
  */
 export type PublicApiEnvelopeTaskExecutionCommandResult = {
@@ -13569,6 +13632,28 @@ export type RequirementConfirmationResult = {
 };
 
 /**
+ * ResolveTaskEditConflictCommand
+ */
+export type ResolveTaskEditConflictCommand = {
+    /**
+     * Choice
+     */
+    choice: 'use_server' | 'use_this_device';
+    /**
+     * Expectedgeneration
+     */
+    expectedGeneration: number;
+    /**
+     * Expectedleaseid
+     */
+    expectedLeaseId: string;
+    /**
+     * Expectedserverrevision
+     */
+    expectedServerRevision: number;
+};
+
+/**
  * RetakeEnrollmentRequest
  */
 export type RetakeEnrollmentRequest = {
@@ -14970,6 +15055,36 @@ export type SupportRefundView = {
 };
 
 /**
+ * TakeOverTaskEditLeaseCommand
+ */
+export type TakeOverTaskEditLeaseCommand = {
+    /**
+     * Deviceid
+     */
+    deviceId: string;
+    /**
+     * Devicelabel
+     */
+    deviceLabel: string;
+    /**
+     * Expectedgeneration
+     */
+    expectedGeneration: number;
+    /**
+     * Expectedleaseid
+     */
+    expectedLeaseId: string;
+    /**
+     * Haslocalchanges
+     */
+    hasLocalChanges: boolean;
+    /**
+     * Localbaserevision
+     */
+    localBaseRevision?: number | null;
+};
+
+/**
  * TargetContext
  */
 export type TargetContext = {
@@ -15067,6 +15182,60 @@ export type TargetScoreRange = {
      * Validuntil
      */
     validUntil: string;
+};
+
+/**
+ * TaskEditLeaseProjection
+ */
+export type TaskEditLeaseProjection = {
+    /**
+     * Acquiredat
+     */
+    acquiredAt: string;
+    /**
+     * Deviceid
+     */
+    deviceId: string;
+    /**
+     * Devicelabel
+     */
+    deviceLabel: string;
+    /**
+     * Generation
+     */
+    generation: number;
+    /**
+     * Lastseenat
+     */
+    lastSeenAt: string;
+    /**
+     * Leaseid
+     */
+    leaseId: string;
+    /**
+     * Localbaserevision
+     */
+    localBaseRevision?: number | null;
+    /**
+     * Resourceid
+     */
+    resourceId: string;
+    /**
+     * Resourcetype
+     */
+    resourceType: 'xingce_task_session' | 'mock_exam_session';
+    /**
+     * Serverrevision
+     */
+    serverRevision: number;
+    /**
+     * State
+     */
+    state: 'owned' | 'takeover_required' | 'conflict_choice_required';
+    /**
+     * Takenoverat
+     */
+    takenOverAt?: string | null;
 };
 
 /**
@@ -17995,6 +18164,14 @@ export type SaveMockExamCheckpointApiV1MockExamsSessionIdCheckpointPutData = {
          * Authorization
          */
         Authorization?: string | null;
+        /**
+         * X-Task-Edit-Lease
+         */
+        'X-Task-Edit-Lease'?: string | null;
+        /**
+         * X-Task-Edit-Generation
+         */
+        'X-Task-Edit-Generation'?: number | null;
     };
     path: {
         /**
@@ -18147,6 +18324,14 @@ export type SubmitMockExamApiV1MockExamsSessionIdSubmitPostData = {
          * Authorization
          */
         Authorization?: string | null;
+        /**
+         * X-Task-Edit-Lease
+         */
+        'X-Task-Edit-Lease'?: string | null;
+        /**
+         * X-Task-Edit-Generation
+         */
+        'X-Task-Edit-Generation'?: number | null;
     };
     path: {
         /**
@@ -29111,6 +29296,285 @@ export type ReportScoreEvidenceApiV2ScoreEvidenceReportedPostResponses = {
 
 export type ReportScoreEvidenceApiV2ScoreEvidenceReportedPostResponse = ReportScoreEvidenceApiV2ScoreEvidenceReportedPostResponses[keyof ReportScoreEvidenceApiV2ScoreEvidenceReportedPostResponses];
 
+export type ClaimTaskEditLeaseApiV2TaskEditingLeasesPostData = {
+    body: ClaimTaskEditLeaseCommand;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/task-editing/leases';
+};
+
+export type ClaimTaskEditLeaseApiV2TaskEditingLeasesPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ClaimTaskEditLeaseApiV2TaskEditingLeasesPostError = ClaimTaskEditLeaseApiV2TaskEditingLeasesPostErrors[keyof ClaimTaskEditLeaseApiV2TaskEditingLeasesPostErrors];
+
+export type ClaimTaskEditLeaseApiV2TaskEditingLeasesPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeTaskEditLeaseProjection;
+};
+
+export type ClaimTaskEditLeaseApiV2TaskEditingLeasesPostResponse = ClaimTaskEditLeaseApiV2TaskEditingLeasesPostResponses[keyof ClaimTaskEditLeaseApiV2TaskEditingLeasesPostResponses];
+
+export type BeginTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdConflictPostData = {
+    body: BeginTaskEditConflictCommand;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Resource Type
+         */
+        resource_type: 'xingce_task_session' | 'mock_exam_session';
+        /**
+         * Resource Id
+         */
+        resource_id: string;
+    };
+    query?: never;
+    url: '/api/v2/task-editing/leases/{resource_type}/{resource_id}/conflict';
+};
+
+export type BeginTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdConflictPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type BeginTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdConflictPostError = BeginTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdConflictPostErrors[keyof BeginTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdConflictPostErrors];
+
+export type BeginTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdConflictPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeTaskEditLeaseProjection;
+};
+
+export type BeginTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdConflictPostResponse = BeginTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdConflictPostResponses[keyof BeginTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdConflictPostResponses];
+
+export type ResolveTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdResolvePostData = {
+    body: ResolveTaskEditConflictCommand;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Resource Type
+         */
+        resource_type: 'xingce_task_session' | 'mock_exam_session';
+        /**
+         * Resource Id
+         */
+        resource_id: string;
+    };
+    query?: never;
+    url: '/api/v2/task-editing/leases/{resource_type}/{resource_id}/resolve';
+};
+
+export type ResolveTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdResolvePostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ResolveTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdResolvePostError = ResolveTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdResolvePostErrors[keyof ResolveTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdResolvePostErrors];
+
+export type ResolveTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdResolvePostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeTaskEditLeaseProjection;
+};
+
+export type ResolveTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdResolvePostResponse = ResolveTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdResolvePostResponses[keyof ResolveTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdResolvePostResponses];
+
+export type TakeOverTaskEditLeaseApiV2TaskEditingLeasesResourceTypeResourceIdTakeoverPostData = {
+    body: TakeOverTaskEditLeaseCommand;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Resource Type
+         */
+        resource_type: 'xingce_task_session' | 'mock_exam_session';
+        /**
+         * Resource Id
+         */
+        resource_id: string;
+    };
+    query?: never;
+    url: '/api/v2/task-editing/leases/{resource_type}/{resource_id}/takeover';
+};
+
+export type TakeOverTaskEditLeaseApiV2TaskEditingLeasesResourceTypeResourceIdTakeoverPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type TakeOverTaskEditLeaseApiV2TaskEditingLeasesResourceTypeResourceIdTakeoverPostError = TakeOverTaskEditLeaseApiV2TaskEditingLeasesResourceTypeResourceIdTakeoverPostErrors[keyof TakeOverTaskEditLeaseApiV2TaskEditingLeasesResourceTypeResourceIdTakeoverPostErrors];
+
+export type TakeOverTaskEditLeaseApiV2TaskEditingLeasesResourceTypeResourceIdTakeoverPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeTaskEditLeaseProjection;
+};
+
+export type TakeOverTaskEditLeaseApiV2TaskEditingLeasesResourceTypeResourceIdTakeoverPostResponse = TakeOverTaskEditLeaseApiV2TaskEditingLeasesResourceTypeResourceIdTakeoverPostResponses[keyof TakeOverTaskEditLeaseApiV2TaskEditingLeasesResourceTypeResourceIdTakeoverPostResponses];
+
 export type GetTaskHelpApiV2TaskHelpPostData = {
     body: TaskHelpRequest;
     headers?: {
@@ -29648,6 +30112,14 @@ export type SaveTaskSessionCheckpointApiV2XingceTaskSessionsSessionIdCheckpointP
          * Authorization
          */
         Authorization?: string | null;
+        /**
+         * X-Task-Edit-Lease
+         */
+        'X-Task-Edit-Lease'?: string | null;
+        /**
+         * X-Task-Edit-Generation
+         */
+        'X-Task-Edit-Generation'?: number | null;
     };
     path: {
         /**
@@ -29792,6 +30264,14 @@ export type SubmitTaskSessionApiV2XingceTaskSessionsSessionIdSubmitPostData = {
          * Authorization
          */
         Authorization?: string | null;
+        /**
+         * X-Task-Edit-Lease
+         */
+        'X-Task-Edit-Lease'?: string | null;
+        /**
+         * X-Task-Edit-Generation
+         */
+        'X-Task-Edit-Generation'?: number | null;
     };
     path: {
         /**

@@ -4,6 +4,7 @@ import type {
   RichContentBlock,
   TableContentCell,
 } from "../task-runtime/content-renderer/model";
+import type { TaskEditLeaseToken } from "./task-editing";
 
 export interface MockExamLearnerOption {
   optionId: string;
@@ -186,12 +187,14 @@ export class MockExamApi {
     sessionId: string,
     command: MockExamCheckpointCommand,
     idempotencyKey: string,
+    lease: TaskEditLeaseToken,
   ): Promise<MockExamCheckpointReceipt> {
     const response = await this.client.put<unknown>(
       `${sessionPath(sessionId)}/checkpoint`,
       command,
       {
         idempotencyKey,
+        taskEditLease: lease,
       },
     );
     return mapCheckpointReceipt(unwrapApiResponse(response));
@@ -201,9 +204,11 @@ export class MockExamApi {
     sessionId: string,
     command: MockExamSubmitCommand,
     idempotencyKey: string,
+    lease: TaskEditLeaseToken,
   ): Promise<MockExamSubmitReceipt> {
     const response = await this.client.post<unknown>(`${sessionPath(sessionId)}/submit`, command, {
       idempotencyKey,
+      taskEditLease: lease,
       timeoutMs: 30_000,
     });
     return mapSubmitReceipt(unwrapApiResponse(response));

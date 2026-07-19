@@ -44,7 +44,10 @@ describe("VJ-02 real xingce WeChat AS-03", () => {
     const api = new XingceLearningApi(new ApiClient("https://api.example.test", "token-a"));
 
     await expect(
-      api.submitAttempt(pending.sessionId, pending.command, pending.idempotencyKey),
+      api.submitAttempt(pending.sessionId, pending.command, pending.idempotencyKey, {
+        leaseId: "00000000-0000-4000-8000-000000000001",
+        generation: 1,
+      }),
     ).rejects.toMatchObject({ statusCode: 0 } satisfies Partial<ApiClientError>);
 
     expect(loadPendingXingceSubmit("user-a", xingceIds.session)).toEqual(pending);

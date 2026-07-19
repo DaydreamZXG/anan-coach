@@ -345,6 +345,29 @@ async function createMockPage(
     getRandomValues: () => Promise.resolve({ randomValues: new Uint8Array(16).fill(7).buffer }),
     request: (options: WechatMiniprogram.RequestOption) => {
       requests.push(options);
+      if (options.url.endsWith("/api/v2/task-editing/leases")) {
+        options.success?.({
+          statusCode: 200,
+          data: apiEnvelope(taskLease(session.sessionId, session.revision, "owned")),
+        } as never);
+        return;
+      }
+      if (options.url.endsWith("/conflict")) {
+        options.success?.({
+          statusCode: 200,
+          data: apiEnvelope(
+            taskLease(session.sessionId, session.revision, "conflict_choice_required"),
+          ),
+        } as never);
+        return;
+      }
+      if (options.url.endsWith("/resolve")) {
+        options.success?.({
+          statusCode: 200,
+          data: apiEnvelope(taskLease(session.sessionId, session.revision, "owned")),
+        } as never);
+        return;
+      }
       if (options.url.endsWith("/checkpoint")) {
         const command = options.data as {
           expectedRevision: number;
@@ -381,7 +404,7 @@ async function createMockPage(
           options.success?.({
             statusCode: 409,
             data: {
-              code: "MOCK_REVISION_CONFLICT",
+              code: "mock_submission_conflict",
               message: "revision changed",
               requestId: "request-conflict",
             },
@@ -476,4 +499,29 @@ async function flushMicrotasks(): Promise<void> {
 
 function clone<T>(value: T): T {
   return JSON.parse(JSON.stringify(value)) as T;
+}
+
+function apiEnvelope<T>(data: T) {
+  return { data, meta: { requestId: "request-task-editing" } };
+}
+
+function taskLease(
+  resourceId: string,
+  serverRevision: number,
+  state: "owned" | "conflict_choice_required",
+) {
+  return {
+    state,
+    resourceType: "mock_exam_session",
+    resourceId,
+    leaseId: "00000000-0000-4000-8000-000000000902",
+    generation: 1,
+    deviceId: "mp-device-test-000000000000000002",
+    deviceLabel: "当前微信设备",
+    serverRevision,
+    localBaseRevision: state === "conflict_choice_required" ? serverRevision - 1 : null,
+    acquiredAt: "2026-07-19T00:00:00Z",
+    lastSeenAt: "2026-07-19T00:00:00Z",
+    takenOverAt: null,
+  };
 }

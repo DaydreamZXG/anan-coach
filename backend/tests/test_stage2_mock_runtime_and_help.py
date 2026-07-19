@@ -15,8 +15,12 @@ from tests.test_mock_exam_calibration import (
     _seed_mock_qbank,
     _seed_user,
 )
-from tests.test_planning_routes import _client, _seed_learner_and_published_essay_content
+from tests.test_planning_routes import (
+    _client,
+    _seed_learner_and_published_essay_content,
+)
 from tests.test_xingce_learning_routes import _seed_objective_questions, _xingce_task
+from tests.task_editing_helpers import claim_task_edit_headers
 
 
 def test_mock_runtime_is_safe_recoverable_idempotent_and_allows_late_submit(
@@ -30,13 +34,26 @@ def test_mock_runtime_is_safe_recoverable_idempotent_and_allows_late_submit(
     created_response = client.post("/api/v1/mock-exams/weekly", headers=auth)
     assert created_response.status_code == 200, created_response.text
     created = created_response.json()
+    auth = {
+        **auth,
+        **claim_task_edit_headers(
+            client,
+            auth,
+            resource_type="mock_exam_session",
+            resource_id=created["sessionId"],
+            revision=created["revision"],
+        ),
+    }
     assert created["revision"] == 1
     assert created["paperVersionId"]
     assert created["scoringPolicyVersionId"] == (
         "mock-question-weighted-performance-index-v2"
     )
     assert created["scoreMetricName"] == "question_weighted_performance_index"
-    assert created["checkpoint"]["currentQuestionId"] == created["questions"][0]["questionId"]
+    assert (
+        created["checkpoint"]["currentQuestionId"]
+        == created["questions"][0]["questionId"]
+    )
     _assert_no_forbidden_learner_keys(created)
     help_response = client.post(
         "/api/v2/task-help",
@@ -151,16 +168,20 @@ def test_mock_runtime_is_safe_recoverable_idempotent_and_allows_late_submit(
     assert second_saved.status_code == 200, second_saved.text
     assert second_saved.json()["revision"] == 3
     with db_session_factory() as session:
-        persisted = session.execute(
-            text(
-                """
+        persisted = (
+            session.execute(
+                text(
+                    """
                 select learner_bundle, checkpoint
                 from learner.mock_exam_sessions
                 where session_id = cast(:session_id as uuid)
                 """
-            ),
-            {"session_id": created["sessionId"]},
-        ).mappings().one()
+                ),
+                {"session_id": created["sessionId"]},
+            )
+            .mappings()
+            .one()
+        )
         command_payloads = list(
             session.execute(
                 text(
@@ -200,9 +221,7 @@ def test_mock_runtime_is_safe_recoverable_idempotent_and_allows_late_submit(
     assert replayed.status_code == 200
     assert replayed.json() == saved
 
-    recovered = client.get(
-        f"/api/v1/mock-exams/{created['sessionId']}", headers=auth
-    )
+    recovered = client.get(f"/api/v1/mock-exams/{created['sessionId']}", headers=auth)
     resumed = client.post("/api/v1/mock-exams/weekly", headers=auth)
     assert recovered.status_code == 200
     assert recovered.json()["revision"] == 3
@@ -237,17 +256,21 @@ def test_mock_runtime_is_safe_recoverable_idempotent_and_allows_late_submit(
     assert submitted.json()["review"]["estimatedScore"] == 0
     assert submitted.json()["review"]["performanceIndex"] == 0
     with db_session_factory() as session:
-        trajectory_events = session.execute(
-            text(
-                """
+        trajectory_events = (
+            session.execute(
+                text(
+                    """
                 select event_seq, event_type, session_revision
                 from learner.mock_exam_trajectory_events
                 where session_id = cast(:session_id as uuid)
                 order by event_seq
                 """
-            ),
-            {"session_id": created["sessionId"]},
-        ).mappings().all()
+                ),
+                {"session_id": created["sessionId"]},
+            )
+            .mappings()
+            .all()
+        )
     assert [row["event_type"] for row in trajectory_events] == ["visited", "submitted"]
     assert trajectory_events[-1]["session_revision"] == 4
 
@@ -264,15 +287,19 @@ def test_mock_runtime_is_safe_recoverable_idempotent_and_allows_late_submit(
     assert disputed.status_code == 200, disputed.text
     assert disputed.json()["evidenceAttached"] is True
     with db_session_factory() as session:
-        evidence = session.execute(
-            text(
-                """
+        evidence = (
+            session.execute(
+                text(
+                    """
                 select session_kind, evidence_context
                 from learning.xingce_question_disputes
                 where idempotency_key = 'stage2-dispute-001'
                 """
+                )
             )
-        ).mappings().one()
+            .mappings()
+            .one()
+        )
     assert evidence["session_kind"] == "mock_exam"
     assert evidence["evidence_context"]["sessionRevision"] == 4
     assert evidence["evidence_context"]["bundleVersionId"] == created["bundleVersionId"]
@@ -298,9 +325,7 @@ def test_global_help_contract_cannot_request_question_content() -> None:
     service = TaskHelpService(Repository())  # type: ignore[arg-type]
     response = service.get_help(
         user_id="learner-1",
-        request=TaskHelpRequest(
-            sessionId=session_id, mode="mock", scope="operation"
-        ),
+        request=TaskHelpRequest(sessionId=session_id, mode="mock", scope="operation"),
     )
     assert response.content_lookup_performed is False
     assert set(response.blocked_capabilities) == {
@@ -329,6 +354,16 @@ def test_expired_mock_can_submit_without_writing_a_checkpoint_first(
     client = _make_client(db_session_factory)
     auth = {"Authorization": "Bearer stage2-late-direct-submit-token"}
     created = client.post("/api/v1/mock-exams/weekly", headers=auth).json()
+    auth = {
+        **auth,
+        **claim_task_edit_headers(
+            client,
+            auth,
+            resource_type="mock_exam_session",
+            resource_id=created["sessionId"],
+            revision=created["revision"],
+        ),
+    }
     with db_session_factory.begin() as session:
         session.execute(
             text(
@@ -381,9 +416,7 @@ def test_xingce_dispute_is_bound_to_frozen_content_and_server_evidence(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     token = "stage2-xingce-dispute-token"
-    _seed_learner_and_published_essay_content(
-        db_session_factory, access_token=token
-    )
+    _seed_learner_and_published_essay_content(db_session_factory, access_token=token)
     _seed_objective_questions(db_session_factory)
     client = _client(db_session_factory)
     auth = {"Authorization": f"Bearer {token}"}
@@ -424,15 +457,19 @@ def test_xingce_dispute_is_bound_to_frozen_content_and_server_evidence(
     assert replayed.json()["data"] == filed.json()["data"]
     assert filed.json()["data"]["evidenceAttached"] is True
     with db_session_factory() as session:
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 select session_kind, content_version_id, evidence_context
                 from learning.xingce_question_disputes
                 where idempotency_key = 'stage2-xingce-dispute'
                 """
+                )
             )
-        ).mappings().one()
+            .mappings()
+            .one()
+        )
     assert row["session_kind"] == "xingce_task"
     assert row["content_version_id"] == question["contentVersionId"]
     assert row["evidence_context"]["sessionRevision"] == 1

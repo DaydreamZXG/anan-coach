@@ -253,11 +253,13 @@ describe("XingceLearningApi", () => {
         totalElapsedSeconds: 1,
       },
       "save-key",
+      { leaseId: "00000000-0000-4000-8000-000000000001", generation: 1 },
     );
     await api.submitAttempt(
       xingceIds.session,
       { expectedRevision: 2, totalElapsedSeconds: 2 },
       "submit-key",
+      { leaseId: "00000000-0000-4000-8000-000000000001", generation: 1 },
     );
     await api.submitReflection(
       xingceIds.review,

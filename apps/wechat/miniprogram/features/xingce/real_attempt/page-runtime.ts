@@ -4,9 +4,13 @@ import type {
   XingceTaskSession,
 } from "../../../api/xingce-learning";
 import type { TaskRuntimeState } from "../../../task-runtime/contracts";
+import type { TaskEditingApi } from "../../../api/task-editing";
+import type { TaskEditOwnership } from "../../task-editing/coordinator";
 
 export interface XingcePageRuntime {
   api: XingceLearningApi | null;
+  editingApi: TaskEditingApi | null;
+  editOwnership: TaskEditOwnership | null;
   ownerUserId: string;
   planTaskId: string;
   requestedMode: XingceTaskMode | null;
@@ -24,6 +28,8 @@ export interface XingcePageRuntime {
 function createRuntime(): XingcePageRuntime {
   return {
     api: null,
+    editingApi: null,
+    editOwnership: null,
     ownerUserId: "",
     planTaskId: "",
     requestedMode: null,
@@ -75,6 +81,8 @@ export class XingcePageRuntimeRegistry<TPage extends object> {
     if (runtime.timerHandle !== undefined) clearInterval(runtime.timerHandle);
     runtime.timerHandle = undefined;
     runtime.api = null;
+    runtime.editingApi = null;
+    runtime.editOwnership = null;
     runtime.session = null;
     runtime.task = null;
     this.values.delete(page);

@@ -13,6 +13,12 @@ from app.db.session import get_db_session
 from app.domains.auth.deps import get_current_user
 from app.domains.auth.repository import AuthenticatedUser
 from app.domains.planning.repository import PlanningContractError
+from app.domains.task_editing.router import (
+    get_task_editing_service,
+    task_edit_lease_token,
+)
+from app.domains.task_editing.schemas import TaskEditLeaseToken
+from app.domains.task_editing.service import TaskEditingError, TaskEditingService
 from app.domains.xingce_learning.real_attempt.schemas import (
     CauseDecisionCommand,
     CauseFollowupCommand,
@@ -197,18 +203,31 @@ def save_task_session_checkpoint(
     current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
     session: Annotated[Session, Depends(get_db_session)],
     service: Annotated[XingceAttemptService, Depends(get_xingce_attempt_service)],
+    editing: Annotated[TaskEditingService, Depends(get_task_editing_service)],
+    lease: Annotated[TaskEditLeaseToken | None, Depends(task_edit_lease_token)],
 ) -> PublicApiEnvelope[TaskSessionProjection] | JSONResponse:
-    return _write(
-        request=request,
-        response=response,
-        session=session,
-        operation=lambda: service.save_checkpoint(
+    def operation() -> TaskSessionProjection:
+        editing.authorize_write(
+            session,
+            user_id=current_user.user_id,
+            resource_type="xingce_task_session",
+            resource_id=str(session_id),
+            token=lease,
+            expected_revision=command.expected_revision,
+        )
+        return service.save_checkpoint(
             session,
             user_id=current_user.user_id,
             session_id=str(session_id),
             command_id=command_id,
             command=command,
-        ),
+        )
+
+    return _write(
+        request=request,
+        response=response,
+        session=session,
+        operation=operation,
     )
 
 
@@ -225,18 +244,31 @@ def submit_task_session(
     current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
     session: Annotated[Session, Depends(get_db_session)],
     service: Annotated[XingceAttemptService, Depends(get_xingce_attempt_service)],
+    editing: Annotated[TaskEditingService, Depends(get_task_editing_service)],
+    lease: Annotated[TaskEditLeaseToken | None, Depends(task_edit_lease_token)],
 ) -> PublicApiEnvelope[TaskSessionProjection] | JSONResponse:
-    return _write(
-        request=request,
-        response=response,
-        session=session,
-        operation=lambda: service.submit(
+    def operation() -> TaskSessionProjection:
+        editing.authorize_write(
+            session,
+            user_id=current_user.user_id,
+            resource_type="xingce_task_session",
+            resource_id=str(session_id),
+            token=lease,
+            expected_revision=command.expected_revision,
+        )
+        return service.submit(
             session,
             user_id=current_user.user_id,
             session_id=str(session_id),
             command_id=command_id,
             command=command,
-        ),
+        )
+
+    return _write(
+        request=request,
+        response=response,
+        session=session,
+        operation=operation,
     )
 
 
@@ -338,6 +370,15 @@ def _write(
     except XingceAttemptError as exc:
         session.rollback()
         return _error(request, exc)
+    except TaskEditingError as exc:
+        session.rollback()
+        return public_error_response(
+            request=request,
+            status_code=exc.status_code,
+            code=exc.code,
+            message=exc.message,
+            details=exc.details,
+        )
     except PlanningContractError:
         session.rollback()
         return public_error_response(
