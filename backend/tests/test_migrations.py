@@ -337,6 +337,16 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
         connection.execute(text("drop table ai_audit.agent_tool_call_events"))
         connection.execute(text("drop table ai_audit.agent_run_versions"))
         connection.execute(text("drop table ai_audit.agent_definition_releases"))
+        connection.execute(
+            text("drop table ai_audit.essay_review_grading_bindings cascade")
+        )
+        connection.execute(
+            text("drop table ai_audit.essay_grading_adjudications cascade")
+        )
+        connection.execute(
+            text("drop table ai_audit.essay_grading_candidates cascade")
+        )
+        connection.execute(text("drop table ai_audit.essay_grading_runs cascade"))
         connection.execute(text("drop table ai_audit.essay_review_model_calls"))
         connection.execute(text("drop table ai_audit.essay_review_checkpoints"))
         connection.execute(

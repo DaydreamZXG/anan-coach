@@ -127,6 +127,20 @@ class Settings:
     ai_essay_review_provider_replay_retention_seconds: int = 0
     ai_essay_review_max_input_bytes: int = 0
     ai_essay_review_max_output_bytes: int = 0
+    ai_essay_grading_plan_release_id: str = ""
+    ai_essay_grading_price_cards_json: str = ""
+    ai_essay_grok_base_url: str = ""
+    ai_essay_grok_api_key: str = ""
+    ai_essay_grok_model: str = ""
+    ai_essay_grok_provider_release_id: str = ""
+    ai_essay_grok_provider_https_host_allowlist: str = ""
+    ai_essay_grok_provider_dpa_confirmed: bool = False
+    ai_essay_grok_provider_idempotency_capability: str = ""
+    ai_essay_grok_provider_idempotency_key_header: str = ""
+    ai_essay_grok_provider_request_id_header: str = ""
+    ai_essay_grok_provider_replay_retention_seconds: int = 0
+    ai_essay_grok_max_input_bytes: int = 0
+    ai_essay_grok_max_output_bytes: int = 0
     ai_price_version: str = ""
     ai_input_cny_per_million_tokens: str = ""
     ai_cached_input_cny_per_million_tokens: str = ""
@@ -155,7 +169,7 @@ class Settings:
     wechat_virtual_pay_message_encoding_aes_key: str = ""
     privacy_export_expiry_seconds: int = 86400
     operations_metrics_token: str = ""
-    required_database_revision: str = "20260719_42"
+    required_database_revision: str = "20260719_43"
     support_jwt_jwks_url: str = ""
     support_jwt_issuer: str = ""
     support_jwt_audience: str = ""
@@ -471,6 +485,53 @@ def get_settings() -> Settings:
         ai_essay_review_max_output_bytes=int(
             os.getenv("AI_ESSAY_REVIEW_MAX_OUTPUT_BYTES", "0")
         ),
+        ai_essay_grading_plan_release_id=os.getenv(
+            "AI_ESSAY_GRADING_PLAN_RELEASE_ID",
+            "",
+        ),
+        ai_essay_grading_price_cards_json=os.getenv(
+            "AI_ESSAY_GRADING_PRICE_CARDS_JSON",
+            "",
+        ),
+        ai_essay_grok_base_url=os.getenv("AI_ESSAY_GROK_BASE_URL", ""),
+        ai_essay_grok_api_key=os.getenv("AI_ESSAY_GROK_API_KEY", ""),
+        ai_essay_grok_model=os.getenv("AI_ESSAY_GROK_MODEL", ""),
+        ai_essay_grok_provider_release_id=os.getenv(
+            "AI_ESSAY_GROK_PROVIDER_RELEASE_ID",
+            "",
+        ),
+        ai_essay_grok_provider_https_host_allowlist=os.getenv(
+            "AI_ESSAY_GROK_PROVIDER_HTTPS_HOST_ALLOWLIST",
+            "",
+        ),
+        ai_essay_grok_provider_dpa_confirmed=_environment_bool(
+            "AI_ESSAY_GROK_PROVIDER_DPA_CONFIRMED",
+            default=False,
+        ),
+        ai_essay_grok_provider_idempotency_capability=os.getenv(
+            "AI_ESSAY_GROK_PROVIDER_IDEMPOTENCY_CAPABILITY",
+            "",
+        ),
+        ai_essay_grok_provider_idempotency_key_header=os.getenv(
+            "AI_ESSAY_GROK_PROVIDER_IDEMPOTENCY_KEY_HEADER",
+            "",
+        ),
+        ai_essay_grok_provider_request_id_header=os.getenv(
+            "AI_ESSAY_GROK_PROVIDER_REQUEST_ID_HEADER",
+            "",
+        ),
+        ai_essay_grok_provider_replay_retention_seconds=int(
+            os.getenv(
+                "AI_ESSAY_GROK_PROVIDER_REPLAY_RETENTION_SECONDS",
+                "0",
+            )
+        ),
+        ai_essay_grok_max_input_bytes=int(
+            os.getenv("AI_ESSAY_GROK_MAX_INPUT_BYTES", "0")
+        ),
+        ai_essay_grok_max_output_bytes=int(
+            os.getenv("AI_ESSAY_GROK_MAX_OUTPUT_BYTES", "0")
+        ),
         ai_price_version=os.getenv("AI_PRICE_VERSION", ""),
         ai_input_cny_per_million_tokens=os.getenv(
             "AI_INPUT_CNY_PER_MILLION_TOKENS",
@@ -536,7 +597,7 @@ def get_settings() -> Settings:
         ),
         operations_metrics_token=os.getenv("OPERATIONS_METRICS_TOKEN", ""),
         required_database_revision=os.getenv(
-            "REQUIRED_DATABASE_REVISION", "20260719_41"
+            "REQUIRED_DATABASE_REVISION", "20260719_43"
         ),
         support_jwt_jwks_url=os.getenv("SUPPORT_JWT_JWKS_URL", ""),
         support_jwt_issuer=os.getenv("SUPPORT_JWT_ISSUER", ""),

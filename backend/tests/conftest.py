@@ -229,6 +229,11 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in essay_multi_model._TEST_STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
+        essay_multi_model_runtime = import_module(
+            "migrations.versions.20260719_43_complete_essay_multi_model_runtime"
+        )
+        for statement in essay_multi_model_runtime._TEST_STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
 
 
 def _split_postgres_statements(script: str) -> list[str]:

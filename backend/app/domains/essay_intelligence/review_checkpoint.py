@@ -6,6 +6,7 @@ from datetime import UTC, datetime, timedelta
 from hashlib import sha256
 import json
 import os
+import re
 from typing import Any
 from uuid import UUID, uuid4
 
@@ -18,6 +19,9 @@ from app.core.config import Settings
 
 
 CHECKPOINT_CONTRACT_VERSION = "essay-review-checkpoint-v1"
+_CHECKPOINT_PHASE_PATTERN = re.compile(
+    r"^(?:initial|repair|candidate:(?:gemini|grok|hunyuan)|adjudication)$"
+)
 
 
 class ReviewCheckpointConfigurationError(RuntimeError):
@@ -145,7 +149,7 @@ class EssayReviewCheckpointRepository:
         provider_request_id_fingerprint: str | None = None,
         now: datetime | None = None,
     ) -> None:
-        if phase not in {"initial", "repair"}:
+        if _CHECKPOINT_PHASE_PATTERN.fullmatch(phase) is None:
             raise ReviewCheckpointContractError("Unsupported review checkpoint phase")
         if len(output_fingerprint) != 64:
             raise ReviewCheckpointContractError(

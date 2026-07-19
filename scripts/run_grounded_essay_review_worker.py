@@ -8,7 +8,7 @@ import sys
 import time
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.orm import sessionmaker
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -23,7 +23,9 @@ from app.domains.essay_intelligence.review_worker import (  # noqa: E402
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Run the durable v2 grounded Guokao essay review worker."
+        description=(
+            "Run the durable v2 three-candidate grounded Guokao essay review worker."
+        )
     )
     parser.add_argument(
         "--database-url",

@@ -14,10 +14,10 @@ from app.domains.commerce.repository import (
 )
 from app.domains.commerce.service import CommerceService
 from app.domains.essay_intelligence.grounding import review_input_fingerprint
-from app.domains.essay_intelligence.grounded_provider import (
-    GroundedReviewProviderConfigurationError,
-    grounded_review_provider_identity,
-    validate_grounded_review_provider_security,
+from app.domains.essay_intelligence.multi_model_runtime import (
+    EssayMultiModelRuntimeConfigurationError,
+    EssayMultiModelRuntimePlan,
+    EssayReviewExecutionIdentity,
 )
 from app.domains.essay_intelligence.review_contracts import review_execution_fingerprint
 from app.domains.essay_intelligence.schemas import EssayReviewRequest
@@ -65,11 +65,20 @@ class EssayReviewWorkflowService:
         jobs: BackgroundJobRepository | None = None,
         outbox: OutboxRepository | None = None,
         settings: Settings | None = None,
+        execution_identity_override: EssayReviewExecutionIdentity | None = None,
     ) -> None:
         self._repository = repository or EssayReviewWorkflowRepository()
         self._jobs = jobs or BackgroundJobRepository()
         self._outbox = outbox or OutboxRepository()
         self._settings = settings or get_settings()
+        if (
+            execution_identity_override is not None
+            and self._settings.environment.strip().casefold() == "production"
+        ):
+            raise EssayWorkflowContractError(
+                "Production review queues cannot override the formal grading plan"
+            )
+        self._execution_identity_override = execution_identity_override
 
     def create_attempt(
         self,
@@ -905,18 +914,9 @@ class EssayReviewWorkflowService:
             request=request,
             input_fingerprint=input_fingerprint,
         )
-        model = self._settings.ai_essay_review_model.strip()
-        if not model:
-            raise EssayWorkflowContractError(
-                "Grounded essay review model is not configured"
-            )
-        try:
-            validate_grounded_review_provider_security(self._settings)
-            provider_identity = grounded_review_provider_identity(self._settings)
-        except GroundedReviewProviderConfigurationError as exc:
-            raise EssayWorkflowContractError(
-                "Grounded essay review provider release is not approved"
-            ) from exc
+        identity = self._review_execution_identity()
+        provider_identity = identity.provider
+        model = identity.model
         previous_review = self._repository.latest_review_for_input(
             session,
             user_id=user_id,
@@ -1152,6 +1152,18 @@ class EssayReviewWorkflowService:
             job=job,
         )
         return self._job_view(session, user_id=user_id, job=job)
+
+    def _review_execution_identity(self) -> EssayReviewExecutionIdentity:
+        if self._execution_identity_override is not None:
+            return self._execution_identity_override
+        try:
+            return EssayMultiModelRuntimePlan.from_settings(
+                self._settings
+            ).execution_identity
+        except EssayMultiModelRuntimeConfigurationError as exc:
+            raise EssayWorkflowContractError(
+                "Formal multi-model essay grading plan is not approved"
+            ) from exc
 
     def _record_execution_command(
         self,

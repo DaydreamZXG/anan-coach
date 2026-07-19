@@ -802,7 +802,8 @@ for each row execute function ai_audit.enforce_model_call_ledger_transition();
 create table ai_audit.essay_review_checkpoints (
   checkpoint_id uuid primary key,
   job_id uuid not null references platform.background_jobs(job_id) on delete cascade,
-  phase text not null check (phase in ('initial', 'repair')),
+  phase text not null constraint essay_review_checkpoint_phase_check
+    check (phase in ('initial', 'repair')),
   call_id uuid not null references ai_audit.model_call_ledger(call_id),
   contract_version text not null check (contract_version = 'essay-review-checkpoint-v1'),
   key_id text not null check (char_length(key_id) > 0),

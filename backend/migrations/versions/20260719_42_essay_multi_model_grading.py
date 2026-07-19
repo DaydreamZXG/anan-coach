@@ -40,7 +40,7 @@ _TEST_STATEMENTS = (
       final_score_upper numeric(6, 2) null,
       final_score_maximum numeric(6, 2) null,
       created_at timestamptz not null default now(),
-      check (
+      constraint essay_grading_run_final_score_check check (
         (state = 'unable_to_score' and valid_candidate_count < 2
           and num_nonnulls(selected_candidate_id, final_score_lower,
             final_score_recommended, final_score_upper, final_score_maximum) = 0)

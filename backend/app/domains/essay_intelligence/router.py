@@ -121,6 +121,10 @@ def get_essay_closure_service() -> EssayClosureService:
     return EssayClosureService()
 
 
+def get_essay_review_workflow_service() -> EssayReviewWorkflowService:
+    return EssayReviewWorkflowService()
+
+
 @router.post(
     "/handwriting-recognitions",
     response_model=PublicApiEnvelope[RecognitionRevision],
@@ -284,9 +288,13 @@ def create_essay_attempt(
     command_id: Annotated[str, Depends(_idempotency_key)],
     current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
     session: Annotated[Session, Depends(get_db_session)],
+    workflow: Annotated[
+        EssayReviewWorkflowService,
+        Depends(get_essay_review_workflow_service),
+    ],
 ) -> PublicApiEnvelope[EssayAttemptCreateResult]:
     try:
-        result = EssayReviewWorkflowService().create_attempt(
+        result = workflow.create_attempt(
             session,
             user_id=current_user.user_id,
             command_id=f"{current_user.user_id}:{command_id}",
@@ -314,9 +322,13 @@ def create_essay_answer(
     command_id: Annotated[str, Depends(_idempotency_key)],
     current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
     session: Annotated[Session, Depends(get_db_session)],
+    workflow: Annotated[
+        EssayReviewWorkflowService,
+        Depends(get_essay_review_workflow_service),
+    ],
 ) -> PublicApiEnvelope[EssayAnswerCreateResult]:
     try:
-        result = EssayReviewWorkflowService().create_answer(
+        result = workflow.create_answer(
             session,
             user_id=current_user.user_id,
             command_id=f"{current_user.user_id}:{command_id}",
@@ -544,9 +556,13 @@ def queue_grounded_essay_review(
     current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
     session: Annotated[Session, Depends(get_db_session)],
     commerce_service: Annotated[CommerceService, Depends(get_commerce_service)],
+    workflow: Annotated[
+        EssayReviewWorkflowService,
+        Depends(get_essay_review_workflow_service),
+    ],
 ) -> PublicApiEnvelope[EssayReviewJobView]:
     try:
-        result = EssayReviewWorkflowService().queue_review(
+        result = workflow.queue_review(
             session,
             user_id=current_user.user_id,
             command_id=f"{current_user.user_id}:{command_id}",
@@ -584,9 +600,13 @@ def ensure_current_grounded_essay_review(
     current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
     session: Annotated[Session, Depends(get_db_session)],
     commerce_service: Annotated[CommerceService, Depends(get_commerce_service)],
+    workflow: Annotated[
+        EssayReviewWorkflowService,
+        Depends(get_essay_review_workflow_service),
+    ],
 ) -> PublicApiEnvelope[EssayCurrentReviewEnsureResult]:
     try:
-        result = EssayReviewWorkflowService().ensure_current_review(
+        result = workflow.ensure_current_review(
             session,
             user_id=current_user.user_id,
             command_id=f"{current_user.user_id}:{command_id}",
@@ -616,9 +636,13 @@ def regenerate_grounded_essay_review(
     current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
     session: Annotated[Session, Depends(get_db_session)],
     commerce_service: Annotated[CommerceService, Depends(get_commerce_service)],
+    workflow: Annotated[
+        EssayReviewWorkflowService,
+        Depends(get_essay_review_workflow_service),
+    ],
 ) -> PublicApiEnvelope[EssayReviewJobView]:
     try:
-        result = EssayReviewWorkflowService().regenerate_review_job(
+        result = workflow.regenerate_review_job(
             session,
             user_id=current_user.user_id,
             command_id=f"{current_user.user_id}:{command_id}",
@@ -653,9 +677,13 @@ def get_grounded_essay_review_job(
     response: Response,
     current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
     session: Annotated[Session, Depends(get_db_session)],
+    workflow: Annotated[
+        EssayReviewWorkflowService,
+        Depends(get_essay_review_workflow_service),
+    ],
 ) -> PublicApiEnvelope[EssayReviewJobView]:
     try:
-        result = EssayReviewWorkflowService().get_job(
+        result = workflow.get_job(
             session,
             user_id=current_user.user_id,
             job_id=job_id,
@@ -677,9 +705,13 @@ def get_grounded_essay_review(
     response: Response,
     current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
     session: Annotated[Session, Depends(get_db_session)],
+    workflow: Annotated[
+        EssayReviewWorkflowService,
+        Depends(get_essay_review_workflow_service),
+    ],
 ) -> PublicApiEnvelope[EssayReviewResponse]:
     try:
-        result = EssayReviewWorkflowService().get_review(
+        result = workflow.get_review(
             session,
             user_id=current_user.user_id,
             review_version_id=review_version_id,

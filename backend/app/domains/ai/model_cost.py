@@ -134,6 +134,7 @@ class ModelCallRecord:
     status: str
     input_fingerprint: str
     output_fingerprint: str | None
+    error_code: str | None
     price_card: ModelPriceCard
 
 
@@ -366,6 +367,36 @@ class ModelCallLedgerRepository:
             )
         return _record(row)
 
+    def terminal_for_checkpoint(
+        self,
+        session: Session,
+        *,
+        call_id: UUID,
+        job_id: UUID,
+        input_fingerprint: str,
+    ) -> ModelCallRecord:
+        row = session.execute(
+            text(
+                """
+                select * from ai_audit.model_call_ledger
+                 where call_id = cast(:call_id as uuid)
+                   and job_id = cast(:job_id as uuid)
+                   and status in ('succeeded', 'failed')
+                   and input_fingerprint = :input_fingerprint
+                """
+            ),
+            {
+                "call_id": str(call_id),
+                "job_id": str(job_id),
+                "input_fingerprint": input_fingerprint,
+            },
+        ).mappings().one_or_none()
+        if row is None:
+            raise ModelCallLedgerError(
+                "Checkpoint is not backed by a matching terminal model call"
+            )
+        return _record(row)
+
     def succeed(
         self,
         session: Session,
@@ -473,6 +504,7 @@ def _record(row: RowMapping) -> ModelCallRecord:
             if row["output_fingerprint"] is not None
             else None
         ),
+        error_code=str(row["error_code"]) if row["error_code"] is not None else None,
         price_card=ModelPriceCard(
             version=str(row["price_version"]),
             input_cny_per_million=Decimal(str(row["input_rate_cny_per_million"])),

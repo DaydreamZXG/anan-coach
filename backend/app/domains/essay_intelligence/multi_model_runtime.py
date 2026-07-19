@@ -1,0 +1,226 @@
+from __future__ import annotations
+
+from dataclasses import dataclass, replace
+from decimal import Decimal, InvalidOperation
+from hashlib import sha256
+import json
+import re
+
+from app.core.config import Settings
+from app.domains.ai.model_cost import ModelCostConfigurationError, ModelPriceCard
+from app.domains.essay_intelligence.blind_adjudicator import (
+    BlindAdjudicatorSettings,
+    OpenAICompatibleBlindAdjudicatorProvider,
+)
+from app.domains.essay_intelligence.grounded_provider import (
+    GroundedEssayReviewProvider,
+    GroundedReviewProviderConfigurationError,
+    validate_grounded_review_provider_security,
+)
+from app.domains.essay_intelligence.hunyuan_cloud_function import (
+    HunyuanCloudFunctionSettings,
+)
+from app.domains.essay_intelligence.hunyuan_grounded_provider import (
+    HunyuanGroundedEssayReviewProvider,
+)
+from app.domains.essay_intelligence.multi_model_candidate_runner import (
+    EssayCandidateSlot,
+)
+from app.domains.essay_intelligence.review_contracts import (
+    GROUNDED_REVIEW_PROMPT_VERSION,
+    GROUNDED_REVIEW_PROVIDER_SCHEMA_VERSION,
+)
+
+
+_RELEASE_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$")
+_PRICE_KEYS = frozenset({"gemini", "grok", "hunyuan", "adjudicator"})
+
+
+class EssayMultiModelRuntimeConfigurationError(RuntimeError):
+    pass
+
+
+@dataclass(frozen=True)
+class EssayReviewExecutionIdentity:
+    provider: str
+    model: str
+
+
+@dataclass(frozen=True)
+class EssayMultiModelRuntimePlan:
+    release_id: str
+    candidate_slots: tuple[EssayCandidateSlot, ...]
+    adjudicator_provider: OpenAICompatibleBlindAdjudicatorProvider
+    adjudicator_price_card: ModelPriceCard
+    execution_identity: EssayReviewExecutionIdentity
+
+    @property
+    def slot_ids(self) -> tuple[str, ...]:
+        return tuple(slot.slot_id for slot in self.candidate_slots)
+
+    @classmethod
+    def from_settings(cls, settings: Settings) -> "EssayMultiModelRuntimePlan":
+        release_id = settings.ai_essay_grading_plan_release_id.strip()
+        if _RELEASE_PATTERN.fullmatch(release_id) is None:
+            raise EssayMultiModelRuntimeConfigurationError(
+                "AI_ESSAY_GRADING_PLAN_RELEASE_ID is required and must be versioned"
+            )
+        prices = _price_cards(settings.ai_essay_grading_price_cards_json)
+        try:
+            validate_grounded_review_provider_security(settings)
+            primary = GroundedEssayReviewProvider(settings)
+            primary.validate_configuration()
+            secondary_settings = _secondary_settings(settings)
+            validate_grounded_review_provider_security(secondary_settings)
+            secondary = GroundedEssayReviewProvider(secondary_settings)
+            secondary.validate_configuration()
+            hunyuan = HunyuanGroundedEssayReviewProvider(
+                HunyuanCloudFunctionSettings.from_environment()
+            )
+            adjudicator = OpenAICompatibleBlindAdjudicatorProvider(
+                BlindAdjudicatorSettings.from_environment()
+            )
+        except (GroundedReviewProviderConfigurationError, ValueError) as exc:
+            raise EssayMultiModelRuntimeConfigurationError(str(exc)) from exc
+        except RuntimeError as exc:
+            raise EssayMultiModelRuntimeConfigurationError(str(exc)) from exc
+
+        slots = (
+            EssayCandidateSlot(
+                slot_id="gemini",
+                provider=primary,
+                price_card=prices["gemini"],
+                prompt_version=GROUNDED_REVIEW_PROMPT_VERSION,
+                schema_version=GROUNDED_REVIEW_PROVIDER_SCHEMA_VERSION,
+            ),
+            EssayCandidateSlot(
+                slot_id="grok",
+                provider=secondary,
+                price_card=prices["grok"],
+                prompt_version=GROUNDED_REVIEW_PROMPT_VERSION,
+                schema_version=GROUNDED_REVIEW_PROVIDER_SCHEMA_VERSION,
+            ),
+            EssayCandidateSlot(
+                slot_id="hunyuan",
+                provider=hunyuan,
+                price_card=prices["hunyuan"],
+                prompt_version=GROUNDED_REVIEW_PROMPT_VERSION,
+                schema_version=GROUNDED_REVIEW_PROVIDER_SCHEMA_VERSION,
+            ),
+        )
+        identities = {
+            (slot.provider.provider_release_id.casefold(), slot.provider.model.casefold())
+            for slot in slots
+        }
+        if len(identities) != len(slots):
+            raise EssayMultiModelRuntimeConfigurationError(
+                "Formal essay candidate releases must be independent"
+            )
+        plan_document = {
+            "releaseId": release_id,
+            "candidates": [
+                {
+                    "slotId": slot.slot_id,
+                    "providerReleaseId": slot.provider.provider_release_id,
+                    "model": slot.provider.model,
+                    "promptVersion": slot.prompt_version,
+                    "schemaVersion": slot.schema_version,
+                    "priceVersion": slot.price_card.version,
+                }
+                for slot in slots
+            ],
+            "adjudicator": {
+                "providerReleaseId": adjudicator.provider_release_id,
+                "model": adjudicator.model,
+                "priceVersion": prices["adjudicator"].version,
+            },
+        }
+        fingerprint = sha256(
+            json.dumps(
+                plan_document,
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ).hexdigest()
+        return cls(
+            release_id=release_id,
+            candidate_slots=slots,
+            adjudicator_provider=adjudicator,
+            adjudicator_price_card=prices["adjudicator"],
+            execution_identity=EssayReviewExecutionIdentity(
+                provider=f"essay-multi-model@{release_id}",
+                model=f"plan-sha256:{fingerprint}",
+            ),
+        )
+
+
+def _secondary_settings(settings: Settings) -> Settings:
+    return replace(
+        settings,
+        ai_provider_base_url=settings.ai_essay_grok_base_url,
+        ai_api_key=settings.ai_essay_grok_api_key,
+        ai_essay_review_model=settings.ai_essay_grok_model,
+        ai_essay_review_provider_release_id=(
+            settings.ai_essay_grok_provider_release_id
+        ),
+        ai_essay_review_provider_https_host_allowlist=(
+            settings.ai_essay_grok_provider_https_host_allowlist
+        ),
+        ai_essay_review_provider_dpa_confirmed=(
+            settings.ai_essay_grok_provider_dpa_confirmed
+        ),
+        ai_essay_review_provider_idempotency_capability=(
+            settings.ai_essay_grok_provider_idempotency_capability
+        ),
+        ai_essay_review_provider_idempotency_key_header=(
+            settings.ai_essay_grok_provider_idempotency_key_header
+        ),
+        ai_essay_review_provider_request_id_header=(
+            settings.ai_essay_grok_provider_request_id_header
+        ),
+        ai_essay_review_provider_replay_retention_seconds=(
+            settings.ai_essay_grok_provider_replay_retention_seconds
+        ),
+        ai_essay_review_max_input_bytes=settings.ai_essay_grok_max_input_bytes,
+        ai_essay_review_max_output_bytes=settings.ai_essay_grok_max_output_bytes,
+    )
+
+
+def _price_cards(raw: str) -> dict[str, ModelPriceCard]:
+    try:
+        document = json.loads(raw)
+    except (TypeError, json.JSONDecodeError) as exc:
+        raise EssayMultiModelRuntimeConfigurationError(
+            "AI_ESSAY_GRADING_PRICE_CARDS_JSON must be a JSON object"
+        ) from exc
+    if not isinstance(document, dict) or set(document) != _PRICE_KEYS:
+        raise EssayMultiModelRuntimeConfigurationError(
+            "Essay grading price cards must define gemini, grok, hunyuan, and adjudicator"
+        )
+    result: dict[str, ModelPriceCard] = {}
+    for key in sorted(_PRICE_KEYS):
+        item = document[key]
+        if not isinstance(item, dict) or set(item) != {
+            "version",
+            "inputCnyPerMillion",
+            "cachedInputCnyPerMillion",
+            "outputCnyPerMillion",
+        }:
+            raise EssayMultiModelRuntimeConfigurationError(
+                f"Essay grading price card {key} has an invalid contract"
+            )
+        try:
+            result[key] = ModelPriceCard(
+                version=str(item["version"]),
+                input_cny_per_million=Decimal(str(item["inputCnyPerMillion"])),
+                cached_input_cny_per_million=Decimal(
+                    str(item["cachedInputCnyPerMillion"])
+                ),
+                output_cny_per_million=Decimal(str(item["outputCnyPerMillion"])),
+            )
+        except (InvalidOperation, ModelCostConfigurationError, ValueError) as exc:
+            raise EssayMultiModelRuntimeConfigurationError(
+                f"Essay grading price card {key} is invalid"
+            ) from exc
+    return result

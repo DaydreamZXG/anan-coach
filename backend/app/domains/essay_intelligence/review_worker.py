@@ -45,6 +45,23 @@ from app.domains.essay_intelligence.review_contracts import (
 from app.domains.essay_intelligence.review_checkpoint import (
     EssayReviewCheckpointRepository,
 )
+from app.domains.essay_intelligence.blind_adjudicator import (
+    LedgeredEssayBlindAdjudicator,
+)
+from app.domains.essay_intelligence.multi_model_candidate_runner import (
+    LedgeredEssayCandidateRunner,
+)
+from app.domains.essay_intelligence.multi_model_grading_coordinator import (
+    EssayMultiModelGradingCoordinator,
+    EssayMultiModelGradingExecution,
+    EssayMultiModelGradingExecutionError,
+)
+from app.domains.essay_intelligence.multi_model_grading_repository import (
+    EssayMultiModelGradingRepository,
+)
+from app.domains.essay_intelligence.multi_model_runtime import (
+    EssayMultiModelRuntimePlan,
+)
 from app.domains.essay_intelligence.review_service import (
     GroundedReviewApplicationResult,
     GroundedReviewApplicationService,
@@ -111,10 +128,28 @@ class GroundedEssayReviewWorker:
         outbox: OutboxRepository | None = None,
         application: GroundedReviewApplicationService | None = None,
         checkpoints: EssayReviewCheckpointRepository | None = None,
+        runtime_plan: EssayMultiModelRuntimePlan | None = None,
+        grading_repository: EssayMultiModelGradingRepository | None = None,
     ) -> None:
         self._settings = settings
-        self._provider = provider or GroundedEssayReviewProvider(settings)
-        self._price_card = price_card or ModelPriceCard.from_settings(settings)
+        if provider is not None and runtime_plan is not None:
+            raise ValueError("Review worker cannot mix legacy and multi-model runtimes")
+        if (
+            provider is not None
+            and settings.environment.strip().casefold() == "production"
+        ):
+            raise ValueError("Production review worker forbids single-model execution")
+        self._provider = provider
+        self._runtime_plan = (
+            None
+            if provider is not None
+            else runtime_plan or EssayMultiModelRuntimePlan.from_settings(settings)
+        )
+        self._price_card = (
+            price_card or ModelPriceCard.from_settings(settings)
+            if provider is not None
+            else None
+        )
         self._workflow = workflow_repository or EssayReviewWorkflowRepository()
         self._jobs = jobs or BackgroundJobRepository()
         self._ledger = ledger or ModelCallLedgerRepository()
@@ -123,6 +158,7 @@ class GroundedEssayReviewWorker:
         self._checkpoints = checkpoints or EssayReviewCheckpointRepository.from_settings(
             settings
         )
+        self._grading = grading_repository or EssayMultiModelGradingRepository()
 
     def recover_stale_claims(
         self,
@@ -216,6 +252,21 @@ class GroundedEssayReviewWorker:
             )
             session.commit()
             return final
+
+        if self._runtime_plan is not None:
+            return self._process_multi_model_claim(
+                session,
+                job=job,
+                user_id=user_id,
+                context=context,
+                request=request,
+                review_version_id=review_version_id,
+                input_fingerprint=expected_fingerprint,
+                execution=execution,
+            )
+
+        if self._provider is None or self._price_card is None:
+            raise RuntimeError("Legacy review worker runtime is incomplete")
 
         try:
             initial, initial_call = self._candidate(
@@ -327,13 +378,157 @@ class GroundedEssayReviewWorker:
             execution=execution,
         )
 
+    def _process_multi_model_claim(
+        self,
+        session: Session,
+        *,
+        job: BackgroundJob,
+        user_id: str,
+        context: GroundedReviewContext,
+        request: EssayReviewRequest,
+        review_version_id: UUID,
+        input_fingerprint: str,
+        execution: ReviewExecution,
+    ) -> BackgroundJob:
+        plan = self._runtime_plan
+        if plan is None:
+            raise RuntimeError("Formal multi-model grading plan is unavailable")
+        runner = LedgeredEssayCandidateRunner(
+            session=session,
+            settings=self._settings,
+            job=job,
+            slots=plan.candidate_slots,
+            evidence_refs=_job_evidence_refs(job),
+            ledger=self._ledger,
+            checkpoints=self._checkpoints,
+        )
+        adjudicator = LedgeredEssayBlindAdjudicator(
+            session=session,
+            app_settings=self._settings,
+            job=job,
+            provider=plan.adjudicator_provider,
+            price_card=plan.adjudicator_price_card,
+            evidence_refs=_job_evidence_refs(job),
+            ledger=self._ledger,
+            checkpoints=self._checkpoints,
+        )
+        coordinator = EssayMultiModelGradingCoordinator(
+            slot_ids=plan.slot_ids,
+            candidate_runner=runner,
+            adjudicator=adjudicator,
+        )
+        try:
+            grading = coordinator.execute(
+                intended_review_version_id=review_version_id,
+                context=context,
+                request=request,
+                input_fingerprint=input_fingerprint,
+            )
+        except EssayMultiModelGradingExecutionError as exc:
+            return self._multi_model_execution_failure(
+                session,
+                job=job,
+                context=context,
+                request=request,
+                review_version_id=review_version_id,
+                execution=execution,
+                failure=exc,
+            )
+
+        if grading.resolved.payload is None:
+            return self._terminal_failure(
+                session,
+                job=job,
+                context=context,
+                request=request,
+                review_version_id=review_version_id,
+                code="multi_model_insufficient_valid_candidates",
+                execution=execution,
+                grading_execution=grading,
+            )
+
+        selected_payload = grading.resolved.payload
+        selected_result = GroundedReviewProviderResult(
+            payload=selected_payload.model_dump(by_alias=True, mode="json"),
+            raw_content="",
+            usage=_zero_usage(),
+            latency_ms=0,
+            output_fingerprint=review_output_fingerprint(selected_payload),
+        )
+        applied = self._apply_candidate(
+            review_version_id=review_version_id,
+            context=context,
+            request=request,
+            candidate=selected_result,
+            execution=execution,
+        )
+        if applied.response.status != "completed":
+            return self._terminal_failure(
+                session,
+                job=job,
+                context=context,
+                request=request,
+                review_version_id=review_version_id,
+                code="multi_model_selected_candidate_rejected",
+                execution=execution,
+                grading_execution=grading,
+            )
+        return self._persist_result(
+            session,
+            job=job,
+            user_id=user_id,
+            context=context,
+            request=request,
+            result=applied,
+            calls=[],
+            execution=execution,
+            grading_execution=grading,
+        )
+
+    def _multi_model_execution_failure(
+        self,
+        session: Session,
+        *,
+        job: BackgroundJob,
+        context: GroundedReviewContext,
+        request: EssayReviewRequest,
+        review_version_id: UUID,
+        execution: ReviewExecution,
+        failure: EssayMultiModelGradingExecutionError,
+    ) -> BackgroundJob:
+        if job.claim_token is None:
+            raise JobContractError("Review job lost its claim")
+        failed = self._jobs.fail(
+            session,
+            job_id=job.job_id,
+            claim_token=job.claim_token,
+            error_code=failure.code,
+            error_message=failure.code,
+            retryable=failure.retryable,
+        )
+        if failed.status != "failed":
+            session.commit()
+            return failed
+        return self._terminal_failure(
+            session,
+            job=failed,
+            context=context,
+            request=request,
+            review_version_id=review_version_id,
+            code=failure.code,
+            execution=execution,
+            already_failed=True,
+            grading_error=failure,
+        )
+
     def _execution(self, *, job: BackgroundJob) -> ReviewExecution:
         payload = job.payload
         input_fingerprint = str(payload["inputFingerprint"])
         attempt_no = int(payload["executionAttemptNo"])
         provider = str(payload["executionProvider"])
         model = str(payload["executionModel"])
-        if provider != self._provider.provider_name or model != self._provider.model:
+        identity = self._execution_identity()
+        if provider != identity[0] or model != identity[1]:
             raise ValueError("Queued review execution release differs from worker release")
         expected = review_execution_fingerprint(
             input_fingerprint=input_fingerprint,
@@ -358,6 +553,14 @@ class GroundedEssayReviewWorker:
             ),
         )
 
+    def _execution_identity(self) -> tuple[str, str]:
+        if self._runtime_plan is not None:
+            identity = self._runtime_plan.execution_identity
+            return identity.provider, identity.model
+        if self._provider is None:
+            raise RuntimeError("Review execution identity is unavailable")
+        return self._provider.provider_name, self._provider.model
+
     def _candidate(
         self,
         session: Session,
@@ -368,6 +571,8 @@ class GroundedEssayReviewWorker:
         input_fingerprint: str,
         invoke: Callable[[str], GroundedReviewProviderResult],
     ) -> tuple[GroundedReviewProviderResult, ModelCallRecord]:
+        if self._provider is None or self._price_card is None:
+            raise RuntimeError("Single-model candidate path is test-only")
         saved = self._checkpoints.load(
             session,
             job_id=job.job_id,
@@ -654,6 +859,7 @@ class GroundedEssayReviewWorker:
         candidate: GroundedReviewProviderResult,
         execution: ReviewExecution,
     ) -> GroundedReviewApplicationResult:
+        provider, model = self._execution_identity()
         payload = candidate.payload or {}
         try:
             parsed = EssayProviderReviewPayload.model_validate_json(
@@ -670,8 +876,8 @@ class GroundedEssayReviewWorker:
             rubric_source=context.rubric.source_kind,
             rubric_verification=context.rubric.verification_status,
             prompt_version=GROUNDED_REVIEW_PROMPT_VERSION,
-            provider=self._provider.provider_name,
-            model=self._provider.model,
+            provider=provider,
+            model=model,
             input_fingerprint=review_input_fingerprint(context, request),
             output_fingerprint=canonical_output,
             generated_at=generated_at,
@@ -697,6 +903,7 @@ class GroundedEssayReviewWorker:
         result: GroundedReviewApplicationResult,
         calls: list[tuple[ModelCallRecord, str, int]],
         execution: ReviewExecution,
+        grading_execution: EssayMultiModelGradingExecution | None = None,
     ) -> BackgroundJob:
         if job.claim_token is None:
             raise JobContractError("Review job lost its claim")
@@ -709,6 +916,7 @@ class GroundedEssayReviewWorker:
             session,
             job_id=job.job_id,
         )
+        provider, model = self._execution_identity()
         self._workflow.insert_review(
             session,
             command_id=f"essay-review-worker:{job.job_id}",
@@ -718,8 +926,8 @@ class GroundedEssayReviewWorker:
             provider_schema_version=GROUNDED_REVIEW_PROVIDER_SCHEMA_VERSION,
             rubric_contract_version=RUBRIC_CONTRACT_VERSION,
             prompt_version=GROUNDED_REVIEW_PROMPT_VERSION,
-            provider=self._provider.provider_name,
-            model=self._provider.model,
+            provider=provider,
+            model=model,
             input_fingerprint=review_input_fingerprint(context, request),
             execution_fingerprint=execution.fingerprint,
             execution_attempt_no=execution.attempt_no,
@@ -728,6 +936,23 @@ class GroundedEssayReviewWorker:
             valid_until=response.audit.valid_until if response.audit else now + REVIEW_VALIDITY,
             grounding=result.grounding,
         )
+        if grading_execution is not None:
+            self._grading.insert_bundle(
+                session,
+                grading_run_id=grading_execution.grading_run_id,
+                intended_review_version_id=response.review_version_id,
+                job_id=job.job_id,
+                user_id=user_id,
+                input_fingerprint=review_input_fingerprint(context, request),
+                candidates=grading_execution.candidates,
+                resolved=grading_execution.resolved,
+                adjudication_audit=grading_execution.adjudication_audit,
+            )
+            self._grading.bind_review(
+                session,
+                review_version_id=response.review_version_id,
+                grading_run_id=grading_execution.grading_run_id,
+            )
         for call, phase, ordinal in calls:
             self._workflow.link_model_call(
                 session,
@@ -864,7 +1089,11 @@ class GroundedEssayReviewWorker:
         execution: ReviewExecution,
         calls: list[tuple[ModelCallRecord, str, int]] | None = None,
         already_failed: bool = False,
+        grading_execution: EssayMultiModelGradingExecution | None = None,
+        grading_error: EssayMultiModelGradingExecutionError | None = None,
     ) -> BackgroundJob:
+        if grading_execution is not None and grading_error is not None:
+            raise ValueError("A failed review cannot persist two grading outcomes")
         now = datetime.now(UTC)
         provider_request_ids = self._provider_request_audit(
             session,
@@ -896,6 +1125,7 @@ class GroundedEssayReviewWorker:
             audit=None,
             supersedes_review_version_id=execution.supersedes_review_version_id,
         )
+        provider, model = self._execution_identity()
         self._workflow.insert_review(
             session,
             command_id=f"essay-review-worker:{job.job_id}",
@@ -905,8 +1135,8 @@ class GroundedEssayReviewWorker:
             provider_schema_version=GROUNDED_REVIEW_PROVIDER_SCHEMA_VERSION,
             rubric_contract_version=RUBRIC_CONTRACT_VERSION,
             prompt_version=GROUNDED_REVIEW_PROMPT_VERSION,
-            provider=self._provider.provider_name,
-            model=self._provider.model,
+            provider=provider,
+            model=model,
             input_fingerprint=review_input_fingerprint(context, request),
             execution_fingerprint=execution.fingerprint,
             execution_attempt_no=execution.attempt_no,
@@ -915,6 +1145,41 @@ class GroundedEssayReviewWorker:
             valid_until=now + REVIEW_VALIDITY,
             grounding=None,
         )
+        if grading_execution is not None:
+            self._grading.insert_bundle(
+                session,
+                grading_run_id=grading_execution.grading_run_id,
+                intended_review_version_id=review_version_id,
+                job_id=job.job_id,
+                user_id=str(job.payload["userId"]),
+                input_fingerprint=review_input_fingerprint(context, request),
+                candidates=grading_execution.candidates,
+                resolved=grading_execution.resolved,
+                adjudication_audit=grading_execution.adjudication_audit,
+            )
+            self._grading.bind_review(
+                session,
+                review_version_id=review_version_id,
+                grading_run_id=grading_execution.grading_run_id,
+            )
+        elif grading_error is not None:
+            self._grading.insert_failure_bundle(
+                session,
+                grading_run_id=grading_error.grading_run_id,
+                intended_review_version_id=review_version_id,
+                job_id=job.job_id,
+                user_id=str(job.payload["userId"]),
+                input_fingerprint=review_input_fingerprint(context, request),
+                candidates=grading_error.candidates,
+                comparison=grading_error.comparison,
+                failure_code=grading_error.code,
+                adjudication_audit=grading_error.adjudication_audit,
+            )
+            self._grading.bind_review(
+                session,
+                review_version_id=review_version_id,
+                grading_run_id=grading_error.grading_run_id,
+            )
         for call, phase, ordinal in calls or []:
             self._workflow.link_model_call(
                 session,
@@ -965,7 +1230,14 @@ class GroundedEssayReviewWorker:
         result: list[dict[str, str]] = []
         job = self._jobs.by_id(session, job_id=job_id)
         job_result = job.result if job is not None else None
-        for phase in ("initial", "repair"):
+        for phase in (
+            "initial",
+            "repair",
+            "candidate:gemini",
+            "candidate:grok",
+            "candidate:hunyuan",
+            "adjudication",
+        ):
             checkpoint = self._checkpoints.load(
                 session,
                 job_id=job_id,

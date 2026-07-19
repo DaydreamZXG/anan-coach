@@ -279,6 +279,9 @@ class GroundedEssayReviewProvider:
     def model(self) -> str:
         return self._settings.ai_essay_review_model
 
+    def validate_configuration(self) -> None:
+        self._validate_configuration()
+
     def generate(
         self,
         *,

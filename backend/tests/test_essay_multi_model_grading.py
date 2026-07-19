@@ -8,6 +8,7 @@ from uuid import UUID, uuid4
 import httpx
 import pytest
 
+from app.core.config import Settings
 from app.domains.essay_intelligence.blind_adjudicator import (
     BlindAdjudicatorSettings,
     OpenAICompatibleBlindAdjudicatorProvider,
@@ -20,11 +21,45 @@ from app.domains.essay_intelligence.multi_model_grading import (
     compare_essay_grading_candidates,
     resolve_essay_grading,
 )
+from app.domains.essay_intelligence.multi_model_runtime import (
+    EssayMultiModelRuntimeConfigurationError,
+    EssayMultiModelRuntimePlan,
+    EssayReviewExecutionIdentity,
+)
+from app.domains.essay_intelligence.review_worker import GroundedEssayReviewWorker
 from app.domains.essay_intelligence.schemas import EssayProviderReviewPayload
+from app.domains.essay_intelligence.workflow_repository import (
+    EssayWorkflowContractError,
+)
+from app.domains.essay_intelligence.workflow_service import (
+    EssayReviewWorkflowService,
+)
 
 
 ANSWER_ID = UUID("00000000-0000-0000-0000-000000001005")
 MATERIAL_ID = UUID("00000000-0000-0000-0000-000000001002")
+
+
+def test_formal_runtime_fails_closed_without_a_versioned_complete_plan() -> None:
+    with pytest.raises(
+        EssayMultiModelRuntimeConfigurationError,
+        match="PLAN_RELEASE_ID",
+    ):
+        EssayMultiModelRuntimePlan.from_settings(Settings())
+
+
+def test_production_forbids_single_model_worker_and_queue_overrides() -> None:
+    settings = Settings(environment="production")
+    with pytest.raises(ValueError, match="forbids single-model"):
+        GroundedEssayReviewWorker(settings=settings, provider=object())  # type: ignore[arg-type]
+    with pytest.raises(EssayWorkflowContractError, match="cannot override"):
+        EssayReviewWorkflowService(
+            settings=settings,
+            execution_identity_override=EssayReviewExecutionIdentity(
+                provider="single-model",
+                model="single-model",
+            ),
+        )
 
 
 def test_identical_independent_candidates_resolve_without_averaging() -> None:

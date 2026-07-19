@@ -19,6 +19,16 @@ from app.domains.essay_intelligence.drafting_service import (
 )
 from app.domains.essay_intelligence.router import (
     get_essay_drafting_completion_service,
+    get_essay_review_workflow_service,
+)
+from app.domains.essay_intelligence.multi_model_runtime import (
+    EssayReviewExecutionIdentity,
+)
+from app.domains.essay_intelligence.review_contracts import (
+    GROUNDED_REVIEW_PROVIDER_NAME,
+)
+from app.domains.essay_intelligence.workflow_service import (
+    EssayReviewWorkflowService,
 )
 from app.domains.planning.schemas import TaskExecutionCommand
 from app.domains.planning.service import PlanningService
@@ -606,6 +616,15 @@ def _drafting_context(
 def _client(factory: sessionmaker[Session]) -> TestClient:
     client = _base_client(factory)
     _set_drafting_now(client, NOW)
+    app = cast(Any, client.app)
+    app.dependency_overrides[get_essay_review_workflow_service] = lambda: (
+        EssayReviewWorkflowService(
+            execution_identity_override=EssayReviewExecutionIdentity(
+                provider=GROUNDED_REVIEW_PROVIDER_NAME,
+                model="gemini-3.5-flash",
+            )
+        )
+    )
     return client
 
 

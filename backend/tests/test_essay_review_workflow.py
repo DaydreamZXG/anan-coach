@@ -26,21 +26,36 @@ from app.domains.essay_intelligence.grounded_provider import (
     GroundedReviewProviderError,
     GroundedReviewProviderResult,
 )
+from app.domains.essay_intelligence.blind_adjudicator import (
+    BlindAdjudicatorMeteredError,
+    BlindAdjudicatorProviderResult,
+)
 from app.domains.essay_intelligence.grounding import (
     GroundedReviewContext,
     normalize_grounding_text,
     review_output_fingerprint,
 )
 from app.domains.essay_intelligence.multi_model_grading import (
+    ADJUDICATION_CONTRACT_VERSION,
+    EssayBlindAdjudicationDecision,
     EssayGradingCandidate,
     compare_essay_grading_candidates,
     resolve_essay_grading,
 )
+from app.domains.essay_intelligence.multi_model_candidate_runner import (
+    EssayCandidateSlot,
+)
 from app.domains.essay_intelligence.multi_model_grading_repository import (
     EssayMultiModelGradingRepository,
 )
+from app.domains.essay_intelligence.multi_model_runtime import (
+    EssayMultiModelRuntimePlan,
+    EssayReviewExecutionIdentity,
+)
 from app.domains.essay_intelligence.review_contracts import (
+    GROUNDED_REVIEW_PROMPT_VERSION,
     GROUNDED_REVIEW_PROVIDER_NAME,
+    GROUNDED_REVIEW_PROVIDER_SCHEMA_VERSION,
 )
 from app.domains.essay_intelligence.review_service import (
     GroundedReviewApplicationService,
@@ -214,6 +229,80 @@ class FakeGroundedProvider:
         return result
 
 
+class ShiftedScoreProvider(FakeGroundedProvider):
+    def generate(self, **kwargs: Any) -> GroundedReviewProviderResult:
+        result = super().generate(**kwargs)
+        payload = deepcopy(result.payload)
+        assert payload is not None
+        shifted = {"lower": 9.0, "recommended": 11.0, "upper": 13.0}
+        payload["score"]["scoreRange"] = deepcopy(shifted)
+        payload["dimensions"][0]["scoreRange"] = deepcopy(shifted)
+        payload["pointCoverage"][0]["awardedRange"] = deepcopy(shifted)
+        raw = json.dumps(payload, ensure_ascii=False, sort_keys=True)
+        shifted_result = replace(
+            result,
+            payload=payload,
+            raw_content=raw,
+            output_fingerprint=_hash(raw),
+        )
+        self.results[-1] = shifted_result
+        return shifted_result
+
+
+class FakeBlindAdjudicator:
+    provider_name = "test-blind-adjudicator@release-v1"
+    provider_release_id = "test-blind-adjudicator-release-v1"
+    model = "test-blind-adjudicator-model-v1"
+    endpoint = "https://adjudicator.example/v1/chat/completions"
+
+    def __init__(self, *, behavior: str = "valid") -> None:
+        self.calls = 0
+        self.behavior = behavior
+
+    def adjudicate(self, *, request: Any, idempotency_key: str):
+        self.calls += 1
+        assert idempotency_key.endswith(":adjudication")
+        if self.behavior == "metered_error":
+            raise BlindAdjudicatorMeteredError(
+                "adjudication_response_invalid",
+                "billable adjudicator output violated the contract",
+                usage=ModelTokenUsage(
+                    input_tokens=80,
+                    cached_input_tokens=0,
+                    output_tokens=20,
+                ),
+                output_fingerprint=_hash("invalid-adjudication"),
+                latency_ms=12,
+            )
+        selected = request.candidates[0].payload
+        point = selected.point_coverage[0]
+        decision = EssayBlindAdjudicationDecision(
+            contractVersion=ADJUDICATION_CONTRACT_VERSION,
+            selectedCandidateRef=request.candidates[0].candidate_ref,
+            rationale="候选 A 的评分点和材料证据对应更完整。",
+            rubricPointIds=[point.rubric_point_id],
+            answerEvidenceRefs=[point.answer_evidence_refs[0]],
+            materialEvidenceRefs=[point.material_evidence_refs[0]],
+        )
+        serialized = json.dumps(
+            decision.model_dump(by_alias=True, mode="json"),
+            ensure_ascii=False,
+            sort_keys=True,
+        )
+        return BlindAdjudicatorProviderResult(
+            decision=decision,
+            usage=ModelTokenUsage(
+                input_tokens=80,
+                cached_input_tokens=0,
+                output_tokens=20,
+            ),
+            output_fingerprint=_hash(serialized),
+            latency_ms=12,
+            provider_request_id_header=None,
+            provider_request_id_fingerprint=None,
+        )
+
+
 class FailOnceApplication:
     def __init__(self) -> None:
         self._delegate = GroundedReviewApplicationService()
@@ -232,7 +321,7 @@ def test_attempt_and_answer_commands_are_owner_scoped_and_idempotent(
     catalog = _seed_catalog(db_session_factory)
     owner_id = _seed_user(db_session_factory)
     other_user_id = _seed_user(db_session_factory)
-    workflow = EssayReviewWorkflowService()
+    workflow = _workflow()
     attempt_command = _attempt_command(catalog)
 
     with db_session_factory() as session:
@@ -324,7 +413,7 @@ def test_attempt_rejects_rubric_bound_to_a_different_material_version(
 ) -> None:
     catalog = _seed_catalog(db_session_factory)
     user_id = _seed_user(db_session_factory)
-    workflow = EssayReviewWorkflowService()
+    workflow = _workflow()
     mismatched = EssayAttemptCreateCommand(
         task_version_id=catalog.task_id,
         material_bundle_version_id=catalog.material_id,
@@ -356,7 +445,7 @@ def test_queue_review_reserves_quota_exactly_once(
     queued = _prepare_queued_review(db_session_factory)
 
     with db_session_factory() as session:
-        workflow = EssayReviewWorkflowService()
+        workflow = _workflow()
         replay = workflow.queue_review(
             session,
             user_id=queued.user_id,
@@ -612,6 +701,294 @@ def test_multi_model_grading_bundle_persists_candidates_cost_and_final_interval(
         ).scalar_one() == 2
 
 
+def test_formal_worker_persists_three_candidates_and_consumes_one_review(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    providers = tuple(
+        FakeGroundedProvider(
+            provider_name=f"test-provider-{index}@release-v1",
+            provider_release_id=f"test-provider-{index}-release-v1",
+            model=f"test-model-{index}-v1",
+            endpoint=f"https://provider-{index}.example/v1/chat/completions",
+        )
+        for index in range(3)
+    )
+    plan = _formal_runtime_plan(providers=cast(Any, providers))
+    queued = _prepare_queued_review(
+        db_session_factory,
+        execution_identity=plan.execution_identity,
+    )
+    worker = _formal_worker(plan=plan)
+
+    with db_session_factory() as session:
+        completed = worker.process_next(session)
+        assert completed is not None and completed.status == "succeeded"
+        assert completed.result and completed.result["reviewStatus"] == "completed"
+        run = EssayMultiModelGradingRepository().by_review(
+            session,
+            review_version_id=queued.review_id,
+        )
+        assert run is not None
+        assert run["state"] == "consistent"
+        assert run["failure_code"] is None
+        assert session.execute(
+            text(
+                "select count(*) from ai_audit.essay_grading_candidates "
+                "where grading_run_id = cast(:run_id as uuid)"
+            ),
+            {"run_id": str(run["grading_run_id"])},
+        ).scalar_one() == 3
+        assert session.execute(
+            text(
+                "select count(*) from ai_audit.essay_review_model_calls "
+                "where review_version_id = cast(:review_id as uuid)"
+            ),
+            {"review_id": str(queued.review_id)},
+        ).scalar_one() == 0
+        assert _quota_used(session, queued.user_id) == 1
+    assert [provider.generate_calls for provider in providers] == [1, 1, 1]
+
+
+def test_formal_worker_blindly_adjudicates_minor_disagreement(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    providers = (
+        FakeGroundedProvider(
+            provider_name="test-provider-a@release-v1",
+            provider_release_id="test-provider-a-release-v1",
+            model="test-model-a-v1",
+        ),
+        ShiftedScoreProvider(
+            provider_name="test-provider-b@release-v1",
+            provider_release_id="test-provider-b-release-v1",
+            model="test-model-b-v1",
+        ),
+        FakeGroundedProvider(
+            provider_name="test-provider-c@release-v1",
+            provider_release_id="test-provider-c-release-v1",
+            model="test-model-c-v1",
+        ),
+    )
+    adjudicator = FakeBlindAdjudicator()
+    plan = _formal_runtime_plan(providers=providers, adjudicator=adjudicator)
+    queued = _prepare_queued_review(
+        db_session_factory,
+        execution_identity=plan.execution_identity,
+    )
+
+    with db_session_factory() as session:
+        completed = _formal_worker(plan=plan).process_next(session)
+        assert completed is not None and completed.status == "succeeded"
+        run = EssayMultiModelGradingRepository().by_review(
+            session,
+            review_version_id=queued.review_id,
+        )
+        assert run is not None and run["state"] == "minor_disagreement"
+        assert session.execute(
+            text(
+                "select count(*) from ai_audit.essay_grading_adjudications "
+                "where grading_run_id = cast(:run_id as uuid)"
+            ),
+            {"run_id": str(run["grading_run_id"])},
+        ).scalar_one() == 1
+    assert adjudicator.calls == 1
+
+
+def test_formal_worker_persists_metered_adjudication_failure_and_refunds_quota(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    providers = (
+        FakeGroundedProvider(
+            provider_name="test-provider-a@release-v1",
+            provider_release_id="test-provider-a-release-v1",
+            model="test-model-a-v1",
+        ),
+        ShiftedScoreProvider(
+            provider_name="test-provider-b@release-v1",
+            provider_release_id="test-provider-b-release-v1",
+            model="test-model-b-v1",
+        ),
+        FakeGroundedProvider(
+            provider_name="test-provider-c@release-v1",
+            provider_release_id="test-provider-c-release-v1",
+            model="test-model-c-v1",
+        ),
+    )
+    adjudicator = FakeBlindAdjudicator(behavior="metered_error")
+    plan = _formal_runtime_plan(providers=providers, adjudicator=adjudicator)
+    queued = _prepare_queued_review(
+        db_session_factory,
+        execution_identity=plan.execution_identity,
+    )
+
+    with db_session_factory() as session:
+        failed = _formal_worker(plan=plan).process_next(session)
+        assert failed is not None and failed.status == "failed"
+        run = EssayMultiModelGradingRepository().by_review(
+            session,
+            review_version_id=queued.review_id,
+        )
+        assert run is not None
+        assert run["state"] == "minor_disagreement"
+        assert run["failure_code"] == "adjudication_response_invalid"
+        assert run["selected_candidate_id"] is None
+        assert session.execute(
+            text(
+                "select count(*) from ai_audit.model_call_ledger "
+                "where job_id = cast(:job_id as uuid) and status = 'succeeded'"
+            ),
+            {"job_id": str(queued.job_id)},
+        ).scalar_one() == 4
+        assert _quota_used(session, queued.user_id) == 0
+        assert _reservation_status_counts(session, queued.user_id) == {"refunded": 1}
+    assert adjudicator.calls == 1
+
+
+def test_formal_worker_refunds_when_fewer_than_two_candidates_are_valid(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    providers = (
+        FakeGroundedProvider(
+            provider_name="test-provider-a@release-v1",
+            provider_release_id="test-provider-a-release-v1",
+            model="test-model-a-v1",
+            initial="invalid",
+        ),
+        FakeGroundedProvider(
+            provider_name="test-provider-b@release-v1",
+            provider_release_id="test-provider-b-release-v1",
+            model="test-model-b-v1",
+            initial="invalid",
+        ),
+        FakeGroundedProvider(
+            provider_name="test-provider-c@release-v1",
+            provider_release_id="test-provider-c-release-v1",
+            model="test-model-c-v1",
+        ),
+    )
+    plan = _formal_runtime_plan(providers=providers)
+    queued = _prepare_queued_review(
+        db_session_factory,
+        execution_identity=plan.execution_identity,
+    )
+
+    with db_session_factory() as session:
+        failed = _formal_worker(plan=plan).process_next(session)
+        assert failed is not None and failed.status == "failed"
+        run = EssayMultiModelGradingRepository().by_review(
+            session,
+            review_version_id=queued.review_id,
+        )
+        assert run is not None and run["state"] == "unable_to_score"
+        assert _quota_used(session, queued.user_id) == 0
+        assert _reservation_status_counts(session, queued.user_id) == {"refunded": 1}
+
+
+def test_formal_worker_replays_candidate_checkpoints_without_duplicate_calls(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    providers = tuple(
+        FakeGroundedProvider(
+            provider_name=f"test-provider-{index}@release-v1",
+            provider_release_id=f"test-provider-{index}-release-v1",
+            model=f"test-model-{index}-v1",
+        )
+        for index in range(3)
+    )
+    plan = _formal_runtime_plan(providers=cast(Any, providers))
+    queued = _prepare_queued_review(
+        db_session_factory,
+        execution_identity=plan.execution_identity,
+    )
+    worker = _formal_worker(plan=plan, application=FailOnceApplication())
+
+    with db_session_factory() as session:
+        with pytest.raises(RuntimeError, match="durable provider checkpoint"):
+            worker.process_next(session)
+    with db_session_factory() as session:
+        session.execute(
+            text(
+                "update platform.background_jobs set run_after = :now "
+                "where job_id = cast(:job_id as uuid)"
+            ),
+            {"job_id": str(queued.job_id), "now": datetime.now(UTC)},
+        )
+        session.commit()
+    with db_session_factory() as session:
+        completed = worker.process_next(session)
+        assert completed is not None and completed.status == "succeeded"
+        assert session.execute(
+            text(
+                "select count(*) from ai_audit.model_call_ledger "
+                "where job_id = cast(:job_id as uuid)"
+            ),
+            {"job_id": str(queued.job_id)},
+        ).scalar_one() == 3
+    assert [provider.generate_calls for provider in providers] == [1, 1, 1]
+
+
+def test_formal_worker_does_not_redispatch_an_uncertain_candidate_call(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    providers = (
+        FakeGroundedProvider(
+            provider_name="test-provider-a@release-v1",
+            provider_release_id="test-provider-a-release-v1",
+            model="test-model-a-v1",
+        ),
+        FakeGroundedProvider(
+            provider_name="test-provider-b@release-v1",
+            provider_release_id="test-provider-b-release-v1",
+            model="test-model-b-v1",
+            initial="retry_once",
+        ),
+        FakeGroundedProvider(
+            provider_name="test-provider-c@release-v1",
+            provider_release_id="test-provider-c-release-v1",
+            model="test-model-c-v1",
+        ),
+    )
+    plan = _formal_runtime_plan(providers=providers)
+    queued = _prepare_queued_review(
+        db_session_factory,
+        execution_identity=plan.execution_identity,
+    )
+    worker = _formal_worker(plan=plan)
+
+    with db_session_factory() as session:
+        with pytest.raises(GroundedReviewProviderError, match="not received"):
+            worker.process_next(session)
+    with db_session_factory() as session:
+        session.execute(
+            text(
+                "update platform.background_jobs set run_after = :now "
+                "where job_id = cast(:job_id as uuid)"
+            ),
+            {"job_id": str(queued.job_id), "now": datetime.now(UTC)},
+        )
+        session.commit()
+    with db_session_factory() as session:
+        completed = worker.process_next(session)
+        assert completed is not None and completed.status == "succeeded"
+        statuses = session.execute(
+            text(
+                "select slot_id, status, error_code "
+                "from ai_audit.essay_grading_candidates "
+                "order by slot_id"
+            )
+        ).all()
+        assert statuses == [
+            ("gemini", "valid", None),
+            (
+                "grok",
+                "provider_failed",
+                "candidate_outcome_unknown_after_interruption",
+            ),
+            ("hunyuan", "valid", None),
+        ]
+    assert [provider.generate_calls for provider in providers] == [1, 1, 1]
+
+
 def test_grounding_failure_repairs_once_and_can_complete(
     db_session_factory: sessionmaker[Session],
 ) -> None:
@@ -692,7 +1069,7 @@ def test_review_stays_blocked_after_one_repair_and_refunds_quota(
         first_job_payload = _job_payload(session, queued.job_id)
 
     with db_session_factory() as session:
-        retried = EssayReviewWorkflowService().regenerate_review_job(
+        retried = _workflow().regenerate_review_job(
             session,
             user_id=queued.user_id,
             command_id=f"regenerate:{uuid4()}",
@@ -789,7 +1166,7 @@ def test_terminal_provider_failure_records_failure_and_refunds_quota(
         failed_payload = _job_payload(session, queued.job_id)
 
     with db_session_factory() as session:
-        retried = EssayReviewWorkflowService().regenerate_review_job(
+        retried = _workflow().regenerate_review_job(
             session,
             user_id=queued.user_id,
             command_id=f"regenerate:{uuid4()}",
@@ -1163,6 +1540,55 @@ def _worker(
     )
 
 
+def _formal_runtime_plan(
+    *,
+    providers: tuple[FakeGroundedProvider, FakeGroundedProvider, FakeGroundedProvider],
+    adjudicator: FakeBlindAdjudicator | None = None,
+) -> EssayMultiModelRuntimePlan:
+    slots = tuple(
+        EssayCandidateSlot(
+            slot_id=slot_id,
+            provider=cast(Any, provider),
+            price_card=_price_card(),
+            prompt_version=GROUNDED_REVIEW_PROMPT_VERSION,
+            schema_version=GROUNDED_REVIEW_PROVIDER_SCHEMA_VERSION,
+        )
+        for slot_id, provider in zip(
+            ("gemini", "grok", "hunyuan"),
+            providers,
+            strict=True,
+        )
+    )
+    return EssayMultiModelRuntimePlan(
+        release_id="test-formal-plan-v1",
+        candidate_slots=cast(Any, slots),
+        adjudicator_provider=cast(Any, adjudicator or FakeBlindAdjudicator()),
+        adjudicator_price_card=_price_card(),
+        execution_identity=EssayReviewExecutionIdentity(
+            provider="essay-multi-model@test-formal-plan-v1",
+            model="plan-sha256:" + "f" * 64,
+        ),
+    )
+
+
+def _formal_worker(
+    *,
+    plan: EssayMultiModelRuntimePlan,
+    application: Any | None = None,
+) -> GroundedEssayReviewWorker:
+    return GroundedEssayReviewWorker(
+        settings=Settings(
+            ai_essay_checkpoint_active_key_id="test-key-v1",
+            ai_essay_checkpoint_keys_json=json.dumps(
+                {"test-key-v1": b64encode(b"k" * 32).decode("ascii")}
+            ),
+            ai_essay_checkpoint_ttl_seconds=3600,
+        ),
+        runtime_plan=plan,
+        application=cast(Any, application) if application is not None else None,
+    )
+
+
 def _price_card() -> ModelPriceCard:
     return ModelPriceCard(
         version="test-price-v1",
@@ -1174,10 +1600,12 @@ def _price_card() -> ModelPriceCard:
 
 def _prepare_queued_review(
     db_session_factory: sessionmaker[Session],
+    *,
+    execution_identity: EssayReviewExecutionIdentity | None = None,
 ) -> QueuedReview:
     catalog = _seed_catalog(db_session_factory)
     user_id = _seed_user(db_session_factory)
-    workflow = EssayReviewWorkflowService()
+    workflow = _workflow(execution_identity)
     with db_session_factory() as session:
         attempt = workflow.create_attempt(
             session,
@@ -1229,6 +1657,18 @@ def _commerce(session: Session) -> CommerceService:
         commercial_mode="paid",
         usage_access_mode="entitlement_quota",
         now=lambda: NOW,
+    )
+
+
+def _workflow(
+    execution_identity: EssayReviewExecutionIdentity | None = None,
+) -> EssayReviewWorkflowService:
+    return EssayReviewWorkflowService(
+        execution_identity_override=execution_identity
+        or EssayReviewExecutionIdentity(
+            provider=GROUNDED_REVIEW_PROVIDER_NAME,
+            model="gemini-3.5-flash",
+        ),
     )
 
 

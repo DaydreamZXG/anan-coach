@@ -7,6 +7,7 @@ from uuid import NAMESPACE_URL, UUID, uuid5
 from app.domains.essay_intelligence.grounding import GroundedReviewContext
 from app.domains.essay_intelligence.multi_model_grading import (
     GRADING_PLAN_VERSION,
+    EssayCandidateComparison,
     EssayBlindAdjudicationRequest,
     EssayGradingCandidate,
     ResolvedEssayGrading,
@@ -47,6 +48,26 @@ class EssayMultiModelGradingExecution:
     candidates: list[EssayGradingCandidate]
     resolved: ResolvedEssayGrading
     adjudication_audit: EssayAdjudicationAudit | None
+
+
+class EssayMultiModelGradingExecutionError(RuntimeError):
+    def __init__(
+        self,
+        *,
+        code: str,
+        retryable: bool,
+        grading_run_id: UUID,
+        candidates: list[EssayGradingCandidate],
+        comparison: EssayCandidateComparison,
+        adjudication_audit: EssayAdjudicationAudit | None = None,
+    ) -> None:
+        super().__init__(code)
+        self.code = code
+        self.retryable = retryable
+        self.grading_run_id = grading_run_id
+        self.candidates = candidates
+        self.comparison = comparison
+        self.adjudication_audit = adjudication_audit
 
 
 class EssayMultiModelGradingCoordinator:
@@ -104,20 +125,46 @@ class EssayMultiModelGradingCoordinator:
             candidates=candidates,
             comparison=comparison,
         )
-        adjudication_audit = self._adjudicator.adjudicate(
-            grading_run_id=grading_run_id,
-            request=blind_request,
-        )
+        try:
+            adjudication_audit = self._adjudicator.adjudicate(
+                grading_run_id=grading_run_id,
+                request=blind_request,
+            )
+        except Exception as exc:
+            raise EssayMultiModelGradingExecutionError(
+                code=str(getattr(exc, "code", "adjudication_failed")),
+                retryable=bool(getattr(exc, "retryable", False)),
+                grading_run_id=grading_run_id,
+                candidates=candidates,
+                comparison=comparison,
+            ) from exc
         selected_id = mapping.get(
             adjudication_audit.decision.selected_candidate_ref
         )
         if selected_id is None:
-            raise ValueError("adjudication audit selected an unknown blind candidate")
-        resolved = resolve_essay_grading(
-            candidates=candidates,
-            comparison=comparison,
-            adjudication=adjudication_audit.decision,
-        )
+            raise EssayMultiModelGradingExecutionError(
+                code="adjudication_decision_invalid",
+                retryable=False,
+                grading_run_id=grading_run_id,
+                candidates=candidates,
+                comparison=comparison,
+                adjudication_audit=adjudication_audit,
+            )
+        try:
+            resolved = resolve_essay_grading(
+                candidates=candidates,
+                comparison=comparison,
+                adjudication=adjudication_audit.decision,
+            )
+        except ValueError as exc:
+            raise EssayMultiModelGradingExecutionError(
+                code="adjudication_decision_invalid",
+                retryable=False,
+                grading_run_id=grading_run_id,
+                candidates=candidates,
+                comparison=comparison,
+                adjudication_audit=adjudication_audit,
+            ) from exc
         return EssayMultiModelGradingExecution(
             grading_run_id=grading_run_id,
             candidates=candidates,

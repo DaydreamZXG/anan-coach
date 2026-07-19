@@ -20,6 +20,7 @@ from app.domains.ai.governance.contracts import EvidenceReference
 from app.domains.ai.governance.repository import AIGovernanceRepository
 from app.domains.ai.model_cost import (
     ModelCallLedgerRepository,
+    ModelCallRecord,
     ModelPriceCard,
     ModelTokenUsage,
 )
@@ -35,6 +36,9 @@ from app.domains.essay_intelligence.multi_model_grading import (
 )
 from app.domains.essay_intelligence.multi_model_grading_repository import (
     EssayAdjudicationAudit,
+)
+from app.domains.essay_intelligence.review_checkpoint import (
+    EssayReviewCheckpointRepository,
 )
 from app.platform.jobs import BackgroundJob
 
@@ -358,6 +362,7 @@ class LedgeredEssayBlindAdjudicator:
         price_card: ModelPriceCard,
         evidence_refs: tuple[EvidenceReference, ...],
         ledger: ModelCallLedgerRepository | None = None,
+        checkpoints: EssayReviewCheckpointRepository | None = None,
     ) -> None:
         self._session = session
         self._app_settings = app_settings
@@ -366,6 +371,9 @@ class LedgeredEssayBlindAdjudicator:
         self._price_card = price_card
         self._evidence_refs = evidence_refs
         self._ledger = ledger or ModelCallLedgerRepository()
+        self._checkpoints = checkpoints or EssayReviewCheckpointRepository.from_settings(
+            app_settings
+        )
 
     def adjudicate(
         self,
@@ -381,8 +389,24 @@ class LedgeredEssayBlindAdjudicator:
                 separators=(",", ":"),
             ).encode("utf-8")
         ).hexdigest()
+        checkpointed = self._load_checkpoint(
+            grading_run_id=grading_run_id,
+            request=request,
+            input_fingerprint=input_fingerprint,
+        )
+        if checkpointed is not None:
+            return checkpointed
         call_key = f"essay-grading:{grading_run_id}:adjudication"
         quota = self._job.payload["quotaReservation"]
+        existing_before_dispatch = self._ledger.get_existing(
+            self._session,
+            call_key=call_key,
+            user_id=str(self._job.payload["userId"]),
+            job_id=self._job.job_id,
+            feature="essay_review",
+            operation="essay_blind_adjudication",
+            input_fingerprint=input_fingerprint,
+        )
         record = self._ledger.begin(
             self._session,
             call_key=call_key,
@@ -423,6 +447,24 @@ class LedgeredEssayBlindAdjudicator:
             ),
         )
         self._session.commit()
+        if existing_before_dispatch is not None and record.status == "running":
+            record = self._ledger.fail(
+                self._session,
+                call_id=record.call_id,
+                error_code="adjudication_outcome_unknown_after_interruption",
+                latency_ms=0,
+            )
+        if existing_before_dispatch is not None and record.status == "succeeded":
+            code = "adjudication_checkpoint_missing_after_completed_call"
+            self._save_failure_checkpoint(record=record, error_code=code)
+            raise BlindAdjudicatorError(code, code, retryable=False)
+        if record.status == "failed":
+            code = record.error_code or "adjudication_failed"
+            self._save_failure_checkpoint(
+                record=record,
+                error_code=code,
+            )
+            raise BlindAdjudicatorError(code, code, retryable=False)
         try:
             result = self._provider.adjudicate(
                 request=request,
@@ -439,25 +481,38 @@ class LedgeredEssayBlindAdjudicator:
                     retryable=False,
                 ) from exc
             if record.status == "running":
-                self._ledger.succeed(
+                record = self._ledger.succeed(
                     self._session,
                     call_id=record.call_id,
                     usage=exc.usage,
                     output_fingerprint=exc.output_fingerprint,
                     latency_ms=exc.latency_ms,
                 )
-            self._session.commit()
+            self._save_failure_checkpoint(record=record, error_code=exc.code)
             raise
         except BlindAdjudicatorError as exc:
-            if record.status == "running" and not exc.retryable:
-                self._ledger.fail(
+            if record.status == "succeeded":
+                raise BlindAdjudicatorError(
+                    "provider_idempotency_violation",
+                    "Adjudicator replaced a completed immutable response with an error",
+                    retryable=False,
+                ) from exc
+            retryable = exc.retryable and self._job.attempt_count < self._job.max_attempts
+            if record.status == "running" and not retryable:
+                record = self._ledger.fail(
                     self._session,
                     call_id=record.call_id,
                     error_code=exc.code,
                     latency_ms=0,
                 )
-                self._session.commit()
-            raise
+                self._save_failure_checkpoint(record=record, error_code=exc.code)
+            if retryable:
+                raise
+            raise BlindAdjudicatorError(
+                exc.code,
+                str(exc),
+                retryable=False,
+            ) from exc
         if (
             record.status == "succeeded"
             and record.output_fingerprint != result.output_fingerprint
@@ -475,8 +530,20 @@ class LedgeredEssayBlindAdjudicator:
                 output_fingerprint=result.output_fingerprint,
                 latency_ms=result.latency_ms,
             )
-        self._session.commit()
-        return EssayAdjudicationAudit(
+        if not _provider_request_audit_pair_valid(
+            result.provider_request_id_header,
+            result.provider_request_id_fingerprint,
+        ):
+            self._save_failure_checkpoint(
+                record=record,
+                error_code="provider_request_id_contract_invalid",
+            )
+            raise BlindAdjudicatorError(
+                "provider_request_id_contract_invalid",
+                "Adjudicator request ID audit fields must appear together",
+                retryable=False,
+            )
+        audit = EssayAdjudicationAudit(
             adjudication_id=uuid5(
                 NAMESPACE_URL,
                 f"{ADJUDICATION_CONTRACT_VERSION}:{grading_run_id}",
@@ -490,6 +557,134 @@ class LedgeredEssayBlindAdjudicator:
             decision=result.decision,
             output_fingerprint=result.output_fingerprint,
         )
+        self._save_success_checkpoint(
+            record=record,
+            audit=audit,
+            provider_request_id_header=result.provider_request_id_header,
+            provider_request_id_fingerprint=result.provider_request_id_fingerprint,
+        )
+        return audit
+
+    def _load_checkpoint(
+        self,
+        *,
+        grading_run_id: UUID,
+        request: EssayBlindAdjudicationRequest,
+        input_fingerprint: str,
+    ) -> EssayAdjudicationAudit | None:
+        saved = self._checkpoints.load(
+            self._session,
+            job_id=self._job.job_id,
+            phase="adjudication",
+        )
+        if saved is None or saved.payload is None:
+            return None
+        record = self._ledger.terminal_for_checkpoint(
+            self._session,
+            call_id=saved.call_id,
+            job_id=self._job.job_id,
+            input_fingerprint=input_fingerprint,
+        )
+        document = saved.payload
+        status = document.get("status")
+        if status == "failed":
+            code = document.get("errorCode")
+            if not isinstance(code, str) or not code:
+                raise ValueError("Adjudication failure checkpoint is invalid")
+            expected_fingerprint = (
+                record.output_fingerprint
+                if record.status == "succeeded"
+                else _checkpoint_hash(document)
+            )
+            if saved.output_fingerprint != expected_fingerprint:
+                raise ValueError("Adjudication failure checkpoint ledger mismatch")
+            raise BlindAdjudicatorError(code, code, retryable=False)
+        if status != "succeeded" or record.status != "succeeded":
+            raise ValueError("Adjudication success checkpoint is invalid")
+        if record.output_fingerprint != saved.output_fingerprint:
+            raise ValueError("Adjudication checkpoint output does not match its ledger")
+        try:
+            blind_request = EssayBlindAdjudicationRequest.model_validate_json(
+                json.dumps(document["blindRequest"], ensure_ascii=False)
+            )
+            decision = EssayBlindAdjudicationDecision.model_validate_json(
+                json.dumps(document["decision"], ensure_ascii=False)
+            )
+            audit = EssayAdjudicationAudit(
+                adjudication_id=UUID(str(document["adjudicationId"])),
+                provider_release_id=str(document["providerReleaseId"]),
+                model=str(document["model"]),
+                prompt_version=str(document["promptVersion"]),
+                schema_version=str(document["schemaVersion"]),
+                model_call_id=saved.call_id,
+                blind_request=blind_request,
+                decision=decision,
+                output_fingerprint=saved.output_fingerprint,
+            )
+        except (KeyError, TypeError, ValueError, ValidationError) as exc:
+            raise ValueError("Adjudication checkpoint payload is invalid") from exc
+        immutable = (
+            audit.adjudication_id
+            == uuid5(NAMESPACE_URL, f"{ADJUDICATION_CONTRACT_VERSION}:{grading_run_id}"),
+            audit.provider_release_id == self._provider.provider_release_id,
+            audit.model == self._provider.model,
+            audit.prompt_version == ADJUDICATION_PROMPT_VERSION,
+            audit.schema_version == ADJUDICATION_SCHEMA_VERSION,
+            audit.blind_request == request,
+        )
+        if not all(immutable):
+            raise ValueError("Adjudication checkpoint belongs to another release")
+        return audit
+
+    def _save_success_checkpoint(
+        self,
+        *,
+        record: ModelCallRecord,
+        audit: EssayAdjudicationAudit,
+        provider_request_id_header: str | None,
+        provider_request_id_fingerprint: str | None,
+    ) -> None:
+        if record.output_fingerprint is None:
+            raise ValueError("Successful adjudication ledger lacks an output fingerprint")
+        document = {
+            "status": "succeeded",
+            "adjudicationId": str(audit.adjudication_id),
+            "providerReleaseId": audit.provider_release_id,
+            "model": audit.model,
+            "promptVersion": audit.prompt_version,
+            "schemaVersion": audit.schema_version,
+            "blindRequest": audit.blind_request.model_dump(by_alias=True, mode="json"),
+            "decision": audit.decision.model_dump(by_alias=True, mode="json"),
+        }
+        self._checkpoints.save(
+            self._session,
+            job_id=self._job.job_id,
+            phase="adjudication",
+            call_id=record.call_id,
+            payload=document,
+            output_fingerprint=record.output_fingerprint,
+            provider_request_id_header=provider_request_id_header,
+            provider_request_id_fingerprint=provider_request_id_fingerprint,
+        )
+        self._session.commit()
+
+    def _save_failure_checkpoint(
+        self,
+        *,
+        record: ModelCallRecord,
+        error_code: str,
+    ) -> None:
+        document = {"status": "failed", "errorCode": error_code}
+        output_fingerprint = record.output_fingerprint or _checkpoint_hash(document)
+        self._checkpoints.save(
+            self._session,
+            job_id=self._job.job_id,
+            phase="adjudication",
+            call_id=record.call_id,
+            payload=document,
+            output_fingerprint=output_fingerprint,
+        )
+        self._session.commit()
 
 
 def _usage(value: Any) -> ModelTokenUsage:
@@ -508,4 +703,30 @@ def _usage(value: Any) -> ModelTokenUsage:
         input_tokens=input_tokens,
         cached_input_tokens=cached,
         output_tokens=output_tokens,
+    )
+
+
+def _checkpoint_hash(document: dict[str, Any]) -> str:
+    return sha256(
+        json.dumps(
+            document,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+
+
+def _provider_request_audit_pair_valid(
+    header: object,
+    fingerprint: object,
+) -> bool:
+    if header is None and fingerprint is None:
+        return True
+    return (
+        isinstance(header, str)
+        and bool(header.strip())
+        and isinstance(fingerprint, str)
+        and len(fingerprint) == 64
+        and all(character in "0123456789abcdef" for character in fingerprint)
     )
