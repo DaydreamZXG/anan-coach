@@ -31,6 +31,14 @@ from app.domains.essay_intelligence.grounding import (
     normalize_grounding_text,
     review_output_fingerprint,
 )
+from app.domains.essay_intelligence.multi_model_grading import (
+    EssayGradingCandidate,
+    compare_essay_grading_candidates,
+    resolve_essay_grading,
+)
+from app.domains.essay_intelligence.multi_model_grading_repository import (
+    EssayMultiModelGradingRepository,
+)
 from app.domains.essay_intelligence.review_contracts import (
     GROUNDED_REVIEW_PROVIDER_NAME,
 )
@@ -79,7 +87,9 @@ class QueuedReview:
 
 class FakeGroundedProvider:
     provider_name = GROUNDED_REVIEW_PROVIDER_NAME
+    provider_release_id = "test-provider-release-v1"
     model = "gemini-3.5-flash"
+    endpoint = "https://provider.example/v1/chat/completions"
 
     def __init__(
         self,
@@ -89,7 +99,19 @@ class FakeGroundedProvider:
         initial_usage: ModelTokenUsage | None = None,
         repair_usage: ModelTokenUsage | None = None,
         request_id_audit: bool = False,
+        provider_name: str | None = None,
+        provider_release_id: str | None = None,
+        model: str | None = None,
+        endpoint: str | None = None,
     ) -> None:
+        if provider_name is not None:
+            self.provider_name = provider_name
+        if provider_release_id is not None:
+            self.provider_release_id = provider_release_id
+        if model is not None:
+            self.model = model
+        if endpoint is not None:
+            self.endpoint = endpoint
         self.initial = initial
         self.repair_behavior = repair
         self.initial_usage = initial_usage or ModelTokenUsage(
@@ -456,6 +478,138 @@ def test_worker_completes_and_separates_raw_and_canonical_fingerprints(
         assert _reservation_status_counts(session, queued.user_id) == {
             "consumed": 1
         }
+
+
+def test_multi_model_grading_bundle_persists_candidates_cost_and_final_interval(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    queued = _prepare_queued_review(db_session_factory)
+    provider = FakeGroundedProvider()
+    worker = _worker(provider=provider)
+    with db_session_factory() as session:
+        completed = worker.process_next(session)
+        assert completed is not None and completed.status == "succeeded"
+
+    payload = EssayProviderReviewPayload.model_validate_json(
+        json.dumps(provider.results[0].payload, ensure_ascii=False)
+    )
+    second_call_id = uuid4()
+    first_candidate_id = uuid4()
+    second_candidate_id = uuid4()
+    grading_run_id = uuid4()
+    with db_session_factory() as session:
+        first_call = session.execute(
+            text(
+                "select * from ai_audit.model_call_ledger "
+                "where job_id = cast(:job_id as uuid)"
+            ),
+            {"job_id": str(queued.job_id)},
+        ).mappings().one()
+        session.execute(
+            text(
+                """
+                insert into ai_audit.model_call_ledger (
+                  call_id, call_key, user_id, job_id, feature, operation,
+                  provider, model, prompt_version, schema_version, price_version,
+                  input_rate_cny_per_million, cached_input_rate_cny_per_million,
+                  output_rate_cny_per_million, input_fingerprint,
+                  output_fingerprint, status, input_tokens, cached_input_tokens,
+                  output_tokens, input_cost_cny, cached_input_cost_cny,
+                  output_cost_cny, total_cost_cny, latency_ms, error_code,
+                  started_at, completed_at
+                ) select
+                  cast(:second_call_id as uuid), :call_key, user_id, job_id,
+                  feature, 'grounded_review_candidate_grok',
+                  'grok-release-v1', 'grok-model-v1', prompt_version,
+                  schema_version, price_version, input_rate_cny_per_million,
+                  cached_input_rate_cny_per_million,
+                  output_rate_cny_per_million, input_fingerprint,
+                  output_fingerprint, status, input_tokens, cached_input_tokens,
+                  output_tokens, input_cost_cny, cached_input_cost_cny,
+                  output_cost_cny, total_cost_cny, latency_ms, error_code,
+                  started_at, completed_at
+                  from ai_audit.model_call_ledger
+                 where call_id = cast(:first_call_id as uuid)
+                """
+            ),
+            {
+                "second_call_id": str(second_call_id),
+                "call_key": f"essay-review:{queued.job_id}:candidate:grok",
+                "first_call_id": str(first_call["call_id"]),
+            },
+        )
+        candidates = [
+            EssayGradingCandidate(
+                candidateId=first_candidate_id,
+                slotId="gemini",
+                providerReleaseId="gemini-release-v1",
+                model="gemini-model-v1",
+                promptVersion="prompt-v1",
+                schemaVersion="schema-v1",
+                inputFingerprint=first_call["input_fingerprint"],
+                outputFingerprint=first_call["output_fingerprint"],
+                status="valid",
+                payload=payload,
+                modelCallId=first_call["call_id"],
+                errorCode=None,
+            ),
+            EssayGradingCandidate(
+                candidateId=second_candidate_id,
+                slotId="grok",
+                providerReleaseId="grok-release-v1",
+                model="grok-model-v1",
+                promptVersion="prompt-v1",
+                schemaVersion="schema-v1",
+                inputFingerprint=first_call["input_fingerprint"],
+                outputFingerprint=first_call["output_fingerprint"],
+                status="valid",
+                payload=payload,
+                modelCallId=second_call_id,
+                errorCode=None,
+            ),
+        ]
+        comparison = compare_essay_grading_candidates(candidates)
+        resolved = resolve_essay_grading(
+            candidates=candidates,
+            comparison=comparison,
+        )
+        repository = EssayMultiModelGradingRepository()
+        repository.insert_bundle(
+            session,
+            grading_run_id=grading_run_id,
+            intended_review_version_id=queued.review_id,
+            job_id=queued.job_id,
+            user_id=queued.user_id,
+            input_fingerprint=first_call["input_fingerprint"],
+            candidates=candidates,
+            resolved=resolved,
+            adjudication_audit=None,
+        )
+        repository.bind_review(
+            session,
+            review_version_id=queued.review_id,
+            grading_run_id=grading_run_id,
+        )
+        session.commit()
+
+    with db_session_factory() as session:
+        stored = EssayMultiModelGradingRepository().by_review(
+            session,
+            review_version_id=queued.review_id,
+        )
+        assert stored is not None
+        assert stored["state"] == "consistent"
+        assert stored["candidate_count"] == 2
+        assert float(stored["final_score_recommended"]) == (
+            payload.score.score_range.recommended
+        )
+        assert session.execute(
+            text(
+                "select count(*) from ai_audit.essay_grading_candidates "
+                "where grading_run_id = cast(:grading_run_id as uuid)"
+            ),
+            {"grading_run_id": str(grading_run_id)},
+        ).scalar_one() == 2
 
 
 def test_grounding_failure_repairs_once_and_can_complete(

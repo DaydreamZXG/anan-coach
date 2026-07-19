@@ -184,6 +184,71 @@ class GroundedReviewProviderResult:
     provider_request_id_fingerprint: str | None = None
 
 
+GROUNDED_REVIEW_SYSTEM_PROMPT = (
+    "你是国家公务员考试申论训练评阅引擎。只依据传入的固定题目、完整材料、"
+    "评分规程和考生答案工作。必须返回符合 JSON Schema 的单个 JSON 对象。"
+    "返回对象的顶层必须直接是 requiredOutputSchema 定义的 score、dimensions、"
+    "pointCoverage、claimEvidence、findings、rewritePlan，不得增加 reviewOutput、"
+    "result、data 或 providerSchemaVersion 等包装字段。"
+    "findings 至少返回一项，rewritePlan.priorityFindingIds 至少引用其中一项，"
+    "不得用空数组表示没有问题。"
+    "证据引用只返回对应匿名段落引用和逐字原文 quote；不要计算或返回"
+    "normalization、normalizedStart、normalizedEnd 或 quoteSha256。规范化、"
+    "唯一定位、字符区间和密码学摘要全部由服务端生成。"
+    "每个 criterion 和 rubric point 必须恰好覆盖一次；总分、维度分和要点分"
+    "必须分别守恒。不得编造材料依据，不得把 system_compiled 规程描述为官方"
+    "或已验证，该规程下置信度只能为 low，分数只能解释为 AI 训练估分区间。"
+)
+
+
+def build_grounded_review_messages(
+    prepared_input: PreparedGroundedReviewProviderInput,
+    *,
+    correction: dict[str, Any] | None = None,
+) -> tuple[list[dict[str, str]], dict[str, Any], dict[str, Any]]:
+    """Build one provider-neutral grading document for every candidate adapter."""
+    output_schema = _provider_output_schema()
+    user_document: dict[str, Any] = {
+        "requiredOutputSchema": output_schema,
+        "reviewInput": prepared_input.document.model_dump(
+            by_alias=True,
+            mode="json",
+            exclude_none=True,
+        ),
+    }
+    if correction is not None:
+        user_document["correction"] = correction
+    messages = [
+        {"role": "system", "content": GROUNDED_REVIEW_SYSTEM_PROMPT},
+        {
+            "role": "user",
+            "content": json.dumps(
+                user_document,
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            ),
+        },
+    ]
+    return messages, output_schema, user_document
+
+
+def parse_grounded_review_content(
+    content: str,
+    prepared_input: PreparedGroundedReviewProviderInput,
+) -> dict[str, Any] | None:
+    """Validate JSON framing, seal quotes locally, and restore immutable IDs."""
+    try:
+        parsed = parse_provider_json_object(content)
+    except (ValueError, json.JSONDecodeError, RecursionError):
+        return None
+    if not isinstance(parsed, dict):
+        return None
+    return prepared_input.references.restore_payload(
+        _seal_evidence_anchors(parsed, prepared_input)
+    )
+
+
 class GroundedEssayReviewProvider:
     """Strict structured-output provider. It never truncates task or material input."""
 
@@ -201,6 +266,14 @@ class GroundedEssayReviewProvider:
     @property
     def provider_name(self) -> str:
         return grounded_review_provider_identity(self._settings)
+
+    @property
+    def provider_release_id(self) -> str:
+        return self._settings.ai_essay_review_provider_release_id.strip()
+
+    @property
+    def endpoint(self) -> str:
+        return f"{self._settings.ai_provider_base_url.rstrip('/')}/chat/completions"
 
     @property
     def model(self) -> str:
@@ -254,48 +327,13 @@ class GroundedEssayReviewProvider:
         idempotency_key: str | None,
     ) -> GroundedReviewProviderResult:
         self._validate_configuration()
-        output_schema = _provider_output_schema()
-        system_prompt = (
-            "你是国家公务员考试申论训练评阅引擎。只依据传入的固定题目、完整材料、"
-            "评分规程和考生答案工作。必须返回符合 JSON Schema 的单个 JSON 对象。"
-            "返回对象的顶层必须直接是 requiredOutputSchema 定义的 score、dimensions、"
-            "pointCoverage、claimEvidence、findings、rewritePlan，不得增加 reviewOutput、"
-            "result、data 或 providerSchemaVersion 等包装字段。"
-            "findings 至少返回一项，rewritePlan.priorityFindingIds 至少引用其中一项，"
-            "不得用空数组表示没有问题。"
-            "证据引用只返回对应匿名段落引用和逐字原文 quote；不要计算或返回"
-            "normalization、normalizedStart、normalizedEnd 或 quoteSha256。规范化、"
-            "唯一定位、字符区间和密码学摘要全部由服务端生成。"
-            "每个 criterion 和 rubric point 必须恰好覆盖一次；总分、维度分和要点分"
-            "必须分别守恒。所有材料与答案引用都必须使用传入的 normalizedText 原文，"
-            "给出 nfkc_whitespace_v1、半开区间字符偏移和该规范化切片的 SHA-256。"
-            "不得编造材料依据，不得把 system_compiled 规程描述为官方或已验证，"
-            "该规程下置信度只能为 low，分数只能解释为 AI 训练估分区间。"
+        messages, output_schema, user_document = build_grounded_review_messages(
+            prepared_input,
+            correction=correction,
         )
-        user_document: dict[str, Any] = {
-            "requiredOutputSchema": output_schema,
-            "reviewInput": prepared_input.document.model_dump(
-                by_alias=True,
-                mode="json",
-                exclude_none=True,
-            )
-        }
-        if correction is not None:
-            user_document["correction"] = correction
         body = {
             "model": self.model,
-            "messages": [
-                {"role": "system", "content": system_prompt},
-                {
-                    "role": "user",
-                    "content": json.dumps(
-                        user_document,
-                        ensure_ascii=False,
-                        sort_keys=True,
-                        separators=(",", ":"),
-                    ),
-                },
-            ],
+            "messages": messages,
             "temperature": 0,
             "response_format": {
                 "type": "json_schema",
@@ -441,15 +479,7 @@ class GroundedEssayReviewProvider:
                 provider_request_id_header=audit_header,
                 provider_request_id_fingerprint=request_id_fingerprint,
             )
-        try:
-            parsed = parse_provider_json_object(content)
-        except (ValueError, json.JSONDecodeError, RecursionError):
-            parsed = None
-        payload = None
-        if isinstance(parsed, dict):
-            payload = prepared_input.references.restore_payload(
-                _seal_evidence_anchors(parsed, prepared_input)
-            )
+        payload = parse_grounded_review_content(content, prepared_input)
         if (
             self._settings.environment.strip().casefold() == "production"
             and request_id_fingerprint is None

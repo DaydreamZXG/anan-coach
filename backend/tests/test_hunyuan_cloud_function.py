@@ -162,7 +162,7 @@ def test_rejects_mismatched_or_malformed_result(payload: dict[str, object]) -> N
     assert caught.value.retryable is False
 
 
-def test_rejects_learner_scoring_shape_and_oversized_input() -> None:
+def test_rejects_oversized_or_invalid_request_identity() -> None:
     transport = HunyuanCloudFunctionClient(
         _settings(maximum_input_bytes=256),
         client_factory=lambda: _Client(_Response(_payload())),  # type: ignore[arg-type]
@@ -177,6 +177,26 @@ def test_rejects_learner_scoring_shape_and_oversized_input() -> None:
             request_id="short",
             messages=[{"role": "user", "content": "PONG"}],
         )
+
+
+def test_invokes_formal_score_candidate_without_exposing_model_selection() -> None:
+    payload = _payload(requestId="score-20260719-0001", text='{"score":{}}')
+    client = _Client(_Response(payload))
+    result = HunyuanCloudFunctionClient(
+        _settings(),
+        client_factory=lambda: client,  # type: ignore[arg-type]
+    ).score_candidate(
+        request_id="score-20260719-0001",
+        messages=[
+            {"role": "system", "content": "server-owned scoring contract"},
+            {"role": "user", "content": "anonymous immutable review input"},
+        ],
+    )
+
+    request = json.loads(client.content)
+    assert request["purpose"] == "essay_score_candidate"
+    assert "model" not in request
+    assert result.text == '{"score":{}}'
 
 
 def test_http_429_is_typed_retryable_without_exposing_response_body() -> None:

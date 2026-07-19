@@ -44,13 +44,46 @@ test("returns a fingerprinted response while keeping model ownership in the func
   assert.equal(result.outputSha256, createHash("sha256").update("PONG").digest("hex"));
 });
 
-test("rejects unknown fields and non-probe purposes", async () => {
+test("rejects unknown fields and unknown purposes", async () => {
   const main = createHandler({
     createModel: () => ({ generateText: async () => ({ text: "PONG" }) }),
   });
   await assert.rejects(() => main({ ...request(), model: "caller-owned" }), HunyuanTransportError);
   await assert.rejects(
-    () => main(request({ purpose: "essay_score_candidate" })),
+    () => main(request({ purpose: "unknown" })),
+    HunyuanTransportError,
+  );
+});
+
+test("accepts formal scoring only with the closed two-message contract", async () => {
+  let providerInput;
+  const main = createHandler({
+    createModel: () => ({
+      generateText: async (input) => {
+        providerInput = input;
+        return { text: "{\"score\":{}}" };
+      },
+    }),
+  });
+  const result = await main(
+    request({
+      purpose: "essay_score_candidate",
+      messages: [
+        { role: "system", content: "server-owned scoring contract" },
+        { role: "user", content: "immutable anonymous grading document" },
+      ],
+    }),
+  );
+  assert.equal(providerInput.temperature, 0);
+  assert.equal(result.text, "{\"score\":{}}");
+  await assert.rejects(
+    () =>
+      main(
+        request({
+          purpose: "essay_score_candidate",
+          messages: [{ role: "user", content: "caller prompt" }],
+        }),
+      ),
     HunyuanTransportError,
   );
 });

@@ -155,7 +155,7 @@ class Settings:
     wechat_virtual_pay_message_encoding_aes_key: str = ""
     privacy_export_expiry_seconds: int = 86400
     operations_metrics_token: str = ""
-    required_database_revision: str = "20260719_41"
+    required_database_revision: str = "20260719_42"
     support_jwt_jwks_url: str = ""
     support_jwt_issuer: str = ""
     support_jwt_audience: str = ""

@@ -2,9 +2,10 @@
 
 const { createHash } = require("node:crypto");
 
-const CONTRACT_VERSION = "hunyuan-text-candidate@v1";
+const CONTRACT_VERSION = "hunyuan-text-candidate@v2";
 const PROVIDER_NAME = "cloudbase-hunyuan";
 const CONNECTIVITY_PURPOSE = "connectivity_probe";
+const ESSAY_SCORE_PURPOSE = "essay_score_candidate";
 const DEFAULT_MODEL = "hunyuan-2.0-instruct-20251111";
 const DEFAULT_MAX_INPUT_BYTES = 196608;
 const DEFAULT_MAX_OUTPUT_BYTES = 262144;
@@ -52,7 +53,7 @@ function validateRequest(event, maxInputBytes) {
   if (typeof event.requestId !== "string" || !REQUEST_ID_PATTERN.test(event.requestId)) {
     throw new HunyuanTransportError("request_invalid", "invalid request identity");
   }
-  if (event.purpose !== CONNECTIVITY_PURPOSE) {
+  if (![CONNECTIVITY_PURPOSE, ESSAY_SCORE_PURPOSE].includes(event.purpose)) {
     throw new HunyuanTransportError("request_invalid", "purpose is not enabled in this release");
   }
   if (!Array.isArray(event.messages) || event.messages.length < 1 || event.messages.length > 8) {
@@ -77,6 +78,17 @@ function validateRequest(event, maxInputBytes) {
     if (typeof message.content !== "string" || message.content.length === 0) {
       throw new HunyuanTransportError("request_invalid", "message content must be non-empty text");
     }
+  }
+  if (
+    event.purpose === ESSAY_SCORE_PURPOSE &&
+    (event.messages.length !== 2 ||
+      event.messages[0].role !== "system" ||
+      event.messages[1].role !== "user")
+  ) {
+    throw new HunyuanTransportError(
+      "request_invalid",
+      "essay scoring requires one server-owned system message and one input document",
+    );
   }
   const inputBytes = Buffer.byteLength(JSON.stringify(event), "utf8");
   if (inputBytes > maxInputBytes) {
@@ -132,7 +144,7 @@ function createHandler({ createModel, model, maxInputBytes, maxOutputBytes }) {
         {
           model: configuredModel,
           messages: event.messages,
-          temperature: 0.1,
+          temperature: event.purpose === ESSAY_SCORE_PURPOSE ? 0 : 0.1,
           top_p: 0.8,
         },
         { timeout: 120000 },
@@ -168,6 +180,7 @@ function createHandler({ createModel, model, maxInputBytes, maxOutputBytes }) {
 module.exports = {
   CONTRACT_VERSION,
   CONNECTIVITY_PURPOSE,
+  ESSAY_SCORE_PURPOSE,
   DEFAULT_MODEL,
   HunyuanTransportError,
   createHandler,

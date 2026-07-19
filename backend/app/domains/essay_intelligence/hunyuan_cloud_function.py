@@ -11,9 +11,10 @@ from typing import Any, Callable, Literal, TypedDict
 import httpx
 
 
-CONTRACT_VERSION = "hunyuan-text-candidate@v1"
+CONTRACT_VERSION = "hunyuan-text-candidate@v2"
 PROVIDER_NAME = "cloudbase-hunyuan"
 CONNECTIVITY_PURPOSE = "connectivity_probe"
+ESSAY_SCORE_PURPOSE = "essay_score_candidate"
 _IDENTIFIER_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{7,127}$")
 _ENVIRONMENT_PATTERN = re.compile(r"^[a-z0-9][a-z0-9-]{2,63}$")
 _FUNCTION_PATTERN = re.compile(r"^[A-Za-z][A-Za-z0-9_-]{0,59}$")
@@ -123,7 +124,7 @@ def validate_hunyuan_cloud_function_configuration(
 
 
 class HunyuanCloudFunctionClient:
-    """Strict synthetic-only transport to the CloudBase Hunyuan cloud function."""
+    """Closed transport to the server-owned CloudBase Hunyuan model release."""
 
     def __init__(
         self,
@@ -151,7 +152,36 @@ class HunyuanCloudFunctionClient:
         request_id: str,
         messages: list[HunyuanMessage],
     ) -> HunyuanCloudFunctionResult:
-        document = _request_document(request_id=request_id, messages=messages)
+        return self._invoke(
+            request_id=request_id,
+            purpose=CONNECTIVITY_PURPOSE,
+            messages=messages,
+        )
+
+    def score_candidate(
+        self,
+        *,
+        request_id: str,
+        messages: list[HunyuanMessage],
+    ) -> HunyuanCloudFunctionResult:
+        return self._invoke(
+            request_id=request_id,
+            purpose=ESSAY_SCORE_PURPOSE,
+            messages=messages,
+        )
+
+    def _invoke(
+        self,
+        *,
+        request_id: str,
+        purpose: Literal["connectivity_probe", "essay_score_candidate"],
+        messages: list[HunyuanMessage],
+    ) -> HunyuanCloudFunctionResult:
+        document = _request_document(
+            request_id=request_id,
+            purpose=purpose,
+            messages=messages,
+        )
         content = json.dumps(
             document,
             ensure_ascii=False,
@@ -206,6 +236,7 @@ class HunyuanCloudFunctionClient:
 def _request_document(
     *,
     request_id: str,
+    purpose: Literal["connectivity_probe", "essay_score_candidate"],
     messages: list[HunyuanMessage],
 ) -> dict[str, Any]:
     if _IDENTIFIER_PATTERN.fullmatch(request_id) is None:
@@ -246,7 +277,7 @@ def _request_document(
     return {
         "contractVersion": CONTRACT_VERSION,
         "requestId": request_id,
-        "purpose": CONNECTIVITY_PURPOSE,
+        "purpose": purpose,
         "messages": normalized,
     }
 
