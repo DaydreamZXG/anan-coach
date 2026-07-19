@@ -239,6 +239,11 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in step6._TEST_STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
+        step7 = import_module(
+            "migrations.versions.20260719_45_coach_notifications"
+        )
+        for statement in step7._TEST_STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
 
 
 def _split_postgres_statements(script: str) -> list[str]:
@@ -319,6 +324,7 @@ def _split_postgres_statements(script: str) -> list[str]:
 
 def _drop_test_schema(engine: Engine) -> None:
     with engine.begin() as conn:
+        conn.execute(text("drop schema if exists messaging cascade"))
         conn.execute(text("drop schema if exists product cascade"))
         conn.execute(text("drop schema if exists learner cascade"))
         conn.execute(text("drop schema if exists ai_audit cascade"))

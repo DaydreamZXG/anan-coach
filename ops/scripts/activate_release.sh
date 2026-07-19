@@ -28,6 +28,11 @@ runtime_units=(
   gongkao-dazi-external-learning-worker
   gongkao-dazi-data-rights-worker
 )
+if [[ -f "${target}/backend/app/workers/coach_notifications.py" ]]; then
+  runtime_units+=(gongkao-dazi-coach-notification-worker)
+else
+  systemctl stop gongkao-dazi-coach-notification-worker 2>/dev/null || true
+fi
 if [[ "${COMMERCIAL_MODE:-free_cold_start}" == "paid" \
   && -n "${WECHAT_VIRTUAL_PAY_OFFER_ID:-}" \
   && -n "${WECHAT_VIRTUAL_PAY_APP_KEY:-}" \

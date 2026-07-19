@@ -35,6 +35,16 @@
 - `DataRightsJobFailed` 报警必须当班处理。先修复对象存储或数据库故障，再由任务系统按原 `job_key` 重试；不手工伪造 `completed`。
 - 删除任务会先冻结登录，再删对象文件、擦除原始表达/派生画像/AI 摘要，最后删身份映射和会话。只保留不含用户内容的法定账务和安全审计事实。
 
+## AI 督学订阅消息
+
+- 普通小程序订阅模板按微信“一次授权、一次可发送”处理。`accept` 每次只增加一条可消费授权；不得把一次授权展示成永久订阅。
+- 启动 `gongkao-dazi-coach-notification-worker` 前，必须在微信公众平台发布真实模板，并配置精确 `WECHAT_COACH_TEMPLATE_RELEASE_JSON`、小程序密钥和目标版本 `formal`。缺少任一项时 worker 必须拒绝启动。
+- 首次发布步骤 7 时，先将制品内 `ops/systemd/gongkao-dazi-coach-notification-worker.service` 安装到 `/etc/systemd/system/`，执行 `systemctl daemon-reload && systemctl enable gongkao-dazi-coach-notification-worker`；后续发布与回滚脚本仅在目标制品包含该 worker 时重启它。
+- 微信消息只使用通用标题、提醒时间和“打开计划”动作，不写岗位、资格、分数、错题或私人资料。模板字段变化必须发布新的 `releaseId` 并通过合同测试。
+- 用户在小程序关闭全部督学后，服务端立即取消未发送投递并作废剩余授权；微信设置页只用于同步平台侧选择，不能替代服务端关闭。
+- `platform_accepted` 只表示微信接口受理；`opened` 与任务 `complete` 分开记录。发送请求出现网络中断时记为 `outcome_unknown`，不得自动重发造成重复通知。
+- 告警至少覆盖 `outcome_unknown`、连续 `platform_rejected`、可用授权耗尽率和 worker stale claim；不得在日志中输出 OpenID、模板载荷或学习事实。
+
 ## 备份与恢复
 
 - **当前状态（2026-07-18）：暂缓启用。** `gongkao-dazi-backup.timer` 必须保持 disabled/inactive；在启用前不宣称有生产恢复保障。

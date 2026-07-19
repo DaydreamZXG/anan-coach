@@ -3,6 +3,7 @@ import { ApiClient } from "./api/client";
 import { ExternalLearningApi } from "./api/external-learning";
 import { configureExternalLearningGatewayFactory } from "./features/external-learning/contracts";
 import { productFontFaceManager, type ProductFontLoadState } from "./platform/product-font";
+import { recordCoachNotificationOpen } from "./features/coach-notifications/open-tracker";
 
 export interface CoachAppState {
   accessToken?: string;
@@ -13,7 +14,7 @@ export interface CoachAppState {
 
 App<{ globalData: CoachAppState }>({
   globalData: { productFont: productFontFaceManager.snapshot() },
-  onLaunch() {
+  onLaunch(options) {
     const envVersion = wx.getAccountInfoSync().miniProgram.envVersion;
     configureForWechatEnvVersion(envVersion);
     configureExternalLearningGatewayFactory(
@@ -47,8 +48,10 @@ App<{ globalData: CoachAppState }>({
       }
     });
     void productFontFaceManager.load(environment.fontAssets, "app_launch");
+    void recordCoachNotificationOpen(options).catch(() => undefined);
   },
-  onShow() {
+  onShow(options) {
     void productFontFaceManager.retry(environment.fontAssets, "app_show_retry");
+    void recordCoachNotificationOpen(options).catch(() => undefined);
   },
 });

@@ -9,11 +9,15 @@ from fastapi.responses import PlainTextResponse
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from app.core.config import get_settings
+from app.core.config import Settings, get_settings
 from app.domains.ai.external_processing import (
     ExternalProcessingAuthorizationError,
     ExternalProcessingRepository,
     endpoint_fingerprint,
+)
+from app.domains.coach_notifications.template import (
+    CoachTemplateConfigurationError,
+    CoachTemplateRelease,
 )
 from app.db.session import get_db_session
 from app.domains.operations.support import (
@@ -65,7 +69,8 @@ def ready(session: Annotated[Session, Depends(get_db_session)]) -> dict[str, str
         text(
             "select to_regclass('commerce.wechat_orders') is not null "
             "and to_regclass('privacy.data_export_requests') is not null "
-            "and to_regclass('product.position_rule_releases') is not null"
+            "and to_regclass('product.position_rule_releases') is not null "
+            "and to_regclass('messaging.coach_notification_deliveries') is not null"
         )
     ).scalar_one()
     if migration != settings.required_database_revision or not required_tables_ready:
@@ -98,6 +103,24 @@ def ready(session: Annotated[Session, Depends(get_db_session)]) -> dict[str, str
             detail="position rule release is not ready",
         )
     if settings.environment.strip().casefold() == "production":
+        try:
+            coach_template = CoachTemplateRelease.from_json(
+                settings.wechat_coach_template_release_json
+            )
+        except CoachTemplateConfigurationError as exc:
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="coach notification template release is not ready",
+            ) from exc
+        if (
+            coach_template is None
+            or not settings.wechat_mini_app_secret.strip()
+            or settings.wechat_coach_miniprogram_state != "formal"
+        ):
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="coach notification template release is not ready",
+            )
         dpa_checks = (
             settings.ai_companion_provider_dpa_confirmed,
             settings.ai_xingce_cause_provider_dpa_confirmed,
@@ -208,9 +231,53 @@ def metrics(
               (select count(*) from platform.background_jobs where status = 'queued') as queued_jobs,
               (select count(*) from platform.background_jobs where status = 'failed') as failed_jobs,
               (select count(*) from privacy.account_deletion_requests where state = 'failed') as failed_deletions,
-              (select count(*) from privacy.data_export_requests where state = 'failed') as failed_exports
+              (select count(*) from privacy.data_export_requests where state = 'failed') as failed_exports,
+              (select count(*) from messaging.coach_notification_deliveries
+                where state = 'outcome_unknown') as coach_unknown,
+              (select count(*) from messaging.coach_notification_deliveries
+                where state = 'platform_rejected'
+                  and terminal_at >= now() - interval '1 hour') as coach_rejected_hour,
+              (select count(*) from messaging.wechat_subscription_grants
+                where state = 'available'
+                  and template_id = :coach_template_id) as coach_available_grants,
+              (select count(*) from messaging.coach_evaluation_cursors cursor
+                join learner.users learner on learner.user_id = cursor.user_id
+                join lateral (
+                  select enabled from messaging.coach_preference_versions preference
+                  where preference.user_id = cursor.user_id
+                  order by version_no desc limit 1
+                ) current on true
+                where learner.is_active = true
+                  and learner.account_status = 'active'
+                  and current.enabled = true) as coach_enabled_users,
+              (select count(*) from messaging.coach_evaluation_cursors cursor
+                join learner.users learner on learner.user_id = cursor.user_id
+                join lateral (
+                  select enabled from messaging.coach_preference_versions preference
+                  where preference.user_id = cursor.user_id
+                  order by version_no desc limit 1
+                ) current on true
+                where learner.is_active = true
+                  and learner.account_status = 'active'
+                  and current.enabled = true
+                  and not exists (
+                    select 1 from messaging.wechat_subscription_grants grant_row
+                    where grant_row.user_id = cursor.user_id
+                      and grant_row.state = 'available'
+                      and grant_row.template_id = :coach_template_id
+                  )) as coach_enabled_without_grant,
+              (select count(*) from platform.background_jobs
+                where job_type = 'coach_notification_send_v1'
+                  and status = 'running'
+                  and claimed_at < now() - make_interval(
+                    secs => :coach_stale_claim_seconds
+                  )) as coach_stale_claims
             """
-        )
+        ),
+        {
+            "coach_stale_claim_seconds": settings.coach_notification_stale_claim_seconds,
+            "coach_template_id": _coach_template_id_for_metrics(settings),
+        },
     ).mappings().one()
     values = {
         "anan_wechat_payment_uncertain_orders": int(row["uncertain_orders"]),
@@ -219,8 +286,26 @@ def metrics(
         "anan_background_jobs_failed": int(row["failed_jobs"]),
         "anan_privacy_deletions_failed": int(row["failed_deletions"]),
         "anan_privacy_exports_failed": int(row["failed_exports"]),
+        "anan_coach_notification_outcome_unknown": int(row["coach_unknown"]),
+        "anan_coach_notification_rejected_last_hour": int(row["coach_rejected_hour"]),
+        "anan_coach_notification_available_grants": int(row["coach_available_grants"]),
+        "anan_coach_notification_enabled_users": int(row["coach_enabled_users"]),
+        "anan_coach_notification_enabled_without_grant": int(
+            row["coach_enabled_without_grant"]
+        ),
+        "anan_coach_notification_stale_claims": int(row["coach_stale_claims"]),
     }
     return "\n".join(f"{key} {value}" for key, value in values.items()) + "\n"
+
+
+def _coach_template_id_for_metrics(settings: Settings) -> str:
+    try:
+        release = CoachTemplateRelease.from_json(
+            settings.wechat_coach_template_release_json
+        )
+    except CoachTemplateConfigurationError:
+        return "__invalid_coach_template__"
+    return release.template_id if release is not None else "__missing_coach_template__"
 
 
 @router.get(

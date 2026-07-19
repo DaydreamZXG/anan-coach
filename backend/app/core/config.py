@@ -163,6 +163,12 @@ class Settings:
     wechat_mini_app_id: str = "wx42824c7f7bfbf4b2"
     wechat_mini_app_secret: str = ""
     wechat_api_base_url: str = "https://api.weixin.qq.com"
+    wechat_coach_template_release_json: str = ""
+    wechat_coach_miniprogram_state: str = "formal"
+    coach_notification_worker_poll_seconds: float = 2.0
+    coach_notification_evaluation_interval_seconds: int = 1800
+    coach_notification_evaluation_batch_size: int = 100
+    coach_notification_stale_claim_seconds: int = 300
     wechat_pay_mch_id: str = ""
     wechat_pay_merchant_serial: str = ""
     wechat_pay_merchant_private_key_path: str = ""
@@ -178,7 +184,7 @@ class Settings:
     wechat_virtual_pay_message_encoding_aes_key: str = ""
     privacy_export_expiry_seconds: int = 86400
     operations_metrics_token: str = ""
-    required_database_revision: str = "20260719_44"
+    required_database_revision: str = "20260719_45"
     support_jwt_jwks_url: str = ""
     support_jwt_issuer: str = ""
     support_jwt_audience: str = ""
@@ -592,6 +598,24 @@ def get_settings() -> Settings:
             "WECHAT_API_BASE_URL",
             "https://api.weixin.qq.com",
         ),
+        wechat_coach_template_release_json=os.getenv(
+            "WECHAT_COACH_TEMPLATE_RELEASE_JSON", ""
+        ),
+        wechat_coach_miniprogram_state=os.getenv(
+            "WECHAT_COACH_MINIPROGRAM_STATE", "formal"
+        ),
+        coach_notification_worker_poll_seconds=float(
+            os.getenv("COACH_NOTIFICATION_WORKER_POLL_SECONDS", "2")
+        ),
+        coach_notification_evaluation_interval_seconds=int(
+            os.getenv("COACH_NOTIFICATION_EVALUATION_INTERVAL_SECONDS", "1800")
+        ),
+        coach_notification_evaluation_batch_size=int(
+            os.getenv("COACH_NOTIFICATION_EVALUATION_BATCH_SIZE", "100")
+        ),
+        coach_notification_stale_claim_seconds=int(
+            os.getenv("COACH_NOTIFICATION_STALE_CLAIM_SECONDS", "300")
+        ),
         wechat_pay_mch_id=os.getenv("WECHAT_PAY_MCH_ID", ""),
         wechat_pay_merchant_serial=os.getenv("WECHAT_PAY_MERCHANT_SERIAL", ""),
         wechat_pay_merchant_private_key_path=os.getenv(
@@ -620,7 +644,7 @@ def get_settings() -> Settings:
         ),
         operations_metrics_token=os.getenv("OPERATIONS_METRICS_TOKEN", ""),
         required_database_revision=os.getenv(
-            "REQUIRED_DATABASE_REVISION", "20260719_44"
+            "REQUIRED_DATABASE_REVISION", "20260719_45"
         ),
         support_jwt_jwks_url=os.getenv("SUPPORT_JWT_JWKS_URL", ""),
         support_jwt_issuer=os.getenv("SUPPORT_JWT_ISSUER", ""),

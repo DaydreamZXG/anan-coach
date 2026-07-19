@@ -16,6 +16,7 @@ export const routes = {
   positionGoal: "/pages/positions/goal/index",
   positionBriefing: "/pages/positions/briefing/index",
   profile: "/pages/profile/index",
+  notificationSettings: "/pages/notification-settings/index",
   membership: "/pages/membership/index",
   privacy: "/pages/privacy/index",
   support: "/pages/support/index",

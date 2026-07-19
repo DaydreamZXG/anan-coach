@@ -16,3 +16,23 @@ groups:
         for: 5m
         labels: { severity: critical }
         annotations: { summary: "用户数据导出或账户删除任务失败" }
+      - alert: CoachNotificationOutcomeUnknown
+        expr: anan_coach_notification_outcome_unknown > 0
+        for: 1m
+        labels: { severity: critical }
+        annotations: { summary: "AI 督学存在发送结果未知且禁止自动重发的消息" }
+      - alert: CoachNotificationPlatformRejectedBurst
+        expr: anan_coach_notification_rejected_last_hour >= 3
+        for: 10m
+        labels: { severity: warning }
+        annotations: { summary: "AI 督学微信接口一小时内连续拒绝消息" }
+      - alert: CoachNotificationGrantExhaustion
+        expr: anan_coach_notification_enabled_users >= 10 and anan_coach_notification_enabled_without_grant / clamp_min(anan_coach_notification_enabled_users, 1) > 0.8
+        for: 30m
+        labels: { severity: warning }
+        annotations: { summary: "超过 80% 的已启用督学用户没有当前模板授权" }
+      - alert: CoachNotificationWorkerStaleClaim
+        expr: anan_coach_notification_stale_claims > 0
+        for: 2m
+        labels: { severity: critical }
+        annotations: { summary: "AI 督学 worker 存在超时发送任务" }

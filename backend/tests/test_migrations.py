@@ -164,6 +164,7 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
         # conftest installs the current schema before this test reconstructs the
         # audited v12 baseline. Remove every later object so Alembic upgrades
         # from the same database shape that production v12 actually had.
+        connection.execute(text("drop schema if exists messaging cascade"))
         migration35 = import_module(
             "migrations.versions.20260717_35_commerce_privacy_operations"
         )

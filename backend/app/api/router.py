@@ -8,6 +8,7 @@ from app.domains.answer_ingestion.router import router as answer_ingestion_route
 from app.domains.planning.router import router as planning_router
 from app.domains.auth.router import router as auth_router, wechat_router
 from app.domains.calibration.router import router as calibration_router
+from app.domains.coach_notifications.router import router as coach_notifications_router
 from app.domains.companion.router import router as companion_router, v2_router as companion_v2_router
 from app.domains.commerce.router import router as commerce_router
 from app.domains.commerce.stage8_router import router as stage8_commerce_router
@@ -53,6 +54,7 @@ router.include_router(planning_router)
 router.include_router(auth_router)
 router.include_router(wechat_router)
 router.include_router(calibration_router)
+router.include_router(coach_notifications_router)
 router.include_router(companion_router)
 router.include_router(companion_v2_router)
 router.include_router(commerce_router)

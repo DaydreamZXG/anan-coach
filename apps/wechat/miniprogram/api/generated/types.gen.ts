@@ -1322,6 +1322,196 @@ export type CoachBriefPayload = {
 };
 
 /**
+ * CoachNotificationHistoryItem
+ */
+export type CoachNotificationHistoryItem = {
+    /**
+     * Acceptedat
+     */
+    acceptedAt: string | null;
+    /**
+     * Category
+     */
+    category: 'task' | 'reflection' | 'retest' | 'mock' | 'weekly_summary';
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Deliveryid
+     */
+    deliveryId: string;
+    /**
+     * Openedat
+     */
+    openedAt: string | null;
+    /**
+     * State
+     */
+    state: 'queued' | 'sending' | 'platform_accepted' | 'platform_rejected' | 'failed' | 'outcome_unknown' | 'canceled';
+};
+
+/**
+ * CoachNotificationOpenCommand
+ */
+export type CoachNotificationOpenCommand = {
+    /**
+     * Openedat
+     */
+    openedAt?: string | null;
+};
+
+/**
+ * CoachNotificationOpenView
+ */
+export type CoachNotificationOpenView = {
+    /**
+     * Deliveryid
+     */
+    deliveryId: string;
+    /**
+     * Openedat
+     */
+    openedAt: string;
+    /**
+     * Taskcompletionchanged
+     */
+    taskCompletionChanged?: false;
+};
+
+/**
+ * CoachNotificationSettings
+ */
+export type CoachNotificationSettings = {
+    /**
+     * Deliveryfactnote
+     */
+    deliveryFactNote: string;
+    preference: CoachPreferenceView;
+    /**
+     * Recentdeliveries
+     */
+    recentDeliveries: Array<CoachNotificationHistoryItem>;
+    template: CoachTemplateView;
+};
+
+/**
+ * CoachPreferenceView
+ */
+export type CoachPreferenceView = {
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Dailylimit
+     */
+    dailyLimit: number;
+    /**
+     * Enabled
+     */
+    enabled: boolean;
+    /**
+     * Mockremindersenabled
+     */
+    mockRemindersEnabled: boolean;
+    /**
+     * Preferenceversionid
+     */
+    preferenceVersionId: string;
+    /**
+     * Quietenabled
+     */
+    quietEnabled: boolean;
+    /**
+     * Quietend
+     */
+    quietEnd: string | null;
+    /**
+     * Quietstart
+     */
+    quietStart: string | null;
+    /**
+     * Receiveend
+     */
+    receiveEnd: string | null;
+    /**
+     * Receivestart
+     */
+    receiveStart: string | null;
+    /**
+     * Reflectionremindersenabled
+     */
+    reflectionRemindersEnabled: boolean;
+    /**
+     * Retestremindersenabled
+     */
+    retestRemindersEnabled: boolean;
+    /**
+     * Sourcetype
+     */
+    sourceType: 'system_default' | 'user_confirmed' | 'user_disabled';
+    /**
+     * Taskremindersenabled
+     */
+    taskRemindersEnabled: boolean;
+    /**
+     * Timezone
+     */
+    timezone: 'Asia/Shanghai';
+    /**
+     * Versionno
+     */
+    versionNo: number;
+    /**
+     * Weeklysummaryenabled
+     */
+    weeklySummaryEnabled: boolean;
+};
+
+/**
+ * CoachTemplateView
+ */
+export type CoachTemplateView = {
+    /**
+     * Authorizationmode
+     */
+    authorizationMode: 'one_time';
+    /**
+     * Availablegrants
+     */
+    availableGrants: number;
+    /**
+     * Configured
+     */
+    configured: boolean;
+    /**
+     * Lastresult
+     */
+    lastResult: 'accept' | 'reject' | 'ban' | 'filter' | null;
+    /**
+     * Lastresultsource
+     */
+    lastResultSource: 'request_prompt' | 'settings_snapshot' | null;
+    /**
+     * Releaseid
+     */
+    releaseId: string | null;
+    /**
+     * Templatecode
+     */
+    templateCode: 'coach_reminder';
+    /**
+     * Templateid
+     */
+    templateId: string | null;
+    /**
+     * Title
+     */
+    title: string;
+};
+
+/**
  * CohortAnnualScore
  */
 export type CohortAnnualScore = {
@@ -2349,6 +2539,16 @@ export type DelayedVerificationRecord = {
      * Trialid
      */
     trialId: string;
+};
+
+/**
+ * DisableCoachNotificationsCommand
+ */
+export type DisableCoachNotificationsCommand = {
+    /**
+     * Basedonpreferenceversionid
+     */
+    basedOnPreferenceVersionId: string;
 };
 
 /**
@@ -10256,6 +10456,51 @@ export type PublicApiEnvelopeAnswerTargetSnapshot = {
 };
 
 /**
+ * PublicApiEnvelope[CoachNotificationOpenView]
+ */
+export type PublicApiEnvelopeCoachNotificationOpenView = {
+    data: CoachNotificationOpenView;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[CoachNotificationSettings]
+ */
+export type PublicApiEnvelopeCoachNotificationSettings = {
+    data: CoachNotificationSettings;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[CoachPreferenceView]
+ */
+export type PublicApiEnvelopeCoachPreferenceView = {
+    data: CoachPreferenceView;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[CommerceDashboard]
  */
 export type PublicApiEnvelopeCommerceDashboard = {
@@ -11790,6 +12035,21 @@ export type PublicApiEnvelopeWechatOrderView = {
  */
 export type PublicApiEnvelopeWechatRefundResponse = {
     data: WechatRefundResponse;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[WechatSubscriptionEventView]
+ */
+export type PublicApiEnvelopeWechatSubscriptionEventView = {
+    data: WechatSubscriptionEventView;
     /**
      * Generatedat
      */
@@ -15575,6 +15835,68 @@ export type TrialReceipt = {
 };
 
 /**
+ * UpdateCoachPreferenceCommand
+ */
+export type UpdateCoachPreferenceCommand = {
+    /**
+     * Basedonpreferenceversionid
+     */
+    basedOnPreferenceVersionId: string;
+    /**
+     * Dailylimit
+     */
+    dailyLimit: number;
+    /**
+     * Enabled
+     */
+    enabled: boolean;
+    /**
+     * Mockremindersenabled
+     */
+    mockRemindersEnabled: boolean;
+    /**
+     * Quietenabled
+     */
+    quietEnabled: boolean;
+    /**
+     * Quietend
+     */
+    quietEnd: string | null;
+    /**
+     * Quietstart
+     */
+    quietStart: string | null;
+    /**
+     * Receiveend
+     */
+    receiveEnd: string | null;
+    /**
+     * Receivestart
+     */
+    receiveStart: string | null;
+    /**
+     * Reflectionremindersenabled
+     */
+    reflectionRemindersEnabled: boolean;
+    /**
+     * Retestremindersenabled
+     */
+    retestRemindersEnabled: boolean;
+    /**
+     * Taskremindersenabled
+     */
+    taskRemindersEnabled: boolean;
+    /**
+     * Timezone
+     */
+    timezone?: 'Asia/Shanghai';
+    /**
+     * Weeklysummaryenabled
+     */
+    weeklySummaryEnabled: boolean;
+};
+
+/**
  * UploadAuthorizationProjection
  */
 export type UploadAuthorizationProjection = {
@@ -16101,6 +16423,62 @@ export type WechatRefundView = {
      * State
      */
     state: 'requested' | 'processing' | 'succeeded' | 'closed' | 'abnormal' | 'provider_uncertain';
+};
+
+/**
+ * WechatSubscriptionEventCommand
+ */
+export type WechatSubscriptionEventCommand = {
+    /**
+     * Result
+     */
+    result: 'accept' | 'reject' | 'ban' | 'filter';
+    /**
+     * Source
+     */
+    source: 'request_prompt' | 'settings_snapshot';
+    /**
+     * Templatecode
+     */
+    templateCode: 'coach_reminder';
+    /**
+     * Templateid
+     */
+    templateId: string;
+};
+
+/**
+ * WechatSubscriptionEventView
+ */
+export type WechatSubscriptionEventView = {
+    /**
+     * Availablegrants
+     */
+    availableGrants: number;
+    /**
+     * Eventid
+     */
+    eventId: string;
+    /**
+     * Grantcreated
+     */
+    grantCreated: boolean;
+    /**
+     * Occurredat
+     */
+    occurredAt: string;
+    /**
+     * Result
+     */
+    result: 'accept' | 'reject' | 'ban' | 'filter';
+    /**
+     * Source
+     */
+    source: 'request_prompt' | 'settings_snapshot';
+    /**
+     * Templatecode
+     */
+    templateCode: 'coach_reminder';
 };
 
 /**
@@ -18939,6 +19317,342 @@ export type LoginWithWechatApiV2AuthWechatPostResponses = {
 };
 
 export type LoginWithWechatApiV2AuthWechatPostResponse = LoginWithWechatApiV2AuthWechatPostResponses[keyof LoginWithWechatApiV2AuthWechatPostResponses];
+
+export type RecordDeliveryOpenApiV2CoachNotificationsDeliveriesDeliveryIdOpenedPostData = {
+    body: CoachNotificationOpenCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Delivery Id
+         */
+        delivery_id: string;
+    };
+    query?: never;
+    url: '/api/v2/coach-notifications/deliveries/{delivery_id}/opened';
+};
+
+export type RecordDeliveryOpenApiV2CoachNotificationsDeliveriesDeliveryIdOpenedPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RecordDeliveryOpenApiV2CoachNotificationsDeliveriesDeliveryIdOpenedPostError = RecordDeliveryOpenApiV2CoachNotificationsDeliveriesDeliveryIdOpenedPostErrors[keyof RecordDeliveryOpenApiV2CoachNotificationsDeliveriesDeliveryIdOpenedPostErrors];
+
+export type RecordDeliveryOpenApiV2CoachNotificationsDeliveriesDeliveryIdOpenedPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeCoachNotificationOpenView;
+};
+
+export type RecordDeliveryOpenApiV2CoachNotificationsDeliveriesDeliveryIdOpenedPostResponse = RecordDeliveryOpenApiV2CoachNotificationsDeliveriesDeliveryIdOpenedPostResponses[keyof RecordDeliveryOpenApiV2CoachNotificationsDeliveriesDeliveryIdOpenedPostResponses];
+
+export type UpdatePreferenceApiV2CoachNotificationsPreferencesPutData = {
+    body: UpdateCoachPreferenceCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/coach-notifications/preferences';
+};
+
+export type UpdatePreferenceApiV2CoachNotificationsPreferencesPutErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type UpdatePreferenceApiV2CoachNotificationsPreferencesPutError = UpdatePreferenceApiV2CoachNotificationsPreferencesPutErrors[keyof UpdatePreferenceApiV2CoachNotificationsPreferencesPutErrors];
+
+export type UpdatePreferenceApiV2CoachNotificationsPreferencesPutResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeCoachPreferenceView;
+};
+
+export type UpdatePreferenceApiV2CoachNotificationsPreferencesPutResponse = UpdatePreferenceApiV2CoachNotificationsPreferencesPutResponses[keyof UpdatePreferenceApiV2CoachNotificationsPreferencesPutResponses];
+
+export type DisableNotificationsApiV2CoachNotificationsPreferencesDisablePostData = {
+    body: DisableCoachNotificationsCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/coach-notifications/preferences/disable';
+};
+
+export type DisableNotificationsApiV2CoachNotificationsPreferencesDisablePostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type DisableNotificationsApiV2CoachNotificationsPreferencesDisablePostError = DisableNotificationsApiV2CoachNotificationsPreferencesDisablePostErrors[keyof DisableNotificationsApiV2CoachNotificationsPreferencesDisablePostErrors];
+
+export type DisableNotificationsApiV2CoachNotificationsPreferencesDisablePostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeCoachPreferenceView;
+};
+
+export type DisableNotificationsApiV2CoachNotificationsPreferencesDisablePostResponse = DisableNotificationsApiV2CoachNotificationsPreferencesDisablePostResponses[keyof DisableNotificationsApiV2CoachNotificationsPreferencesDisablePostResponses];
+
+export type GetSettingsViewApiV2CoachNotificationsSettingsGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/coach-notifications/settings';
+};
+
+export type GetSettingsViewApiV2CoachNotificationsSettingsGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetSettingsViewApiV2CoachNotificationsSettingsGetError = GetSettingsViewApiV2CoachNotificationsSettingsGetErrors[keyof GetSettingsViewApiV2CoachNotificationsSettingsGetErrors];
+
+export type GetSettingsViewApiV2CoachNotificationsSettingsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeCoachNotificationSettings;
+};
+
+export type GetSettingsViewApiV2CoachNotificationsSettingsGetResponse = GetSettingsViewApiV2CoachNotificationsSettingsGetResponses[keyof GetSettingsViewApiV2CoachNotificationsSettingsGetResponses];
+
+export type RecordWechatSubscriptionApiV2CoachNotificationsWechatSubscriptionsPostData = {
+    body: WechatSubscriptionEventCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/coach-notifications/wechat-subscriptions';
+};
+
+export type RecordWechatSubscriptionApiV2CoachNotificationsWechatSubscriptionsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RecordWechatSubscriptionApiV2CoachNotificationsWechatSubscriptionsPostError = RecordWechatSubscriptionApiV2CoachNotificationsWechatSubscriptionsPostErrors[keyof RecordWechatSubscriptionApiV2CoachNotificationsWechatSubscriptionsPostErrors];
+
+export type RecordWechatSubscriptionApiV2CoachNotificationsWechatSubscriptionsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeWechatSubscriptionEventView;
+};
+
+export type RecordWechatSubscriptionApiV2CoachNotificationsWechatSubscriptionsPostResponse = RecordWechatSubscriptionApiV2CoachNotificationsWechatSubscriptionsPostResponses[keyof RecordWechatSubscriptionApiV2CoachNotificationsWechatSubscriptionsPostResponses];
 
 export type GetCatalogApiV2CommerceCatalogGetData = {
     body?: never;

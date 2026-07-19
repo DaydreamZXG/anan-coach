@@ -135,6 +135,10 @@ Page({
     void wx.navigateTo({ url: routes.privacy });
   },
 
+  openNotificationSettings() {
+    void wx.navigateTo({ url: routes.notificationSettings });
+  },
+
   openSupport() {
     void wx.navigateTo({ url: routes.support });
   },

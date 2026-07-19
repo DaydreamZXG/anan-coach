@@ -66,7 +66,8 @@ class DataRightsRepository:
                   (select count(*) from learning.report_projection_versions where user_id = cast(:user_id as uuid)) as report_count,
                   (select count(*) from ai_audit.model_call_ledger where user_id = cast(:user_id as uuid)) as ai_count,
                   (select count(*) from ai_audit.external_ai_operation_ledger where user_id = cast(:user_id as uuid)) as external_ai_count,
-                  (select count(*) from commerce.wechat_orders where user_id = cast(:user_id as uuid)) as order_count
+                  (select count(*) from commerce.wechat_orders where user_id = cast(:user_id as uuid)) as order_count,
+                  (select count(*) from messaging.coach_notification_deliveries where user_id = cast(:user_id as uuid)) as notification_count
                 """
             ),
             {"user_id": user_id},
@@ -106,6 +107,12 @@ class DataRightsRepository:
                     retention="账户存续期间；审计事实按合规周期留存",
                 ),
                 DataCategoryView(
+                    category="communications",
+                    title="AI 督学偏好与消息记录",
+                    item_count=int(counts["notification_count"]),
+                    retention="账户存续期间；注销时删除消息偏好与发送记录",
+                ),
+                DataCategoryView(
                     category="commerce",
                     title="订单与权益",
                     item_count=int(counts["order_count"]),
@@ -115,6 +122,7 @@ class DataRightsRepository:
             account_deletion_effect=[
                 "立即冻结登录并撤销全部设备会话",
                 "删除微信/Apple 身份映射与私有上传对象",
+                "删除 AI 督学偏好、授权、发送与打开记录",
                 "清除显示名、邮箱和支付 OpenID",
                 "仅保留无法用于恢复账户的审计与法定账务事实",
             ],
@@ -415,6 +423,40 @@ class DataRightsRepository:
                 where receipt.user_id = cast(:user_id as uuid)
                 order by receipt.dispatched_at
                 """,
+                user_id,
+            ),
+            "coachNotificationPreferences": self._many_json(
+                "select * from messaging.coach_preference_versions "
+                "where user_id = cast(:user_id as uuid) order by version_no",
+                user_id,
+            ),
+            "wechatSubscriptionEvents": self._many_json(
+                "select * from messaging.wechat_subscription_events "
+                "where user_id = cast(:user_id as uuid) order by occurred_at",
+                user_id,
+            ),
+            "wechatSubscriptionGrants": self._many_json(
+                "select * from messaging.wechat_subscription_grants "
+                "where user_id = cast(:user_id as uuid) order by accepted_at",
+                user_id,
+            ),
+            "coachNotificationDecisions": self._many_json(
+                "select * from messaging.coach_notification_decisions "
+                "where user_id = cast(:user_id as uuid) order by decided_at",
+                user_id,
+            ),
+            "coachNotificationDeliveries": self._many_json(
+                "select delivery.*, opened.opened_at "
+                "from messaging.coach_notification_deliveries delivery "
+                "left join messaging.coach_notification_open_events opened "
+                "on opened.delivery_id = delivery.delivery_id "
+                "where delivery.user_id = cast(:user_id as uuid) "
+                "order by delivery.created_at",
+                user_id,
+            ),
+            "coachNotificationDeliveryEvents": self._many_json(
+                "select * from messaging.coach_notification_delivery_events "
+                "where user_id = cast(:user_id as uuid) order by occurred_at",
                 user_id,
             ),
             "commerce": self._many_json(
@@ -723,7 +765,70 @@ class DataRightsRepository:
             text("select set_config('app.privacy_erasure_user_id', :user_id, true)"),
             {"user_id": user_id},
         )
+        sending_count = int(
+            self._session.execute(
+                text(
+                    "select count(*) from messaging.coach_notification_deliveries "
+                    "where user_id = cast(:user_id as uuid) and state = 'sending'"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+        )
+        if sending_count:
+            raise DataRightsConflict(
+                "account erasure waits for in-flight coach notifications to settle"
+            )
         statements: tuple[tuple[str, str], ...] = (
+            (
+                "coach_notification_jobs",
+                """
+                delete from platform.background_jobs job
+                using messaging.coach_notification_deliveries delivery
+                where job.job_type = 'coach_notification_send_v1'
+                  and job.payload->>'deliveryId' = delivery.delivery_id::text
+                  and delivery.user_id = cast(:user_id as uuid)
+                """,
+            ),
+            (
+                "coach_notification_open_events",
+                "delete from messaging.coach_notification_open_events "
+                "where user_id = cast(:user_id as uuid)",
+            ),
+            (
+                "coach_notification_delivery_events",
+                "delete from messaging.coach_notification_delivery_events "
+                "where user_id = cast(:user_id as uuid)",
+            ),
+            (
+                "coach_notification_deliveries",
+                "delete from messaging.coach_notification_deliveries "
+                "where user_id = cast(:user_id as uuid)",
+            ),
+            (
+                "coach_notification_decisions",
+                "delete from messaging.coach_notification_decisions "
+                "where user_id = cast(:user_id as uuid)",
+            ),
+            (
+                "wechat_subscription_grants",
+                "delete from messaging.wechat_subscription_grants "
+                "where user_id = cast(:user_id as uuid)",
+            ),
+            (
+                "wechat_subscription_events",
+                "delete from messaging.wechat_subscription_events "
+                "where user_id = cast(:user_id as uuid)",
+            ),
+            (
+                "coach_evaluation_cursors",
+                "delete from messaging.coach_evaluation_cursors "
+                "where user_id = cast(:user_id as uuid)",
+            ),
+            (
+                "coach_preferences",
+                "delete from messaging.coach_preference_versions "
+                "where user_id = cast(:user_id as uuid)",
+            ),
             (
                 "profiles",
                 "delete from learner.profiles where user_id = cast(:user_id as uuid)",
