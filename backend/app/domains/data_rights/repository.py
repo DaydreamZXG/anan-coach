@@ -517,6 +517,34 @@ class DataRightsRepository:
                 "where user_id = cast(:user_id as uuid) order by occurred_at",
                 user_id,
             ),
+            "dailyOpeningPreferences": self._many_json(
+                "select preference_version_id, version_no, enabled, weather_enabled, "
+                "coffee_prompt_enabled, coffee_start, coffee_end, timezone, source_type, "
+                "supersedes_preference_version_id, created_at "
+                "from messaging.daily_opening_preference_versions "
+                "where user_id = cast(:user_id as uuid) order by version_no",
+                user_id,
+            ),
+            "dailyOpeningLocations": self._many_json(
+                "select location_version_id, version_no, label, latitude, longitude, "
+                "source_type, supersedes_location_version_id, created_at "
+                "from messaging.daily_opening_location_versions "
+                "where user_id = cast(:user_id as uuid) order by version_no",
+                user_id,
+            ),
+            "dailyOpeningImpressions": self._many_json(
+                "select impression_id, local_date, preference_version_id, "
+                "location_version_id, plan_version_id, weather_fingerprint, "
+                "coffee_state, displayed_at from messaging.daily_opening_impressions "
+                "where user_id = cast(:user_id as uuid) order by local_date",
+                user_id,
+            ),
+            "dailyOpeningCoffeeDecisions": self._many_json(
+                "select decision_id, local_date, decision, decided_at "
+                "from messaging.daily_opening_coffee_decisions "
+                "where user_id = cast(:user_id as uuid) order by local_date",
+                user_id,
+            ),
             "taskEditLeases": self._many_json(
                 "select resource_type, resource_id, lease_id, generation, device_id, "
                 "device_label, reconciliation_state, local_base_revision, server_revision, "
@@ -866,6 +894,36 @@ class DataRightsRepository:
                 "account erasure waits for in-flight coach notifications to settle"
             )
         statements: tuple[tuple[str, str], ...] = (
+            (
+                "luckin_order_confirmations",
+                "delete from messaging.luckin_order_confirmations "
+                "where user_id = cast(:user_id as uuid)",
+            ),
+            (
+                "daily_opening_impressions",
+                "delete from messaging.daily_opening_impressions "
+                "where user_id = cast(:user_id as uuid)",
+            ),
+            (
+                "daily_opening_coffee_decisions",
+                "delete from messaging.daily_opening_coffee_decisions "
+                "where user_id = cast(:user_id as uuid)",
+            ),
+            (
+                "luckin_connection_versions",
+                "delete from messaging.luckin_connection_versions "
+                "where user_id = cast(:user_id as uuid)",
+            ),
+            (
+                "daily_opening_location_versions",
+                "delete from messaging.daily_opening_location_versions "
+                "where user_id = cast(:user_id as uuid)",
+            ),
+            (
+                "daily_opening_preference_versions",
+                "delete from messaging.daily_opening_preference_versions "
+                "where user_id = cast(:user_id as uuid)",
+            ),
             (
                 "task_edit_events",
                 "delete from learning.task_edit_events "

@@ -192,7 +192,13 @@ async function createTodayPageHarness(): Promise<{
   vi.stubGlobal("wx", {
     getStorageSync: () => "",
     removeStorageSync: vi.fn(),
-    request: (options: WechatMiniprogram.RequestOption) => requests.push(options),
+    request: (options: WechatMiniprogram.RequestOption) => {
+      if (options.url.endsWith("/api/v2/plans/daily-opening")) {
+        rejectApi(options, 503, "provider_unavailable", "daily-opening-out-of-scope");
+        return;
+      }
+      requests.push(options);
+    },
     getRandomValues: vi.fn(() => Promise.resolve({ randomValues: new Uint8Array(16).buffer })),
     reLaunch: vi.fn(() => Promise.resolve()),
     navigateTo: vi.fn(() => Promise.resolve()),

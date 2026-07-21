@@ -9,6 +9,7 @@ from sqlalchemy.orm import Session
 from app.db.session import get_db_session
 from app.domains.auth.deps import get_current_user
 from app.domains.auth.repository import AuthenticatedUser
+from app.domains.daily_opening.router import router as daily_opening_router
 from app.domains.planning.errors import PlanningTaskExpiredError
 from app.domains.planning.http import planning_task_expired_response
 from app.domains.planning.insights_schemas import (
@@ -39,6 +40,7 @@ router = APIRouter(
     tags=["planning"],
     responses=COMMON_API_ERROR_RESPONSES,
 )
+router.include_router(daily_opening_router)
 
 
 def get_planning_service() -> PlanningService:

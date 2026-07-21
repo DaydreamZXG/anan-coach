@@ -6,7 +6,7 @@
 
 1. CI 必须通过 `scripts/full_verify.sh`，并生成带 SHA-256 的不可变制品。
 2. `ops/scripts/release_staging.sh` 上传制品，远端 `activate_release.sh` 核对摘要、建独立虚拟环境、执行 Alembic，再原子切换 `current` 软链接。
-3. `/ready` 只在数据库版本精确等于 `REQUIRED_DATABASE_REVISION` 且阶段 8 表存在时返回成功。
+3. `/ready` 只在数据库版本精确等于 `REQUIRED_DATABASE_REVISION`，且阶段 8 与步骤 10 的必需表都存在时返回成功。
 4. 应用故障可执行 `ops/scripts/rollback_release.sh <release-id>` 切回上一个已验收制品。数据库迁移不做破坏性降级；本阶段迁移为向后兼容的增量迁移。
 
 ## 支付与退款

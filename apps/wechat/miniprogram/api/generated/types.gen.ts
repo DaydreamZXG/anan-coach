@@ -1560,6 +1560,38 @@ export type CoachTemplateView = {
 };
 
 /**
+ * CoffeeDecisionCommand
+ */
+export type CoffeeDecisionCommand = {
+    /**
+     * Decision
+     */
+    decision: 'declined_today';
+};
+
+/**
+ * CoffeeDecisionResult
+ */
+export type CoffeeDecisionResult = {
+    /**
+     * Decidedat
+     */
+    decidedAt: string;
+    /**
+     * Decision
+     */
+    decision: 'declined_today';
+    /**
+     * Decisionid
+     */
+    decisionId: string;
+    /**
+     * Localdate
+     */
+    localDate: string;
+};
+
+/**
  * CohortAnnualScore
  */
 export type CohortAnnualScore = {
@@ -2395,6 +2427,48 @@ export type DailyCapacityCommand = {
 export type DailyCapacityCommandResult = {
     capacity: TodayCapacity;
     plan: TodayDashboard;
+};
+
+/**
+ * DailyOpeningView
+ */
+export type DailyOpeningView = {
+    coffee: OpeningCoffeeView;
+    /**
+     * Coffeestate
+     */
+    coffeeState: 'available' | 'today_declined' | 'disabled' | 'outside_window' | 'not_connected' | 'provider_unavailable';
+    /**
+     * Displaystate
+     */
+    displayState: 'ready' | 'already_seen' | 'disabled' | 'location_required' | 'weather_unavailable';
+    /**
+     * Greeting
+     */
+    greeting: string;
+    /**
+     * Localdate
+     */
+    localDate: string;
+    /**
+     * Locationversionid
+     */
+    locationVersionId?: string | null;
+    plan: OpeningPlanSummary;
+    /**
+     * Planversionid
+     */
+    planVersionId: string;
+    preference: OpeningPreferenceView;
+    weather: OpeningWeatherView;
+    /**
+     * Weatherfingerprint
+     */
+    weatherFingerprint?: string | null;
+    /**
+     * Weatherstate
+     */
+    weatherState: 'ready' | 'location_required' | 'provider_unavailable' | 'disabled';
 };
 
 /**
@@ -6134,6 +6208,50 @@ export type ImportWorkspace = {
 };
 
 /**
+ * ImpressionCommand
+ */
+export type ImpressionCommand = {
+    /**
+     * Coffeestate
+     */
+    coffeeState: 'available' | 'today_declined' | 'disabled' | 'outside_window' | 'not_connected' | 'provider_unavailable';
+    /**
+     * Locationversionid
+     */
+    locationVersionId?: string | null;
+    /**
+     * Planversionid
+     */
+    planVersionId: string;
+    /**
+     * Preferenceversionid
+     */
+    preferenceVersionId: string;
+    /**
+     * Weatherfingerprint
+     */
+    weatherFingerprint?: string | null;
+};
+
+/**
+ * ImpressionResult
+ */
+export type ImpressionResult = {
+    /**
+     * Displayedat
+     */
+    displayedAt: string;
+    /**
+     * Impressionid
+     */
+    impressionId: string;
+    /**
+     * Localdate
+     */
+    localDate: string;
+};
+
+/**
  * InferenceCandidateVersion
  */
 export type InferenceCandidateVersion = {
@@ -8191,6 +8309,113 @@ export type OnboardingScoreGap = {
      * Upper
      */
     upper: number;
+};
+
+/**
+ * OpeningCoffeeView
+ */
+export type OpeningCoffeeView = {
+    /**
+     * Prompt
+     */
+    prompt?: string;
+    /**
+     * Showprompt
+     */
+    showPrompt: boolean;
+    /**
+     * State
+     */
+    state: 'available' | 'today_declined' | 'disabled' | 'outside_window' | 'not_connected' | 'provider_unavailable';
+};
+
+/**
+ * OpeningPlanSummary
+ */
+export type OpeningPlanSummary = {
+    /**
+     * Estimatedminutes
+     */
+    estimatedMinutes: number;
+    /**
+     * Starturl
+     */
+    startUrl: string;
+    /**
+     * Title
+     */
+    title: string;
+};
+
+/**
+ * OpeningPreferenceCommand
+ */
+export type OpeningPreferenceCommand = {
+    /**
+     * Coffeepromptenabled
+     */
+    coffeePromptEnabled: boolean;
+    /**
+     * Enabled
+     */
+    enabled: boolean;
+    /**
+     * Weatherenabled
+     */
+    weatherEnabled: boolean;
+};
+
+/**
+ * OpeningPreferenceView
+ */
+export type OpeningPreferenceView = {
+    /**
+     * Coffeeend
+     */
+    coffeeEnd: string;
+    /**
+     * Coffeepromptenabled
+     */
+    coffeePromptEnabled: boolean;
+    /**
+     * Coffeestart
+     */
+    coffeeStart: string;
+    /**
+     * Enabled
+     */
+    enabled: boolean;
+    /**
+     * Preferenceversionid
+     */
+    preferenceVersionId: string;
+    /**
+     * Timezone
+     */
+    timezone: 'Asia/Shanghai';
+    /**
+     * Versionno
+     */
+    versionNo: number;
+    /**
+     * Weatherenabled
+     */
+    weatherEnabled: boolean;
+};
+
+/**
+ * OpeningWeatherView
+ */
+export type OpeningWeatherView = {
+    /**
+     * Attributionurl
+     */
+    attributionUrl?: string;
+    /**
+     * State
+     */
+    state: 'ready' | 'location_required' | 'provider_unavailable' | 'disabled';
+    summary?: WeatherSummary | null;
 };
 
 /**
@@ -10549,6 +10774,21 @@ export type PublicApiEnvelopeCoachPreferenceView = {
 };
 
 /**
+ * PublicApiEnvelope[CoffeeDecisionResult]
+ */
+export type PublicApiEnvelopeCoffeeDecisionResult = {
+    data: CoffeeDecisionResult;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[CommerceDashboard]
  */
 export type PublicApiEnvelopeCommerceDashboard = {
@@ -10643,6 +10883,21 @@ export type PublicApiEnvelopeContributionsResponse = {
  */
 export type PublicApiEnvelopeDailyCapacityCommandResult = {
     data: DailyCapacityCommandResult;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[DailyOpeningView]
+ */
+export type PublicApiEnvelopeDailyOpeningView = {
+    data: DailyOpeningView;
     /**
      * Generatedat
      */
@@ -11104,6 +11359,21 @@ export type PublicApiEnvelopeImportWorkspace = {
 };
 
 /**
+ * PublicApiEnvelope[ImpressionResult]
+ */
+export type PublicApiEnvelopeImpressionResult = {
+    data: ImpressionResult;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[LearningBrainProfileVersion]
  */
 export type PublicApiEnvelopeLearningBrainProfileVersion = {
@@ -11258,6 +11528,21 @@ export type PublicApiEnvelopeOnboardingProgress = {
  */
 export type PublicApiEnvelopeOnboardingResultProjection = {
     data: OnboardingResultProjection;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[OpeningPreferenceView]
+ */
+export type PublicApiEnvelopeOpeningPreferenceView = {
+    data: OpeningPreferenceView;
     /**
      * Generatedat
      */
@@ -12038,6 +12323,21 @@ export type PublicApiEnvelopeUnionRefundEligibilityNoneType = {
  */
 export type PublicApiEnvelopeUploadSessionProjection = {
     data: UploadSessionProjection;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[WeatherLocationView]
+ */
+export type PublicApiEnvelopeWeatherLocationView = {
+    data: WeatherLocationView;
     /**
      * Generatedat
      */
@@ -16278,6 +16578,104 @@ export type VirtualPaymentOrderCreateRequest = {
      * Paymentlogincode
      */
     paymentLoginCode: string;
+};
+
+/**
+ * WeatherLocationCommand
+ */
+export type WeatherLocationCommand = {
+    /**
+     * Label
+     */
+    label: string;
+    /**
+     * Latitude
+     */
+    latitude: number;
+    /**
+     * Longitude
+     */
+    longitude: number;
+    /**
+     * Sourcetype
+     */
+    sourceType?: 'wechat_choose_location';
+};
+
+/**
+ * WeatherLocationView
+ */
+export type WeatherLocationView = {
+    /**
+     * Label
+     */
+    label: string;
+    /**
+     * Latitude
+     */
+    latitude: number;
+    /**
+     * Locationversionid
+     */
+    locationVersionId: string;
+    /**
+     * Longitude
+     */
+    longitude: number;
+    /**
+     * Versionno
+     */
+    versionNo: number;
+};
+
+/**
+ * WeatherSummary
+ */
+export type WeatherSummary = {
+    /**
+     * Attributionurl
+     */
+    attributionUrl: string;
+    /**
+     * Conditioncode
+     */
+    conditionCode: string;
+    /**
+     * Currentcelsius
+     */
+    currentCelsius: number;
+    /**
+     * Expiresat
+     */
+    expiresAt: string;
+    /**
+     * Locationlabel
+     */
+    locationLabel: string;
+    /**
+     * Maximumcelsius
+     */
+    maximumCelsius: number;
+    /**
+     * Minimumcelsius
+     */
+    minimumCelsius: number;
+    /**
+     * Precipitationchance
+     */
+    precipitationChance: number;
+    /**
+     * Provider
+     */
+    provider?: 'apple-weatherkit';
+    /**
+     * Providername
+     */
+    providerName: string;
+    /**
+     * Readat
+     */
+    readAt: string;
 };
 
 /**
@@ -26691,6 +27089,400 @@ export type PutWeeklyStudyPreferenceApiV2OnboardingStudyPreferencePutResponses =
 };
 
 export type PutWeeklyStudyPreferenceApiV2OnboardingStudyPreferencePutResponse = PutWeeklyStudyPreferenceApiV2OnboardingStudyPreferencePutResponses[keyof PutWeeklyStudyPreferenceApiV2OnboardingStudyPreferencePutResponses];
+
+export type GetDailyOpeningApiV2PlansDailyOpeningGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/plans/daily-opening';
+};
+
+export type GetDailyOpeningApiV2PlansDailyOpeningGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetDailyOpeningApiV2PlansDailyOpeningGetError = GetDailyOpeningApiV2PlansDailyOpeningGetErrors[keyof GetDailyOpeningApiV2PlansDailyOpeningGetErrors];
+
+export type GetDailyOpeningApiV2PlansDailyOpeningGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeDailyOpeningView;
+};
+
+export type GetDailyOpeningApiV2PlansDailyOpeningGetResponse = GetDailyOpeningApiV2PlansDailyOpeningGetResponses[keyof GetDailyOpeningApiV2PlansDailyOpeningGetResponses];
+
+export type RecordCoffeeDecisionApiV2PlansDailyOpeningCoffeeDecisionsPostData = {
+    body: CoffeeDecisionCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/plans/daily-opening/coffee-decisions';
+};
+
+export type RecordCoffeeDecisionApiV2PlansDailyOpeningCoffeeDecisionsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RecordCoffeeDecisionApiV2PlansDailyOpeningCoffeeDecisionsPostError = RecordCoffeeDecisionApiV2PlansDailyOpeningCoffeeDecisionsPostErrors[keyof RecordCoffeeDecisionApiV2PlansDailyOpeningCoffeeDecisionsPostErrors];
+
+export type RecordCoffeeDecisionApiV2PlansDailyOpeningCoffeeDecisionsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeCoffeeDecisionResult;
+};
+
+export type RecordCoffeeDecisionApiV2PlansDailyOpeningCoffeeDecisionsPostResponse = RecordCoffeeDecisionApiV2PlansDailyOpeningCoffeeDecisionsPostResponses[keyof RecordCoffeeDecisionApiV2PlansDailyOpeningCoffeeDecisionsPostResponses];
+
+export type RecordDailyOpeningImpressionApiV2PlansDailyOpeningImpressionsPostData = {
+    body: ImpressionCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/plans/daily-opening/impressions';
+};
+
+export type RecordDailyOpeningImpressionApiV2PlansDailyOpeningImpressionsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RecordDailyOpeningImpressionApiV2PlansDailyOpeningImpressionsPostError = RecordDailyOpeningImpressionApiV2PlansDailyOpeningImpressionsPostErrors[keyof RecordDailyOpeningImpressionApiV2PlansDailyOpeningImpressionsPostErrors];
+
+export type RecordDailyOpeningImpressionApiV2PlansDailyOpeningImpressionsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeImpressionResult;
+};
+
+export type RecordDailyOpeningImpressionApiV2PlansDailyOpeningImpressionsPostResponse = RecordDailyOpeningImpressionApiV2PlansDailyOpeningImpressionsPostResponses[keyof RecordDailyOpeningImpressionApiV2PlansDailyOpeningImpressionsPostResponses];
+
+export type GetDailyOpeningPreferencesApiV2PlansDailyOpeningPreferencesGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/plans/daily-opening/preferences';
+};
+
+export type GetDailyOpeningPreferencesApiV2PlansDailyOpeningPreferencesGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetDailyOpeningPreferencesApiV2PlansDailyOpeningPreferencesGetError = GetDailyOpeningPreferencesApiV2PlansDailyOpeningPreferencesGetErrors[keyof GetDailyOpeningPreferencesApiV2PlansDailyOpeningPreferencesGetErrors];
+
+export type GetDailyOpeningPreferencesApiV2PlansDailyOpeningPreferencesGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeOpeningPreferenceView;
+};
+
+export type GetDailyOpeningPreferencesApiV2PlansDailyOpeningPreferencesGetResponse = GetDailyOpeningPreferencesApiV2PlansDailyOpeningPreferencesGetResponses[keyof GetDailyOpeningPreferencesApiV2PlansDailyOpeningPreferencesGetResponses];
+
+export type UpdateDailyOpeningPreferencesApiV2PlansDailyOpeningPreferencesPutData = {
+    body: OpeningPreferenceCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/plans/daily-opening/preferences';
+};
+
+export type UpdateDailyOpeningPreferencesApiV2PlansDailyOpeningPreferencesPutErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type UpdateDailyOpeningPreferencesApiV2PlansDailyOpeningPreferencesPutError = UpdateDailyOpeningPreferencesApiV2PlansDailyOpeningPreferencesPutErrors[keyof UpdateDailyOpeningPreferencesApiV2PlansDailyOpeningPreferencesPutErrors];
+
+export type UpdateDailyOpeningPreferencesApiV2PlansDailyOpeningPreferencesPutResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeOpeningPreferenceView;
+};
+
+export type UpdateDailyOpeningPreferencesApiV2PlansDailyOpeningPreferencesPutResponse = UpdateDailyOpeningPreferencesApiV2PlansDailyOpeningPreferencesPutResponses[keyof UpdateDailyOpeningPreferencesApiV2PlansDailyOpeningPreferencesPutResponses];
+
+export type UpdateWeatherLocationApiV2PlansDailyOpeningWeatherLocationPutData = {
+    body: WeatherLocationCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/plans/daily-opening/weather-location';
+};
+
+export type UpdateWeatherLocationApiV2PlansDailyOpeningWeatherLocationPutErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type UpdateWeatherLocationApiV2PlansDailyOpeningWeatherLocationPutError = UpdateWeatherLocationApiV2PlansDailyOpeningWeatherLocationPutErrors[keyof UpdateWeatherLocationApiV2PlansDailyOpeningWeatherLocationPutErrors];
+
+export type UpdateWeatherLocationApiV2PlansDailyOpeningWeatherLocationPutResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeWeatherLocationView;
+};
+
+export type UpdateWeatherLocationApiV2PlansDailyOpeningWeatherLocationPutResponse = UpdateWeatherLocationApiV2PlansDailyOpeningWeatherLocationPutResponses[keyof UpdateWeatherLocationApiV2PlansDailyOpeningWeatherLocationPutResponses];
 
 export type GetPlanChangeHistoryApiV2PlansHistoryGetData = {
     body?: never;

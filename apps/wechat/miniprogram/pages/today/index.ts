@@ -1,5 +1,10 @@
 import { ApiClient } from "../../api/client";
-import type { TodayDashboard } from "../../api/generated/types.gen";
+import { DailyOpeningApi } from "../../api/daily-opening";
+import type {
+  DailyOpeningView,
+  TodayDashboard,
+  WeatherLocationCommand,
+} from "../../api/generated/types.gen";
 import { OnboardingApi } from "../../api/onboarding";
 import { PlanningApi } from "../../api/planning";
 import { createCoachRepository } from "../../data/coach-repository";
@@ -9,6 +14,14 @@ import { PageControllerRegistry } from "../../app/runtime/controller-registry";
 import { clearAuthSession, currentAccessToken, currentAuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";
 import { consumeLatestTodayDashboard } from "../../features/planning/runtime-state";
+import {
+  DailyOpeningController,
+  type DailyOpeningState,
+} from "../../features/daily-opening/controller";
+import {
+  presentDailyOpening,
+  type DailyOpeningPresentation,
+} from "../../features/daily-opening/presentation";
 import {
   TodayController,
   type TodayCapacitySubmission,
@@ -24,7 +37,19 @@ import {
 } from "./capacity";
 import { presentTodayDashboard, type TodayView } from "./presentation";
 
-const controllers = new PageControllerRegistry<object, TodayController>();
+class TodayPageControllers {
+  constructor(
+    readonly today: TodayController,
+    readonly opening: DailyOpeningController,
+  ) {}
+
+  dispose(): void {
+    this.today.dispose();
+    this.opening.dispose();
+  }
+}
+
+const controllers = new PageControllerRegistry<object, TodayPageControllers>();
 
 interface TodayPageData {
   status: "loading" | "ready" | "error";
@@ -41,6 +66,13 @@ interface TodayPageData {
   energyLabel: string;
   stressLabel: string;
   confidenceLabel: string;
+  openingStatus: DailyOpeningState["status"];
+  openingView: DailyOpeningPresentation | null;
+  openingRaw: DailyOpeningView | null;
+  openingError: string;
+  openingWriting: boolean;
+  taskOpeningId: string;
+  taskNavigationError: string;
 }
 
 interface TodayPageCustom {
@@ -61,6 +93,13 @@ interface TodayPageCustom {
   openCaptureImport(): void;
   openOnboarding(): void;
   retry(): void;
+  loadDailyOpening(): Promise<void>;
+  chooseWeatherLocation(): void;
+  startDailyOpening(): void;
+  declineDailyCoffee(): void;
+  disableDailyCoffee(): void;
+  openWeatherAttribution(): void;
+  openCoffeeAssistant(): void;
 }
 
 Page<TodayPageData, TodayPageCustom>({
@@ -79,12 +118,21 @@ Page<TodayPageData, TodayPageCustom>({
     energyLabel: "",
     stressLabel: "",
     confidenceLabel: "",
+    openingStatus: "idle",
+    openingView: null,
+    openingRaw: null,
+    openingError: "",
+    openingWriting: false,
+    taskOpeningId: "",
+    taskNavigationError: "",
   },
 
   onLoad() {
     const runtime = controllers.attach(this);
-    runtime.controller = createTodayController(this);
-    void runtime.controller.load();
+    const opening = createDailyOpeningController(this);
+    const today = createTodayController(this);
+    runtime.controller = new TodayPageControllers(today, opening);
+    void today.load();
   },
 
   onUnload() {
@@ -92,14 +140,15 @@ Page<TodayPageData, TodayPageCustom>({
   },
 
   onShow() {
+    if (this.data.taskOpeningId) this.setData({ taskOpeningId: "" });
     const controller = controllers.get(this)?.controller;
     const latest = consumeLatestTodayDashboard();
-    if (latest) controller?.acceptLatestDashboard(latest);
-    void controller?.load();
+    if (latest) controller?.today.acceptLatestDashboard(latest);
+    void controller?.today.load();
   },
 
   async loadDashboard() {
-    await controllers.get(this)?.controller?.load();
+    await controllers.get(this)?.controller?.today.load();
   },
 
   replaceDashboard(dashboard, capacitySubmission) {
@@ -209,7 +258,7 @@ Page<TodayPageData, TodayPageCustom>({
       return;
     }
 
-    await controllers.get(this)?.controller?.submitCapacity(prepared.command);
+    await controllers.get(this)?.controller?.today.submitCapacity(prepared.command);
   },
 
   reloadAfterCapacityConflict() {
@@ -220,6 +269,7 @@ Page<TodayPageData, TodayPageCustom>({
 
   openTask(event: WechatMiniprogram.BaseEvent) {
     const taskId = String(event.currentTarget.dataset.id ?? "");
+    if (!taskId || this.data.taskOpeningId) return;
     const task = this.data.view?.tasks.find((item) => item.id === taskId);
     if (!task) return;
     if (!task.canOpen || !task.navigationUrl || !task.navigationMode) {
@@ -230,11 +280,18 @@ Page<TodayPageData, TodayPageCustom>({
       });
       return;
     }
+    this.setData({ taskOpeningId: task.id, taskNavigationError: "" });
+    const fail = (result: WechatMiniprogram.GeneralCallbackResult) => {
+      this.setData({
+        taskOpeningId: "",
+        taskNavigationError: result.errMsg || "任务页面没有打开，请重试。",
+      });
+    };
     if (task.navigationMode === "switchTab") {
-      void wx.switchTab({ url: task.navigationUrl });
+      wx.switchTab({ url: task.navigationUrl, fail });
       return;
     }
-    void wx.navigateTo({ url: task.navigationUrl });
+    wx.navigateTo({ url: task.navigationUrl, fail });
   },
 
   openMasteryQueue() {
@@ -268,12 +325,76 @@ Page<TodayPageData, TodayPageCustom>({
   retry() {
     void this.loadDashboard();
   },
+
+  async loadDailyOpening() {
+    await controllers.get(this)?.controller?.opening.load();
+  },
+
+  chooseWeatherLocation() {
+    if (this.data.openingWriting) return;
+    wx.chooseLocation({
+      success: (result) => {
+        const command: WeatherLocationCommand = {
+          label: (result.name || result.address || "已选地点").slice(0, 120),
+          latitude: result.latitude,
+          longitude: result.longitude,
+          sourceType: "wechat_choose_location",
+        };
+        void controllers.get(this)?.controller?.opening.chooseWeatherLocation(command);
+      },
+      fail: () => {
+        void wx.showToast({ title: "没有选择地点", icon: "none" });
+      },
+    });
+  },
+
+  startDailyOpening() {
+    const startUrl = this.data.openingRaw?.plan.startUrl;
+    if (!startUrl) return;
+    if (startUrl.split("?")[0] === routes.today) {
+      void wx.pageScrollTo({ selector: ".focus-dashboard", duration: 260 });
+      return;
+    }
+    void wx.navigateTo({ url: startUrl });
+  },
+
+  declineDailyCoffee() {
+    void controllers.get(this)?.controller?.opening.declineCoffee();
+  },
+
+  disableDailyCoffee() {
+    wx.showModal({
+      title: "以后不再询问咖啡？",
+      content: "只关闭咖啡询问，天气和今日计划仍会显示。你可以在“我的”里重新开启。",
+      confirmText: "确认关闭",
+      success: (result) => {
+        if (result.confirm) void controllers.get(this)?.controller?.opening.disableCoffee();
+      },
+    });
+  },
+
+  openWeatherAttribution() {
+    const url = this.data.openingView?.attributionUrl;
+    if (!url) return;
+    void wx.navigateTo({
+      url: `${routes.weatherAttribution}?url=${encodeURIComponent(url)}`,
+    });
+  },
+
+  openCoffeeAssistant() {
+    void wx.showModal({
+      title: "咖啡助手尚未启用",
+      content: "只有官方用户授权与下单确认链路验收通过后才会开放；当前不会创建订单或付款。",
+      showCancel: false,
+    });
+  },
 });
 
 interface TodayPageInstance {
   data: TodayPageData;
   setData(state: Partial<TodayPageData>): void;
   replaceDashboard(dashboard: TodayDashboard, capacitySubmission: TodayCapacitySubmission): void;
+  loadDailyOpening(): Promise<void>;
 }
 
 function createTodayController(page: TodayPageInstance): TodayController {
@@ -320,6 +441,7 @@ function publishTodayState(page: TodayPageInstance, state: TodayControllerState)
           ? `${previousConflictMessage} ${state.capacityMessage}`
           : state.capacityMessage,
     });
+    if (page.data.openingStatus === "idle") void page.loadDailyOpening();
     return;
   }
   page.setData({
@@ -337,4 +459,44 @@ function publishTodayState(page: TodayPageInstance, state: TodayControllerState)
     stressLabel: "",
     confidenceLabel: "",
   });
+}
+
+function createDailyOpeningController(page: TodayPageInstance): DailyOpeningController {
+  const api = (accessToken: string) =>
+    new DailyOpeningApi(new ApiClient(environment.apiBaseUrl, accessToken));
+  return new DailyOpeningController({
+    accessToken: currentAccessToken,
+    get: async (accessToken) => (await api(accessToken).get()).data,
+    recordImpression: async (accessToken, command, idempotencyKey) => {
+      await api(accessToken).recordImpression(command, idempotencyKey);
+    },
+    updateWeatherLocation: async (accessToken, command, idempotencyKey) => {
+      await api(accessToken).updateWeatherLocation(command, idempotencyKey);
+    },
+    updatePreference: async (accessToken, command, idempotencyKey) => {
+      await api(accessToken).updatePreference(command, idempotencyKey);
+    },
+    declineCoffee: async (accessToken, idempotencyKey) => {
+      await api(accessToken).recordCoffeeDecision({ decision: "declined_today" }, idempotencyKey);
+    },
+    createIdempotencyKey: createCapacityIdempotencyKey,
+    publish: (state) => {
+      publishOpeningState(page, state);
+    },
+  });
+}
+
+function publishOpeningState(page: TodayPageInstance, state: DailyOpeningState): void {
+  page.setData({
+    openingStatus: state.status,
+    openingView: state.view ? presentDailyOpening(state.view) : null,
+    openingRaw: state.view,
+    openingError: state.errorMessage,
+    openingWriting: state.writing,
+  });
+  if (state.status === "ready" && state.view) {
+    wx.nextTick(() => {
+      void controllers.get(page)?.controller?.opening.recordDisplayed();
+    });
+  }
 }

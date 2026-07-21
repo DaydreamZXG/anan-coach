@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "天气数据来源",
+  "usingComponents": {
+    "state-view": "../../design-system/primitives/state-view/index"
+  }
+}

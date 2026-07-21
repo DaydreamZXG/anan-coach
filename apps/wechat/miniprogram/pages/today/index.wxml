@@ -26,6 +26,57 @@
   </view>
 
   <block wx:elif="{{view}}">
+    <view wx:if="{{openingStatus === 'ready' && openingView}}" class="daily-opening card top-space">
+      <view class="daily-opening__head">
+        <view class="daily-opening__identity">
+          <anan-companion intent="encouragement" size="small" context="home" label="岸岸" />
+          <view>
+            <view class="daily-opening__kicker">岸岸 · {{openingView.localDateLabel}}</view>
+            <view class="daily-opening__greeting">{{openingView.greeting}}</view>
+          </view>
+        </view>
+        <view class="daily-opening__once">今日一次</view>
+      </view>
+
+      <view wx:if="{{openingView.weatherReady}}" class="daily-opening__weather">
+        <view>
+          <view class="daily-opening__weather-main">{{openingView.weatherHeadline}}</view>
+          <view class="daily-opening__weather-detail">{{openingView.weatherDetail}}</view>
+        </view>
+        <button class="daily-opening__source" bindtap="openWeatherAttribution">Apple Weather ›</button>
+      </view>
+      <view wx:elif="{{openingView.weatherLocationRequired}}" class="daily-opening__setup">
+        <view>
+          <view class="daily-opening__setup-title">先选一个天气地点</view>
+          <view class="daily-opening__setup-copy">只保存约百米精度的位置，不持续定位，也不会直接用于咖啡下单。</view>
+        </view>
+        <button class="daily-opening__location" loading="{{openingWriting}}" bindtap="chooseWeatherLocation">选择地点</button>
+      </view>
+      <view wx:elif="{{openingView.weatherUnavailable}}" class="daily-opening__provider-state">
+        天气服务尚未完成线上授权，本次不展示推测天气。
+      </view>
+
+      <view class="daily-opening__plan">
+        <view class="daily-opening__plan-copy">
+          <view class="daily-opening__plan-label">今天先做</view>
+          <view class="daily-opening__plan-title">{{openingView.planTitle}}</view>
+        </view>
+        <view class="daily-opening__minutes type-data">{{openingView.planMinutesLabel}}</view>
+      </view>
+
+      <view wx:if="{{openingView.coffeeVisible}}" class="daily-opening__coffee">
+        <view class="daily-opening__coffee-copy">{{openingView.coffeePrompt}}</view>
+        <view class="daily-opening__coffee-actions">
+          <button class="daily-opening__coffee-primary" bindtap="openCoffeeAssistant">帮我看看</button>
+          <button class="daily-opening__coffee-secondary" loading="{{openingWriting}}" bindtap="declineDailyCoffee">今天不喝</button>
+          <button class="daily-opening__coffee-secondary" loading="{{openingWriting}}" bindtap="disableDailyCoffee">以后别问</button>
+        </view>
+      </view>
+
+      <view wx:if="{{openingError}}" class="daily-opening__error">{{openingError}}</view>
+      <button class="daily-opening__start" bindtap="startDailyOpening">开始今日学习</button>
+    </view>
+
     <view class="focus-dashboard card top-space">
       <view class="dashboard-hero-strip">
         <view class="dashboard-hero-main">
@@ -280,10 +331,14 @@
       <text class="task-empty__note">规划缺口已如实保留，不会用占位任务冒充今日安排。</text>
     </view>
 
+    <view wx:if="{{taskNavigationError}}" class="task-navigation-error">
+      {{taskNavigationError}}
+    </view>
+
     <view
       wx:for="{{view.tasks}}"
       wx:key="id"
-      class="task card {{item.canOpen ? '' : 'task--disabled'}}"
+      class="task card {{item.canOpen ? '' : 'task--disabled'}} {{taskOpeningId === item.id ? 'task--opening' : ''}}"
       hover-class="{{item.canOpen ? 'card--hover' : ''}}"
       data-id="{{item.id}}"
       bindtap="openTask"
@@ -304,7 +359,7 @@
         <view wx:if="{{item.elapsedMinutes !== null}}" class="task-progress">
           已记录 <text class="type-data">{{item.elapsedMinutes}}</text> 分钟实际投入
         </view>
-        <view class="task-title">{{item.title}}</view>
+        <view class="task-title">{{taskOpeningId === item.id ? '正在打开···' : item.title}}</view>
         <view class="task-reason">{{item.reason}}</view>
         <view class="task-rule">验收：{{item.completionRule}}</view>
         <view class="task-basis">

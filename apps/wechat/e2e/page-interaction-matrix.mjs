@@ -89,6 +89,12 @@ export const pageInteractionMatrix = [
     selector: ".profile-menu-row",
   }),
   page(
+    "pages/weather-attribution/index",
+    "h06-weather-attribution-boundary",
+    "阅读 Apple Weather 数据来源边界",
+    { evidence: RUNTIME_READ_ONLY },
+  ),
+  page(
     "pages/notification-settings/index",
     "h05-coach-notification-settings-ready",
     "保存 AI 督学偏好",

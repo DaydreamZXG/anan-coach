@@ -70,7 +70,9 @@ def ready(session: Annotated[Session, Depends(get_db_session)]) -> dict[str, str
             "select to_regclass('commerce.wechat_orders') is not null "
             "and to_regclass('privacy.data_export_requests') is not null "
             "and to_regclass('product.position_rule_releases') is not null "
-            "and to_regclass('messaging.coach_notification_deliveries') is not null"
+            "and to_regclass('messaging.coach_notification_deliveries') is not null "
+            "and to_regclass('messaging.daily_opening_impressions') is not null "
+            "and to_regclass('messaging.daily_opening_preference_versions') is not null"
         )
     ).scalar_one()
     if migration != settings.required_database_revision or not required_tables_ready:

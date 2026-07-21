@@ -1,6 +1,11 @@
 import { AccountApi } from "../../api/account";
 import { ApiClient, ApiClientError } from "../../api/client";
-import type { AccountSessionView } from "../../api/generated/types.gen";
+import { DailyOpeningApi } from "../../api/daily-opening";
+import type {
+  AccountSessionView,
+  OpeningPreferenceCommand,
+  OpeningPreferenceView,
+} from "../../api/generated/types.gen";
 import {
   clearAllPendingAuthReturns,
   clearPendingAuthReturn,
@@ -19,6 +24,7 @@ import {
   clearPositionStateForUser,
 } from "../../features/positions/state-store";
 import { routes } from "../../app/navigation/routes";
+import { createCapacityIdempotencyKey } from "../today/capacity";
 
 type SessionView = AccountSessionView & {
   lastSeenLabel: string;
@@ -54,6 +60,9 @@ Page({
     revokingSessionId: "",
     loggingOut: false,
     loggingOutAll: false,
+    openingPreference: null as OpeningPreferenceView | null,
+    openingPreferenceLabel: "读取中",
+    openingPreferenceWriting: false,
   },
 
   onShow() {
@@ -62,6 +71,7 @@ Page({
       return;
     }
     void this.loadAccount();
+    void this.loadDailyOpeningPreference();
   },
 
   async loadAccount() {
@@ -95,6 +105,74 @@ Page({
 
   retry() {
     void this.loadAccount();
+    void this.loadDailyOpeningPreference();
+  },
+
+  async loadDailyOpeningPreference() {
+    const token = currentAccessToken();
+    if (!token) return;
+    try {
+      const response = await new DailyOpeningApi(new ApiClient(undefined, token)).getPreference();
+      const preference = response.data;
+      this.setData({
+        openingPreference: preference,
+        openingPreferenceLabel: preference.enabled
+          ? `已开启 · 天气${preference.weatherEnabled ? "开" : "关"} · 咖啡${preference.coffeePromptEnabled ? "开" : "关"}`
+          : "已关闭",
+      });
+    } catch (error) {
+      const apiError = error instanceof ApiClientError ? error : undefined;
+      this.setData({
+        openingPreferenceLabel: "设置读取失败",
+        errorMessage: apiError?.message ?? "每日开场设置读取失败。",
+      });
+    }
+  },
+
+  manageDailyOpening() {
+    const preference = this.data.openingPreference;
+    if (!preference || this.data.openingPreferenceWriting) return;
+    const actions = preference.enabled
+      ? [
+          "关闭每日开场",
+          preference.weatherEnabled ? "关闭天气" : "开启天气",
+          preference.coffeePromptEnabled ? "关闭咖啡询问" : "开启咖啡询问",
+        ]
+      : ["开启每日开场"];
+    wx.showActionSheet({
+      itemList: actions,
+      success: (result) => {
+        const command: OpeningPreferenceCommand = {
+          enabled: preference.enabled,
+          weatherEnabled: preference.weatherEnabled,
+          coffeePromptEnabled: preference.coffeePromptEnabled,
+        };
+        if (!preference.enabled) command.enabled = true;
+        else if (result.tapIndex === 0) command.enabled = false;
+        else if (result.tapIndex === 1) command.weatherEnabled = !preference.weatherEnabled;
+        else if (result.tapIndex === 2)
+          command.coffeePromptEnabled = !preference.coffeePromptEnabled;
+        void this.updateDailyOpeningPreference(command);
+      },
+    });
+  },
+
+  async updateDailyOpeningPreference(command: OpeningPreferenceCommand) {
+    const token = currentAccessToken();
+    if (!token || this.data.openingPreferenceWriting) return;
+    this.setData({ openingPreferenceWriting: true, errorMessage: "" });
+    try {
+      const key = await createCapacityIdempotencyKey();
+      await new DailyOpeningApi(new ApiClient(undefined, token)).updatePreference(command, key);
+      this.setData({ openingPreferenceWriting: false });
+      await this.loadDailyOpeningPreference();
+    } catch (error) {
+      const apiError = error instanceof ApiClientError ? error : undefined;
+      this.setData({
+        openingPreferenceWriting: false,
+        errorMessage: apiError?.message ?? "每日开场设置没有写入，请重试。",
+      });
+    }
   },
 
   openCommunityDraft() {

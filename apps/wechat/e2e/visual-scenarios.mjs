@@ -294,6 +294,23 @@ export const visualScenarios = [
       energyLabel: "状态不错",
       stressLabel: "压力可控",
       confidenceLabel: "基本确定",
+      openingStatus: "ready",
+      openingError: "",
+      openingWriting: false,
+      openingView: {
+        localDateLabel: "07月21日",
+        greeting: "早上好。先看一眼天气，然后把今天最值钱的一件事做完。",
+        planTitle: "资料分析整组计时复测",
+        planMinutesLabel: "45 分钟",
+        weatherReady: true,
+        weatherLocationRequired: false,
+        weatherUnavailable: false,
+        weatherHeadline: "南昌市红谷滩区 · 多云 31°",
+        weatherDetail: "26°–35° · 降水概率 45%",
+        attributionUrl: "https://weatherkit.apple.com/legal-attribution.html",
+        coffeeVisible: false,
+        coffeePrompt: "",
+      },
       view: {
         positionName: "国家税务总局 · 一级行政执法员",
         evidenceSummary: "资格已确认 · 岗位目标有效至 2027.07.01",
@@ -339,7 +356,8 @@ export const visualScenarios = [
           {
             id: "today-task-1",
             canOpen: true,
-            navigationUrl: "/pages/xingce-task-intro/index",
+            navigationUrl:
+              "/pages/xingce-task-intro/index?planTaskId=today-task-1&mode=verification",
             navigationMode: "navigateTo",
             track: "xingce",
             trackLabel: "行测",
@@ -396,6 +414,18 @@ export const visualScenarios = [
       wechatLinkedLabel: "已绑定",
       profileVersion: 8,
       establishedLabel: "2026.07.12",
+      openingPreference: {
+        preferenceVersionId: "visual-opening-preference-v2",
+        versionNo: 2,
+        enabled: true,
+        weatherEnabled: true,
+        coffeePromptEnabled: true,
+        coffeeStart: "07:00:00",
+        coffeeEnd: "17:00:00",
+        timezone: "Asia/Shanghai",
+      },
+      openingPreferenceLabel: "已开启 · 天气开 · 咖啡开",
+      openingPreferenceWriting: false,
       sessions: [
         {
           sessionId: "visual-current-session",
@@ -424,6 +454,14 @@ export const visualScenarios = [
     data: {
       groupQrImageUrl: "",
       qrAvailable: false,
+    },
+  },
+  {
+    id: "h06-weather-attribution-boundary",
+    route: "/pages/weather-attribution/index",
+    data: {
+      url: "",
+      valid: false,
     },
   },
   {

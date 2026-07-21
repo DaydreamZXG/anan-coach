@@ -245,6 +245,9 @@ def _reset_test_schema(engine: Engine) -> None:
         step8 = import_module("migrations.versions.20260719_46_task_editing_recovery")
         for statement in step8._TEST_STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
+        step10 = import_module("migrations.versions.20260719_47_daily_opening")
+        for statement in step10._STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
 
 
 def _split_postgres_statements(script: str) -> list[str]:

@@ -58,6 +58,210 @@
   margin-top: 28rpx;
 }
 
+.daily-opening {
+  overflow: hidden;
+  padding: 30rpx;
+  border: 1rpx solid rgba(0, 151, 139, 0.18);
+  border-radius: 30rpx;
+  background:
+    radial-gradient(circle at 94% 8%, rgba(73, 205, 185, 0.18), transparent 34%),
+    linear-gradient(145deg, #ffffff, #f2fbf8);
+  box-shadow: 0 18rpx 48rpx rgba(19, 78, 69, 0.1);
+}
+
+.daily-opening__head,
+.daily-opening__identity,
+.daily-opening__weather,
+.daily-opening__setup,
+.daily-opening__plan,
+.daily-opening__coffee-actions {
+  display: flex;
+  align-items: center;
+}
+
+.daily-opening__head,
+.daily-opening__weather,
+.daily-opening__setup,
+.daily-opening__plan {
+  justify-content: space-between;
+  gap: 22rpx;
+}
+
+.daily-opening__identity {
+  flex: 1;
+  min-width: 0;
+  gap: 14rpx;
+}
+
+.daily-opening__kicker {
+  color: var(--color-primary);
+  font-size: 20rpx;
+  font-weight: 800;
+}
+
+.daily-opening__greeting {
+  margin-top: 6rpx;
+  color: var(--color-ink);
+  font-size: 26rpx;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.daily-opening__once {
+  flex: none;
+  padding: 7rpx 13rpx;
+  border-radius: 999rpx;
+  background: rgba(0, 151, 139, 0.09);
+  color: var(--color-primary-deep);
+  font-size: 18rpx;
+  font-weight: 750;
+}
+
+.daily-opening__weather,
+.daily-opening__setup,
+.daily-opening__provider-state {
+  margin-top: 24rpx;
+  padding: 20rpx 22rpx;
+  border-radius: 20rpx;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.daily-opening__weather-main,
+.daily-opening__setup-title {
+  color: var(--color-ink);
+  font-size: 25rpx;
+  font-weight: 800;
+}
+
+.daily-opening__weather-detail,
+.daily-opening__setup-copy {
+  margin-top: 6rpx;
+  color: var(--color-muted);
+  font-size: 20rpx;
+  line-height: 1.5;
+}
+
+.daily-opening__source,
+.daily-opening__location {
+  flex: none;
+  min-height: 52rpx;
+  margin: 0;
+  padding: 0 18rpx;
+  border: 0;
+  border-radius: 999rpx;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-deep);
+  font-size: 19rpx;
+  font-weight: 750;
+  line-height: 52rpx;
+}
+
+.daily-opening__source::after,
+.daily-opening__location::after,
+.daily-opening__start::after,
+.daily-opening__coffee-primary::after,
+.daily-opening__coffee-secondary::after {
+  border: 0;
+}
+
+.daily-opening__provider-state {
+  color: var(--color-warning);
+  font-size: 21rpx;
+  line-height: 1.55;
+}
+
+.daily-opening__plan {
+  margin-top: 24rpx;
+  padding-top: 22rpx;
+  border-top: 1rpx solid rgba(0, 151, 139, 0.12);
+}
+
+.daily-opening__plan-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.daily-opening__plan-label {
+  color: var(--color-muted);
+  font-size: 19rpx;
+}
+
+.daily-opening__plan-title {
+  margin-top: 6rpx;
+  color: var(--color-ink);
+  font-size: 29rpx;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
+.daily-opening__minutes {
+  flex: none;
+  color: var(--color-primary-deep);
+  font-size: 22rpx;
+  font-weight: 800;
+}
+
+.daily-opening__coffee {
+  margin-top: 22rpx;
+  padding: 20rpx;
+  border-radius: 20rpx;
+  background: #fff8ec;
+}
+
+.daily-opening__coffee-copy {
+  color: #6c4928;
+  font-size: 22rpx;
+  line-height: 1.55;
+}
+
+.daily-opening__coffee-actions {
+  flex-wrap: wrap;
+  gap: 10rpx;
+  margin-top: 14rpx;
+}
+
+.daily-opening__coffee-primary,
+.daily-opening__coffee-secondary {
+  min-height: 50rpx;
+  margin: 0;
+  padding: 0 18rpx;
+  border: 0;
+  border-radius: 999rpx;
+  font-size: 19rpx;
+  font-weight: 750;
+  line-height: 50rpx;
+}
+
+.daily-opening__coffee-primary {
+  background: #6c4928;
+  color: #ffffff;
+}
+
+.daily-opening__coffee-secondary {
+  background: rgba(108, 73, 40, 0.08);
+  color: #6c4928;
+}
+
+.daily-opening__error {
+  margin-top: 16rpx;
+  color: var(--color-danger);
+  font-size: 20rpx;
+  line-height: 1.5;
+}
+
+.daily-opening__start {
+  min-height: 76rpx;
+  margin: 24rpx 0 0;
+  border: 0;
+  border-radius: 22rpx;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-deep));
+  color: #ffffff;
+  font-size: 25rpx;
+  font-weight: 850;
+  line-height: 76rpx;
+  box-shadow: 0 14rpx 28rpx rgba(0, 151, 139, 0.2);
+}
+
 .focus-dashboard {
   padding: 32rpx;
   border: 1rpx solid rgba(0, 151, 139, 0.18);
@@ -473,6 +677,21 @@
 .task {
   display: flex;
   gap: 22rpx;
+}
+
+.task--opening {
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.task-navigation-error {
+  margin: 0 0 16rpx;
+  padding: 16rpx 20rpx;
+  border: 1rpx solid rgba(200, 63, 86, 0.2);
+  border-radius: 16rpx;
+  color: var(--color-danger);
+  background: rgba(200, 63, 86, 0.06);
+  font-size: 24rpx;
 }
 .task-order {
   display: flex;

@@ -131,7 +131,9 @@ function pagePurposeJourney(contract) {
     if (interaction.observable) {
       assert.ok(
         afterPath !== beforePath || JSON.stringify(afterData) !== JSON.stringify(beforeData),
-        `${contract.route} primary interaction ${interaction.handler} produced no observable effect`,
+        `${contract.route} primary interaction ${interaction.handler} produced no observable effect; ` +
+          `beforePath=${beforePath}; afterPath=${afterPath}; dataset=${JSON.stringify(interaction.dataset)}; ` +
+          `viewTasks=${JSON.stringify(beforeData?.view?.tasks ?? null)}`,
       );
     }
   };
@@ -188,6 +190,7 @@ async function loginSuccess(program) {
 
 async function todayPrimaryTask(program) {
   const page = await openVisualScenario(program, "b01-today-ready");
+  await program.pageScrollTo(1_400);
   const tasks = await page.$$(".task");
   assert.ok(tasks.length >= 1, "today page exposes no tappable task card");
   await tasks[0].tap();
