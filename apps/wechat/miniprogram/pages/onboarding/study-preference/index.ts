@@ -7,16 +7,23 @@ import {
   StudyPreferenceController,
   type StudyPreferenceControllerState,
 } from "../../../features/onboarding/study-preference-controller";
-import type { Weekday } from "../../../features/onboarding/study-preference";
+import {
+  studyTimeOptions,
+  type StudyMinutesField,
+  type StudyTimeOption,
+  type Weekday,
+} from "../../../features/onboarding/study-preference";
 import type { OnboardingNextStep } from "../../../features/onboarding/types";
 
 interface StudyPreferencePageData {
   state: StudyPreferenceControllerState | null;
   weekdays: ReadonlyArray<{ value: Weekday; label: string }>;
+  timeOptions: ReadonlyArray<StudyTimeOption>;
 }
 
 interface StudyPreferencePageCustom {
   adjustMinutes(event: WechatMiniprogram.BaseEvent): void;
+  selectMinutes(event: WechatMiniprogram.BaseEvent): void;
   selectDay(event: WechatMiniprogram.BaseEvent): void;
   submit(): void;
   retry(): void;
@@ -39,7 +46,7 @@ const weekdays: StudyPreferencePageData["weekdays"] = [
 ];
 
 Page<StudyPreferencePageData, StudyPreferencePageCustom>({
-  data: { state: null, weekdays },
+  data: { state: null, weekdays, timeOptions: studyTimeOptions },
 
   onLoad() {
     mountController(this);
@@ -58,6 +65,14 @@ Page<StudyPreferencePageData, StudyPreferencePageCustom>({
     const delta = Number(event.currentTarget.dataset.delta);
     if ((field === "weekdayMinutes" || field === "weekendMinutes") && Number.isInteger(delta)) {
       runtimes.get(this)?.controller?.adjustMinutes(field, delta);
+    }
+  },
+
+  selectMinutes(event) {
+    const field = String(event.currentTarget.dataset.field ?? "");
+    const minutes = Number(event.currentTarget.dataset.minutes);
+    if (isStudyMinutesField(field) && Number.isSafeInteger(minutes)) {
+      runtimes.get(this)?.controller?.setMinutes(field, minutes);
     }
   },
 
@@ -106,6 +121,10 @@ function mountController(page: StudyPreferencePage): void {
   runtime.controller = controller;
   page.setData({ state: controller.snapshot() });
   void controller.load();
+}
+
+function isStudyMinutesField(field: string): field is StudyMinutesField {
+  return field === "weekdayMinutes" || field === "weekendMinutes";
 }
 
 function navigateOnboardingStep(step: OnboardingNextStep): void {

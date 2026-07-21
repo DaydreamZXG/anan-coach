@@ -2,6 +2,7 @@ import type {
   AppDomainsAbilityEstimationSchemasScoreRange as AbilityScoreRange,
   OnboardingResultProjection,
 } from "../../api/generated/types.gen";
+import { formatStudyDuration } from "./study-preference";
 
 export type OnboardingResultAction = OnboardingResultProjection["nextAction"];
 
@@ -45,8 +46,8 @@ export function onboardingResultView(result: OnboardingResultProjection): Onboar
     essayLabel: scoreRangeLabel(ability?.shenlun),
     evidenceLabel:
       evidenceCount > 0 ? `${String(evidenceCount)} 条已确认成绩证据` : "尚无正式成绩证据",
-    weekdayBudgetLabel: `${String(result.weeklyPreference.weekdayMinutes)} 分钟`,
-    weekendBudgetLabel: `${String(result.weeklyPreference.weekendMinutes)} 分钟`,
+    weekdayBudgetLabel: formatStudyDuration(result.weeklyPreference.weekdayMinutes),
+    weekendBudgetLabel: formatStudyDuration(result.weeklyPreference.weekendMinutes),
     rhythmLabel: `${weekdayLabel(result.weeklyPreference.mockExamDay)}模考 · ${weekdayLabel(result.weeklyPreference.fixedRestDay)}恢复`,
     validityLabel: `本结果有效至 ${dateLabel(result.validUntil)}`,
   } as const;

@@ -16,9 +16,12 @@ import {
   buildStudyPreferenceCommand,
   defaultStudyPreferenceDraft,
   selectSpecialDay,
+  setStudyMinutes,
+  studyPreferencePresentation,
   validateStudyPreferenceDraft,
   weeklyRhythmSummary,
   type StudyMinutesField,
+  type StudyPreferencePresentation,
   type StudyPreferenceDraft,
   type Weekday,
   type WeeklyRhythmSummary,
@@ -36,6 +39,7 @@ export interface StudyPreferenceControllerState {
   status: "idle" | "loading" | "ready" | "error";
   draft: StudyPreferenceDraft;
   summary: WeeklyRhythmSummary;
+  presentation: StudyPreferencePresentation;
   progressVersion: number;
   preferenceVersion: number;
   saving: boolean;
@@ -79,6 +83,7 @@ export class StudyPreferenceController {
       status: "idle",
       draft: { ...defaultStudyPreferenceDraft },
       summary: weeklyRhythmSummary(defaultStudyPreferenceDraft),
+      presentation: studyPreferencePresentation(defaultStudyPreferenceDraft),
       progressVersion: 0,
       preferenceVersion: 0,
       saving: false,
@@ -93,6 +98,7 @@ export class StudyPreferenceController {
       ...this.state,
       draft: { ...this.state.draft },
       summary: { ...this.state.summary },
+      presentation: { ...this.state.presentation },
       error: this.state.error ? { ...this.state.error } : null,
     };
   }
@@ -136,11 +142,13 @@ export class StudyPreferenceController {
 
       const pending = loadPendingStudyPreference(this.userId);
       if (pending) draft = { ...pending.draft };
+      const summary = weeklyRhythmSummary(draft);
       this.state = {
         ...this.state,
         status: "ready",
         draft,
-        summary: weeklyRhythmSummary(draft),
+        summary,
+        presentation: studyPreferencePresentation(draft, summary),
         progressVersion: progress.progressVersion,
         preferenceVersion,
         pendingRecovery: pending !== null,
@@ -158,6 +166,11 @@ export class StudyPreferenceController {
   adjustMinutes(field: StudyMinutesField, delta: number): void {
     if (!this.canEdit()) return;
     this.setDraft(adjustStudyMinutes(this.state.draft, field, delta));
+  }
+
+  setMinutes(field: StudyMinutesField, minutes: number): void {
+    if (!this.canEdit()) return;
+    this.setDraft(setStudyMinutes(this.state.draft, field, minutes));
   }
 
   selectDay(field: "fixedRestDay" | "mockExamDay", weekday: Weekday): void {
@@ -197,6 +210,7 @@ export class StudyPreferenceController {
         status: "ready",
         draft: { ...pending.draft },
         summary: weeklyRhythmSummary(pending.draft),
+        presentation: studyPreferencePresentation(pending.draft),
         progressVersion: response.data.progress.progressVersion,
         preferenceVersion: response.data.preference.preferenceVersion,
         saving: false,
@@ -228,10 +242,12 @@ export class StudyPreferenceController {
   }
 
   private setDraft(draft: StudyPreferenceDraft): void {
+    const summary = weeklyRhythmSummary(draft);
     this.state = {
       ...this.state,
       draft,
-      summary: weeklyRhythmSummary(draft),
+      summary,
+      presentation: studyPreferencePresentation(draft, summary),
       validationError: "",
       error: null,
     };

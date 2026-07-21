@@ -42,14 +42,14 @@ describe("study preference controller", () => {
     });
 
     await controller.load();
-    controller.adjustMinutes("weekdayMinutes", 15);
+    controller.setMinutes("weekdayMinutes", 90);
     await controller.submit();
 
     expect(putStudyPreference).toHaveBeenCalledWith(
       expect.objectContaining({
         expectedProgressVersion: 2,
         expectedPreferenceVersion: 0,
-        weekdayMinutes: 60,
+        weekdayMinutes: 90,
         weekendMinutes: 120,
         fixedRestDay: "sunday",
         mockExamDay: "saturday",
@@ -86,7 +86,7 @@ describe("study preference controller", () => {
     expect(pending?.idempotencyKey).toBe("onboarding-preference-command-2");
 
     controller.adjustMinutes("weekdayMinutes", 30);
-    expect(current?.draft.weekdayMinutes).toBe(45);
+    expect(current?.draft.weekdayMinutes).toBe(60);
     await controller.submit();
 
     expect(putStudyPreference).toHaveBeenNthCalledWith(
@@ -126,7 +126,7 @@ describe("study preference controller", () => {
     expect(current?.error?.code).toBe("onboarding_progress_version_conflict");
     expect(loadPendingStudyPreference("user-a")).toBeNull();
     controller.adjustMinutes("weekdayMinutes", 15);
-    expect(current?.draft.weekdayMinutes).toBe(60);
+    expect(current?.draft.weekdayMinutes).toBe(75);
   });
 });
 

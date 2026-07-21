@@ -2,7 +2,7 @@
   <view class="s9-hero">
     <view class="s9-title">让计划适合你的真实生活</view>
     <view class="s9-subtitle">告诉岸岸什么时候能学、一次能专注多久，以及你不想被怎样打扰。</view>
-    <view wx:if="{{state && state.draft}}" class="s9-chip-row"><view class="s9-chip s9-chip--primary">工作日 {{state.draft.weekdayMinutes}} 分钟</view><view class="s9-chip">周末 {{state.draft.weekendMinutes}} 分钟</view></view>
+    <view wx:if="{{state && state.draft}}" class="s9-chip-row"><view class="s9-chip s9-chip--primary">工作日 {{state.presentation.weekdayDurationLabel}}</view><view class="s9-chip">周末 {{state.presentation.weekendDurationLabel}}</view></view>
   </view>
 
   <view wx:if="{{!state || state.status === 'loading'}}" class="page-state">
@@ -26,22 +26,34 @@
     </view>
 
     <view class="budget-card s9-card">
-      <view class="budget-row">
-        <view><view class="field-label">工作日可学习</view><view class="field-copy">用于普通训练日的容量上限</view></view>
-        <view class="stepper">
-          <view class="stepper-button" data-field="weekdayMinutes" data-delta="-15" bindtap="adjustMinutes">−</view>
-          <view class="stepper-value type-data">{{state.draft.weekdayMinutes}}<text class="stepper-value__unit"> 分钟</text></view>
-          <view class="stepper-button" data-field="weekdayMinutes" data-delta="15" bindtap="adjustMinutes">＋</view>
+      <view class="time-choice">
+        <view class="time-choice__head">
+          <view><view class="field-label">工作日可学习</view><view class="field-copy">按 0.5 小时选择，不需要换算分钟</view></view>
+          <view class="time-choice__current type-data">{{state.presentation.weekdayDurationLabel}}</view>
         </view>
+        <scroll-view scroll-x class="time-options" enhanced show-scrollbar="{{false}}">
+          <view class="time-options__inner">
+            <view wx:for="{{timeOptions}}" wx:key="minutes" class="time-option {{state.draft.weekdayMinutes === item.minutes ? 'time-option--active' : ''}}" data-field="weekdayMinutes" data-minutes="{{item.minutes}}" bindtap="selectMinutes">
+              <text class="time-option__label">{{item.label}}</text>
+              <text class="time-option__caption">{{item.caption}}</text>
+            </view>
+          </view>
+        </scroll-view>
       </view>
       <view class="budget-divider"></view>
-      <view class="budget-row">
-        <view><view class="field-label">周末可学习</view><view class="field-copy">容纳模考或完整材料训练</view></view>
-        <view class="stepper">
-          <view class="stepper-button" data-field="weekendMinutes" data-delta="-30" bindtap="adjustMinutes">−</view>
-          <view class="stepper-value type-data">{{state.draft.weekendMinutes}}<text class="stepper-value__unit"> 分钟</text></view>
-          <view class="stepper-button" data-field="weekendMinutes" data-delta="30" bindtap="adjustMinutes">＋</view>
+      <view class="time-choice">
+        <view class="time-choice__head">
+          <view><view class="field-label">周末可学习</view><view class="field-copy">容纳模考、申论套题或完整材料训练</view></view>
+          <view class="time-choice__current type-data">{{state.presentation.weekendDurationLabel}}</view>
         </view>
+        <scroll-view scroll-x class="time-options" enhanced show-scrollbar="{{false}}">
+          <view class="time-options__inner">
+            <view wx:for="{{timeOptions}}" wx:key="minutes" class="time-option {{state.draft.weekendMinutes === item.minutes ? 'time-option--active' : ''}}" data-field="weekendMinutes" data-minutes="{{item.minutes}}" bindtap="selectMinutes">
+              <text class="time-option__label">{{item.label}}</text>
+              <text class="time-option__caption">{{item.caption}}</text>
+            </view>
+          </view>
+        </scroll-view>
       </view>
     </view>
 
@@ -62,7 +74,7 @@
       <view class="rhythm-item"><text class="rhythm-item__value type-data">{{state.summary.mockExamDays}}</text><text class="rhythm-item__label">整卷模考</text></view>
       <view class="rhythm-item"><text class="rhythm-item__value type-data">{{state.summary.recoveryDays}}</text><text class="rhythm-item__label">恢复日</text></view>
     </view>
-    <view class="weekly-total">常规周容量约 <text class="weekly-total__value type-data">{{state.summary.weeklyMinutes}}</text> 分钟；行测和申论在同一容量内并行选择，不预先把某一科当剩余时间。</view>
+    <view class="weekly-total">常规周容量约 <text class="weekly-total__value type-data">{{state.presentation.weeklyDurationLabel}}</text>；行测和申论在同一容量内并行选择，不预先把某一科当剩余时间。</view>
 
     <view wx:if="{{state.validationError}}" class="error-banner">{{state.validationError}}</view>
     <view wx:if="{{state.error}}" class="error-banner">

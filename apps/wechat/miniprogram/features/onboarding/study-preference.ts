@@ -2,11 +2,18 @@ import type { StudyPreferenceWrite } from "../../api/generated/types.gen";
 
 export const STUDY_MINUTES_MIN = 0;
 export const STUDY_MINUTES_MAX = 720;
+export const STUDY_MINUTES_STEP = 30;
 
 export type Weekday =
   "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
 
 export type StudyMinutesField = "weekdayMinutes" | "weekendMinutes";
+
+export interface StudyTimeOption {
+  minutes: number;
+  label: string;
+  caption: string;
+}
 
 export interface StudyPreferenceDraft {
   weekdayMinutes: number;
@@ -24,12 +31,26 @@ export interface WeeklyRhythmSummary {
   weeklyMinutes: number;
 }
 
+export interface StudyPreferencePresentation {
+  weekdayDurationLabel: string;
+  weekendDurationLabel: string;
+  weeklyDurationLabel: string;
+}
+
 export const defaultStudyPreferenceDraft: Readonly<StudyPreferenceDraft> = {
-  weekdayMinutes: 45,
+  weekdayMinutes: 60,
   weekendMinutes: 120,
   fixedRestDay: "sunday",
   mockExamDay: "saturday",
 };
+
+export const studyTimeOptions: ReadonlyArray<StudyTimeOption> = [
+  0, 30, 60, 90, 120, 150, 180, 240, 300, 360, 480, 600, 720,
+].map((minutes) => ({
+  minutes,
+  label: formatStudyDuration(minutes),
+  caption: studyDurationCaption(minutes),
+}));
 
 export const weekdayOptions: ReadonlyArray<{ value: Weekday; label: string }> = [
   { value: "monday", label: "一" },
@@ -56,6 +77,20 @@ export function adjustStudyMinutes(
   };
 }
 
+export function setStudyMinutes(
+  draft: StudyPreferenceDraft,
+  field: StudyMinutesField,
+  minutes: number,
+): StudyPreferenceDraft {
+  if (!validMinutes(minutes)) {
+    throw new Error("Study time must stay within the server minute contract");
+  }
+  return {
+    ...draft,
+    [field]: minutes,
+  };
+}
+
 export function selectSpecialDay(
   draft: StudyPreferenceDraft,
   field: "fixedRestDay" | "mockExamDay",
@@ -69,7 +104,7 @@ export function selectSpecialDay(
 
 export function validateStudyPreferenceDraft(draft: StudyPreferenceDraft): string {
   if (!validMinutes(draft.weekdayMinutes) || !validMinutes(draft.weekendMinutes)) {
-    return "每日时间需要在 0–720 分钟之间。";
+    return "每日学习时间需要在 0–12 小时之间。";
   }
   if (draft.weekdayMinutes === 0 && draft.weekendMinutes === 0) {
     return "工作日和周末至少保留一段可学习时间。";
@@ -136,10 +171,41 @@ export function weeklyRhythmSummary(draft: StudyPreferenceDraft): WeeklyRhythmSu
   };
 }
 
+export function studyPreferencePresentation(
+  draft: StudyPreferenceDraft,
+  summary: WeeklyRhythmSummary = weeklyRhythmSummary(draft),
+): StudyPreferencePresentation {
+  return {
+    weekdayDurationLabel: formatStudyDuration(draft.weekdayMinutes),
+    weekendDurationLabel: formatStudyDuration(draft.weekendMinutes),
+    weeklyDurationLabel: formatStudyDuration(summary.weeklyMinutes),
+  };
+}
+
+export function formatStudyDuration(minutes: number): string {
+  if (!validMinutes(minutes)) return "时间待确认";
+  if (minutes === 0) return "不安排";
+  if (minutes % 60 === 0) return `${String(minutes / 60)} 小时`;
+  if (minutes % STUDY_MINUTES_STEP === 0) return `${trimHalfHour(minutes / 60)} 小时`;
+  return `${String(minutes)} 分钟`;
+}
+
 function clampMinutes(value: number): number {
   return Math.min(STUDY_MINUTES_MAX, Math.max(STUDY_MINUTES_MIN, value));
 }
 
 function validMinutes(value: number): boolean {
   return Number.isSafeInteger(value) && value >= STUDY_MINUTES_MIN && value <= STUDY_MINUTES_MAX;
+}
+
+function trimHalfHour(hours: number): string {
+  return hours.toFixed(1).replace(/\.0$/u, "");
+}
+
+function studyDurationCaption(minutes: number): string {
+  if (minutes === 0) return "只保留恢复";
+  if (minutes <= 60) return "轻量日";
+  if (minutes <= 180) return "常规训练";
+  if (minutes <= 360) return "集中训练";
+  return "高强度";
 }

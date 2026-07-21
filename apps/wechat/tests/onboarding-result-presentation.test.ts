@@ -10,6 +10,8 @@ describe("onboarding result presentation", () => {
     expect(view.gapLabel).toBe("+11 分");
     expect(view.currentTotalLabel).toBe("121–125");
     expect(view.targetTotalLabel).toBe("132–136");
+    expect(view.weekdayBudgetLabel).toBe("1 小时");
+    expect(view.weekendBudgetLabel).toBe("2 小时");
     expect(view.action).toBe("enter_workspace");
   });
 
@@ -128,7 +130,7 @@ function result(input: {
       preferenceVersion: 1,
       timezone: "Asia/Shanghai",
       effectiveFrom: "2026-07-13",
-      weekdayMinutes: 45,
+      weekdayMinutes: 60,
       weekendMinutes: 120,
       longBlockMinutes: 120,
       fragmentMinutes: 25,

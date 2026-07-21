@@ -3,7 +3,10 @@ import {
   adjustStudyMinutes,
   buildStudyPreferenceCommand,
   defaultStudyPreferenceDraft,
+  formatStudyDuration,
+  setStudyMinutes,
   selectSpecialDay,
+  studyTimeOptions,
   validateStudyPreferenceDraft,
   weeklyRhythmSummary,
 } from "../miniprogram/features/onboarding/study-preference";
@@ -21,7 +24,7 @@ describe("onboarding study preference", () => {
       expectedProgressVersion: 2,
       timezone: "Asia/Shanghai",
       effectiveFrom: "2026-07-13",
-      weekdayMinutes: 45,
+      weekdayMinutes: 60,
       weekendMinutes: 120,
       longBlockMinutes: 120,
       fragmentMinutes: 25,
@@ -32,8 +35,18 @@ describe("onboarding study preference", () => {
       focusedTrainingDays: 5,
       mockExamDays: 1,
       recoveryDays: 1,
-      weeklyMinutes: 345,
+      weeklyMinutes: 420,
     });
+  });
+
+  it("offers direct half-hour hour choices while preserving minute storage", () => {
+    expect(studyTimeOptions.map((option) => option.label)).toContain("0.5 小时");
+    expect(studyTimeOptions.map((option) => option.label)).toContain("10 小时");
+    expect(setStudyMinutes(defaultStudyPreferenceDraft, "weekdayMinutes", 90).weekdayMinutes).toBe(
+      90,
+    );
+    expect(formatStudyDuration(90)).toBe("1.5 小时");
+    expect(formatStudyDuration(60)).toBe("1 小时");
   });
 
   it("clamps minute adjustments to the server contract", () => {
