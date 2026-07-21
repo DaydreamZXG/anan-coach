@@ -5,6 +5,7 @@ from datetime import UTC, date, datetime, timedelta
 from hashlib import sha256
 import json
 from typing import Any, cast
+from urllib.parse import parse_qs, urlsplit
 from uuid import uuid4
 from zoneinfo import ZoneInfo
 
@@ -31,7 +32,7 @@ from app.domains.planning.candidates import (
 )
 from app.domains.planning.router import get_planning_service
 from app.domains.planning.schemas import DailyCapacityCommand
-from app.domains.planning.service import PlanningService
+from app.domains.planning.service import PlanningService, _materialize_plan_task_start_url
 from app.main import create_app
 
 
@@ -91,6 +92,19 @@ def test_essay_planning_only_uses_exact_grounded_learning_evidence() -> None:
         assert _review_is_learning_eligible(invalid) is False
 
 
+def test_xingce_intro_start_url_is_materialized_with_plan_task_id() -> None:
+    task_id = str(uuid4())
+
+    assert _materialize_plan_task_start_url(
+        "/pages/xingce-task-intro/index?mode=baseline",
+        task_id=task_id,
+    ) == f"/pages/xingce-task-intro/index?mode=baseline&planTaskId={task_id}"
+    assert _materialize_plan_task_start_url(
+        f"/pages/xingce-task-intro/index?mode=targeted&planTaskId={task_id}",
+        task_id=str(uuid4()),
+    ) == f"/pages/xingce-task-intro/index?mode=targeted&planTaskId={task_id}"
+
+
 def test_dual_track_plan_persists_one_idempotent_xingce_and_essay_budget(
     db_session_factory: sessionmaker[Session],
 ) -> None:
@@ -129,6 +143,10 @@ def test_dual_track_plan_persists_one_idempotent_xingce_and_essay_budget(
     assert first.dual_track_explanation.xingce_minutes == 20
     assert first.dual_track_explanation.essay_minutes == 15
     assert all(task.evidence_refs for task in first.tasks)
+    xingce_task = next(task for task in first.tasks if task.track == "xingce")
+    xingce_query = parse_qs(urlsplit(xingce_task.start_url).query)
+    assert xingce_query["mode"] == ["baseline"]
+    assert xingce_query["planTaskId"] == [str(xingce_task.id)]
 
     with db_session_factory() as session:
         assert session.execute(

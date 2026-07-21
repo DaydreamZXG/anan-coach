@@ -6,6 +6,7 @@ from datetime import UTC, date, datetime, time, timedelta
 from hashlib import sha256
 import json
 from typing import Any, Literal
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 from uuid import UUID, uuid4
 from zoneinfo import ZoneInfo
 
@@ -775,6 +776,7 @@ class PlanningService:
         )
         task_rows: list[RowMapping] = []
         for order, ranked in enumerate(selection.tasks, start=1):
+            task_id = str(uuid4())
             completion = _completion_contract(ranked.candidate)
             task_fingerprint = _fingerprint(
                 {
@@ -787,7 +789,7 @@ class PlanningService:
                 self._repository.insert_plan_task(
                     session,
                     values={
-                        "task_id": str(uuid4()),
+                        "task_id": task_id,
                         "plan_version_id": plan_version_id,
                         "user_id": user_id,
                         "local_date": day,
@@ -804,7 +806,10 @@ class PlanningService:
                         "reason": ranked.candidate.reason,
                         "estimated_minutes": ranked.candidate.estimated_minutes,
                         "mandatory": ranked.candidate.mandatory,
-                        "start_url": ranked.candidate.start_url,
+                        "start_url": _materialize_plan_task_start_url(
+                            ranked.candidate.start_url,
+                            task_id=task_id,
+                        ),
                         "priority_score": ranked.priority_score,
                         "goal_gain": ranked.candidate.priority.goal_gain,
                         "ability_gain": ranked.candidate.priority.ability_gain,
@@ -849,6 +854,17 @@ class PlanningService:
             ),
             capacity,
         )
+
+
+def _materialize_plan_task_start_url(start_url: str, *, task_id: str) -> str:
+    parts = urlsplit(start_url)
+    if parts.path != "/pages/xingce-task-intro/index":
+        return start_url
+    query = parse_qsl(parts.query, keep_blank_values=True)
+    if any(key == "planTaskId" for key, _ in query):
+        return start_url
+    query.append(("planTaskId", task_id))
+    return urlunsplit(("", "", parts.path, urlencode(query), parts.fragment))
 
 
 def _candidate_work_item_key(local_date: date, candidate: TaskCandidate) -> str:
@@ -1371,7 +1387,10 @@ def _dashboard_from_rows(
                 track=row["track"],
                 stage=row["stage"],
                 mandatory=bool(row["mandatory"]),
-                start_url=row["start_url"],
+                start_url=_materialize_plan_task_start_url(
+                    row["start_url"],
+                    task_id=str(row["task_id"]),
+                ),
                 priority_score=float(row["priority_score"]),
                 priority_breakdown=priority,
                 evidence_refs=evidence_refs,
