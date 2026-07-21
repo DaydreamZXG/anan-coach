@@ -5999,6 +5999,90 @@ export type HttpValidationError = {
 };
 
 /**
+ * ILinkChannelView
+ */
+export type ILinkChannelView = {
+    /**
+     * Bindingcode
+     */
+    bindingCode?: string | null;
+    /**
+     * Collectioncount
+     */
+    collectionCount: number;
+    /**
+     * Evidencecopy
+     */
+    evidenceCopy: string;
+    /**
+     * Expiresat
+     */
+    expiresAt?: string | null;
+    /**
+     * Linkid
+     */
+    linkId?: string | null;
+    /**
+     * Linkstate
+     */
+    linkState: 'unbound' | 'pending' | 'bound' | 'revoked';
+    /**
+     * Querycount
+     */
+    queryCount: number;
+    /**
+     * Usagecopy
+     */
+    usageCopy: string;
+};
+
+/**
+ * ILinkDataDeletion
+ */
+export type ILinkDataDeletion = {
+    /**
+     * Deletedcollections
+     */
+    deletedCollections: number;
+    /**
+     * Deletedlinks
+     */
+    deletedLinks: number;
+    /**
+     * Deletedqueries
+     */
+    deletedQueries: number;
+};
+
+/**
+ * ILinkDataExport
+ */
+export type ILinkDataExport = {
+    /**
+     * Collections
+     */
+    collections: Array<{
+        [key: string]: unknown;
+    }>;
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'ilink-channel-export@v1';
+    /**
+     * Link
+     */
+    link: {
+        [key: string]: unknown;
+    } | null;
+    /**
+     * Queries
+     */
+    queries: Array<{
+        [key: string]: unknown;
+    }>;
+};
+
+/**
  * ImportAIAnswer
  */
 export type ImportAiAnswer = {
@@ -6351,6 +6435,16 @@ export type InkStroke = {
      * Y
      */
     y: Array<number>;
+};
+
+/**
+ * IssueLinkCommand
+ */
+export type IssueLinkCommand = {
+    /**
+     * Replacepending
+     */
+    replacePending?: boolean;
 };
 
 /**
@@ -11344,6 +11438,51 @@ export type PublicApiEnvelopeFormulaVersion = {
 };
 
 /**
+ * PublicApiEnvelope[ILinkChannelView]
+ */
+export type PublicApiEnvelopeILinkChannelView = {
+    data: ILinkChannelView;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[ILinkDataDeletion]
+ */
+export type PublicApiEnvelopeILinkDataDeletion = {
+    data: ILinkDataDeletion;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[ILinkDataExport]
+ */
+export type PublicApiEnvelopeILinkDataExport = {
+    data: ILinkDataExport;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[ImportWorkspace]
  */
 export type PublicApiEnvelopeImportWorkspace = {
@@ -14259,6 +14398,16 @@ export type ReviewVerdictResponse = {
      * Verdictid
      */
     verdictId: string;
+};
+
+/**
+ * RevokeLinkCommand
+ */
+export type RevokeLinkCommand = {
+    /**
+     * Expectedlinkid
+     */
+    expectedLinkId: string;
 };
 
 /**
@@ -25813,6 +25962,338 @@ export type CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePos
 };
 
 export type CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePostResponse = CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePostResponses[keyof CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePostResponses];
+
+export type ChannelViewApiV2IlinkChannelGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/ilink-channel';
+};
+
+export type ChannelViewApiV2IlinkChannelGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ChannelViewApiV2IlinkChannelGetError = ChannelViewApiV2IlinkChannelGetErrors[keyof ChannelViewApiV2IlinkChannelGetErrors];
+
+export type ChannelViewApiV2IlinkChannelGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeILinkChannelView;
+};
+
+export type ChannelViewApiV2IlinkChannelGetResponse = ChannelViewApiV2IlinkChannelGetResponses[keyof ChannelViewApiV2IlinkChannelGetResponses];
+
+export type DeleteChannelDataApiV2IlinkChannelDataDeleteData = {
+    body?: never;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/ilink-channel/data';
+};
+
+export type DeleteChannelDataApiV2IlinkChannelDataDeleteErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type DeleteChannelDataApiV2IlinkChannelDataDeleteError = DeleteChannelDataApiV2IlinkChannelDataDeleteErrors[keyof DeleteChannelDataApiV2IlinkChannelDataDeleteErrors];
+
+export type DeleteChannelDataApiV2IlinkChannelDataDeleteResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeILinkDataDeletion;
+};
+
+export type DeleteChannelDataApiV2IlinkChannelDataDeleteResponse = DeleteChannelDataApiV2IlinkChannelDataDeleteResponses[keyof DeleteChannelDataApiV2IlinkChannelDataDeleteResponses];
+
+export type ExportChannelDataApiV2IlinkChannelDataExportGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/ilink-channel/data-export';
+};
+
+export type ExportChannelDataApiV2IlinkChannelDataExportGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ExportChannelDataApiV2IlinkChannelDataExportGetError = ExportChannelDataApiV2IlinkChannelDataExportGetErrors[keyof ExportChannelDataApiV2IlinkChannelDataExportGetErrors];
+
+export type ExportChannelDataApiV2IlinkChannelDataExportGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeILinkDataExport;
+};
+
+export type ExportChannelDataApiV2IlinkChannelDataExportGetResponse = ExportChannelDataApiV2IlinkChannelDataExportGetResponses[keyof ExportChannelDataApiV2IlinkChannelDataExportGetResponses];
+
+export type IssueLinkCodeApiV2IlinkChannelLinkCodesPostData = {
+    body: IssueLinkCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/ilink-channel/link-codes';
+};
+
+export type IssueLinkCodeApiV2IlinkChannelLinkCodesPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type IssueLinkCodeApiV2IlinkChannelLinkCodesPostError = IssueLinkCodeApiV2IlinkChannelLinkCodesPostErrors[keyof IssueLinkCodeApiV2IlinkChannelLinkCodesPostErrors];
+
+export type IssueLinkCodeApiV2IlinkChannelLinkCodesPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeILinkChannelView;
+};
+
+export type IssueLinkCodeApiV2IlinkChannelLinkCodesPostResponse = IssueLinkCodeApiV2IlinkChannelLinkCodesPostResponses[keyof IssueLinkCodeApiV2IlinkChannelLinkCodesPostResponses];
+
+export type RevokeLinkApiV2IlinkChannelLinksLinkIdRevokePostData = {
+    body: RevokeLinkCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path: {
+        /**
+         * Link Id
+         */
+        link_id: string;
+    };
+    query?: never;
+    url: '/api/v2/ilink-channel/links/{link_id}/revoke';
+};
+
+export type RevokeLinkApiV2IlinkChannelLinksLinkIdRevokePostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RevokeLinkApiV2IlinkChannelLinksLinkIdRevokePostError = RevokeLinkApiV2IlinkChannelLinksLinkIdRevokePostErrors[keyof RevokeLinkApiV2IlinkChannelLinksLinkIdRevokePostErrors];
+
+export type RevokeLinkApiV2IlinkChannelLinksLinkIdRevokePostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeILinkChannelView;
+};
+
+export type RevokeLinkApiV2IlinkChannelLinksLinkIdRevokePostResponse = RevokeLinkApiV2IlinkChannelLinksLinkIdRevokePostResponses[keyof RevokeLinkApiV2IlinkChannelLinksLinkIdRevokePostResponses];
 
 export type GetLearningBrainErrorPatternApiV2LearningBrainErrorPatternsPatternIdGetData = {
     body?: never;

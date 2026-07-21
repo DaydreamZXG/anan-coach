@@ -27,6 +27,7 @@ from app.domains.commerce.wechat_pay import (
 )
 from app.domains.data_rights.repository import DataRightsConflict, DataRightsNotFound
 from app.domains.data_rights.router import data_rights_exception_response
+from app.domains.ilink_channel.router import router as ilink_channel_router
 from app.domains.task_editing.router import task_editing_exception_response
 from app.domains.task_editing.service import TaskEditingError
 from app.platform.http import (
@@ -84,6 +85,7 @@ def create_app() -> FastAPI:
         app.add_exception_handler(exception_type, data_rights_exception_response)
     app.add_exception_handler(TaskEditingError, task_editing_exception_response)
     app.include_router(router)
+    app.include_router(ilink_channel_router)
     # FastAPI builds the included-router candidate graph lazily. Materialize the
     # public route-context iterator while construction is still single-threaded
     # so concurrent first requests cannot observe a partial candidate cache.

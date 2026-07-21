@@ -1,4 +1,6 @@
 import { currentAuthSession } from "../../auth/session";
+import { ApiClient, ApiClientError } from "../../api/client";
+import { ILinkChannelApi, type ILinkChannelView } from "../../api/ilink-channel";
 import { loginUrlForReturn } from "../../app/navigation/auth-return";
 import {
   answerIngestionUrl,
@@ -18,11 +20,17 @@ import {
   ensureCameraPermission,
   requestCameraSetting,
 } from "../../features/external-learning/platform";
+import { createIdempotencyKey } from "../../platform/command-id";
 
 interface CaptureImportPageData {
   state: CaptureImportState | null;
   configurationError: string;
   mode: "search" | "import";
+  channelView: ILinkChannelView | null;
+  channelStatus: "loading" | "ready" | "error";
+  channelError: string;
+  channelWriting: boolean;
+  channelExpired: boolean;
 }
 
 interface CaptureImportPageCustom {
@@ -41,6 +49,11 @@ interface CaptureImportPageCustom {
   restart(): void;
   openLearningPackets(): void;
   openAnswerIngestion(): void;
+  loadChannel(): Promise<void>;
+  issueChannelCode(): Promise<void>;
+  replaceChannelCode(): Promise<void>;
+  copyChannelCode(): void;
+  revokeChannelLink(): Promise<void>;
   goBack(): void;
 }
 
@@ -59,6 +72,11 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     state: null,
     configurationError: "",
     mode: "search",
+    channelView: null,
+    channelStatus: "loading",
+    channelError: "",
+    channelWriting: false,
+    channelExpired: false,
   },
 
   onLoad(options: Record<string, string | undefined>) {
@@ -67,6 +85,7 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
       void wx.reLaunch({ url: loginUrlForReturn(captureImportUrl(options.importId)) });
       return;
     }
+    void this.loadChannel();
     try {
       const gateway = requireExternalLearningGateway(session);
       const controller = new CaptureImportController({
@@ -170,6 +189,83 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     void wx.navigateTo({ url: answerIngestionUrl() });
   },
 
+  async loadChannel() {
+    const session = currentAuthSession();
+    if (!session) return;
+    this.setData({ channelStatus: "loading", channelError: "" });
+    try {
+      const response = await new ILinkChannelApi(
+        new ApiClient(undefined, session.accessToken),
+      ).get();
+      const view = response.data;
+      this.setData({
+        channelView: view,
+        channelStatus: "ready",
+        channelError: "",
+        channelExpired:
+          view.linkState === "pending" &&
+          Boolean(view.expiresAt) &&
+          new Date(view.expiresAt ?? 0).getTime() <= Date.now(),
+      });
+    } catch (error) {
+      this.setData({
+        channelStatus: "error",
+        channelError:
+          error instanceof ApiClientError
+            ? `${error.message}（请求 ${error.requestId}）`
+            : "微信发图搜题连接状态没有加载成功。",
+      });
+    }
+  },
+
+  async issueChannelCode() {
+    await writeChannel(this, false);
+  },
+
+  async replaceChannelCode() {
+    await writeChannel(this, true);
+  },
+
+  copyChannelCode() {
+    const code = this.data.channelView?.bindingCode?.trim();
+    if (!code || this.data.channelExpired) return;
+    void wx.setClipboardData({ data: code });
+  },
+
+  async revokeChannelLink() {
+    const linkId = this.data.channelView?.linkId;
+    const session = currentAuthSession();
+    if (!linkId || !session || this.data.channelWriting) return;
+    const decision = await wx.showModal({
+      title: "解除微信发图搜题？",
+      content: "解除后，这个微信入口不能再读取你的查询和个人收录。历史内容仍可在账户内删除。",
+      confirmText: "确认解除",
+      confirmColor: "#c94747",
+    });
+    if (!decision.confirm) return;
+    this.setData({ channelWriting: true, channelError: "" });
+    try {
+      const key = await createIdempotencyKey("ilink-revoke");
+      const response = await new ILinkChannelApi(
+        new ApiClient(undefined, session.accessToken),
+      ).revoke(linkId, key);
+      this.setData({
+        channelView: response.data,
+        channelStatus: "ready",
+        channelWriting: false,
+        channelExpired: false,
+      });
+    } catch (error) {
+      this.setData({
+        channelWriting: false,
+        channelError:
+          error instanceof ApiClientError
+            ? `${error.message}（请求 ${error.requestId}）`
+            : "解除连接没有完成。",
+      });
+    }
+  },
+
   goBack() {
     void wx.navigateBack();
   },
@@ -182,5 +278,32 @@ async function chooseAndStart(page: CaptureImportPage, source: "camera" | "album
     if (file && controller) await controller.startImport(file);
   } catch (error) {
     void wx.showToast({ title: externalLearningError(error).message, icon: "none" });
+  }
+}
+
+async function writeChannel(page: CaptureImportPage, replacePending: boolean) {
+  const session = currentAuthSession();
+  if (!session || page.data.channelWriting) return;
+  page.setData({ channelWriting: true, channelError: "" });
+  try {
+    const key = await createIdempotencyKey("ilink-code");
+    const response = await new ILinkChannelApi(new ApiClient(undefined, session.accessToken)).issue(
+      replacePending,
+      key,
+    );
+    page.setData({
+      channelView: response.data,
+      channelStatus: "ready",
+      channelWriting: false,
+      channelExpired: false,
+    });
+  } catch (error) {
+    page.setData({
+      channelWriting: false,
+      channelError:
+        error instanceof ApiClientError
+          ? `${error.message}（请求 ${error.requestId}）`
+          : "连接码没有生成成功。",
+    });
   }
 }
