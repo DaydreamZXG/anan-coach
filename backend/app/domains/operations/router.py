@@ -104,7 +104,10 @@ def ready(session: Annotated[Session, Depends(get_db_session)]) -> dict[str, str
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="position rule release is not ready",
         )
-    if settings.environment.strip().casefold() == "production":
+    if (
+        settings.environment.strip().casefold() == "production"
+        and settings.coach_notifications_enabled
+    ):
         try:
             coach_template = CoachTemplateRelease.from_json(
                 settings.wechat_coach_template_release_json
@@ -123,6 +126,7 @@ def ready(session: Annotated[Session, Depends(get_db_session)]) -> dict[str, str
                 status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
                 detail="coach notification template release is not ready",
             )
+    if settings.environment.strip().casefold() == "production":
         dpa_checks = (
             settings.ai_companion_provider_dpa_confirmed,
             settings.ai_xingce_cause_provider_dpa_confirmed,

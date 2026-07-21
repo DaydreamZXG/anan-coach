@@ -413,6 +413,7 @@ def test_template_rotation_cancels_old_delivery_and_invalidates_old_grant(
     delivery_id = _queue_delivery(db_session, user_id=user_id, now=NOW)
     db_session.commit()
     rotated = Settings(
+        coach_notifications_enabled=True,
         wechat_mini_app_secret="test-secret",
         wechat_coach_template_release_json=json.dumps(
             {
@@ -758,6 +759,7 @@ def _seed_user(session: Session) -> str:
 
 def _settings() -> Settings:
     return Settings(
+        coach_notifications_enabled=True,
         wechat_mini_app_secret="test-secret",
         wechat_coach_template_release_json=TEMPLATE_JSON,
         wechat_coach_miniprogram_state="formal",

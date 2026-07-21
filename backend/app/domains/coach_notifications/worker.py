@@ -323,6 +323,8 @@ class CoachNotificationWorker:
 
 
 def _validate_settings(settings: Settings) -> None:
+    if not settings.coach_notifications_enabled:
+        raise ValueError("COACH_NOTIFICATIONS_ENABLED must be true for the coach worker")
     if settings.coach_notification_worker_poll_seconds <= 0:
         raise ValueError("COACH_NOTIFICATION_WORKER_POLL_SECONDS must be positive")
     if not 300 <= settings.coach_notification_evaluation_interval_seconds <= 3600:

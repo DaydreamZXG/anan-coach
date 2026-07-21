@@ -163,6 +163,7 @@ class Settings:
     wechat_mini_app_id: str = "wx42824c7f7bfbf4b2"
     wechat_mini_app_secret: str = ""
     wechat_api_base_url: str = "https://api.weixin.qq.com"
+    coach_notifications_enabled: bool = False
     wechat_coach_template_release_json: str = ""
     wechat_coach_miniprogram_state: str = "formal"
     coach_notification_worker_poll_seconds: float = 2.0
@@ -597,6 +598,9 @@ def get_settings() -> Settings:
         wechat_api_base_url=os.getenv(
             "WECHAT_API_BASE_URL",
             "https://api.weixin.qq.com",
+        ),
+        coach_notifications_enabled=_environment_bool(
+            "COACH_NOTIFICATIONS_ENABLED", default=False
         ),
         wechat_coach_template_release_json=os.getenv(
             "WECHAT_COACH_TEMPLATE_RELEASE_JSON", ""
