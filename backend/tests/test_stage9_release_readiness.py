@@ -5,11 +5,14 @@ from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 from fastapi.testclient import TestClient
+import pytest
 from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
 
+from app.core.config import Settings
 from app.core.config import get_settings
 from app.db.session import get_db_session
+from app.domains.operations import router as operations_router
 from app.main import create_app
 
 
@@ -57,6 +60,39 @@ def test_ready_reports_active_position_rule_release(
         "positionDataVersion": "guokao-2026-source-sha256-test",
         "time": payload["time"],
     }
+
+
+def test_ready_allows_independently_disabled_external_ai_scenarios(
+    db_session_factory: sessionmaker[Session],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _seed_alembic_revision(db_session_factory)
+    _seed_release(db_session_factory, activated_at=datetime.now(UTC))
+    settings = Settings(environment="production")
+    monkeypatch.setattr(operations_router, "get_settings", lambda: settings)
+
+    response = _client(db_session_factory).get("/ready")
+
+    assert response.status_code == 200
+
+
+def test_ready_requires_release_for_an_approved_external_ai_scenario(
+    db_session_factory: sessionmaker[Session],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _seed_alembic_revision(db_session_factory)
+    _seed_release(db_session_factory, activated_at=datetime.now(UTC))
+    settings = Settings(
+        environment="production",
+        ai_companion_provider_dpa_confirmed=True,
+        ai_companion_provider_release_id="missing-release",
+    )
+    monkeypatch.setattr(operations_router, "get_settings", lambda: settings)
+
+    response = _client(db_session_factory).get("/ready")
+
+    assert response.status_code == 503
+    assert response.json()["detail"] == "external AI processor release is not ready"
 
 
 def _client(db_session_factory: sessionmaker[Session]) -> TestClient:
