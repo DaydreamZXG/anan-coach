@@ -13,6 +13,64 @@ from sqlalchemy.exc import DBAPIError
 BACKEND_ROOT = Path(__file__).resolve().parents[1]
 
 
+class _ScalarResult:
+    def __init__(self, value: object) -> None:
+        self._value = value
+
+    def scalar_one(self) -> object:
+        return self._value
+
+
+class _RuntimeGrantBind:
+    def __init__(self, *, runtime_role_exists: bool) -> None:
+        self.runtime_role_exists = runtime_role_exists
+        self.statements: list[str] = []
+
+    def execute(self, _statement: object) -> _ScalarResult:
+        return _ScalarResult(self.runtime_role_exists)
+
+    def exec_driver_sql(self, statement: str) -> None:
+        self.statements.append(statement)
+
+
+def test_messaging_runtime_access_migration_grants_current_and_future_objects(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    migration = import_module(
+        "migrations.versions.20260721_48_messaging_runtime_access"
+    )
+    bind = _RuntimeGrantBind(runtime_role_exists=True)
+    monkeypatch.setattr(migration.op, "get_bind", lambda: bind)
+
+    migration.upgrade()
+
+    assert bind.statements == [
+        "grant usage on schema messaging to gongkao_api",
+        "grant select, insert, update, delete on all tables "
+        "in schema messaging to gongkao_api",
+        "grant usage, select, update on all sequences "
+        "in schema messaging to gongkao_api",
+        "alter default privileges in schema messaging "
+        "grant select, insert, update, delete on tables to gongkao_api",
+        "alter default privileges in schema messaging "
+        "grant usage, select, update on sequences to gongkao_api",
+    ]
+
+
+def test_messaging_runtime_access_migration_is_inert_without_runtime_role(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    migration = import_module(
+        "migrations.versions.20260721_48_messaging_runtime_access"
+    )
+    bind = _RuntimeGrantBind(runtime_role_exists=False)
+    monkeypatch.setattr(migration.op, "get_bind", lambda: bind)
+
+    migration.upgrade()
+
+    assert bind.statements == []
+
+
 def _seed_v12_essay_history(engine: Engine) -> None:
     """Persist rows that predate grounded execution metadata.
 
