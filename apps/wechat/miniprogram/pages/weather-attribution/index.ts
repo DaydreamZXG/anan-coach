@@ -14,6 +14,7 @@ Page({
     }
     const valid =
       candidate.startsWith("https://weatherkit.apple.com/") ||
+      candidate.startsWith("https://weather-data.apple.com/") ||
       candidate.startsWith("https://www.apple.com/legal/");
     this.setData({ url: valid ? candidate : "", valid });
   },

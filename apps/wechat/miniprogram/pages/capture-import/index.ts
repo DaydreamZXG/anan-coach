@@ -27,7 +27,7 @@ interface CaptureImportPageData {
   configurationError: string;
   mode: "search" | "import";
   channelView: ILinkChannelView | null;
-  channelStatus: "loading" | "ready" | "error";
+  channelStatus: "loading" | "ready" | "unavailable" | "error";
   channelError: string;
   channelWriting: boolean;
   channelExpired: boolean;
@@ -208,6 +208,13 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
           new Date(view.expiresAt ?? 0).getTime() <= Date.now(),
       });
     } catch (error) {
+      if (error instanceof ApiClientError && error.statusCode === 503) {
+        this.setData({
+          channelStatus: "unavailable",
+          channelError: "微信发图搜题入口暂未开放；请先用下方小程序拍照搜题。",
+        });
+        return;
+      }
       this.setData({
         channelStatus: "error",
         channelError:

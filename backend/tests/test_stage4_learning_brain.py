@@ -18,6 +18,7 @@ from app.domains.companion.service import (
     _context_retrieval_candidates,
 )
 from app.domains.planning.insights_schemas import WeeklyPlanDay, WeeklyPlanVersion
+from app.domains.planning.insights_service import _weekly_day_from_jsonb
 from app.domains.planning.candidates import (
     EssayPlanningSnapshot,
     GoalPlanningSnapshot,
@@ -284,6 +285,27 @@ def test_weekly_contract_requires_exact_contiguous_five_plus_one_plus_one() -> N
             generatedAt=NOW,
             validUntil=NOW + timedelta(days=4),
         )
+
+
+def test_weekly_jsonb_days_rehydrate_strict_date_and_uuid_fields() -> None:
+    daily_plan_version_id = str(uuid4())
+    day = _weekly_day_from_jsonb(
+        {
+            "localDate": "2026-07-20",
+            "weekday": 1,
+            "mode": "training",
+            "plannedMinutes": 90,
+            "scheduledMinutes": 30,
+            "completedTaskCount": 1,
+            "totalTaskCount": 2,
+            "status": "today",
+            "explanation": "按最新证据在当天生成具体任务。",
+            "dailyPlanVersionId": daily_plan_version_id,
+        }
+    )
+
+    assert day.local_date == date(2026, 7, 20)
+    assert str(day.daily_plan_version_id) == daily_plan_version_id
 
 
 def test_confirmed_strategy_changes_new_learning_but_preserves_required_closure() -> None:

@@ -31,6 +31,9 @@
         </view>
 
         <view wx:if="{{channelStatus === 'loading'}}" class="ilink-card__state">正在核对连接状态…</view>
+        <view wx:elif="{{channelStatus === 'unavailable'}}">
+          <view class="ilink-card__disabled">微信发图入口暂未开放，请先用下方小程序拍照搜题。</view>
+        </view>
         <view wx:elif="{{channelStatus === 'error'}}">
           <view class="ilink-card__error">{{channelError}}</view>
           <button class="ilink-card__button ilink-card__button--quiet" bindtap="loadChannel">重新加载</button>

@@ -53,7 +53,9 @@ describe("official iLink photo channel", () => {
   it("renders every truthful link state and the evidence boundary", () => {
     for (const token of [
       "channelStatus === 'loading'",
+      "channelStatus === 'unavailable'",
       "channelStatus === 'error'",
+      "小程序拍照搜题",
       "channelView.linkState === 'unbound'",
       "channelView.linkState === 'revoked'",
       "channelView.linkState === 'pending'",

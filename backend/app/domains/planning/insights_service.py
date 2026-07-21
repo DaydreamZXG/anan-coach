@@ -410,7 +410,7 @@ def _weekly_from_row(row: RowMapping) -> WeeklyPlanVersion:
         versionNo=int(row["version_no"]),
         weeklyPreferenceVersionId=UUID(str(row["weekly_preference_version_id"])),
         rhythm=str(row["rhythm"]),
-        days=[WeeklyPlanDay.model_validate(item) for item in row["days"]],
+        days=[_weekly_day_from_jsonb(item) for item in row["days"]],
         evidenceRefs=[PlanningEvidenceRef.model_validate(item) for item in row["evidence_refs"]],
         inputVersions=dict(row["input_versions"]),
         replanReasonCodes=list(row["replan_reason_codes"]),
@@ -422,6 +422,12 @@ def _weekly_from_row(row: RowMapping) -> WeeklyPlanVersion:
         ),
         generatedAt=row["generated_at"],
         validUntil=row["valid_until"],
+    )
+
+
+def _weekly_day_from_jsonb(item: object) -> WeeklyPlanDay:
+    return WeeklyPlanDay.model_validate_json(
+        json.dumps(item, ensure_ascii=False, default=str)
     )
 
 

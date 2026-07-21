@@ -77,8 +77,8 @@ set +a
 : "${MIGRATION_DATABASE_URL:?MIGRATION_DATABASE_URL is required}"
 : "${REQUIRED_DATABASE_REVISION:?REQUIRED_DATABASE_REVISION is required}"
 : "${WEKNORA_PRIVATE_KNOWLEDGE_MODE:?WEKNORA_PRIVATE_KNOWLEDGE_MODE must be explicit}"
-if [[ "${REQUIRED_DATABASE_REVISION}" != "20260721_50" ]]; then
-  printf '%s\n' "production release requires database revision 20260721_50" >&2
+if [[ "${REQUIRED_DATABASE_REVISION}" != "20260721_51" ]]; then
+  printf '%s\n' "production release requires database revision 20260721_51" >&2
   exit 1
 fi
 case "${WEKNORA_PRIVATE_KNOWLEDGE_MODE}" in
