@@ -120,6 +120,7 @@ interface MockExamPageData {
   disputeMessage: string;
   disputeReceipt: MockExamDisputeReceipt | null;
   receipt: MockExamSubmitReceipt | null;
+  reportSessionId: string;
 }
 
 interface MockExamPageCustom {
@@ -234,6 +235,7 @@ Page<MockExamPageData, MockExamPageCustom>({
     disputeMessage: "",
     disputeReceipt: null,
     receipt: null,
+    reportSessionId: "",
   },
 
   onLoad(options: Record<string, string | undefined>) {
@@ -263,12 +265,14 @@ Page<MockExamPageData, MockExamPageCustom>({
       return;
     }
     const client = new ApiClient(environment.apiBaseUrl, auth.accessToken);
+    const requestedSessionId = options.sessionId?.trim() ?? "";
+    this.setData({ reportSessionId: requestedSessionId });
     runtimes.set(this, {
       ownerUserId: auth.userId,
       api: new MockExamApi(client),
       helpApi: new TaskHelpApi(client),
       editingApi: new TaskEditingApi(client),
-      requestedSessionId: options.sessionId?.trim() ?? "",
+      requestedSessionId,
       visible: false,
       disposed: false,
       mutationVersion: 0,
@@ -331,9 +335,25 @@ Page<MockExamPageData, MockExamPageCustom>({
         : await runtime.api.createOrRestoreWeekly(await createIdempotencyKey("mock-start"));
       if (runtimes.get(this) !== runtime) return;
       if (session.status !== "assigned") {
+        runtime.session = session;
+        delete runtime.task;
+        stopClock(runtime);
         this.setData({
           status: "submitted",
           title: session.title,
+          reportSessionId: session.sessionId,
+          interactionLocked: true,
+          syncLabel: "本场已交卷",
+          toolPolicy: taskToolPolicy("mock", "submitted"),
+          pageObjectReference: {
+            pageCode: "F02",
+            route: "/pages/mock-exam/index",
+            track: "xingce",
+            objectType: "task_session",
+            objectId: session.sessionId,
+            taskMode: "mock",
+            lifecycle: "submitted",
+          },
           errorMessage: "本场模考已经交卷，答案解析只在正式报告页展示。",
         });
         return;
@@ -701,13 +721,14 @@ Page<MockExamPageData, MockExamPageCustom>({
   },
 
   openMockReport() {
-    const runtime = runtimes.get(this);
-    const sessionId = runtime?.session?.sessionId ?? runtime?.requestedSessionId;
-    void wx.navigateTo({
-      url: sessionId
-        ? `${routes.mockReport}?sessionId=${encodeURIComponent(sessionId)}`
-        : routes.mockReport,
-    });
+    const sessionId = this.data.reportSessionId.trim();
+    if (!sessionId) {
+      this.setData({
+        errorMessage: "缺少本场模考会话编号，不能打开正式报告。请从报告中心或今日计划重新进入。",
+      });
+      return;
+    }
+    void wx.navigateTo({ url: `${routes.mockReport}?sessionId=${encodeURIComponent(sessionId)}` });
   },
 
   noop() {},
@@ -785,6 +806,7 @@ function applyRuntimeToPage(
   page.setData({
     status: "ready",
     title: session.title,
+    reportSessionId: session.sessionId,
     question: {
       ...question,
       options: question.options.map((option) => ({
@@ -1038,6 +1060,7 @@ async function executeSubmit(
       helpOpen: false,
       syncLabel: "已交卷",
       receipt,
+      reportSessionId: committedSession.sessionId,
       toolPolicy: taskToolPolicy("mock", "submitted"),
       pageObjectReference: {
         pageCode: "F02",
@@ -1321,11 +1344,14 @@ async function resolveMockCheckpointConflict(
     const latest = await runtime.api.getSession(ownership.lease.resourceId);
     clearPendingMockCheckpoint(runtime.ownerUserId, ownership.lease.resourceId);
     if (latest.status !== "assigned") {
+      runtime.session = latest;
+      delete runtime.task;
       stopClock(runtime);
       page.setData({
         status: "submitted",
         interactionLocked: true,
         syncLabel: "本场已交卷",
+        reportSessionId: latest.sessionId,
         errorMessage: "云端已结束本场模考，当前设备不再写入离线草稿。",
       });
       return true;

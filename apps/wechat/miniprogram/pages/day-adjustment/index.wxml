@@ -3,7 +3,18 @@
   <state-view wx:if="{{status === 'loading'}}" state="loading" />
   <state-view wx:elif="{{status === 'error' && !dashboard}}" state="error" title="容量没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
   <block wx:elif="{{dashboard}}">
-    <view class="brain-card"><view class="brain-label">今日可用分钟</view><input class="minute-input type-data" type="number" value="{{minutes}}" bindinput="inputMinutes" /><button class="brain-action brain-action--secondary" bindtap="markUnavailable">今天确实无法学习</button></view>
+    <view class="brain-card">
+      <view class="brain-label">今日可用时间</view>
+      <view class="duration-current type-data">{{selectedDurationLabel}}</view>
+      <view class="duration-help">按半小时选择；保存后会生成新的容量版本并重排今日计划。</view>
+      <scroll-view scroll-x class="duration-strip">
+        <button wx:for="{{timeOptions}}" wx:key="value" class="duration-option {{minutes === item.value ? 'duration-option--active' : ''}}" data-minutes="{{item.minutes}}" disabled="{{submitting}}" bindtap="chooseMinutes">
+          <text class="duration-option__label">{{item.label}}</text>
+          <text class="duration-option__caption">{{item.caption}}</text>
+        </button>
+      </scroll-view>
+      <button class="brain-action brain-action--secondary" bindtap="markUnavailable">今天确实无法学习</button>
+    </view>
     <view class="brain-card">
       <view class="scale-section">
         <view class="brain-row-title">精力 · <text class="type-data">{{energy}}</text>/5</view>

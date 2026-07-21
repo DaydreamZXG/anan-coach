@@ -9,6 +9,13 @@ export interface CapacityDraft {
   confidenceLevel: number;
 }
 
+export interface CapacityTimeOption {
+  minutes: number;
+  value: string;
+  label: string;
+  caption: string;
+}
+
 export interface PreparedCapacityCommand {
   command: DailyCapacityCommand | null;
   error: string;
@@ -26,6 +33,16 @@ const scaleLabels: Readonly<Record<CapacityMetric, readonly string[]>> = {
   stress: ["放松", "较低", "一般", "较高", "很高"],
   confidence: ["很不确定", "把握较低", "一般", "把握较高", "很确定"],
 };
+
+export const capacityTimeOptions: ReadonlyArray<CapacityTimeOption> = Array.from(
+  { length: 25 },
+  (_, index) => index * 30,
+).map((minutes) => ({
+  minutes,
+  value: String(minutes),
+  label: formatCapacityDuration(minutes),
+  caption: capacityDurationCaption(minutes),
+}));
 
 export function capacityDraftFromVersion(
   capacity: Pick<TodayCapacity, "availableMinutes" | "energy" | "stress" | "confidenceLevel">,
@@ -89,6 +106,19 @@ export function capacityScaleLabel(metric: CapacityMetric, value: number): strin
   return scaleLabels[metric][value - 1] ?? "未选择";
 }
 
+export function capacityDurationLabel(draft: Pick<CapacityDraft, "availableMinutes">): string {
+  const minutes = Number(draft.availableMinutes);
+  return Number.isInteger(minutes) ? formatCapacityDuration(minutes) : "时间待确认";
+}
+
+export function formatCapacityDuration(minutes: number): string {
+  if (!Number.isInteger(minutes) || minutes < 0 || minutes > 1440) return "时间待确认";
+  if (minutes === 0) return "今天不安排";
+  if (minutes % 60 === 0) return `${String(minutes / 60)} 小时`;
+  if (minutes % 30 === 0) return `${trimHalfHour(minutes / 60)} 小时`;
+  return `${String(minutes)} 分钟`;
+}
+
 export function capacityWritePolicy(dataMode: DataMode, accessToken?: string): CapacityWritePolicy {
   if (dataMode === "prototype") {
     return {
@@ -111,4 +141,17 @@ export function formatCapacityIdempotencyKey(randomValues: ArrayBuffer): string 
 
 export async function createCapacityIdempotencyKey(): Promise<string> {
   return createIdempotencyKey("capacity");
+}
+
+function trimHalfHour(hours: number): string {
+  return hours.toFixed(1).replace(/\.0$/u, "");
+}
+
+function capacityDurationCaption(minutes: number): string {
+  if (minutes === 0) return "完全休息";
+  if (minutes <= 60) return "碎片日";
+  if (minutes <= 180) return "在职友好";
+  if (minutes <= 360) return "集中训练";
+  if (minutes <= 600) return "全职高强度";
+  return "卷王模式";
 }

@@ -32,6 +32,7 @@ interface PositionWorkspacePageCustom {
   retryPositions(): void;
   retryQualification(): void;
   openSearch(): void;
+  openQualificationProfile(): void;
   openGapAction(event: WechatMiniprogram.BaseEvent): void;
   openPosition(event: WechatMiniprogram.BaseEvent): void;
   toggleComparison(event: WechatMiniprogram.BaseEvent): void;
@@ -134,10 +135,14 @@ Page<PositionWorkspacePageData, PositionWorkspacePageCustom>({
     void wx.navigateTo({ url: positionSearchUrl() });
   },
 
+  openQualificationProfile() {
+    void wx.navigateTo({ url: routes.qualificationProfile });
+  },
+
   openGapAction(event) {
     const action = String(event.currentTarget.dataset.action ?? "");
     if (action === "complete_profile") {
-      this.openOnboarding();
+      this.openQualificationProfile();
       return;
     }
     const code = String(event.currentTarget.dataset.code ?? "");

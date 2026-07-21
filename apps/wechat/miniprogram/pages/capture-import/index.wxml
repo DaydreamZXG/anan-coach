@@ -130,7 +130,8 @@
     </view>
 
     <view wx:elif="{{state.status === 'error'}}" class="capture-content">
-      <state-view state="error" title="{{state.error ? state.error.title : '处理没有完成'}}" description="{{state.error ? state.error.message : '请重新拍摄或刷新当前版本。'}}" request-id="{{state.error ? state.error.requestId : ''}}" action-text="{{state.pendingRecovery || state.workspace ? '恢复当前操作' : ''}}" bind:action="retryImport" />
+      <state-view state="error" title="{{state.error ? state.error.title : '处理没有完成'}}" description="{{state.error ? state.error.message : '请重新拍摄或刷新当前版本。'}}" request-id="{{state.error ? state.error.requestId : ''}}" action-text="{{state.pendingRecovery || state.workspace ? '恢复当前操作' : '重新选择题目'}}" bind:action="handleErrorAction" />
+      <view wx:if="{{state.error && !state.error.retryable}}" class="capture-boundary capture-boundary--error">当前错误不会自动重试，避免把题图、答案或资料发送到未放行链路；可以返回手动录入、已确认题库或私人资料能力。</view>
     </view>
 
     <block wx:elif="{{state.status === 'review'}}">

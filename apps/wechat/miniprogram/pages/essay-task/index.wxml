@@ -6,7 +6,7 @@
   elapsedLabel="{{elapsedLabel}}"
   syncLabel="{{reviewDisplay.state === 'waiting_quota' ? '答案已保存 · 等待额度' : reviewDisplay.state === 'queued' || reviewDisplay.state === 'running' ? '答案已保存 · 评阅中' : hasSavedEvidence ? '已保存真实版本' : submissionStatus === 'submitting' ? '正在写入版本' : '尚未保存本次修改'}}"
   materialAvailable="{{status === 'ready'}}"
-  answerSheetAvailable="{{capability && capability.stage === 'essay_drafting'}}"
+  answerSheetAvailable="{{capability ? capability.stage === 'essay_drafting' : false}}"
   toolsAvailable="{{false}}"
   footerAvailable="{{status === 'ready' && canSubmit}}"
   bindexit="exit"

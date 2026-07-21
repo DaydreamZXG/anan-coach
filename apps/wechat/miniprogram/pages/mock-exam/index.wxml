@@ -5,9 +5,9 @@
   total="{{total || 1}}"
   elapsedLabel="{{remainingLabel}}"
   syncLabel="{{syncLabel}}"
-  materialAvailable="{{status === 'ready' && question && question.material}}"
+  materialAvailable="{{status === 'ready' && question && question.material ? true : false}}"
   answerSheetAvailable="{{status === 'ready'}}"
-  draftAvailable="{{status === 'ready' && question}}"
+  draftAvailable="{{status === 'ready' && question ? true : false}}"
   toolsAvailable="{{status === 'ready'}}"
   footerAvailable="{{status === 'ready'}}"
   bindexit="exit"
@@ -53,7 +53,8 @@
 
   <view wx:elif="{{status === 'submitted'}}" class="page-state">
     <state-view state="empty" title="本场模考已经交卷" description="答案解析只在正式报告页按权限展示。" />
-    <button class="primary-button" bindtap="openMockReport">查看正式模考报告</button>
+    <button wx:if="{{reportSessionId}}" class="primary-button" bindtap="openMockReport">查看正式模考报告</button>
+    <view wx:else class="inline-warning">缺少本场模考会话编号，不能打开正式报告。请从报告中心或今日计划重新进入。</view>
     <button class="secondary-button" bindtap="returnToday">返回今日计划</button>
   </view>
 

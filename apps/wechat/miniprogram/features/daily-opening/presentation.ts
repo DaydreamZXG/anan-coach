@@ -11,6 +11,7 @@ export interface DailyOpeningPresentation {
   weatherHeadline: string;
   weatherDetail: string;
   attributionUrl: string;
+  attributionVisible: boolean;
   coffeeVisible: boolean;
   coffeePrompt: string;
 }
@@ -56,6 +57,7 @@ export function presentDailyOpening(view: DailyOpeningView): DailyOpeningPresent
       ? `${rounded(summary.minimumCelsius)}°–${rounded(summary.maximumCelsius)}° · 降水 ${String(Math.round(summary.precipitationChance * 100))}%`
       : "",
     attributionUrl: view.weather.attributionUrl ?? "",
+    attributionVisible: Boolean(view.weather.attributionUrl),
     coffeeVisible: view.coffee.showPrompt && view.coffee.state === "available",
     coffeePrompt: view.coffee.prompt ?? "",
   };

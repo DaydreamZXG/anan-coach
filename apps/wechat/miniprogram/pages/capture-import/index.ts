@@ -45,6 +45,7 @@ interface CaptureImportPageCustom {
   requestAIAnswer(): void;
   confirmAIAnswer(): void;
   confirmImport(): void;
+  handleErrorAction(): void;
   retryImport(): void;
   restart(): void;
   openLearningPackets(): void;
@@ -162,6 +163,15 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
 
   confirmImport() {
     void runtimes.get(this)?.confirm();
+  },
+
+  handleErrorAction() {
+    const snapshot = runtimes.get(this)?.snapshot();
+    if (snapshot?.pendingRecovery || snapshot?.workspace) {
+      this.retryImport();
+      return;
+    }
+    this.restart();
   },
 
   retryImport() {

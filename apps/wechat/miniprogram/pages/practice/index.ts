@@ -53,7 +53,11 @@ import {
 import { createIdempotencyKey } from "../../platform/command-id";
 import { decideAutosave, decideExit } from "../../task-runtime/state/autosave";
 import { reduceTaskRuntime, unansweredQuestionIds } from "../../task-runtime/state/runtime";
-import type { ContentDisplayPreferences } from "../../task-runtime/content-renderer/model";
+import type {
+  ContentAnchor,
+  ContentDisplayPreferences,
+  RichContentBlock,
+} from "../../task-runtime/content-renderer/model";
 import {
   loadTaskDisplayPreferences,
   storeTaskDisplayPreferences,
@@ -79,6 +83,8 @@ interface PracticePageData {
   materialQuestionId: string;
   materialReaderState: MaterialReaderState;
   displayPreferences: ContentDisplayPreferences;
+  emptyRichContentBlocks: RichContentBlock[];
+  emptyContentAnchors: ContentAnchor[];
   toolsOpen: boolean;
   helpOpen: boolean;
   disputeOpen: boolean;
@@ -175,6 +181,8 @@ Page<PracticePageData, PracticePageCustom>({
     materialQuestionId: "",
     materialReaderState: createMaterialReaderState(),
     displayPreferences: { fontScale: 1, colorMode: "standard" },
+    emptyRichContentBlocks: [],
+    emptyContentAnchors: [],
     toolsOpen: false,
     helpOpen: false,
     disputeOpen: false,
@@ -980,8 +988,9 @@ function render(
       active: index === runtime.task?.currentQuestionIndex,
     };
   });
+  const alreadyReady = page.data.status === "ready";
   page.setData({
-    status: "ready",
+    ...(alreadyReady ? { status: "ready" as const } : {}),
     errorTitle: "",
     errorMessage: "",
     view,
@@ -999,6 +1008,19 @@ function render(
     helpReference: taskHelpReference(runtime.session),
     helpSyncState: runtime.task.syncState,
   });
+  if (!alreadyReady) {
+    afterRenderTick(() => {
+      if (runtimes.owns(page, runtime)) page.setData({ status: "ready" });
+    });
+  }
+}
+
+function afterRenderTick(callback: () => void): void {
+  if (typeof wx.nextTick === "function") {
+    wx.nextTick(callback);
+    return;
+  }
+  void Promise.resolve().then(callback);
 }
 
 function changeQuestion(page: PracticePageInstance, delta: number): void {

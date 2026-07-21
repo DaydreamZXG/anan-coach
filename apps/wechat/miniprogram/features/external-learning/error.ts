@@ -12,12 +12,14 @@ interface ErrorLike {
   status?: unknown;
   statusCode?: unknown;
   requestId?: unknown;
+  payload?: unknown;
   details?: unknown;
 }
 
 export function externalLearningError(error: unknown): ExternalLearningError {
   const candidate = isRecord(error) ? (error as ErrorLike) : {};
-  const details = isRecord(candidate.details) ? candidate.details : {};
+  const payload = isRecord(candidate.payload) ? candidate.payload : {};
+  const details = isRecord(candidate.details) ? candidate.details : payload;
   const status =
     typeof candidate.statusCode === "number"
       ? candidate.statusCode
@@ -28,6 +30,17 @@ export function externalLearningError(error: unknown): ExternalLearningError {
   const requestId = stringValue(details.requestId) || stringValue(candidate.requestId);
   const message =
     stringValue(details.message) || stringValue(candidate.message) || "请求未完成，请稍后重试。";
+  if (isExternalProcessorBlocked(code, message)) {
+    return {
+      code,
+      title: "外部 AI 处理器未放行",
+      message:
+        "当前不会把你的题图、答案或资料发送给未验证或非 HTTPS 的外部模型服务。请等待处理器审核通过，或先使用已确认题库、手动录入和私人资料的非 AI 处理能力。",
+      requestId,
+      retryable: false,
+      uncertain: false,
+    };
+  }
   const uncertain = status === 0 || status >= 500;
   return {
     code,
@@ -40,6 +53,7 @@ export function externalLearningError(error: unknown): ExternalLearningError {
 }
 
 function titleFor(code: string, status: number): string {
+  if (isExternalProcessorBlocked(code, "")) return "外部 AI 处理器未放行";
   if (code.includes("expired")) return "当前版本已过期";
   if (code.includes("quarantined") || code.includes("unsafe")) return "文件未通过安全检查";
   if (code.includes("conflict") || status === 409) return "版本已经更新";
@@ -55,6 +69,24 @@ function statusCode(status: number): string {
   if (status === 413) return "file_too_large";
   if (status === 415) return "unsupported_file_type";
   return status > 0 ? `http_${String(status)}` : "unknown_error";
+}
+
+function isExternalProcessorBlocked(code: string, message: string): boolean {
+  const normalized = `${code} ${message}`.toLowerCase();
+  return (
+    normalized.includes("processor_not_approved") ||
+    normalized.includes("ai_answer_not_approved") ||
+    normalized.includes("processor_configuration_invalid") ||
+    normalized.includes("renderer_processing_not_approved") ||
+    normalized.includes("renderer_host_not_approved") ||
+    normalized.includes("recognition_route_not_approved") ||
+    normalized.includes("answer_providers_not_approved") ||
+    normalized.includes("release is not ready") ||
+    normalized.includes("not release-approved") ||
+    normalized.includes("not approved") ||
+    normalized.includes("must use https") ||
+    normalized.includes("plaintext_http_blocked")
+  );
 }
 
 function stringValue(value: unknown): string {

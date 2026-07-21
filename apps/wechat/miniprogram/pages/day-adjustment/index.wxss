@@ -1,5 +1,12 @@
 @import "../../features/learning-brain/page-shell.wxss";
-.minute-input { margin-top: 14rpx; padding: 20rpx; border-radius: 20rpx; background: var(--color-surface-soft); font-size: 42rpx; font-weight: 820; }
+.duration-current { margin-top: 14rpx; color: var(--color-primary-deep); font-size: 44rpx; font-weight: 850; }
+.duration-help { margin-top: 8rpx; color: var(--color-muted); font-size: 21rpx; line-height: 1.55; }
+.duration-strip { width: 100%; margin-top: 18rpx; white-space: nowrap; }
+.duration-option { display: inline-flex; box-sizing: border-box; min-width: 132rpx; min-height: 86rpx; margin: 0 12rpx 0 0; padding: 10rpx 16rpx; flex-direction: column; align-items: center; justify-content: center; border-radius: 18rpx; background: var(--color-surface-soft); color: var(--color-ink-secondary); line-height: 1.25; }
+.duration-option__label { font-family: var(--font-family-data); font-size: 23rpx; font-weight: 850; }
+.duration-option__caption { margin-top: 6rpx; color: var(--color-muted); font-size: 17rpx; font-weight: 650; }
+.duration-option--active { background: var(--color-primary); color: #fff; }
+.duration-option--active .duration-option__caption { color: rgba(255, 255, 255, 0.78); }
 .scale-section { margin-bottom: 28rpx; }
 .scale-row { display: flex; gap: 10rpx; margin-top: 14rpx; }
 .scale-option { display: flex; box-sizing: border-box; flex: 1 1 0; width: 0; min-width: 0; height: 64rpx; margin: 0; padding: 0; align-items: center; justify-content: center; border-radius: 16rpx; background: var(--color-surface-soft); color: var(--color-muted); line-height: 64rpx; }

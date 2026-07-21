@@ -9,6 +9,7 @@
     "pages/positions/goal/index",
     "pages/positions/briefing/index",
     "pages/profile/index",
+    "pages/profile/qualification/index",
     "pages/weather-attribution/index",
     "pages/notification-settings/index",
     "pages/membership/index",

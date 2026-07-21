@@ -28,6 +28,7 @@
 .position-actions {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 18rpx;
   margin: 30rpx 0 12rpx;
 }
@@ -228,6 +229,58 @@
 
 .fit-evidence--danger {
   background: var(--color-danger-soft);
+}
+
+.fit-next-step {
+  margin-top: 14rpx;
+  padding: 16rpx 18rpx;
+  border: 1rpx solid rgba(0, 151, 139, 0.12);
+  border-radius: 16rpx;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--color-ink-secondary);
+}
+
+.fit-next-step__title {
+  color: var(--color-ink);
+  font-size: 21rpx;
+  font-weight: 800;
+}
+
+.fit-next-step__copy {
+  margin-top: 6rpx;
+  color: var(--color-muted);
+  font-size: 19rpx;
+  line-height: 1.55;
+}
+
+.fit-next-step--success {
+  border-color: rgba(31, 160, 104, 0.18);
+  background: var(--color-success-soft);
+}
+
+.fit-next-step--warning {
+  border-color: rgba(198, 130, 22, 0.18);
+  background: var(--color-warning-soft);
+}
+
+.fit-next-step--danger {
+  border-color: rgba(201, 71, 71, 0.18);
+  background: var(--color-danger-soft);
+}
+
+.fit-card__action {
+  display: block;
+  margin-top: 16rpx;
+}
+
+.position-card--primary .fit-next-step {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.position-card--primary .fit-next-step__title,
+.position-card--primary .fit-next-step__copy {
+  color: rgba(255, 255, 255, 0.84);
 }
 
 .position-card__footer {

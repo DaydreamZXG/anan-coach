@@ -84,10 +84,20 @@ export const pageInteractionMatrix = [
   }),
   page("pages/positions/goal/index", "d05-position-goal-preview", "阅读目标变更影响预览"),
   page("pages/positions/briefing/index", "d06-position-briefing-ready", "阅读岗位考情与目标分依据"),
-  page("pages/profile/index", "f09-profile-ready", "进入个人学习档案", {
-    handler: "openLearningProfile",
+  page("pages/profile/index", "f09-profile-ready", "进入报考资格档案", {
+    handler: "openQualificationProfile",
     selector: ".profile-menu-row",
   }),
+  page(
+    "pages/profile/qualification/index",
+    "f14-qualification-profile-review",
+    "维护报考资格档案",
+    {
+      handler: "next",
+      selector: ".s9-primary-button",
+      observable: false,
+    },
+  ),
   page(
     "pages/weather-attribution/index",
     "h06-weather-attribution-boundary",

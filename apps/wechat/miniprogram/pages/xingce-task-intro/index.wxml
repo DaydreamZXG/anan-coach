@@ -10,9 +10,12 @@
     title="{{errorTitle}}"
     description="{{errorMessage}}"
     request-id="{{requestId}}"
-    action-text="重新读取"
+    action-text="{{canRetry ? '重新读取' : ''}}"
     bind:action="retry"
   />
+  <view wx:if="{{status === 'error' && !canRetry}}" class="briefing-fallback-actions">
+    <ui-button custom-class="briefing-state-action" label="返回今日计划" bind:action="returnToday" />
+  </view>
 
   <view wx:elif="{{status === 'expired'}}" class="expired-state">
     <state-view custom-class="briefing-state-view" state="error" title="{{errorTitle}}" description="{{errorMessage}}" request-id="{{requestId}}" />

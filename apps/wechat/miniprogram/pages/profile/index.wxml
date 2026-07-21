@@ -20,6 +20,7 @@
     </view>
 
     <view class="profile-menu s9-list">
+      <view class="profile-menu-row" bindtap="openQualificationProfile"><view class="menu-icon">资</view><view class="s9-list-main"><view class="s9-list-title">报考资格档案</view><view class="s9-list-copy">学历、专业、工作经历、基层经历和服务基层项目</view></view><view class="menu-arrow">›</view></view>
       <view class="profile-menu-row" bindtap="openLearningProfile"><view class="menu-icon">档</view><view class="s9-list-main"><view class="s9-list-title">学习档案</view><view class="s9-list-copy">记录学习轨迹、能力证据与成长</view></view><view class="menu-arrow">›</view></view>
       <view class="profile-menu-row" bindtap="openPrivateKnowledge"><view class="menu-icon">料</view><view class="s9-list-main"><view class="s9-list-title">私人资料库</view><view class="s9-list-copy">讲义、笔记、Markdown 与可核对引用</view></view><view class="menu-arrow">›</view></view>
       <view class="profile-menu-row" bindtap="openCompanion"><view class="menu-icon">岸</view><view class="s9-list-main"><view class="s9-list-title">问岸岸</view><view class="s9-list-copy">带着当前任务与证据继续追问</view></view><view class="menu-arrow">›</view></view>

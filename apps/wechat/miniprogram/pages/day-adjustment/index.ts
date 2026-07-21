@@ -5,6 +5,7 @@ import {
   newIdempotencyKey,
   requireAuthenticatedClient,
 } from "../../features/learning-brain/presentation";
+import { capacityTimeOptions, formatCapacityDuration } from "../today/capacity";
 
 Page({
   data: {
@@ -13,6 +14,8 @@ Page({
     requestId: "",
     dashboard: null as TodayDashboard | null,
     minutes: "0",
+    selectedDurationLabel: "今天不安排",
+    timeOptions: capacityTimeOptions,
     energy: 3,
     stress: 3,
     confidenceLevel: 3,
@@ -34,6 +37,7 @@ Page({
         status: "ready",
         dashboard: data,
         minutes: String(data.capacity.availableMinutes),
+        selectedDurationLabel: formatCapacityDuration(data.capacity.availableMinutes),
         energy: data.capacity.energy,
         stress: data.capacity.stress,
         confidenceLevel: data.capacity.confidenceLevel,
@@ -46,7 +50,22 @@ Page({
   },
 
   inputMinutes(event: WechatMiniprogram.Input) {
-    this.setData({ minutes: event.detail.value });
+    const value = event.detail.value;
+    this.setData({
+      minutes: value,
+      selectedDurationLabel: formatCapacityDuration(Number(value)),
+    });
+  },
+
+  chooseMinutes(event: WechatMiniprogram.BaseEvent) {
+    const minutes = Number(event.currentTarget.dataset.minutes);
+    if (!Number.isInteger(minutes) || minutes < 0 || minutes > 720 || this.data.submitting) return;
+    this.setData({
+      minutes: String(minutes),
+      selectedDurationLabel: formatCapacityDuration(minutes),
+      successMessage: "",
+      errorMessage: "",
+    });
   },
 
   chooseScale(event: WechatMiniprogram.BaseEvent) {
@@ -59,7 +78,12 @@ Page({
   },
 
   markUnavailable() {
-    this.setData({ minutes: "0", confidenceLevel: 1, successMessage: "" });
+    this.setData({
+      minutes: "0",
+      selectedDurationLabel: formatCapacityDuration(0),
+      confidenceLevel: 1,
+      successMessage: "",
+    });
   },
 
   async submit() {

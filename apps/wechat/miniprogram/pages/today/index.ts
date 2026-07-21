@@ -28,11 +28,14 @@ import {
   type TodayControllerState,
 } from "../../features/planning/today-controller";
 import {
+  capacityDurationLabel,
   capacityDraftFromVersion,
   capacityScaleLabel,
+  capacityTimeOptions,
   capacityWritePolicy,
   createCapacityIdempotencyKey,
   prepareCapacityCommand,
+  type CapacityTimeOption,
   type CapacityDraft,
 } from "./capacity";
 import { presentTodayDashboard, type TodayView } from "./presentation";
@@ -58,6 +61,8 @@ interface TodayPageData {
   displayedPlanVersionId: string | null;
   capacityEditorOpen: boolean;
   capacityDraft: CapacityDraft | null;
+  capacityDurationLabel: string;
+  capacityTimeOptions: ReadonlyArray<CapacityTimeOption>;
   capacityScaleOptions: number[];
   capacitySubmission: TodayCapacitySubmission;
   capacityMessage: string;
@@ -80,6 +85,7 @@ interface TodayPageCustom {
   replaceDashboard(dashboard: TodayDashboard, capacitySubmission: TodayCapacitySubmission): void;
   toggleCapacityEditor(): void;
   inputAvailableMinutes(event: WechatMiniprogram.CustomEvent<{ value: string }>): void;
+  chooseCapacityMinutes(event: WechatMiniprogram.BaseEvent): void;
   chooseCapacityScale(event: WechatMiniprogram.BaseEvent): void;
   changeCapacityDraft(changes: Partial<CapacityDraft>): void;
   submitCapacity(): Promise<void>;
@@ -110,6 +116,8 @@ Page<TodayPageData, TodayPageCustom>({
     displayedPlanVersionId: null,
     capacityEditorOpen: false,
     capacityDraft: null,
+    capacityDurationLabel: "",
+    capacityTimeOptions,
     capacityScaleOptions: [1, 2, 3, 4, 5],
     capacitySubmission: "idle",
     capacityMessage: "",
@@ -175,6 +183,7 @@ Page<TodayPageData, TodayPageCustom>({
             ? true
             : this.data.capacityEditorOpen,
       capacityDraft: draft,
+      capacityDurationLabel: capacityDurationLabel(draft),
       capacitySubmission,
       capacityMessage:
         capacitySubmission === "success" ? "容量版本已确认，今日计划已按新状态完整重排。" : "",
@@ -204,11 +213,18 @@ Page<TodayPageData, TodayPageCustom>({
       energyLabel: draft ? capacityScaleLabel("energy", draft.energy) : "",
       stressLabel: draft ? capacityScaleLabel("stress", draft.stress) : "",
       confidenceLabel: draft ? capacityScaleLabel("confidence", draft.confidenceLevel) : "",
+      capacityDurationLabel: draft ? capacityDurationLabel(draft) : "",
     });
   },
 
   inputAvailableMinutes(event) {
     this.changeCapacityDraft({ availableMinutes: event.detail.value });
+  },
+
+  chooseCapacityMinutes(event) {
+    const minutes = Number(event.currentTarget.dataset.minutes);
+    if (!Number.isInteger(minutes) || minutes < 0 || minutes > 720) return;
+    this.changeCapacityDraft({ availableMinutes: String(minutes) });
   },
 
   chooseCapacityScale(event) {
@@ -226,6 +242,7 @@ Page<TodayPageData, TodayPageCustom>({
     const draft = { ...current, ...changes };
     this.setData({
       capacityDraft: draft,
+      capacityDurationLabel: capacityDurationLabel(draft),
       capacitySubmission: this.data.capacitySubmission === "conflict" ? "conflict" : "idle",
       capacityMessage: this.data.capacitySubmission === "conflict" ? this.data.capacityMessage : "",
       energyLabel: capacityScaleLabel("energy", draft.energy),
@@ -451,6 +468,7 @@ function publishTodayState(page: TodayPageInstance, state: TodayControllerState)
     displayedPlanVersionId: null,
     capacityEditorOpen: false,
     capacityDraft: null,
+    capacityDurationLabel: "",
     capacitySubmission: state.capacitySubmission,
     capacityMessage: state.capacityMessage,
     capacityWriteAllowed: false,

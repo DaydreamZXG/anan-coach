@@ -43,7 +43,7 @@
           <view class="daily-opening__weather-main">{{openingView.weatherHeadline}}</view>
           <view class="daily-opening__weather-detail">{{openingView.weatherDetail}}</view>
         </view>
-        <button class="daily-opening__source" bindtap="openWeatherAttribution">Apple Weather ›</button>
+        <button wx:if="{{openingView.attributionVisible}}" class="daily-opening__source" bindtap="openWeatherAttribution">Apple Weather ›</button>
       </view>
       <view wx:elif="{{openingView.weatherLocationRequired}}" class="daily-opening__setup">
         <view>
@@ -120,7 +120,7 @@
       <view class="capacity-bar">
         <view class="capacity-bar-info">
           <view class="capacity-bar-title">
-            今日可用 <text class="type-data">{{view.availableMinutes}}</text> 分钟
+            今日可用 <text class="type-data">{{view.availableDurationLabel}}</text>
           </view>
           <view class="capacity-bar-meta">
             精力 {{view.energy}}/5 · 压力 {{view.stress}}/5 · {{view.capacitySourceLabel}}
@@ -136,20 +136,23 @@
           <view class="capacity-field-heading">
             <view class="capacity-field-copy">
               <view class="capacity-field-label">今日真实可用时间</view>
-              <view class="capacity-field-help">包含做题、复盘和申论作答的总时间</view>
+              <view class="capacity-field-help">按半小时选择，包含做题、复盘和申论作答的总时间</view>
             </view>
-            <view class="capacity-minute-input">
-              <input
-                class="type-data capacity-minute-input__control"
-                type="number"
-                maxlength="4"
-                value="{{capacityDraft.availableMinutes}}"
-                disabled="{{capacitySubmission === 'submitting' || capacitySubmission === 'conflict'}}"
-                bindinput="inputAvailableMinutes"
-              />
-              <text>分钟</text>
-            </view>
+            <view class="capacity-time-current type-data">{{capacityDurationLabel}}</view>
           </view>
+          <scroll-view scroll-x class="capacity-time-strip">
+            <button
+              wx:for="{{capacityTimeOptions}}"
+              wx:key="value"
+              class="capacity-time-option {{capacityDraft.availableMinutes === item.value ? 'capacity-time-option--active' : ''}} {{capacitySubmission === 'submitting' || capacitySubmission === 'conflict' ? 'capacity-time-option--disabled' : ''}}"
+              data-minutes="{{item.minutes}}"
+              disabled="{{capacitySubmission === 'submitting' || capacitySubmission === 'conflict'}}"
+              bindtap="chooseCapacityMinutes"
+            >
+              <text class="capacity-time-option__label">{{item.label}}</text>
+              <text class="capacity-time-option__caption">{{item.caption}}</text>
+            </button>
+          </scroll-view>
         </view>
 
         <view class="capacity-field">

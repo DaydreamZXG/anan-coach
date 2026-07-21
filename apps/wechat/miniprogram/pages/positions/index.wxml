@@ -3,7 +3,7 @@
     <view class="position-hero__copy">
       <view class="s9-kicker">国考 · 岗位库</view>
       <view class="s9-title">岗位决策</view>
-      <view class="s9-subtitle">先从可报岗位里选主目标；行测和申论成绩补齐后，再给你算分差。</view>
+      <view class="s9-subtitle">先看哪些岗位能报，再点进候选确认主目标；行测和申论成绩补齐后，才会给可信分差。</view>
     </view>
     <anan-companion size="medium" intent="thinking" context="plan" animate />
   </view>
@@ -11,6 +11,7 @@
   <view class="position-actions">
     <ui-button label="搜索与筛选岗位" bind:action="openSearch" />
     <view class="position-actions__link" bindtap="openScoreSheet">录入成绩算分差</view>
+    <view class="position-actions__link" bindtap="openQualificationProfile">修改资格档案</view>
   </view>
 
   <state-view wx:if="{{!workspace || workspace.status === 'idle' || workspace.status === 'loading'}}" state="loading" />
@@ -74,6 +75,10 @@
         <view class="status-pill status-pill--{{workspace.primaryGoal.fitView.statusTone}}">{{workspace.primaryGoal.fitView.statusLabel}}</view>
         <text class="position-card__fit-copy">{{workspace.primaryGoal.fitView.scoreGapRecommendedLabel}} · {{workspace.primaryGoal.fitView.evidenceStatusLabel}}</text>
       </view>
+      <view class="fit-next-step fit-next-step--{{workspace.primaryGoal.fitView.statusTone}}">
+        <view class="fit-next-step__title">{{workspace.primaryGoal.fitView.nextActionTitle}}</view>
+        <view class="fit-next-step__copy">{{workspace.primaryGoal.fitView.nextActionCopy}}</view>
+      </view>
     </view>
     <view wx:else class="capability-card capability-card--neutral">
       <view class="capability-card__mark">下一步</view>
@@ -108,6 +113,10 @@
         <text wx:if="{{item.fitView.evidenceReasonLabel}}" class="fit-evidence__reason">{{item.fitView.evidenceReasonLabel}}</text>
         <text wx:if="{{item.fitView.scoreGapDirectionLabel}}">{{item.fitView.scoreGapDirectionLabel}}</text>
         <view wx:if="{{!item.fitView.scoreGapAvailable}}" class="inline-link fit-evidence__action" catchtap="openScoreSheet">补成绩后计算分差 →</view>
+      </view>
+      <view class="fit-next-step fit-next-step--{{item.fitView.statusTone}}">
+        <view class="fit-next-step__title">{{item.fitView.nextActionTitle}}</view>
+        <view class="fit-next-step__copy">{{item.fitView.nextActionCopy}}</view>
       </view>
       <view class="position-card__footer">
         <view class="compare-toggle {{item.comparisonSelected ? 'compare-toggle--selected' : ''}}" data-id="{{item.positionId}}" catchtap="toggleComparison">{{item.comparisonSelected ? '✓ 已加入对比' : '＋ 加入对比'}}</view>

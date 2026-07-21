@@ -20,6 +20,7 @@ interface PositionDetailPageData {
 interface PositionDetailPageCustom {
   retry(): void;
   openOnboarding(): void;
+  openPositionsWorkspace(): void;
   confirmRequirement(event: WechatMiniprogram.BaseEvent): void;
   openGoalChange(): void;
 }
@@ -92,6 +93,10 @@ Page<PositionDetailPageData, PositionDetailPageCustom>({
 
   openOnboarding() {
     void wx.navigateTo({ url: routes.onboarding });
+  },
+
+  openPositionsWorkspace() {
+    void wx.switchTab({ url: routes.positions });
   },
 
   confirmRequirement(event) {

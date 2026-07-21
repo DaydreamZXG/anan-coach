@@ -23,6 +23,10 @@ import {
   clearAllPositionState,
   clearPositionStateForUser,
 } from "../../features/positions/state-store";
+import {
+  clearAllQualificationProfileEditPending,
+  clearPendingQualificationProfileEdit,
+} from "../../features/qualification/profile-edit-pending";
 import { routes } from "../../app/navigation/routes";
 import { createCapacityIdempotencyKey } from "../today/capacity";
 
@@ -193,6 +197,10 @@ Page({
     void wx.navigateTo({ url: routes.learningProfile });
   },
 
+  openQualificationProfile() {
+    void wx.navigateTo({ url: routes.qualificationProfile });
+  },
+
   openPrivateKnowledge() {
     void wx.navigateTo({ url: routes.privateKnowledge });
   },
@@ -316,11 +324,13 @@ Page({
       clearEssayPendingForUser(userId);
       clearOnboardingPendingForUser(userId);
       clearPositionStateForUser(userId);
+      clearPendingQualificationProfileEdit(userId);
     } else {
       clearAllPendingAuthReturns();
       clearAllEssayPending();
       clearAllOnboardingPending();
       clearAllPositionState();
+      clearAllQualificationProfileEditPending();
     }
     clearAuthSession();
     void wx.reLaunch({ url: "/pages/login/index" });

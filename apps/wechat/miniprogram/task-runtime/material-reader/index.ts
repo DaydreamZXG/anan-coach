@@ -1,9 +1,4 @@
-import {
-  contentAnchorDomId,
-  type ContentAnchor,
-  type ContentDisplayPreferences,
-  type RichContentBlock,
-} from "../content-renderer/model";
+import { contentAnchorDomId, type ContentDisplayPreferences } from "../content-renderer/model";
 import {
   createMaterialReaderState,
   nextFontScale,
@@ -16,8 +11,8 @@ import {
 } from "./state";
 
 interface MaterialReaderData {
-  blocks: RichContentBlock[];
-  anchors: ContentAnchor[];
+  blocks: unknown;
+  anchors: unknown;
   state: MaterialReaderState;
   title: string;
   readerMode: MaterialReaderMode;
@@ -50,8 +45,8 @@ const initialReaderData: MaterialReaderViewData = {
 Component({
   properties: {
     title: { type: String, value: "材料" },
-    blocks: { type: Array, value: [] },
-    anchors: { type: Array, value: [] },
+    blocks: { type: null, value: [] },
+    anchors: { type: null, value: [] },
     state: { type: Object, value: createMaterialReaderState() },
   },
   data: initialReaderData,

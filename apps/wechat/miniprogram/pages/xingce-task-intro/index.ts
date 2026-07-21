@@ -28,6 +28,7 @@ interface XingceTaskIntroPageData {
   errorMessage: string;
   requestId: string;
   showLoginAction: boolean;
+  canRetry: boolean;
   recovered: boolean;
   starting: boolean;
 }
@@ -57,6 +58,7 @@ Page<XingceTaskIntroPageData, XingceTaskIntroPageCustom>({
         status: "error",
         errorTitle: "任务说明地址不完整",
         errorMessage: "缺少明确的行测计划任务或说明模式，页面不会猜测要打开哪项任务。",
+        canRetry: false,
       });
       return;
     }
@@ -166,6 +168,7 @@ async function loadBriefing(
     showLoginAction: false,
     recovered: false,
     starting: false,
+    canRetry: true,
   });
   try {
     const response = await runtime.api.getTaskBriefing(runtime.planTaskId);
@@ -208,6 +211,7 @@ async function loadBriefing(
         errorMessage:
           "服务端确认该任务已过期、证据版本已变化或已不属于当前计划。请返回今日获取新任务。",
         requestId: error.requestId,
+        canRetry: false,
       });
       return;
     }
@@ -217,6 +221,7 @@ async function loadBriefing(
       errorTitle: "任务说明尚未载入",
       errorMessage: error instanceof Error ? error.message : "服务端没有返回可确认的任务说明。",
       requestId: error instanceof ApiClientError ? error.requestId : "",
+      canRetry: true,
     });
   } finally {
     if (runtimes.owns(page, runtime, epoch)) runtime.requestInFlight = false;
@@ -234,6 +239,7 @@ function showClientExpired(page: XingceTaskIntroPage): void {
     errorMessage: "请重新读取服务端权威说明；是否仍可执行最终以服务端返回为准。",
     requestId: "",
     starting: false,
+    canRetry: true,
   });
 }
 
@@ -244,6 +250,7 @@ function showLoggedOut(page: XingceTaskIntroPage, message: string): void {
     errorTitle: "需要重新登录",
     errorMessage: message,
     showLoginAction: true,
+    canRetry: false,
   });
 }
 
@@ -255,6 +262,7 @@ function initialData(): XingceTaskIntroPageData {
     errorMessage: "",
     requestId: "",
     showLoginAction: false,
+    canRetry: false,
     recovered: false,
     starting: false,
   };

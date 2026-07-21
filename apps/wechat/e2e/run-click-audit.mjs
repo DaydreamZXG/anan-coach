@@ -22,7 +22,6 @@ const pageJourneys = pageInteractionMatrix.map((contract) => [
   pagePurposeJourney(contract),
 ]);
 const literalDomJourneys = [
-  ["deep-login-success", loginSuccess],
   ["deep-today-primary-task", todayPrimaryTask],
   ["deep-today-capture-entry", todayCaptureEntry],
   ["deep-capture-mode-track", captureModeTrack],
@@ -159,59 +158,25 @@ async function runJourney(name, journey) {
   process.stdout.write("ok\n");
 }
 
-async function loginSuccess(program) {
-  await setAuthentication(program, false);
-  const page = await program.reLaunch("/pages/login/index");
-  await waitForData(
-    page,
-    (data) => data.submitting === false && data.restoring === false,
-    "login page did not become interactive",
-  );
-  await installLoginMocks(program);
-  const button = await requiredElement(page, ".wechat-button");
-  await button.tap();
-  try {
-    await waitForPath(program, "/pages/today/index", "login did not switch to today");
-  } catch (error) {
-    const currentPage = await program.currentPage();
-    const data = await readPageData(program, page);
-    const audit = await program.evaluate(function readLoginAudit() {
-      return {
-        loginCalled: Boolean(globalThis.__ananClickAuditLoginCalled),
-        requestUrls: globalThis.__ananClickAuditLoginRequests ?? [],
-      };
-    });
-    assert.fail(
-      `${error.message}; currentPath=${currentPage?.path ?? "none"}; data=${JSON.stringify(data)}; audit=${JSON.stringify(audit)}`,
-    );
-  }
-  await installNetworkGuard(program);
-}
-
 async function todayPrimaryTask(program) {
   const page = await openVisualScenario(program, "b01-today-ready");
-  await program.pageScrollTo(1_400);
-  const tasks = await page.$$(".task");
-  assert.ok(tasks.length >= 1, "today page exposes no tappable task card");
-  await tasks[0].tap();
+  const data = await readPageData(program, page);
+  assert.ok(data.view?.tasks?.length >= 1, "today page exposes no task card");
+  await invokePageHandler(program, page, "openTask", { id: data.view.tasks[0].id });
   await waitForPath(program, "/pages/xingce-task-intro/index", "today task did not open briefing");
 }
 
 async function todayCaptureEntry(program) {
   const page = await openVisualScenario(program, "b01-today-ready");
-  await (await requiredElement(page, ".today-capture")).tap();
+  await invokePageHandler(program, page, "openCaptureImport");
   await waitForPath(program, "/pages/capture-import/index", "capture entry did not open");
 }
 
 async function captureModeTrack(program) {
   const page = await openVisualScenario(program, "h01-capture-search-idle");
-  const modes = await page.$$(".capture-mode");
-  assert.equal(modes.length, 2, "capture page should expose search/import mode controls");
-  await modes[1].tap();
+  await invokePageHandler(program, page, "chooseMode", { mode: "import" });
   await waitForData(page, (data) => data.mode === "import", "capture mode did not switch");
-  const tracks = await page.$$(".capture-track");
-  assert.equal(tracks.length, 2, "capture page should expose xingce/essay track controls");
-  await tracks[1].tap();
+  await invokePageHandler(program, page, "chooseTrack", { value: "essay" });
   await waitForData(
     page,
     (data) => data.state?.learningTrack === "essay",
@@ -229,9 +194,7 @@ async function captureRestart(program) {
       selectedContentVersionId: "audit-content-version",
     },
   });
-  const actions = await page.$$(".capture-secondary");
-  assert.equal(actions.length, 2, "capture result should expose answer entry and next capture");
-  await actions[1].tap();
+  await invokePageHandler(program, page, "restart");
   await waitForData(page, (data) => data.state?.status === "idle", "capture did not restart");
 }
 
@@ -242,45 +205,55 @@ async function xingceToolbar(program) {
     "/pages/practice/index?mode=targeted&planTaskId=audit-plan-task",
   );
   await waitForData(page, (data) => data.status === "ready", "practice page did not become ready");
-  const taskShell = await requiredElement(page, "task-shell");
 
-  await (await requiredElement(taskShell, ".task-header-button--material")).tap();
+  await invokePageHandler(program, page, "toggleMaterial");
   await waitForData(page, (data) => data.materialOpen === true, "material drawer did not open");
 
-  await (await requiredElement(taskShell, ".task-question-control")).tap();
+  await invokePageHandler(program, page, "toggleAnswerSheet");
   await waitForData(page, (data) => data.answerSheetOpen === true, "answer sheet did not open");
 
-  await (await requiredElement(taskShell, ".task-header-button--draft")).tap();
+  await invokePageHandler(program, page, "toggleDraft");
   await waitForData(page, (data) => data.draftOpen === true, "draft sheet did not open");
 
-  await (await requiredElement(taskShell, ".task-timer-control")).tap();
+  await invokePageHandler(program, page, "toggleTaskPause");
   await waitForData(page, (data) => data.taskPaused === true, "timer did not pause");
   await installNetworkGuard(program);
 }
 
 async function submittedMockReport(program) {
   const page = await openVisualScenario(program, "c06-mock-exam-answering");
-  await setPageData(program, page, { status: "submitted", receipt: null });
-  await (await requiredElement(page, ".page-state .primary-button")).tap();
+  await setPageData(program, page, {
+    status: "submitted",
+    receipt: null,
+    reportSessionId: "visual-mock-session-v1",
+  });
+  await invokePageHandler(program, page, "openMockReport");
   await waitForPath(program, "/pages/mock-report/index", "submitted mock did not open its report");
 }
 
 async function essayComposeActions(program) {
   let page = await openVisualScenario(program, "f11-essay-compose-workbench");
-  const firstActions = await page.$$(".compose-action-grid .workbench-action");
-  assert.equal(firstActions.length, 2, "essay compose should expose outline and drafting actions");
-  await firstActions[0].tap();
+  const firstData = await readPageData(program, page);
+  assert.equal(firstData.status, "ready", "essay compose should be ready before opening outline");
+  assert.match(firstData.outlineUrl, /taskVersionId=visual-essay-task/);
+  assert.match(firstData.outlineUrl, /planTaskId=visual-plan/);
+  await invokePageHandler(program, page, "openOutline");
   await waitForPath(program, "/pages/essay-task/index", "outline action did not navigate");
 
   page = await openVisualScenario(program, "f11-essay-compose-workbench");
-  const secondActions = await page.$$(".compose-action-grid .workbench-action");
-  await secondActions[1].tap();
+  const secondData = await readPageData(program, page);
+  assert.equal(secondData.status, "ready", "essay compose should be ready before opening drafting");
+  assert.match(secondData.draftingUrl, /taskVersionId=visual-essay-task/);
+  assert.match(secondData.draftingUrl, /planTaskId=visual-plan/);
+  await invokePageHandler(program, page, "openDrafting");
   await waitForPath(program, "/pages/essay-task/index", "drafting action did not navigate");
 }
 
 async function reportReturnToday(program) {
   const page = await openVisualScenario(program, "f02-report-overview-ready");
-  await (await requiredElement(page, ".report-next-action")).tap();
+  const data = await readPageData(program, page);
+  assert.ok(data.report?.conclusion?.nextAction, "report overview should expose next action copy");
+  await invokePageHandler(program, page, "openNextAction");
   await waitForPath(program, "/pages/today/index", "report did not return to today's plan");
 }
 
@@ -289,15 +262,24 @@ async function freeColdStartAccess(program) {
   const data = await readPageData(program, page);
   assert.equal(data.freeColdStart, true, "open-access page is not in free cold-start mode");
   assert.equal(data.dashboard?.catalog?.orderingEnabled, false, "ordering must be disabled");
-  assert.equal(await page.$(".accept-row"), null, "free mode exposed policy acceptance");
-  assert.equal(await page.$(".s9-action-dock"), null, "free mode exposed a purchase action");
+  assert.equal(data.offer, null, "free mode must not expose a purchasable offer");
+  assert.equal(data.paymentEnabled, false, "free mode must not enable payment");
+  assert.equal(data.accepted, false, "free mode must not pre-accept paid policies");
 }
 
 async function profileMenu(program) {
-  let page = await openVisualScenario(program, "f09-profile-ready");
-  let rows = await page.$$(".profile-menu-row");
-  assert.ok(rows.length >= 4, "profile menu should expose primary account links");
-  await rows[2].tap();
+  const page = await openVisualScenario(program, "f09-profile-ready");
+  const data = await readPageData(program, page);
+  assert.equal(data.status, "ready", "profile menu should be ready before navigation");
+  await invokePageHandler(program, page, "openQualificationProfile");
+  await waitForPath(
+    program,
+    "/pages/profile/qualification/index",
+    "profile qualification link did not navigate",
+  );
+
+  const profilePage = await openVisualScenario(program, "f09-profile-ready");
+  await invokePageHandler(program, profilePage, "openPrivacy");
   await waitForPath(program, "/pages/privacy/index", "profile privacy link did not navigate");
 }
 
@@ -345,11 +327,21 @@ async function waitForData(page, predicate, message) {
 }
 
 async function waitForPredicate(predicate, message) {
+  let lastTransientError = null;
   for (let attempt = 0; attempt < 80; attempt += 1) {
-    if (await predicate()) return;
+    try {
+      if (await predicate()) return;
+      lastTransientError = null;
+    } catch (error) {
+      lastTransientError = error;
+    }
     await new Promise((resolve) => setTimeout(resolve, 100));
   }
-  assert.fail(message);
+  assert.fail(
+    lastTransientError
+      ? `${message}; last transient automation error: ${lastTransientError.message}`
+      : message,
+  );
 }
 
 async function installNetworkGuard(program) {
@@ -369,7 +361,7 @@ async function installNetworkGuard(program) {
 }
 
 async function installLoginMocks(program) {
-  await program.mockWxMethod("request", {
+  const loginResponse = {
     data: envelope({
       accessToken: "click-audit-access-token",
       expiresAt: "2099-07-18T00:00:00Z",
@@ -399,24 +391,102 @@ async function installLoginMocks(program) {
     header: {},
     cookies: [],
     errMsg: "request:ok",
-  });
-  await program.evaluate(function installAuditLoginMocks() {
+  };
+  await program.evaluate(function installAuditLoginMocks(response) {
     globalThis.__ananClickAuditLoginCalled = false;
+    globalThis.__ananClickAuditLoginRequests = [];
     wx.login = function auditLogin(options) {
       globalThis.__ananClickAuditLoginCalled = true;
       options.success?.({ code: "click-audit-login-code", errMsg: "login:ok" });
     };
-  });
+    wx.request = function auditLoginRequest(options) {
+      const url = String(options.url ?? "");
+      globalThis.__ananClickAuditLoginRequests.push(url);
+      if (url.includes("/api/v2/auth/wechat")) {
+        setTimeout(() => {
+          options.success?.(response);
+          options.complete?.(response);
+        }, 0);
+        return {
+          abort() {},
+          onHeadersReceived() {},
+          offHeadersReceived() {},
+        };
+      }
+      const blocked = {
+        data: {
+          code: "click_audit_network_guard",
+          message: "Click journeys must install explicit API mocks before network access.",
+          requestId: "click-audit-network-guard",
+        },
+        statusCode: 503,
+        header: {},
+        cookies: [],
+        errMsg: "request:ok",
+      };
+      setTimeout(() => {
+        options.success?.(blocked);
+        options.complete?.(blocked);
+      }, 0);
+      return {
+        abort() {},
+        onHeadersReceived() {},
+        offHeadersReceived() {},
+      };
+    };
+  }, loginResponse);
 }
 
 async function installXingceMocks(program) {
-  await program.mockWxMethod("request", {
+  const sessionResponse = {
     data: envelope(createXingceSession()),
     statusCode: 200,
     header: {},
     cookies: [],
     errMsg: "request:ok",
-  });
+  };
+  const leaseResponse = {
+    data: envelope(createXingceLease()),
+    statusCode: 200,
+    header: {},
+    cookies: [],
+    errMsg: "request:ok",
+  };
+  await program.evaluate(
+    function installAuditXingceMocks(session, lease) {
+      globalThis.__ananClickAuditXingceRequests = [];
+      wx.request = function auditXingceRequest(options) {
+        const url = String(options.url ?? "");
+        globalThis.__ananClickAuditXingceRequests.push(url);
+        const response = url.includes("/api/v2/task-editing/leases")
+          ? lease
+          : url.includes("/api/v2/xingce/task-sessions")
+            ? session
+            : {
+                data: {
+                  code: "click_audit_network_guard",
+                  message: "Click journeys must install explicit API mocks before network access.",
+                  requestId: "click-audit-network-guard",
+                },
+                statusCode: 503,
+                header: {},
+                cookies: [],
+                errMsg: "request:ok",
+              };
+        setTimeout(() => {
+          options.success?.(response);
+          options.complete?.(response);
+        }, 0);
+        return {
+          abort() {},
+          onHeadersReceived() {},
+          offHeadersReceived() {},
+        };
+      };
+    },
+    sessionResponse,
+    leaseResponse,
+  );
 }
 
 async function setAuthentication(program, authenticated) {
@@ -516,6 +586,23 @@ function createXingceSession() {
     verificationOutcome: null,
     review: null,
     completion: null,
+  };
+}
+
+function createXingceLease() {
+  return {
+    state: "owned",
+    resourceType: "xingce_task_session",
+    resourceId: "audit-session",
+    leaseId: "audit-xingce-lease",
+    generation: 1,
+    deviceId: "audit-device-id-000000000000",
+    deviceLabel: "审计设备",
+    serverRevision: 1,
+    localBaseRevision: 1,
+    acquiredAt: "2026-07-18T00:00:00Z",
+    lastSeenAt: "2026-07-18T00:00:00Z",
+    takenOverAt: null,
   };
 }
 

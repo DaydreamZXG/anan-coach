@@ -283,17 +283,28 @@ function presentQuestion(
     moduleName: question.moduleName,
     stem: question.stem,
     stemHtml: question.stemHtml,
-    stemContent: question.stemContent,
+    stemContent: normalizeRichContent(
+      question.stemContent,
+      question.stem,
+      `${question.questionId}-stem`,
+    ),
     positionLabel: `第 ${String(index + 1)} / ${String(total)} 题`,
     options: question.options.map((option) => ({
       ...option,
+      content: normalizeRichContent(
+        option.content,
+        option.text,
+        `${question.questionId}-option-${option.optionId}`,
+      ),
       selected: selected.has(option.optionId),
       eliminated: eliminated.has(option.optionId),
     })),
     material:
       question.materialId === null
         ? null
-        : (materials.find((material) => material.materialId === question.materialId) ?? null),
+        : normalizeMaterial(
+            materials.find((material) => material.materialId === question.materialId) ?? null,
+          ),
     selectedOptionIds: [...attempt.selectedOptionIds],
     confidence: attempt.confidence ?? null,
     confidenceLabel: attempt.confidence ? confidenceLabels[attempt.confidence] : "未标记",
@@ -302,6 +313,30 @@ function presentQuestion(
     elapsedLabel: formatElapsed(attempt.elapsedSeconds),
     draftText: attempt.draftText,
   };
+}
+
+function normalizeMaterial(material: XingceLearnerMaterial | null): XingceLearnerMaterial | null {
+  if (!material) return null;
+  return {
+    ...material,
+    assets: Array.isArray(material.assets) ? material.assets : [],
+    content: normalizeRichContent(
+      material.content,
+      material.text ?? material.title ?? "",
+      `${material.materialId}-body`,
+    ),
+    anchors: Array.isArray(material.anchors) ? material.anchors : [],
+  };
+}
+
+function normalizeRichContent(
+  blocks: unknown,
+  plainText: string | null | undefined,
+  blockId: string,
+): RichContentBlock[] {
+  if (Array.isArray(blocks)) return blocks as RichContentBlock[];
+  const text = plainText?.trim();
+  return text ? [{ type: "paragraph", blockId, text }] : [];
 }
 
 function presentResultItem(

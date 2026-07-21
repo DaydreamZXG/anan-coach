@@ -57,6 +57,8 @@ export interface PositionFitView extends PositionFitAssessment {
   pendingRequirementIdsLabel: string;
   hardConditionNotMetRequirementIdsLabel: string;
   scoreGapAvailable: boolean;
+  nextActionTitle: string;
+  nextActionCopy: string;
 }
 
 export interface PositionWorkspaceItemView extends PositionCardView {
@@ -261,6 +263,7 @@ export function positionFitView(fit: PositionFitAssessment): PositionFitView {
     burdenParts.push(`${String(fit.requirementsBurden.hardConditionNotMetCount)} 项硬条件不符合`);
   }
   const gap = fit.scoreGap;
+  const nextAction = positionFitNextAction(fit, relation.label);
   return {
     ...fit,
     statusLabel: relation.label,
@@ -284,6 +287,8 @@ export function positionFitView(fit: PositionFitAssessment): PositionFitView {
     hardConditionNotMetRequirementIdsLabel:
       fit.requirementsBurden.hardConditionNotMetRequirementIds.join("、"),
     scoreGapAvailable: gap !== null,
+    nextActionTitle: nextAction.title,
+    nextActionCopy: nextAction.copy,
   };
 }
 
@@ -364,4 +369,50 @@ function targetEvidenceLabel(
 function signedScore(value: number): string {
   if (value > 0) return `+${value.toFixed(1)}`;
   return value.toFixed(1);
+}
+
+function positionFitNextAction(
+  fit: PositionFitAssessment,
+  statusLabel: string,
+): { title: string; copy: string } {
+  if (fit.requirementsBurden.hardConditionNotMetCount > 0) {
+    return {
+      title: "先放弃或复核硬条件",
+      copy: "当前岗位存在明确不符合项；除非你能拿出新事实，否则不建议设为主目标。",
+    };
+  }
+  if (fit.requirementsBurden.pendingRequirementCount > 0) {
+    return {
+      title: "先确认资格原文",
+      copy: "这类岗位还缺本人确认事实；处理完待确认条件后，可报结论才算稳定。",
+    };
+  }
+  if (fit.evidenceReasonCodes.includes("target_score_unavailable")) {
+    return {
+      title: "目标分证据不足",
+      copy: "可以先收藏或查看依据，但系统不会用样本不足的岗位线硬算分差。",
+    };
+  }
+  if (fit.evidenceStatus === "unavailable" || fit.evidenceStatus === "partial") {
+    return {
+      title: "补齐行测 + 申论成绩",
+      copy: "资格已经先筛过；录入同一口径双科成绩后，才会生成可信分差和今日计划影响。",
+    };
+  }
+  if (fit.evidenceStatus === "stale") {
+    return {
+      title: "更新近期成绩证据",
+      copy: "旧成绩不会继续参与岗位分差；补一条近期双科成绩后再比较。",
+    };
+  }
+  if (fit.status === "evidence_unavailable") {
+    return {
+      title: "证据还没凑齐",
+      copy: "当前只保留资格筛选结果，不会把缺失证据包装成推荐。",
+    };
+  }
+  return {
+    title: `当前属于${statusLabel}`,
+    copy: "可点进岗位查看资格依据、分数依据和设为主目标后的计划影响。",
+  };
 }

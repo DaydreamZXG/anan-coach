@@ -67,6 +67,11 @@
       <view wx:if="{{state.fit.pendingRequirementIdsLabel}}" class="fit-card__audit">待确认条件 ID · {{state.fit.pendingRequirementIdsLabel}}</view>
       <view wx:if="{{state.fit.hardConditionNotMetRequirementIdsLabel}}" class="fit-card__audit">不符合条件 ID · {{state.fit.hardConditionNotMetRequirementIdsLabel}}</view>
       <view wx:if="{{state.fit.evidenceReasonLabel}}" class="fit-card__reason">未形成分差的依据 · {{state.fit.evidenceReasonLabel}}</view>
+      <view class="fit-next-step fit-next-step--{{state.fit.statusTone}}">
+        <view class="fit-next-step__title">{{state.fit.nextActionTitle}}</view>
+        <view class="fit-next-step__copy">{{state.fit.nextActionCopy}}</view>
+      </view>
+      <view wx:if="{{!state.fit.scoreGapAvailable}}" class="inline-link fit-card__action" bindtap="openPositionsWorkspace">回岗位工作区录入成绩 →</view>
     </view>
 
     <view class="section-heading"><view class="section-title">行测 + 申论能力证据</view><view class="section-meta">缺一科不生成总分分差</view></view>

@@ -10,6 +10,7 @@ import {
 } from "../../app/navigation/routes";
 import { evidenceLabel, orderedTasks, scoreRangeLabel } from "../../domain/presentation";
 import { withEssayTaskContext } from "../../features/essay-task/capabilities";
+import { formatCapacityDuration } from "./capacity";
 
 type LearningTrack = TodayTask["track"];
 type TaskStage = TodayTask["stage"];
@@ -69,6 +70,7 @@ export interface TodayView {
   evidenceSummary: string;
   capacityVersionId: string;
   availableMinutes: number;
+  availableDurationLabel: string;
   energy: number;
   stress: number;
   confidenceLevel: number;
@@ -189,6 +191,7 @@ export function presentTodayDashboard(dashboard: TodayDashboard): TodayView {
     evidenceSummary: dashboard.goalGap.evidenceSummary,
     capacityVersionId: dashboard.capacity.capacityVersionId,
     availableMinutes: dashboard.capacity.availableMinutes,
+    availableDurationLabel: formatCapacityDuration(dashboard.capacity.availableMinutes),
     energy: dashboard.capacity.energy,
     stress: dashboard.capacity.stress,
     confidenceLevel: dashboard.capacity.confidenceLevel,

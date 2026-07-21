@@ -5,7 +5,7 @@
   total="{{view ? view.total : 1}}"
   elapsedLabel="{{view ? view.elapsedLabel : '00:00'}}"
   syncLabel="{{view ? view.syncLabel : '连接服务端'}}"
-  materialAvailable="{{view && view.materialAvailable}}"
+  materialAvailable="{{view ? view.materialAvailable : false}}"
   answerSheetAvailable="{{status === 'ready' && sessionState === 'answering'}}"
   draftAvailable="{{status === 'ready' && sessionState === 'answering'}}"
   timerPausable="{{status === 'ready' && sessionState === 'answering'}}"
@@ -47,8 +47,8 @@
         <view wx:if="{{view.question.material}}" class="material-reader-shell">
           <material-reader
             title="{{view.question.material.title || '本题材料'}}"
-            blocks="{{view.question.material.content}}"
-            anchors="{{view.question.material.anchors}}"
+            blocks="{{view && view.question && view.question.material && view.question.material.content ? view.question.material.content : emptyRichContentBlocks}}"
+            anchors="{{view && view.question && view.question.material && view.question.material.anchors ? view.question.material.anchors : emptyContentAnchors}}"
             state="{{materialReaderState}}"
             bindstatechange="updateMaterialReader"
           />
@@ -63,7 +63,7 @@
             <content-renderer
               class="question-stem question-rich-content"
               style="--color-ink: #17211f; --color-muted: #354541;"
-              blocks="{{view.question.stemContent}}"
+              blocks="{{view && view.question && view.question.stemContent ? view.question.stemContent : emptyRichContentBlocks}}"
               zoom="{{1}}"
               preferences="{{displayPreferences}}"
             />
@@ -81,7 +81,7 @@
               <view class="option-label">{{item.label}}</view>
               <content-renderer
                 class="option-copy option-rich-content"
-                blocks="{{item.content}}"
+                blocks="{{item.content ? item.content : emptyRichContentBlocks}}"
                 zoom="{{1}}"
                 preferences="{{displayPreferences}}"
               />

@@ -11,8 +11,8 @@ import {
 } from "./model";
 
 interface ContentRendererData {
-  blocks: RichContentBlock[];
-  anchors: ContentAnchor[];
+  blocks: unknown;
+  anchors: unknown;
   zoom: number;
   preferences: ContentDisplayPreferences;
   freezeFirstColumn: boolean;
@@ -34,8 +34,8 @@ Component({
     virtualHost: true,
   },
   properties: {
-    blocks: { type: Array, value: [] },
-    anchors: { type: Array, value: [] },
+    blocks: { type: null, value: [] },
+    anchors: { type: null, value: [] },
     zoom: { type: Number, value: 1 },
     preferences: { type: Object, value: defaultContentPreferences },
     freezeFirstColumn: { type: Boolean, value: true },
@@ -88,15 +88,24 @@ Component({
 });
 
 function syncContent(host: ContentRendererHost): void {
-  const blocks = host.data.blocks;
+  const blocks = normalizeBlocks(host.data.blocks);
+  const anchors = normalizeAnchors(host.data.anchors);
   const zoom = normalizeContentZoom(host.data.zoom);
   const preferences = normalizeContentPreferences(host.data.preferences);
   host.setData({
-    viewBlocks: prepareRichContent(blocks, zoom, host.data.anchors),
+    viewBlocks: prepareRichContent(blocks, zoom, anchors),
     previewUrls: collectPreviewUrls(blocks),
     fontScale: preferences.fontScale,
     colorMode: preferences.colorMode,
   });
+}
+
+function normalizeBlocks(value: unknown): RichContentBlock[] {
+  return Array.isArray(value) ? (value as RichContentBlock[]) : [];
+}
+
+function normalizeAnchors(value: unknown): ContentAnchor[] {
+  return Array.isArray(value) ? (value as ContentAnchor[]) : [];
 }
 
 function emitZoom(
