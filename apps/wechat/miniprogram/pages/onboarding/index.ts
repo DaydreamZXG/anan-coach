@@ -41,7 +41,9 @@ interface QualificationPageCustom {
   inputMajor(event: WechatMiniprogram.CustomEvent<{ value: string }>): void;
   chooseFreshGraduate(event: WechatMiniprogram.BaseEvent): void;
   choosePoliticalStatus(event: WechatMiniprogram.BaseEvent): void;
+  chooseWorkYears(event: WechatMiniprogram.BaseEvent): void;
   chooseGrassrootsYears(event: WechatMiniprogram.BaseEvent): void;
+  chooseServiceProject(event: WechatMiniprogram.BaseEvent): void;
   inputHukou(event: WechatMiniprogram.CustomEvent<{ value: string }>): void;
   previous(): void;
   next(): void;
@@ -110,11 +112,24 @@ Page<QualificationPageData, QualificationPageCustom>({
     });
   },
 
+  chooseWorkYears(event) {
+    const value = Number(event.currentTarget.dataset.value);
+    if (Number.isSafeInteger(value)) {
+      runtimes.get(this)?.controller?.changeDraft({ workYears: value });
+    }
+  },
+
   chooseGrassrootsYears(event) {
     const value = Number(event.currentTarget.dataset.value);
     if (Number.isSafeInteger(value)) {
       runtimes.get(this)?.controller?.changeDraft({ grassrootsYears: value });
     }
+  },
+
+  chooseServiceProject(event) {
+    runtimes.get(this)?.controller?.changeDraft({
+      serviceProject: String(event.currentTarget.dataset.value ?? ""),
+    });
   },
 
   inputHukou(event) {

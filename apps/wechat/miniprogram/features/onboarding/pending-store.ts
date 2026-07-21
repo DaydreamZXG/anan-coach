@@ -374,9 +374,11 @@ function isQualificationDraft(value: unknown): value is QualificationDraft {
       value.freshGraduate === "true" ||
       value.freshGraduate === "false") &&
     typeof value.politicalStatus === "string" &&
+    Number.isSafeInteger(value.workYears) &&
     Number.isSafeInteger(value.grassrootsYears) &&
+    typeof value.serviceProject === "string" &&
     typeof value.hukou === "string" &&
-    Object.keys(value).length === 6
+    Object.keys(value).length === 8
   );
 }
 

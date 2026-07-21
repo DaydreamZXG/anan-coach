@@ -61,11 +61,23 @@
       </block>
 
       <block wx:elif="{{current === 2}}">
-        <view class="field-label">基层工作经历</view>
+        <view class="field-label">普通工作经历</view>
+        <view class="year-strip">
+          <view wx:for="{{[0,1,2,3,5]}}" wx:key="*this" class="year-chip {{workYears === item ? 'year-chip--selected' : ''}}" data-value="{{item}}" bindtap="chooseWorkYears"><text class="type-data">{{item === 5 ? '5+' : item}}</text> 年</view>
+        </view>
+        <view class="field-help">这里记录毕业后的普通工作经历，用于备注类岗位和后续人工核验；它不会自动当成基层工作经历。</view>
+        <view class="field-label field-label--spaced">基层工作经历</view>
         <view class="year-strip">
           <view wx:for="{{[0,1,2,3,5]}}" wx:key="*this" class="year-chip {{grassrootsYears === item ? 'year-chip--selected' : ''}}" data-value="{{item}}" bindtap="chooseGrassrootsYears"><text class="type-data">{{item === 5 ? '5+' : item}}</text> 年</view>
         </view>
-        <view class="field-help">按公告口径填写；岗位要求 2 年时，1 年 11 个月不会被算作满足。</view>
+        <view class="field-help">按国考公告口径填写；岗位要求 2 年时，1 年 11 个月不会被算作满足。普通工作经历不自动折算进这里。</view>
+        <view class="field-label field-label--spaced">服务基层项目</view>
+        <view class="choice-list">
+          <view wx:for="{{['无','大学生村官','三支一扶','特岗教师','西部计划','高校毕业生退役士兵']}}" wx:key="*this" class="choice-row {{serviceProject === item ? 'choice-row--selected' : ''}}" data-value="{{item}}" bindtap="chooseServiceProject">
+            <text>{{item}}</text><view class="row-check">✓</view>
+          </view>
+        </view>
+        <view class="field-help">服务基层项目是定向岗位资格事实，和普通工作经历、基层工作年限分开保存。</view>
         <view class="field-label field-label--spaced">户籍或生源地限制核验</view>
         <view class="input-shell {{hukou ? 'input-shell--filled' : ''}}">
           <input class="input-shell__control" value="{{hukou}}" maxlength="60" placeholder="选填，例如：江西省赣州市" bindinput="inputHukou" />
@@ -87,7 +99,9 @@
           <view class="review-row"><text class="review-row__label">专业</text><text class="review-row__value">{{major}}</text></view>
           <view class="review-row"><text class="review-row__label">应届身份</text><text class="review-row__value">{{freshGraduate === 'true' ? '是' : '否'}}</text></view>
           <view class="review-row"><text class="review-row__label">政治面貌</text><text class="review-row__value">{{politicalStatus}}</text></view>
+          <view class="review-row"><text class="review-row__label">普通工作经历</text><text class="review-row__value">{{workYears === 5 ? '5 年以上' : workYears + ' 年'}}</text></view>
           <view class="review-row"><text class="review-row__label">基层经历</text><text class="review-row__value">{{grassrootsYears === 5 ? '5 年以上' : grassrootsYears + ' 年'}}</text></view>
+          <view class="review-row"><text class="review-row__label">服务基层项目</text><text class="review-row__value">{{serviceProject}}</text></view>
           <view class="review-row"><text class="review-row__label">户籍 / 生源地</text><text class="review-row__value">{{hukou || '未填写，相关岗位将待确认'}}</text></view>
         </view>
         <view class="confirm-copy">我确认以上内容来自本人真实情况。后续修改会生成新版本，已有岗位结论将自动重新核验。</view>

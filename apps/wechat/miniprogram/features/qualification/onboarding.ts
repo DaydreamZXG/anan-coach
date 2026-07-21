@@ -5,7 +5,9 @@ export interface QualificationDraft {
   major: string;
   freshGraduate: "" | "true" | "false";
   politicalStatus: string;
+  workYears: number;
   grassrootsYears: number;
+  serviceProject: string;
   hukou: string;
 }
 
@@ -14,7 +16,9 @@ export const emptyQualificationDraft: Readonly<QualificationDraft> = {
   major: "",
   freshGraduate: "",
   politicalStatus: "",
+  workYears: -1,
   grassrootsYears: -1,
+  serviceProject: "",
   hukou: "",
 };
 
@@ -23,7 +27,9 @@ export function validateQualificationStep(draft: QualificationDraft, step: numbe
   if (step === 0 && draft.major.trim().length < 2) return "请输入毕业证上的完整专业名称。";
   if (step === 1 && !draft.freshGraduate) return "请选择是否属于应届高校毕业生。";
   if (step === 1 && !draft.politicalStatus) return "请选择当前政治面貌。";
+  if (step === 2 && draft.workYears < 0) return "请选择普通工作年限。";
   if (step === 2 && draft.grassrootsYears < 0) return "请选择基层工作年限。";
+  if (step === 2 && !draft.serviceProject) return "请选择是否有服务基层项目。";
   return "";
 }
 
@@ -41,7 +47,9 @@ export function qualificationFactsFromDraft(draft: QualificationDraft): Qualific
     { key: "major", value: draft.major.trim() },
     { key: "fresh_graduate", value: draft.freshGraduate === "true" },
     { key: "political_status", value: draft.politicalStatus },
+    { key: "work_years", value: draft.workYears },
     { key: "grassroots_years", value: draft.grassrootsYears },
+    { key: "service_project", value: draft.serviceProject },
   ];
   if (draft.hukou.trim()) facts.push({ key: "hukou", value: draft.hukou.trim() });
   return facts;
@@ -54,7 +62,9 @@ export function qualificationDraftFromProfile(profile: QualificationProfile): Qu
     major: stringFact(facts.get("major")),
     freshGraduate: booleanFact(facts.get("fresh_graduate")),
     politicalStatus: stringFact(facts.get("political_status")),
+    workYears: numberFact(facts.get("work_years")),
     grassrootsYears: numberFact(facts.get("grassroots_years")),
+    serviceProject: stringFact(facts.get("service_project")),
     hukou: stringFact(facts.get("hukou")),
   };
 }

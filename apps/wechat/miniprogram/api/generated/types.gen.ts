@@ -3013,7 +3013,7 @@ export type EligibilityEvaluation = {
     /**
      * Missingfactkeys
      */
-    missingFactKeys: Array<'education' | 'degree' | 'major' | 'fresh_graduate' | 'political_status' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions'>;
+    missingFactKeys: Array<'education' | 'degree' | 'major' | 'fresh_graduate' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions'>;
     /**
      * Positiondataversion
      */
@@ -12738,7 +12738,7 @@ export type QualificationFact = {
     /**
      * Key
      */
-    key: 'education' | 'degree' | 'major' | 'fresh_graduate' | 'political_status' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions';
+    key: 'education' | 'degree' | 'major' | 'fresh_graduate' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions';
     /**
      * Supersedesfactid
      */
@@ -12760,7 +12760,7 @@ export type QualificationFactInput = {
     /**
      * Key
      */
-    key: 'education' | 'degree' | 'major' | 'fresh_graduate' | 'political_status' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions';
+    key: 'education' | 'degree' | 'major' | 'fresh_graduate' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions';
     /**
      * Value
      */
@@ -12792,7 +12792,7 @@ export type QualificationGap = {
     /**
      * Factkey
      */
-    factKey: 'education' | 'degree' | 'major' | 'fresh_graduate' | 'political_status' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions';
+    factKey: 'education' | 'degree' | 'major' | 'fresh_graduate' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions';
     /**
      * Gaptype
      */
@@ -13983,7 +13983,7 @@ export type RequirementCheck = {
     /**
      * Field
      */
-    field?: 'education' | 'degree' | 'major' | 'fresh_graduate' | 'political_status' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions' | null;
+    field?: 'education' | 'degree' | 'major' | 'fresh_graduate' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions' | null;
     /**
      * Operator
      */

@@ -54,7 +54,9 @@ describe("onboarding pending storage", () => {
       major: "法学",
       freshGraduate: "true" as const,
       politicalStatus: "群众",
+      workYears: 0,
       grassrootsYears: 0,
+      serviceProject: "无",
       hukou: "",
     };
     storePendingQualification(
@@ -68,7 +70,9 @@ describe("onboarding pending storage", () => {
           { key: "major", value: "法学" },
           { key: "fresh_graduate", value: true },
           { key: "political_status", value: "群众" },
+          { key: "work_years", value: 0 },
           { key: "grassroots_years", value: 0 },
+          { key: "service_project", value: "无" },
         ],
       },
       1_000,

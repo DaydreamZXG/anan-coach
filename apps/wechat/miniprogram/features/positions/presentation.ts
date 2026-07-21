@@ -296,6 +296,7 @@ export function qualificationGapView(gap: QualificationGap): QualificationGapVie
     major: "专业",
     fresh_graduate: "应届身份",
     political_status: "政治面貌",
+    work_years: "普通工作经历",
     grassroots_years: "基层经历",
     service_project: "服务项目经历",
     hukou: "户籍 / 生源地",

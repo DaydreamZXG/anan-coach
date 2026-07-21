@@ -266,7 +266,9 @@ function validDraft(changes: Partial<QualificationDraft> = {}): QualificationDra
     major: "法学",
     freshGraduate: "true",
     politicalStatus: "群众",
+    workYears: 0,
     grassrootsYears: 0,
+    serviceProject: "无",
     hukou: "",
     ...changes,
   };

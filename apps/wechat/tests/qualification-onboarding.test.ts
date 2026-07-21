@@ -13,7 +13,9 @@ function draft(changes: Partial<QualificationDraft> = {}): QualificationDraft {
     major: "法学",
     freshGraduate: "true",
     politicalStatus: "群众",
+    workYears: 0,
     grassrootsYears: 0,
+    serviceProject: "无",
     hukou: "",
     ...changes,
   };
@@ -25,7 +27,9 @@ describe("qualification onboarding", () => {
     expect(validateQualificationStep(draft({ major: "法" }), 0)).toContain("完整专业名称");
     expect(validateQualificationStep(draft({ freshGraduate: "" }), 1)).toContain("应届");
     expect(validateQualificationStep(draft({ politicalStatus: "" }), 1)).toContain("政治面貌");
+    expect(validateQualificationStep(draft({ workYears: -1 }), 2)).toContain("普通工作");
     expect(validateQualificationStep(draft({ grassrootsYears: -1 }), 2)).toContain("基层");
+    expect(validateQualificationStep(draft({ serviceProject: "" }), 2)).toContain("服务基层项目");
   });
 
   it("produces only canonical qualification facts and omits blank hukou", () => {
@@ -34,7 +38,9 @@ describe("qualification onboarding", () => {
       { key: "major", value: "法学" },
       { key: "fresh_graduate", value: true },
       { key: "political_status", value: "群众" },
+      { key: "work_years", value: 0 },
       { key: "grassroots_years", value: 0 },
+      { key: "service_project", value: "无" },
     ]);
   });
 

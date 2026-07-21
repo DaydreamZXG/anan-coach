@@ -16,6 +16,7 @@ QualificationFactKey = Literal[
     "major",
     "fresh_graduate",
     "political_status",
+    "work_years",
     "grassroots_years",
     "service_project",
     "hukou",
