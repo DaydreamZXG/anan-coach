@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "package": "@tencent-weixin/openclaw-weixin",
+  "version": "2.4.6",
+  "license": "MIT",
+  "registry": "https://registry.npmjs.org",
+  "tarball": "https://registry.npmjs.org/@tencent-weixin/openclaw-weixin/-/openclaw-weixin-2.4.6.tgz",
+  "npmIntegrity": "sha512-qw9k3PLTiMWGNjjsknHgcTManH1w4j+Ji1ArWIaYLKCq3aFRsVwcqnPi127bvOoVMJGW4dbyJ8NECEMgoO+iRw==",
+  "npmShasum": "c7744c5b2d0232703c886b2f4e71681b0170695d",
+  "tarballSha256": "ef1c3600ca2fc0ee9076c1327af1e0d5d2e8e19fbb61e9f56c961fcde0bd07f6",
+  "peerDependencies": {
+    "openclaw": ">=2026.5.12"
+  },
+  "protocol": {
+    "baseUrl": "https://ilinkai.weixin.qq.com",
+    "botType": "3",
+    "appId": "bot",
+    "appClientVersion": 132102,
+    "qrCreateEndpoint": "ilink/bot/get_bot_qrcode",
+    "qrStatusEndpoint": "ilink/bot/get_qrcode_status",
+    "statuses": [
+      "wait",
+      "scaned",
+      "confirmed",
+      "expired",
+      "scaned_but_redirect",
+      "need_verifycode",
+      "verify_code_blocked",
+      "binded_redirect"
+    ]
+  },
+  "sourceSha256": {
+    "package/package.json": "c6a85212021231fdc463080e70e8c5e3a995d2b8351f7450e6d4ffca01356a03",
+    "package/src/auth/login-qr.ts": "12e346d3f65ebf80bbe041120b8739755f4e45ea7323fb338b1a10a84c073f39",
+    "package/src/api/api.ts": "a49414a3befb55defd95ddba457a8c66e3c4bffe5c8b0311109207fa2dfa0fed",
+    "package/src/api/types.ts": "6a3fd8319fc51019a0cbb4c531547f6d3fdc09a88e1ba398b012768fc4d42d39",
+    "package/src/cdn/pic-decrypt.ts": "49a9b08ced1b3ddb7c4d80dd279ba7d7f977febc999a9507f8f41c05976dceaa",
+    "package/src/cdn/aes-ecb.ts": "3aff4fbef828f085db0e29a146ae76aebf338308c676c9c0a68ca4d22264e93a"
+  }
+}

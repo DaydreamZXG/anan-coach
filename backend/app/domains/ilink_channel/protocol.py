@@ -14,6 +14,7 @@ import httpx
 from PIL import Image, UnidentifiedImageError
 
 from app.domains.ilink_channel.settings import ILinkSettings
+from app.domains.ilink_channel.upstream import UPSTREAM_VERSION
 
 
 TEXT_ITEM = 1
@@ -228,7 +229,7 @@ class ILinkProtocolClient:
         }
 
     def _base_info(self) -> dict[str, str]:
-        return {"channel_version": "2.4.6", "bot_agent": self._settings.bot_agent}
+        return {"channel_version": UPSTREAM_VERSION, "bot_agent": self._settings.bot_agent}
 
 
 def parse_inbound_message(payload: dict[str, Any]) -> InboundMessage | None:

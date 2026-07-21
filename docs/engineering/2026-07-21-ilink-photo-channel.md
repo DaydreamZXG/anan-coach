@@ -44,23 +44,27 @@
 
 ## 官方扫码取凭证
 
-只在隔离的运维终端使用腾讯发布的微信 OpenClaw 插件获取凭证：
+岸岸不安装、启动或依赖 OpenClaw 主程序。运行时只复用腾讯官方 `@tencent-weixin/openclaw-weixin` 2.4.6 公开的 iLink 协议行为，并用机器可读锁定文件校验 npm integrity、tarball SHA-256、关键源文件哈希、包身份和协议常量。
+
+每次升级或取证前，先在隔离的运维终端验证锁定上游：
 
 ```bash
-npx -y @tencent-weixin/openclaw-weixin-cli install
+backend/.venv/bin/python ops/verify_ilink_upstream.py
 ```
 
-也可以使用插件公开的手动流程：
+校验通过后，用岸岸的独立取证命令申请一次性二维码：
 
 ```bash
-openclaw plugins install "@tencent-weixin/openclaw-weixin@2.4.6"
-openclaw config set plugins.entries.openclaw-weixin.enabled true
-openclaw channels login --channel openclaw-weixin
+backend/.venv/bin/python ops/ilink_login.py --output ~/.anan/credentials/ilink.json
 ```
 
-终端显示二维码后，用准备作为岸岸入口的微信扫码并在手机确认。腾讯插件把登录凭据保存到本地账户配置；只通过生产密钥管理流程把规范化账户 ID 和 token 注入 `ILINK_BOT_ACCOUNT_ID`、`ILINK_BOT_TOKEN`，不得复制进仓库、命令历史、部署包或工单正文。凭据转入岸岸工作进程后，不要再让 OpenClaw gateway 同时消费同一账户。
+命令会在本机默认浏览器打开腾讯签发的 HTTPS 扫码页，不在终端输出二维码 token、bot token 或原始凭据。用准备作为岸岸入口的微信扫码并在手机确认；若微信要求数字验证，终端以不回显方式读取。
 
-微信开放文档中的 `WeKnoraGateway` ClawBot 接口位于知识库/AI 网关产品下，使用 WeKnora AppID 与 Secret-Key。它能把 WeKnora 知识问答接到微信通道，但不是一份独立、通用的原生 iLink 开放接口合同；岸岸不以它作为当前 iLink 运行时或凭据签发依赖。
+凭据只能原子写入仓库外、无符号链接、权限为 `0600` 的新文件；已有目标绝不覆盖。通过生产密钥管理流程把文件中的 `account_id`、`bot_token` 分别注入 `ILINK_BOT_ACCOUNT_ID`、`ILINK_BOT_TOKEN`，然后安全销毁本地文件。不得把凭据复制进仓库、命令历史、部署包或工单正文。
+
+一个 bot 账户只能有一个长轮询消费者：凭据转入岸岸工作进程后，不得再让其他程序消费同一账户。
+
+微信开放文档中的 `WeKnoraGateway` ClawBot 接口位于知识库/AI 网关产品下，使用 WeKnora AppID 与 Secret-Key。它能把 WeKnora 知识问答接到微信通道，但不是独立、通用的原生 iLink 协议合同；岸岸不以它作为当前 iLink 运行时或凭据签发依赖。
 
 ## 数据生命周期
 
@@ -75,7 +79,7 @@ openclaw channels login --channel openclaw-weixin
 
 1. 部署代码并把 PostgreSQL 升级到 Alembic `20260721_49`。
 2. 从 `ops/ilink-channel.env.example` 逐项注入生产密钥；AES-256 密钥和 HMAC 密钥必须来自密钥管理器。
-3. 通过腾讯微信 OpenClaw 插件扫码取得专用 bot 账户 ID 和 token；确认没有第二个轮询消费者。
+3. 先校验腾讯上游锁，再用岸岸独立命令扫码取得专用 bot 账户 ID 和 token；通过密钥管理器注入，并确认没有第二个轮询消费者。
 4. 发布并批准支持 JPEG、PNG 的 HTTPS 识图 processor route。候选地址已改为 `https://cpa.ergou.pro/v1`；TLS 与鉴权边界可达不等于处理器已经获批，仍要冻结实际模型、发布版本、零留存/训练禁用声明和场景审批。
 5. 为第一答案模型和独立第二答案模型分别配置 HTTPS 白名单、发布版本、DPA/零留存、训练禁用、请求 ID 与幂等审计。两者不能是假装独立的同一调用。
 6. 跑协议、工作流、小程序和全仓回归；再把 `ILINK_CHANNEL_ENABLED` 从 `false` 改为 `true`。
@@ -84,7 +88,7 @@ openclaw channels login --channel openclaw-weixin
 
 ## 当前线上阻断项
 
-- 腾讯微信 OpenClaw 插件的二维码登录流程已经明确；尚未扫码并把 iLink bot 账户 ID/token 注入密钥管理器。
+- 腾讯官方 2.4.6 上游锁、独立扫码流程和安全凭据文件已实现；尚未扫码并把 iLink bot 账户 ID/token 注入密钥管理器。
 - Grok 地址的明文 HTTP 阻断已经消除；`https://cpa.ergou.pro/v1` 的实际模型、处理器发布版本和数据处理审批尚未冻结，所以识图仍保持关闭。
 - 独立第二答案模型的生产 HTTPS 发布版本、白名单和 DPA 尚未配置。
 - 待重做队列还没有今日计划/独立作答消费者，不能宣传自动排进学习计划。
