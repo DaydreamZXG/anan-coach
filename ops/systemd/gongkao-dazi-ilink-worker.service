@@ -10,6 +10,7 @@ Group=deploy
 WorkingDirectory=/srv/gongkao-dazi/current/backend
 EnvironmentFile=/etc/gongkao-dazi/api.env
 EnvironmentFile=/etc/gongkao-dazi/db.env
+EnvironmentFile=-/etc/gongkao-dazi/ilink-channel.env
 ExecStart=/srv/gongkao-dazi/current/backend/.venv/bin/python -m app.workers.ilink_channel
 Restart=always
 RestartSec=3
