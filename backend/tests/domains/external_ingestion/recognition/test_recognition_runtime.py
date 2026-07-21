@@ -4,7 +4,10 @@ import pytest
 
 from app.core.config import Settings
 from app.domains.external_ingestion.recognition.errors import ProcessorConfigurationError
-from app.domains.external_ingestion.recognition_runtime import _approved_endpoint
+from app.domains.external_ingestion.recognition_runtime import (
+    _approved_endpoint,
+    build_recognition_service,
+)
 
 
 def _settings(**overrides) -> Settings:
@@ -42,3 +45,8 @@ def test_runtime_keeps_approved_https_as_default() -> None:
     )
 
     assert _approved_endpoint(settings) == "https://recognition.example.com/v1"
+
+
+def test_runtime_rejects_processor_construction_when_not_enabled() -> None:
+    with pytest.raises(ProcessorConfigurationError, match="not enabled"):
+        build_recognition_service(session=None, settings=_settings())  # type: ignore[arg-type]

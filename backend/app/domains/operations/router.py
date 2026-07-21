@@ -191,7 +191,7 @@ def ready(session: Annotated[Session, Depends(get_db_session)]) -> dict[str, str
                     data_categories=data_categories,
                     at=checked_at,
                 )
-            if settings.recognition_processor_endpoint.strip():
+            if settings.recognition_processor_enabled:
                 processor_releases.require_active_release(
                     session,
                     declared_provider_release=(

@@ -38,6 +38,7 @@ class Settings:
     upload_scanner_dpa_version: str = ""
     upload_scanner_mainland_only: bool = False
     upload_scanner_maximum_definition_age: timedelta = timedelta(0)
+    recognition_processor_enabled: bool = False
     recognition_processor_endpoint: str = ""
     recognition_processor_token: str = ""
     recognition_processor_release_id: str = ""
@@ -227,6 +228,9 @@ def get_settings() -> Settings:
         ),
         upload_scanner_maximum_definition_age=timedelta(
             seconds=int(os.getenv("UPLOAD_SCANNER_MAXIMUM_DEFINITION_AGE_SECONDS", "0"))
+        ),
+        recognition_processor_enabled=_environment_bool(
+            "RECOGNITION_PROCESSOR_ENABLED", default=False
         ),
         recognition_processor_endpoint=os.getenv("RECOGNITION_PROCESSOR_ENDPOINT", ""),
         recognition_processor_token=os.getenv("RECOGNITION_PROCESSOR_TOKEN", ""),

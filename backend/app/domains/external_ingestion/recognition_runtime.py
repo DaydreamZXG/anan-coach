@@ -22,6 +22,8 @@ from app.internal_services.private_objects import PrivateObjectReader
 
 
 def build_recognition_service(*, session: Session, settings: Settings) -> RecognitionService:
+    if not settings.recognition_processor_enabled:
+        raise ProcessorConfigurationError("recognition processor is not enabled")
     endpoint = _approved_endpoint(settings)
     try:
         raw = json.loads(settings.recognition_processor_approvals_json)
