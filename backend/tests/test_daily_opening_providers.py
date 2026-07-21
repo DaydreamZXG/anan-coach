@@ -115,6 +115,24 @@ def test_weatherkit_signs_exact_server_request_and_preserves_attribution(tmp_pat
     assert len(snapshot.fingerprint()) == 64
 
 
+def test_weatherkit_does_not_inherit_ambient_proxy_configuration(
+    tmp_path, monkeypatch
+) -> None:
+    private = ec.generate_private_key(ec.SECP256R1())
+    private_pem = private.private_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PrivateFormat.PKCS8,
+        encryption_algorithm=serialization.NoEncryption(),
+    ).decode("utf-8")
+    settings = _settings(tmp_path, private_pem)
+    monkeypatch.setenv("NO_PROXY", "127.0.0.1,localhost,::1")
+    monkeypatch.setenv("HTTPS_PROXY", "http://127.0.0.1::1")
+
+    client = WeatherKitClient(settings)
+
+    assert isinstance(client, WeatherKitClient)
+
+
 def test_provider_settings_reject_untrusted_endpoints(tmp_path) -> None:
     settings = _settings(tmp_path, "unused")
     untrusted = DailyOpeningSettings(

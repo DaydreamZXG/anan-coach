@@ -61,7 +61,11 @@ class WeatherKitClient:
         now: Callable[[], datetime] | None = None,
     ) -> None:
         self._settings = settings
-        self._client = client or httpx.Client(timeout=8.0, follow_redirects=False)
+        self._client = client or httpx.Client(
+            timeout=8.0,
+            follow_redirects=False,
+            trust_env=False,
+        )
         self._now = now or (lambda: datetime.now(UTC))
 
     def fetch(self, *, latitude: float, longitude: float) -> WeatherKitSnapshot:
