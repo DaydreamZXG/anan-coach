@@ -228,10 +228,10 @@ export function positionFitView(fit: PositionFitAssessment): PositionFitView {
       band: "冲刺",
     },
     evidence_unavailable: {
-      label: "暂不分带",
-      description: "证据不足，服务端没有形成区间关系结论",
+      label: "待补成绩",
+      description: "资格已先核验；录入行测和申论成绩后再计算分差",
       tone: "muted",
-      band: "未分带",
+      band: "待算分差",
     },
   }[fit.status] as {
     label: string;
@@ -240,17 +240,17 @@ export function positionFitView(fit: PositionFitAssessment): PositionFitView {
     band: string;
   };
   const evidenceStatusLabel = {
-    unavailable: "证据不可用",
-    partial: "行测与申论证据未完整",
-    stale: "能力证据已过期",
+    unavailable: "待录入双科成绩",
+    partial: "还差一科成绩",
+    stale: "成绩证据已过期",
     ready: "同年度双科证据完整",
   }[fit.evidenceStatus];
   const reasonLabels: Record<PositionFitAssessment["evidenceReasonCodes"][number], string> = {
-    ability_estimate_unavailable: "当前没有能力估计",
-    ability_estimate_partial: "行测与申论能力证据未完整",
-    ability_estimate_stale: "能力估计已过期",
-    ability_estimate_exam_year_mismatch: "能力估计与岗位考试年度不一致",
-    target_score_unavailable: "岗位目标分证据不可用",
+    ability_estimate_unavailable: "还没有录入行测和申论成绩",
+    ability_estimate_partial: "行测与申论成绩未补齐",
+    ability_estimate_stale: "成绩证据已过期",
+    ability_estimate_exam_year_mismatch: "成绩证据与岗位年度不一致",
+    target_score_unavailable: "岗位进面分样本不足",
   };
   const burdenParts: string[] = [];
   if (fit.requirementsBurden.additionalExamRequired) burdenParts.push("需要额外考试");
@@ -271,10 +271,8 @@ export function positionFitView(fit: PositionFitAssessment): PositionFitView {
     evidenceReasonLabel: fit.evidenceReasonCodes.map((code) => reasonLabels[code]).join("；"),
     scoreGapRangeLabel: gap
       ? `${signedScore(gap.lower)} 至 ${signedScore(gap.upper)} 分`
-      : "暂无可用分差",
-    scoreGapRecommendedLabel: gap
-      ? `建议点差 ${signedScore(gap.recommended)} 分`
-      : "等待同年度双科能力与岗位目标分证据",
+      : "录入双科成绩后计算",
+    scoreGapRecommendedLabel: gap ? `建议点差 ${signedScore(gap.recommended)} 分` : "分差暂不可算",
     scoreGapDirectionLabel: gap ? "正数表示岗位目标高于当前能力" : "",
     requirementsBurdenLabel: burdenParts.length
       ? burdenParts.join("；")

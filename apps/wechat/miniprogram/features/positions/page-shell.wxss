@@ -26,7 +26,17 @@
 }
 
 .position-actions {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
   margin: 30rpx 0 12rpx;
+}
+
+.position-actions__link {
+  flex: none;
+  color: var(--color-primary);
+  font-size: 22rpx;
+  font-weight: 800;
 }
 
 .delivery-strip {
@@ -204,6 +214,10 @@
   color: var(--color-muted);
 }
 
+.fit-evidence__action {
+  margin-top: 10rpx;
+}
+
 .fit-evidence--success {
   background: var(--color-success-soft);
 }
@@ -317,6 +331,13 @@
   color: var(--color-muted);
 }
 
+.capability-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14rpx 24rpx;
+  margin-top: 18rpx;
+}
+
 .success-card {
   display: flex;
   flex-direction: column;
@@ -402,7 +423,9 @@
   font-weight: 750;
 }
 
-.comparison-dock__title { font-weight: 750; }
+.comparison-dock__title {
+  font-weight: 750;
+}
 
 .ability-card__copy {
   margin: 18rpx 0 10rpx;

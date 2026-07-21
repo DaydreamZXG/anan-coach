@@ -3,13 +3,14 @@
     <view class="position-hero__copy">
       <view class="s9-kicker">国考 · 岗位库</view>
       <view class="s9-title">岗位决策</view>
-      <view class="s9-subtitle">先确认能不能报，再比较竞争、分差与个人匹配。</view>
+      <view class="s9-subtitle">先从可报岗位里选主目标；行测和申论成绩补齐后，再给你算分差。</view>
     </view>
     <anan-companion size="medium" intent="thinking" context="plan" animate />
   </view>
 
   <view class="position-actions">
     <ui-button label="搜索与筛选岗位" bind:action="openSearch" />
+    <view class="position-actions__link" bindtap="openScoreSheet">录入成绩算分差</view>
   </view>
 
   <state-view wx:if="{{!workspace || workspace.status === 'idle' || workspace.status === 'loading'}}" state="loading" />
@@ -75,13 +76,18 @@
       </view>
     </view>
     <view wx:else class="capability-card capability-card--neutral">
-      <view class="capability-card__title">尚未建立主目标</view>
-      <view class="capability-card__copy">先搜索、核验并查看服务端影响预览，再由你确认主报岗位。</view>
+      <view class="capability-card__mark">下一步</view>
+      <view class="capability-card__title">从下面的可报候选里选一个主目标</view>
+      <view class="capability-card__copy">这些岗位已经按你的资格资料筛过；点进岗位卡片可以看逐条依据，并确认成主报目标。现在还不能算分差，是因为你还没有补齐行测和申论成绩。</view>
+      <view class="capability-actions">
+        <view class="inline-link" bindtap="openSearch">查看更多可报岗位 →</view>
+        <view class="inline-link" bindtap="openScoreSheet">先录入双科成绩 →</view>
+      </view>
     </view>
 
     <view class="section-heading">
-      <view class="section-title">候选范围</view>
-      <view class="section-meta">服务端区间关系 · 非录取概率</view>
+      <view class="section-title">可报候选</view>
+      <view class="section-meta">先选主目标；分差需成绩证据</view>
     </view>
     <view class="position-card-grid">
     <view wx:for="{{workspace.candidateItems}}" wx:key="positionId" class="position-card" hover-class="card--hover" data-id="{{item.positionId}}" bindtap="openPosition">
@@ -93,18 +99,19 @@
       <view class="position-card__department">{{item.departmentFull}}</view>
       <view class="position-card__meta">{{item.region}}{{item.city ? ' · ' + item.city : ''}} · 招 {{item.headcount}} 人</view>
       <view class="position-card__metrics">
-        <view class="position-metric"><text class="position-card__metric-label">{{item.fitView.bandLabel}}区间</text><text class="position-card__metric-value">{{item.fitView.statusDescription}}</text></view>
-        <view class="position-metric"><text class="position-card__metric-label">同版本分差</text><text class="position-card__metric-value type-data">{{item.fitView.scoreGapRangeLabel}}</text></view>
+        <view class="position-metric"><text class="position-card__metric-label">{{item.fitView.bandLabel}}</text><text class="position-card__metric-value">{{item.fitView.statusDescription}}</text></view>
+        <view class="position-metric"><text class="position-card__metric-label">分差状态</text><text class="position-card__metric-value type-data">{{item.fitView.scoreGapRangeLabel}}</text></view>
       </view>
       <view class="position-card__evidence">{{item.scoreEvidenceLabel}} · {{item.targetGeneratedLabel}} · {{item.targetValidityLabel}}</view>
       <view class="fit-evidence fit-evidence--{{item.fitView.statusTone}}">
         <view>{{item.fitView.evidenceStatusLabel}} · {{item.fitView.requirementsBurdenLabel}}</view>
         <text wx:if="{{item.fitView.evidenceReasonLabel}}" class="fit-evidence__reason">{{item.fitView.evidenceReasonLabel}}</text>
         <text wx:if="{{item.fitView.scoreGapDirectionLabel}}">{{item.fitView.scoreGapDirectionLabel}}</text>
+        <view wx:if="{{!item.fitView.scoreGapAvailable}}" class="inline-link fit-evidence__action" catchtap="openScoreSheet">补成绩后计算分差 →</view>
       </view>
       <view class="position-card__footer">
         <view class="compare-toggle {{item.comparisonSelected ? 'compare-toggle--selected' : ''}}" data-id="{{item.positionId}}" catchtap="toggleComparison">{{item.comparisonSelected ? '✓ 已加入对比' : '＋ 加入对比'}}</view>
-        <view>查看逐条依据 →</view>
+        <view>查看依据 / 设为主目标 →</view>
       </view>
     </view>
     </view>

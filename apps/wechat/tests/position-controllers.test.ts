@@ -5,6 +5,7 @@ import type {
   PositionDiscoveryDetail,
   PositionDiscoveryResponse,
   PositionEligibilitySnapshot,
+  PositionFitAssessment,
   PrimaryGoalConfirmResponse,
   PrimaryGoalPreview,
 } from "../miniprogram/api/generated/types.gen";
@@ -23,6 +24,7 @@ import {
 } from "../miniprogram/features/positions/error-state";
 import { PositionPageRuntimeRegistry } from "../miniprogram/features/positions/runtime";
 import { PositionGoalController } from "../miniprogram/features/positions/goal-controller";
+import { positionFitView } from "../miniprogram/features/positions/presentation";
 import {
   clearPositionStateForUser,
   PositionStateStore,
@@ -65,6 +67,16 @@ afterEach(() => {
 });
 
 describe("position discovery controller", () => {
+  it("turns missing score evidence into an actionable gap instead of an opaque trust warning", () => {
+    const view = positionFitView(evidenceUnavailableFit());
+
+    expect(view.statusLabel).toBe("待补成绩");
+    expect(view.statusDescription).toContain("录入行测和申论成绩");
+    expect(view.evidenceStatusLabel).toBe("待录入双科成绩");
+    expect(view.scoreGapRangeLabel).toBe("录入双科成绩后计算");
+    expect(view.evidenceReasonLabel).toContain("还没有录入行测和申论成绩");
+  });
+
   it("ignores an older fast-search response that arrives after the newest query", async () => {
     const requests: Array<Deferred<ApiEnvelope<PositionDiscoveryResponse>>> = [];
     const api = {
@@ -609,6 +621,23 @@ describe("position page lifecycle registry", () => {
     expect(registry.owns(pageB, runtimeB)).toBe(true);
   });
 });
+
+function evidenceUnavailableFit(): PositionFitAssessment {
+  return {
+    status: "evidence_unavailable",
+    band: null,
+    evidenceStatus: "unavailable",
+    evidenceReasonCodes: ["ability_estimate_unavailable"],
+    scoreGap: null,
+    requirementsBurden: {
+      additionalExamRequired: false,
+      hardConditionNotMetCount: 0,
+      hardConditionNotMetRequirementIds: [],
+      pendingRequirementCount: 0,
+      pendingRequirementIds: [],
+    },
+  };
+}
 
 function position(changes: Partial<PositionDiscoveryItem> = {}): PositionDiscoveryItem {
   return {

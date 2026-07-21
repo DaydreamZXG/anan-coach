@@ -51,7 +51,7 @@
       <view wx:if="{{state.summaryView.targetScoreExpired}}" class="inline-warning">目标分证据已过期，不能用于目标确认。</view>
     </view>
 
-    <view class="section-heading"><view class="section-title">岗位匹配区间</view><view class="section-meta">服务端同版本结论 · 非录取概率</view></view>
+    <view class="section-heading"><view class="section-title">岗位匹配与分差</view><view class="section-meta">分差依据 · 不是录取概率</view></view>
     <view wx:if="{{state.fit}}" class="fit-card fit-card--{{state.fit.statusTone}}">
       <view class="fit-card__head">
         <view><view class="fit-card__kicker">{{state.fit.bandLabel}}分带</view><view class="fit-card__title">{{state.fit.statusLabel}}</view></view>
