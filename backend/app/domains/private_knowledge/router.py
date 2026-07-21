@@ -15,6 +15,10 @@ from app.domains.private_knowledge.repository import (
     PrivateKnowledgeNotFound,
     PrivateKnowledgeRepository,
 )
+from app.domains.private_knowledge.projection import (
+    PrivateKnowledgeProjectionError,
+    build_projection_gateway,
+)
 from app.domains.private_knowledge.schemas import (
     CreatePrivateSourceCommand,
     MarkdownExport,
@@ -50,11 +54,18 @@ IdempotencyKey = Annotated[
 
 
 def _service(
-    session: Session, *, requires_reader: bool = False
+    session: Session,
+    *,
+    requires_reader: bool = False,
+    requires_projection: bool = False,
 ) -> PrivateKnowledgeService:
     reader = PrivateObjectReader(get_settings()) if requires_reader else None
     return PrivateKnowledgeService(
-        PrivateKnowledgeRepository(session), markdown_reader=reader
+        PrivateKnowledgeRepository(session),
+        markdown_reader=reader,
+        projection_gateway=(
+            build_projection_gateway(session) if requires_projection else None
+        ),
     )
 
 
@@ -75,6 +86,7 @@ def create_source(
         result = _service(
             session,
             requires_reader=bool(artifact and artifact["mime_type"] == "text/markdown"),
+            requires_projection=True,
         ).create(
             owner_user_id=current_user.user_id,
             command=command,
@@ -82,9 +94,10 @@ def create_source(
         )
         session.commit()
         return public_success_envelope(request=request, response=response, data=result)
-    except (PrivateKnowledgeConflict, ValueError) as exc:
+    except (PrivateKnowledgeConflict, PrivateKnowledgeProjectionError, ValueError) as exc:
         session.rollback()
-        raise HTTPException(status_code=409, detail=str(exc)) from exc
+        status = 503 if isinstance(exc, PrivateKnowledgeProjectionError) and exc.retryable else 409
+        raise HTTPException(status_code=status, detail=str(exc)) from exc
 
 
 @router.get("/sources", response_model=PublicApiEnvelope[PrivateSourceList])
@@ -108,12 +121,13 @@ def search_sources(
     limit: Annotated[int, Query(ge=1, le=12)] = 8,
 ) -> PublicApiEnvelope[PrivateSearchResult]:
     try:
-        result = _service(session).search(
+        result = _service(session, requires_projection=True).search(
             owner_user_id=current_user.user_id, query=q, maximum_sources=limit
         )
         return public_success_envelope(request=request, response=response, data=result)
-    except PrivateKnowledgeConflict as exc:
-        raise HTTPException(status_code=409, detail=str(exc)) from exc
+    except (PrivateKnowledgeConflict, PrivateKnowledgeProjectionError) as exc:
+        status = 503 if isinstance(exc, PrivateKnowledgeProjectionError) and exc.retryable else 409
+        raise HTTPException(status_code=status, detail=str(exc)) from exc
 
 
 @router.get(
@@ -147,7 +161,7 @@ def delete_source(
     session: Annotated[Session, Depends(get_db_session)],
 ) -> PublicApiEnvelope[PrivateSourceDeletionView]:
     try:
-        result = _service(session).request_delete(
+        result = _service(session, requires_projection=True).request_delete(
             owner_user_id=current_user.user_id,
             source_id=source_id,
             idempotency_key=idempotency_key,
@@ -160,6 +174,10 @@ def delete_source(
     except PrivateKnowledgeConflict as exc:
         session.rollback()
         raise HTTPException(status_code=409, detail=str(exc)) from exc
+    except PrivateKnowledgeProjectionError as exc:
+        session.rollback()
+        status = 503 if exc.retryable else 409
+        raise HTTPException(status_code=status, detail=str(exc)) from exc
 
 
 @router.get(

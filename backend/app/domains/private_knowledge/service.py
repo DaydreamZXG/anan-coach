@@ -15,6 +15,11 @@ from app.domains.private_knowledge.repository import (
     PrivateKnowledgeConflict,
     PrivateKnowledgeRepository,
 )
+from app.domains.private_knowledge.projection import (
+    PrivateKnowledgeProjectionGateway,
+    projection_error_from_provider,
+)
+from app.domains.private_knowledge.weknora import WeKnoraError
 from app.domains.private_knowledge.schemas import (
     CreatePrivateSourceCommand,
     MarkdownExport,
@@ -43,9 +48,11 @@ class PrivateKnowledgeService:
         repository: PrivateKnowledgeRepository,
         *,
         markdown_reader: PrivateMarkdownReader | None = None,
+        projection_gateway: PrivateKnowledgeProjectionGateway | None = None,
     ) -> None:
         self.repository = repository
         self.markdown_reader = markdown_reader
+        self.projection_gateway = projection_gateway
 
     def create(
         self,
@@ -149,6 +156,11 @@ class PrivateKnowledgeService:
             pages=pages,
             created_at=datetime.now(UTC),
         )
+        if self.projection_gateway is not None:
+            self.projection_gateway.enqueue_source(
+                owner_user_id=owner_user_id,
+                source_version_id=source_version_id,
+            )
         return self.repository.summary(
             owner_user_id=owner_user_id, source_version_id=source_version_id
         )
@@ -162,6 +174,15 @@ class PrivateKnowledgeService:
         normalized = query.strip()
         if not normalized:
             raise PrivateKnowledgeConflict("private knowledge search query is blank")
+        if self.projection_gateway is not None:
+            try:
+                return self.projection_gateway.search(
+                    owner_user_id=owner_user_id,
+                    query=normalized,
+                    maximum_sources=maximum_sources,
+                )
+            except WeKnoraError as exc:
+                raise projection_error_from_provider(exc) from exc
         return self.repository.search(
             owner_user_id=owner_user_id,
             query=normalized,

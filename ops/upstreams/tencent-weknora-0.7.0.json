@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "repository": "Tencent/WeKnora",
+  "version": "0.7.0",
+  "tag": "v0.7.0",
+  "commit": "e8dcbb07d09db88894601b564ebabe21dda6830d",
+  "tree": "a26c29e1ec8c4d5c45dedd4c1edee2af87a7300c",
+  "license": "MIT",
+  "tarballUrl": "https://codeload.github.com/Tencent/WeKnora/tar.gz/refs/tags/v0.7.0",
+  "tarballSha256": "49cddf4d9b8c6f104271cfec50f599c0a2471d743a6b2a27eb65d09228b47523",
+  "rootDirectory": "WeKnora-0.7.0",
+  "selectedFiles": {
+    "LICENSE": "5f6c35c603349247019b1a107e0c19ac32bed953c9857383449003283e7ccd20",
+    "docs/api/knowledge-base.md": "0073047e35c1a33c1dfe3ac305076a7ed9dcb3ce5ee93dd1fa376abb7166568e",
+    "docs/api/knowledge.md": "e0539685c8edfe98905e47f983d6338ba27bb9067ffe0e8ed69774b5c287b95e",
+    "docs/api/tenant.md": "9161481de1258e20f22e2b776b4d3157e95ab9f6d2b122d536a14d5c14cce52c",
+    "internal/router/router.go": "24b4fb7c205a8caea42b98451e5000f29b5f2bfc6c7faba49bc69380461a3454",
+    "internal/router/rbac.go": "3e59a29a41f39b76e0f51e36c5075061a834cee694c712e8358f5580a847f5dd",
+    "internal/handler/tenant.go": "850f5508ad4e8cc290b224d409b9b88a892a82a4dc41a026402d12d521d4ef3c",
+    "internal/types/tenant_api_key.go": "4369867cc57323e29efba3df5607e9580a85a9794d4c7af368c663bde42f3f58",
+    "go.mod": "00f493d5c527b3de742c7e4f38b1293d059616bcdba125f00c43bc4656d1b364"
+  },
+  "requiredCapabilities": [
+    "manage_kbs",
+    "ingest",
+    "retrieve"
+  ],
+  "reviewedEndpoints": [
+    "POST /api/v1/knowledge-bases",
+    "GET /api/v1/knowledge-bases",
+    "GET /api/v1/knowledge-bases/:id",
+    "DELETE /api/v1/knowledge-bases/:id",
+    "POST /api/v1/knowledge-bases/:id/knowledge/manual",
+    "GET /api/v1/knowledge-bases/:id/knowledge",
+    "GET /api/v1/knowledge/:id",
+    "DELETE /api/v1/knowledge/:id",
+    "POST /api/v1/knowledge-bases/:id/hybrid-search"
+  ]
+}

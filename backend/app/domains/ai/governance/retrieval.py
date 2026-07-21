@@ -13,6 +13,10 @@ from sqlalchemy.orm import Session
 
 from app.domains.ai.governance.contracts import EvidenceReference, GlobalAskContext
 from app.domains.ai.governance.routing import prompt_injection_detected
+from app.domains.private_knowledge.projection import (
+    PrivateKnowledgeProjectionGateway,
+    build_projection_gateway,
+)
 
 
 RETRIEVAL_POLICY_VERSION = "authorized-hybrid-retrieval@v1"
@@ -66,6 +70,7 @@ class _Candidate:
     trust_scope: str
     source_weight: float
     untrusted_input: bool
+    retrieval_score: float = 0.0
 
 
 class AuthorizedHybridRetriever:
@@ -76,8 +81,19 @@ class AuthorizedHybridRetriever:
     second source of truth or lets retrieved text alter system permissions.
     """
 
-    def __init__(self, session: Session) -> None:
+    def __init__(
+        self,
+        session: Session,
+        *,
+        private_projection: PrivateKnowledgeProjectionGateway | None = None,
+        resolve_projection_from_environment: bool = True,
+    ) -> None:
         self._session = session
+        self._private_projection = (
+            build_projection_gateway(session)
+            if resolve_projection_from_environment and private_projection is None
+            else private_projection
+        )
 
     def retrieve(
         self,
@@ -91,10 +107,16 @@ class AuthorizedHybridRetriever:
         if not 1 <= maximum_sources <= 12:
             raise ValueError("maximum_sources must be between 1 and 12")
         self._authorize_object_refs(user_id=user_id, context=context)
-        candidates = [
-            *context_sources,
-            *self._confirmed_private_materials(user_id=user_id),
-        ]
+        private_candidates = (
+            self._projected_private_materials(
+                user_id=user_id,
+                question=question,
+                maximum_sources=12,
+            )
+            if self._private_projection is not None
+            else self._confirmed_private_materials(user_id=user_id)
+        )
+        candidates = [*context_sources, *private_candidates]
         query_terms = _terms(question)
         ranked: list[tuple[float, _Candidate, float, float]] = []
         blocked: list[EvidenceReference] = []
@@ -103,7 +125,9 @@ class AuthorizedHybridRetriever:
                 blocked.append(candidate.reference)
                 continue
             lexical = _jaccard(query_terms, _terms(candidate.text))
-            semantic = _semantic_overlap(question, candidate)
+            semantic = max(
+                _semantic_overlap(question, candidate), candidate.retrieval_score
+            )
             score = min(
                 1.0,
                 (0.55 * lexical) + (0.25 * semantic) + (0.20 * candidate.source_weight),
@@ -292,6 +316,43 @@ class AuthorizedHybridRetriever:
             for row in rows
             if str(row["content"]).strip()
         )
+
+    def _projected_private_materials(
+        self, *, user_id: str, question: str, maximum_sources: int
+    ) -> tuple[_Candidate, ...]:
+        if self._private_projection is None:
+            raise RuntimeError("private projection is not configured")
+        result = self._private_projection.search(
+            owner_user_id=user_id,
+            query=question,
+            maximum_sources=maximum_sources,
+        )
+        candidates: list[_Candidate] = []
+        seen_sources: set[UUID] = set()
+        for citation in result.citations:
+            if not citation.excerpt.strip() or citation.source_id in seen_sources:
+                continue
+            seen_sources.add(citation.source_id)
+            candidates.append(
+                _Candidate(
+                    reference=EvidenceReference(
+                        kind="user_material",
+                        sourceId=f"private-source:{citation.source_id}",
+                        version=str(citation.source_version_id),
+                        anchor=(
+                            f"page:{citation.page_no}:chunk:{citation.chunk_id}:"
+                            f"{citation.anchor}"
+                        ),
+                        title=citation.title,
+                    ),
+                    text=citation.excerpt,
+                    trust_scope="owner_private_material",
+                    source_weight=0.85,
+                    untrusted_input=True,
+                    retrieval_score=citation.final_score,
+                )
+            )
+        return tuple(candidates)
 
 
 def context_candidate(

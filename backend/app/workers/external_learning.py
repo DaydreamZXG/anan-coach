@@ -17,6 +17,7 @@ from app.domains.learning_packages.composition import build_packet_render_worker
 from app.domains.learning_packages.worker import PacketRenderWorker
 from app.platform.jobs import BackgroundJobRepository
 from app.domains.private_knowledge.worker import PrivateKnowledgeDeletionWorker
+from app.domains.private_knowledge.projection import build_projection_gateway
 
 
 LOGGER = logging.getLogger("external_learning_worker")
@@ -49,14 +50,27 @@ class ExternalLearningWorker:
             settings=settings,
         )
         self._jobs = jobs or BackgroundJobRepository()
+        self._private_knowledge_projection = build_projection_gateway(
+            session, jobs=self._jobs
+        )
         self._private_knowledge_worker = private_knowledge_worker or PrivateKnowledgeDeletionWorker(
-            storage=build_private_object_storage(settings), jobs=self._jobs
+            storage=build_private_object_storage(settings),
+            jobs=self._jobs,
+            projection_gateway=self._private_knowledge_projection,
         )
         self._next_maintenance_at = datetime.min.replace(tzinfo=UTC)
 
     def run_once(self, *, now: datetime | None = None) -> bool:
         current = now or datetime.now(UTC)
         did_work = False
+        if self._private_knowledge_projection is not None:
+            try:
+                did_work = bool(
+                    self._private_knowledge_projection.cleanup_account_deletions()
+                ) or did_work
+            except Exception:
+                self._session.rollback()
+                LOGGER.exception("private knowledge account-erasure projection cleanup failed")
         if current >= self._next_maintenance_at:
             did_work = self._maintain(now=current) or did_work
             self._next_maintenance_at = current + timedelta(
