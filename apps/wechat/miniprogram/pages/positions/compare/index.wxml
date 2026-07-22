@@ -39,7 +39,6 @@
       <text wx:if="{{state.delivery.partial}}" class="delivery-strip__warning">{{state.delivery.partialLabel}}</text>
       <text wx:if="{{state.delivery.stale}}" class="delivery-strip__warning">{{state.delivery.staleLabel}}</text>
       <text wx:if="{{state.delivery.processing}}" class="delivery-strip__processing">{{state.delivery.processingLabel}}</text>
-      <text class="delivery-strip__request">Request ID · {{state.delivery.requestId}}</text>
     </view>
     <scroll-view class="comparison-scroll" scroll-x enable-flex>
       <view class="comparison-track">
@@ -51,21 +50,20 @@
           <view class="comparison-table">
             <view class="comparison-row"><text class="comparison-row__label">资格核验</text><text class="comparison-row__value">{{item.conditionSummary}}</text></view>
             <view class="comparison-row"><text class="comparison-row__label">岗位分带</text><text class="comparison-row__value">{{item.fitView.bandLabel}} · {{item.fitView.statusDescription}}</text></view>
-            <view class="comparison-row"><text class="comparison-row__label">同版本分差</text><text class="comparison-row__value type-data">{{item.fitView.scoreGapRangeLabel}}</text></view>
+            <view class="comparison-row"><text class="comparison-row__label">可比分差</text><text class="comparison-row__value type-data">{{item.fitView.scoreGapRangeLabel}}</text></view>
             <view class="comparison-row"><text class="comparison-row__label">建议点差</text><text class="comparison-row__value type-data">{{item.fitView.scoreGapRecommendedLabel}}</text></view>
-            <view class="comparison-row"><text class="comparison-row__label">双科证据</text><text class="comparison-row__value">{{item.fitView.evidenceStatusLabel}}</text></view>
+            <view class="comparison-row"><text class="comparison-row__label">行测与申论数据</text><text class="comparison-row__value">{{item.fitView.evidenceStatusLabel}}</text></view>
             <view class="comparison-row"><text class="comparison-row__label">资格负担</text><text class="comparison-row__value">{{item.fitView.requirementsBurdenLabel}}</text></view>
             <view class="comparison-row"><text class="comparison-row__label">目标分区间</text><text class="comparison-row__value type-data">{{item.scoreLabel}}</text></view>
             <view class="comparison-row"><text class="comparison-row__label">目标分有效期</text><text class="comparison-row__value">{{item.targetValidityLabel}}</text></view>
             <view class="comparison-row"><text class="comparison-row__label">目标分生成时间</text><text class="comparison-row__value">{{item.targetGeneratedLabel}}</text></view>
-            <view class="comparison-row"><text class="comparison-row__label">样本证据</text><text class="comparison-row__value">{{item.scoreEvidenceLabel}}</text></view>
+            <view class="comparison-row"><text class="comparison-row__label">参考样本</text><text class="comparison-row__value">{{item.scoreEvidenceLabel}}</text></view>
             <view class="comparison-row"><text class="comparison-row__label">招录人数</text><text class="comparison-row__value type-data">{{item.headcount}}</text></view>
             <view class="comparison-row"><text class="comparison-row__label">地区</text><text class="comparison-row__value">{{item.region}}{{item.city ? ' · ' + item.city : ''}}</text></view>
             <view class="comparison-row"><text class="comparison-row__label">试卷类型</text><text class="comparison-row__value">{{item.paperTypeLabel}}</text></view>
           </view>
           <view wx:if="{{item.fitView.evidenceReasonLabel}}" class="fit-card__reason">未形成分差的依据 · {{item.fitView.evidenceReasonLabel}}</view>
-          <view class="fit-card__audit">分差 Request ID · {{item.fitRequestId}}</view>
-          <view hover-class="item--hover" class="inline-link" data-id="{{item.positionId}}" bindtap="openPosition">查看逐条证据 →</view>
+          <view hover-class="item--hover" class="inline-link" data-id="{{item.positionId}}" bindtap="openPosition">查看判断依据 →</view>
         </view>
       </view>
     </scroll-view>

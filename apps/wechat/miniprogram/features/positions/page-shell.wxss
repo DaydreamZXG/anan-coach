@@ -3,7 +3,16 @@
 }
 
 .position-hero {
-  margin-bottom: 30rpx;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 24rpx;
+  padding: 30rpx 28rpx;
+  border: 1rpx solid rgba(198, 217, 213, 0.74);
+  border-radius: var(--radius-hero);
+  background:
+    radial-gradient(circle at 94% 14%, rgba(107, 97, 220, 0.14), transparent 32%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.94), var(--color-primary-soft));
+  box-shadow: var(--shadow-card-strong);
 }
 
 .position-hero,
@@ -25,12 +34,48 @@
   flex: 1;
 }
 
+.position-hero .s9-kicker {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  color: var(--color-primary-deep);
+  font-size: 20rpx;
+  font-weight: 800;
+  letter-spacing: 0.5rpx;
+}
+
+.position-hero__dot {
+  width: 9rpx;
+  height: 9rpx;
+  border-radius: 50%;
+  background: var(--color-primary);
+  box-shadow: 0 0 0 7rpx var(--color-primary-a08);
+}
+
+.position-hero .s9-title {
+  margin-top: 16rpx;
+  font-size: 43rpx;
+  line-height: 1.28;
+}
+
+.position-hero__accent {
+  color: var(--color-primary);
+}
+
+.position-hero .s9-subtitle {
+  font-size: 23rpx;
+}
+
 .position-actions {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 18rpx;
-  margin: 30rpx 0 12rpx;
+  margin: 24rpx 0 12rpx;
+}
+
+.position-actions__button {
+  width: 100%;
 }
 
 .position-actions__link {
@@ -40,19 +85,71 @@
   font-weight: 800;
 }
 
+.position-boundary {
+  display: flex;
+  align-items: flex-start;
+  gap: 12rpx;
+  margin: 18rpx 2rpx 6rpx;
+  padding: 18rpx 20rpx;
+  border: 1rpx solid rgba(45, 127, 231, 0.12);
+  border-radius: 18rpx;
+  background: var(--color-ai-soft);
+  color: var(--color-ink-secondary);
+  font-size: 20rpx;
+  line-height: 1.5;
+}
+
+.position-boundary__mark {
+  flex: none;
+  color: var(--color-ai-blue);
+}
+
 .delivery-strip {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 8rpx 18rpx;
+  gap: 10rpx 16rpx;
   margin: 24rpx 0;
-  padding: 18rpx 20rpx;
+  padding: 20rpx 22rpx;
   border: 1rpx solid var(--color-primary-a16);
-  border-radius: var(--radius-compact);
-  background: rgba(253, 238, 226, 0.74);
+  border-radius: 22rpx;
+  background: rgba(255, 255, 255, 0.78);
   color: var(--color-muted);
-  font-family: var(--font-family-data);
   font-size: 19rpx;
   line-height: 1.55;
+}
+
+.delivery-strip__mark {
+  display: flex;
+  width: 50rpx;
+  height: 50rpx;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  border-radius: 16rpx;
+  background: var(--gradient-ai);
+  color: #ffffff;
+  font-size: 22rpx;
+  font-weight: 850;
+}
+
+.delivery-strip__main {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+.delivery-strip__title {
+  color: var(--color-ink);
+  font-size: 21rpx;
+  font-weight: 800;
+}
+
+.delivery-strip__copy {
+  margin-top: 3rpx;
+  color: var(--color-muted);
+  font-size: 18rpx;
 }
 
 .delivery-strip__warning {
@@ -61,12 +158,6 @@
 
 .delivery-strip__processing {
   color: var(--color-primary);
-}
-
-.delivery-strip__request {
-  width: 100%;
-  overflow-wrap: anywhere;
-  color: var(--color-faint);
 }
 
 .position-card,
@@ -103,7 +194,7 @@
 
 .position-card--primary {
   border-color: var(--color-primary-a24);
-  background: linear-gradient(145deg, var(--color-primary-deep), var(--color-primary));
+  background: var(--gradient-ai);
   color: #fff;
 }
 
@@ -148,7 +239,7 @@
   margin-top: 22rpx;
   padding: 20rpx;
   border-radius: 20rpx;
-  background: rgba(255, 251, 245, 0.78);
+  background: rgba(243, 248, 247, 0.86);
 }
 
 .position-card--primary .position-card__metrics {
@@ -357,12 +448,12 @@
 
 .capability-card {
   border: 1rpx solid rgba(185, 141, 47, 0.16);
-  background: linear-gradient(145deg, #fffdf9, var(--color-warning-soft));
+  background: linear-gradient(145deg, #ffffff, var(--color-warning-soft));
 }
 
 .capability-card--neutral {
-  border-color: var(--color-line);
-  background: var(--color-surface-soft);
+  border-color: var(--color-primary-a16);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), var(--color-primary-soft));
 }
 
 .capability-card__mark {

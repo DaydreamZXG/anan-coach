@@ -4,7 +4,7 @@
       <view class="report-chart__title">{{chart.title}}</view>
       <view class="report-chart__meta">{{chart.period}} · {{chart.unit}} · {{confidenceLabel}}</view>
     </view>
-    <view class="report-chart__evidence">{{evidenceCount}} 条证据</view>
+    <view class="report-chart__evidence">{{evidenceCount}} 条数据依据</view>
   </view>
   <view class="report-chart__definition">{{chart.definition}}</view>
   <view wx:if="{{rows.length}}" class="report-chart__plot">
@@ -21,5 +21,5 @@
   </view>
   <view wx:else class="report-chart__empty">数据还不够画这张图。</view>
   <view class="report-chart__summary">{{chart.summary}}</view>
-  <view wx:if="{{chart.partialReasons.length}}" class="report-chart__partial">证据缺口 {{chart.partialReasons.length}} 项，图表已按部分状态展示。</view>
+  <view wx:if="{{chart.partialReasons.length}}" class="report-chart__partial">还有 {{chart.partialReasons.length}} 项数据不完整，当前图表只展示已有结果。</view>
 </view>

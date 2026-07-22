@@ -15,7 +15,7 @@
     <view class="result-orbit"><anan-companion size="large" intent="rest" context="emotion" /></view>
     <view class="state-title">备考起点没有生成完成</view>
     <view class="state-copy">{{state.error.message}}</view>
-    <view wx:if="{{state.error.requestId}}" class="request-id">Request ID · {{state.error.requestId}}</view>
+    <view wx:if="{{state.error.requestId}}" class="request-id">问题编号 · {{state.error.requestId}}</view>
     <ui-button label="重新生成" bind:action="retry" />
   </view>
 
@@ -54,7 +54,7 @@
     </view>
     <view wx:if="{{state.error}}" class="error-banner">
       <view>{{state.error.message}}</view>
-      <view wx:if="{{state.error.requestId}}" class="request-id">Request ID · {{state.error.requestId}}</view>
+      <view wx:if="{{state.error.requestId}}" class="request-id">问题编号 · {{state.error.requestId}}</view>
     </view>
     <view class="s9-action-dock"><button class="s9-primary-button" loading="{{state.saving}}" bindtap="acknowledge">{{state.pendingRecovery ? '查询原确认结果' : state.view.actionLabel}}</button></view>
   </block>

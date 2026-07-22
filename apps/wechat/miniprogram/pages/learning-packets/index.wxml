@@ -16,12 +16,11 @@
     <view class="delivery-strip">
       <text>题目候选 {{state.eligibleContent.length}} 个 · 学习包 {{state.packets.length}} 份</text>
       <text wx:if="{{state.generatedAt}}">生成于 {{state.generatedAt}}</text>
-      <text wx:if="{{state.requestId}}">Request ID · {{state.requestId}}</text>
     </view>
     <view wx:if="{{state.refreshError}}" class="inline-warning">没刷新成功，先看着之前的内容。<view hover-class="item--hover" class="inline-link" bindtap="retryLoad">重新加载 · {{state.refreshError.requestId}}</view></view>
     <view wx:if="{{state.partialReasons.length}}" class="inline-warning"><view>本次列表不完整：</view><view wx:for="{{state.partialReasons}}" wx:key="*this">· {{item}}</view></view>
 
-    <view class="section-head"><view class="section-head__title">生成新学习包</view><view class="section-head__meta">仅显示已确认题目版本</view></view>
+    <view class="section-head"><view class="section-head__title">生成新学习包</view><view class="section-head__meta">仅显示你已确认的题目</view></view>
     <view class="external-card">
       <view class="field-label">科目</view>
       <view class="choice-row">
@@ -33,7 +32,7 @@
         <view hover-class="item--hover" class="choice {{state.renderFormat === 'pdf' ? 'choice--active' : ''}}" role="button" aria-label="导出 PDF" data-value="pdf" bindtap="chooseFormat">PDF 打印包</view>
         <view hover-class="item--hover" class="choice {{state.renderFormat === 'note_app_file' ? 'choice--active' : ''}}" role="button" aria-label="导出笔记应用文件" data-value="note_app_file" bindtap="chooseFormat">笔记应用文件</view>
       </view>
-      <view class="field-label">题目版本</view>
+      <view class="field-label">选择题目</view>
       <view wx:for="{{state.eligibleContent}}" wx:key="contentVersionId">
         <view hover-class="item--hover" wx:if="{{item.track === state.track}}" class="content-row {{item.selected ? 'content-row--selected' : ''}}" role="checkbox" aria-checked="{{item.selected}}" data-id="{{item.contentVersionId}}" bindtap="toggleContent">
           <view><view class="content-title">{{item.title}}</view><view class="card-copy">{{item.sourceLabel}} · {{item.versionLabel}}</view></view>
@@ -42,21 +41,21 @@
       </view>
       <view wx:if="{{!state.eligibleContent.length}}" class="inline-note">还没有确认好的题目。<view hover-class="item--hover" class="inline-link" bindtap="openCaptureImport">去拍题或导入 →</view></view>
       <view wx:if="{{state.validationError}}" class="inline-error">{{state.validationError}}</view>
-      <view wx:if="{{state.error}}" class="inline-error">{{state.error.message}}<view wx:if="{{state.error.requestId}}">Request ID · {{state.error.requestId}}</view></view>
-      <view class="action-stack"><ui-button label="{{state.pendingRecovery ? '查询原生成命令' : '生成学习包'}}" loading="{{state.creating}}" disabled="{{!state.eligibleContent.length || state.operatingPacketId || state.openingPacketVersionId}}" bind:action="createPacket" /></view>
-      <view class="card-copy">生成中的学习包可以离开本页；返回后将按包版本查询状态。</view>
+      <view wx:if="{{state.error}}" class="inline-error">{{state.error.message}}<view wx:if="{{state.error.requestId}}">问题编号 · {{state.error.requestId}}</view></view>
+      <view class="action-stack"><ui-button label="{{state.pendingRecovery ? '确认刚才的结果' : '生成学习包'}}" loading="{{state.creating}}" disabled="{{!state.eligibleContent.length || state.operatingPacketId || state.openingPacketVersionId}}" bind:action="createPacket" /></view>
+      <view class="card-copy">生成过程中可以离开本页，稍后回来会继续显示进度。</view>
     </view>
 
-    <view class="section-head"><view class="section-head__title">历史学习包</view><view class="section-head__meta">版本与有效期独立管理</view></view>
-    <state-view wx:if="{{!state.packets.length}}" custom-class="packets-state-view" state="empty" title="还没有学习包" description="选择已确认题目后生成第一份；候选 OCR 不会出现在这里。" />
+    <view class="section-head"><view class="section-head__title">历史学习包</view><view class="section-head__meta">每份内容和有效期独立保存</view></view>
+    <state-view wx:if="{{!state.packets.length}}" custom-class="packets-state-view" state="empty" title="还没有学习包" description="选择已确认的题目后生成第一份；尚未核对的识别内容不会出现在这里。" />
     <view wx:for="{{state.packets}}" wx:key="packetVersionId" class="external-card packet-card">
       <view class="packet-head">
         <view><view class="card-title">学习包 {{item.packetId}}</view><view class="card-copy">{{item.versionLabel}} · {{item.itemCountLabel}} · {{item.renderFormat === 'pdf' ? 'PDF' : '笔记文件'}}</view></view>
         <view class="status-pill status-pill--{{item.stateTone}}">{{item.stateLabel}}</view>
       </view>
-      <view class="packet-meta"><text>创建 {{item.createdAtLabel}}</text><text>{{item.expiresAtLabel}}</text><text class="type-data">清单 {{item.manifestSha256}}</text></view>
+      <view class="packet-meta"><text>创建 {{item.createdAtLabel}}</text><text>{{item.expiresAtLabel}}</text></view>
       <view wx:if="{{item.state === 'requested' || item.state === 'generating'}}" class="inline-note">正在排版和校对题目……</view>
-      <view wx:elif="{{item.state === 'expired'}}" class="inline-warning">该版本已过期，原下载地址不再有效；重新生成会创建新版本。</view>
+      <view wx:elif="{{item.state === 'expired'}}" class="inline-warning">这份学习包已过期，原下载地址不再有效；重新生成会保留旧记录。</view>
       <view wx:elif="{{item.state === 'revoked'}}" class="inline-warning">内容授权已变更，旧包不能继续下载。</view>
       <view class="packet-actions">
         <view hover-class="item--hover" wx:if="{{item.canOpen}}" class="packet-action" role="button" aria-label="打开学习包" data-id="{{item.packetVersionId}}" bindtap="openPacket">{{state.openingPacketVersionId === item.packetVersionId ? '正在获取…' : '打开 / 导出'}}</view>

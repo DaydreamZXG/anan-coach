@@ -13,7 +13,7 @@
   </view>
   <view class="state-title">{{title}}</view>
   <view class="state-description">{{description}}</view>
-  <view wx:if="{{requestId}}" class="state-request">Request ID · {{requestId}}</view>
+  <view wx:if="{{requestId}}" class="state-request">问题编号 · {{requestId}}</view>
   <ui-button
     wx:if="{{actionText}}"
     custom-class="state-action"

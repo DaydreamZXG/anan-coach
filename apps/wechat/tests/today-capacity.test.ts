@@ -55,12 +55,12 @@ describe("today capacity command", () => {
     const draft = capacityDraftFromVersion(prototypeToday.capacity);
 
     expect(prepareCapacityCommand({ ...draft, energy: 0 }, "capacity-v1").error).toContain("精力");
-    expect(prepareCapacityCommand(draft, "").error).toContain("版本");
+    expect(prepareCapacityCommand(draft, "").error).toContain("重新载入");
   });
 
   it("never enables writes for prototype data or unauthenticated API data", () => {
     expect(capacityWritePolicy("prototype", "token")).toMatchObject({ allowed: false });
-    expect(capacityWritePolicy("prototype", "token").notice).toContain("不会伪造");
+    expect(capacityWritePolicy("prototype", "token").notice).toContain("不会保存");
     expect(capacityWritePolicy("api")).toMatchObject({ allowed: false });
     expect(capacityWritePolicy("api").notice).toContain("登录");
     expect(capacityWritePolicy("api", "token")).toMatchObject({ allowed: true });

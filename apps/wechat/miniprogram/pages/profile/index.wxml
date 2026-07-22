@@ -1,5 +1,6 @@
 <view class="s9-page profile-page">
-  <view class="profile-topbar"><view><view class="profile-kicker">账户、权益与长期学习档案</view><view class="profile-title">我的</view></view><button class="settings-button" aria-label="数据与隐私设置" bindtap="openPrivacy">⌁</button></view>
+  <view class="profile-topbar"><view><view class="profile-kicker">资料、时间与授权</view><view class="profile-title">我的</view></view><button class="settings-button" aria-label="数据与隐私设置" bindtap="openPrivacy">隐私</button></view>
+  <view class="profile-intro">把资料补准，<text class="profile-intro__accent">岸岸才排得准。</text></view>
 
   <state-view wx:if="{{status === 'loading'}}" custom-class="profile-state" state="loading" />
   <state-view wx:elif="{{status === 'error'}}" custom-class="profile-state" state="error" title="账户档案没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
@@ -8,31 +9,31 @@
     <view class="s9-card profile-hero">
       <view class="profile-head">
         <view class="profile-avatar"><anan-companion size="small" intent="encouragement" context="home" /></view>
-        <view class="profile-head-copy"><view class="profile-name">岸岸学员</view><view class="profile-caption">账户 {{accountIdLabel}} · {{accountStatusLabel}}</view></view>
-        <view class="profile-level">v{{profileVersion}}</view>
+        <view class="profile-head-copy"><view class="profile-head-label">你的岸岸档案</view><view class="profile-name">岸岸学员</view><view class="profile-caption">账户 {{accountIdLabel}} · {{accountStatusLabel}}</view></view>
+        <view class="profile-level">资料 v{{profileVersion}}</view>
       </view>
       <view class="profile-stats">
-        <view class="profile-stat"><text class="profile-stat__value">{{wechatLinkedLabel}}</text><text class="profile-stat__label">微信身份</text></view>
-        <view class="profile-stat"><text class="profile-stat__value type-data">{{profileVersion}}</text><text class="profile-stat__label">档案版本</text></view>
+        <view class="profile-stat"><text class="profile-stat__value">{{wechatLinkedLabel}}</text><text class="profile-stat__label">微信</text></view>
+        <view class="profile-stat"><text class="profile-stat__value type-data">{{profileVersion}}</text><text class="profile-stat__label">资料更新</text></view>
         <view class="profile-stat"><text class="profile-stat__value type-data">{{sessions.length}}</text><text class="profile-stat__label">登录设备</text></view>
-        <view class="profile-stat"><text class="profile-stat__value type-data">{{establishedLabel}}</text><text class="profile-stat__label">建立日期</text></view>
+        <view class="profile-stat"><text class="profile-stat__value type-data">{{establishedLabel}}</text><text class="profile-stat__label">加入岸岸</text></view>
       </view>
     </view>
 
     <view class="profile-menu s9-list">
-      <view hover-class="item--hover" class="profile-menu-row" bindtap="openQualificationProfile"><view class="menu-icon">资</view><view class="s9-list-main"><view class="s9-list-title">报考资格档案</view><view class="s9-list-copy">学历、专业、工作经历、基层经历和服务基层项目</view></view><view class="menu-arrow">›</view></view>
-      <view hover-class="item--hover" class="profile-menu-row" bindtap="openLearningProfile"><view class="menu-icon">档</view><view class="s9-list-main"><view class="s9-list-title">学习档案</view><view class="s9-list-copy">记录学习轨迹与成长</view></view><view class="menu-arrow">›</view></view>
-      <view hover-class="item--hover" class="profile-menu-row" bindtap="openPrivateKnowledge"><view class="menu-icon">料</view><view class="s9-list-main"><view class="s9-list-title">私人资料库</view><view class="s9-list-copy">讲义、笔记、Markdown 与可核对引用</view></view><view class="menu-arrow">›</view></view>
-      <view hover-class="item--hover" class="profile-menu-row" bindtap="openCompanion"><view class="menu-icon">岸</view><view class="s9-list-main"><view class="s9-list-title">问岸岸</view><view class="s9-list-copy">带着当前任务与证据继续追问</view></view><view class="menu-arrow">›</view></view>
-      <view hover-class="item--hover" class="profile-menu-row" bindtap="openNotificationSettings"><view class="menu-icon">督</view><view class="s9-list-main"><view class="s9-list-title">AI 督学提醒</view><view class="s9-list-copy">接收时段、频率、免打扰与微信单次授权</view></view><view class="menu-arrow">›</view></view>
-      <view hover-class="item--hover" class="profile-menu-row" bindtap="manageDailyOpening"><view class="menu-icon">晨</view><view class="s9-list-main"><view class="s9-list-title">岸岸每日开场</view><view class="s9-list-copy">{{openingPreferenceLabel}}</view></view><view class="menu-writing" wx:if="{{openingPreferenceWriting}}">写入中</view><view wx:else class="menu-arrow">›</view></view>
-      <view hover-class="item--hover" class="profile-menu-row" bindtap="openPrivacy"><view class="menu-icon">隐</view><view class="s9-list-main"><view class="s9-list-title">数据与隐私</view><view class="s9-list-copy">数据使用说明、导出与删除</view></view><view class="menu-arrow">›</view></view>
-      <view hover-class="item--hover" class="profile-menu-row" bindtap="openSupport"><view class="menu-icon">群</view><view class="s9-list-main"><view class="s9-list-title">备考群与客服</view><view class="s9-list-copy">群二维码上线后可在这里扫码加入</view></view><view class="menu-arrow">›</view></view>
-      <view hover-class="item--hover" class="profile-menu-row" bindtap="openReportCenter"><view class="menu-icon">报</view><view class="s9-list-main"><view class="s9-list-title">模考与报告</view><view class="s9-list-copy">标准卷、外部模考单和学习报告</view></view><view class="menu-arrow">›</view></view>
+      <view hover-class="item--hover" class="profile-menu-row" bindtap="openQualificationProfile"><view class="menu-icon menu-icon--teal">资</view><view class="s9-list-main"><view class="s9-list-title">报考资料</view><view class="s9-list-copy">学历、专业、工作经历与服务基层项目等</view></view><view class="menu-arrow">›</view></view>
+      <view hover-class="item--hover" class="profile-menu-row" bindtap="openLearningProfile"><view class="menu-icon menu-icon--blue">像</view><view class="s9-list-main"><view class="s9-list-title">学习画像</view><view class="s9-list-copy">看薄弱点、进步趋势和复盘记录</view></view><view class="menu-arrow">›</view></view>
+      <view hover-class="item--hover" class="profile-menu-row" bindtap="openPrivateKnowledge"><view class="menu-icon menu-icon--violet">料</view><view class="s9-list-main"><view class="s9-list-title">私人资料库</view><view class="s9-list-copy">讲义、笔记、Markdown 与可核对引用</view></view><view class="menu-arrow">›</view></view>
+      <view hover-class="item--hover" class="profile-menu-row" bindtap="openCompanion"><view class="menu-icon menu-icon--ai">岸</view><view class="s9-list-main"><view class="s9-list-title">问岸岸</view><view class="s9-list-copy">带着当前任务和已有依据继续问</view></view><view class="menu-arrow">›</view></view>
+      <view hover-class="item--hover" class="profile-menu-row" bindtap="openNotificationSettings"><view class="menu-icon menu-icon--orange">督</view><view class="s9-list-main"><view class="s9-list-title">AI 督学提醒</view><view class="s9-list-copy">设置提醒时段、频率、免打扰和取消订阅</view></view><view class="menu-arrow">›</view></view>
+      <view hover-class="item--hover" class="profile-menu-row" bindtap="manageDailyOpening"><view class="menu-icon menu-icon--gold">晨</view><view class="s9-list-main"><view class="s9-list-title">岸岸每日开场</view><view class="s9-list-copy">{{openingPreferenceLabel}}</view></view><view class="menu-writing" wx:if="{{openingPreferenceWriting}}">保存中</view><view wx:else class="menu-arrow">›</view></view>
+      <view hover-class="item--hover" class="profile-menu-row" bindtap="openPrivacy"><view class="menu-icon menu-icon--muted">隐</view><view class="s9-list-main"><view class="s9-list-title">数据与隐私</view><view class="s9-list-copy">查看数据用途，也可导出或删除</view></view><view class="menu-arrow">›</view></view>
+      <view hover-class="item--hover" class="profile-menu-row" bindtap="openSupport"><view class="menu-icon menu-icon--blue">群</view><view class="s9-list-main"><view class="s9-list-title">备考群与客服</view><view class="s9-list-copy">群二维码上线后，可在这里扫码加入</view></view><view class="menu-arrow">›</view></view>
+      <view hover-class="item--hover" class="profile-menu-row" bindtap="openReportCenter"><view class="menu-icon menu-icon--teal">报</view><view class="s9-list-main"><view class="s9-list-title">模考与报告</view><view class="s9-list-copy">标准模考、外部成绩和学习报告</view></view><view class="menu-arrow">›</view></view>
     </view>
 
     <view class="s9-card companion-quote">
-      <view class="quote-main"><view class="s9-card-kicker">岸岸 · 当前档案</view><view class="s9-card-copy">你的资格、岗位与学习证据都绑定到这个账户，更换设备不会丢失；任何 AI 判断都可以返回原始依据。</view></view>
+      <view class="quote-main"><view class="s9-card-kicker">每条建议都有依据</view><view class="s9-card-copy">资料、岗位和学习记录都属于你。岸岸的 AI 建议可以查看来源，你也可以随时修改、导出或删除。</view></view>
       <anan-companion size="small" intent="thinking" context="home" />
     </view>
 

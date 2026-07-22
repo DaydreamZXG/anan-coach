@@ -68,7 +68,7 @@ export function prepareCapacityCommand(
     return { command: null, error: "今日可用时间必须在 0–1440 分钟之间。" };
   }
   if (!basedOnCapacityVersionId.trim()) {
-    return { command: null, error: "当日容量版本缺失，请重新载入今日计划。" };
+    return { command: null, error: "今日计划已更新，请重新载入后再保存。" };
   }
   for (const [label, value] of [
     ["精力", draft.energy],
@@ -123,7 +123,7 @@ export function capacityWritePolicy(dataMode: DataMode, accessToken?: string): C
   if (dataMode === "prototype") {
     return {
       allowed: false,
-      notice: "当前是交互稿数据，可以体验编辑，但不会伪造容量版本或计划重排。",
+      notice: "当前展示的是预览数据，今天的时间不会保存。",
     };
   }
   if (!accessToken) {
@@ -132,7 +132,7 @@ export function capacityWritePolicy(dataMode: DataMode, accessToken?: string): C
       notice: "登录状态已失效，重新登录后才能确认今日容量。",
     };
   }
-  return { allowed: true, notice: "保存后，规划 Agent 会按新容量重排完整的今日计划。" };
+  return { allowed: true, notice: "保存后，岸岸会按新的可用时间重新安排今天。" };
 }
 
 export function formatCapacityIdempotencyKey(randomValues: ArrayBuffer): string {

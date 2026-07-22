@@ -64,10 +64,9 @@
 
     <view class="briefing-boundary">
       <view class="briefing-boundary__title">你已有外部备考经验？</view>
-      <view class="briefing-boundary__copy">外部成绩、错题和报告属于你的学习证据，不会因为账号刚注册就被忽略；接入后必须由你确认，才会影响能力与计划。</view>
+      <view class="briefing-boundary__copy">外部成绩、错题和报告都可以补充你的学习记录，不会因为刚注册就被忽略；只有你确认过的内容才会影响能力判断和计划。</view>
     </view>
 
-    <view wx:if="{{state.trace}}" class="request-id">Request ID · {{state.trace.requestId}}</view>
     <view class="briefing-actions">
       <ui-button label="查看岗位资格依据" variant="secondary" bind:action="openPositionEvidence" />
       <ui-button label="我明白了，进入今日" bind:action="enterToday" />

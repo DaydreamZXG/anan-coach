@@ -15,10 +15,10 @@
   <state-view wx:elif="{{state.status === 'expired'}}" custom-class="answer-state-view" state="stale" title="这次答案录入已失效" description="这几条没通过检查，不能保存。" action-text="重新录入" bind:action="resetDraft" />
 
   <block wx:else>
-    <view wx:if="{{state.generatedAt}}" class="delivery-strip"><text>可用学习包 {{state.targets.length}} 份</text><text>生成于 {{state.generatedAt}}</text><text>Request ID · {{state.requestId}}</text></view>
+    <view wx:if="{{state.generatedAt}}" class="delivery-strip"><text>可用学习包 {{state.targets.length}} 份</text><text>更新于 {{state.generatedAt}}</text></view>
 
     <block wx:if="{{state.status === 'draft' || (state.status === 'error' && !state.workspace)}}">
-      <view class="section-head"><view class="section-head__title">选择学习包</view><view class="section-head__meta">答案将绑定该包版本</view></view>
+      <view class="section-head"><view class="section-head__title">选择学习包</view><view class="section-head__meta">答案会保存到这份学习包</view></view>
       <scroll-view class="target-scroll" scroll-x enable-flex>
         <view hover-class="item--hover" wx:for="{{state.targets}}" wx:key="packetVersionId" class="target-card {{state.selectedPacketVersionId === item.packetVersionId ? 'target-card--selected' : ''}}" role="button" aria-label="选择 {{item.packetTitle}}" data-id="{{item.packetVersionId}}" bindtap="selectPacket">
           <view class="target-track">{{item.trackLabel}}</view><view class="target-title">{{item.packetTitle}}</view><view class="card-copy">{{item.versionLabel}} · {{item.itemCount}} 题</view><view class="target-expiry">{{item.expiresAtLabel}}</view>
@@ -56,9 +56,9 @@
     </block>
 
     <block wx:elif="{{state.status === 'correction'}}">
-      <view class="delivery-strip"><text>{{state.workspace.packetTitle || '未命名学习包'}} · 答案 v{{state.workspace.ingestion.versionNo}}</text><text>输入方式 {{state.workspace.ingestion.inputMode}}</text><text>Request ID · {{state.workspace.requestId}}</text></view>
+      <view class="delivery-strip"><text>{{state.workspace.packetTitle || '未命名学习包'}}</text><text>输入方式 {{state.workspace.ingestion.inputMode}}</text></view>
       <view wx:if="{{state.workspace.partialReasons.length}}" class="inline-warning"><view>部分结果需要额外核对：</view><view wx:for="{{state.workspace.partialReasons}}" wx:key="*this">· {{item}}</view></view>
-      <view class="section-head"><view class="section-head__title">逐题核对</view><view class="section-head__meta">{{state.candidateItems.length}} 题 · 仍未写入</view></view>
+      <view class="section-head"><view class="section-head__title">逐题核对</view><view class="section-head__meta">{{state.candidateItems.length}} 题 · 尚未保存</view></view>
       <view wx:for="{{state.candidateItems}}" wx:key="itemId" class="answer-row">
         <view class="answer-order type-data">{{item.orderNo}}</view>
         <view class="answer-field">
@@ -81,10 +81,10 @@
 
     <view wx:if="{{state.confirmationOpen}}" class="sheet-mask" catchtouchmove="noop"></view>
     <view wx:if="{{state.confirmationOpen}}" class="confirmation-sheet">
-      <view class="sheet-title">确认写入 {{state.candidateItems.length}} 题答案？</view>
+      <view class="sheet-title">确认保存 {{state.candidateItems.length}} 题答案？</view>
       <view class="card-copy">确认后保存到你的学习记录。网络不好时会自动重试，不会重复保存。</view>
-      <view wx:if="{{state.error}}" class="inline-error">{{state.error.message}}<view wx:if="{{state.error.requestId}}">Request ID · {{state.error.requestId}}</view></view>
-      <view class="sheet-actions"><ui-button label="返回修正" variant="secondary" disabled="{{state.submitting || state.pendingRecovery}}" bind:action="cancelConfirmation" /><ui-button label="{{state.pendingRecovery ? '恢复原确认命令' : '确认并写入'}}" loading="{{state.submitting}}" bind:action="confirmAndCommit" /></view>
+      <view wx:if="{{state.error}}" class="inline-error">{{state.error.message}}<view wx:if="{{state.error.requestId}}">问题编号 · {{state.error.requestId}}</view></view>
+      <view class="sheet-actions"><ui-button label="返回修正" variant="secondary" disabled="{{state.submitting || state.pendingRecovery}}" bind:action="cancelConfirmation" /><ui-button label="{{state.pendingRecovery ? '确认刚才的结果' : '确认并保存'}}" loading="{{state.submitting}}" bind:action="confirmAndCommit" /></view>
     </view>
   </block>
 </view>

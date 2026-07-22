@@ -290,7 +290,7 @@ export const visualScenarios = [
       capacitySubmission: "idle",
       capacityMessage: "",
       capacityWriteAllowed: true,
-      capacityWriteNotice: "保存后会生成新的容量与计划版本。",
+      capacityWriteNotice: "保存后，岸岸会按新的可用时间重新安排今天。",
       energyLabel: "状态不错",
       stressLabel: "压力可控",
       confidenceLabel: "基本确定",
@@ -314,7 +314,7 @@ export const visualScenarios = [
       view: {
         positionName: "国家税务总局 · 一级行政执法员",
         evidenceSummary: "资格已确认 · 岗位目标有效至 2027.07.01",
-        capacityStatusLabel: "已确认容量版本",
+        capacityStatusLabel: "今日时间已确认",
         hasCompleteGoalGap: true,
         currentScore: "124",
         targetScore: "133",

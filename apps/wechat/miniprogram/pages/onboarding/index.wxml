@@ -116,7 +116,7 @@
       </view>
     </view>
     <view wx:if="{{error}}" class="error-banner">{{error}}</view>
-    <view wx:if="{{requestId}}" class="request-id">Request ID · {{requestId}}</view>
+    <view wx:if="{{requestId}}" class="request-id">问题编号 · {{requestId}}</view>
     <view class="s9-action-dock">
       <view class="s9-action-row">
         <button wx:if="{{current > 0}}" class="s9-secondary-button" bindtap="previous">返回</button>

@@ -39,7 +39,7 @@
 .card {
   box-sizing: border-box;
   padding: 28rpx;
-  border: 1rpx solid var(--color-line);
+  border: 1rpx solid rgba(198, 217, 213, 0.72);
   border-radius: var(--radius-card);
   background: var(--color-surface-glass);
   box-shadow: var(--shadow-card);
@@ -115,7 +115,7 @@
 .skeleton {
   height: 168rpx;
   border-radius: var(--radius-card);
-  background: linear-gradient(90deg, #f1e7d6 25%, #faf5ec 50%, #f1e7d6 75%);
+  background: linear-gradient(90deg, #e6f0ee 25%, #f6faf9 50%, #e6f0ee 75%);
   background-size: 400% 100%;
   animation: shimmer 1.4s ease infinite;
 }

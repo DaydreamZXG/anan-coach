@@ -57,7 +57,7 @@
           data-block-id="{{item.blockId}}"
           catchtap="previewOcrOriginal"
         >
-          查看 OCR 原图
+          查看识别原图
         </button>
       </view>
     </view>
@@ -82,7 +82,7 @@
         data-block-id="{{item.blockId}}"
         catchtap="previewOcrOriginal"
       >
-        查看 OCR 原图
+        查看识别原图
       </button>
     </view>
 

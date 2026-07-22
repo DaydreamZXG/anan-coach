@@ -1,27 +1,44 @@
 <view class="login-page">
+  <view class="login-aurora login-aurora--one"></view>
+  <view class="login-aurora login-aurora--two"></view>
+
   <view class="brand-lockup" aria-label="岸岸">
     <view class="brand-mark">岸</view>
-    <view class="brand-name">岸岸</view>
+    <view>
+      <view class="brand-name">岸岸</view>
+      <view class="brand-caption">ANAN AI STUDY</view>
+    </view>
   </view>
 
   <view class="login-copy">
-    <view class="eyebrow">基于真实题与岗位数据的 AI 备考伙伴</view>
+    <view class="eyebrow"><text class="eyebrow-dot"></text>你的国考 AI 备考搭子</view>
     <view class="hero-title">
       <view>把分差，</view>
       <view>变成<text class="hero-title__accent">今天的行动</text>。</view>
     </view>
     <view class="hero-copy">
-      不承诺上岸，不制造焦虑。只按你的岗位、水平和时间，告诉你今天最该练什么。
+      按你的目标岗位、可用时间和真实练习，把备考拆成每天可执行的一步。
+    </view>
+    <view class="login-capabilities">
+      <view class="capability-chip"><text class="capability-chip__mark">◇</text><text>岗位定位</text></view>
+      <view class="capability-chip"><text class="capability-chip__mark">◇</text><text>每日计划</text></view>
+      <view class="capability-chip"><text class="capability-chip__mark">◇</text><text>证据复盘</text></view>
     </view>
   </view>
 
   <view class="companion-stage">
-    <anan-companion
-      intent="companion"
-      size="hero-240"
-      context="home"
-      label="岸岸欢迎你开始备考"
-    />
+    <view class="companion-orbit companion-orbit--outer"></view>
+    <view class="companion-orbit companion-orbit--inner"></view>
+    <view class="companion-glow"></view>
+    <view class="companion-asset">
+      <anan-companion
+        intent="companion"
+        size="hero-240"
+        context="home"
+        label="岸岸欢迎你开始备考"
+      />
+    </view>
+    <view class="ai-status"><text class="ai-status__dot"></text><text>岸岸已就位</text></view>
   </view>
 
   <view class="login-actions">
@@ -34,13 +51,13 @@
     >
       <view wx:if="{{!submitting && !restoring}}" class="wechat-button__content">
         <view class="wechat-icon" aria-hidden="true"></view>
-        <text>微信登录</text>
+        <text>微信登录，开始建档</text>
       </view>
       <text wx:else>{{restoring ? '正在恢复登录…' : '正在登录…'}}</text>
     </button>
     <view class="legal">
-      <text class="legal-symbol" aria-hidden="true">◇</text>
-      <text>数据加密存储，可随时导出与删除</text>
+      <text class="legal-symbol" aria-hidden="true">◈</text>
+      <text>仅收集建档和学习分析所需信息，可导出，也可删除</text>
     </view>
   </view>
 </view>

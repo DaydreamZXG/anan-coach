@@ -48,8 +48,8 @@
     <view wx:if="{{state.invalidations.length}}" class="invalidation-list"><view wx:for="{{state.invalidations}}" wx:key="code" class="invalidation-item"><text class="invalidation-dot"></text><view class="invalidation-item__copy"><text class="invalidation-item__title">{{item.label}}</text><text class="invalidation-item__meta">影响项 · {{item.code}}</text></view></view></view>
     <view wx:else class="capability-card"><view class="capability-card__title">暂时看不到计划影响</view><view class="capability-card__copy">确认目标前，需要先明确哪些计划会被重排。</view></view>
 
-    <view wx:if="{{state.delivery}}" class="delivery-strip"><text>生成 {{state.delivery.generatedAtLabel}}</text><text class="delivery-strip__request">Request ID · {{state.delivery.requestId}}</text></view>
-    <view wx:if="{{state.status === 'confirmed'}}" class="success-card">目标已确认。过期的内容会自动重排。<text wx:if="{{state.commandTrace}}">Request ID · {{state.commandTrace.requestId}}</text></view>
+    <view wx:if="{{state.delivery}}" class="delivery-strip"><text>更新于 {{state.delivery.generatedAtLabel}}</text></view>
+    <view wx:if="{{state.status === 'confirmed'}}" class="success-card">目标已确认。过期的内容会自动重新安排。</view>
     <view wx:if="{{state.status === 'confirmed' && state.offerExamBriefing && resolvingPostGoalAction}}" class="orientation-card">
       <view class="orientation-card__eyebrow">正在对齐首日入口</view>
       <view class="orientation-card__title">主目标已确认，正在读取你的备考经历</view>

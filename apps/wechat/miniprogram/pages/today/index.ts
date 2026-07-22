@@ -186,7 +186,7 @@ Page<TodayPageData, TodayPageCustom>({
       capacityDurationLabel: capacityDurationLabel(draft),
       capacitySubmission,
       capacityMessage:
-        capacitySubmission === "success" ? "容量版本已确认，今日计划已按新状态完整重排。" : "",
+        capacitySubmission === "success" ? "可用时间已确认，今天的安排已重新生成。" : "",
       capacityWriteAllowed: policy.allowed,
       capacityWriteNotice: policy.notice,
       energyLabel: capacityScaleLabel("energy", draft.energy),

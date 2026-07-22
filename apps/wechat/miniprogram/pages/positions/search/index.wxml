@@ -61,7 +61,6 @@
       <text wx:if="{{state.delivery.partial}}" class="delivery-strip__warning">{{state.delivery.partialLabel}}</text>
       <text wx:if="{{state.delivery.stale}}" class="delivery-strip__warning">{{state.delivery.staleLabel}}</text>
       <text wx:if="{{state.delivery.processing}}" class="delivery-strip__processing">{{state.delivery.processingLabel}}</text>
-      <text class="delivery-strip__request">Request ID · {{state.delivery.requestId}}</text>
     </view>
     <view class="section-heading"><view class="section-title">筛选结果</view><view class="section-meta">已加载 {{state.items.length}} 个</view></view>
     <view class="position-card-grid">
@@ -82,7 +81,7 @@
   </block>
 
   <view wx:if="{{state && state.selectedIds.length > 0}}" class="comparison-dock">
-    <view class="comparison-dock__summary"><text class="comparison-dock__title">已选 {{state.selectedIds.length}} / 3</text><text class="comparison-dock__note">{{state.selectedIds.length < 2 ? '再选 1 个开始对比' : '按同一档案版本重新核验'}}</text></view>
+    <view class="comparison-dock__summary"><text class="comparison-dock__title">已选 {{state.selectedIds.length}} / 3</text><text class="comparison-dock__note">{{state.selectedIds.length < 2 ? '再选 1 个开始对比' : '按你当前资料重新核验'}}</text></view>
     <view class="comparison-dock__clear" bindtap="clearComparison">清空</view>
     <view class="comparison-dock__action {{state.selectedIds.length < 2 ? 'comparison-dock__action--disabled' : ''}}" bindtap="openComparison">对比</view>
   </view>

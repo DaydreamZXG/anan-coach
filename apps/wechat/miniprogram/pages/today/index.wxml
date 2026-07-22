@@ -1,15 +1,13 @@
 <view class="s9-page today-page">
   <view class="today-topbar">
-    <view>
-      <view class="today-kicker">岸岸 · 今日计划</view>
-      <view class="today-heading">今日</view>
-    </view>
+    <view class="today-kicker"><text class="today-kicker__dot"></text>岸岸已把今天排好了</view>
     <button class="today-capture" bindtap="openCaptureImport">
-      <text class="today-capture__icon">⌁</text>
+      <view class="today-capture__icon" aria-hidden="true"><view class="today-capture__lens"></view></view>
       <text>拍题</text>
     </button>
   </view>
-  <view class="today-intro">今天只做最值钱的事。按你的目标、水平和时间，岸岸已经排好了。</view>
+  <view class="today-heading">今天，<text class="today-heading__accent">先做最关键的。</text></view>
+  <view class="today-intro">按目标岗位、可用时间和最近表现，岸岸只保留今天最值得做的事。</view>
 
   <block wx:if="{{status === 'loading'}}">
     <view class="top-space"><state-view state="loading" /></view>
@@ -31,11 +29,11 @@
         <view class="daily-opening__identity">
           <anan-companion intent="encouragement" size="small" context="home" label="岸岸" />
           <view>
-            <view class="daily-opening__kicker">岸岸 · {{openingView.localDateLabel}}</view>
+            <view class="daily-opening__kicker">今日开场 · {{openingView.localDateLabel}}</view>
             <view class="daily-opening__greeting">{{openingView.greeting}}</view>
           </view>
         </view>
-        <view class="daily-opening__once">今日一次</view>
+        <view class="daily-opening__once">每天一次</view>
       </view>
 
       <view wx:if="{{openingView.weatherReady}}" class="daily-opening__weather">
@@ -80,12 +78,12 @@
     <view class="focus-dashboard card top-space">
       <view class="dashboard-hero-strip">
         <view class="dashboard-hero-main">
-          <view class="goal-label">今日备考主目标</view>
+          <view class="goal-label">今天围绕这个目标</view>
           <view class="goal-name">{{view.positionName}}</view>
           <view class="goal-evidence">{{view.evidenceSummary}}</view>
         </view>
         <view class="dashboard-hero-side">
-          <view class="pill {{view.capacityStatusLabel === '已确认容量版本' ? 'pill--success' : ''}}">{{view.capacityStatusLabel}}</view>
+          <view class="pill {{view.capacityStatusLabel === '今日时间已确认' ? 'pill--success' : ''}}">{{view.capacityStatusLabel}}</view>
         </view>
       </view>
 
@@ -111,7 +109,7 @@
       <view class="coach-insight-box">
         <view class="coach-insight-header">
           <anan-companion intent="thinking" size="small" context="plan" label="岸岸判断" />
-          <view class="coach-mark">AI 导读建议 · {{view.confidence}}</view>
+          <view class="coach-mark">岸岸建议 · {{view.confidence}}</view>
         </view>
         <view class="coach-headline">{{view.headline}}</view>
         <view class="coach-copy">{{view.rationale}}</view>
@@ -127,7 +125,7 @@
           </view>
         </view>
         <button class="capacity-edit-button" bindtap="toggleCapacityEditor">
-          {{capacityEditorOpen ? '收起调整' : '调整容量'}}
+          {{capacityEditorOpen ? '收起调整' : '调整时间'}}
         </button>
       </view>
 
@@ -135,7 +133,7 @@
         <view class="capacity-field">
           <view class="capacity-field-heading">
             <view class="capacity-field-copy">
-              <view class="capacity-field-label">今日真实可用时间</view>
+              <view class="capacity-field-label">今天能学多久</view>
               <view class="capacity-field-help">按半小时选择，包含做题、复盘和申论作答的总时间</view>
             </view>
             <view class="capacity-time-current type-data">{{capacityDurationLabel}}</view>
@@ -208,8 +206,8 @@
         </view>
 
         <view class="capacity-recovery-hint">
-          <view class="capacity-recovery-title">精力与压力会影响恢复模式</view>
-          <view>低精力或高压力时，规划 Agent 会减少新知识负荷，优先保留必要复测与恢复任务。</view>
+          <view class="capacity-recovery-title">精力和压力会影响今天的安排</view>
+          <view>精力较低或压力较高时，岸岸会减少新内容，优先保留必要的复习和验证。</view>
         </view>
 
         <view class="capacity-field">
@@ -263,7 +261,7 @@
           disabled="{{!capacityWriteAllowed || capacitySubmission === 'submitting'}}"
           bindtap="submitCapacity"
         >
-          {{capacitySubmission === 'submitting' ? '正在重排今日计划' : '确认容量并重排计划'}}
+          {{capacitySubmission === 'submitting' ? '正在重新安排今天' : '确认时间并重新安排'}}
         </button>
       </view>
 
@@ -330,8 +328,8 @@
     >
 
     <view wx:if="{{!view.hasTasks}}" class="task-empty card">
-      <view>今天暂时没有可做的任务。</view>
-      <text class="task-empty__note">这不是故障；可能是资料、时间或内容条件还没补齐。</text>
+      <view>还没有今日计划。</view>
+      <text class="task-empty__note">先补齐目标岗位和学习时间，岸岸才能排得准。</text>
     </view>
 
     <view wx:if="{{taskNavigationError}}" class="task-navigation-error">
@@ -364,7 +362,7 @@
         </view>
         <view class="task-title">{{taskOpeningId === item.id ? '正在打开···' : item.title}}</view>
         <view class="task-reason">{{item.reason}}</view>
-        <view class="task-rule">验收：{{item.completionRule}}</view>
+        <view class="task-rule">完成标准：{{item.completionRule}}</view>
         <view class="task-basis">
           <view class="task-basis-title">安排依据</view>
           <view class="task-priority">
@@ -391,6 +389,6 @@
       </view>
     </view>
 
-    <button class="setup-link" bindtap="openOnboarding">修改建档与学习设置 →</button>
+    <button class="setup-link" bindtap="openOnboarding">调整个人资料与学习时间 →</button>
   </block>
 </view>

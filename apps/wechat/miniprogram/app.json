@@ -87,17 +87,17 @@
     }
   ],
   "window": {
-    "navigationBarTitleText": "上岸教练",
-    "navigationBarBackgroundColor": "#FAF3EA",
+    "navigationBarTitleText": "岸岸",
+    "navigationBarBackgroundColor": "#F3F8F7",
     "navigationBarTextStyle": "black",
-    "backgroundColor": "#FAF3EA",
+    "backgroundColor": "#F3F8F7",
     "backgroundTextStyle": "dark",
     "pageOrientation": "auto"
   },
   "tabBar": {
-    "color": "#B3A189",
-    "selectedColor": "#E0601F",
-    "backgroundColor": "#FFFBF5",
+    "color": "#7E918D",
+    "selectedColor": "#0B9F8C",
+    "backgroundColor": "#FAFDFC",
     "borderStyle": "white",
     "list": [
       {

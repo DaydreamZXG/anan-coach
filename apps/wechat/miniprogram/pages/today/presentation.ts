@@ -128,23 +128,23 @@ const statusLabels: Record<TodayTask["status"], string> = {
 
 const modeLabels: Record<TodayDashboard["dualTrackExplanation"]["mode"], string> = {
   balanced: "双轨平衡",
-  capacity_limited: "容量受限",
+  capacity_limited: "时间较少",
   mock_day: "模考日",
   recovery_day: "恢复日",
-  evidence_missing: "证据缺口",
+  evidence_missing: "还需补资料",
 };
 
 const ownerLabels: Record<string, string> = {
-  planning: "规划 Agent",
-  planning_agent: "规划 Agent",
-  position_goal: "岗位 Agent",
-  ability_estimation: "能力估计",
-  "ability-estimation-agent": "能力估计",
-  objective_learning: "行测学习大脑",
-  essay_intelligence: "申论学习大脑",
+  planning: "计划依据",
+  planning_agent: "计划依据",
+  position_goal: "目标岗位",
+  ability_estimation: "当前水平",
+  "ability-estimation-agent": "当前水平",
+  objective_learning: "行测学习记录",
+  essay_intelligence: "申论学习记录",
   planning_execution: "任务执行",
-  "learning-brain": "学习大脑",
-  "reflection-agent": "复盘 Agent",
+  "learning-brain": "学习记录",
+  "reflection-agent": "复盘记录",
 };
 
 const entityLabels: Record<string, string> = {
@@ -195,7 +195,7 @@ export function presentTodayDashboard(dashboard: TodayDashboard): TodayView {
     energy: dashboard.capacity.energy,
     stress: dashboard.capacity.stress,
     confidenceLevel: dashboard.capacity.confidenceLevel,
-    capacityStatusLabel: dashboard.capacity.confirmed ? "已确认容量版本" : "待确认容量版本",
+    capacityStatusLabel: dashboard.capacity.confirmed ? "今日时间已确认" : "确认今日时间",
     capacitySourceLabel: capacitySourceLabel(dashboard),
     planSectionTitle: planSectionTitle(dashboard),
     planModeLabel: modeLabels[dashboard.dualTrackExplanation.mode],
@@ -241,7 +241,7 @@ function presentGoalGap(dashboard: TodayDashboard) {
   if (!goalId) {
     return unavailableGoalGap(
       "尚未确认主目标岗位",
-      "先确认一个主目标岗位，规划 Agent 才能读取对应的备考线。",
+      "先选一个主目标岗位，岸岸才能按对应的备考线安排今天。",
     );
   }
   if (!targetScore) {
@@ -310,7 +310,7 @@ function presentTask(task: TodayTask): TaskView {
       ? ""
       : terminal
         ? "该工作项已终止，不能重复开始。"
-        : "该页面尚未接入真实学习证据与任务执行写入，暂不开放。",
+        : "这项任务还没准备好，所需资料齐全后就会开放。",
   };
 }
 
@@ -367,13 +367,9 @@ function planSectionTitle(dashboard: TodayDashboard): string {
 
 function capacitySourceLabel(dashboard: TodayDashboard): string {
   if (dashboard.capacity.sourceType === "user_override") {
-    return dashboard.capacity.confirmed
-      ? "来自你对今日容量的确认"
-      : "来自今日容量设置，当前版本尚未确认";
+    return dashboard.capacity.confirmed ? "你今天确认的时间" : "你今天设置的时间，还待确认";
   }
-  return dashboard.capacity.confirmed
-    ? "来自已确认的每周学习设置"
-    : "由每周学习设置推导，今日尚未单独确认";
+  return dashboard.capacity.confirmed ? "按你的每周学习时间" : "按每周学习时间预排，今天还待确认";
 }
 
 export function evidenceReferenceLabel(reference: PlanningEvidenceRef): string {

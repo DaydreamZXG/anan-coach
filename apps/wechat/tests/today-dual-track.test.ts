@@ -112,7 +112,7 @@ describe("today dual-track planning", () => {
       navigationMode: null,
       navigationUrl: null,
     });
-    expect(prototypeOnly?.disabledReason).toContain("真实学习证据");
+    expect(prototypeOnly?.disabledReason).toContain("所需资料齐全后");
   });
 
   it("presents execution status and elapsed time without exposing raw status roles", () => {
@@ -168,7 +168,7 @@ describe("today dual-track planning", () => {
         entityType: "essay_review_version",
         entityId: "review-1",
       }),
-    ).toBe("申论学习大脑 · 申论评阅版本");
+    ).toBe("申论学习记录 · 申论评阅版本");
     expect(
       evidenceReferenceLabel({
         owner: "custom_owner",

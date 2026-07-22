@@ -16,9 +16,15 @@
 
   <block wx:elif="{{state}}">
     <block wx:if="{{state.status === 'idle'}}">
+      <view class="capture-ai-intro">
+        <view class="capture-ai-intro__eyebrow"><text class="capture-ai-intro__dot"></text>岸岸视觉识别</view>
+        <view class="capture-ai-intro__title">拍清题目，<text class="capture-ai-intro__accent">先识别再解析。</text></view>
+        <view class="capture-ai-intro__copy">题干、材料和选项都放进画面；识别完成后，由你确认内容。</view>
+      </view>
+
       <view class="capture-mode-switch">
         <view hover-class="item--hover" class="capture-mode {{mode === 'search' ? 'capture-mode--active' : ''}}" data-mode="search" bindtap="chooseMode">单题搜题</view>
-        <view hover-class="item--hover" class="capture-mode {{mode === 'import' ? 'capture-mode--active' : ''}}" data-mode="import" bindtap="chooseMode">单题资料导入</view>
+        <view hover-class="item--hover" class="capture-mode {{mode === 'import' ? 'capture-mode--active' : ''}}" data-mode="import" bindtap="chooseMode">资料导入</view>
       </view>
 
       <view wx:if="{{mode === 'search'}}" class="ilink-card">
@@ -66,7 +72,7 @@
       </view>
 
       <view class="camera-stage">
-        <view class="camera-chip">自动识别行测 / 申论</view>
+        <view class="camera-chip">岸岸先识别，你来确认</view>
         <view class="camera-document">
           <view class="camera-document__label">题目区域</view>
           <view class="camera-document__line camera-document__line--wide"></view>
@@ -99,15 +105,15 @@
         <button class="import-action import-action--primary" bindtap="choosePdf">导入 PDF</button>
       </view>
       <view wx:if="{{state.validationError}}" class="capture-error">{{state.validationError}}</view>
-      <view class="capture-privacy">图片仅用于本次识别与个人学习，不进入公共题库或模型训练；微信发图查询也遵循同一边界</view>
+      <view class="capture-privacy">题图默认只用于本次识别；你确认后，才会计入个人学习画像。不进入公共题库，不用于训练基础模型。</view>
     </block>
 
     <block wx:elif="{{state.status === 'uploading'}}">
       <view class="capture-content">
         <view class="s9-hero">
-          <view class="s9-kicker">安全上传</view>
+          <view class="s9-kicker">岸岸正在读取</view>
           <view class="s9-title">正在读取题面</view>
-          <view class="s9-subtitle">原图会先完成完整性、安全与归属校验，再进入 OCR。</view>
+          <view class="s9-subtitle">先确认图片清晰且安全，再识别题干、材料和选项。</view>
         </view>
         <view class="capture-progress-card">
           <view class="capture-progress-number type-data">{{state.uploadProgress ? state.uploadProgress.percent : 0}}%</view>
@@ -118,7 +124,7 @@
     </block>
 
     <view wx:elif="{{state.status === 'processing'}}" class="capture-content">
-      <state-view state="processing" title="正在识别题面" description="{{state.workspace && state.workspace.processingLabel ? state.workspace.processingLabel : '正在分页、分区并识别文字。'}}" request-id="{{state.workspace ? state.workspace.requestId : ''}}" />
+      <state-view state="processing" title="正在识别题面" description="{{state.workspace && state.workspace.processingLabel ? state.workspace.processingLabel : '岸岸正在整理题干、材料和选项。'}}" request-id="{{state.workspace ? state.workspace.requestId : ''}}" />
     </view>
 
     <view wx:elif="{{state.status === 'expired'}}" class="capture-content">
@@ -126,12 +132,12 @@
     </view>
 
     <view wx:elif="{{state.status === 'quarantined'}}" class="capture-content">
-      <state-view state="error" title="文件没有通过安全检查" description="该文件不会进入 OCR、匹配或学习诊断。" request-id="{{state.workspace ? state.workspace.requestId : ''}}" action-text="选择其他文件" bind:action="restart" />
+      <state-view state="error" title="文件没有通过安全检查" description="这份文件不会继续识别，也不会写入你的学习记录。" request-id="{{state.workspace ? state.workspace.requestId : ''}}" action-text="选择其他文件" bind:action="restart" />
     </view>
 
     <view wx:elif="{{state.status === 'error'}}" class="capture-content">
       <state-view state="error" title="{{state.error ? state.error.title : '处理没有完成'}}" description="{{state.error ? state.error.message : '请重新拍摄或刷新当前版本。'}}" request-id="{{state.error ? state.error.requestId : ''}}" action-text="{{state.pendingRecovery || state.workspace ? '恢复当前操作' : '重新选择题目'}}" bind:action="handleErrorAction" />
-      <view wx:if="{{state.error && !state.error.retryable}}" class="capture-boundary capture-boundary--error">当前错误不会自动重试，避免把题图、答案或资料发送到未放行链路；可以返回手动录入、已确认题库或私人资料能力。</view>
+      <view wx:if="{{state.error && !state.error.retryable}}" class="capture-boundary capture-boundary--error">这次不会自动重试，避免重复提交题图。你可以重新选图，或返回手动录入。</view>
     </view>
 
     <block wx:elif="{{state.status === 'review'}}">
@@ -154,7 +160,7 @@
           <view class="ocr-card__head"><text class="ocr-card__title">识别文字</text><text class="ocr-card__count">{{state.segments.length}} 个片段</text></view>
           <view wx:for="{{state.segments}}" wx:key="segmentId" class="ocr-segment">
             <view class="ocr-segment__meta"><text>第 {{item.pageNo}} 页 · 片段 {{item.ordinal}}</text><text class="status-{{item.tone}}">{{item.confidenceLabel}}</text></view>
-            <textarea cursor-spacing="24" class="ocr-segment__input" value="{{item.text}}" disabled="{{state.submitting || state.reviewStep === 'match'}}" data-id="{{item.segmentId}}" aria-label="第 {{item.ordinal}} 个 OCR 文本" bindinput="inputSegment" />
+            <textarea cursor-spacing="24" class="ocr-segment__input" value="{{item.text}}" disabled="{{state.submitting || state.reviewStep === 'match'}}" data-id="{{item.segmentId}}" aria-label="第 {{item.ordinal}} 段识别文字" bindinput="inputSegment" />
           </view>
         </view>
 
@@ -208,7 +214,7 @@
           <text class="result-reason-card__title">这次匹配如何产生</text>
           <text class="result-reason-card__copy">系统先识别题面，再在当前授权范围内比较题干、选项、材料与图片特征；最终版本由你亲自确认。</text>
         </view>
-        <view class="capture-boundary">参考答案不会冒充你的作答，也不会写入能力画像；录入你的真实答案后才会形成学习证据。</view>
+        <view class="capture-boundary">参考答案不会冒充你的作答，也不会影响能力判断；录入你的真实答案后才会计入学习记录。</view>
         <button class="capture-primary" bindtap="openLearningPackets">生成这道题的学习包</button>
         <button class="capture-secondary" bindtap="openAnswerIngestion">录入已有学习包答案</button>
         <button class="capture-secondary" bindtap="restart">继续拍下一题</button>

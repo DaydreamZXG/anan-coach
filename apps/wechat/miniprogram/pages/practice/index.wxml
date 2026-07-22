@@ -1,6 +1,6 @@
 <task-shell
   title="{{view ? view.title : '真实行测训练'}}"
-  modeLabel="{{view ? view.modeLabel : '行测 Agent'}}"
+  modeLabel="{{view ? view.modeLabel : '行测练习'}}"
   current="{{view ? view.current : 1}}"
   total="{{view ? view.total : 1}}"
   elapsedLabel="{{view ? view.elapsedLabel : '00:00'}}"

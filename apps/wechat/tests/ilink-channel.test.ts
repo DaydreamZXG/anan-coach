@@ -69,6 +69,7 @@ describe("official iLink photo channel", () => {
     ]) {
       expect(captureTemplate).toContain(token);
     }
-    expect(captureTemplate).toContain("不进入公共题库或模型训练");
+    expect(captureTemplate).toContain("不进入公共题库");
+    expect(captureTemplate).toContain("不用于训练基础模型");
   });
 });

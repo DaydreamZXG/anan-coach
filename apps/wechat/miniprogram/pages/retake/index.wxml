@@ -15,7 +15,7 @@
     <anan-companion size="large" intent="rest" context="emotion" />
     <view class="state-title">失分回收计划没有加载完成</view>
     <view class="state-copy">{{state.error.message}}</view>
-    <view wx:if="{{state.error.requestId}}" class="request-id">Request ID · {{state.error.requestId}}</view>
+    <view wx:if="{{state.error.requestId}}" class="request-id">问题编号 · {{state.error.requestId}}</view>
     <ui-button label="重新读取" bind:action="retry" />
   </view>
 
@@ -39,8 +39,8 @@
         </view>
       </view>
       <view class="boundary-note">{{state.scoreUseBoundary}}</view>
-      <view wx:if="{{state.pendingRecovery}}" class="recovery-banner">上一次创建结果未知，本次只查询同一个计划命令。</view>
-      <view wx:if="{{state.error}}" class="error-banner"><view>{{state.error.message}}</view><view wx:if="{{state.error.requestId}}" class="request-id">Request ID · {{state.error.requestId}}</view></view>
+      <view wx:if="{{state.pendingRecovery}}" class="recovery-banner">上一次创建结果还不确定，本次只会确认刚才的结果，不会重复创建。</view>
+      <view wx:if="{{state.error}}" class="error-banner"><view>{{state.error.message}}</view><view wx:if="{{state.error.requestId}}" class="request-id">问题编号 · {{state.error.requestId}}</view></view>
       <view class="s9-action-dock"><button class="s9-primary-button" loading="{{state.saving}}" bindtap="startProgram">{{state.pendingRecovery ? '查询原计划结果' : '建立失分回收计划'}}</button></view>
     </block>
 

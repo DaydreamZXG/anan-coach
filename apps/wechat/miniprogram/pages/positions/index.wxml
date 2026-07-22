@@ -1,27 +1,28 @@
 <view class="s9-page position-page position-workspace">
   <view class="position-hero">
     <view class="position-hero__copy">
-      <view class="s9-kicker">国考 · 岗位库</view>
-      <view class="s9-title">岗位决策</view>
-      <view class="s9-subtitle">先看哪些岗位能报，再点进候选确认主目标；行测和申论成绩补齐后，才会给可信分差。</view>
+      <view class="s9-kicker"><text class="position-hero__dot"></text>国考岗位助手</view>
+      <view class="s9-title">先确认能不能报，<text class="position-hero__accent">再看差多少。</text></view>
+      <view class="s9-subtitle">先按专业、学历和经历筛出可报岗位，再结合地区与成绩看备考分差。</view>
     </view>
     <anan-companion size="medium" intent="thinking" context="plan" animate />
   </view>
 
   <view class="position-actions">
-    <ui-button label="搜索与筛选岗位" bind:action="openSearch" />
-    <view hover-class="item--hover" class="position-actions__link" bindtap="openScoreSheet">录入成绩算分差</view>
-    <view hover-class="item--hover" class="position-actions__link" bindtap="openQualificationProfile">修改资格档案</view>
+    <ui-button custom-class="position-actions__button" label="开始筛选岗位" bind:action="openSearch" />
+    <view hover-class="item--hover" class="position-actions__link" bindtap="openScoreSheet">补成绩，计算分差</view>
+    <view hover-class="item--hover" class="position-actions__link" bindtap="openQualificationProfile">核对我的报考资料</view>
   </view>
+
+  <view class="position-boundary"><text class="position-boundary__mark">◇</text><text>岗位分差只用于备考定位，不代表录取概率。</text></view>
 
   <state-view wx:if="{{!workspace || workspace.status === 'idle' || workspace.status === 'loading'}}" state="loading" />
   <state-view
     wx:elif="{{workspace.status === 'needsProfile'}}"
     state="empty"
-    title="先完成资格建档"
-    description="先填你的真实条件，岸岸才能帮你筛能报的岗位。"
-    request-id="{{workspace.error.requestId}}"
-    action-text="去建档"
+    title="先补完整报考资料"
+    description="填好学历、专业和经历，岸岸才能帮你筛出真正能报的岗位。"
+    action-text="去补资料"
     bind:action="openOnboarding"
   />
   <state-view
@@ -29,7 +30,6 @@
     state="empty"
     title="本年度岗位尚未正式发布"
     description="岗位数据还没更新，先不给你看过时的信息。"
-    request-id="{{workspace.error.requestId}}"
   />
   <state-view
     wx:elif="{{workspace.status !== 'ready' && workspace.status !== 'empty'}}"
@@ -43,12 +43,14 @@
 
   <block wx:else>
     <view wx:if="{{workspace.delivery}}" class="delivery-strip">
-      <text>{{workspace.examYear}} 国考 · 档案 v{{workspace.learnerProfileVersion}} · 规则 {{workspace.ruleSetVersion}}</text>
-      <text>生成 {{workspace.delivery.generatedAtLabel}}</text>
+      <view class="delivery-strip__mark">岸</view>
+      <view class="delivery-strip__main">
+        <text class="delivery-strip__title">已按你的报考资料完成筛选</text>
+        <text class="delivery-strip__copy">{{workspace.examYear}} 国考岗位 · 更新于 {{workspace.delivery.generatedAtLabel}}</text>
+      </view>
       <text wx:if="{{workspace.delivery.partial}}" class="delivery-strip__warning">{{workspace.delivery.partialLabel}}</text>
       <text wx:if="{{workspace.delivery.stale}}" class="delivery-strip__warning">{{workspace.delivery.staleLabel}}</text>
       <text wx:if="{{workspace.delivery.processing}}" class="delivery-strip__processing">{{workspace.delivery.processingLabel}}</text>
-      <text class="delivery-strip__request">Request ID · {{workspace.delivery.requestId}}</text>
     </view>
     <view wx:if="{{workspace.refreshError}}" class="inline-warning">
       <view>没刷新成功，先看着之前的内容。</view>
@@ -56,8 +58,8 @@
     </view>
 
     <view class="section-heading">
-      <view class="section-title">主目标</view>
-      <view class="section-meta">当前目标记录</view>
+      <view class="section-title">我的主目标</view>
+      <view class="section-meta">它会决定今天练什么</view>
     </view>
     <view wx:if="{{workspace.primaryGoal}}" class="position-card position-card--primary" hover-class="card--hover" data-id="{{workspace.primaryGoal.positionId}}" bindtap="openPosition">
       <view class="position-card__top">
@@ -83,7 +85,7 @@
     <view wx:else class="capability-card capability-card--neutral">
       <view class="capability-card__mark">下一步</view>
       <view class="capability-card__title">从下面的可报候选里选一个主目标</view>
-      <view class="capability-card__copy">这些岗位已经按你的资格资料筛过；点进岗位卡片可以看逐条依据，并确认成主报目标。现在还不能算分差，是因为你还没有补齐行测和申论成绩。</view>
+      <view class="capability-card__copy">选定后，岸岸会用这个岗位反推每日训练。补齐行测和申论成绩后，再计算可以展开查看依据的分差。</view>
       <view class="capability-actions">
         <view hover-class="item--hover" class="inline-link" bindtap="openSearch">查看更多可报岗位 →</view>
         <view hover-class="item--hover" class="inline-link" bindtap="openScoreSheet">先录入双科成绩 →</view>
@@ -91,8 +93,8 @@
     </view>
 
     <view class="section-heading">
-      <view class="section-title">可报候选</view>
-      <view class="section-meta">先选主目标；分差需成绩证据</view>
+      <view class="section-title">你可以报的岗位</view>
+      <view class="section-meta">先选目标，再看分差</view>
     </view>
     <view class="position-card-grid">
     <view wx:for="{{workspace.candidateItems}}" wx:key="positionId" class="position-card" hover-class="card--hover" data-id="{{item.positionId}}" bindtap="openPosition">
@@ -124,14 +126,14 @@
       </view>
     </view>
     </view>
-    <view wx:if="{{workspace.status === 'empty'}}" class="empty-inline">当前工作台没有符合筛选与资格范围的岗位；进入搜索页核对完整岗位发布。</view>
-    <view wx:elif="{{!workspace.candidateItems.length}}" class="empty-inline">当前工作台没有其他候选岗位，进入搜索页查看完整可报范围。</view>
+    <view wx:if="{{workspace.status === 'empty'}}" class="empty-inline">按当前资料还没找到可报岗位。先核对专业、学历和经历，再重新筛选。</view>
+    <view wx:elif="{{!workspace.candidateItems.length}}" class="empty-inline">暂时没有其他候选岗位，可以进入搜索查看完整范围。</view>
 
     <view class="section-heading">
       <view class="section-title">资格缺口</view>
       <view class="section-meta">只列影响岗位判断的事实</view>
     </view>
-    <view wx:if="{{workspace.qualificationStatus === 'loading'}}" class="card"><text class="muted">正在按当前规则版本汇总…</text></view>
+    <view wx:if="{{workspace.qualificationStatus === 'loading'}}" class="card"><text class="muted">正在按你的资料重新核对…</text></view>
     <view wx:elif="{{workspace.qualificationStatus === 'error'}}" class="inline-error">
       <view>{{workspace.qualificationError.message}}</view>
       <view hover-class="item--hover" class="inline-link" bindtap="retryQualification">重试 · {{workspace.qualificationError.requestId}}</view>
@@ -148,12 +150,12 @@
     </view>
 
     <view class="section-heading">
-      <view class="section-title">行测 + 申论总分证据</view>
-      <view class="section-meta">双轨缺一不可</view>
+      <view class="section-title">我的成绩</view>
+      <view class="section-meta">补齐两科才能算分差</view>
     </view>
     <view wx:if="{{workspace.ability}}" class="ability-card">
       <view class="ability-card__head">
-        <view><view class="ability-card__kicker">共享学习大脑</view><view class="ability-card__title">{{workspace.ability.statusLabel}}</view></view>
+        <view><view class="ability-card__kicker">分差计算准备</view><view class="ability-card__title">{{workspace.ability.statusLabel}}</view></view>
         <view class="status-pill">{{workspace.ability.confidenceLabel}}</view>
       </view>
       <view class="ability-card__scores">
@@ -164,7 +166,7 @@
       <view class="ability-card__copy">{{workspace.ability.evidenceLabel}}</view>
       <view class="ability-card__copy">{{workspace.ability.missingLabel}} · {{workspace.ability.gapBlockDetail}}</view>
       <view wx:if="{{workspace.ability.conflictLabel}}" class="inline-warning">{{workspace.ability.conflictLabel}}</view>
-      <view hover-class="item--hover" class="inline-link" bindtap="openScoreSheet">{{workspace.ability.readiness === 'unavailable' ? '录入真实成绩证据' : '补充新的成绩证据'}} →</view>
+      <view hover-class="item--hover" class="inline-link" bindtap="openScoreSheet">{{workspace.ability.readiness === 'unavailable' ? '录入成绩' : '补充新的成绩记录'}} →</view>
     </view>
   </block>
 
@@ -210,7 +212,7 @@
     </view>
     <view class="date-row"><text>作答日期</text><picker mode="date" value="{{score.scoreDate}}" end="{{score.todayDate}}" disabled="{{score.saving || score.submissionUncertain}}" bindchange="chooseScoreDate"><view>{{score.scoreDate}} ›</view></picker></view>
     <view wx:if="{{score.validationError}}" class="inline-error">{{score.validationError}}</view>
-    <view wx:if="{{score.error}}" class="inline-error"><view>{{score.error.message}}</view><view wx:if="{{score.submissionUncertain}}">刚才的结果不确定，请直接重试；输入已锁定，不会重复保存。</view><view wx:if="{{score.error.requestId}}">Request ID · {{score.error.requestId}}</view></view>
+    <view wx:if="{{score.error}}" class="inline-error"><view>{{score.error.message}}</view><view wx:if="{{score.submissionUncertain}}">刚才的结果还不确定，请直接重试；内容已暂时锁定，不会重复保存。</view><view wx:if="{{score.error.requestId}}">问题编号 · {{score.error.requestId}}</view></view>
     <view class="sheet-actions">
       <ui-button label="取消" variant="secondary" disabled="{{score.submissionUncertain}}" bind:action="closeScoreSheet" />
       <ui-button label="{{score.submissionUncertain ? '确认刚才结果' : (score.supersedesEvidenceId ? '保存修正' : '确认记录')}}" loading="{{score.saving}}" bind:action="submitScoreEvidence" />

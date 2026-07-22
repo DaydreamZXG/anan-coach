@@ -47,7 +47,7 @@
 
     <view wx:if="{{partialErrorMessage}}" class="partial-warning">
       <view>{{partialErrorMessage}}</view>
-      <view wx:if="{{partialRequestId}}" class="type-data">Request ID · {{partialRequestId}}</view>
+    <view wx:if="{{partialRequestId}}" class="type-data">问题编号 · {{partialRequestId}}</view>
       <button class="warning-action" bindtap="retryLoadMore">按原游标重试</button>
     </view>
 
