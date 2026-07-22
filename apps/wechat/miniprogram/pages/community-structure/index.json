@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "确认方法结构",
-  "backgroundColor": "#FAF3EA",
-  "usingComponents": {
-    "state-view": "../../design-system/primitives/state-view/index"
-  }
-}

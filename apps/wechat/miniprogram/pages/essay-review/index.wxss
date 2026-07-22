@@ -1,2 +1,0 @@
-@import "../../features/essay-workbench/page-shell.wxss";
-.score-range { color: var(--color-primary-deep); font-size: 46rpx; font-weight: 800; font-variant-numeric: tabular-nums; }

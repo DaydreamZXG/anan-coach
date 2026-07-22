@@ -1,2 +1,0 @@
-@import "../../features/essay-workbench/page-shell.wxss";
-.directory-row { display: flex; align-items: center; justify-content: space-between; padding: 22rpx 0; border-bottom: 2rpx solid var(--color-surface-soft); font-size: 28rpx; }

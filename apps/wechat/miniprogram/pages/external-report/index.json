@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "外部模考单",
-  "backgroundColor": "#FAF3EA",
-  "usingComponents": {
-    "state-view": "../../design-system/primitives/state-view/index"
-  }
-}

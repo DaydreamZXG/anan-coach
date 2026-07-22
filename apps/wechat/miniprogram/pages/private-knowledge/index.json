@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "私人资料库",
-  "usingComponents": {
-    "state-view": "../../design-system/primitives/state-view/index"
-  }
-}

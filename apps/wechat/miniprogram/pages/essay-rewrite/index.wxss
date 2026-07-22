@@ -1,3 +1,0 @@
-@import "../../features/essay-workbench/page-shell.wxss";
-.diff-legend { display: flex; gap: 20rpx; margin: 18rpx 0; color: var(--color-muted); font-size: 23rpx; }
-.diff-body { color: var(--color-ink-secondary); font-size: 28rpx; line-height: 1.85; }

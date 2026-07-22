@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "学习报告",
-  "backgroundColor": "#FAF3EA",
-  "usingComponents": {
-    "state-view": "../../design-system/primitives/state-view/index",
-    "report-chart": "../../design-system/reporting/report-chart/index"
-  }
-}

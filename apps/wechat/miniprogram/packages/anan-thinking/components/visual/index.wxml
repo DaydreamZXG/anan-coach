@@ -1,6 +1,0 @@
-<view class="intent-visual" aria-hidden="true">
-  <view wx:if="{{motionActive}}" class="intent-visual__viewport">
-    <image class="intent-visual__sheet" src="{{sheetSrc}}" mode="heightFix" style="width: {{sheetWidthPercent}}%; transform: translateX(-{{frameOffsetPercent}}%);" />
-  </view>
-  <image wx:else class="intent-visual__static" src="{{staticSrc}}" mode="aspectFit" />
-</view>

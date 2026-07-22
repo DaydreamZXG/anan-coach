@@ -1,6 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "content-renderer": "../content-renderer/index"
-  }
-}

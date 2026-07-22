@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "问岸岸",
-  "backgroundColor": "#FAF3EA",
-  "usingComponents": {
-    "anan-companion": "../../design-system/companion/anan-companion/index"
-  }
-}

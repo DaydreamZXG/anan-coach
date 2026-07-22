@@ -1,5 +1,0 @@
-@import "../../../features/positions/page-shell.wxss";
-
-.position-detail-page {
-  padding-bottom: 140rpx;
-}

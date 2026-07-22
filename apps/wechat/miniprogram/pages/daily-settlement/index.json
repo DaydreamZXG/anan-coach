@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "每日结算",
-  "backgroundColor": "#FAF3EA",
-  "usingComponents": {
-    "state-view": "../../design-system/primitives/state-view/index"
-  }
-}

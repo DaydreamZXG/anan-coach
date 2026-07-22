@@ -1,9 +1,0 @@
-{
-  "desc": "AI 国考上岸教练页面索引策略",
-  "rules": [
-    {
-      "action": "disallow",
-      "page": "*"
-    }
-  ]
-}

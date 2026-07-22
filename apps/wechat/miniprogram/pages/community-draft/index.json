@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "创建方法草稿",
-  "backgroundColor": "#FAF3EA",
-  "usingComponents": {
-    "state-view": "../../design-system/primitives/state-view/index"
-  }
-}

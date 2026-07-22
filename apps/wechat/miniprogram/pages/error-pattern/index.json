@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "错误模式",
-  "backgroundColor": "#FAF3EA",
-  "usingComponents": {
-    "state-view": "../../design-system/primitives/state-view/index"
-  }
-}

@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "二战失分回收",
-  "usingComponents": {
-    "anan-companion": "../../design-system/companion/anan-companion/index",
-    "ui-button": "../../design-system/primitives/ui-button/index"
-  }
-}

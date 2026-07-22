@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "当日调整",
-  "backgroundColor": "#FAF3EA",
-  "usingComponents": {
-    "state-view": "../../design-system/primitives/state-view/index"
-  }
-}

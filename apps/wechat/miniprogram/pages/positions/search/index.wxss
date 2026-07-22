@@ -1,5 +1,0 @@
-@import "../../../features/positions/page-shell.wxss";
-
-.position-search-page {
-  padding-bottom: 160rpx;
-}

@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "计划变更记录",
-  "backgroundColor": "#FAF3EA",
-  "usingComponents": {
-    "state-view": "../../design-system/primitives/state-view/index"
-  }
-}

@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "你的备考起点",
-  "usingComponents": {
-    "anan-companion": "../../../design-system/companion/anan-companion/index",
-    "ui-button": "../../../design-system/primitives/ui-button/index"
-  }
-}

@@ -46,6 +46,10 @@ def check_backend_boundaries() -> list[str]:
 
 
 def check_generated_contract() -> list[str]:
+    if not GENERATED_TYPES.parent.parent.parent.is_dir():
+        # Mini program source removed for clean-slate redesign; the generated
+        # contract check resumes once the frontend is rebuilt.
+        return []
     if not GENERATED_TYPES.is_file():
         return [f"missing generated API contract: {GENERATED_TYPES.relative_to(ROOT)}"]
     first_line = GENERATED_TYPES.read_text(encoding="utf-8").splitlines()[0]
