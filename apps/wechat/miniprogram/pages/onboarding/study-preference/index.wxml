@@ -8,7 +8,7 @@
   <view wx:if="{{!state || state.status === 'loading'}}" class="page-state">
     <anan-companion size="large" intent="thinking" context="plan" animate />
     <view class="state-title">正在读取你的周节奏</view>
-    <view class="state-copy">会同时核对建档进度与已有时间版本。</view>
+    <view class="state-copy">会同时核对你的建档和时间安排。</view>
   </view>
 
   <view wx:elif="{{state.status === 'error'}}" class="page-state">
@@ -33,7 +33,7 @@
         </view>
         <scroll-view scroll-x class="time-options" enhanced show-scrollbar="{{false}}">
           <view class="time-options__inner">
-            <view wx:for="{{timeOptions}}" wx:key="minutes" class="time-option {{state.draft.weekdayMinutes === item.minutes ? 'time-option--active' : ''}}" data-field="weekdayMinutes" data-minutes="{{item.minutes}}" bindtap="selectMinutes">
+            <view hover-class="item--hover" wx:for="{{timeOptions}}" wx:key="minutes" class="time-option {{state.draft.weekdayMinutes === item.minutes ? 'time-option--active' : ''}}" data-field="weekdayMinutes" data-minutes="{{item.minutes}}" bindtap="selectMinutes">
               <text class="time-option__label">{{item.label}}</text>
               <text class="time-option__caption">{{item.caption}}</text>
             </view>
@@ -48,7 +48,7 @@
         </view>
         <scroll-view scroll-x class="time-options" enhanced show-scrollbar="{{false}}">
           <view class="time-options__inner">
-            <view wx:for="{{timeOptions}}" wx:key="minutes" class="time-option {{state.draft.weekendMinutes === item.minutes ? 'time-option--active' : ''}}" data-field="weekendMinutes" data-minutes="{{item.minutes}}" bindtap="selectMinutes">
+            <view hover-class="item--hover" wx:for="{{timeOptions}}" wx:key="minutes" class="time-option {{state.draft.weekendMinutes === item.minutes ? 'time-option--active' : ''}}" data-field="weekendMinutes" data-minutes="{{item.minutes}}" bindtap="selectMinutes">
               <text class="time-option__label">{{item.label}}</text>
               <text class="time-option__caption">{{item.caption}}</text>
             </view>
@@ -60,12 +60,12 @@
     <view class="schedule-card s9-card">
       <view class="schedule-head"><view><view class="field-label">整卷模考日</view><view class="field-copy">每周一次稳定标尺</view></view><view class="schedule-tag">1 天</view></view>
       <view class="weekday-row">
-        <view wx:for="{{weekdays}}" wx:key="value" class="weekday-chip {{state.draft.mockExamDay === item.value ? 'weekday-chip--mock' : ''}}" data-field="mockExamDay" data-value="{{item.value}}" bindtap="selectDay">{{item.label}}</view>
+        <view hover-class="item--hover" wx:for="{{weekdays}}" wx:key="value" class="weekday-chip {{state.draft.mockExamDay === item.value ? 'weekday-chip--mock' : ''}}" data-field="mockExamDay" data-value="{{item.value}}" bindtap="selectDay">{{item.label}}</view>
       </view>
       <view class="schedule-divider"></view>
       <view class="schedule-head"><view><view class="field-label">固定恢复日</view><view class="field-copy">不排新知识，只做轻量闭环或休息</view></view><view class="schedule-tag schedule-tag--rest">1 天</view></view>
       <view class="weekday-row">
-        <view wx:for="{{weekdays}}" wx:key="value" class="weekday-chip {{state.draft.fixedRestDay === item.value ? 'weekday-chip--rest' : ''}}" data-field="fixedRestDay" data-value="{{item.value}}" bindtap="selectDay">{{item.label}}</view>
+        <view hover-class="item--hover" wx:for="{{weekdays}}" wx:key="value" class="weekday-chip {{state.draft.fixedRestDay === item.value ? 'weekday-chip--rest' : ''}}" data-field="fixedRestDay" data-value="{{item.value}}" bindtap="selectDay">{{item.label}}</view>
       </view>
     </view>
 

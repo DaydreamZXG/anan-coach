@@ -154,7 +154,7 @@ function assertItem(item: XingceMasteryQueueItem, bucket: XingceMasteryQueueBuck
 function assertAction(action: XingceMasteryQueueAction, bucket: XingceMasteryQueueBucket): void {
   if (action.state === "ready") {
     if (!action.startUrl?.trim()) {
-      throw new XingceMasteryQueueContractError("可执行队列项目缺少服务端入口。");
+      throw new XingceMasteryQueueContractError("可执行队列项目缺少入口。");
     }
     if (bucket === "due_verification" && !action.planTaskId) {
       throw new XingceMasteryQueueContractError("可执行复测没有绑定计划任务。");

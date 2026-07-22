@@ -1,6 +1,6 @@
 <task-shell
   title="{{title}}"
-  modeLabel="正式整卷 · 服务端绝对计时"
+  modeLabel="正式整卷 · 限时计时"
   current="{{current}}"
   total="{{total || 1}}"
   elapsedLabel="{{remainingLabel}}"
@@ -17,7 +17,7 @@
   bindtools="toggleTools"
 >
   <view wx:if="{{status === 'loading'}}" class="page-state">
-    <state-view state="loading" title="正在恢复整卷" description="读取固定题面、服务端截止时间与最新断点。" />
+    <state-view state="loading" title="正在恢复整卷" description="正在准备试卷，恢复你上次的进度。" />
   </view>
 
   <view wx:elif="{{status === 'error'}}" class="page-state">
@@ -25,7 +25,7 @@
   </view>
 
   <view wx:elif="{{status === 'unavailable'}}" class="capability-state card">
-    <view class="capability-mark">整卷证据门禁</view>
+    <view class="capability-mark">先确认整卷条件</view>
     <view class="capability-title">{{errorTitle}}</view>
     <view class="capability-copy">{{errorMessage}}</view>
     <button wx:if="{{showLoginAction}}" class="secondary-button capability-action" bindtap="goLogin">去登录</button>
@@ -54,7 +54,7 @@
   <view wx:elif="{{status === 'submitted'}}" class="page-state">
     <state-view state="empty" title="本场模考已经交卷" description="答案解析只在正式报告页按权限展示。" />
     <button wx:if="{{reportSessionId}}" class="primary-button" bindtap="openMockReport">查看正式模考报告</button>
-    <view wx:else class="inline-warning">缺少本场模考会话编号，不能打开正式报告。请从报告中心或今日计划重新进入。</view>
+    <view wx:else class="inline-warning">找不到这场模考的记录，请从报告中心重新进入。</view>
     <button class="secondary-button" bindtap="returnToday">返回今日计划</button>
   </view>
 
@@ -98,7 +98,7 @@
         </view>
 
         <view class="option-list {{interactionLocked ? 'option-list--locked' : ''}}">
-          <view
+          <view hover-class="item--hover"
             wx:for="{{question.options}}"
             wx:key="optionId"
             class="option-card {{item.selected ? 'option-card--selected' : ''}} {{item.eliminated ? 'option-card--eliminated' : ''}}"
@@ -127,84 +127,83 @@
     </view>
   </view>
 
-  <view wx:if="{{answerSheetOpen}}" class="overlay-mask" catchtap="toggleAnswerSheet">
-    <view class="bottom-sheet answer-sheet" catchtap="noop">
-      <view class="sheet-head">
-        <view>
-          <view class="sheet-title">整卷答题卡</view>
-          <view class="sheet-copy">{{answered}} 已答 · {{unanswered}} 未答 · {{marked}} 标记</view>
-        </view>
-        <button class="text-action" bindtap="toggleAnswerSheet">关闭</button>
-      </view>
-      <scroll-view class="sheet-scroll" scroll-y enhanced>
-        <view class="sheet-grid">
-          <button
-            wx:for="{{answerSheetItems}}"
-            wx:key="index"
-            class="sheet-item sheet-item--{{item.state}} {{item.active ? 'sheet-item--active' : ''}}"
-            data-index="{{item.index}}"
-            bindtap="selectQuestion"
-          >{{item.label}}</button>
-        </view>
-      </scroll-view>
+  <ui-sheet
+    visible="{{answerSheetOpen}}"
+    title="整卷答题卡"
+    copy="{{answered}} 已答 · {{unanswered}} 未答 · {{marked}} 标记"
+    show-close
+    max-height="80vh"
+    bindclose="toggleAnswerSheet"
+  >
+    <view class="sheet-grid">
+      <button
+        wx:for="{{answerSheetItems}}"
+        wx:key="index"
+        class="sheet-item sheet-item--{{item.state}} {{item.active ? 'sheet-item--active' : ''}}"
+        data-index="{{item.index}}"
+        bindtap="selectQuestion"
+      >{{item.label}}</button>
     </view>
-  </view>
+  </ui-sheet>
 
-  <view wx:if="{{draftOpen && question}}" class="overlay-mask" catchtap="toggleDraft" catchtouchmove="noop">
-    <view class="bottom-sheet draft-sheet" catchtap="noop">
-      <view class="sheet-head">
-        <view>
-          <view class="sheet-title">草稿纸</view>
-          <view class="sheet-copy">当前第 {{current}} / {{total}} 题 · 随断点自动保存</view>
-        </view>
-        <button class="mark-button {{question.marked ? 'mark-button--active' : ''}}" bindtap="toggleMarked">{{question.marked ? '已标记' : '标记'}}</button>
-      </view>
-      <textarea class="draft-input draft-input--sheet" value="{{question.draftText}}" maxlength="4000" placeholder="记录计算、排除过程或检查点……" bindinput="inputDraft"></textarea>
-      <view class="mock-timer-notice">整卷模考使用服务端绝对截止时间，打开草稿不会暂停计时。</view>
-      <button class="primary-button draft-sheet-action" bindtap="toggleDraft">收起草稿，继续作答</button>
+  <ui-sheet
+    visible="{{draftOpen && question}}"
+    title="草稿纸"
+    copy="当前第 {{current}} / {{total}} 题 · 自动保存"
+    max-height="80vh"
+    bindclose="toggleDraft"
+  >
+    <button slot="action" class="mark-button {{question.marked ? 'mark-button--active' : ''}}" bindtap="toggleMarked">{{question.marked ? '已标记' : '标记'}}</button>
+    <textarea cursor-spacing="24" class="draft-input draft-input--sheet" value="{{question.draftText}}" maxlength="4000" placeholder="记录计算、排除过程或检查点……" bindinput="inputDraft"></textarea>
+    <view class="mock-timer-notice">模考按统一结束时间计时，看草稿不暂停。</view>
+    <button class="primary-button draft-sheet-action" bindtap="toggleDraft">收起草稿，继续作答</button>
+  </ui-sheet>
+
+  <ui-sheet
+    visible="{{toolsOpen}}"
+    title="模考工具"
+    copy="交卷前不提供解析、公式卡或解题 AI。"
+    show-close
+    level="overlay"
+    max-height="86vh"
+    bindclose="toggleTools"
+  >
+    <view class="display-tools">
+      <button class="tool-chip {{fontScale === 'standard' ? 'tool-chip--active' : ''}}" data-scale="standard" bindtap="setFontScale">标准字号</button>
+      <button class="tool-chip {{fontScale === 'large' ? 'tool-chip--active' : ''}}" data-scale="large" bindtap="setFontScale">大字号</button>
+      <button class="tool-chip {{eyeCare ? 'tool-chip--active' : ''}}" bindtap="toggleEyeCare">护眼显示</button>
     </view>
-  </view>
+    <button class="tool-row" bindtap="reportDispute">题面异常 / 争议上报</button>
+    <button class="tool-row" bindtap="openHelp">操作与故障帮助</button>
+  </ui-sheet>
 
-  <view wx:if="{{toolsOpen}}" class="overlay-mask" catchtap="toggleTools">
-    <view class="bottom-sheet tools-sheet" catchtap="noop">
-      <view class="sheet-head">
-        <view>
-          <view class="sheet-title">模考工具</view>
-          <view class="sheet-copy">交卷前不提供解析、公式卡或解题 AI。</view>
-        </view>
-        <button class="text-action" bindtap="toggleTools">关闭</button>
-      </view>
-      <view class="display-tools">
-        <button class="tool-chip {{fontScale === 'standard' ? 'tool-chip--active' : ''}}" data-scale="standard" bindtap="setFontScale">标准字号</button>
-        <button class="tool-chip {{fontScale === 'large' ? 'tool-chip--active' : ''}}" data-scale="large" bindtap="setFontScale">大字号</button>
-        <button class="tool-chip {{eyeCare ? 'tool-chip--active' : ''}}" bindtap="toggleEyeCare">护眼显示</button>
-      </view>
-      <button class="tool-row" bindtap="reportDispute">题面异常 / 争议上报</button>
-      <button class="tool-row" bindtap="openHelp">操作与故障帮助</button>
-    </view>
-  </view>
+  <ui-sheet
+    visible="{{helpOpen && pageObjectReference}}"
+    level="overlay"
+    show-handle="{{false}}"
+    sheet-class="help-sheet"
+    max-height="86vh"
+    bindclose="closeHelp"
+  >
+    <global-help
+      pageObjectReference="{{pageObjectReference}}"
+      syncState="{{syncLabel === '已保存' ? 'saved' : syncLabel === '正在保存' ? 'saving' : 'pending'}}"
+      bindsubmit="submitHelp"
+      bindclose="closeHelp"
+    />
+    <view wx:if="{{helpMessage}}" class="help-result help-result--{{helpStatus}}">{{helpMessage}}</view>
+  </ui-sheet>
 
-  <view wx:if="{{helpOpen && pageObjectReference}}" class="overlay-mask" catchtap="closeHelp">
-    <view class="bottom-sheet" catchtap="noop">
-      <global-help
-        pageObjectReference="{{pageObjectReference}}"
-        syncState="{{syncLabel === '已保存' ? 'saved' : syncLabel === '正在保存' ? 'saving' : 'pending'}}"
-        bindsubmit="submitHelp"
-        bindclose="closeHelp"
-      />
-      <view wx:if="{{helpMessage}}" class="help-result help-result--{{helpStatus}}">{{helpMessage}}</view>
-    </view>
-  </view>
-
-  <view wx:if="{{disputeOpen && question}}" class="overlay-mask" catchtap="closeDispute">
-    <view class="bottom-sheet dispute-sheet" catchtap="noop">
-      <view class="sheet-head">
-        <view>
-          <view class="sheet-title">题面异常 / 争议上报</view>
-          <view class="sheet-copy">绑定本场会话、题目与固定内容版本，不上传你的答案或草稿。</view>
-        </view>
-        <button class="text-action" disabled="{{disputeStatus === 'submitting'}}" bindtap="closeDispute">关闭</button>
-      </view>
+  <ui-sheet
+    visible="{{disputeOpen && question}}"
+    title="题面异常 / 争议上报"
+    copy="报错只带题目信息，不带你的答案。"
+    show-close
+    level="overlay"
+    max-height="86vh"
+    bindclose="closeDispute"
+  >
+    <view class="dispute-body">
       <view class="dispute-categories">
         <button
           wx:for="{{disputeCategories}}"
@@ -214,7 +213,7 @@
           bindtap="selectDisputeCategory"
         >{{item.label}}</button>
       </view>
-      <textarea
+      <textarea cursor-spacing="24"
         class="dispute-description"
         value="{{disputeDescription}}"
         maxlength="2000"
@@ -229,7 +228,7 @@
         bindtap="submitDispute"
       >{{disputeStatus === 'submitting' ? '正在提交' : disputeStatus === 'resolved' ? '已提交' : '提交争议'}}</button>
     </view>
-  </view>
+  </ui-sheet>
 
   <view slot="footer" wx:if="{{status === 'ready'}}" class="footer-actions">
     <button class="primary-button" disabled="{{interactionLocked}}" bindtap="submitExam">交卷</button>

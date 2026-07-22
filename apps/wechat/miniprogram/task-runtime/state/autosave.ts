@@ -63,8 +63,8 @@ export function decideExit(state: TaskRuntimeState | null | undefined): ExitDeci
       action: "save_then_leave",
       policy: state.exitPolicy,
       syncState: state.syncState,
-      title: "保存断点后退出",
-      message: "当前有未确认的作答断点，必须保存成功后才能离开。",
+      title: "保存进度后退出",
+      message: "当前有未确认的作答进度，必须保存成功后才能离开。",
     };
   }
   if (state.exitPolicy === "timer_continues") {
@@ -73,7 +73,7 @@ export function decideExit(state: TaskRuntimeState | null | undefined): ExitDeci
       policy: state.exitPolicy,
       syncState: state.syncState,
       title: "模考计时仍会继续",
-      message: "离开页面不会暂停模考计时，回来后会按服务端时间恢复。",
+      message: "离开页面不会暂停模考计时，回来后会按统一时间恢复。",
     };
   }
   if (state.exitPolicy === "confirm") {
@@ -82,7 +82,7 @@ export function decideExit(state: TaskRuntimeState | null | undefined): ExitDeci
       policy: state.exitPolicy,
       syncState: state.syncState,
       title: "退出任务",
-      message: "已保存的断点可以稍后继续。",
+      message: "已保存的进度可以稍后继续。",
     };
   }
   return {

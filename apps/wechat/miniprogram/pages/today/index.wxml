@@ -9,7 +9,7 @@
       <text>拍题</text>
     </button>
   </view>
-  <view class="today-intro">今天只做最值钱的事。岗位目标、能力证据和可用时间共同决定行动。</view>
+  <view class="today-intro">今天只做最值钱的事。按你的目标、水平和时间，岸岸已经排好了。</view>
 
   <block wx:if="{{status === 'loading'}}">
     <view class="top-space"><state-view state="loading" /></view>
@@ -330,8 +330,8 @@
     >
 
     <view wx:if="{{!view.hasTasks}}" class="task-empty card">
-      <view>当前没有通过容量和内容门禁的可执行任务。</view>
-      <text class="task-empty__note">规划缺口已如实保留，不会用占位任务冒充今日安排。</text>
+      <view>今天暂时没有可做的任务。</view>
+      <text class="task-empty__note">这不是故障；可能是资料、时间或内容条件还没补齐。</text>
     </view>
 
     <view wx:if="{{taskNavigationError}}" class="task-navigation-error">

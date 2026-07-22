@@ -113,7 +113,7 @@ export function mapCommunityError(error: unknown): CommercialErrorView {
     return {
       state: "conflict",
       title: "版本已经变化",
-      message: "另一项操作已更新这张方法卡。刷新权威版本后再继续。",
+      message: "另一项操作已更新这张方法卡。刷新最新内容后再继续。",
       requestId: error.requestId,
     };
   }
@@ -235,7 +235,7 @@ export function assertRewardLedgerTruth(ledger: CommunityRewardLedgerResponse): 
     ["奖励流水", ledger.entryIds],
   ] as const) {
     if (values.some((value) => !value.trim()) || new Set(values).size !== values.length) {
-      throw new Error(`${label}回执无效。`);
+      throw new Error(`${label}记录无效。`);
     }
   }
   if (
@@ -246,7 +246,7 @@ export function assertRewardLedgerTruth(ledger: CommunityRewardLedgerResponse): 
   ) {
     throw new Error("奖励权益余额无效。");
   }
-  if (!ledger.entitlementVersion.trim()) throw new Error("奖励权益投影版本缺失。");
+  if (!ledger.entitlementVersion.trim()) throw new Error("奖励权益记录缺失。");
 }
 
 export function splitTags(value: string): string[] {

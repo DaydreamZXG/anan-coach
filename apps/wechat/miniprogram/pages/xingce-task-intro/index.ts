@@ -66,7 +66,7 @@ Page<XingceTaskIntroPageData, XingceTaskIntroPageCustom>({
       this.setData({
         status: "unavailable",
         errorTitle: "演示数据不能创建真实训练",
-        errorMessage: "任务范围、验收合同和有效期必须来自已认证服务端。",
+        errorMessage: "任务范围、完成标准和有效期必须来自已认证的正式数据。",
       });
       return;
     }
@@ -208,8 +208,7 @@ async function loadBriefing(
         status: "expired",
         view: null,
         errorTitle: "任务说明已经失效",
-        errorMessage:
-          "服务端确认该任务已过期、证据版本已变化或已不属于当前计划。请返回今日获取新任务。",
+        errorMessage: "该任务已过期、内容已变化或已不属于当前计划。请返回今日获取新任务。",
         requestId: error.requestId,
         canRetry: false,
       });
@@ -219,7 +218,7 @@ async function loadBriefing(
       status: "error",
       view: null,
       errorTitle: "任务说明尚未载入",
-      errorMessage: error instanceof Error ? error.message : "服务端没有返回可确认的任务说明。",
+      errorMessage: error instanceof Error ? error.message : "没有拿到可确认的任务说明。",
       requestId: error instanceof ApiClientError ? error.requestId : "",
       canRetry: true,
     });
@@ -236,7 +235,7 @@ function showClientExpired(page: XingceTaskIntroPage): void {
   page.setData({
     status: "expired",
     errorTitle: "设备时间显示任务说明已到期",
-    errorMessage: "请重新读取服务端权威说明；是否仍可执行最终以服务端返回为准。",
+    errorMessage: "请重新读取最新说明；是否仍可执行以最新结果为准。",
     requestId: "",
     starting: false,
     canRetry: true,

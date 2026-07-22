@@ -1,7 +1,7 @@
 <view class="s9-page s9-page--with-dock membership-page">
   <view class="s9-hero">
     <view class="s9-title">{{freeColdStart ? '冷启动期间，完整能力免费开放' : '第一次付钱，也可以安心试'}}</view>
-    <view class="s9-subtitle">{{freeColdStart ? '所有注册用户直接使用，不需要购买，也不会创建支付订单。' : (offer ? offer.subtitle : '具体服务期、权益和退款规则以服务端当前版本为准。')}}</view>
+    <view class="s9-subtitle">{{freeColdStart ? '所有注册用户直接使用，不需要购买，也不会创建支付订单。' : (offer ? offer.subtitle : '具体服务期、权益和退款规则以付款前展示为准。')}}</view>
     <view wx:if="{{!freeColdStart}}" class="s9-chip-row">
       <view class="s9-chip s9-chip--gold">创始体验官</view>
       <view class="s9-chip s9-chip--primary">{{offer ? offer.remainingLabel : '名额待确认'}}</view>
@@ -28,14 +28,14 @@
         <view class="s9-card-kicker">阶段说明</view>
         <view class="s9-card-title">免费是当前产品状态，不是永久承诺</view>
         <view class="s9-card-copy">如果未来启用收费，会在购买入口开放前单独展示商品、价格、服务内容和退款规则；不会把本页视为你同意了任何付费条款。</view>
-        <view class="s9-card-meta">服务端状态：{{dashboard.catalog.commercialMode}}</view>
+        <view class="s9-card-meta">开放状态：{{dashboard.catalog.commercialMode}}</view>
       </view>
     </view>
 
     <view class="s9-section">
       <view class="s9-section-head"><view class="s9-section-title">当前边界</view><view class="s9-section-meta">{{entitlementPeriod}}</view></view>
       <view class="s9-list">
-        <view class="s9-list-row"><view class="feature-check">✓</view><view class="s9-list-main"><view class="s9-list-title">没有会员购买入口</view><view class="s9-list-copy">客户端即使伪造请求，服务端也会拒绝创建订单。</view></view></view>
+        <view class="s9-list-row"><view class="feature-check">✓</view><view class="s9-list-main"><view class="s9-list-title">没有会员购买入口</view><view class="s9-list-copy">当前不会创建订单；未来开放时，付款前会单独确认。</view></view></view>
         <view class="s9-list-row"><view class="feature-check">✓</view><view class="s9-list-main"><view class="s9-list-title">学习数据不受会员状态影响</view><view class="s9-list-copy">作答、档案、计划、私人资料和导出属于你的学习数据。</view></view></view>
         <view class="s9-list-row"><view class="feature-check">✓</view><view class="s9-list-main"><view class="s9-list-title">免费开放不等于允许滥用</view><view class="s9-list-copy">批量爬题、脚本刷模型、恶意文件和账号共享仍会被安全系统阻止。</view></view></view>
       </view>
@@ -53,7 +53,7 @@
           </view>
           <view wx:if="{{offer}}" class="founder-price type-data">{{offer.amountLabel}}</view>
         </view>
-        <view class="s9-card-copy">实际开放能力、额度和服务级别以下方实时权益清单为准，未交付能力不会写入售卖页。</view>
+        <view class="s9-card-copy">买到的就是下面列的，没做好的功能不会写进来卖。</view>
         <view class="s9-card-meta">{{offer ? offer.remainingLabel : entitlementPeriod}} · 单次购买 · 不自动续费</view>
         <view class="payment-disclosure">{{paymentDisclosure}}</view>
       </view>
@@ -83,7 +83,7 @@
           <view class="policy-version type-data">{{item.policyVersion}}</view>
         </view>
       </view>
-      <view wx:if="{{paymentEnabled}}" class="accept-row" bindtap="toggleAccepted"><view class="checkbox {{accepted ? 'checked' : ''}}">{{accepted ? '✓' : ''}}</view><view>我已阅读并接受当前规则</view></view>
+      <view hover-class="item--hover" wx:if="{{paymentEnabled}}" class="accept-row" bindtap="toggleAccepted"><view class="checkbox {{accepted ? 'checked' : ''}}">{{accepted ? '✓' : ''}}</view><view>我已阅读并接受当前规则</view></view>
     </view>
 
     <view class="s9-section">
@@ -99,7 +99,7 @@
       <view class="s9-card {{dashboard.refundEligibility.eligible ? 's9-card--primary' : ''}}">
         <view class="s9-card-kicker">退款状态</view>
         <view class="s9-card-title">当前订单退款资格</view>
-        <view class="s9-card-copy">服务端依据订单固化政策计算；已返过程现金奖励计入累计退回金额。</view>
+        <view class="s9-card-copy">按订单当时的规则计算；已返过程奖励会计入累计退回金额。</view>
         <button wx:if="{{dashboard.refundEligibility.eligible}}" class="refund-button" loading="{{refunding}}" bindtap="requestRefund">申请原路退款</button>
         <view wx:else class="s9-card-meta">当前不可申请：{{dashboard.refundEligibility.blockingCode}}</view>
       </view>

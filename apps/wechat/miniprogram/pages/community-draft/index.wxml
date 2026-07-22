@@ -25,7 +25,7 @@
       <view class="section-label">01 · 选择来源</view>
       <view class="section-title">这些内容都只进入你的私有草稿</view>
       <view class="choice-grid">
-        <view
+        <view hover-class="item--hover"
           wx:for="{{sourceOptions}}"
           wx:key="value"
           class="choice-card {{sourceType === item.value ? 'choice-card--active' : ''}}"
@@ -36,8 +36,8 @@
           <view class="choice-copy">{{item.description}}</view>
         </view>
       </view>
-      <view wx:if="{{sourceArtifactBound}}" class="success-note">已绑定当前账号通过私有安全检查的来源素材；服务端还会再次核验归属。</view>
-      <view wx:elif="{{sourceType === 'voice_transcript' || sourceType === 'handwriting_extraction'}}" class="warning-note">请从语音复盘或手写识别完成页进入。没有私有素材版本时不能保存为该来源。</view>
+      <view wx:if="{{sourceArtifactBound}}" class="success-note">已绑定当前账号通过私有安全检查的来源素材；提交时还会再次核验归属。</view>
+      <view wx:elif="{{sourceType === 'voice_transcript' || sourceType === 'handwriting_extraction'}}" class="warning-note">请从语音复盘或手写识别页进入；没有素材时不能从该来源保存。</view>
     </view>
 
     <view class="community-section">
@@ -47,7 +47,7 @@
         <button class="action-button {{track === 'essay' ? '' : 'secondary-button'}}" data-value="essay" bindtap="chooseTrack">申论</button>
       </view>
       <label class="field-label">你的原始表达</label>
-      <textarea
+      <textarea cursor-spacing="24"
         class="text-area"
         value="{{sourceText}}"
         maxlength="6000"

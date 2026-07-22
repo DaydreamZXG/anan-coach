@@ -153,7 +153,7 @@ export function buildDraftingCompletionCommand(
     new Set(voiceArtifactVersionIds).size !== voiceArtifactVersionIds.length ||
     voiceArtifactVersionIds.some((value) => !value.trim())
   ) {
-    throw new EssayDraftingError("语音复盘版本必须是最多 3 个不重复的已就绪服务端版本。");
+    throw new EssayDraftingError("语音复盘必须选择最多 3 个不重复的已就绪录音。");
   }
 
   const attempt: EssayDraftingCompletionCommandV2["attempt"] = existingAttemptId

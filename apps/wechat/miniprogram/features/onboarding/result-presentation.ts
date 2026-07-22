@@ -144,7 +144,7 @@ function numberLabel(value: number): string {
 
 function dateLabel(value: string): string {
   const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "服务端标记时间";
+  if (Number.isNaN(date.getTime())) return "记录时间";
   return `${String(date.getFullYear())}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
 }
 

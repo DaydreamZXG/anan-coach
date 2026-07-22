@@ -19,13 +19,14 @@
 }
 
 .ui-button--primary {
+  border-radius: 999rpx;
   background: var(--gradient-brand);
   color: var(--color-on-primary);
   box-shadow: var(--shadow-primary);
 }
 
 .ui-button--secondary {
-  border: 1rpx solid var(--color-line);
+  border: 1rpx solid var(--color-line-strong);
   background: var(--color-surface-glass);
   color: var(--color-ink);
 }

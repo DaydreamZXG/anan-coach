@@ -528,7 +528,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           runtime.writerContext.targetMaterialBundleVersionId
       ) {
         throw new EssayClosureError(
-          "工作区材料版本与规划冻结的新材料不一致，不能用其他材料代替迁移题。",
+          "工作区材料版本与计划指定的新材料不一致，不能用其他材料代替迁移题。",
         );
       }
       const drafts =
@@ -1110,7 +1110,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           ...this.data.handwriting,
           revision: confirmed,
           phase: "confirmed",
-          message: "原图、机器识别、用户修订和确认版本已形成完整证据链。",
+          message: "原图、机器识别、你的修订和确认内容已经保存完整。",
         },
         submissionStatus: "idle",
         submissionMessage: "已将确认后的 OCR 正文写入当前答案。",
@@ -1156,7 +1156,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           review.answerVersionId !== context.baseAnswerVersionId ||
           context.basedOnAnswerVersionId !== context.baseAnswerVersionId
         ) {
-          throw new EssayClosureError("规划冻结的原作答、原答案与完整评阅不是同一条版本链。");
+          throw new EssayClosureError("计划指定的原作答、原答案与完整评阅不是同一条记录。");
         }
         const acceptedFindingIds = acceptedFindingIdsFromWorkspace(
           workspace,
@@ -1193,7 +1193,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         workspace.task.taskVersionId !== context.targetTaskVersionId ||
         workspace.material.materialBundleVersionId !== context.targetMaterialBundleVersionId
       ) {
-        throw new EssayClosureError("新题或新材料与规划冻结版本不一致。");
+        throw new EssayClosureError("新题或新材料与计划指定版本不一致。");
       }
       const mastery = (await runtime.api.getMastery()).data;
       if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
@@ -1452,7 +1452,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       }
       this.setData({
         submissionStatus: "submitting",
-        submissionMessage: "正在同一事务写入新答案、逐条修正证据、掌握状态并结算规划任务…",
+        submissionMessage: "正在保存新答案、修正记录和学习状态…",
         draftLocked: true,
         canSubmit: false,
       });
@@ -1802,7 +1802,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         }
         const voiceArtifactVersionIds = this.data.voiceSegments.map((segment) => {
           if (!segment.artifactVersionId) {
-            throw new EssayDraftingError("已就绪录音缺少服务端素材版本。");
+            throw new EssayDraftingError("已就绪录音缺少素材版本。");
           }
           return segment.artifactVersionId;
         });
@@ -1921,8 +1921,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     if (!intent) {
       this.setData({
         submissionStatus: "error",
-        submissionMessage:
-          "服务端没有返回本版答案对应的评阅意图，页面不会退回旧送审链路。请重新加载工作区核对版本状态。",
+        submissionMessage: "没有拿到本版答案对应的评阅任务。请重新加载工作区核对状态。",
       });
       return;
     }
@@ -1959,7 +1958,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
       if (result.intent.status === "queued" && !result.job) {
         throw new EssayDraftingError(
-          "评阅意图已排队，但服务端没有返回对应 job。请重新加载核对状态。",
+          "评阅任务已排队，但没有拿到对应处理记录。请重新加载核对状态。",
         );
       }
       runtime.activeReviewIntent = result.intent;
@@ -2351,7 +2350,7 @@ function applyTransferCompletion(
     transferDraft: { ...page.data.transferDraft, phase: "completed" },
     hasSavedEvidence: true,
     submissionStatus: "saved",
-    submissionMessage: `迁移验证已形成不可变版本：${label}。`,
+    submissionMessage: `迁移验证已保存：${label}。`,
     draftLocked: true,
     canSubmit: false,
   });

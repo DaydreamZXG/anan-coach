@@ -3,7 +3,7 @@
     <view>
       <view class="s9-kicker">岸岸 · 新手考情</view>
       <view class="s9-title">第一次考？先把这场考试讲明白</view>
-      <view class="s9-subtitle">只解释已经确认的岗位事实，不替你预测录取。</view>
+      <view class="s9-subtitle">只讲确定的岗位信息，不预测录取结果。</view>
     </view>
     <anan-companion size="small" intent="thinking" context="report" animate />
   </view>
@@ -12,7 +12,7 @@
     wx:if="{{!state || state.status === 'idle' || state.status === 'loading'}}"
     state="loading"
     title="正在读取岗位考情"
-    description="对齐考试年度、岗位版本和目标分证据。"
+    description="按最新考试年度、岗位和目标分对齐。"
   />
   <state-view
     wx:elif="{{state.status !== 'ready'}}"

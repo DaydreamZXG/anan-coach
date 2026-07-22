@@ -238,7 +238,7 @@ Page<TrialPageData, TrialPageCustom>({
       this.setData({
         exposureId: exposure.exposureId,
         trialMessage: runtime.attemptReference
-          ? "已主动加入试用。服务端将根据当前试题尝试回查独立新题结果。"
+          ? "已主动加入试用。系统会根据当前试题尝试回查独立新题结果。"
           : "已主动加入试用，但当前没有可回查的试题尝试，暂时不能评价。",
       });
       setState(
@@ -278,7 +278,7 @@ Page<TrialPageData, TrialPageCustom>({
     runtime.busy = true;
     const epoch = ++runtime.requestEpoch;
     this.setData({ interactionLocked: true });
-    setState(this, "processing", "正在通过服务端权威记录核对曝光与独立试题。");
+    setState(this, "processing", "正在核对方法卡曝光与独立试题。");
     try {
       const trial = await runtime.api.completeTrial(command);
       if (!runtimes.owns(this, runtime, epoch)) return;
@@ -389,7 +389,7 @@ Page<TrialPageData, TrialPageCustom>({
         evidenceRef,
       );
       if (!runtimes.owns(this, runtime, epoch)) return;
-      this.setData({ reportMessage: `举报已受理（${receipt.reportId}），状态由服务端审核决定。` });
+      this.setData({ reportMessage: `举报已受理（${receipt.reportId}），状态由审核结果决定。` });
       setState(this, "default");
     } catch (error) {
       if (!runtimes.owns(this, runtime, epoch)) return;

@@ -301,10 +301,10 @@ describe("Stage 3.5 reward truth", () => {
     }).toThrow("权益余额无效");
     expect(() => {
       assertRewardLedgerTruth({ ...ledger, awardIds: ["award-a", "award-a"] });
-    }).toThrow("奖励批次回执无效");
+    }).toThrow("奖励批次记录无效");
     expect(() => {
       assertRewardLedgerTruth({ ...ledger, entitlementVersion: " " });
-    }).toThrow("权益投影版本缺失");
+    }).toThrow("权益记录缺失");
   });
 });
 

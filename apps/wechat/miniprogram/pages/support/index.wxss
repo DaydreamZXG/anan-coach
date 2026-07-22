@@ -4,8 +4,8 @@
 .support-copy { max-width: 640rpx; margin-top: 18rpx; color: var(--color-ink-secondary); font-size: 24rpx; line-height: 1.72; }
 .qr-card { margin-top: 26rpx; text-align: center; }
 .group-qr { width: 440rpx; height: 440rpx; border-radius: 28rpx; background: #fff; }
-.qr-placeholder { display: flex; align-items: center; flex-direction: column; justify-content: center; min-height: 440rpx; border: 2rpx dashed rgba(0,151,139,.28); border-radius: 28rpx; background: linear-gradient(145deg,rgba(255,255,255,.92),var(--color-primary-soft)); }
-.qr-placeholder__mark { display: flex; align-items: center; justify-content: center; width: 104rpx; height: 104rpx; border-radius: 30rpx; background: var(--color-primary); color: #fff; font-size: 42rpx; font-weight: 900; box-shadow: 0 18rpx 46rpx rgba(0,151,139,.2); }
+.qr-placeholder { display: flex; align-items: center; flex-direction: column; justify-content: center; min-height: 440rpx; border: 2rpx dashed var(--color-primary-a24); border-radius: 28rpx; background: linear-gradient(145deg,rgba(255,255,255,.92),var(--color-primary-soft)); }
+.qr-placeholder__mark { display: flex; align-items: center; justify-content: center; width: 104rpx; height: 104rpx; border-radius: 30rpx; background: var(--color-primary); color: #fff; font-size: 42rpx; font-weight: 900; box-shadow: 0 18rpx 46rpx var(--color-primary-a24); }
 .qr-placeholder__title { margin-top: 28rpx; color: var(--color-ink); font-size: 30rpx; font-weight: 850; }
 .qr-placeholder__copy { max-width: 460rpx; margin-top: 12rpx; color: var(--color-muted); font-size: 22rpx; line-height: 1.62; }
 .qr-action { margin-top: 24rpx; }

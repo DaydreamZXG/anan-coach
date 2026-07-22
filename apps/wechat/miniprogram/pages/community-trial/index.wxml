@@ -23,7 +23,7 @@
   <block wx:if="{{pageState === 'default' || pageState === 'partial'}}">
     <scroll-view wx:if="{{cards.length > 1}}" class="card-tabs" scroll-x enhanced>
       <view class="card-tabs-inner">
-        <view
+        <view hover-class="item--hover"
           wx:for="{{cards}}"
           wx:key="cardVersionId"
           class="card-tab {{activeIndex === index ? 'card-tab--active' : ''}}"
@@ -50,7 +50,7 @@
       <view wx:if="{{selectedCard.pitfalls.length}}" class="detail-title">容易踩坑</view>
       <view wx:for="{{selectedCard.pitfalls}}" wx:key="index" class="boundary-item">— {{item}}</view>
 
-      <view wx:if="{{!selectedCard.canTrial}}" class="warning-note">这是你的方法卡。作者不能试用、投票或制造自己的效果证据。</view>
+      <view wx:if="{{!selectedCard.canTrial}}" class="warning-note">这是你写的方法卡，自己不能投票。</view>
       <button wx:if="{{!exposureId}}" class="action-button {{interactionLocked || !selectedCard.canTrial ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked || !selectedCard.canTrial}}" bindtap="optIn">主动加入这一版本试用</button>
       <button wx:elif="{{!trialId}}" class="action-button {{interactionLocked || !evidenceReady ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked || !evidenceReady}}" bindtap="completeTrial">核验独立新题结果</button>
       <view wx:if="{{trialMessage}}" class="{{feedbackEligible ? 'success-note' : 'boundary-note'}}">{{trialMessage}}</view>
@@ -64,7 +64,7 @@
         <button class="action-button {{feedbackVote === 'not_helpful' ? '' : 'secondary-button'}}" data-value="not_helpful" bindtap="chooseVote">没帮助</button>
       </view>
       <view class="reason-grid">
-        <view
+        <view hover-class="item--hover"
           wx:for="{{activeFeedbackReasons}}"
           wx:key="value"
           class="reason-chip {{feedbackReason === item.value ? 'reason-chip--active' : ''}}"
@@ -72,7 +72,7 @@
           bindtap="chooseFeedbackReason"
         >{{item.label}}</view>
       </view>
-      <view class="boundary-note">没有自由评论、聊天或外链入口。平台只接收固定选项与版本化证据。</view>
+      <view class="boundary-note">这里不用聊天，选个选项提交就行。</view>
       <button class="action-button {{interactionLocked || feedbackRecorded ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked || feedbackRecorded}}" bindtap="submitFeedback">{{feedbackRecorded ? '反馈已记录' : '提交固定反馈'}}</button>
     </view>
 
@@ -80,7 +80,7 @@
       <view class="section-label">问题举报</view>
       <view class="section-title">只提交固定分类与已有证据</view>
       <view class="reason-grid">
-        <view
+        <view hover-class="item--hover"
           wx:for="{{reportCategories}}"
           wx:key="value"
           class="reason-chip {{reportCategory === item.value ? 'reason-chip--danger' : ''}}"

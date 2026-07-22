@@ -148,7 +148,7 @@ export function submittedXingceSession(
           elapsedSeconds: resultCode === "timeout" ? 80 : 30,
           advisorySeconds: 60,
         },
-        explanation: "解析只在服务端交卷后返回。",
+        explanation: "解析只在交卷后返回。",
         explanationSource: "国考题库固定版本",
       })),
       groupSummary: {

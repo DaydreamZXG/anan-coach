@@ -3,7 +3,7 @@
     <anan-companion size="small" intent="{{companionIntent}}" context="plan" animate />
     <view>
       <view class="companion-name">岸岸</view>
-      <view class="companion-scope">基于你的岗位、计划与学习证据回答</view>
+      <view class="companion-scope">按你的岗位、计划和学习记录回答</view>
     </view>
   </view>
 
@@ -55,7 +55,7 @@
   </view>
 
   <view class="companion-composer">
-    <textarea class="composer-input" value="{{question}}" maxlength="800" auto-height placeholder="继续问岸岸…" bindinput="inputQuestion" />
+    <textarea cursor-spacing="24" class="composer-input" value="{{question}}" maxlength="800" auto-height placeholder="继续问岸岸…" bindinput="inputQuestion" />
     <button class="composer-send {{contextStatus !== 'ready' ? 'composer-send--disabled' : ''}}" loading="{{submitting || contextStatus === 'loading'}}" disabled="{{contextStatus !== 'ready'}}" bindtap="ask">↑</button>
   </view>
 </view>

@@ -1,10 +1,10 @@
 <view class="capture-page {{state && state.status === 'idle' ? 'capture-page--camera' : ''}}">
   <view class="capture-nav">
-    <view class="capture-nav__side" role="button" aria-label="返回" bindtap="goBack">‹</view>
+    <view hover-class="item--hover" class="capture-nav__side" role="button" aria-label="返回" bindtap="goBack">‹</view>
     <view class="capture-nav__title">
       {{state && state.status === 'review' ? '确认识别结果' : (state && state.status === 'success' ? '搜题结果' : '拍照搜题')}}
     </view>
-    <view class="capture-nav__side capture-nav__side--text" role="button" bindtap="chooseCamera">{{state && state.status === 'review' ? '重拍' : ''}}</view>
+    <view hover-class="item--hover" class="capture-nav__side capture-nav__side--text" role="button" bindtap="chooseCamera">{{state && state.status === 'review' ? '重拍' : ''}}</view>
   </view>
 
   <state-view
@@ -17,8 +17,8 @@
   <block wx:elif="{{state}}">
     <block wx:if="{{state.status === 'idle'}}">
       <view class="capture-mode-switch">
-        <view class="capture-mode {{mode === 'search' ? 'capture-mode--active' : ''}}" data-mode="search" bindtap="chooseMode">单题搜题</view>
-        <view class="capture-mode {{mode === 'import' ? 'capture-mode--active' : ''}}" data-mode="import" bindtap="chooseMode">单题资料导入</view>
+        <view hover-class="item--hover" class="capture-mode {{mode === 'search' ? 'capture-mode--active' : ''}}" data-mode="search" bindtap="chooseMode">单题搜题</view>
+        <view hover-class="item--hover" class="capture-mode {{mode === 'import' ? 'capture-mode--active' : ''}}" data-mode="import" bindtap="chooseMode">单题资料导入</view>
       </view>
 
       <view wx:if="{{mode === 'search'}}" class="ilink-card">
@@ -27,7 +27,7 @@
             <view class="ilink-card__eyebrow">微信发图搜题</view>
             <view class="ilink-card__title">不打开小程序，也能把题发给岸岸</view>
           </view>
-          <view wx:if="{{channelStatus === 'ready'}}" class="ilink-card__refresh" role="button" aria-label="刷新连接状态" bindtap="loadChannel">↻</view>
+          <view hover-class="item--hover" wx:if="{{channelStatus === 'ready'}}" class="ilink-card__refresh" role="button" aria-label="刷新连接状态" bindtap="loadChannel">↻</view>
         </view>
 
         <view wx:if="{{channelStatus === 'loading'}}" class="ilink-card__state">正在核对连接状态…</view>
@@ -47,7 +47,7 @@
             <view class="ilink-card__status {{channelExpired ? 'ilink-card__status--warning' : ''}}">
               {{channelExpired ? '连接码已过期' : '等待在微信里确认连接'}}
             </view>
-            <view wx:if="{{!channelExpired}}" class="ilink-code" role="button" aria-label="复制连接码" bindtap="copyChannelCode">
+            <view hover-class="item--hover" wx:if="{{!channelExpired}}" class="ilink-code" role="button" aria-label="复制连接码" bindtap="copyChannelCode">
               <text class="ilink-code__value type-data">{{channelView.bindingCode}}</text>
               <text class="ilink-code__action">复制</text>
             </view>
@@ -85,13 +85,13 @@
 
       <view class="capture-note">✓　先确认识别内容，再发起搜索</view>
       <view class="capture-track-row">
-        <view class="capture-track {{state.learningTrack === 'xingce' ? 'capture-track--active' : ''}}" data-value="xingce" bindtap="chooseTrack">行测</view>
-        <view class="capture-track {{state.learningTrack === 'essay' ? 'capture-track--active' : ''}}" data-value="essay" bindtap="chooseTrack">申论</view>
+        <view hover-class="item--hover" class="capture-track {{state.learningTrack === 'xingce' ? 'capture-track--active' : ''}}" data-value="xingce" bindtap="chooseTrack">行测</view>
+        <view hover-class="item--hover" class="capture-track {{state.learningTrack === 'essay' ? 'capture-track--active' : ''}}" data-value="essay" bindtap="chooseTrack">申论</view>
       </view>
 
       <view wx:if="{{mode === 'search'}}" class="capture-controls">
-        <view class="capture-control" role="button" aria-label="从相册选择题目" bindtap="chooseAlbum"><view class="capture-control__icon">▧</view><text>相册</text></view>
-        <view class="capture-shutter" role="button" aria-label="打开相机拍题" bindtap="chooseCamera"><view class="capture-shutter__core"></view></view>
+        <view hover-class="item--hover" class="capture-control" role="button" aria-label="从相册选择题目" bindtap="chooseAlbum"><view class="capture-control__icon">▧</view><text>相册</text></view>
+        <view hover-class="item--hover" class="capture-shutter" role="button" aria-label="打开相机拍题" bindtap="chooseCamera"><view class="capture-shutter__core"></view></view>
         <view class="capture-control capture-control--quiet"><view class="capture-control__icon">✓</view><text>原图</text></view>
       </view>
       <view wx:else class="import-actions">
@@ -154,7 +154,7 @@
           <view class="ocr-card__head"><text class="ocr-card__title">识别文字</text><text class="ocr-card__count">{{state.segments.length}} 个片段</text></view>
           <view wx:for="{{state.segments}}" wx:key="segmentId" class="ocr-segment">
             <view class="ocr-segment__meta"><text>第 {{item.pageNo}} 页 · 片段 {{item.ordinal}}</text><text class="status-{{item.tone}}">{{item.confidenceLabel}}</text></view>
-            <textarea class="ocr-segment__input" value="{{item.text}}" disabled="{{state.submitting || state.reviewStep === 'match'}}" data-id="{{item.segmentId}}" aria-label="第 {{item.ordinal}} 个 OCR 文本" bindinput="inputSegment" />
+            <textarea cursor-spacing="24" class="ocr-segment__input" value="{{item.text}}" disabled="{{state.submitting || state.reviewStep === 'match'}}" data-id="{{item.segmentId}}" aria-label="第 {{item.ordinal}} 个 OCR 文本" bindinput="inputSegment" />
           </view>
         </view>
 
@@ -163,11 +163,11 @@
         <block wx:else>
           <view class="capture-completeness">✓　已拆分 {{state.workspace.questionUnits.length}} 道题，每题独立确认</view>
           <view class="question-unit-tabs">
-            <view wx:for="{{state.workspace.questionUnits}}" wx:key="questionUnitId" class="question-unit-tab {{index === state.activeQuestionUnitIndex ? 'is-active' : ''}}" data-index="{{index}}" bindtap="selectQuestionUnit">{{item.ordinal}}</view>
+            <view hover-class="item--hover" wx:for="{{state.workspace.questionUnits}}" wx:key="questionUnitId" class="question-unit-tab {{index === state.activeQuestionUnitIndex ? 'is-active' : ''}}" data-index="{{index}}" bindtap="selectQuestionUnit">{{item.ordinal}}</view>
           </view>
           <view wx:if="{{state.activeQuestionUnit && state.activeQuestionUnit.state === 'unmatched' && !state.activeQuestionUnit.aiAnswer}}" class="capture-warning">题库未命中。可以申请 AI 估算解析，它不是官方答案，确认后也只供参考。</view>
           <block wx:if="{{state.activeQuestionUnit && state.activeQuestionUnit.match}}">
-            <view wx:for="{{state.activeQuestionUnit.match.candidates}}" wx:key="contentVersionId" class="match-choice {{state.selectedContentVersionId === item.contentVersionId ? 'match-choice--selected' : ''}}" data-id="{{item.contentVersionId}}" bindtap="selectMatch">
+            <view hover-class="item--hover" wx:for="{{state.activeQuestionUnit.match.candidates}}" wx:key="contentVersionId" class="match-choice {{state.selectedContentVersionId === item.contentVersionId ? 'match-choice--selected' : ''}}" data-id="{{item.contentVersionId}}" bindtap="selectMatch">
               <view class="match-choice__copy"><text class="match-choice__kind">{{item.matchKind === 'exact' ? '精确匹配' : '相似题目'}}</text><text class="match-choice__version type-data">{{item.contentVersionId}}</text></view>
               <view class="match-choice__score type-data">{{item.score}}</view>
             </view>
@@ -183,7 +183,7 @@
         </block>
 
         <view wx:if="{{state.validationError}}" class="capture-error">{{state.validationError}}</view>
-        <view class="capture-boundary">确认前不会写入能力画像、错因或今日计划。</view>
+        <view class="capture-boundary">确认后才会计入你的学习数据。</view>
       </view>
       <view class="capture-dock">
         <button wx:if="{{state.reviewStep === 'recognition' || (state.activeQuestionUnit && state.activeQuestionUnit.state === 'match_review')}}" class="capture-primary" loading="{{state.submitting}}" bindtap="confirmImport">

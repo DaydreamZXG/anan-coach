@@ -1,8 +1,7 @@
 {
   "navigationBarTitleText": "问岸岸",
-  "backgroundColor": "#EDF3F1",
+  "backgroundColor": "#FAF3EA",
   "usingComponents": {
-    "anan-companion": "../../design-system/companion/anan-companion/index",
-    "state-view": "../../design-system/primitives/state-view/index"
+    "anan-companion": "../../design-system/companion/anan-companion/index"
   }
 }

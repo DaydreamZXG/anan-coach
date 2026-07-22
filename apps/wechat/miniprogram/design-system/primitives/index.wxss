@@ -93,20 +93,21 @@
   box-sizing: border-box;
   min-height: 88rpx;
   padding: 0 30rpx;
-  border-radius: var(--radius-control);
   font-size: var(--font-body);
   font-weight: 700;
   line-height: 88rpx;
 }
 
 .primary-button {
+  border-radius: 999rpx;
   background: var(--gradient-brand);
   color: var(--color-on-primary);
   box-shadow: var(--shadow-primary);
 }
 
 .secondary-button {
-  border: 1rpx solid var(--color-line);
+  border-radius: var(--radius-control);
+  border: 1rpx solid var(--color-line-strong);
   background: var(--color-surface-glass);
   color: var(--color-ink);
 }
@@ -114,7 +115,7 @@
 .skeleton {
   height: 168rpx;
   border-radius: var(--radius-card);
-  background: linear-gradient(90deg, #eceef7 25%, #f9faff 50%, #eceef7 75%);
+  background: linear-gradient(90deg, #f1e7d6 25%, #faf5ec 50%, #f1e7d6 75%);
   background-size: 400% 100%;
   animation: shimmer 1.4s ease infinite;
 }
@@ -153,8 +154,8 @@
 
 .option--hover {
   transform: scale(0.985);
-  background: rgba(49, 86, 211, 0.06) !important;
-  border-color: rgba(49, 86, 211, 0.38) !important;
+  background: var(--color-primary-a08) !important;
+  border-color: var(--color-primary-a24) !important;
 }
 
 @keyframes shimmer {

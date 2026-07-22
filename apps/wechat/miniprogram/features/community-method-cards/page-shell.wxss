@@ -15,9 +15,9 @@
   right: -76rpx;
   width: 270rpx;
   height: 270rpx;
-  border: 1rpx solid rgba(0, 151, 139, 0.12);
+  border: 1rpx solid var(--color-primary-a16);
   border-radius: 50%;
-  background: rgba(0, 151, 139, 0.04);
+  background: var(--color-primary-a08);
   content: "";
 }
 
@@ -49,7 +49,7 @@
   gap: 14rpx;
   margin-top: 22rpx;
   padding: 18rpx 20rpx;
-  border: 1rpx solid rgba(0, 151, 139, 0.16);
+  border: 1rpx solid var(--color-primary-a16);
   border-radius: 20rpx;
   background: var(--color-primary-soft);
   color: var(--color-ink-secondary);
@@ -64,7 +64,7 @@
   margin-top: 10rpx;
   border-radius: 50%;
   background: var(--color-cyan);
-  box-shadow: 0 0 0 7rpx rgba(0, 151, 139, 0.1);
+  box-shadow: 0 0 0 7rpx var(--color-primary-a08);
 }
 
 .community-section,
@@ -145,7 +145,7 @@
 }
 
 .choice-card--active {
-  border-color: rgba(0, 151, 139, 0.48);
+  border-color: var(--color-primary-a24);
   background: var(--color-primary-soft);
 }
 

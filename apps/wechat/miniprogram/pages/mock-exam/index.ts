@@ -210,7 +210,7 @@ Page<MockExamPageData, MockExamPageCustom>({
     unanswered: 0,
     marked: 0,
     remainingLabel: "02:00:00",
-    syncLabel: "连接服务端",
+    syncLabel: "正在连接",
     answerSheetItems: [],
     answerSheetOpen: false,
     draftOpen: false,
@@ -250,7 +250,7 @@ Page<MockExamPageData, MockExamPageCustom>({
       this.setData({
         status: "unavailable",
         errorTitle: "演示数据不能进入整卷模考",
-        errorMessage: "整卷、服务端绝对计时和断点必须绑定真实账号与真实题面版本。",
+        errorMessage: "整卷、计时和作答进度必须绑定你的真实账号与试卷。",
       });
       return;
     }
@@ -259,7 +259,7 @@ Page<MockExamPageData, MockExamPageCustom>({
       this.setData({
         status: "unavailable",
         errorTitle: "登录后才能开始整卷模考",
-        errorMessage: "模考时间、断点和交卷证据必须绑定你的账号。",
+        errorMessage: "模考时间、作答进度和交卷记录必须绑定你的账号。",
         showLoginAction: true,
       });
       return;
@@ -391,7 +391,7 @@ Page<MockExamPageData, MockExamPageCustom>({
       runtime.session = session;
       runtime.task = runtimeFromMockSession(session, Date.now());
       initializeTrajectory(runtime, session);
-      applyRuntimeToPage(this, runtime, "已恢复服务端断点");
+      applyRuntimeToPage(this, runtime, "已恢复上次进度");
       queueTrajectory(runtime, "visited", currentQuestionId(runtime), { entry: "session_load" });
 
       const pendingSubmit = loadPendingMockSubmit(runtime.ownerUserId, session.sessionId);
@@ -406,7 +406,7 @@ Page<MockExamPageData, MockExamPageCustom>({
           pendingCheckpoint.command.answers.map((answer) => answer.questionId),
         );
         runtime.mutationVersion += 1;
-        applyRuntimeToPage(this, runtime, "正在确认上次断点");
+        applyRuntimeToPage(this, runtime, "正在确认上次进度");
         void resumePendingCheckpoint(this, runtime, pendingCheckpoint);
       }
       refreshClock(this, runtime);
@@ -443,7 +443,7 @@ Page<MockExamPageData, MockExamPageCustom>({
     if (!saved) return;
     const result = await wx.showModal({
       title: "模考计时仍会继续",
-      content: "离开页面不会暂停计时；回来后将按服务端截止时间恢复。",
+      content: "离开页面不会暂停计时；回来后会按统一结束时间恢复。",
       confirmText: "仍要离开",
       cancelText: "继续作答",
     });
@@ -696,7 +696,7 @@ Page<MockExamPageData, MockExamPageCustom>({
       if (runtimes.get(this) !== runtime) return;
       this.setData({
         disputeStatus: "error",
-        disputeMessage: errorMessage(error, "争议未写入服务端，请保留当前页面后重试。"),
+        disputeMessage: errorMessage(error, "争议没有提交成功，请保留当前页面后重试。"),
       });
     }
   },
@@ -951,7 +951,7 @@ async function performCheckpointSave(
     });
     page.setData({
       syncLabel: "保存失败",
-      errorMessage: errorMessage(error, "断点没有得到服务端确认，请重试后再离开。"),
+      errorMessage: errorMessage(error, "进度没有保存成功，请重试后再离开。"),
     });
     return false;
   }
@@ -979,13 +979,13 @@ async function resumePendingCheckpoint(
       pending.command.answers.forEach((answer) => {
         runtime.dirtyQuestionIds.delete(answer.questionId);
       });
-      applyRuntimeToPage(page, runtime, "已确认上次断点");
+      applyRuntimeToPage(page, runtime, "已确认上次进度");
       return true;
     } catch (error) {
       if (!runtime.disposed) {
         page.setData({
-          syncLabel: "上次断点待确认",
-          errorMessage: errorMessage(error, "上次保存结果未知，将保留原命令继续确认。"),
+          syncLabel: "上次进度待确认",
+          errorMessage: errorMessage(error, "上次保存结果未知，将继续确认刚才那次保存。"),
         });
       }
       return false;
@@ -1023,7 +1023,7 @@ async function executeSubmit(
     }
     if (runtimes.get(page) !== runtime) return;
     if (!(await flushTrajectory(runtime))) {
-      throw new Error("考试轨迹尚未得到服务端确认，请保持网络后重试交卷。");
+      throw new Error("作答过程还没确认成功，请保持网络后重试交卷。");
     }
     if (pending)
       runtime.task = runtimeWithPendingMockSubmit(requiredTask(runtime), pending.command);
@@ -1400,7 +1400,7 @@ async function resolveMockCheckpointConflict(
     });
     page.setData({
       syncLabel: "冲突尚未解决",
-      errorMessage: errorMessage(error, "冲突选择没有得到服务端确认，请保持当前页面后重试。"),
+      errorMessage: errorMessage(error, "你的选择没有确认成功，请保持当前页面后重试。"),
     });
     return false;
   }
@@ -1477,7 +1477,7 @@ function failPage(page: MockExamPageInstance, error: unknown, title: string): vo
   page.setData({
     status: "error",
     errorTitle: title,
-    errorMessage: errorMessage(error, "服务端没有返回可继续作答的整卷。"),
+    errorMessage: errorMessage(error, "没有找到可继续作答的整卷。"),
   });
 }
 
@@ -1489,7 +1489,7 @@ function invalidateForAccountChange(page: MockExamPageInstance, runtime: PageRun
   page.setData({
     status: "unavailable",
     errorTitle: "账号已经变更",
-    errorMessage: "旧账号的整卷题面和断点已从当前页面清除，请用当前账号重新进入。",
+    errorMessage: "旧账号的整卷和进度已从当前页面清除，请用当前账号重新进入。",
     showLoginAction: true,
     question: null,
     interactionLocked: true,

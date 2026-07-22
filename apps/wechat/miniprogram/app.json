@@ -88,21 +88,36 @@
   ],
   "window": {
     "navigationBarTitleText": "上岸教练",
-    "navigationBarBackgroundColor": "#EDF3F1",
+    "navigationBarBackgroundColor": "#FAF3EA",
     "navigationBarTextStyle": "black",
-    "backgroundColor": "#EDF3F1",
+    "backgroundColor": "#FAF3EA",
     "backgroundTextStyle": "dark",
     "pageOrientation": "auto"
   },
   "tabBar": {
-    "color": "#667085",
-    "selectedColor": "#00978B",
-    "backgroundColor": "#FFFFFF",
+    "color": "#B3A189",
+    "selectedColor": "#E0601F",
+    "backgroundColor": "#FFFBF5",
     "borderStyle": "white",
     "list": [
-      { "pagePath": "pages/today/index", "text": "今日" },
-      { "pagePath": "pages/positions/index", "text": "岗位" },
-      { "pagePath": "pages/profile/index", "text": "我的" }
+      {
+        "pagePath": "pages/today/index",
+        "text": "今日",
+        "iconPath": "assets/tabbar/today.png",
+        "selectedIconPath": "assets/tabbar/today-active.png"
+      },
+      {
+        "pagePath": "pages/positions/index",
+        "text": "岗位",
+        "iconPath": "assets/tabbar/positions.png",
+        "selectedIconPath": "assets/tabbar/positions-active.png"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的",
+        "iconPath": "assets/tabbar/profile.png",
+        "selectedIconPath": "assets/tabbar/profile-active.png"
+      }
     ]
   },
   "style": "v2",

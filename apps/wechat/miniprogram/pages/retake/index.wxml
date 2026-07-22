@@ -2,7 +2,7 @@
   <view class="s9-hero">
     <view class="s9-eyebrow">二战失分回收计划</view>
     <view class="s9-title">别把去年会的内容再学一遍</view>
-    <view class="s9-subtitle">先用往年国考实考成绩定位，再由新训练证据拆到行测六模块与申论失分结构。</view>
+    <view class="s9-subtitle">先用往年成绩定个位，再用新练习找出弱项。</view>
   </view>
 
   <view wx:if="{{!state || state.status === 'loading'}}" class="page-state">
@@ -33,7 +33,7 @@
     <block wx:elif="{{state.evidence.length > 0}}">
       <view class="section-title">选择一份实考成绩作为起点</view>
       <view class="evidence-list">
-        <view wx:for="{{state.evidence}}" wx:key="evidenceId" class="evidence-card {{item.selected ? 'evidence-card--selected' : ''}}" data-evidence-id="{{item.evidenceId}}" bindtap="selectEvidence">
+        <view hover-class="item--hover" wx:for="{{state.evidence}}" wx:key="evidenceId" class="evidence-card {{item.selected ? 'evidence-card--selected' : ''}}" data-evidence-id="{{item.evidenceId}}" bindtap="selectEvidence">
           <view class="evidence-head"><view><text class="evidence-year type-data">{{item.examYear}}</text><text class="evidence-source">{{item.sourceLabel}}</text></view><view class="evidence-check">{{item.selected ? '✓' : ''}}</view></view>
           <view class="score-grid"><view class="score-cell"><text class="score-label">行测</text><text class="score-value type-data">{{item.xingceLabel}}</text></view><view class="score-cell"><text class="score-label">申论</text><text class="score-value type-data">{{item.essayLabel}}</text></view><view class="score-cell"><text class="score-label">总分</text><text class="score-value type-data">{{item.totalLabel}}</text></view></view>
         </view>

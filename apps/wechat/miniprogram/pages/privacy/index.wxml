@@ -13,7 +13,7 @@
       <view class="s9-card">
         <view class="s9-card-kicker">数据用途</view>
         <view class="s9-card-title">只服务你的学习闭环</view>
-        <view class="s9-card-copy">讲义、笔记、模考卷用于识别知识点、错误模式与学习证据，不公开给其他用户。</view>
+        <view class="s9-card-copy">讲义、笔记和模考卷只用于分析你的学习情况，不会公开。</view>
         <view class="s9-card-meta">上传前明确告知用途 · {{overview.policyVersion}}</view>
       </view>
       <view class="s9-card s9-card--primary">
@@ -25,7 +25,7 @@
     </view>
 
     <view class="s9-section">
-      <view class="s9-section-head"><view class="s9-section-title">我的数据清单</view><view class="s9-section-meta">服务端实时计数</view></view>
+      <view class="s9-section-head"><view class="s9-section-title">我的数据清单</view><view class="s9-section-meta">实时更新</view></view>
       <view class="s9-list">
         <view class="s9-list-row" wx:for="{{categories}}" wx:key="category"><view class="s9-list-main"><view class="s9-list-title">{{item.title}}</view><view class="s9-list-copy">{{item.retention}}</view></view><view class="s9-list-value type-data">{{item.countLabel}}</view></view>
       </view>

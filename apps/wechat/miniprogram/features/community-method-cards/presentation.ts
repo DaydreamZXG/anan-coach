@@ -34,7 +34,7 @@ export interface TrialCardView {
 const stateCopies: Record<CommercialPageState, CommercialStateView> = {
   default: { title: "", description: "", actionLabel: "" },
   loading: {
-    title: "正在读取权威版本",
+    title: "正在读取最新内容",
     description: "只读取当前账号与当前版本的数据。",
     actionLabel: "",
   },
@@ -60,7 +60,7 @@ const stateCopies: Record<CommercialPageState, CommercialStateView> = {
   },
   conflict: {
     title: "版本已经变化",
-    description: "刷新服务端权威版本后再继续编辑。",
+    description: "刷新最新内容后再继续编辑。",
     actionLabel: "刷新版本",
   },
   recovery: {

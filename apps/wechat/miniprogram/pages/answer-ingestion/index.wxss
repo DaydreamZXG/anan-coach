@@ -25,7 +25,7 @@
 }
 
 .target-card--selected {
-  border-color: rgba(0, 151, 139, 0.5);
+  border-color: var(--color-primary-a24);
   background: var(--color-primary-soft);
 }
 

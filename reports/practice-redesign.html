@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刷题页重设计 · C方向（温暖陪伴/无emoji）</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #ece9e5;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+    padding: 44px 28px; min-width: 900px;
+  }
+  .head { max-width: 860px; margin: 0 auto 30px; }
+  .head h1 { font-size: 24px; font-weight: 800; letter-spacing: -0.4px; }
+  .head p { margin-top: 8px; font-size: 13px; color: #777; line-height: 1.7; }
+  .board { display: flex; gap: 32px; justify-content: center; align-items: flex-start; flex-wrap: wrap; }
+  .frame { flex: 0 0 375px; }
+  .frame-label { text-align: center; font-size: 13px; font-weight: 700; color: #555; margin-bottom: 12px; }
+  .phone { width: 375px; height: 780px; border-radius: 44px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,0.2), 0 0 0 10px #211d1a; position: relative; }
+
+  /* ======= C 方向 token（专注场景变体） ======= */
+  .screen { width: 100%; height: 100%; background: #faf3ea; color: #2e2418; position: relative; }
+  .statusbar { height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; font-size: 13px; font-weight: 600; }
+
+  /* 吸顶工具栏 —— 修复点 1 */
+  .toolbar {
+    position: sticky; top: 0; z-index: 30;
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 16px;
+    background: rgba(250, 243, 234, 0.92); backdrop-filter: blur(8px);
+    border-bottom: 1px solid #f0e3d0;
+  }
+  .tbtn {
+    height: 40px; min-width: 40px; border-radius: 999px;
+    border: 1px solid #ead9c4; background: #fff;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    font-size: 12px; font-weight: 700; color: #5b4a35; padding: 0 10px;
+  }
+  .tbtn.icon-only { padding: 0; }
+  .tbtn .g { width: 14px; height: 14px; position: relative; }
+  .g-back::before { content: ""; position: absolute; top: 3px; left: 4px; width: 8px; height: 8px; border-left: 2px solid #5b4a35; border-bottom: 2px solid #5b4a35; transform: rotate(45deg); }
+  .g-doc { border: 2px solid #c97b3a; border-radius: 3px; }
+  .g-doc::before { content: ""; position: absolute; left: 2px; top: 3px; width: 7px; height: 2px; background: #c97b3a; box-shadow: 0 3px 0 #c97b3a, 0 6px 0 #c97b3a; }
+  .g-pen::before { content: ""; position: absolute; top: 2px; left: 5px; width: 4px; height: 11px; border: 2px solid #5b4a35; border-radius: 2px; transform: rotate(45deg); }
+  .tbtn.progress { font-variant-numeric: tabular-nums; }
+  .toolbar .spacer { flex: 1; }
+  .timer { height: 40px; border-radius: 999px; background: #fdeee2; color: #c2502e; display: flex; align-items: center; gap: 7px; padding: 0 14px; font-size: 14px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .timer i { width: 7px; height: 7px; border-radius: 50%; background: #2f9e6e; }
+
+  .content { padding: 18px 18px 120px; }
+
+  /* 材料卡 —— 折叠条（修复：材料不再把题顶飞） */
+  .material-bar {
+    display: flex; align-items: center; gap: 10px;
+    background: #fff; border: 1px solid #f0e3d0; border-radius: 14px;
+    padding: 12px 14px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(190,120,60,0.06);
+  }
+  .material-bar .dot { width: 8px; height: 8px; border-radius: 50%; background: #e0601f; flex: none; }
+  .material-bar .t { font-size: 13px; font-weight: 700; }
+  .material-bar .c { font-size: 11px; color: #b98d5f; margin-top: 1px; }
+  .material-bar .go { margin-left: auto; font-size: 12px; color: #c97b3a; font-weight: 700; }
+
+  .qcard { background: #fff; border-radius: 20px; border: 1px solid #f0e3d0; box-shadow: 0 6px 20px rgba(190,120,60,0.08); padding: 20px; }
+  .qmeta { display: flex; align-items: center; justify-content: space-between; }
+  .qpill { font-size: 11px; font-weight: 800; color: #c2502e; background: #fdeee2; padding: 4px 10px; border-radius: 999px; }
+  .qpos { font-size: 11px; color: #b98d5f; font-variant-numeric: tabular-nums; }
+  .qstem { margin-top: 12px; font-size: 16.5px; line-height: 1.75; font-weight: 600; }
+  .qstem em { font-style: normal; background: linear-gradient(transparent 62%, #ffe3c8 62%); }
+
+  /* 选项卡 —— 修复点 5/6：排除移出主行、跳过改中性色 */
+  .options { margin-top: 16px; display: grid; gap: 12px; }
+  .opt {
+    position: relative;
+    display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: center;
+    background: #fff; border: 1.5px solid #f0e3d0; border-radius: 16px;
+    padding: 15px 14px; min-height: 64px;
+  }
+  .opt .label { width: 34px; height: 34px; border-radius: 50%; background: #f5ede1; color: #7a6a54; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; }
+  .opt .copy { font-size: 14.5px; line-height: 1.6; color: #4d3f2e; }
+  .opt.on { border-color: #e0601f; background: #fff8f1; box-shadow: 0 6px 16px rgba(224,96,31,0.12); }
+  .opt.on .label { background: #e0601f; color: #fff; }
+  .opt.off { opacity: 0.55; }
+  .opt.off .copy { text-decoration: line-through; }
+  .opt .x {
+    position: absolute; right: 10px; bottom: -9px;
+    font-size: 11px; color: #b3a189; background: #f7f1e6; border: 1px solid #ead9c4;
+    padding: 3px 10px; border-radius: 999px;
+  }
+  .opt .x::before { content: "✕ "; font-size: 10px; }
+
+  .qactions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+  .qa { height: 46px; border-radius: 14px; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .qa.ghost { background: #fff; border: 1px solid #ead9c4; color: #7a6a54; }
+  .qa.neutral { background: #f5ede1; color: #8a7357; } /* 跳过：中性色，不再警告橙 */
+
+  /* 固定底栏 */
+  .dock {
+    position: absolute; bottom: 0; left: 0; right: 0; z-index: 20;
+    display: flex; gap: 10px; align-items: center;
+    padding: 12px 18px 26px;
+    background: rgba(255, 251, 245, 0.96); border-top: 1px solid #f0e3d0;
+  }
+  .dock .tools { width: 64px; height: 50px; border-radius: 14px; border: 1px solid #ead9c4; background: #fff; color: #8a7357; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .dock .next { flex: 1; height: 50px; border-radius: 999px; background: linear-gradient(135deg, #f07b2d, #e0601f); color: #fff; font-size: 15px; font-weight: 800; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 20px rgba(224,96,31,0.3); }
+
+  /* 统一弹层 —— 修复点 3/8：单一遮罩 + 单一 sheet */
+  .mask { position: absolute; inset: 0; z-index: 40; background: rgba(46, 36, 24, 0.45); display: flex; align-items: flex-end; }
+  .sheet { width: 100%; background: #fdfaf5; border-radius: 24px 24px 0 0; padding: 10px 20px 30px; box-shadow: 0 -12px 40px rgba(46,36,24,0.2); }
+  .handle { width: 40px; height: 5px; border-radius: 3px; background: #e4d5bf; margin: 6px auto 16px; }
+  .sheet-head { display: flex; align-items: flex-end; justify-content: space-between; }
+  .sheet-title { font-size: 18px; font-weight: 800; }
+  .sheet-copy { font-size: 11.5px; color: #b98d5f; margin-top: 3px; }
+  .sheet-close { font-size: 13px; color: #c97b3a; font-weight: 700; padding: 6px 4px; }
+  .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 18px; }
+  .cell { height: 44px; border-radius: 12px; background: #fff; border: 1px solid #f0e3d0; color: #8a7357; font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; display: flex; align-items: center; justify-content: center; }
+  .cell.done { background: #fdeee2; border-color: transparent; color: #c2502e; }
+  .cell.skip { background: #fdf6e3; border-color: transparent; color: #b98d2f; }
+  .cell.now { box-shadow: 0 0 0 2.5px #e0601f; color: #e0601f; background: #fff; }
+  .legend { display: flex; gap: 16px; margin-top: 16px; font-size: 11px; color: #b98d5f; }
+  .legend i { display: inline-block; width: 9px; height: 9px; border-radius: 3px; margin-right: 5px; }
+
+  /* 批注 */
+  .notes { flex: 0 0 300px; padding-top: 6px; }
+  .notes h3 { font-size: 14px; font-weight: 800; margin-bottom: 12px; }
+  .note { display: flex; gap: 9px; margin-bottom: 11px; font-size: 12px; color: #666; line-height: 1.55; }
+  .note .n { flex: none; width: 19px; height: 19px; border-radius: 50%; background: #e0601f; color: #fff; font-size: 10.5px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+  .note b { color: #333; }
+</style>
+</head>
+<body>
+<div class="head">
+  <h1>刷题页重设计 · C 方向（专注场景变体，无 emoji）</h1>
+  <p>左：作答态（工具栏吸顶 + 选项卡重排）；中：答题卡（五个手写弹层收敛为一套 sheet 原语）。布局修复与视觉换肤同步完成，图标沿用现有 CSS 绘制方案，不用 emoji。</p>
+</div>
+
+<div class="board">
+  <!-- 作答态 -->
+  <div class="frame">
+    <div class="frame-label">作答态 · 工具栏吸顶</div>
+    <div class="phone"><div class="screen">
+      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+      <div class="toolbar">
+        <div class="tbtn icon-only"><span class="g g-back"></span></div>
+        <div class="tbtn"><span class="g g-doc"></span>材料</div>
+        <div class="tbtn progress">3 / 20</div>
+        <div class="tbtn icon-only"><span class="g g-pen"></span></div>
+        <div class="spacer"></div>
+        <div class="timer"><i></i>12:34</div>
+      </div>
+      <div class="content">
+        <div class="material-bar">
+          <span class="dot"></span>
+          <div><div class="t">本题共享材料</div><div class="c">2023 年某省经济运行数据 · 已读 2/4 段</div></div>
+          <span class="go">展开 ›</span>
+        </div>
+        <div class="qcard">
+          <div class="qmeta">
+            <span class="qpill">资料分析</span>
+            <span class="qpos">第 3 题 · 共 20 题</span>
+          </div>
+          <div class="qstem">根据材料，2023 年该省第三产业增加值占 GDP 的比重比上年<em>约上升了多少</em>？</div>
+        </div>
+        <div class="options">
+          <div class="opt">
+            <span class="label">A</span>
+            <span class="copy">上升了 1.2 个百分点</span>
+            <span class="x">排除</span>
+          </div>
+          <div class="opt on">
+            <span class="label">B</span>
+            <span class="copy">上升了 2.5 个百分点</span>
+          </div>
+          <div class="opt off">
+            <span class="label">C</span>
+            <span class="copy">下降了 0.8 个百分点</span>
+          </div>
+          <div class="opt">
+            <span class="label">D</span>
+            <span class="copy">下降了 2.1 个百分点</span>
+            <span class="x">排除</span>
+          </div>
+        </div>
+        <div class="qactions">
+          <div class="qa ghost">上一题</div>
+          <div class="qa neutral">这题先跳过</div>
+        </div>
+      </div>
+      <div class="dock">
+        <div class="tools">工具</div>
+        <div class="next">下一题</div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- 答题卡弹层 -->
+  <div class="frame">
+    <div class="frame-label">答题卡 · 统一 sheet 原语</div>
+    <div class="phone"><div class="screen">
+      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+      <div class="toolbar">
+        <div class="tbtn icon-only"><span class="g g-back"></span></div>
+        <div class="tbtn"><span class="g g-doc"></span>材料</div>
+        <div class="tbtn progress">3 / 20</div>
+        <div class="tbtn icon-only"><span class="g g-pen"></span></div>
+        <div class="spacer"></div>
+        <div class="timer"><i></i>12:34</div>
+      </div>
+      <div class="mask">
+        <div class="sheet">
+          <div class="handle"></div>
+          <div class="sheet-head">
+            <div>
+              <div class="sheet-title">答题卡</div>
+              <div class="sheet-copy">已答 9 · 跳过 2 · 未处理 9</div>
+            </div>
+            <span class="sheet-close">关闭</span>
+          </div>
+          <div class="grid">
+            <div class="cell done">1</div><div class="cell done">2</div><div class="cell now">3</div><div class="cell">4</div><div class="cell">5</div>
+            <div class="cell done">6</div><div class="cell skip">7</div><div class="cell done">8</div><div class="cell done">9</div><div class="cell">10</div>
+            <div class="cell done">11</div><div class="cell done">12</div><div class="cell skip">13</div><div class="cell done">14</div><div class="cell">15</div>
+            <div class="cell">16</div><div class="cell">17</div><div class="cell">18</div><div class="cell">19</div><div class="cell">20</div>
+          </div>
+          <div class="legend">
+            <span><i style="background:#fdeee2"></i>已答</span>
+            <span><i style="background:#fdf6e3"></i>跳过</span>
+            <span><i style="background:#fff;border:1.5px solid #e0601f"></i>当前题</span>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- 修复批注 -->
+  <div class="notes">
+    <h3>这版修掉了什么</h3>
+    <div class="note"><span class="n">1</span><div><b>工具栏吸顶</b>：计时/答题卡/草稿/材料常驻，长材料题随时可看时间。</div></div>
+    <div class="note"><span class="n">2</span><div><b>材料变折叠条</b>：不再把题目顶出首屏，点"展开"进阅读态。</div></div>
+    <div class="note"><span class="n">3</span><div><b>"排除"移出主行</b>：挂在卡片右下角成 11px 小胶囊，主行只剩 A/文案两列，不再挤压抖动，也不误触。</div></div>
+    <div class="note"><span class="n">4</span><div><b>跳过改中性色</b>：警告橙只留给真正的超时/错误。</div></div>
+    <div class="note"><span class="n">5</span><div><b>弹层五合一</b>：答题卡/草稿/工具/帮助/争议共用一套 sheet（同一遮罩色 rgba(46,36,24,.45)、同一圆角、同一 handle），z-index 用 token 管理。</div></div>
+    <div class="note"><span class="n">6</span><div><b>草稿层补 overflow-y:auto</b>，手写公式展开后"收起草稿"不再被裁。</div></div>
+    <div class="note"><span class="n">7</span><div><b>色系统一</b>：结果页靛紫渐变 hero 换成与作答区同族的暖色，交卷不再"换 App"。</div></div>
+    <div class="note"><span class="n">8</span><div><b>选中态</b>：柿子橙描边 + 浅橙底 + 实心字母，和"已答"胶囊同色系，状态语言一致。</div></div>
+  </div>
+</div>
+</body>
+</html>

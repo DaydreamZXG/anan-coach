@@ -284,7 +284,7 @@ function prepareTable(
     block.frozenHeaderRows < 0 ||
     block.frozenHeaderRows > block.rowCount
   ) {
-    throw new ContentContractError(`${block.blockId} 冻结表头行数无效。`);
+    throw new ContentContractError(`${block.blockId} 固定表头行数无效。`);
   }
   const columnWidths = block.columnWidths ?? defaultColumnWidths(block.columnCount);
   const rowHeights = block.rowHeights ?? defaultRowHeights(block.rowCount, block.frozenHeaderRows);

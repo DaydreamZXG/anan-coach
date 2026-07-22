@@ -91,7 +91,7 @@ async function finishConflictChoice(
   }
   const answer = await wx.showModal({
     title: "发现两份作答进度",
-    content: "本机离线草稿和云端进度来自不同版本。请选择保留哪一份；计时仍以服务端记录为准。",
+    content: "这台设备上的草稿和云端进度不一致，选一份保留；计时以云端为准。",
     confirmText: "保留本机",
     cancelText: "使用云端",
   });

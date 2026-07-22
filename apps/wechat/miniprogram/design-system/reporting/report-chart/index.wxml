@@ -19,7 +19,7 @@
       <view class="report-chart__row-copy">{{item.marker}} · {{item.secondary}}</view>
     </view>
   </view>
-  <view wx:else class="report-chart__empty">当前证据不足以绘制这张图。</view>
+  <view wx:else class="report-chart__empty">数据还不够画这张图。</view>
   <view class="report-chart__summary">{{chart.summary}}</view>
   <view wx:if="{{chart.partialReasons.length}}" class="report-chart__partial">证据缺口 {{chart.partialReasons.length}} 项，图表已按部分状态展示。</view>
 </view>

@@ -4,22 +4,22 @@
   current="{{phase === 'reflection' ? 1 : phase === 'completed' ? 3 : 2}}"
   total="3"
   elapsedLabel="--:--"
-  syncLabel="{{pendingMessage || (phase === 'completed' ? '证据已结算' : '等待你的确认')}}"
+  syncLabel="{{pendingMessage || (phase === 'completed' ? '已完成' : '等待你的确认')}}"
   answerSheetAvailable="{{false}}"
   toolsAvailable="{{false}}"
   footerAvailable="{{false}}"
   bindexit="exit"
 >
   <view wx:if="{{status === 'loading'}}" class="page-state">
-    <state-view state="loading" title="正在恢复复盘版本" description="用户原话、错因决定与今日任务保持同一条证据链。" />
+    <state-view state="loading" title="正在恢复你的复盘" description="你的原话、错因和今日任务会对应起来。" />
   </view>
 
   <view wx:elif="{{status === 'error'}}" class="page-state">
-    <state-view state="error" title="{{errorTitle}}" description="{{errorMessage}}" actionText="按原命令重试" bindaction="retry" />
+    <state-view state="error" title="{{errorTitle}}" description="{{errorMessage}}" actionText="重试一次" bindaction="retry" />
   </view>
 
   <view wx:elif="{{status === 'unavailable'}}" class="capability-state card">
-    <view class="capability-mark">真实学习档案门禁</view>
+    <view class="capability-mark">先完成前置学习</view>
     <view class="capability-title">{{errorTitle}}</view>
     <view class="capability-copy">{{errorMessage}}</view>
     <button wx:if="{{showLoginAction}}" class="secondary-button capability-action" bindtap="goLogin">重新登录</button>
@@ -37,14 +37,14 @@
 
     <view wx:if="{{result && result.availability === 'legacy_result_unavailable'}}" class="legacy-result-notice card">
       <view class="legacy-result-title">历史结果只读</view>
-      <view class="legacy-result-copy">这次作答没有冻结的逐题事实拆分，因此不提供“方法正确但计算错误”选择，也不追溯补算。</view>
-      <view class="legacy-result-code type-data">legacy_result_unavailable</view>
+      <view class="legacy-result-copy">这次作答缺少逐题过程记录，因此不提供“方法正确但计算错误”选择，也不追溯补算。</view>
+      <view class="legacy-result-code type-data">旧结果只读</view>
     </view>
 
     <view wx:if="{{hasPendingWrite}}" class="pending-write card">
       <view class="pending-title">上次提交结果还不能确认</view>
       <view class="pending-copy">{{pendingMessage}}</view>
-      <button class="secondary-button" bindtap="retry">按原命令重试</button>
+      <button class="secondary-button" bindtap="retry">重试一次</button>
     </view>
 
     <block wx:if="{{phase === 'reflection'}}">
@@ -54,7 +54,7 @@
           <view class="section-meta">必填 · 原话进入个人学习档案</view>
         </view>
       </view>
-      <textarea class="thought-input" value="{{rawText}}" maxlength="4000" disabled="{{interactionLocked}}" placeholder="例如：我先排除了 A、D，但把题目问的‘不符合’看成了‘符合’……" bindinput="inputRawText"></textarea>
+      <textarea cursor-spacing="24" class="thought-input" value="{{rawText}}" maxlength="4000" disabled="{{interactionLocked}}" placeholder="例如：我先排除了 A、D，但把题目问的‘不符合’看成了‘符合’……" bindinput="inputRawText"></textarea>
 
       <view class="voice-card card">
         <view class="voice-header">
@@ -135,9 +135,9 @@
 
       <view class="detail-card card">
         <view class="field-label">下次准备怎么做 <text class="field-label__optional">选填</text></view>
-        <textarea class="detail-input" value="{{strategyNote}}" maxlength="2000" disabled="{{interactionLocked}}" placeholder="写下一个具体动作，例如：先圈题目问法，再看选项。" bindinput="inputStrategyNote"></textarea>
+        <textarea cursor-spacing="24" class="detail-input" value="{{strategyNote}}" maxlength="2000" disabled="{{interactionLocked}}" placeholder="写下一个具体动作，例如：先圈题目问法，再看选项。" bindinput="inputStrategyNote"></textarea>
         <view class="field-label">仍然没想通的点 <text class="field-label__optional">选填</text></view>
-        <textarea class="detail-input" value="{{doubtNote}}" maxlength="2000" disabled="{{interactionLocked}}" placeholder="保留疑问，后续可交给岸岸继续跟进。" bindinput="inputDoubtNote"></textarea>
+        <textarea cursor-spacing="24" class="detail-input" value="{{doubtNote}}" maxlength="2000" disabled="{{interactionLocked}}" placeholder="保留疑问，后续可交给岸岸继续跟进。" bindinput="inputDoubtNote"></textarea>
       </view>
       <button class="primary-button main-action" disabled="{{interactionLocked || voiceBusy || isRecording}}" bindtap="submitReflection">保存原话复盘</button>
     </block>
@@ -166,7 +166,7 @@
       <view class="followup-card card">
         <view class="followup-label">岸岸追问</view>
         <view class="followup-question">{{causeCandidate.question}}</view>
-        <textarea class="cause-input" value="{{followupAnswer}}" maxlength="2000" disabled="{{interactionLocked}}" placeholder="按当时真实想法回答，不需要迎合候选。" bindinput="inputFollowupAnswer"></textarea>
+        <textarea cursor-spacing="24" class="cause-input" value="{{followupAnswer}}" maxlength="2000" disabled="{{interactionLocked}}" placeholder="按当时真实想法回答，不需要迎合候选。" bindinput="inputFollowupAnswer"></textarea>
         <button class="primary-button main-action" disabled="{{interactionLocked}}" bindtap="submitCauseFollowup">提交追问回答</button>
       </view>
     </block>
@@ -217,14 +217,14 @@
       </view>
       <button wx:if="{{causeCandidate.canConfirm}}" class="primary-button main-action" disabled="{{interactionLocked}}" bindtap="confirmCause">确认这个错因</button>
       <button wx:if="{{causeCandidate.canDecide}}" class="reject-cause" disabled="{{interactionLocked}}" bindtap="rejectCause">否定候选，不确认错因</button>
-      <textarea wx:if="{{causeCandidate.canDecide}}" class="cause-input" value="{{replacementCause}}" maxlength="2000" disabled="{{interactionLocked}}" placeholder="也可以用一句话写下你认可的错因。" bindinput="inputReplacementCause"></textarea>
+      <textarea cursor-spacing="24" wx:if="{{causeCandidate.canDecide}}" class="cause-input" value="{{replacementCause}}" maxlength="2000" disabled="{{interactionLocked}}" placeholder="也可以用一句话写下你认可的错因。" bindinput="inputReplacementCause"></textarea>
       <button wx:if="{{causeCandidate.canDecide}}" class="secondary-button main-action" disabled="{{interactionLocked}}" bindtap="replaceCause">采用我补充的错因</button>
-      <button wx:if="{{causeCandidate.canDecide}}" class="defer-cause" disabled="{{interactionLocked}}" bindtap="deferCause">稍后处理，保留当前证据</button>
-      <view wx:else class="legacy-cause-readonly card">这是没有可绑定候选版本的历史状态，当前仅供查看，不会发送旧版跳过命令。</view>
+      <button wx:if="{{causeCandidate.canDecide}}" class="defer-cause" disabled="{{interactionLocked}}" bindtap="deferCause">稍后处理，先留着</button>
+      <view wx:else class="legacy-cause-readonly card">这是一条旧记录，只能查看。</view>
     </block>
 
     <view wx:else class="completed-card card">
-      <view class="completed-mark">证据链完成</view>
+      <view class="completed-mark">复盘完成</view>
       <view class="completed-title">这次作答与复盘已经结算</view>
       <view class="completed-copy">今日计划已按真实完成证据重排；本次记录不等于掌握，也不会虚构能力提升。</view>
       <button class="primary-button main-action" bindtap="returnToday">查看新的今日计划</button>

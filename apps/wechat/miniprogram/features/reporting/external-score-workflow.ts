@@ -38,7 +38,7 @@ export function reviewingExternalScoreState(
   localImagePath: string,
 ): ExternalScoreOcrState {
   if (revision.state !== "candidate" || revision.recognitionKind !== "printed_ocr") {
-    throw new ExternalScoreWorkflowError("服务端没有返回可核对的印刷成绩 OCR 候选。");
+    throw new ExternalScoreWorkflowError("没有拿到可核对的印刷成绩 OCR 候选。");
   }
   const spans = recognitionSpans(revision).map((span, sourceOrder) => ({
     ...span,

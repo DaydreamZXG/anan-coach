@@ -7,7 +7,7 @@ describe("compact task shell", () => {
     expect(taskShellSyncTone("已保存")).toBe("saved");
     expect(taskShellSyncTone("答案已保存 · 评阅中")).toBe("saved");
     expect(taskShellSyncTone("正在保存")).toBe("saving");
-    expect(taskShellSyncTone("上次断点待确认")).toBe("pending");
+    expect(taskShellSyncTone("上次进度待确认")).toBe("pending");
     expect(taskShellSyncTone("保存失败")).toBe("error");
   });
 });

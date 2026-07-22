@@ -10,7 +10,7 @@
     wx:elif="{{state.status === 'needsProfile'}}"
     state="empty"
     title="先完成资格建档"
-    description="没有当前资格事实版本，无法逐条核验岗位条件。"
+    description="先完善你的资格条件，才能逐条核对岗位要求。"
     request-id="{{state.error.requestId}}"
     action-text="去建档"
     bind:action="openOnboarding"
@@ -48,7 +48,7 @@
       <view class="detail-hero__score"><text class="detail-hero__score-label">建议备考线</text><text class="detail-hero__score-value type-data">{{state.summaryView.scoreLabel}}</text></view>
       <view class="detail-hero__meta">{{state.summaryView.region}}{{state.summaryView.city ? ' · ' + state.summaryView.city : ''}} · 招 {{state.summaryView.headcount}} 人</view>
       <view class="detail-hero__evidence">{{state.summaryView.scoreEvidenceLabel}} · {{state.summaryView.targetGeneratedLabel}} · {{state.summaryView.targetValidityLabel}}</view>
-      <view wx:if="{{state.summaryView.targetScoreExpired}}" class="inline-warning">目标分证据已过期，不能用于目标确认。</view>
+      <view wx:if="{{state.summaryView.targetScoreExpired}}" class="inline-warning">这个目标分是旧的，不能用来定目标，请重新评估。</view>
     </view>
 
     <view class="section-heading"><view class="section-title">岗位匹配与分差</view><view class="section-meta">分差依据 · 不是录取概率</view></view>
@@ -71,7 +71,7 @@
         <view class="fit-next-step__title">{{state.fit.nextActionTitle}}</view>
         <view class="fit-next-step__copy">{{state.fit.nextActionCopy}}</view>
       </view>
-      <view wx:if="{{!state.fit.scoreGapAvailable}}" class="inline-link fit-card__action" bindtap="openPositionsWorkspace">回岗位工作区录入成绩 →</view>
+      <view hover-class="item--hover" wx:if="{{!state.fit.scoreGapAvailable}}" class="inline-link fit-card__action" bindtap="openPositionsWorkspace">回岗位工作区录入成绩 →</view>
     </view>
 
     <view class="section-heading"><view class="section-title">行测 + 申论能力证据</view><view class="section-meta">缺一科不生成总分分差</view></view>
@@ -98,9 +98,9 @@
       <view class="requirement-card__evidence">{{item.evidenceLabel}}</view>
       <view wx:if="{{item.sourceReference}}" class="requirement-card__source">来源 · {{item.sourceReference}}</view>
       <view wx:if="{{item.operator === 'manual_review'}}" class="confirmation-actions">
-        <view class="confirmation-action" data-requirement-id="{{item.requirementId}}" data-response="satisfied" bindtap="confirmRequirement">符合</view>
-        <view class="confirmation-action" data-requirement-id="{{item.requirementId}}" data-response="uncertain" bindtap="confirmRequirement">不确定</view>
-        <view class="confirmation-action" data-requirement-id="{{item.requirementId}}" data-response="not_satisfied" bindtap="confirmRequirement">不符合</view>
+        <view hover-class="item--hover" class="confirmation-action" data-requirement-id="{{item.requirementId}}" data-response="satisfied" bindtap="confirmRequirement">符合</view>
+        <view hover-class="item--hover" class="confirmation-action" data-requirement-id="{{item.requirementId}}" data-response="uncertain" bindtap="confirmRequirement">不确定</view>
+        <view hover-class="item--hover" class="confirmation-action" data-requirement-id="{{item.requirementId}}" data-response="not_satisfied" bindtap="confirmRequirement">不符合</view>
       </view>
       <view wx:if="{{state.confirmingRequirementId === item.requirementId}}" class="processing-banner">正在生成新资格档案版本并重新核验…</view>
     </view>
@@ -109,7 +109,7 @@
     <view wx:if="{{state.commandError}}" class="inline-error"><view>{{state.commandError.message}}</view><view wx:if="{{state.commandError.requestId}}">Request ID · {{state.commandError.requestId}}</view></view>
 
     <view class="section-heading"><view class="section-title">目标变更</view><view class="section-meta">先预览再确认</view></view>
-    <view class="capability-card capability-card--neutral"><view class="capability-card__title">学习计划影响由服务端预览</view><view class="capability-card__copy">下一步只展示服务端声明的计划失效范围；确认前不会改变当前主目标。</view></view>
+    <view class="capability-card capability-card--neutral"><view class="capability-card__title">先看计划会怎么变</view><view class="capability-card__copy">确认前不会改变当前主目标，下一步会先展示受影响的计划。</view></view>
     <view class="sticky-actions">
       <ui-button label="{{state.eligibilityStatus !== 'eligible' ? '资格确认后才能设为目标' : (state.summaryView.targetScoreExpired ? '目标分证据已过期' : '查看目标变更影响')}}" disabled="{{state.eligibilityStatus !== 'eligible' || state.summaryView.targetScoreExpired}}" bind:action="openGoalChange" />
     </view>

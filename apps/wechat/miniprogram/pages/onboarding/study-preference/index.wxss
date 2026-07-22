@@ -28,7 +28,7 @@
   margin-top: 28rpx;
   overflow: hidden;
   border-radius: 99rpx;
-  background: rgba(82, 104, 255, 0.1);
+  background: var(--color-primary-a08);
 }
 .progress-value {
   width: 84%;
@@ -220,7 +220,7 @@
   box-shadow: var(--shadow-primary);
 }
 .weekday-chip--rest {
-  border-color: rgba(45, 166, 153, 0.4);
+  border-color: var(--color-primary-a24);
   background: var(--color-success-soft);
   color: var(--color-success);
   font-weight: 800;
@@ -234,7 +234,7 @@
 .rhythm-item {
   padding: 22rpx 10rpx;
   border-radius: 24rpx;
-  background: linear-gradient(145deg, #fff, #e7f7f3);
+  background: linear-gradient(145deg, #fff, var(--color-primary-soft));
   text-align: center;
 }
 .rhythm-item__value {

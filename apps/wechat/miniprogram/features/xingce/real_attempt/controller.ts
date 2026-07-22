@@ -77,13 +77,13 @@ export function runtimeWithPendingCheckpoint(
         (optionId) => !optionIds.has(optionId),
       )
     ) {
-      throw new XingcePageContractError("待重试断点与当前服务端题组不一致。");
+      throw new XingcePageContractError("待重试进度与当前题组不一致。");
     }
     attempts[answer.questionId] = toRuntimeAttempt(answer);
   }
   const currentQuestionIndex = server.questionOrder.indexOf(command.currentQuestionId);
   if (currentQuestionIndex < 0) {
-    throw new XingcePageContractError("待重试断点的当前题不在服务端题组中。");
+    throw new XingcePageContractError("待重试进度的当前题不在当前题组中。");
   }
   const restored = createTaskRuntime({
     taskId: server.taskId,
@@ -195,7 +195,7 @@ export function checkpointCommand(runtime: TaskRuntimeState): XingceCheckpointCo
       ...(answer.materialPosition ? { materialPosition: { ...answer.materialPosition } } : {}),
     }));
   if (answers.length === 0) {
-    throw new XingcePageContractError("至少明确作答或跳过一道题后才能保存断点。");
+    throw new XingcePageContractError("至少明确作答或跳过一道题后才能保存进度。");
   }
   const currentQuestionId = runtime.questionOrder[runtime.currentQuestionIndex];
   if (!currentQuestionId) throw new XingcePageContractError("当前题目不存在。");
@@ -257,7 +257,7 @@ function toRuntimeAttempt(answer: XingceTaskSession["answers"][number]): Questio
 }
 
 function cloneAttempt(attempt: QuestionAttemptDraft | undefined): QuestionAttemptDraft {
-  if (!attempt) throw new XingcePageContractError("服务端题组缺少对应作答断点。");
+  if (!attempt) throw new XingcePageContractError("当前题组缺少对应作答进度。");
   return {
     ...attempt,
     selectedOptionIds: [...attempt.selectedOptionIds],

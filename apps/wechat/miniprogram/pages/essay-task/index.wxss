@@ -55,7 +55,7 @@
   position: relative;
   overflow: hidden;
   padding: 30rpx;
-  border: 1rpx solid rgba(0, 151, 139, 0.24);
+  border: 1rpx solid var(--color-primary-a24);
   border-radius: 30rpx;
   background: var(--color-primary-soft);
   color: var(--color-ink);
@@ -69,7 +69,7 @@
   width: 280rpx;
   height: 280rpx;
   border-radius: 999rpx;
-  background: rgba(0, 151, 139, 0.1);
+  background: var(--color-primary-a08);
   filter: blur(12rpx);
 }
 
@@ -99,7 +99,7 @@
 .hero-meta__item,
 .hero-version {
   padding: 8rpx 14rpx;
-  border: 1rpx solid rgba(0, 151, 139, 0.16);
+  border: 1rpx solid var(--color-primary-a16);
   border-radius: 999rpx;
   background: rgba(255, 255, 255, 0.72);
   color: var(--color-ink-secondary);
@@ -110,7 +110,7 @@
   position: relative;
   display: inline-flex;
   margin-top: 14rpx;
-  background: rgba(0, 151, 139, 0.1);
+  background: var(--color-primary-a08);
   color: var(--color-primary-deep);
 }
 
@@ -118,7 +118,7 @@
 .blocking-note {
   margin-top: 18rpx;
   padding: 22rpx 24rpx;
-  border: 1rpx solid rgba(163, 88, 32, 0.12);
+  border: 1rpx solid rgba(185, 141, 47, 0.12);
   border-radius: 20rpx;
   background: var(--color-warning-soft);
   color: var(--color-warning);
@@ -229,7 +229,7 @@
 }
 
 .material-segment + .material-segment {
-  border-top: 1rpx solid rgba(52, 61, 102, 0.08);
+  border-top: 1rpx solid var(--color-surface-soft);
 }
 
 .segment-index,
@@ -321,13 +321,13 @@
 }
 
 .criterion-option--checked {
-  border-color: rgba(0, 151, 139, 0.35);
+  border-color: var(--color-primary-a24);
   background: var(--color-primary-soft);
 }
 
 .closure-result {
   margin-top: 22rpx;
-  border: 1rpx solid rgba(0, 151, 139, 0.16);
+  border: 1rpx solid var(--color-primary-a16);
 }
 
 .closure-result--success {
@@ -336,7 +336,7 @@
 }
 
 .closure-result--warning {
-  border-color: rgba(163, 88, 32, 0.2);
+  border-color: rgba(185, 141, 47, 0.2);
   background: var(--color-warning-soft);
 }
 
@@ -392,7 +392,7 @@
   min-height: 58rpx;
   margin: 0;
   padding: 0 18rpx;
-  border: 1rpx solid rgba(0, 151, 139, 0.24);
+  border: 1rpx solid var(--color-primary-a24);
   border-radius: 16rpx;
   background: var(--color-primary-soft);
   color: var(--color-primary);
@@ -499,7 +499,7 @@
 .review-status-card {
   margin-top: 20rpx;
   padding: 26rpx;
-  border: 1rpx solid rgba(0, 151, 139, 0.16);
+  border: 1rpx solid var(--color-primary-a16);
   border-radius: 22rpx;
   background: var(--color-primary-soft);
 }
@@ -510,7 +510,7 @@
 }
 
 .review-status-card--waiting_quota {
-  border-color: rgba(163, 88, 32, 0.16);
+  border-color: rgba(185, 141, 47, 0.16);
   background: var(--color-warning-soft);
 }
 
@@ -582,7 +582,7 @@
   overflow: hidden;
   padding: 32rpx;
   border-radius: 28rpx;
-  border: 1rpx solid rgba(0, 151, 139, 0.24);
+  border: 1rpx solid var(--color-primary-a24);
   background: var(--color-primary-soft);
   color: var(--color-ink);
   box-shadow: var(--shadow-card);
@@ -623,7 +623,7 @@
   margin-top: 20rpx;
   padding: 7rpx 14rpx;
   border-radius: 999rpx;
-  background: rgba(0, 151, 139, 0.12);
+  background: var(--color-primary-a16);
   color: var(--color-primary-deep);
   font-size: 20rpx;
   font-weight: 760;
@@ -644,7 +644,7 @@
 .score-disclaimer {
   margin-top: 20rpx;
   padding-top: 18rpx;
-  border-top: 1rpx solid rgba(0, 151, 139, 0.14);
+  border-top: 1rpx solid var(--color-primary-a16);
   color: var(--color-muted);
   font-size: 19rpx;
   line-height: 1.55;
@@ -831,7 +831,7 @@
 }
 
 .reflection-cause-option--checked {
-  border-color: rgba(0, 151, 139, 0.38);
+  border-color: var(--color-primary-a24);
   background: var(--color-primary-soft);
   color: var(--color-primary-deep);
 }
@@ -990,7 +990,7 @@
 .handwriting-card {
   margin-top: 20rpx;
   padding: 24rpx;
-  border: 2rpx solid rgba(0, 151, 139, 0.18);
+  border: 2rpx solid var(--color-primary-a16);
   border-radius: 24rpx;
   background: var(--color-primary-soft);
 }
@@ -1039,7 +1039,7 @@
 .span-confirm {
   margin-top: 12rpx;
   color: var(--color-primary-deep);
-  border: 2rpx solid rgba(0, 151, 139, 0.24);
+  border: 2rpx solid var(--color-primary-a24);
   background: var(--color-surface);
   font-size: 24rpx;
 }
@@ -1066,7 +1066,7 @@
   margin: 0;
   padding: 0 24rpx;
   color: var(--color-primary-deep);
-  border: 2rpx solid rgba(0, 151, 139, 0.2);
+  border: 2rpx solid var(--color-primary-a24);
   border-radius: 999rpx;
   background: var(--color-primary-soft);
   font-size: 24rpx;

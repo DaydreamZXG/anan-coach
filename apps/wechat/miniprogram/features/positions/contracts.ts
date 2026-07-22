@@ -127,7 +127,7 @@ export function planInvalidationViews(
     weekly_plan: "本周计划",
     score_gap: "岗位分差",
   };
-  return invalidates.map((code) => ({ code, label: `${labels[code]}将由服务端重建` }));
+  return invalidates.map((code) => ({ code, label: `${labels[code]}会重新安排` }));
 }
 
 export function positionRouteSummary(item: PositionDiscoveryItem): PositionRouteSummary {
@@ -148,17 +148,17 @@ export function positionRouteSummary(item: PositionDiscoveryItem): PositionRoute
 export const positionCapabilityGaps: Record<PositionCapability, PositionCapabilityGap> = {
   decision_buckets: {
     capability: "decision_buckets",
-    title: "冲稳保组合尚无正式服务端结论",
+    title: "冲稳保组合暂时没有正式结论",
     description: "当前只展示资格与目标分证据，不在客户端推算冲、稳、保。",
   },
   preparation_cost: {
     capability: "preparation_cost",
-    title: "备考成本尚无正式服务端口径",
+    title: "备考成本暂时没有正式口径",
     description: "当前接口没有可审计的学习成本分解，本页不会用招录人数或分数区间代替。",
   },
   score_gap: {
     capability: "score_gap",
-    title: "岗位分差尚无同版本服务端输出",
+    title: "岗位分差暂时没有同口径结果",
     description: "不会在客户端将能力区间与岗位区间自行相减。",
   },
 };

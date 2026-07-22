@@ -529,8 +529,8 @@ describe("position semantic contracts", () => {
 
   it("renders only service-declared invalidations", () => {
     expect(planInvalidationViews(["weekly_plan", "score_gap"])).toEqual([
-      { code: "weekly_plan", label: "本周计划将由服务端重建" },
-      { code: "score_gap", label: "岗位分差将由服务端重建" },
+      { code: "weekly_plan", label: "本周计划会重新安排" },
+      { code: "score_gap", label: "岗位分差会重新安排" },
     ]);
   });
 

@@ -6,7 +6,7 @@
 .brand-lockup { display: flex; align-items: center; gap: 16rpx; }
 .privacy-note { margin-top: 4rpx; color: var(--color-muted); font-size: 20rpx; }
 .step-number { color: var(--color-primary-deep); font-family: var(--font-family-data); font-size: 22rpx; font-weight: 800; font-variant-numeric: tabular-nums; }
-.progress-track { height: 8rpx; margin-top: 28rpx; overflow: hidden; border-radius: 99rpx; background: rgba(0, 151, 139, 0.1); }
+.progress-track { height: 8rpx; margin-top: 28rpx; overflow: hidden; border-radius: 99rpx; background: var(--color-primary-a08); }
 .progress-value { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--color-cyan), var(--color-primary)); transition: width 0.28s ease; }
 .progress-value--0 { width: 25%; }.progress-value--1 { width: 50%; }.progress-value--2 { width: 75%; }.progress-value--3 { width: 100%; }
 .step-tabs { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 12rpx; }
@@ -21,14 +21,14 @@
 .choice-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14rpx; margin-top: 18rpx; }
 .choice-grid--four { grid-template-columns: repeat(4, 1fr); }
 .choice { display: flex; align-items: center; justify-content: center; gap: 10rpx; min-height: 78rpx; padding: 0 12rpx; border: 1rpx solid var(--color-line); border-radius: 22rpx; background: var(--color-surface-soft); color: var(--color-ink-secondary); font-size: 24rpx; }
-.choice--selected { border-color: var(--color-primary); background: var(--color-primary-soft); color: var(--color-primary-deep); box-shadow: inset 0 0 0 1rpx rgba(0,151,139,.12); font-weight: 750; }
+.choice--selected { border-color: var(--color-primary); background: var(--color-primary-soft); color: var(--color-primary-deep); box-shadow: inset 0 0 0 1rpx var(--color-primary-a16); font-weight: 750; }
 .choice-dot { width: 10rpx; height: 10rpx; border-radius: 50%; background: var(--color-faint); }
-.choice--selected .choice-dot { background: var(--color-primary); box-shadow: 0 0 0 7rpx rgba(0,151,139,.12); }
+.choice--selected .choice-dot { background: var(--color-primary); box-shadow: 0 0 0 7rpx var(--color-primary-a16); }
 .choice--large { justify-content: flex-start; min-height: 116rpx; padding: 18rpx; }
 .choice-icon { display: flex; align-items: center; justify-content: center; width: 52rpx; height: 52rpx; border-radius: 16rpx; background: #fff; color: var(--color-primary); font-weight: 800; }
 .choice-title { font-weight: 750; }.choice-copy { margin-top: 6rpx; color: var(--color-muted); font-size: 19rpx; }
 .input-shell { display: flex; align-items: center; gap: 16rpx; height: 92rpx; margin-top: 16rpx; padding: 0 20rpx 0 24rpx; border: 1rpx solid var(--color-line); border-radius: 24rpx; background: var(--color-surface-soft); }
-.input-shell--filled { border-color: rgba(0,151,139,.4); background: #fff; }
+.input-shell--filled { border-color: var(--color-primary-a24); background: #fff; }
 .input-shell__control { flex: 1; height: 100%; font-size: 26rpx; }
 .input-badge { padding: 8rpx 12rpx; border-radius: 12rpx; background: var(--color-primary-soft); color: var(--color-primary); font-size: 18rpx; font-weight: 700; }
 .input-badge--optional { background: #eef1f5; color: var(--color-muted); }
@@ -40,7 +40,7 @@
 .year-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10rpx; margin-top: 18rpx; }
 .year-chip { display: flex; align-items: center; justify-content: center; height: 72rpx; border: 1rpx solid var(--color-line); border-radius: 20rpx; background: var(--color-surface-soft); color: var(--color-muted); font-size: 22rpx; }
 .year-chip--selected { border-color: var(--color-primary); background: var(--gradient-brand); color: #fff; font-weight: 750; box-shadow: var(--shadow-primary); }
-.notice-card { display: flex; gap: 16rpx; margin-top: 26rpx; padding: 20rpx; border-radius: 22rpx; background: linear-gradient(135deg,#f0f2ff,#edfbf8); color: var(--color-ink-secondary); font-size: 21rpx; line-height: 1.55; }
+.notice-card { display: flex; gap: 16rpx; margin-top: 26rpx; padding: 20rpx; border-radius: 22rpx; background: linear-gradient(135deg,#fbf3e6,#edfbf8); color: var(--color-ink-secondary); font-size: 21rpx; line-height: 1.55; }
 .notice-mark { display: flex; flex: none; align-items: center; justify-content: center; width: 34rpx; height: 34rpx; border-radius: 50%; background: var(--color-primary); color: #fff; font-weight: 800; }
 .review-head { display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 20rpx; border-bottom: 1rpx solid var(--color-line); }
 .review-status { color: var(--color-warning); font-size: 25rpx; font-weight: 800; }.review-caption { color: var(--color-muted); font-size: 19rpx; }
@@ -56,7 +56,7 @@
 .footer-actions { display: flex; align-items: center; gap: 14rpx; margin-top: auto; padding-top: 28rpx; }
 .footer-primary { flex: 1; }
 .success-state { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; min-height: calc(100vh - 100rpx); text-align: center; }
-.success-orbit { display: flex; align-items: center; justify-content: center; width: 260rpx; height: 260rpx; border-radius: 50%; background: radial-gradient(circle,#fff 15%,#edf0ff 56%,rgba(77,226,208,.2) 100%); box-shadow: 0 30rpx 90rpx rgba(82,104,255,.16); }
+.success-orbit { display: flex; align-items: center; justify-content: center; width: 260rpx; height: 260rpx; border-radius: 50%; background: radial-gradient(circle,#fff 15%,var(--color-surface-soft) 56%,rgba(77,226,208,.2) 100%); box-shadow: 0 30rpx 90rpx rgba(82,104,255,.16); }
 .success-kicker { margin-top: 40rpx; color: var(--color-primary); font-size: 22rpx; font-weight: 800; letter-spacing: 2rpx; }.success-title { margin-top: 12rpx; font-size: 46rpx; font-weight: 850; }.success-copy { max-width: 610rpx; margin: 18rpx auto 0; color: var(--color-muted); font-size: 24rpx; line-height: 1.7; }
 .success-points { align-self: stretch; margin: 30rpx 0; padding: 24rpx 28rpx; border: 1rpx solid var(--color-line); border-radius: 28rpx; background: rgba(255,255,255,.84); text-align: left; }
 .success-point { padding: 10rpx 0; color: var(--color-ink-secondary); font-size: 23rpx; }.success-point__check { margin-right: 16rpx; color: var(--color-success); font-weight: 900; }

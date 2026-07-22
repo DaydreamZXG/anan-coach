@@ -29,7 +29,7 @@ export const TASK_HELP_OPTIONS = Object.freeze([
   { code: "operation_submit", label: "不了解保存或交卷操作", category: "operation" },
   { code: "operation_display", label: "需要调整字号或护眼显示", category: "operation" },
   { code: "fault_content_render", label: "题面、材料或图片显示异常", category: "fault" },
-  { code: "fault_network_sync", label: "断点保存或网络同步异常", category: "fault" },
+  { code: "fault_network_sync", label: "进度保存或网络同步异常", category: "fault" },
   { code: "fault_timer", label: "计时显示异常", category: "fault" },
   { code: "fault_submission", label: "无法交卷", category: "fault" },
 ] as const satisfies ReadonlyArray<{

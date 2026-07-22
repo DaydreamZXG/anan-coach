@@ -155,7 +155,7 @@ Page<StructurePageData, StructurePageCustom>({
       if (!runtimes.owns(this, runtime, epoch)) return;
       if (workspace.versions.length === 0) {
         runtime.workspace = workspace;
-        setState(this, "empty", "服务端没有找到可编辑的草稿版本。", "", "草稿版本为空");
+        setState(this, "empty", "没有找到可编辑的草稿。", "", "草稿为空");
         return;
       }
       runtime.workspace = workspace;
@@ -185,7 +185,7 @@ Page<StructurePageData, StructurePageCustom>({
         applicabilityText: workspace.versions.at(-1)?.applicability.join("，") ?? "",
         exclusionsText: "",
         pitfallsText: "",
-        candidateNotice: "AI 候选不是事实。请逐项编辑，确认后才会生成不可变版本。",
+        candidateNotice: "AI 候选不是事实。请逐项编辑，确认后才算你认可。",
         interactionLocked: false,
         confirmedVersionId: "",
       });
@@ -258,7 +258,7 @@ Page<StructurePageData, StructurePageCustom>({
     runtime.busy = true;
     const epoch = ++runtime.requestEpoch;
     this.setData({ interactionLocked: true, formMessage: "" });
-    setState(this, "processing", "正在把你的确认保存为不可变版本。");
+    setState(this, "processing", "正在保存你的确认。");
     try {
       const receipt = await runtime.api.confirmCandidate(command);
       if (!runtimes.owns(this, runtime, epoch)) return;

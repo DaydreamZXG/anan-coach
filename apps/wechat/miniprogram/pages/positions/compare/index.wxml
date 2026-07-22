@@ -2,7 +2,7 @@
   <view class="s9-hero">
     <view class="s9-kicker">岗位对比 · {{state.positionIds.length}} 个候选</view>
     <view class="s9-title">两个岗位，差别不只在竞争比</view>
-    <view class="s9-subtitle">在同一档案版本下，对齐资格、分差、证据和额外考试。</view>
+    <view class="s9-subtitle">按同一份档案对比资格、分差和加试要求。</view>
   </view>
 
   <state-view wx:if="{{!state || state.status === 'idle' || state.status === 'loading'}}" state="loading" />
@@ -10,7 +10,7 @@
     wx:elif="{{state.status === 'needsProfile'}}"
     state="empty"
     title="先完成资格建档"
-    description="岗位对比必须在同一资格档案版本下重新核验。"
+    description="岗位对比要按同一份档案重新核对。"
     request-id="{{state.error.requestId}}"
     action-text="去建档"
     bind:action="openOnboarding"
@@ -50,7 +50,7 @@
           <view class="highlight-list"><view wx:for="{{item.highlightLabels}}" wx:for-item="label" wx:key="*this" class="highlight-item">{{label}}</view></view>
           <view class="comparison-table">
             <view class="comparison-row"><text class="comparison-row__label">资格核验</text><text class="comparison-row__value">{{item.conditionSummary}}</text></view>
-            <view class="comparison-row"><text class="comparison-row__label">服务端分带</text><text class="comparison-row__value">{{item.fitView.bandLabel}} · {{item.fitView.statusDescription}}</text></view>
+            <view class="comparison-row"><text class="comparison-row__label">岗位分带</text><text class="comparison-row__value">{{item.fitView.bandLabel}} · {{item.fitView.statusDescription}}</text></view>
             <view class="comparison-row"><text class="comparison-row__label">同版本分差</text><text class="comparison-row__value type-data">{{item.fitView.scoreGapRangeLabel}}</text></view>
             <view class="comparison-row"><text class="comparison-row__label">建议点差</text><text class="comparison-row__value type-data">{{item.fitView.scoreGapRecommendedLabel}}</text></view>
             <view class="comparison-row"><text class="comparison-row__label">双科证据</text><text class="comparison-row__value">{{item.fitView.evidenceStatusLabel}}</text></view>
@@ -65,7 +65,7 @@
           </view>
           <view wx:if="{{item.fitView.evidenceReasonLabel}}" class="fit-card__reason">未形成分差的依据 · {{item.fitView.evidenceReasonLabel}}</view>
           <view class="fit-card__audit">分差 Request ID · {{item.fitRequestId}}</view>
-          <view class="inline-link" data-id="{{item.positionId}}" bindtap="openPosition">查看逐条证据 →</view>
+          <view hover-class="item--hover" class="inline-link" data-id="{{item.positionId}}" bindtap="openPosition">查看逐条证据 →</view>
         </view>
       </view>
     </scroll-view>

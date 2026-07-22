@@ -6,11 +6,11 @@
   overflow: hidden;
   padding: 132rpx 56rpx calc(46rpx + env(safe-area-inset-bottom));
   background:
-    radial-gradient(circle at 10% 15%, rgba(210, 204, 190, 0.48) 0, transparent 31%),
-    radial-gradient(circle at 92% 22%, rgba(196, 236, 225, 0.58) 0, transparent 30%),
-    #fbfcf8;
-  color: #15201f;
-  font-family: var(--font-family-data);
+    radial-gradient(circle at 10% 15%, rgba(240, 195, 140, 0.35) 0, transparent 34%),
+    radial-gradient(circle at 92% 22%, rgba(253, 238, 226, 0.9) 0, transparent 32%),
+    var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-family-ui);
 }
 
 .brand-lockup {
@@ -28,7 +28,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 17rpx;
-  background: #009f8d;
+  background: var(--color-primary);
   color: #ffffff;
   font-size: 30rpx;
   font-weight: 700;
@@ -36,7 +36,7 @@
 }
 
 .brand-name {
-  color: #007d72;
+  color: var(--color-primary-deep);
   font-size: 32rpx;
   font-weight: 700;
   letter-spacing: 1rpx;
@@ -48,7 +48,7 @@
 }
 
 .eyebrow {
-  color: #008c7f;
+  color: var(--color-primary);
   font-size: 21rpx;
   font-weight: 700;
   letter-spacing: 0.5rpx;
@@ -64,13 +64,13 @@
 }
 
 .hero-title__accent {
-  color: #009f8d;
+  color: var(--color-primary);
 }
 
 .hero-copy {
   max-width: 610rpx;
   margin-top: 28rpx;
-  color: #687774;
+  color: var(--color-muted);
   font-size: 24rpx;
   line-height: 1.72;
 }
@@ -101,11 +101,11 @@
   margin: 0;
   padding: 0 32rpx;
   border: 0;
-  border-radius: 28rpx;
+  border-radius: 999rpx;
   background: var(--color-wechat);
   color: #ffffff;
   box-shadow: 0 20rpx 44rpx rgba(7, 193, 96, 0.17);
-  font-family: var(--font-family-data);
+  font-family: var(--font-family-ui);
   font-size: 27rpx;
   font-weight: 700;
   line-height: 94rpx;
@@ -116,7 +116,7 @@
 }
 
 .wechat-button--disabled {
-  background: #b9dfca;
+  background: rgba(7, 193, 96, 0.4);
   color: rgba(255, 255, 255, 0.86);
 }
 
@@ -155,7 +155,7 @@
   justify-content: center;
   gap: 9rpx;
   margin-top: 22rpx;
-  color: #93a09e;
+  color: var(--color-faint);
   font-size: 19rpx;
   line-height: 1.4;
   text-align: center;
@@ -169,7 +169,7 @@
 .error-message {
   margin-bottom: 18rpx;
   padding: 16rpx 20rpx;
-  border: 1rpx solid rgba(217, 56, 83, 0.12);
+  border: 1rpx solid rgba(213, 70, 79, 0.12);
   border-radius: 16rpx;
   background: var(--color-danger-soft);
   color: var(--color-danger);

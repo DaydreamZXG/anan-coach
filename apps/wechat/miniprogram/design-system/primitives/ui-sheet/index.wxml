@@ -1,0 +1,18 @@
+<view wx:if="{{visible}}" class="ui-sheet-mask ui-sheet-mask--{{level}}" catchtap="onMaskTap" catchtouchmove="noop">
+  <view
+    class="ui-sheet ui-sheet--{{surface}} sheet-class"
+    style="{{maxHeight ? 'max-height: ' + maxHeight + ';' : ''}}"
+    catchtap="noop"
+  >
+    <view wx:if="{{showHandle}}" class="ui-sheet__handle"></view>
+    <view wx:if="{{title}}" class="ui-sheet__head">
+      <view class="ui-sheet__head-main">
+        <view class="ui-sheet__title">{{title}}</view>
+        <view wx:if="{{copy}}" class="ui-sheet__copy">{{copy}}</view>
+      </view>
+      <slot name="action"></slot>
+      <button wx:if="{{showClose}}" class="ui-sheet__close" hover-class="item--hover" bindtap="onCloseTap">{{closeText}}</button>
+    </view>
+    <slot></slot>
+  </view>
+</view>

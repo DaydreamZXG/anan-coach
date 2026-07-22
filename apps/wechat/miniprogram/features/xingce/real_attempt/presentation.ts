@@ -135,7 +135,7 @@ export function presentXingceTask(
   const questionId = runtime.questionOrder[runtime.currentQuestionIndex];
   const question = session.bundle.questions.find((item) => item.questionId === questionId);
   const attempt = questionId ? runtime.attempts[questionId] : undefined;
-  if (!question || !attempt) throw new Error("当前行测题面与作答断点不一致。");
+  if (!question || !attempt) throw new Error("当前行测题目与作答进度不一致。");
   const answeredCount = runtime.questionOrder.filter(
     (id) => (runtime.attempts[id]?.selectedOptionIds.length ?? 0) > 0,
   ).length;
@@ -216,7 +216,7 @@ export function presentXingceCauseCandidate(
     },
     processing: {
       label: "岸岸正在整理错因证据",
-      description: "已保存你的原话，候选错因将由服务端权威状态发布。",
+      description: "已记下你的原话，错因归类好了会通知你。",
     },
     candidate_ready: {
       label: "岸岸给出了一个待确认错因",
@@ -224,7 +224,7 @@ export function presentXingceCauseCandidate(
     },
     followup_required: {
       label: "岸岸还需要一条信息",
-      description: "回答下面的追问后，服务端会生成新的候选版本。",
+      description: "回答下面的追问，岸岸再帮你分析一版。",
     },
     evidence_insufficient: {
       label: "错因证据不足",
@@ -369,7 +369,7 @@ function presentResultItem(
     timingExceeded: timing.status === "advisory_exceeded",
     selectedLabel: item.selectedOptionIds.length > 0 ? item.selectedOptionIds.join("、") : "未作答",
     correctLabel: item.correctOptionIds.join("、"),
-    explanation: item.explanation ?? "服务端未提供可展示解析。",
+    explanation: item.explanation ?? "这道题暂时没有解析。",
     explanationSource: item.explanationSource ?? "解析来源未提供",
   };
 }
@@ -484,7 +484,7 @@ function confidenceEvidenceLabel(
 }
 
 function groupHeadline(summary: XingceGroupSummary): string {
-  if (summary.outcome === "attained") return "这组达成，仍需按证据链继续验证";
+  if (summary.outcome === "attained") return "这组达标了，继续保持再巩固";
   if (summary.outcome === "interrupted") return "这组已中断，主动放弃不等于答错";
   return "这组未达成，逐题事实已分开保留";
 }
@@ -494,7 +494,7 @@ function groupNextAction(summary: XingceGroupSummary): string {
   if (summary.pendingCause) return "下一步：完成错因确认";
   if (summary.immediateVerification) return "下一步：完成即时变式验证";
   if (summary.scheduled) return "下一步：按计划进入首次或延时复测";
-  return "下一步：等待服务端发布权威计划";
+  return "下一步：等岸岸排好新计划";
 }
 
 function verificationStageLabel(stage: XingceVerificationOutcome["verificationStage"]): string {
@@ -510,9 +510,9 @@ function shortVersion(value: string): string {
 }
 
 function syncLabel(runtime: TaskRuntimeState): string {
-  if (runtime.syncState === "saving") return "正在保存断点";
+  if (runtime.syncState === "saving") return "正在保存进度";
   if (runtime.syncState === "pending") return "有修改待保存";
-  if (runtime.syncState === "conflict") return "服务端版本已更新";
+  if (runtime.syncState === "conflict") return "内容已更新";
   if (runtime.syncState === "error") return "保存未确认";
   return `已保存·v${String(runtime.revision)}`;
 }

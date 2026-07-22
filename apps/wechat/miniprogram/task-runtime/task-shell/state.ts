@@ -1,13 +1,13 @@
 export type TaskShellSyncTone = "saved" | "saving" | "pending" | "error";
 
 const ERROR_LABELS = new Set(["保存失败", "同步失败", "交卷结果待确认"]);
-const SAVING_LABELS = new Set(["正在保存", "正在写入版本", "正在交卷"]);
+const SAVING_LABELS = new Set(["正在保存", "正在保存进度", "正在交卷"]);
 const PENDING_LABELS = new Set([
-  "连接服务端",
+  "正在连接",
   "待保存",
   "等待你的确认",
   "尚未保存本次修改",
-  "上次断点待确认",
+  "上次进度待确认",
 ]);
 
 export function taskShellSyncTone(label: string): TaskShellSyncTone {

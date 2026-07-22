@@ -245,10 +245,7 @@ function presentGoalGap(dashboard: TodayDashboard) {
     );
   }
   if (!targetScore) {
-    return unavailableGoalGap(
-      "岗位备考线证据不足",
-      "主目标已确认，但该岗位的可比较分数证据尚未通过门禁。",
-    );
+    return unavailableGoalGap("岗位备考线证据不足", "主目标已确认，但还缺少可比较的双科分数记录。");
   }
   if (readiness === "stale") {
     return unavailableGoalGap(

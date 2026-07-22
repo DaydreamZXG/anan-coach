@@ -241,7 +241,7 @@ Page<PracticePageData, PracticePageCustom>({
       this.setData({
         status: "unavailable",
         errorTitle: "演示数据不能进入真实作答",
-        errorMessage: "行测题组、答案版本与复盘证据必须由已认证服务端提供。",
+        errorMessage: "行测题组、答案和复盘记录必须来自已认证的正式数据。",
       });
       return;
     }
@@ -250,7 +250,7 @@ Page<PracticePageData, PracticePageCustom>({
       this.setData({
         status: "unavailable",
         errorTitle: "登录后才能开始行测任务",
-        errorMessage: "作答断点与复盘证据必须绑定你的账号。",
+        errorMessage: "作答进度和复盘记录必须绑定你的账号。",
         showLoginAction: true,
       });
       return;
@@ -943,7 +943,7 @@ function applySession(
   page.setData({
     hasPendingCheckpoint: retryablePending !== null,
     pendingCheckpointMessage: retryablePending
-      ? "检测到一次结果未知的断点保存，已恢复当时的本地草稿；请按原命令重试。"
+      ? "检测到一次结果未知的进度保存，已恢复当时的本地草稿；请重试刚才那次保存。"
       : "",
     interactionLocked: retryablePending !== null,
   });
@@ -1100,8 +1100,8 @@ async function saveCheckpoint(
     if (commandConfirmed) {
       page.setData({
         status: "error",
-        errorTitle: "断点已保存，但当前会话刷新失败",
-        errorMessage: "服务端已确认原命令；请重新加载当前权威会话后再继续。",
+        errorTitle: "进度已保存，但页面刷新失败",
+        errorMessage: "刚才的保存已确认；请重新加载当前作答后再继续。",
         hasPendingCheckpoint: false,
         pendingCheckpointMessage: "",
         interactionLocked: true,
@@ -1146,10 +1146,15 @@ async function saveCheckpoint(
       requestId: error instanceof ApiClientError ? error.requestId : "xingce-save-error",
     });
     render(page, runtime);
-    handleInlineError(page, runtime, error, "断点尚未获得服务端确认，本地命令会保留供原样重试。");
+    handleInlineError(
+      page,
+      runtime,
+      error,
+      "进度还没确认成功，本机会保留刚才那次保存，方便你重试。",
+    );
     page.setData({
       hasPendingCheckpoint: true,
-      pendingCheckpointMessage: "服务端尚未确认这次保存，必须按原命令重试后才能继续修改。",
+      pendingCheckpointMessage: "这次保存还没确认成功，需要重试后才能继续修改。",
       interactionLocked: true,
     });
   } finally {
@@ -1281,7 +1286,7 @@ function failPage(page: PracticePageInstance, title: string, message: string): v
 }
 
 function errorMessage(error: unknown): string {
-  return error instanceof Error ? error.message : "服务端没有返回可确认的真实状态。";
+  return error instanceof Error ? error.message : "没有拿到可确认的最新状态。";
 }
 
 function currentAccountOwns(runtime: NonNullable<ReturnType<typeof runtimes.get>>): boolean {
@@ -1297,7 +1302,7 @@ function invalidateForAccountChange(
   page.setData({
     status: "unavailable",
     errorTitle: "账号已经变更",
-    errorMessage: "旧账号的题目与断点已从当前页面清除，请以当前账号重新进入今日计划。",
+    errorMessage: "旧账号的题目和进度已从当前页面清除，请以当前账号重新进入今日计划。",
     showLoginAction: true,
     view: null,
     result: null,

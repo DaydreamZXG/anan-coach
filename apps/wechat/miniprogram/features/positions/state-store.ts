@@ -90,7 +90,7 @@ export class PositionStateStore {
     if (existing) {
       if (isFutureTimestamp(existing.expiresAt)) {
         if (existing.fingerprint !== fingerprint) {
-          throw new Error("同一岗位命令恢复键绑定了不同输入，必须先完成或明确取消原命令。");
+          throw new Error("同一岗位操作绑定了不同输入，必须先完成或明确取消上一次操作。");
         }
         return existing.idempotencyKey;
       }

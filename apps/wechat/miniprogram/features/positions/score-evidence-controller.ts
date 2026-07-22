@@ -86,7 +86,7 @@ export class ScoreEvidenceController {
         error: {
           status: "network",
           title: "存在结果未知的成绩命令",
-          message: "已恢复原始输入；必须使用同一幂等键查询原命令结果，不能创建重复证据。",
+          message: "已恢复原始输入；需要先确认刚才那次提交，不能重复创建成绩记录。",
           requestId: "",
           retryable: true,
         },

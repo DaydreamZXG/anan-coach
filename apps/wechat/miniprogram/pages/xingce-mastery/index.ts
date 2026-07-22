@@ -157,7 +157,7 @@ Page<XingceMasteryPageData, XingceMasteryPageCustom>({
       const confirmation = await wx.showModal({
         title: "复测计划尚未发布",
         content:
-          "这条掌握记录已经到期，但服务端还没有发布可执行计划。岸岸不会在客户端临时拼题，请返回今日等待计划更新。",
+          "这条掌握记录已经到期，但还没有可执行计划。岸岸不会临时拼题，请返回今日等待计划更新。",
         confirmText: "返回今日",
         showCancel: false,
       });
@@ -168,7 +168,7 @@ Page<XingceMasteryPageData, XingceMasteryPageCustom>({
     const target = masteryQueueActionTarget(item.source);
     if (!target) {
       this.setData({
-        partialErrorMessage: "服务端返回的执行入口与当前掌握版本不一致，已停止跳转。请刷新队列。",
+        partialErrorMessage: "执行入口与当前掌握记录不一致，已停止跳转。请刷新队列。",
         partialRequestId: "",
       });
       return;

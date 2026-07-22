@@ -1,14 +1,14 @@
 <view class="s9-page s9-page--with-dock result-page">
   <view class="s9-hero">
-    <view class="s9-title">你不是从零开始，只是证据还没归位</view>
+    <view class="s9-title">你不是从零开始，只是数据还没归位</view>
     <view class="s9-subtitle">岸岸已经把目标、成绩与时间合成第一版备考判断。</view>
     <view wx:if="{{state && state.view}}" class="s9-chip-row"><view class="s9-chip s9-chip--gold">{{state.view.eyebrow}}</view><view class="s9-chip s9-chip--primary">{{state.view.evidenceLabel}}</view></view>
   </view>
 
   <view wx:if="{{!state || state.status === 'loading'}}" class="page-state">
     <view class="result-orbit"><anan-companion size="large" intent="thinking" context="report" animate /></view>
-    <view class="state-title">正在对齐岗位、双科证据与时间版本</view>
-    <view class="state-copy">分差只会在行测和申论都满足正式证据门禁时出现。</view>
+    <view class="state-title">正在对齐岗位、两科成绩和时间安排</view>
+    <view class="state-copy">行测和申论都有成绩后，才能算出分差。</view>
   </view>
 
   <view wx:elif="{{state.status === 'error'}}" class="page-state">
@@ -50,7 +50,7 @@
     <view class="validity-line">{{state.view.validityLabel}}</view>
 
     <view wx:if="{{state.pendingRecovery}}" class="recovery-banner">
-      上一次确认结果未知，页面已锁定原命令；重试只查询同一次确认，不会重复完成建档。
+      上一次确认结果未知，页面已锁定刚才那次操作；重试只查询同一次确认，不会重复完成建档。
     </view>
     <view wx:if="{{state.error}}" class="error-banner">
       <view>{{state.error.message}}</view>

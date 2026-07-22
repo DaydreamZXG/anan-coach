@@ -20,9 +20,9 @@ describe("stage 9 login composition", () => {
     expect(template).not.toContain("promise-row");
   });
 
-  it("keeps the approved warm-mint surface and WeChat action hierarchy", () => {
+  it("keeps the approved warm-cream surface and WeChat action hierarchy", () => {
     expect(styles).toContain("radial-gradient");
-    expect(styles).toContain("#009f8d");
+    expect(styles).toContain("var(--color-canvas)");
     expect(styles).toContain(".wechat-button");
     expect(styles).toContain("width: 638rpx !important");
     expect(styles).not.toContain("rgba(82, 104, 255");

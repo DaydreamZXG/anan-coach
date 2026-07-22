@@ -15,7 +15,7 @@
   padding: 34rpx;
   border-radius: 30rpx;
   color: #ffffff;
-  background: linear-gradient(145deg, #005e57 0%, #00978b 62%, #42bea8 100%);
+  background: linear-gradient(145deg, #005e57 0%, var(--color-primary) 62%, #42bea8 100%);
   box-shadow: 0 20rpx 52rpx rgba(0, 94, 87, 0.18);
 }
 
@@ -79,7 +79,7 @@
 .briefing-evidence,
 .briefing-warning {
   margin-top: 12rpx;
-  color: #5d667a;
+  color: var(--color-muted);
   font-size: 25rpx;
   line-height: 1.65;
 }

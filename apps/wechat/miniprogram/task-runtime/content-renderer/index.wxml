@@ -2,7 +2,7 @@
   class="content-renderer content-renderer--{{colorMode}}"
   style="--content-font-scale: {{fontScale}};"
 >
-  <view
+  <view hover-class="item--hover"
     wx:for="{{viewBlocks}}"
     wx:key="id"
     id="{{item.domAnchorId}}"
@@ -89,7 +89,7 @@
     <view wx:elif="{{item.kind === 'table'}}" class="content-table-card">
       <view class="content-table__header">
         <text class="content-table__caption">{{item.resolvedCaption}}</text>
-        <view class="content-table__zoom" catchtap="noop">
+        <view hover-class="item--hover" class="content-table__zoom" catchtap="noop">
           <button
             class="content-table__zoom-button"
             aria-label="缩小表格"

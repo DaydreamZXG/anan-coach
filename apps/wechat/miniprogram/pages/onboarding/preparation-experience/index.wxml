@@ -25,22 +25,22 @@
     </view>
 
     <view class="choice-list">
-      <view class="choice-card {{state.draft.firstSystematic ? 'choice-card--selected' : ''}}" data-choice="firstSystematic" bindtap="selectChoice">
+      <view hover-class="item--hover" class="choice-card {{state.draft.firstSystematic ? 'choice-card--selected' : ''}}" data-choice="firstSystematic" bindtap="selectChoice">
         <view class="choice-icon">01</view>
         <view class="choice-body"><view class="choice-title">第一次系统备考</view><view class="choice-copy">先看可选岗位和考情，再建立双科起点。</view></view>
         <view class="choice-check">{{state.draft.firstSystematic ? '✓' : ''}}</view>
       </view>
-      <view class="choice-card {{state.draft.externalLearning ? 'choice-card--selected' : ''}}" data-choice="externalLearning" bindtap="selectChoice">
+      <view hover-class="item--hover" class="choice-card {{state.draft.externalLearning ? 'choice-card--selected' : ''}}" data-choice="externalLearning" bindtap="selectChoice">
         <view class="choice-icon">02</view>
-        <view class="choice-body"><view class="choice-title">已经在外部学习</view><view class="choice-copy">后续导入讲义、笔记或模考证据，先复用已有成果。</view></view>
+        <view class="choice-body"><view class="choice-title">已经在外部学习</view><view class="choice-copy">之后可以导入讲义、笔记或模考成绩，不用从头再来。</view></view>
         <view class="choice-check">{{state.draft.externalLearning ? '✓' : ''}}</view>
       </view>
-      <view class="choice-card {{state.draft.priorGuokaoExam ? 'choice-card--selected' : ''}}" data-choice="priorGuokaoExam" bindtap="selectChoice">
+      <view hover-class="item--hover" class="choice-card {{state.draft.priorGuokaoExam ? 'choice-card--selected' : ''}}" data-choice="priorGuokaoExam" bindtap="selectChoice">
         <view class="choice-icon">03</view>
         <view class="choice-body"><view class="choice-title">参加过往年国考</view><view class="choice-copy">实考成绩只用于定位，不直接跨年计算提分。</view></view>
         <view class="choice-check">{{state.draft.priorGuokaoExam ? '✓' : ''}}</view>
       </view>
-      <view class="choice-card choice-card--retake {{state.draft.retake ? 'choice-card--selected' : ''}}" data-choice="retake" bindtap="selectChoice">
+      <view hover-class="item--hover" class="choice-card choice-card--retake {{state.draft.retake ? 'choice-card--selected' : ''}}" data-choice="retake" bindtap="selectChoice">
         <view class="choice-icon">04</view>
         <view class="choice-body"><view class="choice-title">二战或多次备考</view><view class="choice-copy">从失分结构开始，跳过去年已经掌握的内容。</view></view>
         <view class="choice-check">{{state.draft.retake ? '✓' : ''}}</view>

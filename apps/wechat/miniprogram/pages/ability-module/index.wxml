@@ -1,5 +1,5 @@
 <view class="brain-page">
-  <view class="brain-hero"><view class="brain-kicker">{{module ? module.displayName : '模块详情'}}</view><view class="brain-title">把能力拆成能验证的组成部分</view><view class="brain-copy">正确率之外，还看速度、稳定、迁移、取舍和证据置信度。</view></view>
+  <view class="brain-hero"><view class="brain-kicker">{{module ? module.displayName : '模块详情'}}</view><view class="brain-title">把能力拆成能验证的组成部分</view><view class="brain-copy">除了正确率，还看速度、稳定性和举一反三。</view></view>
   <state-view wx:if="{{status === 'loading'}}" state="loading" />
   <state-view wx:elif="{{status === 'error' && !module}}" state="error" title="模块画像没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="{{retryAllowed ? '重新加载' : ''}}" bind:action="retryLoad" />
   <block wx:elif="{{module}}">
@@ -8,7 +8,7 @@
     <view class="brain-section-head"><view class="brain-section-title">有期限的战略取舍</view><view class="brain-section-meta">先候选，再确认</view></view>
     <view class="brain-card">
       <view class="decision-types"><button class="brain-pill {{decisionType === 'exam_skip' ? 'active' : ''}}" data-type="exam_skip" bindtap="chooseDecisionType">考场跳过</button><button class="brain-pill {{decisionType === 'phase_deprioritize' ? 'active' : ''}}" data-type="phase_deprioritize" bindtap="chooseDecisionType">阶段降权</button><button class="brain-pill {{decisionType === 'strategic_abandon' ? 'active' : ''}}" data-type="strategic_abandon" bindtap="chooseDecisionType">战略放弃</button></view>
-      <textarea class="brain-textarea" value="{{rationale}}" maxlength="1000" placeholder="说明为什么考虑这个取舍；服务器会附上实际正确率、耗时和掌握证据。" bindinput="inputRationale" />
+      <textarea cursor-spacing="24" class="brain-textarea" value="{{rationale}}" maxlength="1000" placeholder="说说你为什么想放弃这部分；我们会附上你的正确率和用时做参考。" bindinput="inputRationale" />
       <view class="date-row"><picker mode="date" bindchange="chooseReviewDate"><view class="date-box"><view class="brain-label">复评日期</view><text class="date-box__value">{{reviewDate || '请选择'}}</text></view></picker><picker mode="date" bindchange="chooseEffectiveDate"><view class="date-box"><view class="brain-label">失效日期</view><text class="date-box__value">{{effectiveDate || '请选择'}}</text></view></picker></view>
       <view class="brain-warning">候选不会自动生效；没有范围、收益证据、有效期和复评日，就不能形成战略决定。</view>
       <view wx:if="{{errorMessage}}" class="brain-warning">{{errorMessage}}</view>

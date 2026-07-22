@@ -6,7 +6,7 @@
 .progress-track { height: 8rpx; margin-top: 28rpx; overflow: hidden; border-radius: 99rpx; background: rgba(82,104,255,.1); }
 .progress-value { width: 100%; height: 100%; border-radius: inherit; background: linear-gradient(90deg,var(--color-cyan),var(--color-primary)); }
 .page-state { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; min-height: 72vh; text-align: center; }
-.result-orbit { display: flex; align-items: center; justify-content: center; width: 230rpx; height: 230rpx; border-radius: 50%; background: radial-gradient(circle,#fff 15%,#edf0ff 57%,rgba(77,226,208,.2)); box-shadow: 0 30rpx 90rpx rgba(82,104,255,.16); }
+.result-orbit { display: flex; align-items: center; justify-content: center; width: 230rpx; height: 230rpx; border-radius: 50%; background: radial-gradient(circle,#fff 15%,var(--color-surface-soft) 57%,rgba(77,226,208,.2)); box-shadow: 0 30rpx 90rpx rgba(82,104,255,.16); }
 .state-title { max-width: 590rpx; margin-top: 30rpx; font-size: 32rpx; font-weight: 850; }
 .state-copy { max-width: 570rpx; margin: 14rpx 0 30rpx; color: var(--color-muted); font-size: 23rpx; line-height: 1.65; }
 .request-id { margin-top: 10rpx; color: var(--color-faint); font-family: var(--font-family-data); font-size: 18rpx; }
@@ -20,7 +20,7 @@
 .hero-label { position: relative; z-index: 1; color: var(--color-primary); font-size: 20rpx; font-weight: 800; }
 .hero-summary { position: relative; z-index: 1; margin-top: 12rpx; font-size: 30rpx; font-weight: 850; line-height: 1.4; }
 .hero-gap { position: relative; z-index: 1; margin-top: 12rpx; color: var(--color-primary-deep); font-size: 62rpx; font-weight: 900; }
-.score-line { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 50rpx 1fr; align-items: center; margin-top: 24rpx; padding-top: 22rpx; border-top: 1rpx solid rgba(0,151,139,.18); }
+.score-line { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 50rpx 1fr; align-items: center; margin-top: 24rpx; padding-top: 22rpx; border-top: 1rpx solid var(--color-primary-a16); }
 .score-line__cell { display: flex; flex-direction: column; gap: 7rpx; }
 .score-line__label { color: var(--color-muted); font-size: 18rpx; }
 .score-line__value { font-size: 29rpx; }

@@ -274,7 +274,7 @@ describe("C08 mastery queue page", () => {
     await runtime.page.openItem.call(runtime.page, itemEvent("item-due_verification"));
     const modalOptions = runtime.showModal.mock.calls[0]?.[0];
     expect(modalOptions?.title).toBe("复测计划尚未发布");
-    expect(modalOptions?.content).toContain("不会在客户端临时拼题");
+    expect(modalOptions?.content).toContain("不会临时拼题");
     expect(runtime.switchTab).toHaveBeenCalledWith({ url: "/pages/today/index" });
 
     runtime.page.selectBucket.call(runtime.page, bucketEvent("stable_mastery"));

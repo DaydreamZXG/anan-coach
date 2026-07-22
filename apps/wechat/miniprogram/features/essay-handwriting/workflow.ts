@@ -43,7 +43,7 @@ export function reviewingHandwritingState(
   localImagePath: string,
 ): EssayHandwritingState {
   if (revision.state !== "candidate" || revision.recognitionKind !== "handwriting_ocr") {
-    throw new EssayHandwritingError("服务端没有返回可逐段核对的手写 OCR 候选版本。");
+    throw new EssayHandwritingError("没有拿到可逐段核对的手写 OCR 候选。");
   }
   const spans = recognitionSpans(revision).map((span, sourceOrder) => ({
     ...span,

@@ -1,10 +1,10 @@
 .task-shell {
-  --task-toolbar-surface: rgba(255, 255, 255, 0.92);
-  --task-toolbar-control: #f0f3f2;
-  --task-toolbar-line: #dde6e3;
-  --task-toolbar-ink: #354541;
-  --task-toolbar-brand: #00978b;
-  --task-toolbar-brand-soft: #e7f7f3;
+  --task-toolbar-surface: rgba(255, 251, 245, 0.92);
+  --task-toolbar-control: var(--color-surface-soft);
+  --task-toolbar-line: var(--color-line);
+  --task-toolbar-ink: var(--color-ink-secondary);
+  --task-toolbar-brand: var(--color-primary);
+  --task-toolbar-brand-soft: var(--color-primary-soft);
   box-sizing: border-box;
   min-height: 100vh;
   padding: calc(16rpx + env(safe-area-inset-top)) var(--space-page-x) 150rpx;
@@ -16,6 +16,9 @@
 }
 
 .task-header {
+  position: sticky;
+  z-index: var(--z-sticky);
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -23,7 +26,7 @@
   margin: 0 calc(var(--space-page-x) * -1);
   padding: 18rpx var(--space-page-x);
   background: var(--task-toolbar-surface);
-  box-shadow: 0 20rpx 68rpx rgba(32, 67, 58, 0.08);
+  box-shadow: 0 20rpx 68rpx rgba(190, 120, 60, 0.08);
 }
 
 .task-header-actions {
@@ -109,9 +112,9 @@
 }
 
 .task-timer-control--paused {
-  border-color: rgba(226, 165, 66, 0.42);
-  color: #9b6818;
-  background: #fff4df;
+  border-color: rgba(185, 141, 47, 0.42);
+  color: var(--color-warning);
+  background: var(--color-warning-soft);
 }
 
 .task-timer-control--read-only {
@@ -131,7 +134,7 @@
 }
 
 .task-progress-label {
-  color: #17211f;
+  color: var(--color-ink);
   font-size: 22rpx;
 }
 
@@ -148,15 +151,15 @@
 }
 
 .task-sync-dot--saving {
-  background: #e2a542;
+  background: var(--color-gold);
 }
 
 .task-sync-dot--pending {
-  background: #8a9894;
+  background: var(--color-faint);
 }
 
 .task-sync-dot--error {
-  background: #c94f58;
+  background: var(--color-danger);
 }
 
 .task-icon {
@@ -276,7 +279,7 @@
 
 .task-footer {
   position: fixed;
-  z-index: 20;
+  z-index: var(--z-footer);
   right: 0;
   bottom: 0;
   left: 0;
@@ -286,7 +289,7 @@
   padding: 18rpx var(--space-page-x) calc(18rpx + env(safe-area-inset-bottom));
   border-top: 1rpx solid var(--color-line);
   background: var(--color-surface-glass);
-  box-shadow: 0 -12rpx 36rpx rgba(32, 67, 58, 0.08);
+  box-shadow: 0 -12rpx 36rpx rgba(190, 120, 60, 0.08);
 }
 
 .task-tool-button {
@@ -321,7 +324,7 @@
     min-height: 48px;
     margin: 0 calc(var(--layout-tablet-gutter) * -1);
     padding: 10px var(--layout-tablet-gutter);
-    box-shadow: 0 10px 32px rgba(32, 67, 58, 0.08);
+    box-shadow: 0 10px 32px rgba(190, 120, 60, 0.08);
   }
 
   .task-header-actions {

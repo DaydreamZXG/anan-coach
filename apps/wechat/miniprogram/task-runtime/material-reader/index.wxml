@@ -11,12 +11,12 @@
     <text class="material-reader__entry-action">查看材料</text>
   </button>
 
-  <view
+  <view hover-class="item--hover"
     wx:else
     class="material-reader__backdrop material-reader__backdrop--{{readerMode}}"
     catchtap="returnToQuestion"
   >
-    <view
+    <view hover-class="item--hover"
       class="material-reader__panel material-reader__panel--{{readerMode}} material-reader__panel--{{preferences.colorMode}}"
       catchtap="stopPropagation"
     >

@@ -7,11 +7,11 @@
 .report-chart__row + .report-chart__row { margin-top: 22rpx; }
 .report-chart__label { color: var(--color-ink-secondary); font-size: 25rpx; font-weight: 600; }
 .report-chart__value { color: var(--color-ink); font-size: 24rpx; font-weight: 700; }
-.report-chart__rail { height: 12rpx; margin-top: 10rpx; overflow: hidden; border-radius: 999rpx; background: rgba(0,151,139,.1); }
+.report-chart__rail { height: 12rpx; margin-top: 10rpx; overflow: hidden; border-radius: 999rpx; background: var(--color-primary-a08); }
 .report-chart__bar { height: 100%; border-radius: inherit; }
 .report-chart__bar--primary { background: var(--color-primary); }
 .report-chart__bar--warning { background: linear-gradient(90deg, #e9963f, #f4c568); }
-.report-chart__bar--neutral { background: #9aa3b8; }
+.report-chart__bar--neutral { background: var(--color-faint); }
 .report-chart__summary { margin-top: 24rpx; padding: 20rpx; border-radius: 18rpx; background: var(--color-surface-soft); color: var(--color-ink-secondary); font-size: 25rpx; line-height: 1.6; }
-.report-chart__empty { margin-top: 24rpx; padding: 32rpx 20rpx; border-radius: 18rpx; background: #f7f8fb; color: #8a93a6; text-align: center; }
+.report-chart__empty { margin-top: 24rpx; padding: 32rpx 20rpx; border-radius: 18rpx; background: var(--color-surface-soft); color: var(--color-faint); text-align: center; }
 .report-chart__partial { color: #a76420; }

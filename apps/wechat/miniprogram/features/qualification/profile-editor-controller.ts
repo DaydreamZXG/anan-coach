@@ -113,7 +113,7 @@ export class QualificationProfileEditorController {
         saved: false,
         pendingRecovery: pending !== null,
         validationError: "",
-        errorMessage: pending ? "上一次资格档案保存结果还不确定，请先查询原命令结果。" : "",
+        errorMessage: pending ? "上一次资格档案保存结果还不确定，请先确认刚才那次保存。" : "",
         requestId: "",
       };
       this.publish();

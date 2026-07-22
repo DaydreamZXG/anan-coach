@@ -1,5 +1,5 @@
 <view class="brain-page">
-  <view class="brain-hero"><view class="brain-kicker">每日结算</view><view class="brain-title">今天学了什么，要落成明天能用的证据</view><view class="brain-copy">不只统计完成数，也记录哪些判断被证实、哪些需要改。</view></view>
+  <view class="brain-hero"><view class="brain-kicker">每日结算</view><view class="brain-title">今天学的，就是明天的底子</view><view class="brain-copy">不只统计完成数，也记录哪些判断被证实、哪些需要改。</view></view>
   <state-view wx:if="{{status === 'loading'}}" state="loading" />
   <state-view wx:elif="{{status === 'error'}}" state="error" title="结算没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
   <block wx:elif="{{settlement}}">

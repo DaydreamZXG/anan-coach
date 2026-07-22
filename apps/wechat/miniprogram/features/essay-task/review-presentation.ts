@@ -44,23 +44,15 @@ export function presentReviewIntent(intent: EssayReviewIntentView): ReviewDispla
       return safeTerminal(
         "failed",
         "评阅额度状态不完整",
-        "服务端没有返回额度恢复时间或额度快照，页面不会猜测等待时间。请重新加载核对状态。",
+        "评阅次数暂时用完了，恢复时间没拿到，请重新加载看看。",
       );
     }
     if (intent.quota.accessMode !== "entitlement_quota" || intent.quota.limit === null) {
-      return safeTerminal(
-        "failed",
-        "评阅额度状态冲突",
-        "服务端把不限量访问写成了额度等待，页面不会展示错误限制。请重新加载核对状态。",
-      );
+      return safeTerminal("failed", "评阅额度状态冲突", "状态有点异常，请重新加载核对一下。");
     }
     const retryLabel = formatRetryAfter(intent.retryAfter);
     if (!retryLabel) {
-      return safeTerminal(
-        "failed",
-        "评阅额度状态不完整",
-        "服务端返回的额度恢复时间不可解析，页面不会猜测等待时间。请重新加载核对状态。",
-      );
+      return safeTerminal("failed", "评阅额度状态不完整", "恢复时间没读出来，请重新加载看看。");
     }
     const quotaLabel = `今日已使用 ${String(intent.quota.used)}/${String(intent.quota.limit)} 次。`;
     return {
@@ -137,8 +129,8 @@ export function presentGroundedReview(review: EssayReviewResponse): ReviewDispla
       "blocked",
       "本版无法可靠估分",
       codes
-        ? `证据门禁未通过：${codes}。本次不展示部分分数，请先补全材料、题干、答案或 OCR 确认。`
-        : "证据门禁未通过，本次不展示部分分数。",
+        ? `还差一些材料没补全，部分分数暂时看不了。请先补全材料、题干或答案确认。`
+        : "还差一些材料没补全，部分分数暂时看不了。",
     );
   }
   if (review.status === "failed") {

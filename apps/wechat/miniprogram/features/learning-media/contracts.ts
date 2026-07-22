@@ -73,7 +73,7 @@ export function validateVoiceSegment(segment: ReflectionVoiceSegment): void {
   assertMimeAndFilename(segment.mimeType, segment.originalFilename);
   if (segment.state === "available") {
     if (segment.serverState !== "available" || !segment.artifactVersionId?.trim()) {
-      throw new Error("录音尚未通过服务端安全检查。");
+      throw new Error("录音尚未通过安全检查。");
     }
   } else if (segment.artifactVersionId) {
     throw new Error("未就绪录音不能携带素材版本。");
@@ -101,7 +101,7 @@ export function assertVoiceProjection(
     session.durationMilliseconds !== expected.durationMilliseconds ||
     session.contentSha256 !== expected.contentSha256
   ) {
-    throw new Error("服务端录音会话与本地文件不匹配。");
+    throw new Error("录音会话与本地文件不匹配。");
   }
   if (session.state === "awaiting_upload" && !projection.authorization) {
     throw new Error("录音上传授权缺失。");

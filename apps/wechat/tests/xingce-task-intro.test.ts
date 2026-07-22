@@ -126,7 +126,7 @@ describe("C01 xingce task intro page", () => {
     await flushMicrotasks();
 
     expect(runtime.page.data.status).toBe("expired");
-    expect(runtime.page.data.errorMessage).toContain("最终以服务端返回为准");
+    expect(runtime.page.data.errorMessage).toContain("以最新结果为准");
     await runtime.page.startTask.call(runtime.page);
     expect(runtime.navigateTo).not.toHaveBeenCalled();
 
@@ -136,7 +136,7 @@ describe("C01 xingce task intro page", () => {
       status: "expired",
       requestId: "briefing-409",
     });
-    expect(runtime.page.data.errorMessage).toContain("服务端确认");
+    expect(runtime.page.data.errorMessage).toContain("该任务已过期");
   });
 
   it("recovers a failed read and marks the restored authority", async () => {

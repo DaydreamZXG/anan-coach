@@ -127,7 +127,7 @@ export function positionBriefingView(detail: PositionDiscoveryDetail): PositionB
     locationLabel: [detail.region, detail.city].filter(Boolean).join(" · "),
     positionCodeLabel: `职位代码 ${detail.positionCode}`,
     paperTypeLabel: paperTypeLabel(detail.paperType),
-    subjectSummary: `公共科目按行测和申论两条证据链准备，当前岗位对应${paperTypeLabel(detail.paperType)}。`,
+    subjectSummary: `公共科目按行测和申论两条线准备，当前岗位对应${paperTypeLabel(detail.paperType)}。`,
     extraExamLabel: detail.hasExtraExam
       ? "岗位数据标记了专业科目或额外考试，具体科目、占比和时间必须以当年官方公告为准。"
       : "当前岗位数据未标记专业科目；报名和考试前仍需核对当年官方公告。",
@@ -144,7 +144,7 @@ export function positionBriefingView(detail: PositionDiscoveryDetail): PositionB
     abilityStatusLabel: ability.statusLabel,
     abilityNextStepLabel: ability.canCalculatePositionGap
       ? "行测、申论正式证据已完整，系统可在同一考试年度内计算岗位分差。"
-      : `${ability.missingLabel}；补齐前只展示岗位事实，不生成录取概率或伪造总分分差。`,
+      : `${ability.missingLabel}；补齐前只展示岗位事实，不生成录取概率或不可靠分差。`,
   };
 }
 

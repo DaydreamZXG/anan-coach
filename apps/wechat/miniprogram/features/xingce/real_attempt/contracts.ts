@@ -122,20 +122,20 @@ export function emptyXingceAnswer(questionId: string): XingceAnswerCheckpoint {
 
 export function assertLearnerSafeSession(session: XingceTaskSession): XingceTaskSession {
   if (!session.sessionId.trim() || !session.planTaskId.trim()) {
-    throw new Error("服务端行测会话缺少稳定身份。");
+    throw new Error("行测会话缺少稳定身份。");
   }
   if (!Number.isInteger(session.revision) || session.revision < 1) {
-    throw new Error("服务端行测会话版本无效。");
+    throw new Error("行测会话版本无效。");
   }
   const questions = session.bundle.questions;
   assertNoLearnerUnsafeKeys(session.bundle);
-  if (questions.length === 0) throw new Error("服务端没有返回可作答题目。");
+  if (questions.length === 0) throw new Error("没有拿到可作答题目。");
   const questionIds = questions.map((item) => item.questionId);
   if (new Set(questionIds).size !== questionIds.length) {
-    throw new Error("服务端题组存在重复题目。");
+    throw new Error("题组存在重复题目。");
   }
   if (!questionIds.includes(session.currentQuestionId)) {
-    throw new Error("服务端当前题不在题组中。");
+    throw new Error("当前题不在题组中。");
   }
   for (const question of questions) {
     const raw = question as unknown as Record<string, unknown>;
@@ -148,28 +148,28 @@ export function assertLearnerSafeSession(session: XingceTaskSession): XingceTask
       throw new Error("作答前题面含有答案或解析，页面已停止展示。");
     }
     if (!question.contentVersionId.trim() || question.options.length < 2) {
-      throw new Error("服务端题面版本或选项不完整。");
+      throw new Error("题面版本或选项不完整。");
     }
     const optionIds = question.options.map((option) => option.optionId);
     if (
       optionIds.some((optionId) => !optionId.trim()) ||
       new Set(optionIds).size !== optionIds.length
     ) {
-      throw new Error("服务端题目选项标识不完整。");
+      throw new Error("题目选项标识不完整。");
     }
     if (
       question.materialId !== null &&
       !session.bundle.materials.some((material) => material.materialId === question.materialId)
     ) {
-      throw new Error("服务端题目引用的材料不存在。");
+      throw new Error("题目引用的材料不存在。");
     }
   }
   const answerIds = session.answers.map((item) => item.questionId);
   if (new Set(answerIds).size !== answerIds.length) {
-    throw new Error("服务端作答断点存在重复题目。");
+    throw new Error("作答进度存在重复题目。");
   }
   if (answerIds.some((questionId) => !questionIds.includes(questionId))) {
-    throw new Error("服务端作答断点与题组不匹配。");
+    throw new Error("作答进度与题组不匹配。");
   }
   if (session.result === null && session.review !== null) {
     throw new Error("未交卷会话不应包含复盘结果。");
@@ -198,7 +198,7 @@ export function assertLearnerSafeSession(session: XingceTaskSession): XingceTask
     }
   }
   if (session.state === "completed" && session.completion === null) {
-    throw new Error("已完成会话缺少计划结算回执。");
+    throw new Error("已完成会话缺少计划结算记录。");
   }
   return session;
 }
@@ -213,7 +213,7 @@ export function assertFactoredXingceResult(
   itemInterpretations: readonly XingceItemInterpretation[] = [],
 ): XingceAttemptResult {
   if (result.contractVersion !== "xingce-attempt-result@v2" || !result.groupSummary) {
-    throw new Error("行测结果不是冻结的事实拆分合同。");
+    throw new Error("行测结果不是已确认的事实拆分。");
   }
   if (result.totalCount !== 3 || result.items.length !== 3 || questionIds.length !== 3) {
     throw new Error("行测组结果必须绑定完整的 3 题组。");
@@ -223,7 +223,7 @@ export function assertFactoredXingceResult(
     new Set(itemIds).size !== itemIds.length ||
     itemIds.some((questionId) => !questionIds.includes(questionId))
   ) {
-    throw new Error("行测结果题目与冻结题组不匹配。");
+    throw new Error("行测结果题目与确认题组不匹配。");
   }
   result.items.forEach(assertFactoredResultItem);
   assertInterpretations(itemInterpretations, result.items);
@@ -322,7 +322,7 @@ function assertVerificationOutcome(session: XingceTaskSession): void {
     return;
   }
   if (!outcome || !outcome.sourceMasteryVersionId.trim()) {
-    throw new Error("复测结果缺少冻结掌握版本或结论。");
+    throw new Error("复测结果缺少确认后的掌握记录或结论。");
   }
   const allAnsweredCorrect = session.result?.items.every(
     (item) => item.objectiveVerdict === "correct" && item.disposition === "answered",
@@ -351,7 +351,7 @@ function assertLegacyResultIsNotMixed(session: XingceTaskSession): void {
         item.timingEvidence != null,
     );
   if (hasNewFacts || session.verificationOutcome !== null) {
-    throw new Error("历史行测结果混入了未冻结的新事实。");
+    throw new Error("历史行测结果混入了未确认的新事实。");
   }
 }
 

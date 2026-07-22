@@ -4,7 +4,7 @@
   current="{{view ? view.current : 1}}"
   total="{{view ? view.total : 1}}"
   elapsedLabel="{{view ? view.elapsedLabel : '00:00'}}"
-  syncLabel="{{view ? view.syncLabel : '连接服务端'}}"
+  syncLabel="{{view ? view.syncLabel : '正在连接'}}"
   materialAvailable="{{view ? view.materialAvailable : false}}"
   answerSheetAvailable="{{status === 'ready' && sessionState === 'answering'}}"
   draftAvailable="{{status === 'ready' && sessionState === 'answering'}}"
@@ -20,7 +20,7 @@
   bindtools="openTaskTools"
 >
   <view wx:if="{{status === 'loading'}}" class="page-state">
-    <state-view state="loading" title="正在恢复真实作答" description="题组与断点均以服务端版本为准。" />
+    <state-view state="loading" title="正在恢复真实作答" description="正在恢复你上次的作答进度。" />
   </view>
 
   <view wx:elif="{{status === 'error'}}" class="page-state">
@@ -28,7 +28,7 @@
   </view>
 
   <view wx:elif="{{status === 'unavailable'}}" class="capability-state card">
-    <view class="capability-mark">真实学习证据门禁</view>
+    <view class="capability-mark">先完成前置学习</view>
     <view class="capability-title">{{errorTitle}}</view>
     <view class="capability-copy">{{errorMessage}}</view>
     <button wx:if="{{showLoginAction}}" class="secondary-button capability-action" bindtap="goLogin">重新登录</button>
@@ -37,9 +37,9 @@
   <block wx:elif="{{status === 'ready' && view}}">
     <view wx:if="{{errorMessage}}" class="inline-warning">{{errorMessage}}</view>
     <view wx:if="{{hasPendingCheckpoint}}" class="pending-checkpoint card">
-      <view class="pending-checkpoint-title">上次断点保存结果未知</view>
+      <view class="pending-checkpoint-title">上次的进度没存上</view>
       <view class="pending-checkpoint-copy">{{pendingCheckpointMessage}}</view>
-      <button class="secondary-button" bindtap="retryPendingCheckpoint">按原命令重试</button>
+      <button class="secondary-button" bindtap="retryPendingCheckpoint">重试一次</button>
     </view>
 
     <block wx:if="{{sessionState === 'answering'}}">
@@ -62,7 +62,6 @@
             </view>
             <content-renderer
               class="question-stem question-rich-content"
-              style="--color-ink: #17211f; --color-muted: #354541;"
               blocks="{{view && view.question && view.question.stemContent ? view.question.stemContent : emptyRichContentBlocks}}"
               zoom="{{1}}"
               preferences="{{displayPreferences}}"
@@ -96,63 +95,58 @@
         </view>
       </view>
 
-      <view wx:if="{{answerSheetOpen}}" class="answer-sheet-mask" catchtap="toggleAnswerSheet">
-        <view class="answer-sheet" catchtap="noop">
-          <view class="sheet-handle"></view>
-          <view class="sheet-head">
-            <view>
-              <view class="sheet-title">答题卡</view>
-              <view class="sheet-copy">{{view.answeredCount}} 已答 · {{view.skippedCount}} 跳过 · {{view.unansweredCount}} 未处理</view>
-            </view>
-            <button class="text-action" bindtap="toggleAnswerSheet">关闭</button>
-          </view>
-          <view class="sheet-grid">
-            <button
-              wx:for="{{answerSheetItems}}"
-              wx:key="index"
-              class="sheet-item sheet-item--{{item.state}} {{item.active ? 'sheet-item--active' : ''}}"
-              data-index="{{item.index}}"
-              bindtap="selectQuestion"
-            >{{item.label}}</button>
-          </view>
+      <ui-sheet
+        visible="{{answerSheetOpen}}"
+        title="答题卡"
+        copy="{{view.answeredCount}} 已答 · {{view.skippedCount}} 跳过 · {{view.unansweredCount}} 未处理"
+        show-close
+        max-height="72vh"
+        surface="canvas"
+        bindclose="toggleAnswerSheet"
+      >
+        <view class="sheet-grid">
+          <button
+            wx:for="{{answerSheetItems}}"
+            wx:key="index"
+            class="sheet-item sheet-item--{{item.state}} {{item.active ? 'sheet-item--active' : ''}}"
+            data-index="{{item.index}}"
+            bindtap="selectQuestion"
+          >{{item.label}}</button>
         </view>
-      </view>
+      </ui-sheet>
 
-      <view wx:if="{{draftOpen}}" class="answer-sheet-mask" catchtap="toggleDraft" catchtouchmove="noop">
-        <view class="answer-sheet draft-sheet" catchtap="noop">
-          <view class="sheet-handle"></view>
-          <view class="thinking-head">
-            <view>
-              <view class="thinking-title">草稿纸</view>
-              <view class="thinking-copy">当前第 {{view.current}} / {{view.total}} 题 · 随断点自动保存</view>
-            </view>
-            <button class="mark-action {{view.question.marked ? 'mark-action--active' : ''}}" bindtap="toggleMarked">{{view.question.marked ? '已标记' : '标记'}}</button>
+      <ui-sheet
+        visible="{{draftOpen}}"
+        title="草稿纸"
+        copy="当前第 {{view.current}} / {{view.total}} 题 · 自动保存"
+        max-height="80vh"
+        bindclose="toggleDraft"
+      >
+        <button slot="action" class="mark-action {{view.question.marked ? 'mark-action--active' : ''}}" bindtap="toggleMarked">{{view.question.marked ? '已标记' : '标记'}}</button>
+        <textarea cursor-spacing="24" class="draft-input draft-input--sheet" value="{{view.question.draftText}}" maxlength="4000" placeholder="写下公式、排除理由或仍不确定的点……" bindinput="inputDraft"></textarea>
+        <button class="math-ink-entry" bindtap="toggleMathInk">{{mathInkOpen ? '收起手写公式' : '手写公式识别'}}</button>
+        <view wx:if="{{mathInkOpen}}" class="math-ink-panel">
+          <view class="math-ink-tip">先手写，识别成公式后核对一下，确认再放进草稿。</view>
+          <math-ink-pad recognizing="{{mathInkRecognizing}}" bind:recognize="recognizeMathInk" />
+          <view wx:if="{{mathInkCandidate}}" class="math-ink-review">
+            <view class="confidence-label">识别候选</view>
+            <textarea cursor-spacing="24" class="math-ink-latex" value="{{mathInkLatex}}" maxlength="4000" bindinput="inputMathInkLatex"></textarea>
+            <button class="primary-button" loading="{{mathInkRecognizing}}" bindtap="confirmMathInk">确认并写入草稿</button>
           </view>
-          <textarea class="draft-input draft-input--sheet" value="{{view.question.draftText}}" maxlength="4000" placeholder="写下公式、排除理由或仍不确定的点……" bindinput="inputDraft"></textarea>
-          <button class="math-ink-entry" bindtap="toggleMathInk">{{mathInkOpen ? '收起手写公式' : '手写公式识别'}}</button>
-          <view wx:if="{{mathInkOpen}}" class="math-ink-panel">
-            <view class="math-ink-tip">手写只生成候选；核对或修改 LaTeX 后，才会进入当前题草稿。</view>
-            <math-ink-pad recognizing="{{mathInkRecognizing}}" bind:recognize="recognizeMathInk" />
-            <view wx:if="{{mathInkCandidate}}" class="math-ink-review">
-              <view class="confidence-label">识别候选</view>
-              <textarea class="math-ink-latex" value="{{mathInkLatex}}" maxlength="4000" bindinput="inputMathInkLatex"></textarea>
-              <button class="primary-button" loading="{{mathInkRecognizing}}" bindtap="confirmMathInk">确认并写入草稿</button>
-            </view>
-            <view wx:if="{{mathInkError}}" class="inline-warning">{{mathInkError}}</view>
-          </view>
-          <view class="confidence-row">
-            <view class="confidence-label">作答信心</view>
-            <button
-              wx:for="{{confidenceOptions}}"
-              wx:key="value"
-              class="confidence-chip {{view.question.confidence === item.value ? 'confidence-chip--active' : ''}}"
-              data-confidence="{{item.value}}"
-              bindtap="selectConfidence"
-            >{{item.label}}</button>
-          </view>
-          <button class="primary-button draft-sheet-action" bindtap="toggleDraft">收起草稿，继续作答</button>
+          <view wx:if="{{mathInkError}}" class="inline-warning">{{mathInkError}}</view>
         </view>
-      </view>
+        <view class="confidence-row">
+          <view class="confidence-label">作答信心</view>
+          <button
+            wx:for="{{confidenceOptions}}"
+            wx:key="value"
+            class="confidence-chip {{view.question.confidence === item.value ? 'confidence-chip--active' : ''}}"
+            data-confidence="{{item.value}}"
+            bindtap="selectConfidence"
+          >{{item.label}}</button>
+        </view>
+        <button class="primary-button draft-sheet-action" bindtap="toggleDraft">收起草稿，继续作答</button>
+      </ui-sheet>
 
       <view wx:if="{{taskPaused}}" class="pause-mask" catchtouchmove="noop">
         <view class="pause-card">
@@ -168,7 +162,7 @@
 
     <view wx:else class="result-workspace">
       <view class="result-hero">
-        <view class="result-eyebrow">服务端已按冻结事实合同评分</view>
+        <view class="result-eyebrow">这次练习已出分</view>
         <view class="result-score"><text class="result-score__value">{{result.correctCount}}</text> / {{result.totalCount}}</view>
         <view class="result-title">{{result.headline}}</view>
         <view class="result-copy">{{result.summary}}</view>
@@ -193,9 +187,8 @@
       </view>
 
       <view wx:elif="{{result.availability === 'legacy_result_unavailable'}}" class="legacy-result card">
-        <view class="legacy-result-title">历史结果不提供新事实拆分</view>
-        <view class="legacy-result-copy">不补算真会、猜对、主动放弃、超建议用时或方法正确但计算错误。原结果只读保留。</view>
-        <view class="legacy-result-code type-data">legacy_result_unavailable</view>
+        <view class="legacy-result-title">这份是旧版结果</view>
+        <view class="legacy-result-copy">只保留当时的成绩，不再重新分析。</view>
       </view>
 
       <view wx:if="{{result.verification}}" class="verification-card card verification-card--{{result.verification.outcomeTone}}">
@@ -235,73 +228,76 @@
         <button class="primary-button" bindtap="openReflection">开始复盘</button>
       </view>
       <view wx:else class="completion-card card">
-        <view class="completion-mark">学习证据已结算</view>
+        <view class="completion-mark">本次成绩已计入学习记录</view>
         <view class="completion-title">今日计划已经按本次真实结果重排</view>
         <button class="primary-button" bindtap="returnToday">返回今日计划</button>
       </view>
     </view>
   </block>
 
-  <view wx:if="{{toolsOpen}}" class="task-overlay" catchtap="closeTaskOverlay">
-    <view class="task-tool-panel" catchtap="noop">
-      <view class="overlay-head">
-        <view>
-          <view class="overlay-title">做题工具</view>
-          <view class="overlay-copy">专项训练 · 修改会随断点保存</view>
-        </view>
-        <button class="text-action" bindtap="closeTaskOverlay">关闭</button>
-      </view>
-      <view class="task-tool-grid">
-        <button class="task-tool-item" bindtap="toggleMarked">{{view.question.marked ? '取消标记' : '标记本题'}}</button>
-        <button wx:if="{{toolPolicy.dispute_report}}" class="task-tool-item" bindtap="openDispute">题目争议</button>
-        <button wx:if="{{toolPolicy.operation_help}}" class="task-tool-item" bindtap="openTaskHelp">操作/故障帮助</button>
-        <button class="task-tool-item {{displayPreferences.colorMode === 'eye_care' ? 'task-tool-item--active' : ''}}" bindtap="toggleDisplayEyeCare">护眼模式</button>
-      </view>
-      <view class="display-tool-row">
-        <button class="display-tool-button" bindtap="decreaseDisplayFont">A−</button>
-        <view>字号 {{displayPreferences.fontScale * 100}}%</view>
-        <button class="display-tool-button" bindtap="increaseDisplayFont">A＋</button>
-      </view>
-      <view class="locked-tools">公式卡、完整解析和解题 AI 在提交前不可用；国考模式不提供计算器。</view>
+  <ui-sheet
+    visible="{{toolsOpen}}"
+    title="做题工具"
+    copy="修改会自动保存"
+    show-close
+    level="overlay"
+    max-height="86vh"
+    bindclose="closeTaskOverlay"
+  >
+    <view class="task-tool-grid">
+      <button class="task-tool-item" bindtap="toggleMarked">{{view.question.marked ? '取消标记' : '标记本题'}}</button>
+      <button wx:if="{{toolPolicy.dispute_report}}" class="task-tool-item" bindtap="openDispute">题目争议</button>
+      <button wx:if="{{toolPolicy.operation_help}}" class="task-tool-item" bindtap="openTaskHelp">操作/故障帮助</button>
+      <button class="task-tool-item {{displayPreferences.colorMode === 'eye_care' ? 'task-tool-item--active' : ''}}" bindtap="toggleDisplayEyeCare">护眼模式</button>
     </view>
-  </view>
+    <view class="display-tool-row">
+      <button class="display-tool-button" bindtap="decreaseDisplayFont">A−</button>
+      <view>字号 {{displayPreferences.fontScale * 100}}%</view>
+      <button class="display-tool-button" bindtap="increaseDisplayFont">A＋</button>
+    </view>
+    <view class="locked-tools">公式卡、完整解析和解题 AI 在提交前不可用；国考模式不提供计算器。</view>
+  </ui-sheet>
 
-  <view wx:if="{{helpOpen}}" class="task-overlay" catchtap="closeTaskOverlay">
-    <view class="task-help-panel" catchtap="noop">
-      <global-help
-        pageObjectReference="{{helpReference}}"
-        syncState="{{helpSyncState}}"
-        bindsubmit="submitTaskHelp"
-        bindclose="closeTaskOverlay"
-      />
-      <view wx:if="{{helpSubmitting}}" class="overlay-result">正在查询确定性帮助……</view>
-      <view wx:elif="{{helpGuidance}}" class="overlay-result">{{helpGuidance}}</view>
-    </view>
-  </view>
+  <ui-sheet
+    visible="{{helpOpen}}"
+    level="overlay"
+    show-handle="{{false}}"
+    sheet-class="help-sheet"
+    max-height="86vh"
+    bindclose="closeTaskOverlay"
+  >
+    <global-help
+      pageObjectReference="{{helpReference}}"
+      syncState="{{helpSyncState}}"
+      bindsubmit="submitTaskHelp"
+      bindclose="closeTaskOverlay"
+    />
+    <view wx:if="{{helpSubmitting}}" class="overlay-result">正在查询确定性帮助……</view>
+    <view wx:elif="{{helpGuidance}}" class="overlay-result">{{helpGuidance}}</view>
+  </ui-sheet>
 
-  <view wx:if="{{disputeOpen}}" class="task-overlay" catchtap="closeTaskOverlay">
-    <view class="dispute-panel" catchtap="noop">
-      <view class="overlay-head">
-        <view>
-          <view class="overlay-title">题目异常或争议</view>
-          <view class="overlay-copy">继续作答不受影响；服务端会自动附带题面版本、断点和材料位置。</view>
-        </view>
-        <button class="text-action" bindtap="closeTaskOverlay">关闭</button>
-      </view>
-      <view class="dispute-categories">
-        <button
-          wx:for="{{disputeCategories}}"
-          wx:key="value"
-          class="dispute-category {{disputeCategory === item.value ? 'dispute-category--active' : ''}}"
-          data-category="{{item.value}}"
-          bindtap="selectDisputeCategory"
-        >{{item.label}}</button>
-      </view>
-      <textarea class="dispute-description" value="{{disputeDescription}}" maxlength="2000" placeholder="请描述具体问题；不要填写个人敏感信息。" bindinput="inputDisputeDescription"></textarea>
-      <button class="primary-button" loading="{{disputeSubmitting}}" disabled="{{disputeSubmitting}}" bindtap="submitDispute">提交争议记录</button>
-      <view wx:if="{{disputeReceipt}}" class="overlay-result">{{disputeReceipt}}</view>
+  <ui-sheet
+    visible="{{disputeOpen}}"
+    title="题目异常或争议"
+    copy="报错不影响继续做题，我们会定位到这道题。"
+    show-close
+    level="overlay"
+    max-height="86vh"
+    bindclose="closeTaskOverlay"
+  >
+    <view class="dispute-categories">
+      <button
+        wx:for="{{disputeCategories}}"
+        wx:key="value"
+        class="dispute-category {{disputeCategory === item.value ? 'dispute-category--active' : ''}}"
+        data-category="{{item.value}}"
+        bindtap="selectDisputeCategory"
+      >{{item.label}}</button>
     </view>
-  </view>
+    <textarea cursor-spacing="24" class="dispute-description" value="{{disputeDescription}}" maxlength="2000" placeholder="请描述具体问题；不要填写个人敏感信息。" bindinput="inputDisputeDescription"></textarea>
+    <button class="primary-button" loading="{{disputeSubmitting}}" disabled="{{disputeSubmitting}}" bindtap="submitDispute">提交争议记录</button>
+    <view wx:if="{{disputeReceipt}}" class="overlay-result">{{disputeReceipt}}</view>
+  </ui-sheet>
 
   <view slot="footer" class="task-footer-actions" wx:if="{{status === 'ready' && sessionState === 'answering'}}">
     <button class="primary-button submit-button" disabled="{{interactionLocked}}" bindtap="footerAction">{{view.current < view.total ? '下一题' : (canSubmit ? '交卷并查看结果' : '查看未完成题目')}}</button>

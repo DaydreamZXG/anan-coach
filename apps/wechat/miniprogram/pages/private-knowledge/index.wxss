@@ -3,26 +3,26 @@
 .private-title { margin-top: 12rpx; font-size: 40rpx; font-weight: 840; line-height: 1.28; }
 .private-copy, .review-copy, .empty-copy, .empty-library { margin-top: 14rpx; color: var(--color-muted); font-size: 23rpx; line-height: 1.65; }
 .import-card, .review-card, .search-card, .source-card { margin-bottom: 22rpx; padding: 28rpx; }
-.private-input, .kind-picker { box-sizing: border-box; width: 100%; margin-top: 18rpx; padding: 18rpx 20rpx; border: 1rpx solid rgba(41, 73, 65, .12); border-radius: 16rpx; background: #f8fbfa; font-size: 24rpx; }
+.private-input, .kind-picker { box-sizing: border-box; width: 100%; margin-top: 18rpx; padding: 18rpx 20rpx; border: 1rpx solid var(--color-line-strong); border-radius: 16rpx; background: #fbfaf6; font-size: 24rpx; }
 .kind-picker { display: flex; justify-content: space-between; color: var(--color-ink-secondary); }
 .import-actions, .review-actions, .source-actions, .search-row { display: flex; gap: 12rpx; margin-top: 18rpx; }
-.private-action { flex: 1; margin: 0; border: 0; border-radius: 16rpx; background: #edf3f1; color: var(--color-ink-secondary); font-size: 21rpx; }
+.private-action { flex: 1; margin: 0; border: 0; border-radius: 16rpx; background: var(--color-canvas); color: var(--color-ink-secondary); font-size: 21rpx; }
 .private-action::after { border: 0; }
 .primary, .search-button { color: #fff; background: var(--color-primary); }
 .review-span { margin-top: 18rpx; }
 .review-label, .progress-copy, .roundtrip-note { margin-top: 10rpx; color: var(--color-muted); font-size: 21rpx; line-height: 1.5; }
-.review-textarea { box-sizing: border-box; width: 100%; min-height: 120rpx; margin-top: 8rpx; padding: 16rpx; border: 1rpx solid rgba(41, 73, 65, .12); border-radius: 15rpx; background: #fff; font-size: 23rpx; }
+.review-textarea { box-sizing: border-box; width: 100%; min-height: 120rpx; margin-top: 8rpx; padding: 16rpx; border: 1rpx solid var(--color-line-strong); border-radius: 15rpx; background: #fff; font-size: 23rpx; }
 .search-row { align-items: stretch; }
 .search-input { flex: 1; margin-top: 0; }
 .search-button { flex: 0 0 140rpx; }
-.citation-card { margin-top: 16rpx; padding-top: 16rpx; border-top: 1rpx solid rgba(41, 73, 65, .08); }
+.citation-card { margin-top: 16rpx; padding-top: 16rpx; border-top: 1rpx solid var(--color-line); }
 .citation-head, .source-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16rpx; }
 .citation-head { color: var(--color-primary); font-size: 21rpx; font-weight: 700; }
 .citation-copy { margin-top: 8rpx; color: var(--color-ink-secondary); font-size: 22rpx; line-height: 1.62; }
 .source-title { font-size: 28rpx; font-weight: 780; }
 .source-meta { margin-top: 8rpx; color: var(--color-muted); font-size: 21rpx; }
-.kind-tag { padding: 7rpx 12rpx; border-radius: 999rpx; color: var(--color-primary); background: rgba(0, 151, 139, .08); font-size: 19rpx; }
+.kind-tag { padding: 7rpx 12rpx; border-radius: 999rpx; color: var(--color-primary); background: var(--color-primary-a08); font-size: 19rpx; }
 .source-actions { flex-wrap: wrap; }
 .source-action { flex: 1 1 180rpx; }
-.source-actions .danger { color: #b63b50; background: rgba(200, 63, 86, .08); }
+.source-actions .danger { color: var(--color-danger); background: rgba(213, 70, 79, 0.08); }
 .empty-library { margin-top: 0; padding: 28rpx; }

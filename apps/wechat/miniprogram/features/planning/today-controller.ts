@@ -222,9 +222,7 @@ export class TodayController {
       dashboard,
       errorMessage: "",
       capacitySubmission: conflictResolved ? "idle" : "conflict",
-      capacityMessage: conflictResolved
-        ? ""
-        : "服务端仍返回冲突版本，请重新载入，当前版本不可编辑。",
+      capacityMessage: conflictResolved ? "" : "这份计划刚在别处改过，请刷新后再编辑。",
       capacityConflictLocked: !conflictResolved,
     });
   }
@@ -291,9 +289,7 @@ export class TodayController {
         dashboard,
         errorMessage: "",
         capacitySubmission: conflictResolved ? "idle" : "conflict",
-        capacityMessage: conflictResolved
-          ? ""
-          : "服务端仍返回冲突版本，请稍后重新载入，当前版本不可编辑。",
+        capacityMessage: conflictResolved ? "" : "这份计划刚在别处改过，请稍后刷新再编辑。",
         capacityConflictLocked: !conflictResolved,
       });
     } catch (error) {

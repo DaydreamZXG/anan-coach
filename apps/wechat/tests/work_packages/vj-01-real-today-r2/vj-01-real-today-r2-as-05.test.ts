@@ -116,14 +116,14 @@ describe("VJ-01 real Today R2 AS-05", () => {
     resolveEnvelope(requiredAt(harness.requests, 5), completedProgress());
     await waitForRequests(harness.requests, 7);
     resolveEnvelope(requiredAt(harness.requests, 6), pageDashboard());
-    await waitForConflictMessage(page, "服务端仍返回冲突版本");
+    await waitForConflictMessage(page, "刚在别处改过");
 
     expect(page.data).toMatchObject({
       capacityEditorOpen: true,
       capacityDraft: userDraft,
       capacitySubmission: "conflict",
     });
-    expect(String(page.data.capacityMessage)).toContain("冲突版本");
+    expect(String(page.data.capacityMessage)).toContain("刚在别处改过");
 
     page.reloadAfterCapacityConflict.call(page);
     await waitForRequests(harness.requests, 8);

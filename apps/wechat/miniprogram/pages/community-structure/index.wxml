@@ -2,7 +2,7 @@
   <view class="community-hero">
     <view class="hero-kicker">确认方法结构</view>
     <view class="hero-title">一套方法，必须说清适用和不适用</view>
-    <view class="hero-copy">社区内容按问题、步骤、条件、反例和验证证据统一表达。</view>
+    <view class="hero-copy">每张方法卡都按统一结构写：问题、步骤、条件、反例和验证。</view>
     <view class="privacy-strip">
       <view class="privacy-dot"></view>
       <view>当前状态：{{cardStateLabel || '读取中'}}。未经作者确认的候选不能发布，也不会成为岸岸的学习事实。</view>
@@ -26,21 +26,21 @@
       <label class="field-label">方法标题</label>
       <input class="text-input" value="{{title}}" maxlength="120" disabled="{{interactionLocked}}" bindinput="inputTitle" />
       <label class="field-label">什么时候识别出该用它</label>
-      <textarea class="text-area compact-area" value="{{recognition}}" maxlength="1200" disabled="{{interactionLocked}}" bindinput="inputRecognition" />
+      <textarea cursor-spacing="24" class="text-area compact-area" value="{{recognition}}" maxlength="1200" disabled="{{interactionLocked}}" bindinput="inputRecognition" />
       <label class="field-label">方法步骤（每行一步）</label>
-      <textarea class="text-area" value="{{methodStepsText}}" maxlength="3000" disabled="{{interactionLocked}}" bindinput="inputSteps" />
+      <textarea cursor-spacing="24" class="text-area" value="{{methodStepsText}}" maxlength="3000" disabled="{{interactionLocked}}" bindinput="inputSteps" />
       <label class="field-label">适用范围（逗号分隔）</label>
       <input class="text-input" value="{{applicabilityText}}" maxlength="500" disabled="{{interactionLocked}}" bindinput="inputApplicability" />
       <label class="field-label">明确不适用的情况（每行一项）</label>
-      <textarea class="text-area compact-area" value="{{exclusionsText}}" maxlength="1200" disabled="{{interactionLocked}}" bindinput="inputExclusions" />
+      <textarea cursor-spacing="24" class="text-area compact-area" value="{{exclusionsText}}" maxlength="1200" disabled="{{interactionLocked}}" bindinput="inputExclusions" />
       <label class="field-label">容易踩的坑（每行一项）</label>
-      <textarea class="text-area compact-area" value="{{pitfallsText}}" maxlength="1200" disabled="{{interactionLocked}}" bindinput="inputPitfalls" />
+      <textarea cursor-spacing="24" class="text-area compact-area" value="{{pitfallsText}}" maxlength="1200" disabled="{{interactionLocked}}" bindinput="inputPitfalls" />
     </view>
 
     <view class="community-section">
       <view class="section-label">权利声明</view>
       <view class="section-title">公开前必须说明这份表达的权利边界</view>
-      <view
+      <view hover-class="item--hover"
         wx:for="{{rightsOptions}}"
         wx:key="value"
         class="rights-row {{rightsDeclaration === item.value ? 'rights-row--active' : ''}}"
@@ -54,7 +54,7 @@
         </view>
       </view>
       <view wx:if="{{formMessage}}" class="warning-note">{{formMessage}}</view>
-      <button class="action-button {{interactionLocked ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked}}" bindtap="confirmStructure">确认并生成不可变版本</button>
+      <button class="action-button {{interactionLocked ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked}}" bindtap="confirmStructure">确认并保存这一版</button>
       <button class="action-button secondary-button {{interactionLocked || !confirmedVersionId || !canPublish ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked || !confirmedVersionId || !canPublish}}" bindtap="submitReview">申请五项检查</button>
     </view>
 

@@ -1,5 +1,5 @@
 <view class="brain-page">
-  <view class="brain-hero"><view class="brain-kicker">当日调整</view><view class="brain-title">时间变了，目标不用推倒重来</view><view class="brain-copy">告诉岸岸今天还能学多久，系统重排任务而不丢证据。</view></view>
+  <view class="brain-hero"><view class="brain-kicker">当日调整</view><view class="brain-title">时间变了，目标不用推倒重来</view><view class="brain-copy">告诉岸岸今天还能学多久，任务会自动重排。</view></view>
   <state-view wx:if="{{status === 'loading'}}" state="loading" />
   <state-view wx:elif="{{status === 'error' && !dashboard}}" state="error" title="容量没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
   <block wx:elif="{{dashboard}}">
@@ -28,7 +28,7 @@
         <view class="brain-row-title">时间把握 · <text class="type-data">{{confidenceLevel}}</text>/5</view>
         <view class="scale-row"><button wx:for="{{options}}" wx:key="*this" class="scale-option {{confidenceLevel === item ? 'scale-option--active' : ''}}" data-field="confidenceLevel" data-value="{{item}}" bindtap="chooseScale">{{item}}</button></view>
       </view>
-      <view class="brain-warning">情绪与压力只调整今日负荷，不会改写长期能力证据。</view>
+      <view class="brain-warning">状态不好只减今天的量，不影响你的长期分析。</view>
       <view wx:if="{{errorMessage}}" class="brain-warning">{{errorMessage}}</view>
       <view wx:if="{{successMessage}}" class="success-note">{{successMessage}}</view>
       <button class="brain-action" loading="{{submitting}}" bindtap="submit">确认并生成新计划版本</button>

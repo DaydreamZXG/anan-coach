@@ -197,7 +197,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       this.setData({
         status: "error",
         errorTitle: "复盘地址不完整",
-        errorMessage: "缺少服务端作答会话或复盘版本，不能写入孤立复盘。",
+        errorMessage: "缺少作答会话或复盘记录，不能单独提交复盘。",
       });
       return;
     }
@@ -1033,11 +1033,11 @@ async function reloadAfterConflict(
     }
     applySession(page, runtime, current.data);
     page.setData({
-      errorMessage: "服务端复盘版本已更新，已加载权威状态；未确认的本地文字仍保留在输入框中。",
+      errorMessage: "复盘内容已更新；未确认的本地文字仍保留在输入框中。",
       interactionLocked: false,
     });
   } catch (error) {
-    handleWriteError(page, error, "无法重新加载服务端权威复盘状态。");
+    handleWriteError(page, error, "无法重新加载最新复盘状态。");
   }
 }
 
@@ -1048,7 +1048,7 @@ function applySession(
 ): void {
   const review = session.review;
   if (!review || review.reviewId !== runtime.reviewId || session.sessionId !== runtime.sessionId) {
-    throw new Error("服务端复盘与当前作答会话不匹配。");
+    throw new Error("复盘记录与当前作答不匹配。");
   }
   runtime.session = session;
   const pendingReflection = loadPendingXingceReflection(runtime.ownerUserId, runtime.reviewId);
@@ -1124,7 +1124,7 @@ function applySession(
       review.causeDecision?.replacementCause ??
       page.data.replacementCause,
     interactionLocked: hasPendingWrite,
-    pendingMessage: hasPendingWrite ? "检测到一次结果未知的写入，必须按原命令重试。" : "",
+    pendingMessage: hasPendingWrite ? "检测到一次结果未知的保存，需要重试刚才那次操作。" : "",
     hasPendingWrite,
   });
   syncVoiceView(page, runtime);
@@ -1167,7 +1167,7 @@ function handleWriteError(page: ReflectionPageInstance, error: unknown, fallback
     page.setData({
       status: "unavailable",
       errorTitle: "登录状态已失效",
-      errorMessage: "待提交命令仍按原账号隔离保存，重新登录后可以继续。",
+      errorMessage: "待提交内容仍按原账号隔离保存，重新登录后可以继续。",
       showLoginAction: true,
       pendingMessage: "",
       hasPendingWrite: true,
@@ -1176,7 +1176,7 @@ function handleWriteError(page: ReflectionPageInstance, error: unknown, fallback
   }
   page.setData({
     status: "error",
-    errorTitle: "服务端尚未确认本次写入",
+    errorTitle: "本次保存尚未确认",
     errorMessage: error instanceof Error ? error.message : fallback,
     interactionLocked: true,
     pendingMessage: fallback,
@@ -1189,7 +1189,7 @@ function handleError(page: ReflectionPageInstance, error: unknown, title: string
   page.setData({
     status: expired ? "unavailable" : "error",
     errorTitle: expired ? "登录状态已失效" : title,
-    errorMessage: error instanceof Error ? error.message : "服务端没有返回可确认状态。",
+    errorMessage: error instanceof Error ? error.message : "没有拿到可确认状态。",
     showLoginAction: expired,
   });
 }

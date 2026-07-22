@@ -156,7 +156,7 @@ describe("stage 2 F02 mock exam", () => {
     const harness = await createMockPage(sessionPayload());
 
     expect(harness.page.data.remainingLabel).toBe("02:00:00");
-    harness.page.inputDraft.call(harness.page, inputEvent("后台前断点"));
+    harness.page.inputDraft.call(harness.page, inputEvent("后台前草稿"));
     harness.page.onHide.call(harness.page);
     await flushMicrotasks();
     expect(vi.getTimerCount()).toBe(0);

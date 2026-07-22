@@ -57,11 +57,31 @@
     "pages/plan-history/index"
   ],
   "tabs": [
-    { "pagePath": "pages/today/index", "text": "今日" },
-    { "pagePath": "pages/positions/index", "text": "岗位" },
-    { "pagePath": "pages/profile/index", "text": "我的" }
+    {
+      "pagePath": "pages/today/index",
+      "text": "今日",
+      "iconPath": "assets/tabbar/today.png",
+      "selectedIconPath": "assets/tabbar/today-active.png"
+    },
+    {
+      "pagePath": "pages/positions/index",
+      "text": "岗位",
+      "iconPath": "assets/tabbar/positions.png",
+      "selectedIconPath": "assets/tabbar/positions-active.png"
+    },
+    {
+      "pagePath": "pages/profile/index",
+      "text": "我的",
+      "iconPath": "assets/tabbar/profile.png",
+      "selectedIconPath": "assets/tabbar/profile-active.png"
+    }
   ],
   "plannedWorkspaces": [
-    { "id": "training", "targetPath": "workspaces/training/index", "text": "训练", "phase": 2 }
+    {
+      "id": "training",
+      "targetPath": "workspaces/training/index",
+      "text": "训练",
+      "phase": 2
+    }
   ]
 }

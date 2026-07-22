@@ -1,7 +1,7 @@
 <view class="workbench-page">
-  <view class="workbench-hero"><view class="workbench-kicker">申论评阅证据</view><view class="workbench-title">为什么这样评，一条一条说清楚</view><view class="workbench-copy">评分点、你的作答、材料原文和评阅理由共同组成完整证据链。</view></view>
+  <view class="workbench-hero"><view class="workbench-kicker">申论评阅证据</view><view class="workbench-title">为什么这样评，一条一条说清楚</view><view class="workbench-copy">评分点、你的作答、材料原文和评阅理由都在这一页。</view></view>
   <state-view wx:if="{{status === 'loading'}}" state="loading" />
-  <state-view wx:elif="{{status === 'error'}}" state="error" title="证据视图没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="{{retryAllowed ? '重新加载' : ''}}" bind:action="retryLoad" />
+  <state-view wx:elif="{{status === 'error'}}" state="error" title="没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="{{retryAllowed ? '重新加载' : ''}}" bind:action="retryLoad" />
   <block wx:elif="{{review && view}}">
     <view class="workbench-card"><view class="workbench-grid"><view class="workbench-metric"><view class="workbench-meta">要点覆盖</view><text class="workbench-metric__value">{{view.coveredPoints}} / {{view.totalPoints}}</text></view><view class="workbench-metric"><view class="workbench-meta">可信度</view><text class="workbench-metric__value">{{view.confidenceLabel}}</text></view></view></view>
     <view wx:for="{{view.dimensions}}" wx:key="criterionCode" class="workbench-card"><view class="workbench-row-title">{{item.label}}</view><view class="dimension-bar"><view class="dimension-bar-fill" style="width: {{item.percent}}%"></view></view><view class="workbench-note">{{item.rationale}}</view><view class="evidence-quote">答案证据：{{item.answerQuote || '无'}}</view><view class="evidence-quote">材料证据：{{item.materialQuote || '无'}}</view></view>

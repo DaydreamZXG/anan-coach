@@ -101,7 +101,7 @@
 }
 
 .choice--active {
-  border-color: rgba(0, 151, 139, 0.45);
+  border-color: var(--color-primary-a24);
   background: var(--color-primary-soft);
   color: var(--color-primary-deep);
 }

@@ -151,7 +151,7 @@ export class PositionGoalController {
     }
     const payload = {
       previewId: preview.previewId,
-      changeReason: "用户查看服务端影响预览后确认主报目标",
+      changeReason: "用户查看计划影响预览后确认主报目标",
     } as const;
     const commandPayload = goalConfirmationCommand(this.state.positionId, payload);
     const pendingConfirmations = pendingGoalConfirmations(

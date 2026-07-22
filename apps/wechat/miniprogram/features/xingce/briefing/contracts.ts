@@ -115,7 +115,7 @@ export function xingcePracticeUrl(briefing: XingceTaskBriefing): string {
     `/pages/practice/index?mode=${encodeURIComponent(briefing.mode)}` +
     `&planTaskId=${encodeURIComponent(briefing.planTaskId)}`;
   if (!registeredTaskNavigationTarget(url)) {
-    throw new XingceBriefingContractError("服务端任务说明无法生成受支持的作答入口。");
+    throw new XingceBriefingContractError("任务说明无法生成受支持的作答入口。");
   }
   return url;
 }

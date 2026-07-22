@@ -167,7 +167,7 @@ Page<DraftPageData, DraftPageCustom>({
       this.data.sourceType === "voice_transcript" || this.data.sourceType === "reflection";
     if (reflectionRequired && !runtime.reflectionVersionId) {
       this.setData({
-        formMessage: "语音转写或错题复盘必须绑定服务端已确认的复盘版本。",
+        formMessage: "语音转写或错题复盘必须绑定已确认的复盘记录。",
       });
       return;
     }

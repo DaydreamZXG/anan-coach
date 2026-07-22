@@ -7,7 +7,7 @@
   </view>
 
   <view class="bucket-tabs" role="tablist" aria-label="错题与掌握分组">
-    <view
+    <view hover-class="item--hover"
       wx:for="{{tabs}}"
       wx:key="bucket"
       class="bucket-tab {{item.active ? 'bucket-tab--active' : ''}}"
@@ -21,7 +21,7 @@
     </view>
   </view>
 
-  <state-view wx:if="{{status === 'loading'}}" custom-class="mastery-state-view" state="loading" title="正在加载掌握队列" description="按当前账号读取服务端权威版本。" />
+  <state-view wx:if="{{status === 'loading'}}" custom-class="mastery-state-view" state="loading" title="正在加载掌握队列" description="已同步最新数据。" />
 
   <state-view
     wx:elif="{{status === 'error'}}"
@@ -66,7 +66,7 @@
         <text>{{item.questionLabel}}</text>
         <text>{{item.evidenceLabel}}</text>
       </view>
-      <view wx:if="{{item.invalidated}}" class="invalidated-copy">题目内容已确认撤回。原始证据继续可回放，但不会再参与错因、能力或掌握计算。</view>
+      <view wx:if="{{item.invalidated}}" class="invalidated-copy">这道题已下线，还能看到当时的记录，但不再计入能力分析。</view>
       <button
         wx:if="{{item.actionAvailable}}"
         class="card-action {{item.actionState === 'awaiting_plan' ? 'card-action--secondary' : ''}}"
@@ -77,7 +77,7 @@
 
     <view wx:if="{{items.length}}" class="pagination">
       <button wx:if="{{hasMore && !loadingMore && !partialErrorMessage}}" class="load-more" bindtap="loadMore">加载更多</button>
-      <view wx:elif="{{loadingMore}}" class="page-note">正在读取下一页权威版本…</view>
+      <view wx:elif="{{loadingMore}}" class="page-note">正在读取下一页记录…</view>
       <view wx:elif="{{!hasMore}}" class="page-note">已显示当前分组全部记录</view>
     </view>
   </block>

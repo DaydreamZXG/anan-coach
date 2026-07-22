@@ -162,7 +162,7 @@ Page<ContributionsPageData, ContributionsPageCustom>({
       });
       const failedCount = results.length - cards.length;
       const policyMessage = ledger.activePolicyVersions.length
-        ? `当前适用政策 ${ledger.activePolicyVersions.join("、")}。只有服务端奖励回执才算授予。`
+        ? `当前适用政策 ${ledger.activePolicyVersions.join("、")}。只有正式奖励记录才算授予。`
         : "当前没有已发布的奖励政策，因此不会授予任何额度或会员时长。";
       this.setData({
         cards,
@@ -174,10 +174,10 @@ Page<ContributionsPageData, ContributionsPageCustom>({
         awardIds: ledger.awardIds,
         entryIds: ledger.entryIds,
         partialMessage:
-          failedCount > 0 ? `${String(failedCount)} 张方法卡的权威版本暂未读取成功。` : "",
+          failedCount > 0 ? `${String(failedCount)} 张方法卡的最新内容暂未读取成功。` : "",
       });
       if (failedCount > 0) {
-        setState(this, "partial", "奖励账本与已载入版本保持可见；未载入卡片不会由客户端补造。");
+        setState(this, "partial", "已读到的奖励与方法卡会保留；未载入卡片不会临时补造。");
       } else if (
         cards.length === 0 &&
         ledger.awardIds.length === 0 &&
@@ -216,7 +216,7 @@ function reviewStatusLabel(value: string): string {
     revision_required: "检查要求修改",
     rejected: "检查未通过",
   };
-  return labels[value] ?? "按服务端审核状态展示";
+  return labels[value] ?? "按审核状态展示";
 }
 
 function formatMembershipSeconds(value: number): string {

@@ -15,7 +15,7 @@
 .paper-title, .external-title, .latest-title, .report-card__title { margin-top: 14rpx; color: var(--color-ink); font-size: 29rpx; font-weight: 700; }
 .paper-meta, .paper-definition, .external-copy, .latest-meta, .report-card__copy { margin-top: 10rpx; color: var(--color-muted); font-size: 23rpx; line-height: 1.55; }
 .paper-action, .report-card__arrow { margin-top: 18rpx; color: var(--color-primary-deep); font-weight: 650; }
-.center-primary { margin-top: 18rpx; border-radius: 22rpx; background: var(--color-primary); color: #fff; font-size: 27rpx; box-shadow: 0 14rpx 28rpx rgba(0,151,139,.18); }
+.center-primary { margin-top: 18rpx; border-radius: 22rpx; background: var(--color-primary); color: #fff; font-size: 27rpx; box-shadow: 0 14rpx 28rpx var(--color-primary-a16); }
 .external-card { align-items: center; margin-top: 30rpx; background: var(--color-primary-soft); }
 .external-arrow { color: var(--color-primary); font-size: 54rpx; }
 .latest-card { margin-top: 16rpx; }
