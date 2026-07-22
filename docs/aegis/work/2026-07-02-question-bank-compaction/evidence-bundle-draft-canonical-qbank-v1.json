@@ -1,8 +1,0 @@
-{
-  "schemaVersion": "aegis.schema.v0",
-  "artifactKey": "canonical-qbank-v1",
-  "type": "local-schema-import",
-  "source": "tools/question-bank/canonical-qbank-v1.sql",
-  "summary": "Builds local canonical_qbank schema with 55,214 canonical questions, source map, occurrences, explanations, assets, tags, knowledge chunk links, quarantine, and merge review queue.",
-  "verifier": "psql -h 127.0.0.1 -p 55432 -d qb_compaction_20260702 -v ON_ERROR_STOP=1 -f tools/question-bank/canonical-qbank-v1.sql"
-}

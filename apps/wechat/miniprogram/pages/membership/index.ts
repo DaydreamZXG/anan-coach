@@ -162,9 +162,7 @@ Page({
           ? "冷启动期间不会创建支付订单"
           : !environment.virtualPaymentEnabled
             ? "会员购买暂未开放，当前不会创建支付订单"
-            : platform === "ios"
-              ? "iOS 由 Apple 收款 · 退款需在 App Store 申请 · 最终结果由 Apple 决定"
-              : "微信虚拟支付 · 单次购买 · 不自动续费",
+            : "微信虚拟支付 · 单次购买 · 不自动续费",
       });
     } catch (error) {
       const apiError = error instanceof ApiClientError ? error : undefined;
@@ -262,10 +260,7 @@ Page({
     if (!eligibility?.eligible || !order || this.data.refunding) return;
     wx.showModal({
       title: "确认申请退款？",
-      content:
-        this.data.clientPlatform === "ios"
-          ? `这笔 ${amountLabel(eligibility.remainingRefundableMinor)} 的 iOS 订单需在 App Store 提交退款；当前订单已通过服务端退款资格校验，最终结果由 Apple 决定。`
-          : `将按微信虚拟支付路径申请退回 ${amountLabel(eligibility.remainingRefundableMinor)}，无需提交成绩证明。`,
+      content: `将按微信虚拟支付路径申请退回 ${amountLabel(eligibility.remainingRefundableMinor)}，无需提交成绩证明。`,
       confirmText: "申请退款",
       confirmColor: "#C83F56",
       success: (result) => {
@@ -285,17 +280,16 @@ Page({
       );
       await this.loadDashboard();
       const action = result.data as typeof result.data & {
-        providerAction?: "none" | "app_store_required";
+        providerAction?: string;
         providerActionUrl?: string | null;
         providerActionMessage?: string | null;
       };
-      if (action.providerAction === "app_store_required") {
+      if (action.providerAction && action.providerAction !== "none") {
         wx.showModal({
-          title: "请在 App Store 申请退款",
+          title: "退款需人工处理",
           content:
-            action.providerActionMessage ??
-            "打开 reportaproblem.apple.com，登录购买所用 Apple 账户并选择这笔订单。",
-          confirmText: "复制网址",
+            action.providerActionMessage ?? "这笔历史订单无法由小程序自动退款，请联系客服处理。",
+          confirmText: "复制信息",
           cancelText: "知道了",
           success: (modal) => {
             if (modal.confirm && action.providerActionUrl) {

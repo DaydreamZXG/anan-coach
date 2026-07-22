@@ -11,7 +11,7 @@ from fontTools.ttLib import TTFont
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_DIR = ROOT / "apps/ios/Gongkao/Gongkao/Resources/Fonts"
+SOURCE_DIR = ROOT / "third_party/maple-font/fonts"
 SELECTED_FACES = (
     (
         "MapleMono-CN-Regular.ttf",

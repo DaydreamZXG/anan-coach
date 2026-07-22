@@ -28,18 +28,16 @@ apps/wechat/miniprogram_npm/
 .v0/
 .workbuddy/
 .product-governance/
+
+# Generated release/export artifacts
+dist/
+exports/
+
 # Python build/test caches
 __pycache__/
 *.py[cod]
 .pytest_cache/
 *.egg-info/
-
-# Xcode local build products
-DerivedData/
-apps/ios/DerivedData/
-apps/ios/Gongkao/.build/
-*.xcuserdata/
-.xcodebuildmcp/
 
 # Runtime logs
 backend/server.log

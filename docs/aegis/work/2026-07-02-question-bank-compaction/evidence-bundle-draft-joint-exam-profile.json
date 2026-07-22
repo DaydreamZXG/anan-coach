@@ -1,8 +1,0 @@
-{
-  "schemaVersion": "aegis.schema.v0",
-  "artifactKey": "joint-exam-profile",
-  "type": "report",
-  "source": "reports/question-bank/joint-exam-profile-raw-20260702.txt",
-  "summary": "Profiles province joint-exam occurrences and remaining candidate duplicate groups.",
-  "verifier": "psql against local qb_compaction_20260702"
-}

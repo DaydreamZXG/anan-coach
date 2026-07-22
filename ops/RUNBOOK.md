@@ -16,7 +16,7 @@
 - 重新收费必须作为独立发布：先完成商品与规则审核，再同时设置 `COMMERCIAL_MODE=paid` 和全部虚拟支付密钥；仅配置密钥不会启动商业对账 worker。
 - 固定 30 天会员属于虚拟商品，生产只允许微信小程序虚拟支付。API 与商业对账 worker 必须同时配置 `WECHAT_VIRTUAL_PAY_ENV=0`、`WECHAT_VIRTUAL_PAY_OFFER_ID`、`WECHAT_VIRTUAL_PAY_APP_KEY`、`WECHAT_VIRTUAL_PAY_MESSAGE_TOKEN`、`WECHAT_VIRTUAL_PAY_MESSAGE_ENCODING_AES_KEY`；密钥不得提交到仓库。
 - 微信后台商品 ID 必须为 `founder_experience_30d`，价格必须为 6900 分。消息推送采用 JSON、安全模式，地址为 `https://kg.xingguoxian.cn/api/v2/commerce/wechat/virtual-payment/events`。
-- iOS 只允许现网虚拟支付，不支持沙箱。要求 iOS 15+、微信 8.0.68+，且小程序后台已配置简称。iOS 退款由用户在 App Store 发起；服务端仅根据 `founder-refund@v2` 返回退款建议，最终决定权属于 Apple。
+- 小程序虚拟支付上线前必须按当时微信平台政策重新核对客户端版本、类目、商品、退款和审核要求；当前免费冷启动状态不得提供购买或退款入口。
 - `WechatPaymentOutcomeUncertain` 报警：确认商业对账 worker 存活和微信 xpay API 连通性。worker 必须按 `out_trade_no` 查询后推进状态，禁止重新创建同一逻辑订单。
 - `WechatRefundStale` 报警：按支付订单调用 xpay 查单核对退款结果；结果不明时保持原状态，不得再生成退款意图。
 - 客户端的 `requestVirtualPayment:ok` 不是到账依据，只有安全模式加密推送或 xpay 主动查单能发放权益。

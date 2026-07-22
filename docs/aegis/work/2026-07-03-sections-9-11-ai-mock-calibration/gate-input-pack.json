@@ -1,8 +1,0 @@
-{
-  "schemaVersion": "aegis.schema.v0",
-  "baselineRefs": [],
-  "impactStatement": "docs/aegis/work/2026-07-03-sections-9-11-ai-mock-calibration/impact-statement-draft.json",
-  "compatPlan": "Compatibility boundary not yet refined.",
-  "retirementPlan": "not-yet-verified",
-  "evidenceBundle": []
-}

@@ -1,8 +1,0 @@
-{
-  "schemaVersion": "aegis.schema.v0",
-  "artifactKey": "slice5-knowledge-api-tests-and-smoke",
-  "type": "command",
-  "source": "backend/.venv/bin/python -m pytest backend/tests; curl https://kg.xingguoxian.cn/api/v1/knowledge/questions/search; curl https://kg.xingguoxian.cn/api/v1/knowledge/questions/cq_31cdbc7fb615d7e849c02542",
-  "summary": "Backend tests passed 7 tests. Public HTTPS knowledge search returned 2026 吉林 判断推理 questions from product tables. Question detail returned cq_31cdbc7fb615d7e849c02542 with options, answer B, ai_rewrite_accepted preferred explanation, 11 provincial occurrences, tags, and no staging schema ownership in the response.",
-  "verifier": "codex"
-}

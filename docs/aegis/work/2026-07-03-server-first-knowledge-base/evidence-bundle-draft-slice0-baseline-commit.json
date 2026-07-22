@@ -1,8 +1,0 @@
-{
-  "schemaVersion": "aegis.schema.v0",
-  "artifactKey": "slice0-baseline-commit",
-  "type": "git",
-  "source": "git commit fe1ba0b",
-  "summary": "Created baseline commit chore: establish gongkao dazi baseline on codex/server-first-knowledge-base.",
-  "verifier": "codex"
-}

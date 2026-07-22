@@ -1,8 +1,0 @@
-{
-  "schemaVersion": "aegis.schema.v0",
-  "artifactKey": "compaction-v1-report",
-  "type": "report",
-  "source": "reports/question-bank/compaction-v1-report-20260702.md",
-  "summary": "Documents local restore counts, explanation priority, risk buckets, asset-aware candidate identity, and v1 compaction results.",
-  "verifier": "psql summaries from qb_compaction_20260702 and regenerated CSV exports"
-}

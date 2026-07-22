@@ -3,7 +3,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url("../../ios/Gongkao/Gongkao/Resources/Fonts/MapleMono-CN-Regular.ttf") format("truetype");
+  src: url("../../../third_party/maple-font/fonts/MapleMono-CN-Regular.ttf") format("truetype");
 }
 
 @font-face {
@@ -11,7 +11,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: block;
-  src: url("../../ios/Gongkao/Gongkao/Resources/Fonts/MapleMono-CN-Bold.ttf") format("truetype");
+  src: url("../../../third_party/maple-font/fonts/MapleMono-CN-Bold.ttf") format("truetype");
 }
 
 :root {

@@ -68,8 +68,6 @@ Initial endpoints:
 - `POST /api/v2/essay-intelligence/review-jobs/{job_id}/regenerate`
 - `GET /api/v1/commerce/catalog`
 - `GET /api/v1/commerce/entitlement`
-- `POST /api/v1/commerce/app-store/transactions`
-- `POST /api/v1/commerce/app-store/notifications`
 
 Learner-specific and method-card content endpoints require `Authorization: Bearer <backend-session-token>`.
 The backend does not accept client-supplied learner IDs in production routes.
@@ -152,10 +150,10 @@ alembic stamp 20260712_00
 alembic upgrade head
 ```
 
-Commercial entitlement routes use the `commerce` domain as the owner for IAP
-products, App Store signed transactions, Pro entitlement state, feature quota
-reservation, and entitlement audit logs. `APP_STORE_ROOT_CERTIFICATE_PATHS`
-must be configured before App Store transactions can grant Pro.
+Commercial entitlement routes use the `commerce` domain as the owner for product
+catalogs, order facts, entitlement state, feature quota reservation, and
+entitlement audit logs. The current mini-program release is free-cold-start:
+paid ordering is disabled until a separate payment release reopens it.
 
 `GET /api/v1/position-decisions/recommendations` returns decision buckets with
 `decisionTargetScore` and `decisionScoreBasis`. When a candidate position lacks

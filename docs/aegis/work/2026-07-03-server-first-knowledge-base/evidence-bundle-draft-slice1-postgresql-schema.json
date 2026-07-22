@@ -1,8 +1,0 @@
-{
-  "schemaVersion": "aegis.schema.v0",
-  "artifactKey": "slice1-postgresql-schema",
-  "type": "command",
-  "source": "ssh root@101.96.198.253 postgresql/schema verification",
-  "summary": "PostgreSQL active; pgvector extension installed; schemas source_qbank/canonical_qbank/product/learner/ai_audit/commerce/ops exist; gongkao_api can connect; port 5432 listens only on 127.0.0.1.",
-  "verifier": "codex"
-}

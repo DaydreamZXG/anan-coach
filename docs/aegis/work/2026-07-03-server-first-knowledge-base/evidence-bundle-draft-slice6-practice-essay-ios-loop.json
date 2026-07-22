@@ -1,8 +1,0 @@
-{
-  "schemaVersion": "aegis.schema.v0",
-  "artifactKey": "slice6-practice-essay-ios-loop",
-  "type": "command",
-  "source": "scripts/full_verify.sh; public HTTPS smoke; XcodeBuildMCP iPad runtime screenshot/snapshot",
-  "summary": "Implemented taskstream/practice/essay routes and iOS AppState API integration. Public smoke verified taskstream today, practice task start, practice answer feedback, essay task, AI five-dimension review with quota/audit, rewrite comparison, and audit table rows. full_verify passed: backend 14 tests, iPhone 17 build, iPad Pro 13-inch build, Aegis check. iPad simulator launched and displayed server-loaded taskstream/essay workbench.",
-  "verifier": "codex"
-}

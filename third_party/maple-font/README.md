@@ -6,14 +6,12 @@
 
 ## Selected weights
 
-The source TTF files live in `apps/ios/Gongkao/Gongkao/Resources/Fonts/`. The WeChat product
-uses only:
+The vendored source TTF files live in `third_party/maple-font/fonts/`. The WeChat product uses only:
 
 - MapleMono-CN-Regular.ttf
 - MapleMono-CN-Bold.ttf
 
-Medium remains an existing iOS asset but is not part of the WeChat font contract. Nerd Font,
-italics, and the remaining weights are intentionally excluded.
+Medium, Nerd Font, italics, and the remaining weights are intentionally excluded.
 
 Pinned source SHA-256:
 

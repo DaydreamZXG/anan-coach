@@ -1,8 +1,0 @@
-{
-  "schemaVersion": "aegis.schema.v0",
-  "artifactKey": "slice4-product-knowledge-import",
-  "type": "command",
-  "source": "scripts/server_import_product_knowledge.sh",
-  "summary": "Imported canonical_qbank into product runtime tables on 101.96.198.253. Product counts matched: questions 55,214; objective 53,011; essay 2,203; explanations 53,011; occurrences 104,453; tags 557,844; knowledge chunks 23,103; assets 52,112.",
-  "verifier": "codex"
-}

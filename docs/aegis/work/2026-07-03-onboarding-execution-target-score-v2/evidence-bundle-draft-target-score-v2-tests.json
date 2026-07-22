@@ -1,8 +1,0 @@
-{
-  "schemaVersion": "aegis.schema.v0",
-  "artifactKey": "target-score-v2-tests",
-  "type": "pytest",
-  "source": "backend pytest",
-  "summary": "Implemented positions cohort target-score v2 and verified with full backend test suite: 46 passed, 1 StarletteDeprecationWarning.",
-  "verifier": "./.venv/bin/python -m pytest -q"
-}
