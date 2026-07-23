@@ -3,6 +3,8 @@ import { request } from "./client";
 import type {
   CompanionAskRequest,
   CompanionAskResponse,
+  CommunityRewardLedgerResponse,
+  ContributionsResponse,
   DailyCapacityCommand,
   DailyCapacityCommandResult,
   DailyOpeningView,
@@ -300,6 +302,22 @@ export async function comparePositions(
     method: "POST",
     path: "/api/v2/positions/compare",
     body,
+  });
+}
+
+/** 我的知识卡贡献记录 */
+export async function fetchContributions(): Promise<ContributionsResponse> {
+  return authedV2<ContributionsResponse>({
+    method: "GET",
+    path: "/api/v2/community-method-cards/contributions",
+  });
+}
+
+/** 社区回馈账本（AI 额度 / 会员时长） */
+export async function fetchRewardLedger(): Promise<CommunityRewardLedgerResponse> {
+  return authedV2<CommunityRewardLedgerResponse>({
+    method: "GET",
+    path: "/api/v2/community-rewards/ledger",
   });
 }
 

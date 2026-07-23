@@ -40,7 +40,7 @@ const LEGACY_ROUTE_MAP: Record<string, string> = {
   "pages/community-draft/index": "pages/method-cards/publish",
   "pages/community-structure/index": "pages/method-cards/index",
   "pages/community-trial/index": "pages/method-cards/index",
-  "pages/community-contributions/index": "pages/method-cards/index",
+  "pages/community-contributions/index": "pages/contributions/index",
   "pages/learning-packets/index": "pages/method-cards/index",
   "pages/private-knowledge/index": "pages/method-cards/index",
   // 伴学
@@ -107,6 +107,7 @@ const REGISTERED = new Set([
   "pages/task-brief/index",
   "pages/position-detail/index",
   "pages/position-compare/index",
+  "pages/contributions/index",
 ]);
 
 function splitUrl(url: string): { path: string; query: string } {

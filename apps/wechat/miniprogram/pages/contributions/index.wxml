@@ -1,0 +1,46 @@
+<view class="page ct">
+  <view class="statusbar" />
+  <view class="ct-nav">
+    <text class="ct-back" bindtap="onBack">‹</text>
+    <text class="ct-title">我的贡献</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="ct-loading text-2">正在对账…</view>
+
+  <block wx:else>
+    <view class="card ct-grid">
+      <view class="ct-cell">
+        <text class="ct-num num">{{cardCount}}</text>
+        <text class="text-3">贡献的方法卡</text>
+      </view>
+      <view class="ct-cell">
+        <text class="ct-num num">{{rewardCount}}</text>
+        <text class="text-3">获励次数</text>
+      </view>
+      <view class="ct-cell">
+        <text class="ct-num num">{{aiQuota}}</text>
+        <text class="text-3">AI 额度余额</text>
+      </view>
+      <view class="ct-cell">
+        <text class="ct-num num">{{membershipDays}}</text>
+        <text class="text-3">会员天数余额</text>
+      </view>
+    </view>
+
+    <view class="ct-anan">
+      <view class="anan-avatar">岸</view>
+      <text class="ct-anan-text">你总结的方法帮到了别人，别人验证有效的方法也在帮你。贡献换来的 AI 额度和会员时长都记在这里，不会丢。</text>
+    </view>
+
+    <view class="card ct-row" bindtap="onGoPublish">
+      <text class="ct-row-label">再写一张方法卡</text>
+      <text class="ct-arrow">›</text>
+    </view>
+    <view class="card ct-row" bindtap="onGoCards">
+      <text class="ct-row-label">去逛方法卡广场</text>
+      <text class="ct-arrow">›</text>
+    </view>
+
+    <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示数据（后端未连接）</view>
+  </block>
+</view>

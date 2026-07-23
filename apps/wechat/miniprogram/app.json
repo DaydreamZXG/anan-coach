@@ -24,7 +24,8 @@
     "pages/plan-basis/index",
     "pages/task-brief/index",
     "pages/position-detail/index",
-    "pages/position-compare/index"
+    "pages/position-compare/index",
+    "pages/contributions/index"
   ],
   "window": {
     "navigationStyle": "custom",

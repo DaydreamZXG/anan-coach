@@ -1,0 +1,31 @@
+.statusbar { height: calc(env(safe-area-inset-top) + 24rpx); }
+.ct-nav { display: flex; align-items: center; gap: 20rpx; padding: 16rpx 8rpx; }
+.ct-back { font-size: 56rpx; color: var(--ink-2); line-height: 1; padding: 0 16rpx; }
+.ct-title { flex: 1; font-size: 32rpx; font-weight: 600; color: var(--ink); }
+.ct-loading { padding: 120rpx 0; text-align: center; }
+
+.ct-grid { display: flex; flex-wrap: wrap; margin-bottom: 24rpx; }
+.ct-cell { width: 50%; display: flex; flex-direction: column; align-items: center; gap: 8rpx; padding: 24rpx 0; }
+.ct-num { font-size: 56rpx; font-weight: 700; color: var(--primary); line-height: 1.2; }
+
+.ct-anan {
+  display: flex; gap: 20rpx; align-items: flex-start;
+  background: var(--warm-soft);
+  border: 1rpx solid #f1dcc6;
+  border-radius: var(--radius);
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+}
+.anan-avatar {
+  width: 56rpx; height: 56rpx; border-radius: 50%;
+  background: var(--warm); color: #fff;
+  font-size: 26rpx; font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.ct-anan-text { flex: 1; font-size: 28rpx; line-height: 1.7; color: #5c4a35; }
+
+.ct-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16rpx; }
+.ct-row-label { font-size: 29rpx; color: var(--ink); }
+.ct-arrow { font-size: 36rpx; color: var(--ink-3); }
+.demo-tip { text-align: center; padding: 16rpx 0; }
