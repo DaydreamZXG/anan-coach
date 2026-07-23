@@ -40,6 +40,7 @@
   flex-shrink: 0;
 }
 .rt-boundary { display: block; padding: 8rpx 8rpx 24rpx; line-height: 1.6; }
+.rt-import-link { text-align: center; padding: 0 0 24rpx; }
 
 .rt-program { display: flex; flex-direction: column; gap: 32rpx; margin-bottom: 32rpx; }
 .rt-program-head { display: flex; align-items: center; justify-content: space-between; }

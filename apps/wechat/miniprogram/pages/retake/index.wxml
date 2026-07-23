@@ -64,6 +64,10 @@
 
       <text class="rt-boundary text-3">{{scoreUseBoundary}}</text>
 
+      <view class="rt-import-link" bindtap="onGoImport">
+        <text class="text-3">列表里没有？补一笔其他成绩</text>
+      </view>
+
       <button
         class="btn btn-primary rt-cta"
         bindtap="onEnroll"
@@ -75,8 +79,9 @@
     <block wx:else>
       <view class="rt-empty">
         <text class="h2">还没有上次的成绩记录</text>
-        <text class="text-2">在引导里补一下上次考试的分数，或者直接按新手节奏开始，之后随时能补。</text>
-        <button class="btn btn-primary rt-cta" bindtap="onGoToday">先按当前计划走</button>
+        <text class="text-2">补一笔上次考试的分数，我就能按你的失分结构排恢复计划；不想补也能直接开始。</text>
+        <button class="btn btn-primary rt-cta" bindtap="onGoImport">补上次的成绩</button>
+        <button class="btn btn-ghost rt-cta" bindtap="onGoToday">先按当前计划走</button>
       </view>
     </block>
 

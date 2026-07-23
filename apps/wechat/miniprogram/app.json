@@ -19,7 +19,8 @@
     "pages/study-preference/index",
     "pages/goal/index",
     "pages/notification/index",
-    "pages/about/index"
+    "pages/about/index",
+    "pages/score-import/index"
   ],
   "window": {
     "navigationStyle": "custom",

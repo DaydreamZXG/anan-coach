@@ -47,6 +47,9 @@ const LEGACY_ROUTE_MAP: Record<string, string> = {
   "pages/companion/index": "pages/anan/index",
   // 我的 / 设置
   "pages/profile/index": "pages/me/index",
+  // 成绩导入（旧版 OCR 页 → 新版自报页）
+  "pages/external-report/index": "pages/score-import/index",
+  "pages/exam-records/index": "pages/score-import/index",
   "pages/profile/qualification/index": "pages/me/index",
   "pages/learning-profile/index": "pages/me/index",
   "pages/notification-settings/index": "pages/notification/index",
@@ -99,6 +102,7 @@ const REGISTERED = new Set([
   "pages/goal/index",
   "pages/notification/index",
   "pages/about/index",
+  "pages/score-import/index",
 ]);
 
 function splitUrl(url: string): { path: string; query: string } {

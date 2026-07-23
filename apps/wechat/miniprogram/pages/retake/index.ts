@@ -146,6 +146,18 @@ Page({
     wx.switchTab({ url: "/pages/today/index" });
   },
 
+  onGoImport() {
+    wx.navigateTo({
+      url: "/pages/score-import/index",
+      fail: () => wx.showToast({ title: "跳转失败，再点一次", icon: "none" }),
+    });
+  },
+
+  onShow() {
+    // 从成绩导入页返回时刷新凭证列表
+    if (!this.data.loading) void this.load();
+  },
+
   onBack() {
     wx.navigateBack({ fail: () => wx.switchTab({ url: "/pages/today/index" }) });
   },

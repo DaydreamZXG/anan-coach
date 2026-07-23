@@ -39,8 +39,11 @@ import type {
   RetakeEnrollmentRequest,
   RetakeEnrollmentResult,
   RetakeWorkspace,
+  ReportedScoreEvidenceRequest,
+  ReportedScoreEvidenceResult,
   ReviewVerdictRequest,
   ReviewVerdictResponse,
+  ScoreEvidenceHistory,
   SaveCheckpointCommand,
   StudyPreferenceWrite,
   SubmitTaskSessionCommand,
@@ -224,6 +227,24 @@ export async function enrollRetakeProgram(
   return authedV2<RetakeEnrollmentResult>({
     method: "POST",
     path: "/api/v2/retake/programs",
+    body,
+    idempotencyKey,
+  });
+}
+
+/** 分数凭证历史 */
+export async function fetchScoreEvidenceHistory(): Promise<ScoreEvidenceHistory> {
+  return authedV2<ScoreEvidenceHistory>({ method: "GET", path: "/api/v2/score-evidence" });
+}
+
+/** 自报一条分数凭证（幂等），返回新凭证与更新后的能力估计 */
+export async function reportScoreEvidence(
+  body: ReportedScoreEvidenceRequest,
+  idempotencyKey: string,
+): Promise<ReportedScoreEvidenceResult> {
+  return authedV2<ReportedScoreEvidenceResult>({
+    method: "POST",
+    path: "/api/v2/score-evidence/reported",
     body,
     idempotencyKey,
   });
