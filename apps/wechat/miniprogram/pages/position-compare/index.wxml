@@ -1,0 +1,35 @@
+<view class="page pc">
+  <view class="statusbar" />
+  <view class="pc-nav">
+    <text class="pc-back" bindtap="onBack">‹</text>
+    <text class="pc-title">岗位对比</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="pc-loading text-2">正在逐项对比…</view>
+
+  <scroll-view wx:else class="pc-body" scroll-y>
+    <view
+      class="card pc-item {{item.isPrimary ? 'is-primary' : ''}}"
+      wx:for="{{items}}"
+      wx:key="positionId"
+      data-id="{{item.positionId}}"
+      bindtap="onOpenDetail"
+    >
+      <view class="pc-item-head">
+        <text class="pc-name">{{item.name}}</text>
+        <text class="pc-eligibility {{item.eligibilityClass}}">{{item.eligibilityLabel}}</text>
+      </view>
+      <text class="text-3">{{item.department}} · {{item.region}} · 招 {{item.headcount}} 人</text>
+      <view class="pc-facts">
+        <text class="pc-fact num">{{item.targetScoreLabel}}</text>
+        <text class="text-3">{{item.metLine}}</text>
+      </view>
+      <view class="pc-tags" wx:if="{{item.tags.length}}">
+        <text class="pc-tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+      </view>
+    </view>
+
+    <text class="text-3 pc-note">点任意岗位看详情。对比只看硬条件和分数账，最终选择还要结合你自己的城市与生活考量。</text>
+    <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示数据（后端未连接）</view>
+  </scroll-view>
+</view>

@@ -1,0 +1,51 @@
+<view class="page pd">
+  <view class="statusbar" />
+  <view class="pd-nav">
+    <text class="pd-back" bindtap="onBack">‹</text>
+    <text class="pd-title">岗位详情</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="pd-loading text-2">正在取岗位信息…</view>
+
+  <block wx:else>
+    <scroll-view class="pd-body" scroll-y>
+      <view class="card pd-head">
+        <text class="h1 pd-name">{{name}}</text>
+        <text class="text-2">{{departmentFull}}</text>
+        <text class="text-3">{{region}} · 招 {{headcount}} 人</text>
+      </view>
+
+      <view class="card pd-score" wx:if="{{targetScore}}">
+        <view class="pd-score-main">
+          <text class="text-3">冲这个岗位的目标分</text>
+          <text class="pd-score-num num">{{targetScore}}</text>
+        </view>
+        <text class="text-3 pd-entry">{{entryLine}}</text>
+      </view>
+      <view class="card pd-score" wx:else>
+        <text class="text-3">{{entryLine}}</text>
+      </view>
+
+      <text class="pd-section">报考条件</text>
+      <view class="card pd-rows">
+        <view class="pd-row" wx:for="{{rows}}" wx:key="label">
+          <text class="pd-row-label">{{item.label}}</text>
+          <text class="pd-row-value">{{item.value}}</text>
+        </view>
+      </view>
+
+      <block wx:if="{{remark}}">
+        <text class="pd-section">备注</text>
+        <view class="card">
+          <text class="text-2 pd-remark">{{remark}}</text>
+        </view>
+      </block>
+
+      <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示数据（后端未连接）</view>
+    </scroll-view>
+
+    <view class="pd-foot">
+      <button class="btn btn-primary pd-foot-btn" bindtap="onSetGoal" disabled="{{confirming}}">{{confirming ? '确认中…' : '设为主目标'}}</button>
+    </view>
+  </block>
+</view>

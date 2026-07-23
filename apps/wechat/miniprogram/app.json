@@ -22,7 +22,9 @@
     "pages/about/index",
     "pages/score-import/index",
     "pages/plan-basis/index",
-    "pages/task-brief/index"
+    "pages/task-brief/index",
+    "pages/position-detail/index",
+    "pages/position-compare/index"
   ],
   "window": {
     "navigationStyle": "custom",

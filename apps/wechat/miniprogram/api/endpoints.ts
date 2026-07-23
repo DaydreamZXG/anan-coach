@@ -34,6 +34,9 @@ import type {
   PlacementAnswer,
   PlanBasisView,
   PlanChangeHistory,
+  PositionComparisonRequest,
+  PositionComparisonResponse,
+  PositionDetail,
   PlacementSubmitResponse,
   PlacementTestTask,
   PositionEligibilitySnapshot,
@@ -278,6 +281,25 @@ export async function fetchTaskBriefing(planTaskId: string): Promise<XingceTaskB
   return authedV2<XingceTaskBriefing>({
     method: "GET",
     path: `/api/v2/xingce/plan-tasks/${planTaskId}/briefing`,
+  });
+}
+
+/** 岗位详情（含入围分数线统计） */
+export async function fetchPositionDetail(positionId: string): Promise<PositionDetail> {
+  return authedV2<PositionDetail>({
+    method: "GET",
+    path: `/api/v2/positions/${positionId}`,
+  });
+}
+
+/** 岗位横向对比（资格达标数 / 目标分 / 招录人数） */
+export async function comparePositions(
+  body: PositionComparisonRequest,
+): Promise<PositionComparisonResponse> {
+  return authedV2<PositionComparisonResponse>({
+    method: "POST",
+    path: "/api/v2/positions/compare",
+    body,
   });
 }
 

@@ -29,16 +29,29 @@
       wx:for="{{results}}"
       wx:key="positionId"
       data-id="{{item.positionId}}"
-      data-name="{{item.name}}"
-      bindtap="onPick"
+      bindtap="onOpenDetail"
     >
+      <view
+        class="g-check {{compareIds.indexOf(item.positionId) >= 0 ? 'is-on' : ''}}"
+        data-id="{{item.positionId}}"
+        catchtap="onToggleCompare"
+      />
       <view class="g-pos-main">
         <text class="g-pos-name">{{item.name}}</text>
         <text class="text-3">{{item.department}}{{item.city ? ' · ' + item.city : ''}}</text>
       </view>
-      <text class="g-pos-cta">{{confirming === item.positionId ? '确认中…' : '设为目标'}}</text>
+      <text
+        class="g-pos-cta"
+        data-id="{{item.positionId}}"
+        data-name="{{item.name}}"
+        catchtap="onPick"
+      >{{confirming === item.positionId ? '确认中…' : '设为目标'}}</text>
     </view>
 
     <view wx:if="{{usingDemo && results.length}}" class="demo-tip text-3">演示岗位（后端未连接）</view>
   </scroll-view>
+
+  <view class="g-compare-bar" wx:if="{{compareIds.length >= 2}}">
+    <button class="btn btn-primary g-compare-btn" bindtap="onCompare">对比选中的 {{compareIds.length}} 个岗位</button>
+  </view>
 </view>

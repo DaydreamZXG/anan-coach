@@ -27,6 +27,7 @@ Page({
     results: [] as PositionVM[],
     usingDemo: false,
     confirming: "",
+    compareIds: [] as string[],
   },
 
   onInput(e: WechatMiniprogram.Input) {
@@ -99,6 +100,46 @@ Page({
       this.setData({ confirming: "" });
       wx.showToast({ title: "没改成功，再试一次", icon: "none" });
     }
+  },
+
+  onOpenDetail(e: WechatMiniprogram.TouchEvent) {
+    const { id } = e.currentTarget.dataset as { id: string };
+    if (this.data.usingDemo) {
+      wx.navigateTo({ url: "/pages/position-detail/index" });
+      return;
+    }
+    wx.navigateTo({
+      url: `/pages/position-detail/index?positionId=${id}`,
+      fail: () => wx.showToast({ title: "跳转失败，再点一次", icon: "none" }),
+    });
+  },
+
+  onToggleCompare(e: WechatMiniprogram.TouchEvent) {
+    const { id } = e.currentTarget.dataset as { id: string };
+    const ids = this.data.compareIds.slice();
+    const idx = ids.indexOf(id);
+    if (idx >= 0) {
+      ids.splice(idx, 1);
+    } else {
+      if (ids.length >= 4) {
+        wx.showToast({ title: "最多对比 4 个岗位", icon: "none" });
+        return;
+      }
+      ids.push(id);
+    }
+    this.setData({ compareIds: ids });
+  },
+
+  onCompare() {
+    if (this.data.compareIds.length < 2) return;
+    if (this.data.usingDemo) {
+      wx.navigateTo({ url: "/pages/position-compare/index" });
+      return;
+    }
+    wx.navigateTo({
+      url: `/pages/position-compare/index?ids=${this.data.compareIds.join(",")}`,
+      fail: () => wx.showToast({ title: "跳转失败，再点一次", icon: "none" }),
+    });
   },
 
   onBack() {

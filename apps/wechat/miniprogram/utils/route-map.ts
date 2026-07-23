@@ -30,7 +30,8 @@ const LEGACY_ROUTE_MAP: Record<string, string> = {
   // 目标与岗位
   "pages/positions/index": "pages/goal/index",
   "pages/positions/search/index": "pages/goal/index",
-  "pages/positions/detail/index": "pages/goal/index",
+  "pages/positions/detail/index": "pages/position-detail/index",
+  "pages/positions/compare/index": "pages/position-compare/index",
   "pages/positions/goal/index": "pages/goal/index",
   // 计划相关
   "pages/day-adjustment/index": "pages/plan-basis/index",
@@ -104,6 +105,8 @@ const REGISTERED = new Set([
   "pages/score-import/index",
   "pages/plan-basis/index",
   "pages/task-brief/index",
+  "pages/position-detail/index",
+  "pages/position-compare/index",
 ]);
 
 function splitUrl(url: string): { path: string; query: string } {
