@@ -95,8 +95,7 @@ Page({
     this.setData({ [`cards[${idx}].expanded`]: !card.expanded });
   },
 
-  onSave(e: WechatMiniprogram.TouchEvent) {
-    e.stopPropagation?.();
+  onSave() {
     wx.showToast({ title: "已收藏，计划会用到它", icon: "none" });
   },
 
