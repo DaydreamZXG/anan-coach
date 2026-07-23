@@ -57,6 +57,29 @@
   padding: 48rpx 24rpx;
   text-align: center;
 }
+
+/* 平板双栏:地形与知识卡广场并排,深入看看跨栏 */
+@media (min-width: 700px) {
+  .ability {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+    align-content: start;
+  }
+  .ability safe-top,
+  .ability .page-title,
+  .ability .section-title,
+  .ability .skeleton-card,
+  .ability .overall,
+  .ability .reports {
+    grid-column: 1 / -1;
+  }
+  .ability .terrain,
+  .ability .community {
+    margin-bottom: 0;
+    align-self: start;
+  }
+}
 .module { padding: 20rpx 0; border-bottom: 1rpx solid var(--line); }
 .module:last-child { border-bottom: none; padding-bottom: 4rpx; }
 .module:first-child { padding-top: 4rpx; }

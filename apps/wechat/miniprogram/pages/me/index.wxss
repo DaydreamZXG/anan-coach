@@ -15,6 +15,30 @@
   align-items: center;
   justify-content: center;
 }
+
+/* 平板双栏:概览与数据条并排,菜单组左右分流 */
+@media (min-width: 700px) {
+  .me {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+    align-content: start;
+  }
+  .me safe-top,
+  .me .page-title {
+    grid-column: 1 / -1;
+  }
+  .me .profile,
+  .me .stats {
+    margin-bottom: 0;
+  }
+  .me .group-title {
+    grid-column: 1 / -1;
+  }
+  .me .menu {
+    grid-column: 1 / -1;
+  }
+}
 .profile-info { display: flex; flex-direction: column; gap: 8rpx; }
 .profile-name { font-size: 34rpx; font-weight: 600; }
 
