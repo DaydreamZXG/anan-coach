@@ -1,0 +1,65 @@
+<view class="page">
+  <view class="nav" style="padding-top: {{statusBarHeight}}px">
+    <view class="nav__bar">
+      <view class="nav__back" hover-class="is-pressed" bind:tap="onBack">‹</view>
+    </view>
+    <view class="nav__title">岗位工作区</view>
+    <view class="nav__sub">你的主目标与备选岗位，岸岸按这里的目标分排每天的任务</view>
+  </view>
+
+  <block wx:if="{{viewState === 'ready'}}">
+    <view class="section-head sec">
+      <view class="section-title">主目标岗位</view>
+      <view class="section-extra">{{examYear}} 国考</view>
+    </view>
+    <view class="card pos">
+      <view class="pos__name">{{primary.name}}</view>
+      <view class="pos__meta">{{primary.department}}</view>
+      <view class="pos__meta">{{primary.regionText}}</view>
+      <view class="pos__score">
+        <view class="pos__score-label">目标分区间</view>
+        <view class="pos__score-value">{{primary.scoreText}}</view>
+      </view>
+      <view wx:if="{{primary.evidenceText}}" class="pos__evidence">
+        证据等级 · {{primary.evidenceText}}
+      </view>
+    </view>
+
+    <block wx:if="{{alternates.length > 0}}">
+      <view class="section-head sec">
+        <view class="section-title">备选岗位</view>
+        <view class="section-extra">{{alternates.length}} 个</view>
+      </view>
+      <view class="card pos pos--alt" wx:for="{{alternates}}" wx:key="positionId">
+        <view class="pos__name pos__name--sm">{{item.name}}</view>
+        <view class="pos__meta">{{item.department}}</view>
+        <view class="pos__meta">{{item.regionText}}</view>
+        <view class="pos__score">
+          <view class="pos__score-label">目标分区间</view>
+          <view class="pos__score-value">{{item.scoreText}}</view>
+        </view>
+        <view wx:if="{{item.evidenceText}}" class="pos__evidence">
+          证据等级 · {{item.evidenceText}}
+        </view>
+      </view>
+    </block>
+  </block>
+
+  <state-view wx:if="{{viewState === 'loading'}}" type="loading" title="正在读取岗位工作区…" />
+  <state-view
+    wx:elif="{{viewState === 'error'}}"
+    type="error"
+    title="岗位工作区没加载出来"
+    desc="网络不太稳定，检查网络后重试"
+    actionText="重试"
+    bind:action="onRetry"
+  />
+  <state-view
+    wx:elif="{{viewState === 'empty'}}"
+    type="empty"
+    title="还没有设定主目标岗位"
+    desc="先选一个主目标岗位，岸岸才能按分差给你排每天的任务"
+    actionText="去设定主目标"
+    bind:action="onGoPosition"
+  />
+</view>

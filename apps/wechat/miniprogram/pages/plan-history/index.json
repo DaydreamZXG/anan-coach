@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "计划历史",
+  "usingComponents": {
+    "state-view": "/components/state-view/index"
+  }
+}

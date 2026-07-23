@@ -1,0 +1,4 @@
+{
+  "desc": "岸岸 AI 国考教练",
+  "rules": [{ "action": "allow", "page": "*" }]
+}

@@ -1,0 +1,8 @@
+<web-view wx:if="{{valid}}" src="{{url}}" />
+<view wx:else class="page">
+  <state-view
+    type="error"
+    title="天气来源链接无效"
+    desc="该链接不是 Apple Weather 官方归属地址。"
+  />
+</view>

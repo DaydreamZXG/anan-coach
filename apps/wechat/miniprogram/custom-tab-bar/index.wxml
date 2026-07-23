@@ -1,0 +1,15 @@
+<view class="dock-wrap">
+  <view class="dock">
+    <view
+      wx:for="{{list}}"
+      wx:key="path"
+      class="slot {{selected === index ? 'slot--on' : ''}}"
+      hover-class="slot--pressed"
+      data-index="{{index}}"
+      bind:tap="onSwitch"
+    >
+      <view class="slot__tile">{{item.glyph}}</view>
+      <view class="slot__label">{{item.text}}</view>
+    </view>
+  </view>
+</view>

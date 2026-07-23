@@ -1,0 +1,9 @@
+<view class="ai-card">
+  <view class="ai-card__cap">
+    <view class="ai-card__pulse"></view>
+    <text>{{cap}}</text>
+  </view>
+  <view class="ai-card__body">
+    <slot></slot>
+  </view>
+</view>

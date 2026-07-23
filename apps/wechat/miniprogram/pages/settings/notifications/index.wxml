@@ -1,0 +1,37 @@
+<view class="page">
+  <view class="nav" style="padding-top: {{statusBarHeight}}px">
+    <view class="nav__bar">
+      <view class="nav__back" hover-class="is-pressed" bind:tap="onBack">‹</view>
+    </view>
+    <view class="nav__title">通知设置</view>
+    <view class="nav__sub">开关即改即存，岸岸按这里的节奏给你发消息</view>
+  </view>
+
+  <block wx:if="{{viewState === 'ready'}}">
+    <view class="card group">
+      <view class="row" wx:for="{{items}}" wx:key="key">
+        <view class="row__text">
+          <view class="row__name">{{item.name}}</view>
+          <view class="row__desc">{{item.desc}}</view>
+        </view>
+        <switch
+          checked="{{item.checked}}"
+          disabled="{{item.saving}}"
+          data-key="{{item.key}}"
+          color="#5b5ff4"
+          bind:change="onToggle"
+        />
+      </view>
+    </view>
+  </block>
+
+  <state-view wx:if="{{viewState === 'loading'}}" type="loading" title="正在读取通知设置…" />
+  <state-view
+    wx:elif="{{viewState === 'error'}}"
+    type="error"
+    title="通知设置没加载出来"
+    desc="网络不太稳定，检查网络后重试"
+    actionText="重试"
+    bind:action="onRetry"
+  />
+</view>

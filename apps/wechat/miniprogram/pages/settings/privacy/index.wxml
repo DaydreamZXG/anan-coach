@@ -1,0 +1,72 @@
+<view class="page">
+  <view class="nav" style="padding-top: {{statusBarHeight}}px">
+    <view class="nav__bar">
+      <view class="nav__back" hover-class="is-pressed" bind:tap="onBack">‹</view>
+    </view>
+    <view class="nav__title">隐私与数据</view>
+    <view class="nav__sub">你的数据存在哪、留多久、怎么带走，都在这里</view>
+  </view>
+
+  <block wx:if="{{viewState === 'ready'}}">
+    <!-- 数据总览 -->
+    <view class="section-head sec">
+      <view class="section-title">数据总览</view>
+      <view class="section-extra">{{policyText}}</view>
+    </view>
+    <view class="card group">
+      <view class="row" wx:for="{{categories}}" wx:key="title">
+        <view class="row__text">
+          <view class="row__name">{{item.title}}</view>
+          <view class="row__desc">{{item.retention}}</view>
+        </view>
+        <view class="row__count">{{item.countText}}</view>
+      </view>
+      <view class="row">
+        <view class="row__text">
+          <view class="row__name">原始材料保留策略</view>
+          <view class="row__desc">{{rawMaterialRetention}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 导出数据 -->
+    <view class="section-head sec">
+      <view class="section-title">导出数据</view>
+    </view>
+    <view class="card block-card">
+      <view class="block-card__desc">
+        把你的资格资料、学习记录与训练数据打包导出。提交后系统生成导出文件，需要一些时间。
+      </view>
+      <view wx:if="{{exportStateText}}" class="block-card__state">
+        当前任务状态：{{exportStateText}}
+      </view>
+      <view class="block-card__action">
+        <ui-button variant="ghost" loading="{{exporting}}" bind:tap="onExport">导出我的数据</ui-button>
+      </view>
+    </view>
+
+    <!-- 注销账号 -->
+    <view class="section-head sec">
+      <view class="section-title">注销账号</view>
+    </view>
+    <view class="card block-card block-card--danger">
+      <view class="block-card__desc">注销是不可逆操作，提交后将：</view>
+      <view class="effect" wx:for="{{deletionEffects}}" wx:key="*this">· {{item}}</view>
+      <view class="block-card__action">
+        <view class="danger-btn {{deleting ? 'is-disabled' : ''}}" hover-class="is-pressed" bind:tap="onDelete">
+          {{deleting ? "正在提交…" : "注销账号"}}
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <state-view wx:if="{{viewState === 'loading'}}" type="loading" title="正在读取数据总览…" />
+  <state-view
+    wx:elif="{{viewState === 'error'}}"
+    type="error"
+    title="数据总览没加载出来"
+    desc="网络不太稳定，检查网络后重试"
+    actionText="重试"
+    bind:action="onRetry"
+  />
+</view>

@@ -1,0 +1,76 @@
+.page {
+  min-height: 100vh;
+  background: var(--bg);
+  padding-bottom: 220rpx;
+}
+
+/* 深空 hero：渐变底 + radial 光斑 */
+.hero {
+  padding: 0 40rpx 110rpx;
+  border-radius: 0 0 var(--r-lg) var(--r-lg);
+  background:
+    radial-gradient(circle at 84% 14%, rgba(139, 92, 246, 0.42), rgba(139, 92, 246, 0) 48%),
+    radial-gradient(circle at 8% 56%, rgba(34, 211, 238, 0.2), rgba(34, 211, 238, 0) 55%),
+    var(--grad-space);
+}
+
+.hero__brand {
+  padding-top: 100rpx;
+  font-size: 88rpx;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+}
+
+.hero__tagline {
+  margin-top: 20rpx;
+  font-size: 26rpx;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* 三步说明卡：上叠压住 hero 下缘 */
+.steps {
+  position: relative;
+  margin: -64rpx 32rpx 0;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 24rpx;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+}
+
+.step__no {
+  flex-shrink: 0;
+  font-size: 24rpx;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  background: var(--grad-main);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-top: 4rpx;
+}
+
+.step__name {
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.step__desc {
+  margin-top: 4rpx;
+  font-size: 22rpx;
+  color: var(--ink-2);
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 24rpx 32rpx calc(24rpx + env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, rgba(247, 248, 250, 0), var(--bg) 45%);
+}

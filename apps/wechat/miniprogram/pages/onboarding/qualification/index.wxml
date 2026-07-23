@@ -1,0 +1,97 @@
+<view class="page">
+  <view class="nav" style="padding-top: {{statusBarHeight}}px">
+    <view class="step-text">第 2 步 / 共 6 步</view>
+    <view class="step-bar">
+      <view wx:for="{{steps}}" wx:key="*this" class="step-seg {{item <= step ? 'is-active' : ''}}"></view>
+    </view>
+    <view class="nav__title">资格资料</view>
+    <view class="nav__sub">按毕业证和档案填，岸岸用它筛出你能报的岗位</view>
+  </view>
+
+  <view class="card field">
+    <view class="field__label">学历</view>
+    <view class="options">
+      <view
+        wx:for="{{educationOptions}}"
+        wx:key="*this"
+        class="option {{education === item ? 'is-active' : ''}}"
+        data-value="{{item}}"
+        hover-class="is-pressed"
+        bind:tap="onPickEducation"
+      >
+        {{item}}
+      </view>
+    </view>
+  </view>
+
+  <view class="card field">
+    <view class="field__label">政治面貌</view>
+    <view class="options">
+      <view
+        wx:for="{{politicalOptions}}"
+        wx:key="*this"
+        class="option {{politicalStatus === item ? 'is-active' : ''}}"
+        data-value="{{item}}"
+        hover-class="is-pressed"
+        bind:tap="onPickPolitical"
+      >
+        {{item}}
+      </view>
+    </view>
+  </view>
+
+  <view class="card field">
+    <view class="field__label">是否应届毕业生</view>
+    <view class="options">
+      <view
+        class="option {{freshGraduate === true ? 'is-active' : ''}}"
+        data-value="{{true}}"
+        hover-class="is-pressed"
+        bind:tap="onPickFresh"
+      >
+        是
+      </view>
+      <view
+        class="option {{freshGraduate === false ? 'is-active' : ''}}"
+        data-value="{{false}}"
+        hover-class="is-pressed"
+        bind:tap="onPickFresh"
+      >
+        否
+      </view>
+    </view>
+  </view>
+
+  <view class="card field">
+    <view class="field__label">基层工作年限</view>
+    <view class="options">
+      <view
+        wx:for="{{yearsOptions}}"
+        wx:key="value"
+        class="option {{grassrootsYears === item.value ? 'is-active' : ''}}"
+        data-value="{{item.value}}"
+        hover-class="is-pressed"
+        bind:tap="onPickYears"
+      >
+        {{item.label}}
+      </view>
+    </view>
+  </view>
+
+  <view class="card field">
+    <view class="field__label">专业</view>
+    <input
+      class="input"
+      placeholder="按毕业证上的专业全称填写"
+      placeholder-class="input__ph"
+      value="{{major}}"
+      bind:input="onMajorInput"
+    />
+  </view>
+
+  <view class="footer">
+    <ui-button variant="primary" block disabled="{{!canSubmit}}" loading="{{submitting}}" bind:tap="onSubmit">
+      下一步
+    </ui-button>
+  </view>
+</view>

@@ -1,0 +1,84 @@
+/**
+ * 设计 token ·「深空 · 静谧科技」
+ * 浅色承载阅读，深空留给品牌与 AI 时刻，渐变只给主行动与 AI 洞察。
+ */
+page {
+  /* 中性色 */
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --ink: #10131b;
+  --ink-2: #59617a;
+  --ink-3: #9aa3b8;
+  --line: rgba(16, 19, 27, 0.08);
+
+  /* 品牌与语义色 */
+  --indigo: #5b5ff4;
+  --violet: #8b5cf6;
+  --cyan: #0eb9ce;
+  --cyan-bright: #22d3ee;
+  --amber: #d97f06;
+  --green: #0d9f6e;
+  --red: #e05252;
+
+  /* 深空 */
+  --space-1: #0b0e21;
+  --space-2: #191138;
+
+  /* 渐变 */
+  --grad-main: linear-gradient(120deg, #5b5ff4 0%, #8b5cf6 55%, #22d3ee 130%);
+  --grad-space: linear-gradient(165deg, #191138 0%, #0b0e21 70%);
+
+  /* 圆角 */
+  --r-lg: 40rpx;
+  --r-md: 28rpx;
+  --r-sm: 20rpx;
+
+  /* 阴影 */
+  --shadow-card: 0 2rpx 6rpx rgba(16, 19, 27, 0.05);
+  --shadow-glow: 0 12rpx 40rpx rgba(91, 95, 244, 0.35);
+  --shadow-mainline: 0 28rpx 68rpx rgba(91, 95, 244, 0.28);
+
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", sans-serif;
+  font-size: 28rpx;
+  line-height: 1.6;
+}
+
+/* 区块标题：渐变方块 + 文案 */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.section-title::before {
+  content: "";
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 4rpx;
+  background: var(--grad-main);
+  margin-right: 16rpx;
+}
+
+.section-extra {
+  font-size: 22rpx;
+  color: var(--ink-3);
+}
+
+/* 白卡基础 */
+.card {
+  background: var(--surface);
+  border: 1rpx solid var(--line);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-card);
+}

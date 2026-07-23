@@ -1,0 +1,36 @@
+<view class="page">
+  <view class="nav" style="padding-top: {{statusBarHeight}}px">
+    <view class="nav__title">训练</view>
+    <view class="nav__sub">做题闭环的入口，都收在这里</view>
+  </view>
+
+  <!-- 主入口：智能组卷（计划引擎按日生成，落在今日主线） -->
+  <view class="hero-wrap">
+    <view class="hero-card" hover-class="is-pressed" bind:tap="onCompose">
+      <view class="hero-card__cap">
+        <text class="hero-card__tag">去今日</text>
+        <text class="hero-card__arrow">→</text>
+      </view>
+      <view class="hero-card__name">智能组卷</view>
+      <view class="hero-card__desc">组卷由计划引擎按你的弱项和节奏生成，就在今日主线里</view>
+    </view>
+  </view>
+
+  <view class="grid">
+    <view
+      wx:for="{{entries}}"
+      wx:key="id"
+      class="card entry"
+      hover-class="is-pressed"
+      data-id="{{item.id}}"
+      bind:tap="onEntry"
+    >
+      <view class="entry__badge" wx:if="{{item.badge}}">{{item.badge}}</view>
+      <view class="entry__glyph entry__glyph--{{item.tone}}">{{item.glyph}}</view>
+      <view class="entry__name">{{item.name}}</view>
+      <view class="entry__desc">{{item.desc}}</view>
+    </view>
+  </view>
+
+  <view class="hint">做完的题会进入复盘队列，验证通过才算真正掌握</view>
+</view>

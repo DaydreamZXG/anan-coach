@@ -1,0 +1,69 @@
+<view class="page">
+  <!-- 顶部导航 -->
+  <view class="nav" style="padding-top: {{statusBarHeight}}px">
+    <view class="nav__back" hover-class="is-pressed" bind:tap="onBack">‹</view>
+    <view class="nav__text">
+      <view class="nav__title">任务说明</view>
+      <view class="nav__sub">先知道为什么做、做多长、完成后看什么</view>
+    </view>
+  </view>
+
+  <state-view wx:if="{{viewState === 'loading'}}" type="loading" title="正在读取任务说明…" />
+  <state-view
+    wx:elif="{{viewState === 'error'}}"
+    type="error"
+    title="{{errorTitle}}"
+    desc="{{errorDesc}}"
+    request-id="{{requestId}}"
+    action-text="重新读取"
+    bind:action="onRetry"
+  />
+
+  <!-- 已失效：不重试，引导回今日 -->
+  <view wx:elif="{{viewState === 'expired'}}" class="expired">
+    <state-view type="error" title="{{errorTitle}}" desc="{{errorDesc}}" request-id="{{requestId}}" />
+    <view class="expired__actions">
+      <ui-button block bind:tap="onReturnToday">返回今日计划</ui-button>
+    </view>
+  </view>
+
+  <block wx:else>
+    <view class="hero">
+      <view class="hero__cap">这组题只验证一个问题</view>
+      <view class="hero__chips">
+        <view class="hero__chip hero__chip--primary">{{view.scopeLabel}}</view>
+        <view class="hero__chip">{{view.targetTimeLabel}}</view>
+      </view>
+    </view>
+
+    <!-- 本次目标 -->
+    <view class="card goal">
+      <view class="goal__kicker">本次目标 · {{view.modeLabel}}</view>
+      <view class="goal__title">{{view.title}}</view>
+      <view class="goal__metric">{{view.questionCountLabel}}</view>
+      <view class="goal__reason">{{view.reason}}</view>
+      <view class="goal__meta">单题参考 {{view.perQuestionTimeLabel}} · {{view.validUntilLabel}}</view>
+    </view>
+
+    <!-- 复测阶段（仅复测任务） -->
+    <view wx:if="{{view.verificationStageLabel}}" class="card stage">
+      <view class="stage__kicker">本次复测阶段</view>
+      <view class="stage__title">{{view.verificationStageLabel}}</view>
+    </view>
+
+    <!-- 完成后看什么 -->
+    <view class="card after">
+      <view class="after__kicker">完成后</view>
+      <view class="after__title">只复盘最有价值的题</view>
+      <view class="after__chips">
+        <view wx:for="{{view.evidenceItems}}" wx:key="code" class="after__chip">{{item.label}}</view>
+      </view>
+      <view class="after__copy">一次正确不会直接标记稳定掌握；主动放弃也不会自动算成知识错误。</view>
+    </view>
+
+    <view class="actions">
+      <ui-button block loading="{{starting}}" bind:tap="onStart">开始训练</ui-button>
+    </view>
+    <view class="foot-space"></view>
+  </block>
+</view>

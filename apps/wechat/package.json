@@ -4,10 +4,11 @@
   "private": true,
   "description": "AI 国考上岸教练微信小程序",
   "scripts": {
-    "check": "npm run format:check",
+    "check": "npm run format:check && npm run typecheck",
     "api:generate": "node scripts/generate-api.mjs",
     "format": "prettier --write \"**/*.{ts,js,json,mjs,md,html,css}\"",
-    "format:check": "prettier --check \"**/*.{ts,js,json,mjs,md,html,css}\""
+    "format:check": "prettier --check \"**/*.{ts,js,json,mjs,md,html,css}\"",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

@@ -1,0 +1,60 @@
+<view class="page">
+  <view class="nav" style="padding-top: {{statusBarHeight}}px">
+    <view class="nav__title">能力</view>
+    <view class="nav__sub">系统对你的理解，都摊开在这里</view>
+  </view>
+
+  <block wx:if="{{viewState === 'ready'}}">
+    <!-- 估分卡 -->
+    <view class="score card">
+      <view class="score__cap">行测估分</view>
+      <view wx:if="{{hasScore}}" class="score__line">
+        <text class="score__num">{{scoreText}}</text>
+        <text class="score__unit">分</text>
+        <view class="score__tag score__tag--{{confidence}}">{{confidenceText}}</view>
+      </view>
+      <view wx:else class="score__empty">
+        <view class="score__empty-title">还不够判断</view>
+        <view class="score__empty-desc">{{statusLabel || '再做几组题，岸岸就能给出估分。'}}</view>
+      </view>
+      <view wx:if="{{dataLine}}" class="score__dataline">{{dataLine}}</view>
+    </view>
+
+    <!-- 六模块 -->
+    <view class="section" wx:if="{{modules.length > 0}}">
+      <view class="section-head">
+        <view class="section-title">六模块</view>
+        <view class="section-extra">条 = 正确率</view>
+      </view>
+      <view class="card modules">
+        <view wx:for="{{modules}}" wx:key="name" class="module">
+          <view class="module__name">{{item.name}}</view>
+          <view class="module__bar">
+            <view class="module__fill" style="width: {{item.percent}}%"></view>
+          </view>
+          <view class="module__val">{{item.percent}}<text class="module__pct">%</text></view>
+          <view class="module__sample">{{item.sampleSize}} 题</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="foot-note">估分口径：区间随证据变化 · 不预测考试结果</view>
+  </block>
+
+  <state-view
+    wx:if="{{viewState === 'loading'}}"
+    type="loading"
+    title="正在汇总你的能力证据…"
+  />
+  <state-view
+    wx:elif="{{viewState === 'error'}}"
+    type="error"
+    title="能力档案没加载出来"
+    desc="网络不太稳定，稍后再试一次。"
+    request-id="{{requestId}}"
+    action-text="重试"
+    bind:action="load"
+  />
+
+  <view wx:if="{{demo}}" class="demo-badge">演示数据</view>
+</view>

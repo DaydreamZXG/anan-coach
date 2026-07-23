@@ -1,0 +1,51 @@
+<view class="page">
+  <view class="nav" style="padding-top: {{statusBarHeight}}px">
+    <view class="nav__bar">
+      <view class="nav__back" hover-class="is-pressed" bind:tap="onBack">‹</view>
+    </view>
+    <view class="nav__title">时间预算</view>
+    <view class="nav__sub">按能坚持的量来，岸岸会照着排每天的事</view>
+  </view>
+
+  <block wx:if="{{viewState === 'ready'}}">
+    <view wx:for="{{groups}}" wx:key="key" wx:for-item="group" class="card field">
+      <view class="field__label">{{group.label}}</view>
+      <view class="options">
+        <view
+          wx:for="{{group.options}}"
+          wx:key="label"
+          wx:for-item="opt"
+          class="option {{values[group.key] === opt.value ? 'is-active' : ''}}"
+          data-key="{{group.key}}"
+          data-value="{{opt.value}}"
+          hover-class="is-pressed"
+          bind:tap="onPick"
+        >
+          {{opt.label}}
+        </view>
+      </view>
+    </view>
+
+    <view class="footer">
+      <ui-button
+        variant="primary"
+        block
+        disabled="{{!canSubmit}}"
+        loading="{{submitting}}"
+        bind:tap="onSubmit"
+      >
+        保存
+      </ui-button>
+    </view>
+  </block>
+
+  <state-view wx:if="{{viewState === 'loading'}}" type="loading" title="正在读取时间预算…" />
+  <state-view
+    wx:elif="{{viewState === 'error'}}"
+    type="error"
+    title="时间预算没加载出来"
+    desc="网络不太稳定，检查网络后重试"
+    actionText="重试"
+    bind:action="onRetry"
+  />
+</view>

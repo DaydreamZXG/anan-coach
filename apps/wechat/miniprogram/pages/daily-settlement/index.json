@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "每日结算",
+  "usingComponents": {
+    "state-view": "/components/state-view/index"
+  }
+}

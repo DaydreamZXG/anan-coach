@@ -1,0 +1,189 @@
+<view class="page">
+  <block wx:if="{{viewState === 'ready'}}">
+    <!-- 深空 hero -->
+    <view class="hero" style="padding-top: {{statusBarHeight + 10}}px">
+      <view class="hero__glow hero__glow--a"></view>
+      <view class="hero__glow hero__glow--b"></view>
+
+      <view class="status" style="margin-right: {{capsuleInset}}px">
+        <view class="status__chip">
+          <view class="status__k">主目标</view>
+          <view class="status__v">{{targetName}}</view>
+        </view>
+        <view class="status__chip">
+          <view class="status__k">分差 · 参考</view>
+          <view class="status__v status__v--hl">{{gapText}}</view>
+        </view>
+        <view class="status__chip">
+          <view class="status__k">今日</view>
+          <view class="status__v">{{doneCount}}<text class="status__em">/{{totalCount}} 项</text></view>
+        </view>
+      </view>
+
+      <view class="greet">
+        <image class="greet__avatar" src="{{avatarUrl}}" mode="aspectFill" />
+        <view class="greet__text">
+          <view class="greet__hi">{{headline}}</view>
+          <view class="greet__sub">{{subline}}</view>
+          <view class="greet__live"><view class="live-dot"></view>{{liveText}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 每日开场卡（每天一次，displayState 由服务端把关） -->
+    <view wx:if="{{openingStatus === 'ready' && openingView}}" class="opening-wrap">
+      <view class="opening">
+        <view class="opening__head">
+          <view class="opening__head-text">
+            <view class="opening__kicker">今日开场 · {{openingView.localDateLabel}}</view>
+            <view class="opening__greeting">{{openingView.greeting}}</view>
+          </view>
+          <view class="opening__once">每天一次</view>
+        </view>
+
+        <view wx:if="{{openingView.weatherReady}}" class="opening__weather">
+          <view class="opening__weather-main">{{openingView.weatherHeadline}}</view>
+          <view class="opening__weather-detail">{{openingView.weatherDetail}}</view>
+          <view
+            wx:if="{{openingView.attributionVisible}}"
+            class="opening__weather-src"
+            hover-class="is-pressed"
+            bind:tap="onWeatherAttribution"
+          >
+            Apple Weather ›
+          </view>
+        </view>
+        <view wx:elif="{{openingView.weatherLocationRequired}}" class="opening__setup">
+          <view class="opening__setup-text">
+            <view class="opening__setup-title">先选一个天气地点</view>
+            <view class="opening__setup-copy">只保存约百米精度，不持续定位。</view>
+          </view>
+          <view
+            class="opening__setup-btn {{openingWriting ? 'is-disabled' : ''}}"
+            hover-class="is-pressed"
+            bind:tap="onChooseWeatherLocation"
+          >
+            选择地点
+          </view>
+        </view>
+        <view wx:elif="{{openingView.weatherUnavailable}}" class="opening__provider">
+          天气服务尚未完成线上授权，本次不展示推测天气。
+        </view>
+
+        <view class="opening__plan" hover-class="is-pressed" bind:tap="onStartOpening">
+          <view class="opening__plan-text">
+            <view class="opening__plan-label">今天先做</view>
+            <view class="opening__plan-title">{{openingView.planTitle}}</view>
+          </view>
+          <view class="opening__plan-min">{{openingView.planMinutesLabel}}</view>
+        </view>
+
+        <view wx:if="{{openingView.coffeeVisible}}" class="opening__coffee">
+          <view class="opening__coffee-copy">{{openingView.coffeePrompt}}</view>
+          <view class="opening__coffee-acts">
+            <view
+              class="opening__coffee-btn {{openingWriting ? 'is-disabled' : ''}}"
+              hover-class="is-pressed"
+              bind:tap="onDeclineCoffee"
+            >
+              今天不喝
+            </view>
+            <view
+              class="opening__coffee-btn opening__coffee-btn--mute {{openingWriting ? 'is-disabled' : ''}}"
+              hover-class="is-pressed"
+              bind:tap="onDisableCoffee"
+            >
+              以后别问
+            </view>
+          </view>
+        </view>
+
+        <view class="opening__start" hover-class="is-pressed" bind:tap="onStartOpening">
+          开始今日学习
+        </view>
+      </view>
+    </view>
+
+    <!-- 今日主线卡（跨区悬浮） -->
+    <view
+      class="mainline-wrap {{openingStatus === 'ready' && openingView ? 'mainline-wrap--stacked' : ''}}"
+      wx:if="{{mainline}}"
+    >
+      <view class="mainline">
+        <view class="mainline__cap">
+          <text class="mainline__cap-tag">今日主线</text>
+          <text class="mainline__cap-pos">{{mainline.seq}} / {{totalCount}}</text>
+        </view>
+        <view class="mainline__title">{{mainline.title}}</view>
+        <view class="mainline__meta">{{mainline.subtitle}} · 约 {{mainline.estimatedMinutes}} 分钟</view>
+        <view class="mainline__why">{{mainline.reason}}</view>
+        <view class="mainline__act">
+          <view class="mainline__basis" hover-class="is-pressed" bind:tap="onShowBasis">查看依据</view>
+          <ui-button bind:tap="onStartMainline">开始</ui-button>
+        </view>
+      </view>
+    </view>
+
+    <view class="body-zone">
+      <view wx:if="{{restTasks.length > 0}}" class="section">
+        <view class="section-head">
+          <view class="section-title">接下来</view>
+          <view class="section-extra">完成 {{doneCount}}/{{totalCount}}</view>
+        </view>
+        <view
+          wx:for="{{restTasks}}"
+          wx:key="id"
+          class="card task-row {{item.done ? 'task-row--done' : ''}}"
+          hover-class="is-pressed"
+          data-id="{{item.id}}"
+          bind:tap="onOpenTask"
+        >
+          <view class="task-row__idx">{{item.done ? '✓' : item.seq}}</view>
+          <view class="task-row__info">
+            <view class="task-row__name">{{item.title}}</view>
+            <view class="task-row__why">{{item.reason}}</view>
+          </view>
+          <view class="task-row__dur">{{item.estimatedMinutes}}′</view>
+        </view>
+      </view>
+
+      <view class="section sub-entries">
+        <view class="sub-entry" hover-class="is-pressed" bind:tap="onOpenWeeklyPlan">
+          <text class="sub-entry__label">周计划</text>
+          <text class="sub-entry__arrow">›</text>
+        </view>
+        <view class="sub-entry" hover-class="is-pressed" bind:tap="onOpenPlanHistory">
+          <text class="sub-entry__label">历史</text>
+          <text class="sub-entry__arrow">›</text>
+        </view>
+        <view class="sub-entry" hover-class="is-pressed" bind:tap="onOpenDayAdjustment">
+          <text class="sub-entry__label">调整今日</text>
+          <text class="sub-entry__arrow">›</text>
+        </view>
+      </view>
+
+      <view class="section" wx:if="{{insight}}">
+        <ai-card>{{insight}}</ai-card>
+      </view>
+
+      <view class="foot-space"></view>
+    </view>
+  </block>
+
+  <state-view
+    wx:if="{{viewState === 'loading'}}"
+    type="loading"
+    title="岸岸正在为你排今天…"
+  />
+  <state-view
+    wx:elif="{{viewState === 'error'}}"
+    type="error"
+    title="今天的内容没加载出来"
+    desc="{{errorDesc}}"
+    request-id="{{requestId}}"
+    action-text="重试"
+    bind:action="load"
+  />
+
+  <view wx:if="{{demo}}" class="demo-badge">演示数据</view>
+</view>

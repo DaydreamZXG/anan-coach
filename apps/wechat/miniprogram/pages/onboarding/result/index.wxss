@@ -1,0 +1,62 @@
+/* 深空收尾页：整页深空渐变 + 光斑 */
+.page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 80% 10%, rgba(139, 92, 246, 0.36), rgba(139, 92, 246, 0) 50%),
+    radial-gradient(circle at 12% 62%, rgba(34, 211, 238, 0.16), rgba(34, 211, 238, 0) 55%),
+    var(--grad-space);
+}
+
+.nav {
+  padding: 0 40rpx;
+}
+
+.step-text {
+  padding-top: 16rpx;
+  font-size: 20rpx;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.step-bar {
+  display: flex;
+  gap: 8rpx;
+  margin-top: 16rpx;
+}
+
+.step-seg {
+  flex: 1;
+  height: 6rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.step-seg.is-active {
+  background: var(--grad-main);
+}
+
+.hero {
+  padding-top: 160rpx;
+}
+
+.hero__title {
+  font-size: 64rpx;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+}
+
+.hero__sub {
+  margin-top: 24rpx;
+  font-size: 26rpx;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 24rpx 32rpx calc(24rpx + env(safe-area-inset-bottom));
+}

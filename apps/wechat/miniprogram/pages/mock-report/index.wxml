@@ -1,0 +1,98 @@
+<view class="page">
+  <view class="nav" style="padding-top: {{statusBarHeight}}px">
+    <view class="nav__back" hover-class="is-pressed" bind:tap="goBack">‹</view>
+    <view class="nav__text">
+      <view class="nav__title">模考报告</view>
+      <view class="nav__sub">整卷表现、模块强弱与下周安排</view>
+    </view>
+  </view>
+
+  <!-- ═══════ 报告主体 ═══════ -->
+  <block wx:if="{{viewState === 'ready'}}">
+    <view class="hero">
+      <view class="hero__cap">本周整卷表现</view>
+      <view class="hero__pct">
+        {{performanceIndex}}<text class="hero__pct-unit">表现点</text>
+      </view>
+      <view class="hero__range">样本区间 {{rangeLower}}–{{rangeUpper}} 表现点</view>
+      <view class="hero__score">估分 {{estimatedScore}} · {{estimateSource}}</view>
+      <view wx:if="{{submittedAtLabel}}" class="hero__hint">{{submittedAtLabel}}</view>
+    </view>
+
+    <view class="body">
+      <view wx:if="{{metricDefinition}}" class="metric-note">{{metricDefinition}}</view>
+      <view wx:if="{{intervalDefinition}}" class="metric-note">{{intervalDefinition}}</view>
+
+      <!-- 模块表现 -->
+      <view class="section-head">
+        <view class="section-title">模块表现</view>
+        <view class="section-extra">{{modules.length}} 个模块</view>
+      </view>
+      <view class="card mlist">
+        <view wx:for="{{modules}}" wx:key="moduleName" class="mrow">
+          <view class="mrow__main">
+            <view class="mrow__name">{{item.moduleName}}</view>
+            <view class="mrow__data">{{item.correct}} / {{item.total}} 正确</view>
+          </view>
+          <view class="mrow__side">
+            <view class="mrow__acc">{{item.accuracyPercent}}%</view>
+            <view class="mrow__change mrow__change--{{item.changeClass}}">{{item.changeLabel}}</view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 错因聚类 -->
+      <block wx:if="{{clusters.length > 0}}">
+        <view class="section-head">
+          <view class="section-title">错因聚类</view>
+          <view class="section-extra">{{clusters.length}} 处</view>
+        </view>
+        <view class="card cluster" wx:for="{{clusters}}" wx:key="nodeId">
+          <view class="cluster__head">
+            <view class="cluster__path">{{item.displayPath}}</view>
+            <view class="cluster__count">错 {{item.wrongCount}}</view>
+          </view>
+          <view class="cluster__fix">{{item.fixAction}}</view>
+        </view>
+      </block>
+
+      <!-- 下周安排 -->
+      <view wx:if="{{nextWeekReason}}" class="next">
+        <view class="next__title">下周安排依据</view>
+        <view class="next__copy">{{nextWeekReason}}</view>
+      </view>
+
+      <!-- 逐题复盘入口 -->
+      <view class="actions">
+        <ui-button block bind:tap="openReviewCenter">去复盘中心逐题复盘</ui-button>
+        <view class="actions__gap"></view>
+        <ui-button block variant="ghost" bind:tap="returnToday">返回今日计划</ui-button>
+      </view>
+      <view class="foot-space"></view>
+    </view>
+  </block>
+
+  <!-- ═══════ 未交卷引导 ═══════ -->
+  <view wx:elif="{{viewState === 'unsubmitted'}}" class="gate">
+    <view class="card gate__card">
+      <view class="gate__mark">报告尚未生成</view>
+      <view class="gate__title">交卷后这里才有正式报告</view>
+      <view class="gate__copy">本周整卷还在作答中。交卷后回到本页查看成绩总览、模块表现与逐题复盘。</view>
+      <ui-button block bind:tap="goExam">进入考场</ui-button>
+      <view class="actions__gap"></view>
+      <ui-button block variant="ghost" bind:tap="returnToday">返回今日计划</ui-button>
+    </view>
+  </view>
+
+  <!-- ═══════ 加载 / 错误 ═══════ -->
+  <state-view wx:if="{{viewState === 'loading'}}" type="loading" title="正在生成报告…" />
+  <state-view
+    wx:elif="{{viewState === 'error'}}"
+    type="error"
+    title="{{errorTitle}}"
+    desc="{{errorDesc}}"
+    request-id="{{requestId}}"
+    action-text="重新加载"
+    bind:action="retry"
+  />
+</view>

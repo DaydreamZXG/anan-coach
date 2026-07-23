@@ -1,0 +1,288 @@
+<view class="page">
+  <!-- ═══════ 作答视图 ═══════ -->
+  <block wx:if="{{viewState === 'answering'}}">
+    <!-- 顶部条：退出 / 题号·模块 / 倒计时 -->
+    <view class="topbar" style="padding-top: {{statusBarHeight}}px">
+      <view class="topbar__row">
+        <view class="topbar__side">
+          <view class="topbar__exit" hover-class="is-pressed" bind:tap="exit">‹ 退出</view>
+        </view>
+        <view class="topbar__mid">
+          <view class="topbar__pos">第 {{currentIndex + 1}} / {{totalCount}} 题</view>
+          <view class="topbar__module">{{moduleName}}</view>
+        </view>
+        <view class="topbar__side topbar__side--right">
+          <view class="topbar__timer">{{remainingText}}</view>
+        </view>
+      </view>
+      <view class="progress">
+        <view
+          class="progress__fill"
+          style="width: {{totalCount > 0 ? (answeredCount / totalCount) * 100 : 0}}%"
+        ></view>
+      </view>
+      <view class="topbar__sync">{{syncLabel}} · 已答 {{answeredCount}} · 标记 {{markedCount}}</view>
+    </view>
+
+    <!-- 题卡 -->
+    <view class="quiz" style="padding-top: {{statusBarHeight + 118}}px">
+      <view wx:if="{{inlineError}}" class="warn">{{inlineError}}</view>
+
+      <view class="card qcard">
+        <block wx:if="{{material}}">
+          <view class="material">
+            <view wx:if="{{material.title}}" class="material__title">{{material.title}}</view>
+            <view
+              wx:if="{{material.text}}"
+              class="material__text {{material.collapsed ? 'material__text--clamped' : ''}}"
+            >
+              {{material.text}}
+            </view>
+            <image
+              wx:for="{{material.images}}"
+              wx:for-item="img"
+              wx:key="url"
+              class="material__img"
+              src="{{img.url}}"
+              mode="widthFix"
+              show-menu-by-longpress
+            ></image>
+            <view
+              wx:if="{{material.collapsible}}"
+              class="material__toggle"
+              hover-class="is-pressed"
+              bind:tap="toggleMaterial"
+            >
+              {{material.collapsed ? "展开材料" : "收起材料"}}
+            </view>
+          </view>
+        </block>
+
+        <view class="qcard__stem">{{stem}}</view>
+
+        <view class="options {{interactionLocked ? 'is-disabled' : ''}}">
+          <view
+            wx:for="{{options}}"
+            wx:key="optionId"
+            class="option {{item.selected ? 'option--selected' : ''}} {{item.eliminated ? 'option--eliminated' : ''}}"
+            data-optionid="{{item.optionId}}"
+            hover-class="is-pressed"
+            bind:tap="selectOption"
+          >
+            <view class="option__label">{{item.label}}</view>
+            <view class="option__text">{{item.text}}</view>
+            <view
+              class="option__eliminate"
+              data-optionid="{{item.optionId}}"
+              hover-class="is-pressed"
+              catch:tap="toggleEliminated"
+            >
+              {{item.eliminated ? "撤销" : "排除"}}
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="foot-space"></view>
+    </view>
+
+    <!-- 底部操作条 -->
+    <view class="dock">
+      <view
+        class="dock__item {{isFirst || interactionLocked ? 'is-disabled' : ''}}"
+        hover-class="{{isFirst || interactionLocked ? 'none' : 'is-pressed'}}"
+        bind:tap="previousQuestion"
+      >
+        上一题
+      </view>
+      <view
+        class="dock__item dock__item--mark {{currentMarked ? 'is-marked' : ''}} {{interactionLocked ? 'is-disabled' : ''}}"
+        hover-class="{{interactionLocked ? 'none' : 'is-pressed'}}"
+        bind:tap="toggleMarked"
+      >
+        {{currentMarked ? "★" : "☆"}}
+      </view>
+      <view class="dock__item" hover-class="is-pressed" bind:tap="openSheet">答题卡</view>
+      <view
+        class="dock__item {{interactionLocked ? 'is-disabled' : ''}}"
+        hover-class="{{interactionLocked ? 'none' : 'is-pressed'}}"
+        bind:tap="toggleDraft"
+      >
+        草稿
+      </view>
+      <view class="dock__item" hover-class="is-pressed" bind:tap="toggleTools">工具</view>
+      <view class="dock__main">
+        <ui-button
+          wx:if="{{!isLast}}"
+          size="sm"
+          block
+          disabled="{{interactionLocked}}"
+          bind:tap="nextQuestion"
+        >
+          下一题
+        </ui-button>
+        <ui-button wx:else size="sm" block loading="{{submitting}}" bind:tap="submitExam">
+          交卷
+        </ui-button>
+      </view>
+    </view>
+
+    <!-- 答题卡弹层 -->
+    <view wx:if="{{sheetOpen}}" class="sheet">
+      <view class="sheet__mask" bind:tap="closeSheet"></view>
+      <view class="sheet__panel">
+        <view class="sheet__head">整卷答题卡</view>
+        <view class="sheet__grid">
+          <view
+            wx:for="{{sheetCells}}"
+            wx:key="index"
+            class="sheet__cell {{item.answered ? 'sheet__cell--done' : ''}} {{item.marked ? 'sheet__cell--marked' : ''}} {{item.current ? 'sheet__cell--current' : ''}}"
+            data-index="{{item.index}}"
+            hover-class="is-pressed"
+            bind:tap="jumpTo"
+          >
+            {{item.seq}}
+          </view>
+        </view>
+        <view class="sheet__foot">
+          <view class="sheet__count">
+            已答 {{answeredCount}} · 未答 {{unansweredCount}} · 标记 {{markedCount}}
+          </view>
+          <ui-button size="sm" loading="{{submitting}}" bind:tap="submitExam">交卷</ui-button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 草稿纸弹层 -->
+    <view wx:if="{{draftOpen}}" class="sheet">
+      <view class="sheet__mask" bind:tap="toggleDraft"></view>
+      <view class="sheet__panel">
+        <view class="sheet__head">草稿纸</view>
+        <view class="sheet__sub">第 {{currentIndex + 1}} 题 · 随 checkpoint 自动保存</view>
+        <textarea
+          class="draft-input"
+          cursor-spacing="24"
+          value="{{currentDraft}}"
+          maxlength="4000"
+          disabled="{{interactionLocked}}"
+          placeholder="记录计算、排除过程或检查点……"
+          bind:input="inputDraft"
+        ></textarea>
+        <view class="sheet__notice">模考按统一结束时间计时，看草稿不暂停。</view>
+        <ui-button block bind:tap="toggleDraft">收起草稿，继续作答</ui-button>
+      </view>
+    </view>
+
+    <!-- 工具弹层 -->
+    <view wx:if="{{toolsOpen}}" class="sheet">
+      <view class="sheet__mask" bind:tap="toggleTools"></view>
+      <view class="sheet__panel">
+        <view class="sheet__head">模考工具</view>
+        <view class="sheet__sub">交卷前不提供解析、公式卡或解题 AI。</view>
+        <view class="tool-row" hover-class="is-pressed" bind:tap="openDispute">
+          题面异常 / 争议上报
+        </view>
+        <view class="sheet__notice">计时以云端统一结束时间为准，退出页面不会暂停。</view>
+      </view>
+    </view>
+
+    <!-- 争议上报弹层 -->
+    <view wx:if="{{disputeOpen}}" class="sheet">
+      <view class="sheet__mask" bind:tap="closeDispute"></view>
+      <view class="sheet__panel">
+        <view class="sheet__head">题面异常 / 争议上报</view>
+        <view class="sheet__sub">报错只带题目信息，不带你的答案。</view>
+        <view class="chips">
+          <view
+            wx:for="{{disputeCategories}}"
+            wx:key="value"
+            class="chip {{disputeCategory === item.value ? 'chip--on' : ''}}"
+            data-category="{{item.value}}"
+            hover-class="is-pressed"
+            bind:tap="selectDisputeCategory"
+          >
+            {{item.label}}
+          </view>
+        </view>
+        <textarea
+          class="draft-input"
+          cursor-spacing="24"
+          value="{{disputeDescription}}"
+          maxlength="2000"
+          disabled="{{disputeStatus === 'submitting' || disputeStatus === 'resolved'}}"
+          placeholder="请说明具体哪里有问题，至少两个字。"
+          bind:input="inputDisputeDescription"
+        ></textarea>
+        <view
+          wx:if="{{disputeMessage}}"
+          class="sheet__msg {{disputeStatus === 'error' ? 'sheet__msg--error' : ''}}"
+        >
+          {{disputeMessage}}
+        </view>
+        <ui-button
+          block
+          disabled="{{disputeDescription.length < 2 || disputeStatus === 'resolved'}}"
+          loading="{{disputeStatus === 'submitting'}}"
+          bind:tap="submitDispute"
+        >
+          {{disputeStatus === "resolved" ? "已提交" : "提交争议"}}
+        </ui-button>
+      </view>
+    </view>
+  </block>
+
+  <!-- ═══════ 已交卷视图 ═══════ -->
+  <block wx:elif="{{viewState === 'submitted'}}">
+    <view class="rhero" style="padding-top: {{statusBarHeight + 28}}px">
+      <view class="rhero__cap">每周整卷模考</view>
+      <view class="rhero__line">{{title}}</view>
+      <block wx:if="{{submitted && submitted.hasReceipt}}">
+        <view class="rhero__pct">
+          {{submitted.performanceIndex}}<text class="rhero__pct-unit">表现点</text>
+        </view>
+        <view class="rhero__hint">
+          样本区间 {{submitted.rangeLower}}–{{submitted.rangeUpper}} 表现点
+        </view>
+        <view wx:if="{{submitted.metricDefinition}}" class="rhero__hint">
+          {{submitted.metricDefinition}}
+        </view>
+        <view wx:if="{{submitted.submittedAtLabel}}" class="rhero__hint">
+          {{submitted.submittedAtLabel}}
+        </view>
+      </block>
+      <block wx:else>
+        <view class="rhero__line rhero__line--dim">本场模考已经交卷</view>
+        <view class="rhero__hint">逐题解析只在正式报告页按权限展示</view>
+      </block>
+    </view>
+
+    <view class="rbody">
+      <view wx:if="{{inlineError}}" class="warn">{{inlineError}}</view>
+      <view class="card rnote">
+        <view class="rnote__title">交卷后不提供当场解析</view>
+        <view class="rnote__copy">
+          本页只显示整卷聚合结果。逐题解析与方法卡将在正式模考报告中按提交状态解锁。
+        </view>
+      </view>
+      <view class="ractions">
+        <ui-button wx:if="{{reportSessionId}}" block bind:tap="openMockReport">
+          查看正式模考报告
+        </ui-button>
+        <view class="ractions__gap"></view>
+        <ui-button block variant="ghost" bind:tap="returnToday">返回今日计划</ui-button>
+      </view>
+      <view class="foot-space"></view>
+    </view>
+  </block>
+
+  <!-- ═══════ 加载 / 错误 ═══════ -->
+  <state-view wx:if="{{viewState === 'loading'}}" type="loading" title="正在恢复整卷" />
+  <state-view
+    wx:elif="{{viewState === 'error'}}"
+    type="error"
+    title="{{errorTitle}}"
+    desc="{{errorDesc}}"
+    request-id="{{requestId}}"
+    action-text="重新恢复"
+    bind:action="retry"
+  />
+</view>

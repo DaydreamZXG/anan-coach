@@ -1,0 +1,69 @@
+<view class="page">
+  <view class="nav" style="padding-top: {{statusBarHeight}}px">
+    <view class="nav__back" hover-class="is-pressed" bind:tap="onBack">‹</view>
+    <view class="nav__text">
+      <view class="nav__title">周计划</view>
+      <view class="nav__sub">学习、模考、休息，放在同一张节奏表里</view>
+    </view>
+  </view>
+
+  <state-view wx:if="{{viewState === 'loading'}}" type="loading" title="正在读取本周节奏…" />
+  <state-view
+    wx:elif="{{viewState === 'error'}}"
+    type="error"
+    title="周计划没有加载成功"
+    desc="{{errorDesc}}"
+    request-id="{{requestId}}"
+    action-text="重新加载"
+    bind:action="onRetry"
+  />
+
+  <block wx:else>
+    <!-- 深空摘要 -->
+    <view class="summary">
+      <view class="summary__top">
+        <view class="summary__version">v{{versionNo}} · {{rhythm}}</view>
+        <view class="summary__week">{{weekStart}} 起</view>
+      </view>
+      <view class="summary__reason">变更原因：{{reasonLabel}}</view>
+    </view>
+
+    <view class="section-head">
+      <view class="section-title">本周节奏</view>
+      <view class="section-extra">{{days.length}} 天</view>
+    </view>
+
+    <view
+      wx:for="{{days}}"
+      wx:key="localDate"
+      class="card day day--{{item.mode}} {{item.status === 'today' ? 'day--today' : ''}}"
+    >
+      <view class="day__row">
+        <view class="day__main">
+          <view class="day__name">
+            {{item.weekdayLabel}} · {{item.localDate}}
+            <text wx:if="{{item.status === 'today'}}" class="day__today">今天</text>
+          </view>
+          <view class="day__copy">{{item.explanation}}</view>
+        </view>
+        <view class="day__pill day__pill--{{item.mode}}">{{item.modeLabel}}</view>
+      </view>
+      <view class="day__metrics">
+        <view class="day__metric">
+          <text class="day__k">预算</text>
+          <text class="day__v">{{item.plannedMinutes}} 分</text>
+        </view>
+        <view class="day__metric">
+          <text class="day__k">已排</text>
+          <text class="day__v">{{item.scheduledMinutes}} 分</text>
+        </view>
+        <view class="day__metric">
+          <text class="day__k">闭环</text>
+          <text class="day__v">{{item.completedTaskCount}}/{{item.totalTaskCount}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="notice">未完成任务不会跨日复制；新的一天重新计算最有价值的 1–3 项。</view>
+  </block>
+</view>

@@ -1,0 +1,106 @@
+<view class="page">
+  <view class="nav" style="padding-top: {{statusBarHeight}}px">
+    <view class="nav__back" hover-class="is-pressed" bind:tap="onBack">‹</view>
+    <view class="nav__text">
+      <view class="nav__title">错误模式</view>
+      <view class="nav__sub">同一种错法，不该伪装成很多道错题</view>
+    </view>
+  </view>
+
+  <state-view wx:if="{{viewState === 'loading'}}" type="loading" title="正在读取错误模式…" />
+  <state-view
+    wx:elif="{{viewState === 'error'}}"
+    type="error"
+    title="错误模式尚未载入"
+    desc="{{errorDesc}}"
+    request-id="{{requestId}}"
+    action-text="重试"
+    bind:action="onRetry"
+  />
+
+  <block wx:elif="{{detail}}">
+    <!-- 模式概览 -->
+    <view class="hero">
+      <view class="hero__cap">{{detail.trackLabel}} · {{detail.moduleKey}}</view>
+      <view class="hero__title">{{detail.displayName}}</view>
+      <view class="hero__chips">
+        <view class="hero__chip hero__chip--{{detail.statusClass}}">{{detail.statusLabel}}</view>
+        <view class="hero__chip">{{detail.confidenceLabel}}</view>
+      </view>
+    </view>
+
+    <!-- 观测数据 -->
+    <view class="metrics">
+      <view class="metrics__cell">
+        <view class="metrics__num">{{detail.occurrenceCount}}</view>
+        <view class="metrics__label">观测次数</view>
+      </view>
+      <view class="metrics__divider"></view>
+      <view class="metrics__cell">
+        <view class="metrics__num metrics__num--amber">{{detail.counterevidenceCount}}</view>
+        <view class="metrics__label">反证次数</view>
+      </view>
+      <view class="metrics__divider"></view>
+      <view class="metrics__cell">
+        <view class="metrics__num metrics__num--date">{{detail.latestLabel || "—"}}</view>
+        <view class="metrics__label">最新观测</view>
+      </view>
+    </view>
+
+    <!-- 当前解释 -->
+    <view class="section-head">
+      <view class="section-title">当前解释</view>
+    </view>
+    <view class="card block-card">
+      <view class="block-card__kicker">{{detail.causeCode}}</view>
+      <view class="block-card__text">{{detail.interpretation}}</view>
+    </view>
+
+    <!-- 支持证据 -->
+    <view class="section-head">
+      <view class="section-title">支持证据</view>
+      <view class="section-extra">{{detail.supportingEvidence.length}} 条</view>
+    </view>
+    <view class="card block-card">
+      <view wx:if="{{detail.supportingEvidence.length === 0}}" class="block-card__empty">
+        这条模式已被你推翻。
+      </view>
+      <view wx:for="{{detail.supportingEvidence}}" wx:key="key" class="evi">
+        <view class="evi__dot"></view>
+        <view class="evi__main">
+          <view class="evi__title">{{item.entityType}}</view>
+          <view class="evi__meta">{{item.meta}}{{item.occurredLabel ? " · " + item.occurredLabel : ""}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 反证 -->
+    <block wx:if="{{detail.counterevidence.length > 0}}">
+      <view class="section-head">
+        <view class="section-title">反证</view>
+        <view class="section-extra">{{detail.counterevidence.length}} 条</view>
+      </view>
+      <view class="card block-card">
+        <view wx:for="{{detail.counterevidence}}" wx:key="key" class="evi">
+          <view class="evi__dot evi__dot--counter"></view>
+          <view class="evi__main">
+            <view class="evi__title">{{item.entityType}}</view>
+            <view class="evi__meta">{{item.meta}}{{item.occurredLabel ? " · " + item.occurredLabel : ""}}</view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!-- 局限 -->
+    <block wx:if="{{detail.limitations.length > 0}}">
+      <view class="section-head">
+        <view class="section-title">局限与边界</view>
+      </view>
+      <view class="card block-card">
+        <view wx:for="{{detail.limitations}}" wx:key="*this" class="limit">· {{item}}</view>
+      </view>
+    </block>
+
+    <view class="foot-space"></view>
+  </block>
+</view>

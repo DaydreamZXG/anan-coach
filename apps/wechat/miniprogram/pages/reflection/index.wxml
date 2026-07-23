@@ -1,0 +1,263 @@
+<view class="page">
+  <!-- 顶部导航 -->
+  <view class="nav" style="padding-top: {{statusBarHeight}}px">
+    <view class="nav__back" hover-class="is-pressed" bind:tap="onExit">‹</view>
+    <view class="nav__text">
+      <view class="nav__title">作答复盘</view>
+      <view class="nav__sub">复盘不是认错，是让计划真正认识你</view>
+    </view>
+    <view class="nav__phase" wx:if="{{viewState === 'ready'}}">
+      {{phase === 'reflection' ? '1/3 说思路' : phase === 'completed' ? '3/3 已完成' : '2/3 定错因'}}
+    </view>
+  </view>
+
+  <state-view wx:if="{{viewState === 'loading'}}" type="loading" title="正在恢复你的复盘…" />
+  <state-view
+    wx:elif="{{viewState === 'error'}}"
+    type="error"
+    title="{{errorTitle}}"
+    desc="{{errorDesc}}"
+    request-id="{{requestId}}"
+    action-text="重试"
+    bind:action="onRetry"
+  />
+
+  <block wx:else>
+    <!-- 本次作答概览 -->
+    <view class="hero">
+      <view class="hero__cap">本次作答</view>
+      <view class="hero__line">答对 {{correctCount}} / {{totalCount}} 题</view>
+      <view class="hero__hint">先保留你当时真实的判断，再决定错因</view>
+    </view>
+
+    <!-- 逐题回顾：题干 + 我的答案 + 正确答案 -->
+    <view class="section-head">
+      <view class="section-title">逐题回顾</view>
+      <view class="section-extra">共 {{totalCount}} 题</view>
+    </view>
+    <view wx:for="{{reviewItems}}" wx:key="questionId" class="card qitem">
+      <view class="qitem__head">
+        <view class="qitem__seq">{{item.seq}}</view>
+        <view class="qitem__module">{{item.moduleName}}</view>
+        <view class="qitem__tag qitem__tag--{{item.verdictClass}}">{{item.verdictText}}</view>
+      </view>
+      <view class="qitem__stem">{{item.stem}}</view>
+      <view class="qitem__answers">
+        <view class="qitem__answer">你的答案 {{item.selectedLabel}}</view>
+        <view class="qitem__answer qitem__answer--correct">正确答案 {{item.correctLabel}}</view>
+      </view>
+    </view>
+
+    <!-- 提交中的提示条 -->
+    <view wx:if="{{pendingMessage}}" class="pending">{{pendingMessage}}</view>
+
+    <!-- ═══════ 阶段一：原话复盘 ═══════ -->
+    <block wx:if="{{phase === 'reflection'}}">
+      <view class="section-head">
+        <view class="section-title">你当时是怎么想的？</view>
+        <view class="section-extra">必填</view>
+      </view>
+      <view class="card field">
+        <textarea
+          cursor-spacing="24"
+          class="field__textarea"
+          value="{{rawText}}"
+          maxlength="4000"
+          placeholder="例如：我先排除了 A、D，但把题目问的「不符合」看成了「符合」……"
+          bind:input="onRawTextInput"
+        ></textarea>
+      </view>
+
+      <view class="section-head">
+        <view class="section-title">给这次思路打标签</view>
+        <view class="section-extra">至少 1 项</view>
+      </view>
+      <view class="tags">
+        <view
+          wx:for="{{tagOptions}}"
+          wx:key="code"
+          class="tags__chip {{item.selected ? 'tags__chip--on' : ''}}"
+          data-code="{{item.code}}"
+          hover-class="is-pressed"
+          bind:tap="onToggleTag"
+        >
+          {{item.label}}
+        </view>
+      </view>
+
+      <block wx:if="{{interpretationOptions.length > 0}}">
+        <view class="section-head">
+          <view class="section-title">哪些错题是「方法对、计算错」？</view>
+          <view class="section-extra">选填</view>
+        </view>
+        <view class="card interp">
+          <view
+            wx:for="{{interpretationOptions}}"
+            wx:key="questionId"
+            class="interp__item {{item.selected ? 'interp__item--on' : ''}}"
+            data-questionid="{{item.questionId}}"
+            hover-class="is-pressed"
+            bind:tap="onToggleInterpretation"
+          >
+            <view class="interp__check">{{item.selected ? "已选" : "选择"}}</view>
+            <view class="interp__body">
+              <view class="interp__pos">{{item.positionLabel}}</view>
+              <view class="interp__answer">{{item.answerLabel}}</view>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <view class="card field">
+        <view class="field__label">下次准备怎么做（选填）</view>
+        <textarea
+          cursor-spacing="24"
+          class="field__textarea field__textarea--sm"
+          value="{{strategyNote}}"
+          maxlength="2000"
+          placeholder="写下一个具体动作，例如：先圈题目问法，再看选项。"
+          bind:input="onStrategyInput"
+        ></textarea>
+        <view class="field__label">仍然没想通的点（选填）</view>
+        <textarea
+          cursor-spacing="24"
+          class="field__textarea field__textarea--sm"
+          value="{{doubtNote}}"
+          maxlength="2000"
+          placeholder="保留疑问，后续继续跟进。"
+          bind:input="onDoubtInput"
+        ></textarea>
+      </view>
+
+      <view class="actions">
+        <ui-button block loading="{{submitting}}" bind:tap="submitReflection">保存原话复盘</ui-button>
+      </view>
+    </block>
+
+    <!-- ═══════ 错因整理中 ═══════ -->
+    <block wx:elif="{{phase === 'cause_processing'}}">
+      <view class="card cause">
+        <view class="cause__badge">AI</view>
+        <view class="cause__body">
+          <view class="cause__title">{{causeCandidate.stateLabel}}</view>
+          <view class="cause__copy">{{causeCandidate.stateDescription}}</view>
+          <view class="cause__meta">复盘原话已保存</view>
+        </view>
+      </view>
+      <view class="actions">
+        <ui-button block variant="ghost" bind:tap="onRefreshCause">重新检查错因状态</ui-button>
+      </view>
+    </block>
+
+    <!-- ═══════ 错因追问 ═══════ -->
+    <block wx:elif="{{phase === 'cause_followup'}}">
+      <view class="card cause">
+        <view class="cause__badge">AI</view>
+        <view class="cause__body">
+          <view class="cause__title">{{causeCandidate.stateLabel}}</view>
+          <view class="cause__copy">{{causeCandidate.stateDescription}}</view>
+        </view>
+      </view>
+      <view class="card field">
+        <view class="field__label">追问</view>
+        <view class="field__question">{{causeCandidate.question}}</view>
+        <textarea
+          cursor-spacing="24"
+          class="field__textarea"
+          value="{{followupAnswer}}"
+          maxlength="2000"
+          placeholder="按当时真实想法回答，不需要迎合候选。"
+          bind:input="onFollowupInput"
+        ></textarea>
+      </view>
+      <view class="actions">
+        <ui-button block loading="{{submitting}}" bind:tap="submitCauseFollowup">提交追问回答</ui-button>
+      </view>
+    </block>
+
+    <!-- ═══════ 错因决定（候选 / 证据不足 / 已终止） ═══════ -->
+    <block wx:elif="{{phase === 'cause_decision' || phase === 'cause_insufficient' || phase === 'cause_terminated'}}">
+      <view class="card cause">
+        <view class="cause__badge">AI</view>
+        <view class="cause__body">
+          <view class="cause__title">{{causeCandidate.stateLabel}}</view>
+          <view class="cause__copy">{{causeCandidate.stateDescription}}</view>
+        </view>
+      </view>
+
+      <view wx:if="{{causeCandidate.summary || causeCandidate.explanation || causeCandidate.improvement}}" class="card detail">
+        <view wx:if="{{causeCandidate.summary}}" class="detail__section">
+          <view class="detail__label">候选错因</view>
+          <view class="detail__copy">{{causeCandidate.summary}}</view>
+        </view>
+        <view wx:if="{{causeCandidate.explanation}}" class="detail__section">
+          <view class="detail__label">判断依据</view>
+          <view class="detail__copy">{{causeCandidate.explanation}}</view>
+        </view>
+        <view wx:if="{{causeCandidate.improvement}}" class="detail__section">
+          <view class="detail__label">改进动作</view>
+          <view class="detail__copy">{{causeCandidate.improvement}}</view>
+        </view>
+        <view wx:if="{{causeCandidate.rationale}}" class="detail__section">
+          <view class="detail__label">推理依据</view>
+          <view class="detail__copy">{{causeCandidate.rationale}}</view>
+        </view>
+      </view>
+
+      <view wx:if="{{causeCandidate.missingEvidence.length > 0}}" class="card detail">
+        <view class="detail__label">还缺什么</view>
+        <view wx:for="{{causeCandidate.missingEvidence}}" wx:key="*this" class="detail__line">· {{item}}</view>
+      </view>
+      <view wx:if="{{causeCandidate.limitations.length > 0}}" class="card detail">
+        <view class="detail__label">当前限制</view>
+        <view wx:for="{{causeCandidate.limitations}}" wx:key="*this" class="detail__line">· {{item}}</view>
+      </view>
+
+      <block wx:if="{{causeCandidate.canDecide}}">
+        <view class="section-head">
+          <view class="section-title">错因决定权留给你</view>
+        </view>
+        <view class="actions">
+          <ui-button wx:if="{{causeCandidate.canConfirm}}" block loading="{{submitting}}" bind:tap="onConfirmCause">
+            确认这个错因
+          </ui-button>
+          <view class="actions__gap" wx:if="{{causeCandidate.canConfirm}}"></view>
+          <ui-button block variant="ghost" loading="{{submitting}}" bind:tap="onRejectCause">
+            否定候选，不确认错因
+          </ui-button>
+        </view>
+        <view class="card field">
+          <view class="field__label">也可以用一句话写下你认可的错因</view>
+          <textarea
+            cursor-spacing="24"
+            class="field__textarea field__textarea--sm"
+            value="{{replacementCause}}"
+            maxlength="2000"
+            placeholder="例如：不是不会，是没看清题目问的是「不正确的一项」。"
+            bind:input="onReplacementInput"
+          ></textarea>
+        </view>
+        <view class="actions">
+          <ui-button block variant="ghost" loading="{{submitting}}" bind:tap="onReplaceCause">
+            采用我补充的错因
+          </ui-button>
+          <view class="actions__gap"></view>
+          <ui-button block variant="ghost" loading="{{submitting}}" bind:tap="onDeferCause">
+            稍后处理，先留着
+          </ui-button>
+        </view>
+      </block>
+      <view wx:else class="card readonly">这是一条旧记录，只能查看。</view>
+    </block>
+
+    <!-- ═══════ 完成 ═══════ -->
+    <view wx:else class="card done">
+      <view class="done__mark">复盘完成</view>
+      <view class="done__title">这次作答与复盘已经结算</view>
+      <view class="done__copy">今日计划已按你的真实完成记录重新安排；做完一次不等于已经掌握。</view>
+      <ui-button block bind:tap="onReturnToday">查看新的今日计划</ui-button>
+    </view>
+
+    <view class="foot-space"></view>
+  </block>
+</view>

@@ -1,0 +1,148 @@
+.page {
+  min-height: 100vh;
+  background: var(--bg);
+  padding-bottom: 60rpx;
+}
+
+.is-pressed {
+  opacity: 0.72;
+}
+
+/* ── 顶部导航 ── */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 10rpx 32rpx 22rpx;
+}
+
+.nav__back {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44rpx;
+  color: var(--ink-2);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.nav__title {
+  font-size: 42rpx;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+
+.nav__sub {
+  margin-top: 6rpx;
+  font-size: 22rpx;
+  color: var(--ink-3);
+}
+
+/* ── 空态 ── */
+.empty {
+  margin: 80rpx 32rpx 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.empty__glyph {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  background: rgba(91, 95, 244, 0.09);
+  color: var(--indigo);
+  font-size: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty__text {
+  font-size: 26rpx;
+  color: var(--ink-3);
+  text-align: center;
+  line-height: 1.7;
+}
+
+/* ── 变更条目 ── */
+.entry {
+  margin: 0 32rpx 20rpx;
+  padding: 28rpx;
+}
+
+.entry__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 20rpx;
+}
+
+.entry__main {
+  flex: 1;
+  min-width: 0;
+}
+
+.entry__pill {
+  display: inline-flex;
+  font-size: 20rpx;
+  font-weight: 700;
+  color: var(--indigo);
+  background: rgba(91, 95, 244, 0.09);
+  border-radius: 999rpx;
+  padding: 6rpx 18rpx;
+}
+
+.entry__headline {
+  margin-top: 14rpx;
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.entry__time {
+  flex-shrink: 0;
+  font-size: 20rpx;
+  color: var(--ink-3);
+}
+
+.entry__metrics {
+  margin-top: 20rpx;
+  display: flex;
+  gap: 16rpx;
+}
+
+.entry__metric {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  background: #f4f5fb;
+  border-radius: var(--r-sm);
+  padding: 14rpx 18rpx;
+}
+
+.entry__k {
+  font-size: 20rpx;
+  color: var(--ink-3);
+}
+
+.entry__v {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.entry__note {
+  margin-top: 14rpx;
+  font-size: 22rpx;
+  color: var(--ink-3);
+  line-height: 1.6;
+}

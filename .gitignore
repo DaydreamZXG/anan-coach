@@ -42,3 +42,8 @@ __pycache__/
 # Runtime logs
 backend/server.log
 apps/wechat/tests/visual/artifacts/
+
+# WeChat DevTools TS compiler output (in-place compiled artifacts)
+apps/wechat/miniprogram/**/*.js
+# Stray configs created when miniprogram/ is opened as project root by mistake
+apps/wechat/miniprogram/project*.json

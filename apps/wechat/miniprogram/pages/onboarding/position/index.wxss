@@ -1,0 +1,207 @@
+.page {
+  min-height: 100vh;
+  background: var(--bg);
+  padding-bottom: 260rpx;
+}
+
+.nav {
+  padding: 0 32rpx 32rpx;
+}
+
+.step-text {
+  padding-top: 16rpx;
+  font-size: 20rpx;
+  letter-spacing: 0.16em;
+  color: var(--ink-3);
+}
+
+.step-bar {
+  display: flex;
+  gap: 8rpx;
+  margin-top: 16rpx;
+}
+
+.step-seg {
+  flex: 1;
+  height: 6rpx;
+  border-radius: 999rpx;
+  background: rgba(16, 19, 27, 0.08);
+}
+
+.step-seg.is-active {
+  background: var(--grad-main);
+}
+
+.nav__title {
+  padding-top: 28rpx;
+  font-size: 44rpx;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.nav__sub {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  color: var(--ink-3);
+}
+
+.search {
+  margin: 0 32rpx 24rpx;
+  padding: 28rpx;
+}
+
+.field__label {
+  margin-bottom: 20rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.input {
+  height: 92rpx;
+  padding: 0 28rpx;
+  border: 1rpx solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--bg);
+  font-size: 28rpx;
+}
+
+.input__ph {
+  color: var(--ink-3);
+  font-size: 26rpx;
+}
+
+.search__btn {
+  margin-top: 24rpx;
+}
+
+/* 岗位卡 */
+.list {
+  padding: 0 32rpx;
+}
+
+.position {
+  position: relative;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+}
+
+.position.is-picking {
+  opacity: 0.75;
+}
+
+.position__name {
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.position__dept {
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: var(--ink-2);
+}
+
+.position__meta {
+  margin-top: 10rpx;
+  font-size: 22rpx;
+  color: var(--ink-3);
+}
+
+.position__dot {
+  margin: 0 10rpx;
+}
+
+.position__score {
+  display: inline-block;
+  margin-top: 14rpx;
+  padding: 6rpx 18rpx;
+  border-radius: 999rpx;
+  font-size: 20rpx;
+  color: var(--cyan);
+  border: 1rpx solid rgba(14, 185, 206, 0.4);
+  background: rgba(14, 185, 206, 0.08);
+}
+
+.position__loading {
+  position: absolute;
+  top: 28rpx;
+  right: 28rpx;
+  font-size: 22rpx;
+  color: var(--violet);
+}
+
+.is-pressed {
+  opacity: 0.85;
+}
+
+/* 目标分确认区 */
+.confirm {
+  margin: 8rpx 32rpx 0;
+  padding: 34rpx;
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-mainline);
+}
+
+.confirm__cap {
+  font-size: 20rpx;
+  letter-spacing: 0.12em;
+  color: var(--ink-3);
+}
+
+.confirm__line {
+  display: flex;
+  align-items: baseline;
+  gap: 12rpx;
+  margin-top: 14rpx;
+}
+
+.confirm__num {
+  font-size: 72rpx;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  background: var(--grad-main);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.confirm__unit {
+  font-size: 26rpx;
+  color: var(--ink-3);
+}
+
+.confirm__range {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: var(--ink-2);
+}
+
+.confirm__evidence {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-top: 18rpx;
+}
+
+.confirm__tag {
+  padding: 6rpx 18rpx;
+  border-radius: 999rpx;
+  font-size: 20rpx;
+  color: var(--violet);
+  border: 1rpx solid rgba(139, 92, 246, 0.4);
+  background: rgba(139, 92, 246, 0.08);
+}
+
+.confirm__sample {
+  font-size: 20rpx;
+  color: var(--ink-3);
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 24rpx 32rpx calc(24rpx + env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, rgba(247, 248, 250, 0), var(--bg) 45%);
+}

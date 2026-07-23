@@ -1,0 +1,515 @@
+.page {
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.is-pressed {
+  opacity: 0.75;
+}
+
+.is-disabled {
+  opacity: 0.4;
+}
+
+.foot-space {
+  height: 200rpx;
+}
+
+/* 行内警示条 */
+.warn {
+  margin: 0 32rpx 20rpx;
+  padding: 18rpx 24rpx;
+  border-radius: var(--r-sm);
+  background: rgba(217, 127, 6, 0.1);
+  color: var(--amber);
+  font-size: 24rpx;
+  line-height: 1.6;
+}
+
+/* ═══════ 顶部条 ═══════ */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  background: var(--bg);
+  padding: 0 32rpx 12rpx;
+  border-bottom: 1rpx solid var(--line);
+}
+
+.topbar__row {
+  display: flex;
+  align-items: center;
+  height: 72rpx;
+}
+
+.topbar__side {
+  width: 200rpx;
+  flex-shrink: 0;
+}
+
+.topbar__side--right {
+  text-align: right;
+}
+
+.topbar__exit {
+  display: inline-block;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.topbar__mid {
+  flex: 1;
+  text-align: center;
+  overflow: hidden;
+}
+
+.topbar__pos {
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.topbar__module {
+  font-size: 22rpx;
+  color: var(--ink-3);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.topbar__timer {
+  font-size: 26rpx;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 已答比例进度条 */
+.progress {
+  height: 10rpx;
+  border-radius: 999rpx;
+  background: rgba(16, 19, 27, 0.07);
+  overflow: hidden;
+}
+
+.progress__fill {
+  height: 100%;
+  border-radius: 999rpx;
+  background: var(--grad-main);
+  transition: width 0.25s ease;
+}
+
+.topbar__sync {
+  padding-top: 8rpx;
+  font-size: 20rpx;
+  color: var(--ink-3);
+  text-align: center;
+}
+
+/* ═══════ 题卡 ═══════ */
+.qcard {
+  margin: 24rpx 32rpx 0;
+  padding: 32rpx 28rpx;
+}
+
+.qcard__stem {
+  font-size: 30rpx;
+  font-weight: 600;
+  line-height: 1.7;
+  margin-bottom: 28rpx;
+}
+
+/* 材料区（可折叠） */
+.material {
+  margin-bottom: 24rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid var(--line);
+}
+
+.material__title {
+  font-size: 26rpx;
+  font-weight: 700;
+  margin-bottom: 10rpx;
+}
+
+.material__text {
+  font-size: 26rpx;
+  color: var(--ink-2);
+  line-height: 1.7;
+}
+
+.material__text--clamped {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+}
+
+.material__img {
+  width: 100%;
+  margin-top: 16rpx;
+  border-radius: var(--r-sm);
+}
+
+.material__toggle {
+  display: inline-block;
+  margin-top: 12rpx;
+  font-size: 22rpx;
+  color: var(--indigo);
+}
+
+/* 选项 */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 20rpx;
+  padding: 24rpx;
+  border: 2rpx solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+}
+
+.option--selected {
+  border-color: transparent;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    var(--grad-main) border-box;
+}
+
+.option--eliminated .option__text {
+  color: var(--ink-3);
+  text-decoration: line-through;
+}
+
+.option__label {
+  width: 48rpx;
+  height: 48rpx;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12rpx;
+  background: rgba(16, 19, 27, 0.06);
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.option--selected .option__label {
+  background: var(--grad-main);
+  color: #ffffff;
+}
+
+.option__text {
+  flex: 1;
+  font-size: 28rpx;
+  line-height: 1.6;
+  padding-top: 4rpx;
+}
+
+.option__eliminate {
+  flex-shrink: 0;
+  align-self: center;
+  padding: 8rpx 16rpx;
+  border-radius: 999rpx;
+  border: 1rpx solid var(--line);
+  font-size: 20rpx;
+  color: var(--ink-3);
+}
+
+.option--eliminated .option__eliminate {
+  color: var(--amber);
+  border-color: rgba(217, 127, 6, 0.4);
+}
+
+/* ═══════ 底部操作条 ═══════ */
+.dock {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 16rpx 24rpx calc(16rpx + env(safe-area-inset-bottom));
+  background: var(--surface);
+  border-top: 1rpx solid var(--line);
+}
+
+.dock__item {
+  height: 72rpx;
+  padding: 0 18rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 22rpx;
+  background: var(--bg);
+  font-size: 24rpx;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.dock__item--mark {
+  padding: 0 14rpx;
+  font-size: 36rpx;
+  line-height: 1;
+  color: var(--ink-3);
+}
+
+.dock__item--mark.is-marked {
+  color: var(--amber);
+}
+
+.dock__main {
+  flex: 1;
+  min-width: 120rpx;
+}
+
+/* ═══════ 弹层 ═══════ */
+.sheet {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+}
+
+.sheet__mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(11, 14, 33, 0.5);
+}
+
+.sheet__panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--surface);
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  padding: 36rpx 32rpx calc(28rpx + env(safe-area-inset-bottom));
+  animation: sheet-up 0.24s ease;
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(48rpx);
+    opacity: 0.6;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.sheet__head {
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.sheet__sub {
+  margin-top: 8rpx;
+  margin-bottom: 20rpx;
+  font-size: 22rpx;
+  color: var(--ink-3);
+}
+
+.sheet__head + .sheet__grid {
+  margin-top: 28rpx;
+}
+
+.sheet__grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sheet__cell {
+  width: 88rpx;
+  height: 88rpx;
+  margin: 0 16rpx 16rpx 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-sm);
+  border: 2rpx solid transparent;
+  background: rgba(16, 19, 27, 0.05);
+  color: var(--ink-2);
+  font-size: 26rpx;
+  font-weight: 600;
+  box-sizing: border-box;
+}
+
+.sheet__cell--done {
+  background: var(--grad-main);
+  color: #ffffff;
+}
+
+.sheet__cell--marked {
+  border-color: var(--amber);
+}
+
+.sheet__cell--current {
+  box-shadow: 0 0 0 4rpx rgba(91, 95, 244, 0.25);
+}
+
+.sheet__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20rpx;
+}
+
+.sheet__count {
+  font-size: 24rpx;
+  color: var(--ink-2);
+}
+
+.sheet__notice {
+  margin: 16rpx 0 24rpx;
+  font-size: 22rpx;
+  color: var(--ink-3);
+}
+
+.sheet__msg {
+  margin: 16rpx 0 24rpx;
+  font-size: 24rpx;
+  color: var(--green);
+}
+
+.sheet__msg--error {
+  color: var(--red);
+}
+
+/* 草稿 / 争议输入框 */
+.draft-input {
+  width: 100%;
+  height: 260rpx;
+  box-sizing: border-box;
+  padding: 20rpx 24rpx;
+  border-radius: var(--r-sm);
+  border: 1rpx solid var(--line);
+  background: var(--bg);
+  font-size: 26rpx;
+  line-height: 1.6;
+}
+
+/* 工具行 */
+.tool-row {
+  padding: 26rpx 24rpx;
+  border-radius: var(--r-sm);
+  border: 1rpx solid var(--line);
+  background: var(--bg);
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+/* 争议分类 chips */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+  margin-bottom: 20rpx;
+}
+
+.chip {
+  padding: 12rpx 24rpx;
+  border-radius: 999rpx;
+  border: 1rpx solid var(--line);
+  background: var(--bg);
+  font-size: 24rpx;
+  color: var(--ink-2);
+}
+
+.chip--on {
+  border-color: transparent;
+  background: var(--grad-main);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* ═══════ 已交卷视图 ═══════ */
+.rhero {
+  background: var(--grad-space);
+  color: #ffffff;
+  padding: 0 32rpx 64rpx;
+}
+
+.rhero__cap {
+  font-size: 20rpx;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.rhero__line {
+  margin-top: 24rpx;
+  font-size: 30rpx;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.rhero__line--dim {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.rhero__pct {
+  margin-top: 12rpx;
+  font-size: 120rpx;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.rhero__pct-unit {
+  font-size: 32rpx;
+  font-weight: 600;
+  margin-left: 12rpx;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.rhero__hint {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.rbody {
+  padding: 40rpx 32rpx 0;
+}
+
+.rbody .warn {
+  margin: 0 0 20rpx;
+}
+
+.rnote {
+  padding: 28rpx;
+}
+
+.rnote__title {
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.rnote__copy {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+
+.ractions {
+  margin-top: 40rpx;
+}
+
+.ractions__gap {
+  height: 20rpx;
+}

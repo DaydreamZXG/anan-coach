@@ -1,0 +1,9 @@
+{
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "ui-button": "../../components/ui-button/index",
+    "state-view": "../../components/state-view/index",
+    "ai-card": "../../components/ai-card/index"
+  }
+}

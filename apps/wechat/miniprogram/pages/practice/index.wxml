@@ -1,0 +1,202 @@
+<view class="page">
+  <!-- ═══════ 答题视图 ═══════ -->
+  <block wx:if="{{viewState === 'answering'}}">
+    <!-- 顶部条：状态栏占位 + 题号 / 模块 / 计时 -->
+    <view class="topbar" style="padding-top: {{statusBarHeight}}px">
+      <view class="topbar__row">
+        <view class="topbar__pos">第 {{currentIndex + 1}} / {{totalCount}} 题</view>
+        <view class="topbar__module">{{moduleName}}</view>
+        <view class="topbar__timer">{{elapsedText}}</view>
+      </view>
+      <view class="progress">
+        <view
+          wx:for="{{segments}}"
+          wx:key="index"
+          class="progress__seg {{item ? 'progress__seg--done' : ''}}"
+        ></view>
+      </view>
+    </view>
+
+    <!-- 题卡 -->
+    <view class="quiz" style="padding-top: {{statusBarHeight + 72}}px">
+      <view class="card qcard">
+        <block wx:if="{{material}}">
+          <view class="material">
+            <view wx:if="{{material.title}}" class="material__title">{{material.title}}</view>
+            <view class="material__text {{material.collapsed ? 'material__text--clamped' : ''}}">
+              {{material.text}}
+            </view>
+            <view
+              wx:if="{{material.collapsible}}"
+              class="material__toggle"
+              hover-class="is-pressed"
+              bind:tap="onToggleMaterial"
+            >
+              {{material.collapsed ? "展开材料" : "收起材料"}}
+            </view>
+          </view>
+        </block>
+
+        <view class="qcard__stem">{{stem}}</view>
+
+        <view class="options">
+          <view
+            wx:for="{{options}}"
+            wx:key="optionId"
+            class="option {{selectedOptionId === item.optionId ? 'option--selected' : ''}}"
+            data-id="{{item.optionId}}"
+            hover-class="is-pressed"
+            bind:tap="onSelectOption"
+          >
+            <view class="option__label">{{item.label}}</view>
+            <view class="option__text">{{item.text}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="foot-space"></view>
+    </view>
+
+    <!-- 409 冲突遮罩：只挡答题区，底部交卷仍可点 -->
+    <view wx:if="{{conflict}}" class="conflict">
+      <view class="conflict__box">
+        <view class="conflict__title">会话已在别处更新</view>
+        <view class="conflict__desc">当前作答已保存，请重新进入任务再继续。</view>
+        <ui-button variant="ghost" size="sm" bind:tap="onBack">返回上一页</ui-button>
+      </view>
+    </view>
+
+    <!-- 底部操作条 -->
+    <view class="dock">
+      <view
+        class="dock__item {{isFirst || conflict ? 'is-disabled' : ''}}"
+        hover-class="{{isFirst || conflict ? 'none' : 'is-pressed'}}"
+        bind:tap="onPrev"
+      >
+        上一题
+      </view>
+      <view
+        class="dock__item dock__item--mark {{currentMarked ? 'is-marked' : ''}} {{conflict ? 'is-disabled' : ''}}"
+        hover-class="{{conflict ? 'none' : 'is-pressed'}}"
+        bind:tap="onToggleMark"
+      >
+        {{currentMarked ? "★" : "☆"}}
+      </view>
+      <view
+        class="dock__item {{conflict ? 'is-disabled' : ''}}"
+        hover-class="{{conflict ? 'none' : 'is-pressed'}}"
+        bind:tap="onOpenSheet"
+      >
+        答题卡
+      </view>
+      <view class="dock__main">
+        <ui-button wx:if="{{!isLast}}" size="sm" block disabled="{{conflict}}" bind:tap="onNext">
+          下一题
+        </ui-button>
+        <ui-button wx:else size="sm" block loading="{{submitting}}" bind:tap="onSubmitTap">
+          交卷
+        </ui-button>
+      </view>
+    </view>
+
+    <!-- 答题卡弹层 -->
+    <view wx:if="{{sheetOpen}}" class="sheet">
+      <view class="sheet__mask" bind:tap="onCloseSheet"></view>
+      <view class="sheet__panel">
+        <view class="sheet__head">答题卡</view>
+        <view class="sheet__grid">
+          <view
+            wx:for="{{sheetCells}}"
+            wx:key="index"
+            class="sheet__cell {{item.answered ? 'sheet__cell--done' : ''}} {{item.marked ? 'sheet__cell--marked' : ''}} {{item.current ? 'sheet__cell--current' : ''}}"
+            data-index="{{item.index}}"
+            hover-class="is-pressed"
+            bind:tap="onJumpTo"
+          >
+            {{item.seq}}
+          </view>
+        </view>
+        <view class="sheet__foot">
+          <view class="sheet__count">已答 {{answeredCount}} / {{totalCount}}</view>
+          <ui-button size="sm" loading="{{submitting}}" bind:tap="onSubmitTap">交卷</ui-button>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- ═══════ 结果视图 ═══════ -->
+  <block wx:if="{{viewState === 'result'}}">
+    <view class="rhero" style="padding-top: {{statusBarHeight + 28}}px">
+      <view class="rhero__cap">本次作答</view>
+      <view class="rhero__line">答对 {{correctCount}} / {{resultTotal}} 题</view>
+      <view class="rhero__pct">{{accuracy}}<text class="rhero__pct-unit">%</text></view>
+      <view class="rhero__hint">正确率</view>
+    </view>
+
+    <view class="rbody">
+      <!-- 复盘入口：复盘闭环未走完时显示 -->
+      <view wx:if="{{reviewPending}}" class="card rgate">
+        <view class="rgate__mark">必做复盘</view>
+        <view class="rgate__title">先写下你当时真实的想法</view>
+        <view class="rgate__copy">猜对或超时不会被冒充为错因，错因与逐题解读由你确认。</view>
+        <ui-button block bind:tap="onGoReflection">去复盘</ui-button>
+      </view>
+
+      <view class="section-head">
+        <view class="section-title">逐题回顾</view>
+        <view class="section-extra">共 {{resultTotal}} 题</view>
+      </view>
+
+      <view wx:for="{{resultItems}}" wx:key="questionId" class="card ritem">
+        <view
+          class="ritem__head"
+          data-index="{{index}}"
+          hover-class="is-pressed"
+          bind:tap="onToggleResultItem"
+        >
+          <view class="ritem__seq">{{item.seq}}</view>
+          <view class="ritem__module">{{item.moduleName}}</view>
+          <view class="ritem__tag ritem__tag--{{item.tagClass}}">{{item.tagText}}</view>
+          <view class="ritem__arrow {{item.expanded ? 'ritem__arrow--open' : ''}}">⌄</view>
+        </view>
+
+        <view wx:if="{{item.expanded}}" class="ritem__body">
+          <view class="ritem__stem">{{item.stem}}</view>
+          <view class="ritem__options">
+            <view
+              wx:for="{{item.options}}"
+              wx:for-item="opt"
+              wx:key="optionId"
+              class="roption {{opt.selected ? 'roption--selected' : ''}} {{opt.correct ? 'roption--correct' : ''}}"
+            >
+              <view class="roption__label">{{opt.label}}</view>
+              <view class="roption__text">{{opt.text}}</view>
+            </view>
+          </view>
+          <view class="ritem__expl">
+            <view class="ritem__expl-title">解析</view>
+            <view class="ritem__expl-text">{{item.explanation}}</view>
+          </view>
+        </view>
+      </view>
+
+      <view class="ractions">
+        <ui-button block bind:tap="onBackToday">返回今日</ui-button>
+        <view class="ractions__gap"></view>
+        <ui-button block variant="ghost" bind:tap="onPracticeMore">再练一组</ui-button>
+      </view>
+      <view class="foot-space"></view>
+    </view>
+  </block>
+
+  <!-- ═══════ 加载 / 错误 ═══════ -->
+  <state-view wx:if="{{viewState === 'loading'}}" type="loading" title="正在打开题组…" />
+  <state-view
+    wx:elif="{{viewState === 'error'}}"
+    type="error"
+    title="题组没有打开"
+    desc="{{errorDesc}}"
+    request-id="{{requestId}}"
+    action-text="{{errorRetryable ? '重试' : ''}}"
+    bind:action="openSession"
+  />
+</view>

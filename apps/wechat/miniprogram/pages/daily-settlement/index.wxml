@@ -1,0 +1,70 @@
+<view class="page">
+  <view class="nav" style="padding-top: {{statusBarHeight}}px">
+    <view class="nav__back" hover-class="is-pressed" bind:tap="onBack">‹</view>
+    <view class="nav__text">
+      <view class="nav__title">每日结算</view>
+      <view class="nav__sub">今天学的，就是明天的底子</view>
+    </view>
+  </view>
+
+  <state-view wx:if="{{viewState === 'loading'}}" type="loading" title="正在结算今天…" />
+  <state-view
+    wx:elif="{{viewState === 'error'}}"
+    type="error"
+    title="结算没有加载成功"
+    desc="{{errorDesc}}"
+    request-id="{{requestId}}"
+    action-text="重新加载"
+    bind:action="onRetry"
+  />
+
+  <block wx:else>
+    <!-- 深空结算 hero -->
+    <view class="summary">
+      <view class="summary__row">
+        <view class="summary__cell">
+          <view class="summary__num summary__num--cyan">{{elapsedMinutes}}</view>
+          <view class="summary__label">实际投入 · 分</view>
+        </view>
+        <view class="summary__divider"></view>
+        <view class="summary__cell">
+          <view class="summary__num">{{scheduledMinutes}}</view>
+          <view class="summary__label">计划时间 · 分</view>
+        </view>
+      </view>
+      <view class="summary__row">
+        <view class="summary__cell">
+          <view class="summary__num summary__num--green">{{completedTaskCount}}</view>
+          <view class="summary__label">完成闭环</view>
+        </view>
+        <view class="summary__divider"></view>
+        <view class="summary__cell">
+          <view class="summary__num summary__num--amber">{{carryOverTaskCount}}</view>
+          <view class="summary__label">结转债务</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="card conclusion">
+      <view class="conclusion__text">{{summary}}</view>
+    </view>
+
+    <view class="section-head">
+      <view class="section-title">任务证据</view>
+      <view class="section-extra">{{tasks.length}} 项</view>
+    </view>
+
+    <view wx:for="{{tasks}}" wx:key="taskId" class="card task">
+      <view class="task__main">
+        <view class="task__title">{{item.trackLabel}} · {{item.title}}</view>
+        <view class="task__meta">
+          {{item.statusLabel}} · 实际 {{item.elapsedMinutes}} / 计划 {{item.plannedMinutes}} 分钟 ·
+          {{item.evidenceRefs.length}} 条完成记录
+        </view>
+      </view>
+      <view class="task__pill task__pill--{{item.status}}">{{item.statusLabel}}</view>
+    </view>
+
+    <view wx:if="{{hasRisks}}" class="notice">{{riskLabel}}</view>
+  </block>
+</view>

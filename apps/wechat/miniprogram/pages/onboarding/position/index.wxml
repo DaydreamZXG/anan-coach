@@ -1,0 +1,72 @@
+<view class="page">
+  <view class="nav" style="padding-top: {{statusBarHeight}}px">
+    <view class="step-text">第 3 步 / 共 6 步</view>
+    <view class="step-bar">
+      <view wx:for="{{steps}}" wx:key="*this" class="step-seg {{item <= step ? 'is-active' : ''}}"></view>
+    </view>
+    <view class="nav__title">选定目标岗位</view>
+    <view class="nav__sub">搜一个你想报、也能报的岗位，岸岸给出目标分</view>
+  </view>
+
+  <!-- 搜索区 -->
+  <view class="card search">
+    <view class="field__label">意向地区（选填）</view>
+    <input
+      class="input"
+      placeholder="省份，如 广东；不填则全国"
+      placeholder-class="input__ph"
+      value="{{region}}"
+      bind:input="onRegionInput"
+    />
+    <view class="search__btn">
+      <ui-button variant="ghost" block loading="{{searching}}" bind:tap="onSearch">搜索可报岗位</ui-button>
+    </view>
+  </view>
+
+  <!-- 结果列表 -->
+  <view wx:if="{{items.length > 0}}" class="list">
+    <view
+      wx:for="{{items}}"
+      wx:key="positionId"
+      class="card position {{pickingId === item.positionId ? 'is-picking' : ''}}"
+      data-id="{{item.positionId}}"
+      hover-class="is-pressed"
+      bind:tap="onPick"
+    >
+      <view class="position__name">{{item.name}}</view>
+      <view class="position__dept">{{item.departmentFull}}</view>
+      <view class="position__meta">
+        <text>{{item.regionText}}</text>
+        <text class="position__dot">·</text>
+        <text>{{item.headcountText}}</text>
+      </view>
+      <view wx:if="{{item.entryScoreText}}" class="position__score">{{item.entryScoreText}}</view>
+      <view wx:if="{{pickingId === item.positionId}}" class="position__loading">评估中…</view>
+    </view>
+  </view>
+
+  <state-view
+    wx:elif="{{searched && !searching}}"
+    type="empty"
+    title="没有匹配的可报岗位"
+    desc="换个地区试试，或检查专业名称是否与毕业证一致"
+  />
+
+  <!-- 目标分确认区（页面内展开，非弹窗） -->
+  <view wx:if="{{preview}}" class="card confirm">
+    <view class="confirm__cap">目标分 · {{preview.positionName}}</view>
+    <view class="confirm__line">
+      <text class="confirm__num">{{preview.recommended}}</text>
+      <text class="confirm__unit">分</text>
+    </view>
+    <view class="confirm__range">目标区间 {{preview.rangeText}}</view>
+    <view class="confirm__evidence">
+      <text class="confirm__tag">{{preview.evidenceText}}</text>
+      <text class="confirm__sample">{{preview.sampleText}}</text>
+    </view>
+  </view>
+
+  <view wx:if="{{preview}}" class="footer">
+    <ui-button variant="primary" block loading="{{confirming}}" bind:tap="onConfirm">设为目标岗位</ui-button>
+  </view>
+</view>

@@ -1,0 +1,44 @@
+.ai-card {
+  border-radius: var(--r-lg);
+  padding: 30rpx 32rpx;
+  background:
+    radial-gradient(120% 160% at 100% 0%, rgba(34, 211, 238, 0.1) 0%, rgba(255, 255, 255, 0) 50%),
+    radial-gradient(120% 160% at 0% 100%, rgba(139, 92, 246, 0.1) 0%, rgba(255, 255, 255, 0) 50%),
+    var(--surface);
+  border: 1rpx solid rgba(91, 95, 244, 0.18);
+}
+
+.ai-card__cap {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  font-size: 20rpx;
+  letter-spacing: 0.18em;
+  color: var(--violet);
+  font-weight: 700;
+}
+
+.ai-card__pulse {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: var(--violet);
+  box-shadow: 0 0 16rpx rgba(139, 92, 246, 0.8);
+  animation: ai-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes ai-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.ai-card__body {
+  margin-top: 18rpx;
+  font-size: 24rpx;
+  color: var(--ink-2);
+  line-height: 1.85;
+}

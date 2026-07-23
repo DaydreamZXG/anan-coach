@@ -1,0 +1,120 @@
+<view class="page">
+  <view class="nav" style="padding-top: {{statusBarHeight}}px">
+    <view class="nav__back" hover-class="is-pressed" bind:tap="onBack">‹</view>
+    <view class="nav__text">
+      <view class="nav__title">当日调整</view>
+      <view class="nav__sub">时间变了，目标不用推倒重来，任务会自动重排</view>
+    </view>
+  </view>
+
+  <state-view wx:if="{{viewState === 'loading'}}" type="loading" title="正在读取今日容量…" />
+  <state-view
+    wx:elif="{{viewState === 'error'}}"
+    type="error"
+    title="容量没有加载成功"
+    desc="{{errorDesc}}"
+    request-id="{{requestId}}"
+    action-text="重新加载"
+    bind:action="onRetry"
+  />
+
+  <block wx:else>
+    <!-- 今日可用时间 -->
+    <view class="card field">
+      <view class="field__label">今日可用时间</view>
+      <view class="field__current">{{selectedDurationLabel}}</view>
+      <view class="field__help">按半小时选择；保存后会生成新的容量版本并重排今日计划。</view>
+      <scroll-view scroll-x class="strip" enhanced show-scrollbar="{{false}}">
+        <view class="strip__inner">
+          <view
+            wx:for="{{timeOptions}}"
+            wx:key="value"
+            class="strip__option {{minutes === item.value ? 'strip__option--active' : ''}}"
+            data-minutes="{{item.minutes}}"
+            hover-class="is-pressed"
+            bind:tap="chooseMinutes"
+          >
+            <text class="strip__label">{{item.label}}</text>
+            <text class="strip__caption">{{item.caption}}</text>
+          </view>
+        </view>
+      </scroll-view>
+      <view class="field__ghost" hover-class="is-pressed" bind:tap="markUnavailable">
+        今天确实无法学习
+      </view>
+    </view>
+
+    <!-- 状态量表 -->
+    <view class="card field">
+      <view class="scale">
+        <view class="scale__head">
+          <view class="scale__title">精力</view>
+          <view class="scale__value">{{energy}}/5 · {{energyLabel}}</view>
+        </view>
+        <view class="scale__row">
+          <view
+            wx:for="{{scaleOptions}}"
+            wx:key="*this"
+            class="scale__option {{energy === item ? 'scale__option--active' : ''}}"
+            data-field="energy"
+            data-value="{{item}}"
+            hover-class="is-pressed"
+            bind:tap="chooseScale"
+          >
+            {{item}}
+          </view>
+        </view>
+      </view>
+
+      <view class="scale">
+        <view class="scale__head">
+          <view class="scale__title">压力</view>
+          <view class="scale__value">{{stress}}/5 · {{stressLabel}}</view>
+        </view>
+        <view class="scale__row">
+          <view
+            wx:for="{{scaleOptions}}"
+            wx:key="*this"
+            class="scale__option {{stress === item ? 'scale__option--active' : ''}}"
+            data-field="stress"
+            data-value="{{item}}"
+            hover-class="is-pressed"
+            bind:tap="chooseScale"
+          >
+            {{item}}
+          </view>
+        </view>
+      </view>
+
+      <view class="scale">
+        <view class="scale__head">
+          <view class="scale__title">时间把握</view>
+          <view class="scale__value">{{confidenceLevel}}/5 · {{confidenceLabel}}</view>
+        </view>
+        <view class="scale__row">
+          <view
+            wx:for="{{scaleOptions}}"
+            wx:key="*this"
+            class="scale__option {{confidenceLevel === item ? 'scale__option--active' : ''}}"
+            data-field="confidenceLevel"
+            data-value="{{item}}"
+            hover-class="is-pressed"
+            bind:tap="chooseScale"
+          >
+            {{item}}
+          </view>
+        </view>
+      </view>
+
+      <view class="hint">状态不好只减今天的量，不影响你的长期分析。</view>
+      <view wx:if="{{formError}}" class="hint hint--error">{{formError}}</view>
+      <view wx:if="{{successMessage}}" class="hint hint--success">{{successMessage}}</view>
+
+      <view class="submit">
+        <ui-button variant="primary" block loading="{{submitting}}" bind:tap="submit">
+          确认并生成新计划版本
+        </ui-button>
+      </view>
+    </view>
+  </block>
+</view>

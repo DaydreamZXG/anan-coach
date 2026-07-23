@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "岗位工作区",
+  "usingComponents": {
+    "state-view": "../../../components/state-view/index"
+  }
+}
