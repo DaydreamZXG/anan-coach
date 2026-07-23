@@ -50,6 +50,7 @@ import type {
   RetakeEnrollmentRequest,
   RetakeEnrollmentResult,
   TodayDashboard,
+  WeeklyPlanVersion,
   XingceTaskBriefing,
   RetakeWorkspace,
   ReportedScoreEvidenceRequest,
@@ -319,6 +320,11 @@ export async function fetchRewardLedger(): Promise<CommunityRewardLedgerResponse
     method: "GET",
     path: "/api/v2/community-rewards/ledger",
   });
+}
+
+/** 本周计划（7 天节奏：训练/模考/恢复） */
+export async function fetchWeeklyPlan(): Promise<WeeklyPlanVersion> {
+  return authedV2<WeeklyPlanVersion>({ method: "GET", path: "/api/v2/plans/week" });
 }
 
 /** 记录开场已展示（幂等），当天不再重复弹出 */

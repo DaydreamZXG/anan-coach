@@ -35,7 +35,7 @@ const LEGACY_ROUTE_MAP: Record<string, string> = {
   "pages/positions/goal/index": "pages/goal/index",
   // 计划相关
   "pages/day-adjustment/index": "pages/plan-basis/index",
-  "pages/weekly-plan/index": "pages/plan-history/index",
+  // weekly-plan 已有真实页面，无需映射
   // 社区/知识卡
   "pages/community-draft/index": "pages/method-cards/publish",
   "pages/community-structure/index": "pages/method-cards/index",
@@ -108,6 +108,7 @@ const REGISTERED = new Set([
   "pages/position-detail/index",
   "pages/position-compare/index",
   "pages/contributions/index",
+  "pages/weekly-plan/index",
 ]);
 
 function splitUrl(url: string): { path: string; query: string } {

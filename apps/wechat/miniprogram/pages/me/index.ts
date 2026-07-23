@@ -6,6 +6,7 @@ const GROUPS = [
     items: [
       { key: "goal", label: "目标与岗位", desc: "税务局一线岗 · 2026 国考", url: "/pages/goal/index" },
       { key: "plan", label: "学习偏好", desc: "每天 90 分钟 · 侧重行测", url: "/pages/study-preference/index" },
+      { key: "week", label: "本周节奏", desc: "五天训练一天模考一天休整", url: "/pages/weekly-plan/index" },
       { key: "history", label: "计划历史", desc: "看看走过的每一天", url: "/pages/plan-history/index" },
       { key: "score", label: "补一笔成绩", desc: "考过的分数都算数", url: "/pages/score-import/index" },
     ],
