@@ -15,6 +15,10 @@ import type {
   EssayCurrentReviewEnsureCommand,
   EssayCurrentReviewEnsureResult,
   EssayTaskWorkspace,
+  MockExamReview,
+  MockExamSession,
+  MockExamSubmitRequest,
+  MockExamSubmitResponse,
   DraftReceipt,
   GetAbilityEstimateApiV1CalibrationAbilityGetResponse,
   LearnerProfile,
@@ -163,6 +167,41 @@ export async function ensureEssayReview(
     path: "/api/v2/essay-intelligence/reviews/current/ensure",
     body,
     idempotencyKey,
+  });
+}
+
+// ═══════ 模考 ═══════
+
+/** 创建或取回本周模考场次（v1 无 envelope） */
+export async function createWeeklyMockExam(): Promise<MockExamSession> {
+  return authedRequest<MockExamSession>({ method: "POST", path: "/api/v1/mock-exams/weekly" });
+}
+
+/** 交卷，返回本场复盘报告 */
+export async function submitMockExam(
+  sessionId: string,
+  body: MockExamSubmitRequest,
+): Promise<MockExamSubmitResponse> {
+  return authedRequest<MockExamSubmitResponse>({
+    method: "POST",
+    path: `/api/v1/mock-exams/${sessionId}/submit`,
+    body,
+  });
+}
+
+/** 取回模考复盘报告 */
+export async function fetchMockExamReview(sessionId: string): Promise<MockExamReview> {
+  return authedRequest<MockExamReview>({
+    method: "GET",
+    path: `/api/v1/mock-exams/${sessionId}/review`,
+  });
+}
+
+/** 标记报告已读 */
+export async function markMockReviewViewed(sessionId: string): Promise<MockExamReview> {
+  return authedRequest<MockExamReview>({
+    method: "POST",
+    path: `/api/v1/mock-exams/${sessionId}/review/view`,
   });
 }
 

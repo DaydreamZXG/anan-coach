@@ -10,7 +10,9 @@
     "pages/method-cards/publish",
     "pages/onboarding/index",
     "pages/review/index",
-    "pages/essay-material/index"
+    "pages/essay-material/index",
+    "pages/mock-exam/index",
+    "pages/mock-report/index"
   ],
   "window": {
     "navigationStyle": "custom",

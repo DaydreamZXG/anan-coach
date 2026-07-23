@@ -1,0 +1,82 @@
+<view class="page mock">
+  <view class="statusbar" />
+
+  <view class="m-nav">
+    <text class="m-back" bindtap="onBack">‹</text>
+    <text class="m-title">{{phase === 'exam' ? '' : '本周模考'}}</text>
+    <text class="m-timer num" wx:if="{{phase === 'exam'}}">{{remainText}}</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="m-loading text-2">正在组卷…</view>
+
+  <!-- 考前简报 -->
+  <block wx:elif="{{phase === 'brief'}}">
+    <scroll-view class="m-body" scroll-y>
+      <view class="card m-brief">
+        <text class="h1">{{title}}</text>
+        <view class="m-brief-row">
+          <view class="m-brief-stat">
+            <text class="m-brief-num num">{{questionCount}}</text>
+            <text class="text-3">题量</text>
+          </view>
+          <view class="m-brief-stat">
+            <text class="m-brief-num num">{{durationMinutes}}</text>
+            <text class="text-3">分钟</text>
+          </view>
+        </view>
+        <view class="m-blueprint">
+          <view class="m-bp-row" wx:for="{{blueprint}}" wx:key="moduleName">
+            <text class="m-bp-name">{{item.moduleName}}</text>
+            <text class="m-bp-count num">{{item.questionCount}} 题</text>
+          </view>
+        </view>
+        <text class="text-3">{{sourceGrounding}}</text>
+      </view>
+    </scroll-view>
+    <view class="m-foot">
+      <button class="btn btn-primary m-foot-btn" bindtap="onStart">开考，计时开始</button>
+    </view>
+    <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示卷（后端未连接）</view>
+  </block>
+
+  <!-- 作答 -->
+  <block wx:else>
+    <view class="m-progress-bar">
+      <text class="text-3 num">{{index + 1}}/{{questions.length}}</text>
+      <text class="text-3 num">已答 {{answeredCount}}</text>
+    </view>
+    <scroll-view class="m-body" scroll-y>
+      <view class="card m-q">
+        <text class="r-chip">{{questions[index].moduleName}}</text>
+        <text class="m-stem">{{questions[index].stem}}</text>
+        <view class="m-options">
+          <view
+            wx:for="{{questions[index].options}}"
+            wx:for-item="opt"
+            wx:key="optionId"
+            class="opt {{currentSelected === opt.label ? 'opt-on' : ''}}"
+            data-label="{{opt.label}}"
+            bindtap="onSelect"
+          >
+            <text class="opt-label">{{opt.label}}</text>
+            <text class="opt-text">{{opt.text}}</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="m-foot m-foot-row">
+      <button class="btn btn-ghost m-nav-btn" bindtap="onPrev" disabled="{{index === 0}}">上一题</button>
+      <button
+        wx:if="{{index < questions.length - 1}}"
+        class="btn btn-primary m-nav-btn"
+        bindtap="onNext"
+      >下一题</button>
+      <button
+        wx:else
+        class="btn btn-primary m-nav-btn"
+        bindtap="onSubmitTap"
+        disabled="{{submitting}}"
+      >{{submitting ? '交卷中…' : '交卷'}}</button>
+    </view>
+  </block>
+</view>

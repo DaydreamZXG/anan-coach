@@ -1,0 +1,61 @@
+<view class="page mreport">
+  <view class="statusbar" />
+
+  <view class="mr-nav">
+    <text class="mr-back" bindtap="onBackAbility">‹</text>
+    <text class="mr-title">模考报告</text>
+    <text class="text-3" wx:if="{{submittedAt}}">{{submittedAt}}</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="mr-loading text-2">正在阅卷…</view>
+
+  <scroll-view wx:else class="mr-body" scroll-y>
+    <!-- 估分 -->
+    <view class="card mr-score">
+      <text class="text-3">{{metricName}}</text>
+      <text class="mr-score-num num">{{score}}</text>
+      <text class="text-3">{{rangeText}}</text>
+    </view>
+
+    <!-- 模块表现 -->
+    <view class="card mr-modules">
+      <text class="mr-section-title">各模块表现</text>
+      <view class="mr-mod" wx:for="{{modules}}" wx:key="moduleName">
+        <view class="mr-mod-head">
+          <text class="mr-mod-name">{{item.moduleName}}</text>
+          <view class="mr-mod-meta">
+            <text class="text-3 num">{{item.correct}}/{{item.total}}</text>
+            <text class="mr-change {{item.changeClass}}">{{item.changeText}}</text>
+          </view>
+        </view>
+        <view class="mr-track">
+          <view class="mr-fill" style="width: {{item.accuracyPct}}%" />
+        </view>
+      </view>
+    </view>
+
+    <!-- 错题聚类 -->
+    <view class="card mr-clusters" wx:if="{{clusters.length}}">
+      <text class="mr-section-title">丢分都丢在哪</text>
+      <view class="mr-cluster" wx:for="{{clusters}}" wx:key="nodeId">
+        <view class="mr-cluster-head">
+          <text class="mr-cluster-path">{{item.displayPath}}</text>
+          <text class="mr-wrong num">错 {{item.wrongCount}}</text>
+        </view>
+        <text class="mr-fix">{{item.fixAction}}</text>
+      </view>
+    </view>
+
+    <!-- 岸岸的下周策略（暖色） -->
+    <view class="mr-anan" wx:if="{{nextWeekReason}}">
+      <view class="anan-avatar">岸</view>
+      <text class="mr-anan-text">{{nextWeekReason}}</text>
+    </view>
+
+    <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示报告（后端未连接）</view>
+  </scroll-view>
+
+  <view class="mr-foot">
+    <button class="btn btn-primary mr-foot-btn" bindtap="onBackToday">回到今日，按新策略走</button>
+  </view>
+</view>
