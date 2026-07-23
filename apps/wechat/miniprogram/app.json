@@ -49,6 +49,7 @@
     ]
   },
   "lazyCodeLoading": "requiredComponents",
+  "resizable": true,
   "usingComponents": {
     "safe-top": "/components/safe-top/index"
   },

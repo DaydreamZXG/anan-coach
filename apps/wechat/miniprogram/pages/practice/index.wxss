@@ -21,6 +21,17 @@
 .p-progress-fill { height: 8rpx; background: var(--primary); border-radius: 999rpx; transition: width 0.3s; }
 
 .p-loading { flex: 1; display: flex; align-items: center; justify-content: center; color: var(--ink-3); }
+.p-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  padding: 0 48rpx;
+  text-align: center;
+}
+.p-empty-btn { margin-top: 24rpx; min-width: 240rpx; }
 .p-body { flex: 1; padding: 0 32rpx; box-sizing: border-box; }
 
 .q-module {

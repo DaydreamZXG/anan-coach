@@ -75,3 +75,14 @@ page {
 .btn-primary:active { background: var(--primary-deep); }
 .btn-ghost { background: var(--primary-soft); color: var(--primary); }
 .btn-warm { background: var(--warm); color: #ffffff; }
+
+/* 平板/大屏适配:rpx 会随屏宽放大,内容列限宽居中防止巨型卡片 */
+@media (min-width: 600px) {
+  .page {
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}

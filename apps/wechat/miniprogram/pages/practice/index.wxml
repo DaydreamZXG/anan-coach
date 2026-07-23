@@ -54,4 +54,10 @@
     </view>
     <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示题目（后端未连接）</view>
   </block>
+
+  <view wx:else class="p-empty">
+    <text class="text-2">这组题没取到</text>
+    <text class="text-3">可能是网络问题，回今日页重新点开始试试</text>
+    <button class="btn btn-ghost p-empty-btn" bindtap="onBack">返回</button>
+  </view>
 </view>

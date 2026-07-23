@@ -1,4 +1,4 @@
-import { fetchPrivacyOverview, requestAccountDeletion } from "../../api/endpoints";
+import { fetchPrivacyOverview, requestAccountDeletion, requestDataExport } from "../../api/endpoints";
 import { clearSession } from "../../api/auth";
 
 const CONFIRM_PHRASE = "删除我的岸岸账户";
@@ -17,6 +17,7 @@ Page({
     confirmPhrase: CONFIRM_PHRASE,
     phraseInput: "",
     deleting: false,
+    exporting: false,
   },
 
   onLoad() {
@@ -64,6 +65,25 @@ Page({
     wx.openPrivacyContract({
       fail: () => wx.showToast({ title: "隐私协议暂未配置", icon: "none" }),
     });
+  },
+
+  async onExport() {
+    if (this.data.exporting) return;
+    if (this.data.usingDemo) {
+      wx.showToast({ title: "已提交导出（演示）", icon: "none" });
+      return;
+    }
+    this.setData({ exporting: true });
+    try {
+      const key = `exp-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+      await requestDataExport(key);
+      wx.showToast({ title: "导出已提交，好了会通知你", icon: "none" });
+    } catch (err) {
+      console.error("[privacy] export failed", err);
+      wx.showToast({ title: "没提交成功，再试一次", icon: "none" });
+    } finally {
+      this.setData({ exporting: false });
+    }
   },
 
   onPhraseInput(e: WechatMiniprogram.Input) {

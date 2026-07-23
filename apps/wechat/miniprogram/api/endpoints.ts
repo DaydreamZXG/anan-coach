@@ -5,6 +5,7 @@ import type {
   CompanionAskRequest,
   CompanionAskResponse,
   CommunityRewardLedgerResponse,
+  DataExportView,
   CommerceEntitlementResponse,
   ContributionsResponse,
   DailyCapacityCommand,
@@ -364,6 +365,15 @@ export async function requestAccountDeletion(
     method: "POST",
     path: "/api/v2/data-rights/deletions",
     body: { commandKey, confirmationPhrase },
+  });
+}
+
+/** 申请导出个人数据副本 */
+export async function requestDataExport(commandKey: string): Promise<DataExportView> {
+  return authedV2<DataExportView>({
+    method: "POST",
+    path: "/api/v2/data-rights/exports",
+    body: { commandKey },
   });
 }
 

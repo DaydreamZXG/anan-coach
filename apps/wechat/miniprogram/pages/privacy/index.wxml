@@ -28,6 +28,15 @@
       <text class="text-3 pv-retention">{{rawMaterialRetention}}</text>
     </view>
 
+    <text class="pv-section">数据副本</text>
+    <view class="card pv-export">
+      <view class="pv-policy-main">
+        <text class="pv-policy-title">导出我的数据</text>
+        <text class="text-3">打包练习记录、计划、对话等，生成后可下载</text>
+      </view>
+      <button class="btn btn-ghost pv-export-btn" bindtap="onExport" disabled="{{exporting}}">{{exporting ? '提交中…' : '申请导出'}}</button>
+    </view>
+
     <text class="pv-section">注销账户</text>
     <view class="card pv-danger">
       <view class="pv-effects">

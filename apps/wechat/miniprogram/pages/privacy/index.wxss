@@ -19,6 +19,8 @@
 .pv-retention { line-height: 1.6; padding-top: 8rpx; border-top: 1rpx solid var(--line); }
 
 .pv-danger { display: flex; flex-direction: column; gap: 24rpx; }
+.pv-export { display: flex; align-items: center; justify-content: space-between; gap: 20rpx; }
+.pv-export-btn { height: 72rpx; font-size: 26rpx; padding: 0 32rpx; flex-shrink: 0; }
 .pv-effects { display: flex; flex-direction: column; gap: 8rpx; }
 .pv-effect { font-size: 26rpx; color: var(--ink-2); line-height: 1.6; }
 .pv-input {
