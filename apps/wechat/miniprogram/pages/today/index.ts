@@ -155,6 +155,13 @@ Page({
     this.setData({ opening: null });
   },
 
+  onOpenBasis() {
+    wx.navigateTo({
+      url: "/pages/plan-basis/index",
+      fail: () => wx.showToast({ title: "跳转失败，再点一次", icon: "none" }),
+    });
+  },
+
   render(stream: TodayTaskstream, usingDemo: boolean) {
     const doneSet = new Set(stream.completedTaskIds || []);
     const tasksView = stream.tasks.map((t, i) => ({

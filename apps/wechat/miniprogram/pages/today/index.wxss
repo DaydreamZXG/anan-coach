@@ -26,6 +26,13 @@
 .opening-coffee { font-size: 26rpx; line-height: 1.5; color: #8a6d4a; }
 .opening-close { font-size: 40rpx; color: #c4a984; line-height: 1; padding: 0 8rpx; flex-shrink: 0; }
 
+/* 计划依据入口 */
+.basis-link {
+  display: flex; align-items: center; justify-content: space-between; gap: 16rpx;
+  padding: 16rpx 4rpx 0;
+}
+.basis-link-cta { font-size: 26rpx; color: var(--primary); flex-shrink: 0; }
+
 /* 头部 */
 .head {
   padding: 8rpx 0 24rpx;

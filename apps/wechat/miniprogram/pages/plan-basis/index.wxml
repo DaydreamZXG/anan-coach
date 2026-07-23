@@ -1,0 +1,65 @@
+<view class="page pb">
+  <view class="statusbar" />
+  <view class="pb-nav">
+    <text class="pb-back" bindtap="onBack">‹</text>
+    <text class="pb-title">为什么是这些任务</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="pb-loading text-2">正在取计划依据…</view>
+
+  <scroll-view wx:else class="pb-body" scroll-y>
+    <view class="card pb-head">
+      <text class="h2">{{headline}}</text>
+      <text class="text-2 pb-rationale">{{rationale}}</text>
+    </view>
+
+    <text class="pb-section">逐条依据</text>
+    <view class="card pb-task" wx:for="{{tasks}}" wx:key="taskId">
+      <view class="pb-task-head">
+        <text class="pb-order num">{{item.order}}</text>
+        <text class="pb-task-title">{{item.title}}</text>
+        <text class="text-3 num">{{item.minutes}} 分钟</text>
+      </view>
+      <text class="pb-reason">{{item.reason}}</text>
+      <text class="pb-chip">{{item.trackLabel}}</text>
+    </view>
+
+    <!-- 当日调整 -->
+    <view class="card pb-adjust">
+      <view class="pb-adjust-head" bindtap="onToggleAdjust">
+        <view class="pb-adjust-main">
+          <text class="pb-task-title">今天状态不对？</text>
+          <text class="text-3">说一声，我当场给你减量重排</text>
+        </view>
+        <text class="pb-arrow">{{adjustOpen ? '收起' : '调整'}}</text>
+      </view>
+
+      <block wx:if="{{adjustOpen}}">
+        <text class="pb-sub">现在的精力</text>
+        <view class="pb-energy">
+          <text
+            class="pb-energy-chip {{energy === item.value ? 'is-on' : ''}}"
+            wx:for="{{energyLevels}}"
+            wx:key="value"
+            data-value="{{item.value}}"
+            bindtap="onPickEnergy"
+          >{{item.label}}</text>
+        </view>
+        <text class="pb-sub">今天最多能学 <text class="num pb-minute">{{minuteSteps[minuteIndex]}}</text> 分钟</text>
+        <slider
+          min="0"
+          max="{{minuteSteps.length - 1}}"
+          step="1"
+          value="{{minuteIndex}}"
+          bindchange="onMinuteChange"
+          activeColor="#2b6cb0"
+          block-size="24"
+        />
+        <button class="btn btn-primary pb-apply" bindtap="onApplyAdjust" disabled="{{adjusting}}">{{adjusting ? '重排中…' : '就按这个重排今天'}}</button>
+        <text class="text-3 pb-note">减量不扣分不记账，状态差的时候少做对的事，好过硬撑做错的事。</text>
+      </block>
+    </view>
+
+    <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示数据（后端未连接）</view>
+  </scroll-view>
+</view>

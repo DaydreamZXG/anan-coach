@@ -20,7 +20,8 @@
     "pages/goal/index",
     "pages/notification/index",
     "pages/about/index",
-    "pages/score-import/index"
+    "pages/score-import/index",
+    "pages/plan-basis/index"
   ],
   "window": {
     "navigationStyle": "custom",

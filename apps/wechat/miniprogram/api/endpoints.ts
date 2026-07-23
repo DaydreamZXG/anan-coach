@@ -3,6 +3,8 @@ import { request } from "./client";
 import type {
   CompanionAskRequest,
   CompanionAskResponse,
+  DailyCapacityCommand,
+  DailyCapacityCommandResult,
   DailyOpeningView,
   DailySettlementView,
   DiscoveryRequest,
@@ -30,6 +32,7 @@ import type {
   OnboardingProgress,
   OnboardingResultProjection,
   PlacementAnswer,
+  PlanBasisView,
   PlanChangeHistory,
   PlacementSubmitResponse,
   PlacementTestTask,
@@ -41,6 +44,7 @@ import type {
   QualificationMilestoneCommand,
   RetakeEnrollmentRequest,
   RetakeEnrollmentResult,
+  TodayDashboard,
   RetakeWorkspace,
   ReportedScoreEvidenceRequest,
   ReportedScoreEvidenceResult,
@@ -243,6 +247,29 @@ export async function fetchScoreEvidenceHistory(): Promise<ScoreEvidenceHistory>
 /** 每日开场（岸岸开场白 + 天气 + 今日计划一句话） */
 export async function fetchDailyOpening(): Promise<DailyOpeningView> {
   return authedV2<DailyOpeningView>({ method: "GET", path: "/api/v2/plans/daily-opening" });
+}
+
+/** 今日计划依据（为什么是这些任务） */
+export async function fetchPlanBasis(): Promise<PlanBasisView> {
+  return authedV2<PlanBasisView>({ method: "GET", path: "/api/v2/plans/today/basis" });
+}
+
+/** 今日仪表盘（含当前容量版本，调整前必读） */
+export async function fetchTodayDashboard(): Promise<TodayDashboard> {
+  return authedV2<TodayDashboard>({ method: "GET", path: "/api/v2/plans/today" });
+}
+
+/** 覆盖今天的可用容量（幂等），后端会当场重排今日计划 */
+export async function setTodayCapacity(
+  body: DailyCapacityCommand,
+  idempotencyKey: string,
+): Promise<DailyCapacityCommandResult> {
+  return authedV2<DailyCapacityCommandResult>({
+    method: "PUT",
+    path: "/api/v2/plans/today/capacity",
+    body,
+    idempotencyKey,
+  });
 }
 
 /** 记录开场已展示（幂等），当天不再重复弹出 */

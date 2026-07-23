@@ -40,6 +40,11 @@
           <text class="text-3">{{stream.calibration.statusLabel}}</text>
         </view>
       </view>
+
+      <view class="basis-link" bindtap="onOpenBasis">
+        <text class="text-3">为什么是这些任务？状态不好想减量？</text>
+        <text class="basis-link-cta">看依据 / 调整</text>
+      </view>
     </view>
 
     <!-- 告警（如降载提醒等） -->
