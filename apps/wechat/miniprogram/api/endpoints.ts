@@ -1,6 +1,12 @@
 import { ensureSession } from "./auth";
 import { request } from "./client";
 import type {
+  CompanionAskRequest,
+  CompanionAskResponse,
+  DiscoveryRequest,
+  DiscoveryResponse,
+  DraftCreate,
+  DraftReceipt,
   GetAbilityEstimateApiV1CalibrationAbilityGetResponse,
   LearnerProfile,
   MasteryQueuePage,
@@ -66,6 +72,42 @@ export async function fetchAbilityEstimate(): Promise<GetAbilityEstimateApiV1Cal
   return authedRequest<GetAbilityEstimateApiV1CalibrationAbilityGetResponse>({
     method: "GET",
     path: "/api/v1/calibration/ability",
+  });
+}
+
+// ═══════ 岸岸（AI 伴学） ═══════
+
+/** 向岸岸提问（岸岸页主数据源，v2 幂等） */
+export async function askCompanion(body: CompanionAskRequest): Promise<CompanionAskResponse> {
+  return authedV2<CompanionAskResponse>({
+    method: "POST",
+    path: "/api/v2/companion/ask",
+    body,
+    idempotencyKey: idemKey(),
+  });
+}
+
+// ═══════ 社区知识卡 ═══════
+
+/** 知识卡广场：按赛道 + 适用范围发现他人卡片 */
+export async function discoverMethodCards(body: DiscoveryRequest): Promise<DiscoveryResponse> {
+  return authedV2<DiscoveryResponse>({
+    method: "POST",
+    path: "/api/v2/community-method-cards/discovery",
+    body,
+  });
+}
+
+/** 发布知识卡草稿（结构化 UGC 入口） */
+export async function createMethodCardDraft(
+  body: Omit<DraftCreate, "idempotencyKey">
+): Promise<DraftReceipt> {
+  const key = idemKey();
+  return authedV2<DraftReceipt>({
+    method: "POST",
+    path: "/api/v2/community-method-cards/drafts",
+    body: { ...body, idempotencyKey: key },
+    idempotencyKey: key,
   });
 }
 

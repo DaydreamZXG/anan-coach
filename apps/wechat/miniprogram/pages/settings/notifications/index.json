@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "通知设置",
-  "usingComponents": {
-    "state-view": "../../../components/state-view/index"
-  }
-}

@@ -1,189 +1,118 @@
-<view class="page">
-  <block wx:if="{{viewState === 'ready'}}">
-    <!-- 深空 hero -->
-    <view class="hero" style="padding-top: {{statusBarHeight + 10}}px">
-      <view class="hero__glow hero__glow--a"></view>
-      <view class="hero__glow hero__glow--b"></view>
+<view class="page today">
+  <!-- 自定义状态栏占位 -->
+  <view class="statusbar" />
 
-      <view class="status" style="margin-right: {{capsuleInset}}px">
-        <view class="status__chip">
-          <view class="status__k">主目标</view>
-          <view class="status__v">{{targetName}}</view>
-        </view>
-        <view class="status__chip">
-          <view class="status__k">分差 · 参考</view>
-          <view class="status__v status__v--hl">{{gapText}}</view>
-        </view>
-        <view class="status__chip">
-          <view class="status__k">今日</view>
-          <view class="status__v">{{doneCount}}<text class="status__em">/{{totalCount}} 项</text></view>
-        </view>
-      </view>
-
-      <view class="greet">
-        <image class="greet__avatar" src="{{avatarUrl}}" mode="aspectFill" />
-        <view class="greet__text">
-          <view class="greet__hi">{{headline}}</view>
-          <view class="greet__sub">{{subline}}</view>
-          <view class="greet__live"><view class="live-dot"></view>{{liveText}}</view>
-        </view>
-      </view>
-    </view>
-
-    <!-- 每日开场卡（每天一次，displayState 由服务端把关） -->
-    <view wx:if="{{openingStatus === 'ready' && openingView}}" class="opening-wrap">
-      <view class="opening">
-        <view class="opening__head">
-          <view class="opening__head-text">
-            <view class="opening__kicker">今日开场 · {{openingView.localDateLabel}}</view>
-            <view class="opening__greeting">{{openingView.greeting}}</view>
-          </view>
-          <view class="opening__once">每天一次</view>
-        </view>
-
-        <view wx:if="{{openingView.weatherReady}}" class="opening__weather">
-          <view class="opening__weather-main">{{openingView.weatherHeadline}}</view>
-          <view class="opening__weather-detail">{{openingView.weatherDetail}}</view>
-          <view
-            wx:if="{{openingView.attributionVisible}}"
-            class="opening__weather-src"
-            hover-class="is-pressed"
-            bind:tap="onWeatherAttribution"
-          >
-            Apple Weather ›
-          </view>
-        </view>
-        <view wx:elif="{{openingView.weatherLocationRequired}}" class="opening__setup">
-          <view class="opening__setup-text">
-            <view class="opening__setup-title">先选一个天气地点</view>
-            <view class="opening__setup-copy">只保存约百米精度，不持续定位。</view>
-          </view>
-          <view
-            class="opening__setup-btn {{openingWriting ? 'is-disabled' : ''}}"
-            hover-class="is-pressed"
-            bind:tap="onChooseWeatherLocation"
-          >
-            选择地点
-          </view>
-        </view>
-        <view wx:elif="{{openingView.weatherUnavailable}}" class="opening__provider">
-          天气服务尚未完成线上授权，本次不展示推测天气。
-        </view>
-
-        <view class="opening__plan" hover-class="is-pressed" bind:tap="onStartOpening">
-          <view class="opening__plan-text">
-            <view class="opening__plan-label">今天先做</view>
-            <view class="opening__plan-title">{{openingView.planTitle}}</view>
-          </view>
-          <view class="opening__plan-min">{{openingView.planMinutesLabel}}</view>
-        </view>
-
-        <view wx:if="{{openingView.coffeeVisible}}" class="opening__coffee">
-          <view class="opening__coffee-copy">{{openingView.coffeePrompt}}</view>
-          <view class="opening__coffee-acts">
-            <view
-              class="opening__coffee-btn {{openingWriting ? 'is-disabled' : ''}}"
-              hover-class="is-pressed"
-              bind:tap="onDeclineCoffee"
-            >
-              今天不喝
-            </view>
-            <view
-              class="opening__coffee-btn opening__coffee-btn--mute {{openingWriting ? 'is-disabled' : ''}}"
-              hover-class="is-pressed"
-              bind:tap="onDisableCoffee"
-            >
-              以后别问
-            </view>
-          </view>
-        </view>
-
-        <view class="opening__start" hover-class="is-pressed" bind:tap="onStartOpening">
-          开始今日学习
-        </view>
-      </view>
-    </view>
-
-    <!-- 今日主线卡（跨区悬浮） -->
-    <view
-      class="mainline-wrap {{openingStatus === 'ready' && openingView ? 'mainline-wrap--stacked' : ''}}"
-      wx:if="{{mainline}}"
-    >
-      <view class="mainline">
-        <view class="mainline__cap">
-          <text class="mainline__cap-tag">今日主线</text>
-          <text class="mainline__cap-pos">{{mainline.seq}} / {{totalCount}}</text>
-        </view>
-        <view class="mainline__title">{{mainline.title}}</view>
-        <view class="mainline__meta">{{mainline.subtitle}} · 约 {{mainline.estimatedMinutes}} 分钟</view>
-        <view class="mainline__why">{{mainline.reason}}</view>
-        <view class="mainline__act">
-          <view class="mainline__basis" hover-class="is-pressed" bind:tap="onShowBasis">查看依据</view>
-          <ui-button bind:tap="onStartMainline">开始</ui-button>
-        </view>
-      </view>
-    </view>
-
-    <view class="body-zone">
-      <view wx:if="{{restTasks.length > 0}}" class="section">
-        <view class="section-head">
-          <view class="section-title">接下来</view>
-          <view class="section-extra">完成 {{doneCount}}/{{totalCount}}</view>
-        </view>
-        <view
-          wx:for="{{restTasks}}"
-          wx:key="id"
-          class="card task-row {{item.done ? 'task-row--done' : ''}}"
-          hover-class="is-pressed"
-          data-id="{{item.id}}"
-          bind:tap="onOpenTask"
-        >
-          <view class="task-row__idx">{{item.done ? '✓' : item.seq}}</view>
-          <view class="task-row__info">
-            <view class="task-row__name">{{item.title}}</view>
-            <view class="task-row__why">{{item.reason}}</view>
-          </view>
-          <view class="task-row__dur">{{item.estimatedMinutes}}′</view>
-        </view>
-      </view>
-
-      <view class="section sub-entries">
-        <view class="sub-entry" hover-class="is-pressed" bind:tap="onOpenWeeklyPlan">
-          <text class="sub-entry__label">周计划</text>
-          <text class="sub-entry__arrow">›</text>
-        </view>
-        <view class="sub-entry" hover-class="is-pressed" bind:tap="onOpenPlanHistory">
-          <text class="sub-entry__label">历史</text>
-          <text class="sub-entry__arrow">›</text>
-        </view>
-        <view class="sub-entry" hover-class="is-pressed" bind:tap="onOpenDayAdjustment">
-          <text class="sub-entry__label">调整今日</text>
-          <text class="sub-entry__arrow">›</text>
-        </view>
-      </view>
-
-      <view class="section" wx:if="{{insight}}">
-        <ai-card>{{insight}}</ai-card>
-      </view>
-
-      <view class="foot-space"></view>
-    </view>
+  <block wx:if="{{loading}}">
+    <view class="skeleton-head" />
+    <view class="skeleton-card" />
+    <view class="skeleton-card" />
   </block>
 
-  <state-view
-    wx:if="{{viewState === 'loading'}}"
-    type="loading"
-    title="岸岸正在为你排今天…"
-  />
-  <state-view
-    wx:elif="{{viewState === 'error'}}"
-    type="error"
-    title="今天的内容没加载出来"
-    desc="{{errorDesc}}"
-    request-id="{{requestId}}"
-    action-text="重试"
-    bind:action="load"
-  />
+  <block wx:else>
+    <!-- 头部：今日一句话 -->
+    <view class="head">
+      <text class="head-date text-3">{{stream.date}}</text>
+      <text class="head-title h1">{{stream.headline}}</text>
 
-  <view wx:if="{{demo}}" class="demo-badge">演示数据</view>
+      <!-- 目标 + 校准状态条 -->
+      <view class="target-bar">
+        <view class="target-col">
+          <text class="text-3">目标</text>
+          <text class="target-main">{{stream.target.positionGroup}}</text>
+          <text class="text-3">{{stream.target.exam}}</text>
+        </view>
+        <view class="target-divider" />
+        <view class="target-col">
+          <text class="text-3">当前分差</text>
+          <text class="target-gap num" wx:if="{{stream.target.scoreGapAvailable}}">{{stream.target.scoreGap}}<text class="target-gap-unit">分</text></text>
+          <text class="target-main" wx:else>待测</text>
+          <text class="text-3">{{stream.calibration.statusLabel}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 告警（如降载提醒等） -->
+    <view
+      wx:for="{{stream.alerts}}"
+      wx:key="id"
+      class="alert"
+      data-url="{{item.actionUrl}}"
+      bindtap="onTapAlert"
+    >
+      <view class="alert-body">
+        <text class="alert-title">{{item.title}}</text>
+        <text class="text-3">{{item.subtitle}}</text>
+      </view>
+      <text class="alert-arrow">›</text>
+    </view>
+
+    <!-- 今日依据（岸岸口吻，暖色） -->
+    <view class="rationale" bindtap="onAskAnan">
+      <view class="rationale-head">
+        <view class="anan-avatar">岸</view>
+        <text class="rationale-label">今天为什么这么排</text>
+      </view>
+      <text class="rationale-text">{{stream.rationale}}</text>
+      <text class="rationale-basis text-3">{{stream.planBasis}}</text>
+      <text class="rationale-cta">有疑问？找岸岸聊聊 ›</text>
+    </view>
+
+    <!-- 进度 -->
+    <view class="progress-row">
+      <text class="progress-label">今日任务</text>
+      <text class="progress-count num">{{doneCount}}/{{totalCount}}</text>
+    </view>
+
+    <!-- 任务流 -->
+    <view class="stream">
+      <view
+        wx:for="{{tasksView}}"
+        wx:key="id"
+        class="task {{item.done ? 'task-done' : ''}} {{item.order === (doneCount + 1) && !item.done ? 'task-next' : ''}}"
+      >
+        <view class="task-rail">
+          <view class="task-node">
+            <text wx:if="{{item.done}}" class="task-check">✓</text>
+            <text wx:else class="task-order num">{{item.order}}</text>
+          </view>
+          <view wx:if="{{item.order < totalCount}}" class="task-line" />
+        </view>
+
+        <view class="task-body">
+          <view class="task-top">
+            <text class="task-track track-{{item.track}}">{{item.trackLabel}}</text>
+            <text class="task-min text-3 num">{{item.estimatedMinutes}} 分钟</text>
+          </view>
+          <text class="task-title h2">{{item.title}}</text>
+          <text class="task-sub text-2">{{item.subtitle}}</text>
+
+          <view class="task-reason">
+            <text class="task-reason-text">{{item.reason}}</text>
+            <text class="task-grounding text-3">依据：{{item.sourceGrounding}}</text>
+          </view>
+
+          <button
+            wx:if="{{!item.done}}"
+            class="btn {{item.order === (doneCount + 1) ? 'btn-primary' : 'btn-ghost'}} task-btn"
+            data-url="{{item.startUrl}}"
+            bindtap="onStartTask"
+          >
+            {{item.order === (doneCount + 1) ? '开始' : '稍后做'}}
+          </button>
+          <view wx:else class="task-done-tag">已完成</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 每日结算入口：任务流的终点 -->
+    <view class="settle {{allDone ? 'settle-ready' : ''}}" bindtap="onOpenSettlement">
+      <view class="settle-body">
+        <text class="settle-title">{{allDone ? '今天的事都做完了' : '每日结算'}}</text>
+        <text class="text-3">{{allDone ? '来做个结算，看看今天离上岸近了多少' : '完成任务后在这里复盘今天'}}</text>
+      </view>
+      <text class="settle-arrow">›</text>
+    </view>
+
+    <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示数据（后端未连接）</view>
+  </block>
 </view>

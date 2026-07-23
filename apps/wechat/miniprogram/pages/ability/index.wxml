@@ -1,60 +1,85 @@
-<view class="page">
-  <view class="nav" style="padding-top: {{statusBarHeight}}px">
-    <view class="nav__title">能力</view>
-    <view class="nav__sub">系统对你的理解，都摊开在这里</view>
-  </view>
+<view class="page ability">
+  <view class="statusbar" />
 
-  <block wx:if="{{viewState === 'ready'}}">
-    <!-- 估分卡 -->
-    <view class="score card">
-      <view class="score__cap">行测估分</view>
-      <view wx:if="{{hasScore}}" class="score__line">
-        <text class="score__num">{{scoreText}}</text>
-        <text class="score__unit">分</text>
-        <view class="score__tag score__tag--{{confidence}}">{{confidenceText}}</view>
-      </view>
-      <view wx:else class="score__empty">
-        <view class="score__empty-title">还不够判断</view>
-        <view class="score__empty-desc">{{statusLabel || '再做几组题，岸岸就能给出估分。'}}</view>
-      </view>
-      <view wx:if="{{dataLine}}" class="score__dataline">{{dataLine}}</view>
-    </view>
-
-    <!-- 六模块 -->
-    <view class="section" wx:if="{{modules.length > 0}}">
-      <view class="section-head">
-        <view class="section-title">六模块</view>
-        <view class="section-extra">条 = 正确率</view>
-      </view>
-      <view class="card modules">
-        <view wx:for="{{modules}}" wx:key="name" class="module">
-          <view class="module__name">{{item.name}}</view>
-          <view class="module__bar">
-            <view class="module__fill" style="width: {{item.percent}}%"></view>
-          </view>
-          <view class="module__val">{{item.percent}}<text class="module__pct">%</text></view>
-          <view class="module__sample">{{item.sampleSize}} 题</view>
-        </view>
-      </view>
-    </view>
-
-    <view class="foot-note">估分口径：区间随证据变化 · 不预测考试结果</view>
+  <block wx:if="{{loading}}">
+    <view class="skeleton-card" />
+    <view class="skeleton-card" />
   </block>
 
-  <state-view
-    wx:if="{{viewState === 'loading'}}"
-    type="loading"
-    title="正在汇总你的能力证据…"
-  />
-  <state-view
-    wx:elif="{{viewState === 'error'}}"
-    type="error"
-    title="能力档案没加载出来"
-    desc="网络不太稳定，稍后再试一次。"
-    request-id="{{requestId}}"
-    action-text="重试"
-    bind:action="load"
-  />
+  <block wx:else>
+    <text class="page-title h1">我的能力</text>
 
-  <view wx:if="{{demo}}" class="demo-badge">演示数据</view>
+    <!-- 总估分 + 置信 -->
+    <view class="overall card">
+      <view class="overall-top">
+        <view>
+          <text class="text-3">行测综合估分</text>
+          <view class="overall-score">
+            <text class="overall-num num">{{est.xingceScore === null ? '--' : est.xingceScore}}</text>
+            <text class="overall-unit">分</text>
+          </view>
+        </view>
+        <view class="confidence-pill conf-{{est.confidence}}">
+          <text class="conf-label">置信度</text>
+          <text class="conf-value">{{confidenceLabel}}</text>
+        </view>
+      </view>
+      <text class="overall-dataline">{{est.dataLine}}</text>
+      <text wx:if="{{est.latestMockReason}}" class="overall-reason text-3">{{est.latestMockReason}}</text>
+      <button class="btn btn-primary overall-cta" bindtap="onGoMock">做一次限时模考，收窄区间</button>
+    </view>
+
+    <!-- 能力地形：模块条 + 不确定带 -->
+    <view class="section-title">
+      <text class="h2">能力地形</text>
+      <text class="text-3">灰色区间 = 数据还不够确定的范围</text>
+    </view>
+    <view class="card terrain">
+      <view wx:for="{{modulesView}}" wx:key="moduleName" class="module">
+        <view class="module-head">
+          <text class="module-name">{{item.moduleName}}</text>
+          <view class="module-meta">
+            <text class="module-src text-3">{{item.sourceLabel}} · {{item.sampleSize}}题</text>
+            <text class="module-acc num">{{item.accuracyPct}}%</text>
+          </view>
+        </view>
+        <view class="bar">
+          <!-- 不确定带 -->
+          <view class="bar-band" style="left:{{item.bandLeft}}%;width:{{item.bandWidth}}%;" />
+          <!-- 估计点 -->
+          <view class="bar-point" style="left:{{item.accuracyPct}}%;" />
+        </view>
+        <text wx:if="{{item.shaky}}" class="module-hint text-3">样本较少，多做几题这个数才准</text>
+      </view>
+    </view>
+
+    <!-- 知识卡广场入口 -->
+    <view class="community card" bindtap="onGoCommunity">
+      <view class="community-body">
+        <text class="community-title">知识卡广场</text>
+        <text class="text-3">看看其他考友怎么攻克这些薄弱模块</text>
+      </view>
+      <text class="community-arrow">›</text>
+    </view>
+
+    <!-- 报告下钻 -->
+    <view class="section-title"><text class="h2">深入看看</text></view>
+    <view class="card reports">
+      <view
+        wx:for="{{reports}}"
+        wx:key="key"
+        class="report-row {{index < reports.length - 1 ? 'report-border' : ''}}"
+        data-url="{{item.url}}"
+        bindtap="onOpenReport"
+      >
+        <view class="report-body">
+          <text class="report-title">{{item.title}}</text>
+          <text class="text-3">{{item.subtitle}}</text>
+        </view>
+        <text class="report-arrow">›</text>
+      </view>
+    </view>
+
+    <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示数据（后端未连接）</view>
+  </block>
 </view>

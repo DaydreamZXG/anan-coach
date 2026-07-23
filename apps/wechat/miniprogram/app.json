@@ -1,61 +1,32 @@
 {
   "pages": [
     "pages/today/index",
-    "pages/training/index",
     "pages/ability/index",
-    "pages/profile/index",
-    "pages/onboarding/index/index",
-    "pages/onboarding/experience/index",
-    "pages/onboarding/qualification/index",
-    "pages/onboarding/position/index",
-    "pages/onboarding/preference/index",
-    "pages/onboarding/placement/index",
-    "pages/onboarding/result/index",
+    "pages/anan/index",
+    "pages/me/index",
     "pages/practice/index",
-    "pages/review/index",
-    "pages/settings/workspace/index",
-    "pages/settings/qualification/index",
-    "pages/settings/study-budget/index",
-    "pages/settings/notifications/index",
-    "pages/settings/privacy/index",
-    "pages/settings/about/index",
-    "pages/weekly-plan/index",
-    "pages/plan-history/index",
-    "pages/plan-basis/index",
     "pages/daily-settlement/index",
-    "pages/day-adjustment/index",
-    "pages/weather-attribution/index",
-    "pages/reflection/index",
-    "pages/task-intro/index",
-    "pages/error-pattern/index",
-    "pages/mastery/index",
-    "pages/mock-exam/index",
-    "pages/mock-report/index",
-    "pages/external-report/index",
-    "pages/essay-task/index",
-    "pages/essay-material/index",
-    "pages/essay-compose/index",
-    "pages/essay-review/index",
-    "pages/essay-rewrite/index",
-    "pages/essay-evidence/index"
+    "pages/method-cards/index",
+    "pages/method-cards/publish",
+    "pages/onboarding/index"
   ],
   "window": {
     "navigationStyle": "custom",
-    "backgroundColor": "#f7f8fa",
+    "backgroundColor": "#F5F6F8",
     "backgroundTextStyle": "dark"
   },
   "tabBar": {
     "custom": true,
-    "color": "#9aa3b8",
-    "selectedColor": "#10131b",
-    "backgroundColor": "#ffffff",
+    "color": "#9AA3AE",
+    "selectedColor": "#2B6CB0",
+    "backgroundColor": "#FFFFFF",
     "list": [
       { "pagePath": "pages/today/index", "text": "今日" },
-      { "pagePath": "pages/training/index", "text": "训练" },
       { "pagePath": "pages/ability/index", "text": "能力" },
-      { "pagePath": "pages/profile/index", "text": "我的" }
+      { "pagePath": "pages/anan/index", "text": "岸岸" },
+      { "pagePath": "pages/me/index", "text": "我的" }
     ]
   },
-  "sitemapLocation": "sitemap.json",
-  "lazyCodeLoading": "requiredComponents"
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
 }

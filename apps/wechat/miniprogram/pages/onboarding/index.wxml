@@ -1,0 +1,173 @@
+<view class="page ob">
+  <view class="statusbar" />
+
+  <view class="ob-steps">
+    <view class="ob-dot {{step >= 1 ? 'on' : ''}}" />
+    <view class="ob-dash {{step >= 2 ? 'on' : ''}}" />
+    <view class="ob-dot {{step >= 2 ? 'on' : ''}}" />
+    <view class="ob-dash {{step >= 3 ? 'on' : ''}}" />
+    <view class="ob-dot {{step >= 3 ? 'on' : ''}}" />
+    <view class="ob-dash {{step >= 4 ? 'on' : ''}}" />
+    <view class="ob-dot {{step >= 4 ? 'on' : ''}}" />
+  </view>
+
+  <block wx:if="{{step === 1}}">
+    <text class="ob-title h1">你考过公务员吗</text>
+    <text class="ob-sub text-2">二战不是从零开始，岸岸会接着你上次的基础排计划</text>
+
+    <view class="ob-cards">
+      <view
+        class="ob-card {{priorExam === 'no' ? 'ob-card-on' : ''}}"
+        data-field="priorExam"
+        data-value="no"
+        bindtap="onPick"
+      >
+        <text class="ob-card-title">第一次考</text>
+        <text class="text-3">从头开始，一步步来</text>
+      </view>
+      <view
+        class="ob-card {{priorExam === 'yes' ? 'ob-card-on' : ''}}"
+        data-field="priorExam"
+        data-value="yes"
+        bindtap="onPick"
+      >
+        <text class="ob-card-title">考过，再战</text>
+        <text class="text-3">有基础，重点补短板</text>
+      </view>
+    </view>
+
+    <block wx:if="{{priorExam === 'yes'}}">
+      <text class="ob-label">考过哪几年（可多选）</text>
+      <view class="chips">
+        <view
+          wx:for="{{examYears}}"
+          wx:key="*this"
+          class="chip {{priorYears.indexOf(item) >= 0 ? 'chip-on' : ''}}"
+          data-value="{{item}}"
+          bindtap="onToggleYear"
+        >{{item}}年</view>
+      </view>
+    </block>
+
+    <view class="ob-switch-row">
+      <text class="ob-label-inline">这是我第一次系统备考</text>
+      <switch checked="{{firstSystematic}}" color="#2b6cb0" bindchange="onFirstSystematic" />
+    </view>
+    <view class="ob-switch-row">
+      <text class="ob-label-inline">报过班或跟过网课</text>
+      <switch checked="{{externalLearning}}" color="#2b6cb0" bindchange="onExternalLearning" />
+    </view>
+  </block>
+
+  <block wx:if="{{step === 2}}">
+    <text class="ob-title h1">先认识一下你</text>
+    <text class="ob-sub text-2">这些决定你能报哪些岗位，只需填一次</text>
+
+    <text class="ob-label">学历</text>
+    <view class="chips">
+      <view
+        wx:for="{{educations}}"
+        wx:key="*this"
+        class="chip {{education === item ? 'chip-on' : ''}}"
+        data-field="education"
+        data-value="{{item}}"
+        bindtap="onPick"
+      >{{item}}</view>
+    </view>
+
+    <text class="ob-label">专业</text>
+    <input class="ob-input" value="{{major}}" placeholder="比如：法学、计算机科学与技术" bindinput="onMajor" />
+
+    <text class="ob-label">政治面貌</text>
+    <view class="chips">
+      <view
+        wx:for="{{political}}"
+        wx:key="*this"
+        class="chip {{politicalStatus === item ? 'chip-on' : ''}}"
+        data-field="politicalStatus"
+        data-value="{{item}}"
+        bindtap="onPick"
+      >{{item}}</view>
+    </view>
+
+    <view class="ob-switch-row">
+      <text class="ob-label-inline">应届毕业生</text>
+      <switch checked="{{freshGraduate}}" color="#2b6cb0" bindchange="onFresh" />
+    </view>
+  </block>
+
+  <block wx:if="{{step === 3}}">
+    <text class="ob-title h1">你打算怎么备考</text>
+    <text class="ob-sub text-2">岸岸会按这个节奏帮你排计划，之后随时能改</text>
+
+    <text class="ob-label">备考模式</text>
+    <view class="chips">
+      <view class="chip {{studyMode === 'fulltime' ? 'chip-on' : ''}}" data-field="studyMode" data-value="fulltime" bindtap="onPick">全职备考</view>
+      <view class="chip {{studyMode === 'parttime' ? 'chip-on' : ''}}" data-field="studyMode" data-value="parttime" bindtap="onPick">在职备考</view>
+    </view>
+
+    <text class="ob-label">学习节奏</text>
+    <view class="ob-cards">
+      <view
+        wx:for="{{rhythms}}"
+        wx:key="key"
+        class="ob-card {{rhythmKey === item.key ? 'ob-card-on' : ''}}"
+        data-field="rhythmKey"
+        data-value="{{item.key}}"
+        bindtap="onPick"
+      >
+        <text class="ob-card-title">{{item.label}}</text>
+        <text class="text-3">{{item.desc}}</text>
+      </view>
+    </view>
+
+    <text class="ob-label">每周固定休息日</text>
+    <view class="chips">
+      <view
+        wx:for="{{weekdays}}"
+        wx:key="value"
+        class="chip chip-sm {{restDay === item.value ? 'chip-on' : ''}}"
+        data-field="restDay"
+        data-value="{{item.value}}"
+        bindtap="onPick"
+      >{{item.label}}</view>
+    </view>
+
+    <text class="ob-label">每周模考日</text>
+    <view class="chips">
+      <view
+        wx:for="{{weekdays}}"
+        wx:key="value"
+        class="chip chip-sm {{mockDay === item.value ? 'chip-on' : ''}}"
+        data-field="mockDay"
+        data-value="{{item.value}}"
+        bindtap="onPick"
+      >{{item.label}}</view>
+    </view>
+  </block>
+
+  <block wx:if="{{step === 4}}">
+    <text class="ob-title h1">哪些模块让你头疼</text>
+    <text class="ob-sub text-2">可以多选，也可以不选——做几天题岸岸自己就摸清了</text>
+
+    <view class="ob-cards">
+      <view
+        wx:for="{{modules}}"
+        wx:key="*this"
+        class="ob-card ob-card-row {{weakModules.indexOf(item) >= 0 ? 'ob-card-on' : ''}}"
+        data-value="{{item}}"
+        bindtap="onToggleModule"
+      >
+        <text class="ob-card-title">{{item}}</text>
+        <text wx:if="{{weakModules.indexOf(item) >= 0}}" class="ob-check">✓</text>
+      </view>
+    </view>
+  </block>
+
+  <view class="ob-foot">
+    <button wx:if="{{step > 1}}" class="btn btn-ghost ob-foot-back" bindtap="onBack">上一步</button>
+    <button class="btn btn-primary ob-foot-next" bindtap="onNext">
+      {{step === 4 ? (submitting ? '正在生成计划…' : '完成，开始今天') : '下一步'}}
+    </button>
+  </view>
+</view>

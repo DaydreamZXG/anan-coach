@@ -1,70 +1,35 @@
-<view class="page">
-  <view class="nav" style="padding-top: {{statusBarHeight}}px">
-    <view class="nav__back" hover-class="is-pressed" bind:tap="onBack">‹</view>
-    <view class="nav__text">
-      <view class="nav__title">每日结算</view>
-      <view class="nav__sub">今天学的，就是明天的底子</view>
+<view class="page settle">
+  <view class="statusbar" />
+
+  <view class="settle-hero">
+    <view class="settle-ring">
+      <text class="settle-ring-num num">{{completionPct}}</text>
+      <text class="settle-ring-unit">%</text>
+    </view>
+    <text class="settle-title h1">今日结算</text>
+    <text class="text-2">完成度 {{completionPct}}%，比昨天更近一步</text>
+  </view>
+
+  <view class="settle-stats card">
+    <view class="s-stat">
+      <text class="s-num num">{{answered}}<text class="s-unit">/{{total}}</text></text>
+      <text class="text-3">作答题数</text>
+    </view>
+    <view class="s-divider" />
+    <view class="s-stat">
+      <text class="s-num num">{{minutes}}<text class="s-unit">分</text></text>
+      <text class="text-3">专注时长</text>
     </view>
   </view>
 
-  <state-view wx:if="{{viewState === 'loading'}}" type="loading" title="正在结算今天…" />
-  <state-view
-    wx:elif="{{viewState === 'error'}}"
-    type="error"
-    title="结算没有加载成功"
-    desc="{{errorDesc}}"
-    request-id="{{requestId}}"
-    action-text="重新加载"
-    bind:action="onRetry"
-  />
-
-  <block wx:else>
-    <!-- 深空结算 hero -->
-    <view class="summary">
-      <view class="summary__row">
-        <view class="summary__cell">
-          <view class="summary__num summary__num--cyan">{{elapsedMinutes}}</view>
-          <view class="summary__label">实际投入 · 分</view>
-        </view>
-        <view class="summary__divider"></view>
-        <view class="summary__cell">
-          <view class="summary__num">{{scheduledMinutes}}</view>
-          <view class="summary__label">计划时间 · 分</view>
-        </view>
-      </view>
-      <view class="summary__row">
-        <view class="summary__cell">
-          <view class="summary__num summary__num--green">{{completedTaskCount}}</view>
-          <view class="summary__label">完成闭环</view>
-        </view>
-        <view class="summary__divider"></view>
-        <view class="summary__cell">
-          <view class="summary__num summary__num--amber">{{carryOverTaskCount}}</view>
-          <view class="summary__label">结转债务</view>
-        </view>
-      </view>
+  <!-- 岸岸点评（暖色） -->
+  <view class="settle-anan" bindtap="onAskAnan">
+    <view class="anan-avatar">岸</view>
+    <view class="settle-anan-body">
+      <text class="settle-anan-text">{{ananWord}}</text>
+      <text class="settle-anan-cta">和岸岸聊聊今天 ›</text>
     </view>
+  </view>
 
-    <view class="card conclusion">
-      <view class="conclusion__text">{{summary}}</view>
-    </view>
-
-    <view class="section-head">
-      <view class="section-title">任务证据</view>
-      <view class="section-extra">{{tasks.length}} 项</view>
-    </view>
-
-    <view wx:for="{{tasks}}" wx:key="taskId" class="card task">
-      <view class="task__main">
-        <view class="task__title">{{item.trackLabel}} · {{item.title}}</view>
-        <view class="task__meta">
-          {{item.statusLabel}} · 实际 {{item.elapsedMinutes}} / 计划 {{item.plannedMinutes}} 分钟 ·
-          {{item.evidenceRefs.length}} 条完成记录
-        </view>
-      </view>
-      <view class="task__pill task__pill--{{item.status}}">{{item.statusLabel}}</view>
-    </view>
-
-    <view wx:if="{{hasRisks}}" class="notice">{{riskLabel}}</view>
-  </block>
+  <button class="btn btn-primary settle-done" bindtap="onBackToday">回到今日</button>
 </view>

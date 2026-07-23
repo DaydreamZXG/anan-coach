@@ -1,186 +1,115 @@
-.page {
-  min-height: 100vh;
+.statusbar { height: calc(env(safe-area-inset-top) + 24rpx); }
+.page-title { display: block; margin: 8rpx 0 28rpx; }
+
+/* 总估分 */
+.overall { margin-bottom: 32rpx; }
+.overall-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+.overall-score { display: flex; align-items: baseline; gap: 6rpx; margin-top: 6rpx; }
+.overall-num { font-size: 76rpx; font-weight: 700; color: var(--primary); line-height: 1; }
+.overall-unit { font-size: 28rpx; color: var(--ink-2); }
+.confidence-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rpx;
+  padding: 12rpx 24rpx;
+  border-radius: var(--radius-sm);
   background: var(--bg);
-  padding-bottom: calc(190rpx + env(safe-area-inset-bottom));
 }
-
-/* 浅色系导航 */
-.nav {
-  padding: 0 32rpx 24rpx;
-  background: var(--bg);
+.conf-label { font-size: 22rpx; color: var(--ink-3); }
+.conf-value { font-size: 30rpx; font-weight: 700; color: var(--ink); }
+.conf-high { background: var(--good-soft); }
+.conf-high .conf-value { color: var(--good); }
+.conf-low { background: #fdecec; }
+.conf-low .conf-value { color: var(--danger); }
+.conf-unavailable .conf-value { color: var(--ink-3); }
+.overall-dataline {
+  display: block;
+  font-size: 28rpx;
+  color: var(--ink-2);
+  line-height: 1.5;
+  margin-bottom: 8rpx;
 }
+.overall-reason { display: block; margin-bottom: 24rpx; }
+.overall-cta { width: 100%; }
 
-.nav__title {
-  font-size: 44rpx;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  padding-top: 20rpx;
-}
-
-.nav__sub {
-  margin-top: 8rpx;
-  font-size: 22rpx;
-  color: var(--ink-3);
-}
-
-/* 估分卡 */
-.score {
-  margin: 8rpx 32rpx 0;
-  padding: 34rpx;
-  border-radius: var(--r-lg);
-}
-
-.score__cap {
-  font-size: 20rpx;
-  letter-spacing: 0.2em;
-  color: var(--ink-3);
-}
-
-.score__line {
+/* 分区标题 */
+.section-title {
   display: flex;
   align-items: baseline;
-  gap: 14rpx;
-  margin-top: 16rpx;
+  justify-content: space-between;
+  margin: 0 4rpx 16rpx;
+  gap: 16rpx;
 }
 
-.score__num {
-  font-size: 72rpx;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1;
-}
-
-.score__unit {
-  font-size: 26rpx;
-  color: var(--ink-3);
-}
-
-.score__tag {
-  margin-left: 8rpx;
-  font-size: 20rpx;
-  padding: 6rpx 18rpx;
-  border-radius: 999rpx;
-  border: 1rpx solid;
-}
-
-.score__tag--high {
-  color: var(--green);
-  border-color: rgba(13, 159, 110, 0.4);
-  background: rgba(13, 159, 110, 0.08);
-}
-
-.score__tag--medium {
-  color: var(--cyan);
-  border-color: rgba(14, 185, 206, 0.4);
-  background: rgba(14, 185, 206, 0.08);
-}
-
-.score__tag--low,
-.score__tag--unavailable {
-  color: var(--amber);
-  border-color: rgba(217, 127, 6, 0.4);
-  background: rgba(217, 127, 6, 0.08);
-}
-
-.score__empty-title {
-  margin-top: 16rpx;
-  font-size: 32rpx;
-  font-weight: 700;
-}
-
-.score__empty-desc {
-  margin-top: 8rpx;
-  font-size: 22rpx;
-  color: var(--ink-2);
-}
-
-.score__dataline {
-  margin-top: 20rpx;
-  font-size: 20rpx;
-  color: var(--ink-3);
-}
-
-/* 六模块 */
-.section {
-  margin-top: 40rpx;
-  padding: 0 32rpx;
-}
-
-.modules {
-  padding: 8rpx 28rpx;
-}
-
-.module {
+/* 能力地形 */
+.terrain { margin-bottom: 32rpx; }
+.module { padding: 20rpx 0; border-bottom: 1rpx solid var(--line); }
+.module:last-child { border-bottom: none; padding-bottom: 4rpx; }
+.module:first-child { padding-top: 4rpx; }
+.module-head {
   display: flex;
   align-items: center;
-  gap: 18rpx;
-  padding: 24rpx 0;
-  border-bottom: 1rpx solid var(--line);
+  justify-content: space-between;
+  margin-bottom: 16rpx;
 }
-
-.module:last-child {
-  border-bottom: none;
-}
-
-.module__name {
-  width: 140rpx;
-  flex-shrink: 0;
-  font-size: 24rpx;
-  font-weight: 700;
-}
-
-.module__bar {
-  flex: 1;
+.module-name { font-size: 30rpx; font-weight: 600; }
+.module-meta { display: flex; align-items: baseline; gap: 16rpx; }
+.module-acc { font-size: 30rpx; font-weight: 700; color: var(--primary); }
+.bar {
+  position: relative;
   height: 16rpx;
-  background: rgba(16, 19, 27, 0.06);
+  background: var(--bg);
   border-radius: 999rpx;
-  overflow: hidden;
 }
-
-.module__fill {
-  height: 100%;
+.bar-band {
+  position: absolute;
+  top: 0;
+  height: 16rpx;
+  background: #d7dde5;
   border-radius: 999rpx;
-  background: var(--grad-main);
 }
+.bar-point {
+  position: absolute;
+  top: -6rpx;
+  width: 28rpx;
+  height: 28rpx;
+  margin-left: -14rpx;
+  background: var(--primary);
+  border: 4rpx solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.15);
+}
+.module-hint { display: block; margin-top: 12rpx; color: #c98a3f; }
 
-.module__val {
-  width: 72rpx;
-  flex-shrink: 0;
-  text-align: right;
-  font-size: 26rpx;
-  font-weight: 700;
+/* 知识卡广场 */
+.community {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32rpx;
 }
+.community-body { display: flex; flex-direction: column; gap: 6rpx; }
+.community-title { font-size: 32rpx; font-weight: 600; }
+.community-arrow { font-size: 44rpx; color: var(--ink-3); }
 
-.module__pct {
-  font-size: 18rpx;
-  color: var(--ink-3);
-  font-weight: 400;
+/* 报告 */
+.reports { padding: 0 28rpx; }
+.report-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28rpx 0;
 }
+.report-border { border-bottom: 1rpx solid var(--line); }
+.report-body { display: flex; flex-direction: column; gap: 4rpx; }
+.report-title { font-size: 30rpx; font-weight: 600; }
+.report-arrow { font-size: 40rpx; color: var(--ink-3); }
 
-.module__sample {
-  width: 84rpx;
-  flex-shrink: 0;
-  text-align: right;
-  font-size: 20rpx;
-  color: var(--ink-3);
-}
-
-.foot-note {
-  margin-top: 40rpx;
-  text-align: center;
-  font-size: 20rpx;
-  color: var(--ink-3);
-}
-
-.demo-badge {
-  position: fixed;
-  right: 24rpx;
-  bottom: 200rpx;
-  z-index: 10;
-  font-size: 20rpx;
-  color: var(--amber);
-  background: rgba(217, 127, 6, 0.1);
-  border: 1rpx solid rgba(217, 127, 6, 0.4);
-  border-radius: 999rpx;
-  padding: 8rpx 20rpx;
-}
+.demo-tip { text-align: center; margin-top: 24rpx; }
+.skeleton-card { height: 280rpx; border-radius: var(--radius); background: #eef0f3; margin-bottom: 24rpx; }

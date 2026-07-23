@@ -1,15 +1,13 @@
-<view class="dock-wrap">
-  <view class="dock">
-    <view
-      wx:for="{{list}}"
-      wx:key="path"
-      class="slot {{selected === index ? 'slot--on' : ''}}"
-      hover-class="slot--pressed"
-      data-index="{{index}}"
-      bind:tap="onSwitch"
-    >
-      <view class="slot__tile">{{item.glyph}}</view>
-      <view class="slot__label">{{item.text}}</view>
-    </view>
+<view class="tab-bar">
+  <view
+    wx:for="{{tabs}}"
+    wx:key="key"
+    class="tab-item {{active === item.key ? 'active' : ''}} {{item.key === 'anan' ? 'anan' : ''}}"
+    data-path="{{item.pagePath}}"
+    data-key="{{item.key}}"
+    bindtap="onTap"
+  >
+    <view class="tab-dot" aria-hidden="true"></view>
+    <text class="tab-text">{{item.text}}</text>
   </view>
 </view>

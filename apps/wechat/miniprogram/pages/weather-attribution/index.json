@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "天气数据来源",
-  "usingComponents": {
-    "state-view": "/components/state-view/index"
-  }
-}

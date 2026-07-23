@@ -1,20 +1,30 @@
+const TABS = [
+  { pagePath: "/pages/today/index", text: "今日", key: "today" },
+  { pagePath: "/pages/ability/index", text: "能力", key: "ability" },
+  { pagePath: "/pages/anan/index", text: "岸岸", key: "anan" },
+  { pagePath: "/pages/me/index", text: "我的", key: "me" },
+] as const;
+
 Component({
   data: {
-    selected: 0,
-    list: [
-      { path: "/pages/today/index", text: "今日", glyph: "今" },
-      { path: "/pages/training/index", text: "训练", glyph: "练" },
-      { path: "/pages/ability/index", text: "能力", glyph: "能" },
-      { path: "/pages/profile/index", text: "我的", glyph: "我" },
-    ],
+    tabs: TABS as unknown as Array<{
+      pagePath: string;
+      text: string;
+      key: string;
+    }>,
+    active: "today",
   },
-
   methods: {
-    onSwitch(e: WechatMiniprogram.TouchEvent) {
-      const index = Number(e.currentTarget.dataset.index);
-      const item = this.data.list[index];
-      if (!item || index === this.data.selected) return;
-      wx.switchTab({ url: item.path });
+    setActive(key: string) {
+      this.setData({ active: key });
+    },
+    onTap(e: WechatMiniprogram.TouchEvent) {
+      const { path, key } = e.currentTarget.dataset as {
+        path: string;
+        key: string;
+      };
+      if (key === this.data.active) return;
+      wx.switchTab({ url: path });
     },
   },
 });

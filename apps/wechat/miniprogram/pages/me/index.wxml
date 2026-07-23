@@ -1,0 +1,52 @@
+<view class="page me">
+  <view class="statusbar" />
+  <text class="page-title h1">我的</text>
+
+  <!-- 用户概览 -->
+  <view class="profile card">
+    <view class="profile-avatar">备</view>
+    <view class="profile-info">
+      <text class="profile-name">备考中的你</text>
+      <text class="text-3">已加入 {{joinedDays}} 天</text>
+    </view>
+  </view>
+
+  <!-- 数据条 -->
+  <view class="stats card">
+    <view class="stat">
+      <text class="stat-num num">{{streakDays}}</text>
+      <text class="text-3">连续天数</text>
+    </view>
+    <view class="stat-divider" />
+    <view class="stat">
+      <text class="stat-num num">{{totalTasks}}</text>
+      <text class="text-3">完成任务</text>
+    </view>
+    <view class="stat-divider" />
+    <view class="stat">
+      <text class="stat-num num">{{joinedDays}}</text>
+      <text class="text-3">坚持天数</text>
+    </view>
+  </view>
+
+  <!-- 分组菜单 -->
+  <block wx:for="{{groups}}" wx:key="title" wx:for-item="group">
+    <text class="group-title text-3">{{group.title}}</text>
+    <view class="card menu">
+      <view
+        wx:for="{{group.items}}"
+        wx:key="key"
+        wx:for-item="item"
+        class="menu-row {{index < group.items.length - 1 ? 'menu-border' : ''}}"
+        data-url="{{item.url}}"
+        bindtap="onOpen"
+      >
+        <view class="menu-body">
+          <text class="menu-label">{{item.label}}</text>
+          <text class="text-3">{{item.desc}}</text>
+        </view>
+        <text class="menu-arrow">›</text>
+      </view>
+    </view>
+  </block>
+</view>

@@ -1,6 +1,4 @@
 {
-  "usingComponents": {
-    "ui-button": "../../components/ui-button/index",
-    "state-view": "../../components/state-view/index"
-  }
+  "navigationStyle": "custom",
+  "usingComponents": {}
 }

@@ -1,4 +1,5 @@
 import { installUnauthorizedReset } from "./api/auth";
+import { fetchOnboardingProgress } from "./api/endpoints";
 
 App({
   globalData: {
@@ -19,5 +20,16 @@ App({
     this.globalData.capsuleInset = windowInfo.windowWidth - capsule.left + 8;
 
     // 预留：MiSans 子集字体通过 wx.loadFontFace 加载（待 CDN 域名白名单就绪）
+
+    // 首跑检测：未完成引导则进入 onboarding（失败静默，今日页自身有兜底）
+    fetchOnboardingProgress()
+      .then((progress) => {
+        if (!progress.completed) {
+          wx.navigateTo({ url: "/pages/onboarding/index" });
+        }
+      })
+      .catch((err) => {
+        console.error("[app] onboarding progress check failed", err);
+      });
   },
 });

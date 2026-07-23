@@ -1,0 +1,77 @@
+<view class="anan-page">
+  <view class="statusbar" />
+  <view class="anan-header">
+    <view class="anan-avatar-lg">岸</view>
+    <view class="anan-header-text">
+      <text class="anan-name">岸岸</text>
+      <text class="anan-status">在线 · 你的备考搭子</text>
+    </view>
+  </view>
+
+  <scroll-view
+    class="chat-scroll"
+    scroll-y
+    scroll-into-view="{{scrollTo}}"
+    scroll-with-animation
+  >
+    <view
+      wx:for="{{messages}}"
+      wx:key="id"
+      id="msg-{{item.id}}"
+      class="msg msg-{{item.role}}"
+    >
+      <view wx:if="{{item.role === 'anan'}}" class="msg-avatar">岸</view>
+      <view class="msg-col">
+        <view wx:if="{{item.highImpact}}" class="hi-banner">
+          <text class="hi-banner-text">岸岸的重要建议 · 基于你的作答数据</text>
+        </view>
+        <view class="bubble bubble-{{item.role}}">
+          <text>{{item.text}}</text>
+        </view>
+
+        <view wx:if="{{item.allowedActions.length}}" class="actions">
+          <button
+            wx:for="{{item.allowedActions}}"
+            wx:for-item="act"
+            wx:key="label"
+            class="action-chip"
+            data-label="{{act.label}}"
+            bindtap="onAction"
+          >{{act.label}}</button>
+        </view>
+
+        <view wx:if="{{item.citations.length}}" class="citations">
+          <text wx:for="{{item.citations}}" wx:for-item="c" wx:key="sourceId" class="citation text-3">来源：{{c.title}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{sending}}" class="msg msg-anan">
+      <view class="msg-avatar">岸</view>
+      <view class="bubble bubble-anan typing"><text>岸岸正在想…</text></view>
+    </view>
+  </scroll-view>
+
+  <scroll-view class="presets" scroll-x>
+    <view
+      wx:for="{{presets}}"
+      wx:key="key"
+      class="preset-chip"
+      data-text="{{item.text}}"
+      bindtap="onPreset"
+    >{{item.text}}</view>
+  </scroll-view>
+
+  <view class="composer">
+    <input
+      class="composer-input"
+      value="{{input}}"
+      placeholder="和岸岸说点什么…"
+      confirm-type="send"
+      bindinput="onInput"
+      bindconfirm="onSend"
+    />
+    <button class="composer-send {{input ? 'active' : ''}}" bindtap="onSend">发送</button>
+  </view>
+  <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示对话（后端未连接）</view>
+</view>

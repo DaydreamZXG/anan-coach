@@ -1,84 +1,39 @@
-import { authedV2 } from "../../api/endpoints";
-import { ApiError } from "../../api/client";
-import type { DailySettlementView, SettlementTask } from "../../api/generated/types.gen";
-
-type ViewState = "loading" | "ready" | "error";
-
-interface SettlementTaskView extends SettlementTask {
-  trackLabel: string;
-  statusLabel: string;
-}
-
-const TRACK_LABELS = { xingce: "行测", essay: "申论", recovery: "恢复", mock: "模考" } as const;
-const TASK_STATUS_LABELS = {
-  ready: "未开始",
-  in_progress: "进行中",
-  complete: "已闭环",
-  abandoned: "主动结束",
-} as const;
-
-/** 每日结算：GET /api/v2/plans/today/settlement，一天结束时的总结算视图 */
 Page({
   data: {
-    statusBarHeight: 20,
-    viewState: "loading" as ViewState,
-    errorDesc: "",
-    requestId: "",
-    elapsedMinutes: 0,
-    scheduledMinutes: 0,
-    completedTaskCount: 0,
-    carryOverTaskCount: 0,
-    summary: "",
-    riskLabel: "",
-    hasRisks: false,
-    tasks: [] as SettlementTaskView[],
+    answered: 0,
+    total: 0,
+    minutes: 0,
+    completionPct: 0,
+    ananWord: "",
   },
 
-  onLoad() {
-    const app = getApp<{ globalData: { statusBarHeight: number } }>();
-    this.setData({ statusBarHeight: app.globalData.statusBarHeight });
-    void this.loadSettlement();
-  },
+  onLoad(query: Record<string, string>) {
+    const answered = Number(query.answered || 0);
+    const total = Number(query.total || 0);
+    const seconds = Number(query.seconds || 0);
+    const minutes = Math.max(1, Math.round(seconds / 60));
+    const completionPct = total > 0 ? Math.round((answered / total) * 100) : 0;
 
-  async loadSettlement() {
-    this.setData({ viewState: "loading", errorDesc: "", requestId: "" });
-    try {
-      const data = await authedV2<DailySettlementView>({
-        method: "GET",
-        path: "/api/v2/plans/today/settlement",
-      });
-      this.setData({
-        viewState: "ready",
-        elapsedMinutes: data.elapsedMinutes,
-        scheduledMinutes: data.scheduledMinutes,
-        completedTaskCount: data.completedTaskCount,
-        carryOverTaskCount: data.carryOverTaskCount ?? 0,
-        summary: data.summary,
-        riskLabel: data.newRisks.join("；"),
-        hasRisks: data.newRisks.length > 0,
-        tasks: data.tasks.map((task) => ({
-          ...task,
-          trackLabel: TRACK_LABELS[task.track],
-          statusLabel: TASK_STATUS_LABELS[task.status],
-        })),
-      });
-    } catch (err) {
-      const apiErr = err as ApiError;
-      this.setData({
-        viewState: "error",
-        errorDesc: "每日结算加载失败，请重试。",
-        requestId: apiErr.requestId ?? "",
-      });
+    let ananWord = "";
+    if (completionPct >= 100) {
+      ananWord =
+        "今天这件核心的事你啃下来了，节奏很稳。我把明天的第一件事也排好了，早点休息。";
+    } else if (completionPct >= 60) {
+      ananWord =
+        "做完了大部分，剩下的我帮你挪到明天，不用有负担。能坚持坐下来练，就已经在往前走了。";
+    } else {
+      ananWord =
+        "今天状态可能一般，没关系。我把没做完的降载处理了，明天我们从轻一点的开始。";
     }
+
+    this.setData({ answered, total, minutes, completionPct, ananWord });
   },
 
-  onRetry() {
-    void this.loadSettlement();
+  onBackToday() {
+    wx.switchTab({ url: "/pages/today/index" });
   },
 
-  onBack() {
-    wx.navigateBack({
-      fail: () => wx.switchTab({ url: "/pages/today/index" }),
-    });
+  onAskAnan() {
+    wx.switchTab({ url: "/pages/anan/index" });
   },
 });

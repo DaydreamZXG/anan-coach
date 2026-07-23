@@ -1,84 +1,69 @@
 /**
- * 设计 token ·「深空 · 静谧科技」
- * 浅色承载阅读，深空留给品牌与 AI 时刻，渐变只给主行动与 AI 洞察。
+ * 设计系统 · 冷静工具层 + 暖色岸岸
+ * 原则:暖色(--warm)只允许出现在岸岸相关的界面元素上。
+ * 颜色即信息:暖色出现 = 有人在陪你。
  */
 page {
-  /* 中性色 */
-  --bg: #f7f8fa;
+  --bg: #f5f6f8;
   --surface: #ffffff;
-  --ink: #10131b;
-  --ink-2: #59617a;
-  --ink-3: #9aa3b8;
-  --line: rgba(16, 19, 27, 0.08);
-
-  /* 品牌与语义色 */
-  --indigo: #5b5ff4;
-  --violet: #8b5cf6;
-  --cyan: #0eb9ce;
-  --cyan-bright: #22d3ee;
-  --amber: #d97f06;
-  --green: #0d9f6e;
-  --red: #e05252;
-
-  /* 深空 */
-  --space-1: #0b0e21;
-  --space-2: #191138;
-
-  /* 渐变 */
-  --grad-main: linear-gradient(120deg, #5b5ff4 0%, #8b5cf6 55%, #22d3ee 130%);
-  --grad-space: linear-gradient(165deg, #191138 0%, #0b0e21 70%);
-
-  /* 圆角 */
-  --r-lg: 40rpx;
-  --r-md: 28rpx;
-  --r-sm: 20rpx;
-
-  /* 阴影 */
-  --shadow-card: 0 2rpx 6rpx rgba(16, 19, 27, 0.05);
-  --shadow-glow: 0 12rpx 40rpx rgba(91, 95, 244, 0.35);
-  --shadow-mainline: 0 28rpx 68rpx rgba(91, 95, 244, 0.28);
+  --ink: #1a2330;
+  --ink-2: #66707d;
+  --ink-3: #9aa3ae;
+  --line: #e9ecf0;
+  --primary: #2b6cb0;
+  --primary-soft: #eaf1f8;
+  --warm: #e8833a;
+  --warm-soft: #fbf0e6;
+  --good: #2f9e62;
+  --good-soft: #e9f5ee;
+  --danger: #d64545;
+  --radius: 24rpx;
+  --radius-sm: 16rpx;
 
   background: var(--bg);
   color: var(--ink);
-  font-family: "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", sans-serif;
-  font-size: 28rpx;
-  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
+    "Helvetica Neue", "MiSans", sans-serif;
+  font-size: 30rpx;
+  line-height: 1.5;
 }
 
-/* 区块标题：渐变方块 + 文案 */
-.section-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: 24rpx;
-}
-
-.section-title {
-  display: flex;
-  align-items: center;
-  font-size: 28rpx;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-}
-
-.section-title::before {
-  content: "";
-  width: 14rpx;
-  height: 14rpx;
-  border-radius: 4rpx;
-  background: var(--grad-main);
-  margin-right: 16rpx;
-}
-
-.section-extra {
-  font-size: 22rpx;
-  color: var(--ink-3);
-}
-
-/* 白卡基础 */
 .card {
   background: var(--surface);
+  border-radius: var(--radius);
+  padding: 32rpx;
   border: 1rpx solid var(--line);
-  border-radius: var(--r-md);
-  box-shadow: var(--shadow-card);
 }
+
+.h1 { font-size: 44rpx; font-weight: 600; line-height: 1.3; color: var(--ink); }
+.h2 { font-size: 34rpx; font-weight: 600; line-height: 1.4; color: var(--ink); }
+.text-2 { font-size: 28rpx; color: var(--ink-2); }
+.text-3 { font-size: 24rpx; color: var(--ink-3); }
+.num {
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.page {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 0 32rpx;
+  padding-bottom: calc(160rpx + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 96rpx;
+  border-radius: var(--radius-sm);
+  font-size: 32rpx;
+  font-weight: 600;
+  border: none;
+}
+.btn::after { border: none; }
+.btn-primary { background: var(--primary); color: #ffffff; }
+.btn-ghost { background: var(--surface); color: var(--ink); border: 1rpx solid var(--line); }
+.btn-warm { background: var(--warm); color: #ffffff; }

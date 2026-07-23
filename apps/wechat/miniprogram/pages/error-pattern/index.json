@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "错误模式",
-  "usingComponents": {
-    "ui-button": "../../components/ui-button/index",
-    "state-view": "../../components/state-view/index"
-  }
-}

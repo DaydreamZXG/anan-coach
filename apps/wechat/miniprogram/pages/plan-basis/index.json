@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "计划依据",
-  "usingComponents": {
-    "state-view": "/components/state-view/index"
-  }
-}

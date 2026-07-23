@@ -1,0 +1,66 @@
+.ob { min-height: 100vh; padding-bottom: 48rpx; }
+.statusbar { height: calc(env(safe-area-inset-top) + 24rpx); }
+
+.ob-steps { display: flex; align-items: center; gap: 8rpx; margin: 16rpx 0 48rpx; }
+.ob-dot { width: 16rpx; height: 16rpx; border-radius: 50%; background: var(--line); }
+.ob-dot.on { background: var(--primary); }
+.ob-dash { width: 48rpx; height: 4rpx; border-radius: 999rpx; background: var(--line); }
+.ob-dash.on { background: var(--primary); }
+
+.ob-title { display: block; margin-bottom: 12rpx; }
+.ob-sub { display: block; margin-bottom: 40rpx; }
+.ob-label { display: block; font-size: 28rpx; font-weight: 600; margin: 32rpx 4rpx 16rpx; }
+.ob-label-inline { font-size: 28rpx; font-weight: 600; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 16rpx; }
+.chip {
+  padding: 16rpx 36rpx;
+  border-radius: 999rpx;
+  font-size: 28rpx;
+  background: var(--surface);
+  border: 1rpx solid var(--line);
+  color: var(--ink-2);
+}
+.chip-on { background: var(--primary); color: #fff; border-color: var(--primary); }
+.chip-sm { padding: 12rpx 24rpx; font-size: 26rpx; }
+
+.ob-input {
+  width: 100%;
+  box-sizing: border-box;
+  height: 96rpx;
+  background: var(--surface);
+  border: 1rpx solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0 28rpx;
+  font-size: 30rpx;
+}
+
+.ob-switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40rpx;
+  background: var(--surface);
+  border: 1rpx solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 24rpx 28rpx;
+}
+
+.ob-cards { display: flex; flex-direction: column; gap: 20rpx; }
+.ob-card {
+  background: var(--surface);
+  border: 2rpx solid var(--line);
+  border-radius: var(--radius);
+  padding: 28rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+.ob-card-row { flex-direction: row; align-items: center; justify-content: space-between; }
+.ob-card-on { border-color: var(--primary); background: var(--primary-soft); }
+.ob-card-title { font-size: 30rpx; font-weight: 600; }
+.ob-check { font-size: 32rpx; color: var(--primary); font-weight: 700; }
+
+.ob-foot { display: flex; gap: 20rpx; margin-top: 64rpx; }
+.ob-foot-back { flex: 1; }
+.ob-foot-next { flex: 2; }

@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "周计划",
-  "usingComponents": {
-    "state-view": "/components/state-view/index"
-  }
-}

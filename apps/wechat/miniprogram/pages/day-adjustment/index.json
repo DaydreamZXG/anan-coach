@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "当日调整",
-  "usingComponents": {
-    "state-view": "/components/state-view/index",
-    "ui-button": "/components/ui-button/index"
-  }
-}

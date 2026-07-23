@@ -1,0 +1,44 @@
+<view class="page publish">
+  <view class="statusbar" />
+  <view class="pub-nav">
+    <text class="pub-back" bindtap="onBack">‹</text>
+    <text class="pub-nav-title">发布知识卡</text>
+  </view>
+
+  <view class="pub-hint card">
+    <text class="pub-hint-text text-2">用大白话写下你的方法或心得，AI 会自动帮你整理成结构化的知识卡。别人验证得越多，它越会被推荐。</text>
+  </view>
+
+  <text class="pub-label">属于哪个赛道</text>
+  <view class="tabs">
+    <view
+      wx:for="{{tracks}}"
+      wx:key="key"
+      class="tab {{track === item.key ? 'tab-on' : ''}}"
+      data-track="{{item.key}}"
+      bindtap="onTrack"
+    >{{item.label}}</view>
+  </view>
+
+  <text class="pub-label">你的方法 / 心得</text>
+  <textarea
+    class="pub-textarea"
+    value="{{sourceText}}"
+    placeholder="比如：资料分析看到「同比增长」先别急着算，我一般会先判断求的是增长量还是增长率……"
+    maxlength="1000"
+    bindinput="onText"
+  />
+
+  <text class="pub-label">适用范围（用空格或逗号分隔）</text>
+  <input
+    class="pub-input"
+    value="{{tagsInput}}"
+    placeholder="资料分析 增长率"
+    bindinput="onTags"
+  />
+
+  <button
+    class="btn btn-primary pub-submit {{submitting ? 'disabled' : ''}}"
+    bindtap="onSubmit"
+  >{{submitting ? '提交中…' : '提交，让 AI 整理成卡片'}}</button>
+</view>

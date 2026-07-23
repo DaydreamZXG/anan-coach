@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>岸岸 · 深空静谧科技 — 设计预览</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/misans@4.1.0/lib/Normal/MiSans-Normal.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/misans@4.1.0/lib/Normal/MiSans-Semibold.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/misans@4.1.0/lib/Normal/MiSans-Bold.min.css">
+<style>
+
+  :root {
+    --bg: #eef0f4;
+    --surface: #ffffff;
+    --ink: #10131b;
+    --ink-2: #59617a;
+    --ink-3: #9aa3b8;
+    --line: rgba(16, 19, 27, .08);
+    --indigo: #5b5ff4;
+    --violet: #8b5cf6;
+    --cyan: #0eb9ce;
+    --cyan-bright: #22d3ee;
+    --amber: #d97f06;
+    --green: #0d9f6e;
+    --red: #e05252;
+    --space-1: #0b0e21;
+    --space-2: #191138;
+    --grad-main: linear-gradient(120deg, #5b5ff4 0%, #8b5cf6 55%, #22d3ee 130%);
+    --glow: 0 6px 20px rgba(91, 95, 244, .38);
+    --r-lg: 20px;
+    --r-md: 14px;
+    --r-sm: 10px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: "MiSans", "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", sans-serif;
+    background:
+      radial-gradient(900px 500px at 85% -5%, rgba(91, 95, 244, .10) 0%, transparent 55%),
+      radial-gradient(700px 500px at 5% 100%, rgba(34, 211, 238, .07) 0%, transparent 50%),
+      var(--bg);
+    color: var(--ink);
+    padding: 48px 24px 90px;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "tnum";
+  }
+
+  /* ═════════ 页头 ═════════ */
+  .page-head { text-align: center; max-width: 760px; margin: 0 auto 52px; }
+  .page-head .kicker {
+    font-size: 11px; letter-spacing: .35em; color: var(--ink-3);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .page-head .kicker::before, .page-head .kicker::after {
+    content: ""; width: 28px; height: 1px; background: var(--ink-3); opacity: .5;
+  }
+  .page-head h1 {
+    font-size: 34px; font-weight: 700; margin: 16px 0 12px; letter-spacing: -.01em;
+    background: var(--grad-main); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .page-head p { font-size: 13px; color: var(--ink-2); line-height: 2; }
+
+  .frames { display: flex; gap: 44px; justify-content: center; align-items: flex-start; flex-wrap: wrap; }
+  .frame-col { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .frame-label { font-size: 12px; color: var(--ink-2); letter-spacing: .08em; }
+  .frame-label b { color: var(--ink); }
+
+  .phone {
+    width: 390px; height: 800px; background: #f7f8fa;
+    border-radius: 34px; overflow: hidden; position: relative;
+    border: 1px solid rgba(16, 19, 27, .12);
+    box-shadow:
+      0 0 0 8px rgba(255, 255, 255, .55),
+      0 30px 70px rgba(16, 19, 27, .22),
+      0 4px 16px rgba(16, 19, 27, .12);
+    display: flex; flex-direction: column;
+  }
+
+  .scroll { flex: 1; overflow-y: auto; }
+  .scroll::-webkit-scrollbar { display: none; }
+
+  /* ═════════ 深空 Hero 区 ═════════ */
+  .hero {
+    position: relative; overflow: hidden;
+    background:
+      radial-gradient(140% 90% at 85% -20%, rgba(139, 92, 246, .42) 0%, transparent 55%),
+      radial-gradient(120% 80% at 0% 0%, rgba(34, 211, 238, .20) 0%, transparent 50%),
+      linear-gradient(165deg, var(--space-2) 0%, var(--space-1) 70%);
+    padding: 18px 18px 74px;
+    color: #eef0ff;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0; opacity: .55; pointer-events: none;
+    background-image:
+      radial-gradient(1px 1px at 12% 30%, rgba(255,255,255,.8) 50%, transparent 51%),
+      radial-gradient(1px 1px at 68% 12%, rgba(255,255,255,.6) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 38% 18%, rgba(255,255,255,.7) 50%, transparent 51%),
+      radial-gradient(1px 1px at 86% 46%, rgba(255,255,255,.5) 50%, transparent 51%),
+      radial-gradient(1px 1px at 24% 62%, rgba(255,255,255,.4) 50%, transparent 51%);
+  }
+  .hero::after {
+    content: ""; position: absolute; left: -20%; top: -35%; width: 80%; height: 90%;
+    background: radial-gradient(closest-side, rgba(91, 95, 244, .30), transparent 70%);
+    filter: blur(10px); pointer-events: none;
+  }
+
+  /* 状态条 —— 仪器感玻璃片 */
+  .status {
+    position: relative; z-index: 2;
+    display: flex; gap: 8px;
+  }
+  .status .chip {
+    flex: 1; padding: 9px 10px 8px;
+    background: rgba(255, 255, 255, .07);
+    border: 1px solid rgba(255, 255, 255, .13);
+    border-radius: 12px;
+    backdrop-filter: blur(14px);
+  }
+  .status .k { font-size: 9px; letter-spacing: .18em; color: rgba(238, 240, 255, .55); }
+  .status .v { font-size: 13px; font-weight: 700; margin-top: 3px; letter-spacing: .01em; }
+  .status .v em { font-style: normal; font-size: 9px; font-weight: 400; color: rgba(238, 240, 255, .5); }
+  .status .hl { color: var(--cyan-bright); }
+
+  /* 问候行 */
+  .greet { position: relative; z-index: 2; display: flex; align-items: center; gap: 14px; margin-top: 22px; }
+  .anan {
+    width: 64px; height: 64px; border-radius: 18px; flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, .22);
+    box-shadow: 0 0 0 4px rgba(34, 211, 238, .12), 0 0 26px rgba(34, 211, 238, .30);
+    object-fit: cover;
+  }
+  .greet .hi { font-size: 19px; font-weight: 700; letter-spacing: .01em; }
+  .greet .sub { font-size: 11px; color: rgba(238, 240, 255, .62); margin-top: 5px; line-height: 1.7; }
+  .greet .live {
+    display: inline-flex; align-items: center; gap: 5px; margin-top: 8px;
+    font-size: 10px; color: var(--cyan-bright);
+  }
+  .greet .live i {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--cyan-bright);
+    box-shadow: 0 0 8px var(--cyan-bright); animation: pulse 2.2s infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .35 } }
+
+  /* ═════════ 今日主线卡（跨区悬浮） ═════════ */
+  .mainline-wrap {
+    margin: -56px 16px 0; position: relative; z-index: 3;
+    background: var(--grad-main); padding: 1.5px; border-radius: 21px;
+    box-shadow: 0 14px 34px rgba(91, 95, 244, .30);
+  }
+  .mainline {
+    background: var(--surface); border-radius: 19.5px; padding: 18px;
+  }
+  .mainline .cap {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 10px; letter-spacing: .2em; color: var(--indigo); font-weight: 700;
+  }
+  .mainline .cap span:last-child { color: var(--ink-3); letter-spacing: .05em; font-weight: 400; }
+  .mainline h3 { font-size: 17px; font-weight: 700; margin-top: 10px; line-height: 1.5; }
+  .mainline .meta { font-size: 11px; color: var(--ink-2); margin-top: 6px; }
+  .mainline .why {
+    margin-top: 12px; font-size: 11px; color: var(--ink-2); line-height: 1.75;
+    background: #f4f5fb; border-radius: 10px; padding: 9px 11px;
+    border-left: 2px solid var(--indigo);
+  }
+  .mainline .why b { color: var(--ink); }
+  .mainline .act { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
+  .mainline .act .basis { font-size: 11px; color: var(--indigo); margin-right: auto; }
+
+  /* ═════════ 按钮 ═════════ */
+  .btn {
+    font-family: inherit; font-size: 13px; font-weight: 520; cursor: pointer;
+    border: none; border-radius: 13px; padding: 11px 26px; letter-spacing: .06em;
+    transition: transform .1s, box-shadow .15s;
+  }
+  .btn:active { transform: translateY(1px) scale(.99); }
+  .btn-primary { color: #fff; background: var(--grad-main); box-shadow: var(--glow); }
+  .btn-ghost {
+    color: var(--ink); background: var(--surface);
+    border: 1px solid rgba(16, 19, 27, .14); box-shadow: 0 1px 3px rgba(16,19,27,.06);
+  }
+  .btn-sm { padding: 8px 18px; font-size: 12px; }
+
+  /* ═════════ 浅色内容区 ═════════ */
+  .body-zone { padding: 18px 16px 24px; }
+  .section + .section { margin-top: 22px; }
+  .section > .t {
+    display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 12px;
+  }
+  .section > .t h2 { font-size: 14px; font-weight: 700; letter-spacing: .04em; }
+  .section > .t h2::before {
+    content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 2px;
+    background: var(--grad-main); margin-right: 8px; transform: translateY(-1px);
+  }
+  .section > .t span { font-size: 11px; color: var(--ink-3); }
+
+  /* 任务行 */
+  .task-row {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md);
+    padding: 14px 14px; margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(16, 19, 27, .04);
+  }
+  .task-row .idx {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: var(--indigo);
+    background: rgba(91, 95, 244, .09);
+  }
+  .task-row .info { flex: 1; min-width: 0; }
+  .task-row .name { font-size: 13px; font-weight: 700; line-height: 1.45; }
+  .task-row .why { font-size: 10px; color: var(--ink-3); margin-top: 4px; line-height: 1.6; }
+  .task-row .dur { font-size: 10px; color: var(--ink-2); flex-shrink: 0; }
+
+  /* AI 洞察卡 */
+  .ai-card {
+    border-radius: var(--r-lg); padding: 15px 16px;
+    background:
+      radial-gradient(120% 160% at 100% 0%, rgba(34, 211, 238, .10) 0%, transparent 50%),
+      radial-gradient(120% 160% at 0% 100%, rgba(139, 92, 246, .10) 0%, transparent 50%),
+      var(--surface);
+    border: 1px solid rgba(91, 95, 244, .18);
+  }
+  .ai-card .cap {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 10px; letter-spacing: .18em; color: var(--violet); font-weight: 700;
+  }
+  .ai-card .cap i {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--violet);
+    box-shadow: 0 0 8px rgba(139, 92, 246, .8); animation: pulse 2.2s infinite;
+  }
+  .ai-card p { font-size: 12px; color: var(--ink-2); line-height: 1.85; margin-top: 9px; }
+  .ai-card p b { color: var(--ink); }
+
+  /* ═════════ 悬浮 Dock ═════════ */
+  .dock-zone { padding: 10px 16px 18px; background: transparent; }
+  .dock {
+    display: flex; align-items: center;
+    background: rgba(255, 255, 255, .82);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(16, 19, 27, .10);
+    border-radius: 22px; padding: 8px;
+    box-shadow: 0 10px 30px rgba(16, 19, 27, .14);
+  }
+  .dock .slot {
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;
+    padding: 7px 0 6px; border-radius: 15px;
+    font-size: 10px; color: var(--ink-3); letter-spacing: .04em;
+  }
+  .dock .slot svg { width: 21px; height: 21px; stroke: var(--ink-3); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .dock .slot.on { color: var(--ink); font-weight: 700; background: rgba(91, 95, 244, .10); }
+  .dock .slot.on svg { stroke: url(#dockGrad); }
+
+  /* ═════════ 做题页 ═════════ */
+  .exam-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 16px 12px;
+  }
+  .exam-head .back { font-size: 16px; color: var(--ink-2); }
+  .exam-head .prog { font-size: 14px; font-weight: 700; }
+  .exam-head .prog em { font-style: normal; color: var(--ink-3); font-weight: 400; font-size: 11px; }
+  .exam-head .timer {
+    font-size: 11px; color: var(--ink-2);
+    border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; background: var(--surface);
+  }
+  .exam-bar { height: 3px; background: rgba(16,19,27,.06); margin: 0 16px; border-radius: 99px; overflow: hidden; }
+  .exam-bar i { display: block; height: 100%; width: 25%; background: var(--grad-main); border-radius: 99px; }
+
+  .exam-body { padding: 20px 18px 24px; }
+  .exam-src { font-size: 10px; letter-spacing: .14em; color: var(--ink-3); margin-bottom: 12px; }
+  .exam-stem { font-size: 14.5px; line-height: 2.05; color: var(--ink); }
+  .exam-stem .q { display: block; margin-top: 14px; font-weight: 700; }
+
+  .opt {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md);
+    padding: 13px 14px; margin-top: 10px; font-size: 13.5px; line-height: 1.75;
+    box-shadow: 0 1px 2px rgba(16,19,27,.03);
+  }
+  .opt .tag {
+    flex-shrink: 0; width: 23px; height: 23px; border-radius: 7px;
+    border: 1px solid rgba(16,19,27,.22); color: var(--ink-2);
+    font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+  }
+  .opt.sel { border-color: var(--indigo); background: rgba(91, 95, 244, .06); box-shadow: 0 0 0 3px rgba(91, 95, 244, .10); }
+  .opt.sel .tag { background: var(--grad-main); border-color: transparent; color: #fff; }
+
+  .exam-hint { font-size: 10px; color: var(--ink-3); margin-top: 16px; line-height: 1.7; }
+
+  .exam-foot { padding: 12px 16px 18px; }
+  .exam-tools { display: flex; gap: 8px; margin-bottom: 10px; }
+  .exam-tools .tool {
+    flex: 1; text-align: center; font-size: 11px; color: var(--ink-2);
+    padding: 9px 0; border-radius: 11px; background: var(--surface);
+    border: 1px solid var(--line);
+  }
+  .exam-tools .tool b { color: var(--ink); font-weight: 700; }
+  .exam-submit { width: 100%; padding: 14px; font-size: 14px; }
+
+  /* ═════════ 能力页 ═════════ */
+  .ability-head { padding: 18px 18px 6px; }
+  .ability-head .cap { font-size: 10px; letter-spacing: .2em; color: var(--ink-3); }
+  .score-line { display: flex; align-items: baseline; gap: 10px; margin-top: 10px; }
+  .score-line .num { font-size: 36px; font-weight: 700; letter-spacing: -.02em; }
+  .score-line .num em { font-style: normal; font-size: 15px; color: var(--ink-3); font-weight: 400; }
+  .score-line .tag-est {
+    font-size: 10px; color: var(--cyan); background: rgba(14, 185, 206, .10);
+    border: 1px solid rgba(14, 185, 206, .30); border-radius: 999px; padding: 3px 9px;
+  }
+  .range-bar { margin: 14px 18px 0; position: relative; height: 26px; }
+  .range-bar .track { position: absolute; top: 11px; left: 0; right: 0; height: 4px; background: rgba(16,19,27,.07); border-radius: 99px; }
+  .range-bar .seg { position: absolute; top: 11px; height: 4px; border-radius: 99px; background: var(--grad-main); left: 52%; width: 14%; box-shadow: 0 0 10px rgba(91,95,244,.4); }
+  .range-bar .target { position: absolute; top: 4px; left: 75%; width: 2px; height: 18px; background: var(--amber); }
+  .range-bar .target::after {
+    content: "目标"; position: absolute; top: -13px; left: -9px; font-size: 9px; color: var(--amber);
+  }
+  .range-note { font-size: 10px; color: var(--ink-3); margin: 8px 18px 0; }
+
+  .module {
+    display: flex; align-items: center; gap: 10px;
+    padding: 11px 0; border-bottom: 1px solid var(--line);
+  }
+  .module:last-child { border-bottom: none; }
+  .module .m-name { width: 62px; flex-shrink: 0; font-size: 11.5px; color: var(--ink); font-weight: 700; }
+  .module .m-bar { flex: 1; position: relative; height: 8px; background: rgba(16,19,27,.06); border-radius: 99px; }
+  .module .m-fill { position: absolute; inset: 0 auto 0 0; border-radius: 99px; background: var(--grad-main); }
+  .module .m-tick { position: absolute; top: -3px; width: 2px; height: 14px; background: var(--ink); opacity: .55; border-radius: 2px; }
+  .module .m-val { width: 38px; flex-shrink: 0; text-align: right; font-size: 12px; font-weight: 700; }
+
+  .gap-card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
+    padding: 16px; box-shadow: 0 1px 3px rgba(16,19,27,.04);
+  }
+  .gap-row { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+  .gap-row .g-name { width: 64px; font-size: 11px; color: var(--ink-2); flex-shrink: 0; }
+  .gap-row .g-track { flex: 1; height: 14px; border-radius: 6px; background: rgba(16,19,27,.05); position: relative; overflow: hidden; }
+  .gap-row .g-fill { position: absolute; inset: 0 auto 0 0; border-radius: 6px; }
+  .gap-row .g-val { width: 46px; text-align: right; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+
+  .patterns { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pattern {
+    font-size: 11px; color: var(--ink-2);
+    background: var(--surface); border: 1px solid var(--line);
+    padding: 7px 12px; border-radius: 999px;
+  }
+  .pattern b { color: var(--red); font-weight: 700; margin-left: 5px; }
+
+  .card-pad { padding: 4px 18px 2px; }
+
+  /* ═════════ 组件小样 ═════════ */
+  .kit { max-width: 920px; margin: 70px auto 0; }
+  .kit h2 { text-align: center; font-size: 22px; font-weight: 700; }
+  .kit .sub { text-align: center; font-size: 11px; letter-spacing: .2em; color: var(--ink-3); margin: 8px 0 30px; }
+  .kit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+  .kit-card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
+    padding: 18px; box-shadow: 0 1px 3px rgba(16,19,27,.05);
+  }
+  .kit-card h3 { font-size: 12px; letter-spacing: .12em; margin-bottom: 15px; color: var(--ink-2); }
+  .kit-card h3::before { content: "// "; color: var(--indigo); }
+
+  .swatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .sw { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff; }
+  .sw i { display: block; height: 34px; }
+  .sw span { display: block; font-size: 9px; padding: 4px 5px; color: var(--ink-2); }
+
+  .chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; padding: 5px 11px; border-radius: 999px;
+    border: 1px solid; margin: 0 6px 8px 0;
+  }
+  .chip i { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+  .chip.ai { color: var(--violet); border-color: rgba(139,92,246,.4); background: rgba(139,92,246,.08); }
+  .chip.wait { color: var(--amber); border-color: rgba(217,127,6,.4); background: rgba(217,127,6,.08); }
+  .chip.done { color: var(--green); border-color: rgba(13,159,110,.4); background: rgba(13,159,110,.08); }
+  .chip.err { color: var(--red); border-color: rgba(224,82,82,.4); background: rgba(224,82,82,.08); }
+
+  .kit-btns { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+
+  .grad-sample {
+    height: 54px; border-radius: var(--r-md);
+    background: var(--grad-main); box-shadow: var(--glow);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 11px; letter-spacing: .25em;
+  }
+  .space-sample {
+    height: 54px; border-radius: var(--r-md); margin-top: 10px;
+    background: radial-gradient(120% 130% at 80% 0%, rgba(139,92,246,.5) 0%, transparent 55%), linear-gradient(160deg, var(--space-2), var(--space-1));
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(238,240,255,.7); font-size: 11px; letter-spacing: .25em;
+  }
+
+  .note { max-width: 920px; margin: 40px auto 0; text-align: center; font-size: 10px; color: var(--ink-3); line-height: 2.1; letter-spacing: .05em; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="dockGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5b5ff4"/><stop offset="60%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<div class="page-head">
+  <div class="kicker">ANAN · DESIGN 002</div>
+  <h1>深空 · 静谧科技</h1>
+  <p>浅色承载长时间阅读，深空只留给品牌与 AI 时刻。<br>等宽字体即仪器感：数字精确、状态透明、每个结论都有依据。</p>
+</div>
+
+<div class="frames">
+
+  <!-- ═══════ 今日页 ═══════ -->
+  <div class="frame-col">
+    <div class="phone">
+      <div class="scroll">
+
+        <div class="hero">
+          <div class="status">
+            <div class="chip">
+              <div class="k">主目标</div>
+              <div class="v">税务总局·科员</div>
+            </div>
+            <div class="chip">
+              <div class="k">分差 <em>参考</em></div>
+              <div class="v hl">5–8 <em>分</em></div>
+            </div>
+            <div class="chip">
+              <div class="k">倒计时</div>
+              <div class="v">128 <em>天</em></div>
+            </div>
+          </div>
+
+          <div class="greet">
+            <img class="anan" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20otter%20mascot%20portrait%2C%20deep%20blue-purple%20fur%2C%20glowing%20cyan%20dot%20on%20chest%2C%20modern%20minimal%203D%20render%2C%20soft%20studio%20lighting%2C%20dark%20navy%20background%2C%20friendly%20calm%20expression&image_size=square" alt="岸岸">
+            <div>
+              <div class="hi">晚上好。</div>
+              <div class="sub">今天先做最关键的，排好了 3 件事。</div>
+              <span class="live"><i></i>岸岸已按最近表现更新计划</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mainline-wrap">
+          <div class="mainline">
+            <div class="cap"><span>今日主线</span><span>1 / 3</span></div>
+            <h3>资料分析 · 基期量专项</h3>
+            <div class="meta">12 题 · 约 25 分钟</div>
+            <div class="why">最近 3 组题里这类错了 4 道，<b>最该先追回的分</b>。</div>
+            <div class="act">
+              <span class="basis">查看依据</span>
+              <button class="btn btn-primary">开始</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="body-zone">
+
+          <div class="section">
+            <div class="t"><h2>接下来</h2><span>完成 1/3</span></div>
+            <div class="task-row">
+              <div class="idx">2</div>
+              <div class="info">
+                <div class="name">言语理解 · 错题复测 6 题</div>
+                <div class="why">3 天前做错的题，今天到期复测</div>
+              </div>
+              <span class="dur">15′</span>
+            </div>
+            <div class="task-row">
+              <div class="idx">3</div>
+              <div class="info">
+                <div class="name">申论小题 · 找点练习 1 道</div>
+                <div class="why">本周第二篇，保持找点手感</div>
+              </div>
+              <span class="dur">30′</span>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="ai-card">
+              <div class="cap"><i></i>岸岸说 · AI 洞察</div>
+              <p>这周资料分析正确率从 55% 回到 <b>71%</b>。节奏刚好，不用加量——把复测做完比多刷 20 题更值。</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="dock-zone">
+        <div class="dock">
+          <div class="slot on">
+            <svg viewBox="0 0 24 24"><path d="M4 11l8-6 8 6v9a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1z"/></svg>
+            今日
+          </div>
+          <div class="slot">
+            <svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>
+            训练
+          </div>
+          <div class="slot">
+            <svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>
+            能力
+          </div>
+          <div class="slot">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-5.5 8-5.5s6.5 1.5 8 5.5"/></svg>
+            我的
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="frame-label"><b>01 / 今日</b> — 深空 hero + 悬浮主线卡</div>
+  </div>
+
+  <!-- ═══════ 做题页 ═══════ -->
+  <div class="frame-col">
+    <div class="phone">
+      <div class="scroll">
+        <div class="exam-head">
+          <span class="back">‹</span>
+          <span class="prog">3<em> / 12</em></span>
+          <span class="timer">08:42</span>
+        </div>
+        <div class="exam-bar"><i></i></div>
+
+        <div class="exam-body">
+          <div class="exam-src">资料分析 · 2024 国考副省级 · 材料 1</div>
+          <div class="exam-stem">
+            2023 年，某省规模以上工业增加值为 12840 亿元，比上年增长 6.2%。其中，装备制造业增加值 4520 亿元，增长 8.1%；高技术制造业增加值 2180 亿元，增长 11.4%。
+            <span class="q">2022 年该省规模以上工业增加值约为多少亿元？</span>
+          </div>
+
+          <div class="opt"><span class="tag">A</span><span>11890 亿元</span></div>
+          <div class="opt sel"><span class="tag">B</span><span>12090 亿元</span></div>
+          <div class="opt"><span class="tag">C</span><span>12260 亿元</span></div>
+          <div class="opt"><span class="tag">D</span><span>12410 亿元</span></div>
+
+          <div class="exam-hint">建议用时 1′30″ · 「不会·跳过」也是有效作答轨迹</div>
+        </div>
+      </div>
+
+      <div class="exam-foot">
+        <div class="exam-tools">
+          <div class="tool">材料</div>
+          <div class="tool">草稿</div>
+          <div class="tool">标记</div>
+          <div class="tool"><b>不会 · 跳过</b></div>
+        </div>
+        <button class="btn btn-primary exam-submit">提交答案</button>
+      </div>
+    </div>
+    <div class="frame-label"><b>02 / 作答</b> — 纯净阅读，一个主动作</div>
+  </div>
+
+  <!-- ═══════ 能力页 ═══════ -->
+  <div class="frame-col">
+    <div class="phone">
+      <div class="scroll">
+
+        <div class="ability-head">
+          <div class="cap">行测估分区间</div>
+          <div class="score-line">
+            <div class="num">58–64<em> 分</em></div>
+            <span class="tag-est">证据 23 组</span>
+          </div>
+        </div>
+        <div class="range-bar">
+          <div class="track"></div>
+          <div class="seg"></div>
+          <div class="target"></div>
+        </div>
+        <div class="range-note">区间随证据变宽变窄 · 更新于 2 小时前 · 算法 v3.2</div>
+
+        <div class="section" style="margin-top:20px">
+          <div class="t" style="padding:0 18px"><h2>六模块</h2><span>竖线 = 目标</span></div>
+          <div class="card-pad">
+            <div class="module"><span class="m-name">政治理论</span><div class="m-bar"><div class="m-fill" style="width:62%"></div><div class="m-tick" style="left:78%"></div></div><span class="m-val">62</span></div>
+            <div class="module"><span class="m-name">常识判断</span><div class="m-bar"><div class="m-fill" style="width:55%"></div><div class="m-tick" style="left:70%"></div></div><span class="m-val">55</span></div>
+            <div class="module"><span class="m-name">言语理解</span><div class="m-bar"><div class="m-fill" style="width:74%"></div><div class="m-tick" style="left:80%"></div></div><span class="m-val">74</span></div>
+            <div class="module"><span class="m-name">数量关系</span><div class="m-bar"><div class="m-fill" style="width:48%"></div><div class="m-tick" style="left:65%"></div></div><span class="m-val">48</span></div>
+            <div class="module"><span class="m-name">判断推理</span><div class="m-bar"><div class="m-fill" style="width:69%"></div><div class="m-tick" style="left:78%"></div></div><span class="m-val">69</span></div>
+            <div class="module"><span class="m-name">资料分析</span><div class="m-bar"><div class="m-fill" style="width:71%"></div><div class="m-tick" style="left:82%"></div></div><span class="m-val">71</span></div>
+          </div>
+        </div>
+
+        <div class="section" style="margin-top:20px;padding:0 16px">
+          <div class="t"><h2>分差构成</h2><span>备考参考</span></div>
+          <div class="gap-card">
+            <div class="gap-row"><span class="g-name">目标总分</span><div class="g-track"><div class="g-fill" style="width:100%;background:linear-gradient(90deg,#46586e,#5b5ff4)"></div></div><span class="g-val">130</span></div>
+            <div class="gap-row"><span class="g-name">行测当前</span><div class="g-track"><div class="g-fill" style="width:47%;background:var(--grad-main)"></div></div><span class="g-val">58–64</span></div>
+            <div class="gap-row"><span class="g-name">申论当前</span><div class="g-track"><div class="g-fill" style="width:42%;background:linear-gradient(90deg,#8b5cf6,#22d3ee)"></div></div><span class="g-val">55–61</span></div>
+            <div class="gap-row"><span class="g-name">还差</span><div class="g-track"><div class="g-fill" style="width:9%;background:var(--amber);box-shadow:0 0 8px rgba(217,127,6,.5)"></div></div><span class="g-val" style="color:var(--amber)">5–8</span></div>
+          </div>
+        </div>
+
+        <div class="section" style="margin-top:20px;padding:0 16px 24px">
+          <div class="t"><h2>反复出现的错因</h2><span>待确认</span></div>
+          <div class="patterns">
+            <span class="pattern">基期量计算<b>×4</b></span>
+            <span class="pattern">转折后主旨<b>×3</b></span>
+            <span class="pattern">增长率比较<b>×2</b></span>
+            <span class="pattern">定义抠关键词<b>×2</b></span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="dock-zone">
+        <div class="dock">
+          <div class="slot">
+            <svg viewBox="0 0 24 24"><path d="M4 11l8-6 8 6v9a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1z"/></svg>
+            今日
+          </div>
+          <div class="slot">
+            <svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>
+            训练
+          </div>
+          <div class="slot on">
+            <svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>
+            能力
+          </div>
+          <div class="slot">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-5.5 8-5.5s6.5 1.5 8 5.5"/></svg>
+            我的
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="frame-label"><b>03 / 能力</b> — 区间而非单分，证据透明</div>
+  </div>
+
+</div>
+
+<!-- ═══════ 组件小样 ═══════ -->
+<div class="kit">
+  <h2>组件小样</h2>
+  <div class="sub">TOKENS · BUTTONS · CHIPS · SURFACES</div>
+
+  <div class="kit-grid">
+
+    <div class="kit-card">
+      <h3>色板</h3>
+      <div class="swatches">
+        <div class="sw"><i style="background:#10131b"></i><span>墨 ink</span></div>
+        <div class="sw"><i style="background:#5b5ff4"></i><span>靛 indigo</span></div>
+        <div class="sw"><i style="background:#8b5cf6"></i><span>紫 violet</span></div>
+        <div class="sw"><i style="background:#22d3ee"></i><span>青 cyan</span></div>
+        <div class="sw"><i style="background:#0d9f6e"></i><span>掌握</span></div>
+        <div class="sw"><i style="background:#d97f06"></i><span>待确认</span></div>
+        <div class="sw"><i style="background:#e05252"></i><span>错误</span></div>
+        <div class="sw"><i style="background:#0b0e21"></i><span>深空</span></div>
+      </div>
+    </div>
+
+    <div class="kit-card">
+      <h3>按钮</h3>
+      <div class="kit-btns">
+        <button class="btn btn-primary">开始</button>
+        <button class="btn btn-ghost">查看依据</button>
+      </div>
+      <div style="font-size:11px;color:var(--ink-2);line-height:1.9;margin-top:14px">
+        渐变主钮一页一个，带柔光。<br>其余一律幽灵钮，不抢戏。
+      </div>
+    </div>
+
+    <div class="kit-card">
+      <h3>状态标签</h3>
+      <span class="chip ai"><i></i>AI 建议</span>
+      <span class="chip wait"><i></i>待确认</span>
+      <span class="chip done"><i></i>已掌握</span>
+      <span class="chip err"><i></i>需复测</span>
+    </div>
+
+    <div class="kit-card">
+      <h3>两种表面</h3>
+      <div class="grad-sample">AI · 渐变</div>
+      <div class="space-sample">深空 · 品牌层</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="note">
+  浅色 = 学习与阅读 · 深空 = 品牌与 AI 时刻 · 渐变 = 只给主行动和 AI 洞察<br>
+  估分给区间不给单分 · 分差只是备考参考 · 每个结论都能展开依据
+</div>
+
+</body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>岸岸 · 古风温暖系模版预览</title>
+<style>
+  @font-face {
+    font-family: "Maple Mono CN";
+    src: url("../third_party/maple-font/fonts/MapleMono-CN-Regular.ttf");
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: "Maple Mono CN";
+    src: url("../third_party/maple-font/fonts/MapleMono-CN-Bold.ttf");
+    font-weight: 700;
+  }
+
+  :root {
+    --paper: #f7f2e7;
+    --paper-2: #efe6d0;
+    --paper-3: #e9dfc6;
+    --ink: #2e2a23;
+    --ink-soft: #6f6355;
+    --ink-faint: #a2937d;
+    --dai: #46586e;
+    --cinnabar: #c1513f;
+    --cinnabar-deep: #a63f30;
+    --firefly: #4e9e8f;
+    --firefly-soft: #dcebe4;
+    --rattan: #c08a2d;
+    --rattan-soft: #f3e5c8;
+    --pine: #5f7f5c;
+    --pine-soft: #e0e8d8;
+    --rouge: #b3554d;
+    --wood: #d8cdb0;
+    --line: #c9bb99;
+    --shadow-warm: 0 2px 0 rgba(90, 70, 40, .08), 0 10px 28px rgba(90, 70, 40, .13);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: "Maple Mono CN", "Songti SC", "STSong", monospace;
+    background:
+      radial-gradient(1200px 600px at 20% -10%, #f3ead2 0%, transparent 60%),
+      radial-gradient(1000px 500px at 90% 110%, #ece0c2 0%, transparent 55%),
+      #ece4cf;
+    color: var(--ink);
+    padding: 40px 24px 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page-head { text-align: center; max-width: 720px; margin: 0 auto 40px; }
+  .page-head .kicker {
+    display: inline-block; font-size: 12px; letter-spacing: .3em;
+    color: var(--ink-soft); border: 1px solid var(--line);
+    padding: 6px 14px; border-radius: 999px; background: var(--paper);
+  }
+  .page-head h1 { font-size: 30px; font-weight: 700; margin: 18px 0 10px; }
+  .page-head p { font-size: 14px; color: var(--ink-soft); line-height: 1.9; }
+  .page-head .seal {
+    display: inline-block; margin-top: 14px; font-size: 12px; color: #f7f2e7;
+    background: var(--cinnabar); padding: 4px 10px; border-radius: 6px;
+    transform: rotate(-2deg); box-shadow: 0 2px 6px rgba(166, 63, 48, .35);
+  }
+
+  .frames { display: flex; gap: 48px; justify-content: center; align-items: flex-start; flex-wrap: wrap; }
+  .frame-col { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .frame-label { font-size: 13px; color: var(--ink-soft); }
+  .frame-label b { color: var(--ink); }
+
+  .phone {
+    width: 390px; height: 800px; background: var(--paper);
+    border: 2px solid var(--ink); border-radius: 30px;
+    box-shadow: 8px 10px 0 rgba(46, 42, 35, .12), var(--shadow-warm);
+    overflow: hidden; position: relative;
+    display: flex; flex-direction: column;
+  }
+  .phone::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .5;
+    background-image: radial-gradient(rgba(120, 100, 60, .05) 1px, transparent 1px);
+    background-size: 5px 5px;
+  }
+
+  .scroll { flex: 1; overflow-y: auto; padding: 14px 16px 20px; }
+  .scroll::-webkit-scrollbar { display: none; }
+
+  /* ———— 顶部状态栏（星露谷式） ———— */
+  .statusbar {
+    display: flex; align-items: stretch; gap: 0;
+    background: linear-gradient(180deg, var(--paper-3), #e2d4b3);
+    border: 1.5px solid var(--ink); border-radius: 14px;
+    box-shadow: 0 2px 0 rgba(46, 42, 35, .15);
+    font-size: 11px; line-height: 1.5; overflow: hidden;
+  }
+  .statusbar .cell { flex: 1; padding: 8px 10px; border-right: 1px dashed var(--line); }
+  .statusbar .cell:last-child { border-right: none; }
+  .statusbar .k { color: var(--ink-soft); font-size: 10px; letter-spacing: .1em; }
+  .statusbar .v { font-weight: 700; font-size: 12px; margin-top: 2px; }
+  .statusbar .v em { font-style: normal; font-size: 10px; color: var(--ink-soft); font-weight: 400; }
+  .statusbar .v .gap { color: var(--rattan); }
+
+  /* ———— 每日开场卡 ———— */
+  .opening {
+    margin-top: 14px; display: flex; gap: 12px; align-items: center;
+    background: linear-gradient(135deg, #eef3ec 0%, var(--paper) 55%);
+    border: 1.5px solid var(--ink); border-radius: 18px; padding: 14px;
+    box-shadow: var(--shadow-warm); position: relative; overflow: hidden;
+  }
+  .opening::after {
+    content: ""; position: absolute; right: -30px; top: -30px; width: 110px; height: 110px;
+    background: radial-gradient(circle, rgba(78, 158, 143, .18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .opening img {
+    width: 86px; height: 86px; border-radius: 14px; flex-shrink: 0;
+    border: 1.5px solid var(--ink); object-fit: cover; background: var(--paper-2);
+  }
+  .opening .txt .hello { font-size: 16px; font-weight: 700; line-height: 1.5; }
+  .opening .txt .sub { font-size: 11px; color: var(--ink-soft); margin-top: 5px; line-height: 1.7; }
+  .opening .weather {
+    display: inline-flex; align-items: center; gap: 5px; margin-top: 8px;
+    font-size: 10px; color: var(--dai); background: rgba(70, 88, 110, .08);
+    border: 1px solid rgba(70, 88, 110, .25); padding: 3px 8px; border-radius: 999px;
+  }
+
+  /* ———— 区块标题 ———— */
+  .section { margin-top: 20px; }
+  .section > .t {
+    display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 10px;
+  }
+  .section > .t h2 { font-size: 15px; font-weight: 700; }
+  .section > .t h2::before { content: "◆ "; color: var(--cinnabar); font-size: 11px; }
+  .section > .t span { font-size: 11px; color: var(--ink-faint); }
+
+  /* ———— 任务卡 ———— */
+  .task {
+    background: var(--paper); border: 1.5px solid var(--ink); border-radius: 16px;
+    padding: 14px; margin-bottom: 12px; box-shadow: var(--shadow-warm); position: relative;
+  }
+  .task .row1 { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .task .name { font-size: 14px; font-weight: 700; line-height: 1.5; }
+  .task .time {
+    flex-shrink: 0; font-size: 10px; color: var(--ink-soft);
+    border: 1px solid var(--line); border-radius: 999px; padding: 3px 8px; background: var(--paper-2);
+  }
+  .task .why {
+    margin-top: 8px; font-size: 11px; color: var(--ink-soft); line-height: 1.7;
+    padding-left: 10px; border-left: 3px solid var(--firefly);
+  }
+  .task .why b { color: var(--ink); font-weight: 700; }
+  .task .row2 { display: flex; justify-content: flex-end; align-items: center; gap: 8px; margin-top: 12px; }
+  .task .basis { margin-right: auto; font-size: 10px; color: var(--dai); text-decoration: underline; text-underline-offset: 3px; }
+
+  .task.main { border-width: 2px; }
+  .task.main::before {
+    content: "今日主线"; position: absolute; top: -9px; left: 14px;
+    font-size: 10px; color: #f7f2e7; background: var(--cinnabar);
+    padding: 2px 8px; border-radius: 5px; letter-spacing: .1em;
+  }
+
+  .btn {
+    font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;
+    border-radius: 11px; padding: 9px 20px; transition: transform .08s;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary {
+    color: #faf5ea; background: linear-gradient(180deg, var(--cinnabar) 0%, var(--cinnabar-deep) 100%);
+    border: 1.5px solid #7e2f22; box-shadow: 0 3px 0 #7e2f22, 0 6px 12px rgba(166, 63, 48, .28);
+  }
+  .btn-primary:active { box-shadow: 0 1px 0 #7e2f22; }
+  .btn-ghost {
+    color: var(--ink); background: var(--paper); border: 1.5px solid var(--ink);
+    box-shadow: 0 2px 0 rgba(46, 42, 35, .25);
+  }
+
+  /* ———— 底部快捷栏（物品格） ———— */
+  .dock {
+    display: flex; gap: 8px; padding: 10px 12px 16px;
+    background: linear-gradient(180deg, var(--paper-2), var(--paper-3));
+    border-top: 1.5px solid var(--ink);
+  }
+  .dock .slot {
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+    padding: 8px 0 7px; border-radius: 12px; font-size: 11px; color: var(--ink-soft);
+    border: 1.5px solid transparent;
+  }
+  .dock .slot svg { width: 22px; height: 22px; stroke: var(--ink-soft); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .dock .slot.on {
+    color: var(--ink); font-weight: 700; background: var(--paper);
+    border-color: var(--ink); box-shadow: inset 0 -3px 0 var(--cinnabar), 0 2px 0 rgba(46, 42, 35, .12);
+  }
+  .dock .slot.on svg { stroke: var(--cinnabar-deep); }
+
+  /* ———— 做题页 ———— */
+  .exam-top {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 12px; color: var(--ink-soft); padding: 2px 2px 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .exam-top .prog { font-weight: 700; color: var(--ink); font-size: 13px; }
+  .exam-top .prog em { font-style: normal; color: var(--ink-faint); font-weight: 400; font-size: 11px; }
+  .exam-top .sheet { border: 1px solid var(--line); border-radius: 8px; padding: 3px 8px; background: var(--paper-2); font-size: 11px; color: var(--ink); }
+
+  .stem { font-size: 14px; line-height: 2.05; padding: 16px 2px 6px; color: var(--ink); }
+  .stem .src { display: block; font-size: 10px; color: var(--ink-faint); margin-bottom: 10px; letter-spacing: .05em; }
+
+  .opt {
+    display: flex; gap: 10px; align-items: flex-start;
+    border: 1.5px solid var(--line); border-radius: 13px;
+    padding: 12px 13px; margin-top: 10px; font-size: 13px; line-height: 1.8;
+    background: var(--paper);
+  }
+  .opt .tag {
+    flex-shrink: 0; width: 22px; height: 22px; border: 1.5px solid var(--ink-soft);
+    border-radius: 50%; font-size: 11px; display: flex; align-items: center; justify-content: center;
+    color: var(--ink-soft); margin-top: 2px;
+  }
+  .opt.sel { border-color: var(--cinnabar); background: #f9ece7; box-shadow: 0 2px 0 rgba(166, 63, 48, .2); }
+  .opt.sel .tag { background: var(--cinnabar); border-color: var(--cinnabar-deep); color: #faf5ea; }
+
+  .exam-tools {
+    display: flex; gap: 8px; padding: 10px 12px 16px;
+    background: var(--paper-2); border-top: 1.5px solid var(--ink);
+  }
+  .exam-tools .tool {
+    flex: 1; text-align: center; font-size: 11px; color: var(--ink-soft);
+    padding: 8px 0; border-radius: 10px; border: 1px dashed var(--line); background: var(--paper);
+  }
+  .exam-tools .tool.solid { border: 1.5px solid var(--ink); color: var(--ink); font-weight: 700; }
+
+  /* ———— 组件小样 ———— */
+  .kit { max-width: 880px; margin: 64px auto 0; }
+  .kit h2 { text-align: center; font-size: 20px; margin-bottom: 6px; }
+  .kit .sub { text-align: center; font-size: 12px; color: var(--ink-soft); margin-bottom: 28px; }
+  .kit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .kit-card {
+    background: var(--paper); border: 1.5px solid var(--ink); border-radius: 18px;
+    padding: 18px; box-shadow: var(--shadow-warm);
+  }
+  .kit-card h3 { font-size: 13px; margin-bottom: 14px; }
+  .kit-card h3::before { content: "◆ "; color: var(--cinnabar); font-size: 10px; }
+
+  .swatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .sw { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff; }
+  .sw i { display: block; height: 34px; }
+  .sw span { display: block; font-size: 9px; padding: 4px 5px; color: var(--ink-soft); }
+
+  .chip {
+    display: inline-block; font-size: 11px; padding: 4px 10px; border-radius: 999px;
+    border: 1px solid; margin: 0 6px 8px 0;
+  }
+  .chip.ai { color: var(--firefly); border-color: var(--firefly); background: var(--firefly-soft); }
+  .chip.wait { color: var(--rattan); border-color: var(--rattan); background: var(--rattan-soft); }
+  .chip.done { color: var(--pine); border-color: var(--pine); background: var(--pine-soft); }
+  .chip.err { color: var(--rouge); border-color: var(--rouge); background: #f5e3e0; }
+
+  .basis-demo {
+    font-size: 11px; color: var(--ink-soft); line-height: 1.8;
+    border-left: 3px solid var(--firefly); padding-left: 10px;
+  }
+  .basis-demo a { color: var(--dai); }
+
+  .kit-btns { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+
+  .note { max-width: 880px; margin: 36px auto 0; text-align: center; font-size: 11px; color: var(--ink-faint); line-height: 2; }
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <span class="kicker">岸岸 · 设计模版预览</span>
+  <h1>古风温暖系 · 星露谷式信息架构</h1>
+  <p>宣纸为底、松烟墨为骨、朱砂点睛、萤青示 AI。<br>顶部状态栏常驻「岗位 · 分差 · 倒计时 · 今日时间」，底部快捷栏四格：今日 / 训练 / 能力 / 我的。</p>
+  <span class="seal">把分差，变成今天的行动</span>
+</div>
+
+<div class="frames">
+
+  <!-- ═══════ 今日页 ═══════ -->
+  <div class="frame-col">
+    <div class="phone">
+      <div class="scroll">
+
+        <div class="statusbar">
+          <div class="cell">
+            <div class="k">主目标</div>
+            <div class="v">税务总局 · 科员</div>
+          </div>
+          <div class="cell">
+            <div class="k">分差 <em>参考</em></div>
+            <div class="v"><span class="gap">5–8 分</span></div>
+          </div>
+          <div class="cell">
+            <div class="k">倒计时</div>
+            <div class="v">128 天</div>
+          </div>
+          <div class="cell">
+            <div class="k">今日</div>
+            <div class="v">45<em>/120 分钟</em></div>
+          </div>
+        </div>
+
+        <div class="opening">
+          <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20otter%20mascot%2C%20chinese%20ink%20wash%20painting%20style%2C%20deep%20blue-purple%20fur%2C%20small%20glowing%20cyan%20dot%20on%20chest%2C%20sitting%20calmly%20and%20friendly%2C%20warm%20minimalist%20illustration%2C%20rice%20paper%20background&image_size=square" alt="岸岸">
+          <div class="txt">
+            <div class="hello">早上好。<br>今天先做最关键的。</div>
+            <div class="sub">按你的目标和最近表现，排好了 3 件事。</div>
+            <span class="weather">☀ 杭州 26°C · 适合久坐刷题</span>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="t"><h2>今日任务</h2><span>完成 1/3</span></div>
+
+          <div class="task main">
+            <div class="row1">
+              <div class="name">资料分析 · 基期量专项 12 题</div>
+              <span class="time">约 25 分钟</span>
+            </div>
+            <div class="why">最近 3 组题里这类错了 4 道，<b>最该先追回的分</b>。</div>
+            <div class="row2">
+              <span class="basis">查看依据</span>
+              <button class="btn btn-primary">开始</button>
+            </div>
+          </div>
+
+          <div class="task">
+            <div class="row1">
+              <div class="name">言语理解 · 错题复测 6 题</div>
+              <span class="time">约 15 分钟</span>
+            </div>
+            <div class="why">3 天前做错的题，今天到期复测。</div>
+            <div class="row2">
+              <span class="basis">查看依据</span>
+              <button class="btn btn-ghost">继续</button>
+            </div>
+          </div>
+
+          <div class="task">
+            <div class="row1">
+              <div class="name">申论小题 · 找点练习 1 道</div>
+              <span class="time">约 30 分钟</span>
+            </div>
+            <div class="why">本周第二篇，保持找点手感。</div>
+            <div class="row2">
+              <span class="basis">查看依据</span>
+              <button class="btn btn-ghost">继续</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="t"><h2>岸岸说</h2></div>
+          <div class="task">
+            <div class="why" style="margin-top:0">这周资料分析正确率从 55% 回到 71%，稳住节奏，不用加量。</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="dock">
+        <div class="slot on">
+          <svg viewBox="0 0 24 24"><path d="M4 11l8-6 8 6v9a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1z"/></svg>
+          今日
+        </div>
+        <div class="slot">
+          <svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>
+          训练
+        </div>
+        <div class="slot">
+          <svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg>
+          能力
+        </div>
+        <div class="slot">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-5.5 8-5.5s6.5 1.5 8 5.5"/></svg>
+          我的
+        </div>
+      </div>
+    </div>
+    <div class="frame-label"><b>今日页</b> · 状态栏 + 开场卡 + 任务</div>
+  </div>
+
+  <!-- ═══════ 做题页 ═══════ -->
+  <div class="frame-col">
+    <div class="phone">
+      <div class="scroll">
+
+        <div class="exam-top">
+          <span class="prog">3<em>/12</em></span>
+          <span>已用 08:42</span>
+          <span class="sheet">答题卡 ▦</span>
+        </div>
+
+        <div class="stem">
+          <span class="src">资料分析 · 2024 国考副省级 · 材料 1</span>
+          2023 年，某省规模以上工业增加值为 12840 亿元，比上年增长 6.2%。其中，装备制造业增加值 4520 亿元，增长 8.1%；高技术制造业增加值 2180 亿元，增长 11.4%。
+          <br><br>
+          问：2022 年该省规模以上工业增加值约为多少亿元？
+        </div>
+
+        <div class="opt"><span class="tag">A</span><span>11890 亿元</span></div>
+        <div class="opt sel"><span class="tag">B</span><span>12090 亿元</span></div>
+        <div class="opt"><span class="tag">C</span><span>12260 亿元</span></div>
+        <div class="opt"><span class="tag">D</span><span>12410 亿元</span></div>
+
+        <div style="margin-top:18px; font-size:11px; color:var(--ink-faint); line-height:1.8; padding-left:2px">
+          建议用时 1 分 30 秒 · 做完再对答案，不急
+        </div>
+
+      </div>
+
+      <div class="exam-tools">
+        <div class="tool">材料</div>
+        <div class="tool">草稿</div>
+        <div class="tool">标记</div>
+        <div class="tool solid">不会 · 跳过</div>
+      </div>
+    </div>
+    <div class="frame-label"><b>做题页</b> · 克制纸墨，工具收进底栏</div>
+  </div>
+
+</div>
+
+<!-- ═══════ 组件小样 ═══════ -->
+<div class="kit">
+  <h2>组件小样</h2>
+  <div class="sub">配色 · 按钮 · 标签 · 依据条——整套气质的最小单元</div>
+
+  <div class="kit-grid">
+
+    <div class="kit-card">
+      <h3>色板</h3>
+      <div class="swatches">
+        <div class="sw"><i style="background:#f7f2e7"></i><span>宣纸</span></div>
+        <div class="sw"><i style="background:#2e2a23"></i><span>松烟墨</span></div>
+        <div class="sw"><i style="background:#46586e"></i><span>黛蓝</span></div>
+        <div class="sw"><i style="background:#c1513f"></i><span>朱砂</span></div>
+        <div class="sw"><i style="background:#4e9e8f"></i><span>萤青</span></div>
+        <div class="sw"><i style="background:#c08a2d"></i><span>藤黄</span></div>
+        <div class="sw"><i style="background:#5f7f5c"></i><span>松绿</span></div>
+        <div class="sw"><i style="background:#b3554d"></i><span>胭脂</span></div>
+      </div>
+    </div>
+
+    <div class="kit-card">
+      <h3>按钮</h3>
+      <div class="kit-btns">
+        <button class="btn btn-primary">开始</button>
+        <button class="btn btn-ghost">查看依据</button>
+      </div>
+      <div style="font-size:11px;color:var(--ink-soft);line-height:1.8;margin-top:14px">
+        朱砂只给主行动，一页一个。<br>其余用墨线幽灵钮。
+      </div>
+    </div>
+
+    <div class="kit-card">
+      <h3>状态标签</h3>
+      <span class="chip ai">AI 建议</span>
+      <span class="chip wait">待确认</span>
+      <span class="chip done">已掌握</span>
+      <span class="chip err">需复测</span>
+    </div>
+
+    <div class="kit-card">
+      <h3>依据条（每个结论都有）</h3>
+      <div class="basis-demo">
+        最近 3 组题里，基期量错了 4 道，平均用时超建议 40%。<a>查看依据 →</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="note">
+  文案仍是现代大白话，古风只画皮 · 不出现真实地名映射 · 分差只是备考参考<br>
+  字体 Maple Mono CN（文档规定）· 岸岸形象为占位插画，正式水墨水獭后续统一绘制
+</div>
+
+</body>
+</html>
