@@ -13,12 +13,28 @@
   <view class="settle-stats card">
     <view class="s-stat">
       <text class="s-num num">{{answered}}<text class="s-unit">/{{total}}</text></text>
-      <text class="text-3">作答题数</text>
+      <text class="text-3">{{fromServer ? '完成任务' : '作答题数'}}</text>
     </view>
     <view class="s-divider" />
     <view class="s-stat">
       <text class="s-num num">{{minutes}}<text class="s-unit">分</text></text>
       <text class="text-3">专注时长</text>
+    </view>
+  </view>
+
+  <!-- 任务清单（真实接口数据） -->
+  <view class="settle-tasks card" wx:if="{{tasks.length > 0}}">
+    <text class="settle-tasks-title">今天的账，一条条对</text>
+    <view class="settle-task" wx:for="{{tasks}}" wx:key="taskId">
+      <view class="settle-task-dot {{item.done ? 'is-done' : ''}}" />
+      <view class="settle-task-main">
+        <text class="settle-task-name">{{item.title}}</text>
+        <text class="text-3">{{item.trackLabel}} · {{item.minutes}}分钟</text>
+      </view>
+      <text class="settle-task-status {{item.done ? 'is-done' : ''}}">{{item.statusLabel}}</text>
+    </view>
+    <view class="settle-carry" wx:if="{{carryOverCount > 0}}">
+      <text class="text-3">有 {{carryOverCount}} 件没做完的，岸岸已经帮你挪到明天了</text>
     </view>
   </view>
 

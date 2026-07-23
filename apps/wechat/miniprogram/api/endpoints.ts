@@ -3,6 +3,7 @@ import { request } from "./client";
 import type {
   CompanionAskRequest,
   CompanionAskResponse,
+  DailySettlementView,
   DiscoveryRequest,
   DiscoveryResponse,
   DraftCreate,
@@ -65,6 +66,14 @@ export async function authedV2<T>(options: Parameters<typeof authedRequest>[0]):
 /** 今日任务流（今日页主数据源） */
 export async function fetchTodayTaskstream(): Promise<TodayTaskstream> {
   return authedRequest<TodayTaskstream>({ method: "GET", path: "/api/v1/taskstream/today" });
+}
+
+/** 今日结算视图（daily-settlement@v1 契约，v2 envelope） */
+export async function fetchDailySettlement(): Promise<DailySettlementView> {
+  return authedV2<DailySettlementView>({
+    method: "GET",
+    path: "/api/v2/plans/today/settlement",
+  });
 }
 
 /** 能力估分（能力页主数据源） */
