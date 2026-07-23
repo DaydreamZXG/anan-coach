@@ -1,5 +1,5 @@
 <view class="page placement">
-  <view class="statusbar" />
+  <safe-top />
 
   <view class="p-nav">
     <text class="p-title">{{phase === 'result' ? '你的起点' : '摸底测试'}}</text>

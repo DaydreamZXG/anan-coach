@@ -1,5 +1,5 @@
 <view class="page mb">
-  <view class="statusbar" />
+  <safe-top />
   <view class="mb-nav">
     <text class="mb-back" bindtap="onBack">‹</text>
     <text class="mb-title">会员与额度</text>

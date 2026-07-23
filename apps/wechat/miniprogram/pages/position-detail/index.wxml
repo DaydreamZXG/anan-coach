@@ -1,5 +1,5 @@
 <view class="page pd">
-  <view class="statusbar" />
+  <safe-top />
   <view class="pd-nav">
     <text class="pd-back" bindtap="onBack">‹</text>
     <text class="pd-title">岗位详情</text>

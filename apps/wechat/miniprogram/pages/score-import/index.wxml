@@ -1,5 +1,5 @@
 <view class="page si">
-  <view class="statusbar" />
+  <safe-top />
   <view class="si-nav">
     <text class="si-back" bindtap="onBack">‹</text>
     <text class="si-title">补一笔成绩</text>

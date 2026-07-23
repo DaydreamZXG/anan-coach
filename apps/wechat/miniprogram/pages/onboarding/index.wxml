@@ -1,5 +1,5 @@
 <view class="page ob">
-  <view class="statusbar" />
+  <safe-top />
 
   <view class="ob-steps">
     <view class="ob-dot {{step >= 1 ? 'on' : ''}}" />

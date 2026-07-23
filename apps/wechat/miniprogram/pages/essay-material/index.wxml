@@ -1,5 +1,5 @@
 <view class="page essay">
-  <view class="statusbar" />
+  <safe-top />
 
   <view class="e-nav">
     <text class="e-back" bindtap="onBack">‹</text>

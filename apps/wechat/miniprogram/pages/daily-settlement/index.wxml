@@ -1,5 +1,5 @@
 <view class="page settle">
-  <view class="statusbar" />
+  <safe-top />
 
   <view class="settle-hero">
     <view class="settle-ring">

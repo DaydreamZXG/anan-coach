@@ -1,5 +1,5 @@
 <view class="page ct">
-  <view class="statusbar" />
+  <safe-top />
   <view class="ct-nav">
     <text class="ct-back" bindtap="onBack">‹</text>
     <text class="ct-title">我的贡献</text>

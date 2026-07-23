@@ -1,6 +1,6 @@
 <view class="page today">
   <block wx:if="{{loading}}">
-    <view class="statusbar" />
+    <safe-top />
     <view class="skeleton-head" />
     <view class="skeleton-card" />
     <view class="skeleton-card" />
@@ -9,7 +9,7 @@
   <block wx:else>
     <!-- 蓝色 hero 头部 -->
     <view class="hero">
-      <view class="statusbar" />
+      <safe-top />
       <text class="hero-date num">{{stream.date}}</text>
       <text class="hero-title">{{stream.headline}}</text>
 

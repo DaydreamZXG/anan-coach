@@ -75,6 +75,3 @@ page {
 .btn-primary:active { background: var(--primary-deep); }
 .btn-ghost { background: var(--primary-soft); color: var(--primary); }
 .btn-warm { background: var(--warm); color: #ffffff; }
-
-/* 状态栏占位:带模拟器兜底高度 */
-.statusbar { height: calc(env(safe-area-inset-top, 40rpx) + 16rpx); }

@@ -1,5 +1,5 @@
 <view class="page ability">
-  <view class="statusbar" />
+  <safe-top />
 
   <block wx:if="{{loading}}">
     <view class="skeleton-card" />
@@ -35,6 +35,10 @@
       <text class="text-3">灰色区间 = 数据还不够确定的范围</text>
     </view>
     <view class="card terrain">
+      <view wx:if="{{!modulesView.length}}" class="terrain-empty">
+        <text class="text-2">还没有分模块数据</text>
+        <text class="text-3">做一次摸底或几组练习，五大模块的强弱地形就会画出来</text>
+      </view>
       <view wx:for="{{modulesView}}" wx:key="moduleName" class="module">
         <view class="module-head">
           <text class="module-name">{{item.moduleName}}</text>

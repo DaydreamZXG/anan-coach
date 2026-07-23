@@ -1,5 +1,5 @@
 <view class="page ab">
-  <view class="statusbar" />
+  <safe-top />
   <view class="ab-nav">
     <text class="ab-back" bindtap="onBack">‹</text>
     <text class="ab-title">关于</text>

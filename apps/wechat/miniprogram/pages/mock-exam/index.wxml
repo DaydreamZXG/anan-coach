@@ -1,5 +1,5 @@
 <view class="page mock">
-  <view class="statusbar" />
+  <safe-top />
 
   <view class="m-nav">
     <text class="m-back" bindtap="onBack">‹</text>

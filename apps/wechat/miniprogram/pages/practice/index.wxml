@@ -1,5 +1,5 @@
 <view class="practice">
-  <view class="statusbar" />
+  <safe-top />
   <!-- 顶部：计时 + 进度 -->
   <view class="p-nav">
     <text class="p-back" bindtap="onBack">‹</text>

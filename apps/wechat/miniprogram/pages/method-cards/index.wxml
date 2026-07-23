@@ -1,5 +1,5 @@
 <view class="page cards">
-  <view class="statusbar" />
+  <safe-top />
   <view class="cards-head">
     <text class="page-title h1">知识卡广场</text>
     <text class="text-2">考友们验证过的方法，收藏后能被你的计划引用</text>

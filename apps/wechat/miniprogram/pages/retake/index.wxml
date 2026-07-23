@@ -1,5 +1,5 @@
 <view class="page retake">
-  <view class="statusbar" />
+  <safe-top />
 
   <view class="rt-nav">
     <text class="rt-back" bindtap="onBack">‹</text>

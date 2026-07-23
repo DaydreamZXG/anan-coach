@@ -1,5 +1,5 @@
 <view class="page wp">
-  <view class="statusbar" />
+  <safe-top />
   <view class="wp-nav">
     <text class="wp-back" bindtap="onBack">‹</text>
     <text class="wp-title">本周节奏</text>

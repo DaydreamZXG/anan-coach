@@ -1,5 +1,5 @@
 <view class="anan-page">
-  <view class="statusbar" />
+  <safe-top />
   <view class="anan-header">
     <view class="anan-avatar-lg">岸</view>
     <view class="anan-header-text">

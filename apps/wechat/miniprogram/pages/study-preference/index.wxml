@@ -1,5 +1,5 @@
 <view class="page sp">
-  <view class="statusbar" />
+  <safe-top />
   <view class="sp-nav">
     <text class="sp-back" bindtap="onBack">‹</text>
     <text class="sp-title">学习偏好</text>

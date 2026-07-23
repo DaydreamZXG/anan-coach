@@ -1,5 +1,5 @@
 <view class="page ql">
-  <view class="statusbar" />
+  <safe-top />
   <view class="ql-nav">
     <text class="ql-back" bindtap="onBack">‹</text>
     <text class="ql-title">报考资格核对</text>

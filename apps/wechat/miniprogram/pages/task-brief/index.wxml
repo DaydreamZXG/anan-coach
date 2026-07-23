@@ -1,5 +1,5 @@
 <view class="page tb">
-  <view class="statusbar" />
+  <safe-top />
   <view class="tb-nav">
     <text class="tb-back" bindtap="onBack">‹</text>
     <text class="tb-title">开始之前</text>

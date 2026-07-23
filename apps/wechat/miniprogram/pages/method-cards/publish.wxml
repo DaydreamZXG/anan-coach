@@ -1,5 +1,5 @@
 <view class="page publish">
-  <view class="statusbar" />
+  <safe-top />
   <view class="pub-nav">
     <text class="pub-back" bindtap="onBack">‹</text>
     <text class="pub-nav-title">发布知识卡</text>

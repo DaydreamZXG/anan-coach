@@ -1,5 +1,5 @@
 <view class="page review">
-  <view class="statusbar" />
+  <safe-top />
 
   <view class="r-nav">
     <text class="r-back" bindtap="onBack">‹</text>

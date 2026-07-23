@@ -49,6 +49,14 @@
 
 /* 能力地形 */
 .terrain { margin-bottom: 32rpx; }
+.terrain-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+  padding: 48rpx 24rpx;
+  text-align: center;
+}
 .module { padding: 20rpx 0; border-bottom: 1rpx solid var(--line); }
 .module:last-child { border-bottom: none; padding-bottom: 4rpx; }
 .module:first-child { padding-top: 4rpx; }

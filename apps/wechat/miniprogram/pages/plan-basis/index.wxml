@@ -1,5 +1,5 @@
 <view class="page pb">
-  <view class="statusbar" />
+  <safe-top />
   <view class="pb-nav">
     <text class="pb-back" bindtap="onBack">‹</text>
     <text class="pb-title">为什么是这些任务</text>

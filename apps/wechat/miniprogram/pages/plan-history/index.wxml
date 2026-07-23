@@ -1,5 +1,5 @@
 <view class="page ph">
-  <view class="statusbar" />
+  <safe-top />
   <view class="ph-nav">
     <text class="ph-back" bindtap="onBack">‹</text>
     <text class="ph-title">计划历史</text>

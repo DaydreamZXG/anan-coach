@@ -1,5 +1,5 @@
 <view class="page mreport">
-  <view class="statusbar" />
+  <safe-top />
 
   <view class="mr-nav">
     <text class="mr-back" bindtap="onBackAbility">‹</text>

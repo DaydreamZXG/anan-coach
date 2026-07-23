@@ -48,5 +48,8 @@
     ]
   },
   "lazyCodeLoading": "requiredComponents",
+  "usingComponents": {
+    "safe-top": "/components/safe-top/index"
+  },
   "sitemapLocation": "sitemap.json"
 }

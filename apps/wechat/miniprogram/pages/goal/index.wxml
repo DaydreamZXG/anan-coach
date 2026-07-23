@@ -1,5 +1,5 @@
 <view class="page goal">
-  <view class="statusbar" />
+  <safe-top />
   <view class="g-nav">
     <text class="g-back" bindtap="onBack">‹</text>
     <text class="g-title">目标与岗位</text>

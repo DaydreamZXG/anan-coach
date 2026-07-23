@@ -1,5 +1,5 @@
 <view class="page pc">
-  <view class="statusbar" />
+  <safe-top />
   <view class="pc-nav">
     <text class="pc-back" bindtap="onBack">‹</text>
     <text class="pc-title">岗位对比</text>

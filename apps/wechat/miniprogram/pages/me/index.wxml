@@ -1,5 +1,5 @@
 <view class="page me">
-  <view class="statusbar" />
+  <safe-top />
   <text class="page-title h1">我的</text>
 
   <!-- 用户概览 -->

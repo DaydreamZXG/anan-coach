@@ -1,5 +1,5 @@
 <view class="page nt">
-  <view class="statusbar" />
+  <safe-top />
   <view class="nt-nav">
     <text class="nt-back" bindtap="onBack">‹</text>
     <text class="nt-title">通知设置</text>
