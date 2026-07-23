@@ -9,6 +9,17 @@
   </block>
 
   <block wx:else>
+    <!-- 岸岸每日开场 -->
+    <view wx:if="{{opening}}" class="opening">
+      <view class="anan-avatar">岸</view>
+      <view class="opening-main">
+        <text class="opening-greeting">{{opening.greeting}}</text>
+        <text wx:if="{{opening.weatherLine}}" class="text-3">{{opening.weatherLine}}</text>
+        <text wx:if="{{opening.coffeePrompt}}" class="opening-coffee">{{opening.coffeePrompt}}</text>
+      </view>
+      <text class="opening-close" bindtap="onDismissOpening">×</text>
+    </view>
+
     <!-- 头部：今日一句话 -->
     <view class="head">
       <text class="head-date text-3">{{stream.date}}</text>

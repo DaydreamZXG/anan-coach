@@ -1,5 +1,9 @@
-import { fetchTodayTaskstream } from "../../api/endpoints";
-import type { TodayTaskstream } from "../../api/generated/types.gen";
+import {
+  fetchDailyOpening,
+  fetchTodayTaskstream,
+  recordOpeningImpression,
+} from "../../api/endpoints";
+import type { DailyOpeningView, TodayTaskstream } from "../../api/generated/types.gen";
 import { navigateSmart } from "../../utils/route-map";
 
 const TRACK_LABEL: Record<string, string> = {
@@ -76,6 +80,7 @@ Page({
   data: {
     loading: true,
     usingDemo: false,
+    opening: null as { greeting: string; weatherLine: string; coffeePrompt: string } | null,
     stream: null as TodayTaskstream | null,
     tasksView: [] as Array<
       TodayTaskstream["tasks"][number] & {
@@ -106,6 +111,48 @@ Page({
       console.error("[today] taskstream failed, fallback to demo", err);
       this.render(DEMO, true);
     }
+    void this.loadOpening();
+  },
+
+  async loadOpening() {
+    try {
+      const opening = await fetchDailyOpening();
+      if (opening.displayState !== "ready") return; // 已看过/未开启则不打扰
+      const w = opening.weather.summary;
+      this.setData({
+        opening: {
+          greeting: opening.greeting,
+          weatherLine: w
+            ? `${w.locationLabel} ${Math.round(w.currentCelsius)}°C`
+            : "",
+          coffeePrompt: opening.coffee.showPrompt ? (opening.coffee.prompt ?? "") : "",
+        },
+      });
+      void this.ackOpening(opening);
+    } catch (err) {
+      console.warn("[today] daily opening unavailable", err);
+    }
+  },
+
+  async ackOpening(opening: DailyOpeningView) {
+    try {
+      await recordOpeningImpression(
+        {
+          planVersionId: opening.planVersionId,
+          preferenceVersionId: opening.preference.preferenceVersionId,
+          coffeeState: opening.coffeeState,
+          locationVersionId: opening.locationVersionId ?? null,
+          weatherFingerprint: opening.weatherFingerprint ?? null,
+        },
+        `opening-${opening.localDate}`,
+      );
+    } catch (err) {
+      console.warn("[today] opening impression failed", err);
+    }
+  },
+
+  onDismissOpening() {
+    this.setData({ opening: null });
   },
 
   render(stream: TodayTaskstream, usingDemo: boolean) {

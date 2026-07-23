@@ -3,11 +3,14 @@ import { request } from "./client";
 import type {
   CompanionAskRequest,
   CompanionAskResponse,
+  DailyOpeningView,
   DailySettlementView,
   DiscoveryRequest,
   DiscoveryResponse,
   DocketOpenCourtResponse,
   DraftCreate,
+  ImpressionCommand,
+  ImpressionResult,
   EssayAnswerCreateCommand,
   EssayAnswerCreateResult,
   EssayAttemptCreateCommand,
@@ -235,6 +238,24 @@ export async function enrollRetakeProgram(
 /** 分数凭证历史 */
 export async function fetchScoreEvidenceHistory(): Promise<ScoreEvidenceHistory> {
   return authedV2<ScoreEvidenceHistory>({ method: "GET", path: "/api/v2/score-evidence" });
+}
+
+/** 每日开场（岸岸开场白 + 天气 + 今日计划一句话） */
+export async function fetchDailyOpening(): Promise<DailyOpeningView> {
+  return authedV2<DailyOpeningView>({ method: "GET", path: "/api/v2/plans/daily-opening" });
+}
+
+/** 记录开场已展示（幂等），当天不再重复弹出 */
+export async function recordOpeningImpression(
+  body: ImpressionCommand,
+  idempotencyKey: string,
+): Promise<ImpressionResult> {
+  return authedV2<ImpressionResult>({
+    method: "POST",
+    path: "/api/v2/plans/daily-opening/impressions",
+    body,
+    idempotencyKey,
+  });
 }
 
 /** 自报一条分数凭证（幂等），返回新凭证与更新后的能力估计 */
