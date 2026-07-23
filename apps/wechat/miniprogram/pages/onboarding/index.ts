@@ -219,7 +219,12 @@ Page({
       progress = await fetchOnboardingProgress();
       const result = await acknowledgeOnboarding(progress.progressVersion);
       if (result.nextAction === "start_retake_recovery") {
-        wx.showToast({ title: "岸岸已按二战节奏排计划", icon: "none", duration: 2000 });
+        // 二战用户：进工作台选上次成绩，生成恢复计划
+        wx.redirectTo({
+          url: "/pages/retake/index",
+          fail: () => wx.switchTab({ url: "/pages/today/index" }),
+        });
+        return;
       }
     } catch (err) {
       console.error("[onboarding] submit failed (continuing to workspace)", err);

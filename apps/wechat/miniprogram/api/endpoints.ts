@@ -35,6 +35,9 @@ import type {
   PrimaryGoalConfirmResponse,
   PrimaryGoalPreview,
   QualificationMilestoneCommand,
+  RetakeEnrollmentRequest,
+  RetakeEnrollmentResult,
+  RetakeWorkspace,
   ReviewVerdictRequest,
   ReviewVerdictResponse,
   SaveCheckpointCommand,
@@ -202,6 +205,26 @@ export async function markMockReviewViewed(sessionId: string): Promise<MockExamR
   return authedRequest<MockExamReview>({
     method: "POST",
     path: `/api/v1/mock-exams/${sessionId}/review/view`,
+  });
+}
+
+// ═══════ 二战恢复计划 ═══════
+
+/** 二战工作台：可用分数凭证 + 当前恢复计划 */
+export async function fetchRetakeWorkspace(): Promise<RetakeWorkspace> {
+  return authedV2<RetakeWorkspace>({ method: "GET", path: "/api/v2/retake" });
+}
+
+/** 用一条分数凭证报名恢复计划（幂等） */
+export async function enrollRetakeProgram(
+  body: RetakeEnrollmentRequest,
+  idempotencyKey: string,
+): Promise<RetakeEnrollmentResult> {
+  return authedV2<RetakeEnrollmentResult>({
+    method: "POST",
+    path: "/api/v2/retake/programs",
+    body,
+    idempotencyKey,
   });
 }
 

@@ -12,7 +12,8 @@
     "pages/review/index",
     "pages/essay-material/index",
     "pages/mock-exam/index",
-    "pages/mock-report/index"
+    "pages/mock-report/index",
+    "pages/retake/index"
   ],
   "window": {
     "navigationStyle": "custom",

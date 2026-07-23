@@ -1,0 +1,85 @@
+<view class="page retake">
+  <view class="statusbar" />
+
+  <view class="rt-nav">
+    <text class="rt-back" bindtap="onBack">‹</text>
+    <text class="rt-title">二战恢复计划</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="rt-loading text-2">正在翻你的旧账…</view>
+
+  <scroll-view wx:else class="rt-body" scroll-y>
+    <!-- 已有恢复计划 -->
+    <block wx:if="{{program}}">
+      <view class="card rt-program">
+        <view class="rt-program-head">
+          <text class="h2">{{program.sourceExamYear}} → {{program.targetExamYear}} 恢复计划</text>
+          <text class="rt-state">{{program.stateLabel}}</text>
+        </view>
+        <view class="rt-scores">
+          <view class="rt-score">
+            <text class="rt-score-num num">{{program.xingceScore}}</text>
+            <text class="text-3">上次行测</text>
+          </view>
+          <view class="rt-score">
+            <text class="rt-score-num num">{{program.essayScore}}</text>
+            <text class="text-3">上次申论</text>
+          </view>
+        </view>
+        <view class="rt-limitation">
+          <text class="rt-lim-label">上次卡在哪</text>
+          <text class="rt-lim-text">{{program.limitation}}</text>
+        </view>
+        <view class="rt-focus">
+          <text class="rt-lim-label">这次的训练重点</text>
+          <view class="rt-focus-item" wx:for="{{program.trainingFocus}}" wx:key="*this">
+            <view class="rt-focus-dot" />
+            <text class="rt-focus-text">{{item}}</text>
+          </view>
+        </view>
+      </view>
+      <button class="btn btn-primary rt-cta" bindtap="onGoToday">按这个节奏，去今日任务</button>
+    </block>
+
+    <!-- 未报名：选凭证 -->
+    <block wx:elif="{{evidence.length}}">
+      <view class="rt-anan">
+        <view class="anan-avatar">岸</view>
+        <text class="rt-anan-text">再战不是从零开始。选一次你考过的成绩，我按它的失分结构给你排 {{targetExamYear}} 年的恢复计划。</text>
+      </view>
+
+      <view
+        class="card rt-evidence {{selectedEvidenceId === item.evidenceId ? 'is-on' : ''}}"
+        wx:for="{{evidence}}"
+        wx:key="evidenceId"
+        data-id="{{item.evidenceId}}"
+        bindtap="onPickEvidence"
+      >
+        <view class="rt-ev-main">
+          <text class="rt-ev-year">{{item.yearLabel}}</text>
+          <text class="text-3">{{item.scoreLine}}</text>
+        </view>
+        <text class="rt-ev-source">{{item.sourceLabel}}</text>
+      </view>
+
+      <text class="rt-boundary text-3">{{scoreUseBoundary}}</text>
+
+      <button
+        class="btn btn-primary rt-cta"
+        bindtap="onEnroll"
+        disabled="{{!selectedEvidenceId || enrolling}}"
+      >{{enrolling ? '生成中…' : '用这次成绩生成恢复计划'}}</button>
+    </block>
+
+    <!-- 无凭证：空状态 -->
+    <block wx:else>
+      <view class="rt-empty">
+        <text class="h2">还没有上次的成绩记录</text>
+        <text class="text-2">在引导里补一下上次考试的分数，或者直接按新手节奏开始，之后随时能补。</text>
+        <button class="btn btn-primary rt-cta" bindtap="onGoToday">先按当前计划走</button>
+      </view>
+    </block>
+
+    <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示数据（后端未连接）</view>
+  </scroll-view>
+</view>
