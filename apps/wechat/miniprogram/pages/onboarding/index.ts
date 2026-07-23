@@ -226,6 +226,14 @@ Page({
         });
         return;
       }
+      if (result.nextAction === "record_baseline") {
+        // 新用户：先摸底建立初始画像，再进今日
+        wx.redirectTo({
+          url: "/pages/placement/index",
+          fail: () => wx.switchTab({ url: "/pages/today/index" }),
+        });
+        return;
+      }
     } catch (err) {
       console.error("[onboarding] submit failed (continuing to workspace)", err);
     }

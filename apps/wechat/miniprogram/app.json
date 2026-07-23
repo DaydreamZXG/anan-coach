@@ -13,7 +13,8 @@
     "pages/essay-material/index",
     "pages/mock-exam/index",
     "pages/mock-report/index",
-    "pages/retake/index"
+    "pages/retake/index",
+    "pages/placement/index"
   ],
   "window": {
     "navigationStyle": "custom",
