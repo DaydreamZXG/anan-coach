@@ -10,7 +10,7 @@
 /** 旧路径 → 新路径（匹配时忽略参数，转发时保留参数） */
 const LEGACY_ROUTE_MAP: Record<string, string> = {
   // 练习链路
-  "pages/xingce-task-intro/index": "pages/practice/index",
+  "pages/xingce-task-intro/index": "pages/task-brief/index",
   // 复盘
   "pages/reflection/index": "pages/review/index",
   "pages/error-pattern/index": "pages/review/index",
@@ -64,7 +64,7 @@ const LEGACY_ROUTE_MAP: Record<string, string> = {
 
 /** 任务 kind → 新页面兜底（路径完全认不出时用） */
 const KIND_FALLBACK: Record<string, string> = {
-  practice: "pages/practice/index",
+  practice: "pages/task-brief/index",
   review: "pages/review/index",
   essay: "pages/essay-material/index",
   mock: "pages/mock-exam/index",
@@ -103,6 +103,7 @@ const REGISTERED = new Set([
   "pages/about/index",
   "pages/score-import/index",
   "pages/plan-basis/index",
+  "pages/task-brief/index",
 ]);
 
 function splitUrl(url: string): { path: string; query: string } {

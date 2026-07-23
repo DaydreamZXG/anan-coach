@@ -1,0 +1,46 @@
+<view class="page tb">
+  <view class="statusbar" />
+  <view class="tb-nav">
+    <text class="tb-back" bindtap="onBack">‹</text>
+    <text class="tb-title">开始之前</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="tb-loading text-2">岸岸正在准备交代…</view>
+
+  <block wx:else>
+    <scroll-view class="tb-body" scroll-y>
+      <view class="card tb-head">
+        <text class="tb-mode">{{modeLabel}}{{moduleName ? ' · ' + moduleName : ''}}</text>
+        <text class="h1 tb-task-title">{{title}}</text>
+      </view>
+
+      <view class="tb-anan">
+        <view class="anan-avatar">岸</view>
+        <text class="tb-anan-text">{{reason}}</text>
+      </view>
+
+      <view class="card tb-facts">
+        <view class="tb-fact">
+          <text class="tb-fact-num num">{{questionCount}}</text>
+          <text class="text-3">题目数</text>
+        </view>
+        <view class="tb-fact-divider" />
+        <view class="tb-fact">
+          <text class="tb-fact-num num">{{targetMinutes}}</text>
+          <text class="text-3">建议分钟</text>
+        </view>
+        <view class="tb-fact-divider" />
+        <view class="tb-fact">
+          <text class="tb-fact-num num">{{perQuestionSeconds}}</text>
+          <text class="text-3">秒/题参考</text>
+        </view>
+      </view>
+
+      <text class="text-3 tb-note">超时只是记录，不算失败；中途放弃也不扣分，但要明确点「放弃」而不是直接退出。</text>
+    </scroll-view>
+
+    <view class="tb-foot">
+      <button class="btn btn-primary tb-foot-btn" bindtap="onStart" disabled="{{starting}}">开始做题</button>
+    </view>
+  </block>
+</view>

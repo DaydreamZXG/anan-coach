@@ -21,7 +21,8 @@
     "pages/notification/index",
     "pages/about/index",
     "pages/score-import/index",
-    "pages/plan-basis/index"
+    "pages/plan-basis/index",
+    "pages/task-brief/index"
   ],
   "window": {
     "navigationStyle": "custom",

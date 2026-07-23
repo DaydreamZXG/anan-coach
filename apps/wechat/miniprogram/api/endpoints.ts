@@ -45,6 +45,7 @@ import type {
   RetakeEnrollmentRequest,
   RetakeEnrollmentResult,
   TodayDashboard,
+  XingceTaskBriefing,
   RetakeWorkspace,
   ReportedScoreEvidenceRequest,
   ReportedScoreEvidenceResult,
@@ -269,6 +270,14 @@ export async function setTodayCapacity(
     path: "/api/v2/plans/today/capacity",
     body,
     idempotencyKey,
+  });
+}
+
+/** 行测任务开场简报（练什么、为什么、时间约定） */
+export async function fetchTaskBriefing(planTaskId: string): Promise<XingceTaskBriefing> {
+  return authedV2<XingceTaskBriefing>({
+    method: "GET",
+    path: `/api/v2/xingce/plan-tasks/${planTaskId}/briefing`,
   });
 }
 
