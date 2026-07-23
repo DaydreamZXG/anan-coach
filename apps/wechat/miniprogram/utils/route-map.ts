@@ -54,7 +54,7 @@ const LEGACY_ROUTE_MAP: Record<string, string> = {
   "pages/learning-profile/index": "pages/me/index",
   "pages/notification-settings/index": "pages/notification/index",
   // membership 已有真实页面，无需映射
-  "pages/privacy/index": "pages/about/index",
+  // privacy 已有真实页面，无需映射
   "pages/support/index": "pages/about/index",
   // 引导子页 → 新版单页引导
   "pages/login/index": "pages/onboarding/index",
@@ -111,6 +111,7 @@ const REGISTERED = new Set([
   "pages/weekly-plan/index",
   "pages/membership/index",
   "pages/qualification/index",
+  "pages/privacy/index",
 ]);
 
 function splitUrl(url: string): { path: string; query: string } {

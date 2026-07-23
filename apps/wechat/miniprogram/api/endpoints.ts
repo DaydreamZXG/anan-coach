@@ -1,6 +1,7 @@
 import { ensureSession } from "./auth";
 import { request } from "./client";
 import type {
+  AccountDeletionView,
   CompanionAskRequest,
   CompanionAskResponse,
   CommunityRewardLedgerResponse,
@@ -40,6 +41,7 @@ import type {
   PositionComparisonRequest,
   PositionComparisonResponse,
   PositionDetail,
+  PrivacyOverview,
   QualificationGapSummary,
   PlacementSubmitResponse,
   PlacementTestTask,
@@ -342,6 +344,26 @@ export async function fetchQualificationGaps(): Promise<QualificationGapSummary>
   return authedV2<QualificationGapSummary>({
     method: "GET",
     path: "/api/v2/qualification/gaps",
+  });
+}
+
+/** 隐私与数据概览（收集了什么、留存多久、注销影响） */
+export async function fetchPrivacyOverview(): Promise<PrivacyOverview> {
+  return authedV2<PrivacyOverview>({
+    method: "GET",
+    path: "/api/v2/data-rights/overview",
+  });
+}
+
+/** 申请注销账户（需输入确认短语） */
+export async function requestAccountDeletion(
+  confirmationPhrase: string,
+  commandKey: string,
+): Promise<AccountDeletionView> {
+  return authedV2<AccountDeletionView>({
+    method: "POST",
+    path: "/api/v2/data-rights/deletions",
+    body: { commandKey, confirmationPhrase },
   });
 }
 

@@ -1,0 +1,47 @@
+<view class="page pv">
+  <safe-top />
+  <view class="pv-nav">
+    <text class="pv-back" bindtap="onBack">‹</text>
+    <text class="pv-title">隐私与账户</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="pv-loading text-2">正在读取数据清单…</view>
+
+  <scroll-view wx:else class="pv-body" scroll-y>
+    <view class="card pv-policy" bindtap="onOpenPolicy">
+      <view class="pv-policy-main">
+        <text class="pv-policy-title">{{policyTitle}}</text>
+        <text class="text-3">版本 {{policyVersion}} · 点击查看全文</text>
+      </view>
+      <text class="pv-arrow">›</text>
+    </view>
+
+    <text class="pv-section">我们存了你的哪些数据</text>
+    <view class="card pv-cats">
+      <view class="pv-cat" wx:for="{{categories}}" wx:key="category">
+        <view class="pv-cat-main">
+          <text class="pv-cat-name">{{item.category}}</text>
+          <text class="text-3">{{item.retention}}</text>
+        </view>
+        <text class="text-3 num">{{item.countLabel}}</text>
+      </view>
+      <text class="text-3 pv-retention">{{rawMaterialRetention}}</text>
+    </view>
+
+    <text class="pv-section">注销账户</text>
+    <view class="card pv-danger">
+      <view class="pv-effects">
+        <text class="pv-effect" wx:for="{{deletionEffects}}" wx:key="*this">· {{item}}</text>
+      </view>
+      <input
+        class="pv-input"
+        placeholder="输入「{{confirmPhrase}}」以确认"
+        value="{{phraseInput}}"
+        bindinput="onPhraseInput"
+      />
+      <button class="btn pv-delete-btn" bindtap="onDelete" disabled="{{deleting}}">{{deleting ? '提交中…' : '永久注销账户'}}</button>
+    </view>
+
+    <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示数据（后端未连接）</view>
+  </scroll-view>
+</view>

@@ -26,6 +26,7 @@ const GROUPS = [
       { key: "membership", label: "会员与额度", desc: "各功能额度一目了然", url: "/pages/membership/index" },
       { key: "notify", label: "通知设置", desc: "岸岸什么时候提醒你", url: "/pages/notification/index" },
       { key: "about", label: "关于", desc: "版本与帮助", url: "/pages/about/index" },
+      { key: "privacy", label: "隐私与账户", desc: "数据清单与注销", url: "/pages/privacy/index" },
     ],
   },
 ];

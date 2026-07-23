@@ -1,0 +1,31 @@
+.pv { display: flex; flex-direction: column; min-height: 100vh; }
+.pv-nav { display: flex; align-items: center; gap: 20rpx; padding: 16rpx 8rpx; }
+.pv-back { font-size: 56rpx; color: var(--ink-2); line-height: 1; padding: 0 16rpx; }
+.pv-title { flex: 1; font-size: 32rpx; font-weight: 600; color: var(--ink); }
+.pv-loading { padding: 120rpx 0; text-align: center; }
+.pv-body { flex: 1; min-height: 0; }
+
+.pv-policy { display: flex; align-items: center; justify-content: space-between; gap: 20rpx; }
+.pv-policy-main { display: flex; flex-direction: column; gap: 6rpx; }
+.pv-policy-title { font-size: 30rpx; font-weight: 600; color: var(--ink); }
+.pv-arrow { font-size: 36rpx; color: var(--ink-3); }
+
+.pv-section { display: block; font-size: 26rpx; font-weight: 600; color: var(--ink-3); padding: 28rpx 8rpx 16rpx; }
+
+.pv-cats { display: flex; flex-direction: column; gap: 24rpx; }
+.pv-cat { display: flex; align-items: center; justify-content: space-between; gap: 20rpx; }
+.pv-cat-main { display: flex; flex-direction: column; gap: 4rpx; }
+.pv-cat-name { font-size: 29rpx; color: var(--ink); }
+.pv-retention { line-height: 1.6; padding-top: 8rpx; border-top: 1rpx solid var(--line); }
+
+.pv-danger { display: flex; flex-direction: column; gap: 24rpx; }
+.pv-effects { display: flex; flex-direction: column; gap: 8rpx; }
+.pv-effect { font-size: 26rpx; color: var(--ink-2); line-height: 1.6; }
+.pv-input {
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  padding: 20rpx 24rpx;
+  font-size: 28rpx;
+}
+.pv-delete-btn { background: #fdecec; color: var(--danger); }
+.demo-tip { text-align: center; padding: 16rpx 0 calc(env(safe-area-inset-bottom) + 16rpx); }

@@ -28,7 +28,8 @@
     "pages/contributions/index",
     "pages/weekly-plan/index",
     "pages/membership/index",
-    "pages/qualification/index"
+    "pages/qualification/index",
+    "pages/privacy/index"
   ],
   "window": {
     "navigationStyle": "custom",
