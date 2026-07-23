@@ -8,6 +8,13 @@ import type {
   DiscoveryResponse,
   DocketOpenCourtResponse,
   DraftCreate,
+  EssayAnswerCreateCommand,
+  EssayAnswerCreateResult,
+  EssayAttemptCreateCommand,
+  EssayAttemptCreateResult,
+  EssayCurrentReviewEnsureCommand,
+  EssayCurrentReviewEnsureResult,
+  EssayTaskWorkspace,
   DraftReceipt,
   GetAbilityEstimateApiV1CalibrationAbilityGetResponse,
   LearnerProfile,
@@ -107,6 +114,55 @@ export async function submitReviewVerdict(
     method: "POST",
     path: `/api/v1/review-sessions/${docketId}/cards/${cardId}/verdict`,
     body,
+  });
+}
+
+// ═══════ 申论智能 ═══════
+
+/** 申论任务工作台：素材 + 题干 + 进度 + 评分标尺 */
+export async function fetchEssayWorkspace(taskVersionId: string): Promise<EssayTaskWorkspace> {
+  return authedV2<EssayTaskWorkspace>({
+    method: "GET",
+    path: `/api/v2/essay-intelligence/tasks/${taskVersionId}/workspace`,
+  });
+}
+
+/** 开启一次申论作答（幂等） */
+export async function createEssayAttempt(
+  body: EssayAttemptCreateCommand,
+  idempotencyKey: string,
+): Promise<EssayAttemptCreateResult> {
+  return authedV2<EssayAttemptCreateResult>({
+    method: "POST",
+    path: "/api/v2/essay-intelligence/attempts",
+    body,
+    idempotencyKey,
+  });
+}
+
+/** 提交申论作答文本（幂等） */
+export async function createEssayAnswer(
+  body: EssayAnswerCreateCommand,
+  idempotencyKey: string,
+): Promise<EssayAnswerCreateResult> {
+  return authedV2<EssayAnswerCreateResult>({
+    method: "POST",
+    path: "/api/v2/essay-intelligence/answers",
+    body,
+    idempotencyKey,
+  });
+}
+
+/** 确保当前作答有一份 grounded 批改（幂等，可能返回排队中的 job） */
+export async function ensureEssayReview(
+  body: EssayCurrentReviewEnsureCommand,
+  idempotencyKey: string,
+): Promise<EssayCurrentReviewEnsureResult> {
+  return authedV2<EssayCurrentReviewEnsureResult>({
+    method: "POST",
+    path: "/api/v2/essay-intelligence/reviews/current/ensure",
+    body,
+    idempotencyKey,
   });
 }
 

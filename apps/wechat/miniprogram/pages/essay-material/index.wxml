@@ -1,0 +1,87 @@
+<view class="page essay">
+  <view class="statusbar" />
+
+  <view class="e-nav">
+    <text class="e-back" bindtap="onBack">‹</text>
+    <text class="e-title">申论 · {{questionTypeLabel}}</text>
+    <text class="e-score num" wx:if="{{maximumScore}}">{{maximumScore}}分</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="e-loading text-2">正在铺开材料…</view>
+
+  <!-- 批改中 -->
+  <block wx:elif="{{phase === 'grading'}}">
+    <view class="e-grading">
+      <view class="anan-avatar anan-avatar-lg">岸</view>
+      <text class="h2">在逐句对材料了</text>
+      <text class="text-2">每一条扣分我都会给你指到材料原文，稍等</text>
+    </view>
+  </block>
+
+  <!-- 批改结果 -->
+  <block wx:elif="{{phase === 'result'}}">
+    <scroll-view class="e-body" scroll-y>
+      <view wx:if="{{reviewPending}}" class="card e-pending">
+        <text class="h2">批改排上队了</text>
+        <text class="text-2">这篇要逐句对材料，需要一点时间。批完我会在今日页提醒你回来看。</text>
+      </view>
+      <block wx:else>
+        <text class="e-section-title">这次批出 {{findings.length}} 个问题</text>
+        <view class="card e-finding" wx:for="{{findings}}" wx:key="findingId">
+          <view class="e-finding-head">
+            <text class="e-sev {{item.severityClass}}">{{item.severityLabel}}</text>
+            <text class="text-3">{{item.attributionLabel}}</text>
+          </view>
+          <text class="e-diagnosis">{{item.diagnosis}}</text>
+          <view class="e-action">
+            <text class="e-action-label">怎么改</text>
+            <text class="e-action-text">{{item.action}}</text>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+    <view class="e-foot">
+      <button class="btn btn-primary e-foot-btn" bindtap="onBackToday">回到今日</button>
+    </view>
+  </block>
+
+  <!-- 作答阶段 -->
+  <block wx:else>
+    <scroll-view class="e-body" scroll-y>
+      <view class="card e-prompt">
+        <text class="e-prompt-text">{{prompt}}</text>
+        <text class="text-3" wx:if="{{requirements}}">要求：{{requirements}} · 不超过 {{wordLimit}} 字</text>
+      </view>
+
+      <view class="card e-segment" wx:for="{{segments}}" wx:key="segmentId">
+        <text class="e-segment-order">{{item.order}}</text>
+        <text class="e-segment-text">{{item.text}}</text>
+      </view>
+
+      <view class="card e-write">
+        <view class="e-write-head">
+          <text class="e-section-title">你的作答</text>
+          <text class="text-3 num">{{wordCount}}<text wx:if="{{wordLimit}}">/{{wordLimit}}</text> 字</text>
+        </view>
+        <textarea
+          class="e-textarea"
+          value="{{answerText}}"
+          bindinput="onInput"
+          maxlength="{{-1}}"
+          placeholder="把要点按条写下来，写完岸岸逐句对材料批"
+          placeholder-class="e-placeholder"
+          auto-height
+        />
+      </view>
+    </scroll-view>
+
+    <view class="e-foot">
+      <button
+        class="btn btn-primary e-foot-btn"
+        bindtap="onSubmit"
+        disabled="{{!answerText || submitting}}"
+      >{{submitting ? '提交中…' : '交给岸岸批'}}</button>
+    </view>
+    <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示材料（后端未连接）</view>
+  </block>
+</view>

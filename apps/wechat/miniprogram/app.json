@@ -9,7 +9,8 @@
     "pages/method-cards/index",
     "pages/method-cards/publish",
     "pages/onboarding/index",
-    "pages/review/index"
+    "pages/review/index",
+    "pages/essay-material/index"
   ],
   "window": {
     "navigationStyle": "custom",
