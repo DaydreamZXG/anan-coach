@@ -1,4 +1,4 @@
-.statusbar { height: env(safe-area-inset-top); }
+.statusbar { height: env(safe-area-inset-top, 40rpx); }
 .pub-nav {
   display: flex;
   align-items: center;

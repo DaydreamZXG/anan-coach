@@ -11,21 +11,21 @@
         <text class="nt-row-label">每日学习提醒</text>
         <text class="text-3">到点了岸岸喊你开始今天的任务</text>
       </view>
-      <switch checked="{{dailyReminder}}" data-key="dailyReminder" bindchange="onToggle" color="#2b6cb0" />
+      <switch checked="{{dailyReminder}}" data-key="dailyReminder" bindchange="onToggle" color="#3d7eff" />
     </view>
     <view class="nt-row">
       <view class="nt-row-main">
         <text class="nt-row-label">结算提醒</text>
         <text class="text-3">晚上提醒你对完今天的账再休息</text>
       </view>
-      <switch checked="{{settlementReminder}}" data-key="settlementReminder" bindchange="onToggle" color="#2b6cb0" />
+      <switch checked="{{settlementReminder}}" data-key="settlementReminder" bindchange="onToggle" color="#3d7eff" />
     </view>
     <view class="nt-row">
       <view class="nt-row-main">
         <text class="nt-row-label">模考提醒</text>
         <text class="text-3">每周模考日提前一天打招呼</text>
       </view>
-      <switch checked="{{mockReminder}}" data-key="mockReminder" bindchange="onToggle" color="#2b6cb0" />
+      <switch checked="{{mockReminder}}" data-key="mockReminder" bindchange="onToggle" color="#3d7eff" />
     </view>
   </view>
   <text class="text-3 nt-hint">提醒通过微信服务通知发送，关闭后岸岸就不打扰你了</text>

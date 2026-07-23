@@ -1,24 +1,26 @@
 /**
- * 设计系统 · 冷静工具层 + 暖色岸岸
+ * 设计系统 · 粉笔风格明快工具层 + 暖色岸岸
  * 原则:暖色(--warm)只允许出现在岸岸相关的界面元素上。
  * 颜色即信息:暖色出现 = 有人在陪你。
  */
 page {
-  --bg: #f5f6f8;
+  --bg: #f5f7fa;
   --surface: #ffffff;
-  --ink: #1a2330;
-  --ink-2: #66707d;
-  --ink-3: #9aa3ae;
-  --line: #e9ecf0;
-  --primary: #2b6cb0;
-  --primary-soft: #eaf1f8;
+  --ink: #202a3a;
+  --ink-2: #6b7686;
+  --ink-3: #9ea8b5;
+  --line: #eef1f5;
+  --primary: #3d7eff;
+  --primary-deep: #2f66e0;
+  --primary-soft: #ecf2ff;
   --warm: #e8833a;
   --warm-soft: #fbf0e6;
-  --good: #2f9e62;
-  --good-soft: #e9f5ee;
-  --danger: #d64545;
-  --radius: 24rpx;
-  --radius-sm: 16rpx;
+  --good: #22b573;
+  --good-soft: #e8f8f0;
+  --danger: #f0524c;
+  --shadow: 0 6rpx 24rpx rgba(41, 72, 125, 0.06);
+  --radius: 28rpx;
+  --radius-sm: 20rpx;
 
   background: var(--bg);
   color: var(--ink);
@@ -32,11 +34,12 @@ page {
   background: var(--surface);
   border-radius: var(--radius);
   padding: 32rpx;
-  border: 1rpx solid var(--line);
+  border: none;
+  box-shadow: var(--shadow);
 }
 
-.h1 { font-size: 44rpx; font-weight: 600; line-height: 1.3; color: var(--ink); }
-.h2 { font-size: 34rpx; font-weight: 600; line-height: 1.4; color: var(--ink); }
+.h1 { font-size: 44rpx; font-weight: 700; line-height: 1.3; color: var(--ink); }
+.h2 { font-size: 34rpx; font-weight: 700; line-height: 1.4; color: var(--ink); }
 .text-2 { font-size: 28rpx; color: var(--ink-2); }
 .text-3 { font-size: 24rpx; color: var(--ink-3); }
 .num {
@@ -58,12 +61,20 @@ page {
   align-items: center;
   justify-content: center;
   height: 96rpx;
-  border-radius: var(--radius-sm);
+  border-radius: 999rpx;
   font-size: 32rpx;
   font-weight: 600;
   border: none;
 }
 .btn::after { border: none; }
-.btn-primary { background: var(--primary); color: #ffffff; }
-.btn-ghost { background: var(--surface); color: var(--ink); border: 1rpx solid var(--line); }
+.btn-primary {
+  background: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 8rpx 20rpx rgba(61, 126, 255, 0.28);
+}
+.btn-primary:active { background: var(--primary-deep); }
+.btn-ghost { background: var(--primary-soft); color: var(--primary); }
 .btn-warm { background: var(--warm); color: #ffffff; }
+
+/* 状态栏占位:带模拟器兜底高度 */
+.statusbar { height: calc(env(safe-area-inset-top, 40rpx) + 16rpx); }

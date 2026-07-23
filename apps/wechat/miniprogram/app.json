@@ -38,7 +38,7 @@
   "tabBar": {
     "custom": true,
     "color": "#9AA3AE",
-    "selectedColor": "#2B6CB0",
+    "selectedColor": "#3D7EFF",
     "backgroundColor": "#FFFFFF",
     "list": [
       { "pagePath": "pages/today/index", "text": "今日" },

@@ -1,5 +1,5 @@
 .practice { display: flex; flex-direction: column; height: 100vh; box-sizing: border-box; }
-.statusbar { height: env(safe-area-inset-top); }
+.statusbar { height: env(safe-area-inset-top, 40rpx); }
 
 .p-nav {
   display: flex;

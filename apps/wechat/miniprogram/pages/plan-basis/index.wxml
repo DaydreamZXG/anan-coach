@@ -52,7 +52,7 @@
           step="1"
           value="{{minuteIndex}}"
           bindchange="onMinuteChange"
-          activeColor="#2b6cb0"
+          activeColor="#3d7eff"
           block-size="24"
         />
         <button class="btn btn-primary pb-apply" bindtap="onApplyAdjust" disabled="{{adjusting}}">{{adjusting ? '重排中…' : '就按这个重排今天'}}</button>

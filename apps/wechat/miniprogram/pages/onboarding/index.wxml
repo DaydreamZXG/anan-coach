@@ -51,11 +51,11 @@
 
     <view class="ob-switch-row">
       <text class="ob-label-inline">这是我第一次系统备考</text>
-      <switch checked="{{firstSystematic}}" color="#2b6cb0" bindchange="onFirstSystematic" />
+      <switch checked="{{firstSystematic}}" color="#3d7eff" bindchange="onFirstSystematic" />
     </view>
     <view class="ob-switch-row">
       <text class="ob-label-inline">报过班或跟过网课</text>
-      <switch checked="{{externalLearning}}" color="#2b6cb0" bindchange="onExternalLearning" />
+      <switch checked="{{externalLearning}}" color="#3d7eff" bindchange="onExternalLearning" />
     </view>
   </block>
 
@@ -92,7 +92,7 @@
 
     <view class="ob-switch-row">
       <text class="ob-label-inline">应届毕业生</text>
-      <switch checked="{{freshGraduate}}" color="#2b6cb0" bindchange="onFresh" />
+      <switch checked="{{freshGraduate}}" color="#3d7eff" bindchange="onFresh" />
     </view>
   </block>
 

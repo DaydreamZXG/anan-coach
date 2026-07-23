@@ -47,7 +47,7 @@
           <text class="si-row-label">当时限时了吗</text>
           <text class="text-3">正式考试都算限时</text>
         </view>
-        <switch checked="{{timed}}" bindchange="onTimedChange" color="#2b6cb0" />
+        <switch checked="{{timed}}" bindchange="onTimedChange" color="#3d7eff" />
       </view>
     </view>
 

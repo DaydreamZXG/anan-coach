@@ -1,4 +1,4 @@
-.statusbar { height: calc(env(safe-area-inset-top) + 24rpx); }
+.statusbar { height: calc(env(safe-area-inset-top, 40rpx) + 24rpx); }
 .ab-nav { display: flex; align-items: center; gap: 20rpx; padding: 16rpx 8rpx; }
 .ab-back { font-size: 56rpx; color: var(--ink-2); line-height: 1; padding: 0 16rpx; }
 .ab-title { flex: 1; font-size: 32rpx; font-weight: 600; color: var(--ink); }

@@ -1,4 +1,4 @@
-.statusbar { height: calc(env(safe-area-inset-top) + 24rpx); }
+.statusbar { height: calc(env(safe-area-inset-top, 40rpx) + 24rpx); }
 .essay { display: flex; flex-direction: column; min-height: 100vh; }
 
 .e-nav { display: flex; align-items: center; gap: 20rpx; padding: 16rpx 8rpx; }

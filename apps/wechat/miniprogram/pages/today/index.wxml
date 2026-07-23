@@ -1,14 +1,39 @@
 <view class="page today">
-  <!-- 自定义状态栏占位 -->
-  <view class="statusbar" />
-
   <block wx:if="{{loading}}">
+    <view class="statusbar" />
     <view class="skeleton-head" />
     <view class="skeleton-card" />
     <view class="skeleton-card" />
   </block>
 
   <block wx:else>
+    <!-- 蓝色 hero 头部 -->
+    <view class="hero">
+      <view class="statusbar" />
+      <text class="hero-date num">{{stream.date}}</text>
+      <text class="hero-title">{{stream.headline}}</text>
+
+      <view class="hero-stats">
+        <view class="hs-col">
+          <text class="hs-label">目标</text>
+          <text class="hs-main">{{stream.target.positionGroup}}</text>
+          <text class="hs-sub">{{stream.target.exam}}</text>
+        </view>
+        <view class="hs-divider" />
+        <view class="hs-col">
+          <text class="hs-label">当前分差</text>
+          <text class="hs-gap num" wx:if="{{stream.target.scoreGapAvailable}}">{{stream.target.scoreGap}}<text class="hs-gap-unit">分</text></text>
+          <text class="hs-main" wx:else>待测</text>
+          <text class="hs-sub">{{stream.calibration.statusLabel}}</text>
+        </view>
+      </view>
+
+      <view class="hero-basis" bindtap="onOpenBasis">
+        <text class="hero-basis-text">为什么是这些任务 · 状态不好想减量</text>
+        <text class="hero-basis-arrow">›</text>
+      </view>
+    </view>
+
     <!-- 岸岸每日开场 -->
     <view wx:if="{{opening}}" class="opening">
       <view class="anan-avatar">岸</view>
@@ -18,33 +43,6 @@
         <text wx:if="{{opening.coffeePrompt}}" class="opening-coffee">{{opening.coffeePrompt}}</text>
       </view>
       <text class="opening-close" bindtap="onDismissOpening">×</text>
-    </view>
-
-    <!-- 头部：今日一句话 -->
-    <view class="head">
-      <text class="head-date text-3">{{stream.date}}</text>
-      <text class="head-title h1">{{stream.headline}}</text>
-
-      <!-- 目标 + 校准状态条 -->
-      <view class="target-bar">
-        <view class="target-col">
-          <text class="text-3">目标</text>
-          <text class="target-main">{{stream.target.positionGroup}}</text>
-          <text class="text-3">{{stream.target.exam}}</text>
-        </view>
-        <view class="target-divider" />
-        <view class="target-col">
-          <text class="text-3">当前分差</text>
-          <text class="target-gap num" wx:if="{{stream.target.scoreGapAvailable}}">{{stream.target.scoreGap}}<text class="target-gap-unit">分</text></text>
-          <text class="target-main" wx:else>待测</text>
-          <text class="text-3">{{stream.calibration.statusLabel}}</text>
-        </view>
-      </view>
-
-      <view class="basis-link" bindtap="onOpenBasis">
-        <text class="text-3">为什么是这些任务？状态不好想减量？</text>
-        <text class="basis-link-cta">看依据 / 调整</text>
-      </view>
     </view>
 
     <!-- 告警（如降载提醒等） -->
@@ -69,7 +67,6 @@
         <text class="rationale-label">今天为什么这么排</text>
       </view>
       <text class="rationale-text">{{stream.rationale}}</text>
-      <text class="rationale-basis text-3">{{stream.planBasis}}</text>
       <text class="rationale-cta">有疑问？找岸岸聊聊 ›</text>
     </view>
 
@@ -104,7 +101,6 @@
 
           <view class="task-reason">
             <text class="task-reason-text">{{item.reason}}</text>
-            <text class="task-grounding text-3">依据：{{item.sourceGrounding}}</text>
           </view>
 
           <button

@@ -1,4 +1,4 @@
-.statusbar { height: calc(env(safe-area-inset-top) + 24rpx); }
+.statusbar { height: calc(env(safe-area-inset-top, 40rpx) + 24rpx); }
 .settle { align-items: stretch; }
 
 .settle-hero { display: flex; flex-direction: column; align-items: center; padding: 40rpx 0 48rpx; }
