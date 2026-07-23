@@ -1,0 +1,44 @@
+<view class="page goal">
+  <view class="statusbar" />
+  <view class="g-nav">
+    <text class="g-back" bindtap="onBack">‹</text>
+    <text class="g-title">目标与岗位</text>
+  </view>
+
+  <scroll-view class="g-body" scroll-y>
+    <view class="card g-current">
+      <text class="text-3">当前主目标</text>
+      <text class="g-current-name">{{currentGoal}}</text>
+    </view>
+
+    <view class="g-search">
+      <input
+        class="g-input"
+        value="{{keyword}}"
+        bindinput="onInput"
+        placeholder="搜岗位名、部门或城市"
+        placeholder-class="g-placeholder"
+        confirm-type="search"
+        bindconfirm="onSearch"
+      />
+      <button class="btn btn-primary g-search-btn" bindtap="onSearch" disabled="{{searching}}" size="mini">{{searching ? '搜索中' : '搜索'}}</button>
+    </view>
+
+    <view
+      class="card g-pos"
+      wx:for="{{results}}"
+      wx:key="positionId"
+      data-id="{{item.positionId}}"
+      data-name="{{item.name}}"
+      bindtap="onPick"
+    >
+      <view class="g-pos-main">
+        <text class="g-pos-name">{{item.name}}</text>
+        <text class="text-3">{{item.department}}{{item.city ? ' · ' + item.city : ''}}</text>
+      </view>
+      <text class="g-pos-cta">{{confirming === item.positionId ? '确认中…' : '设为目标'}}</text>
+    </view>
+
+    <view wx:if="{{usingDemo && results.length}}" class="demo-tip text-3">演示岗位（后端未连接）</view>
+  </scroll-view>
+</view>

@@ -27,6 +27,7 @@ import type {
   OnboardingProgress,
   OnboardingResultProjection,
   PlacementAnswer,
+  PlanChangeHistory,
   PlacementSubmitResponse,
   PlacementTestTask,
   PositionEligibilitySnapshot,
@@ -226,6 +227,11 @@ export async function enrollRetakeProgram(
     body,
     idempotencyKey,
   });
+}
+
+/** 计划变更历史（我的页-计划历史） */
+export async function fetchPlanHistory(): Promise<PlanChangeHistory> {
+  return authedV2<PlanChangeHistory>({ method: "GET", path: "/api/v2/plans/history" });
 }
 
 // ═══════ 岸岸（AI 伴学） ═══════

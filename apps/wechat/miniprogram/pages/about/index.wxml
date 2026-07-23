@@ -1,0 +1,23 @@
+<view class="page ab">
+  <view class="statusbar" />
+  <view class="ab-nav">
+    <text class="ab-back" bindtap="onBack">‹</text>
+    <text class="ab-title">关于</text>
+  </view>
+
+  <view class="ab-hero">
+    <view class="ab-logo">岸</view>
+    <text class="ab-name">上岸计划</text>
+    <text class="text-3 num">v{{version}}</text>
+  </view>
+
+  <view class="card ab-card">
+    <text class="ab-slogan">你负责学，剩下的交给岸岸。</text>
+    <text class="text-2">一个把「考什么、练什么、怎么补」全部替你安排好的备考教练。每天打开只做一件事：完成今天的任务。</text>
+  </view>
+
+  <view class="card ab-row" bindtap="onCopyEmail">
+    <text class="ab-row-label">联系我们</text>
+    <text class="text-3">support@example.com</text>
+  </view>
+</view>

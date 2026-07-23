@@ -1,0 +1,40 @@
+<view class="page sp">
+  <view class="statusbar" />
+  <view class="sp-nav">
+    <text class="sp-back" bindtap="onBack">‹</text>
+    <text class="sp-title">学习偏好</text>
+  </view>
+
+  <scroll-view class="sp-body" scroll-y>
+    <text class="sp-section">每周节奏</text>
+    <view
+      class="card sp-rhythm {{rhythmKey === item.key ? 'is-on' : ''}}"
+      wx:for="{{rhythms}}"
+      wx:key="key"
+      data-key="{{item.key}}"
+      bindtap="onPickRhythm"
+    >
+      <view class="sp-rhythm-main">
+        <text class="sp-rhythm-label">{{item.label}}</text>
+        <text class="text-3">{{item.desc}}</text>
+      </view>
+      <view class="sp-radio {{rhythmKey === item.key ? 'is-on' : ''}}" />
+    </view>
+
+    <text class="sp-section">固定休息日</text>
+    <view class="sp-rest">
+      <text
+        class="sp-rest-chip {{restDayKey === item.key ? 'is-on' : ''}}"
+        wx:for="{{restDays}}"
+        wx:key="key"
+        data-key="{{item.key}}"
+        bindtap="onPickRest"
+      >{{item.label}}</text>
+    </view>
+    <text class="text-3 sp-hint">每周留一天完全不学，岸岸不会在这天排任务</text>
+  </scroll-view>
+
+  <view class="sp-foot">
+    <button class="btn btn-primary sp-foot-btn" bindtap="onSave" disabled="{{saving}}">{{saving ? '保存中…' : '保存'}}</button>
+  </view>
+</view>

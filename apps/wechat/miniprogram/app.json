@@ -14,7 +14,12 @@
     "pages/mock-exam/index",
     "pages/mock-report/index",
     "pages/retake/index",
-    "pages/placement/index"
+    "pages/placement/index",
+    "pages/plan-history/index",
+    "pages/study-preference/index",
+    "pages/goal/index",
+    "pages/notification/index",
+    "pages/about/index"
   ],
   "window": {
     "navigationStyle": "custom",
