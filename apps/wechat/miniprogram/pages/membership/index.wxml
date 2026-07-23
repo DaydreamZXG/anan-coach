@@ -1,0 +1,30 @@
+<view class="page mb">
+  <view class="statusbar" />
+  <view class="mb-nav">
+    <text class="mb-back" bindtap="onBack">‹</text>
+    <text class="mb-title">会员与额度</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="mb-loading text-2">正在查权益…</view>
+
+  <block wx:else>
+    <view class="card mb-tier {{isPro ? 'is-pro' : ''}}">
+      <text class="mb-tier-label">{{tierLabel}}</text>
+      <text class="text-3">{{periodLine}}</text>
+    </view>
+
+    <text class="mb-section">功能额度</text>
+    <view class="card mb-quota" wx:for="{{quotas}}" wx:key="feature">
+      <text class="mb-quota-title">{{item.title}}</text>
+      <text class="mb-quota-line {{item.unlimited ? 'is-unlimited' : ''}} num">{{item.line}}</text>
+    </view>
+
+    <view class="mb-anan">
+      <view class="anan-avatar">岸</view>
+      <text class="mb-anan-text">额度是给功能定节奏用的，不是逼你花钱。免费额度对多数备考阶段够用；真到瓶颈了再升级也不迟。</text>
+    </view>
+
+    <button wx:if="{{!isPro}}" class="btn btn-primary mb-upgrade" bindtap="onUpgrade">了解 Pro</button>
+    <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示数据（后端未连接）</view>
+  </block>
+</view>

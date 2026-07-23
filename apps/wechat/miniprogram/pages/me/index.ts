@@ -9,6 +9,7 @@ const GROUPS = [
       { key: "week", label: "本周节奏", desc: "五天训练一天模考一天休整", url: "/pages/weekly-plan/index" },
       { key: "history", label: "计划历史", desc: "看看走过的每一天", url: "/pages/plan-history/index" },
       { key: "score", label: "补一笔成绩", desc: "考过的分数都算数", url: "/pages/score-import/index" },
+      { key: "qualification", label: "报考资格核对", desc: "硬条件齐了岗位才判得准", url: "/pages/qualification/index" },
     ],
   },
   {
@@ -22,6 +23,7 @@ const GROUPS = [
   {
     title: "设置",
     items: [
+      { key: "membership", label: "会员与额度", desc: "各功能额度一目了然", url: "/pages/membership/index" },
       { key: "notify", label: "通知设置", desc: "岸岸什么时候提醒你", url: "/pages/notification/index" },
       { key: "about", label: "关于", desc: "版本与帮助", url: "/pages/about/index" },
     ],

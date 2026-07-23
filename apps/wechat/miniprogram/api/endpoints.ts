@@ -4,6 +4,7 @@ import type {
   CompanionAskRequest,
   CompanionAskResponse,
   CommunityRewardLedgerResponse,
+  CommerceEntitlementResponse,
   ContributionsResponse,
   DailyCapacityCommand,
   DailyCapacityCommandResult,
@@ -39,6 +40,7 @@ import type {
   PositionComparisonRequest,
   PositionComparisonResponse,
   PositionDetail,
+  QualificationGapSummary,
   PlacementSubmitResponse,
   PlacementTestTask,
   PositionEligibilitySnapshot,
@@ -325,6 +327,22 @@ export async function fetchRewardLedger(): Promise<CommunityRewardLedgerResponse
 /** 本周计划（7 天节奏：训练/模考/恢复） */
 export async function fetchWeeklyPlan(): Promise<WeeklyPlanVersion> {
   return authedV2<WeeklyPlanVersion>({ method: "GET", path: "/api/v2/plans/week" });
+}
+
+/** 会员权益与额度 */
+export async function fetchEntitlement(): Promise<CommerceEntitlementResponse> {
+  return authedRequest<CommerceEntitlementResponse>({
+    method: "GET",
+    path: "/api/v1/commerce/entitlement",
+  });
+}
+
+/** 报考资格缺口（缺什么材料、影响多少岗位） */
+export async function fetchQualificationGaps(): Promise<QualificationGapSummary> {
+  return authedV2<QualificationGapSummary>({
+    method: "GET",
+    path: "/api/v2/qualification/gaps",
+  });
 }
 
 /** 记录开场已展示（幂等），当天不再重复弹出 */

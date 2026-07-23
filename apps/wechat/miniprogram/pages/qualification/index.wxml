@@ -1,0 +1,32 @@
+<view class="page ql">
+  <view class="statusbar" />
+  <view class="ql-nav">
+    <text class="ql-back" bindtap="onBack">‹</text>
+    <text class="ql-title">报考资格核对</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="ql-loading text-2">正在核对硬条件…</view>
+
+  <block wx:else>
+    <view class="card ql-head {{complete ? 'is-ok' : ''}}">
+      <text class="h2">{{complete ? '硬条件资料齐了' : '还有几项资料没齐'}}</text>
+      <text class="text-2">{{complete ? examYear + ' 年报考的资格判断都能算准了。' : '缺的每一项都会让部分岗位判不准，共波及 ' + totalAffected + ' 个候选岗位。'}}</text>
+    </view>
+
+    <block wx:if="{{gaps.length}}">
+      <text class="ql-section">待补清单</text>
+      <view class="card ql-gap" wx:for="{{gaps}}" wx:key="factKey">
+        <view class="ql-gap-main">
+          <view class="ql-gap-head">
+            <text class="ql-gap-fact">{{item.factLabel}}</text>
+            <text class="ql-gap-type">{{item.typeLabel}}</text>
+          </view>
+          <text class="text-3">{{item.affectedLine}}</text>
+        </view>
+        <text class="ql-gap-cta" data-action="{{item.actionLabel}}" bindtap="onAction">{{item.actionLabel}}</text>
+      </view>
+    </block>
+
+    <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示数据（后端未连接）</view>
+  </block>
+</view>

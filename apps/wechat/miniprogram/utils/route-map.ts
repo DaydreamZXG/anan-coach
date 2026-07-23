@@ -50,10 +50,10 @@ const LEGACY_ROUTE_MAP: Record<string, string> = {
   // 成绩导入（旧版 OCR 页 → 新版自报页）
   "pages/external-report/index": "pages/score-import/index",
   "pages/exam-records/index": "pages/score-import/index",
-  "pages/profile/qualification/index": "pages/me/index",
+  "pages/profile/qualification/index": "pages/qualification/index",
   "pages/learning-profile/index": "pages/me/index",
   "pages/notification-settings/index": "pages/notification/index",
-  "pages/membership/index": "pages/about/index",
+  // membership 已有真实页面，无需映射
   "pages/privacy/index": "pages/about/index",
   "pages/support/index": "pages/about/index",
   // 引导子页 → 新版单页引导
@@ -109,6 +109,8 @@ const REGISTERED = new Set([
   "pages/position-compare/index",
   "pages/contributions/index",
   "pages/weekly-plan/index",
+  "pages/membership/index",
+  "pages/qualification/index",
 ]);
 
 function splitUrl(url: string): { path: string; query: string } {
