@@ -1,0 +1,87 @@
+<view class="page review">
+  <view class="statusbar" />
+
+  <view class="r-nav">
+    <text class="r-back" bindtap="onBack">‹</text>
+    <text class="r-title">错题复盘</text>
+    <text class="r-progress num" wx:if="{{cards.length && phase !== 'done'}}">{{index + 1}}/{{cards.length}}</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="r-loading text-2">开庭准备中…</view>
+
+  <!-- 结庭小结 -->
+  <block wx:elif="{{phase === 'done'}}">
+    <view class="r-done">
+      <view class="r-done-ring">
+        <text class="r-done-num num">{{correctCount}}</text>
+        <text class="r-done-unit">/{{cards.length}}</text>
+      </view>
+      <text class="h1">今日复盘结庭</text>
+      <text class="text-2">对了 {{correctCount}} 张，剩下的会再排进队列，直到你真的稳了</text>
+      <button class="btn btn-primary r-done-btn" bindtap="onBackToday">回到今日</button>
+    </view>
+  </block>
+
+  <block wx:elif="{{cards.length}}">
+    <!-- 岸岸开庭词（暖色） -->
+    <view class="r-anan" wx:if="{{index === 0 && phase === 'answer' && companionLine}}">
+      <view class="anan-avatar">岸</view>
+      <text class="r-anan-text">{{companionLine}}</text>
+    </view>
+
+    <scroll-view class="r-body" scroll-y>
+      <view class="r-card card">
+        <view class="r-chips">
+          <text class="r-chip">{{cards[index].moduleName}}</text>
+          <text class="r-chip r-chip-world">{{cards[index].worldLabel}}</text>
+        </view>
+        <text class="r-card-title">{{cards[index].title}}</text>
+        <view class="r-narrative">
+          <text class="r-narrative-text">{{cards[index].narrative}}</text>
+        </view>
+        <text class="r-stem">{{cards[index].stem}}</text>
+        <view class="r-options">
+          <view
+            wx:for="{{cards[index].options}}"
+            wx:for-item="opt"
+            wx:key="label"
+            class="opt {{selected === opt.label ? 'opt-on' : ''}}"
+            data-label="{{opt.label}}"
+            bindtap="onSelect"
+          >
+            <text class="opt-label">{{opt.label}}</text>
+            <text class="opt-text">{{opt.text}}</text>
+          </view>
+        </view>
+
+        <!-- 判定结果 -->
+        <view class="r-verdict" wx:if="{{phase === 'verdict'}}">
+          <view class="r-stamp {{stamp === '准' ? 'is-pass' : 'is-fail'}}">
+            <text class="r-stamp-char">{{stamp}}</text>
+          </view>
+          <text class="r-verdict-line">{{verdictLine}}</text>
+        </view>
+      </view>
+    </scroll-view>
+
+    <view class="r-foot">
+      <button
+        wx:if="{{phase === 'answer'}}"
+        class="btn btn-primary r-foot-btn"
+        bindtap="onJudge"
+        disabled="{{!selected || submitting}}"
+      >{{submitting ? '判定中…' : '请求判定'}}</button>
+      <button
+        wx:elif="{{phase === 'verdict'}}"
+        class="btn btn-primary r-foot-btn"
+        bindtap="onNextCard"
+      >{{index + 1 < cards.length ? '下一张' : '结庭'}}</button>
+    </view>
+    <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示卡组（后端未连接）</view>
+  </block>
+
+  <view wx:else class="r-empty">
+    <text class="text-2">今天没有要复盘的旧账，轻装上阵</text>
+    <button class="btn btn-ghost" bindtap="onBackToday">回到今日</button>
+  </view>
+</view>

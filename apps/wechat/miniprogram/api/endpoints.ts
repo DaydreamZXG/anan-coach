@@ -6,6 +6,7 @@ import type {
   DailySettlementView,
   DiscoveryRequest,
   DiscoveryResponse,
+  DocketOpenCourtResponse,
   DraftCreate,
   DraftReceipt,
   GetAbilityEstimateApiV1CalibrationAbilityGetResponse,
@@ -23,6 +24,8 @@ import type {
   PrimaryGoalConfirmResponse,
   PrimaryGoalPreview,
   QualificationMilestoneCommand,
+  ReviewVerdictRequest,
+  ReviewVerdictResponse,
   SaveCheckpointCommand,
   StudyPreferenceWrite,
   SubmitTaskSessionCommand,
@@ -81,6 +84,29 @@ export async function fetchAbilityEstimate(): Promise<GetAbilityEstimateApiV1Cal
   return authedRequest<GetAbilityEstimateApiV1CalibrationAbilityGetResponse>({
     method: "GET",
     path: "/api/v1/calibration/ability",
+  });
+}
+
+// ═══════ 复盘（开庭） ═══════
+
+/** 开庭：取回今天该复盘的错题卡组（v1 无 envelope） */
+export async function openReviewCourt(): Promise<DocketOpenCourtResponse> {
+  return authedRequest<DocketOpenCourtResponse>({
+    method: "POST",
+    path: "/api/v1/dockets/open-court",
+  });
+}
+
+/** 对单张复盘卡提交判定，返回 准/驳 与岸岸点评 */
+export async function submitReviewVerdict(
+  docketId: string,
+  cardId: string,
+  body: ReviewVerdictRequest,
+): Promise<ReviewVerdictResponse> {
+  return authedRequest<ReviewVerdictResponse>({
+    method: "POST",
+    path: `/api/v1/review-sessions/${docketId}/cards/${cardId}/verdict`,
+    body,
   });
 }
 

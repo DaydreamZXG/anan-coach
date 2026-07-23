@@ -8,7 +8,8 @@
     "pages/daily-settlement/index",
     "pages/method-cards/index",
     "pages/method-cards/publish",
-    "pages/onboarding/index"
+    "pages/onboarding/index",
+    "pages/review/index"
   ],
   "window": {
     "navigationStyle": "custom",
