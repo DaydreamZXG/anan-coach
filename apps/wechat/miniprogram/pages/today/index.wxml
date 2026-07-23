@@ -95,6 +95,7 @@
             wx:if="{{!item.done}}"
             class="btn {{item.order === (doneCount + 1) ? 'btn-primary' : 'btn-ghost'}} task-btn"
             data-url="{{item.startUrl}}"
+            data-kind="{{item.kind}}"
             bindtap="onStartTask"
           >
             {{item.order === (doneCount + 1) ? '开始' : '稍后做'}}

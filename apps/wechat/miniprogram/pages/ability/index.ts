@@ -1,4 +1,5 @@
 import { fetchAbilityEstimate } from "../../api/endpoints";
+import { navigateSmart } from "../../utils/route-map";
 import type { AbilityEstimate } from "../../api/generated/types.gen";
 
 const CONFIDENCE_LABEL: Record<string, string> = {
@@ -115,9 +116,6 @@ Page({
 
   onOpenReport(e: WechatMiniprogram.TouchEvent) {
     const { url } = e.currentTarget.dataset as { url: string };
-    wx.navigateTo({
-      url,
-      fail: () => wx.showToast({ title: "开发中", icon: "none" }),
-    });
+    navigateSmart(url);
   },
 });

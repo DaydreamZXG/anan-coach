@@ -1,3 +1,5 @@
+import { navigateSmart } from "../../utils/route-map";
+
 const GROUPS = [
   {
     title: "我的备考",
@@ -40,9 +42,6 @@ Page({
 
   onOpen(e: WechatMiniprogram.TouchEvent) {
     const { url } = e.currentTarget.dataset as { url: string };
-    wx.navigateTo({
-      url,
-      fail: () => wx.showToast({ title: "开发中", icon: "none" }),
-    });
+    navigateSmart(url);
   },
 });

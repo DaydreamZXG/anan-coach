@@ -1,5 +1,6 @@
 import { fetchTodayTaskstream } from "../../api/endpoints";
 import type { TodayTaskstream } from "../../api/generated/types.gen";
+import { navigateSmart } from "../../utils/route-map";
 
 const TRACK_LABEL: Record<string, string> = {
   xingce: "行测",
@@ -128,18 +129,14 @@ Page({
   },
 
   onStartTask(e: WechatMiniprogram.TouchEvent) {
-    const { url } = e.currentTarget.dataset as { url: string };
-    if (!url) return;
-    wx.navigateTo({
-      url,
-      fail: () => wx.showToast({ title: "该功能开发中", icon: "none" }),
-    });
+    const { url, kind } = e.currentTarget.dataset as { url: string; kind?: string };
+    navigateSmart(url, kind);
   },
 
   onOpenSettlement() {
     wx.navigateTo({
       url: "/pages/daily-settlement/index",
-      fail: () => wx.showToast({ title: "结算页开发中", icon: "none" }),
+      fail: () => wx.showToast({ title: "跳转失败，再点一次", icon: "none" }),
     });
   },
 
@@ -149,10 +146,6 @@ Page({
 
   onTapAlert(e: WechatMiniprogram.TouchEvent) {
     const { url } = e.currentTarget.dataset as { url: string };
-    if (!url) return;
-    wx.navigateTo({
-      url,
-      fail: () => wx.showToast({ title: "开发中", icon: "none" }),
-    });
+    navigateSmart(url);
   },
 });
