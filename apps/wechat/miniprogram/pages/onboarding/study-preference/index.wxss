@@ -52,11 +52,8 @@
 }
 
 .nav-back__icon {
-  width: 18rpx;
-  height: 18rpx;
-  transform: rotate(45deg);
-  border-bottom: 3rpx solid #101828;
-  border-left: 3rpx solid #101828;
+  width: 48rpx;
+  height: 48rpx;
 }
 
 .nav-title {
@@ -236,7 +233,7 @@
   bottom: 0;
   left: 0;
   box-sizing: border-box;
-  padding: 32rpx 40rpx calc(32rpx + env(safe-area-inset-bottom));
+  padding: 34rpx 40rpx calc(40rpx + env(safe-area-inset-bottom));
   border-top: 1rpx solid #f3f4f6;
   background: rgba(255, 255, 255, 0.9);
 }

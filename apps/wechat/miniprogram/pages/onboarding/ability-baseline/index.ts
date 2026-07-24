@@ -12,12 +12,14 @@ import type { AbilityBaselineMode } from "../../../features/onboarding/ability-b
 interface AbilityBaselinePageData {
   state: AbilityBaselineControllerState | null;
   hasChoice: boolean;
+  exitAfterSave: boolean;
 }
 
 interface AbilityBaselinePageCustom {
   selectMode(event: WechatMiniprogram.BaseEvent): void;
   updateScore(event: WechatMiniprogram.Input): void;
   submit(): void;
+  saveAndExit(): void;
   retry(): void;
   back(): void;
 }
@@ -33,6 +35,7 @@ Page<AbilityBaselinePageData, AbilityBaselinePageCustom>({
   data: {
     state: null,
     hasChoice: false,
+    exitAfterSave: false,
   },
 
   onLoad() {
@@ -62,6 +65,17 @@ Page<AbilityBaselinePageData, AbilityBaselinePageCustom>({
   },
 
   submit() {
+    this.setData({ exitAfterSave: false });
+    void runtimes.get(this)?.controller?.submit();
+  },
+
+  saveAndExit() {
+    if (this.data.state?.saving) return;
+    if (!this.data.hasChoice) {
+      void wx.redirectTo({ url: routes.profileArchive });
+      return;
+    }
+    this.setData({ exitAfterSave: true });
     void runtimes.get(this)?.controller?.submit();
   },
 
@@ -94,6 +108,11 @@ function mountController(page: AbilityBaselinePage): void {
     },
     onAdvance: () => {
       if (runtimes.owns(page, runtime)) {
+        if (page.data.exitAfterSave) {
+          page.setData({ exitAfterSave: false });
+          void wx.redirectTo({ url: routes.profileArchive });
+          return;
+        }
         void wx.redirectTo({ url: routes.onboardingResult });
       }
     },
@@ -104,6 +123,6 @@ function mountController(page: AbilityBaselinePage): void {
   });
   runtime.controller = controller;
   const state = controller.snapshot();
-  page.setData({ state, hasChoice: false });
+  page.setData({ state, hasChoice: false, exitAfterSave: false });
   void controller.load();
 }

@@ -1,0 +1,215 @@
+{
+  "schemaVersion": 1,
+  "designAuthority": {
+    "fileKey": "pU5sxRfG4UFeCCrnSPoaAX",
+    "editableImportFileKey": "0fJdWImI2lGJQqTYjlZPN8",
+    "archiveSha256": "bc18f998b879cab6aa72f47d116ad1f7b520eab226dd29a17f72f5dc5113086e",
+    "exportedAt": "2026-07-24",
+    "deliveryRoot": "apps/wechat/design/figma-delivery"
+  },
+  "tokenSnapshot": {
+    "figmaSource": "tokens/design-file.tokens.wxss",
+    "runtimePath": "design-system/tokens/design-file.tokens.wxss",
+    "sha256": "7bc95c77fb9c56869bab3e154ab3a19b8ead598f4985d4fa337150ab0c4f7e29"
+  },
+  "assets": [
+    {
+      "id": "anan-brain-outline-ink",
+      "purpose": "登录页品牌标识",
+      "figmaPageId": "51:3",
+      "figmaNodeId": "31:2",
+      "figmaSource": "assets/by-hash/112de17ecb886ea496298eadffc7dd7d249dcc8a.svg",
+      "runtimePath": "assets/icons/anan/brain-outline-ink.svg",
+      "sha256": "3bcfd761af948be05ead46d3492948f8e5cacf43d8776181185987e821a0f831"
+    },
+    {
+      "id": "anan-brain-outline-white",
+      "purpose": "岸岸总控台品牌标识",
+      "figmaPageId": "51:2",
+      "figmaNodeId": "6:2",
+      "figmaSource": "assets/by-hash/7f20e37164ca9383b43b8c88c1ee1e98868491cf.svg",
+      "runtimePath": "assets/icons/anan/brain-outline-white.svg",
+      "sha256": "bd650b149fdffba3da5b984bd6d8635d5ca5dbcc401a5d3f5749060a2a8f54c8"
+    },
+    {
+      "id": "login-arrow-right-white",
+      "purpose": "微信登录主操作箭头",
+      "figmaPageId": "51:3",
+      "figmaNodeId": "31:2",
+      "figmaSource": "assets/by-hash/931cb87021b3a10165a80695f9ff463a66186a07.svg",
+      "runtimePath": "assets/icons/anan/arrow-right-white.svg",
+      "sha256": "b0e2de963eb0227e56741e04b1052a6015635a8579030dc9b066a1e4ad98fadd"
+    },
+    {
+      "id": "login-consent-check-faint",
+      "purpose": "登录协议说明标识",
+      "figmaPageId": "51:3",
+      "figmaNodeId": "31:2",
+      "figmaSource": "assets/by-hash/0d196d7afb6fd636cd19339441b75658f24a6249.svg",
+      "runtimePath": "assets/icons/anan/check-faint.svg",
+      "sha256": "0302e49ed4754106a8defc7e49eddde2830ddef1ff4cc77a1f1cea8b34e3a45b"
+    },
+    {
+      "id": "onboarding-profile-spark",
+      "purpose": "建档入口主图标",
+      "figmaPageId": "51:3",
+      "figmaNodeId": "8:2",
+      "figmaSource": "assets/by-hash/7c824de71d6e261edac9a6fe05bfbef518310df8.svg",
+      "runtimePath": "assets/icons/onboarding/profile-spark.svg",
+      "sha256": "316a58eb83473e61b8c68fc8553d28fccbbc6ba6a871f3b6ba33b3bee7414006"
+    },
+    {
+      "id": "onboarding-edit-ink",
+      "purpose": "老用户修改档案操作",
+      "figmaPageId": "51:3",
+      "figmaNodeId": "8:2",
+      "figmaSource": "assets/by-hash/831af65c1c3b144a64bf0412ebe5d311ad1006d4.svg",
+      "runtimePath": "assets/icons/onboarding/edit-ink.svg",
+      "sha256": "4c778296b49267eb325703bb4830f0b65618781b06a97ed6f79e8fa209b2988e"
+    },
+    {
+      "id": "navigation-chevron-left-ink",
+      "purpose": "交付页返回操作",
+      "figmaPageId": "51:3",
+      "figmaNodeId": "8:2",
+      "figmaSource": "assets/by-hash/5942678affda30807d303ee4370dec566b023050.svg",
+      "runtimePath": "assets/icons/navigation/chevron-left-ink.svg",
+      "sha256": "c050bfa63c0c9aa6141ebbf579cc85845fa84e44d0ac2583667c5717961bef1e"
+    },
+    {
+      "id": "profile-archive-spark",
+      "purpose": "档案完整度说明图标",
+      "figmaPageId": "51:3",
+      "figmaNodeId": "33:2",
+      "figmaSource": "assets/by-hash/ce690986c332f35c7dbe66697dc88b092ae85045.svg",
+      "runtimePath": "assets/icons/profile/archive-spark.svg",
+      "sha256": "bcfddc0739ce497cbec20eddb7a7c5d305c64590694932c734d50ae2a24941f2"
+    },
+    {
+      "id": "profile-archive-identity",
+      "purpose": "档案身份模块图标",
+      "figmaPageId": "51:3",
+      "figmaNodeId": "33:2",
+      "figmaSource": "assets/by-hash/909ab6add82161a309a344a4933aff5f5ae7e87d.svg",
+      "runtimePath": "assets/icons/profile/archive-identity.svg",
+      "sha256": "01f25567c843384a8d7266dfa91b4fd6edec6a863b7955985e2d39ce0e8e9703"
+    },
+    {
+      "id": "profile-archive-qualification",
+      "purpose": "档案报考资格模块图标",
+      "figmaPageId": "51:3",
+      "figmaNodeId": "33:2",
+      "figmaSource": "assets/by-hash/ad744cab96f2f1ddd2aeb4462ab7d1a54ced8b78.svg",
+      "runtimePath": "assets/icons/profile/archive-qualification.svg",
+      "sha256": "cb64f429ae355cd0a092a42255e132d7de3d5f41088be73831804015a3aff890"
+    },
+    {
+      "id": "profile-archive-position",
+      "purpose": "档案岗位偏好模块图标",
+      "figmaPageId": "51:3",
+      "figmaNodeId": "33:2",
+      "figmaSource": "assets/by-hash/f7cbcb8d9c631276b7a753f417dd01be6344cb67.svg",
+      "runtimePath": "assets/icons/profile/archive-position.svg",
+      "sha256": "0410d2b929c03b6efe943e0d8fbba4bc0a8091da2f8521c997961c28f0bd4976"
+    },
+    {
+      "id": "profile-archive-time",
+      "purpose": "档案学习时间模块图标",
+      "figmaPageId": "51:3",
+      "figmaNodeId": "33:2",
+      "figmaSource": "assets/by-hash/db9cdfb3f3365e4fe821242f5f68ac43589dbdf1.svg",
+      "runtimePath": "assets/icons/profile/archive-time.svg",
+      "sha256": "63fb29c640f8b1cdcf6065ce1eadbf3d47f66015adb459551eae341b3e13d3fc"
+    },
+    {
+      "id": "profile-archive-ability",
+      "purpose": "档案能力基础模块图标",
+      "figmaPageId": "51:3",
+      "figmaNodeId": "33:2",
+      "figmaSource": "assets/by-hash/0f148a68cd3be205a9dbc1c5a5f911f696490c02.svg",
+      "runtimePath": "assets/icons/profile/archive-ability.svg",
+      "sha256": "2fa9465479d9f9776898858e26c3a1925f62e22bd7dd92be4617820398a9d6e2"
+    },
+    {
+      "id": "onboarding-notice-warning",
+      "purpose": "报考资格硬性门槛提醒",
+      "figmaPageId": "51:3",
+      "figmaNodeId": "35:2",
+      "figmaSource": "assets/by-hash/f18abb08a3b9a2bc99e267a28e91a997988c34f9.svg",
+      "runtimePath": "assets/icons/onboarding/notice-warning.svg",
+      "sha256": "132a447df32ca361cca1475e0932fce9e1950e37a25f6a90b250101054dd27d1"
+    },
+    {
+      "id": "onboarding-search-muted",
+      "purpose": "专业目录搜索图标",
+      "figmaPageId": "51:3",
+      "figmaNodeId": "35:2",
+      "figmaSource": "assets/by-hash/6ccdf4bcc1d0ff9fa79a7573812644b92b128b91.svg",
+      "runtimePath": "assets/icons/onboarding/search-muted.svg",
+      "sha256": "a9028e4d5cccd485938cca9266d73193eda364394c3d458de326708cdfc79fff"
+    },
+    {
+      "id": "onboarding-ability-target-cyan",
+      "purpose": "能力起点未知选项图标",
+      "figmaPageId": "51:3",
+      "figmaNodeId": "38:2",
+      "figmaSource": "assets/by-hash/0f2784817c956bf8d881c07aef7b3dde297d10c1.svg",
+      "runtimePath": "assets/onboarding/ability-target-cyan.svg",
+      "sha256": "e6e15528ea7007b674f9e48d262e2ceca9657866e23dee85d88a5527ebbc0251"
+    },
+    {
+      "id": "onboarding-ability-book-indigo",
+      "purpose": "能力起点成绩录入选项图标",
+      "figmaPageId": "51:3",
+      "figmaNodeId": "38:2",
+      "figmaSource": "assets/by-hash/7f57fe9b34d33180e8806c5406761c04efebda53.svg",
+      "runtimePath": "assets/onboarding/ability-book-indigo.svg",
+      "sha256": "c62fa3e558e6ee0a21d8834bbf3f59de6c4662034460b3c6b062da654b8baccc"
+    },
+    {
+      "id": "onboarding-result-check-green",
+      "purpose": "建档完成状态图标",
+      "figmaPageId": "51:3",
+      "figmaNodeId": "39:2",
+      "figmaSource": "assets/by-hash/621d61697f657adc054a2b81017ae6d1cb821049.svg",
+      "runtimePath": "assets/onboarding/result-check-green.svg",
+      "sha256": "08ee9333d47ec4446e496f8dbf7b1a6fc50a9368f98c135fa5d42c13df2b89a6"
+    },
+    {
+      "id": "onboarding-result-shield-indigo",
+      "purpose": "建档可靠判断图标",
+      "figmaPageId": "51:3",
+      "figmaNodeId": "39:2",
+      "figmaSource": "assets/by-hash/d0c270ec82689433959f394dac967f34fb9370c5.svg",
+      "runtimePath": "assets/onboarding/result-shield-indigo.svg",
+      "sha256": "4728b6c4828273f053ee7216d84c0112584c4bf865df84d710294ca93cd0a18a"
+    },
+    {
+      "id": "onboarding-result-map-indigo",
+      "purpose": "候选岗位建议图标",
+      "figmaPageId": "51:3",
+      "figmaNodeId": "39:2",
+      "figmaSource": "assets/by-hash/1a37606de58827f166cb89485243d773d46d4449.svg",
+      "runtimePath": "assets/onboarding/result-map-indigo.svg",
+      "sha256": "6a0fee8748fb82e1befe49f9ce457a79f0dd7b6186dd292125bc5e6f9f34da3a"
+    },
+    {
+      "id": "onboarding-result-chevron-gray",
+      "purpose": "建档建议卡片箭头",
+      "figmaPageId": "51:3",
+      "figmaNodeId": "39:2",
+      "figmaSource": "assets/by-hash/a31d98478a3ac70d81e5b98b36d273051af2d629.svg",
+      "runtimePath": "assets/onboarding/result-chevron-gray.svg",
+      "sha256": "7a5054d68d057a89a813adcb40203919d065bd06fbd19f53da64b924ba1b23a0"
+    },
+    {
+      "id": "onboarding-result-target-cyan",
+      "purpose": "基础能力建议图标",
+      "figmaPageId": "51:3",
+      "figmaNodeId": "39:2",
+      "figmaSource": "assets/by-hash/c9dcc1294c4981f4d31fb74df16a0bc0eb0f3215.svg",
+      "runtimePath": "assets/onboarding/result-target-cyan.svg",
+      "sha256": "41d6687e7cd9cc8ac8f594080178927ec9c65a7f72a658853ec588be14b8289f"
+    }
+  ]
+}

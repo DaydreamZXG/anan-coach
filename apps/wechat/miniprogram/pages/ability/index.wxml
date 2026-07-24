@@ -1,5 +1,5 @@
 <view class="ability-page">
-  <safe-top gap="8" />
+  <safe-top mode="status" gap="52" />
 
   <view class="ability-content">
     <view class="ability-header">
@@ -20,7 +20,7 @@
     />
 
     <block wx:elif="{{profile}}">
-      <view class="ability-card goal-card fade-slide-in" style="animation-delay: 0.05s">
+      <view class="ability-card goal-card">
         <view class="card-heading">
           <view class="card-heading__main">
             <text class="card-title">目标对照</text>
@@ -48,7 +48,7 @@
         <view class="goal-boundary {{goalAvailable ? '' : 'goal-boundary--pending'}}">{{goalBoundaryLabel}}</view>
       </view>
 
-      <view class="ability-card overview-card fade-slide-in" style="animation-delay: 0.1s">
+      <view class="ability-card overview-card">
         <view class="card-heading">
           <view class="card-title">当前能力总览</view>
           <view class="status-chip">{{profileReadinessLabel}}</view>
@@ -71,13 +71,13 @@
         </view>
       </view>
 
-      <view class="subject-tabs fade-slide-in" style="animation-delay: 0.15s">
+      <view class="subject-tabs">
         <button hover-class="item--hover" class="subject-tab {{subjectTab === 'xingce' ? 'subject-tab--active' : ''}}" data-value="xingce" bindtap="chooseSubject">行测</button>
         <button hover-class="item--hover" class="subject-tab {{subjectTab === 'essay' ? 'subject-tab--active' : ''}}" data-value="essay" bindtap="chooseSubject">申论</button>
       </view>
 
       <block wx:if="{{subjectTab === 'xingce'}}">
-        <view class="ability-card radar-card fade-slide-in" style="animation-delay: 0.2s">
+        <view class="ability-card radar-card">
           <view class="radar-head">
             <view class="radar-title">行测模块状态</view>
             <view class="radar-note">综合正确率、用时、稳定掌握和复测表现，不等同于卷面分。</view>
@@ -92,8 +92,7 @@
             wx:for="{{xingceModules}}"
             wx:key="moduleKey"
             hover-class="item--hover"
-            class="module-row fade-slide-in"
-            style="animation-delay: {{0.25 + index * 0.04}}s"
+            class="module-row"
             data-track="{{item.track}}"
             data-key="{{item.moduleKey}}"
             bindtap="openModule"
@@ -114,8 +113,7 @@
             wx:for="{{essayModules}}"
             wx:key="moduleKey"
             hover-class="item--hover"
-            class="module-row essay-module-row fade-slide-in"
-            style="animation-delay: {{0.25 + index * 0.04}}s"
+            class="module-row essay-module-row"
             data-track="{{item.track}}"
             data-key="{{item.moduleKey}}"
             bindtap="openModule"
@@ -133,7 +131,7 @@
         </view>
       </block>
 
-      <view class="patterns-section fade-slide-in" style="animation-delay: 0.35s">
+      <view class="patterns-section">
         <view class="patterns-title">最近反复出现的问题</view>
         <view class="pattern-list">
           <button
@@ -161,11 +159,11 @@
         {{profile.decisionSummary.reviewDueCount}} 个学习取舍已经到复评时间，需要重新确认。
       </view>
 
-      <view class="ability-card coach-action fade-slide-in" style="animation-delay: 0.45s">
+      <view class="ability-card coach-action">
         <view class="coach-action__aurora"></view>
         <view class="coach-action__content">
           <view class="coach-action__heading">
-            <image class="icon icon--sparkles pulse-ring" src="/assets/icons/ability/sparkles-indigo.png" mode="aspectFit" />
+            <image class="icon icon--sparkles" src="/assets/icons/ability/sparkles-indigo.png" mode="aspectFit" />
             <view class="coach-action__title">岸岸行动建议</view>
           </view>
           <view class="coach-action__copy">目前最值得优先修复的模块已在上方标出。需要岸岸结合今天的安排解释一下吗？</view>

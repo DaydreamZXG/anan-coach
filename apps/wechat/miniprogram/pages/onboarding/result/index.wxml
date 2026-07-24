@@ -1,5 +1,5 @@
 <view class="result-page">
-  <safe-top gap="{{0}}" />
+  <safe-top mode="status" gap="4" />
 
   <view wx:if="{{!state || state.status === 'loading'}}" class="result-state">
     <state-view state="loading" title="正在生成备考档案" description="会对齐报考资格、岗位证据、双科起点和学习时间。" />
@@ -37,7 +37,7 @@
 
           <view class="assessment-section">
             <view class="assessment-heading">
-              <image class="assessment-heading__icon" src="/assets/onboarding/result-alert-orange.svg" mode="aspectFit" />
+              <image class="assessment-heading__icon" src="/assets/icons/onboarding/notice-warning.svg" mode="aspectFit" />
               <text>缺失与风险</text>
             </view>
             <view class="assessment-copy">{{state.view.riskJudgment}}</view>

@@ -1,7 +1,9 @@
 <view class="archive-page">
-  <safe-top gap="{{0}}" />
+  <safe-top mode="status" gap="48" />
   <view class="archive-nav">
-    <button class="archive-back" aria-label="返回" bindtap="back"><view class="archive-back__icon"></view></button>
+    <button class="archive-back" aria-label="返回" bindtap="back">
+      <image class="archive-back__icon" src="/assets/icons/navigation/chevron-left-ink.svg" mode="aspectFit" />
+    </button>
     <view class="archive-nav__title">我的备考档案</view>
   </view>
 
@@ -18,7 +20,7 @@
     <scroll-view scroll-y class="archive-scroll" enhanced show-scrollbar="{{false}}">
       <view class="archive-content">
         <view class="archive-notice">
-          <view class="notice-spark" aria-hidden="true">✣</view>
+          <image class="notice-spark" src="/assets/icons/profile/archive-spark.svg" mode="aspectFit" aria-hidden="true" />
           <view class="notice-body">
             <view class="notice-title">{{warningTitle}}</view>
             <view class="notice-copy">{{warningCopy}}</view>
@@ -28,7 +30,7 @@
         <view class="archive-list">
           <view wx:for="{{modules}}" wx:key="key" class="archive-card">
             <view class="module-icon module-icon--{{item.tone}}">
-              <view class="module-symbol module-symbol--{{item.icon}}" aria-hidden="true"></view>
+              <image class="module-symbol" src="/assets/icons/profile/archive-{{item.icon}}.svg" mode="aspectFit" aria-hidden="true" />
             </view>
             <view class="module-main">
               <view class="module-name">{{item.name}}</view>
@@ -46,7 +48,7 @@
     <view class="archive-dock">
       <button class="archive-primary" bindtap="openAssessment">
         <text>查看整体档案评估</text>
-        <view class="archive-arrow"></view>
+        <image class="archive-arrow" src="/assets/icons/anan/arrow-right-white.svg" mode="aspectFit" />
       </button>
     </view>
   </block>

@@ -163,6 +163,7 @@ const componentStylePaths = walkFiles(miniprogramRoot).filter(
     path.endsWith(".wxss") &&
     path !== resolve(miniprogramRoot, "app.wxss") &&
     path !== resolve(miniprogramRoot, "design-system/tokens/index.wxss") &&
+    path !== resolve(miniprogramRoot, "design-system/tokens/design-file.tokens.wxss") &&
     path !== resolve(miniprogramRoot, "design-system/responsive/index.wxss"),
 );
 for (const stylePath of componentStylePaths) {

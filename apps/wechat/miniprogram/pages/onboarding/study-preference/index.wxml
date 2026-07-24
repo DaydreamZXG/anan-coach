@@ -1,8 +1,10 @@
 <view class="time-page">
-  <safe-top gap="{{0}}" />
+  <safe-top mode="status" gap="48" />
   <view class="time-nav">
     <view class="nav-left">
-      <button class="nav-back" aria-label="返回" bindtap="back"><view class="nav-back__icon"></view></button>
+      <button class="nav-back" aria-label="返回" bindtap="back">
+        <image class="nav-back__icon" src="/assets/icons/navigation/chevron-left-ink.svg" mode="aspectFit" />
+      </button>
       <view class="nav-title">4/5 学习时间</view>
     </view>
     <button class="nav-save" loading="{{state && state.saving}}" bindtap="saveAndExit">暂存并退出</button>

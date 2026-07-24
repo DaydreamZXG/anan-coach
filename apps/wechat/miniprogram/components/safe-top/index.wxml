@@ -1,1 +1,1 @@
-<view style="height: {{holderHeight}}px;" />
+<view class="safe-top" style="height: {{holderHeight}}px;" aria-hidden="true" />

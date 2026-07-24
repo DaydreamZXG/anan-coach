@@ -12,7 +12,11 @@
   min-height: calc(100vh - 64px);
   flex-direction: column;
   gap: 40rpx;
-  padding: 0 40rpx calc(196rpx + env(safe-area-inset-bottom));
+  padding: 0 var(--figma-page-inset)
+    calc(
+      var(--figma-bottom-navigation-height) + var(--figma-space-32) +
+        env(safe-area-inset-bottom)
+    );
 }
 
 .today-header,

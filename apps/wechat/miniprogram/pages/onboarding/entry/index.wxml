@@ -1,14 +1,12 @@
 <view class="entry-page">
-  <safe-top gap="{{0}}" />
+  <safe-top mode="status" gap="16" />
   <button class="back-button" aria-label="返回" bindtap="back">
-    <view class="back-icon"></view>
+    <image class="back-icon" src="/assets/icons/navigation/chevron-left-ink.svg" mode="aspectFit" />
   </button>
 
   <view class="entry-content">
     <view class="entry-mark" aria-hidden="true">
-      <view class="spark spark--one"></view>
-      <view class="spark spark--two"></view>
-      <view class="spark spark--three"></view>
+      <image class="entry-mark__icon" src="/assets/icons/onboarding/profile-spark.svg" mode="aspectFit" />
     </view>
     <view class="entry-title">建立备考档案</view>
     <view class="entry-copy">岸岸需要了解你的背景和目标，以提供准确的岗位推荐与定制化计划。</view>
@@ -16,11 +14,11 @@
     <view class="entry-actions">
       <button class="entry-action entry-action--primary" bindtap="startProfile">
         <text>我是新用户，开始建档</text>
-        <view class="arrow-icon"></view>
+        <image class="entry-action__icon" src="/assets/icons/anan/arrow-right-white.svg" mode="aspectFit" />
       </button>
       <button class="entry-action entry-action--secondary" bindtap="openArchive">
         <text>我是老用户，修改档案</text>
-        <view class="edit-icon"></view>
+        <image class="entry-action__icon" src="/assets/icons/onboarding/edit-ink.svg" mode="aspectFit" />
       </button>
     </view>
   </view>

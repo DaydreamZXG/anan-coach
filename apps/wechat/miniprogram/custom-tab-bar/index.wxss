@@ -1,6 +1,6 @@
 .tab-bar {
   position: fixed;
-  z-index: 40;
+  z-index: var(--z-sticky);
   right: 0;
   bottom: 0;
   left: 0;
@@ -9,9 +9,8 @@
   justify-content: space-between;
   box-sizing: border-box;
   padding: 26rpx 48rpx max(64rpx, env(safe-area-inset-bottom));
-  border-top: 1rpx solid #f3f4f6;
+  border-top: 1rpx solid var(--figma-color-line);
   background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(96rpx);
 }
 
 .tab-item {
@@ -41,15 +40,19 @@
 }
 
 .tab-text {
-  color: #9ca3af;
-  font-size: 20rpx;
+  color: var(--figma-color-faint);
+  font-size: var(--figma-font-tab);
   font-weight: 500;
   line-height: 30rpx;
   transition: color 0.3s ease;
 }
 
 .tab-item.active .tab-text {
-  color: #101828;
+  color: var(--figma-color-ink);
+}
+
+.tab-item--pressed {
+  opacity: 0.72;
 }
 
 @media (min-width: 768px) {

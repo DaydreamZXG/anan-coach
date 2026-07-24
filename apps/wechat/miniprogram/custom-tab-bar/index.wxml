@@ -1,10 +1,14 @@
-<view class="tab-bar">
+<view class="tab-bar" role="tablist" aria-label="主导航">
   <view
     wx:for="{{tabs}}"
     wx:key="key"
-    class="tab-item {{active === item.key ? 'active' : ''}} {{item.key === 'anan' ? 'anan' : ''}}"
+    class="tab-item {{active === item.key ? 'active' : ''}}"
     data-path="{{item.pagePath}}"
     data-key="{{item.key}}"
+    role="tab"
+    aria-label="{{item.text}}"
+    aria-selected="{{active === item.key}}"
+    hover-class="tab-item--pressed"
     bindtap="onTap"
   >
     <view class="tab-icon-wrap">

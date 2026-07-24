@@ -1,8 +1,10 @@
 <view class="preference-page">
-  <safe-top gap="{{0}}" />
+  <safe-top mode="status" gap="48" />
   <view class="preference-nav">
     <view class="nav-left">
-      <button class="nav-back" aria-label="返回" bindtap="back"><view class="nav-back__icon"></view></button>
+      <button class="nav-back" aria-label="返回" bindtap="back">
+        <image class="nav-back__icon" src="/assets/icons/navigation/chevron-left-ink.svg" mode="aspectFit" />
+      </button>
       <view class="nav-title">3/5 岗位偏好</view>
     </view>
     <button class="nav-save" loading="{{state && state.saving}}" bindtap="saveAndExit">暂存并退出</button>

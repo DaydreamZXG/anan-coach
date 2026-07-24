@@ -10,7 +10,12 @@
     <view class="coach-scroll">
       <view class="coach-core">
         <view class="coach-orb-slot">
-          <image class="coach-orb" src="/assets/icons/anan/logo-design-file.png" mode="aspectFit" />
+          <image
+            class="coach-orb"
+            src="/assets/icons/anan/brain-outline-white.svg"
+            mode="aspectFit"
+            aria-hidden="true"
+          />
         </view>
         <view class="coach-core__copy">我已经同步了你的岗位、能力和今天的计划。</view>
         <view class="context-chips">

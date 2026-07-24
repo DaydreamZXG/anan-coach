@@ -69,14 +69,19 @@ Page({
     const client = new ApiClient(undefined, token);
     const onboarding = new OnboardingApi(client);
     try {
-      const [accountResponse, progressResponse, qualificationResponse, planningResponse, brainResponse] =
-        await Promise.all([
-          new AccountApi(client).getOverview(),
-          onboarding.getProgress(),
-          new QualificationApi(client).getProfile(),
-          new PlanningApi(client).getToday(),
-          new LearningBrainApi(client).getProfile(),
-        ]);
+      const [
+        accountResponse,
+        progressResponse,
+        qualificationResponse,
+        planningResponse,
+        brainResponse,
+      ] = await Promise.all([
+        new AccountApi(client).getOverview(),
+        onboarding.getProgress(),
+        new QualificationApi(client).getProfile(),
+        new PlanningApi(client).getToday(),
+        new LearningBrainApi(client).getProfile(),
+      ]);
       const progress = progressResponse.data;
       const [experience, positionPreference, preference, abilityBaseline] = await Promise.all([
         progress.experienceProfileVersion
@@ -109,8 +114,7 @@ Page({
       this.setData({
         status: "ready",
         modules,
-        warningTitle:
-          incompleteCount > 0 ? "档案完整度影响岗位推荐" : "备考档案已完成关键校验",
+        warningTitle: incompleteCount > 0 ? "档案完整度影响岗位推荐" : "备考档案已完成关键校验",
         warningCopy:
           incompleteCount > 0
             ? `你目前有 ${String(incompleteCount)} 项关键信息待完善，这会限制岗位筛选、能力判断或计划容量。`
@@ -137,7 +141,7 @@ Page({
     const key = String(event.currentTarget.dataset.key ?? "") as ArchiveModuleKey;
     switch (key) {
       case "identity":
-        void wx.switchTab({ url: routes.me });
+        void wx.navigateTo({ url: routes.onboardingPreparationExperience });
         return;
       case "qualification":
         void wx.navigateTo({ url: routes.qualificationProfile });
@@ -194,7 +198,7 @@ function buildModules(input: {
       key: "identity",
       name: "身份与状态",
       description: [experienceLabel, statusLabel, accountLabel].filter(Boolean).join(" · "),
-      icon: "person",
+      icon: "identity",
       tone: "blue",
       statusLabel: input.progress.experienceProfileVersion ? "100%" : "待完善",
       statusKind: input.progress.experienceProfileVersion ? "complete" : "incomplete",
@@ -203,7 +207,7 @@ function buildModules(input: {
       key: "qualification",
       name: "报考资格",
       description: qualificationDescription,
-      icon: "shield",
+      icon: "qualification",
       tone: "orange",
       statusLabel: input.progress.qualificationReady ? "100%" : "待完善",
       statusKind: input.progress.qualificationReady ? "complete" : "incomplete",
@@ -211,11 +215,8 @@ function buildModules(input: {
     {
       key: "preference",
       name: "岗位偏好",
-      description: positionPreferenceSummary(
-        input.positionPreference,
-        input.positionName,
-      ),
-      icon: "pin",
+      description: positionPreferenceSummary(input.positionPreference, input.positionName),
+      icon: "position",
       tone: "green",
       statusLabel: input.positionPreference ? "已确认" : "待完善",
       statusKind: input.positionPreference ? "complete" : "incomplete",
@@ -226,7 +227,7 @@ function buildModules(input: {
       description: input.preference
         ? `工作日 ${hours(input.preference.weekdayMinutes)} · 周末 ${hours(input.preference.weekendMinutes)}`
         : "尚未设置每周可学时间",
-      icon: "clock",
+      icon: "time",
       tone: "indigo",
       statusLabel: input.preference ? "100%" : "待完善",
       statusKind: input.preference ? "complete" : "incomplete",
@@ -235,7 +236,7 @@ function buildModules(input: {
       key: "ability",
       name: "能力基础",
       description: abilityDescription(input.abilityBaseline, abilityComplete),
-      icon: "target",
+      icon: "ability",
       tone: "rose",
       statusLabel: input.abilityBaseline
         ? input.abilityBaseline.mode === "unknown"
@@ -298,9 +299,11 @@ function qualificationSummary(profile: QualificationProfile): string {
   const education = factText(profile, "education");
   const major = factText(profile, "major");
   const grassroots = factText(profile, "service_project");
-  return [education, major, grassroots && grassroots !== "无" ? grassroots : ""]
-    .filter(Boolean)
-    .join(" · ") || "学历、专业、基层经历等";
+  return (
+    [education, major, grassroots && grassroots !== "无" ? grassroots : ""]
+      .filter(Boolean)
+      .join(" · ") || "学历、专业、基层经历等"
+  );
 }
 
 function factText(profile: QualificationProfile, key: QualificationFact["key"]): string {

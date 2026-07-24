@@ -15,11 +15,7 @@ import {
   clearAllPendingAuthReturns,
   clearPendingAuthReturn,
 } from "../../app/navigation/auth-return";
-import {
-  currentAccessToken,
-  currentUserId,
-  updateAuthDisplayName,
-} from "../../auth/session";
+import { currentAccessToken, currentUserId, updateAuthDisplayName } from "../../auth/session";
 import {
   clearAllEssayPending,
   clearEssayPendingForUser,
@@ -278,20 +274,6 @@ Page({
 
   noop() {},
 
-  openCommunityDraft() {
-    void wx.navigateTo({ url: routes.communityDraft });
-  },
-
-  openCommunityTrial() {
-    void wx.navigateTo({
-      url: `${routes.communityTrial}?track=xingce&applicability=${encodeURIComponent("资料分析")}`,
-    });
-  },
-
-  openCommunityContributions() {
-    void wx.navigateTo({ url: routes.communityContributions });
-  },
-
   openLearningProfile() {
     void wx.switchTab({ url: routes.ability });
   },
@@ -334,10 +316,6 @@ Page({
 
   openNotificationSettings() {
     void wx.navigateTo({ url: routes.notificationSettings });
-  },
-
-  openSupport() {
-    void wx.navigateTo({ url: routes.support });
   },
 
   showAbout() {
@@ -477,13 +455,8 @@ function qualificationView(profile: QualificationProfile) {
     politicalStatusLabel: factText(profile, "political_status") || "待补充",
     regionLabel: factText(profile, "hukou") || "未填写户籍 / 生源地",
     workExperienceLabel:
-      workYears === null
-        ? "待补充"
-        : workYears === 0
-          ? "无"
-          : `${String(workYears)} 年工作经历`,
-    serviceProjectLabel:
-      serviceProject && serviceProject !== "无" ? serviceProject : "无",
+      workYears === null ? "待补充" : workYears === 0 ? "无" : `${String(workYears)} 年工作经历`,
+    serviceProjectLabel: serviceProject && serviceProject !== "无" ? serviceProject : "无",
   };
 }
 

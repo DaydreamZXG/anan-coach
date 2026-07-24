@@ -1,8 +1,10 @@
 <view class="eligibility-page">
-  <safe-top gap="{{0}}" />
+  <safe-top mode="status" gap="48" />
   <view class="eligibility-nav">
     <view class="nav-left">
-      <button class="nav-back" aria-label="返回" bindtap="back"><view class="nav-back__icon"></view></button>
+      <button class="nav-back" aria-label="返回" bindtap="back">
+        <image class="nav-back__icon" src="/assets/icons/navigation/chevron-left-ink.svg" mode="aspectFit" />
+      </button>
       <view class="nav-title">2/5 报考资格</view>
     </view>
     <button class="nav-save" loading="{{savingDraft}}" bindtap="saveAndExit">暂存并退出</button>
@@ -21,7 +23,7 @@
     <scroll-view scroll-y class="eligibility-scroll" enhanced show-scrollbar="{{false}}">
       <view class="eligibility-content">
         <view class="boundary-notice">
-          <view class="notice-icon">!</view>
+          <image class="notice-icon" src="/assets/icons/onboarding/notice-warning.svg" mode="aspectFit" />
           <view class="notice-copy">这部分信息将决定你能否跨过岗位的硬性门槛。不确定的可以先标记“稍后确认”。</view>
         </view>
 
@@ -30,7 +32,7 @@
           <view class="card-copy">专业是国考岗位的核心门槛，匹配度优先于地区偏好。</view>
 
           <view class="major-field {{majorCategory ? 'major-field--selected' : ''}}">
-            <view class="search-icon"></view>
+            <image class="search-icon" src="/assets/icons/onboarding/search-muted.svg" mode="aspectFit" />
             <input
               class="major-input"
               value="{{major}}"

@@ -7,7 +7,11 @@
 
 .profile-content {
   box-sizing: border-box;
-  padding: 0 40rpx calc(128rpx + env(safe-area-inset-bottom));
+  padding: 0 var(--figma-page-inset)
+    calc(
+      var(--figma-bottom-navigation-height) + var(--figma-space-32) +
+        env(safe-area-inset-bottom)
+    );
 }
 
 .identity-block,
@@ -39,7 +43,7 @@
 .logout-button::after,
 .profile-editor__close::after,
 .profile-editor__save::after { border: 0; }
-.identity-block { align-items: center; gap: 32rpx; margin: 32rpx 0 16rpx; }
+.identity-block { align-items: center; gap: 32rpx; margin: 16rpx 0 16rpx; }
 .identity-avatar {
   display: flex;
   width: 128rpx;

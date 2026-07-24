@@ -38,11 +38,11 @@
 
 .card {
   box-sizing: border-box;
-  padding: 28rpx;
-  border: 1rpx solid rgba(240, 242, 246, 0.88);
-  border-radius: var(--radius-card);
-  background: var(--color-surface-glass);
-  box-shadow: var(--shadow-card);
+  padding: var(--figma-card-padding-compact);
+  border: 0;
+  border-radius: var(--figma-radius-card);
+  background: var(--color-surface);
+  box-shadow: var(--figma-shadow-surface);
 }
 
 .card + .card {

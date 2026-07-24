@@ -36,11 +36,8 @@
 }
 
 .archive-back__icon {
-  width: 18rpx;
-  height: 18rpx;
-  transform: rotate(45deg);
-  border-bottom: 3rpx solid #101828;
-  border-left: 3rpx solid #101828;
+  width: 48rpx;
+  height: 48rpx;
 }
 
 .archive-nav__title {
@@ -72,7 +69,7 @@
 
 .archive-content {
   box-sizing: border-box;
-  padding: 48rpx 40rpx 216rpx;
+  padding: 48rpx 40rpx 256rpx;
 }
 
 .archive-notice {
@@ -87,11 +84,10 @@
 }
 
 .notice-spark {
+  width: 36rpx;
+  height: 36rpx;
   flex: none;
   padding-top: 2rpx;
-  color: #615fff;
-  font-size: 34rpx;
-  line-height: 1;
 }
 
 .notice-body {
@@ -117,16 +113,16 @@
   display: flex;
   flex-direction: column;
   gap: 32rpx;
-  margin-top: 60rpx;
+  margin-top: 64rpx;
 }
 
 .archive-card {
   box-sizing: border-box;
   display: flex;
-  min-height: 160rpx;
+  min-height: 180rpx;
   align-items: center;
-  gap: 28rpx;
-  padding: 32rpx 36rpx;
+  gap: 32rpx;
+  padding: 42rpx;
   border: 1rpx solid #f9fafb;
   border-radius: 48rpx;
   background: #ffffff;
@@ -171,128 +167,8 @@
 }
 
 .module-symbol {
-  position: relative;
   width: 40rpx;
   height: 40rpx;
-  color: inherit;
-}
-
-.module-symbol--person::before {
-  position: absolute;
-  top: 1rpx;
-  left: 13rpx;
-  box-sizing: border-box;
-  width: 14rpx;
-  height: 14rpx;
-  border: 3rpx solid currentcolor;
-  border-radius: 50%;
-  content: "";
-}
-
-.module-symbol--person::after {
-  position: absolute;
-  bottom: 1rpx;
-  left: 6rpx;
-  box-sizing: border-box;
-  width: 28rpx;
-  height: 18rpx;
-  border: 3rpx solid currentcolor;
-  border-bottom: 0;
-  border-radius: 18rpx 18rpx 0 0;
-  content: "";
-}
-
-.module-symbol--shield {
-  box-sizing: border-box;
-  width: 31rpx;
-  height: 36rpx;
-  margin: 2rpx auto;
-  border: 3rpx solid currentcolor;
-  border-radius: 10rpx 10rpx 16rpx 16rpx;
-}
-
-.module-symbol--shield::after {
-  position: absolute;
-  top: 13rpx;
-  left: 12rpx;
-  width: 10rpx;
-  height: 5rpx;
-  transform: rotate(-45deg);
-  border-bottom: 3rpx solid currentcolor;
-  border-left: 3rpx solid currentcolor;
-  content: "";
-}
-
-.module-symbol--pin {
-  box-sizing: border-box;
-  width: 30rpx;
-  height: 36rpx;
-  margin: 1rpx auto 0;
-  border: 3rpx solid currentcolor;
-  border-radius: 50% 50% 50% 0;
-  transform: rotate(-45deg);
-}
-
-.module-symbol--pin::after {
-  position: absolute;
-  top: 8rpx;
-  left: 8rpx;
-  box-sizing: border-box;
-  width: 9rpx;
-  height: 9rpx;
-  border: 2rpx solid currentcolor;
-  border-radius: 50%;
-  content: "";
-}
-
-.module-symbol--clock {
-  box-sizing: border-box;
-  border: 3rpx solid currentcolor;
-  border-radius: 50%;
-}
-
-.module-symbol--clock::before,
-.module-symbol--clock::after {
-  position: absolute;
-  top: 9rpx;
-  left: 18rpx;
-  width: 3rpx;
-  border-radius: 99rpx;
-  background: currentcolor;
-  transform-origin: 50% 100%;
-  content: "";
-}
-
-.module-symbol--clock::before {
-  height: 12rpx;
-}
-
-.module-symbol--clock::after {
-  height: 10rpx;
-  transform: rotate(120deg);
-}
-
-.module-symbol--target {
-  box-sizing: border-box;
-  border: 3rpx solid currentcolor;
-  border-radius: 50%;
-}
-
-.module-symbol--target::before,
-.module-symbol--target::after {
-  position: absolute;
-  border: 3rpx solid currentcolor;
-  border-radius: 50%;
-  content: "";
-}
-
-.module-symbol--target::before {
-  inset: 7rpx;
-}
-
-.module-symbol--target::after {
-  inset: 15rpx;
-  border-width: 2rpx;
 }
 
 .module-main {
@@ -322,7 +198,7 @@
   flex: none;
   flex-direction: column;
   align-items: flex-end;
-  gap: 12rpx;
+  gap: 16rpx;
 }
 
 .module-status {
@@ -365,7 +241,7 @@
   bottom: 0;
   left: 0;
   box-sizing: border-box;
-  padding: 32rpx 40rpx calc(20rpx + env(safe-area-inset-bottom));
+  padding: 34rpx 40rpx calc(40rpx + env(safe-area-inset-bottom));
   border-top: 1rpx solid #f3f4f6;
   background: rgba(255, 255, 255, 0.9);
 }
@@ -373,7 +249,7 @@
 .archive-primary {
   display: flex;
   width: 100%;
-  min-height: 104rpx;
+  min-height: 112rpx;
   align-items: center;
   justify-content: center;
   gap: 16rpx;
@@ -394,32 +270,8 @@
 }
 
 .archive-arrow {
-  position: relative;
-  width: 28rpx;
-  height: 28rpx;
-}
-
-.archive-arrow::before {
-  position: absolute;
-  top: 13rpx;
-  left: 1rpx;
-  width: 23rpx;
-  height: 3rpx;
-  border-radius: 99rpx;
-  background: currentcolor;
-  content: "";
-}
-
-.archive-arrow::after {
-  position: absolute;
-  top: 7rpx;
-  right: 1rpx;
-  width: 11rpx;
-  height: 11rpx;
-  transform: rotate(-45deg);
-  border-right: 3rpx solid currentcolor;
-  border-bottom: 3rpx solid currentcolor;
-  content: "";
+  width: 36rpx;
+  height: 36rpx;
 }
 
 @media (min-width: 768px) {

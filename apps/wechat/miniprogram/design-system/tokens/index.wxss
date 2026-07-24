@@ -1,68 +1,89 @@
+@import "design-file.tokens.wxss";
+
+/*
+ * Runtime semantic aliases.
+ *
+ * Every visual value that exists in the approved Design File resolves to the
+ * mirrored --figma-* token above. Product-only semantics remain named here so
+ * page code does not duplicate raw values.
+ */
 page {
-  --color-canvas: #f7f9fc;
-  --color-surface: #ffffff;
-  --color-surface-glass: rgba(255, 255, 255, 0.92);
-  --color-surface-soft: #f7f9fc;
-  --color-surface-ai: #eef2ff;
-  --color-ink: #101828;
-  --color-ink-secondary: #364153;
-  --color-muted: #6a7282;
-  --color-faint: #99a1af;
-  --color-line: #f3f4f6;
-  --color-line-strong: #e5e7eb;
-  --color-primary: #615fff;
-  --color-primary-deep: #4f39f6;
-  --color-primary-soft: #eef2ff;
+  --color-canvas: var(--figma-color-canvas);
+  --color-surface: var(--figma-color-surface);
+  --color-surface-glass: var(--figma-color-surface);
+  --color-surface-soft: var(--figma-color-surface-subtle);
+  --color-surface-ai: var(--figma-color-primary-soft);
+  --color-ink: var(--figma-color-ink);
+  --color-ink-secondary: var(--figma-color-ink-secondary);
+  --color-muted: var(--figma-color-muted);
+  --color-faint: var(--figma-color-faint);
+  --color-line: var(--figma-color-line);
+  --color-line-strong: var(--figma-color-line-strong);
+  --color-primary: var(--figma-color-primary);
+  --color-primary-deep: var(--figma-color-primary-deep);
+  --color-primary-soft: var(--figma-color-primary-soft);
   --color-primary-a08: rgba(97, 95, 255, 0.08);
   --color-primary-a16: rgba(97, 95, 255, 0.16);
   --color-primary-a24: rgba(97, 95, 255, 0.24);
-  --color-companion: #615fff;
-  --color-cyan: #06b6d4;
-  --color-ai-blue: #615fff;
-  --color-ai-violet: #ad46ff;
-  --color-ai-pink: #f6339a;
-  --color-ai-soft: #eef2ff;
-  --color-action: #101828;
-  --color-action-deep: #030712;
-  --color-success: #00a63e;
-  --color-success-soft: #ecfdf5;
-  --color-warning: #f97316;
-  --color-warning-soft: #fff7ed;
-  --color-danger: #fb2c36;
-  --color-danger-soft: #fef2f2;
+  --color-companion: var(--figma-color-primary);
+  --color-cyan: var(--figma-color-cyan);
+  --color-ai-blue: var(--figma-color-primary);
+  --color-ai-violet: var(--figma-color-ai-violet);
+  --color-ai-pink: var(--figma-color-ai-pink);
+  --color-ai-soft: var(--figma-color-primary-soft);
+  --color-action: var(--figma-color-ink);
+  --color-action-deep: var(--figma-color-device-frame);
+  --color-success: var(--figma-color-success);
+  --color-success-soft: var(--figma-color-success-soft);
+  --color-warning: var(--figma-color-warning);
+  --color-warning-soft: var(--figma-color-warning-soft);
+  --color-danger: var(--figma-color-danger);
+  --color-danger-soft: var(--figma-color-danger-soft);
   --color-wechat: #07c160;
-  --color-on-primary: #ffffff;
+  --color-on-primary: var(--figma-color-on-dark);
   --color-gold: #d9a12f;
   --color-gold-soft: #fcf4df;
   --color-mask: rgba(17, 24, 39, 0.36);
-  --gradient-brand: linear-gradient(135deg, #615fff 0%, #ad46ff 50%, #f6339a 100%);
-  --gradient-ai: linear-gradient(135deg, #615fff 0%, #ad46ff 50%, #f6339a 100%);
-  --gradient-aurora: linear-gradient(135deg, rgba(97, 95, 255, 0.1), rgba(173, 70, 255, 0.08) 52%, rgba(246, 51, 154, 0.07));
+
+  --gradient-brand: var(--figma-gradient-ai);
+  --gradient-ai: var(--figma-gradient-ai);
+  --gradient-aurora: linear-gradient(
+    135deg,
+    rgba(97, 95, 255, 0.1),
+    rgba(173, 70, 255, 0.08) 52%,
+    rgba(246, 51, 154, 0.07)
+  );
   --gradient-companion: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 56%, #fdf2f8 100%);
-  --gradient-action: linear-gradient(135deg, #111827 0%, #030712 100%);
-  --shadow-card: 0 8rpx 30rpx rgba(17, 24, 39, 0.04);
-  --shadow-card-strong: 0 16rpx 60rpx rgba(17, 24, 39, 0.08);
+  --gradient-action: var(--figma-gradient-dark);
+
+  --shadow-card: var(--figma-shadow-card);
+  --shadow-card-strong: var(--figma-shadow-card-strong);
   --shadow-primary: 0 14rpx 36rpx rgba(17, 24, 39, 0.16);
   --shadow-ai: 0 18rpx 48rpx rgba(173, 70, 255, 0.2);
-  --radius-hero: 56rpx;
-  --radius-card: 64rpx;
-  --radius-control: 40rpx;
-  --radius-compact: 32rpx;
-  --space-page-x: 40rpx;
-  --space-page-top: 32rpx;
-  --space-section: 48rpx;
-  --font-title: 48rpx;
-  --font-section: 30rpx;
-  --font-body: 28rpx;
-  --font-caption: 22rpx;
-  --font-family-ui: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
-  --font-family-reading: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
-  --font-family-data: "Maple Mono CN", "DIN Alternate", -apple-system, BlinkMacSystemFont, monospace;
+
+  --radius-hero: var(--figma-radius-card-large);
+  --radius-card: var(--figma-radius-card-large);
+  --radius-control: var(--figma-radius-control);
+  --radius-compact: var(--figma-radius-compact);
+
+  --space-page-x: var(--figma-page-inset);
+  --space-page-top: var(--figma-space-16);
+  --space-section: var(--figma-section-gap);
+
+  --font-title: var(--figma-font-title-large);
+  --font-section: var(--figma-font-body-large);
+  --font-body: var(--figma-font-body);
+  --font-caption: var(--figma-font-micro);
+  --font-family-ui: var(--figma-font-family);
+  --font-family-reading: var(--figma-font-family);
+  --font-family-data: "Maple Mono CN", "DIN Alternate", -apple-system, BlinkMacSystemFont,
+    monospace;
+
   --layout-readable-max: 720px;
   --layout-workbench-max: 1280px;
   --layout-tablet-gutter: 32px;
   --layout-wide-gutter: 40px;
-  /* 层级统一出口：弹层/遮罩一律引用，禁止再写魔法数字 */
+
   --z-footer: 20;
   --z-sticky: 30;
   --z-sheet: 70;

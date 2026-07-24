@@ -1,5 +1,5 @@
 <view class="today-page">
-  <safe-top gap="8" />
+  <safe-top mode="status" gap="52" />
 
   <view class="today-content">
     <view class="today-header">
@@ -26,8 +26,7 @@
     <block wx:elif="{{view}}">
       <view
         wx:if="{{openingStatus === 'ready' && openingView && !openingCollapsed}}"
-        class="opening-card fade-slide-in"
-        style="animation-delay: 0.05s"
+        class="opening-card"
       >
         <view class="opening-line" wx:if="{{openingView.weatherReady}}">
           <image class="icon icon--small" src="/assets/icons/today/cloud-rain-muted.png" mode="aspectFit" />
@@ -65,8 +64,7 @@
 
       <view
         wx:elif="{{openingStatus === 'ready' && openingView && openingCollapsed}}"
-        class="opening-collapsed fade-slide-in"
-        style="animation-delay: 0.05s"
+        class="opening-collapsed"
       >
         <view class="opening-collapsed__main">
           <image class="icon icon--small" src="/assets/icons/today/target-ink.png" mode="aspectFit" />
@@ -75,7 +73,7 @@
         <text wx:if="{{openingView.weatherReady}}" class="opening-collapsed__weather">{{openingView.weatherHeadline}}</text>
       </view>
 
-      <view class="task-heading fade-slide-in" style="animation-delay: 0.1s">
+      <view class="task-heading">
         <view class="task-heading__title">今日任务</view>
         <view class="task-heading__meta">
           <text>今天可学 {{view.availableDurationLabel}} · 精力{{energyLabel}} · 压力{{stressLabel}}</text>
@@ -83,17 +81,17 @@
         </view>
       </view>
 
-      <view wx:if="{{!view.hasTasks}}" class="empty-card fade-slide-in" style="animation-delay: 0.15s">
+      <view wx:if="{{!view.hasTasks}}" class="empty-card">
         <view class="empty-card__title">今天还没有可执行任务</view>
         <view class="empty-card__copy">先确认目标岗位和今天可用时间，岸岸才能生成真实安排。</view>
         <button hover-class="item--hover" class="primary-button" bindtap="openDayAdjustment">调整今天</button>
       </view>
 
       <block wx:for="{{view.tasks}}" wx:key="id">
-        <view wx:if="{{index === 0}}" class="primary-task fade-slide-in" style="animation-delay: 0.15s">
+        <view wx:if="{{index === 0}}" class="primary-task">
           <view class="task-aurora"></view>
           <view class="anan-insight">
-            <view class="anan-icon pulse-ring">
+            <view class="anan-icon">
               <image class="icon icon--sparkles" src="/assets/icons/today/sparkles-white.png" mode="aspectFit" />
             </view>
             <view class="anan-insight__main">
@@ -123,7 +121,7 @@
             </view>
             <button
               hover-class="item--hover"
-               class="primary-button {{!item.canOpen ? 'primary-button--disabled' : ''}}"
+              class="primary-button {{!item.canOpen ? 'primary-button--disabled' : ''}}"
               data-id="{{item.id}}"
               disabled="{{!item.canOpen}}"
               bindtap="openTask"
@@ -138,7 +136,7 @@
 
       <view class="other-tasks">
         <block wx:for="{{view.tasks}}" wx:key="id">
-          <view wx:if="{{index > 0 && item.status !== 'complete'}}" class="compact-task fade-slide-in" style="animation-delay: {{0.2 + index * 0.05}}s">
+          <view wx:if="{{index > 0 && item.status !== 'complete'}}" class="compact-task">
             <view class="compact-task__main">
               <view class="compact-task__icon">
                 <image class="icon icon--small" src="/assets/icons/today/file-text-secondary.png" mode="aspectFit" />
@@ -157,15 +155,13 @@
             >{{item.status === 'in_progress' ? '继续' : '开始'}}</button>
           </view>
 
-          <view wx:if="{{item.status === 'complete'}}" class="completed-task fade-slide-in" style="animation-delay: {{0.2 + index * 0.05}}s">
+          <view wx:if="{{item.status === 'complete'}}" class="completed-task">
             <image class="icon icon--completed" src="/assets/icons/today/circle-check-muted.png" mode="aspectFit" />
             <view class="completed-task__title">{{item.title}}</view>
             <button hover-class="item--hover" class="completed-task__action" bindtap="openDailySettlement">查看复盘</button>
           </view>
         </block>
       </view>
-
-
       <view wx:if="{{taskNavigationError}}" class="task-error">{{taskNavigationError}}</view>
 
       <view class="secondary-tools">

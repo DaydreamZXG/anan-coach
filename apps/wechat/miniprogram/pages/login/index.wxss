@@ -5,7 +5,7 @@
   min-height: 100vh;
   flex-direction: column;
   overflow: hidden;
-  background: #f7f9fc;
+  background: var(--figma-color-canvas);
   color: var(--color-ink);
 }
 
@@ -14,21 +14,21 @@
   width: 700rpx;
   height: 700rpx;
   border-radius: 50%;
-  filter: blur(70rpx);
-  opacity: 0.58;
+  filter: blur(128rpx);
+  opacity: 0.6;
   pointer-events: none;
 }
 
 .login-orb--top {
-  top: -260rpx;
-  right: -330rpx;
-  background: linear-gradient(145deg, rgba(129, 140, 248, 0.46), rgba(192, 132, 252, 0.42) 52%, rgba(244, 114, 182, 0.38));
+  top: -169rpx;
+  right: -156rpx;
+  background: var(--figma-gradient-login-halo-top);
 }
 
 .login-orb--bottom {
-  bottom: -310rpx;
-  left: -340rpx;
-  background: linear-gradient(145deg, rgba(191, 219, 254, 0.58), rgba(153, 246, 228, 0.48));
+  bottom: -169rpx;
+  left: -156rpx;
+  background: var(--figma-gradient-login-halo-bottom);
 }
 
 .login-content {
@@ -37,13 +37,13 @@
   box-sizing: border-box;
   display: flex;
   width: 100%;
-  max-width: 750rpx;
-  min-height: calc(100vh - 88px);
+  max-width: 780rpx;
+  min-height: 0;
   flex: 1;
   flex-direction: column;
   justify-content: center;
   margin: 0 auto;
-  padding: 56rpx 64rpx calc(58rpx + env(safe-area-inset-bottom));
+  padding: 0 64rpx env(safe-area-inset-bottom);
 }
 
 .login-lockup {
@@ -53,33 +53,55 @@
   text-align: center;
 }
 
-.brain-logo {
+.brain-logo-shell {
+  position: relative;
+  display: flex;
   width: 192rpx;
   height: 192rpx;
-  margin-bottom: 58rpx;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 64rpx;
+  overflow: hidden;
+  border-radius: 64rpx;
+  background: var(--figma-color-surface);
+  box-shadow: var(--figma-shadow-card);
+}
+
+.brain-logo {
+  position: relative;
+  z-index: 1;
+  width: 96rpx;
+  height: 96rpx;
+}
+
+.brain-logo-tint {
+  position: absolute;
+  inset: 0;
+  background: var(--figma-gradient-ai);
+  opacity: 0.1;
 }
 
 .login-title {
-  color: #111827;
-  font-size: 68rpx;
-  font-weight: 800;
-  letter-spacing: -2rpx;
-  line-height: 1.16;
+  color: var(--figma-color-ink);
+  font-size: var(--figma-font-display-compact);
+  font-weight: 700;
+  letter-spacing: -1.8rpx;
+  line-height: 80rpx;
 }
 
 .login-subtitle {
   display: flex;
   flex-direction: column;
   margin-top: 24rpx;
-  color: #6b7280;
-  font-size: 28rpx;
-  font-weight: 600;
-  line-height: 1.7;
+  color: var(--figma-color-muted);
+  font-size: 30rpx;
+  font-weight: 500;
+  line-height: 48.75rpx;
 }
 
 .login-actions {
   width: 100%;
-  margin-top: 92rpx;
+  margin-top: 96rpx;
 }
 
 .wechat-button {
@@ -93,11 +115,11 @@
   padding: 0 36rpx;
   border: 0;
   border-radius: 40rpx;
-  background: #111827;
-  color: #ffffff;
-  box-shadow: 0 18rpx 40rpx rgba(17, 24, 39, 0.2);
-  font-size: 30rpx;
-  font-weight: 700;
+  background: var(--figma-color-ink);
+  color: var(--figma-color-on-dark);
+  box-shadow: 0 20rpx 15rpx rgba(16, 24, 40, 0.2), 0 8rpx 6rpx rgba(16, 24, 40, 0.2);
+  font-size: var(--figma-font-body-large);
+  font-weight: 600;
   line-height: 112rpx;
 }
 
@@ -118,65 +140,25 @@
 }
 
 .arrow-icon {
-  position: relative;
-  width: 30rpx;
-  height: 30rpx;
-}
-
-.arrow-icon::before {
-  position: absolute;
-  top: 7rpx;
-  right: 3rpx;
-  width: 15rpx;
-  height: 15rpx;
-  transform: rotate(-45deg);
-  border-right: 3rpx solid currentcolor;
-  border-bottom: 3rpx solid currentcolor;
-  content: "";
-}
-
-.arrow-icon::after {
-  position: absolute;
-  top: 14rpx;
-  right: 4rpx;
-  width: 24rpx;
-  height: 3rpx;
-  border-radius: 99rpx;
-  background: currentcolor;
-  content: "";
+  width: 36rpx;
+  height: 36rpx;
 }
 
 .legal {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12rpx;
-  margin-top: 38rpx;
-  color: #9ca3af;
-  font-size: 22rpx;
+  gap: 16rpx;
+  margin-top: 48rpx;
+  color: var(--figma-color-faint);
+  font-size: var(--figma-font-caption);
   line-height: 1.5;
   text-align: center;
 }
 
 .legal-check {
-  position: relative;
-  box-sizing: border-box;
-  width: 26rpx;
-  height: 26rpx;
-  border: 2rpx solid currentcolor;
-  border-radius: 50%;
-}
-
-.legal-check::after {
-  position: absolute;
-  top: 5rpx;
-  left: 6rpx;
-  width: 9rpx;
-  height: 5rpx;
-  transform: rotate(-45deg);
-  border-bottom: 2rpx solid currentcolor;
-  border-left: 2rpx solid currentcolor;
-  content: "";
+  width: 28rpx;
+  height: 28rpx;
 }
 
 .error-message {
@@ -198,10 +180,16 @@
     padding: 36px 52px calc(36px + env(safe-area-inset-bottom));
   }
 
-  .brain-logo {
-    width: 112px;
-    height: 112px;
+  .brain-logo-shell {
+    width: 96px;
+    height: 96px;
     margin-bottom: 32px;
+    border-radius: 32px;
+  }
+
+  .brain-logo {
+    width: 48px;
+    height: 48px;
   }
 
   .login-title {

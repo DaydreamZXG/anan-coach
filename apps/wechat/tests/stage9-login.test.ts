@@ -11,7 +11,9 @@ describe("stage 9 login composition", () => {
     expect(template).toContain("基于认知科学的 AI 备考教练");
     expect(template).toContain("为你规划最快的上岸路径");
     expect(template).toContain('class="brain-logo"');
-    expect(template).toContain('src="/assets/icons/anan/logo-design-file.png"');
+    expect(template).toContain('src="/assets/icons/anan/brain-outline-ink.svg"');
+    expect(template).toContain('src="/assets/icons/anan/arrow-right-white.svg"');
+    expect(template).toContain('src="/assets/icons/anan/check-faint.svg"');
     expect(template).not.toContain("brain-lobe");
     expect(template).not.toContain("brain-stem");
     expect(template).toContain('class="wechat-button {{submitting || restoring');
@@ -23,7 +25,10 @@ describe("stage 9 login composition", () => {
 
   it("uses the Design File asset and keeps a clear login action hierarchy", () => {
     expect(styles).toContain(".login-orb");
-    expect(styles).toContain("linear-gradient");
+    expect(styles).toContain("var(--figma-gradient-login-halo-top)");
+    expect(styles).toContain("var(--figma-gradient-login-halo-bottom)");
+    expect(styles).toContain(".brain-logo-shell");
+    expect(styles).toContain(".brain-logo-tint");
     expect(styles).toContain(".brain-logo");
     expect(styles).not.toContain(".brain-tile");
     expect(styles).not.toContain(".brain-mark");
@@ -31,7 +36,7 @@ describe("stage 9 login composition", () => {
     expect(styles).not.toContain(".brain-stem");
     expect(styles).toContain(".wechat-button");
     expect(styles).toContain("width: 100% !important");
-    expect(styles).toContain("background: #111827");
+    expect(styles).toContain("background: var(--figma-color-ink)");
     expect(styles).not.toContain("rgba(240, 195, 140");
   });
 });

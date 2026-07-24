@@ -10,10 +10,10 @@
 
 .identity-nav {
   box-sizing: border-box;
-  display: grid;
+  display: flex;
   height: 112rpx;
-  grid-template-columns: 96rpx 1fr 170rpx;
   align-items: center;
+  justify-content: space-between;
   padding: 0 32rpx;
   border-bottom: 1rpx solid #f3f4f6;
   background: rgba(255, 255, 255, 0.8);
@@ -41,14 +41,13 @@
 }
 
 .nav-back__icon {
-  width: 18rpx;
-  height: 18rpx;
-  transform: rotate(45deg);
-  border-bottom: 3rpx solid #101828;
-  border-left: 3rpx solid #101828;
+  width: 48rpx;
+  height: 48rpx;
 }
 
 .nav-title {
+  margin-left: 24rpx;
+  margin-right: auto;
   font-size: 32rpx;
   font-weight: 700;
   line-height: 48rpx;
@@ -104,7 +103,7 @@
   align-items: center;
   gap: 32rpx;
   margin-top: 64rpx;
-  padding: 32rpx;
+  padding: 34rpx;
   border: 1rpx solid #f9fafb;
   border-radius: 40rpx;
   background: #ffffff;
@@ -203,8 +202,8 @@
 }
 
 .exam-card {
-  min-height: 154rpx;
-  padding: 30rpx 32rpx;
+  min-height: 165rpx;
+  padding: 34rpx;
   border: 3rpx solid transparent;
   border-radius: 40rpx;
   background: #ffffff;
@@ -257,7 +256,7 @@
   min-height: 138rpx;
   align-items: center;
   justify-content: space-between;
-  padding: 30rpx 32rpx;
+  padding: 34rpx;
   border: 3rpx solid transparent;
   border-radius: 40rpx;
   background: #ffffff;
@@ -314,14 +313,14 @@
   bottom: 0;
   left: 0;
   box-sizing: border-box;
-  padding: 32rpx 40rpx calc(20rpx + env(safe-area-inset-bottom));
+  padding: 32rpx 40rpx calc(42rpx + env(safe-area-inset-bottom));
   border-top: 1rpx solid #f3f4f6;
   background: rgba(255, 255, 255, 0.9);
 }
 
 .identity-primary {
   width: 100%;
-  min-height: 104rpx;
+  min-height: 112rpx;
   margin: 0;
   padding: 0 32rpx;
   border: 0;

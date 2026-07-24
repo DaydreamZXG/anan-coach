@@ -45,17 +45,20 @@
 .context-chips { position: relative; }
 
 .coach-orb-slot {
+  display: flex;
   width: 128rpx;
   height: 128rpx;
+  align-items: center;
+  justify-content: center;
   margin: 0 auto;
+  border-radius: 48rpx;
+  background: var(--figma-gradient-ai);
+  box-shadow: 0 20rpx 15rpx rgba(173, 70, 255, 0.2), 0 8rpx 6rpx rgba(173, 70, 255, 0.2);
 }
 
 .coach-orb {
-  position: absolute;
-  top: -24rpx;
-  left: -24rpx;
-  width: 176rpx;
-  height: 176rpx;
+  width: 64rpx;
+  height: 64rpx;
 }
 
 .coach-core__copy {

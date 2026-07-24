@@ -1,7 +1,9 @@
 <view class="identity-page">
-  <safe-top gap="{{0}}" />
+  <safe-top mode="status" gap="48" />
   <view class="identity-nav">
-    <button class="nav-back" aria-label="返回" bindtap="back"><view class="nav-back__icon"></view></button>
+    <button class="nav-back" aria-label="返回" bindtap="back">
+      <image class="nav-back__icon" src="/assets/icons/navigation/chevron-left-ink.svg" mode="aspectFit" />
+    </button>
     <view class="nav-title">1/5 身份与状态</view>
     <button class="nav-save" bindtap="saveAndExit">暂存并退出</button>
   </view>
@@ -67,7 +69,7 @@
             data-status="parttime"
             bindtap="selectCurrentStatus"
           >
-            <view><view class="status-name">在职备考</view><view class="status-copy">时间碎片化，需要很高效率</view></view>
+            <view><view class="status-name">在职备考</view><view class="status-copy">时间碎片化，需要极高效率</view></view>
             <view class="radio-ring"><view wx:if="{{state.draft.currentStatus === 'parttime'}}" class="radio-dot"></view></view>
           </button>
           <button
