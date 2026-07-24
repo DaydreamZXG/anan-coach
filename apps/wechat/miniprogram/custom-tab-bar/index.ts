@@ -50,7 +50,7 @@ Component({
         key: string;
       };
       if (key === this.data.active) return;
-      wx.switchTab({ url: path });
+      void wx.switchTab({ url: path });
     },
   },
 });

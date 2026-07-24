@@ -11,6 +11,8 @@ import type { LocalSourceArtifactFile } from "../../features/external-learning/c
 import { chooseQuestionImage, chooseQuestionPdf } from "../../features/external-learning/platform";
 import { createIdempotencyKey } from "../../platform/command-id";
 
+const noReviewableTextMessage = "没有识别到可逐段核对的文字。";
+
 interface ReviewSpan {
   spanId: string;
   text: string;
@@ -45,6 +47,8 @@ interface PageData {
   searching: boolean;
   citations: PrivateCitationView[];
   importPanelOpen: boolean;
+  importErrorMessage: string;
+  importRequestId: string;
   errorMessage: string;
   requestId: string;
   backgroundProcessing: boolean;
@@ -78,6 +82,7 @@ interface PageCustom {
   closeImportPanel(): void;
   currentDocumentKind(): "lecture" | "note" | "summary";
   sourceFromEvent(event: WechatMiniprogram.BaseEvent): PrivateSourceView | null;
+  failImport(error: unknown): void;
   fail(error: unknown, fallback: string): void;
   runInBackground(): void;
   showProgress(): void;
@@ -119,6 +124,8 @@ Page<PageData, PageCustom>({
     searching: false,
     citations: [],
     importPanelOpen: false,
+    importErrorMessage: "",
+    importRequestId: "",
     errorMessage: "",
     requestId: "",
     backgroundProcessing: false,
@@ -225,7 +232,7 @@ Page<PageData, PageCustom>({
     } catch (error) {
       const message = (error as { errMsg?: string }).errMsg ?? "";
       if (!message.includes("cancel")) {
-        this.fail(error, "Markdown 文件选择失败。");
+        this.failImport(error);
       }
     }
   },
@@ -239,7 +246,17 @@ Page<PageData, PageCustom>({
     const gateway = api();
     if (!gateway || this.data.busy) return;
     const title = this.data.title.trim() || file.displayName.replace(/\.[^.]+$/u, "");
-    this.setData({ busy: true, uploadPercent: 0, backgroundProcessing: false, errorMessage: "", title });
+    this.setData({
+      busy: true,
+      uploadPercent: 0,
+      backgroundProcessing: false,
+      importPanelOpen: false,
+      importErrorMessage: "",
+      importRequestId: "",
+      errorMessage: "",
+      requestId: "",
+      title,
+    });
     try {
       const uploaded = await gateway.upload(
         file,
@@ -273,7 +290,7 @@ Page<PageData, PageCustom>({
         await createIdempotencyKey("private-source-ocr"),
       );
       const reviewSpans = recognitionSpans(revision);
-      if (!reviewSpans.length) throw new Error("没有识别到可逐段核对的文字。");
+      if (!reviewSpans.length) throw new Error(noReviewableTextMessage);
       this.setData({
         busy: false,
         reviewRevision: revision,
@@ -282,8 +299,7 @@ Page<PageData, PageCustom>({
         reviewFilename: file.displayName,
       });
     } catch (error) {
-      this.setData({ busy: false });
-      this.fail(error, "资料导入没有完成。");
+      this.failImport(error);
     }
   },
 
@@ -454,12 +470,16 @@ Page<PageData, PageCustom>({
   },
 
   openImportPanel() {
-    this.setData({ importPanelOpen: true });
+    this.setData({ importPanelOpen: true, importErrorMessage: "", importRequestId: "" });
   },
 
   closeImportPanel() {
-    if (this.data.busy) return;
-    this.setData({ importPanelOpen: false, importTarget: null });
+    this.setData({
+      importPanelOpen: false,
+      importTarget: null,
+      importErrorMessage: "",
+      importRequestId: "",
+    });
   },
 
   currentDocumentKind() {
@@ -469,6 +489,20 @@ Page<PageData, PageCustom>({
   sourceFromEvent(event: WechatMiniprogram.BaseEvent) {
     const sourceId = String(event.currentTarget.dataset.sourceId ?? "");
     return this.data.sources.find((item) => item.sourceId === sourceId) ?? null;
+  },
+
+  failImport(error: unknown) {
+    const apiError = error instanceof ApiClientError ? error : null;
+    const localMessage =
+      error instanceof Error && error.message === noReviewableTextMessage
+        ? noReviewableTextMessage
+        : "服务暂时没有完成这份资料的处理。";
+    this.setData({
+      busy: false,
+      importPanelOpen: true,
+      importErrorMessage: localMessage,
+      importRequestId: apiError?.requestId ?? "",
+    });
   },
 
   fail(error: unknown, fallback: string) {
@@ -482,7 +516,7 @@ Page<PageData, PageCustom>({
 
   runInBackground() {
     this.setData({ backgroundProcessing: true });
-    wx.showToast({ title: "已转入后台阅读", icon: "success" });
+    void wx.showToast({ title: "已转入后台阅读", icon: "success" });
   },
 
   showProgress() {
@@ -517,11 +551,11 @@ Page<PageData, PageCustom>({
   navigateToDetail(event: WechatMiniprogram.BaseEvent) {
     const sourceId = String(event.currentTarget.dataset.sourceId ?? "");
     if (!sourceId) return;
-    wx.navigateTo({
+    void wx.navigateTo({
       url: `${routes.privateKnowledgeDetail}?id=${encodeURIComponent(sourceId)}`,
       events: {
         replaceSource: (payload: { sourceId?: string }) => {
-          this.prepareReplacement(String(payload.sourceId ?? ""));
+          this.prepareReplacement(payload.sourceId ?? "");
         },
       },
     });
@@ -608,5 +642,7 @@ function safeFilename(value: string): string {
 
 function formatDate(value: string): string {
   const match = value.match(/^(\d{4})-(\d{2})-(\d{2})/u);
-  return match ? `${match[1]}.${match[2]}.${match[3]}` : value;
+  if (!match) return value;
+  const [, year = "", month = "", day = ""] = match;
+  return `${year}.${month}.${day}`;
 }

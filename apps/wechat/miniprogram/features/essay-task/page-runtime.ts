@@ -37,6 +37,7 @@ export interface EssayTaskPageRuntime {
   activeElapsedMs: number;
   activeSince: number;
   timerHandle: ReturnType<typeof setInterval> | undefined;
+  draftingAutosaveHandle: ReturnType<typeof setTimeout> | undefined;
   reviewPollHandle: ReturnType<typeof setTimeout> | undefined;
   reviewPollInFlight: boolean;
   pageVisible: boolean;
@@ -70,6 +71,7 @@ export function createEssayTaskPageRuntime(): EssayTaskPageRuntime {
     activeElapsedMs: 0,
     activeSince: 0,
     timerHandle: undefined,
+    draftingAutosaveHandle: undefined,
     reviewPollHandle: undefined,
     reviewPollInFlight: false,
     pageVisible: false,
@@ -122,8 +124,10 @@ export class EssayTaskPageRuntimeRegistry<TPage extends object> {
     runtime.disposed = true;
     runtime.requestEpoch += 1;
     if (runtime.timerHandle !== undefined) clearInterval(runtime.timerHandle);
+    if (runtime.draftingAutosaveHandle !== undefined) clearTimeout(runtime.draftingAutosaveHandle);
     if (runtime.reviewPollHandle !== undefined) clearTimeout(runtime.reviewPollHandle);
     runtime.timerHandle = undefined;
+    runtime.draftingAutosaveHandle = undefined;
     runtime.reviewPollHandle = undefined;
     runtime.reviewPollInFlight = false;
     runtime.pageVisible = false;

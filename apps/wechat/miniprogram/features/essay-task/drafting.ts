@@ -257,7 +257,7 @@ export function isPendingEssayDraftingSubmission(
     return false;
   }
   if (value.phase === "completion_pending") {
-    if (!validDraft(value.draft)) return false;
+    if (!isEssayDraftingDraft(value.draft)) return false;
     const completion = value.completion;
     return (
       isRecord(completion) &&
@@ -434,7 +434,7 @@ function validCompletionCommand(
   );
 }
 
-function validDraft(value: unknown): value is EssayDraftingDraft {
+export function isEssayDraftingDraft(value: unknown): value is EssayDraftingDraft {
   if (!isRecord(value)) return false;
   return (
     typeof value.answerText === "string" &&

@@ -50,7 +50,7 @@ Page<PageData, PageCustom>({
   },
 
   onLoad(options) {
-    const id = String(options.id || "");
+    const id = options.id ?? "";
     if (!id) {
       void wx.navigateBack();
       return;
@@ -132,7 +132,7 @@ Page<PageData, PageCustom>({
     const source = this.data.source;
     if (!gateway || !source) return;
     this.setData({ busy: true, errorMessage: "" });
-    wx.showLoading({ title: "正在从资料库移除..." });
+    void wx.showLoading({ title: "正在从资料库移除..." });
     try {
       const deletion = await gateway.deleteSource(
         source.sourceId,
@@ -140,15 +140,15 @@ Page<PageData, PageCustom>({
       );
       await this.waitForDeletion(gateway, deletion.deletionRequestId);
       this.setData({ deleteSheetOpen: false });
-      wx.hideLoading();
-      wx.showToast({ title: "已移除", icon: "success" });
+      void wx.hideLoading();
+      void wx.showToast({ title: "已移除", icon: "success" });
       setTimeout(() => {
-        wx.navigateBack();
+        void wx.navigateBack();
       }, 1000);
     } catch (error) {
-      wx.hideLoading();
+      void wx.hideLoading();
       this.setData({ busy: false });
-      wx.showModal({
+      void wx.showModal({
         title: "移除失败",
         content: error instanceof Error ? error.message : "无法完成资料删除",
         showCancel: false,
@@ -179,5 +179,7 @@ Page<PageData, PageCustom>({
 
 function formatDate(value: string): string {
   const match = value.match(/^(\d{4})-(\d{2})-(\d{2})/u);
-  return match ? `${match[1]}.${match[2]}.${match[3]}` : value;
+  if (!match) return value;
+  const [, year = "", month = "", day = ""] = match;
+  return `${year}.${month}.${day}`;
 }

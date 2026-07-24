@@ -63,7 +63,13 @@ export function reviewView(review: EssayReviewResponse) {
       ? `${score.scoreRange.lower.toFixed(1)}–${score.scoreRange.upper.toFixed(1)} / ${score.maximum.toFixed(0)}`
       : "当前评阅没有形成可信分数区间",
     recommendedScore: score?.scoreRange.recommended.toFixed(1) ?? "—",
-    confidenceLabel: score ? (score.confidence === "medium" ? "中等可信" : "低可信") : "不可评分",
+    confidenceLabel: score
+      ? {
+          high: "较高可信",
+          medium: "中等可信",
+          low: "低可信",
+        }[score.confidence]
+      : "不可评分",
     confidenceReasons: score?.confidenceReasons ?? [],
     dimensions: review.dimensions.map((item) => ({
       ...item,

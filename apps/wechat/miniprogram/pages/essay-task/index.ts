@@ -69,6 +69,11 @@ import {
   type PendingEssayReviewRecovery,
 } from "../../features/essay-task/drafting";
 import {
+  clearEssayDraftingDraft,
+  loadEssayDraftingDraft,
+  storeEssayDraftingDraft,
+} from "../../features/essay-task/drafting-store";
+import {
   buildArtifactCommand,
   EssayFormError,
   initialEssayFormDrafts,
@@ -422,6 +427,9 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
             planTaskId: runtime.activePlanTaskId,
           })
         : null;
+    if (runtime.pendingDraftingSubmission) {
+      clearEssayDraftingDraft(session.userId, runtime.activePlanTaskId);
+    }
     if (runtime.activeStage === "essay_rewrite" || runtime.activeStage === "essay_transfer") {
       const writerContext = runtime.writerContext;
       if (writerContext?.kind === "rewrite") {
@@ -475,6 +483,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
   onHide() {
     const runtime = pageRuntimes.get(this);
     if (!runtime) return;
+    flushDraftingAutosave(this, runtime);
     runtime.pageVisible = false;
     stopTimer(runtime);
     stopReviewPoll(runtime);
@@ -485,6 +494,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
   onUnload() {
     const runtime = pageRuntimes.get(this);
     if (!runtime) return;
+    flushDraftingAutosave(this, runtime);
     runtime.pageVisible = false;
     stopTimer(runtime);
     stopReviewPoll(runtime);
@@ -528,12 +538,22 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           ? runtime.pendingCompletion.drafts
           : initialEssayFormDrafts(workspace);
       const pendingDrafting = runtime.pendingDraftingSubmission;
+      const storedDrafting =
+        draftingStage && !pendingDrafting && !workspace.progression.answerVersionId
+          ? loadEssayDraftingDraft(runtime.activeUserId, {
+              taskVersionId: activeTaskVersionId,
+              planTaskId: runtime.activePlanTaskId,
+            })
+          : null;
+      if (draftingStage && workspace.progression.answerVersionId) {
+        clearEssayDraftingDraft(runtime.activeUserId, runtime.activePlanTaskId);
+      }
       const drafting =
         draftingStage &&
         pendingDrafting?.phase === "completion_pending" &&
         pendingDrafting.taskVersionId === activeTaskVersionId
           ? pendingDrafting.draft
-          : initialEssayDraftingDraft(workspace);
+          : (storedDrafting ?? initialEssayDraftingDraft(workspace));
       const blockingReason = stageBlockingReason(activeStage, workspace);
       const baseView = presentEssayWorkspace(workspace, capability.artifactType);
       const pageDrafts = decorateDrafts(drafts, baseView);
@@ -688,7 +708,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
   },
 
   inputOverallTheme(event: WechatMiniprogram.Input) {
-    markDraftChanged();
+    markDraftChanged(this);
     this.setData({ overallTheme: event.detail.value, submissionStatus: "idle" });
   },
 
@@ -700,13 +720,13 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     if (!current) return;
     if (field === "paragraphSummary" || field === "subjectsText" || field === "evidenceQuote") {
       annotations[index] = { ...current, [field]: event.detail.value };
-      markDraftChanged();
+      markDraftChanged(this);
       this.setData({ materialAnnotations: annotations, submissionStatus: "idle" });
     }
   },
 
   addPoint() {
-    markDraftChanged();
+    markDraftChanged(this);
     this.setData({
       points: [...this.data.points, decoratePoint(newPointDraft(), this.data.view?.segments ?? [])],
       submissionStatus: "idle",
@@ -715,7 +735,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
 
   removePoint(event: WechatMiniprogram.BaseEvent) {
     const index = datasetIndex(event);
-    markDraftChanged();
+    markDraftChanged(this);
     this.setData({
       points: this.data.points.filter((_, itemIndex) => itemIndex !== index),
       submissionStatus: "idle",
@@ -730,7 +750,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     if (!current || !category) return;
     const points = [...this.data.points];
     points[index] = { ...current, category, categoryIndex };
-    markDraftChanged();
+    markDraftChanged(this);
     this.setData({ points, submissionStatus: "idle" });
   },
 
@@ -740,7 +760,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     if (!current) return;
     const points = [...this.data.points];
     points[index] = { ...current, statement: event.detail.value };
-    markDraftChanged();
+    markDraftChanged(this);
     this.setData({ points, submissionStatus: "idle" });
   },
 
@@ -757,17 +777,17 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         checked: event.detail.value.includes(item.segmentId),
       })),
     };
-    markDraftChanged();
+    markDraftChanged(this);
     this.setData({ points, submissionStatus: "idle" });
   },
 
   inputThesis(event: WechatMiniprogram.Input) {
-    markDraftChanged();
+    markDraftChanged(this);
     this.setData({ thesis: event.detail.value, submissionStatus: "idle" });
   },
 
   addOutlineSection() {
-    markDraftChanged();
+    markDraftChanged(this);
     this.setData({
       outlineSections: [
         ...this.data.outlineSections,
@@ -779,7 +799,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
 
   removeOutlineSection(event: WechatMiniprogram.BaseEvent) {
     const index = datasetIndex(event);
-    markDraftChanged();
+    markDraftChanged(this);
     this.setData({
       outlineSections: this.data.outlineSections.filter((_, itemIndex) => itemIndex !== index),
       submissionStatus: "idle",
@@ -794,7 +814,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     if (!current) return;
     if (field === "heading" || field === "argument" || field === "plannedWordsText") {
       sections[index] = { ...current, [field]: event.detail.value };
-      markDraftChanged();
+      markDraftChanged(this);
       this.setData({ outlineSections: sections, submissionStatus: "idle" });
     }
   },
@@ -812,7 +832,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         checked: event.detail.value.includes(item.pointId),
       })),
     };
-    markDraftChanged();
+    markDraftChanged(this);
     this.setData({ outlineSections: sections, submissionStatus: "idle" });
   },
 
@@ -827,7 +847,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     const priorities = this.data.review.priorityFindingIds.filter((id) =>
       decisions.some((item) => item.findingId === id && item.decision === "accepted"),
     );
-    markDraftChanged();
+    markDraftChanged(this);
     const view = this.data.view
       ? {
           ...this.data.view,
@@ -874,7 +894,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           ),
         }
       : null;
-    markDraftChanged();
+    markDraftChanged(this);
     this.setData({
       view,
       review: { ...this.data.review, decisions },
@@ -888,7 +908,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       this.setData({ review: { ...this.data.review } });
       return;
     }
-    markDraftChanged();
+    markDraftChanged(this);
     const view = this.data.view
       ? {
           ...this.data.view,
@@ -906,7 +926,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
   },
 
   inputLearnerUnderstanding(event: WechatMiniprogram.Input) {
-    markDraftChanged();
+    markDraftChanged(this);
     this.setData({
       review: { ...this.data.review, learnerUnderstanding: event.detail.value },
       submissionStatus: "idle",
@@ -926,7 +946,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     ) {
       return;
     }
-    markDraftChanged();
+    markDraftChanged(this);
     const invalidatesOcr =
       field === "answerText" && this.data.drafting.sourceType === "ocr_confirmed";
     this.setData({
@@ -953,7 +973,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     const index = Number(event.detail.value);
     const value = sourceContextValues[index];
     if (!value) return;
-    markDraftChanged();
+    markDraftChanged(this);
     this.setData({
       drafting: {
         ...this.data.drafting,
@@ -969,7 +989,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     const index = Number(event.detail.value);
     const value = timedStatusValues[index];
     if (!value) return;
-    markDraftChanged();
+    markDraftChanged(this);
     this.setData({
       drafting: {
         ...this.data.drafting,
@@ -986,7 +1006,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     const index = Number(event.detail.value);
     const value = answerSourceTypeValues[index];
     if (!value) return;
-    markDraftChanged();
+    markDraftChanged(this);
     this.setData({
       drafting: {
         ...this.data.drafting,
@@ -1103,6 +1123,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
             ...binding,
           },
         });
+        markDraftChanged(this);
       } else if (runtime.activeStage === "essay_rewrite" && this.data.rewriteDraft) {
         const rewriteDraft = {
           ...this.data.rewriteDraft,
@@ -1150,7 +1171,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     const values = event.detail.value.filter((value) =>
       reflectionCauseValues.includes(value as (typeof reflectionCauseValues)[number]),
     ) as EssayDraftingDraft["reflectionCauseCodes"];
-    markDraftChanged();
+    markDraftChanged(this);
     this.setData({
       drafting: { ...this.data.drafting, reflectionCauseCodes: values },
       reflectionCauseOptions: reflectionCauseOptions(values),
@@ -1852,6 +1873,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           },
         };
         storeDraftingSubmission(runtime.activeUserId, runtime.pendingDraftingSubmission);
+        discardDraftingAutosave(runtime);
+        clearEssayDraftingDraft(runtime.activeUserId, runtime.activePlanTaskId);
       }
       await this.resumeDraftingSubmission();
     } catch (error) {
@@ -1907,6 +1930,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         runtime.activeUserId,
         voiceDraftScope(runtime.activePlanTaskId),
       );
+      clearEssayDraftingDraft(runtime.activeUserId, runtime.activePlanTaskId);
       publishLatestTodayDashboard(result.completion.plan);
       const workspace = this.data.workspace;
       this.setData({
@@ -2467,8 +2491,75 @@ function datasetIndex(event: WechatMiniprogram.BaseEvent): number {
   return Number(event.currentTarget.dataset.index ?? -1);
 }
 
-function markDraftChanged(): void {
-  // A persisted completion command locks the draft in WXML until its atomic retry succeeds.
+const draftingAutosaveDelayMs = 450;
+
+function markDraftChanged(page: EssayTaskPageInstance): void {
+  const runtime = pageRuntimes.get(page);
+  if (
+    !runtime ||
+    runtime.activeStage !== "essay_drafting" ||
+    runtime.pendingDraftingSubmission ||
+    page.data.draftLocked ||
+    !page.data.draftAvailable
+  ) {
+    return;
+  }
+  if (runtime.draftingAutosaveHandle !== undefined) {
+    clearTimeout(runtime.draftingAutosaveHandle);
+  }
+  runtime.draftingAutosaveHandle = setTimeout(() => {
+    runtime.draftingAutosaveHandle = undefined;
+    persistDraftingAutosave(page, runtime);
+  }, draftingAutosaveDelayMs);
+}
+
+function flushDraftingAutosave(
+  page: EssayTaskPageInstance,
+  runtime: EssayTaskPageRuntime,
+): void {
+  discardDraftingAutosave(runtime);
+  persistDraftingAutosave(page, runtime);
+}
+
+function discardDraftingAutosave(runtime: EssayTaskPageRuntime): void {
+  if (runtime.draftingAutosaveHandle !== undefined) {
+    clearTimeout(runtime.draftingAutosaveHandle);
+  }
+  runtime.draftingAutosaveHandle = undefined;
+}
+
+function persistDraftingAutosave(
+  page: EssayTaskPageInstance,
+  runtime: EssayTaskPageRuntime,
+): void {
+  if (
+    !pageRuntimes.owns(page, runtime) ||
+    runtime.activeStage !== "essay_drafting" ||
+    runtime.pendingDraftingSubmission ||
+    !runtime.activeUserId ||
+    !runtime.activeTaskVersionId ||
+    !runtime.activePlanTaskId ||
+    page.data.draftLocked ||
+    !page.data.draftAvailable
+  ) {
+    return;
+  }
+  try {
+    storeEssayDraftingDraft(
+      runtime.activeUserId,
+      {
+        taskVersionId: runtime.activeTaskVersionId,
+        planTaskId: runtime.activePlanTaskId,
+      },
+      page.data.drafting,
+    );
+  } catch {
+    page.setData({
+      submissionStatus: "error",
+      submissionMessage:
+        "这次输入暂时没有保存到本机。请先保持页面打开；若再次出现，请检查微信可用存储空间后重试。",
+    });
+  }
 }
 
 function scrollTo(anchorId: string): void {

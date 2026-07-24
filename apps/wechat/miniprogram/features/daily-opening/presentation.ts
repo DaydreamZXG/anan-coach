@@ -41,7 +41,8 @@ function localDateLabel(value: string): string {
   if (!year || !month || !day) return value;
   const date = new Date(year, month - 1, day);
   const weekdays = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
-  return `${String(month).padStart(2, "0")}月${String(day).padStart(2, "0")}日 ${weekdays[date.getDay()]}`;
+  const weekday = weekdays[date.getDay()] ?? "";
+  return `${String(month).padStart(2, "0")}月${String(day).padStart(2, "0")}日 ${weekday}`;
 }
 
 export function presentDailyOpening(view: DailyOpeningView): DailyOpeningPresentation {

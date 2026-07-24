@@ -73,6 +73,14 @@
         <text wx:if="{{openingView.weatherReady}}" class="opening-collapsed__weather">{{openingView.weatherHeadline}}</text>
       </view>
 
+      <view
+        wx:if="{{capacityMessage && (capacitySubmission === 'conflict' || capacitySubmission === 'error')}}"
+        class="capacity-notice capacity-notice--{{capacitySubmission}}"
+      >
+        <text class="capacity-notice__copy">{{capacityMessage}}</text>
+        <button hover-class="item--hover" class="capacity-notice__action" bindtap="retry">重新载入</button>
+      </view>
+
       <view class="task-heading">
         <view class="task-heading__title">今日任务</view>
         <view class="task-heading__meta">

@@ -17,10 +17,10 @@ Component({
         const win = wx.getWindowInfo();
         paddingTop = win.statusBarHeight || 20;
         const menu = wx.getMenuButtonBoundingClientRect();
-        if (menu && menu.top > 0) {
+        if (menu.top > 0) {
           navHeight = (menu.top - paddingTop) * 2 + menu.height;
         }
-      } catch (_) {
+      } catch {
         // Fallback
       }
       this.setData({ paddingTop, navHeight });
@@ -31,7 +31,7 @@ Component({
     goBack() {
       wx.navigateBack({
         fail() {
-          wx.switchTab({ url: '/pages/today/index' });
+          void wx.switchTab({ url: '/pages/today/index' });
         }
       });
     }

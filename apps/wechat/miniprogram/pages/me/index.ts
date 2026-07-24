@@ -21,6 +21,10 @@ import {
   clearEssayPendingForUser,
 } from "../../features/essay-task/pending-store";
 import {
+  clearAllEssayDraftingDrafts,
+  clearEssayDraftingDraftsForUser,
+} from "../../features/essay-task/drafting-store";
+import {
   clearAllOnboardingPending,
   clearOnboardingPendingForUser,
 } from "../../features/onboarding/pending-store";
@@ -51,6 +55,10 @@ const avatarOptions: ReadonlyArray<{ value: AvatarStyle; label: string }> = [
   { value: "graphite", label: "墨石" },
   { value: "mint", label: "薄荷" },
 ];
+
+function defaultAvatarStyle(): AvatarStyle {
+  return "ocean";
+}
 
 function dateLabel(value: string): string {
   const date = new Date(value);
@@ -89,12 +97,12 @@ Page({
     profileVersion: 0,
     displayName: "岸岸学员",
     avatarInitial: "岸",
-    avatarStyle: "ocean" as AvatarStyle,
+    avatarStyle: defaultAvatarStyle(),
     avatarOptions,
     profileEditorOpen: false,
     profileDraftName: "",
     profileDraftInitial: "岸",
-    profileDraftAvatarStyle: "ocean" as AvatarStyle,
+    profileDraftAvatarStyle: defaultAvatarStyle(),
     profileSaving: false,
     profileEditorError: "",
     establishedLabel: "",
@@ -122,7 +130,7 @@ Page({
 
   onShow() {
     if (typeof this.getTabBar === "function") {
-      this.getTabBar()?.setData({ active: "me" });
+      this.getTabBar().setData({ active: "me" });
     }
     if (!currentAccessToken()) {
       void wx.reLaunch({ url: "/pages/login/index" });
@@ -420,6 +428,7 @@ Page({
     if (userId) {
       clearPendingAuthReturn(userId);
       clearEssayPendingForUser(userId);
+      clearEssayDraftingDraftsForUser(userId);
       clearOnboardingPendingForUser(userId);
       clearPositionStateForUser(userId);
       clearPendingQualificationProfileEdit(userId);
@@ -427,6 +436,7 @@ Page({
     } else {
       clearAllPendingAuthReturns();
       clearAllEssayPending();
+      clearAllEssayDraftingDrafts();
       clearAllOnboardingPending();
       clearAllPositionState();
       clearAllQualificationProfileEditPending();
