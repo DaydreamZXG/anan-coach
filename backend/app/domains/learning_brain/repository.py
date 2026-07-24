@@ -124,6 +124,34 @@ class LearningBrainRepository:
                                   item.execution_version_id
                           )
                       ) as task_execution_count,
+                      (
+                        select count(*)
+                        from learning.external_answer_facts fact
+                        where fact.owner_user_id = cast(:user_id as uuid)
+                          and fact.review_state = 'user_confirmed'
+                      ) as external_answer_count,
+                      (
+                        select fact.fact_id::text
+                        from learning.external_answer_facts fact
+                        where fact.owner_user_id = cast(:user_id as uuid)
+                          and fact.review_state = 'user_confirmed'
+                        order by fact.created_at desc, fact.fact_id desc
+                        limit 1
+                      ) as latest_external_answer_fact_id,
+                      (
+                        select fact.track
+                        from learning.external_answer_facts fact
+                        where fact.owner_user_id = cast(:user_id as uuid)
+                          and fact.review_state = 'user_confirmed'
+                        order by fact.created_at desc, fact.fact_id desc
+                        limit 1
+                      ) as latest_external_answer_track,
+                      (
+                        select max(fact.created_at)
+                        from learning.external_answer_facts fact
+                        where fact.owner_user_id = cast(:user_id as uuid)
+                          and fact.review_state = 'user_confirmed'
+                      ) as latest_external_answer_at,
                       greatest(
                         (select max(occurred_at) from learning.score_evidence
                           where user_id = cast(:user_id as uuid)),
@@ -134,7 +162,10 @@ class LearningBrainRepository:
                         (select max(created_at) from learning.essay_mastery_state_versions
                           where user_id = cast(:user_id as uuid)),
                         (select max(recorded_at) from learning.task_execution_versions
-                          where user_id = cast(:user_id as uuid))
+                          where user_id = cast(:user_id as uuid)),
+                        (select max(created_at) from learning.external_answer_facts
+                          where owner_user_id = cast(:user_id as uuid)
+                            and review_state = 'user_confirmed')
                       ) as latest_evidence_at,
                       (
                         select count(*) filter (
@@ -280,6 +311,23 @@ class LearningBrainRepository:
                       join product.questions question on question.question_id = item.question_id
                       where item.user_id = cast(:user_id as uuid)
                       group by coalesce(nullif(trim(question.module_name), ''), '未分类')
+                    ), external_answer as (
+                      select
+                        coalesce(nullif(trim(question.module_name), ''), '未分类') as module_name,
+                        count(*)::int as external_answer_count,
+                        max(fact.created_at) as latest_external_at,
+                        (array_agg(
+                          fact.fact_id::text order by fact.created_at desc, fact.fact_id desc
+                        ))[1] as latest_external_fact_id
+                      from learning.external_answer_facts fact
+                      join product.question_content_versions content
+                        on content.content_version_id = fact.content_version_id
+                      join product.questions question
+                        on question.question_id = content.question_id
+                      where fact.owner_user_id = cast(:user_id as uuid)
+                        and fact.track = 'xingce'
+                        and fact.review_state = 'user_confirmed'
+                      group by coalesce(nullif(trim(question.module_name), ''), '未分类')
                     ), current_mastery as (
                       select item.*
                       from learning.xingce_mastery_state_versions item
@@ -303,20 +351,32 @@ class LearningBrainRepository:
                       group by coalesce(nullif(trim(module_name), ''), '未分类')
                     )
                     select
-                      coalesce(assessment.module_name, mastery.module_name) as module_name,
+                      coalesce(
+                        assessment.module_name,
+                        mastery.module_name,
+                        external_answer.module_name
+                      ) as module_name,
                       coalesce(assessment.attempt_count, 0)::int as attempt_count,
                       coalesce(assessment.correct_count, 0)::int as correct_count,
                       assessment.average_seconds,
+                      coalesce(external_answer.external_answer_count, 0)::int
+                        as external_answer_count,
                       coalesce(mastery.mastery_count, 0)::int as mastery_count,
                       coalesce(mastery.stable_mastery_count, 0)::int
                         as stable_mastery_count,
                       coalesce(mastery.due_count, 0)::int as due_count,
-                      greatest(assessment.latest_evidence_at, mastery.latest_mastery_at)
+                      greatest(
+                        assessment.latest_evidence_at,
+                        mastery.latest_mastery_at,
+                        external_answer.latest_external_at
+                      )
                         as latest_evidence_at,
                       assessment.latest_assessment_id,
-                      mastery.latest_mastery_version_id
+                      mastery.latest_mastery_version_id,
+                      external_answer.latest_external_fact_id
                     from assessment
                     full outer join mastery using (module_name)
+                    full outer join external_answer using (module_name)
                     order by module_name
                     """
                 ),

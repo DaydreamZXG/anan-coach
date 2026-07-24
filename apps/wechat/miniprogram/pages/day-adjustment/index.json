@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "custom",
+  "backgroundColor": "#F7F9FC",
+  "usingComponents": {
+    "safe-top": "../../components/safe-top/index",
+    "state-view": "../../design-system/primitives/state-view/index"
+  }
+}

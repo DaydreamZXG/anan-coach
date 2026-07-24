@@ -1,0 +1,158 @@
+<view class="adjustment-page">
+  <safe-top mode="status" gap="{{0}}" />
+  <view class="adjustment-nav">
+    <button class="adjustment-back" aria-label="返回" bindtap="exit">
+      <view class="adjustment-back__icon"></view>
+    </button>
+  </view>
+
+  <view class="adjustment-content">
+    <state-view wx:if="{{status === 'loading'}}" state="loading" />
+    <state-view
+      wx:elif="{{status === 'error'}}"
+      state="error"
+      title="今天的安排没有加载成功"
+      description="{{errorMessage}}"
+      request-id="{{requestId}}"
+      action-text="重新加载"
+      bind:action="retry"
+    />
+
+    <block wx:elif="{{status === 'ready' && dashboard}}">
+      <block wx:if="{{step === 'edit'}}">
+        <view class="adjustment-hero">
+          <view class="adjustment-title">今天变了，计划也可以跟着变</view>
+          <view class="adjustment-copy">告诉岸岸还剩多少时间，先保住最值得做的。</view>
+        </view>
+
+        <view class="current-card">
+          <view class="current-card__accent"></view>
+          <view class="current-card__label">当前安排</view>
+          <view class="current-card__chips">
+            <view class="current-chip current-chip--blue">共 {{currentDurationLabel}}</view>
+            <view class="current-chip">{{currentTaskCount}} 项任务</view>
+          </view>
+          <view class="current-card__focus">当前重点：<text class="current-card__focus-value">{{currentFocus}}</text></view>
+        </view>
+
+        <view class="adjustment-section">
+          <view class="adjustment-section__title">今天还能学多久</view>
+          <view class="time-card">
+            <view class="time-stepper">
+              <button
+                class="stepper-button {{minutes === 0 || previewing || submitting ? 'control-disabled' : ''}}"
+                data-delta="-{{minutesStep}}"
+                disabled="{{minutes === 0 || previewing || submitting}}"
+                bindtap="adjustMinutes"
+              >
+                <view class="minus-icon"></view>
+              </button>
+              <view class="time-value">
+                <text class="time-value__number">{{selectedDurationLabel}}</text>
+              </view>
+              <button
+                class="stepper-button {{minutes >= 600 || previewing || submitting ? 'control-disabled' : ''}}"
+                data-delta="{{minutesStep}}"
+                disabled="{{minutes >= 600 || previewing || submitting}}"
+                bindtap="adjustMinutes"
+              >
+                <view class="plus-icon"></view>
+              </button>
+            </view>
+            <view class="time-presets">
+              <button
+                wx:for="{{timePresets}}"
+                wx:key="minutes"
+                class="time-preset {{minutes === item.minutes ? 'time-preset--active' : ''}}"
+                data-minutes="{{item.minutes}}"
+                disabled="{{previewing || submitting}}"
+                bindtap="chooseMinutes"
+              >{{item.label}}</button>
+            </view>
+          </view>
+        </view>
+
+        <view class="adjustment-section">
+          <view class="adjustment-section__title">现在的精力</view>
+          <view class="energy-options">
+            <button
+              wx:for="{{energyOptions}}"
+              wx:key="value"
+              class="energy-option {{energy === item.value ? 'energy-option--active' : ''}}"
+              data-value="{{item.value}}"
+              disabled="{{previewing || submitting}}"
+              bindtap="chooseEnergy"
+            >{{item.label}}</button>
+          </view>
+        </view>
+      </block>
+
+      <block wx:else>
+        <view class="adjustment-hero">
+          <view class="adjustment-title">调整预览</view>
+          <view class="suggestion-card">
+            <view class="suggestion-card__aurora"></view>
+            <view class="suggestion-card__content">
+              <view class="suggestion-card__heading"><text class="suggestion-card__spark">✦</text><view>岸岸建议</view></view>
+              <view class="suggestion-card__headline">{{previewHeadline}}</view>
+              <view class="suggestion-card__copy">{{previewRationale}}</view>
+            </view>
+          </view>
+        </view>
+
+        <view class="adjustment-section">
+          <view class="adjustment-section__title">本次变动明细</view>
+          <view wx:if="{{previewChanges.length}}" class="change-list">
+            <view wx:for="{{previewChanges}}" wx:key="id" class="change-card change-card--{{item.tone}}">
+              <view class="change-card__top">
+                <view class="change-tag change-tag--{{item.tone}}">{{item.label}}</view>
+                <view class="change-duration type-data">{{item.duration}}</view>
+              </view>
+              <view class="change-title">{{item.title}}</view>
+              <view class="change-copy">{{item.description}}</view>
+            </view>
+          </view>
+          <view wx:else class="change-empty">任务内容不变，只更新今天的时间和状态。</view>
+        </view>
+
+        <view class="impact-card">
+          <image class="impact-card__icon" src="/assets/icons/today/target-muted.png" mode="aspectFit" />
+          <view>
+            <view class="impact-card__title">对目标节奏的影响</view>
+            <view class="impact-card__copy">{{previewImpact}}</view>
+          </view>
+        </view>
+
+        <view class="adjustment-note">
+          <view class="adjustment-note__icon">i</view>
+          <view>没完成的内容不会自动变成学习欠账。确认后，岸岸会按你现在的时间重新安排今天。</view>
+        </view>
+      </block>
+
+      <view wx:if="{{errorMessage}}" class="adjustment-error">{{errorMessage}}</view>
+    </block>
+  </view>
+
+  <view wx:if="{{status === 'ready' && dashboard}}" class="adjustment-footer">
+    <button
+      wx:if="{{step === 'edit'}}"
+      class="adjustment-primary {{previewing || submitting ? 'control-disabled' : ''}}"
+      loading="{{previewing}}"
+      disabled="{{previewing || submitting}}"
+      bindtap="generatePreview"
+    >生成调整预览</button>
+    <view wx:else class="adjustment-footer__actions">
+      <button
+        class="adjustment-secondary {{submitting ? 'control-disabled' : ''}}"
+        disabled="{{submitting}}"
+        bindtap="backToEdit"
+      >返回修改</button>
+      <button
+        class="adjustment-primary adjustment-primary--grow {{submitting ? 'control-disabled' : ''}}"
+        loading="{{submitting}}"
+        disabled="{{submitting}}"
+        bindtap="confirmAdjustment"
+      >确认今天这样安排</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,682 @@
+<canvas id="51:7" name="05 · 拍照搜题" x="0" y="0" width="0" height="0">
+  <frame id="16:2" name="01 · 相机授权" x="0" y="0" width="406" height="860">
+    <frame id="16:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="16:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="16:23" name="Container:margin" x="155" y="256.5" width="80" height="104">
+          <frame id="16:7" name="Container" x="0" y="0" width="80" height="80">
+            <frame id="16:8" name="Icon" x="24" y="24" width="32" height="32" />
+          </frame>
+        </frame>
+        <frame id="16:24" name="Heading 2:margin" x="135.5" y="360.5" width="119" height="40">
+          <text id="16:12" name="需要相机权限" x="0" y="0" width="119" height="28" />
+        </frame>
+        <frame id="16:25" name="Paragraph:margin" x="32" y="400.5" width="326" height="86">
+          <text id="16:15" name="岸岸需要使用相机来拍摄题目和材料，请在系统弹窗中允许授权。" x="0" y="0" width="326" height="46" />
+        </frame>
+        <frame id="16:17" name="Button" x="32" y="486.5" width="326" height="56">
+          <text id="16:18" name="允许授权" x="131" y="16" width="64" height="24" />
+        </frame>
+        <frame id="16:20" name="Button" x="180" y="542.5" width="30" height="45">
+          <text id="16:21" name="返回" x="1" y="24" width="28" height="21" />
+        </frame>
+      </frame>
+      <frame id="16:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="40:2" name="02 · 拍摄" x="506" y="0" width="406" height="860">
+    <frame id="40:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="40:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="40:6" name="PhotoSearchWorkbenchPage" x="0" y="0" width="390" height="844">
+          <frame id="40:7" name="Container" x="0" y="0" width="390" height="48" />
+          <frame id="40:8" name="Container" x="0" y="48" width="390" height="56">
+            <frame id="40:22" name="Button:margin" x="16" y="8" width="32" height="40">
+              <frame id="40:9" name="Button" x="-8" y="0" width="40" height="40">
+                <frame id="40:10" name="Icon" x="8" y="8" width="24" height="24" />
+              </frame>
+            </frame>
+            <frame id="40:12" name="Container" x="121" y="7" width="152" height="42">
+              <frame id="40:13" name="Button" x="5" y="5" width="58" height="32">
+                <text id="40:14" name="单题" x="16" y="6" width="26" height="20" />
+              </frame>
+              <frame id="40:16" name="Button" x="63" y="5" width="84" height="32">
+                <text id="40:17" name="共享材料" x="16" y="6" width="52" height="20" />
+              </frame>
+            </frame>
+            <frame id="40:23" name="Button:margin" x="346" y="10" width="28" height="36">
+              <frame id="40:19" name="Button" x="0" y="0" width="36" height="36">
+                <frame id="40:20" name="Icon" x="8" y="8" width="20" height="20" />
+              </frame>
+            </frame>
+          </frame>
+          <frame id="40:24" name="Container" x="0" y="104" width="390" height="600">
+            <frame id="40:25" name="Container" x="29.25" y="79" width="331.5" height="442">
+              <frame id="40:34" name="PhotoSearchWorkbenchPage" x="51" y="205.5" width="229.5" height="31">
+                <frame id="40:31" name="Paragraph" x="24" y="0" width="181.5" height="23">
+                  <text id="40:32" name="请将题干与选项完整对齐" x="0.75" y="0" width="180" height="23" />
+                </frame>
+              </frame>
+              <frame id="40:26" name="Container" x="17" y="17" width="24" height="24" />
+              <frame id="40:27" name="Container" x="290.5" y="17" width="24" height="24" />
+              <frame id="40:28" name="Container" x="17" y="401" width="24" height="24" />
+              <frame id="40:29" name="Container" x="290.5" y="401" width="24" height="24" />
+            </frame>
+          </frame>
+          <frame id="40:35" name="Container" x="0" y="704" width="390" height="140">
+            <frame id="40:36" name="Button" x="58.328125" y="46" width="48" height="48">
+              <frame id="40:37" name="Icon" x="14" y="14" width="20" height="20" />
+            </frame>
+            <frame id="40:41" name="Button" x="159" y="34" width="72" height="72">
+              <frame id="40:42" name="Container" x="8" y="8" width="56" height="56" />
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+      <frame id="40:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="41:2" name="03 · 裁剪校正" x="1012" y="0" width="406" height="860">
+    <frame id="41:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="41:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="41:6" name="PhotoSearchWorkbenchPage" x="0" y="0" width="390" height="844">
+          <frame id="41:7" name="Container" x="0" y="0" width="390" height="48" />
+          <frame id="41:8" name="Container" x="0" y="48" width="390" height="56">
+            <frame id="41:16" name="Button:margin" x="16" y="8" width="32" height="40">
+              <frame id="41:9" name="Button" x="-8" y="0" width="40" height="40">
+                <frame id="41:10" name="Icon" x="8" y="8" width="24" height="24" />
+              </frame>
+            </frame>
+            <frame id="41:12" name="Text" x="147" y="16" width="96" height="24">
+              <text id="41:13" name="框选题目区域" x="0" y="0" width="96" height="24" />
+            </frame>
+            <frame id="41:15" name="Container" x="342" y="27.999950408935547" width="32" height="0.00009999999747378752" />
+          </frame>
+          <frame id="41:17" name="Container" x="0" y="104" width="390" height="644">
+            <frame id="41:18" name="Container" x="24" y="98.5" width="342" height="447">
+              <frame id="41:19" name="Container" x="141" y="186.5" width="60" height="74">
+                <frame id="41:29" name="Icon:margin" x="0" y="0" width="60" height="48">
+                  <frame id="41:20" name="Icon" x="6" y="0" width="48" height="48" />
+                </frame>
+                <frame id="41:26" name="Paragraph" x="0" y="48" width="60" height="26">
+                  <text id="41:27" name="已捕获图像" x="0" y="8" width="60" height="18" />
+                </frame>
+              </frame>
+              <frame id="41:31" name="Container" x="33" y="33" width="276" height="381">
+                <frame id="41:32" name="Container" x="-6" y="-6" width="16" height="16" />
+                <frame id="41:33" name="Container" x="266" y="-6" width="16" height="16" />
+                <frame id="41:34" name="Container" x="-6" y="371" width="16" height="16" />
+                <frame id="41:35" name="Container" x="266" y="371" width="16" height="16" />
+              </frame>
+            </frame>
+          </frame>
+          <frame id="41:36" name="Container" x="0" y="748" width="390" height="96">
+            <frame id="41:37" name="Button" x="24" y="38" width="44" height="21">
+              <text id="41:38" name="重拍" x="8" y="0" width="28" height="21" />
+            </frame>
+            <frame id="41:40" name="Container" x="129" y="28.5" width="100" height="40">
+              <frame id="41:41" name="Button" x="0" y="0" width="40" height="40">
+                <frame id="41:42" name="Icon" x="11" y="11" width="18" height="18" />
+              </frame>
+              <frame id="41:45" name="Button" x="60" y="0" width="40" height="40">
+                <frame id="41:46" name="Icon" x="11" y="11" width="18" height="18" />
+              </frame>
+            </frame>
+            <frame id="41:51" name="Button" x="290" y="28" width="76" height="41">
+              <text id="41:52" name="确认" x="24" y="10" width="28" height="21" />
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+      <frame id="41:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="42:2" name="04 · OCR 核对" x="1518" y="0" width="406" height="860">
+    <frame id="42:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="42:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="42:6" name="PhotoSearchWorkbenchPage" x="0" y="0" width="390" height="844">
+          <frame id="42:7" name="Container" x="0" y="0" width="390" height="48" />
+          <frame id="42:8" name="Container" x="0" y="48" width="390" height="56">
+            <frame id="42:16" name="Button:margin" x="16" y="7.5" width="32" height="40">
+              <frame id="42:9" name="Button" x="-8" y="0" width="40" height="40">
+                <frame id="42:10" name="Icon" x="8" y="8" width="24" height="24" />
+              </frame>
+            </frame>
+            <frame id="42:12" name="Text" x="147" y="15.5" width="96" height="24">
+              <text id="42:13" name="核对识别内容" x="0" y="0" width="96" height="24" />
+            </frame>
+            <frame id="42:15" name="Container" x="342" y="27.499950408935547" width="32" height="0.00009999999747378752" />
+          </frame>
+          <frame id="42:17" name="Container" x="0" y="104" width="390" height="740">
+            <frame id="42:18" name="Container" x="0" y="0" width="390" height="185">
+              <frame id="42:19" name="Icon" x="171" y="68" width="48" height="48" />
+              <frame id="42:25" name="Container" x="286" y="142" width="92" height="30">
+                <frame id="42:26" name="Icon" x="12" y="8" width="14" height="14" />
+                <text id="42:30" name="对照原图" x="32" y="6" width="48" height="18" />
+              </frame>
+            </frame>
+            <frame id="42:32" name="Container" x="0" y="185" width="390" height="555">
+              <frame id="42:33" name="Container" x="20" y="20" width="350" height="56">
+                <frame id="42:34" name="Container" x="13" y="17" width="128" height="22">
+                  <frame id="42:35" name="Container" x="0" y="0" width="64" height="22">
+                    <text id="42:36" name="自动识别" x="8" y="2" width="48" height="18" />
+                  </frame>
+                  <frame id="42:38" name="Text" x="72" y="0.5" width="56" height="21">
+                    <text id="42:39" name="行测考题" x="0" y="0" width="56" height="21" />
+                  </frame>
+                </frame>
+                <frame id="42:41" name="Button" x="265" y="13" width="72" height="30">
+                  <text id="42:42" name="改为申论" x="12" y="6" width="48" height="18" />
+                </frame>
+              </frame>
+              <frame id="42:105" name="Container:margin" x="20" y="76" width="350" height="182">
+                <frame id="42:44" name="Container" x="0" y="20" width="350" height="162">
+                  <frame id="42:45" name="Container" x="1" y="1" width="348" height="46">
+                    <frame id="42:46" name="Text" x="20" y="12" width="50" height="21">
+                      <frame id="42:47" name="Icon" x="0" y="2.5" width="16" height="16" />
+                      <text id="42:51" name="题干" x="22" y="0" width="28" height="21" />
+                    </frame>
+                  </frame>
+                  <frame id="42:53" name="Container" x="1" y="47" width="348" height="114">
+                    <frame id="42:54" name="Paragraph" x="20" y="20" width="308" height="27">
+                      <text id="42:55" name="求全市居民人均可支配收入约为多少" x="0" y="-1" width="240" height="27" />
+                      <frame id="42:57" name="Text" x="242" y="4" width="23" height="19">
+                        <text id="42:58" name="园" x="4" y="-5" width="15" height="27" />
+                      </frame>
+                      <text id="42:60" name="？" x="267" y="-1" width="15" height="27" />
+                    </frame>
+                    <frame id="42:70" name="Container:margin" x="20" y="47" width="308" height="47">
+                      <frame id="42:62" name="Container" x="0" y="16" width="308" height="31">
+                        <frame id="42:63" name="Icon" x="0" y="15" width="14" height="14" />
+                        <frame id="42:67" name="Text" x="20" y="13" width="189" height="18">
+                          <text id="42:68" name="1 处疑似识别错误，请直接点击修改" x="0" y="0" width="189" height="18" />
+                        </frame>
+                      </frame>
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="42:106" name="Container:margin" x="20" y="258" width="350" height="432">
+                <frame id="42:71" name="Container" x="0" y="24" width="350" height="384">
+                  <frame id="42:72" name="Container" x="1" y="1" width="348" height="46">
+                    <frame id="42:73" name="Text" x="20" y="12" width="50" height="21">
+                      <frame id="42:74" name="Icon" x="0" y="2.5" width="16" height="16" />
+                      <text id="42:81" name="选项" x="22" y="0" width="28" height="21" />
+                    </frame>
+                  </frame>
+                  <frame id="42:83" name="Container" x="1" y="47" width="348" height="264">
+                    <frame id="42:85" name="Text Input" x="20" y="20" width="308" height="47">
+                      <text id="42:86" name="A. 33000" x="17" y="13" width="274" height="21" />
+                    </frame>
+                    <frame id="42:88" name="Text Input" x="20" y="79" width="308" height="47">
+                      <text id="42:89" name="B. 36883" x="17" y="13" width="274" height="21" />
+                    </frame>
+                    <frame id="42:91" name="Text Input" x="20" y="138" width="308" height="47">
+                      <text id="42:92" name="C. 39566" x="17" y="13" width="274" height="21" />
+                    </frame>
+                    <frame id="42:94" name="Text Input" x="20" y="197" width="308" height="47">
+                      <text id="42:95" name="D. 42000" x="17" y="13" width="274" height="21" />
+                    </frame>
+                  </frame>
+                  <frame id="42:96" name="Container" x="1" y="311" width="348" height="72">
+                    <frame id="42:104" name="Icon:margin" x="16" y="17" width="16" height="18">
+                      <frame id="42:97" name="Icon" x="0" y="2" width="16" height="16" />
+                    </frame>
+                    <frame id="42:101" name="Paragraph" x="40" y="17" width="292" height="39">
+                      <text id="42:102" name="选项内容过短或疑似缺失，若不完整可能导致匹配失败，请补充。" x="0" y="0" width="292" height="39" />
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+            <frame id="42:107" name="Container" x="0" y="647" width="390" height="93">
+              <frame id="42:108" name="Button" x="20" y="17" width="350" height="56">
+                <text id="42:109" name="确认无误，开始搜索" x="90" y="16" width="144" height="24" />
+                <frame id="42:111" name="Icon" x="242" y="19" width="18" height="18" />
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+      <frame id="42:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="43:2" name="05 · 题库检索中" x="2024" y="0" width="406" height="860">
+    <frame id="43:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="43:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="43:6" name="PhotoSearchWorkbenchPage" x="0" y="0" width="390" height="844">
+          <frame id="43:14" name="Container:transform" x="163" y="349.5" width="64" height="88">
+            <frame id="43:7" name="Container" x="1.8597279787063599" y="65.75745391845703" width="67.51488375663757" height="67.51488375663757" />
+          </frame>
+          <frame id="43:16" name="Heading 2:margin" x="128" y="437.5" width="134" height="36">
+            <text id="43:9" name="正在全库检索..." x="0" y="0" width="134" height="28" />
+          </frame>
+          <text id="43:12" name="寻找最精准的原题与解析" x="118" y="473.5" width="154" height="21" />
+        </frame>
+      </frame>
+      <frame id="43:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="44:2" name="06 · 多题命中" x="2530" y="0" width="406" height="860">
+    <frame id="44:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="44:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="44:7" name="Container" x="0" y="0" width="390" height="48" />
+        <frame id="44:67" name="Container:margin" x="0" y="48" width="390" height="104">
+          <frame id="44:8" name="Container" x="0" y="48" width="390" height="56">
+            <frame id="44:12" name="Button:margin" x="16" y="8" width="32" height="40">
+              <frame id="44:9" name="Button" x="-8" y="0" width="40" height="40">
+                <frame id="44:10" name="Icon" x="8" y="8" width="24" height="24" />
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+        <frame id="44:13" name="Container" x="0" y="152" width="390" height="692">
+          <frame id="44:14" name="Heading 1" x="20" y="8" width="350" height="40">
+            <text id="44:15" name="找到相似题目" x="0" y="0" width="165" height="40" />
+          </frame>
+          <frame id="44:17" name="Paragraph" x="20" y="48" width="350" height="58">
+            <text id="44:18" name="题库中存在多道高度相似的考题，请确认你要找的是哪一道：" x="0" y="12" width="350" height="46" />
+          </frame>
+          <frame id="44:20" name="Container" x="20" y="106" width="350" height="572.640625">
+            <frame id="44:21" name="Container" x="0" y="24" width="350" height="164.5">
+              <frame id="44:25" name="Container" x="25" y="25" width="300" height="26.5">
+                <frame id="44:26" name="Text" x="0" y="4" width="62" height="22.5">
+                  <text id="44:27" name="演示题库" x="9" y="3" width="44" height="17" />
+                </frame>
+                <frame id="44:29" name="Text" x="70" y="4" width="62" height="22.5">
+                  <text id="44:30" name="资料分析" x="9" y="3" width="44" height="17" />
+                </frame>
+              </frame>
+              <frame id="44:36" name="Paragraph:margin" x="25" y="51.5" width="300" height="88">
+                <frame id="44:32" name="Paragraph" x="0" y="16" width="300" height="72">
+                  <text id="44:33" name="2022年，某市城镇居民人均可支配收入为49283元，农村居民人均可支配收入为20133元。城镇常住" x="0" y="0" width="300" height="120" />
+                </frame>
+              </frame>
+              <frame id="44:22" name="Container" x="262.46875" y="1" width="84" height="29">
+                <text id="44:23" name="匹配度 99%" x="12" y="6" width="60" height="17" />
+              </frame>
+            </frame>
+            <frame id="44:37" name="Container" x="0" y="204.5" width="350" height="136.5">
+              <frame id="44:38" name="Container" x="25" y="25" width="300" height="22.5">
+                <frame id="44:39" name="Text" x="0" y="0" width="78" height="22.5">
+                  <text id="44:40" name="2021年联考" x="9" y="3" width="60" height="17" />
+                </frame>
+                <frame id="44:42" name="Text" x="86" y="0" width="62" height="22.5">
+                  <text id="44:43" name="资料分析" x="9" y="3" width="44" height="17" />
+                </frame>
+              </frame>
+              <frame id="44:45" name="Paragraph" x="25" y="47.5" width="300" height="64">
+                <text id="44:46" name="2021年，某省城镇居民人均可支配收入为48000元，农村为20000元..." x="0" y="16" width="300" height="48" />
+              </frame>
+            </frame>
+            <frame id="44:64" name="Container:margin" x="0" y="357" width="350" height="215.640625">
+              <frame id="44:49" name="Container" x="0" y="24" width="350" height="191.640625">
+                <frame id="44:62" name="Heading 3:margin" x="103.5" y="26" width="143" height="31">
+                  <text id="44:51" name="都不是我要找的题？" x="0" y="0" width="143" height="23" />
+                </frame>
+                <frame id="44:53" name="Paragraph" x="26" y="57" width="298" height="63">
+                  <text id="44:54" name="如果题库未能精准命中，你可以让岸岸作为新题直接进行计算推理。" x="16" y="0" width="266" height="43" />
+                </frame>
+                <frame id="44:56" name="Button" x="40" y="120" width="270" height="47">
+                  <frame id="44:57" name="Icon" x="25" y="15.5" width="16" height="16" />
+                  <text id="44:60" name="未在题库中找到完全一致的题目" x="49" y="13" width="196" height="21" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+      <frame id="44:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="45:2" name="07 · 题库未命中" x="3036" y="0" width="406" height="860">
+    <frame id="45:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="45:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="45:40" name="Container:margin" x="155" y="256.5" width="80" height="104">
+          <frame id="45:11" name="Container" x="0" y="0" width="80" height="80">
+            <frame id="45:12" name="Icon" x="24" y="24" width="32" height="32" />
+          </frame>
+        </frame>
+        <frame id="45:41" name="Heading 2:margin" x="58" y="360.5" width="274" height="40">
+          <text id="45:16" name="未在题库中找到完全一致的题目" x="0" y="0" width="274" height="28" />
+        </frame>
+        <frame id="45:42" name="Paragraph:margin" x="55" y="400.5" width="280" height="86">
+          <text id="45:19" name="这可能是一道新题或小众考卷题。岸岸可以为你独立进行 AI 深度推理与解答。" x="0" y="0" width="280" height="46" />
+        </frame>
+        <frame id="45:21" name="Button" x="32" y="486.5" width="326" height="56">
+          <frame id="45:22" name="Icon" x="90" y="19" width="18" height="18" />
+          <text id="45:32" name="使用 AI 独立解题" x="116" y="16" width="120" height="24" />
+        </frame>
+        <frame id="45:34" name="Button" x="156.5" y="542.5" width="77" height="45">
+          <frame id="45:35" name="Icon" x="0" y="27.5" width="14" height="14" />
+          <text id="45:38" name="重新拍摄" x="18" y="24" width="56" height="21" />
+        </frame>
+        <frame id="45:8" name="Button" x="16" y="64" width="40" height="40">
+          <frame id="45:9" name="Icon" x="8" y="8" width="24" height="24" />
+        </frame>
+      </frame>
+      <frame id="45:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="46:2" name="08 · AI 解题中" x="3542" y="0" width="406" height="860">
+    <frame id="46:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="46:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="46:6" name="PhotoSearchWorkbenchPage" x="0" y="0" width="390" height="844">
+          <frame id="46:14" name="Container:transform" x="163" y="349.5" width="64" height="88">
+            <frame id="46:7" name="Container" x="2.1792192459106445" y="66.0400161743164" width="68.08000755310059" height="68.08000755310059" />
+          </frame>
+          <frame id="46:16" name="Heading 2:margin" x="116" y="437.5" width="158" height="36">
+            <text id="46:9" name="AI 正在独立推理..." x="0" y="0" width="158" height="28" />
+          </frame>
+          <text id="46:12" name="由于题库未命中，正在启动多模型联合计算" x="62" y="473.5" width="266" height="21" />
+        </frame>
+      </frame>
+      <frame id="46:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="47:2" name="09 · 题库解析" x="4048" y="0" width="406" height="860">
+    <frame id="47:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="47:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="47:7" name="Container" x="0" y="0" width="390" height="48" />
+        <frame id="47:119" name="Container:margin" x="0" y="48" width="390" height="104">
+          <frame id="47:8" name="Container" x="0" y="48" width="390" height="56">
+            <frame id="47:19" name="Button:margin" x="16" y="8" width="32" height="40">
+              <frame id="47:9" name="Button" x="-8" y="0" width="40" height="40">
+                <frame id="47:10" name="Icon" x="8" y="8" width="24" height="24" />
+              </frame>
+            </frame>
+            <frame id="47:12" name="Text" x="165" y="16" width="64" height="24">
+              <text id="47:13" name="题目解析" x="0" y="0" width="64" height="24" />
+            </frame>
+            <frame id="47:20" name="Button:margin" x="346" y="10" width="28" height="36">
+              <frame id="47:15" name="Button" x="0" y="0" width="36" height="36">
+                <frame id="47:16" name="Icon" x="8" y="8" width="20" height="20" />
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+        <frame id="47:21" name="Container" x="0" y="152" width="390" height="692">
+          <frame id="47:22" name="Container" x="20" y="8" width="350" height="141.5">
+            <frame id="47:23" name="Container" x="0" y="0" width="350" height="26.5">
+              <frame id="47:24" name="Text" x="0" y="0" width="88" height="26.5">
+                <text id="47:25" name="来源：演示题" x="11" y="5" width="66" height="17" />
+              </frame>
+              <frame id="47:27" name="Text" x="96" y="0" width="66" height="26.5">
+                <text id="47:28" name="资料分析" x="11" y="5" width="44" height="17" />
+              </frame>
+            </frame>
+            <frame id="47:30" name="Paragraph" x="0" y="26.5" width="350" height="115">
+              <text id="47:31" name="2022年，某市城镇居民人均可支配收入为49283元，农村居民人均可支配收入为20133元。城镇常住" x="0" y="12" width="350" height="103" />
+            </frame>
+          </frame>
+          <frame id="47:112" name="Container:margin" x="20" y="149.5" width="350" height="218">
+            <frame id="47:34" name="Container" x="0" y="24" width="350" height="194">
+              <frame id="47:41" name="Container" x="25" y="25" width="300" height="144">
+                <frame id="47:42" name="Paragraph" x="0" y="16" width="300" height="23">
+                  <text id="47:43" name="A. 33000" x="0" y="0" width="70" height="23" />
+                </frame>
+                <frame id="47:45" name="Paragraph" x="0" y="51" width="300" height="23">
+                  <text id="47:46" name="B. 36883" x="0" y="0" width="67" height="23" />
+                </frame>
+                <frame id="47:48" name="Paragraph" x="0" y="86" width="300" height="23">
+                  <text id="47:49" name="C. 39566" x="0" y="0" width="68" height="23" />
+                </frame>
+                <frame id="47:51" name="Paragraph" x="0" y="121" width="300" height="23">
+                  <text id="47:52" name="D. 42000" x="0" y="0" width="69" height="23" />
+                </frame>
+              </frame>
+              <frame id="47:35" name="Container" x="25" y="-15" width="131" height="35.5">
+                <frame id="47:36" name="Icon" x="18" y="10.75" width="14" height="14" />
+                <text id="47:39" name="正确答案：C" x="38" y="7.75" width="75" height="20" />
+              </frame>
+            </frame>
+          </frame>
+          <frame id="47:54" name="Container" x="20" y="367.5" width="350" height="454.1875">
+            <frame id="47:55" name="Container" x="0" y="32" width="350" height="32">
+              <frame id="47:56" name="Container" x="0" y="0" width="32" height="32">
+                <frame id="47:57" name="Icon" x="8" y="8" width="16" height="16" />
+              </frame>
+              <frame id="47:63" name="Heading 3" x="40" y="3" width="72" height="26">
+                <text id="47:64" name="岸岸精讲" x="0" y="0" width="72" height="26" />
+              </frame>
+              <frame id="47:69" name="Text:align" x="120" y="5.5" width="230" height="21">
+                <frame id="47:66" name="Text" x="137" y="0" width="93" height="21">
+                  <text id="47:67" name="题库已验证解析" x="8" y="2" width="77" height="17" />
+                </frame>
+              </frame>
+            </frame>
+            <frame id="47:70" name="Container" x="0" y="64" width="350" height="390.1875">
+              <frame id="47:71" name="Container" x="0" y="20" width="350" height="138.59375">
+                <frame id="47:72" name="Heading 4" x="21" y="21" width="308" height="19.59375">
+                  <frame id="47:73" name="Container" x="0" y="5.796875" width="8" height="8" />
+                  <text id="47:74" name="提取材料数据" x="16" y="-0.203125" width="84" height="20" />
+                </frame>
+                <frame id="47:76" name="Paragraph" x="21" y="40.59375" width="308" height="77">
+                  <text id="47:77" name="城镇居民人均可支配收入 = 49283元，农村居民人均可支配收入 = 20133元。城镇与农村人口比" x="0" y="8" width="308" height="69" />
+                </frame>
+              </frame>
+              <frame id="47:80" name="Container" x="0" y="182.59375" width="350" height="207.59375">
+                <frame id="47:81" name="Heading 4" x="21" y="21" width="308" height="19.59375">
+                  <frame id="47:82" name="Container" x="0" y="5.796875" width="8" height="8" />
+                  <text id="47:83" name="计算全口径平均数" x="16" y="-0.203125" width="112" height="20" />
+                </frame>
+                <frame id="47:85" name="Paragraph" x="21" y="40.59375" width="308" height="58">
+                  <text id="47:86" name="根据加权平均公式：全市人均收入 = (城镇收入 × 城镇比例 + 农村收入 × 农村比例) / 总比" x="0" y="12" width="308" height="46" />
+                </frame>
+                <frame id="47:92" name="Container:margin" x="21" y="98.59375" width="308" height="88">
+                  <frame id="47:88" name="Container" x="0" y="12" width="308" height="76">
+                    <text id="47:89" name="(49283 × 2 + 20133 × 1) ÷ 3 = 118699 ÷ 3 ≈ 39566.3" x="17" y="17" width="274" height="42" />
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="47:114" name="Container:margin" x="20" y="821.6875" width="350" height="219.5">
+            <frame id="47:94" name="Container" x="0" y="32" width="350" height="187.5">
+              <frame id="47:95" name="Paragraph" x="21" y="21" width="308" height="25">
+                <text id="47:96" name="对这道题还有疑问？" x="0" y="0" width="126" height="21" />
+              </frame>
+              <frame id="47:98" name="Container" x="21" y="58" width="308" height="41.5">
+                <frame id="47:99" name="Button" x="0" y="0" width="150" height="41.5">
+                  <text id="47:100" name="十字交叉法怎么用" x="23" y="10.75" width="104" height="20" />
+                </frame>
+                <frame id="47:102" name="Button" x="158" y="0" width="150" height="41.5">
+                  <text id="47:103" name="帮我找相似题" x="36" y="10.75" width="78" height="20" />
+                </frame>
+              </frame>
+              <frame id="47:111" name="Button:margin" x="21" y="111.5" width="308" height="55">
+                <frame id="47:105" name="Button" x="0" y="4" width="308" height="51">
+                  <frame id="47:106" name="Icon" x="101" y="17.5" width="16" height="16" />
+                  <text id="47:108" name="继续追问岸岸" x="123" y="15" width="84" height="21" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+        <frame id="47:115" name="Container" x="0" y="751" width="390" height="93">
+          <frame id="47:116" name="Button" x="20" y="17" width="350" height="56">
+            <text id="47:117" name="这道题该如何处理？" x="103" y="16" width="144" height="24" />
+          </frame>
+        </frame>
+      </frame>
+      <frame id="47:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="48:2" name="10 · AI 解析" x="4554" y="0" width="406" height="860">
+    <frame id="48:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="48:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="48:7" name="Container" x="0" y="0" width="390" height="48" />
+        <frame id="48:143" name="Container:margin" x="0" y="48" width="390" height="104">
+          <frame id="48:8" name="Container" x="0" y="48" width="390" height="56">
+            <frame id="48:19" name="Button:margin" x="16" y="8" width="32" height="40">
+              <frame id="48:9" name="Button" x="-8" y="0" width="40" height="40">
+                <frame id="48:10" name="Icon" x="8" y="8" width="24" height="24" />
+              </frame>
+            </frame>
+            <frame id="48:12" name="Text" x="165" y="16" width="64" height="24">
+              <text id="48:13" name="题目解析" x="0" y="0" width="64" height="24" />
+            </frame>
+            <frame id="48:20" name="Button:margin" x="346" y="10" width="28" height="36">
+              <frame id="48:15" name="Button" x="0" y="0" width="36" height="36">
+                <frame id="48:16" name="Icon" x="8" y="8" width="20" height="20" />
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+        <frame id="48:21" name="Container" x="0" y="152" width="390" height="692">
+          <frame id="48:22" name="Container" x="20" y="8" width="350" height="95">
+            <frame id="48:41" name="Icon:margin" x="16" y="16" width="20" height="22">
+              <frame id="48:23" name="Icon" x="0" y="2" width="20" height="20" />
+            </frame>
+            <frame id="48:33" name="Container" x="48" y="16" width="286" height="63">
+              <frame id="48:34" name="Heading 4" x="0" y="0" width="286" height="20">
+                <text id="48:35" name="AI 根据图片独立推理" x="0" y="0" width="130" height="20" />
+              </frame>
+              <frame id="48:37" name="Paragraph" x="0" y="20" width="286" height="43">
+                <text id="48:38" name="此解析非题库标准答案，由大模型实时生成。请结合推理过程自行判断。" x="0" y="4" width="286" height="39" />
+              </frame>
+            </frame>
+          </frame>
+          <frame id="48:42" name="Container" x="20" y="103" width="350" height="165.5">
+            <frame id="48:43" name="Container" x="0" y="24" width="350" height="26.5">
+              <frame id="48:44" name="Text" x="0" y="0" width="121" height="26.5">
+                <text id="48:45" name="来源：用户上传图片" x="11" y="5" width="99" height="17" />
+              </frame>
+              <frame id="48:47" name="Text" x="129" y="0" width="66" height="26.5">
+                <text id="48:48" name="资料分析" x="11" y="5" width="44" height="17" />
+              </frame>
+            </frame>
+            <frame id="48:50" name="Paragraph" x="0" y="50.5" width="350" height="115">
+              <text id="48:51" name="2022年，某市城镇居民人均可支配收入为49283元，农村居民人均可支配收入为20133元。城镇常住" x="0" y="12" width="350" height="103" />
+            </frame>
+          </frame>
+          <frame id="48:136" name="Container:margin" x="20" y="268.5" width="350" height="218">
+            <frame id="48:54" name="Container" x="0" y="24" width="350" height="194">
+              <frame id="48:68" name="Container" x="25" y="25" width="300" height="144">
+                <frame id="48:69" name="Paragraph" x="0" y="16" width="300" height="23">
+                  <text id="48:70" name="A. 33000" x="0" y="0" width="70" height="23" />
+                </frame>
+                <frame id="48:72" name="Paragraph" x="0" y="51" width="300" height="23">
+                  <text id="48:73" name="B. 36883" x="0" y="0" width="67" height="23" />
+                </frame>
+                <frame id="48:75" name="Paragraph" x="0" y="86" width="300" height="23">
+                  <text id="48:76" name="C. 39566" x="0" y="0" width="68" height="23" />
+                </frame>
+                <frame id="48:78" name="Paragraph" x="0" y="121" width="300" height="23">
+                  <text id="48:79" name="D. 42000" x="0" y="0" width="69" height="23" />
+                </frame>
+              </frame>
+              <frame id="48:55" name="Container" x="25" y="-15" width="148" height="35.5">
+                <frame id="48:56" name="Icon" x="18" y="10.75" width="14" height="14" />
+                <text id="48:66" name="AI 推理答案：C" x="38" y="7.75" width="92" height="20" />
+              </frame>
+            </frame>
+          </frame>
+          <frame id="48:81" name="Container" x="20" y="486.5" width="350" height="454.1875">
+            <frame id="48:82" name="Container" x="0" y="32" width="350" height="32">
+              <frame id="48:83" name="Container" x="0" y="0" width="32" height="32">
+                <frame id="48:84" name="Icon" x="8" y="8" width="16" height="16" />
+              </frame>
+              <frame id="48:90" name="Heading 3" x="40" y="3" width="94" height="26">
+                <text id="48:91" name="AI 推理过程" x="0" y="0" width="94" height="26" />
+              </frame>
+            </frame>
+            <frame id="48:93" name="Container" x="0" y="64" width="350" height="390.1875">
+              <frame id="48:94" name="Container" x="0" y="20" width="350" height="138.59375">
+                <frame id="48:95" name="Heading 4" x="21" y="21" width="308" height="19.59375">
+                  <frame id="48:96" name="Container" x="0" y="5.796875" width="8" height="8" />
+                  <text id="48:97" name="提取材料数据" x="16" y="-0.203125" width="84" height="20" />
+                </frame>
+                <frame id="48:99" name="Paragraph" x="21" y="40.59375" width="308" height="77">
+                  <text id="48:100" name="城镇居民人均可支配收入 = 49283元，农村居民人均可支配收入 = 20133元。城镇与农村人口比" x="0" y="8" width="308" height="69" />
+                </frame>
+              </frame>
+              <frame id="48:103" name="Container" x="0" y="182.59375" width="350" height="207.59375">
+                <frame id="48:104" name="Heading 4" x="21" y="21" width="308" height="19.59375">
+                  <frame id="48:105" name="Container" x="0" y="5.796875" width="8" height="8" />
+                  <text id="48:106" name="计算全口径平均数" x="16" y="-0.203125" width="112" height="20" />
+                </frame>
+                <frame id="48:108" name="Paragraph" x="21" y="40.59375" width="308" height="58">
+                  <text id="48:109" name="根据加权平均公式：全市人均收入 = (城镇收入 × 城镇比例 + 农村收入 × 农村比例) / 总比" x="0" y="12" width="308" height="46" />
+                </frame>
+                <frame id="48:115" name="Container:margin" x="21" y="98.59375" width="308" height="88">
+                  <frame id="48:111" name="Container" x="0" y="12" width="308" height="76">
+                    <text id="48:112" name="(49283 × 2 + 20133 × 1) ÷ 3 = 118699 ÷ 3 ≈ 39566.3" x="17" y="17" width="274" height="42" />
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="48:138" name="Container:margin" x="20" y="940.6875" width="350" height="219.5">
+            <frame id="48:117" name="Container" x="0" y="32" width="350" height="187.5">
+              <frame id="48:118" name="Paragraph" x="21" y="21" width="308" height="25">
+                <text id="48:119" name="对这道题还有疑问？" x="0" y="0" width="126" height="21" />
+              </frame>
+              <frame id="48:121" name="Container" x="21" y="58" width="308" height="41.5">
+                <frame id="48:122" name="Button" x="0" y="0" width="150" height="41.5">
+                  <text id="48:123" name="十字交叉法怎么用" x="23" y="10.75" width="104" height="20" />
+                </frame>
+                <frame id="48:125" name="Button" x="158" y="0" width="150" height="41.5">
+                  <text id="48:126" name="帮我找相似题" x="36" y="10.75" width="78" height="20" />
+                </frame>
+              </frame>
+              <frame id="48:134" name="Button:margin" x="21" y="111.5" width="308" height="55">
+                <frame id="48:128" name="Button" x="0" y="4" width="308" height="51">
+                  <frame id="48:129" name="Icon" x="101" y="17.5" width="16" height="16" />
+                  <text id="48:131" name="继续追问岸岸" x="123" y="15" width="84" height="21" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+        <frame id="48:139" name="Container" x="0" y="751" width="390" height="93">
+          <frame id="48:140" name="Button" x="20" y="17" width="350" height="56">
+            <text id="48:141" name="这道题该如何处理？" x="103" y="16" width="144" height="24" />
+          </frame>
+        </frame>
+      </frame>
+      <frame id="48:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="49:2" name="11 · 收录成功" x="5060" y="0" width="406" height="860">
+    <frame id="49:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="49:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="49:8" name="Container" x="24" y="220.5" width="342" height="403">
+          <frame id="49:38" name="Container:margin" x="131" y="0" width="80" height="104">
+            <frame id="49:9" name="Container" x="0" y="0" width="80" height="80">
+              <frame id="49:10" name="Icon" x="22" y="22" width="36" height="36" />
+            </frame>
+          </frame>
+          <frame id="49:39" name="Heading 2:margin" x="119.5" y="104" width="103" height="69">
+            <text id="49:14" name="处理成功" x="0" y="0" width="103" height="37" />
+          </frame>
+          <frame id="49:40" name="Container:margin" x="0" y="173" width="342" height="111">
+            <frame id="49:16" name="Container" x="0" y="0" width="342" height="71">
+              <frame id="49:17" name="Container" x="25" y="25" width="292" height="21">
+                <frame id="49:18" name="Text" x="0" y="0" width="56" height="21">
+                  <text id="49:19" name="记录位置" x="0" y="0" width="56" height="21" />
+                </frame>
+                <frame id="49:21" name="Text" x="193" y="0" width="99" height="21">
+                  <text id="49:22" name="仅查看 (未保存)" x="0" y="0" width="99" height="21" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="49:24" name="Container" x="0" y="284" width="342" height="119">
+            <frame id="49:25" name="Button" x="0" y="0" width="342" height="56">
+              <text id="49:26" name="回到首页" x="139" y="16" width="64" height="24" />
+            </frame>
+            <frame id="49:28" name="Container" x="0" y="68" width="342" height="51">
+              <frame id="49:29" name="Button" x="0" y="0" width="165" height="51">
+                <frame id="49:30" name="Icon" x="43.5" y="17.5" width="16" height="16" />
+                <text id="49:33" name="撤销收录" x="65.5" y="15" width="56" height="21" />
+              </frame>
+              <frame id="49:35" name="Button" x="177" y="0" width="165" height="51">
+                <text id="49:36" name="继续搜题" x="54.5" y="15" width="56" height="21" />
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+      <frame id="49:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+</canvas>

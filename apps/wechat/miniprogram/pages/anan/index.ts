@@ -1,188 +1,368 @@
-import { askCompanion } from "../../api/endpoints";
+import { ApiClientError } from "../../api/client";
+import { CompanionApi } from "../../api/companion";
 import type {
   CompanionAskResponse,
-  GlobalAskContext,
+  LearningBrainProfileVersion,
+  TodayDashboard,
 } from "../../api/generated/types.gen";
+import { LearningBrainApi } from "../../api/learning-brain";
+import { PlanningApi } from "../../api/planning";
+import { routes } from "../../app/navigation/routes";
+import {
+  companionAnswerView,
+  type CompanionAnswerView,
+} from "../../features/companion/presentation";
+import { resolveCompanionAction } from "../../features/learning-brain/companion-action";
+import { errorView, requireAuthenticatedClient } from "../../features/learning-brain/presentation";
+import { createIdempotencyKey } from "../../platform/command-id";
+import {
+  consumeCompanionLaunchContext,
+  type CompanionLaunchContext,
+} from "../../features/companion/context-store";
+import { currentAuthSession } from "../../auth/session";
 
-type ChatMsg = {
-  id: string;
-  role: "user" | "anan";
-  text: string;
-  intent?: CompanionAskResponse["companionIntent"];
-  /** 高影响决策标记：岸岸给出与用户意愿相反的建议时为 true */
-  highImpact?: boolean;
-  citations?: CompanionAskResponse["citations"];
-  allowedActions?: CompanionAskResponse["allowedActions"];
+const stateLabels: Record<CompanionAskResponse["semanticState"], string> = {
+  ready: "已根据当前证据回答",
+  evidence_insufficient: "依据不足",
+  permission_denied: "当前页面无权回答",
+  security_blocked: "已阻断不安全请求",
+  quota_exhausted: "今日额度已用完",
+  provider_pending: "回答结果待安全确认",
+  failed: "本次回答未完成",
 };
 
-/** 预设快捷入口：不会打字的用户点按钮，按钮本身即教学 */
-const PRESETS = [
-  { key: "no-time", text: "我今天没时间了" },
-  { key: "too-hard", text: "这些题太难了，跟不上" },
-  { key: "replan", text: "帮我调整一下计划" },
-  { key: "low-mood", text: "我最近状态不太好" },
-];
-
-/** 本地兜底应答：后端不可达时也能演示对话与高影响决策卡 */
-function demoReply(question: string): CompanionAskResponse {
-  const wantsMore = /加练|多练|再来|三小时|加量/.test(question);
-  const base: CompanionAskResponse = {
-    allowedActions: [],
-    answer: "",
-    answerId: `demo-${Date.now()}`,
-    answerType: "text",
-    citations: [],
-    companionIntent: "companion",
-    confidence: "medium",
-    knowledgeFreshness: "demo",
-    limitations: [],
-    policyDecision: "allow",
-    quota: {} as CompanionAskResponse["quota"],
-    respondingAgent: "planner",
-    scenarioKey: "demo",
-    semanticState: "ready",
-    highImpactDecision: null,
-  };
-  if (/没时间/.test(question)) {
-    return {
-      ...base,
-      companionIntent: "deprioritize",
-      answer:
-        "没事，今天就别硬扛了。我把申论素材那项挪到明天，只保留言语这一件核心的，20 分钟就能收。做完这一件今天就算达标。",
-      allowedActions: [
-        { kind: "adjust_plan_preview", label: "按这样调整", requiresConfirmation: false },
-        { kind: "refresh_context", label: "还是全做完", requiresConfirmation: false },
-      ],
-    };
-  }
-  if (/状态|情绪|难受|焦虑/.test(question)) {
-    return {
-      ...base,
-      companionIntent: "encouragement",
-      answer:
-        "备考到这个阶段状态起伏很正常，不代表你不行。要不今天先做点轻的，把复盘那 8 道错题过一遍就好，找回一点掌控感。剩下的明天再说。",
-    };
-  }
-  if (/坚持/.test(question)) {
-    return {
-      ...base,
-      answer:
-        "好，那就按你说的来，最终决定权在你。我把申论加进明天的计划，三天后我们一起看总分数据——说到做到。",
-      allowedActions: [
-        { kind: "adjust_plan_preview", label: "看看调整后的计划", requiresConfirmation: false },
-      ],
-    };
-  }
-  if (wantsMore) {
-    return {
-      ...base,
-      companionIntent: "thinking",
-      answer:
-        "我理解你想冲一把，但我得说句实话：按你目前言语理解 62% 的正确率，把时间大量压给申论，短期内总分反而会掉。我建议维持言语为主、申论保温，两周后看数据再决定。如果你坚持，我会照办，但三天后我们一起看总分有没有变化。",
-      highImpactDecision: {
-        decisionType: "strategic_deprioritization",
-        evidenceRefs: [],
-        prohibitedMutations: [],
-        status: "explain_only",
-      },
-      allowedActions: [
-        { kind: "adjust_plan_preview", label: "听你的，先按现在的来", requiresConfirmation: false },
-        { kind: "view_evidence", label: "我坚持要加练", requiresConfirmation: true },
-      ],
-    };
-  }
-  return {
-    ...base,
-    answer:
-      "我在的。你可以问我今天为什么这么安排、某道题怎么想，或者直接告诉我你的状态，我帮你调计划。",
-  };
-}
+type PrimaryInsightAction = "mastery" | "positions" | "today" | "adjustment";
 
 Page({
   data: {
-    messages: [] as ChatMsg[],
-    presets: PRESETS,
-    input: "",
-    sending: false,
-    usingDemo: false,
-    scrollTo: "",
+    contextStatus: "loading",
+    learnerStateVersion: "",
+    question: "",
+    submitting: false,
+    errorMessage: "",
+    requestId: "",
+    semanticState: "ready",
+    stateLabel: "正在读取学习记录",
+    companionIntent: "companion",
+    answer: null as CompanionAnswerView | null,
+    contextGoalLabel: "正在读取",
+    contextTaskLabel: "正在读取",
+    contextReviewLabel: "正在读取",
+    contextCapacityLabel: "正在读取",
+    contextEvidenceLabel: "0 条学习记录",
+    insightTitle: "正在同步你的备考状态",
+    insightCopy: "岗位、能力和今天的计划会在这里汇合。",
+    insightActionLabel: "查看今天",
+    insightAction: "today" as PrimaryInsightAction,
+    insightDismissed: false,
+    contextBannerVisible: false,
+    contextSourceLabel: "",
+    contextTitle: "",
+    contextSummary: "",
+    askRouteId: "pages/anan/index",
+    askWorkspace: "training" as CompanionLaunchContext["workspace"],
+    askObjectRefs: [] as CompanionLaunchContext["objectRefs"],
+    askTaskMode: undefined as CompanionLaunchContext["taskMode"],
+    askTaskStage: undefined as CompanionLaunchContext["taskStage"],
+  },
+
+  onLoad(options: Record<string, string | undefined>) {
+    const question = options.question?.trim() ?? "";
+    this.setData({ question: question.slice(0, 800) });
+    void this.loadContext();
   },
 
   onShow() {
     if (typeof this.getTabBar === "function") {
-      const tabBar = this.getTabBar();
-      if (tabBar) tabBar.setData({ active: "anan" });
+      this.getTabBar()?.setData({ active: "anan" });
     }
-    if (this.data.messages.length === 0) {
-      this.pushMsg({
-        id: "welcome",
-        role: "anan",
-        text: "我是岸岸，陪你一起上岸的那个。今天有什么想聊的，或者直接告诉我你的状态？",
-        intent: "companion",
-      });
-    }
+    this.applyLaunchContext();
   },
 
-  buildContext(): GlobalAskContext {
-    return {
-      learnerStateVersion: "latest",
-      routeId: "pages/anan/index",
-      workspace: "today",
-    };
-  },
-
-  pushMsg(msg: ChatMsg) {
-    const messages = this.data.messages.concat(msg);
-    this.setData({ messages, scrollTo: `msg-${msg.id}` });
-  },
-
-  onInput(e: WechatMiniprogram.Input) {
-    this.setData({ input: e.detail.value });
-  },
-
-  onPreset(e: WechatMiniprogram.TouchEvent) {
-    const { text } = e.currentTarget.dataset as { text: string };
-    this.send(text);
-  },
-
-  onSend() {
-    const text = this.data.input.trim();
-    if (text) this.send(text);
-  },
-
-  async send(text: string) {
-    if (this.data.sending) return;
-    this.pushMsg({ id: `u-${Date.now()}`, role: "user", text });
-    this.setData({ input: "", sending: true });
-
-    let reply: CompanionAskResponse;
-    let usingDemo = this.data.usingDemo;
-    try {
-      reply = await askCompanion({
-        context: this.buildContext(),
-        questionText: text,
-      });
-    } catch (err) {
-      console.error("[anan] ask failed, fallback to demo", err);
-      reply = demoReply(text);
-      usingDemo = true;
-    }
-
-    this.pushMsg({
-      id: reply.answerId || `a-${Date.now()}`,
-      role: "anan",
-      text: reply.answer,
-      intent: reply.companionIntent,
-      highImpact: !!reply.highImpactDecision,
-      citations: reply.citations,
-      allowedActions: reply.allowedActions,
+  applyLaunchContext() {
+    const auth = currentAuthSession();
+    if (!auth) return;
+    const context = consumeCompanionLaunchContext(auth.userId);
+    if (!context) return;
+    this.setData({
+      contextBannerVisible: true,
+      contextSourceLabel: context.sourceLabel,
+      contextTitle: context.title,
+      contextSummary: context.summary,
+      question: context.suggestedQuestion,
+      answer: null,
+      errorMessage: "",
+      askRouteId: context.routeId,
+      askWorkspace: context.workspace,
+      askObjectRefs: context.objectRefs,
+      askTaskMode: context.taskMode,
+      askTaskStage: context.taskStage,
     });
-    this.setData({ sending: false, usingDemo });
   },
 
-  onAction(e: WechatMiniprogram.TouchEvent) {
-    const { label } = e.currentTarget.dataset as { label: string };
-    // 点选项即继续对话：选择本身就是一次表态
-    this.send(label);
+  clearLaunchContext() {
+    this.setData({
+      contextBannerVisible: false,
+      contextSourceLabel: "",
+      contextTitle: "",
+      contextSummary: "",
+      askRouteId: "pages/anan/index",
+      askWorkspace: "training",
+      askObjectRefs: [],
+      askTaskMode: undefined,
+      askTaskStage: undefined,
+    });
+  },
+
+  async loadContext() {
+    const client = requireAuthenticatedClient();
+    if (!client) return;
+    this.setData({ contextStatus: "loading", errorMessage: "", requestId: "" });
+    try {
+      const [{ data: profile }, dashboardResult] = await Promise.all([
+        new LearningBrainApi(client).getProfile(),
+        new PlanningApi(client).getToday().catch(() => null),
+      ]);
+      this.setData({
+        contextStatus: "ready",
+        learnerStateVersion: profile.profileVersionId,
+        stateLabel: "可以问当前学习、计划或岗位问题",
+        insightDismissed: false,
+        ...companionContextView(profile, dashboardResult?.data ?? null),
+      });
+    } catch (error) {
+      const view = errorView(error, "学习记录没有加载成功，暂时不能提交问题。");
+      this.setData({
+        contextStatus: "error",
+        semanticState: "failed",
+        stateLabel: stateLabels.failed,
+        errorMessage: view.message,
+        requestId: view.requestId,
+        companionIntent: "reminder",
+      });
+    }
+  },
+
+  inputQuestion(event: WechatMiniprogram.Input) {
+    this.setData({ question: event.detail.value });
+  },
+
+  choosePrompt(event: WechatMiniprogram.BaseEvent) {
+    const question = String(event.currentTarget.dataset.question ?? "").trim();
+    if (question) this.setData({ question });
+  },
+
+  async ask() {
+    const client = requireAuthenticatedClient();
+    if (!client || this.data.submitting || this.data.contextStatus !== "ready") return;
+    const question = this.data.question.trim();
+    if (question.length < 4) {
+      this.setData({ errorMessage: "请至少写 4 个字，让岸岸知道你在问什么。" });
+      return;
+    }
+    this.setData({
+      submitting: true,
+      errorMessage: "",
+      requestId: "",
+      answer: null,
+      companionIntent: "thinking",
+      stateLabel: "正在检查权限并检索当前依据",
+    });
+    try {
+      const { data } = await new CompanionApi(client).ask(
+        {
+          questionText: question,
+          context: {
+            routeId: this.data.askRouteId,
+            workspace: this.data.askWorkspace,
+            objectRefs: this.data.askObjectRefs,
+            ...(this.data.askTaskMode && this.data.askTaskStage
+              ? {
+                  taskMode: this.data.askTaskMode,
+                  taskStage: this.data.askTaskStage,
+                }
+              : {}),
+            learnerStateVersion: this.data.learnerStateVersion,
+          },
+        },
+        await createIdempotencyKey("companion"),
+      );
+      this.setData({
+        submitting: false,
+        semanticState: data.semanticState,
+        stateLabel: stateLabels[data.semanticState],
+        companionIntent: data.companionIntent,
+        answer: companionAnswerView(data, stateLabels[data.semanticState]),
+      });
+    } catch (error) {
+      const semanticState = failureState(error);
+      const view = errorView(error, "本次回答未完成，请根据状态稍后再试。");
+      this.setData({
+        submitting: false,
+        semanticState,
+        stateLabel: stateLabels[semanticState],
+        companionIntent: "reminder",
+        errorMessage: view.message,
+        requestId: view.requestId,
+      });
+    }
+  },
+
+  retryContext() {
+    void this.loadContext();
+  },
+
+  runPrimaryInsight() {
+    const action = this.data.insightAction as PrimaryInsightAction;
+    if (action === "today") {
+      void wx.switchTab({ url: routes.today });
+      return;
+    }
+    const url =
+      action === "mastery"
+        ? routes.xingceMastery
+        : action === "positions"
+          ? routes.positions
+          : routes.dayAdjustment;
+    void wx.navigateTo({ url });
+  },
+
+  dismissInsight() {
+    this.setData({ insightDismissed: true });
+  },
+
+  openToday() {
+    void wx.switchTab({ url: routes.today });
+  },
+
+  openMastery() {
+    void wx.navigateTo({ url: routes.xingceMastery });
+  },
+
+  openWeeklyPlan() {
+    void wx.navigateTo({ url: routes.weeklyPlan });
+  },
+
+  openPositions() {
+    void wx.navigateTo({ url: routes.positions });
+  },
+
+  handleAction(event: WechatMiniprogram.BaseEvent) {
+    const actionIndex = Number(event.currentTarget.dataset.index);
+    const action =
+      Number.isSafeInteger(actionIndex) && actionIndex >= 0
+        ? this.data.answer?.allowedActions[actionIndex]
+        : undefined;
+    if (!action) return;
+    const resolution = resolveCompanionAction(action);
+    if (resolution.kind === "show_evidence") {
+      void wx.showToast({ title: "依据已列在回答下方", icon: "none" });
+      return;
+    }
+    if (resolution.kind === "refresh_context") {
+      this.setData({ answer: null });
+      void this.loadContext();
+      return;
+    }
+    if (resolution.kind === "unavailable") {
+      void wx.showToast({ title: "这个操作暂时不可用，请刷新后重试", icon: "none" });
+      return;
+    }
+    const navigate = () => {
+      if (resolution.target.mode === "switchTab") {
+        void wx.switchTab({ url: resolution.target.url });
+      } else {
+        void wx.navigateTo({ url: resolution.target.url });
+      }
+    };
+    if (resolution.requiresConfirmation) {
+      wx.showModal({
+        title: "打开操作预览",
+        content: "岸岸的建议不会自动修改计划，需要你在下一页再次确认。",
+        success: ({ confirm }) => {
+          if (confirm) navigate();
+        },
+      });
+      return;
+    }
+    navigate();
   },
 });
+
+function failureState(error: unknown): CompanionAskResponse["semanticState"] {
+  if (!(error instanceof ApiClientError)) return "failed";
+  if (error.statusCode === 429) return "quota_exhausted";
+  if (error.statusCode === 403) return "permission_denied";
+  if (error.statusCode === 502 || error.statusCode === 503) return "provider_pending";
+  return "failed";
+}
+
+function companionContextView(
+  profile: LearningBrainProfileVersion,
+  dashboard: TodayDashboard | null,
+) {
+  const evidenceCount =
+    profile.evidenceSummary.scoreEvidenceCount +
+    profile.evidenceSummary.xingceAttemptCount +
+    profile.evidenceSummary.xingceMasteryCount +
+    profile.evidenceSummary.essayMasteryCount +
+    profile.evidenceSummary.taskExecutionCount +
+    (profile.evidenceSummary.externalAnswerCount ?? 0);
+  const dueCount =
+    (dashboard?.dueReflectionCount ?? 0) +
+    (dashboard?.dueVerificationCount ?? 0) +
+    profile.decisionSummary.reviewDueCount;
+  const activeTaskCount =
+    dashboard?.tasks.filter((task) => task.status === "ready" || task.status === "in_progress")
+      .length ?? 0;
+  const goalName = dashboard?.goalGap.positionName?.trim() ?? "";
+  const base = {
+    contextGoalLabel: goalName ? "主目标已确认" : "主目标待确认",
+    contextTaskLabel: `今日 ${String(activeTaskCount)} 项任务`,
+    contextReviewLabel: dueCount > 0 ? `${String(dueCount)} 项待复测` : "暂无到期复测",
+    contextCapacityLabel: durationLabel(dashboard?.capacity.availableMinutes),
+    contextEvidenceLabel: `${String(evidenceCount)} 条学习记录`,
+  };
+
+  if (dueCount > 0) {
+    return {
+      ...base,
+      insightTitle: `${String(dueCount)} 项复测或学习取舍已经到期`,
+      insightCopy: "继续学新内容前，先处理到期项，才能判断之前的问题有没有真正修好。",
+      insightActionLabel: "查看到期项",
+      insightAction: "mastery" as PrimaryInsightAction,
+    };
+  }
+  if (!goalName) {
+    return {
+      ...base,
+      insightTitle: "还没有确认主目标岗位",
+      insightCopy: "没有目标岗位时，岸岸只能按通用国考能力安排，无法判断分差和学习取舍。",
+      insightActionLabel: "去确认岗位",
+      insightAction: "positions" as PrimaryInsightAction,
+    };
+  }
+  if (activeTaskCount > 0) {
+    return {
+      ...base,
+      insightTitle: `今天有 ${String(activeTaskCount)} 项任务可以推进`,
+      insightCopy: "岸岸会结合刚完成的作答更新能力；任何计划调整都会先展示变化，再由你确认。",
+      insightActionLabel: "查看今天",
+      insightAction: "today" as PrimaryInsightAction,
+    };
+  }
+  return {
+    ...base,
+    insightTitle: "今天还没有形成可执行安排",
+    insightCopy: "确认今天可用时间、精力和压力后，岸岸才能生成真实任务。",
+    insightActionLabel: "调整今天",
+    insightAction: "adjustment" as PrimaryInsightAction,
+  };
+}
+
+function durationLabel(value: number | null | undefined): string {
+  if (value === null || value === undefined) return "可用时间待确认";
+  if (value === 0) return "当前没有可用时间";
+  const hours = value / 60;
+  return `当前可用 ${Number.isInteger(hours) ? String(hours) : hours.toFixed(1)} 小时`;
+}

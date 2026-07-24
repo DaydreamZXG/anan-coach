@@ -1,0 +1,498 @@
+<canvas id="51:9" name="07 · 私人资料库" x="0" y="0" width="0" height="0">
+  <frame id="24:2" name="01 · 资料库首页" x="0" y="0" width="406" height="860">
+    <frame id="24:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="24:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="24:6" name="LibraryWorkbenchPage" x="0" y="0" width="390" height="844">
+          <frame id="24:7" name="Placeholder for LibraryWorkbenchPage" x="0" y="0" width="390" height="48" />
+          <frame id="24:150" name="Placeholder for LibraryWorkbenchPage:margin" x="0" y="48" width="390" height="104">
+            <frame id="24:8" name="Placeholder for LibraryWorkbenchPage" x="0" y="48" width="390" height="56" />
+          </frame>
+          <frame id="24:9" name="Container" x="0" y="152" width="390" height="692">
+            <frame id="24:10" name="Container" x="20" y="8" width="350" height="100">
+              <frame id="24:11" name="Heading 1" x="0" y="8" width="350" height="34">
+                <text id="24:12" name="岸岸的私有阅读室" x="0" y="0" width="204" height="34" />
+              </frame>
+              <frame id="24:14" name="Paragraph" x="0" y="42" width="350" height="58">
+                <text id="24:15" name="你上传的笔记、讲义和错题卷，只用于提升你自己的学习画像和答疑。不与其他考生共享，不训练公共模型。" x="0" y="12" width="350" height="46" />
+              </frame>
+            </frame>
+            <frame id="24:146" name="Container:margin" x="20" y="108" width="350" height="58">
+              <frame id="24:18" name="Container" x="0" y="24" width="350" height="34">
+                <frame id="24:19" name="Icon" x="12" y="11" width="12" height="12" />
+                <frame id="24:22" name="Text" x="30" y="8" width="180" height="18">
+                  <text id="24:23" name="全程端到端加密，随时可彻底移除" x="0" y="0" width="180" height="18" />
+                </frame>
+              </frame>
+            </frame>
+            <frame id="24:25" name="Container" x="20" y="166" width="350" height="127">
+              <frame id="24:26" name="Button" x="0" y="24" width="169" height="103">
+                <frame id="24:27" name="Container" x="64.5" y="17" width="40" height="40">
+                  <frame id="24:28" name="Icon" x="10" y="10" width="20" height="20" />
+                </frame>
+                <text id="24:34" name="上传讲义/文档" x="39.5" y="65" width="90" height="21" />
+              </frame>
+              <frame id="24:36" name="Button" x="181" y="24" width="169" height="103">
+                <frame id="24:37" name="Container" x="64.5" y="17" width="40" height="40">
+                  <frame id="24:38" name="Icon" x="10" y="10" width="20" height="20" />
+                </frame>
+                <text id="24:42" name="拍手写笔记" x="49.5" y="65" width="70" height="21" />
+              </frame>
+            </frame>
+            <frame id="24:148" name="Container:margin" x="20" y="293" width="350" height="80">
+              <frame id="24:44" name="Container" x="0" y="32" width="350" height="48">
+                <frame id="24:45" name="Icon" x="16" y="16" width="16" height="16" />
+                <frame id="24:48" name="Text Input" x="0" y="0" width="350" height="48">
+                  <text id="24:49" name="搜索已理解的资料内容..." x="45" y="15.5" width="288" height="17" />
+                </frame>
+              </frame>
+            </frame>
+            <frame id="24:50" name="Container" x="20" y="373" width="350" height="407">
+              <frame id="24:51" name="Container" x="0" y="24" width="350" height="112">
+                <frame id="24:80" name="Container:margin" x="0" y="0" width="350" height="23">
+                  <frame id="24:52" name="Container" x="4" y="0" width="346" height="23">
+                    <frame id="24:53" name="Heading 2" x="0" y="0" width="96" height="23">
+                      <text id="24:54" name="岸岸正在阅读" x="0" y="0" width="96" height="23" />
+                    </frame>
+                    <frame id="24:56" name="Text" x="325" y="2.5" width="21" height="18">
+                      <text id="24:57" name="1 份" x="0" y="0" width="21" height="18" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="24:81" name="Container:margin" x="0" y="23" width="350" height="89">
+                  <frame id="24:59" name="Container" x="0" y="12" width="350" height="77">
+                    <frame id="24:60" name="Container" x="17" y="17" width="40" height="40">
+                      <frame id="24:61" name="Icon" x="11" y="11" width="18" height="18" />
+                    </frame>
+                    <frame id="24:65" name="Container" x="69" y="17" width="264" height="43">
+                      <frame id="24:66" name="Paragraph" x="0" y="0" width="264" height="21">
+                        <text id="24:67" name="黑板板书照片_0912.jpg" x="0" y="0" width="151" height="21" />
+                      </frame>
+                      <frame id="24:69" name="Container" x="0" y="21" width="264" height="22">
+                        <frame id="24:78" name="Icon:transform" x="0" y="7" width="12" height="12">
+                          <frame id="24:70" name="Icon" x="9.016488075256348" y="-1.9310040473937988" width="15.862005472183228" height="15.862005472183228" />
+                        </frame>
+                        <frame id="24:75" name="Paragraph" x="18" y="4" width="107" height="18">
+                          <text id="24:76" name="正在提取手写考点..." x="0" y="0" width="107" height="18" />
+                        </frame>
+                      </frame>
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="24:82" name="Container" x="0" y="156" width="350" height="251">
+                <frame id="24:143" name="Container:margin" x="0" y="0" width="350" height="23">
+                  <frame id="24:83" name="Container" x="4" y="0" width="346" height="23">
+                    <frame id="24:84" name="Heading 2" x="0" y="0" width="114" height="23">
+                      <text id="24:85" name="随时可引用 (12)" x="0" y="0" width="114" height="23" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="24:144" name="Container:margin" x="0" y="23" width="350" height="228">
+                  <frame id="24:87" name="Container" x="0" y="12" width="350" height="216">
+                    <frame id="24:88" name="Container" x="0" y="0" width="350" height="102">
+                      <frame id="24:89" name="Container" x="17" y="17" width="40" height="40">
+                        <frame id="24:90" name="Icon" x="11" y="11" width="18" height="18" />
+                      </frame>
+                      <frame id="24:93" name="Container" x="69" y="17" width="264" height="68">
+                        <frame id="24:94" name="Container" x="0" y="0" width="264" height="21">
+                          <frame id="24:95" name="Paragraph" x="0" y="0" width="212.671875" height="21">
+                            <text id="24:96" name="2024言语理解高频词汇讲义.pdf" x="0" y="0" width="204" height="21" />
+                          </frame>
+                          <frame id="24:101" name="Text:margin" x="222" y="0" width="42" height="21">
+                            <frame id="24:98" name="Text" x="0" y="2" width="42" height="19">
+                              <text id="24:99" name="已掌握" x="6" y="2" width="30" height="15" />
+                            </frame>
+                          </frame>
+                        </frame>
+                        <frame id="24:102" name="Paragraph" x="0" y="21" width="264" height="22">
+                          <text id="24:103" name="已与你的错题库关联 · 45页" x="0" y="4" width="146" height="18" />
+                        </frame>
+                        <frame id="24:105" name="Container" x="0" y="43" width="264" height="25">
+                          <frame id="24:106" name="Icon" x="0" y="10.5" width="12" height="12" />
+                          <frame id="24:109" name="Text" x="16" y="8" width="66" height="17">
+                            <text id="24:110" name="计入能力画像" x="0" y="0" width="66" height="17" />
+                          </frame>
+                        </frame>
+                      </frame>
+                    </frame>
+                    <frame id="24:114" name="Container" x="0" y="114" width="350" height="102">
+                      <frame id="24:115" name="Container" x="17" y="17" width="40" height="40">
+                        <frame id="24:116" name="Icon" x="11" y="11" width="18" height="18" />
+                      </frame>
+                      <frame id="24:122" name="Container" x="69" y="17" width="264" height="68">
+                        <frame id="24:123" name="Container" x="0" y="0" width="264" height="21">
+                          <frame id="24:124" name="Paragraph" x="0" y="0" width="214.09375" height="21">
+                            <text id="24:125" name="粉笔模考(三)申论答题纸扫描.jpg" x="0" y="0" width="206" height="21" />
+                          </frame>
+                          <frame id="24:130" name="Text:margin" x="222" y="0" width="42" height="21">
+                            <frame id="24:127" name="Text" x="0" y="2" width="42" height="19">
+                              <text id="24:128" name="已掌握" x="6" y="2" width="30" height="15" />
+                            </frame>
+                          </frame>
+                        </frame>
+                        <frame id="24:131" name="Paragraph" x="0" y="21" width="264" height="22">
+                          <text id="24:132" name="已提取手写内容和分数" x="0" y="4" width="120" height="18" />
+                        </frame>
+                        <frame id="24:134" name="Container" x="0" y="43" width="264" height="25">
+                          <frame id="24:135" name="Icon" x="0" y="10.5" width="12" height="12" />
+                          <frame id="24:138" name="Text" x="16" y="8" width="110" height="17">
+                            <text id="24:139" name="仅供检索，不计入画像" x="0" y="0" width="110" height="17" />
+                          </frame>
+                        </frame>
+                      </frame>
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+        <frame id="24:151" name="ViewSwitcher" x="27" y="736" width="336" height="42">
+          <frame id="24:152" name="Button" x="6" y="6" width="84" height="30">
+            <text id="24:153" name="资料库首页" x="12" y="6" width="60" height="18" />
+          </frame>
+          <frame id="24:155" name="Button" x="94" y="6" width="84" height="30">
+            <text id="24:156" name="上传与阅读" x="12" y="6" width="60" height="18" />
+          </frame>
+          <frame id="24:158" name="Button" x="182" y="6" width="72" height="30">
+            <text id="24:159" name="资料管理" x="12" y="6" width="48" height="18" />
+          </frame>
+          <frame id="24:161" name="Button" x="258" y="6" width="72" height="30">
+            <text id="24:162" name="辅导溯源" x="12" y="6" width="48" height="18" />
+          </frame>
+        </frame>
+        <frame id="24:165" name="LibraryWorkbenchPage" x="0" y="96" width="390" height="56">
+          <frame id="24:173" name="Button:margin" x="16" y="8" width="32" height="40">
+            <frame id="24:166" name="Button" x="-8" y="0" width="40" height="40">
+              <frame id="24:167" name="Icon" x="8" y="8" width="24" height="24" />
+            </frame>
+          </frame>
+          <frame id="24:169" name="Text" x="155" y="16" width="80" height="24">
+            <text id="24:170" name="专属资料库" x="0" y="0" width="80" height="24" />
+          </frame>
+          <frame id="24:172" name="Container" x="342" y="27.999950408935547" width="32" height="0.00009999999747378752" />
+        </frame>
+      </frame>
+      <frame id="24:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="26:2" name="02 · 上传与处理" x="506" y="0" width="406" height="860">
+    <frame id="26:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="26:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="26:6" name="LibraryWorkbenchPage" x="0" y="0" width="390" height="844">
+          <frame id="26:7" name="Placeholder for LibraryWorkbenchPage" x="0" y="0" width="390" height="48" />
+          <frame id="26:63" name="Placeholder for LibraryWorkbenchPage:margin" x="0" y="48" width="390" height="104">
+            <frame id="26:8" name="Placeholder for LibraryWorkbenchPage" x="0" y="48" width="390" height="56" />
+          </frame>
+          <frame id="26:9" name="Container" x="0" y="152" width="390" height="692">
+            <frame id="26:10" name="Container" x="45" y="55.5" width="300" height="501">
+              <frame id="26:11" name="Container" x="102" y="0" width="96" height="128">
+                <frame id="26:12" name="Container" x="0" y="0" width="96" height="96">
+                  <frame id="26:13" name="Icon" x="28" y="28" width="40" height="40" />
+                </frame>
+                <frame id="26:19" name="Container" x="0" y="79.171875" width="96" height="4" />
+              </frame>
+              <frame id="26:59" name="Heading 2:margin" x="62" y="128" width="176" height="36">
+                <text id="26:21" name="岸岸正在阅读新资料" x="0" y="0" width="176" height="28" />
+              </frame>
+              <frame id="26:60" name="Paragraph:margin" x="55" y="164" width="190" height="52">
+                <text id="26:24" name="2024言语理解高频词汇讲义.pdf" x="0" y="0" width="190" height="20" />
+              </frame>
+              <frame id="26:26" name="Container" x="0" y="216" width="300" height="95">
+                <frame id="26:27" name="Container" x="0" y="0" width="300" height="21">
+                  <frame id="26:28" name="Icon" x="0" y="1.5" width="18" height="18" />
+                  <frame id="26:31" name="Text" x="30" y="0" width="126" height="21">
+                    <text id="26:32" name="扫描文字与图表结构" x="0" y="0" width="126" height="21" />
+                  </frame>
+                </frame>
+                <frame id="26:34" name="Container" x="0" y="37" width="300" height="21">
+                  <frame id="26:43" name="Icon:transform" x="0" y="1.5" width="18" height="18">
+                    <frame id="26:35" name="Icon" x="14.242535591125488" y="-2.59810209274292" width="23.19619309902191" height="23.19619309902191" />
+                  </frame>
+                  <frame id="26:40" name="Text" x="30" y="0" width="126" height="21">
+                    <text id="26:41" name="提取并理解核心考点" x="0" y="0" width="126" height="21" />
+                  </frame>
+                </frame>
+                <frame id="26:44" name="Container" x="0" y="74" width="300" height="21">
+                  <frame id="26:49" name="Container:margin" x="0" y="2.5" width="18" height="16">
+                    <frame id="26:45" name="Container" x="2" y="0" width="16" height="16" />
+                  </frame>
+                  <frame id="26:46" name="Text" x="30" y="0" width="164" height="21">
+                    <text id="26:47" name="与你的错题记录建立关联" x="2" y="0" width="154" height="21" />
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="26:61" name="Container:margin" x="0" y="311" width="300" height="121">
+                <frame id="26:51" name="Container" x="0" y="48" width="300" height="73">
+                  <frame id="26:52" name="Paragraph" x="17" y="17" width="266" height="39">
+                    <text id="26:53" name="理解这份讲义大约需要 30 秒。你可以先去刷题，完成后岸岸会通知你。" x="0" y="0" width="266" height="39" />
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="26:55" name="Button" x="105.5" y="432" width="89" height="69">
+                <text id="26:56" name="先去后台运行" x="2.5" y="40" width="84" height="21" />
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+        <frame id="26:64" name="ViewSwitcher" x="27" y="736" width="336" height="42">
+          <frame id="26:65" name="Button" x="6" y="6" width="84" height="30">
+            <text id="26:66" name="资料库首页" x="12" y="6" width="60" height="18" />
+          </frame>
+          <frame id="26:68" name="Button" x="94" y="6" width="84" height="30">
+            <text id="26:69" name="上传与阅读" x="12" y="6" width="60" height="18" />
+          </frame>
+          <frame id="26:71" name="Button" x="182" y="6" width="72" height="30">
+            <text id="26:72" name="资料管理" x="12" y="6" width="48" height="18" />
+          </frame>
+          <frame id="26:74" name="Button" x="258" y="6" width="72" height="30">
+            <text id="26:75" name="辅导溯源" x="12" y="6" width="48" height="18" />
+          </frame>
+        </frame>
+        <frame id="26:78" name="LibraryWorkbenchPage" x="0" y="96" width="390" height="56">
+          <frame id="26:83" name="Button:margin" x="16" y="8" width="32" height="40">
+            <frame id="26:79" name="Button" x="-8" y="0" width="40" height="40">
+              <frame id="26:80" name="Icon" x="8" y="8" width="24" height="24" />
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+      <frame id="26:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="27:2" name="03 · 资料详情" x="1012" y="0" width="406" height="860">
+    <frame id="27:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="27:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="27:6" name="LibraryWorkbenchPage" x="0" y="0" width="390" height="844">
+          <frame id="27:7" name="Placeholder for LibraryWorkbenchPage" x="0" y="0" width="390" height="48" />
+          <frame id="27:107" name="Placeholder for LibraryWorkbenchPage:margin" x="0" y="48" width="390" height="104">
+            <frame id="27:8" name="Placeholder for LibraryWorkbenchPage" x="0" y="48" width="390" height="56" />
+          </frame>
+          <frame id="27:9" name="Container" x="0" y="152" width="390" height="692">
+            <frame id="27:10" name="Container" x="20" y="8" width="350" height="134">
+              <frame id="27:21" name="Container:margin" x="143" y="0" width="64" height="80">
+                <frame id="27:11" name="Container" x="0" y="0" width="64" height="64">
+                  <frame id="27:12" name="Icon" x="18" y="18" width="28" height="28" />
+                </frame>
+              </frame>
+              <frame id="27:22" name="Heading 1:margin" x="52" y="80" width="246" height="34">
+                <text id="27:16" name="2024言语理解高频词汇讲义" x="0" y="0" width="246" height="26" />
+              </frame>
+              <text id="27:19" name="上传于 2024-03-12 · 45页 PDF" x="81.5" y="114" width="187" height="20" />
+            </frame>
+            <frame id="27:101" name="Container:margin" x="20" y="142" width="350" height="112.125">
+              <frame id="27:23" name="Container" x="0" y="24" width="350" height="88.125">
+                <frame id="27:24" name="Container" x="285.00006103515625" y="-47" width="96" height="96" />
+                <frame id="27:25" name="Icon" x="21" y="23" width="20" height="20" />
+                <frame id="27:28" name="Container" x="53" y="21" width="260" height="47">
+                  <frame id="27:29" name="Heading 3" x="0" y="0" width="260" height="21">
+                    <text id="27:30" name="岸岸已完全掌握此内容" x="0" y="0" width="149" height="21" />
+                  </frame>
+                  <frame id="27:32" name="Paragraph" x="0" y="21" width="260" height="26">
+                    <text id="27:33" name="随时可用于为你生成讲解、错题溯源和检索。" x="0" y="4" width="260" height="22" />
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+            <frame id="27:36" name="Heading 2" x="20" y="254.125" width="350" height="47">
+              <text id="27:37" name="岸岸从中读到了什么" x="4" y="24" width="143" height="23" />
+            </frame>
+            <frame id="27:103" name="Container:margin" x="20" y="301.125" width="350" height="156">
+              <frame id="27:39" name="Container" x="0" y="12" width="350" height="144">
+                <frame id="27:40" name="Container" x="21" y="21" width="308" height="23">
+                  <frame id="27:50" name="Icon:margin" x="0" y="0" width="16" height="18">
+                    <frame id="27:41" name="Icon" x="0" y="2" width="16" height="16" />
+                  </frame>
+                  <frame id="27:47" name="Paragraph" x="28" y="0" width="260" height="23">
+                    <text id="27:48" name="包含 120 个 言语理解核心词义辨析考点。" x="0" y="0" width="260" height="23" />
+                  </frame>
+                </frame>
+                <frame id="27:61" name="Container:margin" x="21" y="60" width="308" height="1">
+                  <frame id="27:51" name="Container" x="28" y="0" width="280" height="1" />
+                </frame>
+                <frame id="27:52" name="Container" x="21" y="77" width="308" height="46">
+                  <frame id="27:60" name="Icon:margin" x="0" y="0" width="16" height="18">
+                    <frame id="27:53" name="Icon" x="0" y="2" width="16" height="16" />
+                  </frame>
+                  <frame id="27:57" name="Paragraph" x="28" y="0" width="280" height="46">
+                    <text id="27:58" name="已自动匹配你错题本中的 14 道 历史错题，补充了解题口诀。" x="0" y="0" width="280" height="46" />
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+            <frame id="27:62" name="Heading 2" x="20" y="457.125" width="350" height="47">
+              <text id="27:63" name="资料权限设置" x="4" y="24" width="96" height="23" />
+            </frame>
+            <frame id="27:105" name="Container:margin" x="20" y="504.125" width="350" height="223">
+              <frame id="27:65" name="Container" x="0" y="12" width="350" height="211">
+                <frame id="27:66" name="Container" x="1" y="1" width="348" height="105">
+                  <frame id="27:67" name="Container" x="20" y="20" width="260" height="64">
+                    <frame id="27:68" name="Heading 4" x="0" y="0" width="244" height="21">
+                      <text id="27:69" name="允许岸岸主动引用" x="0" y="0" width="120" height="21" />
+                    </frame>
+                    <frame id="27:71" name="Paragraph" x="0" y="21" width="244" height="43">
+                      <text id="27:72" name="在辅导答疑时，优先使用该讲义的口诀和解析方式。" x="0" y="4" width="244" height="39" />
+                    </frame>
+                  </frame>
+                  <frame id="27:75" name="Container" x="280" y="38" width="48" height="28">
+                    <frame id="27:76" name="Container" x="24" y="4" width="20" height="20" />
+                  </frame>
+                </frame>
+                <frame id="27:77" name="Container" x="1" y="106" width="348" height="104">
+                  <frame id="27:78" name="Container" x="20" y="20" width="260" height="64">
+                    <frame id="27:79" name="Heading 4" x="0" y="0" width="244" height="21">
+                      <text id="27:80" name="计入个人能力画像" x="0" y="0" width="120" height="21" />
+                    </frame>
+                    <frame id="27:82" name="Paragraph" x="0" y="21" width="244" height="43">
+                      <text id="27:83" name="开启后，岸岸将认为你已经系统学过该讲义包含的考点。" x="0" y="4" width="244" height="39" />
+                    </frame>
+                  </frame>
+                  <frame id="27:86" name="Container" x="280" y="38" width="48" height="28">
+                    <frame id="27:87" name="Container" x="24" y="4" width="20" height="20" />
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+            <frame id="27:88" name="Container" x="20" y="727.125" width="350" height="146">
+              <frame id="27:89" name="Button" x="0" y="24" width="350" height="55">
+                <text id="27:90" name="上传新版本并替换" x="119" y="17" width="112" height="21" />
+              </frame>
+              <frame id="27:92" name="Button" x="0" y="91" width="350" height="55">
+                <frame id="27:93" name="Icon" x="107" y="19.5" width="16" height="16" />
+                <text id="27:99" name="从资料库彻底移除" x="131" y="17" width="112" height="21" />
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+        <frame id="27:108" name="ViewSwitcher" x="27" y="736" width="336" height="42">
+          <frame id="27:109" name="Button" x="6" y="6" width="84" height="30">
+            <text id="27:110" name="资料库首页" x="12" y="6" width="60" height="18" />
+          </frame>
+          <frame id="27:112" name="Button" x="94" y="6" width="84" height="30">
+            <text id="27:113" name="上传与阅读" x="12" y="6" width="60" height="18" />
+          </frame>
+          <frame id="27:115" name="Button" x="182" y="6" width="72" height="30">
+            <text id="27:116" name="资料管理" x="12" y="6" width="48" height="18" />
+          </frame>
+          <frame id="27:118" name="Button" x="258" y="6" width="72" height="30">
+            <text id="27:119" name="辅导溯源" x="12" y="6" width="48" height="18" />
+          </frame>
+        </frame>
+        <frame id="27:122" name="LibraryWorkbenchPage" x="0" y="96" width="390" height="56">
+          <frame id="27:130" name="Button:margin" x="16" y="8" width="32" height="40">
+            <frame id="27:123" name="Button" x="-8" y="0" width="40" height="40">
+              <frame id="27:124" name="Icon" x="8" y="8" width="24" height="24" />
+            </frame>
+          </frame>
+          <frame id="27:131" name="Button:margin" x="348" y="11" width="26" height="34">
+            <frame id="27:126" name="Button" x="0" y="0" width="34" height="34">
+              <frame id="27:127" name="Icon" x="8" y="8" width="18" height="18" />
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+      <frame id="27:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="28:2" name="04 · 引用溯源" x="1518" y="0" width="406" height="860">
+    <frame id="28:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="28:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="28:6" name="LibraryWorkbenchPage" x="0" y="0" width="390" height="844">
+          <frame id="28:7" name="Placeholder for LibraryWorkbenchPage" x="0" y="0" width="390" height="48" />
+          <frame id="28:10" name="Placeholder for LibraryWorkbenchPage:margin" x="0" y="48" width="390" height="104">
+            <frame id="28:8" name="Placeholder for LibraryWorkbenchPage" x="0" y="48" width="390" height="56" />
+          </frame>
+          <frame id="28:9" name="Placeholder for LibraryWorkbenchPage" x="0" y="152" width="390" height="692" />
+        </frame>
+        <frame id="28:11" name="LibraryWorkbenchPage" x="0" y="152" width="390" height="692">
+          <frame id="28:12" name="Container" x="20" y="24" width="350" height="89">
+            <frame id="28:13" name="Container" x="52" y="0" width="298" height="81">
+              <frame id="28:14" name="Paragraph" x="16" y="16" width="266" height="49">
+                <text id="28:15" name="这道题 A 和 C 意思很像，为什么不能选 A？" x="0" y="0" width="266" height="49" />
+              </frame>
+            </frame>
+          </frame>
+          <frame id="28:17" name="Container" x="20" y="137" width="350" height="334">
+            <frame id="28:56" name="Container:margin" x="0" y="0" width="32" height="36">
+              <frame id="28:18" name="Container" x="0" y="4" width="32" height="32">
+                <frame id="28:19" name="Icon" x="9" y="9" width="14" height="14" />
+              </frame>
+            </frame>
+            <frame id="28:25" name="Container" x="44" y="0" width="306" height="334">
+              <frame id="28:26" name="Container" x="0" y="0" width="306" height="181">
+                <frame id="28:27" name="Paragraph" x="17" y="17" width="272" height="81">
+                  <text id="28:28" name="确实很容易混淆。但其实根据你上周上传的专属讲义里的口诀，我们可以快速排除 A 选项。" x="0" y="0" width="272" height="81" />
+                </frame>
+                <frame id="28:33" name="Paragraph:margin" x="17" y="98" width="272" height="66">
+                  <frame id="28:30" name="Paragraph" x="0" y="12" width="272" height="54">
+                    <text id="28:31" name="A 选项属于“强加因果”，而原题中两个词处于并列结构，不构成递进。" x="0" y="0" width="272" height="54" />
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="28:34" name="Container" x="0" y="193" width="306" height="141">
+                <frame id="28:35" name="Container" x="17" y="17" width="272" height="18">
+                  <frame id="28:36" name="Icon" x="0" y="2" width="14" height="14" />
+                  <frame id="28:39" name="Text" x="22" y="0" width="108" height="18">
+                    <text id="28:40" name="引用于你的专属资料" x="0" y="0" width="108" height="18" />
+                  </frame>
+                </frame>
+                <frame id="28:42" name="Container" x="17" y="47" width="272" height="43">
+                  <frame id="28:43" name="Paragraph" x="0" y="0" width="272" height="21">
+                    <text id="28:44" name="《2024言语理解高频词汇讲义》" x="0" y="0" width="205" height="21" />
+                  </frame>
+                  <frame id="28:46" name="Paragraph" x="0" y="21" width="272" height="22">
+                    <text id="28:47" name="第 14 页 · “强加因果的典型标志词”" x="0" y="4" width="184" height="18" />
+                  </frame>
+                </frame>
+                <frame id="28:50" name="Container" x="17" y="102" width="272" height="22">
+                  <text id="28:51" name="点击查看原内容快照" x="0" y="4" width="108" height="18" />
+                  <frame id="28:53" name="Icon" x="112" y="6" width="14" height="14" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+        <frame id="28:58" name="LibraryWorkbenchPage" x="0" y="96" width="390" height="56">
+          <frame id="28:59" name="Container" x="16" y="7.5" width="140" height="40">
+            <frame id="28:66" name="Button:margin" x="0" y="0" width="32" height="40">
+              <frame id="28:60" name="Button" x="-8" y="0" width="40" height="40">
+                <frame id="28:61" name="Icon" x="8" y="8" width="24" height="24" />
+              </frame>
+            </frame>
+            <frame id="28:63" name="Text" x="44" y="8" width="96" height="24">
+              <text id="28:64" name="错题复盘解答" x="0" y="0" width="96" height="24" />
+            </frame>
+          </frame>
+        </frame>
+        <frame id="28:67" name="LibraryWorkbenchPage" x="0" y="763" width="390" height="81">
+          <frame id="28:68" name="Container" x="16" y="17" width="358" height="48">
+            <frame id="28:69" name="Container" x="0" y="0" width="302" height="48">
+              <frame id="28:70" name="Text" x="17" y="13.5" width="82" height="21">
+                <text id="28:71" name="继续问岸岸..." x="0" y="0" width="82" height="21" />
+              </frame>
+            </frame>
+            <frame id="28:73" name="Container" x="310" y="0" width="48" height="48">
+              <frame id="28:74" name="Icon" x="14" y="14" width="20" height="20" />
+            </frame>
+          </frame>
+        </frame>
+        <frame id="28:77" name="ViewSwitcher" x="27" y="736" width="336" height="42">
+          <frame id="28:78" name="Button" x="6" y="6" width="84" height="30">
+            <text id="28:79" name="资料库首页" x="12" y="6" width="60" height="18" />
+          </frame>
+          <frame id="28:81" name="Button" x="94" y="6" width="84" height="30">
+            <text id="28:82" name="上传与阅读" x="12" y="6" width="60" height="18" />
+          </frame>
+          <frame id="28:84" name="Button" x="182" y="6" width="72" height="30">
+            <text id="28:85" name="资料管理" x="12" y="6" width="48" height="18" />
+          </frame>
+          <frame id="28:87" name="Button" x="258" y="6" width="72" height="30">
+            <text id="28:88" name="辅导溯源" x="12" y="6" width="48" height="18" />
+          </frame>
+        </frame>
+      </frame>
+      <frame id="28:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <text id="25:2" name="Antigravity" x="876.367919921875" y="313.1666564941406" width="62" height="15" />
+</canvas>

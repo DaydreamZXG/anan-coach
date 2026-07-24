@@ -28,6 +28,13 @@ OnboardingResultNextAction = Literal[
     "import_prior_evidence",
     "start_retake_recovery",
 ]
+PositionLevel = Literal[
+    "central",
+    "provincial",
+    "municipal",
+    "county_or_below",
+]
+AbilityBaselineMode = Literal["unknown", "reported_score"]
 Weekday = Literal[
     "monday",
     "tuesday",
@@ -79,6 +86,12 @@ class PreparationExperienceWrite(OnboardingV2Model):
         alias="priorExamYears",
         max_length=20,
     )
+    current_status: Literal[
+        "parttime",
+        "fulltime",
+        "student",
+        "unspecified",
+    ] = Field(default="unspecified", alias="currentStatus")
 
     @model_validator(mode="after")
     def validate_experience(self) -> "PreparationExperienceWrite":
@@ -109,6 +122,12 @@ class PreparationExperienceProfile(OnboardingV2Model):
     prior_guokao_exam: bool = Field(alias="priorGuokaoExam")
     retake: bool
     prior_exam_years: list[int] = Field(alias="priorExamYears")
+    current_status: Literal[
+        "parttime",
+        "fulltime",
+        "student",
+        "unspecified",
+    ] = Field(alias="currentStatus")
     source_type: Literal["user_confirmed", "user_revised", "migration"] = Field(
         alias="sourceType"
     )
@@ -133,6 +152,100 @@ class PreparationExperienceResult(OnboardingV2Model):
 class QualificationMilestoneCommand(OnboardingV2Model):
     expected_progress_version: int = Field(alias="expectedProgressVersion", ge=1)
     qualification_profile_version: int = Field(alias="qualificationProfileVersion", ge=1)
+
+
+class PositionPreferenceWrite(OnboardingV2Model):
+    expected_preference_version: int = Field(
+        alias="expectedPreferenceVersion",
+        ge=0,
+    )
+    preferred_regions: list[str] = Field(
+        alias="preferredRegions",
+        min_length=1,
+        max_length=5,
+    )
+    accepts_relocation: bool = Field(alias="acceptsRelocation")
+    accepted_position_levels: list[PositionLevel] = Field(
+        alias="acceptedPositionLevels",
+        min_length=1,
+        max_length=4,
+    )
+
+    @model_validator(mode="after")
+    def validate_position_preference(self) -> "PositionPreferenceWrite":
+        normalized_regions = [region.strip() for region in self.preferred_regions]
+        if any(not region or len(region) > 40 for region in normalized_regions):
+            raise ValueError("preferredRegions must contain valid region names")
+        if len(normalized_regions) != len(set(normalized_regions)):
+            raise ValueError("preferredRegions must be unique")
+        if len(self.accepted_position_levels) != len(
+            set(self.accepted_position_levels)
+        ):
+            raise ValueError("acceptedPositionLevels must be unique")
+        self.preferred_regions = normalized_regions
+        return self
+
+
+class PositionPreferenceProfile(OnboardingV2Model):
+    preference_version_id: str = Field(alias="preferenceVersionId")
+    preference_version: int = Field(alias="preferenceVersion", ge=1)
+    preferred_regions: list[str] = Field(alias="preferredRegions")
+    accepts_relocation: bool = Field(alias="acceptsRelocation")
+    accepted_position_levels: list[PositionLevel] = Field(
+        alias="acceptedPositionLevels"
+    )
+    source_type: Literal["user_confirmed", "user_revised"] = Field(alias="sourceType")
+    created_at: datetime = Field(alias="createdAt")
+    supersedes_preference_version_id: str | None = Field(
+        default=None,
+        alias="supersedesPreferenceVersionId",
+    )
+
+
+class AbilityBaselineWrite(OnboardingV2Model):
+    expected_baseline_version: int = Field(
+        alias="expectedBaselineVersion",
+        ge=0,
+    )
+    mode: AbilityBaselineMode
+    xingce_score: float | None = Field(
+        default=None,
+        alias="xingceScore",
+        ge=0,
+        le=100,
+    )
+    shenlun_score: float | None = Field(
+        default=None,
+        alias="shenlunScore",
+        ge=0,
+        le=100,
+    )
+
+    @model_validator(mode="after")
+    def validate_ability_baseline(self) -> "AbilityBaselineWrite":
+        has_score = self.xingce_score is not None or self.shenlun_score is not None
+        if self.mode == "unknown" and has_score:
+            raise ValueError("unknown ability baseline cannot contain scores")
+        if self.mode == "reported_score" and not has_score:
+            raise ValueError("reported_score ability baseline requires a score")
+        return self
+
+
+class AbilityBaselineProfile(OnboardingV2Model):
+    baseline_version_id: str = Field(alias="baselineVersionId")
+    baseline_version: int = Field(alias="baselineVersion", ge=1)
+    mode: AbilityBaselineMode
+    xingce_score: float | None = Field(default=None, alias="xingceScore")
+    shenlun_score: float | None = Field(default=None, alias="shenlunScore")
+    score_evidence_id: str | None = Field(default=None, alias="scoreEvidenceId")
+    source_type: Literal["user_confirmed", "user_revised"] = Field(
+        alias="sourceType"
+    )
+    created_at: datetime = Field(alias="createdAt")
+    supersedes_baseline_version_id: str | None = Field(
+        default=None,
+        alias="supersedesBaselineVersionId",
+    )
 
 
 class StudyPreferenceWrite(OnboardingV2Model):

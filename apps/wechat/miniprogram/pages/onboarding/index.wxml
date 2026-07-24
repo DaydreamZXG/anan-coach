@@ -1,173 +1,144 @@
-<view class="page ob">
-  <safe-top />
-
-  <view class="ob-steps">
-    <view class="ob-dot {{step >= 1 ? 'on' : ''}}" />
-    <view class="ob-dash {{step >= 2 ? 'on' : ''}}" />
-    <view class="ob-dot {{step >= 2 ? 'on' : ''}}" />
-    <view class="ob-dash {{step >= 3 ? 'on' : ''}}" />
-    <view class="ob-dot {{step >= 3 ? 'on' : ''}}" />
-    <view class="ob-dash {{step >= 4 ? 'on' : ''}}" />
-    <view class="ob-dot {{step >= 4 ? 'on' : ''}}" />
+<view class="eligibility-page">
+  <safe-top gap="{{0}}" />
+  <view class="eligibility-nav">
+    <view class="nav-left">
+      <button class="nav-back" aria-label="返回" bindtap="back"><view class="nav-back__icon"></view></button>
+      <view class="nav-title">2/5 报考资格</view>
+    </view>
+    <button class="nav-save" loading="{{savingDraft}}" bindtap="saveAndExit">暂存并退出</button>
   </view>
 
-  <block wx:if="{{step === 1}}">
-    <text class="ob-title h1">你考过公务员吗</text>
-    <text class="ob-sub text-2">二战不是从零开始，岸岸会接着你上次的基础排计划</text>
-
-    <view class="ob-cards">
-      <view
-        class="ob-card {{priorExam === 'no' ? 'ob-card-on' : ''}}"
-        data-field="priorExam"
-        data-value="no"
-        bindtap="onPick"
-      >
-        <text class="ob-card-title">第一次考</text>
-        <text class="text-3">从头开始，一步步来</text>
-      </view>
-      <view
-        class="ob-card {{priorExam === 'yes' ? 'ob-card-on' : ''}}"
-        data-field="priorExam"
-        data-value="yes"
-        bindtap="onPick"
-      >
-        <text class="ob-card-title">考过，再战</text>
-        <text class="text-3">有基础，重点补短板</text>
-      </view>
-    </view>
-
-    <block wx:if="{{priorExam === 'yes'}}">
-      <text class="ob-label">考过哪几年（可多选）</text>
-      <view class="chips">
-        <view
-          wx:for="{{examYears}}"
-          wx:key="*this"
-          class="chip {{priorYears.indexOf(item) >= 0 ? 'chip-on' : ''}}"
-          data-value="{{item}}"
-          bindtap="onToggleYear"
-        >{{item}}年</view>
-      </view>
-    </block>
-
-    <view class="ob-switch-row">
-      <text class="ob-label-inline">这是我第一次系统备考</text>
-      <switch checked="{{firstSystematic}}" color="#3d7eff" bindchange="onFirstSystematic" />
-    </view>
-    <view class="ob-switch-row">
-      <text class="ob-label-inline">报过班或跟过网课</text>
-      <switch checked="{{externalLearning}}" color="#3d7eff" bindchange="onExternalLearning" />
-    </view>
-  </block>
-
-  <block wx:if="{{step === 2}}">
-    <text class="ob-title h1">先认识一下你</text>
-    <text class="ob-sub text-2">这些决定你能报哪些岗位，只需填一次</text>
-
-    <text class="ob-label">学历</text>
-    <view class="chips">
-      <view
-        wx:for="{{educations}}"
-        wx:key="*this"
-        class="chip {{education === item ? 'chip-on' : ''}}"
-        data-field="education"
-        data-value="{{item}}"
-        bindtap="onPick"
-      >{{item}}</view>
-    </view>
-
-    <text class="ob-label">专业</text>
-    <input class="ob-input" value="{{major}}" placeholder="比如：法学、计算机科学与技术" bindinput="onMajor" />
-
-    <text class="ob-label">政治面貌</text>
-    <view class="chips">
-      <view
-        wx:for="{{political}}"
-        wx:key="*this"
-        class="chip {{politicalStatus === item ? 'chip-on' : ''}}"
-        data-field="politicalStatus"
-        data-value="{{item}}"
-        bindtap="onPick"
-      >{{item}}</view>
-    </view>
-
-    <view class="ob-switch-row">
-      <text class="ob-label-inline">应届毕业生</text>
-      <switch checked="{{freshGraduate}}" color="#3d7eff" bindchange="onFresh" />
-    </view>
-  </block>
-
-  <block wx:if="{{step === 3}}">
-    <text class="ob-title h1">你打算怎么备考</text>
-    <text class="ob-sub text-2">岸岸会按这个节奏帮你排计划，之后随时能改</text>
-
-    <text class="ob-label">备考模式</text>
-    <view class="chips">
-      <view class="chip {{studyMode === 'fulltime' ? 'chip-on' : ''}}" data-field="studyMode" data-value="fulltime" bindtap="onPick">全职备考</view>
-      <view class="chip {{studyMode === 'parttime' ? 'chip-on' : ''}}" data-field="studyMode" data-value="parttime" bindtap="onPick">在职备考</view>
-    </view>
-
-    <text class="ob-label">学习节奏</text>
-    <view class="ob-cards">
-      <view
-        wx:for="{{rhythms}}"
-        wx:key="key"
-        class="ob-card {{rhythmKey === item.key ? 'ob-card-on' : ''}}"
-        data-field="rhythmKey"
-        data-value="{{item.key}}"
-        bindtap="onPick"
-      >
-        <text class="ob-card-title">{{item.label}}</text>
-        <text class="text-3">{{item.desc}}</text>
-      </view>
-    </view>
-
-    <text class="ob-label">每周固定休息日</text>
-    <view class="chips">
-      <view
-        wx:for="{{weekdays}}"
-        wx:key="value"
-        class="chip chip-sm {{restDay === item.value ? 'chip-on' : ''}}"
-        data-field="restDay"
-        data-value="{{item.value}}"
-        bindtap="onPick"
-      >{{item.label}}</view>
-    </view>
-
-    <text class="ob-label">每周模考日</text>
-    <view class="chips">
-      <view
-        wx:for="{{weekdays}}"
-        wx:key="value"
-        class="chip chip-sm {{mockDay === item.value ? 'chip-on' : ''}}"
-        data-field="mockDay"
-        data-value="{{item.value}}"
-        bindtap="onPick"
-      >{{item.label}}</view>
-    </view>
-  </block>
-
-  <block wx:if="{{step === 4}}">
-    <text class="ob-title h1">哪些模块让你头疼</text>
-    <text class="ob-sub text-2">可以多选，也可以不选——做几天题岸岸自己就摸清了</text>
-
-    <view class="ob-cards">
-      <view
-        wx:for="{{modules}}"
-        wx:key="*this"
-        class="ob-card ob-card-row {{weakModules.indexOf(item) >= 0 ? 'ob-card-on' : ''}}"
-        data-value="{{item}}"
-        bindtap="onToggleModule"
-      >
-        <text class="ob-card-title">{{item}}</text>
-        <text wx:if="{{weakModules.indexOf(item) >= 0}}" class="ob-check">✓</text>
-      </view>
-    </view>
-  </block>
-
-  <view class="ob-foot">
-    <button wx:if="{{step > 1}}" class="btn btn-ghost ob-foot-back" bindtap="onBack">上一步</button>
-    <button class="btn btn-primary ob-foot-next" bindtap="onNext">
-      {{step === 4 ? (submitting ? '正在生成计划…' : '完成，开始今天') : '下一步'}}
-    </button>
+  <view wx:if="{{loadingProfile}}" class="eligibility-state">
+    <state-view state="loading" title="正在恢复报考资料" description="会读取你已经确认过的学历、专业和经历。" />
   </view>
+
+  <view wx:elif="{{loadFailed}}" class="eligibility-state">
+    <state-view state="error" title="报考资料没有恢复完成" description="{{error}}" actionText="重新读取" bindaction="retryLoad" />
+    <view wx:if="{{requestId}}" class="request-id">问题编号 · {{requestId}}</view>
+  </view>
+
+  <block wx:else>
+    <scroll-view scroll-y class="eligibility-scroll" enhanced show-scrollbar="{{false}}">
+      <view class="eligibility-content">
+        <view class="boundary-notice">
+          <view class="notice-icon">!</view>
+          <view class="notice-copy">这部分信息将决定你能否跨过岗位的硬性门槛。不确定的可以先标记“稍后确认”。</view>
+        </view>
+
+        <view class="form-card">
+          <view class="card-title">专业与学历</view>
+          <view class="card-copy">专业是国考岗位的核心门槛，匹配度优先于地区偏好。</view>
+
+          <view class="major-field {{majorCategory ? 'major-field--selected' : ''}}">
+            <view class="search-icon"></view>
+            <input
+              class="major-input"
+              value="{{major}}"
+              maxlength="80"
+              placeholder="搜索具体专业名称..."
+              disabled="{{catalogLoading || !!catalogError}}"
+              bindinput="inputMajor"
+            />
+          </view>
+          <view wx:if="{{catalogLoading}}" class="catalog-status">正在读取国考专业目录…</view>
+          <view wx:if="{{catalogError}}" class="catalog-error">
+            <text>{{catalogError}}</text>
+            <button class="catalog-retry" bindtap="retryCatalog">重新读取</button>
+          </view>
+          <view wx:if="{{majorSuggestions.length}}" class="major-results">
+            <button
+              wx:for="{{majorSuggestions}}"
+              wx:key="code"
+              class="major-result"
+              data-name="{{item.name}}"
+              data-category="{{item.category}}"
+              bindtap="selectMajor"
+            >
+              <view class="major-result__title">{{item.name}} <text class="major-result__code">{{item.code}}</text></view>
+              <view class="major-result__category">{{item.category}}</view>
+            </button>
+          </view>
+          <view wx:if="{{majorCategory}}" class="major-selected-meta">{{majorCategory}}</view>
+
+          <view class="field-grid">
+            <view class="picker-field">
+              <view class="picker-label">最高学历</view>
+              <picker mode="selector" range="{{educationOptions}}" bindchange="chooseEducation">
+                <view class="picker-control {{education ? 'picker-control--filled' : ''}}">
+                  <text>{{education || '请选择'}}</text>
+                  <view class="picker-chevron"></view>
+                </view>
+              </picker>
+            </view>
+            <view class="picker-field">
+              <view class="picker-label">毕业年份</view>
+              <picker mode="selector" range="{{graduationOptions}}" range-key="label" bindchange="chooseGraduation">
+                <view class="picker-control {{graduationLabel ? 'picker-control--filled' : ''}}">
+                  <text>{{graduationLabel || '请选择'}}</text>
+                  <view class="picker-chevron"></view>
+                </view>
+              </picker>
+            </view>
+          </view>
+        </view>
+
+        <view class="form-card experience-card">
+          <view class="card-title">服务基层项目经历</view>
+          <view class="card-copy">包含大学生村官、三支一扶、特岗教师等。此项能为你解锁大量定向招录的特殊岗位，与普通工作经历严格区分。</view>
+
+          <view class="service-options">
+            <button
+              class="service-option {{serviceProject === '无' ? 'service-option--selected' : ''}}"
+              data-mode="none"
+              bindtap="chooseServiceMode"
+            >
+              <text>无服务基层项目经历</text>
+              <view wx:if="{{serviceProject === '无'}}" class="option-check">✓</view>
+            </button>
+            <button
+              class="service-option service-option--column {{serviceExpanded ? 'service-option--selected service-option--project' : ''}}"
+              data-mode="has"
+              bindtap="chooseServiceMode"
+            >
+              <view class="service-option__head">
+                <text>有基层项目经历</text>
+                <view wx:if="{{serviceExpanded && serviceProject}}" class="option-check option-check--indigo">✓</view>
+              </view>
+              <view wx:if="{{serviceExpanded}}" class="project-list">
+                <button
+                  wx:for="{{serviceProjectOptions}}"
+                  wx:key="*this"
+                  class="project-chip {{serviceProject === item ? 'project-chip--selected' : ''}}"
+                  data-value="{{item}}"
+                  catchtap="chooseServiceProject"
+                >{{item}}</button>
+              </view>
+            </button>
+          </view>
+
+          <view class="divider"></view>
+          <view class="card-title">普通工作经历</view>
+          <view class="work-options">
+            <button class="work-option {{workYears === 0 ? 'work-option--selected' : ''}}" data-value="0" bindtap="chooseWorkYears">无经验</button>
+            <button class="work-option {{workYears === 1 ? 'work-option--selected' : ''}}" data-value="1" bindtap="chooseWorkYears">2 年以下</button>
+            <button class="work-option {{workYears === 2 ? 'work-option--selected' : ''}}" data-value="2" bindtap="chooseWorkYears">2 年以上</button>
+          </view>
+        </view>
+
+        <button class="mark-later" loading="{{savingDraft}}" bindtap="markLater">稍后确认这页的缺失信息</button>
+
+        <view wx:if="{{error}}" class="error-banner">{{error}}</view>
+        <view wx:if="{{requestId}}" class="request-id">问题编号 · {{requestId}}</view>
+      </view>
+    </scroll-view>
+
+    <view class="eligibility-dock">
+      <button
+        class="eligibility-primary {{primaryDisabled || catalogLoading || catalogError ? 'eligibility-primary--disabled' : ''}}"
+        loading="{{saving}}"
+        disabled="{{saving || savingDraft || primaryDisabled || catalogLoading || !!catalogError}}"
+        bindtap="submit"
+      >{{primaryActionLabel}}</button>
+    </view>
+  </block>
 </view>

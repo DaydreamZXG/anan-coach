@@ -125,13 +125,13 @@ class PlanningInsightsService:
         if dashboard.dual_track_explanation.capability_gaps:
             risks.extend(dashboard.dual_track_explanation.capability_gaps.values())
         if status == "complete":
-            summary = "今天的 canonical 闭环已完成；明天按新证据重新计算，不复制今日任务。"
+            summary = "今天的学习与复盘已经完成；明天会按新的学习记录重新安排。"
         elif status in {"partial", "in_progress"}:
-            summary = "只结算已经成立的证据；未完成部分进入下一次重算，不自动顺延。"
+            summary = "今天只记录已经完成的内容；未完成部分不会机械顺延，明天会重新安排。"
         elif status == "empty":
-            summary = "今天没有通过门禁的任务，系统不会用刷题量制造虚假结算。"
+            summary = "今天还没有可执行任务，请先补齐目标岗位和学习时间。"
         else:
-            summary = "计划尚未产生执行证据，当前只保留已冻结的计划版本。"
+            summary = "今天的任务还没有开始，完成后这里会汇总真实投入和学习结果。"
         return DailySettlementView(
             planVersionId=dashboard.plan_version_id,
             localDate=dashboard.local_date,

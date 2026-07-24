@@ -83,7 +83,10 @@ def test_weatherkit_signs_exact_server_request_and_preserves_attribution(tmp_pat
                     "conditionCode": "PartlyCloudy",
                     "temperature": 31.4,
                     "metadata": {
-                        "attributionURL": "https://weatherkit.apple.com/legal-attribution.html",
+                        "attributionURL": (
+                            "https://developer.apple.com/weatherkit/"
+                            "data-source-attribution/"
+                        ),
                         "providerName": "Apple Weather",
                         "readTime": NOW.isoformat(),
                         "expireTime": (NOW + timedelta(minutes=20)).isoformat(),
@@ -108,7 +111,9 @@ def test_weatherkit_signs_exact_server_request_and_preserves_attribution(tmp_pat
     ).fetch(latitude=28.682, longitude=115.858)
 
     assert snapshot.condition_code == "PartlyCloudy"
-    assert snapshot.attribution_url == "https://weatherkit.apple.com/legal-attribution.html"
+    assert snapshot.attribution_url == (
+        "https://developer.apple.com/weatherkit/data-source-attribution/"
+    )
     assert snapshot.minimum_celsius == 26.2
     assert snapshot.maximum_celsius == 34.7
     assert snapshot.precipitation_chance == 0.45

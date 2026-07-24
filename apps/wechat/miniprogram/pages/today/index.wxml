@@ -1,131 +1,194 @@
-<view class="page today">
-  <block wx:if="{{loading}}">
-    <safe-top />
-    <view class="skeleton-head" />
-    <view class="skeleton-card" />
-    <view class="skeleton-card" />
-  </block>
+<view class="today-page">
+  <safe-top gap="8" />
 
-  <block wx:else>
-    <!-- 蓝色 hero 头部 -->
-    <view class="hero">
-      <safe-top />
-      <text class="hero-date num">{{stream.date}}</text>
-      <text class="hero-title">{{stream.headline}}</text>
-
-      <view class="hero-stats">
-        <view class="hs-col">
-          <text class="hs-label">目标</text>
-          <text class="hs-main">{{stream.target.positionGroup}}</text>
-          <text class="hs-sub">{{stream.target.exam}}</text>
-        </view>
-        <view class="hs-divider" />
-        <view class="hs-col">
-          <text class="hs-label">当前分差</text>
-          <text class="hs-gap num" wx:if="{{stream.target.scoreGapAvailable}}">{{stream.target.scoreGap}}<text class="hs-gap-unit">分</text></text>
-          <text class="hs-main" wx:else>待测</text>
-          <text class="hs-sub">{{stream.calibration.statusLabel}}</text>
-        </view>
+  <view class="today-content">
+    <view class="today-header">
+      <view class="today-header__copy">
+        <view class="today-date">{{openingView ? openingView.localDateLabel : '今天'}}</view>
+        <view class="today-greeting">{{headerGreeting}}</view>
+        <view class="today-countdown">{{headerContextLabel}}</view>
       </view>
-
-      <view class="hero-basis" bindtap="onOpenBasis">
-        <text class="hero-basis-text">为什么是这些任务 · 状态不好想减量</text>
-        <text class="hero-basis-arrow">›</text>
-      </view>
+      <button class="capture-button" bindtap="openCaptureImport" aria-label="拍照搜题">
+        <image class="icon icon--camera" src="/assets/icons/today/camera-ink.png" mode="aspectFit" />
+      </button>
     </view>
 
-    <!-- 岸岸每日开场 -->
-    <view wx:if="{{opening}}" class="opening">
-      <view class="anan-avatar">岸</view>
-      <view class="opening-main">
-        <text class="opening-greeting">{{opening.greeting}}</text>
-        <text wx:if="{{opening.weatherLine}}" class="text-3">{{opening.weatherLine}}</text>
-        <text wx:if="{{opening.coffeePrompt}}" class="opening-coffee">{{opening.coffeePrompt}}</text>
-      </view>
-      <text class="opening-close" bindtap="onDismissOpening">×</text>
-    </view>
+    <state-view wx:if="{{status === 'loading'}}" state="loading" />
+    <state-view
+      wx:elif="{{status === 'error'}}"
+      state="error"
+      title="今天的计划没有加载成功"
+      description="{{errorMessage}}"
+      action-text="重新加载"
+      bind:action="retry"
+    />
 
-    <!-- 告警（如降载提醒等） -->
-    <view
-      wx:for="{{stream.alerts}}"
-      wx:key="id"
-      class="alert"
-      data-url="{{item.actionUrl}}"
-      bindtap="onTapAlert"
-    >
-      <view class="alert-body">
-        <text class="alert-title">{{item.title}}</text>
-        <text class="text-3">{{item.subtitle}}</text>
-      </view>
-      <text class="alert-arrow">›</text>
-    </view>
-
-    <!-- 今日依据（岸岸口吻，暖色） -->
-    <view class="rationale" bindtap="onAskAnan">
-      <view class="rationale-head">
-        <view class="anan-avatar">岸</view>
-        <text class="rationale-label">今天为什么这么排</text>
-      </view>
-      <text class="rationale-text">{{stream.rationale}}</text>
-      <text class="rationale-cta">有疑问？找岸岸聊聊 ›</text>
-    </view>
-
-    <!-- 进度 -->
-    <view class="progress-row">
-      <text class="progress-label">今日任务</text>
-      <text class="progress-count num">{{doneCount}}/{{totalCount}}</text>
-    </view>
-
-    <!-- 任务流 -->
-    <view class="stream">
+    <block wx:elif="{{view}}">
       <view
-        wx:for="{{tasksView}}"
-        wx:key="id"
-        class="task {{item.done ? 'task-done' : ''}} {{item.order === (doneCount + 1) && !item.done ? 'task-next' : ''}}"
+        wx:if="{{openingStatus === 'ready' && openingView && !openingCollapsed}}"
+        class="opening-card fade-slide-in"
+        style="animation-delay: 0.05s"
       >
-        <view class="task-rail">
-          <view class="task-node">
-            <text wx:if="{{item.done}}" class="task-check">✓</text>
-            <text wx:else class="task-order num">{{item.order}}</text>
-          </view>
-          <view wx:if="{{item.order < totalCount}}" class="task-line" />
+        <view class="opening-line" wx:if="{{openingView.weatherReady}}">
+          <image class="icon icon--small" src="/assets/icons/today/cloud-rain-muted.png" mode="aspectFit" />
+          <text class="opening-line__text">{{openingView.weatherHeadline}} {{openingView.weatherDetail}}</text>
         </view>
 
-        <view class="task-body">
-          <view class="task-top">
-            <text class="task-track track-{{item.track}}">{{item.trackLabel}}</text>
-            <text class="task-min text-3 num">{{item.estimatedMinutes}} 分钟</text>
-          </view>
-          <text class="task-title h2">{{item.title}}</text>
-          <text class="task-sub text-2">{{item.subtitle}}</text>
-
-          <view class="task-reason">
-            <text class="task-reason-text">{{item.reason}}</text>
-          </view>
-
+        <view class="opening-line" wx:elif="{{openingView.weatherLocationRequired}}">
+          <image class="icon icon--small" src="/assets/icons/today/cloud-rain-muted.png" mode="aspectFit" />
+          <text class="opening-line__text">
+            {{weatherLocationStatus === 'requesting' ? '正在获取附近天气…' : (weatherLocationMessage || '开启定位后显示附近天气')}}
+          </text>
           <button
-            wx:if="{{!item.done}}"
-            class="btn {{item.order === (doneCount + 1) ? 'btn-primary' : 'btn-ghost'}} task-btn"
-            data-url="{{item.startUrl}}"
-            data-kind="{{item.kind}}"
-            bindtap="onStartTask"
-          >
-            {{item.order === (doneCount + 1) ? '开始' : '稍后做'}}
-          </button>
-          <view wx:else class="task-done-tag">已完成</view>
+            wx:if="{{weatherLocationStatus === 'denied' || weatherLocationStatus === 'error'}}"
+            class="weather-location-button"
+            bindtap="requestWeatherLocation"
+          >{{weatherLocationStatus === 'denied' ? '去开启' : '重试'}}</button>
+        </view>
+
+        <view class="opening-line">
+          <image class="icon icon--small" src="/assets/icons/today/target-muted.png" mode="aspectFit" />
+          <text class="opening-line__text">今天安排 {{view.availableDurationLabel}}，先完成 {{openingView.planTitle}}</text>
+        </view>
+
+        <view class="opening-actions">
+          <view wx:if="{{openingView.coffeeVisible}}" class="coffee-prompt">
+            <image class="icon icon--small" src="/assets/icons/today/coffee-muted.png" mode="aspectFit" />
+            <text class="coffee-prompt__text">顺便看咖啡？</text>
+            <button class="coffee-button" bindtap="openCoffeeAssistant">帮我看看</button>
+            <button class="coffee-button coffee-button--quiet" bindtap="declineDailyCoffee">今天不喝</button>
+          </view>
+          <button hover-class="item--hover" class="opening-start" bindtap="startDailyOpening">开始学习</button>
+        </view>
+        <view wx:if="{{openingError}}" class="opening-error">{{openingError}}</view>
+      </view>
+
+      <view
+        wx:elif="{{openingStatus === 'ready' && openingView && openingCollapsed}}"
+        class="opening-collapsed fade-slide-in"
+        style="animation-delay: 0.05s"
+      >
+        <view class="opening-collapsed__main">
+          <image class="icon icon--small" src="/assets/icons/today/target-ink.png" mode="aspectFit" />
+          <text>学习进行中 · {{view.availableDurationLabel}}</text>
+        </view>
+        <text wx:if="{{openingView.weatherReady}}" class="opening-collapsed__weather">{{openingView.weatherHeadline}}</text>
+      </view>
+
+      <view class="task-heading fade-slide-in" style="animation-delay: 0.1s">
+        <view class="task-heading__title">今日任务</view>
+        <view class="task-heading__meta">
+          <text>今天可学 {{view.availableDurationLabel}} · 精力{{energyLabel}} · 压力{{stressLabel}}</text>
+          <button hover-class="item--hover" class="adjust-button" bindtap="openDayAdjustment">调整今天</button>
         </view>
       </view>
-    </view>
 
-    <!-- 每日结算入口：任务流的终点 -->
-    <view class="settle {{allDone ? 'settle-ready' : ''}}" bindtap="onOpenSettlement">
-      <view class="settle-body">
-        <text class="settle-title">{{allDone ? '今天的事都做完了' : '每日结算'}}</text>
-        <text class="text-3">{{allDone ? '来做个结算，看看今天离上岸近了多少' : '完成任务后在这里复盘今天'}}</text>
+      <view wx:if="{{!view.hasTasks}}" class="empty-card fade-slide-in" style="animation-delay: 0.15s">
+        <view class="empty-card__title">今天还没有可执行任务</view>
+        <view class="empty-card__copy">先确认目标岗位和今天可用时间，岸岸才能生成真实安排。</view>
+        <button hover-class="item--hover" class="primary-button" bindtap="openDayAdjustment">调整今天</button>
       </view>
-      <text class="settle-arrow">›</text>
-    </view>
 
-    <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示数据（后端未连接）</view>
-  </block>
+      <block wx:for="{{view.tasks}}" wx:key="id">
+        <view wx:if="{{index === 0}}" class="primary-task fade-slide-in" style="animation-delay: 0.15s">
+          <view class="task-aurora"></view>
+          <view class="anan-insight">
+            <view class="anan-icon pulse-ring">
+              <image class="icon icon--sparkles" src="/assets/icons/today/sparkles-white.png" mode="aspectFit" />
+            </view>
+            <view class="anan-insight__main">
+              <view class="anan-insight__title">岸岸建议</view>
+              <view class="anan-insight__copy">{{view.headline}}</view>
+              <view wx:if="{{insightExpanded}}" class="anan-insight__detail">{{view.rationale}}</view>
+              <button class="insight-toggle" bindtap="toggleInsight">
+                <text>{{insightExpanded ? '收起' : '为什么今天先做这个？'}}</text>
+                <image class="icon icon--chevron {{insightExpanded ? 'icon--rotated' : ''}}" src="/assets/icons/today/chevron-down-muted.png" mode="aspectFit" />
+              </button>
+            </view>
+          </view>
+
+          <view class="primary-task__body">
+            <view class="primary-task__head">
+              <view>
+                <view class="task-meta">
+                  <text class="task-tag">{{item.kindLabel}}</text>
+                  <text class="task-duration">· 预计 {{item.estimatedMinutes}} 分钟</text>
+                </view>
+                <view class="primary-task__title">{{item.title}}</view>
+              </view>
+              <button hover-class="item--hover" class="basis-button" bindtap="openPlanBasis">
+                <text>为什么这样练</text>
+                <image class="icon icon--chevron" src="/assets/icons/today/chevron-right-indigo.png" mode="aspectFit" />
+              </button>
+            </view>
+            <button
+              hover-class="item--hover"
+               class="primary-button {{!item.canOpen ? 'primary-button--disabled' : ''}}"
+              data-id="{{item.id}}"
+              disabled="{{!item.canOpen}}"
+              bindtap="openTask"
+            >
+              <image class="icon icon--play" src="/assets/icons/today/play-white.png" mode="aspectFit" />
+              <text>{{taskOpeningId === item.id ? '正在打开…' : item.status === 'in_progress' ? '继续第一项任务' : '开始第一项任务'}}</text>
+            </button>
+            <view wx:if="{{!item.canOpen}}" class="task-disabled">{{item.disabledReason}}</view>
+          </view>
+        </view>
+      </block>
+
+      <view class="other-tasks">
+        <block wx:for="{{view.tasks}}" wx:key="id">
+          <view wx:if="{{index > 0 && item.status !== 'complete'}}" class="compact-task fade-slide-in" style="animation-delay: {{0.2 + index * 0.05}}s">
+            <view class="compact-task__main">
+              <view class="compact-task__icon">
+                <image class="icon icon--small" src="/assets/icons/today/file-text-secondary.png" mode="aspectFit" />
+              </view>
+              <view>
+                <view class="compact-task__title">{{item.title}}</view>
+                <view class="compact-task__meta">{{item.trackLabel}} · 预计 {{item.estimatedMinutes}} 分钟</view>
+              </view>
+            </view>
+            <button
+              hover-class="item--hover"
+              class="compact-task__action"
+              data-id="{{item.id}}"
+              disabled="{{!item.canOpen}}"
+              bindtap="openTask"
+            >{{item.status === 'in_progress' ? '继续' : '开始'}}</button>
+          </view>
+
+          <view wx:if="{{item.status === 'complete'}}" class="completed-task fade-slide-in" style="animation-delay: {{0.2 + index * 0.05}}s">
+            <image class="icon icon--completed" src="/assets/icons/today/circle-check-muted.png" mode="aspectFit" />
+            <view class="completed-task__title">{{item.title}}</view>
+            <button hover-class="item--hover" class="completed-task__action" bindtap="openDailySettlement">查看复盘</button>
+          </view>
+        </block>
+      </view>
+
+
+      <view wx:if="{{taskNavigationError}}" class="task-error">{{taskNavigationError}}</view>
+
+      <view class="secondary-tools">
+        <button class="settlement-button" bindtap="openDailySettlement">
+          <image class="icon icon--settlement" src="/assets/icons/today/circle-check-secondary.png" mode="aspectFit" />
+          <text>结束今天并复盘</text>
+        </button>
+
+        <view class="tool-row">
+          <button class="tool-link" bindtap="openMasteryQueue">
+            <image class="icon icon--small" src="/assets/icons/today/book-open-secondary.png" mode="aspectFit" />
+            <text>错题与掌握</text>
+          </button>
+          <button class="tool-link" bindtap="openWeeklyPlan">
+            <image class="icon icon--small" src="/assets/icons/today/calendar-days-secondary.png" mode="aspectFit" />
+            <text>周计划</text>
+          </button>
+          <button class="tool-link" bindtap="openDailySettlement">
+            <image class="icon icon--small" src="/assets/icons/today/refresh-cw-secondary.png" mode="aspectFit" />
+            <text>每日结算</text>
+          </button>
+        </view>
+      </view>
+    </block>
+  </view>
 </view>

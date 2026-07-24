@@ -1,61 +1,11 @@
-<view class="page mreport">
-  <safe-top />
-
-  <view class="mr-nav">
-    <text class="mr-back" bindtap="onBackAbility">‹</text>
-    <text class="mr-title">模考报告</text>
-    <text class="text-3" wx:if="{{submittedAt}}">{{submittedAt}}</text>
-  </view>
-
-  <view wx:if="{{loading}}" class="mr-loading text-2">正在阅卷…</view>
-
-  <scroll-view wx:else class="mr-body" scroll-y>
-    <!-- 估分 -->
-    <view class="card mr-score">
-      <text class="text-3">{{metricName}}</text>
-      <text class="mr-score-num num">{{score}}</text>
-      <text class="text-3">{{rangeText}}</text>
-    </view>
-
-    <!-- 模块表现 -->
-    <view class="card mr-modules">
-      <text class="mr-section-title">各模块表现</text>
-      <view class="mr-mod" wx:for="{{modules}}" wx:key="moduleName">
-        <view class="mr-mod-head">
-          <text class="mr-mod-name">{{item.moduleName}}</text>
-          <view class="mr-mod-meta">
-            <text class="text-3 num">{{item.correct}}/{{item.total}}</text>
-            <text class="mr-change {{item.changeClass}}">{{item.changeText}}</text>
-          </view>
-        </view>
-        <view class="mr-track">
-          <view class="mr-fill" style="width: {{item.accuracyPct}}%" />
-        </view>
-      </view>
-    </view>
-
-    <!-- 错题聚类 -->
-    <view class="card mr-clusters" wx:if="{{clusters.length}}">
-      <text class="mr-section-title">丢分都丢在哪</text>
-      <view class="mr-cluster" wx:for="{{clusters}}" wx:key="nodeId">
-        <view class="mr-cluster-head">
-          <text class="mr-cluster-path">{{item.displayPath}}</text>
-          <text class="mr-wrong num">错 {{item.wrongCount}}</text>
-        </view>
-        <text class="mr-fix">{{item.fixAction}}</text>
-      </view>
-    </view>
-
-    <!-- 岸岸的下周策略（暖色） -->
-    <view class="mr-anan" wx:if="{{nextWeekReason}}">
-      <view class="anan-avatar">岸</view>
-      <text class="mr-anan-text">{{nextWeekReason}}</text>
-    </view>
-
-    <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示报告（后端未连接）</view>
-  </scroll-view>
-
-  <view class="mr-foot">
-    <button class="btn btn-primary mr-foot-btn" bindtap="onBackToday">回到今日，按新策略走</button>
-  </view>
+<view class="report-page">
+  <state-view wx:if="{{status === 'loading'}}" state="loading" />
+  <state-view wx:elif="{{status === 'error'}}" state="error" title="模考报告没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
+  <block wx:elif="{{report}}">
+    <view class="report-hero"><view class="report-kicker">{{report.title}}</view><view class="report-title">分数只是结果，失分结构才决定下一步</view><view class="report-copy">按模块、时间和错误原因拆解，不用一次成绩替代长期判断。</view><view class="report-meta"><view class="report-meta__item">{{generatedAtLabel}}</view><view class="report-meta__item">{{evidenceCount}} 条学习记录</view><view class="report-meta__item">数据已核对</view></view></view>
+    <view wx:if="{{partial}}" class="report-banner">这份报告数据不全，只展示已有的部分。</view>
+    <state-view wx:if="{{empty}}" class="report-state" state="empty" title="还没有完整的模考记录" description="交卷后才会生成模块表现、速度与错因图。" />
+    <view class="report-conclusion"><view class="report-conclusion__label">当前结论</view><view class="report-conclusion__headline">{{report.conclusion.headline}}</view><view class="report-conclusion__detail">{{report.conclusion.detail}}</view><view class="report-next">{{report.conclusion.nextAction}} · 已用 {{planEvidenceCount}} 条记录更新计划</view><button class="report-next-action report-next-action--anan" bindtap="askAnan">带着这份报告问岸岸</button><button class="report-next-action report-next-action--secondary" bindtap="openNextAction">回到今日计划</button></view>
+    <view class="report-chart-list"><report-chart wx:for="{{report.charts}}" wx:key="chartId" chart="{{item}}" /></view>
+  </block>
 </view>

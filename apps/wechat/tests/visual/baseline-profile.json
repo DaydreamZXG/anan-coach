@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "model": "iPhone 12/13 mini",
+  "platform": "devtools",
+  "windowWidth": 375,
+  "windowHeight": 812,
+  "pixelRatio": 3,
+  "statusBarHeight": 47,
+  "fontSizeSetting": 16,
+  "language": "zh_CN",
+  "deviceOrientation": "portrait",
+  "SDKVersion": "3.17.0"
+}

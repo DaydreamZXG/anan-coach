@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "建立备考档案",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "safe-top": "../../../components/safe-top/index"
+  }
+}

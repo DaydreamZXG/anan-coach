@@ -111,6 +111,70 @@ export type AbilityBand = {
 };
 
 /**
+ * AbilityBaselineProfile
+ */
+export type AbilityBaselineProfile = {
+    /**
+     * Baselineversion
+     */
+    baselineVersion: number;
+    /**
+     * Baselineversionid
+     */
+    baselineVersionId: string;
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Mode
+     */
+    mode: 'unknown' | 'reported_score';
+    /**
+     * Scoreevidenceid
+     */
+    scoreEvidenceId?: string | null;
+    /**
+     * Shenlunscore
+     */
+    shenlunScore?: number | null;
+    /**
+     * Sourcetype
+     */
+    sourceType: 'user_confirmed' | 'user_revised';
+    /**
+     * Supersedesbaselineversionid
+     */
+    supersedesBaselineVersionId?: string | null;
+    /**
+     * Xingcescore
+     */
+    xingceScore?: number | null;
+};
+
+/**
+ * AbilityBaselineWrite
+ */
+export type AbilityBaselineWrite = {
+    /**
+     * Expectedbaselineversion
+     */
+    expectedBaselineVersion: number;
+    /**
+     * Mode
+     */
+    mode: 'unknown' | 'reported_score';
+    /**
+     * Shenlunscore
+     */
+    shenlunScore?: number | null;
+    /**
+     * Xingcescore
+     */
+    xingceScore?: number | null;
+};
+
+/**
  * AbilityEstimate
  */
 export type AbilityEstimate = {
@@ -305,6 +369,14 @@ export type AccountOverview = {
      */
     accountStatus: 'active' | 'recovery_required' | 'deletion_pending' | 'disabled';
     /**
+     * Avatarstyle
+     */
+    avatarStyle: 'ocean' | 'aurora' | 'sunrise' | 'violet' | 'graphite' | 'mint';
+    /**
+     * Displayname
+     */
+    displayName?: string | null;
+    /**
      * Establishedat
      */
     establishedAt: string;
@@ -320,6 +392,38 @@ export type AccountOverview = {
      * Wechatlinked
      */
     wechatLinked: boolean;
+};
+
+/**
+ * AccountProfileUpdate
+ */
+export type AccountProfileUpdate = {
+    /**
+     * Avatarstyle
+     */
+    avatarStyle: 'ocean' | 'aurora' | 'sunrise' | 'violet' | 'graphite' | 'mint';
+    /**
+     * Displayname
+     */
+    displayName: string;
+};
+
+/**
+ * AccountProfileView
+ */
+export type AccountProfileView = {
+    /**
+     * Avatarstyle
+     */
+    avatarStyle: 'ocean' | 'aurora' | 'sunrise' | 'violet' | 'graphite' | 'mint';
+    /**
+     * Displayname
+     */
+    displayName: string;
+    /**
+     * Updatedat
+     */
+    updatedAt: string;
 };
 
 /**
@@ -950,6 +1054,10 @@ export type BrainEvidenceSummary = {
      * Essaymasterycount
      */
     essayMasteryCount: number;
+    /**
+     * Externalanswercount
+     */
+    externalAnswerCount?: number;
     /**
      * Latestevidenceat
      */
@@ -2430,6 +2538,18 @@ export type DailyCapacityCommandResult = {
 };
 
 /**
+ * DailyCapacityPreview
+ */
+export type DailyCapacityPreview = {
+    /**
+     * Basedoncapacityversionid
+     */
+    basedOnCapacityVersionId: string;
+    currentPlan: TodayDashboard;
+    proposedPlan: TodayDashboard;
+};
+
+/**
  * DailyOpeningView
  */
 export type DailyOpeningView = {
@@ -3013,7 +3133,7 @@ export type EligibilityEvaluation = {
     /**
      * Missingfactkeys
      */
-    missingFactKeys: Array<'education' | 'degree' | 'major' | 'fresh_graduate' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions'>;
+    missingFactKeys: Array<'education' | 'degree' | 'major' | 'graduation_year' | 'fresh_graduate' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions'>;
     /**
      * Positiondataversion
      */
@@ -7642,6 +7762,10 @@ export type MockExamSession = {
      */
     paperVersionId: string;
     /**
+     * Plantaskid
+     */
+    planTaskId?: string | null;
+    /**
      * Questioncount
      */
     questionCount: number;
@@ -7711,6 +7835,16 @@ export type MockExamSessionSpec = {
      * Title
      */
     title: string;
+};
+
+/**
+ * MockExamStartRequest
+ */
+export type MockExamStartRequest = {
+    /**
+     * Plantaskid
+     */
+    planTaskId?: string | null;
 };
 
 /**
@@ -7961,6 +8095,10 @@ export type ModuleAbility = {
      * Evidencerefs
      */
     evidenceRefs: Array<BrainEvidenceRef>;
+    /**
+     * Externalevidencecount
+     */
+    externalEvidenceCount?: number;
     /**
      * Freshness
      */
@@ -9773,6 +9911,66 @@ export type PositionGoal = {
 };
 
 /**
+ * PositionPreferenceProfile
+ */
+export type PositionPreferenceProfile = {
+    /**
+     * Acceptedpositionlevels
+     */
+    acceptedPositionLevels: Array<'central' | 'provincial' | 'municipal' | 'county_or_below'>;
+    /**
+     * Acceptsrelocation
+     */
+    acceptsRelocation: boolean;
+    /**
+     * Createdat
+     */
+    createdAt: string;
+    /**
+     * Preferenceversion
+     */
+    preferenceVersion: number;
+    /**
+     * Preferenceversionid
+     */
+    preferenceVersionId: string;
+    /**
+     * Preferredregions
+     */
+    preferredRegions: Array<string>;
+    /**
+     * Sourcetype
+     */
+    sourceType: 'user_confirmed' | 'user_revised';
+    /**
+     * Supersedespreferenceversionid
+     */
+    supersedesPreferenceVersionId?: string | null;
+};
+
+/**
+ * PositionPreferenceWrite
+ */
+export type PositionPreferenceWrite = {
+    /**
+     * Acceptedpositionlevels
+     */
+    acceptedPositionLevels: Array<'central' | 'provincial' | 'municipal' | 'county_or_below'>;
+    /**
+     * Acceptsrelocation
+     */
+    acceptsRelocation: boolean;
+    /**
+     * Expectedpreferenceversion
+     */
+    expectedPreferenceVersion: number;
+    /**
+     * Preferredregions
+     */
+    preferredRegions: Array<string>;
+};
+
+/**
  * PositionScoreGapRange
  */
 export type PositionScoreGapRange = {
@@ -10067,6 +10265,10 @@ export type PreparationExperienceProfile = {
      */
     createdAt: string;
     /**
+     * Currentstatus
+     */
+    currentStatus: 'parttime' | 'fulltime' | 'student' | 'unspecified';
+    /**
      * Declarationstatus
      */
     declarationStatus: 'declared' | 'legacy_not_collected';
@@ -10124,6 +10326,10 @@ export type PreparationExperienceResult = {
  * PreparationExperienceWrite
  */
 export type PreparationExperienceWrite = {
+    /**
+     * Currentstatus
+     */
+    currentStatus?: 'parttime' | 'fulltime' | 'student' | 'unspecified';
     /**
      * Expectedexperienceversion
      */
@@ -10748,6 +10954,21 @@ export type ProvinceListResponse = {
 };
 
 /**
+ * PublicApiEnvelope[AbilityBaselineProfile]
+ */
+export type PublicApiEnvelopeAbilityBaselineProfile = {
+    data: AbilityBaselineProfile;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[AbilityEstimateCurrent]
  */
 export type PublicApiEnvelopeAbilityEstimateCurrent = {
@@ -10782,6 +11003,21 @@ export type PublicApiEnvelopeAccountDeletionView = {
  */
 export type PublicApiEnvelopeAccountOverview = {
     data: AccountOverview;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[AccountProfileView]
+ */
+export type PublicApiEnvelopeAccountProfileView = {
+    data: AccountProfileView;
     /**
      * Generatedat
      */
@@ -10977,6 +11213,21 @@ export type PublicApiEnvelopeContributionsResponse = {
  */
 export type PublicApiEnvelopeDailyCapacityCommandResult = {
     data: DailyCapacityCommandResult;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[DailyCapacityPreview]
+ */
+export type PublicApiEnvelopeDailyCapacityPreview = {
+    data: DailyCapacityPreview;
     /**
      * Generatedat
      */
@@ -11558,6 +11809,21 @@ export type PublicApiEnvelopeLogoutAllResult = {
 };
 
 /**
+ * PublicApiEnvelope[MajorTreeResponse]
+ */
+export type PublicApiEnvelopeMajorTreeResponse = {
+    data: MajorTreeResponse;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[MarkdownExport]
  */
 export type PublicApiEnvelopeMarkdownExport = {
@@ -11828,6 +12094,21 @@ export type PublicApiEnvelopePositionFitResponse = {
 };
 
 /**
+ * PublicApiEnvelope[PositionPreferenceProfile]
+ */
+export type PublicApiEnvelopePositionPreferenceProfile = {
+    data: PositionPreferenceProfile;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[PositionTargetScoreContractResponse]
  */
 export type PublicApiEnvelopePositionTargetScoreContractResponse = {
@@ -11997,6 +12278,21 @@ export type PublicApiEnvelopePrivateSourceSummary = {
  */
 export type PublicApiEnvelopeProcessorDisclosureList = {
     data: ProcessorDisclosureList;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[ProvinceListResponse]
+ */
+export type PublicApiEnvelopeProvinceListResponse = {
+    data: ProvinceListResponse;
     /**
      * Generatedat
      */
@@ -12738,7 +13034,7 @@ export type QualificationFact = {
     /**
      * Key
      */
-    key: 'education' | 'degree' | 'major' | 'fresh_graduate' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions';
+    key: 'education' | 'degree' | 'major' | 'graduation_year' | 'fresh_graduate' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions';
     /**
      * Supersedesfactid
      */
@@ -12760,7 +13056,7 @@ export type QualificationFactInput = {
     /**
      * Key
      */
-    key: 'education' | 'degree' | 'major' | 'fresh_graduate' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions';
+    key: 'education' | 'degree' | 'major' | 'graduation_year' | 'fresh_graduate' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions';
     /**
      * Value
      */
@@ -12792,7 +13088,7 @@ export type QualificationGap = {
     /**
      * Factkey
      */
-    factKey: 'education' | 'degree' | 'major' | 'fresh_graduate' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions';
+    factKey: 'education' | 'degree' | 'major' | 'graduation_year' | 'fresh_graduate' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions';
     /**
      * Gaptype
      */
@@ -13832,6 +14128,10 @@ export type ReportProjection = {
      */
     generatedAt: string;
     /**
+     * Inputfingerprint
+     */
+    inputFingerprint: string;
+    /**
      * Projectionversionid
      */
     projectionVersionId: string;
@@ -13983,7 +14283,7 @@ export type RequirementCheck = {
     /**
      * Field
      */
-    field?: 'education' | 'degree' | 'major' | 'fresh_graduate' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions' | null;
+    field?: 'education' | 'degree' | 'major' | 'graduation_year' | 'fresh_graduate' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions' | null;
     /**
      * Operator
      */
@@ -16748,7 +17048,7 @@ export type WeatherLocationCommand = {
     /**
      * Sourcetype
      */
-    sourceType?: 'wechat_choose_location';
+    sourceType?: 'wechat_choose_location' | 'wechat_fuzzy_location';
 };
 
 /**
@@ -18634,8 +18934,15 @@ export type GetMethodCardApiV1MethodCardsCardIdGetResponses = {
 export type GetMethodCardApiV1MethodCardsCardIdGetResponse = GetMethodCardApiV1MethodCardsCardIdGetResponses[keyof GetMethodCardApiV1MethodCardsCardIdGetResponses];
 
 export type CreateWeeklyMockExamApiV1MockExamsWeeklyPostData = {
-    body?: never;
+    /**
+     * Command
+     */
+    body?: MockExamStartRequest | null;
     headers?: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key'?: string | null;
         /**
          * Authorization
          */
@@ -19798,6 +20105,69 @@ export type GetAccountOverviewApiV2AuthAccountGetResponses = {
 };
 
 export type GetAccountOverviewApiV2AuthAccountGetResponse = GetAccountOverviewApiV2AuthAccountGetResponses[keyof GetAccountOverviewApiV2AuthAccountGetResponses];
+
+export type UpdateAccountProfileApiV2AuthAccountProfilePutData = {
+    body: AccountProfileUpdate;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/auth/account/profile';
+};
+
+export type UpdateAccountProfileApiV2AuthAccountProfilePutErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type UpdateAccountProfileApiV2AuthAccountProfilePutError = UpdateAccountProfileApiV2AuthAccountProfilePutErrors[keyof UpdateAccountProfileApiV2AuthAccountProfilePutErrors];
+
+export type UpdateAccountProfileApiV2AuthAccountProfilePutResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeAccountProfileView;
+};
+
+export type UpdateAccountProfileApiV2AuthAccountProfilePutResponse = UpdateAccountProfileApiV2AuthAccountProfilePutResponses[keyof UpdateAccountProfileApiV2AuthAccountProfilePutResponses];
 
 export type LogoutCurrentWechatSessionApiV2AuthLogoutPostData = {
     body?: never;
@@ -27051,6 +27421,136 @@ export type RecordMockExamTrajectoryEventApiV2MockExamsSessionIdTrajectoryEvents
 
 export type RecordMockExamTrajectoryEventApiV2MockExamsSessionIdTrajectoryEventsPostResponse = RecordMockExamTrajectoryEventApiV2MockExamsSessionIdTrajectoryEventsPostResponses[keyof RecordMockExamTrajectoryEventApiV2MockExamsSessionIdTrajectoryEventsPostResponses];
 
+export type GetAbilityBaselineApiV2OnboardingAbilityBaselineGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/onboarding/ability-baseline';
+};
+
+export type GetAbilityBaselineApiV2OnboardingAbilityBaselineGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetAbilityBaselineApiV2OnboardingAbilityBaselineGetError = GetAbilityBaselineApiV2OnboardingAbilityBaselineGetErrors[keyof GetAbilityBaselineApiV2OnboardingAbilityBaselineGetErrors];
+
+export type GetAbilityBaselineApiV2OnboardingAbilityBaselineGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeAbilityBaselineProfile;
+};
+
+export type GetAbilityBaselineApiV2OnboardingAbilityBaselineGetResponse = GetAbilityBaselineApiV2OnboardingAbilityBaselineGetResponses[keyof GetAbilityBaselineApiV2OnboardingAbilityBaselineGetResponses];
+
+export type PutAbilityBaselineApiV2OnboardingAbilityBaselinePutData = {
+    body: AbilityBaselineWrite;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/onboarding/ability-baseline';
+};
+
+export type PutAbilityBaselineApiV2OnboardingAbilityBaselinePutErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type PutAbilityBaselineApiV2OnboardingAbilityBaselinePutError = PutAbilityBaselineApiV2OnboardingAbilityBaselinePutErrors[keyof PutAbilityBaselineApiV2OnboardingAbilityBaselinePutErrors];
+
+export type PutAbilityBaselineApiV2OnboardingAbilityBaselinePutResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeAbilityBaselineProfile;
+};
+
+export type PutAbilityBaselineApiV2OnboardingAbilityBaselinePutResponse = PutAbilityBaselineApiV2OnboardingAbilityBaselinePutResponses[keyof PutAbilityBaselineApiV2OnboardingAbilityBaselinePutResponses];
+
 export type AcknowledgeOnboardingResultApiV2OnboardingCompletePostData = {
     body: OnboardingResultAcknowledgement;
     headers: {
@@ -27117,6 +27617,136 @@ export type AcknowledgeOnboardingResultApiV2OnboardingCompletePostResponses = {
 };
 
 export type AcknowledgeOnboardingResultApiV2OnboardingCompletePostResponse = AcknowledgeOnboardingResultApiV2OnboardingCompletePostResponses[keyof AcknowledgeOnboardingResultApiV2OnboardingCompletePostResponses];
+
+export type GetPositionPreferenceApiV2OnboardingPositionPreferenceGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/onboarding/position-preference';
+};
+
+export type GetPositionPreferenceApiV2OnboardingPositionPreferenceGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetPositionPreferenceApiV2OnboardingPositionPreferenceGetError = GetPositionPreferenceApiV2OnboardingPositionPreferenceGetErrors[keyof GetPositionPreferenceApiV2OnboardingPositionPreferenceGetErrors];
+
+export type GetPositionPreferenceApiV2OnboardingPositionPreferenceGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopePositionPreferenceProfile;
+};
+
+export type GetPositionPreferenceApiV2OnboardingPositionPreferenceGetResponse = GetPositionPreferenceApiV2OnboardingPositionPreferenceGetResponses[keyof GetPositionPreferenceApiV2OnboardingPositionPreferenceGetResponses];
+
+export type PutPositionPreferenceApiV2OnboardingPositionPreferencePutData = {
+    body: PositionPreferenceWrite;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/onboarding/position-preference';
+};
+
+export type PutPositionPreferenceApiV2OnboardingPositionPreferencePutErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type PutPositionPreferenceApiV2OnboardingPositionPreferencePutError = PutPositionPreferenceApiV2OnboardingPositionPreferencePutErrors[keyof PutPositionPreferenceApiV2OnboardingPositionPreferencePutErrors];
+
+export type PutPositionPreferenceApiV2OnboardingPositionPreferencePutResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopePositionPreferenceProfile;
+};
+
+export type PutPositionPreferenceApiV2OnboardingPositionPreferencePutResponse = PutPositionPreferenceApiV2OnboardingPositionPreferencePutResponses[keyof PutPositionPreferenceApiV2OnboardingPositionPreferencePutResponses];
 
 export type GetPreparationExperienceApiV2OnboardingPreparationExperienceGetData = {
     body?: never;
@@ -28293,6 +28923,69 @@ export type SetTodayCapacityApiV2PlansTodayCapacityPutResponses = {
 
 export type SetTodayCapacityApiV2PlansTodayCapacityPutResponse = SetTodayCapacityApiV2PlansTodayCapacityPutResponses[keyof SetTodayCapacityApiV2PlansTodayCapacityPutResponses];
 
+export type PreviewTodayCapacityApiV2PlansTodayCapacityPreviewPostData = {
+    body: DailyCapacityCommand;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/plans/today/capacity/preview';
+};
+
+export type PreviewTodayCapacityApiV2PlansTodayCapacityPreviewPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type PreviewTodayCapacityApiV2PlansTodayCapacityPreviewPostError = PreviewTodayCapacityApiV2PlansTodayCapacityPreviewPostErrors[keyof PreviewTodayCapacityApiV2PlansTodayCapacityPreviewPostErrors];
+
+export type PreviewTodayCapacityApiV2PlansTodayCapacityPreviewPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeDailyCapacityPreview;
+};
+
+export type PreviewTodayCapacityApiV2PlansTodayCapacityPreviewPostResponse = PreviewTodayCapacityApiV2PlansTodayCapacityPreviewPostResponses[keyof PreviewTodayCapacityApiV2PlansTodayCapacityPreviewPostResponses];
+
 export type GetTodayPlanSettlementApiV2PlansTodaySettlementGetData = {
     body?: never;
     headers?: {
@@ -28703,6 +29396,132 @@ export type ComparePositionsApiV2PositionsComparePostResponses = {
 };
 
 export type ComparePositionsApiV2PositionsComparePostResponse = ComparePositionsApiV2PositionsComparePostResponses[keyof ComparePositionsApiV2PositionsComparePostResponses];
+
+export type ListPositionMajorsV2ApiV2PositionsMajorsGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/positions/majors';
+};
+
+export type ListPositionMajorsV2ApiV2PositionsMajorsGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ListPositionMajorsV2ApiV2PositionsMajorsGetError = ListPositionMajorsV2ApiV2PositionsMajorsGetErrors[keyof ListPositionMajorsV2ApiV2PositionsMajorsGetErrors];
+
+export type ListPositionMajorsV2ApiV2PositionsMajorsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeMajorTreeResponse;
+};
+
+export type ListPositionMajorsV2ApiV2PositionsMajorsGetResponse = ListPositionMajorsV2ApiV2PositionsMajorsGetResponses[keyof ListPositionMajorsV2ApiV2PositionsMajorsGetResponses];
+
+export type ListPositionRegionsV2ApiV2PositionsRegionsGetData = {
+    body?: never;
+    headers?: {
+        /**
+         * Authorization
+         */
+        Authorization?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/positions/regions';
+};
+
+export type ListPositionRegionsV2ApiV2PositionsRegionsGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ListPositionRegionsV2ApiV2PositionsRegionsGetError = ListPositionRegionsV2ApiV2PositionsRegionsGetErrors[keyof ListPositionRegionsV2ApiV2PositionsRegionsGetErrors];
+
+export type ListPositionRegionsV2ApiV2PositionsRegionsGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeProvinceListResponse;
+};
+
+export type ListPositionRegionsV2ApiV2PositionsRegionsGetResponse = ListPositionRegionsV2ApiV2PositionsRegionsGetResponses[keyof ListPositionRegionsV2ApiV2PositionsRegionsGetResponses];
 
 export type GetPositionWorkspaceApiV2PositionsWorkspaceGetData = {
     body?: never;

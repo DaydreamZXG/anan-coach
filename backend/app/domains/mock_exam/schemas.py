@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from typing import Literal
+from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -17,8 +18,15 @@ class MockExamModuleBlueprint(MockExamBaseModel):
     question_count: int = Field(alias="questionCount")
 
 
+class MockExamStartRequest(MockExamBaseModel):
+    model_config = ConfigDict(populate_by_name=True, extra="forbid")
+
+    plan_task_id: UUID | None = Field(default=None, alias="planTaskId")
+
+
 class MockExamSession(MockExamBaseModel):
     session_id: str = Field(alias="sessionId")
+    plan_task_id: UUID | None = Field(default=None, alias="planTaskId")
     status: Literal["assigned", "submitted", "reviewed"]
     title: str
     duration_minutes: int = Field(alias="durationMinutes")

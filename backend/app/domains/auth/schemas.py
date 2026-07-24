@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from app.domains.onboarding.v2_schemas import OnboardingProgress
 
@@ -62,6 +62,15 @@ class AccountSessionView(AuthBaseModel):
 
 class AccountOverview(AuthBaseModel):
     account_id: str = Field(alias="accountId")
+    display_name: str | None = Field(default=None, alias="displayName")
+    avatar_style: Literal[
+        "ocean",
+        "aurora",
+        "sunrise",
+        "violet",
+        "graphite",
+        "mint",
+    ] = Field(alias="avatarStyle")
     account_status: Literal[
         "active",
         "recovery_required",
@@ -72,6 +81,39 @@ class AccountOverview(AuthBaseModel):
     profile_version: int = Field(alias="profileVersion", ge=1)
     established_at: datetime = Field(alias="establishedAt")
     sessions: list[AccountSessionView]
+
+
+class AccountProfileUpdate(AuthBaseModel):
+    display_name: str = Field(alias="displayName", min_length=1, max_length=24)
+    avatar_style: Literal[
+        "ocean",
+        "aurora",
+        "sunrise",
+        "violet",
+        "graphite",
+        "mint",
+    ] = Field(alias="avatarStyle")
+
+    @field_validator("display_name")
+    @classmethod
+    def validate_display_name(cls, value: str) -> str:
+        normalized = " ".join(value.strip().split())
+        if not normalized or any(ord(character) < 32 for character in normalized):
+            raise ValueError("displayName must contain visible characters")
+        return normalized
+
+
+class AccountProfileView(AuthBaseModel):
+    display_name: str = Field(alias="displayName")
+    avatar_style: Literal[
+        "ocean",
+        "aurora",
+        "sunrise",
+        "violet",
+        "graphite",
+        "mint",
+    ] = Field(alias="avatarStyle")
+    updated_at: datetime = Field(alias="updatedAt")
 
 
 class SessionRevocationResult(AuthBaseModel):

@@ -14,6 +14,7 @@ from sqlalchemy.orm import Session
 class MockExamSessionRecord:
     session_id: str
     user_id: str
+    source_plan_task_id: str | None
     status: str
     question_ids: list[str]
     blueprint: list[dict[str, Any]]
@@ -48,6 +49,10 @@ class AssignedQuestionRecord:
 class MockExamRepository:
     def __init__(self, session: Session) -> None:
         self._session = session
+
+    @property
+    def session(self) -> Session:
+        return self._session
 
     def lock_user(self, *, user_id: str) -> None:
         row = self._session.execute(
@@ -307,6 +312,41 @@ class MockExamRepository:
         )
         return session_id
 
+    def bind_source_plan_task(
+        self,
+        *,
+        session_id: str,
+        user_id: str,
+        plan_task_id: str,
+        updated_at: datetime,
+    ) -> MockExamSessionRecord | None:
+        row = self._session.execute(
+            text(
+                """
+                update learner.mock_exam_sessions
+                set source_plan_task_id = cast(:plan_task_id as uuid),
+                    updated_at = :updated_at
+                where session_id = cast(:session_id as uuid)
+                  and user_id = cast(:user_id as uuid)
+                  and status = 'assigned'
+                  and (
+                    source_plan_task_id is null
+                    or source_plan_task_id = cast(:plan_task_id as uuid)
+                  )
+                returning session_id
+                """
+            ),
+            {
+                "session_id": session_id,
+                "user_id": user_id,
+                "plan_task_id": plan_task_id,
+                "updated_at": updated_at,
+            },
+        ).mappings().one_or_none()
+        if row is None:
+            return None
+        return self.get_session(session_id=session_id, user_id=user_id)
+
     def get_session(
         self,
         *,
@@ -319,6 +359,7 @@ class MockExamRepository:
                 select
                   session_id,
                   user_id,
+                  source_plan_task_id,
                   status,
                   question_ids,
                   blueprint,
@@ -367,6 +408,11 @@ class MockExamRepository:
         return MockExamSessionRecord(
             session_id=str(row["session_id"]),
             user_id=str(row["user_id"]),
+            source_plan_task_id=(
+                str(row["source_plan_task_id"])
+                if row["source_plan_task_id"] is not None
+                else None
+            ),
             status=str(row["status"]),
             question_ids=list(row["question_ids"] or []),
             blueprint=list(row["blueprint"] or []),

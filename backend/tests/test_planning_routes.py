@@ -92,17 +92,39 @@ def test_essay_planning_only_uses_exact_grounded_learning_evidence() -> None:
         assert _review_is_learning_eligible(invalid) is False
 
 
-def test_xingce_intro_start_url_is_materialized_with_plan_task_id() -> None:
+def test_plan_task_start_urls_are_materialized_with_plan_task_id() -> None:
     task_id = str(uuid4())
 
+    assert (
+        _materialize_plan_task_start_url(
+            "/pages/xingce-task-intro/index?mode=baseline",
+            task_id=task_id,
+        )
+        == f"/pages/xingce-task-intro/index?mode=baseline&planTaskId={task_id}"
+    )
+    assert (
+        _materialize_plan_task_start_url(
+            f"/pages/xingce-task-intro/index?mode=targeted&planTaskId={task_id}",
+            task_id=str(uuid4()),
+        )
+        == f"/pages/xingce-task-intro/index?mode=targeted&planTaskId={task_id}"
+    )
+    assert (
+        _materialize_plan_task_start_url(
+            "/pages/mock-exam/index",
+            task_id=task_id,
+        )
+        == f"/pages/mock-exam/index?planTaskId={task_id}"
+    )
     assert _materialize_plan_task_start_url(
-        "/pages/xingce-task-intro/index?mode=baseline",
+        "/pages/essay-task/index?mode=material-reading"
+        "&stage=essay_material_reading&taskVersionId=essay-task-v1",
         task_id=task_id,
-    ) == f"/pages/xingce-task-intro/index?mode=baseline&planTaskId={task_id}"
-    assert _materialize_plan_task_start_url(
-        f"/pages/xingce-task-intro/index?mode=targeted&planTaskId={task_id}",
-        task_id=str(uuid4()),
-    ) == f"/pages/xingce-task-intro/index?mode=targeted&planTaskId={task_id}"
+    ) == (
+        "/pages/essay-task/index?mode=material-reading"
+        "&stage=essay_material_reading&taskVersionId=essay-task-v1"
+        f"&planTaskId={task_id}"
+    )
 
 
 def test_dual_track_plan_persists_one_idempotent_xingce_and_essay_budget(
@@ -149,24 +171,35 @@ def test_dual_track_plan_persists_one_idempotent_xingce_and_essay_budget(
     assert xingce_query["planTaskId"] == [str(xingce_task.id)]
 
     with db_session_factory() as session:
-        assert session.execute(
-            text("select count(*) from learning.daily_plan_versions")
-        ).scalar_one() == 1
-        assert session.execute(
-            text("select count(*) from learning.daily_plan_tasks")
-        ).scalar_one() == 2
-        assert session.execute(
-            text("select count(*) from learning.weekly_study_preference_versions")
-        ).scalar_one() == 1
-        assert session.execute(
-            text("select count(*) from learning.daily_capacity_versions")
-        ).scalar_one() == 1
-        assert session.execute(
-            text(
-                "select count(*) from platform.outbox_events "
-                "where event_type = 'daily_plan.changed'"
-            )
-        ).scalar_one() == 1
+        assert (
+            session.execute(text("select count(*) from learning.daily_plan_versions")).scalar_one()
+            == 1
+        )
+        assert (
+            session.execute(text("select count(*) from learning.daily_plan_tasks")).scalar_one()
+            == 2
+        )
+        assert (
+            session.execute(
+                text("select count(*) from learning.weekly_study_preference_versions")
+            ).scalar_one()
+            == 1
+        )
+        assert (
+            session.execute(
+                text("select count(*) from learning.daily_capacity_versions")
+            ).scalar_one()
+            == 1
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from platform.outbox_events "
+                    "where event_type = 'daily_plan.changed'"
+                )
+            ).scalar_one()
+            == 1
+        )
 
 
 def test_today_plan_route_requires_authenticated_learner() -> None:
@@ -178,27 +211,46 @@ def test_planning_command_routes_require_authentication() -> None:
     client = TestClient(create_app())
     headers = {"Idempotency-Key": "planning-command-auth"}
 
-    assert client.put(
-        "/api/v2/plans/today/capacity",
-        headers=headers,
-        json={
-            "basedOnCapacityVersionId": str(uuid4()),
-            "availableMinutes": 45,
-            "energy": 3,
-            "stress": 3,
-            "confidenceLevel": 3,
-        },
-    ).status_code == 401
-    assert client.put(
-        f"/api/v2/plans/tasks/{uuid4()}/execution",
-        headers=headers,
-        json={
-            "status": "in_progress",
-            "elapsedMinutes": 0,
-            "evidenceRefs": [],
-            "basedOnExecutionVersionId": None,
-        },
-    ).status_code == 401
+    assert (
+        client.post(
+            "/api/v2/plans/today/capacity/preview",
+            json={
+                "basedOnCapacityVersionId": str(uuid4()),
+                "availableMinutes": 45,
+                "energy": 3,
+                "stress": 3,
+                "confidenceLevel": 3,
+            },
+        ).status_code
+        == 401
+    )
+    assert (
+        client.put(
+            "/api/v2/plans/today/capacity",
+            headers=headers,
+            json={
+                "basedOnCapacityVersionId": str(uuid4()),
+                "availableMinutes": 45,
+                "energy": 3,
+                "stress": 3,
+                "confidenceLevel": 3,
+            },
+        ).status_code
+        == 401
+    )
+    assert (
+        client.put(
+            f"/api/v2/plans/tasks/{uuid4()}/execution",
+            headers=headers,
+            json={
+                "status": "in_progress",
+                "elapsedMinutes": 0,
+                "evidenceRefs": [],
+                "basedOnExecutionVersionId": None,
+            },
+        ).status_code
+        == 401
+    )
 
 
 def test_today_plan_route_uses_the_authenticated_learner(
@@ -354,15 +406,82 @@ def test_capacity_command_is_idempotent_and_creates_a_new_plan_version(
     assert conflict.status_code == 409
 
     with db_session_factory() as session:
-        assert session.execute(
-            text("select count(*) from learning.daily_capacity_versions")
-        ).scalar_one() == 2
-        assert session.execute(
-            text(
-                "select count(*) from platform.outbox_events "
-                "where event_type = 'daily_capacity.changed'"
-            )
-        ).scalar_one() == 1
+        assert (
+            session.execute(
+                text("select count(*) from learning.daily_capacity_versions")
+            ).scalar_one()
+            == 2
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from platform.outbox_events "
+                    "where event_type = 'daily_capacity.changed'"
+                )
+            ).scalar_one()
+            == 1
+        )
+
+
+def test_capacity_preview_uses_the_real_planner_without_persisting_the_proposal(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    token = "planning-capacity-preview-token"
+    _seed_learner_and_published_essay_content(
+        db_session_factory,
+        access_token=token,
+    )
+    client = _client(db_session_factory)
+    auth = {"Authorization": f"Bearer {token}"}
+    initial = client.get("/api/v2/plans/today", headers=auth).json()["data"]
+    command = {
+        "basedOnCapacityVersionId": initial["capacity"]["capacityVersionId"],
+        "availableMinutes": 30,
+        "energy": 4,
+        "stress": 2,
+        "confidenceLevel": 5,
+    }
+
+    with db_session_factory() as session:
+        counts_before = {
+            "capacities": session.execute(
+                text("select count(*) from learning.daily_capacity_versions")
+            ).scalar_one(),
+            "plans": session.execute(
+                text("select count(*) from learning.daily_plan_versions")
+            ).scalar_one(),
+            "outbox": session.execute(
+                text("select count(*) from platform.outbox_events")
+            ).scalar_one(),
+        }
+
+    response = client.post(
+        "/api/v2/plans/today/capacity/preview",
+        headers=auth,
+        json=command,
+    )
+
+    assert response.status_code == 200, response.text
+    preview = response.json()["data"]
+    assert preview["basedOnCapacityVersionId"] == command["basedOnCapacityVersionId"]
+    assert preview["currentPlan"]["planVersionId"] == initial["planVersionId"]
+    assert preview["proposedPlan"]["capacity"]["availableMinutes"] == 30
+    assert preview["proposedPlan"]["capacity"]["energy"] == 4
+    assert sum(task["estimatedMinutes"] for task in preview["proposedPlan"]["tasks"]) <= 30
+
+    with db_session_factory() as session:
+        counts_after = {
+            "capacities": session.execute(
+                text("select count(*) from learning.daily_capacity_versions")
+            ).scalar_one(),
+            "plans": session.execute(
+                text("select count(*) from learning.daily_plan_versions")
+            ).scalar_one(),
+            "outbox": session.execute(
+                text("select count(*) from platform.outbox_events")
+            ).scalar_one(),
+        }
+    assert counts_after == counts_before
 
 
 def test_confirmed_critical_energy_or_stress_switches_to_recovery_mode(
@@ -384,9 +503,7 @@ def test_confirmed_critical_energy_or_stress_switches_to_recovery_mode(
             user_id=user_id,
             command_id="critical-load-recovery-command",
             command=DailyCapacityCommand(
-                based_on_capacity_version_id=str(
-                    initial.capacity.capacity_version_id
-                ),
+                based_on_capacity_version_id=str(initial.capacity.capacity_version_id),
                 available_minutes=initial.capacity.available_minutes,
                 energy=1,
                 stress=5,
@@ -464,9 +581,10 @@ def test_public_task_execution_allows_progress_and_abandonment_but_not_completio
         task for task in started_data["plan"]["tasks"] if task["track"] == "xingce"
     )
     assert current_xingce["status"] == "in_progress"
-    assert current_xingce["execution"]["executionVersionId"] == started_data["execution"][
-        "executionVersionId"
-    ]
+    assert (
+        current_xingce["execution"]["executionVersionId"]
+        == started_data["execution"]["executionVersionId"]
+    )
     refreshed = client.get("/api/v2/plans/today", headers=auth).json()["data"]
     refreshed_xingce = next(task for task in refreshed["tasks"] if task["track"] == "xingce")
     assert refreshed_xingce["status"] == "in_progress"
@@ -506,9 +624,7 @@ def test_public_task_execution_allows_progress_and_abandonment_but_not_completio
             "elapsedMinutes": 20,
             "evidenceRefs": [],
             "abandonmentReason": "当日受控行测 writer 尚未结算，主动结束当前工作项。",
-            "basedOnExecutionVersionId": started_data["execution"][
-                "executionVersionId"
-            ],
+            "basedOnExecutionVersionId": started_data["execution"]["executionVersionId"],
         },
     )
     assert abandoned_xingce.status_code == 200, abandoned_xingce.text
@@ -516,9 +632,7 @@ def test_public_task_execution_allows_progress_and_abandonment_but_not_completio
     assert completed_data["execution"]["status"] == "abandoned"
     assert completed_data["execution"]["versionNo"] == 2
     assert all(task["track"] != "xingce" for task in completed_data["plan"]["tasks"])
-    assert sum(
-        task["estimatedMinutes"] for task in completed_data["plan"]["tasks"]
-    ) <= 25
+    assert sum(task["estimatedMinutes"] for task in completed_data["plan"]["tasks"]) <= 25
     assert "task_execution_recorded" in completed_data["plan"]["replanReasonCodes"]
 
     essay = next(task for task in completed_data["plan"]["tasks"] if task["track"] == "essay")
@@ -540,15 +654,21 @@ def test_public_task_execution_allows_progress_and_abandonment_but_not_completio
     assert abandoned_data["plan"]["dayMode"] == "unavailable"
 
     with db_session_factory() as session:
-        assert session.execute(
-            text("select count(*) from learning.task_execution_versions")
-        ).scalar_one() == 3
-        assert session.execute(
-            text(
-                "select count(*) from platform.outbox_events "
-                "where event_type = 'planning_task_execution.changed'"
-            )
-        ).scalar_one() == 3
+        assert (
+            session.execute(
+                text("select count(*) from learning.task_execution_versions")
+            ).scalar_one()
+            == 3
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from platform.outbox_events "
+                    "where event_type = 'planning_task_execution.changed'"
+                )
+            ).scalar_one()
+            == 3
+        )
 
 
 def test_expired_plan_task_route_returns_stable_conflict_without_execution_write(
@@ -593,19 +713,25 @@ def test_expired_plan_task_route_returns_stable_conflict_without_execution_write
     assert body["details"]["taskId"] == str(task.id)
     assert body["details"]["planVersionId"] == str(plan.plan_version_id)
     with db_session_factory() as session:
-        assert session.execute(
-            text(
-                "select count(*) from learning.task_execution_versions "
-                "where user_id = cast(:user_id as uuid)"
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 0
-        assert session.execute(
-            text(
-                "select count(*) from platform.outbox_events "
-                "where event_type = 'planning_task_execution.changed'"
-            )
-        ).scalar_one() == 0
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from learning.task_execution_versions "
+                    "where user_id = cast(:user_id as uuid)"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 0
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from platform.outbox_events "
+                    "where event_type = 'planning_task_execution.changed'"
+                )
+            ).scalar_one()
+            == 0
+        )
 
 
 def test_expired_essay_artifact_completion_uses_same_conflict_and_rolls_back(
@@ -626,9 +752,7 @@ def test_expired_essay_artifact_completion_uses_same_conflict_and_rolls_back(
         )
     task = next(item for item in plan.tasks if item.stage == "essay_material_reading")
     task_version_id = next(
-        item.entity_id
-        for item in task.evidence_refs
-        if item.entity_type == "essay_task_version"
+        item.entity_id for item in task.evidence_refs if item.entity_type == "essay_task_version"
     )
     material_version_id = next(
         item.entity_id
@@ -680,29 +804,38 @@ def test_expired_essay_artifact_completion_uses_same_conflict_and_rolls_back(
     assert body["code"] == "plan_task_expired"
     assert body["details"]["taskId"] == str(task.id)
     with db_session_factory() as session:
-        assert session.execute(
-            text(
-                "select count(*) from learning.essay_learning_artifact_versions "
-                "where user_id = cast(:user_id as uuid)"
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 0
-        assert session.execute(
-            text(
-                "select count(*) from learning.task_execution_versions "
-                "where user_id = cast(:user_id as uuid)"
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 0
-        assert session.execute(
-            text(
-                "select count(*) from platform.outbox_events "
-                "where event_type in ("
-                "'planning_task_execution.changed', "
-                "'essay_learning_artifact.recorded'"
-                ")"
-            )
-        ).scalar_one() == 0
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from learning.essay_learning_artifact_versions "
+                    "where user_id = cast(:user_id as uuid)"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 0
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from learning.task_execution_versions "
+                    "where user_id = cast(:user_id as uuid)"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 0
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from platform.outbox_events "
+                    "where event_type in ("
+                    "'planning_task_execution.changed', "
+                    "'essay_learning_artifact.recorded'"
+                    ")"
+                )
+            ).scalar_one()
+            == 0
+        )
 
 
 def test_task_execution_rejects_cross_user_and_unowned_evidence(
@@ -786,9 +919,12 @@ def test_task_execution_rejects_cross_user_and_unowned_evidence(
     assert cross_user.status_code == 409
     assert fake_evidence.status_code == 409
     with db_session_factory() as session:
-        assert session.execute(
-            text("select count(*) from learning.task_execution_versions")
-        ).scalar_one() == 0
+        assert (
+            session.execute(
+                text("select count(*) from learning.task_execution_versions")
+            ).scalar_one()
+            == 0
+        )
 
 
 def test_material_reading_completion_accepts_owned_canonical_artifact_and_replans(
@@ -847,9 +983,12 @@ def test_material_reading_completion_accepts_owned_canonical_artifact_and_replan
     )
     assert rolled_back.status_code == 409
     with db_session_factory() as session:
-        assert session.execute(
-            text("select count(*) from learning.essay_learning_artifact_versions")
-        ).scalar_one() == 0
+        assert (
+            session.execute(
+                text("select count(*) from learning.essay_learning_artifact_versions")
+            ).scalar_one()
+            == 0
+        )
 
     response = client.post(
         "/api/v2/essay-intelligence/artifacts/complete-plan-task",
@@ -866,12 +1005,11 @@ def test_material_reading_completion_accepts_owned_canonical_artifact_and_replan
     result = response.json()["data"]
     assert result["completion"]["execution"]["status"] == "complete"
     assert result["artifact"]["artifactType"] == "material_annotation"
-    assert not any(
-        task["track"] == "essay" for task in result["completion"]["plan"]["tasks"]
+    assert not any(task["track"] == "essay" for task in result["completion"]["plan"]["tasks"])
+    assert (
+        "评分规程尚未发布"
+        in result["completion"]["plan"]["dualTrackExplanation"]["omittedTrackReasons"]["essay"]
     )
-    assert "评分规程尚未发布" in result["completion"]["plan"]["dualTrackExplanation"][
-        "omittedTrackReasons"
-    ]["essay"]
     replay = client.post(
         "/api/v2/essay-intelligence/artifacts/complete-plan-task",
         headers={**auth, "Idempotency-Key": "material-atomic-complete"},
@@ -966,8 +1104,8 @@ def test_essay_planning_consumes_canonical_mastery_heads_and_distinct_transfer(
     )
     client = essay_client(db_session_factory)
     app = cast(Any, client.app)
-    app.dependency_overrides[get_essay_closure_service] = lambda: (
-        EssayClosureService(now=lambda: NOW)
+    app.dependency_overrides[get_essay_closure_service] = lambda: EssayClosureService(
+        now=lambda: NOW
     )
     auth = {"Authorization": f"Bearer {token}"}
     decision_id = _post_decision(
@@ -999,9 +1137,7 @@ def test_essay_planning_consumes_canonical_mastery_heads_and_distinct_transfer(
                 goal_version_id=None,
                 ability_estimate_version_id=None,
             ),
-            objective=ObjectivePlanningSnapshot(
-                False, 0, 0, None, None, "available", None
-            ),
+            objective=ObjectivePlanningSnapshot(False, 0, 0, None, None, "available", None),
             essay=rewrite_due,
             available_minutes=60,
         ).candidates
@@ -1009,9 +1145,7 @@ def test_essay_planning_consumes_canonical_mastery_heads_and_distinct_transfer(
     )
     assert rewrite_candidate.stage == "essay_rewrite"
     assert f"taskVersionId={ids['task']}" in rewrite_candidate.start_url
-    assert f"findingDecisionArtifactVersionId={decision_id}" in (
-        rewrite_candidate.start_url
-    )
+    assert f"findingDecisionArtifactVersionId={decision_id}" in (rewrite_candidate.start_url)
     with db_session_factory.begin() as session:
         plan = PlanningService(now=lambda: NOW).get_or_create_today(
             session,
@@ -1162,21 +1296,15 @@ def test_essay_planning_consumes_canonical_mastery_heads_and_distinct_transfer(
                 goal_version_id=None,
                 ability_estimate_version_id=None,
             ),
-            objective=ObjectivePlanningSnapshot(
-                False, 0, 0, None, None, "available", None
-            ),
+            objective=ObjectivePlanningSnapshot(False, 0, 0, None, None, "available", None),
             essay=transfer_due,
             available_minutes=60,
         ).candidates
         if item.track == "essay"
     )
     assert "stage=essay_transfer" in transfer_candidate.start_url
-    assert f"sourceRewriteVersionId={rewrite['rewriteVersionId']}" in (
-        transfer_candidate.start_url
-    )
-    assert {
-        item["entityType"] for item in transfer_candidate.evidence_refs
-    } >= {
+    assert f"sourceRewriteVersionId={rewrite['rewriteVersionId']}" in (transfer_candidate.start_url)
+    assert {item["entityType"] for item in transfer_candidate.evidence_refs} >= {
         "essay_mastery_state_version",
         "essay_source_task_version",
         "essay_source_answer_version",
@@ -1226,10 +1354,7 @@ def test_essay_planning_consumes_canonical_mastery_heads_and_distinct_transfer(
     with db_session_factory() as session:
         transfer_counts_before = {
             "transfers": session.execute(
-                text(
-                    "select count(*) from "
-                    "learning.essay_transfer_verification_versions"
-                )
+                text("select count(*) from learning.essay_transfer_verification_versions")
             ).scalar_one(),
             "mastery": session.execute(
                 text("select count(*) from learning.essay_mastery_state_versions")
@@ -1250,10 +1375,7 @@ def test_essay_planning_consumes_canonical_mastery_heads_and_distinct_transfer(
     with db_session_factory() as session:
         assert {
             "transfers": session.execute(
-                text(
-                    "select count(*) from "
-                    "learning.essay_transfer_verification_versions"
-                )
+                text("select count(*) from learning.essay_transfer_verification_versions")
             ).scalar_one(),
             "mastery": session.execute(
                 text("select count(*) from learning.essay_mastery_state_versions")
@@ -1320,20 +1442,26 @@ def test_essay_planning_consumes_canonical_mastery_heads_and_distinct_transfer(
             user_id=user_id,
             goal=repository.goal_and_ability(session, user_id=user_id),
         )
-        assert session.execute(
-            text(
-                "select count(*) from learning.score_evidence "
-                "where user_id = cast(:user_id as uuid)"
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 0
-        assert session.execute(
-            text(
-                "select count(*) from learning.ability_estimate_versions "
-                "where user_id = cast(:user_id as uuid)"
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 0
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from learning.score_evidence "
+                    "where user_id = cast(:user_id as uuid)"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 0
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from learning.ability_estimate_versions "
+                    "where user_id = cast(:user_id as uuid)"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 0
+        )
     assert stable.next_stage == "content_unavailable"
     assert stable.mastery_state == "stable_mastered"
     assert "不重复生成复写或迁移训练" in str(stable.pending_reason)
@@ -1354,8 +1482,7 @@ def _seed_learner_and_published_essay_content(
     with factory.begin() as session:
         session.execute(
             text(
-                "insert into learner.users (user_id, display_name) "
-                "values (:user_id, '双轨学习者')"
+                "insert into learner.users (user_id, display_name) values (:user_id, '双轨学习者')"
             ),
             {"user_id": user_id},
         )
@@ -1407,9 +1534,7 @@ def _seed_learner_and_published_essay_content(
             ),
             {
                 "task_version_id": task_version_id,
-                "prompt_sha": sha256(
-                    "根据给定资料概括主要问题。".encode("utf-8")
-                ).hexdigest(),
+                "prompt_sha": sha256("根据给定资料概括主要问题。".encode("utf-8")).hexdigest(),
             },
         )
         session.execute(
@@ -1558,9 +1683,7 @@ def _seed_active_route_day_preference(session: Session, *, user_id: str) -> None
             "rest_weekday": route_rest_weekday,
             "mock_weekday": route_mock_weekday,
             "effective_from": route_local_date,
-            "input_fingerprint": sha256(
-                f"test-active-route-day:{user_id}".encode()
-            ).hexdigest(),
+            "input_fingerprint": sha256(f"test-active-route-day:{user_id}".encode()).hexdigest(),
             "created_at": datetime.now(UTC),
         },
     )
@@ -1570,9 +1693,10 @@ def _published_essay_content_ids(
     factory: sessionmaker[Session],
 ) -> dict[str, str]:
     with factory() as session:
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 select task.task_version_id::text as task,
                        material.material_bundle_version_id::text as material,
                        rubric.rubric_version_id::text as rubric
@@ -1588,8 +1712,11 @@ def _published_essay_content_ids(
                  order by material.version_no desc
                  limit 1
                 """
+                )
             )
-        ).mappings().one()
+            .mappings()
+            .one()
+        )
     return {key: str(value) for key, value in row.items()}
 
 
@@ -1601,9 +1728,7 @@ def _insert_foreign_rubric_successor(
 ) -> None:
     if foreign_lineage not in {"other_material", "legacy_unbound"}:
         raise ValueError(f"Unsupported foreign rubric lineage: {foreign_lineage}")
-    foreign_material_id = (
-        str(uuid4()) if foreign_lineage == "other_material" else None
-    )
+    foreign_material_id = str(uuid4()) if foreign_lineage == "other_material" else None
     with factory.begin() as session:
         if foreign_material_id is not None:
             base_material_version = int(

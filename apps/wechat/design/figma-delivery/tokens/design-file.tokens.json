@@ -1,0 +1,219 @@
+{
+  "$schema": "https://tr.designtokens.org/format/",
+  "$extensions": {
+    "anan.source": {
+      "fileKey": "pU5sxRfG4UFeCCrnSPoaAX",
+      "pageCount": 8,
+      "screenCount": 45,
+      "inventory": "../screen-inventory.json",
+      "observedValues": "observed-values.json",
+      "extraction": "Figma Desktop MCP get_design_context",
+      "publishedFigmaVariables": false,
+      "publishedFigmaStyles": false,
+      "note": "Semantic aliases below are a traceable snapshot of the 45 delivery nodes. observed-values.json preserves every raw value and frequency."
+    }
+  },
+  "color": {
+    "$type": "color",
+    "canvas": { "$value": "#f7f9fc" },
+    "surface": { "$value": "#ffffff" },
+    "surfaceSubtle": { "$value": "#f9fafb" },
+    "ink": { "$value": "#101828" },
+    "inkStrong": { "$value": "#1e2939" },
+    "inkSecondary": { "$value": "#364153" },
+    "inkTertiary": { "$value": "#4a5565" },
+    "muted": { "$value": "#6a7282" },
+    "faint": { "$value": "#99a1af" },
+    "line": { "$value": "#f3f4f6" },
+    "lineStrong": { "$value": "#e5e7eb" },
+    "lineEmphasis": { "$value": "#d1d5dc" },
+    "primary": { "$value": "#615fff" },
+    "primaryDeep": { "$value": "#4f39f6" },
+    "primaryBright": { "$value": "#7c86ff" },
+    "primarySoft": { "$value": "#eef2ff" },
+    "primarySoftStrong": { "$value": "#e0e7ff" },
+    "aiViolet": { "$value": "#ad46ff" },
+    "aiPink": { "$value": "#f6339a" },
+    "cyan": { "$value": "#00d3f3" },
+    "cyanDeep": { "$value": "#00b8db" },
+    "cyanDark": { "$value": "#0092b8" },
+    "cyanSoft": { "$value": "#ecfeff" },
+    "cyanSoftStrong": { "$value": "#cefafe" },
+    "warning": { "$value": "#ff6900" },
+    "warningDeep": { "$value": "#f54900" },
+    "warningSoft": { "$value": "#fff7ed" },
+    "success": { "$value": "#00a63e" },
+    "successBright": { "$value": "#00c950" },
+    "successSoft": { "$value": "#f0fdf4" },
+    "danger": { "$value": "#fb2c36" },
+    "dangerDeep": { "$value": "#e7000b" },
+    "dangerSoft": { "$value": "#fef2f2" },
+    "dangerSoftStrong": { "$value": "#ffe2e2" },
+    "info": { "$value": "#155dfc" },
+    "infoBright": { "$value": "#51a2ff" },
+    "infoSoft": { "$value": "#eff6ff" },
+    "deviceFrame": { "$value": "#111827" },
+    "onDark": { "$value": "#ffffff" }
+  },
+  "gradient": {
+    "$type": "gradient",
+    "ai": {
+      "$value": [
+        { "color": "#615fff", "position": 0 },
+        { "color": "#ad46ff", "position": 0.5 },
+        { "color": "#f6339a", "position": 1 }
+      ]
+    },
+    "dark": {
+      "$value": [
+        { "color": "#1e2939", "position": 0 },
+        { "color": "#101828", "position": 1 }
+      ]
+    },
+    "loginHaloTop": {
+      "$value": [
+        { "color": "#a3b3ff66", "position": 0 },
+        { "color": "#dab2ff66", "position": 0.5 },
+        { "color": "#fda5d566", "position": 1 }
+      ]
+    },
+    "loginHaloBottom": {
+      "$value": [
+        { "color": "#bedbff66", "position": 0 },
+        { "color": "#96f7e466", "position": 1 }
+      ]
+    }
+  },
+  "spacing": {
+    "$type": "dimension",
+    "2": { "$value": { "value": 2, "unit": "px" } },
+    "4": { "$value": { "value": 4, "unit": "px" } },
+    "6": { "$value": { "value": 6, "unit": "px" } },
+    "8": { "$value": { "value": 8, "unit": "px" } },
+    "10": { "$value": { "value": 10, "unit": "px" } },
+    "12": { "$value": { "value": 12, "unit": "px" } },
+    "16": { "$value": { "value": 16, "unit": "px" } },
+    "20": { "$value": { "value": 20, "unit": "px" } },
+    "24": { "$value": { "value": 24, "unit": "px" } },
+    "32": { "$value": { "value": 32, "unit": "px" } },
+    "40": { "$value": { "value": 40, "unit": "px" } },
+    "48": { "$value": { "value": 48, "unit": "px" } }
+  },
+  "dimension": {
+    "$type": "dimension",
+    "pageInset": { "$value": { "value": 20, "unit": "px" } },
+    "cardPadding": { "$value": { "value": 24, "unit": "px" } },
+    "cardPaddingCompact": { "$value": { "value": 16, "unit": "px" } },
+    "sectionGap": { "$value": { "value": 24, "unit": "px" } },
+    "contentGap": { "$value": { "value": 20, "unit": "px" } },
+    "statusBarHeight": { "$value": { "value": 45, "unit": "px" } },
+    "bottomNavigationHeight": { "$value": { "value": 90, "unit": "px" } },
+    "outerScreenWidth": { "$value": { "value": 406, "unit": "px" } },
+    "outerScreenHeight": { "$value": { "value": 860, "unit": "px" } },
+    "screenWidth": { "$value": { "value": 390, "unit": "px" } },
+    "screenHeight": { "$value": { "value": 844, "unit": "px" } }
+  },
+  "radius": {
+    "$type": "dimension",
+    "deviceOuter": { "$value": { "value": 56, "unit": "px" } },
+    "deviceInner": { "$value": { "value": 48, "unit": "px" } },
+    "cardXLarge": { "$value": { "value": 36, "unit": "px" } },
+    "cardLarge": { "$value": { "value": 32, "unit": "px" } },
+    "cardMedium": { "$value": { "value": 30, "unit": "px" } },
+    "card": { "$value": { "value": 24, "unit": "px" } },
+    "control": { "$value": { "value": 20, "unit": "px" } },
+    "compact": { "$value": { "value": 16, "unit": "px" } },
+    "small": { "$value": { "value": 12, "unit": "px" } },
+    "xsmall": { "$value": { "value": 8, "unit": "px" } },
+    "pill": { "$value": { "value": 9999, "unit": "px" } }
+  },
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "figmaReference": { "$value": "Inter" },
+      "wechatRuntime": {
+        "$value": [
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "PingFang SC",
+          "Helvetica Neue",
+          "Arial",
+          "sans-serif"
+        ]
+      }
+    },
+    "size": {
+      "$type": "dimension",
+      "display": { "$value": { "value": 54, "unit": "px" } },
+      "displayCompact": { "$value": { "value": 36, "unit": "px" } },
+      "titleXLarge": { "$value": { "value": 32, "unit": "px" } },
+      "pageTitle": { "$value": { "value": 28, "unit": "px" } },
+      "heroTitle": { "$value": { "value": 26, "unit": "px" } },
+      "titleLarge": { "$value": { "value": 24, "unit": "px" } },
+      "title": { "$value": { "value": 20, "unit": "px" } },
+      "titleSmall": { "$value": { "value": 18, "unit": "px" } },
+      "bodyLarge": { "$value": { "value": 16, "unit": "px" } },
+      "body": { "$value": { "value": 14, "unit": "px" } },
+      "bodyCompact": { "$value": { "value": 13, "unit": "px" } },
+      "caption": { "$value": { "value": 12, "unit": "px" } },
+      "micro": { "$value": { "value": 11, "unit": "px" } },
+      "tab": { "$value": { "value": 10, "unit": "px" } },
+      "minimum": { "$value": { "value": 9, "unit": "px" } }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "regular": { "$value": 400 },
+      "medium": { "$value": 500 },
+      "semibold": { "$value": 600 },
+      "bold": { "$value": 700 }
+    }
+  },
+  "shadow": {
+    "$type": "shadow",
+    "surface": {
+      "$value": {
+        "color": "#00000005",
+        "offsetX": "0px",
+        "offsetY": "4px",
+        "blur": "10px",
+        "spread": "0px"
+      }
+    },
+    "card": {
+      "$value": {
+        "color": "#0000000a",
+        "offsetX": "0px",
+        "offsetY": "8px",
+        "blur": "15px",
+        "spread": "0px"
+      }
+    },
+    "elevated": {
+      "$value": {
+        "color": "#0000001f",
+        "offsetX": "0px",
+        "offsetY": "8px",
+        "blur": "15px",
+        "spread": "0px"
+      }
+    },
+    "cardStrong": {
+      "$value": {
+        "color": "#0000000f",
+        "offsetX": "0px",
+        "offsetY": "8px",
+        "blur": "30px",
+        "spread": "0px"
+      }
+    },
+    "device": {
+      "$value": {
+        "color": "#00000033",
+        "offsetX": "0px",
+        "offsetY": "60px",
+        "blur": "120px",
+        "spread": "0px"
+      }
+    }
+  }
+}

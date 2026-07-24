@@ -27,6 +27,8 @@ from app.domains.positions.discovery import (
     PositionDiscoveryService,
 )
 from app.domains.positions.schemas import (
+    MajorTreeResponse,
+    ProvinceListResponse,
     PositionComparisonRequest,
     PositionComparisonResponse,
     PositionDiscoveryDetail,
@@ -35,7 +37,8 @@ from app.domains.positions.schemas import (
     PositionTargetScoreContractResponse,
     PositionWorkspaceResponse,
 )
-from app.domains.positions.service import PositionNotFoundError
+from app.domains.positions.repository import PositionRepository
+from app.domains.positions.service import PositionNotFoundError, PositionService
 from app.domains.positions.target_scores import (
     PositionTargetScoreContractError,
     PositionTargetScoreOwner,
@@ -224,6 +227,36 @@ def get_qualification_gaps(
         return _position_release_unavailable_response(request=request)
     except QualificationContractError as exc:
         return _qualification_error_response(request=request, error=exc)
+
+
+@router.get(
+    "/positions/majors",
+    response_model=PublicApiEnvelope[MajorTreeResponse],
+)
+def list_position_majors_v2(
+    request: Request,
+    response: Response,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> PublicApiEnvelope[MajorTreeResponse]:
+    del current_user
+    result = PositionService(PositionRepository(session)).list_majors()
+    return public_success_envelope(request=request, response=response, data=result)
+
+
+@router.get(
+    "/positions/regions",
+    response_model=PublicApiEnvelope[ProvinceListResponse],
+)
+def list_position_regions_v2(
+    request: Request,
+    response: Response,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> PublicApiEnvelope[ProvinceListResponse]:
+    del current_user
+    result = PositionService(PositionRepository(session)).list_regions()
+    return public_success_envelope(request=request, response=response, data=result)
 
 
 @router.post(

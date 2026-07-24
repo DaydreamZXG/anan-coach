@@ -1,89 +1,177 @@
-<view class="page ability">
-  <safe-top />
+<view class="ability-page">
+  <safe-top gap="8" />
 
-  <block wx:if="{{loading}}">
-    <view class="skeleton-card" />
-    <view class="skeleton-card" />
-  </block>
+  <view class="ability-content">
+    <view class="ability-header">
+      <view class="ability-title">能力</view>
+      <view class="ability-subtitle">知道现在在哪，才知道下一步往哪走</view>
+      <view wx:if="{{updatedLabel}}" class="ability-updated">{{updatedLabel}} 更新 · 已参考 {{evidenceCountLabel}} 条学习记录</view>
+    </view>
 
-  <block wx:else>
-    <text class="page-title h1">我的能力</text>
+    <state-view wx:if="{{status === 'loading'}}" state="loading" />
+    <state-view
+      wx:elif="{{status === 'error'}}"
+      state="error"
+      title="学习档案没有加载成功"
+      description="{{errorMessage}}"
+      request-id="{{requestId}}"
+      action-text="重新加载"
+      bind:action="retry"
+    />
 
-    <!-- 总估分 + 置信 -->
-    <view class="overall card">
-      <view class="overall-top">
-        <view>
-          <text class="text-3">行测综合估分</text>
-          <view class="overall-score">
-            <text class="overall-num num">{{est.xingceScore === null ? '--' : est.xingceScore}}</text>
-            <text class="overall-unit">分</text>
+    <block wx:elif="{{profile}}">
+      <view class="ability-card goal-card fade-slide-in" style="animation-delay: 0.05s">
+        <view class="card-heading">
+          <view class="card-heading__main">
+            <text class="card-title">目标对照</text>
+            <text class="goal-name">· {{goalName}}</text>
+          </view>
+          <button hover-class="item--hover" class="text-action" bindtap="openPositionWorkspace">
+            <text>查看怎么算的</text>
+            <image class="icon icon--chevron" src="/assets/icons/ability/chevron-right-muted.png" mode="aspectFit" />
+          </button>
+        </view>
+        <view class="goal-metrics">
+          <view class="goal-metric">
+            <view class="metric-label">能力估计</view>
+            <view class="metric-value type-data">{{currentScoreLabel}}</view>
+          </view>
+          <view class="goal-metric">
+            <view class="metric-label">岗位备考参考线</view>
+            <view class="metric-value type-data">{{targetScoreLabel}}</view>
+          </view>
+          <view class="goal-metric">
+            <view class="metric-label">当前差距</view>
+            <view class="metric-value type-data">{{scoreGapLabel}}</view>
           </view>
         </view>
-        <view class="confidence-pill conf-{{est.confidence}}">
-          <text class="conf-label">置信度</text>
-          <text class="conf-value">{{confidenceLabel}}</text>
-        </view>
+        <view class="goal-boundary {{goalAvailable ? '' : 'goal-boundary--pending'}}">{{goalBoundaryLabel}}</view>
       </view>
-      <text class="overall-dataline">{{est.dataLine}}</text>
-      <text wx:if="{{est.latestMockReason}}" class="overall-reason text-3">{{est.latestMockReason}}</text>
-      <button class="btn btn-primary overall-cta" bindtap="onGoMock">做一次限时模考，收窄区间</button>
-    </view>
 
-    <!-- 能力地形：模块条 + 不确定带 -->
-    <view class="section-title">
-      <text class="h2">能力地形</text>
-      <text class="text-3">灰色区间 = 数据还不够确定的范围</text>
-    </view>
-    <view class="card terrain">
-      <view wx:if="{{!modulesView.length}}" class="terrain-empty">
-        <text class="text-2">还没有分模块数据</text>
-        <text class="text-3">做一次摸底或几组练习，五大模块的强弱地形就会画出来</text>
-      </view>
-      <view wx:for="{{modulesView}}" wx:key="moduleName" class="module">
-        <view class="module-head">
-          <text class="module-name">{{item.moduleName}}</text>
-          <view class="module-meta">
-            <text class="module-src text-3">{{item.sourceLabel}} · {{item.sampleSize}}题</text>
-            <text class="module-acc num">{{item.accuracyPct}}%</text>
+      <view class="ability-card overview-card fade-slide-in" style="animation-delay: 0.1s">
+        <view class="card-heading">
+          <view class="card-title">当前能力总览</view>
+          <view class="status-chip">{{profileReadinessLabel}}</view>
+        </view>
+        <view class="overview-row">
+          <view class="overview-total">
+            <view class="metric-label">综合区间</view>
+            <view class="overview-total__value type-data">{{totalScoreLabel}}</view>
+          </view>
+          <view class="overview-scores">
+            <view class="overview-score">
+              <view class="metric-label">行测</view>
+              <view class="overview-score__value type-data">{{xingceScoreLabel}}</view>
+            </view>
+            <view class="overview-score">
+              <view class="metric-label">申论</view>
+              <view class="overview-score__value type-data">{{essayScoreLabel}}</view>
+            </view>
           </view>
         </view>
-        <view class="bar">
-          <!-- 不确定带 -->
-          <view class="bar-band" style="left:{{item.bandLeft}}%;width:{{item.bandWidth}}%;" />
-          <!-- 估计点 -->
-          <view class="bar-point" style="left:{{item.accuracyPct}}%;" />
+      </view>
+
+      <view class="subject-tabs fade-slide-in" style="animation-delay: 0.15s">
+        <button hover-class="item--hover" class="subject-tab {{subjectTab === 'xingce' ? 'subject-tab--active' : ''}}" data-value="xingce" bindtap="chooseSubject">行测</button>
+        <button hover-class="item--hover" class="subject-tab {{subjectTab === 'essay' ? 'subject-tab--active' : ''}}" data-value="essay" bindtap="chooseSubject">申论</button>
+      </view>
+
+      <block wx:if="{{subjectTab === 'xingce'}}">
+        <view class="ability-card radar-card fade-slide-in" style="animation-delay: 0.2s">
+          <view class="radar-head">
+            <view class="radar-title">行测模块状态</view>
+            <view class="radar-note">综合正确率、用时、稳定掌握和复测表现，不等同于卷面分。</view>
+          </view>
+          <ability-radar wx:if="{{radarPoints.length >= 3}}" points="{{radarPoints}}" />
+          <view wx:else class="ability-empty">至少三个模块产生真实作答记录后，才会形成分布图。</view>
+          <view wx:if="{{xingceModules.length}}" class="radar-summary">模块状态来自真实作答、用时与间隔复测记录。</view>
         </view>
-        <text wx:if="{{item.shaky}}" class="module-hint text-3">样本较少，多做几题这个数才准</text>
-      </view>
-    </view>
 
-    <!-- 知识卡广场入口 -->
-    <view class="community card" bindtap="onGoCommunity">
-      <view class="community-body">
-        <text class="community-title">知识卡广场</text>
-        <text class="text-3">看看其他考友怎么攻克这些薄弱模块</text>
-      </view>
-      <text class="community-arrow">›</text>
-    </view>
-
-    <!-- 报告下钻 -->
-    <view class="section-title"><text class="h2">深入看看</text></view>
-    <view class="card reports">
-      <view
-        wx:for="{{reports}}"
-        wx:key="key"
-        class="report-row {{index < reports.length - 1 ? 'report-border' : ''}}"
-        data-url="{{item.url}}"
-        bindtap="onOpenReport"
-      >
-        <view class="report-body">
-          <text class="report-title">{{item.title}}</text>
-          <text class="text-3">{{item.subtitle}}</text>
+        <view class="module-list">
+          <button
+            wx:for="{{xingceModules}}"
+            wx:key="moduleKey"
+            hover-class="item--hover"
+            class="module-row fade-slide-in"
+            style="animation-delay: {{0.25 + index * 0.04}}s"
+            data-track="{{item.track}}"
+            data-key="{{item.moduleKey}}"
+            bindtap="openModule"
+          >
+            <text class="module-name">{{item.displayName}}</text>
+            <view class="module-side">
+              <text class="module-metric">{{item.metricLabel}}</text>
+              <text class="module-state module-state--{{item.statusTone}}">{{item.readinessLabel}}</text>
+            </view>
+          </button>
+          <view wx:if="{{!xingceModules.length}}" class="ability-card ability-empty">完成真实行测作答后，这里会按六个考试模块形成画像。</view>
         </view>
-        <text class="report-arrow">›</text>
-      </view>
-    </view>
+      </block>
 
-    <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示数据（后端未连接）</view>
-  </block>
+      <block wx:else>
+        <view class="module-list essay-module-list">
+          <button
+            wx:for="{{essayModules}}"
+            wx:key="moduleKey"
+            hover-class="item--hover"
+            class="module-row essay-module-row fade-slide-in"
+            style="animation-delay: {{0.25 + index * 0.04}}s"
+            data-track="{{item.track}}"
+            data-key="{{item.moduleKey}}"
+            bindtap="openModule"
+          >
+            <view>
+              <view class="module-name">{{item.displayName}}</view>
+              <view class="essay-evidence">已有效作答 {{item.evidenceCount}} 次</view>
+            </view>
+            <view class="module-side">
+              <text wx:if="{{item.dueCount}}" class="verify-chip">需再次验证</text>
+              <text class="module-state module-state--{{item.statusTone}}">{{item.readinessLabel}}</text>
+            </view>
+          </button>
+          <view wx:if="{{!essayModules.length}}" class="ability-card ability-empty">完成真实申论作答和改写后，这里会形成模块画像。</view>
+        </view>
+      </block>
+
+      <view class="patterns-section fade-slide-in" style="animation-delay: 0.35s">
+        <view class="patterns-title">最近反复出现的问题</view>
+        <view class="pattern-list">
+          <button
+            wx:for="{{profile.errorPatterns}}"
+            wx:key="patternId"
+            hover-class="item--hover"
+            class="pattern-card"
+            data-id="{{item.patternId}}"
+            bindtap="openPattern"
+          >
+            <view class="pattern-name">{{item.displayName}}</view>
+            <view class="pattern-meta">
+              <view class="pattern-pills">
+                <text class="pattern-pill">出现 {{item.occurrenceCount}} 次</text>
+                <text wx:if="{{item.counterevidenceCount}}" class="pattern-pill">有相反表现</text>
+              </view>
+              <text class="pattern-next">查看与复测</text>
+            </view>
+          </button>
+          <view wx:if="{{!profile.errorPatterns.length}}" class="ability-card ability-empty">完成错题复盘并确认原因后，这里才会沉淀可复测的问题。</view>
+        </view>
+      </view>
+
+      <view wx:if="{{profile.decisionSummary.reviewDueCount}}" class="review-warning">
+        {{profile.decisionSummary.reviewDueCount}} 个学习取舍已经到复评时间，需要重新确认。
+      </view>
+
+      <view class="ability-card coach-action fade-slide-in" style="animation-delay: 0.45s">
+        <view class="coach-action__aurora"></view>
+        <view class="coach-action__content">
+          <view class="coach-action__heading">
+            <image class="icon icon--sparkles pulse-ring" src="/assets/icons/ability/sparkles-indigo.png" mode="aspectFit" />
+            <view class="coach-action__title">岸岸行动建议</view>
+          </view>
+          <view class="coach-action__copy">目前最值得优先修复的模块已在上方标出。需要岸岸结合今天的安排解释一下吗？</view>
+          <button hover-class="item--hover" class="coach-action__button" bindtap="openCompanion">带着当前能力问岸岸</button>
+        </view>
+      </view>
+    </block>
+  </view>
 </view>

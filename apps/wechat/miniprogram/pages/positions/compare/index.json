@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "custom",
+  "backgroundColor": "#FFFFFF",
+  "usingComponents": {
+    "state-view": "../../../design-system/primitives/state-view/index"
+  }
+}

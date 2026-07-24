@@ -1,0 +1,118 @@
+/* Traceable semantic snapshot derived from all 45 Figma delivery nodes.
+ * The source file has no published Figma Variables or Styles.
+ * tokens/observed-values.json preserves every raw value and frequency.
+ */
+page {
+  --figma-color-canvas: #f7f9fc;
+  --figma-color-surface: #ffffff;
+  --figma-color-surface-subtle: #f9fafb;
+  --figma-color-ink: #101828;
+  --figma-color-ink-strong: #1e2939;
+  --figma-color-ink-secondary: #364153;
+  --figma-color-ink-tertiary: #4a5565;
+  --figma-color-muted: #6a7282;
+  --figma-color-faint: #99a1af;
+  --figma-color-line: #f3f4f6;
+  --figma-color-line-strong: #e5e7eb;
+  --figma-color-line-emphasis: #d1d5dc;
+
+  --figma-color-primary: #615fff;
+  --figma-color-primary-deep: #4f39f6;
+  --figma-color-primary-bright: #7c86ff;
+  --figma-color-primary-soft: #eef2ff;
+  --figma-color-primary-soft-strong: #e0e7ff;
+  --figma-color-ai-violet: #ad46ff;
+  --figma-color-ai-pink: #f6339a;
+
+  --figma-color-cyan: #00d3f3;
+  --figma-color-cyan-deep: #00b8db;
+  --figma-color-cyan-dark: #0092b8;
+  --figma-color-cyan-soft: #ecfeff;
+  --figma-color-cyan-soft-strong: #cefafe;
+  --figma-color-warning: #ff6900;
+  --figma-color-warning-deep: #f54900;
+  --figma-color-warning-soft: #fff7ed;
+  --figma-color-success: #00a63e;
+  --figma-color-success-bright: #00c950;
+  --figma-color-success-soft: #f0fdf4;
+  --figma-color-danger: #fb2c36;
+  --figma-color-danger-deep: #e7000b;
+  --figma-color-danger-soft: #fef2f2;
+  --figma-color-danger-soft-strong: #ffe2e2;
+  --figma-color-info: #155dfc;
+  --figma-color-info-bright: #51a2ff;
+  --figma-color-info-soft: #eff6ff;
+  --figma-color-device-frame: #111827;
+  --figma-color-on-dark: #ffffff;
+
+  --figma-gradient-ai: linear-gradient(135deg, #615fff 0%, #ad46ff 50%, #f6339a 100%);
+  --figma-gradient-dark: linear-gradient(127.42deg, #1e2939 0%, #101828 100%);
+  --figma-gradient-login-halo-top: linear-gradient(
+    135deg,
+    rgba(163, 179, 255, 0.4) 0%,
+    rgba(218, 178, 255, 0.4) 50%,
+    rgba(253, 165, 213, 0.4) 100%
+  );
+  --figma-gradient-login-halo-bottom: linear-gradient(
+    135deg,
+    rgba(190, 219, 255, 0.4) 0%,
+    rgba(150, 247, 228, 0.4) 100%
+  );
+
+  --figma-space-2: 4rpx;
+  --figma-space-4: 8rpx;
+  --figma-space-6: 12rpx;
+  --figma-space-8: 16rpx;
+  --figma-space-10: 20rpx;
+  --figma-space-12: 24rpx;
+  --figma-space-16: 32rpx;
+  --figma-space-20: 40rpx;
+  --figma-space-24: 48rpx;
+  --figma-space-32: 64rpx;
+  --figma-space-40: 80rpx;
+  --figma-space-48: 96rpx;
+
+  --figma-page-inset: 40rpx;
+  --figma-card-padding: 48rpx;
+  --figma-card-padding-compact: 32rpx;
+  --figma-section-gap: 48rpx;
+  --figma-content-gap: 40rpx;
+  --figma-status-bar-height: 90rpx;
+  --figma-bottom-navigation-height: 180rpx;
+
+  --figma-radius-device-outer: 112rpx;
+  --figma-radius-device-inner: 96rpx;
+  --figma-radius-card-xlarge: 72rpx;
+  --figma-radius-card-large: 64rpx;
+  --figma-radius-card-medium: 60rpx;
+  --figma-radius-card: 48rpx;
+  --figma-radius-control: 40rpx;
+  --figma-radius-compact: 32rpx;
+  --figma-radius-small: 24rpx;
+  --figma-radius-xsmall: 16rpx;
+  --figma-radius-pill: 9999px;
+
+  --figma-font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial,
+    sans-serif;
+  --figma-font-display: 108rpx;
+  --figma-font-display-compact: 72rpx;
+  --figma-font-title-xlarge: 64rpx;
+  --figma-font-page-title: 56rpx;
+  --figma-font-hero-title: 52rpx;
+  --figma-font-title-large: 48rpx;
+  --figma-font-title: 40rpx;
+  --figma-font-title-small: 36rpx;
+  --figma-font-body-large: 32rpx;
+  --figma-font-body: 28rpx;
+  --figma-font-body-compact: 26rpx;
+  --figma-font-caption: 24rpx;
+  --figma-font-micro: 22rpx;
+  --figma-font-tab: 20rpx;
+  --figma-font-minimum: 18rpx;
+
+  --figma-shadow-surface: 0 8rpx 20rpx rgba(0, 0, 0, 0.02);
+  --figma-shadow-card: 0 16rpx 30rpx rgba(0, 0, 0, 0.04);
+  --figma-shadow-elevated: 0 16rpx 30rpx rgba(0, 0, 0, 0.12);
+  --figma-shadow-card-strong: 0 16rpx 60rpx rgba(0, 0, 0, 0.06);
+  --figma-shadow-device: 0 120rpx 240rpx rgba(0, 0, 0, 0.2);
+}

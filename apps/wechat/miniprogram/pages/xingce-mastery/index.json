@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "错题与掌握",
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#F7F9FC",
+  "usingComponents": {
+    "state-view": "../../design-system/primitives/state-view/index",
+    "ui-button": "../../design-system/primitives/ui-button/index"
+  }
+}

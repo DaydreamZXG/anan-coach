@@ -1,41 +1,80 @@
-<view class="page wp">
-  <safe-top />
-  <view class="wp-nav">
-    <text class="wp-back" bindtap="onBack">‹</text>
-    <text class="wp-title">本周节奏</text>
+<view class="week-page">
+  <safe-top gap="{{0}}" />
+  <view class="week-nav">
+    <button class="week-back" bindtap="exit"><view class="week-back__icon"></view></button>
+    <view class="week-nav__title">周计划</view>
+    <view class="week-nav__space"></view>
   </view>
 
-  <view wx:if="{{loading}}" class="wp-loading text-2">正在取本周安排…</view>
-
-  <scroll-view wx:else class="wp-body" scroll-y>
-    <view class="card wp-head">
-      <text class="h2">{{weekLabel}}</text>
-      <text class="text-3">{{rhythmLine}}</text>
+  <view class="week-content">
+    <view class="week-hero">
+      <view class="week-kicker">周计划 · {{rhythmLabel}}</view>
+      <view class="week-title">这一周，只追三个能验证的变化</view>
+      <view class="week-copy">目标、任务、复盘和机动时间，被放在同一张周计划里。</view>
     </view>
 
-    <view
-      class="card wp-day {{item.isToday ? 'is-today' : ''}} {{item.status === 'past' ? 'is-past' : ''}}"
-      wx:for="{{days}}"
-      wx:key="localDate"
-      data-status="{{item.status}}"
-      bindtap="onTapDay"
-    >
-      <view class="wp-day-side">
-        <text class="wp-weekday">周{{item.dayLabel}}</text>
-        <text class="text-3 num">{{item.dateLabel}}</text>
-      </view>
-      <view class="wp-day-main">
-        <view class="wp-day-head">
-          <text class="wp-mode {{item.modeClass}}">{{item.modeLabel}}</text>
-          <text class="text-3 num" wx:if="{{item.minutes > 0}}">{{item.minutes}} 分钟</text>
-          <text class="text-3 num" wx:if="{{item.progressLabel !== '-'}}">完成 {{item.progressLabel}}</text>
-          <text class="wp-today-chip" wx:if="{{item.isToday}}">今天</text>
+    <state-view wx:if="{{status === 'loading'}}" state="loading" />
+    <state-view wx:elif="{{status === 'error'}}" state="error" title="周计划没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
+
+    <block wx:elif="{{week}}">
+      <view class="week-summary">
+        <view class="summary-metric">
+          <view class="summary-label">本周安排</view>
+          <view class="summary-value">{{totalScheduledLabel}}</view>
         </view>
-        <text class="wp-explain">{{item.explanation}}</text>
+        <view class="summary-divider"></view>
+        <view class="summary-metric">
+          <view class="summary-label">已完成</view>
+          <view class="summary-value">{{completedSummary}}</view>
+        </view>
+        <view class="summary-divider"></view>
+        <view class="summary-metric">
+          <view class="summary-label">本周调整</view>
+          <view class="summary-value">{{adjustmentLabel}}</view>
+        </view>
       </view>
-    </view>
 
-    <text class="text-3 wp-note">周计划由后端根据你的偏好和进度每周重排。改学习偏好或当日减量后，这里会跟着变。</text>
-    <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示数据（后端未连接）</view>
-  </scroll-view>
+      <view class="week-basis">
+        <view class="basis-mark">✦</view>
+        <view class="basis-main">
+          <view class="basis-title">这周为什么这样排</view>
+          <view class="basis-copy">{{reasonLabel}}</view>
+        </view>
+      </view>
+
+      <view class="schedule-heading">本周安排</view>
+      <view class="schedule-card">
+        <view wx:for="{{days}}" wx:key="localDate" class="day-row {{item.status === 'today' ? 'day-row--today' : ''}}">
+          <button class="day-trigger" data-index="{{index}}" bindtap="toggleDay">
+            <view class="day-trigger__main">
+              <view class="day-name">{{item.weekdayLabel}}</view>
+              <view wx:if="{{item.status === 'today'}}" class="today-tag">今天</view>
+              <view wx:elif="{{item.status === 'past'}}" class="day-status">已过</view>
+              <view wx:else class="day-status">{{item.modeLabel}}</view>
+            </view>
+            <view class="day-chevron {{expandedDayIndex === index ? 'day-chevron--open' : ''}}"></view>
+          </button>
+          <view wx:if="{{expandedDayIndex === index}}" class="day-detail">
+            <view class="day-detail__metric">
+              <view class="day-detail__label">可用时间</view>
+              <view class="day-detail__value">{{item.plannedDurationLabel}}</view>
+            </view>
+            <view class="day-detail__metric">
+              <view class="day-detail__label">已安排</view>
+              <view class="day-detail__value">{{item.scheduledDurationLabel}}</view>
+            </view>
+            <view class="day-detail__metric">
+              <view class="day-detail__label">任务数量</view>
+              <view class="day-detail__value">{{item.totalTaskCount}} 项</view>
+            </view>
+            <view class="day-detail__reason">{{item.explanation}}</view>
+          </view>
+        </view>
+      </view>
+
+      <view class="week-note">未完成任务不会机械顺延；新的一天会按最新证据重新计算最值得做的 1–3 项。</view>
+      <button class="week-action week-action--secondary" bindtap="askAnan">带着本周安排问岸岸</button>
+      <button class="week-action" bindtap="openAdjustment">调整本周可用时间</button>
+    </block>
+  </view>
 </view>

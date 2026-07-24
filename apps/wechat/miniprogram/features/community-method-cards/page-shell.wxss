@@ -1,0 +1,234 @@
+.community-page {
+  padding-bottom: 96rpx;
+}
+
+.community-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 18rpx 4rpx 28rpx;
+  color: var(--color-ink);
+}
+
+.community-hero::after {
+  position: absolute;
+  top: -104rpx;
+  right: -76rpx;
+  width: 270rpx;
+  height: 270rpx;
+  border: 1rpx solid var(--color-primary-a16);
+  border-radius: 50%;
+  background: var(--color-primary-a08);
+  content: "";
+}
+
+.hero-kicker {
+  color: var(--color-primary);
+  font-size: 20rpx;
+  font-weight: 780;
+  letter-spacing: 2rpx;
+}
+
+.hero-title {
+  margin-top: 14rpx;
+  max-width: 650rpx;
+  font-size: 46rpx;
+  font-weight: 860;
+}
+
+.hero-copy {
+  max-width: 570rpx;
+  margin-top: 14rpx;
+  color: var(--color-ink-secondary);
+  font-size: 23rpx;
+  line-height: 1.7;
+}
+
+.privacy-strip {
+  display: flex;
+  align-items: flex-start;
+  gap: 14rpx;
+  margin-top: 22rpx;
+  padding: 18rpx 20rpx;
+  border: 1rpx solid var(--color-primary-a16);
+  border-radius: 20rpx;
+  background: var(--color-primary-soft);
+  color: var(--color-ink-secondary);
+  font-size: 21rpx;
+  line-height: 1.55;
+}
+
+.privacy-dot {
+  width: 12rpx;
+  height: 12rpx;
+  flex: none;
+  margin-top: 10rpx;
+  border-radius: 50%;
+  background: var(--color-cyan);
+  box-shadow: 0 0 0 7rpx var(--color-primary-a08);
+}
+
+.community-section,
+.community-card {
+  margin-top: 22rpx;
+  padding: 28rpx;
+  border: 1rpx solid var(--color-line);
+  border-radius: 28rpx;
+  background: var(--color-surface);
+  box-shadow: 0 12rpx 34rpx rgba(45, 52, 94, 0.06);
+}
+
+.section-label {
+  color: var(--color-faint);
+  font-size: 19rpx;
+  font-weight: 760;
+  letter-spacing: 1.5rpx;
+}
+
+.section-title {
+  margin-top: 8rpx;
+  color: var(--color-ink);
+  font-size: 29rpx;
+  font-weight: 820;
+  line-height: 1.45;
+}
+
+.section-copy {
+  margin-top: 8rpx;
+  color: var(--color-muted);
+  font-size: 21rpx;
+  line-height: 1.65;
+}
+
+.field-label {
+  display: block;
+  margin: 24rpx 0 10rpx;
+  color: var(--color-ink-secondary);
+  font-size: 22rpx;
+  font-weight: 760;
+}
+
+.text-input,
+.text-area {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1rpx solid var(--color-line);
+  border-radius: 20rpx;
+  background: var(--color-surface-soft);
+  color: var(--color-ink);
+  font-size: 25rpx;
+  line-height: 1.65;
+}
+
+.text-input {
+  min-height: 84rpx;
+  padding: 0 22rpx;
+}
+
+.text-area {
+  min-height: 190rpx;
+  padding: 20rpx 22rpx;
+}
+
+.choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12rpx;
+  margin-top: 16rpx;
+}
+
+.choice-card {
+  min-height: 96rpx;
+  padding: 18rpx;
+  border: 1rpx solid var(--color-line);
+  border-radius: 20rpx;
+  background: var(--color-surface-soft);
+}
+
+.choice-card--active {
+  border-color: var(--color-primary-a24);
+  background: var(--color-primary-soft);
+}
+
+.choice-title {
+  color: var(--color-ink);
+  font-size: 23rpx;
+  font-weight: 790;
+}
+
+.choice-copy {
+  margin-top: 6rpx;
+  color: var(--color-muted);
+  font-size: 18rpx;
+  line-height: 1.45;
+}
+
+.boundary-note,
+.warning-note,
+.success-note {
+  margin-top: 18rpx;
+  padding: 20rpx 22rpx;
+  border-radius: 20rpx;
+  font-size: 21rpx;
+  line-height: 1.65;
+}
+
+.boundary-note {
+  background: var(--color-primary-soft);
+  color: var(--color-primary-deep);
+}
+
+.warning-note {
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+.success-note {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.fixed-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12rpx;
+  margin-top: 20rpx;
+}
+
+.action-button {
+  width: 100%;
+  min-height: 80rpx;
+  margin: 24rpx 0 0;
+  border: 0;
+  border-radius: 20rpx;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 24rpx;
+  font-weight: 800;
+  line-height: 80rpx;
+}
+
+.action-button--disabled {
+  background: #dfe2ef;
+  color: #9297aa;
+}
+
+.secondary-button {
+  background: var(--color-primary-soft);
+  color: var(--color-primary-deep);
+}
+
+.danger-button {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.community-state-view {
+  display: block;
+  margin-top: 28rpx;
+}
+
+.request-id {
+  margin-top: 12rpx;
+  color: var(--color-faint);
+  font-size: 18rpx;
+}

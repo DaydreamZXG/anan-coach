@@ -1,0 +1,49 @@
+@import "../../features/essay-workbench/page-shell.wxss";
+.compose-page {
+  padding-bottom: calc(184rpx + env(safe-area-inset-bottom));
+}
+.compose-row {
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid var(--color-surface-soft);
+}
+.compose-action-dock {
+  position: fixed;
+  z-index: 20;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  padding: 18rpx 32rpx calc(18rpx + env(safe-area-inset-bottom));
+  border-top: 1rpx solid var(--color-line);
+  background: rgba(246, 250, 248, 0.96);
+  box-shadow: 0 -14rpx 30rpx rgba(190, 120, 60, 0.07);
+}
+.compose-action-grid {
+  margin-top: 0;
+}
+.compose-action-grid .workbench-action {
+  margin-top: 0;
+}
+
+@media (min-width: 768px) {
+  .compose-page {
+    padding-bottom: calc(128px + env(safe-area-inset-bottom));
+  }
+  .compose-action-dock {
+    right: 50%;
+    left: auto;
+    width: calc(100% - 64px);
+    max-width: 760px;
+    padding: 14px 32px calc(14px + env(safe-area-inset-bottom));
+    transform: translateX(50%);
+  }
+}
+
+@media (min-width: 1024px) {
+  .compose-action-dock {
+    width: calc(100% - 80px);
+    max-width: 1120px;
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}

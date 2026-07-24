@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 
 from app.domains.onboarding.v2_schemas import (
     OnboardingProgress,
+    PositionPreferenceProfile,
     PreparationExperienceProfile,
     WeeklyStudyPreference,
 )
@@ -20,9 +21,10 @@ REQUIRED_QUALIFICATION_FACT_KEYS = frozenset(
     {
         "education",
         "major",
+        "graduation_year",
         "fresh_graduate",
-        "political_status",
-        "grassroots_years",
+        "work_years",
+        "service_project",
     }
 )
 
@@ -165,6 +167,7 @@ class OnboardingProgressRepository:
         prior_guokao_exam: bool,
         retake: bool,
         prior_exam_years: list[int],
+        current_status: str,
         now: datetime,
     ) -> PreparationExperienceProfile:
         current = self.current_experience_row(session, user_id=user_id)
@@ -176,6 +179,7 @@ class OnboardingProgressRepository:
             prior_guokao_exam=prior_guokao_exam,
             retake=retake,
             prior_exam_years=prior_exam_years,
+            current_status=current_status,
         )
         row = session.execute(
             text(
@@ -183,13 +187,13 @@ class OnboardingProgressRepository:
                 insert into learner.preparation_experience_versions (
                   experience_version_id, command_id, user_id, version_no,
                   declaration_status, first_systematic, external_learning,
-                  prior_guokao_exam, retake, prior_exam_years, source_type,
+                  prior_guokao_exam, retake, prior_exam_years, current_status, source_type,
                   input_fingerprint, supersedes_experience_version_id, created_at
                 ) values (
                   cast(:experience_version_id as uuid), :command_id,
                   cast(:user_id as uuid), :version_no, 'declared',
                   :first_systematic, :external_learning, :prior_guokao_exam,
-                  :retake, cast(:prior_exam_years as jsonb), :source_type,
+                  :retake, cast(:prior_exam_years as jsonb), :current_status, :source_type,
                   :input_fingerprint, cast(:supersedes_id as uuid), :created_at
                 ) returning *
                 """
@@ -204,6 +208,7 @@ class OnboardingProgressRepository:
                 "prior_guokao_exam": prior_guokao_exam,
                 "retake": retake,
                 "prior_exam_years": canonical_json(prior_exam_years),
+                "current_status": current_status,
                 "source_type": "user_revised" if current is not None else "user_confirmed",
                 "input_fingerprint": payload_fingerprint(payload),
                 "supersedes_id": (
@@ -252,6 +257,147 @@ class OnboardingProgressRepository:
             ).scalars()
         }
         return int(profile_version), keys
+
+    def current_position_preference_row(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        for_update: bool = False,
+    ) -> Mapping[str, Any] | None:
+        suffix = " for update" if for_update else ""
+        return session.execute(
+            text(
+                """
+                select preference.*
+                from learner.position_preference_versions preference
+                where preference.user_id = cast(:user_id as uuid)
+                  and not exists (
+                    select 1
+                    from learner.position_preference_versions successor
+                    where successor.supersedes_preference_version_id =
+                          preference.preference_version_id
+                  )
+                order by preference.version_no desc
+                limit 1
+                """
+                + suffix
+            ),
+            {"user_id": user_id},
+        ).mappings().one_or_none()
+
+    def current_position_preference(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+    ) -> PositionPreferenceProfile | None:
+        row = self.current_position_preference_row(session, user_id=user_id)
+        return position_preference_from_row(row) if row is not None else None
+
+    def position_preference_by_command(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        command_id: str,
+    ) -> Mapping[str, Any] | None:
+        return session.execute(
+            text(
+                """
+                select *
+                from learner.position_preference_versions
+                where user_id = cast(:user_id as uuid)
+                  and command_id = :command_id
+                """
+            ),
+            {"user_id": user_id, "command_id": command_id},
+        ).mappings().one_or_none()
+
+    def append_position_preference(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        command_id: str,
+        expected_preference_version: int,
+        preferred_regions: list[str],
+        accepts_relocation: bool,
+        accepted_position_levels: list[str],
+        input_fingerprint: str,
+        now: datetime,
+    ) -> PositionPreferenceProfile:
+        current = self.current_position_preference_row(
+            session,
+            user_id=user_id,
+            for_update=True,
+        )
+        current_version = int(current["version_no"]) if current is not None else 0
+        if current_version != expected_preference_version:
+            raise OnboardingProgressError(
+                "position_preference_version_conflict",
+                "岗位偏好已更新，请刷新后再保存。",
+                details={
+                    "expectedVersion": expected_preference_version,
+                    "currentVersion": current_version,
+                },
+            )
+        version_no = current_version + 1
+        preference_version_id = str(uuid4())
+        row = session.execute(
+            text(
+                """
+                insert into learner.position_preference_versions (
+                  preference_version_id, command_id, user_id, version_no,
+                  preferred_regions, accepts_relocation,
+                  accepted_position_levels, source_type, input_fingerprint,
+                  supersedes_preference_version_id, created_at
+                ) values (
+                  cast(:preference_version_id as uuid), :command_id,
+                  cast(:user_id as uuid), :version_no,
+                  cast(:preferred_regions as text[]), :accepts_relocation,
+                  cast(:accepted_position_levels as text[]), :source_type,
+                  :input_fingerprint, cast(:supersedes_id as uuid), :created_at
+                )
+                returning *
+                """
+            ),
+            {
+                "preference_version_id": preference_version_id,
+                "command_id": command_id,
+                "user_id": user_id,
+                "version_no": version_no,
+                "preferred_regions": preferred_regions,
+                "accepts_relocation": accepts_relocation,
+                "accepted_position_levels": accepted_position_levels,
+                "source_type": (
+                    "user_revised" if current is not None else "user_confirmed"
+                ),
+                "input_fingerprint": input_fingerprint,
+                "supersedes_id": (
+                    str(current["preference_version_id"])
+                    if current is not None
+                    else None
+                ),
+                "created_at": now,
+            },
+        ).mappings().one()
+        session.execute(
+            text(
+                """
+                update learner.profiles
+                set target_region = :target_region,
+                    updated_at = greatest(updated_at, :updated_at)
+                where user_id = cast(:user_id as uuid)
+                """
+            ),
+            {
+                "user_id": user_id,
+                "target_region": preferred_regions[0],
+                "updated_at": now,
+            },
+        )
+        return position_preference_from_row(row)
 
     def current_preference_row(
         self,
@@ -613,6 +759,7 @@ def experience_from_row(row: Mapping[str, Any]) -> PreparationExperienceProfile:
         prior_guokao_exam=bool(row["prior_guokao_exam"]),
         retake=bool(row["retake"]),
         prior_exam_years=[int(value) for value in row["prior_exam_years"]],
+        current_status=str(row.get("current_status") or "unspecified"),
         source_type=str(row["source_type"]),
         recommended_entry=recommended_entry,
         created_at=row["created_at"],
@@ -682,6 +829,7 @@ def experience_input_payload(
     prior_guokao_exam: bool,
     retake: bool,
     prior_exam_years: list[int],
+    current_status: str,
 ) -> dict[str, Any]:
     return {
         "firstSystematic": first_systematic,
@@ -689,6 +837,20 @@ def experience_input_payload(
         "priorGuokaoExam": prior_guokao_exam,
         "retake": retake,
         "priorExamYears": prior_exam_years,
+        "currentStatus": current_status,
+    }
+
+
+def position_preference_input_payload(
+    *,
+    preferred_regions: list[str],
+    accepts_relocation: bool,
+    accepted_position_levels: list[str],
+) -> dict[str, Any]:
+    return {
+        "preferredRegions": preferred_regions,
+        "acceptsRelocation": accepts_relocation,
+        "acceptedPositionLevels": accepted_position_levels,
     }
 
 
@@ -702,3 +864,24 @@ def canonical_json(payload: object) -> str:
 
 def utc_now() -> datetime:
     return datetime.now(UTC)
+
+
+def position_preference_from_row(
+    row: Mapping[str, Any],
+) -> PositionPreferenceProfile:
+    return PositionPreferenceProfile(
+        preference_version_id=str(row["preference_version_id"]),
+        preference_version=int(row["version_no"]),
+        preferred_regions=[str(value) for value in row["preferred_regions"]],
+        accepts_relocation=bool(row["accepts_relocation"]),
+        accepted_position_levels=[
+            str(value) for value in row["accepted_position_levels"]
+        ],
+        source_type=str(row["source_type"]),
+        created_at=row["created_at"],
+        supersedes_preference_version_id=(
+            str(row["supersedes_preference_version_id"])
+            if row["supersedes_preference_version_id"] is not None
+            else None
+        ),
+    )

@@ -591,6 +591,18 @@ class DailyCapacityCommandResult(PlanningContractModel):
     plan: TodayDashboard
 
 
+class DailyCapacityPreview(PlanningContractModel):
+    based_on_capacity_version_id: UUID = Field(alias="basedOnCapacityVersionId")
+    current_plan: TodayDashboard = Field(alias="currentPlan")
+    proposed_plan: TodayDashboard = Field(alias="proposedPlan")
+
+    @model_validator(mode="after")
+    def validate_basis(self) -> "DailyCapacityPreview":
+        if self.current_plan.capacity.capacity_version_id != self.based_on_capacity_version_id:
+            raise ValueError("capacity preview basis must match the current plan")
+        return self
+
+
 class TaskExecutionCommandResult(PlanningContractModel):
     execution: TaskExecutionVersion
     plan: TodayDashboard

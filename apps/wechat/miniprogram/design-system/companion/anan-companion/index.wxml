@@ -1,0 +1,64 @@
+<view
+  wx:if="{{renderable}}"
+  class="anan anan--{{resolvedSize}}"
+  role="img"
+  aria-label="{{resolvedLabel}}"
+>
+  <view wx:if="{{renderCoreMotion}}" class="anan__viewport" aria-hidden="true">
+    <image
+      class="anan__sheet"
+      src="/design-system/companion/anan-companion/assets/v1.0.0/core/spritesheet.webp"
+      mode="heightFix"
+      style="width: {{sheetWidthPercent}}%; transform: translateX(-{{frameOffsetPercent}}%);"
+    />
+  </view>
+  <image
+    wx:elif="{{renderCoreStatic}}"
+    class="anan__static"
+    src="{{staticSrc}}"
+    mode="aspectFit"
+    aria-hidden="true"
+  />
+  <view
+    wx:elif="{{renderGrowth}}"
+    class="anan__embedded"
+    aria-hidden="true"
+  >
+    <anan-growth visual-stage="{{visualStage}}" />
+  </view>
+  <view
+    wx:elif="{{renderIntentPackage && resolvedIntent === 'thinking'}}"
+    class="anan__embedded"
+    aria-hidden="true"
+  >
+    <anan-thinking size="{{resolvedSize}}" animate="{{motionAllowed}}" />
+  </view>
+  <view
+    wx:elif="{{renderIntentPackage && resolvedIntent === 'reminder'}}"
+    class="anan__embedded"
+    aria-hidden="true"
+  >
+    <anan-reminder size="{{resolvedSize}}" animate="{{motionAllowed}}" />
+  </view>
+  <view
+    wx:elif="{{renderIntentPackage && resolvedIntent === 'encouragement'}}"
+    class="anan__embedded"
+    aria-hidden="true"
+  >
+    <anan-encouragement size="{{resolvedSize}}" animate="{{motionAllowed}}" />
+  </view>
+  <view
+    wx:elif="{{renderIntentPackage && resolvedIntent === 'rest'}}"
+    class="anan__embedded"
+    aria-hidden="true"
+  >
+    <anan-rest size="{{resolvedSize}}" animate="{{motionAllowed}}" />
+  </view>
+  <view
+    wx:elif="{{renderIntentPackage && resolvedIntent === 'deprioritize'}}"
+    class="anan__embedded"
+    aria-hidden="true"
+  >
+    <anan-deprioritize size="{{resolvedSize}}" animate="{{motionAllowed}}" />
+  </view>
+</view>

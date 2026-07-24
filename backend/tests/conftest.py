@@ -107,9 +107,7 @@ def db_session(db_session_factory: sessionmaker[Session]) -> Iterator[Session]:
 
 def _reset_test_schema(engine: Engine) -> None:
     _drop_test_schema(engine)
-    schema_sql = (
-        Path(__file__).with_name("sql").joinpath("minimal_schema.sql").read_text()
-    )
+    schema_sql = Path(__file__).with_name("sql").joinpath("minimal_schema.sql").read_text()
     with engine.begin() as conn:
         for statement in _split_postgres_statements(schema_sql):
             conn.execute(text(statement))
@@ -132,24 +130,16 @@ def _reset_test_schema(engine: Engine) -> None:
                 "recognition_revision_id, owner_user_id, artifact_version_id)"
             )
         )
-        stage2 = import_module(
-            "migrations.versions.20260715_22_stage2_task_content_runtime"
-        )
+        stage2 = import_module("migrations.versions.20260715_22_stage2_task_content_runtime")
         for statement in stage2._STATEMENTS:
             conn.execute(text(statement))
-        stage3_mastery = import_module(
-            "migrations.versions.20260716_23_xingce_mastery_scheduler"
-        )
+        stage3_mastery = import_module("migrations.versions.20260716_23_xingce_mastery_scheduler")
         for statement in stage3_mastery._STATEMENTS:
             conn.execute(text(statement))
-        stage3_cause_agent = import_module(
-            "migrations.versions.20260716_24_xingce_cause_agent"
-        )
+        stage3_cause_agent = import_module("migrations.versions.20260716_24_xingce_cause_agent")
         for statement in stage3_cause_agent._STATEMENTS:
             conn.execute(text(statement))
-        essay_closure = import_module(
-            "migrations.versions.20260716_25_essay_closure_mastery"
-        )
+        essay_closure = import_module("migrations.versions.20260716_25_essay_closure_mastery")
         for statement in essay_closure._STATEMENTS:
             conn.execute(text(statement))
         learning_media = import_module("migrations.versions.20260716_26_learning_media")
@@ -160,9 +150,7 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in question_quality._STATEMENTS:
             conn.execute(text(statement))
-        community_cards = import_module(
-            "migrations.versions.20260716_28_community_method_cards"
-        )
+        community_cards = import_module("migrations.versions.20260716_28_community_method_cards")
         for statement in community_cards._STATEMENTS:
             conn.execute(text(statement))
         community_delayed = import_module(
@@ -176,42 +164,28 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in community_production._STATEMENTS:
             conn.execute(text(statement))
-        learning_brain = import_module(
-            "migrations.versions.20260716_31_learning_brain_planning"
-        )
+        learning_brain = import_module("migrations.versions.20260716_31_learning_brain_planning")
         for statement in learning_brain._STATEMENTS:
             conn.execute(text(statement))
-        stage6_reporting = import_module(
-            "migrations.versions.20260716_33_stage6_mock_reporting"
-        )
+        stage6_reporting = import_module("migrations.versions.20260716_33_stage6_mock_reporting")
         for statement in stage6_reporting._STATEMENTS:
             conn.execute(text(statement))
         ai_governance = import_module("migrations.versions.20260716_34_ai_governance")
         for statement in ai_governance._STATEMENTS:
             conn.execute(text(statement))
-        stage8 = import_module(
-            "migrations.versions.20260717_35_commerce_privacy_operations"
-        )
+        stage8 = import_module("migrations.versions.20260717_35_commerce_privacy_operations")
         for statement in stage8._STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
-        virtual_payment = import_module(
-            "migrations.versions.20260717_36_wechat_virtual_payment"
-        )
+        virtual_payment = import_module("migrations.versions.20260717_36_wechat_virtual_payment")
         for statement in virtual_payment._STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
-        stage15_completion = import_module(
-            "migrations.versions.20260718_37_stage15_completion"
-        )
+        stage15_completion = import_module("migrations.versions.20260718_37_stage15_completion")
         for statement in stage15_completion._TEST_STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
-        free_cold_start = import_module(
-            "migrations.versions.20260718_38_free_cold_start_access"
-        )
+        free_cold_start = import_module("migrations.versions.20260718_38_free_cold_start_access")
         for statement in free_cold_start._TEST_STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
-        six_modules = import_module(
-            "migrations.versions.20260718_39_guokao_xingce_six_modules"
-        )
+        six_modules = import_module("migrations.versions.20260718_39_guokao_xingce_six_modules")
         for statement in six_modules._TEST_STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
         preparation_experience = import_module(
@@ -234,9 +208,7 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in essay_multi_model_runtime._TEST_STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
-        step6 = import_module(
-            "migrations.versions.20260719_44_private_knowledge_math_ink"
-        )
+        step6 = import_module("migrations.versions.20260719_44_private_knowledge_math_ink")
         for statement in step6._TEST_STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
         step7 = import_module("migrations.versions.20260719_45_coach_notifications")
@@ -247,6 +219,19 @@ def _reset_test_schema(engine: Engine) -> None:
             conn.exec_driver_sql(statement.replace("%", "%%"))
         step10 = import_module("migrations.versions.20260719_47_daily_opening")
         for statement in step10._STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
+        mock_plan_closure = import_module("migrations.versions.20260723_55_mock_plan_closure")
+        for statement in mock_plan_closure._TEST_STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
+        fuzzy_weather_location = import_module(
+            "migrations.versions.20260723_56_fuzzy_weather_location"
+        )
+        for statement in fuzzy_weather_location._TEST_STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
+        preparation_current_status = import_module(
+            "migrations.versions.20260724_57_preparation_current_status"
+        )
+        for statement in preparation_current_status._TEST_STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
 
 

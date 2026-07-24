@@ -208,7 +208,7 @@ create table product.position_requirements (
   position_id uuid not null references product.positions(position_id),
   rule_set_version text not null,
   position_data_version text not null,
-  fact_key text not null check (fact_key in ('education', 'degree', 'major', 'fresh_graduate', 'political_status', 'work_years', 'grassroots_years', 'service_project', 'hukou', 'age', 'certifications', 'other_conditions')),
+  fact_key text not null check (fact_key in ('education', 'degree', 'major', 'graduation_year', 'fresh_graduate', 'political_status', 'work_years', 'grassroots_years', 'service_project', 'hukou', 'age', 'certifications', 'other_conditions')),
   operator text not null check (operator in ('equals', 'one_of', 'at_least', 'contains_any', 'manual_review')),
   expected jsonb,
   hard_condition boolean not null default true,
@@ -492,6 +492,7 @@ insert into product.official_rank_config (
 create table learner.users (
   user_id uuid primary key,
   display_name text,
+  avatar_style text not null default 'ocean' check (avatar_style in ('ocean', 'aurora', 'sunrise', 'violet', 'graphite', 'mint')),
   email text,
   is_active boolean not null default true,
   account_status text not null default 'active' check (account_status in ('active', 'recovery_required', 'deletion_pending', 'disabled')),
@@ -2282,7 +2283,7 @@ create table learner.app_sessions (
 create table learner.account_events (
   event_id uuid primary key,
   user_id uuid not null references learner.users(user_id),
-  event_type text not null check (event_type in ('account_recovered', 'session_revoked', 'all_sessions_revoked', 'account_recovery_required', 'account_deletion_requested', 'account_disabled')),
+  event_type text not null check (event_type in ('account_recovered', 'session_revoked', 'all_sessions_revoked', 'account_recovery_required', 'account_deletion_requested', 'account_disabled', 'account_profile_updated')),
   metadata jsonb not null,
   created_at timestamptz not null default now()
 );
@@ -2428,6 +2429,122 @@ create trigger onboarding_progress_events_append_only
 before update or delete on learner.onboarding_progress_events
 for each row execute function learner.reject_onboarding_history_mutation();
 
+create table learner.position_preference_versions (
+  preference_version_id uuid primary key,
+  command_id text not null unique,
+  user_id uuid not null references learner.users(user_id),
+  version_no bigint not null check (version_no >= 1),
+  preferred_regions text[] not null check (cardinality(preferred_regions) between 1 and 5),
+  accepts_relocation boolean not null,
+  accepted_position_levels text[] not null check (
+    cardinality(accepted_position_levels) between 1 and 4
+    and accepted_position_levels <@
+      array['central','provincial','municipal','county_or_below']::text[]
+  ),
+  source_type text not null check (source_type in ('user_confirmed','user_revised')),
+  input_fingerprint text not null check (char_length(input_fingerprint) = 64),
+  supersedes_preference_version_id uuid unique
+    references learner.position_preference_versions(preference_version_id),
+  created_at timestamptz not null default now(),
+  erased_at timestamptz,
+  unique (user_id, version_no)
+);
+
+create index learner_position_preference_current_idx
+  on learner.position_preference_versions(user_id, version_no);
+
+create function learner.enforce_position_preference_immutability()
+returns trigger language plpgsql as $$
+begin
+  if tg_op = 'DELETE' then
+    raise exception using errcode = '23514',
+      message = 'position preference history cannot be deleted';
+  end if;
+  if privacy.erasure_authorized(to_jsonb(old)) then
+    if row(
+      new.preference_version_id, new.command_id, new.user_id,
+      new.version_no, new.source_type,
+      new.supersedes_preference_version_id, new.created_at
+    ) is distinct from row(
+      old.preference_version_id, old.command_id, old.user_id,
+      old.version_no, old.source_type,
+      old.supersedes_preference_version_id, old.created_at
+    ) or new.preferred_regions <> array['已删除']::text[]
+      or new.accepts_relocation
+      or new.accepted_position_levels <> array['county_or_below']::text[]
+      or new.input_fingerprint <> repeat('0', 64)
+      or new.erased_at is null then
+      raise exception using errcode = '23514',
+        message = 'invalid position preference erasure mutation';
+    end if;
+    return new;
+  end if;
+  raise exception using errcode = '23514',
+    message = 'position preference history is append-only';
+end;
+$$;
+
+create trigger position_preference_versions_append_only
+before update or delete on learner.position_preference_versions
+for each row execute function learner.enforce_position_preference_immutability();
+
+create table learner.ability_baseline_declaration_versions (
+  baseline_version_id uuid primary key,
+  command_id text not null unique,
+  user_id uuid not null references learner.users(user_id),
+  version_no bigint not null check (version_no >= 1),
+  mode text not null check (mode in ('unknown','reported_score')),
+  score_evidence_id uuid references learning.score_evidence(evidence_id),
+  source_type text not null check (source_type in ('user_confirmed','user_revised')),
+  input_fingerprint text not null check (char_length(input_fingerprint) = 64),
+  supersedes_baseline_version_id uuid unique
+    references learner.ability_baseline_declaration_versions(baseline_version_id),
+  created_at timestamptz not null default now(),
+  erased_at timestamptz,
+  unique (user_id, version_no),
+  check (
+    (mode = 'unknown' and score_evidence_id is null)
+    or (mode = 'reported_score' and score_evidence_id is not null)
+  )
+);
+
+create index learner_ability_baseline_current_idx
+  on learner.ability_baseline_declaration_versions(user_id, version_no);
+
+create function learner.enforce_ability_baseline_immutability()
+returns trigger language plpgsql as $$
+begin
+  if tg_op = 'DELETE' then
+    raise exception using errcode = '23514',
+      message = 'ability baseline history cannot be deleted';
+  end if;
+  if privacy.erasure_authorized(to_jsonb(old)) then
+    if row(
+      new.baseline_version_id, new.command_id, new.user_id,
+      new.version_no, new.source_type,
+      new.supersedes_baseline_version_id, new.created_at
+    ) is distinct from row(
+      old.baseline_version_id, old.command_id, old.user_id,
+      old.version_no, old.source_type,
+      old.supersedes_baseline_version_id, old.created_at
+    ) or new.mode <> 'unknown'
+      or new.score_evidence_id is not null
+      or new.input_fingerprint <> repeat('0', 64)
+      or new.erased_at is null then
+      raise exception using errcode = '23514',
+        message = 'invalid ability baseline erasure mutation';
+    end if;
+    return new;
+  end if;
+  raise exception using errcode = '23514',
+    message = 'ability baseline history is append-only';
+end;
+$$;
+
+create trigger ability_baseline_declarations_append_only
+before update or delete on learner.ability_baseline_declaration_versions
+for each row execute function learner.enforce_ability_baseline_immutability();
+
 create function learner.enforce_onboarding_progress_transition()
 returns trigger language plpgsql as $$
 begin
@@ -2513,7 +2630,7 @@ create table learner.qualification_facts (
   change_id uuid not null references learner.qualification_profile_changes(change_id),
   user_id uuid not null references learner.users(user_id),
   profile_version bigint not null check (profile_version >= 1),
-  fact_key text not null check (fact_key in ('education', 'degree', 'major', 'fresh_graduate', 'political_status', 'work_years', 'grassroots_years', 'service_project', 'hukou', 'age', 'certifications', 'other_conditions')),
+  fact_key text not null check (fact_key in ('education', 'degree', 'major', 'graduation_year', 'fresh_graduate', 'political_status', 'work_years', 'grassroots_years', 'service_project', 'hukou', 'age', 'certifications', 'other_conditions')),
   value jsonb not null,
   verification_status text not null check (verification_status in ('reported', 'confirmed', 'conflicting')),
   effective_at timestamptz not null,

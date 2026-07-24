@@ -1,0 +1,95 @@
+<view class="page community-page">
+  <view class="community-hero">
+    <view class="hero-kicker">社区方法试用</view>
+    <view class="hero-title">先小范围验证，再决定是否公开</view>
+    <view class="hero-copy">同类考生试用后只回传结构化结果，不交换原题和个人资料。</view>
+    <view class="privacy-strip">
+      <view class="privacy-dot"></view>
+      <view>效果只按你实际试用的内容、独立新题与延时验证计算；后续编辑不会继承原来的结果。</view>
+    </view>
+  </view>
+
+  <state-view
+    wx:if="{{pageState !== 'default'}}"
+    custom-class="community-state-view"
+    state="{{pageState}}"
+    title="{{stateTitle}}"
+    description="{{stateDescription}}"
+    action-text="{{stateActionLabel}}"
+    request-id="{{requestId}}"
+    bind:action="stateAction"
+  />
+
+  <block wx:if="{{pageState === 'default' || pageState === 'partial'}}">
+    <scroll-view wx:if="{{cards.length > 1}}" class="card-tabs" scroll-x enhanced>
+      <view class="card-tabs-inner">
+        <view hover-class="item--hover"
+          wx:for="{{cards}}"
+          wx:key="cardVersionId"
+          class="card-tab {{activeIndex === index ? 'card-tab--active' : ''}}"
+          data-index="{{index}}"
+          bindtap="selectCard"
+        >{{index + 1}}</view>
+      </view>
+    </scroll-view>
+
+    <view wx:if="{{selectedCard}}" class="community-card trial-card">
+      <view class="version-pill">当前方法已固定，试用结果不会被后续编辑覆盖</view>
+      <view class="section-title">{{selectedCard.title}}</view>
+      <view class="section-copy">{{selectedCard.recognition}}</view>
+      <view class="tag-line">{{selectedCard.applicabilityLabel}}</view>
+      <view class="evidence-line">{{selectedCard.evidenceLabel}}</view>
+      <view class="risk-line">{{selectedCard.riskLabel}}</view>
+
+      <view class="detail-title">方法步骤</view>
+      <view wx:for="{{selectedCard.methodSteps}}" wx:key="index" class="method-step">
+        <text class="step-index">{{index + 1}}</text><text>{{item}}</text>
+      </view>
+      <view wx:if="{{selectedCard.exclusions.length}}" class="detail-title">不适用</view>
+      <view wx:for="{{selectedCard.exclusions}}" wx:key="index" class="boundary-item">— {{item}}</view>
+      <view wx:if="{{selectedCard.pitfalls.length}}" class="detail-title">容易踩坑</view>
+      <view wx:for="{{selectedCard.pitfalls}}" wx:key="index" class="boundary-item">— {{item}}</view>
+
+      <view wx:if="{{!selectedCard.canTrial}}" class="warning-note">这是你写的方法卡，自己不能投票。</view>
+      <button wx:if="{{!exposureId}}" class="action-button {{interactionLocked || !selectedCard.canTrial ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked || !selectedCard.canTrial}}" bindtap="optIn">主动加入试用</button>
+      <button wx:elif="{{!trialId}}" class="action-button {{interactionLocked || !evidenceReady ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked || !evidenceReady}}" bindtap="completeTrial">核验独立新题结果</button>
+      <view wx:if="{{trialMessage}}" class="{{feedbackEligible ? 'success-note' : 'boundary-note'}}">{{trialMessage}}</view>
+    </view>
+
+    <view wx:if="{{feedbackEligible}}" class="community-section">
+      <view class="section-label">固定反馈</view>
+      <view class="section-title">每位用户对同一份方法仅一次</view>
+      <view class="fixed-actions">
+        <button class="action-button {{feedbackVote === 'helpful' ? '' : 'secondary-button'}}" data-value="helpful" bindtap="chooseVote">有帮助</button>
+        <button class="action-button {{feedbackVote === 'not_helpful' ? '' : 'secondary-button'}}" data-value="not_helpful" bindtap="chooseVote">没帮助</button>
+      </view>
+      <view class="reason-grid">
+        <view hover-class="item--hover"
+          wx:for="{{activeFeedbackReasons}}"
+          wx:key="value"
+          class="reason-chip {{feedbackReason === item.value ? 'reason-chip--active' : ''}}"
+          data-value="{{item.value}}"
+          bindtap="chooseFeedbackReason"
+        >{{item.label}}</view>
+      </view>
+      <view class="boundary-note">这里不用聊天，选个选项提交就行。</view>
+      <button class="action-button {{interactionLocked || feedbackRecorded ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked || feedbackRecorded}}" bindtap="submitFeedback">{{feedbackRecorded ? '反馈已记录' : '提交固定反馈'}}</button>
+    </view>
+
+    <view wx:if="{{exposureId}}" class="community-section">
+      <view class="section-label">问题举报</view>
+      <view class="section-title">只提交固定分类和已有试用记录</view>
+      <view class="reason-grid">
+        <view hover-class="item--hover"
+          wx:for="{{reportCategories}}"
+          wx:key="value"
+          class="reason-chip {{reportCategory === item.value ? 'reason-chip--danger' : ''}}"
+          data-value="{{item.value}}"
+          bindtap="chooseReportCategory"
+        >{{item.label}}</view>
+      </view>
+      <button class="action-button danger-button {{interactionLocked ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked}}" bindtap="submitReport">提交举报</button>
+      <view wx:if="{{reportMessage}}" class="success-note">{{reportMessage}}</view>
+    </view>
+  </block>
+</view>

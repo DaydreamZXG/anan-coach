@@ -1,0 +1,858 @@
+<canvas id="51:3" name="01 · 登录与建档" x="0" y="0" width="0" height="0">
+  <frame id="31:2" name="01 · 微信登录" x="0" y="0" width="406" height="860">
+    <frame id="31:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="31:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="31:6" name="LoginPage" x="0" y="0" width="390" height="844">
+          <frame id="31:7" name="Container" x="118" y="-84.390625" width="350" height="350" />
+          <frame id="31:8" name="Container" x="-78" y="578.390625" width="350" height="350" />
+          <frame id="31:9" name="Container" x="0" y="45" width="390" height="799">
+            <frame id="31:10" name="Container" x="32" y="212" width="326" height="375">
+              <frame id="31:41" name="Container:margin" x="115" y="0" width="96" height="128">
+                <frame id="31:11" name="Container" x="0" y="0" width="96" height="96">
+                  <frame id="31:13" name="Icon" x="24" y="24" width="48" height="48" />
+                  <frame id="31:12" name="Container" x="0" y="0" width="96" height="96" />
+                </frame>
+              </frame>
+              <frame id="31:23" name="Heading 1" x="88.5" y="128" width="149" height="52">
+                <text id="31:24" name="岸岸备考" x="3.5" y="0" width="142" height="40" />
+              </frame>
+              <frame id="31:43" name="Paragraph:margin" x="69" y="180" width="188" height="97">
+                <text id="31:27" name="基于认知科学的 AI 备考教练 为你规划最快的上岸路径" x="0" y="0" width="188" height="49" />
+              </frame>
+              <frame id="31:29" name="Button" x="0" y="277" width="326" height="56">
+                <text id="31:30" name="微信一键登录" x="102" y="16" width="96" height="24" />
+                <frame id="31:32" name="Icon" x="206" y="19" width="18" height="18" />
+              </frame>
+              <frame id="31:35" name="Container" x="56.5" y="333" width="213" height="42">
+                <frame id="31:36" name="Icon" x="0" y="26" width="14" height="14" />
+                <frame id="31:38" name="Text" x="22" y="24" width="192" height="18">
+                  <text id="31:39" name="登录即代表同意用户协议与隐私政策" x="0" y="0" width="192" height="18" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="31:45" name="StatusBar" x="0" y="0" width="390" height="45">
+            <frame id="31:46" name="Text" x="24" y="12" width="30" height="21">
+              <text id="31:47" name="9:41" x="0" y="0" width="30" height="21" />
+            </frame>
+            <frame id="31:49" name="Container" x="298" y="12.5" width="68" height="20">
+              <frame id="31:50" name="Icon" x="0" y="2" width="16" height="16" />
+              <frame id="31:56" name="Icon" x="24" y="2" width="16" height="16" />
+              <frame id="31:61" name="Icon" x="48" y="0" width="20" height="20" />
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+      <frame id="31:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="8:2" name="02 · 建档入口" x="506" y="0" width="406" height="860">
+    <frame id="8:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="8:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="8:37" name="Container:margin" x="155" y="226.5" width="80" height="112">
+          <frame id="8:11" name="Container" x="0" y="0" width="80" height="80">
+            <frame id="8:12" name="Icon" x="22" y="22" width="36" height="36" />
+          </frame>
+        </frame>
+        <frame id="8:38" name="Heading 1:margin" x="112.5" y="338.5" width="165" height="52">
+          <text id="8:19" name="建立备考档案" x="0" y="0" width="165" height="40" />
+        </frame>
+        <frame id="8:39" name="Paragraph:margin" x="32" y="390.5" width="326" height="97">
+          <text id="8:22" name="岸岸需要了解你的背景和目标，以提供准确的岗位推荐与定制化计划。" x="0" y="0" width="326" height="49" />
+        </frame>
+        <frame id="8:24" name="Container" x="32" y="487.5" width="326" height="130">
+          <frame id="8:25" name="Button" x="0" y="0" width="326" height="56">
+            <text id="8:26" name="我是新用户，开始建档" x="70" y="16" width="160" height="24" />
+            <frame id="8:28" name="Icon" x="238" y="19" width="18" height="18" />
+          </frame>
+          <frame id="8:31" name="Button" x="0" y="72" width="326" height="58">
+            <text id="8:32" name="我是老用户，修改档案" x="70" y="17" width="160" height="24" />
+            <frame id="8:34" name="Icon" x="238" y="20" width="18" height="18" />
+          </frame>
+        </frame>
+        <frame id="8:8" name="Button" x="16" y="60" width="40" height="40">
+          <frame id="8:9" name="Icon" x="8" y="8" width="24" height="24" />
+        </frame>
+      </frame>
+      <frame id="8:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="33:2" name="03 · 档案中心" x="1012" y="0" width="406" height="860">
+    <frame id="33:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="33:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="33:7" name="Container" x="0" y="0" width="390" height="48" />
+        <frame id="33:149" name="Container:margin" x="0" y="48" width="390" height="104">
+          <frame id="33:8" name="Container" x="0" y="48" width="390" height="56">
+            <frame id="33:15" name="Button:margin" x="16" y="7.5" width="32" height="40">
+              <frame id="33:9" name="Button" x="-8" y="0" width="40" height="40">
+                <frame id="33:10" name="Icon" x="8" y="8" width="24" height="24" />
+              </frame>
+            </frame>
+            <frame id="33:12" name="Text" x="48" y="15.5" width="109" height="24">
+              <text id="33:13" name="我的备考档案" x="8" y="0" width="96" height="24" />
+            </frame>
+          </frame>
+        </frame>
+        <frame id="33:17" name="Container" x="0" y="152" width="390" height="692">
+          <frame id="33:18" name="Container" x="20" y="24" width="350" height="130">
+            <frame id="33:33" name="Icon:margin" x="21" y="21" width="18" height="20">
+              <frame id="33:19" name="Icon" x="0" y="2" width="18" height="18" />
+            </frame>
+            <frame id="33:25" name="Container" x="51" y="21" width="278" height="88">
+              <frame id="33:26" name="Heading 3" x="0" y="0" width="278" height="20">
+                <text id="33:27" name="档案完善度影响岗位推荐" x="0" y="0" width="153" height="20" />
+              </frame>
+              <frame id="33:29" name="Paragraph" x="0" y="20" width="278" height="68">
+                <text id="33:30" name="你目前有两项关键信息待完善，这将导致岸岸无法为你过滤隐性限制条件的岗位。建议尽快补充。" x="0" y="4" width="278" height="64" />
+              </frame>
+            </frame>
+          </frame>
+          <frame id="33:34" name="Container" x="20" y="154" width="350" height="551">
+            <frame id="33:35" name="Container" x="0" y="32" width="350" height="91">
+              <frame id="33:36" name="Container" x="21" y="21.5" width="146.34375" height="48">
+                <frame id="33:37" name="Container" x="0" y="0" width="48" height="48">
+                  <frame id="33:38" name="Icon" x="14" y="14" width="20" height="20" />
+                </frame>
+                <frame id="33:41" name="Container" x="64" y="2.5" width="82.34375" height="43">
+                  <frame id="33:42" name="Heading 4" x="0" y="0" width="82.34375" height="21">
+                    <text id="33:43" name="身份与状态" x="0" y="0" width="75" height="21" />
+                  </frame>
+                  <frame id="33:45" name="Paragraph" x="0" y="21" width="82.34375" height="22">
+                    <text id="33:46" name="首次备考 · 在职" x="0" y="4" width="82" height="18" />
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="33:49" name="Container" x="283" y="21" width="46" height="49">
+                <frame id="33:50" name="Text" x="0" y="0" width="46" height="21">
+                  <text id="33:51" name="100%" x="8" y="2" width="30" height="17" />
+                </frame>
+                <frame id="33:53" name="Button" x="20" y="29" width="26" height="20">
+                  <text id="33:54" name="修改" x="0" y="0" width="26" height="20" />
+                </frame>
+              </frame>
+            </frame>
+            <frame id="33:56" name="Container" x="0" y="139" width="350" height="91">
+              <frame id="33:57" name="Container" x="21" y="21.5" width="196" height="48">
+                <frame id="33:58" name="Container" x="0" y="0" width="48" height="48">
+                  <frame id="33:59" name="Icon" x="14" y="14" width="20" height="20" />
+                </frame>
+                <frame id="33:62" name="Container" x="64" y="2.5" width="132" height="43">
+                  <frame id="33:63" name="Heading 4" x="0" y="0" width="132" height="21">
+                    <text id="33:64" name="报考资格" x="0" y="0" width="60" height="21" />
+                  </frame>
+                  <frame id="33:66" name="Paragraph" x="0" y="21" width="132" height="22">
+                    <text id="33:67" name="学历、专业、基层经历等" x="0" y="4" width="132" height="18" />
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="33:70" name="Container" x="280" y="21" width="49" height="49">
+                <frame id="33:71" name="Text" x="0" y="0" width="49" height="21">
+                  <text id="33:72" name="待完善" x="8" y="2" width="33" height="17" />
+                </frame>
+                <frame id="33:74" name="Button" x="23" y="29" width="26" height="20">
+                  <text id="33:75" name="修改" x="0" y="0" width="26" height="20" />
+                </frame>
+              </frame>
+            </frame>
+            <frame id="33:77" name="Container" x="0" y="246" width="350" height="91">
+              <frame id="33:78" name="Container" x="21" y="21.5" width="146.34375" height="48">
+                <frame id="33:79" name="Container" x="0" y="0" width="48" height="48">
+                  <frame id="33:80" name="Icon" x="14" y="14" width="20" height="20" />
+                </frame>
+                <frame id="33:83" name="Container" x="64" y="2.5" width="82.34375" height="43">
+                  <frame id="33:84" name="Heading 4" x="0" y="0" width="82.34375" height="21">
+                    <text id="33:85" name="岗位偏好" x="0" y="0" width="60" height="21" />
+                  </frame>
+                  <frame id="33:87" name="Paragraph" x="0" y="21" width="82.34375" height="22">
+                    <text id="33:88" name="北京 · 接受异地" x="0" y="4" width="82" height="18" />
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="33:91" name="Container" x="283" y="21" width="46" height="49">
+                <frame id="33:92" name="Text" x="0" y="0" width="46" height="21">
+                  <text id="33:93" name="100%" x="8" y="2" width="30" height="17" />
+                </frame>
+                <frame id="33:95" name="Button" x="20" y="29" width="26" height="20">
+                  <text id="33:96" name="修改" x="0" y="0" width="26" height="20" />
+                </frame>
+              </frame>
+            </frame>
+            <frame id="33:98" name="Container" x="0" y="353" width="350" height="91">
+              <frame id="33:99" name="Container" x="21" y="21.5" width="174.890625" height="48">
+                <frame id="33:100" name="Container" x="0" y="0" width="48" height="48">
+                  <frame id="33:101" name="Icon" x="14" y="14" width="20" height="20" />
+                </frame>
+                <frame id="33:104" name="Container" x="64" y="2.5" width="110.890625" height="43">
+                  <frame id="33:105" name="Heading 4" x="0" y="0" width="110.890625" height="21">
+                    <text id="33:106" name="学习时间" x="0" y="0" width="60" height="21" />
+                  </frame>
+                  <frame id="33:108" name="Paragraph" x="0" y="21" width="110.890625" height="22">
+                    <text id="33:109" name="工作日2.5h · 周末6h" x="0" y="4" width="110" height="18" />
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="33:112" name="Container" x="283" y="21" width="46" height="49">
+                <frame id="33:113" name="Text" x="0" y="0" width="46" height="21">
+                  <text id="33:114" name="100%" x="8" y="2" width="30" height="17" />
+                </frame>
+                <frame id="33:116" name="Button" x="20" y="29" width="26" height="20">
+                  <text id="33:117" name="修改" x="0" y="0" width="26" height="20" />
+                </frame>
+              </frame>
+            </frame>
+            <frame id="33:119" name="Container" x="0" y="460" width="350" height="91">
+              <frame id="33:120" name="Container" x="21" y="21.5" width="148" height="48">
+                <frame id="33:121" name="Container" x="0" y="0" width="48" height="48">
+                  <frame id="33:122" name="Icon" x="14" y="14" width="20" height="20" />
+                </frame>
+                <frame id="33:126" name="Container" x="64" y="2.5" width="84" height="43">
+                  <frame id="33:127" name="Heading 4" x="0" y="0" width="84" height="21">
+                    <text id="33:128" name="能力基础" x="0" y="0" width="60" height="21" />
+                  </frame>
+                  <frame id="33:130" name="Paragraph" x="0" y="21" width="84" height="22">
+                    <text id="33:131" name="未进行基础测评" x="0" y="4" width="84" height="18" />
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="33:134" name="Container" x="291" y="21" width="38" height="49">
+                <frame id="33:135" name="Text" x="0" y="0" width="38" height="21">
+                  <text id="33:136" name="缺失" x="8" y="2" width="22" height="17" />
+                </frame>
+                <frame id="33:138" name="Button" x="12" y="29" width="26" height="20">
+                  <text id="33:139" name="修改" x="0" y="0" width="26" height="20" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+        <frame id="33:142" name="Container" x="0" y="751" width="390" height="93">
+          <frame id="33:143" name="Button" x="20" y="17" width="350" height="56">
+            <text id="33:144" name="查看整体档案评估" x="98" y="16" width="128" height="24" />
+            <frame id="33:146" name="Icon" x="234" y="19" width="18" height="18" />
+          </frame>
+        </frame>
+      </frame>
+      <frame id="33:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="34:2" name="04 · 身份与备考状态" x="1518" y="0" width="406" height="860">
+    <frame id="34:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="34:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="34:7" name="Container" x="0" y="0" width="390" height="48" />
+        <frame id="34:104" name="NavBar:margin" x="0" y="48" width="390" height="104">
+          <frame id="34:8" name="NavBar" x="0" y="48" width="390" height="56">
+            <frame id="34:9" name="Container" x="16" y="7.5" width="153" height="40">
+              <frame id="34:16" name="Button:margin" x="0" y="0" width="32" height="40">
+                <frame id="34:10" name="Button" x="-8" y="0" width="40" height="40">
+                  <frame id="34:11" name="Icon" x="8" y="8" width="24" height="24" />
+                </frame>
+              </frame>
+              <frame id="34:13" name="Text" x="44" y="8" width="109" height="24">
+                <text id="34:14" name="1/5 身份与状态" x="0" y="0" width="109" height="24" />
+              </frame>
+            </frame>
+            <frame id="34:17" name="Button" x="285" y="11.5" width="89" height="32">
+              <text id="34:18" name="暂存并退出" x="12" y="6" width="65" height="20" />
+            </frame>
+          </frame>
+        </frame>
+        <frame id="34:20" name="Container" x="0" y="152" width="390" height="692">
+          <frame id="34:21" name="Heading 2" x="24" y="24" width="342" height="34">
+            <text id="34:22" name="了解你的基本状态" x="0" y="0" width="188" height="34" />
+          </frame>
+          <frame id="34:24" name="Paragraph" x="24" y="58" width="342" height="54">
+            <text id="34:25" name="当前仅支持国家公务员考试规划。岸岸会根据你的备考经验定制不同强度的训练节奏。" x="0" y="8" width="342" height="46" />
+          </frame>
+          <frame id="34:95" name="Container:margin" x="24" y="112" width="342" height="122">
+            <frame id="34:27" name="Container" x="0" y="32" width="342" height="90">
+              <frame id="34:28" name="Container" x="17" y="17" width="56" height="56">
+                <frame id="34:29" name="Image (avatar)" x="2" y="2" width="52" height="52" />
+              </frame>
+              <frame id="34:30" name="Container" x="89" y="20.5" width="236" height="49">
+                <frame id="34:31" name="Paragraph" x="0" y="0" width="236" height="20">
+                  <text id="34:32" name="微信昵称" x="0" y="0" width="48" height="18" />
+                </frame>
+                <frame id="34:34" name="Text Input" x="0" y="20" width="236" height="29">
+                  <text id="34:35" name="林小鱼" x="0" y="0" width="236" height="24" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="34:38" name="Heading 3" x="24" y="234" width="342" height="53">
+            <text id="34:39" name="你的备考经验" x="4" y="32" width="90" height="21" />
+          </frame>
+          <frame id="34:97" name="Container:margin" x="24" y="287" width="342" height="94.5">
+            <frame id="34:41" name="Container" x="0" y="12" width="342" height="82.5">
+              <frame id="34:42" name="Button" x="0" y="0" width="165" height="82.5">
+                <frame id="34:43" name="Container" x="17" y="16.75" width="131" height="23">
+                  <frame id="34:44" name="Text" x="0" y="0" width="60" height="23">
+                    <text id="34:45" name="首次备考" x="0" y="0" width="60" height="23" />
+                  </frame>
+                </frame>
+                <frame id="34:47" name="Paragraph" x="17" y="39.75" width="131" height="26">
+                  <text id="34:48" name="从零开始建立基础" x="0" y="8" width="96" height="18" />
+                </frame>
+              </frame>
+              <frame id="34:51" name="Button" x="177" y="0" width="165" height="82.5">
+                <frame id="34:52" name="Container" x="17" y="16.75" width="131" height="23">
+                  <frame id="34:53" name="Text" x="0" y="0" width="66" height="23">
+                    <text id="34:54" name="二战/多战" x="0" y="0" width="66" height="23" />
+                  </frame>
+                </frame>
+                <frame id="34:56" name="Paragraph" x="17" y="39.75" width="131" height="26">
+                  <text id="34:57" name="重点突破弱项短板" x="0" y="8" width="96" height="18" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="34:60" name="Heading 3" x="24" y="381.5" width="342" height="53">
+            <text id="34:61" name="当前身份状态" x="4" y="32" width="90" height="21" />
+          </frame>
+          <frame id="34:63" name="Container" x="24" y="434.5" width="342" height="291">
+            <frame id="34:64" name="Button" x="0" y="12" width="342" height="85">
+              <frame id="34:65" name="Container" x="17" y="17" width="144" height="51">
+                <frame id="34:66" name="Text" x="0" y="0" width="144" height="27">
+                  <text id="34:67" name="在职备考" x="0" y="0" width="60" height="23" />
+                </frame>
+                <frame id="34:72" name="Container" x="0" y="27" width="144" height="24">
+                  <text id="34:69" name="时间碎片化，需要极高效率" x="0" y="3" width="144" height="18" />
+                </frame>
+              </frame>
+              <frame id="34:73" name="Container" x="305" y="32.5" width="20" height="20" />
+            </frame>
+            <frame id="34:74" name="Button" x="0" y="109" width="342" height="85">
+              <frame id="34:75" name="Container" x="17" y="17" width="144" height="51">
+                <frame id="34:76" name="Text" x="0" y="0" width="144" height="27">
+                  <text id="34:77" name="全职备考" x="0" y="0" width="60" height="23" />
+                </frame>
+                <frame id="34:82" name="Container" x="0" y="27" width="144" height="24">
+                  <text id="34:79" name="时间充足，需要系统性拉练" x="0" y="3" width="144" height="18" />
+                </frame>
+              </frame>
+              <frame id="34:83" name="Container" x="305" y="32.5" width="20" height="20" />
+            </frame>
+            <frame id="34:84" name="Button" x="0" y="206" width="342" height="85">
+              <frame id="34:85" name="Container" x="17" y="17" width="132" height="51">
+                <frame id="34:86" name="Text" x="0" y="0" width="132" height="27">
+                  <text id="34:87" name="在校生" x="0" y="0" width="45" height="23" />
+                </frame>
+                <frame id="34:92" name="Container" x="0" y="27" width="132" height="24">
+                  <text id="34:89" name="兼顾学业，弹性安排进度" x="0" y="3" width="132" height="18" />
+                </frame>
+              </frame>
+              <frame id="34:93" name="Container" x="305" y="32.5" width="20" height="20" />
+            </frame>
+          </frame>
+        </frame>
+        <frame id="34:100" name="Container" x="0" y="751" width="390" height="93">
+          <frame id="34:101" name="Button" x="20" y="17" width="350" height="56">
+            <text id="34:102" name="继续：填写报考资格" x="103" y="16" width="144" height="24" />
+          </frame>
+        </frame>
+      </frame>
+      <frame id="34:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="35:2" name="05 · 报考资格" x="2024" y="0" width="406" height="860">
+    <frame id="35:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="35:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="35:7" name="Container" x="0" y="0" width="390" height="48" />
+        <frame id="35:106" name="NavBar:margin" x="0" y="48" width="390" height="104">
+          <frame id="35:8" name="NavBar" x="0" y="48" width="390" height="56">
+            <frame id="35:9" name="Container" x="16" y="7.5" width="139" height="40">
+              <frame id="35:16" name="Button:margin" x="0" y="0" width="32" height="40">
+                <frame id="35:10" name="Button" x="-8" y="0" width="40" height="40">
+                  <frame id="35:11" name="Icon" x="8" y="8" width="24" height="24" />
+                </frame>
+              </frame>
+              <frame id="35:13" name="Text" x="44" y="8" width="95" height="24">
+                <text id="35:14" name="2/5 报考资格" x="0" y="0" width="95" height="24" />
+              </frame>
+            </frame>
+            <frame id="35:17" name="Button" x="285" y="11.5" width="89" height="32">
+              <text id="35:18" name="暂存并退出" x="12" y="6" width="65" height="20" />
+            </frame>
+          </frame>
+        </frame>
+        <frame id="35:20" name="Container" x="0" y="152" width="390" height="692">
+          <frame id="35:21" name="Container" x="20" y="24" width="350" height="77">
+            <frame id="35:29" name="Icon:margin" x="17" y="17" width="16" height="18">
+              <frame id="35:22" name="Icon" x="0" y="2" width="16" height="16" />
+            </frame>
+            <frame id="35:26" name="Paragraph" x="45" y="17" width="288" height="43">
+              <text id="35:27" name="这部分信息将决定你能否跨过岗位的硬性门槛。不确定的可以先标记“稍后确认”。" x="0" y="0" width="288" height="43" />
+            </frame>
+          </frame>
+          <frame id="35:99" name="Container:margin" x="20" y="101" width="350" height="275">
+            <frame id="35:30" name="Container" x="0" y="32" width="350" height="243">
+              <frame id="35:31" name="Heading 3" x="21" y="21" width="308" height="21">
+                <text id="35:32" name="专业与学历" x="0" y="0" width="75" height="21" />
+              </frame>
+              <frame id="35:34" name="Paragraph" x="21" y="42" width="308" height="28">
+                <text id="35:35" name="专业是国考岗位的核心门槛，匹配度优先于地区偏好。" x="0" y="8" width="288" height="20" />
+              </frame>
+              <frame id="35:57" name="Container:margin" x="21" y="70" width="308" height="64">
+                <frame id="35:37" name="Container" x="0" y="16" width="308" height="48">
+                  <frame id="35:38" name="Icon" x="12" y="16" width="16" height="16" />
+                  <frame id="35:41" name="Text Input" x="0" y="0" width="308" height="48">
+                    <text id="35:42" name="搜索具体专业名称..." x="41" y="15.5" width="250" height="17" />
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="35:58" name="Container:margin" x="21" y="134" width="308" height="88">
+                <frame id="35:43" name="Container" x="0" y="16" width="308" height="72">
+                  <frame id="35:44" name="Container" x="0" y="0" width="148" height="72">
+                    <frame id="35:45" name="Label" x="0" y="0" width="148" height="18">
+                      <text id="35:46" name="最高学历" x="4" y="0" width="48" height="18" />
+                    </frame>
+                    <frame id="35:48" name="Dropdown" x="0" y="24" width="148" height="48" />
+                  </frame>
+                  <frame id="35:50" name="Container" x="160" y="0" width="148" height="72">
+                    <frame id="35:51" name="Label" x="0" y="0" width="148" height="18">
+                      <text id="35:52" name="毕业年份" x="4" y="0" width="48" height="18" />
+                    </frame>
+                    <frame id="35:54" name="Dropdown" x="0" y="24" width="148" height="48" />
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="35:100" name="Container:margin" x="20" y="376" width="350" height="387.5">
+            <frame id="35:59" name="Container" x="0" y="24" width="350" height="363.5">
+              <frame id="35:60" name="Heading 3" x="21" y="21" width="308" height="21">
+                <text id="35:61" name="服务基层项目经历" x="0" y="0" width="119" height="21" />
+              </frame>
+              <frame id="35:63" name="Paragraph" x="21" y="42" width="308" height="47">
+                <text id="35:64" name="包含大学生村官、三支一扶、特岗教师等。此项能为你解锁大量定向招录的特殊岗位，与普通工作经历严格区分。" x="0" y="8" width="308" height="39" />
+              </frame>
+              <frame id="35:66" name="Container" x="21" y="89" width="308" height="142">
+                <frame id="35:67" name="Button" x="0" y="16" width="308" height="55">
+                  <frame id="35:68" name="Text" x="17" y="17" width="126" height="21">
+                    <text id="35:69" name="无服务基层项目经历" x="0" y="0" width="126" height="21" />
+                  </frame>
+                </frame>
+                <frame id="35:71" name="Button" x="0" y="83" width="308" height="59">
+                  <frame id="35:72" name="Container" x="17" y="17" width="274" height="25">
+                    <frame id="35:73" name="Text" x="0" y="0" width="98" height="21">
+                      <text id="35:74" name="有基层项目经历" x="0" y="0" width="98" height="21" />
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="35:93" name="Container:margin" x="21" y="231" width="308" height="21">
+                <frame id="35:77" name="Container" x="0" y="20" width="308" height="1" />
+              </frame>
+              <frame id="35:78" name="Heading 3" x="21" y="252" width="308" height="41">
+                <text id="35:79" name="普通工作经历" x="0" y="20" width="90" height="21" />
+              </frame>
+              <frame id="35:81" name="Container" x="21" y="293" width="308" height="49.5">
+                <frame id="35:82" name="Button" x="0" y="8" width="97.328125" height="41.5">
+                  <text id="35:83" name="无经验" x="29.1640625" y="10.75" width="39" height="20" />
+                </frame>
+                <frame id="35:85" name="Button" x="105.328125" y="8" width="97.34375" height="41.5">
+                  <text id="35:86" name="2年以下" x="24.671875" y="10.75" width="48" height="20" />
+                </frame>
+                <frame id="35:88" name="Button" x="210.671875" y="8" width="97.328125" height="41.5">
+                  <text id="35:89" name="2年以上" x="24.6640625" y="10.75" width="48" height="20" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="35:101" name="Button:margin" x="20" y="763.5" width="350" height="79">
+            <frame id="35:96" name="Button" x="0" y="24" width="350" height="55">
+              <text id="35:97" name="标记此页信息稍后确认" x="105" y="17" width="140" height="21" />
+            </frame>
+          </frame>
+        </frame>
+        <frame id="35:102" name="Container" x="0" y="751" width="390" height="93">
+          <frame id="35:103" name="Button" x="20" y="17" width="350" height="56">
+            <text id="35:104" name="继续：填写岗位偏好" x="103" y="16" width="144" height="24" />
+          </frame>
+        </frame>
+      </frame>
+      <frame id="35:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="36:2" name="06 · 地区与岗位偏好" x="2530" y="0" width="406" height="860">
+    <frame id="36:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="36:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="36:7" name="Container" x="0" y="0" width="390" height="48" />
+        <frame id="36:107" name="NavBar:margin" x="0" y="48" width="390" height="104">
+          <frame id="36:8" name="NavBar" x="0" y="48" width="390" height="56">
+            <frame id="36:9" name="Container" x="16" y="7.5" width="139" height="40">
+              <frame id="36:16" name="Button:margin" x="0" y="0" width="32" height="40">
+                <frame id="36:10" name="Button" x="-8" y="0" width="40" height="40">
+                  <frame id="36:11" name="Icon" x="8" y="8" width="24" height="24" />
+                </frame>
+              </frame>
+              <frame id="36:13" name="Text" x="44" y="8" width="95" height="24">
+                <text id="36:14" name="3/5 岗位偏好" x="0" y="0" width="95" height="24" />
+              </frame>
+            </frame>
+            <frame id="36:17" name="Button" x="285" y="11.5" width="89" height="32">
+              <text id="36:18" name="暂存并退出" x="12" y="6" width="65" height="20" />
+            </frame>
+          </frame>
+        </frame>
+        <frame id="36:20" name="Container" x="0" y="152" width="390" height="692">
+          <frame id="36:21" name="Container" x="20" y="24" width="350" height="304">
+            <frame id="36:22" name="Heading 3" x="21" y="21" width="308" height="23">
+              <text id="36:23" name="首选工作地区" x="0" y="0" width="96" height="23" />
+            </frame>
+            <frame id="36:25" name="Paragraph" x="21" y="44" width="308" height="47">
+              <text id="36:26" name="如果首选地区未匹配到理想岗位，岸岸将为你寻找周边或相似分数段区域。" x="0" y="8" width="308" height="39" />
+            </frame>
+            <frame id="36:62" name="Container:margin" x="21" y="91" width="308" height="99">
+              <frame id="36:28" name="Container" x="0" y="16" width="308" height="83">
+                <frame id="36:29" name="Button" x="0" y="0" width="60" height="37.5">
+                  <text id="36:30" name="北京" x="17" y="8.75" width="26" height="20" />
+                </frame>
+                <frame id="36:32" name="Button" x="68" y="0" width="60" height="37.5">
+                  <text id="36:33" name="天津" x="17" y="8.75" width="26" height="20" />
+                </frame>
+                <frame id="36:35" name="Button" x="136" y="0" width="60" height="37.5">
+                  <text id="36:36" name="河北" x="17" y="8.75" width="26" height="20" />
+                </frame>
+                <frame id="36:38" name="Button" x="204" y="0" width="60" height="37.5">
+                  <text id="36:39" name="上海" x="17" y="8.75" width="26" height="20" />
+                </frame>
+                <frame id="36:41" name="Button" x="0" y="45.5" width="60" height="37.5">
+                  <text id="36:42" name="江苏" x="17" y="8.75" width="26" height="20" />
+                </frame>
+                <frame id="36:44" name="Button" x="68" y="45.5" width="60" height="37.5">
+                  <text id="36:45" name="浙江" x="17" y="8.75" width="26" height="20" />
+                </frame>
+                <frame id="36:47" name="Button" x="136" y="45.5" width="60" height="37.5">
+                  <text id="36:48" name="广东" x="17" y="8.75" width="26" height="20" />
+                </frame>
+              </frame>
+            </frame>
+            <frame id="36:63" name="Container:margin" x="21" y="190" width="308" height="93">
+              <frame id="36:50" name="Container" x="0" y="20" width="308" height="73">
+                <frame id="36:51" name="Container" x="17" y="17" width="143" height="39">
+                  <frame id="36:52" name="Heading 4" x="0" y="0" width="143" height="20">
+                    <text id="36:53" name="接受调剂或异地岗位" x="0" y="0" width="126" height="20" />
+                  </frame>
+                  <frame id="36:55" name="Paragraph" x="0" y="20" width="143" height="19">
+                    <text id="36:56" name="大幅增加符合条件的岗位基数" x="0" y="2" width="143" height="17" />
+                  </frame>
+                </frame>
+                <frame id="36:59" name="Container" x="243" y="22.5" width="48" height="28">
+                  <frame id="36:60" name="Container" x="4" y="4" width="20" height="20" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="36:102" name="Container:margin" x="20" y="328" width="350" height="361">
+            <frame id="36:64" name="Container" x="0" y="24" width="350" height="337">
+              <frame id="36:65" name="Heading 3" x="21" y="21" width="308" height="23">
+                <text id="36:66" name="岗位层级接受度" x="0" y="0" width="112" height="23" />
+              </frame>
+              <frame id="36:68" name="Container" x="21" y="44" width="308" height="272">
+                <frame id="36:69" name="Label" x="0" y="16" width="308" height="55">
+                  <frame id="36:70" name="Checkbox" x="17" y="19.5" width="16" height="16">
+                    <frame id="36:71" name="Container" x="0" y="0" width="16" height="16">
+                      <frame id="36:72" name="Icon" x="1" y="1" width="14" height="14" />
+                    </frame>
+                  </frame>
+                  <frame id="36:74" name="Text" x="45" y="17" width="112" height="21">
+                    <text id="36:75" name="中央国家行政机关" x="0" y="0" width="112" height="21" />
+                  </frame>
+                </frame>
+                <frame id="36:77" name="Label" x="0" y="83" width="308" height="55">
+                  <frame id="36:78" name="Checkbox" x="17" y="19.5" width="16" height="16">
+                    <frame id="36:79" name="Container" x="0" y="0" width="16" height="16">
+                      <frame id="36:80" name="Icon" x="1" y="1" width="14" height="14" />
+                    </frame>
+                  </frame>
+                  <frame id="36:82" name="Text" x="45" y="17" width="84" height="21">
+                    <text id="36:83" name="省级以上机关" x="0" y="0" width="84" height="21" />
+                  </frame>
+                </frame>
+                <frame id="36:85" name="Label" x="0" y="150" width="308" height="55">
+                  <frame id="36:86" name="Checkbox" x="17" y="19.5" width="16" height="16">
+                    <frame id="36:87" name="Container" x="0" y="0" width="16" height="16">
+                      <frame id="36:88" name="Icon" x="1" y="1" width="14" height="14" />
+                    </frame>
+                  </frame>
+                  <frame id="36:90" name="Text" x="45" y="17" width="98" height="21">
+                    <text id="36:91" name="市（地）级机关" x="0" y="0" width="98" height="21" />
+                  </frame>
+                </frame>
+                <frame id="36:93" name="Label" x="0" y="217" width="308" height="55">
+                  <frame id="36:94" name="Checkbox" x="17" y="19.5" width="16" height="16" />
+                  <frame id="36:98" name="Text" x="45" y="17" width="112" height="21">
+                    <text id="36:99" name="县（区）级及以下" x="0" y="0" width="112" height="21" />
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+        <frame id="36:103" name="Container" x="0" y="751" width="390" height="93">
+          <frame id="36:104" name="Button" x="20" y="17" width="350" height="56">
+            <text id="36:105" name="继续：填写学习时间" x="103" y="16" width="144" height="24" />
+          </frame>
+        </frame>
+      </frame>
+      <frame id="36:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="37:2" name="07 · 每周可学时间" x="3036" y="0" width="406" height="860">
+    <frame id="37:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="37:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="37:7" name="Container" x="0" y="0" width="390" height="48" />
+        <frame id="37:76" name="NavBar:margin" x="0" y="48" width="390" height="104">
+          <frame id="37:8" name="NavBar" x="0" y="48" width="390" height="56">
+            <frame id="37:9" name="Container" x="16" y="7.5" width="140" height="40">
+              <frame id="37:16" name="Button:margin" x="0" y="0" width="32" height="40">
+                <frame id="37:10" name="Button" x="-8" y="0" width="40" height="40">
+                  <frame id="37:11" name="Icon" x="8" y="8" width="24" height="24" />
+                </frame>
+              </frame>
+              <frame id="37:13" name="Text" x="44" y="8" width="96" height="24">
+                <text id="37:14" name="4/5 学习时间" x="0" y="0" width="96" height="24" />
+              </frame>
+            </frame>
+            <frame id="37:17" name="Button" x="285" y="11.5" width="89" height="32">
+              <text id="37:18" name="暂存并退出" x="12" y="6" width="65" height="20" />
+            </frame>
+          </frame>
+        </frame>
+        <frame id="37:20" name="Container" x="0" y="152" width="390" height="692">
+          <frame id="37:71" name="Container:margin" x="20" y="24" width="350" height="493">
+            <frame id="37:21" name="Container" x="0" y="0" width="350" height="469">
+              <frame id="37:22" name="Paragraph" x="25" y="25" width="300" height="64">
+                <text id="37:23" name="合理的排期比虚高的计划更有效。每天最少 0.5 小时，最高 12 小时。岸岸将据此分配每天的任务容量" x="0" y="0" width="300" height="64" />
+              </frame>
+              <frame id="37:25" name="TimeSlider" x="25" y="89" width="300" height="127">
+                <frame id="37:26" name="Container" x="0" y="24" width="300" height="21">
+                  <frame id="37:27" name="Heading 4" x="0" y="0" width="200" height="21">
+                    <text id="37:28" name="工作日 (周一至周五) 日均可学" x="0" y="0" width="200" height="21" />
+                  </frame>
+                  <frame id="37:30" name="Text" x="240" y="1" width="60" height="20">
+                    <text id="37:31" name="2.5 小时" x="0" y="0" width="60" height="20" />
+                  </frame>
+                </frame>
+                <frame id="37:41" name="Container:margin" x="0" y="45" width="300" height="82">
+                  <frame id="37:33" name="Container" x="0" y="16" width="300" height="66">
+                    <frame id="37:34" name="Button" x="17" y="17" width="32" height="32">
+                      <text id="37:35" name="-" x="12" y="4" width="8" height="24" />
+                    </frame>
+                    <frame id="37:37" name="Range Slider" x="65" y="29" width="170" height="8" />
+                    <frame id="37:38" name="Button" x="251" y="17" width="32" height="32">
+                      <text id="37:39" name="+" x="10.5" y="4" width="11" height="24" />
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="37:68" name="Container:margin" x="25" y="216" width="300" height="33">
+                <frame id="37:42" name="Container" x="0" y="32" width="300" height="1" />
+              </frame>
+              <frame id="37:43" name="TimeSlider" x="25" y="249" width="300" height="127">
+                <frame id="37:44" name="Container" x="0" y="24" width="300" height="21">
+                  <frame id="37:45" name="Heading 4" x="0" y="0" width="154" height="21">
+                    <text id="37:46" name="周末及节假日 日均可学" x="0" y="0" width="154" height="21" />
+                  </frame>
+                  <frame id="37:48" name="Text" x="239" y="1" width="61" height="20">
+                    <text id="37:49" name="6.0 小时" x="0" y="0" width="61" height="20" />
+                  </frame>
+                </frame>
+                <frame id="37:59" name="Container:margin" x="0" y="45" width="300" height="82">
+                  <frame id="37:51" name="Container" x="0" y="16" width="300" height="66">
+                    <frame id="37:52" name="Button" x="17" y="17" width="32" height="32">
+                      <text id="37:53" name="-" x="12" y="4" width="8" height="24" />
+                    </frame>
+                    <frame id="37:55" name="Range Slider" x="65" y="29" width="170" height="8" />
+                    <frame id="37:56" name="Button" x="251" y="17" width="32" height="32">
+                      <text id="37:57" name="+" x="10.5" y="4" width="11" height="24" />
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="37:60" name="Container" x="25" y="376" width="300" height="68">
+                <frame id="37:61" name="Button" x="0" y="32" width="146" height="36">
+                  <text id="37:62" name="标准在职 (2h/6h)" x="25" y="9" width="96" height="18" />
+                </frame>
+                <frame id="37:64" name="Button" x="154" y="32" width="146" height="36">
+                  <text id="37:65" name="全职备考 (8h/8h)" x="24.5" y="9" width="97" height="18" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+        <frame id="37:72" name="Container" x="0" y="751" width="390" height="93">
+          <frame id="37:73" name="Button" x="20" y="17" width="350" height="56">
+            <text id="37:74" name="继续：能力基础" x="119" y="16" width="112" height="24" />
+          </frame>
+        </frame>
+      </frame>
+      <frame id="37:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="38:2" name="08 · 当前能力起点" x="3542" y="0" width="406" height="860">
+    <frame id="38:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="38:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="38:7" name="Container" x="0" y="0" width="390" height="48" />
+        <frame id="38:64" name="NavBar:margin" x="0" y="48" width="390" height="104">
+          <frame id="38:8" name="NavBar" x="0" y="48" width="390" height="56">
+            <frame id="38:9" name="Container" x="16" y="7.5" width="139" height="40">
+              <frame id="38:16" name="Button:margin" x="0" y="0" width="32" height="40">
+                <frame id="38:10" name="Button" x="-8" y="0" width="40" height="40">
+                  <frame id="38:11" name="Icon" x="8" y="8" width="24" height="24" />
+                </frame>
+              </frame>
+              <frame id="38:13" name="Text" x="44" y="8" width="95" height="24">
+                <text id="38:14" name="5/5 能力基础" x="0" y="0" width="95" height="24" />
+              </frame>
+            </frame>
+            <frame id="38:17" name="Button" x="285" y="11.5" width="89" height="32">
+              <text id="38:18" name="暂存并退出" x="12" y="6" width="65" height="20" />
+            </frame>
+          </frame>
+        </frame>
+        <frame id="38:20" name="Container" x="0" y="152" width="390" height="692">
+          <frame id="38:21" name="Heading 2" x="20" y="24" width="350" height="28">
+            <text id="38:22" name="了解你的起点" x="4" y="0" width="119" height="28" />
+          </frame>
+          <frame id="38:24" name="Paragraph" x="20" y="52" width="350" height="30">
+            <text id="38:25" name="区分自报成绩与系统诊断。你提供的成绩仅作为初始锚点。" x="4" y="8" width="338" height="22" />
+          </frame>
+          <frame id="38:27" name="Container" x="20" y="82" width="350" height="364">
+            <frame id="38:28" name="Button" x="0" y="24" width="350" height="153">
+              <frame id="38:29" name="Container" x="21" y="21" width="308" height="40">
+                <frame id="38:30" name="Container" x="0" y="0" width="40" height="40">
+                  <frame id="38:31" name="Icon" x="11" y="11" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="38:35" name="Heading 3" x="21" y="61" width="308" height="31">
+                <text id="38:36" name="不清楚当前水平" x="0" y="8" width="112" height="23" />
+              </frame>
+              <frame id="38:38" name="Paragraph" x="21" y="92" width="308" height="40">
+                <text id="38:39" name="跳过填写，建档完成后由岸岸为你安排一次简短的基础摸底测评。" x="0" y="4" width="308" height="36" />
+              </frame>
+            </frame>
+            <frame id="38:43" name="Button" x="0" y="193" width="350" height="147">
+              <frame id="38:44" name="Container" x="21" y="21" width="308" height="40">
+                <frame id="38:45" name="Container" x="0" y="0" width="40" height="40">
+                  <frame id="38:46" name="Icon" x="11" y="11" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="38:49" name="Heading 3" x="21" y="61" width="308" height="31">
+                <text id="38:50" name="录入以往模考/真实成绩" x="0" y="8" width="165" height="23" />
+              </frame>
+              <frame id="38:52" name="Paragraph" x="21" y="92" width="308" height="34">
+                <text id="38:53" name="帮助系统更快校准你的弱点分布。" x="0" y="4" width="180" height="18" />
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+        <frame id="38:60" name="Container" x="0" y="751" width="390" height="93">
+          <frame id="38:61" name="Button" x="20" y="17" width="350" height="56">
+            <text id="38:62" name="完成建档，查看评估" x="103" y="16" width="144" height="24" />
+          </frame>
+        </frame>
+      </frame>
+      <frame id="38:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="39:2" name="09 · 建档确认" x="4048" y="0" width="406" height="860">
+    <frame id="39:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="39:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="39:7" name="Container" x="0" y="0" width="390" height="48" />
+        <frame id="39:8" name="Container" x="0" y="48" width="390" height="796">
+          <frame id="39:9" name="Container" x="20" y="24" width="350" height="847">
+            <frame id="39:10" name="Container" x="0" y="0" width="350" height="178">
+              <frame id="39:21" name="Container:margin" x="135" y="16" width="80" height="96">
+                <frame id="39:11" name="Container" x="0" y="0" width="80" height="80">
+                  <frame id="39:12" name="Icon" x="22" y="22" width="36" height="36" />
+                </frame>
+              </frame>
+              <frame id="39:22" name="Heading 1:margin" x="85.5" y="112" width="179" height="45">
+                <text id="39:16" name="备考档案已生成" x="0" y="0" width="179" height="37" />
+              </frame>
+              <text id="39:19" name="当前推荐可信度：较高" x="105" y="157" width="140" height="21" />
+            </frame>
+            <frame id="39:94" name="Container:margin" x="0" y="178" width="350" height="444">
+              <frame id="39:23" name="Container" x="0" y="32" width="350" height="412">
+                <frame id="39:24" name="Container" x="25" y="25" width="300" height="89">
+                  <frame id="39:25" name="Heading 3" x="0" y="0" width="300" height="21">
+                    <frame id="39:26" name="Icon" x="0" y="2.5" width="16" height="16" />
+                    <text id="39:29" name="可靠判断" x="22" y="0" width="60" height="21" />
+                  </frame>
+                  <frame id="39:31" name="Paragraph" x="0" y="21" width="300" height="68">
+                    <text id="39:32" name="由于你的学历（硕士）和专业（计算机科学与技术）信息已确立，岸岸可以为你准确过滤 90% 的硬性门槛岗" x="0" y="4" width="300" height="64" />
+                  </frame>
+                </frame>
+                <frame id="39:35" name="Container" x="25" y="134" width="300" height="1" />
+                <frame id="39:36" name="Container" x="25" y="155" width="300" height="89">
+                  <frame id="39:37" name="Heading 3" x="0" y="0" width="300" height="21">
+                    <frame id="39:38" name="Icon" x="0" y="2.5" width="16" height="16" />
+                    <text id="39:42" name="缺失与风险" x="22" y="0" width="75" height="21" />
+                  </frame>
+                  <frame id="39:44" name="Paragraph" x="0" y="21" width="300" height="68">
+                    <text id="39:45" name="未填写“服务基层项目经历”具体证明状态，若要报考定向岗需后续补充；能力基线目前依赖自报预估值，尚未经" x="0" y="4" width="300" height="64" />
+                  </frame>
+                </frame>
+                <frame id="39:48" name="Container" x="25" y="264" width="300" height="1" />
+                <frame id="39:49" name="Container" x="25" y="285" width="300" height="102">
+                  <frame id="39:56" name="Paragraph:margin" x="17" y="17" width="266" height="68">
+                    <frame id="39:53" name="Paragraph" x="0" y="4" width="266" height="64">
+                      <text id="39:54" name="注：今年国考官方职位表尚未发布。目前的岗位空间是基于历年招录趋势、你的专业及地区投射出的大概定位，不" x="0" y="0" width="266" height="64" />
+                    </frame>
+                  </frame>
+                  <frame id="39:50" name="Text" x="17" y="-7" width="56" height="19">
+                    <text id="39:51" name="提前定位" x="8" y="2" width="40" height="15" />
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+            <frame id="39:57" name="Heading 2" x="0" y="622" width="350" height="47">
+              <text id="39:58" name="下一步建议" x="4" y="24" width="80" height="23" />
+            </frame>
+            <frame id="39:60" name="Container" x="0" y="669" width="350" height="178">
+              <frame id="39:61" name="Button" x="0" y="12" width="350" height="77">
+                <frame id="39:62" name="Container" x="17" y="17" width="211.625" height="43">
+                  <frame id="39:63" name="Container" x="0" y="1.5" width="40" height="40">
+                    <frame id="39:64" name="Icon" x="11" y="11" width="18" height="18" />
+                  </frame>
+                  <frame id="39:67" name="Container" x="52" y="0" width="159.625" height="43">
+                    <frame id="39:68" name="Paragraph" x="0" y="0" width="159.625" height="23">
+                      <text id="39:69" name="探索候选岗位空间" x="0" y="0" width="120" height="23" />
+                    </frame>
+                    <frame id="39:71" name="Paragraph" x="0" y="23" width="159.625" height="20">
+                      <text id="39:72" name="查看 142 个历年相似可报岗位" x="0" y="2" width="160" height="18" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="39:75" name="Icon" x="315" y="29.5" width="18" height="18" />
+              </frame>
+              <frame id="39:77" name="Button" x="0" y="101" width="350" height="77">
+                <frame id="39:78" name="Container" x="17" y="17" width="182.015625" height="43">
+                  <frame id="39:79" name="Container" x="0" y="1.5" width="40" height="40">
+                    <frame id="39:80" name="Icon" x="11" y="11" width="18" height="18" />
+                  </frame>
+                  <frame id="39:84" name="Container" x="52" y="0" width="130.015625" height="43">
+                    <frame id="39:85" name="Paragraph" x="0" y="0" width="130.015625" height="23">
+                      <text id="39:86" name="进行基础能力测评" x="0" y="0" width="120" height="23" />
+                    </frame>
+                    <frame id="39:88" name="Paragraph" x="0" y="23" width="130.015625" height="20">
+                      <text id="39:89" name="一套 30 分钟的卷子摸底" x="0" y="2" width="130" height="18" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="39:92" name="Icon" x="315" y="29.5" width="18" height="18" />
+              </frame>
+            </frame>
+          </frame>
+        </frame>
+        <frame id="39:97" name="Container" x="0" y="751" width="390" height="93">
+          <frame id="39:98" name="Button" x="20" y="17" width="350" height="56">
+            <text id="39:99" name="前往首页，开始今日学习" x="87" y="16" width="176" height="24" />
+          </frame>
+        </frame>
+      </frame>
+      <frame id="39:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+</canvas>

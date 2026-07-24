@@ -1,0 +1,69 @@
+<view class="time-page">
+  <safe-top gap="{{0}}" />
+  <view class="time-nav">
+    <view class="nav-left">
+      <button class="nav-back" aria-label="返回" bindtap="back"><view class="nav-back__icon"></view></button>
+      <view class="nav-title">4/5 学习时间</view>
+    </view>
+    <button class="nav-save" loading="{{state && state.saving}}" bindtap="saveAndExit">暂存并退出</button>
+  </view>
+
+  <view wx:if="{{!state || state.status === 'loading'}}" class="time-state">
+    <state-view state="loading" title="正在读取学习时间" description="岸岸会恢复你已经保存的工作日和周末安排。" />
+  </view>
+
+  <view wx:elif="{{state.status === 'error'}}" class="time-state">
+    <state-view state="error" title="学习时间没有读取成功" description="{{state.error.message}}" actionText="重新读取" bindaction="retry" />
+    <view wx:if="{{state.error.requestId}}" class="request-id">问题编号 · {{state.error.requestId}}</view>
+  </view>
+
+  <block wx:else>
+    <scroll-view scroll-y class="time-scroll" enhanced show-scrollbar="{{false}}">
+      <view class="time-content">
+        <view class="time-card">
+          <view class="time-intro">合理的排期比虚高的计划更有效。每天最少 0.5 小时，最高 12 小时。岸岸将据此分配每天的任务容量。</view>
+
+          <view class="time-section">
+            <view class="time-section__head">
+              <view class="time-label">工作日 (周一至周五) 日均可学</view>
+              <view class="time-value">{{weekdayHoursLabel}} <text class="time-unit">小时</text></view>
+            </view>
+            <view class="time-control">
+              <button class="time-step" data-field="weekdayMinutes" data-delta="-30" bindtap="adjustMinutes">−</button>
+              <slider class="time-slider" min="30" max="720" step="30" value="{{state.draft.weekdayMinutes}}" block-size="18" block-color="#615fff" activeColor="#615fff" backgroundColor="#e5e7eb" data-field="weekdayMinutes" bindchange="changeMinutes" />
+              <button class="time-step time-step--plus" data-field="weekdayMinutes" data-delta="30" bindtap="adjustMinutes">＋</button>
+            </view>
+          </view>
+
+          <view class="time-divider"></view>
+
+          <view class="time-section">
+            <view class="time-section__head">
+              <view class="time-label">周末及节假日 日均可学</view>
+              <view class="time-value">{{weekendHoursLabel}} <text class="time-unit">小时</text></view>
+            </view>
+            <view class="time-control">
+              <button class="time-step" data-field="weekendMinutes" data-delta="-30" bindtap="adjustMinutes">−</button>
+              <slider class="time-slider" min="30" max="720" step="30" value="{{state.draft.weekendMinutes}}" block-size="18" block-color="#615fff" activeColor="#615fff" backgroundColor="#e5e7eb" data-field="weekendMinutes" bindchange="changeMinutes" />
+              <button class="time-step time-step--plus" data-field="weekendMinutes" data-delta="30" bindtap="adjustMinutes">＋</button>
+            </view>
+          </view>
+
+          <view class="time-presets">
+            <button class="time-preset" data-weekday="120" data-weekend="360" bindtap="applyPreset">标准在职 (2h/6h)</button>
+            <button class="time-preset" data-weekday="480" data-weekend="480" bindtap="applyPreset">全职备考 (8h/8h)</button>
+          </view>
+        </view>
+
+        <view wx:if="{{state.pendingRecovery}}" class="recovery-banner">上一次保存结果还不确定，本次只会查询原保存结果。</view>
+        <view wx:if="{{state.validationError}}" class="error-banner">{{state.validationError}}</view>
+        <view wx:if="{{state.error}}" class="error-banner">{{state.error.message}}</view>
+        <view wx:if="{{state.error && state.error.requestId}}" class="request-id">问题编号 · {{state.error.requestId}}</view>
+      </view>
+    </scroll-view>
+
+    <view class="time-dock">
+      <button class="time-primary {{state.saving ? 'time-primary--disabled' : ''}}" loading="{{state.saving}}" disabled="{{state.saving}}" bindtap="submit">{{state.pendingRecovery ? '查询原保存结果' : '继续：能力基础'}}</button>
+    </view>
+  </block>
+</view>

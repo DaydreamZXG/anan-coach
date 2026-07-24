@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "AI 督学提醒",
+  "usingComponents": {
+    "state-view": "../../design-system/primitives/state-view/index",
+    "anan-companion": "../../design-system/companion/anan-companion/index"
+  }
+}

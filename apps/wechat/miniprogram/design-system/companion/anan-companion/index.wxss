@@ -1,0 +1,72 @@
+.anan {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.anan--small {
+  width: 56rpx;
+  height: 56rpx;
+}
+
+.anan--medium {
+  width: 88rpx;
+  height: 88rpx;
+}
+
+.anan--large {
+  width: 180rpx;
+  height: 180rpx;
+}
+
+.anan--avatar-32 {
+  width: 64rpx;
+  height: 64rpx;
+}
+
+.anan--inline-64 {
+  width: 128rpx;
+  height: 128rpx;
+}
+
+.anan--animated-120 {
+  width: 240rpx;
+  height: 240rpx;
+}
+
+.anan--card-160 {
+  width: 320rpx;
+  height: 320rpx;
+}
+
+.anan--hero-240 {
+  width: 480rpx;
+  height: 480rpx;
+}
+
+.anan__viewport,
+.anan__static,
+.anan__embedded {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.anan__viewport {
+  overflow: hidden;
+}
+
+.anan__sheet {
+  display: block;
+  height: 100%;
+  transition: none;
+  will-change: transform;
+}
+
+.anan__static {
+  object-fit: contain;
+}

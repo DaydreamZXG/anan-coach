@@ -1,0 +1,392 @@
+{
+  "schemaVersion": 2,
+  "authority": "apps/wechat/miniprogram/app/navigation/routes.ts",
+  "notes": [
+    "routeState describes a visual or controller state inside the registered route; it is not an invented URL parameter.",
+    "Tab routes use switchTab. Every other registered route uses navigateTo.",
+    "The same route may intentionally own several Figma screens when the screens are states in one production workflow."
+  ],
+  "mappings": [
+    {
+      "figmaPageId": "51:2",
+      "figmaNodeId": "3:2",
+      "figmaName": "01 · 今日",
+      "routeName": "today",
+      "route": "/pages/today/index",
+      "navigationMode": "switchTab"
+    },
+    {
+      "figmaPageId": "51:2",
+      "figmaNodeId": "4:2",
+      "figmaName": "02 · 能力",
+      "routeName": "ability",
+      "route": "/pages/ability/index",
+      "navigationMode": "switchTab"
+    },
+    {
+      "figmaPageId": "51:2",
+      "figmaNodeId": "6:2",
+      "figmaName": "03 · 岸岸总控台",
+      "routeName": "anan",
+      "route": "/pages/anan/index",
+      "navigationMode": "switchTab"
+    },
+    {
+      "figmaPageId": "51:2",
+      "figmaNodeId": "7:2",
+      "figmaName": "04 · 我的",
+      "routeName": "me",
+      "route": "/pages/me/index",
+      "navigationMode": "switchTab"
+    },
+    {
+      "figmaPageId": "51:3",
+      "figmaNodeId": "31:2",
+      "figmaName": "01 · 微信登录",
+      "routeName": "login",
+      "route": "/pages/login/index",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:3",
+      "figmaNodeId": "8:2",
+      "figmaName": "02 · 建档入口",
+      "routeName": "onboardingEntry",
+      "route": "/pages/onboarding/entry/index",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:3",
+      "figmaNodeId": "33:2",
+      "figmaName": "03 · 档案中心",
+      "routeName": "profileArchive",
+      "route": "/pages/profile/archive/index",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:3",
+      "figmaNodeId": "34:2",
+      "figmaName": "04 · 身份与备考状态",
+      "routeName": "onboardingPreparationExperience",
+      "route": "/pages/onboarding/preparation-experience/index",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:3",
+      "figmaNodeId": "35:2",
+      "figmaName": "05 · 报考资格",
+      "routeName": "onboarding",
+      "route": "/pages/onboarding/index",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:3",
+      "figmaNodeId": "36:2",
+      "figmaName": "06 · 地区与岗位偏好",
+      "routeName": "onboardingPositionPreference",
+      "route": "/pages/onboarding/position-preference/index",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:3",
+      "figmaNodeId": "37:2",
+      "figmaName": "07 · 每周可学时间",
+      "routeName": "onboardingStudyPreference",
+      "route": "/pages/onboarding/study-preference/index",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:3",
+      "figmaNodeId": "38:2",
+      "figmaName": "08 · 当前能力起点",
+      "routeName": "onboardingAbilityBaseline",
+      "route": "/pages/onboarding/ability-baseline/index",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:3",
+      "figmaNodeId": "39:2",
+      "figmaName": "09 · 建档确认",
+      "routeName": "onboardingResult",
+      "route": "/pages/onboarding/result/index",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:4",
+      "figmaNodeId": "9:2",
+      "figmaName": "01 · 任务依据",
+      "routeName": "planBasis",
+      "route": "/pages/plan-basis/index",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:4",
+      "figmaNodeId": "10:2",
+      "figmaName": "02 · 周计划",
+      "routeName": "weeklyPlan",
+      "route": "/pages/weekly-plan/index",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:4",
+      "figmaNodeId": "11:2",
+      "figmaName": "03 · 今日调整",
+      "routeName": "dayAdjustment",
+      "route": "/pages/day-adjustment/index",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:4",
+      "figmaNodeId": "12:2",
+      "figmaName": "04 · 每日结算",
+      "routeName": "dailySettlement",
+      "route": "/pages/daily-settlement/index",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:5",
+      "figmaNodeId": "2:2",
+      "figmaName": "01 · 行测做题",
+      "routeName": "practice",
+      "route": "/pages/practice/index",
+      "routeState": "answering",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:5",
+      "figmaNodeId": "13:2",
+      "figmaName": "02 · 本次训练总结",
+      "routeName": "reflection",
+      "route": "/pages/reflection/index",
+      "routeState": "summary",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:5",
+      "figmaNodeId": "14:2",
+      "figmaName": "03 · 错题复盘",
+      "routeName": "reflection",
+      "route": "/pages/reflection/index",
+      "routeState": "cause-review",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:5",
+      "figmaNodeId": "15:2",
+      "figmaName": "04 · 复盘完成",
+      "routeName": "reflection",
+      "route": "/pages/reflection/index",
+      "routeState": "completed",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:6",
+      "figmaNodeId": "18:2",
+      "figmaName": "01 · 岗位发现",
+      "routeName": "positions",
+      "route": "/pages/positions/index",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:6",
+      "figmaNodeId": "19:2",
+      "figmaName": "02 · 全部岗位",
+      "routeName": "positionSearch",
+      "route": "/pages/positions/search/index",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:6",
+      "figmaNodeId": "20:2",
+      "figmaName": "03 · 岗位详情",
+      "routeName": "positionDetail",
+      "route": "/pages/positions/detail/index",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:6",
+      "figmaNodeId": "23:2",
+      "figmaName": "04 · 岗位对比",
+      "routeName": "positionCompare",
+      "route": "/pages/positions/compare/index",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:6",
+      "figmaNodeId": "21:2",
+      "figmaName": "05 · 选择影响预览",
+      "routeName": "positionGoal",
+      "route": "/pages/positions/goal/index",
+      "routeState": "impact-preview",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:6",
+      "figmaNodeId": "22:2",
+      "figmaName": "06 · 主目标确认",
+      "routeName": "positionGoal",
+      "route": "/pages/positions/goal/index",
+      "routeState": "confirmed",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:7",
+      "figmaNodeId": "16:2",
+      "figmaName": "01 · 相机授权",
+      "routeName": "captureImport",
+      "route": "/pages/capture-import/index",
+      "routeState": "camera-permission",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:7",
+      "figmaNodeId": "40:2",
+      "figmaName": "02 · 拍摄",
+      "routeName": "captureImport",
+      "route": "/pages/capture-import/index",
+      "routeState": "camera",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:7",
+      "figmaNodeId": "41:2",
+      "figmaName": "03 · 裁剪校正",
+      "routeName": "captureImport",
+      "route": "/pages/capture-import/index",
+      "routeState": "crop",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:7",
+      "figmaNodeId": "42:2",
+      "figmaName": "04 · OCR 核对",
+      "routeName": "captureImport",
+      "route": "/pages/capture-import/index",
+      "routeState": "ocr-review",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:7",
+      "figmaNodeId": "43:2",
+      "figmaName": "05 · 题库检索中",
+      "routeName": "captureImport",
+      "route": "/pages/capture-import/index",
+      "routeState": "question-bank-searching",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:7",
+      "figmaNodeId": "44:2",
+      "figmaName": "06 · 多题命中",
+      "routeName": "captureImport",
+      "route": "/pages/capture-import/index",
+      "routeState": "multiple-matches",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:7",
+      "figmaNodeId": "45:2",
+      "figmaName": "07 · 题库未命中",
+      "routeName": "captureImport",
+      "route": "/pages/capture-import/index",
+      "routeState": "question-bank-miss",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:7",
+      "figmaNodeId": "46:2",
+      "figmaName": "08 · AI 解题中",
+      "routeName": "captureImport",
+      "route": "/pages/capture-import/index",
+      "routeState": "ai-solving",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:7",
+      "figmaNodeId": "47:2",
+      "figmaName": "09 · 题库解析",
+      "routeName": "captureImport",
+      "route": "/pages/capture-import/index",
+      "routeState": "question-bank-answer",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:7",
+      "figmaNodeId": "48:2",
+      "figmaName": "10 · AI 解析",
+      "routeName": "captureImport",
+      "route": "/pages/capture-import/index",
+      "routeState": "ai-answer",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:7",
+      "figmaNodeId": "49:2",
+      "figmaName": "11 · 收录成功",
+      "routeName": "captureImport",
+      "route": "/pages/capture-import/index",
+      "routeState": "recorded",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:8",
+      "figmaNodeId": "17:2",
+      "figmaName": "01 · 作答",
+      "routeName": "essayTask",
+      "route": "/pages/essay-task/index",
+      "routeState": "drafting",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:8",
+      "figmaNodeId": "29:2",
+      "figmaName": "02 · 材料阅读",
+      "routeName": "essayMaterial",
+      "route": "/pages/essay-material/index",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:8",
+      "figmaNodeId": "30:2",
+      "figmaName": "03 · 批改结果",
+      "routeName": "essayReview",
+      "route": "/pages/essay-review/index",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:9",
+      "figmaNodeId": "24:2",
+      "figmaName": "01 · 资料库首页",
+      "routeName": "privateKnowledge",
+      "route": "/pages/private-knowledge/index",
+      "routeState": "library",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:9",
+      "figmaNodeId": "26:2",
+      "figmaName": "02 · 上传与处理",
+      "routeName": "privateKnowledge",
+      "route": "/pages/private-knowledge/index",
+      "routeState": "processing",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:9",
+      "figmaNodeId": "27:2",
+      "figmaName": "03 · 资料详情",
+      "routeName": "privateKnowledgeDetail",
+      "route": "/pages/private-knowledge/detail/index",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:9",
+      "figmaNodeId": "28:2",
+      "figmaName": "04 · 引用溯源",
+      "routeName": "privateKnowledge",
+      "route": "/pages/private-knowledge/index",
+      "routeState": "citation-evidence",
+      "navigationMode": "navigateTo"
+    }
+  ]
+}

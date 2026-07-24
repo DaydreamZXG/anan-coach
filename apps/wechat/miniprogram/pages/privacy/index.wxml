@@ -1,56 +1,59 @@
-<view class="page pv">
-  <safe-top />
-  <view class="pv-nav">
-    <text class="pv-back" bindtap="onBack">‹</text>
-    <text class="pv-title">隐私与账户</text>
+<view class="s9-page privacy-page">
+  <view class="s9-hero">
+    <view class="s9-title">你的学习数据，由你决定</view>
+    <view class="s9-subtitle">资料只用于个人诊断、计划与反馈，所有授权都可追溯。</view>
+    <view class="s9-chip-row"><view class="s9-chip s9-chip--primary">可导出</view><view class="s9-chip">可删除</view></view>
   </view>
 
-  <view wx:if="{{loading}}" class="pv-loading text-2">正在读取数据清单…</view>
+  <state-view wx:if="{{status === 'loading'}}" custom-class="privacy-state-view" state="loading" />
+  <state-view wx:elif="{{status === 'error'}}" custom-class="privacy-state-view" state="error" title="数据清单没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
 
-  <scroll-view wx:else class="pv-body" scroll-y>
-    <view class="card pv-policy" bindtap="onOpenPolicy">
-      <view class="pv-policy-main">
-        <text class="pv-policy-title">{{policyTitle}}</text>
-        <text class="text-3">版本 {{policyVersion}} · 点击查看全文</text>
+  <block wx:else>
+    <view class="s9-stack">
+      <view class="s9-card">
+        <view class="s9-card-kicker">数据用途</view>
+        <view class="s9-card-title">只服务你的学习闭环</view>
+        <view class="s9-card-copy">讲义、笔记和模考卷只用于分析你的学习情况，不会公开。</view>
+        <view class="s9-card-meta">上传前会明确告知用途和保存期限</view>
       </view>
-      <text class="pv-arrow">›</text>
+      <view class="s9-card s9-card--primary">
+        <view class="s9-card-kicker">控制权</view>
+        <view class="s9-card-title">查看、导出与删除都由你发起</view>
+        <view class="s9-card-copy">{{overview.rawMaterialRetention}}</view>
+        <view class="s9-card-meta">删除账户前建议先导出个人数据</view>
+      </view>
     </view>
 
-    <text class="pv-section">我们存了你的哪些数据</text>
-    <view class="card pv-cats">
-      <view class="pv-cat" wx:for="{{categories}}" wx:key="category">
-        <view class="pv-cat-main">
-          <text class="pv-cat-name">{{item.category}}</text>
-          <text class="text-3">{{item.retention}}</text>
-        </view>
-        <text class="text-3 num">{{item.countLabel}}</text>
+    <view class="s9-section">
+      <view class="s9-section-head"><view class="s9-section-title">我的数据清单</view><view class="s9-section-meta">实时更新</view></view>
+      <view class="s9-list">
+        <view class="s9-list-row" wx:for="{{categories}}" wx:key="category"><view class="s9-list-main"><view class="s9-list-title">{{item.title}}</view><view class="s9-list-copy">{{item.retention}}</view></view><view class="s9-list-value type-data">{{item.countLabel}}</view></view>
       </view>
-      <text class="text-3 pv-retention">{{rawMaterialRetention}}</text>
     </view>
 
-    <text class="pv-section">数据副本</text>
-    <view class="card pv-export">
-      <view class="pv-policy-main">
-        <text class="pv-policy-title">导出我的数据</text>
-        <text class="text-3">打包练习记录、计划、对话等，生成后可下载</text>
+    <view class="s9-section">
+      <view class="s9-section-head"><view class="s9-section-title">导出个人数据</view><view class="s9-section-meta">生成后 24 小时过期</view></view>
+      <view class="s9-card export-card">
+        <view class="s9-card-copy export-copy">包含账户、资格岗位、学习记录、原始资料信息、报告、订单和权益；不包含密钥和第三方支付凭据。</view>
+        <button wx:if="{{!exportRequest}}" class="privacy-secondary" loading="{{exporting || restoringExport}}" bindtap="createExport">生成数据导出</button>
+        <block wx:else>
+          <view class="export-state">{{exportStateLabel}}</view>
+          <button wx:if="{{exportCanRefresh}}" class="privacy-secondary" loading="{{restoringExport}}" bindtap="refreshExport">查看生成进度</button>
+          <button wx:elif="{{exportCanOpen}}" class="privacy-secondary" loading="{{openingExport}}" bindtap="openExport">保存或转发导出文件</button>
+          <button wx:elif="{{exportCanRestart}}" class="privacy-secondary" loading="{{exporting}}" bindtap="restartExport">重新生成</button>
+        </block>
       </view>
-      <button class="btn btn-ghost pv-export-btn" bindtap="onExport" disabled="{{exporting}}">{{exporting ? '提交中…' : '申请导出'}}</button>
     </view>
 
-    <text class="pv-section">注销账户</text>
-    <view class="card pv-danger">
-      <view class="pv-effects">
-        <text class="pv-effect" wx:for="{{deletionEffects}}" wx:key="*this">· {{item}}</text>
+    <view class="s9-section">
+      <view class="s9-section-head danger-heading"><view class="s9-section-title">删除账户</view><view class="s9-section-meta">不可恢复</view></view>
+      <view class="s9-card s9-card--danger deletion-card">
+        <view class="deletion-copy" wx:for="{{overview.accountDeletionEffect}}" wx:key="*this"><text class="danger-dot"></text><text>{{item}}</text></view>
+        <view class="phrase-label">请完整输入：<text class="phrase-label__value">{{confirmationPhrase}}</text></view>
+        <input class="phrase-input" value="{{deletionPhrase}}" placeholder="输入确认短语" bindinput="onDeletionPhraseInput" />
+        <button class="delete-button {{deletionPhrase !== confirmationPhrase ? 'delete-button--disabled' : ''}}" disabled="{{deletionPhrase !== confirmationPhrase}}" loading="{{deleting}}" bindtap="requestDeletion">删除我的账户</button>
       </view>
-      <input
-        class="pv-input"
-        placeholder="输入「{{confirmPhrase}}」以确认"
-        value="{{phraseInput}}"
-        bindinput="onPhraseInput"
-      />
-      <button class="btn pv-delete-btn" bindtap="onDelete" disabled="{{deleting}}">{{deleting ? '提交中…' : '永久注销账户'}}</button>
     </view>
-
-    <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示数据（后端未连接）</view>
-  </scroll-view>
+    <view wx:if="{{errorMessage}}" class="s9-inline-error">{{errorMessage}}</view>
+  </block>
 </view>

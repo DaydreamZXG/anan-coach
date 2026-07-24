@@ -1,0 +1,72 @@
+<view class="page community-page">
+  <view class="community-hero">
+    <view class="hero-kicker">确认方法结构</view>
+    <view class="hero-title">一套方法，必须说清适用和不适用</view>
+    <view class="hero-copy">每张方法卡都按统一结构写：问题、步骤、条件、反例和验证。</view>
+    <view class="privacy-strip">
+      <view class="privacy-dot"></view>
+      <view>当前状态：{{cardStateLabel || '读取中'}}。未经作者确认的候选不能发布，也不会成为岸岸的学习事实。</view>
+    </view>
+  </view>
+
+  <state-view
+    wx:if="{{pageState !== 'default'}}"
+    custom-class="community-state-view"
+    state="{{pageState}}"
+    title="{{stateTitle}}"
+    description="{{stateDescription}}"
+    action-text="{{stateActionLabel}}"
+    request-id="{{requestId}}"
+    bind:action="stateAction"
+  />
+
+  <block wx:if="{{pageState === 'default'}}">
+    <view class="community-section">
+      <view class="warning-note">{{candidateNotice}}</view>
+      <label class="field-label">方法标题</label>
+      <input class="text-input" value="{{title}}" maxlength="120" disabled="{{interactionLocked}}" bindinput="inputTitle" />
+      <label class="field-label">什么时候识别出该用它</label>
+      <textarea cursor-spacing="24" class="text-area compact-area" value="{{recognition}}" maxlength="1200" disabled="{{interactionLocked}}" bindinput="inputRecognition" />
+      <label class="field-label">方法步骤（每行一步）</label>
+      <textarea cursor-spacing="24" class="text-area" value="{{methodStepsText}}" maxlength="3000" disabled="{{interactionLocked}}" bindinput="inputSteps" />
+      <label class="field-label">适用范围（逗号分隔）</label>
+      <input class="text-input" value="{{applicabilityText}}" maxlength="500" disabled="{{interactionLocked}}" bindinput="inputApplicability" />
+      <label class="field-label">明确不适用的情况（每行一项）</label>
+      <textarea cursor-spacing="24" class="text-area compact-area" value="{{exclusionsText}}" maxlength="1200" disabled="{{interactionLocked}}" bindinput="inputExclusions" />
+      <label class="field-label">容易踩的坑（每行一项）</label>
+      <textarea cursor-spacing="24" class="text-area compact-area" value="{{pitfallsText}}" maxlength="1200" disabled="{{interactionLocked}}" bindinput="inputPitfalls" />
+    </view>
+
+    <view class="community-section">
+      <view class="section-label">权利声明</view>
+      <view class="section-title">公开前必须说明这份表达的权利边界</view>
+      <view hover-class="item--hover"
+        wx:for="{{rightsOptions}}"
+        wx:key="value"
+        class="rights-row {{rightsDeclaration === item.value ? 'rights-row--active' : ''}}"
+        data-value="{{item.value}}"
+        bindtap="chooseRights"
+      >
+        <view class="rights-radio">{{rightsDeclaration === item.value ? '✓' : ''}}</view>
+        <view>
+          <view class="choice-title">{{item.label}}</view>
+          <view wx:if="{{!item.publishable}}" class="choice-copy">仅私有保存，禁止公开送审</view>
+        </view>
+      </view>
+      <view wx:if="{{formMessage}}" class="warning-note">{{formMessage}}</view>
+      <button class="action-button {{interactionLocked ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked}}" bindtap="confirmStructure">确认并保存这一版</button>
+      <button class="action-button secondary-button {{interactionLocked || !confirmedVersionId || !canPublish ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked || !confirmedVersionId || !canPublish}}" bindtap="submitReview">申请五项检查</button>
+    </view>
+
+    <view class="community-section review-checks">
+      <view class="section-label">公开门槛</view>
+      <view class="section-title">固定五项检查，一个都不能跳过</view>
+      <view class="check-row"><text class="check-row__number">01</text><text>重复内容</text></view>
+      <view class="check-row"><text class="check-row__number">02</text><text>版权与权利</text></view>
+      <view class="check-row"><text class="check-row__number">03</text><text>内容安全</text></view>
+      <view class="check-row"><text class="check-row__number">04</text><text>知识正确性</text></view>
+      <view class="check-row"><text class="check-row__number">05</text><text>方法与答案一致性</text></view>
+      <view wx:if="{{reviewMessage}}" class="success-note">{{reviewMessage}}</view>
+    </view>
+  </block>
+</view>

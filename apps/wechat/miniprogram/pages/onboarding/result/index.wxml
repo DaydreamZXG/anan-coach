@@ -1,0 +1,94 @@
+<view class="result-page">
+  <safe-top gap="{{0}}" />
+
+  <view wx:if="{{!state || state.status === 'loading'}}" class="result-state">
+    <state-view state="loading" title="正在生成备考档案" description="会对齐报考资格、岗位证据、双科起点和学习时间。" />
+  </view>
+
+  <view wx:elif="{{state.status === 'error'}}" class="result-state">
+    <state-view state="error" title="备考档案没有生成成功" description="{{state.error.message}}" actionText="重新生成" bindaction="retry" />
+    <view wx:if="{{state.error.requestId}}" class="request-id">问题编号 · {{state.error.requestId}}</view>
+  </view>
+
+  <block wx:else>
+    <scroll-view scroll-y class="result-scroll" enhanced show-scrollbar="{{false}}">
+      <view class="result-content">
+        <view class="result-status">
+          <view class="status-icon">
+            <image class="status-icon__asset" src="/assets/onboarding/result-check-green.svg" mode="aspectFit" />
+          </view>
+          <view class="status-title">备考档案已生成</view>
+          <view class="status-confidence">
+            当前推荐可信度：
+            <text class="confidence confidence--{{state.view.confidenceTone}}">{{state.view.confidenceLabel}}</text>
+          </view>
+        </view>
+
+        <view class="assessment-card">
+          <view class="assessment-section">
+            <view class="assessment-heading">
+              <image class="assessment-heading__icon" src="/assets/onboarding/result-shield-indigo.svg" mode="aspectFit" />
+              <text>可靠判断</text>
+            </view>
+            <view class="assessment-copy">{{state.view.reliableJudgment}}</view>
+          </view>
+
+          <view class="assessment-divider"></view>
+
+          <view class="assessment-section">
+            <view class="assessment-heading">
+              <image class="assessment-heading__icon" src="/assets/onboarding/result-alert-orange.svg" mode="aspectFit" />
+              <text>缺失与风险</text>
+            </view>
+            <view class="assessment-copy">{{state.view.riskJudgment}}</view>
+          </view>
+
+          <view class="assessment-divider"></view>
+
+          <view class="position-notice">
+            <view class="notice-tag">提前定位</view>
+            <view class="notice-copy">{{state.view.positionNotice}}</view>
+          </view>
+        </view>
+
+        <view class="suggestions-title">下一步建议</view>
+        <view class="suggestions">
+          <button class="suggestion-card" bindtap="acknowledge">
+            <view class="suggestion-main">
+              <view class="suggestion-icon suggestion-icon--indigo">
+                <image class="suggestion-icon__asset" src="/assets/onboarding/result-map-indigo.svg" mode="aspectFit" />
+              </view>
+              <view class="suggestion-text">
+                <view class="suggestion-name">{{state.view.primarySuggestionTitle}}</view>
+                <view class="suggestion-copy">{{state.view.primarySuggestionCopy}}</view>
+              </view>
+            </view>
+            <image class="suggestion-arrow" src="/assets/onboarding/result-chevron-gray.svg" mode="aspectFit" />
+          </button>
+
+          <button class="suggestion-card" bindtap="openArchive">
+            <view class="suggestion-main">
+              <view class="suggestion-icon suggestion-icon--cyan">
+                <image class="suggestion-icon__asset" src="/assets/onboarding/result-target-cyan.svg" mode="aspectFit" />
+              </view>
+              <view class="suggestion-text">
+                <view class="suggestion-name">{{state.view.secondarySuggestionTitle}}</view>
+                <view class="suggestion-copy">{{state.view.secondarySuggestionCopy}}</view>
+              </view>
+            </view>
+            <image class="suggestion-arrow" src="/assets/onboarding/result-chevron-gray.svg" mode="aspectFit" />
+          </button>
+        </view>
+
+        <view class="validity">{{state.view.validityLabel}}</view>
+        <view wx:if="{{state.pendingRecovery}}" class="recovery-banner">上一次确认结果还不确定，本次只会查询原确认结果。</view>
+        <view wx:if="{{state.error}}" class="error-banner">{{state.error.message}}</view>
+        <view wx:if="{{state.error && state.error.requestId}}" class="request-id">问题编号 · {{state.error.requestId}}</view>
+      </view>
+    </scroll-view>
+
+    <view class="result-dock">
+      <button class="result-primary" loading="{{state.saving}}" disabled="{{state.saving}}" bindtap="acknowledge">{{state.pendingRecovery ? '查询原确认结果' : state.view.actionLabel}}</button>
+    </view>
+  </block>
+</view>

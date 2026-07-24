@@ -5,6 +5,7 @@ from hashlib import sha256
 import json
 from typing import Callable
 from uuid import UUID, uuid4
+from zoneinfo import ZoneInfo
 
 from sqlalchemy.orm import Session
 
@@ -458,7 +459,7 @@ class AnswerIngestionService:
         return AnswerIngestionWorkspace(
             ingestion=ingestion,
             items=tuple(items),
-            packetTitle=f"学习包 {str(packet.packet_id)[:8]}",
+            packetTitle=_packet_title(packet),
             packetItemCount=len(packet.items),
             partialReasons=(
                 ("外部作答证据已确认并写入学习事实。",)
@@ -490,16 +491,23 @@ class AnswerIngestionService:
             for item in packet.items:
                 counts[item.track.value] = counts.get(item.track.value, 0) + 1
             for track, count in sorted(counts.items()):
+                # Offline answer backflow is intentionally limited to objective
+                # Xingce packets. Essay handwriting uses the essay workbench,
+                # where OCR spans, original images, task rubrics and review
+                # lineage stay bound together.
+                if track != "xingce":
+                    continue
                 targets.append(
                     PacketAnswerTarget(
                         packetVersionId=packet.packet_version_id,
-                        packetTitle=(
-                            f"学习包 {str(packet.packet_id)[:8]}"
-                            + (f" · {'行测' if track == 'xingce' else '申论'}" if len(counts) > 1 else "")
-                        ),
+                        packetTitle=_packet_title(packet),
                         track=track,
                         itemCount=count,
-                        versionLabel=f"v{packet.version_no}",
+                        versionLabel=(
+                            f"第 {packet.version_no} 版"
+                            if packet.version_no > 1
+                            else "初始版本"
+                        ),
                         expiresAt=packet.expires_at,
                     )
                 )
@@ -637,6 +645,13 @@ def _packet_binding_code(packet: OfflinePacketVersion, order_no: int) -> str:
         if item.order_no == order_no:
             return item.answer_binding_code
     raise AnswerIngestionError("packet_binding_missing", "学习包答题编号不完整。", status_code=409)
+
+
+def _packet_title(packet: OfflinePacketVersion) -> str:
+    created = packet.created_at.astimezone(ZoneInfo("Asia/Shanghai")).strftime(
+        "%m月%d日 %H:%M"
+    )
+    return f"行测学习包 · {created.lstrip('0').replace('月0', '月')}"
 
 
 def _valid_objective_answer(value: str) -> bool:

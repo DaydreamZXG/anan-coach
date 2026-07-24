@@ -1,0 +1,231 @@
+.login-page {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  overflow: hidden;
+  background: #f7f9fc;
+  color: var(--color-ink);
+}
+
+.login-orb {
+  position: absolute;
+  width: 700rpx;
+  height: 700rpx;
+  border-radius: 50%;
+  filter: blur(70rpx);
+  opacity: 0.58;
+  pointer-events: none;
+}
+
+.login-orb--top {
+  top: -260rpx;
+  right: -330rpx;
+  background: linear-gradient(145deg, rgba(129, 140, 248, 0.46), rgba(192, 132, 252, 0.42) 52%, rgba(244, 114, 182, 0.38));
+}
+
+.login-orb--bottom {
+  bottom: -310rpx;
+  left: -340rpx;
+  background: linear-gradient(145deg, rgba(191, 219, 254, 0.58), rgba(153, 246, 228, 0.48));
+}
+
+.login-content {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  max-width: 750rpx;
+  min-height: calc(100vh - 88px);
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 56rpx 64rpx calc(58rpx + env(safe-area-inset-bottom));
+}
+
+.login-lockup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.brain-logo {
+  width: 192rpx;
+  height: 192rpx;
+  margin-bottom: 58rpx;
+}
+
+.login-title {
+  color: #111827;
+  font-size: 68rpx;
+  font-weight: 800;
+  letter-spacing: -2rpx;
+  line-height: 1.16;
+}
+
+.login-subtitle {
+  display: flex;
+  flex-direction: column;
+  margin-top: 24rpx;
+  color: #6b7280;
+  font-size: 28rpx;
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+.login-actions {
+  width: 100%;
+  margin-top: 92rpx;
+}
+
+.wechat-button {
+  box-sizing: border-box;
+  display: flex;
+  width: 100% !important;
+  min-height: 112rpx;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0 36rpx;
+  border: 0;
+  border-radius: 40rpx;
+  background: #111827;
+  color: #ffffff;
+  box-shadow: 0 18rpx 40rpx rgba(17, 24, 39, 0.2);
+  font-size: 30rpx;
+  font-weight: 700;
+  line-height: 112rpx;
+}
+
+.wechat-button::after {
+  border: 0;
+}
+
+.wechat-button--disabled {
+  background: #9ca3af;
+  box-shadow: none;
+}
+
+.wechat-button__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+}
+
+.arrow-icon {
+  position: relative;
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.arrow-icon::before {
+  position: absolute;
+  top: 7rpx;
+  right: 3rpx;
+  width: 15rpx;
+  height: 15rpx;
+  transform: rotate(-45deg);
+  border-right: 3rpx solid currentcolor;
+  border-bottom: 3rpx solid currentcolor;
+  content: "";
+}
+
+.arrow-icon::after {
+  position: absolute;
+  top: 14rpx;
+  right: 4rpx;
+  width: 24rpx;
+  height: 3rpx;
+  border-radius: 99rpx;
+  background: currentcolor;
+  content: "";
+}
+
+.legal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  margin-top: 38rpx;
+  color: #9ca3af;
+  font-size: 22rpx;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.legal-check {
+  position: relative;
+  box-sizing: border-box;
+  width: 26rpx;
+  height: 26rpx;
+  border: 2rpx solid currentcolor;
+  border-radius: 50%;
+}
+
+.legal-check::after {
+  position: absolute;
+  top: 5rpx;
+  left: 6rpx;
+  width: 9rpx;
+  height: 5rpx;
+  transform: rotate(-45deg);
+  border-bottom: 2rpx solid currentcolor;
+  border-left: 2rpx solid currentcolor;
+  content: "";
+}
+
+.error-message {
+  margin-bottom: 20rpx;
+  padding: 18rpx 22rpx;
+  border: 1rpx solid rgba(220, 76, 100, 0.14);
+  border-radius: 20rpx;
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+  font-size: 22rpx;
+  line-height: 1.5;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .login-content {
+    max-width: 560px;
+    min-height: calc(100vh - 96px);
+    padding: 36px 52px calc(36px + env(safe-area-inset-bottom));
+  }
+
+  .brain-logo {
+    width: 112px;
+    height: 112px;
+    margin-bottom: 32px;
+  }
+
+  .login-title {
+    font-size: 42px;
+  }
+
+  .login-subtitle {
+    margin-top: 14px;
+    font-size: 17px;
+  }
+
+  .login-actions {
+    margin-top: 54px;
+  }
+
+  .wechat-button {
+    min-height: 60px;
+    border-radius: 20px;
+    font-size: 17px;
+    line-height: 60px;
+  }
+
+  .legal {
+    margin-top: 20px;
+    font-size: 12px;
+  }
+}

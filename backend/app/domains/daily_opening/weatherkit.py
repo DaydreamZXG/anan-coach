@@ -5,6 +5,7 @@ from datetime import UTC, datetime, timedelta
 from hashlib import sha256
 import json
 from typing import Any, Callable
+from urllib.parse import urlsplit
 
 import httpx
 import jwt
@@ -99,8 +100,8 @@ class WeatherKitClient:
             today = days[0]
             metadata = _object(current, "metadata")
             attribution_url = _required_text(metadata, "attributionURL")
-            if not attribution_url.startswith("https://"):
-                raise ValueError("attributionURL must use HTTPS")
+            if not _is_apple_weather_attribution_url(attribution_url):
+                raise ValueError("attributionURL must be an Apple Weather HTTPS URL")
             read_at = _timestamp(metadata.get("readTime"), fallback=now)
             expires_at = _timestamp(
                 metadata.get("expireTime"), fallback=now + timedelta(minutes=15)
@@ -161,6 +162,17 @@ def _required_text(value: dict[str, Any], key: str) -> str:
     if not isinstance(result, str) or not result.strip():
         raise ValueError(f"{key} must be non-empty text")
     return result
+
+
+def _is_apple_weather_attribution_url(value: str) -> bool:
+    parsed = urlsplit(value)
+    return parsed.scheme == "https" and parsed.hostname in {
+        "developer.apple.com",
+        "weatherkit.apple.com",
+        "weather-data.apple.com",
+        "weather.apple.com",
+        "www.apple.com",
+    }
 
 
 def _timestamp(value: object, *, fallback: datetime) -> datetime:

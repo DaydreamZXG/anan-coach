@@ -1,4 +1,7 @@
 {
-  "usingComponents": {},
-  "disableScroll": true
+  "navigationBarTitleText": "计划变更记录",
+  "backgroundColor": "#F7F9FC",
+  "usingComponents": {
+    "state-view": "../../design-system/primitives/state-view/index"
+  }
 }

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Request, Response, status
+from fastapi import APIRouter, Body, Depends, Header, HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
@@ -25,11 +25,13 @@ from app.domains.mock_exam.schemas import (
     MockExamCheckpointRequest,
     MockExamCheckpointReceipt,
     MockExamSession,
+    MockExamStartRequest,
     MockExamSubmitRequest,
     MockExamSubmitResponse,
     MockExamTrajectoryEventCommand,
     MockExamTrajectoryEventReceipt,
 )
+from app.domains.planning.repository import PlanningContractError
 from app.domains.mock_exam.service import (
     MockExamNotFoundError,
     MockExamCheckpointError,
@@ -81,16 +83,33 @@ def get_mock_exam_service(
 
 @router.post("/weekly", response_model=MockExamSession)
 def create_weekly_mock_exam(
+    http_request: Request,
     current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
     service: Annotated[MockExamService, Depends(get_mock_exam_service)],
-) -> MockExamSession:
+    command: Annotated[MockExamStartRequest | None, Body()] = None,
+    idempotency_key: Annotated[
+        str | None,
+        Header(alias="Idempotency-Key", min_length=8, max_length=160),
+    ] = None,
+) -> MockExamSession | JSONResponse:
     try:
-        return service.create_weekly_mock(user_id=current_user.user_id)
+        return service.create_weekly_mock(
+            user_id=current_user.user_id,
+            command=command,
+            command_id=idempotency_key,
+        )
     except MockExamUnavailableError as exc:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="Not enough weighted guokao questions for weekly mock exam",
         ) from exc
+    except PlanningContractError as exc:
+        return public_error_response(
+            request=http_request,
+            status_code=status.HTTP_409_CONFLICT,
+            code="mock_plan_task_unavailable",
+            message="这项模考任务已经变化，请返回今日计划后重新进入。",
+        )
 
 
 @router.get("/{session_id}", response_model=MockExamSession)
@@ -191,12 +210,22 @@ def submit_mock_exam(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Mock exam not found",
         ) from exc
-    except (MockExamSubmissionError, MockExamCheckpointError) as exc:
+    except (
+        MockExamSubmissionError,
+        MockExamCheckpointError,
+        PlanningContractError,
+    ) as exc:
+        code = getattr(exc, "code", "mock_plan_completion_invalid")
+        message = (
+            "本场模考与今日计划的归属没有确认成功，请返回今日计划后重新进入。"
+            if isinstance(exc, PlanningContractError)
+            else str(exc)
+        )
         return public_error_response(
             request=http_request,
             status_code=status.HTTP_409_CONFLICT,
-            code=exc.code,
-            message=str(exc),
+            code=code,
+            message=message,
         )
     except TaskEditingError:
         raise

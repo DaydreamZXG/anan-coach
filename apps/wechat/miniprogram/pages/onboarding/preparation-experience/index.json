@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "身份与状态",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "safe-top": "../../../components/safe-top/index",
+    "state-view": "../../../design-system/primitives/state-view/index"
+  }
+}

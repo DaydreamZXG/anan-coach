@@ -406,6 +406,16 @@ class DataRightsRepository:
                 "select * from learner.qualification_facts where user_id = cast(:user_id as uuid) order by recorded_at",
                 user_id,
             ),
+            "positionPreferences": self._many_json(
+                "select * from learner.position_preference_versions "
+                "where user_id = cast(:user_id as uuid) order by version_no",
+                user_id,
+            ),
+            "abilityBaselineDeclarations": self._many_json(
+                "select * from learner.ability_baseline_declaration_versions "
+                "where user_id = cast(:user_id as uuid) order by version_no",
+                user_id,
+            ),
             "sourceMaterials": self._many_json(
                 "select artifact_version_id, source_kind, state, mime_type, content_sha256, byte_size, page_count, created_at from learning.source_artifact_versions where owner_user_id = cast(:user_id as uuid) order by created_at",
                 user_id,
@@ -998,6 +1008,7 @@ class DataRightsRepository:
                     prior_guokao_exam = false,
                     retake = false,
                     prior_exam_years = '[]'::jsonb,
+                    current_status = 'unspecified',
                     input_fingerprint = repeat('0', 64),
                     erased_at = :now
                 where user_id = cast(:user_id as uuid)
@@ -1028,6 +1039,19 @@ class DataRightsRepository:
                 """,
             ),
             (
+                "position_preferences",
+                """
+                update learner.position_preference_versions
+                set preferred_regions = array['已删除']::text[],
+                    accepts_relocation = false,
+                    accepted_position_levels =
+                      array['county_or_below']::text[],
+                    input_fingerprint = repeat('0', 64),
+                    erased_at = :now
+                where user_id = cast(:user_id as uuid)
+                """,
+            ),
+            (
                 "score_evidence",
                 """
                 update learning.score_evidence
@@ -1035,6 +1059,17 @@ class DataRightsRepository:
                     shenlun_score = case when shenlun_score is null then null else 0 end,
                     total_score = case when total_score is null then null else 0 end,
                     command_payload = '{}'::jsonb,
+                    erased_at = :now
+                where user_id = cast(:user_id as uuid)
+                """,
+            ),
+            (
+                "ability_baseline_declarations",
+                """
+                update learner.ability_baseline_declaration_versions
+                set mode = 'unknown',
+                    score_evidence_id = null,
+                    input_fingerprint = repeat('0', 64),
                     erased_at = :now
                 where user_id = cast(:user_id as uuid)
                 """,

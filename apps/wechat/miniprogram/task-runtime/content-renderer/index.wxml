@@ -1,0 +1,128 @@
+<view
+  class="content-renderer content-renderer--{{colorMode}}"
+  style="--content-font-scale: {{fontScale}};"
+>
+  <view hover-class="item--hover"
+    wx:for="{{viewBlocks}}"
+    wx:key="id"
+    id="{{item.domAnchorId}}"
+    class="content-block content-block--{{item.kind}}"
+    data-anchor-id="{{item.anchorId}}"
+    bindtap="activateAnchor"
+  >
+    <rich-text
+      wx:if="{{item.kind === 'paragraph' && item.hasHtml}}"
+      class="content-paragraph"
+      nodes="{{item.html}}"
+    />
+    <text wx:elif="{{item.kind === 'paragraph'}}" class="content-paragraph" user-select>
+      {{item.text}}
+    </text>
+
+    <view
+      wx:elif="{{item.kind === 'formula'}}"
+      class="content-formula content-formula--{{item.displayMode}}"
+      role="img"
+      aria-label="{{item.expression}}"
+    >
+      <image
+        wx:if="{{item.hasRenderAsset}}"
+        class="content-formula__image"
+        style="width: {{item.renderWidth}}rpx;"
+        src="{{item.renderAsset.url}}"
+        mode="widthFix"
+        lazy-load
+      />
+      <text wx:else class="content-formula__expression" user-select>{{item.expression}}</text>
+      <text class="content-accessible-text">{{item.expression}}</text>
+    </view>
+
+    <view wx:elif="{{item.kind === 'image'}}" class="content-asset">
+      <image
+        class="content-asset__image"
+        src="{{item.url}}"
+        mode="widthFix"
+        lazy-load
+        role="img"
+        aria-label="{{item.altText}}"
+        data-current="{{item.originalUrl}}"
+        catchtap="previewAsset"
+      />
+      <view class="content-asset__actions">
+        <text wx:if="{{item.caption}}" class="content-caption">{{item.caption}}</text>
+        <button
+          wx:if="{{item.hasOcrOriginal}}"
+          class="content-link"
+          data-current="{{item.ocrOriginalUrl}}"
+          data-block-id="{{item.blockId}}"
+          catchtap="previewOcrOriginal"
+        >
+          查看识别原图
+        </button>
+      </view>
+    </view>
+
+    <view wx:elif="{{item.kind === 'graph'}}" class="content-asset content-graph">
+      <image
+        class="content-asset__image"
+        src="{{item.url}}"
+        mode="widthFix"
+        lazy-load
+        role="img"
+        aria-label="{{item.altText}}"
+        data-current="{{item.originalUrl}}"
+        catchtap="previewAsset"
+      />
+      <view class="content-caption">{{item.caption}}</view>
+      <view wx:if="{{item.sourceLabel}}" class="content-source">{{item.sourceLabel}}</view>
+      <button
+        wx:if="{{item.hasOcrOriginal}}"
+        class="content-link content-graph__ocr"
+        data-current="{{item.originalOcrUrl}}"
+        data-block-id="{{item.blockId}}"
+        catchtap="previewOcrOriginal"
+      >
+        查看识别原图
+      </button>
+    </view>
+
+    <view wx:elif="{{item.kind === 'table'}}" class="content-table-card">
+      <view class="content-table__header">
+        <text class="content-table__caption">{{item.resolvedCaption}}</text>
+        <view hover-class="item--hover" class="content-table__zoom" catchtap="noop">
+          <button
+            class="content-table__zoom-button"
+            aria-label="缩小表格"
+            data-block-id="{{item.blockId}}"
+            catchtap="decreaseZoom"
+          >
+            −
+          </button>
+          <text class="content-table__zoom-value">{{zoom * 100}}%</text>
+          <button
+            class="content-table__zoom-button"
+            aria-label="放大表格"
+            data-block-id="{{item.blockId}}"
+            catchtap="increaseZoom"
+          >
+            ＋
+          </button>
+        </view>
+      </view>
+      <scroll-view class="content-table__scroll" scroll-x enhanced show-scrollbar>
+        <view class="content-table__grid" style="{{item.gridStyle}}">
+          <view
+            wx:for="{{item.cells}}"
+            wx:for-item="cell"
+            wx:key="id"
+            class="content-table__cell {{cell.header ? 'content-table__cell--header' : ''}} {{cell.frozenColumn && freezeFirstColumn ? 'content-table__cell--frozen-column' : ''}} {{cell.frozenHeader && freezeHeader ? 'content-table__cell--frozen-header' : ''}}"
+            style="{{cell.gridStyle}}"
+          >
+            <rich-text wx:if="{{cell.hasHtml}}" nodes="{{cell.html}}" />
+            <text wx:else user-select>{{cell.text}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>

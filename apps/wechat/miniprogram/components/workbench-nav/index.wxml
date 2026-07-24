@@ -1,0 +1,6 @@
+<view class="workbench-nav-placeholder" style="height: {{paddingTop + navHeight}}px;"></view>
+<view class="workbench-nav" style="padding-top: {{paddingTop}}px; height: {{navHeight}}px;">
+  <view wx:if="{{showBack}}" hover-class="item--hover" class="workbench-nav__back" bindtap="goBack" role="button" aria-label="返回">‹</view>
+  <view class="workbench-nav__title">{{title}}</view>
+  <view class="workbench-nav__spacer"></view>
+</view>

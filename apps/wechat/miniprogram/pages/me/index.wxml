@@ -1,52 +1,136 @@
-<view class="page me">
-  <safe-top />
-  <text class="page-title h1">我的</text>
+<view class="profile-page">
+  <safe-top gap="8" />
 
-  <!-- 用户概览 -->
-  <view class="profile card">
-    <view class="profile-avatar">备</view>
-    <view class="profile-info">
-      <text class="profile-name">备考中的你</text>
-      <text class="text-3">已加入 {{joinedDays}} 天</text>
-    </view>
-  </view>
+  <view class="profile-content">
+    <state-view wx:if="{{status === 'loading'}}" state="loading" />
+    <state-view
+      wx:elif="{{status === 'error'}}"
+      state="error"
+      title="账户档案没有加载成功"
+      description="{{errorMessage}}"
+      request-id="{{requestId}}"
+      action-text="重新加载"
+      bind:action="retry"
+    />
 
-  <!-- 数据条 -->
-  <view class="stats card">
-    <view class="stat">
-      <text class="stat-num num">{{streakDays}}</text>
-      <text class="text-3">连续天数</text>
-    </view>
-    <view class="stat-divider" />
-    <view class="stat">
-      <text class="stat-num num">{{totalTasks}}</text>
-      <text class="text-3">完成任务</text>
-    </view>
-    <view class="stat-divider" />
-    <view class="stat">
-      <text class="stat-num num">{{joinedDays}}</text>
-      <text class="text-3">坚持天数</text>
-    </view>
-  </view>
-
-  <!-- 分组菜单 -->
-  <block wx:for="{{groups}}" wx:key="title" wx:for-item="group">
-    <text class="group-title text-3">{{group.title}}</text>
-    <view class="card menu">
-      <view
-        wx:for="{{group.items}}"
-        wx:key="key"
-        wx:for-item="item"
-        class="menu-row {{index < group.items.length - 1 ? 'menu-border' : ''}}"
-        data-url="{{item.url}}"
-        bindtap="onOpen"
-      >
-        <view class="menu-body">
-          <text class="menu-label">{{item.label}}</text>
-          <text class="text-3">{{item.desc}}</text>
+    <block wx:else>
+      <view class="identity-block">
+        <view class="identity-avatar">
+          <view class="user-avatar user-avatar--{{avatarStyle}}">{{avatarInitial}}</view>
         </view>
-        <text class="menu-arrow">›</text>
+        <view class="identity-copy">
+          <view class="identity-name-row">
+            <view class="identity-name">{{displayName}}</view>
+            <button class="edit-profile" bindtap="openProfileEditor">
+              <image class="edit-profile__icon" src="/assets/icons/profile/edit.svg" mode="aspectFit" />
+            </button>
+          </view>
+          <view class="identity-meta">{{studyDayLabel}}</view>
+          <view class="identity-target">国考 · {{targetPositionLabel}}</view>
+        </view>
       </view>
+
+      <view class="profile-card archive-card">
+        <view class="card-head">
+          <view class="card-title">备考档案</view>
+          <button class="card-link" bindtap="openQualificationProfile">
+            <text>查看和修改</text>
+            <image class="link-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" />
+          </button>
+        </view>
+        <view class="archive-grid">
+          <view class="archive-item"><view class="archive-label">学历与专业</view><view class="archive-value">{{educationMajorLabel}}</view></view>
+          <view class="archive-item"><view class="archive-label">考生身份</view><view class="archive-value">{{candidateIdentityLabel}}</view></view>
+          <view class="archive-item"><view class="archive-label">政治面貌</view><view class="archive-value">{{politicalStatusLabel}}</view></view>
+          <view class="archive-item"><view class="archive-label">户籍与意向地区</view><view class="archive-value">{{regionLabel}}</view></view>
+          <view class="archive-item"><view class="archive-label">工作经历</view><view class="archive-value">{{workExperienceLabel}}</view></view>
+          <view class="archive-item"><view class="archive-label">服务基层项目经历</view><view class="archive-value">{{serviceProjectLabel}}</view></view>
+        </view>
+        <view wx:if="{{!qualificationReady}}" class="archive-prompt">补完整资格资料，岗位核验才会更准确。</view>
+      </view>
+
+      <view class="profile-card target-card">
+        <view class="target-status">{{targetPositionStatusLabel}}</view>
+        <view class="target-name">{{targetPositionLabel}}</view>
+        <view class="target-department">{{targetPositionDepartmentLabel}}</view>
+        <view class="target-actions">
+          <button class="target-action" bindtap="openPositions">重新选择岗位</button>
+          <button class="target-action" bindtap="openPositions">管理备选岗位</button>
+        </view>
+      </view>
+
+      <view class="profile-card study-card">
+        <view class="card-head">
+          <view class="study-title-row"><view class="card-title">学习方式</view><view class="study-status">{{studyModeLabel}}</view></view>
+          <button class="card-link" bindtap="openStudyPreference">
+            <text>调整</text>
+            <image class="link-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" />
+          </button>
+        </view>
+        <view class="study-metrics">
+          <view class="study-metric"><view class="archive-label">工作日</view><view class="study-value type-data">{{weekdayHoursLabel}}</view></view>
+          <view class="study-metric"><view class="archive-label">周末</view><view class="study-value type-data">{{weekendHoursLabel}}</view></view>
+          <view class="study-metric"><view class="archive-label">常用节奏</view><view class="study-value study-value--small">{{studyRhythmLabel}}</view></view>
+        </view>
+      </view>
+
+      <button class="profile-card coach-setting" bindtap="openNotificationSettings">
+        <view class="coach-setting__icon">
+          <image class="coach-setting__image" src="/assets/icons/profile/ai-reminder.svg" mode="aspectFit" />
+        </view>
+        <view class="coach-setting__main">
+          <view class="coach-setting__title">AI 督学与提醒</view>
+          <view class="coach-setting__copy">任务提醒 · 勿扰 · 微信订阅</view>
+        </view>
+        <view class="coach-setting__state">设置</view>
+        <image class="link-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" />
+      </button>
+
+      <view class="asset-section">
+        <view class="section-title">学习资产</view>
+        <view class="asset-grid">
+          <button class="asset-item" bindtap="openPrivateKnowledge"><view class="asset-icon"><image class="asset-icon__image" src="/assets/icons/profile/library.svg" mode="aspectFit" /></view><text>资料库</text></button>
+          <button class="asset-item" bindtap="openLearningProfile"><view class="asset-icon"><image class="asset-icon__image" src="/assets/icons/profile/reflection.svg" mode="aspectFit" /></view><text>错题与反思</text></button>
+          <button class="asset-item" bindtap="openLearningPackets"><view class="asset-icon"><image class="asset-icon__image" src="/assets/icons/profile/knowledge-cards.svg" mode="aspectFit" /></view><text>知识卡</text></button>
+          <button class="asset-item" bindtap="openReportCenter"><view class="asset-icon"><image class="asset-icon__image" src="/assets/icons/profile/essay.svg" mode="aspectFit" /></view><text>申论记录</text></button>
+          <button class="asset-item" bindtap="openReportCenter"><view class="asset-icon"><image class="asset-icon__image" src="/assets/icons/profile/mock-exam.svg" mode="aspectFit" /></view><text>模考成绩</text></button>
+        </view>
+      </view>
+
+      <view class="service-section">
+        <view class="section-title">数据与服务</view>
+        <view class="service-card">
+          <button class="service-row profile-menu-row" bindtap="openPrivacy"><view class="service-icon"><image class="service-icon__image" src="/assets/icons/profile/privacy.svg" mode="aspectFit" /></view><text>数据与隐私</text><image class="service-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" /></button>
+          <button class="service-row profile-menu-row" bindtap="openPrivacy"><view class="service-icon"><image class="service-icon__image" src="/assets/icons/profile/export.svg" mode="aspectFit" /></view><text>导出个人数据</text><image class="service-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" /></button>
+          <button class="service-row profile-menu-row" bindtap="openPrivacy"><view class="service-icon service-icon--danger"><image class="service-icon__image" src="/assets/icons/profile/delete.svg" mode="aspectFit" /></view><text class="service-text--danger">删除个人数据</text><image class="service-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" /></button>
+          <button class="service-row profile-menu-row" bindtap="openNotificationSettings"><view class="service-icon"><image class="service-icon__image" src="/assets/icons/profile/authorization.svg" mode="aspectFit" /></view><text>授权管理</text><image class="service-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" /></button>
+          <button class="service-row profile-menu-row" bindtap="openSupport"><view class="service-icon"><image class="service-icon__image" src="/assets/icons/profile/support.svg" mode="aspectFit" /></view><text>联系客服</text><image class="service-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" /></button>
+          <button class="service-row profile-menu-row" bindtap="showAbout"><view class="service-icon"><image class="service-icon__image" src="/assets/icons/profile/about.svg" mode="aspectFit" /></view><text>关于岸岸</text><image class="service-chevron" src="/assets/icons/profile/chevron.svg" mode="aspectFit" /></button>
+        </view>
+      </view>
+
+      <view wx:if="{{errorMessage}}" class="inline-error">{{errorMessage}}</view>
+    </block>
+  </view>
+
+  <view wx:if="{{profileEditorOpen}}" class="profile-editor-mask" bindtap="closeProfileEditor">
+    <view class="profile-editor" catchtap="noop">
+      <view class="sheet-handle"></view>
+      <view class="profile-editor__head">
+        <view class="profile-editor__title">编辑个人资料</view>
+        <button class="profile-editor__close" bindtap="closeProfileEditor">×</button>
+      </view>
+      <view class="profile-editor__preview"><view class="user-avatar user-avatar--large user-avatar--{{profileDraftAvatarStyle}}">{{profileDraftInitial}}</view></view>
+      <view class="profile-editor__label">昵称</view>
+      <input class="profile-editor__input" type="nickname" value="{{profileDraftName}}" maxlength="24" placeholder="填写你希望岸岸称呼的名字" bindinput="inputProfileName" />
+      <view class="profile-editor__label">头像风格</view>
+      <view class="avatar-style-grid">
+        <view wx:for="{{avatarOptions}}" wx:key="value" class="avatar-style {{profileDraftAvatarStyle === item.value ? 'avatar-style--active' : ''}}" data-value="{{item.value}}" bindtap="chooseAvatarStyle">
+          <view class="avatar-style__swatch user-avatar--{{item.value}}"></view><text>{{item.label}}</text>
+        </view>
+      </view>
+      <view wx:if="{{profileEditorError}}" class="profile-editor__error">{{profileEditorError}}</view>
+      <button class="profile-editor__save" loading="{{profileSaving}}" disabled="{{profileSaving}}" bindtap="saveProfile">保存修改</button>
     </view>
-  </block>
+  </view>
 </view>

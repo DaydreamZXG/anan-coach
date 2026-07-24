@@ -28,11 +28,16 @@ from app.domains.mock_exam.schemas import (
     MockExamPerformanceRange,
     MockExamReview,
     MockExamSession,
+    MockExamStartRequest,
     MockExamSubmitRequest,
     MockExamSubmitResponse,
     MockExamWrongCluster,
     MockExamTrajectoryEventCommand,
     MockExamTrajectoryEventReceipt,
+)
+from app.domains.planning.mock_completion import (
+    bind_and_start_mock_plan_task,
+    complete_mock_plan_task,
 )
 from app.domains.progression.service import ProgressionService
 from app.domains.task_content.schemas import SafeQuestionBundle
@@ -91,10 +96,32 @@ class MockExamService:
         self._knowledge_service = knowledge_service
         self._progression_service = progression_service
 
-    def create_weekly_mock(self, *, user_id: str) -> MockExamSession:
+    def create_weekly_mock(
+        self,
+        *,
+        user_id: str,
+        command: MockExamStartRequest | None = None,
+        command_id: str | None = None,
+    ) -> MockExamSession:
+        started_at = datetime.now(UTC)
+        plan_task_id = (
+            str(command.plan_task_id)
+            if command is not None and command.plan_task_id is not None
+            else None
+        )
         self._repository.lock_user(user_id=user_id)
         existing = self._repository.get_assigned_session(user_id=user_id)
         if existing is not None:
+            if plan_task_id is not None:
+                existing = bind_and_start_mock_plan_task(
+                    self._repository.session,
+                    mock_repository=self._repository,
+                    user_id=user_id,
+                    mock_session=existing,
+                    plan_task_id=plan_task_id,
+                    command_id=command_id or f"plan-task:{plan_task_id}",
+                    started_at=started_at,
+                )
             response = self._session_projection(existing)
             self._repository.commit()
             return response
@@ -117,7 +144,6 @@ class MockExamService:
                 {"moduleName": module_name, "questionCount": count}
             )
         bundle, scoring_snapshot = self._freeze_questions(question_ids)
-        started_at = datetime.now(UTC)
         paper_fingerprint = _hash(
             {
                 "bundleVersionId": bundle.bundle_version_id,
@@ -167,6 +193,16 @@ class MockExamService:
             deadline_at=started_at + timedelta(minutes=MOCK_DURATION_MINUTES),
         )
         record = self._required_session(user_id=user_id, session_id=session_id)
+        if plan_task_id is not None:
+            record = bind_and_start_mock_plan_task(
+                self._repository.session,
+                mock_repository=self._repository,
+                user_id=user_id,
+                mock_session=record,
+                plan_task_id=plan_task_id,
+                command_id=command_id or f"plan-task:{plan_task_id}",
+                started_at=started_at,
+            )
         self._repository.commit()
         return self._session_projection(record)
 
@@ -349,6 +385,20 @@ class MockExamService:
             user_id=user_id,
             record=mock_session,
             submitted_at=submitted_at,
+        )
+        committed_session = self._required_session(
+            user_id=user_id,
+            session_id=session_id,
+        )
+        complete_mock_plan_task(
+            self._repository.session,
+            user_id=user_id,
+            mock_session=committed_session,
+            command_id=(
+                idempotency_key
+                or f"{session_id}:{expected_revision}"
+            ),
+            completed_at=submitted_at,
         )
         response = MockExamSubmitResponse(
             session_id=session_id,
@@ -608,6 +658,7 @@ class MockExamService:
         checkpoint = MockExamCheckpoint.model_validate(record.checkpoint)
         return MockExamSession(
             sessionId=record.session_id,
+            planTaskId=record.source_plan_task_id,
             status=record.status,
             title="国考行测 135 题整卷模考",
             durationMinutes=MOCK_DURATION_MINUTES,

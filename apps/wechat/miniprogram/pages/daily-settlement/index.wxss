@@ -1,78 +1,338 @@
-.statusbar { height: calc(env(safe-area-inset-top, 40rpx) + 24rpx); }
-.settle { align-items: stretch; }
-
-.settle-hero { display: flex; flex-direction: column; align-items: center; padding: 40rpx 0 48rpx; }
-.settle-ring {
-  width: 220rpx;
-  height: 220rpx;
-  border-radius: 50%;
-  background: var(--primary-soft);
-  border: 8rpx solid var(--primary);
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  margin-bottom: 32rpx;
+.settlement-page {
+  box-sizing: border-box;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 84% 3%, rgba(199, 210, 254, 0.34), transparent 26%),
+    #f7f9fc;
+  color: #111827;
 }
-.settle-ring-num { font-size: 88rpx; font-weight: 700; color: var(--primary); line-height: 1; }
-.settle-ring-unit { font-size: 32rpx; color: var(--primary); }
-.settle-title { display: block; margin-bottom: 8rpx; }
 
-.settle-stats { display: flex; align-items: center; margin-bottom: 32rpx; }
-.s-stat { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8rpx; }
-.s-num { font-size: 48rpx; font-weight: 700; color: var(--ink); }
-.s-unit { font-size: 26rpx; color: var(--ink-3); font-weight: 500; }
-.s-divider { width: 1rpx; height: 60rpx; background: var(--line); }
-
-.settle-tasks { display: flex; flex-direction: column; gap: 24rpx; margin-bottom: 32rpx; }
-.settle-tasks-title { font-size: 28rpx; font-weight: 600; color: var(--ink); }
-.settle-task { display: flex; align-items: center; gap: 20rpx; }
-.settle-task-dot {
-  width: 16rpx;
-  height: 16rpx;
-  border-radius: 50%;
-  background: var(--line);
-  flex-shrink: 0;
+.settlement-nav {
+  display: grid;
+  grid-template-columns: 64rpx 1fr 64rpx;
+  align-items: center;
+  padding: 0 34rpx 16rpx;
 }
-.settle-task-dot.is-done { background: var(--primary); }
-.settle-task-main { flex: 1; display: flex; flex-direction: column; gap: 4rpx; min-width: 0; }
-.settle-task-name {
-  font-size: 28rpx;
-  color: var(--ink);
+
+.settlement-back {
+  position: relative;
+  width: 64rpx;
+  height: 64rpx;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.settlement-back::after,
+.settlement-primary::after,
+.settlement-secondary::after,
+.settlement-link::after {
+  border: 0;
+}
+
+.settlement-back__icon {
+  position: absolute;
+  top: 21rpx;
+  left: 24rpx;
+  width: 19rpx;
+  height: 19rpx;
+  transform: rotate(45deg);
+  border-bottom: 4rpx solid #111827;
+  border-left: 4rpx solid #111827;
+}
+
+.settlement-nav__title {
+  text-align: center;
+  font-size: 30rpx;
+  font-weight: 760;
+}
+
+.settlement-content {
+  box-sizing: border-box;
+  padding: 28rpx 40rpx calc(64rpx + env(safe-area-inset-bottom));
+}
+
+.settlement-kicker {
+  color: var(--color-primary);
+  font-size: 21rpx;
+  font-weight: 750;
+}
+
+.settlement-title {
+  max-width: 640rpx;
+  margin-top: 18rpx;
+  font-size: 50rpx;
+  font-weight: 780;
+  letter-spacing: -1.8rpx;
+  line-height: 1.28;
+}
+
+.settlement-copy {
+  margin-top: 17rpx;
+  color: #6b7280;
+  font-size: 25rpx;
+  line-height: 1.6;
+}
+
+.settlement-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12rpx;
+  margin-top: 38rpx;
+}
+
+.settlement-metric {
+  min-width: 0;
+  padding: 24rpx 16rpx;
+  border: 1rpx solid #f0f2f6;
+  border-radius: 30rpx;
+  background: #ffffff;
+  text-align: center;
+  box-shadow: 0 6rpx 26rpx rgba(17, 24, 39, 0.03);
+}
+
+.settlement-metric--actual {
+  border-color: #e0e7ff;
+  background: linear-gradient(145deg, #eef2ff, #ffffff);
+}
+
+.metric-label {
+  color: #9ca3af;
+  font-size: 18rpx;
+}
+
+.metric-value {
+  margin-top: 8rpx;
   overflow: hidden;
+  font-size: 22rpx;
+  font-weight: 760;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.settle-task-status { font-size: 24rpx; color: var(--ink-3); flex-shrink: 0; }
-.settle-task-status.is-done { color: var(--primary); font-weight: 600; }
-.settle-carry {
-  padding-top: 20rpx;
-  border-top: 1rpx dashed var(--line);
+
+.settlement-metric--actual .metric-label,
+.settlement-metric--actual .metric-value {
+  color: var(--color-primary);
 }
 
-.settle-anan {
-  display: flex;
-  gap: 20rpx;
-  background: var(--warm-soft);
-  border: 1rpx solid #f1dcc6;
-  border-radius: var(--radius);
-  padding: 28rpx;
-  margin-bottom: 40rpx;
+.variance-label {
+  margin-top: 12rpx;
+  color: #9ca3af;
+  font-size: 18rpx;
+  text-align: center;
 }
-.anan-avatar {
-  width: 56rpx;
-  height: 56rpx;
-  border-radius: 50%;
-  background: var(--warm);
-  color: #fff;
-  font-size: 26rpx;
-  font-weight: 600;
+
+.settlement-section {
+  margin-top: 40rpx;
+}
+
+.section-heading {
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  gap: 12rpx;
+  margin: 0 4rpx 16rpx;
+  font-size: 27rpx;
+  font-weight: 760;
 }
-.settle-anan-body { flex: 1; display: flex; flex-direction: column; gap: 12rpx; }
-.settle-anan-text { font-size: 29rpx; line-height: 1.6; color: #5c4a35; }
-.settle-anan-cta { font-size: 26rpx; color: var(--warm); font-weight: 600; }
 
-.settle-done { width: 100%; }
+.section-heading__icon {
+  display: flex;
+  width: 34rpx;
+  height: 34rpx;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11rpx;
+  background: #ecfdf5;
+  color: #059669;
+  font-size: 19rpx;
+  font-weight: 800;
+}
+
+.section-heading__icon--risk {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+.section-heading__icon--task {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.settlement-card {
+  box-sizing: border-box;
+  border: 1rpx solid #f0f2f6;
+  border-radius: 38rpx;
+  background: #ffffff;
+  box-shadow: 0 8rpx 30rpx rgba(17, 24, 39, 0.032);
+}
+
+.confirmation-card {
+  position: relative;
+  overflow: hidden;
+  padding: 30rpx;
+}
+
+.confirmation-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 7rpx;
+  background: #22d3ee;
+}
+
+.settlement-summary {
+  font-size: 24rpx;
+  font-weight: 700;
+  line-height: 1.65;
+}
+
+.evidence-note {
+  margin-top: 20rpx;
+  padding: 18rpx;
+  border-radius: 20rpx;
+  background: #ecfeff;
+  color: #4b5563;
+  font-size: 19rpx;
+  line-height: 1.55;
+}
+
+.risk-card {
+  padding: 26rpx 28rpx;
+  border-color: #ffedd5;
+  color: #7c2d12;
+  font-size: 22rpx;
+  line-height: 1.62;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+}
+
+.task-card {
+  padding: 25rpx 27rpx;
+}
+
+.task-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18rpx;
+}
+
+.task-card__track {
+  color: #6b7280;
+  font-size: 19rpx;
+  font-weight: 700;
+}
+
+.task-status {
+  padding: 6rpx 11rpx;
+  border-radius: 10rpx;
+  background: #f3f4f6;
+  color: #6b7280;
+  font-size: 17rpx;
+  font-weight: 700;
+}
+
+.task-status--complete {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.task-status--active {
+  background: #eef2ff;
+  color: var(--color-primary);
+}
+
+.task-status--abandoned {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+.task-card__title {
+  margin-top: 13rpx;
+  font-size: 24rpx;
+  font-weight: 750;
+  line-height: 1.5;
+}
+
+.task-card__meta {
+  margin-top: 8rpx;
+  color: #9ca3af;
+  font-size: 19rpx;
+  line-height: 1.55;
+}
+
+.open-note {
+  margin-top: 28rpx;
+  padding: 24rpx 26rpx;
+  border-radius: 28rpx;
+  background: #f3f4f6;
+}
+
+.open-note__title {
+  font-size: 22rpx;
+  font-weight: 740;
+}
+
+.open-note__copy {
+  margin-top: 7rpx;
+  color: #6b7280;
+  font-size: 20rpx;
+  line-height: 1.55;
+}
+
+.settlement-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 13rpx;
+  margin-top: 36rpx;
+}
+
+.settlement-primary,
+.settlement-secondary,
+.settlement-link {
+  width: 100%;
+  min-height: 92rpx;
+  margin: 0;
+  border: 0;
+  border-radius: 28rpx;
+  font-size: 24rpx;
+  font-weight: 750;
+  line-height: 92rpx;
+}
+
+.settlement-primary {
+  background: #111827;
+  color: #ffffff;
+  box-shadow: 0 12rpx 28rpx rgba(17, 24, 39, 0.12);
+}
+
+.settlement-secondary {
+  background: #eef2ff;
+  color: var(--color-primary);
+}
+
+.settlement-link {
+  min-height: 64rpx;
+  background: transparent;
+  color: #6b7280;
+  line-height: 64rpx;
+}
+
+@media (min-width: 768px) {
+  .settlement-content {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 32px 52px 58px;
+  }
+
+  .settlement-title {
+    font-size: 38px;
+  }
+}

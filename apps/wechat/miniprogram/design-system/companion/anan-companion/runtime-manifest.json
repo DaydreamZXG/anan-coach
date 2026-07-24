@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "characterId": "anan",
+  "displayName": "岸岸",
+  "releaseVersion": "1.0.0",
+  "core": {
+    "budgetBytes": 358400,
+    "actualBytes": 266874,
+    "assets": [
+      "assets/v1.0.0/core/avatar-32@2x.webp",
+      "assets/v1.0.0/core/avatar-32@3x.webp",
+      "assets/v1.0.0/core/inline-64@2x.webp",
+      "assets/v1.0.0/core/card-160@2x.webp",
+      "assets/v1.0.0/core/spritesheet.webp"
+    ]
+  },
+  "intents": {
+    "companion": {
+      "package": "main",
+      "accessibleLabel": "岸岸正在陪你继续学习",
+      "static": {
+        "avatar-32": "assets/v1.0.0/core/avatar-32@3x.webp",
+        "inline-64": "assets/v1.0.0/core/inline-64@2x.webp",
+        "card-160": "assets/v1.0.0/core/card-160@2x.webp"
+      },
+      "animation": {
+        "path": "assets/v1.0.0/core/spritesheet.webp",
+        "frames": 6,
+        "fps": 8,
+        "playback": "loop",
+        "holdFrame": null,
+        "bytes": 186354,
+        "sha256": "fe24319f01ed4af9faa7000eecd6919d5b57b75c80a1982383be11a9c3a3a56a"
+      }
+    },
+    "thinking": {
+      "package": "anan-thinking",
+      "accessibleLabel": "岸岸正在梳理当前信息",
+      "animation": {
+        "frames": 6,
+        "fps": 8,
+        "playback": "loop",
+        "holdFrame": null,
+        "bytes": 210776,
+        "sha256": "5454f6dfe407ca54d34b9451e19945693094dd8a9c67f3b23e644880b7e3d4b1"
+      }
+    },
+    "reminder": {
+      "package": "anan-reminder",
+      "accessibleLabel": "岸岸有一项提醒需要你确认",
+      "animation": {
+        "frames": 6,
+        "fps": 6,
+        "playback": "once-hold",
+        "holdFrame": 3,
+        "bytes": 161196,
+        "sha256": "161b626edb60da22de4b549bfb6cfb3c69343f4028325975fbf27f55b7c85c92"
+      }
+    },
+    "encouragement": {
+      "package": "anan-encouragement",
+      "accessibleLabel": "岸岸正在为这次进步开心",
+      "animation": {
+        "frames": 5,
+        "fps": 12,
+        "playback": "once-hold",
+        "holdFrame": 4,
+        "bytes": 84408,
+        "sha256": "8488b63ebb26d27d2f74d13949f208af37d2089ee803ec039f9220377b245438"
+      }
+    },
+    "rest": {
+      "package": "anan-rest",
+      "accessibleLabel": "岸岸建议现在安心休息一下",
+      "animation": {
+        "frames": 6,
+        "fps": 5,
+        "playback": "loop",
+        "holdFrame": null,
+        "bytes": 220784,
+        "sha256": "bf4fbe20e6247327d0c58da90f9f688c29cb1f1392f9d9f62e4a8398f6a26855"
+      }
+    },
+    "deprioritize": {
+      "package": "anan-deprioritize",
+      "accessibleLabel": "岸岸建议暂时降低这件事的优先级",
+      "animation": {
+        "frames": 5,
+        "fps": 8,
+        "playback": "once-hold",
+        "holdFrame": 4,
+        "bytes": 140538,
+        "sha256": "e32d05e63404987e6385856cb019a5874f08931b7c1a008824780caf4c7c848b"
+      }
+    }
+  },
+  "growth": {
+    "package": "anan-growth",
+    "default": "companion-hero-240@2x.webp",
+    "stages": {
+      "stage-1": "stage-1-hero-240@2x.webp",
+      "stage-2": "stage-2-hero-240@2x.webp",
+      "stage-3": "stage-3-hero-240@2x.webp",
+      "stage-4": "stage-4-hero-240@2x.webp"
+    }
+  },
+  "motionPolicy": {
+    "reducedMotion": "use-intent-static-keyframe",
+    "questionReading": "avatar-or-static-only",
+    "continuousLoopMaxCssPx": 120,
+    "largeHero": "static"
+  }
+}

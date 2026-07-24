@@ -1,0 +1,227 @@
+<view class="library-page">
+  <block wx:if="{{busy && !reviewRevision && !backgroundProcessing}}">
+    <safe-top gap="0" />
+    <view class="library-topbar">
+      <button class="library-close" bindtap="runInBackground">×</button>
+      <view class="library-topbar__side"></view>
+      <view class="library-topbar__side"></view>
+    </view>
+    <view class="processing-screen">
+      <view class="processing-document">
+        <image class="processing-document__icon" src="/assets/icons/today/file-text-secondary.png" mode="aspectFit" />
+        <view class="processing-beam"></view>
+      </view>
+      <view class="processing-title">岸岸正在阅读新资料</view>
+      <view class="processing-filename">{{title || '正在载入文件…'}}</view>
+      <view class="processing-steps">
+        <view class="processing-step">
+          <view class="processing-step__status processing-step__status--done">✓</view>
+          <view class="processing-step__copy">扫描文字与图表结构</view>
+        </view>
+        <view class="processing-step">
+          <view class="processing-step__status processing-step__status--active"></view>
+          <view class="processing-step__copy">提取并理解核心考点</view>
+        </view>
+        <view class="processing-step processing-step--pending">
+          <view class="processing-step__status"></view>
+          <view class="processing-step__copy">建立可定位的私人引用片段</view>
+        </view>
+      </view>
+      <view class="processing-note">资料完成处理后会出现在私人资料库。你可以先去学习，回来再核对结果。</view>
+      <button class="processing-background" bindtap="runInBackground">先去后台运行</button>
+    </view>
+  </block>
+
+  <block wx:else>
+    <safe-top gap="0" />
+    <view class="library-topbar">
+      <button class="library-back" bindtap="goBack"><text class="library-back__chevron"></text></button>
+      <view class="library-topbar__title">专属资料库</view>
+      <view class="library-topbar__side"></view>
+    </view>
+
+    <block wx:if="{{status === 'loading' && !sources.length}}">
+      <view class="library-state">
+        <state-view state="loading" title="正在读取你的资料" />
+      </view>
+    </block>
+
+    <block wx:elif="{{status === 'error' && !sources.length}}">
+      <view class="library-state">
+        <state-view state="error" title="资料库没有加载成功" description="{{errorMessage}}" action-text="重新读取" bind:action="retry" />
+      </view>
+    </block>
+
+    <block wx:else>
+      <view class="library-content">
+        <view class="library-intro">
+          <view class="library-intro__title">岸岸的私有阅读室</view>
+          <view class="library-intro__copy">你上传的笔记、讲义和错题卷，只用于提升你自己的答疑与检索。不与其他考生共享，不训练公共模型。</view>
+        </view>
+
+        <view class="library-security">
+          <view class="library-security__lock">⌁</view>
+          <view>内容仅属于当前账号，可随时彻底移除</view>
+        </view>
+
+        <view class="library-quick-actions">
+          <button class="library-quick-card" bindtap="openImportPanel">
+            <view class="library-quick-card__icon library-quick-card__icon--indigo">
+              <image class="library-quick-card__image" src="/assets/icons/today/file-text-secondary.png" mode="aspectFit" />
+            </view>
+            <view class="library-quick-card__title">上传讲义/文档</view>
+          </button>
+          <button class="library-quick-card" disabled="{{busy}}" bindtap="chooseCameraNote">
+            <view class="library-quick-card__icon library-quick-card__icon--cyan">
+              <image class="library-quick-card__image" src="/assets/icons/today/camera-ink.png" mode="aspectFit" />
+            </view>
+            <view class="library-quick-card__title">拍手写笔记</view>
+          </button>
+        </view>
+
+        <view class="library-search">
+          <view class="library-search__icon"></view>
+          <input
+            class="library-search__input"
+            value="{{query}}"
+            confirm-type="search"
+            placeholder="搜索已理解的资料内容…"
+            bindinput="inputQuery"
+            bindconfirm="search"
+          />
+          <button class="search-button" loading="{{searching}}" bindtap="search">搜索</button>
+        </view>
+
+        <view wx:if="{{busy && !reviewRevision && backgroundProcessing}}" class="library-group">
+          <view class="library-group__head">
+            <view class="library-group__title">岸岸正在阅读</view>
+            <view class="library-group__count">1 份</view>
+          </view>
+          <button class="processing-row" bindtap="showProgress">
+            <view class="processing-row__icon">
+              <image class="processing-row__image" src="/assets/icons/today/refresh-cw-secondary.png" mode="aspectFit" />
+            </view>
+            <view class="processing-row__main">
+              <view class="processing-row__title">{{title}}</view>
+              <view class="processing-row__copy">正在提取内容 · {{uploadPercent}}%</view>
+            </view>
+          </button>
+        </view>
+
+        <view wx:if="{{reviewRevision}}" class="review-card">
+          <view class="review-card__head">
+            <view>
+              <view class="review-card__title">逐段核对识别文字</view>
+              <view class="review-card__copy">确认后才会建立私人检索片段</view>
+            </view>
+            <view class="review-card__count">{{reviewSpans.length}} 段</view>
+          </view>
+          <view wx:for="{{reviewSpans}}" wx:key="spanId" class="review-span">
+            <view class="review-span__label">第 {{index + 1}} 段 · {{item.confidenceLabel}}</view>
+            <textarea
+              cursor-spacing="24"
+              class="review-span__input"
+              data-index="{{index}}"
+              value="{{item.text}}"
+              maxlength="100000"
+              bindinput="inputReviewSpan"
+            />
+          </view>
+          <view wx:if="{{errorMessage}}" class="library-inline-error">{{errorMessage}}</view>
+          <view class="review-actions">
+            <button class="review-action review-action--quiet" bindtap="cancelReview">取消</button>
+            <button class="review-action review-action--primary" loading="{{busy}}" bindtap="confirmReview">确认并建立索引</button>
+          </view>
+        </view>
+
+        <view wx:if="{{citations.length}}" class="library-group">
+          <view class="library-group__head">
+            <view class="library-group__title">检索结果</view>
+            <view class="library-group__count">{{citations.length}} 条</view>
+          </view>
+          <button
+            wx:for="{{citations}}"
+            wx:key="chunkId"
+            class="citation-result"
+            data-index="{{index}}"
+            bindtap="openCitation"
+          >
+            <view class="citation-result__source">{{item.title}} · 第 {{item.pageNo}} 页</view>
+            <view class="citation-result__copy">{{item.excerpt}}</view>
+            <view class="citation-result__foot"><text>{{item.matchLabel}}</text><text>查看原文 ›</text></view>
+          </button>
+        </view>
+
+        <view class="library-group">
+          <view class="library-group__head">
+            <view class="library-group__title">随时可引用</view>
+            <view class="library-group__count">{{sources.length}} 份</view>
+          </view>
+
+          <view wx:if="{{sources.length === 0}}" class="library-empty">
+            <view class="library-empty__icon">
+              <image class="library-empty__image" src="/assets/icons/profile/library.svg" mode="aspectFit" />
+            </view>
+            <view class="library-empty__title">还没有私人资料</view>
+            <view class="library-empty__copy">上传讲义或拍一页笔记，岸岸会先让你核对识别内容。</view>
+          </view>
+
+          <button
+            wx:for="{{sources}}"
+            wx:key="sourceId"
+            class="source-card"
+            data-source-id="{{item.sourceId}}"
+            bindtap="navigateToDetail"
+          >
+            <view class="source-card__icon source-card__icon--{{item.documentKind}}">
+              <image class="source-card__image" src="/assets/icons/profile/library.svg" mode="aspectFit" />
+            </view>
+            <view class="source-card__main">
+              <view class="source-card__head">
+                <view class="source-card__title">{{item.title}}</view>
+                <view class="source-card__state">已索引</view>
+              </view>
+              <view class="source-card__meta">{{item.documentKindLabel}} · {{item.pageCount || 1}} 页 · {{item.chunkCount}} 个引用片段</view>
+              <view class="source-card__foot">
+                <image class="source-card__check" src="/assets/icons/today/circle-check-muted.png" mode="aspectFit" />
+                <text>仅用于你的检索与回答</text>
+              </view>
+            </view>
+          </button>
+        </view>
+
+        <view wx:if="{{errorMessage && !reviewRevision}}" class="library-inline-error">{{errorMessage}}</view>
+        <view class="library-bottom-spacer"></view>
+      </view>
+    </block>
+  </block>
+
+  <ui-sheet visible="{{importPanelOpen}}" title="加入私人资料" copy="内容确认后才会进入你的专属检索库" show-close max-height="82vh" bindclose="closeImportPanel">
+    <input class="import-title-input" value="{{title}}" maxlength="200" placeholder="资料标题（不填则使用文件名）" bindinput="inputTitle" />
+    <picker range="{{documentKinds}}" range-key="label" value="{{documentKindIndex}}" bindchange="selectDocumentKind">
+      <view class="import-kind">类型：{{documentKinds[documentKindIndex].label}} <text>⌄</text></view>
+    </picker>
+    <view class="import-actions">
+      <button class="import-action" disabled="{{busy}}" bindtap="chooseImage">图片</button>
+      <button class="import-action" disabled="{{busy}}" bindtap="choosePdf">PDF</button>
+      <button class="import-action" disabled="{{busy}}" bindtap="chooseMarkdown">Markdown</button>
+    </view>
+  </ui-sheet>
+
+  <view wx:if="{{citationOpen}}" class="citation-mask" catchtouchmove="noop" bindtap="closeCitation"></view>
+  <view wx:if="{{citationOpen && activeCitation}}" class="citation-sheet">
+    <view class="citation-sheet__handle"></view>
+    <view class="citation-sheet__head">
+      <view>
+        <view class="citation-sheet__title">原文快照</view>
+        <view class="citation-sheet__source">来源：{{activeCitation.title}} · 第 {{activeCitation.pageNo}} 页</view>
+      </view>
+      <button class="citation-sheet__close" bindtap="closeCitation">×</button>
+    </view>
+    <view class="citation-sheet__paper">
+      <view class="citation-sheet__paper-title">{{activeCitation.anchor || '检索命中片段'}}</view>
+      <view class="citation-sheet__highlight">{{activeCitation.excerpt}}</view>
+    </view>
+    <view class="citation-sheet__evidence">这段内容来自你已确认的私人资料，引用保留资料名、版本与页码。</view>
+  </view>
+</view>

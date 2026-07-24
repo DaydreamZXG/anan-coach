@@ -8,6 +8,8 @@
     "api:generate": "node scripts/generate-api.mjs",
     "format": "prettier --write \"**/*.{ts,js,json,mjs,md,html,css}\"",
     "format:check": "prettier --check \"**/*.{ts,js,json,mjs,md,html,css}\"",
+    "test": "vitest run",
+    "test:cloud": "node --test cloudfunctions/hunyuan-essay-grader/runtime.test.js",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {

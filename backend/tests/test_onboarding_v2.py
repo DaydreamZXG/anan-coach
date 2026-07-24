@@ -54,11 +54,14 @@ def test_v2_onboarding_progress_is_resumable_idempotent_and_auditable(
         headers={**headers, "Idempotency-Key": "qualification-facts-a02"},
         json={
             "facts": [
-                {"key": "education", "value": "本科"},
-                {"key": "major", "value": "法学"},
-                {"key": "fresh_graduate", "value": True},
-                {"key": "political_status", "value": "群众"},
-                {"key": "grassroots_years", "value": 0},
+                    {"key": "education", "value": "本科"},
+                    {"key": "major", "value": "法学"},
+                    {"key": "graduation_year", "value": 2026},
+                    {"key": "fresh_graduate", "value": True},
+                    {"key": "political_status", "value": "群众"},
+                    {"key": "work_years", "value": 0},
+                    {"key": "grassroots_years", "value": 0},
+                    {"key": "service_project", "value": "无"},
             ]
         },
     )
@@ -78,6 +81,64 @@ def test_v2_onboarding_progress_is_resumable_idempotent_and_auditable(
     assert qualification.status_code == 200
     assert qualification.json()["data"]["progressVersion"] == 3
     assert qualification.json()["data"]["nextStep"] == "study_preference"
+
+    missing_position_preference = client.get(
+        "/api/v2/onboarding/position-preference",
+        headers=headers,
+    )
+    assert missing_position_preference.status_code == 404
+    assert (
+        missing_position_preference.json()["code"]
+        == "position_preference_missing"
+    )
+    position_preference_command = {
+        "expectedPreferenceVersion": 0,
+        "preferredRegions": ["北京"],
+        "acceptsRelocation": True,
+        "acceptedPositionLevels": ["municipal", "county_or_below"],
+    }
+    position_preference = client.put(
+        "/api/v2/onboarding/position-preference",
+        headers={**headers, "Idempotency-Key": "position-preference-a04"},
+        json=position_preference_command,
+    )
+    assert position_preference.status_code == 200
+    assert position_preference.json()["data"]["preferenceVersion"] == 1
+    assert position_preference.json()["data"]["preferredRegions"] == ["北京"]
+    assert position_preference.json()["data"]["acceptsRelocation"] is True
+    position_preference_replay = client.put(
+        "/api/v2/onboarding/position-preference",
+        headers={**headers, "Idempotency-Key": "position-preference-a04"},
+        json=position_preference_command,
+    )
+    assert position_preference_replay.status_code == 200
+    assert (
+        position_preference_replay.json()["data"]
+        == position_preference.json()["data"]
+    )
+    position_preference_changed_replay = client.put(
+        "/api/v2/onboarding/position-preference",
+        headers={**headers, "Idempotency-Key": "position-preference-a04"},
+        json={**position_preference_command, "acceptsRelocation": False},
+    )
+    assert position_preference_changed_replay.status_code == 409
+    assert (
+        position_preference_changed_replay.json()["code"]
+        == "idempotency_key_reused"
+    )
+    stale_position_preference = client.put(
+        "/api/v2/onboarding/position-preference",
+        headers={**headers, "Idempotency-Key": "position-preference-stale"},
+        json={
+            **position_preference_command,
+            "preferredRegions": ["上海"],
+        },
+    )
+    assert stale_position_preference.status_code == 409
+    assert (
+        stale_position_preference.json()["code"]
+        == "position_preference_version_conflict"
+    )
 
     resumed = client.post(
         "/api/v2/auth/wechat",
@@ -132,6 +193,64 @@ def test_v2_onboarding_progress_is_resumable_idempotent_and_auditable(
     )
     assert changed_replay.status_code == 409
     assert changed_replay.json()["code"] == "idempotency_key_reused"
+
+    baseline_missing = client.get(
+        "/api/v2/onboarding/ability-baseline",
+        headers=headers,
+    )
+    assert baseline_missing.status_code == 404
+    assert baseline_missing.json()["code"] == "ability_baseline_missing"
+    unknown_baseline = client.put(
+        "/api/v2/onboarding/ability-baseline",
+        headers={**headers, "Idempotency-Key": "ability-baseline-unknown-a06"},
+        json={
+            "expectedBaselineVersion": 0,
+            "mode": "unknown",
+            "xingceScore": None,
+            "shenlunScore": None,
+        },
+    )
+    assert unknown_baseline.status_code == 200
+    assert unknown_baseline.json()["data"]["baselineVersion"] == 1
+    assert unknown_baseline.json()["data"]["mode"] == "unknown"
+    reported_baseline_command = {
+        "expectedBaselineVersion": 1,
+        "mode": "reported_score",
+        "xingceScore": 65,
+        "shenlunScore": 60,
+    }
+    reported_baseline = client.put(
+        "/api/v2/onboarding/ability-baseline",
+        headers={**headers, "Idempotency-Key": "ability-baseline-reported-a06"},
+        json=reported_baseline_command,
+    )
+    assert reported_baseline.status_code == 200
+    reported_baseline_data = reported_baseline.json()["data"]
+    assert reported_baseline_data["baselineVersion"] == 2
+    assert reported_baseline_data["mode"] == "reported_score"
+    assert reported_baseline_data["xingceScore"] == 65
+    assert reported_baseline_data["shenlunScore"] == 60
+    assert reported_baseline_data["scoreEvidenceId"] is not None
+    baseline_replay = client.put(
+        "/api/v2/onboarding/ability-baseline",
+        headers={**headers, "Idempotency-Key": "ability-baseline-reported-a06"},
+        json=reported_baseline_command,
+    )
+    assert baseline_replay.status_code == 200
+    assert baseline_replay.json()["data"] == reported_baseline_data
+    changed_baseline_replay = client.put(
+        "/api/v2/onboarding/ability-baseline",
+        headers={**headers, "Idempotency-Key": "ability-baseline-reported-a06"},
+        json={**reported_baseline_command, "xingceScore": 66},
+    )
+    assert changed_baseline_replay.status_code == 409
+    assert changed_baseline_replay.json()["code"] == "idempotency_key_reused"
+    current_baseline = client.get(
+        "/api/v2/onboarding/ability-baseline",
+        headers=headers,
+    )
+    assert current_baseline.status_code == 200
+    assert current_baseline.json()["data"] == reported_baseline_data
 
     result = client.get("/api/v2/onboarding/result", headers=headers)
     assert result.status_code == 200
@@ -192,11 +311,33 @@ def test_v2_onboarding_progress_is_resumable_idempotent_and_auditable(
         ).scalar_one() == 1
         assert session.execute(
             text(
+                "select count(*) from learner.position_preference_versions "
+                "where user_id = cast(:user_id as uuid)"
+            ),
+            {"user_id": user_id},
+        ).scalar_one() == 1
+        assert session.execute(
+            text(
+                "select count(*) "
+                "from learner.ability_baseline_declaration_versions "
+                "where user_id = cast(:user_id as uuid)"
+            ),
+            {"user_id": user_id},
+        ).scalar_one() == 2
+        assert session.execute(
+            text(
+                "select count(*) from learning.score_evidence "
+                "where user_id = cast(:user_id as uuid)"
+            ),
+            {"user_id": user_id},
+        ).scalar_one() == 1
+        assert session.execute(
+            text(
                 "select count(*) from platform.outbox_events "
                 "where aggregate_id = :user_id and event_type like 'onboarding.%'"
             ),
             {"user_id": user_id},
-        ).scalar_one() == 3
+        ).scalar_one() == 6
 
 
 def test_v2_onboarding_returns_stable_missing_and_version_errors(
@@ -290,9 +431,12 @@ def test_qualification_revision_invalidates_only_an_open_milestone(
     original_facts = [
         {"key": "education", "value": "本科"},
         {"key": "major", "value": "法学"},
+        {"key": "graduation_year", "value": 2026},
         {"key": "fresh_graduate", "value": True},
         {"key": "political_status", "value": "群众"},
+        {"key": "work_years", "value": 0},
         {"key": "grassroots_years", "value": 0},
+        {"key": "service_project", "value": "无"},
     ]
     assert client.put(
         "/api/v2/qualification/profile",
@@ -366,9 +510,12 @@ def test_onboarding_result_requires_parallel_current_scores_before_gap(
     facts = [
         {"key": "education", "value": "本科"},
         {"key": "major", "value": "法学"},
+        {"key": "graduation_year", "value": 2026},
         {"key": "fresh_graduate", "value": True},
         {"key": "political_status", "value": "群众"},
+        {"key": "work_years", "value": 0},
         {"key": "grassroots_years", "value": 0},
+        {"key": "service_project", "value": "无"},
     ]
     client.put(
         "/api/v2/qualification/profile",

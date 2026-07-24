@@ -42,6 +42,8 @@ class AuthAccountUnavailableError(RuntimeError):
 @dataclass(frozen=True)
 class AccountOverviewRecord:
     user_id: str
+    display_name: str | None
+    avatar_style: str
     account_status: str
     wechat_linked: bool
     profile_version: int
@@ -493,7 +495,8 @@ class AuthRepository:
         row = self._session.execute(
             text(
                 """
-                select u.user_id::text as user_id, u.account_status, u.created_at,
+                select u.user_id::text as user_id, u.display_name, u.avatar_style,
+                       u.account_status, u.created_at,
                        p.profile_version,
                        exists (
                          select 1 from learner.wechat_identities wi
@@ -508,11 +511,46 @@ class AuthRepository:
         ).mappings().one()
         return AccountOverviewRecord(
             user_id=row["user_id"],
+            display_name=row["display_name"],
+            avatar_style=row["avatar_style"],
             account_status=row["account_status"],
             wechat_linked=bool(row["wechat_linked"]),
             profile_version=int(row["profile_version"]),
             created_at=row["created_at"],
         )
+
+    def update_account_profile(
+        self,
+        *,
+        user_id: str,
+        display_name: str,
+        avatar_style: str,
+    ) -> tuple[str, str, datetime]:
+        row = self._session.execute(
+            text(
+                """
+                update learner.users
+                set display_name = :display_name,
+                    avatar_style = :avatar_style,
+                    updated_at = now()
+                where user_id = cast(:user_id as uuid)
+                  and account_status = 'active'
+                returning display_name, avatar_style, updated_at
+                """
+            ),
+            {
+                "user_id": user_id,
+                "display_name": display_name,
+                "avatar_style": avatar_style,
+            },
+        ).mappings().one()
+        self._append_account_event(
+            user_id=user_id,
+            event_type="account_profile_updated",
+            metadata={"avatarStyle": avatar_style},
+        )
+        self._session.commit()
+        return str(row["display_name"]), str(row["avatar_style"]), row["updated_at"]
 
     def list_active_sessions(
         self,

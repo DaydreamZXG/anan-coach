@@ -13,16 +13,29 @@ class GlobalAskPolicyError(RuntimeError):
 
 
 _PAGE_PERMISSIONS: dict[str, tuple[set[str], set[str]]] = {
+    "pages/anan/index": (
+        {"today", "training", "position", "profile"},
+        {"position", "question", "material", "attempt", "plan", "report"},
+    ),
     "pages/companion/index": (
         {"today", "training", "position", "profile"},
         {"position", "question", "material", "attempt", "plan", "report"},
     ),
     "pages/today/index": ({"today"}, {"plan", "report"}),
+    "pages/plan-basis/index": ({"today"}, {"plan", "report"}),
+    "pages/weekly-plan/index": ({"today"}, {"plan", "report"}),
+    "pages/daily-settlement/index": ({"today"}, {"plan", "report"}),
+    "pages/ability/index": ({"profile"}, {"report", "plan", "attempt"}),
     "pages/positions/index": ({"position"}, {"position", "report"}),
+    "pages/positions/detail/index": ({"position"}, {"position", "report"}),
     "pages/positions/goal/index": ({"position"}, {"position", "report"}),
     "pages/practice/index": ({"training"}, {"question", "attempt", "material"}),
     "pages/essay-task/index": ({"training"}, {"question", "attempt", "material"}),
-    "pages/mock-report/index": ({"profile"}, {"report", "attempt"}),
+    "pages/report-overview/index": (
+        {"training", "profile"},
+        {"report", "plan", "attempt"},
+    ),
+    "pages/mock-report/index": ({"training", "profile"}, {"report", "attempt"}),
     "pages/global-report/index": ({"profile"}, {"report", "plan"}),
     "pages/learning-profile/index": ({"profile"}, {"report", "plan", "attempt"}),
 }
@@ -126,9 +139,8 @@ def route_global_question(*, question: str, context: GlobalAskContext) -> Intent
             reasonCodes=("prompt_injection_detected",),
         )
 
-    if (
-        context.task_stage in {"reading", "answering"}
-        and any(term in normalized for term in _ANSWER_LEAK_TERMS)
+    if context.task_stage in {"reading", "answering"} and any(
+        term in normalized for term in _ANSWER_LEAK_TERMS
     ):
         policy = scenario_policy("tutoring_explanation")
         return IntentDecision(

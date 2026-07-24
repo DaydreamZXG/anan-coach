@@ -1,0 +1,407 @@
+<canvas id="51:8" name="06 · 申论工作台" x="0" y="0" width="0" height="0">
+  <frame id="17:2" name="01 · 作答" x="0" y="0" width="406" height="860">
+    <frame id="17:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="17:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="17:6" name="EssayWorkbenchPage" x="0" y="0" width="390" height="844">
+          <frame id="17:7" name="Container" x="0" y="0" width="390" height="844">
+            <frame id="17:129" name="Container:margin" x="0" y="0" width="390" height="104">
+              <frame id="17:8" name="Container" x="0" y="48" width="390" height="56">
+                <frame id="17:9" name="Container" x="16" y="12.5" width="133.890625" height="30">
+                  <frame id="17:20" name="Button:margin" x="0" y="0" width="26" height="30">
+                    <frame id="17:10" name="Button" x="-4" y="0" width="30" height="30">
+                      <frame id="17:11" name="Icon" x="4" y="4" width="22" height="22" />
+                    </frame>
+                  </frame>
+                  <frame id="17:13" name="Container" x="38" y="3" width="95.890625" height="24">
+                    <text id="17:15" name="申论作答" x="0" y="0" width="64" height="24" />
+                    <text id="17:18" name="2 / 5" x="70" y="5" width="26" height="18" />
+                  </frame>
+                </frame>
+                <frame id="17:30" name="Container:margin" x="180" y="12.5" width="194" height="30">
+                  <frame id="17:22" name="Container" x="0" y="0" width="98" height="30">
+                    <frame id="17:23" name="Icon" x="11" y="9" width="12" height="12" />
+                    <frame id="17:26" name="Text" x="29" y="5" width="58" height="20">
+                      <text id="17:27" name="01:36:24" x="0" y="2" width="58" height="18" />
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+            <frame id="17:31" name="Container" x="0" y="104" width="390" height="54.5">
+              <frame id="17:32" name="Button" x="16" y="9.75" width="82" height="34">
+                <frame id="17:33" name="Icon" x="13" y="10" width="14" height="14" />
+                <text id="17:39" name="材料 1" x="33" y="7" width="36" height="20" />
+              </frame>
+              <frame id="17:41" name="Button" x="110" y="9.75" width="84" height="34">
+                <frame id="17:42" name="Icon" x="13" y="10" width="14" height="14" />
+                <text id="17:48" name="材料 2" x="33" y="7" width="38" height="20" />
+              </frame>
+              <frame id="17:50" name="Button" x="206" y="9.75" width="84" height="34">
+                <frame id="17:51" name="Icon" x="13" y="10" width="14" height="14" />
+                <text id="17:57" name="材料 3" x="33" y="7" width="38" height="20" />
+              </frame>
+              <frame id="17:59" name="Button" x="302" y="9.75" width="84" height="34">
+                <frame id="17:60" name="Icon" x="13" y="10" width="14" height="14" />
+                <text id="17:66" name="材料 4" x="33" y="7" width="38" height="20" />
+              </frame>
+              <frame id="17:68" name="Text" x="398" y="18.25" width="85" height="17">
+                <text id="17:69" name="已读到第 4 段" x="8" y="0" width="69" height="17" />
+              </frame>
+            </frame>
+            <frame id="17:71" name="Container" x="0" y="158.5" width="390" height="685.5">
+              <frame id="17:72" name="Container" x="20" y="20" width="350" height="106.5">
+                <frame id="17:73" name="Paragraph" x="0" y="0" width="350" height="52">
+                  <text id="17:74" name="请根据给定资料，概括基层公共文化服务中存在的主要问题。" x="0" y="0" width="350" height="52" />
+                </frame>
+                <frame id="17:86" name="Container:margin" x="0" y="52" width="350" height="34.5">
+                  <frame id="17:76" name="Container" x="0" y="12" width="350" height="22.5">
+                    <frame id="17:77" name="Text" x="0" y="0" width="62" height="22.5">
+                      <text id="17:78" name="概括准确" x="9" y="3" width="44" height="17" />
+                    </frame>
+                    <frame id="17:80" name="Text" x="70" y="0" width="62" height="22.5">
+                      <text id="17:81" name="条理清晰" x="9" y="3" width="44" height="17" />
+                    </frame>
+                    <frame id="17:83" name="Text" x="140" y="0" width="90" height="22.5">
+                      <text id="17:84" name="不超过 300 字" x="9" y="3" width="72" height="17" />
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="17:87" name="Container" x="20" y="126.5" width="350" height="394">
+                <frame id="17:88" name="Container" x="1" y="1" width="348" height="344">
+                  <frame id="17:89" name="Text Area" x="20" y="20" width="308" height="305.3125">
+                    <text id="17:90" name="在此输入作答内容..." x="0" y="0" width="308" height="27" />
+                  </frame>
+                </frame>
+                <frame id="17:91" name="Container" x="1" y="345" width="348" height="48">
+                  <frame id="17:92" name="Container" x="16" y="15.5" width="104" height="18">
+                    <frame id="17:93" name="Button" x="0" y="0" width="44" height="18">
+                      <frame id="17:94" name="Icon" x="0" y="1" width="16" height="16" />
+                      <frame id="17:101" name="Text" x="20" y="0" width="24" height="18">
+                        <text id="17:102" name="提纲" x="0" y="0" width="24" height="18" />
+                      </frame>
+                    </frame>
+                    <frame id="17:104" name="Button" x="60" y="0" width="44" height="18">
+                      <frame id="17:105" name="Icon" x="0" y="1" width="16" height="16" />
+                      <frame id="17:108" name="Text" x="20" y="0" width="24" height="18">
+                        <text id="17:109" name="引用" x="0" y="0" width="24" height="18" />
+                      </frame>
+                    </frame>
+                  </frame>
+                  <frame id="17:111" name="Container" x="209" y="15.5" width="123" height="18">
+                    <frame id="17:112" name="Text" x="0" y="0.5" width="55" height="17">
+                      <text id="17:113" name="刚刚已保存" x="0" y="0" width="55" height="17" />
+                    </frame>
+                    <frame id="17:115" name="Text" x="67" y="0" width="56" height="18">
+                      <text id="17:116" name="186 / 300" x="0" y="0" width="56" height="18" />
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="17:118" name="Container" x="20" y="520.5" width="350" height="37">
+                <frame id="17:119" name="Container" x="108" y="25.5" width="6" height="6" />
+                <frame id="17:120" name="Text" x="120" y="20" width="122" height="17">
+                  <text id="17:121" name="整卷模考 · AI 提示已静默" x="0" y="0" width="122" height="17" />
+                </frame>
+              </frame>
+            </frame>
+            <frame id="17:125" name="Container" x="0" y="751" width="390" height="93">
+              <frame id="17:126" name="Button" x="20" y="17" width="350" height="56">
+                <text id="17:127" name="保存并下一题" x="127" y="16" width="96" height="24" />
+              </frame>
+            </frame>
+          </frame>
+          <frame id="17:131" name="Container" x="287" y="48" width="87" height="32">
+            <frame id="17:132" name="Container" x="0" y="0" width="87" height="32" />
+          </frame>
+        </frame>
+      </frame>
+      <frame id="17:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="29:2" name="02 · 材料阅读" x="506" y="0" width="406" height="860">
+    <frame id="29:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="29:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="29:6" name="EssayWorkbenchPage" x="0" y="0" width="390" height="844">
+          <frame id="29:7" name="Container" x="0" y="0" width="390" height="844">
+            <frame id="29:85" name="Container:margin" x="0" y="0" width="390" height="104">
+              <frame id="29:8" name="Container" x="0" y="48" width="390" height="56">
+                <frame id="29:9" name="Container" x="16" y="15.5" width="77" height="24">
+                  <text id="29:11" name="材料 3 / 4" x="4" y="0" width="71" height="24" />
+                </frame>
+                <frame id="29:14" name="Container" x="186" y="11.5" width="188" height="32">
+                  <frame id="29:15" name="Button" x="0" y="2" width="28" height="28">
+                    <frame id="29:16" name="Icon" x="6" y="6" width="16" height="16" />
+                  </frame>
+                  <frame id="29:19" name="Button" x="40" y="0" width="50" height="32">
+                    <text id="29:20" name="关闭" x="12" y="6" width="26" height="20" />
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+            <frame id="29:23" name="Container" x="0" y="104" width="390" height="740">
+              <frame id="29:24" name="Container" x="24" y="32" width="342" height="202">
+                <frame id="29:28" name="Paragraph" x="0" y="0" width="342" height="202">
+                  <text id="29:29" name="基层公共文化服务体系建设，是保障人民群众基本文化权益的重要途径。近年来，A市在推进基层文化建设中取得" x="0" y="0" width="342" height="202" />
+                </frame>
+                <text id="29:26" name="1" x="-20" y="4" width="7" height="20" />
+              </frame>
+              <frame id="29:31" name="Container" x="24" y="234" width="342" height="167.984375">
+                <frame id="29:35" name="Paragraph" x="0" y="24" width="342" height="143.984375">
+                  <frame id="29:37" name="Text" x="0" y="5" width="328" height="76.59375">
+                    <text id="29:38" name="同时，基层文化队伍专业人才匮乏，现有工作人员多为兼职，难以组织高质量的文化活动。此外，文化活动内" x="0" y="-5" width="328" height="87" />
+                  </frame>
+                  <frame id="29:40" name="Container" x="-6.09375" y="-43.203125" width="324" height="38">
+                    <frame id="29:41" name="Text" x="12" y="8" width="75" height="22">
+                      <frame id="29:42" name="Icon" x="0" y="5" width="12" height="12" />
+                      <text id="29:47" name="划线" x="18" y="0" width="57" height="22" />
+                    </frame>
+                    <frame id="29:49" name="Container" x="99" y="13" width="1" height="12" />
+                    <frame id="29:50" name="Text" x="112" y="8" width="100" height="22">
+                      <frame id="29:51" name="Icon" x="0" y="5" width="12" height="12" />
+                      <text id="29:58" name="加入提纲" x="18" y="0" width="82" height="22" />
+                    </frame>
+                    <frame id="29:60" name="Container" x="224" y="13" width="1" height="12" />
+                    <frame id="29:61" name="Text" x="237" y="8" width="75" height="22">
+                      <frame id="29:62" name="Icon" x="0" y="5" width="12" height="12" />
+                      <text id="29:65" name="复制" x="18" y="0" width="57" height="22" />
+                    </frame>
+                    <frame id="29:67" name="Container" x="155.4921875" y="37.796875" width="12" height="12" />
+                  </frame>
+                  <text id="29:68" name="容同质化严重，往往停留在简单的广场舞或送戏下乡，未能有效对接群众日益多元化、个性化的文化需求。" x="0" y="57.59375" width="328" height="87" />
+                </frame>
+                <text id="29:33" name="2" x="-20" y="28" width="7" height="20" />
+              </frame>
+              <frame id="29:70" name="Container" x="24" y="401.984375" width="342" height="164">
+                <frame id="29:74" name="Paragraph" x="0" y="24" width="342" height="116">
+                  <text id="29:75" name="有些乡村的农家书屋，门虽设而网不通，成了应付检查的“盆景”。针对这些现象，如何盘活存量资源、激发基层" x="0" y="0" width="342" height="116" />
+                </frame>
+                <text id="29:72" name="3" x="-20" y="28" width="7" height="20" />
+              </frame>
+            </frame>
+            <frame id="29:79" name="Container" x="120" y="761.25" width="150" height="51">
+              <frame id="29:80" name="Button" x="0" y="0" width="150" height="51">
+                <frame id="29:81" name="Icon" x="32" y="16.5" width="18" height="18" />
+                <text id="29:83" name="返回作答" x="58" y="14" width="60" height="23" />
+              </frame>
+            </frame>
+          </frame>
+          <frame id="29:87" name="Container" x="287" y="48" width="87" height="32">
+            <frame id="29:88" name="Container" x="0" y="0" width="87" height="32" />
+          </frame>
+        </frame>
+      </frame>
+      <frame id="29:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="30:2" name="03 · 批改结果" x="1012" y="0" width="406" height="860">
+    <frame id="30:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="30:5" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="30:6" name="EssayWorkbenchPage" x="0" y="0" width="390" height="844">
+          <frame id="30:7" name="Container" x="0" y="0" width="390" height="844">
+            <frame id="30:188" name="Container:margin" x="0" y="0" width="390" height="104">
+              <frame id="30:8" name="Container" x="0" y="48" width="390" height="56">
+                <frame id="30:9" name="Container" x="16" y="12.5" width="123" height="30">
+                  <frame id="30:16" name="Button:margin" x="0" y="0" width="26" height="30">
+                    <frame id="30:10" name="Button" x="-4" y="0" width="30" height="30">
+                      <frame id="30:11" name="Icon" x="4" y="4" width="22" height="22" />
+                    </frame>
+                  </frame>
+                  <frame id="30:13" name="Text" x="38" y="3" width="85" height="24">
+                    <text id="30:14" name="AI 批改复盘" x="0" y="0" width="85" height="24" />
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+            <frame id="30:17" name="Container" x="0" y="104" width="390" height="740">
+              <frame id="30:18" name="Container" x="20" y="24" width="350" height="270.59375">
+                <frame id="30:19" name="Container" x="242.3333740234375" y="-79" width="160" height="160" />
+                <frame id="30:20" name="Container" x="33" y="33" width="284" height="205.5">
+                  <frame id="30:41" name="Paragraph:margin" x="116" y="0" width="52" height="28">
+                    <text id="30:22" name="综合得分" x="0" y="0" width="52" height="20" />
+                  </frame>
+                  <frame id="30:42" name="Container:margin" x="86.15625" y="28" width="111.6875" height="87.5">
+                    <frame id="30:24" name="Container" x="0" y="0" width="111.6875" height="71.5">
+                      <text id="30:26" name="68" x="0" y="4" width="69" height="68" />
+                      <text id="30:29" name="/ 100" x="69.515625" y="38" width="45" height="27" />
+                    </frame>
+                  </frame>
+                  <frame id="30:43" name="Container:margin" x="78" y="115.5" width="128" height="46">
+                    <frame id="30:31" name="Container" x="0" y="0" width="128" height="30">
+                      <frame id="30:32" name="Icon" x="12" y="8" width="14" height="14" />
+                      <frame id="30:35" name="Text" x="32" y="6" width="84" height="18">
+                        <text id="30:36" name="评分可信度较高" x="0" y="0" width="84" height="18" />
+                      </frame>
+                    </frame>
+                  </frame>
+                  <frame id="30:38" name="Paragraph" x="32" y="161.5" width="220" height="44">
+                    <text id="30:39" name="由多模型独立评分并交叉校验 本评分用于训练反馈，不等同于官方阅卷结果" x="0" y="0" width="220" height="40" />
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="30:44" name="Container" x="20" y="318.59375" width="350" height="246">
+                <frame id="30:94" name="Heading 3:margin" x="0" y="0" width="350" height="24">
+                  <frame id="30:45" name="Heading 3" x="4" y="0" width="346" height="24">
+                    <text id="30:46" name="得分维度" x="0" y="0" width="68" height="24" />
+                  </frame>
+                </frame>
+                <frame id="30:95" name="Container:margin" x="0" y="24" width="350" height="222">
+                  <frame id="30:48" name="Container" x="0" y="16" width="350" height="206">
+                    <frame id="30:49" name="Container" x="21" y="21" width="308" height="20">
+                      <frame id="30:50" name="Text" x="0" y="0" width="68" height="20">
+                        <text id="30:51" name="要点覆盖" x="0" y="0" width="52" height="20" />
+                      </frame>
+                      <frame id="30:53" name="Container" x="84" y="7" width="166" height="6">
+                        <frame id="30:54" name="Container" x="0" y="0" width="116.1875" height="6" />
+                      </frame>
+                      <frame id="30:55" name="Text" x="266" y="1" width="42" height="18">
+                        <text id="30:56" name="14 / 20" x="1" y="0" width="41" height="18" />
+                      </frame>
+                    </frame>
+                    <frame id="30:58" name="Container" x="21" y="57" width="308" height="20">
+                      <frame id="30:59" name="Text" x="0" y="0" width="68" height="20">
+                        <text id="30:60" name="结构层次" x="0" y="0" width="52" height="20" />
+                      </frame>
+                      <frame id="30:62" name="Container" x="84" y="7" width="166" height="6">
+                        <frame id="30:63" name="Container" x="0" y="0" width="132.796875" height="6" />
+                      </frame>
+                      <frame id="30:64" name="Text" x="266" y="1" width="42" height="18">
+                        <text id="30:65" name="8 / 10" x="9" y="0" width="33" height="18" />
+                      </frame>
+                    </frame>
+                    <frame id="30:67" name="Container" x="21" y="93" width="308" height="20">
+                      <frame id="30:68" name="Text" x="0" y="0" width="68" height="20">
+                        <text id="30:69" name="材料依据" x="0" y="0" width="52" height="20" />
+                      </frame>
+                      <frame id="30:71" name="Container" x="84" y="7" width="166" height="6">
+                        <frame id="30:72" name="Container" x="0" y="0" width="132.796875" height="6" />
+                      </frame>
+                      <frame id="30:73" name="Text" x="266" y="1" width="42" height="18">
+                        <text id="30:74" name="12 / 15" x="4" y="0" width="38" height="18" />
+                      </frame>
+                    </frame>
+                    <frame id="30:76" name="Container" x="21" y="129" width="308" height="20">
+                      <frame id="30:77" name="Text" x="0" y="0" width="68" height="20">
+                        <text id="30:78" name="表达准确" x="0" y="0" width="52" height="20" />
+                      </frame>
+                      <frame id="30:80" name="Container" x="84" y="7" width="166" height="6">
+                        <frame id="30:81" name="Container" x="0" y="0" width="99.59375" height="6" />
+                      </frame>
+                      <frame id="30:82" name="Text" x="266" y="1" width="42" height="18">
+                        <text id="30:83" name="6 / 10" x="9" y="0" width="33" height="18" />
+                      </frame>
+                    </frame>
+                    <frame id="30:85" name="Container" x="21" y="165" width="308" height="20">
+                      <frame id="30:86" name="Text" x="0" y="0" width="68" height="20">
+                        <text id="30:87" name="字数与格式" x="0" y="0" width="65" height="20" />
+                      </frame>
+                      <frame id="30:89" name="Container" x="84" y="7" width="166" height="6">
+                        <frame id="30:90" name="Container" x="0" y="0" width="166" height="6" />
+                      </frame>
+                      <frame id="30:91" name="Text" x="266" y="1" width="42" height="18">
+                        <text id="30:92" name="5 / 5" x="16" y="0" width="26" height="18" />
+                      </frame>
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="30:96" name="Container" x="20" y="588.59375" width="350" height="272.59375">
+                <frame id="30:133" name="Heading 3:margin" x="0" y="0" width="350" height="24">
+                  <frame id="30:97" name="Heading 3" x="4" y="0" width="346" height="24">
+                    <text id="30:98" name="证据反馈" x="0" y="0" width="68" height="24" />
+                  </frame>
+                </frame>
+                <frame id="30:134" name="Container:margin" x="0" y="24" width="350" height="248.59375">
+                  <frame id="30:100" name="Container" x="0" y="16" width="350" height="232.59375">
+                    <frame id="30:101" name="Container" x="21" y="21" width="308" height="34">
+                      <frame id="30:102" name="Text" x="0" y="0" width="106" height="26">
+                        <frame id="30:103" name="Icon" x="8" y="7" width="12" height="12" />
+                        <text id="30:106" name="命中要点 4 个" x="24" y="4" width="74" height="18" />
+                      </frame>
+                      <frame id="30:108" name="Text" x="118" y="0" width="106" height="26">
+                        <frame id="30:109" name="Icon" x="8" y="7" width="12" height="12" />
+                        <text id="30:113" name="遗漏要点 2 个" x="24" y="4" width="74" height="18" />
+                      </frame>
+                    </frame>
+                    <frame id="30:115" name="Container" x="21" y="71" width="308" height="140.59375">
+                      <frame id="30:117" name="Paragraph" x="17" y="17" width="274" height="21">
+                        <text id="30:118" name="未能对接群众多元化需求" x="8" y="0" width="154" height="21" />
+                      </frame>
+                      <frame id="30:120" name="Paragraph" x="17" y="38" width="274" height="48">
+                        <text id="30:121" name="原答案仅表述了“活动内容单一”，未结合材料明确指出导致该现象的深层原因是供需错位。" x="8" y="6" width="266" height="42" />
+                      </frame>
+                      <frame id="30:131" name="Button:margin" x="17" y="86" width="160.09375" height="38">
+                        <frame id="30:123" name="Button" x="8" y="12" width="152.09375" height="26">
+                          <text id="30:124" name="定位至 材料二 第 2 段" x="10" y="4" width="115" height="18" />
+                          <frame id="30:126" name="Icon" x="129" y="7" width="12" height="12" />
+                        </frame>
+                      </frame>
+                      <frame id="30:116" name="Container" x="1" y="1" width="4" height="138.59375" />
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="30:135" name="Container" x="20" y="885.1875" width="350" height="362.5">
+                <frame id="30:168" name="Heading 3:margin" x="0" y="0" width="350" height="24">
+                  <frame id="30:136" name="Heading 3" x="4" y="0" width="346" height="24">
+                    <text id="30:137" name="表达升格" x="0" y="0" width="68" height="24" />
+                  </frame>
+                </frame>
+                <frame id="30:169" name="Container:margin" x="0" y="24" width="350" height="338.5">
+                  <frame id="30:139" name="Container" x="0" y="16" width="350" height="322.5">
+                    <frame id="30:167" name="Container:margin" x="0" y="0" width="350" height="119">
+                      <frame id="30:140" name="Container" x="0" y="0" width="350" height="113">
+                        <frame id="30:141" name="Text" x="21" y="21" width="308" height="17">
+                          <text id="30:142" name="原句提取" x="0" y="0" width="44" height="17" />
+                        </frame>
+                        <frame id="30:144" name="Paragraph" x="21" y="38" width="308" height="54">
+                          <text id="30:145" name="三是文化活动内容单一、同质化严重。如仅有广场舞等。" x="0" y="8" width="308" height="46" />
+                        </frame>
+                      </frame>
+                    </frame>
+                    <frame id="30:148" name="Container" x="0" y="119" width="350" height="203.5">
+                      <frame id="30:149" name="Text" x="21" y="21" width="308" height="16.5">
+                        <frame id="30:150" name="Icon" x="0" y="2.25" width="12" height="12" />
+                        <text id="30:156" name="建议改写" x="16" y="-0.25" width="44" height="17" />
+                      </frame>
+                      <frame id="30:158" name="Paragraph" x="21" y="37.5" width="308" height="77">
+                        <text id="30:159" name="三是文化活动同质化严重，供需错位。仅停留于广场舞等简单形式，未对接群众多元化、个性化需求。" x="0" y="8" width="308" height="69" />
+                      </frame>
+                      <frame id="30:166" name="Container:margin" x="21" y="114.5" width="308" height="68">
+                        <frame id="30:161" name="Container" x="0" y="16" width="308" height="52">
+                          <frame id="30:162" name="Paragraph" x="0" y="13" width="308" height="39">
+                            <text id="30:163" name="改动解析：原句概括过于表面。补充“供需错位”和“多元化需求”能更精准踩中采分点，符合官方通报表达习惯" x="0" y="0" width="308" height="39" />
+                          </frame>
+                        </frame>
+                      </frame>
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+            <frame id="30:170" name="Container" x="0" y="685.5" width="390" height="158.5">
+              <frame id="30:171" name="Container" x="20" y="17" width="350" height="55">
+                <frame id="30:172" name="Button" x="0" y="0" width="169" height="55">
+                  <text id="30:173" name="再写一次" x="56.5" y="17" width="56" height="21" />
+                </frame>
+                <frame id="30:175" name="Button" x="181" y="0" width="169" height="55">
+                  <text id="30:176" name="加入明日专项" x="42.5" y="17" width="84" height="21" />
+                </frame>
+              </frame>
+              <frame id="30:187" name="Button:margin" x="20" y="72" width="350" height="66.5">
+                <frame id="30:178" name="Button" x="0" y="12" width="350" height="54.5">
+                  <frame id="30:179" name="Icon" x="110.5" y="19.25" width="16" height="16" />
+                  <text id="30:185" name="带着本题问岸岸" x="134.5" y="15.75" width="105" height="23" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="30:190" name="Container" x="287" y="48" width="87" height="32">
+            <frame id="30:191" name="Container" x="0" y="0" width="87" height="32" />
+          </frame>
+        </frame>
+      </frame>
+      <frame id="30:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+</canvas>

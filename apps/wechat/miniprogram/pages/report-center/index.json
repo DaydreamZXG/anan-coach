@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "模考与报告",
+  "backgroundColor": "#F7F9FC",
+  "usingComponents": {
+    "state-view": "../../design-system/primitives/state-view/index"
+  }
+}

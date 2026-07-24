@@ -12,6 +12,8 @@ from app.domains.onboarding.progress_repository import (
     OnboardingProgressError,
     OnboardingProgressRepository,
     payload_fingerprint,
+    position_preference_from_row,
+    position_preference_input_payload,
     preference_input_payload,
 )
 from app.domains.onboarding.v2_schemas import (
@@ -21,6 +23,8 @@ from app.domains.onboarding.v2_schemas import (
     OnboardingResultProjection,
     OnboardingResultNextAction,
     OnboardingScoreGap,
+    PositionPreferenceProfile,
+    PositionPreferenceWrite,
     PreparationExperienceProfile,
     PreparationExperienceResult,
     PreparationExperienceWrite,
@@ -117,6 +121,8 @@ class OnboardingProgressService:
             and bool(current_row["retake"]) == command.retake
             and [int(value) for value in current_row["prior_exam_years"]]
             == command.prior_exam_years
+            and str(current_row.get("current_status") or "unspecified")
+            == command.current_status
         )
         if current_is_same:
             experience = self._repository.current_experience(session, user_id=user_id)
@@ -132,6 +138,7 @@ class OnboardingProgressService:
                 prior_guokao_exam=command.prior_guokao_exam,
                 retake=command.retake,
                 prior_exam_years=command.prior_exam_years,
+                current_status=command.current_status,
                 now=recorded_at,
             )
             experience_changed = True
@@ -191,6 +198,7 @@ class OnboardingProgressService:
                     "experienceVersionId": experience.experience_version_id,
                     "experienceVersion": experience.experience_version,
                     "recommendedEntry": experience.recommended_entry,
+                    "currentStatus": experience.current_status,
                 },
             )
         return result
@@ -305,6 +313,80 @@ class OnboardingProgressService:
                 },
             )
         return progress
+
+    def get_position_preference(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+    ) -> PositionPreferenceProfile:
+        preference = self._repository.current_position_preference(
+            session,
+            user_id=user_id,
+        )
+        if preference is None:
+            raise OnboardingProgressError(
+                "position_preference_missing",
+                "尚未确认岗位偏好。",
+            )
+        return preference
+
+    def record_position_preference(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        command_id: str,
+        command: PositionPreferenceWrite,
+        now: datetime | None = None,
+    ) -> PositionPreferenceProfile:
+        recorded_at = now or datetime.now(UTC)
+        payload = position_preference_input_payload(
+            preferred_regions=command.preferred_regions,
+            accepts_relocation=command.accepts_relocation,
+            accepted_position_levels=command.accepted_position_levels,
+        )
+        fingerprint = payload_fingerprint(payload)
+        replay = self._repository.position_preference_by_command(
+            session,
+            user_id=user_id,
+            command_id=command_id,
+        )
+        if replay is not None:
+            if str(replay["input_fingerprint"]) != fingerprint:
+                raise OnboardingProgressError(
+                    "idempotency_key_reused",
+                    "同一确认标识不能用于不同的岗位偏好。",
+                )
+            return position_preference_from_row(replay)
+
+        preference = self._repository.append_position_preference(
+            session,
+            user_id=user_id,
+            command_id=command_id,
+            expected_preference_version=command.expected_preference_version,
+            preferred_regions=command.preferred_regions,
+            accepts_relocation=command.accepts_relocation,
+            accepted_position_levels=command.accepted_position_levels,
+            input_fingerprint=fingerprint,
+            now=recorded_at,
+        )
+        self._outbox.append(
+            session,
+            deduplication_key=f"position-preference:{command_id}",
+            aggregate_type="position_preference",
+            aggregate_id=user_id,
+            event_type="onboarding.position_preference_recorded",
+            payload={
+                "userId": user_id,
+                "preferenceVersionId": preference.preference_version_id,
+                "preferenceVersion": preference.preference_version,
+                "preferredRegions": preference.preferred_regions,
+                "acceptsRelocation": preference.accepts_relocation,
+                "acceptedPositionLevels": preference.accepted_position_levels,
+            },
+        )
+        return preference
 
     def get_study_preference(
         self,
@@ -538,11 +620,10 @@ class OnboardingProgressService:
         if replay is not None:
             return StudyPreferenceResult.model_validate(replay)
         self._require_progress_version(progress, command.expected_progress_version)
-        if progress.completed:
-            raise OnboardingProgressError(
-                "onboarding_already_completed",
-                "建档已经完成；后续时间调整请使用每日容量或学习偏好设置。",
-            )
+        # Completing onboarding freezes the onboarding milestone, not the
+        # independently versioned weekly-study preference aggregate. Returning
+        # learners revise that aggregate through this same optimistic command;
+        # their immutable onboarding progress snapshot intentionally stays put.
         if not progress.experience_ready:
             raise OnboardingProgressError(
                 "preparation_experience_required",

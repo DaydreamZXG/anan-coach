@@ -1,26 +1,13 @@
-<view class="page ph">
-  <safe-top />
-  <view class="ph-nav">
-    <text class="ph-back" bindtap="onBack">‹</text>
-    <text class="ph-title">计划历史</text>
-  </view>
-
-  <view wx:if="{{loading}}" class="ph-loading text-2">正在翻记录…</view>
-
-  <scroll-view wx:else class="ph-body" scroll-y>
-    <view class="ph-empty" wx:if="{{!entries.length}}">
-      <text class="text-2">还没有历史记录，走过的每一天都会记在这里</text>
+<view class="brain-page">
+  <view class="brain-hero"><view class="brain-kicker">计划变更记录</view><view class="brain-title">每次变化，都能解释为什么</view><view class="brain-copy">计划的每次调整都留痕，回头看看变了什么。</view></view>
+  <state-view wx:if="{{status === 'loading'}}" state="loading" />
+  <state-view wx:elif="{{status === 'error'}}" state="error" title="变更记录没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
+  <block wx:elif="{{status === 'ready'}}">
+    <view wx:if="{{!items.length}}" class="brain-card brain-empty">还没有计划。填完信息和可用时间，就给你排第一版。</view>
+    <view wx:for="{{items}}" wx:key="planVersionId" class="brain-card history-card">
+      <view class="brain-row"><view><view class="brain-pill">{{item.editionLabel}} · {{item.dayModeLabel}}</view><view class="brain-value">{{item.headline}}</view></view><view class="brain-section-meta">{{item.generatedLabel}}</view></view>
+      <view class="brain-grid"><view class="brain-metric"><view class="brain-label">任务</view><text class="brain-metric__value type-data">{{item.taskCount}}</text></view><view class="brain-metric"><view class="brain-label">学习时间</view><text class="brain-metric__value type-data">{{item.scheduledDurationLabel}}</text></view></view>
+      <view class="brain-note">为什么调整：{{item.reasonLabel}}</view><view class="brain-note">本次变化：{{item.changedInputLabel}}</view>
     </view>
-    <view class="card ph-entry" wx:for="{{entries}}" wx:key="planVersionId">
-      <view class="ph-entry-head">
-        <text class="ph-date">{{item.dateLabel}}</text>
-        <view class="ph-meta">
-          <text class="ph-mode {{item.modeClass}}">{{item.modeLabel}}</text>
-          <text class="text-3 num">{{item.minutes}} 分钟</text>
-        </view>
-      </view>
-      <text class="ph-headline">{{item.headline}}</text>
-    </view>
-    <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示记录（后端未连接）</view>
-  </scroll-view>
+  </block>
 </view>

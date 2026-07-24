@@ -18,6 +18,7 @@ from app.domains.answer_ingestion.schemas import (
     CreateAnswerCandidateCommand,
 )
 from app.domains.answer_ingestion.service import AnswerIngestionService
+from app.domains.external_ingestion.matching.catalog import SQLQuestionContentCatalog
 from app.domains.learning_packages.renderer import PacketRenderer
 from app.domains.learning_packages.repository import LearningPackageRepository
 from app.domains.learning_packages.schemas import (
@@ -28,6 +29,7 @@ from app.domains.learning_packages.schemas import (
 )
 from app.domains.learning_packages.service import LearningPackageService
 from app.domains.learning_packages.worker import PacketRenderWorker
+from app.domains.learning_brain.service import LearningBrainService
 from app.domains.xingce_learning.content_version import question_content_version_id
 
 
@@ -127,6 +129,20 @@ def test_packet_render_and_confirmed_answer_round_trip(db_session: Session) -> N
     db_session.execute(
         text(
             """
+            insert into product.position_rule_releases (
+              release_id, exam_code, exam_year, rule_set_version,
+              position_data_version, status, activated_at
+            ) values (
+              :release_id, 'guokao', 2026, 'external-learning-rules',
+              'external-learning-positions', 'active', :activated_at
+            )
+            """
+        ),
+        {"release_id": str(uuid4()), "activated_at": NOW},
+    )
+    db_session.execute(
+        text(
+            """
             insert into product.questions (
               question_id, domain, status, module_name, question_type, stem, answer
             ) values ('q-stage15-1', 'objective', 'active', '判断推理', 'single',
@@ -150,6 +166,11 @@ def test_packet_render_and_confirmed_answer_round_trip(db_session: Session) -> N
     )
     assert source is not None
     content_version_id = question_content_version_id(source)
+    published = SQLQuestionContentCatalog(
+        db_session,
+        clock=lambda: NOW,
+    ).publish_current(question_id="q-stage15-1")
+    assert published.content_version_id == content_version_id
     licenses = FakeLicenseEvaluator()
     packet_service = LearningPackageService(
         session=db_session,
@@ -246,3 +267,18 @@ def test_packet_render_and_confirmed_answer_round_trip(db_session: Session) -> N
     assert fact["evidence_policy_version"] == "external-confirmed-lower-weight-v1"
     assert fact["review_state"] == "user_confirmed"
     assert fact["answer_payload"] == {"answer": "A"}
+
+    profile = LearningBrainService().get_or_create_profile(
+        db_session,
+        user_id=str(user_id),
+        now=NOW + timedelta(minutes=2),
+    )
+    assert profile.evidence_summary.external_answer_count == 1
+    module = next(item for item in profile.modules if item.module_key == "判断推理")
+    assert module.external_evidence_count == 1
+    assert module.correct_rate is None
+    assert any(
+        item.entity_type == "external_answer_fact"
+        and item.role == "user_confirmed_external_answer"
+        for item in module.evidence_refs
+    )

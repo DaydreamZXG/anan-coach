@@ -1,0 +1,58 @@
+.ui-button {
+  box-sizing: border-box;
+  min-height: 88rpx;
+  margin: 0;
+  padding: 0 30rpx;
+  border: 0;
+  border-radius: var(--radius-control);
+  font-size: var(--font-body);
+  font-weight: 750;
+  line-height: 88rpx;
+}
+
+.ui-button::after {
+  border: 0;
+}
+
+.ui-button--block {
+  width: 100%;
+}
+
+.ui-button--primary {
+  border-radius: 36rpx;
+  background: var(--color-ink);
+  color: var(--color-on-primary);
+  box-shadow: 0 14rpx 32rpx rgba(17, 24, 39, 0.16);
+}
+
+.ui-button--secondary {
+  border: 1rpx solid var(--color-line-strong);
+  background: var(--color-surface-glass);
+  color: var(--color-ink);
+}
+
+.ui-button--wechat {
+  background: var(--color-wechat);
+  color: var(--color-on-primary);
+}
+
+.ui-button--danger {
+  background: var(--color-danger);
+  color: var(--color-on-primary);
+}
+
+.ui-button--text {
+  background: transparent;
+  color: var(--color-primary);
+  box-shadow: none;
+}
+
+.ui-button--hover {
+  transform: scale(0.982);
+  opacity: 0.88;
+  transition: transform 0.08s cubic-bezier(0.2, 0, 0.2, 1), opacity 0.08s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.ui-button--disabled {
+  opacity: 0.5;
+}

@@ -1572,7 +1572,9 @@ class PlanningRepository:
                 where user_id = cast(:user_id as uuid)
                   and exam_scope = 'guokao'
                   and track = 'xingce'
-                  and created_at >= :week_start
+                  and status in ('submitted', 'reviewed')
+                  and submitted_at >= :week_start
+                  and submitted_at < :week_start + interval '7 days'
                 """
             ),
             {"user_id": user_id, "week_start": week_start},

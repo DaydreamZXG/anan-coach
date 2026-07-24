@@ -1,0 +1,20 @@
+{
+  "component": true,
+  "usingComponents": {
+    "anan-asset-loading": "../anan-asset-loading/index",
+    "anan-growth": "../../../packages/anan-growth/components/visual/index",
+    "anan-thinking": "../../../packages/anan-thinking/components/visual/index",
+    "anan-reminder": "../../../packages/anan-reminder/components/visual/index",
+    "anan-encouragement": "../../../packages/anan-encouragement/components/visual/index",
+    "anan-rest": "../../../packages/anan-rest/components/visual/index",
+    "anan-deprioritize": "../../../packages/anan-deprioritize/components/visual/index"
+  },
+  "componentPlaceholder": {
+    "anan-growth": "anan-asset-loading",
+    "anan-thinking": "anan-asset-loading",
+    "anan-reminder": "anan-asset-loading",
+    "anan-encouragement": "anan-asset-loading",
+    "anan-rest": "anan-asset-loading",
+    "anan-deprioritize": "anan-asset-loading"
+  }
+}

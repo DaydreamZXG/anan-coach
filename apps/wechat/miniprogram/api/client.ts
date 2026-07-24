@@ -1,16 +1,23 @@
-import { config } from "../config/env";
+import { environment } from "../config/environment";
+import type { ApiEnvelope, ApiErrorPayload } from "../domain/contracts";
 
-export class ApiError extends Error {
-  readonly status: number;
-  readonly requestId: string;
-  readonly body: unknown;
+type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 
-  constructor(status: number, requestId: string, body: unknown) {
-    super(`API ${status}`);
-    this.name = "ApiError";
-    this.status = status;
-    this.requestId = requestId;
-    this.body = body;
+export interface ApiRequestOptions {
+  idempotencyKey?: string;
+  timeoutMs?: number;
+  taskEditLease?: { leaseId: string; generation: number };
+}
+
+export class ApiClientError extends Error {
+  constructor(
+    message: string,
+    readonly statusCode: number,
+    readonly requestId: string,
+    readonly payload?: ApiErrorPayload,
+  ) {
+    super(message);
+    this.name = "ApiClientError";
   }
 }
 
@@ -22,67 +29,99 @@ export function setUnauthorizedHandler(handler: UnauthorizedHandler): void {
   onUnauthorized = handler;
 }
 
-function newRequestId(): string {
-  return `mp-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+function createRequestId(): string {
+  return `mp-${String(Date.now())}-${Math.random().toString(36).slice(2, 10)}`;
 }
 
-export interface RequestOptions {
-  method: "GET" | "POST" | "PUT" | "DELETE";
-  path: string;
-  body?: unknown;
-  query?: Record<string, string | number | boolean | undefined>;
-  token?: string | null;
-  /** 额外请求头（如 Idempotency-Key） */
-  extraHeaders?: Record<string, string>;
+function isApiErrorPayload(value: unknown): value is ApiErrorPayload {
+  if (!value || typeof value !== "object") return false;
+  const candidate = value as Partial<ApiErrorPayload>;
+  return (
+    typeof candidate.code === "string" &&
+    typeof candidate.message === "string" &&
+    typeof candidate.requestId === "string"
+  );
 }
 
-function buildUrl(path: string, query?: RequestOptions["query"]): string {
-  const base = `${config.apiBaseUrl}${path}`;
-  if (!query) return base;
-  const parts = Object.entries(query)
-    .filter(([, v]) => v !== undefined)
-    .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(String(v))}`);
-  return parts.length ? `${base}?${parts.join("&")}` : base;
-}
+export class ApiClient {
+  constructor(
+    private readonly baseUrl = environment.apiBaseUrl,
+    private readonly accessToken?: string,
+  ) {}
 
-/**
- * 统一请求层：注入鉴权、request ID，归一化错误。
- * 401 时通过 setUnauthorizedHandler 注册的回调清理会话，由调用方决定重登。
- */
-export function request<T>(options: RequestOptions): Promise<T> {
-  const requestId = newRequestId();
-  const header: Record<string, string> = {
-    "Content-Type": "application/json",
-    "X-Request-Id": requestId,
-    ...options.extraHeaders,
-  };
-  if (options.token) {
-    header.Authorization = `Bearer ${options.token}`;
+  get<T>(path: string, options?: ApiRequestOptions): Promise<ApiEnvelope<T>> {
+    return this.send<T>(path, "GET", undefined, options);
   }
 
-  return new Promise<T>((resolvePromise, rejectPromise) => {
-    const config_: WechatMiniprogram.RequestOption = {
-      url: buildUrl(options.path, options.query),
-      method: options.method,
-      header,
-      success: (res) => {
-        const status = res.statusCode;
-        if (status >= 200 && status < 300) {
-          resolvePromise(res.data as T);
-          return;
-        }
-        if (status === 401 && onUnauthorized) {
-          onUnauthorized();
-        }
-        rejectPromise(new ApiError(status, requestId, res.data));
-      },
-      fail: (err) => {
-        rejectPromise(new ApiError(-1, requestId, err.errMsg));
-      },
-    };
-    if (options.body !== undefined) {
-      config_.data = options.body as WechatMiniprogram.IAnyObject;
-    }
-    wx.request(config_);
-  });
+  post<TResponse>(
+    path: string,
+    body: object,
+    options?: ApiRequestOptions,
+  ): Promise<ApiEnvelope<TResponse>> {
+    return this.send<TResponse>(path, "POST", body, options);
+  }
+
+  put<TResponse>(
+    path: string,
+    body: object,
+    options?: ApiRequestOptions,
+  ): Promise<ApiEnvelope<TResponse>> {
+    return this.send<TResponse>(path, "PUT", body, options);
+  }
+
+  delete<TResponse>(path: string, options?: ApiRequestOptions): Promise<ApiEnvelope<TResponse>> {
+    return this.send<TResponse>(path, "DELETE", undefined, options);
+  }
+
+  private send<T>(
+    path: string,
+    method: HttpMethod,
+    data?: object,
+    options?: ApiRequestOptions,
+  ): Promise<ApiEnvelope<T>> {
+    const correlationId = createRequestId();
+    return new Promise((resolve, reject) => {
+      const requestOptions: WechatMiniprogram.RequestOption<ApiEnvelope<T>> = {
+        url: `${this.baseUrl}${path}`,
+        method,
+        timeout: options?.timeoutMs ?? 15_000,
+        header: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "X-Request-ID": correlationId,
+          ...(options?.idempotencyKey ? { "Idempotency-Key": options.idempotencyKey } : {}),
+          ...(options?.taskEditLease
+            ? {
+                "X-Task-Edit-Lease": options.taskEditLease.leaseId,
+                "X-Task-Edit-Generation": String(options.taskEditLease.generation),
+              }
+            : {}),
+          ...(this.accessToken ? { Authorization: `Bearer ${this.accessToken}` } : {}),
+        },
+        success: (response) => {
+          if (response.statusCode >= 200 && response.statusCode < 300) {
+            resolve(response.data);
+            return;
+          }
+
+          if (response.statusCode === 401) onUnauthorized?.();
+          const payload: unknown = response.data;
+          const publicError = isApiErrorPayload(payload) ? payload : undefined;
+          reject(
+            new ApiClientError(
+              publicError?.message ?? "服务请求未成功。",
+              response.statusCode,
+              publicError?.requestId ?? correlationId,
+              publicError,
+            ),
+          );
+        },
+        fail: () => {
+          reject(new ApiClientError("网络请求失败。", 0, correlationId));
+        },
+      };
+      if (data) requestOptions.data = data;
+      wx.request<ApiEnvelope<T>>(requestOptions);
+    });
+  }
 }

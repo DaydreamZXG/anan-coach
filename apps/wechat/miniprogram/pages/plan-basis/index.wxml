@@ -1,65 +1,97 @@
-<view class="page pb">
-  <safe-top />
-  <view class="pb-nav">
-    <text class="pb-back" bindtap="onBack">‹</text>
-    <text class="pb-title">为什么是这些任务</text>
+<view class="basis-page">
+  <safe-top mode="status" gap="{{0}}" />
+  <view class="basis-nav">
+    <button class="basis-back" bindtap="exit"><view class="basis-back__icon"></view></button>
   </view>
 
-  <view wx:if="{{loading}}" class="pb-loading text-2">正在取计划依据…</view>
-
-  <scroll-view wx:else class="pb-body" scroll-y>
-    <view class="card pb-head">
-      <text class="h2">{{headline}}</text>
-      <text class="text-2 pb-rationale">{{rationale}}</text>
+  <view class="basis-content">
+    <state-view wx:if="{{status === 'loading'}}" state="loading" />
+    <state-view
+      wx:elif="{{status === 'error'}}"
+      state="error"
+      title="安排依据没有加载成功"
+      description="{{errorMessage}}"
+      request-id="{{requestId}}"
+      action-text="重新加载"
+      bind:action="retry"
+    />
+    <view wx:elif="{{status === 'empty'}}" class="basis-empty">
+      <view class="basis-empty__title">今天没有待解释的任务</view>
+      <view class="basis-empty__copy">{{errorMessage}}</view>
+      <button class="basis-empty__action" bindtap="exit">返回今日</button>
     </view>
 
-    <text class="pb-section">逐条依据</text>
-    <view class="card pb-task" wx:for="{{tasks}}" wx:key="taskId">
-      <view class="pb-task-head">
-        <text class="pb-order num">{{item.order}}</text>
-        <text class="pb-task-title">{{item.title}}</text>
-        <text class="text-3 num">{{item.minutes}} 分钟</text>
-      </view>
-      <text class="pb-reason">{{item.reason}}</text>
-      <text class="pb-chip">{{item.trackLabel}}</text>
-    </view>
-
-    <!-- 当日调整 -->
-    <view class="card pb-adjust">
-      <view class="pb-adjust-head" bindtap="onToggleAdjust">
-        <view class="pb-adjust-main">
-          <text class="pb-task-title">今天状态不对？</text>
-          <text class="text-3">说一声，我当场给你减量重排</text>
-        </view>
-        <text class="pb-arrow">{{adjustOpen ? '收起' : '调整'}}</text>
+    <block wx:elif="{{focusTask}}">
+      <view class="basis-hero">
+        <view class="basis-badge">{{focusTask.trackLabel}} · 约 {{focusTask.estimatedMinutes}} 分钟</view>
+        <view class="basis-title">为什么今天练这个</view>
+        <view class="basis-copy">这不是让你多刷一组题，而是验证近期最值得确认的问题。</view>
       </view>
 
-      <block wx:if="{{adjustOpen}}">
-        <text class="pb-sub">现在的精力</text>
-        <view class="pb-energy">
-          <text
-            class="pb-energy-chip {{energy === item.value ? 'is-on' : ''}}"
-            wx:for="{{energyLevels}}"
-            wx:key="value"
-            data-value="{{item.value}}"
-            bindtap="onPickEnergy"
-          >{{item.label}}</text>
-        </view>
-        <text class="pb-sub">今天最多能学 <text class="num pb-minute">{{minuteSteps[minuteIndex]}}</text> 分钟</text>
-        <slider
-          min="0"
-          max="{{minuteSteps.length - 1}}"
-          step="1"
-          value="{{minuteIndex}}"
-          bindchange="onMinuteChange"
-          activeColor="#3d7eff"
-          block-size="24"
-        />
-        <button class="btn btn-primary pb-apply" bindtap="onApplyAdjust" disabled="{{adjusting}}">{{adjusting ? '重排中…' : '就按这个重排今天'}}</button>
-        <text class="text-3 pb-note">减量不扣分不记账，状态差的时候少做对的事，好过硬撑做错的事。</text>
-      </block>
-    </view>
+      <view class="judgment-card">
+        <view class="judgment-aurora"></view>
+        <view class="judgment-content">
+          <view class="judgment-heading"><text class="judgment-spark">✦</text><text>岸岸为什么这样安排</text></view>
+          <view class="judgment-title">{{focusTask.reason}}</view>
+          <view class="evidence-list">
+            <view wx:for="{{evidenceBullets}}" wx:key="*this" class="evidence-item">
+              <view class="evidence-dot"></view><text>{{item}}</text>
+            </view>
+          </view>
 
-    <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示数据（后端未连接）</view>
-  </scroll-view>
+          <view wx:if="{{expanded}}" class="basis-detail">
+            <view class="factor-grid">
+              <view wx:for="{{factorMetrics}}" wx:key="label" class="factor-item factor-item--{{item.tone}}">
+                <view class="factor-label">{{item.label}}</view>
+                <view class="factor-value type-data">{{item.value}}</view>
+              </view>
+            </view>
+            <view wx:if="{{invalidationConditions.length}}" class="invalidation-block">
+              <view class="invalidation-title">这些变化会触发重新安排</view>
+              <view wx:for="{{invalidationConditions}}" wx:key="*this" class="invalidation-item">· {{item}}</view>
+            </view>
+          </view>
+          <button class="basis-toggle" bindtap="toggleExpanded">{{expanded ? '收起完整依据' : '查看完整依据'}} <text class="{{expanded ? 'basis-toggle__arrow--open' : ''}}">⌄</text></button>
+        </view>
+      </view>
+
+      <view class="basis-section">
+        <view class="basis-section__title">这 {{focusTask.estimatedMinutes}} 分钟怎么练</view>
+        <view class="steps-card">
+          <view class="steps-line"></view>
+          <view class="step-row">
+            <view class="step-number">1</view>
+            <view><view class="step-title">完成当前任务目标</view><view class="step-copy">{{focusTask.objective}}</view></view>
+          </view>
+          <view class="step-row">
+            <view class="step-number">2</view>
+            <view><view class="step-title">保留真实作答过程</view><view class="step-copy">答案、用时、信心、改答和草稿都会一起记录。</view></view>
+          </view>
+          <view class="step-row">
+            <view class="step-number step-number--active">3</view>
+            <view><view class="step-title">{{focusTask.requiresReflection ? '完成关键题复盘' : '提交本次训练结果'}}</view><view class="step-copy">本次结果会进入后续复测，不会被直接当成稳定能力。</view></view>
+          </view>
+        </view>
+      </view>
+
+      <view class="basis-section">
+        <view class="basis-section__title">今天练成什么算有效</view>
+        <view class="criteria-card">
+          <view wx:for="{{focusTask.successCriteria}}" wx:key="*this" class="criteria-row">
+            <view class="criteria-check">✓</view><text>{{item}}</text>
+          </view>
+          <view class="criteria-boundary">完成本次训练只会新增真实记录，不会凭一组题直接改变能力结论。</view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view wx:if="{{status === 'ready' && focusTask}}" class="basis-footer">
+    <button class="basis-primary" loading="{{openingTask}}" bindtap="startTask">开始这项训练 <text>›</text></button>
+    <view class="basis-footer__links">
+      <button class="basis-link" bindtap="openAdjustment">调整这项任务</button>
+      <view class="basis-footer__divider"></view>
+      <button class="basis-link basis-link--anan" bindtap="askAnan">带着这项安排问岸岸</button>
+    </view>
+  </view>
 </view>

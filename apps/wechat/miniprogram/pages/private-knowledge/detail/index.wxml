@@ -1,0 +1,85 @@
+<view class="detail-page">
+  <safe-top gap="0" />
+  <view class="detail-topbar">
+    <button class="detail-back" bindtap="goBack"><text class="detail-back__chevron"></text></button>
+    <view class="detail-topbar__side"></view>
+    <button wx:if="{{status === 'ready'}}" class="detail-edit" bindtap="uploadNewVersion">
+      <image class="detail-edit__icon" src="/assets/icons/profile/edit.svg" mode="aspectFit" />
+    </button>
+  </view>
+
+  <view wx:if="{{status === 'loading'}}" class="detail-state">
+    <state-view state="loading" title="正在读取资料详情" />
+  </view>
+
+  <view wx:elif="{{status === 'error'}}" class="detail-state">
+    <state-view state="error" title="资料详情没有加载成功" description="{{errorMessage}}" action-text="重新读取" bind:action="loadDetails" />
+  </view>
+
+  <view wx:elif="{{source}}" class="detail-content">
+    <view class="detail-hero">
+      <view class="detail-hero__icon detail-hero__icon--{{source.documentKind}}">
+        <image class="detail-hero__image" src="/assets/icons/profile/library.svg" mode="aspectFit" />
+      </view>
+      <view class="detail-hero__title">{{source.title}}</view>
+      <view class="detail-hero__meta">{{source.createdAtLabel}} 上传 · {{source.pageCount || 1}} 页 {{documentKindLabel}}</view>
+    </view>
+
+    <view class="detail-indexed">
+      <view class="detail-indexed__icon">✓</view>
+      <view class="detail-indexed__main">
+        <view class="detail-indexed__title">岸岸已完成此资料的索引</view>
+        <view class="detail-indexed__copy">已经形成 {{source.chunkCount}} 个可定位、可引用的私人检索片段。</view>
+      </view>
+    </view>
+
+    <view class="detail-section-title">岸岸从中读到了什么</view>
+    <view class="detail-insights">
+      <view class="detail-insight">
+        <view class="detail-insight__spark">✦</view>
+        <view class="detail-insight__copy">包含 <text class="detail-insight__strong">{{source.chunkCount}} 个</text> {{documentKindLabel}}核心知识与引用片段。</view>
+      </view>
+      <view class="detail-insights__divider"></view>
+      <view class="detail-insight">
+        <view class="detail-insight__link">↗</view>
+        <view class="detail-insight__copy">回答引用这份资料时，会保留资料名、<text class="detail-insight__strong">{{revisionLabel}}</text>和具体页码。</view>
+      </view>
+    </view>
+
+    <view class="detail-section-title">资料使用边界</view>
+    <view class="detail-boundaries">
+      <view class="detail-boundary">
+        <view class="detail-boundary__title">允许岸岸在答疑中引用</view>
+        <view class="detail-boundary__copy">只在你的账户内检索，引用时展示资料名、版本和页码。</view>
+        <view class="detail-boundary__state">已启用</view>
+      </view>
+      <view class="detail-boundaries__divider"></view>
+      <view class="detail-boundary">
+        <view class="detail-boundary__title">上传不等于已经掌握</view>
+        <view class="detail-boundary__copy">资料内容不会直接改变能力画像；真实作答、复测和复盘才是能力证据。</view>
+        <view class="detail-boundary__state detail-boundary__state--quiet">不计分</view>
+      </view>
+    </view>
+
+    <view class="detail-actions">
+      <button class="action-btn-tile" bindtap="uploadNewVersion">上传新版本并替换</button>
+      <button class="action-btn-tile action-btn-tile--danger" bindtap="deleteSource">
+        <image class="action-btn-tile__icon" src="/assets/icons/profile/delete.svg" mode="aspectFit" />
+        <text>从资料库彻底移除</text>
+      </button>
+    </view>
+    <view class="detail-bottom-spacer"></view>
+  </view>
+
+  <view wx:if="{{deleteSheetOpen}}" class="delete-mask" catchtouchmove="noop" bindtap="closeDeleteSheet"></view>
+  <view wx:if="{{deleteSheetOpen}}" class="delete-sheet">
+    <view class="delete-sheet__handle"></view>
+    <view class="delete-sheet__icon">
+      <image class="delete-sheet__image" src="/assets/icons/profile/delete.svg" mode="aspectFit" />
+    </view>
+    <view class="delete-sheet__title">彻底移除这份资料？</view>
+    <view class="delete-sheet__copy">原文件、识别文字、版本和私人检索片段会一起删除，无法恢复。</view>
+    <button class="delete-sheet__confirm" loading="{{busy}}" bindtap="confirmDelete">确认彻底移除</button>
+    <button class="delete-sheet__cancel" disabled="{{busy}}" bindtap="closeDeleteSheet">取消</button>
+  </view>
+</view>

@@ -1,0 +1,15 @@
+.ability-radar {
+  width: 100%;
+  height: 430rpx;
+}
+
+.ability-radar__canvas {
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 768px) {
+  .ability-radar {
+    height: 300px;
+  }
+}

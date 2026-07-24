@@ -55,17 +55,19 @@ class ExternalMockReportDraftCommand(ReportingContractModel):
                 raise ValueError("moduleScores values must be between 0 and 100")
             normalized[name] = round(value, 2)
         self.module_scores = normalized
-        if not any(
-            value is not None
-            for value in (self.total_score, self.xingce_score, self.shenlun_score)
-        ) and not self.module_scores:
+        if (
+            not any(
+                value is not None
+                for value in (self.total_score, self.xingce_score, self.shenlun_score)
+            )
+            and not self.module_scores
+        ):
             raise ValueError("external report requires at least one score field")
         if (
             self.total_score is not None
             and self.xingce_score is not None
             and self.shenlun_score is not None
-            and round(self.xingce_score + self.shenlun_score, 2)
-            != round(self.total_score, 2)
+            and round(self.xingce_score + self.shenlun_score, 2) != round(self.total_score, 2)
         ):
             raise ValueError("totalScore must equal xingceScore plus shenlunScore")
         if self.timed_status == "timed" and self.duration_minutes is None:
@@ -76,9 +78,7 @@ class ExternalMockReportDraftCommand(ReportingContractModel):
 
 
 class ExternalMockReportConfirmCommand(ReportingContractModel):
-    expected_report_version_id: UUID = Field(
-        alias="expectedReportVersionId", strict=False
-    )
+    expected_report_version_id: UUID = Field(alias="expectedReportVersionId", strict=False)
 
 
 class ExternalMockReportProjection(ReportingContractModel):
@@ -177,6 +177,7 @@ class ReportConclusion(ReportingContractModel):
 
 class ReportProjection(ReportingContractModel):
     projection_version_id: UUID = Field(alias="projectionVersionId")
+    input_fingerprint: str = Field(alias="inputFingerprint")
     report_kind: Literal["single_set", "weekly", "mock", "position_gap", "global"] = Field(
         alias="reportKind"
     )

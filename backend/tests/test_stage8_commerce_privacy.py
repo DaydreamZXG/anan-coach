@@ -230,16 +230,16 @@ def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -
     db_session.execute(
         text(
             """
-            insert into learner.preparation_experience_versions (
-              experience_version_id, command_id, user_id, version_no,
-              declaration_status, first_systematic, external_learning,
-              prior_guokao_exam, retake, prior_exam_years, source_type,
-              input_fingerprint, created_at
-            ) values (
-              cast(:experience_id as uuid), :command_id,
-              cast(:user_id as uuid), 1, 'declared', false, true, true, true,
-              '[2024]'::jsonb, 'user_confirmed', repeat('a', 64), :now
-            )
+              insert into learner.preparation_experience_versions (
+                experience_version_id, command_id, user_id, version_no,
+                declaration_status, current_status, first_systematic, external_learning,
+                prior_guokao_exam, retake, prior_exam_years, source_type,
+                input_fingerprint, created_at
+              ) values (
+                cast(:experience_id as uuid), :command_id,
+                cast(:user_id as uuid), 1, 'declared', 'parttime', false, true, true, true,
+                '[2024]'::jsonb, 'user_confirmed', repeat('a', 64), :now
+              )
             """
         ),
         {

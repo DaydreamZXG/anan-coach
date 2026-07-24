@@ -40,8 +40,8 @@ class WeatherLocationCommand(DailyOpeningModel):
     label: str = Field(min_length=1, max_length=120)
     latitude: float = Field(ge=-90, le=90)
     longitude: float = Field(ge=-180, le=180)
-    source_type: Literal["wechat_choose_location"] = Field(
-        default="wechat_choose_location", alias="sourceType"
+    source_type: Literal["wechat_choose_location", "wechat_fuzzy_location"] = Field(
+        default="wechat_fuzzy_location", alias="sourceType"
     )
 
 
@@ -105,9 +105,9 @@ class DailyOpeningView(DailyOpeningModel):
     greeting: str = Field(min_length=1, max_length=300)
     plan: OpeningPlanSummary
     preference: OpeningPreferenceView
-    weather_state: Literal[
-        "ready", "location_required", "provider_unavailable", "disabled"
-    ] = Field(alias="weatherState")
+    weather_state: Literal["ready", "location_required", "provider_unavailable", "disabled"] = (
+        Field(alias="weatherState")
+    )
     weather: OpeningWeatherView
     coffee_state: Literal[
         "available",

@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "开放状态",
+  "usingComponents": {
+    "state-view": "../../design-system/primitives/state-view/index",
+    "ui-button": "../../design-system/primitives/ui-button/index"
+  }
 }

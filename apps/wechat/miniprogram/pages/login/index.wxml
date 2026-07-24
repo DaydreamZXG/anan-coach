@@ -1,0 +1,42 @@
+<view class="login-page">
+  <view class="login-orb login-orb--top"></view>
+  <view class="login-orb login-orb--bottom"></view>
+  <safe-top gap="{{0}}" />
+
+  <view class="login-content">
+    <view class="login-lockup" aria-label="岸岸备考">
+      <image
+        class="brain-logo"
+        src="/assets/icons/anan/logo-design-file.png"
+        mode="aspectFit"
+        aria-hidden="true"
+      />
+
+      <view class="login-title">岸岸备考</view>
+      <view class="login-subtitle">
+        <text>基于认知科学的 AI 备考教练</text>
+        <text>为你规划最快的上岸路径</text>
+      </view>
+    </view>
+
+    <view class="login-actions">
+      <view wx:if="{{errorMessage}}" class="error-message">{{errorMessage}}</view>
+      <button
+        class="wechat-button {{submitting || restoring ? 'wechat-button--disabled' : ''}}"
+        loading="{{submitting || restoring}}"
+        disabled="{{submitting || restoring}}"
+        bindtap="login"
+      >
+        <view wx:if="{{!submitting && !restoring}}" class="wechat-button__content">
+          <text>微信一键登录</text>
+          <view class="arrow-icon" aria-hidden="true"></view>
+        </view>
+        <text wx:else>{{restoring ? '正在恢复登录…' : '正在登录…'}}</text>
+      </button>
+      <view class="legal">
+        <view class="legal-check" aria-hidden="true"></view>
+        <text>登录即代表同意用户协议与隐私政策</text>
+      </view>
+    </view>
+  </view>
+</view>

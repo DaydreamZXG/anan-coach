@@ -1,0 +1,22 @@
+<view class="s9-page support-page">
+  <view class="support-hero">
+    <view class="s9-card-kicker">岸岸备考群</view>
+    <view class="support-title">一起把每天的问题解决掉</view>
+    <view class="support-copy">群内用于产品通知、使用答疑和备考交流。不会承诺提分或上岸，也不会要求你发送身份证、准考证等敏感信息。</view>
+  </view>
+
+  <view class="s9-card qr-card">
+    <image wx:if="{{qrAvailable}}" class="group-qr" src="{{groupQrImageUrl}}" mode="aspectFit" bindtap="previewGroupQr" />
+    <view wx:else class="qr-placeholder">
+      <view class="qr-placeholder__mark">群</view>
+      <view class="qr-placeholder__title">二维码准备中</view>
+      <view class="qr-placeholder__copy">群开放后会直接显示在这里，不需要更新账户资料。</view>
+    </view>
+    <button wx:if="{{qrAvailable}}" class="s9-primary-button qr-action" bindtap="previewGroupQr">放大二维码</button>
+  </view>
+
+  <view class="s9-card support-note">
+    <view class="s9-card-title">当前客服状态</view>
+    <view class="s9-card-copy">客服群暂未开放。开放后会在这里显示有效二维码和服务时间。</view>
+  </view>
+</view>

@@ -34,6 +34,7 @@ class BrainEvidenceSummary(LearningBrainModel):
     xingce_mastery_count: int = Field(alias="xingceMasteryCount", ge=0)
     essay_mastery_count: int = Field(alias="essayMasteryCount", ge=0)
     task_execution_count: int = Field(alias="taskExecutionCount", ge=0)
+    external_answer_count: int = Field(default=0, alias="externalAnswerCount", ge=0)
     latest_evidence_at: datetime | None = Field(default=None, alias="latestEvidenceAt")
 
     @property
@@ -44,6 +45,7 @@ class BrainEvidenceSummary(LearningBrainModel):
             + self.xingce_mastery_count
             + self.essay_mastery_count
             + self.task_execution_count
+            + self.external_answer_count
         )
 
 
@@ -83,6 +85,7 @@ class ModuleAbility(LearningBrainModel):
     readiness: Literal["unavailable", "developing", "reliable", "stale", "conflicted"]
     score_band: AbilityBand | None = Field(default=None, alias="scoreBand")
     evidence_count: int = Field(alias="evidenceCount", ge=0)
+    external_evidence_count: int = Field(default=0, alias="externalEvidenceCount", ge=0)
     correct_rate: float | None = Field(default=None, alias="correctRate", ge=0, le=1)
     average_seconds: float | None = Field(default=None, alias="averageSeconds", ge=0)
     stable_mastery_count: int = Field(alias="stableMasteryCount", ge=0)

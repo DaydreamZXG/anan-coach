@@ -59,9 +59,7 @@ def test_global_route_is_server_owned_and_blocks_pre_submit_answer_leakage() -> 
     resting = route_global_question(question="今天状态很差，能休息吗", context=base)
     assert resting.companion_intent == "rest"
 
-    answering = base.model_copy(
-        update={"task_mode": "practice", "task_stage": "answering"}
-    )
+    answering = base.model_copy(update={"task_mode": "practice", "task_stage": "answering"})
     blocked = route_global_question(question="直接告诉我正确选项", context=answering)
     assert blocked.policy_decision == "post_submit_only"
     assert blocked.answer_type == "operation_help"
@@ -77,6 +75,49 @@ def test_global_route_is_server_owned_and_blocks_pre_submit_answer_leakage() -> 
             question="今天学什么",
             context=base.model_copy(update={"route_id": "pages/unknown/index"}),
         )
+
+
+@pytest.mark.parametrize(
+    ("route_id", "workspace", "object_type"),
+    (
+        ("pages/ability/index", "profile", None),
+        ("pages/plan-basis/index", "today", "plan"),
+        ("pages/weekly-plan/index", "today", "plan"),
+        ("pages/daily-settlement/index", "today", None),
+        ("pages/positions/detail/index", "position", "position"),
+        ("pages/report-overview/index", "profile", "report"),
+        ("pages/report-overview/index", "training", "report"),
+        ("pages/mock-report/index", "training", "report"),
+        ("pages/global-report/index", "profile", "report"),
+    ),
+)
+def test_contextual_companion_entry_pages_are_explicitly_allowed(
+    route_id: str,
+    workspace: str,
+    object_type: str | None,
+) -> None:
+    object_refs = (
+        []
+        if object_type is None
+        else [
+            {
+                "type": object_type,
+                "id": "00000000-0000-4000-8000-000000000001",
+                "version": "1",
+            }
+        ]
+    )
+    decision = route_global_question(
+        question="结合当前页面告诉我下一步",
+        context=GlobalAskContext(
+            routeId=route_id,
+            workspace=workspace,
+            objectRefs=object_refs,
+            learnerStateVersion="brain-v1",
+        ),
+    )
+
+    assert decision.policy_decision == "answer"
 
 
 def test_high_impact_answers_require_domain_specific_evidence_before_model_call() -> None:
@@ -139,6 +180,176 @@ def test_retrieved_private_text_is_data_and_injection_sources_are_quarantined() 
     assert bundle.security_decision == "sources_blocked"
 
 
+@pytest.mark.parametrize(
+    ("object_type", "object_id", "version", "row", "expected_scope", "expected_text"),
+    (
+        (
+            "plan",
+            "00000000-0000-4000-8000-000000000101",
+            "3",
+            {
+                "local_date": "2026-07-23",
+                "day_mode": "normal",
+                "headline": "先复测资料分析",
+                "rationale": "复测已到期且岗位收益最高",
+                "goal_gap": {"readiness": "complete", "baselineGap": 8},
+                "scheduled_minutes": 90,
+                "due_reflection_count": 1,
+                "due_verification_count": 2,
+                "track_explanation": {"xingce": "60 分钟", "essay": "30 分钟"},
+                "invalidation_conditions": ["可用时间变化"],
+                "replan_reason_codes": ["verification_due"],
+                "generated_at": "2026-07-23T08:00:00Z",
+                "valid_until": "2026-07-24T00:00:00Z",
+                "tasks": [{"order": 1, "title": "资料分析复测"}],
+            },
+            "authorized_plan",
+            "资料分析复测",
+        ),
+        (
+            "position",
+            "00000000-0000-4000-8000-000000000201",
+            "00000000-0000-4000-8000-000000000202",
+            {
+                "context_kind": "goal",
+                "year": 2026,
+                "position_code": "200110004001",
+                "name": "一级主任科员及以下",
+                "department_full": "商务部办公厅",
+                "system_code": "central",
+                "region": "北京",
+                "city": "北京市东城区",
+                "paper_type": "行政执法类",
+                "headcount": 4,
+                "education_min": "本科",
+                "major_required": "英语",
+                "political_req": "不限",
+                "hukou_req": "不限",
+                "service_min_yrs": 0,
+                "has_extra_exam": False,
+                "remark": "",
+                "role": "primary",
+                "status": "confirmed",
+                "target_score_lower": 128,
+                "target_score_recommended": 132,
+                "target_score_upper": 136,
+                "target_score_evidence_level": "direct",
+                "target_score_sample_count": 18,
+                "target_score_valid_until": "2026-10-01T00:00:00Z",
+                "eligibility_status": "eligible",
+                "eligibility_checks": [{"field": "major", "status": "passed"}],
+                "missing_fact_keys": [],
+            },
+            "authorized_position",
+            "商务部办公厅",
+        ),
+        (
+            "report",
+            "00000000-0000-4000-8000-000000000301",
+            "a" * 64,
+            {
+                "report_kind": "weekly",
+                "subject_ref": "current",
+                "payload": {"conclusion": {"headline": "资料分析稳定性上升"}},
+                "evidence_refs": ["attempt:1"],
+                "next_plan_evidence_refs": ["plan:1"],
+                "generated_at": "2026-07-23T20:00:00Z",
+            },
+            "authorized_report",
+            "资料分析稳定性上升",
+        ),
+    ),
+)
+def test_explicit_page_objects_are_loaded_after_owner_authorization(
+    object_type: str,
+    object_id: str,
+    version: str,
+    row: dict[str, object],
+    expected_scope: str,
+    expected_text: str,
+) -> None:
+    session = _ScriptedSession(True, row, [])
+    context = GlobalAskContext(
+        routeId="pages/anan/index",
+        workspace="profile",
+        objectRefs=[{"type": object_type, "id": object_id, "version": version}],
+        learnerStateVersion="brain-v1",
+    )
+
+    bundle = AuthorizedHybridRetriever(
+        session,
+        resolve_projection_from_environment=False,
+    ).retrieve(
+        user_id="00000000-0000-4000-8000-000000000001",
+        question="结合当前页面告诉我下一步",
+        context=context,
+    )
+
+    assert len(bundle.sources) == 1
+    assert bundle.sources[0].trust_scope == expected_scope
+    assert expected_text in bundle.sources[0].excerpt
+
+
+def test_position_page_can_ground_anan_with_its_eligibility_snapshot() -> None:
+    snapshot_id = "00000000-0000-4000-8000-000000000212"
+    row = {
+        "context_kind": "eligibility",
+        "year": 2026,
+        "position_code": "200110004001",
+        "name": "一级主任科员及以下",
+        "department_full": "商务部办公厅",
+        "system_code": "central",
+        "region": "北京",
+        "city": "北京市东城区",
+        "paper_type": "行政执法类",
+        "headcount": 4,
+        "education_min": "本科",
+        "major_required": "英语",
+        "political_req": "不限",
+        "hukou_req": "不限",
+        "service_min_yrs": 0,
+        "has_extra_exam": False,
+        "remark": "",
+        "role": None,
+        "status": None,
+        "target_score_lower": None,
+        "target_score_recommended": None,
+        "target_score_upper": None,
+        "target_score_evidence_level": None,
+        "target_score_sample_count": None,
+        "target_score_valid_until": None,
+        "eligibility_status": "needs_confirmation",
+        "eligibility_checks": [{"field": "major", "status": "needs_confirmation"}],
+        "missing_fact_keys": ["major"],
+    }
+    session = _ScriptedSession(True, None, row, [])
+    context = GlobalAskContext(
+        routeId="pages/positions/detail/index",
+        workspace="position",
+        objectRefs=[
+            {
+                "type": "position",
+                "id": "00000000-0000-4000-8000-000000000211",
+                "version": snapshot_id,
+            }
+        ],
+        learnerStateVersion="brain-v1",
+    )
+
+    bundle = AuthorizedHybridRetriever(
+        session,
+        resolve_projection_from_environment=False,
+    ).retrieve(
+        user_id="00000000-0000-4000-8000-000000000001",
+        question="这个岗位还有什么风险",
+        context=context,
+    )
+
+    assert bundle.sources[0].reference.source_id == f"position-eligibility:{snapshot_id}"
+    assert "还缺的本人资料" in bundle.sources[0].excerpt
+    assert "major" in bundle.sources[0].excerpt
+
+
 def test_evaluation_rejects_unknown_evidence_forbidden_language_and_cost_drift() -> None:
     suite = next(
         item
@@ -184,9 +395,7 @@ def test_database_refuses_deployment_until_quality_and_cost_gate_passes(
     db_session.commit()
 
     failed_observations = list(reference_observations(suite))
-    failed_observations[0] = failed_observations[0].model_copy(
-        update={"cost_cny": Decimal("2")}
-    )
+    failed_observations[0] = failed_observations[0].model_copy(update={"cost_cny": Decimal("2")})
     failed_report = evaluate_suite(
         suite=suite,
         observations=tuple(failed_observations),
@@ -314,3 +523,37 @@ class _EmptySession:
     def execute(self, *args, **kwargs):
         del args, kwargs
         return _EmptyResult()
+
+
+class _ScriptedResult:
+    def __init__(self, value: object) -> None:
+        self._value = value
+
+    def scalar_one(self) -> object:
+        return self._value
+
+    def mappings(self) -> "_ScriptedResult":
+        return self
+
+    def one_or_none(self) -> dict[str, object] | None:
+        if self._value is None:
+            return None
+        assert isinstance(self._value, dict)
+        return self._value
+
+    def __iter__(self):
+        if isinstance(self._value, list):
+            return iter(self._value)
+        if self._value is None:
+            return iter(())
+        assert isinstance(self._value, dict)
+        return iter((self._value,))
+
+
+class _ScriptedSession:
+    def __init__(self, *values: object) -> None:
+        self._values = iter(values)
+
+    def execute(self, *args, **kwargs) -> _ScriptedResult:
+        del args, kwargs
+        return _ScriptedResult(next(self._values))

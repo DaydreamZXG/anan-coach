@@ -221,6 +221,51 @@ def test_account_session_inventory_revocation_and_logout_all(
     ).status_code == 401
 
 
+def test_account_profile_name_and_avatar_style_are_durable_and_user_owned(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    client = _make_client(db_session_factory)
+    login = client.post(
+        "/api/v2/auth/wechat",
+        json={"code": "valid-code", "deviceId": "wechat-device-profile"},
+    ).json()["data"]
+    headers = {"Authorization": f"Bearer {login['accessToken']}"}
+
+    updated = client.put(
+        "/api/v2/auth/account/profile",
+        headers=headers,
+        json={"displayName": "  小 张  ", "avatarStyle": "aurora"},
+    )
+
+    assert updated.status_code == 200
+    assert updated.json()["data"]["displayName"] == "小 张"
+    assert updated.json()["data"]["avatarStyle"] == "aurora"
+    overview = client.get("/api/v2/auth/account", headers=headers).json()["data"]
+    assert overview["displayName"] == "小 张"
+    assert overview["avatarStyle"] == "aurora"
+
+    invalid = client.put(
+        "/api/v2/auth/account/profile",
+        headers=headers,
+        json={"displayName": " ", "avatarStyle": "uploaded-url"},
+    )
+    assert invalid.status_code == 422
+
+    with db_session_factory() as session:
+        event = session.execute(
+            text(
+                """
+                select event_type, metadata
+                from learner.account_events
+                where user_id = cast(:user_id as uuid)
+                  and event_type = 'account_profile_updated'
+                """
+            ),
+            {"user_id": login["user"]["userId"]},
+        ).mappings().one()
+    assert event["metadata"] == {"avatarStyle": "aurora"}
+
+
 def test_account_cannot_revoke_another_users_session(
     db_session_factory: sessionmaker[Session],
 ) -> None:

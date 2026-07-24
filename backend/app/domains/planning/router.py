@@ -23,6 +23,7 @@ from app.domains.planning.repository import PlanningContractError
 from app.domains.planning.schemas import (
     DailyCapacityCommand,
     DailyCapacityCommandResult,
+    DailyCapacityPreview,
     TaskExecutionCommand,
     TaskExecutionCommandResult,
     TodayDashboard,
@@ -161,6 +162,31 @@ def set_today_capacity(
             session,
             user_id=current_user.user_id,
             command_id=f"{current_user.user_id}:{command_id}",
+            command=command,
+        )
+        session.commit()
+        return public_success_envelope(request=request, response=response, data=result)
+    except PlanningContractError as exc:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+
+
+@router.post(
+    "/today/capacity/preview",
+    response_model=PublicApiEnvelope[DailyCapacityPreview],
+)
+def preview_today_capacity(
+    request: Request,
+    response: Response,
+    command: DailyCapacityCommand,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+    planning: Annotated[PlanningService, Depends(get_planning_service)],
+) -> PublicApiEnvelope[DailyCapacityPreview]:
+    try:
+        result = planning.preview_today_capacity(
+            session,
+            user_id=current_user.user_id,
             command=command,
         )
         session.commit()

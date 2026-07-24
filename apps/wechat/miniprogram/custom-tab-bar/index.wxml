@@ -7,7 +7,14 @@
     data-key="{{item.key}}"
     bindtap="onTap"
   >
-    <view class="tab-dot" aria-hidden="true"></view>
+    <view class="tab-icon-wrap">
+      <image
+        class="tab-icon"
+        src="{{active === item.key ? item.activeIcon : item.icon}}"
+        mode="aspectFit"
+        aria-hidden="true"
+      />
+    </view>
     <text class="tab-text">{{item.text}}</text>
   </view>
 </view>

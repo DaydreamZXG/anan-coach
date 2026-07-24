@@ -1,0 +1,71 @@
+<view class="s9-page coach-settings-page">
+  <view class="coach-hero">
+    <view class="coach-hero__copy">
+      <view class="s9-card-kicker">岸岸 · AI 督学</view>
+      <view class="s9-title">提醒你回来，不替你完成</view>
+      <view class="s9-subtitle">只围绕已确认任务、复盘、复测、模考和周总结；微信消息不展示岗位、分数、错题或私人资料。</view>
+    </view>
+    <anan-companion size="medium" intent="reminder" context="home" />
+  </view>
+
+  <state-view wx:if="{{status === 'loading'}}" custom-class="coach-state" state="loading" />
+  <state-view wx:elif="{{status === 'error'}}" custom-class="coach-state" state="error" title="督学设置没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
+
+  <block wx:else>
+    <view class="s9-card master-card">
+      <view class="setting-row setting-row--top"><view class="setting-copy"><view class="setting-title">启用 AI 督学</view><view class="setting-description">提醒会跟随小程序里的今日任务</view></view><switch color="#E0601F" checked="{{draft.enabled}}" bindchange="toggleMaster" /></view>
+    </view>
+
+    <view class="s9-section">
+      <view class="s9-section-head"><view class="s9-section-title">提醒范围</view><view class="s9-section-meta">可逐类关闭</view></view>
+      <view class="s9-list">
+        <view class="setting-row"><view class="setting-copy"><view class="setting-title">今日任务</view><view class="setting-description">仍有已确认行动待完成时</view></view><switch color="#E0601F" checked="{{draft.taskRemindersEnabled}}" data-field="taskRemindersEnabled" bindchange="toggleCategory" /></view>
+        <view class="setting-row"><view class="setting-copy"><view class="setting-title">复盘</view><view class="setting-description">错因确认、评阅或改写待处理时</view></view><switch color="#E0601F" checked="{{draft.reflectionRemindersEnabled}}" data-field="reflectionRemindersEnabled" bindchange="toggleCategory" /></view>
+        <view class="setting-row"><view class="setting-copy"><view class="setting-title">复测</view><view class="setting-description">已有到期验证任务时</view></view><switch color="#E0601F" checked="{{draft.retestRemindersEnabled}}" data-field="retestRemindersEnabled" bindchange="toggleCategory" /></view>
+        <view class="setting-row"><view class="setting-copy"><view class="setting-title">模考</view><view class="setting-description">已确认模考任务待开始时</view></view><switch color="#E0601F" checked="{{draft.mockRemindersEnabled}}" data-field="mockRemindersEnabled" bindchange="toggleCategory" /></view>
+        <view class="setting-row"><view class="setting-copy"><view class="setting-title">周总结</view><view class="setting-description">周末有本周学习记录时</view></view><switch color="#E0601F" checked="{{draft.weeklySummaryEnabled}}" data-field="weeklySummaryEnabled" bindchange="toggleCategory" /></view>
+      </view>
+    </view>
+
+    <view class="s9-section">
+      <view class="s9-section-head"><view class="s9-section-title">时间与频率</view><view class="s9-section-meta">中国标准时间</view></view>
+      <view class="s9-card timing-card">
+        <view class="time-grid">
+          <picker mode="time" value="{{draft.receiveStart}}" bindchange="chooseReceiveStart"><view class="time-field"><view class="time-label">接收开始</view><view class="time-value">{{draft.receiveStart || '请选择'}}</view></view></picker>
+          <picker mode="time" value="{{draft.receiveEnd}}" bindchange="chooseReceiveEnd"><view class="time-field"><view class="time-label">接收结束</view><view class="time-value">{{draft.receiveEnd || '请选择'}}</view></view></picker>
+        </view>
+        <view class="limit-row"><view><view class="setting-title">每日频率上限</view><view class="setting-description">实际发送还受任务事实和单次授权约束</view></view><input class="limit-input type-data" type="number" value="{{draft.dailyLimit}}" bindinput="updateDailyLimit" /></view>
+        <view class="quiet-head"><view><view class="setting-title">免打扰</view><view class="setting-description">支持跨午夜时间段</view></view><switch color="#E0601F" checked="{{draft.quietEnabled}}" bindchange="toggleQuiet" /></view>
+        <view wx:if="{{draft.quietEnabled}}" class="time-grid quiet-grid">
+          <picker mode="time" value="{{draft.quietStart}}" bindchange="chooseQuietStart"><view class="time-field"><view class="time-label">免打扰开始</view><view class="time-value">{{draft.quietStart || '请选择'}}</view></view></picker>
+          <picker mode="time" value="{{draft.quietEnd}}" bindchange="chooseQuietEnd"><view class="time-field"><view class="time-label">免打扰结束</view><view class="time-value">{{draft.quietEnd || '请选择'}}</view></view></picker>
+        </view>
+        <button class="s9-primary-button save-button" loading="{{saving}}" bindtap="save">保存督学偏好</button>
+      </view>
+    </view>
+
+    <view class="s9-section">
+      <view class="s9-section-head"><view class="s9-section-title">微信单次授权</view><view class="s9-section-meta">可发送 {{availableGrants}} 次</view></view>
+      <view class="s9-card grant-card">
+        <view wx:if="{{templateConfigured}}">
+          <view class="grant-status"><view class="grant-count type-data">{{availableGrants}}</view><view><view class="setting-title">剩余可发送次数</view><view class="setting-description">每次允许订阅，只增加一次发送机会</view></view></view>
+          <view class="grant-last">{{lastResultLabel}}</view>
+          <button class="s9-primary-button" loading="{{authorizing}}" bindtap="requestWechatAuthorization">补充 1 次微信提醒授权</button>
+          <button class="s9-secondary-button wechat-setting-button" loading="{{syncing}}" bindtap="openWechatSettings">管理微信侧订阅设置</button>
+        </view>
+        <view wx:else class="template-blocked"><view class="setting-title">微信提醒还未配置完成</view><view class="setting-description">你可以先保存督学偏好；微信后台配置完成后，这里会开放订阅授权。</view></view>
+      </view>
+    </view>
+
+    <view wx:if="{{history.length}}" class="s9-section">
+      <view class="s9-section-head"><view class="s9-section-title">最近发送事实</view><view class="s9-section-meta">发送 ≠ 打开 ≠ 完成</view></view>
+      <view class="s9-list">
+        <view wx:for="{{history}}" wx:key="deliveryId" class="history-row"><view><view class="setting-title">{{item.categoryLabel}}</view><view class="setting-description">{{item.timeLabel}}</view></view><view class="history-state">{{item.stateLabel}}</view></view>
+      </view>
+      <view class="fact-note">{{deliveryFactNote}}</view>
+    </view>
+
+    <view wx:if="{{message}}" class="coach-message">{{message}}</view>
+    <button class="disable-button" loading="{{disabling}}" bindtap="requestDisable">关闭全部 AI 督学提醒</button>
+  </block>
+</view>

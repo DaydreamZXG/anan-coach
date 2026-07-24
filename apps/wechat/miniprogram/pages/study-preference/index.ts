@@ -1,123 +1,146 @@
-import { fetchOnboardingProgress, putStudyPreference } from "../../api/endpoints";
+import { ApiClient } from "../../api/client";
+import { OnboardingApi } from "../../api/onboarding";
+import { onboardingNavigationTarget, routes } from "../../app/navigation/routes";
+import { PageControllerRegistry } from "../../app/runtime/controller-registry";
+import { currentAuthSession } from "../../auth/session";
+import {
+  StudyPreferenceController,
+  type StudyPreferenceControllerState,
+} from "../../features/onboarding/study-preference-controller";
+import {
+  studyTimeOptions,
+  type StudyMinutesField,
+  type StudyTimeOption,
+  type Weekday,
+} from "../../features/onboarding/study-preference";
+import type { OnboardingNextStep } from "../../features/onboarding/types";
 
-const RHYTHMS = [
-  {
-    key: "light",
-    label: "在职·挤时间",
-    desc: "工作日 45 分钟，周末 120 分钟",
-    weekdayMinutes: 45,
-    weekendMinutes: 120,
-    longBlockMinutes: 45,
-    fragmentMinutes: 15,
-  },
-  {
-    key: "steady",
-    label: "稳定投入",
-    desc: "每天 90 分钟，节奏均匀",
-    weekdayMinutes: 90,
-    weekendMinutes: 120,
-    longBlockMinutes: 60,
-    fragmentMinutes: 20,
-  },
-  {
-    key: "sprint",
-    label: "全职冲刺",
-    desc: "每天 240 分钟以上，大块推进",
-    weekdayMinutes: 240,
-    weekendMinutes: 240,
-    longBlockMinutes: 120,
-    fragmentMinutes: 30,
-  },
-] as const;
-
-const REST_DAYS = [
-  { key: "monday", label: "周一" },
-  { key: "tuesday", label: "周二" },
-  { key: "wednesday", label: "周三" },
-  { key: "thursday", label: "周四" },
-  { key: "friday", label: "周五" },
-  { key: "saturday", label: "周六" },
-  { key: "sunday", label: "周日" },
-] as const;
-
-function today(): string {
-  const d = new Date();
-  const m = `${d.getMonth() + 1}`.padStart(2, "0");
-  const day = `${d.getDate()}`.padStart(2, "0");
-  return `${d.getFullYear()}-${m}-${day}`;
+interface StudyPreferencePageData {
+  state: StudyPreferenceControllerState | null;
+  weekdays: ReadonlyArray<{ value: Weekday; label: string }>;
+  timeOptions: ReadonlyArray<StudyTimeOption>;
 }
 
-Page({
-  data: {
-    rhythms: RHYTHMS.map((r) => ({ key: r.key, label: r.label, desc: r.desc })),
-    restDays: REST_DAYS.map((r) => ({ key: r.key, label: r.label })),
-    rhythmKey: "steady",
-    restDayKey: "sunday",
-    saving: false,
-  },
+interface StudyPreferencePageCustom {
+  adjustMinutes(event: WechatMiniprogram.BaseEvent): void;
+  selectMinutes(event: WechatMiniprogram.BaseEvent): void;
+  selectDay(event: WechatMiniprogram.BaseEvent): void;
+  submit(): void;
+  retry(): void;
+}
 
-  onPickRhythm(e: WechatMiniprogram.TouchEvent) {
-    const { key } = e.currentTarget.dataset as { key: string };
-    this.setData({ rhythmKey: key });
-  },
+type StudyPreferencePage = WechatMiniprogram.Page.Instance<
+  StudyPreferencePageData,
+  StudyPreferencePageCustom
+>;
 
-  onPickRest(e: WechatMiniprogram.TouchEvent) {
-    const { key } = e.currentTarget.dataset as { key: string };
-    this.setData({ restDayKey: key });
-  },
+const runtimes = new PageControllerRegistry<StudyPreferencePage, StudyPreferenceController>();
+const weekdays: StudyPreferencePageData["weekdays"] = [
+  { value: "monday", label: "一" },
+  { value: "tuesday", label: "二" },
+  { value: "wednesday", label: "三" },
+  { value: "thursday", label: "四" },
+  { value: "friday", label: "五" },
+  { value: "saturday", label: "六" },
+  { value: "sunday", label: "日" },
+];
 
-  async onSave() {
-    if (this.data.saving) return;
-    const rhythm = RHYTHMS.find((r) => r.key === this.data.rhythmKey);
-    if (!rhythm) return;
-    this.setData({ saving: true });
-
-    try {
-      const progress = await fetchOnboardingProgress();
-      const restDay = this.data.restDayKey as
-        | "monday" | "tuesday" | "wednesday" | "thursday"
-        | "friday" | "saturday" | "sunday";
-      // 模考日固定周六；若休息日撞周六则挪到周日
-      const mockExamDay = restDay === "saturday" ? "sunday" : "saturday";
-      await putStudyPreference({
-        expectedPreferenceVersion: progress.studyPreferenceVersion ?? 0,
-        expectedProgressVersion: progress.progressVersion,
-        effectiveFrom: today(),
-        weekdayMinutes: rhythm.weekdayMinutes,
-        weekendMinutes: rhythm.weekendMinutes,
-        longBlockMinutes: rhythm.longBlockMinutes,
-        fragmentMinutes: rhythm.fragmentMinutes,
-        fixedRestDay: restDay,
-        mockExamDay,
-      });
-      wx.showToast({ title: "改好了，明天的计划就按新节奏排", icon: "none" });
-      setTimeout(() => wx.navigateBack({ fail: () => wx.switchTab({ url: "/pages/me/index" }) }), 1200);
-    } catch (err) {
-      console.warn("[study-preference] save failed (demo mode)", err);
-      wx.showToast({ title: "已记下（后端未连接，暂存本地）", icon: "none" });
-      wx.setStorageSync("demo_study_preference", {
-        rhythmKey: this.data.rhythmKey,
-        restDayKey: this.data.restDayKey,
-      });
-      setTimeout(() => wx.navigateBack({ fail: () => wx.switchTab({ url: "/pages/me/index" }) }), 1200);
-    } finally {
-      this.setData({ saving: false });
-    }
-  },
+Page<StudyPreferencePageData, StudyPreferencePageCustom>({
+  data: { state: null, weekdays, timeOptions: studyTimeOptions },
 
   onLoad() {
-    const saved = wx.getStorageSync("demo_study_preference") as
-      | { rhythmKey?: string; restDayKey?: string }
-      | "";
-    if (saved && typeof saved === "object") {
-      this.setData({
-        rhythmKey: saved.rhythmKey ?? "steady",
-        restDayKey: saved.restDayKey ?? "sunday",
-      });
+    mountController(this);
+  },
+
+  onShow() {
+    if (!runtimes.get(this)?.controller?.sessionIsCurrent()) mountController(this);
+  },
+
+  onUnload() {
+    runtimes.detach(this);
+  },
+
+  adjustMinutes(event) {
+    const field = String(event.currentTarget.dataset.field ?? "");
+    const delta = Number(event.currentTarget.dataset.delta);
+    if ((field === "weekdayMinutes" || field === "weekendMinutes") && Number.isInteger(delta)) {
+      runtimes.get(this)?.controller?.adjustMinutes(field, delta);
     }
   },
 
-  onBack() {
-    wx.navigateBack({ fail: () => wx.switchTab({ url: "/pages/me/index" }) });
+  selectMinutes(event) {
+    const field = String(event.currentTarget.dataset.field ?? "");
+    const minutes = Number(event.currentTarget.dataset.minutes);
+    if (isStudyMinutesField(field) && Number.isSafeInteger(minutes)) {
+      runtimes.get(this)?.controller?.setMinutes(field, minutes);
+    }
+  },
+
+  selectDay(event) {
+    const field = String(event.currentTarget.dataset.field ?? "");
+    const value = String(event.currentTarget.dataset.value ?? "");
+    if (
+      (field === "fixedRestDay" || field === "mockExamDay") &&
+      weekdays.some((item) => item.value === value)
+    ) {
+      runtimes.get(this)?.controller?.selectDay(field, value as Weekday);
+    }
+  },
+
+  submit() {
+    void runtimes.get(this)?.controller?.submit();
+  },
+
+  retry() {
+    void runtimes.get(this)?.controller?.load();
   },
 });
+
+function mountController(page: StudyPreferencePage): void {
+  const session = currentAuthSession();
+  if (!session) {
+    runtimes.detach(page);
+    void wx.reLaunch({ url: routes.login });
+    return;
+  }
+  const runtime = runtimes.attach(page);
+  const controller = new StudyPreferenceController({
+    userId: session.userId,
+    api: new OnboardingApi(new ApiClient(undefined, session.accessToken)),
+    mode: "settings",
+    onChange: (state) => {
+      if (runtimes.owns(page, runtime)) page.setData({ state });
+    },
+    onAdvance: (step) => {
+      if (runtimes.owns(page, runtime)) navigateOnboardingStep(step);
+    },
+    onSaved: () => {
+      if (!runtimes.owns(page, runtime)) return;
+      void wx.showToast({ title: "学习时间已更新", icon: "success" });
+      setTimeout(() => {
+        if (!runtimes.owns(page, runtime)) return;
+        void wx.navigateBack({
+          fail: () => wx.switchTab({ url: routes.me }),
+        });
+      }, 700);
+    },
+    isSessionCurrent: () => {
+      const current = currentAuthSession();
+      return current?.userId === session.userId && current.accessToken === session.accessToken;
+    },
+  });
+  runtime.controller = controller;
+  page.setData({ state: controller.snapshot() });
+  void controller.load();
+}
+
+function isStudyMinutesField(field: string): field is StudyMinutesField {
+  return field === "weekdayMinutes" || field === "weekendMinutes";
+}
+
+function navigateOnboardingStep(step: OnboardingNextStep): void {
+  if (step === "study_preference") return;
+  const target = onboardingNavigationTarget(step);
+  if (target.mode === "switchTab") void wx.switchTab({ url: target.url });
+  else void wx.redirectTo({ url: target.url });
+}

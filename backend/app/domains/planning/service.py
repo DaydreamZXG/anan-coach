@@ -36,6 +36,7 @@ from app.domains.planning.schemas import (
     CompletionContract,
     DailyCapacityCommand,
     DailyCapacityCommandResult,
+    DailyCapacityPreview,
     DualTrackExplanation,
     GoalGap,
     PlanningEvidenceRef,
@@ -137,9 +138,7 @@ class PlanningService:
             raise PlanningContractError(
                 "Load today's plan before confirming or revising daily capacity"
             )
-        if str(current["capacity_version_id"]) != str(
-            command.based_on_capacity_version_id
-        ):
+        if str(current["capacity_version_id"]) != str(command.based_on_capacity_version_id):
             raise PlanningContractError(
                 "Daily capacity changed; reload the current version before submitting"
             )
@@ -155,9 +154,7 @@ class PlanningService:
                 "energy": command.energy,
                 "stress": command.stress,
                 "confidence_level": command.confidence_level,
-                "weekly_preference_version_id": str(
-                    current["weekly_preference_version_id"]
-                ),
+                "weekly_preference_version_id": str(current["weekly_preference_version_id"]),
                 "input_fingerprint": input_fingerprint,
                 "supersedes_capacity_version_id": str(current["capacity_version_id"]),
                 "recorded_at": recorded_at,
@@ -184,6 +181,41 @@ class PlanningService:
             local_date=day,
         )
         return DailyCapacityCommandResult(capacity=plan.capacity, plan=plan)
+
+    def preview_today_capacity(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        command: DailyCapacityCommand,
+        now: datetime | None = None,
+    ) -> DailyCapacityPreview:
+        recorded_at = _as_utc(now or self._now())
+        day = recorded_at.astimezone(SHANGHAI).date()
+        current_plan = self.get_or_create_today(
+            session,
+            user_id=user_id,
+            now=recorded_at,
+            local_date=day,
+        )
+        preview_transaction = session.begin_nested()
+        try:
+            proposed = self.set_today_capacity(
+                session,
+                user_id=user_id,
+                command_id=f"{user_id}:capacity-preview:{uuid4()}",
+                command=command,
+                now=recorded_at,
+            )
+            proposed_plan = proposed.plan.model_copy(deep=True)
+        finally:
+            preview_transaction.rollback()
+            session.expire_all()
+        return DailyCapacityPreview(
+            based_on_capacity_version_id=current_plan.capacity.capacity_version_id,
+            current_plan=current_plan,
+            proposed_plan=proposed_plan,
+        )
 
     def record_task_execution(
         self,
@@ -286,9 +318,7 @@ class PlanningService:
                 capacity_version_id=str(replay_plan["capacity_version_id"]),
             )
             if replay_capacity_row is None:
-                raise PlanningContractError(
-                    "Task execution replay is missing its capacity version"
-                )
+                raise PlanningContractError("Task execution replay is missing its capacity version")
             return TaskExecutionCommandResult(
                 execution=replay_execution,
                 plan=_dashboard_from_rows(
@@ -299,8 +329,7 @@ class PlanningService:
                     ),
                     _capacity_from_row(replay_capacity_row),
                 ),
-                replanned=str(replay_plan["plan_version_id"])
-                != str(replay["plan_version_id"]),
+                replanned=str(replay_plan["plan_version_id"]) != str(replay["plan_version_id"]),
             )
 
         task = self._repository.current_task_for_execution(
@@ -346,9 +375,7 @@ class PlanningService:
                 )
             for evidence_type in required_types:
                 item = next(
-                    item
-                    for item in command.evidence_refs
-                    if item.entity_type == evidence_type
+                    item for item in command.evidence_refs if item.entity_type == evidence_type
                 )
                 valid = self._repository.execution_evidence_exists(
                     session,
@@ -493,9 +520,7 @@ class PlanningService:
             user_id=user_id,
             before_date=day,
         )
-        scheduled_recovery_day = (
-            day.isoweekday() == preference.regular_rest_weekday
-        )
+        scheduled_recovery_day = day.isoweekday() == preference.regular_rest_weekday
         adaptive_recovery_day = _needs_adaptive_recovery(capacity)
         recovery_day = scheduled_recovery_day or adaptive_recovery_day
         mock_day = day.isoweekday() == preference.regular_mock_weekday
@@ -507,15 +532,12 @@ class PlanningService:
         )
         if mock_due:
             all_candidates.append(_mock_candidate(preference, remaining_minutes))
-        all_candidates, strategy_omissions, strategy_reason_codes = (
-            _apply_strategy_decisions(all_candidates, strategy_decisions)
+        all_candidates, strategy_omissions, strategy_reason_codes = _apply_strategy_decisions(
+            all_candidates, strategy_decisions
         )
-        execution_by_work_item = {
-            str(item["work_item_key"]): item for item in execution_inputs
-        }
+        execution_by_work_item = {str(item["work_item_key"]): item for item in execution_inputs}
         candidate_work_items = {
-            item.candidate_key: _candidate_work_item_key(day, item)
-            for item in all_candidates
+            item.candidate_key: _candidate_work_item_key(day, item) for item in all_candidates
         }
         terminal_work_items = {
             key
@@ -636,9 +658,7 @@ class PlanningService:
             "dailyCapacity": capacity.capacity_version_id,
             "positionGoal": goal_ability.goal_version_id or "unavailable",
             "abilityEstimate": goal_ability.estimate_version_id or "unavailable",
-            "objectiveClosure": (
-                objective.source_version_id or objective.closure_readiness
-            ),
+            "objectiveClosure": (objective.source_version_id or objective.closure_readiness),
             "essayClosure": (
                 essay.mastery_version_ids[0]
                 if essay.mastery_version_ids
@@ -715,9 +735,7 @@ class PlanningService:
             "task_execution_recorded",
             "strategy_decision_changed",
         ]
-        valid_until = datetime.combine(day + timedelta(days=1), time.min, SHANGHAI).astimezone(
-            UTC
-        )
+        valid_until = datetime.combine(day + timedelta(days=1), time.min, SHANGHAI).astimezone(UTC)
         replan_codes = [*selection.explanation_codes, *strategy_reason_codes]
         if previous is not None:
             previous_inputs = dict(previous["input_versions"])
@@ -740,9 +758,7 @@ class PlanningService:
             session,
             values={
                 "plan_version_id": plan_version_id,
-                "command_id": (
-                    f"daily-plan:{user_id}:{day}:v{version_no}:{input_fingerprint}"
-                ),
+                "command_id": (f"daily-plan:{user_id}:{day}:v{version_no}:{input_fingerprint}"),
                 "user_id": user_id,
                 "local_date": day,
                 "version_no": version_no,
@@ -755,9 +771,7 @@ class PlanningService:
                 "scheduled_minutes": selection.scheduled_minutes,
                 "due_reflection_count": candidates.due_reflection_count,
                 "due_verification_count": candidates.due_verification_count,
-                "track_explanation": _json(
-                    explanation.model_dump(by_alias=True, mode="json")
-                ),
+                "track_explanation": _json(explanation.model_dump(by_alias=True, mode="json")),
                 "input_versions": _json(input_versions),
                 "evidence_refs": _json(
                     [item.model_dump(by_alias=True, mode="json") for item in plan_evidence]
@@ -795,9 +809,7 @@ class PlanningService:
                         "local_date": day,
                         "plan_version_no": version_no,
                         "candidate_key": ranked.candidate.candidate_key,
-                        "work_item_key": candidate_work_items[
-                            ranked.candidate.candidate_key
-                        ],
+                        "work_item_key": candidate_work_items[ranked.candidate.candidate_key],
                         "task_order": order,
                         "track": ranked.candidate.track,
                         "stage": ranked.candidate.stage,
@@ -813,9 +825,7 @@ class PlanningService:
                         "priority_score": ranked.priority_score,
                         "goal_gain": ranked.candidate.priority.goal_gain,
                         "ability_gain": ranked.candidate.priority.ability_gain,
-                        "verification_urgency": (
-                            ranked.candidate.priority.verification_urgency
-                        ),
+                        "verification_urgency": (ranked.candidate.priority.verification_urgency),
                         "time_fit": ranked.candidate.priority.time_fit,
                         "load_penalty": ranked.candidate.priority.load_penalty,
                         "track_balance_bonus": ranked.track_balance_bonus,
@@ -858,7 +868,11 @@ class PlanningService:
 
 def _materialize_plan_task_start_url(start_url: str, *, task_id: str) -> str:
     parts = urlsplit(start_url)
-    if parts.path != "/pages/xingce-task-intro/index":
+    if parts.path not in {
+        "/pages/essay-task/index",
+        "/pages/xingce-task-intro/index",
+        "/pages/mock-exam/index",
+    }:
         return start_url
     query = parse_qsl(parts.query, keep_blank_values=True)
     if any(key == "planTaskId" for key, _ in query):
@@ -906,9 +920,7 @@ def _apply_strategy_decisions(
     reason_codes: list[str] = []
     for candidate in candidates:
         matching = [
-            decision
-            for decision in decisions
-            if _strategy_matches_candidate(decision, candidate)
+            decision for decision in decisions if _strategy_matches_candidate(decision, candidate)
         ]
         if not matching:
             adjusted.append(candidate)
@@ -929,17 +941,13 @@ def _apply_strategy_decisions(
             reason_codes.append("strategy_preserved_required_closure")
             continue
 
-        if any(
-            decision.decision_type == "strategic_abandon" for decision in matching
-        ):
+        if any(decision.decision_type == "strategic_abandon" for decision in matching):
             removed_tracks.add(candidate.track)
             reason_codes.append("strategy_abandon_applied")
             continue
 
         phase_decisions = [
-            decision
-            for decision in matching
-            if decision.decision_type == "phase_deprioritize"
+            decision for decision in matching if decision.decision_type == "phase_deprioritize"
         ]
         if phase_decisions:
             priority = candidate.priority
@@ -949,9 +957,7 @@ def _apply_strategy_decisions(
                     f"{candidate.reason} 已确认对该范围阶段降权；"
                     "保留证据收益，但让位于当前更高优先级闭环。"
                 ),
-                evidence_refs=tuple(
-                    _unique_refs([*candidate.evidence_refs, *decision_refs])
-                ),
+                evidence_refs=tuple(_unique_refs([*candidate.evidence_refs, *decision_refs])),
                 priority=replace(
                     priority,
                     goal_gain=round(
@@ -973,9 +979,7 @@ def _apply_strategy_decisions(
                     f"{candidate.reason} 已确认考场跳过策略；"
                     "该策略只约束考场取舍，不自动删除学习证据或到期闭环。"
                 ),
-                evidence_refs=tuple(
-                    _unique_refs([*candidate.evidence_refs, *decision_refs])
-                ),
+                evidence_refs=tuple(_unique_refs([*candidate.evidence_refs, *decision_refs])),
             )
             reason_codes.append("strategy_exam_skip_active")
         adjusted.append(candidate)
@@ -1043,8 +1047,7 @@ def _execution_from_row(row: RowMapping, *, prefixed: bool = False) -> TaskExecu
         status=row[f"{prefix}status"],
         elapsed_minutes=int(row[f"{prefix}elapsed_minutes"]),
         evidence_refs=[
-            PlanningEvidenceRef.model_validate(item)
-            for item in row[f"{prefix}evidence_refs"]
+            PlanningEvidenceRef.model_validate(item) for item in row[f"{prefix}evidence_refs"]
         ],
         abandonment_reason=row[f"{prefix}abandonment_reason"],
         input_fingerprint=str(row[f"{prefix}input_fingerprint"]),
@@ -1093,10 +1096,7 @@ def _goal_gap(snapshot: GoalAbilitySnapshot, now: datetime) -> GoalGap:
     elif (
         snapshot.estimate_valid_until is None
         or _as_utc(snapshot.estimate_valid_until) <= now
-        or (
-            snapshot.target_valid_until is not None
-            and _as_utc(snapshot.target_valid_until) <= now
-        )
+        or (snapshot.target_valid_until is not None and _as_utc(snapshot.target_valid_until) <= now)
     ):
         readiness = "stale"
         summary = "岗位目标或双科能力证据已过期，旧区间仅供回看，不用于分差。"
@@ -1170,9 +1170,7 @@ def _dual_track_explanation(
     tracks = ("xingce", "essay", "recovery", "mock")
     minutes = {
         track: sum(
-            item.candidate.estimated_minutes
-            for item in selected
-            if item.candidate.track == track
+            item.candidate.estimated_minutes for item in selected if item.candidate.track == track
         )
         for track in tracks
     }
@@ -1181,9 +1179,7 @@ def _dual_track_explanation(
         tasks = [item for item in selected if item.candidate.track == track]
         if not tasks:
             continue
-        refs = _unique_refs(
-            [ref for item in tasks for ref in item.candidate.evidence_refs]
-        )
+        refs = _unique_refs([ref for item in tasks for ref in item.candidate.evidence_refs])
         allocations.append(
             TrackAllocation(
                 track=track,
@@ -1292,7 +1288,8 @@ def _completion_contract(candidate: TaskCandidate) -> CompletionContract:
             "满足验收条件并提交证据",
             "用户主动结束并记录未完成原因",
         ],
-        requires_reflection=candidate.stage in {
+        requires_reflection=candidate.stage
+        in {
             "objective_reflection",
             "essay_drafting",
         },
@@ -1323,8 +1320,12 @@ def _plan_copy(
             "今日计划等待必要证据",
             "当前容量或内容版本未满足正式计划门禁，系统不会生成不可执行任务。",
         )
-    xingce = sum(item.candidate.estimated_minutes for item in tasks if item.candidate.track == "xingce")
-    essay = sum(item.candidate.estimated_minutes for item in tasks if item.candidate.track == "essay")
+    xingce = sum(
+        item.candidate.estimated_minutes for item in tasks if item.candidate.track == "xingce"
+    )
+    essay = sum(
+        item.candidate.estimated_minutes for item in tasks if item.candidate.track == "essay"
+    )
     headline = (
         f"今天双轨推进：行测 {xingce} 分钟，申论 {essay} 分钟"
         if xingce and essay
@@ -1337,7 +1338,10 @@ def _plan_copy(
         else "岗位分差尚不可用"
     )
     essay_note = "申论按当前闭环阶段进入排序" if essay_available else "申论内容版本缺口已明确记录"
-    return headline, f"当日容量 {capacity.available_minutes} 分钟（{capacity_note}）；{gap_note}；{essay_note}。"
+    return (
+        headline,
+        f"当日容量 {capacity.available_minutes} 分钟（{capacity_note}）；{gap_note}；{essay_note}。",
+    )
 
 
 def _dashboard_from_rows(
@@ -1361,9 +1365,7 @@ def _dashboard_from_rows(
             if row["execution_version_id"] is not None
             else None
         )
-        evidence_refs = [
-            PlanningEvidenceRef.model_validate(item) for item in row["evidence_refs"]
-        ]
+        evidence_refs = [PlanningEvidenceRef.model_validate(item) for item in row["evidence_refs"]]
         if execution is not None:
             evidence_refs.append(
                 PlanningEvidenceRef(
@@ -1413,9 +1415,7 @@ def _dashboard_from_rows(
         capacity=_today_capacity(capacity, local_date),
         tasks=today_tasks,
         due_reflection_count=(
-            int(plan["due_reflection_count"])
-            if plan["due_reflection_count"] is not None
-            else None
+            int(plan["due_reflection_count"]) if plan["due_reflection_count"] is not None else None
         ),
         due_verification_count=(
             int(plan["due_verification_count"])
@@ -1423,13 +1423,9 @@ def _dashboard_from_rows(
             else None
         ),
         is_recovery_day=plan["day_mode"] == "recovery",
-        dual_track_explanation=DualTrackExplanation.model_validate(
-            plan["track_explanation"]
-        ),
+        dual_track_explanation=DualTrackExplanation.model_validate(plan["track_explanation"]),
         input_versions=dict(plan["input_versions"]),
-        evidence_refs=[
-            PlanningEvidenceRef.model_validate(item) for item in plan["evidence_refs"]
-        ],
+        evidence_refs=[PlanningEvidenceRef.model_validate(item) for item in plan["evidence_refs"]],
         invalidation_conditions=list(plan["invalidation_conditions"]),
         replan_reason_codes=list(plan["replan_reason_codes"]),
     )

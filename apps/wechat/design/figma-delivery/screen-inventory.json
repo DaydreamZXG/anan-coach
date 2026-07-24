@@ -1,0 +1,2157 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-24T09:37:02.603Z",
+  "source": {
+    "kind": "figma-design-local-mcp",
+    "fileKey": "pU5sxRfG4UFeCCrnSPoaAX",
+    "fileName": "岸岸 · 小程序交付版",
+    "url": "https://www.figma.com/design/pU5sxRfG4UFeCCrnSPoaAX/"
+  },
+  "pages": [
+    {
+      "id": "51:2",
+      "slug": "00-core",
+      "name": "00 · 核心四栏",
+      "metadata": "metadata/pages/00-core.xml",
+      "variables": "variables/00-core.json",
+      "screens": [
+        {
+          "nodeId": "3:2",
+          "name": "01 · 今日",
+          "width": 406,
+          "height": 860,
+          "order": 1,
+          "context": "contexts/00-core/01__node-3-2.tsx",
+          "contextSha256": "b624fff79f4d88e0607a64eb19f494e901abfd2f42e7853e2688686776446a0d",
+          "screenshot": "screens/00-core/01__node-3-2.png",
+          "screenshotSha256": "841776767adce6e4cddf5851adf1dfe4755ec7c2dc656a1d41c08b8fdf4f2001",
+          "screenshotBytes": 214711,
+          "assets": [
+            {
+              "file": "assets/by-hash/ec72e5458b43f83938c7ee0538c9f0281734b489.svg",
+              "sha256": "c07ff7cd4c40e1bef600e4def924259dff8ced3920e26570b938dbca1cf38cde",
+              "bytes": 956
+            },
+            {
+              "file": "assets/by-hash/dcf618ee9b84185fd22fd62fdfd7a201ea6248d3.svg",
+              "sha256": "fbfa9d37cf1b23b7999af21f3acc9e677b325040e42271b16c189ef44f010791",
+              "bytes": 1370
+            },
+            {
+              "file": "assets/by-hash/6dd3231d3d5801eeb43f1f199f87e4571920714b.svg",
+              "sha256": "db69995f40d0ea717dadbe14c67abd582b2a39fb1aa292621cdb132713d565d5",
+              "bytes": 1190
+            },
+            {
+              "file": "assets/by-hash/620b9dd71f4ac7b22c578b9e1846a0d54eb32f66.svg",
+              "sha256": "31c9570f9db0c562ad2028aa2759ba16c07c0c378a2c52b3840116fcddfc6ca1",
+              "bytes": 1374
+            },
+            {
+              "file": "assets/by-hash/774fe594fcc263176af0a8de76e174e0a15f229b.svg",
+              "sha256": "f39ceddf136cd2d21b5cd7f0e611827a578f10f21d2ffac0a484f6f007024cbd",
+              "bytes": 2315
+            },
+            {
+              "file": "assets/by-hash/d9b2800dc336682cf99538bc064ff6eefb31d386.svg",
+              "sha256": "5b1f077cf9109d0234c8407e4aa5ead9b5573fa95ebf96576407cd83b51a4369",
+              "bytes": 316
+            },
+            {
+              "file": "assets/by-hash/aa4b8a39245e345ec5288d3c74544a363d1b1148.svg",
+              "sha256": "f51a22e9fe09401074fec135e84695b8a9cdf294a5c6b5a46e2c667375e6ec26",
+              "bytes": 316
+            },
+            {
+              "file": "assets/by-hash/b91b0c2d3f2aa9c700d0b1ff462e100918c6e9a5.svg",
+              "sha256": "a8c22b1057e9a7f2c2966ea8c23f5897bd73de8f59c2f05fbbad76a33c96abce",
+              "bytes": 369
+            },
+            {
+              "file": "assets/by-hash/9f9a302309df95b044bc75bba335f80f22a87d5f.svg",
+              "sha256": "01e2ca6cbda87f72fa14ea41566b5c5865e5251335495b4e009fde18711cc401",
+              "bytes": 1373
+            },
+            {
+              "file": "assets/by-hash/6e1d898519808d542f6409f125a390429072675c.svg",
+              "sha256": "9c78cd46a7e7ac2512e77c7d9e84ab9213515180eda4e2df569d5cf3668d20f4",
+              "bytes": 736
+            },
+            {
+              "file": "assets/by-hash/57dea5dae082dcee30e1d2ea63eba97fca7cc0e4.svg",
+              "sha256": "770e5ba03874208913d224695d3a214122dffc72421fa5825e33c4aac64952c8",
+              "bytes": 787
+            },
+            {
+              "file": "assets/by-hash/bac4781b3601ffda7ee6013736ace06c7edb5bb8.svg",
+              "sha256": "7be8fd29f345e670ea9ae576d97ed137c056ab059d90e495d1e0f19d7d48dddf",
+              "bytes": 1195
+            },
+            {
+              "file": "assets/by-hash/fa488c08b7e81ba32fdf5924feb5542955efb192.svg",
+              "sha256": "6f9d872375ac6919ccd7de131005eda411b335b848e26b1d77eece429c656144",
+              "bytes": 1897
+            },
+            {
+              "file": "assets/by-hash/10db586dff49303528b95db171fff8b3cb4bf8d7.svg",
+              "sha256": "bb57e46dc6be06da28c1f7c6a3d1da2d9088a662c5daf512108b2bda3b953a93",
+              "bytes": 1071
+            },
+            {
+              "file": "assets/by-hash/557ee9b89bb2798d5dffbc8fd1636e32df5d50fe.svg",
+              "sha256": "676e94e9f688fe62d07a56fcb96072335d8132e31d3eecc096bc83ffadd411b2",
+              "bytes": 950
+            },
+            {
+              "file": "assets/by-hash/9fa385aeb84c434502d984042e33dcf603c4a5fb.svg",
+              "sha256": "349498e6872b7b6425c7195e89e0156e5cf3a76a588b8fcc30ffc57684b1d21d",
+              "bytes": 1044
+            },
+            {
+              "file": "assets/by-hash/2be0379a43e7c5241b7793d1ba4550119c929882.svg",
+              "sha256": "ac5a7374304276c0c5660ef1a0ef8551e5fc1b840ed9372d44f490c23d6e9bf6",
+              "bytes": 688
+            },
+            {
+              "file": "assets/by-hash/fe502138483a50341d3a5b86f4b35098a7ba7eaf.svg",
+              "sha256": "e86dce081a2d9e3fde2e66de739b4696198902e4d1a30b900e10715c0b8286a7",
+              "bytes": 1155
+            },
+            {
+              "file": "assets/by-hash/732d9b27a71d50276ef93d968066a25d66a81359.svg",
+              "sha256": "c2decfc729b99f4a890a2c5e37f9807ab1191affa1faf1d69859ca78ba12a922",
+              "bytes": 590
+            },
+            {
+              "file": "assets/by-hash/69c4c72850c063731ad80d196a6a5fc4fa257585.svg",
+              "sha256": "d7e574f91e5c1dd9650516ea664ad931ac503908a58c2f824b7538fc084b48e4",
+              "bytes": 4059
+            },
+            {
+              "file": "assets/by-hash/504b24120b649c1419b58dbab53fade036a650f9.svg",
+              "sha256": "201d9e5f7ccf6b6b78e4aae5bb0ef0964cf5dc1ced67ea5f8eb0fdd985f98a9e",
+              "bytes": 715
+            }
+          ]
+        },
+        {
+          "nodeId": "4:2",
+          "name": "02 · 能力",
+          "width": 406,
+          "height": 860,
+          "order": 2,
+          "context": "contexts/00-core/02__node-4-2.tsx",
+          "contextSha256": "19bcce385e2aeb32afd739b8613fe1220b6501a71ab89d02a8ebf5dbddcfbbf9",
+          "screenshot": "screens/00-core/02__node-4-2.png",
+          "screenshotSha256": "6a5445ceebfcb5cd99883048afed83b5bbd4af82a8979852156158773c6b1c7e",
+          "screenshotBytes": 224910,
+          "assets": [
+            {
+              "file": "assets/by-hash/a32e065f494ae33e9f98a9a5a2c11e4971d50ad2.svg",
+              "sha256": "ab086c44bc8e8204e8484af535f2f4dcdd1d4d467bf0e7f54a26d849c74bef36",
+              "bytes": 316
+            },
+            {
+              "file": "assets/by-hash/442b0b2ee2f6257a5b89e6ff21926650c21997b8.svg",
+              "sha256": "1202e9ebc0ca35bea9d9d02fabc63083c8e38662f6a96ac012504dc836e9aba8",
+              "bytes": 263
+            },
+            {
+              "file": "assets/by-hash/d51042c175dc7f29838f93928c0475793dd530f7.svg",
+              "sha256": "78b53f8c37621ba69550ab8daaa3b2df52dc72932bdf3ff42485d6e7c290be7e",
+              "bytes": 297
+            },
+            {
+              "file": "assets/by-hash/b4328be2898ebc52a6a24e02f105575c7b4d40f9.svg",
+              "sha256": "74e259934f211cc05cc589c89705a115f359bc3d3aeeb09161146b6d3a8e7d40",
+              "bytes": 297
+            },
+            {
+              "file": "assets/by-hash/eafa5807eb943f99160fcf1494cf4b260219ad99.svg",
+              "sha256": "4d4fa8d5cbb90e004e697474724fbbc88f7ff890f3b4c7e8916a1748e54272fc",
+              "bytes": 263
+            },
+            {
+              "file": "assets/by-hash/caed9d985a3d768e49d89e6e45af33e9b19d65f5.svg",
+              "sha256": "3efcc90acd95f7b31bcb8dc6aa29c34aa5a22b09f0aa13c2eaed7412c096ca2c",
+              "bytes": 297
+            },
+            {
+              "file": "assets/by-hash/389d6546074e192f4b04340f474a263a37d3c222.svg",
+              "sha256": "3f3aae97ea7c3b221346e555ec109d5e200b57ec7679af660381f4985dadeefb",
+              "bytes": 297
+            },
+            {
+              "file": "assets/by-hash/7ba8c0bba71ae9e2eb501db367e2c6c73af04ab8.svg",
+              "sha256": "2fb47bae0c62ece1acc9c0b38dc250b79d6ed44bcf8a45f264f37744b804b10d",
+              "bytes": 357
+            },
+            {
+              "file": "assets/by-hash/69826f98074234b7e28409df1bc3ecfd670d4dd5.svg",
+              "sha256": "4a70865193b85f0976fffa327b25ec0cfb2d2ec59e1bc28cf1f1a6b82e7bf9db",
+              "bytes": 356
+            },
+            {
+              "file": "assets/by-hash/e540e2607514feeb498814bb12e2ea039bc7f3e9.svg",
+              "sha256": "54a6c8b5d165c1dff9a31676b3691c718e785fd9a9ed0ec305f63fb1dbbbdb3a",
+              "bytes": 363
+            },
+            {
+              "file": "assets/by-hash/0e9a7e0837d6b20f0c422509a00cb8e34545740b.svg",
+              "sha256": "e0e5926c7b5774766ccc168c8b6a9c49154d00c46a09598daccce3a1027564d2",
+              "bytes": 362
+            },
+            {
+              "file": "assets/by-hash/b7847b523f7551b4ecca208cbd07ec4661e3b7ca.svg",
+              "sha256": "42f0a15fbd864f9cbbda6ccc3b4426d6bb4992be4024cf8bcda837c561089a75",
+              "bytes": 194
+            },
+            {
+              "file": "assets/by-hash/b5c834ccb5d603d77f3e2e43fec6a8e827cb2ed8.svg",
+              "sha256": "42f0a15fbd864f9cbbda6ccc3b4426d6bb4992be4024cf8bcda837c561089a75",
+              "bytes": 194
+            },
+            {
+              "file": "assets/by-hash/09ef846f7c92989f8dea86c5e93352dbb5a6cd94.svg",
+              "sha256": "42f0a15fbd864f9cbbda6ccc3b4426d6bb4992be4024cf8bcda837c561089a75",
+              "bytes": 194
+            },
+            {
+              "file": "assets/by-hash/c5f0764a148397986aba91bf4137494ecfdeaf5d.svg",
+              "sha256": "42f0a15fbd864f9cbbda6ccc3b4426d6bb4992be4024cf8bcda837c561089a75",
+              "bytes": 194
+            },
+            {
+              "file": "assets/by-hash/3e3ac2253360e101fbc0abfa2482d284b207ef0c.svg",
+              "sha256": "42f0a15fbd864f9cbbda6ccc3b4426d6bb4992be4024cf8bcda837c561089a75",
+              "bytes": 194
+            },
+            {
+              "file": "assets/by-hash/18237ac29687e3417629189399af895e60a49c4b.svg",
+              "sha256": "42f0a15fbd864f9cbbda6ccc3b4426d6bb4992be4024cf8bcda837c561089a75",
+              "bytes": 194
+            },
+            {
+              "file": "assets/by-hash/9153032b2cbd9a4d2e946144b71b11cd82482806.svg",
+              "sha256": "42f0a15fbd864f9cbbda6ccc3b4426d6bb4992be4024cf8bcda837c561089a75",
+              "bytes": 194
+            },
+            {
+              "file": "assets/by-hash/0df844a3a0420d1b041b8770f4071389f4994307.svg",
+              "sha256": "d87605b7f71c31d8ecdcfc0aca1ab0fa24ceacae3f248e884e0b522b4595553a",
+              "bytes": 428
+            },
+            {
+              "file": "assets/by-hash/24188d2f7051ca2172800e62521ddee6a152ce2d.svg",
+              "sha256": "6987ac18a830d29520bb4d68b7b11dc94168faf5ae1d9934f8a47b601e452d73",
+              "bytes": 2323
+            },
+            {
+              "file": "assets/by-hash/557ee9b89bb2798d5dffbc8fd1636e32df5d50fe.svg",
+              "sha256": "676e94e9f688fe62d07a56fcb96072335d8132e31d3eecc096bc83ffadd411b2",
+              "bytes": 950
+            },
+            {
+              "file": "assets/by-hash/9fa385aeb84c434502d984042e33dcf603c4a5fb.svg",
+              "sha256": "349498e6872b7b6425c7195e89e0156e5cf3a76a588b8fcc30ffc57684b1d21d",
+              "bytes": 1044
+            },
+            {
+              "file": "assets/by-hash/2be0379a43e7c5241b7793d1ba4550119c929882.svg",
+              "sha256": "ac5a7374304276c0c5660ef1a0ef8551e5fc1b840ed9372d44f490c23d6e9bf6",
+              "bytes": 688
+            },
+            {
+              "file": "assets/by-hash/fe502138483a50341d3a5b86f4b35098a7ba7eaf.svg",
+              "sha256": "e86dce081a2d9e3fde2e66de739b4696198902e4d1a30b900e10715c0b8286a7",
+              "bytes": 1155
+            },
+            {
+              "file": "assets/by-hash/732d9b27a71d50276ef93d968066a25d66a81359.svg",
+              "sha256": "c2decfc729b99f4a890a2c5e37f9807ab1191affa1faf1d69859ca78ba12a922",
+              "bytes": 590
+            },
+            {
+              "file": "assets/by-hash/69c4c72850c063731ad80d196a6a5fc4fa257585.svg",
+              "sha256": "d7e574f91e5c1dd9650516ea664ad931ac503908a58c2f824b7538fc084b48e4",
+              "bytes": 4059
+            },
+            {
+              "file": "assets/by-hash/504b24120b649c1419b58dbab53fade036a650f9.svg",
+              "sha256": "201d9e5f7ccf6b6b78e4aae5bb0ef0964cf5dc1ced67ea5f8eb0fdd985f98a9e",
+              "bytes": 715
+            }
+          ]
+        },
+        {
+          "nodeId": "6:2",
+          "name": "03 · 岸岸总控台",
+          "width": 406,
+          "height": 860,
+          "order": 3,
+          "context": "contexts/00-core/03__node-6-2.tsx",
+          "contextSha256": "fa93941e1a48f6e653507c4f4c7b4f003eed305698f50ac72de9eaac7a9e63c3",
+          "screenshot": "screens/00-core/03__node-6-2.png",
+          "screenshotSha256": "afe6cf987dcf3925871d6824fb8b5d7ccb8263f63567a5308180875a3055ccef",
+          "screenshotBytes": 233192,
+          "assets": [
+            {
+              "file": "assets/by-hash/7f20e37164ca9383b43b8c88c1ee1e98868491cf.svg",
+              "sha256": "bd650b149fdffba3da5b984bd6d8635d5ca5dbcc401a5d3f5749060a2a8f54c8",
+              "bytes": 4165
+            },
+            {
+              "file": "assets/by-hash/24188d2f7051ca2172800e62521ddee6a152ce2d.svg",
+              "sha256": "6987ac18a830d29520bb4d68b7b11dc94168faf5ae1d9934f8a47b601e452d73",
+              "bytes": 2323
+            },
+            {
+              "file": "assets/by-hash/931cb87021b3a10165a80695f9ff463a66186a07.svg",
+              "sha256": "b0e2de963eb0227e56741e04b1052a6015635a8579030dc9b066a1e4ad98fadd",
+              "bytes": 476
+            },
+            {
+              "file": "assets/by-hash/557ee9b89bb2798d5dffbc8fd1636e32df5d50fe.svg",
+              "sha256": "676e94e9f688fe62d07a56fcb96072335d8132e31d3eecc096bc83ffadd411b2",
+              "bytes": 950
+            },
+            {
+              "file": "assets/by-hash/9fa385aeb84c434502d984042e33dcf603c4a5fb.svg",
+              "sha256": "349498e6872b7b6425c7195e89e0156e5cf3a76a588b8fcc30ffc57684b1d21d",
+              "bytes": 1044
+            },
+            {
+              "file": "assets/by-hash/2be0379a43e7c5241b7793d1ba4550119c929882.svg",
+              "sha256": "ac5a7374304276c0c5660ef1a0ef8551e5fc1b840ed9372d44f490c23d6e9bf6",
+              "bytes": 688
+            },
+            {
+              "file": "assets/by-hash/fe502138483a50341d3a5b86f4b35098a7ba7eaf.svg",
+              "sha256": "e86dce081a2d9e3fde2e66de739b4696198902e4d1a30b900e10715c0b8286a7",
+              "bytes": 1155
+            },
+            {
+              "file": "assets/by-hash/732d9b27a71d50276ef93d968066a25d66a81359.svg",
+              "sha256": "c2decfc729b99f4a890a2c5e37f9807ab1191affa1faf1d69859ca78ba12a922",
+              "bytes": 590
+            },
+            {
+              "file": "assets/by-hash/69c4c72850c063731ad80d196a6a5fc4fa257585.svg",
+              "sha256": "d7e574f91e5c1dd9650516ea664ad931ac503908a58c2f824b7538fc084b48e4",
+              "bytes": 4059
+            },
+            {
+              "file": "assets/by-hash/504b24120b649c1419b58dbab53fade036a650f9.svg",
+              "sha256": "201d9e5f7ccf6b6b78e4aae5bb0ef0964cf5dc1ced67ea5f8eb0fdd985f98a9e",
+              "bytes": 715
+            }
+          ]
+        },
+        {
+          "nodeId": "7:2",
+          "name": "04 · 我的",
+          "width": 406,
+          "height": 860,
+          "order": 4,
+          "context": "contexts/00-core/04__node-7-2.tsx",
+          "contextSha256": "8baff9c2c10f6666fd09bf7807d0766edb628e57f9f98314c3b78e1d6f836ab5",
+          "screenshot": "screens/00-core/04__node-7-2.png",
+          "screenshotSha256": "1bc64900cbc2954ea705766515db935d2b3c0c0f48463b761b828cad3d8423c9",
+          "screenshotBytes": 204922,
+          "assets": [
+            {
+              "file": "assets/by-hash/370abca79792173b57addf1dc28436f4cd0c2426.svg",
+              "sha256": "0ff5bf1528e637f95092b1c2da2dadce28fcf3a2a5b3d3ccedc81c8fdb750813",
+              "bytes": 836
+            },
+            {
+              "file": "assets/by-hash/25deaa75aa6528d95bab0c32eaf381c0a016f4ed.svg",
+              "sha256": "e7a9f842ba1d424926ca4d544ecf7c7162157d9a3b686fd950ee5075704a9da9",
+              "bytes": 1022
+            },
+            {
+              "file": "assets/by-hash/bd785b5e3cbc110fe8d7338be3a25c4825e7ca5c.svg",
+              "sha256": "ecf577093e286cb4ad792b32f2073214a5e3f8b169a612e8590d6102e8634d89",
+              "bytes": 347
+            },
+            {
+              "file": "assets/by-hash/fc5f6c6d11a1671226cab96958da504f58e6953c.svg",
+              "sha256": "603393563b9d0cde32c8d6313e362f09a52e436231f75129a420bf99f3a90818",
+              "bytes": 2257
+            },
+            {
+              "file": "assets/by-hash/6afe16753874a6b150ec98554e6287b9eef89f53.svg",
+              "sha256": "b046dad65cc8789100bf8da1619094cfdf4eca9b427f767c69649eb673877175",
+              "bytes": 335
+            },
+            {
+              "file": "assets/by-hash/7e843319cbae09086835f3f023346db3e7742ebd.svg",
+              "sha256": "30f3e804c8cd1b7bc8ef5a5aa6d7ba653f483adb298215f8ca238a7430536a5c",
+              "bytes": 853
+            },
+            {
+              "file": "assets/by-hash/e790760611d5c5652db1a43baeb60ab64c48e0da.svg",
+              "sha256": "8086f88655284e0ee6a590a78dc22e472a280f7750bb54613c1aa4fc9e56d6d4",
+              "bytes": 1814
+            },
+            {
+              "file": "assets/by-hash/72ec1e84f7556799f76423d2371230316a86b967.svg",
+              "sha256": "e7fc6660c84a8f883c8a400a17340791311289195d1574abc0c8a19093ca1b03",
+              "bytes": 1844
+            },
+            {
+              "file": "assets/by-hash/6d3810311b80b83d1b9c5d41b5d0fcec94aa8128.svg",
+              "sha256": "987c41bc3a909180aafeae302dbde3a9c9c4d895ea1cbd6a004489a4d19062f8",
+              "bytes": 1348
+            },
+            {
+              "file": "assets/by-hash/76f3397ce970d78ddc17d427752a6515d267eec6.svg",
+              "sha256": "ba0743f36e6a2d496b52adfbfc6283858f5121a768760b7e86f4358c861bad5e",
+              "bytes": 1162
+            },
+            {
+              "file": "assets/by-hash/1377c6a6f94782f8d95f8bebf9c030c706d20325.svg",
+              "sha256": "0c1fe8b730dc80e3ce13a31aa3240f5dd3069644548bfe5b9f951074b5610d6e",
+              "bytes": 846
+            },
+            {
+              "file": "assets/by-hash/4ead8348a900446e898c15fe1652f74daf69361f.svg",
+              "sha256": "51f042295c0031f60e8f86d7f8e22cf69849974f4d8adb9306a426197438be27",
+              "bytes": 843
+            },
+            {
+              "file": "assets/by-hash/08ab9753cee0ceef357abb13d92c678d22e2c7e3.svg",
+              "sha256": "589e50a27bb04db80722fd6713d9843a3670ab5222d37d7bff49374287ced01d",
+              "bytes": 1141
+            },
+            {
+              "file": "assets/by-hash/b779e2284e0be311f99742f960041cd63f31c0a4.svg",
+              "sha256": "593b3d0ed75a3a391be77218a2d412926a3c80beb1941f355c6f03fbad26aee4",
+              "bytes": 1050
+            },
+            {
+              "file": "assets/by-hash/91448034c3841e3a5d5182d6c26b858eccad4786.svg",
+              "sha256": "8c5ccf9fbd072a7dbed69e16e747b026e57ce49e5d38f4fd7666a8177a5d6f1a",
+              "bytes": 1095
+            },
+            {
+              "file": "assets/by-hash/00275cf43aa29448c5994caad08592e197eb1428.svg",
+              "sha256": "d714012bef588ed27762352c3e7b95072c9e3caab859591d02c31a6110baa5cd",
+              "bytes": 923
+            },
+            {
+              "file": "assets/by-hash/557ee9b89bb2798d5dffbc8fd1636e32df5d50fe.svg",
+              "sha256": "676e94e9f688fe62d07a56fcb96072335d8132e31d3eecc096bc83ffadd411b2",
+              "bytes": 950
+            },
+            {
+              "file": "assets/by-hash/9fa385aeb84c434502d984042e33dcf603c4a5fb.svg",
+              "sha256": "349498e6872b7b6425c7195e89e0156e5cf3a76a588b8fcc30ffc57684b1d21d",
+              "bytes": 1044
+            },
+            {
+              "file": "assets/by-hash/2be0379a43e7c5241b7793d1ba4550119c929882.svg",
+              "sha256": "ac5a7374304276c0c5660ef1a0ef8551e5fc1b840ed9372d44f490c23d6e9bf6",
+              "bytes": 688
+            },
+            {
+              "file": "assets/by-hash/fe502138483a50341d3a5b86f4b35098a7ba7eaf.svg",
+              "sha256": "e86dce081a2d9e3fde2e66de739b4696198902e4d1a30b900e10715c0b8286a7",
+              "bytes": 1155
+            },
+            {
+              "file": "assets/by-hash/732d9b27a71d50276ef93d968066a25d66a81359.svg",
+              "sha256": "c2decfc729b99f4a890a2c5e37f9807ab1191affa1faf1d69859ca78ba12a922",
+              "bytes": 590
+            },
+            {
+              "file": "assets/by-hash/69c4c72850c063731ad80d196a6a5fc4fa257585.svg",
+              "sha256": "d7e574f91e5c1dd9650516ea664ad931ac503908a58c2f824b7538fc084b48e4",
+              "bytes": 4059
+            },
+            {
+              "file": "assets/by-hash/504b24120b649c1419b58dbab53fade036a650f9.svg",
+              "sha256": "201d9e5f7ccf6b6b78e4aae5bb0ef0964cf5dc1ced67ea5f8eb0fdd985f98a9e",
+              "bytes": 715
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "51:3",
+      "slug": "01-login-profile",
+      "name": "01 · 登录与建档",
+      "metadata": "metadata/pages/01-login-profile.xml",
+      "variables": "variables/01-login-profile.json",
+      "screens": [
+        {
+          "nodeId": "31:2",
+          "name": "01 · 微信登录",
+          "width": 406,
+          "height": 860,
+          "order": 1,
+          "context": "contexts/01-login-profile/01__node-31-2.tsx",
+          "contextSha256": "61dafdf499ccad12a218e6358e32d44c5b6d38cba532153ff7e66c88753c82e2",
+          "screenshot": "screens/01-login-profile/01__node-31-2.png",
+          "screenshotSha256": "f5e9e1936267290323ae6acf2e68212725460953d89b7f953716e9546da5a4bb",
+          "screenshotBytes": 210206,
+          "assets": [
+            {
+              "file": "assets/by-hash/112de17ecb886ea496298eadffc7dd7d249dcc8a.svg",
+              "sha256": "3bcfd761af948be05ead46d3492948f8e5cacf43d8776181185987e821a0f831",
+              "bytes": 4062
+            },
+            {
+              "file": "assets/by-hash/931cb87021b3a10165a80695f9ff463a66186a07.svg",
+              "sha256": "b0e2de963eb0227e56741e04b1052a6015635a8579030dc9b066a1e4ad98fadd",
+              "bytes": 476
+            },
+            {
+              "file": "assets/by-hash/0d196d7afb6fd636cd19339441b75658f24a6249.svg",
+              "sha256": "0302e49ed4754106a8defc7e49eddde2830ddef1ff4cc77a1f1cea8b34e3a45b",
+              "bytes": 356
+            },
+            {
+              "file": "assets/by-hash/557ee9b89bb2798d5dffbc8fd1636e32df5d50fe.svg",
+              "sha256": "676e94e9f688fe62d07a56fcb96072335d8132e31d3eecc096bc83ffadd411b2",
+              "bytes": 950
+            },
+            {
+              "file": "assets/by-hash/9fa385aeb84c434502d984042e33dcf603c4a5fb.svg",
+              "sha256": "349498e6872b7b6425c7195e89e0156e5cf3a76a588b8fcc30ffc57684b1d21d",
+              "bytes": 1044
+            },
+            {
+              "file": "assets/by-hash/2be0379a43e7c5241b7793d1ba4550119c929882.svg",
+              "sha256": "ac5a7374304276c0c5660ef1a0ef8551e5fc1b840ed9372d44f490c23d6e9bf6",
+              "bytes": 688
+            }
+          ]
+        },
+        {
+          "nodeId": "8:2",
+          "name": "02 · 建档入口",
+          "width": 406,
+          "height": 860,
+          "order": 2,
+          "context": "contexts/01-login-profile/02__node-8-2.tsx",
+          "contextSha256": "537fd14d4318297512ab735c869a6d02c06b4f2b75199b65126c1f980abd3685",
+          "screenshot": "screens/01-login-profile/02__node-8-2.png",
+          "screenshotSha256": "58065da0324516be6c460508c0dd6b985036518a49d81892b9e8f79664cac008",
+          "screenshotBytes": 181888,
+          "assets": [
+            {
+              "file": "assets/by-hash/7c824de71d6e261edac9a6fe05bfbef518310df8.svg",
+              "sha256": "316a58eb83473e61b8c68fc8553d28fccbbc6ba6a871f3b6ba33b3bee7414006",
+              "bytes": 2104
+            },
+            {
+              "file": "assets/by-hash/931cb87021b3a10165a80695f9ff463a66186a07.svg",
+              "sha256": "b0e2de963eb0227e56741e04b1052a6015635a8579030dc9b066a1e4ad98fadd",
+              "bytes": 476
+            },
+            {
+              "file": "assets/by-hash/831af65c1c3b144a64bf0412ebe5d311ad1006d4.svg",
+              "sha256": "4c778296b49267eb325703bb4830f0b65618781b06a97ed6f79e8fa209b2988e",
+              "bytes": 998
+            },
+            {
+              "file": "assets/by-hash/5942678affda30807d303ee4370dec566b023050.svg",
+              "sha256": "c050bfa63c0c9aa6141ebbf579cc85845fa84e44d0ac2583667c5717961bef1e",
+              "bytes": 331
+            }
+          ]
+        },
+        {
+          "nodeId": "33:2",
+          "name": "03 · 档案中心",
+          "width": 406,
+          "height": 860,
+          "order": 3,
+          "context": "contexts/01-login-profile/03__node-33-2.tsx",
+          "contextSha256": "7d51f82c2887cfdc599c393efebc74b4094f5a933dc0af8ee8a450ee4398827c",
+          "screenshot": "screens/01-login-profile/03__node-33-2.png",
+          "screenshotSha256": "a391652df2f0b2fc82ac1a56b74d8e6cb580ebd28456db67828ae3ed510c1d6e",
+          "screenshotBytes": 214557,
+          "assets": [
+            {
+              "file": "assets/by-hash/5942678affda30807d303ee4370dec566b023050.svg",
+              "sha256": "c050bfa63c0c9aa6141ebbf579cc85845fa84e44d0ac2583667c5717961bef1e",
+              "bytes": 331
+            },
+            {
+              "file": "assets/by-hash/ce690986c332f35c7dbe66697dc88b092ae85045.svg",
+              "sha256": "bcfddc0739ce497cbec20eddb7a7c5d305c64590694932c734d50ae2a24941f2",
+              "bytes": 2265
+            },
+            {
+              "file": "assets/by-hash/909ab6add82161a309a344a4933aff5f5ae7e87d.svg",
+              "sha256": "01f25567c843384a8d7266dfa91b4fd6edec6a863b7955985e2d39ce0e8e9703",
+              "bytes": 842
+            },
+            {
+              "file": "assets/by-hash/ad744cab96f2f1ddd2aeb4462ab7d1a54ced8b78.svg",
+              "sha256": "cb64f429ae355cd0a092a42255e132d7de3d5f41088be73831804015a3aff890",
+              "bytes": 1005
+            },
+            {
+              "file": "assets/by-hash/f7cbcb8d9c631276b7a753f417dd01be6344cb67.svg",
+              "sha256": "0410d2b929c03b6efe943e0d8fbba4bc0a8091da2f8521c997961c28f0bd4976",
+              "bytes": 1014
+            },
+            {
+              "file": "assets/by-hash/db9cdfb3f3365e4fe821242f5f68ac43589dbdf1.svg",
+              "sha256": "63fb29c640f8b1cdcf6065ce1eadbf3d47f66015adb459551eae341b3e13d3fc",
+              "bytes": 791
+            },
+            {
+              "file": "assets/by-hash/0f148a68cd3be205a9dbc1c5a5f911f696490c02.svg",
+              "sha256": "2fa9465479d9f9776898858e26c3a1925f62e22bd7dd92be4617820398a9d6e2",
+              "bytes": 1195
+            },
+            {
+              "file": "assets/by-hash/931cb87021b3a10165a80695f9ff463a66186a07.svg",
+              "sha256": "b0e2de963eb0227e56741e04b1052a6015635a8579030dc9b066a1e4ad98fadd",
+              "bytes": 476
+            }
+          ]
+        },
+        {
+          "nodeId": "34:2",
+          "name": "04 · 身份与备考状态",
+          "width": 406,
+          "height": 860,
+          "order": 4,
+          "context": "contexts/01-login-profile/04__node-34-2.tsx",
+          "contextSha256": "1bfb97f798672a549e6c9e7f1630769b0b99461c2d8c8b5a142bfe274eaf6c40",
+          "screenshot": "screens/01-login-profile/04__node-34-2.png",
+          "screenshotSha256": "fd74627280c7fbaaed46cc1a1cf1d9a37671e93ad90fec17fdcfa67ebb175df4",
+          "screenshotBytes": 206266,
+          "assets": [
+            {
+              "file": "assets/by-hash/18798560602d7f3b585f3eba41d5d9a91fe72a04.png",
+              "sha256": "dbac2e97685b5ef4582d073d4af311ff1f317fd17bdaf8966737d56dadd77874",
+              "bytes": 58427
+            },
+            {
+              "file": "assets/by-hash/5942678affda30807d303ee4370dec566b023050.svg",
+              "sha256": "c050bfa63c0c9aa6141ebbf579cc85845fa84e44d0ac2583667c5717961bef1e",
+              "bytes": 331
+            }
+          ]
+        },
+        {
+          "nodeId": "35:2",
+          "name": "05 · 报考资格",
+          "width": 406,
+          "height": 860,
+          "order": 5,
+          "context": "contexts/01-login-profile/05__node-35-2.tsx",
+          "contextSha256": "f222cec49350c21fcc9deb6051fac1bc96482c3f4f94e129d0fa233da8830532",
+          "screenshot": "screens/01-login-profile/05__node-35-2.png",
+          "screenshotSha256": "37890efcc315b455cb89e6fb4d8a41654ab74abec07c666b77dbf781b48b2aa0",
+          "screenshotBytes": 211428,
+          "assets": [
+            {
+              "file": "assets/by-hash/5942678affda30807d303ee4370dec566b023050.svg",
+              "sha256": "c050bfa63c0c9aa6141ebbf579cc85845fa84e44d0ac2583667c5717961bef1e",
+              "bytes": 331
+            },
+            {
+              "file": "assets/by-hash/f18abb08a3b9a2bc99e267a28e91a997988c34f9.svg",
+              "sha256": "132a447df32ca361cca1475e0932fce9e1950e37a25f6a90b250101054dd27d1",
+              "bytes": 919
+            },
+            {
+              "file": "assets/by-hash/6ccdf4bcc1d0ff9fa79a7573812644b92b128b91.svg",
+              "sha256": "a9028e4d5cccd485938cca9266d73193eda364394c3d458de326708cdfc79fff",
+              "bytes": 647
+            }
+          ]
+        },
+        {
+          "nodeId": "36:2",
+          "name": "06 · 地区与岗位偏好",
+          "width": 406,
+          "height": 860,
+          "order": 6,
+          "context": "contexts/01-login-profile/06__node-36-2.tsx",
+          "contextSha256": "587ceedd5d614ea5fbbe96ed05909302dcc242930cf94fc4783fbda7b6c7c777",
+          "screenshot": "screens/01-login-profile/06__node-36-2.png",
+          "screenshotSha256": "f1c83b78593dcc8ac2134c53529bb1007270bb514b0685d5ff409e6d949fe6e1",
+          "screenshotBytes": 210673,
+          "assets": [
+            {
+              "file": "assets/by-hash/5942678affda30807d303ee4370dec566b023050.svg",
+              "sha256": "c050bfa63c0c9aa6141ebbf579cc85845fa84e44d0ac2583667c5717961bef1e",
+              "bytes": 331
+            },
+            {
+              "file": "assets/by-hash/183c128ea90cd4fac9340af8cd2462fc3d7e5177.svg",
+              "sha256": "115d639530b304c835495ece041f95fb18e6eee90ca19c43108dd5e3fdd77c83",
+              "bytes": 352
+            }
+          ]
+        },
+        {
+          "nodeId": "37:2",
+          "name": "07 · 每周可学时间",
+          "width": 406,
+          "height": 860,
+          "order": 7,
+          "context": "contexts/01-login-profile/07__node-37-2.tsx",
+          "contextSha256": "e4c9eaf6c0fc5ca363d80fbfb41358dc7ad15edc3acfe852435822949963347f",
+          "screenshot": "screens/01-login-profile/07__node-37-2.png",
+          "screenshotSha256": "49750e0cd31c0ca07db9d5b1d97fcf8d6dbe159977f4b4af946233621bf07fa1",
+          "screenshotBytes": 198833,
+          "assets": [
+            {
+              "file": "assets/by-hash/5942678affda30807d303ee4370dec566b023050.svg",
+              "sha256": "c050bfa63c0c9aa6141ebbf579cc85845fa84e44d0ac2583667c5717961bef1e",
+              "bytes": 331
+            }
+          ]
+        },
+        {
+          "nodeId": "38:2",
+          "name": "08 · 当前能力起点",
+          "width": 406,
+          "height": 860,
+          "order": 8,
+          "context": "contexts/01-login-profile/08__node-38-2.tsx",
+          "contextSha256": "f2f5e14f8ce21773dd48859518deb61a5b5f4ce4c622d2d64d5cf7fa1a4a240d",
+          "screenshot": "screens/01-login-profile/08__node-38-2.png",
+          "screenshotSha256": "bf029e836197eed4ba6df60348eb188a1ef38dedccd667b9373e2118f49d3890",
+          "screenshotBytes": 194481,
+          "assets": [
+            {
+              "file": "assets/by-hash/5942678affda30807d303ee4370dec566b023050.svg",
+              "sha256": "c050bfa63c0c9aa6141ebbf579cc85845fa84e44d0ac2583667c5717961bef1e",
+              "bytes": 331
+            },
+            {
+              "file": "assets/by-hash/0f2784817c956bf8d881c07aef7b3dde297d10c1.svg",
+              "sha256": "e6e15528ea7007b674f9e48d262e2ceca9657866e23dee85d88a5527ebbc0251",
+              "bytes": 1104
+            },
+            {
+              "file": "assets/by-hash/7f57fe9b34d33180e8806c5406761c04efebda53.svg",
+              "sha256": "c62fa3e558e6ee0a21d8834bbf3f59de6c4662034460b3c6b062da654b8baccc",
+              "bytes": 1135
+            }
+          ]
+        },
+        {
+          "nodeId": "39:2",
+          "name": "09 · 建档确认",
+          "width": 406,
+          "height": 860,
+          "order": 9,
+          "context": "contexts/01-login-profile/09__node-39-2.tsx",
+          "contextSha256": "98d939668dfa1ec6f090b0759b974f9fdcb32ca009db447348516461758ec971",
+          "screenshot": "screens/01-login-profile/09__node-39-2.png",
+          "screenshotSha256": "3f7bb166aeec146e98b8259464dc89c872dba92b82984587fa3373a090cf0783",
+          "screenshotBytes": 213538,
+          "assets": [
+            {
+              "file": "assets/by-hash/621d61697f657adc054a2b81017ae6d1cb821049.svg",
+              "sha256": "08ee9333d47ec4446e496f8dbf7b1a6fc50a9368f98c135fa5d42c13df2b89a6",
+              "bytes": 577
+            },
+            {
+              "file": "assets/by-hash/d0c270ec82689433959f394dac967f34fb9370c5.svg",
+              "sha256": "4728b6c4828273f053ee7216d84c0112584c4bf865df84d710294ca93cd0a18a",
+              "bytes": 989
+            },
+            {
+              "file": "assets/by-hash/f18abb08a3b9a2bc99e267a28e91a997988c34f9.svg",
+              "sha256": "132a447df32ca361cca1475e0932fce9e1950e37a25f6a90b250101054dd27d1",
+              "bytes": 919
+            },
+            {
+              "file": "assets/by-hash/1a37606de58827f166cb89485243d773d46d4449.svg",
+              "sha256": "6a0fee8748fb82e1befe49f9ce457a79f0dd7b6186dd292125bc5e6f9f34da3a",
+              "bytes": 920
+            },
+            {
+              "file": "assets/by-hash/a31d98478a3ac70d81e5b98b36d273051af2d629.svg",
+              "sha256": "7a5054d68d057a89a813adcb40203919d065bd06fbd19f53da64b924ba1b23a0",
+              "bytes": 344
+            },
+            {
+              "file": "assets/by-hash/c9dcc1294c4981f4d31fb74df16a0bc0eb0f3215.svg",
+              "sha256": "41d6687e7cd9cc8ac8f594080178927ec9c65a7f72a658853ec588be14b8289f",
+              "bytes": 1104
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "51:4",
+      "slug": "02-today-plan",
+      "name": "02 · 今日与计划",
+      "metadata": "metadata/pages/02-today-plan.xml",
+      "variables": "variables/02-today-plan.json",
+      "screens": [
+        {
+          "nodeId": "9:2",
+          "name": "01 · 任务依据",
+          "width": 406,
+          "height": 860,
+          "order": 1,
+          "context": "contexts/02-today-plan/01__node-9-2.tsx",
+          "contextSha256": "beb2d3a1fba3d416d1d22dd8db4c505374fd6739a08e29788f86408f8d159f3c",
+          "screenshot": "screens/02-today-plan/01__node-9-2.png",
+          "screenshotSha256": "c15a0d150f6748527d0435013f87e53741cd15268e8ea65f8b701662da61e521",
+          "screenshotBytes": 219441,
+          "assets": [
+            {
+              "file": "assets/by-hash/ce690986c332f35c7dbe66697dc88b092ae85045.svg",
+              "sha256": "bcfddc0739ce497cbec20eddb7a7c5d305c64590694932c734d50ae2a24941f2",
+              "bytes": 2265
+            },
+            {
+              "file": "assets/by-hash/f9764c7196bbc2c058a691ee714019f52fe90cde.svg",
+              "sha256": "3b47cdfef0dec2948b41110309e3a7eed9f407b1bb408e0cc4b5ff8cb9ae96ff",
+              "bytes": 347
+            },
+            {
+              "file": "assets/by-hash/2f4b96b2b2351cea3e9da07d6b351e5e80249045.svg",
+              "sha256": "838eb6e75d347952e19cf0909e6918dd06da51f8319393bdfdf957e9a66f58b3",
+              "bytes": 734
+            },
+            {
+              "file": "assets/by-hash/5fce29eac47b7c0005e8f33b3edcd6a07cac1a2c.svg",
+              "sha256": "f6ea470c9c2e7224548b7d6a97725cc1251fd7283767492a0a58cc237598ab7f",
+              "bytes": 917
+            },
+            {
+              "file": "assets/by-hash/931cb87021b3a10165a80695f9ff463a66186a07.svg",
+              "sha256": "b0e2de963eb0227e56741e04b1052a6015635a8579030dc9b066a1e4ad98fadd",
+              "bytes": 476
+            },
+            {
+              "file": "assets/by-hash/64c3c6b57104396bf7b4b969d8bc9c6139d10793.svg",
+              "sha256": "18aadfc1bb73f810db6511ad0ed395418660681bba1db71f2c8100428849814c",
+              "bytes": 3163
+            },
+            {
+              "file": "assets/by-hash/ac0a8c0cce2bd1f52acbb339fea9840e44e5fd9d.svg",
+              "sha256": "29a98cc2a7859a0a8d82f0514d351dbd72caf6b047a2733e93780938db35aa83",
+              "bytes": 2331
+            },
+            {
+              "file": "assets/by-hash/557ee9b89bb2798d5dffbc8fd1636e32df5d50fe.svg",
+              "sha256": "676e94e9f688fe62d07a56fcb96072335d8132e31d3eecc096bc83ffadd411b2",
+              "bytes": 950
+            },
+            {
+              "file": "assets/by-hash/9fa385aeb84c434502d984042e33dcf603c4a5fb.svg",
+              "sha256": "349498e6872b7b6425c7195e89e0156e5cf3a76a588b8fcc30ffc57684b1d21d",
+              "bytes": 1044
+            },
+            {
+              "file": "assets/by-hash/2be0379a43e7c5241b7793d1ba4550119c929882.svg",
+              "sha256": "ac5a7374304276c0c5660ef1a0ef8551e5fc1b840ed9372d44f490c23d6e9bf6",
+              "bytes": 688
+            },
+            {
+              "file": "assets/by-hash/157ded469705e8cf56b0e3ddabdc6b2a4d35b8f8.svg",
+              "sha256": "aa17a2039a491586fabb7d27eb4896cf61801e4378651ac7f5a133204c9a8371",
+              "bytes": 343
+            }
+          ]
+        },
+        {
+          "nodeId": "10:2",
+          "name": "02 · 周计划",
+          "width": 406,
+          "height": 860,
+          "order": 2,
+          "context": "contexts/02-today-plan/02__node-10-2.tsx",
+          "contextSha256": "27dd5817b26c607eb48d58778fa54634e5d8afdd0a8031ea24770ec0d9b63466",
+          "screenshot": "screens/02-today-plan/02__node-10-2.png",
+          "screenshotSha256": "a33950f6292ede77ff9748f407b6d86bd85111b6c5cf5afe68bd29b945ad6fda",
+          "screenshotBytes": 221024,
+          "assets": [
+            {
+              "file": "assets/by-hash/1b1b25f68eb27fbbecc19a2204f517a4810918cf.svg",
+              "sha256": "c381e28713a9a9be630018e8f9642a34c8fd82ab68b332cb79df8b3608c242c1",
+              "bytes": 1104
+            },
+            {
+              "file": "assets/by-hash/0c551a6f8ee4047ea42822e5933c591eb9443745.svg",
+              "sha256": "4b6402de34454a7dc0a7f984c1e6f3a1be6deda5a0157ad0dc1884c4cbe3e395",
+              "bytes": 2356
+            },
+            {
+              "file": "assets/by-hash/3c425a68d52a15df600a1a52a941dcad617bb0fa.svg",
+              "sha256": "3f29aba76d444777ba88453ea82dc30ed03217d8d5aa27990e8cea1fde92c862",
+              "bytes": 1748
+            },
+            {
+              "file": "assets/by-hash/f8a181b097bef9ab5e191f800bdb29fe5ca3099f.svg",
+              "sha256": "be71b1dbae438019554e8342ed00568a0cfa8b987616908be39d9f7b7f0ffeef",
+              "bytes": 347
+            },
+            {
+              "file": "assets/by-hash/5bcd806db2f01fb3cebfc98d487bdc714bc19f77.svg",
+              "sha256": "be71b1dbae438019554e8342ed00568a0cfa8b987616908be39d9f7b7f0ffeef",
+              "bytes": 347
+            },
+            {
+              "file": "assets/by-hash/24188d2f7051ca2172800e62521ddee6a152ce2d.svg",
+              "sha256": "6987ac18a830d29520bb4d68b7b11dc94168faf5ae1d9934f8a47b601e452d73",
+              "bytes": 2323
+            },
+            {
+              "file": "assets/by-hash/ac0a8c0cce2bd1f52acbb339fea9840e44e5fd9d.svg",
+              "sha256": "29a98cc2a7859a0a8d82f0514d351dbd72caf6b047a2733e93780938db35aa83",
+              "bytes": 2331
+            },
+            {
+              "file": "assets/by-hash/557ee9b89bb2798d5dffbc8fd1636e32df5d50fe.svg",
+              "sha256": "676e94e9f688fe62d07a56fcb96072335d8132e31d3eecc096bc83ffadd411b2",
+              "bytes": 950
+            },
+            {
+              "file": "assets/by-hash/9fa385aeb84c434502d984042e33dcf603c4a5fb.svg",
+              "sha256": "349498e6872b7b6425c7195e89e0156e5cf3a76a588b8fcc30ffc57684b1d21d",
+              "bytes": 1044
+            },
+            {
+              "file": "assets/by-hash/2be0379a43e7c5241b7793d1ba4550119c929882.svg",
+              "sha256": "ac5a7374304276c0c5660ef1a0ef8551e5fc1b840ed9372d44f490c23d6e9bf6",
+              "bytes": 688
+            },
+            {
+              "file": "assets/by-hash/157ded469705e8cf56b0e3ddabdc6b2a4d35b8f8.svg",
+              "sha256": "aa17a2039a491586fabb7d27eb4896cf61801e4378651ac7f5a133204c9a8371",
+              "bytes": 343
+            }
+          ]
+        },
+        {
+          "nodeId": "11:2",
+          "name": "03 · 今日调整",
+          "width": 406,
+          "height": 860,
+          "order": 3,
+          "context": "contexts/02-today-plan/03__node-11-2.tsx",
+          "contextSha256": "c4a5e457c4ebbc4dbd98b977890a6822d34f9840d1c0f6e1ec2ac6bcb425b813",
+          "screenshot": "screens/02-today-plan/03__node-11-2.png",
+          "screenshotSha256": "e5bcbd1b3520f18fe026ba05ca246bf0b7a48a4d9c532ccb46b104a95863d838",
+          "screenshotBytes": 214822,
+          "assets": [
+            {
+              "file": "assets/by-hash/f29eb513fd310a51843e118143c1a15af53fa984.svg",
+              "sha256": "fc5a98f91bd7dee780967f8c07056823ee1ac6e7f4a2db9c867754427023244a",
+              "bytes": 786
+            },
+            {
+              "file": "assets/by-hash/6f434194108a55c4278bb1d3b63111618d1a290a.svg",
+              "sha256": "a5be6fcebf3173a92e9e247d0cbe5e6e5625e4d74d83d6f382cadd484844a2ba",
+              "bytes": 936
+            },
+            {
+              "file": "assets/by-hash/557ee9b89bb2798d5dffbc8fd1636e32df5d50fe.svg",
+              "sha256": "676e94e9f688fe62d07a56fcb96072335d8132e31d3eecc096bc83ffadd411b2",
+              "bytes": 950
+            },
+            {
+              "file": "assets/by-hash/9fa385aeb84c434502d984042e33dcf603c4a5fb.svg",
+              "sha256": "349498e6872b7b6425c7195e89e0156e5cf3a76a588b8fcc30ffc57684b1d21d",
+              "bytes": 1044
+            },
+            {
+              "file": "assets/by-hash/2be0379a43e7c5241b7793d1ba4550119c929882.svg",
+              "sha256": "ac5a7374304276c0c5660ef1a0ef8551e5fc1b840ed9372d44f490c23d6e9bf6",
+              "bytes": 688
+            },
+            {
+              "file": "assets/by-hash/157ded469705e8cf56b0e3ddabdc6b2a4d35b8f8.svg",
+              "sha256": "aa17a2039a491586fabb7d27eb4896cf61801e4378651ac7f5a133204c9a8371",
+              "bytes": 343
+            }
+          ]
+        },
+        {
+          "nodeId": "12:2",
+          "name": "04 · 每日结算",
+          "width": 406,
+          "height": 860,
+          "order": 4,
+          "context": "contexts/02-today-plan/04__node-12-2.tsx",
+          "contextSha256": "6f4e6e0925fb798de5ea6c75fba4eae9168bc8b1412f113c95b5ecf9d18ae60d",
+          "screenshot": "screens/02-today-plan/04__node-12-2.png",
+          "screenshotSha256": "47128ea7d936387261d1c0701cd7ff4117ed725829b1dd08955e31ef62188fce",
+          "screenshotBytes": 214133,
+          "assets": [
+            {
+              "file": "assets/by-hash/1b1b25f68eb27fbbecc19a2204f517a4810918cf.svg",
+              "sha256": "c381e28713a9a9be630018e8f9642a34c8fd82ab68b332cb79df8b3608c242c1",
+              "bytes": 1104
+            },
+            {
+              "file": "assets/by-hash/6f4645b473c6e9c06b4f242d2cc3c08070fa2dff.svg",
+              "sha256": "1a9f9d684e49a9cca395f6eba8d488de26158f545eb62d404ed1fbeb3f2ab1f6",
+              "bytes": 923
+            },
+            {
+              "file": "assets/by-hash/f87d18c6b06d0e23d2382ff2d4cbc748969af437.svg",
+              "sha256": "a2c409ec3f71e34a90ff5870a4929d7d782ede1831e03b0a9bf00737247e36f8",
+              "bytes": 854
+            },
+            {
+              "file": "assets/by-hash/b1e0608cd931d39855e658d55007079e0633c6c3.svg",
+              "sha256": "5afbeeeb0545c50c00fdd151c79894099cf6fa409dc2f28816a7786120a2feaa",
+              "bytes": 2333
+            },
+            {
+              "file": "assets/by-hash/9b1eb7ad5d73a6dafc2586612d5dfebd57d6392d.svg",
+              "sha256": "4052d345365bc21a98fb37276776d174a3825cdb4ab5c56462841955131652a9",
+              "bytes": 1921
+            },
+            {
+              "file": "assets/by-hash/0c551a6f8ee4047ea42822e5933c591eb9443745.svg",
+              "sha256": "4b6402de34454a7dc0a7f984c1e6f3a1be6deda5a0157ad0dc1884c4cbe3e395",
+              "bytes": 2356
+            },
+            {
+              "file": "assets/by-hash/f2908a1d2c611737495901c0fc3581815af9ac7b.svg",
+              "sha256": "1593adb23d25bd852412834499ac75a2c239022bd09a57fbb322dba6dbc7bc94",
+              "bytes": 480
+            },
+            {
+              "file": "assets/by-hash/ac0a8c0cce2bd1f52acbb339fea9840e44e5fd9d.svg",
+              "sha256": "29a98cc2a7859a0a8d82f0514d351dbd72caf6b047a2733e93780938db35aa83",
+              "bytes": 2331
+            },
+            {
+              "file": "assets/by-hash/557ee9b89bb2798d5dffbc8fd1636e32df5d50fe.svg",
+              "sha256": "676e94e9f688fe62d07a56fcb96072335d8132e31d3eecc096bc83ffadd411b2",
+              "bytes": 950
+            },
+            {
+              "file": "assets/by-hash/9fa385aeb84c434502d984042e33dcf603c4a5fb.svg",
+              "sha256": "349498e6872b7b6425c7195e89e0156e5cf3a76a588b8fcc30ffc57684b1d21d",
+              "bytes": 1044
+            },
+            {
+              "file": "assets/by-hash/2be0379a43e7c5241b7793d1ba4550119c929882.svg",
+              "sha256": "ac5a7374304276c0c5660ef1a0ef8551e5fc1b840ed9372d44f490c23d6e9bf6",
+              "bytes": 688
+            },
+            {
+              "file": "assets/by-hash/157ded469705e8cf56b0e3ddabdc6b2a4d35b8f8.svg",
+              "sha256": "aa17a2039a491586fabb7d27eb4896cf61801e4378651ac7f5a133204c9a8371",
+              "bytes": 343
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "51:5",
+      "slug": "03-practice-review",
+      "name": "03 · 行测练习与复盘",
+      "metadata": "metadata/pages/03-practice-review.xml",
+      "variables": "variables/03-practice-review.json",
+      "screens": [
+        {
+          "nodeId": "2:2",
+          "name": "01 · 行测做题",
+          "width": 406,
+          "height": 860,
+          "order": 1,
+          "context": "contexts/03-practice-review/01__node-2-2.tsx",
+          "contextSha256": "689ad9ce41740dabcbe020d7e63aee010fdf00b58139023d85e943df1804e927",
+          "screenshot": "screens/03-practice-review/01__node-2-2.png",
+          "screenshotSha256": "149a8d1f015cefda89b81a92c74e3aebf856d095c17d3b0d1ef71f3cf77ccddf",
+          "screenshotBytes": 217107,
+          "assets": [
+            {
+              "file": "assets/by-hash/557ee9b89bb2798d5dffbc8fd1636e32df5d50fe.svg",
+              "sha256": "676e94e9f688fe62d07a56fcb96072335d8132e31d3eecc096bc83ffadd411b2",
+              "bytes": 950
+            },
+            {
+              "file": "assets/by-hash/9fa385aeb84c434502d984042e33dcf603c4a5fb.svg",
+              "sha256": "349498e6872b7b6425c7195e89e0156e5cf3a76a588b8fcc30ffc57684b1d21d",
+              "bytes": 1044
+            },
+            {
+              "file": "assets/by-hash/2be0379a43e7c5241b7793d1ba4550119c929882.svg",
+              "sha256": "ac5a7374304276c0c5660ef1a0ef8551e5fc1b840ed9372d44f490c23d6e9bf6",
+              "bytes": 688
+            },
+            {
+              "file": "assets/by-hash/72204ba8668458f330a43efccd98545c63fc49a9.svg",
+              "sha256": "8cde40645df8e5c172a59a7c222c5d6899903d756ed81a4d3e90a95587228f63",
+              "bytes": 504
+            },
+            {
+              "file": "assets/by-hash/759f8e2e23cb024faf820b8516689fa3ea41feff.svg",
+              "sha256": "4fe972c4f618f3f397c4ac73b823cf2192d11d432e1742792a55a3c399936177",
+              "bytes": 1053
+            },
+            {
+              "file": "assets/by-hash/026036c37a26c8de1a2cf09a1e7b69b7b18d7d40.svg",
+              "sha256": "ccb90c9c90f92cd1e04f9904021990f7c16784814ab8f7d44c3db3f3a6368e69",
+              "bytes": 786
+            },
+            {
+              "file": "assets/by-hash/d4aa40a15ba5d1f15fdac994042912e98a8a8b71.svg",
+              "sha256": "a8fa2b39420973712865e6bd3174746ff638c68fd7393bc1dcc9738579684f86",
+              "bytes": 666
+            },
+            {
+              "file": "assets/by-hash/4ded2bd4218b45b3133a3c0357de5a4eb6c51508.svg",
+              "sha256": "a7a6a8f9f622185cd25601cd5bd78c505400cfe3e12869df6d70b316c89d9029",
+              "bytes": 1772
+            },
+            {
+              "file": "assets/by-hash/1342ee8b6a78105fca25a288eb1b9def322158dc.svg",
+              "sha256": "14a1898555613a70a0372d5d9e06ef3c34f5bf553c4397cc4986e0a9f1283052",
+              "bytes": 565
+            },
+            {
+              "file": "assets/by-hash/8939e5b9c310080520953076978b15c600e99090.svg",
+              "sha256": "db82693f0865d911a20c82392ba8270a8961de73968bf1ba306940ebaf7635a5",
+              "bytes": 2325
+            },
+            {
+              "file": "assets/by-hash/78f93ac50439583dad85739b704c4e442c119494.svg",
+              "sha256": "cc99fb126e10621dd3b25d599da759102356d81b05f4c3b3458c472dc8de0ba9",
+              "bytes": 336
+            },
+            {
+              "file": "assets/by-hash/f110dfc1dfb879ef597850fe1c382834b9f45335.svg",
+              "sha256": "9a32422e03c7aa28dabdb27033d4d48692213f3ddf423cc0baa607ca8abc9d1a",
+              "bytes": 716
+            },
+            {
+              "file": "assets/by-hash/8da30ad3a0fe11232a11c6202a1de3fdad356e2e.svg",
+              "sha256": "b9d838a6b4c5785e055cf4169218f7aa765496efec4fdbc7bb79c3c1e5c83a88",
+              "bytes": 716
+            }
+          ]
+        },
+        {
+          "nodeId": "13:2",
+          "name": "02 · 本次训练总结",
+          "width": 406,
+          "height": 860,
+          "order": 2,
+          "context": "contexts/03-practice-review/02__node-13-2.tsx",
+          "contextSha256": "c895ee4baf46ef6cd71b6b8e73160ba067d3947a8adb69da907a6436475cf8a6",
+          "screenshot": "screens/03-practice-review/02__node-13-2.png",
+          "screenshotSha256": "aeaa43cad5205ad4a92d7f8cfab20d2f8429ac5ef0446e02f58def85876befa0",
+          "screenshotBytes": 217233,
+          "assets": [
+            {
+              "file": "assets/by-hash/5f550e903120f3b012a60d685009257e1ee7b1f5.svg",
+              "sha256": "6ddf74710fc8e0a9cfffd45a3365dfec5eaabc7753b899bea4c8c1969a6aa87d",
+              "bytes": 464
+            },
+            {
+              "file": "assets/by-hash/24188d2f7051ca2172800e62521ddee6a152ce2d.svg",
+              "sha256": "6987ac18a830d29520bb4d68b7b11dc94168faf5ae1d9934f8a47b601e452d73",
+              "bytes": 2323
+            },
+            {
+              "file": "assets/by-hash/51c9a99c2fadb97713547790ba14e9dc04b15b90.svg",
+              "sha256": "50e504bcc1ca837d95783596e7b6244b5f196cdab19cc62d05aa1cf3c0f77eab",
+              "bytes": 316
+            },
+            {
+              "file": "assets/by-hash/557ee9b89bb2798d5dffbc8fd1636e32df5d50fe.svg",
+              "sha256": "676e94e9f688fe62d07a56fcb96072335d8132e31d3eecc096bc83ffadd411b2",
+              "bytes": 950
+            },
+            {
+              "file": "assets/by-hash/9fa385aeb84c434502d984042e33dcf603c4a5fb.svg",
+              "sha256": "349498e6872b7b6425c7195e89e0156e5cf3a76a588b8fcc30ffc57684b1d21d",
+              "bytes": 1044
+            },
+            {
+              "file": "assets/by-hash/2be0379a43e7c5241b7793d1ba4550119c929882.svg",
+              "sha256": "ac5a7374304276c0c5660ef1a0ef8551e5fc1b840ed9372d44f490c23d6e9bf6",
+              "bytes": 688
+            }
+          ]
+        },
+        {
+          "nodeId": "14:2",
+          "name": "03 · 错题复盘",
+          "width": 406,
+          "height": 860,
+          "order": 3,
+          "context": "contexts/03-practice-review/03__node-14-2.tsx",
+          "contextSha256": "03d000f2214e065e467117c3706c0526e58af84dfba2a1d2d8189ae20312f0b9",
+          "screenshot": "screens/03-practice-review/03__node-14-2.png",
+          "screenshotSha256": "59896ccf890a51e37d3f38aa6d4a975efc22a175c31d9e28b7d6eec2d49ef468",
+          "screenshotBytes": 235155,
+          "assets": [
+            {
+              "file": "assets/by-hash/8704787ca656d182c51cd5dc6d6f3b98bc206148.svg",
+              "sha256": "96756a8a172e8b3736af64efceae2ff8f441c678e63dcf544c29df6235fa4aa5",
+              "bytes": 1373
+            },
+            {
+              "file": "assets/by-hash/f8a181b097bef9ab5e191f800bdb29fe5ca3099f.svg",
+              "sha256": "be71b1dbae438019554e8342ed00568a0cfa8b987616908be39d9f7b7f0ffeef",
+              "bytes": 347
+            },
+            {
+              "file": "assets/by-hash/f1b56352e19aa8d49804ce3eb0c25e7ec99e80fe.svg",
+              "sha256": "c55bdd1f2205c6bceb9568830d6153990d05dac121edbbcdfbdbaabb48c29194",
+              "bytes": 909
+            },
+            {
+              "file": "assets/by-hash/c3863972c507c3f69388d4223105ca757b1205ca.svg",
+              "sha256": "cd9430d49e58c994fcb02f50258cb8a6b28faf4114147ce8735b00545ec703e7",
+              "bytes": 789
+            },
+            {
+              "file": "assets/by-hash/ac0a8c0cce2bd1f52acbb339fea9840e44e5fd9d.svg",
+              "sha256": "29a98cc2a7859a0a8d82f0514d351dbd72caf6b047a2733e93780938db35aa83",
+              "bytes": 2331
+            },
+            {
+              "file": "assets/by-hash/036d817f10f8279c7c032207ce644839c1a7bbe6.svg",
+              "sha256": "ed864c663ae4e83b51432db1b2805dd74b6ea7b9572c2c8a5aef01829b4ee6bc",
+              "bytes": 347
+            },
+            {
+              "file": "assets/by-hash/72204ba8668458f330a43efccd98545c63fc49a9.svg",
+              "sha256": "8cde40645df8e5c172a59a7c222c5d6899903d756ed81a4d3e90a95587228f63",
+              "bytes": 504
+            },
+            {
+              "file": "assets/by-hash/557ee9b89bb2798d5dffbc8fd1636e32df5d50fe.svg",
+              "sha256": "676e94e9f688fe62d07a56fcb96072335d8132e31d3eecc096bc83ffadd411b2",
+              "bytes": 950
+            },
+            {
+              "file": "assets/by-hash/9fa385aeb84c434502d984042e33dcf603c4a5fb.svg",
+              "sha256": "349498e6872b7b6425c7195e89e0156e5cf3a76a588b8fcc30ffc57684b1d21d",
+              "bytes": 1044
+            },
+            {
+              "file": "assets/by-hash/2be0379a43e7c5241b7793d1ba4550119c929882.svg",
+              "sha256": "ac5a7374304276c0c5660ef1a0ef8551e5fc1b840ed9372d44f490c23d6e9bf6",
+              "bytes": 688
+            }
+          ]
+        },
+        {
+          "nodeId": "15:2",
+          "name": "04 · 复盘完成",
+          "width": 406,
+          "height": 860,
+          "order": 4,
+          "context": "contexts/03-practice-review/04__node-15-2.tsx",
+          "contextSha256": "d9c4f577672e2fc75fc0890aa9561b90ac37400af780e4fa2157a96159f256a1",
+          "screenshot": "screens/03-practice-review/04__node-15-2.png",
+          "screenshotSha256": "73cd2775e20f7043e78c929bcdbbb5f1fae7a73de99ab18f9d318bc149c1f3d6",
+          "screenshotBytes": 194147,
+          "assets": [
+            {
+              "file": "assets/by-hash/a2954802608f7bc5c084a8285a6f67d4a5c52eed.svg",
+              "sha256": "d77dd4bede6f3588b371d6c9d8d2d40226fec0321e7c8a67cf849322d614ff5b",
+              "bytes": 577
+            },
+            {
+              "file": "assets/by-hash/557ee9b89bb2798d5dffbc8fd1636e32df5d50fe.svg",
+              "sha256": "676e94e9f688fe62d07a56fcb96072335d8132e31d3eecc096bc83ffadd411b2",
+              "bytes": 950
+            },
+            {
+              "file": "assets/by-hash/9fa385aeb84c434502d984042e33dcf603c4a5fb.svg",
+              "sha256": "349498e6872b7b6425c7195e89e0156e5cf3a76a588b8fcc30ffc57684b1d21d",
+              "bytes": 1044
+            },
+            {
+              "file": "assets/by-hash/2be0379a43e7c5241b7793d1ba4550119c929882.svg",
+              "sha256": "ac5a7374304276c0c5660ef1a0ef8551e5fc1b840ed9372d44f490c23d6e9bf6",
+              "bytes": 688
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "51:6",
+      "slug": "04-position",
+      "name": "04 · 岗位决策",
+      "metadata": "metadata/pages/04-position.xml",
+      "variables": "variables/04-position.json",
+      "screens": [
+        {
+          "nodeId": "18:2",
+          "name": "01 · 岗位发现",
+          "width": 406,
+          "height": 860,
+          "order": 1,
+          "context": "contexts/04-position/01__node-18-2.tsx",
+          "contextSha256": "6c38b80c3044ccffcc8dc4aec139f881b8f770b37e719f6ffe9f4bbee9bc1254",
+          "screenshot": "screens/04-position/01__node-18-2.png",
+          "screenshotSha256": "9e0610664e52e10119c22268f3cadcb154e3979f81a05279ef1f7700d930fe83",
+          "screenshotBytes": 201687,
+          "assets": [
+            {
+              "file": "assets/by-hash/5942678affda30807d303ee4370dec566b023050.svg",
+              "sha256": "c050bfa63c0c9aa6141ebbf579cc85845fa84e44d0ac2583667c5717961bef1e",
+              "bytes": 331
+            },
+            {
+              "file": "assets/by-hash/ac0a8c0cce2bd1f52acbb339fea9840e44e5fd9d.svg",
+              "sha256": "29a98cc2a7859a0a8d82f0514d351dbd72caf6b047a2733e93780938db35aa83",
+              "bytes": 2331
+            },
+            {
+              "file": "assets/by-hash/aa4b8a39245e345ec5288d3c74544a363d1b1148.svg",
+              "sha256": "f51a22e9fe09401074fec135e84695b8a9cdf294a5c6b5a46e2c667375e6ec26",
+              "bytes": 316
+            },
+            {
+              "file": "assets/by-hash/94da445167607965dc204030de85957bb899c0d5.svg",
+              "sha256": "e83f734b8460989a52f463fd29ad22bbfb6b81acbba76acf852e58a81a6be984",
+              "bytes": 2333
+            },
+            {
+              "file": "assets/by-hash/b4093de5d70bff2979960f1c2e86808aa7491247.svg",
+              "sha256": "43931af20341cdf497a291284b6c0ce0b53ee9451a7b84d2889fa487b776e810",
+              "bytes": 1005
+            }
+          ]
+        },
+        {
+          "nodeId": "19:2",
+          "name": "02 · 全部岗位",
+          "width": 406,
+          "height": 860,
+          "order": 2,
+          "context": "contexts/04-position/02__node-19-2.tsx",
+          "contextSha256": "9bdb29d077571f372620d7eaf75d36ba5954c08e9a8bcc15c6308fd2c7dbfc55",
+          "screenshot": "screens/04-position/02__node-19-2.png",
+          "screenshotSha256": "fdb2e6691c89beb6dccfd06b9fa6a54e4fee248cb0d5a511a5419415583604a4",
+          "screenshotBytes": 202890,
+          "assets": [
+            {
+              "file": "assets/by-hash/5942678affda30807d303ee4370dec566b023050.svg",
+              "sha256": "c050bfa63c0c9aa6141ebbf579cc85845fa84e44d0ac2583667c5717961bef1e",
+              "bytes": 331
+            },
+            {
+              "file": "assets/by-hash/6ccdf4bcc1d0ff9fa79a7573812644b92b128b91.svg",
+              "sha256": "a9028e4d5cccd485938cca9266d73193eda364394c3d458de326708cdfc79fff",
+              "bytes": 647
+            },
+            {
+              "file": "assets/by-hash/96736d08f1bdfec1af348b3b82d815cc42aaeba5.svg",
+              "sha256": "a4a941cb5cd97fc137b36c5f69ddd89e9a244a0be8d75d724a39bf6cd677cf65",
+              "bytes": 316
+            },
+            {
+              "file": "assets/by-hash/83846121281644ac717e701862c9987d87c45162.svg",
+              "sha256": "708f1757ca8e7df9b1d8c2a83a95c0cd39349afc3cd6a770e3f13a1a7a150fda",
+              "bytes": 347
+            }
+          ]
+        },
+        {
+          "nodeId": "20:2",
+          "name": "03 · 岗位详情",
+          "width": 406,
+          "height": 860,
+          "order": 3,
+          "context": "contexts/04-position/03__node-20-2.tsx",
+          "contextSha256": "25e261554b5ed64191a289ca68f1f5dd27b8d14c9660d51267bd04ad957a5e91",
+          "screenshot": "screens/04-position/03__node-20-2.png",
+          "screenshotSha256": "c603ceef0bba7748e9f0669d08af6cce46355e67e769f7fa5b34eac6f2c13c8b",
+          "screenshotBytes": 209180,
+          "assets": [
+            {
+              "file": "assets/by-hash/5942678affda30807d303ee4370dec566b023050.svg",
+              "sha256": "c050bfa63c0c9aa6141ebbf579cc85845fa84e44d0ac2583667c5717961bef1e",
+              "bytes": 331
+            },
+            {
+              "file": "assets/by-hash/2f4b96b2b2351cea3e9da07d6b351e5e80249045.svg",
+              "sha256": "838eb6e75d347952e19cf0909e6918dd06da51f8319393bdfdf957e9a66f58b3",
+              "bytes": 734
+            },
+            {
+              "file": "assets/by-hash/86a3372cde6c9878cb6cc69794c63c8908350226.svg",
+              "sha256": "e958334301bb7dc8fcedb326b06deb6d2abda96d0d419c09a52b1bb32ebd88b8",
+              "bytes": 347
+            },
+            {
+              "file": "assets/by-hash/ce690986c332f35c7dbe66697dc88b092ae85045.svg",
+              "sha256": "bcfddc0739ce497cbec20eddb7a7c5d305c64590694932c734d50ae2a24941f2",
+              "bytes": 2265
+            }
+          ]
+        },
+        {
+          "nodeId": "23:2",
+          "name": "04 · 岗位对比",
+          "width": 406,
+          "height": 860,
+          "order": 4,
+          "context": "contexts/04-position/04__node-23-2.tsx",
+          "contextSha256": "0cf1c767e39b21218d8e57d56d991946d311ca74e777b0cf0cf3ea9a5695f7f3",
+          "screenshot": "screens/04-position/04__node-23-2.png",
+          "screenshotSha256": "b435dcedb5307c2626d07dd4b3837d8c75a2c064802e3be879b6eabe7bd020e9",
+          "screenshotBytes": 203078,
+          "assets": [
+            {
+              "file": "assets/by-hash/5942678affda30807d303ee4370dec566b023050.svg",
+              "sha256": "c050bfa63c0c9aa6141ebbf579cc85845fa84e44d0ac2583667c5717961bef1e",
+              "bytes": 331
+            },
+            {
+              "file": "assets/by-hash/aad242047cd19aceb80a0659c84e92c6a2b4a5c3.svg",
+              "sha256": "430cfad2337b45bc8536fbc5ba67a3c7a3e77c46e97869bc8928c4e2600c6b25",
+              "bytes": 2356
+            }
+          ]
+        },
+        {
+          "nodeId": "21:2",
+          "name": "05 · 选择影响预览",
+          "width": 406,
+          "height": 860,
+          "order": 5,
+          "context": "contexts/04-position/05__node-21-2.tsx",
+          "contextSha256": "238272acc8fbedfa31fdab046324dce29d275aa56065872690314d12912709ff",
+          "screenshot": "screens/04-position/05__node-21-2.png",
+          "screenshotSha256": "503561b8d107848c3ab9d5e85071d1ece15568af6f09081fb4682b2674bc9e7c",
+          "screenshotBytes": 195247,
+          "assets": [
+            {
+              "file": "assets/by-hash/5942678affda30807d303ee4370dec566b023050.svg",
+              "sha256": "c050bfa63c0c9aa6141ebbf579cc85845fa84e44d0ac2583667c5717961bef1e",
+              "bytes": 331
+            },
+            {
+              "file": "assets/by-hash/1d05ad6c46112634e3beef1f015942b2080025c3.svg",
+              "sha256": "3b85c635f5eb99f94b7da6ba8354ac1f44db9503ae89885991e8910d95ea04f6",
+              "bytes": 602
+            },
+            {
+              "file": "assets/by-hash/c5e6d03c6fff1851044d2b34545981520e61571d.svg",
+              "sha256": "08bca3b75a83a230940f4f344575c5e6b4680adb2316152bedc26d477e03f981",
+              "bytes": 756
+            }
+          ]
+        },
+        {
+          "nodeId": "22:2",
+          "name": "06 · 主目标确认",
+          "width": 406,
+          "height": 860,
+          "order": 6,
+          "context": "contexts/04-position/06__node-22-2.tsx",
+          "contextSha256": "7629bc62510fedcd6ca3426b448c20922d64cfa83d709b87ce23c6890fee3874",
+          "screenshot": "screens/04-position/06__node-22-2.png",
+          "screenshotSha256": "94b78bc667c39e12d3e69de07b672e39b2c6e72d695f43457801be90529791de",
+          "screenshotBytes": 163486,
+          "assets": [
+            {
+              "file": "assets/by-hash/511efa1d364500792b44faaa2be1db376a9d857a.svg",
+              "sha256": "874a016cb9b150fd6fdf049171b5f6aadc5cef659e640a3825f52c8621f99620",
+              "bytes": 669
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "51:7",
+      "slug": "05-photo-search",
+      "name": "05 · 拍照搜题",
+      "metadata": "metadata/pages/05-photo-search.xml",
+      "variables": "variables/05-photo-search.json",
+      "screens": [
+        {
+          "nodeId": "16:2",
+          "name": "01 · 相机授权",
+          "width": 406,
+          "height": 860,
+          "order": 1,
+          "context": "contexts/05-photo-search/01__node-16-2.tsx",
+          "contextSha256": "8b14e1fc9b37076ec062349e82f9c8531fcb1cb9d5aee1c797584074c1e0ad46",
+          "screenshot": "screens/05-photo-search/01__node-16-2.png",
+          "screenshotSha256": "52132fa0b1e8d8923eaa2719769a7451eb67554e9f001f63d8b1e06039f79805",
+          "screenshotBytes": 151215,
+          "assets": [
+            {
+              "file": "assets/by-hash/49fdb9fdd54a12c8ead208b15a462e04f4d2af94.svg",
+              "sha256": "7b8da97c033492831456200b8f275a9af4216c1620003586a60d67a427e79739",
+              "bytes": 1077
+            }
+          ]
+        },
+        {
+          "nodeId": "40:2",
+          "name": "02 · 拍摄",
+          "width": 406,
+          "height": 860,
+          "order": 2,
+          "context": "contexts/05-photo-search/02__node-40-2.tsx",
+          "contextSha256": "ea64223f63ccc4bace4e143456d57169cb66ccdec01d63f996f25575d2b227f3",
+          "screenshot": "screens/05-photo-search/02__node-40-2.png",
+          "screenshotSha256": "43a2076b741cb89b30c77bd46ef39365993401a42550b42dbd2876408f8edbc2",
+          "screenshotBytes": 162773,
+          "assets": [
+            {
+              "file": "assets/by-hash/ed666fd5a16a029a3c5253c404309034ea9aa96a.svg",
+              "sha256": "47bab92afad37cf85e05ba41e24672f594416585d65297d1a070cdc720914820",
+              "bytes": 329
+            },
+            {
+              "file": "assets/by-hash/560ffb2272d21ac4e1367026a62fe880915fa05e.svg",
+              "sha256": "613a0648a690911e4c54e09144d6ebde2983bf9997c7fa613912b5fbc23779ce",
+              "bytes": 1542
+            },
+            {
+              "file": "assets/by-hash/c42aa9df31220f5f30e0c36183ab40c19c614b77.svg",
+              "sha256": "e39f630d751163118423aee7c277b3b1b58dd425043a9e454458d6282f317046",
+              "bytes": 1088
+            }
+          ]
+        },
+        {
+          "nodeId": "41:2",
+          "name": "03 · 裁剪校正",
+          "width": 406,
+          "height": 860,
+          "order": 3,
+          "context": "contexts/05-photo-search/03__node-41-2.tsx",
+          "contextSha256": "f628f7a8dd392d26ec1683f5e7429b03ef5ffae633664e5581fdf1c60da1d2db",
+          "screenshot": "screens/05-photo-search/03__node-41-2.png",
+          "screenshotSha256": "f408c888e756fa26725ae2bd65ac1f80ff8ec9024f5048dcefdf463449ef960b",
+          "screenshotBytes": 245514,
+          "assets": [
+            {
+              "file": "assets/by-hash/ed666fd5a16a029a3c5253c404309034ea9aa96a.svg",
+              "sha256": "47bab92afad37cf85e05ba41e24672f594416585d65297d1a070cdc720914820",
+              "bytes": 329
+            },
+            {
+              "file": "assets/by-hash/4894166cef53003d0ab21e9e18cecd487bee4e60.svg",
+              "sha256": "b80378c24e2da89e430e3f2c54582f105695a40a2657a30f939cfc71db178114",
+              "bytes": 1189
+            },
+            {
+              "file": "assets/by-hash/c0daf8b42ad65ec3286f71cbad714576849af8da.svg",
+              "sha256": "413645f628304d2a83e3c08acbbca66227862c911010013eac9029567eee1b8d",
+              "bytes": 872
+            },
+            {
+              "file": "assets/by-hash/70b0146c353ce6a392feafbcdfdec97404376352.svg",
+              "sha256": "2260c139af50393198c5536e5905cd4716dcc257590199fec0e75bf1a7bfe14e",
+              "bytes": 1094
+            }
+          ]
+        },
+        {
+          "nodeId": "42:2",
+          "name": "04 · OCR 核对",
+          "width": 406,
+          "height": 860,
+          "order": 4,
+          "context": "contexts/05-photo-search/04__node-42-2.tsx",
+          "contextSha256": "6cbb1aa5815f9a4005fc89eda9e6d34ea7e60beb48bd46d2ed590bf96c8725bc",
+          "screenshot": "screens/05-photo-search/04__node-42-2.png",
+          "screenshotSha256": "73c71a231bcea43d15776e00e254605b596b058691cbda6f1aef144639c686ef",
+          "screenshotBytes": 197840,
+          "assets": [
+            {
+              "file": "assets/by-hash/5942678affda30807d303ee4370dec566b023050.svg",
+              "sha256": "c050bfa63c0c9aa6141ebbf579cc85845fa84e44d0ac2583667c5717961bef1e",
+              "bytes": 331
+            },
+            {
+              "file": "assets/by-hash/b1de7ac0a68ec15807ef9bee78de2cef40811cd8.svg",
+              "sha256": "0cbab50504ea5505f0ba3ed998da587e21bc395b69b7964a29f92f5793eb05c8",
+              "bytes": 1175
+            },
+            {
+              "file": "assets/by-hash/223ae442c1b7b8717e5c7250ab759701b9be571d.svg",
+              "sha256": "d38c6b714db3b8d8cfac07e000d1e6d8af71cabdf9d04590478981cbd974a805",
+              "bytes": 1110
+            },
+            {
+              "file": "assets/by-hash/f71a1d599b42be53bb3760f69e114df21d12162a.svg",
+              "sha256": "c9b4bd7944e8a956f36d8a93fb5fe6e21fd0b35cfe2bda35b5171cbc200c5a8d",
+              "bytes": 654
+            },
+            {
+              "file": "assets/by-hash/a074f62bdfde47f3e5df14a8a9abe2d79e65eb3f.svg",
+              "sha256": "654ca228f1f9d6644eef4f8133640e897ace7614b1d5ff985ca4f168b7fe4b9f",
+              "bytes": 1233
+            },
+            {
+              "file": "assets/by-hash/c92a6ab2e8b45560825ee0bbe9607ac1c5e3bf11.svg",
+              "sha256": "fc5260bd183abe00326b6a5b38d95a802171934405f21ecf55e7e2c4421661bd",
+              "bytes": 1053
+            },
+            {
+              "file": "assets/by-hash/d81345fdd897f755f19567dfcb96231b3c5124d2.svg",
+              "sha256": "3bb732ff742e7c2f6a269c80a9287d3aa06249f4f8984410292508fdd91b01c8",
+              "bytes": 1119
+            },
+            {
+              "file": "assets/by-hash/931cb87021b3a10165a80695f9ff463a66186a07.svg",
+              "sha256": "b0e2de963eb0227e56741e04b1052a6015635a8579030dc9b066a1e4ad98fadd",
+              "bytes": 476
+            }
+          ]
+        },
+        {
+          "nodeId": "43:2",
+          "name": "05 · 题库检索中",
+          "width": 406,
+          "height": 860,
+          "order": 5,
+          "context": "contexts/05-photo-search/05__node-43-2.tsx",
+          "contextSha256": "1cc91c76c949d0e99c0269399618e35378e35d595e46c8e84c8ce3d638aed4e1",
+          "screenshot": "screens/05-photo-search/05__node-43-2.png",
+          "screenshotSha256": "e5a78656dbb9a596ef71b39abeefe981e63d25d8cf9a9857e0dcd481654e29e7",
+          "screenshotBytes": 159224,
+          "assets": []
+        },
+        {
+          "nodeId": "44:2",
+          "name": "06 · 多题命中",
+          "width": 406,
+          "height": 860,
+          "order": 6,
+          "context": "contexts/05-photo-search/06__node-44-2.tsx",
+          "contextSha256": "cda18d5c8046c076870a690d6b5fd8a0cb5c830a93ac29d35522245a116efa81",
+          "screenshot": "screens/05-photo-search/06__node-44-2.png",
+          "screenshotSha256": "d391f8e686255f33cfbd6c464eaf61b2a48b70cc36e4c0b81d9cd6b7354807f6",
+          "screenshotBytes": 211075,
+          "assets": [
+            {
+              "file": "assets/by-hash/5942678affda30807d303ee4370dec566b023050.svg",
+              "sha256": "c050bfa63c0c9aa6141ebbf579cc85845fa84e44d0ac2583667c5717961bef1e",
+              "bytes": 331
+            },
+            {
+              "file": "assets/by-hash/0c93c94c93053f7189d9659edcf48b12901fa2f7.svg",
+              "sha256": "a9028e4d5cccd485938cca9266d73193eda364394c3d458de326708cdfc79fff",
+              "bytes": 647
+            }
+          ]
+        },
+        {
+          "nodeId": "45:2",
+          "name": "07 · 题库未命中",
+          "width": 406,
+          "height": 860,
+          "order": 7,
+          "context": "contexts/05-photo-search/07__node-45-2.tsx",
+          "contextSha256": "8d8e270407e4aab24f6c8760292c5d5271901dd0b48c5b81a0f964fd641e10f2",
+          "screenshot": "screens/05-photo-search/07__node-45-2.png",
+          "screenshotSha256": "37890dd9973b5cd2ae6748a41cb7a0e1d1587f17c4b0b0a3435ea1f2984e4954",
+          "screenshotBytes": 182215,
+          "assets": [
+            {
+              "file": "assets/by-hash/8e672da2ee6652eadaf46725206f23f7c659a676.svg",
+              "sha256": "48dc7ef880473f3b5395d2bf25e2f4a21634ba5a633f6c9d617020a74d8ca0bf",
+              "bytes": 647
+            },
+            {
+              "file": "assets/by-hash/a2d39931ce3dbabfdccdb4195e2ce718482c9fe5.svg",
+              "sha256": "713e8d3e9d1b27a44efc17f91e91fcfc860f91bfae9c4d9543acffcc6ba10566",
+              "bytes": 4248
+            },
+            {
+              "file": "assets/by-hash/0cb873aaad9f4042de2dc24335976058076e80a3.svg",
+              "sha256": "129c15338b0be93c8a3815b2ecea4cf67a4edee2ee5d4e3d1ad75537aad4eb6b",
+              "bytes": 1088
+            },
+            {
+              "file": "assets/by-hash/5942678affda30807d303ee4370dec566b023050.svg",
+              "sha256": "c050bfa63c0c9aa6141ebbf579cc85845fa84e44d0ac2583667c5717961bef1e",
+              "bytes": 331
+            }
+          ]
+        },
+        {
+          "nodeId": "46:2",
+          "name": "08 · AI 解题中",
+          "width": 406,
+          "height": 860,
+          "order": 8,
+          "context": "contexts/05-photo-search/08__node-46-2.tsx",
+          "contextSha256": "59bad19cbdb76782071716311010b7386b332fdad1ef631880a4e9b46a4c9bba",
+          "screenshot": "screens/05-photo-search/08__node-46-2.png",
+          "screenshotSha256": "3895b03c93c6490560a366049600a506176318d894ad2263dddb638a2ec18dea",
+          "screenshotBytes": 159461,
+          "assets": []
+        },
+        {
+          "nodeId": "47:2",
+          "name": "09 · 题库解析",
+          "width": 406,
+          "height": 860,
+          "order": 9,
+          "context": "contexts/05-photo-search/09__node-47-2.tsx",
+          "contextSha256": "3032048c8909ca0f21d74cfb959e9ea4ed9a341dda72d39aa9d420c9adce95f7",
+          "screenshot": "screens/05-photo-search/09__node-47-2.png",
+          "screenshotSha256": "b5e568a0d3e9256eff71b0d9cf5478918e1e499e17085edbc4b15d88f374025a",
+          "screenshotBytes": 220760,
+          "assets": [
+            {
+              "file": "assets/by-hash/5942678affda30807d303ee4370dec566b023050.svg",
+              "sha256": "c050bfa63c0c9aa6141ebbf579cc85845fa84e44d0ac2583667c5717961bef1e",
+              "bytes": 331
+            },
+            {
+              "file": "assets/by-hash/d1ddbf5b936bb5c1e7ed7ed3880c852a32dc913b.svg",
+              "sha256": "5917602c7858ff76a3833f03965c1deb3dd47be6f74a384b952b54aad9c3c197",
+              "bytes": 1082
+            },
+            {
+              "file": "assets/by-hash/ac8879024019158c6bb25945b6fd704de37c6887.svg",
+              "sha256": "d2da3be77a7052cbc06893adaf6bbf6c57d81ec135978c67943781d62cfe327c",
+              "bytes": 794
+            },
+            {
+              "file": "assets/by-hash/24188d2f7051ca2172800e62521ddee6a152ce2d.svg",
+              "sha256": "6987ac18a830d29520bb4d68b7b11dc94168faf5ae1d9934f8a47b601e452d73",
+              "bytes": 2323
+            },
+            {
+              "file": "assets/by-hash/e8e5bddd42b3e77401a8a9c5d6ba3ca4a8dee865.svg",
+              "sha256": "271d6cbca9bd6dd717227566204beb7340c01599fd1833462a93dd63e67aec65",
+              "bytes": 609
+            }
+          ]
+        },
+        {
+          "nodeId": "48:2",
+          "name": "10 · AI 解析",
+          "width": 406,
+          "height": 860,
+          "order": 10,
+          "context": "contexts/05-photo-search/10__node-48-2.tsx",
+          "contextSha256": "44a631ebf75d4a45ae66faadf7c40b907c31c5516d2ef1f8aa77db0a81d59516",
+          "screenshot": "screens/05-photo-search/10__node-48-2.png",
+          "screenshotSha256": "b2c6ba4e4c172c65d421279d63ad6ff58a706c91b39d33dfb507316e1ea83825",
+          "screenshotBytes": 238037,
+          "assets": [
+            {
+              "file": "assets/by-hash/5942678affda30807d303ee4370dec566b023050.svg",
+              "sha256": "c050bfa63c0c9aa6141ebbf579cc85845fa84e44d0ac2583667c5717961bef1e",
+              "bytes": 331
+            },
+            {
+              "file": "assets/by-hash/d1ddbf5b936bb5c1e7ed7ed3880c852a32dc913b.svg",
+              "sha256": "5917602c7858ff76a3833f03965c1deb3dd47be6f74a384b952b54aad9c3c197",
+              "bytes": 1082
+            },
+            {
+              "file": "assets/by-hash/2b988a3375518dc0d9d878e8588bab980dea4e85.svg",
+              "sha256": "4576ff5f15082fd24dff37e600cc95b04c52aa327629b3db37d665da25f31d3e",
+              "bytes": 4317
+            },
+            {
+              "file": "assets/by-hash/a23e20147922d3d35d7853b399f9e4fce5b4015f.svg",
+              "sha256": "a19b6e0ee7d85e4263d082585cadb6efbc94f48ec5e5b78dbc216cec5fa3aa94",
+              "bytes": 4335
+            },
+            {
+              "file": "assets/by-hash/48ce3c01d0c55391fc721ca7e0e6f574778c7aae.svg",
+              "sha256": "2e17d3c75e14fe90a737227af8312935f97d979f0df110285a937f0ba5a6397f",
+              "bytes": 2325
+            },
+            {
+              "file": "assets/by-hash/812df5de2acb3100e893f24d1c0287dfbc30359f.svg",
+              "sha256": "9e65f549c4c127a4af01f5f40e8bbb021fa1886579256bbec92846889a5cb80c",
+              "bytes": 609
+            }
+          ]
+        },
+        {
+          "nodeId": "49:2",
+          "name": "11 · 收录成功",
+          "width": 406,
+          "height": 860,
+          "order": 11,
+          "context": "contexts/05-photo-search/11__node-49-2.tsx",
+          "contextSha256": "edb21b20c70888027a6229067143a5d8cac234c3a1f05aceaaef2ec08a33842a",
+          "screenshot": "screens/05-photo-search/11__node-49-2.png",
+          "screenshotSha256": "fb951bb36f4a23679f5c0582e4f40533b40cea300d81dd44173b96dd671ff9e9",
+          "screenshotBytes": 169859,
+          "assets": [
+            {
+              "file": "assets/by-hash/621d61697f657adc054a2b81017ae6d1cb821049.svg",
+              "sha256": "08ee9333d47ec4446e496f8dbf7b1a6fc50a9368f98c135fa5d42c13df2b89a6",
+              "bytes": 577
+            },
+            {
+              "file": "assets/by-hash/c48247d8ad7f337b0ac1cd29019e6a3fc34c16fb.svg",
+              "sha256": "1fc2227c13f2ba1178825c83aed0cba55266676d0973cb29948fa61de512c23d",
+              "bytes": 877
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "51:8",
+      "slug": "06-essay",
+      "name": "06 · 申论工作台",
+      "metadata": "metadata/pages/06-essay.xml",
+      "variables": "variables/06-essay.json",
+      "screens": [
+        {
+          "nodeId": "17:2",
+          "name": "01 · 作答",
+          "width": 406,
+          "height": 860,
+          "order": 1,
+          "context": "contexts/06-essay/01__node-17-2.tsx",
+          "contextSha256": "3847f1fb93e81898a2291738c90be4e3fa8e7cd3213a94f0235eb5545a1ff751",
+          "screenshot": "screens/06-essay/01__node-17-2.png",
+          "screenshotSha256": "8261b01b961e7fd2ac931a5a05803d0528e0e5f8354dc5ad401bd6ac934477ca",
+          "screenshotBytes": 190128,
+          "assets": [
+            {
+              "file": "assets/by-hash/82574d77bd854f19c66092dc5a87a279046d9bd8.svg",
+              "sha256": "7fe43ee8de75aa233a6a515c7e978200cc8e26a3a6447651d7466bcc67057e0c",
+              "bytes": 350
+            },
+            {
+              "file": "assets/by-hash/5f0d9a2cf31bd0efde48f926eee15b3bb1958f42.svg",
+              "sha256": "e1ef47d1417158270123f3b700dd051338865e11bc8333691bf95d2184be7ec3",
+              "bytes": 655
+            },
+            {
+              "file": "assets/by-hash/4f11c0bfbd02f1a0ccb69eb6019effe2fae405e1.svg",
+              "sha256": "f5f5212fcce455a7470dd383f2a15c8dca24ff8ca76f69d3fd9b1e342c7c037f",
+              "bytes": 1373
+            },
+            {
+              "file": "assets/by-hash/3142c80701426c7c8bfa50d90ca0b69e932454b8.svg",
+              "sha256": "0517481870e4fd32b76e42f4f254e24634659efd15b68b38197f59028671ffcc",
+              "bytes": 1373
+            },
+            {
+              "file": "assets/by-hash/6e50746e283ba788073a96b4e92ef7a884067cd2.svg",
+              "sha256": "4f76f5f49f0a1d3935911c7a78199d29a2430f941242e0c1c06b83d1829eeddf",
+              "bytes": 1390
+            },
+            {
+              "file": "assets/by-hash/a5853f0a7cdda51c93a568bf453cc650b6ea68b8.svg",
+              "sha256": "677ac862a59ed88a079c4bbab43a940feee731435a7bbf518d9d1e76b4430fad",
+              "bytes": 1908
+            }
+          ]
+        },
+        {
+          "nodeId": "29:2",
+          "name": "02 · 材料阅读",
+          "width": 406,
+          "height": 860,
+          "order": 2,
+          "context": "contexts/06-essay/02__node-29-2.tsx",
+          "contextSha256": "84c4cce4c725ffe7b5c4ad442a20837678c8d28850063ce72fb855b32897d46b",
+          "screenshot": "screens/06-essay/02__node-29-2.png",
+          "screenshotSha256": "ff635453fd13caabc9c810317581e495914ade6bc2399c06a70bf560e914e971",
+          "screenshotBytes": 239082,
+          "assets": [
+            {
+              "file": "assets/by-hash/0c93c94c93053f7189d9659edcf48b12901fa2f7.svg",
+              "sha256": "a9028e4d5cccd485938cca9266d73193eda364394c3d458de326708cdfc79fff",
+              "bytes": 647
+            },
+            {
+              "file": "assets/by-hash/8417646607a0f75b5ce935b1fabe69c9cd5ee029.svg",
+              "sha256": "df63d2ec6ffc99b773885a14de23ffea22f5db08ad12aaa18947580080b96495",
+              "bytes": 1766
+            },
+            {
+              "file": "assets/by-hash/2ce71e1c851fd3a154a842a2fa04bba80c34e9e9.svg",
+              "sha256": "3d93ce877789e998075f3115501c02b55eafe5dd97480b469b4931f6f2c77d17",
+              "bytes": 1136
+            },
+            {
+              "file": "assets/by-hash/228f0c7123dc2c3e7776689a585390eadf8af475.svg",
+              "sha256": "c55160fe230ba0a5a894fec76af1fa865d337a6e30856d2a8dfeae7971b6d811",
+              "bytes": 1703
+            },
+            {
+              "file": "assets/by-hash/a991a3a8ddc61b26bdc7d0eafb8bfafbe7e08423.svg",
+              "sha256": "2d114051f1349b33b23947c1288d49b5e7487f72cd5176bf0c77a81bc2b41dba",
+              "bytes": 342
+            }
+          ]
+        },
+        {
+          "nodeId": "30:2",
+          "name": "03 · 批改结果",
+          "width": 406,
+          "height": 860,
+          "order": 3,
+          "context": "contexts/06-essay/03__node-30-2.tsx",
+          "contextSha256": "f30a28f2289c47a0b38f6289f4872af7fc6ac65fe81d48dd9e07f22b336fecab",
+          "screenshot": "screens/06-essay/03__node-30-2.png",
+          "screenshotSha256": "7c9c5c52e4e70cb41218e555aa947260dfc55ef0c78a3dbd6e75f2aaaf9d06ba",
+          "screenshotBytes": 198779,
+          "assets": [
+            {
+              "file": "assets/by-hash/82574d77bd854f19c66092dc5a87a279046d9bd8.svg",
+              "sha256": "7fe43ee8de75aa233a6a515c7e978200cc8e26a3a6447651d7466bcc67057e0c",
+              "bytes": 350
+            },
+            {
+              "file": "assets/by-hash/543663b1d8edf1f3e5af8264f081ab683d67d52c.svg",
+              "sha256": "accd945ee7f4e558a893f656412b0b59609d5f42f9f829f2bcfb39f4ae15acce",
+              "bytes": 798
+            },
+            {
+              "file": "assets/by-hash/9344f807cd26070ef420611b7897c2ccc1673ad5.svg",
+              "sha256": "3daabb498113296a6b257b8333b91e05541fe3d3f5405d522f27b9c999ba753d",
+              "bytes": 663
+            },
+            {
+              "file": "assets/by-hash/9f55a829368e716d6d2502ea719ecf0cac0e4d99.svg",
+              "sha256": "c619529503fca76aeedcd5103ad3933c1bc4091bf3c36e738999245415b7c952",
+              "bytes": 769
+            },
+            {
+              "file": "assets/by-hash/f7904fbb0b245e248e23505793aff2fee7ce5310.svg",
+              "sha256": "775732d75e6a6435076d7f5bfb90e87ceb00dc4bcbcb8fa2a0b10accea55840f",
+              "bytes": 434
+            },
+            {
+              "file": "assets/by-hash/7160b7f6bbcc41ca5265c96a2e4861ec71dae8f9.svg",
+              "sha256": "759e413b2fdc510ba06afce272652e0bbece28e89d89062d0efaa489abeded83",
+              "bytes": 2113
+            },
+            {
+              "file": "assets/by-hash/346094347c483f4fd066cb373e8ed8ccf3966c7e.svg",
+              "sha256": "b8d7fc5a3b0928c1e6013e422584064c0fd4495cba1d6daf87d6268b3febd315",
+              "bytes": 2420
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "51:9",
+      "slug": "07-library",
+      "name": "07 · 私人资料库",
+      "metadata": "metadata/pages/07-library.xml",
+      "variables": "variables/07-library.json",
+      "screens": [
+        {
+          "nodeId": "24:2",
+          "name": "01 · 资料库首页",
+          "width": 406,
+          "height": 860,
+          "order": 1,
+          "context": "contexts/07-library/01__node-24-2.tsx",
+          "contextSha256": "702f99370a97972882727614380d7a7f5ba60cc0add337a8d3346d7631876c71",
+          "screenshot": "screens/07-library/01__node-24-2.png",
+          "screenshotSha256": "832743880d1e0f38a0f05f507a1268056180265e10bfeac5aaa056ff96db6902",
+          "screenshotBytes": 212125,
+          "assets": [
+            {
+              "file": "assets/by-hash/5f999b9bbee45599c6752653c449d94d389e5afd.svg",
+              "sha256": "821eac05dfb1782018a417f27a5a6f2cf9098179a7faaa2c427e39d5ad12e75e",
+              "bytes": 725
+            },
+            {
+              "file": "assets/by-hash/525e49ddade94c2bb4f48fc33ad50196be0291ed.svg",
+              "sha256": "4c1554013baca76ebaaae8f8cb78d031d8914e53b2b68180072b50ddc31fb7f9",
+              "bytes": 1198
+            },
+            {
+              "file": "assets/by-hash/3c7226dcd280d0e418a770e40851125ee73ab575.svg",
+              "sha256": "05e47101c103ba4a936eeb5d5fa3f912ac0f7fce84c3424bd43f00fe57488db1",
+              "bytes": 1082
+            },
+            {
+              "file": "assets/by-hash/6ccdf4bcc1d0ff9fa79a7573812644b92b128b91.svg",
+              "sha256": "a9028e4d5cccd485938cca9266d73193eda364394c3d458de326708cdfc79fff",
+              "bytes": 647
+            },
+            {
+              "file": "assets/by-hash/3edaea4fe18ba2e6a688f68ec82eb57de3957b59.svg",
+              "sha256": "a6a6ec9f0a067e0fcdff6a71bf7e3c652062f1fab7ac9fabef26e8e7478ddc24",
+              "bytes": 1043
+            },
+            {
+              "file": "assets/by-hash/798dec837c2184f67a34bcb558a01517218bc19c.svg",
+              "sha256": "d85799e86b5f1db8eeda8993793ef5b10b84dc615fc4081c32d4b168a3c607e5",
+              "bytes": 917
+            },
+            {
+              "file": "assets/by-hash/7f57fe9b34d33180e8806c5406761c04efebda53.svg",
+              "sha256": "c62fa3e558e6ee0a21d8834bbf3f59de6c4662034460b3c6b062da654b8baccc",
+              "bytes": 1135
+            },
+            {
+              "file": "assets/by-hash/43882cf2f024034dd186fb61e0abfe4e465e0626.svg",
+              "sha256": "4c014777e67b0e216c4990435e05c7e2ddc3109d17b0162fd08e63eeccb2a9f7",
+              "bytes": 661
+            },
+            {
+              "file": "assets/by-hash/fb2c2a17fd114454c5f017303525febca20c3898.svg",
+              "sha256": "cb8020f7c1de17f8e8a186c42699393d8132c8a07e2e3c2149febb09fdbd3537",
+              "bytes": 1215
+            },
+            {
+              "file": "assets/by-hash/08122a514f4ddcaafe0b1e9843f1b6b86c950a5a.svg",
+              "sha256": "9b28a0fb7b61082fbdf6329584aabad834af39a80f7fa017ee9a71a60a7ce8a5",
+              "bytes": 725
+            },
+            {
+              "file": "assets/by-hash/5942678affda30807d303ee4370dec566b023050.svg",
+              "sha256": "c050bfa63c0c9aa6141ebbf579cc85845fa84e44d0ac2583667c5717961bef1e",
+              "bytes": 331
+            }
+          ]
+        },
+        {
+          "nodeId": "26:2",
+          "name": "02 · 上传与处理",
+          "width": 406,
+          "height": 860,
+          "order": 2,
+          "context": "contexts/07-library/02__node-26-2.tsx",
+          "contextSha256": "9d1a20ba2c0948b99636340b99c583f3f13afea5613e4936c33b0edb30e3b589",
+          "screenshot": "screens/07-library/02__node-26-2.png",
+          "screenshotSha256": "2b1f1e4043240efb55dd083fea6504b6754df3ef3b752bd6b48d24678bcc5d9a",
+          "screenshotBytes": 201381,
+          "assets": [
+            {
+              "file": "assets/by-hash/9ad1f2b429e14c88e0ffcf08fd057336a0f09712.svg",
+              "sha256": "ac387a4021ac3fc727452b562966c88d878bccc8c657916095ad7b77cf6636f1",
+              "bytes": 1359
+            },
+            {
+              "file": "assets/by-hash/2f4b96b2b2351cea3e9da07d6b351e5e80249045.svg",
+              "sha256": "838eb6e75d347952e19cf0909e6918dd06da51f8319393bdfdf957e9a66f58b3",
+              "bytes": 734
+            },
+            {
+              "file": "assets/by-hash/6d7633518da529744e9a194ffceaeecd1c3d2f06.svg",
+              "sha256": "cbcaf7871f9128450763f84a7b52d8883bb999c76982bdf3a1cbf68bddb3c53e",
+              "bytes": 1010
+            },
+            {
+              "file": "assets/by-hash/017103b78c87f02eac1c6a4d71177a105d6c6e89.svg",
+              "sha256": "ea2b32cec39a5ded84486cda045b65986f92f910b2649047cebc24cab534be24",
+              "bytes": 460
+            }
+          ]
+        },
+        {
+          "nodeId": "27:2",
+          "name": "03 · 资料详情",
+          "width": 406,
+          "height": 860,
+          "order": 3,
+          "context": "contexts/07-library/03__node-27-2.tsx",
+          "contextSha256": "cf7aee46b74fb506d70901f1798c194b5754509a1d0dd77e29d8f0e915890b4e",
+          "screenshot": "screens/07-library/03__node-27-2.png",
+          "screenshotSha256": "f84a010ef80fe4230130dbd2efcf193cc8d962f61878fb0c2edbbb934693d18c",
+          "screenshotBytes": 240253,
+          "assets": [
+            {
+              "file": "assets/by-hash/fa2b9ed9bd7af8cd7ac1aedf765ee6e182dff513.svg",
+              "sha256": "c856d0d268a8baf052207ce6291b2398cfa391c7f71ecaf5b80ad83dc7906d72",
+              "bytes": 1173
+            },
+            {
+              "file": "assets/by-hash/8853e8b77efa8735e6cd9ba15f0073200ac49f46.svg",
+              "sha256": "749b8606ff7bffd4a7f0c79081def1e67b2ea0636b884bd5c45c03c2e053f9f7",
+              "bytes": 801
+            },
+            {
+              "file": "assets/by-hash/24188d2f7051ca2172800e62521ddee6a152ce2d.svg",
+              "sha256": "6987ac18a830d29520bb4d68b7b11dc94168faf5ae1d9934f8a47b601e452d73",
+              "bytes": 2323
+            },
+            {
+              "file": "assets/by-hash/ced7cc4be922ee014e8785beef9787d8df45dfe2.svg",
+              "sha256": "7087c9e21a2aa3aafaab35aea19e3feed8b94fac135df057642f0532b70eb036",
+              "bytes": 1009
+            },
+            {
+              "file": "assets/by-hash/c35551fea8e7c7b33ab74e86906ee26163e715fb.svg",
+              "sha256": "c2b3e301ea85d8f2616e1a817cfd2b5caf3d5257795372934a31da5b02bde6ba",
+              "bytes": 1104
+            },
+            {
+              "file": "assets/by-hash/5942678affda30807d303ee4370dec566b023050.svg",
+              "sha256": "c050bfa63c0c9aa6141ebbf579cc85845fa84e44d0ac2583667c5717961bef1e",
+              "bytes": 331
+            },
+            {
+              "file": "assets/by-hash/831af65c1c3b144a64bf0412ebe5d311ad1006d4.svg",
+              "sha256": "4c778296b49267eb325703bb4830f0b65618781b06a97ed6f79e8fa209b2988e",
+              "bytes": 998
+            }
+          ]
+        },
+        {
+          "nodeId": "28:2",
+          "name": "04 · 引用溯源",
+          "width": 406,
+          "height": 860,
+          "order": 4,
+          "context": "contexts/07-library/04__node-28-2.tsx",
+          "contextSha256": "9c1e306f716d13e444718502ccf5289c6028cb465d4c1bf05ff69c9f1a7e504c",
+          "screenshot": "screens/07-library/04__node-28-2.png",
+          "screenshotSha256": "e5df962bd0f2c0c1f8d329980c2a4bd8977d76ae6b87e9d19ce1ab80d0ed52df",
+          "screenshotBytes": 205283,
+          "assets": [
+            {
+              "file": "assets/by-hash/8ccce801fd93c744eeb3ba2945cf796ab6b28bd8.svg",
+              "sha256": "63e192ea33fe6208ee6bc45b7db3217f5ad7c5568269001f03d56f066bba5f4a",
+              "bytes": 2323
+            },
+            {
+              "file": "assets/by-hash/33215ab1174f1d52989445786555c1fcafc1897c.svg",
+              "sha256": "af21e09d974e900ec9b46f0e0bb4179234af4a1ed244675c296630d47a061e41",
+              "bytes": 1195
+            },
+            {
+              "file": "assets/by-hash/86a3372cde6c9878cb6cc69794c63c8908350226.svg",
+              "sha256": "e958334301bb7dc8fcedb326b06deb6d2abda96d0d419c09a52b1bb32ebd88b8",
+              "bytes": 347
+            },
+            {
+              "file": "assets/by-hash/5942678affda30807d303ee4370dec566b023050.svg",
+              "sha256": "c050bfa63c0c9aa6141ebbf579cc85845fa84e44d0ac2583667c5717961bef1e",
+              "bytes": 331
+            },
+            {
+              "file": "assets/by-hash/cd5391fde993308cd990e37d1da1044de5295e41.svg",
+              "sha256": "992dbe12c1a2042931afe6ca12bfa4e1c48118815a8c765ab7447e475c6e496e",
+              "bytes": 340
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "pageCount": 8,
+    "screenCount": 45,
+    "uniqueAssetCount": 184
+  }
+}

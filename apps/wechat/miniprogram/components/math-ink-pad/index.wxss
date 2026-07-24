@@ -1,0 +1,39 @@
+.ink-pad {
+  overflow: hidden;
+  border: 1rpx solid var(--color-primary-a16);
+  border-radius: 22rpx;
+  background: #fbfaf6;
+}
+.ink-canvas {
+  width: 100%;
+  height: 310rpx;
+  background-image: linear-gradient(var(--color-primary-a08) 1rpx, transparent 1rpx),
+    linear-gradient(90deg, var(--color-primary-a08) 1rpx, transparent 1rpx);
+  background-size: 40rpx 40rpx;
+}
+.ink-actions {
+  display: flex;
+  gap: 16rpx;
+  padding: 16rpx;
+  border-top: 1rpx solid var(--color-line);
+}
+.ink-clear,
+.ink-recognize {
+  flex: 1;
+  margin: 0;
+  border-radius: 16rpx;
+  font-size: 23rpx;
+  line-height: 72rpx;
+}
+.ink-clear {
+  color: #52635f;
+  background: var(--color-canvas);
+}
+.ink-recognize {
+  color: #fff;
+  background: var(--color-primary);
+}
+.ink-clear::after,
+.ink-recognize::after {
+  border: 0;
+}

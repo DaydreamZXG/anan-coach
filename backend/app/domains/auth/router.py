@@ -23,6 +23,8 @@ from app.domains.auth.repository import (
 from app.domains.auth.schemas import (
     AppleLoginRequest,
     AccountOverview,
+    AccountProfileUpdate,
+    AccountProfileView,
     AccountSessionView,
     AuthenticatedUserResponse,
     AuthSessionResponse,
@@ -208,6 +210,8 @@ def get_account_overview(
         response=response,
         data=AccountOverview(
             account_id=overview.user_id,
+            display_name=overview.display_name,
+            avatar_style=overview.avatar_style,
             account_status=overview.account_status,
             wechat_linked=overview.wechat_linked,
             profile_version=overview.profile_version,
@@ -224,6 +228,33 @@ def get_account_overview(
                 )
                 for item in sessions
             ],
+        ),
+    )
+
+
+@wechat_router.put(
+    "/account/profile",
+    response_model=PublicApiEnvelope[AccountProfileView],
+)
+def update_account_profile(
+    command: AccountProfileUpdate,
+    request: Request,
+    response: Response,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    repository: Annotated[AuthRepository, Depends(get_auth_repository)],
+) -> PublicApiEnvelope[AccountProfileView]:
+    display_name, avatar_style, updated_at = repository.update_account_profile(
+        user_id=current_user.user_id,
+        display_name=command.display_name,
+        avatar_style=command.avatar_style,
+    )
+    return public_success_envelope(
+        request=request,
+        response=response,
+        data=AccountProfileView(
+            display_name=display_name,
+            avatar_style=avatar_style,
+            updated_at=updated_at,
         ),
     )
 

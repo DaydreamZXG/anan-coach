@@ -78,6 +78,7 @@ class LearningBrainService:
             xingceMasteryCount=int(input_state["xingce_mastery_count"]),
             essayMasteryCount=int(input_state["essay_mastery_count"]),
             taskExecutionCount=int(input_state["task_execution_count"]),
+            externalAnswerCount=int(input_state["external_answer_count"]),
             latestEvidenceAt=input_state["latest_evidence_at"],
         )
         candidate_summary = BrainCandidateSummary(
@@ -100,6 +101,9 @@ class LearningBrainService:
             patterns=patterns,
             plan_version_id=input_state["current_plan_version_id"],
             weekly_plan_version_id=input_state["current_weekly_plan_version_id"],
+            latest_external_answer_fact_id=input_state["latest_external_answer_fact_id"],
+            latest_external_answer_track=input_state["latest_external_answer_track"],
+            latest_external_answer_at=input_state["latest_external_answer_at"],
         )
         input_versions = _input_versions(ability, input_state, generated_at=generated_at)
         fingerprint = _fingerprint(
@@ -431,7 +435,8 @@ class LearningBrainService:
 def _xingce_module(row: RowMapping, now: datetime) -> ModuleAbility:
     attempt_count = int(row["attempt_count"])
     mastery_count = int(row["mastery_count"])
-    evidence_count = attempt_count + mastery_count
+    external_evidence_count = int(row["external_answer_count"])
+    evidence_count = attempt_count + mastery_count + external_evidence_count
     latest = row["latest_evidence_at"]
     stale = latest is not None and _as_utc(latest) + timedelta(days=EVIDENCE_VALIDITY_DAYS) <= now
     refs: list[BrainEvidenceRef] = []
@@ -457,6 +462,17 @@ def _xingce_module(row: RowMapping, now: datetime) -> ModuleAbility:
                 role="mastery_state",
             )
         )
+    if row["latest_external_fact_id"]:
+        refs.append(
+            BrainEvidenceRef(
+                owner="answer_ingestion",
+                entityType="external_answer_fact",
+                entityId=str(row["latest_external_fact_id"]),
+                versionId=str(row["latest_external_fact_id"]),
+                occurredAt=latest,
+                role="user_confirmed_external_answer",
+            )
+        )
     readiness = (
         "unavailable"
         if evidence_count == 0
@@ -473,6 +489,7 @@ def _xingce_module(row: RowMapping, now: datetime) -> ModuleAbility:
         readiness=readiness,
         scoreBand=None,
         evidenceCount=evidence_count,
+        externalEvidenceCount=external_evidence_count,
         correctRate=(
             round(int(row["correct_count"]) / attempt_count, 4)
             if attempt_count > 0
@@ -530,6 +547,7 @@ def _essay_module(row: RowMapping, now: datetime) -> ModuleAbility:
         ),
         scoreBand=None,
         evidenceCount=evidence_count,
+        externalEvidenceCount=0,
         correctRate=None,
         averageSeconds=None,
         stableMasteryCount=int(row["stable_mastery_count"]),
@@ -748,6 +766,9 @@ def _source_refs(
     patterns: list[ErrorPatternSummary],
     plan_version_id: str | None,
     weekly_plan_version_id: str | None,
+    latest_external_answer_fact_id: str | None,
+    latest_external_answer_track: str | None,
+    latest_external_answer_at: datetime | None,
 ) -> list[BrainEvidenceRef]:
     refs = [ref for module in modules for ref in module.evidence_refs]
     refs.extend(ref for pattern in patterns for ref in pattern.evidence_refs)
@@ -782,6 +803,21 @@ def _source_refs(
                 role="current_weekly_decision",
             )
         )
+    if latest_external_answer_fact_id:
+        refs.append(
+            BrainEvidenceRef(
+                owner="answer_ingestion",
+                entityType="external_answer_fact",
+                entityId=latest_external_answer_fact_id,
+                versionId=latest_external_answer_fact_id,
+                occurredAt=latest_external_answer_at,
+                role=(
+                    f"user_confirmed_external_answer:{latest_external_answer_track}"
+                    if latest_external_answer_track
+                    else "user_confirmed_external_answer"
+                ),
+            )
+        )
     return _dedupe_refs(refs)
 
 
@@ -808,6 +844,7 @@ def _input_versions(
         "xingceMasteryCount": str(input_state["xingce_mastery_count"]),
         "essayMasteryCount": str(input_state["essay_mastery_count"]),
         "taskExecutionCount": str(input_state["task_execution_count"]),
+        "externalAnswerCount": str(input_state["external_answer_count"]),
         "candidateAcceptedCount": str(input_state["candidate_accepted_count"]),
         "activeStrategyCount": str(input_state["active_strategy_count"]),
         "candidateVersions": str(input_state["candidate_version_fingerprint"]),
@@ -824,6 +861,10 @@ def _input_versions(
         result["latestEvidenceAt"] = _as_utc(
             input_state["latest_evidence_at"]
         ).isoformat()
+    if input_state["latest_external_answer_fact_id"]:
+        result["latestExternalAnswerFactId"] = str(
+            input_state["latest_external_answer_fact_id"]
+        )
     return result
 
 

@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "报考资格档案",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "safe-top": "../../../components/safe-top/index",
+    "state-view": "../../../design-system/primitives/state-view/index"
+  }
+}

@@ -1,150 +1,184 @@
-import { fetchPlanBasis, fetchTodayDashboard, setTodayCapacity } from "../../api/endpoints";
+import { PlanningApi } from "../../api/planning";
+import type {
+  AppDomainsPlanningSchemasTodayTask,
+  PlanBasisTask,
+  PlanBasisView,
+} from "../../api/generated/types.gen";
+import { registeredTaskNavigationTarget, routes } from "../../app/navigation/routes";
+import { currentAuthSession } from "../../auth/session";
+import { storeCompanionLaunchContext } from "../../features/companion/context-store";
+import {
+  errorView,
+  requireAuthenticatedClient,
+  trackLabel,
+} from "../../features/learning-brain/presentation";
 
-type BasisTaskVM = {
-  taskId: string;
-  order: number;
-  title: string;
-  reason: string;
-  minutes: number;
+type FactorTone = "primary" | "neutral" | "warning";
+
+interface BasisFactorView {
+  label: string;
+  value: string;
+  tone: FactorTone;
+}
+
+interface BasisTaskView extends PlanBasisTask {
   trackLabel: string;
-};
+  startUrl: string;
+  objective: string;
+  successCriteria: string[];
+  requiresReflection: boolean;
+}
 
-const TRACK_LABEL: Record<string, string> = {
-  xingce: "行测",
-  essay: "申论",
-  recovery: "复盘",
-  mock: "模考",
-};
+function percent(value: number): string {
+  return `${String(Math.round(value * 100))}%`;
+}
 
-const DEMO_TASKS: BasisTaskVM[] = [
-  { taskId: "d1", order: 1, title: "言语理解 · 20 题", reason: "近三次正确率 62%，低于目标线 13 个点，是当前提分性价比最高的口子", minutes: 25, trackLabel: "行测" },
-  { taskId: "d2", order: 2, title: "昨日错题复盘 · 8 题", reason: "昨天 8 道错题还没归因，今天不回收，同类题下次还会错", minutes: 15, trackLabel: "复盘" },
-  { taskId: "d3", order: 3, title: "申论素材阅读 · 1 篇", reason: "申论已连续 2 天没碰，再空一天手感会掉", minutes: 20, trackLabel: "申论" },
-];
+function matchingTodayTask(
+  task: PlanBasisTask,
+  todayTasks: AppDomainsPlanningSchemasTodayTask[],
+): AppDomainsPlanningSchemasTodayTask | null {
+  return todayTasks.find((candidate) => candidate.id === task.taskId) ?? null;
+}
 
-const ENERGY_LEVELS = [
-  { value: 1, label: "很疲惫" },
-  { value: 2, label: "有点累" },
-  { value: 3, label: "还行" },
-  { value: 4, label: "状态好" },
-  { value: 5, label: "满格" },
-];
-
-const MINUTE_STEPS = [30, 45, 60, 90, 120, 180, 240];
+function factorViews(task: PlanBasisTask): BasisFactorView[] {
+  return [
+    { label: "岗位收益", value: percent(task.priorityBreakdown.goalGain), tone: "primary" },
+    { label: "能力收益", value: percent(task.priorityBreakdown.abilityGain), tone: "primary" },
+    {
+      label: "复测紧迫度",
+      value: percent(task.priorityBreakdown.verificationUrgency),
+      tone: "warning",
+    },
+    { label: "时间适配", value: percent(task.priorityBreakdown.timeFit), tone: "neutral" },
+  ];
+}
 
 Page({
   data: {
-    loading: true,
-    usingDemo: false,
-    // 依据
-    headline: "",
-    rationale: "",
-    tasks: [] as BasisTaskVM[],
-    // 调整
-    capacityVersionId: "",
-    energyLevels: ENERGY_LEVELS,
-    minuteSteps: MINUTE_STEPS,
-    energy: 3,
-    minuteIndex: 3,
-    adjusting: false,
-    adjustOpen: false,
+    status: "loading",
+    errorMessage: "",
+    requestId: "",
+    basis: null as PlanBasisView | null,
+    focusTask: null as BasisTaskView | null,
+    evidenceBullets: [] as string[],
+    factorMetrics: [] as BasisFactorView[],
+    invalidationConditions: [] as string[],
+    expanded: false,
+    openingTask: false,
   },
 
   onLoad() {
-    void this.load();
+    void this.loadBasis();
   },
 
-  async load() {
+  async loadBasis() {
+    const client = requireAuthenticatedClient();
+    if (!client) return;
+    this.setData({ status: "loading", errorMessage: "", requestId: "" });
     try {
-      const [basis, dashboard] = await Promise.all([
-        fetchPlanBasis(),
-        fetchTodayDashboard(),
+      const api = new PlanningApi(client);
+      const [basisEnvelope, todayEnvelope] = await Promise.all([
+        api.getTodayBasis(),
+        api.getToday(),
       ]);
-      const cap = dashboard.capacity;
-      const nearest = MINUTE_STEPS.reduce(
-        (best, m, i) =>
-          Math.abs(m - cap.availableMinutes) <
-          Math.abs((MINUTE_STEPS[best] ?? 0) - cap.availableMinutes)
-            ? i
-            : best,
-        0,
-      );
+      const basis = basisEnvelope.data;
+      const rawTask = basis.tasks[0] ?? null;
+      const todayTask = rawTask ? matchingTodayTask(rawTask, todayEnvelope.data.tasks) : null;
+      const focusTask: BasisTaskView | null =
+        rawTask && todayTask
+          ? {
+              ...rawTask,
+              trackLabel: trackLabel[rawTask.track],
+              startUrl: todayTask.startUrl,
+              objective: todayTask.completion.objective,
+              successCriteria: todayTask.completion.successCriteria,
+              requiresReflection: todayTask.completion.requiresReflection,
+            }
+          : null;
+      const evidenceBullets = focusTask
+        ? [
+            focusTask.reason,
+            `${String(focusTask.evidenceRefs.length)} 条与你有关的学习记录参与了本次排序`,
+            basis.conflicts[0] ?? "当前判断仍需由本次训练与后续复测确认",
+          ]
+        : [];
       this.setData({
-        loading: false,
-        headline: basis.headline,
-        rationale: basis.rationale,
-        tasks: basis.tasks
-          .slice()
-          .sort((a, b) => a.order - b.order)
-          .map((t) => ({
-            taskId: t.taskId,
-            order: t.order,
-            title: t.title,
-            reason: t.reason,
-            minutes: t.estimatedMinutes,
-            trackLabel: TRACK_LABEL[t.track] ?? t.track,
-          })),
-        capacityVersionId: cap.capacityVersionId,
-        energy: cap.energy || 3,
-        minuteIndex: nearest,
+        status: focusTask ? "ready" : "empty",
+        basis,
+        focusTask,
+        evidenceBullets,
+        factorMetrics: rawTask ? factorViews(rawTask) : [],
+        invalidationConditions: basis.invalidationConditions,
+        errorMessage: focusTask ? "" : "今天暂时没有需要解释的训练任务。",
       });
-    } catch (err) {
-      console.warn("[plan-basis] fallback to demo", err);
+    } catch (error) {
+      const view = errorView(error, "今天的安排依据没有加载成功，请重试。");
       this.setData({
-        loading: false,
-        usingDemo: true,
-        headline: "今天主攻言语，顺手回收昨天的错题",
-        rationale: "距离目标分差 14 分，其中言语贡献了最大缺口；错题复盘是当天回收记忆成本最低的动作；申论轻量保温防生疏。",
-        tasks: DEMO_TASKS,
+        status: "error",
+        errorMessage: view.message,
+        requestId: view.requestId,
       });
     }
   },
 
-  onToggleAdjust() {
-    this.setData({ adjustOpen: !this.data.adjustOpen });
+  retry() {
+    void this.loadBasis();
   },
 
-  onPickEnergy(e: WechatMiniprogram.TouchEvent) {
-    const { value } = e.currentTarget.dataset as { value: number };
-    this.setData({ energy: Number(value) });
+  exit() {
+    void wx.navigateBack({ delta: 1 });
   },
 
-  onMinuteChange(e: WechatMiniprogram.SliderChange) {
-    this.setData({ minuteIndex: Number(e.detail.value) });
+  toggleExpanded() {
+    this.setData({ expanded: !this.data.expanded });
   },
 
-  async onApplyAdjust() {
-    if (this.data.adjusting) return;
-    const minutes = MINUTE_STEPS[this.data.minuteIndex] ?? 90;
-
-    if (this.data.usingDemo) {
-      wx.showToast({ title: `按 ${minutes} 分钟重排了（演示）`, icon: "none" });
-      this.setData({ adjustOpen: false });
+  startTask() {
+    const focusTask = this.data.focusTask;
+    if (!focusTask || this.data.openingTask) return;
+    const target = registeredTaskNavigationTarget(focusTask.startUrl);
+    if (!target) {
+      void wx.showModal({
+        title: "这项任务暂时不能开始",
+        content: "任务入口已经变化，请返回今日页面刷新后再试。",
+        showCancel: false,
+      });
       return;
     }
-
-    this.setData({ adjusting: true });
-    try {
-      await setTodayCapacity(
-        {
-          basedOnCapacityVersionId: this.data.capacityVersionId,
-          availableMinutes: minutes,
-          energy: this.data.energy,
-          stress: 6 - this.data.energy, // 简化：精力低即压力高
-          confidenceLevel: 3,
-        },
-        `capacity-${this.data.capacityVersionId}-${minutes}-${this.data.energy}`,
-      );
-      wx.showToast({ title: "重排好了，回今日页看新任务", icon: "none" });
-      setTimeout(() => wx.switchTab({ url: "/pages/today/index" }), 1200);
-    } catch (err) {
-      console.error("[plan-basis] capacity failed", err);
-      this.setData({ adjusting: false });
-      wx.showToast({ title: "没调成功，再试一次", icon: "none" });
+    this.setData({ openingTask: true });
+    const complete = () => this.setData({ openingTask: false });
+    if (target.mode === "switchTab") {
+      wx.switchTab({ url: target.url, complete });
+      return;
     }
+    wx.navigateTo({ url: target.url, complete });
   },
 
-  onBack() {
-    wx.navigateBack({ fail: () => wx.switchTab({ url: "/pages/today/index" }) });
+  openAdjustment() {
+    void wx.navigateTo({ url: routes.dayAdjustment });
+  },
+
+  askAnan() {
+    const auth = currentAuthSession();
+    const basis = this.data.basis;
+    const focusTask = this.data.focusTask;
+    if (!auth || !basis || !focusTask) return;
+    storeCompanionLaunchContext(auth.userId, {
+      sourceLabel: "今天第一项任务",
+      title: focusTask.title,
+      summary: `${focusTask.reason}；预计 ${String(focusTask.estimatedMinutes)} 分钟。`,
+      suggestedQuestion:
+        "结合这项任务的排序依据、我的目标岗位和最近学习记录，解释为什么现在最值得做它。",
+      routeId: "pages/plan-basis/index",
+      workspace: "today",
+      objectRefs: [
+        {
+          type: "plan",
+          id: basis.planVersionId,
+          version: String(basis.versionNo),
+        },
+      ],
+    });
+    void wx.switchTab({ url: routes.anan });
   },
 });

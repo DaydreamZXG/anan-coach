@@ -16,6 +16,7 @@ from app.domains.memory.schemas import LearnerProfile
 from app.domains.onboarding.repository import (
     OnboardingRepository,
 )
+from app.domains.onboarding.baseline_service import OnboardingBaselineService
 from app.domains.onboarding.schemas import (
     OnboardingCompleteResponse,
     OnboardingProfileUpdate,
@@ -30,12 +31,16 @@ from app.domains.onboarding.service import (
 from app.domains.onboarding.progress_repository import OnboardingProgressError
 from app.domains.onboarding.progress_service import OnboardingProgressService
 from app.domains.onboarding.v2_schemas import (
+    AbilityBaselineProfile,
+    AbilityBaselineWrite,
     OnboardingProgress,
     OnboardingResultProjection,
     OnboardingResultAcknowledgement,
     PreparationExperienceProfile,
     PreparationExperienceResult,
     PreparationExperienceWrite,
+    PositionPreferenceProfile,
+    PositionPreferenceWrite,
     QualificationMilestoneCommand,
     StudyPreferenceResult,
     StudyPreferenceWrite,
@@ -255,6 +260,116 @@ def complete_qualification_milestone(
 
 
 @v2_router.get(
+    "/position-preference",
+    response_model=PublicApiEnvelope[PositionPreferenceProfile],
+)
+def get_position_preference(
+    request: Request,
+    response: Response,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> PublicApiEnvelope[PositionPreferenceProfile] | JSONResponse:
+    try:
+        preference = OnboardingProgressService().get_position_preference(
+            session,
+            user_id=current_user.user_id,
+        )
+        return public_success_envelope(
+            request=request,
+            response=response,
+            data=preference,
+        )
+    except OnboardingProgressError as exc:
+        session.rollback()
+        return _onboarding_error_response(request, exc)
+
+
+@v2_router.put(
+    "/position-preference",
+    response_model=PublicApiEnvelope[PositionPreferenceProfile],
+)
+def put_position_preference(
+    request: Request,
+    response: Response,
+    command: PositionPreferenceWrite,
+    idempotency_key: Annotated[str, Depends(_v2_idempotency_key)],
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> PublicApiEnvelope[PositionPreferenceProfile] | JSONResponse:
+    try:
+        preference = OnboardingProgressService().record_position_preference(
+            session,
+            user_id=current_user.user_id,
+            command_id=f"{current_user.user_id}:{idempotency_key}",
+            command=command,
+        )
+        session.commit()
+        return public_success_envelope(
+            request=request,
+            response=response,
+            data=preference,
+        )
+    except OnboardingProgressError as exc:
+        session.rollback()
+        return _onboarding_error_response(request, exc)
+
+
+@v2_router.get(
+    "/ability-baseline",
+    response_model=PublicApiEnvelope[AbilityBaselineProfile],
+)
+def get_ability_baseline(
+    request: Request,
+    response: Response,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> PublicApiEnvelope[AbilityBaselineProfile] | JSONResponse:
+    try:
+        baseline = OnboardingBaselineService().get_current(
+            session,
+            user_id=current_user.user_id,
+        )
+        return public_success_envelope(
+            request=request,
+            response=response,
+            data=baseline,
+        )
+    except OnboardingProgressError as exc:
+        session.rollback()
+        return _onboarding_error_response(request, exc)
+
+
+@v2_router.put(
+    "/ability-baseline",
+    response_model=PublicApiEnvelope[AbilityBaselineProfile],
+)
+def put_ability_baseline(
+    request: Request,
+    response: Response,
+    command: AbilityBaselineWrite,
+    idempotency_key: Annotated[str, Depends(_v2_idempotency_key)],
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+) -> PublicApiEnvelope[AbilityBaselineProfile] | JSONResponse:
+    try:
+        baseline = OnboardingBaselineService().record(
+            session,
+            user_id=current_user.user_id,
+            command_id=f"{current_user.user_id}:{idempotency_key}",
+            command=command,
+        )
+        session.commit()
+        return public_success_envelope(
+            request=request,
+            response=response,
+            data=baseline,
+        )
+    except OnboardingProgressError as exc:
+        session.rollback()
+        return _onboarding_error_response(request, exc)
+
+
+@v2_router.get(
     "/study-preference",
     response_model=PublicApiEnvelope[WeeklyStudyPreference],
 )
@@ -358,6 +473,8 @@ def _onboarding_error_response(
         in {
             "preparation_experience_missing",
             "qualification_profile_missing",
+            "position_preference_missing",
+            "ability_baseline_missing",
             "study_preference_missing",
         }
         else status.HTTP_409_CONFLICT

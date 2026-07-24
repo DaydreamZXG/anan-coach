@@ -47,18 +47,12 @@ class ReportingService:
                 metricName=row["metric_name"],
                 metricUnit=row["metric_unit"],
                 metricDefinition=row["definition"],
-                status=(
-                    "in_progress"
-                    if row["status"] == "assigned"
-                    else "submitted"
-                ),
+                status=("in_progress" if row["status"] == "assigned" else "submitted"),
                 sessionId=row["session_id"],
             )
             for row in sessions
         ]
-        latest_external = self._repository.latest_confirmed_external(
-            session, user_id=user_id
-        )
+        latest_external = self._repository.latest_confirmed_external(session, user_id=user_id)
         ability = self._repository.ability_history(session, user_id=user_id)
         goal = self._repository.current_goal(session, user_id=user_id)
         sets = self._repository.recent_set_summaries(session, user_id=user_id, limit=1)
@@ -147,6 +141,7 @@ class ReportingService:
         state = _report_state(charts)
         projection = ReportProjection(
             projectionVersionId=projection_id,
+            inputFingerprint=input_fingerprint,
             reportKind=report_kind,
             subjectRef=subject_ref,
             title=title,
@@ -156,8 +151,7 @@ class ReportingService:
             charts=charts,
         )
         evidence_refs = sorted(
-            {ref for chart in charts for ref in chart.evidence_refs}
-            | set(conclusion.evidence_refs)
+            {ref for chart in charts for ref in chart.evidence_refs} | set(conclusion.evidence_refs)
         )
         row = self._repository.insert_projection(
             session,
@@ -197,15 +191,26 @@ class ReportingService:
                 raise ReportNotFound(subject_ref)
             mock_rows = [selected]
         return {
-            "ability": [_jsonable_row(row) for row in self._repository.ability_history(session, user_id=user_id)],
-            "external": [_jsonable_row(row) for row in self._repository.external_history(session, user_id=user_id)],
+            "ability": [
+                _jsonable_row(row)
+                for row in self._repository.ability_history(session, user_id=user_id)
+            ],
+            "external": [
+                _jsonable_row(row)
+                for row in self._repository.external_history(session, user_id=user_id)
+            ],
             "mocks": [_jsonable_row(row) for row in mock_rows],
-            "sets": [_jsonable_row(row) for row in self._repository.recent_set_summaries(session, user_id=user_id)],
-            "weekly": [_jsonable_row(row) for row in self._repository.weekly_execution_summary(session, user_id=user_id)],
+            "sets": [
+                _jsonable_row(row)
+                for row in self._repository.recent_set_summaries(session, user_id=user_id)
+            ],
+            "weekly": [
+                _jsonable_row(row)
+                for row in self._repository.weekly_execution_summary(session, user_id=user_id)
+            ],
             "goal": (
                 _jsonable_row(goal)
-                if (goal := self._repository.current_goal(session, user_id=user_id))
-                is not None
+                if (goal := self._repository.current_goal(session, user_id=user_id)) is not None
                 else None
             ),
         }
@@ -269,12 +274,20 @@ def _confidence_trend(facts: dict[str, Any]) -> ChartSpec:
     data = [
         {
             "at": row["generated_at"],
-            "lower": _num(row.get("total_lower") or row.get("xingce_lower") or row.get("shenlun_lower")),
-            "recommended": _num(row.get("total_recommended") or row.get("xingce_recommended") or row.get("shenlun_recommended")),
-            "upper": _num(row.get("total_upper") or row.get("xingce_upper") or row.get("shenlun_upper")),
-            "component": "total" if row.get("total_recommended") is not None else (
-                "xingce" if row.get("xingce_recommended") is not None else "shenlun"
+            "lower": _num(
+                row.get("total_lower") or row.get("xingce_lower") or row.get("shenlun_lower")
             ),
+            "recommended": _num(
+                row.get("total_recommended")
+                or row.get("xingce_recommended")
+                or row.get("shenlun_recommended")
+            ),
+            "upper": _num(
+                row.get("total_upper") or row.get("xingce_upper") or row.get("shenlun_upper")
+            ),
+            "component": "total"
+            if row.get("total_recommended") is not None
+            else ("xingce" if row.get("xingce_recommended") is not None else "shenlun"),
             "confidence": row["confidence"],
             "estimateVersionId": str(row["estimate_version_id"]),
         }
@@ -492,7 +505,9 @@ def _report_state(charts: list[ChartSpec]) -> str:
 
 
 def _stored_projection(row: RowMapping) -> ReportProjection:
-    return ReportProjection.model_validate(dict(row["payload"]))
+    payload = dict(row["payload"])
+    payload["inputFingerprint"] = str(row["input_fingerprint"])
+    return ReportProjection.model_validate(payload)
 
 
 def _jsonable_row(row: RowMapping) -> dict[str, Any]:

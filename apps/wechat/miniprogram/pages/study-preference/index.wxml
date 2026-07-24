@@ -1,40 +1,86 @@
-<view class="page sp">
-  <safe-top />
-  <view class="sp-nav">
-    <text class="sp-back" bindtap="onBack">‹</text>
-    <text class="sp-title">学习偏好</text>
+<view class="s9-page s9-page--with-dock preference-page">
+  <view class="s9-hero">
+    <view class="s9-title">把每周时间改成真实可执行的安排</view>
+    <view class="s9-subtitle">工作日和周末直接按半小时选择；保存后，岸岸会按新时间安排后续计划。</view>
+    <view wx:if="{{state && state.draft}}" class="s9-chip-row"><view class="s9-chip s9-chip--primary">工作日 {{state.presentation.weekdayDurationLabel}}</view><view class="s9-chip">周末 {{state.presentation.weekendDurationLabel}}</view></view>
   </view>
 
-  <scroll-view class="sp-body" scroll-y>
-    <text class="sp-section">每周节奏</text>
-    <view
-      class="card sp-rhythm {{rhythmKey === item.key ? 'is-on' : ''}}"
-      wx:for="{{rhythms}}"
-      wx:key="key"
-      data-key="{{item.key}}"
-      bindtap="onPickRhythm"
-    >
-      <view class="sp-rhythm-main">
-        <text class="sp-rhythm-label">{{item.label}}</text>
-        <text class="text-3">{{item.desc}}</text>
+  <view wx:if="{{!state || state.status === 'loading'}}" class="page-state">
+    <anan-companion size="large" intent="thinking" context="plan" animate />
+    <view class="state-title">正在读取你的周节奏</view>
+    <view class="state-copy">正在读取你当前的学习时间安排。</view>
+  </view>
+
+  <view wx:elif="{{state.status === 'error'}}" class="page-state">
+    <anan-companion size="large" intent="rest" context="emotion" />
+    <view class="state-title">时间偏好没有加载完成</view>
+    <view class="state-copy">{{state.error.message}}</view>
+    <view wx:if="{{state.error.requestId}}" class="request-id">问题编号 · {{state.error.requestId}}</view>
+    <ui-button label="重新读取" bind:action="retry" />
+  </view>
+
+  <block wx:else>
+    <view wx:if="{{state.pendingRecovery}}" class="recovery-banner">
+      <view class="recovery-mark">↻</view>
+      <view><view class="recovery-title">上一次保存结果还不确定</view><view class="recovery-copy">内容已暂时锁定；本次只会确认刚才的结果，不会重复保存。</view></view>
+    </view>
+
+    <view class="budget-card s9-card">
+      <view class="time-choice">
+        <view class="time-choice__head">
+          <view><view class="field-label">工作日可学习</view><view class="field-copy">按 0.5 小时选择，不需要换算分钟</view></view>
+          <view class="time-choice__current type-data">{{state.presentation.weekdayDurationLabel}}</view>
+        </view>
+        <scroll-view scroll-x class="time-options" enhanced show-scrollbar="{{false}}">
+          <view class="time-options__inner">
+            <view hover-class="item--hover" wx:for="{{timeOptions}}" wx:key="minutes" class="time-option {{state.draft.weekdayMinutes === item.minutes ? 'time-option--active' : ''}}" data-field="weekdayMinutes" data-minutes="{{item.minutes}}" bindtap="selectMinutes">
+              <text class="time-option__label">{{item.label}}</text>
+              <text class="time-option__caption">{{item.caption}}</text>
+            </view>
+          </view>
+        </scroll-view>
       </view>
-      <view class="sp-radio {{rhythmKey === item.key ? 'is-on' : ''}}" />
+      <view class="budget-divider"></view>
+      <view class="time-choice">
+        <view class="time-choice__head">
+          <view><view class="field-label">周末可学习</view><view class="field-copy">容纳模考、申论套题或完整材料训练</view></view>
+          <view class="time-choice__current type-data">{{state.presentation.weekendDurationLabel}}</view>
+        </view>
+        <scroll-view scroll-x class="time-options" enhanced show-scrollbar="{{false}}">
+          <view class="time-options__inner">
+            <view hover-class="item--hover" wx:for="{{timeOptions}}" wx:key="minutes" class="time-option {{state.draft.weekendMinutes === item.minutes ? 'time-option--active' : ''}}" data-field="weekendMinutes" data-minutes="{{item.minutes}}" bindtap="selectMinutes">
+              <text class="time-option__label">{{item.label}}</text>
+              <text class="time-option__caption">{{item.caption}}</text>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
     </view>
 
-    <text class="sp-section">固定休息日</text>
-    <view class="sp-rest">
-      <text
-        class="sp-rest-chip {{restDayKey === item.key ? 'is-on' : ''}}"
-        wx:for="{{restDays}}"
-        wx:key="key"
-        data-key="{{item.key}}"
-        bindtap="onPickRest"
-      >{{item.label}}</text>
+    <view class="schedule-card s9-card">
+      <view class="schedule-head"><view><view class="field-label">整卷模考日</view><view class="field-copy">每周一次稳定标尺</view></view><view class="schedule-tag">1 天</view></view>
+      <view class="weekday-row">
+        <view hover-class="item--hover" wx:for="{{weekdays}}" wx:key="value" class="weekday-chip {{state.draft.mockExamDay === item.value ? 'weekday-chip--mock' : ''}}" data-field="mockExamDay" data-value="{{item.value}}" bindtap="selectDay">{{item.label}}</view>
+      </view>
+      <view class="schedule-divider"></view>
+      <view class="schedule-head"><view><view class="field-label">固定恢复日</view><view class="field-copy">不排新知识，只做轻量闭环或休息</view></view><view class="schedule-tag schedule-tag--rest">1 天</view></view>
+      <view class="weekday-row">
+        <view hover-class="item--hover" wx:for="{{weekdays}}" wx:key="value" class="weekday-chip {{state.draft.fixedRestDay === item.value ? 'weekday-chip--rest' : ''}}" data-field="fixedRestDay" data-value="{{item.value}}" bindtap="selectDay">{{item.label}}</view>
+      </view>
     </view>
-    <text class="text-3 sp-hint">每周留一天完全不学，岸岸不会在这天排任务</text>
-  </scroll-view>
 
-  <view class="sp-foot">
-    <button class="btn btn-primary sp-foot-btn" bindtap="onSave" disabled="{{saving}}">{{saving ? '保存中…' : '保存'}}</button>
-  </view>
+    <view class="rhythm-strip">
+      <view class="rhythm-item"><text class="rhythm-item__value type-data">{{state.summary.focusedTrainingDays}}</text><text class="rhythm-item__label">针对训练</text></view>
+      <view class="rhythm-item"><text class="rhythm-item__value type-data">{{state.summary.mockExamDays}}</text><text class="rhythm-item__label">整卷模考</text></view>
+      <view class="rhythm-item"><text class="rhythm-item__value type-data">{{state.summary.recoveryDays}}</text><text class="rhythm-item__label">恢复日</text></view>
+    </view>
+    <view class="weekly-total">常规每周可学约 <text class="weekly-total__value type-data">{{state.presentation.weeklyDurationLabel}}</text>；行测和申论共用这些时间，不会把某一科只当作剩余时间。</view>
+
+    <view wx:if="{{state.validationError}}" class="error-banner">{{state.validationError}}</view>
+    <view wx:if="{{state.error}}" class="error-banner">
+      <view>{{state.error.message}}</view>
+      <view wx:if="{{state.error.requestId}}" class="request-id">问题编号 · {{state.error.requestId}}</view>
+    </view>
+    <view class="s9-action-dock"><button class="s9-primary-button" loading="{{state.saving}}" bindtap="submit">{{state.pendingRecovery ? '确认上次保存结果' : '保存每周学习时间'}}</button></view>
+  </block>
 </view>

@@ -1,77 +1,149 @@
-<view class="anan-page">
-  <safe-top />
-  <view class="anan-header">
-    <view class="anan-avatar-lg">岸</view>
-    <view class="anan-header-text">
-      <text class="anan-name">岸岸</text>
-      <text class="anan-status">在线 · 你的备考搭子</text>
+<view class="coach-page">
+  <safe-top mode="status" gap="16" />
+
+  <view class="coach-content">
+    <view class="coach-header">
+      <view class="coach-title">岸岸</view>
+      <view class="coach-subtitle">你的备考总控台</view>
     </view>
-  </view>
 
-  <scroll-view
-    class="chat-scroll"
-    scroll-y
-    scroll-into-view="{{scrollTo}}"
-    scroll-with-animation
-  >
-    <view
-      wx:for="{{messages}}"
-      wx:key="id"
-      id="msg-{{item.id}}"
-      class="msg msg-{{item.role}}"
-    >
-      <view wx:if="{{item.role === 'anan'}}" class="msg-avatar">岸</view>
-      <view class="msg-col">
-        <view wx:if="{{item.highImpact}}" class="hi-banner">
-          <text class="hi-banner-text">岸岸的重要建议 · 基于你的作答数据</text>
+    <view class="coach-scroll">
+      <view class="coach-core">
+        <view class="coach-orb-slot">
+          <image class="coach-orb" src="/assets/icons/anan/logo-design-file.png" mode="aspectFit" />
         </view>
-        <view class="bubble bubble-{{item.role}}">
-          <text>{{item.text}}</text>
-        </view>
-
-        <view wx:if="{{item.allowedActions.length}}" class="actions">
-          <button
-            wx:for="{{item.allowedActions}}"
-            wx:for-item="act"
-            wx:key="label"
-            class="action-chip"
-            data-label="{{act.label}}"
-            bindtap="onAction"
-          >{{act.label}}</button>
-        </view>
-
-        <view wx:if="{{item.citations.length}}" class="citations">
-          <text wx:for="{{item.citations}}" wx:for-item="c" wx:key="sourceId" class="citation text-3">来源：{{c.title}}</text>
+        <view class="coach-core__copy">我已经同步了你的岗位、能力和今天的计划。</view>
+        <view class="context-chips">
+          <button class="context-chip" bindtap="openPositions">{{contextGoalLabel}}</button>
+          <button class="context-chip" bindtap="openToday">{{contextTaskLabel}}</button>
+          <button class="context-chip" bindtap="openMastery">{{contextReviewLabel}}</button>
+          <button class="context-chip" bindtap="openToday">{{contextCapacityLabel}}</button>
         </view>
       </view>
+
+      <view wx:if="{{contextBannerVisible}}" class="launch-context">
+        <view class="launch-context__head">
+          <view class="launch-context__source">{{contextSourceLabel}}</view>
+          <button class="launch-context__close" bindtap="clearLaunchContext">×</button>
+        </view>
+        <view class="launch-context__title">{{contextTitle}}</view>
+        <view class="launch-context__copy">{{contextSummary}}</view>
+      </view>
+
+      <view wx:if="{{answer || semanticState !== 'ready'}}" class="semantic-state state-{{semanticState}}">
+        <view class="semantic-dot"></view>
+        <view>{{stateLabel}}</view>
+      </view>
+
+      <view wx:if="{{contextStatus === 'loading'}}" class="coach-card coach-loading">
+        <view class="loading-line"></view>
+        <view class="loading-line loading-line--short"></view>
+      </view>
+      <view wx:elif="{{contextStatus === 'error'}}" class="coach-card coach-error">
+        <view class="coach-card__title">备考状态没有同步完成</view>
+        <view class="coach-card__copy">{{errorMessage}}</view>
+        <view wx:if="{{requestId}}" class="request-id">问题编号 · {{requestId}}</view>
+        <button class="secondary-action" bindtap="retryContext">重新读取</button>
+      </view>
+      <view wx:elif="{{!insightDismissed}}" class="coach-card insight-card" aria-label="{{insightTitle}}">
+        <view class="insight-heading">
+          <image class="insight-icon" src="/assets/icons/anan/sparkles-indigo.svg" mode="aspectFit" />
+          <text>岸岸发现</text>
+        </view>
+        <view class="coach-card__copy insight-copy">{{insightCopy}}</view>
+        <view class="insight-actions">
+          <button class="primary-soft-action" bindtap="runPrimaryInsight">{{insightActionLabel}}</button>
+          <button class="secondary-action insight-dismiss" bindtap="dismissInsight">先不处理</button>
+        </view>
+      </view>
+
+      <view class="suggestion-section">
+        <view class="section-label">建议操作</view>
+        <view class="suggestion-list">
+          <button class="suggestion-pill" data-question="今晚只能学 1 小时，帮我重新安排今天" bindtap="choosePrompt">今晚只能学 1 小时，重新安排</button>
+          <button class="suggestion-pill" data-question="根据我的错题和复测记录，生成一组数量关系复测" bindtap="choosePrompt">生成一组数量关系复测</button>
+          <button class="suggestion-pill" data-question="解释为什么今天没有安排申论，并列出依据" bindtap="choosePrompt">解释为什么今天没有申论</button>
+          <button class="suggestion-pill" data-question="把周六调整为整卷模考日，先给我预览变化" bindtap="choosePrompt">把周六安排成模考日</button>
+          <button class="suggestion-pill" data-question="检查这个主目标岗位我是否符合报考资格" bindtap="choosePrompt">检查这个岗位我是否能报</button>
+        </view>
+      </view>
+
+      <view class="progress-section">
+        <view class="section-label">正在推进</view>
+        <button class="progress-row" bindtap="openToday"><text>今日计划</text><text class="progress-row__meta">{{contextTaskLabel}} ›</text></button>
+        <button class="progress-row" bindtap="openMastery"><text>复盘与复测</text><text class="progress-row__meta">{{contextReviewLabel}} ›</text></button>
+        <button class="progress-row" bindtap="openWeeklyPlan"><text>本周安排</text><text class="progress-row__meta">查看周计划 ›</text></button>
+      </view>
+
+      <view wx:if="{{question && !answer && !submitting}}" class="question-preview">
+        <view class="question-preview__label">准备问岸岸</view>
+        <view>{{question}}</view>
+      </view>
+
+      <view wx:if="{{submitting}}" class="coach-card thinking-card">
+        <view class="thinking-mark">✦</view>
+        <view>
+          <view class="coach-card__title">正在核对你的资料与当前任务</view>
+          <view class="coach-card__copy">岸岸会先确认哪些信息可以使用，再给出能说明理由的建议。</view>
+        </view>
+      </view>
+
+      <view wx:if="{{answer}}" class="answer-card">
+        <view class="answer-header">
+          <view>
+            <view class="answer-title">岸岸结论</view>
+            <view class="answer-meta">{{answer.agentLabel}} · {{answer.confidenceLabel}} · {{answer.stateLabel}}</view>
+          </view>
+          <view class="answer-type">{{answer.answerTypeLabel}}</view>
+        </view>
+        <view class="answer-copy">{{answer.answer}}</view>
+
+        <view wx:if="{{answer.highImpactDecision}}" class="decision-boundary">
+          这次只做解释，不会直接修改报考资格、主目标或学习策略；采用前仍需你确认。
+        </view>
+
+        <view class="answer-section-head">
+          <view class="answer-section-title">回答依据</view>
+          <view class="answer-section-count">{{answer.citations.length}} 条</view>
+        </view>
+        <view wx:for="{{answer.citations}}" wx:key="sourceId" class="citation-row">
+          <view class="citation-title">{{item.title}}</view>
+          <view class="citation-version">{{item.sourceLabel}}</view>
+          <view class="citation-copy">{{item.summary}}</view>
+        </view>
+
+        <view wx:if="{{answer.limitations.length}}" class="limitations">
+          <view class="answer-section-title">这次回答还缺什么</view>
+          <view wx:for="{{answer.limitations}}" wx:key="*this" class="limitation-item">· {{item}}</view>
+        </view>
+
+        <view wx:if="{{answer.allowedActions.length}}" class="action-list">
+          <button wx:for="{{answer.allowedActions}}" wx:key="label" class="answer-action action-button" data-index="{{index}}" bindtap="handleAction">{{item.label}}</button>
+        </view>
+        <view class="quota-note">{{answer.quotaSummaryLabel}}</view>
+      </view>
     </view>
-
-    <view wx:if="{{sending}}" class="msg msg-anan">
-      <view class="msg-avatar">岸</view>
-      <view class="bubble bubble-anan typing"><text>岸岸正在想…</text></view>
-    </view>
-  </scroll-view>
-
-  <scroll-view class="presets" scroll-x>
-    <view
-      wx:for="{{presets}}"
-      wx:key="key"
-      class="preset-chip"
-      data-text="{{item.text}}"
-      bindtap="onPreset"
-    >{{item.text}}</view>
-  </scroll-view>
-
-  <view class="composer">
-    <input
-      class="composer-input"
-      value="{{input}}"
-      placeholder="和岸岸说点什么…"
-      confirm-type="send"
-      bindinput="onInput"
-      bindconfirm="onSend"
-    />
-    <button class="composer-send {{input ? 'active' : ''}}" bindtap="onSend">发送</button>
   </view>
-  <view wx:if="{{usingDemo}}" class="demo-tip text-3">演示对话（后端未连接）</view>
+
+  <view class="companion-composer">
+    <view class="composer-surface">
+      <textarea
+        cursor-spacing="180"
+        class="composer-input"
+        value="{{question}}"
+        maxlength="800"
+        auto-height
+        placeholder="告诉岸岸你想完成或改变什么…"
+        bindinput="inputQuestion"
+      />
+      <button
+        class="composer-send {{contextStatus !== 'ready' ? 'composer-send--disabled' : ''}}"
+        loading="{{submitting}}"
+        disabled="{{contextStatus !== 'ready' || submitting}}"
+        bindtap="ask"
+      >
+        <image wx:if="{{!submitting}}" class="composer-send__icon" src="/assets/icons/anan/send-arrow-white.svg" mode="aspectFit" />
+      </button>
+    </view>
+  </view>
 </view>

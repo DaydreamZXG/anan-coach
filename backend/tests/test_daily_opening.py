@@ -152,9 +152,7 @@ def test_daily_opening_data_exports_without_secret_and_erases_completely(
         {"user_id": USER_ID},
     )
     repository = DailyOpeningRepository()
-    preference = repository.ensure_default_preference(
-        db_session, user_id=USER_ID, now=NOW
-    )
+    preference = repository.ensure_default_preference(db_session, user_id=USER_ID, now=NOW)
     repository.update_preference(
         db_session,
         user_id=USER_ID,
@@ -171,9 +169,10 @@ def test_daily_opening_data_exports_without_secret_and_erases_completely(
         user_id=USER_ID,
         command_id="daily-opening-location-update-1",
         command=WeatherLocationCommand(
-            label="南昌市红谷滩区",
+            label="当前位置附近",
             latitude=28.681932,
             longitude=115.857941,
+            sourceType="wechat_fuzzy_location",
         ),
         now=NOW,
     )
@@ -230,11 +229,10 @@ def test_daily_opening_data_exports_without_secret_and_erases_completely(
     exported = rights.build_export_payload(user_id=USER_ID, now=NOW)
     assert len(exported["dailyOpeningPreferences"]) == 2
     assert float(exported["dailyOpeningLocations"][0]["latitude"]) == 28.682
+    assert exported["dailyOpeningLocations"][0]["source_type"] == "wechat_fuzzy_location"
     assert exported["dailyOpeningCoffeeDecisions"][0]["decision"] == "declined_today"
     assert "ciphertext-not-plaintext" not in str(exported)
-    assert str(preference["preference_version_id"]) not in str(
-        exported["dailyOpeningLocations"]
-    )
+    assert str(preference["preference_version_id"]) not in str(exported["dailyOpeningLocations"])
 
     deletion = rights.create_deletion(
         user_id=USER_ID,

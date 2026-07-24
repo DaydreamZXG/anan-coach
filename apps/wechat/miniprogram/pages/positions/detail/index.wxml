@@ -1,0 +1,154 @@
+<view class="position-screen position-screen--detail">
+  <safe-top gap="8" />
+
+  <view class="position-nav">
+    <button class="position-nav__back" bindtap="goBack" aria-label="返回"><text class="position-nav__chevron"></text></button>
+  </view>
+
+  <view class="position-content position-content--detail">
+    <state-view wx:if="{{!state || state.status === 'idle' || state.status === 'loading'}}" state="loading" />
+    <state-view
+      wx:elif="{{state.status === 'needsProfile'}}"
+      state="empty"
+      title="先完成资格建档"
+      description="完善资格条件后，才能逐条核对岗位要求。"
+      action-text="去建档"
+      bind:action="openQualificationProfile"
+    />
+    <state-view
+      wx:elif="{{state.status === 'noActiveRelease'}}"
+      state="empty"
+      title="岗位已不在当前发布中"
+      description="请返回岗位列表选择当前有效岗位。"
+      action-text="返回岗位"
+      bind:action="openPositionsWorkspace"
+    />
+    <state-view
+      wx:elif="{{state.status !== 'ready'}}"
+      state="{{state.status === 'network' ? 'stale' : 'error'}}"
+      title="{{state.error.title}}"
+      description="{{state.error.message}}"
+      request-id="{{state.error.requestId}}"
+      action-text="{{state.error.retryable ? '重新核验' : ''}}"
+      bind:action="retry"
+    />
+
+    <block wx:else>
+      <view wx:if="{{state.summaryView}}" class="detail-heading">
+        <text class="detail-heading__location">{{state.summaryView.region}}{{state.summaryView.city ? ' · ' + state.summaryView.city : ''}}</text>
+        <view class="detail-heading__title">{{state.summaryView.name}}</view>
+        <view class="detail-heading__department">{{state.summaryView.departmentFull}}</view>
+      </view>
+
+      <view class="detail-section-title">报考门槛校验</view>
+      <view class="requirement-summary-card">
+        <view wx:if="{{!state.checks.length}}" class="requirement-row">
+          <text class="requirement-row__icon requirement-row__icon--success">✓</text>
+          <view>
+            <view class="requirement-row__title">未发现额外硬条件</view>
+            <view class="requirement-row__copy">报名前仍需核对官方公告原文。</view>
+          </view>
+        </view>
+        <block wx:for="{{state.checks}}" wx:key="requirementId">
+          <view wx:if="{{index > 0}}" class="requirement-divider"></view>
+          <view class="requirement-row">
+            <text class="requirement-row__icon requirement-row__icon--{{item.statusTone}}">{{item.status === 'met' ? '✓' : '!'}}</text>
+            <view class="requirement-row__main">
+              <view class="requirement-row__title">{{item.field}}</view>
+              <view class="requirement-row__copy">{{item.conditionLabel}}</view>
+              <view class="requirement-row__evidence">{{item.statusLabel}} · {{item.evidenceLabel}}</view>
+              <view wx:if="{{item.operator === 'manual_review'}}" class="requirement-confirm">
+                <button class="requirement-confirm__button" data-requirement-id="{{item.requirementId}}" data-response="satisfied" bindtap="confirmRequirement">符合</button>
+                <button class="requirement-confirm__button" data-requirement-id="{{item.requirementId}}" data-response="uncertain" bindtap="confirmRequirement">不确定</button>
+                <button class="requirement-confirm__button" data-requirement-id="{{item.requirementId}}" data-response="not_satisfied" bindtap="confirmRequirement">不符合</button>
+              </view>
+              <view wx:if="{{state.confirmingRequirementId === item.requirementId}}" class="requirement-row__saving">正在保存并重新核验…</view>
+            </view>
+          </view>
+        </block>
+      </view>
+
+      <view class="detail-section-title">竞争与分差判断</view>
+      <view class="score-judgement-card">
+        <view class="score-orb"></view>
+        <view class="score-judgement-card__body">
+          <view class="score-line">
+            <view>
+              <view class="score-line__label">建议进面区间</view>
+              <view class="score-line__value">{{state.summaryView.scoreLabel}}</view>
+            </view>
+            <text wx:if="{{state.fit}}" class="score-gap-pill score-gap-pill--{{state.fit.statusTone}}">{{state.fit.scoreGapRecommendedLabel}}</text>
+          </view>
+          <view wx:if="{{state.fit}}" class="fit-summary">
+            <view class="fit-summary__item">
+              <text class="fit-summary__label">岗位分带</text>
+              <text class="fit-summary__value">{{state.fit.bandLabel}}</text>
+            </view>
+            <view class="fit-summary__item">
+              <text class="fit-summary__label">当前关系</text>
+              <text class="fit-summary__value">{{state.fit.statusLabel}}</text>
+            </view>
+            <view class="fit-summary__item">
+              <text class="fit-summary__label">分差区间</text>
+              <text class="fit-summary__value">{{state.fit.scoreGapRangeLabel}}</text>
+            </view>
+          </view>
+          <button class="evidence-link" bindtap="openScoreSheet">查看怎么算的 <text class="tiny-chevron">›</text></button>
+        </view>
+      </view>
+
+      <view class="detail-section-title">个人适配程度</view>
+      <view wx:if="{{state.fit}}" class="personal-fit-card">
+        <text class="personal-fit-card__mark">✦</text>
+        <view>
+          <view class="personal-fit-card__title">{{state.fit.nextActionTitle}}</view>
+          <view class="personal-fit-card__copy">{{state.fit.nextActionCopy}}</view>
+        </view>
+      </view>
+      <button class="anan-context-action" bindtap="askAnan"><text>✦</text><text class="anan-context-action__label">带着这个岗位问岸岸</text><text>›</text></button>
+
+      <view wx:if="{{state.confirmationMessage}}" class="position-success-message">{{state.confirmationMessage}}</view>
+      <view wx:if="{{state.commandError}}" class="position-inline-alert">
+        {{state.commandError.message}}
+        <text wx:if="{{state.commandError.requestId}}"> · {{state.commandError.requestId}}</text>
+      </view>
+      <view class="detail-bottom-spacer"></view>
+    </block>
+  </view>
+
+  <view wx:if="{{state && state.status === 'ready'}}" class="detail-actions">
+    <view class="detail-actions__row">
+      <button class="detail-actions__compare {{comparisonSelected ? 'detail-actions__compare--selected' : ''}}" bindtap="toggleComparison">
+        {{comparisonSelected ? '已加入对比' : '加入对比 (' + comparisonCount + '/3)'}}
+      </button>
+      <button
+        class="detail-actions__primary {{state.eligibilityStatus !== 'eligible' || state.summaryView.targetScoreExpired ? 'detail-actions__primary--disabled' : ''}}"
+        disabled="{{state.eligibilityStatus !== 'eligible' || state.summaryView.targetScoreExpired}}"
+        bindtap="openGoalChange"
+      >{{state.eligibilityStatus !== 'eligible' ? '资格确认后才能选择' : (state.summaryView.targetScoreExpired ? '依据过期，请重新核验' : '设为主目标')}}</button>
+    </view>
+    <button wx:if="{{comparisonCount >= 2}}" class="detail-actions__compare-link" bindtap="openComparison">前往查看横向对比 <text>→</text></button>
+  </view>
+
+  <view wx:if="{{scoreSheetOpen}}" class="sheet-mask" catchtouchmove="noop" bindtap="closeScoreSheet"></view>
+  <view wx:if="{{scoreSheetOpen}}" class="position-sheet evidence-sheet">
+    <view class="sheet-handle"></view>
+    <view class="sheet-header">
+      <view class="sheet-title">分数线判断依据</view>
+      <button class="sheet-close" bindtap="closeScoreSheet">×</button>
+    </view>
+    <view class="evidence-sheet__card">
+      <view class="evidence-sheet__label">岗位目标分证据</view>
+      <view class="evidence-sheet__copy">{{state.summaryView.scoreEvidenceLabel}}</view>
+      <view class="evidence-sheet__copy">{{state.summaryView.targetGeneratedLabel}} · {{state.summaryView.targetValidityLabel}}</view>
+    </view>
+    <view wx:if="{{state.fit}}" class="evidence-sheet__card">
+      <view class="evidence-sheet__label">与你的能力怎么比较</view>
+      <view class="evidence-sheet__copy">{{state.fit.statusDescription}}。</view>
+      <view class="evidence-sheet__copy">{{state.fit.scoreGapRangeLabel}}；{{state.fit.scoreGapDirectionLabel}}</view>
+      <view wx:if="{{state.fit.evidenceReasonLabel}}" class="evidence-sheet__copy">{{state.fit.evidenceReasonLabel}}</view>
+    </view>
+    <view class="evidence-sheet__note">这是备考定位，不是录取概率。资格条件仍以官方职位表和公告为准。</view>
+    <button class="sheet-button sheet-button--primary" bindtap="closeScoreSheet">明白了</button>
+  </view>
+</view>

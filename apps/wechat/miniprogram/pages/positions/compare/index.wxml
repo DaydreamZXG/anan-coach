@@ -1,0 +1,91 @@
+<view class="position-screen position-screen--compare">
+  <safe-top gap="8" />
+
+  <view class="position-nav position-nav--center">
+    <button class="position-nav__back" bindtap="goBack" aria-label="返回"><text class="position-nav__chevron"></text></button>
+    <text class="position-nav__title">岗位综合对比</text>
+    <view class="position-nav__placeholder"></view>
+  </view>
+
+  <view class="position-content position-content--compare">
+    <state-view wx:if="{{!state || state.status === 'idle' || state.status === 'loading'}}" state="loading" />
+    <state-view
+      wx:elif="{{state.status === 'needsProfile'}}"
+      state="empty"
+      title="先完成资格建档"
+      description="岗位对比会按同一份档案重新核验。"
+      action-text="去建档"
+      bind:action="openQualificationProfile"
+    />
+    <state-view
+      wx:elif="{{state.status === 'noActiveRelease'}}"
+      state="empty"
+      title="候选岗位已不在当前发布中"
+      description="返回岗位列表重新选择当前有效岗位。"
+      action-text="返回调整"
+      bind:action="returnToSearch"
+    />
+    <state-view
+      wx:elif="{{state.status !== 'ready'}}"
+      state="{{state.status === 'network' ? 'stale' : 'error'}}"
+      title="{{state.error.title}}"
+      description="{{state.error.message}}"
+      request-id="{{state.error.requestId}}"
+      action-text="{{state.error.retryable ? '重新对齐' : ''}}"
+      bind:action="retry"
+    />
+
+    <block wx:else>
+      <view wx:if="{{state.delivery && (state.delivery.partial || state.delivery.stale)}}" class="position-inline-alert">
+        {{state.delivery.partial ? state.delivery.partialLabel : state.delivery.staleLabel}}
+      </view>
+
+      <scroll-view class="comparison-scroll" scroll-x enable-flex>
+        <view class="comparison-track">
+          <view wx:for="{{state.items}}" wx:key="positionId" class="comparison-column">
+            <view class="comparison-column__header" data-id="{{item.positionId}}" bindtap="openPosition">
+              <view class="comparison-column__department">{{item.departmentFull}}</view>
+              <view class="comparison-column__title">{{item.name}}</view>
+              <view class="position-tag-row">
+                <text class="position-tag position-tag--{{item.eligibilityTone}}">{{item.eligibilityLabel}}</text>
+                <text wx:if="{{item.isPrimaryGoal}}" class="position-tag position-tag--primary">当前主目标</text>
+              </view>
+            </view>
+
+            <view class="comparison-section">
+              <view class="comparison-section__label">安全线与当前差距</view>
+              <view class="comparison-score-box">
+                <text class="comparison-score-box__value">{{item.scoreLabel}}</text>
+                <text class="comparison-score-box__gap">{{item.fitView.scoreGapRecommendedLabel}}</text>
+              </view>
+            </view>
+
+            <view class="comparison-section">
+              <view class="comparison-section__label">资格匹配</view>
+              <view class="comparison-section__value">{{item.conditionSummary}}</view>
+              <view class="comparison-section__sub">{{item.fitView.requirementsBurdenLabel}}</view>
+            </view>
+
+            <view class="comparison-section">
+              <view class="comparison-section__label">岗位信息</view>
+              <view class="comparison-section__value">{{item.region}}{{item.city ? ' · ' + item.city : ''}}</view>
+              <view class="comparison-section__sub">招 {{item.headcount}} 人 · {{item.paperTypeLabel}}</view>
+            </view>
+
+            <view class="comparison-section">
+              <view class="comparison-section__label comparison-section__label--ai">✦ 综合建议</view>
+              <view class="comparison-advice {{item.highlightLabels.length ? 'comparison-advice--recommended' : ''}}">
+                <view wx:if="{{item.highlightLabels.length}}" class="comparison-advice__badge">{{item.highlightLabels[0]}}</view>
+                <view class="comparison-advice__copy">{{item.fitView.nextActionCopy}}</view>
+              </view>
+            </view>
+
+            <button class="comparison-choose" data-id="{{item.positionId}}" bindtap="choosePosition">选定这个岗位</button>
+          </view>
+        </view>
+      </scroll-view>
+
+      <view class="comparison-footnote">分带描述同年度能力区间与岗位目标区间的关系，不代表录取概率。</view>
+    </block>
+  </view>
+</view>

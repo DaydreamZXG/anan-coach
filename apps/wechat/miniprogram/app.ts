@@ -1,35 +1,73 @@
+import { ApiClient } from "./api/client";
 import { installUnauthorizedReset } from "./api/auth";
-import { fetchOnboardingProgress } from "./api/endpoints";
+import { ExternalLearningApi } from "./api/external-learning";
+import { configureForWechatEnvVersion, environment } from "./config/environment";
+import { recordCoachNotificationOpen } from "./features/coach-notifications/open-tracker";
+import { configureExternalLearningGatewayFactory } from "./features/external-learning/contracts";
+import { productFontFaceManager, type ProductFontLoadState } from "./platform/product-font";
 
-App({
+export interface CoachAppState {
+  accessToken?: string;
+  userId?: string;
+  displayName?: string;
+  requestId?: string;
+  productFont: Readonly<ProductFontLoadState>;
+  statusBarHeight: number;
+  navBarHeight: number;
+  capsuleInset: number;
+}
+
+App<{ globalData: CoachAppState }>({
   globalData: {
+    productFont: productFontFaceManager.snapshot(),
     statusBarHeight: 20,
     navBarHeight: 44,
-    /** 右侧需为系统胶囊按钮预留的宽度（px），顶部靠右内容用它做 margin-right */
     capsuleInset: 96,
   },
 
-  onLaunch() {
+  onLaunch(options) {
     installUnauthorizedReset();
 
+    const envVersion = wx.getAccountInfoSync().miniProgram.envVersion;
+    configureForWechatEnvVersion(envVersion);
+    configureExternalLearningGatewayFactory(
+      (context) =>
+        new ExternalLearningApi(new ApiClient(environment.apiBaseUrl, context.accessToken)),
+    );
     const windowInfo = wx.getWindowInfo();
     this.globalData.statusBarHeight = windowInfo.statusBarHeight;
-
-    // 系统胶囊（右上角 …⊙）占据的宽度，顶部布局避让
     const capsule = wx.getMenuButtonBoundingClientRect();
     this.globalData.capsuleInset = windowInfo.windowWidth - capsule.left + 8;
 
-    // 预留：MiSans 子集字体通过 wx.loadFontFace 加载（待 CDN 域名白名单就绪）
+    const realtimeLogger = wx.getRealtimeLogManager();
+    realtimeLogger.addFilterMsg("product-font");
+    productFontFaceManager.subscribe((state) => {
+      this.globalData.productFont = state;
+      if (state.status === "failed" || state.status === "invalid_configuration") {
+        realtimeLogger.error("product-font-unavailable", {
+          attempt: state.attempt,
+          faces: state.faces,
+          trigger: state.lastTrigger,
+        });
+      } else if (state.status === "loaded") {
+        realtimeLogger.info("product-font-loaded", {
+          attempt: state.attempt,
+          faces: state.faces,
+          trigger: state.lastTrigger,
+        });
+      }
+    });
+    wx.onNetworkStatusChange((status) => {
+      if (status.isConnected) {
+        void productFontFaceManager.retry(environment.fontAssets, "network_reconnected");
+      }
+    });
+    void productFontFaceManager.load(environment.fontAssets, "app_launch");
+    void recordCoachNotificationOpen(options).catch(() => undefined);
+  },
 
-    // 首跑检测：未完成引导则进入 onboarding（失败静默，今日页自身有兜底）
-    fetchOnboardingProgress()
-      .then((progress) => {
-        if (!progress.completed) {
-          wx.navigateTo({ url: "/pages/onboarding/index" });
-        }
-      })
-      .catch((err) => {
-        console.error("[app] onboarding progress check failed", err);
-      });
+  onShow(options) {
+    void productFontFaceManager.retry(environment.fontAssets, "app_show_retry");
+    void recordCoachNotificationOpen(options).catch(() => undefined);
   },
 });

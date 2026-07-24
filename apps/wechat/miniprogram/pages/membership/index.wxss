@@ -1,36 +1,17 @@
-.statusbar { height: calc(env(safe-area-inset-top, 40rpx) + 24rpx); }
-.mb-nav { display: flex; align-items: center; gap: 20rpx; padding: 16rpx 8rpx; }
-.mb-back { font-size: 56rpx; color: var(--ink-2); line-height: 1; padding: 0 16rpx; }
-.mb-title { flex: 1; font-size: 32rpx; font-weight: 600; color: var(--ink); }
-.mb-loading { padding: 120rpx 0; text-align: center; }
-
-.mb-tier { display: flex; flex-direction: column; gap: 10rpx; margin-bottom: 8rpx; }
-.mb-tier.is-pro { border-left: 6rpx solid var(--warm); }
-.mb-tier-label { font-size: 40rpx; font-weight: 700; color: var(--ink); }
-
-.mb-section { display: block; font-size: 26rpx; font-weight: 600; color: var(--ink-3); padding: 28rpx 8rpx 16rpx; }
-
-.mb-quota { display: flex; align-items: center; justify-content: space-between; gap: 20rpx; margin-bottom: 16rpx; }
-.mb-quota-title { font-size: 29rpx; color: var(--ink); }
-.mb-quota-line { font-size: 27rpx; color: var(--ink-2); }
-.mb-quota-line.is-unlimited { color: var(--good); }
-
-.mb-anan {
-  display: flex; gap: 20rpx; align-items: flex-start;
-  background: var(--warm-soft);
-  border: 1rpx solid #f1dcc6;
-  border-radius: var(--radius);
-  padding: 24rpx;
-  margin: 24rpx 0;
-}
-.anan-avatar {
-  width: 56rpx; height: 56rpx; border-radius: 50%;
-  background: var(--warm); color: #fff;
-  font-size: 26rpx; font-weight: 600;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.mb-anan-text { flex: 1; font-size: 28rpx; line-height: 1.7; color: #5c4a35; }
-
-.mb-upgrade { width: 100%; }
-.demo-tip { text-align: center; padding: 16rpx 0; }
+.membership-state-view { display: block; margin-top: 28rpx; }
+.founder-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20rpx; }
+.founder-duration { margin-top: 16rpx; color: var(--color-primary-deep); font-size: 48rpx; font-weight: 800; }
+.founder-price { color: var(--color-primary-deep); font-size: 34rpx; font-weight: 800; }
+.feature-check { display: flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 44rpx; height: 44rpx; border-radius: 50%; background: var(--color-primary-soft); color: var(--color-primary); font-weight: 900; }
+.policy-row { align-items: flex-start; }
+.policy-version { flex: 0 0 120rpx; overflow: hidden; color: var(--color-muted); font-size: 17rpx; text-align: right; text-overflow: ellipsis; white-space: nowrap; }
+.accept-row { display: flex; align-items: center; gap: 16rpx; margin: 24rpx 4rpx 0; color: var(--color-ink-secondary); font-size: 23rpx; }
+.checkbox { display: flex; align-items: center; justify-content: center; box-sizing: border-box; width: 42rpx; height: 42rpx; border: 2rpx solid var(--color-line-strong); border-radius: 12rpx; color: #fff; }
+.checkbox.checked { border-color: var(--color-primary); background: var(--color-primary); }
+.reward-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14rpx; }
+.reward-card { min-width: 0; padding: 26rpx 18rpx; border: 1rpx solid var(--color-line); border-radius: 26rpx; background: var(--color-surface); }
+.reward-value { color: var(--color-primary); font-size: 30rpx; font-weight: 800; }
+.reward-title { margin-top: 12rpx; font-size: 22rpx; font-weight: 800; }
+.reward-copy { margin-top: 8rpx; color: var(--color-muted); font-size: 19rpx; line-height: 1.45; }
+.refund-button { margin-top: 24rpx; padding: 0; background: transparent; color: var(--color-primary-deep); font-size: 24rpx; font-weight: 800; text-align: left; }
+.payment-disclosure { margin-top: 16rpx; padding: 16rpx 18rpx; border-radius: 18rpx; background: rgba(255, 255, 255, 0.72); color: var(--color-ink-secondary); font-size: 19rpx; line-height: 1.5; }

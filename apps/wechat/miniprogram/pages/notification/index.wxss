@@ -1,9 +1,0 @@
-.statusbar { height: calc(env(safe-area-inset-top, 40rpx) + 24rpx); }
-.nt-nav { display: flex; align-items: center; gap: 20rpx; padding: 16rpx 8rpx; }
-.nt-back { font-size: 56rpx; color: var(--ink-2); line-height: 1; padding: 0 16rpx; }
-.nt-title { flex: 1; font-size: 32rpx; font-weight: 600; color: var(--ink); }
-.nt-list { display: flex; flex-direction: column; gap: 36rpx; }
-.nt-row { display: flex; align-items: center; justify-content: space-between; gap: 24rpx; }
-.nt-row-main { flex: 1; display: flex; flex-direction: column; gap: 6rpx; }
-.nt-row-label { font-size: 29rpx; font-weight: 600; color: var(--ink); }
-.nt-hint { display: block; padding: 24rpx 8rpx; line-height: 1.6; }

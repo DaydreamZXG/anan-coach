@@ -17,9 +17,7 @@ NOW = datetime(2026, 7, 16, 8, 0, tzinfo=UTC)
 def test_external_report_requires_confirmed_printed_ocr_and_separate_field_confirmation(
     db_session_factory: sessionmaker[Session],
 ) -> None:
-    user_id = _seed_user_and_release(
-        db_session_factory, token="stage6-external-boundary-token"
-    )
+    user_id = _seed_user_and_release(db_session_factory, token="stage6-external-boundary-token")
     artifact_id, candidate_revision_id = _seed_printed_report_recognition(
         db_session_factory, user_id=user_id, state="candidate"
     )
@@ -53,28 +51,32 @@ def test_external_report_requires_confirmed_printed_ocr_and_separate_field_confi
     assert report["abilityImpact"] == "blocked_until_confirmed"
     assert report["scoreEvidenceId"] is None
     with db_session_factory() as session:
-        assert session.execute(
-            text(
-                "select count(*) from learning.score_evidence "
-                "where user_id = cast(:user_id as uuid)"
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 0
-        assert session.execute(
-            text(
-                "select count(*) from learning.ability_estimate_versions "
-                "where user_id = cast(:user_id as uuid)"
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 0
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from learning.score_evidence "
+                    "where user_id = cast(:user_id as uuid)"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 0
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from learning.ability_estimate_versions "
+                    "where user_id = cast(:user_id as uuid)"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 0
+        )
 
 
 def test_confirmed_timed_external_report_enters_ability_once_and_duplicate_is_replayed(
     db_session_factory: sessionmaker[Session],
 ) -> None:
-    user_id = _seed_user_and_release(
-        db_session_factory, token="stage6-external-confirm-token"
-    )
+    user_id = _seed_user_and_release(db_session_factory, token="stage6-external-confirm-token")
     artifact_id, revision_id = _seed_printed_report_recognition(
         db_session_factory, user_id=user_id, state="confirmed"
     )
@@ -126,17 +128,21 @@ def test_confirmed_timed_external_report_enters_ability_once_and_duplicate_is_re
     assert "未重复写入" in duplicate.json()["data"]["confirmationMessage"]
 
     with db_session_factory() as session:
-        evidence = session.execute(
-            text(
-                """
+        evidence = (
+            session.execute(
+                text(
+                    """
                 select source_type, verification_status, xingce_score,
                        shenlun_score, timed_status
                 from learning.score_evidence
                 where user_id = cast(:user_id as uuid)
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().all()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .all()
+        )
         assert len(evidence) == 1
         assert dict(evidence[0]) == {
             "source_type": "external_mock",
@@ -150,9 +156,7 @@ def test_confirmed_timed_external_report_enters_ability_once_and_duplicate_is_re
 def test_untimed_external_report_is_confirmed_for_trend_but_not_ability(
     db_session_factory: sessionmaker[Session],
 ) -> None:
-    user_id = _seed_user_and_release(
-        db_session_factory, token="stage6-external-trend-token"
-    )
+    user_id = _seed_user_and_release(db_session_factory, token="stage6-external-trend-token")
     artifact_id, revision_id = _seed_printed_report_recognition(
         db_session_factory, user_id=user_id, state="confirmed"
     )
@@ -182,21 +186,22 @@ def test_untimed_external_report_is_confirmed_for_trend_but_not_ability(
     assert report["abilityImpact"] == "trend_only"
     assert report["scoreEvidenceId"] is None
     with db_session_factory() as session:
-        assert session.execute(
-            text(
-                "select count(*) from learning.score_evidence "
-                "where user_id = cast(:user_id as uuid)"
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 0
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from learning.score_evidence "
+                    "where user_id = cast(:user_id as uuid)"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 0
+        )
 
 
 def test_global_report_has_complete_chart_semantics_and_plan_evidence_refs(
     db_session_factory: sessionmaker[Session],
 ) -> None:
-    user_id = _seed_user_and_release(
-        db_session_factory, token="stage6-global-report-token"
-    )
+    user_id = _seed_user_and_release(db_session_factory, token="stage6-global-report-token")
     artifact_id, revision_id = _seed_printed_report_recognition(
         db_session_factory, user_id=user_id, state="confirmed"
     )
@@ -221,6 +226,7 @@ def test_global_report_has_complete_chart_semantics_and_plan_evidence_refs(
     assert response.status_code == 200, response.text
     report = response.json()["data"]
     assert report["chartContractVersion"] == "report-chart@v1"
+    assert len(report["inputFingerprint"]) == 64
     assert report["state"] == "partial"
     assert len(report["charts"]) == 6
     for chart in report["charts"]:
@@ -236,20 +242,22 @@ def test_global_report_has_complete_chart_semantics_and_plan_evidence_refs(
         f"ability-estimate:{confirmed.json()['data']['estimateVersionId']}"
     ]
     with db_session_factory() as session:
-        stored = session.execute(
-            text(
-                """
+        stored = (
+            session.execute(
+                text(
+                    """
                 select chart_contract_version, next_plan_evidence_refs
                 from learning.report_projection_versions
                 where user_id = cast(:user_id as uuid) and report_kind = 'global'
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
         assert stored["chart_contract_version"] == "report-chart@v1"
-        assert stored["next_plan_evidence_refs"] == report["conclusion"][
-            "nextPlanEvidenceRefs"
-        ]
+        assert stored["next_plan_evidence_refs"] == report["conclusion"]["nextPlanEvidenceRefs"]
 
 
 def _draft_command(*, artifact_id: str, recognition_revision_id: str) -> dict[str, object]:
@@ -318,9 +326,10 @@ def _add_confirmed_revision(
 ) -> str:
     recognition_revision_id = str(uuid4())
     with factory.begin() as session:
-        predecessor = session.execute(
-            text(
-                """
+        predecessor = (
+            session.execute(
+                text(
+                    """
                 select recognition_revision_id::text, revision_no
                 from learning.recognition_revisions
                 where artifact_version_id = cast(:artifact_id as uuid)
@@ -328,9 +337,12 @@ def _add_confirmed_revision(
                 order by revision_no desc
                 limit 1
                 """
-            ),
-            {"artifact_id": artifact_id},
-        ).mappings().one()
+                ),
+                {"artifact_id": artifact_id},
+            )
+            .mappings()
+            .one()
+        )
         _insert_recognition(
             session,
             user_id=user_id,

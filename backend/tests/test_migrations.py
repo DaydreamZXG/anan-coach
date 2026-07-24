@@ -261,6 +261,27 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
             text("alter table learning.score_evidence drop column if exists erased_at")
         )
         connection.execute(
+            text(
+                "drop table if exists "
+                "learner.ability_baseline_declaration_versions cascade"
+            )
+        )
+        connection.execute(
+            text(
+                "drop function if exists "
+                "learner.enforce_ability_baseline_immutability()"
+            )
+        )
+        connection.execute(
+            text("drop table if exists learner.position_preference_versions cascade")
+        )
+        connection.execute(
+            text(
+                "drop function if exists "
+                "learner.enforce_position_preference_immutability()"
+            )
+        )
+        connection.execute(
             text("drop function if exists commerce.enforce_stage8_state_transition()")
         )
         connection.execute(text("drop schema if exists privacy cascade"))
@@ -306,6 +327,18 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
                 "alter table learner.mock_exam_sessions "
                 "drop column scoring_policy_version_id, "
                 "drop column paper_version_id"
+            )
+        )
+        connection.execute(
+            text(
+                "drop index if exists "
+                "learner.mock_exam_source_plan_task_unique_idx"
+            )
+        )
+        connection.execute(
+            text(
+                "alter table learner.mock_exam_sessions "
+                "drop column if exists source_plan_task_id"
             )
         )
         connection.execute(text("drop table product.mock_exam_paper_versions cascade"))
@@ -445,7 +478,18 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
         connection.execute(text("drop table product.position_rule_compilations"))
         connection.execute(text("drop table product.position_rule_releases"))
         connection.execute(text("alter table learner.app_sessions drop column revoked_reason"))
-        connection.execute(text("alter table learner.users drop column account_status_changed_at"))
+        connection.execute(
+            text(
+                "alter table learner.users "
+                "drop constraint if exists users_avatar_style_check"
+            )
+        )
+        connection.execute(
+            text("alter table learner.users drop column if exists avatar_style")
+        )
+        connection.execute(
+            text("alter table learner.users drop column account_status_changed_at")
+        )
         connection.execute(text("alter table learner.users drop column account_status"))
         connection.execute(text("alter table learner.profiles drop column profile_version"))
         connection.execute(text("drop table learner.wechat_identities"))
@@ -1195,6 +1239,24 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
                 text(
                     "delete from product.question_content_versions "
                     "where question_id = 'q-legacy-duplicate-mock'"
+                )
+            )
+            connection.execute(
+                text(
+                    "alter table learner.preparation_experience_versions "
+                    "disable trigger preparation_experience_versions_append_only"
+                )
+            )
+            connection.execute(
+                text(
+                    "update learner.preparation_experience_versions "
+                    "set current_status = 'unspecified'"
+                )
+            )
+            connection.execute(
+                text(
+                    "alter table learner.preparation_experience_versions "
+                    "enable trigger preparation_experience_versions_append_only"
                 )
             )
         command.downgrade(config, "20260713_09")

@@ -1,0 +1,3 @@
+<view class="ability-radar">
+  <canvas id="abilityRadarCanvas" type="2d" class="ability-radar__canvas"></canvas>
+</view>

@@ -1,242 +1,396 @@
+import { ApiClient } from "../../api/client";
+import type { MajorTreeResponse } from "../../api/generated/types.gen";
+import { OnboardingApi } from "../../api/onboarding";
+import { QualificationApi } from "../../api/qualification";
+import { onboardingNavigationTarget, routes } from "../../app/navigation/routes";
+import { PageControllerRegistry } from "../../app/runtime/controller-registry";
+import { currentAuthSession } from "../../auth/session";
 import {
-  acknowledgeOnboarding,
-  completeQualificationMilestone,
-  fetchOnboardingProgress,
-  putPreparationExperience,
-  putStudyPreference,
-  updateOnboardingProfile,
-} from "../../api/endpoints";
-import type { OnboardingProgress } from "../../api/generated/types.gen";
+  QualificationController,
+  type QualificationControllerState,
+} from "../../features/onboarding/qualification-controller";
+import type { OnboardingNextStep } from "../../features/onboarding/types";
+import {
+  emptyQualificationDraft,
+  qualificationFactsFromDraft,
+  type QualificationDraft,
+} from "../../features/qualification/onboarding";
+import { createIdempotencyKey } from "../../platform/command-id";
 
-const EDUCATIONS = ["大专", "本科", "硕士", "博士"];
-const POLITICAL = ["群众", "共青团员", "中共党员"];
-const EXAM_YEARS = [2023, 2024, 2025, 2026];
-/** 节奏预设：一次选择同时定下工作日/周末/长块/碎片时长 */
-const RHYTHMS = [
-  {
-    key: "light",
-    label: "在职·挤时间",
-    desc: "工作日 45 分钟，周末 2 小时",
-    weekdayMinutes: 45, weekendMinutes: 120, longBlockMinutes: 45, fragmentMinutes: 15,
-  },
-  {
-    key: "steady",
-    label: "稳定投入",
-    desc: "工作日 90 分钟，周末 3 小时",
-    weekdayMinutes: 90, weekendMinutes: 180, longBlockMinutes: 60, fragmentMinutes: 20,
-  },
-  {
-    key: "full",
-    label: "全职冲刺",
-    desc: "每天 3 小时以上",
-    weekdayMinutes: 200, weekendMinutes: 200, longBlockMinutes: 90, fragmentMinutes: 25,
-  },
-] as const;
-const WEEKDAYS = [
-  { value: "monday", label: "周一" },
-  { value: "tuesday", label: "周二" },
-  { value: "wednesday", label: "周三" },
-  { value: "thursday", label: "周四" },
-  { value: "friday", label: "周五" },
-  { value: "saturday", label: "周六" },
-  { value: "sunday", label: "周日" },
-] as const;
-const MODULES = ["言语理解", "判断推理", "资料分析", "数量关系", "常识判断"];
-
-function today(): string {
-  const d = new Date();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${d.getFullYear()}-${m}-${day}`;
+interface GraduationOption {
+  label: string;
+  year: number;
+  freshGraduate: "true" | "false";
 }
 
-Page({
+interface MajorOption {
+  code: string;
+  name: string;
+  category: string;
+}
+
+interface QualificationPageData extends QualificationDraft {
+  educationOptions: string[];
+  graduationOptions: GraduationOption[];
+  serviceProjectOptions: string[];
+  majorSuggestions: MajorOption[];
+  majorCategory: string;
+  graduationLabel: string;
+  serviceExpanded: boolean;
+  error: string;
+  requestId: string;
+  saving: boolean;
+  savingDraft: boolean;
+  profileVersion: number;
+  loadingProfile: boolean;
+  loadFailed: boolean;
+  catalogLoading: boolean;
+  catalogError: string;
+  pendingRecovery: boolean;
+  primaryDisabled: boolean;
+  primaryActionLabel: string;
+}
+
+interface QualificationPageCustom {
+  retryLoad(): void;
+  retryCatalog(): void;
+  inputMajor(event: WechatMiniprogram.CustomEvent<{ value: string }>): void;
+  selectMajor(event: WechatMiniprogram.BaseEvent): void;
+  chooseEducation(event: WechatMiniprogram.PickerChange): void;
+  chooseGraduation(event: WechatMiniprogram.PickerChange): void;
+  chooseServiceMode(event: WechatMiniprogram.BaseEvent): void;
+  chooseServiceProject(event: WechatMiniprogram.BaseEvent): void;
+  chooseWorkYears(event: WechatMiniprogram.BaseEvent): void;
+  submit(): void;
+  saveAndExit(): void;
+  markLater(): void;
+  back(): void;
+}
+
+type QualificationPage = WechatMiniprogram.Page.Instance<
+  QualificationPageData,
+  QualificationPageCustom
+>;
+
+const educationOptions = ["大专", "本科", "硕士研究生", "博士研究生"];
+const graduationOptions: GraduationOption[] = [
+  { label: "2026（应届）", year: 2026, freshGraduate: "true" },
+  { label: "2025（择业期应届）", year: 2025, freshGraduate: "true" },
+  { label: "2025（社会人员）", year: 2025, freshGraduate: "false" },
+  { label: "2024 及以前", year: 2024, freshGraduate: "false" },
+];
+const serviceProjectOptions = [
+  "大学生村官",
+  "三支一扶",
+  "特岗教师",
+  "西部计划",
+  "高校毕业生退役士兵",
+  "其他服务基层项目",
+];
+
+const runtimes = new PageControllerRegistry<QualificationPage, QualificationController>();
+const catalogs = new WeakMap<QualificationPage, MajorOption[]>();
+const partialSaveKeys = new WeakMap<QualificationPage, string>();
+
+Page<QualificationPageData, QualificationPageCustom>({
   data: {
-    step: 1,
-    totalSteps: 4,
-    educations: EDUCATIONS,
-    political: POLITICAL,
-    examYears: EXAM_YEARS,
-    rhythms: RHYTHMS as unknown as Array<{ key: string; label: string; desc: string }>,
-    weekdays: WEEKDAYS as unknown as Array<{ value: string; label: string }>,
-    modules: MODULES,
-    // 步骤一：备考经历
-    priorExam: "" as "" | "yes" | "no",
-    priorYears: [] as number[],
-    firstSystematic: true,
-    externalLearning: false,
-    // 步骤二：资格身份
-    education: "",
-    major: "",
-    politicalStatus: "",
-    freshGraduate: true,
-    // 步骤三：学习节奏
-    studyMode: "" as "" | "fulltime" | "parttime",
-    rhythmKey: "",
-    restDay: "sunday",
-    mockDay: "saturday",
-    // 步骤四：基线自评
-    weakModules: [] as string[],
-    submitting: false,
+    ...emptyQualificationDraft,
+    educationOptions,
+    graduationOptions,
+    serviceProjectOptions,
+    majorSuggestions: [],
+    majorCategory: "",
+    graduationLabel: "",
+    serviceExpanded: false,
+    error: "",
+    requestId: "",
+    saving: false,
+    savingDraft: false,
+    profileVersion: 0,
+    loadingProfile: true,
+    loadFailed: false,
+    catalogLoading: true,
+    catalogError: "",
+    pendingRecovery: false,
+    primaryDisabled: true,
+    primaryActionLabel: "继续：填写岗位偏好",
   },
 
-  onPick(e: WechatMiniprogram.TouchEvent) {
-    const { field, value } = e.currentTarget.dataset as {
-      field: string;
-      value: string;
-    };
-    this.setData({ [field]: value });
+  onLoad() {
+    mountController(this);
+    void loadMajorCatalog(this);
   },
 
-  onToggleYear(e: WechatMiniprogram.TouchEvent) {
-    const { value } = e.currentTarget.dataset as { value: number };
-    const year = Number(value);
-    const list = this.data.priorYears.slice();
-    const i = list.indexOf(year);
-    if (i >= 0) list.splice(i, 1);
-    else list.push(year);
-    this.setData({ priorYears: list });
+  onShow() {
+    if (!runtimes.get(this)?.controller?.sessionIsCurrent()) {
+      mountController(this);
+      void loadMajorCatalog(this);
+    }
   },
 
-  onFirstSystematic(e: WechatMiniprogram.SwitchChange) {
-    this.setData({ firstSystematic: e.detail.value });
+  onUnload() {
+    runtimes.detach(this);
+    catalogs.delete(this);
+    partialSaveKeys.delete(this);
   },
 
-  onExternalLearning(e: WechatMiniprogram.SwitchChange) {
-    this.setData({ externalLearning: e.detail.value });
+  retryLoad() {
+    void runtimes.get(this)?.controller?.load();
   },
 
-  onMajor(e: WechatMiniprogram.Input) {
-    this.setData({ major: e.detail.value });
+  retryCatalog() {
+    void loadMajorCatalog(this);
   },
 
-  onFresh(e: WechatMiniprogram.SwitchChange) {
-    this.setData({ freshGraduate: e.detail.value });
+  inputMajor(event) {
+    const major = event.detail.value.trimStart();
+    runtimes.get(this)?.controller?.changeDraft({ major });
+    this.setData({
+      majorCategory: "",
+      majorSuggestions: searchMajors(catalogs.get(this) ?? [], major),
+    });
   },
 
-  onToggleModule(e: WechatMiniprogram.TouchEvent) {
-    const { value } = e.currentTarget.dataset as { value: string };
-    const list = this.data.weakModules.slice();
-    const i = list.indexOf(value);
-    if (i >= 0) list.splice(i, 1);
-    else list.push(value);
-    this.setData({ weakModules: list });
+  selectMajor(event) {
+    const name = String(event.currentTarget.dataset.name ?? "");
+    const category = String(event.currentTarget.dataset.category ?? "");
+    if (!name) return;
+    runtimes.get(this)?.controller?.changeDraft({ major: name });
+    this.setData({ majorCategory: category, majorSuggestions: [] });
   },
 
-  onNext() {
-    const { step, priorExam, education, major, politicalStatus, studyMode, rhythmKey } = this.data;
-    if (step === 1) {
-      if (!priorExam) {
-        wx.showToast({ title: "选一下是否考过", icon: "none" });
-        return;
-      }
-      this.setData({ step: 2 });
+  chooseEducation(event) {
+    const education = educationOptions[Number(event.detail.value)];
+    if (education) runtimes.get(this)?.controller?.changeDraft({ education });
+  },
+
+  chooseGraduation(event) {
+    const option = graduationOptions[Number(event.detail.value)];
+    if (!option) return;
+    runtimes.get(this)?.controller?.changeDraft({
+      graduationYear: option.year,
+      freshGraduate: option.freshGraduate,
+    });
+  },
+
+  chooseServiceMode(event) {
+    const mode = String(event.currentTarget.dataset.mode ?? "");
+    if (mode === "none") {
+      runtimes.get(this)?.controller?.changeDraft({
+        serviceProject: "无",
+        grassrootsYears: 0,
+      });
+      this.setData({ serviceExpanded: false });
       return;
     }
-    if (step === 2) {
-      if (!education || !major.trim() || !politicalStatus) {
-        wx.showToast({ title: "把三项都填一下", icon: "none" });
-        return;
-      }
-      this.setData({ step: 3 });
-      return;
+    if (mode === "has") {
+      const current = this.data.serviceProject;
+      runtimes.get(this)?.controller?.changeDraft({
+        serviceProject: current === "无" ? "" : current,
+        grassrootsYears: current === "无" ? -1 : this.data.grassrootsYears,
+      });
+      this.setData({ serviceExpanded: true });
     }
-    if (step === 3) {
-      if (!studyMode || !rhythmKey) {
-        wx.showToast({ title: "选一下模式和节奏", icon: "none" });
-        return;
-      }
-      this.setData({ step: 4 });
-      return;
-    }
-    this.submit();
   },
 
-  onBack() {
-    if (this.data.step > 1) this.setData({ step: this.data.step - 1 });
+  chooseServiceProject(event) {
+    const serviceProject = String(event.currentTarget.dataset.value ?? "");
+    if (!serviceProjectOptions.includes(serviceProject)) return;
+    runtimes.get(this)?.controller?.changeDraft({ serviceProject });
+    this.setData({ serviceExpanded: true });
   },
 
-  async submit() {
-    if (this.data.submitting) return;
-    this.setData({ submitting: true });
-    const {
-      priorExam, priorYears, firstSystematic, externalLearning,
-      education, major, politicalStatus, freshGraduate,
-      studyMode, rhythmKey, restDay, mockDay, weakModules,
-    } = this.data;
-    const rhythm = RHYTHMS.find((r) => r.key === rhythmKey) ?? RHYTHMS[1];
-
-    try {
-      // 按后端状态机逐步提交，每步前刷新进度获取乐观锁版本号
-      let progress: OnboardingProgress = await fetchOnboardingProgress();
-
-      // 步骤一：备考经历（含二战标记）
-      const isRetake = priorExam === "yes";
-      await putPreparationExperience({
-        expectedExperienceVersion: progress.experienceProfileVersion ?? 0,
-        expectedProgressVersion: progress.progressVersion,
-        priorGuokaoExam: isRetake,
-        retake: isRetake,
-        priorExamYears: isRetake ? priorYears : [],
-        firstSystematic,
-        externalLearning,
-      });
-
-      // 步骤二：资格画像 + milestone 确认
-      const profile = await updateOnboardingProfile({
-        education,
-        major: major.trim(),
-        politicalStatus,
-        freshGraduate,
-        studyMode: studyMode || null,
-        dailyMinutes: rhythm.weekdayMinutes,
-        baselineSource: weakModules.length ? "self_report" : "none",
-        baselineWeakModules: weakModules,
-      });
-      progress = await fetchOnboardingProgress();
-      await completeQualificationMilestone({
-        expectedProgressVersion: progress.progressVersion,
-        qualificationProfileVersion:
-          progress.qualificationProfileVersion ?? (profile as { profileVersion?: number }).profileVersion ?? 1,
-      });
-
-      // 步骤三：每周学习节奏
-      progress = await fetchOnboardingProgress();
-      await putStudyPreference({
-        expectedPreferenceVersion: progress.studyPreferenceVersion ?? 0,
-        expectedProgressVersion: progress.progressVersion,
-        effectiveFrom: today(),
-        weekdayMinutes: rhythm.weekdayMinutes,
-        weekendMinutes: rhythm.weekendMinutes,
-        longBlockMinutes: rhythm.longBlockMinutes,
-        fragmentMinutes: rhythm.fragmentMinutes,
-        fixedRestDay: restDay as "sunday",
-        mockExamDay: mockDay as "saturday",
-        timezone: "Asia/Shanghai",
-      });
-
-      // 确认结果，完成引导
-      progress = await fetchOnboardingProgress();
-      const result = await acknowledgeOnboarding(progress.progressVersion);
-      if (result.nextAction === "start_retake_recovery") {
-        // 二战用户：进工作台选上次成绩，生成恢复计划
-        wx.redirectTo({
-          url: "/pages/retake/index",
-          fail: () => wx.switchTab({ url: "/pages/today/index" }),
-        });
-        return;
-      }
-      if (result.nextAction === "record_baseline") {
-        // 新用户：先摸底建立初始画像，再进今日
-        wx.redirectTo({
-          url: "/pages/placement/index",
-          fail: () => wx.switchTab({ url: "/pages/today/index" }),
-        });
-        return;
-      }
-    } catch (err) {
-      console.error("[onboarding] submit failed (continuing to workspace)", err);
+  chooseWorkYears(event) {
+    const workYears = Number(event.currentTarget.dataset.value);
+    if (Number.isSafeInteger(workYears) && workYears >= 0) {
+      runtimes.get(this)?.controller?.changeDraft({ workYears });
     }
-    wx.switchTab({ url: "/pages/today/index" });
+  },
+
+  submit() {
+    void submitAndContinue(this);
+  },
+
+  saveAndExit() {
+    void savePartialAndExit(this);
+  },
+
+  markLater() {
+    void savePartialAndExit(this);
+  },
+
+  back() {
+    void wx.redirectTo({ url: routes.onboardingPreparationExperience });
   },
 });
+
+function mountController(page: QualificationPage): void {
+  const session = currentAuthSession();
+  if (!session) {
+    runtimes.detach(page);
+    void wx.reLaunch({ url: routes.login });
+    return;
+  }
+  const client = new ApiClient(undefined, session.accessToken);
+  const runtime = runtimes.attach(page);
+  const controller = new QualificationController({
+    userId: session.userId,
+    profileApi: new QualificationApi(client),
+    progressApi: new OnboardingApi(client),
+    onChange: (state) => {
+      if (runtimes.owns(page, runtime)) page.setData(pageState(state));
+    },
+    onAdvance: (step) => {
+      if (runtimes.owns(page, runtime)) navigateOnboardingStep(step);
+    },
+    isSessionCurrent: () => {
+      const current = currentAuthSession();
+      return current?.userId === session.userId && current.accessToken === session.accessToken;
+    },
+  });
+  runtime.controller = controller;
+  page.setData(pageState(controller.snapshot()));
+  void controller.load();
+}
+
+function pageState(state: QualificationControllerState): Partial<QualificationPageData> {
+  const draft = state.draft;
+  return {
+    ...draft,
+    graduationLabel: graduationLabel(draft),
+    serviceExpanded: Boolean(draft.serviceProject && draft.serviceProject !== "无"),
+    error: state.validationError || state.error?.message || "",
+    requestId: state.error?.requestId ?? "",
+    saving: state.saving,
+    profileVersion: state.profileVersion,
+    loadingProfile: state.status === "idle" || state.status === "loading",
+    loadFailed: state.status === "error",
+    pendingRecovery: state.pendingRecovery,
+    primaryDisabled:
+      state.status !== "ready" ||
+      state.saving ||
+      !draft.education ||
+      draft.major.trim().length < 2 ||
+      draft.graduationYear < 2000 ||
+      !draft.freshGraduate ||
+      !draft.serviceProject ||
+      draft.workYears < 0,
+    primaryActionLabel: state.pendingRecovery ? "查询原确认结果" : "继续：填写岗位偏好",
+  };
+}
+
+async function loadMajorCatalog(page: QualificationPage): Promise<void> {
+  const session = currentAuthSession();
+  if (!session) return;
+  page.setData({ catalogLoading: true, catalogError: "", majorSuggestions: [] });
+  try {
+    const response = await new QualificationApi(
+      new ApiClient(undefined, session.accessToken),
+    ).getMajorCatalog();
+    const current = currentAuthSession();
+    if (
+      current?.userId !== session.userId ||
+      current.accessToken !== session.accessToken ||
+      !runtimes.get(page)?.controller?.sessionIsCurrent()
+    ) {
+      return;
+    }
+    const catalog = flattenMajorCatalog(response.data);
+    catalogs.set(page, catalog);
+    page.setData({
+      catalogLoading: false,
+      catalogError: "",
+      majorSuggestions: searchMajors(catalog, page.data.major),
+    });
+  } catch {
+    const current = currentAuthSession();
+    if (
+      current?.userId !== session.userId ||
+      current.accessToken !== session.accessToken ||
+      !runtimes.get(page)?.controller?.sessionIsCurrent()
+    ) {
+      return;
+    }
+    catalogs.delete(page);
+    page.setData({
+      catalogLoading: false,
+      catalogError: "专业目录没有读取成功，请重新读取后再选择专业。",
+      majorSuggestions: [],
+    });
+  }
+}
+
+function flattenMajorCatalog(tree: MajorTreeResponse): MajorOption[] {
+  return tree.categories.flatMap((category) =>
+    category.subCategories.flatMap((subcategory) =>
+      subcategory.majors.map((major) => ({
+        code: major.code,
+        name: major.name,
+        category: `${category.name} · ${subcategory.name}`,
+      })),
+    ),
+  );
+}
+
+function searchMajors(catalog: MajorOption[], query: string): MajorOption[] {
+  const normalized = query.trim().toLocaleLowerCase();
+  if (!normalized) return [];
+  return catalog
+    .filter(
+      (major) =>
+        major.name.toLocaleLowerCase().includes(normalized) ||
+        major.code.toLocaleLowerCase().includes(normalized),
+    )
+    .slice(0, 6);
+}
+
+function graduationLabel(draft: QualificationDraft): string {
+  if (draft.graduationYear < 2000 || !draft.freshGraduate) return "";
+  return `${String(draft.graduationYear)}（${
+    draft.freshGraduate === "true" ? "应届身份" : "社会人员"
+  }）`;
+}
+
+async function submitAndContinue(page: QualificationPage): Promise<void> {
+  const controller = runtimes.get(page)?.controller;
+  if (!controller || page.data.catalogLoading || page.data.catalogError) return;
+  await controller.submit();
+  if (controller.snapshot().saved) controller.continue();
+}
+
+async function savePartialAndExit(page: QualificationPage): Promise<void> {
+  const session = currentAuthSession();
+  if (!session || page.data.savingDraft || page.data.saving) return;
+  const facts = qualificationFactsFromDraft(page.data);
+  if (!facts.length) {
+    void wx.redirectTo({ url: routes.profileArchive });
+    return;
+  }
+  page.setData({ savingDraft: true, error: "", requestId: "" });
+  try {
+    let commandKey = partialSaveKeys.get(page);
+    if (!commandKey) {
+      commandKey = await createIdempotencyKey("qualification-draft");
+      partialSaveKeys.set(page, commandKey);
+    }
+    await new QualificationApi(new ApiClient(undefined, session.accessToken)).updateProfile(
+      facts,
+      commandKey,
+    );
+    partialSaveKeys.delete(page);
+    page.setData({ savingDraft: false });
+    void wx.redirectTo({ url: routes.profileArchive });
+  } catch (error) {
+    page.setData({
+      savingDraft: false,
+      error: error instanceof Error ? error.message : "报考资料暂存失败，请重试。",
+    });
+  }
+}
+
+function navigateOnboardingStep(step: OnboardingNextStep): void {
+  if (step === "qualification") return;
+  const target = onboardingNavigationTarget(step);
+  if (target.mode === "switchTab") void wx.switchTab({ url: target.url });
+  else void wx.redirectTo({ url: target.url });
+}
