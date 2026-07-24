@@ -1,4 +1,7 @@
 .task-shell {
+  --task-status-bar-height: 0px;
+  --task-menu-bottom: 0px;
+  --task-capsule-reserve: 0px;
   --task-toolbar-surface: rgba(255, 255, 255, 0.94);
   --task-toolbar-control: #f7f9fc;
   --task-toolbar-line: #f0f2f6;
@@ -7,7 +10,7 @@
   --task-toolbar-brand-soft: #eef2ff;
   box-sizing: border-box;
   min-height: 100vh;
-  padding: calc(12rpx + env(safe-area-inset-top)) var(--space-page-x) 158rpx;
+  padding: var(--task-status-bar-height) var(--space-page-x) 158rpx;
   background: var(--color-canvas);
 }
 
@@ -16,19 +19,19 @@
 }
 
 .task-shell--no-header {
-  padding-top: env(safe-area-inset-top);
+  padding-top: var(--task-menu-bottom);
 }
 
 .task-header {
   position: sticky;
   z-index: var(--z-sticky);
-  top: 0;
+  top: var(--task-status-bar-height);
   display: flex;
   align-items: center;
   justify-content: space-between;
   min-height: 64rpx;
   margin: 0 calc(var(--space-page-x) * -1);
-  padding: 12rpx 20rpx;
+  padding: 12rpx calc(20rpx + var(--task-capsule-reserve)) 12rpx 20rpx;
   border-bottom: 1rpx solid rgba(240, 242, 246, 0.84);
   background: var(--task-toolbar-surface);
   box-shadow: 0 8rpx 30rpx rgba(17, 24, 39, 0.025);
@@ -429,17 +432,22 @@
     width: 100%;
     max-width: var(--layout-workbench-max);
     margin: 0 auto;
-    padding: calc(12px + env(safe-area-inset-top)) var(--layout-tablet-gutter) 104px;
+    padding: var(--task-status-bar-height) var(--layout-tablet-gutter) 104px;
   }
 
   .task-shell--no-footer {
     padding-bottom: 40px;
   }
 
+  .task-shell--no-header {
+    padding-top: var(--task-menu-bottom);
+  }
+
   .task-header {
     min-height: 48px;
     margin: 0 calc(var(--layout-tablet-gutter) * -1);
-    padding: 10px var(--layout-tablet-gutter);
+    padding: 10px calc(var(--layout-tablet-gutter) + var(--task-capsule-reserve)) 10px
+      var(--layout-tablet-gutter);
     box-shadow: 0 10px 32px rgba(190, 120, 60, 0.08);
   }
 
@@ -614,7 +622,7 @@
   .task-header {
     margin-right: calc(var(--layout-wide-gutter) * -1);
     margin-left: calc(var(--layout-wide-gutter) * -1);
-    padding-right: var(--layout-wide-gutter);
+    padding-right: calc(var(--layout-wide-gutter) + var(--task-capsule-reserve));
     padding-left: var(--layout-wide-gutter);
   }
 

@@ -59,8 +59,14 @@ describe("VJ-02 real xingce WeChat AS-04", () => {
     await vi.waitFor(() => {
       expect(page.data.status).toBe("ready");
     });
-    expect(page.data.phase).toBe("reflection");
+    expect(page.data.phase).toBe("summary");
     expect(page.data.result).toMatchObject({ correctCount: 0, totalCount: 3 });
+    page.startReflection.call(page);
+    expect(page.data.phase).toBe("reflection");
+    page.showSummary.call(page);
+    expect(page.data.phase).toBe("summary");
+    page.startReflection.call(page);
+    expect(page.data.phase).toBe("reflection");
 
     await page.submitReflection.call(page);
     expect(showToast.mock.calls[0]?.[0].title).toContain("真实想法");
@@ -132,6 +138,8 @@ interface CapturedReflectionPage {
   data: Record<string, unknown>;
   onLoad(this: TestReflectionPage, options: Record<string, string | undefined>): void;
   onUnload(this: TestReflectionPage): void;
+  startReflection(this: TestReflectionPage): void;
+  showSummary(this: TestReflectionPage): void;
   submitReflection(this: TestReflectionPage): Promise<void>;
   inputRawText(this: TestReflectionPage, event: WechatMiniprogram.Input): void;
   toggleTag(this: TestReflectionPage, event: WechatMiniprogram.BaseEvent): void;

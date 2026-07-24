@@ -175,69 +175,8 @@
       </view>
     </block>
 
-    <view wx:else class="result-workspace">
-      <button class="result-back" bindtap="exit"><text class="result-back__chevron"></text></button>
-
-      <view class="result-intro">
-        <view class="result-title">这组做完了</view>
-        <view class="result-copy">比起 {{result.correctCount}}/{{result.totalCount}}，更重要的是找到每一道题真正留下的证据。</view>
-      </view>
-
-      <view class="result-summary-card">
-        <view class="result-metrics">
-          <view wx:for="{{result.metrics}}" wx:key="code" class="result-metric result-metric--{{item.tone}}">
-            <view class="result-metric__value type-data">{{item.value}}</view>
-            <view class="result-metric__label">{{item.label}}</view>
-          </view>
-        </view>
-        <view wx:if="{{result.confidenceCalibration.length}}" class="confidence-panel">
-          <view class="confidence-panel__title">信心校准</view>
-          <view class="confidence-list">
-            <view wx:for="{{result.confidenceCalibration}}" wx:key="code" class="confidence-row">
-              <view class="confidence-row__label"><view class="confidence-dot confidence-dot--{{item.tone}}"></view>{{item.label}}</view>
-              <view class="confidence-row__value type-data">{{item.value}} 题</view>
-            </view>
-          </view>
-        </view>
-      </view>
-
-      <view wx:if="{{result.group}}" class="result-insight">
-        <view class="result-insight__head"><text class="result-insight__spark">✦</text><text>岸岸结论</text></view>
-        <view class="result-insight__title">{{result.group.outcomeLabel}}</view>
-        <view class="result-insight__copy">{{result.group.description}}</view>
-        <view wx:if="{{resultBasisOpen}}" class="result-insight__basis">
-          <view wx:for="{{result.group.counts}}" wx:key="code" class="result-insight__basis-row">
-            <text>{{item.label}}</text><text class="type-data">{{item.value}}</text>
-          </view>
-          <view class="result-insight__next">{{result.group.nextActionLabel}}</view>
-          <view wx:if="{{result.verification}}" class="result-insight__verification">{{result.verification.stageLabel}} · {{result.verification.evidenceLabel}} · {{result.verification.evidenceDescription}}</view>
-        </view>
-        <button class="result-insight__toggle" bindtap="toggleResultBasis">{{resultBasisOpen ? '收起结论依据' : '查看结论依据'}}⌄</button>
-      </view>
-
-      <view wx:elif="{{result.availability === 'legacy_result_unavailable'}}" class="legacy-result">
-        <view class="legacy-result-title">这份是旧版结果</view>
-        <view class="legacy-result-copy">只保留当时的成绩，不再重新推断缺失的作答过程。</view>
-      </view>
-
-      <view wx:if="{{result.items.length}}" class="result-question-strip">
-        <view wx:for="{{result.items}}" wx:key="questionId" class="result-question-strip__item">
-          <view class="result-question-dot result-question-dot--{{item.resultTone}}">{{item.positionNumber}}</view>
-          <view class="result-question-label">{{item.resultTone === 'success' ? '已记录' : '复盘·' + item.resultLabel}}</view>
-        </view>
-      </view>
-
-      <view wx:if="{{sessionState !== 'completed'}}" class="result-actions">
-        <button class="result-primary" bindtap="openReflection">复盘关键题</button>
-        <view class="result-actions__row">
-          <button class="result-secondary" bindtap="exit">稍后复盘</button>
-          <button class="result-anan-button" bindtap="askAnanAboutGroup">带着本组问岸岸</button>
-        </view>
-      </view>
-      <view wx:else class="result-actions">
-        <button class="result-primary" bindtap="returnToday">返回今日计划</button>
-      </view>
-      <view class="result-boundary">本组新增 {{result.totalCount}} 条真实作答证据。一次练习不会直接变成稳定能力，完成复测后再确认。</view>
+    <view wx:else class="page-state">
+      <state-view state="loading" title="正在打开训练总结" description="交卷已完成，正在进入可回看的总结与复盘。" />
     </view>
   </block>
 

@@ -78,7 +78,7 @@
         {{state.delivery.partial ? state.delivery.partialLabel : state.delivery.staleLabel}}
       </view>
 
-      <view class="all-position-list">
+      <view class="all-position-list position-card-grid">
         <view
           wx:for="{{state.items}}"
           wx:key="positionId"

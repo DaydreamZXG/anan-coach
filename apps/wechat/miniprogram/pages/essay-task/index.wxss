@@ -1232,3 +1232,255 @@
     margin-top: 0;
   }
 }
+
+.essay-workspace--drafting {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding-bottom: var(--figma-space-24);
+}
+
+.essay-workspace--drafting .essay-workbench-grid {
+  display: block;
+}
+
+.draft-material-tabs {
+  width: 100%;
+  margin-bottom: var(--figma-space-20);
+  padding-bottom: var(--figma-space-4);
+  border-bottom: 1rpx solid var(--color-line);
+  white-space: nowrap;
+}
+
+.draft-material-tabs__inner {
+  display: inline-flex;
+  gap: var(--figma-space-12);
+  min-width: 100%;
+}
+
+.draft-material-tab {
+  display: inline-flex;
+  min-height: 64rpx;
+  align-items: center;
+  gap: var(--figma-space-6);
+  margin: 0;
+  padding: 0 var(--figma-space-12);
+  border: 1rpx solid var(--color-line);
+  border-radius: var(--figma-radius-pill);
+  background: var(--color-surface-soft);
+  color: var(--color-muted);
+  font-size: var(--figma-font-body-compact);
+  font-weight: 700;
+  line-height: 64rpx;
+}
+
+.draft-material-tab::after,
+.draft-writing-tool::after {
+  border: 0;
+}
+
+.draft-material-tab__icon {
+  color: var(--color-primary);
+  font-size: var(--figma-font-caption);
+}
+
+.draft-question {
+  margin-bottom: var(--figma-space-20);
+}
+
+.draft-question__prompt {
+  color: var(--color-ink);
+  font-family: var(--font-family-reading);
+  font-size: var(--figma-font-body);
+  font-weight: 720;
+  line-height: 1.65;
+}
+
+.draft-question__requirements {
+  margin-top: var(--figma-space-8);
+  color: var(--color-muted);
+  font-size: var(--figma-font-caption);
+  line-height: 1.6;
+}
+
+.draft-question__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--figma-space-8);
+  margin-top: var(--figma-space-12);
+}
+
+.draft-question__chip {
+  padding: var(--figma-space-4) var(--figma-space-8);
+  border: 1rpx solid var(--color-line);
+  border-radius: var(--figma-radius-xsmall);
+  background: var(--color-surface);
+  color: var(--color-muted);
+  font-size: var(--figma-font-micro);
+  font-weight: 650;
+  box-shadow: var(--figma-shadow-surface);
+}
+
+.draft-writing-card,
+.draft-setup-card,
+.draft-notes-card,
+.draft-reflection-card {
+  box-sizing: border-box;
+  border: 1rpx solid var(--color-line);
+  border-radius: var(--figma-radius-card);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.draft-writing-card {
+  overflow: hidden;
+}
+
+.draft-writing-input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 520rpx;
+  padding: var(--figma-space-20);
+  background: var(--color-surface);
+  color: var(--figma-color-ink-strong);
+  font-family: var(--font-family-reading);
+  font-size: var(--figma-font-body-compact);
+  letter-spacing: 0.4rpx;
+  line-height: 1.8;
+}
+
+.draft-writing-toolbar {
+  display: flex;
+  min-height: 88rpx;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--figma-space-12);
+  padding: 0 var(--figma-space-16);
+  border-top: 1rpx solid var(--color-line);
+  background: var(--color-surface-soft);
+}
+
+.draft-writing-tools,
+.draft-writing-meta {
+  display: flex;
+  align-items: center;
+}
+
+.draft-writing-tools {
+  gap: var(--figma-space-16);
+}
+
+.draft-writing-tool {
+  min-height: 56rpx;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-faint);
+  font-size: var(--figma-font-caption);
+  font-weight: 650;
+  line-height: 56rpx;
+}
+
+.draft-writing-meta {
+  gap: var(--figma-space-12);
+  color: var(--color-faint);
+  font-size: var(--figma-font-micro);
+  white-space: nowrap;
+}
+
+.draft-writing-count {
+  color: var(--color-ink);
+  font-family: var(--font-family-data);
+  font-weight: 700;
+}
+
+.draft-writing-count text {
+  color: var(--color-faint);
+  font-weight: 500;
+}
+
+.draft-setup-card,
+.draft-notes-card,
+.draft-reflection-card {
+  margin-top: var(--figma-space-20);
+  padding: var(--figma-space-20);
+}
+
+.draft-setup-title {
+  color: var(--color-ink);
+  font-size: var(--figma-font-body);
+  font-weight: 740;
+  line-height: 1.5;
+}
+
+.draft-setup-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--figma-space-12);
+}
+
+.draft-setup-grid .field-label {
+  margin-top: var(--figma-space-16);
+}
+
+.essay-workspace--drafting .essay-input,
+.essay-workspace--drafting .essay-select,
+.essay-workspace--drafting .essay-textarea {
+  border-color: var(--color-line);
+  border-radius: var(--figma-radius-small);
+  background: var(--color-surface-soft);
+}
+
+.essay-workspace--drafting .essay-select,
+.essay-workspace--drafting .essay-input {
+  min-height: 76rpx;
+  line-height: 76rpx;
+}
+
+.essay-workspace--drafting .essay-textarea--compact {
+  min-height: 180rpx;
+}
+
+.essay-workspace--drafting .reflection-cause-option {
+  border-color: var(--color-line);
+  border-radius: var(--figma-radius-small);
+  background: var(--color-surface-soft);
+}
+
+.essay-workspace--drafting .reflection-cause-option--checked {
+  border-color: var(--figma-color-primary-soft-strong);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-deep);
+}
+
+.essay-workspace--drafting .blocking-note {
+  margin: 0 0 var(--figma-space-16);
+  border-color: var(--figma-color-warning-soft);
+  border-radius: var(--figma-radius-small);
+  background: var(--color-warning-soft);
+}
+
+.footer-content .submit-button {
+  min-height: 96rpx;
+  border: 0;
+  border-radius: var(--figma-radius-card);
+  background: var(--color-action);
+  color: var(--color-on-primary);
+  font-size: var(--figma-font-body);
+  font-weight: 740;
+  line-height: 96rpx;
+  box-shadow: var(--figma-shadow-elevated);
+}
+
+@media (min-width: 768px) {
+  .draft-writing-input {
+    min-height: 480px;
+    padding: var(--figma-space-24);
+    font-size: var(--figma-font-body);
+  }
+
+  .draft-question__prompt {
+    font-size: var(--figma-font-body-large);
+  }
+}

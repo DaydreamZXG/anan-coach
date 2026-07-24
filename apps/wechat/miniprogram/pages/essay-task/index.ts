@@ -244,7 +244,10 @@ interface EssayTaskPageCustom {
   exit(): void;
   goLogin(): void;
   openMaterial(): void;
+  openMaterialAt(event: WechatMiniprogram.BaseEvent): void;
+  openMaterialPage(anchorId: string): void;
   openAnswerSheet(): void;
+  openDraftingNotes(): void;
   askAnanAboutEssay(): void;
   scrollToMaterial(event: WechatMiniprogram.BaseEvent): void;
   inputOverallTheme(event: WechatMiniprogram.Input): void;
@@ -339,7 +342,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     hasSavedEvidence: false,
     submissionStatus: "idle",
     submissionMessage: "",
-    elapsedLabel: "00:00",
+    elapsedLabel: "00:00:00",
     pointCategoryLabels,
     overallTheme: "",
     materialAnnotations: [],
@@ -663,8 +666,51 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
   },
 
   openMaterial() {
-    const first = this.data.view?.segments[0];
-    if (first) scrollTo(first.anchorId);
+    const firstMaterialOrder = this.data.view?.directory[0]?.materialOrder;
+    this.openMaterialPage(
+      firstMaterialOrder === undefined ? "" : `material-${String(firstMaterialOrder)}`,
+    );
+  },
+
+  openMaterialAt(event: WechatMiniprogram.BaseEvent) {
+    this.openMaterialPage(String(event.currentTarget.dataset.anchor ?? ""));
+  },
+
+  openMaterialPage(anchorId: string) {
+    const materialUrl = this.data.workbenchLinks.find((item) => item.label === "材料地图")?.url;
+    if (!materialUrl) return;
+    const anchorQuery = anchorId ? `&anchor=${encodeURIComponent(anchorId)}` : "";
+    void wx.navigateTo({
+      url: `${materialUrl}${anchorQuery}&insertMode=drafting`,
+      events: {
+        quoteMaterial: (payload: { text?: string }) => {
+          const text = payload.text?.trim() ?? "";
+          if (!text || this.data.draftLocked || !this.data.draftAvailable) return;
+          markDraftChanged(this);
+          this.setData({
+            drafting: {
+              ...this.data.drafting,
+              answerText: appendDraftText(this.data.drafting.answerText, `“${text}”`),
+            },
+            submissionStatus: "idle",
+            submissionMessage: "",
+          });
+        },
+        addMaterialToOutline: (payload: { text?: string }) => {
+          const text = payload.text?.trim() ?? "";
+          if (!text || this.data.draftLocked || !this.data.draftAvailable) return;
+          markDraftChanged(this);
+          this.setData({
+            drafting: {
+              ...this.data.drafting,
+              outlineText: appendDraftText(this.data.drafting.outlineText, text),
+            },
+            submissionStatus: "idle",
+            submissionMessage: "",
+          });
+        },
+      },
+    });
   },
 
   openAnswerSheet() {
@@ -672,6 +718,10 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     if (runtime?.activeStage === "essay_drafting" && this.data.draftAvailable) {
       scrollTo("drafting-answer");
     }
+  },
+
+  openDraftingNotes() {
+    scrollTo("drafting-notes");
   },
 
   askAnanAboutEssay() {
@@ -2513,10 +2563,7 @@ function markDraftChanged(page: EssayTaskPageInstance): void {
   }, draftingAutosaveDelayMs);
 }
 
-function flushDraftingAutosave(
-  page: EssayTaskPageInstance,
-  runtime: EssayTaskPageRuntime,
-): void {
+function flushDraftingAutosave(page: EssayTaskPageInstance, runtime: EssayTaskPageRuntime): void {
   discardDraftingAutosave(runtime);
   persistDraftingAutosave(page, runtime);
 }
@@ -2528,10 +2575,7 @@ function discardDraftingAutosave(runtime: EssayTaskPageRuntime): void {
   runtime.draftingAutosaveHandle = undefined;
 }
 
-function persistDraftingAutosave(
-  page: EssayTaskPageInstance,
-  runtime: EssayTaskPageRuntime,
-): void {
+function persistDraftingAutosave(page: EssayTaskPageInstance, runtime: EssayTaskPageRuntime): void {
   if (
     !pageRuntimes.owns(page, runtime) ||
     runtime.activeStage !== "essay_drafting" ||
@@ -2566,16 +2610,22 @@ function scrollTo(anchorId: string): void {
   void wx.pageScrollTo({ selector: `#${anchorId}`, duration: 260 });
 }
 
+function appendDraftText(current: string, addition: string): string {
+  const normalizedCurrent = current.replace(/\s+$/u, "");
+  return normalizedCurrent ? `${normalizedCurrent}\n${addition}` : addition;
+}
+
 function startTimer(page: EssayTaskPageInstance, runtime: EssayTaskPageRuntime): void {
   stopTimer(runtime);
   runtime.activeSince = Date.now();
   const update = () => {
     if (!pageRuntimes.owns(page, runtime)) return;
     const elapsedSeconds = currentElapsedSeconds(runtime);
-    const minutes = Math.floor(elapsedSeconds / 60);
+    const hours = Math.floor(elapsedSeconds / 3600);
+    const minutes = Math.floor((elapsedSeconds % 3600) / 60);
     const seconds = elapsedSeconds % 60;
     page.setData({
-      elapsedLabel: `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`,
+      elapsedLabel: `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`,
     });
   };
   update();

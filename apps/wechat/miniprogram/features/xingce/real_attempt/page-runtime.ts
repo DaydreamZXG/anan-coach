@@ -23,6 +23,7 @@ export interface XingcePageRuntime {
   visible: boolean;
   disposed: boolean;
   requestEpoch: number;
+  reflectionNavigationStarted: boolean;
 }
 
 function createRuntime(): XingcePageRuntime {
@@ -42,6 +43,7 @@ function createRuntime(): XingcePageRuntime {
     visible: false,
     disposed: false,
     requestEpoch: 0,
+    reflectionNavigationStarted: false,
   };
 }
 

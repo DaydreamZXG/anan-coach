@@ -1,4 +1,5 @@
 import { taskShellSyncTone } from "./state";
+import { measureSystemChrome } from "../../components/safe-top/metrics";
 
 Component({
   options: {
@@ -6,6 +7,9 @@ Component({
   },
   data: {
     syncTone: "pending",
+    statusBarHeight: 0,
+    menuBottom: 0,
+    capsuleReserve: 0,
   },
   properties: {
     title: { type: String, value: "" },
@@ -30,7 +34,20 @@ Component({
       this.setData({ syncTone: taskShellSyncTone(syncLabel) });
     },
   },
+  lifetimes: {
+    attached() {
+      this.measureSystemChrome();
+    },
+  },
+  pageLifetimes: {
+    show() {
+      this.measureSystemChrome();
+    },
+  },
   methods: {
+    measureSystemChrome() {
+      this.setData(measureSystemChrome(8));
+    },
     exit() {
       this.triggerEvent("exit");
     },

@@ -1,22 +1,29 @@
 <view class="settlement-page">
   <safe-top gap="{{0}}" />
   <view class="settlement-nav">
-    <button class="settlement-back" bindtap="exit"><view class="settlement-back__icon"></view></button>
-    <view class="settlement-nav__title">今日结算</view>
-    <view class="settlement-nav__space"></view>
+    <button class="settlement-back" aria-label="返回" bindtap="exit">
+      <view class="settlement-back__icon"></view>
+    </button>
   </view>
 
   <view class="settlement-content">
-    <view class="settlement-hero">
-      <view class="settlement-kicker">今天到这里</view>
-      <view class="settlement-title">看看真正留下了什么</view>
-      <view class="settlement-copy">不比刷了多少，只看哪些变化值得带到明天。</view>
-    </view>
-
     <state-view wx:if="{{status === 'loading'}}" state="loading" />
-    <state-view wx:elif="{{status === 'error'}}" state="error" title="结算没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
+    <state-view
+      wx:elif="{{status === 'error'}}"
+      state="error"
+      title="结算没有加载成功"
+      description="{{errorMessage}}"
+      request-id="{{requestId}}"
+      action-text="重新加载"
+      bind:action="retry"
+    />
 
     <block wx:elif="{{settlement}}">
+      <view class="settlement-hero">
+        <view class="settlement-title">今天到这里，看看真正留下了什么</view>
+        <view class="settlement-copy">不比刷了多少，只看哪些变化值得带到明天。</view>
+      </view>
+
       <view class="settlement-metrics">
         <view class="settlement-metric">
           <view class="metric-label">原计划</view>
@@ -34,43 +41,77 @@
       <view class="variance-label">{{varianceLabel}}</view>
 
       <view class="settlement-section">
-        <view class="section-heading"><view class="section-heading__icon">✓</view><view>今天确认了什么</view></view>
-        <view class="settlement-card confirmation-card">
+        <view class="section-heading">
+          <view class="section-heading__mark">◎</view>
+          <view>今天确认了什么</view>
+        </view>
+        <view wx:if="{{hasSummary}}" class="settlement-card confirmation-card">
           <view class="confirmation-line"></view>
           <view class="settlement-summary">{{settlement.summary}}</view>
-          <view class="evidence-note">完成 {{settlement.completedTaskCount}} 项 · 累计 {{settlement.elapsedMinutes}} 分钟 · 所有判断都来自本次真实记录</view>
+          <view class="evidence-note">
+            完成 {{settlement.completedTaskCount}} 项 · 累计 {{settlement.elapsedMinutes}} 分钟 · 来自今天的真实记录
+          </view>
+        </view>
+        <view wx:else class="settlement-card empty-card">
+          <view class="empty-title">今天还没有形成可确认的变化</view>
+          <view class="empty-copy">当前没有结算总结。回到今日页完成任务后，再来查看真实记录。</view>
         </view>
       </view>
 
       <view wx:if="{{settlement.newRisks.length}}" class="settlement-section">
-        <view class="section-heading"><view class="section-heading__icon section-heading__icon--risk">!</view><view>今天新发现的问题</view></view>
-        <view class="settlement-card risk-card">{{riskLabel}}</view>
-      </view>
-
-      <view class="settlement-section">
-        <view class="section-heading"><view class="section-heading__icon section-heading__icon--task">≡</view><view>任务完成记录</view></view>
-        <view class="task-list">
-          <view wx:for="{{tasks}}" wx:key="taskId" class="settlement-card task-card">
-            <view class="task-card__head">
-              <view class="task-card__track">{{item.trackLabel}}</view>
-              <view class="task-status task-status--{{item.statusTone}}">{{item.statusLabel}}</view>
-            </view>
-            <view class="task-card__title">{{item.title}}</view>
-            <view class="task-card__meta">实际 {{item.elapsedLabel}} · 计划 {{item.plannedLabel}} · {{item.evidenceRefs.length}} 条完成记录</view>
-          </view>
+        <view class="section-heading section-heading--warning">
+          <view class="section-heading__mark">!</view>
+          <view>今天新发现的问题</view>
+        </view>
+        <view class="settlement-card risk-card">
+          <view wx:for="{{settlement.newRisks}}" wx:key="*this" class="risk-item">{{item}}</view>
         </view>
       </view>
 
-      <view wx:if="{{settlement.openTaskCount > 0}}" class="open-note">
-        <view class="open-note__title">{{settlement.openTaskCount}} 项还没有闭环</view>
-        <view class="open-note__copy">未完成任务不会机械变成欠账，明天会按最新状态重新判断。</view>
+      <view class="settlement-section">
+        <view class="section-heading">
+          <view class="section-heading__mark">○</view>
+          <view>没完成的这一项</view>
+        </view>
+        <view wx:if="{{primaryOpenTask}}" class="settlement-card unfinished-card">
+          <view class="unfinished-title">{{primaryOpenTask.title}}</view>
+          <view class="unfinished-meta">
+            {{primaryOpenTask.trackLabel}} · 计划 {{primaryOpenTask.plannedLabel}} ·
+            {{primaryOpenTask.statusLabel}}
+          </view>
+          <view class="unfinished-note">没有完成的任务不会自动变成学习欠账。</view>
+          <view wx:if="{{additionalOpenTaskCount > 0}}" class="unfinished-more">
+            另外还有 {{additionalOpenTaskCount}} 项未完成，可在今日页查看。
+          </view>
+        </view>
+        <view wx:else class="settlement-card empty-card">
+          <view class="empty-title">今天没有未完成的任务</view>
+          <view class="empty-copy">已安排任务都已闭环，可以直接结束今天。</view>
+        </view>
       </view>
 
-      <view class="settlement-actions">
-        <button class="settlement-primary" bindtap="returnToday">收好今天，回到首页</button>
-        <button class="settlement-secondary" bindtap="askAnan">带着今天的结果问岸岸</button>
-        <button class="settlement-link" bindtap="openWeeklyPlan">查看本周计划</button>
+      <view class="settlement-section">
+        <view class="section-heading">
+          <view class="section-heading__mark">↗</view>
+          <view>明天从哪里开始</view>
+        </view>
+        <view class="tomorrow-card">
+          <view class="tomorrow-card__title">明天的第一项还没有生成</view>
+          <view class="tomorrow-card__copy">
+            新的日计划形成后会显示在今日页；现在可以先查看本周安排。
+          </view>
+          <button class="tomorrow-card__action" bindtap="openWeeklyPlan">查看本周计划</button>
+        </view>
       </view>
     </block>
+  </view>
+
+  <view wx:if="{{settlement}}" class="settlement-dock">
+    <view class="settlement-dock__inner">
+      <button class="settlement-primary" bindtap="returnToday">确认结算，结束今天</button>
+      <button class="settlement-companion" bindtap="askAnan">
+        带着今天的结果问岸岸 <text>✦</text>
+      </button>
+    </view>
   </view>
 </view>

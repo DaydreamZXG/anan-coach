@@ -3,6 +3,8 @@
   "navigationStyle": "custom",
   "backgroundColor": "#f7f9fc",
   "usingComponents": {
+    "content-renderer": "../../task-runtime/content-renderer/index",
+    "material-reader": "../../task-runtime/material-reader/index",
     "state-view": "../../design-system/primitives/state-view/index"
   }
 }

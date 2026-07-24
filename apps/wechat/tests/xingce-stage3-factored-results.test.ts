@@ -92,6 +92,47 @@ describe("stage 3 factored result presentation", () => {
     expect(result?.metrics.some((item) => item.label.includes("改答"))).toBe(false);
   });
 
+  it("逐题复盘只展示会话中真实存在的题干、材料和作答轨迹", () => {
+    const session = submittedXingceSession("timeout");
+    const firstQuestion = session.bundle.questions[0];
+    const firstAnswer = session.answers[0];
+    if (!firstQuestion || !firstAnswer) throw new Error("fixture question and answer are required");
+    session.bundle.bundleType = "shared_material";
+    session.bundle.materials = [
+      {
+        materialId: "material-1",
+        title: "共享材料",
+        text: "可核对的共享材料",
+        html: null,
+        assets: [],
+        content: [],
+        anchors: [],
+      },
+    ];
+    session.bundle.questions[0] = {
+      ...firstQuestion,
+      materialId: "material-1",
+      stemContent: [],
+    };
+    session.answers[0] = {
+      ...firstAnswer,
+      eliminatedOptionIds: ["C"],
+      marked: true,
+    };
+
+    const item = presentXingceResult(session)?.items[0];
+    expect(item?.stemContent).toEqual([
+      expect.objectContaining({ type: "paragraph", text: "以下说法正确的是？" }),
+    ]);
+    expect(item?.material?.content).toEqual([
+      expect.objectContaining({ type: "paragraph", text: "可核对的共享材料" }),
+    ]);
+    expect(item?.factChips.map((chip) => chip.label)).toEqual(
+      expect.arrayContaining(["曾排除了 C", "标记存疑"]),
+    );
+    expect(item?.factChips.some((chip) => chip.label.includes("改答"))).toBe(false);
+  });
+
   it.each([
     ["passed", "valid", "复测通过", "记录有效"],
     ["not_passed", "valid", "复测未通过", "记录有效"],

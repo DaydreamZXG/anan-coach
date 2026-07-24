@@ -15,6 +15,10 @@ import {
 } from "../../features/external-learning/capture-controller";
 import { requireExternalLearningGateway } from "../../features/external-learning/contracts";
 import { externalLearningError } from "../../features/external-learning/error";
+import {
+  presentMatchCandidates,
+  type MatchCandidateView,
+} from "../../features/external-learning/match-presentation";
 import { ExternalLearningPageRuntimeRegistry } from "../../features/external-learning/page-runtime";
 import {
   chooseQuestionImage,
@@ -41,6 +45,7 @@ interface CaptureImportPageData {
   recordSheetOpen: boolean;
   receiptVisible: boolean;
   channelSheetOpen: boolean;
+  matchCandidates: MatchCandidateView[];
 }
 
 interface CaptureImportPageCustom {
@@ -105,6 +110,7 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     recordSheetOpen: false,
     receiptVisible: false,
     channelSheetOpen: false,
+    matchCandidates: [],
   },
 
   onLoad(options: Record<string, string | undefined>) {
@@ -119,11 +125,23 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
       const controller = new CaptureImportController({
         gateway,
         onChange: (state) => {
-          if (runtimes.owns(this, controller)) this.setData({ state });
+          if (runtimes.owns(this, controller)) {
+            this.setData({
+              state,
+              matchCandidates: presentMatchCandidates(
+                state.activeQuestionUnit?.match?.candidates ?? [],
+              ),
+            });
+          }
         },
       });
       runtimes.attach(this, controller);
-      this.setData({ state: controller.snapshot(), configurationError: "" });
+      const state = controller.snapshot();
+      this.setData({
+        state,
+        configurationError: "",
+        matchCandidates: presentMatchCandidates(state.activeQuestionUnit?.match?.candidates ?? []),
+      });
       const importId = options.importId?.trim();
       if (importId) void controller.load(importId);
     } catch (error) {

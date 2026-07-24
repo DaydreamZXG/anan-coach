@@ -1,4 +1,7 @@
-<view class="task-shell {{footerAvailable ? '' : 'task-shell--no-footer'}} {{headerAvailable ? '' : 'task-shell--no-header'}}">
+<view
+  class="task-shell {{footerAvailable ? '' : 'task-shell--no-footer'}} {{headerAvailable ? '' : 'task-shell--no-header'}}"
+  style="--task-status-bar-height: {{statusBarHeight}}px; --task-menu-bottom: {{menuBottom}}px; --task-capsule-reserve: {{capsuleReserve}}px;"
+>
   <view wx:if="{{headerAvailable}}" class="task-header" aria-label="任务工具栏">
     <button class="task-header-button task-header-button--back" aria-label="退出任务" bindtap="exit">
       <view class="task-icon task-icon--back" aria-hidden="true"></view>

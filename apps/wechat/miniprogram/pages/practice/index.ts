@@ -15,7 +15,6 @@ import { routes } from "../../app/navigation/routes";
 import { currentAuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";
 import { createCoachRepository } from "../../data/coach-repository";
-import { storeCompanionLaunchContext } from "../../features/companion/context-store";
 import {
   checkpointCommand,
   mergePendingDraft,
@@ -29,9 +28,7 @@ import {
 } from "../../features/xingce/real_attempt/contracts";
 import { XingcePageRuntimeRegistry } from "../../features/xingce/real_attempt/page-runtime";
 import {
-  presentXingceResult,
   presentXingceTask,
-  type XingceResultView,
   type XingceTaskView,
 } from "../../features/xingce/real_attempt/presentation";
 import {
@@ -45,7 +42,6 @@ import {
   storePendingXingceStart,
   storePendingXingceSubmit,
 } from "../../features/xingce/real_attempt/pending-store";
-import { publishLatestTodayDashboard } from "../../features/planning/runtime-state";
 import {
   acquireTaskEditOwnership,
   resolveRevisionConflict,
@@ -78,7 +74,6 @@ interface PracticePageData {
   errorMessage: string;
   showLoginAction: boolean;
   view: XingceTaskView | null;
-  result: XingceResultView | null;
   sessionState: XingceTaskSession["state"] | "";
   materialOpen: boolean;
   materialQuestionId: string;
@@ -119,7 +114,6 @@ interface PracticePageData {
     active: boolean;
   }>;
   confidenceOptions: Array<{ value: "low" | "medium" | "high"; label: string }>;
-  resultBasisOpen: boolean;
 }
 
 interface PracticePageCustom {
@@ -135,9 +129,6 @@ interface PracticePageCustom {
   openTaskHelp(): void;
   submitTaskHelp(event: WechatMiniprogram.CustomEvent<TaskHelpCommand>): Promise<void>;
   openDispute(): void;
-  openResultDispute(event: WechatMiniprogram.BaseEvent): void;
-  askAnanAboutResult(event: WechatMiniprogram.BaseEvent): void;
-  askAnanAboutGroup(): void;
   selectDisputeCategory(event: WechatMiniprogram.BaseEvent): void;
   inputDisputeDescription(event: WechatMiniprogram.Input): void;
   submitDispute(): Promise<void>;
@@ -162,10 +153,7 @@ interface PracticePageCustom {
   nextQuestion(): void;
   footerAction(): void;
   submitAttempt(): Promise<void>;
-  openReflection(): void;
-  returnToday(): void;
   retryPendingCheckpoint(): Promise<void>;
-  toggleResultBasis(): void;
   noop(): void;
 }
 
@@ -180,7 +168,6 @@ Page<PracticePageData, PracticePageCustom>({
     errorMessage: "",
     showLoginAction: false,
     view: null,
-    result: null,
     sessionState: "",
     materialOpen: false,
     materialQuestionId: "",
@@ -227,7 +214,6 @@ Page<PracticePageData, PracticePageCustom>({
       { value: "medium", label: "比较确定" },
       { value: "high", label: "非常确定" },
     ],
-    resultBasisOpen: false,
   },
 
   onLoad(options: Record<string, string | undefined>) {
@@ -485,88 +471,6 @@ Page<PracticePageData, PracticePageCustom>({
     if (questionId) showDispute(this, questionId);
   },
 
-  openResultDispute(event) {
-    const runtime = runtimes.get(this);
-    const questionId = String(event.currentTarget.dataset.questionid ?? "");
-    if (
-      !runtime?.session?.result?.items.some((item) => item.questionId === questionId) ||
-      runtime.session.state === "answering"
-    ) {
-      return;
-    }
-    showDispute(this, questionId);
-  },
-
-  askAnanAboutResult(event) {
-    const runtime = runtimes.get(this);
-    const auth = currentAuthSession();
-    const questionId = String(event.currentTarget.dataset.questionid ?? "");
-    const question = runtime?.session?.bundle.questions.find(
-      (candidate) => candidate.questionId === questionId,
-    );
-    const result = this.data.result?.items.find((item) => item.questionId === questionId);
-    if (
-      !auth ||
-      !runtime?.session ||
-      runtime.session.state === "answering" ||
-      !question ||
-      !result
-    ) {
-      return;
-    }
-    storeCompanionLaunchContext(auth.userId, {
-      sourceLabel: "行测作答结果",
-      title: `${result.positionLabel} · ${question.moduleName}`,
-      summary: `${result.resultLabel}；你的答案 ${result.selectedLabel}，正确答案 ${result.correctLabel}。`,
-      suggestedQuestion:
-        "结合这道题的作答、用时和信心记录，解释这题为什么错，并告诉我下一次怎么识别。",
-      routeId: "pages/practice/index",
-      workspace: "training",
-      objectRefs: [
-        {
-          type: "question",
-          id: question.questionId,
-          version: question.contentVersionId,
-        },
-      ],
-      taskMode: runtime.session.mode === "verification" ? "retest" : "practice",
-      taskStage: "submitted",
-    });
-    void wx.switchTab({ url: routes.anan });
-  },
-
-  askAnanAboutGroup() {
-    const runtime = runtimes.get(this);
-    const auth = currentAuthSession();
-    const result = this.data.result;
-    if (
-      !auth ||
-      !runtime?.session ||
-      runtime.session.state === "answering" ||
-      !result ||
-      result.availability !== "factored"
-    ) {
-      return;
-    }
-    storeCompanionLaunchContext(auth.userId, {
-      sourceLabel: "行测题组结果",
-      title: `${runtime.session.bundle.questions[0]?.moduleName ?? "行测"} · ${String(result.totalCount)} 题`,
-      summary: `${result.headline}；${result.summary}；总用时 ${result.metrics.find((item) => item.code === "elapsed")?.value ?? "未记录"}。`,
-      suggestedQuestion:
-        "结合这组题的正确性、用时和信心记录，告诉我最值得先改的一个问题，以及下一次怎么练。",
-      routeId: "pages/practice/index",
-      workspace: "training",
-      objectRefs: runtime.session.bundle.questions.map((question) => ({
-        type: "question" as const,
-        id: question.questionId,
-        version: question.contentVersionId,
-      })),
-      taskMode: runtime.session.mode === "verification" ? "retest" : "practice",
-      taskStage: "submitted",
-    });
-    void wx.switchTab({ url: routes.anan });
-  },
-
   selectDisputeCategory(event) {
     const value = String(event.currentTarget.dataset.category ?? "");
     const category = this.data.disputeCategories.find((item) => item.value === value)?.value;
@@ -591,7 +495,7 @@ Page<PracticePageData, PracticePageCustom>({
     }
     this.setData({ disputeSubmitting: true, disputeReceipt: "" });
     try {
-      const response = await runtime.api.reportDispute(
+      await runtime.api.reportDispute(
         runtime.session.sessionId,
         {
           questionId: question.questionId,
@@ -944,30 +848,6 @@ Page<PracticePageData, PracticePageCustom>({
     }
   },
 
-  openReflection() {
-    const runtime = runtimes.get(this);
-    const reviewId = runtime?.session?.review?.reviewId;
-    const sessionId = runtime?.session?.sessionId;
-    if (!reviewId || !sessionId) return;
-    const url =
-      routes.reflection +
-      "?sessionId=" +
-      encodeURIComponent(sessionId) +
-      "&reviewId=" +
-      encodeURIComponent(reviewId);
-    void wx.navigateTo({ url });
-  },
-
-  returnToday() {
-    const plan = runtimes.get(this)?.session?.completion?.plan;
-    if (plan) publishLatestTodayDashboard(plan);
-    void wx.switchTab({ url: routes.today });
-  },
-
-  toggleResultBasis() {
-    this.setData({ resultBasisOpen: !this.data.resultBasisOpen });
-  },
-
   async retryPendingCheckpoint() {
     const runtime = runtimes.get(this);
     if (!runtime) return;
@@ -1019,9 +899,46 @@ function applySession(
       : "",
     interactionLocked: retryablePending !== null,
   });
+  if (session.state !== "answering") {
+    stopTimer(runtime);
+    redirectToReflection(page, runtime);
+    return;
+  }
   render(page, runtime);
-  if (session.state === "answering" && runtime.visible) startTimer(page, runtime);
+  if (runtime.visible) startTimer(page, runtime);
   else stopTimer(runtime);
+}
+
+function redirectToReflection(
+  page: PracticePageInstance,
+  runtime: NonNullable<ReturnType<typeof runtimes.get>>,
+): void {
+  const session = runtime.session;
+  const reviewId = session?.review?.reviewId;
+  if (!session || !reviewId) {
+    failPage(page, "复盘记录尚未生成", "交卷已经完成，但复盘记录还不可用。请重新读取本次训练。");
+    return;
+  }
+  if (runtime.reflectionNavigationStarted) return;
+  runtime.reflectionNavigationStarted = true;
+  page.setData({
+    status: "loading",
+    errorTitle: "",
+    errorMessage: "",
+    sessionState: session.state,
+    interactionLocked: true,
+  });
+  const url =
+    routes.reflection +
+    "?sessionId=" +
+    encodeURIComponent(session.sessionId) +
+    "&reviewId=" +
+    encodeURIComponent(reviewId);
+  void wx.redirectTo({ url }).catch(() => {
+    if (!runtimes.owns(page, runtime)) return;
+    runtime.reflectionNavigationStarted = false;
+    failPage(page, "复盘页面没有打开", "请重新读取本次训练，再进入训练总结与错因复盘。");
+  });
 }
 
 function render(
@@ -1066,7 +983,6 @@ function render(
     errorTitle: "",
     errorMessage: "",
     view,
-    result: presentXingceResult(runtime.session),
     sessionState: runtime.session.state,
     canSubmit: runtime.session.state === "answering" && missing.length === 0,
     answerSheetItems,
@@ -1377,7 +1293,6 @@ function invalidateForAccountChange(
     errorMessage: "旧账号的题目和进度已从当前页面清除，请以当前账号重新进入今日计划。",
     showLoginAction: true,
     view: null,
-    result: null,
     sessionState: "",
     interactionLocked: true,
   });

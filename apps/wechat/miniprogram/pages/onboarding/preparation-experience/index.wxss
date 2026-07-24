@@ -361,7 +361,13 @@
 }
 
 @media (min-width: 768px) {
-  .identity-content,
+  .identity-content {
+    width: 100%;
+    max-width: 560px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
   .identity-dock {
     right: auto;
     left: 50%;

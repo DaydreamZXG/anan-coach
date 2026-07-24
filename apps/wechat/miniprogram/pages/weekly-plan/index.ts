@@ -25,10 +25,17 @@ Page({
     totalScheduledLabel: "",
     completedSummary: "",
     adjustmentLabel: "",
+    weekDayChipLabel: "",
+    completedChipLabel: "",
+    planChipLabel: "",
+    hasAdjustmentSuggestion: false,
+    adjustmentSuggestion: "",
     days: [] as Array<
       WeeklyPlanVersion["days"][number] & {
         weekdayLabel: string;
         modeLabel: string;
+        statusLabel: string;
+        statusTone: string;
         plannedDurationLabel: string;
         scheduledDurationLabel: string;
       }
@@ -42,25 +49,61 @@ Page({
     if (!client) return;
     try {
       const { data } = await new PlanningApi(client).getWeek();
+      const todayIndex = data.days.findIndex((day) => day.status === "today");
+      const completedTaskCount = data.days.reduce(
+        (total, day) => total + day.completedTaskCount,
+        0,
+      );
+      const totalTaskCount = data.days.reduce((total, day) => total + day.totalTaskCount, 0);
+      const totalScheduledMinutes = data.days.reduce(
+        (total, day) => total + day.scheduledMinutes,
+        0,
+      );
+      const reasonLabel = planningReasonLabel(data.replanReasonCodes, "本周安排已生成");
+      const hasAdjustmentSuggestion =
+        data.versionNo > 1 || Boolean(data.supersedesWeeklyPlanVersionId);
       this.setData({
         status: "ready",
         week: data,
-        reasonLabel: planningReasonLabel(data.replanReasonCodes, "本周安排已生成"),
+        reasonLabel,
         rhythmLabel: weeklyRhythmLabel(data.rhythm),
-        expandedDayIndex: Math.max(
-          0,
-          data.days.findIndex((day) => day.status === "today"),
-        ),
-        totalScheduledLabel: durationLabel(
-          data.days.reduce((total, day) => total + day.scheduledMinutes, 0),
-        ),
-        completedSummary: `${String(data.days.reduce((total, day) => total + day.completedTaskCount, 0))} / ${String(data.days.reduce((total, day) => total + day.totalTaskCount, 0))} 项`,
+        expandedDayIndex: todayIndex,
+        totalScheduledLabel: durationLabel(totalScheduledMinutes),
+        completedSummary: `${String(completedTaskCount)} / ${String(totalTaskCount)} 项`,
         adjustmentLabel:
           data.versionNo <= 1 ? "初始安排" : `已调整 ${String(data.versionNo - 1)} 次`,
+        weekDayChipLabel:
+          todayIndex >= 0 ? `本周第 ${String(todayIndex + 1)} 天` : "本周进度待确认",
+        completedChipLabel: `已完成 ${String(completedTaskCount)} / ${String(totalTaskCount)} 项`,
+        planChipLabel: `计划 ${durationLabel(totalScheduledMinutes)}`,
+        hasAdjustmentSuggestion,
+        adjustmentSuggestion: hasAdjustmentSuggestion
+          ? `这版计划已根据${reasonLabel}更新。你可以查看每天的时间与任务变化。`
+          : "",
         days: data.days.map((day) => ({
           ...day,
           weekdayLabel: weekdayLabels[day.weekday] ?? "",
           modeLabel: modeLabels[day.mode],
+          statusLabel:
+            day.status === "today"
+              ? "今天"
+              : day.status === "past"
+                ? day.totalTaskCount > 0 && day.completedTaskCount >= day.totalTaskCount
+                  ? "已完成"
+                  : "已结束"
+                : day.mode === "recovery"
+                  ? "复盘"
+                  : day.mode === "mock"
+                    ? "模考"
+                    : "待执行",
+          statusTone:
+            day.status === "today"
+              ? "today"
+              : day.status === "past"
+                ? "past"
+                : day.mode === "recovery"
+                  ? "recovery"
+                  : "upcoming",
           plannedDurationLabel: durationLabel(day.plannedMinutes),
           scheduledDurationLabel: durationLabel(day.scheduledMinutes),
         })),
@@ -80,6 +123,9 @@ Page({
   },
   openAdjustment() {
     void wx.navigateTo({ url: routes.dayAdjustment });
+  },
+  goToday() {
+    void wx.switchTab({ url: routes.today });
   },
   askAnan() {
     const auth = currentAuthSession();

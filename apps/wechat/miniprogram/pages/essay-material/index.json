@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "申论材料地图",
+  "navigationStyle": "custom",
   "backgroundColor": "#F7F9FC",
   "usingComponents": { "state-view": "../../design-system/primitives/state-view/index" }
 }

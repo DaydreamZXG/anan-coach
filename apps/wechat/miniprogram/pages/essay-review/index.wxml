@@ -1,10 +1,105 @@
-<view class="workbench-page">
-  <view class="workbench-hero"><view class="workbench-kicker">申论 AI 评阅</view><view class="workbench-title">每一处建议，都要能指回原文和评分点</view><view class="workbench-copy">先摆出答案与材料原句，再给判断；不把模糊风格偏好当成扣分理由。</view></view>
+<view class="review-page" style="--review-capsule-reserve: {{capsuleReserve}}px;">
+  <safe-top mode="status" gap="{{0}}" />
+  <view class="review-header">
+    <button class="review-back" aria-label="返回" bindtap="exit">
+      <view class="review-back__icon"></view>
+    </button>
+    <view class="review-header__title">AI 批改复盘</view>
+  </view>
+
   <state-view wx:if="{{status === 'loading'}}" state="loading" />
-  <state-view wx:elif="{{status === 'error'}}" state="error" title="评阅没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="{{retryAllowed ? '重新加载' : ''}}" bind:action="retryLoad" />
-  <block wx:elif="{{review && view}}">
-    <view class="workbench-card"><view class="workbench-pill">{{view.confidenceLabel}}</view><view class="score-range">{{view.scoreLabel}}</view><view class="workbench-note">建议观察值 {{view.recommendedScore}}，不作为承诺分数。</view><view wx:for="{{view.confidenceReasons}}" wx:key="*this" class="workbench-meta">· {{item}}</view></view>
-    <view wx:for="{{view.dimensions}}" wx:key="criterionCode" class="workbench-card"><view class="workbench-row-title">{{item.label}} <text class="workbench-meta">{{item.rangeLabel}}</text></view><view class="dimension-bar"><view class="dimension-bar-fill" style="width: {{item.percent}}%"></view></view><view class="workbench-note">{{item.rationale}}</view></view>
-    <view wx:for="{{view.findings}}" wx:key="findingId" class="workbench-card"><view class="workbench-pill">问题 {{item.order}} · {{item.severity}}</view><view class="workbench-row-title">{{item.diagnosis}}</view><view class="workbench-note">下一步：{{item.action}}</view><view class="evidence-quote">你的原句：{{item.answerQuote}}</view><view class="evidence-quote">材料原句：{{item.materialQuote}}</view></view>
-  </block>
+  <state-view
+    wx:elif="{{status === 'error'}}"
+    state="error"
+    title="评阅没有加载成功"
+    description="{{errorMessage}}"
+    request-id="{{requestId}}"
+    action-text="{{retryAllowed ? '重新加载' : ''}}"
+    bind:action="retryLoad"
+  />
+
+  <view wx:elif="{{review && view}}" class="review-content">
+    <view class="review-score-card">
+      <view class="review-score-card__label">综合得分</view>
+      <view wx:if="{{view.scoreAvailable}}" class="review-score">
+        <text>{{view.recommendedScore}}</text><text class="review-score__maximum">/ {{view.maximumScore}}</text>
+      </view>
+      <view wx:else class="review-score review-score--unavailable">暂不可评分</view>
+      <view class="review-confidence">{{view.confidenceLabel}}</view>
+      <view class="review-score-card__range">{{view.scoreLabel}}</view>
+      <view wx:for="{{view.confidenceReasons}}" wx:key="*this" class="review-confidence-reason">
+        {{item}}
+      </view>
+      <view class="review-disclaimer">本评分用于训练反馈，不等同于官方阅卷结果。</view>
+    </view>
+
+    <view class="review-section">
+      <view class="review-section__title">得分维度</view>
+      <view class="dimension-card">
+        <view wx:for="{{view.dimensions}}" wx:key="criterionCode" class="dimension-row">
+          <view class="dimension-row__label">{{item.label}}</view>
+          <view class="dimension-row__bar">
+            <view class="dimension-row__fill" style="width: {{item.percent}}%"></view>
+          </view>
+          <view class="dimension-row__score">{{item.rangeLabel}}</view>
+          <view class="dimension-row__reason">{{item.rationale}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="review-section">
+      <view class="review-section__title">证据反馈</view>
+      <view class="evidence-chips">
+        <view class="evidence-chip evidence-chip--covered">
+          命中要点 {{view.coveredPoints}} / {{view.totalPoints}}
+        </view>
+        <view class="evidence-chip">发现问题 {{view.findings.length}} 个</view>
+      </view>
+      <view wx:if="{{view.findings.length}}" class="finding-list">
+        <view wx:for="{{view.findings}}" wx:key="findingId" class="finding-card finding-card--{{item.severity}}">
+          <view class="finding-card__head">
+            <view class="finding-card__order">问题 {{item.order}}</view>
+            <view class="finding-card__severity">{{item.severityLabel}}</view>
+          </view>
+          <view class="finding-card__diagnosis">{{item.diagnosis}}</view>
+          <view class="finding-card__action"><text>下一步</text>{{item.action}}</view>
+          <view class="finding-card__quote">
+            <view class="finding-card__quote-label">你的原句</view>
+            <view>{{item.answerQuote}}</view>
+          </view>
+          <view class="finding-card__quote finding-card__quote--material">
+            <view class="finding-card__quote-label">材料依据</view>
+            <view>{{item.materialQuote}}</view>
+          </view>
+        </view>
+      </view>
+      <view wx:else class="review-empty">
+        <view class="review-empty__title">本次没有定位到具体问题</view>
+        <view class="review-empty__copy">可以带着本题问岸岸，继续核对答案与材料依据。</view>
+      </view>
+    </view>
+
+    <view class="review-section">
+      <view class="review-section__title">表达升格</view>
+      <view wx:if="{{view.expressionFindings.length}}" class="expression-card">
+        <view wx:for="{{view.expressionFindings}}" wx:key="findingId" class="expression-item">
+          <view class="expression-item__label">原句</view>
+          <view class="expression-item__quote">{{item.answerQuote}}</view>
+          <view class="expression-item__label">改写方向</view>
+          <view class="expression-item__action">{{item.action}}</view>
+        </view>
+      </view>
+      <view wx:else class="review-empty">
+        <view class="review-empty__title">本次没有单独的表达问题</view>
+        <view class="review-empty__copy">不生成虚构示例；需要时可让岸岸结合原句继续解释。</view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{review && view}}" class="review-dock">
+    <view class="review-dock__inner">
+      <button class="review-rewrite" bindtap="rewriteAgain">再写一次</button>
+      <button class="review-anan" bindtap="askAnan">✦　带着本题问岸岸</button>
+    </view>
+  </view>
 </view>

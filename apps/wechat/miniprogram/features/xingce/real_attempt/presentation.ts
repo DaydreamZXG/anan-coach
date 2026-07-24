@@ -1,4 +1,5 @@
 import type {
+  XingceAnswerCheckpoint,
   XingceAttemptResult,
   XingceCauseCandidate,
   XingceGroupSummary,
@@ -59,6 +60,14 @@ export interface XingceResultItemView {
   questionId: string;
   positionNumber: number;
   positionLabel: string;
+  stemContent: RichContentBlock[];
+  material: XingceLearnerMaterial | null;
+  materialPosition: XingceAnswerCheckpoint["materialPosition"] | null;
+  factChips: Array<{
+    code: "elapsed" | "confidence" | "eliminated" | "marked";
+    label: string;
+    tone: "default" | "warning";
+  }>;
   resultLabel: string;
   resultTone: "success" | "warning" | "danger" | "neutral";
   objectiveLabel: string;
@@ -217,6 +226,10 @@ export function presentXingceResult(session: XingceTaskSession): XingceResultVie
   const interpreted = new Set(
     (review.reflection?.itemInterpretations ?? []).map((item) => item.questionId),
   );
+  const questions = new Map(
+    session.bundle.questions.map((question) => [question.questionId, question] as const),
+  );
+  const answers = new Map(session.answers.map((answer) => [answer.questionId, answer] as const));
   return {
     availability: "factored",
     headline: groupHeadline(group),
@@ -225,9 +238,18 @@ export function presentXingceResult(session: XingceTaskSession): XingceResultVie
     totalCount: result.totalCount,
     metrics: resultMetrics(result, session.totalElapsedSeconds),
     confidenceCalibration: confidenceCalibration(result),
-    items: result.items.map((item, index) =>
-      presentResultItem(item, index, interpreted.has(item.questionId)),
-    ),
+    items: result.items.map((item, index) => {
+      const question = questions.get(item.questionId);
+      if (!question) throw new Error("行测结果与题目内容不一致。");
+      return presentResultItem(
+        item,
+        index,
+        interpreted.has(item.questionId),
+        question,
+        answers.get(item.questionId),
+        session.bundle.materials,
+      );
+    }),
     group: presentGroupSummary(group),
     verification: session.verificationOutcome
       ? presentVerificationOutcome(session.verificationOutcome)
@@ -362,7 +384,7 @@ function normalizeRichContent(
   plainText: string | null | undefined,
   blockId: string,
 ): RichContentBlock[] {
-  if (Array.isArray(blocks)) return blocks as RichContentBlock[];
+  if (Array.isArray(blocks) && blocks.length > 0) return blocks as RichContentBlock[];
   const text = plainText?.trim();
   return text ? [{ type: "paragraph", blockId, text }] : [];
 }
@@ -371,16 +393,33 @@ function presentResultItem(
   item: XingceAttemptResult["items"][number],
   index: number,
   methodCorrectCalculationError: boolean,
+  question: XingceLearnerQuestion,
+  answer: XingceAnswerCheckpoint | undefined,
+  materials: XingceLearnerMaterial[],
 ): XingceResultItemView {
   const category = factoredCategory(item, methodCorrectCalculationError);
   const timing = item.timingEvidence;
   if (!timing || !item.objectiveVerdict || !item.disposition || !item.confidenceEvidence) {
     throw new Error("行测逐题事实不完整。");
   }
+  const material =
+    question.materialId === null
+      ? null
+      : normalizeMaterial(
+          materials.find((candidate) => candidate.materialId === question.materialId) ?? null,
+        );
   return {
     questionId: item.questionId,
     positionNumber: index + 1,
     positionLabel: `第 ${String(index + 1)} 题`,
+    stemContent: normalizeRichContent(
+      question.stemContent,
+      question.stem,
+      `${question.questionId}-review-stem`,
+    ),
+    material,
+    materialPosition: answer?.materialPosition ?? null,
+    factChips: resultFactChips(item, question, answer),
     resultLabel: category.label,
     resultTone: category.tone,
     objectiveLabel:
@@ -401,6 +440,50 @@ function presentResultItem(
     explanation: item.explanation ?? "这道题暂时没有解析。",
     explanationSource: item.explanationSource ?? "解析来源未提供",
   };
+}
+
+function resultFactChips(
+  item: XingceAttemptResult["items"][number],
+  question: XingceLearnerQuestion,
+  answer: XingceAnswerCheckpoint | undefined,
+): XingceResultItemView["factChips"] {
+  const timing = item.timingEvidence;
+  if (!timing || !item.confidenceEvidence) {
+    throw new Error("行测逐题过程事实不完整。");
+  }
+  const optionLabels = new Map(
+    question.options.map((option) => [option.optionId, option.label] as const),
+  );
+  const eliminated = (answer?.eliminatedOptionIds ?? []).map(
+    (optionId) => optionLabels.get(optionId) ?? optionId,
+  );
+  const chips: XingceResultItemView["factChips"] = [
+    {
+      code: "elapsed",
+      label: `用时 ${formatElapsed(timing.elapsedSeconds)}`,
+      tone: timing.status === "advisory_exceeded" ? "warning" : "default",
+    },
+    {
+      code: "confidence",
+      label: `信心：${confidenceEvidenceLabel(item.confidenceEvidence)}`,
+      tone: item.confidenceEvidence === "low" ? "warning" : "default",
+    },
+  ];
+  if (eliminated.length > 0) {
+    chips.push({
+      code: "eliminated",
+      label: `曾排除了 ${eliminated.join("、")}`,
+      tone: "warning",
+    });
+  }
+  if (answer?.marked) {
+    chips.push({
+      code: "marked",
+      label: "标记存疑",
+      tone: "warning",
+    });
+  }
+  return chips;
 }
 
 function resultMetrics(

@@ -8,7 +8,7 @@
   materialAvailable="{{status === 'ready'}}"
   answerSheetAvailable="{{capability ? capability.stage === 'essay_drafting' : false}}"
   toolsAvailable="{{false}}"
-  footerAvailable="{{status === 'ready' && canSubmit}}"
+  footerAvailable="{{status === 'ready'}}"
   bindexit="exit"
   bindmaterial="openMaterial"
   bindanswersheet="openAnswerSheet"
@@ -36,8 +36,8 @@
     </view>
   </view>
 
-  <view wx:elif="{{status === 'ready' && workspace && view}}" class="essay-workspace {{draftLocked ? 'essay-workspace--locked' : ''}}">
-    <view class="workspace-hero">
+  <view wx:elif="{{status === 'ready' && workspace && view}}" class="essay-workspace {{capability.stage === 'essay_drafting' ? 'essay-workspace--drafting' : ''}} {{draftLocked ? 'essay-workspace--locked' : ''}}">
+    <view wx:if="{{capability.stage !== 'essay_drafting'}}" class="workspace-hero">
       <view class="hero-glow"></view>
       <view class="hero-eyebrow">申论学习工作台</view>
       <view class="hero-title">{{capability.title}}</view>
@@ -49,20 +49,45 @@
       <view class="hero-version">{{view.currentVersionLabel}}</view>
     </view>
 
-    <scroll-view class="workbench-nav" scroll-x enhanced show-scrollbar="{{false}}">
+    <scroll-view wx:if="{{capability.stage !== 'essay_drafting'}}" class="workbench-nav" scroll-x enhanced show-scrollbar="{{false}}">
       <view class="workbench-nav-inner">
         <button wx:for="{{workbenchLinks}}" wx:key="url" class="workbench-nav-chip" data-url="{{item.url}}" bindtap="openWorkbench">{{item.label}}</button>
       </view>
     </scroll-view>
 
-    <view class="rubric-note {{workspace.rubricAvailability.status === 'published' ? 'rubric-note--ready' : ''}}">
+    <view wx:if="{{capability.stage !== 'essay_drafting'}}" class="rubric-note {{workspace.rubricAvailability.status === 'published' ? 'rubric-note--ready' : ''}}">
       <view class="rubric-note-title">{{view.rubricStatusLabel}}</view>
       <view class="rubric-note-copy">{{view.rubricStatusDetail}}</view>
     </view>
 
+    <scroll-view wx:if="{{capability.stage === 'essay_drafting'}}" class="draft-material-tabs" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="draft-material-tabs__inner">
+        <button
+          wx:for="{{view.directory}}"
+          wx:key="materialOrder"
+          class="draft-material-tab"
+          data-anchor="material-{{item.materialOrder}}"
+          bindtap="openMaterialAt"
+        >
+          <text class="draft-material-tab__icon">▤</text>
+          <text>{{item.label}}</text>
+        </button>
+      </view>
+    </scroll-view>
+
+    <view wx:if="{{capability.stage === 'essay_drafting'}}" class="draft-question">
+      <view class="draft-question__prompt">{{view.prompt}}</view>
+      <view class="draft-question__requirements">{{view.requirements}}</view>
+      <view class="draft-question__chips">
+        <view class="draft-question__chip">{{view.questionTypeLabel}}</view>
+        <view class="draft-question__chip">{{view.maximumScore}} 分</view>
+        <view class="draft-question__chip">不超过 {{view.wordLimit}} 字</view>
+      </view>
+    </view>
+
     <view class="essay-workbench-grid">
-      <view class="essay-context-pane">
-    <view class="section-heading">
+      <view wx:if="{{capability.stage !== 'essay_drafting'}}" class="essay-context-pane">
+    <view wx:if="{{capability.stage !== 'essay_drafting'}}" class="section-heading">
       <view class="section-title">题干与要求</view>
       <view class="section-meta">作答约束</view>
     </view>
@@ -112,7 +137,7 @@
       </view>
 
       <view class="essay-action-pane">
-    <view class="section-heading">
+    <view wx:if="{{capability.stage !== 'essay_drafting'}}" class="section-heading">
       <view>
         <view class="section-title">本阶段作业</view>
         <view class="section-meta form-evidence-label">提交后单独保存一份</view>
@@ -257,97 +282,102 @@
 
     <block wx:elif="{{capability.stage === 'essay_drafting'}}">
       <block wx:if="{{draftAvailable}}">
-        <view class="drafting-guide card">
-        <view class="review-guide-title drafting-guide__line">本次正式作答</view>
-        <view class="drafting-guide__line">提交后保存答案和复盘，今天的申论任务就完成了。</view>
-        <view class="drafting-guide__line">如果任务已在其他设备更新，本次不会写入不完整记录；保存成功后再开始有依据的 AI 评阅。</view>
-        </view>
-
-        <view class="drafting-card card">
-        <view class="drafting-meta-grid">
-          <view>
-            <view class="field-label">作答场景</view>
-            <picker range="{{sourceContextLabels}}" value="{{drafting.sourceContextIndex}}" bindchange="changeDraftingSourceContext">
-              <view class="essay-select">{{sourceContextLabels[drafting.sourceContextIndex]}} <text>›</text></view>
-            </picker>
-          </view>
-          <view>
-            <view class="field-label">计时状态</view>
-            <picker range="{{timedStatusLabels}}" value="{{drafting.timedStatusIndex}}" bindchange="changeDraftingTimedStatus">
-              <view class="essay-select">{{timedStatusLabels[drafting.timedStatusIndex]}} <text>›</text></view>
-            </picker>
-          </view>
-        </view>
-        <view class="field-label">答案录入来源</view>
-        <picker range="{{answerSourceTypeLabels}}" value="{{drafting.sourceTypeIndex}}" bindchange="changeDraftingSourceType">
-          <view class="essay-select">{{answerSourceTypeLabels[drafting.sourceTypeIndex]}} <text>›</text></view>
-        </picker>
-        <view wx:if="{{drafting.sourceType === 'ocr_confirmed'}}" class="source-confirmation-note">
-          手写答案需在本页上传原图并逐段核对；只切换录入方式不会自动完成核对。
-        </view>
-        <view wx:if="{{drafting.sourceType === 'ocr_confirmed'}}" class="handwriting-card">
-          <view class="handwriting-title">手写答案识别</view>
-          <view class="handwriting-actions">
-            <button class="secondary-action handwriting-action" data-source="camera" bindtap="chooseHandwritingImage">拍照识别</button>
-            <button class="secondary-action handwriting-action" data-source="album" bindtap="chooseHandwritingImage">选择原图</button>
-          </view>
-          <image wx:if="{{handwriting.localImagePath}}" class="handwriting-original" src="{{handwriting.localImagePath}}" mode="widthFix"></image>
-          <view wx:if="{{handwriting.phase === 'uploading'}}" class="field-help">上传与识别 {{handwriting.progressPercent}}%</view>
-          <view wx:if="{{handwriting.message}}" class="source-confirmation-note">{{handwriting.message}}</view>
-          <view wx:for="{{handwriting.spans}}" wx:key="spanId" class="handwriting-span">
-            <view class="handwriting-span-meta">第 {{item.box.pageNo}} 页 · 置信度 {{item.confidenceLabel}}</view>
-            <textarea cursor-spacing="24" class="essay-textarea essay-textarea--compact" value="{{item.text}}" maxlength="10000" data-span-id="{{item.spanId}}" bindinput="inputHandwritingSpan"></textarea>
-            <button class="span-confirm {{item.checked ? 'span-confirm--checked' : ''}}" data-span-id="{{item.spanId}}" bindtap="toggleHandwritingSpan">{{item.checked ? '已逐字核对' : '核对这一段'}}</button>
-          </view>
-          <button wx:if="{{handwriting.phase === 'review' || handwriting.phase === 'error'}}" class="primary-action" bindtap="confirmHandwriting">确认全部识别文字</button>
-        </view>
-        <view wx:if="{{drafting.timedStatus === 'timed'}}">
-          <view class="field-label">实际作答分钟 <text class="field-optional">选填</text></view>
-          <input
-            class="essay-input type-data"
-            type="number"
-            value="{{drafting.elapsedMinutesText}}"
-            data-field="elapsedMinutesText"
-            placeholder="纸笔作答请填；留空按本页计时"
+        <view id="drafting-answer" class="draft-writing-card">
+          <textarea
+            cursor-spacing="24"
+            class="draft-writing-input"
+            value="{{drafting.answerText}}"
+            maxlength="10000"
+            data-field="answerText"
+            placeholder="在此输入作答内容…"
             bindinput="inputDraftingField"
-          />
-          <view class="field-help">本页已计时 {{elapsedLabel}}</view>
-        </view>
-        </view>
-
-        <view id="drafting-answer" class="drafting-card card">
-        <view class="field-label">我的答案 <text class="field-hint">{{drafting.answerText.length}} / 10000</text></view>
-        <textarea cursor-spacing="24"
-          class="essay-textarea essay-answer-textarea"
-          value="{{drafting.answerText}}"
-          maxlength="10000"
-          data-field="answerText"
-          placeholder="按题目要求写完整答案，AI 就按这一篇评阅。"
-          bindinput="inputDraftingField"
-        ></textarea>
+          ></textarea>
+          <view class="draft-writing-toolbar">
+            <view class="draft-writing-tools">
+              <button class="draft-writing-tool" bindtap="openDraftingNotes">☷ 提纲</button>
+              <button class="draft-writing-tool" bindtap="openMaterial">❞ 引用</button>
+            </view>
+            <view class="draft-writing-meta">
+              <text>{{submissionStatus === 'submitting' ? '正在保存' : submissionStatus === 'saved' ? '已保存' : '本机自动保存'}}</text>
+              <text class="draft-writing-count">{{drafting.answerText.length}} <text>/ {{view.wordLimit}}</text></text>
+            </view>
+          </view>
         </view>
 
-        <view class="drafting-card card">
-        <view class="review-guide-title">作答思路 <text class="field-optional">选填</text></view>
-        <view class="field-label">我是怎么找点的 <text class="field-optional">选填</text></view>
-        <textarea cursor-spacing="24" class="essay-textarea essay-textarea--compact" value="{{drafting.pointFindingText}}" maxlength="3000" data-field="pointFindingText" placeholder="哪些材料句被你当成要点，为什么？" bindinput="inputDraftingField"></textarea>
-        <view class="field-label">我的结构 / 提纲 <text class="field-optional">选填</text></view>
-        <textarea cursor-spacing="24" class="essay-textarea essay-textarea--compact" value="{{drafting.outlineText}}" maxlength="3000" data-field="outlineText" placeholder="写下本次答案的层次安排。" bindinput="inputDraftingField"></textarea>
+        <view class="draft-setup-card">
+          <view class="draft-setup-title">作答设置</view>
+          <view class="draft-setup-grid">
+            <view>
+              <view class="field-label">作答场景</view>
+              <picker range="{{sourceContextLabels}}" value="{{drafting.sourceContextIndex}}" bindchange="changeDraftingSourceContext">
+                <view class="essay-select">{{sourceContextLabels[drafting.sourceContextIndex]}} <text>›</text></view>
+              </picker>
+            </view>
+            <view>
+              <view class="field-label">计时状态</view>
+              <picker range="{{timedStatusLabels}}" value="{{drafting.timedStatusIndex}}" bindchange="changeDraftingTimedStatus">
+                <view class="essay-select">{{timedStatusLabels[drafting.timedStatusIndex]}} <text>›</text></view>
+              </picker>
+            </view>
+          </view>
+          <view class="field-label">答案录入来源</view>
+          <picker range="{{answerSourceTypeLabels}}" value="{{drafting.sourceTypeIndex}}" bindchange="changeDraftingSourceType">
+            <view class="essay-select">{{answerSourceTypeLabels[drafting.sourceTypeIndex]}} <text>›</text></view>
+          </picker>
+          <view wx:if="{{drafting.sourceType === 'ocr_confirmed'}}" class="source-confirmation-note">
+            手写答案需上传原图并逐段核对；只切换录入方式不会自动完成核对。
+          </view>
+          <view wx:if="{{drafting.sourceType === 'ocr_confirmed'}}" class="handwriting-card">
+            <view class="handwriting-title">手写答案识别</view>
+            <view class="handwriting-actions">
+              <button class="secondary-action handwriting-action" data-source="camera" bindtap="chooseHandwritingImage">拍照识别</button>
+              <button class="secondary-action handwriting-action" data-source="album" bindtap="chooseHandwritingImage">选择原图</button>
+            </view>
+            <image wx:if="{{handwriting.localImagePath}}" class="handwriting-original" src="{{handwriting.localImagePath}}" mode="widthFix"></image>
+            <view wx:if="{{handwriting.phase === 'uploading'}}" class="field-help">上传与识别 {{handwriting.progressPercent}}%</view>
+            <view wx:if="{{handwriting.message}}" class="source-confirmation-note">{{handwriting.message}}</view>
+            <view wx:for="{{handwriting.spans}}" wx:key="spanId" class="handwriting-span">
+              <view class="handwriting-span-meta">第 {{item.box.pageNo}} 页 · 置信度 {{item.confidenceLabel}}</view>
+              <textarea cursor-spacing="24" class="essay-textarea essay-textarea--compact" value="{{item.text}}" maxlength="10000" data-span-id="{{item.spanId}}" bindinput="inputHandwritingSpan"></textarea>
+              <button class="span-confirm {{item.checked ? 'span-confirm--checked' : ''}}" data-span-id="{{item.spanId}}" bindtap="toggleHandwritingSpan">{{item.checked ? '已逐字核对' : '核对这一段'}}</button>
+            </view>
+            <button wx:if="{{handwriting.phase === 'review' || handwriting.phase === 'error'}}" class="primary-action" bindtap="confirmHandwriting">确认全部识别文字</button>
+          </view>
+          <view wx:if="{{drafting.timedStatus === 'timed'}}">
+            <view class="field-label">纸笔实际作答分钟 <text class="field-optional">选填</text></view>
+            <input
+              class="essay-input type-data"
+              type="number"
+              value="{{drafting.elapsedMinutesText}}"
+              data-field="elapsedMinutesText"
+              placeholder="留空则按本页计时"
+              bindinput="inputDraftingField"
+            />
+            <view class="field-help">本页已计时 {{elapsedLabel}}</view>
+          </view>
+        </view>
+
+        <view id="drafting-notes" class="draft-notes-card">
+          <view class="draft-setup-title">作答思路 <text class="field-optional">选填</text></view>
+          <view class="field-label">我是怎么找点的</view>
+          <textarea cursor-spacing="24" class="essay-textarea essay-textarea--compact" value="{{drafting.pointFindingText}}" maxlength="3000" data-field="pointFindingText" placeholder="哪些材料句被你当成要点，为什么？" bindinput="inputDraftingField"></textarea>
+          <view class="field-label">我的结构 / 提纲</view>
+          <textarea cursor-spacing="24" class="essay-textarea essay-textarea--compact" value="{{drafting.outlineText}}" maxlength="3000" data-field="outlineText" placeholder="写下本次答案的层次安排。" bindinput="inputDraftingField"></textarea>
         </view>
       </block>
       <view wx:else class="saved-answer-note card">
         当前已经有一份已保存答案。本页不会猜测恢复正文；你可以补齐复盘，并确认这次答案、复盘和计划任务。
       </view>
 
-      <view class="drafting-card card">
-        <view class="review-guide-title">即时结构化复盘</view>
+      <view class="draft-reflection-card">
+        <view class="draft-setup-title">即时结构化复盘</view>
         <view class="field-help">这部分会进入 AI 学习大脑，不是评阅后的标准答案总结。</view>
         <view class="field-label">我当时怎么想 <text class="field-hint">必填</text></view>
         <textarea cursor-spacing="24" class="essay-textarea essay-textarea--compact" value="{{drafting.userThought}}" maxlength="3000" data-field="userThought" placeholder="记录真实判断、犹豫和取舍，不要事后改成标准答案。" bindinput="inputDraftingField"></textarea>
         <view class="field-label">主要问题来源 <text class="field-hint">至少选 1 项</text></view>
         <checkbox-group class="reflection-cause-grid" bindchange="changeReflectionCauses">
           <label wx:for="{{reflectionCauseOptions}}" wx:key="code" class="reflection-cause-option {{item.checked ? 'reflection-cause-option--checked' : ''}}">
-            <checkbox value="{{item.code}}" checked="{{item.checked}}" color="#3D7EFF" />
+            <checkbox value="{{item.code}}" checked="{{item.checked}}" />
             <text>{{item.label}}</text>
           </label>
         </checkbox-group>
@@ -648,7 +678,7 @@
       disabled="{{!canSubmit || submissionStatus === 'submitting'}}"
       bindtap="submitStage"
     >
-      {{submissionStatus === 'submitting' ? '正在保存…' : capability.stage === 'essay_drafting' ? (draftAvailable ? '提交作答与复盘' : '确认答案并提交复盘') : capability.stage === 'essay_rewrite' ? '提交本次改写' : capability.stage === 'essay_transfer' ? (transferDraft.phase === 'drafting' ? '提交新题作答' : '提交迁移判断') : hasSavedEvidence ? '保存本次修改' : '提交本阶段结果'}}
+      {{submissionStatus === 'submitting' ? '正在保存…' : capability.stage === 'essay_drafting' ? (draftAvailable ? '保存作答并完成' : '确认答案并提交复盘') : capability.stage === 'essay_rewrite' ? '提交本次改写' : capability.stage === 'essay_transfer' ? (transferDraft.phase === 'drafting' ? '提交新题作答' : '提交迁移判断') : hasSavedEvidence ? '保存本次修改' : '提交本阶段结果'}}
     </button>
   </view>
 </task-shell>

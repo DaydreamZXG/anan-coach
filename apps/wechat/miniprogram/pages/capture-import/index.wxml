@@ -257,15 +257,18 @@
       </view>
       <view class="match-list">
         <button
-          wx:for="{{state.activeQuestionUnit.match.candidates}}"
+          wx:for="{{matchCandidates}}"
           wx:key="contentVersionId"
           class="match-card {{state.selectedContentVersionId === item.contentVersionId ? 'match-card--selected' : ''}}"
           data-id="{{item.contentVersionId}}"
           bindtap="selectMatch"
         >
           <view class="match-card__badge">{{item.matchKind === 'exact' ? '原题精确匹配' : '相似题目'}}</view>
-          <view class="match-card__score">匹配度 {{item.score}}</view>
+          <view class="match-card__score">匹配度 {{item.scoreLabel}}</view>
           <view class="match-card__copy">点击选择并核对这条题库记录</view>
+          <view class="match-card__evidence">
+            <view wx:for="{{item.evidenceSummaries}}" wx:for-item="evidence" wx:key="*this" class="match-card__evidence-line">{{evidence}}</view>
+          </view>
         </button>
       </view>
       <view wx:if="{{state.validationError}}" class="capture-inline-error">{{state.validationError}}</view>

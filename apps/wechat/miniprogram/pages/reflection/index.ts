@@ -4,6 +4,7 @@ import { XingceLearningApi, type XingceTaskSession } from "../../api/xingce-lear
 import { routes } from "../../app/navigation/routes";
 import { currentAuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";
+import { storeCompanionLaunchContext } from "../../features/companion/context-store";
 import {
   clearReflectionLearningMediaDraft,
   loadReflectionLearningMediaDraft,
@@ -62,9 +63,23 @@ import {
 } from "../../features/xingce/real_attempt/pending-store";
 import { publishLatestTodayDashboard } from "../../features/planning/runtime-state";
 import { createIdempotencyKey } from "../../platform/command-id";
+import type {
+  ContentAnchor,
+  ContentDisplayPreferences,
+  RichContentBlock,
+} from "../../task-runtime/content-renderer/model";
+import {
+  loadTaskDisplayPreferences,
+  storeTaskDisplayPreferences,
+} from "../../task-runtime/display-preferences";
+import {
+  createMaterialReaderState,
+  type MaterialReaderState,
+} from "../../task-runtime/material-reader/state";
 
 type ReflectionStatus = "loading" | "ready" | "error" | "unavailable";
 type ReflectionPhase =
+  | "summary"
   | "reflection"
   | "cause_processing"
   | "cause_followup"
@@ -80,6 +95,7 @@ interface ReflectionPageData {
   errorMessage: string;
   showLoginAction: boolean;
   result: XingceResultView | null;
+  summaryBasisOpen: boolean;
   rawText: string;
   strategyNote: string;
   doubtNote: string;
@@ -106,6 +122,10 @@ interface ReflectionPageData {
   reviewItems: XingceResultItemView[];
   activeReviewItem: XingceResultItemView | null;
   currentReviewIndex: number;
+  materialReaderState: MaterialReaderState;
+  displayPreferences: ContentDisplayPreferences;
+  emptyRichContentBlocks: RichContentBlock[];
+  emptyContentAnchors: ContentAnchor[];
   moreEvidenceOpen: boolean;
   hasUpdatedPlan: boolean;
 }
@@ -115,6 +135,12 @@ interface ReflectionPageCustom {
   retry(): void;
   goLogin(): void;
   exit(): Promise<void>;
+  handleBack(): void;
+  startReflection(): void;
+  showSummary(): void;
+  toggleSummaryBasis(): void;
+  askAnanAboutGroup(): void;
+  updateMaterialReader(event: WechatMiniprogram.CustomEvent<{ state: MaterialReaderState }>): void;
   inputRawText(event: WechatMiniprogram.Input): void;
   inputStrategyNote(event: WechatMiniprogram.Input): void;
   inputDoubtNote(event: WechatMiniprogram.Input): void;
@@ -162,6 +188,7 @@ interface ReflectionRuntime {
   preview: WechatVoicePreview | null;
   replacingSegmentId: string | null;
   causePollTimer: ReturnType<typeof setTimeout> | null;
+  reviewFormEntered: boolean;
 }
 
 type ReflectionPageInstance = WechatMiniprogram.Page.Instance<
@@ -174,11 +201,12 @@ const runtimes = new WeakMap<ReflectionPageInstance, ReflectionRuntime>();
 Page<ReflectionPageData, ReflectionPageCustom>({
   data: {
     status: "loading",
-    phase: "reflection",
+    phase: "summary",
     errorTitle: "",
     errorMessage: "",
     showLoginAction: false,
     result: null,
+    summaryBasisOpen: false,
     rawText: "",
     strategyNote: "",
     doubtNote: "",
@@ -200,11 +228,20 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     reviewItems: [],
     activeReviewItem: null,
     currentReviewIndex: 0,
+    materialReaderState: createMaterialReaderState(),
+    displayPreferences: { fontScale: 1, colorMode: "standard" },
+    emptyRichContentBlocks: [],
+    emptyContentAnchors: [],
     moreEvidenceOpen: false,
     hasUpdatedPlan: false,
   },
 
   onLoad(options: Record<string, string | undefined>) {
+    const displayPreferences = loadTaskDisplayPreferences();
+    this.setData({
+      displayPreferences,
+      materialReaderState: createMaterialReaderState(undefined, displayPreferences),
+    });
     const sessionId = options.sessionId?.trim() ?? "";
     const reviewId = options.reviewId?.trim() ?? "";
     if (!sessionId || !reviewId) {
@@ -250,6 +287,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       preview: null,
       replacingSegmentId: null,
       causePollTimer: null,
+      reviewFormEntered: hasReflectionDraft(mediaDraft),
     };
     runtimes.set(this, runtime);
     syncVoiceView(this, runtime);
@@ -332,6 +370,88 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     void wx.navigateBack();
   },
 
+  handleBack() {
+    if (this.data.phase === "reflection") {
+      this.showSummary();
+      return;
+    }
+    void this.exit();
+  },
+
+  startReflection() {
+    const runtime = runtimes.get(this);
+    if (
+      !runtime?.session?.review ||
+      runtime.session.review.state !== "reflection_required" ||
+      this.data.status !== "ready"
+    ) {
+      return;
+    }
+    runtime.reviewFormEntered = true;
+    this.setData({ phase: "reflection" });
+  },
+
+  showSummary() {
+    const runtime = runtimes.get(this);
+    if (
+      !runtime?.session?.review ||
+      runtime.session.review.state !== "reflection_required" ||
+      this.data.status !== "ready"
+    ) {
+      return;
+    }
+    runtime.reviewFormEntered = false;
+    this.setData({ phase: "summary" });
+  },
+
+  toggleSummaryBasis() {
+    this.setData({ summaryBasisOpen: !this.data.summaryBasisOpen });
+  },
+
+  askAnanAboutGroup() {
+    const runtime = runtimes.get(this);
+    const auth = currentAuthSession();
+    const result = this.data.result;
+    if (
+      !auth ||
+      !runtime?.session ||
+      runtime.session.state === "answering" ||
+      !result ||
+      result.availability !== "factored"
+    ) {
+      return;
+    }
+    storeCompanionLaunchContext(auth.userId, {
+      sourceLabel: "行测题组结果",
+      title: `${runtime.session.bundle.questions[0]?.moduleName ?? "行测"} · ${String(result.totalCount)} 题`,
+      summary: `${result.headline}；${result.summary}；总用时 ${result.metrics.find((item) => item.code === "elapsed")?.value ?? "未记录"}。`,
+      suggestedQuestion:
+        "结合这组题的正确性、用时和信心记录，告诉我最值得先改的一个问题，以及下一次怎么练。",
+      routeId: "pages/reflection/index",
+      workspace: "training",
+      objectRefs: runtime.session.bundle.questions.map((question) => ({
+        type: "question" as const,
+        id: question.questionId,
+        version: question.contentVersionId,
+      })),
+      taskMode: runtime.session.mode === "verification" ? "retest" : "practice",
+      taskStage: "submitted",
+    });
+    void wx.switchTab({ url: routes.anan });
+  },
+
+  updateMaterialReader(event) {
+    const next = event.detail.state;
+    const preferencesChanged =
+      next.preferences.fontScale !== this.data.displayPreferences.fontScale ||
+      next.preferences.colorMode !== this.data.displayPreferences.colorMode;
+    this.setData({
+      materialReaderState: next,
+      displayPreferences: next.preferences,
+    });
+    if (preferencesChanged) storeTaskDisplayPreferences(next.preferences);
+  },
+
   inputRawText(event) {
     const runtime = runtimes.get(this);
     if (!runtime || this.data.interactionLocked) return;
@@ -344,7 +464,11 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     const index = Number(event.currentTarget.dataset.index ?? -1);
     const item = this.data.reviewItems[index];
     if (!item) return;
-    this.setData({ currentReviewIndex: index, activeReviewItem: item });
+    this.setData({
+      currentReviewIndex: index,
+      activeReviewItem: item,
+      materialReaderState: materialReaderStateFor(item, this.data.displayPreferences),
+    });
   },
 
   toggleMoreEvidence() {
@@ -1077,6 +1201,7 @@ function applySession(
   const pendingTags = pendingReflection?.command.tags.filter(isXingceReflectionTag) ?? [];
   const localDraft = runtime.mediaDraft;
   const hasLocalDraft = hasReflectionDraft(localDraft);
+  if (pendingReflection || hasLocalDraft) runtime.reviewFormEntered = true;
   const localTags = localDraft.tags.filter(isXingceReflectionTag);
   if (hasLocalDraft) runtime.selectedTags = new Set(localTags);
   else if (pendingTags.length > 0) runtime.selectedTags = new Set(pendingTags);
@@ -1098,7 +1223,9 @@ function applySession(
   );
   const phase: ReflectionPhase =
     review.state === "reflection_required"
-      ? "reflection"
+      ? runtime.reviewFormEntered
+        ? "reflection"
+        : "summary"
       : review.state === "cause_candidate_pending"
         ? "cause_processing"
         : review.state === "cause_followup_required"
@@ -1113,10 +1240,16 @@ function applySession(
   const hasPendingWrite =
     pendingReflection !== null || pendingFollowup !== null || pendingCause !== null;
   const resultView = presentXingceResult(session);
-  const criticalItems =
-    resultView?.items.filter((item) => item.resultTone !== "success") ?? [];
+  if (review.state === "reflection_required" && !resultView) {
+    throw new Error("本次训练总结与作答记录不完整。");
+  }
+  const criticalItems = resultView?.items.filter((item) => item.resultTone !== "success") ?? [];
   const reviewItems = criticalItems.length > 0 ? criticalItems : (resultView?.items ?? []);
-  const currentReviewIndex = Math.min(page.data.currentReviewIndex, Math.max(0, reviewItems.length - 1));
+  const currentReviewIndex = Math.min(
+    page.data.currentReviewIndex,
+    Math.max(0, reviewItems.length - 1),
+  );
+  const activeReviewItem = reviewItems[currentReviewIndex] ?? null;
   page.setData({
     status: "ready",
     phase,
@@ -1125,7 +1258,8 @@ function applySession(
     result: resultView,
     reviewItems,
     currentReviewIndex,
-    activeReviewItem: reviewItems[currentReviewIndex] ?? null,
+    activeReviewItem,
+    materialReaderState: materialReaderStateFor(activeReviewItem, page.data.displayPreferences),
     hasUpdatedPlan: Boolean(session.completion?.plan),
     causeCandidate: presentXingceCauseCandidate(review.aiCandidate),
     rawText: hasLocalDraft
@@ -1159,6 +1293,17 @@ function applySession(
   if (phase === "cause_processing") scheduleCausePoll(page, runtime);
   else clearCausePoll(runtime);
   if (session.completion?.plan) publishLatestTodayDashboard(session.completion.plan);
+}
+
+function materialReaderStateFor(
+  item: XingceResultItemView | null,
+  preferences: ContentDisplayPreferences,
+): MaterialReaderState {
+  const defaultAnchor = item?.material?.anchors[0]?.anchorId ?? "material-start";
+  return createMaterialReaderState(
+    item?.materialPosition ?? { anchorId: defaultAnchor, scrollTop: 0, zoom: 1 },
+    preferences,
+  );
 }
 
 function tagOptions(selected: ReadonlySet<XingceReflectionTag>): ReflectionPageData["tagOptions"] {

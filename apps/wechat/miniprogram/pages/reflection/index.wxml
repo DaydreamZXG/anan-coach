@@ -1,7 +1,7 @@
 <view class="reflection-page">
   <safe-top gap="0" />
-  <view wx:if="{{status === 'ready' && phase !== 'completed'}}" class="reflection-topbar">
-    <button class="reflection-back" bindtap="exit"><text class="reflection-back__chevron"></text></button>
+  <view wx:if="{{status === 'ready' && phase !== 'completed' && phase !== 'summary'}}" class="reflection-topbar">
+    <button class="reflection-back" bindtap="handleBack"><text class="reflection-back__chevron"></text></button>
     <view class="reflection-topbar__title">
       {{phase === 'reflection' ? '单题错因复盘' : '错因确认'}}
       <text wx:if="{{phase === 'reflection' && reviewItems.length}}"> · {{currentReviewIndex + 1}}/{{reviewItems.length}}</text>
@@ -29,7 +29,73 @@
       <button class="pending-write__action" bindtap="retry">继续确认上次提交</button>
     </view>
 
-    <view wx:if="{{phase === 'reflection'}}" class="review-content">
+    <view wx:if="{{phase === 'summary' && result}}" class="summary-content">
+      <button class="summary-back" bindtap="handleBack" aria-label="返回">
+        <text class="reflection-back__chevron"></text>
+      </button>
+      <view class="summary-intro">
+        <view class="summary-title">这组做完了</view>
+        <view class="summary-copy">比起 {{result.correctCount}}/{{result.totalCount}}，更重要的是找到每一道题真正留下的证据。</view>
+      </view>
+
+      <view class="summary-card">
+        <view class="summary-metrics">
+          <view wx:for="{{result.metrics}}" wx:key="code" class="summary-metric summary-metric--{{item.tone}}">
+            <view class="summary-metric__value type-data">{{item.value}}</view>
+            <view class="summary-metric__label">{{item.label}}</view>
+          </view>
+        </view>
+        <view wx:if="{{result.confidenceCalibration.length}}" class="summary-confidence">
+          <view class="summary-confidence__title">信心校准</view>
+          <view class="summary-confidence__list">
+            <view wx:for="{{result.confidenceCalibration}}" wx:key="code" class="summary-confidence__row">
+              <view class="summary-confidence__label">
+                <view class="summary-confidence__dot summary-confidence__dot--{{item.tone}}"></view>
+                <text>{{item.label}}</text>
+              </view>
+              <view class="summary-confidence__value type-data">{{item.value}} 题</view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{result.group}}" class="summary-insight">
+        <view class="summary-insight__head"><text class="summary-insight__spark">✦</text><text>岸岸结论</text></view>
+        <view class="summary-insight__title">{{result.group.outcomeLabel}}</view>
+        <view class="summary-insight__copy">{{result.group.description}}</view>
+        <view wx:if="{{summaryBasisOpen}}" class="summary-insight__basis">
+          <view wx:for="{{result.group.counts}}" wx:key="code" class="summary-insight__basis-row">
+            <text>{{item.label}}</text><text class="type-data">{{item.value}}</text>
+          </view>
+          <view class="summary-insight__next">{{result.group.nextActionLabel}}</view>
+          <view wx:if="{{result.verification}}" class="summary-insight__verification">{{result.verification.stageLabel}} · {{result.verification.evidenceLabel}} · {{result.verification.evidenceDescription}}</view>
+        </view>
+        <button class="summary-insight__toggle" bindtap="toggleSummaryBasis">{{summaryBasisOpen ? '收起结论依据' : '查看结论依据'}}⌄</button>
+      </view>
+      <view wx:elif="{{result.availability === 'legacy_result_unavailable'}}" class="summary-legacy">
+        <view class="summary-legacy__title">这份是旧版结果</view>
+        <view class="summary-legacy__copy">只保留当时的成绩，不再重新推断缺失的作答过程。</view>
+      </view>
+
+      <view wx:if="{{result.items.length}}" class="summary-question-strip">
+        <view wx:for="{{result.items}}" wx:key="questionId" class="summary-question-strip__item">
+          <view class="summary-question-dot summary-question-dot--{{item.resultTone}}">{{item.positionNumber}}</view>
+          <view class="summary-question-label">{{item.resultTone === 'success' ? '已记录' : '复盘·' + item.resultLabel}}</view>
+        </view>
+      </view>
+
+      <view class="summary-actions">
+        <button class="summary-primary" bindtap="startReflection">复盘关键题</button>
+        <view class="summary-actions__row">
+          <button class="summary-secondary" bindtap="exit">稍后复盘</button>
+          <button class="summary-anan" bindtap="askAnanAboutGroup">带着本组问岸岸</button>
+        </view>
+      </view>
+      <view class="summary-boundary">本组新增 {{result.totalCount}} 条真实作答证据。一次练习不会直接变成稳定能力，完成复测后再确认。</view>
+      <view class="reflection-bottom-spacer"></view>
+    </view>
+
+    <view wx:elif="{{phase === 'reflection'}}" class="review-content">
       <view wx:if="{{result && result.availability === 'legacy_result_unavailable'}}" class="legacy-notice">
         <view class="legacy-notice__title">这是一份旧版结果</view>
         <view class="legacy-notice__copy">缺少逐题过程记录，因此只保留原始成绩，不追溯猜测用时、信心或计算过程。</view>
@@ -47,6 +113,22 @@
 
       <view wx:if="{{activeReviewItem}}" class="question-review">
         <view class="question-review__position">{{activeReviewItem.positionLabel}}</view>
+        <view wx:if="{{activeReviewItem.material}}" class="question-review__material">
+          <material-reader
+            title="{{activeReviewItem.material.title || '共享材料'}}"
+            blocks="{{activeReviewItem.material.content || emptyRichContentBlocks}}"
+            anchors="{{activeReviewItem.material.anchors || emptyContentAnchors}}"
+            state="{{materialReaderState}}"
+            bindstatechange="updateMaterialReader"
+          />
+        </view>
+        <view class="question-review__stem">
+          <content-renderer
+            blocks="{{activeReviewItem.stemContent || emptyRichContentBlocks}}"
+            zoom="{{1}}"
+            preferences="{{displayPreferences}}"
+          />
+        </view>
         <view class="answer-compare answer-compare--wrong">
           <view><text class="answer-compare__label">你的答案</text><text class="answer-compare__value">{{activeReviewItem.selectedLabel}}</text></view>
           <view class="answer-compare__mark">×</view>
@@ -56,9 +138,7 @@
           <view class="answer-compare__mark">✓</view>
         </view>
         <view class="answer-facts">
-          <view class="answer-fact">{{activeReviewItem.timingLabel}}</view>
-          <view class="answer-fact">{{activeReviewItem.confidenceLabel}}</view>
-          <view class="answer-fact">{{activeReviewItem.dispositionLabel}}</view>
+          <view wx:for="{{activeReviewItem.factChips}}" wx:key="code" class="answer-fact answer-fact--{{item.tone}}">{{item.label}}</view>
         </view>
       </view>
 

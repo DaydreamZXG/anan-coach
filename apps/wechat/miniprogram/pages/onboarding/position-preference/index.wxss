@@ -341,7 +341,13 @@
 }
 
 @media (min-width: 768px) {
-  .preference-content,
+  .preference-content {
+    width: 100%;
+    max-width: 560px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
   .preference-dock {
     right: auto;
     left: 50%;

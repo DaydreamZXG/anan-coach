@@ -1,3 +1,5 @@
+import { safeTopHolderHeight } from "./metrics";
+
 /**
  * 自定义导航页的顶部安全区。
  * menu：正文从系统胶囊下方开始。
@@ -15,11 +17,8 @@ Component({
 
   lifetimes: {
     attached() {
-      const height =
-        this.data.mode === "status"
-          ? wx.getWindowInfo().statusBarHeight + this.data.gap
-          : wx.getMenuButtonBoundingClientRect().bottom + this.data.gap;
-      this.setData({ holderHeight: height });
+      const mode = this.data.mode === "status" ? "status" : "menu";
+      this.setData({ holderHeight: safeTopHolderHeight(mode, this.data.gap) });
     },
   },
 });

@@ -20,6 +20,17 @@ Page({
     scheduledLabel: "",
     completionLabel: "",
     varianceLabel: "",
+    hasSummary: false,
+    primaryOpenTask: null as
+      | (DailySettlementView["tasks"][number] & {
+          trackLabel: string;
+          statusLabel: string;
+          statusTone: string;
+          elapsedLabel: string;
+          plannedLabel: string;
+        })
+      | null,
+    additionalOpenTaskCount: 0,
     tasks: [] as Array<
       DailySettlementView["tasks"][number] & {
         trackLabel: string;
@@ -45,6 +56,24 @@ Page({
         complete: "已闭环",
         abandoned: "主动结束",
       } as const;
+      const tasks = data.tasks.map((task) => ({
+        ...task,
+        trackLabel: trackLabel[task.track],
+        statusLabel: statusLabels[task.status],
+        statusTone:
+          task.status === "complete"
+            ? "complete"
+            : task.status === "abandoned"
+              ? "abandoned"
+              : task.status === "in_progress"
+                ? "active"
+                : "open",
+        elapsedLabel: durationLabel(task.elapsedMinutes),
+        plannedLabel: durationLabel(task.plannedMinutes),
+      }));
+      const openTasks = tasks.filter(
+        (task) => task.status === "ready" || task.status === "in_progress",
+      );
       this.setData({
         status: "ready",
         settlement: data,
@@ -53,21 +82,10 @@ Page({
         scheduledLabel: durationLabel(data.scheduledMinutes),
         completionLabel: `${String(data.completedTaskCount)} / ${String(data.tasks.length)} 项`,
         varianceLabel: varianceLabel(data.elapsedMinutes, data.scheduledMinutes),
-        tasks: data.tasks.map((task) => ({
-          ...task,
-          trackLabel: trackLabel[task.track],
-          statusLabel: statusLabels[task.status],
-          statusTone:
-            task.status === "complete"
-              ? "complete"
-              : task.status === "abandoned"
-                ? "abandoned"
-                : task.status === "in_progress"
-                  ? "active"
-                  : "open",
-          elapsedLabel: durationLabel(task.elapsedMinutes),
-          plannedLabel: durationLabel(task.plannedMinutes),
-        })),
+        hasSummary: data.summary.trim().length > 0,
+        primaryOpenTask: openTasks[0] ?? null,
+        additionalOpenTaskCount: Math.max(0, openTasks.length - 1),
+        tasks,
       });
     } catch (error) {
       const view = errorView(error, "每日结算加载失败，请重试。");

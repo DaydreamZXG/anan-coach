@@ -75,6 +75,10 @@ const severityLabels: Readonly<Record<string, string>> = {
   high: "高优先级",
 };
 
+export function essaySeverityLabel(severity: string): string {
+  return severityLabels[severity] ?? "需关注";
+}
+
 export function presentEssayWorkspace(
   workspace: EssayTaskWorkspace,
   artifactType: EssayArtifactType | null,
@@ -172,7 +176,7 @@ export function presentFinding(finding: EssayWorkspaceFinding): FindingView {
   return {
     ...finding,
     typeLabel: findingTypeLabels[finding.type] ?? finding.type,
-    severityLabel: severityLabels[finding.severity] ?? finding.severity,
+    severityLabel: essaySeverityLabel(finding.severity),
     materialEvidenceSummary:
       finding.materialEvidenceRefs.map((item) => item.quote).join("、") || "无材料引用",
     answerEvidenceSummary:

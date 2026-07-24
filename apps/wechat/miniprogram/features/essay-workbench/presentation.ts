@@ -4,6 +4,7 @@ import type {
   EssayTaskWorkspace,
 } from "../../api/essay-intelligence";
 import { routes } from "../../app/navigation/routes";
+import { essaySeverityLabel } from "../essay-task/presentation";
 
 export interface MaterialDirectoryItem {
   materialOrder: number;
@@ -57,12 +58,22 @@ export function answerSummary(workspace: EssayTaskWorkspace) {
 
 export function reviewView(review: EssayReviewResponse) {
   const score = review.score;
+  const findings = review.findings.map((item, index) => ({
+    ...item,
+    order: index + 1,
+    severityLabel: essaySeverityLabel(item.severity),
+    answerQuote: item.answerEvidenceRefs.map((ref) => ref.quote).join("；") || "未定位到答案原句",
+    materialQuote:
+      item.materialEvidenceRefs.map((ref) => ref.quote).join("；") || "未定位到材料原句",
+  }));
   return {
     status: review.status,
+    scoreAvailable: Boolean(score),
     scoreLabel: score
       ? `${score.scoreRange.lower.toFixed(1)}–${score.scoreRange.upper.toFixed(1)} / ${score.maximum.toFixed(0)}`
       : "当前评阅没有形成可信分数区间",
     recommendedScore: score?.scoreRange.recommended.toFixed(1) ?? "—",
+    maximumScore: score?.maximum.toFixed(0) ?? "—",
     confidenceLabel: score
       ? {
           high: "较高可信",
@@ -78,13 +89,8 @@ export function reviewView(review: EssayReviewResponse) {
       answerQuote: item.answerEvidenceRefs.map((ref) => ref.quote).join("；"),
       materialQuote: item.materialEvidenceRefs.map((ref) => ref.quote).join("；"),
     })),
-    findings: review.findings.map((item, index) => ({
-      ...item,
-      order: index + 1,
-      answerQuote: item.answerEvidenceRefs.map((ref) => ref.quote).join("；") || "未定位到答案原句",
-      materialQuote:
-        item.materialEvidenceRefs.map((ref) => ref.quote).join("；") || "未定位到材料原句",
-    })),
+    findings,
+    expressionFindings: findings.filter((item) => item.type === "expression"),
     coveredPoints: review.pointCoverage.filter((item) => item.state === "covered").length,
     totalPoints: review.pointCoverage.length,
   };

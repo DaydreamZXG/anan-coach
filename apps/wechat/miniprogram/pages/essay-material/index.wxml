@@ -1,12 +1,77 @@
-<view class="workbench-page">
-  <view class="workbench-hero"><view class="workbench-kicker">申论材料地图</view><view class="workbench-title">先看材料关系，再急着下笔</view><view class="workbench-copy">按主体、问题、原因、做法与案例建立可追溯材料地图，每个结论都能回到原文。</view></view>
+<view class="material-page" style="--material-capsule-reserve: {{capsuleReserve}}px;">
+  <safe-top mode="status" gap="{{0}}" />
+  <view class="material-header">
+    <view class="material-header__title">{{activeMaterialLabel}}</view>
+    <button class="material-close" bindtap="returnToWriter">关闭</button>
+  </view>
+
   <state-view wx:if="{{status === 'loading'}}" state="loading" />
-  <state-view wx:elif="{{status === 'error'}}" state="error" title="材料没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="{{retryAllowed ? '重新加载' : ''}}" bind:action="retryLoad" />
+  <state-view
+    wx:elif="{{status === 'error'}}"
+    state="error"
+    title="材料没有加载成功"
+    description="{{errorMessage}}"
+    request-id="{{requestId}}"
+    action-text="{{retryAllowed ? '重新加载' : ''}}"
+    bind:action="retryLoad"
+  />
+
   <block wx:elif="{{workspace}}">
-    <view class="workbench-card"><view class="workbench-section-title">题目要求</view><view class="workbench-text">{{workspace.task.prompt}}</view><view class="workbench-note">{{workspace.task.requirements}}</view></view>
-    <view class="workbench-card"><view class="workbench-section-title">材料目录</view><view hover-class="item--hover" wx:for="{{directory}}" wx:key="materialOrder" class="directory-row" data-anchor="{{item.firstAnchorId}}" bindtap="scrollToMaterial"><text>{{item.label}}</text><text class="workbench-meta">{{item.segmentCount}} 段 ›</text></view></view>
-    <view wx:for="{{workspace.material.segments}}" wx:key="segmentId" id="material-{{item.materialOrder}}" class="workbench-card"><view class="workbench-pill">材料 {{item.materialOrder}} · 第 {{item.segmentOrder}} 段</view><view class="workbench-text">{{item.text}}</view><block wx:for="{{annotations}}" wx:for-item="annotation" wx:key="segmentId"><view wx:if="{{annotation.segmentId === item.segmentId}}" class="evidence-quote">标注：{{annotation.summary}}<text wx:if="{{annotation.evidenceQuote}}">｜原句：{{annotation.evidenceQuote}}</text></view></block></view>
-    <button class="workbench-action {{!writerUrl ? 'workbench-action--disabled' : ''}}" disabled="{{!writerUrl}}" bindtap="openWriter">带着材料地图作答</button>
-    <view wx:if="{{!writerUrl}}" class="workbench-note">这里可阅读材料；从今日任务进入后才能继续标注和作答。</view>
+    <scroll-view class="material-directory" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="material-directory__inner">
+        <button
+          wx:for="{{directory}}"
+          wx:key="materialOrder"
+          class="material-directory__item"
+          data-anchor="{{item.firstAnchorId}}"
+          data-material-order="{{item.materialOrder}}"
+          bindtap="scrollToMaterial"
+        >
+          {{item.label}} · {{item.segmentCount}} 段
+        </button>
+      </view>
+    </scroll-view>
+
+    <view class="material-instruction">轻点段落可划线，再选择加入提纲、引用或复制。</view>
+
+    <view class="material-reader">
+      <view
+        wx:for="{{segments}}"
+        wx:key="segmentId"
+        id="{{item.anchorId}}"
+        class="material-paragraph {{selectedSegmentId === item.segmentId ? 'material-paragraph--selected' : ''}}"
+        data-segment-id="{{item.segmentId}}"
+        data-material-order="{{item.materialOrder}}"
+        data-text="{{item.text}}"
+        bindtap="selectSegment"
+      >
+        <view class="material-paragraph__number">{{item.paragraphNumber}}</view>
+        <view class="material-paragraph__body">
+          <text class="material-paragraph__text" user-select>{{item.text}}</text>
+          <block wx:for="{{annotations}}" wx:for-item="annotation" wx:key="segmentId">
+            <view wx:if="{{annotation.segmentId === item.segmentId}}" class="material-annotation">
+              <view class="material-annotation__label">已有材料标注</view>
+              <view>{{annotation.summary}}</view>
+              <view wx:if="{{annotation.evidenceQuote}}" class="material-annotation__quote">
+                “{{annotation.evidenceQuote}}”
+              </view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
   </block>
+
+  <view wx:if="{{selectedSegmentId}}" class="selection-toolbar">
+    <view class="selection-toolbar__mode">划线</view>
+    <view class="selection-toolbar__divider"></view>
+    <button wx:if="{{insertMode}}" class="selection-toolbar__action" bindtap="addSelectionToOutline">加入提纲</button>
+    <button wx:if="{{insertMode}}" class="selection-toolbar__action" bindtap="quoteSelection">引用</button>
+    <button class="selection-toolbar__action" bindtap="copySelection">复制</button>
+    <button class="selection-toolbar__action selection-toolbar__action--muted" bindtap="clearSelection">取消</button>
+  </view>
+
+  <view wx:if="{{workspace}}" class="material-dock">
+    <button class="material-return" bindtap="returnToWriter">⌄　返回作答</button>
+  </view>
 </view>
