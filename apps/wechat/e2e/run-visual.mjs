@@ -64,7 +64,7 @@ if (runtimeOnly || captureOnly) {
     if (isActionableRuntimeWarning(message)) runtimeWarnings.push(message);
   });
 }
-if (!runtimeOnly) await assertBaselineDeviceProfile(miniProgram);
+if (!runtimeOnly && !captureOnly) await assertBaselineDeviceProfile(miniProgram);
 await freezeVisualAnimationClock(miniProgram);
 await miniProgram.mockWxMethod("request", {
   data: {

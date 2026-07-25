@@ -222,8 +222,9 @@ export const pageInteractionMatrix = [
     dataset: { itemid: "visual-mastery-item-001" },
   }),
   page("pages/essay-material/index", "f10-essay-material-map", "带着材料地图进入作答", {
-    handler: "openWriter",
-    selector: ".workbench-action",
+    handler: "returnToWriter",
+    selector: ".material-return",
+    observable: false,
   }),
   page("pages/essay-compose/index", "f11-essay-compose-workbench", "进入申论成稿工作区", {
     handler: "openDrafting",

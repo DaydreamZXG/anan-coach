@@ -1326,6 +1326,59 @@
   font-weight: 700;
 }
 
+button.capture-back,
+button.capture-topbar__text,
+button.capture-channel-entry {
+  width: 100%;
+}
+
+button.capture-mode,
+button.camera-track__item,
+button.recognized-type-card__switch,
+button.question-unit-tab,
+button.solution-inline-action {
+  width: auto;
+}
+
+button.capture-cyan-button,
+button.capture-primary-button,
+button.capture-secondary-button,
+button.capture-dark-quiet,
+button.match-card,
+button.anan-solution-action,
+button.record-option,
+button.capture-danger-link {
+  width: 100%;
+}
+
+button.crop-actions__quiet {
+  width: 100%;
+}
+
+button.crop-actions__tool {
+  width: 80rpx;
+}
+
+button.crop-actions__confirm {
+  width: auto;
+}
+
+button.camera-control {
+  width: 96rpx;
+}
+
+button.camera-shutter {
+  width: 144rpx;
+}
+
+button.material-action {
+  width: auto;
+}
+
+button.capture-sheet__close {
+  width: 64rpx;
+}
+
 @media (min-width: 700px) {
   .capture-topbar,
   .ocr-content,

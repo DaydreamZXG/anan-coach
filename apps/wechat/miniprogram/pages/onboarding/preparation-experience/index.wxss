@@ -343,6 +343,20 @@
   box-shadow: none;
 }
 
+button.nav-back {
+  width: 64rpx;
+}
+
+button.nav-save {
+  width: auto;
+}
+
+button.exam-card,
+button.status-card,
+button.identity-primary {
+  width: 100%;
+}
+
 .error-banner {
   margin-top: 24rpx;
   padding: 20rpx 24rpx;

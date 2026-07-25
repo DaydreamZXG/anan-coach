@@ -253,3 +253,17 @@
 .time-primary--disabled {
   opacity: 0.58;
 }
+
+button.nav-back,
+button.time-step {
+  width: 64rpx;
+}
+
+button.nav-save,
+button.time-preset {
+  width: auto;
+}
+
+button.time-primary {
+  width: 100%;
+}

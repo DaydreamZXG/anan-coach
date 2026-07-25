@@ -393,6 +393,15 @@
   box-shadow: var(--figma-shadow-elevated);
 }
 
+button.review-back {
+  width: 56rpx;
+}
+
+button.review-rewrite,
+button.review-anan {
+  width: 100%;
+}
+
 @media (min-width: 768px) {
   .review-score {
     font-size: var(--figma-font-display-compact);

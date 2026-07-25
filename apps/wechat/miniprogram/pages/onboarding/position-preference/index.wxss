@@ -340,6 +340,22 @@
   box-shadow: none;
 }
 
+button.nav-back {
+  width: 64rpx;
+}
+
+button.nav-save,
+button.catalog-retry,
+button.region-chip {
+  width: auto;
+}
+
+button.relocation-row,
+button.level-row,
+button.preference-primary {
+  width: 100%;
+}
+
 @media (min-width: 768px) {
   .preference-content {
     width: 100%;

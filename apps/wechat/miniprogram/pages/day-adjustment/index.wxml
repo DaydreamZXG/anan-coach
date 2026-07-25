@@ -29,10 +29,11 @@
           <view class="current-card__accent"></view>
           <view class="current-card__label">当前安排</view>
           <view class="current-card__chips">
-            <view class="current-chip current-chip--blue">共 {{currentDurationLabel}}</view>
-            <view class="current-chip">{{currentTaskCount}} 项任务</view>
+            <view class="current-chip current-chip--blue">{{currentDurationLabel === '今天不安排' ? currentDurationLabel : '共 ' + currentDurationLabel}}</view>
+            <view class="current-chip">{{currentTaskCount > 0 ? currentTaskCount + ' 项任务' : '暂无任务'}}</view>
           </view>
-          <view class="current-card__focus">当前重点：<text class="current-card__focus-value">{{currentFocus}}</text></view>
+          <view wx:if="{{currentTaskCount > 0}}" class="current-card__focus">当前重点：<text class="current-card__focus-value">{{currentFocus}}</text></view>
+          <view wx:else class="current-card__focus">当前没有待完成任务；修改可用时间后，岸岸会重新核对今天的安排。</view>
         </view>
 
         <view class="adjustment-section">

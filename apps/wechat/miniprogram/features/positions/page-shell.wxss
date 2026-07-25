@@ -1648,6 +1648,48 @@
   padding: 0 8rpx;
 }
 
+button.position-nav__back {
+  width: 64rpx;
+}
+
+button.context-card__link,
+button.text-action,
+button.evidence-link,
+button.compare-link,
+button.compare-corner,
+button.secondary-pill,
+button.compact-action-card__button,
+button.quiet-action,
+button.comparison-dock__clear,
+button.comparison-dock__action,
+button.filter-pill,
+button.requirement-confirm__button,
+button.detail-actions__compare-link,
+button.choice {
+  width: auto;
+}
+
+button.list-status--button,
+button.anan-context-action,
+button.comparison-choose,
+button.goal-primary-button,
+button.goal-quiet-button {
+  width: 100%;
+}
+
+button.detail-actions__compare {
+  width: 280rpx;
+}
+
+button.detail-actions__primary,
+button.sheet-button {
+  width: auto;
+}
+
+button.sheet-close {
+  width: 64rpx;
+}
+
 @media (min-width: 700px) {
   .position-content,
   .position-search-panel,

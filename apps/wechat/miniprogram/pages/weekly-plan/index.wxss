@@ -14,7 +14,7 @@
   padding: 0 var(--space-page-x);
 }
 
-.week-back {
+button.week-back {
   position: relative;
   width: 56rpx;
   height: 56rpx;
@@ -143,7 +143,11 @@
   line-height: 1.65;
 }
 
-.inline-action {
+button.inline-action {
+  display: inline-flex;
+  width: auto;
+  align-items: center;
+  justify-content: center;
   min-height: 64rpx;
   margin: var(--figma-space-16) 0 0;
   padding: 0 var(--figma-space-16);
@@ -169,7 +173,7 @@
   background: var(--color-canvas);
 }
 
-.day-trigger {
+button.day-trigger {
   display: flex;
   box-sizing: border-box;
   width: 100%;
@@ -310,7 +314,7 @@
   line-height: 1.65;
 }
 
-.adjustment-card__action {
+button.adjustment-card__action {
   width: 100%;
   min-height: 76rpx;
   margin: var(--figma-space-12) 0 0;
@@ -342,8 +346,8 @@
     calc(var(--figma-space-20) + env(safe-area-inset-bottom));
 }
 
-.week-primary,
-.week-companion {
+button.week-primary,
+button.week-companion {
   width: 100%;
   margin: 0;
   border: 0;
@@ -351,7 +355,7 @@
   text-align: center;
 }
 
-.week-primary {
+button.week-primary {
   min-height: 96rpx;
   border-radius: var(--figma-radius-card);
   background: var(--color-action);
@@ -361,7 +365,7 @@
   box-shadow: var(--figma-shadow-elevated);
 }
 
-.week-companion {
+button.week-companion {
   min-height: 60rpx;
   background: none;
   color: var(--color-primary);

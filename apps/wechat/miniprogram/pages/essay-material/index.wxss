@@ -219,6 +219,16 @@
   box-shadow: var(--figma-shadow-elevated);
 }
 
+button.material-close,
+button.material-directory__item,
+button.selection-toolbar__action {
+  width: auto;
+}
+
+button.material-return {
+  width: 280rpx;
+}
+
 @media (min-width: 768px) {
   .material-paragraph {
     grid-template-columns: 48px minmax(0, 1fr);

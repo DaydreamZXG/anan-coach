@@ -1448,6 +1448,28 @@
   background: var(--color-surface-soft);
 }
 
+button.workbench-nav-chip,
+button.directory-chip,
+button.draft-material-tab,
+button.draft-writing-tool,
+button.voice-button,
+button.voice-link,
+button.text-danger,
+button.review-regenerate-button,
+button.capability-action {
+  width: auto;
+}
+
+button.add-button,
+button.handwriting-action,
+button.span-confirm,
+button.primary-action,
+button.voice-upload,
+button.context-anan-action,
+button.submit-button {
+  width: 100%;
+}
+
 .essay-workspace--drafting .reflection-cause-option--checked {
   border-color: var(--figma-color-primary-soft-strong);
   background: var(--color-primary-soft);

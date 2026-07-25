@@ -305,3 +305,8 @@
 .result-primary::after {
   border: 0;
 }
+
+button.suggestion-card,
+button.result-primary {
+  width: 100%;
+}

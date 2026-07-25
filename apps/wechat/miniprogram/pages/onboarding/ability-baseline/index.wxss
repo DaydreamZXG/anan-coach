@@ -290,3 +290,15 @@
   color: var(--ink-3);
   box-shadow: none;
 }
+
+button.nav-back {
+  width: 64rpx;
+}
+
+button.nav-save {
+  width: auto;
+}
+
+button.baseline-primary {
+  width: 100%;
+}

@@ -1236,6 +1236,43 @@
   background: var(--line);
 }
 
+button.reflection-back {
+  width: 72rpx;
+}
+
+button.summary-back {
+  width: 64rpx;
+}
+
+button.summary-insight__toggle,
+button.pending-write__action,
+button.tag-chip,
+button.voice-permission__action,
+button.voice-item__action {
+  width: auto;
+}
+
+button.summary-primary,
+button.summary-secondary,
+button.summary-anan,
+button.method-option,
+button.more-evidence-toggle,
+button.record-button,
+button.voice-upload,
+button.reflection-primary,
+button.reflection-secondary,
+button.cause-later {
+  width: 100%;
+}
+
+button.review-tab {
+  width: 72rpx;
+}
+
+button.voice-item__play {
+  width: 58rpx;
+}
+
 @media (min-width: 700px) {
   .reflection-topbar,
   .review-content,

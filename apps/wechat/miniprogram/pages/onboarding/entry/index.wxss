@@ -121,6 +121,14 @@
   height: 36rpx;
 }
 
+button.back-button {
+  width: 80rpx;
+}
+
+button.entry-action {
+  width: 100%;
+}
+
 @media (min-width: 768px) {
   .entry-content {
     max-width: 560px;

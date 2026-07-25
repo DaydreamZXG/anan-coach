@@ -12,7 +12,7 @@
   padding: 0 32rpx;
 }
 
-.adjustment-back {
+button.adjustment-back {
   position: relative;
   width: 64rpx;
   height: 64rpx;
@@ -152,7 +152,7 @@
   background: var(--bg);
 }
 
-.stepper-button {
+button.stepper-button {
   position: relative;
   width: 80rpx;
   height: 80rpx;
@@ -254,6 +254,14 @@
   background: var(--ink);
   color: var(--color-surface);
   box-shadow: 0 8rpx 24rpx rgba(16, 24, 40, 0.2);
+}
+
+button.time-preset {
+  width: 100%;
+}
+
+button.energy-option {
+  width: auto;
 }
 
 .suggestion-card {
@@ -491,19 +499,20 @@
   font-weight: 700;
 }
 
-.adjustment-primary {
+button.adjustment-primary {
   width: 100%;
   background: var(--ink);
   color: var(--color-surface);
   box-shadow: 0 16rpx 60rpx rgba(16, 24, 40, 0.12);
 }
 
-.adjustment-primary--grow {
+button.adjustment-primary--grow {
+  width: auto;
   min-width: 0;
   flex: 1;
 }
 
-.adjustment-secondary {
+button.adjustment-secondary {
   width: 240rpx;
   flex: none;
   border: 1rpx solid var(--line);

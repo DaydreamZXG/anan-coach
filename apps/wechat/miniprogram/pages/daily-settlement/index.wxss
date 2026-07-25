@@ -14,7 +14,7 @@
   padding: 0 var(--space-page-x);
 }
 
-.settlement-back {
+button.settlement-back {
   position: relative;
   width: 56rpx;
   height: 56rpx;
@@ -269,7 +269,11 @@
   line-height: 1.65;
 }
 
-.tomorrow-card__action {
+button.tomorrow-card__action {
+  display: inline-flex;
+  width: auto;
+  align-items: center;
+  justify-content: center;
   min-height: 68rpx;
   margin: var(--figma-space-16) 0 0;
   padding: 0 var(--figma-space-16);
@@ -301,8 +305,8 @@
     calc(var(--figma-space-20) + env(safe-area-inset-bottom));
 }
 
-.settlement-primary,
-.settlement-companion {
+button.settlement-primary,
+button.settlement-companion {
   width: 100%;
   margin: 0;
   border: 0;
@@ -310,7 +314,7 @@
   text-align: center;
 }
 
-.settlement-primary {
+button.settlement-primary {
   min-height: 96rpx;
   border-radius: var(--figma-radius-card);
   background: var(--color-action);
@@ -320,7 +324,7 @@
   box-shadow: var(--figma-shadow-elevated);
 }
 
-.settlement-companion {
+button.settlement-companion {
   min-height: 60rpx;
   background: none;
   color: var(--color-primary);
