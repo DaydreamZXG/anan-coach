@@ -128,7 +128,7 @@
 }
 
 .wechat-button--disabled {
-  background: #9ca3af;
+  background: var(--ink-3);
   box-shadow: none;
 }
 

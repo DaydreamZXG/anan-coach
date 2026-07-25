@@ -25,7 +25,15 @@
 
     <block wx:elif="{{view}}">
       <view
-        wx:if="{{openingStatus === 'ready' && openingView && !openingCollapsed}}"
+        wx:if="{{openingStatus === 'error'}}"
+        class="opening-failure"
+      >
+        <view class="opening-failure__copy">{{openingError || '每日开场没有加载成功。'}}</view>
+        <button hover-class="item--hover" class="opening-failure__retry" bindtap="loadDailyOpening">重新读取</button>
+      </view>
+
+      <view
+        wx:elif="{{openingStatus === 'ready' && openingView && !openingCollapsed}}"
         class="opening-card"
       >
         <view class="opening-line" wx:if="{{openingView.weatherReady}}">

@@ -141,8 +141,8 @@
     <button class="comparison-dock__action {{workspace.selectedIds.length < 2 ? 'comparison-dock__action--disabled' : ''}}" disabled="{{workspace.selectedIds.length < 2}}" bindtap="openComparison">对比</button>
   </view>
 
-  <view wx:if="{{score && score.open}}" class="sheet-mask" catchtouchmove="noop" bindtap="closeScoreSheet"></view>
-  <view wx:if="{{score && score.open}}" class="position-sheet score-sheet">
+  <view wx:if="{{score && score.open}}" class="sheet-mask motion-mask" catchtouchmove="noop" bindtap="closeScoreSheet"></view>
+  <view wx:if="{{score && score.open}}" class="position-sheet score-sheet motion-sheet">
     <view class="sheet-handle"></view>
     <view class="sheet-header">
       <view>

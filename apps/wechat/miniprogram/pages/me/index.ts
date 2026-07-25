@@ -126,6 +126,15 @@ Page({
     targetPositionLabel: "尚未确认主目标岗位",
     targetPositionDepartmentLabel: "确认岗位后显示招录机关",
     targetPositionStatusLabel: "待确认",
+    qualificationContextStatus: "loading",
+    qualificationContextError: "",
+    qualificationContextRequestId: "",
+    studyContextStatus: "loading",
+    studyContextError: "",
+    studyContextRequestId: "",
+    targetContextStatus: "loading",
+    targetContextError: "",
+    targetContextRequestId: "",
   },
 
   onShow() {
@@ -183,18 +192,67 @@ Page({
   async loadProfileContext() {
     const token = currentAccessToken();
     if (!token) return;
+    this.setData({
+      qualificationContextStatus: "loading",
+      qualificationContextError: "",
+      qualificationContextRequestId: "",
+      studyContextStatus: "loading",
+      studyContextError: "",
+      studyContextRequestId: "",
+      targetContextStatus: "loading",
+      targetContextError: "",
+      targetContextRequestId: "",
+    });
     const client = new ApiClient(undefined, token);
     const [qualification, preference, dashboard] = await Promise.allSettled([
       new QualificationApi(client).getProfile(),
       new OnboardingApi(client).getStudyPreference(),
       new PlanningApi(client).getToday(),
     ]);
+    const unauthorized = [qualification, preference, dashboard].some(
+      (result) =>
+        result.status === "rejected" &&
+        result.reason instanceof ApiClientError &&
+        result.reason.statusCode === 401,
+    );
+    if (unauthorized) {
+      this.finishLogout();
+      return;
+    }
     const changes: Record<string, unknown> = {};
     if (qualification.status === "fulfilled") {
-      Object.assign(changes, qualificationView(qualification.value.data));
+      Object.assign(changes, qualificationView(qualification.value.data), {
+        qualificationContextStatus: "ready",
+        qualificationContextError: "",
+        qualificationContextRequestId: "",
+      });
+    } else {
+      const failure = profileContextFailure(
+        qualification.reason,
+        "报考资料没有同步完成，请重试。",
+      );
+      Object.assign(changes, {
+        qualificationContextStatus: "error",
+        qualificationContextError: failure.message,
+        qualificationContextRequestId: failure.requestId,
+      });
     }
     if (preference.status === "fulfilled") {
-      Object.assign(changes, studyPreferenceView(preference.value.data));
+      Object.assign(changes, studyPreferenceView(preference.value.data), {
+        studyContextStatus: "ready",
+        studyContextError: "",
+        studyContextRequestId: "",
+      });
+    } else {
+      const failure = profileContextFailure(
+        preference.reason,
+        "学习时间没有同步完成，请重试。",
+      );
+      Object.assign(changes, {
+        studyContextStatus: "error",
+        studyContextError: failure.message,
+        studyContextRequestId: failure.requestId,
+      });
     }
     if (dashboard.status === "fulfilled") {
       const positionName = dashboard.value.data.goalGap.positionName?.trim();
@@ -204,9 +262,26 @@ Page({
         targetPositionDepartmentLabel:
           departmentName || (positionName ? "招录机关待补充" : "确认岗位后显示招录机关"),
         targetPositionStatusLabel: positionName ? "目标已确认" : "待确认",
+        targetContextStatus: "ready",
+        targetContextError: "",
+        targetContextRequestId: "",
+      });
+    } else {
+      const failure = profileContextFailure(
+        dashboard.reason,
+        "目标岗位没有同步完成，请重试。",
+      );
+      Object.assign(changes, {
+        targetContextStatus: "error",
+        targetContextError: failure.message,
+        targetContextRequestId: failure.requestId,
       });
     }
     this.setData(changes);
+  },
+
+  retryProfileContext() {
+    void this.loadProfileContext();
   },
 
   openProfileEditor() {
@@ -324,6 +399,14 @@ Page({
 
   openNotificationSettings() {
     void wx.navigateTo({ url: routes.notificationSettings });
+  },
+
+  async openAuthorizationSettings() {
+    try {
+      await wx.openSetting();
+    } catch {
+      void wx.showToast({ title: "授权设置没有打开，请重试", icon: "none" });
+    }
   },
 
   showAbout() {
@@ -510,4 +593,15 @@ function studyDayLabel(value: string): string {
   const elapsed = Math.max(0, Date.now() - established.getTime());
   const days = Math.floor(elapsed / 86_400_000) + 1;
   return `国考备考第 ${String(days)} 天`;
+}
+
+function profileContextFailure(
+  error: unknown,
+  fallback: string,
+): { message: string; requestId: string } {
+  const apiError = error instanceof ApiClientError ? error : null;
+  return {
+    message: apiError?.message ?? fallback,
+    requestId: apiError?.requestId ?? "",
+  };
 }

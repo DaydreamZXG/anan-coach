@@ -1,8 +1,14 @@
-<view wx:if="{{visible}}" class="ui-sheet-mask ui-sheet-mask--{{level}}" catchtap="onMaskTap" catchtouchmove="noop">
+<view
+  wx:if="{{rendered}}"
+  class="ui-sheet-mask ui-sheet-mask--{{level}} {{shown ? 'ui-sheet-mask--shown' : ''}}"
+  catchtap="onMaskTap"
+  catchtouchmove="noop"
+>
   <view
-    class="ui-sheet ui-sheet--{{surface}} sheet-class"
+    class="ui-sheet ui-sheet--{{surface}} {{shown ? 'ui-sheet--shown' : ''}} sheet-class"
     style="{{maxHeight ? 'max-height: ' + maxHeight + ';' : ''}}"
     catchtap="noop"
+    bindtransitionend="onPanelTransitionEnd"
   >
     <view wx:if="{{showHandle}}" class="ui-sheet__handle"></view>
     <view wx:if="{{title}}" class="ui-sheet__head">

@@ -4,8 +4,8 @@
   min-height: 100vh;
   flex-direction: column;
   overflow: hidden;
-  background: #f7f9fc;
-  color: #101828;
+  background: var(--bg);
+  color: var(--ink);
 }
 
 .archive-nav {
@@ -14,7 +14,7 @@
   height: 112rpx;
   align-items: center;
   padding: 0 32rpx;
-  border-bottom: 1rpx solid #f3f4f6;
+  border-bottom: 1rpx solid var(--line);
   background: rgba(255, 255, 255, 0.8);
 }
 
@@ -57,7 +57,7 @@
 
 .archive-request {
   margin-top: 20rpx;
-  color: #98a2b3;
+  color: var(--ink-3);
   font-size: 20rpx;
   text-align: center;
 }
@@ -103,7 +103,7 @@
 
 .notice-copy {
   margin-top: 8rpx;
-  color: #4a5565;
+  color: var(--figma-color-ink-tertiary);
   font-size: 26rpx;
   font-weight: 500;
   line-height: 1.625;
@@ -123,9 +123,9 @@
   align-items: center;
   gap: 32rpx;
   padding: 42rpx;
-  border: 1rpx solid #f9fafb;
+  border: 1rpx solid var(--color-surface-soft);
   border-radius: 48rpx;
-  background: #ffffff;
+  background: var(--color-surface);
   box-shadow: 0 8rpx 40rpx rgba(0, 0, 0, 0.02);
 }
 
@@ -142,28 +142,28 @@
 }
 
 .module-icon--blue {
-  background: #eff6ff;
-  color: #2b7fff;
+  background: var(--figma-color-info-soft);
+  color: var(--figma-color-info-bright);
 }
 
 .module-icon--orange {
-  background: #fff7ed;
-  color: #ff6900;
+  background: var(--figma-color-warning-soft);
+  color: var(--figma-color-warning);
 }
 
 .module-icon--green {
-  background: #ecfdf5;
-  color: #00bc7d;
+  background: var(--good-soft);
+  color: var(--good);
 }
 
 .module-icon--indigo {
-  background: #eef2ff;
-  color: #615fff;
+  background: var(--primary-soft);
+  color: var(--primary);
 }
 
 .module-icon--rose {
-  background: #fff1f2;
-  color: #f43f5e;
+  background: var(--color-danger-soft);
+  color: var(--danger);
 }
 
 .module-symbol {
@@ -185,7 +185,7 @@
 .module-copy {
   overflow: hidden;
   margin-top: 4rpx;
-  color: #6a7282;
+  color: var(--ink-2);
   font-size: 24rpx;
   font-weight: 500;
   line-height: 36rpx;
@@ -210,13 +210,13 @@
 }
 
 .module-status--complete {
-  background: #f3f4f6;
-  color: #6a7282;
+  background: var(--line);
+  color: var(--ink-2);
 }
 
 .module-status--incomplete {
-  background: #fff7ed;
-  color: #f54900;
+  background: var(--figma-color-warning-soft);
+  color: var(--figma-color-warning-deep);
 }
 
 .module-edit {
@@ -224,7 +224,7 @@
   padding: 0;
   border: 0;
   background: transparent;
-  color: #615fff;
+  color: var(--primary);
   font-size: 26rpx;
   font-weight: 700;
   line-height: 36rpx;
@@ -242,7 +242,7 @@
   left: 0;
   box-sizing: border-box;
   padding: 34rpx 40rpx calc(40rpx + env(safe-area-inset-bottom));
-  border-top: 1rpx solid #f3f4f6;
+  border-top: 1rpx solid var(--line);
   background: rgba(255, 255, 255, 0.9);
 }
 
@@ -257,8 +257,8 @@
   padding: 0 32rpx;
   border: 0;
   border-radius: 48rpx;
-  background: #101828;
-  color: #ffffff;
+  background: var(--ink);
+  color: var(--color-surface);
   box-shadow: 0 16rpx 30rpx rgba(0, 0, 0, 0.12);
   font-size: 30rpx;
   font-weight: 700;

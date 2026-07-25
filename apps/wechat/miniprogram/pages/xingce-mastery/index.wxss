@@ -96,7 +96,7 @@
 
 .withdrawn-notice {
   border: 1rpx solid rgba(176, 64, 76, 0.16);
-  background: #fff4f5;
+  background: var(--color-danger-soft);
 }
 
 .notice-title {
@@ -145,7 +145,7 @@
 
 .mastery-card--invalidated {
   border-color: rgba(176, 64, 76, 0.16);
-  background: #fffafa;
+  background: var(--color-danger-soft);
 }
 
 .card-head {
@@ -176,7 +176,7 @@
 .state-pill {
   flex: none;
   padding: 8rpx 13rpx;
-  border-radius: 999rpx;
+  border-radius: var(--figma-radius-pill);
   background: var(--color-primary-soft);
   color: var(--color-primary-deep);
   font-size: 19rpx;
@@ -189,7 +189,7 @@
 }
 
 .state-pill--invalidated {
-  background: #fdebed;
+  background: var(--color-danger-soft);
   color: var(--color-danger);
 }
 

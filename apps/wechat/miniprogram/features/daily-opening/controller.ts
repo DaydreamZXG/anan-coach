@@ -177,7 +177,7 @@ export class DailyOpeningController implements DisposableController {
         view: null,
         errorMessage:
           error instanceof ApiClientError
-            ? `${error.message}（请求 ${error.requestId}）`
+            ? `${error.message}（问题编号 ${error.requestId}）`
             : "每日开场没有加载成功。",
         writing: false,
       });
@@ -204,7 +204,7 @@ export class DailyOpeningController implements DisposableController {
         writing: false,
         errorMessage:
           error instanceof ApiClientError
-            ? `${error.message}（请求 ${error.requestId}）`
+            ? `${error.message}（问题编号 ${error.requestId}）`
             : "操作没有写入，请重试。",
       });
     }

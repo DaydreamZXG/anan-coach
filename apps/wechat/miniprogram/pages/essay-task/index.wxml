@@ -32,7 +32,7 @@
       <view class="capability-mark">先完成前置内容</view>
       <view class="capability-title">{{errorTitle}}</view>
       <view class="capability-copy">{{errorMessage}}</view>
-      <button wx:if="{{showLoginAction}}" class="secondary-button capability-action" bindtap="goLogin">去登录</button>
+      <button hover-class="item--hover" wx:if="{{showLoginAction}}" class="secondary-button capability-action" bindtap="goLogin">去登录</button>
     </view>
   </view>
 
@@ -51,7 +51,7 @@
 
     <scroll-view wx:if="{{capability.stage !== 'essay_drafting'}}" class="workbench-nav" scroll-x enhanced show-scrollbar="{{false}}">
       <view class="workbench-nav-inner">
-        <button wx:for="{{workbenchLinks}}" wx:key="url" class="workbench-nav-chip" data-url="{{item.url}}" bindtap="openWorkbench">{{item.label}}</button>
+        <button hover-class="item--hover" wx:for="{{workbenchLinks}}" wx:key="url" class="workbench-nav-chip" data-url="{{item.url}}" bindtap="openWorkbench">{{item.label}}</button>
       </view>
     </scroll-view>
 
@@ -62,7 +62,7 @@
 
     <scroll-view wx:if="{{capability.stage === 'essay_drafting'}}" class="draft-material-tabs" scroll-x enhanced show-scrollbar="{{false}}">
       <view class="draft-material-tabs__inner">
-        <button
+        <button hover-class="item--hover"
           wx:for="{{view.directory}}"
           wx:key="materialOrder"
           class="draft-material-tab"
@@ -107,7 +107,7 @@
     </view>
     <scroll-view class="material-directory" scroll-x enhanced show-scrollbar="{{false}}">
       <view class="material-directory-inner">
-        <button
+        <button hover-class="item--hover"
           wx:for="{{view.directory}}"
           wx:key="materialOrder"
           class="directory-chip"
@@ -206,7 +206,7 @@
         <view class="form-index-row">
           <view class="form-index type-data">{{index + 1}}</view>
           <view class="form-item-title">要点 {{index + 1}}</view>
-          <button class="text-danger" data-index="{{index}}" bindtap="removePoint">删除</button>
+          <button hover-class="item--hover" class="text-danger tap-tactile" data-index="{{index}}" bindtap="removePoint">删除</button>
         </view>
         <view class="field-label">要点类型</view>
         <picker
@@ -237,7 +237,7 @@
           </label>
         </checkbox-group>
       </view>
-      <button class="secondary-button add-button" bindtap="addPoint">＋ 添加要点</button>
+      <button hover-class="item--hover" class="secondary-button add-button" bindtap="addPoint">＋ 添加要点</button>
     </block>
 
     <block wx:elif="{{capability.stage === 'essay_outlining'}}">
@@ -255,7 +255,7 @@
         <view class="form-index-row">
           <view class="form-index type-data">{{index + 1}}</view>
           <view class="form-item-title">段落 {{index + 1}}</view>
-          <button class="text-danger" data-index="{{index}}" bindtap="removeOutlineSection">删除</button>
+          <button hover-class="item--hover" class="text-danger tap-tactile" data-index="{{index}}" bindtap="removeOutlineSection">删除</button>
         </view>
         <view class="field-grid">
           <view>
@@ -277,7 +277,7 @@
           </label>
         </checkbox-group>
       </view>
-      <button class="secondary-button add-button" bindtap="addOutlineSection">＋ 添加段落</button>
+      <button hover-class="item--hover" class="secondary-button add-button" bindtap="addOutlineSection">＋ 添加段落</button>
     </block>
 
     <block wx:elif="{{capability.stage === 'essay_drafting'}}">
@@ -294,8 +294,8 @@
           ></textarea>
           <view class="draft-writing-toolbar">
             <view class="draft-writing-tools">
-              <button class="draft-writing-tool" bindtap="openDraftingNotes">☷ 提纲</button>
-              <button class="draft-writing-tool" bindtap="openMaterial">❞ 引用</button>
+              <button hover-class="item--hover" class="draft-writing-tool" bindtap="openDraftingNotes">☷ 提纲</button>
+              <button hover-class="item--hover" class="draft-writing-tool" bindtap="openMaterial">❞ 引用</button>
             </view>
             <view class="draft-writing-meta">
               <text>{{submissionStatus === 'submitting' ? '正在保存' : submissionStatus === 'saved' ? '已保存' : '本机自动保存'}}</text>
@@ -330,8 +330,8 @@
           <view wx:if="{{drafting.sourceType === 'ocr_confirmed'}}" class="handwriting-card">
             <view class="handwriting-title">手写答案识别</view>
             <view class="handwriting-actions">
-              <button class="secondary-action handwriting-action" data-source="camera" bindtap="chooseHandwritingImage">拍照识别</button>
-              <button class="secondary-action handwriting-action" data-source="album" bindtap="chooseHandwritingImage">选择原图</button>
+              <button hover-class="item--hover" class="secondary-action handwriting-action" data-source="camera" bindtap="chooseHandwritingImage">拍照识别</button>
+              <button hover-class="item--hover" class="secondary-action handwriting-action" data-source="album" bindtap="chooseHandwritingImage">选择原图</button>
             </view>
             <image wx:if="{{handwriting.localImagePath}}" class="handwriting-original" src="{{handwriting.localImagePath}}" mode="widthFix"></image>
             <view wx:if="{{handwriting.phase === 'uploading'}}" class="field-help">上传与识别 {{handwriting.progressPercent}}%</view>
@@ -339,9 +339,9 @@
             <view wx:for="{{handwriting.spans}}" wx:key="spanId" class="handwriting-span">
               <view class="handwriting-span-meta">第 {{item.box.pageNo}} 页 · 置信度 {{item.confidenceLabel}}</view>
               <textarea cursor-spacing="24" class="essay-textarea essay-textarea--compact" value="{{item.text}}" maxlength="10000" data-span-id="{{item.spanId}}" bindinput="inputHandwritingSpan"></textarea>
-              <button class="span-confirm {{item.checked ? 'span-confirm--checked' : ''}}" data-span-id="{{item.spanId}}" bindtap="toggleHandwritingSpan">{{item.checked ? '已逐字核对' : '核对这一段'}}</button>
+              <button hover-class="item--hover" class="span-confirm {{item.checked ? 'span-confirm--checked' : ''}} tap-tactile" data-span-id="{{item.spanId}}" bindtap="toggleHandwritingSpan">{{item.checked ? '已逐字核对' : '核对这一段'}}</button>
             </view>
-            <button wx:if="{{handwriting.phase === 'review' || handwriting.phase === 'error'}}" class="primary-action" bindtap="confirmHandwriting">确认全部识别文字</button>
+            <button hover-class="item--hover" wx:if="{{handwriting.phase === 'review' || handwriting.phase === 'error'}}" class="primary-action tap-tactile" bindtap="confirmHandwriting">确认全部识别文字</button>
           </view>
           <view wx:if="{{drafting.timedStatus === 'timed'}}">
             <view class="field-label">纸笔实际作答分钟 <text class="field-optional">选填</text></view>
@@ -392,8 +392,8 @@
               <view class="field-label voice-title">语音复盘 <text class="field-optional">选填</text></view>
               <view class="field-help">{{voiceSummary.segmentCountLabel}} · {{voiceSummary.totalSizeLabel}}，仅提交通过安全检查的录音。</view>
             </view>
-            <button wx:if="{{!voiceRecording}}" class="voice-button" disabled="{{!voiceSummary.canRecord}}" bindtap="startVoiceRecording">录一段</button>
-            <button wx:else class="voice-button voice-button--recording" bindtap="stopVoiceRecording">结束录音</button>
+            <button hover-class="item--hover" wx:if="{{!voiceRecording}}" class="voice-button" disabled="{{!voiceSummary.canRecord}}" bindtap="startVoiceRecording">录一段</button>
+            <button hover-class="item--hover" wx:else class="voice-button voice-button--recording" bindtap="stopVoiceRecording">结束录音</button>
           </view>
           <view wx:for="{{voiceSegmentViews}}" wx:key="segmentId" class="voice-segment voice-segment--{{item.stateTone}}">
             <view>
@@ -402,11 +402,11 @@
               <view wx:if="{{item.failureMessage}}" class="voice-failure">{{item.failureMessage}}</view>
             </view>
             <view class="voice-actions">
-              <button class="voice-link" data-segment-id="{{item.segmentId}}" disabled="{{!item.canOperate}}" bindtap="playVoiceSegment">{{voicePlayingSegmentId === item.segmentId ? '停止' : '试听'}}</button>
-              <button class="voice-link voice-link--danger" data-segment-id="{{item.segmentId}}" disabled="{{!item.canOperate}}" bindtap="removeVoiceSegment">删除</button>
+              <button hover-class="item--hover" class="voice-link" data-segment-id="{{item.segmentId}}" disabled="{{!item.canOperate}}" bindtap="playVoiceSegment">{{voicePlayingSegmentId === item.segmentId ? '停止' : '试听'}}</button>
+              <button hover-class="item--hover" class="voice-link voice-link--danger tap-tactile" data-segment-id="{{item.segmentId}}" disabled="{{!item.canOperate}}" bindtap="removeVoiceSegment">删除</button>
             </view>
           </view>
-          <button wx:if="{{voiceSummary.hasUnready}}" class="secondary-button voice-upload" disabled="{{submissionStatus === 'submitting'}}" bindtap="uploadVoiceSegments">上传并等待安全检查</button>
+          <button hover-class="item--hover" wx:if="{{voiceSummary.hasUnready}}" class="secondary-button voice-upload" disabled="{{submissionStatus === 'submitting'}}" bindtap="uploadVoiceSegments">上传并等待安全检查</button>
         </view>
       </view>
 
@@ -414,9 +414,9 @@
         <view class="review-status-mark">{{reviewDisplay.state === 'waiting_quota' ? '等待评阅' : reviewDisplay.state === 'queued' ? '排队中' : reviewDisplay.state === 'running' ? '核对中' : reviewDisplay.state === 'completed' ? '已完成' : reviewDisplay.state === 'blocked' ? '依据不足' : '尚未完成'}}</view>
         <view class="review-status-title">{{reviewDisplay.title}}</view>
         <view class="review-status-copy">{{reviewDisplay.message}}</view>
-        <button
+        <button hover-class="item--hover"
           wx:if="{{canRegenerateReview}}"
-          class="review-regenerate-button {{submissionStatus === 'submitting' ? 'review-regenerate-button--disabled' : ''}}"
+          class="review-regenerate-button {{submissionStatus === 'submitting' ? 'review-regenerate-button--disabled' : ''}} tap-tactile"
           loading="{{submissionStatus === 'submitting'}}"
           disabled="{{submissionStatus === 'submitting'}}"
           bindtap="regenerateGroundedReview"
@@ -498,17 +498,17 @@
         <view wx:if="{{rewriteDraft.sourceType === 'ocr_confirmed'}}" class="handwriting-card">
           <view class="handwriting-title">上传改写手稿</view>
           <view class="handwriting-actions">
-            <button class="secondary-action handwriting-action" data-source="camera" bindtap="chooseHandwritingImage">拍照识别</button>
-            <button class="secondary-action handwriting-action" data-source="album" bindtap="chooseHandwritingImage">选择原图</button>
+            <button hover-class="item--hover" class="secondary-action handwriting-action" data-source="camera" bindtap="chooseHandwritingImage">拍照识别</button>
+            <button hover-class="item--hover" class="secondary-action handwriting-action" data-source="album" bindtap="chooseHandwritingImage">选择原图</button>
           </view>
           <image wx:if="{{handwriting.localImagePath}}" class="handwriting-original" src="{{handwriting.localImagePath}}" mode="widthFix"></image>
           <view wx:if="{{handwriting.message}}" class="source-confirmation-note">{{handwriting.message}}</view>
           <view wx:for="{{handwriting.spans}}" wx:key="spanId" class="handwriting-span">
             <view class="handwriting-span-meta">第 {{item.box.pageNo}} 页 · 置信度 {{item.confidenceLabel}}</view>
             <textarea cursor-spacing="24" class="essay-textarea essay-textarea--compact" value="{{item.text}}" data-span-id="{{item.spanId}}" bindinput="inputHandwritingSpan"></textarea>
-            <button class="span-confirm {{item.checked ? 'span-confirm--checked' : ''}}" data-span-id="{{item.spanId}}" bindtap="toggleHandwritingSpan">{{item.checked ? '已逐字核对' : '核对这一段'}}</button>
+            <button hover-class="item--hover" class="span-confirm {{item.checked ? 'span-confirm--checked' : ''}} tap-tactile" data-span-id="{{item.spanId}}" bindtap="toggleHandwritingSpan">{{item.checked ? '已逐字核对' : '核对这一段'}}</button>
           </view>
-          <button wx:if="{{handwriting.phase === 'review' || handwriting.phase === 'error'}}" class="primary-action" bindtap="confirmHandwriting">确认全部识别文字</button>
+          <button hover-class="item--hover" wx:if="{{handwriting.phase === 'review' || handwriting.phase === 'error'}}" class="primary-action tap-tactile" bindtap="confirmHandwriting">确认全部识别文字</button>
         </view>
         <view class="field-label">改写后答案 <text class="field-hint">{{rewriteDraft.answerText.length}} / 10000</text></view>
         <textarea cursor-spacing="24" class="essay-textarea essay-answer-textarea" value="{{rewriteDraft.answerText}}" maxlength="10000" data-field="answerText" placeholder="重新写一篇，原来的答案还留着。" bindinput="inputRewriteField"></textarea>
@@ -544,17 +544,17 @@
           <view wx:if="{{transferDraft.sourceType === 'ocr_confirmed'}}" class="handwriting-card">
             <view class="handwriting-title">上传迁移题手稿</view>
             <view class="handwriting-actions">
-              <button class="secondary-action handwriting-action" data-source="camera" bindtap="chooseHandwritingImage">拍照识别</button>
-              <button class="secondary-action handwriting-action" data-source="album" bindtap="chooseHandwritingImage">选择原图</button>
+              <button hover-class="item--hover" class="secondary-action handwriting-action" data-source="camera" bindtap="chooseHandwritingImage">拍照识别</button>
+              <button hover-class="item--hover" class="secondary-action handwriting-action" data-source="album" bindtap="chooseHandwritingImage">选择原图</button>
             </view>
             <image wx:if="{{handwriting.localImagePath}}" class="handwriting-original" src="{{handwriting.localImagePath}}" mode="widthFix"></image>
             <view wx:if="{{handwriting.message}}" class="source-confirmation-note">{{handwriting.message}}</view>
             <view wx:for="{{handwriting.spans}}" wx:key="spanId" class="handwriting-span">
               <view class="handwriting-span-meta">第 {{item.box.pageNo}} 页 · 置信度 {{item.confidenceLabel}}</view>
               <textarea cursor-spacing="24" class="essay-textarea essay-textarea--compact" value="{{item.text}}" data-span-id="{{item.spanId}}" bindinput="inputHandwritingSpan"></textarea>
-              <button class="span-confirm {{item.checked ? 'span-confirm--checked' : ''}}" data-span-id="{{item.spanId}}" bindtap="toggleHandwritingSpan">{{item.checked ? '已逐字核对' : '核对这一段'}}</button>
+              <button hover-class="item--hover" class="span-confirm {{item.checked ? 'span-confirm--checked' : ''}} tap-tactile" data-span-id="{{item.spanId}}" bindtap="toggleHandwritingSpan">{{item.checked ? '已逐字核对' : '核对这一段'}}</button>
             </view>
-            <button wx:if="{{handwriting.phase === 'review' || handwriting.phase === 'error'}}" class="primary-action" bindtap="confirmHandwriting">确认全部识别文字</button>
+            <button hover-class="item--hover" wx:if="{{handwriting.phase === 'review' || handwriting.phase === 'error'}}" class="primary-action tap-tactile" bindtap="confirmHandwriting">确认全部识别文字</button>
           </view>
           <view class="field-label">实际作答分钟 <text class="field-optional">选填</text></view>
           <input class="essay-input type-data" type="number" value="{{transferDraft.elapsedMinutesText}}" data-field="elapsedMinutesText" placeholder="留空按本页计时" bindinput="inputTransferField" />
@@ -658,7 +658,7 @@
       <view class="closure-result-planning">{{closureResult.planningMessage}}</view>
     </view>
 
-    <button wx:if="{{workspace.progression.attemptId}}" class="context-anan-action" bindtap="askAnanAboutEssay">
+    <button hover-class="item--hover" wx:if="{{workspace.progression.attemptId}}" class="context-anan-action" bindtap="askAnanAboutEssay">
       <text class="context-anan-action__mark">✦</text>
       <text>{{workspace.progression.reviewVersionId ? '带着这次评阅问岸岸' : '带着这次作答问岸岸'}}</text>
     </button>
@@ -672,8 +672,8 @@
 
   <view slot="footer" class="footer-content">
     <view wx:if="{{submissionMessage}}" class="footer-message">{{submissionMessage}}</view>
-    <button
-      class="primary-button submit-button {{!canSubmit || submissionStatus === 'submitting' ? 'submit-button--disabled' : ''}}"
+    <button hover-class="item--hover"
+      class="primary-button submit-button {{!canSubmit || submissionStatus === 'submitting' ? 'submit-button--disabled' : ''}} tap-tactile"
       loading="{{submissionStatus === 'submitting'}}"
       disabled="{{!canSubmit || submissionStatus === 'submitting'}}"
       bindtap="submitStage"

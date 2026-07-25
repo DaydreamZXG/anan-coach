@@ -4,7 +4,7 @@
   <safe-top mode="status" gap="{{0}}" />
 
   <view class="login-content">
-    <view class="login-lockup" aria-label="岸岸备考">
+    <view class="login-lockup fade-slide-in" aria-label="岸岸备考">
       <view class="brain-logo-shell">
         <image
           class="brain-logo"
@@ -22,10 +22,11 @@
       </view>
     </view>
 
-    <view class="login-actions">
+    <view class="login-actions fade-slide-in fade-slide-in--2">
       <view wx:if="{{errorMessage}}" class="error-message">{{errorMessage}}</view>
       <button
-        class="wechat-button {{submitting || restoring ? 'wechat-button--disabled' : ''}}"
+        class="wechat-button {{submitting || restoring ? 'wechat-button--disabled' : ''}} tap-tactile"
+        hover-class="item--hover"
         loading="{{submitting || restoring}}"
         disabled="{{submitting || restoring}}"
         bindtap="login"

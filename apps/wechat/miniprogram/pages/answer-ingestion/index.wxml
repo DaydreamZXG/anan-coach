@@ -80,8 +80,8 @@
       <view class="action-stack"><ui-button label="继续录入其他学习包" variant="secondary" bind:action="resetDraft" /></view>
     </block>
 
-    <view wx:if="{{state.confirmationOpen}}" class="sheet-mask" catchtouchmove="noop"></view>
-    <view wx:if="{{state.confirmationOpen}}" class="confirmation-sheet">
+    <view wx:if="{{state.confirmationOpen}}" class="sheet-mask motion-mask" catchtouchmove="noop"></view>
+    <view wx:if="{{state.confirmationOpen}}" class="confirmation-sheet motion-sheet">
       <view class="sheet-title">确认保存 {{state.candidateItems.length}} 题答案？</view>
       <view class="card-copy">确认后保存到你的学习记录。网络不好时会自动重试，不会重复保存。</view>
       <view wx:if="{{state.error}}" class="inline-error">{{state.error.message}}<view wx:if="{{state.error.requestId}}">问题编号 · {{state.error.requestId}}</view></view>

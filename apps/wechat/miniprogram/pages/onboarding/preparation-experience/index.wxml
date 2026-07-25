@@ -1,11 +1,11 @@
 <view class="identity-page">
   <safe-top mode="status" gap="48" />
-  <view class="identity-nav">
-    <button class="nav-back" aria-label="返回" bindtap="back">
+  <view class="identity-nav fade-slide-in">
+    <button hover-class="item--hover" class="nav-back" aria-label="返回" bindtap="back">
       <image class="nav-back__icon" src="/assets/icons/navigation/chevron-left-ink.svg" mode="aspectFit" />
     </button>
     <view class="nav-title">1/5 身份与状态</view>
-    <button class="nav-save" bindtap="saveAndExit">暂存并退出</button>
+    <button hover-class="item--hover" class="nav-save tap-tactile" bindtap="saveAndExit">暂存并退出</button>
   </view>
 
   <view wx:if="{{!state || state.status === 'loading' || accountLoading}}" class="identity-state">
@@ -19,7 +19,7 @@
 
   <block wx:else>
     <scroll-view scroll-y class="identity-scroll" enhanced show-scrollbar="{{false}}">
-      <view class="identity-content">
+      <view class="identity-content fade-slide-in fade-slide-in--2">
         <view class="identity-heading">了解你的基本状态</view>
         <view class="identity-intro">当前仅支持国家公务员考试规划。岸岸会根据你的备考经验定制不同强度的训练节奏。</view>
 
@@ -38,7 +38,7 @@
 
         <view class="field-title">你的备考经验</view>
         <view class="exam-grid">
-          <button
+          <button hover-class="item--hover"
             class="exam-card {{state.draft.firstSystematic ? 'exam-card--selected' : ''}}"
             data-mode="first"
             bindtap="selectExamMode"
@@ -49,7 +49,7 @@
             </view>
             <view class="exam-card__copy">从零开始建立基础</view>
           </button>
-          <button
+          <button hover-class="item--hover"
             class="exam-card {{state.draft.retake ? 'exam-card--selected' : ''}}"
             data-mode="retake"
             bindtap="selectExamMode"
@@ -64,7 +64,7 @@
 
         <view class="field-title field-title--status">当前身份状态</view>
         <view class="status-list">
-          <button
+          <button hover-class="item--hover"
             class="status-card {{state.draft.currentStatus === 'parttime' ? 'status-card--selected' : ''}}"
             data-status="parttime"
             bindtap="selectCurrentStatus"
@@ -72,7 +72,7 @@
             <view><view class="status-name">在职备考</view><view class="status-copy">时间碎片化，需要极高效率</view></view>
             <view class="radio-ring"><view wx:if="{{state.draft.currentStatus === 'parttime'}}" class="radio-dot"></view></view>
           </button>
-          <button
+          <button hover-class="item--hover"
             class="status-card {{state.draft.currentStatus === 'fulltime' ? 'status-card--selected' : ''}}"
             data-status="fulltime"
             bindtap="selectCurrentStatus"
@@ -80,7 +80,7 @@
             <view><view class="status-name">全职备考</view><view class="status-copy">时间充足，需要系统性拉练</view></view>
             <view class="radio-ring"><view wx:if="{{state.draft.currentStatus === 'fulltime'}}" class="radio-dot"></view></view>
           </button>
-          <button
+          <button hover-class="item--hover"
             class="status-card {{state.draft.currentStatus === 'student' ? 'status-card--selected' : ''}}"
             data-status="student"
             bindtap="selectCurrentStatus"
@@ -100,8 +100,8 @@
     </scroll-view>
 
     <view class="identity-dock">
-      <button
-        class="identity-primary {{!state.draft.currentStatus || (!state.draft.firstSystematic && !state.draft.retake) ? 'identity-primary--disabled' : ''}}"
+      <button hover-class="item--hover"
+        class="identity-primary {{!state.draft.currentStatus || (!state.draft.firstSystematic && !state.draft.retake) ? 'identity-primary--disabled' : ''}} tap-tactile"
         loading="{{state.saving || profileSaving}}"
         disabled="{{state.saving || profileSaving}}"
         bindtap="submit"

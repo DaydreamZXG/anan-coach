@@ -2,7 +2,7 @@
   <safe-top gap="{{0}}" />
   <view class="qualification-nav">
     <view class="nav-left">
-      <button class="nav-back" aria-label="返回" bindtap="back">
+      <button hover-class="item--hover" class="nav-back" aria-label="返回" bindtap="back">
         <view class="nav-back__icon"></view>
       </button>
       <view class="nav-title">报考资格档案</view>
@@ -92,7 +92,7 @@
 
           <view class="field-label">是否属于应届高校毕业生</view>
           <view class="option-stack">
-            <button
+            <button hover-class="item--hover"
               class="choice-row choice-row--detail {{freshGraduate === 'true' ? 'choice-row--selected' : ''}}"
               data-value="true"
               bindtap="chooseFreshGraduate"
@@ -103,7 +103,7 @@
               </view>
               <view wx:if="{{freshGraduate === 'true'}}" class="choice-check">✓</view>
             </button>
-            <button
+            <button hover-class="item--hover"
               class="choice-row choice-row--detail {{freshGraduate === 'false' ? 'choice-row--selected' : ''}}"
               data-value="false"
               bindtap="chooseFreshGraduate"
@@ -118,7 +118,7 @@
 
           <view class="field-label field-label--spaced">政治面貌</view>
           <view class="chip-grid">
-            <button
+            <button hover-class="item--hover"
               wx:for="{{['中共党员','中共预备党员','共青团员','群众','民主党派']}}"
               wx:key="*this"
               class="choice-chip {{politicalStatus === item ? 'choice-chip--selected' : ''}}"
@@ -134,7 +134,7 @@
 
           <view class="field-label">普通工作经历</view>
           <view class="year-grid">
-            <button
+            <button hover-class="item--hover"
               wx:for="{{[0,1,2,3,5]}}"
               wx:key="*this"
               class="year-option {{workYears === item ? 'year-option--selected' : ''}}"
@@ -146,7 +146,7 @@
 
           <view class="field-label field-label--spaced">基层工作经历</view>
           <view class="year-grid">
-            <button
+            <button hover-class="item--hover"
               wx:for="{{[0,1,2,3,5]}}"
               wx:key="*this"
               class="year-option {{grassrootsYears === item ? 'year-option--selected' : ''}}"
@@ -158,7 +158,7 @@
 
           <view class="field-label field-label--spaced">服务基层项目</view>
           <view class="chip-grid">
-            <button
+            <button hover-class="item--hover"
               wx:for="{{['无','大学生村官','三支一扶','特岗教师','西部计划','高校毕业生退役士兵']}}"
               wx:key="*this"
               class="choice-chip {{serviceProject === item ? 'choice-chip--selected' : ''}}"
@@ -215,8 +215,8 @@
 
     <view class="qualification-dock">
       <view class="dock-actions">
-        <button wx:if="{{current > 0}}" class="secondary-action" bindtap="previous">返回</button>
-        <button class="primary-action" loading="{{saving}}" bindtap="next">{{primaryActionLabel}}</button>
+        <button hover-class="item--hover" wx:if="{{current > 0}}" class="secondary-action" bindtap="previous">返回</button>
+        <button hover-class="item--hover" class="primary-action tap-tactile" loading="{{saving}}" bindtap="next">{{primaryActionLabel}}</button>
       </view>
     </view>
   </block>
@@ -234,9 +234,9 @@
       <view class="success-row"><text class="success-check">✓</text><text>不确定条件仍会明确标为待确认</text></view>
     </view>
     <view class="success-actions">
-      <button class="primary-action" bindtap="openPositions">查看候选岗位</button>
-      <button class="secondary-action" bindtap="openScoreSheet">补成绩，计算分差</button>
-      <button class="text-action" bindtap="editAgain">继续修改资料</button>
+      <button hover-class="item--hover" class="primary-action tap-tactile" bindtap="openPositions">查看候选岗位</button>
+      <button hover-class="item--hover" class="secondary-action" bindtap="openScoreSheet">补成绩，计算分差</button>
+      <button hover-class="item--hover" class="text-action" bindtap="editAgain">继续修改资料</button>
     </view>
   </view>
 </view>

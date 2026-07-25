@@ -33,6 +33,10 @@ const stateLabels: Record<CompanionAskResponse["semanticState"], string> = {
 
 type PrimaryInsightAction = "mastery" | "positions" | "today" | "adjustment";
 
+function defaultCompanionWorkspace(): CompanionLaunchContext["workspace"] {
+  return "training";
+}
+
 Page({
   data: {
     contextStatus: "loading",
@@ -53,14 +57,14 @@ Page({
     insightTitle: "正在同步你的备考状态",
     insightCopy: "岗位、能力和今天的计划会在这里汇合。",
     insightActionLabel: "查看今天",
-    insightAction: "today" as PrimaryInsightAction,
+    insightAction: "today",
     insightDismissed: false,
     contextBannerVisible: false,
     contextSourceLabel: "",
     contextTitle: "",
     contextSummary: "",
     askRouteId: "pages/anan/index",
-    askWorkspace: "training" as CompanionLaunchContext["workspace"],
+    askWorkspace: defaultCompanionWorkspace(),
     askObjectRefs: [] as CompanionLaunchContext["objectRefs"],
     askTaskMode: undefined as CompanionLaunchContext["taskMode"],
     askTaskStage: undefined as CompanionLaunchContext["taskStage"],
@@ -74,7 +78,7 @@ Page({
 
   onShow() {
     if (typeof this.getTabBar === "function") {
-      this.getTabBar()?.setData({ active: "anan" });
+      this.getTabBar().setData({ active: "anan" });
     }
     this.applyLaunchContext();
   },
@@ -135,7 +139,7 @@ Page({
       this.setData({
         contextStatus: "error",
         semanticState: "failed",
-        stateLabel: stateLabels.failed,
+        stateLabel: "学习记录同步失败",
         errorMessage: view.message,
         requestId: view.requestId,
         companionIntent: "reminder",
@@ -213,7 +217,7 @@ Page({
   },
 
   runPrimaryInsight() {
-    const action = this.data.insightAction as PrimaryInsightAction;
+    const action = this.data.insightAction;
     if (action === "today") {
       void wx.switchTab({ url: routes.today });
       return;

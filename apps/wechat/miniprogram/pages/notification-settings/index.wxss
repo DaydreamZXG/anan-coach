@@ -34,7 +34,7 @@
   min-height: 104rpx;
   padding: 18rpx 24rpx;
   border-bottom: 1rpx solid var(--color-line);
-  background: #fff;
+  background: var(--color-surface);
 }
 .setting-row--top {
   min-height: 92rpx;
@@ -99,7 +99,7 @@
   padding: 0 16rpx;
   border: 1rpx solid var(--color-line-strong);
   border-radius: 18rpx;
-  background: #fff;
+  background: var(--color-surface);
   text-align: center;
 }
 .quiet-head {

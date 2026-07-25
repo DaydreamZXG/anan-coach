@@ -24,7 +24,7 @@
 
 .card-tab--active {
   background: var(--color-primary);
-  color: #fff;
+  color: var(--color-surface);
 }
 
 .version-pill {
@@ -32,7 +32,7 @@
   max-width: 100%;
   overflow: hidden;
   padding: 8rpx 12rpx;
-  border-radius: 999rpx;
+  border-radius: var(--figma-radius-pill);
   background: var(--color-primary-soft);
   color: var(--color-primary-deep);
   font-family: var(--font-family-data);
@@ -106,7 +106,7 @@
 .reason-chip {
   padding: 14rpx 18rpx;
   border: 1rpx solid var(--color-line);
-  border-radius: 999rpx;
+  border-radius: var(--figma-radius-pill);
   background: var(--color-surface-soft);
   color: var(--color-muted);
   font-size: 20rpx;

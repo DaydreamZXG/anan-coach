@@ -26,7 +26,7 @@
             <text class="card-title">目标对照</text>
             <text class="goal-name">· {{goalName}}</text>
           </view>
-          <button hover-class="item--hover" class="text-action" bindtap="openPositionWorkspace">
+          <button hover-class="item--hover" class="text-action" bindtap="openPlanBasis">
             <text>查看怎么算的</text>
             <image class="icon icon--chevron" src="/assets/icons/ability/chevron-right-muted.png" mode="aspectFit" />
           </button>

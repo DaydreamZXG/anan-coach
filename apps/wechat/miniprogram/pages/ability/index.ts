@@ -17,7 +17,6 @@ import {
   requireAuthenticatedClient,
 } from "../../features/learning-brain/presentation";
 
-type SubjectTab = "xingce" | "essay";
 type ScoreRange = { lower: number; upper: number };
 
 interface RadarPoint {
@@ -30,31 +29,6 @@ type ModuleView = ModuleAbility & {
   readinessLabel: string;
   statusTone: "neutral" | "warning" | "primary";
 };
-
-interface AbilityPageData {
-  status: "loading" | "ready" | "error";
-  errorMessage: string;
-  requestId: string;
-  profile: LearningBrainProfileVersion | null;
-  totalScoreLabel: string;
-  xingceScoreLabel: string;
-  essayScoreLabel: string;
-  evidenceCountLabel: string;
-  externalEvidenceCountLabel: string;
-  executionCountLabel: string;
-  profileReadinessLabel: string;
-  updatedLabel: string;
-  subjectTab: SubjectTab;
-  xingceModules: ModuleView[];
-  essayModules: ModuleView[];
-  radarPoints: RadarPoint[];
-  goalAvailable: boolean;
-  goalName: string;
-  targetScoreLabel: string;
-  currentScoreLabel: string;
-  scoreGapLabel: string;
-  goalBoundaryLabel: string;
-}
 
 Page({
   data: {
@@ -84,7 +58,7 @@ Page({
 
   onShow() {
     if (typeof this.getTabBar === "function") {
-      this.getTabBar()?.setData({ active: "ability" });
+      this.getTabBar().setData({ active: "ability" });
     }
     void this.loadProfile();
   },
@@ -164,8 +138,8 @@ Page({
     }
   },
 
-  openPositionWorkspace() {
-    void wx.navigateTo({ url: routes.positions });
+  openPlanBasis() {
+    void wx.navigateTo({ url: routes.planBasis });
   },
 
   openCompanion() {
@@ -223,14 +197,6 @@ function moduleView(module: ModuleAbility): ModuleView {
 
 function goalView(dashboard: TodayDashboard | null) {
   const gap = dashboard?.goalGap;
-  const goalAvailable =
-    gap?.readiness === "complete" &&
-    gap.currentScore !== null &&
-    gap.currentScore !== undefined &&
-    gap.targetScore !== null &&
-    gap.targetScore !== undefined &&
-    gap.baselineGap !== null &&
-    gap.baselineGap !== undefined;
   if (!gap) {
     return {
       goalAvailable: false,
@@ -241,7 +207,16 @@ function goalView(dashboard: TodayDashboard | null) {
       goalBoundaryLabel: "能力档案可用；岗位对照本次没有加载成功。",
     };
   }
-  if (!goalAvailable) {
+  const targetScore = gap.targetScore;
+  const currentScore = gap.currentScore;
+  const baselineGap = gap.baselineGap;
+  if (
+    gap.readiness !== "complete" ||
+    !targetScore ||
+    !currentScore ||
+    baselineGap === null ||
+    baselineGap === undefined
+  ) {
     return {
       goalAvailable: false,
       goalName: gap.positionName ?? "尚未确认主目标岗位",
@@ -258,9 +233,9 @@ function goalView(dashboard: TodayDashboard | null) {
   return {
     goalAvailable: true,
     goalName: gap.positionName ?? "主目标岗位",
-    targetScoreLabel: scoreRangeLabel(gap.targetScore!.lower, gap.targetScore!.upper),
-    currentScoreLabel: scoreRangeLabel(gap.currentScore!.lower, gap.currentScore!.upper),
-    scoreGapLabel: `${String(gap.baselineGap)} 分`,
+    targetScoreLabel: scoreRangeLabel(targetScore.lower, targetScore.upper),
+    currentScoreLabel: scoreRangeLabel(currentScore.lower, currentScore.upper),
+    scoreGapLabel: `${String(baselineGap)} 分`,
     goalBoundaryLabel: "用于备考定位，不代表录取结果。",
   };
 }

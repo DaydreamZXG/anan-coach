@@ -1,13 +1,13 @@
 <view class="preference-page">
   <safe-top mode="status" gap="48" />
-  <view class="preference-nav">
+  <view class="preference-nav fade-slide-in">
     <view class="nav-left">
-      <button class="nav-back" aria-label="返回" bindtap="back">
+      <button hover-class="item--hover" class="nav-back" aria-label="返回" bindtap="back">
         <image class="nav-back__icon" src="/assets/icons/navigation/chevron-left-ink.svg" mode="aspectFit" />
       </button>
       <view class="nav-title">3/5 岗位偏好</view>
     </view>
-    <button class="nav-save" loading="{{state && state.saving}}" bindtap="saveAndExit">暂存并退出</button>
+    <button hover-class="item--hover" class="nav-save tap-tactile" loading="{{state && state.saving}}" bindtap="saveAndExit">暂存并退出</button>
   </view>
 
   <view wx:if="{{!state || state.status === 'loading'}}" class="preference-state">
@@ -21,7 +21,7 @@
 
   <block wx:else>
     <scroll-view scroll-y class="preference-scroll" enhanced show-scrollbar="{{false}}">
-      <view class="preference-content">
+      <view class="preference-content fade-slide-in fade-slide-in--2">
         <view class="preference-card">
           <view class="card-title">首选工作地区</view>
           <view class="card-copy">如果首选地区未匹配到理想岗位，岸岸将为你寻找周边或相似分数段区域。</view>
@@ -29,11 +29,11 @@
           <view wx:if="{{catalogLoading}}" class="catalog-state">正在读取国考岗位地区…</view>
           <view wx:elif="{{catalogError}}" class="catalog-error">
             <text>{{catalogError}}</text>
-            <button class="catalog-retry" bindtap="retryCatalog">重新读取</button>
+            <button hover-class="item--hover" class="catalog-retry" bindtap="retryCatalog">重新读取</button>
           </view>
           <scroll-view wx:else scroll-y class="region-scroll" enhanced show-scrollbar="{{false}}">
             <view class="region-list">
-              <button
+              <button hover-class="item--hover"
                 wx:for="{{regions}}"
                 wx:key="*this"
                 class="region-chip {{state.draft.preferredRegions[0] === item ? 'region-chip--selected' : ''}}"
@@ -43,7 +43,7 @@
             </view>
           </scroll-view>
 
-          <button class="relocation-row" bindtap="toggleRelocation">
+          <button hover-class="item--hover" class="relocation-row" bindtap="toggleRelocation">
             <view>
               <view class="relocation-title">接受调剂或异地岗位</view>
               <view class="relocation-copy">大幅增加符合条件的岗位基数</view>
@@ -57,7 +57,7 @@
         <view class="preference-card level-card">
           <view class="card-title">岗位层级接受度</view>
           <view class="level-list">
-            <button
+            <button hover-class="item--hover"
               wx:for="{{levels}}"
               wx:key="value"
               class="level-row {{item.selected ? 'level-row--selected' : ''}}"
@@ -78,8 +78,8 @@
     </scroll-view>
 
     <view class="preference-dock">
-      <button
-        class="preference-primary {{!hasRequiredSelection || catalogLoading || catalogError ? 'preference-primary--disabled' : ''}}"
+      <button hover-class="item--hover"
+        class="preference-primary {{!hasRequiredSelection || catalogLoading || catalogError ? 'preference-primary--disabled' : ''}} tap-tactile"
         loading="{{state.saving}}"
         disabled="{{state.saving || !hasRequiredSelection || catalogLoading || catalogError}}"
         bindtap="submit"

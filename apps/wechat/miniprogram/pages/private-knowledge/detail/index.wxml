@@ -1,9 +1,9 @@
 <view class="detail-page">
   <safe-top gap="0" />
   <view class="detail-topbar">
-    <button class="detail-back" bindtap="goBack"><text class="detail-back__chevron"></text></button>
+    <button hover-class="item--hover" class="detail-back" bindtap="goBack"><text class="detail-back__chevron"></text></button>
     <view class="detail-topbar__side"></view>
-    <button wx:if="{{status === 'ready'}}" class="detail-edit" bindtap="uploadNewVersion">
+    <button hover-class="item--hover" wx:if="{{status === 'ready'}}" class="detail-edit" bindtap="uploadNewVersion">
       <image class="detail-edit__icon" src="/assets/icons/profile/edit.svg" mode="aspectFit" />
     </button>
   </view>
@@ -13,7 +13,7 @@
   </view>
 
   <view wx:elif="{{status === 'error'}}" class="detail-state">
-    <state-view state="error" title="资料详情没有加载成功" description="{{errorMessage}}" action-text="重新读取" bind:action="loadDetails" />
+    <state-view state="error" title="资料详情没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新读取" bind:action="loadDetails" />
   </view>
 
   <view wx:elif="{{source}}" class="detail-content">
@@ -62,8 +62,8 @@
     </view>
 
     <view class="detail-actions">
-      <button class="action-btn-tile" bindtap="uploadNewVersion">上传新版本并替换</button>
-      <button class="action-btn-tile action-btn-tile--danger" bindtap="deleteSource">
+      <button hover-class="item--hover" class="action-btn-tile" bindtap="uploadNewVersion">上传新版本并替换</button>
+      <button hover-class="item--hover" class="action-btn-tile action-btn-tile--danger tap-tactile" bindtap="deleteSource">
         <image class="action-btn-tile__icon" src="/assets/icons/profile/delete.svg" mode="aspectFit" />
         <text>从资料库彻底移除</text>
       </button>
@@ -71,15 +71,15 @@
     <view class="detail-bottom-spacer"></view>
   </view>
 
-  <view wx:if="{{deleteSheetOpen}}" class="delete-mask" catchtouchmove="noop" bindtap="closeDeleteSheet"></view>
-  <view wx:if="{{deleteSheetOpen}}" class="delete-sheet">
+  <view wx:if="{{deleteSheetOpen}}" class="delete-mask motion-mask" catchtouchmove="noop" bindtap="closeDeleteSheet"></view>
+  <view wx:if="{{deleteSheetOpen}}" class="delete-sheet motion-sheet">
     <view class="delete-sheet__handle"></view>
     <view class="delete-sheet__icon">
       <image class="delete-sheet__image" src="/assets/icons/profile/delete.svg" mode="aspectFit" />
     </view>
     <view class="delete-sheet__title">彻底移除这份资料？</view>
     <view class="delete-sheet__copy">原文件、识别文字、版本和私人检索片段会一起删除，无法恢复。</view>
-    <button class="delete-sheet__confirm" loading="{{busy}}" bindtap="confirmDelete">确认彻底移除</button>
-    <button class="delete-sheet__cancel" disabled="{{busy}}" bindtap="closeDeleteSheet">取消</button>
+    <button hover-class="item--hover" class="delete-sheet__confirm tap-tactile" loading="{{busy}}" bindtap="confirmDelete">确认彻底移除</button>
+    <button hover-class="item--hover" class="delete-sheet__cancel" disabled="{{busy}}" bindtap="closeDeleteSheet">取消</button>
   </view>
 </view>

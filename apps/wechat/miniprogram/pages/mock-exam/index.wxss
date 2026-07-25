@@ -41,7 +41,7 @@
 .mock-paper--eye-care {
   margin: -30rpx calc(var(--space-page-x) * -1) 0;
   padding: 30rpx var(--space-page-x);
-  background: #eef3df;
+  background: var(--good-soft);
 }
 .inline-warning {
   margin-bottom: 20rpx;
@@ -110,7 +110,7 @@
 }
 .module-pill {
   padding: 8rpx 16rpx;
-  border-radius: 999rpx;
+  border-radius: var(--figma-radius-pill);
   background: var(--color-primary-soft);
   color: var(--color-primary-deep);
   font-size: 20rpx;
@@ -168,7 +168,7 @@
 }
 .option-card--selected .option-label {
   background: var(--color-primary);
-  color: #fff;
+  color: var(--color-surface);
 }
 .option-copy {
   padding: 0 16rpx;
@@ -341,11 +341,11 @@
 .submitted-hero {
   padding: 48rpx 36rpx;
   border-radius: var(--radius-hero);
-  border: 1rpx solid #eef2ff;
+  border: 1rpx solid var(--primary-soft);
   background:
     radial-gradient(circle at 84% 8%, rgba(199, 210, 254, 0.5), transparent 30%),
-    #ffffff;
-  color: #111827;
+    var(--color-surface);
+  color: var(--ink);
   text-align: center;
   box-shadow: var(--shadow-primary);
 }
@@ -368,7 +368,7 @@
   margin-top: 12rpx;
   font-size: 21rpx;
   line-height: 1.5;
-  color: #6b7280;
+  color: var(--ink-2);
 }
 .submitted-note,
 .module-result,

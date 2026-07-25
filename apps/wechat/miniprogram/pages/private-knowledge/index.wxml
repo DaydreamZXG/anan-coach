@@ -2,7 +2,7 @@
   <block wx:if="{{busy && !reviewRevision && !backgroundProcessing}}">
     <safe-top gap="0" />
     <view class="library-topbar">
-      <button class="library-close" bindtap="runInBackground">×</button>
+      <button hover-class="item--hover" class="library-close" bindtap="runInBackground">×</button>
       <view class="library-topbar__side"></view>
       <view class="library-topbar__side"></view>
     </view>
@@ -28,14 +28,14 @@
         </view>
       </view>
       <view class="processing-note">资料完成处理后会出现在私人资料库。你可以先去学习，回来再核对结果。</view>
-      <button class="processing-background" bindtap="runInBackground">先去后台运行</button>
+      <button hover-class="item--hover" class="processing-background" bindtap="runInBackground">先去后台运行</button>
     </view>
   </block>
 
   <block wx:else>
     <safe-top gap="0" />
     <view class="library-topbar">
-      <button class="library-back" bindtap="goBack"><text class="library-back__chevron"></text></button>
+      <button hover-class="item--hover" class="library-back" bindtap="goBack"><text class="library-back__chevron"></text></button>
       <view class="library-topbar__title">专属资料库</view>
       <view class="library-topbar__side"></view>
     </view>
@@ -48,7 +48,7 @@
 
     <block wx:elif="{{status === 'error' && !sources.length}}">
       <view class="library-state">
-        <state-view state="error" title="资料库没有加载成功" description="{{errorMessage}}" action-text="重新读取" bind:action="retry" />
+        <state-view state="error" title="资料库没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新读取" bind:action="retry" />
       </view>
     </block>
 
@@ -65,13 +65,13 @@
         </view>
 
         <view class="library-quick-actions">
-          <button class="library-quick-card" bindtap="openImportPanel">
+          <button hover-class="item--hover" class="library-quick-card" bindtap="openImportPanel">
             <view class="library-quick-card__icon library-quick-card__icon--indigo">
               <image class="library-quick-card__image" src="/assets/icons/today/file-text-secondary.png" mode="aspectFit" />
             </view>
             <view class="library-quick-card__title">上传讲义/文档</view>
           </button>
-          <button class="library-quick-card" disabled="{{busy}}" bindtap="chooseCameraNote">
+          <button hover-class="item--hover" class="library-quick-card" disabled="{{busy}}" bindtap="chooseCameraNote">
             <view class="library-quick-card__icon library-quick-card__icon--cyan">
               <image class="library-quick-card__image" src="/assets/icons/today/camera-ink.png" mode="aspectFit" />
             </view>
@@ -89,7 +89,19 @@
             bindinput="inputQuery"
             bindconfirm="search"
           />
-          <button class="search-button" loading="{{searching}}" bindtap="search">搜索</button>
+          <button hover-class="item--hover" class="search-button" loading="{{searching}}" bindtap="search">搜索</button>
+        </view>
+
+        <view wx:if="{{searchStatus === 'error'}}" class="library-search-state library-search-state--error">
+          <view class="library-search-state__title">这次检索没有完成</view>
+          <view class="library-search-state__copy">{{searchErrorMessage}}</view>
+          <view wx:if="{{searchRequestId}}" class="library-search-state__request">问题编号 · {{searchRequestId}}</view>
+          <button hover-class="item--hover" class="library-search-state__action" bindtap="search">重新检索</button>
+        </view>
+
+        <view wx:elif="{{searchStatus === 'ready' && !citations.length}}" class="library-search-state">
+          <view class="library-search-state__title">没有找到“{{searchedQuery}}”</view>
+          <view class="library-search-state__copy">换一个更具体的考点、概念或资料原句再试试。</view>
         </view>
 
         <view wx:if="{{busy && !reviewRevision && backgroundProcessing}}" class="library-group">
@@ -97,7 +109,7 @@
             <view class="library-group__title">岸岸正在阅读</view>
             <view class="library-group__count">1 份</view>
           </view>
-          <button class="processing-row" bindtap="showProgress">
+          <button hover-class="item--hover" class="processing-row" bindtap="showProgress">
             <view class="processing-row__icon">
               <image class="processing-row__image" src="/assets/icons/today/refresh-cw-secondary.png" mode="aspectFit" />
             </view>
@@ -129,8 +141,8 @@
           </view>
           <view wx:if="{{errorMessage}}" class="library-inline-error">{{errorMessage}}</view>
           <view class="review-actions">
-            <button class="review-action review-action--quiet" bindtap="cancelReview">取消</button>
-            <button class="review-action review-action--primary" loading="{{busy}}" bindtap="confirmReview">确认并建立索引</button>
+            <button hover-class="item--hover" class="review-action review-action--quiet" bindtap="cancelReview">取消</button>
+            <button hover-class="item--hover" class="review-action review-action--primary tap-tactile" loading="{{busy}}" bindtap="confirmReview">确认并建立索引</button>
           </view>
         </view>
 
@@ -139,7 +151,7 @@
             <view class="library-group__title">检索结果</view>
             <view class="library-group__count">{{citations.length}} 条</view>
           </view>
-          <button
+          <button hover-class="item--hover"
             wx:for="{{citations}}"
             wx:key="chunkId"
             class="citation-result"
@@ -166,7 +178,7 @@
             <view class="library-empty__copy">上传讲义或拍一页笔记，岸岸会先让你核对识别内容。</view>
           </view>
 
-          <button
+          <button hover-class="item--hover"
             wx:for="{{sources}}"
             wx:key="sourceId"
             class="source-card"
@@ -190,7 +202,10 @@
           </button>
         </view>
 
-        <view wx:if="{{errorMessage && !reviewRevision}}" class="library-inline-error">{{errorMessage}}</view>
+        <view wx:if="{{errorMessage && !reviewRevision}}" class="library-inline-error">
+          <view>{{errorMessage}}</view>
+          <view wx:if="{{requestId}}">问题编号 · {{requestId}}</view>
+        </view>
         <view class="library-bottom-spacer"></view>
       </view>
     </block>
@@ -207,21 +222,21 @@
       <view class="import-kind">类型：{{documentKinds[documentKindIndex].label}} <text>⌄</text></view>
     </picker>
     <view class="import-actions">
-      <button class="import-action" disabled="{{busy}}" bindtap="chooseImage">图片</button>
-      <button class="import-action" disabled="{{busy}}" bindtap="choosePdf">PDF</button>
-      <button class="import-action" disabled="{{busy}}" bindtap="chooseMarkdown">Markdown</button>
+      <button hover-class="item--hover" class="import-action" disabled="{{busy}}" bindtap="chooseImage">图片</button>
+      <button hover-class="item--hover" class="import-action" disabled="{{busy}}" bindtap="choosePdf">PDF</button>
+      <button hover-class="item--hover" class="import-action" disabled="{{busy}}" bindtap="chooseMarkdown">Markdown</button>
     </view>
   </ui-sheet>
 
-  <view wx:if="{{citationOpen}}" class="citation-mask" catchtouchmove="noop" bindtap="closeCitation"></view>
-  <view wx:if="{{citationOpen && activeCitation}}" class="citation-sheet">
+  <view wx:if="{{citationOpen}}" class="citation-mask motion-mask" catchtouchmove="noop" bindtap="closeCitation"></view>
+  <view wx:if="{{citationOpen && activeCitation}}" class="citation-sheet motion-sheet">
     <view class="citation-sheet__handle"></view>
     <view class="citation-sheet__head">
       <view>
         <view class="citation-sheet__title">原文快照</view>
         <view class="citation-sheet__source">来源：{{activeCitation.title}} · 第 {{activeCitation.pageNo}} 页</view>
       </view>
-      <button class="citation-sheet__close" bindtap="closeCitation">×</button>
+      <button hover-class="item--hover" class="citation-sheet__close" bindtap="closeCitation">×</button>
     </view>
     <view class="citation-sheet__paper">
       <view class="citation-sheet__paper-title">{{activeCitation.anchor || '检索命中片段'}}</view>

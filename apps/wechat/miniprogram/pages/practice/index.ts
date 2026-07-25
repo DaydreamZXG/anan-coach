@@ -21,6 +21,7 @@ import {
   resolveXingcePlanTaskId,
   runtimeFromXingceSession,
   runtimeWithPendingCheckpoint,
+  XingcePageContractError,
 } from "../../features/xingce/real_attempt/controller";
 import {
   isValidPlanTaskId,
@@ -73,6 +74,7 @@ interface PracticePageData {
   errorTitle: string;
   errorMessage: string;
   showLoginAction: boolean;
+  showTodayAction: boolean;
   view: XingceTaskView | null;
   sessionState: XingceTaskSession["state"] | "";
   materialOpen: boolean;
@@ -120,6 +122,7 @@ interface PracticePageCustom {
   loadTask(): Promise<void>;
   retry(): void;
   goLogin(): void;
+  goToday(): void;
   exit(): Promise<void>;
   toggleMaterial(): void;
   updateMaterialReader(event: WechatMiniprogram.CustomEvent<{ state: MaterialReaderState }>): void;
@@ -167,6 +170,7 @@ Page<PracticePageData, PracticePageCustom>({
     errorTitle: "",
     errorMessage: "",
     showLoginAction: false,
+    showTodayAction: false,
     view: null,
     sessionState: "",
     materialOpen: false,
@@ -236,6 +240,7 @@ Page<PracticePageData, PracticePageCustom>({
         errorTitle: "登录后才能开始行测任务",
         errorMessage: "作答进度和复盘记录必须绑定你的账号。",
         showLoginAction: true,
+        showTodayAction: false,
       });
       return;
     }
@@ -280,6 +285,7 @@ Page<PracticePageData, PracticePageCustom>({
       errorTitle: "",
       errorMessage: "",
       showLoginAction: false,
+      showTodayAction: false,
     });
     try {
       if (runtime.session) {
@@ -335,6 +341,19 @@ Page<PracticePageData, PracticePageCustom>({
         });
         return;
       }
+      if (
+        error instanceof XingcePageContractError &&
+        error.message === "当前今日计划没有与入口匹配的可执行行测任务。"
+      ) {
+        this.setData({
+          status: "unavailable",
+          errorTitle: "今天没有匹配的行测任务",
+          errorMessage: "回到今日计划选择一项可执行的行测任务，再从任务卡进入。",
+          showLoginAction: false,
+          showTodayAction: true,
+        });
+        return;
+      }
       handlePageError(this, error, "真实行测任务尚未载入");
     }
   },
@@ -345,6 +364,10 @@ Page<PracticePageData, PracticePageCustom>({
 
   goLogin() {
     void wx.redirectTo({ url: routes.login });
+  },
+
+  goToday() {
+    void wx.switchTab({ url: routes.today });
   },
 
   async exit() {

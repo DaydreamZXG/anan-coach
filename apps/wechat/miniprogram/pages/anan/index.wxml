@@ -2,13 +2,13 @@
   <safe-top mode="status" gap="16" />
 
   <view class="coach-content">
-    <view class="coach-header">
+    <view class="coach-header fade-slide-in">
       <view class="coach-title">岸岸</view>
       <view class="coach-subtitle">你的备考总控台</view>
     </view>
 
     <view class="coach-scroll">
-      <view class="coach-core">
+      <view class="coach-core fade-slide-in fade-slide-in--2">
         <view class="coach-orb-slot">
           <image
             class="coach-orb"
@@ -19,17 +19,17 @@
         </view>
         <view class="coach-core__copy">我已经同步了你的岗位、能力和今天的计划。</view>
         <view class="context-chips">
-          <button class="context-chip" bindtap="openPositions">{{contextGoalLabel}}</button>
-          <button class="context-chip" bindtap="openToday">{{contextTaskLabel}}</button>
-          <button class="context-chip" bindtap="openMastery">{{contextReviewLabel}}</button>
-          <button class="context-chip" bindtap="openToday">{{contextCapacityLabel}}</button>
+          <button hover-class="item--hover" class="context-chip" bindtap="openPositions">{{contextGoalLabel}}</button>
+          <button hover-class="item--hover" class="context-chip" bindtap="openToday">{{contextTaskLabel}}</button>
+          <button hover-class="item--hover" class="context-chip" bindtap="openMastery">{{contextReviewLabel}}</button>
+          <button hover-class="item--hover" class="context-chip" bindtap="openToday">{{contextCapacityLabel}}</button>
         </view>
       </view>
 
       <view wx:if="{{contextBannerVisible}}" class="launch-context">
         <view class="launch-context__head">
           <view class="launch-context__source">{{contextSourceLabel}}</view>
-          <button class="launch-context__close" bindtap="clearLaunchContext">×</button>
+          <button hover-class="item--hover" class="launch-context__close" bindtap="clearLaunchContext">×</button>
         </view>
         <view class="launch-context__title">{{contextTitle}}</view>
         <view class="launch-context__copy">{{contextSummary}}</view>
@@ -48,7 +48,7 @@
         <view class="coach-card__title">备考状态没有同步完成</view>
         <view class="coach-card__copy">{{errorMessage}}</view>
         <view wx:if="{{requestId}}" class="request-id">问题编号 · {{requestId}}</view>
-        <button class="secondary-action" bindtap="retryContext">重新读取</button>
+        <button hover-class="item--hover" class="secondary-action" bindtap="retryContext">重新读取</button>
       </view>
       <view wx:elif="{{!insightDismissed}}" class="coach-card insight-card" aria-label="{{insightTitle}}">
         <view class="insight-heading">
@@ -57,27 +57,27 @@
         </view>
         <view class="coach-card__copy insight-copy">{{insightCopy}}</view>
         <view class="insight-actions">
-          <button class="primary-soft-action" bindtap="runPrimaryInsight">{{insightActionLabel}}</button>
-          <button class="secondary-action insight-dismiss" bindtap="dismissInsight">先不处理</button>
+          <button hover-class="item--hover" class="primary-soft-action tap-tactile" bindtap="runPrimaryInsight">{{insightActionLabel}}</button>
+          <button hover-class="item--hover" class="secondary-action insight-dismiss" bindtap="dismissInsight">先不处理</button>
         </view>
       </view>
 
-      <view class="suggestion-section">
+      <view class="suggestion-section fade-slide-in fade-slide-in--3">
         <view class="section-label">建议操作</view>
         <view class="suggestion-list">
-          <button class="suggestion-pill" data-question="今晚只能学 1 小时，帮我重新安排今天" bindtap="choosePrompt">今晚只能学 1 小时，重新安排</button>
-          <button class="suggestion-pill" data-question="根据我的错题和复测记录，生成一组数量关系复测" bindtap="choosePrompt">生成一组数量关系复测</button>
-          <button class="suggestion-pill" data-question="解释为什么今天没有安排申论，并列出依据" bindtap="choosePrompt">解释为什么今天没有申论</button>
-          <button class="suggestion-pill" data-question="把周六调整为整卷模考日，先给我预览变化" bindtap="choosePrompt">把周六安排成模考日</button>
-          <button class="suggestion-pill" data-question="检查这个主目标岗位我是否符合报考资格" bindtap="choosePrompt">检查这个岗位我是否能报</button>
+          <button hover-class="item--hover" class="suggestion-pill" data-question="今晚只能学 1 小时，帮我重新安排今天" bindtap="choosePrompt">今晚只能学 1 小时，重新安排</button>
+          <button hover-class="item--hover" class="suggestion-pill" data-question="根据我的错题和复测记录，生成一组数量关系复测" bindtap="choosePrompt">生成一组数量关系复测</button>
+          <button hover-class="item--hover" class="suggestion-pill" data-question="解释为什么今天没有安排申论，并列出依据" bindtap="choosePrompt">解释为什么今天没有申论</button>
+          <button hover-class="item--hover" class="suggestion-pill" data-question="把周六调整为整卷模考日，先给我预览变化" bindtap="choosePrompt">把周六安排成模考日</button>
+          <button hover-class="item--hover" class="suggestion-pill" data-question="检查这个主目标岗位我是否符合报考资格" bindtap="choosePrompt">检查这个岗位我是否能报</button>
         </view>
       </view>
 
-      <view class="progress-section">
+      <view class="progress-section fade-slide-in fade-slide-in--4">
         <view class="section-label">正在推进</view>
-        <button class="progress-row" bindtap="openToday"><text>今日计划</text><text class="progress-row__meta">{{contextTaskLabel}} ›</text></button>
-        <button class="progress-row" bindtap="openMastery"><text>复盘与复测</text><text class="progress-row__meta">{{contextReviewLabel}} ›</text></button>
-        <button class="progress-row" bindtap="openWeeklyPlan"><text>本周安排</text><text class="progress-row__meta">查看周计划 ›</text></button>
+        <button hover-class="item--hover" class="progress-row" bindtap="openToday"><text>今日计划</text><text class="progress-row__meta">{{contextTaskLabel}} ›</text></button>
+        <button hover-class="item--hover" class="progress-row" bindtap="openMastery"><text>复盘与复测</text><text class="progress-row__meta">{{contextReviewLabel}} ›</text></button>
+        <button hover-class="item--hover" class="progress-row" bindtap="openWeeklyPlan"><text>本周安排</text><text class="progress-row__meta">查看周计划 ›</text></button>
       </view>
 
       <view wx:if="{{question && !answer && !submitting}}" class="question-preview">
@@ -123,7 +123,7 @@
         </view>
 
         <view wx:if="{{answer.allowedActions.length}}" class="action-list">
-          <button wx:for="{{answer.allowedActions}}" wx:key="label" class="answer-action action-button" data-index="{{index}}" bindtap="handleAction">{{item.label}}</button>
+          <button hover-class="item--hover" wx:for="{{answer.allowedActions}}" wx:key="label" class="answer-action action-button" data-index="{{index}}" bindtap="handleAction">{{item.label}}</button>
         </view>
         <view class="quota-note">{{answer.quotaSummaryLabel}}</view>
       </view>
@@ -141,7 +141,7 @@
         placeholder="告诉岸岸你想完成或改变什么…"
         bindinput="inputQuestion"
       />
-      <button
+      <button hover-class="item--hover"
         class="composer-send {{contextStatus !== 'ready' ? 'composer-send--disabled' : ''}}"
         loading="{{submitting}}"
         disabled="{{contextStatus !== 'ready' || submitting}}"

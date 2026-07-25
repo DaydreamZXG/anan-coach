@@ -10,7 +10,7 @@
 .state-badge {
   flex: none;
   padding: 8rpx 12rpx;
-  border-radius: 999rpx;
+  border-radius: var(--figma-radius-pill);
   background: var(--color-primary-soft);
   color: var(--color-primary-deep);
   font-size: 18rpx;

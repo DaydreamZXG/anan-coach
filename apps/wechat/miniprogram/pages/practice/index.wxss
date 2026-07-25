@@ -109,7 +109,7 @@
   padding: 28rpx;
   border: 1rpx solid var(--color-primary-a16);
   border-radius: 28rpx;
-  background: linear-gradient(155deg, #fffdf8, #fff5ea);
+  background: linear-gradient(155deg, var(--figma-color-warning-soft), var(--figma-color-warning-soft));
 }
 .material-head,
 .result-card-head {
@@ -163,7 +163,7 @@
 .module-pill {
   padding: 8rpx 14rpx;
   border: 1rpx solid var(--color-primary-a16);
-  border-radius: 999rpx;
+  border-radius: var(--figma-radius-pill);
   background: var(--color-primary-soft);
   color: var(--color-primary-deep);
   font-size: 20rpx;
@@ -205,7 +205,7 @@
   box-shadow: 0 4rpx 20rpx rgba(17, 24, 39, 0.025);
 }
 .option-card--selected {
-  border-color: #c7d2fe;
+  border-color: var(--figma-color-primary-soft-strong);
   background: rgba(238, 242, 255, 0.72);
   box-shadow: 0 4rpx 18rpx rgba(79, 70, 229, 0.06);
 }
@@ -293,7 +293,7 @@
   padding: 24rpx;
   border: 1rpx solid var(--color-line);
   border-radius: 28rpx;
-  background: #ffffff;
+  background: var(--color-surface);
   box-shadow: 0 6rpx 24rpx rgba(17, 24, 39, 0.03);
 }
 .confidence-prompt {
@@ -317,8 +317,8 @@
   margin: 0;
   padding: 0 18rpx;
   border: 1rpx solid var(--color-line);
-  border-radius: 999rpx;
-  background: #fff;
+  border-radius: var(--figma-radius-pill);
+  background: var(--color-surface);
   color: var(--color-muted);
   font-size: 20rpx;
   line-height: 52rpx;
@@ -334,7 +334,7 @@
   min-height: 68rpx;
   padding: 0 8rpx;
   border: 0;
-  border-radius: 18rpx;
+  border-radius: var(--figma-radius-pill);
   background: var(--color-canvas);
   line-height: 68rpx;
 }

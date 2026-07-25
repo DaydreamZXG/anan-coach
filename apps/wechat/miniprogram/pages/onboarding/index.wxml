@@ -1,13 +1,13 @@
 <view class="eligibility-page">
   <safe-top mode="status" gap="48" />
-  <view class="eligibility-nav">
+  <view class="eligibility-nav fade-slide-in">
     <view class="nav-left">
-      <button class="nav-back" aria-label="返回" bindtap="back">
+      <button hover-class="item--hover" class="nav-back" aria-label="返回" bindtap="back">
         <image class="nav-back__icon" src="/assets/icons/navigation/chevron-left-ink.svg" mode="aspectFit" />
       </button>
       <view class="nav-title">2/5 报考资格</view>
     </view>
-    <button class="nav-save" loading="{{savingDraft}}" bindtap="saveAndExit">暂存并退出</button>
+    <button hover-class="item--hover" class="nav-save tap-tactile" loading="{{savingDraft}}" bindtap="saveAndExit">暂存并退出</button>
   </view>
 
   <view wx:if="{{loadingProfile}}" class="eligibility-state">
@@ -21,7 +21,7 @@
 
   <block wx:else>
     <scroll-view scroll-y class="eligibility-scroll" enhanced show-scrollbar="{{false}}">
-      <view class="eligibility-content">
+      <view class="eligibility-content fade-slide-in fade-slide-in--2">
         <view class="boundary-notice">
           <image class="notice-icon" src="/assets/icons/onboarding/notice-warning.svg" mode="aspectFit" />
           <view class="notice-copy">这部分信息将决定你能否跨过岗位的硬性门槛。不确定的可以先标记“稍后确认”。</view>
@@ -45,10 +45,10 @@
           <view wx:if="{{catalogLoading}}" class="catalog-status">正在读取国考专业目录…</view>
           <view wx:if="{{catalogError}}" class="catalog-error">
             <text>{{catalogError}}</text>
-            <button class="catalog-retry" bindtap="retryCatalog">重新读取</button>
+            <button hover-class="item--hover" class="catalog-retry" bindtap="retryCatalog">重新读取</button>
           </view>
           <view wx:if="{{majorSuggestions.length}}" class="major-results">
-            <button
+            <button hover-class="item--hover"
               wx:for="{{majorSuggestions}}"
               wx:key="code"
               class="major-result"
@@ -89,7 +89,7 @@
           <view class="card-copy">包含大学生村官、三支一扶、特岗教师等。此项能为你解锁大量定向招录的特殊岗位，与普通工作经历严格区分。</view>
 
           <view class="service-options">
-            <button
+            <button hover-class="item--hover"
               class="service-option {{serviceProject === '无' ? 'service-option--selected' : ''}}"
               data-mode="none"
               bindtap="chooseServiceMode"
@@ -97,7 +97,7 @@
               <text>无服务基层项目经历</text>
               <view wx:if="{{serviceProject === '无'}}" class="option-check">✓</view>
             </button>
-            <button
+            <button hover-class="item--hover"
               class="service-option service-option--column {{serviceExpanded ? 'service-option--selected service-option--project' : ''}}"
               data-mode="has"
               bindtap="chooseServiceMode"
@@ -107,7 +107,7 @@
                 <view wx:if="{{serviceExpanded && serviceProject}}" class="option-check option-check--indigo">✓</view>
               </view>
               <view wx:if="{{serviceExpanded}}" class="project-list">
-                <button
+                <button hover-class="item--hover"
                   wx:for="{{serviceProjectOptions}}"
                   wx:key="*this"
                   class="project-chip {{serviceProject === item ? 'project-chip--selected' : ''}}"
@@ -121,13 +121,13 @@
           <view class="divider"></view>
           <view class="card-title">普通工作经历</view>
           <view class="work-options">
-            <button class="work-option {{workYears === 0 ? 'work-option--selected' : ''}}" data-value="0" bindtap="chooseWorkYears">无经验</button>
-            <button class="work-option {{workYears === 1 ? 'work-option--selected' : ''}}" data-value="1" bindtap="chooseWorkYears">2 年以下</button>
-            <button class="work-option {{workYears === 2 ? 'work-option--selected' : ''}}" data-value="2" bindtap="chooseWorkYears">2 年以上</button>
+            <button hover-class="item--hover" class="work-option {{workYears === 0 ? 'work-option--selected' : ''}}" data-value="0" bindtap="chooseWorkYears">无经验</button>
+            <button hover-class="item--hover" class="work-option {{workYears === 1 ? 'work-option--selected' : ''}}" data-value="1" bindtap="chooseWorkYears">2 年以下</button>
+            <button hover-class="item--hover" class="work-option {{workYears === 2 ? 'work-option--selected' : ''}}" data-value="2" bindtap="chooseWorkYears">2 年以上</button>
           </view>
         </view>
 
-        <button class="mark-later" loading="{{savingDraft}}" bindtap="markLater">稍后确认这页的缺失信息</button>
+        <button hover-class="item--hover" class="mark-later" loading="{{savingDraft}}" bindtap="markLater">稍后确认这页的缺失信息</button>
 
         <view wx:if="{{error}}" class="error-banner">{{error}}</view>
         <view wx:if="{{requestId}}" class="request-id">问题编号 · {{requestId}}</view>
@@ -135,8 +135,8 @@
     </scroll-view>
 
     <view class="eligibility-dock">
-      <button
-        class="eligibility-primary {{primaryDisabled || catalogLoading || catalogError ? 'eligibility-primary--disabled' : ''}}"
+      <button hover-class="item--hover"
+        class="eligibility-primary {{primaryDisabled || catalogLoading || catalogError ? 'eligibility-primary--disabled' : ''}} tap-tactile"
         loading="{{saving}}"
         disabled="{{saving || savingDraft || primaryDisabled || catalogLoading || !!catalogError}}"
         bindtap="submit"

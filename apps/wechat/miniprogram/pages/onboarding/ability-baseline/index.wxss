@@ -3,8 +3,8 @@
   min-height: 100vh;
   flex-direction: column;
   overflow: hidden;
-  background: #f7f9fc;
-  color: #101828;
+  background: var(--bg);
+  color: var(--ink);
 }
 
 .baseline-nav {
@@ -14,7 +14,7 @@
   height: 112rpx;
   align-items: center;
   padding: 0 32rpx;
-  border-bottom: 1rpx solid #f3f4f6;
+  border-bottom: 1rpx solid var(--line);
   background: rgba(255, 255, 255, 0.8);
 }
 
@@ -55,9 +55,9 @@
 
 .nav-save {
   padding: 12rpx 24rpx;
-  border-radius: 99rpx;
-  background: #eef2ff;
-  color: #615fff;
+  border-radius: var(--figma-radius-pill);
+  background: var(--primary-soft);
+  color: var(--primary);
   font-size: 24rpx;
   font-weight: 700;
   line-height: 39rpx;
@@ -91,7 +91,7 @@
 
 .baseline-copy {
   margin: 16rpx 0 48rpx 8rpx;
-  color: #6a7282;
+  color: var(--ink-2);
   font-size: 26rpx;
   font-weight: 500;
   line-height: 42rpx;
@@ -106,20 +106,20 @@
 .baseline-card {
   box-sizing: border-box;
   padding: 40rpx;
-  border: 1rpx solid #f9fafb;
+  border: 1rpx solid var(--color-surface-soft);
   border-radius: 48rpx;
-  background: #ffffff;
+  background: var(--color-surface);
   box-shadow: 0 8rpx 40rpx rgba(0, 0, 0, 0.02);
   transition: border-color 160ms ease, box-shadow 160ms ease;
 }
 
 .baseline-card--unknown-selected {
-  outline: 3rpx solid #101828;
+  outline: 3rpx solid var(--ink);
   box-shadow: 0 8rpx 24rpx rgba(16, 24, 40, 0.1);
 }
 
 .baseline-card--reported-selected {
-  outline: 3rpx solid #615fff;
+  outline: 3rpx solid var(--primary);
   box-shadow: 0 8rpx 24rpx rgba(97, 95, 255, 0.12);
 }
 
@@ -140,11 +140,11 @@
 }
 
 .card-icon--cyan {
-  background: #ecfeff;
+  background: var(--figma-color-cyan-soft);
 }
 
 .card-icon--indigo {
-  background: #eef2ff;
+  background: var(--primary-soft);
 }
 
 .card-icon__asset {
@@ -166,11 +166,11 @@
 }
 
 .card-check--ink {
-  color: #101828;
+  color: var(--ink);
 }
 
 .card-check--indigo {
-  color: #615fff;
+  color: var(--primary);
 }
 
 .card-title {
@@ -182,7 +182,7 @@
 
 .card-copy {
   margin-top: 8rpx;
-  color: #6a7282;
+  color: var(--ink-2);
   font-size: 24rpx;
   font-weight: 500;
   line-height: 36rpx;
@@ -191,7 +191,7 @@
 .score-form {
   margin-top: 32rpx;
   padding-top: 32rpx;
-  border-top: 1rpx solid #f3f4f6;
+  border-top: 1rpx solid var(--line);
 }
 
 .score-grid {
@@ -204,14 +204,14 @@
   min-width: 0;
   flex: 1;
   padding: 24rpx;
-  border: 1rpx solid #f3f4f6;
+  border: 1rpx solid var(--line);
   border-radius: 32rpx;
-  background: #f7f9fc;
+  background: var(--bg);
 }
 
 .score-label {
   margin-bottom: 8rpx;
-  color: #99a1af;
+  color: var(--ink-3);
   font-size: 22rpx;
   font-weight: 700;
   line-height: 32rpx;
@@ -220,7 +220,7 @@
 .score-input {
   width: 100%;
   height: 44rpx;
-  color: #101828;
+  color: var(--ink);
   font-size: 30rpx;
   font-weight: 700;
   line-height: 44rpx;
@@ -228,7 +228,7 @@
 
 .score-note {
   margin-top: 16rpx;
-  color: #99a1af;
+  color: var(--ink-3);
   font-size: 22rpx;
   font-weight: 500;
   line-height: 32rpx;
@@ -244,18 +244,18 @@
 }
 
 .recovery-banner {
-  background: #eef2ff;
-  color: #4f39f6;
+  background: var(--primary-soft);
+  color: var(--primary-deep);
 }
 
 .error-banner {
-  background: #fff1f2;
-  color: #c70036;
+  background: var(--color-danger-soft);
+  color: var(--danger);
 }
 
 .request-id {
   margin-top: 14rpx;
-  color: #99a1af;
+  color: var(--ink-3);
   font-family: monospace;
   font-size: 20rpx;
   text-align: center;
@@ -269,7 +269,7 @@
   left: 0;
   box-sizing: border-box;
   padding: 34rpx 40rpx calc(40rpx + env(safe-area-inset-bottom));
-  border-top: 1rpx solid #f3f4f6;
+  border-top: 1rpx solid var(--line);
   background: rgba(255, 255, 255, 0.9);
 }
 
@@ -277,8 +277,8 @@
   width: 100%;
   padding: 32rpx 24rpx;
   border-radius: 48rpx;
-  background: #101828;
-  color: #ffffff;
+  background: var(--ink);
+  color: var(--color-surface);
   font-size: 32rpx;
   font-weight: 700;
   line-height: 48rpx;
@@ -286,7 +286,7 @@
 }
 
 .baseline-primary--disabled {
-  background: #f3f4f6;
-  color: #99a1af;
+  background: var(--line);
+  color: var(--ink-3);
   box-shadow: none;
 }

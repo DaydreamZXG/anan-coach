@@ -84,7 +84,7 @@
   height: 42rpx;
   border-radius: 14rpx;
   background: var(--color-warning);
-  color: #fff;
+  color: var(--color-surface);
   font-weight: 900;
 }
 .recovery-title {
@@ -162,7 +162,7 @@
 .time-option--active {
   border-color: transparent;
   background: linear-gradient(135deg, var(--color-primary-deep), var(--color-primary));
-  color: #fff;
+  color: var(--color-surface);
   box-shadow: var(--shadow-primary);
 }
 .time-option__label {
@@ -185,7 +185,7 @@
 }
 .schedule-tag {
   padding: 8rpx 14rpx;
-  border-radius: 14rpx;
+  border-radius: var(--figma-radius-pill);
   background: var(--color-primary-soft);
   color: var(--color-primary);
   font-size: 19rpx;
@@ -207,7 +207,7 @@
   justify-content: center;
   height: 60rpx;
   border: 1rpx solid var(--color-line);
-  border-radius: 18rpx;
+  border-radius: var(--figma-radius-pill);
   background: var(--color-surface-soft);
   color: var(--color-muted);
   font-size: 22rpx;
@@ -215,7 +215,7 @@
 .weekday-chip--mock {
   border-color: transparent;
   background: var(--color-primary);
-  color: #fff;
+  color: var(--color-surface);
   font-weight: 800;
   box-shadow: var(--shadow-primary);
 }
@@ -234,7 +234,7 @@
 .rhythm-item {
   padding: 22rpx 10rpx;
   border-radius: 24rpx;
-  background: linear-gradient(145deg, #fff, var(--color-primary-soft));
+  background: linear-gradient(145deg, var(--color-surface), var(--color-primary-soft));
   text-align: center;
 }
 .rhythm-item__value {

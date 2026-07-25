@@ -45,6 +45,10 @@ interface PageData {
   importTarget: PrivateSourceView | null;
   query: string;
   searching: boolean;
+  searchStatus: "idle" | "loading" | "ready" | "error";
+  searchedQuery: string;
+  searchErrorMessage: string;
+  searchRequestId: string;
   citations: PrivateCitationView[];
   importPanelOpen: boolean;
   importErrorMessage: string;
@@ -122,6 +126,10 @@ Page<PageData, PageCustom>({
     importTarget: null,
     query: "",
     searching: false,
+    searchStatus: "idle",
+    searchedQuery: "",
+    searchErrorMessage: "",
+    searchRequestId: "",
     citations: [],
     importPanelOpen: false,
     importErrorMessage: "",
@@ -442,26 +450,48 @@ Page<PageData, PageCustom>({
   },
 
   inputQuery(event: WechatMiniprogram.Input) {
-    this.setData({ query: event.detail.value });
+    this.setData({
+      query: event.detail.value,
+      searchStatus: "idle",
+      searchedQuery: "",
+      searchErrorMessage: "",
+      searchRequestId: "",
+      citations: [],
+    });
   },
 
   async search() {
     const gateway = api();
     const query = this.data.query.trim();
     if (!gateway || !query || this.data.searching) return;
-    this.setData({ searching: true, errorMessage: "" });
+    this.setData({
+      searching: true,
+      searchStatus: "loading",
+      searchedQuery: query,
+      searchErrorMessage: "",
+      searchRequestId: "",
+      errorMessage: "",
+    });
     try {
       const result = await gateway.search(query);
       this.setData({
         searching: false,
+        searchStatus: "ready",
         citations: result.citations.map((citation) => ({
           ...citation,
           matchLabel: `匹配 ${String(Math.round(citation.finalScore * 100))}%`,
         })),
       });
     } catch (error) {
-      this.setData({ searching: false });
-      this.fail(error, "私人资料检索失败。");
+      const apiError = error instanceof ApiClientError ? error : null;
+      this.setData({
+        searching: false,
+        searchStatus: "error",
+        citations: [],
+        searchErrorMessage:
+          apiError?.message ?? "私人资料检索没有完成，请重试。",
+        searchRequestId: apiError?.requestId ?? "",
+      });
     }
   },
 
@@ -509,7 +539,7 @@ Page<PageData, PageCustom>({
     const apiError = error instanceof ApiClientError ? error : null;
     this.setData({
       status: this.data.sources.length ? this.data.status : "error",
-      errorMessage: apiError?.message ?? (error instanceof Error ? error.message : fallback),
+      errorMessage: apiError?.message ?? fallback,
       requestId: apiError?.requestId ?? "",
     });
   },

@@ -12,7 +12,7 @@
 
   <block wx:else>
     <scroll-view scroll-y class="result-scroll" enhanced show-scrollbar="{{false}}">
-      <view class="result-content">
+      <view class="result-content fade-slide-in">
         <view class="result-status">
           <view class="status-icon">
             <image class="status-icon__asset" src="/assets/onboarding/result-check-green.svg" mode="aspectFit" />
@@ -24,7 +24,7 @@
           </view>
         </view>
 
-        <view class="assessment-card">
+        <view class="assessment-card fade-slide-in fade-slide-in--2">
           <view class="assessment-section">
             <view class="assessment-heading">
               <image class="assessment-heading__icon" src="/assets/onboarding/result-shield-indigo.svg" mode="aspectFit" />
@@ -52,8 +52,8 @@
         </view>
 
         <view class="suggestions-title">下一步建议</view>
-        <view class="suggestions">
-          <button class="suggestion-card" bindtap="acknowledge">
+        <view class="suggestions fade-slide-in fade-slide-in--3">
+          <button hover-class="item--hover" class="suggestion-card" bindtap="acknowledge">
             <view class="suggestion-main">
               <view class="suggestion-icon suggestion-icon--indigo">
                 <image class="suggestion-icon__asset" src="/assets/onboarding/result-map-indigo.svg" mode="aspectFit" />
@@ -66,7 +66,7 @@
             <image class="suggestion-arrow" src="/assets/onboarding/result-chevron-gray.svg" mode="aspectFit" />
           </button>
 
-          <button class="suggestion-card" bindtap="openArchive">
+          <button hover-class="item--hover" class="suggestion-card" bindtap="openArchive">
             <view class="suggestion-main">
               <view class="suggestion-icon suggestion-icon--cyan">
                 <image class="suggestion-icon__asset" src="/assets/onboarding/result-target-cyan.svg" mode="aspectFit" />
@@ -88,7 +88,7 @@
     </scroll-view>
 
     <view class="result-dock">
-      <button class="result-primary" loading="{{state.saving}}" disabled="{{state.saving}}" bindtap="acknowledge">{{state.pendingRecovery ? '查询原确认结果' : state.view.actionLabel}}</button>
+      <button hover-class="item--hover" class="result-primary tap-tactile" loading="{{state.saving}}" disabled="{{state.saving}}" bindtap="acknowledge">{{state.pendingRecovery ? '查询原确认结果' : state.view.actionLabel}}</button>
     </view>
   </block>
 </view>

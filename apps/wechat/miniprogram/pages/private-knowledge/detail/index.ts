@@ -1,4 +1,4 @@
-import { ApiClient } from "../../../api/client";
+import { ApiClient, ApiClientError } from "../../../api/client";
 import {
   PrivateKnowledgeApi,
   type PrivateSourceSummary,
@@ -17,6 +17,7 @@ interface PageData {
   revisionLabel: string;
   busy: boolean;
   errorMessage: string;
+  requestId: string;
   sourceId: string;
   deleteSheetOpen: boolean;
 }
@@ -45,6 +46,7 @@ Page<PageData, PageCustom>({
     revisionLabel: "",
     busy: false,
     errorMessage: "",
+    requestId: "",
     sourceId: "",
     deleteSheetOpen: false,
   },
@@ -68,7 +70,7 @@ Page<PageData, PageCustom>({
       void wx.reLaunch({ url: "/pages/login/index" });
       return;
     }
-    this.setData({ status: "loading", errorMessage: "" });
+    this.setData({ status: "loading", errorMessage: "", requestId: "" });
     try {
       const result = await gateway.listSources();
       const current = result.sources.find((item) => item.sourceId === this.data.sourceId);
@@ -94,9 +96,11 @@ Page<PageData, PageCustom>({
         revisionLabel,
       });
     } catch (error) {
+      const apiError = error instanceof ApiClientError ? error : null;
       this.setData({
         status: "error",
-        errorMessage: error instanceof Error ? error.message : "加载详情失败",
+        errorMessage: apiError?.message ?? "资料详情没有加载成功，请重试。",
+        requestId: apiError?.requestId ?? "",
       });
     }
   },

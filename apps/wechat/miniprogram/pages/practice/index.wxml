@@ -34,7 +34,8 @@
     <view class="capability-mark">先完成前置学习</view>
     <view class="capability-title">{{errorTitle}}</view>
     <view class="capability-copy">{{errorMessage}}</view>
-    <button wx:if="{{showLoginAction}}" class="secondary-button capability-action" bindtap="goLogin">重新登录</button>
+    <button hover-class="item--hover" wx:if="{{showLoginAction}}" class="secondary-button capability-action" bindtap="goLogin">重新登录</button>
+    <button hover-class="item--hover" wx:if="{{showTodayAction}}" class="primary-button capability-action" bindtap="goToday">去今日计划</button>
   </view>
 
   <block wx:elif="{{status === 'ready' && view}}">
@@ -163,7 +164,7 @@
         <button class="primary-button draft-sheet-action" bindtap="toggleDraft">收起草稿，继续作答</button>
       </ui-sheet>
 
-      <view wx:if="{{taskPaused}}" class="pause-mask" catchtouchmove="noop">
+      <view wx:if="{{taskPaused}}" class="pause-mask motion-mask" catchtouchmove="noop">
         <view class="pause-card">
           <view class="pause-play" aria-hidden="true"></view>
           <view class="pause-title">训练已暂停</view>

@@ -201,7 +201,7 @@
   margin: 0;
   padding: 0 20rpx;
   border: 1rpx solid var(--color-line);
-  border-radius: 999rpx;
+  border-radius: var(--figma-radius-pill);
   background: var(--color-surface);
   color: var(--color-ink-secondary);
   font-size: 22rpx;
@@ -217,7 +217,7 @@
   overflow: hidden;
   border: 1rpx solid var(--color-line);
   border-radius: 28rpx;
-  background: #ffffff;
+  background: var(--color-surface);
   box-shadow: 0 16rpx 42rpx rgba(52, 56, 79, 0.07);
 }
 
@@ -372,9 +372,9 @@
   justify-content: center;
   gap: 12rpx;
   margin: 24rpx 0 0;
-  border: 1rpx solid #e0e7ff;
+  border: 1rpx solid var(--figma-color-primary-soft-strong);
   border-radius: 26rpx;
-  background: linear-gradient(135deg, #eef2ff, #faf5ff);
+  background: linear-gradient(135deg, var(--primary-soft), var(--primary-soft));
   color: var(--color-primary);
   font-size: 23rpx;
   font-weight: 750;
@@ -386,7 +386,7 @@
 }
 
 .context-anan-action__mark {
-  color: #7c3aed;
+  color: var(--color-ai-violet);
   font-size: 26rpx;
 }
 
@@ -648,7 +648,7 @@
   display: inline-flex;
   margin-top: 20rpx;
   padding: 7rpx 14rpx;
-  border-radius: 999rpx;
+  border-radius: var(--figma-radius-pill);
   background: var(--color-primary-a16);
   color: var(--color-primary-deep);
   font-size: 20rpx;
@@ -774,7 +774,7 @@
 
 .essay-textarea--quote {
   min-height: 136rpx;
-  background: #ffffff;
+  background: var(--color-surface);
 }
 
 .form-index-row,
@@ -958,7 +958,7 @@
 }
 
 .evidence-quote--material {
-  background: #fff9ee;
+  background: var(--figma-color-warning-soft);
 }
 
 .evidence-quote-label {
@@ -1071,9 +1071,9 @@
 }
 
 .span-confirm--checked {
-  color: #137a52;
+  color: var(--good);
   border-color: rgba(19, 122, 82, 0.3);
-  background: #edfbf5;
+  background: var(--good-soft);
 }
 
 .workbench-nav {
@@ -1093,7 +1093,7 @@
   padding: 0 24rpx;
   color: var(--color-primary-deep);
   border: 2rpx solid var(--color-primary-a24);
-  border-radius: 999rpx;
+  border-radius: var(--figma-radius-pill);
   background: var(--color-primary-soft);
   font-size: 24rpx;
   line-height: 68rpx;
@@ -1313,7 +1313,7 @@
 .draft-question__chip {
   padding: var(--figma-space-4) var(--figma-space-8);
   border: 1rpx solid var(--color-line);
-  border-radius: var(--figma-radius-xsmall);
+  border-radius: var(--figma-radius-pill);
   background: var(--color-surface);
   color: var(--color-muted);
   font-size: var(--figma-font-micro);

@@ -1,7 +1,7 @@
 <view class="reflection-page">
   <safe-top gap="0" />
   <view wx:if="{{status === 'ready' && phase !== 'completed' && phase !== 'summary'}}" class="reflection-topbar">
-    <button class="reflection-back" bindtap="handleBack"><text class="reflection-back__chevron"></text></button>
+    <button hover-class="item--hover" class="reflection-back" bindtap="handleBack"><text class="reflection-back__chevron"></text></button>
     <view class="reflection-topbar__title">
       {{phase === 'reflection' ? '单题错因复盘' : '错因确认'}}
       <text wx:if="{{phase === 'reflection' && reviewItems.length}}"> · {{currentReviewIndex + 1}}/{{reviewItems.length}}</text>
@@ -19,18 +19,18 @@
 
   <view wx:elif="{{status === 'unavailable'}}" class="reflection-state">
     <state-view state="blocked" title="{{errorTitle}}" description="{{errorMessage}}" />
-    <button wx:if="{{showLoginAction}}" class="reflection-primary" bindtap="goLogin">重新登录</button>
+    <button hover-class="item--hover" wx:if="{{showLoginAction}}" class="reflection-primary tap-tactile" bindtap="goLogin">重新登录</button>
   </view>
 
   <block wx:elif="{{status === 'ready'}}">
     <view wx:if="{{hasPendingWrite}}" class="pending-write">
       <view class="pending-write__title">上次提交还没有得到确定结果</view>
       <view class="pending-write__copy">{{pendingMessage}}</view>
-      <button class="pending-write__action" bindtap="retry">继续确认上次提交</button>
+      <button hover-class="item--hover" class="pending-write__action" bindtap="retry">继续确认上次提交</button>
     </view>
 
     <view wx:if="{{phase === 'summary' && result}}" class="summary-content">
-      <button class="summary-back" bindtap="handleBack" aria-label="返回">
+      <button hover-class="item--hover" class="summary-back" bindtap="handleBack" aria-label="返回">
         <text class="reflection-back__chevron"></text>
       </button>
       <view class="summary-intro">
@@ -70,7 +70,7 @@
           <view class="summary-insight__next">{{result.group.nextActionLabel}}</view>
           <view wx:if="{{result.verification}}" class="summary-insight__verification">{{result.verification.stageLabel}} · {{result.verification.evidenceLabel}} · {{result.verification.evidenceDescription}}</view>
         </view>
-        <button class="summary-insight__toggle" bindtap="toggleSummaryBasis">{{summaryBasisOpen ? '收起结论依据' : '查看结论依据'}}⌄</button>
+        <button hover-class="item--hover" class="summary-insight__toggle" bindtap="toggleSummaryBasis">{{summaryBasisOpen ? '收起结论依据' : '查看结论依据'}}⌄</button>
       </view>
       <view wx:elif="{{result.availability === 'legacy_result_unavailable'}}" class="summary-legacy">
         <view class="summary-legacy__title">这份是旧版结果</view>
@@ -85,10 +85,10 @@
       </view>
 
       <view class="summary-actions">
-        <button class="summary-primary" bindtap="startReflection">复盘关键题</button>
+        <button hover-class="item--hover" class="summary-primary tap-tactile" bindtap="startReflection">复盘关键题</button>
         <view class="summary-actions__row">
-          <button class="summary-secondary" bindtap="exit">稍后复盘</button>
-          <button class="summary-anan" bindtap="askAnanAboutGroup">带着本组问岸岸</button>
+          <button hover-class="item--hover" class="summary-secondary" bindtap="exit">稍后复盘</button>
+          <button hover-class="item--hover" class="summary-anan" bindtap="askAnanAboutGroup">带着本组问岸岸</button>
         </view>
       </view>
       <view class="summary-boundary">本组新增 {{result.totalCount}} 条真实作答证据。一次练习不会直接变成稳定能力，完成复测后再确认。</view>
@@ -102,7 +102,7 @@
       </view>
 
       <view wx:if="{{reviewItems.length > 1}}" class="review-tabs">
-        <button
+        <button hover-class="item--hover"
           wx:for="{{reviewItems}}"
           wx:key="questionId"
           class="review-tab {{index === currentReviewIndex ? 'review-tab--active' : ''}}"
@@ -156,7 +156,7 @@
         <view class="reason-card__title">错因确认</view>
         <view class="reason-card__copy">可以多选。岸岸会结合你的原话提出候选错因，最终仍由你确认。</view>
         <view class="tag-grid">
-          <button
+          <button hover-class="item--hover"
             wx:for="{{tagOptions}}"
             wx:key="code"
             class="tag-chip {{item.selected ? 'tag-chip--active' : ''}}"
@@ -179,7 +179,7 @@
       <view wx:if="{{interpretationOptions.length}}" class="method-card">
         <view class="method-card__title">哪些题是“方法正确，但计算错了”？</view>
         <view class="method-card__copy">这是一条逐题事实，不会从“计算失误”标签自动推断。</view>
-        <button
+        <button hover-class="item--hover"
           wx:for="{{interpretationOptions}}"
           wx:key="questionId"
           class="method-option {{item.selected ? 'method-option--selected' : ''}}"
@@ -195,7 +195,7 @@
         </button>
       </view>
 
-      <button class="more-evidence-toggle" bindtap="toggleMoreEvidence">
+      <button hover-class="item--hover" class="more-evidence-toggle" bindtap="toggleMoreEvidence">
         <text>补充语音、改进动作或仍未想通的点</text>
         <text>{{moreEvidenceOpen ? '收起' : '展开'}}⌄</text>
       </button>
@@ -212,27 +212,27 @@
         <view wx:if="{{recordPermission === 'denied'}}" class="voice-permission">
           <view class="voice-permission__title">需要麦克风权限</view>
           <view class="voice-permission__copy">在系统设置中开启后，才能录制语音复盘。</view>
-          <button class="voice-permission__action" bindtap="openRecordPermission">去设置</button>
+          <button hover-class="item--hover" class="voice-permission__action" bindtap="openRecordPermission">去设置</button>
         </view>
 
-        <button wx:if="{{isRecording}}" class="record-button record-button--active" bindtap="stopVoiceRecording"><text class="record-dot"></text>结束录制</button>
-        <button wx:else class="record-button" disabled="{{interactionLocked || voiceBusy || !voiceSummary.canRecord}}" bindtap="startVoiceRecording"><text class="record-dot"></text>{{voiceSummary.canRecord ? '开始录一段' : '已达 3 段上限'}}</button>
+        <button hover-class="item--hover" wx:if="{{isRecording}}" class="record-button record-button--active" bindtap="stopVoiceRecording"><text class="record-dot"></text>结束录制</button>
+        <button hover-class="item--hover" wx:else class="record-button" disabled="{{interactionLocked || voiceBusy || !voiceSummary.canRecord}}" bindtap="startVoiceRecording"><text class="record-dot"></text>{{voiceSummary.canRecord ? '开始录一段' : '已达 3 段上限'}}</button>
 
         <view wx:for="{{voiceSegments}}" wx:key="segmentId" class="voice-item">
-          <button class="voice-item__play" data-id="{{item.segmentId}}" disabled="{{voiceBusy}}" bindtap="playVoice">{{playingVoiceId === item.segmentId ? '停' : '听'}}</button>
+          <button hover-class="item--hover" class="voice-item__play" data-id="{{item.segmentId}}" disabled="{{voiceBusy}}" bindtap="playVoice">{{playingVoiceId === item.segmentId ? '停' : '听'}}</button>
           <view class="voice-item__main">
             <view class="voice-item__title">{{item.sequenceLabel}} · {{item.durationLabel}} · {{item.sizeLabel}}</view>
             <view class="voice-item__state voice-item__state--{{item.stateTone}}">{{item.stateLabel}}</view>
             <view wx:if="{{item.failureMessage}}" class="voice-item__failure">{{item.failureMessage}}</view>
           </view>
           <view class="voice-item__actions">
-            <button class="voice-item__action" data-id="{{item.segmentId}}" disabled="{{interactionLocked || voiceBusy || !item.canOperate}}" bindtap="rerecordVoice">重录</button>
-            <button class="voice-item__action" data-id="{{item.segmentId}}" disabled="{{interactionLocked || voiceBusy || !item.canOperate}}" bindtap="deleteVoice">删除</button>
+            <button hover-class="item--hover" class="voice-item__action" data-id="{{item.segmentId}}" disabled="{{interactionLocked || voiceBusy || !item.canOperate}}" bindtap="rerecordVoice">重录</button>
+            <button hover-class="item--hover" class="voice-item__action" data-id="{{item.segmentId}}" disabled="{{interactionLocked || voiceBusy || !item.canOperate}}" bindtap="deleteVoice">删除</button>
           </view>
         </view>
         <view class="voice-summary">{{voiceSummary.totalSizeLabel}}</view>
         <view wx:if="{{voiceMessage}}" class="voice-message">{{voiceMessage}}</view>
-        <button wx:if="{{voiceSegments.length && voiceSummary.hasUnready}}" class="voice-upload" loading="{{voiceBusy}}" disabled="{{interactionLocked || voiceBusy || isRecording}}" bindtap="uploadVoiceSegments">上传并完成安全检查</button>
+        <button hover-class="item--hover" wx:if="{{voiceSegments.length && voiceSummary.hasUnready}}" class="voice-upload" loading="{{voiceBusy}}" disabled="{{interactionLocked || voiceBusy || isRecording}}" bindtap="uploadVoiceSegments">上传并完成安全检查</button>
 
         <view class="evidence-field">
           <view class="evidence-field__label">下次准备怎么做 <text class="evidence-field__optional">选填</text></view>
@@ -244,7 +244,7 @@
         </view>
       </view>
 
-      <button class="reflection-primary" loading="{{interactionLocked}}" disabled="{{interactionLocked || voiceBusy || isRecording}}" bindtap="submitReflection">保存原话，继续确认错因</button>
+      <button hover-class="item--hover" class="reflection-primary tap-tactile" loading="{{interactionLocked}}" disabled="{{interactionLocked || voiceBusy || isRecording}}" bindtap="submitReflection">保存原话，继续确认错因</button>
       <view class="reflection-boundary">保存后，岸岸只会生成待确认的候选错因，不会替你下结论。</view>
       <view class="reflection-bottom-spacer"></view>
     </view>
@@ -254,7 +254,7 @@
       <view class="cause-processing__title">{{causeCandidate.stateLabel}}</view>
       <view class="cause-processing__copy">{{causeCandidate.stateDescription}}</view>
       <view class="cause-processing__boundary">复盘原话已经保存，错因仍由你最终确认。</view>
-      <button class="reflection-secondary" disabled="{{interactionLocked}}" bindtap="refreshCauseCandidate">重新检查学习记录</button>
+      <button hover-class="item--hover" class="reflection-secondary" disabled="{{interactionLocked}}" bindtap="refreshCauseCandidate">重新检查学习记录</button>
     </view>
 
     <view wx:elif="{{phase === 'cause_followup'}}" class="cause-content">
@@ -269,7 +269,7 @@
         <view class="followup-card__label">岸岸追问</view>
         <view class="followup-card__question">{{causeCandidate.question}}</view>
         <textarea cursor-spacing="24" class="cause-textarea" value="{{followupAnswer}}" maxlength="2000" disabled="{{interactionLocked}}" placeholder="按当时真实想法回答" bindinput="inputFollowupAnswer" />
-        <button class="reflection-primary" disabled="{{interactionLocked}}" bindtap="submitCauseFollowup">提交追问回答</button>
+        <button hover-class="item--hover" class="reflection-primary tap-tactile" disabled="{{interactionLocked}}" bindtap="submitCauseFollowup">提交追问回答</button>
       </view>
     </view>
 
@@ -307,11 +307,11 @@
       </view>
 
       <block wx:if="{{causeCandidate.canDecide}}">
-        <button wx:if="{{causeCandidate.canConfirm}}" class="reflection-primary" disabled="{{interactionLocked}}" bindtap="confirmCause">确认这个错因</button>
-        <button class="reflection-secondary" disabled="{{interactionLocked}}" bindtap="rejectCause">这不是我的错因</button>
+        <button hover-class="item--hover" wx:if="{{causeCandidate.canConfirm}}" class="reflection-primary tap-tactile" disabled="{{interactionLocked}}" bindtap="confirmCause">确认这个错因</button>
+        <button hover-class="item--hover" class="reflection-secondary" disabled="{{interactionLocked}}" bindtap="rejectCause">这不是我的错因</button>
         <textarea cursor-spacing="24" class="cause-textarea" value="{{replacementCause}}" maxlength="2000" disabled="{{interactionLocked}}" placeholder="也可以写下你认可的错因" bindinput="inputReplacementCause" />
-        <button class="reflection-secondary" disabled="{{interactionLocked}}" bindtap="replaceCause">采用我补充的错因</button>
-        <button class="cause-later" disabled="{{interactionLocked}}" bindtap="deferCause">稍后处理</button>
+        <button hover-class="item--hover" class="reflection-secondary" disabled="{{interactionLocked}}" bindtap="replaceCause">采用我补充的错因</button>
+        <button hover-class="item--hover" class="cause-later" disabled="{{interactionLocked}}" bindtap="deferCause">稍后处理</button>
       </block>
       <view wx:else class="legacy-notice">这是一条只读旧记录，当前没有可确认的候选错因。</view>
       <view class="reflection-bottom-spacer"></view>
@@ -330,7 +330,7 @@
         <view wx:if="{{hasUpdatedPlan}}" class="completed-divider"></view>
         <view wx:if="{{hasUpdatedPlan}}" class="completed-row completed-row--accent"><text>今日计划</text><text>已重新同步</text></view>
       </view>
-      <button class="reflection-primary" bindtap="returnToday">完成复盘</button>
+      <button hover-class="item--hover" class="reflection-primary tap-tactile" bindtap="returnToday">完成复盘</button>
     </view>
   </block>
 </view>
