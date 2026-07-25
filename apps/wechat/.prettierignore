@@ -1,4 +1,5 @@
 miniprogram/api/generated/
+design/
 # 开发者工具编译产物（TS → JS 就地输出）
 miniprogram/**/*.js
 # 误开 miniprogram 为项目根时生成的配置

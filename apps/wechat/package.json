@@ -4,13 +4,14 @@
   "private": true,
   "description": "AI 国考上岸教练微信小程序",
   "scripts": {
-    "check": "npm run format:check && npm run typecheck && npm run design:validate",
+    "check": "npm run format:check && npm run typecheck && eslint . --max-warnings 0 && npm run tokens:validate && npm run design:validate",
     "api:generate": "node scripts/generate-api.mjs",
     "design:validate": "node scripts/validate-design-source.mjs",
     "format": "prettier --write \"**/*.{ts,js,json,mjs,md,html,css}\"",
     "format:check": "prettier --check \"**/*.{ts,js,json,mjs,md,html,css}\"",
     "test": "vitest run",
     "test:cloud": "node --test cloudfunctions/hunyuan-essay-grader/runtime.test.js",
+    "tokens:validate": "node scripts/validate-tokens.mjs",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {

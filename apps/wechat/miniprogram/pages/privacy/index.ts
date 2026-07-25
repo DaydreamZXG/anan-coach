@@ -186,7 +186,7 @@ Page({
       this.setData({
         errorMessage: uncertain
           ? "刚才的请求结果还不确定，已保留进度，可以直接重试。"
-          : (apiError?.message ?? "数据导出没有创建成功。"),
+          : apiError.message,
       });
     } finally {
       this.setData({ exporting: false });
@@ -334,7 +334,7 @@ Page({
         deleting: false,
         errorMessage: uncertain
           ? "刚才的删除请求结果还不确定，已保留操作，重新进入后会继续确认。"
-          : (apiError?.message ?? "账户删除请求没有创建成功。"),
+          : apiError.message,
       });
     }
   },

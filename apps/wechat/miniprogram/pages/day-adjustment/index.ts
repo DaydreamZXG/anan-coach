@@ -41,7 +41,7 @@ Page({
     errorMessage: "",
     requestId: "",
     dashboard: null as TodayDashboard | null,
-    step: "edit" as "edit" | "preview",
+    step: "edit",
     minutes: 0,
     selectedDurationLabel: "今天不安排",
     currentDurationLabel: "",
@@ -113,7 +113,7 @@ Page({
   adjustMinutes(event: WechatMiniprogram.BaseEvent) {
     if (this.data.previewing || this.data.submitting) return;
     const delta = Number(event.currentTarget.dataset.delta);
-    const current = Number(this.data.minutes);
+    const current = this.data.minutes;
     if (!Number.isInteger(delta) || !Number.isInteger(current)) return;
     const next = Math.max(0, Math.min(MAX_VISIBLE_MINUTES, current + delta));
     this.updateMinutes(next);

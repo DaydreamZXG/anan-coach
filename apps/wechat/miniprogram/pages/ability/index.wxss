@@ -186,8 +186,7 @@
 .overview-total__value {
   position: relative;
   margin-top: 2rpx;
-  /* Approved Figma ability-range gradient; this is the sole page-level color exception. */
-  background: linear-gradient(90deg, #4f39f6, #9810fa);
+  background: linear-gradient(90deg, #4f39f6, #9810fa); /* token-exempt: Figma 交付版能力区间渐变文字 */
   background-clip: text;
   color: transparent;
   font-size: 56rpx;

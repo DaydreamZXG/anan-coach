@@ -17,6 +17,7 @@
 
   <view class="s9-card support-note">
     <view class="s9-card-title">当前客服状态</view>
-    <view class="s9-card-copy">客服群暂未开放。开放后会在这里显示有效二维码和服务时间。</view>
+    <view class="s9-card-copy">客服群当前关闭；群开放后会在这里显示有效二维码和服务时间。现在可以直接联系微信客服。</view>
+    <button hover-class="item--hover" class="s9-primary-button support-contact tap-tactile" open-type="contact">联系微信客服</button>
   </view>
 </view>

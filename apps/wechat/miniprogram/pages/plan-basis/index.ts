@@ -146,7 +146,9 @@ Page({
       return;
     }
     this.setData({ openingTask: true });
-    const complete = () => this.setData({ openingTask: false });
+    const complete = () => {
+      this.setData({ openingTask: false });
+    };
     if (target.mode === "switchTab") {
       wx.switchTab({ url: target.url, complete });
       return;

@@ -165,7 +165,7 @@ Page({
         paymentDisclosure: freeColdStart
           ? "冷启动期间不会创建支付订单"
           : !environment.virtualPaymentEnabled
-            ? "会员购买暂未开放，当前不会创建支付订单"
+            ? "当前不提供会员购买，也不会创建支付订单"
             : "微信虚拟支付 · 单次购买 · 不自动续费",
       });
     } catch (error) {
@@ -187,10 +187,6 @@ Page({
   },
 
   async buy() {
-    if (!environment.virtualPaymentEnabled) {
-      void wx.showToast({ title: "会员购买暂未开放", icon: "none" });
-      return;
-    }
     const token = currentAccessToken();
     const offer = this.data.offer;
     if (!token || !offer || this.data.paying) return;

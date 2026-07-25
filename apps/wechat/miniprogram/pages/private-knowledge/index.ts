@@ -488,8 +488,7 @@ Page<PageData, PageCustom>({
         searching: false,
         searchStatus: "error",
         citations: [],
-        searchErrorMessage:
-          apiError?.message ?? "私人资料检索没有完成，请重试。",
+        searchErrorMessage: apiError?.message ?? "私人资料检索没有完成，请重试。",
         searchRequestId: apiError?.requestId ?? "",
       });
     }

@@ -119,8 +119,10 @@ function mountController(page: StudyPreferencePage): void {
       void wx.showToast({ title: "学习时间已更新", icon: "success" });
       setTimeout(() => {
         if (!runtimes.owns(page, runtime)) return;
-        void wx.navigateBack({
-          fail: () => wx.switchTab({ url: routes.me }),
+        wx.navigateBack({
+          fail: () => {
+            void wx.switchTab({ url: routes.me });
+          },
         });
       }, 700);
     },

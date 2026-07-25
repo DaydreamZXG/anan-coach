@@ -9,14 +9,8 @@ export interface PreparationExperienceDraft {
 }
 
 export type PreparationExperienceChoice =
-  | "firstSystematic"
-  | "externalLearning"
-  | "priorGuokaoExam"
-  | "retake";
-export type PreparationCurrentStatus = Exclude<
-  PreparationExperienceDraft["currentStatus"],
-  ""
->;
+  "firstSystematic" | "externalLearning" | "priorGuokaoExam" | "retake";
+export type PreparationCurrentStatus = Exclude<PreparationExperienceDraft["currentStatus"], "">;
 
 export const emptyPreparationExperienceDraft: PreparationExperienceDraft = {
   firstSystematic: false,

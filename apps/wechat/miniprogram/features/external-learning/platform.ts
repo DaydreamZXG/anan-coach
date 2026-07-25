@@ -19,7 +19,9 @@ export async function editQuestionImage(file: LocalImportFile): Promise<LocalImp
     const editedPath = await new Promise<string>((resolve, reject) => {
       wx.editImage({
         src: file.localPath,
-        success: (result) => resolve(result.tempFilePath),
+        success: (result) => {
+          resolve(result.tempFilePath);
+        },
         fail: reject,
       });
     });
@@ -97,7 +99,9 @@ async function localFileSize(filePath: string): Promise<number> {
   return new Promise<number>((resolve, reject) => {
     manager.getFileInfo({
       filePath,
-      success: (result) => resolve(result.size),
+      success: (result) => {
+        resolve(result.size);
+      },
       fail: reject,
     });
   });

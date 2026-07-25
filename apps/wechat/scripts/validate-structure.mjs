@@ -138,7 +138,7 @@ for (const typeScriptPath of walkFiles(miniprogramRoot).filter((path) => path.en
 
 const routeRegistry = readFileSync(resolve(miniprogramRoot, "app/navigation/routes.ts"), "utf8");
 for (const page of appConfig.pages) {
-  if (!routeRegistry.includes(`\"/${page}\"`)) {
+  if (!routeRegistry.includes(`"/${page}"`)) {
     failures.push(`Registered page is missing from typed route registry: ${page}`);
   }
 }

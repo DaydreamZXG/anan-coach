@@ -54,10 +54,7 @@ describe("onboarding ability baseline", () => {
       }),
     ).toContain("0–100");
     expect(() =>
-      buildAbilityBaselineCommand(
-        { mode: "unknown", xingceScore: "", shenlunScore: "" },
-        -1,
-      ),
+      buildAbilityBaselineCommand({ mode: "unknown", xingceScore: "", shenlunScore: "" }, -1),
     ).toThrow("expected version");
   });
 

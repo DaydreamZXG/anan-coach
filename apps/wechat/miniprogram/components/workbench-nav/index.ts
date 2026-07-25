@@ -1,7 +1,7 @@
 Component({
   properties: {
-    title: { type: String, value: '' },
-    showBack: { type: Boolean, value: true }
+    title: { type: String, value: "" },
+    showBack: { type: Boolean, value: true },
   },
 
   data: {
@@ -24,16 +24,16 @@ Component({
         // Fallback
       }
       this.setData({ paddingTop, navHeight });
-    }
+    },
   },
 
   methods: {
     goBack() {
       wx.navigateBack({
         fail() {
-          void wx.switchTab({ url: '/pages/today/index' });
-        }
+          void wx.switchTab({ url: "/pages/today/index" });
+        },
       });
-    }
-  }
+    },
+  },
 });

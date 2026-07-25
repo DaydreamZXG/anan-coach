@@ -62,7 +62,6 @@
           <view wx:if="{{openingView.coffeeVisible}}" class="coffee-prompt">
             <image class="icon icon--small" src="/assets/icons/today/coffee-muted.png" mode="aspectFit" />
             <text class="coffee-prompt__text">顺便看咖啡？</text>
-            <button class="coffee-button" bindtap="openCoffeeAssistant">帮我看看</button>
             <button class="coffee-button coffee-button--quiet" bindtap="declineDailyCoffee">今天不喝</button>
           </view>
           <button hover-class="item--hover" class="opening-start" bindtap="startDailyOpening">开始学习</button>

@@ -1,7 +1,4 @@
-import type {
-  PositionPreferenceProfile,
-  PositionPreferenceWrite,
-} from "../../api/generated/types.gen";
+import type { PositionPreferenceProfile } from "../../api/generated/types.gen";
 import type { OnboardingApi } from "../../api/onboarding";
 import { createIdempotencyKey } from "../../platform/command-id";
 import {
@@ -193,7 +190,7 @@ export class PositionPreferenceController {
       if (!this.isCurrent(epoch)) return;
       this.patch({ pendingRecovery: true });
       const response = await this.api.putPositionPreference(
-        pending.command as PositionPreferenceWrite,
+        pending.command,
         pending.idempotencyKey,
       );
       if (!this.isCurrent(epoch)) return;

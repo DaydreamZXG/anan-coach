@@ -9,10 +9,7 @@ import {
   PreparationExperienceController,
   type PreparationExperienceControllerState,
 } from "../../../features/onboarding/preparation-experience-controller";
-import type {
-  PreparationCurrentStatus,
-  PreparationExperienceChoice,
-} from "../../../features/onboarding/preparation-experience";
+import type { PreparationExperienceChoice } from "../../../features/onboarding/preparation-experience";
 import type { OnboardingNextStep } from "../../../features/onboarding/types";
 
 interface PreparationExperiencePageData {
@@ -99,7 +96,7 @@ Page<PreparationExperiencePageData, PreparationExperiencePageCustom>({
   selectCurrentStatus(event) {
     const status = String(event.currentTarget.dataset.status ?? "");
     if (status === "parttime" || status === "fulltime" || status === "student") {
-      runtimes.get(this)?.controller?.selectCurrentStatus(status as PreparationCurrentStatus);
+      runtimes.get(this)?.controller?.selectCurrentStatus(status);
     }
   },
 

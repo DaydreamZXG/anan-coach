@@ -34,7 +34,7 @@ interface ArchiveModuleView {
 
 Page({
   data: {
-    status: "loading" as "loading" | "ready" | "error",
+    status: "loading",
     errorMessage: "",
     requestId: "",
     warningTitle: "",

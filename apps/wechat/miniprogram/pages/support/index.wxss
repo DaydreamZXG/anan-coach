@@ -10,3 +10,4 @@
 .qr-placeholder__copy { max-width: 460rpx; margin-top: 12rpx; color: var(--color-muted); font-size: 22rpx; line-height: 1.62; }
 .qr-action { margin-top: 24rpx; }
 .support-note { margin-top: 22rpx; }
+.support-contact { margin-top: 24rpx; }

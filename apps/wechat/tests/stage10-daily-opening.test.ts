@@ -113,6 +113,8 @@ describe("step 10 daily opening", () => {
     expect(todayTemplate).toContain('bindtap="requestWeatherLocation"');
     expect(todayTemplate).toContain('bindtap="startDailyOpening"');
     expect(todayTemplate).toContain('bindtap="declineDailyCoffee"');
+    expect(todayTemplate).not.toContain('bindtap="openCoffeeAssistant"');
+    expect(todayTemplate).not.toContain("帮我看看");
     expect(todayTemplate).not.toContain("openWeatherAttribution");
     expect(todayTemplate).not.toContain("天气数据来源");
     expect(appConfig).not.toContain('"pages/weather-attribution/index"');
@@ -123,9 +125,8 @@ describe("step 10 daily opening", () => {
   it("reads fuzzy mini-program location and distinguishes permission denial", async () => {
     vi.stubGlobal("wx", {
       getSetting: () => Promise.resolve({ authSetting: {} }),
-      getFuzzyLocation: (
-        options: WechatMiniprogram.GetFuzzyLocationOption,
-      ) => options.success?.({ latitude: 28.682, longitude: 115.858, errMsg: "getFuzzyLocation:ok" }),
+      getFuzzyLocation: (options: WechatMiniprogram.GetFuzzyLocationOption) =>
+        options.success?.({ latitude: 28.682, longitude: 115.858, errMsg: "getFuzzyLocation:ok" }),
     });
     await expect(readFuzzyWeatherLocation()).resolves.toEqual({
       latitude: 28.682,
@@ -133,8 +134,7 @@ describe("step 10 daily opening", () => {
     });
 
     vi.stubGlobal("wx", {
-      getSetting: () =>
-        Promise.resolve({ authSetting: { "scope.userFuzzyLocation": false } }),
+      getSetting: () => Promise.resolve({ authSetting: { "scope.userFuzzyLocation": false } }),
     });
     await expect(readFuzzyWeatherLocation()).rejects.toBeInstanceOf(
       WeatherLocationPermissionDeniedError,

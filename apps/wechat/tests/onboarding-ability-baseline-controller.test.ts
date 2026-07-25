@@ -1,21 +1,14 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ApiClientError } from "../miniprogram/api/client";
-import type {
-  AbilityBaselineProfile,
-} from "../miniprogram/api/generated/types.gen";
+import type { AbilityBaselineProfile } from "../miniprogram/api/generated/types.gen";
 import type { OnboardingApi } from "../miniprogram/api/onboarding";
 import {
   AbilityBaselineController,
   type AbilityBaselineControllerState,
 } from "../miniprogram/features/onboarding/ability-baseline-controller";
-import {
-  loadPendingAbilityBaseline,
-} from "../miniprogram/features/onboarding/pending-store";
+import { loadPendingAbilityBaseline } from "../miniprogram/features/onboarding/pending-store";
 
-type BaselineApi = Pick<
-  OnboardingApi,
-  "getAbilityBaseline" | "putAbilityBaseline"
->;
+type BaselineApi = Pick<OnboardingApi, "getAbilityBaseline" | "putAbilityBaseline">;
 
 let storage: Map<string, unknown>;
 

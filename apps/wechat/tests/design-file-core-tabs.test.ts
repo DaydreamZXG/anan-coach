@@ -11,9 +11,14 @@ import profileStyles from "../miniprogram/pages/me/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import tabBarStyles from "../miniprogram/custom-tab-bar/index.wxss?raw";
 
+function countMatches(source: unknown, pattern: RegExp): number {
+  if (typeof source !== "string") throw new Error("Raw mini-program asset must be text.");
+  return source.match(pattern)?.length ?? 0;
+}
+
 describe("Design File core tab composition", () => {
   it("keeps the profile archive on the approved two-column, three-row grid", () => {
-    expect(profileTemplate.match(/class="archive-item"/gu)).toHaveLength(6);
+    expect(countMatches(profileTemplate, /class="archive-item"/gu)).toBe(6);
     expect(profileTemplate).toContain("工作经历");
     expect(profileTemplate).toContain("服务基层项目经历");
     expect(profileTemplate).not.toContain('class="archive-item archive-item--wide"');
@@ -27,7 +32,7 @@ describe("Design File core tab composition", () => {
   it("keeps the Anan first viewport aligned to the Design File control console", () => {
     expect(ananTemplate).toContain('<safe-top mode="status" gap="16" />');
     expect(ananTemplate).toContain('src="/assets/icons/anan/brain-outline-white.svg"');
-    expect(ananTemplate.match(/class="suggestion-pill"/gu)).toHaveLength(5);
+    expect(countMatches(ananTemplate, /class="suggestion-pill"/gu)).toBe(5);
     expect(ananTemplate).toContain('class="composer-surface"');
     expect(ananTemplate).toContain('src="/assets/icons/anan/send-arrow-white.svg"');
     expect(ananStyles).toContain("gap: 40rpx");

@@ -6,10 +6,7 @@ import type {
   QualificationFactInput,
   QualificationMilestoneCommand,
 } from "../../api/generated/types.gen";
-import {
-  abilityBaselineDraftFromCommand,
-  buildAbilityBaselineCommand,
-} from "./ability-baseline";
+import { abilityBaselineDraftFromCommand, buildAbilityBaselineCommand } from "./ability-baseline";
 import {
   buildPositionPreferenceCommand,
   type PositionPreferenceDraft,
@@ -398,19 +395,14 @@ function isPendingPositionPreferenceCommand(
   const draft = value.draft as unknown as PositionPreferenceDraft;
   const command = value.command as unknown as PositionPreferenceWrite;
   try {
-    const rebuilt = buildPositionPreferenceCommand(
-      draft,
-      command.expectedPreferenceVersion,
-    );
+    const rebuilt = buildPositionPreferenceCommand(draft, command.expectedPreferenceVersion);
     return canonicalJson(rebuilt) === canonicalJson(command);
   } catch {
     return false;
   }
 }
 
-function isPendingAbilityBaselineCommand(
-  value: unknown,
-): value is PendingAbilityBaselineCommand {
+function isPendingAbilityBaselineCommand(value: unknown): value is PendingAbilityBaselineCommand {
   if (!isRecord(value) || !isRecord(value.command)) return false;
   if (typeof value.idempotencyKey !== "string" || value.idempotencyKey.length < 8) {
     return false;

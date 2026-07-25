@@ -1,8 +1,5 @@
 import { ApiClient, ApiClientError } from "../../../api/client";
-import {
-  PrivateKnowledgeApi,
-  type PrivateSourceSummary,
-} from "../../../api/private-knowledge";
+import { PrivateKnowledgeApi, type PrivateSourceSummary } from "../../../api/private-knowledge";
 import { currentAuthSession } from "../../../auth/session";
 import { createIdempotencyKey } from "../../../platform/command-id";
 
@@ -84,7 +81,8 @@ Page<PageData, PageCustom>({
         summary: "知识总结",
       }[current.documentKind];
 
-      const revisionLabel = current.versionNo > 1 ? `第 ${String(current.versionNo)} 次更新` : "首次导入";
+      const revisionLabel =
+        current.versionNo > 1 ? `第 ${String(current.versionNo)} 次更新` : "首次导入";
 
       this.setData({
         status: "ready",

@@ -302,12 +302,6 @@ async function openVisualScenario(program, id, options = {}) {
   return page;
 }
 
-async function requiredElement(page, selector) {
-  const element = await page.$(selector);
-  assert.ok(element, `Missing clickable selector ${selector} on ${page.path}`);
-  return element;
-}
-
 async function waitForPath(program, expectedPath, message) {
   await waitForPredicate(async () => {
     const page = await program.currentPage();

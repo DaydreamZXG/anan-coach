@@ -7,7 +7,6 @@ import {
   AbilityBaselineController,
   type AbilityBaselineControllerState,
 } from "../../../features/onboarding/ability-baseline-controller";
-import type { AbilityBaselineMode } from "../../../features/onboarding/ability-baseline";
 
 interface AbilityBaselinePageData {
   state: AbilityBaselineControllerState | null;
@@ -53,7 +52,7 @@ Page<AbilityBaselinePageData, AbilityBaselinePageCustom>({
   selectMode(event) {
     const mode = String(event.currentTarget.dataset.mode ?? "");
     if (mode === "unknown" || mode === "reported_score") {
-      runtimes.get(this)?.controller?.selectMode(mode as AbilityBaselineMode);
+      runtimes.get(this)?.controller?.selectMode(mode);
     }
   },
 

@@ -76,7 +76,7 @@ for (const contract of pageInteractionMatrix) {
   }
   assert.match(
     wxml,
-    new RegExp(`[\"':]${escapeRegExp(interaction.handler)}[\"}]`, "u"),
+    new RegExp(`["':]${escapeRegExp(interaction.handler)}["}]`, "u"),
     `${contract.route} WXML does not bind ${interaction.handler}`,
   );
   assert.match(

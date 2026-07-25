@@ -28,10 +28,7 @@ import {
   type TodayCapacitySubmission,
   type TodayControllerState,
 } from "../../features/planning/today-controller";
-import {
-  capacityScaleLabel,
-  createCapacityIdempotencyKey,
-} from "./capacity";
+import { capacityScaleLabel, createCapacityIdempotencyKey } from "./capacity";
 import { presentTodayDashboard, type TodayView } from "./presentation";
 
 class TodayPageControllers {
@@ -91,7 +88,6 @@ interface TodayPageCustom {
   syncWeatherLocation(interactive: boolean): Promise<void>;
   startDailyOpening(): void;
   declineDailyCoffee(): void;
-  openCoffeeAssistant(): void;
 }
 
 Page<TodayPageData, TodayPageCustom>({
@@ -287,14 +283,6 @@ Page<TodayPageData, TodayPageCustom>({
 
   declineDailyCoffee() {
     void controllers.get(this)?.controller?.opening.declineCoffee();
-  },
-
-  openCoffeeAssistant() {
-    void wx.showModal({
-      title: "咖啡助手尚未启用",
-      content: "只有官方用户授权与下单确认链路验收通过后才会开放；当前不会创建订单或付款。",
-      showCancel: false,
-    });
   },
 });
 

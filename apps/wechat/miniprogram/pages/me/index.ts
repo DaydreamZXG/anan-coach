@@ -227,10 +227,7 @@ Page({
         qualificationContextRequestId: "",
       });
     } else {
-      const failure = profileContextFailure(
-        qualification.reason,
-        "报考资料没有同步完成，请重试。",
-      );
+      const failure = profileContextFailure(qualification.reason, "报考资料没有同步完成，请重试。");
       Object.assign(changes, {
         qualificationContextStatus: "error",
         qualificationContextError: failure.message,
@@ -244,10 +241,7 @@ Page({
         studyContextRequestId: "",
       });
     } else {
-      const failure = profileContextFailure(
-        preference.reason,
-        "学习时间没有同步完成，请重试。",
-      );
+      const failure = profileContextFailure(preference.reason, "学习时间没有同步完成，请重试。");
       Object.assign(changes, {
         studyContextStatus: "error",
         studyContextError: failure.message,
@@ -267,10 +261,7 @@ Page({
         targetContextRequestId: "",
       });
     } else {
-      const failure = profileContextFailure(
-        dashboard.reason,
-        "目标岗位没有同步完成，请重试。",
-      );
+      const failure = profileContextFailure(dashboard.reason, "目标岗位没有同步完成，请重试。");
       Object.assign(changes, {
         targetContextStatus: "error",
         targetContextError: failure.message,

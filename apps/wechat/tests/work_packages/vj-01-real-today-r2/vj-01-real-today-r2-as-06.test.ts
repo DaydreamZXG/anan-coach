@@ -2,12 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 // @ts-expect-error Vite exposes TypeScript source through its raw asset loader.
 import todayPageSource from "../../../miniprogram/pages/today/index.ts?raw";
-import {
-  apiFailure,
-  capacityCommand,
-  createTodayHarness,
-  latestState,
-} from "./harness";
+import { apiFailure, capacityCommand, createTodayHarness, latestState } from "./harness";
 
 afterEach(() => {
   vi.unstubAllGlobals();

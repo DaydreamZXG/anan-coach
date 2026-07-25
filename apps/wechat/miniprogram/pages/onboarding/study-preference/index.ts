@@ -64,7 +64,7 @@ Page<StudyPreferencePageData, StudyPreferencePageCustom>({
 
   changeMinutes(event) {
     const field = String(event.currentTarget.dataset.field ?? "");
-    const minutes = Number(event.detail.value);
+    const minutes = event.detail.value;
     if (isStudyMinutesField(field) && Number.isSafeInteger(minutes)) {
       runtimes.get(this)?.controller?.setMinutes(field, minutes);
     }
