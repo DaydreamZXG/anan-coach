@@ -23,7 +23,9 @@ page {
   --color-primary-deep: var(--figma-color-primary-deep);
   --color-primary-soft: var(--figma-color-primary-soft);
   --color-primary-a08: rgba(97, 95, 255, 0.08);
+  --color-primary-a11: rgba(97, 95, 255, 0.11);
   --color-primary-a16: rgba(97, 95, 255, 0.16);
+  --color-primary-a18: rgba(79, 70, 229, 0.18);
   --color-primary-a24: rgba(97, 95, 255, 0.24);
   --color-companion: var(--figma-color-primary);
   --color-cyan: var(--figma-color-cyan);
@@ -36,6 +38,7 @@ page {
   --color-success: var(--figma-color-success);
   --color-success-soft: var(--figma-color-success-soft);
   --color-warning: var(--figma-color-warning);
+  --color-warning-deep: var(--figma-color-warning-deep);
   --color-warning-soft: var(--figma-color-warning-soft);
   --color-danger: var(--figma-color-danger);
   --color-danger-soft: var(--figma-color-danger-soft);
@@ -44,6 +47,21 @@ page {
   --color-gold: #d9a12f;
   --color-gold-soft: #fcf4df;
   --color-mask: rgba(17, 24, 39, 0.36);
+  --color-mask-soft: rgba(17, 24, 39, 0.34);
+  --color-mask-strong: rgba(17, 20, 38, 0.52);
+  --color-surface-a74: rgba(255, 255, 255, 0.74);
+  --color-surface-a90: rgba(255, 255, 255, 0.9);
+  --color-surface-a94: rgba(255, 255, 255, 0.94);
+  --color-surface-a95: rgba(255, 255, 255, 0.95);
+  --color-surface-a96: rgba(255, 255, 255, 0.96);
+  --color-surface-soft-a82: rgba(244, 240, 223, 0.82);
+  --color-line-a84: rgba(240, 242, 246, 0.84);
+  --color-line-strong-a56: rgba(229, 231, 235, 0.56);
+  --color-primary-soft-a52: rgba(238, 242, 255, 0.52);
+  --color-primary-soft-a55: rgba(238, 242, 255, 0.55);
+  --color-primary-soft-a64: rgba(238, 242, 255, 0.64);
+  --color-cyan-soft-a58: rgba(236, 254, 255, 0.58);
+  --color-warning-a42: rgba(185, 141, 47, 0.42);
 
   --gradient-brand: var(--figma-gradient-ai);
   --gradient-ai: var(--figma-gradient-ai);
@@ -55,11 +73,29 @@ page {
   );
   --gradient-companion: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 56%, #fdf2f8 100%);
   --gradient-action: var(--figma-gradient-dark);
+  --gradient-skeleton: linear-gradient(90deg, #eceef3 25%, #fafbfc 50%, #eceef3 75%);
+  --gradient-skeleton-cool: linear-gradient(90deg, #eceef7 25%, #f9faff 50%, #eceef7 75%);
+  --gradient-warning: linear-gradient(90deg, #e9963f, #f4c568);
 
   --shadow-card: var(--figma-shadow-card);
   --shadow-card-strong: var(--figma-shadow-card-strong);
   --shadow-primary: 0 14rpx 36rpx rgba(17, 24, 39, 0.16);
   --shadow-ai: 0 18rpx 48rpx rgba(173, 70, 255, 0.2);
+  --shadow-toolbar: 0 8rpx 30rpx rgba(17, 24, 39, 0.025);
+  --shadow-toolbar-action: 0 8rpx 20rpx rgba(124, 58, 237, 0.2);
+  --shadow-dock: 0 -12rpx 36rpx rgba(17, 24, 39, 0.04);
+  --shadow-dock-strong: 0 -20rpx 80rpx rgba(17, 24, 39, 0.12);
+  --shadow-reader: 0 -18rpx 60rpx rgba(21, 27, 62, 0.16);
+  --shadow-overlay: 0 -20rpx 70rpx rgba(17, 20, 38, 0.22);
+  --shadow-primary-soft: 0 12rpx 30rpx rgba(79, 70, 229, 0.18);
+  --shadow-community: 0 12rpx 34rpx rgba(45, 52, 94, 0.06);
+  --shadow-brain-card: 0 9rpx 34rpx rgba(17, 24, 39, 0.034);
+  --shadow-workbench-wide: 0 10px 32px rgba(190, 120, 60, 0.08);
+  --gradient-brain-halo: radial-gradient(
+    circle at 88% 0%,
+    rgba(199, 210, 254, 0.34),
+    transparent 27%
+  );
 
   --radius-hero: var(--figma-radius-card-large);
   --radius-card: var(--figma-radius-card-large);

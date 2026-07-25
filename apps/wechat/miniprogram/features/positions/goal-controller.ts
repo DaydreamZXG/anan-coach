@@ -457,7 +457,7 @@ export class PositionGoalController {
 function missingPositionIdError(): PositionOperationError {
   return {
     status: "error",
-    title: "主目标确认地址无效",
+    title: "还不能确认主目标",
     message: "当前页面缺少明确的岗位信息，请返回岗位列表后重新进入。",
     requestId: "",
     retryable: false,

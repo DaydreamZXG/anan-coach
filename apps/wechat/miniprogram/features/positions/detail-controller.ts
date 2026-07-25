@@ -248,7 +248,7 @@ export class PositionDetailController {
 function missingPositionIdError(pageName: string): PositionOperationError {
   return {
     status: "error",
-    title: `${pageName}地址无效`,
+    title: `还不能打开${pageName}`,
     message: "当前页面缺少明确的岗位信息，请返回岗位列表后重新进入。",
     requestId: "",
     retryable: false,

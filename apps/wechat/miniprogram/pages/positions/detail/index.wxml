@@ -1,9 +1,5 @@
 <view class="position-screen position-screen--detail">
-  <safe-top gap="8" />
-
-  <view class="position-nav">
-    <button hover-class="item--hover" class="position-nav__back" bindtap="goBack" aria-label="返回"><text class="position-nav__chevron"></text></button>
-  </view>
+  <workbench-nav id="runtime-workbench-nav" title="岗位详情" back-behavior="emit" bind:back="goBack" />
 
   <view class="position-content position-content--detail">
     <state-view wx:if="{{!state || state.status === 'idle' || state.status === 'loading'}}" state="loading" />
@@ -110,7 +106,7 @@
       <view wx:if="{{state.confirmationMessage}}" class="position-success-message">{{state.confirmationMessage}}</view>
       <view wx:if="{{state.commandError}}" class="position-inline-alert">
         {{state.commandError.message}}
-        <text wx:if="{{state.commandError.requestId}}"> · {{state.commandError.requestId}}</text>
+        <text wx:if="{{state.commandError.requestId}}"> · 问题编号 {{state.commandError.requestId}}</text>
       </view>
       <view class="detail-bottom-spacer"></view>
     </block>
@@ -118,11 +114,11 @@
 
   <view wx:if="{{state && state.status === 'ready'}}" class="detail-actions">
     <view class="detail-actions__row">
-      <button hover-class="item--hover" class="detail-actions__compare {{comparisonSelected ? 'detail-actions__compare--selected' : ''}}" bindtap="toggleComparison">
+      <button hover-class="item--hover" class="control-center detail-actions__compare {{comparisonSelected ? 'detail-actions__compare--selected' : ''}}" bindtap="toggleComparison">
         {{comparisonSelected ? '已加入对比' : '加入对比 (' + comparisonCount + '/3)'}}
       </button>
       <button hover-class="item--hover"
-        class="detail-actions__primary {{state.eligibilityStatus !== 'eligible' || state.summaryView.targetScoreExpired ? 'detail-actions__primary--disabled' : ''}} tap-tactile"
+        class="control-center detail-actions__primary {{state.eligibilityStatus !== 'eligible' || state.summaryView.targetScoreExpired ? 'detail-actions__primary--disabled' : ''}} tap-tactile"
         disabled="{{state.eligibilityStatus !== 'eligible' || state.summaryView.targetScoreExpired}}"
         bindtap="openGoalChange"
       >{{state.eligibilityStatus !== 'eligible' ? '资格确认后才能选择' : (state.summaryView.targetScoreExpired ? '依据过期，请重新核验' : '设为主目标')}}</button>
@@ -135,7 +131,7 @@
     <view class="sheet-handle"></view>
     <view class="sheet-header">
       <view class="sheet-title">分数线判断依据</view>
-      <button hover-class="item--hover" class="sheet-close" bindtap="closeScoreSheet">×</button>
+      <button hover-class="item--hover" class="control-center sheet-close" bindtap="closeScoreSheet">×</button>
     </view>
     <view class="evidence-sheet__card">
       <view class="evidence-sheet__label">岗位目标分证据</view>
@@ -149,6 +145,6 @@
       <view wx:if="{{state.fit.evidenceReasonLabel}}" class="evidence-sheet__copy">{{state.fit.evidenceReasonLabel}}</view>
     </view>
     <view class="evidence-sheet__note">这是备考定位，不是录取概率。资格条件仍以官方职位表和公告为准。</view>
-    <button hover-class="item--hover" class="sheet-button sheet-button--primary tap-tactile" bindtap="closeScoreSheet">明白了</button>
+    <button hover-class="item--hover" class="control-center sheet-button sheet-button--primary tap-tactile" bindtap="closeScoreSheet">明白了</button>
   </view>
 </view>

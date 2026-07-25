@@ -10,10 +10,27 @@ import profileTemplate from "../miniprogram/pages/me/index.wxml?raw";
 import profileStyles from "../miniprogram/pages/me/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import tabBarStyles from "../miniprogram/custom-tab-bar/index.wxss?raw";
+// @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
+import tabBarTemplate from "../miniprogram/custom-tab-bar/index.wxml?raw";
+// @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
+import componentHostTokens from "../miniprogram/design-system/tokens/component-host.tokens.wxss?raw";
+// @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
+import designFileTokens from "../miniprogram/design-system/tokens/design-file.tokens.wxss?raw";
+// @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
+import semanticTokens from "../miniprogram/design-system/tokens/index.wxss?raw";
 
 function countMatches(source: unknown, pattern: RegExp): number {
   if (typeof source !== "string") throw new Error("Raw mini-program asset must be text.");
   return source.match(pattern)?.length ?? 0;
+}
+
+function tokenValue(source: unknown, token: string): string {
+  if (typeof source !== "string") throw new Error("Raw mini-program asset must be text.");
+  const escaped = token.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
+  const match = source.match(new RegExp(`${escaped}:\\s*([^;]+);`, "u"));
+  const value = match?.[1];
+  if (!value) throw new Error(`Missing design token ${token}.`);
+  return value.trim();
 }
 
 describe("Design File core tab composition", () => {
@@ -30,7 +47,7 @@ describe("Design File core tab composition", () => {
   });
 
   it("keeps the Anan first viewport aligned to the Design File control console", () => {
-    expect(ananTemplate).toContain('<safe-top mode="status" gap="16" />');
+    expect(ananTemplate).toContain('<safe-top gap="4" />');
     expect(ananTemplate).toContain('src="/assets/icons/anan/brain-outline-white.svg"');
     expect(countMatches(ananTemplate, /class="suggestion-pill"/gu)).toBe(5);
     expect(ananTemplate).toContain('class="composer-surface"');
@@ -42,8 +59,27 @@ describe("Design File core tab composition", () => {
   });
 
   it("reserves the system safe area instead of adding it twice to the tab bar", () => {
+    expect(tabBarStyles).toContain('@import "../design-system/tokens/component-host.tokens.wxss"');
     expect(tabBarStyles).toContain("padding: 26rpx 48rpx max(64rpx, env(safe-area-inset-bottom))");
     expect(tabBarStyles).not.toContain("calc(64rpx + env(safe-area-inset-bottom))");
     expect(tabBarStyles).toContain("line-height: 30rpx");
+    expect(tabBarTemplate).toContain('class="tab-bar component-token-host"');
+  });
+
+  it("keeps isolated tab-bar host tokens synchronized with the Design File", () => {
+    for (const token of [
+      "--figma-color-canvas",
+      "--figma-color-surface",
+      "--figma-color-surface-subtle",
+      "--figma-color-ink",
+      "--figma-color-faint",
+      "--figma-color-line",
+      "--figma-font-tab",
+    ]) {
+      expect(tokenValue(componentHostTokens, token)).toBe(tokenValue(designFileTokens, token));
+    }
+    expect(tokenValue(componentHostTokens, "--z-sticky")).toBe(
+      tokenValue(semanticTokens, "--z-sticky"),
+    );
   });
 });

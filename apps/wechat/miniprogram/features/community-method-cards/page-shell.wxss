@@ -74,7 +74,7 @@
   border: 1rpx solid var(--color-line);
   border-radius: 28rpx;
   background: var(--color-surface);
-  box-shadow: 0 12rpx 34rpx rgba(45, 52, 94, 0.06);
+  box-shadow: var(--shadow-community);
 }
 
 .section-label {
@@ -194,22 +194,22 @@
   margin-top: 20rpx;
 }
 
-.action-button {
+button.action-button.action-button {
   width: 100%;
   min-height: 80rpx;
   margin: 24rpx 0 0;
   border: 0;
   border-radius: 20rpx;
   background: var(--color-primary);
-  color: #fff;
+  color: var(--color-surface);
   font-size: 24rpx;
   font-weight: 800;
   line-height: 80rpx;
 }
 
 .action-button--disabled {
-  background: #dfe2ef;
-  color: #9297aa;
+  background: var(--color-line-strong);
+  color: var(--ink-3);
 }
 
 .secondary-button {

@@ -1,9 +1,10 @@
-<view class="material-page" style="--material-capsule-reserve: {{capsuleReserve}}px;">
-  <safe-top mode="status" gap="{{0}}" />
-  <view class="material-header">
-    <view class="material-header__title">{{activeMaterialLabel}}</view>
-    <button class="material-close" bindtap="returnToWriter">关闭</button>
-  </view>
+<view class="material-page">
+  <workbench-nav
+    id="runtime-workbench-nav"
+    title="{{activeMaterialLabel || '申论材料'}}"
+    back-behavior="emit"
+    bind:back="returnToWriter"
+  />
 
   <state-view wx:if="{{status === 'loading'}}" state="loading" />
   <state-view
@@ -23,6 +24,7 @@
           wx:for="{{directory}}"
           wx:key="materialOrder"
           class="material-directory__item"
+          hover-class="item--hover"
           data-anchor="{{item.firstAnchorId}}"
           data-material-order="{{item.materialOrder}}"
           bindtap="scrollToMaterial"
@@ -36,6 +38,7 @@
 
     <view class="material-reader">
       <view
+        hover-class="item--hover"
         wx:for="{{segments}}"
         wx:key="segmentId"
         id="{{item.anchorId}}"
@@ -65,13 +68,13 @@
   <view wx:if="{{selectedSegmentId}}" class="selection-toolbar">
     <view class="selection-toolbar__mode">划线</view>
     <view class="selection-toolbar__divider"></view>
-    <button wx:if="{{insertMode}}" class="selection-toolbar__action" bindtap="addSelectionToOutline">加入提纲</button>
-    <button wx:if="{{insertMode}}" class="selection-toolbar__action" bindtap="quoteSelection">引用</button>
-    <button class="selection-toolbar__action" bindtap="copySelection">复制</button>
-    <button class="selection-toolbar__action selection-toolbar__action--muted" bindtap="clearSelection">取消</button>
+    <button wx:if="{{insertMode}}" hover-class="item--hover" class="selection-toolbar__action" bindtap="addSelectionToOutline">加入提纲</button>
+    <button wx:if="{{insertMode}}" hover-class="item--hover" class="selection-toolbar__action" bindtap="quoteSelection">引用</button>
+    <button hover-class="item--hover" class="selection-toolbar__action" bindtap="copySelection">复制</button>
+    <button hover-class="item--hover" class="selection-toolbar__action selection-toolbar__action--muted" bindtap="clearSelection">取消</button>
   </view>
 
   <view wx:if="{{workspace}}" class="material-dock">
-    <button class="material-return" bindtap="returnToWriter">⌄　返回作答</button>
+    <button hover-class="item--hover" class="material-return tap-tactile" bindtap="returnToWriter">⌄　返回作答</button>
   </view>
 </view>

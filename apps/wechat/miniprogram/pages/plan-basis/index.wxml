@@ -1,8 +1,5 @@
 <view class="basis-page">
-  <safe-top mode="status" gap="{{0}}" />
-  <view class="basis-nav">
-    <button class="basis-back" bindtap="exit"><view class="basis-back__icon"></view></button>
-  </view>
+  <workbench-nav id="runtime-workbench-nav" title="计划依据" back-behavior="emit" bind:back="exit" />
 
   <view class="basis-content">
     <state-view wx:if="{{status === 'loading'}}" state="loading" />
@@ -18,7 +15,7 @@
     <view wx:elif="{{status === 'empty'}}" class="basis-empty">
       <view class="basis-empty__title">今天没有待解释的任务</view>
       <view class="basis-empty__copy">{{errorMessage}}</view>
-      <button class="basis-empty__action" bindtap="exit">返回今日</button>
+      <button hover-class="item--hover" class="control-center basis-empty__action" bindtap="exit">返回今日</button>
     </view>
 
     <block wx:elif="{{focusTask}}">
@@ -51,7 +48,7 @@
               <view wx:for="{{invalidationConditions}}" wx:key="*this" class="invalidation-item">· {{item}}</view>
             </view>
           </view>
-          <button class="basis-toggle" bindtap="toggleExpanded">{{expanded ? '收起完整依据' : '查看完整依据'}} <text class="{{expanded ? 'basis-toggle__arrow--open' : ''}}">⌄</text></button>
+          <button hover-class="item--hover" class="basis-toggle" bindtap="toggleExpanded">{{expanded ? '收起完整依据' : '查看完整依据'}} <text class="{{expanded ? 'basis-toggle__arrow--open' : ''}}">⌄</text></button>
         </view>
       </view>
 
@@ -87,11 +84,11 @@
   </view>
 
   <view wx:if="{{status === 'ready' && focusTask}}" class="basis-footer">
-    <button class="basis-primary" loading="{{openingTask}}" bindtap="startTask">开始这项训练 <text>›</text></button>
+    <button hover-class="item--hover" class="control-center basis-primary tap-tactile" loading="{{openingTask}}" bindtap="startTask">开始这项训练 <text>›</text></button>
     <view class="basis-footer__links">
-      <button class="basis-link" bindtap="openAdjustment">调整这项任务</button>
+      <button hover-class="item--hover" class="basis-link" bindtap="openAdjustment">调整这项任务</button>
       <view class="basis-footer__divider"></view>
-      <button class="basis-link basis-link--anan" bindtap="askAnan">带着这项安排问岸岸</button>
+      <button hover-class="item--hover" class="basis-link basis-link--anan" bindtap="askAnan">带着这项安排问岸岸</button>
     </view>
   </view>
 </view>

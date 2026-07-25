@@ -96,7 +96,7 @@ Page<PositionDetailPageData, PositionDetailPageCustom>({
       comparisonCount: comparisonIds.length,
     });
     if (!positionId) {
-      void wx.showToast({ title: "岗位地址缺少 positionId", icon: "none" });
+      void wx.showToast({ title: "岗位信息不完整，请返回重新选择", icon: "none" });
       return;
     }
     void controller.load();

@@ -48,7 +48,7 @@
     <view wx:if="{{partialErrorMessage}}" class="partial-warning">
       <view>{{partialErrorMessage}}</view>
     <view wx:if="{{partialRequestId}}" class="type-data">问题编号 · {{partialRequestId}}</view>
-      <button class="warning-action" bindtap="retryLoadMore">按原游标重试</button>
+      <button hover-class="item--hover" class="warning-action" bindtap="retryLoadMore">按原游标重试</button>
     </view>
 
     <state-view wx:if="{{!items.length}}" custom-class="mastery-state-view" state="empty" title="{{emptyTitle}}" description="{{emptyDescription}}" />
@@ -67,7 +67,7 @@
         <text>{{item.evidenceLabel}}</text>
       </view>
       <view wx:if="{{item.invalidated}}" class="invalidated-copy">这道题已下线，还能看到当时的记录，但不再计入能力分析。</view>
-      <button
+      <button hover-class="item--hover"
         wx:if="{{item.actionAvailable}}"
         class="card-action {{item.actionState === 'awaiting_plan' ? 'card-action--secondary' : ''}}"
         data-itemid="{{item.itemId}}"
@@ -76,7 +76,7 @@
     </view>
 
     <view wx:if="{{items.length}}" class="pagination">
-      <button wx:if="{{hasMore && !loadingMore && !partialErrorMessage}}" class="load-more" bindtap="loadMore">加载更多</button>
+      <button hover-class="item--hover" wx:if="{{hasMore && !loadingMore && !partialErrorMessage}}" class="load-more" bindtap="loadMore">加载更多</button>
       <view wx:elif="{{loadingMore}}" class="page-note">正在读取下一页记录…</view>
       <view wx:elif="{{!hasMore}}" class="page-note">已显示当前分组全部记录</view>
     </view>

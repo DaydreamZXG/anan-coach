@@ -1,5 +1,5 @@
 <view class="page external-page packets-page">
-  <workbench-nav title="我的学习包" />
+  <workbench-nav id="runtime-workbench-nav" title="我的学习包" />
   <view class="external-hero">
     <view class="external-hero__copy">
       <view class="external-eyebrow">我的学习包</view>
@@ -15,7 +15,7 @@
 
   <block wx:else>
     <view class="delivery-strip">
-      <text>题目候选 {{state.eligibleContent.length}} 个 · 学习包 {{state.packets.length}} 份</text>
+      <text>可用题目 {{state.eligibleContent.length}} 道 · 学习包 {{state.packets.length}} 份</text>
       <text wx:if="{{state.generatedAt}}">生成于 {{state.generatedAt}}</text>
     </view>
     <view wx:if="{{state.refreshError}}" class="inline-warning">没刷新成功，先看着之前的内容。<view hover-class="item--hover" class="inline-link" bindtap="retryLoad">重新加载 · {{state.refreshError.requestId}}</view></view>
@@ -36,14 +36,14 @@
       <view class="field-label">选择题目</view>
       <view wx:for="{{state.eligibleContent}}" wx:key="contentVersionId">
         <view hover-class="item--hover" wx:if="{{item.track === state.track}}" class="content-row {{item.selected ? 'content-row--selected' : ''}}" role="checkbox" aria-checked="{{item.selected}}" data-id="{{item.contentVersionId}}" bindtap="toggleContent">
-          <view><view class="content-title">{{item.title}}</view><view class="card-copy">{{item.sourceLabel}} · {{item.versionLabel}}</view></view>
+          <view><view class="content-title">{{item.title}}</view><view class="card-copy">{{item.sourceLabel}} · 已确认</view></view>
           <view class="content-check">{{item.selected ? '✓' : '＋'}}</view>
         </view>
       </view>
       <view wx:if="{{!state.visibleEligibleContentCount}}" class="inline-note">这个科目还没有确认好的题目。<view hover-class="item--hover" class="inline-link" bindtap="openCaptureImport">去拍题或导入 →</view></view>
       <view wx:if="{{state.validationError}}" class="inline-error">{{state.validationError}}</view>
       <view wx:if="{{state.error}}" class="inline-error">{{state.error.message}}<view wx:if="{{state.error.requestId}}">问题编号 · {{state.error.requestId}}</view></view>
-      <view class="action-stack"><ui-button label="{{state.pendingRecovery ? '确认刚才的结果' : '生成学习包'}}" loading="{{state.creating}}" disabled="{{!state.visibleEligibleContentCount || state.operatingPacketId || state.openingPacketVersionId}}" bind:action="createPacket" /></view>
+      <view class="action-stack"><ui-button label="{{state.pendingRecovery ? '查看刚才的生成结果' : '生成学习包'}}" loading="{{state.creating}}" disabled="{{state.visibleEligibleContentCount <= 0 || state.operatingPacketId !== '' || state.openingPacketVersionId !== ''}}" bind:action="createPacket" /></view>
       <view class="card-copy">生成过程中可以离开本页，稍后回来会继续显示进度。</view>
     </view>
 
@@ -51,7 +51,7 @@
     <state-view wx:if="{{!state.packets.length}}" custom-class="packets-state-view" state="empty" title="还没有学习包" description="选择已确认的题目后生成第一份；尚未核对的识别内容不会出现在这里。" />
     <view wx:for="{{state.packets}}" wx:key="packetVersionId" class="external-card packet-card">
       <view class="packet-head">
-        <view><view class="card-title">{{item.displayTitle}}</view><view class="card-copy">{{item.versionLabel}} · {{item.itemCountLabel}} · {{item.renderFormat === 'pdf' ? 'PDF' : '笔记文件'}}</view></view>
+        <view><view class="card-title">{{item.displayTitle}}</view><view class="card-copy">{{item.itemCountLabel}} · {{item.renderFormat === 'pdf' ? 'PDF 打印包' : '笔记文件'}}</view></view>
         <view class="status-pill status-pill--{{item.stateTone}}">{{item.stateLabel}}</view>
       </view>
       <view class="packet-meta"><text>创建 {{item.createdAtLabel}}</text><text>{{item.expiresAtLabel}}</text></view>

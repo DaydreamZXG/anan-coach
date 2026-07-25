@@ -8,6 +8,13 @@ import {
   restoreMaterialReaderState,
 } from "../miniprogram/task-runtime/material-reader/state";
 
+// @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
+import materialReaderTemplate from "../miniprogram/task-runtime/material-reader/index.wxml?raw";
+// @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
+import practiceTemplate from "../miniprogram/pages/practice/index.wxml?raw";
+// @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
+import mockExamTemplate from "../miniprogram/pages/mock-exam/index.wxml?raw";
+
 describe("stage 2 shared material reader", () => {
   it("starts question-first and supports the 72% drawer and fullscreen state sequence", () => {
     const initial = createMaterialReaderState();
@@ -78,5 +85,15 @@ describe("stage 2 shared material reader", () => {
       reduceMaterialReader(state, { type: "ANCHOR_CHANGED", anchorId: "表一-地区结构" }).position
         .anchorId,
     ).toBe("表一-地区结构");
+  });
+
+  it("shows shared material inline before the question and keeps immersive reading available", () => {
+    expect(materialReaderTemplate).toContain("material-reader__inline");
+    expect(materialReaderTemplate).toContain("material-reader__inline-content");
+    expect(materialReaderTemplate).toContain('aria-label="沉浸阅读材料"');
+    expect(materialReaderTemplate).not.toContain(">查看材料</text>");
+    expect(practiceTemplate).toContain('class="material-reader-shell"');
+    expect(mockExamTemplate).toContain('wx:if="{{question.material}}"');
+    expect(mockExamTemplate).not.toContain('wx:if="{{materialOpen && question.material}}"');
   });
 });

@@ -1,3 +1,5 @@
+@import "../../../features/onboarding/page-shell.wxss";
+
 .baseline-page {
   display: flex;
   min-height: 100vh;
@@ -7,60 +9,13 @@
   color: var(--ink);
 }
 
-.baseline-nav {
-  position: relative;
-  box-sizing: border-box;
-  display: flex;
-  height: 112rpx;
-  align-items: center;
-  padding: 0 32rpx;
-  border-bottom: 1rpx solid var(--line);
-  background: rgba(255, 255, 255, 0.8);
-}
-
-.nav-back,
-.nav-save,
 .baseline-primary {
   margin: 0;
   border: 0;
 }
 
-.nav-back::after,
-.nav-save::after,
 .baseline-primary::after {
   border: 0;
-}
-
-.nav-back {
-  display: flex;
-  width: 64rpx;
-  height: 80rpx;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0;
-  background: transparent;
-}
-
-.nav-back__icon {
-  width: 48rpx;
-  height: 48rpx;
-}
-
-.nav-title {
-  margin-left: 24rpx;
-  margin-right: auto;
-  font-size: 32rpx;
-  font-weight: 700;
-}
-
-.nav-save {
-  padding: 12rpx 24rpx;
-  border-radius: var(--figma-radius-pill);
-  background: var(--primary-soft);
-  color: var(--primary);
-  font-size: 24rpx;
-  font-weight: 700;
-  line-height: 39rpx;
 }
 
 .baseline-state {
@@ -110,7 +65,9 @@
   border-radius: 48rpx;
   background: var(--color-surface);
   box-shadow: 0 8rpx 40rpx rgba(0, 0, 0, 0.02);
-  transition: border-color 160ms ease, box-shadow 160ms ease;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
 }
 
 .baseline-card--unknown-selected {
@@ -289,14 +246,6 @@
   background: var(--line);
   color: var(--ink-3);
   box-shadow: none;
-}
-
-button.nav-back {
-  width: 64rpx;
-}
-
-button.nav-save {
-  width: auto;
 }
 
 button.baseline-primary {

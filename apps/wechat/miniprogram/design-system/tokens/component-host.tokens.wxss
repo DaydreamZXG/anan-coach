@@ -1,0 +1,15 @@
+/*
+ * Custom components are rendered in an isolated style tree and do not inherit
+ * variables declared on `page`. Keep the small host bridge below synchronized
+ * with design-file.tokens.wxss; design-file-core-tabs.test.ts enforces it.
+ */
+.component-token-host {
+  --figma-color-canvas: #f7f9fc;
+  --figma-color-surface: #ffffff;
+  --figma-color-surface-subtle: #f9fafb;
+  --figma-color-ink: #101828;
+  --figma-color-faint: #99a1af;
+  --figma-color-line: #f3f4f6;
+  --figma-font-tab: 20rpx;
+  --z-sticky: 30;
+}

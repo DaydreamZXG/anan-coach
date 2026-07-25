@@ -1,53 +1,13 @@
 .review-page {
-  --review-capsule-reserve: 0px;
   box-sizing: border-box;
   min-height: 100vh;
   background: var(--color-canvas);
   color: var(--color-ink);
 }
 
-.review-header {
-  display: grid;
-  grid-template-columns: 56rpx minmax(0, 1fr);
-  min-height: 88rpx;
-  align-items: center;
-  gap: var(--figma-space-12);
-  padding: 0 calc(var(--review-capsule-reserve) + var(--figma-space-16)) 0
-    var(--space-page-x);
-  border-bottom: 1rpx solid var(--color-line);
-  background: var(--color-surface);
-}
-
-.review-back {
-  position: relative;
-  width: 56rpx;
-  height: 56rpx;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: none;
-}
-
-.review-back::after,
 .review-rewrite::after,
 .review-anan::after {
   border: 0;
-}
-
-.review-back__icon {
-  position: absolute;
-  top: 18rpx;
-  left: 21rpx;
-  width: 16rpx;
-  height: 16rpx;
-  transform: rotate(45deg);
-  border-bottom: 3rpx solid var(--color-ink);
-  border-left: 3rpx solid var(--color-ink);
-}
-
-.review-header__title {
-  font-size: var(--figma-font-body);
-  font-weight: 760;
 }
 
 .review-content {
@@ -55,8 +15,7 @@
   width: 100%;
   max-width: 720px;
   margin: 0 auto;
-  padding: var(--figma-space-24) var(--space-page-x)
-    calc(250rpx + env(safe-area-inset-bottom));
+  padding: var(--figma-space-24) var(--space-page-x) calc(250rpx + env(safe-area-inset-bottom));
 }
 
 .review-score-card {
@@ -391,10 +350,6 @@
   background: var(--color-action);
   color: var(--color-on-primary);
   box-shadow: var(--figma-shadow-elevated);
-}
-
-button.review-back {
-  width: 56rpx;
 }
 
 button.review-rewrite,

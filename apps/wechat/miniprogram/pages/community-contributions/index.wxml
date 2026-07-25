@@ -58,16 +58,16 @@
     </view>
 
     <view class="community-section">
-      <view class="section-label">奖励记录</view>
-      <view class="section-title">奖励批次与流水编号</view>
+      <view class="section-label">贡献奖励记录</view>
+      <view class="section-title">每一次发放和权益变化都会留下记录</view>
       <view wx:if="{{!awardIds.length && !entryIds.length}}" class="section-copy">现在还没有奖励记录。</view>
-      <view wx:for="{{awardIds}}" wx:key="*this" class="ledger-row">
-        <view class="choice-title">奖励批次</view>
-        <view class="choice-copy type-data">{{item}}</view>
+      <view wx:if="{{awardIds.length}}" class="ledger-row">
+        <view class="choice-title">已发放奖励</view>
+        <view class="choice-copy">{{awardIds.length}} 次</view>
       </view>
-      <view wx:for="{{entryIds}}" wx:key="*this" class="ledger-row">
-        <view class="choice-title">奖励流水</view>
-        <view class="choice-copy type-data">{{item}}</view>
+      <view wx:if="{{entryIds.length}}" class="ledger-row">
+        <view class="choice-title">权益变化</view>
+        <view class="choice-copy">{{entryIds.length}} 条</view>
       </view>
     </view>
   </block>

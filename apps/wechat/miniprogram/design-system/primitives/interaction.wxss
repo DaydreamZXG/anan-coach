@@ -1,0 +1,21 @@
+.item--hover {
+  transform: scale(0.985);
+  opacity: 0.88;
+  transition:
+    transform 0.08s cubic-bezier(0.2, 0, 0.2, 1),
+    opacity 0.08s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+/*
+ * A fixed-height native WeChat button does not vertically center a normal
+ * line box after the product reset removes the platform's default line-height.
+ * Flat controls opt into this shared content contract; structured cards keep
+ * owning their own flex/grid layout.
+ */
+button.control-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.3;
+}

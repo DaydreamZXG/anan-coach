@@ -35,12 +35,12 @@
       <view class="s9-section-head"><view class="s9-section-title">导出个人数据</view><view class="s9-section-meta">生成后 24 小时过期</view></view>
       <view class="s9-card export-card">
         <view class="s9-card-copy export-copy">包含账户、资格岗位、学习记录、原始资料信息、报告、订单和权益；不包含密钥和第三方支付凭据。</view>
-        <button wx:if="{{!exportRequest}}" class="privacy-secondary" loading="{{exporting || restoringExport}}" bindtap="createExport">生成数据导出</button>
+        <button hover-class="item--hover" wx:if="{{!exportRequest}}" class="privacy-secondary" loading="{{exporting || restoringExport}}" bindtap="createExport">生成数据导出</button>
         <block wx:else>
           <view class="export-state">{{exportStateLabel}}</view>
-          <button wx:if="{{exportCanRefresh}}" class="privacy-secondary" loading="{{restoringExport}}" bindtap="refreshExport">查看生成进度</button>
-          <button wx:elif="{{exportCanOpen}}" class="privacy-secondary" loading="{{openingExport}}" bindtap="openExport">保存或转发导出文件</button>
-          <button wx:elif="{{exportCanRestart}}" class="privacy-secondary" loading="{{exporting}}" bindtap="restartExport">重新生成</button>
+          <button hover-class="item--hover" wx:if="{{exportCanRefresh}}" class="privacy-secondary" loading="{{restoringExport}}" bindtap="refreshExport">查看生成进度</button>
+          <button hover-class="item--hover" wx:elif="{{exportCanOpen}}" class="privacy-secondary" loading="{{openingExport}}" bindtap="openExport">保存或转发导出文件</button>
+          <button hover-class="item--hover" wx:elif="{{exportCanRestart}}" class="privacy-secondary" loading="{{exporting}}" bindtap="restartExport">重新生成</button>
         </block>
       </view>
     </view>
@@ -51,7 +51,7 @@
         <view class="deletion-copy" wx:for="{{overview.accountDeletionEffect}}" wx:key="*this"><text class="danger-dot"></text><text>{{item}}</text></view>
         <view class="phrase-label">请完整输入：<text class="phrase-label__value">{{confirmationPhrase}}</text></view>
         <input class="phrase-input" value="{{deletionPhrase}}" placeholder="输入确认短语" bindinput="onDeletionPhraseInput" />
-        <button class="delete-button {{deletionPhrase !== confirmationPhrase ? 'delete-button--disabled' : ''}}" disabled="{{deletionPhrase !== confirmationPhrase}}" loading="{{deleting}}" bindtap="requestDeletion">删除我的账户</button>
+        <button hover-class="item--hover" class="delete-button {{deletionPhrase !== confirmationPhrase ? 'delete-button--disabled' : ''}}" disabled="{{deletionPhrase !== confirmationPhrase}}" loading="{{deleting}}" bindtap="requestDeletion">删除我的账户</button>
       </view>
     </view>
     <view wx:if="{{errorMessage}}" class="s9-inline-error">{{errorMessage}}</view>

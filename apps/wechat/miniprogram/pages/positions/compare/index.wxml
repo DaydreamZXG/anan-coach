@@ -1,11 +1,5 @@
 <view class="position-screen position-screen--compare">
-  <safe-top gap="8" />
-
-  <view class="position-nav position-nav--center">
-    <button class="position-nav__back" bindtap="goBack" aria-label="返回"><text class="position-nav__chevron"></text></button>
-    <text class="position-nav__title">岗位综合对比</text>
-    <view class="position-nav__placeholder"></view>
-  </view>
+  <workbench-nav id="runtime-workbench-nav" title="岗位综合对比" back-behavior="emit" bind:back="goBack" />
 
   <view class="position-content position-content--compare">
     <state-view wx:if="{{!state || state.status === 'idle' || state.status === 'loading'}}" state="loading" />
@@ -43,7 +37,7 @@
       <scroll-view class="comparison-scroll" scroll-x enable-flex>
         <view class="comparison-track">
           <view wx:for="{{state.items}}" wx:key="positionId" class="comparison-column">
-            <view class="comparison-column__header" data-id="{{item.positionId}}" bindtap="openPosition">
+            <view hover-class="item--hover" class="comparison-column__header" data-id="{{item.positionId}}" bindtap="openPosition">
               <view class="comparison-column__department">{{item.departmentFull}}</view>
               <view class="comparison-column__title">{{item.name}}</view>
               <view class="position-tag-row">
@@ -80,7 +74,7 @@
               </view>
             </view>
 
-            <button class="comparison-choose" data-id="{{item.positionId}}" bindtap="choosePosition">选定这个岗位</button>
+            <button hover-class="item--hover" class="control-center comparison-choose tap-tactile" data-id="{{item.positionId}}" bindtap="choosePosition">选定这个岗位</button>
           </view>
         </view>
       </scroll-view>

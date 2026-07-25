@@ -1,5 +1,5 @@
 <view class="profile-page">
-  <safe-top mode="status" gap="52" />
+  <safe-top gap="4" />
 
   <view class="profile-content">
     <state-view wx:if="{{status === 'loading'}}" state="loading" />

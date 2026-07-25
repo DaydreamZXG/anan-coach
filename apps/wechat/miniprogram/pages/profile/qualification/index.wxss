@@ -8,23 +8,6 @@
   color: var(--ink);
 }
 
-.qualification-nav {
-  box-sizing: border-box;
-  display: flex;
-  height: 112rpx;
-  align-items: center;
-  padding: 0 32rpx;
-  border-bottom: 1rpx solid var(--line);
-  background: rgba(255, 255, 255, 0.8);
-}
-
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 20rpx;
-}
-
-.nav-back,
 .choice-row,
 .choice-chip,
 .year-option,
@@ -35,7 +18,6 @@
   border: 0;
 }
 
-.nav-back::after,
 .choice-row::after,
 .choice-chip::after,
 .year-option::after,
@@ -43,30 +25,6 @@
 .primary-action::after,
 .text-action::after {
   border: 0;
-}
-
-.nav-back {
-  display: flex;
-  width: 64rpx;
-  height: 80rpx;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0;
-  background: transparent;
-}
-
-.nav-back__icon {
-  width: 18rpx;
-  height: 18rpx;
-  transform: rotate(45deg);
-  border-bottom: 3rpx solid var(--ink);
-  border-left: 3rpx solid var(--ink);
-}
-
-.nav-title {
-  font-size: 32rpx;
-  font-weight: 700;
-  line-height: 48rpx;
 }
 
 .qualification-state {
@@ -135,7 +93,7 @@
 .progress-value {
   height: 100%;
   border-radius: 0 99rpx 99rpx 0;
-  background: linear-gradient(90deg, var(--primary), var(--figma-color-cyan-deep));
+  background: var(--gradient-ai);
   transition: width 180ms ease;
 }
 

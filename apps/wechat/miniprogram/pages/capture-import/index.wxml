@@ -1,13 +1,21 @@
 <view class="capture-page {{permissionDenied || (state && state.status === 'idle') ? 'capture-page--dark' : ''}}">
-  <state-view
-    wx:if="{{configurationError}}"
-    state="error"
-    title="拍照识别暂时无法使用"
-    description="{{configurationError}}"
-  />
+  <block wx:if="{{configurationError}}">
+    <workbench-nav id="runtime-workbench-nav" title="拍照搜题" back-behavior="emit" bind:back="goBack" />
+    <state-view
+      state="error"
+      title="拍照识别暂时无法使用"
+      description="{{configurationError}}"
+    />
+  </block>
 
   <block wx:elif="{{permissionDenied}}">
-    <safe-top gap="0" />
+    <workbench-nav
+      id="runtime-workbench-nav"
+      title="相机权限"
+      tone="dark"
+      back-behavior="emit"
+      bind:back="goBack"
+    />
     <view class="permission-screen">
       <view class="permission-icon"><text class="camera-glyph"></text></view>
       <view class="permission-title">需要相机权限</view>
@@ -18,7 +26,12 @@
   </block>
 
   <block wx:elif="{{receiptVisible}}">
-    <safe-top gap="0" />
+    <workbench-nav
+      id="runtime-workbench-nav"
+      title="处理结果"
+      back-behavior="emit"
+      bind:back="goBack"
+    />
     <view class="receipt-screen">
       <view class="receipt-icon">✓</view>
       <view class="receipt-title">处理完成</view>
@@ -35,12 +48,13 @@
   </block>
 
   <block wx:elif="{{state && state.status === 'idle' && captureStage === 'crop'}}">
-    <safe-top gap="0" />
-    <view class="capture-topbar capture-topbar--dark">
-      <button hover-class="item--hover" class="capture-back" bindtap="goBack"><text class="capture-back__chevron"></text></button>
-      <text class="capture-topbar__title">裁剪校正</text>
-      <view class="capture-topbar__side"></view>
-    </view>
+    <workbench-nav
+      id="runtime-workbench-nav"
+      title="裁剪校正"
+      tone="dark"
+      back-behavior="emit"
+      bind:back="goBack"
+    />
     <view class="crop-stage">
       <image class="crop-image" src="{{pendingFile.localPath}}" mode="aspectFit" />
       <view class="crop-frame">
@@ -51,16 +65,21 @@
       </view>
     </view>
     <view class="crop-actions">
-      <button hover-class="item--hover" class="crop-actions__quiet" bindtap="discardPendingImage">重拍</button>
-      <button hover-class="item--hover" class="crop-actions__tool" bindtap="editPendingImage">编辑裁剪</button>
-      <button hover-class="item--hover" class="crop-actions__confirm tap-tactile" bindtap="confirmPendingImage">确认</button>
+      <button hover-class="item--hover" class="control-center crop-actions__quiet" bindtap="discardPendingImage">重拍</button>
+      <button hover-class="item--hover" class="control-center crop-actions__tool" bindtap="editPendingImage">编辑裁剪</button>
+      <button hover-class="item--hover" class="control-center crop-actions__confirm tap-tactile" bindtap="confirmPendingImage">确认</button>
     </view>
   </block>
 
   <block wx:elif="{{state && state.status === 'idle'}}">
-    <safe-top gap="0" />
-    <view class="capture-topbar capture-topbar--dark">
-      <button hover-class="item--hover" class="capture-back" bindtap="goBack"><text class="capture-back__chevron"></text></button>
+    <workbench-nav
+      id="runtime-workbench-nav"
+      title="拍照搜题"
+      tone="dark"
+      back-behavior="emit"
+      bind:back="goBack"
+    />
+    <view class="capture-camera-tools">
       <view class="capture-mode-switch">
         <button hover-class="item--hover" class="capture-mode {{mode === 'search' ? 'capture-mode--active' : ''}}" data-mode="search" bindtap="chooseMode">单题</button>
         <button hover-class="item--hover" class="capture-mode {{mode === 'import' ? 'capture-mode--active' : ''}}" data-mode="import" bindtap="chooseMode">共享材料</button>
@@ -70,7 +89,7 @@
         class="capture-channel-entry"
         bindtap="openChannelSheet"
       >微信发图</button>
-      <view wx:else class="capture-topbar__side"></view>
+      <view wx:else class="capture-camera-tools__side"></view>
     </view>
 
     <view class="camera-workspace">
@@ -96,15 +115,19 @@
       <view class="camera-control camera-control--placeholder"></view>
     </view>
     <view wx:else class="material-actions">
-      <button hover-class="item--hover" class="material-action" bindtap="chooseAlbum">选择图片</button>
-      <button hover-class="item--hover" class="material-action material-action--primary tap-tactile" bindtap="choosePdf">导入 PDF</button>
+      <button hover-class="item--hover" class="control-center material-action" bindtap="chooseAlbum">选择图片</button>
+      <button hover-class="item--hover" class="control-center material-action material-action--primary tap-tactile" bindtap="choosePdf">导入 PDF</button>
     </view>
     <view wx:if="{{state.validationError}}" class="camera-error">{{state.validationError}}</view>
     <view class="camera-privacy">题图只用于本次识别与个人检索，不进入公共题库，不用于训练基础模型。</view>
   </block>
 
   <block wx:elif="{{state && (state.status === 'uploading' || state.status === 'processing')}}">
-    <safe-top gap="0" />
+    <workbench-nav
+      id="runtime-workbench-nav"
+      title="识别处理中"
+      show-back="{{false}}"
+    />
     <view class="searching-screen">
       <view class="searching-spinner"></view>
       <view class="searching-title">{{state.status === 'uploading' ? '正在读取题面...' : '正在全库检索...'}}</view>
@@ -113,12 +136,12 @@
   </block>
 
   <block wx:elif="{{state && (state.status === 'expired' || state.status === 'quarantined' || state.status === 'error')}}">
-    <safe-top gap="0" />
-    <view class="capture-topbar">
-      <button hover-class="item--hover" class="capture-back" bindtap="goBack"><text class="capture-back__chevron"></text></button>
-      <text class="capture-topbar__title">拍照搜题</text>
-      <view class="capture-topbar__side"></view>
-    </view>
+    <workbench-nav
+      id="runtime-workbench-nav"
+      title="拍照搜题"
+      back-behavior="emit"
+      bind:back="goBack"
+    />
     <view class="capture-state-wrap">
       <state-view
         state="{{state.status === 'expired' ? 'stale' : 'error'}}"
@@ -132,11 +155,14 @@
   </block>
 
   <block wx:elif="{{state && state.status === 'review' && state.reviewStep === 'recognition'}}">
-    <safe-top gap="0" />
-    <view class="capture-topbar">
-      <button hover-class="item--hover" class="capture-back" bindtap="restart"><text class="capture-back__chevron"></text></button>
-      <text class="capture-topbar__title">核对识别内容</text>
-      <button hover-class="item--hover" class="capture-topbar__text" bindtap="chooseCamera">重拍</button>
+    <workbench-nav
+      id="runtime-workbench-nav"
+      title="核对识别内容"
+      back-behavior="emit"
+      bind:back="restart"
+    />
+    <view class="capture-page-action-row">
+      <button hover-class="item--hover" class="control-center capture-page-action" bindtap="chooseCamera">重拍</button>
     </view>
 
     <view class="ocr-source-preview">
@@ -180,7 +206,11 @@
   </block>
 
   <block wx:elif="{{state && state.status === 'review' && state.reviewStep === 'match' && state.activeQuestionUnit && state.activeQuestionUnit.aiAnswer && (state.activeQuestionUnit.aiAnswer.state === 'requested' || state.activeQuestionUnit.aiAnswer.state === 'processing')}}">
-    <safe-top gap="0" />
+    <workbench-nav
+      id="runtime-workbench-nav"
+      title="AI 独立推理"
+      show-back="{{false}}"
+    />
     <view class="searching-screen">
       <view class="searching-spinner searching-spinner--cyan"></view>
       <view class="searching-title">AI 正在独立推理...</view>
@@ -189,12 +219,12 @@
   </block>
 
   <block wx:elif="{{state && state.status === 'review' && state.reviewStep === 'match' && state.activeQuestionUnit && state.activeQuestionUnit.aiAnswer && state.activeQuestionUnit.aiAnswer.state === 'failed'}}">
-    <safe-top gap="0" />
-    <view class="capture-topbar">
-      <button hover-class="item--hover" class="capture-back" bindtap="restart"><text class="capture-back__chevron"></text></button>
-      <text class="capture-topbar__title">拍照搜题</text>
-      <view class="capture-topbar__side"></view>
-    </view>
+    <workbench-nav
+      id="runtime-workbench-nav"
+      title="拍照搜题"
+      back-behavior="emit"
+      bind:back="restart"
+    />
     <view class="capture-state-wrap">
       <state-view
         state="error"
@@ -208,12 +238,12 @@
   </block>
 
   <block wx:elif="{{state && state.status === 'review' && state.reviewStep === 'match' && !state.activeQuestionUnit}}">
-    <safe-top gap="0" />
-    <view class="capture-topbar">
-      <button hover-class="item--hover" class="capture-back" bindtap="restart"><text class="capture-back__chevron"></text></button>
-      <text class="capture-topbar__title">拍照搜题</text>
-      <view class="capture-topbar__side"></view>
-    </view>
+    <workbench-nav
+      id="runtime-workbench-nav"
+      title="拍照搜题"
+      back-behavior="emit"
+      bind:back="restart"
+    />
     <view class="capture-state-wrap">
       <state-view
         state="empty"
@@ -227,12 +257,12 @@
   </block>
 
   <block wx:elif="{{state && state.status === 'review' && state.reviewStep === 'match' && state.activeQuestionUnit && state.activeQuestionUnit.state === 'unmatched' && !state.activeQuestionUnit.aiAnswer}}">
-    <safe-top gap="0" />
-    <view class="capture-topbar">
-      <button hover-class="item--hover" class="capture-back" bindtap="restart"><text class="capture-back__chevron"></text></button>
-      <view class="capture-topbar__side"></view>
-      <view class="capture-topbar__side"></view>
-    </view>
+    <workbench-nav
+      id="runtime-workbench-nav"
+      title="拍照搜题"
+      back-behavior="emit"
+      bind:back="restart"
+    />
     <view class="no-hit-screen">
       <view class="no-hit-icon"><text class="search-glyph"></text></view>
       <view class="no-hit-title">未在题库中找到完全一致的题目</view>
@@ -243,17 +273,17 @@
   </block>
 
   <block wx:elif="{{state && state.status === 'review' && state.reviewStep === 'match' && state.activeQuestionUnit && state.activeQuestionUnit.match && !state.activeQuestionUnit.aiAnswer}}">
-    <safe-top gap="0" />
-    <view class="capture-topbar">
-      <button hover-class="item--hover" class="capture-back" bindtap="restart"><text class="capture-back__chevron"></text></button>
-      <view class="capture-topbar__side"></view>
-      <view class="capture-topbar__side"></view>
-    </view>
+    <workbench-nav
+      id="runtime-workbench-nav"
+      title="匹配题目"
+      back-behavior="emit"
+      bind:back="restart"
+    />
     <view class="match-content">
       <view class="match-title">{{state.activeQuestionUnit.match.candidates.length > 1 ? '找到相似题目' : '找到匹配题目'}}</view>
       <view class="match-copy">{{state.activeQuestionUnit.match.candidates.length > 1 ? '题库中存在多道相似考题，请确认你要找的是哪一道。' : '请核对题面，确认是否为同一道题。'}}</view>
       <view class="question-unit-tabs" wx:if="{{state.workspace.questionUnits.length > 1}}">
-        <button hover-class="item--hover" wx:for="{{state.workspace.questionUnits}}" wx:key="questionUnitId" class="question-unit-tab {{index === state.activeQuestionUnitIndex ? 'question-unit-tab--active' : ''}}" data-index="{{index}}" bindtap="selectQuestionUnit">{{item.ordinal}}</button>
+        <button hover-class="item--hover" wx:for="{{state.workspace.questionUnits}}" wx:key="questionUnitId" class="control-center question-unit-tab {{index === state.activeQuestionUnitIndex ? 'question-unit-tab--active' : ''}}" data-index="{{index}}" bindtap="selectQuestionUnit">{{item.ordinal}}</button>
       </view>
       <view class="match-list">
         <button hover-class="item--hover"
@@ -280,16 +310,19 @@
   </block>
 
   <block wx:elif="{{state && (state.status === 'success' || (state.status === 'review' && state.activeQuestionUnit && state.activeQuestionUnit.aiAnswer && (state.activeQuestionUnit.aiAnswer.state === 'candidate' || state.activeQuestionUnit.aiAnswer.state === 'confirmed')))}}">
-    <safe-top gap="0" />
-    <view class="capture-topbar">
-      <button hover-class="item--hover" class="capture-back" bindtap="restart"><text class="capture-back__chevron"></text></button>
-      <text class="capture-topbar__title">题目解析</text>
-      <button hover-class="item--hover" class="capture-topbar__text" bindtap="restart">继续拍题</button>
+    <workbench-nav
+      id="runtime-workbench-nav"
+      title="题目解析"
+      back-behavior="emit"
+      bind:back="restart"
+    />
+    <view class="capture-page-action-row">
+      <button hover-class="item--hover" class="control-center capture-page-action" bindtap="restart">继续拍题</button>
     </view>
 
     <view class="solution-content">
       <view wx:if="{{state.workspace.questionUnits.length > 1}}" class="question-unit-tabs">
-        <button hover-class="item--hover" wx:for="{{state.workspace.questionUnits}}" wx:key="questionUnitId" class="question-unit-tab {{index === state.activeQuestionUnitIndex ? 'question-unit-tab--active' : ''}}" data-index="{{index}}" bindtap="selectQuestionUnit">{{item.ordinal}}</button>
+        <button hover-class="item--hover" wx:for="{{state.workspace.questionUnits}}" wx:key="questionUnitId" class="control-center question-unit-tab {{index === state.activeQuestionUnitIndex ? 'question-unit-tab--active' : ''}}" data-index="{{index}}" bindtap="selectQuestionUnit">{{item.ordinal}}</button>
       </view>
 
       <view wx:if="{{state.activeQuestionUnit.aiAnswer}}" class="ai-solution-banner">
@@ -379,12 +412,12 @@
       <block wx:elif="{{channelView.linkState === 'pending'}}">
         <view hover-class="item--hover" class="channel-code" bindtap="copyChannelCode"><text>{{channelExpired ? '连接码已过期' : channelView.bindingCode}}</text><text wx:if="{{!channelExpired}}">复制</text></view>
         <button hover-class="item--hover" class="capture-secondary-button" loading="{{channelWriting}}" bindtap="replaceChannelCode">{{channelExpired ? '重新生成' : '作废并换一个码'}}</button>
-        <button hover-class="item--hover" class="capture-danger-link tap-tactile" loading="{{channelWriting}}" bindtap="revokeChannelLink">取消连接</button>
+        <button hover-class="item--hover" class="control-center capture-danger-link tap-tactile" loading="{{channelWriting}}" bindtap="revokeChannelLink">取消连接</button>
       </block>
       <block wx:elif="{{channelView.linkState === 'bound'}}">
         <view class="channel-bound">● 已连接 · 已查询 {{channelView.queryCount}} 次</view>
         <view class="channel-state">{{channelView.evidenceCopy}}</view>
-        <button hover-class="item--hover" class="capture-danger-link tap-tactile" loading="{{channelWriting}}" bindtap="revokeChannelLink">解除连接</button>
+        <button hover-class="item--hover" class="control-center capture-danger-link tap-tactile" loading="{{channelWriting}}" bindtap="revokeChannelLink">解除连接</button>
       </block>
     </block>
   </view>

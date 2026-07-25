@@ -1,7 +1,6 @@
 import { EssayIntelligenceApi, type EssayReviewResponse } from "../../api/essay-intelligence";
 import { routes } from "../../app/navigation/routes";
 import { currentAuthSession } from "../../auth/session";
-import { measureSystemChrome } from "../../components/safe-top/metrics";
 import { storeCompanionLaunchContext } from "../../features/companion/context-store";
 import { errorView, requireAuthenticatedClient } from "../../features/learning-brain/presentation";
 import { reviewView } from "../../features/essay-workbench/presentation";
@@ -16,14 +15,12 @@ Page({
     taskVersionId: "",
     reviewVersionId: "",
     retryAllowed: false,
-    capsuleReserve: 0,
   },
 
   onLoad(options: Record<string, string | undefined>) {
     this.setData({
       taskVersionId: options.taskVersionId?.trim() ?? "",
       reviewVersionId: options.reviewVersionId?.trim() ?? "",
-      capsuleReserve: measureSystemChrome(8).capsuleReserve,
     });
     void this.loadReview();
   },

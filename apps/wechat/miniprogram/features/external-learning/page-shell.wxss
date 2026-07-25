@@ -241,7 +241,7 @@
   position: fixed;
   z-index: 90;
   inset: 0;
-  background: rgba(17, 20, 38, 0.52);
+  background: var(--color-mask-strong);
 }
 
 .confirmation-sheet {
@@ -255,7 +255,7 @@
   padding: 34rpx 28rpx calc(34rpx + env(safe-area-inset-bottom));
   border-radius: 40rpx 40rpx 0 0;
   background: var(--color-surface);
-  box-shadow: 0 -20rpx 70rpx rgba(17, 20, 38, 0.22);
+  box-shadow: var(--shadow-overlay);
 }
 
 .sheet-title {

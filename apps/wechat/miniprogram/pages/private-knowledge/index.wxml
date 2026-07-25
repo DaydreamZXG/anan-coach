@@ -1,11 +1,6 @@
 <view class="library-page">
   <block wx:if="{{busy && !reviewRevision && !backgroundProcessing}}">
-    <safe-top gap="0" />
-    <view class="library-topbar">
-      <button hover-class="item--hover" class="library-close" bindtap="runInBackground">×</button>
-      <view class="library-topbar__side"></view>
-      <view class="library-topbar__side"></view>
-    </view>
+    <workbench-nav id="runtime-workbench-nav" title="资料处理中" back-behavior="emit" bind:back="runInBackground" />
     <view class="processing-screen">
       <view class="processing-document">
         <image class="processing-document__icon" src="/assets/icons/today/file-text-secondary.png" mode="aspectFit" />
@@ -33,12 +28,7 @@
   </block>
 
   <block wx:else>
-    <safe-top gap="0" />
-    <view class="library-topbar">
-      <button hover-class="item--hover" class="library-back" bindtap="goBack"><text class="library-back__chevron"></text></button>
-      <view class="library-topbar__title">专属资料库</view>
-      <view class="library-topbar__side"></view>
-    </view>
+    <workbench-nav id="runtime-workbench-nav" title="专属资料库" back-behavior="emit" bind:back="goBack" />
 
     <block wx:if="{{status === 'loading' && !sources.length}}">
       <view class="library-state">
@@ -54,7 +44,7 @@
 
     <block wx:else>
       <view class="library-content">
-        <view class="library-intro">
+        <view id="library-home" class="library-intro">
           <view class="library-intro__title">岸岸的私有阅读室</view>
           <view class="library-intro__copy">你上传的笔记、讲义和错题卷，只用于提升你自己的答疑与检索。不与其他考生共享，不训练公共模型。</view>
         </view>
@@ -79,7 +69,7 @@
           </button>
         </view>
 
-        <view class="library-search">
+        <view id="library-search" class="library-search">
           <view class="library-search__icon"></view>
           <input
             class="library-search__input"
@@ -89,7 +79,7 @@
             bindinput="inputQuery"
             bindconfirm="search"
           />
-          <button hover-class="item--hover" class="search-button" loading="{{searching}}" bindtap="search">搜索</button>
+          <view wx:if="{{searching}}" class="library-search__status">检索中</view>
         </view>
 
         <view wx:if="{{searchStatus === 'error'}}" class="library-search-state library-search-state--error">
@@ -141,8 +131,8 @@
           </view>
           <view wx:if="{{errorMessage}}" class="library-inline-error">{{errorMessage}}</view>
           <view class="review-actions">
-            <button hover-class="item--hover" class="review-action review-action--quiet" bindtap="cancelReview">取消</button>
-            <button hover-class="item--hover" class="review-action review-action--primary tap-tactile" loading="{{busy}}" bindtap="confirmReview">确认并建立索引</button>
+            <button hover-class="item--hover" class="control-center review-action review-action--quiet" bindtap="cancelReview">取消</button>
+            <button hover-class="item--hover" class="control-center review-action review-action--primary tap-tactile" loading="{{busy}}" bindtap="confirmReview">确认并建立索引</button>
           </view>
         </view>
 
@@ -164,7 +154,7 @@
           </button>
         </view>
 
-        <view class="library-group">
+        <view id="library-sources" class="library-group">
           <view class="library-group__head">
             <view class="library-group__title">随时可引用</view>
             <view class="library-group__count">{{sources.length}} 份</view>
@@ -206,7 +196,6 @@
           <view>{{errorMessage}}</view>
           <view wx:if="{{requestId}}">问题编号 · {{requestId}}</view>
         </view>
-        <view class="library-bottom-spacer"></view>
       </view>
     </block>
   </block>
@@ -222,9 +211,9 @@
       <view class="import-kind">类型：{{documentKinds[documentKindIndex].label}} <text>⌄</text></view>
     </picker>
     <view class="import-actions">
-      <button hover-class="item--hover" class="import-action" disabled="{{busy}}" bindtap="chooseImage">图片</button>
-      <button hover-class="item--hover" class="import-action" disabled="{{busy}}" bindtap="choosePdf">PDF</button>
-      <button hover-class="item--hover" class="import-action" disabled="{{busy}}" bindtap="chooseMarkdown">Markdown</button>
+      <button hover-class="item--hover" class="control-center import-action" disabled="{{busy}}" bindtap="chooseImage">图片</button>
+      <button hover-class="item--hover" class="control-center import-action" disabled="{{busy}}" bindtap="choosePdf">PDF</button>
+      <button hover-class="item--hover" class="control-center import-action" disabled="{{busy}}" bindtap="chooseMarkdown">Markdown</button>
     </view>
   </ui-sheet>
 

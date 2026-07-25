@@ -1,15 +1,44 @@
 <view class="material-reader">
-  <button
+  <view
     wx:if="{{readerMode === 'question_first'}}"
-    class="material-reader__entry"
-    bindtap="openDrawer"
+    class="material-reader__inline material-reader__inline--{{preferences.colorMode}}"
   >
-    <view>
-      <view class="material-reader__entry-title">{{title}}</view>
-      <view class="material-reader__entry-meta">从上次位置继续 · {{zoomPercent}}%</view>
+    <view class="material-reader__inline-header">
+      <view class="material-reader__inline-heading">
+        <view class="material-reader__inline-kicker">共享材料</view>
+        <view class="material-reader__entry-title">{{title}}</view>
+      </view>
+      <button hover-class="item--hover"
+        class="material-reader__inline-expand"
+        aria-label="沉浸阅读材料"
+        bindtap="openDrawer"
+      >
+        <view class="material-reader__inline-chevron" aria-hidden="true"></view>
+      </button>
     </view>
-    <text class="material-reader__entry-action">查看材料</text>
-  </button>
+    <scroll-view
+      class="material-reader__inline-scroll"
+      scroll-y
+      enhanced
+      show-scrollbar="{{false}}"
+      scroll-top="{{position.scrollTop}}"
+      scroll-into-view="{{scrollIntoView}}"
+      bindscroll="onScroll"
+    >
+      <view class="material-reader__inline-content">
+        <content-renderer
+          blocks="{{blocks}}"
+          anchors="{{anchors}}"
+          zoom="{{position.zoom}}"
+          preferences="{{preferences}}"
+          freeze-first-column
+          freeze-header
+          bindanchorchange="onAnchorChange"
+          bindzoomchange="onZoomChange"
+        />
+      </view>
+    </scroll-view>
+  </view>
 
   <view hover-class="item--hover"
     wx:else
@@ -26,35 +55,35 @@
           <view class="material-reader__title">{{title}}</view>
           <view class="material-reader__position">位置已记录 · {{zoomPercent}}%</view>
         </view>
-        <button
+        <button hover-class="item--hover"
           wx:if="{{readerMode === 'drawer'}}"
           class="material-reader__header-action"
           bindtap="openFullscreen"
         >
           全屏
         </button>
-        <button
+        <button hover-class="item--hover"
           wx:else
           class="material-reader__header-action"
           bindtap="openDrawer"
         >
           收起
         </button>
-        <button class="material-reader__header-action" bindtap="returnToQuestion">回到题目</button>
+        <button hover-class="item--hover" class="material-reader__header-action" bindtap="returnToQuestion">回到题目</button>
       </view>
 
       <view class="material-reader__toolbar">
         <view class="material-reader__tool-group">
-          <button class="material-reader__tool" aria-label="缩小材料" bindtap="decreaseZoom">−</button>
+          <button hover-class="item--hover" class="material-reader__tool" aria-label="缩小材料" bindtap="decreaseZoom">−</button>
           <text class="material-reader__tool-value">{{zoomPercent}}%</text>
-          <button class="material-reader__tool" aria-label="放大材料" bindtap="increaseZoom">＋</button>
+          <button hover-class="item--hover" class="material-reader__tool" aria-label="放大材料" bindtap="increaseZoom">＋</button>
         </view>
         <view class="material-reader__tool-group">
-          <button class="material-reader__tool" aria-label="减小字号" bindtap="decreaseFont">A−</button>
+          <button hover-class="item--hover" class="material-reader__tool" aria-label="减小字号" bindtap="decreaseFont">A−</button>
           <text class="material-reader__tool-value">{{fontPercent}}%</text>
-          <button class="material-reader__tool" aria-label="增大字号" bindtap="increaseFont">A＋</button>
+          <button hover-class="item--hover" class="material-reader__tool" aria-label="增大字号" bindtap="increaseFont">A＋</button>
         </view>
-        <button
+        <button hover-class="item--hover"
           class="material-reader__eye-care {{eyeCare ? 'material-reader__eye-care--active' : ''}}"
           bindtap="toggleEyeCare"
         >

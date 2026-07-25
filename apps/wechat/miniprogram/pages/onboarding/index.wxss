@@ -1,3 +1,5 @@
+@import "../../features/onboarding/page-shell.wxss";
+
 .eligibility-page {
   display: flex;
   min-height: 100vh;
@@ -7,25 +9,6 @@
   color: var(--ink);
 }
 
-.eligibility-nav {
-  box-sizing: border-box;
-  display: flex;
-  height: 112rpx;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 32rpx;
-  border-bottom: 1rpx solid var(--line);
-  background: rgba(255, 255, 255, 0.8);
-}
-
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 24rpx;
-}
-
-.nav-back,
-.nav-save,
 .major-result,
 .catalog-retry,
 .service-option,
@@ -37,8 +20,6 @@
   border: 0;
 }
 
-.nav-back::after,
-.nav-save::after,
 .major-result::after,
 .catalog-retry::after,
 .service-option::after,
@@ -47,37 +28,6 @@
 .mark-later::after,
 .eligibility-primary::after {
   border: 0;
-}
-
-.nav-back {
-  display: flex;
-  width: 64rpx;
-  height: 80rpx;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0;
-  background: transparent;
-}
-
-.nav-back__icon {
-  width: 48rpx;
-  height: 48rpx;
-}
-
-.nav-title {
-  font-size: 32rpx;
-  font-weight: 700;
-  line-height: 48rpx;
-}
-
-.nav-save {
-  padding: 12rpx 24rpx;
-  border-radius: var(--figma-radius-pill);
-  background: var(--primary-soft);
-  color: var(--primary);
-  font-size: 24rpx;
-  font-weight: 700;
-  line-height: 39rpx;
 }
 
 .eligibility-state {
@@ -496,11 +446,6 @@
   box-shadow: none;
 }
 
-button.nav-back {
-  width: 64rpx;
-}
-
-button.nav-save,
 button.catalog-retry,
 button.project-chip {
   width: auto;

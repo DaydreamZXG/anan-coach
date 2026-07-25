@@ -1,0 +1,11 @@
+<button
+  class="ui-toggle {{checked ? 'ui-toggle--checked' : ''}} {{disabled ? 'ui-toggle--disabled' : ''}}"
+  role="switch"
+  aria-label="{{label}}"
+  aria-checked="{{checked}}"
+  disabled="{{disabled}}"
+  hover-class="ui-toggle--hover"
+  bindtap="toggle"
+>
+  <view class="ui-toggle__thumb"></view>
+</button>

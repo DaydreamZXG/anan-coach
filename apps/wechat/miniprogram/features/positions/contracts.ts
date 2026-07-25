@@ -148,18 +148,18 @@ export function positionRouteSummary(item: PositionDiscoveryItem): PositionRoute
 export const positionCapabilityGaps: Record<PositionCapability, PositionCapabilityGap> = {
   decision_buckets: {
     capability: "decision_buckets",
-    title: "冲稳保组合暂时没有正式结论",
-    description: "当前只展示资格与目标分证据，不在客户端推算冲、稳、保。",
+    title: "目前还不能可靠判断冲、稳、保",
+    description: "现有信息只能核对资格与目标分，证据不足时不会把岗位包装成冲、稳、保。",
   },
   preparation_cost: {
     capability: "preparation_cost",
-    title: "备考成本暂时没有正式口径",
-    description: "当前接口没有可审计的学习成本分解，本页不会用招录人数或分数区间代替。",
+    title: "目前还不能准确估算备考成本",
+    description: "现有信息不足以拆解需要投入的学习时间，不能用招录人数或分数区间代替。",
   },
   score_gap: {
     capability: "score_gap",
-    title: "岗位分差暂时没有同口径结果",
-    description: "不会在客户端将能力区间与岗位区间自行相减。",
+    title: "目前还没有同口径分差",
+    description: "补齐同年度、同科目的成绩后，才能与岗位目标区间可靠比较。",
   },
 };
 

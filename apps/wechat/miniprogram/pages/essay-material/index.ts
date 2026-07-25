@@ -1,5 +1,4 @@
 import { EssayIntelligenceApi, type EssayTaskWorkspace } from "../../api/essay-intelligence";
-import { measureSystemChrome } from "../../components/safe-top/metrics";
 import { errorView, requireAuthenticatedClient } from "../../features/learning-brain/presentation";
 import { materialDirectory } from "../../features/essay-workbench/presentation";
 
@@ -24,7 +23,6 @@ Page({
     selectedText: "",
     insertMode: false,
     retryAllowed: false,
-    capsuleReserve: 0,
   },
 
   onLoad(options: Record<string, string | undefined>) {
@@ -32,7 +30,6 @@ Page({
       taskVersionId: options.taskVersionId?.trim() ?? "",
       targetAnchor: options.anchor?.trim() ?? "",
       insertMode: options.insertMode === "drafting",
-      capsuleReserve: measureSystemChrome(8).capsuleReserve,
     });
     void this.loadWorkspace();
   },

@@ -1,11 +1,5 @@
-<view class="review-page" style="--review-capsule-reserve: {{capsuleReserve}}px;">
-  <safe-top mode="status" gap="{{0}}" />
-  <view class="review-header">
-    <button class="review-back" aria-label="返回" bindtap="exit">
-      <view class="review-back__icon"></view>
-    </button>
-    <view class="review-header__title">AI 批改复盘</view>
-  </view>
+<view class="review-page">
+  <workbench-nav id="runtime-workbench-nav" title="AI 批改复盘" back-behavior="emit" bind:back="exit" />
 
   <state-view wx:if="{{status === 'loading'}}" state="loading" />
   <state-view
@@ -98,8 +92,8 @@
 
   <view wx:if="{{review && view}}" class="review-dock">
     <view class="review-dock__inner">
-      <button class="review-rewrite" bindtap="rewriteAgain">再写一次</button>
-      <button class="review-anan" bindtap="askAnan">✦　带着本题问岸岸</button>
+      <button hover-class="item--hover" class="review-rewrite" bindtap="rewriteAgain">再写一次</button>
+      <button hover-class="item--hover" class="review-anan tap-tactile" bindtap="askAnan">✦　带着本题问岸岸</button>
     </view>
   </view>
 </view>

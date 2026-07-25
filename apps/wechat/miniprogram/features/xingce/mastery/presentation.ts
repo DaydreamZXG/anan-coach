@@ -144,7 +144,7 @@ function dateLabel(item: XingceMasteryQueueItem): string {
 function actionLabel(item: XingceMasteryQueueItem): string {
   if (item.bucket === "pending_reflection") return "继续复盘";
   if (item.bucket === "due_verification") {
-    return item.action.state === "awaiting_plan" ? "返回今日等待计划" : "开始复测";
+    return item.action.state === "awaiting_plan" ? "回到今日计划" : "开始复测";
   }
   return "";
 }

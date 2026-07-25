@@ -1,44 +1,95 @@
-.material-reader__entry {
+@import "../../design-system/primitives/interaction.wxss";
+
+.material-reader__inline {
   box-sizing: border-box;
-  display: flex;
   width: 100%;
-  min-height: 112rpx;
-  margin: 0;
-  padding: 20rpx 24rpx;
+  overflow: hidden;
+  border: 1rpx solid var(--color-line);
+  border-radius: var(--figma-radius-card);
+  background: var(--color-surface);
+}
+
+.material-reader__inline--eye_care {
+  background: var(--good-soft);
+}
+
+.material-reader__inline-header {
+  display: flex;
+  min-height: 88rpx;
   align-items: center;
   justify-content: space-between;
-  border: 1rpx solid var(--color-line, var(--color-line-strong));
-  border-radius: 18rpx;
-  background: var(--color-surface, #ffffff);
+  gap: 20rpx;
+  padding: 16rpx 20rpx 14rpx 24rpx;
+  border-bottom: 1rpx solid var(--color-line);
   text-align: left;
 }
 
-.material-reader__entry::after,
+.material-reader__inline-heading {
+  min-width: 0;
+}
+
+.material-reader__inline-kicker {
+  color: var(--color-primary);
+  font-size: 19rpx;
+  font-weight: 760;
+  line-height: 28rpx;
+}
+
+.material-reader__inline-expand {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  width: 64rpx;
+  min-width: 64rpx;
+  height: 64rpx;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  border-radius: 50%;
+  background: var(--color-surface-soft);
+}
+
+.material-reader__inline-expand::after,
 .material-reader__header-action::after,
 .material-reader__tool::after,
 .material-reader__eye-care::after {
   border: 0;
 }
 
-.material-reader__entry-title {
-  color: var(--color-ink, var(--color-ink));
-  font-size: 26rpx;
-  font-weight: 750;
-  line-height: 1.4;
+.material-reader__inline-chevron {
+  width: 16rpx;
+  height: 16rpx;
+  transform: rotate(45deg);
+  border-top: 3rpx solid var(--color-muted);
+  border-left: 3rpx solid var(--color-muted);
+  border-radius: 2rpx;
 }
 
-.material-reader__entry-meta,
+.material-reader__entry-title {
+  overflow: hidden;
+  margin-top: 2rpx;
+  color: var(--color-ink);
+  font-size: 24rpx;
+  font-weight: 750;
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .material-reader__position {
   margin-top: 5rpx;
-  color: var(--color-muted, var(--color-muted));
+  color: var(--color-muted);
   font-size: 20rpx;
   line-height: 1.4;
 }
 
-.material-reader__entry-action {
-  color: var(--color-primary);
-  font-size: 23rpx;
-  font-weight: 700;
+.material-reader__inline-scroll {
+  height: min(560rpx, 42vh);
+}
+
+.material-reader__inline-content {
+  box-sizing: border-box;
+  padding: 24rpx;
 }
 
 .material-reader__backdrop {
@@ -63,14 +114,14 @@
   display: flex;
   overflow: hidden;
   flex-direction: column;
-  background: var(--color-canvas, #fdf8ef);
-  color: var(--color-ink, var(--color-ink));
+  background: var(--color-canvas);
+  color: var(--color-ink);
 }
 
 .material-reader__panel--drawer {
   height: 72vh;
   border-radius: 30rpx 30rpx 0 0;
-  box-shadow: 0 -18rpx 60rpx rgba(21, 27, 62, 0.16);
+  box-shadow: var(--shadow-reader);
 }
 
 .material-reader__panel--fullscreen {
@@ -79,7 +130,7 @@
 }
 
 .material-reader__panel--eye_care {
-  background: #eeeada;
+  background: var(--color-line-strong);
 }
 
 .material-reader__grabber {
@@ -98,7 +149,7 @@
   padding: 10rpx 22rpx 14rpx 28rpx;
   align-items: center;
   gap: 12rpx;
-  border-bottom: 1rpx solid var(--color-line, var(--color-line-strong));
+  border-bottom: 1rpx solid var(--color-line);
 }
 
 .material-reader__heading {
@@ -136,12 +187,12 @@
   padding: 12rpx 20rpx;
   align-items: center;
   gap: 14rpx;
-  border-bottom: 1rpx solid var(--color-line, var(--color-line-strong));
-  background: rgba(255, 255, 255, 0.74);
+  border-bottom: 1rpx solid var(--color-line);
+  background: var(--color-surface-a74);
 }
 
 .material-reader__panel--eye_care .material-reader__toolbar {
-  background: rgba(244, 240, 223, 0.82);
+  background: var(--color-surface-soft-a82);
 }
 
 .material-reader__tool-group {
@@ -158,7 +209,7 @@
 
 .material-reader__tool-value {
   min-width: 72rpx;
-  color: var(--color-muted, var(--color-muted));
+  color: var(--color-muted);
   font-family: var(--font-family-data, monospace);
   font-size: 19rpx;
   text-align: center;
@@ -169,8 +220,8 @@
 }
 
 .material-reader__eye-care--active {
-  background: #dce4c7;
-  color: #3e5c35;
+  background: var(--good-soft);
+  color: var(--good);
   font-weight: 700;
 }
 

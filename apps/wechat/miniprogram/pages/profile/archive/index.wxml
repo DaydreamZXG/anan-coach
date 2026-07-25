@@ -1,11 +1,5 @@
 <view class="archive-page">
-  <safe-top mode="status" gap="48" />
-  <view class="archive-nav">
-    <button class="archive-back" aria-label="返回" bindtap="back">
-      <image class="archive-back__icon" src="/assets/icons/navigation/chevron-left-ink.svg" mode="aspectFit" />
-    </button>
-    <view class="archive-nav__title">我的备考档案</view>
-  </view>
+  <workbench-nav id="runtime-workbench-nav" title="我的备考档案" back-behavior="emit" bind:back="back" />
 
   <view wx:if="{{status === 'loading'}}" class="archive-state">
     <state-view state="loading" title="正在读取备考档案" description="会核对身份、资格、岗位、时间和能力证据。" />
@@ -30,7 +24,11 @@
         <view class="archive-list">
           <view wx:for="{{modules}}" wx:key="key" class="archive-card">
             <view class="module-icon module-icon--{{item.tone}}">
-              <image class="module-symbol" src="/assets/icons/profile/archive-{{item.icon}}.svg" mode="aspectFit" aria-hidden="true" />
+              <image wx:if="{{item.key === 'identity'}}" class="module-symbol" src="/assets/icons/profile/archive-identity.svg" mode="aspectFit" aria-hidden="true" />
+              <image wx:elif="{{item.key === 'qualification'}}" class="module-symbol" src="/assets/icons/profile/archive-qualification.svg" mode="aspectFit" aria-hidden="true" />
+              <image wx:elif="{{item.key === 'preference'}}" class="module-symbol" src="/assets/icons/profile/archive-position.svg" mode="aspectFit" aria-hidden="true" />
+              <image wx:elif="{{item.key === 'time'}}" class="module-symbol" src="/assets/icons/profile/archive-time.svg" mode="aspectFit" aria-hidden="true" />
+              <image wx:else class="module-symbol" src="/assets/icons/profile/archive-ability.svg" mode="aspectFit" aria-hidden="true" />
             </view>
             <view class="module-main">
               <view class="module-name">{{item.name}}</view>
@@ -38,7 +36,7 @@
             </view>
             <view class="module-actions">
               <view class="module-status module-status--{{item.statusKind}}">{{item.statusLabel}}</view>
-              <button class="module-edit" data-key="{{item.key}}" bindtap="editModule">修改</button>
+              <button hover-class="item--hover" class="module-edit" data-key="{{item.key}}" bindtap="editModule">修改</button>
             </view>
           </view>
         </view>
@@ -46,7 +44,7 @@
     </scroll-view>
 
     <view class="archive-dock">
-      <button class="archive-primary" bindtap="openAssessment">
+      <button hover-class="item--hover" class="archive-primary tap-tactile" bindtap="openAssessment">
         <text>查看整体档案评估</text>
         <image class="archive-arrow" src="/assets/icons/anan/arrow-right-white.svg" mode="aspectFit" />
       </button>

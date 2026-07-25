@@ -1,0 +1,33 @@
+.onboarding-scroll-content.onboarding-scroll-content {
+  padding-bottom: calc(352rpx + env(safe-area-inset-bottom));
+}
+
+.onboarding-action-dock {
+  display: grid;
+  gap: 12rpx;
+}
+
+button.onboarding-save-action {
+  display: flex;
+  width: 100%;
+  min-height: 64rpx;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0 24rpx;
+  border: 0;
+  border-radius: var(--figma-radius-pill);
+  background: transparent;
+  color: var(--ink-2);
+  font-size: 24rpx;
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+button.onboarding-save-action::after {
+  border: 0;
+}
+
+button.onboarding-save-action[disabled] {
+  color: var(--ink-3);
+}

@@ -1,10 +1,5 @@
 <view class="adjustment-page">
-  <safe-top mode="status" gap="{{0}}" />
-  <view class="adjustment-nav">
-    <button class="adjustment-back" aria-label="返回" bindtap="exit">
-      <view class="adjustment-back__icon"></view>
-    </button>
-  </view>
+  <workbench-nav id="runtime-workbench-nav" title="调整今天" back-behavior="emit" bind:back="exit" />
 
   <view class="adjustment-content">
     <state-view wx:if="{{status === 'loading'}}" state="loading" />
@@ -41,6 +36,7 @@
           <view class="time-card">
             <view class="time-stepper">
               <button
+                hover-class="item--hover"
                 class="stepper-button {{minutes === 0 || previewing || submitting ? 'control-disabled' : ''}}"
                 data-delta="-{{minutesStep}}"
                 disabled="{{minutes === 0 || previewing || submitting}}"
@@ -52,6 +48,7 @@
                 <text class="time-value__number">{{selectedDurationLabel}}</text>
               </view>
               <button
+                hover-class="item--hover"
                 class="stepper-button {{minutes >= 600 || previewing || submitting ? 'control-disabled' : ''}}"
                 data-delta="{{minutesStep}}"
                 disabled="{{minutes >= 600 || previewing || submitting}}"
@@ -62,9 +59,10 @@
             </view>
             <view class="time-presets">
               <button
+                hover-class="item--hover"
                 wx:for="{{timePresets}}"
                 wx:key="minutes"
-                class="time-preset {{minutes === item.minutes ? 'time-preset--active' : ''}}"
+                class="control-center time-preset {{minutes === item.minutes ? 'time-preset--active' : ''}}"
                 data-minutes="{{item.minutes}}"
                 disabled="{{previewing || submitting}}"
                 bindtap="chooseMinutes"
@@ -77,9 +75,10 @@
           <view class="adjustment-section__title">现在的精力</view>
           <view class="energy-options">
             <button
+              hover-class="item--hover"
               wx:for="{{energyOptions}}"
               wx:key="value"
-              class="energy-option {{energy === item.value ? 'energy-option--active' : ''}}"
+              class="control-center energy-option {{energy === item.value ? 'energy-option--active' : ''}}"
               data-value="{{item.value}}"
               disabled="{{previewing || submitting}}"
               bindtap="chooseEnergy"
@@ -136,20 +135,23 @@
 
   <view wx:if="{{status === 'ready' && dashboard}}" class="adjustment-footer">
     <button
+      hover-class="item--hover"
       wx:if="{{step === 'edit'}}"
-      class="adjustment-primary {{previewing || submitting ? 'control-disabled' : ''}}"
+      class="control-center adjustment-primary tap-tactile {{previewing || submitting ? 'control-disabled' : ''}}"
       loading="{{previewing}}"
       disabled="{{previewing || submitting}}"
       bindtap="generatePreview"
     >生成调整预览</button>
     <view wx:else class="adjustment-footer__actions">
       <button
-        class="adjustment-secondary {{submitting ? 'control-disabled' : ''}}"
+        hover-class="item--hover"
+        class="control-center adjustment-secondary {{submitting ? 'control-disabled' : ''}}"
         disabled="{{submitting}}"
         bindtap="backToEdit"
       >返回修改</button>
       <button
-        class="adjustment-primary adjustment-primary--grow {{submitting ? 'control-disabled' : ''}}"
+        hover-class="item--hover"
+        class="control-center adjustment-primary adjustment-primary--grow tap-tactile {{submitting ? 'control-disabled' : ''}}"
         loading="{{submitting}}"
         disabled="{{submitting}}"
         bindtap="confirmAdjustment"

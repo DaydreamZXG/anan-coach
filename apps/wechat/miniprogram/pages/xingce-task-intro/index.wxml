@@ -65,7 +65,7 @@
     </view>
 
     <view class="s9-action-dock">
-      <button class="s9-primary-button" loading="{{starting}}" bindtap="startTask">开始专项训练</button>
+      <button hover-class="item--hover" class="s9-primary-button" loading="{{starting}}" bindtap="startTask">开始专项训练</button>
     </view>
   </block>
 </view>

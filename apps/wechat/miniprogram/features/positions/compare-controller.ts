@@ -238,8 +238,8 @@ function validateSelection(values: string[]): {
       positionIds,
       error: {
         status: "error",
-        title: "岗位对比地址无效",
-        message: "对比地址必须包含 2–3 个非空且互不重复的岗位 ID；客户端不会去重、截断或补齐。",
+        title: "还不能打开岗位对比",
+        message: "请返回岗位列表，重新选择 2–3 个不同岗位后再对比。",
         requestId: "",
         retryable: false,
       },

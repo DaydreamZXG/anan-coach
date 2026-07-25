@@ -1,13 +1,15 @@
+@import "../../design-system/primitives/interaction.wxss";
+
 .task-shell {
   --task-status-bar-height: 0px;
   --task-menu-bottom: 0px;
   --task-capsule-reserve: 0px;
-  --task-toolbar-surface: rgba(255, 255, 255, 0.94);
-  --task-toolbar-control: #f7f9fc;
-  --task-toolbar-line: #f0f2f6;
-  --task-toolbar-ink: #4b5563;
+  --task-toolbar-surface: var(--color-surface-a94);
+  --task-toolbar-control: var(--bg);
+  --task-toolbar-line: var(--line);
+  --task-toolbar-ink: var(--color-ink-secondary);
   --task-toolbar-brand: var(--color-primary);
-  --task-toolbar-brand-soft: #eef2ff;
+  --task-toolbar-brand-soft: var(--primary-soft);
   box-sizing: border-box;
   min-height: 100vh;
   padding: var(--task-status-bar-height) var(--space-page-x) 158rpx;
@@ -32,9 +34,9 @@
   min-height: 64rpx;
   margin: 0 calc(var(--space-page-x) * -1);
   padding: 12rpx calc(20rpx + var(--task-capsule-reserve)) 12rpx 20rpx;
-  border-bottom: 1rpx solid rgba(240, 242, 246, 0.84);
+  border-bottom: 1rpx solid var(--color-line-a84);
   background: var(--task-toolbar-surface);
-  box-shadow: 0 8rpx 30rpx rgba(17, 24, 39, 0.025);
+  box-shadow: var(--shadow-toolbar);
   backdrop-filter: blur(30rpx);
 }
 
@@ -45,6 +47,33 @@
   align-items: center;
   justify-content: flex-end;
   gap: 7rpx;
+}
+
+.task-header-title {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  align-items: baseline;
+  gap: var(--figma-space-6);
+  margin-left: var(--figma-space-8);
+}
+
+.task-header-title__main {
+  overflow: hidden;
+  color: var(--color-ink);
+  font-size: var(--figma-font-body-compact);
+  font-weight: 750;
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.task-header-title__progress {
+  flex: none;
+  color: var(--ink-3);
+  font-family: var(--font-family-data);
+  font-size: var(--figma-font-micro);
+  font-weight: 650;
 }
 
 .task-header-button,
@@ -86,18 +115,18 @@
 }
 
 .task-header-button--material {
-  color: #6b7280;
+  color: var(--ink-2);
 }
 
 .task-header-button--mark-active {
-  color: #f97316;
-  background: #fff7ed;
+  color: var(--figma-color-warning);
+  background: var(--figma-color-warning-soft);
 }
 
 .task-header-button--anan {
-  color: #ffffff;
+  color: var(--color-surface);
   background: var(--gradient-ai);
-  box-shadow: 0 8rpx 20rpx rgba(124, 58, 237, 0.2);
+  box-shadow: var(--shadow-toolbar-action);
 }
 
 .task-question-control,
@@ -125,12 +154,12 @@
   max-width: 148rpx;
   height: 58rpx;
   padding: 0 10rpx;
-  color: #374151;
-  background: #f7f9fc;
+  color: var(--color-ink-secondary);
+  background: var(--bg);
 }
 
 .task-timer-control--paused {
-  border-color: rgba(185, 141, 47, 0.42);
+  border-color: var(--color-warning-a42);
   color: var(--color-warning);
   background: var(--color-warning-soft);
 }
@@ -146,7 +175,7 @@
   width: 1rpx;
   height: 34rpx;
   margin: 0 3rpx;
-  background: #e5e7eb;
+  background: var(--color-line-strong);
 }
 
 .task-progress-label,
@@ -406,8 +435,8 @@
   align-items: center;
   padding: 16rpx var(--space-page-x) calc(16rpx + env(safe-area-inset-bottom));
   border-top: 1rpx solid var(--color-line);
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 -12rpx 36rpx rgba(17, 24, 39, 0.04);
+  background: var(--color-surface-a94);
+  box-shadow: var(--shadow-dock);
   backdrop-filter: blur(24rpx);
 }
 
@@ -448,11 +477,24 @@
     margin: 0 calc(var(--layout-tablet-gutter) * -1);
     padding: 10px calc(var(--layout-tablet-gutter) + var(--task-capsule-reserve)) 10px
       var(--layout-tablet-gutter);
-    box-shadow: 0 10px 32px rgba(190, 120, 60, 0.08);
+    box-shadow: var(--shadow-workbench-wide);
   }
 
   .task-header-actions {
     gap: 6px;
+  }
+
+  .task-header-title {
+    gap: 6px;
+    margin-left: 8px;
+  }
+
+  .task-header-title__main {
+    font-size: 16px;
+  }
+
+  .task-header-title__progress {
+    font-size: 12px;
   }
 
   .task-header-button,

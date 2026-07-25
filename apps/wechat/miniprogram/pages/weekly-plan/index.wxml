@@ -1,10 +1,5 @@
 <view class="week-page">
-  <safe-top gap="{{0}}" />
-  <view class="week-nav">
-    <button class="week-back" aria-label="返回" bindtap="exit">
-      <view class="week-back__icon"></view>
-    </button>
-  </view>
+  <workbench-nav id="runtime-workbench-nav" title="周计划" back-behavior="emit" bind:back="exit" />
 
   <view class="week-content">
     <state-view wx:if="{{status === 'loading'}}" state="loading" />
@@ -37,7 +32,7 @@
         <view class="goal-card goal-card--empty">
           <view class="empty-title">还没有形成可验证的周目标</view>
           <view class="empty-copy">这版周计划只有每日安排，还没有单独的周目标。可以先按今天的安排训练。</view>
-          <button class="inline-action" bindtap="goToday">去今日任务</button>
+          <button hover-class="item--hover" class="inline-action" bindtap="goToday">去今日任务</button>
         </view>
       </view>
 
@@ -52,7 +47,7 @@
             wx:key="localDate"
             class="day-row {{item.status === 'today' ? 'day-row--today' : ''}}"
           >
-            <button class="day-trigger" data-index="{{index}}" bindtap="toggleDay">
+            <button hover-class="item--hover" class="day-trigger" data-index="{{index}}" bindtap="toggleDay">
               <view class="day-trigger__main">
                 <view class="day-name">{{item.weekdayLabel}}</view>
                 <view class="day-status day-status--{{item.statusTone}}">{{item.statusLabel}}</view>
@@ -93,22 +88,22 @@
             </view>
           </view>
         </view>
-        <button
+        <button hover-class="item--hover"
           wx:if="{{hasAdjustmentSuggestion}}"
           class="adjustment-card__action"
           bindtap="openAdjustment"
         >
           查看变化
         </button>
-        <button wx:else class="adjustment-card__action" bindtap="goToday">去完成今日任务</button>
+        <button hover-class="item--hover" wx:else class="adjustment-card__action" bindtap="goToday">去完成今日任务</button>
       </view>
     </block>
   </view>
 
   <view wx:if="{{week}}" class="week-dock">
     <view class="week-dock__inner">
-      <button class="week-primary" bindtap="openAdjustment">调整本周时间</button>
-      <button class="week-companion" bindtap="askAnan">带着本周计划问岸岸 <text>✦</text></button>
+      <button hover-class="item--hover" class="week-primary" bindtap="openAdjustment">调整本周时间</button>
+      <button hover-class="item--hover" class="week-companion" bindtap="askAnan">带着本周计划问岸岸 <text>✦</text></button>
     </view>
   </view>
 </view>

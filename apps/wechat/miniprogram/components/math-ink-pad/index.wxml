@@ -10,7 +10,7 @@
     bindtouchcancel="endStroke"
   ></canvas>
   <view class="ink-actions">
-    <button class="ink-clear" bindtap="clear">清空</button>
-    <button class="ink-recognize" loading="{{recognizing}}" disabled="{{recognizing || !hasInk || !canvasReady}}" bindtap="recognize">识别公式</button>
+    <button hover-class="item--hover" class="ink-clear" bindtap="clear">清空</button>
+    <button hover-class="item--hover" class="ink-recognize" loading="{{recognizing}}" disabled="{{recognizing || !hasInk || !canvasReady}}" bindtap="recognize">识别公式</button>
   </view>
 </view>

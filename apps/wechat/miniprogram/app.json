@@ -133,7 +133,8 @@
   },
   "resizable": true,
   "usingComponents": {
-    "safe-top": "/components/safe-top/index"
+    "safe-top": "/components/safe-top/index",
+    "workbench-nav": "/components/workbench-nav/index"
   },
   "sitemapLocation": "sitemap.json"
 }

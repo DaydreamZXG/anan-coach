@@ -23,8 +23,8 @@ export function positionOperationError(error: unknown): PositionOperationError {
   if (!(error instanceof ApiClientError)) {
     return {
       status: "error",
-      title: "岗位服务没有完成请求",
-      message: "客户端收到无法识别的失败结果，请携带页面请求编号联系支持。",
+      title: "岗位信息没有加载成功",
+      message: "请返回岗位页重新进入；如果仍然失败，可联系岸岸客服。",
       requestId: "",
       retryable: false,
     };
@@ -77,7 +77,7 @@ export function positionOperationError(error: unknown): PositionOperationError {
   }
   return {
     status: "error",
-    title: "岗位服务没有完成请求",
+    title: "岗位信息没有加载成功",
     message: error.message,
     requestId: error.requestId,
     retryable: error.statusCode >= 500,

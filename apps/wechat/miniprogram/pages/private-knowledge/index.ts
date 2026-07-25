@@ -58,6 +58,7 @@ interface PageData {
   backgroundProcessing: boolean;
   citationOpen: boolean;
   activeCitation: PrivateCitationView | null;
+  initialSection: string;
 }
 
 interface PageCustom {
@@ -97,6 +98,7 @@ interface PageCustom {
   chooseReplacementMarkdown(): Promise<void>;
   openCitation(event: WechatMiniprogram.BaseEvent): void;
   closeCitation(): void;
+  applyInitialSection(): void;
   goBack(): void;
   noop(): void;
 }
@@ -139,10 +141,18 @@ Page<PageData, PageCustom>({
     backgroundProcessing: false,
     citationOpen: false,
     activeCitation: null,
+    initialSection: "",
+  },
+
+  onLoad(options: Record<string, string | undefined>) {
+    const initialSection = options.section?.trim() ?? "";
+    this.setData({ initialSection });
   },
 
   onShow() {
-    void this.loadSources();
+    void this.loadSources().then(() => {
+      this.applyInitialSection();
+    });
   },
 
   async loadSources() {
@@ -561,6 +571,26 @@ Page<PageData, PageCustom>({
 
   closeCitation() {
     this.setData({ citationOpen: false, activeCitation: null });
+  },
+
+  applyInitialSection() {
+    const target = this.data.initialSection;
+    if (!target) return;
+    this.setData({ initialSection: "" });
+    if (target === "import") {
+      this.openImportPanel();
+      return;
+    }
+    const selectors: Record<string, string> = {
+      sources: "#library-sources",
+      search: "#library-search",
+    };
+    const selector = selectors[target];
+    if (selector) {
+      wx.nextTick(() => {
+        void wx.pageScrollTo({ selector, duration: 0 });
+      });
+    }
   },
 
   goBack() {

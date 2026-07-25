@@ -177,7 +177,7 @@ function briefingStatus(error: PositionOperationError): PositionBriefingStatus {
 function invalidBriefingRouteError(): PositionOperationError {
   return {
     status: "error",
-    title: "考情说明地址无效",
+    title: "还不能打开考情说明",
     message: "当前页面缺少明确的岗位信息，请返回岗位列表后重新进入。",
     requestId: "",
     retryable: false,

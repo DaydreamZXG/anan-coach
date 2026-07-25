@@ -1,5 +1,5 @@
 <view class="today-page">
-  <safe-top mode="status" gap="52" />
+  <safe-top gap="4" />
 
   <view class="today-content">
     <view class="today-header">
@@ -8,7 +8,7 @@
         <view class="today-greeting">{{headerGreeting}}</view>
         <view class="today-countdown">{{headerContextLabel}}</view>
       </view>
-      <button class="capture-button" bindtap="openCaptureImport" aria-label="拍照搜题">
+      <button hover-class="item--hover" class="capture-button" bindtap="openCaptureImport" aria-label="拍照搜题">
         <image class="icon icon--camera" src="/assets/icons/today/camera-ink.png" mode="aspectFit" />
       </button>
     </view>
@@ -46,7 +46,7 @@
           <text class="opening-line__text">
             {{weatherLocationStatus === 'requesting' ? '正在获取附近天气…' : (weatherLocationMessage || '开启定位后显示附近天气')}}
           </text>
-          <button
+          <button hover-class="item--hover"
             wx:if="{{weatherLocationStatus === 'denied' || weatherLocationStatus === 'error'}}"
             class="weather-location-button"
             bindtap="requestWeatherLocation"
@@ -62,7 +62,7 @@
           <view wx:if="{{openingView.coffeeVisible}}" class="coffee-prompt">
             <image class="icon icon--small" src="/assets/icons/today/coffee-muted.png" mode="aspectFit" />
             <text class="coffee-prompt__text">顺便看咖啡？</text>
-            <button class="coffee-button coffee-button--quiet" bindtap="declineDailyCoffee">今天不喝</button>
+            <button hover-class="item--hover" class="coffee-button coffee-button--quiet" bindtap="declineDailyCoffee">今天不喝</button>
           </view>
           <button hover-class="item--hover" class="opening-start" bindtap="startDailyOpening">开始学习</button>
         </view>
@@ -113,7 +113,7 @@
               <view class="anan-insight__title">岸岸建议</view>
               <view class="anan-insight__copy">{{view.headline}}</view>
               <view wx:if="{{insightExpanded}}" class="anan-insight__detail">{{view.rationale}}</view>
-              <button class="insight-toggle" bindtap="toggleInsight">
+              <button hover-class="item--hover" class="insight-toggle" bindtap="toggleInsight">
                 <text>{{insightExpanded ? '收起' : '为什么今天先做这个？'}}</text>
                 <image class="icon icon--chevron {{insightExpanded ? 'icon--rotated' : ''}}" src="/assets/icons/today/chevron-down-muted.png" mode="aspectFit" />
               </button>
@@ -180,21 +180,21 @@
       <view wx:if="{{taskNavigationError}}" class="task-error">{{taskNavigationError}}</view>
 
       <view class="secondary-tools">
-        <button class="settlement-button" bindtap="openDailySettlement">
+        <button hover-class="item--hover" class="settlement-button" bindtap="openDailySettlement">
           <image class="icon icon--settlement" src="/assets/icons/today/circle-check-secondary.png" mode="aspectFit" />
           <text>结束今天并复盘</text>
         </button>
 
         <view class="tool-row">
-          <button class="tool-link" bindtap="openMasteryQueue">
+          <button hover-class="item--hover" class="tool-link" bindtap="openMasteryQueue">
             <image class="icon icon--small" src="/assets/icons/today/book-open-secondary.png" mode="aspectFit" />
             <text>错题与掌握</text>
           </button>
-          <button class="tool-link" bindtap="openWeeklyPlan">
+          <button hover-class="item--hover" class="tool-link" bindtap="openWeeklyPlan">
             <image class="icon icon--small" src="/assets/icons/today/calendar-days-secondary.png" mode="aspectFit" />
             <text>周计划</text>
           </button>
-          <button class="tool-link" bindtap="openDailySettlement">
+          <button hover-class="item--hover" class="tool-link" bindtap="openDailySettlement">
             <image class="icon icon--small" src="/assets/icons/today/refresh-cw-secondary.png" mode="aspectFit" />
             <text>每日结算</text>
           </button>

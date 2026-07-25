@@ -13,6 +13,7 @@ Component({
   },
   properties: {
     title: { type: String, value: "" },
+    titleAvailable: { type: Boolean, value: false },
     modeLabel: { type: String, value: "" },
     current: { type: Number, value: 1 },
     total: { type: Number, value: 1 },

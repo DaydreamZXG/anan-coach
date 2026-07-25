@@ -26,7 +26,6 @@ interface ArchiveModuleView {
   key: ArchiveModuleKey;
   name: string;
   description: string;
-  icon: string;
   tone: string;
   statusLabel: string;
   statusKind: "complete" | "incomplete";
@@ -198,7 +197,6 @@ function buildModules(input: {
       key: "identity",
       name: "身份与状态",
       description: [experienceLabel, statusLabel, accountLabel].filter(Boolean).join(" · "),
-      icon: "identity",
       tone: "blue",
       statusLabel: input.progress.experienceProfileVersion ? "100%" : "待完善",
       statusKind: input.progress.experienceProfileVersion ? "complete" : "incomplete",
@@ -207,7 +205,6 @@ function buildModules(input: {
       key: "qualification",
       name: "报考资格",
       description: qualificationDescription,
-      icon: "qualification",
       tone: "orange",
       statusLabel: input.progress.qualificationReady ? "100%" : "待完善",
       statusKind: input.progress.qualificationReady ? "complete" : "incomplete",
@@ -216,7 +213,6 @@ function buildModules(input: {
       key: "preference",
       name: "岗位偏好",
       description: positionPreferenceSummary(input.positionPreference, input.positionName),
-      icon: "position",
       tone: "green",
       statusLabel: input.positionPreference ? "已确认" : "待完善",
       statusKind: input.positionPreference ? "complete" : "incomplete",
@@ -227,7 +223,6 @@ function buildModules(input: {
       description: input.preference
         ? `工作日 ${hours(input.preference.weekdayMinutes)} · 周末 ${hours(input.preference.weekendMinutes)}`
         : "尚未设置每周可学时间",
-      icon: "time",
       tone: "indigo",
       statusLabel: input.preference ? "100%" : "待完善",
       statusKind: input.preference ? "complete" : "incomplete",
@@ -236,7 +231,6 @@ function buildModules(input: {
       key: "ability",
       name: "能力基础",
       description: abilityDescription(input.abilityBaseline, abilityComplete),
-      icon: "ability",
       tone: "rose",
       statusLabel: input.abilityBaseline
         ? input.abilityBaseline.mode === "unknown"

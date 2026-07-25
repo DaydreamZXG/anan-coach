@@ -98,34 +98,44 @@
 }
 
 .workbench-action {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 88rpx;
   margin-top: 22rpx;
-  color: #ffffff;
+  padding: 0 24rpx;
+  color: var(--color-surface);
   border: 0;
   border-radius: 999rpx;
-  background: var(--color-primary);
-  box-shadow: 0 14rpx 28rpx var(--color-primary-a16);
+  background: var(--color-action);
+  box-shadow: var(--shadow-primary-soft);
   font-size: 28rpx;
   font-weight: 700;
+  line-height: 1.4;
 }
 
 .workbench-action--disabled {
   color: var(--color-faint);
-  background: #e9ebf1;
+  background: var(--color-line-strong);
 }
 
 .workbench-secondary-action {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 88rpx;
   margin-top: 20rpx;
+  padding: 0 24rpx;
   color: var(--color-primary-deep);
   border: 2rpx solid var(--color-primary-a24);
   border-radius: 999rpx;
   background: var(--color-primary-soft);
   font-size: 26rpx;
   font-weight: 700;
+  line-height: 1.4;
 }
 
 .workbench-secondary-action--disabled {
   color: var(--color-faint);
-  border-color: #e1e4ec;
+  border-color: var(--color-line-strong);
   background: var(--color-surface-soft);
 }
 
@@ -161,14 +171,14 @@
 }
 
 .diff-delete {
-  color: #a23d48;
-  background: #fff0f2;
+  color: var(--danger);
+  background: var(--color-danger-soft);
   text-decoration: line-through;
 }
 
 .diff-insert {
-  color: #0d704b;
-  background: #eafaf3;
+  color: var(--good);
+  background: var(--good-soft);
 }
 
 @media (min-width: 768px) {

@@ -127,7 +127,7 @@ describe("C08 mastery queue page", () => {
     expect(runtime.page.data.items[0]).toMatchObject({
       bucket: "due_verification",
       actionState: "awaiting_plan",
-      actionLabel: "返回今日等待计划",
+      actionLabel: "回到今日计划",
     });
     expect(runtime.requests[1]?.url).toContain("bucket=due_verification&pageSize=30");
     expect(runtime.requests[1]?.url).not.toContain("cursor=");

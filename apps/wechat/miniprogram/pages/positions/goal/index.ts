@@ -100,7 +100,7 @@ Page<PositionGoalPageData, PositionGoalPageCustom>({
     };
     this.setData({ state: controller.snapshot() });
     if (!positionId) {
-      void wx.showToast({ title: "目标地址缺少 positionId", icon: "none" });
+      void wx.showToast({ title: "目标岗位信息不完整，请返回重新选择", icon: "none" });
       return;
     }
     void controller.load();

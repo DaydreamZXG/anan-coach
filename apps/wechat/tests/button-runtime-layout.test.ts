@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import appStyles from "../miniprogram/app.wxss?raw";
+// @ts-expect-error Vite exposes mini-program component styles through its raw asset loader.
+import uiButtonStyles from "../miniprogram/design-system/primitives/ui-button/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import dayAdjustmentTemplate from "../miniprogram/pages/day-adjustment/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
@@ -42,6 +44,16 @@ import weeklyPlanStyles from "../miniprogram/pages/weekly-plan/index.wxss?raw";
 describe("WeChat runtime button layout contracts", () => {
   it("neutralizes the native fixed button width globally", () => {
     expect(appStyles).toMatch(/button\s*\{[\s\S]*?width:\s*auto;/u);
+    expect(appStyles).toMatch(
+      /button:not\(\[size="mini"\]\)\s*\{[\s\S]*?width:\s*auto;[\s\S]*?margin-left:\s*0;/u,
+    );
+  });
+
+  it("lets the shared block button keep its full-width contract", () => {
+    expect(uiButtonStyles).toContain("button.ui-button.ui-button--block");
+    expect(uiButtonStyles).toMatch(
+      /button\.ui-button\.ui-button--block\s*\{\s*width:\s*100%;\s*\}/u,
+    );
   });
 
   it("keeps zero-duration adjustment copy direct and the zero-task card actionable", () => {

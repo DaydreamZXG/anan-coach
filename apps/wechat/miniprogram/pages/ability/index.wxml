@@ -1,5 +1,5 @@
 <view class="ability-page">
-  <safe-top mode="status" gap="52" />
+  <safe-top gap="4" />
 
   <view class="ability-content">
     <view class="ability-header">
@@ -72,8 +72,8 @@
       </view>
 
       <view class="subject-tabs">
-        <button hover-class="item--hover" class="subject-tab {{subjectTab === 'xingce' ? 'subject-tab--active' : ''}}" data-value="xingce" bindtap="chooseSubject">行测</button>
-        <button hover-class="item--hover" class="subject-tab {{subjectTab === 'essay' ? 'subject-tab--active' : ''}}" data-value="essay" bindtap="chooseSubject">申论</button>
+        <button hover-class="item--hover" class="control-center subject-tab {{subjectTab === 'xingce' ? 'subject-tab--active' : ''}}" data-value="xingce" bindtap="chooseSubject">行测</button>
+        <button hover-class="item--hover" class="control-center subject-tab {{subjectTab === 'essay' ? 'subject-tab--active' : ''}}" data-value="essay" bindtap="chooseSubject">申论</button>
       </view>
 
       <block wx:if="{{subjectTab === 'xingce'}}">
@@ -167,7 +167,7 @@
             <view class="coach-action__title">岸岸行动建议</view>
           </view>
           <view class="coach-action__copy">目前最值得优先修复的模块已在上方标出。需要岸岸结合今天的安排解释一下吗？</view>
-          <button hover-class="item--hover" class="coach-action__button" bindtap="openCompanion">带着当前能力问岸岸</button>
+          <button hover-class="item--hover" class="control-center coach-action__button" bindtap="openCompanion">带着当前能力问岸岸</button>
         </view>
       </view>
     </block>

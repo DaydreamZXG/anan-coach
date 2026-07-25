@@ -14,7 +14,7 @@
   border: 0;
 }
 
-.ui-button--block {
+button.ui-button.ui-button--block {
   width: 100%;
 }
 

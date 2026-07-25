@@ -81,6 +81,6 @@
       <view>{{state.error.message}}</view>
       <view wx:if="{{state.error.requestId}}" class="request-id">问题编号 · {{state.error.requestId}}</view>
     </view>
-    <view class="s9-action-dock"><button class="s9-primary-button" loading="{{state.saving}}" bindtap="submit">{{state.pendingRecovery ? '确认上次保存结果' : '保存每周学习时间'}}</button></view>
+    <view class="s9-action-dock"><button hover-class="item--hover" class="s9-primary-button" loading="{{state.saving}}" bindtap="submit">{{state.pendingRecovery ? '确认上次保存结果' : '保存每周学习时间'}}</button></view>
   </block>
 </view>

@@ -97,7 +97,7 @@
 }
 .material-reader-shell {
   display: block;
-  margin-bottom: 22rpx;
+  margin-bottom: 28rpx;
 }
 .question-rich-content,
 .option-rich-content {
@@ -194,11 +194,11 @@
 }
 .option-card {
   display: grid;
-  grid-template-columns: 58rpx 1fr auto;
+  grid-template-columns: 52rpx minmax(0, 1fr) 88rpx;
   align-items: center;
-  gap: 18rpx;
-  min-height: 108rpx;
-  padding: 18rpx 16rpx;
+  gap: 12rpx;
+  min-height: 104rpx;
+  padding: 14rpx 12rpx 14rpx 18rpx;
   border: 1rpx solid var(--color-line);
   border-radius: 26rpx;
   background: var(--color-surface);
@@ -239,10 +239,22 @@
   text-decoration: line-through;
 }
 .eliminate-action {
-  padding: 8rpx 12rpx;
+  display: flex;
+  width: 88rpx;
+  min-width: 88rpx;
+  height: 88rpx;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 28rpx;
+  background: var(--color-surface-soft);
   color: var(--color-faint);
-  font-size: 19rpx;
-  line-height: 48rpx;
+  font-size: 34rpx;
+  line-height: 1;
+}
+.eliminate-action--active {
+  background: var(--color-line-strong);
+  color: var(--color-ink-secondary);
 }
 .thinking-card {
   margin-top: 24rpx;
@@ -647,7 +659,7 @@
   }
 
   .option-card {
-    grid-template-columns: 42px 1fr auto;
+    grid-template-columns: 38px minmax(0, 1fr) 44px;
     gap: 14px;
     min-height: 76px;
     padding: 14px;
@@ -667,8 +679,12 @@
   }
 
   .eliminate-action {
-    font-size: 12px;
-    line-height: 36px;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    font-size: 21px;
+    line-height: 1;
   }
 
   .question-actions {

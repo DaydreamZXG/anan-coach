@@ -1,8 +1,5 @@
 <view class="entry-page">
-  <safe-top mode="status" gap="16" />
-  <button hover-class="item--hover" class="back-button fade-slide-in" aria-label="返回" bindtap="back">
-    <image class="back-icon" src="/assets/icons/navigation/chevron-left-ink.svg" mode="aspectFit" />
-  </button>
+  <workbench-nav id="runtime-workbench-nav" title="备考档案" back-behavior="emit" bind:back="back" />
 
   <view class="entry-content">
     <view class="entry-mark fade-slide-in" aria-hidden="true">

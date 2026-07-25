@@ -100,14 +100,14 @@
         <view class="s9-card-kicker">退款状态</view>
         <view class="s9-card-title">当前订单退款资格</view>
         <view class="s9-card-copy">按订单当时的规则计算；已返过程奖励会计入累计退回金额。</view>
-        <button wx:if="{{dashboard.refundEligibility.eligible}}" class="refund-button" loading="{{refunding}}" bindtap="requestRefund">申请原路退款</button>
+        <button hover-class="item--hover" wx:if="{{dashboard.refundEligibility.eligible}}" class="refund-button" loading="{{refunding}}" bindtap="requestRefund">申请原路退款</button>
         <view wx:else class="s9-card-meta">当前不可申请：{{refundBlockingLabel}}</view>
       </view>
     </view>
     <view wx:if="{{errorMessage}}" class="s9-inline-error">{{errorMessage}}</view>
 
     <view wx:if="{{offer && paymentEnabled}}" class="s9-action-dock">
-      <button class="s9-primary-button {{!accepted || offer.recruitmentState === 'paused' || offer.recruitmentState === 'sold_out' ? 's9-primary-button--disabled' : ''}}" loading="{{paying}}" disabled="{{!accepted || offer.recruitmentState === 'paused' || offer.recruitmentState === 'sold_out'}}" bindtap="buy">{{accepted ? '安全支付 ' + offer.amountLabel : '阅读并确认规则后购买'}}</button>
+      <button hover-class="item--hover" class="s9-primary-button {{!accepted || offer.recruitmentState === 'paused' || offer.recruitmentState === 'sold_out' ? 's9-primary-button--disabled' : ''}}" loading="{{paying}}" disabled="{{!accepted || offer.recruitmentState === 'paused' || offer.recruitmentState === 'sold_out'}}" bindtap="buy">{{accepted ? '安全支付 ' + offer.amountLabel : '阅读并确认规则后购买'}}</button>
     </view>
   </block>
 </view>

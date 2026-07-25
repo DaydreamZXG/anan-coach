@@ -27,7 +27,7 @@
       <view class="program-title">{{state.program.sourceExamYear}} → {{state.program.targetExamYear}} 失分回收</view>
       <view class="track-row"><view wx:for="{{state.program.lossStructure.trainingFocus}}" wx:key="*this" class="focus-item">{{item}}</view></view>
       <view class="boundary-note">{{state.program.lossStructure.limitation}}</view>
-      <view class="s9-action-dock"><button class="s9-primary-button" bindtap="enterToday">进入今日计划</button></view>
+      <view class="s9-action-dock"><button hover-class="item--hover" class="s9-primary-button" bindtap="enterToday">进入今日计划</button></view>
     </view>
 
     <block wx:elif="{{state.evidence.length > 0}}">
@@ -41,7 +41,7 @@
       <view class="boundary-note">{{state.scoreUseBoundary}}</view>
       <view wx:if="{{state.pendingRecovery}}" class="recovery-banner">上一次创建结果还不确定，本次只会确认刚才的结果，不会重复创建。</view>
       <view wx:if="{{state.error}}" class="error-banner"><view>{{state.error.message}}</view><view wx:if="{{state.error.requestId}}" class="request-id">问题编号 · {{state.error.requestId}}</view></view>
-      <view class="s9-action-dock"><button class="s9-primary-button" loading="{{state.saving}}" bindtap="startProgram">{{state.pendingRecovery ? '查询原计划结果' : '建立失分回收计划'}}</button></view>
+      <view class="s9-action-dock"><button hover-class="item--hover" class="s9-primary-button" loading="{{state.saving}}" bindtap="startProgram">{{state.pendingRecovery ? '查询原计划结果' : '建立失分回收计划'}}</button></view>
     </block>
 
     <view wx:else class="empty-card">

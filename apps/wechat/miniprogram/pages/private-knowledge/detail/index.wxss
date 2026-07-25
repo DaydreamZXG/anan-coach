@@ -7,54 +7,6 @@
   color: var(--ink);
 }
 
-.detail-topbar {
-  position: relative;
-  z-index: 10;
-  display: grid;
-  grid-template-columns: 80rpx 1fr 80rpx;
-  align-items: center;
-  box-sizing: border-box;
-  min-height: 112rpx;
-  padding: 0 32rpx;
-  background: rgba(247, 249, 252, 0.96);
-}
-
-.detail-back,
-.detail-edit {
-  display: flex;
-  align-items: center;
-  min-height: 72rpx;
-  color: var(--ink);
-}
-
-.detail-back {
-  justify-content: flex-start;
-}
-
-.detail-edit {
-  justify-content: flex-end;
-}
-
-.detail-back__chevron {
-  display: block;
-  box-sizing: border-box;
-  width: 22rpx;
-  height: 22rpx;
-  border-bottom: 4rpx solid currentColor;
-  border-left: 4rpx solid currentColor;
-  transform: rotate(45deg);
-}
-
-.detail-edit__icon {
-  width: 36rpx;
-  height: 36rpx;
-}
-
-.detail-topbar__side {
-  min-width: 72rpx;
-  min-height: 72rpx;
-}
-
 .detail-state {
   box-sizing: border-box;
   padding: 48rpx 32rpx;
@@ -62,7 +14,7 @@
 
 .detail-content {
   box-sizing: border-box;
-  padding: 12rpx 40rpx 0;
+  padding: 12rpx 40rpx calc(var(--figma-space-48) + env(safe-area-inset-bottom));
 }
 
 .detail-hero {
@@ -118,6 +70,32 @@
   color: var(--ink-3);
   font-size: 24rpx;
   font-weight: 500;
+}
+
+.detail-version-action {
+  display: inline-flex;
+  width: auto;
+  min-height: 64rpx;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  margin: 24rpx 0 0;
+  padding: 0 24rpx;
+  border: 1rpx solid var(--line);
+  border-radius: var(--figma-radius-pill);
+  background: var(--color-surface);
+  color: var(--ink-2);
+  font-size: 23rpx;
+  font-weight: 650;
+}
+
+.detail-version-action::after {
+  border: 0;
+}
+
+.detail-version-action__icon {
+  width: 28rpx;
+  height: 28rpx;
 }
 
 .detail-indexed {
@@ -307,8 +285,10 @@
   height: 30rpx;
 }
 
-.detail-bottom-spacer {
-  height: calc(60rpx + env(safe-area-inset-bottom));
+button.action-btn-tile,
+button.delete-sheet__confirm,
+button.delete-sheet__cancel {
+  width: 100%;
 }
 
 .delete-mask {
@@ -394,7 +374,6 @@
 }
 
 @media (min-width: 700px) {
-  .detail-topbar,
   .detail-content {
     padding-right: max(40rpx, calc((100vw - 860px) / 2));
     padding-left: max(40rpx, calc((100vw - 860px) / 2));

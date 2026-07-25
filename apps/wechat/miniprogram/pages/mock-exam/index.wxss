@@ -137,10 +137,11 @@
 }
 .option-card {
   display: grid;
-  grid-template-columns: 64rpx 1fr auto;
+  grid-template-columns: 52rpx minmax(0, 1fr) 88rpx;
   align-items: center;
-  min-height: 100rpx;
-  padding: 18rpx 18rpx 18rpx 14rpx;
+  gap: 12rpx;
+  min-height: 104rpx;
+  padding: 14rpx 12rpx 14rpx 18rpx;
   border: 1rpx solid var(--color-line);
   border-radius: var(--radius-control);
   background: var(--color-surface);
@@ -171,21 +172,32 @@
   color: var(--color-surface);
 }
 .option-copy {
-  padding: 0 16rpx;
   line-height: 1.6;
 }
 .option-card--eliminated .option-copy {
   text-decoration: line-through;
 }
 .eliminate-action {
+  display: flex;
+  width: 88rpx;
+  min-width: 88rpx;
+  height: 88rpx;
+  align-items: center;
+  justify-content: center;
   margin: 0;
-  padding: 0 10rpx;
-  background: transparent;
+  padding: 0;
+  border-radius: 28rpx;
+  background: var(--color-surface-soft);
   color: var(--color-muted);
-  font-size: 19rpx;
+  font-size: 34rpx;
+  line-height: 1;
 }
 .eliminate-action::after {
   border: 0;
+}
+.eliminate-action--active {
+  background: var(--color-line-strong);
+  color: var(--color-ink-secondary);
 }
 
 .draft-card {
@@ -223,13 +235,6 @@
   font-size: 23rpx;
   line-height: 1.65;
 }
-.question-navigation {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18rpx;
-  margin-top: 24rpx;
-}
-
 .help-sheet {
   padding: 0 0 calc(24rpx + env(safe-area-inset-bottom));
 }
@@ -312,6 +317,11 @@
   margin-top: 16rpx;
   text-align: left;
 }
+.tool-row--submit {
+  border-color: var(--color-danger-soft);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
 .help-result {
   margin: 0 32rpx 28rpx;
   padding: 20rpx;
@@ -332,8 +342,32 @@
 .dispute-body .primary-button { margin-top: 20rpx; }
 
 .footer-actions,
-.footer-actions .primary-button {
+.footer-next {
   width: 100%;
+}
+.footer-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+  gap: 14rpx;
+}
+.footer-previous {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 88rpx;
+  margin: 0;
+  border: 0;
+  border-radius: 28rpx;
+  background: var(--color-canvas);
+  color: var(--color-ink-secondary);
+  font-size: 26rpx;
+  font-weight: 700;
+  line-height: 88rpx;
+}
+.footer-previous::after {
+  border: 0;
+}
+.footer-previous--disabled {
+  opacity: 0.38;
 }
 .submitted-workspace {
   padding: 20rpx 0 60rpx;
@@ -448,7 +482,8 @@
   }
 
   .option-card {
-    grid-template-columns: 44px 1fr auto;
+    grid-template-columns: 38px minmax(0, 1fr) 44px;
+    gap: 12px;
     min-height: 72px;
     padding: 12px;
     border-width: 1px;
@@ -460,17 +495,13 @@
     height: 36px;
   }
 
-  .option-copy {
-    padding: 0 12px;
-  }
-
   .eliminate-action {
-    font-size: 12px;
-  }
-
-  .question-navigation {
-    gap: 12px;
-    margin-top: 18px;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    font-size: 21px;
+    line-height: 1;
   }
 
   .sheet-grid {

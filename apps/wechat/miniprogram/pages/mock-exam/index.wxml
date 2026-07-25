@@ -1,11 +1,12 @@
 <task-shell
+  id="runtime-task-shell"
   title="{{title}}"
   modeLabel="正式整卷 · 限时计时"
   current="{{current}}"
   total="{{total || 1}}"
   elapsedLabel="{{remainingLabel}}"
   syncLabel="{{syncLabel}}"
-  materialAvailable="{{status === 'ready' && question && question.material ? true : false}}"
+  materialAvailable="{{false}}"
   answerSheetAvailable="{{status === 'ready'}}"
   draftAvailable="{{status === 'ready' && question ? true : false}}"
   marked="{{question ? question.marked : false}}"
@@ -30,7 +31,7 @@
     <view class="capability-mark">先确认整卷条件</view>
     <view class="capability-title">{{errorTitle}}</view>
     <view class="capability-copy">{{errorMessage}}</view>
-    <button wx:if="{{showLoginAction}}" class="secondary-button capability-action" bindtap="goLogin">去登录</button>
+    <button hover-class="item--hover" wx:if="{{showLoginAction}}" class="secondary-button capability-action" bindtap="goLogin">去登录</button>
   </view>
 
   <view wx:elif="{{status === 'submitted' && receipt}}" class="submitted-workspace">
@@ -49,15 +50,15 @@
       <view class="module-result-data type-data">{{item.correct}} / {{item.total}} · 正确率 {{item.accuracy * 100}}%</view>
     </view>
     <view class="next-week card">{{receipt.review.nextWeekReason}}</view>
-    <button class="primary-button" bindtap="openMockReport">查看正式模考报告</button>
-    <button class="secondary-button" bindtap="returnToday">返回今日计划</button>
+    <button hover-class="item--hover" class="primary-button" bindtap="openMockReport">查看正式模考报告</button>
+    <button hover-class="item--hover" class="secondary-button" bindtap="returnToday">返回今日计划</button>
   </view>
 
   <view wx:elif="{{status === 'submitted'}}" class="page-state">
     <state-view state="empty" title="本场模考已经交卷" description="答案解析只在正式报告页按权限展示。" />
-    <button wx:if="{{reportSessionId}}" class="primary-button" bindtap="openMockReport">查看正式模考报告</button>
+    <button hover-class="item--hover" wx:if="{{reportSessionId}}" class="primary-button" bindtap="openMockReport">查看正式模考报告</button>
     <view wx:else class="inline-warning">找不到这场模考的记录，请从报告中心重新进入。</view>
-    <button class="secondary-button" bindtap="returnToday">返回今日计划</button>
+    <button hover-class="item--hover" class="secondary-button" bindtap="returnToday">返回今日计划</button>
   </view>
 
   <view wx:elif="{{status === 'ready' && question}}" class="mock-paper mock-paper--{{fontScale}} {{eyeCare ? 'mock-paper--eye-care' : ''}}">
@@ -70,9 +71,9 @@
       <view class="deadline-copy">离开页面也不会暂停</view>
     </view>
 
-    <view class="mock-workspace {{materialOpen && question.material ? 'mock-workspace--with-material' : 'mock-workspace--single'}}">
+    <view class="mock-workspace {{question.material ? 'mock-workspace--with-material' : 'mock-workspace--single'}}">
       <material-reader
-        wx:if="{{materialOpen && question.material}}"
+        wx:if="{{question.material}}"
         class="mock-material-pane"
         title="{{question.material.title || '共享材料'}}"
         blocks="{{question.material.content}}"
@@ -117,14 +118,15 @@
                 freeze-header
               />
             </view>
-            <button class="eliminate-action" data-optionid="{{item.optionId}}" catchtap="toggleEliminated">{{item.eliminated ? '撤销排除' : '排除'}}</button>
+            <button hover-class="item--hover"
+              class="eliminate-action {{item.eliminated ? 'eliminate-action--active' : ''}}"
+              aria-label="{{item.eliminated ? '撤销排除选项 ' + item.label : '排除选项 ' + item.label}}"
+              data-optionid="{{item.optionId}}"
+              catchtap="toggleEliminated"
+            >{{item.eliminated ? '↺' : '−'}}</button>
           </view>
         </view>
 
-        <view class="question-navigation">
-          <button class="secondary-button" disabled="{{current === 1 || interactionLocked}}" bindtap="previousQuestion">上一题</button>
-          <button class="secondary-button" disabled="{{current === total || interactionLocked}}" bindtap="nextQuestion">下一题</button>
-        </view>
       </view>
     </view>
   </view>
@@ -138,7 +140,7 @@
     bindclose="toggleAnswerSheet"
   >
     <view class="sheet-grid">
-      <button
+      <button hover-class="item--hover"
         wx:for="{{answerSheetItems}}"
         wx:key="index"
         class="sheet-item sheet-item--{{item.state}} {{item.active ? 'sheet-item--active' : ''}}"
@@ -155,10 +157,10 @@
     max-height="80vh"
     bindclose="toggleDraft"
   >
-    <button slot="action" class="mark-button {{question.marked ? 'mark-button--active' : ''}}" bindtap="toggleMarked">{{question.marked ? '已标记' : '标记'}}</button>
+    <button hover-class="item--hover" slot="action" class="mark-button {{question.marked ? 'mark-button--active' : ''}}" bindtap="toggleMarked">{{question.marked ? '已标记' : '标记'}}</button>
     <textarea cursor-spacing="24" class="draft-input draft-input--sheet" value="{{question.draftText}}" maxlength="4000" placeholder="记录计算、排除过程或检查点……" bindinput="inputDraft"></textarea>
     <view class="mock-timer-notice">模考按统一结束时间计时，看草稿不暂停。</view>
-    <button class="primary-button draft-sheet-action" bindtap="toggleDraft">收起草稿，继续作答</button>
+    <button hover-class="item--hover" class="primary-button draft-sheet-action" bindtap="toggleDraft">收起草稿，继续作答</button>
   </ui-sheet>
 
   <ui-sheet
@@ -171,12 +173,13 @@
     bindclose="toggleTools"
   >
     <view class="display-tools">
-      <button class="tool-chip {{fontScale === 'standard' ? 'tool-chip--active' : ''}}" data-scale="standard" bindtap="setFontScale">标准字号</button>
-      <button class="tool-chip {{fontScale === 'large' ? 'tool-chip--active' : ''}}" data-scale="large" bindtap="setFontScale">大字号</button>
-      <button class="tool-chip {{eyeCare ? 'tool-chip--active' : ''}}" bindtap="toggleEyeCare">护眼显示</button>
+      <button hover-class="item--hover" class="tool-chip {{fontScale === 'standard' ? 'tool-chip--active' : ''}}" data-scale="standard" bindtap="setFontScale">标准字号</button>
+      <button hover-class="item--hover" class="tool-chip {{fontScale === 'large' ? 'tool-chip--active' : ''}}" data-scale="large" bindtap="setFontScale">大字号</button>
+      <button hover-class="item--hover" class="tool-chip {{eyeCare ? 'tool-chip--active' : ''}}" bindtap="toggleEyeCare">护眼显示</button>
     </view>
-    <button class="tool-row" bindtap="reportDispute">题面异常 / 争议上报</button>
-    <button class="tool-row" bindtap="openHelp">操作与故障帮助</button>
+    <button hover-class="item--hover" class="tool-row" bindtap="reportDispute">题面异常 / 争议上报</button>
+    <button hover-class="item--hover" class="tool-row" bindtap="openHelp">操作与故障帮助</button>
+    <button hover-class="item--hover" class="tool-row tool-row--submit" disabled="{{interactionLocked}}" bindtap="submitExam">提前交卷</button>
   </ui-sheet>
 
   <ui-sheet
@@ -207,7 +210,7 @@
   >
     <view class="dispute-body">
       <view class="dispute-categories">
-        <button
+        <button hover-class="item--hover"
           wx:for="{{disputeCategories}}"
           wx:key="value"
           class="tool-chip {{disputeCategory === item.value ? 'tool-chip--active' : ''}}"
@@ -224,7 +227,7 @@
         bindinput="inputDisputeDescription"
       ></textarea>
       <view wx:if="{{disputeMessage}}" class="help-result help-result--{{disputeStatus}}">{{disputeMessage}}</view>
-      <button
+      <button hover-class="item--hover"
         class="primary-button"
         disabled="{{disputeDescription.length < 2 || disputeStatus === 'submitting' || disputeStatus === 'resolved'}}"
         bindtap="submitDispute"
@@ -233,6 +236,22 @@
   </ui-sheet>
 
   <view slot="footer" wx:if="{{status === 'ready'}}" class="footer-actions">
-    <button class="primary-button" disabled="{{interactionLocked}}" bindtap="submitExam">交卷</button>
+    <button hover-class="item--hover"
+      class="footer-previous {{current === 1 || interactionLocked ? 'footer-previous--disabled' : ''}}"
+      disabled="{{current === 1 || interactionLocked}}"
+      bindtap="previousQuestion"
+    >上一题</button>
+    <button hover-class="item--hover"
+      wx:if="{{current < total}}"
+      class="primary-button footer-next"
+      disabled="{{interactionLocked}}"
+      bindtap="nextQuestion"
+    >下一题</button>
+    <button hover-class="item--hover"
+      wx:else
+      class="primary-button footer-next"
+      disabled="{{interactionLocked}}"
+      bindtap="submitExam"
+    >交卷并查看结果</button>
   </view>
 </task-shell>

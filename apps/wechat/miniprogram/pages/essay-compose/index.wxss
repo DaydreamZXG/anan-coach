@@ -15,13 +15,14 @@
   box-sizing: border-box;
   padding: 18rpx 32rpx calc(18rpx + env(safe-area-inset-bottom));
   border-top: 1rpx solid var(--color-line);
-  background: rgba(246, 250, 248, 0.96);
-  box-shadow: 0 -14rpx 30rpx rgba(190, 120, 60, 0.07);
+  background: var(--color-surface-a96);
+  box-shadow: var(--shadow-dock);
 }
 .compose-action-grid {
   margin-top: 0;
 }
 .compose-action-grid .workbench-action {
+  width: 100%;
   margin-top: 0;
 }
 

@@ -1,5 +1,4 @@
 .material-page {
-  --material-capsule-reserve: 0px;
   box-sizing: border-box;
   min-height: 100vh;
   padding-bottom: calc(150rpx + env(safe-area-inset-bottom));
@@ -7,26 +6,6 @@
   color: var(--color-ink);
 }
 
-.material-header {
-  position: sticky;
-  z-index: var(--z-sticky);
-  top: 0;
-  display: flex;
-  min-height: 88rpx;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 calc(var(--material-capsule-reserve) + var(--figma-space-16)) 0
-    var(--space-page-x);
-  border-bottom: 1rpx solid var(--color-line);
-  background: var(--color-surface);
-}
-
-.material-header__title {
-  font-size: var(--figma-font-body);
-  font-weight: 760;
-}
-
-.material-close,
 .material-directory__item,
 .selection-toolbar__action,
 .material-return {
@@ -34,21 +13,10 @@
   border: 0;
 }
 
-.material-close::after,
 .material-directory__item::after,
 .selection-toolbar__action::after,
 .material-return::after {
   border: 0;
-}
-
-.material-close {
-  min-height: 56rpx;
-  padding: 0 var(--figma-space-12);
-  border-radius: var(--figma-radius-pill);
-  background: var(--color-surface-soft);
-  color: var(--color-muted);
-  font-size: var(--figma-font-caption);
-  line-height: 56rpx;
 }
 
 .material-directory {
@@ -219,7 +187,6 @@
   box-shadow: var(--figma-shadow-elevated);
 }
 
-button.material-close,
 button.material-directory__item,
 button.selection-toolbar__action {
   width: auto;

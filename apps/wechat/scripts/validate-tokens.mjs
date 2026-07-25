@@ -5,6 +5,12 @@ const projectRoot = resolve(import.meta.dirname, "..");
 const scanRoots = [
   resolve(projectRoot, "miniprogram/pages"),
   resolve(projectRoot, "miniprogram/custom-tab-bar"),
+  resolve(projectRoot, "miniprogram/components"),
+  resolve(projectRoot, "miniprogram/features"),
+  resolve(projectRoot, "miniprogram/task-runtime"),
+  resolve(projectRoot, "miniprogram/design-system/primitives"),
+  resolve(projectRoot, "miniprogram/design-system/reporting"),
+  resolve(projectRoot, "miniprogram/design-system/stage9"),
 ];
 const hexColorPattern = /#[\da-fA-F]{3,4}\b|#[\da-fA-F]{6}\b|#[\da-fA-F]{8}\b/gu;
 const exemptionPattern = /\/\*\s*token-exempt:\s*(.+?)\s*\*\/\s*$/u;
@@ -51,7 +57,7 @@ if (failures.length > 0) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Validated ${String(files.length)} page stylesheets; ${String(exemptionCount)} documented token exemption(s).`,
+    `Validated ${String(files.length)} runtime stylesheets; ${String(exemptionCount)} documented token exemption(s).`,
   );
 }
 

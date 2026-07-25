@@ -8,10 +8,10 @@
 .step-title, .success-title { margin-top: 10rpx; color: var(--color-ink); font-size: 32rpx; font-weight: 720; }
 .step-copy, .success-copy { margin-top: 10rpx; color: var(--color-muted); font-size: 24rpx; line-height: 1.65; }
 .button-row, .chip-row { display: flex; gap: 14rpx; margin-top: 22rpx; }
-.primary, .secondary, .check-button { flex: 1; border-radius: 20rpx; font-size: 25rpx; }
-.primary { background: var(--color-primary); color: var(--color-surface); }
-.secondary, .check-button { background: var(--color-primary-soft); color: var(--color-primary-deep); }
-.full { width: 100%; margin-top: 22rpx; }
+button.primary, button.secondary, button.check-button { min-height: 80rpx; flex: 1; border-radius: 20rpx; font-size: 25rpx; line-height: 80rpx; }
+button.primary { background: var(--color-primary); color: var(--color-surface); }
+button.secondary, button.check-button { background: var(--color-primary-soft); color: var(--color-primary-deep); }
+button.full.full { width: 100%; margin: 22rpx 0 0; }
 .progress { height: 14rpx; margin-top: 20rpx; overflow: hidden; border-radius: 999rpx; background: var(--color-surface-soft); }
 .progress-bar { height: 100%; border-radius: inherit; background: var(--color-primary); }
 .source-image { width: 100%; margin-top: 20rpx; border-radius: 18rpx; }

@@ -1,11 +1,12 @@
 <task-shell
+  id="runtime-task-shell"
   title="{{view ? view.title : '真实行测训练'}}"
   modeLabel="{{view ? view.modeLabel : '行测练习'}}"
   current="{{view ? view.current : 1}}"
   total="{{view ? view.total : 1}}"
   elapsedLabel="{{view ? view.elapsedLabel : '00:00'}}"
   syncLabel="{{view ? view.syncLabel : '正在连接'}}"
-  materialAvailable="{{view ? view.materialAvailable : false}}"
+  materialAvailable="{{false}}"
   answerSheetAvailable="{{status === 'ready' && sessionState === 'answering'}}"
   draftAvailable="{{status === 'ready' && sessionState === 'answering'}}"
   timerPausable="{{status === 'ready' && sessionState === 'answering'}}"
@@ -43,7 +44,7 @@
     <view wx:if="{{hasPendingCheckpoint}}" class="pending-checkpoint card">
       <view class="pending-checkpoint-title">上次的进度没存上</view>
       <view class="pending-checkpoint-copy">{{pendingCheckpointMessage}}</view>
-      <button class="secondary-button" bindtap="retryPendingCheckpoint">重试一次</button>
+      <button hover-class="item--hover" class="secondary-button" bindtap="retryPendingCheckpoint">重试一次</button>
     </view>
 
     <block wx:if="{{sessionState === 'answering'}}">
@@ -88,17 +89,23 @@
                 zoom="{{1}}"
                 preferences="{{displayPreferences}}"
               />
-              <button class="eliminate-action" hover-class="item--hover" data-optionid="{{item.optionId}}" catchtap="toggleEliminated">{{item.eliminated ? '撤销排除' : '排除'}}</button>
+              <button
+                class="eliminate-action {{item.eliminated ? 'eliminate-action--active' : ''}}"
+                hover-class="item--hover"
+                aria-label="{{item.eliminated ? '撤销排除选项 ' + item.label : '排除选项 ' + item.label}}"
+                data-optionid="{{item.optionId}}"
+                catchtap="toggleEliminated"
+              >{{item.eliminated ? '↺' : '−'}}</button>
             </view>
           </view>
 
           <view class="confidence-card">
             <view class="confidence-prompt">刚刚这题选得怎么样？</view>
             <view class="confidence-row confidence-row--question">
-              <button
+              <button hover-class="item--hover"
                 wx:for="{{confidenceOptions}}"
                 wx:key="value"
-                class="confidence-chip confidence-chip--question {{view.question.confidence === item.value ? 'confidence-chip--active' : ''}}"
+                class="control-center confidence-chip confidence-chip--question {{view.question.confidence === item.value ? 'confidence-chip--active' : ''}}"
                 data-confidence="{{item.value}}"
                 bindtap="selectConfidence"
               >{{item.label}}</button>
@@ -121,7 +128,7 @@
         bindclose="toggleAnswerSheet"
       >
         <view class="sheet-grid">
-          <button
+          <button hover-class="item--hover"
             wx:for="{{answerSheetItems}}"
             wx:key="index"
             class="sheet-item sheet-item--{{item.state}} {{item.active ? 'sheet-item--active' : ''}}"
@@ -138,30 +145,30 @@
         max-height="80vh"
         bindclose="toggleDraft"
       >
-        <button slot="action" class="mark-action {{view.question.marked ? 'mark-action--active' : ''}}" bindtap="toggleMarked">{{view.question.marked ? '已标记' : '标记'}}</button>
+        <button hover-class="item--hover" slot="action" class="mark-action {{view.question.marked ? 'mark-action--active' : ''}}" bindtap="toggleMarked">{{view.question.marked ? '已标记' : '标记'}}</button>
         <textarea cursor-spacing="24" class="draft-input draft-input--sheet" value="{{view.question.draftText}}" maxlength="4000" placeholder="写下公式、排除理由或仍不确定的点……" bindinput="inputDraft"></textarea>
-        <button class="math-ink-entry" bindtap="toggleMathInk">{{mathInkOpen ? '收起手写公式' : '手写公式识别'}}</button>
+        <button hover-class="item--hover" class="math-ink-entry" bindtap="toggleMathInk">{{mathInkOpen ? '收起手写公式' : '手写公式识别'}}</button>
         <view wx:if="{{mathInkOpen}}" class="math-ink-panel">
           <view class="math-ink-tip">先手写，识别成公式后核对一下，确认再放进草稿。</view>
           <math-ink-pad recognizing="{{mathInkRecognizing}}" bind:recognize="recognizeMathInk" />
           <view wx:if="{{mathInkCandidate}}" class="math-ink-review">
             <view class="confidence-label">识别候选</view>
             <textarea cursor-spacing="24" class="math-ink-latex" value="{{mathInkLatex}}" maxlength="4000" bindinput="inputMathInkLatex"></textarea>
-            <button class="primary-button" loading="{{mathInkRecognizing}}" bindtap="confirmMathInk">确认并写入草稿</button>
+            <button hover-class="item--hover" class="primary-button" loading="{{mathInkRecognizing}}" bindtap="confirmMathInk">确认并写入草稿</button>
           </view>
           <view wx:if="{{mathInkError}}" class="inline-warning">{{mathInkError}}</view>
         </view>
         <view class="confidence-row">
           <view class="confidence-label">作答信心</view>
-          <button
+          <button hover-class="item--hover"
             wx:for="{{confidenceOptions}}"
             wx:key="value"
-            class="confidence-chip {{view.question.confidence === item.value ? 'confidence-chip--active' : ''}}"
+            class="control-center confidence-chip {{view.question.confidence === item.value ? 'confidence-chip--active' : ''}}"
             data-confidence="{{item.value}}"
             bindtap="selectConfidence"
           >{{item.label}}</button>
         </view>
-        <button class="primary-button draft-sheet-action" bindtap="toggleDraft">收起草稿，继续作答</button>
+        <button hover-class="item--hover" class="primary-button draft-sheet-action" bindtap="toggleDraft">收起草稿，继续作答</button>
       </ui-sheet>
 
       <view wx:if="{{taskPaused}}" class="pause-mask motion-mask" catchtouchmove="noop">
@@ -170,8 +177,8 @@
           <view class="pause-title">训练已暂停</view>
           <view class="pause-time type-data">{{view.elapsedLabel}}</view>
           <view class="pause-copy">暂停期间不计入作答用时。材料位置、答案和草稿均已保留。</view>
-          <button class="primary-button" bindtap="toggleTaskPause">继续作答</button>
-          <button class="pause-exit" bindtap="exit">结束训练</button>
+          <button hover-class="item--hover" class="primary-button" bindtap="toggleTaskPause">继续作答</button>
+          <button hover-class="item--hover" class="pause-exit" bindtap="exit">结束训练</button>
         </view>
       </view>
     </block>
@@ -191,15 +198,15 @@
     bindclose="closeTaskOverlay"
   >
     <view class="task-tool-grid">
-      <button class="task-tool-item" bindtap="toggleMarked">{{view.question.marked ? '取消标记' : '标记本题'}}</button>
-      <button wx:if="{{toolPolicy.dispute_report}}" class="task-tool-item" bindtap="openDispute">题目争议</button>
-      <button wx:if="{{toolPolicy.operation_help}}" class="task-tool-item" bindtap="openTaskHelp">操作/故障帮助</button>
-      <button class="task-tool-item {{displayPreferences.colorMode === 'eye_care' ? 'task-tool-item--active' : ''}}" bindtap="toggleDisplayEyeCare">护眼模式</button>
+      <button hover-class="item--hover" class="control-center task-tool-item" bindtap="toggleMarked">{{view.question.marked ? '取消标记' : '标记本题'}}</button>
+      <button hover-class="item--hover" wx:if="{{toolPolicy.dispute_report}}" class="control-center task-tool-item" bindtap="openDispute">题目争议</button>
+      <button hover-class="item--hover" wx:if="{{toolPolicy.operation_help}}" class="control-center task-tool-item" bindtap="openTaskHelp">操作/故障帮助</button>
+      <button hover-class="item--hover" class="control-center task-tool-item {{displayPreferences.colorMode === 'eye_care' ? 'task-tool-item--active' : ''}}" bindtap="toggleDisplayEyeCare">护眼模式</button>
     </view>
     <view class="display-tool-row">
-      <button class="display-tool-button" bindtap="decreaseDisplayFont">A−</button>
+      <button hover-class="item--hover" class="display-tool-button" bindtap="decreaseDisplayFont">A−</button>
       <view>字号 {{displayPreferences.fontScale * 100}}%</view>
-      <button class="display-tool-button" bindtap="increaseDisplayFont">A＋</button>
+      <button hover-class="item--hover" class="display-tool-button" bindtap="increaseDisplayFont">A＋</button>
     </view>
     <view class="locked-tools">公式卡、完整解析和解题 AI 在提交前不可用；国考模式不提供计算器。</view>
   </ui-sheet>
@@ -232,7 +239,7 @@
     bindclose="closeTaskOverlay"
   >
     <view class="dispute-categories">
-      <button
+      <button hover-class="item--hover"
         wx:for="{{disputeCategories}}"
         wx:key="value"
         class="dispute-category {{disputeCategory === item.value ? 'dispute-category--active' : ''}}"
@@ -241,12 +248,12 @@
       >{{item.label}}</button>
     </view>
     <textarea cursor-spacing="24" class="dispute-description" value="{{disputeDescription}}" maxlength="2000" placeholder="请描述具体问题；不要填写个人敏感信息。" bindinput="inputDisputeDescription"></textarea>
-    <button class="primary-button" loading="{{disputeSubmitting}}" disabled="{{disputeSubmitting}}" bindtap="submitDispute">提交争议记录</button>
+    <button hover-class="item--hover" class="primary-button" loading="{{disputeSubmitting}}" disabled="{{disputeSubmitting}}" bindtap="submitDispute">提交争议记录</button>
     <view wx:if="{{disputeReceipt}}" class="overlay-result">{{disputeReceipt}}</view>
   </ui-sheet>
 
   <view slot="footer" class="task-footer-actions" wx:if="{{status === 'ready' && sessionState === 'answering'}}">
-    <button class="footer-previous {{view.current === 1 || interactionLocked ? 'footer-previous--disabled' : ''}}" disabled="{{view.current === 1 || interactionLocked}}" bindtap="previousQuestion">上一题</button>
-    <button class="primary-button submit-button" disabled="{{interactionLocked}}" bindtap="footerAction">{{view.current < view.total ? '下一题' : (canSubmit ? '交卷并查看结果' : '查看未完成题目')}}</button>
+    <button hover-class="item--hover" class="footer-previous {{view.current === 1 || interactionLocked ? 'footer-previous--disabled' : ''}}" disabled="{{view.current === 1 || interactionLocked}}" bindtap="previousQuestion">上一题</button>
+    <button hover-class="item--hover" class="primary-button submit-button" disabled="{{interactionLocked}}" bindtap="footerAction">{{view.current < view.total ? '下一题' : (canSubmit ? '交卷并查看结果' : '查看未完成题目')}}</button>
   </view>
 </task-shell>

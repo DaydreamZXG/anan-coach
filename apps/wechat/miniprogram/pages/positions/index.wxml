@@ -1,13 +1,7 @@
 <view class="position-screen position-screen--dock">
-  <safe-top gap="8" />
+  <workbench-nav id="runtime-workbench-nav" title="岗位决策台" back-behavior="emit" bind:back="goBack" />
 
-  <view class="position-nav">
-    <button class="position-nav__back" bindtap="goBack" aria-label="返回"><text class="position-nav__chevron"></text></button>
-  </view>
-
-  <view class="position-content">
-    <view class="position-page-title">岗位决策台</view>
-
+  <view class="position-content position-content--workspace">
     <state-view wx:if="{{!workspace || workspace.status === 'idle' || workspace.status === 'loading'}}" state="loading" />
     <state-view
       wx:elif="{{workspace.status === 'needsProfile'}}"
@@ -49,14 +43,14 @@
               <text class="sparkle-mark">✦</text>
               <text>已筛出 <text class="context-card__number">{{workspace.items.length}}</text> 个可报岗位</text>
             </view>
-            <button class="context-card__link" bindtap="openSearch">查看全部 <text class="tiny-chevron">›</text></button>
+            <button hover-class="item--hover" class="context-card__link" bindtap="openSearch">查看全部 <text class="tiny-chevron">›</text></button>
           </view>
         </view>
       </view>
 
       <view wx:if="{{workspace.refreshError}}" class="position-inline-alert">
         岗位信息暂时没有更新成功。
-        <button class="text-action" bindtap="retryPositions">重新加载</button>
+        <button hover-class="item--hover" class="text-action" bindtap="retryPositions">重新加载</button>
       </view>
       <view wx:if="{{workspace.delivery && (workspace.delivery.partial || workspace.delivery.stale)}}" class="position-inline-alert">
         {{workspace.delivery.partial ? workspace.delivery.partialLabel : workspace.delivery.staleLabel}}
@@ -102,6 +96,7 @@
           </view>
           <view class="position-card__actions">
             <button
+              hover-class="item--hover"
               class="compare-link {{item.comparisonSelected ? 'compare-link--selected' : ''}}"
               data-id="{{item.positionId}}"
               catchtap="toggleComparison"
@@ -114,7 +109,7 @@
       <view wx:if="{{workspace.status === 'empty' || !workspace.candidateItems.length && !workspace.primaryGoal}}" class="position-empty-card">
         <view class="position-empty-card__title">暂时没有匹配岗位</view>
         <view class="position-empty-card__copy">核对专业、学历和经历后，再重新筛选。</view>
-        <button class="secondary-pill" bindtap="openQualificationProfile">核对报考资料</button>
+        <button hover-class="item--hover" class="secondary-pill" bindtap="openQualificationProfile">核对报考资料</button>
       </view>
 
       <view wx:if="{{!workspace.qualificationComplete}}" class="compact-action-card">
@@ -122,12 +117,12 @@
           <view class="compact-action-card__title">还有 {{workspace.qualificationGaps.length}} 项资料待确认</view>
           <view class="compact-action-card__copy">补完整后，岗位判断会自动更新。</view>
         </view>
-        <button class="compact-action-card__button" bindtap="openQualificationProfile">去确认</button>
+        <button hover-class="item--hover" class="compact-action-card__button" bindtap="openQualificationProfile">去确认</button>
       </view>
 
       <view class="quiet-actions">
-        <button class="quiet-action" bindtap="openScoreSheet">记录成绩，计算分差</button>
-        <button class="quiet-action" bindtap="openQualificationProfile">修改报考资料</button>
+        <button hover-class="item--hover" class="quiet-action" bindtap="openScoreSheet">记录成绩，计算分差</button>
+        <button hover-class="item--hover" class="quiet-action" bindtap="openQualificationProfile">修改报考资料</button>
       </view>
     </block>
   </view>
@@ -137,8 +132,8 @@
       <text class="comparison-dock__title">已选 {{workspace.selectedIds.length}} / 3</text>
       <text class="comparison-dock__note">{{workspace.selectedIds.length < 2 ? '再选 1 个开始对比' : '可以横向比较资格和分差'}}</text>
     </view>
-    <button class="comparison-dock__clear" bindtap="clearComparison">清空</button>
-    <button class="comparison-dock__action {{workspace.selectedIds.length < 2 ? 'comparison-dock__action--disabled' : ''}}" disabled="{{workspace.selectedIds.length < 2}}" bindtap="openComparison">对比</button>
+    <button hover-class="item--hover" class="comparison-dock__clear" bindtap="clearComparison">清空</button>
+    <button hover-class="item--hover" class="comparison-dock__action {{workspace.selectedIds.length < 2 ? 'comparison-dock__action--disabled' : ''}}" disabled="{{workspace.selectedIds.length < 2}}" bindtap="openComparison">对比</button>
   </view>
 
   <view wx:if="{{score && score.open}}" class="sheet-mask motion-mask" catchtouchmove="noop" bindtap="closeScoreSheet"></view>
@@ -149,18 +144,18 @@
         <view class="sheet-kicker">成绩记录</view>
         <view class="sheet-title">{{score.supersedesEvidenceId ? '修正这条成绩' : '记录真实单科分'}}</view>
       </view>
-      <button class="sheet-close" bindtap="closeScoreSheet">×</button>
+      <button hover-class="item--hover" class="control-center sheet-close" bindtap="closeScoreSheet">×</button>
     </view>
     <view class="sheet-copy">行测与申论分别记录；只有同一口径下两科都完整时，才计算总分与岗位分差。</view>
 
     <view class="sheet-subhead">
       <text>历史记录</text>
-      <button wx:if="{{score.supersedesEvidenceId}}" class="text-action" bindtap="startNewScoreEvidence">改为新增</button>
+      <button wx:if="{{score.supersedesEvidenceId}}" hover-class="item--hover" class="text-action" bindtap="startNewScoreEvidence">改为新增</button>
     </view>
     <view wx:if="{{score.historyStatus === 'loading'}}" class="sheet-empty">正在读取历史成绩…</view>
     <view wx:elif="{{score.historyStatus === 'error'}}" class="sheet-error">
       <text>{{score.historyError.message}}</text>
-      <button class="text-action" bindtap="retryScoreHistory">重试</button>
+      <button hover-class="item--hover" class="text-action" bindtap="retryScoreHistory">重试</button>
     </view>
     <view wx:elif="{{!score.history.length}}" class="sheet-empty">还没有成绩记录，这次是第一条。</view>
     <scroll-view wx:else class="history-scroll" scroll-y>
@@ -169,15 +164,15 @@
           <view class="history-row__title">{{item.contextLabel}} · {{item.dateLabel}}</view>
           <view class="history-row__meta">{{item.scoreLabel}} · {{item.statusLabel}}</view>
         </view>
-        <button wx:if="{{item.active}}" class="text-action" data-id="{{item.evidenceId}}" bindtap="beginScoreCorrection">修正</button>
+        <button wx:if="{{item.active}}" hover-class="item--hover" class="text-action" data-id="{{item.evidenceId}}" bindtap="beginScoreCorrection">修正</button>
       </view>
     </scroll-view>
 
     <view class="form-label">成绩来自</view>
     <view class="choice-row">
-      <button class="choice {{score.scoreContext === 'official_exam' ? 'choice--active' : ''}}" data-value="official_exam" bindtap="chooseScoreContext">正式考试</button>
-      <button class="choice {{score.scoreContext === 'full_mock' ? 'choice--active' : ''}}" data-value="full_mock" bindtap="chooseScoreContext">整卷模考</button>
-      <button class="choice {{score.scoreContext === 'historical_estimate' ? 'choice--active' : ''}}" data-value="historical_estimate" bindtap="chooseScoreContext">历史估分</button>
+      <button hover-class="item--hover" class="control-center choice {{score.scoreContext === 'official_exam' ? 'choice--active' : ''}}" data-value="official_exam" bindtap="chooseScoreContext">正式考试</button>
+      <button hover-class="item--hover" class="control-center choice {{score.scoreContext === 'full_mock' ? 'choice--active' : ''}}" data-value="full_mock" bindtap="chooseScoreContext">整卷模考</button>
+      <button hover-class="item--hover" class="control-center choice {{score.scoreContext === 'historical_estimate' ? 'choice--active' : ''}}" data-value="historical_estimate" bindtap="chooseScoreContext">历史估分</button>
     </view>
     <view class="score-inputs">
       <label class="score-input"><text>行测</text><input class="score-input__control" type="digit" value="{{score.xingceScore}}" disabled="{{score.saving || score.submissionUncertain}}" placeholder="0–100" bindinput="inputXingceScore" /></label>
@@ -185,9 +180,9 @@
     </view>
     <view class="form-label">是否按规定限时完成</view>
     <view class="choice-row">
-      <button class="choice {{score.scoreTimedStatus === 'timed' ? 'choice--active' : ''}}" data-value="timed" bindtap="chooseTimedStatus">是</button>
-      <button class="choice {{score.scoreTimedStatus === 'untimed' ? 'choice--active' : ''}}" data-value="untimed" bindtap="chooseTimedStatus">否</button>
-      <button class="choice {{score.scoreTimedStatus === 'unknown' ? 'choice--active' : ''}}" data-value="unknown" bindtap="chooseTimedStatus">不确定</button>
+      <button hover-class="item--hover" class="control-center choice {{score.scoreTimedStatus === 'timed' ? 'choice--active' : ''}}" data-value="timed" bindtap="chooseTimedStatus">是</button>
+      <button hover-class="item--hover" class="control-center choice {{score.scoreTimedStatus === 'untimed' ? 'choice--active' : ''}}" data-value="untimed" bindtap="chooseTimedStatus">否</button>
+      <button hover-class="item--hover" class="control-center choice {{score.scoreTimedStatus === 'unknown' ? 'choice--active' : ''}}" data-value="unknown" bindtap="chooseTimedStatus">不确定</button>
     </view>
     <picker mode="date" value="{{score.scoreDate}}" end="{{score.todayDate}}" disabled="{{score.saving || score.submissionUncertain}}" bindchange="chooseScoreDate">
       <view class="date-row"><text>作答日期</text><text>{{score.scoreDate}} ›</text></view>
@@ -199,8 +194,8 @@
       <view wx:if="{{score.error.requestId}}">问题编号 · {{score.error.requestId}}</view>
     </view>
     <view class="sheet-actions">
-      <button class="sheet-button sheet-button--secondary" disabled="{{score.submissionUncertain}}" bindtap="closeScoreSheet">取消</button>
-      <button class="sheet-button sheet-button--primary" bindtap="submitScoreEvidence">{{score.submissionUncertain ? '确认刚才结果' : (score.supersedesEvidenceId ? '保存修正' : '确认记录')}}</button>
+      <button hover-class="item--hover" class="control-center sheet-button sheet-button--secondary" disabled="{{score.submissionUncertain}}" bindtap="closeScoreSheet">取消</button>
+      <button hover-class="item--hover" class="control-center sheet-button sheet-button--primary tap-tactile" bindtap="submitScoreEvidence">{{score.submissionUncertain ? '确认刚才结果' : (score.supersedesEvidenceId ? '保存修正' : '确认记录')}}</button>
     </view>
   </view>
 </view>

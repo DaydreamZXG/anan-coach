@@ -1,10 +1,5 @@
 <view class="settlement-page">
-  <safe-top gap="{{0}}" />
-  <view class="settlement-nav">
-    <button class="settlement-back" aria-label="返回" bindtap="exit">
-      <view class="settlement-back__icon"></view>
-    </button>
-  </view>
+  <workbench-nav id="runtime-workbench-nav" title="今日结算" back-behavior="emit" bind:back="exit" />
 
   <view class="settlement-content">
     <state-view wx:if="{{status === 'loading'}}" state="loading" />
@@ -100,7 +95,7 @@
           <view class="tomorrow-card__copy">
             新的日计划形成后会显示在今日页；现在可以先查看本周安排。
           </view>
-          <button class="tomorrow-card__action" bindtap="openWeeklyPlan">查看本周计划</button>
+          <button hover-class="item--hover" class="tomorrow-card__action" bindtap="openWeeklyPlan">查看本周计划</button>
         </view>
       </view>
     </block>
@@ -108,8 +103,8 @@
 
   <view wx:if="{{settlement}}" class="settlement-dock">
     <view class="settlement-dock__inner">
-      <button class="settlement-primary" bindtap="returnToday">确认结算，结束今天</button>
-      <button class="settlement-companion" bindtap="askAnan">
+      <button hover-class="item--hover" class="settlement-primary" bindtap="returnToday">确认结算，结束今天</button>
+      <button hover-class="item--hover" class="settlement-companion" bindtap="askAnan">
         带着今天的结果问岸岸 <text>✦</text>
       </button>
     </view>

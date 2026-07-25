@@ -61,7 +61,7 @@ function mapRow(
     return {
       label: shortDate(text(row.at, `第 ${String(index + 1)} 次`)),
       primary: `${number(row.recommended).toFixed(1)} 分`,
-      secondary: `${number(row.lower).toFixed(1)}–${number(row.upper).toFixed(1)} · ${text(row.confidence, "low")}`,
+      secondary: `${number(row.lower).toFixed(1)}–${number(row.upper).toFixed(1)} · ${confidenceLabel(normalizeConfidence(row.confidence))}`,
       marker: "能力区间",
       tone: "primary",
     };
@@ -140,6 +140,10 @@ function widthValueFor(chartType: ChartSpec["chartType"], row: Record<string, un
 
 function confidenceLabel(value: ChartSpec["confidence"]): string {
   return { high: "高置信", medium: "中置信", low: "低置信", not_applicable: "不适用置信度" }[value];
+}
+
+function normalizeConfidence(value: unknown): ChartSpec["confidence"] {
+  return value === "high" || value === "medium" || value === "not_applicable" ? value : "low";
 }
 
 function trackLabel(value: string): string {

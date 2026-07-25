@@ -34,12 +34,25 @@ page {
 button {
   box-sizing: border-box;
   width: auto;
+  min-width: 0;
+  min-height: 0;
   margin: 0;
   padding: 0;
   border: 0;
   background: transparent;
   font-family: inherit;
   line-height: normal;
+}
+
+/*
+ * WeChat applies its default 184px width with button:not([size="mini"]).
+ * Match that selector's specificity so page-level semantic classes can
+ * reliably own geometry without !important.
+ */
+button:not([size="mini"]) {
+  width: auto;
+  margin-right: 0;
+  margin-left: 0;
 }
 
 button::after {

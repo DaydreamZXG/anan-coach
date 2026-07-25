@@ -1,12 +1,5 @@
 <view class="detail-page">
-  <safe-top gap="0" />
-  <view class="detail-topbar">
-    <button hover-class="item--hover" class="detail-back" bindtap="goBack"><text class="detail-back__chevron"></text></button>
-    <view class="detail-topbar__side"></view>
-    <button hover-class="item--hover" wx:if="{{status === 'ready'}}" class="detail-edit" bindtap="uploadNewVersion">
-      <image class="detail-edit__icon" src="/assets/icons/profile/edit.svg" mode="aspectFit" />
-    </button>
-  </view>
+  <workbench-nav id="runtime-workbench-nav" title="资料详情" back-behavior="emit" bind:back="goBack" />
 
   <view wx:if="{{status === 'loading'}}" class="detail-state">
     <state-view state="loading" title="正在读取资料详情" />
@@ -23,6 +16,15 @@
       </view>
       <view class="detail-hero__title">{{source.title}}</view>
       <view class="detail-hero__meta">{{source.createdAtLabel}} 上传 · {{source.pageCount || 1}} 页 {{documentKindLabel}}</view>
+      <button
+        wx:if="{{status === 'ready'}}"
+        hover-class="item--hover"
+        class="detail-version-action"
+        bindtap="uploadNewVersion"
+      >
+        <image class="detail-version-action__icon" src="/assets/icons/profile/edit.svg" mode="aspectFit" />
+        <text>上传新版本</text>
+      </button>
     </view>
 
     <view class="detail-indexed">
@@ -68,7 +70,6 @@
         <text>从资料库彻底移除</text>
       </button>
     </view>
-    <view class="detail-bottom-spacer"></view>
   </view>
 
   <view wx:if="{{deleteSheetOpen}}" class="delete-mask motion-mask" catchtouchmove="noop" bindtap="closeDeleteSheet"></view>

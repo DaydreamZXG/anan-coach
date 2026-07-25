@@ -5,7 +5,7 @@
     <view class="hero-copy">每张方法卡都按统一结构写：问题、步骤、条件、反例和验证。</view>
     <view class="privacy-strip">
       <view class="privacy-dot"></view>
-      <view>当前状态：{{cardStateLabel || '读取中'}}。未经作者确认的候选不能发布，也不会成为岸岸的学习事实。</view>
+      <view>当前状态：{{cardStateLabel || '读取中'}}。只有你逐项确认的方法，才会进入公开检查并供其他考生试用。</view>
     </view>
   </view>
 
@@ -54,8 +54,8 @@
         </view>
       </view>
       <view wx:if="{{formMessage}}" class="warning-note">{{formMessage}}</view>
-      <button class="action-button {{interactionLocked ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked}}" bindtap="confirmStructure">确认并保存这一版</button>
-      <button class="action-button secondary-button {{interactionLocked || !confirmedVersionId || !canPublish ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked || !confirmedVersionId || !canPublish}}" bindtap="submitReview">申请五项检查</button>
+      <button hover-class="item--hover" class="action-button {{interactionLocked ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked}}" bindtap="confirmStructure">确认并保存这次修改</button>
+      <button hover-class="item--hover" class="action-button secondary-button {{interactionLocked || !confirmedVersionId || !canPublish ? 'action-button--disabled' : ''}}" disabled="{{interactionLocked || !confirmedVersionId || !canPublish}}" bindtap="submitReview">申请五项检查</button>
     </view>
 
     <view class="community-section review-checks">

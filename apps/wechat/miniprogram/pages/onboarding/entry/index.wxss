@@ -7,28 +7,6 @@
   color: var(--ink);
 }
 
-.back-button {
-  box-sizing: border-box;
-  display: flex;
-  width: 80rpx;
-  height: 80rpx;
-  align-items: center;
-  justify-content: center;
-  margin: 0 0 0 24rpx;
-  padding: 0;
-  border: 0;
-  background: transparent;
-}
-
-.back-button::after {
-  border: 0;
-}
-
-.back-icon {
-  width: 48rpx;
-  height: 48rpx;
-}
-
 .entry-content {
   box-sizing: border-box;
   display: flex;
@@ -38,15 +16,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: -104rpx auto 0;
+  margin: 0 auto;
   padding: 64rpx;
   text-align: center;
 }
 
 .entry-mark {
   position: relative;
+  display: flex;
   width: 160rpx;
   height: 160rpx;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 64rpx;
   border: 1rpx solid var(--color-surface-soft);
   border-radius: 48rpx;
@@ -119,10 +100,6 @@
 .entry-action__icon {
   width: 36rpx;
   height: 36rpx;
-}
-
-button.back-button {
-  width: 80rpx;
 }
 
 button.entry-action {

@@ -1,14 +1,10 @@
 <view class="time-page">
-  <safe-top mode="status" gap="48" />
-  <view class="time-nav fade-slide-in">
-    <view class="nav-left">
-      <button hover-class="item--hover" class="nav-back" aria-label="返回" bindtap="back">
-        <image class="nav-back__icon" src="/assets/icons/navigation/chevron-left-ink.svg" mode="aspectFit" />
-      </button>
-      <view class="nav-title">4/5 学习时间</view>
-    </view>
-    <button hover-class="item--hover" class="nav-save tap-tactile" loading="{{state && state.saving}}" bindtap="saveAndExit">暂存并退出</button>
-  </view>
+  <workbench-nav
+    id="runtime-workbench-nav"
+    title="4/5 学习时间"
+    back-behavior="emit"
+    bind:back="back"
+  />
 
   <view wx:if="{{!state || state.status === 'loading'}}" class="time-state">
     <state-view state="loading" title="正在读取学习时间" description="岸岸会恢复你已经保存的工作日和周末安排。" />
@@ -21,7 +17,7 @@
 
   <block wx:else>
     <scroll-view scroll-y class="time-scroll" enhanced show-scrollbar="{{false}}">
-      <view class="time-content fade-slide-in fade-slide-in--2">
+      <view class="time-content onboarding-scroll-content fade-slide-in fade-slide-in--2">
         <view class="time-card">
           <view class="time-intro">合理的排期比虚高的计划更有效。每天最少 0.5 小时，最高 12 小时。岸岸将据此分配每天的任务容量。</view>
 
@@ -52,8 +48,8 @@
           </view>
 
           <view class="time-presets">
-            <button hover-class="item--hover" class="time-preset" data-weekday="120" data-weekend="360" bindtap="applyPreset">标准在职 (2h/6h)</button>
-            <button hover-class="item--hover" class="time-preset" data-weekday="480" data-weekend="480" bindtap="applyPreset">全职备考 (8h/8h)</button>
+            <button hover-class="item--hover" class="control-center time-preset" data-weekday="120" data-weekend="360" bindtap="applyPreset">标准在职 (2h/6h)</button>
+            <button hover-class="item--hover" class="control-center time-preset" data-weekday="480" data-weekend="480" bindtap="applyPreset">全职备考 (8h/8h)</button>
           </view>
         </view>
 
@@ -64,8 +60,15 @@
       </view>
     </scroll-view>
 
-    <view class="time-dock">
+    <view class="time-dock onboarding-action-dock">
       <button hover-class="item--hover" class="time-primary {{state.saving ? 'time-primary--disabled' : ''}} tap-tactile" loading="{{state.saving}}" disabled="{{state.saving}}" bindtap="submit">{{state.pendingRecovery ? '查询原保存结果' : '继续：能力基础'}}</button>
+      <button
+        hover-class="item--hover"
+        class="onboarding-save-action"
+        loading="{{state.saving}}"
+        disabled="{{state.saving}}"
+        bindtap="saveAndExit"
+      >暂存并退出</button>
     </view>
   </block>
 </view>

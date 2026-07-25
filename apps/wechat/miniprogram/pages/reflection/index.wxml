@@ -1,13 +1,10 @@
 <view class="reflection-page">
-  <safe-top gap="0" />
-  <view wx:if="{{status === 'ready' && phase !== 'completed' && phase !== 'summary'}}" class="reflection-topbar">
-    <button hover-class="item--hover" class="reflection-back" bindtap="handleBack"><text class="reflection-back__chevron"></text></button>
-    <view class="reflection-topbar__title">
-      {{phase === 'reflection' ? '单题错因复盘' : '错因确认'}}
-      <text wx:if="{{phase === 'reflection' && reviewItems.length}}"> · {{currentReviewIndex + 1}}/{{reviewItems.length}}</text>
-    </view>
-    <view class="reflection-topbar__side"></view>
-  </view>
+  <workbench-nav
+    id="runtime-workbench-nav"
+    title="{{phase === 'summary' ? '本次训练总结' : phase === 'completed' ? '复盘完成' : phase === 'reflection' ? '单题错因复盘' + (reviewItems.length ? ' · ' + (currentReviewIndex + 1) + '/' + reviewItems.length : '') : '错因确认'}}"
+    back-behavior="emit"
+    bind:back="handleBack"
+  />
 
   <view wx:if="{{status === 'loading'}}" class="reflection-state">
     <state-view state="loading" title="正在恢复你的复盘" description="作答事实、原话和错因会对应起来。" />
@@ -30,9 +27,6 @@
     </view>
 
     <view wx:if="{{phase === 'summary' && result}}" class="summary-content">
-      <button hover-class="item--hover" class="summary-back" bindtap="handleBack" aria-label="返回">
-        <text class="reflection-back__chevron"></text>
-      </button>
       <view class="summary-intro">
         <view class="summary-title">这组做完了</view>
         <view class="summary-copy">比起 {{result.correctCount}}/{{result.totalCount}}，更重要的是找到每一道题真正留下的证据。</view>
@@ -105,7 +99,7 @@
         <button hover-class="item--hover"
           wx:for="{{reviewItems}}"
           wx:key="questionId"
-          class="review-tab {{index === currentReviewIndex ? 'review-tab--active' : ''}}"
+          class="control-center review-tab {{index === currentReviewIndex ? 'review-tab--active' : ''}}"
           data-index="{{index}}"
           bindtap="selectReviewItem"
         >{{item.positionNumber}}</button>
@@ -159,7 +153,7 @@
           <button hover-class="item--hover"
             wx:for="{{tagOptions}}"
             wx:key="code"
-            class="tag-chip {{item.selected ? 'tag-chip--active' : ''}}"
+            class="control-center tag-chip {{item.selected ? 'tag-chip--active' : ''}}"
             data-code="{{item.code}}"
             disabled="{{interactionLocked}}"
             bindtap="toggleTag"
@@ -226,13 +220,13 @@
             <view wx:if="{{item.failureMessage}}" class="voice-item__failure">{{item.failureMessage}}</view>
           </view>
           <view class="voice-item__actions">
-            <button hover-class="item--hover" class="voice-item__action" data-id="{{item.segmentId}}" disabled="{{interactionLocked || voiceBusy || !item.canOperate}}" bindtap="rerecordVoice">重录</button>
-            <button hover-class="item--hover" class="voice-item__action" data-id="{{item.segmentId}}" disabled="{{interactionLocked || voiceBusy || !item.canOperate}}" bindtap="deleteVoice">删除</button>
+            <button hover-class="item--hover" class="control-center voice-item__action" data-id="{{item.segmentId}}" disabled="{{interactionLocked || voiceBusy || !item.canOperate}}" bindtap="rerecordVoice">重录</button>
+            <button hover-class="item--hover" class="control-center voice-item__action" data-id="{{item.segmentId}}" disabled="{{interactionLocked || voiceBusy || !item.canOperate}}" bindtap="deleteVoice">删除</button>
           </view>
         </view>
         <view class="voice-summary">{{voiceSummary.totalSizeLabel}}</view>
         <view wx:if="{{voiceMessage}}" class="voice-message">{{voiceMessage}}</view>
-        <button hover-class="item--hover" wx:if="{{voiceSegments.length && voiceSummary.hasUnready}}" class="voice-upload" loading="{{voiceBusy}}" disabled="{{interactionLocked || voiceBusy || isRecording}}" bindtap="uploadVoiceSegments">上传并完成安全检查</button>
+        <button hover-class="item--hover" wx:if="{{voiceSegments.length && voiceSummary.hasUnready}}" class="control-center voice-upload" loading="{{voiceBusy}}" disabled="{{interactionLocked || voiceBusy || isRecording}}" bindtap="uploadVoiceSegments">上传并完成安全检查</button>
 
         <view class="evidence-field">
           <view class="evidence-field__label">下次准备怎么做 <text class="evidence-field__optional">选填</text></view>
@@ -311,7 +305,7 @@
         <button hover-class="item--hover" class="reflection-secondary" disabled="{{interactionLocked}}" bindtap="rejectCause">这不是我的错因</button>
         <textarea cursor-spacing="24" class="cause-textarea" value="{{replacementCause}}" maxlength="2000" disabled="{{interactionLocked}}" placeholder="也可以写下你认可的错因" bindinput="inputReplacementCause" />
         <button hover-class="item--hover" class="reflection-secondary" disabled="{{interactionLocked}}" bindtap="replaceCause">采用我补充的错因</button>
-        <button hover-class="item--hover" class="cause-later" disabled="{{interactionLocked}}" bindtap="deferCause">稍后处理</button>
+        <button hover-class="item--hover" class="control-center cause-later" disabled="{{interactionLocked}}" bindtap="deferCause">稍后处理</button>
       </block>
       <view wx:else class="legacy-notice">这是一条只读旧记录，当前没有可确认的候选错因。</view>
       <view class="reflection-bottom-spacer"></view>

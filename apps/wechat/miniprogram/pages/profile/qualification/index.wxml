@@ -1,13 +1,5 @@
 <view class="qualification-edit-page">
-  <safe-top gap="{{0}}" />
-  <view class="qualification-nav">
-    <view class="nav-left">
-      <button hover-class="item--hover" class="nav-back" aria-label="返回" bindtap="back">
-        <view class="nav-back__icon"></view>
-      </button>
-      <view class="nav-title">报考资格档案</view>
-    </view>
-  </view>
+  <workbench-nav id="runtime-workbench-nav" title="报考资格档案" back-behavior="emit" bind:back="back" />
 
   <view wx:if="{{loadingProfile}}" class="qualification-state">
     <state-view

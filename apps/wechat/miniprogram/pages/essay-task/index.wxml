@@ -1,12 +1,14 @@
 <task-shell
-  title="{{capability ? capability.title : '申论任务'}}"
-  modeLabel="{{capability ? capability.modeLabel : '申论 Agent'}}"
+  id="runtime-task-shell"
+  title="{{capability && capability.stage === 'essay_drafting' ? '申论作答' : capability ? capability.title : '申论任务'}}"
+  titleAvailable="{{capability ? capability.stage === 'essay_drafting' : false}}"
+  modeLabel="{{capability ? capability.modeLabel : '申论训练'}}"
   current="{{hasSavedEvidence ? 1 : 0}}"
   total="1"
   elapsedLabel="{{elapsedLabel}}"
   syncLabel="{{reviewDisplay.state === 'waiting_quota' ? '作答已保存 · 等待评阅' : reviewDisplay.state === 'queued' || reviewDisplay.state === 'running' ? '作答已保存 · 评阅中' : hasSavedEvidence ? '本次进度已保存' : submissionStatus === 'submitting' ? '正在保存' : '有修改尚未保存'}}"
-  materialAvailable="{{status === 'ready'}}"
-  answerSheetAvailable="{{capability ? capability.stage === 'essay_drafting' : false}}"
+  materialAvailable="{{status === 'ready' && capability ? capability.stage !== 'essay_drafting' : false}}"
+  answerSheetAvailable="{{false}}"
   toolsAvailable="{{false}}"
   footerAvailable="{{status === 'ready'}}"
   bindexit="exit"
@@ -298,13 +300,13 @@
               <button hover-class="item--hover" class="draft-writing-tool" bindtap="openMaterial">❞ 引用</button>
             </view>
             <view class="draft-writing-meta">
-              <text>{{submissionStatus === 'submitting' ? '正在保存' : submissionStatus === 'saved' ? '已保存' : '本机自动保存'}}</text>
+              <text>{{submissionStatus === 'submitting' ? '正在保存' : submissionStatus === 'saved' ? '刚刚已保存' : '自动保存'}}</text>
               <text class="draft-writing-count">{{drafting.answerText.length}} <text>/ {{view.wordLimit}}</text></text>
             </view>
           </view>
         </view>
 
-        <view class="draft-setup-card">
+        <view id="drafting-settings" class="draft-setup-card">
           <view class="draft-setup-title">作答设置</view>
           <view class="draft-setup-grid">
             <view>
@@ -369,9 +371,9 @@
         当前已经有一份已保存答案。本页不会猜测恢复正文；你可以补齐复盘，并确认这次答案、复盘和计划任务。
       </view>
 
-      <view class="draft-reflection-card">
+        <view id="drafting-reflection" class="draft-reflection-card">
         <view class="draft-setup-title">即时结构化复盘</view>
-        <view class="field-help">这部分会进入 AI 学习大脑，不是评阅后的标准答案总结。</view>
+        <view class="field-help">请按作答当时的真实想法填写，评阅结果不会替你改写这段记录。</view>
         <view class="field-label">我当时怎么想 <text class="field-hint">必填</text></view>
         <textarea cursor-spacing="24" class="essay-textarea essay-textarea--compact" value="{{drafting.userThought}}" maxlength="3000" data-field="userThought" placeholder="记录真实判断、犹豫和取舍，不要事后改成标准答案。" bindinput="inputDraftingField"></textarea>
         <view class="field-label">主要问题来源 <text class="field-hint">至少选 1 项</text></view>
@@ -406,7 +408,7 @@
               <button hover-class="item--hover" class="voice-link voice-link--danger tap-tactile" data-segment-id="{{item.segmentId}}" disabled="{{!item.canOperate}}" bindtap="removeVoiceSegment">删除</button>
             </view>
           </view>
-          <button hover-class="item--hover" wx:if="{{voiceSummary.hasUnready}}" class="secondary-button voice-upload" disabled="{{submissionStatus === 'submitting'}}" bindtap="uploadVoiceSegments">上传并等待安全检查</button>
+          <button hover-class="item--hover" wx:if="{{voiceSummary.hasUnready}}" class="control-center secondary-button voice-upload" disabled="{{submissionStatus === 'submitting'}}" bindtap="uploadVoiceSegments">上传并等待安全检查</button>
         </view>
       </view>
 
@@ -678,7 +680,7 @@
       disabled="{{!canSubmit || submissionStatus === 'submitting'}}"
       bindtap="submitStage"
     >
-      {{submissionStatus === 'submitting' ? '正在保存…' : capability.stage === 'essay_drafting' ? (draftAvailable ? '保存作答并完成' : '确认答案并提交复盘') : capability.stage === 'essay_rewrite' ? '提交本次改写' : capability.stage === 'essay_transfer' ? (transferDraft.phase === 'drafting' ? '提交新题作答' : '提交迁移判断') : hasSavedEvidence ? '保存本次修改' : '提交本阶段结果'}}
+      {{submissionStatus === 'submitting' ? '正在保存…' : capability.stage === 'essay_drafting' ? (draftAvailable ? '保存并进入复盘' : '确认答案并提交复盘') : capability.stage === 'essay_rewrite' ? '提交本次改写' : capability.stage === 'essay_transfer' ? (transferDraft.phase === 'drafting' ? '提交新题作答' : '提交迁移判断') : hasSavedEvidence ? '保存本次修改' : '提交本阶段结果'}}
     </button>
   </view>
 </task-shell>

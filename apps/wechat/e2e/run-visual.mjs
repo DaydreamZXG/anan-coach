@@ -10,6 +10,7 @@ import { PNG } from "pngjs";
 
 import { readPageData, setPageData } from "./page-data-bridge.mjs";
 import { consoleEventText, isActionableRuntimeWarning } from "./runtime-warning-policy.mjs";
+import { visualDeliveryContracts } from "./visual-delivery-contracts.mjs";
 import { visualScenarios } from "./visual-scenarios.mjs";
 
 const currentDirectory = path.dirname(fileURLToPath(import.meta.url));
@@ -33,6 +34,89 @@ const requestedScenarioIds = new Set(
 const selectedScenarios = scenarioFilter
   ? visualScenarios.filter((scenario) => requestedScenarioIds.has(scenario.id))
   : visualScenarios;
+const deliveryContractByScenarioId = new Map(
+  visualDeliveryContracts.map((contract) => [contract.scenarioId, contract]),
+);
+const systemChromeContracts = new Map([
+  ["/pages/ability/index", pageChrome(".ability-content")],
+  ["/pages/anan/index", pageChrome(".coach-content")],
+  ["/pages/capture-import/index", workbenchChrome()],
+  ["/pages/daily-settlement/index", workbenchChrome()],
+  ["/pages/day-adjustment/index", workbenchChrome()],
+  ["/pages/essay-material/index", workbenchChrome()],
+  ["/pages/essay-review/index", workbenchChrome()],
+  ["/pages/me/index", pageChrome(".profile-content")],
+  [
+    "/pages/onboarding/ability-baseline/index",
+    componentChrome("#runtime-workbench-nav", ".workbench-nav__back", ".workbench-nav__title"),
+  ],
+  ["/pages/onboarding/entry/index", workbenchChrome()],
+  [
+    "/pages/onboarding/index",
+    componentChrome("#runtime-workbench-nav", ".workbench-nav__back", ".workbench-nav__title"),
+  ],
+  [
+    "/pages/onboarding/position-preference/index",
+    componentChrome("#runtime-workbench-nav", ".workbench-nav__back", ".workbench-nav__title"),
+  ],
+  [
+    "/pages/onboarding/preparation-experience/index",
+    componentChrome("#runtime-workbench-nav", ".workbench-nav__back", ".workbench-nav__title"),
+  ],
+  ["/pages/onboarding/result/index", workbenchChrome()],
+  [
+    "/pages/onboarding/study-preference/index",
+    componentChrome("#runtime-workbench-nav", ".workbench-nav__back", ".workbench-nav__title"),
+  ],
+  ["/pages/plan-basis/index", workbenchChrome()],
+  ["/pages/positions/compare/index", workbenchChrome()],
+  ["/pages/positions/detail/index", workbenchChrome()],
+  ["/pages/positions/goal/index", workbenchChrome()],
+  ["/pages/positions/index", workbenchChrome()],
+  ["/pages/positions/search/index", workbenchChrome()],
+  ["/pages/private-knowledge/detail/index", workbenchChrome()],
+  ["/pages/private-knowledge/index", workbenchChrome()],
+  ["/pages/profile/archive/index", workbenchChrome()],
+  ["/pages/profile/qualification/index", workbenchChrome()],
+  ["/pages/reflection/index", workbenchChrome()],
+  ["/pages/today/index", pageChrome(".today-content")],
+  ["/pages/weekly-plan/index", workbenchChrome()],
+  [
+    "/pages/practice/index",
+    componentChrome(
+      "#runtime-task-shell",
+      ".task-header-button--back",
+      ".task-header-title",
+      ".task-header-actions",
+    ),
+  ],
+  [
+    "/pages/mock-exam/index",
+    componentChrome(
+      "#runtime-task-shell",
+      ".task-header-button--back",
+      ".task-header-title",
+      ".task-header-actions",
+    ),
+  ],
+  [
+    "/pages/essay-task/index",
+    componentChrome(
+      "#runtime-task-shell",
+      ".task-header-button--back",
+      ".task-header-title",
+      ".task-header-actions",
+    ),
+  ],
+  [
+    "/pages/answer-ingestion/index",
+    componentChrome("#runtime-workbench-nav", ".workbench-nav__back", ".workbench-nav__title"),
+  ],
+  [
+    "/pages/learning-packets/index",
+    componentChrome("#runtime-workbench-nav", ".workbench-nav__back", ".workbench-nav__title"),
+  ],
+]);
 
 assert.equal(
   selectedScenarios.length,
@@ -54,6 +138,9 @@ const miniProgram = automationEndpoint
       timeout: 60_000,
       trustProject: true,
     });
+const runtimeSystemInfo = await miniProgram.systemInfo();
+const runtimeChromeMetrics = await readSystemChromeMetrics(miniProgram);
+assertSystemChromeMetrics(runtimeSystemInfo, runtimeChromeMetrics);
 const runtimeFailures = [];
 const runtimeWarnings = [];
 const captureRecords = [];
@@ -93,7 +180,8 @@ try {
       path.resolve(artifactDirectory, "audit-manifest.json"),
       `${JSON.stringify(
         {
-          systemInfo: await miniProgram.systemInfo(),
+          systemInfo: runtimeSystemInfo,
+          systemChrome: runtimeChromeMetrics,
           scenarios: captureRecords,
         },
         null,
@@ -127,6 +215,7 @@ process.stdout.write(
 async function captureScenario(program, scenario) {
   assert.match(scenario.id, /^[a-z0-9][a-z0-9-]+$/u);
   assert.ok(scenario.route.startsWith("/pages/"));
+  await leaveLoginControllerBeforeAuthFixture(program);
   await setAuthentication(program, scenario.authenticated === true);
   const page = await program.reLaunch(scenario.route);
   assert.ok(page, `Unable to open ${scenario.route}`);
@@ -145,6 +234,7 @@ async function captureScenario(program, scenario) {
   // still be one render behind. Wait for that final deterministic frame before asserting and
   // capturing, otherwise a completed network-error frame can be photographed with fixture data.
   await page.waitFor(120);
+  await assertActiveScenarioRoute(program, scenario);
   const appliedData = await readPageData(program, page);
   if (!runtimeOnly) {
     for (const [key, expected] of Object.entries(scenario.data)) {
@@ -155,6 +245,8 @@ async function captureScenario(program, scenario) {
       );
     }
   }
+  const deliveryEvidence = await assertDeliveryContract(miniProgram, page, scenario);
+  const systemChromeEvidence = await assertSystemChromeClearance(miniProgram, page, scenario);
 
   if (runtimeOnly) return;
   const currentPath = path.resolve(artifactDirectory, `${scenario.id}.png`);
@@ -168,6 +260,8 @@ async function captureScenario(program, scenario) {
       width: current.width,
       height: current.height,
       artifact: path.relative(projectRoot, currentPath),
+      delivery: deliveryEvidence,
+      systemChrome: systemChromeEvidence,
     });
     return;
   }
@@ -201,6 +295,334 @@ async function captureScenario(program, scenario) {
   }
 }
 
+async function leaveLoginControllerBeforeAuthFixture(program) {
+  const activeRoute = await program.evaluate(function readRouteBeforeVisualAuthFixture() {
+    const pages = getCurrentPages();
+    return pages[pages.length - 1]?.route ?? "";
+  });
+  if (activeRoute !== "pages/login/index") return;
+
+  // The login controller owns an asynchronous session restore. Mutating storage while that
+  // controller is still alive creates a race where its late completion can clear the visual
+  // fixture or navigate away from the scenario. Unload it on a static, side-effect-free page
+  // before applying deterministic authentication.
+  const neutralPage = await program.reLaunch("/pages/support/index");
+  assert.ok(neutralPage, "Unable to unload the login controller before visual authentication");
+}
+
+async function assertActiveScenarioRoute(program, scenario) {
+  const expectedRoute = scenario.route.split("?", 1)[0].replace(/^\//u, "");
+  const actualRoute = await program.evaluate(function readActiveVisualRoute() {
+    const pages = getCurrentPages();
+    return pages[pages.length - 1]?.route ?? "";
+  });
+  assert.equal(
+    actualRoute,
+    expectedRoute,
+    `${scenario.id} navigated away from ${expectedRoute} to ${String(actualRoute)}`,
+  );
+}
+
+function pageChrome(...selectors) {
+  return { scope: "page", selectors };
+}
+
+function componentChrome(componentSelector, ...selectors) {
+  return { scope: "component", componentSelector, selectors };
+}
+
+function workbenchChrome() {
+  return componentChrome("#runtime-workbench-nav", ".workbench-nav__back", ".workbench-nav__title");
+}
+
+async function assertSystemChromeClearance(program, page, scenario) {
+  const route = `/${page.path}`;
+  const contract = systemChromeContracts.get(route);
+  if (!contract) return null;
+  const nodes = await readChromeGeometry(program, page, contract);
+  assert.ok(nodes.length > 0, `${scenario.id} did not expose its system-chrome layout contract`);
+
+  const menu = runtimeChromeMetrics.menuButton;
+  const protectedMenu = {
+    left: menu.left - 8,
+    right: menu.right,
+    top: menu.top - 4,
+    bottom: menu.bottom,
+  };
+  for (const node of nodes) {
+    assertHorizontalGeometry(
+      scenario.id,
+      node.selector,
+      node.geometry,
+      Number(runtimeSystemInfo.windowWidth),
+    );
+    assert.ok(
+      !rectanglesOverlap(node.geometry, protectedMenu),
+      `${scenario.id} ${node.selector} overlaps the protected WeChat capsule area: ` +
+        `${JSON.stringify({ node: node.geometry, capsule: protectedMenu })}`,
+    );
+  }
+  return {
+    contract,
+    protectedMenu,
+    nodes,
+  };
+}
+
+async function readChromeGeometry(program, page, contract) {
+  const payload = await program.evaluate(
+    function querySystemChromeNodes(expectedRoute, scope, componentSelector, targetSelectors) {
+      return new Promise((resolve) => {
+        const pages = getCurrentPages();
+        const current = pages[pages.length - 1];
+        if (!current || current.route !== expectedRoute) {
+          resolve(
+            JSON.stringify({
+              error: "route_mismatch",
+              actualRoute: current?.route ?? null,
+              expectedRoute,
+            }),
+          );
+          return;
+        }
+        const context =
+          scope === "component" ? current.selectComponent(componentSelector) : current;
+        if (!context) {
+          resolve(JSON.stringify({ error: "component_missing", componentSelector }));
+          return;
+        }
+        const query = wx.createSelectorQuery().in(context);
+        const results = [];
+        for (const selector of targetSelectors) {
+          query.selectAll(selector).fields(
+            {
+              rect: true,
+              size: true,
+              computedStyle: ["display", "visibility", "opacity"],
+            },
+            (items) => results.push({ selector, items: items ?? [] }),
+          );
+        }
+        query.exec(() => resolve(JSON.stringify({ results })));
+      });
+    },
+    page.path,
+    contract.scope,
+    contract.componentSelector ?? "",
+    contract.selectors,
+  );
+  assert.equal(typeof payload, "string", `${page.path} returned invalid chrome geometry`);
+  const parsed = JSON.parse(payload);
+  assert.equal(
+    parsed.error,
+    undefined,
+    `${page.path} system chrome query failed: ${parsed.error ?? "unknown"}`,
+  );
+  return parsed.results.flatMap(({ selector, items }) =>
+    items
+      .filter(
+        (item) =>
+          item.display !== "none" &&
+          item.visibility !== "hidden" &&
+          item.opacity !== "0" &&
+          numericCssValue(item.width) > 0 &&
+          numericCssValue(item.height) > 0,
+      )
+      .map((item) => ({
+        selector,
+        geometry: {
+          left: numericCssValue(item.left),
+          top: numericCssValue(item.top),
+          width: numericCssValue(item.width),
+          height: numericCssValue(item.height),
+        },
+      })),
+  );
+}
+
+function rectanglesOverlap(node, protectedArea) {
+  const right = node.left + node.width;
+  const bottom = node.top + node.height;
+  return (
+    node.left < protectedArea.right &&
+    right > protectedArea.left &&
+    node.top < protectedArea.bottom &&
+    bottom > protectedArea.top
+  );
+}
+
+async function assertDeliveryContract(program, page, scenario) {
+  const contract = deliveryContractByScenarioId.get(scenario.id);
+  if (!contract) return null;
+  const semanticGeometry = await readSelectorGeometry(program, page, contract.semanticSelector);
+  assert.ok(
+    semanticGeometry,
+    `${scenario.id} did not render Figma ${contract.figmaNodeId} state ${contract.semanticSelector}`,
+  );
+  assertHorizontalGeometry(
+    scenario.id,
+    contract.semanticSelector,
+    semanticGeometry,
+    Number(runtimeSystemInfo.windowWidth),
+  );
+
+  let primaryGeometry = null;
+  if (contract.primarySelector) {
+    const primary = await readSelectorGeometry(program, page, contract.primarySelector);
+    assert.ok(
+      primary,
+      `${scenario.id} is missing primary action ${contract.primarySelector} for Figma ${contract.figmaNodeId}`,
+    );
+    primaryGeometry = primary;
+    assertHorizontalGeometry(
+      scenario.id,
+      contract.primarySelector,
+      primaryGeometry,
+      Number(runtimeSystemInfo.windowWidth),
+    );
+    assert.ok(
+      primaryGeometry.height >= 44,
+      `${scenario.id} primary action ${contract.primarySelector} is ${String(primaryGeometry.height)}px high; minimum touch target is 44px`,
+    );
+  }
+
+  return {
+    figmaNodeId: contract.figmaNodeId,
+    routeState: contract.routeState ?? null,
+    semanticSelector: contract.semanticSelector,
+    semanticGeometry,
+    primarySelector: contract.primarySelector ?? null,
+    primaryGeometry,
+    requiredText: contract.requiredText,
+  };
+}
+
+/**
+ * Developer Tools 2.01.2510290 can leave the legacy automator Element channel
+ * waiting forever even while App.callFunction remains healthy. Query layout
+ * through the page's supported SelectorQuery runtime API, matching the data
+ * bridge used elsewhere in this audit.
+ */
+async function readSelectorGeometry(program, page, selector) {
+  const payload = await program.evaluate(
+    function queryCurrentPageGeometry(expectedRoute, targetSelector) {
+      return new Promise((resolve) => {
+        const pages = getCurrentPages();
+        const current = pages[pages.length - 1];
+        if (!current || current.route !== expectedRoute) {
+          resolve(
+            JSON.stringify({
+              error: "route_mismatch",
+              actualRoute: current?.route ?? null,
+              expectedRoute,
+            }),
+          );
+          return;
+        }
+        current
+          .createSelectorQuery()
+          .select(targetSelector)
+          .fields(
+            {
+              rect: true,
+              size: true,
+              computedStyle: ["display", "visibility", "opacity"],
+            },
+            (result) => resolve(JSON.stringify({ result: result ?? null })),
+          )
+          .exec();
+      });
+    },
+    page.path,
+    selector,
+  );
+  assert.equal(typeof payload, "string", `${page.path} ${selector} returned invalid geometry`);
+  const parsed = JSON.parse(payload);
+  assert.equal(
+    parsed.error,
+    undefined,
+    `${page.path} selector query expected ${page.path} but found ${parsed.actualRoute ?? "no page"}`,
+  );
+  if (!parsed.result) return null;
+  assert.notEqual(parsed.result.display, "none", `${page.path} ${selector} is display:none`);
+  assert.notEqual(parsed.result.visibility, "hidden", `${page.path} ${selector} is hidden`);
+  assert.notEqual(parsed.result.opacity, "0", `${page.path} ${selector} is transparent`);
+  return {
+    left: numericCssValue(parsed.result.left),
+    top: numericCssValue(parsed.result.top),
+    width: numericCssValue(parsed.result.width),
+    height: numericCssValue(parsed.result.height),
+  };
+}
+
+function assertHorizontalGeometry(scenarioId, selector, geometry, viewportWidth) {
+  assert.ok(
+    geometry.width > 0 && geometry.height > 0,
+    `${scenarioId} ${selector} has empty geometry ${JSON.stringify(geometry)}`,
+  );
+  assert.ok(
+    geometry.left >= -1,
+    `${scenarioId} ${selector} starts outside the viewport: ${JSON.stringify(geometry)}`,
+  );
+  assert.ok(
+    geometry.left + geometry.width <= viewportWidth + 1,
+    `${scenarioId} ${selector} overflows the ${String(viewportWidth)}px viewport: ${JSON.stringify(geometry)}`,
+  );
+}
+
+function numericCssValue(value) {
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  if (typeof value === "string") {
+    const parsed = Number.parseFloat(value);
+    if (Number.isFinite(parsed)) return parsed;
+  }
+  return 0;
+}
+
+async function readSystemChromeMetrics(program) {
+  return program.evaluate(function readVisualSystemChrome() {
+    const system = wx.getSystemInfoSync();
+    const menu = wx.getMenuButtonBoundingClientRect();
+    return {
+      statusBarHeight: system.statusBarHeight ?? 0,
+      windowWidth: system.windowWidth,
+      windowHeight: system.windowHeight,
+      menuButton: {
+        left: menu.left,
+        right: menu.right,
+        top: menu.top,
+        bottom: menu.bottom,
+        width: menu.width,
+        height: menu.height,
+      },
+    };
+  });
+}
+
+function assertSystemChromeMetrics(systemInfo, chrome) {
+  assert.equal(chrome.windowWidth, systemInfo.windowWidth, "System chrome width is inconsistent");
+  assert.equal(
+    chrome.windowHeight,
+    systemInfo.windowHeight,
+    "System chrome height is inconsistent",
+  );
+  assert.ok(chrome.statusBarHeight > 0, "Status bar height was not measured");
+  assert.ok(chrome.menuButton.width > 0 && chrome.menuButton.height > 0, "Menu capsule is empty");
+  assert.ok(chrome.menuButton.left >= 0, "Menu capsule starts outside the viewport");
+  assert.ok(
+    chrome.menuButton.right <= chrome.windowWidth,
+    "Menu capsule ends outside the viewport",
+  );
+  assert.ok(
+    chrome.menuButton.top >= chrome.statusBarHeight,
+    "Menu capsule overlaps the status bar",
+  );
+  assert.ok(
+    chrome.menuButton.bottom <= chrome.windowHeight,
+    "Menu capsule ends below the viewport",
+  );
+}
+
 async function withTimeout(promise, timeoutMs, message) {
   let timeoutHandle;
   const timeout = new Promise((_, reject) => {
@@ -219,9 +641,12 @@ async function freezeVisualAnimationClock(program) {
     const originalSetInterval = globalThis.setInterval;
     globalThis.__gongkaoVisualOriginalSetInterval = originalSetInterval;
     globalThis.setInterval = function visualSetInterval(callback, delay, ...args) {
-      // 岸岸 core animation is contractually fixed at 8 fps (125 ms). Visual tests
-      // keep frame zero while leaving page polling/countdown timers operational.
-      if (delay === 125) return originalSetInterval(function holdVisualFrame() {}, delay);
+      // 岸岸 core animation is contractually fixed at 8 fps (125 ms), while task clocks
+      // repaint every second. Visual scenarios own both displayed states, so keep their
+      // injected frame stable without touching request promises or one-shot controller work.
+      if (delay === 125 || delay === 1_000) {
+        return originalSetInterval(function holdVisualFrame() {}, delay);
+      }
       return originalSetInterval(callback, delay, ...args);
     };
   });

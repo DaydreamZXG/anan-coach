@@ -1,5 +1,5 @@
 <view class="coach-page">
-  <safe-top mode="status" gap="16" />
+  <safe-top gap="4" />
 
   <view class="coach-content">
     <view class="coach-header fade-slide-in">
@@ -29,7 +29,7 @@
       <view wx:if="{{contextBannerVisible}}" class="launch-context">
         <view class="launch-context__head">
           <view class="launch-context__source">{{contextSourceLabel}}</view>
-          <button hover-class="item--hover" class="launch-context__close" bindtap="clearLaunchContext">×</button>
+          <button hover-class="item--hover" class="control-center launch-context__close" bindtap="clearLaunchContext">×</button>
         </view>
         <view class="launch-context__title">{{contextTitle}}</view>
         <view class="launch-context__copy">{{contextSummary}}</view>

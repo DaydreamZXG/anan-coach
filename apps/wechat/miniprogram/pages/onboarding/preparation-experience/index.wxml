@@ -1,12 +1,10 @@
 <view class="identity-page">
-  <safe-top mode="status" gap="48" />
-  <view class="identity-nav fade-slide-in">
-    <button hover-class="item--hover" class="nav-back" aria-label="返回" bindtap="back">
-      <image class="nav-back__icon" src="/assets/icons/navigation/chevron-left-ink.svg" mode="aspectFit" />
-    </button>
-    <view class="nav-title">1/5 身份与状态</view>
-    <button hover-class="item--hover" class="nav-save tap-tactile" bindtap="saveAndExit">暂存并退出</button>
-  </view>
+  <workbench-nav
+    id="runtime-workbench-nav"
+    title="1/5 身份与状态"
+    back-behavior="emit"
+    bind:back="back"
+  />
 
   <view wx:if="{{!state || state.status === 'loading' || accountLoading}}" class="identity-state">
     <state-view state="loading" title="正在恢复身份资料" description="会核对昵称和上一次保存的备考经历。" />
@@ -19,7 +17,7 @@
 
   <block wx:else>
     <scroll-view scroll-y class="identity-scroll" enhanced show-scrollbar="{{false}}">
-      <view class="identity-content fade-slide-in fade-slide-in--2">
+      <view class="identity-content onboarding-scroll-content fade-slide-in fade-slide-in--2">
         <view class="identity-heading">了解你的基本状态</view>
         <view class="identity-intro">当前仅支持国家公务员考试规划。岸岸会根据你的备考经验定制不同强度的训练节奏。</view>
 
@@ -99,15 +97,22 @@
       </view>
     </scroll-view>
 
-    <view class="identity-dock">
+    <view class="identity-dock onboarding-action-dock">
       <button hover-class="item--hover"
-        class="identity-primary {{!state.draft.currentStatus || (!state.draft.firstSystematic && !state.draft.retake) ? 'identity-primary--disabled' : ''}} tap-tactile"
+        class="control-center identity-primary {{!state.draft.currentStatus || (!state.draft.firstSystematic && !state.draft.retake) ? 'identity-primary--disabled' : ''}} tap-tactile"
         loading="{{state.saving || profileSaving}}"
         disabled="{{state.saving || profileSaving}}"
         bindtap="submit"
       >
         继续：填写报考资格
       </button>
+      <button
+        hover-class="item--hover"
+        class="onboarding-save-action"
+        loading="{{state.saving || profileSaving}}"
+        disabled="{{state.saving || profileSaving}}"
+        bindtap="saveAndExit"
+      >暂存并退出</button>
     </view>
   </block>
 </view>

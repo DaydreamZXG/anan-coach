@@ -1,14 +1,10 @@
 <view class="eligibility-page">
-  <safe-top mode="status" gap="48" />
-  <view class="eligibility-nav fade-slide-in">
-    <view class="nav-left">
-      <button hover-class="item--hover" class="nav-back" aria-label="返回" bindtap="back">
-        <image class="nav-back__icon" src="/assets/icons/navigation/chevron-left-ink.svg" mode="aspectFit" />
-      </button>
-      <view class="nav-title">2/5 报考资格</view>
-    </view>
-    <button hover-class="item--hover" class="nav-save tap-tactile" loading="{{savingDraft}}" bindtap="saveAndExit">暂存并退出</button>
-  </view>
+  <workbench-nav
+    id="runtime-workbench-nav"
+    title="2/5 报考资格"
+    back-behavior="emit"
+    bind:back="back"
+  />
 
   <view wx:if="{{loadingProfile}}" class="eligibility-state">
     <state-view state="loading" title="正在恢复报考资料" description="会读取你已经确认过的学历、专业和经历。" />
@@ -21,7 +17,7 @@
 
   <block wx:else>
     <scroll-view scroll-y class="eligibility-scroll" enhanced show-scrollbar="{{false}}">
-      <view class="eligibility-content fade-slide-in fade-slide-in--2">
+      <view class="eligibility-content onboarding-scroll-content fade-slide-in fade-slide-in--2">
         <view class="boundary-notice">
           <image class="notice-icon" src="/assets/icons/onboarding/notice-warning.svg" mode="aspectFit" />
           <view class="notice-copy">这部分信息将决定你能否跨过岗位的硬性门槛。不确定的可以先标记“稍后确认”。</view>
@@ -121,9 +117,9 @@
           <view class="divider"></view>
           <view class="card-title">普通工作经历</view>
           <view class="work-options">
-            <button hover-class="item--hover" class="work-option {{workYears === 0 ? 'work-option--selected' : ''}}" data-value="0" bindtap="chooseWorkYears">无经验</button>
-            <button hover-class="item--hover" class="work-option {{workYears === 1 ? 'work-option--selected' : ''}}" data-value="1" bindtap="chooseWorkYears">2 年以下</button>
-            <button hover-class="item--hover" class="work-option {{workYears === 2 ? 'work-option--selected' : ''}}" data-value="2" bindtap="chooseWorkYears">2 年以上</button>
+            <button hover-class="item--hover" class="control-center work-option {{workYears === 0 ? 'work-option--selected' : ''}}" data-value="0" bindtap="chooseWorkYears">无经验</button>
+            <button hover-class="item--hover" class="control-center work-option {{workYears === 1 ? 'work-option--selected' : ''}}" data-value="1" bindtap="chooseWorkYears">2 年以下</button>
+            <button hover-class="item--hover" class="control-center work-option {{workYears === 2 ? 'work-option--selected' : ''}}" data-value="2" bindtap="chooseWorkYears">2 年以上</button>
           </view>
         </view>
 
@@ -134,13 +130,20 @@
       </view>
     </scroll-view>
 
-    <view class="eligibility-dock">
+    <view class="eligibility-dock onboarding-action-dock">
       <button hover-class="item--hover"
-        class="eligibility-primary {{primaryDisabled || catalogLoading || catalogError ? 'eligibility-primary--disabled' : ''}} tap-tactile"
+        class="control-center eligibility-primary {{primaryDisabled || catalogLoading || catalogError ? 'eligibility-primary--disabled' : ''}} tap-tactile"
         loading="{{saving}}"
         disabled="{{saving || savingDraft || primaryDisabled || catalogLoading || !!catalogError}}"
         bindtap="submit"
       >{{primaryActionLabel}}</button>
+      <button
+        hover-class="item--hover"
+        class="onboarding-save-action"
+        loading="{{savingDraft}}"
+        disabled="{{saving || savingDraft}}"
+        bindtap="saveAndExit"
+      >暂存并退出</button>
     </view>
   </block>
 </view>

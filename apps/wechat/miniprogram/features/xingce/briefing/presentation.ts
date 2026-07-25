@@ -43,7 +43,7 @@ export function presentXingceTaskBriefing(briefing: XingceTaskBriefing): XingceT
     })),
     verificationStageLabel: verificationStageLabel(briefing.verificationStage),
     sourceMasteryLabel: briefing.sourceMasteryVersionId ? "来自上次到期复测" : "",
-    validUntilLabel: `说明有效至 ${dateTimeLabel(briefing.validUntil)}`,
+    validUntilLabel: `这组题保留至 ${dateTimeLabel(briefing.validUntil)}`,
     planVersionLabel: "已按今天的计划安排题目",
   };
 }

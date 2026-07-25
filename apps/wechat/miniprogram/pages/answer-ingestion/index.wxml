@@ -1,5 +1,5 @@
 <view class="page external-page answer-page">
-  <workbench-nav title="录入答案" />
+  <workbench-nav id="runtime-workbench-nav" title="录入答案" />
   <view class="external-hero">
     <view class="external-hero__copy">
       <view class="external-eyebrow">录入答案</view>
@@ -22,7 +22,7 @@
       <view class="section-head"><view class="section-head__title">选择学习包</view><view class="section-head__meta">答案会保存到这份学习包</view></view>
       <scroll-view class="target-scroll" scroll-x enable-flex>
         <view hover-class="item--hover" wx:for="{{state.targets}}" wx:key="packetVersionId" class="target-card {{state.selectedPacketVersionId === item.packetVersionId ? 'target-card--selected' : ''}}" role="button" aria-label="选择 {{item.packetTitle}}" data-id="{{item.packetVersionId}}" bindtap="selectPacket">
-          <view class="target-track">{{item.trackLabel}}</view><view class="target-title">{{item.packetTitle}}</view><view class="card-copy">{{item.versionLabel}} · {{item.itemCount}} 题</view><view class="target-expiry">{{item.expiresAtLabel}}</view>
+          <view class="target-track">{{item.trackLabel}}</view><view class="target-title">{{item.packetTitle}}</view><view class="card-copy">{{item.itemCount}} 题 · 已可录入</view><view class="target-expiry">{{item.expiresAtLabel}}</view>
         </view>
       </scroll-view>
 

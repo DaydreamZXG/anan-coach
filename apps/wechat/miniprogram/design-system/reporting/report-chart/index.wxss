@@ -10,8 +10,8 @@
 .report-chart__rail { height: 12rpx; margin-top: 10rpx; overflow: hidden; border-radius: 999rpx; background: var(--color-primary-a08); }
 .report-chart__bar { height: 100%; border-radius: inherit; }
 .report-chart__bar--primary { background: var(--color-primary); }
-.report-chart__bar--warning { background: linear-gradient(90deg, #e9963f, #f4c568); }
+.report-chart__bar--warning { background: var(--gradient-warning); }
 .report-chart__bar--neutral { background: var(--color-faint); }
 .report-chart__summary { margin-top: 24rpx; padding: 20rpx; border-radius: 18rpx; background: var(--color-surface-soft); color: var(--color-ink-secondary); font-size: 25rpx; line-height: 1.6; }
 .report-chart__empty { margin-top: 24rpx; padding: 32rpx 20rpx; border-radius: 18rpx; background: var(--color-surface-soft); color: var(--color-faint); text-align: center; }
-.report-chart__partial { color: #a76420; }
+.report-chart__partial { color: var(--color-warning-deep); }

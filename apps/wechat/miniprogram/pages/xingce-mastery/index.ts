@@ -148,7 +148,7 @@ Page<XingceMasteryPageData, XingceMasteryPageCustom>({
       const confirmation = await wx.showModal({
         title: "复测计划尚未发布",
         content:
-          "这条掌握记录已经到期，但还没有可执行计划。岸岸不会临时拼题，请返回今日等待计划更新。",
+          "这条学习记录已经到期，但今天还没有安排对应复测。岸岸不会临时拼题，请回到今日计划查看最新安排。",
         confirmText: "返回今日",
         showCancel: false,
       });

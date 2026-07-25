@@ -1,12 +1,10 @@
 <view class="baseline-page">
-  <safe-top mode="status" gap="48" />
-  <view class="baseline-nav fade-slide-in">
-    <button hover-class="item--hover" class="nav-back" aria-label="返回" bindtap="back">
-      <image class="nav-back__icon" src="/assets/icons/navigation/chevron-left-ink.svg" mode="aspectFit" />
-    </button>
-    <view class="nav-title">5/5 能力基础</view>
-    <button hover-class="item--hover" class="nav-save tap-tactile" loading="{{state && state.saving}}" bindtap="saveAndExit">暂存并退出</button>
-  </view>
+  <workbench-nav
+    id="runtime-workbench-nav"
+    title="5/5 能力基础"
+    back-behavior="emit"
+    bind:back="back"
+  />
 
   <view wx:if="{{!state || state.status === 'loading'}}" class="baseline-state">
     <state-view state="loading" title="正在读取能力起点" description="会核对是否已经保存过自报成绩或摸底安排。" />
@@ -19,7 +17,7 @@
 
   <block wx:else>
     <scroll-view scroll-y class="baseline-scroll" enhanced show-scrollbar="{{false}}">
-      <view class="baseline-content fade-slide-in fade-slide-in--2">
+      <view class="baseline-content onboarding-scroll-content fade-slide-in fade-slide-in--2">
         <view class="baseline-heading">了解你的起点</view>
         <view class="baseline-copy">区分自报成绩与系统诊断。你提供的成绩仅作为初始锚点。</view>
 
@@ -78,13 +76,20 @@
       </view>
     </scroll-view>
 
-    <view class="baseline-dock">
+    <view class="baseline-dock onboarding-action-dock">
       <button hover-class="item--hover"
         class="baseline-primary {{!hasChoice ? 'baseline-primary--disabled' : ''}} tap-tactile"
         loading="{{state.saving}}"
         disabled="{{state.saving || !hasChoice}}"
         bindtap="submit"
       >{{state.pendingRecovery ? '查询原保存结果' : '完成建档，查看评估'}}</button>
+      <button
+        hover-class="item--hover"
+        class="onboarding-save-action"
+        loading="{{state.saving}}"
+        disabled="{{state.saving}}"
+        bindtap="saveAndExit"
+      >暂存并退出</button>
     </view>
   </block>
 </view>

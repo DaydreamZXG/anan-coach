@@ -1,19 +1,21 @@
+@import "../../design-system/primitives/interaction.wxss";
+
 .content-renderer {
   --content-ink: var(--color-ink);
   --content-muted: var(--color-muted);
   --content-line: var(--color-line);
-  --content-surface: var(--color-surface, #ffffff);
+  --content-surface: var(--color-surface);
   color: var(--content-ink);
 }
 
 .content-renderer--eye_care {
-  --content-ink: #263329;
-  --content-muted: #657167;
+  --content-ink: var(--color-ink-secondary);
+  --content-muted: var(--ink-2);
   --content-line: var(--color-line-strong);
-  --content-surface: #f4f0df;
+  --content-surface: var(--color-surface-soft);
   padding: 20rpx;
   border-radius: 20rpx;
-  background: #f4f0df;
+  background: var(--color-surface-soft);
 }
 
 .content-block + .content-block {
@@ -199,7 +201,7 @@
 }
 
 .content-renderer--eye_care .content-table__cell--header {
-  background: #e8e7d4;
+  background: var(--color-line-strong);
 }
 
 .content-table__cell--frozen-column {

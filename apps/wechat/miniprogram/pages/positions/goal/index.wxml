@@ -1,9 +1,10 @@
 <view class="position-screen position-screen--goal">
-  <safe-top gap="8" />
-
-  <view wx:if="{{!state || state.status !== 'confirmed'}}" class="position-nav">
-    <button class="position-nav__back" bindtap="goBack" aria-label="返回"><text class="position-nav__chevron"></text></button>
-  </view>
+  <workbench-nav
+    id="runtime-workbench-nav"
+    title="{{state && state.status === 'confirmed' ? '主目标已确认' : '设置主目标'}}"
+    back-behavior="emit"
+    bind:back="goBack"
+  />
 
   <view class="goal-content">
     <state-view
@@ -79,11 +80,12 @@
         </view>
 
         <button
-          class="goal-primary-button {{!state.preview || !state.invalidations.length || state.targetValidity.expired || state.status === 'confirming' ? 'goal-primary-button--disabled' : ''}}"
+          hover-class="item--hover"
+          class="control-center goal-primary-button {{!state.preview || !state.invalidations.length || state.targetValidity.expired || state.status === 'confirming' ? 'goal-primary-button--disabled' : ''}} tap-tactile"
           disabled="{{!state.preview || !state.invalidations.length || state.targetValidity.expired || state.status === 'confirming'}}"
           bindtap="confirmGoal"
         >{{state.status === 'confirming' ? '正在确认…' : '确认变更，更新我的计划'}}</button>
-        <button class="goal-quiet-button" bindtap="openDetail">返回修改</button>
+        <button hover-class="item--hover" class="control-center goal-quiet-button" bindtap="openDetail">返回修改</button>
       </view>
     </block>
 
@@ -97,14 +99,14 @@
         <view wx:if="{{state.offerExamBriefing && postGoalError}}" class="position-inline-alert">{{postGoalError}}</view>
 
         <block wx:if="{{state.offerExamBriefing && postGoalAction === 'review_exam_briefing'}}">
-          <button class="goal-primary-button" bindtap="openBeginnerBriefing">先看基础考情</button>
-          <button class="goal-quiet-button" bindtap="finish">我已熟悉，直接开始</button>
+          <button hover-class="item--hover" class="control-center goal-primary-button tap-tactile" bindtap="openBeginnerBriefing">先看基础考情</button>
+          <button hover-class="item--hover" class="control-center goal-quiet-button" bindtap="finish">我已熟悉，直接开始</button>
         </block>
         <block wx:elif="{{state.offerExamBriefing && (postGoalAction === 'import_prior_evidence' || postGoalAction === 'start_retake_recovery')}}">
-          <button class="goal-primary-button" bindtap="openRecommendedEntry">{{postGoalAction === 'import_prior_evidence' ? '导入已有成绩' : '建立失分回收计划'}}</button>
-          <button class="goal-quiet-button" bindtap="finish">稍后再做</button>
+          <button hover-class="item--hover" class="control-center goal-primary-button tap-tactile" bindtap="openRecommendedEntry">{{postGoalAction === 'import_prior_evidence' ? '导入已有成绩' : '建立失分回收计划'}}</button>
+          <button hover-class="item--hover" class="control-center goal-quiet-button" bindtap="finish">先进入今日计划</button>
         </block>
-        <button wx:else class="goal-primary-button" bindtap="finish">{{state.offerExamBriefing ? '进入今日计划' : '回到岗位决策'}}</button>
+        <button wx:else hover-class="item--hover" class="control-center goal-primary-button tap-tactile" bindtap="finish">{{state.offerExamBriefing ? '进入今日计划' : '回到岗位决策'}}</button>
       </view>
     </block>
   </view>

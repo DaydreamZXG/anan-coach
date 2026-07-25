@@ -222,8 +222,8 @@
   min-width: 0;
 }
 
-.s9-primary-button,
-.s9-secondary-button {
+button.s9-primary-button.s9-primary-button,
+button.s9-secondary-button.s9-secondary-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -237,7 +237,7 @@
   line-height: 1.2;
 }
 
-.s9-primary-button {
+button.s9-primary-button {
   border-radius: 40rpx;
   background: var(--color-ink);
   color: var(--color-on-primary);
@@ -245,12 +245,12 @@
 }
 
 .s9-primary-button--disabled {
-  background: #d1d5db;
+  background: var(--figma-color-line-emphasis);
   box-shadow: none;
   color: rgba(255, 255, 255, 0.88);
 }
 
-.s9-secondary-button {
+button.s9-secondary-button {
   border: 1rpx solid var(--color-line-strong);
   background: var(--color-surface);
   color: var(--color-ink);

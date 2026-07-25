@@ -50,7 +50,7 @@
       />
       <view class="content-asset__actions">
         <text wx:if="{{item.caption}}" class="content-caption">{{item.caption}}</text>
-        <button
+        <button hover-class="item--hover"
           wx:if="{{item.hasOcrOriginal}}"
           class="content-link"
           data-current="{{item.ocrOriginalUrl}}"
@@ -75,7 +75,7 @@
       />
       <view class="content-caption">{{item.caption}}</view>
       <view wx:if="{{item.sourceLabel}}" class="content-source">{{item.sourceLabel}}</view>
-      <button
+      <button hover-class="item--hover"
         wx:if="{{item.hasOcrOriginal}}"
         class="content-link content-graph__ocr"
         data-current="{{item.originalOcrUrl}}"
@@ -90,7 +90,7 @@
       <view class="content-table__header">
         <text class="content-table__caption">{{item.resolvedCaption}}</text>
         <view hover-class="item--hover" class="content-table__zoom" catchtap="noop">
-          <button
+          <button hover-class="item--hover"
             class="content-table__zoom-button"
             aria-label="缩小表格"
             data-block-id="{{item.blockId}}"
@@ -99,7 +99,7 @@
             −
           </button>
           <text class="content-table__zoom-value">{{zoom * 100}}%</text>
-          <button
+          <button hover-class="item--hover"
             class="content-table__zoom-button"
             aria-label="放大表格"
             data-block-id="{{item.blockId}}"

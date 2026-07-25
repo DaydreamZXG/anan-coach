@@ -1,14 +1,10 @@
 <view class="preference-page">
-  <safe-top mode="status" gap="48" />
-  <view class="preference-nav fade-slide-in">
-    <view class="nav-left">
-      <button hover-class="item--hover" class="nav-back" aria-label="返回" bindtap="back">
-        <image class="nav-back__icon" src="/assets/icons/navigation/chevron-left-ink.svg" mode="aspectFit" />
-      </button>
-      <view class="nav-title">3/5 岗位偏好</view>
-    </view>
-    <button hover-class="item--hover" class="nav-save tap-tactile" loading="{{state && state.saving}}" bindtap="saveAndExit">暂存并退出</button>
-  </view>
+  <workbench-nav
+    id="runtime-workbench-nav"
+    title="3/5 岗位偏好"
+    back-behavior="emit"
+    bind:back="back"
+  />
 
   <view wx:if="{{!state || state.status === 'loading'}}" class="preference-state">
     <state-view state="loading" title="正在读取岗位偏好" description="会恢复首选地区和已经接受的岗位层级。" />
@@ -21,7 +17,7 @@
 
   <block wx:else>
     <scroll-view scroll-y class="preference-scroll" enhanced show-scrollbar="{{false}}">
-      <view class="preference-content fade-slide-in fade-slide-in--2">
+      <view class="preference-content onboarding-scroll-content fade-slide-in fade-slide-in--2">
         <view class="preference-card">
           <view class="card-title">首选工作地区</view>
           <view class="card-copy">如果首选地区未匹配到理想岗位，岸岸将为你寻找周边或相似分数段区域。</view>
@@ -77,13 +73,20 @@
       </view>
     </scroll-view>
 
-    <view class="preference-dock">
+    <view class="preference-dock onboarding-action-dock">
       <button hover-class="item--hover"
-        class="preference-primary {{!hasRequiredSelection || catalogLoading || catalogError ? 'preference-primary--disabled' : ''}} tap-tactile"
+        class="control-center preference-primary {{!hasRequiredSelection || catalogLoading || catalogError ? 'preference-primary--disabled' : ''}} tap-tactile"
         loading="{{state.saving}}"
         disabled="{{state.saving || !hasRequiredSelection || catalogLoading || catalogError}}"
         bindtap="submit"
       >{{state.pendingRecovery ? '查询原保存结果' : '继续：填写学习时间'}}</button>
+      <button
+        hover-class="item--hover"
+        class="onboarding-save-action"
+        loading="{{state.saving}}"
+        disabled="{{state.saving}}"
+        bindtap="saveAndExit"
+      >暂存并退出</button>
     </view>
   </block>
 </view>
