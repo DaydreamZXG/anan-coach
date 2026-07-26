@@ -13,7 +13,12 @@ page {
    * （手机等效物理尺寸），根治大屏 rpx 放大。运行时尺寸一律写
    * calc(N * var(--rpx))。
    */
-  --rpx: 1rpx;
+  /*
+   * 1rpx 字面量会被编译圆整成 1px；calc() 内的 rpx 又不参与编译转换。
+   * 两步走：裸字面量 100rpx 由编译器精确转换（=屏宽/7.5），再除回单位。
+   */
+  --rpx-base: 100rpx;
+  --rpx: calc(var(--rpx-base) / 100);
 
   --color-canvas: var(--figma-color-canvas);
   --color-surface: var(--figma-color-surface);
