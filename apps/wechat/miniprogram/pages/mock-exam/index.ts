@@ -184,6 +184,8 @@ interface PageRuntime {
   visible: boolean;
   disposed: boolean;
   timerId?: number;
+  /** 契约增量 v1：毫秒时钟基准点（Date.now() 差值累计，后台/停表时冻结）。 */
+  lastTickAtMs?: number;
   autosaveTimerId?: number;
   mutationVersion: number;
   dirtyQuestionIds: Set<string>;
@@ -554,6 +556,7 @@ Page<MockExamPageData, MockExamPageCustom>({
 
   toggleMaterial() {
     if (!this.data.question?.material) return;
+    const opening = !this.data.materialOpen;
     const materialReaderState = reduceMaterialReader(
       this.data.materialReaderState,
       this.data.materialOpen ? { type: "RETURN_TO_QUESTION" } : { type: "OPEN_DRAWER" },
@@ -562,6 +565,14 @@ Page<MockExamPageData, MockExamPageCustom>({
       materialOpen: materialReaderState.mode !== "question_first",
       materialReaderState,
     });
+    // 契约增量 v1：展开材料是可见的作答动作事实（与真实训练同套采集）。
+    const runtime = runtimes.get(this);
+    if (opening && runtime?.task && runtime.task.phase === "answering") {
+      runtime.task = reduceTaskRuntime(runtime.task, {
+        type: "ACTION_LOGGED",
+        action: "material_expanded",
+      });
+    }
   },
 
   updateMaterialReaderState(event) {
@@ -946,7 +957,8 @@ async function performCheckpointSave(
     runtime.session = updated;
     runtime.task =
       runtime.mutationVersion === sentMutationVersion
-        ? runtimeFromMockSession(updated, Date.now())
+        ? // 契约增量 v1：带上本地状态重建，毫秒时钟与事件时间线不倒退。
+          runtimeFromMockSession(updated, Date.now(), requiredTask(runtime))
         : runtimeWithServerRevision(requiredTask(runtime), updated);
     if (runtime.mutationVersion === sentMutationVersion) {
       sentQuestionIds.forEach((questionId) => runtime.dirtyQuestionIds.delete(questionId));
@@ -1015,7 +1027,7 @@ async function resumePendingCheckpoint(
       if (runtime.disposed) return true;
       const updated = sessionWithCheckpointReceipt(requiredSession(runtime), receipt);
       runtime.session = updated;
-      runtime.task = runtimeFromMockSession(updated, Date.now());
+      runtime.task = runtimeFromMockSession(updated, Date.now(), runtime.task);
       pending.command.answers.forEach((answer) => {
         runtime.dirtyQuestionIds.delete(answer.questionId);
       });
@@ -1166,7 +1178,7 @@ async function submitWithLease(
       clearPendingMockSubmit(runtime.ownerUserId, submission.sessionId);
       throw new Error("云端已经完成交卷，当前设备不再重复提交。", { cause: error });
     }
-    const serverTask = runtimeFromMockSession(latest, Date.now());
+    const serverTask = runtimeFromMockSession(latest, Date.now(), runtime.task);
     const selectedTask =
       resolved.conflictChoice === "use_this_device"
         ? runtimeWithPendingMockSubmit(serverTask, submission.command)
@@ -1201,15 +1213,29 @@ async function resumePendingSubmit(
 function startClock(page: MockExamPageInstance, runtime: PageRuntime): void {
   stopClock(runtime);
   if (!runtime.visible || page.data.status !== "ready") return;
+  // 契约增量 v1：模考启用与真实训练同套的毫秒时钟，供动作事件 atMs/sessionAtMs 使用。
+  runtime.lastTickAtMs = Date.now();
   runtime.timerId = setInterval(() => {
+    tickActiveClock(runtime);
     refreshClock(page, runtime);
   }, 1000);
 }
 
 function stopClock(runtime: PageRuntime): void {
+  delete runtime.lastTickAtMs;
   if (runtime.timerId === undefined) return;
   clearInterval(runtime.timerId);
   delete runtime.timerId;
+}
+
+function tickActiveClock(runtime: PageRuntime): void {
+  const task = runtime.task;
+  if (!task || task.phase !== "answering" || runtime.disposed) return;
+  const now = Date.now();
+  // 定时器约 1 秒一跳；防御性夹在 [0, 60s]，避免时钟回拨或长阻塞造成异常跳变。
+  const ms = Math.min(60_000, Math.max(0, Math.round(now - (runtime.lastTickAtMs ?? now))));
+  runtime.lastTickAtMs = now;
+  runtime.task = reduceTaskRuntime(task, { type: "TICK", seconds: 1, ms });
 }
 
 function refreshClock(page: MockExamPageInstance, runtime: PageRuntime): void {
@@ -1398,14 +1424,14 @@ async function resolveMockCheckpointConflict(
     }
     runtime.session = latest;
     if (resolved.conflictChoice === "use_server") {
-      runtime.task = runtimeFromMockSession(latest, Date.now());
+      runtime.task = runtimeFromMockSession(latest, Date.now(), runtime.task);
       runtime.dirtyQuestionIds.clear();
       applyRuntimeToPage(page, runtime, "已使用云端进度");
       return true;
     }
     const localCommand = buildMockCheckpointCommand(localTask);
     runtime.task = runtimeWithPendingMockCheckpoint(
-      runtimeFromMockSession(latest, Date.now()),
+      runtimeFromMockSession(latest, Date.now(), localTask),
       localCommand,
     );
     runtime.dirtyQuestionIds = new Set(runtime.task.questionOrder);
@@ -1429,7 +1455,7 @@ async function resolveMockCheckpointConflict(
     clearPendingMockCheckpoint(runtime.ownerUserId, latest.sessionId);
     const updated = sessionWithCheckpointReceipt(latest, receipt);
     runtime.session = updated;
-    runtime.task = runtimeFromMockSession(updated, Date.now());
+    runtime.task = runtimeFromMockSession(updated, Date.now(), runtime.task);
     runtime.dirtyQuestionIds.clear();
     applyRuntimeToPage(page, runtime, "已按你的选择保留本机草稿");
     return true;

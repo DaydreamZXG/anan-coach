@@ -152,7 +152,7 @@ Page({
 
   onKeyboardHeight(event: WechatMiniprogram.TextareaKeyboardHeightChange) {
     if (!this.data.manualKeyboard) return;
-    const height = event.detail.height ?? 0;
+    const height = event.detail.height;
     // fixed 定位的输入坞在 iPad 上不随 adjust-position 上移，手动抬升。
     this.setData({ keyboardOffset: height > 0 ? height : 0 });
   },

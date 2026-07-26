@@ -7,6 +7,10 @@ from uuid import UUID
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from app.domains.task_content.schemas import MaterialPosition, SafeMaterial, SafeQuestion
+from app.domains.xingce_learning.real_attempt.schemas import (
+    AnnotationStroke,
+    AttemptActionEvent,
+)
 
 
 class MockExamBaseModel(BaseModel):
@@ -90,6 +94,18 @@ class MockExamAnswerCheckpoint(MockExamBaseModel):
     material_position: MaterialPosition | None = Field(
         default=None, alias="materialPosition"
     )
+    # 契约增量 v1：模考检查点复用行测真实训练的批注/动作事实结构
+    # （import 自 real_attempt.schemas，不复制定义）。模考端没有批注层入口，
+    # annotations 通常为空数组；动作事件与溢出标记语义与 AnswerCheckpoint 一致。
+    annotations: list[AnnotationStroke] = Field(default_factory=list, max_length=120)
+    action_events: list[AttemptActionEvent] = Field(
+        default_factory=list,
+        alias="actionEvents",
+        max_length=400,
+    )
+    action_events_truncated: bool | None = Field(
+        default=None, alias="actionEventsTruncated"
+    )
 
     @model_validator(mode="after")
     def normalize_state(self) -> "MockExamAnswerCheckpoint":
@@ -105,6 +121,24 @@ class MockExamAnswerCheckpoint(MockExamBaseModel):
             raise ValueError("eliminated option identifiers must be unique")
         if self.selected_answer in set(self.eliminated_option_ids):
             raise ValueError("selected and eliminated options cannot overlap")
+        stroke_ids = [stroke.stroke_id for stroke in self.annotations]
+        if len(stroke_ids) != len(set(stroke_ids)):
+            raise ValueError("annotation stroke identifiers must be unique")
+        # 契约增量 v1：atMs 为本题累计作答时长（非降序即可，同值合法）。
+        if any(
+            later.at_ms < earlier.at_ms
+            for earlier, later in zip(self.action_events, self.action_events[1:])
+        ):
+            raise ValueError("action events must be ordered by atMs")
+        session_marks = [
+            event.session_at_ms
+            for event in self.action_events
+            if event.session_at_ms is not None
+        ]
+        if any(
+            later < earlier for earlier, later in zip(session_marks, session_marks[1:])
+        ):
+            raise ValueError("action events must be ordered by sessionAtMs")
         return self
 
 

@@ -52,6 +52,7 @@ import {
 } from "../../features/task-editing/coordinator";
 import { createIdempotencyKey } from "../../platform/command-id";
 import { decideAutosave, decideExit } from "../../task-runtime/state/autosave";
+import { appendStrokeWithinLimit } from "../../task-runtime/annotation-layer/strokes";
 import type { AnnotationStroke } from "../../task-runtime/contracts";
 import { reduceTaskRuntime, unansweredQuestionIds } from "../../task-runtime/state/runtime";
 import type {
@@ -635,6 +636,10 @@ Page<PracticePageData, PracticePageCustom>({
           0.98,
           Math.max(0.02, (top - (workspace.top ?? 0) - 12) / workspace.height),
         );
+        const attempt =
+          runtime.task.attempts[
+            runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? ""
+          ];
         const stroke: AnnotationStroke = {
           strokeId: `mark-${String(runtime.task.totalElapsedSeconds)}-${Math.random().toString(36).slice(2, 8)}`,
           tool: "highlighter",
@@ -643,14 +648,18 @@ Page<PracticePageData, PracticePageCustom>({
             { x: 0.08, y: normalizedY },
             { x: 0.92, y: normalizedY },
           ],
-          atMs:
-            (runtime.task.attempts[
-              runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? ""
-            ]?.elapsedSeconds ?? 0) * 1000,
+          // 契约增量 v1：atMs 用本题活跃毫秒（真毫秒精度）。
+          atMs: attempt ? (attempt.elapsedMs ?? attempt.elapsedSeconds * 1000) : 0,
         };
+        // 120 笔上限含墓碑；满员时先物理删除最旧的已擦除笔画腾位。
+        const strokes = appendStrokeWithinLimit(view.question.annotations, stroke);
+        if (!strokes) {
+          void wx.showToast({ title: "批注笔画已达上限", icon: "none" });
+          return;
+        }
         runtime.task = reduceTaskRuntime(runtime.task, {
           type: "ANNOTATIONS_CHANGED",
-          strokes: [...view.question.annotations, stroke],
+          strokes,
           action: "added",
         });
         render(this, runtime);
@@ -1568,6 +1577,8 @@ function startTimer(
 ): void {
   stopTimer(runtime);
   if (!runtime.visible || page.data.taskPaused) return;
+  // 契约增量 v1：毫秒时钟用 Date.now() 差值累计，暂停/切后台时随定时器一起冻结。
+  runtime.lastTickAtMs = Date.now();
   runtime.timerHandle = setInterval(() => {
     if (
       !runtimes.owns(page, runtime) ||
@@ -1576,7 +1587,11 @@ function startTimer(
       runtime.task.phase !== "answering"
     )
       return;
-    runtime.task = reduceTaskRuntime(runtime.task, { type: "TICK", seconds: 1 });
+    const now = Date.now();
+    // 定时器约 1 秒一跳；防御性夹在 [0, 60s]，避免时钟回拨或长阻塞造成异常跳变。
+    const ms = Math.min(60_000, Math.max(0, Math.round(now - runtime.lastTickAtMs)));
+    runtime.lastTickAtMs = now;
+    runtime.task = reduceTaskRuntime(runtime.task, { type: "TICK", seconds: 1, ms });
     render(page, runtime);
     void autosaveCheckpoint(page, runtime);
   }, 1_000);

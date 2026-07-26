@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { mapLearnerSafeMockSession } from "../miniprogram/api/mock-exam";
+import type { MockExamAnswerCheckpoint } from "../miniprogram/api/mock-exam";
 import { reduceTaskRuntime } from "../miniprogram/task-runtime/state/runtime";
 import {
   loadTaskDisplayPreferences,
@@ -12,6 +13,7 @@ import {
   formatRemainingTime,
   remainingMockSeconds,
   runtimeFromMockSession,
+  runtimeWithPendingMockCheckpoint,
   runtimeWithPendingMockSubmit,
 } from "../miniprogram/pages/mock-exam/runtime";
 
@@ -69,12 +71,104 @@ describe("stage 2 F02 mock exam", () => {
           marked: true,
           draftText: "先算增长量",
           materialPosition: { anchorId: "material-start", scrollTop: 360, zoom: 1.25 },
+          // 契约增量 v1：模考与真实训练同套动作事件采集；无批注层入口时 annotations 为空数组。
+          annotations: [],
+          actionEvents: [
+            { atMs: 0, sessionAtMs: 600_000, type: "option_selected", optionId: "B" },
+            { atMs: 0, sessionAtMs: 600_000, type: "option_eliminated", optionId: "D" },
+            { atMs: 0, sessionAtMs: 600_000, type: "draft_edited" },
+            { atMs: 0, sessionAtMs: 600_000, type: "marked" },
+            { atMs: 0, sessionAtMs: 600_000, type: "material_scrolled", detail: "material-start" },
+          ],
         },
       ],
     });
     expect(submit.answers).toEqual([{ questionId: "q-1", selectedAnswer: "B" }]);
     expect(state.mode).toBe("mock_exam");
     expect(state.exitPolicy).toBe("timer_continues");
+  });
+
+  it("restores persisted action facts and keeps the per-question ms clock monotonic", () => {
+    const payload = sessionPayload();
+    payload.checkpoint.answers[0] = {
+      questionId: "q-1",
+      selectedAnswer: "B",
+      eliminatedOptionIds: [],
+      marked: false,
+      draftText: "",
+      actionEvents: [
+        { atMs: 0, sessionAtMs: 1_000, type: "question_entered" },
+        { atMs: 5_000, sessionAtMs: 6_000, type: "option_selected", optionId: "B" },
+      ],
+      actionEventsTruncated: true,
+    } as never;
+    const session = mapLearnerSafeMockSession(payload);
+    let state = runtimeFromMockSession(session, Date.parse("2026-07-15T02:10:00.000Z"));
+
+    const restored = state.attempts["q-1"];
+    expect(restored?.actionEvents).toHaveLength(2);
+    expect(restored?.actionEventsTruncated).toBe(true);
+    // 检查点不持久化本题秒表，恢复时以最后一条事件的 atMs 兜底，保证追加事件非降序。
+    expect(restored?.elapsedMs).toBe(5_000);
+
+    state = reduceTaskRuntime(state, { type: "ANSWER_SELECTED", optionIds: ["C"] });
+    const events = state.attempts["q-1"]?.actionEvents ?? [];
+    expect(events.at(-1)).toMatchObject({ type: "option_changed", atMs: 5_000 });
+    // 追加事件的 atMs 序列保持非降序（0 -> 5000 -> 5000）。
+    expect(events.map((event) => event.atMs)).toEqual([0, 5_000, 5_000]);
+
+    const answer = buildMockCheckpointCommand(state).answers[0];
+    expect(answer?.actionEvents).toHaveLength(3);
+    expect(answer?.actionEventsTruncated).toBe(true);
+    expect(answer?.annotations).toEqual([]);
+  });
+
+  it("never rewinds the session ms clock when rebuilding from a checkpoint receipt", () => {
+    const session = mapLearnerSafeMockSession(sessionPayload());
+    const previous = {
+      ...runtimeFromMockSession(session, Date.parse("2026-07-15T02:10:00.900Z")),
+      sessionElapsedMs: 600_900,
+    };
+
+    // 回执重建时墙钟取整会小于本地累计毫秒；sessionAtMs 时间线不允许倒退。
+    const rebuilt = runtimeFromMockSession(
+      session,
+      Date.parse("2026-07-15T02:10:00.950Z"),
+      previous,
+    );
+
+    expect(rebuilt.sessionElapsedMs).toBe(600_900);
+    expect(rebuilt.totalElapsedSeconds).toBe(600);
+  });
+
+  it("keeps pending action facts when replaying a locally stored checkpoint command", () => {
+    const session = mapLearnerSafeMockSession(sessionPayload());
+    const state = runtimeFromMockSession(session, Date.parse("2026-07-15T02:10:00.000Z"));
+
+    const restored = runtimeWithPendingMockCheckpoint(state, {
+      expectedRevision: 3,
+      currentQuestionId: "q-1",
+      answers: [
+        {
+          questionId: "q-1",
+          selectedAnswer: "B",
+          eliminatedOptionIds: [],
+          marked: false,
+          draftText: "",
+          annotations: [],
+          actionEvents: [
+            { atMs: 0, sessionAtMs: 1_000, type: "question_entered" },
+            { atMs: 4_200, sessionAtMs: 5_200, type: "option_selected", optionId: "B" },
+          ],
+          actionEventsTruncated: true,
+        },
+      ],
+    });
+
+    const attempt = restored.attempts["q-1"];
+    expect(attempt?.actionEvents).toHaveLength(2);
+    expect(attempt?.actionEventsTruncated).toBe(true);
+    expect(attempt?.elapsedMs).toBe(4_200);
   });
 
   it("sends checkpoint deltas plus the current question instead of the whole paper", () => {
@@ -229,6 +323,28 @@ describe("stage 2 F02 mock exam", () => {
       { expectedRevision: 4, answers: [{ questionId: "q-1", selectedAnswer: "B" }] },
     ]);
     expect(harness.page.data.status).toBe("submitted");
+    harness.page.onUnload.call(harness.page);
+  });
+
+  it("uploads collected action events with a ticking ms clock in mock checkpoints", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-07-15T02:00:00.000Z"));
+    const harness = await createMockPage(sessionPayload());
+
+    // 3 次心跳推进毫秒时钟，随后的作答事实应携带 atMs/sessionAtMs=3000。
+    await vi.advanceTimersByTimeAsync(3_000);
+    harness.page.selectOption.call(harness.page, optionEvent("B"));
+    await vi.advanceTimersByTimeAsync(800);
+    await flushMicrotasks();
+
+    const checkpoint = harness.requests.find((request) => request.url.endsWith("/checkpoint"));
+    expect(checkpoint).toBeDefined();
+    const answers = (checkpoint?.data as { answers: MockExamAnswerCheckpoint[] }).answers;
+    expect(answers[0]?.annotations).toEqual([]);
+    expect(answers[0]?.actionEvents).toEqual([
+      { atMs: 3_000, sessionAtMs: 3_000, type: "option_selected", optionId: "B" },
+    ]);
+    expect(answers[0]?.actionEventsTruncated).toBeUndefined();
     harness.page.onUnload.call(harness.page);
   });
 });

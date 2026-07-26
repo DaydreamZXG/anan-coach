@@ -15,6 +15,7 @@ export interface MockExamTiming {
 export function runtimeFromMockSession(
   session: MockExamLearnerSession,
   nowMs: number,
+  previous?: TaskRuntimeState,
 ): TaskRuntimeState {
   if (session.status !== "assigned") throw new Error("Only an assigned mock exam can be answered");
   const questionOrder = session.questions.map((question) => question.questionId);
@@ -26,7 +27,7 @@ export function runtimeFromMockSession(
     questionOrder.map((questionId) => {
       const answer = answers.get(questionId);
       if (!answer) throw new Error("Mock checkpoint does not cover the whole assigned paper");
-      return [questionId, attemptFromCheckpoint(answer)];
+      return [questionId, attemptFromCheckpoint(answer, previous?.attempts[questionId])];
     }),
   );
   const totalElapsedSeconds = Math.max(
@@ -47,6 +48,11 @@ export function runtimeFromMockSession(
       revision: session.revision,
     }),
     startedAt: session.startedAt,
+    // 契约增量 v1：sessionAtMs 时钟只增不减；保存回执重建运行时不能让会话时间线倒退。
+    sessionElapsedMs: Math.max(
+      totalElapsedSeconds * 1000,
+      previous ? (previous.sessionElapsedMs ?? previous.totalElapsedSeconds * 1000) : 0,
+    ),
   };
 }
 
@@ -110,6 +116,13 @@ export function runtimeWithPendingMockCheckpoint(
         const current = requiredAttempt(state, questionId);
         const pending = answerById.get(questionId);
         if (!pending) return [questionId, current];
+        // 契约增量 v1：待确认命令里的批注与动作事实一并还原，
+        // 并把毫秒时钟推进到最后一条事件之后，保证追加事件仍非降序。
+        const pendingEvents = pending.actionEvents ?? [];
+        const restoredElapsedMs = Math.max(
+          current.elapsedMs ?? current.elapsedSeconds * 1000,
+          pendingEvents.at(-1)?.atMs ?? 0,
+        );
         return [
           questionId,
           {
@@ -118,9 +131,23 @@ export function runtimeWithPendingMockCheckpoint(
             eliminatedOptionIds: [...pending.eliminatedOptionIds],
             marked: pending.marked,
             draftText: pending.draftText,
+            elapsedSeconds: Math.floor(restoredElapsedMs / 1000),
+            elapsedMs: restoredElapsedMs,
             ...(pending.materialPosition
               ? { materialPosition: { ...pending.materialPosition } }
               : {}),
+            ...(pending.annotations && pending.annotations.length > 0
+              ? {
+                  annotations: pending.annotations.map((stroke) => ({
+                    ...stroke,
+                    points: stroke.points.map((point) => ({ ...point })),
+                  })),
+                }
+              : {}),
+            ...(pendingEvents.length > 0
+              ? { actionEvents: pendingEvents.map((entry) => ({ ...entry })) }
+              : {}),
+            ...(pending.actionEventsTruncated ? { actionEventsTruncated: true } : {}),
           },
         ];
       }),
@@ -194,16 +221,40 @@ export function countMockAnswers(state: TaskRuntimeState): {
   return { answered, unanswered: attempts.length - answered, marked };
 }
 
-function attemptFromCheckpoint(answer: MockExamAnswerCheckpoint): QuestionAttemptDraft {
+function attemptFromCheckpoint(
+  answer: MockExamAnswerCheckpoint,
+  previous?: QuestionAttemptDraft,
+): QuestionAttemptDraft {
+  // 契约增量 v1：模考检查点不持久化本题秒表，恢复时以已存事件的 atMs
+  // 与上一份本地状态的毫秒时钟取最大值，保证后续事件 atMs 非降序。
+  const lastEventAtMs = answer.actionEvents?.at(-1)?.atMs ?? 0;
+  const elapsedMs = Math.max(
+    lastEventAtMs,
+    previous ? (previous.elapsedMs ?? previous.elapsedSeconds * 1000) : 0,
+  );
   return {
     questionId: answer.questionId,
     selectedOptionIds: answer.selectedAnswer ? [answer.selectedAnswer] : [],
     eliminatedOptionIds: [...answer.eliminatedOptionIds],
     marked: answer.marked,
     skipped: false,
-    elapsedSeconds: 0,
+    elapsedSeconds: Math.floor(elapsedMs / 1000),
+    elapsedMs,
     draftText: answer.draftText,
     ...(answer.materialPosition ? { materialPosition: { ...answer.materialPosition } } : {}),
+    // 恢复会话时把已持久化的批注与动作事实带回运行时。
+    ...(answer.annotations && answer.annotations.length > 0
+      ? {
+          annotations: answer.annotations.map((stroke) => ({
+            ...stroke,
+            points: stroke.points.map((point) => ({ ...point })),
+          })),
+        }
+      : {}),
+    ...(answer.actionEvents && answer.actionEvents.length > 0
+      ? { actionEvents: answer.actionEvents.map((entry) => ({ ...entry })) }
+      : {}),
+    ...(answer.actionEventsTruncated ? { actionEventsTruncated: true } : {}),
   };
 }
 
@@ -219,6 +270,14 @@ function checkpointFromAttempt(
     marked: attempt.marked,
     draftText: attempt.draftText,
     ...(attempt.materialPosition ? { materialPosition: { ...attempt.materialPosition } } : {}),
+    // 契约增量 v1：模考与真实训练同套动作事件采集；模考无批注层入口，
+    // annotations 恒为运行时现值（通常是空数组），动作事件必须上报。
+    annotations: (attempt.annotations ?? []).map((stroke) => ({
+      ...stroke,
+      points: stroke.points.map((point) => ({ ...point })),
+    })),
+    actionEvents: (attempt.actionEvents ?? []).map((entry) => ({ ...entry })),
+    ...(attempt.actionEventsTruncated ? { actionEventsTruncated: true } : {}),
   };
 }
 

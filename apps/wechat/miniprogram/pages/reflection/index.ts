@@ -528,6 +528,8 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       item.elapsedSeconds * 1000,
       ...item.actionEvents.map((entry) => entry.atMs),
       ...item.annotations.map((stroke) => stroke.atMs),
+      // 契约增量 v1：擦除墓碑也在时间线上，回放要走到擦除时刻。
+      ...item.annotations.map((stroke) => stroke.erasedAtMs ?? 0),
       1000,
     );
     const eraseCount = item.actionEvents.filter(

@@ -13,6 +13,12 @@ const MAX_ACTION_EVENTS = 400;
 const MAX_ANNOTATION_STROKES = 120;
 /** 草稿输入按键频繁，5 秒内只记一条 draft_edited 事实。 */
 const DRAFT_EVENT_WINDOW_MS = 5_000;
+/** 契约增量 v1：材料滚动锚点事实按 ≥2 秒节流。 */
+const MATERIAL_SCROLL_EVENT_WINDOW_MS = 2_000;
+/** 与后端 atMs/sessionAtMs 上限一致（86_400_000 毫秒）。 */
+const MAX_AT_MS = 86_400_000;
+/** 后端 AttemptActionEvent.detail 上限。 */
+const MAX_EVENT_DETAIL_LENGTH = 200;
 
 export class TaskTransitionError extends Error {
   constructor(message: string) {
@@ -97,22 +103,30 @@ export function reduceTaskRuntime(
         phase: "answering",
         startedAt: event.startedAt,
       });
-    case "TICK":
+    case "TICK": {
       if (!Number.isInteger(event.seconds) || event.seconds <= 0) {
         throw new TaskTransitionError("Tick seconds must be a positive integer");
       }
+      if (event.ms !== undefined && (!Number.isInteger(event.ms) || event.ms < 0)) {
+        throw new TaskTransitionError("Tick milliseconds must be a non-negative integer");
+      }
       if (state.phase !== "answering") return state;
+      // 契约增量 v1：毫秒时钟只在活跃 TICK 时前进，暂停/切题期间自然冻结。
+      const tickMs = event.ms ?? event.seconds * 1000;
       return updateAttempt(
         state,
         (attempt) => ({
           ...attempt,
           elapsedSeconds: attempt.elapsedSeconds + event.seconds,
+          elapsedMs: Math.min(attemptElapsedMs(attempt) + tickMs, MAX_AT_MS),
         }),
         {
           totalElapsedSeconds: state.totalElapsedSeconds + event.seconds,
+          sessionElapsedMs: Math.min(sessionElapsedMs(state) + tickMs, MAX_AT_MS),
         },
       );
-    case "QUESTION_CHANGED":
+    }
+    case "QUESTION_CHANGED": {
       assertAnswering(state);
       if (
         !Number.isInteger(event.index) ||
@@ -121,7 +135,25 @@ export function reduceTaskRuntime(
       ) {
         throw new TaskTransitionError("Question index is outside the task");
       }
-      return changed(state, { currentQuestionIndex: event.index });
+      if (event.index === state.currentQuestionIndex) return state;
+      // 契约增量 v1：进出题各记一条跨题时间线事实（optionId/detail 不填）。
+      const fromQuestionId = currentQuestionId(state);
+      const fromAttempt = state.attempts[fromQuestionId];
+      const toQuestionId = state.questionOrder[event.index];
+      const toAttempt = toQuestionId ? state.attempts[toQuestionId] : undefined;
+      if (!fromAttempt || !toQuestionId || !toAttempt) {
+        throw new TaskTransitionError("Current attempt does not exist");
+      }
+      const sessionAtMs = sessionElapsedMs(state);
+      return changed(state, {
+        currentQuestionIndex: event.index,
+        attempts: {
+          ...state.attempts,
+          [fromQuestionId]: withActionEvent(fromAttempt, "question_left", sessionAtMs),
+          [toQuestionId]: withActionEvent(toAttempt, "question_entered", sessionAtMs),
+        },
+      });
+    }
     case "ANSWER_SELECTED":
       assertAnswering(state);
       if (
@@ -145,6 +177,7 @@ export function reduceTaskRuntime(
         return withActionEvent(
           next,
           attempt.selectedOptionIds.length > 0 ? "option_changed" : "option_selected",
+          sessionElapsedMs(state),
           { optionId: event.optionIds.join(",") },
         );
       });
@@ -163,6 +196,7 @@ export function reduceTaskRuntime(
               : attempt.eliminatedOptionIds.filter((optionId) => optionId !== event.optionId),
           },
           event.eliminated ? "option_eliminated" : "elimination_undone",
+          sessionElapsedMs(state),
           { optionId: event.optionId },
         ),
       );
@@ -171,9 +205,12 @@ export function reduceTaskRuntime(
       return updateAttempt(state, (attempt) =>
         attempt.confidence === event.confidence
           ? attempt
-          : withActionEvent({ ...attempt, confidence: event.confidence }, "confidence_set", {
-              detail: event.confidence,
-            }),
+          : withActionEvent(
+              { ...attempt, confidence: event.confidence },
+              "confidence_set",
+              sessionElapsedMs(state),
+              { detail: event.confidence },
+            ),
       );
     case "QUESTION_MARKED":
       assertAnswering(state);
@@ -183,6 +220,7 @@ export function reduceTaskRuntime(
           : withActionEvent(
               { ...attempt, marked: event.marked },
               event.marked ? "marked" : "unmarked",
+              sessionElapsedMs(state),
             ),
       );
     case "QUESTION_SKIPPED":
@@ -195,6 +233,7 @@ export function reduceTaskRuntime(
             skipped: true,
           },
           "skipped",
+          sessionElapsedMs(state),
         ),
       );
     case "DRAFT_CHANGED":
@@ -205,11 +244,11 @@ export function reduceTaskRuntime(
         const lastDraftEvent = [...events].reverse().find((entry) => entry.type === "draft_edited");
         if (
           lastDraftEvent &&
-          attempt.elapsedSeconds * 1000 - lastDraftEvent.atMs < DRAFT_EVENT_WINDOW_MS
+          attemptElapsedMs(attempt) - lastDraftEvent.atMs < DRAFT_EVENT_WINDOW_MS
         ) {
           return next;
         }
-        return withActionEvent(next, "draft_edited");
+        return withActionEvent(next, "draft_edited", sessionElapsedMs(state));
       });
     case "ANNOTATIONS_CHANGED":
       assertAnswering(state);
@@ -226,12 +265,18 @@ export function reduceTaskRuntime(
             })),
           },
           event.action === "added" ? "annotation_added" : "annotation_erased",
+          sessionElapsedMs(state),
         ),
       );
     case "ACTION_LOGGED":
       assertAnswering(state);
       return updateAttempt(state, (attempt) =>
-        withActionEvent(attempt, event.action, event.detail ? { detail: event.detail } : {}),
+        withActionEvent(
+          attempt,
+          event.action,
+          sessionElapsedMs(state),
+          event.detail ? { detail: event.detail } : {},
+        ),
       );
     case "MATERIAL_POSITION_CHANGED":
       assertAnswering(state);
@@ -244,10 +289,26 @@ export function reduceTaskRuntime(
       ) {
         throw new TaskTransitionError("Material position is invalid");
       }
-      return updateAttempt(state, (attempt) => ({
-        ...attempt,
-        materialPosition: { ...event.position },
-      }));
+      return updateAttempt(state, (attempt) => {
+        const next: QuestionAttemptDraft = {
+          ...attempt,
+          materialPosition: { ...event.position },
+        };
+        // 契约增量 v1：材料锚点事实按 ≥2 秒节流；快照 materialPosition 行为保留不变。
+        const events = attempt.actionEvents ?? [];
+        const lastScrollEvent = [...events]
+          .reverse()
+          .find((entry) => entry.type === "material_scrolled");
+        if (
+          lastScrollEvent &&
+          attemptElapsedMs(attempt) - lastScrollEvent.atMs < MATERIAL_SCROLL_EVENT_WINDOW_MS
+        ) {
+          return next;
+        }
+        return withActionEvent(next, "material_scrolled", sessionElapsedMs(state), {
+          detail: event.position.anchorId.slice(0, MAX_EVENT_DETAIL_LENGTH),
+        });
+      });
     case "SAVE_REQUESTED":
       if (state.syncState === "saving") return state;
       return { ...clearRequestId(state), syncState: "saving" };
@@ -342,18 +403,43 @@ function emptyAttempt(questionId: string): QuestionAttemptDraft {
   };
 }
 
-/** 把一条动作事实追加到当前题的时间线；时间戳取本题已作答秒数。 */
+/**
+ * 把一条动作事实追加到当前题的时间线。
+ * 契约增量 v1：atMs 取本题活跃毫秒（真毫秒精度），sessionAtMs 取会话全局累计毫秒；
+ * 达到 400 上限时不再静默丢弃，而是置 actionEventsTruncated。
+ */
 function withActionEvent(
   attempt: QuestionAttemptDraft,
   type: AttemptActionType,
+  sessionAtMs: number,
   extra: Pick<AttemptActionEvent, "optionId" | "detail"> | Record<string, never> = {},
 ): QuestionAttemptDraft {
   const events = attempt.actionEvents ?? [];
-  if (events.length >= MAX_ACTION_EVENTS) return attempt;
+  if (events.length >= MAX_ACTION_EVENTS) {
+    return attempt.actionEventsTruncated ? attempt : { ...attempt, actionEventsTruncated: true };
+  }
   return {
     ...attempt,
-    actionEvents: [...events, { atMs: attempt.elapsedSeconds * 1000, type, ...extra }],
+    actionEvents: [
+      ...events,
+      {
+        atMs: Math.min(attemptElapsedMs(attempt), MAX_AT_MS),
+        type,
+        sessionAtMs: Math.min(sessionAtMs, MAX_AT_MS),
+        ...extra,
+      },
+    ],
   };
+}
+
+/** 本题活跃毫秒；旧数据没有 elapsedMs 时按 elapsedSeconds 的秒级精度换算。 */
+function attemptElapsedMs(attempt: QuestionAttemptDraft): number {
+  return attempt.elapsedMs ?? attempt.elapsedSeconds * 1000;
+}
+
+/** 会话全局活跃毫秒；旧数据没有 sessionElapsedMs 时按 totalElapsedSeconds 换算。 */
+function sessionElapsedMs(state: TaskRuntimeState): number {
+  return state.sessionElapsedMs ?? state.totalElapsedSeconds * 1000;
 }
 
 function cloneAttempt(attempt: QuestionAttemptDraft): QuestionAttemptDraft {
@@ -381,6 +467,9 @@ function cloneAttempt(attempt: QuestionAttemptDraft): QuestionAttemptDraft {
     throw new TaskTransitionError("A skipped question cannot have a selected option");
   }
   assertElapsedSeconds(attempt.elapsedSeconds, "Question elapsed seconds");
+  if (attempt.elapsedMs !== undefined) {
+    assertElapsedSeconds(attempt.elapsedMs, "Question elapsed milliseconds");
+  }
   if (attempt.materialPosition) assertMaterialPosition(attempt.materialPosition);
   return {
     ...attempt,

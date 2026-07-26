@@ -187,6 +187,10 @@ export type AbilityEstimate = {
      */
     dataLine: string;
     /**
+     * Knowledgepointestimates
+     */
+    knowledgePointEstimates?: Array<KnowledgePointAbilityEstimate>;
+    /**
      * Latestmockreason
      */
     latestMockReason?: string | null;
@@ -467,6 +471,10 @@ export type AccountSessionView = {
  */
 export type AnnotationPoint = {
     /**
+     * T
+     */
+    t?: number | null;
+    /**
      * X
      */
     x: number;
@@ -479,13 +487,20 @@ export type AnnotationPoint = {
 /**
  * AnnotationStroke
  *
- * Figma 70:2 题面直接批注：一条笔或荧光笔轨迹。橡皮/套索在端上删除笔画。
+ * Figma 70:2 题面直接批注：一条笔或荧光笔轨迹。
+ *
+ * 契约增量 v1：橡皮/套索不再物理删除笔画，改为写 erasedAtMs 墓碑；
+ * 渲染与回放过滤墓碑笔画。120 笔/题上限含墓碑。
  */
 export type AnnotationStroke = {
     /**
      * Atms
      */
     atMs: number;
+    /**
+     * Erasedatms
+     */
+    erasedAtMs?: number | null;
     /**
      * Points
      */
@@ -542,6 +557,10 @@ export type AnswerCheckpoint = {
      * Actionevents
      */
     actionEvents?: Array<AttemptActionEvent>;
+    /**
+     * Actioneventstruncated
+     */
+    actionEventsTruncated?: boolean | null;
     /**
      * Annotations
      */
@@ -937,9 +956,13 @@ export type AttemptActionEvent = {
      */
     optionId?: string | null;
     /**
+     * Sessionatms
+     */
+    sessionAtMs?: number | null;
+    /**
      * Type
      */
-    type: 'option_selected' | 'option_changed' | 'option_eliminated' | 'elimination_undone' | 'confidence_set' | 'draft_edited' | 'marked' | 'unmarked' | 'skipped' | 'paused' | 'resumed' | 'material_expanded' | 'annotation_added' | 'annotation_erased';
+    type: 'option_selected' | 'option_changed' | 'option_eliminated' | 'elimination_undone' | 'confidence_set' | 'draft_edited' | 'marked' | 'unmarked' | 'skipped' | 'paused' | 'resumed' | 'material_expanded' | 'material_scrolled' | 'annotation_added' | 'annotation_erased' | 'question_entered' | 'question_left';
 };
 
 /**
@@ -6732,6 +6755,64 @@ export type KnowledgeMapCandidate = {
 };
 
 /**
+ * KnowledgePointAbilityEstimate
+ *
+ * 知识点级正确率投影。
+ *
+ * 样本量不足（lowSample=true）时不给 accuracy 结论字段，
+ * 只报告样本量，避免用不足的数据下结论。
+ */
+export type KnowledgePointAbilityEstimate = {
+    /**
+     * Accuracy
+     */
+    accuracy?: number | null;
+    /**
+     * Lowsample
+     */
+    lowSample?: boolean;
+    /**
+     * Modulename
+     */
+    moduleName: string;
+    /**
+     * Samplesize
+     */
+    sampleSize: number;
+    /**
+     * Tagvalue
+     */
+    tagValue: string;
+};
+
+/**
+ * KnowledgePointWeakness
+ *
+ * 知识点级弱项投影（仅样本充足者，每模块最多 3 个）。
+ *
+ * 数据来源为 calibration 域的知识点级正确率（practice_answers join
+ * product.question_tags），样本不足与未分类标签不进入本榜单。
+ */
+export type KnowledgePointWeakness = {
+    /**
+     * Accuracy
+     */
+    accuracy: number;
+    /**
+     * Modulename
+     */
+    moduleName: string;
+    /**
+     * Samplesize
+     */
+    sampleSize: number;
+    /**
+     * Tagvalue
+     */
+    tagValue: string;
+};
+
+/**
  * LearnerMemory
  */
 export type LearnerMemory = {
@@ -6891,6 +6972,10 @@ export type LearningBrainProfileVersion = {
     inputVersions: {
         [key: string]: string;
     };
+    /**
+     * Knowledgepointweaknesses
+     */
+    knowledgePointWeaknesses?: Array<KnowledgePointWeakness> | null;
     /**
      * Modules
      */
@@ -7559,6 +7644,18 @@ export type MockExamAnswer = {
  * MockExamAnswerCheckpoint
  */
 export type MockExamAnswerCheckpoint = {
+    /**
+     * Actionevents
+     */
+    actionEvents?: Array<AttemptActionEvent>;
+    /**
+     * Actioneventstruncated
+     */
+    actionEventsTruncated?: boolean | null;
+    /**
+     * Annotations
+     */
+    annotations?: Array<AnnotationStroke>;
     /**
      * Drafttext
      */

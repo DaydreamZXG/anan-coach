@@ -24,6 +24,8 @@ export interface MaterialPosition {
 export interface AnnotationPoint {
   x: number;
   y: number;
+  /** 契约增量 v1：相对本笔起笔的毫秒偏移，逐点非降序；旧数据缺省合法。 */
+  t?: number;
 }
 
 export interface AnnotationStroke {
@@ -32,6 +34,11 @@ export interface AnnotationStroke {
   width: number;
   points: AnnotationPoint[];
   atMs: number;
+  /**
+   * 契约增量 v1：擦除墓碑。橡皮/套索不再物理删除笔画，改为盖擦除时刻；
+   * 渲染与回放过滤该字段非空的笔画（回放在 replayMs >= erasedAtMs 时消失）。
+   */
+  erasedAtMs?: number;
 }
 
 /** Figma 75:2/78:2 的作答动作事实。 */
@@ -48,12 +55,19 @@ export type AttemptActionType =
   | "paused"
   | "resumed"
   | "material_expanded"
+  // 契约增量 v1：材料锚点滚动事实（detail=anchorId，≥2 秒节流）。
+  | "material_scrolled"
   | "annotation_added"
-  | "annotation_erased";
+  | "annotation_erased"
+  // 契约增量 v1：跨题时间线的进出题事实（optionId/detail 不填）。
+  | "question_entered"
+  | "question_left";
 
 export interface AttemptActionEvent {
   atMs: number;
   type: AttemptActionType;
+  /** 契约增量 v1：会话全局累计毫秒时间线；旧数据缺省合法。 */
+  sessionAtMs?: number;
   optionId?: string;
   detail?: string;
 }
@@ -66,11 +80,21 @@ export interface QuestionAttemptDraft {
   marked: boolean;
   skipped: boolean;
   elapsedSeconds: number;
+  /**
+   * 契约增量 v1：本题活跃作答毫秒（Date.now() 差值累计，暂停/切题冻结）。
+   * 缺省时以 elapsedSeconds * 1000 为准；仅本地使用，不随检查点上报。
+   */
+  elapsedMs?: number;
   draftText: string;
   materialPosition?: MaterialPosition;
-  /** 行测真实训练记录批注与动作事件；模考等其他运行时可以不携带。 */
+  /**
+   * 契约增量 v1：行测真实训练与整卷模考都必须采集动作事件；
+   * 批注仅在提供批注层入口的运行时携带（模考没有批注层，上报空数组即可）。
+   */
   annotations?: AnnotationStroke[];
   actionEvents?: AttemptActionEvent[];
+  /** 契约增量 v1：动作事件达到 400 上限被截断时置 true；缺省等价 false。 */
+  actionEventsTruncated?: boolean;
 }
 
 export interface TaskRuntimeState {
@@ -88,6 +112,11 @@ export interface TaskRuntimeState {
   currentQuestionIndex: number;
   attempts: Record<string, QuestionAttemptDraft>;
   totalElapsedSeconds: number;
+  /**
+   * 契约增量 v1：会话全局活跃毫秒累计（sessionAtMs 的时钟源）。
+   * 缺省时以 totalElapsedSeconds * 1000 为准；仅本地使用。
+   */
+  sessionElapsedMs?: number;
   exitPolicy: ExitPolicy;
   reflectionRequired: boolean;
   reflectionCompleted: boolean;
@@ -101,7 +130,8 @@ export interface TaskRuntimeState {
 
 export type TaskRuntimeEvent =
   | { type: "TASK_STARTED"; startedAt: string }
-  | { type: "TICK"; seconds: number }
+  /** 契约增量 v1：ms 为本轮真实活跃毫秒（Date.now() 差值）；缺省按 seconds * 1000 累计。 */
+  | { type: "TICK"; seconds: number; ms?: number }
   | { type: "QUESTION_CHANGED"; index: number }
   | { type: "ANSWER_SELECTED"; optionIds: string[] }
   | { type: "OPTION_ELIMINATED"; optionId: string; eliminated: boolean }

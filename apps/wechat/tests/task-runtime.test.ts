@@ -463,3 +463,153 @@ describe("task runtime", () => {
     });
   });
 });
+
+describe("task runtime contract increment v1", () => {
+  function startedRuntime(questionOrder: string[] = ["q1", "q2"]) {
+    return reduceTaskRuntime(
+      createTaskRuntime({ taskId: "contract-v1", mode: "practice", questionOrder }),
+      { type: "TASK_STARTED", startedAt: "2026-07-26T04:00:00Z" },
+    );
+  }
+
+  it("accumulates a true millisecond clock that freezes across question switches", () => {
+    let state = startedRuntime();
+    state = reduceTaskRuntime(state, { type: "TICK", seconds: 1, ms: 1_337 });
+    expect(state.attempts.q1?.elapsedMs).toBe(1_337);
+    expect(state.sessionElapsedMs).toBe(1_337);
+
+    state = reduceTaskRuntime(state, { type: "ANSWER_SELECTED", optionIds: ["A"] });
+    expect(state.attempts.q1?.actionEvents?.at(-1)).toMatchObject({
+      type: "option_selected",
+      atMs: 1_337,
+      sessionAtMs: 1_337,
+    });
+
+    state = reduceTaskRuntime(state, { type: "TICK", seconds: 1, ms: 263 });
+    state = reduceTaskRuntime(state, { type: "QUESTION_CHANGED", index: 1 });
+    state = reduceTaskRuntime(state, { type: "TICK", seconds: 2, ms: 2_000 });
+    state = reduceTaskRuntime(state, { type: "QUESTION_CHANGED", index: 0 });
+
+    // 切题后本题时钟冻结：q1 的毫秒数不因 q2 的 TICK 前进。
+    expect(state.attempts.q1?.elapsedMs).toBe(1_600);
+    expect(state.attempts.q2?.elapsedMs).toBe(2_000);
+    expect(state.sessionElapsedMs).toBe(3_600);
+
+    // 每题 atMs 非降序，sessionAtMs 全局非降序（与后端放宽后的校验一致）。
+    for (const attempt of Object.values(state.attempts)) {
+      const atMsValues = (attempt.actionEvents ?? []).map((event) => event.atMs);
+      expect(atMsValues).toEqual([...atMsValues].sort((left, right) => left - right));
+      const sessionValues = (attempt.actionEvents ?? []).map((event) => event.sessionAtMs ?? 0);
+      expect(sessionValues).toEqual([...sessionValues].sort((left, right) => left - right));
+    }
+  });
+
+  it("falls back to second precision when a tick carries no milliseconds", () => {
+    let state = startedRuntime(["q1"]);
+    state = reduceTaskRuntime(state, { type: "TICK", seconds: 2 });
+    expect(state.attempts.q1?.elapsedMs).toBe(2_000);
+    expect(state.sessionElapsedMs).toBe(2_000);
+    expect(() => reduceTaskRuntime(state, { type: "TICK", seconds: 1, ms: -1 })).toThrow(
+      TaskTransitionError,
+    );
+  });
+
+  it("records question_entered/question_left on the cross-question timeline", () => {
+    let state = startedRuntime();
+    state = reduceTaskRuntime(state, { type: "TICK", seconds: 1, ms: 900 });
+    const unchanged = reduceTaskRuntime(state, { type: "QUESTION_CHANGED", index: 0 });
+    expect(unchanged).toBe(state);
+
+    state = reduceTaskRuntime(state, { type: "QUESTION_CHANGED", index: 1 });
+    expect(state.attempts.q1?.actionEvents?.at(-1)).toMatchObject({
+      type: "question_left",
+      atMs: 900,
+      sessionAtMs: 900,
+    });
+    const entered = state.attempts.q2?.actionEvents?.at(-1);
+    expect(entered).toMatchObject({ type: "question_entered", atMs: 0, sessionAtMs: 900 });
+    expect(entered?.optionId).toBeUndefined();
+    expect(entered?.detail).toBeUndefined();
+  });
+
+  it("throttles material_scrolled anchor facts to one per 2 seconds while keeping snapshots", () => {
+    let state = startedRuntime(["q1"]);
+    state = reduceTaskRuntime(state, {
+      type: "MATERIAL_POSITION_CHANGED",
+      position: { anchorId: "table-1", scrollTop: 10, zoom: 1 },
+    });
+    state = reduceTaskRuntime(state, {
+      type: "MATERIAL_POSITION_CHANGED",
+      position: { anchorId: "table-2", scrollTop: 60, zoom: 1 },
+    });
+    expect(
+      (state.attempts.q1?.actionEvents ?? []).filter((event) => event.type === "material_scrolled"),
+    ).toEqual([expect.objectContaining({ type: "material_scrolled", detail: "table-1", atMs: 0 })]);
+    // 节流只作用于事实流；materialPosition 快照行为保持不变。
+    expect(state.attempts.q1?.materialPosition).toMatchObject({ anchorId: "table-2" });
+
+    state = reduceTaskRuntime(state, { type: "TICK", seconds: 1, ms: 2_400 });
+    state = reduceTaskRuntime(state, {
+      type: "MATERIAL_POSITION_CHANGED",
+      position: { anchorId: "table-3", scrollTop: 120, zoom: 1 },
+    });
+    expect(
+      (state.attempts.q1?.actionEvents ?? []).filter((event) => event.type === "material_scrolled"),
+    ).toHaveLength(2);
+  });
+
+  it("sets actionEventsTruncated instead of silently dropping the 401st fact", () => {
+    let state = startedRuntime(["q1"]);
+    for (let index = 0; index < 400; index += 1) {
+      state = reduceTaskRuntime(state, {
+        type: "OPTION_ELIMINATED",
+        optionId: "D",
+        eliminated: index % 2 === 0,
+      });
+    }
+    expect(state.attempts.q1?.actionEvents).toHaveLength(400);
+    expect(state.attempts.q1?.actionEventsTruncated).toBeUndefined();
+
+    state = reduceTaskRuntime(state, { type: "CONFIDENCE_SET", confidence: "high" });
+    expect(state.attempts.q1?.actionEvents).toHaveLength(400);
+    expect(state.attempts.q1?.actionEventsTruncated).toBe(true);
+    // 溢出只截断事实流，作答状态本身仍然生效。
+    expect(state.attempts.q1?.confidence).toBe("high");
+  });
+
+  it("keeps tombstoned strokes and per-point timing when annotations change", () => {
+    let state = startedRuntime(["q1"]);
+    state = reduceTaskRuntime(state, {
+      type: "ANNOTATIONS_CHANGED",
+      strokes: [
+        {
+          strokeId: "s-1",
+          tool: "pen",
+          width: 0.006,
+          points: [
+            { x: 0.1, y: 0.1, t: 0 },
+            { x: 0.2, y: 0.2, t: 18 },
+          ],
+          atMs: 500,
+        },
+        {
+          strokeId: "s-2",
+          tool: "highlighter",
+          width: 0.03,
+          points: [
+            { x: 0.3, y: 0.3, t: 0 },
+            { x: 0.4, y: 0.3, t: 40 },
+          ],
+          atMs: 700,
+          erasedAtMs: 900,
+        },
+      ],
+      action: "erased",
+    });
+    // 墓碑不是物理删除：两笔都保留，擦除只体现在 erasedAtMs 上。
+    expect(state.attempts.q1?.annotations).toHaveLength(2);
+    expect(state.attempts.q1?.annotations?.[1]).toMatchObject({ erasedAtMs: 900 });
+    expect(state.attempts.q1?.annotations?.[0]?.points[1]).toMatchObject({ t: 18 });
+    expect(state.attempts.q1?.actionEvents?.at(-1)).toMatchObject({ type: "annotation_erased" });
+  });
+});

@@ -44,6 +44,8 @@ export interface XingceQuestionView {
   skipped: boolean;
   elapsedLabel: string;
   elapsedSeconds: number;
+  /** 契约增量 v1：本题活跃毫秒时钟，供批注层盖真毫秒 atMs。 */
+  elapsedMs: number;
   draftText: string;
   /** Figma 70:2：本题的批注笔迹。 */
   annotations: AnnotationStroke[];
@@ -405,6 +407,7 @@ function presentQuestion(
     skipped: attempt.skipped,
     elapsedLabel: formatElapsed(attempt.elapsedSeconds),
     elapsedSeconds: attempt.elapsedSeconds,
+    elapsedMs: attempt.elapsedMs ?? attempt.elapsedSeconds * 1000,
     draftText: attempt.draftText,
     annotations: attempt.annotations ?? [],
   };
@@ -488,12 +491,24 @@ function presentResultItem(
       strokeId: stroke.strokeId,
       tool: stroke.tool,
       width: stroke.width,
-      points: stroke.points.map((point) => ({ x: point.x, y: point.y })),
+      points: stroke.points.map((point) => ({
+        x: point.x,
+        y: point.y,
+        // 契约增量 v1：逐点毫秒偏移随回放数据透传。
+        ...(point.t !== undefined && point.t !== null ? { t: point.t } : {}),
+      })),
       atMs: stroke.atMs,
+      // 契约增量 v1：擦除墓碑透传，回放在 replayMs >= erasedAtMs 时让笔画消失。
+      ...(stroke.erasedAtMs !== undefined && stroke.erasedAtMs !== null
+        ? { erasedAtMs: stroke.erasedAtMs }
+        : {}),
     })),
     actionEvents: (answer?.actionEvents ?? []).map((entry) => ({
       atMs: entry.atMs,
       type: entry.type,
+      ...(entry.sessionAtMs !== undefined && entry.sessionAtMs !== null
+        ? { sessionAtMs: entry.sessionAtMs }
+        : {}),
       ...(entry.optionId ? { optionId: entry.optionId } : {}),
       ...(entry.detail ? { detail: entry.detail } : {}),
     })),

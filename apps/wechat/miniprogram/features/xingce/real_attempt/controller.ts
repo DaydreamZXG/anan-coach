@@ -200,6 +200,8 @@ export function checkpointCommand(runtime: TaskRuntimeState): XingceCheckpointCo
       ...(answer.actionEvents && answer.actionEvents.length > 0
         ? { actionEvents: answer.actionEvents }
         : {}),
+      // 契约增量 v1：400 事件截断不再静默，上报溢出标记。
+      ...(answer.actionEventsTruncated ? { actionEventsTruncated: true } : {}),
     }));
   if (answers.length === 0) {
     throw new XingcePageContractError("至少明确作答或跳过一道题后才能保存进度。");
@@ -267,8 +269,17 @@ function toRuntimeAttempt(answer: XingceTaskSession["answers"][number]): Questio
             strokeId: stroke.strokeId,
             tool: stroke.tool,
             width: stroke.width,
-            points: stroke.points.map((point) => ({ x: point.x, y: point.y })),
+            points: stroke.points.map((point) => ({
+              x: point.x,
+              y: point.y,
+              // 契约增量 v1：逐点毫秒偏移随会话恢复带回。
+              ...(point.t !== undefined && point.t !== null ? { t: point.t } : {}),
+            })),
             atMs: stroke.atMs,
+            // 契约增量 v1：擦除墓碑随会话恢复带回，渲染层负责过滤。
+            ...(stroke.erasedAtMs !== undefined && stroke.erasedAtMs !== null
+              ? { erasedAtMs: stroke.erasedAtMs }
+              : {}),
           })),
         }
       : {}),
@@ -277,11 +288,16 @@ function toRuntimeAttempt(answer: XingceTaskSession["answers"][number]): Questio
           actionEvents: answer.actionEvents.map((entry) => ({
             atMs: entry.atMs,
             type: entry.type,
+            ...(entry.sessionAtMs !== undefined && entry.sessionAtMs !== null
+              ? { sessionAtMs: entry.sessionAtMs }
+              : {}),
             ...(entry.optionId ? { optionId: entry.optionId } : {}),
             ...(entry.detail ? { detail: entry.detail } : {}),
           })),
         }
       : {}),
+    // 契约增量 v1：溢出标记随会话恢复带回，避免再次静默。
+    ...(answer.actionEventsTruncated ? { actionEventsTruncated: true } : {}),
   };
 }
 

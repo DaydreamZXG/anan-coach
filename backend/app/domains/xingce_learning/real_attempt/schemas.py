@@ -26,22 +26,38 @@ class AnnotationPoint(XingceModel):
 
     x: float = Field(ge=0, le=1)
     y: float = Field(ge=0, le=1)
+    # 契约增量 v1：相对本笔起笔的毫秒偏移，逐点非降序；旧数据缺省合法。
+    t: int | None = Field(default=None, ge=0)
 
 
 class AnnotationStroke(XingceModel):
-    """Figma 70:2 题面直接批注：一条笔或荧光笔轨迹。橡皮/套索在端上删除笔画。"""
+    """Figma 70:2 题面直接批注：一条笔或荧光笔轨迹。
+
+    契约增量 v1：橡皮/套索不再物理删除笔画，改为写 erasedAtMs 墓碑；
+    渲染与回放过滤墓碑笔画。120 笔/题上限含墓碑。
+    """
 
     stroke_id: str = Field(alias="strokeId", min_length=1, max_length=64)
     tool: Literal["pen", "highlighter"]
     width: float = Field(gt=0, le=0.2)
     points: list[AnnotationPoint] = Field(min_length=2, max_length=240)
     at_ms: int = Field(alias="atMs", ge=0, le=86_400_000)
+    erased_at_ms: int | None = Field(default=None, alias="erasedAtMs", ge=0, le=86_400_000)
+
+    @model_validator(mode="after")
+    def validate_point_timing(self) -> "AnnotationStroke":
+        offsets = [point.t for point in self.points if point.t is not None]
+        if any(later < earlier for earlier, later in zip(offsets, offsets[1:])):
+            raise ValueError("annotation point offsets must be non-decreasing")
+        return self
 
 
 class AttemptActionEvent(XingceModel):
     """Figma 75:2/78:2 的作答动作事实：带毫秒时间戳的端上事件。"""
 
     at_ms: int = Field(alias="atMs", ge=0, le=86_400_000)
+    # 契约增量 v1：会话全局累计毫秒时间线；旧数据缺省合法。
+    session_at_ms: int | None = Field(default=None, alias="sessionAtMs", ge=0, le=86_400_000)
     type: Literal[
         "option_selected",
         "option_changed",
@@ -55,8 +71,11 @@ class AttemptActionEvent(XingceModel):
         "paused",
         "resumed",
         "material_expanded",
+        "material_scrolled",
         "annotation_added",
         "annotation_erased",
+        "question_entered",
+        "question_left",
     ]
     option_id: str | None = Field(default=None, alias="optionId", max_length=12)
     detail: str | None = Field(default=None, max_length=200)
@@ -79,15 +98,15 @@ class AnswerCheckpoint(XingceModel):
     skipped: bool = False
     elapsed_seconds: int = Field(alias="elapsedSeconds", ge=0, le=86_400)
     draft_text: str = Field(default="", alias="draftText", max_length=4_000)
-    material_position: MaterialPosition | None = Field(
-        default=None, alias="materialPosition"
-    )
+    material_position: MaterialPosition | None = Field(default=None, alias="materialPosition")
     annotations: list[AnnotationStroke] = Field(default_factory=list, max_length=120)
     action_events: list[AttemptActionEvent] = Field(
         default_factory=list,
         alias="actionEvents",
         max_length=400,
     )
+    # 契约增量 v1：端上 400 事件截断时置 true；缺省等价 false。
+    action_events_truncated: bool | None = Field(default=None, alias="actionEventsTruncated")
 
     @model_validator(mode="after")
     def validate_answer_shape(self) -> "AnswerCheckpoint":
@@ -95,9 +114,7 @@ class AnswerCheckpoint(XingceModel):
         eliminated = [item.strip().upper() for item in self.eliminated_option_ids]
         if any(not item for item in selected + eliminated):
             raise ValueError("option identifiers cannot be blank")
-        if len(set(selected)) != len(selected) or len(set(eliminated)) != len(
-            eliminated
-        ):
+        if len(set(selected)) != len(selected) or len(set(eliminated)) != len(eliminated):
             raise ValueError("option identifiers must be unique")
         if set(selected) & set(eliminated):
             raise ValueError("selected and eliminated options cannot overlap")
@@ -106,11 +123,17 @@ class AnswerCheckpoint(XingceModel):
         stroke_ids = [stroke.stroke_id for stroke in self.annotations]
         if len(stroke_ids) != len(set(stroke_ids)):
             raise ValueError("annotation stroke identifiers must be unique")
+        # 契约增量 v1：atMs 为本题累计作答时长（非降序即可，同值合法）。
         if any(
             later.at_ms < earlier.at_ms
             for earlier, later in zip(self.action_events, self.action_events[1:])
         ):
             raise ValueError("action events must be ordered by atMs")
+        session_marks = [
+            event.session_at_ms for event in self.action_events if event.session_at_ms is not None
+        ]
+        if any(later < earlier for earlier, later in zip(session_marks, session_marks[1:])):
+            raise ValueError("action events must be ordered by sessionAtMs")
         self.selected_option_ids = selected
         self.eliminated_option_ids = eliminated
         self.draft_text = self.draft_text.strip()
@@ -119,9 +142,7 @@ class AnswerCheckpoint(XingceModel):
 
 class SaveCheckpointCommand(XingceModel):
     expected_revision: int = Field(alias="expectedRevision", ge=1)
-    current_question_id: str = Field(
-        alias="currentQuestionId", min_length=1, max_length=240
-    )
+    current_question_id: str = Field(alias="currentQuestionId", min_length=1, max_length=240)
     answers: list[AnswerCheckpoint] = Field(min_length=1, max_length=100)
     total_elapsed_seconds: int = Field(alias="totalElapsedSeconds", ge=0, le=86_400)
 
@@ -149,9 +170,7 @@ class ReflectionCommand(XingceModel):
     expected_revision: int = Field(alias="expectedRevision", ge=1)
     raw_text: str = Field(alias="rawText", min_length=1, max_length=4_000)
     tags: list[str] = Field(min_length=1, max_length=12)
-    strategy_note: str | None = Field(
-        default=None, alias="strategyNote", max_length=2_000
-    )
+    strategy_note: str | None = Field(default=None, alias="strategyNote", max_length=2_000)
     doubt_note: str | None = Field(default=None, alias="doubtNote", max_length=2_000)
     voice_artifact_version_ids: list[UUID] = Field(
         default_factory=list,
@@ -167,18 +186,12 @@ class ReflectionCommand(XingceModel):
     def normalize_user_voice(self) -> "ReflectionCommand":
         self.raw_text = self.raw_text.strip()
         tags = [tag.strip() for tag in self.tags]
-        if (
-            not self.raw_text
-            or any(not tag for tag in tags)
-            or len(tags) != len(set(tags))
-        ):
+        if not self.raw_text or any(not tag for tag in tags) or len(tags) != len(set(tags)):
             raise ValueError("reflection text and unique non-blank tags are required")
         self.tags = tags
         self.strategy_note = (self.strategy_note or "").strip() or None
         self.doubt_note = (self.doubt_note or "").strip() or None
-        if len(self.voice_artifact_version_ids) != len(
-            set(self.voice_artifact_version_ids)
-        ):
+        if len(self.voice_artifact_version_ids) != len(set(self.voice_artifact_version_ids)):
             raise ValueError("voice artifact version identifiers must be unique")
         return self
 
@@ -200,9 +213,7 @@ class CauseDecisionCommand(XingceModel):
     expected_revision: int = Field(alias="expectedRevision", ge=1)
     candidate_version_id: UUID | None = Field(default=None, alias="candidateVersionId")
     decision: Literal["confirm", "reject", "replace", "defer", "skip"]
-    replacement_cause: str | None = Field(
-        default=None, alias="replacementCause", max_length=2_000
-    )
+    replacement_cause: str | None = Field(default=None, alias="replacementCause", max_length=2_000)
 
     @model_validator(mode="after")
     def validate_decision(self) -> "CauseDecisionCommand":
@@ -222,9 +233,7 @@ class ReportQuestionDisputeCommand(XingceModel):
     model_config = ConfigDict(populate_by_name=True, extra="forbid")
 
     question_id: str = Field(alias="questionId", min_length=1, max_length=240)
-    content_version_id: str = Field(
-        alias="contentVersionId", min_length=64, max_length=64
-    )
+    content_version_id: str = Field(alias="contentVersionId", min_length=64, max_length=64)
     category: Literal[
         "stem_error",
         "option_error",
@@ -263,9 +272,9 @@ class QuestionDisputeReceipt(XingceModel):
 
 class XingceResultItem(XingceModel):
     question_id: str = Field(alias="questionId")
-    result_code: Literal[
-        "correct", "incorrect", "timeout", "guessed_correct", "skipped"
-    ] = Field(alias="resultCode")
+    result_code: Literal["correct", "incorrect", "timeout", "guessed_correct", "skipped"] = Field(
+        alias="resultCode"
+    )
     selected_option_ids: list[str] = Field(alias="selectedOptionIds")
     correct_option_ids: list[str] = Field(alias="correctOptionIds")
     fact_contract_version: Literal["xingce-result-facts@v1"] | None = Field(
@@ -277,9 +286,9 @@ class XingceResultItem(XingceModel):
         alias="objectiveVerdict",
     )
     disposition: Literal["answered", "active_abandon"] | None = None
-    confidence_evidence: Literal[
-        "low", "medium", "high", "unreported"
-    ] | None = Field(default=None, alias="confidenceEvidence")
+    confidence_evidence: Literal["low", "medium", "high", "unreported"] | None = Field(
+        default=None, alias="confidenceEvidence"
+    )
     timing_evidence: "XingceTimingEvidence | None" = Field(
         default=None,
         alias="timingEvidence",
@@ -433,12 +442,12 @@ class XingceCompletionReceipt(XingceModel):
 
 class VerificationOutcomeProjection(XingceModel):
     outcome: Literal["passed", "not_passed", "disputed_or_invalidated"]
-    evidence_state: Literal["valid", "pending_dispute", "confirmed_invalidated"] = (
-        Field(alias="evidenceState")
+    evidence_state: Literal["valid", "pending_dispute", "confirmed_invalidated"] = Field(
+        alias="evidenceState"
     )
     source_mastery_version_id: UUID = Field(alias="sourceMasteryVersionId")
-    verification_stage: Literal["immediate", "first_review", "delayed_review"] = (
-        Field(alias="verificationStage")
+    verification_stage: Literal["immediate", "first_review", "delayed_review"] = Field(
+        alias="verificationStage"
     )
 
 

@@ -1,5 +1,10 @@
 import type { ApiClient } from "./client";
 import type {
+  AnnotationStroke,
+  AttemptActionEvent,
+  AttemptActionType,
+} from "../task-runtime/contracts";
+import type {
   ContentAnchor,
   RichContentBlock,
   TableContentCell,
@@ -60,6 +65,14 @@ export interface MockExamAnswerCheckpoint {
     scrollTop: number;
     zoom: number;
   };
+  /**
+   * 契约增量 v1：模考启用与行测真实训练同套的动作事件采集。
+   * 模考没有批注层入口，annotations 上报空数组；旧数据缺省合法。
+   */
+  annotations?: AnnotationStroke[];
+  actionEvents?: AttemptActionEvent[];
+  /** 契约增量 v1：动作事件达到 400 上限被截断时置 true；缺省等价 false。 */
+  actionEventsTruncated?: boolean;
 }
 
 export interface MockExamCheckpoint {
@@ -494,6 +507,14 @@ function mapBlueprint(value: unknown): MockExamModuleBlueprint {
 function mapCheckpointAnswer(value: unknown): MockExamAnswerCheckpoint {
   const source = record(value, "mock checkpoint answer");
   const position = optionalRecord(valueFor(source, ["materialPosition", "material_position"]));
+  const annotations = optionalArray(valueFor(source, ["annotations"])).map(mapAnnotationStroke);
+  const actionEvents = optionalArray(valueFor(source, ["actionEvents", "action_events"])).map(
+    mapActionEvent,
+  );
+  const actionEventsTruncated = optionalBooleanField(source, [
+    "actionEventsTruncated",
+    "action_events_truncated",
+  ]);
   return {
     questionId: stringField(source, ["questionId", "question_id"]),
     selectedAnswer: nullableStringField(source, ["selectedAnswer", "selected_answer"]),
@@ -509,6 +530,73 @@ function mapCheckpointAnswer(value: unknown): MockExamAnswerCheckpoint {
           },
         }
       : {}),
+    // 契约增量 v1：批注与动作事实随检查点回执往返，避免保存后丢失时间线。
+    ...(annotations.length > 0 ? { annotations } : {}),
+    ...(actionEvents.length > 0 ? { actionEvents } : {}),
+    ...(actionEventsTruncated ? { actionEventsTruncated: true } : {}),
+  };
+}
+
+const attemptActionTypes: ReadonlySet<AttemptActionType> = new Set<AttemptActionType>([
+  "option_selected",
+  "option_changed",
+  "option_eliminated",
+  "elimination_undone",
+  "confidence_set",
+  "draft_edited",
+  "marked",
+  "unmarked",
+  "skipped",
+  "paused",
+  "resumed",
+  "material_expanded",
+  "material_scrolled",
+  "annotation_added",
+  "annotation_erased",
+  "question_entered",
+  "question_left",
+]);
+
+function mapActionEvent(value: unknown): AttemptActionEvent {
+  const source = record(value, "mock action event");
+  const type = stringField(source, ["type"]);
+  if (!attemptActionTypes.has(type as AttemptActionType)) {
+    throw new Error("Mock action event type is invalid");
+  }
+  const sessionAtMs = optionalNumberField(source, ["sessionAtMs", "session_at_ms"]);
+  const optionId = nullableStringField(source, ["optionId", "option_id"]);
+  const detail = nullableStringField(source, ["detail"]);
+  return {
+    atMs: numberField(source, ["atMs", "at_ms"]),
+    type: type as AttemptActionType,
+    ...(sessionAtMs !== undefined ? { sessionAtMs } : {}),
+    ...(optionId !== null ? { optionId } : {}),
+    ...(detail !== null ? { detail } : {}),
+  };
+}
+
+function mapAnnotationStroke(value: unknown): AnnotationStroke {
+  const source = record(value, "mock annotation stroke");
+  const tool = stringField(source, ["tool"]);
+  if (tool !== "pen" && tool !== "highlighter") {
+    throw new Error("Mock annotation tool is invalid");
+  }
+  const erasedAtMs = optionalNumberField(source, ["erasedAtMs", "erased_at_ms"]);
+  return {
+    strokeId: stringField(source, ["strokeId", "stroke_id"]),
+    tool,
+    width: numberField(source, ["width"]),
+    points: array(field(source, "points"), "annotation points").map((point) => {
+      const pointSource = record(point, "annotation point");
+      const t = optionalNumberField(pointSource, ["t"]);
+      return {
+        x: numberField(pointSource, ["x"]),
+        y: numberField(pointSource, ["y"]),
+        ...(t !== undefined ? { t } : {}),
+      };
+    }),
+    atMs: numberField(source, ["atMs", "at_ms"]),
+    ...(erasedAtMs !== undefined ? { erasedAtMs } : {}),
   };
 }
 
@@ -736,6 +824,19 @@ function numberField(source: Record<string, unknown>, keys: string[]): number {
     throw new Error(`${keys[0] ?? "number field"} must be a finite number`);
   }
   return value;
+}
+
+function optionalBooleanField(source: Record<string, unknown>, keys: string[]): boolean {
+  const value = valueFor(source, keys);
+  if (value === undefined || value === null) return false;
+  if (typeof value !== "boolean") throw new Error(`${keys[0] ?? "boolean field"} must be boolean`);
+  return value;
+}
+
+function optionalNumberField(source: Record<string, unknown>, keys: string[]): number | undefined {
+  const value = valueFor(source, keys);
+  if (value === undefined || value === null) return undefined;
+  return numberField(source, keys);
 }
 
 function integerField(source: Record<string, unknown>, keys: string[]): number {

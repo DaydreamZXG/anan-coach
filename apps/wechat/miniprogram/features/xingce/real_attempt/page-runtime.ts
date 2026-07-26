@@ -17,6 +17,8 @@ export interface XingcePageRuntime {
   session: XingceTaskSession | null;
   task: TaskRuntimeState | null;
   timerHandle: ReturnType<typeof setInterval> | undefined;
+  /** 契约增量 v1：上一次 TICK 的 Date.now()，用于累计真实活跃毫秒。 */
+  lastTickAtMs: number;
   saveInFlight: boolean;
   submitInFlight: boolean;
   lastAutosaveElapsedSeconds: number;
@@ -37,6 +39,7 @@ function createRuntime(): XingcePageRuntime {
     session: null,
     task: null,
     timerHandle: undefined,
+    lastTickAtMs: 0,
     saveInFlight: false,
     submitInFlight: false,
     lastAutosaveElapsedSeconds: 0,

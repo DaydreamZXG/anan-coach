@@ -1,8 +1,15 @@
 import type { AnnotationStroke } from "../contracts";
+import {
+  appendStrokeWithinLimit,
+  liveStrokes,
+  strokesVisibleAtReplay,
+  tombstoneStrokes,
+} from "./strokes";
 
 /**
  * Figma 70:2/75:2 的笔迹层。
  * 笔迹坐标归一化到层宽高（0..1），与后端 AnnotationStroke 合同一致。
+ * 契约增量 v1：逐点带相对起笔的毫秒偏移 t；擦除只盖 erasedAtMs 墓碑。
  */
 
 const PEN_COLOR = "#4f39f6";
@@ -12,7 +19,6 @@ const SELECTED_COLOR = "rgba(251, 44, 54, 0.75)";
 const PEN_WIDTH = 0.006;
 const HIGHLIGHTER_WIDTH = 0.03;
 const ERASE_DISTANCE = 0.03;
-const MAX_STROKES = 120;
 
 interface NormalizedPoint {
   x: number;
@@ -27,6 +33,8 @@ interface LayerRuntime {
   left: number;
   top: number;
   activeStroke: AnnotationStroke | null;
+  /** 契约增量 v1：本笔起笔的 Date.now() 基准，用于逐点毫秒偏移 t。 */
+  activeStrokeStartedAt: number;
   lassoPath: NormalizedPoint[];
   selectedStrokeIds: Set<string>;
   strokeSequence: number;
@@ -45,6 +53,7 @@ function runtime(instance: object): LayerRuntime {
       left: 0,
       top: 0,
       activeStroke: null,
+      activeStrokeStartedAt: 0,
       lassoPath: [],
       selectedStrokeIds: new Set(),
       strokeSequence: 0,
@@ -59,6 +68,7 @@ interface AnnotationLayerHost {
     mode: string;
     strokes: unknown;
     elapsedSeconds: number;
+    elapsedMs: number;
     replayMs: number;
     tool: string;
     lassoSelectedCount: number;
@@ -73,10 +83,16 @@ function currentStrokes(host: AnnotationLayerHost): AnnotationStroke[] {
   return Array.isArray(host.data.strokes) ? (host.data.strokes as AnnotationStroke[]) : [];
 }
 
+/** 本题活跃毫秒时钟；宿主没有传 elapsedMs 时退回 elapsedSeconds 的秒级精度。 */
+function nowMs(host: AnnotationLayerHost): number {
+  return host.data.elapsedMs >= 0 ? host.data.elapsedMs : host.data.elapsedSeconds * 1000;
+}
+
 function visibleStrokes(host: AnnotationLayerHost): AnnotationStroke[] {
   const strokes = currentStrokes(host);
-  if (host.data.mode !== "replay") return strokes;
-  return strokes.filter((stroke) => stroke.atMs <= host.data.replayMs);
+  // 契约增量 v1：作答态隐藏墓碑；回放态还原擦除过程（replayMs >= erasedAtMs 时消失）。
+  if (host.data.mode !== "replay") return liveStrokes(strokes);
+  return strokesVisibleAtReplay(strokes, host.data.replayMs);
 }
 
 function drawStroke(state: LayerRuntime, stroke: AnnotationStroke, selected: boolean): void {
@@ -228,7 +244,9 @@ Component({
     strokes: { type: null, value: [] },
     /** 当前题已作答秒数，用于给新笔迹盖 atMs 时间戳。 */
     elapsedSeconds: { type: Number, value: 0 },
-    /** replay 模式：只画 atMs ≤ replayMs 的笔迹。 */
+    /** 契约增量 v1：本题活跃毫秒时钟；<0 表示宿主未提供，退回 elapsedSeconds。 */
+    elapsedMs: { type: Number, value: -1 },
+    /** replay 模式：只画 atMs ≤ replayMs 且尚未走到 erasedAtMs 的笔迹。 */
     replayMs: { type: Number, value: 0 },
   },
   data: {
@@ -281,12 +299,14 @@ Component({
       const tool = this.data.tool;
       if (tool === "pen" || tool === "highlighter") {
         state.strokeSequence += 1;
+        // 契约增量 v1：起笔以 Date.now() 为基准，逐点 t 为相对起笔的毫秒偏移。
+        state.activeStrokeStartedAt = Date.now();
         state.activeStroke = {
           strokeId: `stroke-${String(this.data.elapsedSeconds)}-${String(state.strokeSequence)}-${Math.random().toString(36).slice(2, 8)}`,
           tool,
           width: tool === "highlighter" ? HIGHLIGHTER_WIDTH : PEN_WIDTH,
-          points: [point],
-          atMs: this.data.elapsedSeconds * 1000,
+          points: [{ ...point, t: 0 }],
+          atMs: nowMs(this),
         };
       } else if (tool === "eraser") {
         this.eraseAt(point);
@@ -301,7 +321,12 @@ Component({
       if (!point) return;
       const tool = this.data.tool;
       if ((tool === "pen" || tool === "highlighter") && state.activeStroke) {
-        if (state.activeStroke.points.length < 240) state.activeStroke.points.push(point);
+        if (state.activeStroke.points.length < 240) {
+          const lastT = state.activeStroke.points[state.activeStroke.points.length - 1]?.t ?? 0;
+          // 逐点偏移非降序：以起笔 Date.now() 基准计算，并夹到不小于上一点。
+          const t = Math.max(lastT, Date.now() - state.activeStrokeStartedAt);
+          state.activeStroke.points.push({ ...point, t });
+        }
         redraw(this);
       } else if (tool === "eraser") {
         this.eraseAt(point);
@@ -318,20 +343,18 @@ Component({
         const stroke = state.activeStroke;
         state.activeStroke = null;
         if (stroke.points.length >= 2) {
-          const strokes = currentStrokes(this);
-          if (strokes.length >= MAX_STROKES) {
+          // 契约增量 v1：120 笔上限含墓碑；满员时物理删除最旧的已擦除笔画腾位。
+          const strokes = appendStrokeWithinLimit(currentStrokes(this), stroke);
+          if (!strokes) {
             void wx.showToast({ title: "批注笔画已达上限", icon: "none" });
             redraw(this);
             return;
           }
-          this.triggerEvent("strokeschange", {
-            strokes: [...strokes, stroke],
-            action: "added",
-          });
+          this.triggerEvent("strokeschange", { strokes, action: "added" });
         }
       } else if (tool === "lasso" && state.lassoPath.length > 2) {
         const selected = new Set<string>();
-        for (const stroke of currentStrokes(this)) {
+        for (const stroke of liveStrokes(currentStrokes(this))) {
           if (stroke.points.every((point) => pointInPolygon(point, state.lassoPath))) {
             selected.add(stroke.strokeId);
           }
@@ -344,34 +367,45 @@ Component({
     },
 
     eraseAt(point: NormalizedPoint) {
+      // 契约增量 v1：橡皮不物理删除，命中的活笔画盖 erasedAtMs 墓碑。
       const strokes = currentStrokes(this);
-      const remaining = strokes.filter(
+      const next = tombstoneStrokes(
+        strokes,
         (stroke) =>
-          !stroke.points.some(
+          stroke.points.some(
             (candidate) =>
               Math.hypot(candidate.x - point.x, candidate.y - point.y) < ERASE_DISTANCE,
           ),
+        nowMs(this),
       );
-      if (remaining.length !== strokes.length) {
-        this.triggerEvent("strokeschange", { strokes: remaining, action: "erased" });
+      if (next !== strokes) {
+        this.triggerEvent("strokeschange", { strokes: next, action: "erased" });
       }
     },
 
     deleteLassoSelection() {
       const state = runtime(this);
-      const strokes = currentStrokes(this).filter(
-        (stroke) => !state.selectedStrokeIds.has(stroke.strokeId),
+      const strokes = currentStrokes(this);
+      const next = tombstoneStrokes(
+        strokes,
+        (stroke) => state.selectedStrokeIds.has(stroke.strokeId),
+        nowMs(this),
       );
       state.selectedStrokeIds = new Set();
       this.setData({ lassoSelectedCount: 0 });
-      this.triggerEvent("strokeschange", { strokes, action: "erased" });
+      if (next !== strokes) {
+        this.triggerEvent("strokeschange", { strokes: next, action: "erased" });
+      } else {
+        redraw(this);
+      }
     },
 
     undo() {
       const strokes = currentStrokes(this);
-      if (strokes.length === 0) return;
+      const lastLive = liveStrokes(strokes).pop();
+      if (!lastLive) return;
       this.triggerEvent("strokeschange", {
-        strokes: strokes.slice(0, -1),
+        strokes: tombstoneStrokes(strokes, (stroke) => stroke === lastLive, nowMs(this)),
         action: "erased",
       });
     },

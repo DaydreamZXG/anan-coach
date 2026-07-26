@@ -111,6 +111,8 @@ export interface XingceAnswerCheckpoint {
   /** Figma 70:2 题面批注与 75:2/78:2 动作事实（对应后端 AnswerCheckpoint 扩展）。 */
   annotations?: GeneratedAnnotationStroke[];
   actionEvents?: GeneratedAttemptActionEvent[];
+  /** 契约增量 v1：动作事件达到 400 上限被截断时置 true；缺省等价 false。 */
+  actionEventsTruncated?: boolean;
 }
 
 export interface XingceCheckpointCommand {
