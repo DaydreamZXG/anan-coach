@@ -635,10 +635,48 @@
   line-height: 1.625;
 }
 
+/* 平板：768 起加左导航轨（单列限宽）；1024 起任务|辅助两列（粉笔式）。 */
 @media (min-width: 768px) {
+  .today-page {
+    margin-left: var(--layout-tab-rail);
+  }
+
   .today-content {
     width: 100%;
     max-width: 720px;
     margin: 0 auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .today-content {
+    display: grid;
+    max-width: 1100px;
+    align-items: start;
+    column-gap: 24px;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    grid-template-areas:
+      "header header"
+      "main side-a"
+      "main side-b";
+  }
+
+  .today-header {
+    grid-area: header;
+  }
+
+  .today-col--main {
+    grid-area: main;
+    min-width: 0;
+  }
+
+  .today-col--side-a {
+    grid-area: side-a;
+    min-width: 0;
+  }
+
+  .today-col--side-b {
+    grid-area: side-b;
+    min-width: 0;
   }
 }

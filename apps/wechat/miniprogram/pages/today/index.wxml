@@ -24,6 +24,7 @@
     />
 
     <block wx:elif="{{view}}">
+      <view class="today-col today-col--side-a">
       <view
         wx:if="{{openingStatus === 'error'}}"
         class="opening-failure"
@@ -79,7 +80,9 @@
         </view>
         <text wx:if="{{openingView.weatherReady}}" class="opening-collapsed__weather">{{openingView.weatherHeadline}}</text>
       </view>
+      </view>
 
+      <view class="today-col today-col--main">
       <view
         wx:if="{{capacityMessage && (capacitySubmission === 'conflict' || capacitySubmission === 'error')}}"
         class="capacity-notice capacity-notice--{{capacitySubmission}}"
@@ -178,7 +181,9 @@
         </block>
       </view>
       <view wx:if="{{taskNavigationError}}" class="task-error">{{taskNavigationError}}</view>
+      </view>
 
+      <view class="today-col today-col--side-b">
       <view class="secondary-tools">
         <button hover-class="item--hover" class="settlement-button" bindtap="openDailySettlement">
           <image class="icon icon--settlement" src="/assets/icons/today/circle-check-secondary.png" mode="aspectFit" />
@@ -199,6 +204,7 @@
             <text>每日结算</text>
           </button>
         </view>
+      </view>
       </view>
     </block>
   </view>

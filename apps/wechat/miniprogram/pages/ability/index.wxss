@@ -481,10 +481,33 @@
   font-weight: 700;
 }
 
+/* 平板：768 起加左导航轨（单列限宽）；1024 起目标/总览双卡并排。 */
 @media (min-width: 768px) {
+  .ability-page {
+    margin-left: var(--layout-tab-rail);
+  }
+
   .ability-content {
     width: 100%;
     max-width: 720px;
     margin: 0 auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ability-content {
+    display: grid;
+    max-width: 1100px;
+    align-items: start;
+    column-gap: 24px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ability-header,
+  .subject-tabs,
+  .patterns-section,
+  .review-warning,
+  .ability-card.coach-action {
+    grid-column: 1 / -1;
   }
 }

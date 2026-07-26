@@ -542,8 +542,9 @@
 @media (min-width: 768px) {
   .coach-page {
     width: 100%;
-    max-width: 760px;
+    max-width: calc(760px + var(--layout-tab-rail));
     margin: 0 auto;
+    padding-left: var(--layout-tab-rail);
   }
   .coach-content {
     padding: 0 36px max(188px, calc(156px + env(safe-area-inset-bottom)));

@@ -179,20 +179,23 @@ await miniProgram.mockWxMethod("request", {
 try {
   for (const scenario of selectedScenarios) {
     process.stdout.write(`[audit] ${scenario.id} ... `);
-    // 单场景允许重试一次：偶发的连接抖动不再让整轮陪葬；
-    // 连续两次失败视为真问题，中止并保留现场。
+    // 单场景允许重试一次：偶发的连接抖动不再让整轮陪葬。
+    // 例外：超时不重试——withTimeout 无法取消底层任务，超时后原任务仍在跑，
+    // 立刻重试会与残留任务并发打架（reLaunch 互踩），只会把失败搞得更糊。
     try {
       await withTimeout(
         captureScenario(miniProgram, scenario),
-        45_000,
-        `${scenario.id} did not settle within 45 seconds`,
+        90_000,
+        `${scenario.id} did not settle within 90 seconds`,
       );
     } catch (firstError) {
-      process.stdout.write(`retry (${String(firstError?.message ?? firstError)}) ... `);
+      const message = String(firstError?.message ?? firstError);
+      if (message.includes("did not settle")) throw firstError;
+      process.stdout.write(`retry (${message}) ... `);
       await withTimeout(
         captureScenario(miniProgram, scenario),
-        45_000,
-        `${scenario.id} did not settle within 45 seconds on retry`,
+        90_000,
+        `${scenario.id} did not settle within 90 seconds on retry`,
       );
     }
     process.stdout.write("ok\n");

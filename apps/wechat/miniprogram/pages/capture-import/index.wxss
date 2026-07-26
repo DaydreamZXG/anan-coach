@@ -1339,6 +1339,7 @@ button.solution-inline-action {
 }
 
 button.capture-cyan-button,
+button.capture-ai-button,
 button.capture-primary-button,
 button.capture-secondary-button,
 button.capture-dark-quiet,

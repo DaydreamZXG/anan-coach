@@ -156,6 +156,7 @@ page {
   --layout-workbench-max: 1280px;
   --layout-tablet-gutter: 32px;
   --layout-wide-gutter: 40px;
+  --layout-tab-rail: 96px;
 
   --z-footer: 20;
   --z-sticky: 30;

@@ -328,12 +328,13 @@
   letter-spacing: -0.32rpx;
 }
 
-/* Figma 2:141 */
+/* Figma 2:141；grid-auto-rows 让同题各选项等高，避免单行/双行参差。 */
 .option-list {
   display: grid;
   gap: 24rpx;
   margin-top: 0;
   padding: 48rpx 0 0;
+  grid-auto-rows: 1fr;
 }
 
 .option-list--locked {
@@ -349,11 +350,11 @@
   gap: 16rpx;
 }
 
-/* Figma 2:157 */
+/* Figma 2:157；等高卡内内容垂直居中，单行不显得空。 */
 .option-card {
   display: grid;
   grid-template-columns: 48rpx minmax(0, 1fr);
-  align-items: start;
+  align-items: center;
   gap: 24rpx;
   min-height: 0;
   padding: 32rpx;

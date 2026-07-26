@@ -123,3 +123,93 @@
     margin-left: auto;
   }
 }
+
+/*
+ * 大屏去放大层（2026-07-26，官方大屏适配指南）：
+ * rpx 随屏宽等比放大，iPad 上一切 rpx 尺寸约为手机两倍。
+ * 全部锁定阶梯 token 在平板断点整体切换为 px 手机等效值，
+ * 让字号、圆角、间距回到物理合理尺寸；页面内的 rpx 字面量
+ * 仅剩留白性质，放大后无碍阅读。
+ */
+@media (min-width: 768px) {
+  page {
+    /* 字号 13 档（手机等效 px，正文微调 +1px 适配平板视距） */
+    --text-tab: 11px;
+    --text-micro: 12px;
+    --text-caption: 13px;
+    --text-body: 14px;
+    --text-body-lg: 15px;
+    --text-section: 17px;
+    --text-title-sm: 19px;
+    --text-title: 21px;
+    --text-title-lg: 25px;
+    --text-hero: 29px;
+    --text-stat: 33px;
+    --text-display: 37px;
+    --text-stat-lg: 41px;
+
+    /* 圆角 */
+    --radius-8: 4px;
+    --radius-12: 6px;
+    --radius-16: 8px;
+    --radius-24: 12px;
+    --radius-32: 16px;
+    --radius-40: 20px;
+    --radius-48: 24px;
+    --radius-64: 32px;
+
+    /* Figma 镜像间距/圆角的平板等效值 */
+    --figma-space-2: 2px;
+    --figma-space-4: 4px;
+    --figma-space-6: 6px;
+    --figma-space-8: 8px;
+    --figma-space-10: 10px;
+    --figma-space-12: 12px;
+    --figma-space-16: 16px;
+    --figma-space-20: 20px;
+    --figma-space-24: 24px;
+    --figma-space-32: 32px;
+    --figma-space-40: 40px;
+    --figma-space-48: 48px;
+    --figma-page-inset: 24px;
+    --figma-section-gap: 28px;
+    --figma-bottom-navigation-height: 0px;
+    --figma-radius-card-xlarge: 36px;
+    --figma-radius-card-large: 32px;
+    --figma-radius-card-medium: 30px;
+    --figma-radius-card: 24px;
+    --figma-radius-control: 20px;
+    --figma-radius-compact: 16px;
+    --figma-radius-small: 12px;
+    --figma-radius-xsmall: 8px;
+  }
+}
+
+@media (min-width: 768px) {
+  /* 控件高度回到 44px 档，避免 88rpx 在平板放大成 90px 巨钮。 */
+  .ui-button,
+  button.s9-primary-button,
+  button.s9-secondary-button {
+    min-height: 44px;
+    font-size: var(--text-body-lg);
+    line-height: 44px;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* 辅列里的工具行改纵向列表，文字不再被挤成竖排。 */
+  .today-col--side-b .tool-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .today-col--side-b .tool-link {
+    justify-content: flex-start;
+    white-space: nowrap;
+  }
+
+  .today-col--side-b .settlement-button {
+    white-space: nowrap;
+  }
+}
