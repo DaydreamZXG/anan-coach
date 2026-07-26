@@ -44,6 +44,7 @@ Page({
     keyboardOffset: 0,
     learnerStateVersion: "",
     question: "",
+    askedQuestion: "",
     submitting: false,
     errorMessage: "",
     requestId: "",
@@ -176,12 +177,18 @@ Page({
     }
     this.setData({
       submitting: true,
+      askedQuestion: question,
+      question: "",
       errorMessage: "",
       requestId: "",
       answer: null,
       companionIntent: "thinking",
       stateLabel: "正在检查权限并检索当前依据",
     });
+    // 聊天语义：问题气泡滚动到视口顶部，回答在其下方展开。
+    void wx
+      .pageScrollTo({ selector: "#ask-exchange", offsetTop: -12, duration: 240 })
+      .catch(() => undefined);
     try {
       const { data } = await new CompanionApi(client).ask(
         {

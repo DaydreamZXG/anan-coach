@@ -80,9 +80,8 @@
         <button hover-class="item--hover" class="progress-row" bindtap="openWeeklyPlan"><text>本周安排</text><text class="progress-row__meta">查看周计划 ›</text></button>
       </view>
 
-      <view wx:if="{{question && !answer && !submitting}}" class="question-preview">
-        <view class="question-preview__label">准备问岸岸</view>
-        <view>{{question}}</view>
+      <view wx:if="{{askedQuestion}}" id="ask-exchange" class="ask-bubble-row">
+        <view class="ask-bubble">{{askedQuestion}}</view>
       </view>
 
       <view wx:if="{{submitting}}" class="coach-card thinking-card">
