@@ -15,7 +15,7 @@ export default function Component() {
                 <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start overflow-clip relative rounded-[inherit] size-full">
                   <div className="h-[45px] relative shrink-0 w-[390px]" data-node-id="15:7" data-name="Placeholder for StatusBar" />
                   <div className="flex-[799_0_0] min-h-px relative w-full" data-node-id="15:8" data-name="Container">
-                    <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-center overflow-clip pb-[32px] pt-[60px] px-[20px] relative rounded-[inherit] size-full">
+                    <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-center overflow-clip pb-[32px] pt-[28px] px-[20px] relative rounded-[inherit] size-full">
                       <div className="relative shrink-0" data-node-id="15:64" data-name="Container:margin">
                         <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start pb-[24px] pt-[40px] relative size-full">
                           <div className="bg-white border border-[#f9fafb] border-solid content-stretch drop-shadow-[0px_8px_15px_rgba(0,0,0,0.04)] flex h-[57.906px] items-center justify-center p-px relative rounded-[33554400px] shrink-0 w-[80px]" data-node-id="15:9" data-name="Container">

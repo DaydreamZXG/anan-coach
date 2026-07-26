@@ -387,6 +387,87 @@
       "route": "/pages/private-knowledge/index",
       "routeState": "citation-evidence",
       "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:5",
+      "figmaNodeId": "59:2",
+      "figmaName": "05 · 行测答题卡",
+      "routeName": "practice",
+      "route": "/pages/practice/index",
+      "routeState": "answer-sheet",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:5",
+      "figmaNodeId": "70:2",
+      "figmaName": "06 · 题面直接批注",
+      "routeName": "practice",
+      "route": "/pages/practice/index",
+      "routeState": "annotation",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:5",
+      "figmaNodeId": "75:2",
+      "figmaName": "07 · 原题轨迹回放",
+      "routeName": "reflection",
+      "route": "/pages/reflection/index",
+      "routeState": "trajectory-replay",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:5",
+      "figmaNodeId": "78:2",
+      "figmaName": "08 · 岸岸动作分析",
+      "routeName": "reflection",
+      "route": "/pages/reflection/index",
+      "routeState": "action-analysis",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:5",
+      "figmaNodeId": "80:2",
+      "figmaName": "09 · 共享材料阅读",
+      "routeName": "practice",
+      "route": "/pages/practice/index",
+      "routeState": "material-immersive",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:5",
+      "figmaNodeId": "82:2",
+      "figmaName": "10 · 暂停计时",
+      "routeName": "practice",
+      "route": "/pages/practice/index",
+      "routeState": "paused",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:5",
+      "figmaNodeId": "84:2",
+      "figmaName": "11 · 画词工具条",
+      "routeName": "practice",
+      "route": "/pages/practice/index",
+      "routeState": "text-selection",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:5",
+      "figmaNodeId": "97:2",
+      "figmaName": "12 · 上下文追问岸岸",
+      "routeName": "practice",
+      "route": "/pages/practice/index",
+      "routeState": "anan-context",
+      "navigationMode": "navigateTo"
+    },
+    {
+      "figmaPageId": "51:5",
+      "figmaNodeId": "98:2",
+      "figmaName": "13 · 模考交卷确认",
+      "routeName": "mockExam",
+      "route": "/pages/mock-exam/index",
+      "routeState": "submit-confirm",
+      "navigationMode": "navigateTo"
     }
   ]
 }

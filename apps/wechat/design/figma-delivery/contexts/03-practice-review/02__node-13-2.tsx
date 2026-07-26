@@ -17,9 +17,9 @@ export default function Component() {
                 <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start overflow-clip relative rounded-[inherit] size-full">
                   <div className="h-[45px] relative shrink-0 w-[390px]" data-node-id="13:7" data-name="Placeholder for StatusBar" />
                   <div className="flex-[799_0_0] min-h-px relative w-full" data-node-id="13:8" data-name="Container">
-                    <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col gap-[20px] items-start overflow-clip pb-[32px] pt-[52px] px-[20px] relative rounded-[inherit] size-full">
+                    <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col gap-[16px] items-start overflow-x-clip overflow-y-auto pb-[32px] pt-[3px] px-[20px] relative rounded-[inherit] size-full">
                       <div className="relative shrink-0 w-full" data-node-id="13:9" data-name="Container">
-                        <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center relative size-full">
+                        <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex gap-[8px] items-center relative size-full">
                           <div className="h-[40px] relative shrink-0 w-[32px]" data-node-id="13:14" data-name="Button:margin">
                             <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start relative size-full">
                               <div className="absolute content-stretch flex flex-col items-start justify-center left-[-8px] p-[8px] rounded-[33554400px] top-0" data-node-id="13:10" data-name="Button">
@@ -27,6 +27,13 @@ export default function Component() {
                                   <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon} />
                                 </div>
                               </div>
+                            </div>
+                          </div>
+                          <div className="relative shrink-0" data-node-id="106:2" data-name="Summary/HeaderTitle">
+                            <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start relative size-full">
+                              <p className="[word-break:break-word] font-['Inter:Bold'] font-bold leading-[21px] not-italic relative shrink-0 text-[#101828] text-[14px] whitespace-nowrap" data-node-id="106:3">
+                                本次训练总结
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -402,15 +409,8 @@ export default function Component() {
                           </div>
                         </div>
                       </div>
-                      <div className="h-[126px] relative shrink-0 w-full" data-node-id="13:168" data-name="Container">
-                        <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col gap-[12px] items-start pt-[8px] relative size-full">
-                          <div className="bg-[#101828] drop-shadow-[0px_4px_10px_rgba(0,0,0,0.1)] relative rounded-[20px] shrink-0 w-[350px]" data-node-id="13:169" data-name="Button">
-                            <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-center justify-center py-[16px] relative size-full">
-                              <p className="[word-break:break-word] font-['Inter:Bold'] font-bold leading-[22.5px] not-italic relative shrink-0 text-[15px] text-center text-white whitespace-nowrap" data-node-id="13:170">
-                                复盘 2 道关键题
-                              </p>
-                            </div>
-                          </div>
+                      <div className="h-[59px] relative shrink-0 w-full" data-node-id="13:168" data-name="Container">
+                        <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start pt-[8px] relative size-full">
                           <div className="relative shrink-0 w-full" data-node-id="13:172" data-name="Container">
                             <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex gap-[12px] items-start relative size-full">
                               <div className="bg-white border border-[#e5e7eb] border-solid flex-[169_0_0] h-[51px] min-w-px relative rounded-[20px]" data-node-id="13:173" data-name="Button">
@@ -478,6 +478,15 @@ export default function Component() {
                         <div className="bg-clip-padding border-0 border-[transparent] border-solid relative size-full">
                           <div className="absolute bg-[#101828] left-[4.5px] rounded-[33554400px] size-[6px] top-[4.5px]" data-node-id="13:213" data-name="Container" />
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="absolute bg-white border-[#f9fafb] border-solid border-t drop-shadow-[0px_-8px_15px_rgba(0,0,0,0.02)] h-[75px] left-0 top-[769px] w-[390px]" data-node-id="113:2" data-name="Summary/FixedActionDock">
+                    <div className="bg-clip-padding border-0 border-[transparent] border-solid relative size-full">
+                      <div className="absolute bg-[#101828] content-stretch drop-shadow-[0px_4px_10px_rgba(0,0,0,0.1)] flex flex-col items-center justify-center left-[20px] py-[16px] rounded-[20px] top-[7px] w-[350px]" data-node-id="13:169" data-name="Summary/PrimaryCTA">
+                        <p className="[word-break:break-word] font-['Inter:Bold'] font-bold leading-[22.5px] not-italic relative shrink-0 text-[15px] text-center text-white whitespace-nowrap" data-node-id="13:170">
+                          复盘 2 道关键题
+                        </p>
                       </div>
                     </div>
                   </div>

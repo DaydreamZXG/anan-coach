@@ -37,15 +37,9 @@
                   </frame>
                 </frame>
               </frame>
-              <frame id="2:57" name="Container" x="274" y="9" width="100" height="28">
-                <frame id="2:58" name="Button" x="0" y="5" width="18" height="18">
+              <frame id="2:57" name="Container" x="230" y="9" width="28" height="28">
+                <frame id="2:58" name="Button" x="5" y="5" width="18" height="18">
                   <frame id="2:59" name="Icon" x="0" y="0" width="18" height="18" />
-                </frame>
-                <frame id="2:64" name="Button" x="34" y="5" width="18" height="18">
-                  <frame id="2:65" name="Icon" x="0" y="0" width="18" height="18" />
-                </frame>
-                <frame id="2:67" name="Button" x="68" y="0" width="28" height="28">
-                  <frame id="2:68" name="Icon" x="7.5" y="7.5" width="13" height="13" />
                 </frame>
               </frame>
             </frame>
@@ -174,6 +168,15 @@
         </frame>
       </frame>
       <frame id="2:4" name="Container" x="135" y="12" width="120" height="34" />
+      <frame id="94:12" name="QuestionHeader/ContextActions" x="270" y="108" width="72" height="32">
+        <frame id="94:2" name="Button" x="7" y="7" width="18" height="18">
+          <frame id="94:3" name="Icon" x="0" y="0" width="18" height="18" />
+        </frame>
+        <frame id="94:5" name="Button" x="42" y="2" width="28" height="28">
+          <frame id="94:6" name="Icon" x="7.5" y="7.5" width="13" height="13" />
+        </frame>
+      </frame>
+      <frame id="94:13" name="WechatChrome/Capsule" x="287" y="48" width="87" height="32" />
     </frame>
   </frame>
   <frame id="13:2" name="02 · 本次训练总结" x="506" y="0" width="406" height="860">
@@ -182,14 +185,17 @@
         <frame id="13:6" name="ResultSummaryPage" x="0" y="0" width="390" height="844">
           <frame id="13:7" name="Placeholder for StatusBar" x="0" y="0" width="390" height="45" />
           <frame id="13:8" name="Container" x="0" y="45" width="390" height="799">
-            <frame id="13:9" name="Container" x="20" y="52" width="350" height="40">
+            <frame id="13:9" name="Container" x="20" y="3" width="350" height="40">
               <frame id="13:14" name="Button:margin" x="0" y="0" width="32" height="40">
                 <frame id="13:10" name="Button" x="-8" y="0" width="40" height="40">
                   <frame id="13:11" name="Icon" x="8" y="8" width="24" height="24" />
                 </frame>
               </frame>
+              <frame id="106:2" name="Summary/HeaderTitle" x="40" y="9.5" width="84" height="21">
+                <text id="106:3" name="本次训练总结" x="0" y="0" width="84" height="21" />
+              </frame>
             </frame>
-            <frame id="13:15" name="Container" x="20" y="112" width="350" height="75">
+            <frame id="13:15" name="Container" x="20" y="59" width="350" height="75">
               <frame id="13:16" name="Heading 2" x="0" y="0" width="350" height="40">
                 <text id="13:17" name="这组做完了" x="0" y="0" width="138" height="40" />
               </frame>
@@ -197,7 +203,7 @@
                 <text id="13:20" name="比起3/5，更重要的是找到丢掉两题的原因。" x="0" y="4" width="275" height="23" />
               </frame>
             </frame>
-            <frame id="13:23" name="Container" x="20" y="207" width="350" height="290.5">
+            <frame id="13:23" name="Container" x="20" y="150" width="350" height="290.5">
               <frame id="13:24" name="Container" x="24" y="24" width="302" height="47.5">
                 <frame id="13:25" name="Container" x="0" y="0" width="54" height="47.5">
                   <frame id="13:26" name="Text" x="0" y="0" width="54" height="27">
@@ -294,7 +300,7 @@
                 </frame>
               </frame>
             </frame>
-            <frame id="13:103" name="Container" x="20" y="517.5" width="350" height="158.5">
+            <frame id="13:103" name="Container" x="20" y="456.5" width="350" height="158.5">
               <frame id="13:104" name="Container" x="1" y="1" width="348" height="156.5" />
               <frame id="13:105" name="Container" x="25" y="25" width="300" height="109">
                 <frame id="13:106" name="Container" x="0" y="0" width="300" height="21">
@@ -312,7 +318,7 @@
                 </frame>
               </frame>
             </frame>
-            <frame id="13:126" name="Container" x="20" y="696" width="350" height="93">
+            <frame id="13:126" name="Container" x="20" y="631" width="350" height="93">
               <frame id="13:127" name="Container" x="20" y="16" width="310" height="61">
                 <frame id="13:128" name="Container" x="0" y="0" width="40" height="61">
                   <frame id="13:129" name="Container" x="0" y="0" width="40" height="40">
@@ -366,11 +372,8 @@
                 </frame>
               </frame>
             </frame>
-            <frame id="13:168" name="Container" x="20" y="809" width="350" height="126">
-              <frame id="13:169" name="Button" x="0" y="8" width="350" height="55">
-                <text id="13:170" name="复盘 2 道关键题" x="121.5" y="16" width="107" height="23" />
-              </frame>
-              <frame id="13:172" name="Container" x="0" y="75" width="350" height="51">
+            <frame id="13:168" name="Container" x="20" y="740" width="350" height="59">
+              <frame id="13:172" name="Container" x="0" y="8" width="350" height="51">
                 <frame id="13:173" name="Button" x="0" y="0" width="169" height="51">
                   <text id="13:174" name="稍后复盘" x="56.5" y="15" width="56" height="21" />
                 </frame>
@@ -379,7 +382,7 @@
                 </frame>
               </frame>
             </frame>
-            <frame id="13:179" name="Paragraph" x="20" y="955" width="350" height="67.75">
+            <frame id="13:179" name="Paragraph" x="20" y="815" width="350" height="67.75">
               <text id="13:180" name="本组新增 5 条作答证据。资料分析能力暂不调整，完成复测后再确认。" x="16" y="8" width="318" height="36" />
             </frame>
           </frame>
@@ -404,6 +407,11 @@
               <frame id="13:213" name="Container" x="5.5" y="5.5" width="6" height="6" />
             </frame>
           </frame>
+          <frame id="113:2" name="Summary/FixedActionDock" x="0" y="769" width="390" height="75">
+            <frame id="13:169" name="Summary/PrimaryCTA" x="20" y="8" width="350" height="55">
+              <text id="13:170" name="复盘 2 道关键题" x="121.5" y="16" width="107" height="23" />
+            </frame>
+          </frame>
         </frame>
       </frame>
       <frame id="13:4" name="Container" x="135" y="12" width="120" height="34" />
@@ -414,8 +422,8 @@
       <frame id="14:5" name="Container" x="0" y="0" width="390" height="844">
         <frame id="14:6" name="ResultReviewPage" x="0" y="0" width="390" height="844">
           <frame id="14:7" name="Placeholder for StatusBar" x="0" y="0" width="390" height="45" />
-          <frame id="14:8" name="Placeholder for ResultReviewPage" x="0" y="45" width="390" height="84" />
-          <frame id="14:9" name="Container" x="0" y="129" width="390" height="715">
+          <frame id="14:8" name="Placeholder for ResultReviewPage" x="0" y="45" width="390" height="39" />
+          <frame id="14:9" name="Container" x="0" y="84" width="390" height="760">
             <frame id="14:10" name="Container" x="0" y="0" width="390" height="43">
               <frame id="14:11" name="Container" x="20" y="12" width="222" height="18">
                 <frame id="14:12" name="Icon" x="0" y="2" width="14" height="14" />
@@ -571,8 +579,8 @@
               </frame>
             </frame>
           </frame>
-          <frame id="14:164" name="Container" x="0" y="45" width="390" height="84">
-            <frame id="14:165" name="Container" x="16" y="48" width="152" height="28">
+          <frame id="14:164" name="Container" x="0" y="45" width="390" height="39">
+            <frame id="14:165" name="Container" x="16" y="3" width="152" height="28">
               <frame id="14:173" name="Button:margin" x="0" y="0" width="24" height="28">
                 <frame id="14:166" name="Button" x="-4" y="0" width="28" height="28">
                   <frame id="14:167" name="Icon" x="4" y="4" width="20" height="20" />
@@ -620,18 +628,18 @@
         <frame id="15:6" name="ResultCompletedPage" x="0" y="0" width="390" height="844">
           <frame id="15:7" name="Placeholder for StatusBar" x="0" y="0" width="390" height="45" />
           <frame id="15:8" name="Container" x="0" y="45" width="390" height="799">
-            <frame id="15:64" name="Container:margin" x="155" y="60" width="80" height="121.90625">
+            <frame id="15:64" name="Container:margin" x="155" y="28" width="80" height="121.90625">
               <frame id="15:9" name="Container" x="0" y="40" width="80" height="57.90625">
                 <frame id="15:10" name="Icon" x="22" y="10.953125" width="36" height="36" />
               </frame>
             </frame>
-            <frame id="15:65" name="Heading 2:margin" x="147.5" y="181.90625" width="95" height="42">
+            <frame id="15:65" name="Heading 2:margin" x="147.5" y="149.90625" width="95" height="42">
               <text id="15:14" name="复盘完成" x="0" y="0" width="95" height="34" />
             </frame>
-            <frame id="15:16" name="Paragraph" x="20" y="223.90625" width="350" height="78">
+            <frame id="15:16" name="Paragraph" x="20" y="191.90625" width="350" height="78">
               <text id="15:17" name="明晚复测会验证这条判断。只有后续多次出现一致证据，才会更新为稳定能力结论。" x="24" y="0" width="302" height="46" />
             </frame>
-            <frame id="15:19" name="Container" x="20" y="301.90625" width="350" height="243">
+            <frame id="15:19" name="Container" x="20" y="269.90625" width="350" height="243">
               <frame id="15:20" name="Container" x="24" y="24" width="302" height="40">
                 <frame id="15:21" name="Text" x="0" y="1" width="70" height="21">
                   <text id="15:22" name="已确认错因" x="0" y="0" width="70" height="21" />
@@ -665,7 +673,7 @@
                 </frame>
               </frame>
             </frame>
-            <frame id="15:48" name="Container" x="20" y="544.90625" width="350" height="225">
+            <frame id="15:48" name="Container" x="20" y="512.90625" width="350" height="225">
               <frame id="15:49" name="Button" x="0" y="40" width="350" height="56">
                 <text id="15:50" name="完成复盘" x="143" y="16" width="64" height="24" />
               </frame>
@@ -706,6 +714,1775 @@
         </frame>
       </frame>
       <frame id="15:4" name="Container" x="135" y="12" width="120" height="34" />
+    </frame>
+  </frame>
+  <frame id="59:2" name="05 · 行测答题卡" x="2044" y="0" width="406" height="860">
+    <frame id="59:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="59:4" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="59:5" name="PracticePage" x="0" y="0" width="390" height="844">
+          <frame id="59:6" name="Container" x="0" y="0" width="390" height="91">
+            <frame id="59:7" name="StatusBar" x="0" y="0" width="390" height="45">
+              <frame id="59:8" name="Text" x="24" y="12" width="30" height="21">
+                <text id="59:9" name="9:41" x="0" y="0" width="30" height="21" />
+              </frame>
+              <frame id="59:10" name="Container" x="298" y="12.5" width="68" height="20">
+                <frame id="59:11" name="Icon" x="0" y="2" width="16" height="16" />
+                <frame id="59:17" name="Icon" x="24" y="2" width="16" height="16" />
+                <frame id="59:22" name="Icon" x="48" y="0" width="20" height="20" />
+              </frame>
+            </frame>
+            <frame id="59:25" name="Container" x="0" y="45" width="390" height="46">
+              <frame id="59:26" name="Container" x="16" y="8" width="202" height="30">
+                <frame id="59:27" name="Button:margin" x="0" y="1" width="24" height="28">
+                  <frame id="59:28" name="Button" x="-4" y="0" width="28" height="28">
+                    <frame id="59:29" name="Icon" x="4" y="4" width="20" height="20" />
+                  </frame>
+                </frame>
+                <frame id="59:32" name="Button" x="40" y="4.5" width="46" height="21">
+                  <frame id="59:33" name="Icon" x="0" y="2.5" width="16" height="16" />
+                  <frame id="59:40" name="Text" x="22" y="0" width="24" height="21">
+                    <text id="59:41" name="3/5" x="0" y="0" width="24" height="21" />
+                  </frame>
+                </frame>
+                <frame id="59:42" name="Button" x="102" y="0" width="100" height="30">
+                  <frame id="59:43" name="Icon" x="8" y="8" width="14" height="14" />
+                  <frame id="59:46" name="Text" x="28" y="4" width="42" height="22">
+                    <text id="59:47" name="00:52" x="0" y="2" width="42" height="20" />
+                  </frame>
+                  <frame id="59:48" name="Icon:margin" x="76" y="9" width="16" height="12">
+                    <frame id="59:49" name="Icon" x="4" y="0" width="12" height="12" />
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="59:52" name="Container" x="230" y="9" width="28" height="28">
+                <frame id="59:53" name="Button" x="5" y="5" width="18" height="18">
+                  <frame id="59:54" name="Icon" x="0" y="0" width="18" height="18" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="59:69" name="Container" x="0" y="91" width="390" height="294.6875">
+            <frame id="59:70" name="Container" x="0" y="0" width="390" height="294.6875">
+              <frame id="59:71" name="Container" x="20" y="20" width="350" height="25">
+                <frame id="59:72" name="Text" x="0" y="0" width="157" height="25">
+                  <text id="59:73" name="资料分析 · 共享材料 (1-5题)" x="10" y="4" width="137" height="17" />
+                </frame>
+                <frame id="59:74" name="Button" x="326" y="0.5" width="24" height="24">
+                  <frame id="59:75" name="Icon" x="4" y="4" width="16" height="16" />
+                </frame>
+              </frame>
+              <frame id="59:77" name="Paragraph" x="20" y="45" width="350" height="176">
+                <text id="59:78" name="2023年，全国一般公共预算收入 216784 亿元，同比增长 6.4%。其中，税收收入 18112" x="0" y="16" width="350" height="160" />
+              </frame>
+              <frame id="59:79" name="Container:margin" x="20" y="221" width="350" height="197">
+                <frame id="59:80" name="Container" x="0" y="16" width="350" height="173">
+                  <frame id="59:81" name="Table" x="1" y="1" width="348" height="171">
+                    <frame id="59:82" name="Table Header" x="0" y="0" width="348" height="42.5">
+                      <text id="59:83" name="主要税收项目" x="12" y="12" width="72" height="18" />
+                      <text id="59:84" name="金额(亿元)" x="146.15625" y="12" width="58" height="18" />
+                      <text id="59:85" name="同比(%)" x="261.15625" y="12" width="45" height="18" />
+                    </frame>
+                    <frame id="59:86" name="Table Row" x="0" y="42.5" width="348" height="43">
+                      <text id="59:87" name="国内增值税" x="12" y="12.5" width="60" height="18" />
+                      <text id="59:88" name="69332" x="146.15625" y="12.5" width="40" height="18" />
+                      <text id="59:89" name="+42.3" x="261.15625" y="12.5" width="34" height="18" />
+                    </frame>
+                    <frame id="59:90" name="Table Row" x="0" y="85.5" width="348" height="43">
+                      <text id="59:91" name="企业所得税" x="12" y="12.5" width="60" height="18" />
+                      <text id="59:92" name="41098" x="146.15625" y="12.5" width="39" height="18" />
+                      <text id="59:93" name="-5.9" x="261.15625" y="12.5" width="24" height="18" />
+                    </frame>
+                    <frame id="59:94" name="Table Row" x="0" y="128.5" width="348" height="42.5">
+                      <text id="59:95" name="个人所得税" x="12" y="12.5" width="60" height="18" />
+                      <text id="59:96" name="14775" x="146.15625" y="12.5" width="37" height="18" />
+                      <text id="59:97" name="-1.0" x="261.15625" y="12.5" width="22" height="18" />
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="59:98" name="Container" x="0" y="385.6875" width="390" height="458.3125">
+            <frame id="59:99" name="Heading 3" x="20" y="24" width="351" height="104">
+              <frame id="59:100" name="Text" x="0" y="0" width="15" height="25">
+                <text id="59:101" name="3." x="0" y="2" width="15" height="23" />
+              </frame>
+              <frame id="59:102" name="Text" x="23" y="0" width="328" height="104">
+                <text id="59:103" name="根据材料，2023年全国一般公共预算收入 216784 亿元，同比增长 6.4%。其中，税收收入 1" x="0" y="0" width="328" height="104" />
+              </frame>
+            </frame>
+            <frame id="59:104" name="Container" x="20" y="128" width="350" height="301.5">
+              <frame id="59:105" name="Container" x="0" y="24" width="350" height="60.375">
+                <frame id="59:106" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="59:107" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="59:108" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="59:109" name="A" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="59:110" name="Text" x="36" y="0" width="42" height="27">
+                      <text id="59:111" name="81.3%" x="0" y="2" width="42" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="59:112" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="59:113" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="59:116" name="Container" x="0" y="96.375" width="350" height="60.375">
+                <frame id="59:117" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="59:118" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="59:119" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="59:120" name="B" x="7.5" y="2" width="9" height="20" />
+                    </frame>
+                    <frame id="59:121" name="Text" x="36" y="0" width="45" height="27">
+                      <text id="59:122" name="82.5%" x="0" y="2" width="45" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="59:123" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="59:124" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="59:127" name="Container" x="0" y="168.75" width="350" height="60.375">
+                <frame id="59:128" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="59:129" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="59:130" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="59:131" name="C" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="59:132" name="Text" x="36" y="0" width="45" height="27">
+                      <text id="59:133" name="83.6%" x="0" y="2" width="45" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="59:134" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="59:135" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="59:138" name="Container" x="0" y="241.125" width="350" height="60.375">
+                <frame id="59:139" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="59:140" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="59:141" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="59:142" name="D" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="59:143" name="Text" x="36" y="0" width="44" height="27">
+                      <text id="59:144" name="84.2%" x="0" y="2" width="44" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="59:145" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="59:146" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="59:149" name="Container" x="0" y="764.5" width="390" height="79.5">
+            <frame id="59:150" name="Button" x="20" y="13" width="169" height="54.5">
+              <text id="59:151" name="上一题" x="62" y="15.75" width="45" height="23" />
+            </frame>
+            <frame id="59:152" name="Button" x="201" y="13" width="169" height="54.5">
+              <text id="59:153" name="下一题" x="62" y="15.75" width="45" height="23" />
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+      <frame id="60:3" name="AnswerCard/Mask" x="0" y="0" width="390" height="844" />
+      <frame id="60:4" name="AnswerCard/Sheet" x="0" y="376" width="390" height="468">
+        <frame id="60:5" name="AnswerCard/HandleRow" x="20" y="10" width="350" height="12">
+          <rounded-rectangle id="60:6" name="AnswerCard/Handle" x="154" y="4" width="42" height="4" />
+        </frame>
+        <frame id="60:7" name="AnswerCard/Header" x="20" y="22" width="350" height="48">
+          <frame id="60:8" name="AnswerCard/TitleGroup" x="0" y="1.5" width="88" height="45">
+            <text id="60:9" name="AnswerCard/Title" x="0" y="0" width="54" height="27" />
+            <text id="60:10" name="AnswerCard/Subtitle" x="0" y="28" width="88" height="17" />
+          </frame>
+          <frame id="60:11" name="AnswerCard/Close" x="316" y="7" width="34" height="34">
+            <text id="60:12" name="AnswerCard/CloseIcon" x="10.5" y="7" width="13" height="20" />
+          </frame>
+        </frame>
+        <frame id="61:2" name="AnswerCard/Legend" x="20" y="70" width="350" height="50">
+          <frame id="61:3" name="AnswerCard/Legend/已答 2" x="12" y="11" width="72" height="28">
+            <ellipse id="61:4" name="AnswerCard/LegendDot/已答 2" x="0" y="9.5" width="9" height="9" />
+            <text id="61:5" name="AnswerCard/LegendText/已答 2" x="15" y="6.5" width="29" height="15" />
+          </frame>
+          <frame id="61:6" name="AnswerCard/Legend/未答 2" x="96.66666412353516" y="11" width="72" height="28">
+            <ellipse id="61:7" name="AnswerCard/LegendDot/未答 2" x="0" y="9.5" width="9" height="9" />
+            <text id="61:8" name="AnswerCard/LegendText/未答 2" x="15" y="6.5" width="29" height="15" />
+          </frame>
+          <frame id="61:9" name="AnswerCard/Legend/当前 1" x="181.3333282470703" y="11" width="72" height="28">
+            <ellipse id="61:10" name="AnswerCard/LegendDot/当前 1" x="0" y="9.5" width="9" height="9" />
+            <text id="61:11" name="AnswerCard/LegendText/当前 1" x="15" y="6.5" width="28" height="15" />
+          </frame>
+          <frame id="61:12" name="AnswerCard/Legend/标记 1" x="266" y="11" width="72" height="28">
+            <ellipse id="61:13" name="AnswerCard/LegendDot/标记 1" x="0" y="9.5" width="9" height="9" />
+            <text id="61:14" name="AnswerCard/LegendText/标记 1" x="15" y="6.5" width="28" height="15" />
+          </frame>
+        </frame>
+        <frame id="61:15" name="AnswerCard/QuestionSection" x="20" y="120" width="350" height="148">
+          <frame id="61:16" name="AnswerCard/ModuleRow" x="0" y="14" width="350" height="24">
+            <text id="61:17" name="AnswerCard/ModuleTitle" x="0" y="1.5" width="56" height="21" />
+            <text id="61:18" name="AnswerCard/ModuleMeta" x="248" y="4.5" width="102" height="15" />
+          </frame>
+          <frame id="61:19" name="AnswerCard/Grid" x="0" y="52" width="350" height="58">
+            <frame id="61:20" name="AnswerCard/Question/1/已答" x="0" y="7" width="44" height="44">
+              <text id="61:21" name="AnswerCard/QuestionLabel/1" x="18.5" y="12" width="7" height="20" />
+            </frame>
+            <frame id="61:22" name="AnswerCard/Question/2/已答" x="76.5" y="7" width="44" height="44">
+              <text id="61:23" name="AnswerCard/QuestionLabel/2" x="17.5" y="12" width="9" height="20" />
+            </frame>
+            <frame id="61:24" name="AnswerCard/Question/3/当前" x="153" y="7" width="44" height="44">
+              <text id="61:25" name="AnswerCard/QuestionLabel/3" x="17.5" y="12" width="9" height="20" />
+            </frame>
+            <frame id="61:26" name="AnswerCard/Question/4/标记" x="229.5" y="7" width="44" height="44">
+              <text id="61:27" name="AnswerCard/QuestionLabel/4" x="17.5" y="12" width="9" height="20" />
+              <frame id="61:28" name="AnswerCard/MarkedBadge" x="32" y="-2" width="14" height="14">
+                <text id="61:29" name="AnswerCard/MarkedGlyph" x="5.5" y="2.5" width="3" height="9" />
+              </frame>
+            </frame>
+            <frame id="61:30" name="AnswerCard/Question/5/未答" x="306" y="7" width="44" height="44">
+              <text id="61:31" name="AnswerCard/QuestionLabel/5" x="17.5" y="12" width="9" height="20" />
+            </frame>
+          </frame>
+          <text id="61:32" name="AnswerCard/GridHint" x="0" y="124" width="198" height="17" />
+        </frame>
+        <frame id="61:33" name="AnswerCard/Insight" x="20" y="268" width="350" height="64">
+          <frame id="61:34" name="AnswerCard/InsightIcon" x="14" y="15" width="34" height="34">
+            <star id="61:35" name="AnswerCard/Spark" x="4.272076606750488" y="17" width="25.455845832824707" height="25.455845832824707" />
+          </frame>
+          <frame id="61:36" name="AnswerCard/InsightCopy" x="59" y="15" width="276" height="34">
+            <text id="61:37" name="AnswerCard/InsightTitle" x="0" y="0" width="144" height="18" />
+            <text id="61:38" name="AnswerCard/InsightSubtitle" x="0" y="19" width="110" height="15" />
+          </frame>
+        </frame>
+        <frame id="61:39" name="AnswerCard/Spacer" x="20" y="332" width="350" height="62" />
+        <frame id="61:40" name="AnswerCard/CTA" x="20" y="394" width="350" height="54">
+          <text id="61:41" name="AnswerCard/CTAText" x="136.5" y="15.5" width="77" height="23" />
+        </frame>
+      </frame>
+      <frame id="59:154" name="Container" x="135" y="12" width="120" height="34" />
+      <frame id="88:4" name="WechatChrome/Capsule" x="287" y="48" width="87" height="32" />
+    </frame>
+  </frame>
+  <frame id="70:2" name="06 · 题面直接批注" x="2570" y="0" width="406" height="860">
+    <frame id="70:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="70:4" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="70:5" name="PracticePage" x="0" y="0" width="390" height="844">
+          <frame id="70:6" name="Container" x="0" y="0" width="390" height="91">
+            <frame id="70:7" name="StatusBar" x="0" y="0" width="390" height="45">
+              <frame id="70:8" name="Text" x="24" y="12" width="30" height="21">
+                <text id="70:9" name="9:41" x="0" y="0" width="30" height="21" />
+              </frame>
+              <frame id="70:10" name="Container" x="298" y="12.5" width="68" height="20">
+                <frame id="70:11" name="Icon" x="0" y="2" width="16" height="16" />
+                <frame id="70:17" name="Icon" x="24" y="2" width="16" height="16" />
+                <frame id="70:22" name="Icon" x="48" y="0" width="20" height="20" />
+              </frame>
+            </frame>
+            <frame id="70:25" name="Container" x="0" y="45" width="390" height="46">
+              <frame id="70:26" name="Container" x="16" y="8" width="202" height="30">
+                <frame id="70:27" name="Button:margin" x="0" y="1" width="24" height="28">
+                  <frame id="70:28" name="Button" x="-4" y="0" width="28" height="28">
+                    <frame id="70:29" name="Icon" x="4" y="4" width="20" height="20" />
+                  </frame>
+                </frame>
+                <frame id="70:32" name="Button" x="40" y="4.5" width="46" height="21">
+                  <frame id="70:33" name="Icon" x="0" y="2.5" width="16" height="16" />
+                  <frame id="70:40" name="Text" x="22" y="0" width="24" height="21">
+                    <text id="70:41" name="3/5" x="0" y="0" width="24" height="21" />
+                  </frame>
+                </frame>
+                <frame id="70:42" name="Button" x="102" y="0" width="100" height="30">
+                  <frame id="70:43" name="Icon" x="8" y="8" width="14" height="14" />
+                  <frame id="70:46" name="Text" x="28" y="4" width="42" height="22">
+                    <text id="70:47" name="00:52" x="0" y="2" width="42" height="20" />
+                  </frame>
+                  <frame id="70:48" name="Icon:margin" x="76" y="9" width="16" height="12">
+                    <frame id="70:49" name="Icon" x="4" y="0" width="12" height="12" />
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="70:52" name="Container" x="230" y="9" width="28" height="28">
+                <frame id="70:53" name="Button" x="5" y="5" width="18" height="18">
+                  <frame id="70:54" name="Icon" x="0" y="0" width="18" height="18" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="70:69" name="Container" x="0" y="91" width="390" height="294.6875">
+            <frame id="70:70" name="Container" x="0" y="0" width="390" height="294.6875">
+              <frame id="70:71" name="Container" x="20" y="20" width="350" height="25">
+                <frame id="70:72" name="Text" x="0" y="0" width="157" height="25">
+                  <text id="70:73" name="资料分析 · 共享材料 (1-5题)" x="10" y="4" width="137" height="17" />
+                </frame>
+                <frame id="70:74" name="Button" x="326" y="0.5" width="24" height="24">
+                  <frame id="70:75" name="Icon" x="4" y="4" width="16" height="16" />
+                </frame>
+              </frame>
+              <frame id="70:77" name="Paragraph" x="20" y="45" width="350" height="176">
+                <text id="70:78" name="2023年，全国一般公共预算收入 216784 亿元，同比增长 6.4%。其中，税收收入 18112" x="0" y="16" width="350" height="160" />
+              </frame>
+              <frame id="70:79" name="Container:margin" x="20" y="221" width="350" height="197">
+                <frame id="70:80" name="Container" x="0" y="16" width="350" height="173">
+                  <frame id="70:81" name="Table" x="1" y="1" width="348" height="171">
+                    <frame id="70:82" name="Table Header" x="0" y="0" width="348" height="42.5">
+                      <text id="70:83" name="主要税收项目" x="12" y="12" width="72" height="18" />
+                      <text id="70:84" name="金额(亿元)" x="146.15625" y="12" width="58" height="18" />
+                      <text id="70:85" name="同比(%)" x="261.15625" y="12" width="45" height="18" />
+                    </frame>
+                    <frame id="70:86" name="Table Row" x="0" y="42.5" width="348" height="43">
+                      <text id="70:87" name="国内增值税" x="12" y="12.5" width="60" height="18" />
+                      <text id="70:88" name="69332" x="146.15625" y="12.5" width="40" height="18" />
+                      <text id="70:89" name="+42.3" x="261.15625" y="12.5" width="34" height="18" />
+                    </frame>
+                    <frame id="70:90" name="Table Row" x="0" y="85.5" width="348" height="43">
+                      <text id="70:91" name="企业所得税" x="12" y="12.5" width="60" height="18" />
+                      <text id="70:92" name="41098" x="146.15625" y="12.5" width="39" height="18" />
+                      <text id="70:93" name="-5.9" x="261.15625" y="12.5" width="24" height="18" />
+                    </frame>
+                    <frame id="70:94" name="Table Row" x="0" y="128.5" width="348" height="42.5">
+                      <text id="70:95" name="个人所得税" x="12" y="12.5" width="60" height="18" />
+                      <text id="70:96" name="14775" x="146.15625" y="12.5" width="37" height="18" />
+                      <text id="70:97" name="-1.0" x="261.15625" y="12.5" width="22" height="18" />
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="70:98" name="Container" x="0" y="385.6875" width="390" height="458.3125">
+            <frame id="70:99" name="Heading 3" x="20" y="24" width="351" height="104">
+              <frame id="70:100" name="Text" x="0" y="0" width="15" height="25">
+                <text id="70:101" name="3." x="0" y="2" width="15" height="23" />
+              </frame>
+              <frame id="70:102" name="Text" x="23" y="0" width="328" height="104">
+                <text id="70:103" name="根据材料，2023年全国一般公共预算收入 216784 亿元，同比增长 6.4%。其中，税收收入 1" x="0" y="0" width="328" height="104" />
+              </frame>
+            </frame>
+            <frame id="70:104" name="Container" x="20" y="128" width="350" height="301.5">
+              <frame id="70:105" name="Container" x="0" y="24" width="350" height="60.375">
+                <frame id="70:106" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="70:107" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="70:108" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="70:109" name="A" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="70:110" name="Text" x="36" y="0" width="42" height="27">
+                      <text id="70:111" name="81.3%" x="0" y="2" width="42" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="70:112" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="70:113" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="70:116" name="Container" x="0" y="96.375" width="350" height="60.375">
+                <frame id="70:117" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="70:118" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="70:119" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="70:120" name="B" x="7.5" y="2" width="9" height="20" />
+                    </frame>
+                    <frame id="70:121" name="Text" x="36" y="0" width="45" height="27">
+                      <text id="70:122" name="82.5%" x="0" y="2" width="45" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="70:123" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="70:124" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="70:127" name="Container" x="0" y="168.75" width="350" height="60.375">
+                <frame id="70:128" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="70:129" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="70:130" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="70:131" name="C" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="70:132" name="Text" x="36" y="0" width="45" height="27">
+                      <text id="70:133" name="83.6%" x="0" y="2" width="45" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="70:134" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="70:135" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="70:138" name="Container" x="0" y="241.125" width="350" height="60.375">
+                <frame id="70:139" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="70:140" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="70:141" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="70:142" name="D" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="70:143" name="Text" x="36" y="0" width="44" height="27">
+                      <text id="70:144" name="84.2%" x="0" y="2" width="44" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="70:145" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="70:146" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="70:149" name="Container" x="0" y="764.5" width="390" height="79.5">
+            <frame id="70:150" name="Button" x="20" y="13" width="169" height="54.5">
+              <text id="70:151" name="上一题" x="62" y="15.75" width="45" height="23" />
+            </frame>
+            <frame id="70:152" name="Button" x="201" y="13" width="169" height="54.5">
+              <text id="70:153" name="下一题" x="62" y="15.75" width="45" height="23" />
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+      <frame id="72:2" name="Annotation/InkLayer" x="0" y="0" width="390" height="844">
+        <frame id="72:3" name="Annotation/ModeBadge" x="262" y="112" width="112" height="28">
+          <ellipse id="72:4" name="Annotation/ModeDot" x="11" y="10.5" width="7" height="7" />
+          <text id="72:5" name="Annotation/ModeText" x="25" y="6" width="78" height="16" />
+        </frame>
+        <line id="72:6" name="Annotation/Highlight/Revenue" x="240" y="181" width="65.98994886875153" height="1.1518587805330753" />
+        <line id="72:7" name="Annotation/Highlight/Tax" x="209" y="227" width="63.99522399902344" height="0.7818880677223206" />
+        <ellipse id="72:8" name="Annotation/Ring/Revenue" x="232" y="166" width="78.92967143654823" height="30.705104187130928" />
+        <ellipse id="72:9" name="Annotation/Ring/Tax" x="201" y="212" width="76.66141499578953" height="29.848487570881844" />
+        <line id="72:10" name="Annotation/Connector" x="249" y="244" width="72.8115302324295" height="52.90067195892334" />
+        <text id="72:11" name="Annotation/HandNote" x="182" y="320" width="145.95865674316883" height="35.04215206950903" />
+        <line id="72:12" name="Annotation/HandUnderline" x="177" y="353" width="169.89644289016724" height="5.932914242148399" />
+        <rounded-rectangle id="72:13" name="Annotation/StemMarginMark" x="27" y="418" width="5" height="86" />
+        <text id="72:14" name="Annotation/StemLabel" x="32" y="445" width="23.551937580108643" height="18.211976870894432" />
+        <ellipse id="72:15" name="Annotation/OptionRing" x="35" y="686" width="51.23138630390167" height="51.23138630390167" />
+        <line id="72:16" name="Annotation/Check1" x="329" y="710" width="9.192388772964478" height="9.192388772964478" />
+        <line id="72:17" name="Annotation/Check2" x="336" y="718" width="16.05913496017456" height="17.8354754447937" />
+        <frame id="72:18" name="Annotation/Toolbar" x="12" y="760" width="366" height="72">
+          <frame id="72:19" name="Annotation/Tool/Pan" x="7" y="8" width="43" height="56">
+            <text id="72:21" name="Annotation/ToolLabel/Pan" x="12.5" y="35" width="17" height="13" />
+            <text id="74:2" name="Annotation/Icon/Pan" x="12.5" y="6" width="18" height="20" />
+          </frame>
+          <frame id="72:22" name="Annotation/Tool/Pen" x="54" y="8" width="43" height="56">
+            <line id="72:23" name="Annotation/Icon/Pen" x="13" y="17" width="12.04435122013092" height="13.376606583595276" />
+            <text id="72:24" name="Annotation/ToolLabel/Pen" x="17" y="35" width="9" height="13" />
+          </frame>
+          <frame id="72:25" name="Annotation/Tool/Highlighter" x="101" y="8" width="43" height="56">
+            <line id="72:26" name="Annotation/Icon/Highlighter" x="13" y="17" width="12.04435122013092" height="13.376606583595276" />
+            <text id="72:27" name="Annotation/ToolLabel/Highlighter" x="12.5" y="35" width="17" height="13" />
+          </frame>
+          <frame id="72:28" name="Annotation/Tool/Eraser" x="148" y="8" width="43" height="56">
+            <rounded-rectangle id="72:29" name="Annotation/Icon/Eraser" x="13" y="11" width="21.05724486708641" height="18.162912726402283" />
+            <text id="72:30" name="Annotation/ToolLabel/Eraser" x="12.5" y="35" width="17" height="13" />
+          </frame>
+          <frame id="72:31" name="Annotation/Tool/Lasso" x="195" y="8" width="43" height="56">
+            <ellipse id="72:32" name="Annotation/Icon/Lasso" x="12" y="10" width="20" height="14" />
+            <text id="72:33" name="Annotation/ToolLabel/Lasso" x="12.5" y="35" width="17" height="13" />
+          </frame>
+          <frame id="72:34" name="Annotation/Undo" x="246" y="17" width="38" height="38">
+            <text id="72:35" name="Annotation/UndoGlyph" x="9.5" y="9" width="23" height="20" />
+          </frame>
+          <frame id="72:36" name="Annotation/Done" x="292" y="12" width="66" height="48">
+            <text id="72:37" name="Annotation/DoneText" x="19" y="14" width="26" height="20" />
+          </frame>
+        </frame>
+      </frame>
+      <frame id="70:154" name="Container" x="135" y="12" width="120" height="34" />
+      <frame id="88:11" name="WechatChrome/Capsule" x="287" y="48" width="87" height="32" />
+    </frame>
+  </frame>
+  <frame id="75:2" name="07 · 原题轨迹回放" x="3096" y="0" width="406" height="860">
+    <frame id="75:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="75:4" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="75:5" name="PracticePage" x="0" y="0" width="390" height="844">
+          <frame id="75:6" name="Container" x="0" y="0" width="390" height="91">
+            <frame id="75:7" name="StatusBar" x="0" y="0" width="390" height="45">
+              <frame id="75:8" name="Text" x="24" y="12" width="30" height="21">
+                <text id="75:9" name="9:41" x="0" y="0" width="30" height="21" />
+              </frame>
+              <frame id="75:10" name="Container" x="298" y="12.5" width="68" height="20">
+                <frame id="75:11" name="Icon" x="0" y="2" width="16" height="16" />
+                <frame id="75:17" name="Icon" x="24" y="2" width="16" height="16" />
+                <frame id="75:22" name="Icon" x="48" y="0" width="20" height="20" />
+              </frame>
+            </frame>
+            <frame id="75:25" name="Container" x="0" y="45" width="390" height="46">
+              <frame id="75:26" name="Container" x="16" y="8" width="202" height="30">
+                <frame id="75:27" name="Button:margin" x="0" y="1" width="24" height="28">
+                  <frame id="75:28" name="Button" x="-4" y="0" width="28" height="28">
+                    <frame id="75:29" name="Icon" x="4" y="4" width="20" height="20" />
+                  </frame>
+                </frame>
+                <frame id="75:32" name="Button" x="40" y="4.5" width="46" height="21">
+                  <frame id="75:33" name="Icon" x="0" y="2.5" width="16" height="16" />
+                  <frame id="75:40" name="Text" x="22" y="0" width="24" height="21">
+                    <text id="75:41" name="3/5" x="0" y="0" width="24" height="21" />
+                  </frame>
+                </frame>
+                <frame id="75:42" name="Button" x="102" y="0" width="100" height="30">
+                  <frame id="75:43" name="Icon" x="8" y="8" width="14" height="14" />
+                  <frame id="75:46" name="Text" x="28" y="4" width="42" height="22">
+                    <text id="75:47" name="00:52" x="0" y="2" width="42" height="20" />
+                  </frame>
+                  <frame id="75:48" name="Icon:margin" x="76" y="9" width="16" height="12">
+                    <frame id="75:49" name="Icon" x="4" y="0" width="12" height="12" />
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="75:52" name="Container" x="230" y="9" width="28" height="28">
+                <frame id="75:53" name="Button" x="5" y="5" width="18" height="18">
+                  <frame id="75:54" name="Icon" x="0" y="0" width="18" height="18" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="75:69" name="Container" x="0" y="91" width="390" height="294.6875">
+            <frame id="75:70" name="Container" x="0" y="0" width="390" height="294.6875">
+              <frame id="75:71" name="Container" x="20" y="20" width="350" height="25">
+                <frame id="75:72" name="Text" x="0" y="0" width="157" height="25">
+                  <text id="75:73" name="资料分析 · 共享材料 (1-5题)" x="10" y="4" width="137" height="17" />
+                </frame>
+                <frame id="75:74" name="Button" x="326" y="0.5" width="24" height="24">
+                  <frame id="75:75" name="Icon" x="4" y="4" width="16" height="16" />
+                </frame>
+              </frame>
+              <frame id="75:77" name="Paragraph" x="20" y="45" width="350" height="176">
+                <text id="75:78" name="2023年，全国一般公共预算收入 216784 亿元，同比增长 6.4%。其中，税收收入 18112" x="0" y="16" width="350" height="160" />
+              </frame>
+              <frame id="75:79" name="Container:margin" x="20" y="221" width="350" height="197">
+                <frame id="75:80" name="Container" x="0" y="16" width="350" height="173">
+                  <frame id="75:81" name="Table" x="1" y="1" width="348" height="171">
+                    <frame id="75:82" name="Table Header" x="0" y="0" width="348" height="42.5">
+                      <text id="75:83" name="主要税收项目" x="12" y="12" width="72" height="18" />
+                      <text id="75:84" name="金额(亿元)" x="146.15625" y="12" width="58" height="18" />
+                      <text id="75:85" name="同比(%)" x="261.15625" y="12" width="45" height="18" />
+                    </frame>
+                    <frame id="75:86" name="Table Row" x="0" y="42.5" width="348" height="43">
+                      <text id="75:87" name="国内增值税" x="12" y="12.5" width="60" height="18" />
+                      <text id="75:88" name="69332" x="146.15625" y="12.5" width="40" height="18" />
+                      <text id="75:89" name="+42.3" x="261.15625" y="12.5" width="34" height="18" />
+                    </frame>
+                    <frame id="75:90" name="Table Row" x="0" y="85.5" width="348" height="43">
+                      <text id="75:91" name="企业所得税" x="12" y="12.5" width="60" height="18" />
+                      <text id="75:92" name="41098" x="146.15625" y="12.5" width="39" height="18" />
+                      <text id="75:93" name="-5.9" x="261.15625" y="12.5" width="24" height="18" />
+                    </frame>
+                    <frame id="75:94" name="Table Row" x="0" y="128.5" width="348" height="42.5">
+                      <text id="75:95" name="个人所得税" x="12" y="12.5" width="60" height="18" />
+                      <text id="75:96" name="14775" x="146.15625" y="12.5" width="37" height="18" />
+                      <text id="75:97" name="-1.0" x="261.15625" y="12.5" width="22" height="18" />
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="75:98" name="Container" x="0" y="385.6875" width="390" height="458.3125">
+            <frame id="75:99" name="Heading 3" x="20" y="24" width="351" height="104">
+              <frame id="75:100" name="Text" x="0" y="0" width="15" height="25">
+                <text id="75:101" name="3." x="0" y="2" width="15" height="23" />
+              </frame>
+              <frame id="75:102" name="Text" x="23" y="0" width="328" height="104">
+                <text id="75:103" name="根据材料，2023年全国一般公共预算收入 216784 亿元，同比增长 6.4%。其中，税收收入 1" x="0" y="0" width="328" height="104" />
+              </frame>
+            </frame>
+            <frame id="75:104" name="Container" x="20" y="128" width="350" height="301.5">
+              <frame id="75:105" name="Container" x="0" y="24" width="350" height="60.375">
+                <frame id="75:106" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="75:107" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="75:108" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="75:109" name="A" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="75:110" name="Text" x="36" y="0" width="42" height="27">
+                      <text id="75:111" name="81.3%" x="0" y="2" width="42" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="75:112" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="75:113" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="75:116" name="Container" x="0" y="96.375" width="350" height="60.375">
+                <frame id="75:117" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="75:118" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="75:119" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="75:120" name="B" x="7.5" y="2" width="9" height="20" />
+                    </frame>
+                    <frame id="75:121" name="Text" x="36" y="0" width="45" height="27">
+                      <text id="75:122" name="82.5%" x="0" y="2" width="45" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="75:123" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="75:124" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="75:127" name="Container" x="0" y="168.75" width="350" height="60.375">
+                <frame id="75:128" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="75:129" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="75:130" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="75:131" name="C" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="75:132" name="Text" x="36" y="0" width="45" height="27">
+                      <text id="75:133" name="83.6%" x="0" y="2" width="45" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="75:134" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="75:135" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="75:138" name="Container" x="0" y="241.125" width="350" height="60.375">
+                <frame id="75:139" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="75:140" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="75:141" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="75:142" name="D" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="75:143" name="Text" x="36" y="0" width="44" height="27">
+                      <text id="75:144" name="84.2%" x="0" y="2" width="44" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="75:145" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="75:146" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="75:149" name="Container" x="0" y="764.5" width="390" height="79.5">
+            <frame id="75:150" name="Button" x="20" y="13" width="169" height="54.5">
+              <text id="75:151" name="上一题" x="62" y="15.75" width="45" height="23" />
+            </frame>
+            <frame id="75:152" name="Button" x="201" y="13" width="169" height="54.5">
+              <text id="75:153" name="下一题" x="62" y="15.75" width="45" height="23" />
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+      <frame id="75:154" name="Annotation/InkLayer" x="0" y="0" width="390" height="844">
+        <frame id="75:155" name="Annotation/ModeBadge" x="246" y="112" width="128" height="28">
+          <ellipse id="76:2" name="Replay/ModeDot" x="11" y="10.5" width="7" height="7" />
+          <text id="76:3" name="Replay/ModeText" x="25" y="6" width="78" height="16" />
+        </frame>
+        <line id="75:158" name="Annotation/Highlight/Revenue" x="240" y="181" width="65.98994886875153" height="1.1518587805330753" />
+        <line id="75:159" name="Annotation/Highlight/Tax" x="209" y="227" width="63.99522399902344" height="0.7818880677223206" />
+        <ellipse id="75:160" name="Annotation/Ring/Revenue" x="232" y="166" width="78.92967143654823" height="30.705104187130928" />
+        <ellipse id="75:161" name="Annotation/Ring/Tax" x="201" y="212" width="76.66141499578953" height="29.848487570881844" />
+        <line id="75:162" name="Annotation/Connector" x="249" y="244" width="72.8115302324295" height="52.90067195892334" />
+        <text id="75:163" name="Annotation/HandNote" x="182" y="320" width="145.95865674316883" height="35.04215206950903" />
+        <line id="75:164" name="Annotation/HandUnderline" x="177" y="353" width="169.89644289016724" height="5.932914242148399" />
+        <rounded-rectangle id="75:165" name="Annotation/StemMarginMark" x="27" y="418" width="5" height="86" />
+        <text id="75:166" name="Annotation/StemLabel" x="32" y="445" width="23.551937580108643" height="18.211976870894432" />
+        <ellipse id="75:167" name="Annotation/OptionRing" x="35" y="686" width="51.23138630390167" height="51.23138630390167" hidden="true" />
+        <line id="75:168" name="Annotation/Check1" x="329" y="710" width="9.192388772964478" height="9.192388772964478" hidden="true" />
+        <line id="75:169" name="Annotation/Check2" x="336" y="718" width="16.05913496017456" height="17.8354754447937" hidden="true" />
+        <frame id="75:170" name="Replay/Toolbar" x="12" y="750" width="366" height="78">
+          <frame id="76:7" name="Replay/Play" x="10" y="16" width="46" height="46">
+            <frame id="114:2" name="Replay/PlayIcon" x="16" y="15" width="16" height="16" />
+          </frame>
+          <rounded-rectangle id="76:9" name="Replay/Track" x="68" y="20" width="210" height="6" />
+          <rounded-rectangle id="76:10" name="Replay/TrackFill" x="68" y="20" width="149" height="6" />
+          <ellipse id="76:11" name="Replay/Marker" x="91" y="18.5" width="9" height="9" />
+          <ellipse id="76:12" name="Replay/Marker" x="128" y="18.5" width="9" height="9" />
+          <ellipse id="76:13" name="Replay/Marker" x="217" y="18.5" width="9" height="9" />
+          <text id="76:14" name="Replay/Time" x="68" y="34" width="65" height="16" />
+          <text id="76:15" name="Replay/Summary" x="158" y="34" width="76" height="15" />
+          <frame id="76:16" name="Replay/Exit" x="286" y="15" width="70" height="48">
+            <text id="76:17" name="Replay/ExitText" x="9.5" y="15" width="48" height="18" />
+          </frame>
+        </frame>
+        <frame id="76:4" name="Replay/CurrentEvent" x="218" y="365" width="148" height="34">
+          <ellipse id="76:5" name="Replay/EventDot" x="12" y="13" width="8" height="8" />
+          <text id="76:6" name="Replay/EventText" x="27" y="8" width="78" height="17" />
+        </frame>
+      </frame>
+      <frame id="75:190" name="Container" x="135" y="12" width="120" height="34" />
+      <frame id="88:18" name="WechatChrome/Capsule" x="287" y="48" width="87" height="32" />
+    </frame>
+  </frame>
+  <frame id="78:2" name="08 · 岸岸动作分析" x="3622" y="0" width="406" height="860">
+    <frame id="78:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="78:4" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="78:5" name="PracticePage" x="0" y="0" width="390" height="844">
+          <frame id="78:6" name="Container" x="0" y="0" width="390" height="91">
+            <frame id="78:7" name="StatusBar" x="0" y="0" width="390" height="45">
+              <frame id="78:8" name="Text" x="24" y="12" width="30" height="21">
+                <text id="78:9" name="9:41" x="0" y="0" width="30" height="21" />
+              </frame>
+              <frame id="78:10" name="Container" x="298" y="12.5" width="68" height="20">
+                <frame id="78:11" name="Icon" x="0" y="2" width="16" height="16" />
+                <frame id="78:17" name="Icon" x="24" y="2" width="16" height="16" />
+                <frame id="78:22" name="Icon" x="48" y="0" width="20" height="20" />
+              </frame>
+            </frame>
+            <frame id="78:25" name="Container" x="0" y="45" width="390" height="46">
+              <frame id="78:26" name="Container" x="16" y="8" width="202" height="30">
+                <frame id="78:27" name="Button:margin" x="0" y="1" width="24" height="28">
+                  <frame id="78:28" name="Button" x="-4" y="0" width="28" height="28">
+                    <frame id="78:29" name="Icon" x="4" y="4" width="20" height="20" />
+                  </frame>
+                </frame>
+                <frame id="78:32" name="Button" x="40" y="4.5" width="46" height="21">
+                  <frame id="78:33" name="Icon" x="0" y="2.5" width="16" height="16" />
+                  <frame id="78:40" name="Text" x="22" y="0" width="24" height="21">
+                    <text id="78:41" name="3/5" x="0" y="0" width="24" height="21" />
+                  </frame>
+                </frame>
+                <frame id="78:42" name="Button" x="102" y="0" width="100" height="30">
+                  <frame id="78:43" name="Icon" x="8" y="8" width="14" height="14" />
+                  <frame id="78:46" name="Text" x="28" y="4" width="42" height="22">
+                    <text id="78:47" name="00:52" x="0" y="2" width="42" height="20" />
+                  </frame>
+                  <frame id="78:48" name="Icon:margin" x="76" y="9" width="16" height="12">
+                    <frame id="78:49" name="Icon" x="4" y="0" width="12" height="12" />
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="78:52" name="Container" x="230" y="9" width="28" height="28">
+                <frame id="78:53" name="Button" x="5" y="5" width="18" height="18">
+                  <frame id="78:54" name="Icon" x="0" y="0" width="18" height="18" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="78:69" name="Container" x="0" y="91" width="390" height="294.6875">
+            <frame id="78:70" name="Container" x="0" y="0" width="390" height="294.6875">
+              <frame id="78:71" name="Container" x="20" y="20" width="350" height="25">
+                <frame id="78:72" name="Text" x="0" y="0" width="157" height="25">
+                  <text id="78:73" name="资料分析 · 共享材料 (1-5题)" x="10" y="4" width="137" height="17" />
+                </frame>
+                <frame id="78:74" name="Button" x="326" y="0.5" width="24" height="24">
+                  <frame id="78:75" name="Icon" x="4" y="4" width="16" height="16" />
+                </frame>
+              </frame>
+              <frame id="78:77" name="Paragraph" x="20" y="45" width="350" height="176">
+                <text id="78:78" name="2023年，全国一般公共预算收入 216784 亿元，同比增长 6.4%。其中，税收收入 18112" x="0" y="16" width="350" height="160" />
+              </frame>
+              <frame id="78:79" name="Container:margin" x="20" y="221" width="350" height="197">
+                <frame id="78:80" name="Container" x="0" y="16" width="350" height="173">
+                  <frame id="78:81" name="Table" x="1" y="1" width="348" height="171">
+                    <frame id="78:82" name="Table Header" x="0" y="0" width="348" height="42.5">
+                      <text id="78:83" name="主要税收项目" x="12" y="12" width="72" height="18" />
+                      <text id="78:84" name="金额(亿元)" x="146.15625" y="12" width="58" height="18" />
+                      <text id="78:85" name="同比(%)" x="261.15625" y="12" width="45" height="18" />
+                    </frame>
+                    <frame id="78:86" name="Table Row" x="0" y="42.5" width="348" height="43">
+                      <text id="78:87" name="国内增值税" x="12" y="12.5" width="60" height="18" />
+                      <text id="78:88" name="69332" x="146.15625" y="12.5" width="40" height="18" />
+                      <text id="78:89" name="+42.3" x="261.15625" y="12.5" width="34" height="18" />
+                    </frame>
+                    <frame id="78:90" name="Table Row" x="0" y="85.5" width="348" height="43">
+                      <text id="78:91" name="企业所得税" x="12" y="12.5" width="60" height="18" />
+                      <text id="78:92" name="41098" x="146.15625" y="12.5" width="39" height="18" />
+                      <text id="78:93" name="-5.9" x="261.15625" y="12.5" width="24" height="18" />
+                    </frame>
+                    <frame id="78:94" name="Table Row" x="0" y="128.5" width="348" height="42.5">
+                      <text id="78:95" name="个人所得税" x="12" y="12.5" width="60" height="18" />
+                      <text id="78:96" name="14775" x="146.15625" y="12.5" width="37" height="18" />
+                      <text id="78:97" name="-1.0" x="261.15625" y="12.5" width="22" height="18" />
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="78:98" name="Container" x="0" y="385.6875" width="390" height="458.3125">
+            <frame id="78:99" name="Heading 3" x="20" y="24" width="351" height="104">
+              <frame id="78:100" name="Text" x="0" y="0" width="15" height="25">
+                <text id="78:101" name="3." x="0" y="2" width="15" height="23" />
+              </frame>
+              <frame id="78:102" name="Text" x="23" y="0" width="328" height="104">
+                <text id="78:103" name="根据材料，2023年全国一般公共预算收入 216784 亿元，同比增长 6.4%。其中，税收收入 1" x="0" y="0" width="328" height="104" />
+              </frame>
+            </frame>
+            <frame id="78:104" name="Container" x="20" y="128" width="350" height="301.5">
+              <frame id="78:105" name="Container" x="0" y="24" width="350" height="60.375">
+                <frame id="78:106" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="78:107" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="78:108" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="78:109" name="A" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="78:110" name="Text" x="36" y="0" width="42" height="27">
+                      <text id="78:111" name="81.3%" x="0" y="2" width="42" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="78:112" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="78:113" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="78:116" name="Container" x="0" y="96.375" width="350" height="60.375">
+                <frame id="78:117" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="78:118" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="78:119" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="78:120" name="B" x="7.5" y="2" width="9" height="20" />
+                    </frame>
+                    <frame id="78:121" name="Text" x="36" y="0" width="45" height="27">
+                      <text id="78:122" name="82.5%" x="0" y="2" width="45" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="78:123" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="78:124" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="78:127" name="Container" x="0" y="168.75" width="350" height="60.375">
+                <frame id="78:128" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="78:129" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="78:130" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="78:131" name="C" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="78:132" name="Text" x="36" y="0" width="45" height="27">
+                      <text id="78:133" name="83.6%" x="0" y="2" width="45" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="78:134" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="78:135" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="78:138" name="Container" x="0" y="241.125" width="350" height="60.375">
+                <frame id="78:139" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="78:140" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="78:141" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="78:142" name="D" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="78:143" name="Text" x="36" y="0" width="44" height="27">
+                      <text id="78:144" name="84.2%" x="0" y="2" width="44" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="78:145" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="78:146" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="78:149" name="Container" x="0" y="764.5" width="390" height="79.5">
+            <frame id="78:150" name="Button" x="20" y="13" width="169" height="54.5">
+              <text id="78:151" name="上一题" x="62" y="15.75" width="45" height="23" />
+            </frame>
+            <frame id="78:152" name="Button" x="201" y="13" width="169" height="54.5">
+              <text id="78:153" name="下一题" x="62" y="15.75" width="45" height="23" />
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+      <frame id="78:154" name="Annotation/InkLayer" x="0" y="0" width="390" height="844">
+        <frame id="78:155" name="Annotation/ModeBadge" x="242" y="112" width="132" height="28">
+          <ellipse id="79:2" name="Analysis/ModeDot" x="11" y="10.5" width="7" height="7" />
+          <text id="79:3" name="Analysis/ModeText" x="25" y="6" width="78" height="16" />
+        </frame>
+        <line id="78:158" name="Annotation/Highlight/Revenue" x="240" y="181" width="65.98994886875153" height="1.1518587805330753" />
+        <line id="78:159" name="Annotation/Highlight/Tax" x="209" y="227" width="63.99522399902344" height="0.7818880677223206" />
+        <ellipse id="78:160" name="Annotation/Ring/Revenue" x="232" y="166" width="78.92967143654823" height="30.705104187130928" />
+        <ellipse id="78:161" name="Annotation/Ring/Tax" x="201" y="212" width="76.66141499578953" height="29.848487570881844" />
+        <line id="78:162" name="Annotation/Connector" x="249" y="244" width="72.8115302324295" height="52.90067195892334" />
+        <text id="78:163" name="Annotation/HandNote" x="182" y="320" width="145.95865674316883" height="35.04215206950903" />
+        <line id="78:164" name="Annotation/HandUnderline" x="177" y="353" width="169.89644289016724" height="5.932914242148399" />
+        <rounded-rectangle id="78:165" name="Annotation/StemMarginMark" x="27" y="418" width="5" height="86" />
+        <text id="78:166" name="Annotation/StemLabel" x="32" y="445" width="23.551937580108643" height="18.211976870894432" />
+        <ellipse id="78:167" name="Annotation/OptionRing" x="35" y="686" width="51.23138630390167" height="51.23138630390167" />
+        <line id="78:168" name="Annotation/Check1" x="329" y="710" width="9.192388772964478" height="9.192388772964478" />
+        <line id="78:169" name="Annotation/Check2" x="336" y="718" width="16.05913496017456" height="17.8354754447937" />
+        <frame id="79:4" name="Analysis/Sheet" x="0" y="530" width="390" height="314">
+          <rounded-rectangle id="79:5" name="Analysis/Handle" x="174" y="10" width="42" height="4" />
+          <text id="79:6" name="Analysis/Title" x="20" y="24" width="128" height="24" />
+          <frame id="79:7" name="Analysis/Confidence" x="302" y="22" width="68" height="26">
+            <text id="79:8" name="Analysis/ConfidenceText" x="18" y="5" width="30" height="16" />
+          </frame>
+          <text id="79:9" name="Analysis/Meta" x="20" y="49" width="147" height="16" />
+          <frame id="79:10" name="Analysis/Summary" x="20" y="72" width="350" height="62">
+            <text id="79:11" name="Analysis/SummaryText" x="14" y="10" width="322" height="40" />
+          </frame>
+          <frame id="79:12" name="Analysis/Evidence/00:23" x="20" y="144" width="350" height="38">
+            <frame id="79:13" name="Analysis/Time/00:23" x="8" y="7" width="48" height="24">
+              <text id="79:14" name="Analysis/TimeText/00:23" x="10.5" y="5" width="27" height="14" />
+            </frame>
+            <text id="79:15" name="Analysis/Copy/00:23" x="66" y="9" width="163" height="18" />
+          </frame>
+          <frame id="79:16" name="Analysis/Evidence/00:58" x="20" y="188" width="350" height="38">
+            <frame id="79:17" name="Analysis/Time/00:58" x="8" y="7" width="48" height="24">
+              <text id="79:18" name="Analysis/TimeText/00:58" x="10.5" y="5" width="27" height="14" />
+            </frame>
+            <text id="79:19" name="Analysis/Copy/00:58" x="66" y="9" width="144" height="18" />
+          </frame>
+          <text id="79:20" name="Analysis/Boundary" x="20" y="232" width="204" height="15" />
+          <frame id="79:21" name="Analysis/Ask" x="20" y="252" width="168" height="46">
+            <text id="79:22" name="Analysis/AskText" x="46" y="14" width="72" height="18" />
+          </frame>
+          <frame id="79:23" name="Analysis/Back" x="202" y="252" width="168" height="46">
+            <text id="79:24" name="Analysis/BackText" x="46" y="14" width="72" height="18" />
+          </frame>
+        </frame>
+      </frame>
+      <frame id="78:185" name="Container" x="135" y="12" width="120" height="34" />
+      <frame id="88:25" name="WechatChrome/Capsule" x="287" y="48" width="87" height="32" />
+    </frame>
+  </frame>
+  <frame id="80:2" name="09 · 共享材料阅读" x="4148" y="0" width="406" height="860">
+    <frame id="80:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="81:2" name="MaterialReader/Surface" x="0" y="48" width="390" height="796">
+        <frame id="81:3" name="MaterialReader/Header" x="0" y="0" width="390" height="58">
+          <rounded-rectangle id="81:4" name="MaterialReader/HeaderDivider" x="0" y="57" width="390" height="1" />
+          <frame id="81:5" name="MaterialReader/Back" x="14" y="10" width="38" height="38">
+            <text id="81:6" name="MaterialReader/BackIcon" x="13" y="3" width="12" height="30" />
+          </frame>
+          <text id="81:7" name="MaterialReader/Title" x="64" y="7" width="64" height="24" />
+          <text id="81:8" name="MaterialReader/Subtitle" x="64" y="31" width="90" height="15" />
+        </frame>
+        <frame id="81:11" name="MaterialReader/Body" x="12" y="70" width="366" height="638">
+          <frame id="81:12" name="MaterialReader/SectionTag" x="18" y="16" width="178" height="28">
+            <text id="81:13" name="MaterialReader/SectionTagText" x="19" y="6" width="134" height="16" />
+          </frame>
+          <text id="81:14" name="MaterialReader/Heading" x="18" y="58" width="232" height="26" />
+          <text id="81:15" name="MaterialReader/Paragraph1" x="30" y="98" width="318" height="100" />
+          <text id="81:16" name="MaterialReader/ParagraphNo1" x="15" y="101" width="5" height="15" />
+          <frame id="81:17" name="MaterialReader/Table" x="18" y="236" width="330" height="176">
+            <frame id="81:18" name="MaterialReader/TableHead" x="0" y="0" width="330" height="40">
+              <text id="81:19" name="MaterialReader/TH1" x="12" y="11" width="66" height="17" />
+              <text id="81:20" name="MaterialReader/TH2" x="150" y="11" width="66" height="17" />
+              <text id="81:21" name="MaterialReader/TH3" x="275" y="11" width="22" height="17" />
+            </frame>
+            <frame id="81:22" name="MaterialReader/TableRow1" x="0" y="40" width="330" height="45">
+              <text id="81:23" name="MaterialReader/R1C1" x="12" y="13" width="60" height="18" />
+              <text id="81:24" name="MaterialReader/R1C2" x="150" y="13" width="40" height="18" />
+              <text id="81:25" name="MaterialReader/R1C3" x="275" y="13" width="41" height="17" />
+            </frame>
+            <frame id="81:26" name="MaterialReader/TableRow2" x="0" y="85" width="330" height="45">
+              <text id="81:27" name="MaterialReader/R2C1" x="12" y="13" width="60" height="18" />
+              <text id="81:28" name="MaterialReader/R2C2" x="150" y="13" width="39" height="18" />
+              <text id="81:29" name="MaterialReader/R2C3" x="275" y="13" width="31" height="17" />
+            </frame>
+            <frame id="81:30" name="MaterialReader/TableRow3" x="0" y="130" width="330" height="45">
+              <text id="81:31" name="MaterialReader/R3C1" x="12" y="13" width="60" height="18" />
+              <text id="81:32" name="MaterialReader/R3C2" x="150" y="13" width="37" height="18" />
+              <text id="81:33" name="MaterialReader/R3C3" x="275" y="13" width="29" height="17" />
+            </frame>
+          </frame>
+          <text id="81:34" name="MaterialReader/Paragraph2" x="30" y="438" width="318" height="75" />
+          <text id="81:35" name="MaterialReader/ParagraphNo2" x="15" y="441" width="7" height="15" />
+          <frame id="81:36" name="MaterialReader/Progress" x="240" y="590" width="108" height="28">
+            <ellipse id="81:37" name="MaterialReader/ProgressDot" x="11" y="10.5" width="7" height="7" />
+            <text id="81:38" name="MaterialReader/ProgressText" x="26" y="6" width="43" height="16" />
+          </frame>
+        </frame>
+        <frame id="81:39" name="MaterialReader/ToolDock" x="12" y="720" width="366" height="64">
+          <frame id="81:40" name="MaterialReader/Tool/Font" x="8" y="7" width="52" height="50">
+            <text id="81:41" name="MaterialReader/Icon/Font" x="21" y="4" width="20" height="18" />
+            <text id="81:42" name="MaterialReader/Label/Font" x="22" y="29" width="17" height="13" />
+          </frame>
+          <frame id="81:43" name="MaterialReader/Tool/Spacing" x="68" y="7" width="52" height="50">
+            <text id="81:44" name="MaterialReader/Icon/Spacing" x="23" y="4" width="9" height="18" />
+            <text id="81:45" name="MaterialReader/Label/Spacing" x="22" y="29" width="17" height="13" />
+          </frame>
+          <frame id="81:46" name="MaterialReader/Tool/Eye" x="128" y="7" width="52" height="50">
+            <text id="81:47" name="MaterialReader/Icon/Eye" x="23" y="4" width="14" height="18" />
+            <text id="81:48" name="MaterialReader/Label/Eye" x="22" y="29" width="17" height="13" />
+          </frame>
+          <frame id="81:52" name="MaterialReader/Tool/Annotate" x="188" y="7" width="52" height="50">
+            <text id="81:53" name="MaterialReader/Icon/Annotate" x="23" y="4" width="15" height="18" />
+            <text id="81:54" name="MaterialReader/Label/Annotate" x="22" y="29" width="17" height="13" />
+          </frame>
+          <frame id="88:2" name="MaterialReader/ReturnToQuestion" x="246" y="9" width="112" height="46">
+            <text id="88:3" name="MaterialReader/ReturnToQuestionText" x="0" y="0" width="112" height="46" />
+          </frame>
+        </frame>
+      </frame>
+      <frame id="80:65" name="Container" x="135" y="12" width="120" height="34" />
+      <frame id="88:32" name="WechatChrome/Capsule" x="287" y="48" width="87" height="32" />
+    </frame>
+  </frame>
+  <frame id="82:2" name="10 · 暂停计时" x="4674" y="0" width="406" height="860">
+    <frame id="82:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="82:4" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="82:5" name="PracticePage" x="0" y="0" width="390" height="844">
+          <frame id="82:6" name="Container" x="0" y="0" width="390" height="91">
+            <frame id="82:7" name="StatusBar" x="0" y="0" width="390" height="45">
+              <frame id="82:8" name="Text" x="24" y="12" width="30" height="21">
+                <text id="82:9" name="9:41" x="0" y="0" width="30" height="21" />
+              </frame>
+              <frame id="82:10" name="Container" x="298" y="12.5" width="68" height="20">
+                <frame id="82:11" name="Icon" x="0" y="2" width="16" height="16" />
+                <frame id="82:17" name="Icon" x="24" y="2" width="16" height="16" />
+                <frame id="82:22" name="Icon" x="48" y="0" width="20" height="20" />
+              </frame>
+            </frame>
+            <frame id="82:25" name="Container" x="0" y="45" width="390" height="46">
+              <frame id="82:26" name="Container" x="16" y="8" width="202" height="30">
+                <frame id="82:27" name="Button:margin" x="0" y="1" width="24" height="28">
+                  <frame id="82:28" name="Button" x="-4" y="0" width="28" height="28">
+                    <frame id="82:29" name="Icon" x="4" y="4" width="20" height="20" />
+                  </frame>
+                </frame>
+                <frame id="82:32" name="Button" x="40" y="4.5" width="46" height="21">
+                  <frame id="82:33" name="Icon" x="0" y="2.5" width="16" height="16" />
+                  <frame id="82:40" name="Text" x="22" y="0" width="24" height="21">
+                    <text id="82:41" name="3/5" x="0" y="0" width="24" height="21" />
+                  </frame>
+                </frame>
+                <frame id="82:42" name="Button" x="102" y="0" width="100" height="30">
+                  <frame id="82:43" name="Icon" x="8" y="8" width="14" height="14" />
+                  <frame id="82:46" name="Text" x="28" y="4" width="42" height="22">
+                    <text id="82:47" name="00:52" x="0" y="2" width="42" height="20" />
+                  </frame>
+                  <frame id="82:48" name="Icon:margin" x="76" y="9" width="16" height="12">
+                    <frame id="82:49" name="Icon" x="4" y="0" width="12" height="12" />
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="82:52" name="Container" x="230" y="9" width="28" height="28">
+                <frame id="82:53" name="Button" x="5" y="5" width="18" height="18">
+                  <frame id="82:54" name="Icon" x="0" y="0" width="18" height="18" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="82:69" name="Container" x="0" y="91" width="390" height="294.6875">
+            <frame id="82:70" name="Container" x="0" y="0" width="390" height="294.6875">
+              <frame id="82:71" name="Container" x="20" y="20" width="350" height="25">
+                <frame id="82:72" name="Text" x="0" y="0" width="157" height="25">
+                  <text id="82:73" name="资料分析 · 共享材料 (1-5题)" x="10" y="4" width="137" height="17" />
+                </frame>
+                <frame id="82:74" name="Button" x="326" y="0.5" width="24" height="24">
+                  <frame id="82:75" name="Icon" x="4" y="4" width="16" height="16" />
+                </frame>
+              </frame>
+              <frame id="82:77" name="Paragraph" x="20" y="45" width="350" height="176">
+                <text id="82:78" name="2023年，全国一般公共预算收入 216784 亿元，同比增长 6.4%。其中，税收收入 18112" x="0" y="16" width="350" height="160" />
+              </frame>
+              <frame id="82:79" name="Container:margin" x="20" y="221" width="350" height="197">
+                <frame id="82:80" name="Container" x="0" y="16" width="350" height="173">
+                  <frame id="82:81" name="Table" x="1" y="1" width="348" height="171">
+                    <frame id="82:82" name="Table Header" x="0" y="0" width="348" height="42.5">
+                      <text id="82:83" name="主要税收项目" x="12" y="12" width="72" height="18" />
+                      <text id="82:84" name="金额(亿元)" x="146.15625" y="12" width="58" height="18" />
+                      <text id="82:85" name="同比(%)" x="261.15625" y="12" width="45" height="18" />
+                    </frame>
+                    <frame id="82:86" name="Table Row" x="0" y="42.5" width="348" height="43">
+                      <text id="82:87" name="国内增值税" x="12" y="12.5" width="60" height="18" />
+                      <text id="82:88" name="69332" x="146.15625" y="12.5" width="40" height="18" />
+                      <text id="82:89" name="+42.3" x="261.15625" y="12.5" width="34" height="18" />
+                    </frame>
+                    <frame id="82:90" name="Table Row" x="0" y="85.5" width="348" height="43">
+                      <text id="82:91" name="企业所得税" x="12" y="12.5" width="60" height="18" />
+                      <text id="82:92" name="41098" x="146.15625" y="12.5" width="39" height="18" />
+                      <text id="82:93" name="-5.9" x="261.15625" y="12.5" width="24" height="18" />
+                    </frame>
+                    <frame id="82:94" name="Table Row" x="0" y="128.5" width="348" height="42.5">
+                      <text id="82:95" name="个人所得税" x="12" y="12.5" width="60" height="18" />
+                      <text id="82:96" name="14775" x="146.15625" y="12.5" width="37" height="18" />
+                      <text id="82:97" name="-1.0" x="261.15625" y="12.5" width="22" height="18" />
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="82:98" name="Container" x="0" y="385.6875" width="390" height="458.3125">
+            <frame id="82:99" name="Heading 3" x="20" y="24" width="351" height="104">
+              <frame id="82:100" name="Text" x="0" y="0" width="15" height="25">
+                <text id="82:101" name="3." x="0" y="2" width="15" height="23" />
+              </frame>
+              <frame id="82:102" name="Text" x="23" y="0" width="328" height="104">
+                <text id="82:103" name="根据材料，2023年全国一般公共预算收入 216784 亿元，同比增长 6.4%。其中，税收收入 1" x="0" y="0" width="328" height="104" />
+              </frame>
+            </frame>
+            <frame id="82:104" name="Container" x="20" y="128" width="350" height="301.5">
+              <frame id="82:105" name="Container" x="0" y="24" width="350" height="60.375">
+                <frame id="82:106" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="82:107" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="82:108" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="82:109" name="A" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="82:110" name="Text" x="36" y="0" width="42" height="27">
+                      <text id="82:111" name="81.3%" x="0" y="2" width="42" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="82:112" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="82:113" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="82:116" name="Container" x="0" y="96.375" width="350" height="60.375">
+                <frame id="82:117" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="82:118" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="82:119" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="82:120" name="B" x="7.5" y="2" width="9" height="20" />
+                    </frame>
+                    <frame id="82:121" name="Text" x="36" y="0" width="45" height="27">
+                      <text id="82:122" name="82.5%" x="0" y="2" width="45" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="82:123" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="82:124" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="82:127" name="Container" x="0" y="168.75" width="350" height="60.375">
+                <frame id="82:128" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="82:129" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="82:130" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="82:131" name="C" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="82:132" name="Text" x="36" y="0" width="45" height="27">
+                      <text id="82:133" name="83.6%" x="0" y="2" width="45" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="82:134" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="82:135" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="82:138" name="Container" x="0" y="241.125" width="350" height="60.375">
+                <frame id="82:139" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="82:140" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="82:141" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="82:142" name="D" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="82:143" name="Text" x="36" y="0" width="44" height="27">
+                      <text id="82:144" name="84.2%" x="0" y="2" width="44" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="82:145" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="82:146" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="82:149" name="Container" x="0" y="764.5" width="390" height="79.5">
+            <frame id="82:150" name="Button" x="20" y="13" width="169" height="54.5">
+              <text id="82:151" name="上一题" x="62" y="15.75" width="45" height="23" />
+            </frame>
+            <frame id="82:152" name="Button" x="201" y="13" width="169" height="54.5">
+              <text id="82:153" name="下一题" x="62" y="15.75" width="45" height="23" />
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+      <frame id="82:155" name="Pause/Mask" x="0" y="0" width="390" height="844" />
+      <frame id="82:156" name="Pause/Card" x="30" y="253" width="330" height="338">
+        <frame id="82:157" name="Pause/Icon" x="131" y="28" width="68" height="68" />
+        <text id="82:160" name="Pause/Title" x="107" y="112" width="110" height="32" />
+        <text id="82:161" name="Pause/Time" x="136" y="151" width="58" height="28" />
+        <text id="82:162" name="Pause/Copy" x="40" y="190" width="250" height="40" />
+        <frame id="82:163" name="Pause/Resume" x="30" y="246" width="270" height="50">
+          <text id="82:164" name="Pause/ResumeText" x="105.5" y="14.5" width="56" height="21" />
+        </frame>
+        <text id="82:165" name="Pause/ExitText" x="130.5" y="305" width="66" height="17" />
+      </frame>
+      <frame id="82:154" name="Container" x="135" y="12" width="120" height="34" />
+      <frame id="88:39" name="WechatChrome/Capsule" x="287" y="48" width="87" height="32" />
+    </frame>
+  </frame>
+  <frame id="84:2" name="11 · 画词工具条" x="5200" y="0" width="406" height="860">
+    <frame id="84:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="84:4" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="84:5" name="PracticePage" x="0" y="0" width="390" height="844">
+          <frame id="84:6" name="Container" x="0" y="0" width="390" height="91">
+            <frame id="84:7" name="StatusBar" x="0" y="0" width="390" height="45">
+              <frame id="84:8" name="Text" x="24" y="12" width="30" height="21">
+                <text id="84:9" name="9:41" x="0" y="0" width="30" height="21" />
+              </frame>
+              <frame id="84:10" name="Container" x="298" y="12.5" width="68" height="20">
+                <frame id="84:11" name="Icon" x="0" y="2" width="16" height="16" />
+                <frame id="84:17" name="Icon" x="24" y="2" width="16" height="16" />
+                <frame id="84:22" name="Icon" x="48" y="0" width="20" height="20" />
+              </frame>
+            </frame>
+            <frame id="84:25" name="Container" x="0" y="45" width="390" height="46">
+              <frame id="84:26" name="Container" x="16" y="8" width="202" height="30">
+                <frame id="84:27" name="Button:margin" x="0" y="1" width="24" height="28">
+                  <frame id="84:28" name="Button" x="-4" y="0" width="28" height="28">
+                    <frame id="84:29" name="Icon" x="4" y="4" width="20" height="20" />
+                  </frame>
+                </frame>
+                <frame id="84:32" name="Button" x="40" y="4.5" width="46" height="21">
+                  <frame id="84:33" name="Icon" x="0" y="2.5" width="16" height="16" />
+                  <frame id="84:40" name="Text" x="22" y="0" width="24" height="21">
+                    <text id="84:41" name="3/5" x="0" y="0" width="24" height="21" />
+                  </frame>
+                </frame>
+                <frame id="84:42" name="Button" x="102" y="0" width="100" height="30">
+                  <frame id="84:43" name="Icon" x="8" y="8" width="14" height="14" />
+                  <frame id="84:46" name="Text" x="28" y="4" width="42" height="22">
+                    <text id="84:47" name="00:52" x="0" y="2" width="42" height="20" />
+                  </frame>
+                  <frame id="84:48" name="Icon:margin" x="76" y="9" width="16" height="12">
+                    <frame id="84:49" name="Icon" x="4" y="0" width="12" height="12" />
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="84:52" name="Container" x="230" y="9" width="28" height="28">
+                <frame id="84:53" name="Button" x="5" y="5" width="18" height="18">
+                  <frame id="84:54" name="Icon" x="0" y="0" width="18" height="18" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="84:69" name="Container" x="0" y="91" width="390" height="294.6875">
+            <frame id="84:70" name="Container" x="0" y="0" width="390" height="294.6875">
+              <frame id="84:71" name="Container" x="20" y="20" width="350" height="25">
+                <frame id="84:72" name="Text" x="0" y="0" width="157" height="25">
+                  <text id="84:73" name="资料分析 · 共享材料 (1-5题)" x="10" y="4" width="137" height="17" />
+                </frame>
+                <frame id="84:74" name="Button" x="326" y="0.5" width="24" height="24">
+                  <frame id="84:75" name="Icon" x="4" y="4" width="16" height="16" />
+                </frame>
+              </frame>
+              <frame id="84:77" name="Paragraph" x="20" y="45" width="350" height="176">
+                <text id="84:78" name="2023年，全国一般公共预算收入 216784 亿元，同比增长 6.4%。其中，税收收入 18112" x="0" y="16" width="350" height="160" />
+              </frame>
+              <frame id="84:79" name="Container:margin" x="20" y="221" width="350" height="197">
+                <frame id="84:80" name="Container" x="0" y="16" width="350" height="173">
+                  <frame id="84:81" name="Table" x="1" y="1" width="348" height="171">
+                    <frame id="84:82" name="Table Header" x="0" y="0" width="348" height="42.5">
+                      <text id="84:83" name="主要税收项目" x="12" y="12" width="72" height="18" />
+                      <text id="84:84" name="金额(亿元)" x="146.15625" y="12" width="58" height="18" />
+                      <text id="84:85" name="同比(%)" x="261.15625" y="12" width="45" height="18" />
+                    </frame>
+                    <frame id="84:86" name="Table Row" x="0" y="42.5" width="348" height="43">
+                      <text id="84:87" name="国内增值税" x="12" y="12.5" width="60" height="18" />
+                      <text id="84:88" name="69332" x="146.15625" y="12.5" width="40" height="18" />
+                      <text id="84:89" name="+42.3" x="261.15625" y="12.5" width="34" height="18" />
+                    </frame>
+                    <frame id="84:90" name="Table Row" x="0" y="85.5" width="348" height="43">
+                      <text id="84:91" name="企业所得税" x="12" y="12.5" width="60" height="18" />
+                      <text id="84:92" name="41098" x="146.15625" y="12.5" width="39" height="18" />
+                      <text id="84:93" name="-5.9" x="261.15625" y="12.5" width="24" height="18" />
+                    </frame>
+                    <frame id="84:94" name="Table Row" x="0" y="128.5" width="348" height="42.5">
+                      <text id="84:95" name="个人所得税" x="12" y="12.5" width="60" height="18" />
+                      <text id="84:96" name="14775" x="146.15625" y="12.5" width="37" height="18" />
+                      <text id="84:97" name="-1.0" x="261.15625" y="12.5" width="22" height="18" />
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="84:98" name="Container" x="0" y="385.6875" width="390" height="458.3125">
+            <frame id="84:99" name="Heading 3" x="20" y="24" width="351" height="104">
+              <frame id="84:100" name="Text" x="0" y="0" width="15" height="25">
+                <text id="84:101" name="3." x="0" y="2" width="15" height="23" />
+              </frame>
+              <frame id="84:102" name="Text" x="23" y="0" width="328" height="104">
+                <text id="84:103" name="根据材料，2023年全国一般公共预算收入 216784 亿元，同比增长 6.4%。其中，税收收入 1" x="0" y="0" width="328" height="104" />
+              </frame>
+            </frame>
+            <frame id="84:104" name="Container" x="20" y="128" width="350" height="301.5">
+              <frame id="84:105" name="Container" x="0" y="24" width="350" height="60.375">
+                <frame id="84:106" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="84:107" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="84:108" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="84:109" name="A" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="84:110" name="Text" x="36" y="0" width="42" height="27">
+                      <text id="84:111" name="81.3%" x="0" y="2" width="42" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="84:112" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="84:113" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="84:116" name="Container" x="0" y="96.375" width="350" height="60.375">
+                <frame id="84:117" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="84:118" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="84:119" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="84:120" name="B" x="7.5" y="2" width="9" height="20" />
+                    </frame>
+                    <frame id="84:121" name="Text" x="36" y="0" width="45" height="27">
+                      <text id="84:122" name="82.5%" x="0" y="2" width="45" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="84:123" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="84:124" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="84:127" name="Container" x="0" y="168.75" width="350" height="60.375">
+                <frame id="84:128" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="84:129" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="84:130" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="84:131" name="C" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="84:132" name="Text" x="36" y="0" width="45" height="27">
+                      <text id="84:133" name="83.6%" x="0" y="2" width="45" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="84:134" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="84:135" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="84:138" name="Container" x="0" y="241.125" width="350" height="60.375">
+                <frame id="84:139" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="84:140" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="84:141" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="84:142" name="D" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="84:143" name="Text" x="36" y="0" width="44" height="27">
+                      <text id="84:144" name="84.2%" x="0" y="2" width="44" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="84:145" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="84:146" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="84:149" name="Container" x="0" y="764.5" width="390" height="79.5">
+            <frame id="84:150" name="Button" x="20" y="13" width="169" height="54.5">
+              <text id="84:151" name="上一题" x="62" y="15.75" width="45" height="23" />
+            </frame>
+            <frame id="84:152" name="Button" x="201" y="13" width="169" height="54.5">
+              <text id="84:153" name="下一题" x="62" y="15.75" width="45" height="23" />
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+      <frame id="84:155" name="Selection/Layer" x="0" y="0" width="390" height="844">
+        <rounded-rectangle id="84:156" name="Selection/Highlight" x="238" y="460" width="134" height="23" />
+        <rounded-rectangle id="84:157" name="Selection/Highlight" x="42" y="486" width="164" height="23" />
+        <ellipse id="84:158" name="Selection/HandleStart" x="234" y="479" width="8" height="8" />
+        <ellipse id="84:159" name="Selection/HandleEnd" x="202" y="505" width="8" height="8" />
+        <regular-polygon id="84:160" name="Selection/Pointer" x="189" y="516" width="12" height="8" />
+        <frame id="84:161" name="Selection/Toolbar" x="48" y="522" width="294" height="46">
+          <frame id="84:162" name="Selection/Action/解释" x="0" y="0" width="98" height="46">
+            <text id="84:163" name="Selection/ActionText/解释" x="36" y="14" width="24" height="18" />
+          </frame>
+          <frame id="84:164" name="Selection/Action/对比选项" x="98" y="0" width="98" height="46">
+            <text id="84:165" name="Selection/ActionText/对比选项" x="23.5" y="14" width="48" height="18" />
+          </frame>
+          <frame id="84:166" name="Selection/Action/问岸岸" x="196" y="0" width="98" height="46">
+            <text id="84:167" name="Selection/ActionText/问岸岸" x="30" y="14" width="36" height="18" />
+          </frame>
+          <rounded-rectangle id="84:168" name="Selection/Divider" x="98" y="14" width="1" height="18" />
+          <rounded-rectangle id="84:169" name="Selection/Divider" x="196" y="14" width="1" height="18" />
+        </frame>
+      </frame>
+      <frame id="84:154" name="Container" x="135" y="12" width="120" height="34" />
+      <frame id="88:46" name="WechatChrome/Capsule" x="287" y="48" width="87" height="32" />
+    </frame>
+  </frame>
+  <frame id="97:2" name="12 · 上下文追问岸岸" x="5726" y="0" width="406" height="860">
+    <frame id="97:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="97:4" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="97:5" name="PracticePage" x="0" y="0" width="390" height="844">
+          <frame id="97:6" name="Container" x="0" y="0" width="390" height="91">
+            <frame id="97:7" name="StatusBar" x="0" y="0" width="390" height="45">
+              <frame id="97:8" name="Text" x="24" y="12" width="30" height="21">
+                <text id="97:9" name="9:41" x="0" y="0" width="30" height="21" />
+              </frame>
+              <frame id="97:10" name="Container" x="298" y="12.5" width="68" height="20">
+                <frame id="97:11" name="Icon" x="0" y="2" width="16" height="16" />
+                <frame id="97:17" name="Icon" x="24" y="2" width="16" height="16" />
+                <frame id="97:22" name="Icon" x="48" y="0" width="20" height="20" />
+              </frame>
+            </frame>
+            <frame id="97:25" name="Container" x="0" y="45" width="390" height="46">
+              <frame id="97:26" name="Container" x="16" y="8" width="202" height="30">
+                <frame id="97:27" name="Button:margin" x="0" y="1" width="24" height="28">
+                  <frame id="97:28" name="Button" x="-4" y="0" width="28" height="28">
+                    <frame id="97:29" name="Icon" x="4" y="4" width="20" height="20" />
+                  </frame>
+                </frame>
+                <frame id="97:32" name="Button" x="40" y="4.5" width="46" height="21">
+                  <frame id="97:33" name="Icon" x="0" y="2.5" width="16" height="16" />
+                  <frame id="97:40" name="Text" x="22" y="0" width="24" height="21">
+                    <text id="97:41" name="3/5" x="0" y="0" width="24" height="21" />
+                  </frame>
+                </frame>
+                <frame id="97:42" name="Button" x="102" y="0" width="100" height="30">
+                  <frame id="97:43" name="Icon" x="8" y="8" width="14" height="14" />
+                  <frame id="97:46" name="Text" x="28" y="4" width="42" height="22">
+                    <text id="97:47" name="00:52" x="0" y="2" width="42" height="20" />
+                  </frame>
+                  <frame id="97:48" name="Icon:margin" x="76" y="9" width="16" height="12">
+                    <frame id="97:49" name="Icon" x="4" y="0" width="12" height="12" />
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="97:52" name="Container" x="230" y="9" width="28" height="28">
+                <frame id="97:53" name="Button" x="5" y="5" width="18" height="18">
+                  <frame id="97:54" name="Icon" x="0" y="0" width="18" height="18" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="97:69" name="Container" x="0" y="91" width="390" height="294.6875">
+            <frame id="97:70" name="Container" x="0" y="0" width="390" height="294.6875">
+              <frame id="97:71" name="Container" x="20" y="20" width="350" height="25">
+                <frame id="97:72" name="Text" x="0" y="0" width="157" height="25">
+                  <text id="97:73" name="资料分析 · 共享材料 (1-5题)" x="10" y="4" width="137" height="17" />
+                </frame>
+                <frame id="97:74" name="Button" x="326" y="0.5" width="24" height="24">
+                  <frame id="97:75" name="Icon" x="4" y="4" width="16" height="16" />
+                </frame>
+              </frame>
+              <frame id="97:77" name="Paragraph" x="20" y="45" width="350" height="176">
+                <text id="97:78" name="2023年，全国一般公共预算收入 216784 亿元，同比增长 6.4%。其中，税收收入 18112" x="0" y="16" width="350" height="160" />
+              </frame>
+              <frame id="97:79" name="Container:margin" x="20" y="221" width="350" height="197">
+                <frame id="97:80" name="Container" x="0" y="16" width="350" height="173">
+                  <frame id="97:81" name="Table" x="1" y="1" width="348" height="171">
+                    <frame id="97:82" name="Table Header" x="0" y="0" width="348" height="42.5">
+                      <text id="97:83" name="主要税收项目" x="12" y="12" width="72" height="18" />
+                      <text id="97:84" name="金额(亿元)" x="146.15625" y="12" width="58" height="18" />
+                      <text id="97:85" name="同比(%)" x="261.15625" y="12" width="45" height="18" />
+                    </frame>
+                    <frame id="97:86" name="Table Row" x="0" y="42.5" width="348" height="43">
+                      <text id="97:87" name="国内增值税" x="12" y="12.5" width="60" height="18" />
+                      <text id="97:88" name="69332" x="146.15625" y="12.5" width="40" height="18" />
+                      <text id="97:89" name="+42.3" x="261.15625" y="12.5" width="34" height="18" />
+                    </frame>
+                    <frame id="97:90" name="Table Row" x="0" y="85.5" width="348" height="43">
+                      <text id="97:91" name="企业所得税" x="12" y="12.5" width="60" height="18" />
+                      <text id="97:92" name="41098" x="146.15625" y="12.5" width="39" height="18" />
+                      <text id="97:93" name="-5.9" x="261.15625" y="12.5" width="24" height="18" />
+                    </frame>
+                    <frame id="97:94" name="Table Row" x="0" y="128.5" width="348" height="42.5">
+                      <text id="97:95" name="个人所得税" x="12" y="12.5" width="60" height="18" />
+                      <text id="97:96" name="14775" x="146.15625" y="12.5" width="37" height="18" />
+                      <text id="97:97" name="-1.0" x="261.15625" y="12.5" width="22" height="18" />
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="97:98" name="Container" x="0" y="385.6875" width="390" height="458.3125">
+            <frame id="97:99" name="Heading 3" x="20" y="24" width="351" height="104">
+              <frame id="97:100" name="Text" x="0" y="0" width="15" height="25">
+                <text id="97:101" name="3." x="0" y="2" width="15" height="23" />
+              </frame>
+              <frame id="97:102" name="Text" x="23" y="0" width="328" height="104">
+                <text id="97:103" name="根据材料，2023年全国一般公共预算收入 216784 亿元，同比增长 6.4%。其中，税收收入 1" x="0" y="0" width="328" height="104" />
+              </frame>
+            </frame>
+            <frame id="97:104" name="Container" x="20" y="128" width="350" height="301.5">
+              <frame id="97:105" name="Container" x="0" y="24" width="350" height="60.375">
+                <frame id="97:106" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="97:107" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="97:108" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="97:109" name="A" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="97:110" name="Text" x="36" y="0" width="42" height="27">
+                      <text id="97:111" name="81.3%" x="0" y="2" width="42" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="97:112" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="97:113" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="97:116" name="Container" x="0" y="96.375" width="350" height="60.375">
+                <frame id="97:117" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="97:118" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="97:119" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="97:120" name="B" x="7.5" y="2" width="9" height="20" />
+                    </frame>
+                    <frame id="97:121" name="Text" x="36" y="0" width="45" height="27">
+                      <text id="97:122" name="82.5%" x="0" y="2" width="45" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="97:123" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="97:124" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="97:127" name="Container" x="0" y="168.75" width="350" height="60.375">
+                <frame id="97:128" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="97:129" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="97:130" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="97:131" name="C" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="97:132" name="Text" x="36" y="0" width="45" height="27">
+                      <text id="97:133" name="83.6%" x="0" y="2" width="45" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="97:134" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="97:135" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="97:138" name="Container" x="0" y="241.125" width="350" height="60.375">
+                <frame id="97:139" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="97:140" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="97:141" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="97:142" name="D" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="97:143" name="Text" x="36" y="0" width="44" height="27">
+                      <text id="97:144" name="84.2%" x="0" y="2" width="44" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="97:145" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="97:146" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="97:149" name="Container" x="0" y="764.5" width="390" height="79.5">
+            <frame id="97:150" name="Button" x="20" y="13" width="169" height="54.5">
+              <text id="97:151" name="上一题" x="62" y="15.75" width="45" height="23" />
+            </frame>
+            <frame id="97:152" name="Button" x="201" y="13" width="169" height="54.5">
+              <text id="97:153" name="下一题" x="62" y="15.75" width="45" height="23" />
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+      <frame id="97:154" name="Selection/Layer" x="0" y="0" width="390" height="844">
+        <rounded-rectangle id="97:155" name="Selection/Highlight" x="238" y="460" width="134" height="23" />
+        <rounded-rectangle id="97:156" name="Selection/Highlight" x="42" y="486" width="164" height="23" />
+      </frame>
+      <frame id="97:169" name="Container" x="135" y="12" width="120" height="34" />
+      <rounded-rectangle id="97:177" name="ContextAnan/Mask" x="0" y="0" width="390" height="844" />
+      <frame id="97:178" name="ContextAnan/Sheet" x="0" y="430" width="390" height="414">
+        <rounded-rectangle id="97:179" name="ContextAnan/Grabber" x="171" y="10" width="48" height="4" />
+        <text id="97:180" name="ContextAnan/Title" x="20" y="24" width="160" height="28" />
+        <frame id="97:181" name="ContextAnan/Badge" x="247" y="27" width="123" height="24">
+          <ellipse id="97:182" name="ContextAnan/BadgeDot" x="10" y="9" width="6" height="6" />
+          <text id="97:183" name="ContextAnan/BadgeText" x="22" y="2" width="92" height="20" />
+        </frame>
+        <frame id="97:184" name="ContextAnan/Quote" x="20" y="64" width="350" height="60">
+          <rounded-rectangle id="97:185" name="ContextAnan/QuoteBar" x="14" y="13" width="3" height="34" />
+          <text id="97:186" name="ContextAnan/QuoteText" x="28" y="10" width="306" height="40" />
+        </frame>
+        <frame id="97:187" name="ContextAnan/Insight" x="20" y="136" width="350" height="104">
+          <text id="97:188" name="ContextAnan/InsightLead" x="16" y="12" width="150" height="22" />
+          <text id="97:189" name="ContextAnan/InsightBody" x="16" y="36" width="318" height="54" />
+        </frame>
+        <text id="97:190" name="ContextAnan/ActionLabel" x="20" y="250" width="150" height="22" />
+        <frame id="97:191" name="ContextAnan/Action/在题面标出分母" x="20" y="278" width="132" height="42">
+          <text id="97:192" name="ContextAnan/ActionText/在题面标出分母" x="0" y="0" width="132" height="42" />
+        </frame>
+        <frame id="97:193" name="ContextAnan/Action/对比 B / C" x="160" y="278" width="94" height="42">
+          <text id="97:194" name="ContextAnan/ActionText/对比 B / C" x="0" y="0" width="94" height="42" />
+        </frame>
+        <frame id="97:195" name="ContextAnan/Action/记入本题错因" x="262" y="278" width="108" height="42">
+          <text id="97:196" name="ContextAnan/ActionText/记入本题错因" x="0" y="0" width="108" height="42" />
+        </frame>
+        <text id="97:197" name="ContextAnan/ConfirmHint" x="20" y="324" width="330" height="20" />
+        <frame id="97:198" name="ContextAnan/Input" x="20" y="352" width="350" height="48">
+          <text id="97:199" name="ContextAnan/InputPlaceholder" x="18" y="0" width="270" height="48" />
+          <frame id="97:200" name="ContextAnan/Send" x="306" y="6" width="36" height="36">
+            <text id="97:201" name="ContextAnan/SendIcon" x="0" y="0" width="36" height="36" />
+          </frame>
+        </frame>
+      </frame>
+      <frame id="97:170" name="WechatChrome/Capsule" x="287" y="48" width="87" height="32" />
+    </frame>
+  </frame>
+  <frame id="98:2" name="13 · 模考交卷确认" x="6252" y="0" width="406" height="860">
+    <frame id="98:3" name="Container" x="8" y="8" width="390" height="844">
+      <frame id="98:4" name="Container" x="0" y="0" width="390" height="844">
+        <frame id="98:5" name="PracticePage" x="0" y="0" width="390" height="844">
+          <frame id="98:6" name="Container" x="0" y="0" width="390" height="91">
+            <frame id="98:7" name="StatusBar" x="0" y="0" width="390" height="45">
+              <frame id="98:8" name="Text" x="24" y="12" width="30" height="21">
+                <text id="98:9" name="9:41" x="0" y="0" width="30" height="21" />
+              </frame>
+              <frame id="98:10" name="Container" x="298" y="12.5" width="68" height="20">
+                <frame id="98:11" name="Icon" x="0" y="2" width="16" height="16" />
+                <frame id="98:17" name="Icon" x="24" y="2" width="16" height="16" />
+                <frame id="98:22" name="Icon" x="48" y="0" width="20" height="20" />
+              </frame>
+            </frame>
+            <frame id="98:25" name="Container" x="0" y="45" width="390" height="46">
+              <frame id="98:26" name="Container" x="16" y="8" width="202" height="30">
+                <frame id="98:27" name="Button:margin" x="0" y="1" width="24" height="28">
+                  <frame id="98:28" name="Button" x="-4" y="0" width="28" height="28">
+                    <frame id="98:29" name="Icon" x="4" y="4" width="20" height="20" />
+                  </frame>
+                </frame>
+                <frame id="98:32" name="Button" x="40" y="4.5" width="46" height="21">
+                  <frame id="98:33" name="Icon" x="0" y="2.5" width="16" height="16" />
+                  <frame id="98:40" name="Text" x="22" y="0" width="24" height="21">
+                    <text id="98:41" name="3/5" x="0" y="0" width="24" height="21" />
+                  </frame>
+                </frame>
+                <frame id="98:42" name="Button" x="102" y="0" width="100" height="30">
+                  <frame id="98:43" name="Icon" x="8" y="8" width="14" height="14" />
+                  <frame id="98:46" name="Text" x="28" y="4" width="42" height="22">
+                    <text id="98:47" name="00:52" x="0" y="2" width="42" height="20" />
+                  </frame>
+                  <frame id="98:48" name="Icon:margin" x="76" y="9" width="16" height="12">
+                    <frame id="98:49" name="Icon" x="4" y="0" width="12" height="12" />
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="98:52" name="Container" x="230" y="9" width="28" height="28">
+                <frame id="98:53" name="Button" x="5" y="5" width="18" height="18">
+                  <frame id="98:54" name="Icon" x="0" y="0" width="18" height="18" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="98:69" name="Container" x="0" y="91" width="390" height="294.6875">
+            <frame id="98:70" name="Container" x="0" y="0" width="390" height="294.6875">
+              <frame id="98:71" name="Container" x="20" y="20" width="350" height="25">
+                <frame id="98:72" name="Text" x="0" y="0" width="157" height="25">
+                  <text id="98:73" name="资料分析 · 共享材料 (1-5题)" x="10" y="4" width="137" height="17" />
+                </frame>
+                <frame id="98:74" name="Button" x="326" y="0.5" width="24" height="24">
+                  <frame id="98:75" name="Icon" x="4" y="4" width="16" height="16" />
+                </frame>
+              </frame>
+              <frame id="98:77" name="Paragraph" x="20" y="45" width="350" height="176">
+                <text id="98:78" name="2023年，全国一般公共预算收入 216784 亿元，同比增长 6.4%。其中，税收收入 18112" x="0" y="16" width="350" height="160" />
+              </frame>
+              <frame id="98:79" name="Container:margin" x="20" y="221" width="350" height="197">
+                <frame id="98:80" name="Container" x="0" y="16" width="350" height="173">
+                  <frame id="98:81" name="Table" x="1" y="1" width="348" height="171">
+                    <frame id="98:82" name="Table Header" x="0" y="0" width="348" height="42.5">
+                      <text id="98:83" name="主要税收项目" x="12" y="12" width="72" height="18" />
+                      <text id="98:84" name="金额(亿元)" x="146.15625" y="12" width="58" height="18" />
+                      <text id="98:85" name="同比(%)" x="261.15625" y="12" width="45" height="18" />
+                    </frame>
+                    <frame id="98:86" name="Table Row" x="0" y="42.5" width="348" height="43">
+                      <text id="98:87" name="国内增值税" x="12" y="12.5" width="60" height="18" />
+                      <text id="98:88" name="69332" x="146.15625" y="12.5" width="40" height="18" />
+                      <text id="98:89" name="+42.3" x="261.15625" y="12.5" width="34" height="18" />
+                    </frame>
+                    <frame id="98:90" name="Table Row" x="0" y="85.5" width="348" height="43">
+                      <text id="98:91" name="企业所得税" x="12" y="12.5" width="60" height="18" />
+                      <text id="98:92" name="41098" x="146.15625" y="12.5" width="39" height="18" />
+                      <text id="98:93" name="-5.9" x="261.15625" y="12.5" width="24" height="18" />
+                    </frame>
+                    <frame id="98:94" name="Table Row" x="0" y="128.5" width="348" height="42.5">
+                      <text id="98:95" name="个人所得税" x="12" y="12.5" width="60" height="18" />
+                      <text id="98:96" name="14775" x="146.15625" y="12.5" width="37" height="18" />
+                      <text id="98:97" name="-1.0" x="261.15625" y="12.5" width="22" height="18" />
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="98:98" name="Container" x="0" y="385.6875" width="390" height="458.3125">
+            <frame id="98:99" name="Heading 3" x="20" y="24" width="351" height="104">
+              <frame id="98:100" name="Text" x="0" y="0" width="15" height="25">
+                <text id="98:101" name="3." x="0" y="2" width="15" height="23" />
+              </frame>
+              <frame id="98:102" name="Text" x="23" y="0" width="328" height="104">
+                <text id="98:103" name="根据材料，2023年全国一般公共预算收入 216784 亿元，同比增长 6.4%。其中，税收收入 1" x="0" y="0" width="328" height="104" />
+              </frame>
+            </frame>
+            <frame id="98:104" name="Container" x="20" y="128" width="350" height="301.5">
+              <frame id="98:105" name="Container" x="0" y="24" width="350" height="60.375">
+                <frame id="98:106" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="98:107" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="98:108" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="98:109" name="A" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="98:110" name="Text" x="36" y="0" width="42" height="27">
+                      <text id="98:111" name="81.3%" x="0" y="2" width="42" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="98:112" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="98:113" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="98:116" name="Container" x="0" y="96.375" width="350" height="60.375">
+                <frame id="98:117" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="98:118" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="98:119" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="98:120" name="B" x="7.5" y="2" width="9" height="20" />
+                    </frame>
+                    <frame id="98:121" name="Text" x="36" y="0" width="45" height="27">
+                      <text id="98:122" name="82.5%" x="0" y="2" width="45" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="98:123" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="98:124" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="98:127" name="Container" x="0" y="168.75" width="350" height="60.375">
+                <frame id="98:128" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="98:129" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="98:130" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="98:131" name="C" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="98:132" name="Text" x="36" y="0" width="45" height="27">
+                      <text id="98:133" name="83.6%" x="0" y="2" width="45" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="98:134" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="98:135" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+              <frame id="98:138" name="Container" x="0" y="241.125" width="350" height="60.375">
+                <frame id="98:139" name="Button" x="0" y="0" width="294" height="60.375">
+                  <frame id="98:140" name="Container" x="17" y="17" width="260" height="26.375">
+                    <frame id="98:141" name="Container" x="0" y="0" width="24" height="24">
+                      <text id="98:142" name="D" x="7" y="2" width="10" height="20" />
+                    </frame>
+                    <frame id="98:143" name="Text" x="36" y="0" width="44" height="27">
+                      <text id="98:144" name="84.2%" x="0" y="2" width="44" height="25" />
+                    </frame>
+                  </frame>
+                </frame>
+                <frame id="98:145" name="Button" x="302" y="0" width="48" height="60.375">
+                  <frame id="98:146" name="Icon" x="15" y="21.1875" width="18" height="18" />
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="98:149" name="Container" x="0" y="764.5" width="390" height="79.5">
+            <frame id="98:150" name="Button" x="20" y="13" width="169" height="54.5">
+              <text id="98:151" name="上一题" x="62" y="15.75" width="45" height="23" />
+            </frame>
+            <frame id="98:152" name="Button" x="201" y="13" width="169" height="54.5">
+              <text id="98:153" name="下一题" x="62" y="15.75" width="45" height="23" />
+            </frame>
+          </frame>
+        </frame>
+      </frame>
+      <frame id="98:154" name="Container" x="135" y="12" width="120" height="34" />
+      <frame id="98:155" name="QuestionHeader/ContextActions" x="270" y="108" width="72" height="32">
+        <frame id="98:156" name="Button" x="7" y="7" width="18" height="18">
+          <frame id="98:157" name="Icon" x="0" y="0" width="18" height="18" />
+        </frame>
+        <frame id="98:159" name="Button" x="42" y="2" width="28" height="28">
+          <frame id="98:160" name="Icon" x="7.5" y="7.5" width="13" height="13" />
+        </frame>
+      </frame>
+      <rounded-rectangle id="98:173" name="MockSubmit/Mask" x="0" y="0" width="390" height="844" />
+      <frame id="98:174" name="MockSubmit/Sheet" x="0" y="472" width="390" height="372">
+        <rounded-rectangle id="98:175" name="MockSubmit/Grabber" x="171" y="10" width="48" height="4" />
+        <text id="98:176" name="MockSubmit/Title" x="20" y="26" width="160" height="30" />
+        <frame id="98:177" name="MockSubmit/Time" x="268" y="28" width="102" height="28">
+          <text id="98:178" name="MockSubmit/TimeText" x="0" y="0" width="102" height="28" />
+        </frame>
+        <frame id="98:179" name="MockSubmit/Warning" x="20" y="70" width="350" height="58">
+          <ellipse id="98:180" name="MockSubmit/WarningDot" x="15" y="25" width="8" height="8" />
+          <text id="98:181" name="MockSubmit/WarningText" x="34" y="8" width="300" height="42" />
+        </frame>
+        <frame id="98:182" name="MockSubmit/Stat/已答" x="20" y="140" width="110" height="68">
+          <text id="98:183" name="MockSubmit/StatValue/已答" x="0" y="8" width="110" height="30" />
+          <text id="98:184" name="MockSubmit/StatLabel/已答" x="0" y="38" width="110" height="20" />
+        </frame>
+        <frame id="98:185" name="MockSubmit/Stat/未答" x="138" y="140" width="110" height="68">
+          <text id="98:186" name="MockSubmit/StatValue/未答" x="0" y="8" width="110" height="30" />
+          <text id="98:187" name="MockSubmit/StatLabel/未答" x="0" y="38" width="110" height="20" />
+        </frame>
+        <frame id="98:188" name="MockSubmit/Stat/已标记" x="256" y="140" width="110" height="68">
+          <text id="98:189" name="MockSubmit/StatValue/已标记" x="0" y="8" width="110" height="30" />
+          <text id="98:190" name="MockSubmit/StatLabel/已标记" x="0" y="38" width="110" height="20" />
+        </frame>
+        <text id="98:191" name="MockSubmit/MissingLabel" x="20" y="218" width="90" height="22" />
+        <ellipse id="98:192" name="MockSubmit/MissingQuestion" x="20" y="246" width="36" height="36" />
+        <text id="98:193" name="MockSubmit/MissingQuestionText" x="20" y="246" width="36" height="36" />
+        <ellipse id="98:194" name="MockSubmit/MissingQuestion" x="66" y="246" width="36" height="36" />
+        <text id="98:195" name="MockSubmit/MissingQuestionText" x="66" y="246" width="36" height="36" />
+        <ellipse id="98:196" name="MockSubmit/MissingQuestion" x="112" y="246" width="36" height="36" />
+        <text id="98:197" name="MockSubmit/MissingQuestionText" x="112" y="246" width="36" height="36" />
+        <ellipse id="98:198" name="MockSubmit/MissingQuestion" x="158" y="246" width="36" height="36" />
+        <text id="98:199" name="MockSubmit/MissingQuestionText" x="158" y="246" width="36" height="36" />
+        <frame id="98:200" name="MockSubmit/BackToCheck" x="20" y="300" width="132" height="52">
+          <text id="98:201" name="MockSubmit/BackToCheckText" x="0" y="0" width="132" height="52" />
+        </frame>
+        <frame id="98:202" name="MockSubmit/Confirm" x="164" y="300" width="206" height="52">
+          <text id="98:203" name="MockSubmit/ConfirmText" x="0" y="0" width="206" height="52" />
+        </frame>
+      </frame>
+      <frame id="98:166" name="WechatChrome/Capsule" x="287" y="48" width="87" height="32" />
     </frame>
   </frame>
 </canvas>

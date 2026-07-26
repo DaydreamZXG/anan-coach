@@ -8,27 +8,22 @@
   },
   "summary": {
     "registeredRouteCount": 58,
-    "directlyMappedRouteCount": 30,
-    "unmappedRouteCount": 28,
-    "reuseExistingDesignCount": 9,
+    "directlyMappedRouteCount": 31,
+    "unmappedRouteCount": 27,
+    "reuseExistingDesignCount": 8,
     "mergeIntoDesignedFlowCount": 7,
     "hideUntilProductActivationCount": 6,
     "newDesignRequiredCount": 6
   },
   "dispositions": [
     {
-      "routeName": "mockExam",
-      "route": "/pages/mock-exam/index",
-      "disposition": "reuse_existing_design",
-      "targetFigmaNodeIds": ["2:2"],
-      "targetFlow": "practice.answering",
-      "reason": "整卷模考复用已经确认的行测做题框架，只增加整卷计时、题卡和交卷状态，不重新发明视觉。"
-    },
-    {
       "routeName": "mockReport",
       "route": "/pages/mock-report/index",
       "disposition": "reuse_existing_design",
-      "targetFigmaNodeIds": ["13:2", "15:2"],
+      "targetFigmaNodeIds": [
+        "13:2",
+        "15:2"
+      ],
       "targetFlow": "reflection.summary",
       "reason": "模考结果复用训练总结与完成态的信息层级，扩展整卷模块数据。"
     },
@@ -44,7 +39,9 @@
       "routeName": "planHistory",
       "route": "/pages/plan-history/index",
       "disposition": "merge_into_designed_flow",
-      "targetFigmaNodeIds": ["10:2"],
+      "targetFigmaNodeIds": [
+        "10:2"
+      ],
       "targetFlow": "weeklyPlan.history",
       "reason": "历史计划属于周计划内部状态，不需要继续维护另一套页面。"
     },
@@ -52,7 +49,9 @@
       "routeName": "studyPreference",
       "route": "/pages/study-preference/index",
       "disposition": "reuse_existing_design",
-      "targetFigmaNodeIds": ["37:2"],
+      "targetFigmaNodeIds": [
+        "37:2"
+      ],
       "targetFlow": "profile.studyPreference",
       "reason": "老用户修改学习时间应复用建档中的同一时间编辑组件和视觉。"
     },
@@ -84,7 +83,9 @@
       "routeName": "qualificationProfile",
       "route": "/pages/profile/qualification/index",
       "disposition": "reuse_existing_design",
-      "targetFigmaNodeIds": ["35:2"],
+      "targetFigmaNodeIds": [
+        "35:2"
+      ],
       "targetFlow": "profile.qualification",
       "reason": "老用户编辑报考资格应复用建档资格表单，不建立第二套字段和视觉。"
     },
@@ -116,7 +117,9 @@
       "routeName": "reportCenter",
       "route": "/pages/report-center/index",
       "disposition": "merge_into_designed_flow",
-      "targetFigmaNodeIds": ["4:2"],
+      "targetFigmaNodeIds": [
+        "4:2"
+      ],
       "targetFlow": "ability.reports",
       "reason": "通用报告入口应成为能力页的一部分，避免进入另一套报告工作台。"
     },
@@ -132,7 +135,9 @@
       "routeName": "reportOverview",
       "route": "/pages/report-overview/index",
       "disposition": "merge_into_designed_flow",
-      "targetFigmaNodeIds": ["4:2"],
+      "targetFigmaNodeIds": [
+        "4:2"
+      ],
       "targetFlow": "ability.overview",
       "reason": "总览属于能力页信息层级，不继续维护独立旧报告壳。"
     },
@@ -140,7 +145,10 @@
       "routeName": "globalReport",
       "route": "/pages/global-report/index",
       "disposition": "merge_into_designed_flow",
-      "targetFigmaNodeIds": ["4:2", "6:2"],
+      "targetFigmaNodeIds": [
+        "4:2",
+        "6:2"
+      ],
       "targetFlow": "ability.globalEvidence",
       "reason": "跨模块结论从能力页展示，并可携带证据进入岸岸。"
     },
@@ -148,7 +156,9 @@
       "routeName": "xingceMastery",
       "route": "/pages/xingce-mastery/index",
       "disposition": "merge_into_designed_flow",
-      "targetFigmaNodeIds": ["4:2"],
+      "targetFigmaNodeIds": [
+        "4:2"
+      ],
       "targetFlow": "ability.mastery",
       "reason": "掌握队列是能力页下钻状态，不需要独立视觉体系。"
     },
@@ -156,7 +166,9 @@
       "routeName": "essayCompose",
       "route": "/pages/essay-compose/index",
       "disposition": "reuse_existing_design",
-      "targetFigmaNodeIds": ["17:2"],
+      "targetFigmaNodeIds": [
+        "17:2"
+      ],
       "targetFlow": "essay.drafting",
       "reason": "写作入口复用正式申论作答屏，并保持唯一申论写入路径。"
     },
@@ -164,7 +176,9 @@
       "routeName": "essayRewrite",
       "route": "/pages/essay-rewrite/index",
       "disposition": "reuse_existing_design",
-      "targetFigmaNodeIds": ["30:2"],
+      "targetFigmaNodeIds": [
+        "30:2"
+      ],
       "targetFlow": "essay.review.rewrite",
       "reason": "改写是批改结果后的状态，不维护旧 workbench。"
     },
@@ -172,7 +186,10 @@
       "routeName": "essayEvidence",
       "route": "/pages/essay-evidence/index",
       "disposition": "reuse_existing_design",
-      "targetFigmaNodeIds": ["29:2", "30:2"],
+      "targetFigmaNodeIds": [
+        "29:2",
+        "30:2"
+      ],
       "targetFlow": "essay.materialEvidence",
       "reason": "证据定位复用材料阅读和批改结果两屏的统一引用结构。"
     },
@@ -180,7 +197,10 @@
       "routeName": "learningPackets",
       "route": "/pages/learning-packets/index",
       "disposition": "reuse_existing_design",
-      "targetFigmaNodeIds": ["24:2", "27:2"],
+      "targetFigmaNodeIds": [
+        "24:2",
+        "27:2"
+      ],
       "targetFlow": "privateKnowledge.learningPackets",
       "reason": "个人学习包归入私人资料库列表与详情，不建立第三套资料视觉。"
     },
@@ -188,7 +208,10 @@
       "routeName": "answerIngestion",
       "route": "/pages/answer-ingestion/index",
       "disposition": "reuse_existing_design",
-      "targetFigmaNodeIds": ["48:2", "49:2"],
+      "targetFigmaNodeIds": [
+        "48:2",
+        "49:2"
+      ],
       "targetFlow": "capture.answerRecording",
       "reason": "答案收录复用 AI 解析与收录成功状态，并明确是否影响画像。"
     },
@@ -228,7 +251,9 @@
       "routeName": "abilityModule",
       "route": "/pages/ability-module/index",
       "disposition": "merge_into_designed_flow",
-      "targetFigmaNodeIds": ["4:2"],
+      "targetFigmaNodeIds": [
+        "4:2"
+      ],
       "targetFlow": "ability.moduleDetail",
       "reason": "模块详情是能力页下钻状态，必须保持同一信息架构。"
     },
@@ -236,7 +261,10 @@
       "routeName": "errorPattern",
       "route": "/pages/error-pattern/index",
       "disposition": "merge_into_designed_flow",
-      "targetFigmaNodeIds": ["4:2", "14:2"],
+      "targetFigmaNodeIds": [
+        "4:2",
+        "14:2"
+      ],
       "targetFlow": "ability.errorPattern",
       "reason": "错因模式由能力页进入，并复用错题复盘的事实与确认表达。"
     }

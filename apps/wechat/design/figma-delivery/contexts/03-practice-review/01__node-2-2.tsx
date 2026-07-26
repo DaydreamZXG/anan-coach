@@ -6,11 +6,12 @@ const imgIcon4 = "http://localhost:3845/assets/759f8e2e23cb024faf820b8516689fa3e
 const imgIcon5 = "http://localhost:3845/assets/026036c37a26c8de1a2cf09a1e7b69b7b18d7d40.svg";
 const imgIcon6 = "http://localhost:3845/assets/d4aa40a15ba5d1f15fdac994042912e98a8a8b71.svg";
 const imgIcon7 = "http://localhost:3845/assets/4ded2bd4218b45b3133a3c0357de5a4eb6c51508.svg";
-const imgIcon8 = "http://localhost:3845/assets/1342ee8b6a78105fca25a288eb1b9def322158dc.svg";
-const imgIcon9 = "http://localhost:3845/assets/8939e5b9c310080520953076978b15c600e99090.svg";
-const imgIcon10 = "http://localhost:3845/assets/78f93ac50439583dad85739b704c4e442c119494.svg";
-const imgIcon11 = "http://localhost:3845/assets/f110dfc1dfb879ef597850fe1c382834b9f45335.svg";
-const imgIcon12 = "http://localhost:3845/assets/8da30ad3a0fe11232a11c6202a1de3fdad356e2e.svg";
+const imgIcon8 = "http://localhost:3845/assets/78f93ac50439583dad85739b704c4e442c119494.svg";
+const imgIcon9 = "http://localhost:3845/assets/f110dfc1dfb879ef597850fe1c382834b9f45335.svg";
+const imgIcon10 = "http://localhost:3845/assets/8da30ad3a0fe11232a11c6202a1de3fdad356e2e.svg";
+const imgIcon11 = "http://localhost:3845/assets/1342ee8b6a78105fca25a288eb1b9def322158dc.svg";
+const imgIcon12 = "http://localhost:3845/assets/8939e5b9c310080520953076978b15c600e99090.svg";
+const imgWechatChromeCapsule = "http://localhost:3845/assets/5c247830fe86deb4b73d9cefe52589fa9b43ea83.svg";
 
 export default function Component() {
   return (
@@ -98,27 +99,11 @@ export default function Component() {
                               </div>
                             </div>
                           </div>
-                          <div className="relative shrink-0" data-node-id="2:57" data-name="Container">
-                            <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex gap-[16px] items-center pr-[4px] relative size-full">
-                              <div className="relative shrink-0" data-node-id="2:58" data-name="Button">
-                                <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start justify-center relative size-full">
-                                  <div className="relative shrink-0 size-[18px]" data-node-id="2:59" data-name="Icon">
-                                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon7} />
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="relative shrink-0" data-node-id="2:64" data-name="Button">
-                                <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start justify-center relative size-full">
-                                  <div className="relative shrink-0 size-[18px]" data-node-id="2:65" data-name="Icon">
-                                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon8} />
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="drop-shadow-[0px_1px_1.5px_rgba(173,70,255,0.2),0px_1px_1px_rgba(173,70,255,0.2)] relative rounded-[33554400px] shrink-0 size-[28px]" data-node-id="2:67" style={{ backgroundImage: "linear-gradient(135deg, rgb(97, 95, 255) 0%, rgb(173, 70, 255) 50%, rgb(246, 51, 154) 100%)" }} data-name="Button">
-                                <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
-                                  <div className="relative shrink-0 size-[13px]" data-node-id="2:68" data-name="Icon">
-                                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon9} />
-                                  </div>
+                          <div className="absolute left-[230px] size-[28px] top-[9px]" data-node-id="2:57" data-name="Container">
+                            <div className="bg-clip-padding border-0 border-[transparent] border-solid relative size-full">
+                              <div className="absolute content-stretch flex flex-col items-start justify-center left-[5px] top-[5px]" data-node-id="2:58" data-name="Button">
+                                <div className="relative shrink-0 size-[18px]" data-node-id="2:59" data-name="Icon">
+                                  <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon7} />
                                 </div>
                               </div>
                             </div>
@@ -130,7 +115,7 @@ export default function Component() {
                   <div className="bg-white drop-shadow-[0px_4px_10px_rgba(0,0,0,0.02)] relative shrink-0 w-full" data-node-id="2:74" data-name="Container">
                     <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start relative size-full">
                       <div className="h-[294.688px] max-h-[294.70001220703125px] relative shrink-0 w-[390px]" data-node-id="2:75" data-name="Container">
-                        <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start max-h-[inherit] overflow-clip p-[20px] relative rounded-[inherit] size-full">
+                        <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start max-h-[inherit] overflow-x-clip overflow-y-auto p-[20px] relative rounded-[inherit] size-full">
                           <div className="relative shrink-0 w-full" data-node-id="2:76" data-name="Container">
                             <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-between relative size-full">
                               <div className="bg-[#eef2ff] relative rounded-[30px] shrink-0" data-node-id="2:77" data-name="Text">
@@ -143,7 +128,7 @@ export default function Component() {
                               <div className="bg-[#f9fafb] relative rounded-[33554400px] shrink-0" data-node-id="2:80" data-name="Button">
                                 <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start justify-center p-[4px] relative size-full">
                                   <div className="relative shrink-0 size-[16px]" data-node-id="2:81" data-name="Icon">
-                                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon10} />
+                                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon8} />
                                   </div>
                                 </div>
                               </div>
@@ -217,7 +202,7 @@ export default function Component() {
                     </div>
                   </div>
                   <div className="flex-[458.813_0_0] min-h-px relative w-full" data-node-id="2:132" data-name="Container">
-                    <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start overflow-clip pb-[112px] pt-[24px] px-[20px] relative rounded-[inherit] size-full">
+                    <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start overflow-x-clip overflow-y-auto pb-[112px] pt-[24px] px-[20px] relative rounded-[inherit] size-full">
                       <div className="relative shrink-0 w-full" data-node-id="2:133" data-name="Heading 3">
                         <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex gap-[8px] items-start relative size-full">
                           <div className="h-[25px] relative shrink-0 w-[15px]" data-node-id="2:134" data-name="Text">
@@ -265,7 +250,7 @@ export default function Component() {
                               <div className="bg-[#e5e7eb] relative rounded-[20px] self-stretch shrink-0 w-[48px]" data-node-id="2:152" data-name="Button">
                                 <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
                                   <div className="relative shrink-0 size-[18px]" data-node-id="2:153" data-name="Icon">
-                                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon11} />
+                                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon9} />
                                   </div>
                                 </div>
                               </div>
@@ -298,7 +283,7 @@ export default function Component() {
                               <div className="bg-white border border-[#f3f4f6] border-solid drop-shadow-[0px_2px_5px_rgba(0,0,0,0.02)] relative rounded-[20px] self-stretch shrink-0 w-[48px]" data-node-id="2:166" data-name="Button">
                                 <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center p-px relative size-full">
                                   <div className="relative shrink-0 size-[18px]" data-node-id="2:167" data-name="Icon">
-                                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon12} />
+                                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon10} />
                                   </div>
                                 </div>
                               </div>
@@ -331,7 +316,7 @@ export default function Component() {
                               <div className="bg-white border border-[#f3f4f6] border-solid drop-shadow-[0px_2px_5px_rgba(0,0,0,0.02)] relative rounded-[20px] self-stretch shrink-0 w-[48px]" data-node-id="2:180" data-name="Button">
                                 <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center p-px relative size-full">
                                   <div className="relative shrink-0 size-[18px]" data-node-id="2:181" data-name="Icon">
-                                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon12} />
+                                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon10} />
                                   </div>
                                 </div>
                               </div>
@@ -364,7 +349,7 @@ export default function Component() {
                               <div className="bg-[#e5e7eb] relative rounded-[20px] self-stretch shrink-0 w-[48px]" data-node-id="2:194" data-name="Button">
                                 <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-center relative size-full">
                                   <div className="relative shrink-0 size-[18px]" data-node-id="2:195" data-name="Icon">
-                                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon11} />
+                                    <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon9} />
                                   </div>
                                 </div>
                               </div>
@@ -397,6 +382,23 @@ export default function Component() {
             </div>
           </div>
           <div className="absolute bg-black h-[34px] left-[135px] rounded-[20px] top-[12px] w-[120px]" data-node-id="2:4" data-name="Container" />
+          <div className="absolute h-[32px] left-[270px] top-[108px] w-[72px]" data-node-id="94:12" data-name="QuestionHeader/ContextActions">
+            <div className="bg-clip-padding border-0 border-[transparent] border-solid overflow-clip relative rounded-[inherit] size-full">
+              <div className="absolute content-stretch flex flex-col items-start justify-center left-[7px] top-[7px]" data-node-id="94:2" data-name="Button">
+                <div className="relative shrink-0 size-[18px]" data-node-id="94:3" data-name="Icon">
+                  <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon11} />
+                </div>
+              </div>
+              <div className="absolute content-stretch drop-shadow-[0px_1px_1.5px_rgba(173,70,255,0.2),0px_1px_1px_rgba(173,70,255,0.2)] flex items-center justify-center left-[42px] rounded-[33554400px] size-[28px] top-[2px]" data-node-id="94:5" style={{ backgroundImage: "linear-gradient(135deg, rgb(97, 95, 255) 0%, rgb(173, 70, 255) 50%, rgb(246, 51, 154) 100%)" }} data-name="Button">
+                <div className="relative shrink-0 size-[13px]" data-node-id="94:6" data-name="Icon">
+                  <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgIcon12} />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="absolute h-[32px] left-[287px] top-[48px] w-[87px]" data-node-id="94:13" data-name="WechatChrome/Capsule">
+            <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgWechatChromeCapsule} />
+          </div>
         </div>
       </div>
       <div className="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_0px_0px_0px_rgba(255,255,255,0.1)]" />

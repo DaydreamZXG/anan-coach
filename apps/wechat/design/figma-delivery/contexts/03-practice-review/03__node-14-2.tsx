@@ -20,9 +20,9 @@ export default function Component() {
               <div className="bg-[#f7f9fc] h-[844px] relative shrink-0 w-full" data-node-id="14:6" data-name="ResultReviewPage">
                 <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start overflow-clip relative rounded-[inherit] size-full">
                   <div className="h-[45px] relative shrink-0 w-[390px]" data-node-id="14:7" data-name="Placeholder for StatusBar" />
-                  <div className="h-[84px] relative shrink-0 w-[390px]" data-node-id="14:8" data-name="Placeholder for ResultReviewPage" />
+                  <div className="h-[39px] relative shrink-0 w-[390px]" data-node-id="14:8" data-name="Placeholder for ResultReviewPage" />
                   <div className="flex-[715_0_0] min-h-px relative w-full" data-node-id="14:9" data-name="Container">
-                    <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start overflow-clip pb-[96px] relative rounded-[inherit] size-full">
+                    <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex flex-col items-start overflow-x-clip overflow-y-auto pb-[96px] relative rounded-[inherit] size-full">
                       <div className="bg-white border-[#f9fafb] border-b border-solid relative shrink-0 w-full" data-node-id="14:10" data-name="Container">
                         <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-between pb-[13px] pt-[12px] px-[20px] relative size-full">
                           <div className="relative shrink-0" data-node-id="14:11" data-name="Container">
@@ -347,7 +347,7 @@ export default function Component() {
                     </div>
                   </div>
                   <div className="absolute bg-white drop-shadow-[0px_4px_10px_rgba(0,0,0,0.02)] left-0 top-[45px] w-[390px]" data-node-id="14:164" data-name="Container">
-                    <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-between pb-[8px] pt-[48px] px-[16px] relative size-full">
+                    <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex items-center justify-between pb-[8px] pt-[3px] px-[16px] relative size-full">
                       <div className="relative shrink-0" data-node-id="14:165" data-name="Container">
                         <div className="bg-clip-padding border-0 border-[transparent] border-solid content-stretch flex gap-[12px] items-center relative size-full">
                           <div className="h-[28px] relative shrink-0 w-[24px]" data-node-id="14:173" data-name="Button:margin">

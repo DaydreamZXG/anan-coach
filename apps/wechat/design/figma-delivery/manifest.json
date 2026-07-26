@@ -19,7 +19,7 @@
       "51:2": 4,
       "51:3": 9,
       "51:4": 4,
-      "51:5": 4,
+      "51:5": 13,
       "51:6": 6,
       "51:7": 11,
       "51:8": 3,
@@ -32,7 +32,7 @@
   "coverage": {
     "expectedFigmaPageCount": 8,
     "exportedFigmaPageCount": 8,
-    "exportedScreenCount": 45,
+    "exportedScreenCount": 54,
     "status": "complete"
   },
   "publishedDesignSystem": {
@@ -105,14 +105,15 @@
   ],
   "totals": {
     "pageCount": 8,
-    "screenCount": 45,
-    "designContextCount": 45,
-    "screenshotCount": 45,
+    "screenCount": 54,
+    "designContextCount": 54,
+    "screenshotCount": 54,
     "pageMetadataCount": 8,
     "variableSnapshotCount": 8,
-    "svgAssetCount": 183,
-    "pngAssetCount": 1,
-    "uniqueAssetCount": 184,
+    "svgAssetCount": 214,
+    "pngAssetCount": 2,
+    "uniqueAssetCount": 216,
     "embeddedArchiveImageCount": 2
-  }
+  },
+  "notes": []
 }
