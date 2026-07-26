@@ -67,6 +67,26 @@ describe("xingce practice page lifecycle", () => {
     expect(runtime.requests[0]?.data).toEqual({ planTaskId: xingceIds.planTask });
     runtime.page.onUnload.call(runtime.page);
   });
+
+  it("resets the question pane scroll to the top after switching questions", async () => {
+    vi.useFakeTimers();
+    const runtime = await createPracticePage();
+
+    expect(runtime.page.data.questionScrollTop).toBe(0);
+    runtime.page.nextQuestion.call(runtime.page);
+    // scroll-top 同值不触发：切题后必须写入一个新值来回顶。
+    expect(runtime.page.data.questionScrollTop).toBe(0.1);
+    await flushMicrotasks();
+
+    runtime.page.selectQuestion.call(runtime.page, sheetTapEvent(0));
+    expect(runtime.page.data.questionScrollTop).toBe(0);
+    await flushMicrotasks();
+
+    // 答题卡点当前题＝没有切题，不应打断已有的阅读位置。
+    runtime.page.selectQuestion.call(runtime.page, sheetTapEvent(0));
+    expect(runtime.page.data.questionScrollTop).toBe(0);
+    runtime.page.onUnload.call(runtime.page);
+  });
 });
 
 type RequestInterceptor = (
@@ -166,6 +186,8 @@ interface CapturedPracticePage {
   onUnload(this: TestPracticePage): void;
   loadTask(this: TestPracticePage): Promise<void>;
   inputDraft(this: TestPracticePage, event: WechatMiniprogram.Input): void;
+  nextQuestion(this: TestPracticePage): void;
+  selectQuestion(this: TestPracticePage, event: WechatMiniprogram.BaseEvent): void;
 }
 
 interface TestPracticePage extends CapturedPracticePage {
@@ -175,6 +197,10 @@ interface TestPracticePage extends CapturedPracticePage {
 
 function inputEvent(value: string): WechatMiniprogram.Input {
   return { detail: { value } } as WechatMiniprogram.Input;
+}
+
+function sheetTapEvent(index: number): WechatMiniprogram.BaseEvent {
+  return { currentTarget: { dataset: { index } } } as unknown as WechatMiniprogram.BaseEvent;
 }
 
 async function flushMicrotasks(): Promise<void> {

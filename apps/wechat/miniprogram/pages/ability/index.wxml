@@ -170,6 +170,8 @@
           <button hover-class="item--hover" class="control-center coach-action__button" bindtap="openCompanion">带着当前能力问岸岸</button>
         </view>
       </view>
+
+      <view wx:if="{{errorMessage}}" class="inline-error">{{errorMessage}}</view>
     </block>
   </view>
 </view>

@@ -109,7 +109,7 @@ Page<PositionDetailPageData, PositionDetailPageCustom>({
       controller.hasShown = true;
       return;
     }
-    void controller.detail.load();
+    void controller.detail.load({ silent: true });
   },
 
   onUnload() {

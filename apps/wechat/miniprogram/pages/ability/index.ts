@@ -66,7 +66,13 @@ Page({
   async loadProfile() {
     const client = requireAuthenticatedClient();
     if (!client) return;
-    this.setData({ status: "loading", errorMessage: "", requestId: "" });
+    // 已渲染过内容时静默刷新，避免每次切回 Tab 都整页闪骨架屏。
+    const silentRefresh = this.data.status === "ready";
+    if (silentRefresh) {
+      this.setData({ errorMessage: "", requestId: "" });
+    } else {
+      this.setData({ status: "loading", errorMessage: "", requestId: "" });
+    }
     try {
       const [{ data: profile }, dashboardResult] = await Promise.all([
         new LearningBrainApi(client).getProfile(),
@@ -111,7 +117,12 @@ Page({
       });
     } catch (error) {
       const view = errorView(error, "学习档案没有加载成功，请重试。");
-      this.setData({ status: "error", errorMessage: view.message, requestId: view.requestId });
+      // 静默刷新失败时保留旧数据，只用行内提示说明刷新未成功。
+      this.setData({
+        status: silentRefresh ? "ready" : "error",
+        errorMessage: view.message,
+        requestId: view.requestId,
+      });
     }
   },
 

@@ -169,7 +169,9 @@ describe("position discovery controller", () => {
   it("keeps the last workspace version visibly stale when a refresh fails", async () => {
     const discoverPositions = vi
       .fn()
-      .mockResolvedValueOnce(discoveryEnvelope([position()]))
+      .mockResolvedValueOnce(
+        discoveryEnvelope([position()], { hasMore: true, nextCursor: "cursor-next" }),
+      )
       .mockRejectedValueOnce(new ApiClientError("网络请求失败。", 0, "request-refresh"));
     const api = { discoverPositions } as Pick<QualificationApi, "discoverPositions">;
     const controller = new PositionDiscoveryController({
@@ -185,8 +187,57 @@ describe("position discovery controller", () => {
     expect(controller.snapshot()).toMatchObject({
       status: "ready",
       items: [{ positionId: "position-1" }],
+      nextCursor: "cursor-next",
+      hasMore: true,
       refreshError: { status: "network", requestId: "request-refresh" },
-      delivery: { stale: true },
+      delivery: { stale: true, processing: false },
+    });
+  });
+
+  it("keeps rendered items, cursor and a processing marker while a return-trip refresh runs", async () => {
+    const requests: Array<Deferred<ApiEnvelope<PositionDiscoveryResponse>>> = [];
+    const api = {
+      discoverPositions: vi.fn(() => {
+        const request = deferred<ApiEnvelope<PositionDiscoveryResponse>>();
+        requests.push(request);
+        return request.promise;
+      }),
+    } satisfies Pick<QualificationApi, "discoverPositions">;
+    const controller = new PositionDiscoveryController({
+      api,
+      store: new PositionStateStore("user-a"),
+      preserveItemsOnRefreshError: true,
+      onChange: vi.fn(),
+    });
+
+    const initial = controller.search();
+    requests[0]?.resolve(
+      discoveryEnvelope([position()], { hasMore: true, nextCursor: "cursor-next" }),
+    );
+    await initial;
+
+    const refresh = controller.refresh();
+    expect(controller.snapshot()).toMatchObject({
+      status: "ready",
+      items: [{ positionId: "position-1" }],
+      nextCursor: "cursor-next",
+      hasMore: true,
+      delivery: { processing: true, processingLabel: "正在更新岗位结果" },
+    });
+
+    requests[1]?.resolve(
+      discoveryEnvelope([position({ name: "更新后的岗位" })], {
+        hasMore: true,
+        nextCursor: "cursor-fresh",
+      }),
+    );
+    await refresh;
+
+    expect(controller.snapshot()).toMatchObject({
+      status: "ready",
+      items: [{ positionId: "position-1", name: "更新后的岗位" }],
+      nextCursor: "cursor-fresh",
+      delivery: { processing: false, processingLabel: "" },
     });
   });
 
@@ -509,6 +560,90 @@ describe("position detail controller", () => {
       delivery: { requestId: "request-eligibility" },
     });
     expect(store.loadSummary("position-1")?.departmentFull).toBe("国家税务总局测试局");
+  });
+
+  it("keeps a rendered detail in place during a silent reload and replaces it on success", async () => {
+    const detailRequests: Array<Deferred<ApiEnvelope<PositionDiscoveryDetail>>> = [];
+    const eligibilityRequests: Array<Deferred<ApiEnvelope<PositionEligibilitySnapshot>>> = [];
+    const confirmRequirement: QualificationApi["confirmRequirement"] = () =>
+      Promise.reject(new Error("not used"));
+    const api = {
+      getPositionDetail: vi.fn(() => {
+        const request = deferred<ApiEnvelope<PositionDiscoveryDetail>>();
+        detailRequests.push(request);
+        return request.promise;
+      }),
+      evaluatePosition: vi.fn(() => {
+        const request = deferred<ApiEnvelope<PositionEligibilitySnapshot>>();
+        eligibilityRequests.push(request);
+        return request.promise;
+      }),
+      confirmRequirement,
+    } satisfies Pick<
+      QualificationApi,
+      "getPositionDetail" | "evaluatePosition" | "confirmRequirement"
+    >;
+    const controller = new PositionDetailController({
+      api,
+      store: new PositionStateStore("user-a"),
+      positionId: "position-1",
+      onChange: vi.fn(),
+    });
+
+    const initial = controller.load();
+    detailRequests[0]?.resolve(detailEnvelope());
+    eligibilityRequests[0]?.resolve(eligibilityEnvelope());
+    await initial;
+
+    const silent = controller.load({ silent: true });
+    expect(controller.snapshot()).toMatchObject({
+      status: "ready",
+      snapshotId: "snapshot-1",
+      summaryView: { name: "一级行政执法员" },
+    });
+
+    detailRequests[1]?.resolve(detailEnvelope({ name: "更新后的岗位" }));
+    eligibilityRequests[1]?.resolve(eligibilityEnvelope());
+    await silent;
+
+    expect(controller.snapshot()).toMatchObject({
+      status: "ready",
+      summary: { name: "更新后的岗位" },
+      summaryView: { name: "更新后的岗位" },
+    });
+  });
+
+  it("switches a rendered detail to a state page only when the silent reload fails", async () => {
+    const confirmRequirement: QualificationApi["confirmRequirement"] = () =>
+      Promise.reject(new Error("not used"));
+    const getPositionDetail = vi
+      .fn()
+      .mockResolvedValueOnce(detailEnvelope())
+      .mockRejectedValueOnce(new ApiClientError("网络请求失败。", 0, "request-silent"));
+    const api = {
+      getPositionDetail,
+      evaluatePosition: vi.fn(() => Promise.resolve(eligibilityEnvelope())),
+      confirmRequirement,
+    } as unknown as Pick<
+      QualificationApi,
+      "getPositionDetail" | "evaluatePosition" | "confirmRequirement"
+    >;
+    const controller = new PositionDetailController({
+      api,
+      store: new PositionStateStore("user-a"),
+      positionId: "position-1",
+      onChange: vi.fn(),
+    });
+
+    await controller.load();
+    expect(controller.snapshot().status).toBe("ready");
+
+    await controller.load({ silent: true });
+
+    expect(controller.snapshot()).toMatchObject({
+      status: "network",
+      error: { status: "network", requestId: "request-silent", retryable: true },
+    });
   });
 });
 

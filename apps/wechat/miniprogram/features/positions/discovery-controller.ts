@@ -135,7 +135,7 @@ export class PositionDiscoveryController {
   }
 
   async refresh(): Promise<void> {
-    await this.load(true);
+    await this.load(true, true);
   }
 
   async loadMore(): Promise<void> {
@@ -187,11 +187,27 @@ export class PositionDiscoveryController {
     this.requestEpoch += 1;
   }
 
-  private async load(reset: boolean): Promise<void> {
+  private async load(reset: boolean, silent = false): Promise<void> {
     if (this.disposed) return;
     const epoch = ++this.requestEpoch;
     const retainedItems = reset ? this.state.items : [];
-    if (reset) {
+    const silentRefresh = reset && silent && retainedItems.length > 0;
+    if (silentRefresh) {
+      this.state = {
+        ...this.state,
+        error: null,
+        paginationStatus:
+          this.state.paginationStatus === "loading" ? "idle" : this.state.paginationStatus,
+        refreshError: null,
+        delivery: this.state.delivery
+          ? {
+              ...this.state.delivery,
+              processing: true,
+              processingLabel: "正在更新岗位结果",
+            }
+          : null,
+      };
+    } else if (reset) {
       this.state = {
         ...this.state,
         status: "loading",
@@ -246,7 +262,11 @@ export class PositionDiscoveryController {
     } catch (error) {
       if (!this.isCurrent(epoch)) return;
       const operationError = positionOperationError(error);
-      if (reset && this.preserveItemsOnRefreshError && retainedItems.length > 0) {
+      if (
+        reset &&
+        (this.preserveItemsOnRefreshError || silentRefresh) &&
+        retainedItems.length > 0
+      ) {
         this.state = {
           ...this.state,
           status: "ready",
@@ -257,7 +277,9 @@ export class PositionDiscoveryController {
             ? {
                 ...this.state.delivery,
                 stale: true,
+                processing: false,
                 staleLabel: "没能更新，先保留当前结果",
+                processingLabel: "",
               }
             : null,
         };

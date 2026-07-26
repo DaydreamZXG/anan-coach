@@ -17,6 +17,7 @@ interface PageData {
   requestId: string;
   sourceId: string;
   deleteSheetOpen: boolean;
+  deletionBackgrounded: boolean;
 }
 
 interface PageCustom {
@@ -25,6 +26,7 @@ interface PageCustom {
   deleteSource(): void;
   closeDeleteSheet(): void;
   confirmDelete(): Promise<void>;
+  runInBackground(): void;
   waitForDeletion(gateway: PrivateKnowledgeApi, deletionId: string): Promise<void>;
   goBack(): void;
   noop(): void;
@@ -46,6 +48,7 @@ Page<PageData, PageCustom>({
     requestId: "",
     sourceId: "",
     deleteSheetOpen: false,
+    deletionBackgrounded: false,
   },
 
   onLoad(options) {
@@ -130,25 +133,31 @@ Page<PageData, PageCustom>({
   },
 
   async confirmDelete() {
+    if (this.data.busy) return;
     const gateway = api();
     const source = this.data.source;
     if (!gateway || !source) return;
-    this.setData({ busy: true, errorMessage: "" });
-    void wx.showLoading({ title: "正在从资料库移除..." });
+    this.setData({ busy: true, deletionBackgrounded: false, errorMessage: "" });
     try {
       const deletion = await gateway.deleteSource(
         source.sourceId,
         await createIdempotencyKey("private-source-delete"),
       );
       await this.waitForDeletion(gateway, deletion.deletionRequestId);
+      if (this.data.deletionBackgrounded) {
+        void wx.showToast({ title: "资料已移除", icon: "success" });
+        return;
+      }
       this.setData({ deleteSheetOpen: false });
-      void wx.hideLoading();
       void wx.showToast({ title: "已移除", icon: "success" });
       setTimeout(() => {
         void wx.navigateBack();
       }, 1000);
     } catch (error) {
-      void wx.hideLoading();
+      if (this.data.deletionBackgrounded) {
+        void wx.showToast({ title: "资料移除没有完成，请重试", icon: "none" });
+        return;
+      }
       this.setData({ busy: false });
       void wx.showModal({
         title: "移除失败",
@@ -156,6 +165,13 @@ Page<PageData, PageCustom>({
         showCancel: false,
       });
     }
+  },
+
+  runInBackground() {
+    if (!this.data.busy || this.data.deletionBackgrounded) return;
+    this.setData({ deletionBackgrounded: true, deleteSheetOpen: false });
+    void wx.showToast({ title: "已转入后台移除", icon: "success" });
+    void wx.navigateBack();
   },
 
   async waitForDeletion(gateway: PrivateKnowledgeApi, deletionId: string) {

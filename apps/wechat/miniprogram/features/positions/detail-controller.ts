@@ -99,18 +99,21 @@ export class PositionDetailController {
     return cloneDetailState(this.state);
   }
 
-  async load(): Promise<void> {
+  async load(options: { silent?: boolean } = {}): Promise<void> {
     if (this.disposed || !this.state.positionId) return;
     const epoch = ++this.requestEpoch;
-    this.state = {
-      ...this.state,
-      status: "loading",
-      error: null,
-      checks: [],
-      snapshotId: "",
-      commandError: null,
-    };
-    this.publish();
+    const silentReplace = options.silent === true && this.state.status === "ready";
+    if (!silentReplace) {
+      this.state = {
+        ...this.state,
+        status: "loading",
+        error: null,
+        checks: [],
+        snapshotId: "",
+        commandError: null,
+      };
+      this.publish();
+    }
     try {
       const [detailResponse, response] = await Promise.all([
         this.api.getPositionDetail(this.state.positionId),
@@ -211,7 +214,7 @@ export class PositionDetailController {
         confirmationMessage: "已记录，正在用最新资料重新核验。",
       };
       this.publish();
-      await this.load();
+      await this.load({ silent: true });
     } catch (error) {
       if (!this.isActive()) return;
       const operationError = positionOperationError(error);

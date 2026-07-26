@@ -288,6 +288,10 @@ button.delete-sheet__cancel {
   width: 100%;
 }
 
+button.delete-sheet__background {
+  width: auto;
+}
+
 .delete-mask {
   position: fixed;
   inset: 0;
@@ -369,6 +373,20 @@ button.delete-sheet__cancel {
 .delete-sheet__cancel {
   margin-top: calc(16 * var(--rpx));
   color: var(--ink-2);
+}
+
+.delete-sheet__background {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: calc(180 * var(--rpx));
+  min-height: calc(88 * var(--rpx));
+  margin: calc(8 * var(--rpx)) auto 0;
+  padding: 0 calc(20 * var(--rpx));
+  color: var(--ink-2);
+  font-size: var(--text-body);
+  font-weight: 700;
 }
 
 @media (min-width: 700px) {

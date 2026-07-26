@@ -429,6 +429,15 @@
   line-height: 1.55;
 }
 
+.inline-error {
+  padding: calc(24 * var(--rpx));
+  border-radius: var(--radius-24);
+  background: var(--color-danger-soft);
+  color: var(--danger);
+  font-size: var(--text-micro);
+  line-height: 1.55;
+}
+
 .coach-action {
   position: relative;
   overflow: hidden;
@@ -503,6 +512,7 @@
   .subject-tabs,
   .patterns-section,
   .review-warning,
+  .inline-error,
   .ability-card.coach-action {
     grid-column: 1 / -1;
   }

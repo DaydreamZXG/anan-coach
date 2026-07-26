@@ -521,6 +521,7 @@ Page<MockExamPageData, MockExamPageCustom>({
     const runtime = requiredRuntime(this);
     const index = Number(dataset(event, "index"));
     const previousQuestionId = currentQuestionId(runtime);
+    const previousIndex = requiredTask(runtime).currentQuestionIndex;
     const skipped = currentAttempt(runtime).selectedOptionIds.length === 0;
     markCurrentQuestionDirty(runtime);
     runtime.task = reduceTaskRuntime(requiredTask(runtime), { type: "QUESTION_CHANGED", index });
@@ -528,6 +529,7 @@ Page<MockExamPageData, MockExamPageCustom>({
     // 交卷确认面板中点未答题号 = 回去检查该题（Figma 98:192）。
     this.setData({ answerSheetOpen: false, submitConfirmOpen: false });
     applyRuntimeToPage(this, runtime, "待保存");
+    if (requiredTask(runtime).currentQuestionIndex !== previousIndex) resetPageScroll();
     scheduleAutosave(this, runtime);
     if (skipped) {
       queueTrajectory(runtime, "skipped", previousQuestionId, { destinationIndex: index });
@@ -809,9 +811,16 @@ function moveQuestion(page: MockExamPageInstance, delta: number): void {
   runtime.task = reduceTaskRuntime(task, { type: "QUESTION_CHANGED", index });
   runtime.mutationVersion += 1;
   applyRuntimeToPage(page, runtime, "待保存");
+  resetPageScroll();
   scheduleAutosave(page, runtime);
   if (skipped) queueTrajectory(runtime, "skipped", previousQuestionId, { direction: delta });
   queueTrajectory(runtime, "visited", currentQuestionId(runtime), { direction: delta });
+}
+
+function resetPageScroll(): void {
+  // 模考题面走页面级滚动，切题后立即回顶，避免带着上一题的滚动位置看新题。
+  if (typeof wx.pageScrollTo !== "function") return;
+  void wx.pageScrollTo({ scrollTop: 0, duration: 0 });
 }
 
 function applyRuntimeToPage(

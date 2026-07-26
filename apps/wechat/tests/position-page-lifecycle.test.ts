@@ -177,6 +177,77 @@ describe("position page lifecycle ownership", () => {
     page.onUnload.call(page);
   });
 
+  it("keeps rendered search results and cursor state while the return refresh runs", async () => {
+    const definition = await capturePage(
+      () => import("../miniprogram/pages/positions/search/index"),
+    );
+    const page = instantiatePage(definition);
+    page.onLoad.call(page, { q: "税务" });
+    resolveDiscovery(requiredAt(requests, 0), "position-a", "税务岗");
+    await flushPromises();
+
+    page.onShow?.call(page);
+    page.onShow?.call(page);
+    expect(requests).toHaveLength(2);
+    expect(page.data.state).toMatchObject({
+      status: "ready",
+      items: [{ positionId: "position-a", name: "税务岗" }],
+      delivery: { processing: true, processingLabel: "正在更新岗位结果" },
+    });
+
+    resolveDiscovery(requiredAt(requests, 1), "position-a", "税务岗（更新）");
+    await flushPromises();
+    expect(page.data.state).toMatchObject({
+      status: "ready",
+      items: [{ positionId: "position-a", name: "税务岗（更新）" }],
+      delivery: { processing: false },
+    });
+    page.onUnload.call(page);
+  });
+
+  it("keeps a rendered detail on return and replaces it in place after the silent reload", async () => {
+    const definition = await capturePage(
+      () => import("../miniprogram/pages/positions/detail/index"),
+    );
+    const page = instantiatePage(definition);
+    page.onLoad.call(page, { positionId: "position-1" });
+    resolveEnvelope(
+      requestEndingWith("/api/v2/positions/position-1"),
+      detail("position-1"),
+      "request-detail",
+    );
+    resolveEnvelope(
+      requestEndingWith("/api/v2/positions/position-1/eligibility"),
+      eligibility("position-1"),
+      "request-eligibility",
+    );
+    await flushPromises();
+    expect(page.data.state).toMatchObject({ status: "ready", snapshotId: "snapshot-1" });
+
+    page.onShow?.call(page);
+    page.onShow?.call(page);
+    expect(requests).toHaveLength(4);
+    expect(page.data.state).toMatchObject({ status: "ready", snapshotId: "snapshot-1" });
+
+    resolveEnvelope(
+      lastRequestEndingWith("/api/v2/positions/position-1"),
+      detail("position-1"),
+      "request-detail-2",
+    );
+    resolveEnvelope(
+      lastRequestEndingWith("/api/v2/positions/position-1/eligibility"),
+      eligibility("position-1"),
+      "request-eligibility-2",
+    );
+    await flushPromises();
+    expect(page.data.state).toMatchObject({
+      status: "ready",
+      snapshotId: "snapshot-1",
+      delivery: { requestId: "request-eligibility-2" },
+    });
+    page.onUnload.call(page);
+  });
+
   it("synchronizes comparison selections made on another page before refreshing the workspace", async () => {
     const definition = await capturePage(() => import("../miniprogram/pages/positions/index"));
     const page = instantiatePage(definition);
@@ -517,6 +588,12 @@ function qualificationGaps(): QualificationGapSummary {
 
 function requestEndingWith(path: string): WechatMiniprogram.RequestOption {
   const request = requests.find((candidate) => candidate.url.endsWith(path));
+  if (!request) throw new Error(`missing request ending with ${path}`);
+  return request;
+}
+
+function lastRequestEndingWith(path: string): WechatMiniprogram.RequestOption {
+  const request = [...requests].reverse().find((candidate) => candidate.url.endsWith(path));
   if (!request) throw new Error(`missing request ending with ${path}`);
   return request;
 }

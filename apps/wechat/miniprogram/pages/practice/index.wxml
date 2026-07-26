@@ -122,6 +122,7 @@
         <scroll-view
           class="practice-question-pane"
           scroll-y
+          scroll-top="{{questionScrollTop}}"
           enhanced
           show-scrollbar="{{false}}"
         >

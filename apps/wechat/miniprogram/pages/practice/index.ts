@@ -102,6 +102,8 @@ interface PracticePageData {
   disputeReceipt: string;
   disputeCategories: Array<{ value: XingceQuestionDisputeCategory; label: string }>;
   answerSheetOpen: boolean;
+  /** 切题后题干滚动区回顶；0 与 0.1 交替绕过 scroll-top 同值不触发。 */
+  questionScrollTop: number;
   ananContextOpen: boolean;
   /** Figma 70:2：题面批注模式。 */
   annotationOpen: boolean;
@@ -254,6 +256,7 @@ Page<PracticePageData, PracticePageCustom>({
       { value: "other", label: "其他" },
     ],
     answerSheetOpen: false,
+    questionScrollTop: 0,
     ananContextOpen: false,
     annotationOpen: false,
     selection: { key: "", text: "", toolbarTop: 0 },
@@ -955,9 +958,11 @@ Page<PracticePageData, PracticePageCustom>({
     const runtime = runtimes.get(this);
     const index = Number(event.currentTarget.dataset.index ?? -1);
     if (!runtime?.task || this.data.interactionLocked) return;
+    const previousIndex = runtime.task.currentQuestionIndex;
     runtime.task = reduceTaskRuntime(runtime.task, { type: "QUESTION_CHANGED", index });
     this.setData({ answerSheetOpen: false });
     render(this, runtime);
+    if (runtime.task.currentQuestionIndex !== previousIndex) resetQuestionScroll(this);
     void saveCheckpointIfPossible(this, runtime);
   },
 
@@ -1376,7 +1381,13 @@ function changeQuestion(page: PracticePageInstance, delta: number): void {
   if (next < 0 || next >= runtime.task.questionOrder.length) return;
   runtime.task = reduceTaskRuntime(runtime.task, { type: "QUESTION_CHANGED", index: next });
   render(page, runtime);
+  resetQuestionScroll(page);
   void saveCheckpointIfPossible(page, runtime);
+}
+
+function resetQuestionScroll(page: PracticePageInstance): void {
+  // 微信 scroll-top 同值不会重新触发滚动：在 0 与 0.1 之间交替，保证每次切题都真正回到顶部。
+  page.setData({ questionScrollTop: page.data.questionScrollTop === 0 ? 0.1 : 0 });
 }
 
 async function saveCheckpointIfPossible(

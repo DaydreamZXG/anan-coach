@@ -267,6 +267,25 @@ describe("stage 2 F02 mock exam", () => {
     harness.page.onUnload.call(harness.page);
   });
 
+  it("scrolls the page back to the top after switching questions", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-07-15T02:00:00.000Z"));
+    const harness = await createMockPage(twoQuestionSessionPayload());
+
+    harness.page.nextQuestion.call(harness.page);
+    expect(harness.pageScrollTo).toHaveBeenCalledTimes(1);
+    expect(harness.pageScrollTo).toHaveBeenLastCalledWith({ scrollTop: 0, duration: 0 });
+
+    harness.page.selectQuestion.call(harness.page, sheetEvent(0));
+    expect(harness.pageScrollTo).toHaveBeenCalledTimes(2);
+    expect(harness.pageScrollTo).toHaveBeenLastCalledWith({ scrollTop: 0, duration: 0 });
+
+    // 答题卡点当前题＝没有切题，不应打断阅读位置。
+    harness.page.selectQuestion.call(harness.page, sheetEvent(0));
+    expect(harness.pageScrollTo).toHaveBeenCalledTimes(2);
+    harness.page.onUnload.call(harness.page);
+  });
+
   it("auto-submits at the absolute deadline without requiring every question to be answered", async () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date("2026-07-15T03:59:59.000Z"));
@@ -425,6 +444,38 @@ function sessionPayload() {
   };
 }
 
+function twoQuestionSessionPayload() {
+  const payload = sessionPayload();
+  const firstQuestion = payload.questions[0];
+  if (!firstQuestion) throw new Error("mock fixture question is required");
+  payload.questions.push({
+    ...clone(firstQuestion),
+    questionId: "q-2",
+    stemContent: firstQuestion.stemContent.map((block) => ({
+      ...block,
+      blockId: `${block.blockId}-q2`,
+    })),
+    options: firstQuestion.options.map((item) => ({
+      ...item,
+      content: item.content.map((block) => ({ ...block, blockId: `${block.blockId}-q2` })),
+    })),
+  });
+  payload.questionCount = 2;
+  payload.blueprint = [{ moduleName: "资料分析", questionCount: 2 }];
+  payload.checkpoint.answers.push({
+    questionId: "q-2",
+    selectedAnswer: null,
+    eliminatedOptionIds: [],
+    marked: false,
+    draftText: "",
+  });
+  return payload;
+}
+
+function sheetEvent(index: number): WechatMiniprogram.BaseEvent {
+  return { currentTarget: { dataset: { index } } } as unknown as WechatMiniprogram.BaseEvent;
+}
+
 function option(optionId: string, text: string) {
   return {
     optionId,
@@ -450,6 +501,7 @@ async function createMockPage(
   let session = clone(initialSession);
   const requests: WechatMiniprogram.RequestOption[] = [];
   const storage = new Map<string, unknown>();
+  const pageScrollTo = vi.fn(() => Promise.resolve());
   let deferredCheckpointSuccess: (() => void) | undefined;
   let submitConflictRemaining = behavior.submitConflictOnce ? 1 : 0;
   vi.stubGlobal("Page", (definition: CapturedMockPage) => {
@@ -561,6 +613,7 @@ async function createMockPage(
     navigateBack: () => Promise.resolve(),
     navigateTo: () => Promise.resolve(),
     switchTab: () => Promise.resolve(),
+    pageScrollTo,
   });
   await import("../miniprogram/pages/mock-exam/index");
   if (!captured) throw new Error("Mock exam page was not registered");
@@ -578,6 +631,7 @@ async function createMockPage(
   return {
     page,
     requests,
+    pageScrollTo,
     releaseCheckpoint() {
       if (!deferredCheckpointSuccess) throw new Error("No checkpoint response is pending");
       deferredCheckpointSuccess();
@@ -594,6 +648,8 @@ interface CapturedMockPage {
   onUnload(this: TestMockPage): void;
   inputDraft(this: TestMockPage, event: WechatMiniprogram.Input): void;
   selectOption(this: TestMockPage, event: WechatMiniprogram.BaseEvent): void;
+  nextQuestion(this: TestMockPage): void;
+  selectQuestion(this: TestMockPage, event: WechatMiniprogram.BaseEvent): void;
 }
 
 interface TestMockPage extends CapturedMockPage {

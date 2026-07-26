@@ -79,8 +79,9 @@
       <image class="delete-sheet__image" src="/assets/icons/profile/delete.svg" mode="aspectFit" />
     </view>
     <view class="delete-sheet__title">彻底移除这份资料？</view>
-    <view class="delete-sheet__copy">原文件、识别文字、版本和私人检索片段会一起删除，无法恢复。</view>
-    <button hover-class="item--hover" class="delete-sheet__confirm tap-tactile" loading="{{busy}}" bindtap="confirmDelete">确认彻底移除</button>
+    <view class="delete-sheet__copy">{{busy ? '正在从资料库移除…' : '原文件、识别文字、版本和私人检索片段会一起删除，无法恢复。'}}</view>
+    <button hover-class="item--hover" class="delete-sheet__confirm tap-tactile" disabled="{{busy}}" loading="{{busy}}" bindtap="confirmDelete">确认彻底移除</button>
     <button hover-class="item--hover" class="delete-sheet__cancel" disabled="{{busy}}" bindtap="closeDeleteSheet">取消</button>
+    <button wx:if="{{busy}}" hover-class="item--hover" class="delete-sheet__background" bindtap="runInBackground">先去后台运行</button>
   </view>
 </view>

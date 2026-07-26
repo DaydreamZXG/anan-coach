@@ -158,7 +158,13 @@ Page({
   async loadAccount() {
     const token = currentAccessToken();
     if (!token) return;
-    this.setData({ status: "loading", errorMessage: "", requestId: "" });
+    // 已渲染过内容时静默刷新，避免每次切回 Tab 都整页闪骨架屏。
+    const silentRefresh = this.data.status === "ready";
+    if (silentRefresh) {
+      this.setData({ errorMessage: "", requestId: "" });
+    } else {
+      this.setData({ status: "loading", errorMessage: "", requestId: "" });
+    }
     try {
       const response = await new AccountApi(new ApiClient(undefined, token)).getOverview();
       const displayName = displayNameOrDefault(response.data.displayName);
@@ -182,8 +188,9 @@ Page({
         return;
       }
       const apiError = error instanceof ApiClientError ? error : undefined;
+      // 静默刷新失败时保留旧数据，只用行内提示说明刷新未成功。
       this.setData({
-        status: "error",
+        status: silentRefresh ? "ready" : "error",
         errorMessage: apiError?.message ?? "账户档案加载失败，请重试。",
         requestId: apiError?.requestId ?? "",
       });
