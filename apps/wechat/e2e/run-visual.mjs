@@ -129,6 +129,14 @@ await mkdir(baselineDirectory, { recursive: true });
 await rm(artifactDirectory, { recursive: true, force: true });
 await mkdir(artifactDirectory, { recursive: true });
 
+// 启动期死线：模拟器里没有可用 app 时（如 DevTools 编译缓存脏了导致
+// app.json 报错），connect/systemInfo 会无限等待——场景循环前由这里兜底。
+const startupDeadline = setTimeout(() => {
+  console.error("[harness] startup did not complete within 180s, aborting");
+  process.exit(1);
+}, 180_000);
+startupDeadline.unref();
+
 const automationEndpoint = process.env.WECHAT_DEVTOOLS_AUTOMATION_ENDPOINT?.trim();
 const miniProgram = automationEndpoint
   ? await automator.connect({ wsEndpoint: automationEndpoint })
@@ -187,6 +195,7 @@ await miniProgram.mockWxMethod("request", {
 
 // 死水看门狗：单场景最长 90s+90s 重试，300s 无任何进展只可能是挂机
 //（协议静默、连接半死等），此时任何等待都是浪费，直接判死并散场。
+clearTimeout(startupDeadline);
 let lastProgressAt = Date.now();
 const zombieWatchdog = setInterval(() => {
   if (Date.now() - lastProgressAt <= 300_000) return;
