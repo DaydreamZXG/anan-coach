@@ -413,7 +413,8 @@ Page({
   showAbout() {
     void wx.showModal({
       title: "关于岸岸",
-      content: "岸岸是围绕国考目标岗位、能力变化和每日行动工作的 AI 备考伙伴。",
+      content:
+        "岸岸是围绕国考目标岗位、能力变化和每日行动工作的 AI 备考伙伴。\n\n会游泳的人，自己就是岸。",
       showCancel: false,
       confirmText: "知道了",
     });

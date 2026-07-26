@@ -52,6 +52,7 @@
         <view class="phrase-label">请完整输入：<text class="phrase-label__value">{{confirmationPhrase}}</text></view>
         <input class="phrase-input" value="{{deletionPhrase}}" placeholder="输入确认短语" bindinput="onDeletionPhraseInput" />
         <button hover-class="item--hover" class="delete-button {{deletionPhrase !== confirmationPhrase ? 'delete-button--disabled' : ''}}" disabled="{{deletionPhrase !== confirmationPhrase}}" loading="{{deleting}}" bindtap="requestDeletion">删除我的账户</button>
+        <view class="deletion-farewell">祝你上岸——无论哪一边的岸。</view>
       </view>
     </view>
     <view wx:if="{{errorMessage}}" class="s9-inline-error">{{errorMessage}}</view>

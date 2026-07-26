@@ -78,3 +78,11 @@
 .delete-button--disabled {
   color: var(--color-faint);
 }
+
+/* 告别句：离开的人最后看到的一行字，安静、不挽留。 */
+.deletion-farewell {
+  margin-top: calc(24 * var(--rpx));
+  color: var(--color-muted);
+  font-size: var(--text-caption);
+  text-align: center;
+}
