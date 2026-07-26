@@ -21,6 +21,47 @@ class StartTaskSessionCommand(XingceModel):
     plan_task_id: UUID = Field(alias="planTaskId")
 
 
+class AnnotationPoint(XingceModel):
+    """题面批注坐标，归一化到批注层宽高（0..1）。"""
+
+    x: float = Field(ge=0, le=1)
+    y: float = Field(ge=0, le=1)
+
+
+class AnnotationStroke(XingceModel):
+    """Figma 70:2 题面直接批注：一条笔或荧光笔轨迹。橡皮/套索在端上删除笔画。"""
+
+    stroke_id: str = Field(alias="strokeId", min_length=1, max_length=64)
+    tool: Literal["pen", "highlighter"]
+    width: float = Field(gt=0, le=0.2)
+    points: list[AnnotationPoint] = Field(min_length=2, max_length=240)
+    at_ms: int = Field(alias="atMs", ge=0, le=86_400_000)
+
+
+class AttemptActionEvent(XingceModel):
+    """Figma 75:2/78:2 的作答动作事实：带毫秒时间戳的端上事件。"""
+
+    at_ms: int = Field(alias="atMs", ge=0, le=86_400_000)
+    type: Literal[
+        "option_selected",
+        "option_changed",
+        "option_eliminated",
+        "elimination_undone",
+        "confidence_set",
+        "draft_edited",
+        "marked",
+        "unmarked",
+        "skipped",
+        "paused",
+        "resumed",
+        "material_expanded",
+        "annotation_added",
+        "annotation_erased",
+    ]
+    option_id: str | None = Field(default=None, alias="optionId", max_length=12)
+    detail: str | None = Field(default=None, max_length=200)
+
+
 class AnswerCheckpoint(XingceModel):
     question_id: str = Field(alias="questionId", min_length=1, max_length=240)
     selected_option_ids: list[str] = Field(
@@ -41,6 +82,12 @@ class AnswerCheckpoint(XingceModel):
     material_position: MaterialPosition | None = Field(
         default=None, alias="materialPosition"
     )
+    annotations: list[AnnotationStroke] = Field(default_factory=list, max_length=120)
+    action_events: list[AttemptActionEvent] = Field(
+        default_factory=list,
+        alias="actionEvents",
+        max_length=400,
+    )
 
     @model_validator(mode="after")
     def validate_answer_shape(self) -> "AnswerCheckpoint":
@@ -56,6 +103,14 @@ class AnswerCheckpoint(XingceModel):
             raise ValueError("selected and eliminated options cannot overlap")
         if self.skipped and selected:
             raise ValueError("a skipped answer cannot select an option")
+        stroke_ids = [stroke.stroke_id for stroke in self.annotations]
+        if len(stroke_ids) != len(set(stroke_ids)):
+            raise ValueError("annotation stroke identifiers must be unique")
+        if any(
+            later.at_ms < earlier.at_ms
+            for earlier, later in zip(self.action_events, self.action_events[1:])
+        ):
+            raise ValueError("action events must be ordered by atMs")
         self.selected_option_ids = selected
         self.eliminated_option_ids = eliminated
         self.draft_text = self.draft_text.strip()
@@ -229,6 +284,12 @@ class XingceResultItem(XingceModel):
         default=None,
         alias="timingEvidence",
     )
+    # Figma 14:2「有改答记录」：从不可变的答案版本历史推出的真实事实。
+    answer_change_count: int | None = Field(
+        default=None,
+        alias="answerChangeCount",
+        ge=0,
+    )
     explanation: str | None = None
     explanation_source: str | None = Field(default=None, alias="explanationSource")
 
@@ -266,6 +327,12 @@ class XingceAttemptResult(XingceModel):
     ] = Field(alias="resultCode")
     correct_count: int = Field(alias="correctCount", ge=0)
     total_count: int = Field(alias="totalCount", ge=1)
+    # Figma 13:23「改答」：整组的真实改答次数；老结果没有该事实时保持 None。
+    changed_answer_count: int | None = Field(
+        default=None,
+        alias="changedAnswerCount",
+        ge=0,
+    )
     items: list[XingceResultItem]
     group_summary: XingceGroupSummary | None = Field(
         default=None,

@@ -277,6 +277,31 @@ class XingceTaskRuntimeRepository:
             .one_or_none()
         )
 
+    def answer_versions(
+        self,
+        session: Session,
+        *,
+        session_id: str,
+        question_id: str,
+    ) -> list[RowMapping]:
+        """按版本号升序返回一题的全部不可变作答版本（改答事实的来源）。"""
+        return list(
+            session.execute(
+                text(
+                    """
+                    select answer.version_no, answer.payload
+                    from learning.xingce_answer_versions answer
+                    where answer.session_id = cast(:session_id as uuid)
+                      and answer.question_id = :question_id
+                    order by answer.version_no asc
+                    """
+                ),
+                {"session_id": session_id, "question_id": question_id},
+            )
+            .mappings()
+            .all()
+        )
+
     def insert_answer_version(
         self, session: Session, *, values: dict[str, Any]
     ) -> None:

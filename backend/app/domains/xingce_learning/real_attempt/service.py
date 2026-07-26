@@ -568,6 +568,16 @@ class XingceAttemptService:
             )
             if answer_version is None:
                 raise _conflict("submitted answer has no immutable answer revision")
+            answer_change_count = _selection_change_count(
+                [
+                    dict(version["payload"])
+                    for version in self._runtime_repository.answer_versions(
+                        session,
+                        session_id=session_id,
+                        question_id=question_id,
+                    )
+                ]
+            )
             correct_options = [str(value) for value in frozen["correctOptionIds"]]
             selected = [str(value) for value in answer["selectedOptionIds"]]
             correct = not bool(answer["skipped"]) and sorted(selected) == sorted(
@@ -587,6 +597,8 @@ class XingceAttemptService:
                 "resultCode": result_code,
                 "selectedOptionIds": selected,
                 "correctOptionIds": correct_options,
+                # Figma 14:2「有改答记录」：来自不可变答案版本历史的真实计数。
+                "answerChangeCount": answer_change_count,
                 "explanation": frozen.get("explanation"),
                 "explanationSource": frozen.get("explanationSource"),
             }
@@ -1406,6 +1418,7 @@ class XingceAttemptService:
         )
         result: XingceAttemptResult | None = None
         if items and aggregate_code is not None:
+            change_counts = [item.answer_change_count for item in items]
             result = XingceAttemptResult(
                 contractVersion=(
                     "xingce-attempt-result@v2"
@@ -1421,6 +1434,12 @@ class XingceAttemptService:
                     for item in items
                 ),
                 totalCount=len(items),
+                # 老结果快照没有改答事实时保持 None，不做推测。
+                changedAnswerCount=(
+                    sum(value for value in change_counts if value is not None)
+                    if any(value is not None for value in change_counts)
+                    else None
+                ),
                 items=items,
                 groupSummary=group_summary,
             )
@@ -2145,6 +2164,23 @@ def _not_found() -> XingceAttemptError:
         "行测作答会话不存在。",
         status_code=404,
     )
+
+
+def _selection_change_count(payloads: list[dict[str, Any]]) -> int:
+    """改答 = 一个非空选择被替换为另一个不同的非空选择。
+
+    以不可变答案版本（升序）为准；首次选择与清空后重选同一选项不计。
+    """
+    previous: list[str] | None = None
+    count = 0
+    for payload in payloads:
+        selected = sorted(str(value) for value in payload.get("selectedOptionIds", []))
+        if not selected:
+            continue
+        if previous is not None and previous != selected:
+            count += 1
+        previous = selected
+    return count
 
 
 def _conflict(message: str) -> XingceAttemptError:
