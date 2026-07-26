@@ -137,6 +137,12 @@ Page({
     targetContextRequestId: "",
   },
 
+  onHide() {
+    if (this.data.profileEditorOpen) {
+      void wx.showTabBar({ animation: false }).catch(() => undefined);
+    }
+  },
+
   onShow() {
     if (typeof this.getTabBar === "function") {
       this.getTabBar().setData({ active: "me" });
@@ -277,6 +283,8 @@ Page({
 
   openProfileEditor() {
     if (this.data.profileSaving) return;
+    // custom-tab-bar 在部分渲染层级高于页面弹层，弹窗期间按官方方案隐藏。
+    void wx.hideTabBar({ animation: false }).catch(() => undefined);
     this.setData({
       profileEditorOpen: true,
       profileDraftName: this.data.displayName === "岸岸学员" ? "" : this.data.displayName,
@@ -307,6 +315,7 @@ Page({
 
   closeProfileEditor() {
     if (!this.data.profileSaving) {
+      void wx.showTabBar({ animation: false }).catch(() => undefined);
       this.setData({ profileEditorOpen: false, profileEditorError: "" });
     }
   },
@@ -336,6 +345,7 @@ Page({
         profileSaving: false,
         profileEditorOpen: false,
       });
+      void wx.showTabBar({ animation: false }).catch(() => undefined);
       void wx.showToast({ title: "个人资料已更新", icon: "success" });
     } catch (error) {
       const apiError = error instanceof ApiClientError ? error : undefined;
