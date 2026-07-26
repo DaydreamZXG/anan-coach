@@ -317,6 +317,12 @@ export function presentXingceResult(session: XingceTaskSession): XingceResultVie
 }
 
 /** 镜像 backend xingce-cause-taxonomy@v1：只翻译已发布编码，未知编码原样展示。 */
+const chipConfidenceLabels: Record<"low" | "medium" | "high", string> = {
+  low: "低",
+  medium: "中",
+  high: "高",
+};
+
 const xingceCauseDisplayNames: Record<string, string> = {
   stem_misread: "题干条件或问法审读错误",
   knowledge_gap: "知识或概念缺口",
@@ -378,7 +384,7 @@ export function presentXingceCauseCandidate(
           : (xingceCauseDisplayNames[item.causeCode ?? ""] ?? item.causeCode ?? "证据不足"),
       confidenceLabel:
         item.status === "candidate" && item.confidence
-          ? `信心：${confidenceLabels[item.confidence]}`
+          ? `判断信心 ${chipConfidenceLabels[item.confidence]}`
           : "",
       rationale: item.rationale ?? "",
     };
@@ -398,6 +404,7 @@ export function presentXingceCauseCandidate(
     missingEvidence: [...(candidate.missingEvidence ?? [])],
     evidenceRefs: [...(candidate.evidenceRefs ?? [])],
     limitations: [...(candidate.limitations ?? [])],
+    questionCandidates,
     canConfirm: candidate.state === "candidate_ready" && hasBoundVersion,
     canDecide:
       hasBoundVersion &&

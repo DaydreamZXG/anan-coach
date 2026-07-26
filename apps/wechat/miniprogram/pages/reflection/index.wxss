@@ -1078,6 +1078,80 @@
   line-height: 1.7;
 }
 
+/* 逐题候选错因：错题卡 + 灰底 chip；纯展示，不做语义着色（语义色仅确认态使用）。 */
+.question-cause-card {
+  box-sizing: border-box;
+  margin-bottom: calc(28 * var(--rpx));
+  padding: calc(32 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--line);
+  border-radius: var(--radius-48);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.question-cause-card__title {
+  color: var(--ink-3);
+  font-size: var(--text-micro);
+  font-weight: 700;
+}
+
+.question-cause-card__copy {
+  margin-top: calc(8 * var(--rpx));
+  color: var(--color-muted);
+  font-size: var(--text-micro);
+  line-height: 1.55;
+}
+
+.question-cause-item {
+  padding: calc(20 * var(--rpx)) 0;
+  border-bottom: calc(1 * var(--rpx)) solid var(--line);
+}
+
+.question-cause-item:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.question-cause-item__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(12 * var(--rpx));
+}
+
+.question-cause-item__position {
+  color: var(--ink);
+  font-size: var(--text-body);
+  font-weight: 600;
+}
+
+.question-cause-chip {
+  padding: calc(6 * var(--rpx)) calc(16 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--line);
+  border-radius: var(--radius-12);
+  background: var(--color-surface-soft);
+  color: var(--ink-2);
+  font-size: var(--text-micro);
+  font-weight: 600;
+}
+
+.question-cause-chip--insufficient {
+  border-style: dashed;
+  color: var(--ink-3);
+}
+
+.question-cause-chip--meta {
+  background: transparent;
+  color: var(--ink-3);
+}
+
+.question-cause-item__rationale {
+  margin-top: calc(10 * var(--rpx));
+  color: var(--color-muted);
+  font-size: var(--text-micro);
+  line-height: 1.6;
+}
+
 .candidate-limitations {
   margin-bottom: calc(28 * var(--rpx));
   padding: calc(24 * var(--rpx)) calc(28 * var(--rpx));

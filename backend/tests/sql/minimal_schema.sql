@@ -412,6 +412,41 @@ create index product_exam_tag_weights_scope_rank_idx
     occurrence_count desc
   );
 
+-- 知识词表治理表（与 scripts/sql/vocabulary/load_vocabulary_seed.sql 的 DDL 保持一致；
+-- 数据由测试从 scripts/sql/vocabulary/*.csv 装载，生产由运维手动 \copy 装载）
+create table product.vocab_module_alias_map (
+  version              text not null,
+  raw_module_name      text not null,
+  action               text not null check (
+    action in ('canonical', 'map', 'map_needs_review', 'quarantine')
+  ),
+  canonical_code       text check (
+    canonical_code in (
+      'political_theory',
+      'general_knowledge',
+      'verbal_comprehension',
+      'quantitative_relations',
+      'judgment_reasoning',
+      'data_analysis'
+    )
+  ),
+  local_question_count integer not null default 0,
+  basis                text not null,
+  primary key (version, raw_module_name),
+  check ((action = 'quarantine') = (canonical_code is null))
+);
+
+create table product.vocab_facet_rules (
+  version             text not null,
+  term                text not null,
+  facet               text not null check (facet in ('material_form', 'skill', 'exclude')),
+  tag_levels_observed text not null,
+  local_occurrences   integer not null default 0,
+  needs_review        boolean not null default false,
+  basis               text not null,
+  primary key (version, term)
+);
+
 create table product.knowledge_map_nodes (
   node_id text primary key,
   exam_scope text not null,

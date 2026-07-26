@@ -80,7 +80,7 @@ export const visualDeliveryContracts = [
     "a07-onboarding-result-ready",
     "/pages/onboarding/result/index",
     ".result-content",
-    ["备考档案已生成", "可靠判断"],
+    ["你的备考档案立起来了", "可靠判断"],
   ),
   delivery("9:2", "b02-plan-basis-ready", "/pages/plan-basis/index", ".basis-content", [
     "为什么今天练这个",
@@ -138,7 +138,7 @@ export const visualDeliveryContracts = [
     "/pages/reflection/index",
     "completed",
     ".completed-screen",
-    ["复盘完成", "等待复测验证"],
+    ["这轮复盘记下了", "等待复测验证"],
     ".reflection-primary",
   ),
   deliveryState(
@@ -333,7 +333,7 @@ export const visualDeliveryContracts = [
     "/pages/capture-import/index",
     "ai-solving",
     ".searching-screen",
-    ["AI 正在独立推理", "题库未命中"],
+    ["岸岸在独立推这道题", "题库没有原题"],
   ),
   deliveryState(
     "47:2",

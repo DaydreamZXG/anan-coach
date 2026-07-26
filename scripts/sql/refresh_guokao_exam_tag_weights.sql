@@ -116,7 +116,10 @@ with guokao_occurrences as (
       'question_type',
       'taxonomy_path',
       'knowledge_family',
-      'knowledge_point'
+      'knowledge_point',
+      -- v2 四级知识树（refresh_knowledge_map_nodes.sql）需要 micro_skill 层的
+      -- near5 权重；权重按 tag_type 内归一，新增该层不改变既有各层的权重分布。
+      'micro_skill'
     )
     and qt.tag_value is not null
     and qt.tag_value <> ''

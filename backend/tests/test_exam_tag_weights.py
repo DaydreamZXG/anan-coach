@@ -8,6 +8,7 @@ import pytest
 
 from app.domains.knowledge.repository import KnowledgeRepository
 from app.domains.knowledge.service import KnowledgeMapUnavailableError, KnowledgeService
+from tests.test_knowledge_map_tree_v2 import seed_vocabulary_tables
 
 
 def test_refresh_guokao_exam_tag_weights_uses_latest_five_exam_years(
@@ -186,7 +187,7 @@ def test_knowledge_map_refresh_preserves_manually_governed_nodes(
 
     assert row["aliases"] == ["现期增长"]
     assert row["evidence"]["manual_confirmed"] is True
-    assert row["evidence"]["last_generated_refresh"]["generated_by"] == "refresh_knowledge_map_nodes_v1"
+    assert row["evidence"]["last_generated_refresh"]["generated_by"] == "refresh_knowledge_map_nodes_v2"
     assert row["support_status"] == "draft"
     assert row["near5_occurrence_count"] == 4
 
@@ -205,6 +206,9 @@ def _run_exam_weight_refresh_sql(session: Session) -> None:
 
 
 def _run_knowledge_map_refresh_sql(session: Session) -> None:
+    # v2 生成器按 R0/R1/R2 消费治理词表（vocab@v1），执行前必须先装载，
+    # 否则前置守卫会中止刷新。
+    seed_vocabulary_tables(session)
     sql_path = (
         Path(__file__).resolve().parents[2]
         / "scripts"

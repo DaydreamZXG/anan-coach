@@ -1,0 +1,55 @@
+raw_module_name,action,canonical_code,local_question_count,basis,version
+政治理论,canonical,political_theory,368,六模块 canonical 显示名（backend/app/contracts/guokao_xingce.py:37-45）,vocab@v1
+常识判断,canonical,general_knowledge,7383,六模块 canonical 显示名（guokao_xingce.py:46-54）,vocab@v1
+言语理解与表达,canonical,verbal_comprehension,11682,六模块 canonical 显示名（guokao_xingce.py:55-63）,vocab@v1
+数量关系,canonical,quantitative_relations,6019,六模块 canonical 显示名（guokao_xingce.py:64-72）,vocab@v1
+判断推理,canonical,judgment_reasoning,13877,六模块 canonical 显示名（guokao_xingce.py:73-81）,vocab@v1
+资料分析,canonical,data_analysis,8044,六模块 canonical 显示名（guokao_xingce.py:82-90）,vocab@v1
+言语理解,map,verbal_comprehension,347,契约层官方别名（guokao_xingce.py:58 aliases 含「言语理解」）；内容同言语模块,vocab@v1
+言语表达与理解,map,verbal_comprehension,201,canonical 名语序变体（部分省考卷段名）；内容单模块同质,vocab@v1
+言语能力与表达,map,verbal_comprehension,25,canonical 名语序变体；内容单模块同质,vocab@v1
+言语理解与表达能力,map,verbal_comprehension,427,上海市考《行测》卷段名（canonical+「能力」后缀）；内容为选词填空/片段阅读等言语题，单模块同质,vocab@v1
+阅读理解,map,verbal_comprehension,55,早期省考卷段名=言语子题型（片段/篇章阅读）；单模块同质,vocab@v1
+段落阅读,map,verbal_comprehension,18,早期卷段名=言语子题型（片段阅读旧称）,vocab@v1
+选词填空,map,verbal_comprehension,38,言语子题型卷段名（逻辑填空旧称）,vocab@v1
+实词填空,map,verbal_comprehension,15,早期卷言语子题型卷段名,vocab@v1
+语句表达,map,verbal_comprehension,12,言语子题型卷段名（北京/深圳卷）,vocab@v1
+判断推理能力,map,judgment_reasoning,607,上海市考《行测》卷段名（canonical+「能力」后缀）；内容为图推/定义/类比/逻辑，单模块同质,vocab@v1
+推理判断,map,judgment_reasoning,2,canonical 名语序颠倒变体（本地源库 fenbi-final-analysis-dedup-v2-20260613-fallback.json 仅2题）,vocab@v1
+逻辑判断,map,judgment_reasoning,25,判断推理子题型卷段名,vocab@v1
+逻辑推理,map,judgment_reasoning,150,逻辑判断别名（深圳卷等卷段名）；判断推理子题型,vocab@v1
+演绎推理,map,judgment_reasoning,25,逻辑判断旧称（早期国考/省考卷段名）,vocab@v1
+类比推理,map,judgment_reasoning,35,判断推理子题型卷段名,vocab@v1
+定义判断,map,judgment_reasoning,10,判断推理子题型卷段名,vocab@v1
+图形推理,map,judgment_reasoning,0,判断推理子题型；本地源顶级模块存在但0题（题挂判断推理树下），保留映射行兜生产同名脏值,vocab@v1
+数学运算,map,quantitative_relations,247,数量关系子题型卷段名（任务审计已确认方向）,vocab@v1
+数字推理,map,quantitative_relations,13,数量关系子题型（上海/江苏等省考保留题型）,vocab@v1
+数量关系（数学运算）,map,quantitative_relations,10,canonical 名+子题型括号后缀（本地源库 fenbi-final-analysis-dedup-v2-20260613-fallback.json classification.module 出现10题）,vocab@v1
+数量关系（数字推理）,map,quantitative_relations,5,canonical 名+子题型括号后缀（同上，5题）,vocab@v1
+常识,map,general_knowledge,20,常识判断简写,vocab@v1
+基本常识,map,general_knowledge,10,常识判断卷段名变体（早期省考卷）,vocab@v1
+常识部分,map,general_knowledge,44,常识判断卷段措辞变体；本地抽样 path 均为常识类内容,vocab@v1
+常识判断（单选题）,map,general_knowledge,15,canonical 名+作答格式后缀；单选符合行测契约,vocab@v1
+资科分析,map,data_analysis,20,OCR 笔误（料→科）；抽样出处：2009江苏B类/2021黑龙江公检法《行测》资料分析段,vocab@v1
+资料分斩,map,data_analysis,15,OCR 笔误（析→斩，任务审计已确认）；抽样出处：2009福建春季/2019江苏C类《行测》,vocab@v1
+常识应用,map_needs_review,general_knowledge,45,广东县级/乡镇《行测》常识板块名；本地36题抽样含约1题政治理论类；2025新六模块已拆出政治理论，须题级复核政治混入后再并,vocab@v1
+常识应用能力,map_needs_review,general_knowledge,751,上海市考《行测》常识板块名；本地 path 抽样=常识类240+政治理论类26（约10%政治混入），须题级拆分复核后再并,vocab@v1
+公共基础知识,quarantine,,47,事业单位/选调整卷名，内容跨法律/政治/经济/人文，无单一模块归属（任务指令明确隔离 公共基础知识*）,vocab@v1
+公共基础知识-单项选择题,quarantine,,197,事业单位/选调卷名+题型段；抽样出处：天津选调综合知识试卷；同 公共基础知识 隔离,vocab@v1
+公共基础知识-判断题,quarantine,,100,事业单位/选调卷段；判断(对错)题型不属行测单选契约；抽样出处：2015-2018天津选调综合知识试卷,vocab@v1
+公共基础知识-多项选择题,quarantine,,60,事业单位/选调卷段；多选题型不符合行测单选契约,vocab@v1
+综合知识,quarantine,,323,事业单位/选调整卷名（任务指令明确隔离）；本地 path 抽样跨常识/政治/法律三域,vocab@v1
+综合基础知识,quarantine,,40,事业单位整卷名；本地抽样内容跨域,vocab@v1
+法律基础知识,quarantine,,30,政法/事业单位专项法律卷段；内容近常识判断-法律但为整段专项科目，与行测常识考纲配比不符，待人工复核,vocab@v1
+判断题,quarantine,,15,纯题型卷段名（对错判断）；抽样出处：河北选调《基本素质和能力测试》；非行测卷、非行测题型（任务指令明确隔离）,vocab@v1
+辨析题,quarantine,,8,主观辨析题型；抽样出处：天津选调综合知识卷（任务指令明确隔离）,vocab@v1
+单项选择题,quarantine,,50,纯题型卷段名，内容跨模块不可归属；抽样出处：河北/天津选调卷,vocab@v1
+常识判断（多选题）,quarantine,,5,内容为常识但多选题型不符合行测单选契约；宁隔离不误并，复核题型字段后再议,vocab@v1
+科学素养,quarantine,,548,既是独立卷段名又被分类器用作知识族（科学素养/自然科学328+社会科学200），卷段与词表家族混用，先厘清 taxonomy 再议合并,vocab@v1
+科学推理,quarantine,,27,广东乡镇《行测》特有板块（理科推理）；抽样出处：2016-2020广东乡镇卷；国考六模块无一一对应,vocab@v1
+知觉速度与准确性,quarantine,,357,江苏B类(2008-2013)《行测》专项感知速度测验；抽样出处证实；非知识型题目，六模块无对应,vocab@v1
+思维能力测验,quarantine,,251,跨模块混合卷段；本地 path 抽样=判断推理79+数量关系14，整体并入任一模块都会误并,vocab@v1
+数理能力,quarantine,,575,上海市考《行测》卷段；本地 path 抽样=数量关系165 vs 资料分析189，整体并入 quantitative_relations 将误并近半。任务提示「存疑并入数量关系」，按『宁隔离不误并』铁律改为隔离，复核后应题级拆分（见治理文档 §6 偏差说明）,vocab@v1
+数量关系与资料分析,quarantine,,38,卷段名本身横跨两个 canonical 模块（本地抽样 数量18:资料20），须题级拆分后才可并,vocab@v1
+综合分析能力,quarantine,,280,上海市考《行测》卷段；常见认知为资料分析类，但本地 path 抽样=常识类60+政治类49，与预期矛盾、边界不清，待人工复核,vocab@v1
+行政职业能力测验,quarantine,,53,整卷名而非模块名，内容跨全部六模块，须题级重分类,vocab@v1

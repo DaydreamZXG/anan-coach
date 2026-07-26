@@ -47,6 +47,7 @@ def test_reflection_worker_candidate_and_confirmation_are_one_audited_chain(
         "missingEvidence": [],
         "evidenceRefs": [],
         "limitations": [],
+        "questionCandidates": [],
         "quotaState": "reserved",
         "entitlementPolicyVersion": "metered-model-round@v1",
     }
@@ -95,14 +96,14 @@ def test_reflection_worker_candidate_and_confirmation_are_one_audited_chain(
         assert dict(run) == {
             "state": "candidate_ready",
             "model_call_count": 1,
-            "tool_call_count": 4,
+            "tool_call_count": 6,
         }
         assert session.execute(
             text(
                 "select count(*) from ai_audit.agent_tool_call_events "
                 "where event_type = 'succeeded'"
             )
-        ).scalar_one() == 4
+        ).scalar_one() == 6
 
 
 def test_followup_reuses_frozen_evidence_and_cannot_create_extra_tool_calls(
@@ -160,11 +161,11 @@ def test_followup_reuses_frozen_evidence_and_cannot_create_extra_tool_calls(
             "state": "candidate_ready",
             "followup_round": 1,
             "model_call_count": 2,
-            "tool_call_count": 4,
+            "tool_call_count": 6,
         }
         assert session.execute(
             text("select count(*) from ai_audit.agent_tool_call_events")
-        ).scalar_one() == 12
+        ).scalar_one() == 18
         assert session.execute(
             text("select count(*) from ai_audit.model_call_ledger")
         ).scalar_one() == 2
@@ -255,7 +256,7 @@ def test_ungrounded_provider_output_is_published_as_audited_termination(
             "state": "terminated",
             "termination_reason": "cause_agent_output_not_grounded",
             "model_call_count": 1,
-            "tool_call_count": 4,
+            "tool_call_count": 6,
         }
 
 
@@ -263,7 +264,7 @@ class SequenceProvider:
     provider_name = "xingce_cause_provider@local-unreleased"
     provider_release_id = "local-unreleased"
     model = "gemini-3.5-flash"
-    prompt_version = "xingce-cause-prompt@v1"
+    prompt_version = "xingce-cause-prompt@v3"
     schema_version = "cause-candidate@v2"
 
     def __init__(self, outputs: Iterable[str]) -> None:

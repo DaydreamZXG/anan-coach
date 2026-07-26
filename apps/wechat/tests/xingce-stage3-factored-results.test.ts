@@ -233,6 +233,74 @@ describe("stage 3 cause workflow", () => {
       canDecide: false,
     });
   });
+
+  it("逐题候选 chip 纯展示：候选映射中文错因，证据不足显式标注不硬给", () => {
+    const candidate: XingceCauseCandidate = {
+      ...causeCandidate("candidate_ready", xingceIds.candidate),
+      causeCode: "stem_misread",
+      summary: "漏看了题干中的关键限定词",
+      questionCandidates: [
+        {
+          questionId: "q-1",
+          status: "candidate",
+          causeCode: "calculation_error",
+          confidence: "medium",
+          evidenceRefs: ["assessment:1"],
+          rationale: "草稿与改答记录支持计算失误。",
+        },
+        {
+          questionId: "q-2",
+          status: "evidence_insufficient",
+          evidenceRefs: ["assessment:2"],
+          rationale: "该题没有过程证据，不硬给错因。",
+        },
+        {
+          questionId: "q-unmapped",
+          status: "candidate",
+          causeCode: "future_taxonomy_code",
+          confidence: "high",
+          evidenceRefs: ["assessment:3"],
+          rationale: "未知编码原样展示，不在端上翻译或猜测。",
+        },
+      ],
+    };
+    const view = presentXingceCauseCandidate(candidate, [
+      { questionId: "q-1", positionNumber: 1 },
+      { questionId: "q-2", positionNumber: 2 },
+    ]);
+    expect(view.questionCandidates).toEqual([
+      {
+        questionId: "q-1",
+        positionLabel: "第 1 题",
+        status: "candidate",
+        causeLabel: "方法成立但计算、单位或抄写错误",
+        confidenceLabel: "判断信心 中",
+        rationale: "草稿与改答记录支持计算失误。",
+      },
+      {
+        questionId: "q-2",
+        positionLabel: "第 2 题",
+        status: "evidence_insufficient",
+        causeLabel: "证据不足",
+        confidenceLabel: "",
+        rationale: "该题没有过程证据，不硬给错因。",
+      },
+      {
+        questionId: "q-unmapped",
+        positionLabel: "本组题目",
+        status: "candidate",
+        causeLabel: "future_taxonomy_code",
+        confidenceLabel: "判断信心 高",
+        rationale: "未知编码原样展示，不在端上翻译或猜测。",
+      },
+    ]);
+
+    // 老候选没有 questionCandidates 字段：保持显式空，不推断补全。
+    expect(
+      presentXingceCauseCandidate(causeCandidate("candidate_ready", xingceIds.candidate))
+        .questionCandidates,
+    ).toEqual([]);
+  });
 });
 
 function verificationSession(

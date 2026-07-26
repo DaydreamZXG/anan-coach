@@ -322,6 +322,20 @@
         </view>
       </view>
 
+      <!-- 逐题候选错因：错题卡 + 灰底 chip，纯展示不加交互；证据不足显式标注。 -->
+      <view wx:if="{{causeCandidate.questionCandidates.length}}" class="question-cause-card">
+        <view class="question-cause-card__title">逐题候选错因</view>
+        <view class="question-cause-card__copy">按题给出的候选判断，仅供参考；最终确认仍以本组为单位。</view>
+        <view wx:for="{{causeCandidate.questionCandidates}}" wx:key="questionId" class="question-cause-item">
+          <view class="question-cause-item__head">
+            <text class="question-cause-item__position">{{item.positionLabel}}</text>
+            <view class="question-cause-chip {{item.status === 'evidence_insufficient' ? 'question-cause-chip--insufficient' : ''}}">{{item.causeLabel}}</view>
+            <view wx:if="{{item.confidenceLabel}}" class="question-cause-chip question-cause-chip--meta">{{item.confidenceLabel}}</view>
+          </view>
+          <view wx:if="{{item.rationale}}" class="question-cause-item__rationale">{{item.rationale}}</view>
+        </view>
+      </view>
+
       <view wx:if="{{causeCandidate.missingEvidence.length || causeCandidate.limitations.length}}" class="candidate-limitations">
         <view wx:for="{{causeCandidate.missingEvidence}}" wx:key="*this" class="candidate-limitations__line">· {{item}}</view>
         <view wx:for="{{causeCandidate.limitations}}" wx:key="*this" class="candidate-limitations__line">· {{item}}</view>

@@ -303,6 +303,7 @@ def test_vj_02_real_xingce_server_as_03(
         "missingEvidence": [],
         "evidenceRefs": [],
         "limitations": [],
+        "questionCandidates": [],
         "quotaState": "reserved",
         "entitlementPolicyVersion": "metered-model-round@v1",
     }

@@ -1398,7 +1398,8 @@ function applySession(
     activeReviewItem,
     materialReaderState: materialReaderStateFor(activeReviewItem, page.data.displayPreferences),
     hasUpdatedPlan: Boolean(session.completion?.plan),
-    causeCandidate: presentXingceCauseCandidate(review.aiCandidate),
+    // 逐题候选 chip 需要真实题号：传入结果条目做位置映射，纯展示不加交互。
+    causeCandidate: presentXingceCauseCandidate(review.aiCandidate, resultView?.items ?? []),
     rawText: hasLocalDraft
       ? localDraft.rawText
       : (pendingReflection?.command.rawText ?? review.reflection?.rawText ?? page.data.rawText),
