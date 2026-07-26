@@ -1,9 +1,9 @@
 .page-state {
-  padding: 32rpx var(--space-page-x);
+  padding: calc(32 * var(--rpx)) var(--space-page-x);
 }
 .capability-state {
-  margin: 28rpx var(--space-page-x) 0;
-  padding: 40rpx 32rpx;
+  margin: calc(28 * var(--rpx)) var(--space-page-x) 0;
+  padding: calc(40 * var(--rpx)) calc(32 * var(--rpx));
 }
 .capability-mark,
 .material-eyebrow,
@@ -13,26 +13,26 @@
   color: var(--color-muted);
   font-size: var(--text-micro);
   font-weight: 700;
-  letter-spacing: 2rpx;
+  letter-spacing: calc(2 * var(--rpx));
 }
 .capability-title {
-  margin-top: 16rpx;
+  margin-top: calc(16 * var(--rpx));
   font-size: var(--text-title-sm);
   font-weight: 800;
   line-height: 1.4;
 }
 .capability-copy {
-  margin-top: 16rpx;
+  margin-top: calc(16 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-caption);
   line-height: 1.7;
 }
 .capability-action {
-  margin-top: 28rpx;
+  margin-top: calc(28 * var(--rpx));
 }
 .inline-warning {
-  margin: 0 var(--space-page-x) 18rpx;
-  padding: 20rpx 20rpx;
+  margin: 0 var(--space-page-x) calc(18 * var(--rpx));
+  padding: calc(20 * var(--rpx)) calc(20 * var(--rpx));
   border-radius: var(--radius-16);
   background: var(--color-warning-soft);
   color: var(--color-warning);
@@ -41,8 +41,8 @@
 }
 .math-ink-entry {
   width: 100%;
-  margin: 16rpx 0 0;
-  border: 1rpx solid var(--color-primary-a24);
+  margin: calc(16 * var(--rpx)) 0 0;
+  border: calc(1 * var(--rpx)) solid var(--color-primary-a24);
   border-radius: var(--radius-16);
   color: var(--color-muted);
   background: var(--color-primary-a08);
@@ -52,33 +52,33 @@
   border: 0;
 }
 .math-ink-panel {
-  margin-top: 16rpx;
+  margin-top: calc(16 * var(--rpx));
 }
 .math-ink-tip {
-  margin-bottom: 16rpx;
+  margin-bottom: calc(16 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-micro);
   line-height: 1.55;
 }
 .math-ink-review {
-  margin-top: 16rpx;
+  margin-top: calc(16 * var(--rpx));
 }
 .math-ink-latex {
   box-sizing: border-box;
   width: 100%;
-  min-height: 112rpx;
-  margin: 12rpx 0 16rpx;
-  padding: 16rpx;
-  border: 1rpx solid var(--color-line-strong);
+  min-height: calc(112 * var(--rpx));
+  margin: calc(12 * var(--rpx)) 0 calc(16 * var(--rpx));
+  padding: calc(16 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line-strong);
   border-radius: var(--radius-16);
   background: var(--color-surface);
   font-family: var(--font-family-data);
   font-size: var(--text-caption);
 }
 .pending-checkpoint {
-  margin: 0 var(--space-page-x) 18rpx;
-  padding: 24rpx;
-  border: 1rpx solid rgba(185, 141, 47, 0.16);
+  margin: 0 var(--space-page-x) calc(18 * var(--rpx));
+  padding: calc(24 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid rgba(185, 141, 47, 0.16);
   background: var(--color-warning-soft);
 }
 .pending-checkpoint-title {
@@ -87,7 +87,7 @@
   font-weight: 800;
 }
 .pending-checkpoint-copy {
-  margin: 8rpx 0 20rpx;
+  margin: calc(8 * var(--rpx)) 0 calc(20 * var(--rpx));
   color: var(--color-ink-secondary);
   font-size: var(--text-micro);
   line-height: 1.6;
@@ -101,11 +101,11 @@
   box-sizing: border-box;
   display: flex;
   width: 100%;
-  min-height: 56rpx;
+  min-height: calc(56 * var(--rpx));
   align-items: center;
   justify-content: space-between;
-  gap: 20rpx;
-  padding: 0 40rpx;
+  gap: calc(20 * var(--rpx));
+  padding: 0 calc(40 * var(--rpx));
 }
 
 /* Figma 2:77 */
@@ -114,13 +114,13 @@
   min-width: 0;
   align-items: center;
   overflow: hidden;
-  padding: 8rpx 20rpx;
+  padding: calc(8 * var(--rpx)) calc(20 * var(--rpx));
   border-radius: var(--radius-64);
   color: var(--color-ink-secondary);
   background: var(--color-surface-soft);
   font-size: var(--text-micro);
   font-weight: 700;
-  line-height: 33rpx;
+  line-height: calc(33 * var(--rpx));
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -129,15 +129,15 @@
   display: flex;
   flex: none;
   align-items: center;
-  gap: 16rpx;
+  gap: calc(16 * var(--rpx));
 }
 
 .practice-material-action {
   box-sizing: border-box;
   display: flex;
-  width: 56rpx;
-  min-width: 56rpx;
-  height: 56rpx;
+  width: calc(56 * var(--rpx));
+  min-width: calc(56 * var(--rpx));
+  height: calc(56 * var(--rpx));
   align-items: center;
   justify-content: center;
   margin: 0;
@@ -153,9 +153,9 @@
 
 /* Figma 94:5 岸岸圆钮：AI 渐变 + 紫色投影。 */
 .practice-material-action--anan {
-  width: 56rpx;
-  min-width: 56rpx;
-  height: 56rpx;
+  width: calc(56 * var(--rpx));
+  min-width: calc(56 * var(--rpx));
+  height: calc(56 * var(--rpx));
   background: var(--figma-gradient-ai);
   box-shadow: var(--shadow-ai);
 }
@@ -167,18 +167,18 @@
 
 .practice-material-icon {
   display: block;
-  width: 36rpx;
-  height: 36rpx;
+  width: calc(36 * var(--rpx));
+  height: calc(36 * var(--rpx));
 }
 
 .practice-material-icon--anan {
-  width: 26rpx;
-  height: 26rpx;
+  width: calc(26 * var(--rpx));
+  height: calc(26 * var(--rpx));
 }
 
 .practice-material-icon--collapse {
-  width: 32rpx;
-  height: 32rpx;
+  width: calc(32 * var(--rpx));
+  height: calc(32 * var(--rpx));
 }
 
 /* 未标记时收藏图标降权，保留同一枚 Figma 资产。 */
@@ -200,9 +200,9 @@
   --content-text-wrap: balance;
 }
 .material-panel {
-  margin-bottom: 24rpx;
-  padding: 28rpx;
-  border: 1rpx solid var(--color-primary-a16);
+  margin-bottom: calc(24 * var(--rpx));
+  padding: calc(28 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-primary-a16);
   border-radius: var(--radius-32);
   background: linear-gradient(
     155deg,
@@ -215,15 +215,15 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 20rpx;
+  gap: calc(20 * var(--rpx));
 }
 .material-title {
-  margin-top: 8rpx;
+  margin-top: calc(8 * var(--rpx));
   font-size: var(--text-body-lg);
   font-weight: 800;
 }
 .material-text {
-  margin-top: 24rpx;
+  margin-top: calc(24 * var(--rpx));
   color: var(--color-ink-secondary);
   font-family: var(--font-family-reading);
   font-size: var(--text-body-lg);
@@ -260,7 +260,7 @@
   display: block;
   flex: none;
   margin-bottom: 0;
-  padding-top: 40rpx;
+  padding-top: calc(40 * var(--rpx));
   background: var(--figma-color-surface);
   box-shadow: var(--shadow-soft);
 }
@@ -278,7 +278,7 @@
 
 .practice-question-body {
   box-sizing: border-box;
-  padding: 48rpx 40rpx 224rpx;
+  padding: calc(48 * var(--rpx)) calc(40 * var(--rpx)) calc(224 * var(--rpx));
 }
 
 .question-hero {
@@ -298,19 +298,19 @@
   z-index: 1;
   display: flex;
   align-items: flex-start;
-  gap: 16rpx;
+  gap: calc(16 * var(--rpx));
 }
 
 /* Figma 2:134 */
 .question-number {
   flex: none;
-  padding-top: 4rpx;
+  padding-top: calc(4 * var(--rpx));
   color: var(--figma-color-ink);
   font-family: var(--font-family-data);
   font-size: var(--text-section);
   font-weight: 700;
-  line-height: 44.8rpx;
-  letter-spacing: -0.32rpx;
+  line-height: calc(44.8 * var(--rpx));
+  letter-spacing: calc(-0.32 * var(--rpx));
 }
 
 /* Figma 2:138 */
@@ -324,16 +324,16 @@
   font-family: var(--font-family-reading);
   font-size: var(--text-section);
   font-weight: 700;
-  line-height: 52rpx;
-  letter-spacing: -0.32rpx;
+  line-height: calc(52 * var(--rpx));
+  letter-spacing: calc(-0.32 * var(--rpx));
 }
 
 /* Figma 2:141；grid-auto-rows 让同题各选项等高，避免单行/双行参差。 */
 .option-list {
   display: grid;
-  gap: 24rpx;
+  gap: calc(24 * var(--rpx));
   margin-top: 0;
-  padding: 48rpx 0 0;
+  padding: calc(48 * var(--rpx)) 0 0;
   grid-auto-rows: 1fr;
 }
 
@@ -345,20 +345,20 @@
 /* Figma 2:142：选项卡 + 48px 排除键，二者同高。 */
 .option-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 96rpx;
+  grid-template-columns: minmax(0, 1fr) calc(96 * var(--rpx));
   align-items: stretch;
-  gap: 16rpx;
+  gap: calc(16 * var(--rpx));
 }
 
 /* Figma 2:157；等高卡内内容垂直居中，单行不显得空。 */
 .option-card {
   display: grid;
-  grid-template-columns: 48rpx minmax(0, 1fr);
+  grid-template-columns: calc(48 * var(--rpx)) minmax(0, 1fr);
   align-items: center;
-  gap: 24rpx;
+  gap: calc(24 * var(--rpx));
   min-height: 0;
-  padding: 32rpx;
-  border: 1rpx solid var(--figma-color-line);
+  padding: calc(32 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--figma-color-line);
   border-radius: var(--radius-40);
   background: var(--figma-color-surface);
   box-shadow: var(--shadow-crisp);
@@ -381,8 +381,8 @@
 /* Figma 2:159 */
 .option-label {
   display: flex;
-  width: 48rpx;
-  height: 48rpx;
+  width: calc(48 * var(--rpx));
+  height: calc(48 * var(--rpx));
   align-items: center;
   justify-content: center;
   border-radius: 50%;
@@ -391,7 +391,7 @@
   font-family: var(--font-family-data);
   font-size: var(--text-body);
   font-weight: 700;
-  line-height: 39rpx;
+  line-height: calc(39 * var(--rpx));
 }
 
 .option-card--selected .option-label {
@@ -406,11 +406,11 @@
 
 /* Figma 2:163 */
 .option-copy {
-  padding-top: 4rpx;
+  padding-top: calc(4 * var(--rpx));
   color: var(--color-ink);
   font-size: var(--text-section);
   font-weight: 500;
-  line-height: 48.75rpx;
+  line-height: calc(48.75 * var(--rpx));
 }
 
 .option-card--eliminated .option-copy {
@@ -422,13 +422,13 @@
 /* Figma 2:166：排除键与选项卡等高，圆角一致。 */
 .eliminate-action {
   display: flex;
-  width: 96rpx;
-  min-width: 96rpx;
+  width: calc(96 * var(--rpx));
+  min-width: calc(96 * var(--rpx));
   height: auto;
   align-items: center;
   justify-content: center;
   padding: 0;
-  border: 1rpx solid var(--figma-color-line);
+  border: calc(1 * var(--rpx)) solid var(--figma-color-line);
   border-radius: var(--radius-40);
   background: var(--figma-color-surface);
   box-shadow: var(--shadow-crisp);
@@ -443,29 +443,29 @@
 
 .eliminate-action__icon {
   display: block;
-  width: 36rpx;
-  height: 36rpx;
+  width: calc(36 * var(--rpx));
+  height: calc(36 * var(--rpx));
 }
 .thinking-card {
-  margin-top: 24rpx;
-  padding: 28rpx;
+  margin-top: calc(24 * var(--rpx));
+  padding: calc(28 * var(--rpx));
 }
 .thinking-title {
   font-size: var(--text-body-lg);
   font-weight: 800;
 }
 .thinking-copy {
-  margin-top: 8rpx;
+  margin-top: calc(8 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-micro);
 }
 .mark-action {
-  padding: 0 16rpx;
+  padding: 0 calc(16 * var(--rpx));
   border-radius: var(--radius-capsule);
   background: var(--color-surface-soft);
   color: var(--color-muted);
   font-size: var(--text-micro);
-  line-height: 54rpx;
+  line-height: calc(54 * var(--rpx));
 }
 .mark-action--active {
   background: var(--color-warning-soft);
@@ -474,10 +474,10 @@
 .draft-input {
   box-sizing: border-box;
   width: 100%;
-  min-height: 126rpx;
-  margin-top: 24rpx;
-  padding: 20rpx;
-  border: 1rpx solid var(--color-line);
+  min-height: calc(126 * var(--rpx));
+  margin-top: calc(24 * var(--rpx));
+  padding: calc(20 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-16);
   background: var(--color-canvas);
   font-size: var(--text-caption);
@@ -487,13 +487,13 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12rpx;
-  margin-top: 20rpx;
+  gap: calc(12 * var(--rpx));
+  margin-top: calc(20 * var(--rpx));
 }
 .confidence-card {
-  margin: 28rpx 40rpx 0;
-  padding: 24rpx;
-  border: 1rpx solid var(--color-line);
+  margin: calc(28 * var(--rpx)) calc(40 * var(--rpx)) 0;
+  padding: calc(24 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-32);
   background: var(--color-surface);
   box-shadow: var(--shadow-card);
@@ -507,23 +507,23 @@
 .confidence-row--question {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  margin-top: 20rpx;
+  margin-top: calc(20 * var(--rpx));
 }
 .confidence-label {
-  margin-right: 4rpx;
+  margin-right: calc(4 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-micro);
 }
 .confidence-chip {
-  min-height: 54rpx;
+  min-height: calc(54 * var(--rpx));
   margin: 0;
-  padding: 0 20rpx;
-  border: 1rpx solid var(--color-line);
+  padding: 0 calc(20 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--figma-radius-pill);
   background: var(--color-surface);
   color: var(--color-muted);
   font-size: var(--text-micro);
-  line-height: 52rpx;
+  line-height: calc(52 * var(--rpx));
 }
 .confidence-chip--active {
   border-color: var(--color-primary-a24);
@@ -533,12 +533,12 @@
 }
 .confidence-chip--question {
   width: 100%;
-  min-height: 68rpx;
-  padding: 0 8rpx;
+  min-height: calc(68 * var(--rpx));
+  padding: 0 calc(8 * var(--rpx));
   border: 0;
   border-radius: var(--figma-radius-pill);
   background: var(--color-canvas);
-  line-height: 68rpx;
+  line-height: calc(68 * var(--rpx));
 }
 .confidence-chip--question.confidence-chip--active {
   background: var(--color-primary-soft);
@@ -547,29 +547,29 @@
 .question-actions {
   display: flex;
   justify-content: center;
-  margin: 24rpx 40rpx 0;
+  margin: calc(24 * var(--rpx)) calc(40 * var(--rpx)) 0;
 }
 .question-action {
   width: auto;
-  padding: 0 12rpx;
+  padding: 0 calc(12 * var(--rpx));
   font-size: var(--text-micro);
 }
 .skip-button {
-  min-height: 66rpx;
-  padding: 0 24rpx;
+  min-height: calc(66 * var(--rpx));
+  padding: 0 calc(24 * var(--rpx));
   border-radius: var(--radius-16);
   background: transparent;
   color: var(--color-muted);
   font-size: var(--text-micro);
-  line-height: 66rpx;
+  line-height: calc(66 * var(--rpx));
 }
 .draft-input--sheet {
-  min-height: 320rpx;
+  min-height: calc(320 * var(--rpx));
 }
 
 .draft-sheet-action {
   width: 100%;
-  margin-top: 24rpx;
+  margin-top: calc(24 * var(--rpx));
 }
 
 /* Figma 82:155：遮罩降权但保留背景题目。 */
@@ -587,12 +587,12 @@
 .pause-card {
   box-sizing: border-box;
   display: flex;
-  width: 660rpx;
-  min-height: 676rpx;
+  width: calc(660 * var(--rpx));
+  min-height: calc(676 * var(--rpx));
   flex-direction: column;
   align-items: center;
-  padding: 56rpx 56rpx 40rpx;
-  border: 1rpx solid var(--figma-color-line);
+  padding: calc(56 * var(--rpx)) calc(56 * var(--rpx)) calc(40 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--figma-color-line);
   border-radius: var(--radius-64);
   background: var(--figma-color-surface);
   box-shadow: var(--shadow-elevated);
@@ -602,47 +602,47 @@
 /* Figma 82:157：68px 圆 + 两根 7×26 暂停竖条。 */
 .pause-icon {
   display: flex;
-  width: 136rpx;
-  height: 136rpx;
+  width: calc(136 * var(--rpx));
+  height: calc(136 * var(--rpx));
   align-items: center;
   justify-content: center;
-  gap: 16rpx;
+  gap: calc(16 * var(--rpx));
   border-radius: 50%;
   background: var(--color-primary-soft);
 }
 
 .pause-icon__bar {
-  width: 14rpx;
-  height: 52rpx;
+  width: calc(14 * var(--rpx));
+  height: calc(52 * var(--rpx));
   border-radius: var(--radius-8);
   background: var(--color-primary-deep);
 }
 
 /* Figma 82:160 */
 .pause-title {
-  margin-top: 32rpx;
+  margin-top: calc(32 * var(--rpx));
   color: var(--figma-color-ink);
   font-size: var(--text-title-lg);
   font-weight: 700;
-  line-height: 60rpx;
+  line-height: calc(60 * var(--rpx));
 }
 
 /* Figma 82:161 */
 .pause-time {
-  margin-top: 20rpx;
+  margin-top: calc(20 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-title);
   font-weight: 600;
-  line-height: 56rpx;
+  line-height: calc(56 * var(--rpx));
 }
 
 /* Figma 82:162 */
 .pause-copy {
-  margin-top: 24rpx;
+  margin-top: calc(24 * var(--rpx));
   color: var(--figma-color-muted);
   font-size: var(--text-caption);
   font-weight: 500;
-  line-height: 40rpx;
+  line-height: calc(40 * var(--rpx));
   white-space: pre-line;
 }
 
@@ -651,7 +651,7 @@
  * 与 reflection 页一致：用 button.class 拿回按钮几何。
  */
 button.pause-resume {
-  width: 540rpx;
+  width: calc(540 * var(--rpx));
 }
 
 button.answer-card__cta,
@@ -664,11 +664,11 @@ button.submit-button {
 .pause-resume {
   box-sizing: border-box;
   display: flex;
-  width: 540rpx;
-  height: 100rpx;
+  width: calc(540 * var(--rpx));
+  height: calc(100 * var(--rpx));
   align-items: center;
   justify-content: center;
-  margin: 32rpx 0 0;
+  margin: calc(32 * var(--rpx)) 0 0;
   padding: 0;
   border: 0;
   border-radius: var(--radius-40);
@@ -682,14 +682,14 @@ button.submit-button {
 .pause-exit {
   width: auto;
   min-height: 0;
-  margin: 24rpx 0 0;
-  padding: 8rpx 16rpx;
+  margin: calc(24 * var(--rpx)) 0 0;
+  padding: calc(8 * var(--rpx)) calc(16 * var(--rpx));
   border: 0;
   color: var(--figma-color-muted);
   background: transparent;
   font-size: var(--text-micro);
   font-weight: 600;
-  line-height: 30rpx;
+  line-height: calc(30 * var(--rpx));
 }
 
 .pause-resume::after,
@@ -717,29 +717,30 @@ button.submit-button {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 24rpx;
-  padding: 16rpx 40rpx calc(40rpx + env(safe-area-inset-bottom));
+  gap: calc(24 * var(--rpx));
+  padding: calc(16 * var(--rpx)) calc(40 * var(--rpx))
+    calc(calc(40 * var(--rpx)) + env(safe-area-inset-bottom));
   border-radius: var(--radius-48) var(--radius-48) 0 0;
   background: var(--figma-color-surface);
 }
 
 .answer-card__handle-row {
   display: flex;
-  height: 24rpx;
+  height: calc(24 * var(--rpx));
   align-items: center;
   justify-content: center;
 }
 
 .answer-card__handle {
-  width: 84rpx;
-  height: 8rpx;
+  width: calc(84 * var(--rpx));
+  height: calc(8 * var(--rpx));
   border-radius: var(--radius-capsule);
   background: var(--figma-color-line-emphasis);
 }
 
 .answer-card__header {
   display: flex;
-  height: 96rpx;
+  height: calc(96 * var(--rpx));
   align-items: center;
   justify-content: space-between;
 }
@@ -748,23 +749,23 @@ button.submit-button {
   color: var(--figma-color-ink);
   font-size: var(--text-title-sm);
   font-weight: 700;
-  line-height: 50rpx;
+  line-height: calc(50 * var(--rpx));
 }
 
 .answer-card__subtitle {
-  margin-top: 2rpx;
+  margin-top: calc(2 * var(--rpx));
   color: var(--figma-color-muted);
   font-size: var(--text-micro);
   font-weight: 500;
-  line-height: 30rpx;
+  line-height: calc(30 * var(--rpx));
 }
 
 .answer-card__close {
   box-sizing: border-box;
   display: flex;
-  width: 68rpx;
-  min-width: 68rpx;
-  height: 68rpx;
+  width: calc(68 * var(--rpx));
+  min-width: calc(68 * var(--rpx));
+  height: calc(68 * var(--rpx));
   align-items: center;
   justify-content: center;
   margin: 0;
@@ -787,19 +788,19 @@ button.submit-button {
 .answer-card__legend {
   box-sizing: border-box;
   display: flex;
-  height: 100rpx;
+  height: calc(100 * var(--rpx));
   align-items: center;
   justify-content: space-between;
-  padding: 16rpx 24rpx;
+  padding: calc(16 * var(--rpx)) calc(24 * var(--rpx));
   border-radius: var(--radius-32);
   background: var(--figma-color-canvas);
 }
 
 .answer-card__legend-item {
   display: flex;
-  width: 144rpx;
+  width: calc(144 * var(--rpx));
   align-items: center;
-  gap: 12rpx;
+  gap: calc(12 * var(--rpx));
   color: var(--color-ink-secondary);
   font-size: var(--text-micro);
   font-weight: 600;
@@ -807,8 +808,8 @@ button.submit-button {
 
 .answer-card__legend-dot {
   box-sizing: border-box;
-  width: 18rpx;
-  height: 18rpx;
+  width: calc(18 * var(--rpx));
+  height: calc(18 * var(--rpx));
   border-radius: 50%;
 }
 
@@ -818,7 +819,7 @@ button.submit-button {
 }
 
 .answer-card__legend-dot--unanswered {
-  border: 2rpx solid var(--figma-color-line-emphasis);
+  border: calc(2 * var(--rpx)) solid var(--figma-color-line-emphasis);
   background: var(--figma-color-surface);
 }
 
@@ -830,8 +831,8 @@ button.submit-button {
 .answer-card__section {
   display: flex;
   flex-direction: column;
-  gap: 28rpx;
-  padding: 12rpx 0 8rpx;
+  gap: calc(28 * var(--rpx));
+  padding: calc(12 * var(--rpx)) 0 calc(8 * var(--rpx));
 }
 
 .answer-card__module-row {
@@ -855,24 +856,24 @@ button.submit-button {
 .answer-card__grid {
   display: grid;
   max-height: 40vh;
-  grid-template-columns: repeat(auto-fill, 88rpx);
+  grid-template-columns: repeat(auto-fill, calc(88 * var(--rpx)));
   justify-content: space-between;
-  gap: 28rpx 16rpx;
+  gap: calc(28 * var(--rpx)) calc(16 * var(--rpx));
   overflow-y: auto;
 }
 
 .answer-card__cell {
   position: relative;
-  width: 88rpx;
-  height: 88rpx;
+  width: calc(88 * var(--rpx));
+  height: calc(88 * var(--rpx));
 }
 
 /* Figma 61:20/24/26/30：四种圆形题号状态。 */
 .answer-card__question {
   box-sizing: border-box;
   display: flex;
-  width: 88rpx;
-  height: 88rpx;
+  width: calc(88 * var(--rpx));
+  height: calc(88 * var(--rpx));
   align-items: center;
   justify-content: center;
   margin: 0;
@@ -897,28 +898,28 @@ button.submit-button {
 
 .answer-card__question--unanswered,
 .answer-card__question--skipped {
-  border: 3rpx solid var(--figma-color-line-emphasis);
+  border: calc(3 * var(--rpx)) solid var(--figma-color-line-emphasis);
   color: var(--figma-color-muted);
   background: var(--figma-color-surface);
 }
 
 .answer-card__question--marked {
-  border: 3rpx solid var(--figma-color-warning);
+  border: calc(3 * var(--rpx)) solid var(--figma-color-warning);
   color: var(--figma-color-ink);
   background: var(--figma-color-surface);
 }
 
 .answer-card__marked-badge {
   position: absolute;
-  top: -7rpx;
+  top: calc(-7 * var(--rpx));
   right: 0;
   box-sizing: border-box;
   display: flex;
-  width: 28rpx;
-  height: 28rpx;
+  width: calc(28 * var(--rpx));
+  height: calc(28 * var(--rpx));
   align-items: center;
   justify-content: center;
-  border: 4rpx solid var(--figma-color-surface);
+  border: calc(4 * var(--rpx)) solid var(--figma-color-surface);
   border-radius: var(--radius-12);
   color: var(--figma-color-on-dark);
   background: var(--figma-color-warning);
@@ -937,17 +938,17 @@ button.submit-button {
 .answer-card__insight {
   box-sizing: border-box;
   display: flex;
-  height: 128rpx;
+  height: calc(128 * var(--rpx));
   align-items: center;
-  gap: 24rpx;
-  padding: 20rpx 28rpx;
+  gap: calc(24 * var(--rpx));
+  padding: calc(20 * var(--rpx)) calc(28 * var(--rpx));
   border-radius: var(--radius-32);
   background: var(--color-primary-soft);
 }
 
 .answer-card__insight-icon {
-  width: 68rpx;
-  height: 68rpx;
+  width: calc(68 * var(--rpx));
+  height: calc(68 * var(--rpx));
   flex: none;
 }
 
@@ -955,14 +956,14 @@ button.submit-button {
   color: var(--color-ink);
   font-size: var(--text-caption);
   font-weight: 700;
-  line-height: 36rpx;
+  line-height: calc(36 * var(--rpx));
 }
 
 .answer-card__insight-sub {
   color: var(--figma-color-muted);
   font-size: var(--text-micro);
   font-weight: 500;
-  line-height: 28rpx;
+  line-height: calc(28 * var(--rpx));
 }
 
 /* Figma 61:40 主 CTA，底部呼吸空间由 sheet 的 padding-bottom 保证。 */
@@ -970,7 +971,7 @@ button.submit-button {
   box-sizing: border-box;
   display: flex;
   width: 100%;
-  height: 108rpx;
+  height: calc(108 * var(--rpx));
   align-items: center;
   justify-content: center;
   margin: 0;
@@ -991,21 +992,21 @@ button.submit-button {
 .task-footer-actions {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 24rpx;
+  gap: calc(24 * var(--rpx));
 }
 
 .footer-previous,
 .task-footer-actions .submit-button {
   box-sizing: border-box;
   width: 100%;
-  height: 109rpx;
-  min-height: 109rpx;
+  height: calc(109 * var(--rpx));
+  min-height: calc(109 * var(--rpx));
   margin: 0;
   border: 0;
   border-radius: var(--radius-40);
   font-size: var(--text-section);
   font-weight: 700;
-  line-height: 109rpx;
+  line-height: calc(109 * var(--rpx));
 }
 
 /* Figma 2:200 */
@@ -1032,27 +1033,27 @@ button.submit-button {
 }
 
 .help-sheet {
-  padding: 0 0 calc(24rpx + env(safe-area-inset-bottom));
+  padding: 0 0 calc(calc(24 * var(--rpx)) + env(safe-area-inset-bottom));
 }
 
 .task-tool-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16rpx;
-  margin-top: 28rpx;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(28 * var(--rpx));
 }
 
 .task-tool-item,
 .display-tool-button,
 .dispute-category {
   margin: 0;
-  border: 1rpx solid var(--color-line);
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   background: var(--color-surface-soft);
   color: var(--color-ink-secondary);
 }
 
 .task-tool-item {
-  min-height: 92rpx;
+  min-height: calc(92 * var(--rpx));
   border-radius: var(--radius-compact);
   font-size: var(--text-caption);
   font-weight: 700;
@@ -1067,10 +1068,10 @@ button.submit-button {
 
 .display-tool-row {
   display: grid;
-  grid-template-columns: 88rpx 1fr 88rpx;
+  grid-template-columns: calc(88 * var(--rpx)) 1fr calc(88 * var(--rpx));
   align-items: center;
-  gap: 12rpx;
-  margin-top: 20rpx;
+  gap: calc(12 * var(--rpx));
+  margin-top: calc(20 * var(--rpx));
   color: var(--color-muted);
   font-family: var(--font-family-data);
   font-size: var(--text-micro);
@@ -1078,15 +1079,15 @@ button.submit-button {
 }
 
 .display-tool-button {
-  min-height: 64rpx;
+  min-height: calc(64 * var(--rpx));
   border-radius: var(--radius-12);
-  line-height: 64rpx;
+  line-height: calc(64 * var(--rpx));
 }
 
 .locked-tools,
 .overlay-result {
-  margin-top: 20rpx;
-  padding: 20rpx 20rpx;
+  margin-top: calc(20 * var(--rpx));
+  padding: calc(20 * var(--rpx)) calc(20 * var(--rpx));
   border-radius: var(--radius-16);
   background: var(--color-primary-soft);
   color: var(--color-ink-secondary);
@@ -1095,32 +1096,32 @@ button.submit-button {
 }
 
 .help-sheet .overlay-result {
-  margin: 0 32rpx;
+  margin: 0 calc(32 * var(--rpx));
 }
 
 .dispute-categories {
   display: flex;
   flex-wrap: wrap;
-  gap: 12rpx;
-  margin-top: 28rpx;
+  gap: calc(12 * var(--rpx));
+  margin-top: calc(28 * var(--rpx));
 }
 
 .dispute-category {
   flex: none;
-  min-height: 58rpx;
-  padding: 0 20rpx;
+  min-height: calc(58 * var(--rpx));
+  padding: 0 calc(20 * var(--rpx));
   border-radius: var(--radius-capsule);
   font-size: var(--text-micro);
-  line-height: 58rpx;
+  line-height: calc(58 * var(--rpx));
 }
 
 .dispute-description {
   box-sizing: border-box;
   width: 100%;
-  min-height: 210rpx;
-  margin: 24rpx 0 20rpx;
-  padding: 20rpx;
-  border: 1rpx solid var(--color-line);
+  min-height: calc(210 * var(--rpx));
+  margin: calc(24 * var(--rpx)) 0 calc(20 * var(--rpx));
+  padding: calc(20 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-control);
   background: var(--color-surface-soft);
   font-size: var(--text-caption);
@@ -1130,7 +1131,7 @@ button.submit-button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16rpx;
+  gap: calc(16 * var(--rpx));
 }
 
 @media (min-width: 768px) {
@@ -1319,7 +1320,7 @@ button.submit-button {
   z-index: var(--z-overlay);
   left: 50%;
   display: flex;
-  height: 92rpx;
+  height: calc(92 * var(--rpx));
   align-items: center;
   border-radius: var(--radius-32);
   background: var(--figma-color-ink);
@@ -1332,12 +1333,12 @@ button.submit-button {
   display: flex;
   width: auto;
   min-width: 0;
-  height: 92rpx;
+  height: calc(92 * var(--rpx));
   flex: none;
   align-items: center;
   justify-content: center;
   margin: 0;
-  padding: 0 32rpx;
+  padding: 0 calc(32 * var(--rpx));
   border: 0;
   border-radius: var(--radius-32);
   color: var(--figma-color-on-dark);
@@ -1351,8 +1352,8 @@ button.submit-button {
 }
 
 .selection-toolbar__divider {
-  width: 1rpx;
-  height: 36rpx;
+  width: calc(1 * var(--rpx));
+  height: calc(36 * var(--rpx));
   background: rgb(255 255 255 / 16%);
 }
 
@@ -1382,17 +1383,18 @@ button.submit-button {
   left: 0;
   box-sizing: border-box;
   max-height: 80vh;
-  padding: 20rpx 40rpx calc(24rpx + env(safe-area-inset-bottom));
+  padding: calc(20 * var(--rpx)) calc(40 * var(--rpx))
+    calc(calc(24 * var(--rpx)) + env(safe-area-inset-bottom));
   border-radius: var(--radius-48) var(--radius-48) 0 0;
   background: var(--figma-color-surface);
   box-shadow: var(--shadow-overlay);
 }
 
 .anan-context__grabber {
-  width: 96rpx;
-  height: 8rpx;
+  width: calc(96 * var(--rpx));
+  height: calc(8 * var(--rpx));
   margin: 0 auto;
-  border-radius: 4rpx;
+  border-radius: calc(4 * var(--rpx));
   background: var(--figma-color-line-emphasis);
 }
 
@@ -1400,7 +1402,7 @@ button.submit-button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 28rpx;
+  margin-top: calc(28 * var(--rpx));
 }
 
 /* Figma 97:180 */
@@ -1408,16 +1410,16 @@ button.submit-button {
   color: var(--ink);
   font-size: var(--text-title-sm);
   font-weight: 700;
-  line-height: 56rpx;
+  line-height: calc(56 * var(--rpx));
 }
 
 /* Figma 97:181 */
 .anan-context__badge {
   display: flex;
-  height: 48rpx;
+  height: calc(48 * var(--rpx));
   align-items: center;
-  gap: 12rpx;
-  padding: 0 20rpx;
+  gap: calc(12 * var(--rpx));
+  padding: 0 calc(20 * var(--rpx));
   border-radius: var(--radius-24);
   color: var(--color-primary-deep);
   background: var(--color-primary-soft);
@@ -1426,8 +1428,8 @@ button.submit-button {
 }
 
 .anan-context__badge-dot {
-  width: 12rpx;
-  height: 12rpx;
+  width: calc(12 * var(--rpx));
+  height: calc(12 * var(--rpx));
   border-radius: 50%;
   background: var(--color-primary-deep);
 }
@@ -1435,20 +1437,20 @@ button.submit-button {
 /* Figma 97:184：青色引用条。 */
 .anan-context__quote {
   display: flex;
-  min-height: 120rpx;
+  min-height: calc(120 * var(--rpx));
   align-items: center;
-  gap: 20rpx;
-  margin-top: 24rpx;
-  padding: 20rpx 28rpx;
+  gap: calc(20 * var(--rpx));
+  margin-top: calc(24 * var(--rpx));
+  padding: calc(20 * var(--rpx)) calc(28 * var(--rpx));
   border-radius: var(--radius-32);
   background: var(--figma-color-cyan-soft);
 }
 
 .anan-context__quote-bar {
-  width: 6rpx;
-  height: 68rpx;
+  width: calc(6 * var(--rpx));
+  height: calc(68 * var(--rpx));
   flex: none;
-  border-radius: 4rpx;
+  border-radius: calc(4 * var(--rpx));
   background: var(--color-primary-deep);
 }
 
@@ -1460,16 +1462,16 @@ button.submit-button {
   color: var(--ink);
   font-size: var(--text-body);
   font-weight: 500;
-  line-height: 40rpx;
+  line-height: calc(40 * var(--rpx));
 }
 
 /* Figma 97:187：岸岸回复框。 */
 .anan-context__insight {
   box-sizing: border-box;
-  min-height: 120rpx;
-  margin-top: 24rpx;
-  padding: 28rpx 32rpx;
-  border: 1rpx solid var(--color-line-strong);
+  min-height: calc(120 * var(--rpx));
+  margin-top: calc(24 * var(--rpx));
+  padding: calc(28 * var(--rpx)) calc(32 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line-strong);
   border-radius: var(--radius-32);
   background: var(--bg);
 }
@@ -1489,42 +1491,42 @@ button.submit-button {
   color: var(--ink);
   font-size: var(--text-body-lg);
   font-weight: 700;
-  line-height: 44rpx;
+  line-height: calc(44 * var(--rpx));
 }
 
 .anan-context__insight-copy {
-  margin-top: 8rpx;
+  margin-top: calc(8 * var(--rpx));
   color: var(--ink-2);
   font-size: var(--text-body);
-  line-height: 40rpx;
+  line-height: calc(40 * var(--rpx));
 }
 
 /* Figma 97:190 */
 .anan-context__actions-label {
-  margin-top: 28rpx;
+  margin-top: calc(28 * var(--rpx));
   color: var(--ink-2);
   font-size: var(--text-caption);
   font-weight: 600;
-  line-height: 44rpx;
+  line-height: calc(44 * var(--rpx));
 }
 
 .anan-context__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 16rpx;
-  margin-top: 8rpx;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(8 * var(--rpx));
 }
 
 /* Figma 97:191-97:195 */
 .anan-context__action {
   box-sizing: border-box;
   display: flex;
-  height: 84rpx;
+  height: calc(84 * var(--rpx));
   align-items: center;
   justify-content: center;
   margin: 0;
-  padding: 0 32rpx;
-  border: 1rpx solid var(--color-line-strong);
+  padding: 0 calc(32 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line-strong);
   border-radius: var(--radius-40);
   color: var(--ink);
   background: var(--bg);
@@ -1540,27 +1542,27 @@ button.submit-button {
 
 /* Figma 97:197 */
 .anan-context__hint {
-  margin-top: 16rpx;
+  margin-top: calc(16 * var(--rpx));
   color: var(--ink-2);
   font-size: var(--text-micro);
-  line-height: 40rpx;
+  line-height: calc(40 * var(--rpx));
 }
 
 /* Figma 97:198：继续追问输入行，不被压到设备底边。 */
 .anan-context__input-row {
   position: relative;
   display: flex;
-  height: 96rpx;
+  height: calc(96 * var(--rpx));
   align-items: center;
-  margin-top: 20rpx;
+  margin-top: calc(20 * var(--rpx));
 }
 
 .anan-context__input {
   box-sizing: border-box;
   width: 100%;
-  height: 96rpx;
-  padding: 0 110rpx 0 32rpx;
-  border: 1rpx solid var(--color-line-strong);
+  height: calc(96 * var(--rpx));
+  padding: 0 calc(110 * var(--rpx)) 0 calc(32 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line-strong);
   border-radius: var(--radius-48);
   background: var(--bg);
   color: var(--ink);
@@ -1571,12 +1573,12 @@ button.submit-button {
 .anan-context__send {
   position: absolute;
   top: 50%;
-  right: 2rpx;
+  right: calc(2 * var(--rpx));
   box-sizing: border-box;
   display: flex;
-  width: 88rpx;
-  min-width: 88rpx;
-  height: 88rpx;
+  width: calc(88 * var(--rpx));
+  min-width: calc(88 * var(--rpx));
+  height: calc(88 * var(--rpx));
   align-items: center;
   justify-content: center;
   margin: 0;
@@ -1588,8 +1590,8 @@ button.submit-button {
 
 .anan-context__send-circle {
   display: flex;
-  width: 72rpx;
-  height: 72rpx;
+  width: calc(72 * var(--rpx));
+  height: calc(72 * var(--rpx));
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-32);

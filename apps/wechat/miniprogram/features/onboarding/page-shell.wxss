@@ -1,20 +1,20 @@
 .onboarding-scroll-content.onboarding-scroll-content {
-  padding-bottom: calc(352rpx + env(safe-area-inset-bottom));
+  padding-bottom: calc(calc(352 * var(--rpx)) + env(safe-area-inset-bottom));
 }
 
 .onboarding-action-dock {
   display: grid;
-  gap: 12rpx;
+  gap: calc(12 * var(--rpx));
 }
 
 button.onboarding-save-action {
   display: flex;
   width: 100%;
-  min-height: 64rpx;
+  min-height: calc(64 * var(--rpx));
   align-items: center;
   justify-content: center;
   margin: 0;
-  padding: 0 24rpx;
+  padding: 0 calc(24 * var(--rpx));
   border: 0;
   border-radius: var(--figma-radius-pill);
   background: transparent;

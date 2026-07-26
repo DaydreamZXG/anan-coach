@@ -31,7 +31,7 @@
   flex: 1;
   flex-direction: column;
   justify-content: center;
-  padding: 40rpx;
+  padding: calc(40 * var(--rpx));
 }
 
 .preference-scroll {
@@ -41,30 +41,30 @@
 
 .preference-content {
   box-sizing: border-box;
-  padding: 48rpx 40rpx 260rpx;
+  padding: calc(48 * var(--rpx)) calc(40 * var(--rpx)) calc(260 * var(--rpx));
 }
 
 .preference-card {
   box-sizing: border-box;
-  padding: 40rpx;
-  border: 1rpx solid var(--color-surface-soft);
+  padding: calc(40 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-surface-soft);
   border-radius: var(--radius-48);
   background: var(--color-surface);
   box-shadow: var(--shadow-soft);
 }
 
 .level-card {
-  margin-top: 48rpx;
+  margin-top: calc(48 * var(--rpx));
 }
 
 .card-title {
   font-size: var(--text-section);
   font-weight: 700;
-  line-height: 45rpx;
+  line-height: calc(45 * var(--rpx));
 }
 
 .card-copy {
-  margin-top: 16rpx;
+  margin-top: calc(16 * var(--rpx));
   color: var(--ink-2);
   font-size: var(--text-caption);
   font-weight: 500;
@@ -72,7 +72,7 @@
 }
 
 .catalog-state {
-  margin-top: 32rpx;
+  margin-top: calc(32 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-caption);
   font-weight: 600;
@@ -82,9 +82,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20rpx;
-  margin-top: 32rpx;
-  padding: 20rpx;
+  gap: calc(20 * var(--rpx));
+  margin-top: calc(32 * var(--rpx));
+  padding: calc(20 * var(--rpx));
   border-radius: var(--radius-24);
   background: var(--color-danger-soft);
   color: var(--danger);
@@ -93,7 +93,7 @@
 
 .catalog-retry {
   flex: none;
-  padding: 8rpx 16rpx;
+  padding: calc(8 * var(--rpx)) calc(16 * var(--rpx));
   border-radius: var(--figma-radius-pill);
   background: var(--color-surface);
   color: var(--danger);
@@ -103,18 +103,18 @@
 
 .region-picker {
   width: 100%;
-  margin-top: 32rpx;
+  margin-top: calc(32 * var(--rpx));
 }
 
 .region-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 16rpx;
-  padding-bottom: 2rpx;
+  gap: calc(16 * var(--rpx));
+  padding-bottom: calc(2 * var(--rpx));
 }
 
 .region-group {
-  margin-top: 24rpx;
+  margin-top: calc(24 * var(--rpx));
 }
 
 .region-group:first-child {
@@ -122,7 +122,7 @@
 }
 
 .region-group__title {
-  margin-bottom: 12rpx;
+  margin-bottom: calc(12 * var(--rpx));
   color: var(--color-faint);
   font-size: var(--text-micro);
   font-weight: 700;
@@ -130,15 +130,15 @@
 
 button.region-toggle {
   width: auto;
-  min-height: 64rpx;
-  margin-top: 20rpx;
+  min-height: calc(64 * var(--rpx));
+  margin-top: calc(20 * var(--rpx));
   padding: 0;
   border: 0;
   background: transparent;
   color: var(--color-primary);
   font-size: var(--text-caption);
   font-weight: 700;
-  line-height: 64rpx;
+  line-height: calc(64 * var(--rpx));
 }
 
 button.region-toggle::after {
@@ -147,8 +147,8 @@ button.region-toggle::after {
 
 .region-chip {
   flex: none;
-  padding: 16rpx 32rpx;
-  border: 1rpx solid var(--line);
+  padding: calc(16 * var(--rpx)) calc(32 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--line);
   border-radius: var(--figma-radius-pill);
   background: var(--bg);
   color: var(--color-ink-secondary);
@@ -168,12 +168,12 @@ button.region-toggle::after {
   box-sizing: border-box;
   display: flex;
   width: 100%;
-  min-height: 136rpx;
+  min-height: calc(136 * var(--rpx));
   align-items: center;
   justify-content: space-between;
-  margin-top: 40rpx;
-  padding: 32rpx 32rpx;
-  border: 1rpx solid var(--line);
+  margin-top: calc(40 * var(--rpx));
+  padding: calc(32 * var(--rpx)) calc(32 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--line);
   border-radius: var(--radius-32);
   background: var(--bg);
   text-align: left;
@@ -183,25 +183,25 @@ button.region-toggle::after {
   color: var(--ink);
   font-size: var(--text-body-lg);
   font-weight: 700;
-  line-height: 40rpx;
+  line-height: calc(40 * var(--rpx));
 }
 
 .relocation-copy {
-  margin-top: 4rpx;
+  margin-top: calc(4 * var(--rpx));
   color: var(--ink-2);
   font-size: var(--text-micro);
   font-weight: 500;
-  line-height: 32rpx;
+  line-height: calc(32 * var(--rpx));
 }
 
 .switch {
   box-sizing: border-box;
   display: flex;
-  width: 96rpx;
-  height: 56rpx;
+  width: calc(96 * var(--rpx));
+  height: calc(56 * var(--rpx));
   flex: none;
   align-items: center;
-  padding: 8rpx;
+  padding: calc(8 * var(--rpx));
   border-radius: var(--radius-capsule);
   background: var(--color-line-strong);
   transition: background 180ms ease;
@@ -213,8 +213,8 @@ button.region-toggle::after {
 }
 
 .switch-dot {
-  width: 40rpx;
-  height: 40rpx;
+  width: calc(40 * var(--rpx));
+  height: calc(40 * var(--rpx));
   border-radius: 50%;
   background: var(--color-surface);
   box-shadow: var(--shadow-crisp);
@@ -223,37 +223,37 @@ button.region-toggle::after {
 .level-list {
   display: flex;
   flex-direction: column;
-  gap: 24rpx;
-  margin-top: 32rpx;
+  gap: calc(24 * var(--rpx));
+  margin-top: calc(32 * var(--rpx));
 }
 
 .level-row {
   box-sizing: border-box;
   display: flex;
   width: 100%;
-  min-height: 112rpx;
+  min-height: calc(112 * var(--rpx));
   align-items: center;
-  gap: 24rpx;
-  padding: 32rpx 32rpx;
-  border: 1rpx solid var(--line);
+  gap: calc(24 * var(--rpx));
+  padding: calc(32 * var(--rpx)) calc(32 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--line);
   border-radius: var(--radius-32);
   background: var(--bg);
   color: var(--color-ink-secondary);
   font-size: var(--text-body-lg);
   font-weight: 700;
-  line-height: 40rpx;
+  line-height: calc(40 * var(--rpx));
   text-align: left;
 }
 
 .level-check {
   box-sizing: border-box;
   display: flex;
-  width: 34rpx;
-  height: 34rpx;
+  width: calc(34 * var(--rpx));
+  height: calc(34 * var(--rpx));
   flex: none;
   align-items: center;
   justify-content: center;
-  border: 2rpx solid var(--figma-color-line-emphasis);
+  border: calc(2 * var(--rpx)) solid var(--figma-color-line-emphasis);
   border-radius: var(--radius-8);
   color: transparent;
   font-size: var(--text-micro);
@@ -267,8 +267,8 @@ button.region-toggle::after {
 
 .recovery-banner,
 .error-banner {
-  margin-top: 24rpx;
-  padding: 20rpx 24rpx;
+  margin-top: calc(24 * var(--rpx));
+  padding: calc(20 * var(--rpx)) calc(24 * var(--rpx));
   border-radius: var(--radius-24);
   font-size: var(--text-caption);
   line-height: 1.55;
@@ -285,7 +285,7 @@ button.region-toggle::after {
 }
 
 .request-id {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   color: var(--ink-3);
   font-size: var(--text-micro);
   text-align: center;
@@ -298,16 +298,17 @@ button.region-toggle::after {
   bottom: 0;
   left: 0;
   box-sizing: border-box;
-  padding: 32rpx 40rpx calc(42rpx + env(safe-area-inset-bottom));
-  border-top: 1rpx solid var(--line);
+  padding: calc(32 * var(--rpx)) calc(40 * var(--rpx))
+    calc(calc(42 * var(--rpx)) + env(safe-area-inset-bottom));
+  border-top: calc(1 * var(--rpx)) solid var(--line);
   background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(26rpx);
+  backdrop-filter: blur(calc(26 * var(--rpx)));
 }
 
 .preference-primary {
   width: 100%;
-  min-height: 112rpx;
-  padding: 0 32rpx;
+  min-height: calc(112 * var(--rpx));
+  padding: 0 calc(32 * var(--rpx));
   border-radius: var(--radius-48);
   background: var(--ink);
   color: var(--color-surface);

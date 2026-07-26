@@ -2,7 +2,7 @@
 .decision-types {
   display: flex;
   flex-wrap: wrap;
-  gap: 12rpx;
+  gap: calc(12 * var(--rpx));
 }
 .decision-types .active {
   background: var(--color-primary);
@@ -12,19 +12,19 @@
 .decision-actions {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16rpx;
-  margin-top: 20rpx;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(20 * var(--rpx));
 }
 .date-box {
-  padding: 20rpx;
+  padding: calc(20 * var(--rpx));
   border-radius: var(--radius-16);
   background: var(--color-surface-soft);
 }
 .date-box__value {
   display: block;
-  margin-top: 8rpx;
+  margin-top: calc(8 * var(--rpx));
   font-size: var(--text-caption);
 }
 .candidate-box {
-  margin-top: 20rpx;
+  margin-top: calc(20 * var(--rpx));
 }

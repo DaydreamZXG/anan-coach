@@ -1,7 +1,7 @@
 .report-chart {
   box-sizing: border-box;
-  padding: 28rpx;
-  border: 1rpx solid var(--color-line);
+  padding: calc(28 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-32);
   background: var(--color-surface);
   box-shadow: var(--shadow-card);
@@ -11,7 +11,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 20rpx;
+  gap: calc(20 * var(--rpx));
 }
 .report-chart__title {
   color: var(--color-ink);
@@ -22,24 +22,24 @@
 .report-chart__definition,
 .report-chart__row-copy,
 .report-chart__partial {
-  margin-top: 8rpx;
+  margin-top: calc(8 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-micro);
   line-height: 1.55;
 }
 .report-chart__evidence {
   flex: none;
-  padding: 8rpx 16rpx;
+  padding: calc(8 * var(--rpx)) calc(16 * var(--rpx));
   border-radius: var(--radius-capsule);
   background: var(--color-primary-soft);
   color: var(--color-muted);
   font-size: var(--text-micro);
 }
 .report-chart__plot {
-  margin-top: 24rpx;
+  margin-top: calc(24 * var(--rpx));
 }
 .report-chart__row + .report-chart__row {
-  margin-top: 24rpx;
+  margin-top: calc(24 * var(--rpx));
 }
 .report-chart__label {
   color: var(--color-ink-secondary);
@@ -52,8 +52,8 @@
   font-weight: 700;
 }
 .report-chart__rail {
-  height: 12rpx;
-  margin-top: 12rpx;
+  height: calc(12 * var(--rpx));
+  margin-top: calc(12 * var(--rpx));
   overflow: hidden;
   border-radius: var(--radius-capsule);
   background: var(--color-primary-a08);
@@ -72,8 +72,8 @@
   background: var(--color-faint);
 }
 .report-chart__summary {
-  margin-top: 24rpx;
-  padding: 20rpx;
+  margin-top: calc(24 * var(--rpx));
+  padding: calc(20 * var(--rpx));
   border-radius: var(--radius-16);
   background: var(--color-surface-soft);
   color: var(--color-ink-secondary);
@@ -81,8 +81,8 @@
   line-height: 1.6;
 }
 .report-chart__empty {
-  margin-top: 24rpx;
-  padding: 32rpx 20rpx;
+  margin-top: calc(24 * var(--rpx));
+  padding: calc(32 * var(--rpx)) calc(20 * var(--rpx));
   border-radius: var(--radius-16);
   background: var(--color-surface-soft);
   color: var(--color-faint);

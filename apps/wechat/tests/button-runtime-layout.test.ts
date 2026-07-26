@@ -1,45 +1,70 @@
 import { describe, expect, it } from "vitest";
 
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import appStyles from "../miniprogram/app.wxss?raw";
+import appStylesRaw from "../miniprogram/app.wxss?raw";
 // @ts-expect-error Vite exposes mini-program component styles through its raw asset loader.
-import uiButtonStyles from "../miniprogram/design-system/primitives/ui-button/index.wxss?raw";
+import uiButtonStylesRaw from "../miniprogram/design-system/primitives/ui-button/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import dayAdjustmentTemplate from "../miniprogram/pages/day-adjustment/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import dayAdjustmentStyles from "../miniprogram/pages/day-adjustment/index.wxss?raw";
+import dayAdjustmentStylesRaw from "../miniprogram/pages/day-adjustment/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import dailySettlementStyles from "../miniprogram/pages/daily-settlement/index.wxss?raw";
+import dailySettlementStylesRaw from "../miniprogram/pages/daily-settlement/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import captureStyles from "../miniprogram/pages/capture-import/index.wxss?raw";
+import captureStylesRaw from "../miniprogram/pages/capture-import/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import essayMaterialStyles from "../miniprogram/pages/essay-material/index.wxss?raw";
+import essayMaterialStylesRaw from "../miniprogram/pages/essay-material/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import essayReviewStyles from "../miniprogram/pages/essay-review/index.wxss?raw";
+import essayReviewStylesRaw from "../miniprogram/pages/essay-review/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import essayTaskStyles from "../miniprogram/pages/essay-task/index.wxss?raw";
+import essayTaskStylesRaw from "../miniprogram/pages/essay-task/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import meStyles from "../miniprogram/pages/me/index.wxss?raw";
+import meStylesRaw from "../miniprogram/pages/me/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import onboardingStyles from "../miniprogram/pages/onboarding/index.wxss?raw";
+import onboardingStylesRaw from "../miniprogram/pages/onboarding/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import onboardingAbilityStyles from "../miniprogram/pages/onboarding/ability-baseline/index.wxss?raw";
+import onboardingAbilityStylesRaw from "../miniprogram/pages/onboarding/ability-baseline/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import onboardingEntryStyles from "../miniprogram/pages/onboarding/entry/index.wxss?raw";
+import onboardingEntryStylesRaw from "../miniprogram/pages/onboarding/entry/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import onboardingPositionStyles from "../miniprogram/pages/onboarding/position-preference/index.wxss?raw";
+import onboardingPositionStylesRaw from "../miniprogram/pages/onboarding/position-preference/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import onboardingPreparationStyles from "../miniprogram/pages/onboarding/preparation-experience/index.wxss?raw";
+import onboardingPreparationStylesRaw from "../miniprogram/pages/onboarding/preparation-experience/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import onboardingResultStyles from "../miniprogram/pages/onboarding/result/index.wxss?raw";
+import onboardingResultStylesRaw from "../miniprogram/pages/onboarding/result/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import onboardingStudyStyles from "../miniprogram/pages/onboarding/study-preference/index.wxss?raw";
+import onboardingStudyStylesRaw from "../miniprogram/pages/onboarding/study-preference/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import positionsStyles from "../miniprogram/features/positions/page-shell.wxss?raw";
+import positionsStylesRaw from "../miniprogram/features/positions/page-shell.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import reflectionStyles from "../miniprogram/pages/reflection/index.wxss?raw";
+import reflectionStylesRaw from "../miniprogram/pages/reflection/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import weeklyPlanStyles from "../miniprogram/pages/weekly-plan/index.wxss?raw";
+import weeklyPlanStylesRaw from "../miniprogram/pages/weekly-plan/index.wxss?raw";
+
+function normalizeRpxCalc(source: unknown): string {
+  if (typeof source !== "string") throw new Error("Raw mini-program asset must be text.");
+  return source.replace(/calc\((-?\d+(?:\.\d+)?) \* var\(--rpx\)\)/gu, "$1rpx");
+}
+
+const appStyles = normalizeRpxCalc(appStylesRaw);
+const uiButtonStyles = normalizeRpxCalc(uiButtonStylesRaw);
+const dayAdjustmentStyles = normalizeRpxCalc(dayAdjustmentStylesRaw);
+const dailySettlementStyles = normalizeRpxCalc(dailySettlementStylesRaw);
+const captureStyles = normalizeRpxCalc(captureStylesRaw);
+const essayMaterialStyles = normalizeRpxCalc(essayMaterialStylesRaw);
+const essayReviewStyles = normalizeRpxCalc(essayReviewStylesRaw);
+const essayTaskStyles = normalizeRpxCalc(essayTaskStylesRaw);
+const meStyles = normalizeRpxCalc(meStylesRaw);
+const onboardingStyles = normalizeRpxCalc(onboardingStylesRaw);
+const onboardingAbilityStyles = normalizeRpxCalc(onboardingAbilityStylesRaw);
+const onboardingEntryStyles = normalizeRpxCalc(onboardingEntryStylesRaw);
+const onboardingPositionStyles = normalizeRpxCalc(onboardingPositionStylesRaw);
+const onboardingPreparationStyles = normalizeRpxCalc(onboardingPreparationStylesRaw);
+const onboardingResultStyles = normalizeRpxCalc(onboardingResultStylesRaw);
+const onboardingStudyStyles = normalizeRpxCalc(onboardingStudyStylesRaw);
+const positionsStyles = normalizeRpxCalc(positionsStylesRaw);
+const reflectionStyles = normalizeRpxCalc(reflectionStylesRaw);
+const weeklyPlanStyles = normalizeRpxCalc(weeklyPlanStylesRaw);
 
 describe("WeChat runtime button layout contracts", () => {
   it("neutralizes the native fixed button width globally", () => {

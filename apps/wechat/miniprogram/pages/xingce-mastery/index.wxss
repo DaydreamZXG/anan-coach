@@ -1,14 +1,14 @@
 .mastery-page {
-  padding-bottom: calc(88rpx + env(safe-area-inset-bottom));
+  padding-bottom: calc(calc(88 * var(--rpx)) + env(safe-area-inset-bottom));
 }
 
 .mastery-state-view {
   display: block;
-  margin-top: 32rpx;
+  margin-top: calc(32 * var(--rpx));
 }
 
 .mastery-hero {
-  padding: 12rpx 0 8rpx;
+  padding: calc(12 * var(--rpx)) 0 calc(8 * var(--rpx));
   color: var(--color-ink);
 }
 
@@ -20,25 +20,25 @@
   color: var(--color-muted);
   font-size: var(--text-micro);
   font-weight: 800;
-  letter-spacing: 2rpx;
+  letter-spacing: calc(2 * var(--rpx));
 }
 
 .hero-title {
-  margin-top: 16rpx;
+  margin-top: calc(16 * var(--rpx));
   font-size: var(--text-hero);
   font-weight: 800;
 }
 
 .hero-copy {
-  max-width: 560rpx;
-  margin-top: 16rpx;
+  max-width: calc(560 * var(--rpx));
+  margin-top: calc(16 * var(--rpx));
   color: var(--color-ink-secondary);
   font-size: var(--text-body);
   line-height: 1.7;
 }
 
 .hero-updated {
-  margin-top: 20rpx;
+  margin-top: calc(20 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-micro);
 }
@@ -46,10 +46,10 @@
 .bucket-tabs {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 8rpx;
-  margin-top: 28rpx;
-  padding: 8rpx;
-  border: 1rpx solid var(--color-line);
+  gap: calc(8 * var(--rpx));
+  margin-top: calc(28 * var(--rpx));
+  padding: calc(8 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-24);
   background: var(--color-surface);
 }
@@ -57,7 +57,7 @@
 .bucket-tab {
   display: flex;
   min-width: 0;
-  min-height: 76rpx;
+  min-height: calc(76 * var(--rpx));
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -73,29 +73,29 @@
 }
 
 .bucket-count {
-  margin-top: 3rpx;
+  margin-top: calc(3 * var(--rpx));
   font-size: var(--text-caption);
   font-weight: 800;
 }
 
 .account-gate {
-  margin-top: 28rpx;
+  margin-top: calc(28 * var(--rpx));
 }
 
 .mastery-state-action {
   display: block;
-  margin-top: 20rpx;
+  margin-top: calc(20 * var(--rpx));
 }
 
 .withdrawn-notice,
 .partial-warning {
-  margin-top: 24rpx;
-  padding: 24rpx;
+  margin-top: calc(24 * var(--rpx));
+  padding: calc(24 * var(--rpx));
   border-radius: var(--radius-24);
 }
 
 .withdrawn-notice {
-  border: 1rpx solid rgba(176, 64, 76, 0.16);
+  border: calc(1 * var(--rpx)) solid rgba(176, 64, 76, 0.16);
   background: var(--color-danger-soft);
 }
 
@@ -107,14 +107,14 @@
 
 .notice-copy,
 .invalidated-copy {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-micro);
   line-height: 1.65;
 }
 
 .partial-warning {
-  border: 1rpx solid rgba(185, 141, 47, 0.15);
+  border: calc(1 * var(--rpx)) solid rgba(185, 141, 47, 0.15);
   background: var(--color-warning-soft);
   color: var(--color-ink-secondary);
   font-size: var(--text-micro);
@@ -122,22 +122,22 @@
 }
 
 .warning-action {
-  min-height: 62rpx;
-  margin: 16rpx 0 0;
-  padding: 0 20rpx;
+  min-height: calc(62 * var(--rpx));
+  margin: calc(16 * var(--rpx)) 0 0;
+  padding: 0 calc(20 * var(--rpx));
   border: 0;
   border-radius: var(--radius-16);
   background: rgba(185, 141, 47, 0.1);
   color: var(--color-warning);
   font-size: var(--text-micro);
   font-weight: 700;
-  line-height: 62rpx;
+  line-height: calc(62 * var(--rpx));
 }
 
 .mastery-card {
-  margin-top: 20rpx;
-  padding: 28rpx;
-  border: 1rpx solid var(--color-line);
+  margin-top: calc(20 * var(--rpx));
+  padding: calc(28 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-24);
   background: var(--color-surface);
   box-shadow: var(--shadow-card);
@@ -152,7 +152,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 20rpx;
+  gap: calc(20 * var(--rpx));
 }
 
 .card-title-wrap {
@@ -168,14 +168,14 @@
 }
 
 .card-stage {
-  margin-top: 8rpx;
+  margin-top: calc(8 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-micro);
 }
 
 .state-pill {
   flex: none;
-  padding: 8rpx 12rpx;
+  padding: calc(8 * var(--rpx)) calc(12 * var(--rpx));
   border-radius: var(--figma-radius-pill);
   background: var(--color-surface-soft);
   color: var(--color-ink-secondary);
@@ -196,8 +196,8 @@
 .evidence-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 12rpx 20rpx;
-  margin-top: 24rpx;
+  gap: calc(12 * var(--rpx)) calc(20 * var(--rpx));
+  margin-top: calc(24 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-micro);
 }
@@ -205,15 +205,15 @@
 .card-action,
 .load-more {
   width: 100%;
-  min-height: 78rpx;
-  margin: 24rpx 0 0;
+  min-height: calc(78 * var(--rpx));
+  margin: calc(24 * var(--rpx)) 0 0;
   border: 0;
   border-radius: var(--radius-24);
   background: var(--color-ink);
   color: var(--color-on-primary);
   font-size: var(--text-caption);
   font-weight: 800;
-  line-height: 78rpx;
+  line-height: calc(78 * var(--rpx));
 }
 
 .card-action--secondary,
@@ -223,7 +223,7 @@
 }
 
 .pagination {
-  margin-top: 24rpx;
+  margin-top: calc(24 * var(--rpx));
 }
 
 .load-more {
@@ -231,7 +231,7 @@
 }
 
 .page-note {
-  padding: 24rpx 0;
+  padding: calc(24 * var(--rpx)) 0;
   color: var(--color-faint);
   font-size: var(--text-micro);
   text-align: center;

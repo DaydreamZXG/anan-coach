@@ -1,5 +1,5 @@
 .external-page {
-  padding-bottom: 96rpx;
+  padding-bottom: calc(96 * var(--rpx));
 }
 
 .external-hero {
@@ -8,8 +8,8 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 24rpx;
-  padding: 20rpx 4rpx 28rpx;
+  gap: calc(24 * var(--rpx));
+  padding: calc(20 * var(--rpx)) calc(4 * var(--rpx)) calc(28 * var(--rpx));
   color: var(--color-ink);
 }
 
@@ -22,18 +22,18 @@
   color: var(--color-muted);
   font-size: var(--text-micro);
   font-weight: 800;
-  letter-spacing: 2rpx;
+  letter-spacing: calc(2 * var(--rpx));
 }
 
 .external-title {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   font-size: var(--text-title-lg);
   font-weight: 800;
   line-height: 1.25;
 }
 
 .external-subtitle {
-  margin-top: 16rpx;
+  margin-top: calc(16 * var(--rpx));
   color: var(--color-ink-secondary);
   font-size: var(--text-caption);
   line-height: 1.65;
@@ -43,8 +43,8 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 20rpx;
-  margin: 40rpx 4rpx 20rpx;
+  gap: calc(20 * var(--rpx));
+  margin: calc(40 * var(--rpx)) calc(4 * var(--rpx)) calc(20 * var(--rpx));
 }
 
 .section-head__title {
@@ -59,15 +59,15 @@
 }
 
 .external-card {
-  padding: 32rpx;
-  border: 1rpx solid var(--color-line);
+  padding: calc(32 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-card);
   background: var(--color-surface);
   box-shadow: var(--shadow-card);
 }
 
 .external-card + .external-card {
-  margin-top: 20rpx;
+  margin-top: calc(20 * var(--rpx));
 }
 
 .card-title {
@@ -76,7 +76,7 @@
 }
 
 .card-copy {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-caption);
   line-height: 1.6;
@@ -85,14 +85,14 @@
 .choice-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 16rpx;
+  gap: calc(16 * var(--rpx));
 }
 
 .choice {
-  min-height: 72rpx;
+  min-height: calc(72 * var(--rpx));
   box-sizing: border-box;
-  padding: 20rpx 24rpx;
-  border: 1rpx solid var(--color-line);
+  padding: calc(20 * var(--rpx)) calc(24 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-control);
   background: var(--color-surface-soft);
   color: var(--color-ink-secondary);
@@ -108,16 +108,16 @@
 
 .action-stack {
   display: grid;
-  gap: 16rpx;
-  margin-top: 24rpx;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(24 * var(--rpx));
 }
 
 .inline-note,
 .inline-error,
 .inline-success,
 .inline-warning {
-  margin-top: 20rpx;
-  padding: 20rpx 24rpx;
+  margin-top: calc(20 * var(--rpx));
+  padding: calc(20 * var(--rpx)) calc(24 * var(--rpx));
   border-radius: var(--radius-compact);
   font-size: var(--text-caption);
   line-height: 1.55;
@@ -144,17 +144,17 @@
 }
 
 .inline-link {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   font-weight: 800;
   text-decoration: underline;
 }
 
 .delivery-strip {
   display: grid;
-  gap: 8rpx;
-  margin-top: 20rpx;
-  padding: 20rpx 24rpx;
-  border: 1rpx solid var(--color-line);
+  gap: calc(8 * var(--rpx));
+  margin-top: calc(20 * var(--rpx));
+  padding: calc(20 * var(--rpx)) calc(24 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-compact);
   background: var(--color-surface-glass);
   color: var(--color-muted);
@@ -164,8 +164,8 @@
 .status-pill {
   display: inline-flex;
   align-items: center;
-  min-height: 42rpx;
-  padding: 0 16rpx;
+  min-height: calc(42 * var(--rpx));
+  padding: 0 calc(16 * var(--rpx));
   border-radius: var(--radius-capsule);
   background: var(--color-surface-soft);
   color: var(--color-muted);
@@ -195,8 +195,8 @@
 
 .progress-track {
   overflow: hidden;
-  height: 14rpx;
-  margin-top: 20rpx;
+  height: calc(14 * var(--rpx));
+  margin-top: calc(20 * var(--rpx));
   border-radius: var(--radius-capsule);
   background: var(--color-primary-soft);
 }
@@ -209,7 +209,7 @@
 
 .field-label {
   display: block;
-  margin: 24rpx 0 12rpx;
+  margin: calc(24 * var(--rpx)) 0 calc(12 * var(--rpx));
   color: var(--color-ink-secondary);
   font-size: var(--text-caption);
   font-weight: 700;
@@ -219,7 +219,7 @@
 .text-area {
   box-sizing: border-box;
   width: 100%;
-  border: 1rpx solid var(--color-line);
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-control);
   background: var(--color-surface-soft);
   color: var(--color-ink);
@@ -227,13 +227,13 @@
 }
 
 .text-input {
-  min-height: 84rpx;
-  padding: 0 24rpx;
+  min-height: calc(84 * var(--rpx));
+  padding: 0 calc(24 * var(--rpx));
 }
 
 .text-area {
-  min-height: 180rpx;
-  padding: 24rpx;
+  min-height: calc(180 * var(--rpx));
+  padding: calc(24 * var(--rpx));
   line-height: 1.55;
 }
 
@@ -252,7 +252,8 @@
   left: 0;
   box-sizing: border-box;
   max-height: 84vh;
-  padding: 34rpx 28rpx calc(34rpx + env(safe-area-inset-bottom));
+  padding: calc(34 * var(--rpx)) calc(28 * var(--rpx))
+    calc(calc(34 * var(--rpx)) + env(safe-area-inset-bottom));
   border-radius: var(--radius-40) var(--radius-40) 0 0;
   background: var(--color-surface);
   box-shadow: var(--shadow-overlay);
@@ -266,8 +267,8 @@
 .sheet-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16rpx;
-  margin-top: 28rpx;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(28 * var(--rpx));
 }
 
 @media (min-width: 768px) {

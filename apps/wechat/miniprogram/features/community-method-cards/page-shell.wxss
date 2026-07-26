@@ -1,21 +1,21 @@
 .community-page {
-  padding-bottom: 96rpx;
+  padding-bottom: calc(96 * var(--rpx));
 }
 
 .community-hero {
   position: relative;
   overflow: hidden;
-  padding: 20rpx 4rpx 28rpx;
+  padding: calc(20 * var(--rpx)) calc(4 * var(--rpx)) calc(28 * var(--rpx));
   color: var(--color-ink);
 }
 
 .community-hero::after {
   position: absolute;
-  top: -104rpx;
-  right: -76rpx;
-  width: 270rpx;
-  height: 270rpx;
-  border: 1rpx solid var(--color-primary-a16);
+  top: calc(-104 * var(--rpx));
+  right: calc(-76 * var(--rpx));
+  width: calc(270 * var(--rpx));
+  height: calc(270 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-primary-a16);
   border-radius: 50%;
   background: var(--color-primary-a08);
   content: "";
@@ -25,19 +25,19 @@
   color: var(--color-muted);
   font-size: var(--text-micro);
   font-weight: 800;
-  letter-spacing: 2rpx;
+  letter-spacing: calc(2 * var(--rpx));
 }
 
 .hero-title {
-  margin-top: 16rpx;
-  max-width: 650rpx;
+  margin-top: calc(16 * var(--rpx));
+  max-width: calc(650 * var(--rpx));
   font-size: var(--text-title-lg);
   font-weight: 800;
 }
 
 .hero-copy {
-  max-width: 570rpx;
-  margin-top: 16rpx;
+  max-width: calc(570 * var(--rpx));
+  margin-top: calc(16 * var(--rpx));
   color: var(--color-ink-secondary);
   font-size: var(--text-caption);
   line-height: 1.7;
@@ -46,10 +46,10 @@
 .privacy-strip {
   display: flex;
   align-items: flex-start;
-  gap: 16rpx;
-  margin-top: 24rpx;
-  padding: 20rpx 20rpx;
-  border: 1rpx solid var(--color-primary-a16);
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(24 * var(--rpx));
+  padding: calc(20 * var(--rpx)) calc(20 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-primary-a16);
   border-radius: var(--radius-24);
   background: var(--color-primary-soft);
   color: var(--color-ink-secondary);
@@ -58,20 +58,20 @@
 }
 
 .privacy-dot {
-  width: 12rpx;
-  height: 12rpx;
+  width: calc(12 * var(--rpx));
+  height: calc(12 * var(--rpx));
   flex: none;
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   border-radius: 50%;
   background: var(--color-cyan);
-  box-shadow: 0 0 0 7rpx var(--color-primary-a08);
+  box-shadow: 0 0 0 calc(7 * var(--rpx)) var(--color-primary-a08);
 }
 
 .community-section,
 .community-card {
-  margin-top: 24rpx;
-  padding: 28rpx;
-  border: 1rpx solid var(--color-line);
+  margin-top: calc(24 * var(--rpx));
+  padding: calc(28 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-32);
   background: var(--color-surface);
   box-shadow: var(--shadow-community);
@@ -81,11 +81,11 @@
   color: var(--color-faint);
   font-size: var(--text-micro);
   font-weight: 700;
-  letter-spacing: 1.5rpx;
+  letter-spacing: calc(1.5 * var(--rpx));
 }
 
 .section-title {
-  margin-top: 8rpx;
+  margin-top: calc(8 * var(--rpx));
   color: var(--color-ink);
   font-size: var(--text-body-lg);
   font-weight: 800;
@@ -93,7 +93,7 @@
 }
 
 .section-copy {
-  margin-top: 8rpx;
+  margin-top: calc(8 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-micro);
   line-height: 1.65;
@@ -101,7 +101,7 @@
 
 .field-label {
   display: block;
-  margin: 24rpx 0 12rpx;
+  margin: calc(24 * var(--rpx)) 0 calc(12 * var(--rpx));
   color: var(--color-ink-secondary);
   font-size: var(--text-micro);
   font-weight: 700;
@@ -111,7 +111,7 @@
 .text-area {
   box-sizing: border-box;
   width: 100%;
-  border: 1rpx solid var(--color-line);
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-24);
   background: var(--color-surface-soft);
   color: var(--color-ink);
@@ -120,26 +120,26 @@
 }
 
 .text-input {
-  min-height: 84rpx;
-  padding: 0 24rpx;
+  min-height: calc(84 * var(--rpx));
+  padding: 0 calc(24 * var(--rpx));
 }
 
 .text-area {
-  min-height: 190rpx;
-  padding: 20rpx 24rpx;
+  min-height: calc(190 * var(--rpx));
+  padding: calc(20 * var(--rpx)) calc(24 * var(--rpx));
 }
 
 .choice-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12rpx;
-  margin-top: 16rpx;
+  gap: calc(12 * var(--rpx));
+  margin-top: calc(16 * var(--rpx));
 }
 
 .choice-card {
-  min-height: 96rpx;
-  padding: 20rpx;
-  border: 1rpx solid var(--color-line);
+  min-height: calc(96 * var(--rpx));
+  padding: calc(20 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-24);
   background: var(--color-surface-soft);
 }
@@ -156,7 +156,7 @@
 }
 
 .choice-copy {
-  margin-top: 8rpx;
+  margin-top: calc(8 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-micro);
   line-height: 1.45;
@@ -165,8 +165,8 @@
 .boundary-note,
 .warning-note,
 .success-note {
-  margin-top: 20rpx;
-  padding: 20rpx 24rpx;
+  margin-top: calc(20 * var(--rpx));
+  padding: calc(20 * var(--rpx)) calc(24 * var(--rpx));
   border-radius: var(--radius-24);
   font-size: var(--text-micro);
   line-height: 1.65;
@@ -190,21 +190,21 @@
 .fixed-actions {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12rpx;
-  margin-top: 20rpx;
+  gap: calc(12 * var(--rpx));
+  margin-top: calc(20 * var(--rpx));
 }
 
 button.action-button.action-button {
   width: 100%;
-  min-height: 80rpx;
-  margin: 24rpx 0 0;
+  min-height: calc(80 * var(--rpx));
+  margin: calc(24 * var(--rpx)) 0 0;
   border: 0;
   border-radius: var(--radius-24);
   background: var(--color-primary);
   color: var(--color-surface);
   font-size: var(--text-caption);
   font-weight: 800;
-  line-height: 80rpx;
+  line-height: calc(80 * var(--rpx));
 }
 
 .action-button--disabled {
@@ -224,11 +224,11 @@ button.action-button.action-button {
 
 .community-state-view {
   display: block;
-  margin-top: 28rpx;
+  margin-top: calc(28 * var(--rpx));
 }
 
 .request-id {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   color: var(--color-faint);
   font-size: var(--text-micro);
 }

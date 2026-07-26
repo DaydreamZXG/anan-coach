@@ -1,16 +1,16 @@
 @import "../../features/community-method-cards/page-shell.wxss";
 
 .compact-area {
-  min-height: 132rpx;
+  min-height: calc(132 * var(--rpx));
 }
 
 .rights-row {
   display: flex;
   align-items: center;
-  gap: 20rpx;
-  margin-top: 16rpx;
-  padding: 20rpx;
-  border: 1rpx solid var(--color-line);
+  gap: calc(20 * var(--rpx));
+  margin-top: calc(16 * var(--rpx));
+  padding: calc(20 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-24);
   background: var(--color-surface-soft);
 }
@@ -22,12 +22,12 @@
 
 .rights-radio {
   display: flex;
-  width: 38rpx;
-  height: 38rpx;
+  width: calc(38 * var(--rpx));
+  height: calc(38 * var(--rpx));
   flex: none;
   align-items: center;
   justify-content: center;
-  border: 2rpx solid var(--color-primary);
+  border: calc(2 * var(--rpx)) solid var(--color-primary);
   border-radius: 50%;
   color: var(--color-muted);
   font-size: var(--text-micro);
@@ -36,9 +36,9 @@
 
 .check-row {
   display: grid;
-  grid-template-columns: 64rpx 1fr;
-  margin-top: 12rpx;
-  padding: 20rpx 20rpx;
+  grid-template-columns: calc(64 * var(--rpx)) 1fr;
+  margin-top: calc(12 * var(--rpx));
+  padding: calc(20 * var(--rpx)) calc(20 * var(--rpx));
   border-radius: var(--radius-16);
   background: var(--color-surface-soft);
   color: var(--color-ink-secondary);

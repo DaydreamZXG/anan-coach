@@ -1,8 +1,8 @@
 @import "../../features/essay-workbench/page-shell.wxss";
 .diff-legend {
   display: flex;
-  gap: 20rpx;
-  margin: 20rpx 0;
+  gap: calc(20 * var(--rpx));
+  margin: calc(20 * var(--rpx)) 0;
   color: var(--color-muted);
   font-size: var(--text-caption);
 }

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import primitiveStyles from "../miniprogram/design-system/primitives/index.wxss?raw";
+import primitiveStylesRaw from "../miniprogram/design-system/primitives/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program component logic through its raw asset loader.
 import safeTopLogic from "../miniprogram/components/safe-top/index.ts?raw";
 // @ts-expect-error Vite exposes mini-program component logic through its raw asset loader.
@@ -9,11 +9,11 @@ import workbenchNavLogic from "../miniprogram/components/workbench-nav/index.ts?
 // @ts-expect-error Vite exposes mini-program component templates through its raw asset loader.
 import workbenchNavTemplate from "../miniprogram/components/workbench-nav/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import workbenchNavStyles from "../miniprogram/components/workbench-nav/index.wxss?raw";
+import workbenchNavStylesRaw from "../miniprogram/components/workbench-nav/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import onboardingShellStyles from "../miniprogram/features/onboarding/page-shell.wxss?raw";
+import onboardingShellStylesRaw from "../miniprogram/features/onboarding/page-shell.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import tabBarStyles from "../miniprogram/custom-tab-bar/index.wxss?raw";
+import tabBarStylesRaw from "../miniprogram/custom-tab-bar/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program page templates through its raw asset loader.
 import profileArchiveTemplate from "../miniprogram/pages/profile/archive/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program page templates through its raw asset loader.
@@ -38,6 +38,16 @@ import positionPreferenceTemplate from "../miniprogram/pages/onboarding/position
 import preparationExperienceTemplate from "../miniprogram/pages/onboarding/preparation-experience/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program page templates through its raw asset loader.
 import studyPreferenceTemplate from "../miniprogram/pages/onboarding/study-preference/index.wxml?raw";
+
+function normalizeRpxCalc(source: unknown): string {
+  if (typeof source !== "string") throw new Error("Raw mini-program asset must be text.");
+  return source.replace(/calc\((-?\d+(?:\.\d+)?) \* var\(--rpx\)\)/gu, "$1rpx");
+}
+
+const primitiveStyles = normalizeRpxCalc(primitiveStylesRaw);
+const workbenchNavStyles = normalizeRpxCalc(workbenchNavStylesRaw);
+const onboardingShellStyles = normalizeRpxCalc(onboardingShellStylesRaw);
+const tabBarStyles = normalizeRpxCalc(tabBarStylesRaw);
 
 describe("runtime layout foundation", () => {
   it("keeps generic section layout out of the global namespace", () => {

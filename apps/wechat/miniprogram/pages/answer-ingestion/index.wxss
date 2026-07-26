@@ -2,7 +2,7 @@
 
 .answer-state-view {
   display: block;
-  margin-top: 32rpx;
+  margin-top: calc(32 * var(--rpx));
 }
 
 .target-scroll {
@@ -12,12 +12,12 @@
 
 .target-card {
   display: inline-block;
-  width: 600rpx;
-  min-height: 196rpx;
+  width: calc(600 * var(--rpx));
+  min-height: calc(196 * var(--rpx));
   box-sizing: border-box;
-  margin-right: 16rpx;
-  padding: 24rpx;
-  border: 1rpx solid var(--color-line);
+  margin-right: calc(16 * var(--rpx));
+  padding: calc(24 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-card);
   background: var(--color-surface);
   vertical-align: top;
@@ -38,7 +38,7 @@
 
 .target-title {
   overflow: hidden;
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   font-size: var(--text-body-lg);
   font-weight: 800;
   text-overflow: ellipsis;
@@ -46,29 +46,29 @@
 }
 
 .target-expiry {
-  margin-top: 16rpx;
+  margin-top: calc(16 * var(--rpx));
 }
 
 .answer-source {
-  margin-top: 20rpx;
+  margin-top: calc(20 * var(--rpx));
 }
 
 .answer-string {
-  margin-top: 20rpx;
+  margin-top: calc(20 * var(--rpx));
 }
 
 .answer-image-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16rpx;
-  margin-top: 24rpx;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(24 * var(--rpx));
 }
 
 .selected-file {
   display: grid;
-  gap: 8rpx;
-  margin-top: 20rpx;
-  padding: 20rpx;
+  gap: calc(8 * var(--rpx));
+  margin-top: calc(20 * var(--rpx));
+  padding: calc(20 * var(--rpx));
   border-radius: var(--radius-compact);
   background: var(--color-success-soft);
   color: var(--color-success);
@@ -84,12 +84,12 @@
 
 .answer-row {
   display: grid;
-  grid-template-columns: 58rpx 1fr 140rpx;
+  grid-template-columns: calc(58 * var(--rpx)) 1fr calc(140 * var(--rpx));
   align-items: center;
-  gap: 16rpx;
-  margin-top: 16rpx;
-  padding: 20rpx;
-  border: 1rpx solid var(--color-line);
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(16 * var(--rpx));
+  padding: calc(20 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-control);
   background: var(--color-surface);
 }
@@ -106,11 +106,11 @@
 }
 
 .essay-answer {
-  min-height: 220rpx;
+  min-height: calc(220 * var(--rpx));
 }
 
 .answer-confidence {
-  margin-top: 8rpx;
+  margin-top: calc(8 * var(--rpx));
   color: var(--color-success);
   font-size: var(--text-micro);
 }
@@ -127,6 +127,6 @@
 }
 
 .success-receipt {
-  margin-top: 20rpx;
+  margin-top: calc(20 * var(--rpx));
   word-break: break-all;
 }

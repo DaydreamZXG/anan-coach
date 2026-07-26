@@ -13,13 +13,13 @@
   --content-muted: var(--ink-2);
   --content-line: var(--color-line-strong);
   --content-surface: var(--color-surface-soft);
-  padding: 20rpx;
+  padding: calc(20 * var(--rpx));
   border-radius: var(--radius-24);
   background: var(--color-surface-soft);
 }
 
 .content-block + .content-block {
-  margin-top: 28rpx;
+  margin-top: calc(28 * var(--rpx));
 }
 
 /* Figma 81:16/81:35：沉浸阅读的段落浅灰序号。 */
@@ -29,25 +29,25 @@
 
 .content-renderer--numbered .content-block--paragraph {
   position: relative;
-  padding-left: 32rpx;
+  padding-left: calc(32 * var(--rpx));
 }
 
 .content-renderer--numbered .content-block--paragraph::before {
   position: absolute;
-  top: 6rpx;
+  top: calc(6 * var(--rpx));
   left: 0;
   color: var(--figma-color-faint);
   content: counter(content-paragraph);
   counter-increment: content-paragraph;
   font-size: var(--text-micro);
   font-weight: 500;
-  line-height: 30rpx;
+  line-height: calc(30 * var(--rpx));
 }
 
 .content-paragraph {
   display: block;
   color: var(--content-ink);
-  font-size: calc(30rpx * var(--content-font-scale));
+  font-size: calc(calc(30 * var(--rpx)) * var(--content-font-scale));
   /* 行距档位（Figma 81:43）作用于正文段落。 */
   line-height: calc(1.78 * var(--content-line-spacing, 1));
   overflow-wrap: anywhere;
@@ -71,7 +71,7 @@
 
 .content-formula--block {
   justify-content: center;
-  padding: 20rpx 0;
+  padding: calc(20 * var(--rpx)) 0;
 }
 
 .content-formula__image {
@@ -83,11 +83,11 @@
   box-sizing: border-box;
   display: block;
   min-width: min-content;
-  padding: 16rpx 20rpx;
+  padding: calc(16 * var(--rpx)) calc(20 * var(--rpx));
   border-radius: var(--radius-12);
   background: var(--color-primary-a08);
   font-family: var(--font-family-data, monospace);
-  font-size: calc(25rpx * var(--content-font-scale));
+  font-size: calc(calc(25 * var(--rpx)) * var(--content-font-scale));
   line-height: 1.55;
   white-space: nowrap;
 }
@@ -102,7 +102,7 @@
 
 .content-asset {
   overflow: hidden;
-  border: 1rpx solid var(--content-line);
+  border: calc(1 * var(--rpx)) solid var(--content-line);
   border-radius: var(--radius-16);
   background: var(--content-surface);
 }
@@ -116,42 +116,42 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20rpx;
-  padding: 20rpx 24rpx;
+  gap: calc(20 * var(--rpx));
+  padding: calc(20 * var(--rpx)) calc(24 * var(--rpx));
 }
 
 .content-caption {
   flex: 1;
   color: var(--content-muted);
-  font-size: calc(24rpx * var(--content-font-scale));
+  font-size: calc(calc(24 * var(--rpx)) * var(--content-font-scale));
   line-height: 1.55;
 }
 
 .content-graph .content-caption {
-  padding: 20rpx 24rpx 8rpx;
+  padding: calc(20 * var(--rpx)) calc(24 * var(--rpx)) calc(8 * var(--rpx));
 }
 
 .content-source {
-  padding: 0 24rpx 20rpx;
+  padding: 0 calc(24 * var(--rpx)) calc(20 * var(--rpx));
   color: var(--content-muted);
   font-size: var(--text-micro);
 }
 
 .content-graph__ocr {
-  margin: 0 24rpx 20rpx auto;
+  margin: 0 calc(24 * var(--rpx)) calc(20 * var(--rpx)) auto;
 }
 
 .content-link,
 .content-table__zoom-button {
-  min-height: 56rpx;
+  min-height: calc(56 * var(--rpx));
   margin: 0;
-  padding: 0 16rpx;
+  padding: 0 calc(16 * var(--rpx));
   border: 0;
   border-radius: var(--radius-12);
   background: var(--color-primary-a08);
   color: var(--color-primary);
   font-size: var(--text-micro);
-  line-height: 56rpx;
+  line-height: calc(56 * var(--rpx));
 }
 
 .content-link::after,
@@ -160,24 +160,24 @@
 }
 
 .content-table-card {
-  border: 1rpx solid var(--content-line);
+  border: calc(1 * var(--rpx)) solid var(--content-line);
   border-radius: var(--radius-16);
   background: var(--content-surface);
 }
 
 .content-table__header {
   display: flex;
-  min-height: 72rpx;
+  min-height: calc(72 * var(--rpx));
   align-items: center;
   justify-content: space-between;
-  gap: 20rpx;
-  padding: 12rpx 16rpx 12rpx 24rpx;
-  border-bottom: 1rpx solid var(--content-line);
+  gap: calc(20 * var(--rpx));
+  padding: calc(12 * var(--rpx)) calc(16 * var(--rpx)) calc(12 * var(--rpx)) calc(24 * var(--rpx));
+  border-bottom: calc(1 * var(--rpx)) solid var(--content-line);
 }
 
 .content-table__caption {
   flex: 1;
-  font-size: calc(24rpx * var(--content-font-scale));
+  font-size: calc(calc(24 * var(--rpx)) * var(--content-font-scale));
   font-weight: 700;
   line-height: 1.45;
 }
@@ -186,17 +186,17 @@
   display: flex;
   flex: none;
   align-items: center;
-  gap: 8rpx;
+  gap: calc(8 * var(--rpx));
 }
 
 .content-table__zoom-button {
-  width: 56rpx;
+  width: calc(56 * var(--rpx));
   padding: 0;
   font-size: var(--text-body-lg);
 }
 
 .content-table__zoom-value {
-  min-width: 76rpx;
+  min-width: calc(76 * var(--rpx));
   color: var(--content-muted);
   font-family: var(--font-family-data, monospace);
   font-size: var(--text-micro);
@@ -217,11 +217,11 @@
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  padding: 12rpx 16rpx;
-  border-right: 1rpx solid var(--content-line);
-  border-bottom: 1rpx solid var(--content-line);
+  padding: calc(12 * var(--rpx)) calc(16 * var(--rpx));
+  border-right: calc(1 * var(--rpx)) solid var(--content-line);
+  border-bottom: calc(1 * var(--rpx)) solid var(--content-line);
   background: var(--content-surface);
-  font-size: calc(23rpx * var(--content-font-scale));
+  font-size: calc(calc(23 * var(--rpx)) * var(--content-font-scale));
   line-height: 1.4;
   overflow-wrap: anywhere;
 }
@@ -239,14 +239,14 @@
   position: sticky;
   z-index: 3;
   left: var(--content-sticky-left);
-  box-shadow: 8rpx 0 12rpx var(--color-surface-soft);
+  box-shadow: calc(8 * var(--rpx)) 0 calc(12 * var(--rpx)) var(--color-surface-soft);
 }
 
 .content-table__cell--frozen-header {
   position: sticky;
   z-index: 4;
   top: var(--content-sticky-top);
-  box-shadow: 0 8rpx 12rpx var(--color-surface-soft);
+  box-shadow: 0 calc(8 * var(--rpx)) calc(12 * var(--rpx)) var(--color-surface-soft);
 }
 
 .content-table__cell--frozen-column.content-table__cell--frozen-header {

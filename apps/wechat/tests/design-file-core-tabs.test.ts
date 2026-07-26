@@ -3,21 +3,33 @@ import { describe, expect, it } from "vitest";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import ananTemplate from "../miniprogram/pages/anan/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import ananStyles from "../miniprogram/pages/anan/index.wxss?raw";
+import ananStylesRaw from "../miniprogram/pages/anan/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import profileTemplate from "../miniprogram/pages/me/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import profileStyles from "../miniprogram/pages/me/index.wxss?raw";
+import profileStylesRaw from "../miniprogram/pages/me/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import tabBarStyles from "../miniprogram/custom-tab-bar/index.wxss?raw";
+import tabBarStylesRaw from "../miniprogram/custom-tab-bar/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import tabBarTemplate from "../miniprogram/custom-tab-bar/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import componentHostTokens from "../miniprogram/design-system/tokens/component-host.tokens.wxss?raw";
+import componentHostTokensRaw from "../miniprogram/design-system/tokens/component-host.tokens.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import designFileTokens from "../miniprogram/design-system/tokens/design-file.tokens.wxss?raw";
+import designFileTokensRaw from "../miniprogram/design-system/tokens/design-file.tokens.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import semanticTokens from "../miniprogram/design-system/tokens/index.wxss?raw";
+import semanticTokensRaw from "../miniprogram/design-system/tokens/index.wxss?raw";
+
+function normalizeRpxCalc(source: unknown): string {
+  if (typeof source !== "string") throw new Error("Raw mini-program asset must be text.");
+  return source.replace(/calc\((-?\d+(?:\.\d+)?) \* var\(--rpx\)\)/gu, "$1rpx");
+}
+
+const ananStyles = normalizeRpxCalc(ananStylesRaw);
+const profileStyles = normalizeRpxCalc(profileStylesRaw);
+const tabBarStyles = normalizeRpxCalc(tabBarStylesRaw);
+const componentHostTokens = normalizeRpxCalc(componentHostTokensRaw);
+const designFileTokens = normalizeRpxCalc(designFileTokensRaw);
+const semanticTokens = normalizeRpxCalc(semanticTokensRaw);
 
 function countMatches(source: unknown, pattern: RegExp): number {
   if (typeof source !== "string") throw new Error("Raw mini-program asset must be text.");
@@ -60,7 +72,9 @@ describe("Design File core tab composition", () => {
 
   it("reserves the system safe area instead of adding it twice to the tab bar", () => {
     expect(tabBarStyles).toContain('@import "../design-system/tokens/component-host.tokens.wxss"');
-    expect(tabBarStyles).toContain("padding: 26rpx 48rpx max(64rpx, env(safe-area-inset-bottom))");
+    expect(tabBarStyles.replace(/\s+/gu, " ")).toContain(
+      "padding: 26rpx 48rpx max(64rpx, env(safe-area-inset-bottom))",
+    );
     expect(tabBarStyles).not.toContain("calc(64rpx + env(safe-area-inset-bottom))");
     expect(tabBarStyles).toContain("line-height: 30rpx");
     expect(tabBarTemplate).toContain('class="tab-bar component-token-host"');

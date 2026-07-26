@@ -5,8 +5,8 @@
   justify-content: center;
 }
 .capability-state {
-  margin-top: 80rpx;
-  padding: 40rpx;
+  margin-top: calc(80 * var(--rpx));
+  padding: calc(40 * var(--rpx));
 }
 .capability-mark {
   color: var(--color-muted);
@@ -15,17 +15,17 @@
   letter-spacing: 0.12em;
 }
 .capability-title {
-  margin-top: 16rpx;
+  margin-top: calc(16 * var(--rpx));
   font-size: var(--text-title-sm);
   font-weight: 800;
 }
 .capability-copy {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   color: var(--color-muted);
   line-height: 1.7;
 }
 .capability-action {
-  margin-top: 28rpx;
+  margin-top: calc(28 * var(--rpx));
 }
 
 .mock-paper {
@@ -39,13 +39,13 @@
   font-size: var(--text-section);
 }
 .mock-paper--eye-care {
-  margin: -30rpx calc(var(--space-page-x) * -1) 0;
-  padding: 30rpx var(--space-page-x);
+  margin: calc(-30 * var(--rpx)) calc(var(--space-page-x) * -1) 0;
+  padding: calc(30 * var(--rpx)) var(--space-page-x);
   background: var(--good-soft);
 }
 .inline-warning {
-  margin-bottom: 20rpx;
-  padding: 20rpx 24rpx;
+  margin-bottom: calc(20 * var(--rpx));
+  padding: calc(20 * var(--rpx)) calc(24 * var(--rpx));
   border-radius: var(--radius-compact);
   background: var(--color-warning-soft);
   color: var(--color-warning);
@@ -57,8 +57,8 @@
   display: grid;
   grid-template-columns: repeat(3, auto) 1fr;
   align-items: center;
-  gap: 20rpx;
-  padding: 24rpx 24rpx;
+  gap: calc(20 * var(--rpx));
+  padding: calc(24 * var(--rpx)) calc(24 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-micro);
 }
@@ -72,15 +72,15 @@
 }
 
 .material-panel {
-  margin-top: 24rpx;
-  padding: 28rpx;
+  margin-top: calc(24 * var(--rpx));
+  padding: calc(28 * var(--rpx));
 }
 .material-head,
 .draft-head {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 24rpx;
+  gap: calc(24 * var(--rpx));
 }
 .material-eyebrow {
   color: var(--color-muted);
@@ -90,12 +90,12 @@
 }
 .material-title,
 .draft-title {
-  margin-top: 4rpx;
+  margin-top: calc(4 * var(--rpx));
   font-size: var(--text-body-lg);
   font-weight: 800;
 }
 .material-copy {
-  margin-top: 24rpx;
+  margin-top: calc(24 * var(--rpx));
   color: var(--color-ink-secondary);
   font-family: var(--font-family-reading);
   font-size: var(--text-body-lg);
@@ -105,7 +105,7 @@
 }
 
 .question-card {
-  padding: 32rpx 4rpx 24rpx;
+  padding: calc(32 * var(--rpx)) calc(4 * var(--rpx)) calc(24 * var(--rpx));
 }
 .question-meta {
   display: flex;
@@ -118,13 +118,13 @@
   min-width: 0;
   align-items: center;
   overflow: hidden;
-  padding: 8rpx 20rpx;
+  padding: calc(8 * var(--rpx)) calc(20 * var(--rpx));
   border-radius: var(--radius-64);
   background: var(--color-primary-soft);
   color: var(--color-primary-deep);
   font-size: var(--text-micro);
   font-weight: 700;
-  line-height: 33rpx;
+  line-height: calc(33 * var(--rpx));
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -133,7 +133,7 @@
   font-size: var(--text-micro);
 }
 .question-stem {
-  margin-top: 24rpx;
+  margin-top: calc(24 * var(--rpx));
   color: var(--color-ink);
   font-size: inherit;
   font-weight: 600;
@@ -142,7 +142,7 @@
 /* 选项区与行测做题页同源（Figma 2:142–2:166），整卷只在计时/答题卡上有差异。 */
 .option-list {
   display: grid;
-  gap: 24rpx;
+  gap: calc(24 * var(--rpx));
   grid-auto-rows: 1fr;
 }
 .option-list--locked {
@@ -151,18 +151,18 @@
 }
 .option-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 96rpx;
+  grid-template-columns: minmax(0, 1fr) calc(96 * var(--rpx));
   align-items: stretch;
-  gap: 16rpx;
+  gap: calc(16 * var(--rpx));
 }
 .option-card {
   display: grid;
-  grid-template-columns: 48rpx minmax(0, 1fr);
+  grid-template-columns: calc(48 * var(--rpx)) minmax(0, 1fr);
   align-items: center;
-  gap: 24rpx;
+  gap: calc(24 * var(--rpx));
   min-height: 0;
-  padding: 32rpx;
-  border: 1rpx solid var(--figma-color-line);
+  padding: calc(32 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--figma-color-line);
   border-radius: var(--radius-40);
   background: var(--figma-color-surface);
   box-shadow: var(--shadow-crisp);
@@ -180,8 +180,8 @@
 }
 .option-label {
   display: flex;
-  width: 48rpx;
-  height: 48rpx;
+  width: calc(48 * var(--rpx));
+  height: calc(48 * var(--rpx));
   align-items: center;
   justify-content: center;
   border-radius: 50%;
@@ -190,7 +190,7 @@
   font-family: var(--font-family-data);
   font-size: var(--text-body);
   font-weight: 700;
-  line-height: 39rpx;
+  line-height: calc(39 * var(--rpx));
 }
 .option-card--selected .option-label {
   color: var(--color-on-primary);
@@ -201,11 +201,11 @@
   background: var(--figma-color-line-strong);
 }
 .option-copy {
-  padding-top: 4rpx;
+  padding-top: calc(4 * var(--rpx));
   color: var(--color-ink);
   font-size: var(--text-section);
   font-weight: 500;
-  line-height: 48.75rpx;
+  line-height: calc(48.75 * var(--rpx));
   /* 选项两行时均衡断行，消除句尾单字孤行（不支持的内核自动回退）。 */
   --content-text-wrap: balance;
 }
@@ -216,14 +216,14 @@
 }
 .eliminate-action {
   display: flex;
-  width: 96rpx;
-  min-width: 96rpx;
+  width: calc(96 * var(--rpx));
+  min-width: calc(96 * var(--rpx));
   height: auto;
   align-items: center;
   justify-content: center;
   margin: 0;
   padding: 0;
-  border: 1rpx solid var(--figma-color-line);
+  border: calc(1 * var(--rpx)) solid var(--figma-color-line);
   border-radius: var(--radius-40);
   background: var(--figma-color-surface);
   box-shadow: var(--shadow-crisp);
@@ -238,23 +238,23 @@
 }
 .eliminate-action__icon {
   display: block;
-  width: 36rpx;
-  height: 36rpx;
+  width: calc(36 * var(--rpx));
+  height: calc(36 * var(--rpx));
 }
 
 .draft-card {
-  margin-top: 28rpx;
-  padding: 28rpx;
+  margin-top: calc(28 * var(--rpx));
+  padding: calc(28 * var(--rpx));
 }
 .draft-copy {
-  margin-top: 8rpx;
+  margin-top: calc(8 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-micro);
 }
 .mark-button {
   margin: 0;
-  padding: 0 20rpx;
-  border: 1rpx solid var(--color-line);
+  padding: 0 calc(20 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-capsule);
   background: var(--color-surface-soft);
   color: var(--color-muted);
@@ -268,9 +268,9 @@
 .draft-input {
   box-sizing: border-box;
   width: 100%;
-  min-height: 180rpx;
-  margin-top: 24rpx;
-  padding: 24rpx;
+  min-height: calc(180 * var(--rpx));
+  margin-top: calc(24 * var(--rpx));
+  padding: calc(24 * var(--rpx));
   border-radius: var(--radius-compact);
   background: var(--color-surface-soft);
   font-family: var(--font-family-data);
@@ -278,16 +278,16 @@
   line-height: 1.65;
 }
 .help-sheet {
-  padding: 0 0 calc(24rpx + env(safe-area-inset-bottom));
+  padding: 0 0 calc(calc(24 * var(--rpx)) + env(safe-area-inset-bottom));
 }
 
 .draft-input--sheet {
-  min-height: 320rpx;
+  min-height: calc(320 * var(--rpx));
 }
 
 .mock-timer-notice {
-  margin-top: 20rpx;
-  padding: 20rpx 20rpx;
+  margin-top: calc(20 * var(--rpx));
+  padding: calc(20 * var(--rpx)) calc(20 * var(--rpx));
   border-radius: var(--radius-compact);
   color: var(--color-muted);
   background: var(--color-surface-soft);
@@ -297,23 +297,23 @@
 
 .draft-sheet-action {
   width: 100%;
-  margin-top: 24rpx;
+  margin-top: calc(24 * var(--rpx));
 }
 .sheet-grid {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  gap: 12rpx;
-  padding-bottom: 40rpx;
+  gap: calc(12 * var(--rpx));
+  padding-bottom: calc(40 * var(--rpx));
 }
 .sheet-item {
   display: flex;
   align-items: center;
   justify-content: center;
   min-width: 0;
-  height: 66rpx;
+  height: calc(66 * var(--rpx));
   margin: 0;
   padding: 0;
-  border: 1rpx solid var(--color-line);
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-12);
   background: var(--color-surface-soft);
   color: var(--color-muted);
@@ -332,19 +332,19 @@
 }
 .sheet-item--active {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3rpx var(--color-primary-a16);
+  box-shadow: 0 0 0 calc(3 * var(--rpx)) var(--color-primary-a16);
 }
 
 .display-tools {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16rpx;
-  margin-top: 28rpx;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(28 * var(--rpx));
 }
 .tool-chip,
 .tool-row {
   margin: 0;
-  border: 1rpx solid var(--color-line);
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-compact);
   background: var(--color-surface-soft);
   color: var(--color-ink-secondary);
@@ -356,7 +356,7 @@
   color: var(--color-primary-deep);
 }
 .tool-row {
-  margin-top: 16rpx;
+  margin-top: calc(16 * var(--rpx));
   text-align: left;
 }
 .tool-row--submit {
@@ -365,8 +365,8 @@
   color: var(--color-danger);
 }
 .help-result {
-  margin: 0 32rpx 28rpx;
-  padding: 20rpx;
+  margin: 0 calc(32 * var(--rpx)) calc(28 * var(--rpx));
+  padding: calc(20 * var(--rpx));
   border-radius: var(--radius-compact);
   background: var(--color-primary-soft);
   color: var(--color-muted);
@@ -381,25 +381,25 @@
 .dispute-categories {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12rpx;
-  margin-top: 24rpx;
+  gap: calc(12 * var(--rpx));
+  margin-top: calc(24 * var(--rpx));
 }
 .dispute-description {
   box-sizing: border-box;
   width: 100%;
-  min-height: 220rpx;
-  margin-top: 20rpx;
-  padding: 24rpx;
+  min-height: calc(220 * var(--rpx));
+  margin-top: calc(20 * var(--rpx));
+  padding: calc(24 * var(--rpx));
   border-radius: var(--radius-compact);
   background: var(--color-surface-soft);
   font-size: var(--text-caption);
   line-height: 1.65;
 }
 .dispute-body .help-result {
-  margin: 20rpx 0;
+  margin: calc(20 * var(--rpx)) 0;
 }
 .dispute-body .primary-button {
-  margin-top: 20rpx;
+  margin-top: calc(20 * var(--rpx));
 }
 
 .footer-actions,
@@ -409,12 +409,12 @@
 .footer-actions {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
-  gap: 16rpx;
+  gap: calc(16 * var(--rpx));
 }
 .footer-previous {
   box-sizing: border-box;
   width: 100%;
-  min-height: 88rpx;
+  min-height: calc(88 * var(--rpx));
   margin: 0;
   border: 0;
   border-radius: var(--radius-32);
@@ -422,7 +422,7 @@
   color: var(--color-ink-secondary);
   font-size: var(--text-body);
   font-weight: 700;
-  line-height: 88rpx;
+  line-height: calc(88 * var(--rpx));
 }
 .footer-previous::after {
   border: 0;
@@ -431,12 +431,12 @@
   opacity: 0.38;
 }
 .submitted-workspace {
-  padding: 20rpx 0 64rpx;
+  padding: calc(20 * var(--rpx)) 0 calc(64 * var(--rpx));
 }
 .submitted-hero {
-  padding: 48rpx 40rpx;
+  padding: calc(48 * var(--rpx)) calc(40 * var(--rpx));
   border-radius: var(--radius-hero);
-  border: 1rpx solid var(--primary-soft);
+  border: calc(1 * var(--rpx)) solid var(--primary-soft);
   background:
     radial-gradient(circle at 84% 8%, rgba(199, 210, 254, 0.5), transparent 30%),
     var(--color-surface);
@@ -451,7 +451,7 @@
   letter-spacing: 0.12em;
 }
 .submitted-score {
-  margin-top: 20rpx;
+  margin-top: calc(20 * var(--rpx));
   font-size: var(--text-body-lg);
 }
 .submitted-score__value {
@@ -460,7 +460,7 @@
   font-weight: 800;
 }
 .submitted-source {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   font-size: var(--text-micro);
   line-height: 1.5;
   color: var(--ink-2);
@@ -468,15 +468,15 @@
 .submitted-note,
 .module-result,
 .next-week {
-  margin-top: 20rpx;
-  padding: 28rpx;
+  margin-top: calc(20 * var(--rpx));
+  padding: calc(28 * var(--rpx));
 }
 .submitted-note-title {
   font-size: var(--text-body-lg);
   font-weight: 800;
 }
 .submitted-note-copy {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-micro);
   line-height: 1.65;
@@ -494,7 +494,7 @@
   line-height: 1.7;
 }
 .submitted-workspace > .primary-button {
-  margin-top: 24rpx;
+  margin-top: calc(24 * var(--rpx));
 }
 
 @media (min-width: 768px) {
@@ -631,17 +631,18 @@
   bottom: 0;
   left: 0;
   box-sizing: border-box;
-  padding: 20rpx 40rpx calc(56rpx + env(safe-area-inset-bottom));
+  padding: calc(20 * var(--rpx)) calc(40 * var(--rpx))
+    calc(calc(56 * var(--rpx)) + env(safe-area-inset-bottom));
   border-radius: var(--radius-48) var(--radius-48) 0 0;
   background: var(--figma-color-surface);
   box-shadow: var(--shadow-overlay);
 }
 
 .mock-submit__grabber {
-  width: 96rpx;
-  height: 8rpx;
+  width: calc(96 * var(--rpx));
+  height: calc(8 * var(--rpx));
   margin: 0 auto;
-  border-radius: 4rpx;
+  border-radius: calc(4 * var(--rpx));
   background: var(--figma-color-line-emphasis);
 }
 
@@ -649,7 +650,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 24rpx;
+  margin-top: calc(24 * var(--rpx));
 }
 
 /* Figma 98:176 */
@@ -657,34 +658,34 @@
   color: var(--ink);
   font-size: var(--text-title);
   font-weight: 700;
-  line-height: 60rpx;
+  line-height: calc(60 * var(--rpx));
 }
 
 /* Figma 98:177 */
 .mock-submit__time {
-  padding: 12rpx 24rpx;
+  padding: calc(12 * var(--rpx)) calc(24 * var(--rpx));
   border-radius: var(--radius-32);
   color: var(--ink-2);
   background: var(--bg);
   font-size: var(--text-micro);
   font-weight: 600;
-  line-height: 36rpx;
+  line-height: calc(36 * var(--rpx));
 }
 
 /* Figma 98:179：琥珀警示条。 */
 .mock-submit__warning {
   display: flex;
-  min-height: 116rpx;
+  min-height: calc(116 * var(--rpx));
   align-items: center;
-  gap: 24rpx;
-  margin-top: 24rpx;
-  padding: 0 32rpx;
+  gap: calc(24 * var(--rpx));
+  margin-top: calc(24 * var(--rpx));
+  padding: 0 calc(32 * var(--rpx));
   border-radius: var(--radius-32);
   color: var(--ink);
   background: var(--color-warning-soft);
   font-size: var(--text-body);
   font-weight: 600;
-  line-height: 40rpx;
+  line-height: calc(40 * var(--rpx));
 }
 
 .mock-submit__warning--ready {
@@ -692,8 +693,8 @@
 }
 
 .mock-submit__warning-dot {
-  width: 16rpx;
-  height: 16rpx;
+  width: calc(16 * var(--rpx));
+  height: calc(16 * var(--rpx));
   flex: none;
   border-radius: 50%;
   background: var(--figma-color-warning);
@@ -707,19 +708,19 @@
 .mock-submit__stats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16rpx;
-  margin-top: 24rpx;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(24 * var(--rpx));
 }
 
 .mock-submit__stat {
   box-sizing: border-box;
   display: flex;
-  height: 136rpx;
+  height: calc(136 * var(--rpx));
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2rpx;
-  border: 1rpx solid var(--color-line-strong);
+  gap: calc(2 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line-strong);
   border-radius: var(--radius-32);
   background: var(--bg);
 }
@@ -734,7 +735,7 @@
   font-family: var(--font-family-data);
   font-size: var(--text-title);
   font-weight: 700;
-  line-height: 60rpx;
+  line-height: calc(60 * var(--rpx));
 }
 
 .mock-submit__stat-value--warning {
@@ -745,39 +746,39 @@
   color: var(--ink-2);
   font-size: var(--text-micro);
   font-weight: 500;
-  line-height: 40rpx;
+  line-height: calc(40 * var(--rpx));
 }
 
 /* Figma 98:191 */
 .mock-submit__missing-title {
-  margin-top: 28rpx;
+  margin-top: calc(28 * var(--rpx));
   color: var(--ink-2);
   font-size: var(--text-caption);
   font-weight: 600;
-  line-height: 44rpx;
+  line-height: calc(44 * var(--rpx));
 }
 
 /* Figma 98:192：36px 圆形题号，可点回去检查。 */
 .mock-submit__missing {
   display: flex;
   flex-wrap: wrap;
-  gap: 20rpx;
-  max-height: 200rpx;
-  margin-top: 12rpx;
+  gap: calc(20 * var(--rpx));
+  max-height: calc(200 * var(--rpx));
+  margin-top: calc(12 * var(--rpx));
   overflow-y: auto;
 }
 
 .mock-submit__missing-item {
   box-sizing: border-box;
   display: flex;
-  width: 72rpx;
-  min-width: 72rpx;
-  height: 72rpx;
+  width: calc(72 * var(--rpx));
+  min-width: calc(72 * var(--rpx));
+  height: calc(72 * var(--rpx));
   align-items: center;
   justify-content: center;
   margin: 0;
   padding: 0;
-  border: 1rpx solid var(--color-line-strong);
+  border: calc(1 * var(--rpx)) solid var(--color-line-strong);
   border-radius: 50%;
   color: var(--ink);
   background: var(--figma-color-surface);
@@ -790,15 +791,15 @@
 .mock-submit__actions {
   display: grid;
   grid-template-columns: 132fr 206fr;
-  gap: 24rpx;
-  margin-top: 32rpx;
+  gap: calc(24 * var(--rpx));
+  margin-top: calc(32 * var(--rpx));
 }
 
 .mock-submit__back,
 .mock-submit__confirm {
   box-sizing: border-box;
   display: flex;
-  height: 104rpx;
+  height: calc(104 * var(--rpx));
   align-items: center;
   justify-content: center;
   margin: 0;
@@ -810,7 +811,7 @@
 }
 
 .mock-submit__back {
-  border: 1rpx solid var(--color-line-strong);
+  border: calc(1 * var(--rpx)) solid var(--color-line-strong);
   color: var(--ink);
   background: var(--bg);
 }

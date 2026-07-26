@@ -13,7 +13,7 @@
   z-index: 99;
   display: grid;
   align-items: center;
-  border-bottom: 1rpx solid var(--figma-color-line);
+  border-bottom: calc(1 * var(--rpx)) solid var(--figma-color-line);
   background: var(--figma-color-canvas);
 }
 
@@ -22,23 +22,23 @@
   box-sizing: border-box;
   display: flex;
   grid-column: 1;
-  width: 64rpx;
-  height: 64rpx;
+  width: calc(64 * var(--rpx));
+  height: calc(64 * var(--rpx));
   align-items: center;
   justify-content: center;
   justify-self: start;
-  margin-left: 16rpx;
-  border: 1rpx solid var(--figma-color-line);
+  margin-left: calc(16 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--figma-color-line);
   border-radius: 50%;
   background: var(--figma-color-surface-subtle);
 }
 
 .workbench-nav__back-icon {
-  width: 16rpx;
-  height: 16rpx;
-  transform: translateX(3rpx) rotate(45deg);
-  border-bottom: 3rpx solid var(--figma-color-ink);
-  border-left: 3rpx solid var(--figma-color-ink);
+  width: calc(16 * var(--rpx));
+  height: calc(16 * var(--rpx));
+  transform: translateX(calc(3 * var(--rpx))) rotate(45deg);
+  border-bottom: calc(3 * var(--rpx)) solid var(--figma-color-ink);
+  border-left: calc(3 * var(--rpx)) solid var(--figma-color-ink);
 }
 
 .workbench-nav__title {

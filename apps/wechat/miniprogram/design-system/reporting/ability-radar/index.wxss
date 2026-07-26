@@ -1,6 +1,6 @@
 .ability-radar {
   width: 100%;
-  height: 430rpx;
+  height: calc(430 * var(--rpx));
 }
 
 .ability-radar__canvas {

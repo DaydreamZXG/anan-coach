@@ -3,7 +3,14 @@ import { describe, expect, it } from "vitest";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import template from "../miniprogram/pages/login/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import styles from "../miniprogram/pages/login/index.wxss?raw";
+import stylesRaw from "../miniprogram/pages/login/index.wxss?raw";
+
+function normalizeRpxCalc(source: unknown): string {
+  if (typeof source !== "string") throw new Error("Raw mini-program asset must be text.");
+  return source.replace(/calc\((-?\d+(?:\.\d+)?) \* var\(--rpx\)\)/gu, "$1rpx");
+}
+
+const styles = normalizeRpxCalc(stylesRaw);
 
 describe("stage 9 login composition", () => {
   it("renders the approved quiet AI coach identity and a single clear login action", () => {

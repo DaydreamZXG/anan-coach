@@ -4,18 +4,18 @@
   color: var(--color-muted);
   font-size: var(--text-micro);
   font-weight: 700;
-  letter-spacing: 2rpx;
+  letter-spacing: calc(2 * var(--rpx));
 }
 
 .page-title {
-  margin-top: 8rpx;
+  margin-top: calc(8 * var(--rpx));
   font-size: var(--text-title-lg);
   font-weight: 800;
-  letter-spacing: -1rpx;
+  letter-spacing: calc(-1 * var(--rpx));
 }
 
 .page-subtitle {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-body);
   line-height: 1.6;
@@ -25,7 +25,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  margin: var(--space-section) 4rpx 18rpx;
+  margin: var(--space-section) calc(4 * var(--rpx)) calc(18 * var(--rpx));
 }
 
 .section-title {
@@ -48,14 +48,14 @@
 }
 
 .card + .card {
-  margin-top: 20rpx;
+  margin-top: calc(20 * var(--rpx));
 }
 
 .row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20rpx;
+  gap: calc(20 * var(--rpx));
 }
 
 .muted {
@@ -71,8 +71,8 @@
 .pill {
   display: inline-flex;
   align-items: center;
-  min-height: 44rpx;
-  padding: 0 20rpx;
+  min-height: calc(44 * var(--rpx));
+  padding: 0 calc(20 * var(--rpx));
   border-radius: var(--radius-capsule);
   background: var(--color-surface-soft);
   color: var(--color-ink-secondary);
@@ -93,11 +93,11 @@
 button.primary-button,
 button.secondary-button {
   box-sizing: border-box;
-  min-height: 88rpx;
-  padding: 0 32rpx;
+  min-height: calc(88 * var(--rpx));
+  padding: 0 calc(32 * var(--rpx));
   font-size: var(--text-body-lg);
   font-weight: 700;
-  line-height: 88rpx;
+  line-height: calc(88 * var(--rpx));
 }
 
 button.primary-button {
@@ -109,13 +109,13 @@ button.primary-button {
 
 button.secondary-button {
   border-radius: var(--radius-control);
-  border: 1rpx solid var(--color-line-strong);
+  border: calc(1 * var(--rpx)) solid var(--color-line-strong);
   background: var(--color-surface-glass);
   color: var(--color-ink);
 }
 
 .skeleton {
-  height: 168rpx;
+  height: calc(168 * var(--rpx));
   border-radius: var(--radius-card);
   background: var(--gradient-skeleton);
   background-size: 400% 100%;
@@ -123,7 +123,7 @@ button.secondary-button {
 }
 
 .state-card {
-  padding: 48rpx 32rpx;
+  padding: calc(48 * var(--rpx)) calc(32 * var(--rpx));
   text-align: center;
 }
 
@@ -133,7 +133,7 @@ button.secondary-button {
 }
 
 .state-copy {
-  margin: 16rpx auto 28rpx;
+  margin: calc(16 * var(--rpx)) auto calc(28 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-caption);
   line-height: 1.6;
@@ -206,7 +206,7 @@ button.secondary-button {
 @keyframes motion-sheet-in {
   from {
     opacity: 0;
-    transform: translateY(36rpx);
+    transform: translateY(calc(36 * var(--rpx)));
   }
   to {
     opacity: 1;
@@ -217,7 +217,7 @@ button.secondary-button {
 @keyframes fade-slide-in {
   from {
     opacity: 0;
-    transform: translateY(20rpx);
+    transform: translateY(calc(20 * var(--rpx)));
   }
   to {
     opacity: 1;

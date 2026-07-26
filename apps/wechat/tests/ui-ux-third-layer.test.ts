@@ -5,7 +5,7 @@ import sheetLogic from "../miniprogram/design-system/primitives/ui-sheet/index.t
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import sheetTemplate from "../miniprogram/design-system/primitives/ui-sheet/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import sheetStyles from "../miniprogram/design-system/primitives/ui-sheet/index.wxss?raw";
+import sheetStylesRaw from "../miniprogram/design-system/primitives/ui-sheet/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import abilityTemplate from "../miniprogram/pages/ability/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
@@ -24,6 +24,13 @@ import privateKnowledgeTemplate from "../miniprogram/pages/private-knowledge/ind
 import privateKnowledgeDetailTemplate from "../miniprogram/pages/private-knowledge/detail/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import todayTemplate from "../miniprogram/pages/today/index.wxml?raw";
+
+function normalizeRpxCalc(source: unknown): string {
+  if (typeof source !== "string") throw new Error("Raw mini-program asset must be text.");
+  return source.replace(/calc\((-?\d+(?:\.\d+)?) \* var\(--rpx\)\)/gu, "$1rpx");
+}
+
+const sheetStyles = normalizeRpxCalc(sheetStylesRaw);
 
 describe("third-layer UI and UX contracts", () => {
   it("keeps ui-sheet mounted through its exit transition", () => {

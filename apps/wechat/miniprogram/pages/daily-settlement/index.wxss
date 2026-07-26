@@ -56,17 +56,17 @@
   display: flex;
   align-items: center;
   gap: var(--figma-space-8);
-  margin-bottom: 20rpx;
+  margin-bottom: calc(20 * var(--rpx));
   padding-left: var(--figma-space-4);
   font-size: var(--text-section);
   font-weight: 700;
-  letter-spacing: -0.5rpx;
+  letter-spacing: calc(-0.5 * var(--rpx));
 }
 
 .section-heading__mark {
   display: flex;
-  width: 36rpx;
-  height: 36rpx;
+  width: calc(36 * var(--rpx));
+  height: calc(36 * var(--rpx));
   align-items: center;
   justify-content: center;
   color: var(--color-ink);
@@ -100,7 +100,7 @@
 }
 
 .risk-card {
-  border: 1rpx solid var(--figma-color-warning-soft);
+  border: calc(1 * var(--rpx)) solid var(--figma-color-warning-soft);
 }
 
 .risk-item {
@@ -113,7 +113,7 @@
 .risk-item + .risk-item {
   margin-top: var(--figma-space-10);
   padding-top: var(--figma-space-10);
-  border-top: 1rpx solid var(--color-line);
+  border-top: calc(1 * var(--rpx)) solid var(--color-line);
 }
 
 .unfinished-meta {
@@ -139,7 +139,7 @@
 }
 
 .tomorrow-card {
-  border: 1rpx solid var(--color-primary-soft-strong);
+  border: calc(1 * var(--rpx)) solid var(--color-primary-soft-strong);
   background: var(--color-primary-soft);
 }
 
@@ -148,7 +148,7 @@ button.tomorrow-card__action {
   width: auto;
   align-items: center;
   justify-content: center;
-  min-height: 68rpx;
+  min-height: calc(68 * var(--rpx));
   margin: var(--figma-space-16) 0 0;
   padding: 0 var(--figma-space-16);
   border: 0;
@@ -157,7 +157,7 @@ button.tomorrow-card__action {
   color: var(--color-primary-deep);
   font-size: var(--text-caption);
   font-weight: 700;
-  line-height: 68rpx;
+  line-height: calc(68 * var(--rpx));
 }
 
 button.settlement-primary {
@@ -166,13 +166,13 @@ button.settlement-primary {
 
 button.settlement-companion {
   width: 100%;
-  min-height: 60rpx;
-  margin: 12rpx 0 0;
+  min-height: calc(60 * var(--rpx));
+  margin: calc(12 * var(--rpx)) 0 0;
   border: 0;
   background: none;
   color: var(--color-primary);
   font-size: var(--text-body);
   font-weight: 700;
-  line-height: 60rpx;
+  line-height: calc(60 * var(--rpx));
   text-align: center;
 }

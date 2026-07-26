@@ -4,12 +4,12 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 16rpx;
+  gap: calc(16 * var(--rpx));
 }
 
 .state-badge {
   flex: none;
-  padding: 8rpx 12rpx;
+  padding: calc(8 * var(--rpx)) calc(12 * var(--rpx));
   border-radius: var(--figma-radius-pill);
   background: var(--color-surface-soft);
   color: var(--color-ink-secondary);
@@ -20,9 +20,9 @@
 .version-row {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 16rpx;
-  margin-top: 16rpx;
-  padding: 20rpx;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(16 * var(--rpx));
+  padding: calc(20 * var(--rpx));
   border-radius: var(--radius-16);
   background: var(--color-surface-soft);
 }
@@ -46,9 +46,9 @@
 }
 
 .award-card {
-  margin-top: 16rpx;
-  padding: 20rpx;
-  border: 1rpx solid rgba(22, 131, 99, 0.14);
+  margin-top: calc(16 * var(--rpx));
+  padding: calc(20 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid rgba(22, 131, 99, 0.14);
   border-radius: var(--radius-24);
   background: var(--color-success-soft);
 }
@@ -56,15 +56,15 @@
 .balance-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12rpx;
-  margin-top: 20rpx;
+  gap: calc(12 * var(--rpx));
+  margin-top: calc(20 * var(--rpx));
 }
 
 .balance-item {
   display: flex;
   flex-direction: column;
-  gap: 8rpx;
-  padding: 16rpx;
+  gap: calc(8 * var(--rpx));
+  padding: calc(16 * var(--rpx));
   border-radius: var(--radius-16);
   background: rgba(255, 255, 255, 0.72);
 }
@@ -83,9 +83,9 @@
 .ledger-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 16rpx;
-  margin-top: 16rpx;
-  padding: 20rpx;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(16 * var(--rpx));
+  padding: calc(20 * var(--rpx));
   border-radius: var(--radius-16);
   background: var(--color-surface-soft);
 }
@@ -93,7 +93,7 @@
 .ledger-balance {
   display: flex;
   flex-direction: column;
-  gap: 8rpx;
+  gap: calc(8 * var(--rpx));
   align-self: center;
   color: var(--color-muted);
   font-family: var(--font-family-data);

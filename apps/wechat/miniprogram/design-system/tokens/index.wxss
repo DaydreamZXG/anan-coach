@@ -8,6 +8,13 @@
  * page code does not duplicate raw values.
  */
 page {
+  /*
+   * 全仓尺寸缩放开关：手机 1rpx（随屏等比），平板在 responsive 层切 0.5px
+   * （手机等效物理尺寸），根治大屏 rpx 放大。运行时尺寸一律写
+   * calc(N * var(--rpx))。
+   */
+  --rpx: 1rpx;
+
   --color-canvas: var(--figma-color-canvas);
   --color-surface: var(--figma-color-surface);
   --color-surface-glass: var(--figma-color-surface);
@@ -76,17 +83,17 @@ page {
 
   --shadow-card: var(--figma-shadow-card);
   --shadow-card-strong: var(--figma-shadow-card-strong);
-  --shadow-primary: 0 14rpx 36rpx rgba(17, 24, 39, 0.16);
-  --shadow-ai: 0 18rpx 48rpx rgba(173, 70, 255, 0.2);
-  --shadow-toolbar: 0 8rpx 30rpx rgba(17, 24, 39, 0.025);
-  --shadow-toolbar-action: 0 8rpx 20rpx rgba(124, 58, 237, 0.2);
-  --shadow-dock: 0 -12rpx 36rpx rgba(17, 24, 39, 0.04);
-  --shadow-dock-strong: 0 -20rpx 80rpx rgba(17, 24, 39, 0.12);
-  --shadow-reader: 0 -18rpx 60rpx rgba(21, 27, 62, 0.16);
-  --shadow-overlay: 0 -20rpx 70rpx rgba(17, 20, 38, 0.22);
-  --shadow-primary-soft: 0 12rpx 30rpx rgba(0, 146, 184, 0.18);
-  --shadow-community: 0 12rpx 34rpx rgba(45, 52, 94, 0.06);
-  --shadow-brain-card: 0 9rpx 34rpx rgba(17, 24, 39, 0.034);
+  --shadow-primary: 0 calc(14 * var(--rpx)) calc(36 * var(--rpx)) rgba(17, 24, 39, 0.16);
+  --shadow-ai: 0 calc(18 * var(--rpx)) calc(48 * var(--rpx)) rgba(173, 70, 255, 0.2);
+  --shadow-toolbar: 0 calc(8 * var(--rpx)) calc(30 * var(--rpx)) rgba(17, 24, 39, 0.025);
+  --shadow-toolbar-action: 0 calc(8 * var(--rpx)) calc(20 * var(--rpx)) rgba(124, 58, 237, 0.2);
+  --shadow-dock: 0 calc(-12 * var(--rpx)) calc(36 * var(--rpx)) rgba(17, 24, 39, 0.04);
+  --shadow-dock-strong: 0 calc(-20 * var(--rpx)) calc(80 * var(--rpx)) rgba(17, 24, 39, 0.12);
+  --shadow-reader: 0 calc(-18 * var(--rpx)) calc(60 * var(--rpx)) rgba(21, 27, 62, 0.16);
+  --shadow-overlay: 0 calc(-20 * var(--rpx)) calc(70 * var(--rpx)) rgba(17, 20, 38, 0.22);
+  --shadow-primary-soft: 0 calc(12 * var(--rpx)) calc(30 * var(--rpx)) rgba(0, 146, 184, 0.18);
+  --shadow-community: 0 calc(12 * var(--rpx)) calc(34 * var(--rpx)) rgba(45, 52, 94, 0.06);
+  --shadow-brain-card: 0 calc(9 * var(--rpx)) calc(34 * var(--rpx)) rgba(17, 24, 39, 0.034);
   --shadow-workbench-wide: 0 10px 32px rgba(190, 120, 60, 0.08);
 
   --radius-hero: var(--figma-radius-card-large);
@@ -109,44 +116,44 @@ page {
    * 16-21rpx literals were retired for readability; --text-tab is reserved
    * for the custom tab bar label only.
    */
-  --text-tab: 20rpx;
-  --text-micro: 22rpx;
-  --text-caption: 24rpx;
-  --text-body: 26rpx;
-  --text-body-lg: 28rpx;
-  --text-section: 32rpx;
-  --text-title-sm: 36rpx;
-  --text-title: 40rpx;
-  --text-title-lg: 48rpx;
-  --text-hero: 56rpx;
-  --text-stat: 64rpx;
-  --text-display: 72rpx;
-  --text-stat-lg: 80rpx;
+  --text-tab: calc(20 * var(--rpx));
+  --text-micro: calc(22 * var(--rpx));
+  --text-caption: calc(24 * var(--rpx));
+  --text-body: calc(26 * var(--rpx));
+  --text-body-lg: calc(28 * var(--rpx));
+  --text-section: calc(32 * var(--rpx));
+  --text-title-sm: calc(36 * var(--rpx));
+  --text-title: calc(40 * var(--rpx));
+  --text-title-lg: calc(48 * var(--rpx));
+  --text-hero: calc(56 * var(--rpx));
+  --text-stat: calc(64 * var(--rpx));
+  --text-display: calc(72 * var(--rpx));
+  --text-stat-lg: calc(80 * var(--rpx));
 
   /*
    * Locked radius scale (2026-07-26).
    * Hairline rounding (<= 4rpx), 0, 50% and inherit stay literal.
    */
-  --radius-8: 8rpx;
-  --radius-12: 12rpx;
-  --radius-16: 16rpx;
-  --radius-24: 24rpx;
-  --radius-32: 32rpx;
-  --radius-40: 40rpx;
-  --radius-48: 48rpx;
-  --radius-64: 64rpx;
-  --radius-capsule: 9999rpx;
+  --radius-8: calc(8 * var(--rpx));
+  --radius-12: calc(12 * var(--rpx));
+  --radius-16: calc(16 * var(--rpx));
+  --radius-24: calc(24 * var(--rpx));
+  --radius-32: calc(32 * var(--rpx));
+  --radius-40: calc(40 * var(--rpx));
+  --radius-48: calc(48 * var(--rpx));
+  --radius-64: calc(64 * var(--rpx));
+  --radius-capsule: calc(9999 * var(--rpx));
 
   /*
    * Locked shadow set (2026-07-26). One-off decorative glows resolve here;
    * hierarchy comes from spacing, type and tone, not stacked glows.
    */
-  --shadow-soft: 0 8rpx 20rpx rgba(0, 0, 0, 0.02);
-  --shadow-crisp: 0 2rpx 6rpx rgba(16, 24, 40, 0.08);
+  --shadow-soft: 0 calc(8 * var(--rpx)) calc(20 * var(--rpx)) rgba(0, 0, 0, 0.02);
+  --shadow-crisp: 0 calc(2 * var(--rpx)) calc(6 * var(--rpx)) rgba(16, 24, 40, 0.08);
   --shadow-elevated: var(--figma-shadow-elevated);
-  --shadow-cyan: 0 8rpx 30rpx rgba(6, 182, 212, 0.28);
-  --shadow-well: inset 0 4rpx 18rpx rgba(16, 24, 40, 0.02);
-  --shadow-spotlight-mask: 0 0 0 9999rpx rgba(0, 0, 0, 0.56);
+  --shadow-cyan: 0 calc(8 * var(--rpx)) calc(30 * var(--rpx)) rgba(6, 182, 212, 0.28);
+  --shadow-well: inset 0 calc(4 * var(--rpx)) calc(18 * var(--rpx)) rgba(16, 24, 40, 0.02);
+  --shadow-spotlight-mask: 0 0 0 calc(9999 * var(--rpx)) rgba(0, 0, 0, 0.56);
   --font-family-ui: var(--figma-font-family);
   --font-family-reading: var(--figma-font-family);
   --font-family-data:

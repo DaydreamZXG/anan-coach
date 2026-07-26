@@ -11,23 +11,23 @@
 
 .login-orb {
   position: absolute;
-  width: 700rpx;
-  height: 700rpx;
+  width: calc(700 * var(--rpx));
+  height: calc(700 * var(--rpx));
   border-radius: 50%;
-  filter: blur(128rpx);
+  filter: blur(calc(128 * var(--rpx)));
   opacity: 0.6;
   pointer-events: none;
 }
 
 .login-orb--top {
-  top: -169rpx;
-  right: -156rpx;
+  top: calc(-169 * var(--rpx));
+  right: calc(-156 * var(--rpx));
   background: var(--figma-gradient-login-halo-top);
 }
 
 .login-orb--bottom {
-  bottom: -169rpx;
-  left: -156rpx;
+  bottom: calc(-169 * var(--rpx));
+  left: calc(-156 * var(--rpx));
   background: var(--figma-gradient-login-halo-bottom);
 }
 
@@ -37,13 +37,13 @@
   box-sizing: border-box;
   display: flex;
   width: 100%;
-  max-width: 780rpx;
+  max-width: calc(780 * var(--rpx));
   min-height: 0;
   flex: 1;
   flex-direction: column;
   justify-content: center;
   margin: 0 auto;
-  padding: 0 64rpx env(safe-area-inset-bottom);
+  padding: 0 calc(64 * var(--rpx)) env(safe-area-inset-bottom);
 }
 
 .login-lockup {
@@ -56,11 +56,11 @@
 .brain-logo-shell {
   position: relative;
   display: flex;
-  width: 192rpx;
-  height: 192rpx;
+  width: calc(192 * var(--rpx));
+  height: calc(192 * var(--rpx));
   align-items: center;
   justify-content: center;
-  margin-bottom: 64rpx;
+  margin-bottom: calc(64 * var(--rpx));
   overflow: hidden;
   border-radius: var(--radius-64);
   background: var(--figma-color-surface);
@@ -70,8 +70,8 @@
 .brain-logo {
   position: relative;
   z-index: 1;
-  width: 96rpx;
-  height: 96rpx;
+  width: calc(96 * var(--rpx));
+  height: calc(96 * var(--rpx));
 }
 
 .brain-logo-tint {
@@ -85,34 +85,34 @@
   color: var(--figma-color-ink);
   font-size: var(--text-display);
   font-weight: 700;
-  letter-spacing: -1.8rpx;
-  line-height: 80rpx;
+  letter-spacing: calc(-1.8 * var(--rpx));
+  line-height: calc(80 * var(--rpx));
 }
 
 .login-subtitle {
   display: flex;
   flex-direction: column;
-  margin-top: 24rpx;
+  margin-top: calc(24 * var(--rpx));
   color: var(--figma-color-muted);
   font-size: var(--text-section);
   font-weight: 500;
-  line-height: 48.75rpx;
+  line-height: calc(48.75 * var(--rpx));
 }
 
 .login-actions {
   width: 100%;
-  margin-top: 96rpx;
+  margin-top: calc(96 * var(--rpx));
 }
 
 .wechat-button {
   box-sizing: border-box;
   display: flex;
   width: 100% !important;
-  min-height: 112rpx;
+  min-height: calc(112 * var(--rpx));
   align-items: center;
   justify-content: center;
   margin: 0;
-  padding: 0 40rpx;
+  padding: 0 calc(40 * var(--rpx));
   border: 0;
   border-radius: var(--radius-40);
   background: var(--figma-color-ink);
@@ -120,7 +120,7 @@
   box-shadow: var(--shadow-elevated);
   font-size: var(--text-section);
   font-weight: 600;
-  line-height: 112rpx;
+  line-height: calc(112 * var(--rpx));
 }
 
 .wechat-button::after {
@@ -136,20 +136,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16rpx;
+  gap: calc(16 * var(--rpx));
 }
 
 .arrow-icon {
-  width: 36rpx;
-  height: 36rpx;
+  width: calc(36 * var(--rpx));
+  height: calc(36 * var(--rpx));
 }
 
 .legal {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16rpx;
-  margin-top: 48rpx;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(48 * var(--rpx));
   color: var(--figma-color-faint);
   font-size: var(--text-caption);
   line-height: 1.5;
@@ -157,14 +157,14 @@
 }
 
 .legal-check {
-  width: 28rpx;
-  height: 28rpx;
+  width: calc(28 * var(--rpx));
+  height: calc(28 * var(--rpx));
 }
 
 .error-message {
-  margin-bottom: 20rpx;
-  padding: 20rpx 24rpx;
-  border: 1rpx solid rgba(220, 76, 100, 0.14);
+  margin-bottom: calc(20 * var(--rpx));
+  padding: calc(20 * var(--rpx)) calc(24 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid rgba(220, 76, 100, 0.14);
   border-radius: var(--radius-24);
   background: var(--color-danger-soft);
   color: var(--color-danger);

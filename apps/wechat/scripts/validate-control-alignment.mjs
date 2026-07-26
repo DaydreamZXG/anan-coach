@@ -12,7 +12,7 @@ const failures = [];
 let fixedHeightFlatControls = 0;
 
 for (const file of templateFiles) {
-  const source = await readFile(file, "utf8");
+  const source = normalizeRpxCalc(await readFile(file, "utf8"));
   for (const button of pairedButtonTags(source)) {
     if (isStructuredContent(button.body)) continue;
     const classValue = attributeValue(button.startTag, "class");
@@ -60,7 +60,7 @@ async function collectFiles(directory, extension) {
 async function readClassDeclarations(files) {
   const index = new Map();
   for (const file of files) {
-    const root = postcss.parse(await readFile(file, "utf8"), { from: file });
+    const root = postcss.parse(normalizeRpxCalc(await readFile(file, "utf8")), { from: file });
     root.walkRules((rule) => {
       const declarations = Object.fromEntries(
         rule.nodes
@@ -139,4 +139,9 @@ function absoluteLength(value) {
   if (typeof value !== "string") return null;
   const match = value.trim().match(/^(\d+(?:\.\d+)?)(rpx|px)$/u);
   return match ? Number(match[1]) : null;
+}
+
+// 大屏去放大层把尺寸写成 calc(N * var(--rpx))；契约分析前还原为 Nrpx。
+function normalizeRpxCalc(source) {
+  return source.replace(/calc\((-?\d+(?:\.\d+)?) \* var\(--rpx\)\)/gu, "$1rpx");
 }

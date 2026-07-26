@@ -24,14 +24,14 @@
 /* Figma 72:3：批注中 · 自动保存 */
 .annotation-layer__badge {
   position: absolute;
-  top: 24rpx;
-  right: 28rpx;
+  top: calc(24 * var(--rpx));
+  right: calc(28 * var(--rpx));
   display: flex;
-  height: 56rpx;
+  height: calc(56 * var(--rpx));
   align-items: center;
-  gap: 16rpx;
-  padding: 0 20rpx;
-  border: 1rpx solid rgb(79 57 246 / 10%);
+  gap: calc(16 * var(--rpx));
+  padding: 0 calc(20 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid rgb(79 57 246 / 10%);
   border-radius: var(--radius-32);
   color: var(--color-ink-secondary);
   background: var(--color-surface-soft);
@@ -40,20 +40,20 @@
 }
 
 .annotation-layer__badge-dot {
-  width: 14rpx;
-  height: 14rpx;
+  width: calc(14 * var(--rpx));
+  height: calc(14 * var(--rpx));
   border-radius: 50%;
   background: var(--color-primary-deep);
 }
 
 .annotation-layer__lasso-bar {
   position: absolute;
-  bottom: 200rpx;
+  bottom: calc(200 * var(--rpx));
   left: 50%;
   display: flex;
   align-items: center;
-  gap: 20rpx;
-  padding: 12rpx 16rpx 12rpx 28rpx;
+  gap: calc(20 * var(--rpx));
+  padding: calc(12 * var(--rpx)) calc(16 * var(--rpx)) calc(12 * var(--rpx)) calc(28 * var(--rpx));
   border-radius: var(--radius-capsule);
   color: var(--figma-color-on-dark);
   background: rgb(16 24 40 / 88%);
@@ -63,7 +63,7 @@
 
 .annotation-layer__lasso-delete {
   margin: 0;
-  padding: 8rpx 20rpx;
+  padding: calc(8 * var(--rpx)) calc(20 * var(--rpx));
   border: 0;
   border-radius: var(--radius-capsule);
   color: var(--figma-color-on-dark);
@@ -76,16 +76,16 @@
 /* Figma 72:18：批注工具栏（h72 r24 白底描边投影，固定底部）。 */
 .annotation-layer__toolbar {
   position: absolute;
-  right: 24rpx;
-  bottom: calc(24rpx + env(safe-area-inset-bottom));
-  left: 24rpx;
+  right: calc(24 * var(--rpx));
+  bottom: calc(calc(24 * var(--rpx)) + env(safe-area-inset-bottom));
+  left: calc(24 * var(--rpx));
   box-sizing: border-box;
   display: flex;
-  height: 144rpx;
+  height: calc(144 * var(--rpx));
   align-items: center;
-  gap: 8rpx;
-  padding: 16rpx 12rpx;
-  border: 1rpx solid var(--figma-color-line);
+  gap: calc(8 * var(--rpx));
+  padding: calc(16 * var(--rpx)) calc(12 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--figma-color-line);
   border-radius: var(--radius-48);
   background: var(--figma-color-surface);
   box-shadow: var(--shadow-elevated);
@@ -95,13 +95,13 @@
 .annotation-layer__tool {
   box-sizing: border-box;
   display: flex;
-  width: 86rpx;
-  min-width: 86rpx;
-  height: 112rpx;
+  width: calc(86 * var(--rpx));
+  min-width: calc(86 * var(--rpx));
+  height: calc(112 * var(--rpx));
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2rpx;
+  gap: calc(2 * var(--rpx));
   margin: 0;
   padding: 0;
   border: 0;
@@ -117,22 +117,22 @@
 
 .annotation-layer__tool-glyph {
   font-size: var(--text-title-sm);
-  line-height: 44rpx;
+  line-height: calc(44 * var(--rpx));
 }
 
 .annotation-layer__tool-label {
   font-size: var(--text-micro);
   font-weight: 600;
-  line-height: 24rpx;
+  line-height: calc(24 * var(--rpx));
 }
 
 /* Figma 72:34：撤销圆钮。 */
 .annotation-layer__undo {
   box-sizing: border-box;
   display: flex;
-  width: 76rpx;
-  min-width: 76rpx;
-  height: 76rpx;
+  width: calc(76 * var(--rpx));
+  min-width: calc(76 * var(--rpx));
+  height: calc(76 * var(--rpx));
   align-items: center;
   justify-content: center;
   margin: 0 0 0 auto;
@@ -149,9 +149,9 @@
 .annotation-layer__done {
   box-sizing: border-box;
   display: flex;
-  width: 132rpx;
-  min-width: 132rpx;
-  height: 96rpx;
+  width: calc(132 * var(--rpx));
+  min-width: calc(132 * var(--rpx));
+  height: calc(96 * var(--rpx));
   align-items: center;
   justify-content: center;
   margin: 0;

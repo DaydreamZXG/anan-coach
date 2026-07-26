@@ -4,7 +4,7 @@
 
 .brain-hero {
   position: relative;
-  margin: 16rpx 0 28rpx;
+  margin: calc(16 * var(--rpx)) 0 calc(28 * var(--rpx));
 }
 
 .brain-hero::after {
@@ -14,8 +14,8 @@
 .brain-kicker {
   display: inline-flex;
   align-items: center;
-  min-height: 44rpx;
-  padding: 0 16rpx;
+  min-height: calc(44 * var(--rpx));
+  padding: 0 calc(16 * var(--rpx));
   border-radius: var(--radius-12);
   background: var(--primary-soft);
   color: var(--color-muted);
@@ -25,24 +25,24 @@
 }
 
 .brain-title {
-  margin-top: 20rpx;
+  margin-top: calc(20 * var(--rpx));
   font-size: var(--text-title-lg);
   font-weight: 800;
-  letter-spacing: -1.8rpx;
+  letter-spacing: calc(-1.8 * var(--rpx));
   line-height: 1.28;
 }
 
 .brain-copy {
-  margin-top: 16rpx;
+  margin-top: calc(16 * var(--rpx));
   color: var(--ink-2);
   font-size: var(--text-body);
   line-height: 1.58;
 }
 
 .brain-card {
-  margin-top: 24rpx;
-  padding: 32rpx;
-  border: 1rpx solid var(--line);
+  margin-top: calc(24 * var(--rpx));
+  padding: calc(32 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--line);
   border-radius: var(--radius-40);
   background: var(--color-surface);
   box-shadow: var(--shadow-brain-card);
@@ -52,8 +52,8 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 20rpx;
-  margin-top: 32rpx;
+  gap: calc(20 * var(--rpx));
+  margin-top: calc(32 * var(--rpx));
 }
 
 .brain-section-title {
@@ -69,12 +69,12 @@
   font-size: var(--text-micro);
 }
 .brain-value {
-  margin-top: 8rpx;
+  margin-top: calc(8 * var(--rpx));
   font-size: var(--text-section);
   font-weight: 800;
 }
 .brain-note {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   color: var(--ink-2);
   font-size: var(--text-micro);
   line-height: 1.65;
@@ -84,9 +84,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20rpx;
-  padding: 20rpx 0;
-  border-bottom: 1rpx solid var(--color-line);
+  gap: calc(20 * var(--rpx));
+  padding: calc(20 * var(--rpx)) 0;
+  border-bottom: calc(1 * var(--rpx)) solid var(--color-line);
 }
 .brain-row:last-child {
   border-bottom: 0;
@@ -101,7 +101,7 @@
   line-height: 1.45;
 }
 .brain-row-copy {
-  margin-top: 8rpx;
+  margin-top: calc(8 * var(--rpx));
   color: var(--ink-3);
   font-size: var(--text-micro);
   line-height: 1.55;
@@ -114,8 +114,8 @@
 .brain-pill {
   display: inline-flex;
   align-items: center;
-  min-height: 48rpx;
-  padding: 0 20rpx;
+  min-height: calc(48 * var(--rpx));
+  padding: 0 calc(20 * var(--rpx));
   border-radius: var(--radius-capsule);
   background: var(--color-surface-soft);
   color: var(--color-ink-secondary);
@@ -126,23 +126,23 @@
 .brain-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16rpx;
+  gap: calc(16 * var(--rpx));
 }
 .brain-metric {
-  padding: 20rpx;
+  padding: calc(20 * var(--rpx));
   border-radius: var(--radius-24);
   background: var(--bg);
 }
 .brain-metric__value {
   display: block;
-  margin-top: 8rpx;
+  margin-top: calc(8 * var(--rpx));
   font-size: var(--text-body-lg);
 }
 
 .brain-action {
   width: 100%;
-  margin-top: 24rpx;
-  min-height: 96rpx;
+  margin-top: calc(24 * var(--rpx));
+  min-height: calc(96 * var(--rpx));
   border-radius: var(--radius-control);
   background: var(--color-ink);
   color: var(--color-surface);
@@ -161,10 +161,10 @@
 }
 
 .brain-secondary {
-  min-height: 72rpx;
-  margin-top: 20rpx;
-  padding: 0 24rpx;
-  border: 1rpx solid var(--color-primary-soft-strong);
+  min-height: calc(72 * var(--rpx));
+  margin-top: calc(20 * var(--rpx));
+  padding: 0 calc(24 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-primary-soft-strong);
   border-radius: var(--radius-control);
   background: var(--primary-soft);
   color: var(--color-muted);
@@ -172,8 +172,8 @@
   font-weight: 700;
 }
 .brain-warning {
-  margin-top: 16rpx;
-  padding: 20rpx 20rpx;
+  margin-top: calc(16 * var(--rpx));
+  padding: calc(20 * var(--rpx)) calc(20 * var(--rpx));
   border-radius: var(--radius-16);
   background: var(--figma-color-warning-soft);
   color: var(--figma-color-warning-deep);
@@ -188,10 +188,10 @@
 .brain-textarea {
   box-sizing: border-box;
   width: 100%;
-  min-height: 180rpx;
-  margin-top: 16rpx;
-  padding: 20rpx;
-  border: 1rpx solid var(--color-line);
+  min-height: calc(180 * var(--rpx));
+  margin-top: calc(16 * var(--rpx));
+  padding: calc(20 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-24);
   background: var(--color-surface-soft);
   font-size: var(--text-caption);

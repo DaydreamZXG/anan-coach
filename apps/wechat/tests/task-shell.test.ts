@@ -4,7 +4,14 @@ import { taskShellSyncTone } from "../miniprogram/task-runtime/task-shell/state"
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import taskShellTemplate from "../miniprogram/task-runtime/task-shell/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import taskShellStyles from "../miniprogram/task-runtime/task-shell/index.wxss?raw";
+import taskShellStylesRaw from "../miniprogram/task-runtime/task-shell/index.wxss?raw";
+
+function normalizeRpxCalc(source: unknown): string {
+  if (typeof source !== "string") throw new Error("Raw mini-program asset must be text.");
+  return source.replace(/calc\((-?\d+(?:\.\d+)?) \* var\(--rpx\)\)/gu, "$1rpx");
+}
+
+const taskShellStyles = normalizeRpxCalc(taskShellStylesRaw);
 
 describe("compact task shell", () => {
   it("maps explicit persistence labels to the toolbar status dot", () => {

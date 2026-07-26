@@ -1,15 +1,15 @@
 .membership-state-view {
   display: block;
-  margin-top: 28rpx;
+  margin-top: calc(28 * var(--rpx));
 }
 .founder-head {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 20rpx;
+  gap: calc(20 * var(--rpx));
 }
 .founder-duration {
-  margin-top: 16rpx;
+  margin-top: calc(16 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-title-lg);
   font-weight: 800;
@@ -24,8 +24,8 @@
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
-  width: 44rpx;
-  height: 44rpx;
+  width: calc(44 * var(--rpx));
+  height: calc(44 * var(--rpx));
   border-radius: 50%;
   background: var(--color-primary-soft);
   color: var(--color-muted);
@@ -35,7 +35,7 @@
   align-items: flex-start;
 }
 .policy-version {
-  flex: 0 0 120rpx;
+  flex: 0 0 calc(120 * var(--rpx));
   overflow: hidden;
   color: var(--color-muted);
   font-size: var(--text-micro);
@@ -46,8 +46,8 @@
 .accept-row {
   display: flex;
   align-items: center;
-  gap: 16rpx;
-  margin: 24rpx 4rpx 0;
+  gap: calc(16 * var(--rpx));
+  margin: calc(24 * var(--rpx)) calc(4 * var(--rpx)) 0;
   color: var(--color-ink-secondary);
   font-size: var(--text-caption);
 }
@@ -56,9 +56,9 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  width: 42rpx;
-  height: 42rpx;
-  border: 2rpx solid var(--color-line-strong);
+  width: calc(42 * var(--rpx));
+  height: calc(42 * var(--rpx));
+  border: calc(2 * var(--rpx)) solid var(--color-line-strong);
   border-radius: var(--radius-12);
   color: var(--color-surface);
 }
@@ -69,12 +69,12 @@
 .reward-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16rpx;
+  gap: calc(16 * var(--rpx));
 }
 .reward-card {
   min-width: 0;
-  padding: 28rpx 20rpx;
-  border: 1rpx solid var(--color-line);
+  padding: calc(28 * var(--rpx)) calc(20 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-24);
   background: var(--color-surface);
 }
@@ -84,18 +84,18 @@
   font-weight: 800;
 }
 .reward-title {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   font-size: var(--text-micro);
   font-weight: 800;
 }
 .reward-copy {
-  margin-top: 8rpx;
+  margin-top: calc(8 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-micro);
   line-height: 1.45;
 }
 .refund-button {
-  margin-top: 24rpx;
+  margin-top: calc(24 * var(--rpx));
   padding: 0;
   background: transparent;
   color: var(--color-primary-deep);
@@ -104,8 +104,8 @@
   text-align: left;
 }
 .payment-disclosure {
-  margin-top: 16rpx;
-  padding: 16rpx 20rpx;
+  margin-top: calc(16 * var(--rpx));
+  padding: calc(16 * var(--rpx)) calc(20 * var(--rpx));
   border-radius: var(--radius-16);
   background: rgba(255, 255, 255, 0.72);
   color: var(--color-ink-secondary);

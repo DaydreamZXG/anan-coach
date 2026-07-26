@@ -1,10 +1,10 @@
 @import "../../features/essay-workbench/page-shell.wxss";
 .compose-page {
-  padding-bottom: calc(184rpx + env(safe-area-inset-bottom));
+  padding-bottom: calc(calc(184 * var(--rpx)) + env(safe-area-inset-bottom));
 }
 .compose-row {
-  padding: 20rpx 0;
-  border-bottom: 2rpx solid var(--color-surface-soft);
+  padding: calc(20 * var(--rpx)) 0;
+  border-bottom: calc(2 * var(--rpx)) solid var(--color-surface-soft);
 }
 .compose-action-dock {
   position: fixed;
@@ -13,8 +13,9 @@
   bottom: 0;
   left: 0;
   box-sizing: border-box;
-  padding: 18rpx 32rpx calc(18rpx + env(safe-area-inset-bottom));
-  border-top: 1rpx solid var(--color-line);
+  padding: calc(18 * var(--rpx)) calc(32 * var(--rpx))
+    calc(calc(18 * var(--rpx)) + env(safe-area-inset-bottom));
+  border-top: calc(1 * var(--rpx)) solid var(--color-line);
   background: var(--color-surface-a96);
   box-shadow: var(--shadow-dock);
 }

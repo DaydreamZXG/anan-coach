@@ -1,13 +1,14 @@
 .s9-page {
   box-sizing: border-box;
   min-height: 100vh;
-  padding: 28rpx 32rpx calc(56rpx + env(safe-area-inset-bottom));
+  padding: calc(28 * var(--rpx)) calc(32 * var(--rpx))
+    calc(calc(56 * var(--rpx)) + env(safe-area-inset-bottom));
   background: var(--color-canvas);
   color: var(--color-ink);
 }
 
 .s9-page--with-dock {
-  padding-bottom: calc(176rpx + env(safe-area-inset-bottom));
+  padding-bottom: calc(calc(176 * var(--rpx)) + env(safe-area-inset-bottom));
 }
 
 /*
@@ -24,28 +25,29 @@
 
 .s9-body {
   box-sizing: border-box;
-  padding: 16rpx 32rpx calc(56rpx + env(safe-area-inset-bottom));
+  padding: calc(16 * var(--rpx)) calc(32 * var(--rpx))
+    calc(calc(56 * var(--rpx)) + env(safe-area-inset-bottom));
 }
 
 .s9-body--with-dock {
-  padding-bottom: calc(200rpx + env(safe-area-inset-bottom));
+  padding-bottom: calc(calc(200 * var(--rpx)) + env(safe-area-inset-bottom));
 }
 
 .s9-hero {
-  margin-top: 16rpx;
+  margin-top: calc(16 * var(--rpx));
 }
 
 .s9-title {
-  max-width: 686rpx;
+  max-width: calc(686 * var(--rpx));
   font-size: var(--text-hero);
   font-weight: 800;
-  letter-spacing: -1.8rpx;
+  letter-spacing: calc(-1.8 * var(--rpx));
   line-height: 1.28;
 }
 
 .s9-subtitle {
-  max-width: 686rpx;
-  margin-top: 16rpx;
+  max-width: calc(686 * var(--rpx));
+  margin-top: calc(16 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-body);
   line-height: 1.55;
@@ -54,16 +56,16 @@
 .s9-chip-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 16rpx;
-  margin-top: 24rpx;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(24 * var(--rpx));
 }
 
 .s9-chip {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 52rpx;
-  padding: 0 24rpx;
+  min-height: calc(52 * var(--rpx));
+  padding: 0 calc(24 * var(--rpx));
   border-radius: var(--radius-capsule);
   background: var(--color-surface-soft);
   color: var(--color-ink-secondary);
@@ -78,7 +80,7 @@
 
 .s9-chip--gold {
   box-sizing: border-box;
-  border: 1rpx solid var(--color-gold);
+  border: calc(1 * var(--rpx)) solid var(--color-gold);
   background: var(--color-gold-soft);
   color: var(--color-warning);
 }
@@ -86,14 +88,14 @@
 .s9-stack {
   display: flex;
   flex-direction: column;
-  gap: 24rpx;
-  margin-top: 28rpx;
+  gap: calc(24 * var(--rpx));
+  margin-top: calc(28 * var(--rpx));
 }
 
 .s9-card {
   box-sizing: border-box;
-  padding: 32rpx 32rpx;
-  border: 1rpx solid rgba(240, 242, 246, 0.88);
+  padding: calc(32 * var(--rpx)) calc(32 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid rgba(240, 242, 246, 0.88);
   border-radius: var(--radius-card);
   background: var(--color-surface-glass);
   box-shadow: var(--shadow-card);
@@ -113,32 +115,32 @@
   color: var(--color-muted);
   font-size: var(--text-micro);
   font-weight: 800;
-  letter-spacing: 1rpx;
+  letter-spacing: calc(1 * var(--rpx));
 }
 
 .s9-card-title {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   font-size: var(--text-section);
   font-weight: 800;
   line-height: 1.35;
 }
 
 .s9-card-copy {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   color: var(--color-ink-secondary);
   font-size: var(--text-body);
   line-height: 1.58;
 }
 
 .s9-card-meta {
-  margin-top: 16rpx;
+  margin-top: calc(16 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-micro);
   line-height: 1.5;
 }
 
 .s9-metric {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   color: var(--color-ink);
   font-family: var(--font-family-data);
   font-size: var(--text-hero);
@@ -148,15 +150,15 @@
 }
 
 .s9-section {
-  margin-top: 40rpx;
+  margin-top: calc(40 * var(--rpx));
 }
 
 .s9-section-head {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 20rpx;
-  margin-bottom: 20rpx;
+  gap: calc(20 * var(--rpx));
+  margin-bottom: calc(20 * var(--rpx));
 }
 
 .s9-section-title {
@@ -171,7 +173,7 @@
 
 .s9-list {
   overflow: hidden;
-  border: 1rpx solid var(--color-line);
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-card);
   background: var(--color-surface-glass);
   box-shadow: var(--shadow-card);
@@ -181,13 +183,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24rpx;
-  min-height: 104rpx;
-  padding: 20rpx 28rpx;
+  gap: calc(24 * var(--rpx));
+  min-height: calc(104 * var(--rpx));
+  padding: calc(20 * var(--rpx)) calc(28 * var(--rpx));
 }
 
 .s9-list-row + .s9-list-row {
-  border-top: 1rpx solid var(--color-line);
+  border-top: calc(1 * var(--rpx)) solid var(--color-line);
 }
 
 .s9-list-main {
@@ -201,7 +203,7 @@
 }
 
 .s9-list-copy {
-  margin-top: 8rpx;
+  margin-top: calc(8 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-micro);
   line-height: 1.45;
@@ -222,16 +224,17 @@
   bottom: 0;
   left: 0;
   box-sizing: border-box;
-  padding: 18rpx 32rpx calc(18rpx + env(safe-area-inset-bottom));
-  border-top: 1rpx solid var(--color-line);
+  padding: calc(18 * var(--rpx)) calc(32 * var(--rpx))
+    calc(calc(18 * var(--rpx)) + env(safe-area-inset-bottom));
+  border-top: calc(1 * var(--rpx)) solid var(--color-line);
   background: rgba(255, 255, 255, 0.9);
   box-shadow: var(--shadow-dock);
-  backdrop-filter: blur(26rpx);
+  backdrop-filter: blur(calc(26 * var(--rpx)));
 }
 
 .s9-action-row {
   display: flex;
-  gap: 16rpx;
+  gap: calc(16 * var(--rpx));
 }
 
 .s9-action-row .s9-primary-button,
@@ -247,8 +250,8 @@ button.s9-secondary-button.s9-secondary-button {
   justify-content: center;
   box-sizing: border-box;
   width: 100%;
-  min-height: 104rpx;
-  padding: 0 28rpx;
+  min-height: calc(104 * var(--rpx));
+  padding: 0 calc(28 * var(--rpx));
   border-radius: var(--radius-control);
   font-size: var(--text-body-lg);
   font-weight: 800;
@@ -269,14 +272,14 @@ button.s9-primary-button {
 }
 
 button.s9-secondary-button {
-  border: 1rpx solid var(--color-line-strong);
+  border: calc(1 * var(--rpx)) solid var(--color-line-strong);
   background: var(--color-surface);
   color: var(--color-ink);
 }
 
 .s9-inline-error {
-  margin-top: 20rpx;
-  padding: 24rpx 24rpx;
+  margin-top: calc(20 * var(--rpx));
+  padding: calc(24 * var(--rpx)) calc(24 * var(--rpx));
   border-radius: var(--radius-24);
   background: var(--color-danger-soft);
   color: var(--color-danger);
@@ -285,5 +288,5 @@ button.s9-secondary-button {
 }
 
 .s9-empty-space {
-  min-height: 38rpx;
+  min-height: calc(38 * var(--rpx));
 }

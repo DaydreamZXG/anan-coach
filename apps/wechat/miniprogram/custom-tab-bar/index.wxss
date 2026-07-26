@@ -10,26 +10,27 @@
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-  padding: 26rpx 48rpx max(64rpx, env(safe-area-inset-bottom));
-  border-top: 1rpx solid var(--figma-color-line);
+  padding: calc(26 * var(--rpx)) calc(48 * var(--rpx))
+    max(calc(64 * var(--rpx)), env(safe-area-inset-bottom));
+  border-top: calc(1 * var(--rpx)) solid var(--figma-color-line);
   background: var(--figma-color-surface);
 }
 
 .tab-item {
   position: relative;
   display: flex;
-  width: 128rpx;
+  width: calc(128 * var(--rpx));
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12rpx;
+  gap: calc(12 * var(--rpx));
 }
 
 .tab-icon-wrap {
   position: relative;
   display: flex;
-  width: 48rpx;
-  height: 48rpx;
+  width: calc(48 * var(--rpx));
+  height: calc(48 * var(--rpx));
   align-items: center;
   justify-content: center;
 }
@@ -37,15 +38,15 @@
 .tab-icon {
   position: relative;
   z-index: 1;
-  width: 48rpx;
-  height: 48rpx;
+  width: calc(48 * var(--rpx));
+  height: calc(48 * var(--rpx));
 }
 
 .tab-text {
   color: var(--figma-color-faint);
   font-size: var(--text-tab);
   font-weight: 500;
-  line-height: 30rpx;
+  line-height: calc(30 * var(--rpx));
   transition: color 0.3s ease;
 }
 
@@ -70,7 +71,7 @@
     gap: 12px;
     padding: calc(28px + env(safe-area-inset-top)) 10px calc(20px + env(safe-area-inset-bottom));
     border-top: 0;
-    border-right: 1rpx solid var(--figma-color-line);
+    border-right: calc(1 * var(--rpx)) solid var(--figma-color-line);
   }
 
   .tab-item {

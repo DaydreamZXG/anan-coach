@@ -1,4 +1,4 @@
 @import "../../features/learning-brain/page-shell.wxss";
 .history-card {
-  border-left: 6rpx solid var(--color-primary);
+  border-left: calc(6 * var(--rpx)) solid var(--color-primary);
 }

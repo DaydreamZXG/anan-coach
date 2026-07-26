@@ -5,12 +5,12 @@
   color: var(--color-muted);
   font-size: var(--text-micro);
   font-weight: 700;
-  letter-spacing: 1rpx;
+  letter-spacing: calc(1 * var(--rpx));
 }
 
 .progress {
-  height: 14rpx;
-  margin-top: 20rpx;
+  height: calc(14 * var(--rpx));
+  margin-top: calc(20 * var(--rpx));
   overflow: hidden;
   border-radius: var(--radius-capsule);
   background: var(--color-surface-soft);
@@ -24,7 +24,7 @@
 
 .source-image {
   width: 100%;
-  margin-top: 20rpx;
+  margin-top: calc(20 * var(--rpx));
   border-radius: var(--radius-16);
 }
 
@@ -48,30 +48,30 @@
 .picker-value {
   box-sizing: border-box;
   width: 100%;
-  margin-top: 12rpx;
-  padding: 20rpx 20rpx;
-  border: 1rpx solid var(--color-line-strong);
+  margin-top: calc(12 * var(--rpx));
+  padding: calc(20 * var(--rpx)) calc(20 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line-strong);
   border-radius: var(--radius-16);
   background: var(--bg);
   font-size: var(--text-body);
 }
 
 .form-textarea {
-  min-height: 130rpx;
+  min-height: calc(130 * var(--rpx));
 }
 
 button.check-button {
-  min-height: 80rpx;
-  margin-top: 16rpx;
+  min-height: calc(80 * var(--rpx));
+  margin-top: calc(16 * var(--rpx));
   border-radius: var(--radius-24);
   background: var(--color-primary-soft);
   color: var(--color-primary-deep);
   font-size: var(--text-body);
-  line-height: 80rpx;
+  line-height: calc(80 * var(--rpx));
 }
 
 .field {
-  margin-top: 24rpx;
+  margin-top: calc(24 * var(--rpx));
 }
 
 .field-label {
@@ -82,13 +82,13 @@ button.check-button {
 
 .chip-row {
   display: flex;
-  gap: 16rpx;
-  margin-top: 12rpx;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(12 * var(--rpx));
 }
 
 .chip {
   flex: 1;
-  padding: 12rpx;
+  padding: calc(12 * var(--rpx));
   border-radius: var(--figma-radius-pill);
   background: var(--color-surface-soft);
   color: var(--ink-2);
@@ -103,12 +103,12 @@ button.check-button {
 .score-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12rpx;
+  gap: calc(12 * var(--rpx));
 }
 
 .boundary-note {
-  margin-top: 24rpx;
-  padding: 20rpx;
+  margin-top: calc(24 * var(--rpx));
+  padding: calc(20 * var(--rpx));
   border-radius: var(--radius-16);
   background: var(--figma-color-warning-soft);
   color: var(--figma-color-warning-deep);
@@ -119,12 +119,12 @@ button.check-button {
 .receipt-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16rpx;
-  margin-top: 24rpx;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(24 * var(--rpx));
 }
 
 .receipt-cell {
-  padding: 20rpx;
+  padding: calc(20 * var(--rpx));
   border-radius: var(--radius-16);
   background: var(--figma-color-warning-soft);
 }
@@ -140,7 +140,7 @@ button.check-button {
 }
 
 .receipt-value {
-  margin-top: 8rpx;
+  margin-top: calc(8 * var(--rpx));
   color: var(--color-ink);
   font-size: var(--text-caption);
 }
@@ -150,33 +150,33 @@ button.check-button {
 }
 
 .success-mark {
-  width: 84rpx;
-  height: 84rpx;
-  margin: 0 auto 12rpx;
+  width: calc(84 * var(--rpx));
+  height: calc(84 * var(--rpx));
+  margin: 0 auto calc(12 * var(--rpx));
   border-radius: 50%;
   background: var(--good-soft);
   color: var(--good);
   font-size: var(--text-title-lg);
-  line-height: 84rpx;
+  line-height: calc(84 * var(--rpx));
 }
 
 .success-pill {
   display: inline-block;
-  margin-top: 20rpx;
-  padding: 8rpx 16rpx;
+  margin-top: calc(20 * var(--rpx));
+  padding: calc(8 * var(--rpx)) calc(16 * var(--rpx));
   border-radius: var(--figma-radius-pill);
   background: var(--color-surface-soft);
   color: var(--color-ink-secondary);
 }
 
 .success-impact {
-  margin-top: 16rpx;
+  margin-top: calc(16 * var(--rpx));
   color: var(--color-ink-secondary);
 }
 
 .link-action {
-  margin: 16rpx auto 0;
-  padding: 12rpx 20rpx;
+  margin: calc(16 * var(--rpx)) auto 0;
+  padding: calc(12 * var(--rpx)) calc(20 * var(--rpx));
   background: transparent;
   color: var(--color-muted);
   font-size: var(--text-micro);
@@ -193,7 +193,7 @@ button.check-button {
 }
 
 .request-id {
-  margin: 12rpx 0;
+  margin: calc(12 * var(--rpx)) 0;
   color: var(--ink-2);
   font-size: var(--text-micro);
 }

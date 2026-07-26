@@ -2,33 +2,50 @@ import { describe, expect, it } from "vitest";
 
 import appConfig from "../miniprogram/app.json";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import responsiveStyles from "../miniprogram/design-system/responsive/index.wxss?raw";
+import responsiveStylesRaw from "../miniprogram/design-system/responsive/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import taskShellStyles from "../miniprogram/task-runtime/task-shell/index.wxss?raw";
+import taskShellStylesRaw from "../miniprogram/task-runtime/task-shell/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import practiceTemplate from "../miniprogram/pages/practice/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import practiceStyles from "../miniprogram/pages/practice/index.wxss?raw";
+import practiceStylesRaw from "../miniprogram/pages/practice/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import mockTemplate from "../miniprogram/pages/mock-exam/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import mockStyles from "../miniprogram/pages/mock-exam/index.wxss?raw";
+import mockStylesRaw from "../miniprogram/pages/mock-exam/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import essayTemplate from "../miniprogram/pages/essay-task/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import essayStyles from "../miniprogram/pages/essay-task/index.wxss?raw";
+import essayStylesRaw from "../miniprogram/pages/essay-task/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import essayWorkbenchStyles from "../miniprogram/features/essay-workbench/page-shell.wxss?raw";
+import essayWorkbenchStylesRaw from "../miniprogram/features/essay-workbench/page-shell.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import positionStyles from "../miniprogram/features/positions/page-shell.wxss?raw";
+import positionStylesRaw from "../miniprogram/features/positions/page-shell.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import brainStyles from "../miniprogram/features/learning-brain/page-shell.wxss?raw";
+import brainStylesRaw from "../miniprogram/features/learning-brain/page-shell.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import reportingStyles from "../miniprogram/features/reporting/page-shell.wxss?raw";
+import reportingStylesRaw from "../miniprogram/features/reporting/page-shell.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import captureStyles from "../miniprogram/pages/capture-import/index.wxss?raw";
+import captureStylesRaw from "../miniprogram/pages/capture-import/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
-import loginStyles from "../miniprogram/pages/login/index.wxss?raw";
+import loginStylesRaw from "../miniprogram/pages/login/index.wxss?raw";
+
+function normalizeRpxCalc(source: unknown): string {
+  if (typeof source !== "string") throw new Error("Raw mini-program asset must be text.");
+  return source.replace(/calc\((-?\d+(?:\.\d+)?) \* var\(--rpx\)\)/gu, "$1rpx");
+}
+
+const responsiveStyles = normalizeRpxCalc(responsiveStylesRaw);
+const taskShellStyles = normalizeRpxCalc(taskShellStylesRaw);
+const practiceStyles = normalizeRpxCalc(practiceStylesRaw);
+const mockStyles = normalizeRpxCalc(mockStylesRaw);
+const essayStyles = normalizeRpxCalc(essayStylesRaw);
+const essayWorkbenchStyles = normalizeRpxCalc(essayWorkbenchStylesRaw);
+const positionStyles = normalizeRpxCalc(positionStylesRaw);
+const brainStyles = normalizeRpxCalc(brainStylesRaw);
+const reportingStyles = normalizeRpxCalc(reportingStylesRaw);
+const captureStyles = normalizeRpxCalc(captureStylesRaw);
+const loginStyles = normalizeRpxCalc(loginStylesRaw);
 
 describe("tablet responsive layout contract", () => {
   it("supports portrait and landscape without creating a second application", () => {

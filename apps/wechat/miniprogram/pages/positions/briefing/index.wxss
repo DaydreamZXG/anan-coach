@@ -1,18 +1,18 @@
 @import "../../../features/positions/page-shell.wxss";
 
 .briefing-page {
-  padding-bottom: 56rpx;
+  padding-bottom: calc(56 * var(--rpx));
 }
 
 .briefing-intro {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 24rpx;
+  gap: calc(24 * var(--rpx));
 }
 
 .briefing-hero {
-  padding: 32rpx;
+  padding: calc(32 * var(--rpx));
   border-radius: var(--radius-32);
   color: var(--color-surface);
   background: var(--figma-gradient-dark);
@@ -22,11 +22,11 @@
 .briefing-hero__meta {
   color: rgba(255, 255, 255, 0.72);
   font-size: var(--text-micro);
-  letter-spacing: 1rpx;
+  letter-spacing: calc(1 * var(--rpx));
 }
 
 .briefing-hero__title {
-  margin-top: 16rpx;
+  margin-top: calc(16 * var(--rpx));
   font-size: var(--text-title);
   font-weight: 700;
   line-height: 1.3;
@@ -34,7 +34,7 @@
 
 .briefing-hero__department,
 .briefing-hero__location {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   color: rgba(255, 255, 255, 0.84);
   font-size: var(--text-body);
   line-height: 1.5;
@@ -42,11 +42,11 @@
 
 .briefing-section {
   display: grid;
-  grid-template-columns: 64rpx 1fr;
-  gap: 20rpx;
-  margin-top: 24rpx;
-  padding: 28rpx;
-  border: 1rpx solid var(--color-line-strong);
+  grid-template-columns: calc(64 * var(--rpx)) 1fr;
+  gap: calc(20 * var(--rpx));
+  margin-top: calc(24 * var(--rpx));
+  padding: calc(28 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line-strong);
   border-radius: var(--radius-24);
   background: var(--color-surface);
 }
@@ -65,7 +65,7 @@
 
 .briefing-fact,
 .briefing-score {
-  margin-top: 16rpx;
+  margin-top: calc(16 * var(--rpx));
   color: var(--color-ink);
   font-size: var(--text-section);
   font-weight: 700;
@@ -78,7 +78,7 @@
 .briefing-copy,
 .briefing-evidence,
 .briefing-warning {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-body);
   line-height: 1.65;
@@ -89,15 +89,15 @@
 }
 
 .briefing-warning {
-  padding: 20rpx 20rpx;
+  padding: calc(20 * var(--rpx)) calc(20 * var(--rpx));
   border-radius: var(--radius-16);
   color: var(--figma-color-warning-deep);
   background: var(--figma-color-warning-soft);
 }
 
 .briefing-boundary {
-  margin-top: 24rpx;
-  padding: 28rpx;
+  margin-top: calc(24 * var(--rpx));
+  padding: calc(28 * var(--rpx));
   border-radius: var(--radius-24);
   background: var(--good-soft);
 }
@@ -109,7 +109,7 @@
 }
 
 .briefing-boundary__copy {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   color: var(--good);
   font-size: var(--text-body);
   line-height: 1.65;
@@ -117,6 +117,6 @@
 
 .briefing-actions {
   display: grid;
-  gap: 16rpx;
-  margin-top: 28rpx;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(28 * var(--rpx));
 }

@@ -24,7 +24,7 @@
   flex: 1;
   flex-direction: column;
   justify-content: center;
-  padding: 40rpx;
+  padding: calc(40 * var(--rpx));
 }
 
 .step-head {
@@ -32,8 +32,8 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 28rpx;
-  padding: 40rpx 40rpx 28rpx;
+  gap: calc(28 * var(--rpx));
+  padding: calc(40 * var(--rpx)) calc(40 * var(--rpx)) calc(28 * var(--rpx));
   background: rgba(255, 255, 255, 0.8);
 }
 
@@ -46,19 +46,19 @@
   color: var(--color-muted);
   font-size: var(--text-micro);
   font-weight: 700;
-  line-height: 32rpx;
+  line-height: calc(32 * var(--rpx));
 }
 
 .step-title {
-  margin-top: 8rpx;
+  margin-top: calc(8 * var(--rpx));
   font-size: var(--text-title);
   font-weight: 700;
-  letter-spacing: -0.8rpx;
-  line-height: 52rpx;
+  letter-spacing: calc(-0.8 * var(--rpx));
+  line-height: calc(52 * var(--rpx));
 }
 
 .step-copy {
-  margin-top: 8rpx;
+  margin-top: calc(8 * var(--rpx));
   color: var(--ink-2);
   font-size: var(--text-caption);
   font-weight: 500;
@@ -67,17 +67,17 @@
 
 .step-badge {
   flex: none;
-  padding: 8rpx 20rpx;
+  padding: calc(8 * var(--rpx)) calc(20 * var(--rpx));
   border-radius: var(--figma-radius-pill);
   background: var(--color-surface-soft);
   color: var(--color-ink-secondary);
   font-size: var(--text-micro);
   font-weight: 700;
-  line-height: 30rpx;
+  line-height: calc(30 * var(--rpx));
 }
 
 .progress-track {
-  height: 6rpx;
+  height: calc(6 * var(--rpx));
   overflow: hidden;
   background: var(--color-line-strong);
 }
@@ -112,28 +112,28 @@
 
 .qualification-content {
   box-sizing: border-box;
-  padding: 48rpx 40rpx 250rpx;
+  padding: calc(48 * var(--rpx)) calc(40 * var(--rpx)) calc(250 * var(--rpx));
 }
 
 .boundary-notice {
   box-sizing: border-box;
   display: flex;
   align-items: flex-start;
-  gap: 24rpx;
-  padding: 32rpx 32rpx;
-  border: 1rpx solid rgba(255, 237, 212, 0.5);
+  gap: calc(24 * var(--rpx));
+  padding: calc(32 * var(--rpx)) calc(32 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid rgba(255, 237, 212, 0.5);
   border-radius: var(--radius-40);
   background: rgba(255, 247, 237, 0.5);
 }
 
 .notice-icon {
   display: flex;
-  width: 32rpx;
-  height: 32rpx;
+  width: calc(32 * var(--rpx));
+  height: calc(32 * var(--rpx));
   flex: none;
   align-items: center;
   justify-content: center;
-  border: 3rpx solid var(--figma-color-warning);
+  border: calc(3 * var(--rpx)) solid var(--figma-color-warning);
   border-radius: 50%;
   color: var(--figma-color-warning);
   font-size: var(--text-micro);
@@ -149,19 +149,19 @@
 }
 
 .boundary-notice + .form-card {
-  margin-top: 40rpx;
+  margin-top: calc(40 * var(--rpx));
 }
 
 .card-title {
   color: var(--ink);
   font-size: var(--text-section);
   font-weight: 700;
-  letter-spacing: -0.3rpx;
-  line-height: 42rpx;
+  letter-spacing: calc(-0.3 * var(--rpx));
+  line-height: calc(42 * var(--rpx));
 }
 
 .card-copy {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   color: var(--ink-2);
   font-size: var(--text-caption);
   font-weight: 500;
@@ -169,26 +169,26 @@
 }
 
 .field-label {
-  margin-top: 40rpx;
+  margin-top: calc(40 * var(--rpx));
   color: var(--color-ink-secondary);
   font-size: var(--text-caption);
   font-weight: 700;
-  line-height: 36rpx;
+  line-height: calc(36 * var(--rpx));
 }
 
 .field-label--spaced {
-  margin-top: 48rpx;
+  margin-top: calc(48 * var(--rpx));
 }
 
 .input-field {
   box-sizing: border-box;
   display: flex;
-  height: 96rpx;
+  height: calc(96 * var(--rpx));
   align-items: center;
-  gap: 20rpx;
-  margin-top: 12rpx;
-  padding: 0 24rpx;
-  border: 1rpx solid var(--line);
+  gap: calc(20 * var(--rpx));
+  margin-top: calc(12 * var(--rpx));
+  padding: 0 calc(24 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--line);
   border-radius: var(--radius-24);
   background: var(--bg);
 }
@@ -201,19 +201,19 @@
 .search-icon {
   box-sizing: border-box;
   position: relative;
-  width: 27rpx;
-  height: 27rpx;
+  width: calc(27 * var(--rpx));
+  height: calc(27 * var(--rpx));
   flex: none;
-  border: 3rpx solid var(--ink-3);
+  border: calc(3 * var(--rpx)) solid var(--ink-3);
   border-radius: 50%;
 }
 
 .search-icon::after {
   position: absolute;
-  right: -8rpx;
-  bottom: -6rpx;
-  width: 11rpx;
-  height: 3rpx;
+  right: calc(-8 * var(--rpx));
+  bottom: calc(-6 * var(--rpx));
+  width: calc(11 * var(--rpx));
+  height: calc(3 * var(--rpx));
   transform: rotate(45deg);
   border-radius: var(--radius-capsule);
   background: var(--ink-3);
@@ -239,28 +239,28 @@
 .field-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24rpx;
-  margin-top: 32rpx;
+  gap: calc(24 * var(--rpx));
+  margin-top: calc(32 * var(--rpx));
 }
 
 .picker-label {
-  margin-left: 8rpx;
+  margin-left: calc(8 * var(--rpx));
   color: var(--ink-3);
   font-size: var(--text-caption);
   font-weight: 700;
-  line-height: 36rpx;
+  line-height: calc(36 * var(--rpx));
 }
 
 .picker-control {
   box-sizing: border-box;
   display: flex;
-  height: 96rpx;
+  height: calc(96 * var(--rpx));
   align-items: center;
   justify-content: space-between;
-  gap: 12rpx;
-  margin-top: 12rpx;
-  padding: 0 20rpx;
-  border: 1rpx solid var(--line);
+  gap: calc(12 * var(--rpx));
+  margin-top: calc(12 * var(--rpx));
+  padding: 0 calc(20 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--line);
   border-radius: var(--radius-24);
   background: var(--bg);
   color: var(--ink-3);
@@ -274,31 +274,31 @@
 }
 
 .picker-chevron {
-  width: 11rpx;
-  height: 11rpx;
+  width: calc(11 * var(--rpx));
+  height: calc(11 * var(--rpx));
   flex: none;
-  transform: rotate(45deg) translateY(-3rpx);
-  border-right: 2rpx solid var(--ink-3);
-  border-bottom: 2rpx solid var(--ink-3);
+  transform: rotate(45deg) translateY(calc(-3 * var(--rpx)));
+  border-right: calc(2 * var(--rpx)) solid var(--ink-3);
+  border-bottom: calc(2 * var(--rpx)) solid var(--ink-3);
 }
 
 .option-stack {
   display: flex;
   flex-direction: column;
-  gap: 16rpx;
-  margin-top: 12rpx;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(12 * var(--rpx));
 }
 
 .choice-row {
   box-sizing: border-box;
   display: flex;
   width: 100%;
-  min-height: 96rpx;
+  min-height: calc(96 * var(--rpx));
   align-items: center;
   justify-content: space-between;
-  gap: 24rpx;
-  padding: 24rpx 24rpx;
-  border: 2rpx solid var(--line);
+  gap: calc(24 * var(--rpx));
+  padding: calc(24 * var(--rpx)) calc(24 * var(--rpx));
+  border: calc(2 * var(--rpx)) solid var(--line);
   border-radius: var(--radius-24);
   background: var(--color-surface);
   color: var(--color-ink-secondary);
@@ -314,20 +314,20 @@
 .choice-title {
   font-size: var(--text-body);
   font-weight: 700;
-  line-height: 38rpx;
+  line-height: calc(38 * var(--rpx));
 }
 
 .choice-copy {
   color: var(--ink-2);
   font-size: var(--text-micro);
   font-weight: 500;
-  line-height: 32rpx;
+  line-height: calc(32 * var(--rpx));
 }
 
 .choice-check {
   display: flex;
-  width: 34rpx;
-  height: 34rpx;
+  width: calc(34 * var(--rpx));
+  height: calc(34 * var(--rpx));
   flex: none;
   align-items: center;
   justify-content: center;
@@ -341,20 +341,20 @@
 .chip-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 16rpx;
-  margin-top: 16rpx;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(16 * var(--rpx));
 }
 
 .choice-chip {
-  min-height: 68rpx;
-  padding: 0 24rpx;
-  border: 1rpx solid var(--color-line-strong);
+  min-height: calc(68 * var(--rpx));
+  padding: 0 calc(24 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line-strong);
   border-radius: var(--figma-radius-pill);
   background: var(--color-surface);
   color: var(--color-ink-secondary);
   font-size: var(--text-caption);
   font-weight: 600;
-  line-height: 68rpx;
+  line-height: calc(68 * var(--rpx));
 }
 
 .choice-chip--selected {
@@ -366,21 +366,21 @@
 .year-grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 12rpx;
-  margin-top: 16rpx;
+  gap: calc(12 * var(--rpx));
+  margin-top: calc(16 * var(--rpx));
 }
 
 .year-option {
   min-width: 0;
-  height: 72rpx;
+  height: calc(72 * var(--rpx));
   padding: 0;
-  border: 1rpx solid var(--color-line-strong);
+  border: calc(1 * var(--rpx)) solid var(--color-line-strong);
   border-radius: var(--radius-24);
   background: var(--color-surface);
   color: var(--color-ink-secondary);
   font-size: var(--text-micro);
   font-weight: 700;
-  line-height: 72rpx;
+  line-height: calc(72 * var(--rpx));
 }
 
 .year-option--selected {
@@ -390,7 +390,7 @@
 }
 
 .field-help {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   color: var(--ink-3);
   font-size: var(--text-micro);
   font-weight: 500;
@@ -398,14 +398,14 @@
 }
 
 .review-card {
-  padding-bottom: 32rpx;
+  padding-bottom: calc(32 * var(--rpx));
 }
 
 .review-head {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 20rpx;
+  gap: calc(20 * var(--rpx));
 }
 
 .review-main {
@@ -415,19 +415,19 @@
 
 .review-badge {
   flex: none;
-  padding: 8rpx 16rpx;
+  padding: calc(8 * var(--rpx)) calc(16 * var(--rpx));
   border-radius: var(--figma-radius-pill);
   background: var(--good-soft);
   color: var(--good);
   font-size: var(--text-micro);
   font-weight: 700;
-  line-height: 30rpx;
+  line-height: calc(30 * var(--rpx));
 }
 
 .review-list {
   overflow: hidden;
-  margin-top: 28rpx;
-  border: 1rpx solid var(--line);
+  margin-top: calc(28 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--line);
   border-radius: var(--radius-32);
   background: var(--color-surface-soft);
 }
@@ -436,11 +436,11 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 28rpx;
-  padding: 24rpx 24rpx;
-  border-bottom: 1rpx solid var(--line);
+  gap: calc(28 * var(--rpx));
+  padding: calc(24 * var(--rpx)) calc(24 * var(--rpx));
+  border-bottom: calc(1 * var(--rpx)) solid var(--line);
   font-size: var(--text-caption);
-  line-height: 34rpx;
+  line-height: calc(34 * var(--rpx));
 }
 
 .review-row:last-child {
@@ -462,8 +462,8 @@
 }
 
 .confirm-copy {
-  margin-top: 24rpx;
-  padding: 20rpx 24rpx;
+  margin-top: calc(24 * var(--rpx));
+  padding: calc(20 * var(--rpx)) calc(24 * var(--rpx));
   border-radius: var(--radius-24);
   background: var(--primary-soft);
   color: var(--primary);
@@ -475,15 +475,15 @@
 .recovery-banner,
 .error-banner {
   box-sizing: border-box;
-  margin-top: 24rpx;
-  padding: 24rpx 28rpx;
+  margin-top: calc(24 * var(--rpx));
+  padding: calc(24 * var(--rpx)) calc(28 * var(--rpx));
   border-radius: var(--radius-32);
 }
 
 .recovery-banner {
   display: flex;
   align-items: flex-start;
-  gap: 20rpx;
+  gap: calc(20 * var(--rpx));
   background: var(--primary-soft);
   color: var(--color-muted);
 }
@@ -493,19 +493,19 @@
   color: var(--color-muted);
   font-size: var(--text-section);
   font-weight: 800;
-  line-height: 36rpx;
+  line-height: calc(36 * var(--rpx));
 }
 
 .recovery-title {
   font-size: var(--text-caption);
   font-weight: 700;
-  line-height: 36rpx;
+  line-height: calc(36 * var(--rpx));
 }
 
 .recovery-copy {
   color: var(--color-muted);
   font-size: var(--text-micro);
-  line-height: 32rpx;
+  line-height: calc(32 * var(--rpx));
 }
 
 .error-banner {
@@ -517,29 +517,30 @@
 }
 
 .request-id {
-  margin-top: 16rpx;
+  margin-top: calc(16 * var(--rpx));
   color: var(--ink-3);
   font-family: monospace;
   font-size: var(--text-micro);
-  line-height: 28rpx;
+  line-height: calc(28 * var(--rpx));
   text-align: center;
 }
 
 .success-page {
   box-sizing: border-box;
   display: flex;
-  min-height: calc(100vh - 112rpx);
+  min-height: calc(100vh - calc(112 * var(--rpx)));
   flex: 1;
   flex-direction: column;
   align-items: center;
-  padding: 96rpx 40rpx calc(48rpx + env(safe-area-inset-bottom));
+  padding: calc(96 * var(--rpx)) calc(40 * var(--rpx))
+    calc(calc(48 * var(--rpx)) + env(safe-area-inset-bottom));
   text-align: center;
 }
 
 .success-mark {
   display: flex;
-  width: 112rpx;
-  height: 112rpx;
+  width: calc(112 * var(--rpx));
+  height: calc(112 * var(--rpx));
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-32);
@@ -547,29 +548,29 @@
 }
 
 .success-icon {
-  width: 52rpx;
-  height: 52rpx;
+  width: calc(52 * var(--rpx));
+  height: calc(52 * var(--rpx));
 }
 
 .success-kicker {
-  margin-top: 40rpx;
+  margin-top: calc(40 * var(--rpx));
   color: var(--good);
   font-size: var(--text-caption);
   font-weight: 700;
-  line-height: 34rpx;
+  line-height: calc(34 * var(--rpx));
 }
 
 .success-title {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   font-size: var(--text-title);
   font-weight: 700;
-  letter-spacing: -0.6rpx;
+  letter-spacing: calc(-0.6 * var(--rpx));
   line-height: 1.35;
 }
 
 .success-copy {
-  max-width: 620rpx;
-  margin-top: 16rpx;
+  max-width: calc(620 * var(--rpx));
+  margin-top: calc(16 * var(--rpx));
   color: var(--ink-2);
   font-size: var(--text-caption);
   font-weight: 500;
@@ -579,9 +580,9 @@
 .success-card {
   box-sizing: border-box;
   width: 100%;
-  margin-top: 48rpx;
-  padding: 28rpx 32rpx;
-  border: 1rpx solid var(--line);
+  margin-top: calc(48 * var(--rpx));
+  padding: calc(28 * var(--rpx)) calc(32 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--line);
   border-radius: var(--radius-40);
   background: var(--color-surface);
   box-shadow: var(--shadow-card);
@@ -591,12 +592,12 @@
 .success-row {
   display: flex;
   align-items: center;
-  gap: 16rpx;
-  padding: 12rpx 0;
+  gap: calc(16 * var(--rpx));
+  padding: calc(12 * var(--rpx)) 0;
   color: var(--color-ink-secondary);
   font-size: var(--text-caption);
   font-weight: 600;
-  line-height: 34rpx;
+  line-height: calc(34 * var(--rpx));
 }
 
 .success-check {
@@ -609,17 +610,17 @@
   display: flex;
   width: 100%;
   flex-direction: column;
-  gap: 16rpx;
-  margin-top: 40rpx;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(40 * var(--rpx));
 }
 
 .text-action {
-  min-height: 72rpx;
+  min-height: calc(72 * var(--rpx));
   background: transparent;
   color: var(--primary);
   font-size: var(--text-caption);
   font-weight: 700;
-  line-height: 72rpx;
+  line-height: calc(72 * var(--rpx));
 }
 
 /* 平板层：分步表单与成功卡限可读宽。 */

@@ -7,45 +7,45 @@
   box-sizing: border-box;
   display: flex;
   width: 100%;
-  max-width: 750rpx;
+  max-width: calc(750 * var(--rpx));
   flex: 1;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  padding: 64rpx;
+  padding: calc(64 * var(--rpx));
   text-align: center;
 }
 
 .entry-mark {
   position: relative;
   display: flex;
-  width: 160rpx;
-  height: 160rpx;
+  width: calc(160 * var(--rpx));
+  height: calc(160 * var(--rpx));
   align-items: center;
   justify-content: center;
-  margin-bottom: 64rpx;
-  border: 1rpx solid var(--color-surface-soft);
+  margin-bottom: calc(64 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-surface-soft);
   border-radius: var(--radius-48);
   background: var(--color-surface);
   box-shadow: var(--shadow-card);
 }
 
 .entry-mark__icon {
-  width: 72rpx;
-  height: 72rpx;
+  width: calc(72 * var(--rpx));
+  height: calc(72 * var(--rpx));
 }
 
 .entry-title {
   font-size: var(--text-hero);
   font-weight: 700;
-  letter-spacing: -1.4rpx;
+  letter-spacing: calc(-1.4 * var(--rpx));
   line-height: 1.4;
 }
 
 .entry-copy {
-  max-width: 652rpx;
-  margin-top: 24rpx;
+  max-width: calc(652 * var(--rpx));
+  margin-top: calc(24 * var(--rpx));
   color: var(--ink-2);
   font-size: var(--text-section);
   font-weight: 500;
@@ -56,20 +56,20 @@
   display: flex;
   width: 100%;
   flex-direction: column;
-  gap: 32rpx;
-  margin-top: 96rpx;
+  gap: calc(32 * var(--rpx));
+  margin-top: calc(96 * var(--rpx));
 }
 
 .entry-action {
   box-sizing: border-box;
   display: flex;
   width: 100%;
-  min-height: 112rpx;
+  min-height: calc(112 * var(--rpx));
   align-items: center;
   justify-content: center;
-  gap: 16rpx;
+  gap: calc(16 * var(--rpx));
   margin: 0;
-  padding: 0 32rpx;
+  padding: 0 calc(32 * var(--rpx));
   border-radius: var(--radius-48);
   font-size: var(--text-section);
   font-weight: 700;
@@ -88,14 +88,14 @@
 }
 
 .entry-action--secondary {
-  border: 1rpx solid var(--color-line-strong);
+  border: calc(1 * var(--rpx)) solid var(--color-line-strong);
   background: var(--color-surface);
   color: var(--ink);
 }
 
 .entry-action__icon {
-  width: 36rpx;
-  height: 36rpx;
+  width: calc(36 * var(--rpx));
+  height: calc(36 * var(--rpx));
 }
 
 button.entry-action {

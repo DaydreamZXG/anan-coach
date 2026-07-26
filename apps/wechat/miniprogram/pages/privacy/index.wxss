@@ -1,17 +1,17 @@
 .privacy-page {
-  padding-bottom: 96rpx;
+  padding-bottom: calc(96 * var(--rpx));
 }
 .privacy-state-view {
   display: block;
-  margin-top: 28rpx;
+  margin-top: calc(28 * var(--rpx));
 }
 .privacy-secondary {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 88rpx;
-  margin-top: 24rpx;
-  border: 1rpx solid var(--color-line-strong);
+  min-height: calc(88 * var(--rpx));
+  margin-top: calc(24 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line-strong);
   border-radius: var(--radius-24);
   background: var(--color-surface);
   color: var(--color-ink);
@@ -22,7 +22,7 @@
   margin-top: 0;
 }
 .export-state {
-  margin-top: 20rpx;
+  margin-top: calc(20 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-caption);
   font-weight: 700;
@@ -33,22 +33,22 @@
 }
 .deletion-copy {
   display: flex;
-  gap: 16rpx;
-  margin-top: 12rpx;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(12 * var(--rpx));
   color: var(--color-ink-secondary);
   font-size: var(--text-micro);
   line-height: 1.55;
 }
 .danger-dot {
   flex: 0 0 auto;
-  width: 9rpx;
-  height: 9rpx;
-  margin-top: 12rpx;
+  width: calc(9 * var(--rpx));
+  height: calc(9 * var(--rpx));
+  margin-top: calc(12 * var(--rpx));
   border-radius: 50%;
   background: var(--color-danger);
 }
 .phrase-label {
-  margin-top: 28rpx;
+  margin-top: calc(28 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-micro);
 }
@@ -58,16 +58,16 @@
 }
 .phrase-input {
   box-sizing: border-box;
-  height: 88rpx;
-  margin-top: 16rpx;
-  padding: 0 24rpx;
-  border: 1rpx solid rgba(213, 70, 79, 0.22);
+  height: calc(88 * var(--rpx));
+  margin-top: calc(16 * var(--rpx));
+  padding: 0 calc(24 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid rgba(213, 70, 79, 0.22);
   border-radius: var(--radius-24);
   background: var(--color-surface);
   font-size: var(--text-caption);
 }
 .delete-button {
-  margin-top: 24rpx;
+  margin-top: calc(24 * var(--rpx));
   padding: 0;
   background: transparent;
   color: var(--color-danger);

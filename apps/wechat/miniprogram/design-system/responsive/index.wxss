@@ -133,6 +133,9 @@
  */
 @media (min-width: 768px) {
   page {
+    /* 大屏去放大总开关：全部 calc(N * var(--rpx)) 尺寸回到手机等效物理值。 */
+    --rpx: 0.5px;
+
     /* 字号 13 档（手机等效 px，正文微调 +1px 适配平板视距） */
     --text-tab: 11px;
     --text-micro: 12px;
@@ -211,5 +214,79 @@
 
   .today-col--side-b .settlement-button {
     white-space: nowrap;
+  }
+}
+
+/*
+ * 粉笔式做题双栏（1024px+）：选项从手机卡片壳降为轻量文本行——
+ * 描边圆字母 + 纯文本，无边框阴影，选中用青色浅底；密度对齐粉笔平板端。
+ */
+@media (min-width: 1024px) {
+  .option-list {
+    gap: 6px;
+  }
+
+  .option-row {
+    grid-template-columns: minmax(0, 1fr) 40px;
+    gap: 8px;
+  }
+
+  .option-card {
+    padding: 10px 12px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    box-shadow: none;
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .option-card--selected {
+    border: 0;
+    background: var(--color-primary-soft);
+    box-shadow: none;
+  }
+
+  .option-card--eliminated {
+    border: 0;
+    background: transparent;
+  }
+
+  .option-label {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--color-line-strong);
+    background: transparent;
+    color: var(--color-muted);
+    font-size: 13px;
+    line-height: 26px;
+  }
+
+  .option-card--selected .option-label {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+
+  .option-copy {
+    padding-top: 2px;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.65;
+  }
+
+  .eliminate-action {
+    width: 40px;
+    min-width: 40px;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    opacity: 0.55;
+  }
+
+  .question-stem {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.7;
   }
 }

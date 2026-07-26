@@ -4,7 +4,7 @@
   box-sizing: border-box;
   width: 100%;
   overflow: hidden;
-  border: 1rpx solid var(--color-line);
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--figma-radius-card);
   background: var(--color-surface);
 }
@@ -15,12 +15,12 @@
 
 .material-reader__inline-header {
   display: flex;
-  min-height: 88rpx;
+  min-height: calc(88 * var(--rpx));
   align-items: center;
   justify-content: space-between;
-  gap: 20rpx;
-  padding: 16rpx 20rpx 16rpx 24rpx;
-  border-bottom: 1rpx solid var(--color-line);
+  gap: calc(20 * var(--rpx));
+  padding: calc(16 * var(--rpx)) calc(20 * var(--rpx)) calc(16 * var(--rpx)) calc(24 * var(--rpx));
+  border-bottom: calc(1 * var(--rpx)) solid var(--color-line);
   text-align: left;
 }
 
@@ -32,16 +32,16 @@
   color: var(--color-muted);
   font-size: var(--text-micro);
   font-weight: 700;
-  line-height: 28rpx;
+  line-height: calc(28 * var(--rpx));
 }
 
 .material-reader__inline-expand {
   position: relative;
   box-sizing: border-box;
   display: flex;
-  width: 64rpx;
-  min-width: 64rpx;
-  height: 64rpx;
+  width: calc(64 * var(--rpx));
+  min-width: calc(64 * var(--rpx));
+  height: calc(64 * var(--rpx));
   align-items: center;
   justify-content: center;
   margin: 0;
@@ -57,17 +57,17 @@
 }
 
 .material-reader__inline-chevron {
-  width: 16rpx;
-  height: 16rpx;
+  width: calc(16 * var(--rpx));
+  height: calc(16 * var(--rpx));
   transform: rotate(45deg);
-  border-top: 3rpx solid var(--color-muted);
-  border-left: 3rpx solid var(--color-muted);
-  border-radius: 2rpx;
+  border-top: calc(3 * var(--rpx)) solid var(--color-muted);
+  border-left: calc(3 * var(--rpx)) solid var(--color-muted);
+  border-radius: calc(2 * var(--rpx));
 }
 
 .material-reader__entry-title {
   overflow: hidden;
-  margin-top: 2rpx;
+  margin-top: calc(2 * var(--rpx));
   color: var(--color-ink);
   font-size: var(--text-caption);
   font-weight: 700;
@@ -77,19 +77,19 @@
 }
 
 .material-reader__position {
-  margin-top: 4rpx;
+  margin-top: calc(4 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-micro);
   line-height: 1.4;
 }
 
 .material-reader__inline-scroll {
-  height: min(560rpx, 42vh);
+  height: min(calc(560 * var(--rpx)), 42vh);
 }
 
 .material-reader__inline-content {
   box-sizing: border-box;
-  padding: 24rpx;
+  padding: calc(24 * var(--rpx));
 }
 
 /* Figma 2:74：白底 + 极浅投影，不再画边框和圆角。 */
@@ -107,7 +107,7 @@
  */
 .material-reader__inline-scroll--answering {
   box-sizing: border-box;
-  max-height: min(589rpx, 35vh);
+  max-height: min(calc(589 * var(--rpx)), 35vh);
 }
 
 /*
@@ -116,7 +116,7 @@
  */
 .material-reader__inline-body--answering {
   box-sizing: border-box;
-  padding: 32rpx 40rpx 40rpx;
+  padding: calc(32 * var(--rpx)) calc(40 * var(--rpx)) calc(40 * var(--rpx));
 }
 
 .material-reader__inline-content--answering {
@@ -162,12 +162,12 @@
 .material-reader__nav {
   position: relative;
   display: flex;
-  height: 116rpx;
+  height: calc(116 * var(--rpx));
   flex: none;
   align-items: center;
-  gap: 24rpx;
-  padding: 0 var(--reader-capsule-reserve, 0) 0 28rpx;
-  border-bottom: 1rpx solid var(--figma-color-line);
+  gap: calc(24 * var(--rpx));
+  padding: 0 var(--reader-capsule-reserve, 0) 0 calc(28 * var(--rpx));
+  border-bottom: calc(1 * var(--rpx)) solid var(--figma-color-line);
   background: var(--figma-color-surface);
 }
 
@@ -175,13 +175,13 @@
 .material-reader__back {
   box-sizing: border-box;
   display: flex;
-  width: 76rpx;
-  min-width: 76rpx;
-  height: 76rpx;
+  width: calc(76 * var(--rpx));
+  min-width: calc(76 * var(--rpx));
+  height: calc(76 * var(--rpx));
   align-items: center;
   justify-content: center;
   margin: 0;
-  padding: 0 0 8rpx;
+  padding: 0 0 calc(8 * var(--rpx));
   border: 0;
   border-radius: var(--radius-40);
   color: var(--color-ink);
@@ -208,7 +208,7 @@
   color: var(--figma-color-ink);
   font-size: var(--text-section);
   font-weight: 700;
-  line-height: 48rpx;
+  line-height: calc(48 * var(--rpx));
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -218,7 +218,7 @@
   color: var(--figma-color-muted);
   font-size: var(--text-micro);
   font-weight: 500;
-  line-height: 30rpx;
+  line-height: calc(30 * var(--rpx));
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -231,9 +231,10 @@
 /* Figma 81:11：白色正文卡，r26，边框 line；底部给工具坞留出空间。 */
 .material-reader__body {
   box-sizing: border-box;
-  margin: 24rpx 24rpx calc(200rpx + env(safe-area-inset-bottom));
-  padding: 32rpx 32rpx 56rpx;
-  border: 1rpx solid var(--figma-color-line);
+  margin: calc(24 * var(--rpx)) calc(24 * var(--rpx))
+    calc(calc(200 * var(--rpx)) + env(safe-area-inset-bottom));
+  padding: calc(32 * var(--rpx)) calc(32 * var(--rpx)) calc(56 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--figma-color-line);
   border-radius: var(--radius-48);
   background: var(--figma-color-surface);
 }
@@ -246,38 +247,38 @@
 .material-reader__section-tag {
   display: inline-flex;
   align-items: center;
-  padding: 12rpx 24rpx;
+  padding: calc(12 * var(--rpx)) calc(24 * var(--rpx));
   border-radius: var(--radius-32);
   color: var(--color-ink-secondary);
   background: var(--color-surface-soft);
   font-size: var(--text-micro);
   font-weight: 700;
-  line-height: 32rpx;
+  line-height: calc(32 * var(--rpx));
 }
 
 /* Figma 81:14 */
 .material-reader__body-title {
-  margin-top: 28rpx;
+  margin-top: calc(28 * var(--rpx));
   color: var(--figma-color-ink);
   font-size: var(--text-title-sm);
   font-weight: 700;
-  line-height: 52rpx;
+  line-height: calc(52 * var(--rpx));
 }
 
 .material-reader__content {
-  padding: 24rpx 0 0;
+  padding: calc(24 * var(--rpx)) 0 0;
 }
 
 /* Figma 81:36：已读进度浮标。 */
 .material-reader__progress {
   position: absolute;
-  right: 46rpx;
-  bottom: calc(196rpx + env(safe-area-inset-bottom));
+  right: calc(46 * var(--rpx));
+  bottom: calc(calc(196 * var(--rpx)) + env(safe-area-inset-bottom));
   display: flex;
-  height: 56rpx;
+  height: calc(56 * var(--rpx));
   align-items: center;
-  gap: 16rpx;
-  padding: 0 24rpx;
+  gap: calc(16 * var(--rpx));
+  padding: 0 calc(24 * var(--rpx));
   border-radius: var(--radius-32);
   color: var(--color-ink-secondary);
   background: rgb(247 249 252 / 96%);
@@ -286,8 +287,8 @@
 }
 
 .material-reader__progress-dot {
-  width: 14rpx;
-  height: 14rpx;
+  width: calc(14 * var(--rpx));
+  height: calc(14 * var(--rpx));
   border-radius: 50%;
   background: var(--color-primary-deep);
 }
@@ -295,16 +296,16 @@
 /* Figma 81:39：浮动工具坞。 */
 .material-reader__dock {
   position: absolute;
-  right: 24rpx;
-  bottom: calc(48rpx + env(safe-area-inset-bottom));
-  left: 24rpx;
+  right: calc(24 * var(--rpx));
+  bottom: calc(calc(48 * var(--rpx)) + env(safe-area-inset-bottom));
+  left: calc(24 * var(--rpx));
   box-sizing: border-box;
   display: flex;
-  height: 128rpx;
+  height: calc(128 * var(--rpx));
   align-items: center;
-  gap: 16rpx;
-  padding: 12rpx 16rpx;
-  border: 1rpx solid var(--figma-color-line);
+  gap: calc(16 * var(--rpx));
+  padding: calc(12 * var(--rpx)) calc(16 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--figma-color-line);
   border-radius: var(--radius-40);
   background: rgb(255 255 255 / 98%);
   box-shadow: var(--shadow-elevated);
@@ -314,13 +315,13 @@
 .material-reader__dock-tool {
   box-sizing: border-box;
   display: flex;
-  width: 104rpx;
-  min-width: 104rpx;
-  height: 100rpx;
+  width: calc(104 * var(--rpx));
+  min-width: calc(104 * var(--rpx));
+  height: calc(100 * var(--rpx));
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4rpx;
+  gap: calc(4 * var(--rpx));
   margin: 0;
   padding: 0;
   border: 0;
@@ -337,25 +338,25 @@
 .material-reader__dock-glyph {
   font-size: var(--text-section);
   font-weight: 600;
-  line-height: 36rpx;
+  line-height: calc(36 * var(--rpx));
 }
 
 .material-reader__dock-label {
   font-size: var(--text-micro);
   font-weight: 600;
-  line-height: 26rpx;
+  line-height: calc(26 * var(--rpx));
 }
 
 /* Figma 88:2：深色「回到第 N 题」。 */
 .material-reader__dock-return {
   box-sizing: border-box;
   display: flex;
-  height: 92rpx;
+  height: calc(92 * var(--rpx));
   flex: 1;
   align-items: center;
   justify-content: center;
   margin: 0;
-  padding: 0 24rpx;
+  padding: 0 calc(24 * var(--rpx));
   border: 0;
   border-radius: var(--radius-48);
   color: var(--figma-color-on-dark);

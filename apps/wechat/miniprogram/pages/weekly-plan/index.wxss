@@ -17,17 +17,17 @@
   display: flex;
   align-items: center;
   gap: var(--figma-space-8);
-  margin-bottom: 20rpx;
+  margin-bottom: calc(20 * var(--rpx));
   padding-left: var(--figma-space-4);
   font-size: var(--text-section);
   font-weight: 700;
-  letter-spacing: -0.5rpx;
+  letter-spacing: calc(-0.5 * var(--rpx));
 }
 
 .section-heading__mark {
   display: flex;
-  width: 36rpx;
-  height: 36rpx;
+  width: calc(36 * var(--rpx));
+  height: calc(36 * var(--rpx));
   align-items: center;
   justify-content: center;
   color: var(--color-ink);
@@ -40,7 +40,7 @@ button.inline-action {
   width: auto;
   align-items: center;
   justify-content: center;
-  min-height: 64rpx;
+  min-height: calc(64 * var(--rpx));
   margin: var(--figma-space-16) 0 0;
   padding: 0 var(--figma-space-16);
   border: 0;
@@ -49,7 +49,7 @@ button.inline-action {
   color: var(--color-primary-deep);
   font-size: var(--text-caption);
   font-weight: 700;
-  line-height: 64rpx;
+  line-height: calc(64 * var(--rpx));
 }
 
 .schedule-card {
@@ -69,7 +69,7 @@ button.day-trigger {
   display: flex;
   box-sizing: border-box;
   width: 100%;
-  min-height: 92rpx;
+  min-height: calc(92 * var(--rpx));
   align-items: center;
   justify-content: space-between;
   margin: 0;
@@ -116,11 +116,11 @@ button.day-trigger {
 }
 
 .day-chevron {
-  width: 13rpx;
-  height: 13rpx;
+  width: calc(13 * var(--rpx));
+  height: calc(13 * var(--rpx));
   transform: rotate(45deg);
-  border-right: 2rpx solid var(--color-faint);
-  border-bottom: 2rpx solid var(--color-faint);
+  border-right: calc(2 * var(--rpx)) solid var(--color-faint);
+  border-bottom: calc(2 * var(--rpx)) solid var(--color-faint);
 }
 
 .day-chevron--open {
@@ -204,7 +204,7 @@ button.day-trigger {
 
 button.adjustment-card__action {
   width: 100%;
-  min-height: 76rpx;
+  min-height: calc(76 * var(--rpx));
   margin: var(--figma-space-12) 0 0;
   border: 0;
   border-radius: var(--figma-radius-small);
@@ -212,7 +212,7 @@ button.adjustment-card__action {
   color: var(--color-on-primary);
   font-size: var(--text-body);
   font-weight: 700;
-  line-height: 76rpx;
+  line-height: calc(76 * var(--rpx));
 }
 
 button.week-primary {
@@ -221,13 +221,13 @@ button.week-primary {
 
 button.week-companion {
   width: 100%;
-  min-height: 60rpx;
-  margin: 12rpx 0 0;
+  min-height: calc(60 * var(--rpx));
+  margin: calc(12 * var(--rpx)) 0 0;
   border: 0;
   background: none;
   color: var(--color-primary);
   font-size: var(--text-body);
   font-weight: 700;
-  line-height: 60rpx;
+  line-height: calc(60 * var(--rpx));
   text-align: center;
 }

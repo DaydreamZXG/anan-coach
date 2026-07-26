@@ -5,11 +5,11 @@
   color: var(--color-muted);
   font-size: var(--text-micro);
   font-weight: 700;
-  letter-spacing: 1rpx;
+  letter-spacing: calc(1 * var(--rpx));
 }
 
 .center-time {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-micro);
 }
@@ -17,18 +17,18 @@
 .paper-list,
 .report-grid {
   display: grid;
-  gap: 20rpx;
+  gap: calc(20 * var(--rpx));
 }
 
 .paper-top {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 20rpx;
+  gap: calc(20 * var(--rpx));
 }
 
 .paper-status {
-  padding: 8rpx 12rpx;
+  padding: calc(8 * var(--rpx)) calc(12 * var(--rpx));
   border-radius: var(--radius-capsule);
   background: var(--color-primary-soft);
   color: var(--color-muted);
@@ -46,7 +46,7 @@
 .external-title,
 .latest-title,
 .report-card__title {
-  margin-top: 16rpx;
+  margin-top: calc(16 * var(--rpx));
   color: var(--color-ink);
   font-size: var(--text-body-lg);
   font-weight: 700;
@@ -57,7 +57,7 @@
 .external-copy,
 .latest-meta,
 .report-card__copy {
-  margin-top: 12rpx;
+  margin-top: calc(12 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-caption);
   line-height: 1.55;
@@ -65,7 +65,7 @@
 
 .paper-action,
 .report-card__arrow {
-  margin-top: 20rpx;
+  margin-top: calc(20 * var(--rpx));
   color: var(--color-muted);
   font-weight: 600;
 }
@@ -74,7 +74,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20rpx;
+  gap: calc(20 * var(--rpx));
   background: var(--color-primary-soft);
 }
 
@@ -94,15 +94,15 @@
 }
 
 .report-card--ready {
-  border-top: 5rpx solid var(--color-primary);
+  border-top: calc(5 * var(--rpx)) solid var(--color-primary);
 }
 
 .report-card--partial {
-  border-top: 5rpx solid var(--figma-color-warning);
+  border-top: calc(5 * var(--rpx)) solid var(--figma-color-warning);
 }
 
 .report-card--empty {
-  border-top: 5rpx solid var(--figma-color-line-emphasis);
+  border-top: calc(5 * var(--rpx)) solid var(--figma-color-line-emphasis);
 }
 
 @media (min-width: 1024px) {

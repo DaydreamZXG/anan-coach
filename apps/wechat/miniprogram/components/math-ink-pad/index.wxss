@@ -2,23 +2,30 @@
 
 .ink-pad {
   overflow: hidden;
-  border: 1rpx solid var(--color-primary-a16);
+  border: calc(1 * var(--rpx)) solid var(--color-primary-a16);
   border-radius: var(--radius-24);
   background: var(--color-surface-soft);
 }
 .ink-canvas {
   width: 100%;
-  height: 310rpx;
+  height: calc(310 * var(--rpx));
   background-image:
-    linear-gradient(var(--color-primary-a08) 1rpx, transparent 1rpx),
-    linear-gradient(90deg, var(--color-primary-a08) 1rpx, transparent 1rpx);
-  background-size: 40rpx 40rpx;
+    linear-gradient(
+      var(--color-primary-a08) calc(1 * var(--rpx)),
+      transparent calc(1 * var(--rpx))
+    ),
+    linear-gradient(
+      90deg,
+      var(--color-primary-a08) calc(1 * var(--rpx)),
+      transparent calc(1 * var(--rpx))
+    );
+  background-size: calc(40 * var(--rpx)) calc(40 * var(--rpx));
 }
 .ink-actions {
   display: flex;
-  gap: 16rpx;
-  padding: 16rpx;
-  border-top: 1rpx solid var(--color-line);
+  gap: calc(16 * var(--rpx));
+  padding: calc(16 * var(--rpx));
+  border-top: calc(1 * var(--rpx)) solid var(--color-line);
 }
 .ink-clear,
 .ink-recognize {
@@ -26,7 +33,7 @@
   margin: 0;
   border-radius: var(--radius-16);
   font-size: var(--text-caption);
-  line-height: 72rpx;
+  line-height: calc(72 * var(--rpx));
 }
 .ink-clear {
   color: var(--color-ink-secondary);

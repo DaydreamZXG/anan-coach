@@ -9,43 +9,43 @@
 }
 
 .anan--small {
-  width: 56rpx;
-  height: 56rpx;
+  width: calc(56 * var(--rpx));
+  height: calc(56 * var(--rpx));
 }
 
 .anan--medium {
-  width: 88rpx;
-  height: 88rpx;
+  width: calc(88 * var(--rpx));
+  height: calc(88 * var(--rpx));
 }
 
 .anan--large {
-  width: 180rpx;
-  height: 180rpx;
+  width: calc(180 * var(--rpx));
+  height: calc(180 * var(--rpx));
 }
 
 .anan--avatar-32 {
-  width: 64rpx;
-  height: 64rpx;
+  width: calc(64 * var(--rpx));
+  height: calc(64 * var(--rpx));
 }
 
 .anan--inline-64 {
-  width: 128rpx;
-  height: 128rpx;
+  width: calc(128 * var(--rpx));
+  height: calc(128 * var(--rpx));
 }
 
 .anan--animated-120 {
-  width: 240rpx;
-  height: 240rpx;
+  width: calc(240 * var(--rpx));
+  height: calc(240 * var(--rpx));
 }
 
 .anan--card-160 {
-  width: 320rpx;
-  height: 320rpx;
+  width: calc(320 * var(--rpx));
+  height: calc(320 * var(--rpx));
 }
 
 .anan--hero-240 {
-  width: 480rpx;
-  height: 480rpx;
+  width: calc(480 * var(--rpx));
+  height: calc(480 * var(--rpx));
 }
 
 .anan__viewport,

@@ -2,7 +2,7 @@
 
 .packets-state-view {
   display: block;
-  margin-top: 32rpx;
+  margin-top: calc(32 * var(--rpx));
 }
 
 .content-row,
@@ -10,15 +10,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20rpx;
+  gap: calc(20 * var(--rpx));
 }
 
 .content-row {
-  min-height: 98rpx;
+  min-height: calc(98 * var(--rpx));
   box-sizing: border-box;
-  margin-top: 12rpx;
-  padding: 20rpx 20rpx;
-  border: 1rpx solid var(--color-line);
+  margin-top: calc(12 * var(--rpx));
+  padding: calc(20 * var(--rpx)) calc(20 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-control);
   background: var(--color-surface-soft);
 }
@@ -44,8 +44,8 @@
 
 .packet-meta {
   display: grid;
-  gap: 8rpx;
-  margin-top: 20rpx;
+  gap: calc(8 * var(--rpx));
+  margin-top: calc(20 * var(--rpx));
   color: var(--color-muted);
   font-size: var(--text-micro);
   word-break: break-all;
@@ -54,15 +54,15 @@
 .packet-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 12rpx;
-  margin-top: 24rpx;
+  gap: calc(12 * var(--rpx));
+  margin-top: calc(24 * var(--rpx));
 }
 
 .packet-action {
-  min-height: 70rpx;
+  min-height: calc(70 * var(--rpx));
   display: flex;
   align-items: center;
-  padding: 0 24rpx;
+  padding: 0 calc(24 * var(--rpx));
   border-radius: var(--radius-control);
   background: var(--color-ink);
   color: var(--color-on-primary);
