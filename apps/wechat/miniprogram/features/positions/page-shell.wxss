@@ -1653,3 +1653,21 @@ button.sheet-close {
     transform: translateX(50%);
   }
 }
+
+/* 平板：对比列加宽居中，不再是 166px 小卡贴左。 */
+@media (min-width: 1024px) {
+  .position-content--compare {
+    max-width: 1100px;
+  }
+
+  .comparison-track {
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .comparison-column {
+    width: 340px;
+    min-height: auto;
+    padding: 24px;
+  }
+}

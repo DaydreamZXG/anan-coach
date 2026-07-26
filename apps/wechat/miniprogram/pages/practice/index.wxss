@@ -1616,3 +1616,16 @@ button.submit-button {
 .practice-annotation-host--active {
   pointer-events: auto;
 }
+
+/* 平板：上一题以描边次级钮常驻可见，禁用只降透明度。 */
+@media (min-width: 1024px) {
+  .footer-previous {
+    border: 1px solid var(--color-line-strong);
+    background: var(--color-surface);
+    color: var(--color-ink-secondary);
+  }
+
+  .footer-previous--disabled {
+    opacity: 0.45;
+  }
+}

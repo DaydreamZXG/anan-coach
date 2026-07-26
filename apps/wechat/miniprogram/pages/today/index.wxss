@@ -654,7 +654,9 @@
     grid-template-areas:
       "header header"
       "main side-a"
-      "main side-b";
+      "main side-b"
+      "main .";
+    grid-template-rows: auto auto auto 1fr;
   }
 
   .today-header {

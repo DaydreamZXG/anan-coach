@@ -888,3 +888,37 @@
     padding-top: 0;
   }
 }
+
+/* 平板宽屏：顶栏舒展（更大热区与间距），底栏内容居中限宽。 */
+@media (min-width: 1024px) {
+  .task-header {
+    min-height: 56px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .task-header-button {
+    width: 38px;
+    min-width: 38px;
+    max-width: 38px;
+    height: 38px;
+    border-radius: 12px;
+  }
+
+  .task-header-actions {
+    gap: 14px;
+  }
+
+  .task-progress-label {
+    font-size: 14px;
+  }
+
+  .task-footer {
+    justify-content: center;
+  }
+
+  .task-footer-main {
+    max-width: 640px;
+    flex: 0 1 640px;
+  }
+}
