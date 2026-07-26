@@ -44,7 +44,8 @@ describe("tablet responsive layout contract", () => {
     expect(practiceTemplate).toContain('class="practice-workspace ');
     expect(practiceTemplate).toContain('class="practice-question-pane"');
     expect(practiceStyles).toContain("grid-template-columns: minmax(340px, 0.95fr)");
-    expect(practiceStyles).toContain("position: sticky");
+    // Figma 2:2：材料与题目各自滚动，宽屏由等高双栏承载，不再依赖 sticky。
+    expect(practiceStyles).toMatch(/\.material-reader-shell \{[^}]*height: 100%/);
 
     expect(mockTemplate).toContain('class="mock-workspace ');
     expect(mockTemplate).toContain('class="mock-question-pane"');

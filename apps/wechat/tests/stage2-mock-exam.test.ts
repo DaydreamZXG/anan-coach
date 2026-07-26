@@ -147,7 +147,11 @@ describe("stage 2 F02 mock exam", () => {
 
     storeTaskDisplayPreferences({ fontScale: 1.2, colorMode: "eye_care" });
 
-    expect(loadTaskDisplayPreferences()).toEqual({ fontScale: 1.2, colorMode: "eye_care" });
+    expect(loadTaskDisplayPreferences()).toEqual({
+      fontScale: 1.2,
+      colorMode: "eye_care",
+      lineSpacing: 1,
+    });
   });
 
   it("stops page timers in background and recomputes from the server deadline on return", async () => {

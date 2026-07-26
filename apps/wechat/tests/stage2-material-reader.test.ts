@@ -64,7 +64,7 @@ describe("stage 2 shared material reader", () => {
     expect(restoredQuestionOne).toEqual({
       mode: "drawer",
       position: { anchorId: "regional-table", scrollTop: 1847, zoom: 1.5 },
-      preferences: { fontScale: 1.2, colorMode: "eye_care" },
+      preferences: { fontScale: 1.2, colorMode: "eye_care", lineSpacing: 1 },
     });
   });
 
@@ -90,9 +90,21 @@ describe("stage 2 shared material reader", () => {
   it("shows shared material inline before the question and keeps immersive reading available", () => {
     expect(materialReaderTemplate).toContain("material-reader__inline");
     expect(materialReaderTemplate).toContain("material-reader__inline-content");
+    // Figma 2:75：作答态材料使用真正的纵向滚动容器，而不是裁切预览。
+    expect(materialReaderTemplate).toContain("material-reader__inline-scroll--{{appearance}}");
+    expect(materialReaderTemplate).not.toContain("material-reader__inline-preview");
+    expect(materialReaderTemplate).toContain("inlineHeaderAvailable");
     expect(materialReaderTemplate).toContain('aria-label="沉浸阅读材料"');
     expect(materialReaderTemplate).not.toContain(">查看材料</text>");
-    expect(practiceTemplate).toContain('class="material-reader-shell"');
+    // Figma 80:2：沉浸态通过页面级 material-reader-shell--immersive 修饰符可判定。
+    expect(practiceTemplate).toContain('class="material-reader-shell ');
+    expect(practiceTemplate).toContain("material-reader-shell--immersive");
+    expect(practiceTemplate).toContain('appearance="answering"');
+    // Figma 2:76：上下文动作行并入材料卡标题行。
+    expect(practiceTemplate).toContain('class="practice-material-head"');
+    expect(practiceTemplate).not.toContain('class="practice-context-bar"');
+    expect(practiceTemplate).toContain('draftAvailable="{{false}}"');
+    expect(practiceTemplate).toContain('markAvailable="{{false}}"');
     expect(mockExamTemplate).toContain('wx:if="{{question.material}}"');
     expect(mockExamTemplate).not.toContain('wx:if="{{materialOpen && question.material}}"');
   });

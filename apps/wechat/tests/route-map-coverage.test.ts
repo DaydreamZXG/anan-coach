@@ -26,6 +26,10 @@ import privateKnowledgeLogic from "../miniprogram/pages/private-knowledge/index.
 import reflectionTemplate from "../miniprogram/pages/reflection/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program logic through its raw asset loader.
 import reflectionLogic from "../miniprogram/pages/reflection/index.ts?raw";
+// @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
+import mockExamTemplate from "../miniprogram/pages/mock-exam/index.wxml?raw";
+// @ts-expect-error Vite exposes mini-program logic through its raw asset loader.
+import mockExamLogic from "../miniprogram/pages/mock-exam/index.ts?raw";
 
 interface DeliveryRouteMapping {
   route: string;
@@ -51,10 +55,21 @@ const pageSources: Readonly<Record<string, string>> = {
   "/pages/capture-import/index": pageSource(captureImportTemplate, captureImportLogic),
   "/pages/essay-task/index": pageSource(essayTaskTemplate, essayTaskLogic),
   "/pages/private-knowledge/index": pageSource(privateKnowledgeTemplate, privateKnowledgeLogic),
+  "/pages/mock-exam/index": pageSource(mockExamTemplate, mockExamLogic),
 };
 
 const stateMarkers: Readonly<Record<string, readonly string[]>> = {
   "/pages/practice/index#answering": ["sessionState === 'answering'"],
+  // Figma 03 · 行测练习与复盘 本轮新增的 9 个正式相态。
+  "/pages/practice/index#answer-sheet": ["answerSheetOpen", 'class="answer-card__sheet"'],
+  "/pages/practice/index#annotation": ["annotationOpen", "annotation-layer"],
+  "/pages/practice/index#material-immersive": ["OPEN_FULLSCREEN", "materialReaderState"],
+  "/pages/practice/index#paused": ["taskPaused", 'class="pause-card"'],
+  "/pages/practice/index#text-selection": ['class="selection-toolbar"', "tapStemSegment"],
+  "/pages/practice/index#anan-context": ["ananContextOpen", 'class="anan-context__sheet"'],
+  "/pages/reflection/index#trajectory-replay": ["replayOpen", 'class="replay-dock"'],
+  "/pages/reflection/index#action-analysis": ["analysisOpen", 'class="action-analysis__sheet"'],
+  "/pages/mock-exam/index#submit-confirm": ["submitConfirmOpen", 'class="mock-submit__sheet"'],
   "/pages/reflection/index#summary": ["phase === 'summary'", 'class="summary-content"'],
   "/pages/reflection/index#cause-review": ["phase === 'reflection'", 'class="review-content"'],
   "/pages/reflection/index#completed": [': "completed"', 'class="completed-screen"'],

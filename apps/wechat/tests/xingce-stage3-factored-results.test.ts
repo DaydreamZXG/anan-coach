@@ -86,10 +86,14 @@ describe("stage 3 factored result presentation", () => {
         expect.objectContaining({ code: "overtime", value: "3", tone: "warning" }),
       ]),
     );
+    // Figma 13:64：信心校准按 信心 × 对错 分桶，只展示出现过的桶。
     expect(result?.confidenceCalibration).toEqual(
-      expect.arrayContaining([expect.objectContaining({ code: "incorrect", value: 3 })]),
+      expect.arrayContaining([expect.objectContaining({ code: "confident_incorrect", value: 3 })]),
     );
-    expect(result?.metrics.some((item) => item.label.includes("改答"))).toBe(false);
+    // Figma 13:23 的「改答」列必须存在，但没有动作事件流时只能展示真实空态。
+    const changedMetric = result?.metrics.find((item) => item.code === "changed");
+    expect(changedMetric?.label).toBe("改答");
+    expect(changedMetric?.value).toBe("—");
   });
 
   it("逐题复盘只展示会话中真实存在的题干、材料和作答轨迹", () => {

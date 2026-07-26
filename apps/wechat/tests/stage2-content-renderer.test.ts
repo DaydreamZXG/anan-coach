@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+// @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
+import contentRendererTemplate from "../miniprogram/task-runtime/content-renderer/index.wxml?raw";
 
 import {
   collectPreviewUrls,
@@ -12,6 +14,12 @@ import {
 } from "../miniprogram/task-runtime/content-renderer/model";
 
 describe("stage 2 rich content renderer contract", () => {
+  it("does not introduce preserved whitespace around plain paragraph text", () => {
+    expect(contentRendererTemplate).toContain(
+      'class="content-paragraph" user-select>{{item.text}}</text>',
+    );
+  });
+
   it("prepares backend-native long content, readable formula, high-resolution preview and OCR source", () => {
     const blocks = complexMaterialFixture();
     const anchors = contentAnchors();

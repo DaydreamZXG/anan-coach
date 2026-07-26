@@ -106,7 +106,7 @@ describe("step 10 daily opening", () => {
 
   it("renders weather as information and keeps the authoritative plan action", () => {
     const presentation = presentDailyOpening(opening());
-    expect(presentation.weatherHeadline).toBe("南昌市红谷滩区 · 多云 31°");
+    expect(presentation.weatherHeadline).toBe("南昌市红谷滩区 · 多云\u00a031°");
     expect(presentation.planTitle).toBe("资料分析 · 增长率复测");
     expect(presentation.coffeeVisible).toBe(true);
     expect(todayTemplate).toContain("{{openingView.weatherHeadline}}");
