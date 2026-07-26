@@ -381,7 +381,7 @@ def render_query_reply(*, query, collection_state: str) -> str:
     }[collection_state]
     body = f"答案：{answer}\n\n解析：{explanation}\n\n来源：{source}\n状态：{status}"
     if collection_state == "not_collected":
-        return body + "\n回复「收录」「重做」「删除」"
+        return body + "\n回复「收录」「重做」「删除」；讲义或笔记类图片可回复「存资料」收进私有阅读室"
     if collection_state == "collected":
         return body + "\n回复「重做」「删除」"
     if collection_state == "queued_for_reattempt":

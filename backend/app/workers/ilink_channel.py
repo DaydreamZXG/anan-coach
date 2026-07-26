@@ -80,16 +80,23 @@ class ILinkWorker:
                 limit=200,
                 now=now,
             )
+            answered_count = repository.expire_answered_transients(
+                before=now
+                - timedelta(seconds=self._settings.transient_retention_seconds),
+                limit=200,
+                now=now,
+            )
             expired_count = repository.expire_uncollected_queries(
                 before=now - timedelta(days=self._settings.query_retention_days),
                 limit=500,
                 now=now,
             )
             session.commit()
-        if stale_count or expired_count:
+        if stale_count or answered_count or expired_count:
             LOGGER.info(
-                "iLink retention maintenance stale=%s expired=%s",
+                "iLink retention maintenance stale=%s answered_transients=%s expired=%s",
                 stale_count,
+                answered_count,
                 expired_count,
             )
 

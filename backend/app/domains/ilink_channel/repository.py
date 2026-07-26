@@ -384,7 +384,7 @@ class ILinkRepository:
                   content_version_id = :content_version_id,
                   authorization_snapshot_ref = :authorization_snapshot_ref,
                   model_provenance = cast(:model_provenance as jsonb),
-                  transient_object_ref = null, answered_at = :now,
+                  answered_at = :now,
                   version = version + 1, updated_at = :now
                 where query_id = :query_id and state = 'processing'
                 """
@@ -506,6 +506,62 @@ class ILinkRepository:
         ).scalars()
         return len(tuple(rows))
 
+    def expire_answered_transients(
+        self, *, before: datetime, limit: int, now: datetime
+    ) -> int:
+        if limit < 1 or limit > 1000:
+            raise ValueError("answered transient expiry limit is outside policy")
+        rows = self._session.execute(
+            text(
+                """
+                with candidates as (
+                  select query_id, transient_object_ref
+                  from messaging.ilink_photo_queries
+                  where state = 'answered'
+                    and transient_object_ref is not null
+                    and answered_at < :before
+                  order by answered_at
+                  for update skip locked
+                  limit :limit
+                ), queued as (
+                  insert into messaging.ilink_object_deletion_queue (
+                    object_ref, state, attempt_count, created_at, updated_at
+                  )
+                  select transient_object_ref, 'pending', 0, :now, :now
+                  from candidates
+                  on conflict (object_ref) do nothing
+                  returning object_ref
+                )
+                update messaging.ilink_photo_queries query set
+                  transient_object_ref = null,
+                  version = version + 1, updated_at = :now
+                from candidates
+                where query.query_id = candidates.query_id
+                returning query.query_id
+                """
+            ),
+            {"before": before, "limit": limit, "now": now},
+        ).scalars()
+        return len(tuple(rows))
+
+    def release_transient_for_material(
+        self, *, query_id: UUID, user_id: UUID, now: datetime
+    ) -> None:
+        changed = self._session.execute(
+            text(
+                """
+                update messaging.ilink_photo_queries set
+                  transient_object_ref = null,
+                  version = version + 1, updated_at = :now
+                where query_id = :query_id and user_id = :user_id
+                  and state = 'answered' and transient_object_ref is not null
+                """
+            ),
+            {"query_id": str(query_id), "user_id": str(user_id), "now": now},
+        ).rowcount
+        if changed != 1:
+            raise ILinkConflict("query_state_changed")
+
     def set_reply_state(
         self, *, query_id: UUID, client_id: str, state: str, now: datetime
     ) -> None:
@@ -590,6 +646,21 @@ class ILinkRepository:
         return row
 
     def delete_latest(self, *, query_id: UUID, user_id: UUID, command_id: str, now: datetime) -> None:
+        self._session.execute(
+            text(
+                """
+                insert into messaging.ilink_object_deletion_queue (
+                  object_ref, state, attempt_count, created_at, updated_at
+                )
+                select transient_object_ref, 'pending', 0, :now, :now
+                from messaging.ilink_photo_queries
+                where query_id = :query_id and user_id = :user_id
+                  and transient_object_ref is not null
+                on conflict (object_ref) do nothing
+                """
+            ),
+            {"query_id": str(query_id), "user_id": str(user_id), "now": now},
+        )
         self._session.execute(
             text(
                 """

@@ -141,6 +141,19 @@ class TosTransientImageStore:
             if _tos_status(exc) != 404:
                 raise PhotoResolutionError("transient_delete_failed", retryable=True) from exc
 
+    def stat(self, *, object_ref: str) -> int:
+        try:
+            key = private_object_key(object_ref, bucket=self._bucket)
+            response = self._client.head_object(self._bucket, key)
+        except Exception as exc:
+            if _tos_status(exc) == 404:
+                raise PhotoResolutionError("material_object_missing") from exc
+            raise PhotoResolutionError("private_storage_unavailable", retryable=True) from exc
+        size = getattr(response, "content_length", None)
+        if not isinstance(size, int) or size < 1:
+            raise PhotoResolutionError("material_object_missing")
+        return size
+
 
 class QueryRecognitionProcessor:
     def __init__(self, *, core: Settings, channel: ILinkSettings) -> None:

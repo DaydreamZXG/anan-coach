@@ -273,7 +273,31 @@ def test_query_collection_and_reattempt_never_write_ability(db_session: Session)
         {"user_id": str(USER_A)},
     ).scalar_one()
     assert collection_state == "queued_for_reattempt"
-    assert resolver.storage.deleted
+    # 答复完成后原图保留一个「存资料」转存窗口，窗口到期由维护任务送入可靠删除队列。
+    assert not resolver.storage.deleted
+    transient_ref = db_session.execute(
+        text(
+            "select transient_object_ref from messaging.ilink_photo_queries "
+            "where user_id = :user_id"
+        ),
+        {"user_id": str(USER_A)},
+    ).scalar_one()
+    assert transient_ref
+    swept = ILinkRepository(db_session).expire_answered_transients(
+        before=NOW + timedelta(seconds=901),
+        limit=10,
+        now=NOW + timedelta(seconds=901),
+    )
+    assert swept == 1
+    db_session.commit()
+    queued_state = db_session.execute(
+        text(
+            "select state from messaging.ilink_object_deletion_queue "
+            "where object_ref = :object_ref"
+        ),
+        {"object_ref": transient_ref},
+    ).scalar_one()
+    assert queued_state == "pending"
 
 
 def test_unmatched_and_material_required_remain_truthfully_labelled(db_session: Session) -> None:
@@ -335,6 +359,11 @@ def test_explicit_delete_and_account_disable_erase_private_channel_data(db_sessi
         client=protocol,  # type: ignore[arg-type]
     )
     assert "已删除" in protocol.sent[-1]["text"]
+    # 「删除」把仍在转存窗口内的原图送入可靠删除队列，不留孤儿对象。
+    queued = db_session.execute(
+        text("select count(*) from messaging.ilink_object_deletion_queue")
+    ).scalar_one()
+    assert queued == 1
     db_session.execute(
         text(
             "update learner.users set account_status = 'disabled' where user_id = :user_id"

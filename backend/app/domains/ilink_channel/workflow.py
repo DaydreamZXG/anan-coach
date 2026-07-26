@@ -6,6 +6,11 @@ from uuid import NAMESPACE_URL, UUID, uuid5
 from sqlalchemy.orm import Session
 
 from app.core.config import Settings
+from app.domains.ilink_channel.material_intake import (
+    ILinkMaterialIntake,
+    STORE_MATERIAL_COMMAND,
+)
+from app.domains.ilink_channel.plan_projection import is_plan_query, today_plan_reply
 from app.domains.ilink_channel.protocol import (
     ILinkProtocolClient,
     ILinkProtocolError,
@@ -41,6 +46,12 @@ class ILinkPhotoWorkflow:
             channel_settings=channel_settings,
         )
         self._clock = clock or (lambda: datetime.now(UTC))
+        self._material_intake = ILinkMaterialIntake(
+            settings=channel_settings,
+            cipher=self._service.cipher,
+            storage=self._resolver.storage,
+            clock=self._clock,
+        )
 
     def process(
         self,
@@ -78,6 +89,22 @@ class ILinkPhotoWorkflow:
                 client=client,
             )
             return
+        if text_command == STORE_MATERIAL_COMMAND and message.image is None:
+            self._store_material(
+                session,
+                user_id=user_id,
+                message=message,
+                client=client,
+            )
+            return
+        if is_plan_query(text_command) and message.image is None:
+            self._reply_plan_summary(
+                session,
+                user_id=user_id,
+                message=message,
+                client=client,
+            )
+            return
         if message.image is None:
             self._send_direct(
                 client,
@@ -85,7 +112,9 @@ class ILinkPhotoWorkflow:
                 purpose="help",
                 text=(
                     "请发送一张已裁剪的单题图片，尽量包含完整题干、共享材料和全部选项。"
-                    "查询不会写入能力画像；得到结果后可回复「收录」「重做」「删除」。"
+                    "查询不会写入能力画像；得到结果后可回复「收录」「重做」「删除」，"
+                    "讲义或笔记类图片可回复「存资料」收进私有阅读室。"
+                    "发送「今天练什么」可查看今日安排摘要。"
                 ),
             )
             return
@@ -152,6 +181,69 @@ class ILinkPhotoWorkflow:
             client,
             message=message,
             purpose=f"command:{message.text.strip()}",
+            text=reply,
+        )
+
+    def _store_material(
+        self,
+        session: Session,
+        *,
+        user_id: UUID,
+        message: InboundMessage,
+        client: ILinkProtocolClient,
+    ) -> None:
+        try:
+            reply = self._material_intake.store_latest(session, user_id=user_id)
+            session.commit()
+        except ILinkNotFound:
+            session.rollback()
+            reply = (
+                "还没有可转存的图片。"
+                "请先把讲义、笔记或错题卷拍照发给我，再回复「存资料」。"
+            )
+        except ILinkConflict as exc:
+            session.rollback()
+            reply = {
+                "material_window_closed": (
+                    "这张图片已超过转存窗口，原图已按约定删除。"
+                    "请重新发送图片后再回复「存资料」。"
+                ),
+                "material_text_missing": (
+                    "这张图片没有识别到可核对的文字。"
+                    "请重拍更清晰的版本后再回复「存资料」。"
+                ),
+                "material_query_not_answered": (
+                    "最近一次发图没有完成识别，无法转存。"
+                    "请重新发送图片后再回复「存资料」。"
+                ),
+            }.get(
+                str(exc),
+                "这次没能转存，请重新发送图片后再回复「存资料」。",
+            )
+        except PhotoResolutionError:
+            session.rollback()
+            reply = "私有存储暂时不可用，这次没有改动任何数据；稍后再回复「存资料」重试。"
+        self._send_direct(
+            client,
+            message=message,
+            purpose="command:store-material",
+            text=reply,
+        )
+
+    def _reply_plan_summary(
+        self,
+        session: Session,
+        *,
+        user_id: UUID,
+        message: InboundMessage,
+        client: ILinkProtocolClient,
+    ) -> None:
+        reply = today_plan_reply(session, user_id=user_id, now=self._clock())
+        session.rollback()
+        self._send_direct(
+            client,
+            message=message,
+            purpose="plan-query",
             text=reply,
         )
 
@@ -234,7 +326,8 @@ class ILinkPhotoWorkflow:
                     str(user_id), purpose="recognition-owner"
                 ),
             )
-            self._resolver.storage.delete(object_ref=stored.object_ref)
+            # 图片保留在私有前缀内一个转存窗口（ILINK_TRANSIENT_RETENTION_SECONDS），
+            # 供用户回复「存资料」转入私有阅读室；窗口到期由维护任务送入可靠删除队列。
             repository.answer_query(
                 query_id=query_id,
                 answer_kind=projection.answer_kind,
