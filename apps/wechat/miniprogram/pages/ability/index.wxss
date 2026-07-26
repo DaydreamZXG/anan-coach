@@ -483,10 +483,6 @@
 
 /* 平板：768 起加左导航轨（单列限宽）；1024 起目标/总览双卡并排。 */
 @media (min-width: 768px) {
-  .ability-page {
-    margin-left: var(--layout-tab-rail);
-  }
-
   .ability-content {
     width: 100%;
     max-width: 720px;

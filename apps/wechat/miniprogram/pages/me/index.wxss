@@ -714,9 +714,8 @@ button.profile-editor__save {
 @media (min-width: 768px) {
   .profile-page {
     width: 100%;
-    max-width: calc(820px + var(--layout-tab-rail));
+    max-width: 820px;
     margin: 0 auto;
-    padding-left: var(--layout-tab-rail);
   }
   .profile-content {
     padding: 0 38px calc(112px + env(safe-area-inset-bottom));
@@ -758,7 +757,7 @@ button.profile-editor__save {
 /* 平板宽屏：档案/目标/学习卡两列，资产与服务区满宽。 */
 @media (min-width: 1024px) {
   .profile-page {
-    max-width: calc(1100px + var(--layout-tab-rail));
+    max-width: 1100px;
   }
 
   .profile-content {

@@ -637,10 +637,6 @@
 
 /* 平板：768 起加左导航轨（单列限宽）；1024 起任务|辅助两列（粉笔式）。 */
 @media (min-width: 768px) {
-  .today-page {
-    margin-left: var(--layout-tab-rail);
-  }
-
   .today-content {
     width: 100%;
     max-width: 720px;

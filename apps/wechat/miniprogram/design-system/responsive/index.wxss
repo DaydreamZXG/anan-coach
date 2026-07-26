@@ -176,7 +176,7 @@
     --figma-space-48: 48px;
     --figma-page-inset: 24px;
     --figma-section-gap: 28px;
-    --figma-bottom-navigation-height: 0px;
+    --figma-bottom-navigation-height: 88px;
     --figma-radius-card-xlarge: 36px;
     --figma-radius-card-large: 32px;
     --figma-radius-card-medium: 30px;

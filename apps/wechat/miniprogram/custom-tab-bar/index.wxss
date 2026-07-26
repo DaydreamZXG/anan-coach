@@ -58,26 +58,26 @@
   opacity: 0.72;
 }
 
-/* 平板：底栏变左侧导航轨（粉笔式三段布局的第一段）。 */
+/* 平板：底部悬浮胶囊 Tab（居中、圆角全包、轻投影）。 */
 @media (min-width: 768px) {
   .tab-bar {
-    top: 0;
-    right: auto;
-    bottom: 0;
-    left: 0;
-    width: var(--layout-tab-rail, 96px);
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 12px;
-    padding: calc(28px + env(safe-area-inset-top)) 10px calc(20px + env(safe-area-inset-bottom));
-    border-top: 0;
-    border-right: calc(1 * var(--rpx)) solid var(--figma-color-line);
+    right: 50%;
+    bottom: calc(16px + env(safe-area-inset-bottom));
+    left: auto;
+    width: auto;
+    gap: 6px;
+    padding: 6px 10px;
+    border: 1px solid var(--figma-color-line);
+    border-top: 1px solid var(--figma-color-line);
+    border-radius: 999px;
+    box-shadow: var(--shadow-dock-strong);
+    transform: translateX(50%);
   }
 
   .tab-item {
-    width: 100%;
-    padding: 12px 0;
-    border-radius: 14px;
+    width: 84px;
+    padding: 8px 0;
+    border-radius: 999px;
   }
 
   .tab-item.active {
