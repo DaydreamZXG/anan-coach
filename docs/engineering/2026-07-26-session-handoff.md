@@ -44,6 +44,29 @@
 7. M0 发布清单：生产部署积压迁移、真机验收、微信提审材料（见
    docs/engineering/2026-07-18-functional-gap-and-delivery-plan.md §6）
 
+## 三·增补（2026-07-27 晚，额度收口时的小本本）
+
+后端扎实化会话的完整状态见 docs/engineering/2026-07-27-backend-launch-audit.md（中期
+止损版审计，P0/P1/修复顺序都在那里）。未开工/缓一缓的按优先级：
+
+1. **P0 双雄**：发布管线解钉（activate_release.sh 钉在 20260721_52，积压 11 迁移）+
+   生产备份启用（BACKUP_ENABLED=false 裸奔）——不修不能部署、不敢接用户。
+2. **错因证据投影三连修**（审计 §一）：放开版本链头过滤保留确认前识别、投影补
+   detail/sessionAtMs、trace/ink 时钟锚点互通。采集层不用动。
+3. **缺失 worker systemd 单元补齐**（错因 agent 在生产会永远 queued）。
+4. **审计续跑**：`wf_fc571df8-37f`（上线审计，5/6 腿有缓存）、`wf_a9dd83de-ba1`
+   （功能全扫，mapper 有缓存）——resumeFromRunId 续跑，已完成腿免费。
+5. **视觉指纹数据发布**：weent1b1z 产出的生成器+SQL 走发布流程执行（搜题图片匹配
+   0 指纹→上膛；顺带 representative_correct_ratio 灌难度锚，53,011 题覆盖）。
+6. **图推批次一拨闸**（任务 #14）：后端开关已备（wajcm7t1h 产出），等前端题面图片
+   渲染后放图形推理 4,023 题进练习。批次二资料分析。
+7. **前端窗口重开清单**：题面图片渲染 → 笔锋渲染（#13）→ 平板做题大件（原 §三 2）。
+8. **frontend_orphan 断链核实**：GET /api/v2/goals/workspace、GET /api/v2/learning-profile
+   ——前端在调、后端没有，若页面可达即线上 404。
+9. **定位短测（#12）意外线索**：/api/v1/onboarding/placement-test* 后端骨架已存在
+   （对账发现的 backend_orphan），实现可能比预想近。
+10. 生产域 /coding-tools-mcp/* 无鉴权反代需立即核实关停（安全）。
+
 ## 四、操作备忘
 
 - 视觉套件：认证机型 iPhone 12/13 mini；设备切换写 WeappLocalData 两个
