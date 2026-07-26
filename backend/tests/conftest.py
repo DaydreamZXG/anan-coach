@@ -238,6 +238,11 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in confirmed_cause_replacement_code._STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
+        ability_v2_shadow = import_module(
+            "migrations.versions.20260727_63_ability_estimate_v2_shadow"
+        )
+        for statement in ability_v2_shadow._STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
 
 
 def _split_postgres_statements(script: str) -> list[str]:
