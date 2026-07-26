@@ -24,7 +24,7 @@
         <view class="s9-subtitle">5 天训练＋1 天复盘＋1 天机动。计划会跟着你的真实时间变化。</view>
       </view>
 
-      <view class="s9-section">
+      <view class="s9-section week-sec-goal">
         <view class="section-heading">
           <view class="section-heading__mark">◎</view>
           <view>本周三个目标</view>
@@ -36,7 +36,7 @@
         </view>
       </view>
 
-      <view class="s9-section">
+      <view class="s9-section week-sec-days">
         <view class="section-heading">
           <view class="section-heading__mark">▦</view>
           <view>本周安排</view>
@@ -75,7 +75,7 @@
         </view>
       </view>
 
-      <view class="s9-section">
+      <view class="s9-section week-sec-adjust">
         <view class="s9-card adjustment-card">
           <view class="adjustment-card__head">
             <view class="adjustment-card__mark">✦</view>
