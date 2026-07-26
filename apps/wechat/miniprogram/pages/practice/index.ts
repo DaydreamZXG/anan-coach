@@ -69,6 +69,11 @@ import {
   reduceMaterialReader,
   type MaterialReaderState,
 } from "../../task-runtime/material-reader/state";
+import {
+  resolveSwipeNav,
+  swipeSampleFromTouchEnd,
+  swipeSampleFromTouchStart,
+} from "../../task-runtime/swipe-nav";
 import { taskToolPolicy, type TaskToolPolicy } from "../../task-runtime/tool-policy/index";
 
 type PageStatus = "loading" | "ready" | "error" | "unavailable";
@@ -104,6 +109,8 @@ interface PracticePageData {
   answerSheetOpen: boolean;
   /** 切题后题干滚动区回顶；0 与 0.1 交替绕过 scroll-top 同值不触发。 */
   questionScrollTop: number;
+  /** 快滑切题的一次性转场方向（motion-question-in--*），动画结束即清空。 */
+  questionTransition: "" | "prev" | "next";
   ananContextOpen: boolean;
   /** Figma 70:2：题面批注模式。 */
   annotationOpen: boolean;
@@ -209,6 +216,10 @@ interface PracticePageCustom {
   confirmMathInk(): Promise<void>;
   previousQuestion(): void;
   nextQuestion(): void;
+  onQuestionTouchStart(event: WechatMiniprogram.TouchEvent): void;
+  onQuestionTouchMove(event: WechatMiniprogram.TouchEvent): void;
+  onQuestionTouchEnd(event: WechatMiniprogram.TouchEvent): void;
+  clearQuestionTransition(): void;
   footerAction(): void;
   submitAttempt(): Promise<void>;
   retryPendingCheckpoint(): Promise<void>;
@@ -257,6 +268,7 @@ Page<PracticePageData, PracticePageCustom>({
     ],
     answerSheetOpen: false,
     questionScrollTop: 0,
+    questionTransition: "",
     ananContextOpen: false,
     annotationOpen: false,
     selection: { key: "", text: "", toolbarTop: 0 },
@@ -1134,6 +1146,52 @@ Page<PracticePageData, PracticePageCustom>({
     changeQuestion(this, 1);
   },
 
+  // 左右快滑切题（刷题 App 肌肉记忆）。判定纯函数见 task-runtime/swipe-nav.ts；
+  // 高阈值 + 横向占优 + 速度判定用于避开纵向滚动与 content-renderer 表格的横向滚动。
+  onQuestionTouchStart(event) {
+    const runtime = runtimes.get(this);
+    if (!runtime) return;
+    runtime.swipeStart = swipeSampleFromTouchStart(event);
+  },
+
+  onQuestionTouchMove(event) {
+    const runtime = runtimes.get(this);
+    if (!runtime?.swipeStart) return;
+    // 第二根手指落下（表格缩放/双指滚动）即放弃本次切题手势。
+    if (event.touches.length > 1) runtime.swipeStart = null;
+  },
+
+  onQuestionTouchEnd(event) {
+    const runtime = runtimes.get(this);
+    if (!runtime) return;
+    const start = runtime.swipeStart;
+    runtime.swipeStart = null;
+    if (!start || swipeNavigationBlocked(this)) return;
+    const direction = resolveSwipeNav(start, swipeSampleFromTouchEnd(event));
+    const view = this.data.view;
+    if (!direction || !view) return;
+    if (direction === "prev") {
+      if (view.current <= 1) {
+        void wx.showToast({ title: "已经是第一题", icon: "none", duration: 1200 });
+        return;
+      }
+      this.setData({ questionTransition: "prev" });
+      this.previousQuestion();
+      return;
+    }
+    // 末题的底部主按钮语义是交卷/查看未完成：快滑永远不代点交卷，只轻提示。
+    if (view.current >= view.total) {
+      void wx.showToast({ title: "已经是最后一题", icon: "none", duration: 1200 });
+      return;
+    }
+    this.setData({ questionTransition: "next" });
+    this.nextQuestion();
+  },
+
+  clearQuestionTransition() {
+    if (this.data.questionTransition) this.setData({ questionTransition: "" });
+  },
+
   async submitAttempt() {
     const runtime = runtimes.get(this);
     if (!runtime?.api || !runtime.task || !runtime.session || runtime.submitInFlight) return;
@@ -1372,6 +1430,30 @@ function afterRenderTick(callback: () => void): void {
     return;
   }
   void Promise.resolve().then(callback);
+}
+
+/**
+ * 快滑切题的守卫矩阵：任一浮层/模式激活时手势一律不触发（宁可不触发
+ * 不可误触发）——批注模式、材料沉浸态、画词工具条、各类 sheet/面板、
+ * 暂停卡与交互锁定都会吃掉横向手势的语义。
+ */
+function swipeNavigationBlocked(page: PracticePageInstance): boolean {
+  const data = page.data;
+  return (
+    data.status !== "ready" ||
+    data.sessionState !== "answering" ||
+    data.interactionLocked ||
+    data.taskPaused ||
+    data.annotationOpen ||
+    data.materialOpen ||
+    Boolean(data.selection.key) ||
+    data.answerSheetOpen ||
+    data.draftOpen ||
+    data.toolsOpen ||
+    data.helpOpen ||
+    data.disputeOpen ||
+    data.ananContextOpen
+  );
 }
 
 function changeQuestion(page: PracticePageInstance, delta: number): void {

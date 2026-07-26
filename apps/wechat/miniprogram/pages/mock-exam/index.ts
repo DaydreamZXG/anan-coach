@@ -36,6 +36,12 @@ import {
   type MaterialReaderState,
 } from "../../task-runtime/material-reader/state";
 import { reduceTaskRuntime } from "../../task-runtime/state/runtime";
+import {
+  resolveSwipeNav,
+  swipeSampleFromTouchEnd,
+  swipeSampleFromTouchStart,
+  type SwipeNavSample,
+} from "../../task-runtime/swipe-nav";
 import { taskToolPolicy, type TaskToolPolicy } from "../../task-runtime/tool-policy/index";
 import {
   appendPendingMockTrajectory,
@@ -126,6 +132,8 @@ interface MockExamPageData {
   submitConfirmOpen: boolean;
   submitElapsedLabel: string;
   submitMissingLabels: string[];
+  /** 快滑切题的一次性转场方向（motion-question-in--*），动画结束即清空。 */
+  questionTransition: "" | "prev" | "next";
 }
 
 interface MockExamPageCustom {
@@ -139,6 +147,10 @@ interface MockExamPageCustom {
   inputDraft(event: WechatMiniprogram.Input): void;
   previousQuestion(): void;
   nextQuestion(): void;
+  onQuestionTouchStart(event: WechatMiniprogram.TouchEvent): void;
+  onQuestionTouchMove(event: WechatMiniprogram.TouchEvent): void;
+  onQuestionTouchEnd(event: WechatMiniprogram.TouchEvent): void;
+  clearQuestionTransition(): void;
   selectQuestion(event: WechatMiniprogram.BaseEvent): void;
   toggleAnswerSheet(): void;
   toggleDraft(): void;
@@ -193,6 +205,8 @@ interface PageRuntime {
   trajectoryPromise?: Promise<boolean>;
   nextTrajectoryEventSeq: number;
   submitInFlight: boolean;
+  /** 快滑切题手势的起点采样；多指或松手后置回 null。 */
+  swipeStart: SwipeNavSample | null;
 }
 
 const runtimes = new WeakMap<MockExamPageInstance, PageRuntime>();
@@ -249,6 +263,7 @@ Page<MockExamPageData, MockExamPageCustom>({
     submitConfirmOpen: false,
     submitElapsedLabel: "",
     submitMissingLabels: [],
+    questionTransition: "",
   },
 
   onLoad(options: Record<string, string | undefined>) {
@@ -297,6 +312,7 @@ Page<MockExamPageData, MockExamPageCustom>({
       dirtyQuestionIds: new Set<string>(),
       nextTrajectoryEventSeq: 1,
       submitInFlight: false,
+      swipeStart: null,
     });
     void this.loadExam();
   },
@@ -515,6 +531,51 @@ Page<MockExamPageData, MockExamPageCustom>({
 
   nextQuestion() {
     moveQuestion(this, 1);
+  },
+
+  // 左右快滑切题（与 pages/practice 同一手势语义）。判定纯函数见 task-runtime/swipe-nav.ts；
+  // 高阈值 + 横向占优 + 速度判定用于避开纵向滚动与 content-renderer 表格的横向滚动。
+  onQuestionTouchStart(event) {
+    const runtime = runtimes.get(this);
+    if (!runtime || runtime.disposed) return;
+    runtime.swipeStart = swipeSampleFromTouchStart(event);
+  },
+
+  onQuestionTouchMove(event) {
+    const runtime = runtimes.get(this);
+    if (!runtime?.swipeStart) return;
+    // 第二根手指落下（表格缩放/双指滚动）即放弃本次切题手势。
+    if (event.touches.length > 1) runtime.swipeStart = null;
+  },
+
+  onQuestionTouchEnd(event) {
+    const runtime = runtimes.get(this);
+    if (!runtime || runtime.disposed) return;
+    const start = runtime.swipeStart;
+    runtime.swipeStart = null;
+    if (!start || swipeNavigationBlocked(this)) return;
+    const direction = resolveSwipeNav(start, swipeSampleFromTouchEnd(event));
+    if (!direction) return;
+    if (direction === "prev") {
+      if (this.data.current <= 1) {
+        void wx.showToast({ title: "已经是第一题", icon: "none", duration: 1200 });
+        return;
+      }
+      this.setData({ questionTransition: "prev" });
+      this.previousQuestion();
+      return;
+    }
+    // 末题的底部主按钮语义是交卷：快滑永远不代点交卷，只轻提示。
+    if (this.data.current >= this.data.total) {
+      void wx.showToast({ title: "已经是最后一题", icon: "none", duration: 1200 });
+      return;
+    }
+    this.setData({ questionTransition: "next" });
+    this.nextQuestion();
+  },
+
+  clearQuestionTransition() {
+    if (this.data.questionTransition) this.setData({ questionTransition: "" });
   },
 
   selectQuestion(event) {
@@ -798,6 +859,26 @@ function mutateTask(
   runtime.mutationVersion += 1;
   applyRuntimeToPage(page, runtime, "待保存");
   scheduleAutosave(page, runtime);
+}
+
+/**
+ * 快滑切题的守卫矩阵（模考面板集）：任一 sheet/面板、材料沉浸态或
+ * 交互锁定激活时手势一律不触发（宁可不触发不可误触发）。
+ */
+function swipeNavigationBlocked(page: MockExamPageInstance): boolean {
+  const data = page.data;
+  return (
+    data.status !== "ready" ||
+    data.question === null ||
+    data.interactionLocked ||
+    data.materialOpen ||
+    data.answerSheetOpen ||
+    data.draftOpen ||
+    data.toolsOpen ||
+    data.helpOpen ||
+    data.disputeOpen ||
+    data.submitConfirmOpen
+  );
 }
 
 function moveQuestion(page: MockExamPageInstance, delta: number): void {

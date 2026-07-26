@@ -65,7 +65,8 @@ describe("tablet responsive layout contract", () => {
     expect(practiceStyles).toMatch(/\.material-reader-shell \{[^}]*height: 100%/);
 
     expect(mockTemplate).toContain('class="mock-workspace ');
-    expect(mockTemplate).toContain('class="mock-question-pane"');
+    // 题目栏 class 尾随快滑切题的一次性转场类，因此只锚定前缀。
+    expect(mockTemplate).toContain('class="mock-question-pane ');
     expect(mockTemplate).toContain('class="mock-material-pane"');
     expect(mockStyles).toContain("grid-template-columns: minmax(360px, 0.95fr)");
   });

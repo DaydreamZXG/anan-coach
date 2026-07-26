@@ -366,6 +366,75 @@ describe("stage 2 F02 mock exam", () => {
     expect(answers[0]?.actionEventsTruncated).toBeUndefined();
     harness.page.onUnload.call(harness.page);
   });
+
+  it("switches questions with fast horizontal swipes and never submits from the last one", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-07-15T02:10:00.000Z"));
+    const harness = await createMockPage(twoQuestionSessionPayload());
+
+    // 快滑左＝下一题：一次性转场 + 页面回顶逻辑共存。
+    swipeOnQuestion(harness.page, { fromX: 300, toX: 140, y: 400 });
+    expect(harness.page.data.current).toBe(2);
+    expect(harness.page.data.questionTransition).toBe("next");
+    expect(harness.pageScrollTo).toHaveBeenCalled();
+    harness.page.clearQuestionTransition.call(harness.page);
+
+    // 末题快滑左：底部按钮语义是交卷，手势绝不代点交卷。
+    swipeOnQuestion(harness.page, { fromX: 300, toX: 140, y: 400 });
+    await flushMicrotasks();
+    expect(harness.page.data.current).toBe(2);
+    expect(harness.page.data.questionTransition).toBe("");
+    expect(harness.requests.some((request) => request.url.endsWith("/submit"))).toBe(false);
+
+    // 快滑右＝回上一题。
+    swipeOnQuestion(harness.page, { fromX: 120, toX: 290, y: 400 });
+    expect(harness.page.data.current).toBe(1);
+    expect(harness.page.data.questionTransition).toBe("prev");
+    harness.page.onUnload.call(harness.page);
+  });
+
+  it("ignores swipes while any mock panel, material drawer or interaction lock is active", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-07-15T02:10:00.000Z"));
+    const harness = await createMockPage(twoQuestionSessionPayload());
+
+    const guards = [
+      { answerSheetOpen: true },
+      { draftOpen: true },
+      { toolsOpen: true },
+      { helpOpen: true },
+      { disputeOpen: true },
+      { submitConfirmOpen: true },
+      { materialOpen: true },
+      { interactionLocked: true },
+    ];
+    for (const guard of guards) {
+      const previous: Record<string, unknown> = {};
+      for (const key of Object.keys(guard)) previous[key] = harness.page.data[key];
+      Object.assign(harness.page.data, guard);
+      swipeOnQuestion(harness.page, { fromX: 300, toX: 140, y: 400 });
+      expect(harness.page.data.current).toBe(1);
+      Object.assign(harness.page.data, previous);
+    }
+    // 守卫恢复后同一手势立即生效，证明守卫矩阵是唯一拦截原因。
+    swipeOnQuestion(harness.page, { fromX: 300, toX: 140, y: 400 });
+    expect(harness.page.data.current).toBe(2);
+    harness.page.onUnload.call(harness.page);
+  });
+
+  it("treats slanted or slow horizontal moves as scrolling, not question switches", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-07-15T02:10:00.000Z"));
+    const harness = await createMockPage(twoQuestionSessionPayload());
+
+    // 斜滑：纵向占优。
+    swipeOnQuestion(harness.page, { fromX: 300, toX: 160, y: 400, toY: 520 });
+    // 慢拖：速度不足。
+    swipeOnQuestion(harness.page, { fromX: 300, toX: 180, y: 400, durationMs: 650 });
+    expect(harness.page.data.current).toBe(1);
+    expect(harness.page.data.questionTransition).toBe("");
+    harness.page.onUnload.call(harness.page);
+  });
 });
 
 function sessionPayload() {
@@ -610,6 +679,7 @@ async function createMockPage(
       options.success?.({ statusCode: 200, data: session } as never);
     },
     showModal: () => Promise.resolve({ confirm: true, cancel: false }),
+    showToast: vi.fn(() => Promise.resolve()),
     navigateBack: () => Promise.resolve(),
     navigateTo: () => Promise.resolve(),
     switchTab: () => Promise.resolve(),
@@ -650,6 +720,10 @@ interface CapturedMockPage {
   selectOption(this: TestMockPage, event: WechatMiniprogram.BaseEvent): void;
   nextQuestion(this: TestMockPage): void;
   selectQuestion(this: TestMockPage, event: WechatMiniprogram.BaseEvent): void;
+  onQuestionTouchStart(this: TestMockPage, event: WechatMiniprogram.TouchEvent): void;
+  onQuestionTouchMove(this: TestMockPage, event: WechatMiniprogram.TouchEvent): void;
+  onQuestionTouchEnd(this: TestMockPage, event: WechatMiniprogram.TouchEvent): void;
+  clearQuestionTransition(this: TestMockPage): void;
 }
 
 interface TestMockPage extends CapturedMockPage {
@@ -665,6 +739,33 @@ function optionEvent(optionId: string): WechatMiniprogram.BaseEvent {
   return {
     currentTarget: { dataset: { optionid: optionId } },
   } as unknown as WechatMiniprogram.BaseEvent;
+}
+
+function questionTouchEvent(x: number, y: number, timeStamp: number, ended = false) {
+  const touch = { clientX: x, clientY: y };
+  return {
+    timeStamp,
+    touches: ended ? [] : [touch],
+    changedTouches: [touch],
+  } as unknown as WechatMiniprogram.TouchEvent;
+}
+
+/** 默认参数构成一次合法的快滑（160px / 180ms）；可分别调低角度或速度。 */
+function swipeOnQuestion(
+  page: TestMockPage,
+  options: { fromX: number; toX: number; y: number; toY?: number; durationMs?: number },
+): void {
+  const startAt = 10_000;
+  const endAt = startAt + (options.durationMs ?? 180);
+  page.onQuestionTouchStart.call(page, questionTouchEvent(options.fromX, options.y, startAt));
+  page.onQuestionTouchMove.call(
+    page,
+    questionTouchEvent((options.fromX + options.toX) / 2, options.y, (startAt + endAt) / 2),
+  );
+  page.onQuestionTouchEnd.call(
+    page,
+    questionTouchEvent(options.toX, options.toY ?? options.y, endAt, true),
+  );
 }
 
 async function flushMicrotasks(): Promise<void> {

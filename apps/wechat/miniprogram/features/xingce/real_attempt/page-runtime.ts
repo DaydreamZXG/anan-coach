@@ -4,6 +4,7 @@ import type {
   XingceTaskSession,
 } from "../../../api/xingce-learning";
 import type { TaskRuntimeState } from "../../../task-runtime/contracts";
+import type { SwipeNavSample } from "../../../task-runtime/swipe-nav";
 import type { TaskEditingApi } from "../../../api/task-editing";
 import type { TaskEditOwnership } from "../../task-editing/coordinator";
 
@@ -21,6 +22,8 @@ export interface XingcePageRuntime {
   lastTickAtMs: number;
   saveInFlight: boolean;
   submitInFlight: boolean;
+  /** 快滑切题手势的起点采样；多指或松手后置回 null。 */
+  swipeStart: SwipeNavSample | null;
   lastAutosaveElapsedSeconds: number;
   visible: boolean;
   disposed: boolean;
@@ -42,6 +45,7 @@ function createRuntime(): XingcePageRuntime {
     lastTickAtMs: 0,
     saveInFlight: false,
     submitInFlight: false,
+    swipeStart: null,
     lastAutosaveElapsedSeconds: 0,
     visible: false,
     disposed: false,

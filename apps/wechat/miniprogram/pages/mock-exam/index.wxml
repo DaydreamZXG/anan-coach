@@ -83,7 +83,17 @@
         bindpositionchange="updateMaterialPosition"
       />
 
-      <view class="mock-question-pane">
+      <!--
+        左右快滑切题只绑在题目栏（平板双栏时材料栏不参与）。
+        判定阈值与已知边界（content-renderer 表格横向滚动）见 task-runtime/swipe-nav.ts。
+      -->
+      <view
+        class="mock-question-pane {{questionTransition ? 'motion-question-in--' + questionTransition : ''}}"
+        bindtouchstart="onQuestionTouchStart"
+        bindtouchmove="onQuestionTouchMove"
+        bindtouchend="onQuestionTouchEnd"
+        bindanimationend="clearQuestionTransition"
+      >
         <view class="question-card">
           <view class="question-meta">
             <view class="module-pill">{{question.moduleName}}</view>
