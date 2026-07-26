@@ -5,7 +5,11 @@ import { OnboardingApi } from "../../api/onboarding";
 import { PlanningApi } from "../../api/planning";
 import { createCoachRepository } from "../../data/coach-repository";
 import { loginUrlForReturn } from "../../app/navigation/auth-return";
-import { onboardingNavigationTarget, routes } from "../../app/navigation/routes";
+import {
+  onboardingNavigationTarget,
+  registeredNavigationTarget,
+  routes,
+} from "../../app/navigation/routes";
 import { PageControllerRegistry } from "../../app/runtime/controller-registry";
 import { clearAuthSession, currentAccessToken, currentAuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";
@@ -273,12 +277,34 @@ Page<TodayPageData, TodayPageCustom>({
   startDailyOpening() {
     const startUrl = this.data.openingRaw?.plan.startUrl;
     if (!startUrl) return;
-    this.setData({ openingCollapsed: true });
-    if (startUrl.split("?")[0] === routes.today) {
-      void wx.pageScrollTo({ selector: ".focus-dashboard", duration: 260 });
+    const target = registeredNavigationTarget(startUrl);
+    if (!target) {
+      this.setData({ openingError: "学习入口暂时不可用，请稍后再试。" });
       return;
     }
-    void wx.navigateTo({ url: startUrl });
+    this.setData({ openingError: "" });
+    if (target.url.split("?")[0] === routes.today) {
+      this.setData({ openingCollapsed: true });
+      wx.pageScrollTo({
+        selector: ".task-heading",
+        duration: 260,
+        fail: (result) => {
+          console.warn("[today] pageScrollTo(.task-heading) failed:", result.errMsg);
+        },
+      });
+      return;
+    }
+    const success = () => {
+      this.setData({ openingCollapsed: true });
+    };
+    const fail = (result: WechatMiniprogram.GeneralCallbackResult) => {
+      this.setData({ openingError: result.errMsg || "学习页面没有打开，请重试。" });
+    };
+    if (target.mode === "switchTab") {
+      wx.switchTab({ url: target.url, success, fail });
+      return;
+    }
+    wx.navigateTo({ url: target.url, success, fail });
   },
 
   declineDailyCoffee() {

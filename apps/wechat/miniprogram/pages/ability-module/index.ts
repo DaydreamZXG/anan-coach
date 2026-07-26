@@ -4,6 +4,7 @@ import type {
   StrategyCandidateCommand,
 } from "../../api/generated/types.gen";
 import { LearningBrainApi } from "../../api/learning-brain";
+import { routes } from "../../app/navigation/routes";
 import {
   errorView,
   percent,
@@ -173,6 +174,10 @@ Page({
       const view = errorView(error, "战略决定提交失败。");
       this.setData({ submitting: false, errorMessage: view.message, requestId: view.requestId });
     }
+  },
+
+  goToday() {
+    void wx.switchTab({ url: routes.today });
   },
 });
 

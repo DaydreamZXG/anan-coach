@@ -1,4 +1,5 @@
 import { EssayIntelligenceApi, type EssayRewriteComparisonV1 } from "../../api/essay-intelligence";
+import { routes } from "../../app/navigation/routes";
 import { errorView, requireAuthenticatedClient } from "../../features/learning-brain/presentation";
 import { rewriteComparisonView } from "../../features/essay-workbench/presentation";
 
@@ -57,5 +58,8 @@ Page({
   },
   retryLoad() {
     if (this.data.retryAllowed) void this.loadComparison();
+  },
+  goVerify() {
+    void wx.switchTab({ url: routes.today });
   },
 });

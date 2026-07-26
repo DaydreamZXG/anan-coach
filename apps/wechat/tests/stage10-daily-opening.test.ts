@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { ApiClient } from "../miniprogram/api/client";
 import { DailyOpeningApi } from "../miniprogram/api/daily-opening";
 import type { DailyOpeningView } from "../miniprogram/api/generated/types.gen";
@@ -142,6 +142,102 @@ describe("step 10 daily opening", () => {
     vi.unstubAllGlobals();
   });
 });
+
+describe("today page start action", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+    vi.resetModules();
+  });
+
+  it("keeps the card expanded and shows an inline error for an unregistered start URL", async () => {
+    const navigateTo = vi.fn();
+    const switchTab = vi.fn();
+    const pageScrollTo = vi.fn();
+    const page = await loadTodayPage({ navigateTo, switchTab, pageScrollTo });
+    page.data.openingRaw = openingWithStartUrl("/pages/not-registered/index");
+
+    page.startDailyOpening.call(page);
+
+    expect(page.data.openingCollapsed).toBe(false);
+    expect(page.data.openingError).toBe("学习入口暂时不可用，请稍后再试。");
+    expect(navigateTo).not.toHaveBeenCalled();
+    expect(switchTab).not.toHaveBeenCalled();
+    expect(pageScrollTo).not.toHaveBeenCalled();
+  });
+
+  it("collapses only after navigation succeeds and stays expanded on failure", async () => {
+    const navigateTo = vi.fn((options: WechatMiniprogram.NavigateToOption) => {
+      options.fail?.({ errMsg: "navigateTo:fail timeout" });
+    });
+    const page = await loadTodayPage({ navigateTo });
+    page.data.openingRaw = openingWithStartUrl("/pages/practice/index?task=task-1");
+
+    page.startDailyOpening.call(page);
+    expect(navigateTo).toHaveBeenCalledWith(
+      expect.objectContaining({ url: "/pages/practice/index?task=task-1" }),
+    );
+    expect(page.data.openingCollapsed).toBe(false);
+    expect(page.data.openingError).toBe("navigateTo:fail timeout");
+
+    navigateTo.mockImplementation((options: WechatMiniprogram.NavigateToOption) => {
+      options.success?.({ errMsg: "navigateTo:ok", eventChannel: {} as never });
+    });
+    page.startDailyOpening.call(page);
+    expect(page.data.openingCollapsed).toBe(true);
+    expect(page.data.openingError).toBe("");
+  });
+
+  it("scrolls to the existing task heading when the plan starts on the today page", async () => {
+    const pageScrollTo = vi.fn();
+    const navigateTo = vi.fn();
+    const switchTab = vi.fn();
+    const page = await loadTodayPage({ pageScrollTo, navigateTo, switchTab });
+    page.data.openingRaw = openingWithStartUrl("/pages/today/index");
+
+    page.startDailyOpening.call(page);
+
+    expect(page.data.openingCollapsed).toBe(true);
+    expect(pageScrollTo).toHaveBeenCalledWith(
+      expect.objectContaining({ selector: ".task-heading" }),
+    );
+    expect(navigateTo).not.toHaveBeenCalled();
+    expect(switchTab).not.toHaveBeenCalled();
+  });
+});
+
+interface TodayPageDefinition {
+  data: Record<string, unknown>;
+  startDailyOpening(this: TestTodayPage): void;
+}
+
+interface TestTodayPage extends TodayPageDefinition {
+  setData(patch: Record<string, unknown>): void;
+}
+
+async function loadTodayPage(wxStub: Record<string, unknown>): Promise<TestTodayPage> {
+  vi.resetModules();
+  let captured: TodayPageDefinition | undefined;
+  vi.stubGlobal("Page", (definition: TodayPageDefinition) => {
+    captured = definition;
+  });
+  vi.stubGlobal("getApp", () => ({ globalData: {} }));
+  vi.stubGlobal("wx", { getStorageSync: () => "", ...wxStub });
+  await import("../miniprogram/pages/today/index");
+  if (!captured) throw new Error("Today page definition was not registered");
+  const page: TestTodayPage = {
+    ...captured,
+    data: JSON.parse(JSON.stringify(captured.data)) as Record<string, unknown>,
+    setData(patch: Record<string, unknown>) {
+      Object.assign(this.data, patch);
+    },
+  };
+  return page;
+}
+
+function openingWithStartUrl(startUrl: string): DailyOpeningView {
+  const view = opening();
+  return { ...view, plan: { ...view.plan, startUrl } };
+}
 
 function opening(): DailyOpeningView {
   return {

@@ -217,6 +217,17 @@ button.secondary-button {
   will-change: transform, opacity;
 }
 
+/* 快滑切题转场：新题从滑动方向淡入位移 24px（一次性，动画结束由页面清类）。 */
+.motion-question-in--next {
+  animation: motion-question-from-right var(--motion-base) var(--ease-out) both;
+  will-change: transform, opacity;
+}
+
+.motion-question-in--prev {
+  animation: motion-question-from-left var(--motion-base) var(--ease-out) both;
+  will-change: transform, opacity;
+}
+
 @keyframes motion-mask-in {
   from {
     opacity: 0;
@@ -283,6 +294,28 @@ button.secondary-button {
   }
 }
 
+@keyframes motion-question-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes motion-question-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 @keyframes shimmer {
   0% {
     background-position: 100% 0;
@@ -293,13 +326,16 @@ button.secondary-button {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* reduce-motion 降级：时长压到 0.01ms（保留 animationend，页面靠它清一次性转场类）。 */
   .tap-tactile,
   .motion-mask,
   .motion-mask--out,
   .motion-sheet,
   .motion-sheet--out,
   .fade-slide-in,
-  .check-pop {
+  .check-pop,
+  .motion-question-in--next,
+  .motion-question-in--prev {
     animation-duration: 0.01ms;
     animation-delay: 0ms;
     transition-duration: 0.01ms;

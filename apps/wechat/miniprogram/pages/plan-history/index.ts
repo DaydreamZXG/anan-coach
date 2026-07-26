@@ -1,5 +1,6 @@
 import { PlanningApi } from "../../api/planning";
 import type { PlanChangeHistory } from "../../api/generated/types.gen";
+import { routes } from "../../app/navigation/routes";
 import {
   dateTimeLabel,
   errorView,
@@ -55,5 +56,8 @@ Page({
   },
   retry() {
     void this.loadHistory();
+  },
+  openWeeklyPlan() {
+    void wx.navigateTo({ url: routes.weeklyPlan });
   },
 });

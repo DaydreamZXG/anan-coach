@@ -15,6 +15,6 @@
   <view class="s9-card support-note">
     <view class="s9-card-title">微信客服</view>
     <view class="s9-card-copy">提交问题时请说明所在页面和遇到的情况；如页面显示问题编号，也请一并发送。</view>
-    <button hover-class="item--hover" class="s9-primary-button support-contact tap-tactile" open-type="contact">联系微信客服</button>
+    <button hover-class="item--hover" class="s9-primary-button support-contact tap-tactile" open-type="contact" session-from="pages/support/index">联系微信客服</button>
   </view>
 </view>

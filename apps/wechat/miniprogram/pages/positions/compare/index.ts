@@ -88,7 +88,11 @@ Page<PositionComparePageData, PositionComparePageCustom>({
   },
 
   goBack() {
-    void wx.navigateBack();
+    if (getCurrentPages().length > 1) {
+      void wx.navigateBack();
+      return;
+    }
+    void wx.redirectTo({ url: routes.positions });
   },
 
   retry() {
@@ -110,7 +114,11 @@ Page<PositionComparePageData, PositionComparePageCustom>({
   },
 
   returnToSearch() {
-    void wx.navigateBack();
+    if (getCurrentPages().length > 1) {
+      void wx.navigateBack();
+      return;
+    }
+    void wx.redirectTo({ url: routes.positionSearch });
   },
 });
 

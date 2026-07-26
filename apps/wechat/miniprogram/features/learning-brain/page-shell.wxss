@@ -161,6 +161,8 @@
 }
 
 .brain-secondary {
+  box-sizing: border-box;
+  width: 100%;
   min-height: calc(72 * var(--rpx));
   margin-top: calc(20 * var(--rpx));
   padding: 0 calc(24 * var(--rpx));

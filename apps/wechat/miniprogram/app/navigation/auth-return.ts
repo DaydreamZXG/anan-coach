@@ -2,10 +2,12 @@ import {
   answerIngestionUrl,
   captureImportUrl,
   learningPacketsUrl,
+  positionBriefingUrl,
   positionCompareUrl,
   positionDetailUrl,
   positionGoalUrl,
   positionSearchUrl,
+  positionWorkspaceUrl,
   registeredNavigationTarget,
   registeredTaskNavigationTarget,
   routes,
@@ -55,8 +57,7 @@ export function authenticatedReturnTarget(startUrl: string): RegisteredNavigatio
     path === routes.today ||
     path === routes.ability ||
     path === routes.anan ||
-    path === routes.me ||
-    path === routes.positions
+    path === routes.me
   ) {
     return rawQuery === undefined ? navigation : null;
   }
@@ -67,6 +68,11 @@ export function authenticatedReturnTarget(startUrl: string): RegisteredNavigatio
 
   const query = parseExactQuery(rawQuery);
   if (!query) return null;
+  if (path === routes.positions) {
+    if (!hasOnlyKeys(query, ["score"])) return null;
+    if (query.score !== undefined && query.score !== "1") return null;
+    return requiredNavigationTarget(positionWorkspaceUrl({ openScoreSheet: query.score === "1" }));
+  }
   if (path === routes.positionSearch) {
     if (!hasOnlyKeys(query, ["q", "examYear", "region", "city"])) return null;
     const values = [query.q, query.examYear, query.region, query.city];
@@ -80,12 +86,19 @@ export function authenticatedReturnTarget(startUrl: string): RegisteredNavigatio
       }),
     );
   }
-  if (path === routes.positionDetail || path === routes.positionGoal) {
+  if (
+    path === routes.positionDetail ||
+    path === routes.positionGoal ||
+    path === routes.positionBriefing
+  ) {
     if (!hasOnlyKeys(query, ["positionId"]) || !validIdentifier(query.positionId)) return null;
+    if (path === routes.positionDetail) {
+      return requiredNavigationTarget(positionDetailUrl(query.positionId));
+    }
     return requiredNavigationTarget(
-      path === routes.positionDetail
-        ? positionDetailUrl(query.positionId)
-        : positionGoalUrl(query.positionId),
+      path === routes.positionGoal
+        ? positionGoalUrl(query.positionId)
+        : positionBriefingUrl(query.positionId),
     );
   }
   if (path === routes.positionCompare) {

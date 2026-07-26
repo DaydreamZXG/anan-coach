@@ -48,5 +48,12 @@
       <view wx:if="{{!detail.limitations.length}}" class="brain-empty">暂未记录额外局限。</view>
       <view wx:for="{{detail.limitations}}" wx:key="*this" class="brain-row-copy">· {{item}}</view>
     </view>
+
+    <view class="brain-card">
+      <view class="brain-row-title">这条错法已经被你看清了</view>
+      <view class="brain-note">趁印象还热，去今天的任务里堵它一次；真堵住了，它就该从这份档案里退场。</view>
+      <button hover-class="item--hover" class="control-center brain-action" bindtap="goPractice">去把它练回来</button>
+      <button hover-class="item--hover" class="control-center brain-secondary" bindtap="askAnan">带着这个问题问岸岸</button>
+    </view>
   </block>
 </view>

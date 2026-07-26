@@ -142,9 +142,11 @@ export function onboardingResultActionTarget(
     case "choose_position":
       url = routes.positions;
       break;
-    case "review_exam_briefing":
-      url = positionBriefingUrl(requiredIdentifier(positionId ?? ""));
+    case "review_exam_briefing": {
+      const briefingPositionId = positionId?.trim() ?? "";
+      url = briefingPositionId ? positionBriefingUrl(briefingPositionId) : routes.positions;
       break;
+    }
     case "import_prior_evidence":
       url = routes.externalReport;
       break;

@@ -106,8 +106,12 @@ Page({
   },
   askAnan() {
     const auth = currentAuthSession();
+    if (!auth) {
+      void wx.reLaunch({ url: routes.login });
+      return;
+    }
     const settlement = this.data.settlement;
-    if (!auth || !settlement) return;
+    if (!settlement) return;
     storeCompanionLaunchContext(auth.userId, {
       sourceLabel: "今日学习结算",
       title: `${settlement.localDate} · ${this.data.completionLabel}`,

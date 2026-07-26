@@ -129,8 +129,12 @@ Page({
   },
   askAnan() {
     const auth = currentAuthSession();
+    if (!auth) {
+      void wx.reLaunch({ url: routes.login });
+      return;
+    }
     const week = this.data.week;
-    if (!auth || !week) return;
+    if (!week) return;
     storeCompanionLaunchContext(auth.userId, {
       sourceLabel: "本周学习安排",
       title: `${week.weekStart} 起 · ${this.data.rhythmLabel}`,

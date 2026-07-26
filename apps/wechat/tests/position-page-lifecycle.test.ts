@@ -13,6 +13,7 @@ interface CapturedPageDefinition {
   onLoad(this: TestPage, options: Record<string, string | undefined>): void;
   onShow?(this: TestPage): void;
   onUnload(this: TestPage): void;
+  goBack?(this: TestPage): void;
 }
 
 interface TestPage extends CapturedPageDefinition {
@@ -31,12 +32,18 @@ let captured: CapturedPageDefinition | null;
 let requests: WechatMiniprogram.RequestOption[];
 let storage: Map<string, unknown>;
 let reLaunch: ReturnType<typeof vi.fn>;
+let navigateBack: ReturnType<typeof vi.fn>;
+let redirectTo: ReturnType<typeof vi.fn>;
+let switchTab: ReturnType<typeof vi.fn>;
 
 beforeEach(() => {
   captured = null;
   requests = [];
   storage = new Map<string, unknown>();
   reLaunch = vi.fn();
+  navigateBack = vi.fn();
+  redirectTo = vi.fn();
+  switchTab = vi.fn();
   vi.stubGlobal("Page", (definition: CapturedPageDefinition) => {
     captured = definition;
   });
@@ -56,12 +63,12 @@ beforeEach(() => {
     request: (options: WechatMiniprogram.RequestOption) => {
       requests.push(options);
     },
-    navigateBack: vi.fn(),
+    navigateBack,
     navigateTo: vi.fn(),
     reLaunch,
-    redirectTo: vi.fn(),
+    redirectTo,
     showToast: vi.fn(),
-    switchTab: vi.fn(),
+    switchTab,
   });
 });
 
@@ -322,6 +329,25 @@ describe("position route lifecycle contracts", () => {
       expected:
         "/pages/login/index?returnTo=%2Fpages%2Fpositions%2Fgoal%2Findex%3FpositionId%3Dposition-1",
     },
+    {
+      name: "workspace score sheet",
+      load: () => import("../miniprogram/pages/positions/index"),
+      options: { score: "1" },
+      expected: "/pages/login/index?returnTo=%2Fpages%2Fpositions%2Findex%3Fscore%3D1",
+    },
+    {
+      name: "briefing",
+      load: () => import("../miniprogram/pages/positions/briefing/index"),
+      options: { positionId: "position-1" },
+      expected:
+        "/pages/login/index?returnTo=%2Fpages%2Fpositions%2Fbriefing%2Findex%3FpositionId%3Dposition-1",
+    },
+    {
+      name: "briefing without an id",
+      load: () => import("../miniprogram/pages/positions/briefing/index"),
+      options: {},
+      expected: "/pages/login/index",
+    },
   ])(
     "preserves the authenticated $name destination across login",
     async ({ load, options, expected }) => {
@@ -402,6 +428,58 @@ describe("position route lifecycle contracts", () => {
     });
     page.onUnload.call(page);
   });
+});
+
+describe("position page back navigation fallbacks", () => {
+  it.each([
+    {
+      name: "workspace",
+      load: () => import("../miniprogram/pages/positions/index"),
+      fallbackMethod: "switchTab" as const,
+      fallbackUrl: "/pages/today/index",
+    },
+    {
+      name: "search",
+      load: () => import("../miniprogram/pages/positions/search/index"),
+      fallbackMethod: "redirectTo" as const,
+      fallbackUrl: "/pages/positions/index",
+    },
+    {
+      name: "detail",
+      load: () => import("../miniprogram/pages/positions/detail/index"),
+      fallbackMethod: "redirectTo" as const,
+      fallbackUrl: "/pages/positions/index",
+    },
+    {
+      name: "compare",
+      load: () => import("../miniprogram/pages/positions/compare/index"),
+      fallbackMethod: "redirectTo" as const,
+      fallbackUrl: "/pages/positions/index",
+    },
+    {
+      name: "goal",
+      load: () => import("../miniprogram/pages/positions/goal/index"),
+      fallbackMethod: "redirectTo" as const,
+      fallbackUrl: "/pages/positions/index",
+    },
+  ])(
+    "$name pops the stack when history exists and reroutes when it is the entry page",
+    async ({ load, fallbackMethod, fallbackUrl }) => {
+      const definition = await capturePage(load);
+      const page = instantiatePage(definition);
+      const fallback = fallbackMethod === "switchTab" ? switchTab : redirectTo;
+
+      vi.stubGlobal("getCurrentPages", () => [{}, {}]);
+      page.goBack?.call(page);
+      expect(navigateBack).toHaveBeenCalledTimes(1);
+      expect(fallback).not.toHaveBeenCalled();
+
+      vi.stubGlobal("getCurrentPages", () => [{}]);
+      page.goBack?.call(page);
+      expect(navigateBack).toHaveBeenCalledTimes(1);
+      expect(fallback).toHaveBeenCalledWith({ url: fallbackUrl });
+    },
+  );
 });
 
 async function capturePage(load: () => Promise<unknown>): Promise<CapturedPageDefinition> {

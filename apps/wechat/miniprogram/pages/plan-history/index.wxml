@@ -9,5 +9,6 @@
       <view class="brain-grid"><view class="brain-metric"><view class="brain-label">任务</view><text class="brain-metric__value type-data">{{item.taskCount}}</text></view><view class="brain-metric"><view class="brain-label">学习时间</view><text class="brain-metric__value type-data">{{item.scheduledDurationLabel}}</text></view></view>
       <view class="brain-note">为什么调整：{{item.reasonLabel}}</view><view class="brain-note">本次变化：{{item.changedInputLabel}}</view>
     </view>
+    <button hover-class="item--hover" class="control-center brain-secondary" bindtap="openWeeklyPlan">回到本周计划</button>
   </block>
 </view>

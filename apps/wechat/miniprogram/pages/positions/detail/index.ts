@@ -117,7 +117,11 @@ Page<PositionDetailPageData, PositionDetailPageCustom>({
   },
 
   goBack() {
-    void wx.navigateBack();
+    if (getCurrentPages().length > 1) {
+      void wx.navigateBack();
+      return;
+    }
+    void wx.redirectTo({ url: routes.positions });
   },
 
   retry() {

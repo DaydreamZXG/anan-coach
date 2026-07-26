@@ -35,7 +35,6 @@ interface PositionWorkspacePageCustom {
   retryQualification(): void;
   openSearch(): void;
   openQualificationProfile(): void;
-  openGapAction(event: WechatMiniprogram.BaseEvent): void;
   openPosition(event: WechatMiniprogram.BaseEvent): void;
   toggleComparison(event: WechatMiniprogram.BaseEvent): void;
   clearComparison(): void;
@@ -76,9 +75,7 @@ Page<PositionWorkspacePageData, PositionWorkspacePageCustom>({
   onLoad(options: Record<string, string | undefined>) {
     const session = currentAuthSession();
     if (!session) {
-      void wx.reLaunch({
-        url: loginUrlForReturn(positionWorkspaceUrl({ openScoreSheet: options.score === "1" })),
-      });
+      void wx.reLaunch({ url: workspaceLoginUrl(options.score === "1") });
       return;
     }
     const runtime = runtimes.attach(this);
@@ -128,7 +125,11 @@ Page<PositionWorkspacePageData, PositionWorkspacePageCustom>({
   },
 
   goBack() {
-    void wx.navigateBack();
+    if (getCurrentPages().length > 1) {
+      void wx.navigateBack();
+      return;
+    }
+    void wx.switchTab({ url: routes.today });
   },
 
   retryPositions() {
@@ -145,16 +146,6 @@ Page<PositionWorkspacePageData, PositionWorkspacePageCustom>({
 
   openQualificationProfile() {
     void wx.navigateTo({ url: routes.qualificationProfile });
-  },
-
-  openGapAction(event) {
-    const action = String(event.currentTarget.dataset.action ?? "");
-    if (action === "complete_profile") {
-      this.openQualificationProfile();
-      return;
-    }
-    const code = String(event.currentTarget.dataset.code ?? "");
-    void wx.navigateTo({ url: positionSearchUrl({ query: code }) });
   },
 
   openPosition(event) {
@@ -233,3 +224,11 @@ Page<PositionWorkspacePageData, PositionWorkspacePageCustom>({
 
   noop() {},
 });
+
+function workspaceLoginUrl(openScoreSheet: boolean): string {
+  try {
+    return loginUrlForReturn(positionWorkspaceUrl({ openScoreSheet }));
+  } catch {
+    return routes.login;
+  }
+}

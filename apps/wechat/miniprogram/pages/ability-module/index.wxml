@@ -13,7 +13,7 @@
       <view class="brain-warning">这只是调整建议，不会自动生效。确认前请写清适用范围、预期收益、有效期和复评日。</view>
       <view wx:if="{{errorMessage}}" class="brain-warning">{{errorMessage}}</view>
       <button hover-class="item--hover" wx:if="{{!candidate}}" class="control-center brain-action" loading="{{submitting}}" bindtap="createCandidate">生成调整建议</button>
-      <view wx:else class="candidate-box"><view class="brain-row-title">{{candidateStatusLabel}}</view><view class="brain-note">{{decisionMessage}}</view><view wx:if="{{candidate.status === 'awaiting_confirmation'}}" class="decision-actions"><button hover-class="item--hover" class="control-center brain-action brain-action--secondary" data-action="reject" bindtap="decideCandidate">不采用</button><button hover-class="item--hover" class="control-center brain-action" data-action="confirm" bindtap="decideCandidate">确认采用</button></view></view>
+      <view wx:else class="candidate-box"><view class="brain-row-title">{{candidateStatusLabel}}</view><view class="brain-note">{{decisionMessage}}</view><view wx:if="{{candidate.status === 'awaiting_confirmation'}}" class="decision-actions"><button hover-class="item--hover" class="control-center brain-action brain-action--secondary" data-action="reject" bindtap="decideCandidate">不采用</button><button hover-class="item--hover" class="control-center brain-action" data-action="confirm" bindtap="decideCandidate">确认采用</button></view><block wx:if="{{candidate.status === 'accepted'}}"><view class="brain-note">取舍已经记下，省出来的力气该花回今天的任务上。</view><button hover-class="item--hover" class="control-center brain-action" bindtap="goToday">回今日计划</button></block></view>
     </view>
   </block>
 </view>

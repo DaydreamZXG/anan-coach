@@ -10,7 +10,7 @@ import {
 } from "../miniprogram/app/navigation/routes";
 
 describe("position deep links", () => {
-  it("routes each onboarding result without inventing a missing briefing target", () => {
+  it("routes each onboarding result and degrades a missing briefing target to the position list", () => {
     expect(onboardingResultActionTarget("enter_workspace")).toEqual({
       mode: "switchTab",
       url: "/pages/today/index",
@@ -27,9 +27,14 @@ describe("position deep links", () => {
       mode: "navigateTo",
       url: "/pages/positions/briefing/index?positionId=position%2F1",
     });
-    expect(() => onboardingResultActionTarget("review_exam_briefing")).toThrow(
-      "explicit position ID",
-    );
+    expect(onboardingResultActionTarget("review_exam_briefing")).toEqual({
+      mode: "navigateTo",
+      url: "/pages/positions/index",
+    });
+    expect(onboardingResultActionTarget("review_exam_briefing", "   ")).toEqual({
+      mode: "navigateTo",
+      url: "/pages/positions/index",
+    });
   });
 
   it("builds registered detail and goal routes with encoded identifiers", () => {

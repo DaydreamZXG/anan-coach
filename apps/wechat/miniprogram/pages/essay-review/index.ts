@@ -79,9 +79,13 @@ Page({
 
   askAnan() {
     const auth = currentAuthSession();
+    if (!auth) {
+      void wx.reLaunch({ url: routes.login });
+      return;
+    }
     const review = this.data.review;
     const view = this.data.view;
-    if (!auth || !review || !view) return;
+    if (!review || !view) return;
     storeCompanionLaunchContext(auth.userId, {
       sourceLabel: "申论 AI 批改复盘",
       title: "这道题最值得先改什么",

@@ -33,9 +33,7 @@ Page<PositionBriefingPageData, PositionBriefingPageCustom>({
     const positionId = options.positionId?.trim() ?? "";
     const session = currentAuthSession();
     if (!session) {
-      void wx.reLaunch({
-        url: positionId ? loginUrlForReturn(positionBriefingUrl(positionId)) : routes.login,
-      });
+      void wx.reLaunch({ url: briefingLoginUrl(positionId) });
       return;
     }
     const runtime = runtimes.attach(this);
@@ -68,3 +66,12 @@ Page<PositionBriefingPageData, PositionBriefingPageCustom>({
     void wx.switchTab({ url: routes.today });
   },
 });
+
+function briefingLoginUrl(positionId: string): string {
+  if (!positionId) return routes.login;
+  try {
+    return loginUrlForReturn(positionBriefingUrl(positionId));
+  } catch {
+    return routes.login;
+  }
+}

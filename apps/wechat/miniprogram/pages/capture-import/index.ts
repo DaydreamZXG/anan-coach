@@ -292,10 +292,16 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
 
   askAnan() {
     const session = currentAuthSession();
+    if (!session) {
+      void wx.reLaunch({
+        url: loginUrlForReturn(captureImportUrl(this.data.state?.workspace?.importId)),
+      });
+      return;
+    }
     const state = this.data.state;
     const workspace = state?.workspace;
     const unit = state?.activeQuestionUnit;
-    if (!session || !state || !workspace || !unit) return;
+    if (!state || !workspace || !unit) return;
     const questionText = state.segments
       .filter((segment) => unit.segmentIds.includes(segment.segmentId))
       .map((segment) => segment.text)
@@ -440,7 +446,11 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
       this.setData({ receiptVisible: false });
       return;
     }
-    void wx.navigateBack();
+    if (getCurrentPages().length > 1) {
+      void wx.navigateBack();
+      return;
+    }
+    void wx.switchTab({ url: routes.today });
   },
 
   noop() {},

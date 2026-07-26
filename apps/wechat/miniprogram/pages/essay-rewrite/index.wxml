@@ -5,6 +5,6 @@
   <block wx:elif="{{comparison && view}}">
     <view class="workbench-card"><view class="workbench-pill">{{view.statusLabel}}</view><view class="workbench-grid"><view class="workbench-metric"><view class="workbench-meta">原答案</view><text class="workbench-metric__value">{{view.originalWords}} 字</text></view><view class="workbench-metric"><view class="workbench-meta">改写后</view><text class="workbench-metric__value">{{view.rewrittenWords}} 字</text></view></view></view>
     <view class="workbench-card"><view class="workbench-section-title">逐字差异</view><view class="diff-legend"><text class="diff-delete">删除</text><text class="diff-insert">新增</text><text>保留</text></view><view class="diff-body"><text wx:for="{{view.segments}}" wx:key="key" class="diff-{{item.operation}}">{{item.text}}</text></view></view>
-    <view class="workbench-card"><view class="workbench-section-title">能力边界</view><view class="workbench-note">这张对照只证明你完成了本题改写；只有在新材料、新题目上仍然做到，才能进入稳定掌握。</view></view>
+    <view class="workbench-card"><view class="workbench-section-title">能力边界</view><view class="workbench-note">这张对照只证明你完成了本题改写；只有在新材料、新题目上仍然做到，才能进入稳定掌握。</view><button hover-class="item--hover" class="control-center workbench-action" bindtap="goVerify">去下一次训练验证</button></view>
   </block>
 </view>

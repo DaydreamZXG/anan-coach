@@ -113,6 +113,11 @@ Page<XingceTaskIntroPageData, XingceTaskIntroPageCustom>({
     this.setData({ starting: true });
     try {
       await wx.navigateTo({ url: xingcePracticeUrl(briefing) });
+    } catch (error) {
+      void wx.showToast({
+        title: error instanceof Error ? error.message : "任务页面没有打开，请重试。",
+        icon: "none",
+      });
     } finally {
       if (runtimes.owns(this, runtime)) this.setData({ starting: false });
     }

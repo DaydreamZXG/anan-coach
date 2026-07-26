@@ -1,5 +1,8 @@
 import { LearningBrainApi } from "../../api/learning-brain";
 import type { BrainEvidenceRef, ErrorPatternDetail } from "../../api/generated/types.gen";
+import { routes } from "../../app/navigation/routes";
+import { currentAuthSession } from "../../auth/session";
+import { storeCompanionLaunchContext } from "../../features/companion/context-store";
 import {
   dateTimeLabel,
   errorView,
@@ -61,6 +64,30 @@ Page({
   },
   retryLoad() {
     if (this.data.retryAllowed) void this.loadPattern();
+  },
+  goPractice() {
+    void wx.switchTab({ url: routes.today });
+  },
+  askAnan() {
+    const auth = currentAuthSession();
+    const detail = this.data.detail;
+    if (!auth || !detail) return;
+    storeCompanionLaunchContext(auth.userId, {
+      sourceLabel: "错误模式详情",
+      title: `错误模式 · ${detail.pattern.displayName}`,
+      summary: [
+        `已出现 ${String(detail.pattern.occurrenceCount)} 次`,
+        `当前状态 ${this.data.patternStatusLabel}`,
+        `最近一次 ${this.data.latestLabel}`,
+        detail.interpretation,
+      ].join("；"),
+      suggestedQuestion:
+        "这个错误模式我到底卡在哪一步？帮我指出触发条件，再给我一个下次做题时用得上的检查动作。",
+      routeId: "pages/error-pattern/index",
+      workspace: "profile",
+      objectRefs: [],
+    });
+    void wx.switchTab({ url: routes.anan });
   },
 });
 

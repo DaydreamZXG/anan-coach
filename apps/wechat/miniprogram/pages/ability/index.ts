@@ -157,8 +157,12 @@ Page({
 
   openCompanion() {
     const auth = currentAuthSession();
+    if (!auth) {
+      void wx.reLaunch({ url: routes.login });
+      return;
+    }
     const profile = this.data.profile;
-    if (!auth || !profile) return;
+    if (!profile) return;
     const goalSummary = this.data.goalAvailable
       ? `主目标 ${this.data.goalName}，目标 ${this.data.targetScoreLabel}，当前 ${this.data.currentScoreLabel}，分差 ${this.data.scoreGapLabel}`
       : this.data.goalBoundaryLabel;

@@ -180,7 +180,10 @@ Page({
   async save() {
     if (this.data.saving) return;
     const token = currentAccessToken();
-    if (!token) return;
+    if (!token) {
+      void wx.reLaunch({ url: "/pages/login/index" });
+      return;
+    }
     const command = preferenceCommand(this.data.draft);
     if (typeof command === "string") {
       this.setData({ message: command });

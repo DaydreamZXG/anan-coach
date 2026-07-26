@@ -52,6 +52,37 @@ describe("authenticated navigation return contract", () => {
     expect(authenticatedReturnTarget("/pages/login/index")).toBeNull();
   });
 
+  it("preserves briefing and score-sheet workspace deep links across login", () => {
+    const briefing = "/pages/positions/briefing/index?positionId=position%2F1";
+    expect(authenticatedReturnTarget(briefing)).toEqual({ mode: "navigateTo", url: briefing });
+    expect(loginUrlForReturn(briefing)).toBe(
+      `/pages/login/index?returnTo=${encodeURIComponent(briefing)}`,
+    );
+    expect(authenticatedReturnTarget("/pages/positions/index?score=1")).toEqual({
+      mode: "navigateTo",
+      url: "/pages/positions/index?score=1",
+    });
+    expect(loginReturnTarget(encodeURIComponent("/pages/positions/index?score=1"))).toEqual({
+      mode: "navigateTo",
+      url: "/pages/positions/index?score=1",
+    });
+    expect(authenticatedReturnTarget("/pages/positions/index")).toEqual({
+      mode: "navigateTo",
+      url: "/pages/positions/index",
+    });
+  });
+
+  it("rejects malformed briefing and workspace score queries", () => {
+    expect(authenticatedReturnTarget("/pages/positions/briefing/index")).toBeNull();
+    expect(authenticatedReturnTarget("/pages/positions/briefing/index?positionId=%20")).toBeNull();
+    expect(
+      authenticatedReturnTarget("/pages/positions/briefing/index?positionId=p-1&redirect=x"),
+    ).toBeNull();
+    expect(authenticatedReturnTarget("/pages/positions/index?score=0")).toBeNull();
+    expect(authenticatedReturnTarget("/pages/positions/index?score=1&score=1")).toBeNull();
+    expect(authenticatedReturnTarget("/pages/positions/index?open=1")).toBeNull();
+  });
+
   it("rejects duplicate, malformed, and incomplete deep-link arguments", () => {
     expect(
       authenticatedReturnTarget("/pages/positions/detail/index?positionId=p-1&positionId=p-2"),

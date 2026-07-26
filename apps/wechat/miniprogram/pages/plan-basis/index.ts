@@ -162,9 +162,13 @@ Page({
 
   askAnan() {
     const auth = currentAuthSession();
+    if (!auth) {
+      void wx.reLaunch({ url: routes.login });
+      return;
+    }
     const basis = this.data.basis;
     const focusTask = this.data.focusTask;
-    if (!auth || !basis || !focusTask) return;
+    if (!basis || !focusTask) return;
     storeCompanionLaunchContext(auth.userId, {
       sourceLabel: "今天第一项任务",
       title: focusTask.title,
