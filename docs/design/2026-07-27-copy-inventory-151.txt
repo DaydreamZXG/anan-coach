@@ -1,0 +1,972 @@
+{
+  "summary": "盘点 58 页情绪关键时刻的现有文案（只读），供主控亲笔重写",
+  "agentCount": 2,
+  "logs": [],
+  "result": {
+    "main": {
+      "items": [
+        {
+          "loc": "pages/login/index.wxml:20-21",
+          "text": "基于认知科学的 AI 备考教练 / 为你规划最快的上岸路径",
+          "moment": "开屏 slogan（登录首屏第一印象）",
+          "pinned": true
+        },
+        {
+          "loc": "pages/onboarding/entry/index.wxml:8",
+          "text": "建立备考档案",
+          "moment": "建档入口 hero 标题",
+          "pinned": true
+        },
+        {
+          "loc": "pages/onboarding/entry/index.wxml:9",
+          "text": "岸岸需要了解你的背景和目标，以提供准确的岗位推荐与定制化计划。",
+          "moment": "建档入口 hero 副标题（建立信任）",
+          "pinned": false
+        },
+        {
+          "loc": "pages/onboarding/preparation-experience/index.wxml:21",
+          "text": "了解你的基本状态",
+          "moment": "建档步骤1 hero 标题",
+          "pinned": true
+        },
+        {
+          "loc": "pages/onboarding/preparation-experience/index.wxml:22",
+          "text": "当前仅支持国家公务员考试规划。岸岸会根据你的备考经验定制不同强度的训练节奏。",
+          "moment": "建档步骤1 hero 副标题",
+          "pinned": false
+        },
+        {
+          "loc": "pages/onboarding/index.wxml:23",
+          "text": "这部分信息将决定你能否跨过岗位的硬性门槛。不确定的可以先标记“稍后确认”。",
+          "moment": "建档步骤2 门槛焦虑提示+安抚",
+          "pinned": false
+        },
+        {
+          "loc": "pages/onboarding/study-preference/index.wxml:22",
+          "text": "合理的排期比虚高的计划更有效。每天最少 0.5 小时，最高 12 小时。岸岸将据此分配每天的任务容量。",
+          "moment": "建档步骤4 价值观开场（对抗虚高计划）",
+          "pinned": false
+        },
+        {
+          "loc": "pages/onboarding/ability-baseline/index.wxml:21",
+          "text": "了解你的起点",
+          "moment": "建档步骤5 hero 标题",
+          "pinned": true
+        },
+        {
+          "loc": "pages/onboarding/ability-baseline/index.wxml:22",
+          "text": "区分自报成绩与系统诊断。你提供的成绩仅作为初始锚点。",
+          "moment": "建档步骤5 副标题（成绩自尊保护）",
+          "pinned": false
+        },
+        {
+          "loc": "pages/onboarding/result/index.wxml:5",
+          "text": "正在生成备考档案 / 会对齐报考资格、岗位证据、双科起点和学习时间。",
+          "moment": "等待 AI 生成建档结果",
+          "pinned": false
+        },
+        {
+          "loc": "pages/onboarding/result/index.wxml:20",
+          "text": "你的备考档案立起来了",
+          "moment": "建档完成高光时刻 hero 标题",
+          "pinned": true
+        },
+        {
+          "loc": "pages/onboarding/result/index.wxml:22",
+          "text": "之后的每条推荐，都有出处：",
+          "moment": "建档完成信任承诺副句",
+          "pinned": false
+        },
+        {
+          "loc": "features/onboarding/result-presentation.ts:76-81",
+          "text": "双科证据完整 · 可以计算分差 / 距目标建议线约 N 分（或：当前区间已覆盖目标建议线）/ 这是基于当前行测、申论与岗位样本的区间判断；新增模考或正式成绩后会重新计算。",
+          "moment": "评估结果宣告（好消息分支）",
+          "pinned": false
+        },
+        {
+          "loc": "features/onboarding/result-presentation.ts:88-89",
+          "text": "当前能力仍会随新模考、正式成绩和稳定练习表现更新；这是一份动态区间判断，不是上岸保证。",
+          "moment": "评估结果风险坦白",
+          "pinned": false
+        },
+        {
+          "loc": "features/onboarding/result-presentation.ts:97-100",
+          "text": "双科成绩记录还不完整 / 先补充同一口径下的行测与申论真实成绩。单科分、旧档案分和单篇 AI 训练估分都不会被拿来凑总分。",
+          "moment": "评估结果宣告（证据不足分支）",
+          "pinned": false
+        },
+        {
+          "loc": "features/onboarding/result-presentation.ts:115",
+          "text": "先选一个主目标，再计算你离它多远",
+          "moment": "评估结果宣告（目标待选分支）",
+          "pinned": true
+        },
+        {
+          "loc": "features/onboarding/result-presentation.ts:131",
+          "text": "先核验资格缺口，不编造岗位分差",
+          "moment": "评估结果宣告（无可报岗位·坏消息时刻）",
+          "pinned": true
+        },
+        {
+          "loc": "pages/today/index.ts:289-293",
+          "text": "早上好 / 下午好 / 晚上好（+昵称）",
+          "moment": "今日页开屏问候",
+          "pinned": false
+        },
+        {
+          "loc": "pages/today/index.ts:156-158",
+          "text": "主目标岗位还没有确认（或：主目标 · {岗位名}）",
+          "moment": "今日页目标锚点/目标缺失提示",
+          "pinned": false
+        },
+        {
+          "loc": "pages/today/index.wxml:59",
+          "text": "今天安排 {时长}，先完成 {任务名}",
+          "moment": "每日开场卡行动引导",
+          "pinned": false
+        },
+        {
+          "loc": "pages/today/index.wxml:63-66",
+          "text": "顺便看咖啡？",
+          "moment": "每日开场生活化小仪式",
+          "pinned": false
+        },
+        {
+          "loc": "pages/today/index.wxml:103-104",
+          "text": "今天还没有可执行任务 / 先确认目标岗位和今天可用时间，岸岸才能生成真实安排。",
+          "moment": "今日任务空状态标题+说明（前端兜底文案）",
+          "pinned": false
+        },
+        {
+          "loc": "pages/plan-basis/index.wxml:27",
+          "text": "为什么今天练这个",
+          "moment": "计划依据 hero 标题（信任建立）",
+          "pinned": true
+        },
+        {
+          "loc": "pages/plan-basis/index.wxml:28",
+          "text": "这不是让你多刷一组题，而是验证近期最值得确认的问题。",
+          "moment": "计划依据 hero 副标题",
+          "pinned": false
+        },
+        {
+          "loc": "pages/plan-basis/index.wxml:82",
+          "text": "完成本次训练只会新增真实记录，不会凭一组题直接改变能力结论。",
+          "moment": "训练前期望管理边界语",
+          "pinned": false
+        },
+        {
+          "loc": "pages/weekly-plan/index.wxml:23",
+          "text": "这周，只追三个能验证的变化",
+          "moment": "周计划 hero 标题",
+          "pinned": true
+        },
+        {
+          "loc": "pages/weekly-plan/index.wxml:24",
+          "text": "5 天训练＋1 天复盘＋1 天机动。计划会跟着你的真实时间变化。",
+          "moment": "周计划 hero 副标题",
+          "pinned": false
+        },
+        {
+          "loc": "pages/weekly-plan/index.wxml:33-34",
+          "text": "还没有形成可验证的周目标 / 这版周计划只有每日安排，还没有单独的周目标。可以先按今天的安排训练。",
+          "moment": "周目标空状态标题+说明",
+          "pinned": false
+        },
+        {
+          "loc": "pages/day-adjustment/index.wxml:19",
+          "text": "今天变了，计划也可以跟着变",
+          "moment": "计划失守安抚 hero 标题",
+          "pinned": true
+        },
+        {
+          "loc": "pages/day-adjustment/index.wxml:20",
+          "text": "告诉岸岸还剩多少时间，先保住最值得做的。",
+          "moment": "计划失守安抚 hero 副标题",
+          "pinned": false
+        },
+        {
+          "loc": "pages/day-adjustment/index.wxml:133",
+          "text": "没完成的内容不会自动变成学习欠账。确认后，岸岸会按你现在的时间重新安排今天。",
+          "moment": "调整确认前减压承诺",
+          "pinned": false
+        },
+        {
+          "loc": "pages/daily-settlement/index.wxml:18",
+          "text": "今天到这里，看看真正留下了什么",
+          "moment": "每日结算收束 hero 标题",
+          "pinned": true
+        },
+        {
+          "loc": "pages/daily-settlement/index.wxml:19",
+          "text": "不比刷了多少，只看哪些变化值得带到明天。",
+          "moment": "每日结算收束 hero 副标题",
+          "pinned": false
+        },
+        {
+          "loc": "pages/daily-settlement/index.wxml:50-51",
+          "text": "今天还没有形成可确认的变化 / 当前没有结算总结。回到今日页完成任务后，再来查看真实记录。",
+          "moment": "结算空状态（零产出的一天）",
+          "pinned": false
+        },
+        {
+          "loc": "pages/daily-settlement/index.wxml:76",
+          "text": "没有完成的任务不会自动变成学习欠账。",
+          "moment": "未完成任务安抚语",
+          "pinned": false
+        },
+        {
+          "loc": "pages/daily-settlement/index.wxml:82-83",
+          "text": "今天没有未完成的任务 / 已安排任务都已闭环，可以直接结束今天。",
+          "moment": "全勤完成肯定时刻",
+          "pinned": false
+        },
+        {
+          "loc": "pages/daily-settlement/index.wxml:93-96",
+          "text": "明天的第一项还没有生成 / 新的日计划形成后会显示在今日页；现在可以先查看本周安排。",
+          "moment": "结算后明日衔接",
+          "pinned": false
+        },
+        {
+          "loc": "pages/practice/index.wxml:47",
+          "text": "上次的进度没存上",
+          "moment": "进度丢失焦虑时刻（待重试检查点标题）",
+          "pinned": false
+        },
+        {
+          "loc": "pages/practice/index.ts:1240-1242",
+          "text": "检测到一次结果未知的进度保存，已恢复当时的本地草稿；请重试刚才那次保存。",
+          "moment": "进度丢失焦虑时刻（恢复说明）",
+          "pinned": false
+        },
+        {
+          "loc": "pages/practice/index.ts:1503",
+          "text": "这次保存还没确认成功，需要重试后才能继续修改。",
+          "moment": "保存未确认锁定提示",
+          "pinned": false
+        },
+        {
+          "loc": "pages/practice/index.wxml:183",
+          "text": "刚刚这题选得怎么样？",
+          "moment": "作答后信心自查提问",
+          "pinned": false
+        },
+        {
+          "loc": "pages/practice/index.wxml:245",
+          "text": "岸岸正在读这道题……",
+          "moment": "等待 AI（题内追问岸岸）",
+          "pinned": false
+        },
+        {
+          "loc": "pages/practice/index.wxml:338-339",
+          "text": "岸岸会记住你的标记与存疑 / 交卷后优先进入证据复盘",
+          "moment": "答题卡内安抚+预告",
+          "pinned": false
+        },
+        {
+          "loc": "pages/practice/index.wxml:387",
+          "text": "训练已暂停",
+          "moment": "暂停卡标题",
+          "pinned": true
+        },
+        {
+          "loc": "pages/practice/index.wxml:389",
+          "text": "暂停期间不计入作答用时。\\n材料位置、答案与批注均已保留。",
+          "moment": "暂停卡安抚说明",
+          "pinned": false
+        },
+        {
+          "loc": "pages/practice/index.wxml:397",
+          "text": "正在打开训练总结 / 交卷已完成，正在进入可回看的总结与复盘。",
+          "moment": "交卷后过渡等待",
+          "pinned": false
+        },
+        {
+          "loc": "pages/mock-exam/index.wxml:39",
+          "text": "交卷了。深呼吸，成绩不会跑",
+          "moment": "模考交卷后情绪收束语",
+          "pinned": false
+        },
+        {
+          "loc": "pages/mock-exam/index.wxml:45-46",
+          "text": "交卷前未提供解析、公式卡或解题 AI / 本页先看整卷结果。逐题解析和方法总结会收进正式模考报告。",
+          "moment": "交卷后边界说明",
+          "pinned": false
+        },
+        {
+          "loc": "pages/mock-exam/index.wxml:71",
+          "text": "离开页面也不会暂停",
+          "moment": "模考限时压力提示",
+          "pinned": false
+        },
+        {
+          "loc": "pages/mock-exam/index.wxml:170",
+          "text": "模考按统一结束时间计时，看草稿不暂停。",
+          "moment": "模考草稿纸计时提示",
+          "pinned": false
+        },
+        {
+          "loc": "pages/mock-exam/index.wxml:272",
+          "text": "准备交卷",
+          "moment": "交卷前确认面板标题",
+          "pinned": true
+        },
+        {
+          "loc": "pages/mock-exam/index.wxml:278,282",
+          "text": "还有 {N} 题未作答，交卷后不能继续修改 / 全部题目已作答，交卷后不能继续修改",
+          "moment": "交卷前最后警示",
+          "pinned": false
+        },
+        {
+          "loc": "pages/reflection/index.wxml:10",
+          "text": "正在恢复你的复盘 / 作答事实、原话和错因会对应起来。",
+          "moment": "复盘开始前等待恢复",
+          "pinned": false
+        },
+        {
+          "loc": "pages/reflection/index.wxml:31",
+          "text": "这组做完了",
+          "moment": "练习收束/复盘开始标题",
+          "pinned": true
+        },
+        {
+          "loc": "pages/reflection/index.wxml:33-34",
+          "text": "比起{对}/{总}，更重要的是找到丢掉 {N} 题的原因。（全对分支：更重要的是把这组的作答证据留下来。）",
+          "moment": "成绩重构语（错题时刻核心句）",
+          "pinned": false
+        },
+        {
+          "loc": "pages/reflection/index.wxml:90",
+          "text": "本组新增 {N} 条真实作答证据。一次练习不会直接变成稳定能力，完成复测后再确认。",
+          "moment": "复盘总结期望管理边界",
+          "pinned": false
+        },
+        {
+          "loc": "pages/reflection/index.wxml:167",
+          "text": "这题超过建议用时；这里只记录事实，不自动把“超时”判成错因。",
+          "moment": "错题时刻事实边界（超时不贴标签）",
+          "pinned": false
+        },
+        {
+          "loc": "pages/reflection/index.wxml:269",
+          "text": "保存后，岸岸只会生成待确认的候选错因，不会替你下结论。",
+          "moment": "复盘提交前主权承诺",
+          "pinned": false
+        },
+        {
+          "loc": "pages/reflection/index.wxml:277",
+          "text": "复盘原话已经保存，错因仍由你最终确认。",
+          "moment": "等待 AI 整理错因时的边界语",
+          "pinned": false
+        },
+        {
+          "loc": "pages/reflection/index.wxml:360-361",
+          "text": "复盘完成 / 后续复测会验证这次判断。只有多次出现一致证据，才会更新为稳定能力结论。",
+          "moment": "复盘完成收束语",
+          "pinned": false
+        },
+        {
+          "loc": "pages/reflection/index.wxml:459",
+          "text": "这里只描述可见轨迹，不直接判断“粗心”或“不会”。",
+          "moment": "岸岸动作分析边界（不贴人格标签）",
+          "pinned": false
+        },
+        {
+          "loc": "features/xingce/real_attempt/presentation.ts:346-349",
+          "text": "岸岸正在整理错因 / 已记下你的原话，错因归类好了会通知你。",
+          "moment": "等待 AI 归类错因",
+          "pinned": false
+        },
+        {
+          "loc": "features/xingce/real_attempt/presentation.ts:350-353",
+          "text": "岸岸给出了一个待确认错因 / 这只是候选，确认、否定、替换或稍后处理都由你决定。",
+          "moment": "AI 结论交付时刻（保留用户主权）",
+          "pinned": false
+        },
+        {
+          "loc": "features/xingce/real_attempt/presentation.ts:358-361",
+          "text": "错因依据不足 / 岸岸还缺少足够信息，不会直接猜错因；你可以否定、自己补充或稍后处理。",
+          "moment": "AI 不确定性坦白",
+          "pinned": false
+        },
+        {
+          "loc": "pages/reflection/index.ts:791",
+          "text": "正在写入你的原话复盘…",
+          "moment": "复盘提交等待",
+          "pinned": false
+        }
+      ],
+      "count": 65
+    },
+    "ring": {
+      "count": 86,
+      "items": [
+        {
+          "loc": "pages/retake/index.wxml:4-5",
+          "text": "别把去年会的内容再学一遍 / 先用往年成绩定个位，再用新练习找出弱项。",
+          "moment": "二战起点·直面去年失利",
+          "pinned": false
+        },
+        {
+          "loc": "pages/retake/index.wxml:10",
+          "text": "模考成绩不会混入二战实考起点。",
+          "moment": "二战起点·加载等待时的口径安抚",
+          "pinned": false
+        },
+        {
+          "loc": "pages/retake/index.wxml:24-25",
+          "text": "计划已经生效（{年} → {年} 失分回收）",
+          "moment": "二战计划生效确认",
+          "pinned": false
+        },
+        {
+          "loc": "pages/retake/index.wxml:32",
+          "text": "选择一份实考成绩作为起点",
+          "moment": "二战起点·直面往年分数的抉择",
+          "pinned": false
+        },
+        {
+          "loc": "pages/retake/index.wxml:46-47",
+          "text": "还没有可用的往年国考实考成绩 / 先录入或识别成绩截图并由你确认。外部模考可以进入能力档案，但不会冒充实考成绩。",
+          "moment": "二战起点空档",
+          "pinned": false
+        },
+        {
+          "loc": "pages/ability/index.wxml:7",
+          "text": "知道现在在哪，才知道下一步往哪走",
+          "moment": "能力页开场·自我审视",
+          "pinned": false
+        },
+        {
+          "loc": "pages/ability/index.wxml:86",
+          "text": "至少三个模块产生真实作答记录后，才会形成分布图。",
+          "moment": "能力空档·雷达图未成形",
+          "pinned": false
+        },
+        {
+          "loc": "pages/ability/index.wxml:106",
+          "text": "完成真实行测作答后，这里会按六个考试模块形成画像。",
+          "moment": "能力空档·行测无记录",
+          "pinned": false
+        },
+        {
+          "loc": "pages/ability/index.wxml:130",
+          "text": "完成真实申论作答和改写后，这里会形成模块画像。",
+          "moment": "能力空档·申论无记录",
+          "pinned": false
+        },
+        {
+          "loc": "pages/ability/index.wxml:154",
+          "text": "完成错题复盘并确认原因后，这里才会沉淀可复测的问题。",
+          "moment": "能力空档·问题未沉淀",
+          "pinned": false
+        },
+        {
+          "loc": "pages/ability/index.wxml:158-160",
+          "text": "{N} 个学习取舍已经到复评时间，需要重新确认。",
+          "moment": "复评到期压力",
+          "pinned": false
+        },
+        {
+          "loc": "pages/ability/index.ts:56",
+          "text": "先确认主目标岗位并补齐同口径双科成绩。",
+          "moment": "能力页·目标对照空档",
+          "pinned": false
+        },
+        {
+          "loc": "pages/ability/index.wxml:169",
+          "text": "目前最值得优先修复的模块已在上方标出。需要岸岸结合今天的安排解释一下吗？",
+          "moment": "能力→行动的转折邀请",
+          "pinned": false
+        },
+        {
+          "loc": "pages/positions/index.wxml:10",
+          "text": "填好学历、专业和经历，岸岸才能筛出真正能报的岗位。",
+          "moment": "岗位空档·资格未建档",
+          "pinned": false
+        },
+        {
+          "loc": "pages/positions/index.wxml:110-111",
+          "text": "暂时没有匹配岗位 / 核对专业、学历和经历后，再重新筛选。",
+          "moment": "岗位筛选落空",
+          "pinned": false
+        },
+        {
+          "loc": "features/positions/presentation.ts:379-384",
+          "text": "先放弃或复核硬条件：当前岗位存在明确不符合项；除非你能拿出新事实，否则不建议设为主目标。",
+          "moment": "岗位抉择·硬性劝退结论",
+          "pinned": false
+        },
+        {
+          "loc": "features/positions/presentation.ts:397-402",
+          "text": "补齐行测 + 申论成绩：资格已经先筛过；录入同一口径双科成绩后，才会生成可信分差和今日计划影响。",
+          "moment": "岗位抉择·分差证据空档",
+          "pinned": false
+        },
+        {
+          "loc": "features/positions/presentation.ts:414-418",
+          "text": "当前属于{分带}：可点进岗位查看资格依据、分数依据和设为主目标后的计划影响。",
+          "moment": "岗位抉择·默认适配结论",
+          "pinned": false
+        },
+        {
+          "loc": "pages/positions/goal/index.wxml:44",
+          "text": "目标变更预览",
+          "moment": "目标变更·预演开场",
+          "pinned": true
+        },
+        {
+          "loc": "pages/positions/goal/index.wxml:48",
+          "text": "备考计划即将发生以下调整：",
+          "moment": "目标变更·影响告知",
+          "pinned": false
+        },
+        {
+          "loc": "pages/positions/goal/index.wxml:95-96",
+          "text": "主目标已确认 / 训练计划和目标分数已经按新岗位更新。",
+          "moment": "目标确认成功高光",
+          "pinned": true
+        },
+        {
+          "loc": "pages/positions/briefing/index.wxml:5",
+          "text": "第一次考？先把这场考试讲明白",
+          "moment": "新手第一次面对国考",
+          "pinned": false
+        },
+        {
+          "loc": "pages/positions/briefing/index.wxml:51",
+          "text": "这是备考目标区间，不是官方进面线，也不是录取概率。",
+          "moment": "目标分焦虑边界",
+          "pinned": false
+        },
+        {
+          "loc": "pages/positions/briefing/index.wxml:64-66",
+          "text": "你已有外部备考经验？/ 外部成绩、错题和报告都可以补充你的学习记录，不会因为刚注册就被忽略；只有你确认过的内容才会影响能力判断和计划。",
+          "moment": "老考生被接住",
+          "pinned": false
+        },
+        {
+          "loc": "pages/positions/detail/index.wxml:147",
+          "text": "这是备考定位，不是录取概率。资格条件仍以官方职位表和公告为准。",
+          "moment": "岗位抉择·概率焦虑边界",
+          "pinned": false
+        },
+        {
+          "loc": "features/essay-task/review-presentation.ts:58-63",
+          "text": "答案已保存，评阅额度待恢复 / 今日已使用 N/N 次。预计 X 后可继续建立评阅；答案、复盘和评阅意图都已保存在你的账户中。",
+          "moment": "申论批改·额度等待",
+          "pinned": true
+        },
+        {
+          "loc": "features/essay-task/review-presentation.ts:66",
+          "text": "正在准备本次评阅：答案和复盘已保存，岸岸正在开始完整评阅。",
+          "moment": "申论批改·排队开始",
+          "pinned": false
+        },
+        {
+          "loc": "features/essay-task/review-presentation.ts:75-81",
+          "text": "AI 正在逐项核对 / 正在逐项核对答案原句、材料原句和评分点，请保持页面打开。",
+          "moment": "申论批改·核对等待",
+          "pinned": false
+        },
+        {
+          "loc": "features/essay-task/review-presentation.ts:104-110",
+          "text": "这次评阅没有完成 / 本次没有形成完整评阅，因此不显示部分分数。答案已保存，可以重新加载或重评。",
+          "moment": "申论批改·失败挫败",
+          "pinned": false
+        },
+        {
+          "loc": "features/essay-task/review-presentation.ts:121-130",
+          "text": "本版无法可靠估分 / 还差一些材料没补全，部分分数暂时看不了。",
+          "moment": "申论批改·被阻断",
+          "pinned": false
+        },
+        {
+          "loc": "features/essay-task/review-presentation.ts:139-142",
+          "text": "完整评阅已完成 / 以下为 AI 训练估分区间，不等同于人工阅卷或正式考试成绩。",
+          "moment": "申论批改·结论揭晓",
+          "pinned": false
+        },
+        {
+          "loc": "pages/essay-task/index.ts:2001-2002",
+          "text": "答案和复盘已保存，正在启动 AI 评阅… / 本次申论任务已经完成；AI 评阅会在后台继续，不影响已保存的作答。",
+          "moment": "申论提交·松一口气",
+          "pinned": false
+        },
+        {
+          "loc": "pages/essay-task/index.wxml:570-574",
+          "text": "作答草稿已按账号和计划保存 / 中途退出也不怕，回来接着写。",
+          "moment": "长文作答·中断安全感",
+          "pinned": false
+        },
+        {
+          "loc": "pages/essay-task/index.ts:2400",
+          "text": "改写通过 / 仍需修正",
+          "moment": "改写结论判决",
+          "pinned": false
+        },
+        {
+          "loc": "pages/essay-task/index.ts:2408-2410",
+          "text": "新答案和逐条修正记录已保存，下一步可以做迁移练习。 / 新答案已保存，未解决问题仍保持待改写。",
+          "moment": "改写判决后的去向",
+          "pinned": false
+        },
+        {
+          "loc": "pages/essay-task/index.ts:2430-2434",
+          "text": "迁移已验证 / 迁移未验证 / 迁移证据不充分",
+          "moment": "迁移验证判决",
+          "pinned": false
+        },
+        {
+          "loc": "pages/essay-review/index.wxml:21",
+          "text": "暂不可评分",
+          "moment": "批改结论缺席",
+          "pinned": false
+        },
+        {
+          "loc": "pages/essay-review/index.wxml:27",
+          "text": "本评分用于训练反馈，不等同于官方阅卷结果。",
+          "moment": "分数信任边界",
+          "pinned": false
+        },
+        {
+          "loc": "pages/essay-review/index.wxml:70-73",
+          "text": "本次没有定位到具体问题 / 可以带着本题问岸岸，继续核对答案与材料依据。",
+          "moment": "批改无问题结论",
+          "pinned": false
+        },
+        {
+          "loc": "pages/essay-review/index.wxml:86-89",
+          "text": "本次没有单独的表达问题 / 不生成虚构示例；需要时可让岸岸结合原句继续解释。",
+          "moment": "表达升格空档",
+          "pinned": false
+        },
+        {
+          "loc": "pages/essay-rewrite/index.wxml:2",
+          "text": "不是替你写，而是让你看见怎么改",
+          "moment": "改写对照开场",
+          "pinned": false
+        },
+        {
+          "loc": "pages/capture-import/index.wxml:21-22",
+          "text": "需要相机权限 / 岸岸需要使用相机拍摄你选择的题目和材料，请在系统设置中允许授权。",
+          "moment": "权限被拒摩擦",
+          "pinned": true
+        },
+        {
+          "loc": "pages/capture-import/index.wxml:133-134",
+          "text": "正在读取题面... / 正在全库检索... / 寻找最精准的原题与解析（兜底文案未钉）",
+          "moment": "搜题检索等待",
+          "pinned": true
+        },
+        {
+          "loc": "pages/capture-import/index.wxml:216-217",
+          "text": "岸岸在独立推这道题，不抄题库也不编答案 / 题库没有原题——正在给你写一份可以逐步核对的解析",
+          "moment": "AI 独立解题等待",
+          "pinned": true
+        },
+        {
+          "loc": "pages/capture-import/index.wxml:268",
+          "text": "未在题库中找到完全一致的题目",
+          "moment": "搜题落空",
+          "pinned": true
+        },
+        {
+          "loc": "pages/capture-import/index.wxml:269",
+          "text": "这可能是一道新题或小众考卷题。岸岸可以独立进行 AI 推理，但不会冒充题库标准答案。",
+          "moment": "搜题落空后的转机",
+          "pinned": false
+        },
+        {
+          "loc": "pages/capture-import/index.wxml:37-43",
+          "text": "处理完成（记录位置 仅本次查看 / 画像影响 未计入能力画像 / 检索记录 已保留在你的账户）",
+          "moment": "搜题收尾交代",
+          "pinned": true
+        },
+        {
+          "loc": "pages/learning-packets/index.wxml:6-7",
+          "text": "上传的资料，要变成能用的学习对象",
+          "moment": "学习包价值定调",
+          "pinned": false
+        },
+        {
+          "loc": "pages/learning-packets/index.wxml:46",
+          "text": "生成过程中可以离开本页，稍后回来会继续显示进度。",
+          "moment": "学习包生成·等待放行",
+          "pinned": false
+        },
+        {
+          "loc": "pages/learning-packets/index.wxml:58",
+          "text": "正在排版和校对题目……",
+          "moment": "学习包生成中",
+          "pinned": false
+        },
+        {
+          "loc": "features/external-learning/presentation.ts:120",
+          "text": "ready: 可使用（学习包完成态目前只有这两个字，无完成时刻文案）",
+          "moment": "学习包生成完成",
+          "pinned": false
+        },
+        {
+          "loc": "pages/learning-packets/index.wxml:50",
+          "text": "还没有学习包 / 选择已确认的题目后生成第一份；尚未核对的识别内容不会出现在这里。",
+          "moment": "学习包空档",
+          "pinned": false
+        },
+        {
+          "loc": "pages/private-knowledge/index.wxml:9",
+          "text": "岸岸正在阅读新资料",
+          "moment": "私人资料解析等待",
+          "pinned": true
+        },
+        {
+          "loc": "pages/private-knowledge/index.wxml:25",
+          "text": "资料完成处理后会出现在私人资料库。你可以先去学习，回来再核对结果。",
+          "moment": "解析等待·放行",
+          "pinned": false
+        },
+        {
+          "loc": "pages/private-knowledge/index.wxml:48",
+          "text": "岸岸的私有阅读室",
+          "moment": "私密信任开场",
+          "pinned": true
+        },
+        {
+          "loc": "pages/private-knowledge/index.wxml:49",
+          "text": "你上传的笔记、讲义和错题卷，只用于提升你自己的答疑与检索。不与其他考生共享，不训练公共模型。",
+          "moment": "隐私安心承诺",
+          "pinned": false
+        },
+        {
+          "loc": "pages/private-knowledge/index.wxml:169-170",
+          "text": "还没有私人资料 / 上传讲义或拍一页笔记，岸岸会先让你核对识别内容。",
+          "moment": "资料库空档",
+          "pinned": false
+        },
+        {
+          "loc": "pages/anan/index.wxml:7",
+          "text": "你的备考总控台",
+          "moment": "岸岸主页身份定调",
+          "pinned": true
+        },
+        {
+          "loc": "pages/anan/index.wxml:20",
+          "text": "我已经同步了你的岗位、能力和今天的计划。",
+          "moment": "岸岸开场信任",
+          "pinned": false
+        },
+        {
+          "loc": "pages/anan/index.wxml:90-91",
+          "text": "正在核对你的资料与当前任务 / 岸岸会先确认哪些信息可以使用，再给出能说明理由的建议。",
+          "moment": "提问后的等待",
+          "pinned": false
+        },
+        {
+          "loc": "pages/anan/index.ts:351-352",
+          "text": "{N} 项复测或学习取舍已经到期 / 继续学新内容前，先处理到期项，才能判断之前的问题有没有真正修好。",
+          "moment": "到期压力提醒",
+          "pinned": false
+        },
+        {
+          "loc": "pages/anan/index.ts:360-361",
+          "text": "还没有确认主目标岗位 / 没有目标岗位时，岸岸只能按通用国考能力安排，无法判断分差和学习取舍。",
+          "moment": "目标空档提醒",
+          "pinned": false
+        },
+        {
+          "loc": "pages/anan/index.ts:377-378",
+          "text": "今天还没有形成可执行安排 / 确认今天可用时间、精力和压力后，岸岸才能生成真实任务。",
+          "moment": "今日安排空档",
+          "pinned": false
+        },
+        {
+          "loc": "pages/xingce-mastery/index.wxml:4-5",
+          "text": "真正掌握，要经得住隔天再测 / 不按做过多少题判断，而按独立作答、迁移和时间稳定性判断。",
+          "moment": "掌握观定调",
+          "pinned": false
+        },
+        {
+          "loc": "pages/xingce-mastery/index.wxml:44-45",
+          "text": "内容已撤回，不再污染掌握判断 / 这里仅保留撤回事实和历史记录；撤回项目不会进入复盘、复测或稳定掌握统计。",
+          "moment": "内容撤回信任",
+          "pinned": false
+        },
+        {
+          "loc": "pages/xingce-mastery/index.wxml:70",
+          "text": "这道题已下线，还能看到当时的记录，但不再计入能力分析。",
+          "moment": "记录失效告知",
+          "pinned": false
+        },
+        {
+          "loc": "features/xingce/mastery/presentation.ts:47-50",
+          "text": "还没有稳定掌握记录 / 通过即时、首次和延时验证后，稳定证据会保留在这里。",
+          "moment": "稳定掌握空档（成就未达）",
+          "pinned": false
+        },
+        {
+          "loc": "features/xingce/mastery/presentation.ts:43-46",
+          "text": "当前没有到期复测 / 岸岸会按你的掌握情况和到期时间安排复测，不会临时拼题。",
+          "moment": "复测节奏信任",
+          "pinned": false
+        },
+        {
+          "loc": "pages/report-overview/index.wxml:5",
+          "text": "这一组题，暴露了什么 / 离目标岗位，还差在哪里 / 这一周，哪些变化值得继续",
+          "moment": "报告判决开场",
+          "pinned": false
+        },
+        {
+          "loc": "pages/report-overview/index.wxml:7",
+          "text": "当前只能生成部分结论，缺失项不会被猜测填充。",
+          "moment": "报告部分结论告知",
+          "pinned": false
+        },
+        {
+          "loc": "pages/report-overview/index.wxml:11",
+          "text": "这类记录还不足以形成趋势图。完成两次以上同类训练后，再回来比较变化。",
+          "moment": "趋势空档",
+          "pinned": false
+        },
+        {
+          "loc": "pages/global-report/index.wxml:5",
+          "text": "把分差、能力和行动放在一张图里 / 所有数据都来自你的真实作答。",
+          "moment": "全局报告开场",
+          "pinned": false
+        },
+        {
+          "loc": "pages/global-report/index.wxml:7",
+          "text": "没数据的地方先空着，做几次题就有了。",
+          "moment": "数据空档宽慰",
+          "pinned": false
+        },
+        {
+          "loc": "pages/global-report/index.wxml:8",
+          "text": "还没有足够的学习记录 / 完成题组、整卷或确认一条外部成绩后再生成。",
+          "moment": "全局报告空档",
+          "pinned": false
+        },
+        {
+          "loc": "pages/report-center/index.wxml:2",
+          "text": "所有成绩，最后都要变成下一步",
+          "moment": "成绩→行动定调",
+          "pinned": false
+        },
+        {
+          "loc": "pages/external-report/index.wxml:28",
+          "text": "外部模考单已确认（✓ 成功卡 + confirmationMessage）",
+          "moment": "外部成绩入档确认",
+          "pinned": false
+        },
+        {
+          "loc": "pages/membership/index.wxml:3",
+          "text": "第一次付钱，也可以安心试（免费态：冷启动期间，完整能力免费开放）",
+          "moment": "付费信任门槛",
+          "pinned": false
+        },
+        {
+          "loc": "pages/membership/index.wxml:56",
+          "text": "买到的就是下面列的，没做好的功能不会写进来卖。",
+          "moment": "付费诚意声明",
+          "pinned": false
+        },
+        {
+          "loc": "pages/study-preference/index.wxml:4",
+          "text": "把每周时间改成真实可执行的安排",
+          "moment": "时间承诺时刻",
+          "pinned": false
+        },
+        {
+          "loc": "pages/study-preference/index.wxml:21-23",
+          "text": "上一次保存结果还不确定 / 内容已暂时锁定；本次只会确认刚才的结果，不会重复保存。",
+          "moment": "保存不确定·恢复安抚",
+          "pinned": false
+        },
+        {
+          "loc": "pages/notification-settings/index.wxml:5",
+          "text": "提醒你回来，不替你完成",
+          "moment": "督学边界定调",
+          "pinned": false
+        },
+        {
+          "loc": "pages/me/index.ts:595",
+          "text": "国考备考第 {N} 天（兜底：国考备考中）",
+          "moment": "坚持天数身份感",
+          "pinned": false
+        },
+        {
+          "loc": "pages/me/index.ts:126-128",
+          "text": "尚未确认主目标岗位 / 待确认",
+          "moment": "个人页目标空档",
+          "pinned": false
+        },
+        {
+          "loc": "pages/community-draft/index.wxml:4",
+          "text": "先把你的方法说清楚，再决定要不要分享",
+          "moment": "分享犹豫时刻",
+          "pinned": false
+        },
+        {
+          "loc": "pages/community-contributions/index.wxml:4",
+          "text": "你贡献的不是答案，是可验证的方法",
+          "moment": "贡献身份确认",
+          "pinned": false
+        },
+        {
+          "loc": "pages/community-trial/index.wxml:4",
+          "text": "先小范围验证，再决定是否公开",
+          "moment": "公开顾虑",
+          "pinned": false
+        }
+      ]
+    }
+  },
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "盘点"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "inventory-main",
+      "phaseIndex": 1,
+      "phaseTitle": "盘点",
+      "agentId": "acaf398df361c7016",
+      "model": "claude-fable-5",
+      "state": "done",
+      "startedAt": 1785081741685,
+      "queuedAt": 1785081732656,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "只读盘点，不改任何文件。仓库：/Users/zxg/Documents/新项目/apps/wechat/miniprogram。\n目标：找出「值得有深度的文案」出现的位置——用户情绪起伏的时刻，不是按钮标签。\n排除：按钮短语、纯数据行、法务/隐私说明、Request ID 类。\n每条记录：file:line、当前文案、时刻类型、是否被 e2e/visual-delivery-contracts.mjs 或 tests/ 钉住（grep 确认）。\n【你的范围】主链页面：login、onboarding 全家（含 result/entry/各步骤）、today、plan-basis、weekly-plan、day-adjustment、daily-settlement、practice、mock-exam、reflection。\n重点时刻：开屏 slogan、hero 标题/副标题、空状态标题…",
+      "lastProgressAt": 1785082192221,
+      "tokens": 119280,
+      "toolCalls": 40,
+      "durationMs": 450536,
+      "resultPreview": "{\"items\":[{\"loc\":\"pages/login/index.wxml:20-21\",\"text\":\"基于认知科学的 AI 备考教练 / 为你规划最快的上岸路径\",\"moment\":\"开屏 slogan（登录首屏第一印象）\",\"pinned\":true},{\"loc\":\"pages/onboarding/entry/index.wxml:8\",\"text\":\"建立备考档案\",\"moment\":\"建档入口 hero 标题\",\"pinned\":true},{\"loc\":\"pages/onboarding/entry/index.wxml:9\",\"text\":\"岸岸需要了解你的背景和目标，以提供准确的岗位推荐与定制化计划。\",\"moment\":\"建档入口 hero 副标题（建立信任）\",\"pinned\":false},{\"loc\":\"pages/onboarding/preparati…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "inventory-ring",
+      "phaseIndex": 1,
+      "phaseTitle": "盘点",
+      "agentId": "a0279e1145f624a20",
+      "model": "claude-fable-5",
+      "state": "done",
+      "startedAt": 1785081737222,
+      "queuedAt": 1785081732657,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "只读盘点，不改任何文件。仓库：/Users/zxg/Documents/新项目/apps/wechat/miniprogram。\n目标：找出「值得有深度的文案」出现的位置——用户情绪起伏的时刻，不是按钮标签。\n排除：按钮短语、纯数据行、法务/隐私说明、Request ID 类。\n每条记录：file:line、当前文案、时刻类型、是否被 e2e/visual-delivery-contracts.mjs 或 tests/ 钉住（grep 确认）。\n【你的范围】环线页面：anan、ability、me、positions 全家、capture-import、essay 全家、retake、xingce-mastery、learning-packets、private-knowledge、report 系、community 系、membership、study-preference、notif…",
+      "lastProgressAt": 1785082451570,
+      "tokens": 176319,
+      "toolCalls": 71,
+      "durationMs": 714348,
+      "resultPreview": "{\"count\":86,\"items\":[{\"loc\":\"pages/retake/index.wxml:4-5\",\"text\":\"别把去年会的内容再学一遍 / 先用往年成绩定个位，再用新练习找出弱项。\",\"moment\":\"二战起点·直面去年失利\",\"pinned\":false},{\"loc\":\"pages/retake/index.wxml:10\",\"text\":\"模考成绩不会混入二战实考起点。\",\"moment\":\"二战起点·加载等待时的口径安抚\",\"pinned\":false},{\"loc\":\"pages/retake/index.wxml:24-25\",\"text\":\"计划已经生效（{年} → {年} 失分回收）\",\"moment\":\"二战计划生效确认\",\"pinned\":false},{\"loc\":\"pages/retake/index.wxml:32\",\"text\":\"选择一…"
+    }
+  ],
+  "totalTokens": 295599,
+  "totalToolCalls": 111
+}

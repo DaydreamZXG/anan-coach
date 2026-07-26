@@ -1506,3 +1506,9 @@ button.submit-button {
     font-size: var(--text-section);
   }
 }
+
+.review-status-soul {
+  margin-top: calc(10 * var(--rpx));
+  color: var(--color-muted);
+  font-size: var(--text-micro);
+}

@@ -386,7 +386,7 @@
           </view>
           <view class="pause-title">训练已暂停</view>
           <view class="pause-time type-data">{{view.elapsedLabel}}</view>
-          <view class="pause-copy">暂停期间不计入作答用时。\n材料位置、答案与批注均已保留。</view>
+          <view class="pause-copy">暂停不是掉队，是把气喘匀。\n暂停期间不计入作答用时。\n材料位置、答案与批注均已保留。</view>
           <button hover-class="item--hover" class="pause-resume" bindtap="toggleTaskPause">继续作答</button>
           <button hover-class="item--hover" class="control-center pause-exit" bindtap="exit">结束本次训练</button>
         </view>

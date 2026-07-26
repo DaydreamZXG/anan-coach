@@ -831,3 +831,9 @@ button.mock-submit__back,
 button.mock-submit__confirm {
   width: 100%;
 }
+
+.mock-submit__soul {
+  margin-top: calc(8 * var(--rpx));
+  color: var(--color-muted);
+  font-size: var(--text-caption);
+}

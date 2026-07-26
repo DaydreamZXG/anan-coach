@@ -30,7 +30,7 @@
       <view class="summary-intro">
         <view class="summary-title">这组做完了</view>
         <!-- Figma 13:20：错题数用真实数据填充。 -->
-        <view wx:if="{{result.totalCount - result.correctCount > 0}}" class="summary-copy">比起{{result.correctCount}}/{{result.totalCount}}，更重要的是找到丢掉 {{result.totalCount - result.correctCount}} 题的原因。</view>
+        <view wx:if="{{result.totalCount - result.correctCount > 0}}" class="summary-copy">比起{{result.correctCount}}/{{result.totalCount}}，做对的题让你安心，做错的题让你上岸——先找回丢掉 {{result.totalCount - result.correctCount}} 题的原因。</view>
         <view wx:else class="summary-copy">比起 {{result.correctCount}}/{{result.totalCount}}，更重要的是把这组的作答证据留下来。</view>
       </view>
 
@@ -266,7 +266,7 @@
         </view>
       </view>
 
-      <view class="reflection-boundary">保存后，岸岸只会生成待确认的候选错因，不会替你下结论。</view>
+      <view class="reflection-boundary">错题不欠你道歉，它欠你一个答案——岸岸只给候选，结论永远你来下。</view>
       <view class="reflection-bottom-spacer"></view>
     </view>
 

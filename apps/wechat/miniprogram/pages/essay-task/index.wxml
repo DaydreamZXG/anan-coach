@@ -416,6 +416,7 @@
         <view class="review-status-mark">{{reviewDisplay.state === 'waiting_quota' ? '等待评阅' : reviewDisplay.state === 'queued' ? '排队中' : reviewDisplay.state === 'running' ? '核对中' : reviewDisplay.state === 'completed' ? '已完成' : reviewDisplay.state === 'blocked' ? '依据不足' : '尚未完成'}}</view>
         <view class="review-status-title">{{reviewDisplay.title}}</view>
         <view class="review-status-copy">{{reviewDisplay.message}}</view>
+        <view wx:if="{{reviewDisplay.state === 'queued' || reviewDisplay.state === 'running'}}" class="review-status-soul">你认真写的东西，值得被认真读。</view>
         <button hover-class="item--hover"
           wx:if="{{canRegenerateReview}}"
           class="review-regenerate-button {{submissionStatus === 'submitting' ? 'review-regenerate-button--disabled' : ''}} tap-tactile"

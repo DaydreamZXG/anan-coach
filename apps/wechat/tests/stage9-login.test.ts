@@ -15,8 +15,8 @@ const styles = normalizeRpxCalc(stylesRaw);
 describe("stage 9 login composition", () => {
   it("renders the approved quiet AI coach identity and a single clear login action", () => {
     expect(template).toContain("岸岸备考");
-    expect(template).toContain("基于认知科学的 AI 备考教练");
-    expect(template).toContain("为你规划最快的上岸路径");
+    expect(template).toContain("岸不会走过来，但岸岸会。");
+    expect(template).toContain("上岸之前，水里的每一天也算数");
     expect(template).toContain('class="brain-logo"');
     expect(template).toContain('src="/assets/icons/anan/brain-outline-ink.svg"');
     expect(template).toContain('src="/assets/icons/anan/arrow-right-white.svg"');

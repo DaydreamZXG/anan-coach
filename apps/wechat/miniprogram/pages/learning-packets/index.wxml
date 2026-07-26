@@ -3,7 +3,7 @@
   <view class="external-hero">
     <view class="external-hero__copy">
       <view class="external-eyebrow">我的学习包</view>
-      <view class="external-title">上传的资料，要变成能用的学习对象</view>
+      <view class="external-title">打印出来吧，纸不会分心</view>
       <view class="external-subtitle">每个学习包保留来源、解析状态、知识点和关联任务；原始文件可单独删除。</view>
     </view>
   </view>
