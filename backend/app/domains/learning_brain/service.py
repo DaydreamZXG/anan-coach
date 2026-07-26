@@ -10,6 +10,11 @@ from sqlalchemy.orm import Session
 
 from app.domains.ability_estimation.schemas import AbilityEstimateCurrent
 from app.domains.ability_estimation.service import AbilityEstimateService
+from app.domains.calibration.repository import CalibrationRepository
+from app.domains.calibration.service import (
+    UNCLASSIFIED_KNOWLEDGE_POINT_LABEL,
+    build_knowledge_point_estimates,
+)
 from app.domains.learning_brain.repository import LearningBrainRepository, json_value
 from app.domains.learning_brain.schemas import (
     BrainCandidateSummary,
@@ -19,6 +24,7 @@ from app.domains.learning_brain.schemas import (
     ErrorPatternDetail,
     ErrorPatternSummary,
     InferenceCandidateVersion,
+    KnowledgePointWeakness,
     LearningBrainProfileVersion,
     ModuleAbility,
     StrategyCandidateCommand,
@@ -33,6 +39,7 @@ from app.platform.outbox import OutboxRepository
 PROFILE_ALGORITHM_VERSION = "learning-brain-profile@v1"
 STRATEGY_POLICY_VERSION = "strategy-candidate@v1"
 EVIDENCE_VALIDITY_DAYS = 365
+KNOWLEDGE_POINT_WEAKNESS_PER_MODULE_LIMIT = 3
 
 
 class LearningBrainContractError(RuntimeError):
@@ -121,9 +128,12 @@ class LearningBrainService:
                 "algorithmVersion": PROFILE_ALGORITHM_VERSION,
             }
         )
+        knowledge_point_weaknesses = _knowledge_point_weaknesses(session, user_id=user_id)
         current = repository.current_profile(user_id=user_id)
         if current is not None and str(current["input_fingerprint"]) == fingerprint:
-            return _profile_from_row(current)
+            return _profile_from_row(current).model_copy(
+                update={"knowledge_point_weaknesses": knowledge_point_weaknesses}
+            )
 
         profile_version_id = str(uuid4())
         valid_until = _profile_valid_until(ability, generated_at)
@@ -181,7 +191,9 @@ class LearningBrainService:
                 "sourceVersionRefs": input_versions,
             },
         )
-        return _profile_from_row(row)
+        return _profile_from_row(row).model_copy(
+            update={"knowledge_point_weaknesses": knowledge_point_weaknesses}
+        )
 
     def get_module(
         self,
@@ -430,6 +442,51 @@ class LearningBrainService:
             candidate=_candidate_from_row(terminal),
             decision=_decision_from_row(decision),
         )
+
+
+def _knowledge_point_weaknesses(
+    session: Session,
+    *,
+    user_id: str,
+) -> list[KnowledgePointWeakness]:
+    """知识点弱项 Top 投影：每模块最多 3 个、仅样本充足者。
+
+    只读投影，不写库、不进 input_fingerprint、不影响选题；
+    样本不足（lowSample）与「未分类」标签不进榜单。
+    """
+    rows = CalibrationRepository(session).knowledge_point_accuracy(user_id=user_id)
+    estimates = build_knowledge_point_estimates(rows)
+    eligible = [
+        item
+        for item in estimates
+        if not item.low_sample
+        and item.accuracy is not None
+        and item.tag_value != UNCLASSIFIED_KNOWLEDGE_POINT_LABEL
+    ]
+    eligible.sort(
+        key=lambda item: (
+            item.module_name,
+            item.accuracy if item.accuracy is not None else 1.0,
+            -item.sample_size,
+            item.tag_value,
+        )
+    )
+    weaknesses: list[KnowledgePointWeakness] = []
+    per_module: dict[str, int] = {}
+    for item in eligible:
+        taken = per_module.get(item.module_name, 0)
+        if taken >= KNOWLEDGE_POINT_WEAKNESS_PER_MODULE_LIMIT:
+            continue
+        per_module[item.module_name] = taken + 1
+        weaknesses.append(
+            KnowledgePointWeakness(
+                module_name=item.module_name,
+                tag_value=item.tag_value,
+                accuracy=float(item.accuracy or 0.0),
+                sample_size=item.sample_size,
+            )
+        )
+    return weaknesses
 
 
 def _xingce_module(row: RowMapping, now: datetime) -> ModuleAbility:

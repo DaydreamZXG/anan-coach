@@ -107,6 +107,19 @@ class ModuleAbility(LearningBrainModel):
         return self
 
 
+class KnowledgePointWeakness(LearningBrainModel):
+    """知识点级弱项投影（仅样本充足者，每模块最多 3 个）。
+
+    数据来源为 calibration 域的知识点级正确率（practice_answers join
+    product.question_tags），样本不足与未分类标签不进入本榜单。
+    """
+
+    module_name: str = Field(alias="moduleName", min_length=1, max_length=160)
+    tag_value: str = Field(alias="tagValue", min_length=1, max_length=160)
+    accuracy: float = Field(ge=0, le=1)
+    sample_size: int = Field(alias="sampleSize", ge=1)
+
+
 class ErrorPatternSummary(LearningBrainModel):
     pattern_id: Sha256 = Field(alias="patternId")
     track: BrainTrack
@@ -134,6 +147,10 @@ class LearningBrainProfileVersion(LearningBrainModel):
     candidate_summary: BrainCandidateSummary = Field(alias="candidateSummary")
     modules: list[ModuleAbility]
     error_patterns: list[ErrorPatternSummary] = Field(alias="errorPatterns")
+    knowledge_point_weaknesses: list[KnowledgePointWeakness] | None = Field(
+        default=None,
+        alias="knowledgePointWeaknesses",
+    )
     decision_summary: BrainDecisionSummary = Field(alias="decisionSummary")
     conflicts: list[str]
     source_refs: list[BrainEvidenceRef] = Field(alias="sourceRefs")

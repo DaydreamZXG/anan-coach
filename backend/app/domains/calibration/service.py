@@ -1,13 +1,18 @@
 from __future__ import annotations
 
+from typing import Any
+
 from app.domains.calibration.repository import CalibrationRawRecord, CalibrationRepository
 from app.domains.calibration.schemas import (
     AbilityEstimate,
     CalibrationSources,
+    KnowledgePointAbilityEstimate,
     ModuleAbilityEstimate,
 )
 
 PRACTICE_MEDIUM_CONFIDENCE_MIN_ANSWERS = 30
+KNOWLEDGE_POINT_MIN_SAMPLE_SIZE = 10
+UNCLASSIFIED_KNOWLEDGE_POINT_LABEL = "未分类"
 
 
 class CalibrationService:
@@ -30,6 +35,7 @@ class CalibrationService:
             data_line=_data_line(sources),
             sources=sources,
             module_estimates=module_estimates,
+            knowledge_point_estimates=build_knowledge_point_estimates(raw.knowledge_points),
             latest_mock_reason=raw.latest_mock_reason,
         )
 
@@ -59,6 +65,36 @@ def _data_line(sources: CalibrationSources) -> str:
         f"基于 {sources.baseline} 次摸底/自报 + "
         f"{sources.practice_answers} 题练习 + {sources.mock_exams} 次模考"
     )
+
+
+def build_knowledge_point_estimates(
+    rows: list[dict[str, Any]],
+) -> list[KnowledgePointAbilityEstimate]:
+    """把知识点分组行转成对外投影。
+
+    铁律：样本量 < KNOWLEDGE_POINT_MIN_SAMPLE_SIZE 的知识点显式标注
+    lowSample=true 且不输出 accuracy 结论字段，不用不足的样本下结论。
+    """
+    estimates: list[KnowledgePointAbilityEstimate] = []
+    for row in rows:
+        sample_size = int(row["sample_size"])
+        if sample_size <= 0:
+            continue
+        low_sample = sample_size < KNOWLEDGE_POINT_MIN_SAMPLE_SIZE
+        estimates.append(
+            KnowledgePointAbilityEstimate(
+                module_name=str(row["module_name"]),
+                tag_value=str(row["tag_value"]),
+                accuracy=(
+                    None
+                    if low_sample
+                    else round(int(row["correct_count"]) / sample_size, 4)
+                ),
+                sample_size=sample_size,
+                low_sample=low_sample,
+            )
+        )
+    return estimates
 
 
 def _module_estimates(raw: CalibrationRawRecord) -> list[ModuleAbilityEstimate]:

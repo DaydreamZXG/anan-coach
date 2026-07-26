@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any
 
 from sqlalchemy import text
@@ -18,6 +18,7 @@ class CalibrationRawRecord:
     latest_mock_reason: str | None
     practice_modules: list[dict[str, Any]]
     mock_modules: list[dict[str, Any]]
+    knowledge_points: list[dict[str, Any]] = field(default_factory=list)
 
 
 class CalibrationRepository:
@@ -114,6 +115,8 @@ class CalibrationRepository:
             {"user_id": user_id},
         ).mappings().all()
 
+        knowledge_points = self.knowledge_point_accuracy(user_id=user_id)
+
         mock_row = self._session.execute(
             text(
                 """
@@ -147,4 +150,36 @@ class CalibrationRepository:
             latest_mock_reason=summary_data["latest_mock_reason"],
             practice_modules=[dict(row) for row in practice_modules],
             mock_modules=[dict(item) for item in mock_modules if isinstance(item, dict)],
+            knowledge_points=knowledge_points,
         )
+
+    def knowledge_point_accuracy(self, *, user_id: str) -> list[dict[str, Any]]:
+        """按知识点标签分组的练习正确率原始行。
+
+        题目↔知识点靠 product.question_tags(tag_type='knowledge_point')
+        的 tag_value 匹配；没有知识点标签的题目显式归入「未分类」，
+        由上层决定是否进入知识点榜单。
+        """
+        rows = self._session.execute(
+            text(
+                """
+                select
+                  coalesce(nullif(trim(q.module_name), ''), '未分类') as module_name,
+                  coalesce(nullif(trim(qt.tag_value), ''), '未分类') as tag_value,
+                  count(*) as sample_size,
+                  count(*) filter (where pa.correct = true) as correct_count
+                from learner.practice_answers pa
+                join product.questions q on q.question_id = pa.question_id
+                left join product.question_tags qt
+                  on qt.question_id = q.question_id
+                 and qt.tag_type = 'knowledge_point'
+                where pa.user_id = cast(:user_id as uuid)
+                group by
+                  coalesce(nullif(trim(q.module_name), ''), '未分类'),
+                  coalesce(nullif(trim(qt.tag_value), ''), '未分类')
+                order by sample_size desc, module_name, tag_value
+                """
+            ),
+            {"user_id": user_id},
+        ).mappings().all()
+        return [dict(row) for row in rows]

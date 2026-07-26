@@ -321,7 +321,20 @@ class CauseAgentRepository:
                 """
                 select assessment.question_id, assessment.result_code,
                        assessment.result_snapshot, answer.payload as answer_payload,
-                       assessment.assessment_id, assessment.content_version_id
+                       assessment.assessment_id, assessment.content_version_id,
+                       exists (
+                         select 1
+                         from learning.xingce_question_disputes dispute
+                         where dispute.user_id = assessment.user_id
+                           and dispute.question_id = assessment.question_id
+                           and not exists (
+                             select 1
+                             from product.question_quality_heads head
+                             where head.question_id = dispute.question_id
+                               and head.content_version_id = dispute.content_version_id
+                               and head.decision = 'confirmed_valid'
+                           )
+                       ) as disputed
                 from learning.xingce_assessments assessment
                 join learning.xingce_answer_versions answer
                   on answer.answer_version_id = assessment.answer_version_id

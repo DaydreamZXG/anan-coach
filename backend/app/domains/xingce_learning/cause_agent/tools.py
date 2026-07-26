@@ -72,11 +72,19 @@ class CauseAgentTools:
                     "answer": dict(row["answer_payload"]),
                     "contentVersionId": str(row["content_version_id"]),
                     "assessmentId": str(row["assessment_id"]),
+                    # 该题存在本人未撤销的内容争议：证据仍然给出（不偷偷剔除），
+                    # 但显式标注，让错因候选必须知晓争议状态。
+                    "disputed": bool(row["disputed"]),
                 }
                 for row in rows
             ],
             "evidenceRefs": [
                 f"assessment:{row['assessment_id']}" for row in rows
+            ]
+            + [
+                f"question-dispute:{row['question_id']}"
+                for row in rows
+                if row["disputed"]
             ],
         }
 

@@ -457,6 +457,19 @@ class LearningBrainRepository:
                         on assessment.session_id = cause.session_id
                       join product.questions question
                         on question.question_id = assessment.question_id
+                      where not exists (
+                        select 1
+                        from learning.xingce_question_disputes dispute
+                        where dispute.user_id = cast(:user_id as uuid)
+                          and dispute.question_id = assessment.question_id
+                          and not exists (
+                            select 1
+                            from product.question_quality_heads head
+                            where head.question_id = dispute.question_id
+                              and head.content_version_id = dispute.content_version_id
+                              and head.decision = 'confirmed_valid'
+                          )
+                      )
                       group by
                         coalesce(nullif(trim(question.module_name), ''), '未分类'),
                         cause.cause_code,
