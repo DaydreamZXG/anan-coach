@@ -290,3 +290,14 @@
     line-height: 1.7;
   }
 }
+
+/* 排版总纲·列表模板第一批：已有网格类的页面在宽屏升 2 列。 */
+@media (min-width: 1024px) {
+  .report-grid,
+  .brain-grid {
+    display: grid;
+    align-items: stretch;
+    gap: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
