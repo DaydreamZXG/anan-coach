@@ -141,17 +141,19 @@
             <view class="library-group__title">检索结果</view>
             <view class="library-group__count">{{citations.length}} 条</view>
           </view>
-          <button hover-class="item--hover"
-            wx:for="{{citations}}"
-            wx:key="chunkId"
-            class="citation-result"
-            data-index="{{index}}"
-            bindtap="openCitation"
-          >
-            <view class="citation-result__source">{{item.title}} · 第 {{item.pageNo}} 页</view>
-            <view class="citation-result__copy">{{item.excerpt}}</view>
-            <view class="citation-result__foot"><text>{{item.matchLabel}}</text><text>查看原文 ›</text></view>
-          </button>
+          <view class="citation-grid">
+            <button hover-class="item--hover"
+              wx:for="{{citations}}"
+              wx:key="chunkId"
+              class="citation-result"
+              data-index="{{index}}"
+              bindtap="openCitation"
+            >
+              <view class="citation-result__source">{{item.title}} · 第 {{item.pageNo}} 页</view>
+              <view class="citation-result__copy">{{item.excerpt}}</view>
+              <view class="citation-result__foot"><text>{{item.matchLabel}}</text><text>查看原文 ›</text></view>
+            </button>
+          </view>
         </view>
 
         <view id="library-sources" class="library-group">
@@ -168,28 +170,30 @@
             <view class="library-empty__copy">上传讲义或拍一页笔记，岸岸会先让你核对识别内容。</view>
           </view>
 
-          <button hover-class="item--hover"
-            wx:for="{{sources}}"
-            wx:key="sourceId"
-            class="source-card"
-            data-source-id="{{item.sourceId}}"
-            bindtap="navigateToDetail"
-          >
-            <view class="source-card__icon source-card__icon--{{item.documentKind}}">
-              <image class="source-card__image" src="/assets/icons/profile/library.svg" mode="aspectFit" />
-            </view>
-            <view class="source-card__main">
-              <view class="source-card__head">
-                <view class="source-card__title">{{item.title}}</view>
-                <view class="source-card__state">已索引</view>
+          <view class="source-grid">
+            <button hover-class="item--hover"
+              wx:for="{{sources}}"
+              wx:key="sourceId"
+              class="source-card"
+              data-source-id="{{item.sourceId}}"
+              bindtap="navigateToDetail"
+            >
+              <view class="source-card__icon source-card__icon--{{item.documentKind}}">
+                <image class="source-card__image" src="/assets/icons/profile/library.svg" mode="aspectFit" />
               </view>
-              <view class="source-card__meta">{{item.documentKindLabel}} · {{item.pageCount || 1}} 页 · {{item.chunkCount}} 个引用片段</view>
-              <view class="source-card__foot">
-                <image class="source-card__check" src="/assets/icons/today/circle-check-muted.png" mode="aspectFit" />
-                <text>仅用于你的检索与回答</text>
+              <view class="source-card__main">
+                <view class="source-card__head">
+                  <view class="source-card__title">{{item.title}}</view>
+                  <view class="source-card__state">已索引</view>
+                </view>
+                <view class="source-card__meta">{{item.documentKindLabel}} · {{item.pageCount || 1}} 页 · {{item.chunkCount}} 个引用片段</view>
+                <view class="source-card__foot">
+                  <image class="source-card__check" src="/assets/icons/today/circle-check-muted.png" mode="aspectFit" />
+                  <text>仅用于你的检索与回答</text>
+                </view>
               </view>
-            </view>
-          </button>
+            </button>
+          </view>
         </view>
 
         <view wx:if="{{errorMessage && !reviewRevision}}" class="library-inline-error">

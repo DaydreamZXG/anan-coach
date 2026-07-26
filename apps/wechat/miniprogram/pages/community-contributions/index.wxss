@@ -100,3 +100,20 @@
   font-size: var(--text-micro);
   font-weight: 700;
 }
+
+/* 排版总纲·列表模板：贡献方法卡宽屏 2 列。 */
+@media (min-width: 1024px) {
+  .contribution-grid {
+    display: grid;
+    align-items: stretch;
+    gap: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 12px;
+  }
+
+  .contribution-grid > .community-card {
+    height: 100%;
+    box-sizing: border-box;
+    margin-top: 0;
+  }
+}

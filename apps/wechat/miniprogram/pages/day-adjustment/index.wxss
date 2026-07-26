@@ -356,3 +356,18 @@ button.energy-option {
   font-weight: 800;
   line-height: 1;
 }
+
+/* 排版总纲·列表模板：变动明细卡宽屏 2 列。 */
+@media (min-width: 1024px) {
+  .change-list {
+    display: grid;
+    align-items: stretch;
+    gap: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .change-list > .change-card {
+    height: 100%;
+    box-sizing: border-box;
+  }
+}

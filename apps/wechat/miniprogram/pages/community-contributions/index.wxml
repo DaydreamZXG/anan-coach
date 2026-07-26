@@ -29,20 +29,22 @@
       <view class="{{activePolicyVersions.length ? 'boundary-note' : 'warning-note'}}">{{policyMessage}}</view>
     </view>
 
-    <view wx:for="{{cards}}" wx:key="cardId" class="community-card">
-      <view class="card-headline">
-        <view>
-          <view class="section-label">我的方法卡</view>
-          <view class="section-title">{{item.stateLabel}}</view>
+    <view class="contribution-grid">
+      <view wx:for="{{cards}}" wx:key="cardId" class="community-card">
+        <view class="card-headline">
+          <view>
+            <view class="section-label">我的方法卡</view>
+            <view class="section-title">{{item.stateLabel}}</view>
+          </view>
+          <view class="state-badge">{{item.reviewLabel}}</view>
         </view>
-        <view class="state-badge">{{item.reviewLabel}}</view>
-      </view>
-      <view class="boundary-note">每次修改都会单独验证，新内容不会继承旧内容的效果。</view>
-      <view wx:for="{{item.versions}}" wx:key="versionId" class="version-row">
-        <view class="version-number type-data">{{item.versionLabel}}</view>
-        <view class="version-body">
-          <view class="choice-title">{{item.title}}</view>
-          <view class="choice-copy">{{item.confirmedLabel}}</view>
+        <view class="boundary-note">每次修改都会单独验证，新内容不会继承旧内容的效果。</view>
+        <view wx:for="{{item.versions}}" wx:key="versionId" class="version-row">
+          <view class="version-number type-data">{{item.versionLabel}}</view>
+          <view class="version-body">
+            <view class="choice-title">{{item.title}}</view>
+            <view class="choice-copy">{{item.confirmedLabel}}</view>
+          </view>
         </view>
       </view>
     </view>

@@ -204,3 +204,22 @@ button.archive-primary {
     margin-left: auto;
   }
 }
+
+/* 排版总纲·列表模板：档案模块卡宽屏 2 列（容器放宽到 readable-max）。 */
+@media (min-width: 1024px) {
+  .archive-content {
+    max-width: var(--layout-readable-max);
+  }
+
+  .archive-list {
+    display: grid;
+    align-items: stretch;
+    gap: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .archive-list > .archive-card {
+    height: 100%;
+    box-sizing: border-box;
+  }
+}

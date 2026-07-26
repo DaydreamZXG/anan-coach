@@ -183,3 +183,18 @@
   background: var(--color-danger-soft);
   color: var(--color-danger);
 }
+
+/* 排版总纲·列表模板：实考证据卡宽屏 2 列。 */
+@media (min-width: 1024px) {
+  .evidence-list {
+    display: grid;
+    align-items: stretch;
+    gap: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .evidence-list > .evidence-card {
+    height: 100%;
+    box-sizing: border-box;
+  }
+}
