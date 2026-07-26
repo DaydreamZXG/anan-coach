@@ -258,15 +258,16 @@ class CauseAgentRepository:
                       confirmed_cause_version_id, confirmed_cause_id, command_id,
                       user_id, review_id, session_id, decision_version_id,
                       candidate_version_id, version_no, source_kind, cause_code,
-                      cause_text, evidence_refs, supersedes_confirmed_cause_version_id,
-                      created_at
+                      replacement_code, cause_text, evidence_refs,
+                      supersedes_confirmed_cause_version_id, created_at
                     ) values (
                       cast(:confirmed_cause_version_id as uuid),
                       cast(:confirmed_cause_id as uuid), :command_id,
                       cast(:user_id as uuid), cast(:review_id as uuid),
                       cast(:session_id as uuid), cast(:decision_version_id as uuid),
                       cast(:candidate_version_id as uuid), :version_no, :source_kind,
-                      :cause_code, :cause_text, cast(:evidence_refs as jsonb),
+                      :cause_code, :replacement_code, :cause_text,
+                      cast(:evidence_refs as jsonb),
                       cast(:supersedes_confirmed_cause_version_id as uuid), :created_at
                     ) returning *
                     """
@@ -394,6 +395,57 @@ class CauseAgentRepository:
             .mappings()
             .one_or_none()
         )
+
+    def session_checkpoint(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        session_id: str,
+    ) -> RowMapping | None:
+        return (
+            session.execute(
+                text(
+                    "select checkpoint from learning.xingce_task_sessions "
+                    "where user_id = cast(:user_id as uuid) "
+                    "and session_id = cast(:session_id as uuid)"
+                ),
+                {"user_id": user_id, "session_id": session_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
+
+    def ink_formula_evidence(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        session_id: str,
+    ) -> list[dict[str, Any]]:
+        rows = session.execute(
+            text(
+                """
+                select formula.question_id, formula.formula_id,
+                       formula.formula_version_id, formula.state, formula.latex,
+                       formula.source, formula.version_no, formula.created_at,
+                       formula.confirmed_at
+                from learning.math_formula_versions formula
+                where formula.owner_user_id = cast(:user_id as uuid)
+                  and formula.session_id = cast(:session_id as uuid)
+                  and formula.state in ('candidate', 'confirmed')
+                  and not exists (
+                    select 1 from learning.math_formula_versions successor
+                    where successor.supersedes_formula_version_id =
+                          formula.formula_version_id
+                  )
+                order by formula.question_id, formula.created_at,
+                         formula.formula_version_id
+                """
+            ),
+            {"user_id": user_id, "session_id": session_id},
+        ).mappings().all()
+        return [dict(row) for row in rows]
 
 
 def _json(value: object) -> str:

@@ -8,6 +8,8 @@ from app.domains.xingce_learning.cause_agent.repository import CauseAgentReposit
 
 
 CAUSE_TAXONOMY_VERSION = "xingce-cause-taxonomy@v1"
+ACTION_TRACE_CONTRACT_VERSION = "xingce-action-trace@v1"
+INK_FORMULA_CONTRACT_VERSION = "xingce-ink-formula@v1"
 CAUSES = (
     ("stem_misread", "题干条件或问法审读错误"),
     ("knowledge_gap", "知识或概念缺口"),
@@ -45,6 +47,8 @@ class CauseAgentTools:
                 self.load_published_question_explanation
             ),
             "load_cause_taxonomy": self.load_cause_taxonomy,
+            "load_action_trace": self.load_action_trace,
+            "load_ink_formulas": self.load_ink_formulas,
         }
 
     def _require_scope(self, arguments: dict[str, Any]) -> None:
@@ -134,6 +138,114 @@ class CauseAgentTools:
                 f"content-version:{item['contentVersionId']}" for item in published
             ]
             or [f"task-session:{self._session_id}:no-published-explanation"],
+        }
+
+    def load_action_trace(self, arguments: dict[str, Any]) -> dict[str, Any]:
+        """按题返回检查点里真实记录的动作事件摘要与批注笔画统计。
+
+        数据源是 learning.xingce_task_sessions.checkpoint 已冻结的 answers；
+        没有记录的题保持显式空（events=[]、笔画统计为 0），不推断过程。
+        """
+
+        self._require_scope(arguments)
+        row = self._repository.session_checkpoint(
+            self._session,
+            user_id=self._user_id,
+            session_id=self._session_id,
+        )
+        if row is None:
+            raise PermissionError("task session is not owned by the frozen learner scope")
+        answers = list(dict(row["checkpoint"]).get("answers", []))
+        items: list[dict[str, Any]] = []
+        traced_question_ids: list[str] = []
+        for answer in answers:
+            question_id = str(answer["questionId"])
+            events = [
+                {
+                    "type": str(event["type"]),
+                    "atMs": int(event["atMs"]),
+                    **(
+                        {"optionId": str(event["optionId"])}
+                        if event.get("optionId") is not None
+                        else {}
+                    ),
+                }
+                for event in answer.get("actionEvents", [])
+            ]
+            strokes = list(answer.get("annotations", []))
+            stroke_at_ms = sorted(int(stroke["atMs"]) for stroke in strokes)
+            truncated = bool(answer.get("actionEventsTruncated", False))
+            items.append(
+                {
+                    "questionId": question_id,
+                    "events": events,
+                    "annotationSummary": {
+                        "strokeCount": len(strokes),
+                        "erasedStrokeCount": sum(
+                            1
+                            for stroke in strokes
+                            if stroke.get("erasedAtMs") is not None
+                        ),
+                        "firstStrokeAtMs": stroke_at_ms[0] if stroke_at_ms else None,
+                        "lastStrokeAtMs": stroke_at_ms[-1] if stroke_at_ms else None,
+                    },
+                    # 端上 400 事件截断标记：为 true 时事件序列只是前缀，
+                    # 错因判断必须知道后续动作缺失，而不是当作完整轨迹。
+                    "actionEventsTruncated": truncated,
+                }
+            )
+            if events or strokes or truncated:
+                traced_question_ids.append(question_id)
+        return {
+            "contractVersion": ACTION_TRACE_CONTRACT_VERSION,
+            "items": items,
+            # 只有真实存在轨迹（事件/笔画/截断标记）的题才发 action-trace 引用；
+            # 完全无轨迹的会话返回显式空引用，杜绝凭空引用行为证据。
+            "evidenceRefs": [
+                f"action-trace:{question_id}" for question_id in traced_question_ids
+            ]
+            or [f"task-session:{self._session_id}:no-action-trace"],
+        }
+
+    def load_ink_formulas(self, arguments: dict[str, Any]) -> dict[str, Any]:
+        """返回该会话各题当前有效的候选/已确认手写公式（latex+时间）。
+
+        数据源是 learning.math_formula_versions 的版本链头（无后继版本），
+        已被用户拒绝的公式不作为错因证据；没有公式时返回显式空。
+        """
+
+        self._require_scope(arguments)
+        rows = self._repository.ink_formula_evidence(
+            self._session,
+            user_id=self._user_id,
+            session_id=self._session_id,
+        )
+        items = [
+            {
+                "questionId": str(row["question_id"]),
+                "formulaVersionId": str(row["formula_version_id"]),
+                "state": str(row["state"]),
+                "latex": str(row["latex"]),
+                "source": str(row["source"]),
+                "createdAt": row["created_at"].isoformat(),
+                "confirmedAt": (
+                    row["confirmed_at"].isoformat()
+                    if row["confirmed_at"] is not None
+                    else None
+                ),
+            }
+            for row in rows
+        ]
+        refs: list[str] = []
+        for item in items:
+            ref = f"ink-formula:{item['questionId']}"
+            if ref not in refs:
+                refs.append(ref)
+        return {
+            "contractVersion": INK_FORMULA_CONTRACT_VERSION,
+            "items": items,
+            "evidenceRefs": refs
+            or [f"task-session:{self._session_id}:no-ink-formula"],
         }
 
     def load_cause_taxonomy(self, arguments: dict[str, Any]) -> dict[str, Any]:

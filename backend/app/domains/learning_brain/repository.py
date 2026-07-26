@@ -437,13 +437,73 @@ class LearningBrainRepository:
                           where successor.supersedes_confirmed_cause_version_id =
                                 cause.confirmed_cause_version_id
                         )
-                    ), xingce as (
+                    ), question_candidates as (
+                      -- 逐题候选来自 AI 确认候选的 append-only payload；
+                      -- 只有 ai_confirmed 的会话决定才允许消费 AI 的逐题 causeCode，
+                      -- user_replacement 仍走 session 摊派回退。
+                      select
+                        cause.confirmed_cause_version_id,
+                        cause.created_at,
+                        question_item.item->>'questionId' as question_id,
+                        question_item.item->>'causeCode' as cause_code
+                      from current_confirmed cause
+                      join learning.xingce_cause_candidate_versions candidate
+                        on candidate.candidate_version_id = cause.candidate_version_id
+                      cross join lateral jsonb_array_elements(
+                        coalesce(candidate.payload->'questionCandidates', '[]'::jsonb)
+                      ) question_item(item)
+                      where cause.source_kind = 'ai_confirmed'
+                        and question_item.item->>'status' = 'candidate'
+                        and coalesce(question_item.item->>'causeCode', '') <> ''
+                    ), xingce_question as (
+                      -- 优先：逐题 causeCode 按题归模块（证据不足的题没有行，不硬给）。
                       select
                         'xingce'::text as track,
                         coalesce(nullif(trim(question.module_name), ''), '未分类')
                           as module_key,
-                        cause.cause_code,
-                        cause.cause_text as display_name,
+                        question_candidate.cause_code,
+                        null::text as display_name,
+                        count(*)::int as occurrence_count,
+                        0::int as counterevidence_count,
+                        max(question_candidate.created_at) as latest_observed_at,
+                        (array_agg(
+                          question_candidate.confirmed_cause_version_id::text
+                          order by question_candidate.created_at desc
+                        ))[1] as latest_version_id
+                      from question_candidates question_candidate
+                      join product.questions question
+                        on question.question_id = question_candidate.question_id
+                      where not exists (
+                        select 1
+                        from learning.xingce_question_disputes dispute
+                        where dispute.user_id = cast(:user_id as uuid)
+                          and dispute.question_id = question_candidate.question_id
+                          and not exists (
+                            select 1
+                            from product.question_quality_heads head
+                            where head.question_id = dispute.question_id
+                              and head.content_version_id = dispute.content_version_id
+                              and head.decision = 'confirmed_valid'
+                          )
+                      )
+                      group by
+                        coalesce(nullif(trim(question.module_name), ''), '未分类'),
+                        question_candidate.cause_code
+                    ), xingce as (
+                      -- 回退：该确认错因没有可用逐题候选时，保持既有 session 摊派。
+                      -- 用户改写若带结构化 replacement_code，则按该码归桶
+                      -- （display_name 置空，展示回落到分类中文名）；
+                      -- 未选码的改写维持 user_replacement 单桶原行为。
+                      select
+                        'xingce'::text as track,
+                        coalesce(nullif(trim(question.module_name), ''), '未分类')
+                          as module_key,
+                        coalesce(cause.replacement_code, cause.cause_code)
+                          as cause_code,
+                        case
+                          when cause.replacement_code is not null then null
+                          else cause.cause_text
+                        end as display_name,
                         count(distinct cause.confirmed_cause_version_id)::int
                           as occurrence_count,
                         0::int as counterevidence_count,
@@ -458,6 +518,11 @@ class LearningBrainRepository:
                       join product.questions question
                         on question.question_id = assessment.question_id
                       where not exists (
+                        select 1 from question_candidates question_candidate
+                        where question_candidate.confirmed_cause_version_id =
+                              cause.confirmed_cause_version_id
+                      )
+                      and not exists (
                         select 1
                         from learning.xingce_question_disputes dispute
                         where dispute.user_id = cast(:user_id as uuid)
@@ -472,8 +537,11 @@ class LearningBrainRepository:
                       )
                       group by
                         coalesce(nullif(trim(question.module_name), ''), '未分类'),
-                        cause.cause_code,
-                        cause.cause_text
+                        coalesce(cause.replacement_code, cause.cause_code),
+                        case
+                          when cause.replacement_code is not null then null
+                          else cause.cause_text
+                        end
                     ), current_essay as (
                       select mastery.*
                       from learning.essay_mastery_state_versions mastery
@@ -502,6 +570,8 @@ class LearningBrainRepository:
                       left join lateral jsonb_array_elements(review.findings) finding(item)
                         on finding.item->>'findingId' = mastery.finding_id
                     )
+                    select * from xingce_question
+                    union all
                     select * from xingce
                     union all
                     select * from essay

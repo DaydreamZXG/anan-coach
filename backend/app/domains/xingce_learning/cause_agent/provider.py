@@ -27,7 +27,7 @@ from app.domains.xingce_learning.cause_agent.contracts import (
 )
 
 
-CAUSE_AGENT_PROMPT_VERSION = "xingce-cause-prompt@v1"
+CAUSE_AGENT_PROMPT_VERSION = "xingce-cause-prompt@v3"
 CAUSE_AGENT_SCHEMA_VERSION = "cause-candidate@v2"
 CAUSE_AGENT_PROVIDER_INPUT_VERSION = "xingce-cause-provider-input@v1"
 
@@ -174,8 +174,16 @@ class CauseAgentProvider:
             "contractVersion": CAUSE_AGENT_PROVIDER_INPUT_VERSION,
             "instruction": (
                 "你是行测解题 Agent。只根据 evidence 判断；不得把推测写成事实。"
-                "证据足够时返回 candidate_ready；需要一个高信息量问题时返回 "
-                "followup_required；否则返回 evidence_insufficient。只返回 JSON。"
+                "actionTrace 与 inkFormulas 是作答动作与手写公式的客观记录："
+                "只可描述其中可见的行为和公式；某题 events 为空、没有笔画或没有"
+                "公式时，必须视为该题过程未知，不得编造作答过程或书写内容；"
+                "actionEventsTruncated 为 true 时事件序列只是前缀，不得当作完整"
+                "轨迹下结论。证据足够时返回 candidate_ready；需要一个高信息量问题"
+                "时返回 followup_required；否则返回 evidence_insufficient。"
+                "另外在 questionCandidates 中给每道非答对的题各一条逐题判断："
+                "证据足够时给出 causeCode、confidence、evidenceRefs、rationale；"
+                "该题证据不足时必须显式 status=evidence_insufficient，不得硬给"
+                "causeCode，也绝不给答对的题编造错因。只返回 JSON。"
             ),
             "requiredContract": CAUSE_AGENT_SCHEMA_VERSION,
             "requiredOutputSchema": CauseAgentProviderEnvelope.model_json_schema(

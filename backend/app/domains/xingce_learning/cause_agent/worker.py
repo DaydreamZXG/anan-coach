@@ -279,6 +279,8 @@ class CauseAgentWorker:
                 "load_user_reflection",
                 "load_published_question_explanation",
                 "load_cause_taxonomy",
+                "load_action_trace",
+                "load_ink_formulas",
             )
         }
         evidence = CauseAgentEvidence(
@@ -286,6 +288,8 @@ class CauseAgentWorker:
             reflection=results["load_user_reflection"],
             explanations=results["load_published_question_explanation"],
             taxonomy=results["load_cause_taxonomy"],
+            action_trace=results["load_action_trace"],
+            ink_formulas=results["load_ink_formulas"],
         )
         self._jobs.checkpoint(
             session,

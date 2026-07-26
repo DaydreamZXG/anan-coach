@@ -33,6 +33,40 @@ export const xingceReflectionTagLabels: Record<XingceReflectionTag, string> = {
   other: "其他",
 };
 
+/**
+ * 用户改写错因时可选的结构化 8 码，与后端已发布错因分类
+ * （xingce-cause-taxonomy@v1）一一对应；不含 'user_replacement' 自身。
+ * 选码可选：不选码时改写仍按自由文本单桶处理，旧行为不变。
+ */
+export const xingceReplacementCauseCodes = [
+  "stem_misread",
+  "knowledge_gap",
+  "method_selection",
+  "calculation_error",
+  "time_pressure",
+  "guessing",
+  "active_abandon",
+  "other",
+] as const;
+
+export type XingceReplacementCauseCode = (typeof xingceReplacementCauseCodes)[number];
+
+/** 人话文案：按 taxonomy 定义翻译，不加诊断口吻。 */
+export const xingceReplacementCauseCodeLabels: Record<XingceReplacementCauseCode, string> = {
+  stem_misread: "题干看漏看错",
+  knowledge_gap: "知识点没掌握",
+  method_selection: "方法没选对",
+  calculation_error: "会做但算错了",
+  time_pressure: "时间太紧太仓促",
+  guessing: "凭感觉猜的",
+  active_abandon: "主动放弃这题",
+  other: "都不太像",
+};
+
+export function isXingceReplacementCauseCode(value: string): value is XingceReplacementCauseCode {
+  return xingceReplacementCauseCodes.includes(value as XingceReplacementCauseCode);
+}
+
 const allowedModes = new Set<XingceTaskMode>(["practice", "targeted", "baseline", "verification"]);
 
 export function parseXingceTaskMode(value: string | undefined): XingceTaskMode | null {

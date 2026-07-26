@@ -5,38 +5,6 @@ export type ClientOptions = {
 };
 
 /**
- * QuestionCauseCandidateProjection
- *
- * 契约增量：逐题候选错因投影，纯展示；决策粒度保持会话级。
- */
-export type QuestionCauseCandidateProjection = {
-    /**
-     * Questionid
-     */
-    questionId: string;
-    /**
-     * Status
-     */
-    status: 'candidate' | 'evidence_insufficient';
-    /**
-     * Causecode
-     */
-    causeCode?: string | null;
-    /**
-     * Confidence
-     */
-    confidence?: 'low' | 'medium' | 'high' | null;
-    /**
-     * Evidencerefs
-     */
-    evidenceRefs?: Array<string>;
-    /**
-     * Rationale
-     */
-    rationale?: string | null;
-};
-
-/**
  * AICauseCandidateState
  */
 export type AiCauseCandidateState = {
@@ -1425,6 +1393,10 @@ export type CauseDecisionCommand = {
      * Replacementcause
      */
     replacementCause?: string | null;
+    /**
+     * Replacementcode
+     */
+    replacementCode?: string | null;
 };
 
 /**
@@ -13410,6 +13382,41 @@ export type QuestionAsset = {
      * Tosobjectkey
      */
     tosObjectKey?: string | null;
+};
+
+/**
+ * QuestionCauseCandidateProjection
+ *
+ * 契约增量：逐题候选错因投影，纯展示。
+ *
+ * 用户决策粒度保持会话级（confirm/reject/replace 不变）；证据不足的题
+ * 显式 status=evidence_insufficient，不给 causeCode。
+ */
+export type QuestionCauseCandidateProjection = {
+    /**
+     * Causecode
+     */
+    causeCode?: string | null;
+    /**
+     * Confidence
+     */
+    confidence?: 'low' | 'medium' | 'high' | null;
+    /**
+     * Evidencerefs
+     */
+    evidenceRefs?: Array<string>;
+    /**
+     * Questionid
+     */
+    questionId: string;
+    /**
+     * Rationale
+     */
+    rationale?: string | null;
+    /**
+     * Status
+     */
+    status: 'candidate' | 'evidence_insufficient';
 };
 
 /**

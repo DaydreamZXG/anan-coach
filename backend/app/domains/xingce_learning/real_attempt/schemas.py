@@ -11,6 +11,10 @@ from app.domains.task_content.schemas import (
     MaterialPosition,
     SafeQuestionBundle,
 )
+from app.domains.xingce_learning.cause_agent.tools import CAUSES as _CAUSE_TAXONOMY
+
+# 用户改写错因可选的结构化 8 码（不含 'user_replacement' 自身）。
+REPLACEMENT_CAUSE_CODES: tuple[str, ...] = tuple(code for code, _ in _CAUSE_TAXONOMY)
 
 
 class XingceModel(BaseModel):
@@ -214,14 +218,24 @@ class CauseDecisionCommand(XingceModel):
     candidate_version_id: UUID | None = Field(default=None, alias="candidateVersionId")
     decision: Literal["confirm", "reject", "replace", "defer", "skip"]
     replacement_cause: str | None = Field(default=None, alias="replacementCause", max_length=2_000)
+    # 可选结构化改写码：8 码分类之一；不选码时旧行为完全不变。
+    replacement_code: str | None = Field(default=None, alias="replacementCode", max_length=64)
 
     @model_validator(mode="after")
     def validate_decision(self) -> "CauseDecisionCommand":
         self.replacement_cause = (self.replacement_cause or "").strip() or None
+        self.replacement_code = (self.replacement_code or "").strip() or None
         if self.decision == "replace" and self.replacement_cause is None:
             raise ValueError("replace requires replacementCause")
         if self.decision != "replace" and self.replacement_cause is not None:
             raise ValueError("only replace can include replacementCause")
+        if self.replacement_code is not None and self.decision != "replace":
+            raise ValueError("only replace can include replacementCode")
+        if (
+            self.replacement_code is not None
+            and self.replacement_code not in REPLACEMENT_CAUSE_CODES
+        ):
+            raise ValueError("replacementCode must be one of the published cause codes")
         if self.decision == "skip" and self.candidate_version_id is not None:
             raise ValueError("legacy skip cannot bind a candidate")
         if self.decision != "skip" and self.candidate_version_id is None:
@@ -378,6 +392,21 @@ class CauseDecisionVersionProjection(XingceModel):
     version_no: int = Field(alias="versionNo", ge=1)
 
 
+class QuestionCauseCandidateProjection(XingceModel):
+    """契约增量：逐题候选错因投影，纯展示。
+
+    用户决策粒度保持会话级（confirm/reject/replace 不变）；证据不足的题
+    显式 status=evidence_insufficient，不给 causeCode。
+    """
+
+    question_id: str = Field(alias="questionId")
+    status: Literal["candidate", "evidence_insufficient"]
+    cause_code: str | None = Field(default=None, alias="causeCode")
+    confidence: Literal["low", "medium", "high"] | None = None
+    evidence_refs: list[str] = Field(default_factory=list, alias="evidenceRefs")
+    rationale: str | None = None
+
+
 class AICauseCandidateState(XingceModel):
     state: Literal[
         "unavailable",
@@ -401,6 +430,11 @@ class AICauseCandidateState(XingceModel):
     missing_evidence: list[str] = Field(default_factory=list, alias="missingEvidence")
     evidence_refs: list[str] = Field(default_factory=list, alias="evidenceRefs")
     limitations: list[str] = Field(default_factory=list)
+    # 契约增量：逐题候选（含显式证据不足态）；老候选 payload 缺省为空。
+    question_candidates: list[QuestionCauseCandidateProjection] = Field(
+        default_factory=list,
+        alias="questionCandidates",
+    )
     quota_state: Literal["reserved", "consumed", "not_charged"] = Field(
         default="reserved",
         alias="quotaState",

@@ -270,7 +270,7 @@
       <view class="mock-submit__grabber" aria-hidden="true"></view>
       <view class="mock-submit__head">
         <view class="mock-submit__title">准备交卷</view>
-        <view class="mock-submit__soul">模考存在的意义，就是把疼留在今天。</view>
+        <view class="mock-submit__soul">模考就是拿来疼的，考场就轻了。</view>
         <view class="mock-submit__time">已用时 {{submitElapsedLabel}}</view>
       </view>
 

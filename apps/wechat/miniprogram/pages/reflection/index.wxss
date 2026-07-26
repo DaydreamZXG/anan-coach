@@ -628,6 +628,18 @@
   box-shadow: var(--shadow-elevated);
 }
 
+/* 改写错因的可选结构化归类 chip 行。 */
+.cause-code-hint {
+  margin-top: calc(28 * var(--rpx));
+  color: var(--ink-3);
+  font-size: var(--text-micro);
+  line-height: 1.6;
+}
+
+.cause-code-grid {
+  margin-top: calc(16 * var(--rpx));
+}
+
 .reason-textarea,
 .cause-textarea,
 .evidence-field__input {

@@ -24,6 +24,8 @@ class ToolDefinition(AgentContractModel):
         "load_user_reflection",
         "load_published_question_explanation",
         "load_cause_taxonomy",
+        "load_action_trace",
+        "load_ink_formulas",
     ]
     schema_version: Literal["v1"] = Field(default="v1", alias="schemaVersion")
     behavior_version: Literal["v1"] = Field(default="v1", alias="behaviorVersion")
@@ -45,8 +47,10 @@ class AgentBudget(AgentContractModel):
 
 
 class AgentDefinition(AgentContractModel):
-    definition_release_id: Literal["xingce-cause-agent-2026-07-16.1"] = Field(
-        default="xingce-cause-agent-2026-07-16.1",
+    # 审计惯例：定义内容（工具集/prompt）变更时发布新的 release id，
+    # 旧 release 行在 ai_audit.agent_definition_releases 中保持不可变。
+    definition_release_id: Literal["xingce-cause-agent-2026-07-26.2"] = Field(
+        default="xingce-cause-agent-2026-07-26.2",
         alias="definitionReleaseId",
     )
     agent_key: Literal["xingce_cause"] = Field(default="xingce_cause", alias="agentKey")
@@ -54,8 +58,8 @@ class AgentDefinition(AgentContractModel):
         default=AGENT_DEFINITION_CONTRACT_VERSION,
         alias="contractVersion",
     )
-    prompt_version: Literal["xingce-cause-prompt@v1"] = Field(
-        default="xingce-cause-prompt@v1",
+    prompt_version: Literal["xingce-cause-prompt@v3"] = Field(
+        default="xingce-cause-prompt@v3",
         alias="promptVersion",
     )
     schema_version: Literal["cause-candidate@v2"] = Field(
@@ -85,6 +89,8 @@ class AgentDefinition(AgentContractModel):
             "load_user_reflection",
             "load_published_question_explanation",
             "load_cause_taxonomy",
+            "load_action_trace",
+            "load_ink_formulas",
         ]
         if names != expected:
             raise ValueError("cause agent toolset must match the frozen ordered allowlist")
@@ -103,6 +109,8 @@ CAUSE_AGENT_DEFINITION = AgentDefinition(
             "load_user_reflection",
             "load_published_question_explanation",
             "load_cause_taxonomy",
+            "load_action_trace",
+            "load_ink_formulas",
         )
     )
 )

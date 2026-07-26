@@ -1181,6 +1181,13 @@ class XingceAttemptService:
                         if command.decision == "confirm"
                         else "user_replacement"
                     ),
+                    # 结构化改写码：用户改写时可选的 8 码之一；未选码保持 null，
+                    # 旧行为（单一 user_replacement 桶）完全不变。
+                    "replacement_code": (
+                        command.replacement_code
+                        if command.decision == "replace"
+                        else None
+                    ),
                     "cause_text": (
                         str(candidate_payload["summary"])
                         if command.decision == "confirm"
@@ -2149,6 +2156,8 @@ def _candidate_projection(candidate: RowMapping | None) -> AICauseCandidateState
         missingEvidence=payload.get("missingEvidence", []),
         evidenceRefs=payload.get("evidenceRefs", []),
         limitations=payload.get("limitations", []),
+        # 契约增量：逐题候选原样投影；老候选 payload 没有该键时保持空。
+        questionCandidates=payload.get("questionCandidates", []),
         quotaState=payload.get("quotaState", "consumed"),
     )
 

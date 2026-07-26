@@ -2,7 +2,7 @@
   <view class="s9-hero">
     <view class="s9-eyebrow">二战失分回收计划</view>
     <view class="s9-title">别把去年会的内容再学一遍</view>
-    <view class="s9-subtitle">去年不是白考的——它把你送到了离岸更近的地方。</view>
+    <view class="s9-subtitle">去年那一战，把你送到了离岸更近的地方。</view>
   </view>
 
   <view wx:if="{{!state || state.status === 'loading'}}" class="page-state">

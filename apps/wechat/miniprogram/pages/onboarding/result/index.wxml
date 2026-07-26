@@ -18,7 +18,7 @@
             <image class="status-icon__asset" src="/assets/onboarding/result-check-green.svg" mode="aspectFit" />
           </view>
           <view class="status-title">你的备考档案立起来了</view>
-          <view class="status-soul">从今天起，你走的每一步都会被看见。</view>
+          <view class="status-soul">往后每道题、每一分钟，岸岸都记着。</view>
           <view class="status-confidence">
             之后的每条推荐，都有出处：
             <text class="confidence confidence--{{state.view.confidenceTone}}">{{state.view.confidenceLabel}}</text>

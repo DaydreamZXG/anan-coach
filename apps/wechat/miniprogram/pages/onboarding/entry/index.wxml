@@ -6,7 +6,7 @@
       <image class="entry-mark__icon" src="/assets/icons/onboarding/profile-spark.svg" mode="aspectFit" />
     </view>
     <view class="entry-title fade-slide-in fade-slide-in--2">建立备考档案</view>
-    <view class="entry-copy fade-slide-in fade-slide-in--2">先把你讲给岸岸听——之后的每一步，才都是你的。</view>
+    <view class="entry-copy fade-slide-in fade-slide-in--2">花三分钟把自己讲给岸岸听，计划才能长在你身上。</view>
 
     <view class="entry-actions fade-slide-in fade-slide-in--3">
       <button hover-class="item--hover" class="entry-action entry-action--primary tap-tactile" bindtap="startProfile">

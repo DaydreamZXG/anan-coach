@@ -33,6 +33,7 @@ from app.domains.learning_brain.schemas import (
     StrategyDecisionResult,
     StrategyDecisionVersion,
 )
+from app.domains.xingce_learning.cause_agent.tools import CAUSES as XINGCE_CAUSE_TAXONOMY
 from app.platform.outbox import OutboxRepository
 
 
@@ -617,6 +618,10 @@ def _essay_module(row: RowMapping, now: datetime) -> ModuleAbility:
     )
 
 
+# 逐题候选行不携带会话级 cause_text，展示名回落到已发布的错因分类描述。
+_XINGCE_CAUSE_DISPLAY_NAMES = dict(XINGCE_CAUSE_TAXONOMY)
+
+
 def _error_pattern(row: RowMapping) -> ErrorPatternSummary:
     identity = {
         "track": str(row["track"]),
@@ -624,6 +629,12 @@ def _error_pattern(row: RowMapping) -> ErrorPatternSummary:
         "causeCode": str(row["cause_code"]),
     }
     pattern_id = _fingerprint(identity)
+    cause_code = str(row["cause_code"])
+    display_name = (
+        row["display_name"]
+        or _XINGCE_CAUSE_DISPLAY_NAMES.get(cause_code)
+        or cause_code
+    )
     counterevidence = int(row["counterevidence_count"])
     ref = BrainEvidenceRef(
         owner="xingce_learning" if row["track"] == "xingce" else "essay_mastery",
@@ -641,8 +652,8 @@ def _error_pattern(row: RowMapping) -> ErrorPatternSummary:
         patternId=pattern_id,
         track=str(row["track"]),
         moduleKey=str(row["module_key"]),
-        causeCode=str(row["cause_code"]),
-        displayName=str(row["display_name"] or row["cause_code"]),
+        causeCode=cause_code,
+        displayName=str(display_name),
         status="counterevidence" if counterevidence else "confirmed",
         occurrenceCount=int(row["occurrence_count"]),
         counterevidenceCount=counterevidence,

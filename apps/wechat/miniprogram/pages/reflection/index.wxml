@@ -30,7 +30,7 @@
       <view class="summary-intro">
         <view class="summary-title">这组做完了</view>
         <!-- Figma 13:20：错题数用真实数据填充。 -->
-        <view wx:if="{{result.totalCount - result.correctCount > 0}}" class="summary-copy">比起{{result.correctCount}}/{{result.totalCount}}，做对的题让你安心，做错的题让你上岸——先找回丢掉 {{result.totalCount - result.correctCount}} 题的原因。</view>
+        <view wx:if="{{result.totalCount - result.correctCount > 0}}" class="summary-copy">{{result.correctCount}}/{{result.totalCount}}。让你上岸的从来是错题——先把丢掉的 {{result.totalCount - result.correctCount}} 题问明白。</view>
         <view wx:else class="summary-copy">比起 {{result.correctCount}}/{{result.totalCount}}，更重要的是把这组的作答证据留下来。</view>
       </view>
 
@@ -266,7 +266,7 @@
         </view>
       </view>
 
-      <view class="reflection-boundary">错题不欠你道歉，它欠你一个答案——岸岸只给候选，结论永远你来下。</view>
+      <view class="reflection-boundary">别跟错题怄气，问它要个答案——岸岸给候选，结论你来下。</view>
       <view class="reflection-bottom-spacer"></view>
     </view>
 
@@ -344,6 +344,18 @@
       <block wx:if="{{causeCandidate.canDecide}}">
         <button hover-class="item--hover" wx:if="{{causeCandidate.canConfirm}}" class="reflection-primary tap-tactile" disabled="{{interactionLocked}}" bindtap="confirmCause">确认这个错因</button>
         <button hover-class="item--hover" class="reflection-secondary" disabled="{{interactionLocked}}" bindtap="rejectCause">这不是我的错因</button>
+        <!-- 改写错因的可选结构化归类：单选 chip，可不选，再点一次取消。 -->
+        <view class="cause-code-hint">如果换成你的说法，它更像下面哪一类？选一个可以帮你以后归类，也可以不选。</view>
+        <view class="tag-grid cause-code-grid">
+          <button hover-class="item--hover"
+            wx:for="{{replacementCodeOptions}}"
+            wx:key="code"
+            class="control-center tag-chip {{item.selected ? 'tag-chip--active' : ''}}"
+            data-code="{{item.code}}"
+            disabled="{{interactionLocked}}"
+            bindtap="selectReplacementCode"
+          >{{item.label}}</button>
+        </view>
         <textarea cursor-spacing="24" class="cause-textarea" value="{{replacementCause}}" maxlength="2000" disabled="{{interactionLocked}}" placeholder="也可以写下你认可的错因" bindinput="inputReplacementCause" />
         <button hover-class="item--hover" class="reflection-secondary" disabled="{{interactionLocked}}" bindtap="replaceCause">采用我补充的错因</button>
         <button hover-class="item--hover" class="control-center cause-later" disabled="{{interactionLocked}}" bindtap="deferCause">稍后处理</button>

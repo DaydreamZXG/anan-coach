@@ -38,9 +38,12 @@ import {
 } from "../../features/learning-media/upload-controller";
 import {
   isXingceReflectionTag,
+  isXingceReplacementCauseCode,
   methodInterpretationEligibleQuestionIds,
   xingceReflectionTagLabels,
   xingceReflectionTags,
+  xingceReplacementCauseCodeLabels,
+  xingceReplacementCauseCodes,
   type XingceReflectionTag,
 } from "../../features/xingce/real_attempt/contracts";
 import {
@@ -123,6 +126,8 @@ interface ReflectionPageData {
   causeCandidate: XingceCauseCandidateView | null;
   followupAnswer: string;
   replacementCause: string;
+  /** 改写错因的可选结构化 8 码单选 chip（可不选，单选可再点取消）。 */
+  replacementCodeOptions: Array<{ code: string; label: string; selected: boolean }>;
   interactionLocked: boolean;
   pendingMessage: string;
   hasPendingWrite: boolean;
@@ -178,6 +183,7 @@ interface ReflectionPageCustom {
   inputFollowupAnswer(event: WechatMiniprogram.Input): void;
   submitCauseFollowup(): Promise<void>;
   inputReplacementCause(event: WechatMiniprogram.Input): void;
+  selectReplacementCode(event: WechatMiniprogram.BaseEvent): void;
   confirmCause(): Promise<void>;
   rejectCause(): Promise<void>;
   replaceCause(): Promise<void>;
@@ -253,6 +259,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     causeCandidate: null,
     followupAnswer: "",
     replacementCause: "",
+    replacementCodeOptions: replacementCodeOptions(""),
     interactionLocked: false,
     pendingMessage: "",
     hasPendingWrite: false,
@@ -899,6 +906,14 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     if (!this.data.interactionLocked) this.setData({ replacementCause: event.detail.value });
   },
 
+  // 结构化改写码单选：再点一次同一 chip 取消选择（选码始终可选）。
+  selectReplacementCode(event) {
+    const code = String(event.currentTarget.dataset.code ?? "");
+    if (this.data.interactionLocked || !isXingceReplacementCauseCode(code)) return;
+    const next = selectedReplacementCode(this.data.replacementCodeOptions) === code ? "" : code;
+    this.setData({ replacementCodeOptions: replacementCodeOptions(next) });
+  },
+
   async replaceCause() {
     const runtime = runtimes.get(this);
     if (!runtime || runtime.submitting) return;
@@ -907,7 +922,13 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       void wx.showToast({ title: "请写下你认可的错因", icon: "none" });
       return;
     }
-    await prepareCauseDecision(this, runtime, "replace", replacementCause);
+    await prepareCauseDecision(
+      this,
+      runtime,
+      "replace",
+      replacementCause,
+      selectedReplacementCode(this.data.replacementCodeOptions) || undefined,
+    );
   },
 
   async confirmCause() {
@@ -1198,6 +1219,7 @@ async function prepareCauseDecision(
   runtime: ReflectionRuntime,
   decision: "confirm" | "reject" | "replace" | "defer",
   replacementCause?: string,
+  replacementCode?: string,
 ): Promise<void> {
   const review = runtime.session?.review;
   if (!review) return;
@@ -1222,6 +1244,8 @@ async function prepareCauseDecision(
       candidateVersionId: candidate.candidateVersionId,
       decision,
       ...(replacementCause ? { replacementCause } : {}),
+      // 可选结构化码只随 replace 提交；未选码保持旧命令形状。
+      ...(decision === "replace" && replacementCode ? { replacementCode } : {}),
     },
   };
   storePendingXingceCauseDecision(runtime.ownerUserId, pending);
@@ -1423,6 +1447,11 @@ function applySession(
       pendingCause?.command.replacementCause ??
       review.causeDecision?.replacementCause ??
       page.data.replacementCause,
+    // 待重试的改写命令若带结构化码，恢复对应 chip 选中态。
+    replacementCodeOptions: replacementCodeOptions(
+      pendingCause?.command.replacementCode ??
+        selectedReplacementCode(page.data.replacementCodeOptions),
+    ),
     interactionLocked: hasPendingWrite,
     pendingMessage: hasPendingWrite ? "检测到一次结果未知的保存，需要重试刚才那次操作。" : "",
     hasPendingWrite,
@@ -1450,6 +1479,18 @@ function tagOptions(selected: ReadonlySet<XingceReflectionTag>): ReflectionPageD
     label: xingceReflectionTagLabels[code],
     selected: selected.has(code),
   }));
+}
+
+function replacementCodeOptions(selected: string): ReflectionPageData["replacementCodeOptions"] {
+  return xingceReplacementCauseCodes.map((code) => ({
+    code,
+    label: xingceReplacementCauseCodeLabels[code],
+    selected: code === selected,
+  }));
+}
+
+function selectedReplacementCode(options: ReflectionPageData["replacementCodeOptions"]): string {
+  return options.find((option) => option.selected)?.code ?? "";
 }
 
 function interpretationOptions(
@@ -1545,6 +1586,7 @@ function invalidateForAccountChange(
     causeCandidate: null,
     followupAnswer: "",
     replacementCause: "",
+    replacementCodeOptions: replacementCodeOptions(""),
     tagOptions: tagOptions(new Set()),
     interpretationOptions: [],
     interactionLocked: true,
