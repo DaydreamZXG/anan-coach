@@ -2,7 +2,7 @@
   <view class="mastery-hero">
     <view class="hero-eyebrow">行测学习记录</view>
     <view class="hero-title">真正掌握，要经得住隔天再测</view>
-    <view class="hero-copy">不按做过多少题判断，而按独立作答、迁移和时间稳定性判断。</view>
+    <view class="hero-copy">刷题量说了不算——隔天还会做、换个皮还会做，才算数。</view>
     <view wx:if="{{generatedAtLabel}}" class="hero-updated type-data">{{generatedAtLabel}}</view>
   </view>
 

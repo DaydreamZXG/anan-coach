@@ -25,7 +25,7 @@
           <view class="s9-chip">{{focusTask.trackLabel}} · 约 {{focusTask.estimatedMinutes}} 分钟</view>
         </view>
         <view class="s9-title">为什么今天练这个</view>
-        <view class="s9-subtitle">这不是让你多刷一组题，而是验证近期最值得确认的问题。</view>
+        <view class="s9-subtitle">今天这组题带着任务来：验证你最近最值得确认的那个问题。</view>
       </view>
 
       <view class="s9-stack">

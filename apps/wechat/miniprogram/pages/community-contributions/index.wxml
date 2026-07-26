@@ -1,7 +1,7 @@
 <view class="page community-page">
   <view class="community-hero">
     <view class="hero-kicker">我的方法贡献</view>
-    <view class="hero-title">你贡献的不是答案，是可验证的方法</view>
+    <view class="hero-title">答案千篇一律，你的方法才值得留下来</view>
     <view class="hero-copy">查看草稿、试用、已发布和被退回的原因，并保留撤回权。</view>
     <view class="privacy-strip">
       <view class="privacy-dot"></view>
