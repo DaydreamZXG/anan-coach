@@ -1316,9 +1316,19 @@ def _plan_copy(
             "恢复日只处理到期闭环，未完成任务不会累积成明日债务。",
         )
     if not tasks:
+        if goal_gap.readiness != "complete":
+            return (
+                "先定目标，今天的安排才有方向",
+                "在「我的」里确认目标岗位后，岸岸会对着分差生成真实训练；不会用凑数任务填满今天。",
+            )
+        if not capacity.confirmed:
+            return (
+                "先确认今天能学多久",
+                "点「调整今天」告诉岸岸可用时间和状态，安排马上生成；不会用凑数任务填满今天。",
+            )
         return (
-            "今日计划等待必要证据",
-            "当前容量或内容版本未满足正式计划门禁，系统不会生成不可执行任务。",
+            "今天的正式安排还没就绪",
+            "你的目标和时间都已确认，还差能安全派发的训练内容；稍后回来重新读取即可，岸岸不会硬塞不可执行的任务。",
         )
     xingce = sum(
         item.candidate.estimated_minutes for item in tasks if item.candidate.track == "xingce"

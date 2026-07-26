@@ -100,8 +100,8 @@
       </view>
 
       <view wx:if="{{!view.hasTasks}}" class="empty-card">
-        <view class="empty-card__title">今天还没有可执行任务</view>
-        <view class="empty-card__copy">先确认目标岗位和今天可用时间，岸岸才能生成真实安排。</view>
+        <view class="empty-card__title">{{view.headline || '今天还没有可执行任务'}}</view>
+        <view class="empty-card__copy">{{view.rationale || '先确认目标岗位和今天可用时间，岸岸才能生成真实安排。'}}</view>
         <button hover-class="item--hover" class="primary-button" bindtap="openDayAdjustment">调整今天</button>
       </view>
 
