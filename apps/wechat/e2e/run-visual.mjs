@@ -156,6 +156,15 @@ process.on("uncaughtException", (error) => {
   process.exitCode = 1;
   console.error(`[harness] uncaught exception (recorded as failure): ${String(error)}`);
 });
+process.on("unhandledRejection", (reason) => {
+  // 顶层 await 链断裂（如启动期断言失败）后，进程只剩一条空转的自动化连接，
+  // 会以僵尸态挂住整条采集链——记账后立即散场，不做任何等待。
+  runtimeFailures.push(`unhandled rejection: ${String(reason)}`);
+  console.error(`[harness] fatal rejection, aborting run: ${String(reason)}`);
+  process.exitCode = 1;
+  setTimeout(() => process.exit(1), 3_000).unref();
+  void miniProgram.close().finally(() => process.exit(1));
+});
 if (runtimeOnly || captureOnly) {
   miniProgram.on("console", (event) => {
     const message = consoleEventText(event);
@@ -175,6 +184,18 @@ await miniProgram.mockWxMethod("request", {
   cookies: [],
   errMsg: "request:ok",
 });
+
+// 死水看门狗：单场景最长 90s+90s 重试，300s 无任何进展只可能是挂机
+//（协议静默、连接半死等），此时任何等待都是浪费，直接判死并散场。
+let lastProgressAt = Date.now();
+const zombieWatchdog = setInterval(() => {
+  if (Date.now() - lastProgressAt <= 300_000) return;
+  console.error("[harness] no scenario progress for 300s, aborting zombie run");
+  process.exitCode = 1;
+  setTimeout(() => process.exit(1), 3_000).unref();
+  void miniProgram.close().finally(() => process.exit(1));
+}, 30_000);
+zombieWatchdog.unref();
 
 try {
   for (const scenario of selectedScenarios) {
@@ -199,6 +220,7 @@ try {
       );
     }
     process.stdout.write("ok\n");
+    lastProgressAt = Date.now();
   }
   if (captureOnly) {
     await writeFile(
@@ -215,6 +237,7 @@ try {
     );
   }
 } finally {
+  clearInterval(zombieWatchdog);
   await withTimeout(
     setAuthentication(miniProgram, false),
     5_000,
