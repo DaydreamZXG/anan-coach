@@ -14,12 +14,12 @@
     />
 
     <block wx:elif="{{settlement}}">
-      <view class="s9-hero">
+      <view class="s9-hero fade-slide-in">
         <view class="s9-title">今天到这里，看看真正留下了什么</view>
         <view class="s9-subtitle">不比刷了多少，只看哪些变化值得带到明天。</view>
       </view>
 
-      <view class="settlement-metrics">
+      <view class="settlement-metrics fade-slide-in fade-slide-in--2">
         <view class="settlement-metric">
           <view class="metric-label">原计划</view>
           <view class="metric-value">{{scheduledLabel}}</view>
@@ -33,9 +33,9 @@
           <view class="metric-value">{{completionLabel}}</view>
         </view>
       </view>
-      <view class="variance-label">{{varianceLabel}}</view>
+      <view class="variance-label fade-slide-in fade-slide-in--2">{{varianceLabel}}</view>
 
-      <view class="s9-section">
+      <view class="s9-section fade-slide-in fade-slide-in--3">
         <view class="section-heading">
           <view class="section-heading__mark">◎</view>
           <view>今天确认了什么</view>
@@ -43,7 +43,7 @@
         <view wx:if="{{hasSummary}}" class="s9-card confirmation-card">
           <view class="settlement-summary">{{settlement.summary}}</view>
           <view class="evidence-note">
-            完成 {{settlement.completedTaskCount}} 项 · 累计 {{settlement.elapsedMinutes}} 分钟 · 来自今天的真实记录
+            <text>完成 {{settlement.completedTaskCount}} 项 · 累计 </text><count-up value="{{settlement.elapsedMinutes}}" /><text> 分钟 · 来自今天的真实记录</text>
           </view>
         </view>
         <view wx:else class="s9-card">
@@ -52,7 +52,7 @@
         </view>
       </view>
 
-      <view wx:if="{{settlement.newRisks.length}}" class="s9-section">
+      <view wx:if="{{settlement.newRisks.length}}" class="s9-section fade-slide-in fade-slide-in--3">
         <view class="section-heading section-heading--warning">
           <view class="section-heading__mark">!</view>
           <view>今天新发现的问题</view>
@@ -62,7 +62,7 @@
         </view>
       </view>
 
-      <view class="s9-section">
+      <view class="s9-section fade-slide-in fade-slide-in--3">
         <view class="section-heading">
           <view class="section-heading__mark">○</view>
           <view>没完成的这一项</view>
@@ -84,7 +84,7 @@
         </view>
       </view>
 
-      <view class="s9-section">
+      <view class="s9-section fade-slide-in fade-slide-in--3">
         <view class="section-heading">
           <view class="section-heading__mark">↗</view>
           <view>明天从哪里开始</view>

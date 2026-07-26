@@ -39,8 +39,8 @@ describe("third-layer UI and UX contracts", () => {
     expect(sheetLogic).toContain("onPanelTransitionEnd");
     expect(sheetTemplate).toContain('wx:if="{{rendered}}"');
     expect(sheetTemplate).toContain('bindtransitionend="onPanelTransitionEnd"');
-    expect(sheetStyles).toContain("transition: opacity 0.2s ease");
-    expect(sheetStyles).toContain("transform 0.25s");
+    expect(sheetStyles).toContain("transition: opacity var(--motion-base) var(--ease-in-out)");
+    expect(sheetStyles).toContain("transform var(--motion-base) var(--ease-out)");
   });
 
   it("keeps recoverable errors local to the affected product surface", () => {

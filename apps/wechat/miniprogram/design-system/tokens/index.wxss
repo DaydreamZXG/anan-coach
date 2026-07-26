@@ -175,4 +175,16 @@ page {
   --z-sheet: 70;
   --z-overlay: 100;
   --z-blocker: 110;
+
+  /*
+   * Motion tokens (2026-07-27).
+   * 运行时动效时长/缓动的唯一出口：时长限定 150-300ms 区间，
+   * 入场用 --ease-out，退场与淡入淡出用 --ease-in-out。
+   * 组件桥 component-host.tokens.wxss 需同步（隔离树拿不到 page 变量）。
+   */
+  --motion-fast: 150ms;
+  --motion-base: 220ms;
+  --motion-slow: 300ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 }

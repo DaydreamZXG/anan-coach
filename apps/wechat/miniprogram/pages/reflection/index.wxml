@@ -366,13 +366,13 @@
 
     <!-- Figma 15:2：顶部空白已压缩（15:8 paddingTop=28），完成态整体上移。 -->
     <view wx:else class="completed-screen">
-      <view class="completed-icon-pill">
+      <view class="completed-icon-pill check-pop">
         <view class="completed-icon">✓</view>
       </view>
       <view class="completed-title">复盘完成</view>
       <view class="completed-copy">后续复测会验证这次判断。只有多次出现一致证据，才会更新为稳定能力结论。</view>
       <view class="completed-card">
-        <view class="completed-row"><text>本次作答证据</text><text class="completed-row__value">{{result ? result.totalCount : 0}} 条</text></view>
+        <view class="completed-row"><text>本次作答证据</text><view class="completed-row__value"><count-up value="{{result ? result.totalCount : 0}}" /><text> 条</text></view></view>
         <view class="completed-row"><text>原话与错因</text><text class="completed-row__value">已确认</text></view>
         <view class="completed-row completed-row--last"><text>能力画像</text><text class="completed-row__value">等待复测验证</text></view>
         <view wx:if="{{hasUpdatedPlan}}" class="completed-row completed-row--accent"><text>今日计划</text><text class="completed-row__value completed-row__value--accent">已重新同步</text></view>

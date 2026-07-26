@@ -8,12 +8,21 @@
   gap: calc(20 * var(--rpx));
 }
 
+/*
+ * 骨架微光：与 primitives/index.wxss 的 .skeleton-shimmer 同名同责——
+ * 组件样式树隔离，全局类进不来，此处保留一份镜像。
+ */
+.skeleton-shimmer {
+  background: var(--gradient-skeleton);
+  background-size: 400% 100%;
+  animation: state-shimmer 1.4s ease infinite;
+}
+
 .state-skeleton {
   height: calc(150 * var(--rpx));
   border-radius: var(--radius-card);
   background: var(--gradient-skeleton-cool);
   background-size: 400% 100%;
-  animation: state-shimmer 1.4s ease infinite;
 }
 
 .state-skeleton--hero {
@@ -82,5 +91,11 @@
   }
   100% {
     background-position: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-shimmer {
+    animation: none;
   }
 }

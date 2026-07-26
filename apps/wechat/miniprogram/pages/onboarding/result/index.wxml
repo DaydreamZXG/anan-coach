@@ -14,7 +14,7 @@
     <scroll-view scroll-y class="result-scroll" enhanced show-scrollbar="{{false}}">
       <view class="result-content fade-slide-in">
         <view class="result-status">
-          <view class="status-icon">
+          <view class="status-icon check-pop">
             <image class="status-icon__asset" src="/assets/onboarding/result-check-green.svg" mode="aspectFit" />
           </view>
           <view class="status-title">你的备考档案立起来了</view>

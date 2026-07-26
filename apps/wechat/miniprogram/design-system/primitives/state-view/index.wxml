@@ -1,7 +1,7 @@
 <view wx:if="{{state === 'loading'}}" class="state-view state-view--loading custom-class" aria-label="正在加载">
-  <view class="state-skeleton state-skeleton--hero"></view>
-  <view class="state-skeleton"></view>
-  <view class="state-skeleton"></view>
+  <view class="state-skeleton state-skeleton--hero skeleton-shimmer"></view>
+  <view class="state-skeleton skeleton-shimmer"></view>
+  <view class="state-skeleton skeleton-shimmer"></view>
 </view>
 
 <view wx:else class="state-view state-view--{{state}} custom-class">

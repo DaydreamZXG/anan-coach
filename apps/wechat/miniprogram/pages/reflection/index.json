@@ -3,6 +3,7 @@
   "navigationStyle": "custom",
   "backgroundColor": "#F7F9FC",
   "usingComponents": {
+    "count-up": "../../design-system/primitives/count-up/index",
     "content-renderer": "../../task-runtime/content-renderer/index",
     "material-reader": "../../task-runtime/material-reader/index",
     "annotation-layer": "../../task-runtime/annotation-layer/index",

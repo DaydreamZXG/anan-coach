@@ -122,6 +122,13 @@ button.secondary-button {
   animation: shimmer 1.4s ease infinite;
 }
 
+/* 骨架微光：任意占位块叠加此类即可获得统一的加载呼吸感。 */
+.skeleton-shimmer {
+  background: var(--gradient-skeleton);
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
 .state-card {
   padding: calc(48 * var(--rpx)) calc(32 * var(--rpx));
   text-align: center;
@@ -170,11 +177,20 @@ button.secondary-button {
 }
 
 .motion-mask {
-  animation: motion-mask-in 0.2s ease both;
+  animation: motion-mask-in var(--motion-base) var(--ease-in-out) both;
+}
+
+.motion-mask--out {
+  animation: motion-mask-out var(--motion-base) var(--ease-in-out) both;
 }
 
 .motion-sheet {
-  animation: motion-sheet-in 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: motion-sheet-in var(--motion-base) var(--ease-out) both;
+  will-change: transform, opacity;
+}
+
+.motion-sheet--out {
+  animation: motion-sheet-out var(--motion-base) var(--ease-in-out) both;
   will-change: transform, opacity;
 }
 
@@ -194,12 +210,28 @@ button.secondary-button {
   animation-delay: 0.18s;
 }
 
+/* 成功时刻打点：一次性对勾入场（scale 0.6→1.08→1 + 淡入，300ms）。 */
+.check-pop {
+  animation: check-pop var(--motion-slow) var(--ease-out) both;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
 @keyframes motion-mask-in {
   from {
     opacity: 0;
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes motion-mask-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
 
@@ -214,6 +246,17 @@ button.secondary-button {
   }
 }
 
+@keyframes motion-sheet-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(calc(36 * var(--rpx)));
+  }
+}
+
 @keyframes fade-slide-in {
   from {
     opacity: 0;
@@ -222,6 +265,21 @@ button.secondary-button {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes check-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -237,10 +295,18 @@ button.secondary-button {
 @media (prefers-reduced-motion: reduce) {
   .tap-tactile,
   .motion-mask,
+  .motion-mask--out,
   .motion-sheet,
-  .fade-slide-in {
+  .motion-sheet--out,
+  .fade-slide-in,
+  .check-pop {
     animation-duration: 0.01ms;
     animation-delay: 0ms;
     transition-duration: 0.01ms;
+  }
+
+  .skeleton,
+  .skeleton-shimmer {
+    animation: none;
   }
 }
