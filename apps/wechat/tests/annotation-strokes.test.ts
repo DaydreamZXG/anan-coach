@@ -2,11 +2,15 @@ import { describe, expect, it } from "vitest";
 import type { AnnotationStroke } from "../miniprogram/task-runtime/contracts";
 import {
   appendStrokeWithinLimit,
+  capturedPoint,
   isErasedStroke,
   liveStrokes,
   MAX_ANNOTATION_STROKES,
+  normalizedPressure,
+  shouldRejectAsPalm,
   strokesVisibleAtReplay,
   tombstoneStrokes,
+  WECHAT_IOS_MAX_FORCE,
 } from "../miniprogram/task-runtime/annotation-layer/strokes";
 
 function stroke(strokeId: string, atMs: number, erasedAtMs?: number): AnnotationStroke {
@@ -88,5 +92,50 @@ describe("annotation stroke tombstones (契约增量 v1)", () => {
       stroke(`live-${String(index)}`, index),
     );
     expect(appendStrokeWithinLimit(allLive, stroke("s-overflow", 7_000))).toBeNull();
+  });
+});
+
+describe("annotation pressure capture (契约增量 v1)", () => {
+  it("normalizes touch.force into p and omits the field on pressureless devices", () => {
+    // 微信 iOS：force>0 按满压 3.3333 归一到 (0..1]，超出上限夹到 1。
+    expect(normalizedPressure(WECHAT_IOS_MAX_FORCE)).toBe(1);
+    expect(normalizedPressure(WECHAT_IOS_MAX_FORCE / 2)).toBeCloseTo(0.5, 6);
+    expect(normalizedPressure(9)).toBe(1);
+    // 安卓/无压感设备：force 缺省或为 0，不产生压感。
+    expect(normalizedPressure(0)).toBeUndefined();
+    expect(normalizedPressure(undefined)).toBeUndefined();
+
+    // 写入：有压感时逐点带 p；无压感时不写该字段，旧载荷形状保持不变。
+    const pressured = capturedPoint(
+      { x: 0.1, y: 0.2 },
+      16,
+      normalizedPressure(WECHAT_IOS_MAX_FORCE),
+    );
+    expect(pressured).toEqual({ x: 0.1, y: 0.2, t: 16, p: 1 });
+    const plain = capturedPoint({ x: 0.3, y: 0.4 }, 32, normalizedPressure(0));
+    expect(plain).toEqual({ x: 0.3, y: 0.4, t: 32 });
+    expect("p" in plain).toBe(false);
+  });
+
+  it("suppresses palm touches once a pressured stroke has started in the session", () => {
+    // 会话内尚无 force>0 的先例：手指（无压感）照常落墨 —— 无 Pencil 的设备不受影响。
+    let sessionSawPressure = false;
+    expect(shouldRejectAsPalm(sessionSawPressure, normalizedPressure(0))).toBe(false);
+    expect(shouldRejectAsPalm(sessionSawPressure, normalizedPressure(undefined))).toBe(false);
+
+    // Apple Pencil 起笔（force>0）：正常落墨并置位先例标志。
+    const pencil = normalizedPressure(1.2);
+    expect(shouldRejectAsPalm(sessionSawPressure, pencil)).toBe(false);
+    if (pencil !== undefined) sessionSawPressure = true;
+    expect(sessionSawPressure).toBe(true);
+
+    // 此后 force===0 的新触点视为手掌搁置，整笔忽略；Pencil 触点不受影响。
+    expect(shouldRejectAsPalm(sessionSawPressure, normalizedPressure(0))).toBe(true);
+    expect(shouldRejectAsPalm(sessionSawPressure, normalizedPressure(undefined))).toBe(true);
+    expect(shouldRejectAsPalm(sessionSawPressure, normalizedPressure(2))).toBe(false);
+
+    // 会话结束（组件 detached/退出批注模式）重置标志后，手指恢复落墨。
+    sessionSawPressure = false;
+    expect(shouldRejectAsPalm(sessionSawPressure, normalizedPressure(0))).toBe(false);
   });
 });

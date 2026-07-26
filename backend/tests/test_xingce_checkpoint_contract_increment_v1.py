@@ -1,7 +1,8 @@
 """契约增量规格 v1：AnswerCheckpoint 及其子结构的向后兼容扩展。
 
 覆盖：毫秒时钟 atMs 非降序、sessionAtMs 会话时间线、笔画逐点 t 时序、
-erasedAtMs 擦除墓碑、material_scrolled/question_entered/question_left 事件、
+逐点归一化压感 p（0 < p <= 1）、erasedAtMs 擦除墓碑、
+material_scrolled/question_entered/question_left 事件、
 actionEventsTruncated 溢出标记；旧格式（无任何新字段）必须依旧合法。
 """
 
@@ -53,6 +54,7 @@ def test_legacy_payload_without_new_fields_is_still_valid() -> None:
     assert answer.action_events_truncated is None
     assert answer.annotations[0].erased_at_ms is None
     assert all(point.t is None for point in answer.annotations[0].points)
+    assert all(point.p is None for point in answer.annotations[0].points)
     assert all(event.session_at_ms is None for event in answer.action_events)
 
 
@@ -65,6 +67,7 @@ def test_legacy_payload_round_trip_serialization_adds_no_new_keys() -> None:
     assert "actionEventsTruncated" not in dumped
     assert "erasedAtMs" not in dumped["annotations"][0]
     assert all("t" not in point for point in dumped["annotations"][0]["points"])
+    assert all("p" not in point for point in dumped["annotations"][0]["points"])
     assert all("sessionAtMs" not in event for event in dumped["actionEvents"])
 
 
@@ -180,6 +183,56 @@ def test_stroke_point_time_offsets_reject_decreasing_sequence() -> None:
 def test_stroke_point_time_offset_rejects_negative_value() -> None:
     with pytest.raises(ValidationError):
         AnnotationPoint.model_validate({"x": 0.5, "y": 0.5, "t": -1})
+
+
+def test_stroke_point_pressure_accepts_normalized_range() -> None:
+    stroke = AnnotationStroke.model_validate(
+        {
+            "strokeId": "stroke-pressured",
+            "tool": "pen",
+            "width": 0.01,
+            "points": [
+                {"x": 0.1, "y": 0.1, "t": 0, "p": 0.05},
+                {"x": 0.2, "y": 0.2, "t": 16, "p": 0.5},
+                {"x": 0.3, "y": 0.3, "t": 32, "p": 1},
+            ],
+            "atMs": 2_000,
+        }
+    )
+
+    assert [point.p for point in stroke.points] == [0.05, 0.5, 1]
+
+
+def test_stroke_point_pressure_out_of_range_is_rejected() -> None:
+    # 契约：0 < p <= 1；0（无压感设备不该写该字段）、负值与超上限一律拒绝。
+    for invalid in (0, -0.2, 1.0001):
+        with pytest.raises(ValidationError):
+            AnnotationPoint.model_validate({"x": 0.5, "y": 0.5, "p": invalid})
+
+
+def test_stroke_point_pressure_default_is_valid_and_adds_no_key() -> None:
+    point = AnnotationPoint.model_validate({"x": 0.5, "y": 0.5})
+
+    assert point.p is None
+    assert "p" not in point.model_dump(by_alias=True, mode="json", exclude_none=True)
+
+
+def test_stroke_points_may_mix_pressured_and_pressureless() -> None:
+    # 同一笔内允许部分点带压感（如中途 force 降为 0 的边缘采样），无跨点约束。
+    stroke = AnnotationStroke.model_validate(
+        {
+            "strokeId": "stroke-mixed-pressure",
+            "tool": "highlighter",
+            "width": 0.02,
+            "points": [
+                {"x": 0.1, "y": 0.1, "p": 0.3},
+                {"x": 0.2, "y": 0.2},
+            ],
+            "atMs": 4_000,
+        }
+    )
+
+    assert [point.p for point in stroke.points] == [0.3, None]
 
 
 def test_erased_stroke_tombstone_is_accepted_within_bounds() -> None:

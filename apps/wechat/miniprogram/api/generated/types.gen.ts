@@ -475,6 +475,10 @@ export type AccountSessionView = {
  */
 export type AnnotationPoint = {
     /**
+     * P
+     */
+    p?: number | null;
+    /**
      * T
      */
     t?: number | null;

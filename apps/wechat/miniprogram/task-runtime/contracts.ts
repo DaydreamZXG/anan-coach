@@ -26,6 +26,11 @@ export interface AnnotationPoint {
   y: number;
   /** 契约增量 v1：相对本笔起笔的毫秒偏移，逐点非降序；旧数据缺省合法。 */
   t?: number;
+  /**
+   * 契约增量 v1：归一化压感（0 < p <= 1）。仅压感设备写入（微信 iOS 的
+   * touch.force > 0 时按满压 3.3333 归一）；安卓/无压感设备不写该字段。
+   */
+  p?: number;
 }
 
 export interface AnnotationStroke {

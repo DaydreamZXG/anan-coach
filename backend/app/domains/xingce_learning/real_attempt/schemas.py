@@ -32,6 +32,9 @@ class AnnotationPoint(XingceModel):
     y: float = Field(ge=0, le=1)
     # 契约增量 v1：相对本笔起笔的毫秒偏移，逐点非降序；旧数据缺省合法。
     t: int | None = Field(default=None, ge=0)
+    # 契约增量 v1：归一化压感（0 < p <= 1），仅压感设备（iOS force>0）写入；
+    # 旧数据缺省合法。模考侧复用同一 schema，自动生效。
+    p: float | None = Field(default=None, gt=0, le=1)
 
 
 class AnnotationStroke(XingceModel):
