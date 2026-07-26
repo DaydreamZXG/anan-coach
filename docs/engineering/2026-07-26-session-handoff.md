@@ -56,10 +56,18 @@
 3. **缺失 worker systemd 单元补齐**（错因 agent 在生产会永远 queued）。
 4. **审计续跑**：`wf_fc571df8-37f`（上线审计，5/6 腿有缓存）、`wf_a9dd83de-ba1`
    （功能全扫，mapper 有缓存）——resumeFromRunId 续跑，已完成腿免费。
-5. **视觉指纹数据发布**：weent1b1z 产出的生成器+SQL 走发布流程执行（搜题图片匹配
-   0 指纹→上膛；顺带 representative_correct_ratio 灌难度锚，53,011 题覆盖）。
-6. **图推批次一拨闸**（任务 #14）：后端开关已备（wajcm7t1h 产出），等前端题面图片
-   渲染后放图形推理 4,023 题进练习。批次二资料分析。
+5. **视觉指纹回填生成器（未产出即停，需重启）**：搜题图片匹配已核实为「架子全、弹药
+   零」——匹配双通道在（fingerprint.py 文本 bigram+视觉 256 位 dHash）、拍照侧指纹在算
+   （grok_vision.py:467），但生产 product.question_visual_fingerprints **0 行**。重启工作流
+   脚本：workflows/scripts/visual-fingerprint-backfill-wf_befa101c-b6d.js（任务书完整：同源
+   哈希生成器+契约化落库 SQL+页级 vs 题图哈希域差的裁剪方案；顺带
+   representative_correct_ratio→occurrence_correct_ratio 难度锚 SQL，53,011 题覆盖）。
+6. **图题供给地基（未产出即停，需重启）**：脚本
+   workflows/scripts/visual-question-serving-prep-wf_dbd894b2-299.js（任务书完整：资产
+   结构化透出+VISUAL_QUESTION_MODULES 白名单开关默认关+错因诚实降级）。产品决策已定
+   （任务 #14/#15）：批次一图形推理 4,023 题（99.3% 有图），前端渲染就绪后拨闸；
+   图推多模态错因排内测后。已核实：practice/mock 现排除全部 visual_required
+   （real_attempt/repository.py:179、mock_exam/repository.py:113，1.5 万题=题库 27%）。
 7. **前端窗口重开清单**：题面图片渲染 → 笔锋渲染（#13）→ 平板做题大件（原 §三 2）。
 8. **frontend_orphan 断链核实**：GET /api/v2/goals/workspace、GET /api/v2/learning-profile
    ——前端在调、后端没有，若页面可达即线上 404。
