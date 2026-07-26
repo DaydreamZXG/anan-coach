@@ -48,6 +48,7 @@
 
     <view class="section-head"><view class="section-head__title">历史学习包</view><view class="section-head__meta">每份内容和有效期独立保存</view></view>
     <state-view wx:if="{{!state.packets.length}}" custom-class="packets-state-view" state="empty" title="还没有学习包" description="选择已确认的题目后生成第一份；尚未核对的识别内容不会出现在这里。" />
+    <view class="packet-grid">
     <view wx:for="{{state.packets}}" wx:key="packetVersionId" class="external-card packet-card">
       <view class="packet-head">
         <view><view class="card-title">{{item.displayTitle}}</view><view class="card-copy">{{item.itemCountLabel}} · {{item.renderFormat === 'pdf' ? 'PDF 打印包' : '笔记文件'}}</view></view>
@@ -63,6 +64,7 @@
         <view hover-class="item--hover" wx:if="{{item.canRenew}}" class="packet-action" role="button" aria-label="重新生成学习包" data-id="{{item.packetVersionId}}" bindtap="renewPacket">{{state.operatingPacketId === item.packetId ? '正在生成…' : '重新生成'}}</view>
         <view hover-class="item--hover" wx:if="{{item.canIngestAnswers}}" class="packet-action packet-action--secondary" role="button" aria-label="录入该学习包答案" data-id="{{item.packetVersionId}}" bindtap="openAnswerIngestion">录入答案</view>
       </view>
+    </view>
     </view>
   </block>
 </view>

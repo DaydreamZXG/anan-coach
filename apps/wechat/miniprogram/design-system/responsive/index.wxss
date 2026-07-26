@@ -301,3 +301,21 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* 列表模板第二批：学习包/掌握队列/私人资料宽屏 2 列。 */
+@media (min-width: 1024px) {
+  .packet-grid,
+  .mastery-grid,
+  .source-grid {
+    display: grid;
+    align-items: stretch;
+    gap: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .packet-grid .packet-card,
+  .mastery-grid .mastery-card {
+    height: 100%;
+    box-sizing: border-box;
+  }
+}

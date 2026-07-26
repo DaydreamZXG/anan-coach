@@ -53,6 +53,7 @@
 
     <state-view wx:if="{{!items.length}}" custom-class="mastery-state-view" state="empty" title="{{emptyTitle}}" description="{{emptyDescription}}" />
 
+    <view class="mastery-grid">
     <view wx:for="{{items}}" wx:key="itemId" class="mastery-card {{item.invalidated ? 'mastery-card--invalidated' : ''}}">
       <view class="card-head">
         <view class="card-title-wrap">
@@ -73,6 +74,7 @@
         data-itemid="{{item.itemId}}"
         bindtap="openItem"
       >{{item.actionLabel}}</button>
+    </view>
     </view>
 
     <view wx:if="{{items.length}}" class="pagination">
