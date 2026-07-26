@@ -1,9 +1,18 @@
 import type {
+  AttemptActionEvent,
+  AttemptActionType,
   CreateTaskRuntimeInput,
   QuestionAttemptDraft,
   TaskRuntimeEvent,
   TaskRuntimeState,
 } from "../contracts";
+
+/** 与后端 AnswerCheckpoint.actionEvents 的上限一致。 */
+const MAX_ACTION_EVENTS = 400;
+/** 与后端 AnswerCheckpoint.annotations 的上限一致。 */
+const MAX_ANNOTATION_STROKES = 120;
+/** 草稿输入按键频繁，5 秒内只记一条 draft_edited 事实。 */
+const DRAFT_EVENT_WINDOW_MS = 5_000;
 
 export class TaskTransitionError extends Error {
   constructor(message: string) {
@@ -121,42 +130,109 @@ export function reduceTaskRuntime(
       ) {
         throw new TaskTransitionError("Selected options must be unique, non-empty IDs");
       }
-      return updateAttempt(state, (attempt) => ({
-        ...attempt,
-        selectedOptionIds: [...event.optionIds],
-        eliminatedOptionIds: attempt.eliminatedOptionIds.filter(
-          (optionId) => !event.optionIds.includes(optionId),
-        ),
-        skipped: false,
-      }));
+      return updateAttempt(state, (attempt) => {
+        const changedSelection =
+          [...attempt.selectedOptionIds].sort().join(",") !== [...event.optionIds].sort().join(",");
+        const next: QuestionAttemptDraft = {
+          ...attempt,
+          selectedOptionIds: [...event.optionIds],
+          eliminatedOptionIds: attempt.eliminatedOptionIds.filter(
+            (optionId) => !event.optionIds.includes(optionId),
+          ),
+          skipped: false,
+        };
+        if (!changedSelection || event.optionIds.length === 0) return next;
+        return withActionEvent(
+          next,
+          attempt.selectedOptionIds.length > 0 ? "option_changed" : "option_selected",
+          { optionId: event.optionIds.join(",") },
+        );
+      });
     case "OPTION_ELIMINATED":
       assertAnswering(state);
       if (!event.optionId.trim()) throw new TaskTransitionError("Eliminated option ID is required");
-      return updateAttempt(state, (attempt) => ({
-        ...attempt,
-        selectedOptionIds: event.eliminated
-          ? attempt.selectedOptionIds.filter((optionId) => optionId !== event.optionId)
-          : attempt.selectedOptionIds,
-        eliminatedOptionIds: event.eliminated
-          ? unique([...attempt.eliminatedOptionIds, event.optionId])
-          : attempt.eliminatedOptionIds.filter((optionId) => optionId !== event.optionId),
-      }));
+      return updateAttempt(state, (attempt) =>
+        withActionEvent(
+          {
+            ...attempt,
+            selectedOptionIds: event.eliminated
+              ? attempt.selectedOptionIds.filter((optionId) => optionId !== event.optionId)
+              : attempt.selectedOptionIds,
+            eliminatedOptionIds: event.eliminated
+              ? unique([...attempt.eliminatedOptionIds, event.optionId])
+              : attempt.eliminatedOptionIds.filter((optionId) => optionId !== event.optionId),
+          },
+          event.eliminated ? "option_eliminated" : "elimination_undone",
+          { optionId: event.optionId },
+        ),
+      );
     case "CONFIDENCE_SET":
       assertAnswering(state);
-      return updateAttempt(state, (attempt) => ({ ...attempt, confidence: event.confidence }));
+      return updateAttempt(state, (attempt) =>
+        attempt.confidence === event.confidence
+          ? attempt
+          : withActionEvent({ ...attempt, confidence: event.confidence }, "confidence_set", {
+              detail: event.confidence,
+            }),
+      );
     case "QUESTION_MARKED":
       assertAnswering(state);
-      return updateAttempt(state, (attempt) => ({ ...attempt, marked: event.marked }));
+      return updateAttempt(state, (attempt) =>
+        attempt.marked === event.marked
+          ? attempt
+          : withActionEvent(
+              { ...attempt, marked: event.marked },
+              event.marked ? "marked" : "unmarked",
+            ),
+      );
     case "QUESTION_SKIPPED":
       assertAnswering(state);
-      return updateAttempt(state, (attempt) => ({
-        ...attempt,
-        selectedOptionIds: [],
-        skipped: true,
-      }));
+      return updateAttempt(state, (attempt) =>
+        withActionEvent(
+          {
+            ...attempt,
+            selectedOptionIds: [],
+            skipped: true,
+          },
+          "skipped",
+        ),
+      );
     case "DRAFT_CHANGED":
       assertAnswering(state);
-      return updateAttempt(state, (attempt) => ({ ...attempt, draftText: event.text }));
+      return updateAttempt(state, (attempt) => {
+        const next: QuestionAttemptDraft = { ...attempt, draftText: event.text };
+        const events = attempt.actionEvents ?? [];
+        const lastDraftEvent = [...events].reverse().find((entry) => entry.type === "draft_edited");
+        if (
+          lastDraftEvent &&
+          attempt.elapsedSeconds * 1000 - lastDraftEvent.atMs < DRAFT_EVENT_WINDOW_MS
+        ) {
+          return next;
+        }
+        return withActionEvent(next, "draft_edited");
+      });
+    case "ANNOTATIONS_CHANGED":
+      assertAnswering(state);
+      if (event.strokes.length > MAX_ANNOTATION_STROKES) {
+        throw new TaskTransitionError("Annotation strokes exceed the checkpoint limit");
+      }
+      return updateAttempt(state, (attempt) =>
+        withActionEvent(
+          {
+            ...attempt,
+            annotations: event.strokes.map((stroke) => ({
+              ...stroke,
+              points: stroke.points.map((point) => ({ ...point })),
+            })),
+          },
+          event.action === "added" ? "annotation_added" : "annotation_erased",
+        ),
+      );
+    case "ACTION_LOGGED":
+      assertAnswering(state);
+      return updateAttempt(state, (attempt) =>
+        withActionEvent(attempt, event.action, event.detail ? { detail: event.detail } : {}),
+      );
     case "MATERIAL_POSITION_CHANGED":
       assertAnswering(state);
       if (
@@ -266,6 +342,20 @@ function emptyAttempt(questionId: string): QuestionAttemptDraft {
   };
 }
 
+/** 把一条动作事实追加到当前题的时间线；时间戳取本题已作答秒数。 */
+function withActionEvent(
+  attempt: QuestionAttemptDraft,
+  type: AttemptActionType,
+  extra: Pick<AttemptActionEvent, "optionId" | "detail"> | Record<string, never> = {},
+): QuestionAttemptDraft {
+  const events = attempt.actionEvents ?? [];
+  if (events.length >= MAX_ACTION_EVENTS) return attempt;
+  return {
+    ...attempt,
+    actionEvents: [...events, { atMs: attempt.elapsedSeconds * 1000, type, ...extra }],
+  };
+}
+
 function cloneAttempt(attempt: QuestionAttemptDraft): QuestionAttemptDraft {
   if (attempt.questionId.trim().length === 0) {
     throw new TaskTransitionError("Attempt questionId is required");
@@ -297,6 +387,17 @@ function cloneAttempt(attempt: QuestionAttemptDraft): QuestionAttemptDraft {
     selectedOptionIds: [...attempt.selectedOptionIds],
     eliminatedOptionIds: [...attempt.eliminatedOptionIds],
     ...(attempt.materialPosition ? { materialPosition: { ...attempt.materialPosition } } : {}),
+    ...(attempt.annotations
+      ? {
+          annotations: attempt.annotations.map((stroke) => ({
+            ...stroke,
+            points: stroke.points.map((point) => ({ ...point })),
+          })),
+        }
+      : {}),
+    ...(attempt.actionEvents
+      ? { actionEvents: attempt.actionEvents.map((entry) => ({ ...entry })) }
+      : {}),
   };
 }
 

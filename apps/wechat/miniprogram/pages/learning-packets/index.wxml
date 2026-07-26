@@ -6,7 +6,6 @@
       <view class="external-title">上传的资料，要变成能用的学习对象</view>
       <view class="external-subtitle">每个学习包保留来源、解析状态、知识点和关联任务；原始文件可单独删除。</view>
     </view>
-    <anan-companion size="medium" intent="thinking" context="plan" animate />
   </view>
 
   <state-view wx:if="{{configurationError}}" custom-class="packets-state-view" state="error" title="学习包服务未完成配置" description="{{configurationError}}" />

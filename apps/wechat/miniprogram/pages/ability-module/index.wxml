@@ -1,4 +1,4 @@
-<view class="brain-page">
+<view class="s9-page brain-page">
   <view class="brain-hero"><view class="brain-kicker">{{module ? module.displayName : '模块详情'}}</view><view class="brain-title">把能力拆成能验证的组成部分</view><view class="brain-copy">除了正确率，还看速度、稳定性和举一反三。</view></view>
   <state-view wx:if="{{status === 'loading'}}" state="loading" />
   <state-view wx:elif="{{status === 'error' && !module}}" state="error" title="模块画像没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="{{retryAllowed ? '重新加载' : ''}}" bind:action="retryLoad" />

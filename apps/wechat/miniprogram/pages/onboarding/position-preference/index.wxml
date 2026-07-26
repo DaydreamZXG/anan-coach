@@ -1,3 +1,4 @@
+<wxs src="./regions.wxs" module="regionUtil" />
 <view class="preference-page">
   <workbench-nav
     id="runtime-workbench-nav"
@@ -27,17 +28,36 @@
             <text>{{catalogError}}</text>
             <button hover-class="item--hover" class="catalog-retry" bindtap="retryCatalog">重新读取</button>
           </view>
-          <scroll-view wx:else scroll-y class="region-scroll" enhanced show-scrollbar="{{false}}">
-            <view class="region-list">
+          <view wx:else class="region-picker">
+            <view wx:if="{{!regionsExpanded}}" class="region-list">
               <button hover-class="item--hover"
-                wx:for="{{regions}}"
+                wx:for="{{regionUtil.common(regions, state.draft.preferredRegions[0])}}"
                 wx:key="*this"
                 class="region-chip {{state.draft.preferredRegions[0] === item ? 'region-chip--selected' : ''}}"
                 data-region="{{item}}"
                 bindtap="selectRegion"
               >{{item}}</button>
             </view>
-          </scroll-view>
+            <block wx:if="{{regionsExpanded}}">
+              <view wx:for="{{regionUtil.groups(regions)}}" wx:key="name" wx:for-item="group" class="region-group">
+                <view class="region-group__title">{{group.name}}</view>
+                <view class="region-list">
+                  <button hover-class="item--hover"
+                    wx:for="{{group.items}}"
+                    wx:key="*this"
+                    class="region-chip {{state.draft.preferredRegions[0] === item ? 'region-chip--selected' : ''}}"
+                    data-region="{{item}}"
+                    bindtap="selectRegion"
+                  >{{item}}</button>
+                </view>
+              </view>
+            </block>
+            <button hover-class="item--hover"
+              wx:if="{{regions.length > regionUtil.common(regions, state.draft.preferredRegions[0]).length}}"
+              class="region-toggle"
+              bindtap="toggleRegionCatalog"
+            >{{regionsExpanded ? '收起地区列表' : '全部 ' + regions.length + ' 个地区'}}</button>
+          </view>
 
           <button hover-class="item--hover" class="relocation-row" bindtap="toggleRelocation">
             <view>

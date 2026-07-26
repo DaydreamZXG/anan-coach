@@ -1,5 +1,7 @@
 import type {
   AiCauseCandidateState as GeneratedAiCauseCandidateState,
+  AnnotationStroke as GeneratedAnnotationStroke,
+  AttemptActionEvent as GeneratedAttemptActionEvent,
   AttemptReviewProjection as GeneratedAttemptReviewProjection,
   CauseDecisionCommand as GeneratedCauseDecisionCommand,
   CauseDecisionVersionProjection as GeneratedCauseDecisionVersionProjection,
@@ -106,6 +108,9 @@ export interface XingceAnswerCheckpoint {
   elapsedSeconds: number;
   draftText: string;
   materialPosition?: XingceMaterialPosition;
+  /** Figma 70:2 题面批注与 75:2/78:2 动作事实（对应后端 AnswerCheckpoint 扩展）。 */
+  annotations?: GeneratedAnnotationStroke[];
+  actionEvents?: GeneratedAttemptActionEvent[];
 }
 
 export interface XingceCheckpointCommand {

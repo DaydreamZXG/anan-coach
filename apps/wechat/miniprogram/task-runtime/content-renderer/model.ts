@@ -1,8 +1,14 @@
 export type ContentColorMode = "standard" | "eye_care";
 
+/** Figma 81:43「行距」档位：正文 line-height 的缩放倍数。 */
+export const contentLineSpacings = [1, 1.15, 1.3] as const;
+export type ContentLineSpacing = (typeof contentLineSpacings)[number];
+
 export interface ContentDisplayPreferences {
   fontScale: number;
   colorMode: ContentColorMode;
+  /** 缺省 1，旧存档没有该字段时视为标准行距。 */
+  lineSpacing?: ContentLineSpacing;
 }
 
 export interface ContentAssetMetadata {
@@ -99,6 +105,23 @@ interface ContentViewBase {
 export interface ParagraphContentView extends ParagraphContentBlock, ContentViewBase {
   kind: "paragraph";
   hasHtml: boolean;
+  /** Figma 84:2 画词：按标点切分的可选中片段（拼接后等于原文）。 */
+  segments: string[];
+}
+
+/** 按中文标点切分文本，保留分隔符，供画词选择使用。 */
+export function segmentSelectableText(text: string): string[] {
+  const segments: string[] = [];
+  let current = "";
+  for (const character of text) {
+    current += character;
+    if ("。；？！，、：".includes(character)) {
+      segments.push(current);
+      current = "";
+    }
+  }
+  if (current) segments.push(current);
+  return segments.length > 0 ? segments : [text];
 }
 
 export interface FormulaContentView extends FormulaContentBlock, ContentViewBase {
@@ -167,6 +190,7 @@ export function normalizeContentZoom(value: number): number {
 export function normalizeContentPreferences(preferences: {
   fontScale: number;
   colorMode: string;
+  lineSpacing?: number;
 }): ContentDisplayPreferences {
   if (!Number.isFinite(preferences.fontScale)) {
     throw new ContentContractError("内容字号比例必须是有限数字。");
@@ -178,10 +202,21 @@ export function normalizeContentPreferences(preferences: {
   if (colorMode !== "standard" && colorMode !== "eye_care") {
     throw new ContentContractError("内容显示模式不受支持。");
   }
+  const lineSpacing = preferences.lineSpacing ?? 1;
+  if (!contentLineSpacings.includes(lineSpacing as ContentLineSpacing)) {
+    throw new ContentContractError("内容行距档位不受支持。");
+  }
   return {
     fontScale: Math.round(preferences.fontScale * 10) / 10,
     colorMode,
+    lineSpacing: lineSpacing as ContentLineSpacing,
   };
+}
+
+/** 行距在 [1, 1.15, 1.3] 之间循环，供沉浸阅读的「行距」按钮使用。 */
+export function nextContentLineSpacing(current: number | undefined): ContentLineSpacing {
+  const index = contentLineSpacings.indexOf((current ?? 1) as ContentLineSpacing);
+  return contentLineSpacings[(index + 1) % contentLineSpacings.length] as ContentLineSpacing;
 }
 
 export function prepareRichContent(
@@ -232,7 +267,13 @@ function prepareBlock(block: RichContentBlock, zoom: number, anchorId: string): 
   if (block.type === "paragraph") {
     assertText(block.text, `${block.blockId} 正文`);
     assertSafeHtml(block.html, `${block.blockId} 正文 HTML`);
-    return { ...block, ...identity, kind: "paragraph", hasHtml: Boolean(block.html) };
+    return {
+      ...block,
+      ...identity,
+      kind: "paragraph",
+      hasHtml: Boolean(block.html),
+      segments: segmentSelectableText(block.text),
+    };
   }
   if (block.type === "formula") {
     assertText(block.expression, `${block.blockId} 公式表达式`);

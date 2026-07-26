@@ -101,29 +101,37 @@
         </view>
 
         <view class="option-list {{interactionLocked ? 'option-list--locked' : ''}}">
-          <view hover-class="item--hover"
-            wx:for="{{question.options}}"
-            wx:key="optionId"
-            class="option-card {{item.selected ? 'option-card--selected' : ''}} {{item.eliminated ? 'option-card--eliminated' : ''}}"
-            data-optionid="{{item.optionId}}"
-            bindtap="selectOption"
-          >
-            <view class="option-label">{{item.label}}</view>
-            <view class="option-copy">
-              <content-renderer
-                blocks="{{item.content}}"
-                zoom="1"
-                preferences="{{contentPreferences}}"
-                freeze-first-column
-                freeze-header
-              />
+          <view wx:for="{{question.options}}" wx:key="optionId" class="option-row">
+            <view
+              hover-class="option--hover"
+              class="option-card {{item.selected ? 'option-card--selected' : ''}} {{item.eliminated ? 'option-card--eliminated' : ''}}"
+              data-optionid="{{item.optionId}}"
+              bindtap="selectOption"
+            >
+              <view class="option-label">{{item.label}}</view>
+              <view class="option-copy">
+                <content-renderer
+                  blocks="{{item.content}}"
+                  zoom="1"
+                  preferences="{{contentPreferences}}"
+                  freeze-first-column
+                  freeze-header
+                />
+              </view>
             </view>
             <button hover-class="item--hover"
               class="eliminate-action {{item.eliminated ? 'eliminate-action--active' : ''}}"
               aria-label="{{item.eliminated ? '撤销排除选项 ' + item.label : '排除选项 ' + item.label}}"
               data-optionid="{{item.optionId}}"
               catchtap="toggleEliminated"
-            >{{item.eliminated ? '↺' : '−'}}</button>
+            >
+              <image
+                class="eliminate-action__icon"
+                src="{{item.eliminated ? '/assets/icons/task/eliminate.svg' : '/assets/icons/task/eliminate-faint.svg'}}"
+                mode="aspectFit"
+                aria-hidden="true"
+              />
+            </button>
           </view>
         </view>
 
@@ -253,5 +261,60 @@
       disabled="{{interactionLocked}}"
       bindtap="submitExam"
     >交卷并查看结果</button>
+  </view>
+
+  <!-- Figma 98:173-98:203：模考交卷底部确认面板。 -->
+  <view wx:if="{{submitConfirmOpen}}" class="mock-submit motion-mask" catchtouchmove="noop">
+    <view class="mock-submit__mask" catchtap="closeSubmitConfirm" aria-label="返回检查"></view>
+    <view class="mock-submit__sheet">
+      <view class="mock-submit__grabber" aria-hidden="true"></view>
+      <view class="mock-submit__head">
+        <view class="mock-submit__title">准备交卷</view>
+        <view class="mock-submit__time">已用时 {{submitElapsedLabel}}</view>
+      </view>
+
+      <view wx:if="{{unanswered > 0}}" class="mock-submit__warning">
+        <view class="mock-submit__warning-dot" aria-hidden="true"></view>
+        <text>还有 {{unanswered}} 题未作答，交卷后不能继续修改</text>
+      </view>
+      <view wx:else class="mock-submit__warning mock-submit__warning--ready">
+        <view class="mock-submit__warning-dot mock-submit__warning-dot--ready" aria-hidden="true"></view>
+        <text>全部题目已作答，交卷后不能继续修改</text>
+      </view>
+
+      <view class="mock-submit__stats">
+        <view class="mock-submit__stat">
+          <view class="mock-submit__stat-value">{{answered}}</view>
+          <view class="mock-submit__stat-label">已答</view>
+        </view>
+        <view class="mock-submit__stat mock-submit__stat--warning">
+          <view class="mock-submit__stat-value mock-submit__stat-value--warning">{{unanswered}}</view>
+          <view class="mock-submit__stat-label">未答</view>
+        </view>
+        <view class="mock-submit__stat">
+          <view class="mock-submit__stat-value">{{marked}}</view>
+          <view class="mock-submit__stat-label">已标记</view>
+        </view>
+      </view>
+
+      <block wx:if="{{submitMissingLabels.length}}">
+        <view class="mock-submit__missing-title">未答题号</view>
+        <view class="mock-submit__missing">
+          <button hover-class="item--hover"
+            wx:for="{{submitMissingLabels}}"
+            wx:key="*this"
+            class="mock-submit__missing-item"
+            aria-label="回到第 {{item}} 题检查"
+            data-index="{{item - 1}}"
+            bindtap="selectQuestion"
+          >{{item}}</button>
+        </view>
+      </block>
+
+      <view class="mock-submit__actions">
+        <button hover-class="item--hover" class="mock-submit__back" bindtap="closeSubmitConfirm">返回检查</button>
+        <button hover-class="item--hover" class="mock-submit__confirm" disabled="{{interactionLocked}}" bindtap="confirmSubmitExam">确认交卷</button>
+      </view>
+    </view>
   </view>
 </task-shell>

@@ -1,7 +1,7 @@
 {
   "navigationBarTitleText": "拍题与导入",
   "navigationStyle": "custom",
-  "backgroundColor": "#f7f9fc",
+  "backgroundColor": "#F7F9FC",
   "usingComponents": {
     "state-view": "../../design-system/primitives/state-view/index"
   }

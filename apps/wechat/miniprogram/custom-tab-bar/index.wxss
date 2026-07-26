@@ -43,7 +43,7 @@
 
 .tab-text {
   color: var(--figma-color-faint);
-  font-size: var(--figma-font-tab);
+  font-size: var(--text-tab);
   font-weight: 500;
   line-height: 30rpx;
   transition: color 0.3s ease;

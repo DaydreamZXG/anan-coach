@@ -1,111 +1,32 @@
-.basis-page {
-  box-sizing: border-box;
-  min-height: 100vh;
-  background: var(--bg);
-  color: var(--ink);
-}
-
-.basis-content {
-  display: flex;
-  box-sizing: border-box;
-  flex-direction: column;
-  gap: 64rpx;
-  padding: 54rpx 40rpx calc(300rpx + env(safe-area-inset-bottom));
-}
-
-.basis-badge {
-  display: inline-flex;
-  padding: 8rpx 20rpx;
-  border-radius: var(--figma-radius-pill);
-  background: rgba(229, 231, 235, 0.5);
-  color: var(--ink-2);
-  font-size: 24rpx;
-  font-weight: 700;
-}
-
-.basis-title {
-  margin-top: 32rpx;
-  font-size: 52rpx;
-  font-weight: 700;
-  letter-spacing: -1.3rpx;
-  line-height: 1.3;
-}
-
-.basis-copy {
-  margin-top: 24rpx;
-  color: var(--ink-2);
-  font-size: 30rpx;
-  font-weight: 500;
-  line-height: 1.65;
-}
-
-.judgment-card,
-.steps-card,
-.criteria-card,
-.basis-empty {
-  position: relative;
-  box-sizing: border-box;
-  overflow: hidden;
-  border: 1rpx solid rgba(238, 242, 255, 0.5);
-  border-radius: 64rpx;
-  background: var(--color-surface);
-  box-shadow: 0 16rpx 60rpx rgba(16, 24, 40, 0.04);
-}
-
-.judgment-card {
-  padding: 48rpx;
-}
-
-.judgment-aurora {
-  position: absolute;
-  background: linear-gradient(
-    135deg,
-    var(--primary),
-    var(--color-ai-violet) 50%,
-    var(--color-ai-pink)
-  );
-  opacity: 0.03;
-  inset: 0;
-}
-
-.judgment-content {
-  position: relative;
-  z-index: 1;
-}
+/* 计划依据页：骨架与卡片全部来自 s9；这里只保留证据列表、
+ * 因子网格与步骤时间线等页面特有节点。 */
 
 .judgment-heading {
   display: flex;
   align-items: center;
   gap: 16rpx;
-  font-size: 34rpx;
-  font-weight: 700;
+  color: var(--color-muted);
+  font-size: var(--text-body);
+  font-weight: 800;
 }
 
 .judgment-spark {
-  color: var(--primary);
-  font-size: 36rpx;
-}
-
-.judgment-title {
-  margin-top: 32rpx;
-  font-size: 30rpx;
-  font-weight: 700;
-  line-height: 1.65;
+  font-size: var(--text-section);
 }
 
 .evidence-list {
   display: flex;
   flex-direction: column;
-  gap: 24rpx;
-  margin-top: 40rpx;
+  gap: 20rpx;
+  margin-top: 24rpx;
 }
 
 .evidence-item {
   display: flex;
   align-items: flex-start;
   gap: 16rpx;
-  color: var(--figma-color-ink-tertiary);
-  font-size: 28rpx;
+  color: var(--color-ink-secondary);
+  font-size: var(--text-body-lg);
   font-weight: 500;
   line-height: 1.6;
 }
@@ -116,41 +37,41 @@
   flex: none;
   margin-top: 16rpx;
   border-radius: 50%;
-  background: var(--figma-color-primary-bright);
+  background: var(--color-primary-bright);
 }
 
 .basis-detail {
-  margin-top: 40rpx;
+  margin-top: 32rpx;
 }
 
 .factor-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16rpx;
-  padding: 32rpx;
-  border-radius: 40rpx;
+  padding: 24rpx;
+  border-radius: var(--radius-40);
   background: var(--bg);
 }
 
 .factor-item {
   padding: 20rpx;
-  border-radius: 24rpx;
+  border-radius: var(--radius-24);
   background: var(--color-surface);
 }
 
 .factor-label {
   color: var(--ink-3);
-  font-size: 20rpx;
+  font-size: var(--text-micro);
 }
 
 .factor-value {
   margin-top: 8rpx;
-  font-size: 28rpx;
+  font-size: var(--text-body-lg);
   font-weight: 700;
 }
 
 .factor-item--primary .factor-value {
-  color: var(--primary);
+  color: var(--color-ink);
 }
 
 .factor-item--warning .factor-value {
@@ -160,19 +81,19 @@
 .invalidation-block {
   margin-top: 24rpx;
   padding: 28rpx;
-  border-radius: 32rpx;
+  border-radius: var(--radius-32);
   background: var(--bg);
 }
 
 .invalidation-title {
-  font-size: 24rpx;
+  font-size: var(--text-caption);
   font-weight: 700;
 }
 
 .invalidation-item {
   margin-top: 12rpx;
   color: var(--ink-2);
-  font-size: 22rpx;
+  font-size: var(--text-micro);
   line-height: 1.55;
 }
 
@@ -181,12 +102,12 @@ button.basis-toggle {
   width: auto;
   align-items: center;
   gap: 8rpx;
-  margin-top: 40rpx;
+  margin-top: 32rpx;
   padding: 12rpx 24rpx;
-  border-radius: 999rpx;
+  border-radius: var(--radius-capsule);
   background: rgba(238, 242, 255, 0.5);
   color: var(--primary);
-  font-size: 26rpx;
+  font-size: var(--text-body);
   font-weight: 700;
 }
 
@@ -195,29 +116,18 @@ button.basis-toggle {
   transform: rotate(180deg);
 }
 
-.basis-section__title {
-  margin: 0 8rpx 32rpx;
-  font-size: 36rpx;
-  font-weight: 700;
-  letter-spacing: -0.5rpx;
-}
-
-.steps-card,
-.criteria-card {
-  padding: 48rpx;
-}
-
 .steps-card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 48rpx;
+  gap: 40rpx;
 }
 
 .steps-line {
   position: absolute;
-  top: 80rpx;
-  bottom: 80rpx;
-  left: 64rpx;
+  top: 64rpx;
+  bottom: 64rpx;
+  left: 51rpx;
   width: 2rpx;
   background: var(--line);
 }
@@ -227,7 +137,7 @@ button.basis-toggle {
   z-index: 1;
   display: flex;
   align-items: flex-start;
-  gap: 32rpx;
+  gap: 28rpx;
 }
 
 .step-number {
@@ -240,25 +150,25 @@ button.basis-toggle {
   border-radius: 50%;
   background: var(--ink);
   color: var(--color-surface);
-  font-size: 20rpx;
+  font-size: var(--text-micro);
   font-weight: 700;
-  box-shadow: 0 2rpx 6rpx rgba(16, 24, 40, 0.12);
+  box-shadow: var(--shadow-crisp);
 }
 
 .step-number--active {
   background: var(--primary);
-  box-shadow: 0 6rpx 18rpx rgba(97, 95, 255, 0.28);
+  box-shadow: var(--shadow-ai);
 }
 
 .step-title {
-  font-size: 30rpx;
+  font-size: var(--text-body-lg);
   font-weight: 700;
 }
 
 .step-copy {
   margin-top: 8rpx;
   color: var(--ink-2);
-  font-size: 26rpx;
+  font-size: var(--text-body);
   font-weight: 500;
   line-height: 1.6;
 }
@@ -266,72 +176,53 @@ button.basis-toggle {
 .criteria-card {
   display: flex;
   flex-direction: column;
-  gap: 32rpx;
+  gap: 28rpx;
+  overflow: hidden;
   padding-bottom: 0;
 }
 
 .criteria-row {
   display: flex;
   align-items: flex-start;
-  gap: 24rpx;
-  color: var(--figma-color-ink-strong);
-  font-size: 28rpx;
+  gap: 20rpx;
+  color: var(--color-ink);
+  font-size: var(--text-body-lg);
   font-weight: 700;
   line-height: 1.5;
 }
 
 .criteria-check {
   color: var(--good);
-  font-size: 32rpx;
+  font-size: var(--text-section);
   font-weight: 800;
 }
 
 .criteria-boundary {
-  margin: 0 -48rpx;
-  padding: 40rpx 48rpx;
+  margin: 0 -32rpx;
+  padding: 32rpx;
   background: rgba(249, 250, 251, 0.68);
   color: var(--ink-2);
-  font-size: 26rpx;
+  font-size: var(--text-body);
   font-weight: 500;
   line-height: 1.6;
 }
 
-.basis-footer {
-  position: fixed;
-  z-index: 40;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  box-sizing: border-box;
-  padding: 32rpx 40rpx calc(28rpx + env(safe-area-inset-bottom));
-  border-top: 1rpx solid var(--line);
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(40rpx);
-}
-
-button.basis-primary {
-  width: 100%;
-  min-height: 104rpx;
-  border-radius: 48rpx;
-  background: var(--ink);
-  color: var(--color-surface);
-  font-size: 32rpx;
-  font-weight: 700;
-  box-shadow: 0 16rpx 60rpx rgba(16, 24, 40, 0.12);
+.basis-empty {
+  text-align: center;
 }
 
 .basis-footer__links {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 28rpx;
+  margin-top: 24rpx;
   padding: 0 32rpx;
 }
 
 button.basis-link {
   width: auto;
-  color: var(--figma-color-ink-tertiary);
-  font-size: 27rpx;
+  color: var(--color-ink-secondary);
+  font-size: var(--text-body-lg);
   font-weight: 700;
 }
 
@@ -343,47 +234,4 @@ button.basis-link {
   width: 1rpx;
   height: 24rpx;
   background: var(--figma-color-line-emphasis);
-}
-
-.basis-empty {
-  padding: 56rpx 48rpx;
-  text-align: center;
-}
-
-.basis-empty__title {
-  font-size: 34rpx;
-  font-weight: 700;
-}
-
-.basis-empty__copy {
-  margin-top: 16rpx;
-  color: var(--ink-2);
-  font-size: 26rpx;
-  line-height: 1.6;
-}
-
-button.basis-empty__action {
-  width: 100%;
-  min-height: 88rpx;
-  margin-top: 32rpx;
-  border-radius: 36rpx;
-  background: var(--ink);
-  color: var(--color-surface);
-  font-size: 28rpx;
-  font-weight: 700;
-}
-
-@media (min-width: 768px) {
-  .basis-content {
-    width: 100%;
-    max-width: 760px;
-    margin: 0 auto;
-  }
-
-  .basis-footer {
-    right: 50%;
-    left: auto;
-    width: min(100%, 760px);
-    transform: translateX(50%);
-  }
 }

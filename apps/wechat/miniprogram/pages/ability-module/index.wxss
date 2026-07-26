@@ -1,7 +1,30 @@
 @import "../../features/learning-brain/page-shell.wxss";
-.decision-types { display: flex; flex-wrap: wrap; gap: 12rpx; }
-.decision-types .active { background: var(--color-primary); color: var(--color-surface); }
-.date-row, .decision-actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14rpx; margin-top: 18rpx; }
-.date-box { padding: 18rpx; border-radius: 18rpx; background: var(--color-surface-soft); }
-.date-box__value { display: block; margin-top: 8rpx; font-size: 23rpx; }
-.candidate-box { margin-top: 20rpx; }
+.decision-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+.decision-types .active {
+  background: var(--color-primary);
+  color: var(--color-surface);
+}
+.date-row,
+.decision-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+.date-box {
+  padding: 20rpx;
+  border-radius: var(--radius-16);
+  background: var(--color-surface-soft);
+}
+.date-box__value {
+  display: block;
+  margin-top: 8rpx;
+  font-size: var(--text-caption);
+}
+.candidate-box {
+  margin-top: 20rpx;
+}

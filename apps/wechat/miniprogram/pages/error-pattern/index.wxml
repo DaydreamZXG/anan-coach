@@ -1,4 +1,4 @@
-<view class="brain-page">
+<view class="s9-page brain-page">
   <view class="brain-hero">
     <view class="brain-kicker">{{detail ? detail.pattern.displayName : '错误模式'}}</view>
     <view class="brain-title">同一种错法，不该伪装成很多道错题</view>

@@ -64,10 +64,10 @@ export function presentDailyOpening(view: DailyOpeningView): DailyOpeningPresent
     weatherLocationRequired: view.weather.state === "location_required",
     weatherUnavailable: view.weather.state === "provider_unavailable",
     weatherHeadline: summary
-      ? `${summary.locationLabel} · ${condition} ${rounded(summary.currentCelsius)}°`
+      ? `${summary.locationLabel} · ${condition}\u00a0${rounded(summary.currentCelsius)}°`
       : "",
     weatherDetail: summary
-      ? `${rounded(summary.minimumCelsius)}°–${rounded(summary.maximumCelsius)}° · 降水 ${String(Math.round(summary.precipitationChance * 100))}%`
+      ? `${rounded(summary.minimumCelsius)}°–${rounded(summary.maximumCelsius)}° · 降水\u00a0${String(Math.round(summary.precipitationChance * 100))}%`
       : "",
     attributionUrl: view.weather.attributionUrl ?? "",
     attributionVisible: Boolean(view.weather.attributionUrl),

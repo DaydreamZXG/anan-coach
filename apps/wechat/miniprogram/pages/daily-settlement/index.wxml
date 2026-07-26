@@ -1,7 +1,7 @@
-<view class="settlement-page">
+<view class="s9-screen">
   <workbench-nav id="runtime-workbench-nav" title="今日结算" back-behavior="emit" bind:back="exit" />
 
-  <view class="settlement-content">
+  <view class="s9-body s9-body--with-dock settlement-content">
     <state-view wx:if="{{status === 'loading'}}" state="loading" />
     <state-view
       wx:elif="{{status === 'error'}}"
@@ -14,9 +14,9 @@
     />
 
     <block wx:elif="{{settlement}}">
-      <view class="settlement-hero">
-        <view class="settlement-title">今天到这里，看看真正留下了什么</view>
-        <view class="settlement-copy">不比刷了多少，只看哪些变化值得带到明天。</view>
+      <view class="s9-hero">
+        <view class="s9-title">今天到这里，看看真正留下了什么</view>
+        <view class="s9-subtitle">不比刷了多少，只看哪些变化值得带到明天。</view>
       </view>
 
       <view class="settlement-metrics">
@@ -35,41 +35,40 @@
       </view>
       <view class="variance-label">{{varianceLabel}}</view>
 
-      <view class="settlement-section">
+      <view class="s9-section">
         <view class="section-heading">
           <view class="section-heading__mark">◎</view>
           <view>今天确认了什么</view>
         </view>
-        <view wx:if="{{hasSummary}}" class="settlement-card confirmation-card">
-          <view class="confirmation-line"></view>
+        <view wx:if="{{hasSummary}}" class="s9-card confirmation-card">
           <view class="settlement-summary">{{settlement.summary}}</view>
           <view class="evidence-note">
             完成 {{settlement.completedTaskCount}} 项 · 累计 {{settlement.elapsedMinutes}} 分钟 · 来自今天的真实记录
           </view>
         </view>
-        <view wx:else class="settlement-card empty-card">
-          <view class="empty-title">今天还没有形成可确认的变化</view>
-          <view class="empty-copy">当前没有结算总结。回到今日页完成任务后，再来查看真实记录。</view>
+        <view wx:else class="s9-card">
+          <view class="s9-card-title">今天还没有形成可确认的变化</view>
+          <view class="s9-card-copy">当前没有结算总结。回到今日页完成任务后，再来查看真实记录。</view>
         </view>
       </view>
 
-      <view wx:if="{{settlement.newRisks.length}}" class="settlement-section">
+      <view wx:if="{{settlement.newRisks.length}}" class="s9-section">
         <view class="section-heading section-heading--warning">
           <view class="section-heading__mark">!</view>
           <view>今天新发现的问题</view>
         </view>
-        <view class="settlement-card risk-card">
+        <view class="s9-card risk-card">
           <view wx:for="{{settlement.newRisks}}" wx:key="*this" class="risk-item">{{item}}</view>
         </view>
       </view>
 
-      <view class="settlement-section">
+      <view class="s9-section">
         <view class="section-heading">
           <view class="section-heading__mark">○</view>
           <view>没完成的这一项</view>
         </view>
-        <view wx:if="{{primaryOpenTask}}" class="settlement-card unfinished-card">
-          <view class="unfinished-title">{{primaryOpenTask.title}}</view>
+        <view wx:if="{{primaryOpenTask}}" class="s9-card">
+          <view class="s9-card-title">{{primaryOpenTask.title}}</view>
           <view class="unfinished-meta">
             {{primaryOpenTask.trackLabel}} · 计划 {{primaryOpenTask.plannedLabel}} ·
             {{primaryOpenTask.statusLabel}}
@@ -79,20 +78,20 @@
             另外还有 {{additionalOpenTaskCount}} 项未完成，可在今日页查看。
           </view>
         </view>
-        <view wx:else class="settlement-card empty-card">
-          <view class="empty-title">今天没有未完成的任务</view>
-          <view class="empty-copy">已安排任务都已闭环，可以直接结束今天。</view>
+        <view wx:else class="s9-card">
+          <view class="s9-card-title">今天没有未完成的任务</view>
+          <view class="s9-card-copy">已安排任务都已闭环，可以直接结束今天。</view>
         </view>
       </view>
 
-      <view class="settlement-section">
+      <view class="s9-section">
         <view class="section-heading">
           <view class="section-heading__mark">↗</view>
           <view>明天从哪里开始</view>
         </view>
-        <view class="tomorrow-card">
-          <view class="tomorrow-card__title">明天的第一项还没有生成</view>
-          <view class="tomorrow-card__copy">
+        <view class="s9-card tomorrow-card">
+          <view class="s9-card-title">明天的第一项还没有生成</view>
+          <view class="s9-card-copy">
             新的日计划形成后会显示在今日页；现在可以先查看本周安排。
           </view>
           <button hover-class="item--hover" class="tomorrow-card__action" bindtap="openWeeklyPlan">查看本周计划</button>
@@ -101,12 +100,10 @@
     </block>
   </view>
 
-  <view wx:if="{{settlement}}" class="settlement-dock">
-    <view class="settlement-dock__inner">
-      <button hover-class="item--hover" class="settlement-primary" bindtap="returnToday">确认结算，结束今天</button>
-      <button hover-class="item--hover" class="settlement-companion" bindtap="askAnan">
-        带着今天的结果问岸岸 <text>✦</text>
-      </button>
-    </view>
+  <view wx:if="{{settlement}}" class="s9-action-dock">
+    <button hover-class="item--hover" class="s9-primary-button settlement-primary tap-tactile" bindtap="returnToday">确认结算，结束今天</button>
+    <button hover-class="item--hover" class="settlement-companion" bindtap="askAnan">
+      带着今天的结果问岸岸 <text>✦</text>
+    </button>
   </view>
 </view>

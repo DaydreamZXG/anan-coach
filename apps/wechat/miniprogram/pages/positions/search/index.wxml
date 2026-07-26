@@ -1,4 +1,4 @@
-<view class="position-screen position-screen--dock">
+<view class="s9-screen position-screen position-screen--dock">
   <workbench-nav
     id="runtime-workbench-nav"
     title="全部可选岗位{{state && state.status === 'ready' ? ' (' + state.items.length + ')' : ''}}"

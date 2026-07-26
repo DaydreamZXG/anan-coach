@@ -27,7 +27,7 @@ page {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-family-ui);
-  font-size: var(--figma-font-body-large);
+  font-size: var(--text-section);
   line-height: 1.5;
 }
 
@@ -62,10 +62,10 @@ button::after {
 .page {
   min-height: 100vh;
   box-sizing: border-box;
+  background: var(--color-canvas);
   padding: 0 var(--figma-page-inset);
   padding-bottom: calc(
-    var(--figma-bottom-navigation-height) + var(--figma-space-10) +
-      env(safe-area-inset-bottom)
+    var(--figma-bottom-navigation-height) + var(--figma-space-10) + env(safe-area-inset-bottom)
   );
   display: flex;
   flex-direction: column;

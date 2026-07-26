@@ -1,4 +1,4 @@
-<view class="review-page">
+<view class="s9-screen review-page">
   <workbench-nav id="runtime-workbench-nav" title="AI 批改复盘" back-behavior="emit" bind:back="exit" />
 
   <state-view wx:if="{{status === 'loading'}}" state="loading" />

@@ -45,7 +45,7 @@
   grid-column: 2;
   overflow: hidden;
   color: var(--figma-color-ink);
-  font-size: 30rpx;
+  font-size: var(--text-section);
   font-weight: 700;
   text-align: center;
   text-overflow: ellipsis;

@@ -267,7 +267,7 @@
       <view class="no-hit-icon"><text class="search-glyph"></text></view>
       <view class="no-hit-title">未在题库中找到完全一致的题目</view>
       <view class="no-hit-copy">这可能是一道新题或小众考卷题。岸岸可以独立进行 AI 推理，但不会冒充题库标准答案。</view>
-      <button hover-class="item--hover" class="capture-cyan-button" loading="{{state.submitting}}" bindtap="requestAIAnswer">使用 AI 独立解题</button>
+      <button hover-class="item--hover" class="capture-ai-button" loading="{{state.submitting}}" bindtap="requestAIAnswer">使用 AI 独立解题</button>
       <button hover-class="item--hover" class="capture-secondary-button" bindtap="restart">重新拍摄</button>
     </view>
   </block>

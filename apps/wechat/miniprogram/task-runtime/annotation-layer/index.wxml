@@ -1,0 +1,52 @@
+<!--
+  Figma 70:2 · 题面直接批注 / 75:2 · 原题轨迹回放 共用的笔迹层。
+  mode:
+    - static   只显示已有笔迹，触摸完全穿透（题面可正常阅读与滚动）
+    - annotate 显示工具栏；滑动工具下触摸穿透，其余工具捕获触摸作画
+    - replay   按 replayMs 回放笔迹，触摸穿透
+-->
+<view wx:if="{{mode !== 'hidden'}}" class="annotation-layer annotation-layer--{{mode}}">
+  <canvas
+    type="2d"
+    id="annotation-canvas"
+    class="annotation-layer__canvas"
+    disable-scroll="{{mode === 'annotate' && tool !== 'pan'}}"
+  ></canvas>
+
+  <!-- 触摸捕获层：只有作画工具需要拦截触摸。 -->
+  <view
+    wx:if="{{mode === 'annotate' && tool !== 'pan'}}"
+    class="annotation-layer__capture"
+    catchtouchstart="onTouchStart"
+    catchtouchmove="onTouchMove"
+    catchtouchend="onTouchEnd"
+    catchtouchcancel="onTouchEnd"
+  ></view>
+
+  <!-- Figma 72:3：批注中 · 自动保存 -->
+  <view wx:if="{{mode === 'annotate'}}" class="annotation-layer__badge">
+    <view class="annotation-layer__badge-dot" aria-hidden="true"></view>
+    <text>批注中 · 自动保存</text>
+  </view>
+
+  <view wx:if="{{mode === 'annotate' && lassoSelectedCount > 0}}" class="annotation-layer__lasso-bar">
+    <text>已圈选 {{lassoSelectedCount}} 笔</text>
+    <button hover-class="item--hover" class="annotation-layer__lasso-delete" catchtap="deleteLassoSelection">删除所选</button>
+  </view>
+
+  <!-- Figma 72:18：批注工具栏，固定在底部。 -->
+  <view wx:if="{{mode === 'annotate'}}" class="annotation-layer__toolbar">
+    <button hover-class="item--hover"
+      wx:for="{{tools}}"
+      wx:key="value"
+      class="annotation-layer__tool {{tool === item.value ? 'annotation-layer__tool--active' : ''}}"
+      data-tool="{{item.value}}"
+      catchtap="selectTool"
+    >
+      <view class="annotation-layer__tool-glyph">{{item.glyph}}</view>
+      <view class="annotation-layer__tool-label">{{item.label}}</view>
+    </button>
+    <button hover-class="item--hover" class="annotation-layer__undo" aria-label="撤销上一笔" catchtap="undo">↩</button>
+    <button hover-class="item--hover" class="annotation-layer__done" catchtap="finish">完成</button>
+  </view>
+</view>

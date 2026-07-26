@@ -193,6 +193,13 @@ export function checkpointCommand(runtime: TaskRuntimeState): XingceCheckpointCo
       elapsedSeconds: answer.elapsedSeconds,
       draftText: answer.draftText,
       ...(answer.materialPosition ? { materialPosition: { ...answer.materialPosition } } : {}),
+      // Figma 70:2/75:2：批注与动作事实随检查点持久化。
+      ...(answer.annotations && answer.annotations.length > 0
+        ? { annotations: answer.annotations }
+        : {}),
+      ...(answer.actionEvents && answer.actionEvents.length > 0
+        ? { actionEvents: answer.actionEvents }
+        : {}),
     }));
   if (answers.length === 0) {
     throw new XingcePageContractError("至少明确作答或跳过一道题后才能保存进度。");
@@ -253,6 +260,28 @@ function toRuntimeAttempt(answer: XingceTaskSession["answers"][number]): Questio
     elapsedSeconds: answer.elapsedSeconds,
     draftText: answer.draftText,
     ...(answer.materialPosition ? { materialPosition: { ...answer.materialPosition } } : {}),
+    // 恢复会话时把已持久化的批注与动作事实带回运行时。
+    ...(answer.annotations && answer.annotations.length > 0
+      ? {
+          annotations: answer.annotations.map((stroke) => ({
+            strokeId: stroke.strokeId,
+            tool: stroke.tool,
+            width: stroke.width,
+            points: stroke.points.map((point) => ({ x: point.x, y: point.y })),
+            atMs: stroke.atMs,
+          })),
+        }
+      : {}),
+    ...(answer.actionEvents && answer.actionEvents.length > 0
+      ? {
+          actionEvents: answer.actionEvents.map((entry) => ({
+            atMs: entry.atMs,
+            type: entry.type,
+            ...(entry.optionId ? { optionId: entry.optionId } : {}),
+            ...(entry.detail ? { detail: entry.detail } : {}),
+          })),
+        }
+      : {}),
   };
 }
 

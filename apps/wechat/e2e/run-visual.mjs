@@ -145,6 +145,17 @@ const runtimeFailures = [];
 const runtimeWarnings = [];
 const captureRecords = [];
 miniProgram.on("exception", (event) => runtimeFailures.push(String(event?.message ?? event)));
+// 协议层若下发 "error" 事件，EventEmitter 无监听会直接抛出并击杀进程
+// （表现为 Uncaught [object Object]）。这里吸收并记录，让失败落到具体场景上。
+miniProgram.on("error", (event) => {
+  runtimeFailures.push(`automation error event: ${JSON.stringify(event ?? null)}`);
+});
+process.on("uncaughtException", (error) => {
+  // 连接层的漏网异常：不炸整轮，但必须计为失败——绝不允许假绿。
+  runtimeFailures.push(`uncaught: ${String(error)}`);
+  process.exitCode = 1;
+  console.error(`[harness] uncaught exception (recorded as failure): ${String(error)}`);
+});
 if (runtimeOnly || captureOnly) {
   miniProgram.on("console", (event) => {
     const message = consoleEventText(event);
@@ -168,11 +179,22 @@ await miniProgram.mockWxMethod("request", {
 try {
   for (const scenario of selectedScenarios) {
     process.stdout.write(`[audit] ${scenario.id} ... `);
-    await withTimeout(
-      captureScenario(miniProgram, scenario),
-      45_000,
-      `${scenario.id} did not settle within 45 seconds`,
-    );
+    // 单场景允许重试一次：偶发的连接抖动不再让整轮陪葬；
+    // 连续两次失败视为真问题，中止并保留现场。
+    try {
+      await withTimeout(
+        captureScenario(miniProgram, scenario),
+        45_000,
+        `${scenario.id} did not settle within 45 seconds`,
+      );
+    } catch (firstError) {
+      process.stdout.write(`retry (${String(firstError?.message ?? firstError)}) ... `);
+      await withTimeout(
+        captureScenario(miniProgram, scenario),
+        45_000,
+        `${scenario.id} did not settle within 45 seconds on retry`,
+      );
+    }
     process.stdout.write("ok\n");
   }
   if (captureOnly) {

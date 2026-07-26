@@ -1,8 +1,5 @@
 .review-page {
-  box-sizing: border-box;
-  min-height: 100vh;
-  background: var(--color-canvas);
-  color: var(--color-ink);
+  position: relative;
 }
 
 .review-rewrite::after,
@@ -28,14 +25,14 @@
 
 .review-score-card__label {
   color: var(--color-faint);
-  font-size: var(--figma-font-caption);
+  font-size: var(--text-caption);
 }
 
 .review-score {
   margin-top: var(--figma-space-12);
   color: var(--color-ink);
   font-family: var(--font-family-data);
-  font-size: var(--figma-font-title-xlarge);
+  font-size: var(--text-stat);
   font-weight: 800;
   letter-spacing: -2rpx;
 }
@@ -43,13 +40,13 @@
 .review-score__maximum {
   margin-left: var(--figma-space-4);
   color: var(--color-faint);
-  font-size: var(--figma-font-body);
+  font-size: var(--text-body-lg);
   letter-spacing: 0;
 }
 
 .review-score--unavailable {
   font-family: var(--font-family-ui);
-  font-size: var(--figma-font-title);
+  font-size: var(--text-title);
   letter-spacing: 0;
 }
 
@@ -59,8 +56,8 @@
   padding: var(--figma-space-6) var(--figma-space-12);
   border-radius: var(--figma-radius-pill);
   background: var(--color-primary-soft);
-  color: var(--color-primary-deep);
-  font-size: var(--figma-font-caption);
+  color: var(--color-muted);
+  font-size: var(--text-caption);
   font-weight: 700;
 }
 
@@ -68,7 +65,7 @@
 .review-confidence-reason,
 .review-disclaimer {
   color: var(--color-faint);
-  font-size: var(--figma-font-micro);
+  font-size: var(--text-micro);
   line-height: 1.6;
 }
 
@@ -90,8 +87,8 @@
 
 .review-section__title {
   padding-left: var(--figma-space-4);
-  font-size: var(--figma-font-body-large);
-  font-weight: 760;
+  font-size: var(--text-section);
+  font-weight: 700;
 }
 
 .dimension-card,
@@ -121,7 +118,7 @@
 
 .dimension-row__label {
   color: var(--color-ink-secondary);
-  font-size: var(--figma-font-caption);
+  font-size: var(--text-caption);
   font-weight: 700;
 }
 
@@ -141,7 +138,7 @@
 .dimension-row__score {
   color: var(--color-ink);
   font-family: var(--font-family-data);
-  font-size: var(--figma-font-micro);
+  font-size: var(--text-micro);
   font-weight: 700;
   white-space: nowrap;
 }
@@ -149,7 +146,7 @@
 .dimension-row__reason {
   grid-column: 1 / -1;
   color: var(--color-muted);
-  font-size: var(--figma-font-micro);
+  font-size: var(--text-micro);
   line-height: 1.6;
 }
 
@@ -165,8 +162,8 @@
   border-radius: var(--figma-radius-pill);
   background: var(--color-surface);
   color: var(--color-muted);
-  font-size: var(--figma-font-caption);
-  font-weight: 650;
+  font-size: var(--text-caption);
+  font-weight: 600;
 }
 
 .evidence-chip--covered {
@@ -204,7 +201,7 @@
 
 .finding-card__order,
 .finding-card__severity {
-  font-size: var(--figma-font-caption);
+  font-size: var(--text-caption);
   font-weight: 700;
 }
 
@@ -227,7 +224,7 @@
 
 .finding-card__diagnosis {
   margin-top: var(--figma-space-12);
-  font-size: var(--figma-font-body);
+  font-size: var(--text-body-lg);
   font-weight: 700;
   line-height: 1.6;
 }
@@ -235,7 +232,7 @@
 .finding-card__action {
   margin-top: var(--figma-space-12);
   color: var(--color-ink-secondary);
-  font-size: var(--figma-font-body-compact);
+  font-size: var(--text-body);
   line-height: 1.65;
 }
 
@@ -251,7 +248,7 @@
   border-radius: var(--figma-radius-xsmall);
   background: var(--color-surface-soft);
   color: var(--color-muted);
-  font-size: var(--figma-font-caption);
+  font-size: var(--text-caption);
   line-height: 1.65;
 }
 
@@ -277,7 +274,7 @@
 
 .expression-item__label {
   color: var(--color-faint);
-  font-size: var(--figma-font-micro);
+  font-size: var(--text-micro);
   font-weight: 700;
 }
 
@@ -285,7 +282,7 @@
 .expression-item__action {
   margin-top: var(--figma-space-6);
   color: var(--color-ink-secondary);
-  font-size: var(--figma-font-body-compact);
+  font-size: var(--text-body);
   line-height: 1.65;
 }
 
@@ -298,14 +295,14 @@
 }
 
 .review-empty__title {
-  font-size: var(--figma-font-body);
-  font-weight: 720;
+  font-size: var(--text-body-lg);
+  font-weight: 700;
 }
 
 .review-empty__copy {
   margin-top: var(--figma-space-8);
   color: var(--color-muted);
-  font-size: var(--figma-font-body-compact);
+  font-size: var(--text-body);
   line-height: 1.65;
 }
 
@@ -335,8 +332,8 @@
   margin: 0;
   border: 0;
   border-radius: var(--figma-radius-card);
-  font-size: var(--figma-font-body-compact);
-  font-weight: 720;
+  font-size: var(--text-body);
+  font-weight: 700;
   line-height: 88rpx;
 }
 
@@ -359,7 +356,7 @@ button.review-anan {
 
 @media (min-width: 768px) {
   .review-score {
-    font-size: var(--figma-font-display-compact);
+    font-size: var(--text-display);
   }
 
   .dimension-row {

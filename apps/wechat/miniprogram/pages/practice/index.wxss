@@ -1,52 +1,52 @@
 .page-state {
-  padding: 32rpx 0;
+  padding: 32rpx var(--space-page-x);
 }
 .capability-state {
-  margin-top: 28rpx;
-  padding: 40rpx 34rpx;
+  margin: 28rpx var(--space-page-x) 0;
+  padding: 40rpx 32rpx;
 }
 .capability-mark,
 .material-eyebrow,
 .result-eyebrow,
 .gate-mark,
 .completion-mark {
-  color: var(--color-primary);
-  font-size: 20rpx;
-  font-weight: 760;
+  color: var(--color-muted);
+  font-size: var(--text-micro);
+  font-weight: 700;
   letter-spacing: 2rpx;
 }
 .capability-title {
-  margin-top: 14rpx;
-  font-size: 34rpx;
-  font-weight: 820;
+  margin-top: 16rpx;
+  font-size: var(--text-title-sm);
+  font-weight: 800;
   line-height: 1.4;
 }
 .capability-copy {
   margin-top: 16rpx;
   color: var(--color-muted);
-  font-size: 24rpx;
+  font-size: var(--text-caption);
   line-height: 1.7;
 }
 .capability-action {
   margin-top: 28rpx;
 }
 .inline-warning {
-  margin-bottom: 18rpx;
-  padding: 18rpx 20rpx;
-  border-radius: 18rpx;
+  margin: 0 var(--space-page-x) 18rpx;
+  padding: 20rpx 20rpx;
+  border-radius: var(--radius-16);
   background: var(--color-warning-soft);
   color: var(--color-warning);
-  font-size: 22rpx;
+  font-size: var(--text-micro);
   line-height: 1.55;
 }
 .math-ink-entry {
   width: 100%;
   margin: 16rpx 0 0;
   border: 1rpx solid var(--color-primary-a24);
-  border-radius: 18rpx;
-  color: var(--color-primary);
+  border-radius: var(--radius-16);
+  color: var(--color-muted);
   background: var(--color-primary-a08);
-  font-size: 23rpx;
+  font-size: var(--text-caption);
 }
 .math-ink-entry::after {
   border: 0;
@@ -55,9 +55,9 @@
   margin-top: 16rpx;
 }
 .math-ink-tip {
-  margin-bottom: 14rpx;
+  margin-bottom: 16rpx;
   color: var(--color-muted);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
   line-height: 1.55;
 }
 .math-ink-review {
@@ -67,49 +67,148 @@
   box-sizing: border-box;
   width: 100%;
   min-height: 112rpx;
-  margin: 10rpx 0 14rpx;
+  margin: 12rpx 0 16rpx;
   padding: 16rpx;
   border: 1rpx solid var(--color-line-strong);
-  border-radius: 16rpx;
+  border-radius: var(--radius-16);
   background: var(--color-surface);
   font-family: var(--font-family-data);
-  font-size: 23rpx;
+  font-size: var(--text-caption);
 }
 .pending-checkpoint {
-  margin-bottom: 18rpx;
+  margin: 0 var(--space-page-x) 18rpx;
   padding: 24rpx;
   border: 1rpx solid rgba(185, 141, 47, 0.16);
   background: var(--color-warning-soft);
 }
 .pending-checkpoint-title {
   color: var(--color-warning);
-  font-size: 24rpx;
-  font-weight: 780;
+  font-size: var(--text-caption);
+  font-weight: 800;
 }
 .pending-checkpoint-copy {
-  margin: 9rpx 0 18rpx;
+  margin: 8rpx 0 20rpx;
   color: var(--color-ink-secondary);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
   line-height: 1.6;
 }
 .pending-checkpoint .secondary-button {
   width: 100%;
 }
-.material-reader-shell {
-  display: block;
-  margin-bottom: 28rpx;
+
+/* Figma 2:76 材料标题行：题型胶囊 + 收藏 / 岸岸 / 收起。 */
+.practice-material-head {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  min-height: 56rpx;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+  padding: 0 40rpx;
 }
+
+/* Figma 2:77 */
+.practice-material-chip {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  overflow: hidden;
+  padding: 8rpx 20rpx;
+  border-radius: var(--radius-64);
+  color: var(--color-ink-secondary);
+  background: var(--color-surface-soft);
+  font-size: var(--text-micro);
+  font-weight: 700;
+  line-height: 33rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.practice-material-actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.practice-material-action {
+  box-sizing: border-box;
+  display: flex;
+  width: 56rpx;
+  min-width: 56rpx;
+  height: 56rpx;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.practice-material-action::after {
+  border: 0;
+}
+
+/* Figma 94:5 岸岸圆钮：AI 渐变 + 紫色投影。 */
+.practice-material-action--anan {
+  width: 56rpx;
+  min-width: 56rpx;
+  height: 56rpx;
+  background: var(--figma-gradient-ai);
+  box-shadow: var(--shadow-ai);
+}
+
+/* Figma 2:80 收起按钮 */
+.practice-material-action--collapse {
+  background: var(--figma-color-surface-subtle);
+}
+
+.practice-material-icon {
+  display: block;
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.practice-material-icon--anan {
+  width: 26rpx;
+  height: 26rpx;
+}
+
+.practice-material-icon--collapse {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+/* 未标记时收藏图标降权，保留同一枚 Figma 资产。 */
+.practice-material-action--mark .practice-material-icon--bookmark {
+  opacity: 0.28;
+}
+
+.practice-material-action--marked .practice-material-icon--bookmark {
+  opacity: 1;
+}
+
 .question-rich-content,
 .option-rich-content {
   display: block;
   min-width: 0;
 }
+.option-rich-content {
+  /* 选项两行时均衡断行，消除「地。」式孤行（不支持的内核自动回退）。 */
+  --content-text-wrap: balance;
+}
 .material-panel {
-  margin-bottom: 22rpx;
+  margin-bottom: 24rpx;
   padding: 28rpx;
   border: 1rpx solid var(--color-primary-a16);
-  border-radius: 28rpx;
-  background: linear-gradient(155deg, var(--figma-color-warning-soft), var(--figma-color-warning-soft));
+  border-radius: var(--radius-32);
+  background: linear-gradient(
+    155deg,
+    var(--figma-color-warning-soft),
+    var(--figma-color-warning-soft)
+  );
 }
 .material-head,
 .result-card-head {
@@ -120,14 +219,14 @@
 }
 .material-title {
   margin-top: 8rpx;
-  font-size: 29rpx;
+  font-size: var(--text-body-lg);
   font-weight: 800;
 }
 .material-text {
   margin-top: 24rpx;
   color: var(--color-ink-secondary);
   font-family: var(--font-family-reading);
-  font-size: 27rpx;
+  font-size: var(--text-body-lg);
   line-height: 1.9;
   text-align: justify;
   white-space: pre-wrap;
@@ -144,137 +243,227 @@
 .skip-button::after {
   border: 0;
 }
+/*
+ * Figma 2:2 的正文由「材料区(2:74)」与「题目区(2:132)」两段组成，
+ * 各自滚动；固定底栏由 task-shell 承担，不参与滚动。
+ */
+.practice-workspace {
+  position: relative;
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+/* Figma 2:74：标题行与滚动材料同处一张白卡，卡片整体带极浅投影。 */
+.material-reader-shell {
+  display: block;
+  flex: none;
+  margin-bottom: 0;
+  padding-top: 40rpx;
+  background: var(--figma-color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+/*
+ * Figma 2:132。scroll-view 自身只负责高度，内距交给内层 body：
+ * 直接给 scroll-view 加 padding 会让小程序的滚动容器算错内容高度。
+ */
+.practice-question-pane {
+  box-sizing: border-box;
+  height: 100%;
+  min-height: 0;
+  flex: 1;
+}
+
+.practice-question-body {
+  box-sizing: border-box;
+  padding: 48rpx 40rpx 224rpx;
+}
+
 .question-hero {
   position: relative;
-  padding: 12rpx 4rpx 10rpx;
+  padding: 0;
+  color: var(--figma-color-ink);
   background: transparent;
-  color: var(--color-ink);
 }
+
 .question-hero::after {
   display: none;
 }
-.question-meta-row {
+
+/* Figma 2:133 */
+.question-heading {
   position: relative;
   z-index: 1;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16rpx;
 }
-.module-pill {
-  padding: 8rpx 14rpx;
-  border: 1rpx solid var(--color-primary-a16);
-  border-radius: var(--figma-radius-pill);
-  background: var(--color-primary-soft);
-  color: var(--color-primary-deep);
-  font-size: 20rpx;
-  font-weight: 730;
-}
-.position-label {
-  color: var(--color-primary);
+
+/* Figma 2:134 */
+.question-number {
+  flex: none;
+  padding-top: 4rpx;
+  color: var(--figma-color-ink);
   font-family: var(--font-family-data);
-  font-size: 20rpx;
+  font-size: var(--text-section);
+  font-weight: 700;
+  line-height: 44.8rpx;
+  letter-spacing: -0.32rpx;
 }
+
+/* Figma 2:138 */
 .question-stem {
   position: relative;
   z-index: 1;
-  margin-top: 22rpx;
+  flex: 1;
+  min-width: 0;
+  margin-top: 0;
+  color: var(--figma-color-ink);
   font-family: var(--font-family-reading);
-  font-size: 30rpx;
-  font-weight: 680;
-  line-height: 1.75;
+  font-size: var(--text-section);
+  font-weight: 700;
+  line-height: 52rpx;
+  letter-spacing: -0.32rpx;
 }
+
+/* Figma 2:141 */
 .option-list {
   display: grid;
-  gap: 16rpx;
-  margin-top: 22rpx;
+  gap: 24rpx;
+  margin-top: 0;
+  padding: 48rpx 0 0;
 }
+
 .option-list--locked {
   pointer-events: none;
   opacity: 0.72;
 }
+
+/* Figma 2:142：选项卡 + 48px 排除键，二者同高。 */
+.option-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 96rpx;
+  align-items: stretch;
+  gap: 16rpx;
+}
+
+/* Figma 2:157 */
 .option-card {
   display: grid;
-  grid-template-columns: 52rpx minmax(0, 1fr) 88rpx;
-  align-items: center;
-  gap: 12rpx;
-  min-height: 104rpx;
-  padding: 14rpx 12rpx 14rpx 18rpx;
-  border: 1rpx solid var(--color-line);
-  border-radius: 26rpx;
-  background: var(--color-surface);
-  box-shadow: 0 4rpx 20rpx rgba(17, 24, 39, 0.025);
+  grid-template-columns: 48rpx minmax(0, 1fr);
+  align-items: start;
+  gap: 24rpx;
+  min-height: 0;
+  padding: 32rpx;
+  border: 1rpx solid var(--figma-color-line);
+  border-radius: var(--radius-40);
+  background: var(--figma-color-surface);
+  box-shadow: var(--shadow-crisp);
 }
+
 .option-card--selected {
-  border-color: var(--figma-color-primary-soft-strong);
-  background: rgba(238, 242, 255, 0.72);
-  box-shadow: 0 4rpx 18rpx rgba(79, 70, 229, 0.06);
+  border-color: var(--color-primary-soft-strong);
+  background: var(--color-primary-soft-a64);
+  box-shadow: var(--shadow-crisp);
 }
+
+/* Figma 2:143：排除态整行降到 40% 并换成 line-strong 描边。 */
 .option-card--eliminated {
-  opacity: 0.42;
-  filter: grayscale(1);
+  border-color: var(--figma-color-line-strong);
+  background: transparent;
+  box-shadow: none;
+  opacity: 0.4;
 }
+
+/* Figma 2:159 */
 .option-label {
   display: flex;
+  width: 48rpx;
+  height: 48rpx;
   align-items: center;
   justify-content: center;
-  width: 54rpx;
-  height: 54rpx;
   border-radius: 50%;
-  background: var(--color-surface-soft);
-  color: var(--color-ink-secondary);
+  color: var(--figma-color-muted);
+  background: var(--figma-color-line);
   font-family: var(--font-family-data);
-  font-size: 23rpx;
-  font-weight: 800;
+  font-size: var(--text-body);
+  font-weight: 700;
+  line-height: 39rpx;
 }
+
 .option-card--selected .option-label {
-  background: var(--color-primary);
   color: var(--color-on-primary);
+  background: var(--color-primary);
 }
+
+.option-card--eliminated .option-label {
+  color: var(--figma-color-faint);
+  background: var(--figma-color-line-strong);
+}
+
+/* Figma 2:163 */
 .option-copy {
-  color: var(--color-ink-secondary);
-  font-size: 26rpx;
-  line-height: 1.65;
+  padding-top: 4rpx;
+  color: var(--color-ink);
+  font-size: var(--text-section);
+  font-weight: 500;
+  line-height: 48.75rpx;
 }
+
 .option-card--eliminated .option-copy {
+  color: var(--figma-color-muted);
+  font-weight: 400;
   text-decoration: line-through;
 }
+
+/* Figma 2:166：排除键与选项卡等高，圆角一致。 */
 .eliminate-action {
   display: flex;
-  width: 88rpx;
-  min-width: 88rpx;
-  height: 88rpx;
+  width: 96rpx;
+  min-width: 96rpx;
+  height: auto;
   align-items: center;
   justify-content: center;
   padding: 0;
-  border-radius: 28rpx;
-  background: var(--color-surface-soft);
-  color: var(--color-faint);
-  font-size: 34rpx;
-  line-height: 1;
+  border: 1rpx solid var(--figma-color-line);
+  border-radius: var(--radius-40);
+  background: var(--figma-color-surface);
+  box-shadow: var(--shadow-crisp);
 }
+
+/* Figma 2:152：已排除时换成实心 line-strong，无描边无投影。 */
 .eliminate-action--active {
-  background: var(--color-line-strong);
-  color: var(--color-ink-secondary);
+  border-color: transparent;
+  background: var(--figma-color-line-strong);
+  box-shadow: none;
+}
+
+.eliminate-action__icon {
+  display: block;
+  width: 36rpx;
+  height: 36rpx;
 }
 .thinking-card {
   margin-top: 24rpx;
   padding: 28rpx;
 }
 .thinking-title {
-  font-size: 27rpx;
-  font-weight: 780;
+  font-size: var(--text-body-lg);
+  font-weight: 800;
 }
 .thinking-copy {
-  margin-top: 6rpx;
+  margin-top: 8rpx;
   color: var(--color-muted);
-  font-size: 20rpx;
+  font-size: var(--text-micro);
 }
 .mark-action {
-  padding: 0 14rpx;
-  border-radius: 999rpx;
+  padding: 0 16rpx;
+  border-radius: var(--radius-capsule);
   background: var(--color-surface-soft);
   color: var(--color-muted);
-  font-size: 20rpx;
+  font-size: var(--text-micro);
   line-height: 54rpx;
 }
 .mark-action--active {
@@ -285,61 +474,61 @@
   box-sizing: border-box;
   width: 100%;
   min-height: 126rpx;
-  margin-top: 22rpx;
+  margin-top: 24rpx;
   padding: 20rpx;
   border: 1rpx solid var(--color-line);
-  border-radius: 18rpx;
+  border-radius: var(--radius-16);
   background: var(--color-canvas);
-  font-size: 24rpx;
+  font-size: var(--text-caption);
   line-height: 1.65;
 }
 .confidence-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10rpx;
+  gap: 12rpx;
   margin-top: 20rpx;
 }
 .confidence-card {
-  margin-top: 26rpx;
+  margin: 28rpx 40rpx 0;
   padding: 24rpx;
   border: 1rpx solid var(--color-line);
-  border-radius: 28rpx;
+  border-radius: var(--radius-32);
   background: var(--color-surface);
-  box-shadow: 0 6rpx 24rpx rgba(17, 24, 39, 0.03);
+  box-shadow: var(--shadow-card);
 }
 .confidence-prompt {
   color: var(--color-faint);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
   font-weight: 700;
   text-align: center;
 }
 .confidence-row--question {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  margin-top: 18rpx;
+  margin-top: 20rpx;
 }
 .confidence-label {
   margin-right: 4rpx;
   color: var(--color-muted);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
 }
 .confidence-chip {
   min-height: 54rpx;
   margin: 0;
-  padding: 0 18rpx;
+  padding: 0 20rpx;
   border: 1rpx solid var(--color-line);
   border-radius: var(--figma-radius-pill);
   background: var(--color-surface);
   color: var(--color-muted);
-  font-size: 20rpx;
+  font-size: var(--text-micro);
   line-height: 52rpx;
 }
 .confidence-chip--active {
   border-color: var(--color-primary-a24);
   background: var(--color-primary-soft);
   color: var(--color-primary);
-  font-weight: 720;
+  font-weight: 700;
 }
 .confidence-chip--question {
   width: 100%;
@@ -357,20 +546,20 @@
 .question-actions {
   display: flex;
   justify-content: center;
-  margin-top: 24rpx;
+  margin: 24rpx 40rpx 0;
 }
 .question-action {
   width: auto;
-  padding: 0 10rpx;
-  font-size: 21rpx;
+  padding: 0 12rpx;
+  font-size: var(--text-micro);
 }
 .skip-button {
   min-height: 66rpx;
   padding: 0 24rpx;
-  border-radius: 18rpx;
+  border-radius: var(--radius-16);
   background: transparent;
   color: var(--color-muted);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
   line-height: 66rpx;
 }
 .draft-input--sheet {
@@ -382,6 +571,7 @@
   margin-top: 24rpx;
 }
 
+/* Figma 82:155：遮罩降权但保留背景题目。 */
 .pause-mask {
   position: fixed;
   z-index: var(--z-blocker);
@@ -389,139 +579,455 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 64rpx;
-  background: var(--color-mask);
+  background: rgb(16 24 40 / 34%);
 }
 
+/* Figma 82:156：330×338 卡片位于屏幕视觉中心。 */
 .pause-card {
   box-sizing: border-box;
-  width: 100%;
-  padding: 42rpx 40rpx 32rpx;
-  border: 1rpx solid var(--color-line);
-  border-radius: 44rpx;
-  background: var(--color-surface);
-  box-shadow: 0 32rpx 90rpx rgba(17, 24, 39, 0.18);
+  display: flex;
+  width: 660rpx;
+  min-height: 676rpx;
+  flex-direction: column;
+  align-items: center;
+  padding: 56rpx 56rpx 40rpx;
+  border: 1rpx solid var(--figma-color-line);
+  border-radius: var(--radius-64);
+  background: var(--figma-color-surface);
+  box-shadow: var(--shadow-elevated);
   text-align: center;
 }
 
-.pause-play {
-  position: relative;
-  width: 96rpx;
-  height: 96rpx;
-  margin: 0 auto 22rpx;
-  border-radius: 999rpx;
+/* Figma 82:157：68px 圆 + 两根 7×26 暂停竖条。 */
+.pause-icon {
+  display: flex;
+  width: 136rpx;
+  height: 136rpx;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  border-radius: 50%;
   background: var(--color-primary-soft);
 }
 
-.pause-play::after {
-  position: absolute;
-  top: 28rpx;
-  left: 39rpx;
-  width: 0;
-  height: 0;
-  border-top: 20rpx solid transparent;
-  border-bottom: 20rpx solid transparent;
-  border-left: 30rpx solid var(--color-primary);
-  content: "";
+.pause-icon__bar {
+  width: 14rpx;
+  height: 52rpx;
+  border-radius: var(--radius-8);
+  background: var(--color-primary-deep);
 }
 
+/* Figma 82:160 */
 .pause-title {
-  color: var(--color-ink);
-  font-size: 34rpx;
-  font-weight: 800;
+  margin-top: 32rpx;
+  color: var(--figma-color-ink);
+  font-size: var(--text-title-lg);
+  font-weight: 700;
+  line-height: 60rpx;
 }
 
+/* Figma 82:161 */
 .pause-time {
-  margin-top: 8rpx;
-  color: var(--color-primary);
-  font-size: 52rpx;
-  font-weight: 800;
+  margin-top: 20rpx;
+  color: var(--color-muted);
+  font-size: var(--text-title);
+  font-weight: 600;
+  line-height: 56rpx;
 }
 
+/* Figma 82:162 */
 .pause-copy {
-  margin: 18rpx 0 28rpx;
-  color: var(--color-muted);
-  font-size: 22rpx;
-  line-height: 1.7;
+  margin-top: 24rpx;
+  color: var(--figma-color-muted);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  line-height: 40rpx;
+  white-space: pre-line;
 }
 
-.pause-card .primary-button {
+/*
+ * app.wxss 的 button:not([size="mini"]) 以 (0,1,1) 特异度收走 width，
+ * 与 reflection 页一致：用 button.class 拿回按钮几何。
+ */
+button.pause-resume {
+  width: 540rpx;
+}
+
+button.answer-card__cta,
+button.footer-previous,
+button.submit-button {
   width: 100%;
 }
 
-.pause-exit {
-  width: 100%;
-  min-height: 72rpx;
-  margin: 12rpx 0 0;
+/* Figma 82:163：270×50 主按钮。 */
+.pause-resume {
+  box-sizing: border-box;
+  display: flex;
+  width: 540rpx;
+  height: 100rpx;
+  align-items: center;
+  justify-content: center;
+  margin: 32rpx 0 0;
+  padding: 0;
   border: 0;
-  color: var(--color-muted);
-  background: var(--color-surface-soft);
-  font-size: 22rpx;
-  line-height: 72rpx;
+  border-radius: var(--radius-40);
+  color: var(--figma-color-on-dark);
+  background: var(--figma-color-ink);
+  font-size: var(--text-body-lg);
+  font-weight: 700;
 }
 
+/* Figma 82:165：次操作是文字链接，层级不可与主按钮颠倒。 */
+.pause-exit {
+  width: auto;
+  min-height: 0;
+  margin: 24rpx 0 0;
+  padding: 8rpx 16rpx;
+  border: 0;
+  color: var(--figma-color-muted);
+  background: transparent;
+  font-size: var(--text-micro);
+  font-weight: 600;
+  line-height: 30rpx;
+}
+
+.pause-resume::after,
 .pause-exit::after {
   border: 0;
 }
-.sheet-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16rpx;
-  margin-top: 28rpx;
+/* Figma 60:3-61:41 答题卡。数值为 Figma px×2 的 rpx。 */
+.answer-card {
+  position: fixed;
+  z-index: var(--z-overlay);
+  inset: 0;
 }
-.sheet-item {
-  width: 100%;
-  min-height: 72rpx;
+
+.answer-card__mask {
+  position: absolute;
+  inset: 0;
+  background: rgb(16 24 40 / 30%);
+}
+
+.answer-card__sheet {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  padding: 16rpx 40rpx calc(40rpx + env(safe-area-inset-bottom));
+  border-radius: var(--radius-48) var(--radius-48) 0 0;
+  background: var(--figma-color-surface);
+}
+
+.answer-card__handle-row {
+  display: flex;
+  height: 24rpx;
+  align-items: center;
+  justify-content: center;
+}
+
+.answer-card__handle {
+  width: 84rpx;
+  height: 8rpx;
+  border-radius: var(--radius-capsule);
+  background: var(--figma-color-line-emphasis);
+}
+
+.answer-card__header {
+  display: flex;
+  height: 96rpx;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.answer-card__title {
+  color: var(--figma-color-ink);
+  font-size: var(--text-title-sm);
+  font-weight: 700;
+  line-height: 50rpx;
+}
+
+.answer-card__subtitle {
+  margin-top: 2rpx;
+  color: var(--figma-color-muted);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  line-height: 30rpx;
+}
+
+.answer-card__close {
+  box-sizing: border-box;
+  display: flex;
+  width: 68rpx;
+  min-width: 68rpx;
+  height: 68rpx;
+  align-items: center;
+  justify-content: center;
   margin: 0;
   padding: 0;
-  border: 1rpx solid var(--color-line);
-  border-radius: 18rpx;
-  background: var(--color-surface);
-  color: var(--color-muted);
+  border: 0;
+  border-radius: var(--radius-32);
+  color: var(--color-ink-secondary);
+  background: var(--figma-color-canvas);
+  font-size: var(--text-title);
+  line-height: 1;
+}
+
+.answer-card__close::after,
+.answer-card__question::after,
+.answer-card__cta::after {
+  border: 0;
+}
+
+/* Figma 61:2 图例 */
+.answer-card__legend {
+  box-sizing: border-box;
+  display: flex;
+  height: 100rpx;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16rpx 24rpx;
+  border-radius: var(--radius-32);
+  background: var(--figma-color-canvas);
+}
+
+.answer-card__legend-item {
+  display: flex;
+  width: 144rpx;
+  align-items: center;
+  gap: 12rpx;
+  color: var(--color-ink-secondary);
+  font-size: var(--text-micro);
+  font-weight: 600;
+}
+
+.answer-card__legend-dot {
+  box-sizing: border-box;
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: 50%;
+}
+
+.answer-card__legend-dot--answered,
+.answer-card__legend-dot--current {
+  background: var(--color-primary-deep);
+}
+
+.answer-card__legend-dot--unanswered {
+  border: 2rpx solid var(--figma-color-line-emphasis);
+  background: var(--figma-color-surface);
+}
+
+.answer-card__legend-dot--marked {
+  background: var(--figma-color-warning);
+}
+
+/* Figma 61:15 题号区 */
+.answer-card__section {
+  display: flex;
+  flex-direction: column;
+  gap: 28rpx;
+  padding: 12rpx 0 8rpx;
+}
+
+.answer-card__module-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.answer-card__module-name {
+  color: var(--figma-color-ink);
+  font-size: var(--text-body-lg);
+  font-weight: 700;
+}
+
+.answer-card__module-counts {
+  color: var(--figma-color-muted);
+  font-size: var(--text-micro);
+  font-weight: 500;
+}
+
+.answer-card__grid {
+  display: grid;
+  max-height: 40vh;
+  grid-template-columns: repeat(auto-fill, 88rpx);
+  justify-content: space-between;
+  gap: 28rpx 16rpx;
+  overflow-y: auto;
+}
+
+.answer-card__cell {
+  position: relative;
+  width: 88rpx;
+  height: 88rpx;
+}
+
+/* Figma 61:20/24/26/30：四种圆形题号状态。 */
+.answer-card__question {
+  box-sizing: border-box;
+  display: flex;
+  width: 88rpx;
+  height: 88rpx;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
   font-family: var(--font-family-data);
-  font-size: 22rpx;
-  line-height: 70rpx;
+  font-size: var(--text-body);
+  font-weight: 700;
+  line-height: 1;
 }
-.sheet-item--answered {
-  border-color: transparent;
+
+.answer-card__question--answered {
+  color: var(--color-muted);
   background: var(--color-primary-soft);
-  color: var(--color-primary);
 }
-.sheet-item--skipped {
-  border-color: transparent;
-  background: var(--color-warning-soft);
-  color: var(--color-warning);
+
+.answer-card__question--current {
+  color: var(--figma-color-on-dark);
+  background: var(--color-primary-deep);
 }
-.sheet-item--active {
-  box-shadow: 0 0 0 3rpx var(--color-primary);
+
+.answer-card__question--unanswered,
+.answer-card__question--skipped {
+  border: 3rpx solid var(--figma-color-line-emphasis);
+  color: var(--figma-color-muted);
+  background: var(--figma-color-surface);
+}
+
+.answer-card__question--marked {
+  border: 3rpx solid var(--figma-color-warning);
+  color: var(--figma-color-ink);
+  background: var(--figma-color-surface);
+}
+
+.answer-card__marked-badge {
+  position: absolute;
+  top: -7rpx;
+  right: 0;
+  box-sizing: border-box;
+  display: flex;
+  width: 28rpx;
+  height: 28rpx;
+  align-items: center;
+  justify-content: center;
+  border: 4rpx solid var(--figma-color-surface);
+  border-radius: var(--radius-12);
+  color: var(--figma-color-on-dark);
+  background: var(--figma-color-warning);
+  font-size: var(--text-micro);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.answer-card__hint {
+  color: var(--figma-color-muted);
+  font-size: var(--text-micro);
+  font-weight: 500;
+}
+
+/* Figma 61:33 岸岸提示卡 */
+.answer-card__insight {
+  box-sizing: border-box;
+  display: flex;
+  height: 128rpx;
+  align-items: center;
+  gap: 24rpx;
+  padding: 20rpx 28rpx;
+  border-radius: var(--radius-32);
+  background: var(--color-primary-soft);
+}
+
+.answer-card__insight-icon {
+  width: 68rpx;
+  height: 68rpx;
+  flex: none;
+}
+
+.answer-card__insight-title {
+  color: var(--color-ink);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  line-height: 36rpx;
+}
+
+.answer-card__insight-sub {
+  color: var(--figma-color-muted);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  line-height: 28rpx;
+}
+
+/* Figma 61:40 主 CTA，底部呼吸空间由 sheet 的 padding-bottom 保证。 */
+.answer-card__cta {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  height: 108rpx;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-40);
+  color: var(--figma-color-on-dark);
+  background: var(--figma-color-ink);
+  font-size: var(--text-section);
+  font-weight: 700;
 }
 .task-footer-actions,
 .submit-button {
   width: 100%;
 }
+
+/* Figma 2:199：两枚等宽按钮，间距 12px。 */
 .task-footer-actions {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
-  gap: 14rpx;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24rpx;
 }
-.footer-previous {
+
+.footer-previous,
+.task-footer-actions .submit-button {
   box-sizing: border-box;
   width: 100%;
-  min-height: 88rpx;
+  height: 109rpx;
+  min-height: 109rpx;
   margin: 0;
   border: 0;
-  border-radius: 28rpx;
-  background: var(--color-canvas);
-  color: var(--color-ink-secondary);
-  font-size: 26rpx;
+  border-radius: var(--radius-40);
+  font-size: var(--text-section);
   font-weight: 700;
-  line-height: 88rpx;
+  line-height: 109rpx;
 }
+
+/* Figma 2:200 */
+.footer-previous {
+  color: var(--figma-color-ink-secondary);
+  background: var(--figma-color-canvas);
+}
+
+/* Figma 2:203 */
+.task-footer-actions .submit-button {
+  color: var(--figma-color-on-dark);
+  background: var(--figma-color-ink);
+  box-shadow: var(--shadow-elevated);
+}
+
 .footer-previous::after {
   border: 0;
 }
+
 .footer-previous--disabled {
-  opacity: 0.38;
+  color: var(--color-faint);
+  background: var(--color-surface-soft);
+  opacity: 1;
 }
 
 .help-sheet {
@@ -531,7 +1037,7 @@
 .task-tool-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14rpx;
+  gap: 16rpx;
   margin-top: 28rpx;
 }
 
@@ -547,8 +1053,8 @@
 .task-tool-item {
   min-height: 92rpx;
   border-radius: var(--radius-compact);
-  font-size: 23rpx;
-  font-weight: 720;
+  font-size: var(--text-caption);
+  font-weight: 700;
 }
 
 .task-tool-item--active,
@@ -563,27 +1069,27 @@
   grid-template-columns: 88rpx 1fr 88rpx;
   align-items: center;
   gap: 12rpx;
-  margin-top: 18rpx;
+  margin-top: 20rpx;
   color: var(--color-muted);
   font-family: var(--font-family-data);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
   text-align: center;
 }
 
 .display-tool-button {
   min-height: 64rpx;
-  border-radius: 14rpx;
+  border-radius: var(--radius-12);
   line-height: 64rpx;
 }
 
 .locked-tools,
 .overlay-result {
   margin-top: 20rpx;
-  padding: 18rpx 20rpx;
-  border-radius: 16rpx;
+  padding: 20rpx 20rpx;
+  border-radius: var(--radius-16);
   background: var(--color-primary-soft);
   color: var(--color-ink-secondary);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
   line-height: 1.6;
 }
 
@@ -595,15 +1101,15 @@
   display: flex;
   flex-wrap: wrap;
   gap: 12rpx;
-  margin-top: 26rpx;
+  margin-top: 28rpx;
 }
 
 .dispute-category {
   flex: none;
   min-height: 58rpx;
-  padding: 0 18rpx;
-  border-radius: 999rpx;
-  font-size: 21rpx;
+  padding: 0 20rpx;
+  border-radius: var(--radius-capsule);
+  font-size: var(--text-micro);
   line-height: 58rpx;
 }
 
@@ -611,12 +1117,12 @@
   box-sizing: border-box;
   width: 100%;
   min-height: 210rpx;
-  margin: 22rpx 0 18rpx;
+  margin: 24rpx 0 20rpx;
   padding: 20rpx;
   border: 1rpx solid var(--color-line);
   border-radius: var(--radius-control);
   background: var(--color-surface-soft);
-  font-size: 24rpx;
+  font-size: var(--text-caption);
   line-height: 1.65;
 }
 .confidence-row {
@@ -638,53 +1144,93 @@
   }
 
   .question-hero {
-    padding: 24px;
-    border-width: 1px;
-    border-radius: 18px;
+    padding: 0;
+  }
+
+  .practice-question-pane {
+    padding: 24px 24px 112px;
   }
 
   .question-stem {
-    margin-top: 18px;
+    margin-top: 0;
     font-size: 19px;
+    line-height: 30px;
   }
 
-  .module-pill,
-  .position-label {
+  .practice-material-head {
+    min-height: 32px;
+  }
+
+  .practice-material-chip {
+    padding: 4px 10px;
     font-size: 13px;
+    line-height: 18px;
+  }
+
+  .practice-material-action {
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
+  }
+
+  .practice-material-action--anan {
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
   }
 
   .option-list {
     gap: 12px;
-    margin-top: 16px;
+    margin-top: 0;
+    padding: 24px 0 0;
+  }
+
+  .option-row {
+    grid-template-columns: minmax(0, 1fr) 48px;
+    gap: 8px;
   }
 
   .option-card {
-    grid-template-columns: 38px minmax(0, 1fr) 44px;
-    gap: 14px;
-    min-height: 76px;
-    padding: 14px;
+    grid-template-columns: 24px minmax(0, 1fr);
+    gap: 12px;
+    min-height: 0;
+    padding: 17px;
     border-width: 1px;
-    border-radius: 15px;
+    border-radius: 20px;
   }
 
   .option-label {
-    width: 38px;
-    height: 38px;
-    border-radius: 11px;
-    font-size: 15px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-size: 13px;
   }
 
   .option-copy {
-    font-size: 16px;
+    font-size: 15px;
+    line-height: 24.375px;
   }
 
   .eliminate-action {
-    width: 44px;
-    min-width: 44px;
-    height: 44px;
-    border-radius: 14px;
-    font-size: 21px;
-    line-height: 1;
+    width: 48px;
+    min-width: 48px;
+    height: auto;
+    border-radius: 20px;
+  }
+
+  .eliminate-action__icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .confidence-card {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .question-actions {
+    margin-right: 0;
+    margin-left: 0;
   }
 
   .question-actions {
@@ -704,17 +1250,25 @@
     border-radius: 24px;
   }
 
-  .sheet-grid {
-    grid-template-columns: repeat(8, 1fr);
-    gap: 10px;
-    margin-top: 20px;
+  .answer-card__sheet {
+    right: 50%;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 560px;
+    padding: 8px 20px calc(20px + env(safe-area-inset-bottom));
+    border-radius: 28px 28px 0 0;
+    transform: translateX(50%);
   }
 
-  .sheet-item {
-    min-height: 46px;
-    border-radius: 10px;
-    font-size: 14px;
-    line-height: 44px;
+  .answer-card__grid {
+    grid-template-columns: repeat(auto-fill, 44px);
+    gap: 14px 8px;
+  }
+
+  .answer-card__cell,
+  .answer-card__question {
+    width: 44px;
+    height: 44px;
   }
 
   .result-card,
@@ -728,11 +1282,12 @@
 }
 
 @media (min-width: 1024px) {
+  /* 宽屏把材料与题目并排，但两侧仍各自滚动，底栏依旧在滚动区域之外。 */
   .practice-workspace {
     display: grid;
     max-width: none;
     grid-template-columns: minmax(340px, 0.95fr) minmax(0, 1.2fr);
-    align-items: start;
+    align-items: stretch;
     gap: 28px;
   }
 
@@ -744,15 +1299,317 @@
   }
 
   .material-reader-shell {
-    position: sticky;
-    top: 84px;
     min-width: 0;
-    max-height: calc(100vh - 180px);
+    height: 100%;
     margin-bottom: 0;
-    overflow-y: auto;
+    overflow: hidden;
   }
 
   .practice-question-pane {
     min-width: 0;
+    height: 100%;
   }
+}
+
+/* ===== Figma 84:161 · 画词工具条 ===== */
+
+.selection-toolbar {
+  position: fixed;
+  z-index: var(--z-overlay);
+  left: 50%;
+  display: flex;
+  height: 92rpx;
+  align-items: center;
+  border-radius: var(--radius-32);
+  background: var(--figma-color-ink);
+  box-shadow: var(--shadow-elevated);
+  transform: translateX(-50%);
+}
+
+.selection-toolbar__action {
+  box-sizing: border-box;
+  display: flex;
+  width: auto;
+  min-width: 0;
+  height: 92rpx;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0 32rpx;
+  border: 0;
+  border-radius: var(--radius-32);
+  color: var(--figma-color-on-dark);
+  background: transparent;
+  font-size: var(--text-caption);
+  font-weight: 700;
+}
+
+.selection-toolbar__action--anan {
+  color: var(--color-primary-bright);
+}
+
+.selection-toolbar__divider {
+  width: 1rpx;
+  height: 36rpx;
+  background: rgb(255 255 255 / 16%);
+}
+
+.selection-toolbar__action::after {
+  border: 0;
+}
+
+/* ===== Figma 97:177-97:201 · 上下文追问岸岸 ===== */
+
+.anan-context {
+  position: fixed;
+  z-index: var(--z-overlay);
+  inset: 0;
+}
+
+.anan-context__mask {
+  position: absolute;
+  inset: 0;
+  background: rgb(15 23 42 / 8%);
+}
+
+/* Figma 97:178：h414 顶部圆角 28 白色面板，不覆盖微信胶囊。 */
+.anan-context__sheet {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  max-height: 80vh;
+  padding: 20rpx 40rpx calc(24rpx + env(safe-area-inset-bottom));
+  border-radius: var(--radius-48) var(--radius-48) 0 0;
+  background: var(--figma-color-surface);
+  box-shadow: var(--shadow-overlay);
+}
+
+.anan-context__grabber {
+  width: 96rpx;
+  height: 8rpx;
+  margin: 0 auto;
+  border-radius: 4rpx;
+  background: var(--figma-color-line-emphasis);
+}
+
+.anan-context__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 28rpx;
+}
+
+/* Figma 97:180 */
+.anan-context__title {
+  color: var(--ink);
+  font-size: var(--text-title-sm);
+  font-weight: 700;
+  line-height: 56rpx;
+}
+
+/* Figma 97:181 */
+.anan-context__badge {
+  display: flex;
+  height: 48rpx;
+  align-items: center;
+  gap: 12rpx;
+  padding: 0 20rpx;
+  border-radius: var(--radius-24);
+  color: var(--color-primary-deep);
+  background: var(--color-primary-soft);
+  font-size: var(--text-micro);
+  font-weight: 600;
+}
+
+.anan-context__badge-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: var(--color-primary-deep);
+}
+
+/* Figma 97:184：青色引用条。 */
+.anan-context__quote {
+  display: flex;
+  min-height: 120rpx;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 24rpx;
+  padding: 20rpx 28rpx;
+  border-radius: var(--radius-32);
+  background: var(--figma-color-cyan-soft);
+}
+
+.anan-context__quote-bar {
+  width: 6rpx;
+  height: 68rpx;
+  flex: none;
+  border-radius: 4rpx;
+  background: var(--color-primary-deep);
+}
+
+.anan-context__quote-text {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  color: var(--ink);
+  font-size: var(--text-body);
+  font-weight: 500;
+  line-height: 40rpx;
+}
+
+/* Figma 97:187：岸岸回复框。 */
+.anan-context__insight {
+  box-sizing: border-box;
+  min-height: 120rpx;
+  margin-top: 24rpx;
+  padding: 28rpx 32rpx;
+  border: 1rpx solid var(--color-line-strong);
+  border-radius: var(--radius-32);
+  background: var(--bg);
+}
+
+.anan-context__insight--pending {
+  color: var(--ink-2);
+  font-size: var(--text-body);
+}
+
+.anan-context__insight--error {
+  color: var(--figma-color-danger-deep);
+  font-size: var(--text-caption);
+  line-height: 1.6;
+}
+
+.anan-context__insight-title {
+  color: var(--ink);
+  font-size: var(--text-body-lg);
+  font-weight: 700;
+  line-height: 44rpx;
+}
+
+.anan-context__insight-copy {
+  margin-top: 8rpx;
+  color: var(--ink-2);
+  font-size: var(--text-body);
+  line-height: 40rpx;
+}
+
+/* Figma 97:190 */
+.anan-context__actions-label {
+  margin-top: 28rpx;
+  color: var(--ink-2);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  line-height: 44rpx;
+}
+
+.anan-context__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+  margin-top: 8rpx;
+}
+
+/* Figma 97:191-97:195 */
+.anan-context__action {
+  box-sizing: border-box;
+  display: flex;
+  height: 84rpx;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0 32rpx;
+  border: 1rpx solid var(--color-line-strong);
+  border-radius: var(--radius-40);
+  color: var(--ink);
+  background: var(--bg);
+  font-size: var(--text-caption);
+  font-weight: 600;
+}
+
+.anan-context__action--primary {
+  border-color: transparent;
+  color: var(--color-primary-deep);
+  background: var(--color-primary-soft);
+}
+
+/* Figma 97:197 */
+.anan-context__hint {
+  margin-top: 16rpx;
+  color: var(--ink-2);
+  font-size: var(--text-micro);
+  line-height: 40rpx;
+}
+
+/* Figma 97:198：继续追问输入行，不被压到设备底边。 */
+.anan-context__input-row {
+  position: relative;
+  display: flex;
+  height: 96rpx;
+  align-items: center;
+  margin-top: 20rpx;
+}
+
+.anan-context__input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 96rpx;
+  padding: 0 110rpx 0 32rpx;
+  border: 1rpx solid var(--color-line-strong);
+  border-radius: var(--radius-48);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: var(--text-caption);
+}
+
+/* Figma 97:200：36px 视觉圆钮，外层 44px 触控热区满足可达性门禁。 */
+.anan-context__send {
+  position: absolute;
+  top: 50%;
+  right: 2rpx;
+  box-sizing: border-box;
+  display: flex;
+  width: 88rpx;
+  min-width: 88rpx;
+  height: 88rpx;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  transform: translateY(-50%);
+}
+
+.anan-context__send-circle {
+  display: flex;
+  width: 72rpx;
+  height: 72rpx;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-32);
+  color: var(--figma-color-on-dark);
+  background: var(--color-primary-deep);
+  font-size: var(--text-title-sm);
+  font-weight: 700;
+}
+
+.anan-context__action::after,
+.anan-context__send::after {
+  border: 0;
+}
+
+/* 批注层宿主：仅作为相态锚点，本身不拦截触摸。 */
+.practice-annotation-host {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.practice-annotation-host--active {
+  pointer-events: auto;
 }

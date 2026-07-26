@@ -1,4 +1,4 @@
-<view class="entry-page">
+<view class="s9-screen entry-page">
   <workbench-nav id="runtime-workbench-nav" title="备考档案" back-behavior="emit" bind:back="back" />
 
   <view class="entry-content">

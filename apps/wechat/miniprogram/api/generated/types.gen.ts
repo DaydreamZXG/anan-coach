@@ -461,6 +461,50 @@ export type AccountSessionView = {
 };
 
 /**
+ * AnnotationPoint
+ *
+ * 题面批注坐标，归一化到批注层宽高（0..1）。
+ */
+export type AnnotationPoint = {
+    /**
+     * X
+     */
+    x: number;
+    /**
+     * Y
+     */
+    y: number;
+};
+
+/**
+ * AnnotationStroke
+ *
+ * Figma 70:2 题面直接批注：一条笔或荧光笔轨迹。橡皮/套索在端上删除笔画。
+ */
+export type AnnotationStroke = {
+    /**
+     * Atms
+     */
+    atMs: number;
+    /**
+     * Points
+     */
+    points: Array<AnnotationPoint>;
+    /**
+     * Strokeid
+     */
+    strokeId: string;
+    /**
+     * Tool
+     */
+    tool: 'pen' | 'highlighter';
+    /**
+     * Width
+     */
+    width: number;
+};
+
+/**
  * AnswerCandidateItem
  */
 export type AnswerCandidateItem = {
@@ -494,6 +538,14 @@ export type AnswerCandidateItem = {
  * AnswerCheckpoint
  */
 export type AnswerCheckpoint = {
+    /**
+     * Actionevents
+     */
+    actionEvents?: Array<AttemptActionEvent>;
+    /**
+     * Annotations
+     */
+    annotations?: Array<AnnotationStroke>;
     /**
      * Confidence
      */
@@ -864,6 +916,30 @@ export type AppleLoginRequest = {
      * Nonce
      */
     nonce: string;
+};
+
+/**
+ * AttemptActionEvent
+ *
+ * Figma 75:2/78:2 的作答动作事实：带毫秒时间戳的端上事件。
+ */
+export type AttemptActionEvent = {
+    /**
+     * Atms
+     */
+    atMs: number;
+    /**
+     * Detail
+     */
+    detail?: string | null;
+    /**
+     * Optionid
+     */
+    optionId?: string | null;
+    /**
+     * Type
+     */
+    type: 'option_selected' | 'option_changed' | 'option_eliminated' | 'elimination_undone' | 'confidence_set' | 'draft_edited' | 'marked' | 'unmarked' | 'skipped' | 'paused' | 'resumed' | 'material_expanded' | 'annotation_added' | 'annotation_erased';
 };
 
 /**
@@ -17826,6 +17902,10 @@ export type XingceAttemptResult = {
      */
     attemptId: string;
     /**
+     * Changedanswercount
+     */
+    changedAnswerCount?: number | null;
+    /**
      * Contractversion
      */
     contractVersion?: 'xingce-attempt-result@v2' | null;
@@ -17971,6 +18051,10 @@ export type XingceGroupSummary = {
  * XingceResultItem
  */
 export type XingceResultItem = {
+    /**
+     * Answerchangecount
+     */
+    answerChangeCount?: number | null;
     /**
      * Confidenceevidence
      */

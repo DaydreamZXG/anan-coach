@@ -5,7 +5,6 @@
       <view class="s9-title">提醒你回来，不替你完成</view>
       <view class="s9-subtitle">只围绕已确认任务、复盘、复测、模考和周总结；微信消息不展示岗位、分数、错题或私人资料。</view>
     </view>
-    <anan-companion size="medium" intent="reminder" context="home" />
   </view>
 
   <state-view wx:if="{{status === 'loading'}}" custom-class="coach-state" state="loading" />

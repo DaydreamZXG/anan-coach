@@ -33,6 +33,20 @@ function createRequestId(): string {
   return `mp-${String(Date.now())}-${Math.random().toString(36).slice(2, 10)}`;
 }
 
+const FALLBACK_ERROR_MESSAGE = "刚才这一步没有成功，请稍后再试一次。";
+
+/**
+ * 界面只展示人话（规范 §6）：服务端 message 缺失、非中文或带
+ * snake_case 等技术标记时一律换成统一安抚话术，requestId 照常保留。
+ */
+function humanReadableMessage(message: string | undefined): string {
+  const trimmed = message?.trim();
+  if (!trimmed) return FALLBACK_ERROR_MESSAGE;
+  if (!/[一-鿿]/.test(trimmed)) return FALLBACK_ERROR_MESSAGE;
+  if (/[a-z0-9]+_[a-z0-9_]+/i.test(trimmed) || trimmed.length > 80) return FALLBACK_ERROR_MESSAGE;
+  return trimmed;
+}
+
 function isApiErrorPayload(value: unknown): value is ApiErrorPayload {
   if (!value || typeof value !== "object") return false;
   const candidate = value as Partial<ApiErrorPayload>;
@@ -109,7 +123,7 @@ export class ApiClient {
           const publicError = isApiErrorPayload(payload) ? payload : undefined;
           reject(
             new ApiClientError(
-              publicError?.message ?? "服务请求未成功。",
+              humanReadableMessage(publicError?.message),
               response.statusCode,
               publicError?.requestId ?? correlationId,
               publicError,

@@ -1,6 +1,6 @@
 <view
-  class="content-renderer content-renderer--{{colorMode}}"
-  style="--content-font-scale: {{fontScale}};"
+  class="content-renderer content-renderer--{{colorMode}} {{numbered ? 'content-renderer--numbered' : ''}}"
+  style="--content-font-scale: {{fontScale}}; --content-line-spacing: {{lineSpacing}};"
 >
   <view hover-class="item--hover"
     wx:for="{{viewBlocks}}"
@@ -15,9 +15,22 @@
       class="content-paragraph"
       nodes="{{item.html}}"
     />
-    <text wx:elif="{{item.kind === 'paragraph'}}" class="content-paragraph" user-select>
-      {{item.text}}
-    </text>
+    <!-- Figma 84:2 画词：可选中题干按句段渲染，点选后浮出工具条。 -->
+    <view wx:elif="{{item.kind === 'paragraph' && selectable}}" class="content-paragraph">
+      <text
+        wx:for="{{item.segments}}"
+        wx:for-item="segment"
+        wx:for-index="segmentIndex"
+        wx:key="segmentIndex"
+        id="segment-{{item.id}}-{{segmentIndex}}"
+        class="content-segment {{selectedSegmentKey === item.id + ':' + segmentIndex ? 'content-segment--selected' : ''}}"
+        data-block-id="{{item.id}}"
+        data-segment-index="{{segmentIndex}}"
+        data-text="{{segment}}"
+        catchtap="tapSegment"
+      >{{segment}}</text>
+    </view>
+    <text wx:elif="{{item.kind === 'paragraph'}}" class="content-paragraph" user-select>{{item.text}}</text>
 
     <view
       wx:elif="{{item.kind === 'formula'}}"

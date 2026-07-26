@@ -20,6 +20,7 @@ interface ContentRendererData {
   viewBlocks: RichContentView[];
   previewUrls: string[];
   fontScale: number;
+  lineSpacing: number;
   colorMode: "standard" | "eye_care";
 }
 
@@ -40,11 +41,17 @@ Component({
     preferences: { type: Object, value: defaultContentPreferences },
     freezeFirstColumn: { type: Boolean, value: true },
     freezeHeader: { type: Boolean, value: true },
+    /** Figma 81:16：沉浸阅读为段落加浅灰序号。 */
+    numbered: { type: Boolean, value: false },
+    /** Figma 84:2 画词：题干按句段可选中。 */
+    selectable: { type: Boolean, value: false },
+    selectedSegmentKey: { type: String, value: "" },
   },
   data: {
     viewBlocks: [] as RichContentView[],
     previewUrls: [] as string[],
     fontScale: 1,
+    lineSpacing: 1,
     colorMode: "standard" as const,
   },
   observers: {
@@ -77,6 +84,32 @@ Component({
       const anchorId = String(event.currentTarget.dataset.anchorId ?? "");
       if (anchorId) this.triggerEvent("anchorchange", { anchorId });
     },
+    /** Figma 84:2 画词：点选句段，连同视口内矩形一起交给宿主页面定位工具条。 */
+    tapSegment(event: WechatMiniprogram.BaseEvent) {
+      const blockId = String(event.currentTarget.dataset.blockId ?? "");
+      const segmentIndex = Number(event.currentTarget.dataset.segmentIndex ?? -1);
+      const text = String(event.currentTarget.dataset.text ?? "");
+      if (!blockId || segmentIndex < 0 || !text.trim()) return;
+      const key = `${blockId}:${String(segmentIndex)}`;
+      const query = this.createSelectorQuery();
+      query.select(`#segment-${blockId}-${String(segmentIndex)}`).boundingClientRect();
+      query.exec(
+        (
+          results: Array<{
+            top?: number;
+            bottom?: number;
+            left?: number;
+            right?: number;
+          } | null>,
+        ) => {
+          this.triggerEvent("segmenttap", {
+            key,
+            text,
+            rect: results[0] ?? null,
+          });
+        },
+      );
+    },
     decreaseZoom(event: WechatMiniprogram.BaseEvent) {
       emitZoom(this, event, -0.25);
     },
@@ -96,6 +129,7 @@ function syncContent(host: ContentRendererHost): void {
     viewBlocks: prepareRichContent(blocks, zoom, anchors),
     previewUrls: collectPreviewUrls(blocks),
     fontScale: preferences.fontScale,
+    lineSpacing: preferences.lineSpacing ?? 1,
     colorMode: preferences.colorMode,
   });
 }

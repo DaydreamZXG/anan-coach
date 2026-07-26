@@ -74,6 +74,7 @@ import {
 } from "../../task-runtime/display-preferences";
 import {
   createMaterialReaderState,
+  reduceMaterialReader,
   type MaterialReaderState,
 } from "../../task-runtime/material-reader/state";
 
@@ -96,6 +97,25 @@ interface ReflectionPageData {
   showLoginAction: boolean;
   result: XingceResultView | null;
   summaryBasisOpen: boolean;
+  /** Figma 75:2 · 原题轨迹回放。 */
+  replayOpen: boolean;
+  replayPlaying: boolean;
+  replayMs: number;
+  replayDurationMs: number;
+  replayProgressPercent: number;
+  replayTimeLabel: string;
+  replayCurrentLabel: string;
+  replaySummaryLabel: string;
+  replayCurrentEvent: string;
+  replayMarkers: Array<{ percent: number; tone: "default" | "warning" }>;
+  /** Figma 78:2 · 岸岸动作分析。 */
+  analysisOpen: boolean;
+  actionAnalysis: {
+    reliabilityLabel: string;
+    basisLabel: string;
+    summary: string;
+    rows: Array<{ timeLabel: string; tone: "default" | "warning"; text: string }>;
+  } | null;
   rawText: string;
   strategyNote: string;
   doubtNote: string;
@@ -164,6 +184,13 @@ interface ReflectionPageCustom {
   deferCause(): Promise<void>;
   returnToday(): void;
   selectReviewItem(event: WechatMiniprogram.BaseEvent): void;
+  openReviewMaterial(): void;
+  confirmCauseAndNext(): void;
+  openReplay(): void;
+  closeReplay(): void;
+  toggleReplayPlayback(): void;
+  openActionAnalysis(): void;
+  closeActionAnalysis(): void;
   toggleMoreEvidence(): void;
   noop(): void;
 }
@@ -207,6 +234,18 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     showLoginAction: false,
     result: null,
     summaryBasisOpen: false,
+    replayOpen: false,
+    replayPlaying: false,
+    replayMs: 0,
+    replayDurationMs: 0,
+    replayProgressPercent: 0,
+    replayTimeLabel: "00:00 / 00:00",
+    replayCurrentLabel: "00:00",
+    replaySummaryLabel: "",
+    replayCurrentEvent: "",
+    replayMarkers: [],
+    analysisOpen: false,
+    actionAnalysis: null,
     rawText: "",
     strategyNote: "",
     doubtNote: "",
@@ -469,6 +508,102 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       activeReviewItem: item,
       materialReaderState: materialReaderStateFor(item, this.data.displayPreferences),
     });
+  },
+
+  // Figma 14:2：收起的共享材料入口，点开进入沉浸阅读（恢复上次位置）。
+  openReviewMaterial() {
+    if (!this.data.activeReviewItem?.material) return;
+    this.setData({
+      materialReaderState: reduceMaterialReader(this.data.materialReaderState, {
+        type: "OPEN_FULLSCREEN",
+      }),
+    });
+  },
+
+  // Figma 75:2：回放本题真实笔迹与动作事实（录制数据的播放，不是模拟流程）。
+  openReplay() {
+    const item = this.data.activeReviewItem;
+    if (!item?.trajectoryAvailable) return;
+    const durationMs = Math.max(
+      item.elapsedSeconds * 1000,
+      ...item.actionEvents.map((entry) => entry.atMs),
+      ...item.annotations.map((stroke) => stroke.atMs),
+      1000,
+    );
+    const eraseCount = item.actionEvents.filter(
+      (entry) => entry.type === "annotation_erased",
+    ).length;
+    const changeCount = item.actionEvents.filter((entry) => entry.type === "option_changed").length;
+    const summaryParts = [
+      eraseCount > 0 ? `${String(eraseCount)} 次擦除` : "",
+      changeCount > 0 ? `${String(changeCount)} 次回改` : "",
+    ].filter(Boolean);
+    this.setData({
+      replayOpen: true,
+      analysisOpen: false,
+      replayPlaying: false,
+      replayMs: 0,
+      replayDurationMs: durationMs,
+      replayProgressPercent: 0,
+      replayTimeLabel: `00:00 / ${formatReplayTime(durationMs)}`,
+      replayCurrentLabel: "00:00",
+      replaySummaryLabel: summaryParts.join(" · ") || `${String(item.actionEvents.length)} 个动作`,
+      replayCurrentEvent: "",
+      replayMarkers: item.actionEvents.map((entry) => ({
+        percent: Math.min(100, Math.round((entry.atMs / durationMs) * 100)),
+        tone:
+          entry.type === "option_changed" || entry.type === "annotation_erased"
+            ? ("warning" as const)
+            : ("default" as const),
+      })),
+    });
+  },
+
+  closeReplay() {
+    stopReplayTimer(this);
+    this.setData({ replayOpen: false, replayPlaying: false });
+  },
+
+  toggleReplayPlayback() {
+    if (this.data.replayPlaying) {
+      stopReplayTimer(this);
+      this.setData({ replayPlaying: false });
+      return;
+    }
+    const restart = this.data.replayMs >= this.data.replayDurationMs;
+    this.setData({ replayPlaying: true, ...(restart ? { replayMs: 0 } : {}) });
+    startReplayTimer(this);
+  },
+
+  // Figma 78:2：从真实动作事实推导的可见轨迹描述，不判断“粗心”或“不会”。
+  openActionAnalysis() {
+    const item = this.data.activeReviewItem;
+    if (!item?.trajectoryAvailable) return;
+    this.setData({
+      analysisOpen: true,
+      replayOpen: false,
+      actionAnalysis: presentActionAnalysis(item),
+    });
+  },
+
+  closeActionAnalysis() {
+    this.setData({ analysisOpen: false });
+  },
+
+  // Figma 14:2 底部固定 CTA：先逐题看完，最后一题保存原话进入错因确认。
+  confirmCauseAndNext() {
+    const nextIndex = this.data.currentReviewIndex + 1;
+    if (nextIndex < this.data.reviewItems.length) {
+      const item = this.data.reviewItems[nextIndex];
+      if (!item) return;
+      this.setData({
+        currentReviewIndex: nextIndex,
+        activeReviewItem: item,
+        materialReaderState: materialReaderStateFor(item, this.data.displayPreferences),
+      });
+      return;
+    }
+    void this.submitReflection();
   },
 
   toggleMoreEvidence() {
@@ -1417,4 +1552,148 @@ function invalidateForAccountChange(
     voiceSegments: [],
     voiceSummary: presentReflectionVoiceSummary([]),
   });
+}
+
+/* ===== Figma 75:2/78:2 · 轨迹回放与动作分析 ===== */
+
+const replayTimers = new WeakMap<object, ReturnType<typeof setInterval>>();
+
+const REPLAY_TICK_MS = 120;
+
+function startReplayTimer(page: ReflectionPageInstance): void {
+  stopReplayTimer(page);
+  const timer = setInterval(() => {
+    const item = page.data.activeReviewItem;
+    if (!page.data.replayOpen || !page.data.replayPlaying || !item) {
+      stopReplayTimer(page);
+      return;
+    }
+    const duration = page.data.replayDurationMs;
+    const next = Math.min(duration, page.data.replayMs + REPLAY_TICK_MS * 4);
+    const currentEvent = [...item.actionEvents]
+      .reverse()
+      .find((entry) => entry.atMs <= next && next - entry.atMs < 4000);
+    page.setData({
+      replayMs: next,
+      replayProgressPercent: duration > 0 ? Math.min(100, Math.round((next / duration) * 100)) : 0,
+      replayTimeLabel: `${formatReplayTime(next)} / ${formatReplayTime(duration)}`,
+      replayCurrentLabel: formatReplayTime(next),
+      replayCurrentEvent: currentEvent
+        ? `${formatReplayTime(currentEvent.atMs)} · ${actionEventText(currentEvent)}`
+        : "",
+      ...(next >= duration ? { replayPlaying: false } : {}),
+    });
+    if (next >= duration) stopReplayTimer(page);
+  }, REPLAY_TICK_MS);
+  replayTimers.set(page, timer);
+}
+
+function stopReplayTimer(page: ReflectionPageInstance): void {
+  const timer = replayTimers.get(page);
+  if (timer !== undefined) {
+    clearInterval(timer);
+    replayTimers.delete(page);
+  }
+}
+
+function formatReplayTime(milliseconds: number): string {
+  const totalSeconds = Math.max(0, Math.floor(milliseconds / 1000));
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+}
+
+/** 把动作事实翻译成可见轨迹描述；只描述发生了什么，不下判断。 */
+function actionEventText(entry: XingceResultItemView["actionEvents"][number]): string {
+  switch (entry.type) {
+    case "option_selected":
+      return `选择 ${entry.optionId ?? ""}`.trim();
+    case "option_changed":
+      return `改答为 ${entry.optionId ?? ""}`.trim();
+    case "option_eliminated":
+      return `排除选项 ${entry.optionId ?? ""}`.trim();
+    case "elimination_undone":
+      return `撤销排除 ${entry.optionId ?? ""}`.trim();
+    case "confidence_set":
+      return "标记作答信心";
+    case "draft_edited":
+      return "书写草稿";
+    case "marked":
+      return "标记存疑";
+    case "unmarked":
+      return "取消存疑";
+    case "skipped":
+      return "明确跳过本题";
+    case "paused":
+      return "暂停计时";
+    case "resumed":
+      return "继续作答";
+    case "material_expanded":
+      return "展开共享材料";
+    case "annotation_added":
+      return "题面批注";
+    case "annotation_erased":
+      return "擦除批注";
+    default:
+      return "作答动作";
+  }
+}
+
+/** Figma 78:2：可靠度、依据与时间轨迹全部来自真实事实计数。 */
+function presentActionAnalysis(
+  item: XingceResultItemView,
+): NonNullable<ReflectionPageData["actionAnalysis"]> {
+  const strokeCount = item.annotations.length;
+  const eraseCount = item.actionEvents.filter((entry) => entry.type === "annotation_erased").length;
+  const changeCount = item.actionEvents.filter((entry) => entry.type === "option_changed").length;
+  const basisParts = [
+    strokeCount > 0 ? `${String(strokeCount)} 笔` : "",
+    eraseCount > 0 ? `${String(eraseCount)} 次擦除` : "",
+    changeCount > 0 ? `${String(changeCount)} 次回改` : "",
+  ].filter(Boolean);
+  const evidenceCount = strokeCount + item.actionEvents.length;
+  const draftEvents = item.actionEvents.filter((entry) => entry.type === "draft_edited");
+  const firstDraft = draftEvents[0];
+  const changeEvent = item.actionEvents.find((entry) => entry.type === "option_changed");
+  const summaryParts = [
+    firstDraft ? `${formatReplayTime(firstDraft.atMs)} 开始书写草稿` : "",
+    changeEvent ? `${formatReplayTime(changeEvent.atMs)} 出现改答` : "",
+  ].filter(Boolean);
+  const significant = item.actionEvents.filter((entry) =>
+    [
+      "option_selected",
+      "option_changed",
+      "option_eliminated",
+      "draft_edited",
+      "marked",
+      "paused",
+      "material_expanded",
+      "annotation_added",
+    ].includes(entry.type),
+  );
+  const rows: NonNullable<ReflectionPageData["actionAnalysis"]>["rows"] = [];
+  let lastType = "";
+  for (const entry of significant) {
+    // 连续同类事件只保留第一条，让轨迹保持可读。
+    if (entry.type === lastType && entry.type === "draft_edited") continue;
+    lastType = entry.type;
+    rows.push({
+      timeLabel: formatReplayTime(entry.atMs),
+      tone:
+        entry.type === "option_changed" || entry.type === "annotation_erased"
+          ? "warning"
+          : "default",
+      text: actionEventText(entry),
+    });
+    if (rows.length >= 6) break;
+  }
+  return {
+    reliabilityLabel: evidenceCount >= 10 ? "较可靠" : "参考有限",
+    basisLabel:
+      basisParts.length > 0
+        ? `依据 ${basisParts.join("、")}`
+        : `依据 ${String(item.actionEvents.length)} 个作答动作`,
+    summary: summaryParts.length > 0 ? `草稿显示：${summaryParts.join("；")}。` : "",
+    rows,
+  };
 }

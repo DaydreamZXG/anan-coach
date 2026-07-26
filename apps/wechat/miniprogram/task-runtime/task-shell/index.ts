@@ -8,10 +8,12 @@ Component({
   data: {
     syncTone: "pending",
     statusBarHeight: 0,
+    navigationHeight: 44,
     menuBottom: 0,
     capsuleReserve: 0,
   },
   properties: {
+    layoutVariant: { type: String, value: "standard" },
     title: { type: String, value: "" },
     titleAvailable: { type: Boolean, value: false },
     modeLabel: { type: String, value: "" },
@@ -22,6 +24,7 @@ Component({
     materialAvailable: { type: Boolean, value: false },
     answerSheetAvailable: { type: Boolean, value: true },
     draftAvailable: { type: Boolean, value: false },
+    markAvailable: { type: Boolean, value: true },
     timerPausable: { type: Boolean, value: false },
     timerPaused: { type: Boolean, value: false },
     marked: { type: Boolean, value: false },

@@ -1,7 +1,7 @@
-<view class="basis-page">
+<view class="s9-screen">
   <workbench-nav id="runtime-workbench-nav" title="计划依据" back-behavior="emit" bind:back="exit" />
 
-  <view class="basis-content">
+  <view class="s9-body s9-body--with-dock basis-content">
     <state-view wx:if="{{status === 'loading'}}" state="loading" />
     <state-view
       wx:elif="{{status === 'error'}}"
@@ -12,24 +12,26 @@
       action-text="重新加载"
       bind:action="retry"
     />
-    <view wx:elif="{{status === 'empty'}}" class="basis-empty">
-      <view class="basis-empty__title">今天没有待解释的任务</view>
-      <view class="basis-empty__copy">{{errorMessage}}</view>
-      <button hover-class="item--hover" class="control-center basis-empty__action" bindtap="exit">返回今日</button>
+    <view wx:elif="{{status === 'empty'}}" class="s9-card basis-empty">
+      <view class="s9-card-title">今天没有待解释的任务</view>
+      <view class="s9-card-copy">{{errorMessage}}</view>
+      <view class="s9-empty-space"></view>
+      <button hover-class="item--hover" class="s9-primary-button" bindtap="exit">返回今日</button>
     </view>
 
     <block wx:elif="{{focusTask}}">
-      <view class="basis-hero">
-        <view class="basis-badge">{{focusTask.trackLabel}} · 约 {{focusTask.estimatedMinutes}} 分钟</view>
-        <view class="basis-title">为什么今天练这个</view>
-        <view class="basis-copy">这不是让你多刷一组题，而是验证近期最值得确认的问题。</view>
+      <view class="s9-hero">
+        <view class="s9-chip-row">
+          <view class="s9-chip">{{focusTask.trackLabel}} · 约 {{focusTask.estimatedMinutes}} 分钟</view>
+        </view>
+        <view class="s9-title">为什么今天练这个</view>
+        <view class="s9-subtitle">这不是让你多刷一组题，而是验证近期最值得确认的问题。</view>
       </view>
 
-      <view class="judgment-card">
-        <view class="judgment-aurora"></view>
-        <view class="judgment-content">
+      <view class="s9-stack">
+        <view class="s9-card s9-card--primary">
           <view class="judgment-heading"><text class="judgment-spark">✦</text><text>岸岸为什么这样安排</text></view>
-          <view class="judgment-title">{{focusTask.reason}}</view>
+          <view class="s9-card-title">{{focusTask.reason}}</view>
           <view class="evidence-list">
             <view wx:for="{{evidenceBullets}}" wx:key="*this" class="evidence-item">
               <view class="evidence-dot"></view><text>{{item}}</text>
@@ -52,9 +54,9 @@
         </view>
       </view>
 
-      <view class="basis-section">
-        <view class="basis-section__title">这 {{focusTask.estimatedMinutes}} 分钟怎么练</view>
-        <view class="steps-card">
+      <view class="s9-section">
+        <view class="s9-section-head"><view class="s9-section-title">这 {{focusTask.estimatedMinutes}} 分钟怎么练</view></view>
+        <view class="s9-card steps-card">
           <view class="steps-line"></view>
           <view class="step-row">
             <view class="step-number">1</view>
@@ -71,9 +73,9 @@
         </view>
       </view>
 
-      <view class="basis-section">
-        <view class="basis-section__title">今天练成什么算有效</view>
-        <view class="criteria-card">
+      <view class="s9-section">
+        <view class="s9-section-head"><view class="s9-section-title">今天练成什么算有效</view></view>
+        <view class="s9-card criteria-card">
           <view wx:for="{{focusTask.successCriteria}}" wx:key="*this" class="criteria-row">
             <view class="criteria-check">✓</view><text>{{item}}</text>
           </view>
@@ -83,8 +85,8 @@
     </block>
   </view>
 
-  <view wx:if="{{status === 'ready' && focusTask}}" class="basis-footer">
-    <button hover-class="item--hover" class="control-center basis-primary tap-tactile" loading="{{openingTask}}" bindtap="startTask">开始这项训练 <text>›</text></button>
+  <view wx:if="{{status === 'ready' && focusTask}}" class="s9-action-dock">
+    <button hover-class="item--hover" class="s9-primary-button tap-tactile" loading="{{openingTask}}" bindtap="startTask">开始这项训练 <text>›</text></button>
     <view class="basis-footer__links">
       <button hover-class="item--hover" class="basis-link" bindtap="openAdjustment">调整这项任务</button>
       <view class="basis-footer__divider"></view>

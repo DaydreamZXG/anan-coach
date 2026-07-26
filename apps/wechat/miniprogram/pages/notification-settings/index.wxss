@@ -6,24 +6,24 @@
   align-items: center;
   justify-content: space-between;
   gap: 24rpx;
-  padding: 14rpx 2rpx 8rpx;
+  padding: 16rpx 2rpx 8rpx;
 }
 .coach-hero__copy {
   min-width: 0;
 }
 .coach-hero .s9-title {
   margin-top: 8rpx;
-  font-size: 40rpx;
+  font-size: var(--text-title);
 }
 .coach-hero .s9-subtitle {
   max-width: 560rpx;
 }
 .coach-state {
   display: block;
-  margin-top: 30rpx;
+  margin-top: 32rpx;
 }
 .master-card {
-  margin-top: 26rpx;
+  margin-top: 28rpx;
 }
 .setting-row,
 .history-row {
@@ -32,7 +32,7 @@
   justify-content: space-between;
   gap: 24rpx;
   min-height: 104rpx;
-  padding: 18rpx 24rpx;
+  padding: 20rpx 24rpx;
   border-bottom: 1rpx solid var(--color-line);
   background: var(--color-surface);
 }
@@ -51,13 +51,13 @@
 }
 .setting-title {
   color: var(--color-ink);
-  font-size: 25rpx;
+  font-size: var(--text-body);
   font-weight: 800;
 }
 .setting-description {
-  margin-top: 6rpx;
+  margin-top: 8rpx;
   color: var(--color-muted);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
   line-height: 1.45;
 }
 .timing-card {
@@ -71,17 +71,17 @@
 .time-field {
   padding: 20rpx;
   border: 1rpx solid var(--color-line);
-  border-radius: 20rpx;
+  border-radius: var(--radius-24);
   background: rgba(244, 248, 247, 0.82);
 }
 .time-label {
   color: var(--color-muted);
-  font-size: 20rpx;
+  font-size: var(--text-micro);
 }
 .time-value {
   margin-top: 8rpx;
   color: var(--color-ink);
-  font-size: 28rpx;
+  font-size: var(--text-body-lg);
   font-weight: 800;
 }
 .limit-row,
@@ -98,16 +98,16 @@
   height: 72rpx;
   padding: 0 16rpx;
   border: 1rpx solid var(--color-line-strong);
-  border-radius: 18rpx;
+  border-radius: var(--radius-16);
   background: var(--color-surface);
   text-align: center;
 }
 .quiet-head {
-  padding-top: 22rpx;
+  padding-top: 24rpx;
   border-top: 1rpx solid var(--color-line);
 }
 .quiet-grid {
-  margin-top: 18rpx;
+  margin-top: 20rpx;
 }
 .save-button {
   margin-top: 28rpx;
@@ -123,43 +123,43 @@
   justify-content: center;
   width: 76rpx;
   height: 76rpx;
-  border-radius: 22rpx;
+  border-radius: var(--radius-24);
   background: var(--color-primary-soft);
-  color: var(--color-primary-deep);
-  font-size: 34rpx;
-  font-weight: 900;
+  color: var(--color-ink);
+  font-size: var(--text-title-sm);
+  font-weight: 800;
 }
 .grant-last {
-  margin: 18rpx 0 22rpx;
+  margin: 20rpx 0 24rpx;
   color: var(--color-ink-secondary);
-  font-size: 22rpx;
+  font-size: var(--text-micro);
 }
 .wechat-setting-button {
-  margin-top: 14rpx;
+  margin-top: 16rpx;
 }
 .template-blocked {
   padding: 8rpx 0;
 }
 .history-state {
   flex: 0 0 auto;
-  color: var(--color-primary-deep);
-  font-size: 21rpx;
-  font-weight: 750;
+  color: var(--color-muted);
+  font-size: var(--text-micro);
+  font-weight: 700;
 }
 .fact-note {
   margin-top: 16rpx;
   padding: 0 8rpx;
   color: var(--color-muted);
-  font-size: 20rpx;
+  font-size: var(--text-micro);
   line-height: 1.55;
 }
 .coach-message {
   margin-top: 24rpx;
-  padding: 20rpx 22rpx;
-  border-radius: 20rpx;
+  padding: 20rpx 24rpx;
+  border-radius: var(--radius-24);
   background: var(--color-primary-soft);
-  color: var(--color-primary-deep);
-  font-size: 22rpx;
+  color: var(--color-muted);
+  font-size: var(--text-micro);
   line-height: 1.5;
 }
 .disable-button {
@@ -167,12 +167,12 @@
   padding: 0;
   background: transparent;
   color: var(--color-danger);
-  font-size: 23rpx;
+  font-size: var(--text-caption);
   font-weight: 800;
 }
 @media (min-width: 700px) {
   .coach-hero .s9-title {
-    font-size: 44rpx;
+    font-size: var(--text-title-lg);
   }
   .time-grid {
     gap: 20rpx;

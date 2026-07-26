@@ -9,15 +9,15 @@
   padding: 40rpx;
 }
 .capability-mark {
-  color: var(--color-primary);
-  font-size: 20rpx;
+  color: var(--color-muted);
+  font-size: var(--text-micro);
   font-weight: 800;
   letter-spacing: 0.12em;
 }
 .capability-title {
   margin-top: 16rpx;
-  font-size: 34rpx;
-  font-weight: 850;
+  font-size: var(--text-title-sm);
+  font-weight: 800;
 }
 .capability-copy {
   margin-top: 12rpx;
@@ -30,13 +30,13 @@
 
 .mock-paper {
   min-height: 100%;
-  font-size: 28rpx;
+  font-size: var(--text-body-lg);
   transition:
     background 180ms ease,
     font-size 180ms ease;
 }
 .mock-paper--large {
-  font-size: 32rpx;
+  font-size: var(--text-section);
 }
 .mock-paper--eye-care {
   margin: -30rpx calc(var(--space-page-x) * -1) 0;
@@ -45,11 +45,11 @@
 }
 .inline-warning {
   margin-bottom: 20rpx;
-  padding: 18rpx 22rpx;
+  padding: 20rpx 24rpx;
   border-radius: var(--radius-compact);
   background: var(--color-warning-soft);
   color: var(--color-warning);
-  font-size: 22rpx;
+  font-size: var(--text-micro);
   line-height: 1.55;
 }
 
@@ -58,13 +58,13 @@
   grid-template-columns: repeat(3, auto) 1fr;
   align-items: center;
   gap: 20rpx;
-  padding: 22rpx 24rpx;
+  padding: 24rpx 24rpx;
   color: var(--color-muted);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
 }
 .exam-status-card .type-data {
   color: var(--color-ink);
-  font-size: 26rpx;
+  font-size: var(--text-body);
   font-weight: 800;
 }
 .deadline-copy {
@@ -72,7 +72,7 @@
 }
 
 .material-panel {
-  margin-top: 22rpx;
+  margin-top: 24rpx;
   padding: 28rpx;
 }
 .material-head,
@@ -83,140 +83,181 @@
   gap: 24rpx;
 }
 .material-eyebrow {
-  color: var(--color-primary);
-  font-size: 19rpx;
+  color: var(--color-muted);
+  font-size: var(--text-micro);
   font-weight: 800;
   letter-spacing: 0.12em;
 }
 .material-title,
 .draft-title {
   margin-top: 4rpx;
-  font-size: 29rpx;
-  font-weight: 820;
+  font-size: var(--text-body-lg);
+  font-weight: 800;
 }
 .material-copy {
   margin-top: 24rpx;
   color: var(--color-ink-secondary);
-  line-height: 1.85;
+  font-family: var(--font-family-reading);
+  font-size: var(--text-body-lg);
+  line-height: 1.9;
+  text-align: justify;
+  white-space: pre-wrap;
 }
 
 .question-card {
-  padding: 34rpx 4rpx 24rpx;
+  padding: 32rpx 4rpx 24rpx;
 }
 .question-meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+/* 题型胶囊与行测做题页同款（Figma 2:77）。 */
 .module-pill {
-  padding: 8rpx 16rpx;
-  border-radius: var(--figma-radius-pill);
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  overflow: hidden;
+  padding: 8rpx 20rpx;
+  border-radius: var(--radius-64);
   background: var(--color-primary-soft);
   color: var(--color-primary-deep);
-  font-size: 20rpx;
-  font-weight: 750;
+  font-size: var(--text-micro);
+  font-weight: 700;
+  line-height: 33rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .question-position {
   color: var(--color-muted);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
 }
 .question-stem {
   margin-top: 24rpx;
   color: var(--color-ink);
   font-size: inherit;
-  font-weight: 640;
+  font-weight: 600;
   line-height: 1.75;
 }
+/* 选项区与行测做题页同源（Figma 2:142–2:166），整卷只在计时/答题卡上有差异。 */
 .option-list {
   display: grid;
-  gap: 16rpx;
+  gap: 24rpx;
 }
 .option-list--locked {
   pointer-events: none;
   opacity: 0.65;
 }
+.option-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 96rpx;
+  align-items: stretch;
+  gap: 16rpx;
+}
 .option-card {
   display: grid;
-  grid-template-columns: 52rpx minmax(0, 1fr) 88rpx;
-  align-items: center;
-  gap: 12rpx;
-  min-height: 104rpx;
-  padding: 14rpx 12rpx 14rpx 18rpx;
-  border: 1rpx solid var(--color-line);
-  border-radius: var(--radius-control);
-  background: var(--color-surface);
-  box-shadow: 0 8rpx 24rpx rgba(17, 24, 39, 0.035);
+  grid-template-columns: 48rpx minmax(0, 1fr);
+  align-items: start;
+  gap: 24rpx;
+  min-height: 0;
+  padding: 32rpx;
+  border: 1rpx solid var(--figma-color-line);
+  border-radius: var(--radius-40);
+  background: var(--figma-color-surface);
+  box-shadow: var(--shadow-crisp);
 }
 .option-card--selected {
-  border-color: var(--color-primary);
-  background: var(--color-primary-soft);
-  box-shadow: 0 12rpx 28rpx var(--color-primary-a16);
+  border-color: var(--color-primary-soft-strong);
+  background: var(--color-primary-soft-a64);
+  box-shadow: var(--shadow-crisp);
 }
 .option-card--eliminated {
-  opacity: 0.5;
+  border-color: var(--figma-color-line-strong);
+  background: transparent;
+  box-shadow: none;
+  opacity: 0.4;
 }
 .option-label {
   display: flex;
+  width: 48rpx;
+  height: 48rpx;
   align-items: center;
   justify-content: center;
-  width: 50rpx;
-  height: 50rpx;
   border-radius: 50%;
-  background: var(--color-surface-soft);
-  color: var(--color-primary-deep);
+  color: var(--figma-color-muted);
+  background: var(--figma-color-line);
   font-family: var(--font-family-data);
-  font-weight: 800;
+  font-size: var(--text-body);
+  font-weight: 700;
+  line-height: 39rpx;
 }
 .option-card--selected .option-label {
+  color: var(--color-on-primary);
   background: var(--color-primary);
-  color: var(--color-surface);
+}
+.option-card--eliminated .option-label {
+  color: var(--figma-color-faint);
+  background: var(--figma-color-line-strong);
 }
 .option-copy {
-  line-height: 1.6;
+  padding-top: 4rpx;
+  color: var(--color-ink);
+  font-size: var(--text-section);
+  font-weight: 500;
+  line-height: 48.75rpx;
+  /* 选项两行时均衡断行，消除句尾单字孤行（不支持的内核自动回退）。 */
+  --content-text-wrap: balance;
 }
 .option-card--eliminated .option-copy {
+  color: var(--figma-color-muted);
+  font-weight: 400;
   text-decoration: line-through;
 }
 .eliminate-action {
   display: flex;
-  width: 88rpx;
-  min-width: 88rpx;
-  height: 88rpx;
+  width: 96rpx;
+  min-width: 96rpx;
+  height: auto;
   align-items: center;
   justify-content: center;
   margin: 0;
   padding: 0;
-  border-radius: 28rpx;
-  background: var(--color-surface-soft);
-  color: var(--color-muted);
-  font-size: 34rpx;
-  line-height: 1;
+  border: 1rpx solid var(--figma-color-line);
+  border-radius: var(--radius-40);
+  background: var(--figma-color-surface);
+  box-shadow: var(--shadow-crisp);
 }
 .eliminate-action::after {
   border: 0;
 }
 .eliminate-action--active {
-  background: var(--color-line-strong);
-  color: var(--color-ink-secondary);
+  border-color: transparent;
+  background: var(--figma-color-line-strong);
+  box-shadow: none;
+}
+.eliminate-action__icon {
+  display: block;
+  width: 36rpx;
+  height: 36rpx;
 }
 
 .draft-card {
-  margin-top: 26rpx;
+  margin-top: 28rpx;
   padding: 28rpx;
 }
 .draft-copy {
-  margin-top: 6rpx;
+  margin-top: 8rpx;
   color: var(--color-muted);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
 }
 .mark-button {
   margin: 0;
   padding: 0 20rpx;
   border: 1rpx solid var(--color-line);
-  border-radius: 999rpx;
+  border-radius: var(--radius-capsule);
   background: var(--color-surface-soft);
   color: var(--color-muted);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
 }
 .mark-button--active {
   border-color: var(--color-warning);
@@ -227,12 +268,12 @@
   box-sizing: border-box;
   width: 100%;
   min-height: 180rpx;
-  margin-top: 22rpx;
-  padding: 22rpx;
+  margin-top: 24rpx;
+  padding: 24rpx;
   border-radius: var(--radius-compact);
   background: var(--color-surface-soft);
   font-family: var(--font-family-data);
-  font-size: 23rpx;
+  font-size: var(--text-caption);
   line-height: 1.65;
 }
 .help-sheet {
@@ -245,11 +286,11 @@
 
 .mock-timer-notice {
   margin-top: 20rpx;
-  padding: 18rpx 20rpx;
+  padding: 20rpx 20rpx;
   border-radius: var(--radius-compact);
   color: var(--color-muted);
   background: var(--color-surface-soft);
-  font-size: 20rpx;
+  font-size: var(--text-micro);
   line-height: 1.6;
 }
 
@@ -272,11 +313,11 @@
   margin: 0;
   padding: 0;
   border: 1rpx solid var(--color-line);
-  border-radius: 14rpx;
+  border-radius: var(--radius-12);
   background: var(--color-surface-soft);
   color: var(--color-muted);
   font-family: var(--font-family-data);
-  font-size: 19rpx;
+  font-size: var(--text-micro);
 }
 .sheet-item--answered {
   border-color: rgba(22, 131, 99, 0.35);
@@ -296,8 +337,8 @@
 .display-tools {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14rpx;
-  margin-top: 26rpx;
+  gap: 16rpx;
+  margin-top: 28rpx;
 }
 .tool-chip,
 .tool-row {
@@ -306,7 +347,7 @@
   border-radius: var(--radius-compact);
   background: var(--color-surface-soft);
   color: var(--color-ink-secondary);
-  font-size: 22rpx;
+  font-size: var(--text-micro);
 }
 .tool-chip--active {
   border-color: var(--color-primary);
@@ -327,8 +368,8 @@
   padding: 20rpx;
   border-radius: var(--radius-compact);
   background: var(--color-primary-soft);
-  color: var(--color-primary-deep);
-  font-size: 22rpx;
+  color: var(--color-muted);
+  font-size: var(--text-micro);
   line-height: 1.55;
 }
 .help-result--error {
@@ -336,10 +377,29 @@
   color: var(--color-danger);
 }
 
-.dispute-categories { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12rpx; margin-top: 24rpx; }
-.dispute-description { box-sizing: border-box; width: 100%; min-height: 220rpx; margin-top: 20rpx; padding: 22rpx; border-radius: var(--radius-compact); background: var(--color-surface-soft); font-size: 24rpx; line-height: 1.65; }
-.dispute-body .help-result { margin: 18rpx 0; }
-.dispute-body .primary-button { margin-top: 20rpx; }
+.dispute-categories {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12rpx;
+  margin-top: 24rpx;
+}
+.dispute-description {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 220rpx;
+  margin-top: 20rpx;
+  padding: 24rpx;
+  border-radius: var(--radius-compact);
+  background: var(--color-surface-soft);
+  font-size: var(--text-caption);
+  line-height: 1.65;
+}
+.dispute-body .help-result {
+  margin: 20rpx 0;
+}
+.dispute-body .primary-button {
+  margin-top: 20rpx;
+}
 
 .footer-actions,
 .footer-next {
@@ -348,7 +408,7 @@
 .footer-actions {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
-  gap: 14rpx;
+  gap: 16rpx;
 }
 .footer-previous {
   box-sizing: border-box;
@@ -356,10 +416,10 @@
   min-height: 88rpx;
   margin: 0;
   border: 0;
-  border-radius: 28rpx;
+  border-radius: var(--radius-32);
   background: var(--color-canvas);
   color: var(--color-ink-secondary);
-  font-size: 26rpx;
+  font-size: var(--text-body);
   font-weight: 700;
   line-height: 88rpx;
 }
@@ -370,10 +430,10 @@
   opacity: 0.38;
 }
 .submitted-workspace {
-  padding: 20rpx 0 60rpx;
+  padding: 20rpx 0 64rpx;
 }
 .submitted-hero {
-  padding: 48rpx 36rpx;
+  padding: 48rpx 40rpx;
   border-radius: var(--radius-hero);
   border: 1rpx solid var(--primary-soft);
   background:
@@ -384,23 +444,23 @@
   box-shadow: var(--shadow-primary);
 }
 .submitted-mark {
-  color: var(--color-primary);
-  font-size: 20rpx;
+  color: var(--color-muted);
+  font-size: var(--text-micro);
   font-weight: 800;
   letter-spacing: 0.12em;
 }
 .submitted-score {
-  margin-top: 18rpx;
-  font-size: 28rpx;
+  margin-top: 20rpx;
+  font-size: var(--text-body-lg);
 }
 .submitted-score__value {
   font-family: var(--font-family-data);
-  font-size: 86rpx;
-  font-weight: 850;
+  font-size: var(--text-stat-lg);
+  font-weight: 800;
 }
 .submitted-source {
   margin-top: 12rpx;
-  font-size: 21rpx;
+  font-size: var(--text-micro);
   line-height: 1.5;
   color: var(--ink-2);
 }
@@ -408,16 +468,16 @@
 .module-result,
 .next-week {
   margin-top: 20rpx;
-  padding: 26rpx;
+  padding: 28rpx;
 }
 .submitted-note-title {
-  font-size: 27rpx;
+  font-size: var(--text-body-lg);
   font-weight: 800;
 }
 .submitted-note-copy {
-  margin-top: 10rpx;
+  margin-top: 12rpx;
   color: var(--color-muted);
-  font-size: 22rpx;
+  font-size: var(--text-micro);
   line-height: 1.65;
 }
 .module-result {
@@ -426,7 +486,7 @@
   justify-content: space-between;
 }
 .module-result-data {
-  color: var(--color-primary-deep);
+  color: var(--color-muted);
 }
 .next-week {
   color: var(--color-ink-secondary);
@@ -546,4 +606,226 @@
   .mock-question-pane {
     min-width: 0;
   }
+}
+
+/* ===== Figma 98:173-98:203 · 模考交卷确认面板 ===== */
+
+.mock-submit {
+  position: fixed;
+  z-index: var(--z-overlay);
+  inset: 0;
+}
+
+/* Figma 98:173：轻遮罩，背景试卷仍可辨认。 */
+.mock-submit__mask {
+  position: absolute;
+  inset: 0;
+  background: rgb(15 23 42 / 12%);
+}
+
+/* Figma 98:174：h372 顶部圆角 28 的白色面板。 */
+.mock-submit__sheet {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  padding: 20rpx 40rpx calc(56rpx + env(safe-area-inset-bottom));
+  border-radius: var(--radius-48) var(--radius-48) 0 0;
+  background: var(--figma-color-surface);
+  box-shadow: var(--shadow-overlay);
+}
+
+.mock-submit__grabber {
+  width: 96rpx;
+  height: 8rpx;
+  margin: 0 auto;
+  border-radius: 4rpx;
+  background: var(--figma-color-line-emphasis);
+}
+
+.mock-submit__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24rpx;
+}
+
+/* Figma 98:176 */
+.mock-submit__title {
+  color: var(--ink);
+  font-size: var(--text-title);
+  font-weight: 700;
+  line-height: 60rpx;
+}
+
+/* Figma 98:177 */
+.mock-submit__time {
+  padding: 12rpx 24rpx;
+  border-radius: var(--radius-32);
+  color: var(--ink-2);
+  background: var(--bg);
+  font-size: var(--text-micro);
+  font-weight: 600;
+  line-height: 36rpx;
+}
+
+/* Figma 98:179：琥珀警示条。 */
+.mock-submit__warning {
+  display: flex;
+  min-height: 116rpx;
+  align-items: center;
+  gap: 24rpx;
+  margin-top: 24rpx;
+  padding: 0 32rpx;
+  border-radius: var(--radius-32);
+  color: var(--ink);
+  background: var(--color-warning-soft);
+  font-size: var(--text-body);
+  font-weight: 600;
+  line-height: 40rpx;
+}
+
+.mock-submit__warning--ready {
+  background: var(--figma-color-success-soft);
+}
+
+.mock-submit__warning-dot {
+  width: 16rpx;
+  height: 16rpx;
+  flex: none;
+  border-radius: 50%;
+  background: var(--figma-color-warning);
+}
+
+.mock-submit__warning-dot--ready {
+  background: var(--figma-color-success);
+}
+
+/* Figma 98:182/185/188：三块统计。 */
+.mock-submit__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16rpx;
+  margin-top: 24rpx;
+}
+
+.mock-submit__stat {
+  box-sizing: border-box;
+  display: flex;
+  height: 136rpx;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rpx;
+  border: 1rpx solid var(--color-line-strong);
+  border-radius: var(--radius-32);
+  background: var(--bg);
+}
+
+.mock-submit__stat--warning {
+  border-color: transparent;
+  background: var(--color-warning-soft);
+}
+
+.mock-submit__stat-value {
+  color: var(--ink);
+  font-family: var(--font-family-data);
+  font-size: var(--text-title);
+  font-weight: 700;
+  line-height: 60rpx;
+}
+
+.mock-submit__stat-value--warning {
+  color: var(--figma-color-warning);
+}
+
+.mock-submit__stat-label {
+  color: var(--ink-2);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  line-height: 40rpx;
+}
+
+/* Figma 98:191 */
+.mock-submit__missing-title {
+  margin-top: 28rpx;
+  color: var(--ink-2);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  line-height: 44rpx;
+}
+
+/* Figma 98:192：36px 圆形题号，可点回去检查。 */
+.mock-submit__missing {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+  max-height: 200rpx;
+  margin-top: 12rpx;
+  overflow-y: auto;
+}
+
+.mock-submit__missing-item {
+  box-sizing: border-box;
+  display: flex;
+  width: 72rpx;
+  min-width: 72rpx;
+  height: 72rpx;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 1rpx solid var(--color-line-strong);
+  border-radius: 50%;
+  color: var(--ink);
+  background: var(--figma-color-surface);
+  font-family: var(--font-family-data);
+  font-size: var(--text-micro);
+  font-weight: 600;
+}
+
+/* Figma 98:200/98:202：返回检查 + 确认交卷；面板 padding-bottom 保住约 28px 呼吸空间。 */
+.mock-submit__actions {
+  display: grid;
+  grid-template-columns: 132fr 206fr;
+  gap: 24rpx;
+  margin-top: 32rpx;
+}
+
+.mock-submit__back,
+.mock-submit__confirm {
+  box-sizing: border-box;
+  display: flex;
+  height: 104rpx;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-48);
+  font-size: var(--text-body-lg);
+  font-weight: 600;
+}
+
+.mock-submit__back {
+  border: 1rpx solid var(--color-line-strong);
+  color: var(--ink);
+  background: var(--bg);
+}
+
+.mock-submit__confirm {
+  color: var(--figma-color-on-dark);
+  background: var(--ink);
+}
+
+.mock-submit__missing-item::after,
+.mock-submit__back::after,
+.mock-submit__confirm::after {
+  border: 0;
+}
+
+button.mock-submit__back,
+button.mock-submit__confirm {
+  width: 100%;
 }

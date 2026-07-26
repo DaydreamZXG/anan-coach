@@ -1,4 +1,4 @@
-<view class="reflection-page">
+<view class="s9-screen reflection-page">
   <workbench-nav
     id="runtime-workbench-nav"
     title="{{phase === 'summary' ? '本次训练总结' : phase === 'completed' ? '复盘完成' : phase === 'reflection' ? '单题错因复盘' + (reviewItems.length ? ' · ' + (currentReviewIndex + 1) + '/' + reviewItems.length : '') : '错因确认'}}"
@@ -29,7 +29,9 @@
     <view wx:if="{{phase === 'summary' && result}}" class="summary-content">
       <view class="summary-intro">
         <view class="summary-title">这组做完了</view>
-        <view class="summary-copy">比起 {{result.correctCount}}/{{result.totalCount}}，更重要的是找到每一道题真正留下的证据。</view>
+        <!-- Figma 13:20：错题数用真实数据填充。 -->
+        <view wx:if="{{result.totalCount - result.correctCount > 0}}" class="summary-copy">比起{{result.correctCount}}/{{result.totalCount}}，更重要的是找到丢掉 {{result.totalCount - result.correctCount}} 题的原因。</view>
+        <view wx:else class="summary-copy">比起 {{result.correctCount}}/{{result.totalCount}}，更重要的是把这组的作答证据留下来。</view>
       </view>
 
       <view class="summary-card">
@@ -71,15 +73,15 @@
         <view class="summary-legacy__copy">只保留当时的成绩，不再重新推断缺失的作答过程。</view>
       </view>
 
+      <!-- Figma 13:126：题号一览，需复盘题（即将进入错因复盘的题）统一红圈 + 「复盘·原因」小注。 -->
       <view wx:if="{{result.items.length}}" class="summary-question-strip">
         <view wx:for="{{result.items}}" wx:key="questionId" class="summary-question-strip__item">
-          <view class="summary-question-dot summary-question-dot--{{item.resultTone}}">{{item.positionNumber}}</view>
-          <view class="summary-question-label">{{item.resultTone === 'success' ? '已记录' : '复盘·' + item.resultLabel}}</view>
+          <view class="summary-question-dot summary-question-dot--{{item.resultTone === 'success' ? 'normal' : 'review'}}">{{item.positionNumber}}</view>
+          <view wx:if="{{item.resultTone !== 'success'}}" class="summary-question-label">复盘·{{item.resultLabel}}</view>
         </view>
       </view>
 
       <view class="summary-actions">
-        <button hover-class="item--hover" class="summary-primary tap-tactile" bindtap="startReflection">复盘关键题</button>
         <view class="summary-actions__row">
           <button hover-class="item--hover" class="summary-secondary" bindtap="exit">稍后复盘</button>
           <button hover-class="item--hover" class="summary-anan" bindtap="askAnanAboutGroup">带着本组问岸岸</button>
@@ -105,17 +107,31 @@
         >{{item.positionNumber}}</button>
       </view>
 
+      <!-- Figma 14:2：共享材料收起为入口条，点开进入沉浸阅读，不在页内堆满长材料。 -->
+      <button
+        wx:if="{{activeReviewItem && activeReviewItem.material}}"
+        hover-class="item--hover"
+        class="review-material-entry"
+        bindtap="openReviewMaterial"
+      >
+        <view class="review-material-entry__icon" aria-hidden="true">≡</view>
+        <text class="review-material-entry__label">共享材料 · 点击展开</text>
+        <view class="review-material-entry__chevron" aria-hidden="true"></view>
+      </button>
+
+      <view wx:if="{{activeReviewItem && activeReviewItem.material && materialReaderState.mode !== 'question_first'}}" class="review-material-reader">
+        <material-reader
+          title="{{activeReviewItem.material.title || '共享材料'}}"
+          subtitle="{{activeReviewItem.positionLabel}}"
+          returnLabel="回到复盘"
+          blocks="{{activeReviewItem.material.content || emptyRichContentBlocks}}"
+          anchors="{{activeReviewItem.material.anchors || emptyContentAnchors}}"
+          state="{{materialReaderState}}"
+          bindstatechange="updateMaterialReader"
+        />
+      </view>
+
       <view wx:if="{{activeReviewItem}}" class="question-review">
-        <view class="question-review__position">{{activeReviewItem.positionLabel}}</view>
-        <view wx:if="{{activeReviewItem.material}}" class="question-review__material">
-          <material-reader
-            title="{{activeReviewItem.material.title || '共享材料'}}"
-            blocks="{{activeReviewItem.material.content || emptyRichContentBlocks}}"
-            anchors="{{activeReviewItem.material.anchors || emptyContentAnchors}}"
-            state="{{materialReaderState}}"
-            bindstatechange="updateMaterialReader"
-          />
-        </view>
         <view class="question-review__stem">
           <content-renderer
             blocks="{{activeReviewItem.stemContent || emptyRichContentBlocks}}"
@@ -123,27 +139,39 @@
             preferences="{{displayPreferences}}"
           />
         </view>
-        <view class="answer-compare answer-compare--wrong">
-          <view><text class="answer-compare__label">你的答案</text><text class="answer-compare__value">{{activeReviewItem.selectedLabel}}</text></view>
-          <view class="answer-compare__mark">×</view>
+        <!-- Figma 14:36/14:44：红绿答案卡。 -->
+        <view class="answer-compare {{activeReviewItem.selectedLabel === activeReviewItem.correctLabel ? 'answer-compare--right' : 'answer-compare--wrong'}}">
+          <view class="answer-compare__line"><text class="answer-compare__label">你的答案</text><text class="answer-compare__value">{{activeReviewItem.selectedLabel}}</text></view>
+          <view wx:if="{{activeReviewItem.selectedLabel === activeReviewItem.correctLabel}}" class="answer-compare__mark answer-compare__mark--right">✓</view>
+          <view wx:else class="answer-compare__mark answer-compare__mark--wrong">×</view>
         </view>
         <view class="answer-compare answer-compare--right">
-          <view><text class="answer-compare__label">正确答案</text><text class="answer-compare__value">{{activeReviewItem.correctLabel}}</text></view>
-          <view class="answer-compare__mark">✓</view>
+          <view class="answer-compare__line"><text class="answer-compare__label">正确答案</text><text class="answer-compare__value">{{activeReviewItem.correctLabel}}</text></view>
+          <view class="answer-compare__mark answer-compare__mark--right">✓</view>
         </view>
         <view class="answer-facts">
           <view wx:for="{{activeReviewItem.factChips}}" wx:key="code" class="answer-fact answer-fact--{{item.tone}}">{{item.label}}</view>
         </view>
       </view>
 
+      <!-- Figma 14:70：岸岸结构化解析，层级：正确结论 → 最短解题路径 → 你的具体错点。 -->
       <view wx:if="{{activeReviewItem}}" class="structured-review">
         <view class="structured-review__head"><text class="structured-review__spark">✦</text><text>岸岸结构化解析</text></view>
-        <view class="structured-review__label">这道题的客观结果</view>
+        <view class="structured-review__label">正确结论</view>
         <view class="structured-review__copy">{{activeReviewItem.objectiveLabel}}</view>
-        <view class="structured-review__label">题目解析</view>
+        <view class="structured-review__label">最短解题路径</view>
         <view class="structured-review__copy">{{activeReviewItem.explanation}}</view>
         <view class="structured-review__source">{{activeReviewItem.explanationSource}}</view>
-        <view wx:if="{{activeReviewItem.timingExceeded}}" class="structured-review__warning">这题超过建议用时；这里只记录事实，不自动把“超时”判成错因。</view>
+        <view wx:if="{{activeReviewItem.timingExceeded}}" class="structured-review__errorpoint">
+          <view class="structured-review__errorpoint-title">你的具体错点</view>
+          <view class="structured-review__errorpoint-copy">这题超过建议用时；这里只记录事实，不自动把“超时”判成错因。</view>
+        </view>
+
+        <!-- Figma 75:2/78:2 的两个真实入口：只有会话真的留下轨迹时才出现。 -->
+        <view wx:if="{{activeReviewItem.trajectoryAvailable}}" class="structured-review__trajectory">
+          <button hover-class="item--hover" class="structured-review__trajectory-link" bindtap="openReplay">原题轨迹回放</button>
+          <button hover-class="item--hover" class="structured-review__trajectory-link" bindtap="openActionAnalysis">岸岸动作分析</button>
+        </view>
       </view>
 
       <view class="reason-card">
@@ -238,7 +266,6 @@
         </view>
       </view>
 
-      <button hover-class="item--hover" class="reflection-primary tap-tactile" loading="{{interactionLocked}}" disabled="{{interactionLocked || voiceBusy || isRecording}}" bindtap="submitReflection">保存原话，继续确认错因</button>
       <view class="reflection-boundary">保存后，岸岸只会生成待确认的候选错因，不会替你下结论。</view>
       <view class="reflection-bottom-spacer"></view>
     </view>
@@ -311,20 +338,117 @@
       <view class="reflection-bottom-spacer"></view>
     </view>
 
+    <!-- Figma 15:2：顶部空白已压缩（15:8 paddingTop=28），完成态整体上移。 -->
     <view wx:else class="completed-screen">
-      <view class="completed-icon">✓</view>
+      <view class="completed-icon-pill">
+        <view class="completed-icon">✓</view>
+      </view>
       <view class="completed-title">复盘完成</view>
       <view class="completed-copy">后续复测会验证这次判断。只有多次出现一致证据，才会更新为稳定能力结论。</view>
       <view class="completed-card">
-        <view class="completed-row"><text>本次作答证据</text><text>{{result ? result.totalCount : 0}} 条</text></view>
-        <view class="completed-divider"></view>
-        <view class="completed-row"><text>原话与错因</text><text>已确认</text></view>
-        <view class="completed-divider"></view>
-        <view class="completed-row"><text>能力画像</text><text>等待复测验证</text></view>
-        <view wx:if="{{hasUpdatedPlan}}" class="completed-divider"></view>
-        <view wx:if="{{hasUpdatedPlan}}" class="completed-row completed-row--accent"><text>今日计划</text><text>已重新同步</text></view>
+        <view class="completed-row"><text>本次作答证据</text><text class="completed-row__value">{{result ? result.totalCount : 0}} 条</text></view>
+        <view class="completed-row"><text>原话与错因</text><text class="completed-row__value">已确认</text></view>
+        <view class="completed-row completed-row--last"><text>能力画像</text><text class="completed-row__value">等待复测验证</text></view>
+        <view wx:if="{{hasUpdatedPlan}}" class="completed-row completed-row--accent"><text>今日计划</text><text class="completed-row__value completed-row__value--accent">已重新同步</text></view>
       </view>
       <button hover-class="item--hover" class="reflection-primary tap-tactile" bindtap="returnToday">完成复盘</button>
+    </view>
+
+    <!-- Figma 113:2 Summary/FixedActionDock：主 CTA 固定在底部操作坞，不随正文滚动。 -->
+    <view wx:if="{{phase === 'summary' && result}}" class="s9-action-dock">
+      <button hover-class="item--hover" class="s9-primary-button tap-tactile" bindtap="startReflection">复盘 {{reviewItems.length}} 道关键题</button>
+    </view>
+
+    <!-- Figma 14:2：错因复盘正文可滚动，「确认错因，看下一题」固定在底部。 -->
+    <view wx:if="{{phase === 'reflection'}}" class="s9-action-dock">
+      <button
+        hover-class="item--hover"
+        class="s9-primary-button tap-tactile"
+        loading="{{interactionLocked}}"
+        disabled="{{interactionLocked || voiceBusy || isRecording}}"
+        bindtap="confirmCauseAndNext"
+      >{{currentReviewIndex < reviewItems.length - 1 ? '确认错因，看下一题' : '保存原话，继续确认错因'}}</button>
+    </view>
+
+    <!-- Figma 75:2 · 原题轨迹回放：题面 + 笔迹回放 + 底部回放工具栏。 -->
+    <view wx:if="{{replayOpen && activeReviewItem}}" class="replay-surface" catchtouchmove="noop">
+      <view class="replay-chip">
+        <view class="replay-chip__dot" aria-hidden="true"></view>
+        <text>轨迹回放 · {{replayCurrentLabel}}</text>
+      </view>
+      <scroll-view class="replay-body" scroll-y enhanced show-scrollbar="{{false}}">
+        <view class="replay-question">
+          <content-renderer
+            blocks="{{activeReviewItem.stemContent || emptyRichContentBlocks}}"
+            zoom="{{1}}"
+            preferences="{{displayPreferences}}"
+          />
+        </view>
+      </scroll-view>
+      <view class="replay-ink" aria-hidden="true">
+        <annotation-layer
+          mode="replay"
+          strokes="{{activeReviewItem.annotations}}"
+          replayMs="{{replayMs}}"
+        />
+      </view>
+      <view wx:if="{{replayCurrentEvent}}" class="replay-current-event">
+        <view class="replay-current-event__dot" aria-hidden="true"></view>
+        <text>{{replayCurrentEvent}}</text>
+      </view>
+
+      <!-- Figma 75:170：回放工具栏（y=750，底部约 16px 呼吸空间），播放圆钮与退出垂直居中。 -->
+      <view class="replay-dock">
+        <button hover-class="item--hover" class="replay-dock__play" aria-label="{{replayPlaying ? '暂停回放' : '播放回放'}}" bindtap="toggleReplayPlayback">
+          <image wx:if="{{!replayPlaying}}" class="replay-dock__play-icon" src="/assets/icons/task/replay-play.svg" mode="aspectFit" aria-hidden="true" />
+          <view wx:else class="replay-dock__pause-icon" aria-hidden="true">
+            <view class="replay-dock__pause-bar"></view>
+            <view class="replay-dock__pause-bar"></view>
+          </view>
+        </button>
+        <view class="replay-dock__middle">
+          <view class="replay-dock__track">
+            <view class="replay-dock__track-fill" style="width: {{replayProgressPercent}}%;"></view>
+            <view
+              wx:for="{{replayMarkers}}"
+              wx:key="index"
+              class="replay-dock__marker replay-dock__marker--{{item.tone}}"
+              style="left: {{item.percent}}%;"
+            ></view>
+          </view>
+          <view class="replay-dock__meta">
+            <text class="replay-dock__time type-data">{{replayTimeLabel}}</text>
+            <text class="replay-dock__summary">{{replaySummaryLabel}}</text>
+          </view>
+        </view>
+        <button hover-class="item--hover" class="replay-dock__exit" bindtap="closeReplay">退出回放</button>
+      </view>
+    </view>
+
+    <!-- Figma 78:2 · 岸岸动作分析：从底部升起的分析面板（79:4 y=530 h=314）。 -->
+    <view wx:if="{{analysisOpen && actionAnalysis}}" class="action-analysis motion-mask" catchtouchmove="noop">
+      <view class="action-analysis__mask" catchtap="closeActionAnalysis" aria-label="收起动作分析"></view>
+      <view class="action-analysis__sheet">
+        <view class="action-analysis__handle" aria-hidden="true"></view>
+        <view class="action-analysis__head">
+          <view class="action-analysis__title">岸岸观察到的动作</view>
+          <view class="action-analysis__confidence">{{actionAnalysis.reliabilityLabel}}</view>
+        </view>
+        <view class="action-analysis__basis">{{actionAnalysis.basisLabel}}</view>
+        <view wx:if="{{actionAnalysis.summary}}" class="action-analysis__summary">{{actionAnalysis.summary}}</view>
+        <view class="action-analysis__timeline">
+          <view wx:for="{{actionAnalysis.rows}}" wx:key="index" class="action-analysis__row">
+            <view class="action-analysis__time action-analysis__time--{{item.tone}} type-data">{{item.timeLabel}}</view>
+            <text class="action-analysis__copy">{{item.text}}</text>
+          </view>
+        </view>
+        <view class="action-analysis__boundary">这里只描述可见轨迹，不直接判断“粗心”或“不会”。</view>
+        <!-- 底部按钮不贴设备边缘：sheet padding-bottom 提供呼吸空间。 -->
+        <view class="action-analysis__actions">
+          <button hover-class="item--hover" class="action-analysis__ask" bindtap="askAnanAboutGroup">继续追问岸岸</button>
+          <button hover-class="item--hover" class="action-analysis__back" bindtap="closeActionAnalysis">回到错题复盘</button>
+        </view>
+      </view>
     </view>
   </block>
 </view>

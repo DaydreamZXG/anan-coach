@@ -1,4 +1,4 @@
-<view class="qualification-edit-page">
+<view class="s9-screen qualification-edit-page">
   <workbench-nav id="runtime-workbench-nav" title="报考资格档案" back-behavior="emit" bind:back="back" />
 
   <view wx:if="{{loadingProfile}}" class="qualification-state">
@@ -40,7 +40,7 @@
           <view class="notice-copy">专业是岗位筛选的核心门槛，请按毕业证上的名称填写，不用专业大类代替。</view>
         </view>
 
-        <view wx:if="{{current === 0}}" class="form-card">
+        <view wx:if="{{current === 0}}" class="s9-card form-card">
           <view class="card-title">专业与学历</view>
           <view class="card-copy">这些信息会直接用于国考岗位的硬条件核验。</view>
 
@@ -78,7 +78,7 @@
           </view>
         </view>
 
-        <view wx:elif="{{current === 1}}" class="form-card">
+        <view wx:elif="{{current === 1}}" class="s9-card form-card">
           <view class="card-title">身份与政治面貌</view>
           <view class="card-copy">应届身份和政治面貌会改变部分岗位的可报结论。</view>
 
@@ -120,7 +120,7 @@
           </view>
         </view>
 
-        <view wx:elif="{{current === 2}}" class="form-card">
+        <view wx:elif="{{current === 2}}" class="s9-card form-card">
           <view class="card-title">经历与户籍</view>
           <view class="card-copy">普通工作、基层工作和服务基层项目是三类不同资格，必须分别确认。</view>
 
@@ -172,7 +172,7 @@
           </view>
         </view>
 
-        <view wx:else class="form-card review-card">
+        <view wx:else class="s9-card form-card review-card">
           <view class="review-head">
             <view class="review-main">
               <view class="card-title">保存前确认</view>
@@ -205,10 +205,10 @@
       </view>
     </scroll-view>
 
-    <view class="qualification-dock">
-      <view class="dock-actions">
-        <button hover-class="item--hover" wx:if="{{current > 0}}" class="secondary-action" bindtap="previous">返回</button>
-        <button hover-class="item--hover" class="primary-action tap-tactile" loading="{{saving}}" bindtap="next">{{primaryActionLabel}}</button>
+    <view class="s9-action-dock">
+      <view class="s9-action-row">
+        <button hover-class="item--hover" wx:if="{{current > 0}}" class="s9-secondary-button" bindtap="previous">返回</button>
+        <button hover-class="item--hover" class="s9-primary-button tap-tactile" loading="{{saving}}" bindtap="next">{{primaryActionLabel}}</button>
       </view>
     </view>
   </block>
@@ -226,8 +226,8 @@
       <view class="success-row"><text class="success-check">✓</text><text>不确定条件仍会明确标为待确认</text></view>
     </view>
     <view class="success-actions">
-      <button hover-class="item--hover" class="primary-action tap-tactile" bindtap="openPositions">查看候选岗位</button>
-      <button hover-class="item--hover" class="secondary-action" bindtap="openScoreSheet">补成绩，计算分差</button>
+      <button hover-class="item--hover" class="s9-primary-button tap-tactile" bindtap="openPositions">查看候选岗位</button>
+      <button hover-class="item--hover" class="s9-secondary-button" bindtap="openScoreSheet">补成绩，计算分差</button>
       <button hover-class="item--hover" class="text-action" bindtap="editAgain">继续修改资料</button>
     </view>
   </view>

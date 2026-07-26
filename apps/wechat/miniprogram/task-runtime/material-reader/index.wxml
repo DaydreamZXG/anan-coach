@@ -1,12 +1,12 @@
-<view class="material-reader">
+<view class="material-reader material-reader--{{appearance}}">
   <view
     wx:if="{{readerMode === 'question_first'}}"
     class="material-reader__inline material-reader__inline--{{preferences.colorMode}}"
   >
-    <view class="material-reader__inline-header">
+    <view wx:if="{{inlineHeaderAvailable}}" class="material-reader__inline-header">
       <view class="material-reader__inline-heading">
         <view class="material-reader__inline-kicker">共享材料</view>
-        <view class="material-reader__entry-title">{{title}}</view>
+        <view wx:if="{{appearance !== 'answering'}}" class="material-reader__entry-title">{{title}}</view>
       </view>
       <button hover-class="item--hover"
         class="material-reader__inline-expand"
@@ -16,8 +16,14 @@
         <view class="material-reader__inline-chevron" aria-hidden="true"></view>
       </button>
     </view>
+
+    <!--
+      作答态与常规态共用同一个滚动容器（Figma 2:75 overflow-y:auto）。
+      作答态过去直接铺开正文，导致材料表格只露出表头且无法继续阅读。
+      滚动位置仍然经 onScroll 回传，materialPosition 的持久化不变。
+    -->
     <scroll-view
-      class="material-reader__inline-scroll"
+      class="material-reader__inline-scroll material-reader__inline-scroll--{{appearance}}"
       scroll-y
       enhanced
       show-scrollbar="{{false}}"
@@ -25,82 +31,8 @@
       scroll-into-view="{{scrollIntoView}}"
       bindscroll="onScroll"
     >
-      <view class="material-reader__inline-content">
-        <content-renderer
-          blocks="{{blocks}}"
-          anchors="{{anchors}}"
-          zoom="{{position.zoom}}"
-          preferences="{{preferences}}"
-          freeze-first-column
-          freeze-header
-          bindanchorchange="onAnchorChange"
-          bindzoomchange="onZoomChange"
-        />
-      </view>
-    </scroll-view>
-  </view>
-
-  <view hover-class="item--hover"
-    wx:else
-    class="material-reader__backdrop material-reader__backdrop--{{readerMode}}"
-    catchtap="returnToQuestion"
-  >
-    <view hover-class="item--hover"
-      class="material-reader__panel material-reader__panel--{{readerMode}} material-reader__panel--{{preferences.colorMode}}"
-      catchtap="stopPropagation"
-    >
-      <view class="material-reader__grabber"></view>
-      <view class="material-reader__header">
-        <view class="material-reader__heading">
-          <view class="material-reader__title">{{title}}</view>
-          <view class="material-reader__position">位置已记录 · {{zoomPercent}}%</view>
-        </view>
-        <button hover-class="item--hover"
-          wx:if="{{readerMode === 'drawer'}}"
-          class="material-reader__header-action"
-          bindtap="openFullscreen"
-        >
-          全屏
-        </button>
-        <button hover-class="item--hover"
-          wx:else
-          class="material-reader__header-action"
-          bindtap="openDrawer"
-        >
-          收起
-        </button>
-        <button hover-class="item--hover" class="material-reader__header-action" bindtap="returnToQuestion">回到题目</button>
-      </view>
-
-      <view class="material-reader__toolbar">
-        <view class="material-reader__tool-group">
-          <button hover-class="item--hover" class="material-reader__tool" aria-label="缩小材料" bindtap="decreaseZoom">−</button>
-          <text class="material-reader__tool-value">{{zoomPercent}}%</text>
-          <button hover-class="item--hover" class="material-reader__tool" aria-label="放大材料" bindtap="increaseZoom">＋</button>
-        </view>
-        <view class="material-reader__tool-group">
-          <button hover-class="item--hover" class="material-reader__tool" aria-label="减小字号" bindtap="decreaseFont">A−</button>
-          <text class="material-reader__tool-value">{{fontPercent}}%</text>
-          <button hover-class="item--hover" class="material-reader__tool" aria-label="增大字号" bindtap="increaseFont">A＋</button>
-        </view>
-        <button hover-class="item--hover"
-          class="material-reader__eye-care {{eyeCare ? 'material-reader__eye-care--active' : ''}}"
-          bindtap="toggleEyeCare"
-        >
-          护眼
-        </button>
-      </view>
-
-      <scroll-view
-        class="material-reader__scroll material-reader__scroll--{{readerMode}}"
-        scroll-y
-        enhanced
-        show-scrollbar
-        scroll-top="{{position.scrollTop}}"
-        scroll-into-view="{{scrollIntoView}}"
-        bindscroll="onScroll"
-      >
-        <view class="material-reader__content">
+      <view class="material-reader__inline-body material-reader__inline-body--{{appearance}}">
+        <view class="material-reader__inline-content material-reader__inline-content--{{appearance}}">
           <content-renderer
             blocks="{{blocks}}"
             anchors="{{anchors}}"
@@ -112,7 +44,89 @@
             bindzoomchange="onZoomChange"
           />
         </view>
-      </scroll-view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!--
+    Figma 80:2 · 沉浸阅读。独立全屏状态：返回、标题与微信胶囊共用同一导航行，
+    正文卡可完整滚动，底部工具坞提供 字号 / 行距 / 护眼 / 批注 / 回到第 N 题。
+  -->
+  <view
+    wx:else
+    class="material-reader__surface material-reader__surface--{{preferences.colorMode}}"
+    style="--reader-status-bar: {{statusBarHeight}}px; --reader-capsule-reserve: {{capsuleReserve}}px;"
+  >
+    <view class="material-reader__nav">
+      <button hover-class="item--hover" class="material-reader__back" aria-label="回到题目" bindtap="returnToQuestion">‹</button>
+      <view class="material-reader__nav-heading">
+        <view class="material-reader__nav-title">共享材料</view>
+        <view wx:if="{{subtitle}}" class="material-reader__nav-subtitle">{{subtitle}}</view>
+      </view>
+    </view>
+
+    <scroll-view
+      class="material-reader__body-scroll"
+      scroll-y
+      enhanced
+      show-scrollbar="{{false}}"
+      scroll-top="{{position.scrollTop}}"
+      scroll-into-view="{{scrollIntoView}}"
+      bindscroll="onScroll"
+    >
+      <view class="material-reader__body">
+        <view wx:if="{{chipLabel}}" class="material-reader__section-tag">{{chipLabel}}</view>
+        <view wx:if="{{title}}" class="material-reader__body-title">{{title}}</view>
+        <view class="material-reader__content">
+          <content-renderer
+            blocks="{{blocks}}"
+            anchors="{{anchors}}"
+            zoom="{{position.zoom}}"
+            preferences="{{preferences}}"
+            numbered
+            freeze-first-column
+            freeze-header
+            bindanchorchange="onAnchorChange"
+            bindzoomchange="onZoomChange"
+          />
+        </view>
+      </view>
+    </scroll-view>
+
+    <view class="material-reader__progress" aria-label="已读 {{readPercent}}%">
+      <view class="material-reader__progress-dot" aria-hidden="true"></view>
+      <text>已读 {{readPercent}}%</text>
+    </view>
+
+    <view class="material-reader__dock">
+      <button hover-class="item--hover" class="material-reader__dock-tool" aria-label="切换字号" bindtap="cycleFont">
+        <view class="material-reader__dock-glyph">Aa</view>
+        <view class="material-reader__dock-label">字号</view>
+      </button>
+      <button hover-class="item--hover" class="material-reader__dock-tool" aria-label="切换行距" bindtap="cycleLineSpacing">
+        <view class="material-reader__dock-glyph">☰</view>
+        <view class="material-reader__dock-label">行距</view>
+      </button>
+      <button hover-class="item--hover"
+        class="material-reader__dock-tool {{eyeCare ? 'material-reader__dock-tool--active' : ''}}"
+        aria-label="护眼模式"
+        bindtap="toggleEyeCare"
+      >
+        <view class="material-reader__dock-glyph">◉</view>
+        <view class="material-reader__dock-label">护眼</view>
+      </button>
+      <button hover-class="item--hover"
+        wx:if="{{annotateAvailable}}"
+        class="material-reader__dock-tool {{annotateActive ? 'material-reader__dock-tool--active' : ''}}"
+        aria-label="批注材料"
+        bindtap="requestAnnotate"
+      >
+        <view class="material-reader__dock-glyph">✎</view>
+        <view class="material-reader__dock-label">批注</view>
+      </button>
+      <button hover-class="item--hover" class="material-reader__dock-return" bindtap="returnToQuestion">
+        {{returnLabel || '回到题目'}}
+      </button>
     </view>
   </view>
 </view>

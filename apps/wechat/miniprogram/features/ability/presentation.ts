@@ -63,7 +63,10 @@ export function abilityEstimateView(
 }
 
 function rangeLabel(scoreRange: AbilityScoreRange | null | undefined): string {
-  return scoreRange ? `${scoreRange.lower.toFixed(1)}–${scoreRange.upper.toFixed(1)}` : "待补证据";
+  if (!scoreRange) return "待补证据";
+  const trim = (value: number): string =>
+    Number.isInteger(value) ? String(value) : value.toFixed(1);
+  return `${trim(scoreRange.lower)}–${trim(scoreRange.upper)}`;
 }
 
 function componentLabel(component: "xingce" | "shenlun"): string {

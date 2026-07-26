@@ -1,4 +1,4 @@
-<view class="workbench-page compose-page">
+<view class="s9-page workbench-page compose-page">
   <view class="workbench-hero"><view class="workbench-kicker">申论作答工作台</view><view class="workbench-title">自己的要点，先于 AI 的答案</view><view class="workbench-copy">先保存找点、结构与正文，再进入评阅；提交前不会用参考答案覆盖你的判断。</view></view>
   <state-view wx:if="{{status === 'loading'}}" state="loading" />
   <state-view wx:elif="{{status === 'error'}}" state="error" title="作答工作台没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="{{retryAllowed ? '重新加载' : ''}}" bind:action="retryLoad" />

@@ -1,7 +1,7 @@
-<view class="adjustment-page">
+<view class="s9-screen">
   <workbench-nav id="runtime-workbench-nav" title="调整今天" back-behavior="emit" bind:back="exit" />
 
-  <view class="adjustment-content">
+  <view class="s9-body s9-body--with-dock adjustment-content">
     <state-view wx:if="{{status === 'loading'}}" state="loading" />
     <state-view
       wx:elif="{{status === 'error'}}"
@@ -15,25 +15,26 @@
 
     <block wx:elif="{{status === 'ready' && dashboard}}">
       <block wx:if="{{step === 'edit'}}">
-        <view class="adjustment-hero">
-          <view class="adjustment-title">今天变了，计划也可以跟着变</view>
-          <view class="adjustment-copy">告诉岸岸还剩多少时间，先保住最值得做的。</view>
+        <view class="s9-hero">
+          <view class="s9-title">今天变了，计划也可以跟着变</view>
+          <view class="s9-subtitle">告诉岸岸还剩多少时间，先保住最值得做的。</view>
         </view>
 
-        <view class="current-card">
-          <view class="current-card__accent"></view>
-          <view class="current-card__label">当前安排</view>
-          <view class="current-card__chips">
-            <view class="current-chip current-chip--blue">{{currentDurationLabel === '今天不安排' ? currentDurationLabel : '共 ' + currentDurationLabel}}</view>
-            <view class="current-chip">{{currentTaskCount > 0 ? currentTaskCount + ' 项任务' : '暂无任务'}}</view>
+        <view class="s9-stack">
+          <view class="s9-card current-card">
+            <view class="current-card__label">当前安排</view>
+            <view class="current-card__chips">
+              <view class="current-chip current-chip--blue">{{currentDurationLabel === '今天不安排' ? currentDurationLabel : '共 ' + currentDurationLabel}}</view>
+              <view class="current-chip">{{currentTaskCount > 0 ? currentTaskCount + ' 项任务' : '暂无任务'}}</view>
+            </view>
+            <view wx:if="{{currentTaskCount > 0}}" class="current-card__focus">当前重点：<text class="current-card__focus-value">{{currentFocus}}</text></view>
+            <view wx:else class="current-card__focus">当前没有待完成任务；修改可用时间后，岸岸会重新核对今天的安排。</view>
           </view>
-          <view wx:if="{{currentTaskCount > 0}}" class="current-card__focus">当前重点：<text class="current-card__focus-value">{{currentFocus}}</text></view>
-          <view wx:else class="current-card__focus">当前没有待完成任务；修改可用时间后，岸岸会重新核对今天的安排。</view>
         </view>
 
-        <view class="adjustment-section">
-          <view class="adjustment-section__title">今天还能学多久</view>
-          <view class="time-card">
+        <view class="s9-section">
+          <view class="s9-section-head"><view class="s9-section-title">今天还能学多久</view></view>
+          <view class="s9-card time-card">
             <view class="time-stepper">
               <button
                 hover-class="item--hover"
@@ -71,8 +72,8 @@
           </view>
         </view>
 
-        <view class="adjustment-section">
-          <view class="adjustment-section__title">现在的精力</view>
+        <view class="s9-section">
+          <view class="s9-section-head"><view class="s9-section-title">现在的精力</view></view>
           <view class="energy-options">
             <button
               hover-class="item--hover"
@@ -88,8 +89,11 @@
       </block>
 
       <block wx:else>
-        <view class="adjustment-hero">
-          <view class="adjustment-title">调整预览</view>
+        <view class="s9-hero">
+          <view class="s9-title">调整预览</view>
+        </view>
+
+        <view class="s9-stack">
           <view class="suggestion-card">
             <view class="suggestion-card__aurora"></view>
             <view class="suggestion-card__content">
@@ -100,10 +104,10 @@
           </view>
         </view>
 
-        <view class="adjustment-section">
-          <view class="adjustment-section__title">本次变动明细</view>
+        <view class="s9-section">
+          <view class="s9-section-head"><view class="s9-section-title">本次变动明细</view></view>
           <view wx:if="{{previewChanges.length}}" class="change-list">
-            <view wx:for="{{previewChanges}}" wx:key="id" class="change-card change-card--{{item.tone}}">
+            <view wx:for="{{previewChanges}}" wx:key="id" class="s9-card change-card change-card--{{item.tone}}">
               <view class="change-card__top">
                 <view class="change-tag change-tag--{{item.tone}}">{{item.label}}</view>
                 <view class="change-duration type-data">{{item.duration}}</view>
@@ -112,46 +116,48 @@
               <view class="change-copy">{{item.description}}</view>
             </view>
           </view>
-          <view wx:else class="change-empty">任务内容不变，只更新今天的时间和状态。</view>
+          <view wx:else class="s9-card change-empty">任务内容不变，只更新今天的时间和状态。</view>
         </view>
 
-        <view class="impact-card">
-          <image class="impact-card__icon" src="/assets/icons/today/target-muted.png" mode="aspectFit" />
-          <view>
-            <view class="impact-card__title">对目标节奏的影响</view>
-            <view class="impact-card__copy">{{previewImpact}}</view>
+        <view class="s9-stack">
+          <view class="s9-card impact-card">
+            <image class="impact-card__icon" src="/assets/icons/today/target-muted.png" mode="aspectFit" />
+            <view>
+              <view class="impact-card__title">对目标节奏的影响</view>
+              <view class="impact-card__copy">{{previewImpact}}</view>
+            </view>
           </view>
-        </view>
 
-        <view class="adjustment-note">
-          <view class="adjustment-note__icon">i</view>
-          <view>没完成的内容不会自动变成学习欠账。确认后，岸岸会按你现在的时间重新安排今天。</view>
+          <view class="adjustment-note">
+            <view class="adjustment-note__icon">i</view>
+            <view>没完成的内容不会自动变成学习欠账。确认后，岸岸会按你现在的时间重新安排今天。</view>
+          </view>
         </view>
       </block>
 
-      <view wx:if="{{errorMessage}}" class="adjustment-error">{{errorMessage}}</view>
+      <view wx:if="{{errorMessage}}" class="s9-inline-error">{{errorMessage}}</view>
     </block>
   </view>
 
-  <view wx:if="{{status === 'ready' && dashboard}}" class="adjustment-footer">
+  <view wx:if="{{status === 'ready' && dashboard}}" class="s9-action-dock">
     <button
       hover-class="item--hover"
       wx:if="{{step === 'edit'}}"
-      class="control-center adjustment-primary tap-tactile {{previewing || submitting ? 'control-disabled' : ''}}"
+      class="s9-primary-button tap-tactile {{previewing || submitting ? 's9-primary-button--disabled' : ''}}"
       loading="{{previewing}}"
       disabled="{{previewing || submitting}}"
       bindtap="generatePreview"
     >生成调整预览</button>
-    <view wx:else class="adjustment-footer__actions">
+    <view wx:else class="s9-action-row">
       <button
         hover-class="item--hover"
-        class="control-center adjustment-secondary {{submitting ? 'control-disabled' : ''}}"
+        class="s9-secondary-button {{submitting ? 'control-disabled' : ''}}"
         disabled="{{submitting}}"
         bindtap="backToEdit"
       >返回修改</button>
       <button
         hover-class="item--hover"
-        class="control-center adjustment-primary adjustment-primary--grow tap-tactile {{submitting ? 'control-disabled' : ''}}"
+        class="s9-primary-button tap-tactile {{submitting ? 's9-primary-button--disabled' : ''}}"
         loading="{{submitting}}"
         disabled="{{submitting}}"
         bindtap="confirmAdjustment"

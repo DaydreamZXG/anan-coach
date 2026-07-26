@@ -1,4 +1,6 @@
 import { ApiClient, ApiClientError } from "../../api/client";
+import { CompanionApi } from "../../api/companion";
+import { LearningBrainApi } from "../../api/learning-brain";
 import { MathInkApi, type FormulaVersion, type InkStroke } from "../../api/math-ink";
 import { TaskEditingApi } from "../../api/task-editing";
 import {
@@ -50,6 +52,7 @@ import {
 } from "../../features/task-editing/coordinator";
 import { createIdempotencyKey } from "../../platform/command-id";
 import { decideAutosave, decideExit } from "../../task-runtime/state/autosave";
+import type { AnnotationStroke } from "../../task-runtime/contracts";
 import { reduceTaskRuntime, unansweredQuestionIds } from "../../task-runtime/state/runtime";
 import type {
   ContentAnchor,
@@ -98,6 +101,18 @@ interface PracticePageData {
   disputeReceipt: string;
   disputeCategories: Array<{ value: XingceQuestionDisputeCategory; label: string }>;
   answerSheetOpen: boolean;
+  ananContextOpen: boolean;
+  /** Figma 70:2：题面批注模式。 */
+  annotationOpen: boolean;
+  /** Figma 84:2：画词选择状态。 */
+  selection: { key: string; text: string; toolbarTop: number };
+  /** Figma 97:2：上下文追问岸岸。 */
+  ananInput: string;
+  ananAsking: boolean;
+  ananReply: string;
+  ananReplyTitle: string;
+  ananError: string;
+  learnerStateVersion: string;
   draftOpen: boolean;
   mathInkOpen: boolean;
   mathInkRecognizing: boolean;
@@ -113,8 +128,20 @@ interface PracticePageData {
     index: number;
     label: string;
     state: "answered" | "skipped" | "unanswered";
+    marked: boolean;
     active: boolean;
   }>;
+  /** Figma 61:2：图例的真实计数。 */
+  answerSheetLegend: {
+    answered: number;
+    unanswered: number;
+    marked: number;
+  };
+  /** Figma 60:10：`资料分析 · 共 5 题`，来自真实 bundle。 */
+  answerSheetSubtitle: string;
+  /** Figma 61:16：模块行右侧 `2 已答 · 2 未答 · 1 当前`。 */
+  answerSheetModuleName: string;
+  answerSheetModuleCounts: string;
   confidenceOptions: Array<{ value: "low" | "medium" | "high"; label: string }>;
 }
 
@@ -128,6 +155,31 @@ interface PracticePageCustom {
   updateMaterialReader(event: WechatMiniprogram.CustomEvent<{ state: MaterialReaderState }>): void;
   openTaskTools(): void;
   openFocusTool(): void;
+  openAnanContext(): void;
+  closeAnanContext(): void;
+  openAnnotation(): void;
+  closeAnnotation(): void;
+  changeAnnotations(
+    event: WechatMiniprogram.CustomEvent<{
+      strokes: AnnotationStroke[];
+      action: "added" | "erased";
+    }>,
+  ): void;
+  tapStemSegment(
+    event: WechatMiniprogram.CustomEvent<{
+      key: string;
+      text: string;
+      rect: { top?: number; bottom?: number } | null;
+    }>,
+  ): void;
+  explainSelection(): void;
+  compareSelectionOptions(): void;
+  askAboutSelection(): void;
+  markSelectionOnQuestion(): void;
+  logSelectionToDraft(): void;
+  inputAnanQuestion(event: WechatMiniprogram.Input): void;
+  sendAnanQuestion(): Promise<void>;
+  askAnan(question: string): Promise<void>;
   closeTaskOverlay(): void;
   openTaskHelp(): void;
   submitTaskHelp(event: WechatMiniprogram.CustomEvent<TaskHelpCommand>): Promise<void>;
@@ -201,6 +253,15 @@ Page<PracticePageData, PracticePageCustom>({
       { value: "other", label: "其他" },
     ],
     answerSheetOpen: false,
+    ananContextOpen: false,
+    annotationOpen: false,
+    selection: { key: "", text: "", toolbarTop: 0 },
+    ananInput: "",
+    ananAsking: false,
+    ananReply: "",
+    ananReplyTitle: "",
+    ananError: "",
+    learnerStateVersion: "",
     draftOpen: false,
     mathInkOpen: false,
     mathInkRecognizing: false,
@@ -213,6 +274,10 @@ Page<PracticePageData, PracticePageCustom>({
     hasPendingCheckpoint: false,
     pendingCheckpointMessage: "",
     answerSheetItems: [],
+    answerSheetLegend: { answered: 0, unanswered: 0, marked: 0 },
+    answerSheetSubtitle: "",
+    answerSheetModuleName: "",
+    answerSheetModuleCounts: "",
     confidenceOptions: [
       { value: "low", label: "不确定" },
       { value: "medium", label: "比较确定" },
@@ -397,15 +462,23 @@ Page<PracticePageData, PracticePageCustom>({
   },
 
   toggleMaterial() {
+    // Figma 80:2：材料标题行的展开入口直接进入沉浸阅读，全屏态承载全部阅读工具。
     const event =
       this.data.materialReaderState.mode === "question_first"
-        ? ({ type: "OPEN_DRAWER" } as const)
+        ? ({ type: "OPEN_FULLSCREEN" } as const)
         : ({ type: "RETURN_TO_QUESTION" } as const);
     const materialReaderState = reduceMaterialReader(this.data.materialReaderState, event);
     this.setData({
       materialOpen: materialReaderState.mode !== "question_first",
       materialReaderState,
     });
+    const runtime = runtimes.get(this);
+    if (runtime?.task && event.type === "OPEN_FULLSCREEN") {
+      runtime.task = reduceTaskRuntime(runtime.task, {
+        type: "ACTION_LOGGED",
+        action: "material_expanded",
+      });
+    }
   },
 
   updateMaterialReader(event) {
@@ -455,8 +528,241 @@ Page<PracticePageData, PracticePageCustom>({
     this.openTaskHelp();
   },
 
+  // Figma 97:2：材料标题行的岸岸入口打开当前题目的上下文追问面板。
+  openAnanContext() {
+    const runtime = runtimes.get(this);
+    if (!runtime?.session || runtime.session.state !== "answering") return;
+    this.setData({
+      ananContextOpen: true,
+      toolsOpen: false,
+      helpOpen: false,
+      disputeOpen: false,
+      draftOpen: false,
+      answerSheetOpen: false,
+    });
+  },
+
+  closeAnanContext() {
+    this.setData({ ananContextOpen: false, ananAsking: false });
+  },
+
+  // Figma 70:2：进入题面批注模式（笔迹随检查点自动保存）。
+  openAnnotation() {
+    const runtime = runtimes.get(this);
+    if (!runtime?.session || runtime.session.state !== "answering") return;
+    this.setData({
+      annotationOpen: true,
+      toolsOpen: false,
+      helpOpen: false,
+      disputeOpen: false,
+      draftOpen: false,
+      answerSheetOpen: false,
+      ananContextOpen: false,
+      selection: { key: "", text: "", toolbarTop: 0 },
+    });
+  },
+
+  closeAnnotation() {
+    this.setData({ annotationOpen: false });
+  },
+
+  // 笔迹层提交（新增或擦除都是完整替换），进入 runtime 并触发自动保存。
+  changeAnnotations(event) {
+    const runtime = runtimes.get(this);
+    if (!runtime?.task || this.data.interactionLocked) return;
+    runtime.task = reduceTaskRuntime(runtime.task, {
+      type: "ANNOTATIONS_CHANGED",
+      strokes: event.detail.strokes,
+      action: event.detail.action,
+    });
+    render(this, runtime);
+    void autosaveCheckpoint(this, runtime);
+  },
+
+  // Figma 84:2 画词：选中句段并把工具条放在选区下方（避开选中文字与固定底栏）。
+  tapStemSegment(event) {
+    const { key, text, rect } = event.detail;
+    if (this.data.selection.key === key) {
+      this.setData({ selection: { key: "", text: "", toolbarTop: 0 } });
+      return;
+    }
+    const windowHeight = wx.getWindowInfo().windowHeight;
+    const preferred = (rect?.bottom ?? 0) + 10;
+    const toolbarTop = Math.min(preferred, windowHeight - 180);
+    this.setData({ selection: { key, text, toolbarTop } });
+  },
+
+  explainSelection() {
+    const text = this.data.selection.text.trim();
+    if (!text) return;
+    this.openAnanContext();
+    void this.askAnan(`请解释这句话在本题里的含义：${text}`);
+  },
+
+  compareSelectionOptions() {
+    const view = this.data.view;
+    if (!view) return;
+    const labels = view.question.options.map((option) => option.label).join("/");
+    this.openAnanContext();
+    void this.askAnan(`请对比本题选项 ${labels} 的差异，以及排查它们时应该先看什么。`);
+  },
+
+  askAboutSelection() {
+    this.openAnanContext();
+  },
+
+  // Figma 97:191：把选中文字用荧光笔标在题面上（真实批注，不是演示）。
+  markSelectionOnQuestion() {
+    const runtime = runtimes.get(this);
+    const text = this.data.selection.text.trim();
+    const view = this.data.view;
+    if (!runtime?.task || !text || !view) return;
+    const query = this.createSelectorQuery();
+    query.select(".practice-workspace").boundingClientRect();
+    query.exec(
+      (
+        results: Array<{
+          top?: number;
+          left?: number;
+          width?: number;
+          height?: number;
+        } | null>,
+      ) => {
+        const workspace = results[0];
+        if (!runtime.task || !workspace?.width || !workspace.height) return;
+        const top = this.data.selection.toolbarTop - 10;
+        const normalizedY = Math.min(
+          0.98,
+          Math.max(0.02, (top - (workspace.top ?? 0) - 12) / workspace.height),
+        );
+        const stroke: AnnotationStroke = {
+          strokeId: `mark-${String(runtime.task.totalElapsedSeconds)}-${Math.random().toString(36).slice(2, 8)}`,
+          tool: "highlighter",
+          width: 0.03,
+          points: [
+            { x: 0.08, y: normalizedY },
+            { x: 0.92, y: normalizedY },
+          ],
+          atMs:
+            (runtime.task.attempts[
+              runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? ""
+            ]?.elapsedSeconds ?? 0) * 1000,
+        };
+        runtime.task = reduceTaskRuntime(runtime.task, {
+          type: "ANNOTATIONS_CHANGED",
+          strokes: [...view.question.annotations, stroke],
+          action: "added",
+        });
+        render(this, runtime);
+        void autosaveCheckpoint(this, runtime);
+        this.setData({ ananContextOpen: false });
+        void wx.showToast({ title: "已在题面标出", icon: "none" });
+      },
+    );
+  },
+
+  // Figma 97:195：把选中文字与岸岸回复记入本题草稿（真实持久化的错因线索）。
+  logSelectionToDraft() {
+    const runtime = runtimes.get(this);
+    const view = this.data.view;
+    if (!runtime?.task || !view || this.data.interactionLocked) return;
+    const parts = [
+      view.question.draftText.trim(),
+      this.data.selection.text ? `【存疑】${this.data.selection.text}` : "",
+      this.data.ananReply ? `【岸岸】${this.data.ananReply}` : "",
+    ].filter(Boolean);
+    if (parts.length === 0) return;
+    runtime.task = reduceTaskRuntime(runtime.task, {
+      type: "DRAFT_CHANGED",
+      text: parts.join("\n").slice(0, 4000),
+    });
+    render(this, runtime);
+    void autosaveCheckpoint(this, runtime);
+    void wx.showToast({ title: "已记入本题草稿", icon: "none" });
+  },
+
+  inputAnanQuestion(event) {
+    this.setData({ ananInput: event.detail.value });
+  },
+
+  async sendAnanQuestion() {
+    const question = this.data.ananInput.trim();
+    if (question.length < 4) {
+      this.setData({ ananError: "请至少写 4 个字，让岸岸知道你在问什么。" });
+      return;
+    }
+    this.setData({ ananInput: "" });
+    await this.askAnan(question);
+  },
+
+  // Figma 97:2：走正式的岸岸问答接口；答题期的边界由后端治理层裁决。
+  async askAnan(question) {
+    const runtime = runtimes.get(this);
+    const auth = currentAuthSession();
+    const view = this.data.view;
+    if (!runtime?.session || !auth || !view || this.data.ananAsking) return;
+    this.setData({ ananAsking: true, ananError: "", ananReply: "", ananReplyTitle: "" });
+    try {
+      const client = new ApiClient(environment.apiBaseUrl, auth.accessToken);
+      let learnerStateVersion = this.data.learnerStateVersion;
+      if (!learnerStateVersion) {
+        const { data: profile } = await new LearningBrainApi(client).getProfile();
+        learnerStateVersion = profile.profileVersionId;
+        this.setData({ learnerStateVersion });
+      }
+      const material = view.question.material;
+      const quoted = this.data.selection.text.trim();
+      const { data } = await new CompanionApi(client).ask(
+        {
+          questionText: quoted ? `${question}（题干选中内容：${quoted}）` : question,
+          context: {
+            routeId: "pages/practice/index",
+            workspace: "training",
+            objectRefs: [
+              {
+                type: "question",
+                id: view.question.questionId,
+                version: view.question.contentVersionId,
+              },
+              ...(material
+                ? [
+                    {
+                      type: "material" as const,
+                      id: material.materialId,
+                      version: view.question.contentVersionId,
+                    },
+                  ]
+                : []),
+            ],
+            taskMode: runtime.session.mode === "verification" ? "retest" : "practice",
+            taskStage: "answering",
+            learnerStateVersion,
+          },
+        },
+        await createIdempotencyKey("practice-anan"),
+      );
+      this.setData({
+        ananAsking: false,
+        ananReply: data.answer,
+        ananReplyTitle: data.companionIntent === "reminder" ? "先等一下。" : "",
+      });
+    } catch (error) {
+      this.setData({
+        ananAsking: false,
+        ananError:
+          error instanceof ApiClientError ? error.message : "岸岸暂时没有回应，请稍后再试。",
+      });
+    }
+  },
+
   closeTaskOverlay() {
-    this.setData({ toolsOpen: false, helpOpen: false, disputeOpen: false, draftOpen: false });
+    this.setData({
+      toolsOpen: false,
+      helpOpen: false,
+      disputeOpen: false,
+      draftOpen: false,
+      ananContextOpen: false,
+    });
   },
 
   openTaskHelp() {
@@ -608,6 +914,11 @@ Page<PracticePageData, PracticePageCustom>({
       toolsOpen: false,
       helpOpen: false,
       disputeOpen: false,
+    });
+    // Figma 78:2：暂停/继续是可见的作答动作事实。
+    runtime.task = reduceTaskRuntime(runtime.task, {
+      type: "ACTION_LOGGED",
+      action: taskPaused ? "paused" : "resumed",
     });
     if (taskPaused) {
       stopTimer(runtime);
@@ -997,9 +1308,20 @@ function render(
         : (attempt?.selectedOptionIds.length ?? 0) > 0
           ? ("answered" as const)
           : ("unanswered" as const),
+      marked: attempt?.marked ?? false,
       active: index === runtime.task?.currentQuestionIndex,
     };
   });
+  // Figma 60:4 答题卡：图例、模块行与题号圆点全部来自真实作答状态。
+  const answeredCount = answerSheetItems.filter((item) => item.state === "answered").length;
+  const answerSheetLegend = {
+    answered: answeredCount,
+    unanswered: answerSheetItems.length - answeredCount,
+    marked: answerSheetItems.filter((item) => item.marked).length,
+  };
+  const answerSheetModuleName = view.question.moduleName;
+  const answerSheetSubtitle = `${answerSheetModuleName} · 共 ${String(answerSheetItems.length)} 题`;
+  const answerSheetModuleCounts = `${String(answerSheetLegend.answered)} 已答 · ${String(answerSheetLegend.unanswered)} 未答 · 1 当前`;
   const alreadyReady = page.data.status === "ready";
   page.setData({
     ...(alreadyReady ? { status: "ready" as const } : {}),
@@ -1009,6 +1331,10 @@ function render(
     sessionState: runtime.session.state,
     canSubmit: runtime.session.state === "answering" && missing.length === 0,
     answerSheetItems,
+    answerSheetLegend,
+    answerSheetSubtitle,
+    answerSheetModuleName,
+    answerSheetModuleCounts,
     materialQuestionId: currentQuestionId,
     materialOpen: materialReaderState.mode !== "question_first",
     materialReaderState,

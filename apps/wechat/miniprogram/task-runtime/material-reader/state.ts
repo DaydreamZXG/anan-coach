@@ -28,6 +28,7 @@ export type MaterialReaderEvent =
   | { type: "SCROLLED"; scrollTop: number }
   | { type: "ZOOM_CHANGED"; zoom: number }
   | { type: "FONT_SCALE_CHANGED"; fontScale: number }
+  | { type: "LINE_SPACING_CHANGED"; lineSpacing: number }
   | { type: "COLOR_MODE_CHANGED"; colorMode: ContentDisplayPreferences["colorMode"] };
 
 export class MaterialReaderStateError extends Error {
@@ -95,6 +96,15 @@ export function reduceMaterialReader(
       }),
     };
   }
+  if (event.type === "LINE_SPACING_CHANGED") {
+    return {
+      ...current,
+      preferences: normalizeContentPreferences({
+        ...current.preferences,
+        lineSpacing: event.lineSpacing,
+      }),
+    };
+  }
   return {
     ...current,
     preferences: normalizeContentPreferences({
@@ -107,6 +117,12 @@ export function reduceMaterialReader(
 export function nextFontScale(current: number, direction: "decrease" | "increase"): number {
   const next = Math.round((current + (direction === "increase" ? 0.1 : -0.1)) * 10) / 10;
   return Math.min(1.3, Math.max(0.9, next));
+}
+
+/** Figma 81:40「Aa 字号」单键循环：0.9 → 1.0 → 1.1 → 1.2 → 1.3 → 0.9。 */
+export function cycleFontScale(current: number): number {
+  const next = Math.round((current + 0.1) * 10) / 10;
+  return next > 1.3 ? 0.9 : Math.max(0.9, next);
 }
 
 function normalizePosition(position: MaterialReaderPosition): MaterialReaderPosition {

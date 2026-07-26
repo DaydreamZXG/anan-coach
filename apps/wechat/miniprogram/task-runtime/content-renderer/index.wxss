@@ -14,7 +14,7 @@
   --content-line: var(--color-line-strong);
   --content-surface: var(--color-surface-soft);
   padding: 20rpx;
-  border-radius: 20rpx;
+  border-radius: var(--radius-24);
   background: var(--color-surface-soft);
 }
 
@@ -22,13 +22,44 @@
   margin-top: 28rpx;
 }
 
+/* Figma 81:16/81:35：沉浸阅读的段落浅灰序号。 */
+.content-renderer--numbered {
+  counter-reset: content-paragraph;
+}
+
+.content-renderer--numbered .content-block--paragraph {
+  position: relative;
+  padding-left: 32rpx;
+}
+
+.content-renderer--numbered .content-block--paragraph::before {
+  position: absolute;
+  top: 6rpx;
+  left: 0;
+  color: var(--figma-color-faint);
+  content: counter(content-paragraph);
+  counter-increment: content-paragraph;
+  font-size: var(--text-micro);
+  font-weight: 500;
+  line-height: 30rpx;
+}
+
 .content-paragraph {
   display: block;
   color: var(--content-ink);
   font-size: calc(30rpx * var(--content-font-scale));
-  line-height: 1.78;
+  /* 行距档位（Figma 81:43）作用于正文段落。 */
+  line-height: calc(1.78 * var(--content-line-spacing, 1));
   overflow-wrap: anywhere;
   white-space: pre-wrap;
+  /* 选项等短文本由宿主设 --content-text-wrap: balance 消除孤行；不支持的内核自动回退。 */
+  text-wrap: var(--content-text-wrap, wrap);
+}
+
+/* Figma 84:156：画词选中片段的青色高亮。 */
+.content-segment--selected {
+  border-radius: var(--radius-12);
+  background: rgb(0 184 219 / 18%);
 }
 
 .content-formula {
@@ -40,7 +71,7 @@
 
 .content-formula--block {
   justify-content: center;
-  padding: 18rpx 0;
+  padding: 20rpx 0;
 }
 
 .content-formula__image {
@@ -52,8 +83,8 @@
   box-sizing: border-box;
   display: block;
   min-width: min-content;
-  padding: 14rpx 18rpx;
-  border-radius: 12rpx;
+  padding: 16rpx 20rpx;
+  border-radius: var(--radius-12);
   background: var(--color-primary-a08);
   font-family: var(--font-family-data, monospace);
   font-size: calc(25rpx * var(--content-font-scale));
@@ -72,7 +103,7 @@
 .content-asset {
   overflow: hidden;
   border: 1rpx solid var(--content-line);
-  border-radius: 18rpx;
+  border-radius: var(--radius-16);
   background: var(--content-surface);
 }
 
@@ -86,7 +117,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 20rpx;
-  padding: 18rpx 22rpx;
+  padding: 20rpx 24rpx;
 }
 
 .content-caption {
@@ -97,17 +128,17 @@
 }
 
 .content-graph .content-caption {
-  padding: 18rpx 22rpx 8rpx;
+  padding: 20rpx 24rpx 8rpx;
 }
 
 .content-source {
-  padding: 0 22rpx 18rpx;
+  padding: 0 24rpx 20rpx;
   color: var(--content-muted);
-  font-size: 20rpx;
+  font-size: var(--text-micro);
 }
 
 .content-graph__ocr {
-  margin: 0 22rpx 18rpx auto;
+  margin: 0 24rpx 20rpx auto;
 }
 
 .content-link,
@@ -116,10 +147,10 @@
   margin: 0;
   padding: 0 16rpx;
   border: 0;
-  border-radius: 12rpx;
+  border-radius: var(--radius-12);
   background: var(--color-primary-a08);
   color: var(--color-primary);
-  font-size: 22rpx;
+  font-size: var(--text-micro);
   line-height: 56rpx;
 }
 
@@ -130,7 +161,7 @@
 
 .content-table-card {
   border: 1rpx solid var(--content-line);
-  border-radius: 18rpx;
+  border-radius: var(--radius-16);
   background: var(--content-surface);
 }
 
@@ -139,8 +170,8 @@
   min-height: 72rpx;
   align-items: center;
   justify-content: space-between;
-  gap: 18rpx;
-  padding: 12rpx 16rpx 12rpx 22rpx;
+  gap: 20rpx;
+  padding: 12rpx 16rpx 12rpx 24rpx;
   border-bottom: 1rpx solid var(--content-line);
 }
 
@@ -161,14 +192,14 @@
 .content-table__zoom-button {
   width: 56rpx;
   padding: 0;
-  font-size: 28rpx;
+  font-size: var(--text-body-lg);
 }
 
 .content-table__zoom-value {
   min-width: 76rpx;
   color: var(--content-muted);
   font-family: var(--font-family-data, monospace);
-  font-size: 20rpx;
+  font-size: var(--text-micro);
   text-align: center;
 }
 
@@ -186,7 +217,7 @@
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  padding: 12rpx 14rpx;
+  padding: 12rpx 16rpx;
   border-right: 1rpx solid var(--content-line);
   border-bottom: 1rpx solid var(--content-line);
   background: var(--content-surface);

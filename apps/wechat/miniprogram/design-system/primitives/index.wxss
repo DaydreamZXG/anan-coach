@@ -1,15 +1,15 @@
 @import "interaction.wxss";
 
 .eyebrow {
-  color: var(--color-primary);
-  font-size: 22rpx;
+  color: var(--color-muted);
+  font-size: var(--text-micro);
   font-weight: 700;
   letter-spacing: 2rpx;
 }
 
 .page-title {
   margin-top: 8rpx;
-  font-size: var(--font-title);
+  font-size: var(--text-title-lg);
   font-weight: 800;
   letter-spacing: -1rpx;
 }
@@ -17,7 +17,7 @@
 .page-subtitle {
   margin-top: 12rpx;
   color: var(--color-muted);
-  font-size: 26rpx;
+  font-size: var(--text-body);
   line-height: 1.6;
 }
 
@@ -29,13 +29,13 @@
 }
 
 .section-title {
-  font-size: var(--font-section);
-  font-weight: 750;
+  font-size: var(--text-section);
+  font-weight: 700;
 }
 
 .section-meta {
   color: var(--color-muted);
-  font-size: var(--font-caption);
+  font-size: var(--text-micro);
 }
 
 .card {
@@ -48,7 +48,7 @@
 }
 
 .card + .card {
-  margin-top: 18rpx;
+  margin-top: 20rpx;
 }
 
 .row {
@@ -64,7 +64,7 @@
 
 .caption {
   color: var(--color-muted);
-  font-size: var(--font-caption);
+  font-size: var(--text-micro);
   line-height: 1.5;
 }
 
@@ -72,12 +72,12 @@
   display: inline-flex;
   align-items: center;
   min-height: 44rpx;
-  padding: 0 18rpx;
-  border-radius: 999rpx;
-  background: var(--color-primary-soft);
-  color: var(--color-primary);
-  font-size: var(--font-caption);
-  font-weight: 650;
+  padding: 0 20rpx;
+  border-radius: var(--radius-capsule);
+  background: var(--color-surface-soft);
+  color: var(--color-ink-secondary);
+  font-size: var(--text-micro);
+  font-weight: 600;
 }
 
 .pill--success {
@@ -94,17 +94,17 @@ button.primary-button,
 button.secondary-button {
   box-sizing: border-box;
   min-height: 88rpx;
-  padding: 0 30rpx;
-  font-size: var(--font-body);
+  padding: 0 32rpx;
+  font-size: var(--text-body-lg);
   font-weight: 700;
   line-height: 88rpx;
 }
 
 button.primary-button {
-  border-radius: 36rpx;
+  border-radius: var(--radius-32);
   background: var(--color-ink);
   color: var(--color-on-primary);
-  box-shadow: 0 14rpx 32rpx rgba(17, 24, 39, 0.16);
+  box-shadow: var(--shadow-elevated);
 }
 
 button.secondary-button {
@@ -128,14 +128,14 @@ button.secondary-button {
 }
 
 .state-title {
-  font-size: var(--font-section);
-  font-weight: 750;
+  font-size: var(--text-section);
+  font-weight: 700;
 }
 
 .state-copy {
-  margin: 14rpx auto 26rpx;
+  margin: 16rpx auto 28rpx;
   color: var(--color-muted);
-  font-size: 24rpx;
+  font-size: var(--text-caption);
   line-height: 1.6;
 }
 

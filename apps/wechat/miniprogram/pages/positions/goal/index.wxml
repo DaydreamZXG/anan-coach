@@ -1,4 +1,4 @@
-<view class="position-screen position-screen--goal">
+<view class="s9-screen position-screen position-screen--goal">
   <workbench-nav
     id="runtime-workbench-nav"
     title="{{state && state.status === 'confirmed' ? '主目标已确认' : '设置主目标'}}"

@@ -1,37 +1,9 @@
-.settlement-page {
-  box-sizing: border-box;
-  min-height: 100vh;
-  background: var(--color-canvas);
-  color: var(--color-ink);
-}
+/* 今日结算：骨架、卡片与操作坞来自 s9；保留三格指标、
+ * 分节标记与结算专属按钮。 */
 
 .tomorrow-card__action::after,
-.settlement-primary::after,
 .settlement-companion::after {
   border: 0;
-}
-
-.settlement-content {
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 560px;
-  margin: 0 auto;
-  padding: var(--figma-space-48) var(--space-page-x) calc(230rpx + env(safe-area-inset-bottom));
-}
-
-.settlement-title {
-  max-width: 650rpx;
-  font-size: var(--figma-font-hero-title);
-  font-weight: 760;
-  letter-spacing: -1rpx;
-  line-height: 1.3;
-}
-
-.settlement-copy {
-  margin-top: var(--figma-space-12);
-  color: var(--color-muted);
-  font-size: var(--figma-font-body-compact);
-  line-height: 1.65;
 }
 
 .settlement-metrics {
@@ -56,41 +28,38 @@
 
 .metric-label {
   color: var(--color-faint);
-  font-size: var(--figma-font-caption);
+  font-size: var(--text-caption);
 }
 
 .metric-value {
   margin-top: var(--figma-space-8);
   overflow: hidden;
-  font-size: var(--figma-font-body);
-  font-weight: 760;
+  font-size: var(--text-body-lg);
+  font-weight: 700;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .settlement-metric--actual .metric-label,
 .settlement-metric--actual .metric-value {
-  color: var(--color-primary);
+  color: var(--color-ink);
 }
 
 .variance-label {
   margin-top: var(--figma-space-10);
   color: var(--color-faint);
-  font-size: var(--figma-font-caption);
+  font-size: var(--text-caption);
   text-align: center;
-}
-
-.settlement-section {
-  margin-top: var(--figma-space-32);
 }
 
 .section-heading {
   display: flex;
   align-items: center;
   gap: var(--figma-space-8);
+  margin-bottom: 20rpx;
   padding-left: var(--figma-space-4);
-  font-size: var(--figma-font-body-large);
-  font-weight: 760;
+  font-size: var(--text-section);
+  font-weight: 700;
   letter-spacing: -0.5rpx;
 }
 
@@ -101,7 +70,7 @@
   align-items: center;
   justify-content: center;
   color: var(--color-ink);
-  font-size: var(--figma-font-caption);
+  font-size: var(--text-caption);
   font-weight: 800;
 }
 
@@ -109,32 +78,13 @@
   color: var(--color-warning);
 }
 
-.settlement-card,
-.tomorrow-card {
-  box-sizing: border-box;
-  margin-top: var(--figma-space-16);
-  border-radius: var(--figma-radius-card-medium);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-card);
-}
-
 .confirmation-card {
   position: relative;
   overflow: hidden;
-  padding: var(--figma-space-24);
-}
-
-.confirmation-line {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 6rpx;
-  background: var(--color-cyan);
 }
 
 .settlement-summary {
-  font-size: var(--figma-font-body);
+  font-size: var(--text-body-lg);
   font-weight: 700;
   line-height: 1.65;
 }
@@ -145,36 +95,18 @@
   border-radius: var(--figma-radius-xsmall);
   background: var(--figma-color-cyan-soft);
   color: var(--color-ink-secondary);
-  font-size: var(--figma-font-caption);
+  font-size: var(--text-caption);
   line-height: 1.6;
 }
 
-.empty-card {
-  padding: var(--figma-space-24);
-}
-
-.empty-title {
-  font-size: var(--figma-font-body);
-  font-weight: 720;
-  line-height: 1.5;
-}
-
-.empty-copy {
-  margin-top: var(--figma-space-8);
-  color: var(--color-muted);
-  font-size: var(--figma-font-body-compact);
-  line-height: 1.65;
-}
-
 .risk-card {
-  padding: var(--figma-space-20);
   border: 1rpx solid var(--figma-color-warning-soft);
 }
 
 .risk-item {
-  color: var(--figma-color-ink-strong);
-  font-size: var(--figma-font-body-compact);
-  font-weight: 650;
+  color: var(--color-ink);
+  font-size: var(--text-body);
+  font-weight: 600;
   line-height: 1.65;
 }
 
@@ -184,20 +116,10 @@
   border-top: 1rpx solid var(--color-line);
 }
 
-.unfinished-card {
-  padding: var(--figma-space-20);
-}
-
-.unfinished-title {
-  font-size: var(--figma-font-body);
-  font-weight: 720;
-  line-height: 1.5;
-}
-
 .unfinished-meta {
   margin-top: var(--figma-space-4);
   color: var(--color-faint);
-  font-size: var(--figma-font-caption);
+  font-size: var(--text-caption);
   line-height: 1.5;
 }
 
@@ -208,7 +130,7 @@
   border-radius: var(--figma-radius-xsmall);
   background: var(--color-canvas);
   color: var(--color-muted);
-  font-size: var(--figma-font-caption);
+  font-size: var(--text-caption);
   line-height: 1.6;
 }
 
@@ -217,22 +139,8 @@
 }
 
 .tomorrow-card {
-  padding: var(--figma-space-20);
-  border: 1rpx solid var(--figma-color-primary-soft-strong);
+  border: 1rpx solid var(--color-primary-soft-strong);
   background: var(--color-primary-soft);
-}
-
-.tomorrow-card__title {
-  font-size: var(--figma-font-body);
-  font-weight: 720;
-  line-height: 1.5;
-}
-
-.tomorrow-card__copy {
-  margin-top: var(--figma-space-8);
-  color: var(--color-muted);
-  font-size: var(--figma-font-body-compact);
-  line-height: 1.65;
 }
 
 button.tomorrow-card__action {
@@ -247,63 +155,24 @@ button.tomorrow-card__action {
   border-radius: var(--figma-radius-small);
   background: var(--color-surface);
   color: var(--color-primary-deep);
-  font-size: var(--figma-font-caption);
-  font-weight: 720;
+  font-size: var(--text-caption);
+  font-weight: 700;
   line-height: 68rpx;
 }
 
-.settlement-dock {
-  position: fixed;
-  z-index: var(--z-footer);
-  right: 0;
-  bottom: 0;
-  left: 0;
-  border-top: 1rpx solid var(--color-line);
-  background: var(--color-surface);
-}
-
-.settlement-dock__inner {
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 560px;
-  margin: 0 auto;
-  padding: var(--figma-space-16) var(--space-page-x)
-    calc(var(--figma-space-20) + env(safe-area-inset-bottom));
-}
-
-button.settlement-primary,
-button.settlement-companion {
-  width: 100%;
-  margin: 0;
-  border: 0;
-  font-weight: 720;
-  text-align: center;
-}
-
 button.settlement-primary {
-  min-height: 96rpx;
-  border-radius: var(--figma-radius-card);
-  background: var(--color-action);
-  color: var(--color-on-primary);
-  font-size: var(--figma-font-body);
-  line-height: 96rpx;
-  box-shadow: var(--figma-shadow-elevated);
+  width: 100%;
 }
 
 button.settlement-companion {
+  width: 100%;
   min-height: 60rpx;
+  margin: 12rpx 0 0;
+  border: 0;
   background: none;
   color: var(--color-primary);
-  font-size: var(--figma-font-body-compact);
+  font-size: var(--text-body);
+  font-weight: 700;
   line-height: 60rpx;
-}
-
-@media (min-width: 768px) {
-  .settlement-content {
-    padding-top: var(--figma-space-32);
-  }
-
-  .settlement-title {
-    font-size: var(--figma-font-page-title);
-  }
+  text-align: center;
 }

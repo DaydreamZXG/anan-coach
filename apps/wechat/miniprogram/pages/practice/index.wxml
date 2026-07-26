@@ -1,5 +1,6 @@
 <task-shell
   id="runtime-task-shell"
+  layoutVariant="xingce"
   title="{{view ? view.title : '真实行测训练'}}"
   modeLabel="{{view ? view.modeLabel : '行测练习'}}"
   current="{{view ? view.current : 1}}"
@@ -8,7 +9,8 @@
   syncLabel="{{view ? view.syncLabel : '正在连接'}}"
   materialAvailable="{{false}}"
   answerSheetAvailable="{{status === 'ready' && sessionState === 'answering'}}"
-  draftAvailable="{{status === 'ready' && sessionState === 'answering'}}"
+  draftAvailable="{{false}}"
+  markAvailable="{{false}}"
   timerPausable="{{status === 'ready' && sessionState === 'answering'}}"
   timerPaused="{{taskPaused}}"
   marked="{{view && view.question ? view.question.marked : false}}"
@@ -49,9 +51,66 @@
 
     <block wx:if="{{sessionState === 'answering'}}">
       <view class="practice-workspace {{view.question.material ? 'practice-workspace--with-material' : 'practice-workspace--single'}}">
-        <view wx:if="{{view.question.material}}" class="material-reader-shell">
+        <view wx:if="{{view.question.material}}" class="material-reader-shell {{materialOpen ? 'material-reader-shell--immersive' : ''}}">
+          <!-- Figma 2:76：材料标题行承载收藏、岸岸与收起，顶栏因此不必挤满一排。 -->
+          <view class="practice-material-head">
+            <view class="practice-material-chip">
+              <text>{{view.question.moduleName}} · 共享材料</text>
+              <text wx:if="{{view.materialScopeLabel}}"> ({{view.materialScopeLabel}})</text>
+            </view>
+            <view class="practice-material-actions">
+              <button
+                class="practice-material-action practice-material-action--mark {{view.question.marked ? 'practice-material-action--marked' : ''}}"
+                hover-class="item--hover"
+                disabled="{{interactionLocked}}"
+                aria-label="{{view.question.marked ? '取消标记本题' : '标记本题'}}"
+                bindtap="toggleMarked"
+              >
+                <image
+                  class="practice-material-icon practice-material-icon--bookmark"
+                  src="/assets/icons/task/bookmark-active.svg"
+                  mode="aspectFit"
+                  aria-hidden="true"
+                />
+              </button>
+              <button
+                class="practice-material-action practice-material-action--anan"
+                hover-class="item--hover"
+                disabled="{{interactionLocked}}"
+                aria-label="就本题追问岸岸"
+                bindtap="openAnanContext"
+              >
+                <image
+                  class="practice-material-icon practice-material-icon--anan"
+                  src="/assets/icons/task/anan.svg"
+                  mode="aspectFit"
+                  aria-hidden="true"
+                />
+              </button>
+              <button
+                class="practice-material-action practice-material-action--collapse"
+                hover-class="item--hover"
+                disabled="{{interactionLocked}}"
+                aria-label="沉浸阅读材料"
+                bindtap="toggleMaterial"
+              >
+                <image
+                  class="practice-material-icon practice-material-icon--collapse"
+                  src="/assets/icons/task/collapse.svg"
+                  mode="aspectFit"
+                  aria-hidden="true"
+                />
+              </button>
+            </view>
+          </view>
+
           <material-reader
+            appearance="answering"
+            inlineHeaderAvailable="{{false}}"
             title="{{view.question.material.title || '本题材料'}}"
+            subtitle="{{view.question.moduleName}}{{view.materialScopeLabel ? ' · 第 ' + view.materialScopeLabel : ''}}"
+            chipLabel="{{view.question.moduleName}} · 共享材料{{view.materialScopeLabel ? '（' + view.materialScopeLabel + '）' : ''}}"
+            returnLabel="回到第 {{view.current}} 题"
             blocks="{{view && view.question && view.question.material && view.question.material.content ? view.question.material.content : emptyRichContentBlocks}}"
             anchors="{{view && view.question && view.question.material && view.question.material.anchors ? view.question.material.anchors : emptyContentAnchors}}"
             state="{{materialReaderState}}"
@@ -59,47 +118,68 @@
           />
         </view>
 
-        <view class="practice-question-pane">
+        <!-- Figma 2:132：题干与选项自成滚动区，底部留出 112px 让 D 选项不被底栏遮住。 -->
+        <scroll-view
+          class="practice-question-pane"
+          scroll-y
+          enhanced
+          show-scrollbar="{{false}}"
+        >
+        <view class="practice-question-body">
           <view class="question-hero">
-            <view class="question-meta-row">
-              <view class="module-pill">{{view.question.moduleName}}</view>
-              <view class="position-label">{{view.question.positionLabel}}</view>
+            <view class="question-heading">
+              <text class="question-number">{{view.current}}.</text>
+              <!-- Figma 84:2 画词：题干句段可选中，点选后浮出工具条。 -->
+              <content-renderer
+                class="question-stem question-rich-content"
+                blocks="{{view && view.question && view.question.stemContent ? view.question.stemContent : emptyRichContentBlocks}}"
+                zoom="{{1}}"
+                preferences="{{displayPreferences}}"
+                selectable
+                selectedSegmentKey="{{selection.key}}"
+                bindsegmenttap="tapStemSegment"
+              />
             </view>
-            <content-renderer
-              class="question-stem question-rich-content"
-              blocks="{{view && view.question && view.question.stemContent ? view.question.stemContent : emptyRichContentBlocks}}"
-              zoom="{{1}}"
-              preferences="{{displayPreferences}}"
-            />
           </view>
 
           <view class="option-list {{interactionLocked ? 'option-list--locked' : ''}}">
             <view
               wx:for="{{view.question.options}}"
               wx:key="optionId"
-              class="option-card {{item.selected ? 'option-card--selected' : ''}} {{item.eliminated ? 'option-card--eliminated' : ''}}"
-              hover-class="option--hover"
-              data-optionid="{{item.optionId}}"
-              bindtap="selectOption"
+              class="option-row"
             >
-              <view class="option-label">{{item.label}}</view>
-              <content-renderer
-                class="option-copy option-rich-content"
-                blocks="{{item.content ? item.content : emptyRichContentBlocks}}"
-                zoom="{{1}}"
-                preferences="{{displayPreferences}}"
-              />
+              <view
+                class="option-card {{item.selected ? 'option-card--selected' : ''}} {{item.eliminated ? 'option-card--eliminated' : ''}}"
+                hover-class="option--hover"
+                data-optionid="{{item.optionId}}"
+                bindtap="selectOption"
+              >
+                <view class="option-label">{{item.label}}</view>
+                <content-renderer
+                  class="option-copy option-rich-content"
+                  blocks="{{item.content ? item.content : emptyRichContentBlocks}}"
+                  zoom="{{1}}"
+                  preferences="{{displayPreferences}}"
+                />
+              </view>
               <button
                 class="eliminate-action {{item.eliminated ? 'eliminate-action--active' : ''}}"
                 hover-class="item--hover"
                 aria-label="{{item.eliminated ? '撤销排除选项 ' + item.label : '排除选项 ' + item.label}}"
                 data-optionid="{{item.optionId}}"
                 catchtap="toggleEliminated"
-              >{{item.eliminated ? '↺' : '−'}}</button>
+              >
+                <image
+                  class="eliminate-action__icon"
+                  src="{{item.eliminated ? '/assets/icons/task/eliminate.svg' : '/assets/icons/task/eliminate-faint.svg'}}"
+                  mode="aspectFit"
+                  aria-hidden="true"
+                />
+              </button>
             </view>
           </view>
 
-          <view class="confidence-card">
+          <view wx:if="{{view.question.selectedOptionIds.length > 0}}" class="confidence-card">
             <view class="confidence-prompt">刚刚这题选得怎么样？</view>
             <view class="confidence-row confidence-row--question">
               <button hover-class="item--hover"
@@ -116,27 +196,152 @@
             <button class="skip-button question-action" hover-class="item--hover" disabled="{{interactionLocked}}" bindtap="skipQuestion">{{view.question.skipped ? '已明确跳过' : '这题先放弃，稍后再看'}}</button>
           </view>
         </view>
+        </scroll-view>
+
+        <!-- Figma 70:2 题面直接批注：笔迹层覆盖在题面上，static 时触摸穿透。 -->
+        <view class="practice-annotation-host {{annotationOpen ? 'practice-annotation-host--active' : ''}}">
+          <annotation-layer
+            mode="{{annotationOpen ? 'annotate' : (view.question.annotations.length ? 'static' : 'hidden')}}"
+            strokes="{{view.question.annotations}}"
+            elapsedSeconds="{{view.question.elapsedSeconds}}"
+            bindstrokeschange="changeAnnotations"
+            binddone="closeAnnotation"
+          />
+        </view>
       </view>
 
-      <ui-sheet
-        visible="{{answerSheetOpen}}"
-        title="答题卡"
-        copy="{{view.answeredCount}} 已答 · {{view.skippedCount}} 跳过 · {{view.unansweredCount}} 未处理"
-        show-close
-        max-height="72vh"
-        surface="canvas"
-        bindclose="toggleAnswerSheet"
+      <!-- Figma 84:161 画词工具条：不遮住选中文字，也不遮住固定底栏。 -->
+      <view
+        wx:if="{{selection.key && !ananContextOpen && !annotationOpen}}"
+        class="selection-toolbar"
+        style="top: {{selection.toolbarTop}}px;"
       >
-        <view class="sheet-grid">
-          <button hover-class="item--hover"
-            wx:for="{{answerSheetItems}}"
-            wx:key="index"
-            class="sheet-item sheet-item--{{item.state}} {{item.active ? 'sheet-item--active' : ''}}"
-            data-index="{{item.index}}"
-            bindtap="selectQuestion"
-          >{{item.label}}</button>
+        <button hover-class="item--hover" class="selection-toolbar__action" catchtap="explainSelection">解释</button>
+        <view class="selection-toolbar__divider" aria-hidden="true"></view>
+        <button hover-class="item--hover" class="selection-toolbar__action" catchtap="compareSelectionOptions">对比选项</button>
+        <view class="selection-toolbar__divider" aria-hidden="true"></view>
+        <button hover-class="item--hover" class="selection-toolbar__action selection-toolbar__action--anan" catchtap="askAboutSelection">问岸岸</button>
+      </view>
+
+      <!-- Figma 97:2 上下文追问岸岸：当前题目的操作面板，不是普通聊天页。 -->
+      <view wx:if="{{ananContextOpen}}" class="anan-context motion-mask" catchtouchmove="noop">
+        <view class="anan-context__mask" catchtap="closeAnanContext" aria-label="收起岸岸面板"></view>
+        <view class="anan-context__sheet">
+          <view class="anan-context__grabber" aria-hidden="true"></view>
+          <view class="anan-context__head">
+            <view class="anan-context__title">岸岸 · 当前题目</view>
+            <view class="anan-context__badge">
+              <view class="anan-context__badge-dot" aria-hidden="true"></view>
+              <text>依据题干与材料</text>
+            </view>
+          </view>
+
+          <view wx:if="{{selection.text}}" class="anan-context__quote">
+            <view class="anan-context__quote-bar" aria-hidden="true"></view>
+            <text class="anan-context__quote-text">“{{selection.text}}”</text>
+          </view>
+
+          <view wx:if="{{ananAsking}}" class="anan-context__insight anan-context__insight--pending">岸岸正在读这道题……</view>
+          <view wx:elif="{{ananReply}}" class="anan-context__insight">
+            <view wx:if="{{ananReplyTitle}}" class="anan-context__insight-title">{{ananReplyTitle}}</view>
+            <view class="anan-context__insight-copy">{{ananReply}}</view>
+          </view>
+          <view wx:elif="{{ananError}}" class="anan-context__insight anan-context__insight--error">{{ananError}}</view>
+
+          <view class="anan-context__actions-label">让岸岸直接帮你</view>
+          <view class="anan-context__actions">
+            <button hover-class="item--hover"
+              wx:if="{{selection.text}}"
+              class="anan-context__action anan-context__action--primary"
+              catchtap="markSelectionOnQuestion"
+            >在题面标出所选</button>
+            <button hover-class="item--hover" class="anan-context__action" catchtap="compareSelectionOptions">对比选项</button>
+            <button hover-class="item--hover" class="anan-context__action" catchtap="logSelectionToDraft">记入本题错因</button>
+          </view>
+          <view class="anan-context__hint">动作会先给你确认，再写入练习与能力记录</view>
+
+          <view class="anan-context__input-row">
+            <input
+              class="anan-context__input"
+              value="{{ananInput}}"
+              placeholder="继续问：例如 为什么不能用 216784？"
+              confirm-type="send"
+              cursor-spacing="24"
+              bindinput="inputAnanQuestion"
+              bindconfirm="sendAnanQuestion"
+            />
+            <button hover-class="item--hover" class="anan-context__send" disabled="{{ananAsking}}" catchtap="sendAnanQuestion" aria-label="发送追问">
+              <view class="anan-context__send-circle" aria-hidden="true">↑</view>
+            </button>
+          </view>
         </view>
-      </ui-sheet>
+      </view>
+
+      <!-- Figma 59:2 / 60:4：答题卡半屏 Bottom Sheet，题号使用圆形状态。 -->
+      <view wx:if="{{answerSheetOpen}}" class="answer-card motion-mask" catchtouchmove="noop">
+        <view class="answer-card__mask" catchtap="toggleAnswerSheet" aria-label="关闭答题卡"></view>
+        <view class="answer-card__sheet">
+          <view class="answer-card__handle-row" aria-hidden="true">
+            <view class="answer-card__handle"></view>
+          </view>
+
+          <view class="answer-card__header">
+            <view class="answer-card__title-group">
+              <view class="answer-card__title">答题卡</view>
+              <view class="answer-card__subtitle">{{answerSheetSubtitle}}</view>
+            </view>
+            <button hover-class="item--hover" class="answer-card__close" aria-label="关闭答题卡" bindtap="toggleAnswerSheet">×</button>
+          </view>
+
+          <view class="answer-card__legend">
+            <view class="answer-card__legend-item">
+              <view class="answer-card__legend-dot answer-card__legend-dot--answered" aria-hidden="true"></view>
+              <text>已答 {{answerSheetLegend.answered}}</text>
+            </view>
+            <view class="answer-card__legend-item">
+              <view class="answer-card__legend-dot answer-card__legend-dot--unanswered" aria-hidden="true"></view>
+              <text>未答 {{answerSheetLegend.unanswered}}</text>
+            </view>
+            <view class="answer-card__legend-item">
+              <view class="answer-card__legend-dot answer-card__legend-dot--current" aria-hidden="true"></view>
+              <text>当前 1</text>
+            </view>
+            <view class="answer-card__legend-item">
+              <view class="answer-card__legend-dot answer-card__legend-dot--marked" aria-hidden="true"></view>
+              <text>标记 {{answerSheetLegend.marked}}</text>
+            </view>
+          </view>
+
+          <view class="answer-card__section">
+            <view class="answer-card__module-row">
+              <view class="answer-card__module-name">{{answerSheetModuleName}}</view>
+              <view class="answer-card__module-counts">{{answerSheetModuleCounts}}</view>
+            </view>
+            <view class="answer-card__grid">
+              <view wx:for="{{answerSheetItems}}" wx:key="index" class="answer-card__cell">
+                <button hover-class="item--hover"
+                  class="answer-card__question answer-card__question--{{item.active ? 'current' : item.state}} {{!item.active && item.marked ? 'answer-card__question--marked' : ''}}"
+                  aria-label="第 {{item.label}} 题{{item.active ? '，当前题' : item.marked ? '，已标记' : item.state === 'answered' ? '，已作答' : '，未作答'}}"
+                  data-index="{{item.index}}"
+                  bindtap="selectQuestion"
+                >{{item.label}}</button>
+                <view wx:if="{{item.marked && !item.active}}" class="answer-card__marked-badge" aria-hidden="true">!</view>
+              </view>
+            </view>
+            <view class="answer-card__hint">点题号即可直接切换，标记题会进入复盘</view>
+          </view>
+
+          <view class="answer-card__insight">
+            <image class="answer-card__insight-icon" src="/assets/icons/task/answer-card-insight.svg" mode="aspectFit" aria-hidden="true" />
+            <view class="answer-card__insight-copy">
+              <view class="answer-card__insight-title">岸岸会记住你的标记与存疑</view>
+              <view class="answer-card__insight-sub">交卷后优先进入证据复盘</view>
+            </view>
+          </view>
+
+          <button hover-class="item--hover" class="answer-card__cta" bindtap="toggleAnswerSheet">继续第 {{view.current}} 题</button>
+        </view>
+      </view>
 
       <ui-sheet
         visible="{{draftOpen}}"
@@ -171,14 +376,18 @@
         <button hover-class="item--hover" class="primary-button draft-sheet-action" bindtap="toggleDraft">收起草稿，继续作答</button>
       </ui-sheet>
 
+      <!-- Figma 82:155/82:156：暂停卡位于屏幕视觉中心，背景题目降权保留。 -->
       <view wx:if="{{taskPaused}}" class="pause-mask motion-mask" catchtouchmove="noop">
         <view class="pause-card">
-          <view class="pause-play" aria-hidden="true"></view>
+          <view class="pause-icon" aria-hidden="true">
+            <view class="pause-icon__bar"></view>
+            <view class="pause-icon__bar"></view>
+          </view>
           <view class="pause-title">训练已暂停</view>
           <view class="pause-time type-data">{{view.elapsedLabel}}</view>
-          <view class="pause-copy">暂停期间不计入作答用时。材料位置、答案和草稿均已保留。</view>
-          <button hover-class="item--hover" class="primary-button" bindtap="toggleTaskPause">继续作答</button>
-          <button hover-class="item--hover" class="pause-exit" bindtap="exit">结束训练</button>
+          <view class="pause-copy">暂停期间不计入作答用时。\n材料位置、答案与批注均已保留。</view>
+          <button hover-class="item--hover" class="pause-resume" bindtap="toggleTaskPause">继续作答</button>
+          <button hover-class="item--hover" class="control-center pause-exit" bindtap="exit">结束本次训练</button>
         </view>
       </view>
     </block>
@@ -198,6 +407,7 @@
     bindclose="closeTaskOverlay"
   >
     <view class="task-tool-grid">
+      <button hover-class="item--hover" class="control-center task-tool-item" bindtap="openAnnotation">题面批注</button>
       <button hover-class="item--hover" class="control-center task-tool-item" bindtap="toggleMarked">{{view.question.marked ? '取消标记' : '标记本题'}}</button>
       <button hover-class="item--hover" wx:if="{{toolPolicy.dispute_report}}" class="control-center task-tool-item" bindtap="openDispute">题目争议</button>
       <button hover-class="item--hover" wx:if="{{toolPolicy.operation_help}}" class="control-center task-tool-item" bindtap="openTaskHelp">操作/故障帮助</button>

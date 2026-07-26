@@ -1,11 +1,7 @@
 .archive-page {
-  box-sizing: border-box;
   display: flex;
-  min-height: 100vh;
   flex-direction: column;
   overflow: hidden;
-  background: var(--bg);
-  color: var(--ink);
 }
 
 .archive-state {
@@ -19,7 +15,7 @@
 .archive-request {
   margin-top: 20rpx;
   color: var(--ink-3);
-  font-size: 20rpx;
+  font-size: var(--text-micro);
   text-align: center;
 }
 
@@ -38,9 +34,9 @@
   display: flex;
   align-items: flex-start;
   gap: 24rpx;
-  padding: 42rpx;
+  padding: 40rpx;
   border: 1rpx solid var(--color-primary-a16);
-  border-radius: 48rpx;
+  border-radius: var(--radius-48);
   background: var(--color-primary-soft-a52);
 }
 
@@ -57,15 +53,15 @@
 }
 
 .notice-title {
-  font-size: 28rpx;
+  font-size: var(--text-body-lg);
   font-weight: 700;
   line-height: 42rpx;
 }
 
 .notice-copy {
   margin-top: 8rpx;
-  color: var(--figma-color-ink-tertiary);
-  font-size: 26rpx;
+  color: var(--color-ink-secondary);
+  font-size: var(--text-body);
   font-weight: 500;
   line-height: 1.625;
 }
@@ -78,16 +74,10 @@
 }
 
 .archive-card {
-  box-sizing: border-box;
   display: flex;
   min-height: 180rpx;
   align-items: center;
   gap: 32rpx;
-  padding: 42rpx;
-  border: 1rpx solid var(--color-surface-soft);
-  border-radius: 48rpx;
-  background: var(--color-surface);
-  box-shadow: var(--shadow-card);
 }
 
 .module-icon {
@@ -119,7 +109,7 @@
 
 .module-icon--indigo {
   background: var(--primary-soft);
-  color: var(--primary);
+  color: var(--color-muted);
 }
 
 .module-icon--rose {
@@ -138,7 +128,7 @@
 }
 
 .module-name {
-  font-size: 30rpx;
+  font-size: var(--text-section);
   font-weight: 700;
   line-height: 42rpx;
 }
@@ -146,7 +136,7 @@
 .module-copy {
   margin-top: 4rpx;
   color: var(--ink-2);
-  font-size: 24rpx;
+  font-size: var(--text-caption);
   font-weight: 500;
   line-height: 36rpx;
   white-space: normal;
@@ -162,8 +152,8 @@
 
 .module-status {
   padding: 4rpx 12rpx;
-  border-radius: 12rpx;
-  font-size: 22rpx;
+  border-radius: var(--radius-12);
+  font-size: var(--text-micro);
   font-weight: 700;
   line-height: 30rpx;
 }
@@ -184,7 +174,7 @@ button.module-edit {
   border: 0;
   background: transparent;
   color: var(--primary);
-  font-size: 26rpx;
+  font-size: var(--text-body);
   font-weight: 700;
   line-height: 36rpx;
 }
@@ -193,35 +183,8 @@ button.module-edit {
   border: 0;
 }
 
-.archive-dock {
-  position: fixed;
-  z-index: 20;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  box-sizing: border-box;
-  padding: 34rpx 40rpx calc(40rpx + env(safe-area-inset-bottom));
-  border-top: 1rpx solid var(--line);
-  background: var(--color-surface-a94);
-}
-
 button.archive-primary {
-  display: flex;
-  width: 100%;
-  min-height: 112rpx;
-  align-items: center;
-  justify-content: center;
   gap: 16rpx;
-  margin: 0;
-  padding: 0 32rpx;
-  border: 0;
-  border-radius: 48rpx;
-  background: var(--ink);
-  color: var(--color-surface);
-  box-shadow: var(--shadow-primary);
-  font-size: 30rpx;
-  font-weight: 700;
-  line-height: 1.5;
 }
 
 .archive-primary::after {
@@ -239,12 +202,5 @@ button.archive-primary {
     max-width: 560px;
     margin-right: auto;
     margin-left: auto;
-  }
-
-  .archive-dock {
-    right: auto;
-    left: 50%;
-    width: 560px;
-    transform: translateX(-50%);
   }
 }

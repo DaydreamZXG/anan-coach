@@ -1,4 +1,4 @@
-<view class="brain-page">
+<view class="s9-page brain-page">
   <view class="brain-hero"><view class="brain-kicker">计划变更记录</view><view class="brain-title">每次变化，都能解释为什么</view><view class="brain-copy">计划的每次调整都留痕，回头看看变了什么。</view></view>
   <state-view wx:if="{{status === 'loading'}}" state="loading" />
   <state-view wx:elif="{{status === 'error'}}" state="error" title="变更记录没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />

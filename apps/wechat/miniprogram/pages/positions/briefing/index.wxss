@@ -12,67 +12,67 @@
 }
 
 .briefing-hero {
-  padding: 34rpx;
-  border-radius: 30rpx;
+  padding: 32rpx;
+  border-radius: var(--radius-32);
   color: var(--color-surface);
-  background: linear-gradient(145deg, var(--figma-color-cyan-dark) 0%, var(--color-primary) 62%, var(--figma-color-cyan) 100%);
-  box-shadow: 0 20rpx 52rpx rgba(0, 94, 87, 0.18);
+  background: var(--figma-gradient-dark);
+  box-shadow: var(--shadow-elevated);
 }
 
 .briefing-hero__meta {
   color: rgba(255, 255, 255, 0.72);
-  font-size: 22rpx;
+  font-size: var(--text-micro);
   letter-spacing: 1rpx;
 }
 
 .briefing-hero__title {
   margin-top: 16rpx;
-  font-size: 40rpx;
-  font-weight: 760;
+  font-size: var(--text-title);
+  font-weight: 700;
   line-height: 1.3;
 }
 
 .briefing-hero__department,
 .briefing-hero__location {
-  margin-top: 10rpx;
+  margin-top: 12rpx;
   color: rgba(255, 255, 255, 0.84);
-  font-size: 25rpx;
+  font-size: var(--text-body);
   line-height: 1.5;
 }
 
 .briefing-section {
   display: grid;
   grid-template-columns: 64rpx 1fr;
-  gap: 18rpx;
+  gap: 20rpx;
   margin-top: 24rpx;
   padding: 28rpx;
   border: 1rpx solid var(--color-line-strong);
-  border-radius: 26rpx;
+  border-radius: var(--radius-24);
   background: var(--color-surface);
 }
 
 .briefing-section__number {
-  color: var(--color-primary);
-  font-size: 24rpx;
-  font-weight: 750;
+  color: var(--color-ink);
+  font-size: var(--text-caption);
+  font-weight: 700;
 }
 
 .briefing-section__title {
   color: var(--color-ink);
-  font-size: 30rpx;
-  font-weight: 750;
+  font-size: var(--text-section);
+  font-weight: 700;
 }
 
 .briefing-fact,
 .briefing-score {
   margin-top: 16rpx;
-  color: var(--color-primary-deep);
-  font-size: 30rpx;
-  font-weight: 720;
+  color: var(--color-ink);
+  font-size: var(--text-section);
+  font-weight: 700;
 }
 
 .briefing-score {
-  font-size: 32rpx;
+  font-size: var(--text-section);
 }
 
 .briefing-copy,
@@ -80,38 +80,38 @@
 .briefing-warning {
   margin-top: 12rpx;
   color: var(--color-muted);
-  font-size: 25rpx;
+  font-size: var(--text-body);
   line-height: 1.65;
 }
 
 .briefing-evidence {
-  color: var(--color-primary-deep);
+  color: var(--color-muted);
 }
 
 .briefing-warning {
-  padding: 18rpx 20rpx;
-  border-radius: 18rpx;
+  padding: 20rpx 20rpx;
+  border-radius: var(--radius-16);
   color: var(--figma-color-warning-deep);
   background: var(--figma-color-warning-soft);
 }
 
 .briefing-boundary {
   margin-top: 24rpx;
-  padding: 26rpx;
-  border-radius: 24rpx;
+  padding: 28rpx;
+  border-radius: var(--radius-24);
   background: var(--good-soft);
 }
 
 .briefing-boundary__title {
   color: var(--good);
-  font-size: 28rpx;
-  font-weight: 720;
+  font-size: var(--text-body-lg);
+  font-weight: 700;
 }
 
 .briefing-boundary__copy {
-  margin-top: 10rpx;
+  margin-top: 12rpx;
   color: var(--good);
-  font-size: 25rpx;
+  font-size: var(--text-body);
   line-height: 1.65;
 }
 

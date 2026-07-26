@@ -6,7 +6,6 @@
       <view class="external-title">机器先识别，你只确认不确定的地方</view>
       <view class="external-subtitle">拿不准的答案都会列出来；只有你确认后，才会进入外部作答记录并供后续复盘参考。</view>
     </view>
-    <anan-companion size="medium" intent="thinking" context="review" animate />
   </view>
 
   <state-view wx:if="{{configurationError}}" custom-class="answer-state-view" state="error" title="答案回流服务未完成配置" description="{{configurationError}}" />

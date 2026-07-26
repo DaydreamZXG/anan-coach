@@ -1,4 +1,4 @@
-<view class="position-screen position-screen--dock">
+<view class="s9-screen position-screen position-screen--dock">
   <workbench-nav id="runtime-workbench-nav" title="岗位决策台" back-behavior="emit" bind:back="goBack" />
 
   <view class="position-content position-content--workspace">

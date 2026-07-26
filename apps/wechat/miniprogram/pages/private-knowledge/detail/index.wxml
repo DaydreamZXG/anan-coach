@@ -1,4 +1,4 @@
-<view class="detail-page">
+<view class="s9-screen detail-page">
   <workbench-nav id="runtime-workbench-nav" title="资料详情" back-behavior="emit" bind:back="goBack" />
 
   <view wx:if="{{status === 'loading'}}" class="detail-state">

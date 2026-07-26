@@ -6,13 +6,11 @@
   </view>
 
   <view wx:if="{{!state || state.status === 'loading'}}" class="page-state">
-    <anan-companion size="large" intent="thinking" context="plan" animate />
     <view class="state-title">正在读取你的周节奏</view>
     <view class="state-copy">正在读取你当前的学习时间安排。</view>
   </view>
 
   <view wx:elif="{{state.status === 'error'}}" class="page-state">
-    <anan-companion size="large" intent="rest" context="emotion" />
     <view class="state-title">时间偏好没有加载完成</view>
     <view class="state-copy">{{state.error.message}}</view>
     <view wx:if="{{state.error.requestId}}" class="request-id">问题编号 · {{state.error.requestId}}</view>

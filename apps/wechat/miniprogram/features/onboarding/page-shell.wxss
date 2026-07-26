@@ -19,8 +19,8 @@ button.onboarding-save-action {
   border-radius: var(--figma-radius-pill);
   background: transparent;
   color: var(--ink-2);
-  font-size: 24rpx;
-  font-weight: 650;
+  font-size: var(--text-caption);
+  font-weight: 600;
   line-height: 1.4;
 }
 
@@ -30,4 +30,14 @@ button.onboarding-save-action::after {
 
 button.onboarding-save-action[disabled] {
   color: var(--ink-3);
+}
+
+/* 平板层：滚动内容限可读宽，与全局 responsive 层同断点。 */
+@media (min-width: 768px) {
+  .onboarding-scroll-content.onboarding-scroll-content {
+    width: 100%;
+    max-width: var(--layout-readable-max);
+    margin-right: auto;
+    margin-left: auto;
+  }
 }

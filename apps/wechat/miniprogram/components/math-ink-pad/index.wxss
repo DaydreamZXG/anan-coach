@@ -3,7 +3,7 @@
 .ink-pad {
   overflow: hidden;
   border: 1rpx solid var(--color-primary-a16);
-  border-radius: 22rpx;
+  border-radius: var(--radius-24);
   background: var(--color-surface-soft);
 }
 .ink-canvas {
@@ -24,8 +24,8 @@
 .ink-recognize {
   flex: 1;
   margin: 0;
-  border-radius: 16rpx;
-  font-size: 23rpx;
+  border-radius: var(--radius-16);
+  font-size: var(--text-caption);
   line-height: 72rpx;
 }
 .ink-clear {

@@ -2,10 +2,7 @@
   box-sizing: border-box;
   min-height: 100vh;
   padding: 28rpx 32rpx calc(56rpx + env(safe-area-inset-bottom));
-  background:
-    radial-gradient(circle at 94% -4%, rgba(129, 140, 248, 0.13), transparent 31%),
-    radial-gradient(circle at 3% 24%, rgba(192, 132, 252, 0.09), transparent 27%),
-    var(--color-canvas);
+  background: var(--color-canvas);
   color: var(--color-ink);
 }
 
@@ -13,14 +10,35 @@
   padding-bottom: calc(176rpx + env(safe-area-inset-bottom));
 }
 
+/*
+ * Custom-navigation variant (workbench-nav pages).
+ * s9-screen is the page base without top padding; s9-body is the content
+ * column below the navigation with the standard inset.
+ */
+.s9-screen {
+  box-sizing: border-box;
+  min-height: 100vh;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+}
+
+.s9-body {
+  box-sizing: border-box;
+  padding: 16rpx 32rpx calc(56rpx + env(safe-area-inset-bottom));
+}
+
+.s9-body--with-dock {
+  padding-bottom: calc(200rpx + env(safe-area-inset-bottom));
+}
+
 .s9-hero {
-  margin-top: 14rpx;
+  margin-top: 16rpx;
 }
 
 .s9-title {
   max-width: 686rpx;
-  font-size: 52rpx;
-  font-weight: 780;
+  font-size: var(--text-hero);
+  font-weight: 800;
   letter-spacing: -1.8rpx;
   line-height: 1.28;
 }
@@ -29,15 +47,15 @@
   max-width: 686rpx;
   margin-top: 16rpx;
   color: var(--color-muted);
-  font-size: 26rpx;
+  font-size: var(--text-body);
   line-height: 1.55;
 }
 
 .s9-chip-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 14rpx;
-  margin-top: 22rpx;
+  gap: 16rpx;
+  margin-top: 24rpx;
 }
 
 .s9-chip {
@@ -45,11 +63,11 @@
   align-items: center;
   justify-content: center;
   min-height: 52rpx;
-  padding: 0 22rpx;
-  border-radius: 999rpx;
+  padding: 0 24rpx;
+  border-radius: var(--radius-capsule);
   background: var(--color-surface-soft);
   color: var(--color-ink-secondary);
-  font-size: 22rpx;
+  font-size: var(--text-micro);
   font-weight: 700;
 }
 
@@ -68,13 +86,13 @@
 .s9-stack {
   display: flex;
   flex-direction: column;
-  gap: 22rpx;
-  margin-top: 26rpx;
+  gap: 24rpx;
+  margin-top: 28rpx;
 }
 
 .s9-card {
   box-sizing: border-box;
-  padding: 30rpx 32rpx;
+  padding: 32rpx 32rpx;
   border: 1rpx solid rgba(240, 242, 246, 0.88);
   border-radius: var(--radius-card);
   background: var(--color-surface-glass);
@@ -92,15 +110,15 @@
 }
 
 .s9-card-kicker {
-  color: var(--color-primary);
-  font-size: 21rpx;
+  color: var(--color-muted);
+  font-size: var(--text-micro);
   font-weight: 800;
   letter-spacing: 1rpx;
 }
 
 .s9-card-title {
   margin-top: 12rpx;
-  font-size: 31rpx;
+  font-size: var(--text-section);
   font-weight: 800;
   line-height: 1.35;
 }
@@ -108,29 +126,29 @@
 .s9-card-copy {
   margin-top: 12rpx;
   color: var(--color-ink-secondary);
-  font-size: 25rpx;
+  font-size: var(--text-body);
   line-height: 1.58;
 }
 
 .s9-card-meta {
   margin-top: 16rpx;
   color: var(--color-muted);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
   line-height: 1.5;
 }
 
 .s9-metric {
   margin-top: 12rpx;
-  color: var(--color-primary-deep);
+  color: var(--color-ink);
   font-family: var(--font-family-data);
-  font-size: 56rpx;
+  font-size: var(--text-hero);
   font-variant-numeric: tabular-nums;
   font-weight: 800;
   line-height: 1.1;
 }
 
 .s9-section {
-  margin-top: 38rpx;
+  margin-top: 40rpx;
 }
 
 .s9-section-head {
@@ -138,17 +156,17 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 20rpx;
-  margin-bottom: 18rpx;
+  margin-bottom: 20rpx;
 }
 
 .s9-section-title {
-  font-size: 30rpx;
+  font-size: var(--text-section);
   font-weight: 800;
 }
 
 .s9-section-meta {
   color: var(--color-muted);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
 }
 
 .s9-list {
@@ -163,9 +181,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 22rpx;
+  gap: 24rpx;
   min-height: 104rpx;
-  padding: 18rpx 28rpx;
+  padding: 20rpx 28rpx;
 }
 
 .s9-list-row + .s9-list-row {
@@ -178,22 +196,22 @@
 }
 
 .s9-list-title {
-  font-size: 26rpx;
-  font-weight: 750;
+  font-size: var(--text-body);
+  font-weight: 700;
 }
 
 .s9-list-copy {
-  margin-top: 7rpx;
+  margin-top: 8rpx;
   color: var(--color-muted);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
   line-height: 1.45;
 }
 
 .s9-list-value {
   flex: 0 0 auto;
-  color: var(--color-primary);
-  font-size: 23rpx;
-  font-weight: 750;
+  color: var(--color-ink);
+  font-size: var(--text-caption);
+  font-weight: 700;
   text-align: right;
 }
 
@@ -207,7 +225,7 @@
   padding: 18rpx 32rpx calc(18rpx + env(safe-area-inset-bottom));
   border-top: 1rpx solid var(--color-line);
   background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 -14rpx 36rpx rgba(17, 24, 39, 0.04);
+  box-shadow: var(--shadow-dock);
   backdrop-filter: blur(26rpx);
 }
 
@@ -232,16 +250,16 @@ button.s9-secondary-button.s9-secondary-button {
   min-height: 104rpx;
   padding: 0 28rpx;
   border-radius: var(--radius-control);
-  font-size: 29rpx;
+  font-size: var(--text-body-lg);
   font-weight: 800;
   line-height: 1.2;
 }
 
 button.s9-primary-button {
-  border-radius: 40rpx;
+  border-radius: var(--radius-40);
   background: var(--color-ink);
   color: var(--color-on-primary);
-  box-shadow: 0 16rpx 34rpx rgba(17, 24, 39, 0.16);
+  box-shadow: var(--shadow-elevated);
 }
 
 .s9-primary-button--disabled {
@@ -258,11 +276,11 @@ button.s9-secondary-button {
 
 .s9-inline-error {
   margin-top: 20rpx;
-  padding: 22rpx 24rpx;
-  border-radius: 22rpx;
+  padding: 24rpx 24rpx;
+  border-radius: var(--radius-24);
   background: var(--color-danger-soft);
   color: var(--color-danger);
-  font-size: 22rpx;
+  font-size: var(--text-micro);
   line-height: 1.55;
 }
 

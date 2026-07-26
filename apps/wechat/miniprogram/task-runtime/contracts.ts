@@ -20,6 +20,44 @@ export interface MaterialPosition {
   zoom: number;
 }
 
+/** Figma 70:2 题面批注：坐标归一化到批注层宽高（0..1）。 */
+export interface AnnotationPoint {
+  x: number;
+  y: number;
+}
+
+export interface AnnotationStroke {
+  strokeId: string;
+  tool: "pen" | "highlighter";
+  width: number;
+  points: AnnotationPoint[];
+  atMs: number;
+}
+
+/** Figma 75:2/78:2 的作答动作事实。 */
+export type AttemptActionType =
+  | "option_selected"
+  | "option_changed"
+  | "option_eliminated"
+  | "elimination_undone"
+  | "confidence_set"
+  | "draft_edited"
+  | "marked"
+  | "unmarked"
+  | "skipped"
+  | "paused"
+  | "resumed"
+  | "material_expanded"
+  | "annotation_added"
+  | "annotation_erased";
+
+export interface AttemptActionEvent {
+  atMs: number;
+  type: AttemptActionType;
+  optionId?: string;
+  detail?: string;
+}
+
 export interface QuestionAttemptDraft {
   questionId: string;
   selectedOptionIds: string[];
@@ -30,6 +68,9 @@ export interface QuestionAttemptDraft {
   elapsedSeconds: number;
   draftText: string;
   materialPosition?: MaterialPosition;
+  /** 行测真实训练记录批注与动作事件；模考等其他运行时可以不携带。 */
+  annotations?: AnnotationStroke[];
+  actionEvents?: AttemptActionEvent[];
 }
 
 export interface TaskRuntimeState {
@@ -69,6 +110,12 @@ export type TaskRuntimeEvent =
   | { type: "QUESTION_SKIPPED" }
   | { type: "DRAFT_CHANGED"; text: string }
   | { type: "MATERIAL_POSITION_CHANGED"; position: MaterialPosition }
+  | { type: "ANNOTATIONS_CHANGED"; strokes: AnnotationStroke[]; action: "added" | "erased" }
+  | {
+      type: "ACTION_LOGGED";
+      action: "paused" | "resumed" | "material_expanded";
+      detail?: string;
+    }
   | { type: "SAVE_REQUESTED" }
   | { type: "SAVE_SUCCEEDED"; revision: number }
   | { type: "SAVE_FAILED"; requestId: string }

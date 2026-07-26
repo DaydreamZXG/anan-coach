@@ -73,8 +73,10 @@ Page({
         new PlanningApi(client).getToday().catch(() => null),
       ]);
       const estimate = profile.ability.estimate;
+      const trim = (value: number): string =>
+        Number.isInteger(value) ? String(value) : value.toFixed(1);
       const score = (range: ScoreRange | null | undefined): string =>
-        range ? `${range.lower.toFixed(1)}–${range.upper.toFixed(1)}` : "数据不足";
+        range ? `${trim(range.lower)}–${trim(range.upper)}` : "数据不足";
       const xingceModules = profile.modules
         .filter((module) => module.track === "xingce")
         .map(moduleView);

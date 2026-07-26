@@ -8,7 +8,12 @@ import type {
   XingceTaskSession,
   XingceVerificationOutcome,
 } from "../../../api/xingce-learning";
-import type { QuestionAttemptDraft, TaskRuntimeState } from "../../../task-runtime/contracts";
+import type {
+  AnnotationStroke,
+  AttemptActionEvent,
+  QuestionAttemptDraft,
+  TaskRuntimeState,
+} from "../../../task-runtime/contracts";
 import type { RichContentBlock } from "../../../task-runtime/content-renderer/model";
 import { assertFactoredXingceResult, isFactoredXingceResult } from "./contracts";
 
@@ -38,7 +43,10 @@ export interface XingceQuestionView {
   marked: boolean;
   skipped: boolean;
   elapsedLabel: string;
+  elapsedSeconds: number;
   draftText: string;
+  /** Figma 70:2：本题的批注笔迹。 */
+  annotations: AnnotationStroke[];
 }
 
 export interface XingceTaskView {
@@ -50,6 +58,7 @@ export interface XingceTaskView {
   syncLabel: string;
   question: XingceQuestionView;
   materialAvailable: boolean;
+  materialScopeLabel: string;
   sharedMaterial: boolean;
   answeredCount: number;
   skippedCount: number;
@@ -64,7 +73,7 @@ export interface XingceResultItemView {
   material: XingceLearnerMaterial | null;
   materialPosition: XingceAnswerCheckpoint["materialPosition"] | null;
   factChips: Array<{
-    code: "elapsed" | "confidence" | "eliminated" | "marked";
+    code: "elapsed" | "confidence" | "eliminated" | "changed" | "marked";
     label: string;
     tone: "default" | "warning";
   }>;
@@ -79,6 +88,11 @@ export interface XingceResultItemView {
   correctLabel: string;
   explanation: string;
   explanationSource: string;
+  /** Figma 75:2/78:2：本题的批注笔迹与动作事实（缺失时为空数组）。 */
+  annotations: AnnotationStroke[];
+  actionEvents: AttemptActionEvent[];
+  elapsedSeconds: number;
+  trajectoryAvailable: boolean;
 }
 
 export interface XingceGroupSummaryView {
@@ -127,13 +141,19 @@ export interface XingceResultView {
   correctCount: number;
   totalCount: number;
   metrics: Array<{
-    code: "correct" | "elapsed" | "overtime" | "guessed" | "abandoned";
+    code: "correct" | "elapsed" | "overtime" | "changed" | "marked";
     label: string;
     value: string;
     tone: "default" | "warning";
   }>;
   confidenceCalibration: Array<{
-    code: "confident_correct" | "hesitant_correct" | "guessed_correct" | "incorrect";
+    code:
+      | "confident_correct"
+      | "hesitant_correct"
+      | "guessed_correct"
+      | "confident_incorrect"
+      | "hesitant_incorrect"
+      | "guessed_incorrect";
     label: string;
     value: number;
     tone: "success" | "primary" | "warning" | "danger";
@@ -177,11 +197,34 @@ export function presentXingceTask(
       runtime.questionOrder.length,
     ),
     materialAvailable: question.materialId !== null,
+    materialScopeLabel: materialScopeLabel(session, runtime, question.materialId),
     sharedMaterial: session.bundle.bundleType === "shared_material",
     answeredCount,
     skippedCount,
     unansweredCount: runtime.questionOrder.length - answeredCount - skippedCount,
   };
+}
+
+/**
+ * Figma 2:77 的「(1-5题)」是共享同一材料的真实题号范围，
+ * 由 bundle 中各题的 materialId 与作答顺序推出，不做任何假设性补齐。
+ */
+function materialScopeLabel(
+  session: XingceTaskSession,
+  runtime: TaskRuntimeState,
+  materialId: string | null,
+): string {
+  if (!materialId) return "";
+  const positions = session.bundle.questions
+    .filter((item) => item.materialId === materialId)
+    .map((item) => runtime.questionOrder.indexOf(item.questionId))
+    .filter((index) => index >= 0)
+    .map((index) => index + 1)
+    .sort((left, right) => left - right);
+  if (positions.length === 0) return "";
+  const first = positions[0] as number;
+  const last = positions[positions.length - 1] as number;
+  return first === last ? `第 ${String(first)} 题` : `${String(first)}-${String(last)} 题`;
 }
 
 export function presentXingceResult(session: XingceTaskSession): XingceResultView | null {
@@ -236,7 +279,7 @@ export function presentXingceResult(session: XingceTaskSession): XingceResultVie
     summary: `客观答对 ${String(result.correctCount)} 题·真会 ${String(group.genuineCorrect)} 题·猜对 ${String(group.guessedCorrect)} 题`,
     correctCount: result.correctCount,
     totalCount: result.totalCount,
-    metrics: resultMetrics(result, session.totalElapsedSeconds),
+    metrics: resultMetrics(result, session.totalElapsedSeconds, session.answers),
     confidenceCalibration: confidenceCalibration(result),
     items: result.items.map((item, index) => {
       const question = questions.get(item.questionId);
@@ -361,7 +404,9 @@ function presentQuestion(
     marked: attempt.marked,
     skipped: attempt.skipped,
     elapsedLabel: formatElapsed(attempt.elapsedSeconds),
+    elapsedSeconds: attempt.elapsedSeconds,
     draftText: attempt.draftText,
+    annotations: attempt.annotations ?? [],
   };
 }
 
@@ -439,6 +484,22 @@ function presentResultItem(
     correctLabel: item.correctOptionIds.join("、"),
     explanation: item.explanation ?? "这道题暂时没有解析。",
     explanationSource: item.explanationSource ?? "解析来源未提供",
+    annotations: (answer?.annotations ?? []).map((stroke) => ({
+      strokeId: stroke.strokeId,
+      tool: stroke.tool,
+      width: stroke.width,
+      points: stroke.points.map((point) => ({ x: point.x, y: point.y })),
+      atMs: stroke.atMs,
+    })),
+    actionEvents: (answer?.actionEvents ?? []).map((entry) => ({
+      atMs: entry.atMs,
+      type: entry.type,
+      ...(entry.optionId ? { optionId: entry.optionId } : {}),
+      ...(entry.detail ? { detail: entry.detail } : {}),
+    })),
+    elapsedSeconds: timing.elapsedSeconds,
+    trajectoryAvailable:
+      (answer?.annotations?.length ?? 0) > 0 || (answer?.actionEvents?.length ?? 0) > 0,
   };
 }
 
@@ -476,6 +537,14 @@ function resultFactChips(
       tone: "warning",
     });
   }
+  // Figma 14:2「有改答记录」：来自不可变答案版本历史。
+  if (typeof item.answerChangeCount === "number" && item.answerChangeCount > 0) {
+    chips.push({
+      code: "changed",
+      label: "有改答记录",
+      tone: "warning",
+    });
+  }
   if (answer?.marked) {
     chips.push({
       code: "marked",
@@ -486,9 +555,15 @@ function resultFactChips(
   return chips;
 }
 
+/**
+ * Figma 13:23 的五列指标：正确 / 用时 / 超时 / 改答 / 存疑。
+ * 存疑来自持久化的标记，改答需要作答动作事件；老会话没有事件流时
+ * 显示真实的空态「—」，不做推测。
+ */
 function resultMetrics(
   result: XingceAttemptResult,
   totalElapsedSeconds: number,
+  answers: readonly XingceAnswerCheckpoint[],
 ): XingceResultView["metrics"] {
   const group = result.groupSummary;
   if (!group) {
@@ -507,6 +582,7 @@ function resultMetrics(
       },
     ];
   }
+  const markedCount = answers.filter((answer) => answer.marked).length;
   return [
     {
       code: "correct",
@@ -516,75 +592,96 @@ function resultMetrics(
     },
     {
       code: "elapsed",
-      label: "总用时",
+      label: "用时",
       value: formatElapsed(totalElapsedSeconds),
       tone: "default",
     },
     {
       code: "overtime",
-      label: "超建议",
+      label: "超时",
       value: String(group.advisoryExceeded),
       tone: group.advisoryExceeded > 0 ? "warning" : "default",
     },
     {
-      code: "guessed",
-      label: "猜对",
-      value: String(group.guessedCorrect),
-      tone: group.guessedCorrect > 0 ? "warning" : "default",
+      code: "changed",
+      label: "改答",
+      value: changedAnswerValue(result),
+      tone: "default",
     },
     {
-      code: "abandoned",
-      label: "主动放弃",
-      value: String(group.activeAbandon),
+      code: "marked",
+      label: "存疑",
+      value: String(markedCount),
       tone: "default",
     },
   ];
 }
 
+/** 改答次数来自不可变答案版本历史；老结果缺失该事实时展示真实空态。 */
+function changedAnswerValue(result: XingceAttemptResult): string {
+  const value = result.changedAnswerCount;
+  return typeof value === "number" && Number.isFinite(value) && value >= 0 ? String(value) : "—";
+}
+
+/**
+ * Figma 13:64「信心校准」：按 信心证据 × 客观结果 分桶，只展示出现过的桶。
+ * 主动放弃不参与校准（既没有作答信心，也没有对错事实）。
+ */
 function confidenceCalibration(
   result: XingceAttemptResult,
 ): XingceResultView["confidenceCalibration"] {
-  const counts = {
-    confident_correct: 0,
-    hesitant_correct: 0,
-    guessed_correct: 0,
-    incorrect: 0,
-  };
-  for (const item of result.items) {
-    if (item.objectiveVerdict !== "correct") {
-      if (item.disposition !== "active_abandon") counts.incorrect += 1;
-      continue;
-    }
-    if (item.confidenceEvidence === "high") counts.confident_correct += 1;
-    else if (item.confidenceEvidence === "medium") counts.hesitant_correct += 1;
-    else counts.guessed_correct += 1;
-  }
-  return [
+  const buckets: Array<{
+    code: XingceResultView["confidenceCalibration"][number]["code"];
+    label: string;
+    tone: XingceResultView["confidenceCalibration"][number]["tone"];
+    match: (item: XingceAttemptResult["items"][number]) => boolean;
+  }> = [
     {
       code: "confident_correct",
-      label: "高信心且正确",
-      value: counts.confident_correct,
+      label: "确定且正确",
       tone: "success",
+      match: (item) => item.objectiveVerdict === "correct" && item.confidenceEvidence === "high",
     },
     {
       code: "hesitant_correct",
-      label: "中等信心且正确",
-      value: counts.hesitant_correct,
+      label: "犹豫但正确",
       tone: "primary",
+      match: (item) => item.objectiveVerdict === "correct" && item.confidenceEvidence === "medium",
     },
     {
       code: "guessed_correct",
-      label: "低信心但正确",
-      value: counts.guessed_correct,
+      label: "基本靠猜但正确",
       tone: "warning",
+      match: (item) => item.objectiveVerdict === "correct" && item.confidenceEvidence === "low",
     },
     {
-      code: "incorrect",
-      label: "已作答但错误",
-      value: counts.incorrect,
+      code: "confident_incorrect",
+      label: "确定却错误",
       tone: "danger",
+      match: (item) => item.objectiveVerdict !== "correct" && item.confidenceEvidence === "high",
+    },
+    {
+      code: "hesitant_incorrect",
+      label: "犹豫且错误",
+      tone: "warning",
+      match: (item) => item.objectiveVerdict !== "correct" && item.confidenceEvidence === "medium",
+    },
+    {
+      code: "guessed_incorrect",
+      label: "基本靠猜且错误",
+      tone: "danger",
+      match: (item) => item.objectiveVerdict !== "correct" && item.confidenceEvidence === "low",
     },
   ];
+  const participating = result.items.filter((item) => item.disposition !== "active_abandon");
+  return buckets
+    .map((bucket) => ({
+      code: bucket.code,
+      label: bucket.label,
+      value: participating.filter(bucket.match).length,
+      tone: bucket.tone,
+    }))
+    .filter((bucket) => bucket.value > 0);
 }
 
 function factoredCategory(

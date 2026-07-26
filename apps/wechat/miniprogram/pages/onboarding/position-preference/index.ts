@@ -25,10 +25,12 @@ interface PositionPreferencePageData {
   catalogLoading: boolean;
   catalogError: string;
   exitAfterSave: boolean;
+  regionsExpanded: boolean;
 }
 
 interface PositionPreferencePageCustom {
   selectRegion(event: WechatMiniprogram.BaseEvent): void;
+  toggleRegionCatalog(): void;
   toggleRelocation(): void;
   toggleLevel(event: WechatMiniprogram.BaseEvent): void;
   submit(): void;
@@ -63,6 +65,7 @@ Page<PositionPreferencePageData, PositionPreferencePageCustom>({
     catalogLoading: true,
     catalogError: "",
     exitAfterSave: false,
+    regionsExpanded: false,
   },
 
   onLoad() {
@@ -84,6 +87,10 @@ Page<PositionPreferencePageData, PositionPreferencePageCustom>({
   selectRegion(event) {
     const region = String(event.currentTarget.dataset.region ?? "");
     runtimes.get(this)?.controller?.selectRegion(region);
+  },
+
+  toggleRegionCatalog() {
+    this.setData({ regionsExpanded: !this.data.regionsExpanded });
   },
 
   toggleRelocation() {

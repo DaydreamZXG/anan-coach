@@ -1,7 +1,7 @@
-<view class="week-page">
+<view class="s9-screen">
   <workbench-nav id="runtime-workbench-nav" title="周计划" back-behavior="emit" bind:back="exit" />
 
-  <view class="week-content">
+  <view class="s9-body s9-body--with-dock week-content">
     <state-view wx:if="{{status === 'loading'}}" state="loading" />
     <state-view
       wx:elif="{{status === 'error'}}"
@@ -14,34 +14,34 @@
     />
 
     <block wx:elif="{{week}}">
-      <view class="week-hero">
-        <view class="week-chips">
-          <view class="week-chip week-chip--active">{{weekDayChipLabel}}</view>
-          <view class="week-chip">{{completedChipLabel}}</view>
-          <view class="week-chip">{{planChipLabel}}</view>
+      <view class="s9-hero">
+        <view class="s9-chip-row">
+          <view class="s9-chip week-chip--active">{{weekDayChipLabel}}</view>
+          <view class="s9-chip">{{completedChipLabel}}</view>
+          <view class="s9-chip">{{planChipLabel}}</view>
         </view>
-        <view class="week-title">这周，只追三个能验证的变化</view>
-        <view class="week-copy">5 天训练＋1 天复盘＋1 天机动。计划会跟着你的真实时间变化。</view>
+        <view class="s9-title">这周，只追三个能验证的变化</view>
+        <view class="s9-subtitle">5 天训练＋1 天复盘＋1 天机动。计划会跟着你的真实时间变化。</view>
       </view>
 
-      <view class="week-section">
+      <view class="s9-section">
         <view class="section-heading">
           <view class="section-heading__mark">◎</view>
           <view>本周三个目标</view>
         </view>
-        <view class="goal-card goal-card--empty">
-          <view class="empty-title">还没有形成可验证的周目标</view>
-          <view class="empty-copy">这版周计划只有每日安排，还没有单独的周目标。可以先按今天的安排训练。</view>
+        <view class="s9-card">
+          <view class="s9-card-title">还没有形成可验证的周目标</view>
+          <view class="s9-card-copy">这版周计划只有每日安排，还没有单独的周目标。可以先按今天的安排训练。</view>
           <button hover-class="item--hover" class="inline-action" bindtap="goToday">去今日任务</button>
         </view>
       </view>
 
-      <view class="week-section">
+      <view class="s9-section">
         <view class="section-heading">
           <view class="section-heading__mark">▦</view>
           <view>本周安排</view>
         </view>
-        <view class="schedule-card">
+        <view class="s9-card schedule-card">
           <view
             wx:for="{{days}}"
             wx:key="localDate"
@@ -75,35 +75,35 @@
         </view>
       </view>
 
-      <view class="adjustment-card">
-        <view class="adjustment-card__head">
-          <view class="adjustment-card__mark">✦</view>
-          <view class="adjustment-card__body">
-            <view class="adjustment-card__title">岸岸建议调整</view>
-            <view wx:if="{{hasAdjustmentSuggestion}}" class="adjustment-card__copy">
-              {{adjustmentSuggestion}}
-            </view>
-            <view wx:else class="adjustment-card__copy">
-              目前没有新的调整建议。等完成记录或可用时间发生变化后，再判断是否需要调整。
+      <view class="s9-section">
+        <view class="s9-card adjustment-card">
+          <view class="adjustment-card__head">
+            <view class="adjustment-card__mark">✦</view>
+            <view class="adjustment-card__body">
+              <view class="adjustment-card__title">岸岸建议调整</view>
+              <view wx:if="{{hasAdjustmentSuggestion}}" class="adjustment-card__copy">
+                {{adjustmentSuggestion}}
+              </view>
+              <view wx:else class="adjustment-card__copy">
+                目前没有新的调整建议。等完成记录或可用时间发生变化后，再判断是否需要调整。
+              </view>
             </view>
           </view>
+          <button hover-class="item--hover"
+            wx:if="{{hasAdjustmentSuggestion}}"
+            class="adjustment-card__action"
+            bindtap="openAdjustment"
+          >
+            查看变化
+          </button>
+          <button hover-class="item--hover" wx:else class="adjustment-card__action" bindtap="goToday">去完成今日任务</button>
         </view>
-        <button hover-class="item--hover"
-          wx:if="{{hasAdjustmentSuggestion}}"
-          class="adjustment-card__action"
-          bindtap="openAdjustment"
-        >
-          查看变化
-        </button>
-        <button hover-class="item--hover" wx:else class="adjustment-card__action" bindtap="goToday">去完成今日任务</button>
       </view>
     </block>
   </view>
 
-  <view wx:if="{{week}}" class="week-dock">
-    <view class="week-dock__inner">
-      <button hover-class="item--hover" class="week-primary" bindtap="openAdjustment">调整本周时间</button>
-      <button hover-class="item--hover" class="week-companion" bindtap="askAnan">带着本周计划问岸岸 <text>✦</text></button>
-    </view>
+  <view wx:if="{{week}}" class="s9-action-dock">
+    <button hover-class="item--hover" class="s9-primary-button week-primary" bindtap="openAdjustment">调整本周时间</button>
+    <button hover-class="item--hover" class="week-companion" bindtap="askAnan">带着本周计划问岸岸 <text>✦</text></button>
   </view>
 </view>

@@ -1,4 +1,4 @@
-<view class="result-page">
+<view class="s9-screen result-page">
   <workbench-nav id="runtime-workbench-nav" title="建档结果" show-back="{{false}}" />
 
   <view wx:if="{{!state || state.status === 'loading'}}" class="result-state">
@@ -24,7 +24,7 @@
           </view>
         </view>
 
-        <view class="assessment-card fade-slide-in fade-slide-in--2">
+        <view class="s9-card assessment-card fade-slide-in fade-slide-in--2">
           <view class="assessment-section">
             <view class="assessment-heading">
               <image class="assessment-heading__icon" src="/assets/onboarding/result-shield-indigo.svg" mode="aspectFit" />
@@ -87,8 +87,8 @@
       </view>
     </scroll-view>
 
-    <view class="result-dock">
-      <button hover-class="item--hover" class="result-primary tap-tactile" loading="{{state.saving}}" disabled="{{state.saving}}" bindtap="acknowledge">{{state.pendingRecovery ? '查询原确认结果' : state.view.actionLabel}}</button>
+    <view class="s9-action-dock">
+      <button hover-class="item--hover" class="s9-primary-button result-primary tap-tactile" loading="{{state.saving}}" disabled="{{state.saving}}" bindtap="acknowledge">{{state.pendingRecovery ? '查询原确认结果' : state.view.actionLabel}}</button>
     </view>
   </block>
 </view>

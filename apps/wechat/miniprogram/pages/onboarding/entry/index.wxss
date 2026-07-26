@@ -1,10 +1,6 @@
 .entry-page {
-  box-sizing: border-box;
   display: flex;
-  min-height: 100vh;
   flex-direction: column;
-  background: var(--bg);
-  color: var(--ink);
 }
 
 .entry-content {
@@ -30,9 +26,9 @@
   justify-content: center;
   margin-bottom: 64rpx;
   border: 1rpx solid var(--color-surface-soft);
-  border-radius: 48rpx;
+  border-radius: var(--radius-48);
   background: var(--color-surface);
-  box-shadow: 0 16rpx 30rpx rgba(0, 0, 0, 0.04);
+  box-shadow: var(--shadow-card);
 }
 
 .entry-mark__icon {
@@ -41,7 +37,7 @@
 }
 
 .entry-title {
-  font-size: 56rpx;
+  font-size: var(--text-hero);
   font-weight: 700;
   letter-spacing: -1.4rpx;
   line-height: 1.4;
@@ -51,7 +47,7 @@
   max-width: 652rpx;
   margin-top: 24rpx;
   color: var(--ink-2);
-  font-size: 30rpx;
+  font-size: var(--text-section);
   font-weight: 500;
   line-height: 1.625;
 }
@@ -74,8 +70,8 @@
   gap: 16rpx;
   margin: 0;
   padding: 0 32rpx;
-  border-radius: 48rpx;
-  font-size: 30rpx;
+  border-radius: var(--radius-48);
+  font-size: var(--text-section);
   font-weight: 700;
   line-height: 1.5;
 }
@@ -88,7 +84,7 @@
   border: 0;
   background: var(--ink);
   color: var(--color-surface);
-  box-shadow: 0 16rpx 30rpx rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-elevated);
 }
 
 .entry-action--secondary {

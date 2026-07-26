@@ -1,74 +1,26 @@
-.week-page {
-  box-sizing: border-box;
-  min-height: 100vh;
-  background: var(--color-canvas);
-  color: var(--color-ink);
-}
+/* 周计划：骨架、卡片与操作坞来自 s9；保留七日折叠表、
+ * 建议卡与周计划专属按钮。 */
 
 .inline-action::after,
 .day-trigger::after,
 .adjustment-card__action::after,
-.week-primary::after,
 .week-companion::after {
   border: 0;
-}
-
-.week-content {
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 560px;
-  margin: 0 auto;
-  padding: var(--figma-space-48) var(--space-page-x) calc(230rpx + env(safe-area-inset-bottom));
-}
-
-.week-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--figma-space-8);
-}
-
-.week-chip {
-  padding: var(--figma-space-8) var(--figma-space-10);
-  border-radius: var(--figma-radius-pill);
-  background: var(--color-surface-soft);
-  color: var(--color-muted);
-  font-size: var(--figma-font-caption);
-  font-weight: 600;
-  line-height: 1.5;
 }
 
 .week-chip--active {
   background: var(--color-primary-soft);
   color: var(--color-primary-deep);
-  font-weight: 700;
-}
-
-.week-title {
-  margin-top: var(--figma-space-16);
-  font-size: var(--figma-font-hero-title);
-  font-weight: 760;
-  letter-spacing: -1rpx;
-  line-height: 1.3;
-}
-
-.week-copy {
-  margin-top: var(--figma-space-12);
-  color: var(--color-muted);
-  font-size: var(--figma-font-body-compact);
-  line-height: 1.65;
-}
-
-.week-section {
-  margin-top: var(--figma-space-32);
 }
 
 .section-heading {
   display: flex;
   align-items: center;
   gap: var(--figma-space-8);
+  margin-bottom: 20rpx;
   padding-left: var(--figma-space-4);
-  font-size: var(--figma-font-body-large);
-  font-weight: 760;
+  font-size: var(--text-section);
+  font-weight: 700;
   letter-spacing: -0.5rpx;
 }
 
@@ -79,34 +31,8 @@
   align-items: center;
   justify-content: center;
   color: var(--color-ink);
-  font-size: var(--figma-font-caption);
+  font-size: var(--text-caption);
   font-weight: 800;
-}
-
-.goal-card,
-.schedule-card {
-  box-sizing: border-box;
-  margin-top: var(--figma-space-16);
-  border-radius: var(--figma-radius-card-medium);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-card);
-}
-
-.goal-card--empty {
-  padding: var(--figma-space-24);
-}
-
-.empty-title {
-  font-size: var(--figma-font-body);
-  font-weight: 720;
-  line-height: 1.5;
-}
-
-.empty-copy {
-  margin-top: var(--figma-space-8);
-  color: var(--color-muted);
-  font-size: var(--figma-font-body-compact);
-  line-height: 1.65;
 }
 
 button.inline-action {
@@ -121,7 +47,7 @@ button.inline-action {
   border-radius: var(--figma-radius-small);
   background: var(--color-primary-soft);
   color: var(--color-primary-deep);
-  font-size: var(--figma-font-caption);
+  font-size: var(--text-caption);
   font-weight: 700;
   line-height: 64rpx;
 }
@@ -162,8 +88,8 @@ button.day-trigger {
 }
 
 .day-name {
-  font-size: var(--figma-font-body);
-  font-weight: 720;
+  font-size: var(--text-body-lg);
+  font-weight: 700;
 }
 
 .day-status {
@@ -171,13 +97,13 @@ button.day-trigger {
   border-radius: var(--figma-radius-pill);
   background: var(--color-surface-soft);
   color: var(--color-muted);
-  font-size: var(--figma-font-caption);
+  font-size: var(--text-caption);
   font-weight: 600;
 }
 
 .day-status--today {
   background: var(--color-primary-soft);
-  color: var(--color-primary);
+  color: var(--color-muted);
 }
 
 .day-status--past {
@@ -214,7 +140,7 @@ button.day-trigger {
 
 .day-detail__label {
   color: var(--color-faint);
-  font-size: var(--figma-font-caption);
+  font-size: var(--text-caption);
   line-height: 1.5;
 }
 
@@ -222,7 +148,7 @@ button.day-trigger {
   margin-top: var(--figma-space-4);
   overflow: hidden;
   color: var(--color-ink);
-  font-size: var(--figma-font-caption);
+  font-size: var(--text-caption);
   font-weight: 700;
   line-height: 1.5;
   text-overflow: ellipsis;
@@ -239,16 +165,12 @@ button.day-trigger {
   border-radius: var(--figma-radius-xsmall);
   background: var(--color-surface-soft);
   color: var(--color-muted);
-  font-size: var(--figma-font-caption);
+  font-size: var(--text-caption);
   line-height: 1.5;
 }
 
 .adjustment-card {
-  box-sizing: border-box;
-  margin-top: var(--figma-space-32);
-  padding: var(--figma-space-20);
-  border: 1rpx solid var(--figma-color-primary-soft-strong);
-  border-radius: var(--figma-radius-card);
+  border-color: var(--color-primary-soft-strong);
   background: var(--color-primary-soft);
 }
 
@@ -259,8 +181,8 @@ button.day-trigger {
 
 .adjustment-card__mark {
   flex: none;
-  color: var(--color-primary);
-  font-size: var(--figma-font-body);
+  color: var(--color-muted);
+  font-size: var(--text-body-lg);
   line-height: 1.4;
 }
 
@@ -269,14 +191,14 @@ button.day-trigger {
 }
 
 .adjustment-card__title {
-  font-size: var(--figma-font-body);
-  font-weight: 720;
+  font-size: var(--text-body-lg);
+  font-weight: 700;
 }
 
 .adjustment-card__copy {
   margin-top: var(--figma-space-4);
-  color: var(--color-ink-tertiary, var(--color-ink-secondary));
-  font-size: var(--figma-font-body-compact);
+  color: var(--color-ink-secondary);
+  font-size: var(--text-body);
   line-height: 1.65;
 }
 
@@ -286,65 +208,26 @@ button.adjustment-card__action {
   margin: var(--figma-space-12) 0 0;
   border: 0;
   border-radius: var(--figma-radius-small);
-  background: var(--color-primary);
+  background: var(--color-ink);
   color: var(--color-on-primary);
-  font-size: var(--figma-font-body-compact);
-  font-weight: 720;
+  font-size: var(--text-body);
+  font-weight: 700;
   line-height: 76rpx;
 }
 
-.week-dock {
-  position: fixed;
-  z-index: var(--z-footer);
-  right: 0;
-  bottom: 0;
-  left: 0;
-  border-top: 1rpx solid var(--color-line);
-  background: var(--color-surface);
-}
-
-.week-dock__inner {
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 560px;
-  margin: 0 auto;
-  padding: var(--figma-space-16) var(--space-page-x)
-    calc(var(--figma-space-20) + env(safe-area-inset-bottom));
-}
-
-button.week-primary,
-button.week-companion {
-  width: 100%;
-  margin: 0;
-  border: 0;
-  font-weight: 720;
-  text-align: center;
-}
-
 button.week-primary {
-  min-height: 96rpx;
-  border-radius: var(--figma-radius-card);
-  background: var(--color-action);
-  color: var(--color-on-primary);
-  font-size: var(--figma-font-body);
-  line-height: 96rpx;
-  box-shadow: var(--figma-shadow-elevated);
+  width: 100%;
 }
 
 button.week-companion {
+  width: 100%;
   min-height: 60rpx;
+  margin: 12rpx 0 0;
+  border: 0;
   background: none;
   color: var(--color-primary);
-  font-size: var(--figma-font-body-compact);
+  font-size: var(--text-body);
+  font-weight: 700;
   line-height: 60rpx;
-}
-
-@media (min-width: 768px) {
-  .week-content {
-    padding-top: var(--figma-space-32);
-  }
-
-  .week-title {
-    font-size: var(--figma-font-page-title);
-  }
+  text-align: center;
 }

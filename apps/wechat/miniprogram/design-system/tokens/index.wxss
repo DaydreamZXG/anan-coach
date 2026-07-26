@@ -19,14 +19,17 @@ page {
   --color-faint: var(--figma-color-faint);
   --color-line: var(--figma-color-line);
   --color-line-strong: var(--figma-color-line-strong);
-  --color-primary: var(--figma-color-primary);
-  --color-primary-deep: var(--figma-color-primary-deep);
-  --color-primary-soft: var(--figma-color-primary-soft);
-  --color-primary-a08: rgba(97, 95, 255, 0.08);
-  --color-primary-a11: rgba(97, 95, 255, 0.11);
-  --color-primary-a16: rgba(97, 95, 255, 0.16);
-  --color-primary-a18: rgba(79, 70, 229, 0.18);
-  --color-primary-a24: rgba(97, 95, 255, 0.24);
+  /* 主交互色切青色系（2026-07-26 产品拍板）：靛蓝仅保留在 AI 渐变身份里。 */
+  --color-primary: var(--figma-color-cyan-deep);
+  --color-primary-deep: var(--figma-color-cyan-dark);
+  --color-primary-bright: var(--figma-color-cyan);
+  --color-primary-soft: var(--figma-color-cyan-soft);
+  --color-primary-soft-strong: var(--figma-color-cyan-soft-strong);
+  --color-primary-a08: rgba(0, 184, 219, 0.08);
+  --color-primary-a11: rgba(0, 184, 219, 0.11);
+  --color-primary-a16: rgba(0, 184, 219, 0.16);
+  --color-primary-a18: rgba(0, 146, 184, 0.18);
+  --color-primary-a24: rgba(0, 184, 219, 0.24);
   --color-companion: var(--figma-color-primary);
   --color-cyan: var(--figma-color-cyan);
   --color-ai-blue: var(--figma-color-primary);
@@ -57,20 +60,14 @@ page {
   --color-surface-soft-a82: rgba(244, 240, 223, 0.82);
   --color-line-a84: rgba(240, 242, 246, 0.84);
   --color-line-strong-a56: rgba(229, 231, 235, 0.56);
-  --color-primary-soft-a52: rgba(238, 242, 255, 0.52);
-  --color-primary-soft-a55: rgba(238, 242, 255, 0.55);
-  --color-primary-soft-a64: rgba(238, 242, 255, 0.64);
+  --color-primary-soft-a52: rgba(236, 254, 255, 0.52);
+  --color-primary-soft-a55: rgba(236, 254, 255, 0.55);
+  --color-primary-soft-a64: rgba(236, 254, 255, 0.64);
   --color-cyan-soft-a58: rgba(236, 254, 255, 0.58);
   --color-warning-a42: rgba(185, 141, 47, 0.42);
 
   --gradient-brand: var(--figma-gradient-ai);
   --gradient-ai: var(--figma-gradient-ai);
-  --gradient-aurora: linear-gradient(
-    135deg,
-    rgba(97, 95, 255, 0.1),
-    rgba(173, 70, 255, 0.08) 52%,
-    rgba(246, 51, 154, 0.07)
-  );
   --gradient-companion: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 56%, #fdf2f8 100%);
   --gradient-action: var(--figma-gradient-dark);
   --gradient-skeleton: linear-gradient(90deg, #eceef3 25%, #fafbfc 50%, #eceef3 75%);
@@ -87,15 +84,10 @@ page {
   --shadow-dock-strong: 0 -20rpx 80rpx rgba(17, 24, 39, 0.12);
   --shadow-reader: 0 -18rpx 60rpx rgba(21, 27, 62, 0.16);
   --shadow-overlay: 0 -20rpx 70rpx rgba(17, 20, 38, 0.22);
-  --shadow-primary-soft: 0 12rpx 30rpx rgba(79, 70, 229, 0.18);
+  --shadow-primary-soft: 0 12rpx 30rpx rgba(0, 146, 184, 0.18);
   --shadow-community: 0 12rpx 34rpx rgba(45, 52, 94, 0.06);
   --shadow-brain-card: 0 9rpx 34rpx rgba(17, 24, 39, 0.034);
   --shadow-workbench-wide: 0 10px 32px rgba(190, 120, 60, 0.08);
-  --gradient-brain-halo: radial-gradient(
-    circle at 88% 0%,
-    rgba(199, 210, 254, 0.34),
-    transparent 27%
-  );
 
   --radius-hero: var(--figma-radius-card-large);
   --radius-card: var(--figma-radius-card-large);
@@ -110,10 +102,55 @@ page {
   --font-section: var(--figma-font-body-large);
   --font-body: var(--figma-font-body);
   --font-caption: var(--figma-font-micro);
+
+  /*
+   * Locked type scale (2026-07-26).
+   * Every runtime font-size resolves to one of these thirteen steps.
+   * 16-21rpx literals were retired for readability; --text-tab is reserved
+   * for the custom tab bar label only.
+   */
+  --text-tab: 20rpx;
+  --text-micro: 22rpx;
+  --text-caption: 24rpx;
+  --text-body: 26rpx;
+  --text-body-lg: 28rpx;
+  --text-section: 32rpx;
+  --text-title-sm: 36rpx;
+  --text-title: 40rpx;
+  --text-title-lg: 48rpx;
+  --text-hero: 56rpx;
+  --text-stat: 64rpx;
+  --text-display: 72rpx;
+  --text-stat-lg: 80rpx;
+
+  /*
+   * Locked radius scale (2026-07-26).
+   * Hairline rounding (<= 4rpx), 0, 50% and inherit stay literal.
+   */
+  --radius-8: 8rpx;
+  --radius-12: 12rpx;
+  --radius-16: 16rpx;
+  --radius-24: 24rpx;
+  --radius-32: 32rpx;
+  --radius-40: 40rpx;
+  --radius-48: 48rpx;
+  --radius-64: 64rpx;
+  --radius-capsule: 9999rpx;
+
+  /*
+   * Locked shadow set (2026-07-26). One-off decorative glows resolve here;
+   * hierarchy comes from spacing, type and tone, not stacked glows.
+   */
+  --shadow-soft: 0 8rpx 20rpx rgba(0, 0, 0, 0.02);
+  --shadow-crisp: 0 2rpx 6rpx rgba(16, 24, 40, 0.08);
+  --shadow-elevated: var(--figma-shadow-elevated);
+  --shadow-cyan: 0 8rpx 30rpx rgba(6, 182, 212, 0.28);
+  --shadow-well: inset 0 4rpx 18rpx rgba(16, 24, 40, 0.02);
+  --shadow-spotlight-mask: 0 0 0 9999rpx rgba(0, 0, 0, 0.56);
   --font-family-ui: var(--figma-font-family);
   --font-family-reading: var(--figma-font-family);
-  --font-family-data: "Maple Mono CN", "DIN Alternate", -apple-system, BlinkMacSystemFont,
-    monospace;
+  --font-family-data:
+    "Maple Mono CN", "DIN Alternate", -apple-system, BlinkMacSystemFont, monospace;
 
   --layout-readable-max: 720px;
   --layout-workbench-max: 1280px;

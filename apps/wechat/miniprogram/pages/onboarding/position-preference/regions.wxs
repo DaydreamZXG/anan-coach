@@ -1,0 +1,59 @@
+/**
+ * 地区选择的视图层收敛：31 个省级行政区按七大区分组，默认只露热门行。
+ * 纯展示变换，输入是服务端目录的扁平数组，不改选择语义。
+ */
+var GROUPS = [
+  { name: "华北", items: ["北京", "天津", "河北", "山西", "内蒙古"] },
+  { name: "东北", items: ["辽宁", "吉林", "黑龙江"] },
+  { name: "华东", items: ["上海", "江苏", "浙江", "安徽", "福建", "江西", "山东"] },
+  { name: "华中", items: ["河南", "湖北", "湖南"] },
+  { name: "华南", items: ["广东", "广西", "海南"] },
+  { name: "西南", items: ["重庆", "四川", "贵州", "云南", "西藏"] },
+  { name: "西北", items: ["陕西", "甘肃", "青海", "宁夏", "新疆"] },
+];
+
+var COMMON = ["北京", "上海", "广东", "江苏", "浙江", "山东", "四川", "河南"];
+
+function contains(list, value) {
+  for (var i = 0; i < list.length; i++) {
+    if (list[i] === value) return true;
+  }
+  return false;
+}
+
+/** 折叠态展示的热门行：热门 ∩ 目录，已选地区始终在列。 */
+function common(catalog, selected) {
+  var result = [];
+  for (var i = 0; i < COMMON.length; i++) {
+    if (contains(catalog, COMMON[i])) result.push(COMMON[i]);
+  }
+  if (selected && contains(catalog, selected) && !contains(result, selected)) {
+    result.push(selected);
+  }
+  return result;
+}
+
+/** 展开态：目录按大区分组，目录里才有的才显示；不认识的名字归「其他」。 */
+function groups(catalog) {
+  var result = [];
+  var known = [];
+  for (var g = 0; g < GROUPS.length; g++) {
+    var items = [];
+    for (var i = 0; i < GROUPS[g].items.length; i++) {
+      var name = GROUPS[g].items[i];
+      if (contains(catalog, name)) {
+        items.push(name);
+        known.push(name);
+      }
+    }
+    if (items.length) result.push({ name: GROUPS[g].name, items: items });
+  }
+  var rest = [];
+  for (var j = 0; j < catalog.length; j++) {
+    if (!contains(known, catalog[j])) rest.push(catalog[j]);
+  }
+  if (rest.length) result.push({ name: "其他", items: rest });
+  return result;
+}
+
+module.exports = { common: common, groups: groups };

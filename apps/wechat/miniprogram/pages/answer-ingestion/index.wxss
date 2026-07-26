@@ -2,7 +2,7 @@
 
 .answer-state-view {
   display: block;
-  margin-top: 34rpx;
+  margin-top: 32rpx;
 }
 
 .target-scroll {
@@ -31,22 +31,22 @@
 
 .target-track,
 .target-expiry {
-  color: var(--color-primary);
-  font-size: 21rpx;
+  color: var(--color-muted);
+  font-size: var(--text-micro);
   font-weight: 800;
 }
 
 .target-title {
   overflow: hidden;
   margin-top: 12rpx;
-  font-size: 28rpx;
+  font-size: var(--text-body-lg);
   font-weight: 800;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .target-expiry {
-  margin-top: 14rpx;
+  margin-top: 16rpx;
 }
 
 .answer-source {
@@ -60,26 +60,26 @@
 .answer-image-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14rpx;
-  margin-top: 22rpx;
+  gap: 16rpx;
+  margin-top: 24rpx;
 }
 
 .selected-file {
   display: grid;
   gap: 8rpx;
-  margin-top: 18rpx;
-  padding: 18rpx;
+  margin-top: 20rpx;
+  padding: 20rpx;
   border-radius: var(--radius-compact);
   background: var(--color-success-soft);
   color: var(--color-success);
-  font-size: 22rpx;
+  font-size: var(--text-micro);
   word-break: break-all;
 }
 
 .upload-number {
-  color: var(--color-primary-deep);
-  font-size: 64rpx;
-  font-weight: 850;
+  color: var(--color-ink);
+  font-size: var(--text-stat);
+  font-weight: 800;
 }
 
 .answer-row {
@@ -87,17 +87,17 @@
   grid-template-columns: 58rpx 1fr 140rpx;
   align-items: center;
   gap: 16rpx;
-  margin-top: 14rpx;
-  padding: 18rpx;
+  margin-top: 16rpx;
+  padding: 20rpx;
   border: 1rpx solid var(--color-line);
   border-radius: var(--radius-control);
   background: var(--color-surface);
 }
 
 .answer-order {
-  color: var(--color-primary-deep);
-  font-size: 30rpx;
-  font-weight: 850;
+  color: var(--color-muted);
+  font-size: var(--text-section);
+  font-weight: 800;
   text-align: center;
 }
 
@@ -112,7 +112,7 @@
 .answer-confidence {
   margin-top: 8rpx;
   color: var(--color-success);
-  font-size: 20rpx;
+  font-size: var(--text-micro);
 }
 
 .answer-confidence--warning {
@@ -122,7 +122,7 @@
 .binding-code {
   overflow-wrap: anywhere;
   color: var(--color-muted);
-  font-size: 18rpx;
+  font-size: var(--text-micro);
   text-align: right;
 }
 

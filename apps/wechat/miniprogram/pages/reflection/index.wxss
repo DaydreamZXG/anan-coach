@@ -1,10 +1,6 @@
 .reflection-page {
   position: relative;
-  box-sizing: border-box;
-  min-height: 100vh;
   overflow-x: hidden;
-  background: var(--bg);
-  color: var(--ink);
 }
 
 .reflection-state {
@@ -27,7 +23,7 @@
 
 .summary-title {
   color: var(--color-ink);
-  font-size: var(--figma-font-page-title);
+  font-size: var(--text-hero);
   font-weight: 700;
   letter-spacing: -1.4rpx;
   line-height: 1.25;
@@ -36,7 +32,7 @@
 .summary-copy {
   margin-top: var(--figma-space-6);
   color: var(--color-muted);
-  font-size: var(--figma-font-body-compact);
+  font-size: var(--text-body);
   font-weight: 500;
   line-height: 1.65;
 }
@@ -71,7 +67,7 @@
 .summary-metric__value {
   overflow: hidden;
   color: var(--color-ink);
-  font-size: var(--figma-font-body-large);
+  font-size: var(--text-section);
   font-weight: 700;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -84,7 +80,7 @@
 .summary-metric__label {
   margin-top: var(--figma-space-4);
   color: var(--color-faint);
-  font-size: var(--figma-font-minimum);
+  font-size: var(--text-micro);
   font-weight: 500;
   line-height: 1.3;
 }
@@ -98,7 +94,7 @@
 
 .summary-confidence__title {
   color: var(--color-ink);
-  font-size: var(--figma-font-micro);
+  font-size: var(--text-micro);
   font-weight: 700;
 }
 
@@ -121,14 +117,14 @@
 
 .summary-confidence__label {
   gap: var(--figma-space-6);
-  color: var(--figma-color-ink-tertiary);
-  font-size: var(--figma-font-micro);
+  color: var(--color-ink-secondary);
+  font-size: var(--text-micro);
   font-weight: 500;
 }
 
 .summary-confidence__value {
   color: var(--color-ink);
-  font-size: var(--figma-font-micro);
+  font-size: var(--text-micro);
   font-weight: 700;
 }
 
@@ -145,7 +141,7 @@
 }
 
 .summary-confidence__dot--primary {
-  background: var(--figma-color-primary-bright);
+  background: var(--color-primary-bright);
 }
 
 .summary-confidence__dot--warning {
@@ -158,7 +154,7 @@
 
 .summary-insight {
   padding: var(--figma-space-20);
-  border-color: var(--figma-color-primary-soft-strong);
+  border-color: var(--color-primary-soft-strong);
   border-radius: var(--figma-radius-card-large);
 }
 
@@ -167,7 +163,7 @@
   align-items: center;
   gap: var(--figma-space-6);
   color: var(--color-ink);
-  font-size: var(--figma-font-body-compact);
+  font-size: var(--text-body);
   font-weight: 700;
 }
 
@@ -179,14 +175,14 @@
 .summary-insight__title {
   margin-top: var(--figma-space-12);
   color: var(--color-ink);
-  font-size: var(--figma-font-body-large);
+  font-size: var(--text-section);
   font-weight: 700;
 }
 
 .summary-insight__copy {
   margin-top: var(--figma-space-6);
   color: var(--color-ink-secondary);
-  font-size: var(--figma-font-body-compact);
+  font-size: var(--text-body);
   font-weight: 500;
   line-height: 1.7;
 }
@@ -202,7 +198,7 @@
   gap: var(--figma-space-10);
   padding: var(--figma-space-6) 0;
   color: var(--color-muted);
-  font-size: var(--figma-font-micro);
+  font-size: var(--text-micro);
   font-weight: 600;
 }
 
@@ -212,8 +208,8 @@
   padding: var(--figma-space-10);
   border-radius: var(--figma-radius-small);
   background: var(--color-primary-soft);
-  color: var(--color-primary-deep);
-  font-size: var(--figma-font-micro);
+  color: var(--color-muted);
+  font-size: var(--text-micro);
   font-weight: 600;
   line-height: 1.55;
 }
@@ -223,10 +219,14 @@
   color: var(--color-muted);
 }
 
+/* Figma 13:119：左对齐的文字链接。 */
 .summary-insight__toggle {
+  display: flex;
+  justify-content: flex-start;
   margin-top: var(--figma-space-12);
-  font-size: var(--figma-font-micro);
-  font-weight: 700;
+  font-size: var(--text-micro);
+  font-weight: 500;
+  text-align: left;
 }
 
 .summary-legacy {
@@ -236,14 +236,14 @@
 
 .summary-legacy__title {
   color: var(--color-ink-secondary);
-  font-size: var(--figma-font-body-compact);
+  font-size: var(--text-body);
   font-weight: 700;
 }
 
 .summary-legacy__copy {
   margin-top: var(--figma-space-6);
   color: var(--color-muted);
-  font-size: var(--figma-font-micro);
+  font-size: var(--text-micro);
   line-height: 1.65;
 }
 
@@ -264,44 +264,40 @@
   gap: var(--figma-space-4);
 }
 
+/* Figma 13:129/13:145：40px 圆形题号；正常题浅灰，需复盘题红圈。 */
 .summary-question-dot {
   display: flex;
-  width: 72rpx;
-  height: 72rpx;
+  width: 80rpx;
+  height: 80rpx;
   align-items: center;
   justify-content: center;
-  border: 1rpx solid var(--color-line);
+  border: 1rpx solid var(--figma-color-line);
   border-radius: var(--figma-radius-pill);
-  background: var(--color-surface-soft);
-  color: var(--color-ink-secondary);
-  font-size: var(--figma-font-caption);
+  background: var(--figma-color-surface-subtle);
+  color: var(--figma-color-ink);
+  font-size: var(--text-body);
   font-weight: 700;
 }
 
-.summary-question-dot--danger {
+.summary-question-dot--review {
   border-color: var(--figma-color-danger-soft-strong);
-  background: var(--color-danger-soft);
-  color: var(--color-danger);
+  background: var(--figma-color-danger-soft);
+  color: var(--figma-color-danger-deep);
 }
 
-.summary-question-dot--warning {
-  border-color: var(--figma-color-warning-soft);
-  background: var(--color-warning-soft);
-  color: var(--color-warning);
+.summary-question-dot--normal {
+  border-color: var(--figma-color-line);
+  background: var(--figma-color-surface-subtle);
+  color: var(--figma-color-ink);
 }
 
-.summary-question-dot--success {
-  border-color: var(--color-success-soft);
-  background: var(--color-success-soft);
-  color: var(--color-success);
-}
-
+/* Figma 13:149：红色小注「复盘·超时」。 */
 .summary-question-label {
   overflow: hidden;
   width: 100%;
-  color: var(--color-faint);
-  font-size: var(--figma-font-minimum);
-  font-weight: 600;
+  color: var(--figma-color-danger);
+  font-size: var(--text-micro);
+  font-weight: 500;
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -330,7 +326,7 @@
   width: 100%;
   min-height: 92rpx;
   border-radius: var(--figma-radius-control);
-  font-size: var(--figma-font-body-compact);
+  font-size: var(--text-body);
   font-weight: 700;
 }
 
@@ -343,11 +339,11 @@
 .summary-secondary {
   border: 1rpx solid var(--color-line-strong);
   background: var(--color-surface);
-  color: var(--figma-color-ink-tertiary);
+  color: var(--color-ink-secondary);
 }
 
 .summary-anan {
-  border: 1rpx solid var(--figma-color-primary-soft-strong);
+  border: 1rpx solid var(--color-primary-soft-strong);
   background: var(--color-primary-soft);
   color: var(--color-primary-deep);
 }
@@ -355,7 +351,7 @@
 .summary-boundary {
   margin: var(--figma-space-12) var(--figma-space-10) 0;
   color: var(--color-faint);
-  font-size: var(--figma-font-minimum);
+  font-size: var(--text-micro);
   font-weight: 500;
   line-height: 1.6;
   text-align: center;
@@ -364,38 +360,38 @@
 .review-content,
 .cause-content {
   box-sizing: border-box;
-  padding: 34rpx 40rpx 0;
+  padding: 32rpx 40rpx 0;
 }
 
 .pending-write,
 .legacy-notice {
   margin: 24rpx 40rpx 0;
-  padding: 26rpx;
+  padding: 28rpx;
   border: 1rpx solid var(--figma-color-warning-soft);
-  border-radius: 32rpx;
+  border-radius: var(--radius-32);
   background: var(--figma-color-warning-soft);
 }
 
 .pending-write__title,
 .legacy-notice__title {
   color: var(--figma-color-warning-deep);
-  font-size: 25rpx;
+  font-size: var(--text-body);
   font-weight: 700;
 }
 
 .pending-write__copy,
 .legacy-notice__copy {
-  margin-top: 9rpx;
+  margin-top: 8rpx;
   color: var(--figma-color-warning-deep);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
   font-weight: 500;
   line-height: 1.6;
 }
 
 .pending-write__action {
-  margin-top: 18rpx;
+  margin-top: 20rpx;
   color: var(--figma-color-warning-deep);
-  font-size: 22rpx;
+  font-size: var(--text-micro);
   font-weight: 700;
 }
 
@@ -417,7 +413,7 @@
   display: flex;
   justify-content: center;
   gap: 16rpx;
-  margin-bottom: 30rpx;
+  margin-bottom: 32rpx;
   overflow-x: auto;
 }
 
@@ -429,15 +425,15 @@
   border-radius: 50%;
   background: var(--color-surface);
   color: var(--ink-2);
-  font-size: 25rpx;
+  font-size: var(--text-body);
   font-weight: 700;
 }
 
 .review-tab--active {
-  border-color: var(--ink);
-  background: var(--ink);
+  border-color: var(--color-primary);
+  background: var(--color-primary);
   color: var(--color-surface);
-  box-shadow: 0 8rpx 24rpx rgba(16, 24, 40, 0.14);
+  box-shadow: var(--shadow-elevated);
 }
 
 .question-review {
@@ -445,9 +441,9 @@
 }
 
 .question-review__position {
-  margin-bottom: 18rpx;
+  margin-bottom: 20rpx;
   color: var(--ink);
-  font-size: 30rpx;
+  font-size: var(--text-section);
   font-weight: 700;
 }
 
@@ -459,7 +455,7 @@
   margin-bottom: var(--figma-space-12);
   padding: var(--figma-space-10) 0;
   color: var(--color-ink);
-  font-size: var(--figma-font-body);
+  font-size: var(--text-body-lg);
   font-weight: 600;
   line-height: 1.75;
 }
@@ -470,10 +466,10 @@
   justify-content: space-between;
   box-sizing: border-box;
   min-height: 86rpx;
-  margin-top: 14rpx;
+  margin-top: 16rpx;
   padding: 0 24rpx;
   border: 1rpx solid;
-  border-radius: 28rpx;
+  border-radius: var(--radius-32);
 }
 
 .answer-compare--wrong {
@@ -489,18 +485,18 @@
 }
 
 .answer-compare__label {
-  margin-right: 18rpx;
-  font-size: 23rpx;
+  margin-right: 20rpx;
+  font-size: var(--text-caption);
   font-weight: 700;
 }
 
 .answer-compare__value {
-  font-size: 24rpx;
+  font-size: var(--text-caption);
   font-weight: 600;
 }
 
 .answer-compare__mark {
-  font-size: 30rpx;
+  font-size: var(--text-section);
   font-weight: 700;
 }
 
@@ -512,12 +508,12 @@
 }
 
 .answer-fact {
-  padding: 8rpx 15rpx;
+  padding: 8rpx 16rpx;
   border: 1rpx solid var(--line);
-  border-radius: 12rpx;
+  border-radius: var(--radius-12);
   background: var(--color-surface);
   color: var(--ink-2);
-  font-size: 20rpx;
+  font-size: var(--text-micro);
   font-weight: 600;
 }
 
@@ -535,39 +531,39 @@
 .candidate-card {
   box-sizing: border-box;
   margin-bottom: 28rpx;
-  padding: 34rpx;
+  padding: 32rpx;
   border: 1rpx solid var(--line);
-  border-radius: 48rpx;
+  border-radius: var(--radius-48);
   background: var(--color-surface);
-  box-shadow: 0 8rpx 40rpx rgba(16, 24, 40, 0.025);
+  box-shadow: var(--shadow-card);
 }
 
 .structured-review__head {
   display: flex;
   align-items: center;
   gap: 12rpx;
-  margin-bottom: 30rpx;
+  margin-bottom: 32rpx;
   color: var(--ink);
-  font-size: 27rpx;
+  font-size: var(--text-body-lg);
   font-weight: 700;
 }
 
 .structured-review__spark {
-  color: var(--primary);
-  font-size: 28rpx;
+  color: var(--color-muted);
+  font-size: var(--text-body-lg);
 }
 
 .structured-review__label {
-  margin-top: 25rpx;
+  margin-top: 24rpx;
   color: var(--ink-3);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
   font-weight: 700;
 }
 
 .structured-review__copy {
   margin-top: 8rpx;
   color: var(--color-ink-secondary);
-  font-size: 25rpx;
+  font-size: var(--text-body);
   font-weight: 500;
   line-height: 1.75;
 }
@@ -575,18 +571,18 @@
 .structured-review__source {
   margin-top: 20rpx;
   color: var(--ink-3);
-  font-size: 19rpx;
+  font-size: var(--text-micro);
   font-weight: 600;
 }
 
 .structured-review__warning {
   margin-top: 24rpx;
-  padding: 20rpx 22rpx;
+  padding: 20rpx 24rpx;
   border: 1rpx solid var(--figma-color-warning-soft);
-  border-radius: 22rpx;
+  border-radius: var(--radius-24);
   background: var(--figma-color-warning-soft);
   color: var(--figma-color-warning-deep);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
   font-weight: 600;
   line-height: 1.6;
 }
@@ -594,15 +590,15 @@
 .reason-card__title,
 .method-card__title {
   color: var(--ink);
-  font-size: 28rpx;
+  font-size: var(--text-body-lg);
   font-weight: 700;
 }
 
 .reason-card__copy,
 .method-card__copy {
-  margin-top: 7rpx;
+  margin-top: 8rpx;
   color: var(--ink-2);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
   font-weight: 500;
   line-height: 1.55;
 }
@@ -621,15 +617,15 @@
   border-radius: var(--figma-radius-pill);
   background: var(--bg);
   color: var(--ink-2);
-  font-size: 22rpx;
+  font-size: var(--text-micro);
   font-weight: 700;
 }
 
 .tag-chip--active {
-  border-color: var(--ink);
-  background: var(--ink);
+  border-color: var(--color-primary);
+  background: var(--color-primary);
   color: var(--color-surface);
-  box-shadow: 0 6rpx 18rpx rgba(16, 24, 40, 0.12);
+  box-shadow: var(--shadow-elevated);
 }
 
 .reason-textarea,
@@ -641,10 +637,10 @@
   margin-top: 28rpx;
   padding: 24rpx;
   border: 1rpx solid var(--color-line-strong);
-  border-radius: 26rpx;
+  border-radius: var(--radius-24);
   background: var(--bg);
   color: var(--ink);
-  font-size: 25rpx;
+  font-size: var(--text-body);
   font-weight: 500;
   line-height: 1.7;
 }
@@ -657,36 +653,36 @@
   box-sizing: border-box;
   width: 100%;
   min-height: 92rpx;
-  margin-top: 18rpx;
-  padding: 20rpx 22rpx;
+  margin-top: 20rpx;
+  padding: 20rpx 24rpx;
   border: 1rpx solid var(--color-line-strong);
-  border-radius: 26rpx;
+  border-radius: var(--radius-24);
   background: var(--color-surface-soft);
   color: var(--color-ink-secondary);
   text-align: left;
 }
 
 .method-option--selected {
-  border-color: var(--figma-color-primary-bright);
+  border-color: var(--color-primary-bright);
   background: var(--primary-soft);
 }
 
 .method-option__position {
-  font-size: 24rpx;
+  font-size: var(--text-caption);
   font-weight: 700;
 }
 
 .method-option__answer {
-  margin-top: 5rpx;
+  margin-top: 4rpx;
   color: var(--ink-2);
-  font-size: 20rpx;
+  font-size: var(--text-micro);
   font-weight: 500;
 }
 
 .method-option__state {
   flex: 0 0 auto;
-  color: var(--primary);
-  font-size: 21rpx;
+  color: var(--color-muted);
+  font-size: var(--text-micro);
   font-weight: 700;
 }
 
@@ -700,10 +696,10 @@
   margin-bottom: 24rpx;
   padding: 0 24rpx;
   border: 1rpx solid var(--color-line-strong);
-  border-radius: 30rpx;
+  border-radius: var(--radius-32);
   background: var(--color-surface);
   color: var(--ink-2);
-  font-size: 22rpx;
+  font-size: var(--text-micro);
   font-weight: 700;
   text-align: left;
 }
@@ -717,59 +713,59 @@
 
 .voice-head__title {
   color: var(--ink);
-  font-size: 27rpx;
+  font-size: var(--text-body-lg);
   font-weight: 700;
 }
 
 .voice-head__optional,
 .evidence-field__optional {
   color: var(--ink-3);
-  font-size: 19rpx;
+  font-size: var(--text-micro);
   font-weight: 500;
 }
 
 .voice-head__copy {
-  margin-top: 7rpx;
+  margin-top: 8rpx;
   color: var(--ink-3);
-  font-size: 20rpx;
+  font-size: var(--text-micro);
   line-height: 1.55;
 }
 
 .voice-head__count {
   flex: 0 0 auto;
-  padding: 8rpx 14rpx;
-  border-radius: 999rpx;
+  padding: 8rpx 16rpx;
+  border-radius: var(--radius-capsule);
   background: var(--primary-soft);
-  color: var(--primary);
-  font-size: 19rpx;
+  color: var(--color-ink);
+  font-size: var(--text-micro);
   font-weight: 700;
 }
 
 .voice-permission {
-  margin-top: 22rpx;
-  padding: 22rpx;
+  margin-top: 24rpx;
+  padding: 24rpx;
   border: 1rpx solid var(--figma-color-warning-soft);
-  border-radius: 24rpx;
+  border-radius: var(--radius-24);
   background: var(--figma-color-warning-soft);
 }
 
 .voice-permission__title {
   color: var(--figma-color-warning-deep);
-  font-size: 23rpx;
+  font-size: var(--text-caption);
   font-weight: 700;
 }
 
 .voice-permission__copy {
-  margin-top: 7rpx;
+  margin-top: 8rpx;
   color: var(--figma-color-warning-deep);
-  font-size: 20rpx;
+  font-size: var(--text-micro);
   line-height: 1.55;
 }
 
 .voice-permission__action {
-  margin-top: 14rpx;
+  margin-top: 16rpx;
   color: var(--figma-color-warning-deep);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
   font-weight: 700;
 }
 
@@ -781,11 +777,11 @@
   width: 100%;
   min-height: 78rpx;
   margin-top: 24rpx;
-  border: 1rpx solid var(--figma-color-primary-soft-strong);
-  border-radius: 28rpx;
+  border: 1rpx solid var(--color-primary-soft-strong);
+  border-radius: var(--radius-32);
   background: var(--primary-soft);
   color: var(--primary);
-  font-size: 23rpx;
+  font-size: var(--text-caption);
   font-weight: 700;
 }
 
@@ -812,10 +808,10 @@
   display: flex;
   align-items: center;
   gap: 16rpx;
-  margin-top: 18rpx;
+  margin-top: 20rpx;
   padding: 20rpx;
   border: 1rpx solid var(--color-line-strong);
-  border-radius: 24rpx;
+  border-radius: var(--radius-24);
   background: var(--bg);
 }
 
@@ -829,7 +825,7 @@
   border-radius: 50%;
   background: var(--primary);
   color: var(--color-surface);
-  font-size: 18rpx;
+  font-size: var(--text-micro);
   font-weight: 700;
 }
 
@@ -840,14 +836,14 @@
 
 .voice-item__title {
   color: var(--color-ink-secondary);
-  font-size: 20rpx;
+  font-size: var(--text-micro);
   font-weight: 700;
 }
 
 .voice-item__state {
-  margin-top: 5rpx;
+  margin-top: 4rpx;
   color: var(--ink-2);
-  font-size: 18rpx;
+  font-size: var(--text-micro);
 }
 
 .voice-item__state--success {
@@ -860,8 +856,8 @@
 }
 
 .voice-item__failure {
-  margin-top: 6rpx;
-  font-size: 18rpx;
+  margin-top: 8rpx;
+  font-size: var(--text-micro);
   line-height: 1.45;
 }
 
@@ -874,15 +870,15 @@
 .voice-item__action {
   min-height: 46rpx;
   color: var(--ink-2);
-  font-size: 18rpx;
+  font-size: var(--text-micro);
   font-weight: 700;
 }
 
 .voice-summary,
 .voice-message {
-  margin-top: 14rpx;
+  margin-top: 16rpx;
   color: var(--ink-3);
-  font-size: 19rpx;
+  font-size: var(--text-micro);
   line-height: 1.5;
 }
 
@@ -893,27 +889,27 @@
 .voice-upload {
   width: 100%;
   min-height: 74rpx;
-  margin-top: 18rpx;
-  border-radius: 26rpx;
-  background: var(--primary);
+  margin-top: 20rpx;
+  border-radius: var(--radius-24);
+  background: var(--ink);
   color: var(--color-surface);
-  font-size: 22rpx;
+  font-size: var(--text-micro);
   font-weight: 700;
 }
 
 .evidence-field {
-  margin-top: 30rpx;
+  margin-top: 32rpx;
 }
 
 .evidence-field__label {
   color: var(--color-ink-secondary);
-  font-size: 24rpx;
+  font-size: var(--text-caption);
   font-weight: 700;
 }
 
 .evidence-field__input {
   min-height: 130rpx;
-  margin-top: 14rpx;
+  margin-top: 16rpx;
 }
 
 .reflection-primary,
@@ -924,19 +920,19 @@
   box-sizing: border-box;
   width: 100%;
   min-height: 96rpx;
-  border-radius: 40rpx;
-  font-size: 27rpx;
+  border-radius: var(--radius-40);
+  font-size: var(--text-body-lg);
   font-weight: 700;
 }
 
 .reflection-primary {
   background: var(--ink);
   color: var(--color-surface);
-  box-shadow: 0 10rpx 36rpx rgba(16, 24, 40, 0.14);
+  box-shadow: var(--shadow-elevated);
 }
 
 .reflection-secondary {
-  margin-top: 18rpx;
+  margin-top: 20rpx;
   border: 1rpx solid var(--color-line-strong);
   background: var(--color-surface);
   color: var(--color-ink-secondary);
@@ -946,14 +942,15 @@
   margin-top: 20rpx;
   padding: 0 20rpx;
   color: var(--ink-3);
-  font-size: 20rpx;
+  font-size: var(--text-micro);
   font-weight: 500;
   line-height: 1.6;
   text-align: center;
 }
 
+/* 固定操作坞高约 150rpx，正文底部必须完整让出。 */
 .reflection-bottom-spacer {
-  height: calc(60rpx + env(safe-area-inset-bottom));
+  height: calc(180rpx + env(safe-area-inset-bottom));
 }
 
 .cause-processing {
@@ -963,7 +960,7 @@
   justify-content: center;
   box-sizing: border-box;
   min-height: calc(100vh - 220rpx);
-  padding: 60rpx;
+  padding: 64rpx;
   text-align: center;
 }
 
@@ -971,8 +968,8 @@
   box-sizing: border-box;
   width: 128rpx;
   height: 128rpx;
-  margin-bottom: 42rpx;
-  border: 8rpx solid var(--figma-color-primary-soft-strong);
+  margin-bottom: 40rpx;
+  border: 8rpx solid var(--color-primary-soft-strong);
   border-top-color: var(--primary);
   border-radius: 50%;
   animation: cause-spin 1.5s linear infinite;
@@ -986,37 +983,37 @@
 
 .cause-processing__title {
   color: var(--ink);
-  font-size: 38rpx;
+  font-size: var(--text-title);
   font-weight: 700;
 }
 
 .cause-processing__copy,
 .cause-processing__boundary {
   max-width: 580rpx;
-  margin-top: 14rpx;
+  margin-top: 16rpx;
   color: var(--ink-2);
-  font-size: 24rpx;
+  font-size: var(--text-caption);
   font-weight: 500;
   line-height: 1.65;
 }
 
 .cause-processing__boundary {
-  margin: 28rpx 0 36rpx;
-  padding: 22rpx 26rpx;
-  border-radius: 26rpx;
+  margin: 28rpx 0 40rpx;
+  padding: 24rpx 28rpx;
+  border-radius: var(--radius-24);
   background: var(--color-surface);
   color: var(--ink-3);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
 }
 
 .cause-intro {
   display: flex;
   align-items: flex-start;
-  gap: 22rpx;
+  gap: 24rpx;
   margin: 12rpx 0 32rpx;
-  padding: 30rpx;
-  border: 1rpx solid var(--figma-color-primary-soft-strong);
-  border-radius: 40rpx;
+  padding: 32rpx;
+  border: 1rpx solid var(--color-primary-soft-strong);
+  border-radius: var(--radius-40);
   background: var(--primary-soft);
 }
 
@@ -1027,37 +1024,37 @@
   flex: 0 0 auto;
   width: 68rpx;
   height: 68rpx;
-  border-radius: 24rpx;
+  border-radius: var(--radius-24);
   background: var(--primary);
   color: var(--color-surface);
-  font-size: 25rpx;
+  font-size: var(--text-body);
   font-weight: 800;
 }
 
 .cause-intro__title {
-  color: var(--primary-deep);
-  font-size: 27rpx;
+  color: var(--color-muted);
+  font-size: var(--text-body-lg);
   font-weight: 700;
 }
 
 .cause-intro__copy {
-  margin-top: 7rpx;
-  color: var(--primary);
-  font-size: 22rpx;
+  margin-top: 8rpx;
+  color: var(--color-muted);
+  font-size: var(--text-micro);
   font-weight: 500;
   line-height: 1.55;
 }
 
 .followup-card__label {
-  color: var(--primary);
-  font-size: 21rpx;
+  color: var(--color-ink-secondary);
+  font-size: var(--text-micro);
   font-weight: 700;
 }
 
 .followup-card__question {
-  margin-top: 15rpx;
+  margin-top: 16rpx;
   color: var(--ink);
-  font-size: 29rpx;
+  font-size: var(--text-body-lg);
   font-weight: 700;
   line-height: 1.6;
 }
@@ -1069,14 +1066,14 @@
 
 .candidate-section__label {
   color: var(--ink-3);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
   font-weight: 700;
 }
 
 .candidate-section__copy {
   margin-top: 8rpx;
   color: var(--color-ink-secondary);
-  font-size: 26rpx;
+  font-size: var(--text-body);
   font-weight: 500;
   line-height: 1.7;
 }
@@ -1084,14 +1081,14 @@
 .candidate-limitations {
   margin-bottom: 28rpx;
   padding: 24rpx 28rpx;
-  border-radius: 28rpx;
+  border-radius: var(--radius-32);
   background: var(--figma-color-warning-soft);
 }
 
 .candidate-limitations__line {
   margin-top: 8rpx;
   color: var(--figma-color-warning-deep);
-  font-size: 21rpx;
+  font-size: var(--text-micro);
   font-weight: 600;
   line-height: 1.55;
 }
@@ -1099,64 +1096,56 @@
 .cause-later {
   width: 100%;
   min-height: 72rpx;
-  margin-top: 14rpx;
+  margin-top: 16rpx;
   color: var(--ink-3);
-  font-size: 22rpx;
+  font-size: var(--text-micro);
   font-weight: 700;
 }
 
+/* Figma 15:8：paddingTop 28，删除过大的顶部空白，整体上移。 */
 .completed-screen {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   box-sizing: border-box;
-  min-height: calc(100vh - 80rpx);
-  padding: 64rpx 48rpx calc(64rpx + env(safe-area-inset-bottom));
+  padding: 56rpx 48rpx calc(64rpx + env(safe-area-inset-bottom));
   text-align: center;
 }
 
 .completed-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 160rpx;
-  height: 160rpx;
-  margin-bottom: 42rpx;
-  border: 1rpx solid var(--line);
-  border-radius: 50%;
-  background: var(--color-surface);
-  color: var(--ink);
-  font-size: 68rpx;
-  font-weight: 500;
-  box-shadow: 0 16rpx 60rpx rgba(16, 24, 40, 0.045);
+  color: var(--figma-color-ink);
+  font-size: var(--text-title-lg);
+  font-weight: 600;
+  line-height: 1;
 }
 
 .completed-title {
-  color: var(--ink);
-  font-size: 48rpx;
+  margin-top: 32rpx;
+  color: var(--figma-color-ink);
+  font-size: var(--text-title-lg);
   font-weight: 700;
   letter-spacing: -1rpx;
+  line-height: 67rpx;
 }
 
 .completed-copy {
   max-width: 610rpx;
   margin-top: 16rpx;
   color: var(--ink-2);
-  font-size: 25rpx;
+  font-size: var(--text-body);
   font-weight: 500;
   line-height: 1.65;
 }
 
+/* Figma 15:19：证据数据卡，行间用 #f9fafb 细分隔线。 */
 .completed-card {
   box-sizing: border-box;
   width: 100%;
-  margin: 54rpx 0 56rpx;
-  padding: 38rpx;
-  border: 1rpx solid var(--line);
-  border-radius: 56rpx;
-  background: var(--color-surface);
-  box-shadow: 0 12rpx 50rpx rgba(16, 24, 40, 0.035);
+  margin: 40rpx 0 40rpx;
+  padding: 8rpx 32rpx;
+  border-radius: var(--radius-64);
+  background: var(--figma-color-surface);
+  box-shadow: var(--shadow-card);
 }
 
 .completed-row {
@@ -1164,19 +1153,16 @@
   align-items: center;
   justify-content: space-between;
   gap: 24rpx;
+  padding: 28rpx 0;
+  border-bottom: 1rpx solid var(--figma-color-surface-subtle);
   color: var(--color-ink-secondary);
-  font-size: 26rpx;
+  font-size: var(--text-body-lg);
   font-weight: 700;
 }
 
-.completed-row--accent {
-  color: var(--primary);
-}
-
-.completed-divider {
-  height: 1rpx;
-  margin: 28rpx 0;
-  background: var(--line);
+.completed-row--last:last-child,
+.completed-row--accent:last-child {
+  border-bottom: 0;
 }
 
 button.summary-insight__toggle,
@@ -1219,4 +1205,529 @@ button.voice-item__play {
     max-width: 720px;
     margin: 0 auto;
   }
+}
+
+/* ===== Figma 03 · 行测练习与复盘 本轮接入新增 ===== */
+
+/* Figma 14:2：共享材料收起入口条。 */
+.review-material-entry {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  min-height: 78rpx;
+  align-items: center;
+  gap: 16rpx;
+  margin: 0 0 20rpx;
+  padding: 0 28rpx;
+  border: 1rpx solid var(--figma-color-line);
+  border-radius: var(--radius-24);
+  background: var(--figma-color-surface);
+  color: var(--color-muted);
+  text-align: left;
+}
+
+.review-material-entry::after {
+  border: 0;
+}
+
+button.review-material-entry {
+  width: 100%;
+}
+
+.review-material-entry__icon {
+  flex: none;
+  font-size: var(--text-body);
+  line-height: 1;
+}
+
+.review-material-entry__label {
+  overflow: hidden;
+  flex: 1;
+  font-size: var(--text-micro);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.review-material-entry__chevron {
+  width: 14rpx;
+  height: 14rpx;
+  flex: none;
+  transform: rotate(-45deg);
+  border-right: 3rpx solid var(--figma-color-faint);
+  border-bottom: 3rpx solid var(--figma-color-faint);
+  border-radius: 2rpx;
+}
+
+/* Figma 14:36/14:44：答案卡右侧圆形 × / ✓。 */
+.answer-compare__mark {
+  display: flex;
+  width: 40rpx;
+  height: 40rpx;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: var(--text-caption);
+  font-weight: 700;
+}
+
+.answer-compare__mark--wrong {
+  border: 2rpx solid var(--figma-color-danger);
+  color: var(--figma-color-danger);
+}
+
+.answer-compare__mark--right {
+  border: 2rpx solid var(--figma-color-success);
+  color: var(--figma-color-success);
+}
+
+/* Figma 14:2「你的具体错点」琥珀色块。 */
+.structured-review__errorpoint {
+  margin-top: 20rpx;
+  padding: 24rpx 28rpx;
+  border-radius: var(--radius-24);
+  background: var(--figma-color-warning-soft);
+}
+
+.structured-review__errorpoint-title {
+  color: var(--figma-color-warning-deep);
+  font-size: var(--text-micro);
+  font-weight: 700;
+}
+
+.structured-review__errorpoint-copy {
+  margin-top: 8rpx;
+  color: var(--figma-color-ink-secondary);
+  font-size: var(--text-micro);
+  line-height: 1.7;
+}
+
+/* Figma 15:9：完成图标白色圆片（80×58、满圆角、投影）。 */
+.completed-icon-pill {
+  display: flex;
+  width: 160rpx;
+  height: 116rpx;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  border: 1rpx solid var(--figma-color-surface-subtle);
+  border-radius: var(--radius-capsule);
+  background: var(--figma-color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.completed-row__value {
+  color: var(--figma-color-ink);
+  font-size: var(--text-section);
+  font-weight: 700;
+}
+
+.completed-row__value--accent,
+.completed-row--accent {
+  color: var(--color-muted);
+}
+
+/* ===== Figma 75:2 · 原题轨迹回放 ===== */
+
+.structured-review__trajectory {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.structured-review__trajectory-link {
+  box-sizing: border-box;
+  display: flex;
+  height: 76rpx;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 1rpx solid var(--color-primary-soft-strong);
+  border-radius: var(--radius-24);
+  color: var(--color-primary-deep);
+  background: var(--color-primary-soft);
+  font-size: var(--text-caption);
+  font-weight: 600;
+}
+
+.structured-review__trajectory-link::after {
+  border: 0;
+}
+
+.replay-surface {
+  position: fixed;
+  z-index: var(--z-blocker);
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding-top: calc(env(safe-area-inset-top) + 88rpx);
+  background: var(--figma-color-canvas);
+}
+
+/* Figma 75:2 顶部：轨迹回放橙色胶囊。 */
+.replay-chip {
+  position: absolute;
+  top: calc(env(safe-area-inset-top) + 24rpx);
+  right: 28rpx;
+  display: flex;
+  height: 56rpx;
+  align-items: center;
+  gap: 12rpx;
+  padding: 0 24rpx;
+  border-radius: var(--radius-32);
+  color: var(--figma-color-warning-deep);
+  background: var(--figma-color-warning-soft);
+  font-size: var(--text-micro);
+  font-weight: 700;
+}
+
+.replay-chip__dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: var(--figma-color-warning);
+}
+
+.replay-body {
+  min-height: 0;
+  flex: 1;
+}
+
+.replay-question {
+  padding: 32rpx 40rpx 260rpx;
+}
+
+.replay-ink {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Figma 76:4：当前事件浮标。 */
+.replay-current-event {
+  position: absolute;
+  right: 40rpx;
+  bottom: calc(240rpx + env(safe-area-inset-bottom));
+  display: flex;
+  height: 68rpx;
+  align-items: center;
+  gap: 16rpx;
+  padding: 0 24rpx;
+  border: 1rpx solid rgb(79 57 246 / 12%);
+  border-radius: var(--radius-32);
+  color: var(--color-muted);
+  background: rgb(246 244 255 / 97%);
+  font-size: var(--text-micro);
+  font-weight: 700;
+}
+
+.replay-current-event__dot {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  background: var(--color-primary-deep);
+}
+
+/* Figma 75:170：回放工具栏（h78 r24 白底描边投影），底部约 16px 呼吸。 */
+.replay-dock {
+  position: absolute;
+  right: 24rpx;
+  bottom: calc(32rpx + env(safe-area-inset-bottom));
+  left: 24rpx;
+  box-sizing: border-box;
+  display: flex;
+  height: 156rpx;
+  align-items: center;
+  gap: 20rpx;
+  padding: 0 20rpx;
+  border: 1rpx solid var(--figma-color-line);
+  border-radius: var(--radius-48);
+  background: var(--figma-color-surface);
+  box-shadow: var(--shadow-elevated);
+}
+
+/* Figma 76:7：46px 播放圆钮，真正的 SVG 三角图标，视觉居中。 */
+.replay-dock__play {
+  box-sizing: border-box;
+  display: flex;
+  width: 92rpx;
+  min-width: 92rpx;
+  height: 92rpx;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-48);
+  background: var(--color-primary-deep);
+}
+
+.replay-dock__play-icon {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.replay-dock__pause-icon {
+  display: flex;
+  gap: 8rpx;
+}
+
+.replay-dock__pause-bar {
+  width: 8rpx;
+  height: 32rpx;
+  border-radius: 4rpx;
+  background: var(--figma-color-on-dark);
+}
+
+.replay-dock__middle {
+  min-width: 0;
+  flex: 1;
+}
+
+/* Figma 76:9：进度轨 + 事件节点。 */
+.replay-dock__track {
+  position: relative;
+  height: 12rpx;
+  border-radius: var(--radius-8);
+  background: var(--figma-color-line-strong);
+}
+
+.replay-dock__track-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: var(--radius-8);
+  background: var(--color-primary-deep);
+}
+
+.replay-dock__marker {
+  position: absolute;
+  top: 50%;
+  width: 18rpx;
+  height: 18rpx;
+  border: 3rpx solid var(--figma-color-surface);
+  border-radius: 50%;
+  background: var(--color-primary-bright);
+  transform: translate(-50%, -50%);
+}
+
+.replay-dock__marker--warning {
+  background: var(--figma-color-warning);
+}
+
+.replay-dock__meta {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-top: 12rpx;
+}
+
+.replay-dock__time {
+  color: var(--figma-color-ink-secondary);
+  font-size: var(--text-micro);
+  font-weight: 600;
+}
+
+.replay-dock__summary {
+  overflow: hidden;
+  color: var(--figma-color-muted);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Figma 76:16：退出回放，与播放圆钮同轴垂直居中。 */
+.replay-dock__exit {
+  box-sizing: border-box;
+  display: flex;
+  width: 140rpx;
+  min-width: 140rpx;
+  height: 96rpx;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-32);
+  color: var(--figma-color-on-dark);
+  background: var(--figma-color-ink);
+  font-size: var(--text-caption);
+  font-weight: 700;
+}
+
+.replay-dock__play::after,
+.replay-dock__exit::after {
+  border: 0;
+}
+
+/* ===== Figma 78:2 · 岸岸动作分析 ===== */
+
+.action-analysis {
+  position: fixed;
+  z-index: var(--z-overlay);
+  inset: 0;
+}
+
+.action-analysis__mask {
+  position: absolute;
+  inset: 0;
+  background: rgb(16 24 40 / 20%);
+}
+
+/* Figma 79:4：h=314、r28 面板，底部按钮不贴设备边缘。 */
+.action-analysis__sheet {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  padding: 18rpx 38rpx calc(40rpx + env(safe-area-inset-bottom));
+  border: 1rpx solid var(--figma-color-line);
+  border-radius: var(--radius-48) var(--radius-48) 0 0;
+  background: var(--figma-color-surface);
+  box-shadow: var(--shadow-overlay);
+}
+
+.action-analysis__handle {
+  width: 84rpx;
+  height: 8rpx;
+  margin: 0 auto;
+  border-radius: 4rpx;
+  background: var(--figma-color-line-emphasis);
+}
+
+.action-analysis__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24rpx;
+}
+
+/* Figma 79:6 */
+.action-analysis__title {
+  color: var(--figma-color-ink);
+  font-size: var(--text-section);
+  font-weight: 700;
+  line-height: 48rpx;
+}
+
+/* Figma 79:7 */
+.action-analysis__confidence {
+  padding: 8rpx 24rpx;
+  border-radius: var(--radius-24);
+  color: var(--color-primary-deep);
+  background: var(--color-primary-soft);
+  font-size: var(--text-micro);
+  font-weight: 700;
+}
+
+/* Figma 79:9 */
+.action-analysis__basis {
+  margin-top: 8rpx;
+  color: var(--figma-color-muted);
+  font-size: var(--text-micro);
+  font-weight: 500;
+}
+
+/* Figma 79:10 */
+.action-analysis__summary {
+  margin-top: 20rpx;
+  padding: 20rpx 28rpx;
+  border: 1rpx solid rgb(79 57 246 / 8%);
+  border-radius: var(--radius-32);
+  color: var(--color-primary-deep);
+  background: var(--color-primary-soft);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  line-height: 38rpx;
+}
+
+.action-analysis__timeline {
+  display: grid;
+  gap: 12rpx;
+  margin-top: 20rpx;
+}
+
+/* Figma 79:12：时间轨迹行。 */
+.action-analysis__row {
+  display: flex;
+  min-height: 76rpx;
+  align-items: center;
+  gap: 20rpx;
+  padding: 0 16rpx;
+  border-radius: var(--radius-32);
+  background: var(--figma-color-canvas);
+}
+
+.action-analysis__time {
+  flex: none;
+  padding: 8rpx 16rpx;
+  border-radius: var(--radius-24);
+  background: rgb(79 57 246 / 12%);
+  color: var(--color-primary-deep);
+  font-size: var(--text-micro);
+  font-weight: 700;
+}
+
+.action-analysis__time--warning {
+  background: rgb(255 105 0 / 12%);
+  color: var(--figma-color-warning);
+}
+
+.action-analysis__copy {
+  overflow: hidden;
+  color: var(--figma-color-ink-secondary);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Figma 79:20 */
+.action-analysis__boundary {
+  margin-top: 20rpx;
+  color: var(--figma-color-muted);
+  font-size: var(--text-micro);
+}
+
+/* Figma 79:21/79:23：两个真实出口。 */
+.action-analysis__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28rpx;
+  margin-top: 24rpx;
+}
+
+.action-analysis__ask,
+.action-analysis__back {
+  box-sizing: border-box;
+  display: flex;
+  height: 92rpx;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-32);
+  font-size: var(--text-caption);
+  font-weight: 700;
+}
+
+.action-analysis__ask {
+  color: var(--color-primary-deep);
+  background: var(--color-primary-soft);
+}
+
+.action-analysis__back {
+  color: var(--figma-color-on-dark);
+  background: var(--figma-color-ink);
+}
+
+.action-analysis__ask::after,
+.action-analysis__back::after {
+  border: 0;
 }

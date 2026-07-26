@@ -1,4 +1,4 @@
-<view class="workbench-page">
+<view class="s9-page workbench-page">
   <view class="workbench-hero"><view class="workbench-kicker">申论改写对照</view><view class="workbench-title">不是替你写，而是让你看见怎么改</view><view class="workbench-copy">原句、问题、改写与理由并排保留，接受或撤销都由你决定。</view></view>
   <state-view wx:if="{{status === 'loading'}}" state="loading" />
   <state-view wx:elif="{{status === 'error'}}" state="error" title="改写对照没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="{{retryAllowed ? '重新加载' : ''}}" bind:action="retryLoad" />

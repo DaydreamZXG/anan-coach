@@ -122,6 +122,10 @@ interface MockExamPageData {
   disputeReceipt: MockExamDisputeReceipt | null;
   receipt: MockExamSubmitReceipt | null;
   reportSessionId: string;
+  /** Figma 98:173 交卷确认面板。 */
+  submitConfirmOpen: boolean;
+  submitElapsedLabel: string;
+  submitMissingLabels: string[];
 }
 
 interface MockExamPageCustom {
@@ -157,7 +161,9 @@ interface MockExamPageCustom {
   selectDisputeCategory(event: WechatMiniprogram.BaseEvent): void;
   inputDisputeDescription(event: WechatMiniprogram.Input): void;
   submitDispute(): Promise<void>;
-  submitExam(): Promise<void>;
+  submitExam(): void;
+  closeSubmitConfirm(): void;
+  confirmSubmitExam(): Promise<void>;
   returnToday(): void;
   openMockReport(): void;
   noop(): void;
@@ -238,6 +244,9 @@ Page<MockExamPageData, MockExamPageCustom>({
     disputeReceipt: null,
     receipt: null,
     reportSessionId: "",
+    submitConfirmOpen: false,
+    submitElapsedLabel: "",
+    submitMissingLabels: [],
   },
 
   onLoad(options: Record<string, string | undefined>) {
@@ -514,7 +523,8 @@ Page<MockExamPageData, MockExamPageCustom>({
     markCurrentQuestionDirty(runtime);
     runtime.task = reduceTaskRuntime(requiredTask(runtime), { type: "QUESTION_CHANGED", index });
     runtime.mutationVersion += 1;
-    this.setData({ answerSheetOpen: false });
+    // 交卷确认面板中点未答题号 = 回去检查该题（Figma 98:192）。
+    this.setData({ answerSheetOpen: false, submitConfirmOpen: false });
     applyRuntimeToPage(this, runtime, "待保存");
     scheduleAutosave(this, runtime);
     if (skipped) {
@@ -714,19 +724,36 @@ Page<MockExamPageData, MockExamPageCustom>({
     }
   },
 
-  async submitExam() {
+  // Figma 98:2：底部确认面板取代系统弹窗，展示真实的已答/未答/标记与未答题号。
+  submitExam() {
     const runtime = requiredRuntime(this);
-    const counts = countMockAnswers(requiredTask(runtime));
-    const result = await wx.showModal({
-      title: "确认交卷",
-      content:
-        counts.unanswered > 0
-          ? `还有 ${String(counts.unanswered)} 题未答。交卷后不能继续修改，是否提交？`
-          : "交卷后不能继续修改，是否提交？",
-      confirmText: "确认交卷",
-      cancelText: "继续检查",
+    const task = requiredTask(runtime);
+    const missingLabels = task.questionOrder
+      .map((questionId, index) => ({
+        label: String(index + 1),
+        answered: (task.attempts[questionId]?.selectedOptionIds.length ?? 0) > 0,
+      }))
+      .filter((item) => !item.answered)
+      .map((item) => item.label);
+    this.setData({
+      submitConfirmOpen: true,
+      submitElapsedLabel: formatRemainingTime(task.totalElapsedSeconds),
+      submitMissingLabels: missingLabels,
+      answerSheetOpen: false,
+      toolsOpen: false,
+      helpOpen: false,
+      disputeOpen: false,
     });
-    if (result.confirm) await executeSubmit(this, runtime);
+  },
+
+  closeSubmitConfirm() {
+    this.setData({ submitConfirmOpen: false });
+  },
+
+  async confirmSubmitExam() {
+    const runtime = requiredRuntime(this);
+    this.setData({ submitConfirmOpen: false });
+    await executeSubmit(this, runtime);
   },
 
   returnToday() {

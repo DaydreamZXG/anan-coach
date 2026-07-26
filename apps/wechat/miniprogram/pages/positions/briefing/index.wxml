@@ -5,7 +5,6 @@
       <view class="s9-title">第一次考？先把这场考试讲明白</view>
       <view class="s9-subtitle">只讲确定的岗位信息，不预测录取结果。</view>
     </view>
-    <anan-companion size="small" intent="thinking" context="report" animate />
   </view>
 
   <state-view

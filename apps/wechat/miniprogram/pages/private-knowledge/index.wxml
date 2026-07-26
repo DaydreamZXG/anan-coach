@@ -1,4 +1,4 @@
-<view class="library-page">
+<view class="s9-screen library-page">
   <block wx:if="{{busy && !reviewRevision && !backgroundProcessing}}">
     <workbench-nav id="runtime-workbench-nav" title="资料处理中" back-behavior="emit" bind:back="runInBackground" />
     <view class="processing-screen">
