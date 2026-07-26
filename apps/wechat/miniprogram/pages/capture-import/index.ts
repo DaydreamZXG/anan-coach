@@ -36,6 +36,7 @@ interface CaptureImportPageData {
   mode: "search" | "import";
   channelView: ILinkChannelView | null;
   channelStatus: "hidden" | "loading" | "ready" | "unavailable" | "error";
+  channelAutoOpen: boolean;
   channelError: string;
   channelWriting: boolean;
   channelExpired: boolean;
@@ -101,6 +102,7 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     mode: "search",
     channelView: null,
     channelStatus: "hidden",
+    channelAutoOpen: false,
     channelError: "",
     channelWriting: false,
     channelExpired: false,
@@ -120,6 +122,10 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
       return;
     }
     void this.loadChannel();
+    if (options.channel === "open") {
+      // 「我的」页绑定入口直达：通道状态就绪后自动展开绑定/管理面板。
+      this.setData({ channelAutoOpen: true });
+    }
     try {
       const gateway = requireExternalLearningGateway(session);
       const controller = new CaptureImportController({
@@ -366,6 +372,10 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
           Boolean(view.expiresAt) &&
           new Date(view.expiresAt ?? 0).getTime() <= Date.now(),
       });
+      if (this.data.channelAutoOpen) {
+        this.setData({ channelAutoOpen: false });
+        this.openChannelSheet();
+      }
     } catch (error) {
       if (error instanceof ApiClientError && error.statusCode === 503) {
         this.setData({
