@@ -130,10 +130,12 @@
     </view>
   </view>
 
-  <view class="companion-composer">
+  <view class="companion-composer" style="{{keyboardOffset > 0 ? 'transform: translateY(-' + keyboardOffset + 'px)' : ''}}">
     <view class="composer-surface">
       <textarea
-        cursor-spacing="180"
+        cursor-spacing="24"
+        adjust-position="{{!manualKeyboard}}"
+        bindkeyboardheightchange="onKeyboardHeight"
         class="composer-input"
         value="{{question}}"
         maxlength="800"

@@ -346,13 +346,15 @@
 
 .question-preview {
   padding: calc(28 * var(--rpx)) calc(32 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-primary-soft-strong);
   border-radius: var(--radius-32);
-  background: var(--ink);
-  color: var(--color-surface);
+  background: var(--color-primary-soft);
+  color: var(--color-ink);
   font-size: var(--text-caption);
   line-height: 1.6;
 }
 .question-preview__label {
+  color: var(--color-primary-deep);
   margin-bottom: calc(8 * var(--rpx));
   color: var(--ink-3);
   font-size: var(--text-micro);
@@ -477,6 +479,7 @@
 
 .companion-composer {
   position: fixed;
+  transition: transform 0.2s ease-out;
   z-index: 80;
   right: 0;
   bottom: max(calc(180 * var(--rpx)), calc(calc(116 * var(--rpx)) + env(safe-area-inset-bottom)));

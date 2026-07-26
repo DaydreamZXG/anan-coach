@@ -40,6 +40,8 @@ function defaultCompanionWorkspace(): CompanionLaunchContext["workspace"] {
 Page({
   data: {
     contextStatus: "loading",
+    manualKeyboard: false,
+    keyboardOffset: 0,
     learnerStateVersion: "",
     question: "",
     submitting: false,
@@ -72,7 +74,8 @@ Page({
 
   onLoad(options: Record<string, string | undefined>) {
     const question = options.question?.trim() ?? "";
-    this.setData({ question: question.slice(0, 800) });
+    const windowWidth = wx.getWindowInfo().windowWidth;
+    this.setData({ question: question.slice(0, 800), manualKeyboard: windowWidth >= 768 });
     void this.loadContext();
   },
 
@@ -145,6 +148,13 @@ Page({
         companionIntent: "reminder",
       });
     }
+  },
+
+  onKeyboardHeight(event: WechatMiniprogram.TextareaKeyboardHeightChange) {
+    if (!this.data.manualKeyboard) return;
+    const height = event.detail.height ?? 0;
+    // fixed 定位的输入坞在 iPad 上不随 adjust-position 上移，手动抬升。
+    this.setData({ keyboardOffset: height > 0 ? height : 0 });
   },
 
   inputQuestion(event: WechatMiniprogram.Input) {
