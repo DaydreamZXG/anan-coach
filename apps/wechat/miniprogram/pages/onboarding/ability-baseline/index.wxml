@@ -19,7 +19,7 @@
     <scroll-view scroll-y class="baseline-scroll" enhanced show-scrollbar="{{false}}">
       <view class="baseline-content onboarding-scroll-content fade-slide-in fade-slide-in--2">
         <view class="baseline-heading">了解你的起点</view>
-        <view class="baseline-copy">区分自报成绩与系统诊断。你提供的成绩仅作为初始锚点。</view>
+        <view class="baseline-copy">成绩只是起点的坐标，不是对你的评价。</view>
 
         <view class="baseline-options">
           <view hover-class="item--hover"

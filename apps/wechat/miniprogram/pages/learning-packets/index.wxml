@@ -55,7 +55,7 @@
         <view class="status-pill status-pill--{{item.stateTone}}">{{item.stateLabel}}</view>
       </view>
       <view class="packet-meta"><text>创建 {{item.createdAtLabel}}</text><text>{{item.expiresAtLabel}}</text></view>
-      <view wx:if="{{item.state === 'requested' || item.state === 'generating'}}" class="inline-note">正在排版和校对题目……</view>
+      <view wx:if="{{item.state === 'requested' || item.state === 'generating'}}" class="inline-note">岸岸在逐题排版校对——纸上的错误没法撤回，所以慢一点……</view>
       <view wx:elif="{{item.state === 'expired'}}" class="inline-warning">这份学习包已过期，原下载地址不再有效；重新生成会保留旧记录。</view>
       <view wx:elif="{{item.state === 'revoked'}}" class="inline-warning">内容授权已变更，旧包不能继续下载。</view>
       <view class="packet-actions">

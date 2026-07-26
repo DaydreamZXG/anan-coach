@@ -2,7 +2,7 @@
   <workbench-nav id="runtime-workbench-nav" title="建档结果" show-back="{{false}}" />
 
   <view wx:if="{{!state || state.status === 'loading'}}" class="result-state">
-    <state-view state="loading" title="正在生成备考档案" description="会对齐报考资格、岗位证据、双科起点和学习时间。" />
+    <state-view state="loading" title="正在生成备考档案" description="岸岸在把你的资格、目标和时间，拼成一张作战图。" />
   </view>
 
   <view wx:elif="{{state.status === 'error'}}" class="result-state">

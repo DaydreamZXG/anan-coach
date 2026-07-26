@@ -83,7 +83,7 @@
             <view class="radar-note">综合正确率、用时、稳定掌握和复测表现，不等同于卷面分。</view>
           </view>
           <ability-radar wx:if="{{radarPoints.length >= 3}}" points="{{radarPoints}}" />
-          <view wx:else class="ability-empty">至少三个模块产生真实作答记录后，才会形成分布图。</view>
+          <view wx:else class="ability-empty">三个模块有了真实作答，这张图就会亮起来。</view>
           <view wx:if="{{xingceModules.length}}" class="radar-summary">模块状态来自真实作答、用时与间隔复测记录。</view>
         </view>
 
@@ -103,7 +103,7 @@
               <text class="module-state module-state--{{item.statusTone}}">{{item.readinessLabel}}</text>
             </view>
           </button>
-          <view wx:if="{{!xingceModules.length}}" class="ability-card ability-empty">完成真实行测作答后，这里会按六个考试模块形成画像。</view>
+          <view wx:if="{{!xingceModules.length}}" class="ability-card ability-empty">行测的第一组题做完，画像就从这里长出来。</view>
         </view>
       </block>
 
@@ -127,7 +127,7 @@
               <text class="module-state module-state--{{item.statusTone}}">{{item.readinessLabel}}</text>
             </view>
           </button>
-          <view wx:if="{{!essayModules.length}}" class="ability-card ability-empty">完成真实申论作答和改写后，这里会形成模块画像。</view>
+          <view wx:if="{{!essayModules.length}}" class="ability-card ability-empty">写下第一篇申论，这里就开始认识你。</view>
         </view>
       </block>
 
@@ -151,7 +151,7 @@
               <text class="pattern-next">查看与复测</text>
             </view>
           </button>
-          <view wx:if="{{!profile.errorPatterns.length}}" class="ability-card ability-empty">完成错题复盘并确认原因后，这里才会沉淀可复测的问题。</view>
+          <view wx:if="{{!profile.errorPatterns.length}}" class="ability-card ability-empty">错题复盘确认过原因，问题才算真正露面。</view>
         </view>
       </view>
 

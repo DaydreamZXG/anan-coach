@@ -6,7 +6,7 @@
       <image class="entry-mark__icon" src="/assets/icons/onboarding/profile-spark.svg" mode="aspectFit" />
     </view>
     <view class="entry-title fade-slide-in fade-slide-in--2">建立备考档案</view>
-    <view class="entry-copy fade-slide-in fade-slide-in--2">岸岸需要了解你的背景和目标，以提供准确的岗位推荐与定制化计划。</view>
+    <view class="entry-copy fade-slide-in fade-slide-in--2">先把你讲给岸岸听——之后的每一步，才都是你的。</view>
 
     <view class="entry-actions fade-slide-in fade-slide-in--3">
       <button hover-class="item--hover" class="entry-action entry-action--primary tap-tactile" bindtap="startProfile">

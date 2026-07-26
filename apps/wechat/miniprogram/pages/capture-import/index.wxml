@@ -130,8 +130,8 @@
     />
     <view class="searching-screen">
       <view class="searching-spinner"></view>
-      <view class="searching-title">{{state.status === 'uploading' ? '正在读取题面...' : '正在全库检索...'}}</view>
-      <view class="searching-copy">{{state.status === 'uploading' ? '上传进度 ' + (state.uploadProgress ? state.uploadProgress.percent : 0) + '%' : (state.workspace.processingLabel || '寻找最精准的原题与解析')}}</view>
+      <view class="searching-title">{{state.status === 'uploading' ? '正在读取题面...' : '在五万道真题里找这一道...'}}</view>
+      <view class="searching-copy">{{state.status === 'uploading' ? '上传进度 ' + (state.uploadProgress ? state.uploadProgress.percent : 0) + '%' : (state.workspace.processingLabel || '找到原题，就把当年的解析一并带给你')}}</view>
     </view>
   </block>
 

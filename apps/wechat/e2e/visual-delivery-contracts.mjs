@@ -307,7 +307,7 @@ export const visualDeliveryContracts = [
     "/pages/capture-import/index",
     "question-bank-searching",
     ".searching-screen",
-    ["正在全库检索", "正在比较题干、材料与选项"],
+    ["在五万道真题里找这一道", "正在比较题干、材料与选项"],
   ),
   deliveryState(
     "44:2",

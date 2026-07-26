@@ -19,7 +19,7 @@
     <scroll-view scroll-y class="identity-scroll" enhanced show-scrollbar="{{false}}">
       <view class="identity-content onboarding-scroll-content fade-slide-in fade-slide-in--2">
         <view class="identity-heading">了解你的基本状态</view>
-        <view class="identity-intro">当前仅支持国家公务员考试规划。岸岸会根据你的备考经验定制不同强度的训练节奏。</view>
+        <view class="identity-intro">目前只做国考这一件事。你走过的路，决定接下来的节奏。</view>
 
         <view class="profile-field">
           <view class="profile-avatar profile-avatar--{{avatarStyle}}">{{avatarInitial}}</view>
