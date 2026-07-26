@@ -204,7 +204,7 @@
             mode="{{annotationOpen ? 'annotate' : (view.question.annotations.length ? 'static' : 'hidden')}}"
             strokes="{{view.question.annotations}}"
             elapsedSeconds="{{view.question.elapsedSeconds}}"
-            elapsedMs="{{view.question.elapsedMs}}"
+            elapsedMs="{{view.question.elapsedMs || -1}}"
             bindstrokeschange="changeAnnotations"
             binddone="closeAnnotation"
           />

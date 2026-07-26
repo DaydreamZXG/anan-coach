@@ -36,7 +36,7 @@
 
   <view wx:elif="{{status === 'submitted' && receipt}}" class="submitted-workspace">
     <view class="submitted-hero">
-      <view class="submitted-mark">整卷已交卷</view>
+      <view class="submitted-mark">交卷了。深呼吸，成绩不会跑</view>
       <view class="submitted-score"><text class="submitted-score__value">{{receipt.review.performanceIndex}}</text> 表现点</view>
       <view class="submitted-source">样本区间 {{receipt.review.performanceRange.lower}}–{{receipt.review.performanceRange.upper}} 表现点</view>
       <view class="submitted-source">{{receipt.review.metricDefinition}}</view>

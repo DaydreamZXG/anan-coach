@@ -213,8 +213,8 @@
     />
     <view class="searching-screen">
       <view class="searching-spinner searching-spinner--cyan"></view>
-      <view class="searching-title">AI 正在独立推理...</view>
-      <view class="searching-copy">题库未命中，正在生成可核对的独立解析</view>
+      <view class="searching-title">岸岸在独立推这道题，不抄题库也不编答案</view>
+      <view class="searching-copy">题库没有原题——正在给你写一份可以逐步核对的解析</view>
     </view>
   </block>
 

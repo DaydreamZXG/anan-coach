@@ -17,9 +17,9 @@
           <view class="status-icon">
             <image class="status-icon__asset" src="/assets/onboarding/result-check-green.svg" mode="aspectFit" />
           </view>
-          <view class="status-title">备考档案已生成</view>
+          <view class="status-title">你的备考档案立起来了</view>
           <view class="status-confidence">
-            当前推荐可信度：
+            之后的每条推荐，都有出处：
             <text class="confidence confidence--{{state.view.confidenceTone}}">{{state.view.confidenceLabel}}</text>
           </view>
         </view>

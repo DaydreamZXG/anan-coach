@@ -40,7 +40,8 @@
 3. iPad 认证机型进视觉流水线（平板防回归基线）
 4. 知识树生产刷新执行 + taskstream 按知识点选题（产品拍板项）
 5. 申论材料轨迹（memory: essay-material-trajectory-backlog，backend-first）
-6. M0 发布清单：生产部署积压迁移、真机验收、微信提审材料（见
+6. 全量文案巡礼：按 docs/design/2026-07-26-anan-voice-guide.md 的岸岸声音扫 58 页关键时刻（旗舰 6 处已改，见 voice guide commit）
+7. M0 发布清单：生产部署积压迁移、真机验收、微信提审材料（见
    docs/engineering/2026-07-18-functional-gap-and-delivery-plan.md §6）
 
 ## 四、操作备忘

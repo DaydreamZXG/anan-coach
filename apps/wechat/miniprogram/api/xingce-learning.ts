@@ -11,6 +11,7 @@ import type {
   MasteryQueueItem as GeneratedMasteryQueueItem,
   MasteryQueuePage as GeneratedMasteryQueuePage,
   MasteryQueueSummary as GeneratedMasteryQueueSummary,
+  QuestionCauseCandidateProjection as GeneratedQuestionCauseCandidateProjection,
   QuestionDisputeReceipt as GeneratedQuestionDisputeReceipt,
   ReflectionCommand as GeneratedReflectionCommand,
   ReflectionVersionProjection as GeneratedReflectionVersionProjection,
@@ -145,6 +146,8 @@ export type XingceReflectionVersion = Omit<
 
 export type XingceCauseDecisionVersion = GeneratedCauseDecisionVersionProjection;
 export type XingceCauseCandidate = GeneratedAiCauseCandidateState;
+/** 契约增量：逐题候选错因（纯展示；证据不足的题显式标注，不给 causeCode）。 */
+export type XingceQuestionCauseCandidate = GeneratedQuestionCauseCandidateProjection;
 export type XingceAttemptReview = Omit<
   GeneratedAttemptReviewProjection,
   "aiCandidate" | "reflection" | "causeDecision"

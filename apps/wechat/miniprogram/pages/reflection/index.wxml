@@ -1,7 +1,7 @@
 <view class="s9-screen reflection-page">
   <workbench-nav
     id="runtime-workbench-nav"
-    title="{{phase === 'summary' ? '本次训练总结' : phase === 'completed' ? '复盘完成' : phase === 'reflection' ? '单题错因复盘' + (reviewItems.length ? ' · ' + (currentReviewIndex + 1) + '/' + reviewItems.length : '') : '错因确认'}}"
+    title="{{phase === 'summary' ? '本次训练总结' : phase === 'completed' ? '这轮复盘记下了' : phase === 'reflection' ? '单题错因复盘' + (reviewItems.length ? ' · ' + (currentReviewIndex + 1) + '/' + reviewItems.length : '') : '错因确认'}}"
     back-behavior="emit"
     bind:back="handleBack"
   />

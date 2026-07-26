@@ -117,6 +117,17 @@ export interface XingceVerificationOutcomeView {
   sourceVersionLabel: string;
 }
 
+/** 逐题候选错因 chip：纯展示，不承载任何决策交互。 */
+export interface XingceQuestionCauseChipView {
+  questionId: string;
+  positionLabel: string;
+  status: "candidate" | "evidence_insufficient";
+  /** 候选态显示已发布错因分类的中文名；证据不足态固定「证据不足」。 */
+  causeLabel: string;
+  confidenceLabel: string;
+  rationale: string;
+}
+
 export interface XingceCauseCandidateView {
   state: XingceCauseCandidate["state"];
   stateLabel: string;
@@ -132,6 +143,8 @@ export interface XingceCauseCandidateView {
   missingEvidence: string[];
   evidenceRefs: string[];
   limitations: string[];
+  /** 契约增量：逐题候选（含显式证据不足态）；老候选没有该字段时为空。 */
+  questionCandidates: XingceQuestionCauseChipView[];
   canConfirm: boolean;
   canDecide: boolean;
 }
@@ -303,8 +316,21 @@ export function presentXingceResult(session: XingceTaskSession): XingceResultVie
   };
 }
 
+/** 镜像 backend xingce-cause-taxonomy@v1：只翻译已发布编码，未知编码原样展示。 */
+const xingceCauseDisplayNames: Record<string, string> = {
+  stem_misread: "题干条件或问法审读错误",
+  knowledge_gap: "知识或概念缺口",
+  method_selection: "方法选择或步骤组织不当",
+  calculation_error: "方法成立但计算、单位或抄写错误",
+  time_pressure: "时间分配导致超时或仓促作答",
+  guessing: "证据不足时凭感觉作答",
+  active_abandon: "主动放弃或跳过",
+  other: "现有分类无法覆盖",
+};
+
 export function presentXingceCauseCandidate(
   candidate: XingceCauseCandidate,
+  resultItems: ReadonlyArray<Pick<XingceResultItemView, "questionId" | "positionNumber">> = [],
 ): XingceCauseCandidateView {
   const copy = {
     unavailable: {
@@ -334,6 +360,29 @@ export function presentXingceCauseCandidate(
   }[candidate.state];
   const candidateVersionId = candidate.candidateVersionId?.trim() || null;
   const hasBoundVersion = candidateVersionId !== null;
+  const positionByQuestion = new Map(
+    resultItems.map((item) => [item.questionId, item.positionNumber] as const),
+  );
+  // 纯展示投影：只透传后端逐题事实，不在端上推断或补全错因。
+  const questionCandidates: XingceQuestionCauseChipView[] = (
+    candidate.questionCandidates ?? []
+  ).map((item) => {
+    const position = positionByQuestion.get(item.questionId);
+    return {
+      questionId: item.questionId,
+      positionLabel: position === undefined ? "本组题目" : `第 ${String(position)} 题`,
+      status: item.status,
+      causeLabel:
+        item.status === "evidence_insufficient"
+          ? "证据不足"
+          : (xingceCauseDisplayNames[item.causeCode ?? ""] ?? item.causeCode ?? "证据不足"),
+      confidenceLabel:
+        item.status === "candidate" && item.confidence
+          ? `信心：${confidenceLabels[item.confidence]}`
+          : "",
+      rationale: item.rationale ?? "",
+    };
+  });
   return {
     state: candidate.state,
     stateLabel: copy.label,

@@ -5,6 +5,38 @@ export type ClientOptions = {
 };
 
 /**
+ * QuestionCauseCandidateProjection
+ *
+ * 契约增量：逐题候选错因投影，纯展示；决策粒度保持会话级。
+ */
+export type QuestionCauseCandidateProjection = {
+    /**
+     * Questionid
+     */
+    questionId: string;
+    /**
+     * Status
+     */
+    status: 'candidate' | 'evidence_insufficient';
+    /**
+     * Causecode
+     */
+    causeCode?: string | null;
+    /**
+     * Confidence
+     */
+    confidence?: 'low' | 'medium' | 'high' | null;
+    /**
+     * Evidencerefs
+     */
+    evidenceRefs?: Array<string>;
+    /**
+     * Rationale
+     */
+    rationale?: string | null;
+};
+
+/**
  * AICauseCandidateState
  */
 export type AiCauseCandidateState = {
@@ -44,6 +76,10 @@ export type AiCauseCandidateState = {
      * Question
      */
     question?: string | null;
+    /**
+     * Questioncandidates
+     */
+    questionCandidates?: Array<QuestionCauseCandidateProjection>;
     /**
      * Quotastate
      */
