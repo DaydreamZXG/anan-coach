@@ -11,5 +11,23 @@
   --figma-color-faint: #99a1af;
   --figma-color-line: #f3f4f6;
   --figma-font-tab: 20rpx;
+
+  /*
+   * 大屏去放大开关的组件桥：隔离样式树拿不到 page 上的 --rpx，
+   * 此处按 tokens/index.wxss 的两步载体同步（勿改成 1rpx，会被编译圆整）。
+   */
+  --rpx-base: 100rpx;
+  --rpx: calc(var(--rpx-base) / 100);
+  --text-tab: calc(20 * var(--rpx));
+  --text-section: calc(32 * var(--rpx));
+  --color-primary-soft: #ecfeff;
+  --shadow-dock-strong: 0 calc(-20 * var(--rpx)) calc(80 * var(--rpx)) rgba(17, 24, 39, 0.12);
   --z-sticky: 30;
+}
+
+/* 平板：与 responsive 层同步去放大（组件树独立，需自带断点）。 */
+@media (min-width: 768px) {
+  .component-token-host {
+    --rpx: 0.5px;
+  }
 }
