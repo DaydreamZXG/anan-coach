@@ -1,0 +1,24 @@
+[Unit]
+Description=Gongkao Dazi grounded multi-model essay review worker
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=deploy
+Group=deploy
+WorkingDirectory=/srv/gongkao-dazi/current/backend
+EnvironmentFile=/etc/gongkao-dazi/api.env
+EnvironmentFile=/etc/gongkao-dazi/db.env
+ExecStart=/srv/gongkao-dazi/current/backend/.venv/bin/python -m app.workers.essay_reviews
+Restart=always
+RestartSec=3
+TimeoutStopSec=90
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

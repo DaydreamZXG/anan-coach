@@ -158,6 +158,9 @@ class Settings:
     ai_essay_checkpoint_active_key_id: str = ""
     ai_essay_checkpoint_keys_json: str = ""
     ai_essay_checkpoint_ttl_seconds: int = 0
+    essay_review_worker_enabled: bool = False
+    essay_review_worker_poll_seconds: float = 1.0
+    essay_review_worker_stale_recovery_seconds: float = 60.0
     app_store_apple_id: str = "6786934387"
     app_store_root_certificate_paths: str = ""
     bundle_id: str = "com.xingguoxian.gongkaodazi"
@@ -589,6 +592,15 @@ def get_settings() -> Settings:
         ),
         ai_essay_checkpoint_ttl_seconds=int(
             os.getenv("AI_ESSAY_CHECKPOINT_TTL_SECONDS", "0")
+        ),
+        essay_review_worker_enabled=_environment_bool(
+            "ESSAY_REVIEW_WORKER_ENABLED", default=False
+        ),
+        essay_review_worker_poll_seconds=float(
+            os.getenv("ESSAY_REVIEW_WORKER_POLL_SECONDS", "1")
+        ),
+        essay_review_worker_stale_recovery_seconds=float(
+            os.getenv("ESSAY_REVIEW_WORKER_STALE_RECOVERY_SECONDS", "60")
         ),
         app_store_root_certificate_paths=os.getenv(
             "APP_STORE_ROOT_CERTIFICATE_PATHS",
