@@ -18,6 +18,7 @@ from app.domains.mock_exam.repository import (
     AssignedQuestionRecord,
     MockExamRepository,
     MockExamSessionRecord,
+    MockExamTrajectoryWriteConflict,
 )
 from app.domains.mock_exam.schemas import (
     MockExamCheckpoint,
@@ -73,13 +74,35 @@ class MockExamSubmissionError(RuntimeError):
 
 
 class MockExamCheckpointError(RuntimeError):
-    def __init__(self, message: str, *, code: str = "mock_checkpoint_invalid") -> None:
+    def __init__(
+        self,
+        message: str,
+        *,
+        code: str = "mock_checkpoint_invalid",
+        details: dict[str, Any] | None = None,
+    ) -> None:
         super().__init__(message)
         self.code = code
+        self.details = details
 
 
 class MockExamDisputeError(RuntimeError):
     pass
+
+
+def _trajectory_sequence_conflict(
+    *,
+    expected_event_seq: int,
+    received_event_seq: int,
+) -> MockExamCheckpointError:
+    return MockExamCheckpointError(
+        "作答轨迹已经在其他设备更新，请同步后继续。",
+        code="mock_trajectory_sequence_conflict",
+        details={
+            "expectedEventSeq": expected_event_seq,
+            "receivedEventSeq": received_event_seq,
+        },
+    )
 
 
 class MockExamService:
@@ -453,6 +476,11 @@ class MockExamService:
             raise MockExamCheckpointError(
                 "Only an assigned mock exam accepts trajectory events"
             )
+        if command.event_seq != record.next_trajectory_event_seq:
+            raise _trajectory_sequence_conflict(
+                expected_event_seq=record.next_trajectory_event_seq,
+                received_event_seq=command.event_seq,
+            )
         if command.session_revision > record.revision:
             raise MockExamCheckpointError(
                 "Trajectory session revision is ahead of server state"
@@ -467,20 +495,52 @@ class MockExamService:
                 "Trajectory question is outside assigned paper"
             )
         trajectory_event_id = str(uuid4())
-        self._repository.record_trajectory_event(
-            trajectory_event_id=trajectory_event_id,
-            command_id=command_id,
-            user_id=user_id,
-            session_id=session_id,
-            event_seq=command.event_seq,
-            event_type=command.event_type,
-            question_id=command.question_id,
-            client_occurred_at=command.client_occurred_at.astimezone(UTC),
-            session_revision=command.session_revision,
-            payload=command.payload,
-            request_fingerprint=request_fingerprint,
-            created_at=timestamp,
-        )
+        try:
+            self._repository.record_trajectory_event(
+                trajectory_event_id=trajectory_event_id,
+                command_id=command_id,
+                user_id=user_id,
+                session_id=session_id,
+                event_seq=command.event_seq,
+                event_type=command.event_type,
+                question_id=command.question_id,
+                client_occurred_at=command.client_occurred_at.astimezone(UTC),
+                session_revision=command.session_revision,
+                payload=command.payload,
+                request_fingerprint=request_fingerprint,
+                created_at=timestamp,
+            )
+        except MockExamTrajectoryWriteConflict as conflict:
+            if (
+                conflict.constraint_name
+                == "mock_exam_trajectory_user_command_key"
+            ):
+                replay = self._repository.trajectory_event_by_command(
+                    user_id=user_id,
+                    command_id=command_id,
+                )
+                if (
+                    replay is not None
+                    and replay["request_fingerprint"] == request_fingerprint
+                ):
+                    return MockExamTrajectoryEventReceipt(
+                        trajectoryEventId=str(replay["trajectory_event_id"]),
+                        sessionId=str(replay["session_id"]),
+                        eventSeq=int(replay["event_seq"]),
+                        eventType=str(replay["event_type"]),
+                        acceptedAt=replay["created_at"],
+                    )
+                raise MockExamCheckpointError(
+                    "这次轨迹写入已被其他请求使用，请同步后继续。",
+                    code="mock_trajectory_command_conflict",
+                ) from conflict
+            expected_event_seq = self._repository.next_trajectory_event_seq(
+                session_id=session_id
+            )
+            raise _trajectory_sequence_conflict(
+                expected_event_seq=expected_event_seq,
+                received_event_seq=command.event_seq,
+            ) from conflict
         self._repository.commit()
         return MockExamTrajectoryEventReceipt(
             trajectoryEventId=trajectory_event_id,

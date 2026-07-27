@@ -243,6 +243,11 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in ability_v2_shadow._STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
+        mock_trajectory_conflicts = import_module(
+            "migrations.versions.20260727_64_mock_trajectory_conflict_contract"
+        )
+        for statement in mock_trajectory_conflicts._STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
 
 
 def _split_postgres_statements(script: str) -> list[str]:

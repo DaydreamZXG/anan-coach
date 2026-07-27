@@ -303,7 +303,7 @@ def record_mock_exam_trajectory_event(
     command_id: Annotated[str, Depends(_required_idempotency_key)],
     current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
     service: Annotated[MockExamService, Depends(get_mock_exam_service)],
-) -> PublicApiEnvelope[MockExamTrajectoryEventReceipt]:
+) -> PublicApiEnvelope[MockExamTrajectoryEventReceipt] | JSONResponse:
     try:
         result = service.record_trajectory_event(
             user_id=current_user.user_id,
@@ -315,4 +315,10 @@ def record_mock_exam_trajectory_event(
     except MockExamNotFoundError as exc:
         raise HTTPException(status_code=404, detail="模考会话不存在。") from exc
     except MockExamCheckpointError as exc:
-        raise HTTPException(status_code=409, detail=str(exc)) from exc
+        return public_error_response(
+            request=request,
+            status_code=status.HTTP_409_CONFLICT,
+            code=exc.code,
+            message=str(exc),
+            details=exc.details,
+        )

@@ -7,7 +7,14 @@ from uuid import uuid4
 import json
 
 from sqlalchemy import text
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
+
+
+class MockExamTrajectoryWriteConflict(RuntimeError):
+    def __init__(self, *, constraint_name: str) -> None:
+        super().__init__(constraint_name)
+        self.constraint_name = constraint_name
 
 
 @dataclass(frozen=True)
@@ -530,37 +537,51 @@ class MockExamRepository:
         request_fingerprint: str,
         created_at: datetime,
     ) -> None:
-        self._session.execute(
-            text(
-                """
-                insert into learner.mock_exam_trajectory_events (
-                  trajectory_event_id, command_id, user_id, session_id,
-                  event_seq, event_type, question_id, client_occurred_at,
-                  session_revision, payload, request_fingerprint, created_at
-                ) values (
-                  cast(:trajectory_event_id as uuid), :command_id,
-                  cast(:user_id as uuid), cast(:session_id as uuid),
-                  :event_seq, :event_type, :question_id, :client_occurred_at,
-                  :session_revision, cast(:payload as jsonb),
-                  :request_fingerprint, :created_at
+        try:
+            with self._session.begin_nested():
+                self._session.execute(
+                    text(
+                        """
+                        insert into learner.mock_exam_trajectory_events (
+                          trajectory_event_id, command_id, user_id, session_id,
+                          event_seq, event_type, question_id, client_occurred_at,
+                          session_revision, payload, request_fingerprint, created_at
+                        ) values (
+                          cast(:trajectory_event_id as uuid), :command_id,
+                          cast(:user_id as uuid), cast(:session_id as uuid),
+                          :event_seq, :event_type, :question_id, :client_occurred_at,
+                          :session_revision, cast(:payload as jsonb),
+                          :request_fingerprint, :created_at
+                        )
+                        """
+                    ),
+                    {
+                        "trajectory_event_id": trajectory_event_id,
+                        "command_id": command_id,
+                        "user_id": user_id,
+                        "session_id": session_id,
+                        "event_seq": event_seq,
+                        "event_type": event_type,
+                        "question_id": question_id,
+                        "client_occurred_at": client_occurred_at,
+                        "session_revision": session_revision,
+                        "payload": json.dumps(
+                            payload, ensure_ascii=False, sort_keys=True
+                        ),
+                        "request_fingerprint": request_fingerprint,
+                        "created_at": created_at,
+                    },
                 )
-                """
-            ),
-            {
-                "trajectory_event_id": trajectory_event_id,
-                "command_id": command_id,
-                "user_id": user_id,
-                "session_id": session_id,
-                "event_seq": event_seq,
-                "event_type": event_type,
-                "question_id": question_id,
-                "client_occurred_at": client_occurred_at,
-                "session_revision": session_revision,
-                "payload": json.dumps(payload, ensure_ascii=False, sort_keys=True),
-                "request_fingerprint": request_fingerprint,
-                "created_at": created_at,
-            },
-        )
+        except IntegrityError as exc:
+            constraint_name = _integrity_constraint_name(exc)
+            if constraint_name in {
+                "mock_exam_trajectory_user_command_key",
+                "mock_exam_trajectory_session_seq_key",
+            }:
+                raise MockExamTrajectoryWriteConflict(
+                    constraint_name=constraint_name
+                ) from exc
+            raise
 
     def trajectory_event_by_command(
         self, *, user_id: str, command_id: str
@@ -850,3 +871,9 @@ class MockExamRepository:
 
     def commit(self) -> None:
         self._session.commit()
+
+
+def _integrity_constraint_name(error: IntegrityError) -> str | None:
+    diagnostic = getattr(error.orig, "diag", None)
+    constraint_name = getattr(diagnostic, "constraint_name", None)
+    return str(constraint_name) if constraint_name else None

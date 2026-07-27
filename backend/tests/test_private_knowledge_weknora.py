@@ -98,8 +98,8 @@ def test_required_database_revision_tracks_projection_schema(
 ) -> None:
     monkeypatch.delenv("REQUIRED_DATABASE_REVISION", raising=False)
 
-    assert Settings().required_database_revision == "20260727_63"
-    assert get_settings().required_database_revision == "20260727_63"
+    assert Settings().required_database_revision == "20260727_64"
+    assert get_settings().required_database_revision == "20260727_64"
 
 
 def test_operations_env_declares_weknora_activation_contract() -> None:
@@ -107,7 +107,7 @@ def test_operations_env_declares_weknora_activation_contract() -> None:
         Path(__file__).resolve().parents[2] / "ops" / "env.example"
     )
 
-    assert values["REQUIRED_DATABASE_REVISION"] == "20260727_63"
+    assert values["REQUIRED_DATABASE_REVISION"] == "20260727_64"
     assert values["WEKNORA_PRIVATE_KNOWLEDGE_MODE"] == "canonical"
     assert values["WEKNORA_BASE_URL"] == ""
     assert values["WEKNORA_MANAGE_API_KEY"] == ""
