@@ -9,6 +9,11 @@ import json
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
+from app.domains.knowledge.module_vocabulary import (
+    ReleasedModuleVocabulary,
+    load_current_module_vocabulary,
+)
+
 
 @dataclass(frozen=True)
 class CompanionContextRecord:
@@ -40,6 +45,7 @@ class CompanionContextRecord:
 
 @dataclass(frozen=True)
 class KnowledgeMapCandidateRecord:
+    release_id: str
     node_id: str
     display_path: str
     module_name: str
@@ -54,6 +60,7 @@ class ExternalQuestionIntakeRecord:
     intake_id: str
     user_id: str
     status: str
+    knowledge_release_id: str | None
     selected_node_id: str | None
     candidate_nodes: list[dict[str, object]]
     stem: str
@@ -131,7 +138,7 @@ class CompanionRepository:
             ),
             {"user_id": user_id},
         ).mappings().first()
-        wrong_modules = self._session.execute(
+        wrong_module_rows = self._session.execute(
             text(
                 """
                 select q.module_name, count(*) as wrong_count
@@ -142,20 +149,46 @@ class CompanionRepository:
                   and q.module_name is not null
                 group by q.module_name
                 order by wrong_count desc, q.module_name
-                limit 3
                 """
             ),
             {"user_id": user_id},
         ).mappings().all()
+        module_vocabulary = load_current_module_vocabulary(
+            self._session,
+            exam_scope="guokao",
+            track="xingce",
+        )
+        wrong_modules = _canonical_wrong_modules(
+            wrong_module_rows,
+            vocabulary=module_vocabulary,
+        )
         method_cards = self._session.execute(
             text(
                 """
+                with active_releases as (
+                  select
+                    release.release_id,
+                    release.fresh_until,
+                    count(*) over () as active_release_count
+                  from product.knowledge_map_releases release
+                  where release.exam_scope = 'guokao'
+                    and release.track = 'xingce'
+                    and release.status = 'active'
+                ), current_release as (
+                  select release_id
+                  from active_releases
+                  where active_release_count = 1
+                    and fresh_until > statement_timestamp()
+                    and release_id = cast(:release_id as uuid)
+                )
                 select
                   mc.id,
                   mc.title,
                   mc.fix_action,
                   mc.tag_path
-                from product.knowledge_map_nodes kmn
+                from current_release release
+                join product.knowledge_map_nodes kmn
+                  on kmn.release_id = release.release_id
                 join product.method_cards mc
                   on mc.id in (
                     select jsonb_array_elements_text(kmn.method_card_ids)
@@ -164,12 +197,22 @@ class CompanionRepository:
                   cast(:node_id as text) is not null
                   and kmn.node_id = cast(:node_id as text)
                 )
+                  and kmn.exam_scope = 'guokao'
+                  and kmn.track = 'xingce'
+                  and kmn.status = 'published'
                   and mc.status = 'published'
                 order by mc.priority desc, mc.id
                 limit 3
                 """
             ),
-            {"node_id": node_id},
+            {
+                "node_id": node_id,
+                "release_id": (
+                    module_vocabulary.release_id
+                    if module_vocabulary is not None
+                    else None
+                ),
+            },
         ).mappings().all()
         ability = self._session.execute(
             text(
@@ -438,7 +481,7 @@ class CompanionRepository:
                 if summary["latest_mock_score"] is not None
                 else None
             ),
-            top_wrong_modules=[dict(row) for row in wrong_modules],
+            top_wrong_modules=wrong_modules,
             method_cards=[dict(row) for row in method_cards],
             current_shenlun_estimate=(
                 {
@@ -494,31 +537,63 @@ class CompanionRepository:
         module_name: str,
         tag_type: str,
         tag_value: str,
+        vocabulary: ReleasedModuleVocabulary | None = None,
     ) -> KnowledgeMapCandidateRecord | None:
+        vocabulary = vocabulary or load_current_module_vocabulary(
+            self._session, exam_scope="guokao", track="xingce"
+        )
+        if vocabulary is None:
+            return None
+        canonical_module = vocabulary.canonicalize(module_name)
+        if canonical_module is None:
+            return None
         row = self._session.execute(
             text(
                 """
+                with active_releases as (
+                  select
+                    release.release_id,
+                    release.fresh_until,
+                    count(*) over () as active_release_count
+                  from product.knowledge_map_releases release
+                  where release.exam_scope = 'guokao'
+                    and release.track = 'xingce'
+                    and release.status = 'active'
+                ), current_release as (
+                  select release_id
+                  from active_releases
+                  where active_release_count = 1
+                    and fresh_until > statement_timestamp()
+                    and release_id = cast(:release_id as uuid)
+                )
                 select
-                  node_id,
-                  display_path,
-                  module_name,
-                  tag_type,
-                  tag_value,
-                  support_status,
-                  method_card_ids
-                from product.knowledge_map_nodes
-                where exam_scope = 'guokao'
-                  and track = 'xingce'
-                  and module_name = :module_name
-                  and tag_type = :tag_type
-                  and tag_value = :tag_value
-                  and status = 'published'
-                order by near5_weight desc nulls last, near5_occurrence_count desc nulls last, node_id
+                  release.release_id,
+                  node.node_id,
+                  node.display_path,
+                  node.module_name,
+                  node.tag_type,
+                  node.tag_value,
+                  node.support_status,
+                  node.method_card_ids
+                from current_release release
+                join product.knowledge_map_nodes node
+                  on node.release_id = release.release_id
+                where node.exam_scope = 'guokao'
+                  and node.track = 'xingce'
+                  and node.module_name = :module_name
+                  and node.tag_type = :tag_type
+                  and node.tag_value = :tag_value
+                  and node.status = 'published'
+                order by
+                  node.near5_weight desc nulls last,
+                  node.near5_occurrence_count desc nulls last,
+                  node.node_id
                 limit 1
                 """
             ),
             {
-                "module_name": module_name,
+                "release_id": vocabulary.release_id,
+                "module_name": canonical_module,
                 "tag_type": tag_type,
                 "tag_value": tag_value,
             },
@@ -526,6 +601,7 @@ class CompanionRepository:
         if row is None:
             return None
         return KnowledgeMapCandidateRecord(
+            release_id=str(row["release_id"]),
             node_id=str(row["node_id"]),
             display_path=str(row["display_path"]),
             module_name=str(row["module_name"]),
@@ -533,6 +609,13 @@ class CompanionRepository:
             tag_value=str(row["tag_value"]),
             support_status=str(row["support_status"]),
             method_card_ids=list(row["method_card_ids"] or []),
+        )
+
+    def current_knowledge_vocabulary(self) -> ReleasedModuleVocabulary | None:
+        return load_current_module_vocabulary(
+            self._session,
+            exam_scope="guokao",
+            track="xingce",
         )
 
     def create_external_intake(
@@ -545,6 +628,7 @@ class CompanionRepository:
         correct_answer: str | None,
         extracted_tags: list[dict[str, object]],
         candidate_nodes: list[dict[str, object]],
+        knowledge_release_id: str | None,
         selected_node_id: str | None,
         match_confidence: float | None,
         status: str,
@@ -566,6 +650,7 @@ class CompanionRepository:
                   correct_answer,
                   extracted_tags,
                   candidate_nodes,
+                  knowledge_release_id,
                   selected_node_id,
                   match_confidence,
                   status,
@@ -582,6 +667,7 @@ class CompanionRepository:
                   :correct_answer,
                   cast(:extracted_tags as jsonb),
                   cast(:candidate_nodes as jsonb),
+                  cast(:knowledge_release_id as uuid),
                   :selected_node_id,
                   :match_confidence,
                   :status,
@@ -600,6 +686,7 @@ class CompanionRepository:
                 "correct_answer": correct_answer,
                 "extracted_tags": json.dumps(extracted_tags, ensure_ascii=False),
                 "candidate_nodes": json.dumps(candidate_nodes, ensure_ascii=False),
+                "knowledge_release_id": knowledge_release_id,
                 "selected_node_id": selected_node_id,
                 "match_confidence": match_confidence,
                 "status": status,
@@ -624,6 +711,7 @@ class CompanionRepository:
                   intake_id,
                   user_id,
                   status,
+                  knowledge_release_id,
                   selected_node_id,
                   candidate_nodes,
                   stem,
@@ -643,6 +731,11 @@ class CompanionRepository:
             intake_id=str(row["intake_id"]),
             user_id=str(row["user_id"]),
             status=str(row["status"]),
+            knowledge_release_id=(
+                str(row["knowledge_release_id"])
+                if row["knowledge_release_id"] is not None
+                else None
+            ),
             selected_node_id=(
                 str(row["selected_node_id"]) if row["selected_node_id"] is not None else None
             ),
@@ -667,6 +760,7 @@ class CompanionRepository:
                   external_question_id,
                   intake_id,
                   user_id,
+                  knowledge_release_id,
                   node_id,
                   source,
                   stem,
@@ -680,6 +774,7 @@ class CompanionRepository:
                   cast(:external_question_id as uuid),
                   cast(:intake_id as uuid),
                   cast(:user_id as uuid),
+                  cast(:knowledge_release_id as uuid),
                   :node_id,
                   'external',
                   :stem,
@@ -696,6 +791,7 @@ class CompanionRepository:
                 "external_question_id": external_question_id,
                 "intake_id": intake.intake_id,
                 "user_id": intake.user_id,
+                "knowledge_release_id": intake.knowledge_release_id,
                 "node_id": intake.selected_node_id,
                 "stem": intake.stem,
                 "options": json.dumps(intake.options, ensure_ascii=False),
@@ -703,7 +799,10 @@ class CompanionRepository:
                 "correct_answer": intake.correct_answer,
                 "error_summary": error_summary,
                 "payload": json.dumps(
-                    {"candidateNodes": intake.candidate_nodes},
+                    {
+                        "candidateNodes": intake.candidate_nodes,
+                        "knowledgeReleaseId": intake.knowledge_release_id,
+                    },
                     ensure_ascii=False,
                 ),
             },
@@ -761,6 +860,28 @@ def _essay_review_summary(row: Any) -> dict[str, object] | None:
         "validUntil": row["valid_until"].isoformat(),
         "isCurrent": row["valid_until"] > datetime.now(UTC),
     }
+
+
+def _canonical_wrong_modules(
+    rows: list[Any],
+    *,
+    vocabulary: ReleasedModuleVocabulary | None,
+) -> list[dict[str, object]]:
+    if vocabulary is None:
+        return []
+    totals: dict[str, int] = {}
+    for row in rows:
+        canonical = vocabulary.canonicalize(str(row["module_name"]))
+        if canonical is None:
+            continue
+        totals[canonical] = totals.get(canonical, 0) + int(row["wrong_count"])
+    return [
+        {"module_name": module_name, "wrong_count": wrong_count}
+        for module_name, wrong_count in sorted(
+            totals.items(),
+            key=lambda item: (-item[1], item[0]),
+        )[:3]
+    ]
 
 
 def _essay_reflection_summary(row: Any) -> dict[str, object] | None:

@@ -5,17 +5,19 @@ from hashlib import sha256
 import json
 from math import sqrt
 from typing import Any
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 from pydantic import ValidationError
 
 from app.contracts.guokao_xingce import (
     GUOKAO_XINGCE_CATALOG_VERSION,
+    GUOKAO_XINGCE_MODULES,
     GUOKAO_XINGCE_VICE_PROVINCIAL_BLUEPRINT,
 )
 from app.domains.knowledge.service import KnowledgeService
 from app.domains.mock_exam.repository import (
     AssignedQuestionRecord,
+    KnowledgeMapReleaseSnapshot,
     MockExamRepository,
     MockExamSessionRecord,
     MockExamTrajectoryWriteConflict,
@@ -46,7 +48,6 @@ from app.domains.task_content.service import (
     TaskContentContractError,
     freeze_learner_bundle,
 )
-from app.domains.xingce_learning.content_version import question_content_version_id
 from app.domains.xingce_learning.real_attempt.schemas import (
     QuestionDisputeReceipt,
     ReportQuestionDisputeCommand,
@@ -56,7 +57,11 @@ from app.domains.xingce_learning.real_attempt.schemas import (
 WEEKLY_MOCK_TASK_ID = "weekly-guokao-mock-exam"
 MOCK_DURATION_MINUTES = 120
 MOCK_SCORING_POLICY_VERSION = "mock-question-weighted-performance-index-v2"
+MOCK_KNOWLEDGE_LINEAGE_CONTRACT_VERSION = "mock-knowledge-map-lineage@v1"
 GUOKAO_MOCK_BLUEPRINT = GUOKAO_XINGCE_VICE_PROVINCIAL_BLUEPRINT
+_MODULE_CODE_BY_DISPLAY_NAME = {
+    module.display_name: module.code for module in GUOKAO_XINGCE_MODULES
+}
 
 
 class MockExamUnavailableError(RuntimeError):
@@ -149,13 +154,25 @@ class MockExamService:
             self._repository.commit()
             return response
 
+        knowledge_release = self._repository.resolve_fresh_active_knowledge_release()
+        if knowledge_release is None:
+            raise MockExamUnavailableError(
+                "A unique fresh guokao xingce knowledge release is required"
+            )
         question_ids: list[str] = []
         blueprint_payload: list[dict[str, object]] = []
         for module_name, count in GUOKAO_MOCK_BLUEPRINT:
+            module_code = _MODULE_CODE_BY_DISPLAY_NAME.get(module_name)
+            if module_code is None:
+                raise MockExamUnavailableError(
+                    f"Published mock module is not in the guokao catalog: {module_name}"
+                )
             module_question_ids = self._repository.select_module_question_ids(
                 user_id=user_id,
                 module_name=module_name,
+                module_code=module_code,
                 limit=count,
+                knowledge_release=knowledge_release,
             )
             if len(module_question_ids) != count:
                 raise MockExamUnavailableError(
@@ -163,10 +180,12 @@ class MockExamService:
                     f"{len(module_question_ids)}/{count}"
                 )
             question_ids.extend(module_question_ids)
-            blueprint_payload.append(
-                {"moduleName": module_name, "questionCount": count}
-            )
-        bundle, scoring_snapshot = self._freeze_questions(question_ids)
+            blueprint_payload.append({"moduleName": module_name, "questionCount": count})
+        bundle, scoring_snapshot = self._freeze_questions(
+            question_ids,
+            knowledge_release=knowledge_release,
+        )
+        knowledge_lineage = knowledge_release.lineage_payload()
         paper_fingerprint = _hash(
             {
                 "bundleVersionId": bundle.bundle_version_id,
@@ -174,6 +193,8 @@ class MockExamService:
                 "blueprint": blueprint_payload,
                 "durationMinutes": MOCK_DURATION_MINUTES,
                 "scoringPolicyVersionId": MOCK_SCORING_POLICY_VERSION,
+                "knowledgeMapLineageContractVersion": (MOCK_KNOWLEDGE_LINEAGE_CONTRACT_VERSION),
+                "knowledgeMapRelease": knowledge_lineage,
             }
         )
         paper_version_id = self._repository.get_or_create_paper_version(
@@ -195,6 +216,8 @@ class MockExamService:
                 "blueprintVersion": "guokao-xingce-135-six-module@v2",
                 "moduleCatalogVersion": GUOKAO_XINGCE_CATALOG_VERSION,
                 "officialScoreComparable": False,
+                "knowledgeMapLineageContractVersion": (MOCK_KNOWLEDGE_LINEAGE_CONTRACT_VERSION),
+                "knowledgeMapRelease": knowledge_lineage,
             },
             content_fingerprint=paper_fingerprint,
             published_at=started_at,
@@ -268,23 +291,17 @@ class MockExamService:
         if request.current_question_id not in questions:
             raise MockExamCheckpointError("Current question is outside assigned bundle")
         merged = {
-            str(item["questionId"]): dict(item)
-            for item in record.checkpoint.get("answers", [])
+            str(item["questionId"]): dict(item) for item in record.checkpoint.get("answers", [])
         }
         for answer in request.answers:
             question = questions.get(answer.question_id)
             if question is None:
                 raise MockExamCheckpointError("Checkpoint question is not assigned")
             valid_options = {option.option_id for option in question.options}
-            if (
-                answer.selected_answer is not None
-                and answer.selected_answer not in valid_options
-            ):
+            if answer.selected_answer is not None and answer.selected_answer not in valid_options:
                 raise MockExamCheckpointError("Selected answer is not a frozen option")
             if not set(answer.eliminated_option_ids).issubset(valid_options):
-                raise MockExamCheckpointError(
-                    "Eliminated answer is not a frozen option"
-                )
+                raise MockExamCheckpointError("Eliminated answer is not a frozen option")
             merged[answer.question_id] = answer.model_dump(by_alias=True, mode="json")
         checkpoint = {
             "currentQuestionId": request.current_question_id,
@@ -335,9 +352,7 @@ class MockExamService:
         idempotency_key: str | None = None,
     ) -> MockExamSubmitResponse:
         if idempotency_key is not None and request.expected_revision is None:
-            raise MockExamSubmissionError(
-                "Idempotent mock submission requires expectedRevision"
-            )
+            raise MockExamSubmissionError("Idempotent mock submission requires expectedRevision")
         request_hash = _request_hash("submit", session_id, request)
         self._repository.lock_user(user_id=user_id)
         if idempotency_key is not None:
@@ -356,6 +371,10 @@ class MockExamService:
         mock_session = self._required_session(user_id=user_id, session_id=session_id)
         if mock_session.status != "assigned":
             raise MockExamSubmissionError("Only assigned mock exams can be submitted")
+        self._knowledge_release_for_record(
+            mock_session,
+            for_submission=True,
+        )
         assigned_ids = mock_session.question_ids
         answers = {item.question_id: item.selected_answer for item in request.answers}
         if set(answers) != set(assigned_ids):
@@ -417,10 +436,7 @@ class MockExamService:
             self._repository.session,
             user_id=user_id,
             mock_session=committed_session,
-            command_id=(
-                idempotency_key
-                or f"{session_id}:{expected_revision}"
-            ),
+            command_id=(idempotency_key or f"{session_id}:{expected_revision}"),
             completed_at=submitted_at,
         )
         response = MockExamSubmitResponse(
@@ -473,27 +489,18 @@ class MockExamService:
             )
         record = self._required_session(user_id=user_id, session_id=session_id)
         if record.status != "assigned":
-            raise MockExamCheckpointError(
-                "Only an assigned mock exam accepts trajectory events"
-            )
+            raise MockExamCheckpointError("Only an assigned mock exam accepts trajectory events")
         if command.event_seq != record.next_trajectory_event_seq:
             raise _trajectory_sequence_conflict(
                 expected_event_seq=record.next_trajectory_event_seq,
                 received_event_seq=command.event_seq,
             )
         if command.session_revision > record.revision:
-            raise MockExamCheckpointError(
-                "Trajectory session revision is ahead of server state"
-            )
+            raise MockExamCheckpointError("Trajectory session revision is ahead of server state")
         if command.client_occurred_at.astimezone(UTC) > timestamp:
             raise MockExamCheckpointError("Trajectory event cannot occur in the future")
-        if (
-            command.question_id is not None
-            and command.question_id not in record.question_ids
-        ):
-            raise MockExamCheckpointError(
-                "Trajectory question is outside assigned paper"
-            )
+        if command.question_id is not None and command.question_id not in record.question_ids:
+            raise MockExamCheckpointError("Trajectory question is outside assigned paper")
         trajectory_event_id = str(uuid4())
         try:
             self._repository.record_trajectory_event(
@@ -511,18 +518,12 @@ class MockExamService:
                 created_at=timestamp,
             )
         except MockExamTrajectoryWriteConflict as conflict:
-            if (
-                conflict.constraint_name
-                == "mock_exam_trajectory_user_command_key"
-            ):
+            if conflict.constraint_name == "mock_exam_trajectory_user_command_key":
                 replay = self._repository.trajectory_event_by_command(
                     user_id=user_id,
                     command_id=command_id,
                 )
-                if (
-                    replay is not None
-                    and replay["request_fingerprint"] == request_fingerprint
-                ):
+                if replay is not None and replay["request_fingerprint"] == request_fingerprint:
                     return MockExamTrajectoryEventReceipt(
                         trajectoryEventId=str(replay["trajectory_event_id"]),
                         sessionId=str(replay["session_id"]),
@@ -534,9 +535,7 @@ class MockExamService:
                     "这次轨迹写入已被其他请求使用，请同步后继续。",
                     code="mock_trajectory_command_conflict",
                 ) from conflict
-            expected_event_seq = self._repository.next_trajectory_event_seq(
-                session_id=session_id
-            )
+            expected_event_seq = self._repository.next_trajectory_event_seq(session_id=session_id)
             raise _trajectory_sequence_conflict(
                 expected_event_seq=expected_event_seq,
                 received_event_seq=command.event_seq,
@@ -559,9 +558,7 @@ class MockExamService:
     ) -> None:
         command_id = f"mock-submit:{record.session_id}:{record.revision}"
         if (
-            self._repository.trajectory_event_by_command(
-                user_id=user_id, command_id=command_id
-            )
+            self._repository.trajectory_event_by_command(user_id=user_id, command_id=command_id)
             is not None
         ):
             return
@@ -575,9 +572,7 @@ class MockExamService:
             command_id=command_id,
             user_id=user_id,
             session_id=record.session_id,
-            event_seq=self._repository.next_trajectory_event_seq(
-                session_id=record.session_id
-            ),
+            event_seq=self._repository.next_trajectory_event_seq(session_id=record.session_id),
             event_type="submitted",
             question_id=None,
             client_occurred_at=submitted_at,
@@ -623,17 +618,10 @@ class MockExamService:
         record = self._required_session(user_id=user_id, session_id=session_id)
         bundle = _bundle_from_record(record)
         question = next(
-            (
-                item
-                for item in bundle.questions
-                if item.question_id == command.question_id
-            ),
+            (item for item in bundle.questions if item.question_id == command.question_id),
             None,
         )
-        if (
-            question is None
-            or question.content_version_id != command.content_version_id
-        ):
+        if question is None or question.content_version_id != command.content_version_id:
             raise MockExamDisputeError("Dispute content version is not assigned")
         answer_state = next(
             (
@@ -658,9 +646,7 @@ class MockExamService:
                         "bundleVersionId": bundle.bundle_version_id,
                         "currentQuestionId": record.checkpoint["currentQuestionId"],
                         "questionStateRef": (
-                            f"sha256:{_hash(answer_state)}"
-                            if answer_state is not None
-                            else None
+                            f"sha256:{_hash(answer_state)}" if answer_state is not None else None
                         ),
                         "materialPosition": (
                             answer_state.get("materialPosition")
@@ -683,9 +669,7 @@ class MockExamService:
         return MockExamReview(**session.review_payload)
 
     def mark_review_viewed(self, *, user_id: str, session_id: str) -> MockExamReview:
-        session = self._repository.mark_review_viewed(
-            session_id=session_id, user_id=user_id
-        )
+        session = self._repository.mark_review_viewed(session_id=session_id, user_id=user_id)
         if session is None or session.review_payload is None:
             raise MockExamNotFoundError(session_id)
         payload = dict(session.review_payload)
@@ -693,11 +677,68 @@ class MockExamService:
         self._repository.commit()
         return MockExamReview(**payload)
 
+    def _knowledge_release_for_record(
+        self,
+        record: MockExamSessionRecord,
+        *,
+        for_submission: bool,
+    ) -> KnowledgeMapReleaseSnapshot | None:
+        try:
+            release = _knowledge_release_from_paper_metadata(record.paper_equivalence_metadata)
+        except ValueError as exc:
+            if for_submission:
+                raise MockExamSubmissionError(
+                    "Mock paper knowledge lineage is malformed",
+                    code="mock_knowledge_lineage_invalid",
+                ) from exc
+            raise MockExamUnavailableError("Mock paper knowledge lineage is malformed") from exc
+        if release is not None and not self._repository.knowledge_release_matches(release=release):
+            if for_submission:
+                raise MockExamSubmissionError(
+                    "Mock paper knowledge lineage no longer matches its release",
+                    code="mock_knowledge_lineage_invalid",
+                )
+            raise MockExamUnavailableError(
+                "Mock paper knowledge lineage no longer matches its release"
+            )
+        return release
+
+    def _wrong_clusters_for_record(
+        self,
+        *,
+        record: MockExamSessionRecord,
+        wrong_question_ids: list[str],
+    ) -> list[dict[str, Any]]:
+        release = self._knowledge_release_for_record(
+            record,
+            for_submission=True,
+        )
+        if release is None:
+            # Legacy papers predate the versioned knowledge-map contract. Their
+            # scoring snapshot remains executable, but attaching the current
+            # release would fabricate lineage and make review semantics depend
+            # on whichever publication happened to be active at submission.
+            return []
+        try:
+            return self._repository.get_wrong_clusters(
+                wrong_question_ids=wrong_question_ids,
+                knowledge_release=release,
+            )
+        except LookupError as exc:
+            raise MockExamSubmissionError(
+                "Mock paper knowledge lineage no longer matches its release",
+                code="mock_knowledge_lineage_invalid",
+            ) from exc
+
     def _freeze_questions(
-        self, question_ids: list[str]
+        self,
+        question_ids: list[str],
+        *,
+        knowledge_release: KnowledgeMapReleaseSnapshot,
     ) -> tuple[SafeQuestionBundle, dict[str, Any]]:
         sources = self._repository.get_frozen_question_sources(
-            question_ids=question_ids
+            question_ids=question_ids,
+            knowledge_release=knowledge_release,
         )
         if len(sources) != len(question_ids):
             raise MockExamUnavailableError("Mock exam source set is incomplete")
@@ -705,7 +746,7 @@ class MockExamService:
             bundle, scoring_snapshot = freeze_learner_bundle(
                 sources,
                 scoring_policy_version=MOCK_SCORING_POLICY_VERSION,
-                content_version_id=question_content_version_id,
+                content_version_id=lambda source: str(source["_content_version_id"]),
                 published_explanation=lambda source: (None, None),
             )
         except TaskContentContractError as exc:
@@ -714,6 +755,7 @@ class MockExamService:
         return bundle, scoring_snapshot
 
     def _session_projection(self, record: MockExamSessionRecord) -> MockExamSession:
+        self._knowledge_release_for_record(record, for_submission=False)
         bundle = _bundle_from_record(record)
         checkpoint = MockExamCheckpoint.model_validate(record.checkpoint)
         return MockExamSession(
@@ -738,14 +780,12 @@ class MockExamService:
             materials=bundle.materials,
             questions=bundle.questions,
             sourceGrounding=(
-                "product.questions + product.knowledge_map_nodes + "
-                "learner.mock_exam_sessions"
+                "product.knowledge_map_question_bindings + "
+                "product.question_content_versions + learner.mock_exam_sessions"
             ),
         )
 
-    def _required_session(
-        self, *, user_id: str, session_id: str
-    ) -> MockExamSessionRecord:
+    def _required_session(self, *, user_id: str, session_id: str) -> MockExamSessionRecord:
         record = self._repository.get_session(session_id=session_id, user_id=user_id)
         if record is None:
             raise MockExamNotFoundError(session_id)
@@ -760,9 +800,7 @@ class MockExamService:
         command_type: str,
         request_hash: str,
     ) -> dict[str, Any] | None:
-        existing = self._repository.get_command(
-            user_id=user_id, idempotency_key=idempotency_key
-        )
+        existing = self._repository.get_command(user_id=user_id, idempotency_key=idempotency_key)
         if existing is None:
             return None
         if (
@@ -789,9 +827,7 @@ class MockExamService:
         wrong_question_ids: list[str] = []
         correct_count = 0
         for question in assigned_questions:
-            module = by_module.setdefault(
-                question.module_name, {"correct": 0, "total": 0}
-            )
+            module = by_module.setdefault(question.module_name, {"correct": 0, "total": 0})
             module["total"] += 1
             correct = (
                 answers[question.question_id] is not None
@@ -809,11 +845,7 @@ class MockExamService:
         modules = []
         for module_name in published_modules:
             values = by_module.get(module_name, {"correct": 0, "total": 0})
-            accuracy = (
-                round(values["correct"] / values["total"], 4)
-                if values["total"]
-                else 0.0
-            )
+            accuracy = round(values["correct"] / values["total"], 4) if values["total"] else 0.0
             previous_accuracy = previous.get(module_name)
             modules.append(
                 MockExamModuleReview(
@@ -840,8 +872,9 @@ class MockExamService:
                 method_card_ids=list(row["method_card_ids"] or []),
                 fix_action=row["fix_action"] or "先回看该知识点方法卡，再做同类题。",
             )
-            for row in self._repository.get_wrong_clusters(
-                wrong_question_ids=wrong_question_ids
+            for row in self._wrong_clusters_for_record(
+                record=record,
+                wrong_question_ids=wrong_question_ids,
             )
         ]
         return MockExamReview(
@@ -867,6 +900,106 @@ class MockExamService:
         )
 
 
+def _knowledge_release_from_paper_metadata(
+    metadata: dict[str, Any],
+) -> KnowledgeMapReleaseSnapshot | None:
+    contract_key = "knowledgeMapLineageContractVersion"
+    release_key = "knowledgeMapRelease"
+    has_contract = contract_key in metadata
+    has_release = release_key in metadata
+    if not has_contract and not has_release:
+        return None
+    if (
+        not has_contract
+        or not has_release
+        or metadata[contract_key] != MOCK_KNOWLEDGE_LINEAGE_CONTRACT_VERSION
+    ):
+        raise ValueError("knowledge lineage contract marker is incomplete")
+    payload = metadata[release_key]
+    if not isinstance(payload, dict):
+        raise ValueError("knowledge release lineage must be an object")
+    source = payload.get("source")
+    freshness = payload.get("freshness")
+    if not isinstance(source, dict) or not isinstance(freshness, dict):
+        raise ValueError("knowledge release source and freshness are required")
+    required_payload = {
+        "releaseId",
+        "releaseVersion",
+        "examScope",
+        "track",
+        "source",
+        "freshness",
+    }
+    required_source = {
+        "dataVersion",
+        "fingerprint",
+        "vocabVersion",
+        "generatorVersion",
+    }
+    required_freshness = {
+        "generatedAt",
+        "activatedAt",
+        "freshUntil",
+        "resolvedAt",
+    }
+    if (
+        not required_payload.issubset(payload)
+        or not required_source.issubset(source)
+        or not required_freshness.issubset(freshness)
+        or payload["examScope"] != "guokao"
+        or payload["track"] != "xingce"
+    ):
+        raise ValueError("knowledge release lineage fields are incomplete")
+
+    release_id = _required_lineage_string(payload["releaseId"])
+    UUID(release_id)
+    release_version = _required_lineage_string(payload["releaseVersion"])
+    source_data_version = _required_lineage_string(source["dataVersion"])
+    source_fingerprint = _required_lineage_string(source["fingerprint"])
+    vocab_version = _required_lineage_string(source["vocabVersion"])
+    generator_version = _required_lineage_string(source["generatorVersion"])
+    if len(source_fingerprint) != 64:
+        raise ValueError("knowledge release fingerprint is invalid")
+    generated_at = _lineage_timestamp(freshness["generatedAt"])
+    activated_at = _lineage_timestamp(freshness["activatedAt"])
+    fresh_until = _lineage_timestamp(freshness["freshUntil"])
+    resolved_at = _lineage_timestamp(freshness["resolvedAt"])
+    if (
+        fresh_until <= generated_at
+        or fresh_until <= activated_at
+        or fresh_until <= resolved_at
+        or activated_at > resolved_at
+    ):
+        raise ValueError("knowledge release was not fresh when resolved")
+    return KnowledgeMapReleaseSnapshot(
+        release_id=release_id,
+        release_version=release_version,
+        source_data_version=source_data_version,
+        source_fingerprint=source_fingerprint,
+        vocab_version=vocab_version,
+        generator_version=generator_version,
+        generated_at=generated_at,
+        activated_at=activated_at,
+        fresh_until=fresh_until,
+        resolved_at=resolved_at,
+    )
+
+
+def _required_lineage_string(value: Any) -> str:
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError("knowledge release lineage strings cannot be blank")
+    return value
+
+
+def _lineage_timestamp(value: Any) -> datetime:
+    if not isinstance(value, str):
+        raise ValueError("knowledge release lineage timestamps must be strings")
+    parsed = datetime.fromisoformat(value)
+    if parsed.tzinfo is None:
+        raise ValueError("knowledge release lineage timestamps require timezone")
+    return parsed.astimezone(UTC)
+
+
 def _bundle_from_record(record: MockExamSessionRecord) -> SafeQuestionBundle:
     payload = record.learner_bundle
     if (
@@ -874,19 +1007,13 @@ def _bundle_from_record(record: MockExamSessionRecord) -> SafeQuestionBundle:
         or not payload
         or not {"bundleVersionId", "materials", "questions"}.issubset(payload)
     ):
-        raise MockExamUnavailableError(
-            "Assigned session has no immutable learner-safe bundle"
-        )
+        raise MockExamUnavailableError("Assigned session has no immutable learner-safe bundle")
     try:
         bundle = SafeQuestionBundle.model_validate(payload)
     except ValidationError as exc:
-        raise MockExamUnavailableError(
-            "Assigned session learner bundle is malformed"
-        ) from exc
+        raise MockExamUnavailableError("Assigned session learner bundle is malformed") from exc
     if [question.question_id for question in bundle.questions] != record.question_ids:
-        raise MockExamUnavailableError(
-            "Frozen bundle does not match assigned question set"
-        )
+        raise MockExamUnavailableError("Frozen bundle does not match assigned question set")
     scoring = record.scoring_snapshot
     if (
         not scoring
@@ -915,9 +1042,7 @@ def _performance_index(
         or abs(sum(module_weights.values()) - 1.0) > 1e-6
     ):
         raise MockExamSubmissionError("Published scoring policy weights are invalid")
-    recommended = (
-        sum(item.accuracy * module_weights[item.module_name] for item in modules) * 100
-    )
+    recommended = sum(item.accuracy * module_weights[item.module_name] for item in modules) * 100
     weighted_bounds = [
         (
             _wilson_interval(item.correct, item.total),
@@ -955,10 +1080,7 @@ def _estimate_source(metric_name: str) -> str:
     if metric_name == "balanced_performance_index":
         return "兼容字段：值为历史五模块等权表现指数，不是国考原始分，不使用全国分位。"
     if metric_name == "question_weighted_performance_index":
-        return (
-            "兼容字段：值为当前六模块按标准卷题量加权表现指数，"
-            "不是国考原始分，不使用全国分位。"
-        )
+        return "兼容字段：值为当前六模块按标准卷题量加权表现指数，不是国考原始分，不使用全国分位。"
     raise MockExamSubmissionError("Published scoring metric is unsupported")
 
 
@@ -970,9 +1092,7 @@ def _wilson_interval(correct: int, total: int) -> tuple[float, float]:
     denominator = 1 + z * z / total
     center = (proportion + z * z / (2 * total)) / denominator
     margin = (
-        z
-        * sqrt(proportion * (1 - proportion) / total + z * z / (4 * total * total))
-        / denominator
+        z * sqrt(proportion * (1 - proportion) / total + z * z / (4 * total * total)) / denominator
     )
     return max(0.0, center - margin), min(1.0, center + margin)
 
@@ -1080,7 +1200,4 @@ def _next_week_reason(
             f"上周模考{weakest.module_name} {weakest.accuracy * 100:.1f}%，"
             f"本周加练{cluster.display_path}。"
         )
-    return (
-        f"上周模考{weakest.module_name} {weakest.accuracy * 100:.1f}%，"
-        "本周先补最低模块。"
-    )
+    return f"上周模考{weakest.module_name} {weakest.accuracy * 100:.1f}%，本周先补最低模块。"

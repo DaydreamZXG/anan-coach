@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session, sessionmaker
 
 from app.domains.planning.schemas import TodayDashboard
 from app.domains.planning.service import PlanningService
+from tests.knowledge_map_vocabulary_helpers import seed_released_module_vocabulary
 from tests.test_planning_routes import (
     NOW,
     _seed_learner_and_published_essay_content,
@@ -43,11 +44,29 @@ def test_next_targeted_plan_uses_user_isolated_assessment_weakest_module(
             module_name="数量关系",
             count=9,
         )
-        language_ids = _insert_objective_questions(
+        language_alias_ids = _insert_objective_questions(
             session,
-            prefix="assessment-language",
+            prefix="assessment-language-alias",
             module_name="言语理解",
             count=6,
+        )
+        language_canonical_ids = _insert_objective_questions(
+            session,
+            prefix="assessment-language-canonical",
+            module_name="言语理解与表达",
+            count=6,
+        )
+        language_ids = [*language_alias_ids, *language_canonical_ids]
+        assessed_language_ids = [
+            *language_alias_ids[:3],
+            *language_canonical_ids[:3],
+        ]
+        _insert_active_knowledge_node(
+            session,
+            module_name="言语理解与表达",
+            tag_value="中心理解",
+            question_ids=language_ids,
+            now=NOW,
         )
         data_ids = _insert_objective_questions(
             session,
@@ -60,8 +79,11 @@ def test_next_targeted_plan_uses_user_isolated_assessment_weakest_module(
             user_id=user_id,
             plan=initial,
             question_results=[
-                *zip(quantity_ids[:6], [True, False, False, False, False, False]),
-                *zip(language_ids, [True, True, True, True, True, False]),
+                *zip(quantity_ids[:6], [True, True, True, True, True, False]),
+                *zip(
+                    assessed_language_ids,
+                    [True, False, False, False, False, False],
+                ),
             ],
         )
         _insert_assessment_facts(
@@ -93,8 +115,8 @@ def test_next_targeted_plan_uses_user_isolated_assessment_weakest_module(
         )
 
     targeted = next(task for task in plan.tasks if task.stage == "objective_practice")
-    assert targeted.title == "行测针对训练：数量关系"
-    assert "数量关系" in targeted.reason
+    assert targeted.title == "行测针对训练：言语理解与表达"
+    assert "言语理解与表达" in targeted.reason
     assert "资料分析" not in targeted.title
 
 
@@ -387,6 +409,103 @@ def _insert_complete_ability_estimate(session: Session, *, user_id: str) -> None
             "generated_at": NOW,
             "valid_until": NOW + timedelta(days=30),
         },
+    )
+
+
+def _insert_active_knowledge_node(
+    session: Session,
+    *,
+    module_name: str,
+    tag_value: str,
+    question_ids: list[str],
+    now: datetime,
+) -> None:
+    release_id = str(uuid4())
+    seed_released_module_vocabulary(
+        session,
+        version="vocab@v1",
+        aliases={
+            "言语理解": "verbal_comprehension",
+            "逻辑判断": "judgment_reasoning",
+            "资科分析": "data_analysis",
+        },
+    )
+    session.execute(
+        text(
+            """
+            insert into product.knowledge_map_releases (
+              release_id, release_version, exam_scope, track,
+              source_data_version, vocab_version, generator_version,
+              source_fingerprint, generated_at, fresh_until, status,
+              node_count, activated_at
+            ) values (
+              cast(:release_id as uuid), 'knowledge-map@assessment-facts-v1',
+              'guokao', 'xingce', 'assessment-facts@test-v1', 'vocab@v1',
+              'refresh_knowledge_map_nodes_v3', :source_fingerprint,
+              :generated_at, :fresh_until, 'draft', 0, null
+            )
+            """
+        ),
+        {
+            "release_id": release_id,
+            "source_fingerprint": _digest(f"release:{release_id}"),
+            "generated_at": now - timedelta(days=1),
+            "fresh_until": now + timedelta(days=30),
+        },
+    )
+    session.execute(
+        text(
+            """
+            insert into product.knowledge_map_nodes (
+              release_id, node_id, exam_scope, track, module_name,
+              node_type, tag_type, tag_value, display_path,
+              support_status, near5_window_start_year,
+              near5_window_end_year, near5_weight,
+              near5_occurrence_count, stable_for_old_questions, status
+            ) values (
+              cast(:release_id as uuid), 'assessment-facts-quantity-node',
+              'guokao', 'xingce', :module_name, 'knowledge_point',
+              'knowledge_point', :tag_value, :display_path,
+              'text_supported', 2022, 2026, 0.8, 12, true, 'published'
+            )
+            """
+        ),
+        {
+            "release_id": release_id,
+            "module_name": module_name,
+            "tag_value": tag_value,
+            "display_path": f"{module_name}/{tag_value}",
+        },
+    )
+    for index, question_id in enumerate(question_ids):
+        session.execute(
+            text(
+                """
+                insert into product.question_tags (
+                  question_tag_id, question_id, tag_type, tag_value,
+                  sort_order, evidence_link_count
+                ) values (
+                  :question_tag_id, :question_id, 'knowledge_point',
+                  :tag_value, 1, 1
+                )
+                """
+            ),
+            {
+                "question_tag_id": f"assessment-facts-tag-{index + 1}",
+                "question_id": question_id,
+                "tag_value": tag_value,
+            },
+        )
+    session.execute(
+        text(
+            """
+            update product.knowledge_map_releases
+            set status = 'active', node_count = 1, activated_at = :activated_at
+            where release_id = cast(:release_id as uuid)
+              and status = 'draft'
+            """
+        ),
+        {"release_id": release_id, "activated_at": now - timedelta(hours=23)},
     )
 
 

@@ -3,15 +3,19 @@ from __future__ import annotations
 from collections.abc import Iterator
 from datetime import UTC, datetime, timedelta
 from uuid import uuid4
+import json
 
 from fastapi.testclient import TestClient
 import pytest
 from sqlalchemy import text
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, sessionmaker
 
 from app.core.config import Settings
 from app.core.config import get_settings
+from app.contracts.guokao_xingce import GUOKAO_XINGCE_MODULES
 from app.db.session import get_db_session
+from app.domains.external_ingestion.matching.catalog import SQLQuestionContentCatalog
 from app.domains.operations import router as operations_router
 from app.main import create_app
 
@@ -42,11 +46,172 @@ def test_ready_rejects_expired_position_rule_release(
     assert response.json()["detail"] == "position rule release is not ready"
 
 
+def test_ready_rejects_missing_knowledge_map_release(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _seed_alembic_revision(db_session_factory)
+    _seed_release(db_session_factory, activated_at=datetime.now(UTC))
+
+    response = _client(db_session_factory).get("/ready")
+
+    assert response.status_code == 503
+    assert response.json()["detail"] == "knowledge map release is not ready"
+
+
+def test_ready_rejects_legacy_active_knowledge_map_release(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _seed_alembic_revision(db_session_factory)
+    _seed_release(db_session_factory, activated_at=datetime.now(UTC))
+    _seed_knowledge_release(
+        db_session_factory,
+        release_version="knowledge-map@legacy-pre-20260727-65:guokao:xingce",
+        generator_version="legacy:generator-version-unknown",
+    )
+
+    response = _client(db_session_factory).get("/ready")
+
+    assert response.status_code == 503
+    assert response.json()["detail"] == "knowledge map release is not ready"
+
+
+def test_release_activation_rejects_expired_knowledge_map_release(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _seed_alembic_revision(db_session_factory)
+    with pytest.raises(
+        IntegrityError,
+        match="knowledge-map release activation freshness is invalid",
+    ):
+        _seed_knowledge_release(
+            db_session_factory,
+            fresh_until=datetime.now(UTC) - timedelta(days=1),
+        )
+
+
+def test_release_activation_rejects_time_before_generation(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _seed_alembic_revision(db_session_factory)
+    with pytest.raises(
+        IntegrityError,
+        match="knowledge-map release activation freshness is invalid",
+    ):
+        _seed_knowledge_release(
+            db_session_factory,
+            activated_at=datetime.now(UTC) - timedelta(days=1),
+        )
+
+
+def test_ready_rejects_release_without_actionable_target_node(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _seed_alembic_revision(db_session_factory)
+    _seed_release(db_session_factory, activated_at=datetime.now(UTC))
+    _seed_knowledge_release(
+        db_session_factory,
+        near5_occurrence_count=0,
+    )
+
+    response = _client(db_session_factory).get("/ready")
+
+    assert response.status_code == 503
+    assert response.json()["detail"] == "knowledge map release is not ready"
+
+
+def test_binding_authority_rejects_release_without_its_exact_vocabulary(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _seed_alembic_revision(db_session_factory)
+    _seed_release(db_session_factory, activated_at=datetime.now(UTC))
+    with pytest.raises(
+        IntegrityError,
+        match="knowledge-map question binding authority is invalid",
+    ):
+        _seed_knowledge_release(db_session_factory, seed_vocabulary=False)
+
+
+def test_ready_rejects_vocabulary_with_duplicate_canonical_code(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _seed_alembic_revision(db_session_factory)
+    _seed_release(db_session_factory, activated_at=datetime.now(UTC))
+    duplicate_codes = tuple(
+        module.code if module.code != "data_analysis" else "judgment_reasoning"
+        for module in GUOKAO_XINGCE_MODULES
+    )
+    _seed_knowledge_release(
+        db_session_factory,
+        canonical_codes=duplicate_codes,
+    )
+
+    response = _client(db_session_factory).get("/ready")
+
+    assert response.status_code == 503
+    assert response.json()["detail"] == "knowledge map release is not ready"
+
+
+def test_ready_rejects_rotated_canonical_module_code_name_pairs(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _seed_alembic_revision(db_session_factory)
+    _seed_release(db_session_factory, activated_at=datetime.now(UTC))
+    codes = tuple(module.code for module in GUOKAO_XINGCE_MODULES)
+    _seed_knowledge_release(
+        db_session_factory,
+        canonical_codes=codes[1:] + codes[:1],
+    )
+
+    response = _client(db_session_factory).get("/ready")
+
+    assert response.status_code == 503
+    assert response.json()["detail"] == "knowledge map release is not ready"
+
+
+def test_ready_rejects_release_missing_an_actionable_module(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _seed_alembic_revision(db_session_factory)
+    _seed_release(db_session_factory, activated_at=datetime.now(UTC))
+    _seed_knowledge_release(
+        db_session_factory,
+        missing_actionable_module="政治理论",
+    )
+
+    response = _client(db_session_factory).get("/ready")
+
+    assert response.status_code == 503
+    assert response.json()["detail"] == "knowledge map release is not ready"
+
+
+def test_ready_rejects_multiple_active_knowledge_releases(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _seed_alembic_revision(db_session_factory)
+    _seed_release(db_session_factory, activated_at=datetime.now(UTC))
+    with db_session_factory.begin() as session:
+        session.execute(text("drop index product.product_knowledge_map_one_active_release_idx"))
+    _seed_knowledge_release(
+        db_session_factory,
+        release_version="knowledge-map@ready-test-first",
+    )
+    _seed_knowledge_release(
+        db_session_factory,
+        release_version="knowledge-map@ready-test-second",
+    )
+
+    response = _client(db_session_factory).get("/ready")
+
+    assert response.status_code == 503
+    assert response.json()["detail"] == "knowledge map release is not ready"
+
+
 def test_ready_reports_active_position_rule_release(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     _seed_alembic_revision(db_session_factory)
     _seed_release(db_session_factory, activated_at=datetime.now(UTC))
+    _seed_knowledge_release(db_session_factory)
 
     response = _client(db_session_factory).get("/ready")
 
@@ -58,6 +223,8 @@ def test_ready_reports_active_position_rule_release(
         "migration": get_settings().required_database_revision,
         "positionRuleRelease": "guokao-2026-rules-v1",
         "positionDataVersion": "guokao-2026-source-sha256-test",
+        "knowledgeMapRelease": "knowledge-map@ready-test-v1",
+        "knowledgeMapSourceDataVersion": "question-bank@ready-test-v1",
         "time": payload["time"],
     }
 
@@ -68,6 +235,7 @@ def test_ready_allows_independently_disabled_external_ai_scenarios(
 ) -> None:
     _seed_alembic_revision(db_session_factory)
     _seed_release(db_session_factory, activated_at=datetime.now(UTC))
+    _seed_knowledge_release(db_session_factory)
     settings = Settings(environment="production")
     monkeypatch.setattr(operations_router, "get_settings", lambda: settings)
 
@@ -82,6 +250,7 @@ def test_ready_requires_release_for_an_approved_external_ai_scenario(
 ) -> None:
     _seed_alembic_revision(db_session_factory)
     _seed_release(db_session_factory, activated_at=datetime.now(UTC))
+    _seed_knowledge_release(db_session_factory)
     settings = Settings(
         environment="production",
         ai_companion_provider_dpa_confirmed=True,
@@ -109,10 +278,7 @@ def _client(db_session_factory: sessionmaker[Session]) -> TestClient:
 def _seed_alembic_revision(db_session_factory: sessionmaker[Session]) -> None:
     with db_session_factory.begin() as session:
         session.execute(
-            text(
-                "create table if not exists alembic_version "
-                "(version_num varchar(32) not null)"
-            )
+            text("create table if not exists alembic_version (version_num varchar(32) not null)")
         )
         session.execute(text("delete from alembic_version"))
         session.execute(
@@ -143,5 +309,319 @@ def _seed_release(
             {
                 "release_id": str(uuid4()),
                 "activated_at": activated_at,
+            },
+        )
+
+
+def _seed_knowledge_release(
+    db_session_factory: sessionmaker[Session],
+    *,
+    release_version: str = "knowledge-map@ready-test-v1",
+    generator_version: str = "refresh_knowledge_map_nodes_v3",
+    fresh_until: datetime | None = None,
+    activated_at: datetime | None = None,
+    near5_occurrence_count: int = 3,
+    seed_vocabulary: bool = True,
+    canonical_codes: tuple[str, ...] | None = None,
+    missing_actionable_module: str | None = None,
+) -> None:
+    release_id = uuid4()
+    modules = tuple(GUOKAO_XINGCE_MODULES)
+    effective_codes = canonical_codes or tuple(module.code for module in modules)
+    if len(effective_codes) != len(modules):
+        raise ValueError("canonical_codes must provide exactly six module codes")
+    actionable_modules = tuple(
+        module for module in modules if module.display_name != missing_actionable_module
+    )
+    effective_fresh_until = fresh_until or datetime.now(UTC) + timedelta(days=30)
+    generated_at = min(
+        datetime.now(UTC) - timedelta(minutes=5),
+        effective_fresh_until - timedelta(minutes=5),
+    )
+    with db_session_factory.begin() as session:
+        if seed_vocabulary:
+            vocabulary_row_count = session.execute(
+                text(
+                    """
+                    select count(*)::integer
+                    from product.vocab_module_alias_map
+                    where version = 'vocab@v1'
+                      and action = 'canonical'
+                    """
+                )
+            ).scalar_one()
+            if vocabulary_row_count == 0:
+                session.execute(
+                    text(
+                        """
+                        insert into product.vocab_module_alias_map (
+                          version, raw_module_name, action, canonical_code,
+                          local_question_count, basis
+                        ) values (
+                          'vocab@v1', :raw_module_name, 'canonical',
+                          :canonical_code, 1, 'release readiness fixture'
+                        )
+                        """
+                    ),
+                    [
+                        {
+                            "raw_module_name": module.display_name,
+                            "canonical_code": code,
+                        }
+                        for module, code in zip(modules, effective_codes, strict=True)
+                    ],
+                )
+            elif vocabulary_row_count != len(modules):
+                raise AssertionError("readiness fixture found incomplete vocab@v1")
+        session.execute(
+            text(
+                """
+                insert into product.knowledge_map_releases (
+                  release_id, release_version, exam_scope, track,
+                  source_data_version, vocab_version, generator_version,
+                  source_fingerprint, generated_at, fresh_until, status,
+                  node_count, activated_at
+                ) values (
+                  cast(:release_id as uuid), :release_version, 'guokao', 'xingce',
+                  'question-bank@ready-test-v1', 'vocab@v1', :generator_version,
+                  repeat('a', 64), :generated_at, :fresh_until, 'draft',
+                  :node_count, null
+                )
+                """
+            ),
+            {
+                "release_id": str(release_id),
+                "release_version": release_version,
+                "generator_version": generator_version,
+                "node_count": len(actionable_modules),
+                "generated_at": generated_at,
+                "fresh_until": effective_fresh_until,
+                "activated_at": datetime.now(UTC),
+            },
+        )
+        session.execute(
+            text(
+                """
+                insert into product.knowledge_map_nodes (
+                  release_id, node_id, exam_scope, track, module_name,
+                  node_type, tag_type, tag_value, display_path, aliases,
+                  support_status, near5_occurrence_count,
+                  stable_for_old_questions, method_card_ids, evidence, status
+                ) values (
+                  cast(:release_id as uuid), :node_id, 'guokao',
+                  'xingce', :module_name, 'knowledge_point', 'knowledge_point',
+                  :tag_value, :display_path, '[]'::jsonb,
+                  'text_supported', :near5_occurrence_count, true, '[]'::jsonb,
+                  '{"test":"release-readiness"}'::jsonb, 'published'
+                )
+                """
+            ),
+            [
+                {
+                    "release_id": str(release_id),
+                    "node_id": f"ready-test-{module.code}",
+                    "module_name": module.display_name,
+                    "tag_value": f"{module.display_name}测试考点",
+                    "display_path": (f"行测/{module.display_name}/{module.display_name}测试考点"),
+                    "near5_occurrence_count": near5_occurrence_count,
+                }
+                for module in actionable_modules
+            ],
+        )
+        question_ids: dict[str, str] = {}
+        content_catalog = SQLQuestionContentCatalog(session)
+        for module in actionable_modules:
+            question_id = f"ready-{release_id}-{module.code}"
+            question_ids[module.code] = question_id
+            session.execute(
+                text(
+                    """
+                    insert into product.questions (
+                      question_id, domain, status, module_name, question_type,
+                      stem, answer, visual_required, latest_year,
+                      occurrence_count
+                    ) values (
+                      :question_id, 'objective', 'active', :module_name,
+                      '知识点', :stem, 'B', false, 2026, 1
+                    )
+                    """
+                ),
+                {
+                    "question_id": question_id,
+                    "module_name": module.display_name,
+                    "stem": f"{module.display_name} readiness 题",
+                },
+            )
+            session.execute(
+                text(
+                    """
+                    insert into product.question_options (
+                      question_id, option_index, label, option_text
+                    ) values (
+                      :question_id, :option_index, :label, :option_text
+                    )
+                    """
+                ),
+                [
+                    {
+                        "question_id": question_id,
+                        "option_index": option_index,
+                        "label": label,
+                        "option_text": f"选项 {label}",
+                    }
+                    for option_index, label in enumerate(("A", "B", "C", "D"))
+                ],
+            )
+            session.execute(
+                text(
+                    """
+                    insert into product.question_tags (
+                      question_tag_id, question_id, tag_type, tag_value,
+                      sort_order
+                    ) values (
+                      :question_tag_id, :question_id, 'knowledge_point',
+                      :tag_value, 1
+                    )
+                    """
+                ),
+                {
+                    "question_tag_id": f"qt-ready-{release_id}-{module.code}",
+                    "question_id": question_id,
+                    "tag_value": f"{module.display_name}测试考点",
+                },
+            )
+            content_catalog.publish_current(question_id=question_id)
+        effective_code_by_module = {
+            module.display_name: code for module, code in zip(modules, effective_codes, strict=True)
+        }
+        binding_rows = [
+            {
+                "node_id": f"ready-test-{module.code}",
+                "question_id": question_ids[module.code],
+                "module_name": module.display_name,
+                "module_code": effective_code_by_module[module.display_name],
+            }
+            for module in actionable_modules
+        ]
+        session.execute(
+            text(
+                """
+                with prepared as (
+                  select
+                    release.release_id,
+                    binding_input.node_id,
+                    binding_input.module_name,
+                    binding_input.module_code,
+                    head.content_version_id,
+                    binding_input.question_id
+                  from product.knowledge_map_releases release
+                  cross join jsonb_to_recordset(
+                    cast(:binding_rows as jsonb)
+                  ) as binding_input(
+                    node_id text,
+                    question_id text,
+                    module_name text,
+                    module_code text
+                  )
+                  join product.knowledge_map_nodes node
+                    on node.release_id = release.release_id
+                   and node.node_id = binding_input.node_id
+                  join product.question_content_heads head
+                    on head.question_id = binding_input.question_id
+                  where release.release_id = cast(:release_id as uuid)
+                )
+                insert into product.knowledge_map_question_bindings (
+                  release_id, node_id, question_id, content_version_id,
+                  module_code, canonical_module, binding_kind,
+                  source_tag_type, source_tag_value, delivery_eligible,
+                  visual_required, shared_context_required, latest_year,
+                  occurrence_count, latest_recent_exam_year,
+                  recent_occurrence_count, latest_old_exam_year,
+                  old_occurrence_count, binding_fingerprint, created_at
+                )
+                select
+                  prepared.release_id,
+                  prepared.node_id,
+                  prepared.question_id,
+                  prepared.content_version_id,
+                  prepared.module_code,
+                  prepared.module_name,
+                  'direct',
+                  'knowledge_point',
+                  prepared.module_name || '测试考点',
+                  true,
+                  false,
+                  false,
+                  2026,
+                  1,
+                  2026,
+                  1,
+                  null,
+                  0,
+                  product.knowledge_map_question_binding_row_fingerprint(
+                    row(
+                      prepared.release_id,
+                      prepared.node_id,
+                      prepared.question_id,
+                      prepared.content_version_id,
+                      prepared.module_code,
+                      prepared.module_name,
+                      'direct',
+                      'knowledge_point',
+                      prepared.module_name || '测试考点',
+                      true,
+                      false,
+                      false,
+                      2026,
+                      1,
+                      2026,
+                      1,
+                      null,
+                      0,
+                      repeat('0', 64),
+                      transaction_timestamp()
+                    )::product.knowledge_map_question_bindings
+                  ),
+                  transaction_timestamp()
+                from prepared
+                """
+            ),
+            {
+                "release_id": str(release_id),
+                "binding_rows": json.dumps(binding_rows),
+            },
+        )
+        session.execute(
+            text(
+                """
+                with manifest as (
+                  select *
+                  from product.knowledge_map_question_binding_manifest(
+                    cast(:release_id as uuid)
+                  )
+                )
+                update product.knowledge_map_releases release
+                set
+                  question_binding_count = manifest.binding_count,
+                  question_binding_fingerprint =
+                    manifest.binding_fingerprint
+                from manifest
+                where release.release_id = cast(:release_id as uuid)
+                """
+            ),
+            {"release_id": str(release_id)},
+        )
+        session.execute(
+            text(
+                """
+                update product.knowledge_map_releases
+                set status = 'active', activated_at = :activated_at
+                where release_id = cast(:release_id as uuid)
+                  and status = 'draft'
+                """
+            ),
+            {
+                "release_id": str(release_id),
+                "activated_at": activated_at or datetime.now(UTC),
             },
         )

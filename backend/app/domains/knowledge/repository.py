@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime
 from typing import Any
 
 from sqlalchemy import text
@@ -19,12 +20,16 @@ class ProductStatsRecord:
 
 @dataclass(frozen=True)
 class KnowledgeMapNodeRecord:
+    release_id: str
+    release_version: str
+    source_data_version: str
+    fresh_until: datetime
     node_id: str
     exam_scope: str
     track: str
     module_name: str
     node_type: str
-    tag_type: str
+    tag_type: str | None
     tag_value: str
     display_path: str
     support_status: str
@@ -320,71 +325,204 @@ class KnowledgeRepository:
         exam_scope: str,
         track: str,
         node_type: str,
+        now: datetime,
         module_name: str | None = None,
     ) -> KnowledgeMapNodeRecord | None:
+        nodes = self.list_current_knowledge_map_nodes(
+            exam_scope=exam_scope,
+            track=track,
+            node_types=(node_type,),
+            now=now,
+            module_name=module_name,
+        )
+        return next(
+            (
+                node
+                for node in nodes
+                if node.support_status == "text_supported"
+                and node.near5_occurrence_count > 0
+                and node.tag_type is not None
+            ),
+            None,
+        )
+
+    def list_current_knowledge_map_nodes(
+        self,
+        *,
+        exam_scope: str,
+        track: str,
+        node_types: tuple[str, ...],
+        now: datetime,
+        module_name: str | None = None,
+        tag_type: str | None = None,
+        tag_value: str | None = None,
+    ) -> list[KnowledgeMapNodeRecord]:
+        """Return published nodes from the sole current fresh active release.
+
+        ``node_types`` order is semantic: weights are normalized within each
+        hierarchy level, so callers choose the level priority explicitly.
+        A missing, stale, or non-unique active release fails closed with no
+        candidates.
+        """
+
+        if not node_types:
+            return []
+
         filters = [
-            "exam_scope = :exam_scope",
-            "track = :track",
-            "node_type = :node_type",
-            "status = 'published'",
-            "support_status = 'text_supported'",
-            "near5_occurrence_count > 0",
-            "tag_type is not null",
+            "node.exam_scope = current_release.exam_scope",
+            "node.track = current_release.track",
+            "node.status = 'published'",
+            "node.node_type = any(cast(:node_types as text[]))",
         ]
         params: dict[str, Any] = {
             "exam_scope": exam_scope,
             "track": track,
-            "node_type": node_type,
+            "node_types": list(node_types),
+            "now": now,
         }
-        if module_name:
-            filters.append("module_name = :module_name")
+        if module_name is not None:
+            filters.append("node.module_name = :module_name")
             params["module_name"] = module_name
-        row = self._session.execute(
+        if tag_type is not None:
+            filters.append("node.tag_type = :tag_type")
+            params["tag_type"] = tag_type
+        if tag_value is not None:
+            filters.append("node.tag_value = :tag_value")
+            params["tag_value"] = tag_value
+
+        rows = self._session.execute(
             text(
                 f"""
+                with active_releases as (
+                  select
+                    release.release_id,
+                    release.release_version,
+                    release.exam_scope,
+                    release.track,
+                    release.source_data_version,
+                    release.fresh_until,
+                    count(*) over () as active_release_count
+                  from product.knowledge_map_releases release
+                  where release.exam_scope = :exam_scope
+                    and release.track = :track
+                    and release.status = 'active'
+                ), current_release as (
+                  select
+                    release_id,
+                    release_version,
+                    exam_scope,
+                    track,
+                    source_data_version,
+                    fresh_until
+                  from active_releases
+                  where active_release_count = 1
+                    and fresh_until > :now
+                )
                 select
-                  node_id,
-                  exam_scope,
-                  track,
-                  module_name,
-                  node_type,
-                  tag_type,
-                  tag_value,
-                  display_path,
-                  support_status,
-                  near5_window_start_year,
-                  near5_window_end_year,
-                  near5_weight,
-                  near5_occurrence_count
-                from product.knowledge_map_nodes
+                  current_release.release_id,
+                  current_release.release_version,
+                  current_release.source_data_version,
+                  current_release.fresh_until,
+                  node.node_id,
+                  node.exam_scope,
+                  node.track,
+                  node.module_name,
+                  node.node_type,
+                  node.tag_type,
+                  node.tag_value,
+                  node.display_path,
+                  node.support_status,
+                  coalesce(node.near5_window_start_year, 0)
+                    as near5_window_start_year,
+                  coalesce(node.near5_window_end_year, 0)
+                    as near5_window_end_year,
+                  coalesce(node.near5_weight, 0) as near5_weight,
+                  coalesce(node.near5_occurrence_count, 0)
+                    as near5_occurrence_count
+                from current_release
+                join product.knowledge_map_nodes node
+                  on node.release_id = current_release.release_id
                 where {" and ".join(filters)}
                 order by
-                  near5_weight desc nulls last,
-                  near5_occurrence_count desc nulls last,
-                  module_name,
-                  tag_value
-                limit 1
+                  array_position(
+                    cast(:node_types as text[]),
+                    node.node_type
+                  ),
+                  node.near5_weight desc nulls last,
+                  node.near5_occurrence_count desc nulls last,
+                  node.module_name,
+                  node.tag_type nulls last,
+                  node.tag_value,
+                  node.node_id
                 """
             ),
             params,
-        ).mappings().first()
-        if row is None:
-            return None
-        return KnowledgeMapNodeRecord(
-            node_id=str(row["node_id"]),
-            exam_scope=str(row["exam_scope"]),
-            track=str(row["track"]),
-            module_name=str(row["module_name"]),
-            node_type=str(row["node_type"]),
-            tag_type=str(row["tag_type"]),
-            tag_value=str(row["tag_value"]),
-            display_path=str(row["display_path"]),
-            support_status=str(row["support_status"]),
-            near5_window_start_year=int(row["near5_window_start_year"]),
-            near5_window_end_year=int(row["near5_window_end_year"]),
-            near5_weight=float(row["near5_weight"]),
-            near5_occurrence_count=int(row["near5_occurrence_count"]),
-        )
+        ).mappings()
+        return [self._knowledge_map_node_from_row(row) for row in rows]
+
+    def list_knowledge_map_nodes_for_release(
+        self,
+        *,
+        release_id: str,
+        node_types: tuple[str, ...],
+        module_name: str,
+    ) -> list[KnowledgeMapNodeRecord]:
+        """Read published nodes from an already resolved immutable release."""
+
+        if not node_types:
+            return []
+        rows = self._session.execute(
+            text(
+                """
+                select
+                  release.release_id,
+                  release.release_version,
+                  release.source_data_version,
+                  release.fresh_until,
+                  node.node_id,
+                  node.exam_scope,
+                  node.track,
+                  node.module_name,
+                  node.node_type,
+                  node.tag_type,
+                  node.tag_value,
+                  node.display_path,
+                  node.support_status,
+                  coalesce(node.near5_window_start_year, 0)
+                    as near5_window_start_year,
+                  coalesce(node.near5_window_end_year, 0)
+                    as near5_window_end_year,
+                  coalesce(node.near5_weight, 0) as near5_weight,
+                  coalesce(node.near5_occurrence_count, 0)
+                    as near5_occurrence_count
+                from product.knowledge_map_releases release
+                join product.knowledge_map_nodes node
+                  on node.release_id = release.release_id
+                 and node.exam_scope = release.exam_scope
+                 and node.track = release.track
+                where release.release_id = cast(:release_id as uuid)
+                  and node.status = 'published'
+                  and node.node_type = any(cast(:node_types as text[]))
+                  and node.module_name = :module_name
+                order by
+                  array_position(
+                    cast(:node_types as text[]),
+                    node.node_type
+                  ),
+                  node.near5_weight desc nulls last,
+                  node.near5_occurrence_count desc nulls last,
+                  node.tag_type nulls last,
+                  node.tag_value,
+                  node.node_id
+                """
+            ),
+            {
+                "release_id": release_id,
+                "node_types": list(node_types),
+                "module_name": module_name,
+            },
+        ).mappings()
+        return [self._knowledge_map_node_from_row(row) for row in rows]
 
     def get_knowledge_map_node_by_tag(
         self,
@@ -394,55 +532,38 @@ class KnowledgeRepository:
         module_name: str,
         tag_type: str,
         tag_value: str,
+        now: datetime,
     ) -> KnowledgeMapNodeRecord | None:
-        row = self._session.execute(
-            text(
-                """
-                select
-                  node_id,
-                  exam_scope,
-                  track,
-                  module_name,
-                  node_type,
-                  tag_type,
-                  tag_value,
-                  display_path,
-                  support_status,
-                  coalesce(near5_window_start_year, 0) as near5_window_start_year,
-                  coalesce(near5_window_end_year, 0) as near5_window_end_year,
-                  coalesce(near5_weight, 0) as near5_weight,
-                  coalesce(near5_occurrence_count, 0) as near5_occurrence_count
-                from product.knowledge_map_nodes
-                where exam_scope = :exam_scope
-                  and track = :track
-                  and module_name = :module_name
-                  and tag_type = :tag_type
-                  and tag_value = :tag_value
-                  and status = 'published'
-                order by
-                  near5_weight desc nulls last,
-                  near5_occurrence_count desc nulls last,
-                  node_id
-                limit 1
-                """
+        nodes = self.list_current_knowledge_map_nodes(
+            exam_scope=exam_scope,
+            track=track,
+            node_types=(
+                "micro_skill",
+                "knowledge_point",
+                "knowledge_family",
+                "question_type",
+                "module",
             ),
-            {
-                "exam_scope": exam_scope,
-                "track": track,
-                "module_name": module_name,
-                "tag_type": tag_type,
-                "tag_value": tag_value,
-            },
-        ).mappings().first()
-        if row is None:
-            return None
+            now=now,
+            module_name=module_name,
+            tag_type=tag_type,
+            tag_value=tag_value,
+        )
+        return nodes[0] if nodes else None
+
+    @staticmethod
+    def _knowledge_map_node_from_row(row: Any) -> KnowledgeMapNodeRecord:
         return KnowledgeMapNodeRecord(
+            release_id=str(row["release_id"]),
+            release_version=str(row["release_version"]),
+            source_data_version=str(row["source_data_version"]),
+            fresh_until=row["fresh_until"],
             node_id=str(row["node_id"]),
             exam_scope=str(row["exam_scope"]),
             track=str(row["track"]),
             module_name=str(row["module_name"]),
             node_type=str(row["node_type"]),
-            tag_type=str(row["tag_type"]),
+            tag_type=str(row["tag_type"]) if row["tag_type"] is not None else None,
             tag_value=str(row["tag_value"]),
             display_path=str(row["display_path"]),
             support_status=str(row["support_status"]),
@@ -455,94 +576,49 @@ class KnowledgeRepository:
     def select_weighted_practice_questions(
         self,
         *,
-        module_name: str,
-        tag_type: str,
-        tag_value: str,
-        window_start_year: int,
-        window_end_year: int,
+        release_id: str,
+        node_id: str,
         limit: int,
     ) -> list[dict[str, Any]]:
         return self._fetch_all(
             """
             with params as (
               select
-                cast(:module_name as text) as module_name,
-                cast(:tag_type as text) as tag_type,
-                cast(:tag_value as text) as tag_value,
-                cast(:window_start_year as integer) as window_start_year,
-                cast(:window_end_year as integer) as window_end_year,
+                cast(:release_id as uuid) as release_id,
+                cast(:node_id as text) as node_id,
                 cast(:limit as integer) as total_limit,
                 greatest(1, cast(ceil(cast(:limit as numeric) * 0.70) as integer)) as recent_limit
             ), matching_questions as (
               select
-                q.question_id,
-                q.domain,
-                q.module_name,
-                q.question_type,
-                q.stem,
-                q.answer,
-                q.visual_required,
-                (qe.question_id is not null) as has_explanation,
-                q.occurrence_count,
-                q.latest_year,
-                max(go.exam_year) filter (
-                  where go.exam_year between p.window_start_year and p.window_end_year
-                ) as latest_recent_exam_year,
-                count(distinct go.occurrence_id) filter (
-                  where go.exam_year between p.window_start_year and p.window_end_year
-                ) as recent_occurrence_count,
-                max(go.exam_year) filter (
-                  where go.exam_year < p.window_start_year
-                ) as latest_old_exam_year,
-                count(distinct go.occurrence_id) filter (
-                  where go.exam_year < p.window_start_year
-                ) as old_occurrence_count
+                binding.question_id,
+                'objective'::text as domain,
+                content.snapshot_payload->>'module_name' as module_name,
+                content.snapshot_payload->>'question_type' as question_type,
+                content.snapshot_payload->>'stem' as stem,
+                content.snapshot_payload->>'answer' as answer,
+                binding.visual_required,
+                (
+                  nullif(
+                    btrim(content.snapshot_payload->>'preferred_analysis'),
+                    ''
+                  ) is not null
+                ) as has_explanation,
+                binding.occurrence_count,
+                binding.latest_year,
+                binding.latest_recent_exam_year,
+                binding.recent_occurrence_count,
+                binding.latest_old_exam_year,
+                binding.old_occurrence_count
               from params p
-              join product.questions q
-                on q.status = 'active'
-               and q.domain = 'objective'
-               and q.module_name = p.module_name
-               and q.visual_required is false
-              join product.question_tags qt
-                on qt.question_id = q.question_id
-               and qt.tag_type = p.tag_type
-               and qt.tag_value = p.tag_value
-              left join product.question_explanations qe
-                on qe.question_id = q.question_id
-              join lateral (
-                select
-                  qo.occurrence_id,
-                  coalesce(
-                    nullif(
-                      substring(
-                        coalesce(qo.paper_title, qo.occurrence_paper_title, '')
-                        from '([12][0-9]{3})年'
-                      ),
-                      ''
-                    )::integer,
-                    qo.year
-                  ) as exam_year
-                from product.question_occurrences qo
-                where qo.question_id = q.question_id
-                  and (
-                    coalesce(qo.province, '') = '国考'
-                    or coalesce(qo.paper_title, qo.occurrence_paper_title, '') ~
-                       '(国考|国家公务员|中央机关|中央、国家机关|中央国家机关)'
-                    or coalesce(qo.source_path, '') ~
-                       '(国考|国家公务员|中央机关|中央、国家机关|中央国家机关)'
-                  )
-              ) go on true
-              group by
-                q.question_id,
-                q.domain,
-                q.module_name,
-                q.question_type,
-                q.stem,
-                q.answer,
-                q.visual_required,
-                qe.question_id,
-                q.occurrence_count,
-                q.latest_year
+              join product.knowledge_map_question_bindings binding
+                on binding.release_id = p.release_id
+               and binding.node_id = p.node_id
+               and binding.delivery_eligible
+               and not binding.visual_required
+              join product.question_content_versions content
+                on content.question_id = binding.question_id
+               and content.content_version_id = binding.content_version_id
+               and content.track = 'xingce'
             ), recent_ranked as (
               select
                 mq.*,
@@ -605,11 +681,8 @@ class KnowledgeRepository:
             order by bucket, rank
             limit :limit
             """,
-            module_name=module_name,
-            tag_type=tag_type,
-            tag_value=tag_value,
-            window_start_year=window_start_year,
-            window_end_year=window_end_year,
+            release_id=release_id,
+            node_id=node_id,
             limit=limit,
         )
 

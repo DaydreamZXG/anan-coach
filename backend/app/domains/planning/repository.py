@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import UTC, date, datetime
+from fractions import Fraction
 from hashlib import sha256
 import json
 from typing import Any
@@ -11,6 +12,10 @@ from sqlalchemy import text
 from sqlalchemy.engine import RowMapping
 from sqlalchemy.orm import Session
 
+from app.domains.knowledge.module_vocabulary import (
+    ReleasedModuleVocabulary,
+    load_current_module_vocabulary,
+)
 from app.domains.planning.candidates import (
     EssayPlanningSnapshot,
     ObjectivePlanningSnapshot,
@@ -620,10 +625,12 @@ class PlanningRepository:
         goal: GoalAbilitySnapshot,
         now: datetime,
     ) -> ObjectivePlanningSnapshot:
-        weakest = session.execute(
+        module_assessments = session.execute(
             text(
                 """
-                select question.module_name
+                select question.module_name,
+                       count(*) as assessment_count,
+                       count(*) filter (where assessment.correct) as correct_count
                 from learning.xingce_assessments assessment
                 join product.questions question
                   on question.question_id = assessment.question_id
@@ -631,14 +638,21 @@ class PlanningRepository:
                   and assessment.created_at >= :now - interval '60 days'
                   and question.module_name is not null
                 group by question.module_name
-                having count(*) >= 5
-                order by avg(case when assessment.correct then 1.0 else 0.0 end),
-                         count(*) desc, question.module_name
-                limit 1
+                order by question.module_name
                 """
             ),
             {"user_id": user_id, "now": now},
-        ).scalar_one_or_none()
+        ).mappings().all()
+        module_vocabulary = load_current_module_vocabulary(
+            session,
+            exam_scope="guokao",
+            track="xingce",
+            now=now,
+        )
+        weakest = _weakest_canonical_module(
+            module_assessments,
+            vocabulary=module_vocabulary,
+        )
         due_reflections = list(
             session.execute(
                 text(
@@ -731,13 +745,15 @@ class PlanningRepository:
                 )
             )
         else:
-            targeted_question_count = len(
-                self._xingce_repository.select_frozen_questions(
-                    session,
-                    module_name=str(weakest) if weakest else None,
-                    limit=XINGCE_QUESTION_BUNDLE_SIZE,
-                    user_id=user_id,
-                )
+            targeted_selection = self._xingce_repository.select_targeted_frozen_questions(
+                session,
+                module_name=str(weakest) if weakest else None,
+                limit=XINGCE_QUESTION_BUNDLE_SIZE,
+                user_id=user_id,
+                now=now,
+            )
+            targeted_question_count = (
+                len(targeted_selection.questions) if targeted_selection is not None else 0
             )
         if first_mastery is not None:
             verification_question_count = len(
@@ -2652,6 +2668,40 @@ def _fingerprint(payload: dict[str, Any]) -> str:
     return sha256(
         json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
     ).hexdigest()
+
+
+def _weakest_canonical_module(
+    rows: list[RowMapping],
+    *,
+    vocabulary: ReleasedModuleVocabulary | None,
+) -> str | None:
+    if vocabulary is None:
+        return None
+    totals: dict[str, tuple[int, int]] = {}
+    for row in rows:
+        canonical = vocabulary.canonicalize(str(row["module_name"]))
+        if canonical is None:
+            continue
+        correct, assessed = totals.get(canonical, (0, 0))
+        totals[canonical] = (
+            correct + int(row["correct_count"]),
+            assessed + int(row["assessment_count"]),
+        )
+    eligible = [
+        (canonical, correct, assessed)
+        for canonical, (correct, assessed) in totals.items()
+        if assessed >= 5
+    ]
+    if not eligible:
+        return None
+    return min(
+        eligible,
+        key=lambda item: (
+            Fraction(item[1], item[2]),
+            -item[2],
+            item[0],
+        ),
+    )[0]
 
 
 def _optional_float(value: Any) -> float | None:

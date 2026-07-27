@@ -78,7 +78,7 @@ MIN_EXTRACTION_CONFIDENCE = 0.70
 MIN_NODE_CONFIDENCE = 0.75
 COMPANION_ASK_REQUEST_CONTRACT = "global-ask-command@v2"
 COMPANION_ASK_RESPONSE_CONTRACT = "grounded-answer@v2"
-EXTERNAL_RESOLVE_REQUEST_CONTRACT = "external-question-resolve-command-v1"
+EXTERNAL_RESOLVE_REQUEST_CONTRACT = "external-question-resolve-command-v2"
 EXTERNAL_RESOLVE_RESPONSE_CONTRACT = "external-question-resolve-response-v1"
 
 
@@ -612,6 +612,7 @@ class CompanionService:
             candidates: list[KnowledgeMapCandidate] = []
             reason: str | None = None
             status = "pending_confirmation"
+            selected_knowledge_release_id: str | None = None
             selected_node_id: str | None = None
             selected_confidence: float | None = None
             answer_preview: str | None = None
@@ -623,7 +624,7 @@ class CompanionService:
                 status = "rejected"
                 reason = "题面提取置信度不足，不能写入 learner 记忆。"
             else:
-                candidates = self._resolve_candidates(request)
+                candidates, candidate_release_id = self._resolve_candidates(request)
                 text_supported = [
                     candidate
                     for candidate in candidates
@@ -638,11 +639,12 @@ class CompanionService:
                     reason = "候选知识点不唯一、置信度不足或暂不支持。"
                 else:
                     selected = text_supported[0]
+                    selected_knowledge_release_id = candidate_release_id
                     selected_node_id = selected.node_id
                     selected_confidence = selected.confidence
                     answer_preview = _answer_preview(selected)
             execution_payload = {
-                "contractVersion": "external-question-resolve-execution-v1",
+                "contractVersion": "external-question-resolve-execution-v2",
                 "request": request_payload,
                 "resolution": {
                     "status": status,
@@ -651,6 +653,7 @@ class CompanionService:
                         item.model_dump(by_alias=True, mode="json")
                         for item in candidates
                     ],
+                    "selectedKnowledgeReleaseId": selected_knowledge_release_id,
                     "selectedNodeId": selected_node_id,
                     "selectedConfidence": selected_confidence,
                     "answerPreview": answer_preview,
@@ -694,6 +697,7 @@ class CompanionService:
             correct_answer=stored_request.get("correctAnswer"),
             extracted_tags=stored_request["extractedTags"],
             candidate_nodes=resolution["candidates"],
+            knowledge_release_id=resolution["selectedKnowledgeReleaseId"],
             selected_node_id=resolution["selectedNodeId"],
             match_confidence=resolution["selectedConfidence"],
             status=resolution["status"],
@@ -718,6 +722,7 @@ class CompanionService:
             metadata={
                 "intake_id": intake_id,
                 "candidate_count": len(stored_candidates),
+                "knowledge_release_id": resolution["selectedKnowledgeReleaseId"],
                 "selected_node_id": resolution["selectedNodeId"],
                 "commandId": str(command.command_id),
             },
@@ -1225,7 +1230,11 @@ class CompanionService:
             raise ExternalQuestionIntakeNotFoundError(intake_id)
         if not request.user_confirmed:
             raise ExternalQuestionConfirmationError("User confirmation is required")
-        if intake.status != "pending_confirmation" or intake.selected_node_id is None:
+        if (
+            intake.status != "pending_confirmation"
+            or intake.knowledge_release_id is None
+            or intake.selected_node_id is None
+        ):
             raise ExternalQuestionConfirmationError("Only pending resolved intakes can be confirmed")
         external_question_id = self._repository.confirm_external_wrong_question(
             intake=intake,
@@ -1242,7 +1251,10 @@ class CompanionService:
     def _resolve_candidates(
         self,
         request: ExternalQuestionResolveRequest,
-    ) -> list[KnowledgeMapCandidate]:
+    ) -> tuple[list[KnowledgeMapCandidate], str | None]:
+        vocabulary = self._repository.current_knowledge_vocabulary()
+        if vocabulary is None:
+            return [], None
         candidates: list[KnowledgeMapCandidate] = []
         seen: set[str] = set()
         for tag in request.extracted_tags:
@@ -1250,12 +1262,13 @@ class CompanionService:
                 module_name=tag.module_name,
                 tag_type=tag.tag_type,
                 tag_value=tag.tag_value,
+                vocabulary=vocabulary,
             )
             if record is None or record.node_id in seen:
                 continue
             seen.add(record.node_id)
             candidates.append(_candidate_response(record, tag.confidence))
-        return candidates
+        return candidates, vocabulary.release_id
 
 
 ResponseModel = TypeVar("ResponseModel", bound=BaseModel)

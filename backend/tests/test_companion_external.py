@@ -50,7 +50,13 @@ from app.domains.companion.service import (
     _context_payload,
     _information_action,
 )
+from app.domains.memory.repository import LearnerMemoryRepository
 from app.main import create_app
+from tests.knowledge_map_vocabulary_helpers import (
+    activate_knowledge_release,
+    seed_minimal_release_binding,
+    seed_released_module_vocabulary,
+)
 
 
 TEST_PRICE_CARD = ModelPriceCard(
@@ -620,6 +626,7 @@ def test_external_wrong_question_requires_existing_supported_map_node(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     user_id = _seed_user(db_session_factory, token="external-token")
+    _seed_retired_duplicate_knowledge_map(db_session_factory)
     _seed_knowledge_map(db_session_factory)
     client = _make_client(db_session_factory)
 
@@ -636,7 +643,7 @@ def test_external_wrong_question_requires_existing_supported_map_node(
             "correctAnswer": "B",
             "extractedTags": [
                 {
-                    "moduleName": "资料分析",
+                    "moduleName": "资科分析",
                     "tagType": "knowledge_point",
                     "tagValue": "增长率",
                     "confidence": 0.91,
@@ -652,6 +659,25 @@ def test_external_wrong_question_requires_existing_supported_map_node(
     assert body["status"] == "pending_confirmation"
     assert body["requiresUserConfirmation"] is True
     assert body["candidates"][0]["nodeId"] == "km_growth"
+    assert body["candidates"][0]["displayPath"] == "行测/资料分析/增长率"
+
+    with db_session_factory() as session:
+        intake = session.execute(
+            text(
+                """
+                select knowledge_release_id, selected_node_id
+                from learner.external_question_intakes
+                where intake_id = cast(:intake_id as uuid)
+                """
+            ),
+            {"intake_id": body["intakeId"]},
+        ).mappings().one()
+        assert str(intake["knowledge_release_id"]) == (
+            "11111111-1111-4111-8111-111111111111"
+        )
+        assert intake["selected_node_id"] == "km_growth"
+
+    _switch_active_knowledge_map_release(db_session_factory)
 
     confirmed = client.post(
         f"/api/v1/companion/external-questions/{body['intakeId']}/confirm",
@@ -666,16 +692,37 @@ def test_external_wrong_question_requires_existing_supported_map_node(
         row = session.execute(
             text(
                 """
-                select node_id, source, error_summary
+                select knowledge_release_id, node_id, source, error_summary
                 from learner.external_wrong_questions
                 where user_id = cast(:user_id as uuid)
                 """
             ),
             {"user_id": user_id},
         ).mappings().one()
+        assert str(row["knowledge_release_id"]) == (
+            "11111111-1111-4111-8111-111111111111"
+        )
         assert row["node_id"] == "km_growth"
         assert row["source"] == "external"
         assert row["error_summary"] == "把同比增长率和增长量混了。"
+
+        sections = LearnerMemoryRepository(session).list_workbench_sections(
+            user_id=user_id
+        )
+        external_section = next(
+            section for section in sections if section.id == "external_wrong"
+        )
+        assert len(external_section.objects) == 1
+        assert (
+            external_section.objects[0].payload["displayPath"]
+            == "行测/资料分析/增长率"
+        )
+        assert external_section.objects[0].payload["knowledgeReleaseId"] == (
+            "11111111-1111-4111-8111-111111111111"
+        )
+        assert external_section.objects[0].payload["knowledgeReleaseVersion"] == (
+            "knowledge-map@companion-tests-current"
+        )
 
 
 def test_external_wrong_question_rejects_free_tag_and_does_not_write_memory(
@@ -724,6 +771,33 @@ def test_external_wrong_question_rejects_free_tag_and_does_not_write_memory(
             {"user_id": user_id},
         ).scalar_one()
         assert count == 0
+
+
+def test_companion_knowledge_release_expires_during_the_same_transaction(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id = _seed_user(db_session_factory, token="cross-expiry-token")
+    _seed_knowledge_map(
+        db_session_factory,
+        fresh_until=datetime.now(UTC) + timedelta(seconds=1),
+    )
+
+    with db_session_factory() as session:
+        session.execute(text("select pg_sleep(1.1)"))
+        repository = CompanionRepository(session)
+
+        assert (
+            repository.resolve_candidate(
+                module_name="资科分析",
+                tag_type="knowledge_point",
+                tag_value="增长率",
+            )
+            is None
+        )
+        assert repository.get_context(
+            user_id=user_id,
+            node_id="km_growth",
+        ).method_cards == []
 
 
 def test_external_wrong_question_rejects_image_unsupported_node(
@@ -972,6 +1046,40 @@ def test_external_resolve_replay_creates_one_intake_and_consumes_once(
             ),
             {"user_id": user_id},
         ).scalar_one() == 1
+        command = session.execute(
+            text(
+                """
+                select request_contract_version, execution_payload
+                from platform.companion_paid_commands
+                where user_id = cast(:user_id as uuid)
+                  and feature = 'external_wrong_intake'
+                  and idempotency_key = 'external-replay-command-1'
+                """
+            ),
+            {"user_id": user_id},
+        ).mappings().one()
+        assert command["request_contract_version"] == (
+            "external-question-resolve-command-v2"
+        )
+        assert command["execution_payload"]["contractVersion"] == (
+            "external-question-resolve-execution-v2"
+        )
+        assert command["execution_payload"]["resolution"][
+            "selectedKnowledgeReleaseId"
+        ] == "11111111-1111-4111-8111-111111111111"
+        intake_release_id = session.execute(
+            text(
+                """
+                select knowledge_release_id
+                from learner.external_question_intakes
+                where user_id = cast(:user_id as uuid)
+                """
+            ),
+            {"user_id": user_id},
+        ).scalar_one()
+        assert str(intake_release_id) == (
+            "11111111-1111-4111-8111-111111111111"
+        )
         assert session.execute(
             text(
                 "select used_count from commerce.entitlement_usage_daily "
@@ -1640,12 +1748,67 @@ def _verified_transaction() -> VerifiedAppStoreTransaction:
     )
 
 
-def _seed_knowledge_map(db_session_factory: sessionmaker[Session]) -> None:
+def _seed_knowledge_map(
+    db_session_factory: sessionmaker[Session],
+    *,
+    fresh_until: datetime | None = None,
+) -> None:
     with db_session_factory() as session:
+        seed_released_module_vocabulary(
+            session,
+            version="vocab@companion-tests-current",
+            aliases={
+                "言语理解": "verbal_comprehension",
+                "逻辑判断": "judgment_reasoning",
+                "资科分析": "data_analysis",
+            },
+        )
+        session.execute(
+            text(
+                """
+                insert into product.knowledge_map_releases (
+                  release_id,
+                  release_version,
+                  exam_scope,
+                  track,
+                  source_data_version,
+                  vocab_version,
+                  generator_version,
+                  source_fingerprint,
+                  generated_at,
+                  fresh_until,
+                  status,
+                  node_count,
+                  activated_at,
+                  retired_at
+                ) values (
+                  '11111111-1111-4111-8111-111111111111'::uuid,
+                  'knowledge-map@companion-tests-current',
+                  'guokao',
+                  'xingce',
+                  'questions@companion-tests-current',
+                  'vocab@companion-tests-current',
+                  'knowledge-map-generator@companion-tests',
+                  repeat('a', 64),
+                  now() - interval '1 day',
+                  cast(:fresh_until as timestamptz),
+                  'draft',
+                  0,
+                  null,
+                  null
+                )
+                """
+            ),
+            {
+                "fresh_until": fresh_until
+                or datetime.now(UTC) + timedelta(days=7),
+            },
+        )
         session.execute(
             text(
                 """
                 insert into product.knowledge_map_nodes (
+                  release_id,
                   node_id,
                   exam_scope,
                   track,
@@ -1665,6 +1828,7 @@ def _seed_knowledge_map(db_session_factory: sessionmaker[Session]) -> None:
                   status
                 ) values
                   (
+                    '11111111-1111-4111-8111-111111111111'::uuid,
                     'km_growth',
                     'guokao',
                     'xingce',
@@ -1684,6 +1848,7 @@ def _seed_knowledge_map(db_session_factory: sessionmaker[Session]) -> None:
                     'published'
                   ),
                   (
+                    '11111111-1111-4111-8111-111111111111'::uuid,
                     'km_graphic',
                     'guokao',
                     'xingce',
@@ -1702,7 +1867,7 @@ def _seed_knowledge_map(db_session_factory: sessionmaker[Session]) -> None:
                     '{}'::jsonb,
                     'published'
                   )
-                on conflict (node_id) do nothing
+                on conflict (release_id, node_id) do nothing
                 """
             )
         )
@@ -1751,6 +1916,243 @@ def _seed_knowledge_map(db_session_factory: sessionmaker[Session]) -> None:
                 on conflict (id) do nothing
                 """
             )
+        )
+        seed_minimal_release_binding(
+            session,
+            release_id="11111111-1111-4111-8111-111111111111",
+            node_id="km_growth",
+            question_id="q-companion-current-growth",
+        )
+        activate_knowledge_release(
+            session,
+            release_id="11111111-1111-4111-8111-111111111111",
+            activated_at=datetime.now(UTC) - timedelta(hours=12),
+        )
+        session.commit()
+
+
+def _seed_retired_duplicate_knowledge_map(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    with db_session_factory() as session:
+        seed_released_module_vocabulary(
+            session,
+            version="vocab@companion-tests-retired",
+        )
+        session.execute(
+            text(
+                """
+                insert into product.knowledge_map_releases (
+                  release_id,
+                  release_version,
+                  exam_scope,
+                  track,
+                  source_data_version,
+                  vocab_version,
+                  generator_version,
+                  source_fingerprint,
+                  generated_at,
+                  fresh_until,
+                  status,
+                  node_count,
+                  activated_at,
+                  retired_at
+                ) values (
+                  '22222222-2222-4222-8222-222222222222'::uuid,
+                  'knowledge-map@companion-tests-retired',
+                  'guokao',
+                  'xingce',
+                  'questions@companion-tests-retired',
+                  'vocab@companion-tests-retired',
+                  'knowledge-map-generator@companion-tests',
+                  repeat('b', 64),
+                  now() - interval '3 days',
+                  now() - interval '2 days',
+                  'draft',
+                  0,
+                  null,
+                  null
+                )
+                """
+            )
+        )
+        session.execute(
+            text(
+                """
+                insert into product.knowledge_map_nodes (
+                  release_id,
+                  node_id,
+                  exam_scope,
+                  track,
+                  module_name,
+                  node_type,
+                  tag_type,
+                  tag_value,
+                  display_path,
+                  support_status,
+                  near5_window_start_year,
+                  near5_window_end_year,
+                  near5_weight,
+                  near5_occurrence_count,
+                  stable_for_old_questions,
+                  method_card_ids,
+                  evidence,
+                  status
+                ) values (
+                  '22222222-2222-4222-8222-222222222222'::uuid,
+                  'km_growth',
+                  'guokao',
+                  'xingce',
+                  '资料分析',
+                  'knowledge_point',
+                  'knowledge_point',
+                  '增长率',
+                  '历史发布/资料分析/增长率',
+                  'text_supported',
+                  2021,
+                  2025,
+                  0.99,
+                  999,
+                  true,
+                  '["mc_growth"]'::jsonb,
+                  '{}'::jsonb,
+                  'published'
+                )
+                """
+            )
+        )
+        seed_minimal_release_binding(
+            session,
+            release_id="22222222-2222-4222-8222-222222222222",
+            node_id="km_growth",
+            question_id="q-companion-retired-growth",
+        )
+        activate_knowledge_release(
+            session,
+            release_id="22222222-2222-4222-8222-222222222222",
+            activated_at=datetime.now(UTC) - timedelta(
+                days=2,
+                hours=12,
+            ),
+        )
+        session.execute(
+            text(
+                """
+                update product.knowledge_map_releases
+                set status = 'retired', retired_at = now() - interval '2 days'
+                where release_id =
+                      '22222222-2222-4222-8222-222222222222'::uuid
+                  and status = 'active'
+                """
+            )
+        )
+        session.commit()
+
+
+def _switch_active_knowledge_map_release(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    with db_session_factory() as session:
+        seed_released_module_vocabulary(
+            session,
+            version="vocab@companion-tests-next",
+            aliases={"资科分析": "data_analysis"},
+        )
+        session.execute(
+            text(
+                """
+                update product.knowledge_map_releases
+                set
+                  status = 'retired',
+                  retired_at = statement_timestamp()
+                where release_id =
+                      '11111111-1111-4111-8111-111111111111'::uuid
+                  and status = 'active';
+
+                insert into product.knowledge_map_releases (
+                  release_id,
+                  release_version,
+                  exam_scope,
+                  track,
+                  source_data_version,
+                  vocab_version,
+                  generator_version,
+                  source_fingerprint,
+                  generated_at,
+                  fresh_until,
+                  status,
+                  node_count,
+                  activated_at,
+                  retired_at
+                ) values (
+                  '33333333-3333-4333-8333-333333333333'::uuid,
+                  'knowledge-map@companion-tests-next',
+                  'guokao',
+                  'xingce',
+                  'questions@companion-tests-next',
+                  'vocab@companion-tests-next',
+                  'knowledge-map-generator@companion-tests',
+                  repeat('c', 64),
+                  statement_timestamp() - interval '1 hour',
+                  statement_timestamp() + interval '7 days',
+                  'draft',
+                  0,
+                  null,
+                  null
+                );
+
+                insert into product.knowledge_map_nodes (
+                  release_id,
+                  node_id,
+                  exam_scope,
+                  track,
+                  module_name,
+                  node_type,
+                  tag_type,
+                  tag_value,
+                  display_path,
+                  support_status,
+                  near5_window_start_year,
+                  near5_window_end_year,
+                  near5_weight,
+                  near5_occurrence_count,
+                  stable_for_old_questions,
+                  method_card_ids,
+                  evidence,
+                  status
+                ) values (
+                  '33333333-3333-4333-8333-333333333333'::uuid,
+                  'km_growth',
+                  'guokao',
+                  'xingce',
+                  '资料分析',
+                  'knowledge_point',
+                  'knowledge_point',
+                  '增长率',
+                  '新发布/资料分析/增长率（不得重解释旧错题）',
+                  'text_supported',
+                  2022,
+                  2026,
+                  0.95,
+                  300,
+                  true,
+                  '["mc_growth"]'::jsonb,
+                  '{"test":"next-release"}'::jsonb,
+                  'published'
+                );
+
+                """
+            )
+        )
+        seed_minimal_release_binding(
+            session,
+            release_id="33333333-3333-4333-8333-333333333333",
+            node_id="km_growth",
+            question_id="q-companion-next-growth",
+        )
+        activate_knowledge_release(
+            session,
+            release_id="33333333-3333-4333-8333-333333333333",
         )
         session.commit()
 

@@ -248,6 +248,26 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in mock_trajectory_conflicts._STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
+        knowledge_map_releases = import_module(
+            "migrations.versions.20260727_65_knowledge_map_releases"
+        )
+        for statement in knowledge_map_releases._STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
+        knowledge_release_immutability = import_module(
+            "migrations.versions.20260727_66_knowledge_release_immutability"
+        )
+        for statement in knowledge_release_immutability._STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
+        external_question_knowledge_lineage = import_module(
+            "migrations.versions.20260727_67_external_question_knowledge_lineage"
+        )
+        for statement in external_question_knowledge_lineage._STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
+        knowledge_map_question_bindings = import_module(
+            "migrations.versions.20260727_68_knowledge_map_question_bindings"
+        )
+        for statement in knowledge_map_question_bindings._STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
 
 
 def _split_postgres_statements(script: str) -> list[str]:

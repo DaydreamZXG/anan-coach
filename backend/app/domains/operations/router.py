@@ -64,12 +64,16 @@ def _support_principal(
 def ready(session: Annotated[Session, Depends(get_db_session)]) -> dict[str, str]:
     settings = get_settings()
     session.execute(text("select 1")).scalar_one()
-    migration = session.execute(text("select version_num from alembic_version")).scalar_one_or_none()
+    migration = session.execute(
+        text("select version_num from alembic_version")
+    ).scalar_one_or_none()
     required_tables_ready = session.execute(
         text(
             "select to_regclass('commerce.wechat_orders') is not null "
             "and to_regclass('privacy.data_export_requests') is not null "
             "and to_regclass('product.position_rule_releases') is not null "
+            "and to_regclass('product.knowledge_map_releases') is not null "
+            "and to_regclass('product.knowledge_map_nodes') is not null "
             "and to_regclass('messaging.coach_notification_deliveries') is not null "
             "and to_regclass('messaging.daily_opening_impressions') is not null "
             "and to_regclass('messaging.daily_opening_preference_versions') is not null"
@@ -82,9 +86,10 @@ def ready(session: Annotated[Session, Depends(get_db_session)]) -> dict[str, str
         )
 
     checked_at = datetime.now(UTC)
-    release = session.execute(
-        text(
-            """
+    release = (
+        session.execute(
+            text(
+                """
             select rule_set_version, position_data_version
             from product.position_rule_releases
             where exam_code = 'guokao'
@@ -93,16 +98,137 @@ def ready(session: Annotated[Session, Depends(get_db_session)]) -> dict[str, str
             order by exam_year desc, activated_at desc
             limit 1
             """
-        ),
-        {
-            "minimum_activated_at": checked_at - POSITION_RELEASE_MAX_AGE,
-            "checked_at": checked_at,
-        },
-    ).mappings().one_or_none()
+            ),
+            {
+                "minimum_activated_at": checked_at - POSITION_RELEASE_MAX_AGE,
+                "checked_at": checked_at,
+            },
+        )
+        .mappings()
+        .one_or_none()
+    )
     if release is None:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="position rule release is not ready",
+        )
+    knowledge_release = (
+        session.execute(
+            text(
+                """
+            with active_releases as (
+              select
+                release.*,
+                count(*) over () as active_release_count
+              from product.knowledge_map_releases release
+              where release.exam_scope = 'guokao'
+                and release.track = 'xingce'
+                and release.status = 'active'
+            ), current_release as (
+              select release.*
+              from active_releases release
+              where release.active_release_count = 1
+                and release.activated_at is not null
+                and release.retired_at is null
+                and release.fresh_until > statement_timestamp()
+                and release.node_count > 0
+                and release.question_binding_count > 0
+                and release.question_binding_fingerprint ~ '^[0-9a-f]{64}$'
+                and release.release_version not like 'knowledge-map@legacy-pre-%'
+                and release.source_data_version not like 'legacy:%'
+                and release.vocab_version not like 'legacy:%'
+                and release.generator_version not like 'legacy:%'
+                and release.node_count = (
+                  select count(*)::integer
+                  from product.knowledge_map_nodes node
+                  where node.release_id = release.release_id
+                )
+            ), binding_readiness as (
+              select
+                release.release_id,
+                manifest.binding_count,
+                manifest.binding_fingerprint
+              from current_release release
+              cross join lateral
+                product.knowledge_map_question_binding_manifest(
+                  release.release_id
+                ) manifest
+            ), expected_canonical_vocabulary(
+              canonical_code,
+              raw_module_name
+            ) as (
+              values
+                ('political_theory', '政治理论'),
+                ('general_knowledge', '常识判断'),
+                ('verbal_comprehension', '言语理解与表达'),
+                ('quantitative_relations', '数量关系'),
+                ('judgment_reasoning', '判断推理'),
+                ('data_analysis', '资料分析')
+            ), canonical_vocabulary as (
+              select
+                release.release_id,
+                alias.canonical_code,
+                alias.raw_module_name
+              from current_release release
+              join product.vocab_module_alias_map alias
+                on alias.version = release.vocab_version
+               and alias.action = 'canonical'
+              join expected_canonical_vocabulary expected
+                on expected.canonical_code = alias.canonical_code
+               and expected.raw_module_name = alias.raw_module_name
+            ), vocabulary_readiness as (
+              select
+                release_id,
+                count(*) as canonical_row_count,
+                count(distinct canonical_code) as canonical_code_count
+              from canonical_vocabulary
+              group by release_id
+            ), actionable_modules as (
+              select distinct
+                vocabulary.release_id,
+                vocabulary.canonical_code
+              from canonical_vocabulary vocabulary
+              join product.knowledge_map_nodes node
+                on node.release_id = vocabulary.release_id
+               and node.module_name = vocabulary.raw_module_name
+               and node.status = 'published'
+               and node.support_status = 'text_supported'
+               and node.node_type in ('micro_skill', 'knowledge_point')
+               and node.tag_type is not null
+               and coalesce(node.near5_occurrence_count, 0) > 0
+              join product.knowledge_map_question_bindings binding
+                on binding.release_id = node.release_id
+               and binding.node_id = node.node_id
+               and binding.module_code = vocabulary.canonical_code
+               and binding.canonical_module = vocabulary.raw_module_name
+               and binding.delivery_eligible
+            )
+            select release.release_version, release.source_data_version
+            from current_release release
+            join binding_readiness binding
+              on binding.release_id = release.release_id
+             and binding.binding_count = release.question_binding_count
+             and binding.binding_fingerprint =
+                 release.question_binding_fingerprint
+            join vocabulary_readiness vocabulary
+              on vocabulary.release_id = release.release_id
+             and vocabulary.canonical_row_count = 6
+             and vocabulary.canonical_code_count = 6
+            where (
+              select count(*)
+              from actionable_modules module
+              where module.release_id = release.release_id
+            ) = 6
+            """
+            )
+        )
+        .mappings()
+        .one_or_none()
+    )
+    if knowledge_release is None:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="knowledge map release is not ready",
         )
     if (
         settings.environment.strip().casefold() == "production"
@@ -194,9 +320,7 @@ def ready(session: Annotated[Session, Depends(get_db_session)]) -> dict[str, str
             if settings.recognition_processor_enabled:
                 processor_releases.require_active_release(
                     session,
-                    declared_provider_release=(
-                        settings.recognition_processor_release_id
-                    ),
+                    declared_provider_release=(settings.recognition_processor_release_id),
                     provider_endpoint_fingerprint=endpoint_fingerprint(
                         settings.recognition_processor_endpoint
                     ),
@@ -214,6 +338,8 @@ def ready(session: Annotated[Session, Depends(get_db_session)]) -> dict[str, str
         "migration": str(migration),
         "positionRuleRelease": str(release["rule_set_version"]),
         "positionDataVersion": str(release["position_data_version"]),
+        "knowledgeMapRelease": str(knowledge_release["release_version"]),
+        "knowledgeMapSourceDataVersion": str(knowledge_release["source_data_version"]),
         "time": checked_at.isoformat(),
     }
 
@@ -227,9 +353,10 @@ def metrics(
     expected = f"Bearer {settings.operations_metrics_token}"
     if not settings.operations_metrics_token or authorization != expected:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
-    row = session.execute(
-        text(
-            """
+    row = (
+        session.execute(
+            text(
+                """
             select
               (select count(*) from commerce.wechat_orders where state = 'payment_uncertain') as uncertain_orders,
               (select count(*) from commerce.wechat_orders where state = 'refund_processing' and updated_at < now() - interval '15 minutes') as stale_refunds,
@@ -278,12 +405,15 @@ def metrics(
                     secs => :coach_stale_claim_seconds
                   )) as coach_stale_claims
             """
-        ),
-        {
-            "coach_stale_claim_seconds": settings.coach_notification_stale_claim_seconds,
-            "coach_template_id": _coach_template_id_for_metrics(settings),
-        },
-    ).mappings().one()
+            ),
+            {
+                "coach_stale_claim_seconds": settings.coach_notification_stale_claim_seconds,
+                "coach_template_id": _coach_template_id_for_metrics(settings),
+            },
+        )
+        .mappings()
+        .one()
+    )
     values = {
         "anan_wechat_payment_uncertain_orders": int(row["uncertain_orders"]),
         "anan_wechat_stale_refunds": int(row["stale_refunds"]),
@@ -295,9 +425,7 @@ def metrics(
         "anan_coach_notification_rejected_last_hour": int(row["coach_rejected_hour"]),
         "anan_coach_notification_available_grants": int(row["coach_available_grants"]),
         "anan_coach_notification_enabled_users": int(row["coach_enabled_users"]),
-        "anan_coach_notification_enabled_without_grant": int(
-            row["coach_enabled_without_grant"]
-        ),
+        "anan_coach_notification_enabled_without_grant": int(row["coach_enabled_without_grant"]),
         "anan_coach_notification_stale_claims": int(row["coach_stale_claims"]),
     }
     return "\n".join(f"{key} {value}" for key, value in values.items()) + "\n"
@@ -305,9 +433,7 @@ def metrics(
 
 def _coach_template_id_for_metrics(settings: Settings) -> str:
     try:
-        release = CoachTemplateRelease.from_json(
-            settings.wechat_coach_template_release_json
-        )
+        release = CoachTemplateRelease.from_json(settings.wechat_coach_template_release_json)
     except CoachTemplateConfigurationError:
         return "__invalid_coach_template__"
     return release.template_id if release is not None else "__missing_coach_template__"

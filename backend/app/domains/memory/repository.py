@@ -605,13 +605,25 @@ class LearnerMemoryRepository:
                 """
                 select
                   ewq.external_question_id,
+                  release.release_id,
+                  release.release_version,
                   ewq.node_id,
                   ewq.error_summary,
                   ewq.created_at,
                   kmn.display_path
                 from learner.external_wrong_questions ewq
-                join product.knowledge_map_nodes kmn on kmn.node_id = ewq.node_id
+                join product.knowledge_map_releases release
+                  on release.release_id = ewq.knowledge_release_id
+                 and release.exam_scope = 'guokao'
+                 and release.track = 'xingce'
+                 and release.status in ('active', 'retired')
+                join product.knowledge_map_nodes kmn
+                  on kmn.release_id = release.release_id
+                 and kmn.node_id = ewq.node_id
                 where ewq.user_id = cast(:user_id as uuid)
+                  and kmn.exam_scope = 'guokao'
+                  and kmn.track = 'xingce'
+                  and kmn.status = 'published'
                 order by ewq.created_at desc
                 limit :limit
                 """
@@ -631,6 +643,8 @@ class LearnerMemoryRepository:
                     source_count=1,
                     payload={
                         "externalQuestionId": str(row["external_question_id"]),
+                        "knowledgeReleaseId": str(row["release_id"]),
+                        "knowledgeReleaseVersion": str(row["release_version"]),
                         "nodeId": str(row["node_id"]),
                         "displayPath": str(row["display_path"]),
                         "createdAt": created_at.isoformat(),

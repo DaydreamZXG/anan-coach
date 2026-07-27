@@ -218,6 +218,18 @@ def _seed_v12_onboarding_history(engine: Engine) -> None:
 def test_wechat_identity_migration_upgrades_from_audited_baseline(
     db_engine: Engine,
 ) -> None:
+    config = Config(str(BACKEND_ROOT / "alembic.ini"))
+    config.set_main_option(
+        "sqlalchemy.url",
+        db_engine.url.render_as_string(hide_password=False),
+    )
+    # The shared fixture installs the current schema directly. Revert the
+    # knowledge-map release migration through its real downgrade before
+    # reconstructing the audited v12 shape, otherwise the later full upgrade
+    # would encounter release objects that did not exist at v12.
+    command.stamp(config, "20260727_68")
+    command.downgrade(config, "20260727_64")
+
     with db_engine.begin() as connection:
         # conftest installs the current schema before this test reconstructs the
         # audited v12 baseline. Remove every later object so Alembic upgrades
@@ -580,8 +592,6 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
             )
         )
 
-    config = Config(str(BACKEND_ROOT / "alembic.ini"))
-    config.set_main_option("sqlalchemy.url", db_engine.url.render_as_string(hide_password=False))
     try:
         command.stamp(config, "20260712_00")
         command.upgrade(config, "20260713_12")
@@ -1427,3 +1437,174 @@ def test_stage35_community_method_card_migration(
     finally:
         transaction.rollback()
         connection.close()
+
+
+def test_knowledge_map_release_migration_archives_each_legacy_scope(
+    db_engine: Engine,
+) -> None:
+    config = Config(str(BACKEND_ROOT / "alembic.ini"))
+    config.set_main_option(
+        "sqlalchemy.url", db_engine.url.render_as_string(hide_password=False)
+    )
+    command.stamp(config, "20260727_68")
+    command.downgrade(config, "20260727_64")
+
+    with db_engine.begin() as connection:
+        connection.execute(
+            text(
+                """
+                insert into product.knowledge_map_nodes (
+                  node_id, exam_scope, track, module_name, node_type,
+                  tag_type, tag_value, display_path, parent_node_id,
+                  aliases, support_status, stable_for_old_questions,
+                  method_card_ids, evidence, status
+                ) values
+                (
+                  'legacy-xingce-node', 'guokao', 'xingce', '资料分析',
+                  'module', null, '资料分析', '行测/资料分析', null,
+                  '[]'::jsonb, 'text_supported', false,
+                  '[]'::jsonb, '{"generated_by":"legacy"}'::jsonb, 'published'
+                ),
+                (
+                  'legacy-shenlun-node', 'guokao', 'shenlun', '归纳概括',
+                  'module', null, '归纳概括', '申论/归纳概括', null,
+                  '[]'::jsonb, 'text_supported', false,
+                  '[]'::jsonb, '{"generated_by":"legacy"}'::jsonb, 'published'
+                )
+                """
+            )
+        )
+
+    command.upgrade(config, "20260727_65")
+
+    with db_engine.connect() as connection:
+        releases = list(
+            connection.execute(
+                text(
+                    """
+                    select
+                      release_id,
+                      release_version,
+                      exam_scope,
+                      track,
+                      generated_at,
+                      fresh_until,
+                      status,
+                      node_count,
+                      activated_at,
+                      retired_at
+                    from product.knowledge_map_releases
+                    order by track
+                    """
+                )
+            ).mappings()
+        )
+        nodes = list(
+            connection.execute(
+                text(
+                    """
+                    select node.release_id, node.node_id, node.track
+                    from product.knowledge_map_nodes node
+                    order by node.track
+                    """
+                )
+            ).mappings()
+        )
+        primary_key_columns = list(
+            connection.execute(
+                text(
+                    """
+                    select attribute.attname
+                    from pg_constraint constraint_def
+                    cross join lateral unnest(constraint_def.conkey)
+                      with ordinality as key_column(attnum, ordinality)
+                    join pg_attribute attribute
+                      on attribute.attrelid = constraint_def.conrelid
+                     and attribute.attnum = key_column.attnum
+                    where constraint_def.conrelid =
+                          'product.knowledge_map_nodes'::regclass
+                      and constraint_def.contype = 'p'
+                    order by key_column.ordinality
+                    """
+                )
+            ).scalars()
+        )
+
+    assert len(releases) == 2
+    assert {row["track"] for row in releases} == {"xingce", "shenlun"}
+    assert all(row["status"] == "retired" for row in releases)
+    assert all(row["fresh_until"] == row["generated_at"] for row in releases)
+    assert all(row["node_count"] == 1 for row in releases)
+    assert all(row["activated_at"] is None for row in releases)
+    assert all(row["retired_at"] is not None for row in releases)
+    assert all(
+        row["release_version"].startswith(
+            "knowledge-map@legacy-pre-20260727-65:"
+        )
+        for row in releases
+    )
+    assert {row["release_id"] for row in nodes} == {
+        row["release_id"] for row in releases
+    }
+    assert primary_key_columns == ["release_id", "node_id"]
+
+    # The fixed pre-v65 archive is the only populated state from which v66 may
+    # be removed. Its deterministic identity survives a real upgrade/downgrade
+    # replay without weakening the forward-only guard for later releases.
+    command.upgrade(config, "20260727_66")
+    command.downgrade(config, "20260727_65")
+
+    with db_engine.begin() as connection:
+        connection.execute(text("drop table if exists public.alembic_version"))
+
+
+def test_knowledge_release_immutability_requires_forward_migration_after_publication(
+    db_engine: Engine,
+) -> None:
+    config = Config(str(BACKEND_ROOT / "alembic.ini"))
+    config.set_main_option(
+        "sqlalchemy.url", db_engine.url.render_as_string(hide_password=False)
+    )
+    command.stamp(config, "20260727_68")
+    with db_engine.begin() as connection:
+        connection.execute(
+            text(
+                """
+                insert into product.knowledge_map_releases (
+                  release_id, release_version, exam_scope, track,
+                  source_data_version, vocab_version, generator_version,
+                  source_fingerprint, generated_at, fresh_until, status,
+                  node_count
+                ) values (
+                  '00000000-0000-4000-8000-000000000661',
+                  'knowledge-map@real-v66-downgrade-guard',
+                  'guokao', 'xingce', 'question-bank@real-v66',
+                  'vocab@real-v66', 'generator@real-v66', repeat('6', 64),
+                  now() - interval '1 day', now() + interval '30 days',
+                  'draft', 0
+                )
+                """
+            )
+        )
+
+    with pytest.raises(RuntimeError, match="apply a forward migration instead"):
+        command.downgrade(config, "20260727_65")
+
+    with db_engine.connect() as connection:
+        trigger_exists = connection.execute(
+            text(
+                """
+                select exists (
+                  select 1
+                  from pg_trigger
+                  where tgrelid = 'product.knowledge_map_releases'::regclass
+                    and tgname = 'knowledge_map_releases_lifecycle_guard'
+                    and not tgisinternal
+                )
+                """
+            )
+        ).scalar_one()
+    assert trigger_exists is True
+
+    with db_engine.begin() as connection:
+        connection.execute(text("drop table if exists public.alembic_version"))

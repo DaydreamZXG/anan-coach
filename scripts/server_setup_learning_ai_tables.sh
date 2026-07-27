@@ -176,6 +176,7 @@ create table if not exists learner.external_question_intakes (
   correct_answer text,
   extracted_tags jsonb not null default '[]'::jsonb,
   candidate_nodes jsonb not null default '[]'::jsonb,
+  knowledge_release_id uuid,
   selected_node_id text,
   match_confidence numeric(5,4),
   status text not null check (status in ('pending_confirmation', 'rejected', 'confirmed')),
@@ -192,6 +193,7 @@ create table if not exists learner.external_wrong_questions (
   external_question_id uuid primary key default gen_random_uuid(),
   intake_id uuid not null unique references learner.external_question_intakes(intake_id),
   user_id uuid not null references learner.users(user_id),
+  knowledge_release_id uuid,
   node_id text not null,
   source text not null check (source = 'external'),
   stem text not null,
@@ -208,6 +210,52 @@ create index if not exists learner_external_wrong_questions_user_idx
 
 create index if not exists learner_external_wrong_questions_node_idx
   on learner.external_wrong_questions(node_id, created_at desc);
+
+alter table learner.external_question_intakes
+  add column if not exists knowledge_release_id uuid;
+
+alter table learner.external_wrong_questions
+  add column if not exists knowledge_release_id uuid;
+
+create or replace function learner.guard_external_intake_knowledge_binding()
+returns trigger
+language plpgsql
+as $$
+begin
+  if (new.knowledge_release_id, new.selected_node_id)
+     is distinct from
+     (old.knowledge_release_id, old.selected_node_id) then
+    raise exception using
+      errcode = '23514',
+      message = 'external-question resolved knowledge binding is immutable';
+  end if;
+  return new;
+end
+$$;
+
+create or replace function learner.guard_external_wrong_knowledge_binding()
+returns trigger
+language plpgsql
+as $$
+begin
+  if (
+    new.intake_id,
+    new.user_id,
+    new.knowledge_release_id,
+    new.node_id
+  ) is distinct from (
+    old.intake_id,
+    old.user_id,
+    old.knowledge_release_id,
+    old.node_id
+  ) then
+    raise exception using
+      errcode = '23514',
+      message = 'external wrong-question knowledge lineage is immutable';
+  end if;
+  return new;
+end
+$$;
 
 create table if not exists learner.mock_exam_sessions (
   session_id uuid primary key default gen_random_uuid(),
@@ -461,7 +509,10 @@ begin
   end if;
   if not exists (
     select 1 from pg_constraint where conname = 'product_knowledge_map_nodes_scope_track_module_type_tag_key'
-  ) then
+  )
+  and to_regclass('product.knowledge_map_releases') is null then
+    -- This bootstrap constraint belongs to the pre-20260727_65 schema only.
+    -- Once releases exist, Alembic owns the release-scoped business key.
     alter table product.knowledge_map_nodes
       add constraint product_knowledge_map_nodes_scope_track_module_type_tag_key
       unique (exam_scope, track, module_name, node_type, tag_type, tag_value);
@@ -480,6 +531,228 @@ create index if not exists product_knowledge_map_nodes_rank_idx
 
 create index if not exists product_knowledge_map_nodes_tag_idx
   on product.knowledge_map_nodes(exam_scope, track, module_name, tag_type, tag_value);
+
+do $external_lineage$
+begin
+  if to_regclass('product.knowledge_map_releases') is not null then
+    -- Migration 65 is the only release whose identity and cutoff can be
+    -- reconstructed for pre-lineage rows. Rows created after its retirement
+    -- are refused below even when their bare node id happens to be unique.
+    with fixed_legacy_binding as (
+      select
+        intake.intake_id,
+        release.release_id as knowledge_release_id
+      from learner.external_question_intakes intake
+      join product.knowledge_map_nodes node
+        on node.node_id = intake.selected_node_id
+       and node.exam_scope = 'guokao'
+       and node.track = 'xingce'
+      join product.knowledge_map_releases release
+        on release.release_id = node.release_id
+       and release.release_id = md5(
+            'knowledge-map-legacy|' || node.exam_scope || '|' || node.track
+           )::uuid
+       and release.release_version =
+           'knowledge-map@legacy-pre-20260727-65:'
+           || node.exam_scope || ':' || node.track
+       and release.source_data_version = 'legacy:source-version-unknown'
+       and release.vocab_version = 'legacy:vocab-version-unknown'
+       and release.generator_version = 'legacy:generator-version-unknown'
+       and release.status = 'retired'
+       and release.activated_at is null
+       and release.retired_at is not null
+      where intake.selected_node_id is not null
+        and intake.created_at <= release.retired_at
+    )
+    update learner.external_question_intakes intake
+    set knowledge_release_id = binding.knowledge_release_id
+    from fixed_legacy_binding binding
+    where intake.intake_id = binding.intake_id
+      and intake.knowledge_release_id is null;
+
+    if exists (
+      select 1
+      from learner.external_question_intakes intake
+      where not (
+        (
+          intake.status = 'rejected'
+          and intake.knowledge_release_id is null
+          and intake.selected_node_id is null
+        )
+        or (
+          intake.status in ('pending_confirmation', 'confirmed')
+          and intake.knowledge_release_id is not null
+          and intake.selected_node_id is not null
+        )
+      )
+    ) then
+      raise exception using
+        errcode = '23514',
+        message =
+          'external-question legacy knowledge binding is missing or ambiguous';
+    end if;
+
+    update learner.external_wrong_questions wrong
+    set knowledge_release_id = intake.knowledge_release_id
+    from learner.external_question_intakes intake
+    where intake.intake_id = wrong.intake_id
+      and intake.user_id = wrong.user_id
+      and intake.status = 'confirmed'
+      and intake.selected_node_id = wrong.node_id
+      and intake.knowledge_release_id is not null
+      and wrong.knowledge_release_id is null;
+
+    if exists (
+      select 1
+      from learner.external_wrong_questions wrong
+      left join learner.external_question_intakes intake
+        on intake.intake_id = wrong.intake_id
+       and intake.user_id = wrong.user_id
+       and intake.status = 'confirmed'
+       and intake.knowledge_release_id = wrong.knowledge_release_id
+       and intake.selected_node_id = wrong.node_id
+      where wrong.knowledge_release_id is null
+         or intake.intake_id is null
+    ) then
+      raise exception using
+        errcode = '23514',
+        message =
+          'external wrong-question row lacks an exact confirmed intake binding';
+    end if;
+
+    if not exists (
+      select 1
+      from pg_constraint
+      where conrelid = 'learner.external_question_intakes'::regclass
+        and conname = 'learner_external_intake_release_status_check'
+    ) then
+      alter table learner.external_question_intakes
+        add constraint learner_external_intake_release_status_check
+        check (
+          (
+            status = 'rejected'
+            and knowledge_release_id is null
+            and selected_node_id is null
+          )
+          or (
+            status in ('pending_confirmation', 'confirmed')
+            and knowledge_release_id is not null
+            and selected_node_id is not null
+          )
+        );
+    end if;
+
+    if not exists (
+      select 1
+      from pg_constraint
+      where conrelid = 'learner.external_question_intakes'::regclass
+        and conname = 'learner_external_intake_release_node_fkey'
+    ) then
+      alter table learner.external_question_intakes
+        add constraint learner_external_intake_release_node_fkey
+        foreign key (knowledge_release_id, selected_node_id)
+        references product.knowledge_map_nodes(release_id, node_id)
+        on delete restrict;
+    end if;
+
+    if not exists (
+      select 1
+      from pg_constraint
+      where conrelid = 'learner.external_question_intakes'::regclass
+        and conname = 'learner_external_intake_binding_key'
+    ) then
+      alter table learner.external_question_intakes
+        add constraint learner_external_intake_binding_key
+        unique (
+          intake_id,
+          user_id,
+          knowledge_release_id,
+          selected_node_id
+        );
+    end if;
+
+    alter table learner.external_wrong_questions
+      alter column knowledge_release_id set not null;
+
+    if not exists (
+      select 1
+      from pg_constraint
+      where conrelid = 'learner.external_wrong_questions'::regclass
+        and conname = 'learner_external_wrong_intake_binding_fkey'
+    ) then
+      alter table learner.external_wrong_questions
+        add constraint learner_external_wrong_intake_binding_fkey
+        foreign key (
+          intake_id,
+          user_id,
+          knowledge_release_id,
+          node_id
+        )
+        references learner.external_question_intakes(
+          intake_id,
+          user_id,
+          knowledge_release_id,
+          selected_node_id
+        )
+        on delete restrict;
+    end if;
+
+    if not exists (
+      select 1
+      from pg_constraint
+      where conrelid = 'learner.external_wrong_questions'::regclass
+        and conname = 'learner_external_wrong_release_node_fkey'
+    ) then
+      alter table learner.external_wrong_questions
+        add constraint learner_external_wrong_release_node_fkey
+        foreign key (knowledge_release_id, node_id)
+        references product.knowledge_map_nodes(release_id, node_id)
+        on delete restrict;
+    end if;
+
+    if not exists (
+      select 1
+      from pg_trigger
+      where tgrelid = 'learner.external_question_intakes'::regclass
+        and tgname = 'external_question_intake_binding_immutable'
+        and not tgisinternal
+    ) then
+      create trigger external_question_intake_binding_immutable
+        before update of knowledge_release_id, selected_node_id
+        on learner.external_question_intakes
+        for each row
+        execute function learner.guard_external_intake_knowledge_binding();
+    end if;
+
+    if not exists (
+      select 1
+      from pg_trigger
+      where tgrelid = 'learner.external_wrong_questions'::regclass
+        and tgname = 'external_wrong_question_binding_immutable'
+        and not tgisinternal
+    ) then
+      create trigger external_wrong_question_binding_immutable
+        before update of intake_id, user_id, knowledge_release_id, node_id
+        on learner.external_wrong_questions
+        for each row
+        execute function learner.guard_external_wrong_knowledge_binding();
+    end if;
+  end if;
+end
+$external_lineage$;
+
+create index if not exists learner_external_intake_release_node_idx
+  on learner.external_question_intakes(
+    knowledge_release_id,
+    selected_node_id
+  );
+
+create index if not exists learner_external_wrong_release_node_idx
+  on learner.external_wrong_questions(
+    knowledge_release_id,
+    node_id,
+    created_at
+  );
 
 create table if not exists product.position_systems (
   system_code text primary key,
@@ -799,6 +1072,18 @@ alter table learner.placement_attempts owner to gongkao_owner;
 alter table learner.practice_answers owner to gongkao_owner;
 alter table learner.external_question_intakes owner to gongkao_owner;
 alter table learner.external_wrong_questions owner to gongkao_owner;
+alter function learner.guard_external_intake_knowledge_binding()
+  owner to gongkao_owner;
+alter function learner.guard_external_wrong_knowledge_binding()
+  owner to gongkao_owner;
+revoke all on function learner.guard_external_intake_knowledge_binding()
+  from public;
+revoke all on function learner.guard_external_wrong_knowledge_binding()
+  from public;
+grant execute on function learner.guard_external_intake_knowledge_binding()
+  to gongkao_owner;
+grant execute on function learner.guard_external_wrong_knowledge_binding()
+  to gongkao_owner;
 alter table learner.mock_exam_sessions owner to gongkao_owner;
 alter table learner.dockets owner to gongkao_owner;
 alter table learner.docket_cards owner to gongkao_owner;
@@ -808,6 +1093,72 @@ alter table ai_audit.interaction_logs owner to gongkao_owner;
 alter table product.method_cards owner to gongkao_owner;
 alter table product.exam_tag_weights owner to gongkao_owner;
 alter table product.knowledge_map_nodes owner to gongkao_owner;
+do $$
+begin
+  if to_regclass('product.vocab_module_alias_map') is not null then
+    alter table product.vocab_module_alias_map owner to gongkao_owner;
+  end if;
+  if to_regclass('product.vocab_facet_rules') is not null then
+    alter table product.vocab_facet_rules owner to gongkao_owner;
+  end if;
+  if to_regclass('product.knowledge_map_releases') is not null then
+    alter table product.knowledge_map_releases owner to gongkao_owner;
+  end if;
+  if to_regclass('product.knowledge_map_question_bindings') is not null then
+    alter table product.knowledge_map_question_bindings owner to gongkao_owner;
+    alter function product.knowledge_map_question_binding_row_fingerprint(
+      product.knowledge_map_question_bindings
+    ) owner to gongkao_owner;
+    alter function product.knowledge_map_question_binding_manifest(uuid)
+      owner to gongkao_owner;
+    alter function product.knowledge_map_question_binding_authority_is_valid(
+      product.knowledge_map_question_bindings
+    ) owner to gongkao_owner;
+    alter function product.guard_knowledge_map_question_binding_mutation()
+      owner to gongkao_owner;
+    revoke all on function
+      product.knowledge_map_question_binding_row_fingerprint(
+        product.knowledge_map_question_bindings
+      )
+      from public;
+    revoke all on function
+      product.knowledge_map_question_binding_manifest(uuid)
+      from public;
+    revoke all on function
+      product.knowledge_map_question_binding_authority_is_valid(
+        product.knowledge_map_question_bindings
+      )
+      from public;
+    revoke all on function
+      product.guard_knowledge_map_question_binding_mutation()
+      from public;
+    grant execute on function
+      product.knowledge_map_question_binding_row_fingerprint(
+        product.knowledge_map_question_bindings
+      )
+      to gongkao_owner;
+    grant execute on function
+      product.knowledge_map_question_binding_manifest(uuid)
+      to gongkao_owner;
+    grant execute on function
+      product.knowledge_map_question_binding_authority_is_valid(
+        product.knowledge_map_question_bindings
+      )
+      to gongkao_owner;
+    grant execute on function
+      product.guard_knowledge_map_question_binding_mutation()
+      to gongkao_owner;
+  end if;
+  if to_regprocedure('product.guard_knowledge_map_release_lifecycle()')
+     is not null then
+    alter function product.guard_knowledge_map_release_lifecycle()
+      owner to gongkao_owner;
+    revoke all on function product.guard_knowledge_map_release_lifecycle()
+      from public;
+    grant execute on function product.guard_knowledge_map_release_lifecycle()
+      to gongkao_owner;
+  end if;
+end $$;
 alter table product.position_systems owner to gongkao_owner;
 alter table product.positions owner to gongkao_owner;
 alter table product.position_score_histories owner to gongkao_owner;
@@ -853,6 +1204,24 @@ to gongkao_api;
 grant select on product.method_cards to gongkao_api;
 grant select on product.exam_tag_weights to gongkao_api;
 grant select on product.knowledge_map_nodes to gongkao_api;
+do $$
+begin
+  if to_regclass('product.knowledge_map_releases') is not null then
+    grant select on product.knowledge_map_releases to gongkao_api;
+  end if;
+  if to_regclass('product.knowledge_map_question_bindings') is not null then
+    grant select on product.knowledge_map_question_bindings to gongkao_api;
+    grant execute on function
+      product.knowledge_map_question_binding_manifest(uuid)
+      to gongkao_api;
+  end if;
+  if to_regclass('product.question_content_versions') is not null then
+    grant select on product.question_content_versions to gongkao_api;
+  end if;
+  if to_regclass('product.vocab_module_alias_map') is not null then
+    grant select on product.vocab_module_alias_map to gongkao_api;
+  end if;
+end $$;
 grant select on
   product.position_systems,
   product.positions,
@@ -871,6 +1240,35 @@ begin
       product.exam_tag_weights,
       product.knowledge_map_nodes
     to gongkao_importer;
+
+    if to_regclass('product.knowledge_map_releases') is not null then
+      grant select, insert, update
+        on product.knowledge_map_releases
+        to gongkao_importer;
+    end if;
+
+    if to_regclass('product.knowledge_map_question_bindings') is not null then
+      grant select, insert
+        on product.knowledge_map_question_bindings
+        to gongkao_importer;
+      grant execute on function
+        product.knowledge_map_question_binding_row_fingerprint(
+          product.knowledge_map_question_bindings
+        )
+        to gongkao_importer;
+      grant execute on function
+        product.knowledge_map_question_binding_manifest(uuid)
+        to gongkao_importer;
+      grant execute on function
+        product.knowledge_map_question_binding_authority_is_valid(
+          product.knowledge_map_question_bindings
+        )
+        to gongkao_importer;
+    end if;
+
+    if to_regclass('product.question_content_versions') is not null then
+      grant select on product.question_content_versions to gongkao_importer;
+    end if;
 
     grant select, insert, update on
       product.position_systems,

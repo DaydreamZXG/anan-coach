@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import date
+from datetime import UTC, date, datetime
 from fastapi.testclient import TestClient
 from pydantic import BaseModel
 
@@ -125,6 +125,10 @@ class FakeKnowledgeService:
     ) -> WeightedPracticeSelection:
         items = self.search_questions(limit=limit).items
         return WeightedPracticeSelection(
+            release_id="00000000-0000-0000-0000-000000000103",
+            release_version="knowledge-map@feed-test",
+            source_data_version="questions@feed-test",
+            fresh_until=datetime(2099, 1, 1, tzinfo=UTC),
             node_id="km_fixture",
             exam_scope=exam_scope,
             track="xingce",

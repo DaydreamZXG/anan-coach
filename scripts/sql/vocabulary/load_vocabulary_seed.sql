@@ -51,13 +51,6 @@ create table if not exists product.vocab_module_alias_map (
 comment on table product.vocab_module_alias_map is
   '模块名治理词表：raw module_name -> 六模块 code 或隔离。来源 scripts/sql/vocabulary/module_alias_map.csv（vocab@v1）';
 
--- 幂等重载本版本：
-delete from product.vocab_module_alias_map where version = 'vocab@v1';
--- 在 psql 中执行（路径相对仓库根）：
--- \copy product.vocab_module_alias_map (raw_module_name, action, canonical_code, local_question_count, basis, version) from 'scripts/sql/vocabulary/module_alias_map.csv' with (format csv, header true);
--- CSV 中 canonical_code 为空串的 quarantine 行需转 NULL：
--- update product.vocab_module_alias_map set canonical_code = null where version = 'vocab@v1' and canonical_code = '';
-
 -- ---------------------------------------------------------------------------
 -- 2. 标签面拆分规则表（材料形态 vs 技能考点）
 -- ---------------------------------------------------------------------------
@@ -75,8 +68,199 @@ create table if not exists product.vocab_facet_rules (
 comment on table product.vocab_facet_rules is
   '知识标签面治理词表：材料形态/技能考点/占位符三分。来源 scripts/sql/vocabulary/facet_rules.csv（vocab@v1）';
 
-delete from product.vocab_facet_rules where version = 'vocab@v1';
--- \copy product.vocab_facet_rules (term, facet, tag_levels_observed, local_occurrences, needs_review, basis, version) from 'scripts/sql/vocabulary/facet_rules.csv' with (format csv, header true);
+-- 同版本重放先完整装入事务级 staging。两个 CSV 必须先通过自身完整性校验，
+-- 再比较目标版本；任何畸形、增、删、改都以 23514 终止整笔事务。
+create temporary table staged_vocab_module_alias_map
+  (like product.vocab_module_alias_map
+    including defaults including constraints including indexes)
+  on commit drop;
+
+create temporary table staged_vocab_facet_rules
+  (like product.vocab_facet_rules
+    including defaults including constraints including indexes)
+  on commit drop;
+
+-- 路径相对仓库根；CSV 的未加引号空字段由 COPY CSV 语义装载为 NULL。
+\copy staged_vocab_module_alias_map (raw_module_name, action, canonical_code, local_question_count, basis, version) from 'scripts/sql/vocabulary/module_alias_map.csv' with (format csv, header true);
+\copy staged_vocab_facet_rules (term, facet, tag_levels_observed, local_occurrences, needs_review, basis, version) from 'scripts/sql/vocabulary/facet_rules.csv' with (format csv, header true);
+
+do $vocab_replay$
+declare
+  canonical_row_count integer;
+  canonical_code_count integer;
+  exact_canonical_pair_count integer;
+begin
+  if exists (
+    select 1
+    from staged_vocab_module_alias_map staged
+    where staged.version <> 'vocab@v1'
+  ) then
+    raise exception using
+      errcode = '23514',
+      message = 'module vocabulary staging contains an unexpected version';
+  end if;
+
+  select
+    count(*)::integer,
+    count(distinct canonical_code)::integer,
+    count(*) filter (
+      where (canonical_code, raw_module_name) in (
+        values
+          ('political_theory', '政治理论'),
+          ('general_knowledge', '常识判断'),
+          ('verbal_comprehension', '言语理解与表达'),
+          ('quantitative_relations', '数量关系'),
+          ('judgment_reasoning', '判断推理'),
+          ('data_analysis', '资料分析')
+      )
+    )::integer
+  into canonical_row_count, canonical_code_count, exact_canonical_pair_count
+  from staged_vocab_module_alias_map
+  where action = 'canonical';
+
+  if canonical_row_count <> 6
+     or canonical_code_count <> 6
+     or exact_canonical_pair_count <> 6 then
+    raise exception using
+      errcode = '23514',
+      message = 'module vocabulary staging must contain the exact six canonical module code-name pairs';
+  end if;
+
+  if exists (
+    select 1
+    from staged_vocab_module_alias_map mapped
+    where mapped.action in ('map', 'map_needs_review')
+      and not exists (
+        select 1
+        from staged_vocab_module_alias_map canonical
+        where canonical.action = 'canonical'
+          and canonical.canonical_code = mapped.canonical_code
+      )
+  ) then
+    raise exception using
+      errcode = '23514',
+      message = 'module vocabulary staging maps to a missing canonical code';
+  end if;
+
+  if not exists (select 1 from staged_vocab_facet_rules) then
+    raise exception using
+      errcode = '23514',
+      message = 'facet vocabulary staging must not be empty';
+  end if;
+
+  if exists (
+    select 1
+    from staged_vocab_facet_rules staged
+    where staged.version <> 'vocab@v1'
+  ) then
+    raise exception using
+      errcode = '23514',
+      message = 'facet vocabulary staging contains an unexpected version';
+  end if;
+
+  -- Validate both target versions before inserting either one. An existing
+  -- version is accepted only when its complete semantic row set is identical.
+  if exists (
+    select 1
+    from product.vocab_module_alias_map existing
+    where existing.version = 'vocab@v1'
+  ) and exists (
+    (
+      select
+        raw_module_name, action, canonical_code, local_question_count, basis, version
+      from product.vocab_module_alias_map
+      where version = 'vocab@v1'
+      except
+      select
+        raw_module_name, action, canonical_code, local_question_count, basis, version
+      from staged_vocab_module_alias_map
+    )
+    union all
+    (
+      select
+        raw_module_name, action, canonical_code, local_question_count, basis, version
+      from staged_vocab_module_alias_map
+      except
+      select
+        raw_module_name, action, canonical_code, local_question_count, basis, version
+      from product.vocab_module_alias_map
+      where version = 'vocab@v1'
+    )
+  ) then
+    raise exception using
+      errcode = '23514',
+      message = 'vocab_module_alias_map same-version content drift: vocab@v1';
+  end if;
+
+  if exists (
+    select 1
+    from product.vocab_facet_rules existing
+    where existing.version = 'vocab@v1'
+  ) and exists (
+    (
+      select
+        term, facet, tag_levels_observed, local_occurrences,
+        needs_review, basis, version
+      from product.vocab_facet_rules
+      where version = 'vocab@v1'
+      except
+      select
+        term, facet, tag_levels_observed, local_occurrences,
+        needs_review, basis, version
+      from staged_vocab_facet_rules
+    )
+    union all
+    (
+      select
+        term, facet, tag_levels_observed, local_occurrences,
+        needs_review, basis, version
+      from staged_vocab_facet_rules
+      except
+      select
+        term, facet, tag_levels_observed, local_occurrences,
+        needs_review, basis, version
+      from product.vocab_facet_rules
+      where version = 'vocab@v1'
+    )
+  ) then
+    raise exception using
+      errcode = '23514',
+      message = 'vocab_facet_rules same-version content drift: vocab@v1';
+  end if;
+
+  if exists (
+    select 1
+    from product.vocab_module_alias_map existing
+    where existing.version = 'vocab@v1'
+  ) then
+    raise notice 'vocab_module_alias_map vocab@v1 replay is semantically identical';
+  else
+    insert into product.vocab_module_alias_map (
+      raw_module_name, action, canonical_code, local_question_count, basis, version
+    )
+    select
+      raw_module_name, action, canonical_code, local_question_count, basis, version
+    from staged_vocab_module_alias_map;
+  end if;
+
+  if exists (
+    select 1
+    from product.vocab_facet_rules existing
+    where existing.version = 'vocab@v1'
+  ) then
+    raise notice 'vocab_facet_rules vocab@v1 replay is semantically identical';
+  else
+    insert into product.vocab_facet_rules (
+      term, facet, tag_levels_observed, local_occurrences,
+      needs_review, basis, version
+    )
+    select
+      term, facet, tag_levels_observed, local_occurrences,
+      needs_review, basis, version
+    from staged_vocab_facet_rules;
+  end if;
+end
+$vocab_replay$;
 
 commit;
 

@@ -1,7 +1,20 @@
 -- =============================================================================
--- refresh_knowledge_map_nodes v2 —— 国考行测四级知识树生成器
+-- refresh_knowledge_map_nodes v3 —— 可版本发布的国考行测四级知识树生成器
 --   module → knowledge_family → knowledge_point → micro_skill
 -- =============================================================================
+-- 本文件是 psql 单事务发布脚本；禁止逐句复制到不同连接执行：
+--   psql --set ON_ERROR_STOP=1 --file scripts/sql/refresh_knowledge_map_nodes.sql
+-- 执行前必须在同一连接设置以下三个 GUC（缺失或空值会直接失败）：
+--   set app.knowledge_map_release_version = 'knowledge-map@<version>';
+--   set app.knowledge_map_source_data_version = '<source-version>';
+--   set app.knowledge_map_fresh_until = '<future ISO-8601 timestamp>';
+--
+-- 发布事务：创建 draft → 写完整节点 → 核对 node_count / 新鲜度 →
+-- 退休旧 active → 激活新 release。任一步失败，整笔事务回滚，不留下半棵树。
+-- =============================================================================
+\set ON_ERROR_STOP on
+begin;
+
 -- 治理依据（可审计，逐条对应 docs/engineering/2026-07-26-knowledge-vocabulary-governance.md）：
 --   R0  module_name 未命中 product.vocab_module_alias_map(version='vocab@v1')
 --       的题一律不进图（缺省隔离）。
@@ -41,80 +54,573 @@
 --
 -- 前置条件：product.vocab_module_alias_map / product.vocab_facet_rules 已按
 -- scripts/sql/vocabulary/load_vocabulary_seed.sql 装载 vocab@v1。
--- 本文件不连接生产库；生产执行由发布流程人工触发。
+-- 本文件不主动连接生产库；生产执行由发布流程以 psql 单连接触发。
 -- =============================================================================
 
-create table if not exists product.knowledge_map_nodes (
-  node_id text primary key,
-  exam_scope text not null,
-  track text not null check (track in ('xingce', 'shenlun')),
-  module_name text not null,
-  node_type text not null check (
-    node_type in (
-      'module',
-      'question_type',
-      'knowledge_family',
-      'knowledge_point',
-      'micro_skill'
-    )
-  ),
-  tag_type text,
-  tag_value text not null,
-  display_path text not null,
-  parent_node_id text,
-  aliases jsonb not null default '[]'::jsonb,
-  support_status text not null check (
-    support_status in ('text_supported', 'image_unsupported', 'draft', 'retired')
-  ),
-  near5_window_start_year integer,
-  near5_window_end_year integer,
-  near5_weight numeric(12,8),
-  near5_occurrence_count integer,
-  stable_for_old_questions boolean not null default false,
-  method_card_ids jsonb not null default '[]'::jsonb,
-  evidence jsonb not null default '{}'::jsonb,
-  status text not null check (status in ('draft', 'published')),
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now(),
-  unique (exam_scope, track, module_name, node_type, tag_type, tag_value)
+-- 20260727_65 是本发布器的结构前置；不在脚本内静默补表或补列。
+select release_id
+from product.knowledge_map_releases
+where false;
+
+-- 同一 scope+track 只允许一个发布事务进入生成区，避免并发发布造成
+-- supersedes 链跳版本或“后提交者退休刚激活版本”的竞态。
+select pg_advisory_xact_lock(
+  hashtextextended('knowledge-map-release|guokao|xingce', 0)
 );
 
-create index if not exists product_knowledge_map_nodes_rank_idx
-  on product.knowledge_map_nodes(
-    exam_scope,
-    track,
-    status,
-    support_status,
-    near5_weight desc nulls last,
-    near5_occurrence_count desc nulls last
-  );
-
-create index if not exists product_knowledge_map_nodes_tag_idx
-  on product.knowledge_map_nodes(exam_scope, track, module_name, tag_type, tag_value);
+-- 发布指纹、节点生成和最终门禁必须看到同一份词表。词表装载是人工治理写入，
+-- 不使用本发布 advisory key，因此在整个发布事务内持有 SHARE 锁阻止并发重载。
+lock table product.vocab_module_alias_map in share mode;
+lock table product.vocab_facet_rules in share mode;
 
 -- R0/R3 前置守卫：vocab@v1 的 6 条 canonical 模块行必须已装载。
 -- 未装载时词表 join 会静默隔离全部题目，因此这里用除零强制中止
 -- （报错 division by zero 即代表词表未装载，先执行 load_vocabulary_seed.sql）。
 select
   1 / (
-    select (count(*) = 6)::int
+    select (
+      count(*) = 6
+      and count(distinct canonical_code) = 6
+      and count(*) filter (
+        where (canonical_code, raw_module_name) in (
+          values
+            ('political_theory', '政治理论'),
+            ('general_knowledge', '常识判断'),
+            ('verbal_comprehension', '言语理解与表达'),
+            ('quantitative_relations', '数量关系'),
+            ('judgment_reasoning', '判断推理'),
+            ('data_analysis', '资料分析')
+        )
+      ) = 6
+    )::int
     from product.vocab_module_alias_map
     where version = 'vocab@v1'
       and action = 'canonical'
   ) as vocab_v1_canonical_guard;
 
--- 清除生成器产出后重建：
---   * refresh_knowledge_map_nodes_v2 —— 本生成器自身的幂等重跑；
---   * refresh_knowledge_map_nodes_v1 —— 旧平面生成器（所有 tag 平挂模块根）的
---     产出，四级树上线时一次性清除（依据：治理文档 §1 对 v1 平挂结构的审计）。
--- 人工治理节点（evidence->>'generated_by' 非上述两值）不受影响。
-delete from product.knowledge_map_nodes
-where evidence->>'generated_by' in (
-  'refresh_knowledge_map_nodes_v1',
-  'refresh_knowledge_map_nodes_v2'
-);
+-- 必填发布参数与数据快照指纹。输入先冻结到事务级临时表；这样同一
+-- release_version 的重放可以重新计算并逐字段核对，而不是用
+-- IF NOT EXISTS 吞掉内容不一致。指纹覆盖生成器所有事实输入；相同的
+-- source_data_version 若底层题目、标签、权重、方法卡或词表发生变化，也会得到
+-- 不同 fingerprint，不允许只相信人工填写的版本字符串。
+create temporary table knowledge_map_publish_input
+on commit drop
+as
+with release_input as (
+  select
+    nullif(
+      btrim(current_setting('app.knowledge_map_release_version')),
+      ''
+    ) as release_version,
+    nullif(
+      btrim(current_setting('app.knowledge_map_source_data_version')),
+      ''
+    ) as source_data_version,
+    current_setting('app.knowledge_map_fresh_until')::timestamptz as fresh_until,
+    'vocab@v1'::text as vocab_version,
+    'refresh_knowledge_map_nodes_v3'::text as generator_version,
+    coalesce(
+      nullif(
+        current_setting('app.knowledge_map_collapse_threshold', true),
+        ''
+      )::integer,
+      30
+    ) as collapse_threshold
+), source_digests as (
+  select
+    input.*,
+    (
+      select encode(
+        digest(
+          convert_to(
+            coalesce(
+              string_agg(
+                concat_ws(
+                  E'\x1f',
+                  question.question_id,
+                  question.domain,
+                  question.status,
+                  coalesce(question.module_name, ''),
+                  coalesce(question.question_type, ''),
+                  question.visual_required::text
+                ),
+                E'\x1e'
+                order by question.question_id
+              ),
+              ''
+            ),
+            'UTF8'
+          ),
+          'sha256'
+        ),
+        'hex'
+      )
+      from product.questions question
+      where question.domain = 'objective'
+        and question.status = 'active'
+    ) as question_digest,
+    (
+      select encode(
+        digest(
+          convert_to(
+            coalesce(
+              string_agg(
+                concat_ws(
+                  E'\x1f',
+                  question_tag.question_tag_id,
+                  question_tag.question_id,
+                  question_tag.tag_type,
+                  question_tag.tag_value
+                ),
+                E'\x1e'
+                order by question_tag.question_tag_id
+              ),
+              ''
+            ),
+            'UTF8'
+          ),
+          'sha256'
+        ),
+        'hex'
+      )
+      from product.question_tags question_tag
+      join product.questions question
+        on question.question_id = question_tag.question_id
+       and question.domain = 'objective'
+       and question.status = 'active'
+    ) as question_tag_digest,
+    (
+      select encode(
+        digest(
+          convert_to(
+            coalesce(
+              string_agg(
+                concat_ws(
+                  E'\x1f',
+                  weight.module_name,
+                  weight.tag_type,
+                  weight.tag_value,
+                  weight.window_start_year::text,
+                  weight.window_end_year::text,
+                  weight.weight::text,
+                  weight.occurrence_count::text
+                ),
+                E'\x1e'
+                order by weight.module_name, weight.tag_type, weight.tag_value
+              ),
+              ''
+            ),
+            'UTF8'
+          ),
+          'sha256'
+        ),
+        'hex'
+      )
+      from product.exam_tag_weights weight
+      where weight.exam_scope = 'guokao'
+        and weight.track = 'xingce'
+    ) as weight_digest,
+    (
+      select encode(
+        digest(
+          convert_to(
+            coalesce(
+              string_agg(
+                concat_ws(
+                  E'\x1f',
+                  method_card.id,
+                  method_card.status,
+                  method_card.exam_scope,
+                  method_card.track,
+                  coalesce(method_card.module_name, ''),
+                  coalesce(method_card.tag_path, ''),
+                  method_card.priority::text
+                ),
+                E'\x1e'
+                order by method_card.id
+              ),
+              ''
+            ),
+            'UTF8'
+          ),
+          'sha256'
+        ),
+        'hex'
+      )
+      from product.method_cards method_card
+      where method_card.exam_scope = 'guokao'
+        and method_card.track = 'xingce'
+        and method_card.status = 'published'
+    ) as method_card_digest,
+    (
+      select encode(
+        digest(
+          convert_to(
+            coalesce(
+              string_agg(
+                concat_ws(
+                  E'\x1f',
+                  alias.raw_module_name,
+                  alias.action,
+                  coalesce(alias.canonical_code, ''),
+                  alias.basis
+                ),
+                E'\x1e'
+                order by alias.raw_module_name
+              ),
+              ''
+            ),
+            'UTF8'
+          ),
+          'sha256'
+        ),
+        'hex'
+      )
+      from product.vocab_module_alias_map alias
+      where alias.version = input.vocab_version
+    ) as module_vocab_digest,
+    (
+      select encode(
+        digest(
+          convert_to(
+            coalesce(
+              string_agg(
+                concat_ws(
+                  E'\x1f',
+                  facet.term,
+                  facet.facet,
+                  facet.tag_levels_observed,
+                  facet.needs_review::text,
+                  facet.basis
+                ),
+                E'\x1e'
+                order by facet.term
+              ),
+              ''
+            ),
+            'UTF8'
+          ),
+          'sha256'
+        ),
+        'hex'
+      )
+      from product.vocab_facet_rules facet
+      where facet.version = input.vocab_version
+    ) as facet_vocab_digest
+    ,
+    (
+      select encode(
+        digest(
+          convert_to(
+            coalesce(
+              string_agg(
+                concat_ws(
+                  E'\x1f',
+                  manual_node.node_id,
+                  manual_node.module_name,
+                  manual_node.node_type,
+                  coalesce(manual_node.tag_type, ''),
+                  manual_node.tag_value,
+                  manual_node.display_path,
+                  coalesce(manual_node.parent_node_id, ''),
+                  manual_node.aliases::text,
+                  manual_node.support_status,
+                  (manual_node.evidence - 'last_generated_refresh')::text,
+                  manual_node.status
+                ),
+                E'\x1e'
+                order by manual_node.node_id
+              ),
+              ''
+            ),
+            'UTF8'
+          ),
+          'sha256'
+        ),
+        'hex'
+      )
+      from product.knowledge_map_nodes manual_node
+      where manual_node.release_id = (
+        select predecessor.release_id
+        from product.knowledge_map_releases predecessor
+        where predecessor.exam_scope = 'guokao'
+          and predecessor.track = 'xingce'
+          and predecessor.status in ('active', 'retired')
+        order by
+          case predecessor.status when 'active' then 0 else 1 end,
+          coalesce(
+            predecessor.activated_at,
+            predecessor.retired_at,
+            predecessor.generated_at
+          ) desc,
+          predecessor.release_version desc
+        limit 1
+      )
+        and manual_node.evidence->>'manual_confirmed' = 'true'
+    ) as manual_node_digest
+  from release_input input
+), fingerprinted_release as (
+  select
+    source.*,
+    encode(
+      digest(
+        convert_to(
+          jsonb_build_object(
+            'exam_scope', 'guokao',
+            'track', 'xingce',
+            'source_data_version', source.source_data_version,
+            'vocab_version', source.vocab_version,
+            'generator_version', source.generator_version,
+            'collapse_threshold', source.collapse_threshold,
+            'question_digest', source.question_digest,
+            'question_tag_digest', source.question_tag_digest,
+            'weight_digest', source.weight_digest,
+            'method_card_digest', source.method_card_digest,
+            'module_vocab_digest', source.module_vocab_digest,
+            'facet_vocab_digest', source.facet_vocab_digest,
+            'manual_node_digest', source.manual_node_digest
+          )::text,
+          'UTF8'
+        ),
+        'sha256'
+      ),
+      'hex'
+    ) as source_fingerprint
+  from source_digests source
+)
+select *
+from fingerprinted_release;
 
+with inserted_release as (
+insert into product.knowledge_map_releases (
+  release_id,
+  release_version,
+  exam_scope,
+  track,
+  source_data_version,
+  vocab_version,
+  generator_version,
+  source_fingerprint,
+  generated_at,
+  fresh_until,
+  status,
+  node_count,
+  activated_at,
+  retired_at,
+  supersedes_release_id
+)
+select
+  gen_random_uuid(),
+  release.release_version,
+  'guokao',
+  'xingce',
+  release.source_data_version,
+  release.vocab_version,
+  release.generator_version,
+  release.source_fingerprint,
+  transaction_timestamp(),
+  release.fresh_until,
+  'draft',
+  0,
+  null,
+  null,
+  predecessor.release_id
+from knowledge_map_publish_input release
+left join lateral (
+  select prior.release_id
+  from product.knowledge_map_releases prior
+  where prior.exam_scope = 'guokao'
+    and prior.track = 'xingce'
+    and prior.status in ('active', 'retired')
+  order by
+    case prior.status when 'active' then 0 else 1 end,
+    coalesce(prior.activated_at, prior.retired_at, prior.generated_at) desc,
+    prior.release_version desc
+  limit 1
+) predecessor on true
+on conflict (release_version) do nothing
+returning release_id
+)
+select set_config(
+  'app.knowledge_map_inserted_release_id',
+  coalesce(max(release_id::text), ''),
+  true
+)
+from inserted_release;
+
+-- 同版本仅允许两种状态：本事务刚创建的 draft，或此前已完整提交且
+-- 输入指纹完全一致的 active。任何 draft/retired/元数据或内容指纹不一致
+-- 都 fail closed，避免把“撞版本号”误判为幂等成功。
+do $release_replay$
+declare
+  release_input record;
+  stored_release product.knowledge_map_releases%rowtype;
+  inserted_release_id uuid;
+  actual_node_count integer;
+begin
+  select *
+  into strict release_input
+  from knowledge_map_publish_input;
+
+  if release_input.release_version like 'knowledge-map@legacy-pre-%'
+     or release_input.source_data_version like 'legacy:%'
+     or release_input.generator_version like 'legacy:%'
+     or release_input.vocab_version like 'legacy:%' then
+    raise exception using
+      errcode = '23514',
+      message = 'legacy knowledge-map metadata cannot be published as active';
+  end if;
+
+  select release.*
+  into strict stored_release
+  from product.knowledge_map_releases release
+  where release.release_version = release_input.release_version;
+
+  inserted_release_id := nullif(
+    current_setting('app.knowledge_map_inserted_release_id'),
+    ''
+  )::uuid;
+
+  if stored_release.exam_scope <> 'guokao'
+     or stored_release.track <> 'xingce'
+     or stored_release.source_data_version is distinct from
+        release_input.source_data_version
+     or stored_release.vocab_version is distinct from release_input.vocab_version
+     or stored_release.generator_version is distinct from
+        release_input.generator_version
+     or stored_release.source_fingerprint is distinct from
+        release_input.source_fingerprint
+     or stored_release.fresh_until is distinct from release_input.fresh_until then
+    raise exception using
+      errcode = '23505',
+      message = 'knowledge-map release version already exists with different content';
+  end if;
+
+  if inserted_release_id is not null then
+    if stored_release.release_id <> inserted_release_id
+       or stored_release.status <> 'draft' then
+      raise exception using
+        errcode = '23514',
+        message = 'new knowledge-map release did not enter draft state';
+    end if;
+    perform set_config('app.knowledge_map_publish_replay', 'false', true);
+    return;
+  end if;
+
+  if stored_release.status <> 'active'
+     or stored_release.activated_at is null
+     or stored_release.retired_at is not null
+     or stored_release.fresh_until <= clock_timestamp() then
+    raise exception using
+      errcode = '23514',
+      message = 'knowledge-map release version exists but is not a fresh committed release';
+  end if;
+
+  select count(*)::integer
+  into actual_node_count
+  from product.knowledge_map_nodes node
+  where node.release_id = stored_release.release_id;
+
+  if stored_release.node_count <= 0
+     or actual_node_count <> stored_release.node_count
+     or (
+       select count(*)
+       from product.vocab_module_alias_map canonical
+       where canonical.version = stored_release.vocab_version
+         and canonical.action = 'canonical'
+     ) <> 6
+     or (
+       select count(distinct canonical.canonical_code)
+       from product.vocab_module_alias_map canonical
+       where canonical.version = stored_release.vocab_version
+         and canonical.action = 'canonical'
+     ) <> 6
+     or (
+       select count(distinct canonical.canonical_code)
+       from product.vocab_module_alias_map canonical
+       where canonical.version = stored_release.vocab_version
+         and canonical.action = 'canonical'
+         and exists (
+           select 1
+           from product.knowledge_map_nodes node
+           where node.release_id = stored_release.release_id
+             and node.module_name = canonical.raw_module_name
+             and node.status = 'published'
+             and node.support_status = 'text_supported'
+             and node.node_type in ('micro_skill', 'knowledge_point')
+             and node.tag_type is not null
+             and coalesce(node.near5_occurrence_count, 0) > 0
+         )
+     ) <> 6 then
+    raise exception using
+      errcode = '23514',
+      message = 'committed knowledge-map release failed six-module integrity validation';
+  end if;
+
+  perform set_config('app.knowledge_map_publish_replay', 'true', true);
+end
+$release_replay$;
+
+-- 人工确认节点是治理事实，不因生成器换版丢失。先复制前序 release 的人工节点，
+-- 再由本次生成结果仅刷新其统计证据；结构、别名与支持状态仍归人工治理所有。
 insert into product.knowledge_map_nodes (
+  release_id,
+  node_id,
+  exam_scope,
+  track,
+  module_name,
+  node_type,
+  tag_type,
+  tag_value,
+  display_path,
+  parent_node_id,
+  aliases,
+  support_status,
+  near5_window_start_year,
+  near5_window_end_year,
+  near5_weight,
+  near5_occurrence_count,
+  stable_for_old_questions,
+  method_card_ids,
+  evidence,
+  status,
+  created_at,
+  updated_at
+)
+select
+  draft.release_id,
+  node.node_id,
+  node.exam_scope,
+  node.track,
+  node.module_name,
+  node.node_type,
+  node.tag_type,
+  node.tag_value,
+  node.display_path,
+  node.parent_node_id,
+  node.aliases,
+  node.support_status,
+  node.near5_window_start_year,
+  node.near5_window_end_year,
+  node.near5_weight,
+  node.near5_occurrence_count,
+  node.stable_for_old_questions,
+  node.method_card_ids,
+  node.evidence,
+  node.status,
+  node.created_at,
+  transaction_timestamp()
+from product.knowledge_map_releases draft
+join product.knowledge_map_nodes node
+  on node.release_id = draft.supersedes_release_id
+where draft.release_version =
+      current_setting('app.knowledge_map_release_version')
+  and draft.status = 'draft'
+  and not current_setting('app.knowledge_map_publish_replay')::boolean
+  and node.evidence->>'manual_confirmed' = 'true';
+
+insert into product.knowledge_map_nodes as existing_node (
+  release_id,
   node_id,
   exam_scope,
   track,
@@ -142,12 +648,24 @@ with params as (
   --   set app.knowledge_map_collapse_threshold = <n>
   -- 在会话级覆盖；vocab_version 按 R3 固定在脚本内。
   select
-    'vocab@v1'::text as vocab_version,
+    release.release_id,
+    release.release_version,
+    release.source_data_version,
+    release.source_fingerprint,
+    release.vocab_version,
+    release.generator_version,
     coalesce(
       nullif(current_setting('app.knowledge_map_collapse_threshold', true), '')::integer,
       30
     ) as collapse_threshold,
     '(图形|图形推理|空间|立体|折纸|位置规律|样式规律|数量规律)'::text as image_pattern
+  from product.knowledge_map_releases release
+  where release.release_version =
+        current_setting('app.knowledge_map_release_version')
+    and release.exam_scope = 'guokao'
+    and release.track = 'xingce'
+    and release.status = 'draft'
+    and not current_setting('app.knowledge_map_publish_replay')::boolean
 ), module_map as (
   -- R0/R1：只放行 canonical/map 行；canonical_code 自连接取 canonical 显示名，
   -- 使别名模块（言语理解、资科分析…）的题并入规范模块节点。
@@ -693,6 +1211,7 @@ with params as (
    and w.tag_value = u.tag_value
 )
 select
+  (select release_id from params),
   e.node_id,
   e.exam_scope,
   e.track,
@@ -730,7 +1249,10 @@ select
     '[]'::jsonb
   ) as method_card_ids,
   jsonb_build_object(
-    'generated_by', 'refresh_knowledge_map_nodes_v2',
+    'generated_by', (select generator_version from params),
+    'release_version', (select release_version from params),
+    'source_data_version', (select source_data_version from params),
+    'source_fingerprint', (select source_fingerprint from params),
     'vocab_version', (select vocab_version from params),
     'collapse_threshold', (select collapse_threshold from params),
     'source_tables', jsonb_build_array(
@@ -752,50 +1274,685 @@ select
   now()
 from enriched e
 where e.question_count > 0
-on conflict (node_id) do update set
-  exam_scope = excluded.exam_scope,
-  track = excluded.track,
-  module_name = excluded.module_name,
-  node_type = excluded.node_type,
-  tag_type = excluded.tag_type,
-  tag_value = excluded.tag_value,
-  display_path = case
-    when product.knowledge_map_nodes.evidence->>'generated_by' = 'refresh_knowledge_map_nodes_v2'
-    then excluded.display_path
-    else product.knowledge_map_nodes.display_path
-  end,
-  parent_node_id = case
-    when product.knowledge_map_nodes.evidence->>'generated_by' = 'refresh_knowledge_map_nodes_v2'
-    then excluded.parent_node_id
-    else product.knowledge_map_nodes.parent_node_id
-  end,
-  aliases = case
-    when product.knowledge_map_nodes.evidence->>'generated_by' = 'refresh_knowledge_map_nodes_v2'
-    then excluded.aliases
-    else product.knowledge_map_nodes.aliases
-  end,
-  support_status = case
-    when product.knowledge_map_nodes.evidence->>'generated_by' = 'refresh_knowledge_map_nodes_v2'
-    then excluded.support_status
-    else product.knowledge_map_nodes.support_status
-  end,
+on conflict (release_id, node_id) do update set
   near5_window_start_year = excluded.near5_window_start_year,
   near5_window_end_year = excluded.near5_window_end_year,
   near5_weight = excluded.near5_weight,
   near5_occurrence_count = excluded.near5_occurrence_count,
   stable_for_old_questions = excluded.stable_for_old_questions,
   method_card_ids = excluded.method_card_ids,
-  evidence = case
-    when product.knowledge_map_nodes.evidence->>'generated_by' = 'refresh_knowledge_map_nodes_v2'
-    then excluded.evidence
-    else product.knowledge_map_nodes.evidence || jsonb_build_object(
-      'last_generated_refresh',
-      excluded.evidence - 'manual_confirmed'
+  evidence = existing_node.evidence || jsonb_build_object(
+    'last_generated_refresh',
+    excluded.evidence - 'manual_confirmed'
+  ),
+  updated_at = transaction_timestamp();
+
+update product.knowledge_map_releases release
+set node_count = (
+  select count(*)::integer
+  from product.knowledge_map_nodes node
+  where node.release_id = release.release_id
+)
+where release.release_version =
+      current_setting('app.knowledge_map_release_version')
+  and release.status = 'draft';
+
+-- 将本次发布所依据的 question -> node 归因、题面内容版本、可投放事实与
+-- 排序事实全部冻结到 release。后续消费者不得再用 mutable questions /
+-- question_tags / occurrences 重新解释历史 release。
+create temporary table knowledge_map_binding_candidates
+on commit drop
+as
+with target_release as (
+  select release.*
+  from product.knowledge_map_releases release
+  where release.release_version =
+        current_setting('app.knowledge_map_release_version')
+    and release.exam_scope = 'guokao'
+    and release.track = 'xingce'
+    and release.status = case
+      when current_setting('app.knowledge_map_publish_replay')::boolean
+        then 'active'
+      else 'draft'
+    end
+), module_map as (
+  select
+    alias.raw_module_name,
+    alias.canonical_code as module_code,
+    canonical.raw_module_name as canonical_module
+  from target_release release
+  join product.vocab_module_alias_map alias
+    on alias.version = release.vocab_version
+   and alias.action in ('canonical', 'map')
+  join product.vocab_module_alias_map canonical
+    on canonical.version = alias.version
+   and canonical.action = 'canonical'
+   and canonical.canonical_code = alias.canonical_code
+), governed_questions as (
+  select
+    release.release_id,
+    question.question_id,
+    question.module_name as raw_module_name,
+    module_map.module_code,
+    module_map.canonical_module,
+    question.visual_required,
+    question.shared_context_required,
+    question.latest_year,
+    coalesce(question.occurrence_count, 0)::integer as occurrence_count
+  from target_release release
+  join product.questions question
+    on question.domain = 'objective'
+   and question.status = 'active'
+  join module_map
+    on module_map.raw_module_name = question.module_name
+), current_question_snapshots as (
+  select
+    governed.*,
+    jsonb_build_object(
+      'question_id', question.question_id,
+      'module_name', question.module_name,
+      'question_type', question.question_type,
+      'stem', question.stem,
+      'stem_html', question.stem_html,
+      'answer', question.answer,
+      'material_text', question.material_text,
+      'material_html', question.material_html,
+      'preferred_analysis', explanation.preferred_analysis,
+      'analysis_source', explanation.analysis_source,
+      'analysis_status', explanation.analysis_status,
+      'prefer_ai_analysis', explanation.prefer_ai_analysis,
+      'analysis_needs_review', explanation.analysis_needs_review,
+      'options', coalesce(
+        (
+          select jsonb_agg(
+            jsonb_build_object(
+              'label', option.label,
+              'option_text', option.option_text,
+              'option_html', option.option_html
+            )
+            order by option.option_index
+          )
+          from product.question_options option
+          where option.question_id = question.question_id
+        ),
+        '[]'::jsonb
+      ),
+      'assets', coalesce(
+        (
+          select jsonb_agg(
+            jsonb_build_object(
+              'asset_id', asset.asset_id,
+              'part_kind', asset.part_kind,
+              'part_index', asset.part_index,
+              'image_ordinal', asset.image_ordinal,
+              'image_src', asset.image_src,
+              'object_key', asset.object_key,
+              'is_representative_asset', asset.is_representative_asset
+            )
+            order by
+              asset.part_kind nulls last,
+              asset.part_index nulls last,
+              asset.image_ordinal nulls last,
+              asset.asset_id
+          )
+          from product.question_assets asset
+          where asset.question_id = question.question_id
+        ),
+        '[]'::jsonb
+      )
+    ) as current_snapshot
+  from governed_questions governed
+  join product.questions question
+    on question.question_id = governed.question_id
+  left join product.question_explanations explanation
+    on explanation.question_id = question.question_id
+), direct_bindings as (
+  select
+    question.release_id,
+    node.node_id,
+    question.question_id,
+    question.module_code,
+    question.canonical_module,
+    'direct'::text as binding_kind,
+    tag.tag_type as source_tag_type,
+    tag.tag_value as source_tag_value
+  from current_question_snapshots question
+  join product.question_tags tag
+    on tag.question_id = question.question_id
+  join product.knowledge_map_nodes node
+    on node.release_id = question.release_id
+   and node.module_name = question.canonical_module
+   and node.tag_type = tag.tag_type
+   and node.tag_value = tag.tag_value
+   and node.status = 'published'
+), collapsed_bindings as (
+  select
+    question.release_id,
+    node.node_id,
+    question.question_id,
+    question.module_code,
+    question.canonical_module,
+    'collapsed'::text as binding_kind,
+    tag.tag_type as source_tag_type,
+    tag.tag_value as source_tag_value
+  from current_question_snapshots question
+  join product.question_tags tag
+    on tag.question_id = question.question_id
+  join product.knowledge_map_nodes node
+    on node.release_id = question.release_id
+   and node.module_name = question.canonical_module
+   and node.status = 'published'
+  cross join lateral jsonb_array_elements(
+    coalesce(node.evidence->'collapsed_from', '[]'::jsonb)
+  ) collapsed
+  where collapsed->>'node_type' = tag.tag_type
+    and collapsed->>'tag_value' = tag.tag_value
+), governed_bindings as (
+  select distinct on (release_id, node_id, question_id)
+    release_id,
+    node_id,
+    question_id,
+    module_code,
+    canonical_module,
+    binding_kind,
+    source_tag_type,
+    source_tag_value
+  from (
+    select * from direct_bindings
+    union all
+    select * from collapsed_bindings
+  ) binding
+  order by
+    release_id,
+    node_id,
+    question_id,
+    case binding_kind when 'direct' then 0 else 1 end,
+    source_tag_type,
+    source_tag_value
+), versioned_bindings as (
+  select
+    binding.*,
+    snapshot.visual_required,
+    snapshot.shared_context_required,
+    snapshot.latest_year,
+    snapshot.occurrence_count,
+    snapshot.current_snapshot,
+    content_head.content_version_id,
+    content_version.snapshot_payload as frozen_snapshot,
+    node.near5_window_start_year,
+    node.near5_window_end_year
+  from governed_bindings binding
+  join current_question_snapshots snapshot
+    on snapshot.release_id = binding.release_id
+   and snapshot.question_id = binding.question_id
+  join product.knowledge_map_nodes node
+    on node.release_id = binding.release_id
+   and node.node_id = binding.node_id
+  left join product.question_content_heads content_head
+    on content_head.question_id = binding.question_id
+  left join product.question_content_versions content_version
+    on content_version.question_id = binding.question_id
+   and content_version.content_version_id = content_head.content_version_id
+), binding_facts as (
+  select
+    binding.*,
+    occurrence.latest_recent_exam_year,
+    occurrence.recent_occurrence_count,
+    occurrence.latest_old_exam_year,
+    occurrence.old_occurrence_count,
+    coalesce(
+      nullif(btrim(binding.frozen_snapshot->>'stem'), '') is not null
+      and nullif(btrim(binding.frozen_snapshot->>'answer'), '') is not null
+      and jsonb_typeof(binding.frozen_snapshot->'options') = 'array'
+      and exists (
+        select 1
+        from jsonb_array_elements(
+          coalesce(binding.frozen_snapshot->'options', '[]'::jsonb)
+        ) option
+        where upper(btrim(option->>'label')) =
+              upper(btrim(binding.frozen_snapshot->>'answer'))
+      )
+      and (
+        not binding.visual_required
+        or exists (
+          select 1
+          from jsonb_array_elements(
+            coalesce(binding.frozen_snapshot->'assets', '[]'::jsonb)
+          ) asset
+          where asset->>'image_src' ~
+                '^https://kg\\.xingguoxian\\.cn(?::443)?/assets/'
+        )
+      ),
+      false
+    ) as delivery_eligible
+  from versioned_bindings binding
+  left join lateral (
+    select
+      max(source.exam_year) filter (
+        where source.exam_year between
+          binding.near5_window_start_year and binding.near5_window_end_year
+      )::integer as latest_recent_exam_year,
+      count(distinct source.occurrence_id) filter (
+        where source.exam_year between
+          binding.near5_window_start_year and binding.near5_window_end_year
+      )::integer as recent_occurrence_count,
+      max(source.exam_year) filter (
+        where source.exam_year < binding.near5_window_start_year
+      )::integer as latest_old_exam_year,
+      count(distinct source.occurrence_id) filter (
+        where source.exam_year < binding.near5_window_start_year
+      )::integer as old_occurrence_count
+    from (
+      select
+        occurrence.occurrence_id,
+        coalesce(
+          nullif(
+            substring(
+              coalesce(
+                occurrence.paper_title,
+                occurrence.occurrence_paper_title,
+                ''
+              )
+              from '([12][0-9]{3})年'
+            ),
+            ''
+          )::integer,
+          occurrence.year
+        ) as exam_year
+      from product.question_occurrences occurrence
+      where occurrence.question_id = binding.question_id
+        and (
+          coalesce(occurrence.province, '') = '国考'
+          or coalesce(
+            occurrence.paper_title,
+            occurrence.occurrence_paper_title,
+            ''
+          ) ~ '(国考|国家公务员|中央机关|中央、国家机关|中央国家机关)'
+          or coalesce(occurrence.source_path, '') ~
+             '(国考|国家公务员|中央机关|中央、国家机关|中央国家机关)'
+        )
+    ) source
+  ) occurrence on true
+), prepared_bindings as (
+  select
+    release_id,
+    node_id,
+    question_id,
+    content_version_id,
+    module_code,
+    canonical_module,
+    binding_kind,
+    source_tag_type,
+    source_tag_value,
+    delivery_eligible,
+    visual_required,
+    shared_context_required,
+    latest_year,
+    occurrence_count,
+    latest_recent_exam_year,
+    coalesce(recent_occurrence_count, 0)::integer as recent_occurrence_count,
+    latest_old_exam_year,
+    coalesce(old_occurrence_count, 0)::integer as old_occurrence_count,
+    current_snapshot,
+    frozen_snapshot
+  from binding_facts
+)
+select
+  prepared.*,
+  product.knowledge_map_question_binding_row_fingerprint(
+    row(
+      prepared.release_id,
+      prepared.node_id,
+      prepared.question_id,
+      prepared.content_version_id,
+      prepared.module_code,
+      prepared.canonical_module,
+      prepared.binding_kind,
+      prepared.source_tag_type,
+      prepared.source_tag_value,
+      prepared.delivery_eligible,
+      prepared.visual_required,
+      prepared.shared_context_required,
+      prepared.latest_year,
+      prepared.occurrence_count,
+      prepared.latest_recent_exam_year,
+      prepared.recent_occurrence_count,
+      prepared.latest_old_exam_year,
+      prepared.old_occurrence_count,
+      repeat('0', 64),
+      transaction_timestamp()
+    )::product.knowledge_map_question_bindings
+  ) as binding_fingerprint
+from prepared_bindings prepared;
+
+do $binding_sources$
+declare
+  candidate_count integer;
+begin
+  select count(*)::integer
+  into candidate_count
+  from knowledge_map_binding_candidates;
+
+  if candidate_count <= 0 then
+    raise exception using
+      errcode = '23514',
+      message = 'knowledge-map release has no frozen question bindings';
+  end if;
+
+  if exists (
+    select 1
+    from knowledge_map_binding_candidates candidate
+    where candidate.content_version_id is null
+       or candidate.frozen_snapshot is null
+       or candidate.current_snapshot is distinct from candidate.frozen_snapshot
+  ) then
+    raise exception using
+      errcode = '23514',
+      message = 'knowledge-map question content head is missing or stale';
+  end if;
+end
+$binding_sources$;
+
+insert into product.knowledge_map_question_bindings (
+  release_id,
+  node_id,
+  question_id,
+  content_version_id,
+  module_code,
+  canonical_module,
+  binding_kind,
+  source_tag_type,
+  source_tag_value,
+  delivery_eligible,
+  visual_required,
+  shared_context_required,
+  latest_year,
+  occurrence_count,
+  latest_recent_exam_year,
+  recent_occurrence_count,
+  latest_old_exam_year,
+  old_occurrence_count,
+  binding_fingerprint,
+  created_at
+)
+select
+  candidate.release_id,
+  candidate.node_id,
+  candidate.question_id,
+  candidate.content_version_id,
+  candidate.module_code,
+  candidate.canonical_module,
+  candidate.binding_kind,
+  candidate.source_tag_type,
+  candidate.source_tag_value,
+  candidate.delivery_eligible,
+  candidate.visual_required,
+  candidate.shared_context_required,
+  candidate.latest_year,
+  candidate.occurrence_count,
+  candidate.latest_recent_exam_year,
+  candidate.recent_occurrence_count,
+  candidate.latest_old_exam_year,
+  candidate.old_occurrence_count,
+  candidate.binding_fingerprint,
+  transaction_timestamp()
+from knowledge_map_binding_candidates candidate
+where not current_setting('app.knowledge_map_publish_replay')::boolean;
+
+with binding_manifest as (
+  select
+    release.release_id,
+    manifest.binding_count,
+    manifest.binding_fingerprint
+  from product.knowledge_map_releases release
+  cross join lateral product.knowledge_map_question_binding_manifest(
+    release.release_id
+  ) manifest
+  where release.release_version =
+        current_setting('app.knowledge_map_release_version')
+    and release.status = 'draft'
+    and not current_setting('app.knowledge_map_publish_replay')::boolean
+)
+update product.knowledge_map_releases release
+set
+  question_binding_count = manifest.binding_count,
+  question_binding_fingerprint = manifest.binding_fingerprint
+from binding_manifest manifest
+where release.release_id = manifest.release_id;
+
+-- 同版本 replay 也必须根据当前 source 重新计算候选绑定。只校验历史表自身
+-- 不足以发现 questions/tags/content heads/occurrences 在发布后的漂移。
+do $binding_manifest$
+declare
+  target_release product.knowledge_map_releases%rowtype;
+  stored_count integer;
+  stored_fingerprint text;
+  candidate_count integer;
+  candidate_fingerprint text;
+begin
+  select release.*
+  into strict target_release
+  from product.knowledge_map_releases release
+  where release.release_version =
+        current_setting('app.knowledge_map_release_version')
+    and release.exam_scope = 'guokao'
+    and release.track = 'xingce'
+    and release.status = case
+      when current_setting('app.knowledge_map_publish_replay')::boolean
+        then 'active'
+      else 'draft'
+    end;
+
+  select manifest.binding_count, manifest.binding_fingerprint
+  into stored_count, stored_fingerprint
+  from product.knowledge_map_question_binding_manifest(
+    target_release.release_id
+  ) manifest;
+
+  select
+    count(*)::integer,
+    encode(
+      digest(
+        convert_to(
+          coalesce(
+            string_agg(
+              concat_ws(
+                E'\x1f',
+                candidate.node_id,
+                candidate.question_id,
+                candidate.binding_fingerprint
+              ),
+              E'\x1e'
+              order by candidate.node_id, candidate.question_id
+            ),
+            ''
+          ),
+          'UTF8'
+        ),
+        'sha256'
+      ),
+      'hex'
     )
-  end,
-  status = case
-    when product.knowledge_map_nodes.evidence->>'generated_by' = 'refresh_knowledge_map_nodes_v2'
-    then excluded.status
-    else product.knowledge_map_nodes.status
-  end,
-  updated_at = now();
+  into candidate_count, candidate_fingerprint
+  from knowledge_map_binding_candidates candidate;
+
+  if stored_count <= 0
+     or stored_count <> target_release.question_binding_count
+     or stored_fingerprint is distinct from
+        target_release.question_binding_fingerprint
+     or candidate_count <> stored_count
+     or candidate_fingerprint is distinct from stored_fingerprint then
+    raise exception using
+      errcode = '23514',
+      message = 'knowledge-map question binding manifest does not match its source';
+  end if;
+end
+$binding_manifest$;
+
+-- 激活前的最后门禁必须在同一事务内读取实际落库事实，不能相信调用方声明。
+do $publish$
+declare
+  pending_release product.knowledge_map_releases%rowtype;
+  actual_node_count integer;
+  publish_replay boolean :=
+    current_setting('app.knowledge_map_publish_replay')::boolean;
+begin
+  select release.*
+  into strict pending_release
+  from product.knowledge_map_releases release
+  where release.release_version =
+        current_setting('app.knowledge_map_release_version')
+    and release.exam_scope = 'guokao'
+    and release.track = 'xingce'
+    and release.status = case
+      when publish_replay then 'active'
+      else 'draft'
+    end;
+
+  select count(*)::integer
+  into actual_node_count
+  from product.knowledge_map_nodes node
+  where node.release_id = pending_release.release_id;
+
+  if pending_release.node_count <= 0
+     or actual_node_count <> pending_release.node_count then
+    raise exception using
+      errcode = '23514',
+      message = 'knowledge-map release node count is incomplete';
+  end if;
+
+  if pending_release.fresh_until <= pending_release.generated_at
+     or pending_release.fresh_until <= clock_timestamp() then
+    raise exception using
+      errcode = '23514',
+      message = 'knowledge-map release freshness window has expired';
+  end if;
+
+  if (
+    select count(*)
+    from product.vocab_module_alias_map canonical
+    where canonical.version = pending_release.vocab_version
+      and canonical.action = 'canonical'
+  ) <> 6
+     or (
+       select count(distinct canonical.canonical_code)
+       from product.vocab_module_alias_map canonical
+       where canonical.version = pending_release.vocab_version
+         and canonical.action = 'canonical'
+     ) <> 6
+     or (
+       select count(*)
+       from product.vocab_module_alias_map canonical
+       where canonical.version = pending_release.vocab_version
+         and canonical.action = 'canonical'
+         and (canonical.canonical_code, canonical.raw_module_name) in (
+           values
+             ('political_theory', '政治理论'),
+             ('general_knowledge', '常识判断'),
+             ('verbal_comprehension', '言语理解与表达'),
+             ('quantitative_relations', '数量关系'),
+             ('judgment_reasoning', '判断推理'),
+             ('data_analysis', '资料分析')
+         )
+     ) <> 6
+     or (
+    select count(distinct canonical.canonical_code)
+    from product.vocab_module_alias_map canonical
+    where canonical.version = pending_release.vocab_version
+      and canonical.action = 'canonical'
+      and exists (
+        select 1
+        from product.knowledge_map_nodes node
+        join product.knowledge_map_question_bindings binding
+          on binding.release_id = node.release_id
+         and binding.node_id = node.node_id
+         and binding.module_code = canonical.canonical_code
+         and binding.canonical_module = canonical.raw_module_name
+         and binding.delivery_eligible
+        where node.release_id = pending_release.release_id
+          and node.module_name = canonical.raw_module_name
+          and node.status = 'published'
+          and node.support_status = 'text_supported'
+          and node.node_type in ('micro_skill', 'knowledge_point')
+          and node.tag_type is not null
+          and coalesce(node.near5_occurrence_count, 0) > 0
+      )
+  ) <> 6 then
+    raise exception using
+      errcode = '23514',
+      message = 'knowledge-map release does not cover all six actionable modules';
+  end if;
+end
+$publish$;
+
+update product.knowledge_map_releases
+set
+  status = 'retired',
+  retired_at = transaction_timestamp()
+where exam_scope = 'guokao'
+  and track = 'xingce'
+  and status = 'active'
+  and not current_setting('app.knowledge_map_publish_replay')::boolean;
+
+update product.knowledge_map_releases
+set
+  status = 'active',
+  activated_at = transaction_timestamp()
+where release_version =
+      current_setting('app.knowledge_map_release_version')
+  and exam_scope = 'guokao'
+  and track = 'xingce'
+  and status = 'draft'
+  and not current_setting('app.knowledge_map_publish_replay')::boolean;
+
+-- 提交前再次读取最终相态；若激活 UPDATE 未命中，必须让整笔发布回滚，
+-- 不能提交一个后续只能人工清理的 draft。
+do $activation_state$
+declare
+  active_release product.knowledge_map_releases%rowtype;
+begin
+  select release.*
+  into strict active_release
+  from product.knowledge_map_releases release
+  where release.release_version =
+        current_setting('app.knowledge_map_release_version')
+    and release.exam_scope = 'guokao'
+    and release.track = 'xingce'
+    and release.status = 'active'
+    and release.activated_at is not null
+    and release.retired_at is null;
+
+  if (
+    select count(*)
+    from product.knowledge_map_releases release
+    where release.exam_scope = 'guokao'
+      and release.track = 'xingce'
+      and release.status = 'active'
+  ) <> 1 then
+    raise exception using
+      errcode = '23514',
+      message = 'knowledge-map activation did not leave exactly one active release';
+  end if;
+end
+$activation_state$;
+
+select
+  case
+    when current_setting('app.knowledge_map_publish_replay')::boolean
+      then 'already_committed'
+    else 'published'
+  end as publish_status,
+  release.release_id,
+  release.release_version,
+  release.source_data_version,
+  release.source_fingerprint,
+  release.fresh_until,
+  release.node_count
+from product.knowledge_map_releases release
+where release.release_version =
+      current_setting('app.knowledge_map_release_version')
+  and release.exam_scope = 'guokao'
+  and release.track = 'xingce'
+  and release.status = 'active';
+
+commit;

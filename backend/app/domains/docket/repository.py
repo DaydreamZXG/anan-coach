@@ -112,23 +112,8 @@ class DocketRepository:
                   dc.narrative,
                   dc.interaction,
                   dc.source_grounding,
-                  dc.payload,
-                  q.stem_html,
-                  q.material_html,
-                  (
-                    select jsonb_agg(
-                      jsonb_build_object(
-                        'label', qo.label,
-                        'text', qo.option_text,
-                        'html', qo.option_html
-                      )
-                      order by qo.option_index
-                    )
-                    from product.question_options qo
-                    where qo.question_id = dc.question_id
-                  ) as product_options
+                  dc.payload
                 from learner.docket_cards dc
-                left join product.questions q on q.question_id = dc.question_id
                 where dc.docket_id = cast(:docket_id as uuid)
                 order by dc.sort_order
                 """
@@ -182,6 +167,7 @@ class DocketRepository:
                       now(),
                       now()
                     )
+                    on conflict (docket_id, sort_order) do nothing
                     """
                 ),
                 {
@@ -243,13 +229,13 @@ def _card_from_row(row: dict[str, Any]) -> DocketCard:
         title=row["title"],
         narrative=row["narrative"],
         stem=str(payload["stem"]),
-        stem_html=_optional_str(row.get("stem_html")) or _optional_str(payload.get("stemHtml")),
+        stem_html=_optional_str(payload.get("stemHtml")),
         material_text=payload.get("materialText"),
-        material_html=(
-            _optional_str(row.get("material_html"))
-            or _optional_str(payload.get("materialHtml"))
-        ),
-        options=_options_from_row(row=row, payload=payload),
+        material_html=_optional_str(payload.get("materialHtml")),
+        options=[
+            DocketOption(**option)
+            for option in _coerce_json_array(payload.get("options"))
+        ],
         source_grounding=row["source_grounding"],
         source_summary=str(payload["sourceSummary"]),
         occurrence_count=payload.get("occurrenceCount"),
@@ -259,16 +245,6 @@ def _card_from_row(row: dict[str, Any]) -> DocketCard:
 
 def _optional_str(value: Any) -> str | None:
     return value if isinstance(value, str) and value else None
-
-
-def _options_from_row(*, row: dict[str, Any], payload: dict[str, Any]) -> list[DocketOption]:
-    product_options = _coerce_json_array(row.get("product_options"))
-    if product_options:
-        return [DocketOption(**option) for option in product_options]
-    return [
-        DocketOption(**option)
-        for option in payload.get("options", [])
-    ]
 
 
 def _coerce_json_array(value: Any) -> list[dict[str, Any]]:

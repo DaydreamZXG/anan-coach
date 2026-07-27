@@ -113,6 +113,9 @@ class DocketService:
             for index, summary in enumerate(selection.items, start=1)
         ]
         self._repository.create_cards(docket_id=docket.docket_id, cards=cards)
+        cards = self._repository.list_cards(docket_id=docket.docket_id)
+        if len(cards) != OPEN_COURT_CARD_COUNT:
+            raise RuntimeError("Daily docket immutable card bundle is incomplete")
         return DocketOpenCourtResponse(
             docket_id=docket.docket_id,
             opened_at=opened_at,

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import date
+from datetime import UTC, date, datetime
 
 from fastapi.testclient import TestClient
 
@@ -17,6 +17,7 @@ from app.domains.knowledge.schemas import (
 )
 from app.domains.knowledge.service import QuestionNotFoundError, WeightedPracticeSelection
 from app.domains.memory.repository import LearnerProfileRecord
+from app.domains.practice.repository import FrozenPracticeQuestion
 from app.domains.practice.router import get_practice_service
 from app.domains.practice.service import PracticeService
 from app.domains.progression.deps import get_progression_service
@@ -117,6 +118,10 @@ class FakeProgressionService:
 
 
 class FakeKnowledgeService:
+    def __init__(self) -> None:
+        self.get_question_calls = 0
+        self.live_answer = "B"
+
     def select_weighted_xingce_practice(
         self,
         *,
@@ -126,6 +131,10 @@ class FakeKnowledgeService:
     ) -> WeightedPracticeSelection:
         items = self.search_questions(limit=limit).items
         return WeightedPracticeSelection(
+            release_id="00000000-0000-0000-0000-000000000101",
+            release_version="knowledge-map@taskstream-test",
+            source_data_version="questions@taskstream-test",
+            fresh_until=datetime(2099, 1, 1, tzinfo=UTC),
             node_id="km_fixture",
             exam_scope=exam_scope,
             track="xingce",
@@ -164,6 +173,7 @@ class FakeKnowledgeService:
         )
 
     def get_question(self, question_id: str) -> QuestionDetail:
+        self.get_question_calls += 1
         if question_id == "missing":
             raise QuestionNotFoundError(question_id)
         return QuestionDetail(
@@ -180,7 +190,7 @@ class FakeKnowledgeService:
             micro_skill="增长率",
             stem="2025年某地区完成投资额同比增长。",
             stem_html=None,
-            answer="B",
+            answer=self.live_answer,
             material_text=None,
             material_html=None,
             difficulty=None,
@@ -232,9 +242,92 @@ class FakeKnowledgeService:
         )
 
 
-def make_client() -> TestClient:
+class FakePracticeRepository:
+    def __init__(self) -> None:
+        self.questions = [
+            FrozenPracticeQuestion(
+                release_id="00000000-0000-0000-0000-000000000101",
+                release_version="knowledge-map@taskstream-test",
+                node_id="km_fixture",
+                tag_value="文字资料",
+                question_id=f"cq_weighted_{index}",
+                content_version_id=f"{index:064x}",
+                visual_required=False,
+                shared_context_required=False,
+                occurrence_count=11,
+                latest_year=2026,
+                snapshot={
+                    "question_id": f"cq_weighted_{index}",
+                    "module_name": "资料分析",
+                    "question_type": "资料分析",
+                    "stem": "2025年某地区完成投资额同比增长。",
+                    "stem_html": None,
+                    "answer": "B",
+                    "material_text": None,
+                    "material_html": None,
+                    "preferred_analysis": (
+                        "答案B。B项切断食用香榧与治疗作用之间的联系。"
+                    ),
+                    "analysis_source": "ai_rewrite",
+                    "analysis_status": "ai_rewrite_accepted",
+                    "prefer_ai_analysis": True,
+                    "analysis_needs_review": False,
+                    "options": [
+                        {
+                            "label": "A",
+                            "option_text": "A、无关项",
+                            "option_html": None,
+                        },
+                        {
+                            "label": "B",
+                            "option_text": "B、拆桥项",
+                            "option_html": None,
+                        },
+                    ],
+                    "assets": [],
+                },
+            )
+            for index in range(1, 4)
+        ]
+
+    def frozen_questions(
+        self,
+        *,
+        release_id: str,
+        node_id: str,
+        question_ids: list[str],
+    ) -> list[FrozenPracticeQuestion]:
+        return [
+            question
+            for question_id in question_ids
+            for question in self.questions
+            if question.release_id == release_id
+            and question.node_id == node_id
+            and question.question_id == question_id
+        ]
+
+    def weighted_frozen_questions(
+        self,
+        *,
+        release_id: str,
+        node_id: str,
+        limit: int,
+    ) -> list[FrozenPracticeQuestion]:
+        return [
+            question
+            for question in self.questions
+            if question.release_id == release_id and question.node_id == node_id
+        ][:limit]
+
+
+def make_client(
+    *,
+    knowledge: FakeKnowledgeService | None = None,
+    practice_repository: FakePracticeRepository | None = None,
+) -> TestClient:
     app = create_app()
-    knowledge = FakeKnowledgeService()
+    knowledge = knowledge or FakeKnowledgeService()
+    practice_repository = practice_repository or FakePracticeRepository()
     memory = FakeMemoryService()
     app.dependency_overrides[get_auth_repository] = lambda: FakeAuthRepository()
     app.dependency_overrides[get_taskstream_service] = lambda: TaskstreamService(  # type: ignore[arg-type]
@@ -245,6 +338,7 @@ def make_client() -> TestClient:
     app.dependency_overrides[get_practice_service] = lambda: PracticeService(  # type: ignore[arg-type]
         knowledge_service=knowledge,
         memory_service=memory,
+        repository=practice_repository,
     )
     app.dependency_overrides[get_progression_service] = lambda: FakeProgressionService()  # type: ignore[return-value]
     return TestClient(app)
@@ -321,12 +415,17 @@ def test_practice_task_start_contract() -> None:
 
 def test_practice_answer_contract() -> None:
     client = make_client()
+    task_version = client.get(
+        f"/api/v1/practice/tasks/{TODAY_XINGCE_TASK_ID}",
+        headers={"Authorization": "Bearer user-practice"},
+    ).json()["taskVersion"]
     response = client.post(
         f"/api/v1/practice/tasks/{TODAY_XINGCE_TASK_ID}/answers",
         headers={"Authorization": "Bearer user-practice"},
         json={
             "questionId": "cq_weighted_1",
             "selectedAnswer": "B",
+            "taskVersion": task_version,
         },
     )
 
@@ -335,7 +434,7 @@ def test_practice_answer_contract() -> None:
     assert body["correct"] is True
     assert body["correctAnswer"] == "B"
     assert body["explanationSource"] == "ai_rewrite"
-    assert body["sourceCount"] == 1
+    assert body["sourceCount"] == 11
     assert "国考" in body["sourceSummary"]
 
     today = client.get(
@@ -346,13 +445,46 @@ def test_practice_answer_contract() -> None:
     assert today.json()["completedTaskIds"] == [TODAY_XINGCE_TASK_ID]
 
 
+def test_practice_display_and_scoring_use_the_same_frozen_content_version() -> None:
+    knowledge = FakeKnowledgeService()
+    repository = FakePracticeRepository()
+    client = make_client(knowledge=knowledge, practice_repository=repository)
+
+    task = client.get(
+        f"/api/v1/practice/tasks/{TODAY_XINGCE_TASK_ID}",
+        headers={"Authorization": "Bearer user-practice"},
+    ).json()
+    knowledge.live_answer = "A"
+
+    response = client.post(
+        f"/api/v1/practice/tasks/{TODAY_XINGCE_TASK_ID}/answers",
+        headers={"Authorization": "Bearer user-practice"},
+        json={
+            "questionId": "cq_weighted_1",
+            "selectedAnswer": "B",
+            "taskVersion": task["taskVersion"],
+        },
+    )
+
+    assert response.status_code == 200
+    assert response.json()["correct"] is True
+    assert response.json()["correctAnswer"] == "B"
+    assert knowledge.get_question_calls == 0
+
+
 def test_practice_answer_rejects_legacy_learner_header() -> None:
-    response = make_client().post(
+    client = make_client()
+    task_version = client.get(
+        f"/api/v1/practice/tasks/{TODAY_XINGCE_TASK_ID}",
+        headers={"Authorization": "Bearer user-practice"},
+    ).json()["taskVersion"]
+    response = client.post(
         f"/api/v1/practice/tasks/{TODAY_XINGCE_TASK_ID}/answers",
         headers={"X-Learner-Id": "user-practice"},
         json={
             "questionId": "cq_weighted_1",
             "selectedAnswer": "B",
+            "taskVersion": task_version,
         },
     )
 

@@ -10,7 +10,12 @@ from uuid import UUID
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
+from app.contracts.guokao_shenlun import (
+    GUOKAO_SHENLUN_GENERAL_METHOD_VALIDATION_POLICY_VERSION,
+    unique_guokao_shenlun_applicability,
+)
 from app.core.config import Settings
+from app.domains.knowledge.module_vocabulary import load_current_module_vocabulary
 from app.domains.community_method_cards.candidate_provider import (
     CommunityCandidateHttpProvider,
 )
@@ -211,10 +216,9 @@ class SqlValidationBindingAuthority:
         if track == Track.XINGCE:
             canonical = self._session.execute(
                 text(
-                    """
+                """
                     select assessment.question_id, assessment.content_version_id,
-                           assessment.assessment_id, question.module_name,
-                           question.question_type
+                           assessment.assessment_id
                     from product.community_method_card_source_bindings source
                     join learning.xingce_reflection_versions reflection
                       on reflection.reflection_version_id = source.reflection_version_id
@@ -225,8 +229,6 @@ class SqlValidationBindingAuthority:
                     join learning.xingce_assessments assessment
                       on assessment.attempt_record_id = attempt.attempt_record_id
                      and assessment.user_id = attempt.user_id
-                    join product.questions question
-                      on question.question_id = assessment.question_id
                     where source.version_id = cast(:version_id as uuid)
                       and source.owner_user_id = cast(:owner_user_id as uuid)
                       and 1 = (
@@ -242,10 +244,9 @@ class SqlValidationBindingAuthority:
                 {"version_id": version_id, "owner_user_id": owner_user_id},
             ).mappings().one_or_none()
             if canonical is not None:
-                node = self._published_node(
-                    track="xingce",
-                    module_name=str(canonical["module_name"]),
-                    tag_value=str(canonical["question_type"]),
+                node = self._published_question_node(
+                    question_id=str(canonical["question_id"]),
+                    content_version_id=str(canonical["content_version_id"]),
                 )
                 return ValidationBinding(
                     validation_scope="canonical_question",
@@ -275,6 +276,8 @@ class SqlValidationBindingAuthority:
                 "owner_user_id": owner_user_id,
             },
         ).mappings().one()
+        if track == Track.ESSAY:
+            return self._essay_general_method_binding(version["applicability"])
         node = self._unique_applicability_node(track=track, values=version["applicability"])
         return ValidationBinding(
             validation_scope="general_method",
@@ -287,43 +290,240 @@ class SqlValidationBindingAuthority:
             general_method_outcome="needs_revision",
         )
 
+    @staticmethod
+    def _essay_general_method_binding(values: list[str]) -> ValidationBinding:
+        category = unique_guokao_shenlun_applicability(values)
+        if category is None:
+            raise CommunityMethodCardError("knowledge_binding_ambiguous")
+        return ValidationBinding(
+            validation_scope="general_method",
+            knowledge_node_version_ref=category.applicability_version_ref,
+            canonical_question_id=None,
+            canonical_content_version_id=None,
+            canonical_task_version_ref=None,
+            answer_evidence_refs=(),
+            validation_policy_version=(
+                GUOKAO_SHENLUN_GENERAL_METHOD_VALIDATION_POLICY_VERSION
+            ),
+            general_method_outcome="needs_revision",
+        )
+
     def _published_node(
         self, *, track: str, module_name: str, tag_value: str
     ) -> Mapping[str, Any]:
+        vocabulary = load_current_module_vocabulary(
+            self._session,
+            exam_scope="guokao",
+            track=track,
+        )
+        canonical_module = (
+            vocabulary.canonicalize(module_name) if vocabulary is not None else None
+        )
+        if canonical_module is None:
+            raise CommunityMethodCardError("knowledge_binding_ambiguous")
         nodes = self._session.execute(
             text(
                 """
-                select node_id, updated_at from product.knowledge_map_nodes
-                where track = :track and module_name = :module_name
-                  and tag_value = :tag_value and status = 'published'
-                  and support_status = 'text_supported'
-                order by node_id
+                with active_releases as (
+                  select
+                    release.release_id,
+                    release.release_version,
+                    release.fresh_until,
+                    count(*) over () as active_release_count
+                  from product.knowledge_map_releases release
+                  where release.exam_scope = 'guokao'
+                    and release.track = :track
+                    and release.status = 'active'
+                ), current_release as (
+                  select release_id, release_version
+                  from active_releases
+                  where active_release_count = 1
+                    and fresh_until > statement_timestamp()
+                    and release_id = cast(:release_id as uuid)
+                )
+                select
+                  release.release_id,
+                  release.release_version,
+                  node.node_id,
+                  node.updated_at
+                from current_release release
+                join product.knowledge_map_nodes node
+                  on node.release_id = release.release_id
+                where node.exam_scope = 'guokao'
+                  and node.track = :track
+                  and node.module_name = :module_name
+                  and node.tag_value = :tag_value
+                  and node.status = 'published'
+                  and node.support_status = 'text_supported'
+                order by node.node_id
                 """
             ),
-            {"track": track, "module_name": module_name, "tag_value": tag_value},
+            {
+                "release_id": vocabulary.release_id,
+                "track": track,
+                "module_name": canonical_module,
+                "tag_value": tag_value,
+            },
         ).mappings().all()
         if len(nodes) != 1:
             raise CommunityMethodCardError("knowledge_binding_ambiguous")
         return nodes[0]
+
+    def _published_question_node(
+        self,
+        *,
+        question_id: str,
+        content_version_id: str,
+    ) -> Mapping[str, Any]:
+        """Resolve the exact frozen question binding in the current release."""
+
+        vocabulary = load_current_module_vocabulary(
+            self._session,
+            exam_scope="guokao",
+            track="xingce",
+        )
+        if vocabulary is None:
+            raise CommunityMethodCardError("knowledge_binding_ambiguous")
+        nodes = self._session.execute(
+            text(
+                """
+                with active_releases as (
+                  select
+                    release.release_id,
+                    release.release_version,
+                    release.fresh_until,
+                    count(*) over () as active_release_count
+                  from product.knowledge_map_releases release
+                  where release.exam_scope = 'guokao'
+                    and release.track = 'xingce'
+                    and release.status = 'active'
+                ), current_release as (
+                  select release_id, release_version
+                  from active_releases
+                  where active_release_count = 1
+                    and fresh_until > statement_timestamp()
+                    and release_id = cast(:release_id as uuid)
+                )
+                select
+                  release.release_id,
+                  release.release_version,
+                  node.node_id,
+                  node.node_type,
+                  node.updated_at,
+                  content.snapshot_payload as question_snapshot
+                from current_release release
+                join product.knowledge_map_question_bindings binding
+                  on binding.release_id = release.release_id
+                 and binding.question_id = :question_id
+                 and binding.content_version_id = :content_version_id
+                 and binding.delivery_eligible
+                join product.knowledge_map_nodes node
+                  on node.release_id = release.release_id
+                 and node.node_id = binding.node_id
+                join product.question_content_versions content
+                  on content.question_id = binding.question_id
+                 and content.content_version_id = binding.content_version_id
+                 and content.track = 'xingce'
+                where node.exam_scope = 'guokao'
+                  and node.track = 'xingce'
+                  and node.node_type in (
+                    'micro_skill',
+                    'knowledge_point',
+                    'knowledge_family'
+                  )
+                  and node.status = 'published'
+                  and node.support_status = 'text_supported'
+                order by
+                  case node.node_type
+                    when 'micro_skill' then 0
+                    when 'knowledge_point' then 1
+                    else 2
+                  end,
+                  node.node_id
+                """
+            ),
+            {
+                "release_id": vocabulary.release_id,
+                "question_id": question_id,
+                "content_version_id": content_version_id,
+            },
+        ).mappings().all()
+        if not nodes:
+            raise CommunityMethodCardError("knowledge_binding_ambiguous")
+        most_specific_type = str(nodes[0]["node_type"])
+        most_specific = [
+            node for node in nodes if str(node["node_type"]) == most_specific_type
+        ]
+        if len(most_specific) != 1:
+            raise CommunityMethodCardError("knowledge_binding_ambiguous")
+        return most_specific[0]
 
     def _unique_applicability_node(
         self, *, track: Track, values: list[str]
     ) -> Mapping[str, Any]:
         if not values:
             raise CommunityMethodCardError("knowledge_binding_missing")
-        db_track = "xingce" if track == Track.XINGCE else "shenlun"
+        if track != Track.XINGCE:
+            raise CommunityMethodCardError("knowledge_binding_ambiguous")
+        db_track = "xingce"
+        vocabulary = load_current_module_vocabulary(
+            self._session,
+            exam_scope="guokao",
+            track=db_track,
+        )
+        if vocabulary is None:
+            raise CommunityMethodCardError("knowledge_binding_ambiguous")
+        normalized_values = list(values)
+        normalized_values.extend(
+            canonical
+            for value in values
+            if (canonical := vocabulary.canonicalize(value)) is not None
+        )
+        normalized_values = list(dict.fromkeys(normalized_values))
         nodes = self._session.execute(
             text(
                 """
-                select node_id, updated_at from product.knowledge_map_nodes
-                where track = :track and status = 'published'
-                  and support_status = 'text_supported'
-                  and (tag_value = any(cast(:values as text[]))
-                       or display_path = any(cast(:values as text[])))
-                order by node_id
+                with active_releases as (
+                  select
+                    release.release_id,
+                    release.release_version,
+                    release.fresh_until,
+                    count(*) over () as active_release_count
+                  from product.knowledge_map_releases release
+                  where release.exam_scope = 'guokao'
+                    and release.track = :track
+                    and release.status = 'active'
+                ), current_release as (
+                  select release_id, release_version
+                  from active_releases
+                  where active_release_count = 1
+                    and fresh_until > statement_timestamp()
+                    and release_id = cast(:expected_release_id as uuid)
+                )
+                select
+                  release.release_id,
+                  release.release_version,
+                  node.node_id,
+                  node.updated_at
+                from current_release release
+                join product.knowledge_map_nodes node
+                  on node.release_id = release.release_id
+                where node.exam_scope = 'guokao'
+                  and node.track = :track
+                  and node.status = 'published'
+                  and node.support_status = 'text_supported'
+                  and (
+                    node.tag_value = any(cast(:values as text[]))
+                    or node.display_path = any(cast(:values as text[]))
+                  )
+                order by node.node_id
                 """
             ),
-            {"track": db_track, "values": values},
+            {
+                "track": db_track,
+                "expected_release_id": vocabulary.release_id,
+                "values": normalized_values,
+            },
         ).mappings().all()
         if len(nodes) != 1:
             raise CommunityMethodCardError("knowledge_binding_ambiguous")
@@ -941,7 +1141,10 @@ def _recognition_text(payload: Mapping[str, Any]) -> tuple[str, list[str]]:
 
 
 def _node_version(node: Mapping[str, Any]) -> str:
-    return f"knowledge-node:{node['node_id']}@{node['updated_at'].isoformat()}"
+    return (
+        f"knowledge-map-release:{node['release_version']}"
+        f"/node:{node['node_id']}@{node['updated_at'].isoformat()}"
+    )
 
 
 def _sha256(value: str) -> str:

@@ -25,6 +25,11 @@ from app.domains.knowledge.schemas import (
 from app.domains.knowledge.service import WeightedPracticeSelection
 from app.domains.rank_system.schemas import OfficialRankProfile
 from app.main import create_app
+from tests.knowledge_map_vocabulary_helpers import (
+    activate_knowledge_release,
+    bind_question_to_release_node,
+    seed_released_module_vocabulary,
+)
 
 
 class FakeAuthRepository:
@@ -61,6 +66,10 @@ class FakeKnowledgeService:
             for index in range(1, limit + 1)
         ]
         return WeightedPracticeSelection(
+            release_id="00000000-0000-0000-0000-000000000102",
+            release_version="knowledge-map@docket-test",
+            source_data_version="questions@docket-test",
+            fresh_until=datetime(2099, 1, 1, tzinfo=UTC),
             node_id="km_money",
             exam_scope=exam_scope,
             track="xingce",
@@ -325,6 +334,24 @@ def test_open_court_persists_and_reuses_daily_docket(
     assert int(counts["dockets"]) == 1
     assert int(counts["cards"]) == 10
 
+    with db_session_factory() as session:
+        session.execute(
+            text(
+                """
+                update product.questions
+                set stem_html = '<p>live drift</p>',
+                    material_html = '<p>live material drift</p>'
+                where question_id = 'docket_q_01';
+                update product.question_options
+                set option_text = 'A、live option drift',
+                    option_html = '<p>live option drift</p>'
+                where question_id = 'docket_q_01'
+                  and option_index = 1
+                """
+            )
+        )
+        session.commit()
+
     second = client.post(
         "/api/v1/dockets/open-court",
         headers={"Authorization": "Bearer docket-db-token"},
@@ -342,6 +369,8 @@ def test_open_court_persists_and_reuses_daily_docket(
         "html": "10%",
     }
     assert second_body["cards"][0]["options"][0] == first_body["cards"][0]["options"][0]
+    assert second_body["cards"][0]["stemHtml"] == first_body["cards"][0]["stemHtml"]
+    assert second_body["cards"][0]["materialHtml"] == first_body["cards"][0]["materialHtml"]
     with db_session_factory() as session:
         counts = session.execute(
             text(
@@ -412,11 +441,60 @@ def _seed_user(db_session_factory: sessionmaker[Session], *, token: str) -> str:
 
 
 def _seed_docket_qbank(db_session_factory: sessionmaker[Session]) -> None:
+    release_id = str(uuid4())
+    now = datetime.now(UTC)
     with db_session_factory() as session:
+        seed_released_module_vocabulary(
+            session,
+            version="vocab@docket-test-v1",
+        )
+        session.execute(
+            text(
+                """
+                insert into product.knowledge_map_releases (
+                  release_id,
+                  release_version,
+                  exam_scope,
+                  track,
+                  source_data_version,
+                  vocab_version,
+                  generator_version,
+                  source_fingerprint,
+                  generated_at,
+                  fresh_until,
+                  status,
+                  node_count,
+                  activated_at
+                ) values (
+                  cast(:release_id as uuid),
+                  :release_version,
+                  'guokao',
+                  'xingce',
+                  'docket-question-bank@test-v1',
+                  'vocab@docket-test-v1',
+                  'docket-fixture-generator@v1',
+                  :source_fingerprint,
+                  :generated_at,
+                  :fresh_until,
+                  'draft',
+                  0,
+                  null
+                )
+                """
+            ),
+            {
+                "release_id": release_id,
+                "release_version": f"knowledge-map@docket-{release_id}",
+                "source_fingerprint": release_id.replace("-", "") * 2,
+                "generated_at": now - timedelta(days=1),
+                "fresh_until": now + timedelta(days=30),
+            },
+        )
         session.execute(
             text(
                 """
                 insert into product.knowledge_map_nodes (
+                  release_id,
                   node_id,
                   exam_scope,
                   track,
@@ -435,6 +513,7 @@ def _seed_docket_qbank(db_session_factory: sessionmaker[Session]) -> None:
                   evidence,
                   status
                 ) values (
+                  cast(:release_id as uuid),
                   'km_docket_money',
                   'guokao',
                   'xingce',
@@ -454,7 +533,8 @@ def _seed_docket_qbank(db_session_factory: sessionmaker[Session]) -> None:
                   'published'
                 )
                 """
-            )
+            ),
+            {"release_id": release_id},
         )
         for index in range(1, 11):
             question_id = f"docket_q_{index:02d}"
@@ -589,4 +669,19 @@ def _seed_docket_qbank(db_session_factory: sessionmaker[Session]) -> None:
                     "paper_title": f"{year}年国家公务员录用考试《行测》题（测试卷）",
                 },
             )
+            bind_question_to_release_node(
+                session,
+                release_id=release_id,
+                node_id="km_docket_money",
+                question_id=question_id,
+                latest_recent_exam_year=year if year >= 2022 else None,
+                recent_occurrence_count=1 if year >= 2022 else 0,
+                latest_old_exam_year=year if year < 2022 else None,
+                old_occurrence_count=1 if year < 2022 else 0,
+            )
+        activate_knowledge_release(
+            session,
+            release_id=release_id,
+            activated_at=now - timedelta(hours=23),
+        )
         session.commit()

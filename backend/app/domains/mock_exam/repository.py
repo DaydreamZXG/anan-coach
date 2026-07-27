@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timedelta
 from typing import Any
 from uuid import uuid4
 import json
@@ -15,6 +15,40 @@ class MockExamTrajectoryWriteConflict(RuntimeError):
     def __init__(self, *, constraint_name: str) -> None:
         super().__init__(constraint_name)
         self.constraint_name = constraint_name
+
+
+@dataclass(frozen=True, slots=True)
+class KnowledgeMapReleaseSnapshot:
+    release_id: str
+    release_version: str
+    source_data_version: str
+    source_fingerprint: str
+    vocab_version: str
+    generator_version: str
+    generated_at: datetime
+    activated_at: datetime
+    fresh_until: datetime
+    resolved_at: datetime
+
+    def lineage_payload(self) -> dict[str, Any]:
+        return {
+            "releaseId": self.release_id,
+            "releaseVersion": self.release_version,
+            "examScope": "guokao",
+            "track": "xingce",
+            "source": {
+                "dataVersion": self.source_data_version,
+                "fingerprint": self.source_fingerprint,
+                "vocabVersion": self.vocab_version,
+                "generatorVersion": self.generator_version,
+            },
+            "freshness": {
+                "generatedAt": self.generated_at.isoformat(),
+                "activatedAt": self.activated_at.isoformat(),
+                "freshUntil": self.fresh_until.isoformat(),
+                "resolvedAt": self.resolved_at.isoformat(),
+            },
+        }
 
 
 @dataclass(frozen=True)
@@ -32,6 +66,7 @@ class MockExamSessionRecord:
     learner_bundle: dict[str, Any]
     scoring_snapshot: dict[str, Any]
     paper_version_id: str
+    paper_equivalence_metadata: dict[str, Any]
     scoring_policy_version_id: str
     score_metric_name: str
     score_metric_unit: str
@@ -76,60 +111,158 @@ class MockExamRepository:
         if row is None:
             raise LookupError("mock exam owner does not exist")
 
+    def resolve_fresh_active_knowledge_release(
+        self,
+    ) -> KnowledgeMapReleaseSnapshot | None:
+        rows = (
+            self._session.execute(
+                text(
+                    """
+                select
+                  release_id,
+                  release_version,
+                  source_data_version,
+                  source_fingerprint,
+                  vocab_version,
+                  generator_version,
+                  generated_at,
+                  activated_at,
+                  fresh_until,
+                  (
+                    release.question_binding_count > 0
+                    and manifest.binding_count =
+                        release.question_binding_count
+                    and manifest.binding_fingerprint =
+                        release.question_binding_fingerprint
+                  ) as binding_ready,
+                  statement_timestamp() as resolved_at
+                from product.knowledge_map_releases release
+                cross join lateral
+                  product.knowledge_map_question_binding_manifest(
+                    release.release_id
+                  ) manifest
+                where exam_scope = 'guokao'
+                  and track = 'xingce'
+                  and status = 'active'
+                """
+                )
+            )
+            .mappings()
+            .all()
+        )
+        if (
+            len(rows) != 1
+            or rows[0]["fresh_until"] <= rows[0]["resolved_at"]
+            or not rows[0]["binding_ready"]
+        ):
+            return None
+        row = rows[0]
+        return KnowledgeMapReleaseSnapshot(
+            release_id=str(row["release_id"]),
+            release_version=str(row["release_version"]),
+            source_data_version=str(row["source_data_version"]),
+            source_fingerprint=str(row["source_fingerprint"]),
+            vocab_version=str(row["vocab_version"]),
+            generator_version=str(row["generator_version"]),
+            generated_at=row["generated_at"],
+            activated_at=row["activated_at"],
+            fresh_until=row["fresh_until"],
+            resolved_at=row["resolved_at"],
+        )
+
+    def knowledge_release_matches(
+        self,
+        *,
+        release: KnowledgeMapReleaseSnapshot,
+    ) -> bool:
+        return bool(
+            self._session.execute(
+                text(
+                    """
+                    select exists (
+                      select 1
+                      from product.knowledge_map_releases
+                      where release_id = cast(:release_id as uuid)
+                        and release_version = :release_version
+                        and exam_scope = 'guokao'
+                        and track = 'xingce'
+                        and source_data_version = :source_data_version
+                        and source_fingerprint = :source_fingerprint
+                        and vocab_version = :vocab_version
+                        and generator_version = :generator_version
+                        and generated_at = :generated_at
+                        and activated_at = :activated_at
+                        and fresh_until = :fresh_until
+                        and question_binding_count > 0
+                        and (
+                          select manifest.binding_count
+                          from product.knowledge_map_question_binding_manifest(
+                            knowledge_map_releases.release_id
+                          ) manifest
+                        ) = question_binding_count
+                        and (
+                          select manifest.binding_fingerprint
+                          from product.knowledge_map_question_binding_manifest(
+                            knowledge_map_releases.release_id
+                          ) manifest
+                        ) = question_binding_fingerprint
+                    )
+                    """
+                ),
+                _knowledge_release_params(release),
+            ).scalar_one()
+        )
+
     def select_module_question_ids(
         self,
         *,
         user_id: str,
         module_name: str,
+        module_code: str,
         limit: int,
+        knowledge_release: KnowledgeMapReleaseSnapshot,
     ) -> list[str]:
         # ``question_type`` is a knowledge-taxonomy leaf in the imported bank
         # (for example ``新思想``), not the response format. Objective domain,
         # answer-label and option integrity are the authoritative single-choice
         # eligibility contract below.
-        since = datetime.now(UTC) - timedelta(days=60)
-        rows = self._session.execute(
-            text(
-                """
-                select q.question_id
-                from product.questions q
-                join product.question_tags qt on qt.question_id = q.question_id
+        since = knowledge_release.resolved_at - timedelta(days=60)
+        rows = (
+            self._session.execute(
+                text(
+                    """
+                select binding.question_id
+                from product.knowledge_map_releases release
+                join product.knowledge_map_question_bindings binding
+                  on binding.release_id = release.release_id
+                 and binding.module_code = :module_code
+                 and binding.canonical_module = :module_name
+                 and binding.delivery_eligible
                 join product.knowledge_map_nodes kmn
-                  on kmn.exam_scope = 'guokao'
-                 and kmn.track = 'xingce'
-                 and kmn.module_name = q.module_name
-                 and kmn.tag_type = qt.tag_type
-                 and kmn.tag_value = qt.tag_value
+                  on kmn.release_id = binding.release_id
+                 and kmn.node_id = binding.node_id
                  and kmn.status = 'published'
                  and kmn.support_status = 'text_supported'
                  and kmn.near5_occurrence_count > 0
-                where q.status = 'active'
-                  and q.domain = 'objective'
-                  and nullif(trim(q.answer), '') is not null
-                  and q.module_name = :module_name
-                  and exists (
-                    select 1 from product.question_options qo
-                    where qo.question_id = q.question_id
-                  )
-                  and exists (
-                    select 1 from product.question_options answer_option
-                    where answer_option.question_id = q.question_id
-                      and upper(trim(answer_option.label)) = upper(trim(q.answer))
-                  )
-                  and (
-                    not q.visual_required
-                    or exists (
-                      select 1 from product.question_assets qa
-                      where qa.question_id = q.question_id
-                        and qa.image_src ~
-                          '^https://kg\\.xingguoxian\\.cn(?::443)?/assets/'
-                    )
-                  )
+                join product.question_content_versions content
+                  on content.question_id = binding.question_id
+                 and content.content_version_id = binding.content_version_id
+                where release.release_id = cast(:knowledge_release_id as uuid)
+                 and release.release_version = :knowledge_release_version
+                 and release.exam_scope = 'guokao'
+                 and release.track = 'xingce'
+                 and release.source_data_version = :knowledge_source_data_version
+                 and release.source_fingerprint = :knowledge_source_fingerprint
+                 and release.vocab_version = :knowledge_vocab_version
+                 and release.generator_version = :knowledge_generator_version
+                 and release.generated_at = :knowledge_generated_at
+                 and release.activated_at = :knowledge_activated_at
+                 and release.fresh_until = :knowledge_fresh_until
                   and not exists (
                     select 1
                     from learner.practice_answers pa
                     where pa.user_id = cast(:user_id as uuid)
-                      and pa.question_id = q.question_id
+                      and pa.question_id = binding.question_id
                       and pa.answered_at >= :since
                   )
                   and not exists (
@@ -138,31 +271,43 @@ class MockExamRepository:
                     cross join jsonb_array_elements_text(mes.question_ids) assigned(question_id)
                     where mes.user_id = cast(:user_id as uuid)
                       and mes.created_at >= :since
-                      and assigned.question_id = q.question_id
+                      and assigned.question_id = binding.question_id
                   )
-                group by q.question_id, q.latest_year, q.occurrence_count
+                group by
+                  binding.question_id,
+                  binding.latest_year,
+                  binding.occurrence_count
                 order by
                   max(kmn.near5_weight) desc nulls last,
                   max(kmn.near5_occurrence_count) desc nulls last,
-                  q.latest_year desc nulls last,
-                  q.occurrence_count desc nulls last,
-                  q.question_id
+                  binding.latest_year desc nulls last,
+                  binding.occurrence_count desc,
+                  binding.question_id
                 limit :limit
                 """
-            ),
-            {
-                "user_id": user_id,
-                "module_name": module_name,
-                "since": since,
-                "limit": limit,
-            },
-        ).mappings().all()
+                ),
+                {
+                    "user_id": user_id,
+                    "module_name": module_name,
+                    "module_code": module_code,
+                    "since": since,
+                    "limit": limit,
+                    **_knowledge_release_params(
+                        knowledge_release,
+                        prefix="knowledge_",
+                    ),
+                },
+            )
+            .mappings()
+            .all()
+        )
         return [str(row["question_id"]) for row in rows]
 
     def get_assigned_session(self, *, user_id: str) -> MockExamSessionRecord | None:
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 select session_id
                 from learner.mock_exam_sessions
                 where user_id = cast(:user_id as uuid)
@@ -172,75 +317,105 @@ class MockExamRepository:
                 order by created_at
                 limit 1
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
         if row is None:
             return None
         return self.get_session(session_id=str(row["session_id"]), user_id=user_id)
 
     def get_frozen_question_sources(
-        self, *, question_ids: list[str]
+        self,
+        *,
+        question_ids: list[str],
+        knowledge_release: KnowledgeMapReleaseSnapshot,
     ) -> list[dict[str, Any]]:
-        rows = self._session.execute(
-            text(
-                """
+        rows = (
+            self._session.execute(
+                text(
+                    """
                 with assigned as (
                   select value as question_id, ordinality
                   from jsonb_array_elements_text(cast(:question_ids as jsonb))
                     with ordinality
+                ), frozen_binding as (
+                  select
+                    assigned.question_id,
+                    assigned.ordinality,
+                    min(binding.content_version_id) as content_version_id,
+                    min(binding.canonical_module) as canonical_module,
+                    bool_or(binding.visual_required) as visual_required,
+                    bool_or(
+                      binding.shared_context_required
+                    ) as shared_context_required
+                  from assigned
+                  join product.knowledge_map_releases release
+                    on release.release_id =
+                       cast(:knowledge_release_id as uuid)
+                   and release.release_version =
+                       :knowledge_release_version
+                   and release.exam_scope = 'guokao'
+                   and release.track = 'xingce'
+                   and release.source_data_version =
+                       :knowledge_source_data_version
+                   and release.source_fingerprint =
+                       :knowledge_source_fingerprint
+                   and release.vocab_version = :knowledge_vocab_version
+                   and release.generator_version =
+                       :knowledge_generator_version
+                   and release.generated_at = :knowledge_generated_at
+                   and release.activated_at = :knowledge_activated_at
+                   and release.fresh_until = :knowledge_fresh_until
+                  join product.knowledge_map_question_bindings binding
+                    on binding.release_id = release.release_id
+                   and binding.question_id = assigned.question_id
+                   and binding.delivery_eligible
+                  group by assigned.question_id, assigned.ordinality
+                  having count(distinct binding.content_version_id) = 1
+                     and count(distinct binding.canonical_module) = 1
+                     and count(distinct binding.visual_required) = 1
+                     and count(
+                       distinct binding.shared_context_required
+                     ) = 1
                 )
                 select
-                  q.question_id, q.module_name, q.question_type,
-                  q.stem, q.stem_html, q.answer,
-                  q.material_text, q.material_html,
-                  q.shared_context_required, q.visual_required,
-                  e.preferred_analysis, e.analysis_source, e.analysis_status,
-                  e.prefer_ai_analysis, e.analysis_needs_review,
-                  assigned.ordinality
-                from assigned
-                join product.questions q on q.question_id = assigned.question_id
-                left join product.question_explanations e
-                  on e.question_id = q.question_id
-                order by assigned.ordinality
+                  frozen.question_id,
+                  frozen.content_version_id,
+                  frozen.canonical_module,
+                  frozen.visual_required,
+                  frozen.shared_context_required,
+                  content.snapshot_payload,
+                  frozen.ordinality
+                from frozen_binding frozen
+                join product.question_content_versions content
+                  on content.question_id = frozen.question_id
+                 and content.content_version_id =
+                     frozen.content_version_id
+                order by frozen.ordinality
                 """
-            ),
-            {"question_ids": json.dumps(question_ids, ensure_ascii=False)},
-        ).mappings().all()
+                ),
+                {
+                    "question_ids": json.dumps(question_ids, ensure_ascii=False),
+                    **_knowledge_release_params(
+                        knowledge_release,
+                        prefix="knowledge_",
+                    ),
+                },
+            )
+            .mappings()
+            .all()
+        )
         sources: list[dict[str, Any]] = []
         for row in rows:
-            source = dict(row)
-            source.pop("ordinality", None)
-            source["options"] = [
-                dict(item)
-                for item in self._session.execute(
-                    text(
-                        """
-                        select label, option_text, option_html
-                        from product.question_options
-                        where question_id = :question_id
-                        order by option_index
-                        """
-                    ),
-                    {"question_id": row["question_id"]},
-                ).mappings()
-            ]
-            source["assets"] = [
-                dict(item)
-                for item in self._session.execute(
-                    text(
-                        """
-                        select asset_id, part_kind, part_index, image_ordinal,
-                               image_src, object_key, is_representative_asset
-                        from product.question_assets
-                        where question_id = :question_id
-                        order by part_kind nulls last, part_index nulls last,
-                                 image_ordinal nulls last, asset_id
-                        """
-                    ),
-                    {"question_id": row["question_id"]},
-                ).mappings()
-            ]
+            source = dict(row["snapshot_payload"])
+            source["question_id"] = str(row["question_id"])
+            source["module_name"] = str(row["canonical_module"])
+            source["visual_required"] = bool(row["visual_required"])
+            source["shared_context_required"] = bool(row["shared_context_required"])
+            source["_content_version_id"] = str(row["content_version_id"])
             sources.append(source)
         return sources
 
@@ -327,9 +502,10 @@ class MockExamRepository:
         plan_task_id: str,
         updated_at: datetime,
     ) -> MockExamSessionRecord | None:
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 update learner.mock_exam_sessions
                 set source_plan_task_id = cast(:plan_task_id as uuid),
                     updated_at = :updated_at
@@ -342,14 +518,17 @@ class MockExamRepository:
                   )
                 returning session_id
                 """
-            ),
-            {
-                "session_id": session_id,
-                "user_id": user_id,
-                "plan_task_id": plan_task_id,
-                "updated_at": updated_at,
-            },
-        ).mappings().one_or_none()
+                ),
+                {
+                    "session_id": session_id,
+                    "user_id": user_id,
+                    "plan_task_id": plan_task_id,
+                    "updated_at": updated_at,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
         if row is None:
             return None
         return self.get_session(session_id=session_id, user_id=user_id)
@@ -360,9 +539,10 @@ class MockExamRepository:
         session_id: str,
         user_id: str,
     ) -> MockExamSessionRecord | None:
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 select
                   session_id,
                   user_id,
@@ -377,6 +557,7 @@ class MockExamRepository:
                   learner_bundle,
                   scoring_snapshot,
                   paper_version_id,
+                  paper_equivalence_metadata,
                   scoring_policy_version_id,
                   score_metric_name,
                   score_metric_unit,
@@ -390,6 +571,8 @@ class MockExamRepository:
                   review_viewed_at
                 from (
                   select session.*,
+                         paper.equivalence_metadata
+                           as paper_equivalence_metadata,
                          policy.metric_name as score_metric_name,
                          policy.metric_unit as score_metric_unit,
                          policy.definition as score_metric_definition,
@@ -400,6 +583,8 @@ class MockExamRepository:
                            where event.session_id = session.session_id
                          ) as next_trajectory_event_seq
                   from learner.mock_exam_sessions session
+                  join product.mock_exam_paper_versions paper
+                    on paper.paper_version_id = session.paper_version_id
                   join product.mock_exam_scoring_policy_versions policy
                     on policy.scoring_policy_version_id =
                        session.scoring_policy_version_id
@@ -407,18 +592,19 @@ class MockExamRepository:
                 where session_id = cast(:session_id as uuid)
                   and user_id = cast(:user_id as uuid)
                 """
-            ),
-            {"session_id": session_id, "user_id": user_id},
-        ).mappings().first()
+                ),
+                {"session_id": session_id, "user_id": user_id},
+            )
+            .mappings()
+            .first()
+        )
         if row is None:
             return None
         return MockExamSessionRecord(
             session_id=str(row["session_id"]),
             user_id=str(row["user_id"]),
             source_plan_task_id=(
-                str(row["source_plan_task_id"])
-                if row["source_plan_task_id"] is not None
-                else None
+                str(row["source_plan_task_id"]) if row["source_plan_task_id"] is not None else None
             ),
             status=str(row["status"]),
             question_ids=list(row["question_ids"] or []),
@@ -430,13 +616,13 @@ class MockExamRepository:
             learner_bundle=dict(row["learner_bundle"]),
             scoring_snapshot=dict(row["scoring_snapshot"]),
             paper_version_id=str(row["paper_version_id"]),
+            paper_equivalence_metadata=dict(row["paper_equivalence_metadata"]),
             scoring_policy_version_id=str(row["scoring_policy_version_id"]),
             score_metric_name=str(row["score_metric_name"]),
             score_metric_unit=str(row["score_metric_unit"]),
             score_metric_definition=str(row["score_metric_definition"]),
             score_module_weights={
-                str(key): float(value)
-                for key, value in dict(row["score_module_weights"]).items()
+                str(key): float(value) for key, value in dict(row["score_module_weights"]).items()
             },
             next_trajectory_event_seq=int(row["next_trajectory_event_seq"]),
             checkpoint_updated_at=row["checkpoint_updated_at"],
@@ -494,9 +680,7 @@ class MockExamRepository:
                 "learner_bundle_version_id": learner_bundle_version_id,
                 "scoring_policy_version_id": scoring_policy_version_id,
                 "exposure_policy": json.dumps(exposure_policy, ensure_ascii=False),
-                "equivalence_metadata": json.dumps(
-                    equivalence_metadata, ensure_ascii=False
-                ),
+                "equivalence_metadata": json.dumps(equivalence_metadata, ensure_ascii=False),
                 "content_fingerprint": content_fingerprint,
                 "published_at": published_at,
             },
@@ -565,9 +749,7 @@ class MockExamRepository:
                         "question_id": question_id,
                         "client_occurred_at": client_occurred_at,
                         "session_revision": session_revision,
-                        "payload": json.dumps(
-                            payload, ensure_ascii=False, sort_keys=True
-                        ),
+                        "payload": json.dumps(payload, ensure_ascii=False, sort_keys=True),
                         "request_fingerprint": request_fingerprint,
                         "created_at": created_at,
                     },
@@ -578,23 +760,25 @@ class MockExamRepository:
                 "mock_exam_trajectory_user_command_key",
                 "mock_exam_trajectory_session_seq_key",
             }:
-                raise MockExamTrajectoryWriteConflict(
-                    constraint_name=constraint_name
-                ) from exc
+                raise MockExamTrajectoryWriteConflict(constraint_name=constraint_name) from exc
             raise
 
     def trajectory_event_by_command(
         self, *, user_id: str, command_id: str
     ) -> dict[str, Any] | None:
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 select * from learner.mock_exam_trajectory_events
                 where user_id = cast(:user_id as uuid) and command_id = :command_id
                 """
-            ),
-            {"user_id": user_id, "command_id": command_id},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id, "command_id": command_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
         return dict(row) if row is not None else None
 
     def next_trajectory_event_seq(self, *, session_id: str) -> int:
@@ -616,9 +800,10 @@ class MockExamRepository:
         user_id: str,
         before_session_id: str,
     ) -> dict[str, float]:
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 select review_payload
                 from learner.mock_exam_sessions
                 where user_id = cast(:user_id as uuid)
@@ -627,9 +812,12 @@ class MockExamRepository:
                 order by submitted_at desc nulls last, created_at desc
                 limit 1
                 """
-            ),
-            {"user_id": user_id, "before_session_id": before_session_id},
-        ).mappings().first()
+                ),
+                {"user_id": user_id, "before_session_id": before_session_id},
+            )
+            .mappings()
+            .first()
+        )
         if row is None:
             return {}
         modules = row["review_payload"].get("modules", [])
@@ -643,12 +831,16 @@ class MockExamRepository:
         self,
         *,
         wrong_question_ids: list[str],
+        knowledge_release: KnowledgeMapReleaseSnapshot,
     ) -> list[dict[str, Any]]:
         if not wrong_question_ids:
             return []
-        rows = self._session.execute(
-            text(
-                """
+        if not self.knowledge_release_matches(release=knowledge_release):
+            raise LookupError("frozen mock knowledge release identity changed")
+        rows = (
+            self._session.execute(
+                text(
+                    """
                 with wrong_ids as (
                   select value as question_id
                   from jsonb_array_elements_text(cast(:wrong_question_ids as jsonb))
@@ -657,7 +849,7 @@ class MockExamRepository:
                   kmn.node_id,
                   kmn.display_path,
                   kmn.method_card_ids,
-                  count(*) as wrong_count,
+                  count(distinct binding.question_id) as wrong_count,
                   (
                     select mc.fix_action
                     from product.method_cards mc
@@ -667,25 +859,46 @@ class MockExamRepository:
                       )
                     order by mc.priority desc, mc.id
                     limit 1
-                  ) as fix_action
+                ) as fix_action
                 from wrong_ids wi
-                join product.questions q on q.question_id = wi.question_id
-                join product.question_tags qt on qt.question_id = q.question_id
+                join product.knowledge_map_releases release
+                  on release.release_id = cast(:knowledge_release_id as uuid)
+                 and release.release_version = :knowledge_release_version
+                 and release.exam_scope = 'guokao'
+                 and release.track = 'xingce'
+                 and release.source_data_version = :knowledge_source_data_version
+                 and release.source_fingerprint = :knowledge_source_fingerprint
+                 and release.vocab_version = :knowledge_vocab_version
+                 and release.generator_version = :knowledge_generator_version
+                 and release.generated_at = :knowledge_generated_at
+                 and release.activated_at = :knowledge_activated_at
+                 and release.fresh_until = :knowledge_fresh_until
+                join product.knowledge_map_question_bindings binding
+                  on binding.release_id = release.release_id
+                 and binding.question_id = wi.question_id
                 join product.knowledge_map_nodes kmn
-                  on kmn.exam_scope = 'guokao'
+                  on kmn.release_id = binding.release_id
+                 and kmn.node_id = binding.node_id
+                 and kmn.exam_scope = 'guokao'
                  and kmn.track = 'xingce'
-                 and kmn.module_name = q.module_name
-                 and kmn.tag_type = qt.tag_type
-                 and kmn.tag_value = qt.tag_value
                  and kmn.status = 'published'
                  and kmn.support_status = 'text_supported'
                 group by kmn.node_id, kmn.display_path, kmn.method_card_ids, kmn.near5_weight
                 order by wrong_count desc, kmn.near5_weight desc nulls last, kmn.node_id
                 limit 8
                 """
-            ),
-            {"wrong_question_ids": json.dumps(wrong_question_ids, ensure_ascii=False)},
-        ).mappings().all()
+                ),
+                {
+                    "wrong_question_ids": json.dumps(wrong_question_ids, ensure_ascii=False),
+                    **_knowledge_release_params(
+                        knowledge_release,
+                        prefix="knowledge_",
+                    ),
+                },
+            )
+            .mappings()
+            .all()
+        )
         return [dict(row) for row in rows]
 
     def submit_session(
@@ -697,9 +910,10 @@ class MockExamRepository:
         review_payload: dict[str, Any],
         expected_revision: int,
     ) -> bool:
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 update learner.mock_exam_sessions
                 set
                   status = 'submitted',
@@ -714,15 +928,18 @@ class MockExamRepository:
                   and revision = :expected_revision
                 returning revision
                 """
-            ),
-            {
-                "session_id": session_id,
-                "user_id": user_id,
-                "answers": json.dumps(answers, ensure_ascii=False),
-                "review_payload": json.dumps(review_payload, ensure_ascii=False),
-                "expected_revision": expected_revision,
-            },
-        ).mappings().one_or_none()
+                ),
+                {
+                    "session_id": session_id,
+                    "user_id": user_id,
+                    "answers": json.dumps(answers, ensure_ascii=False),
+                    "review_payload": json.dumps(review_payload, ensure_ascii=False),
+                    "expected_revision": expected_revision,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
         return row is not None
 
     def mark_review_viewed(
@@ -757,9 +974,10 @@ class MockExamRepository:
         checkpoint: dict[str, Any],
         updated_at: datetime,
     ) -> MockExamSessionRecord | None:
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 update learner.mock_exam_sessions
                 set revision = revision + 1,
                     checkpoint = cast(:checkpoint as jsonb),
@@ -772,31 +990,38 @@ class MockExamRepository:
                   and deadline_at > :updated_at
                 returning session_id
                 """
-            ),
-            {
-                "session_id": session_id,
-                "user_id": user_id,
-                "expected_revision": expected_revision,
-                "checkpoint": json.dumps(checkpoint, ensure_ascii=False),
-                "updated_at": updated_at,
-            },
-        ).mappings().one_or_none()
+                ),
+                {
+                    "session_id": session_id,
+                    "user_id": user_id,
+                    "expected_revision": expected_revision,
+                    "checkpoint": json.dumps(checkpoint, ensure_ascii=False),
+                    "updated_at": updated_at,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
         if row is None:
             return None
         return self.get_session(session_id=session_id, user_id=user_id)
 
     def get_command(self, *, user_id: str, idempotency_key: str) -> dict[str, Any] | None:
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 select command_type, session_id, request_hash, response_payload
                 from learner.mock_exam_commands
                 where user_id = cast(:user_id as uuid)
                   and idempotency_key = :idempotency_key
                 """
-            ),
-            {"user_id": user_id, "idempotency_key": idempotency_key},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id, "idempotency_key": idempotency_key},
+            )
+            .mappings()
+            .one_or_none()
+        )
         return dict(row) if row is not None else None
 
     def record_command(
@@ -837,22 +1062,27 @@ class MockExamRepository:
     def question_dispute_by_idempotency_key(
         self, *, user_id: str, idempotency_key: str
     ) -> dict[str, Any] | None:
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 select * from learning.xingce_question_disputes
                 where user_id = cast(:user_id as uuid)
                   and idempotency_key = :idempotency_key
                 """
-            ),
-            {"user_id": user_id, "idempotency_key": idempotency_key},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id, "idempotency_key": idempotency_key},
+            )
+            .mappings()
+            .one_or_none()
+        )
         return dict(row) if row is not None else None
 
     def insert_question_dispute(self, *, values: dict[str, Any]) -> dict[str, Any]:
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 insert into learning.xingce_question_disputes (
                   dispute_id, user_id, session_kind, session_id, question_id,
                   content_version_id, category, description, evidence_context,
@@ -864,13 +1094,34 @@ class MockExamRepository:
                   cast(:evidence_context as jsonb), :idempotency_key, :created_at
                 ) returning *
                 """
-            ),
-            values,
-        ).mappings().one()
+                ),
+                values,
+            )
+            .mappings()
+            .one()
+        )
         return dict(row)
 
     def commit(self) -> None:
         self._session.commit()
+
+
+def _knowledge_release_params(
+    release: KnowledgeMapReleaseSnapshot,
+    *,
+    prefix: str = "",
+) -> dict[str, Any]:
+    return {
+        f"{prefix}release_id": release.release_id,
+        f"{prefix}release_version": release.release_version,
+        f"{prefix}source_data_version": release.source_data_version,
+        f"{prefix}source_fingerprint": release.source_fingerprint,
+        f"{prefix}vocab_version": release.vocab_version,
+        f"{prefix}generator_version": release.generator_version,
+        f"{prefix}generated_at": release.generated_at,
+        f"{prefix}activated_at": release.activated_at,
+        f"{prefix}fresh_until": release.fresh_until,
+    }
 
 
 def _integrity_constraint_name(error: IntegrityError) -> str | None:

@@ -186,7 +186,7 @@ class Settings:
     wechat_virtual_pay_message_encoding_aes_key: str = ""
     privacy_export_expiry_seconds: int = 86400
     operations_metrics_token: str = ""
-    required_database_revision: str = "20260727_64"
+    required_database_revision: str = "20260727_68"
     support_jwt_jwks_url: str = ""
     support_jwt_issuer: str = ""
     support_jwt_audience: str = ""
@@ -652,7 +652,7 @@ def get_settings() -> Settings:
         ),
         operations_metrics_token=os.getenv("OPERATIONS_METRICS_TOKEN", ""),
         required_database_revision=os.getenv(
-            "REQUIRED_DATABASE_REVISION", "20260727_64"
+            "REQUIRED_DATABASE_REVISION", "20260727_68"
         ),
         support_jwt_jwks_url=os.getenv("SUPPORT_JWT_JWKS_URL", ""),
         support_jwt_issuer=os.getenv("SUPPORT_JWT_ISSUER", ""),

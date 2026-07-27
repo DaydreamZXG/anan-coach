@@ -131,6 +131,43 @@ class MethodCardRepository:
                       priority = excluded.priority,
                       status = excluded.status,
                       updated_at = now()
+                    where (
+                      product.method_cards.exam_scope,
+                      product.method_cards.track,
+                      product.method_cards.module_name,
+                      product.method_cards.tag_path,
+                      product.method_cards.title,
+                      product.method_cards.recognition,
+                      product.method_cards.applicability,
+                      product.method_cards.method_steps,
+                      product.method_cards.error_signatures,
+                      product.method_cards.fix_action,
+                      product.method_cards.time_budget_sec,
+                      product.method_cards.accuracy_rule,
+                      product.method_cards.pitfall,
+                      product.method_cards.author_note,
+                      product.method_cards.validation,
+                      product.method_cards.priority,
+                      product.method_cards.status
+                    ) is distinct from (
+                      excluded.exam_scope,
+                      excluded.track,
+                      excluded.module_name,
+                      excluded.tag_path,
+                      excluded.title,
+                      excluded.recognition,
+                      excluded.applicability,
+                      excluded.method_steps,
+                      excluded.error_signatures,
+                      excluded.fix_action,
+                      excluded.time_budget_sec,
+                      excluded.accuracy_rule,
+                      excluded.pitfall,
+                      excluded.author_note,
+                      excluded.validation,
+                      excluded.priority,
+                      excluded.status
+                    )
                     """
                 ),
                 {

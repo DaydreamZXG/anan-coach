@@ -177,13 +177,38 @@ class XingceAttemptService:
             excluded_question_ids = [
                 str(question_id) for question_id in mastery["used_question_ids"]
             ]
-        source_questions = self._repository.select_frozen_questions(
-            session,
-            module_name=module_name,
-            limit=XINGCE_QUESTION_BUNDLE_SIZE,
-            user_id=user_id,
-            excluded_question_ids=excluded_question_ids,
-        )
+        selection_context: dict[str, str] | None = None
+        if mode == "targeted":
+            targeted_selection = self._repository.select_targeted_frozen_questions(
+                session,
+                module_name=module_name,
+                limit=XINGCE_QUESTION_BUNDLE_SIZE,
+                user_id=user_id,
+                now=created_at,
+            )
+            source_questions = (
+                list(targeted_selection.questions) if targeted_selection is not None else []
+            )
+            if targeted_selection is not None:
+                selection_context = {
+                    "contractVersion": "xingce-targeted-selection@v1",
+                    "releaseId": targeted_selection.release_id,
+                    "releaseVersion": targeted_selection.release_version,
+                    "sourceDataVersion": targeted_selection.source_data_version,
+                    "vocabVersion": targeted_selection.vocab_version,
+                    "freshUntil": targeted_selection.fresh_until.isoformat(),
+                    "nodeId": targeted_selection.node_id,
+                    "nodeType": targeted_selection.node_type,
+                    "moduleName": targeted_selection.module_name,
+                }
+        else:
+            source_questions = self._repository.select_frozen_questions(
+                session,
+                module_name=module_name,
+                limit=XINGCE_QUESTION_BUNDLE_SIZE,
+                user_id=user_id,
+                excluded_question_ids=excluded_question_ids,
+            )
         if len(source_questions) < XINGCE_QUESTION_BUNDLE_SIZE:
             raise XingceAttemptError(
                 "xingce_content_unavailable",
@@ -195,6 +220,7 @@ class XingceAttemptService:
             estimated_minutes=int(task["estimated_minutes"]),
             source_mastery_version_id=source_mastery_version_id,
             verification_stage=verification_stage,
+            selection_context=selection_context,
         )
         session_id = str(uuid4())
         row = self._runtime_repository.insert_task_session(
@@ -511,6 +537,10 @@ class XingceAttemptService:
         if command.total_elapsed_seconds < int(row["total_elapsed_seconds"]):
             raise _conflict("total elapsed time cannot decrease")
         scoring = dict(row["scoring_bundle"])
+        selection_lineage_refs = _selection_lineage_refs(
+            scoring,
+            mode=str(row["mode"]),
+        )
         factored_result_contract = scoring.get("scoringPolicyVersion") == (SCORING_POLICY_VERSION)
         if factored_result_contract:
             frozen_version = scoring.get("scoringBundleVersion")
@@ -633,6 +663,7 @@ class XingceAttemptService:
                 f"plan-version:{row['source_plan_version_id']}",
                 f"bundle:{row['bundle_version_id']}",
                 f"content:{frozen['contentVersionId']}",
+                *selection_lineage_refs,
             ]
             item_attempt_id = _hash(
                 {
@@ -1904,12 +1935,13 @@ def _freeze_bundle(
     estimated_minutes: int,
     source_mastery_version_id: str | None,
     verification_stage: str | None,
+    selection_context: dict[str, str] | None = None,
 ) -> tuple[SafeQuestionBundle, dict[str, Any]]:
     try:
         safe_bundle, scoring_bundle = freeze_learner_bundle(
             source_questions,
             scoring_policy_version=SCORING_POLICY_VERSION,
-            content_version_id=question_content_version_id,
+            content_version_id=_bound_question_content_version_id,
             published_explanation=_published_explanation,
         )
         advisory_seconds = estimated_minutes * 60 // len(source_questions)
@@ -1939,6 +1971,8 @@ def _freeze_bundle(
                 "sourceMasteryVersionId": source_mastery_version_id,
                 "verificationStage": verification_stage,
             }
+        if selection_context is not None:
+            scoring_bundle["selectionContext"] = dict(selection_context)
         scoring_bundle["scoringBundleVersion"] = _hash(scoring_bundle)
         return safe_bundle, scoring_bundle
     except TaskContentContractError as exc:
@@ -1947,6 +1981,84 @@ def _freeze_bundle(
             "answer_key_invalid": "xingce_answer_key_invalid",
         }.get(exc.code, "xingce_content_contract_invalid")
         raise XingceAttemptError(code, exc.message, status_code=503) from exc
+
+
+def _bound_question_content_version_id(source: dict[str, Any]) -> str:
+    content_version_id = source.get("_content_version_id")
+    if (
+        not isinstance(content_version_id, str)
+        or len(content_version_id) != 64
+        or question_content_version_id(source) != content_version_id
+    ):
+        raise TaskContentContractError(
+            "content_version_binding_invalid",
+            "The selected question does not match its frozen content version.",
+        )
+    return content_version_id
+
+
+def _selection_lineage_refs(
+    scoring_bundle: dict[str, Any],
+    *,
+    mode: str,
+) -> list[str]:
+    context = scoring_bundle.get("selectionContext")
+    if mode != "targeted":
+        return []
+    if context is None:
+        # Pre-selection-contract sessions already froze their learner-safe
+        # bundle and must remain submittable without inventing release evidence.
+        return []
+    if (
+        not isinstance(context, dict)
+        or context.get("contractVersion") != "xingce-targeted-selection@v1"
+    ):
+        raise XingceAttemptError(
+            "xingce_selection_context_invalid",
+            "针对训练的知识树选择证据不完整，不能提交本次结果。",
+            status_code=500,
+        )
+    required = {
+        "releaseId": "knowledge-map-release",
+        "releaseVersion": "knowledge-map-release-version",
+        "sourceDataVersion": "knowledge-map-source-data-version",
+        "vocabVersion": "knowledge-map-vocab-version",
+        "nodeId": "knowledge-map-node",
+    }
+    evidence_only_fields = ("freshUntil", "nodeType", "moduleName")
+    refs: list[str] = []
+    for field in (*required, *evidence_only_fields):
+        value = context.get(field)
+        if not isinstance(value, str) or not value.strip():
+            raise XingceAttemptError(
+                "xingce_selection_context_invalid",
+                "针对训练的知识树选择证据不完整，不能提交本次结果。",
+                status_code=500,
+            )
+        prefix = required.get(field)
+        if prefix is not None:
+            refs.append(f"{prefix}:{value}")
+    if context["nodeType"] not in {"micro_skill", "knowledge_point"}:
+        raise XingceAttemptError(
+            "xingce_selection_context_invalid",
+            "针对训练的知识树选择证据不完整，不能提交本次结果。",
+            status_code=500,
+        )
+    try:
+        fresh_until = datetime.fromisoformat(context["freshUntil"])
+    except ValueError as exc:
+        raise XingceAttemptError(
+            "xingce_selection_context_invalid",
+            "针对训练的知识树选择证据不完整，不能提交本次结果。",
+            status_code=500,
+        ) from exc
+    if fresh_until.tzinfo is None:
+        raise XingceAttemptError(
+            "xingce_selection_context_invalid",
+            "针对训练的知识树选择证据不完整，不能提交本次结果。",
+            status_code=500,
+        )
+    return refs
 
 
 def _published_explanation(source: dict[str, Any]) -> tuple[str | None, str | None]:

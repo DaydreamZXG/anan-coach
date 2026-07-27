@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
+from datetime import datetime
 import json
 from typing import Any
 
@@ -7,10 +9,25 @@ from sqlalchemy import text
 from sqlalchemy.engine import RowMapping
 from sqlalchemy.orm import Session
 
+from app.domains.knowledge.module_vocabulary import load_current_module_vocabulary
+from app.domains.knowledge.repository import KnowledgeRepository
 from app.domains.task_content.service import (
     TaskContentContractError,
     validate_learner_question,
 )
+
+
+@dataclass(frozen=True)
+class TargetedQuestionSelection:
+    questions: tuple[dict[str, Any], ...]
+    release_id: str
+    release_version: str
+    source_data_version: str
+    vocab_version: str
+    fresh_until: datetime
+    node_id: str
+    node_type: str
+    module_name: str
 
 
 class XingceAttemptRepository:
@@ -155,6 +172,133 @@ class XingceAttemptRepository:
         user_id: str | None = None,
         excluded_question_ids: list[str] | None = None,
     ) -> list[dict[str, Any]]:
+        vocabulary = load_current_module_vocabulary(
+            session,
+            exam_scope="guokao",
+            track="xingce",
+        )
+        if vocabulary is None:
+            return []
+        canonical_module = (
+            vocabulary.canonicalize(module_name)
+            if module_name is not None
+            else None
+        )
+        if module_name is not None and canonical_module is None:
+            return []
+        return self._select_eligible_questions(
+            session,
+            release_id=vocabulary.release_id,
+            node_id=None,
+            canonical_modules=(
+                (canonical_module,) if canonical_module is not None else None
+            ),
+            limit=limit,
+            user_id=user_id,
+            excluded_question_ids=excluded_question_ids,
+        )
+
+    def select_targeted_frozen_questions(
+        self,
+        session: Session,
+        *,
+        module_name: str | None,
+        limit: int,
+        user_id: str,
+        now: datetime,
+    ) -> TargetedQuestionSelection | None:
+        normalized_module = module_name.strip() if module_name is not None else None
+        if limit <= 0 or normalized_module == "":
+            return None
+
+        vocabulary = load_current_module_vocabulary(
+            session,
+            exam_scope="guokao",
+            track="xingce",
+            now=now,
+        )
+        if vocabulary is None:
+            return None
+        canonical_module = (
+            vocabulary.canonicalize(normalized_module)
+            if normalized_module is not None
+            else None
+        )
+        if normalized_module is not None and canonical_module is None:
+            return None
+
+        repository = KnowledgeRepository(session)
+        if canonical_module is None:
+            nodes = []
+            for module_name_candidate in vocabulary.canonical_names:
+                nodes.extend(
+                    repository.list_knowledge_map_nodes_for_release(
+                        release_id=vocabulary.release_id,
+                        node_types=("micro_skill", "knowledge_point"),
+                        module_name=module_name_candidate,
+                    )
+                )
+            nodes.sort(
+                key=lambda node: (
+                    ("micro_skill", "knowledge_point").index(node.node_type),
+                    -node.near5_weight,
+                    -node.near5_occurrence_count,
+                    node.module_name,
+                    node.tag_type or "",
+                    node.tag_value,
+                    node.node_id,
+                )
+            )
+        else:
+            nodes = repository.list_knowledge_map_nodes_for_release(
+                release_id=vocabulary.release_id,
+                node_types=("micro_skill", "knowledge_point"),
+                module_name=canonical_module,
+            )
+        for node in nodes:
+            if (
+                node.support_status != "text_supported"
+                or node.tag_type is None
+                or not node.tag_type.strip()
+                or not node.tag_value.strip()
+                or node.near5_occurrence_count <= 0
+            ):
+                continue
+            questions = self._select_eligible_questions(
+                session,
+                release_id=node.release_id,
+                node_id=node.node_id,
+                canonical_modules=(node.module_name,),
+                limit=limit,
+                user_id=user_id,
+                excluded_question_ids=None,
+            )
+            if len(questions) < limit:
+                continue
+            return TargetedQuestionSelection(
+                questions=tuple(questions),
+                release_id=node.release_id,
+                release_version=node.release_version,
+                source_data_version=node.source_data_version,
+                vocab_version=vocabulary.vocab_version,
+                fresh_until=node.fresh_until,
+                node_id=node.node_id,
+                node_type=node.node_type,
+                module_name=node.module_name,
+            )
+        return None
+
+    def _select_eligible_questions(
+        self,
+        session: Session,
+        *,
+        release_id: str,
+        node_id: str | None,
+        canonical_modules: tuple[str, ...] | None,
+        limit: int,
+        user_id: str | None,
+        excluded_question_ids: list[str] | None,
+    ) -> list[dict[str, Any]]:
         if limit <= 0:
             return []
         questions: list[dict[str, Any]] = []
@@ -165,75 +309,96 @@ class XingceAttemptRepository:
                 session.execute(
                     text(
                         """
+                with frozen_candidates as (
+                  select
+                    binding.question_id,
+                    min(binding.content_version_id) as content_version_id,
+                    min(binding.canonical_module) as canonical_module,
+                    bool_and(binding.visual_required) as visual_required,
+                    bool_and(
+                      binding.shared_context_required
+                    ) as shared_context_required,
+                    max(binding.latest_year) as latest_year,
+                    max(binding.occurrence_count) as occurrence_count
+                  from product.knowledge_map_question_bindings binding
+                  where binding.release_id = cast(:release_id as uuid)
+                    and binding.delivery_eligible
+                    and (
+                      cast(:node_id as text) is null
+                      or binding.node_id = cast(:node_id as text)
+                    )
+                    and (
+                      cast(:canonical_modules as text[]) is null
+                      or binding.canonical_module =
+                         any(cast(:canonical_modules as text[]))
+                    )
+                    and not (
+                      binding.question_id =
+                      any(cast(:excluded_question_ids as text[]))
+                    )
+                    and (
+                      cast(:user_id as text) is null
+                      or (
+                        not exists (
+                          select 1
+                          from learning.xingce_assessments assessment
+                          where assessment.user_id = cast(:user_id as uuid)
+                            and assessment.question_id = binding.question_id
+                        )
+                        and not exists (
+                          select 1
+                          from learning.xingce_task_sessions exposed_session
+                          cross join lateral jsonb_array_elements(
+                            coalesce(
+                              exposed_session.safe_bundle -> 'questions',
+                              '[]'::jsonb
+                            )
+                          ) exposed_question
+                          where exposed_session.user_id = cast(:user_id as uuid)
+                            and exposed_question ->> 'questionId' =
+                                binding.question_id
+                        )
+                      )
+                    )
+                  group by binding.question_id
+                  having count(distinct binding.content_version_id) = 1
+                     and count(distinct binding.canonical_module) = 1
+                     and count(distinct binding.visual_required) = 1
+                     and count(
+                       distinct binding.shared_context_required
+                     ) = 1
+                )
                 select
-                  question.question_id, question.module_name, question.question_type,
-                  question.stem, question.stem_html, question.answer,
-                  question.material_text, question.material_html,
-                  question.shared_context_required, question.visual_required,
-                  explanation.preferred_analysis, explanation.analysis_source,
-                  explanation.analysis_status,
-                  explanation.prefer_ai_analysis,
-                  explanation.analysis_needs_review
-                from product.questions question
-                left join product.question_explanations explanation
-                  on explanation.question_id = question.question_id
-                where question.domain = 'objective'
-                  and question.status in ('active', 'canonical')
-                  and nullif(trim(question.answer), '') is not null
-                  and (
-                    cast(:module_name as text) is null
-                    or question.module_name = cast(:module_name as text)
-                  )
-                  and not (
-                    question.question_id = any(cast(:excluded_question_ids as text[]))
-                  )
-                  and (
-                    cast(:user_id as text) is null
-                    or (
-                      not exists (
-                        select 1
-                        from learning.xingce_assessments assessment
-                        where assessment.user_id = cast(:user_id as uuid)
-                          and assessment.question_id = question.question_id
-                      )
-                      and not exists (
-                        select 1
-                        from learning.xingce_task_sessions exposed_session
-                        cross join lateral jsonb_array_elements(
-                          coalesce(
-                            exposed_session.safe_bundle -> 'questions',
-                            '[]'::jsonb
-                          )
-                        ) exposed_question
-                        where exposed_session.user_id = cast(:user_id as uuid)
-                          and exposed_question ->> 'questionId' =
-                              question.question_id
-                      )
-                    )
-                  )
-                  and (
-                    not question.visual_required
-                    or exists (
-                      select 1 from product.question_assets visual
-                      where visual.question_id = question.question_id
-                        and visual.image_src ~
-                          '^https://kg\\.xingguoxian\\.cn(?::443)?/assets/'
-                    )
-                  )
-                  and exists (
-                    select 1 from product.question_options option
-                    where option.question_id = question.question_id
-                  )
+                  candidate.question_id,
+                  candidate.content_version_id,
+                  candidate.canonical_module,
+                  candidate.shared_context_required,
+                  candidate.visual_required,
+                  candidate.latest_year,
+                  candidate.occurrence_count,
+                  content.snapshot_payload
+                from frozen_candidates candidate
+                join product.question_content_versions content
+                  on content.question_id = candidate.question_id
+                 and content.content_version_id =
+                     candidate.content_version_id
+                 and content.track = 'xingce'
                 order by
-                  question.latest_year desc nulls last,
-                  question.occurrence_count desc nulls last,
-                  question.question_id
+                  candidate.latest_year desc nulls last,
+                  candidate.occurrence_count desc,
+                  candidate.question_id
                 limit :batch_size
                 offset :offset
                 """
                     ),
                     {
-                        "module_name": module_name,
+                        "release_id": release_id,
+                        "node_id": node_id,
+                        "canonical_modules": (
+                            list(canonical_modules)
+                            if canonical_modules is not None
+                            else None
+                        ),
                         "user_id": user_id,
                         "excluded_question_ids": excluded_question_ids or [],
                         "batch_size": batch_size,
@@ -246,42 +411,15 @@ class XingceAttemptRepository:
             if not rows:
                 break
             offset += len(rows)
-            question_ids = [str(row["question_id"]) for row in rows]
-            options_by_question: dict[str, list[dict[str, Any]]] = {}
-            for item in session.execute(
-                text(
-                    """
-                    select question_id, label, option_text, option_html
-                    from product.question_options
-                    where question_id = any(cast(:question_ids as text[]))
-                    order by question_id, option_index
-                    """
-                ),
-                {"question_ids": question_ids},
-            ).mappings():
-                options_by_question.setdefault(str(item["question_id"]), []).append(dict(item))
-            assets_by_question: dict[str, list[dict[str, Any]]] = {}
-            for item in session.execute(
-                text(
-                    """
-                    select question_id, asset_id, part_kind, part_index,
-                           image_ordinal, image_src, object_key,
-                           is_representative_asset
-                    from product.question_assets
-                    where question_id = any(cast(:question_ids as text[]))
-                    order by question_id, part_kind nulls last,
-                             part_index nulls last, image_ordinal nulls last,
-                             asset_id
-                    """
-                ),
-                {"question_ids": question_ids},
-            ).mappings():
-                assets_by_question.setdefault(str(item["question_id"]), []).append(dict(item))
             for row in rows:
-                question = dict(row)
+                question = dict(row["snapshot_payload"])
                 question_id = str(row["question_id"])
-                question["options"] = options_by_question.get(question_id, [])
-                question["assets"] = assets_by_question.get(question_id, [])
+                question["question_id"] = question_id
+                question["visual_required"] = bool(row["visual_required"])
+                question["shared_context_required"] = bool(
+                    row["shared_context_required"]
+                )
+                question["_content_version_id"] = str(row["content_version_id"])
                 try:
                     validate_learner_question(question)
                 except TaskContentContractError:

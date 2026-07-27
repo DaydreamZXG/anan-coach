@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import UTC, datetime
 
 from app.domains.knowledge.repository import (
     KnowledgeRepository,
@@ -34,6 +35,10 @@ class ExamPracticeQuestionsUnavailableError(RuntimeError):
 
 @dataclass(frozen=True)
 class WeightedPracticeSelection:
+    release_id: str
+    release_version: str
+    source_data_version: str
+    fresh_until: datetime
     node_id: str
     exam_scope: str
     track: str
@@ -55,7 +60,15 @@ class WeightedPracticeSelection:
         node: KnowledgeMapNodeRecord,
         items: list[QuestionSummary],
     ) -> WeightedPracticeSelection:
+        if node.tag_type is None:
+            raise KnowledgeMapUnavailableError(
+                "current knowledge map node has no governed tag type"
+            )
         return cls(
+            release_id=node.release_id,
+            release_version=node.release_version,
+            source_data_version=node.source_data_version,
+            fresh_until=node.fresh_until,
             node_id=node.node_id,
             exam_scope=node.exam_scope,
             track=node.track,
@@ -168,30 +181,23 @@ class KnowledgeService:
         limit: int = 3,
         module_name: str | None = None,
     ) -> WeightedPracticeSelection:
+        now = datetime.now(UTC)
         node = self._repository.get_top_knowledge_map_node(
             exam_scope=exam_scope,
             track="xingce",
             node_type="knowledge_point",
+            now=now,
             module_name=module_name,
         )
-        # 指定模块却取不到节点时，回退到全局最高频节点，保证每日任务不空
-        if node is None and module_name is not None:
-            node = self._repository.get_top_knowledge_map_node(
-                exam_scope=exam_scope,
-                track="xingce",
-                node_type="knowledge_point",
-            )
         if node is None:
             raise KnowledgeMapUnavailableError(
-                "product.knowledge_map_nodes has no published text-supported guokao/xingce knowledge_point rows"
+                "current fresh active knowledge map release has no eligible "
+                "guokao/xingce knowledge_point rows"
             )
 
         rows = self._repository.select_weighted_practice_questions(
-            module_name=node.module_name,
-            tag_type=node.tag_type,
-            tag_value=node.tag_value,
-            window_start_year=node.near5_window_start_year,
-            window_end_year=node.near5_window_end_year,
+            release_id=node.release_id,
+            node_id=node.node_id,
             limit=limit,
         )
         if len(rows) < limit:
@@ -218,6 +224,7 @@ class KnowledgeService:
             module_name=module_name,
             tag_type=tag_type,
             tag_value=tag_value,
+            now=datetime.now(UTC),
         )
 
 
