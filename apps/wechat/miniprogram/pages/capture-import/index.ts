@@ -26,6 +26,7 @@ import {
   editQuestionImage,
   ensureCameraPermission,
   requestCameraSetting,
+  takeQuestionPhoto,
 } from "../../features/external-learning/platform";
 import type { LocalImportFile } from "../../features/external-learning/contracts";
 import { createIdempotencyKey } from "../../platform/command-id";
@@ -41,6 +42,8 @@ interface CaptureImportPageData {
   channelWriting: boolean;
   channelExpired: boolean;
   captureStage: "camera" | "crop";
+  cameraReady: boolean;
+  cameraError: string;
   permissionDenied: boolean;
   pendingFile: LocalImportFile | null;
   recordSheetOpen: boolean;
@@ -51,6 +54,10 @@ interface CaptureImportPageData {
 
 interface CaptureImportPageCustom {
   chooseCamera(): Promise<void>;
+  handleCameraInit(): void;
+  handleCameraError(
+    event: WechatMiniprogram.CustomEvent<{ errCode?: number; errMsg?: string }>,
+  ): void;
   chooseAlbum(): Promise<void>;
   choosePdf(): Promise<void>;
   editPendingImage(): Promise<void>;
@@ -107,6 +114,8 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     channelWriting: false,
     channelExpired: false,
     captureStage: "camera",
+    cameraReady: false,
+    cameraError: "",
     permissionDenied: false,
     pendingFile: null,
     recordSheetOpen: false,
@@ -166,8 +175,47 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
       this.setData({ permissionDenied: true });
       return;
     }
-    this.setData({ permissionDenied: false });
-    await chooseForReview(this, "camera");
+    if (!this.data.cameraReady) {
+      this.setData({
+        permissionDenied: false,
+        cameraError: "相机正在启动，请稍候再拍。",
+      });
+      return;
+    }
+    try {
+      const file = await takeQuestionPhoto();
+      this.setData({
+        captureStage: "crop",
+        cameraReady: false,
+        cameraError: "",
+        pendingFile: file,
+        receiptVisible: false,
+        recordSheetOpen: false,
+      });
+    } catch (error) {
+      const message = externalLearningError(error).message;
+      if (cameraPermissionWasDenied(error)) {
+        this.setData({ permissionDenied: true, cameraReady: false, cameraError: "" });
+        return;
+      }
+      this.setData({ cameraError: message });
+    }
+  },
+
+  handleCameraInit() {
+    this.setData({ cameraReady: true, cameraError: "", permissionDenied: false });
+  },
+
+  handleCameraError(event) {
+    const detail = event.detail;
+    if (detail.errCode === 10001 || cameraPermissionWasDenied({ errMsg: detail.errMsg ?? "" })) {
+      this.setData({ permissionDenied: true, cameraReady: false, cameraError: "" });
+      return;
+    }
+    this.setData({
+      cameraReady: false,
+      cameraError: "相机没有启动成功，请检查系统相机权限后重试。",
+    });
   },
 
   async chooseAlbum() {
@@ -209,13 +257,21 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
   },
 
   discardPendingImage() {
-    this.setData({ captureStage: "camera", pendingFile: null });
+    this.setData({
+      captureStage: "camera",
+      cameraReady: false,
+      cameraError: "",
+      pendingFile: null,
+    });
   },
 
   async retryCameraPermission() {
     const granted = await requestCameraSetting();
-    this.setData({ permissionDenied: !granted });
-    if (granted) await chooseForReview(this, "camera");
+    this.setData({
+      permissionDenied: !granted,
+      cameraReady: false,
+      cameraError: "",
+    });
   },
 
   chooseTrack(event) {
@@ -274,6 +330,8 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     runtimes.get(this)?.reset();
     this.setData({
       captureStage: "camera",
+      cameraReady: false,
+      cameraError: "",
       permissionDenied: false,
       pendingFile: null,
       recordSheetOpen: false,
@@ -480,6 +538,15 @@ async function chooseForReview(page: CaptureImportPage, source: "camera" | "albu
   } catch (error) {
     void wx.showToast({ title: externalLearningError(error).message, icon: "none" });
   }
+}
+
+function cameraPermissionWasDenied(error: unknown): boolean {
+  if (typeof error !== "object" || error === null) return false;
+  const rawMessage = (error as { errMsg?: unknown }).errMsg;
+  const message = typeof rawMessage === "string" ? rawMessage.toLowerCase() : "";
+  return (
+    message.includes("auth deny") || message.includes("permission") || message.includes("authorize")
+  );
 }
 
 async function writeChannel(page: CaptureImportPage, replacePending: boolean) {

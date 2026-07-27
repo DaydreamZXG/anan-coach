@@ -165,6 +165,9 @@
   "lazyCodeLoading": "requiredComponents",
   "requiredPrivateInfos": ["getLocation"],
   "permission": {
+    "scope.camera": {
+      "desc": "用于拍摄你主动选择识别的题目、材料和手写答案"
+    },
     "scope.userLocation": {
       "desc": "用于展示你当前位置附近的天气，帮助安排当天学习"
     }

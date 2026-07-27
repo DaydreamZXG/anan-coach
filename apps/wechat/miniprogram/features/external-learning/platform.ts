@@ -1,5 +1,6 @@
 import type { LocalAnswerImageFile, LocalImportFile } from "./contracts";
 import {
+  captureSourcePhoto,
   chooseSourceImage,
   ensureCameraPermission,
   requestCameraSetting,
@@ -11,6 +12,10 @@ export async function chooseQuestionImage(
   source: "camera" | "album",
 ): Promise<LocalImportFile | null> {
   return chooseSourceImage(source, source === "camera" ? "拍照题目.jpg" : "相册题目.jpg");
+}
+
+export async function takeQuestionPhoto(): Promise<LocalImportFile> {
+  return captureSourcePhoto("拍照题目.jpg");
 }
 
 export async function editQuestionImage(file: LocalImportFile): Promise<LocalImportFile | null> {

@@ -59,6 +59,27 @@ export async function chooseSourceImage(
   }
 }
 
+export async function captureSourcePhoto(fallbackName: string): Promise<LocalSourceImageFile> {
+  const result = await new Promise<WechatMiniprogram.TakePhotoSuccessCallbackResult>(
+    (resolve, reject) => {
+      wx.createCameraContext().takePhoto({
+        quality: "high",
+        success: resolve,
+        fail: reject,
+      });
+    },
+  );
+  const path = result.tempImagePath;
+  return {
+    localPath: path,
+    displayName: localFileName(path, fallbackName),
+    sourceKind: "camera_image",
+    mimeType: imageMimeType(path),
+    byteSize: await localFileSize(path),
+    pageCount: null,
+  };
+}
+
 function imageMimeType(path: string): "image/jpeg" | "image/png" {
   return path.toLowerCase().split("?", 1)[0]?.endsWith(".png") ? "image/png" : "image/jpeg";
 }
@@ -66,6 +87,18 @@ function imageMimeType(path: string): "image/jpeg" | "image/png" {
 function localFileName(path: string, fallback: string): string {
   const name = path.split("?", 1)[0]?.split("/").at(-1)?.trim();
   return name || fallback;
+}
+
+async function localFileSize(filePath: string): Promise<number> {
+  return new Promise<number>((resolve, reject) => {
+    wx.getFileSystemManager().getFileInfo({
+      filePath,
+      success: ({ size }) => {
+        resolve(size);
+      },
+      fail: reject,
+    });
+  });
 }
 
 function isUserCancellation(error: unknown): boolean {

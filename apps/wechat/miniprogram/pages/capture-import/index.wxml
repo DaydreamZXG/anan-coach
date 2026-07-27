@@ -94,6 +94,16 @@
 
     <view class="camera-workspace">
       <view class="camera-frame {{mode === 'import' ? 'camera-frame--material' : ''}}">
+        <camera
+          class="camera-preview"
+          device-position="back"
+          flash="auto"
+          mode="normal"
+          resolution="high"
+          bindinitdone="handleCameraInit"
+          binderror="handleCameraError"
+        ></camera>
+        <view class="camera-preview-shade"></view>
         <view class="camera-corner camera-corner--tl"></view>
         <view class="camera-corner camera-corner--tr"></view>
         <view class="camera-corner camera-corner--bl"></view>
@@ -111,14 +121,15 @@
 
     <view wx:if="{{mode === 'search'}}" class="camera-controls">
       <button hover-class="item--hover" class="camera-control" bindtap="chooseAlbum"><text class="album-glyph">▧</text><text>相册</text></button>
-      <button hover-class="item--hover" class="camera-shutter tap-tactile" bindtap="chooseCamera"><text class="camera-shutter__core"></text></button>
+      <button hover-class="item--hover" class="camera-shutter tap-tactile" disabled="{{!cameraReady}}" bindtap="chooseCamera"><text class="camera-shutter__core"></text></button>
       <view class="camera-control camera-control--placeholder"></view>
     </view>
     <view wx:else class="material-actions">
-      <button hover-class="item--hover" class="control-center material-action" bindtap="chooseAlbum">选择图片</button>
+      <button hover-class="item--hover" class="control-center material-action" disabled="{{!cameraReady}}" bindtap="chooseCamera">拍摄材料</button>
+      <button hover-class="item--hover" class="control-center material-action" bindtap="chooseAlbum">相册</button>
       <button hover-class="item--hover" class="control-center material-action material-action--primary tap-tactile" bindtap="choosePdf">导入 PDF</button>
     </view>
-    <view wx:if="{{state.validationError}}" class="camera-error">{{state.validationError}}</view>
+    <view wx:if="{{cameraError || state.validationError}}" class="camera-error">{{cameraError || state.validationError}}</view>
     <view class="camera-privacy">题图只用于本次识别与个人检索，不进入公共题库，不用于训练基础模型。</view>
   </block>
 
