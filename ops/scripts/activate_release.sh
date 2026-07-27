@@ -73,6 +73,9 @@ set -a
 if [[ -f "${config_root}/ilink-channel.env" ]]; then
   . "${config_root}/ilink-channel.env"
 fi
+if [[ -f "${config_root}/ilink-worker.env" ]]; then
+  . "${config_root}/ilink-worker.env"
+fi
 set +a
 : "${MIGRATION_DATABASE_URL:?MIGRATION_DATABASE_URL is required}"
 : "${REQUIRED_DATABASE_REVISION:?REQUIRED_DATABASE_REVISION is required}"
