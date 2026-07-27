@@ -299,8 +299,23 @@ class LearningBrainRepository:
                         count(*) filter (where item.correct)::int as correct_count,
                         avg(
                           case
-                            when item.result_snapshot->>'questionElapsedSeconds' ~ '^[0-9]+$'
-                            then (item.result_snapshot->>'questionElapsedSeconds')::numeric
+                            when jsonb_typeof(
+                              item.result_snapshot #>
+                                '{timingEvidence,elapsedSeconds}'
+                            ) = 'number'
+                              and item.result_snapshot #>>
+                                '{timingEvidence,elapsedSeconds}' ~ '^[0-9]+$'
+                            then case
+                              when (
+                                item.result_snapshot #>>
+                                  '{timingEvidence,elapsedSeconds}'
+                              )::numeric between 0 and 86400
+                              then (
+                                item.result_snapshot #>>
+                                  '{timingEvidence,elapsedSeconds}'
+                              )::numeric
+                              else null
+                            end
                             else null
                           end
                         ) as average_seconds,
