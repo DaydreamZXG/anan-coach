@@ -38,12 +38,12 @@ class CalibrationRepository:
                   p.baseline_xingce_score,
                   (
                     select count(*)
-                    from learner.practice_answers
+                    from learning.xingce_assessments
                     where user_id = cast(:user_id as uuid)
                   ) as practice_answers,
                   (
                     select count(*)
-                    from learner.practice_answers
+                    from learning.xingce_assessments
                     where user_id = cast(:user_id as uuid)
                       and correct = true
                   ) as practice_correct,
@@ -103,10 +103,11 @@ class CalibrationRepository:
                 select
                   q.module_name,
                   count(*) as sample_size,
-                  count(*) filter (where pa.correct = true) as correct_count
-                from learner.practice_answers pa
-                join product.questions q on q.question_id = pa.question_id
-                where pa.user_id = cast(:user_id as uuid)
+                  count(*) filter (where assessment.correct = true) as correct_count
+                from learning.xingce_assessments assessment
+                join product.questions q
+                  on q.question_id = assessment.question_id
+                where assessment.user_id = cast(:user_id as uuid)
                   and q.module_name is not null
                 group by q.module_name
                 order by sample_size desc, q.module_name
@@ -154,7 +155,7 @@ class CalibrationRepository:
         )
 
     def knowledge_point_accuracy(self, *, user_id: str) -> list[dict[str, Any]]:
-        """按知识点标签分组的练习正确率原始行。
+        """按知识点标签分组的行测评估正确率原始行。
 
         题目↔知识点靠 product.question_tags(tag_type='knowledge_point')
         的 tag_value 匹配；没有知识点标签的题目显式归入「未分类」，
@@ -167,13 +168,14 @@ class CalibrationRepository:
                   coalesce(nullif(trim(q.module_name), ''), '未分类') as module_name,
                   coalesce(nullif(trim(qt.tag_value), ''), '未分类') as tag_value,
                   count(*) as sample_size,
-                  count(*) filter (where pa.correct = true) as correct_count
-                from learner.practice_answers pa
-                join product.questions q on q.question_id = pa.question_id
+                  count(*) filter (where assessment.correct = true) as correct_count
+                from learning.xingce_assessments assessment
+                join product.questions q
+                  on q.question_id = assessment.question_id
                 left join product.question_tags qt
                   on qt.question_id = q.question_id
                  and qt.tag_type = 'knowledge_point'
-                where pa.user_id = cast(:user_id as uuid)
+                where assessment.user_id = cast(:user_id as uuid)
                 group by
                   coalesce(nullif(trim(q.module_name), ''), '未分类'),
                   coalesce(nullif(trim(qt.tag_value), ''), '未分类')
