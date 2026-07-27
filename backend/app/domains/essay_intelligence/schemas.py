@@ -13,6 +13,9 @@ from pydantic import (
     model_validator,
 )
 
+from app.contracts.guokao_shenlun import (
+    GuokaoShenlunQuestionType as QuestionType,
+)
 from app.domains.essay_intelligence.normalization import (
     NORMALIZATION_CONTRACT,
     normalize_grounding_text,
@@ -20,13 +23,6 @@ from app.domains.essay_intelligence.normalization import (
 
 
 Sha256 = Annotated[str, StringConstraints(pattern=r"^[0-9a-f]{64}$")]
-QuestionType = Literal[
-    "summary",
-    "comprehensive_analysis",
-    "countermeasure",
-    "implementation",
-    "composition",
-]
 LifecycleState = Literal["draft", "published"]
 RubricSource = Literal["official", "system_compiled"]
 RubricVerification = Literal["verified", "unverified"]

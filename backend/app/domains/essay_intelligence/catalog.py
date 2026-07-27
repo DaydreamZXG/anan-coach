@@ -5,16 +5,13 @@ from decimal import Decimal
 from hashlib import sha256
 import json
 import re
-from typing import Any, Literal
+from typing import Any
 
-
-QuestionType = Literal[
-    "summary",
-    "comprehensive_analysis",
-    "countermeasure",
-    "implementation",
-    "composition",
-]
+from app.contracts.guokao_shenlun import (
+    GuokaoShenlunQuestionType as QuestionType,
+    guokao_shenlun_category,
+    guokao_shenlun_category_from_catalog_text,
+)
 
 NATIONAL_PAPER_MARKERS = ("国考", "国家公务员")
 
@@ -379,28 +376,12 @@ def _map_question_type(question: SourceQuestion) -> QuestionType | None:
         question.display_level1,
     ]
     normalized = " ".join(str(item).strip().lower() for item in raw_values if item)
-    exact: dict[str, QuestionType] = {
-        "summary": "summary",
-        "comprehensive_analysis": "comprehensive_analysis",
-        "countermeasure": "countermeasure",
-        "implementation": "implementation",
-        "composition": "composition",
-        "proposal": "countermeasure",
-        "essay": "composition",
-    }
-    direct = exact.get(str(question.question_type or "").strip().lower())
-    if direct:
-        return direct
-    aliases: tuple[tuple[tuple[str, ...], QuestionType], ...] = (
-        (("文章写作", "大作文", "作文", "议论文"), "composition"),
-        (("贯彻执行", "应用文", "公文", "事务性文书"), "implementation"),
-        (("提出对策", "对策题", "对策"), "countermeasure"),
-        (("综合分析", "分析理解", "解释分析"), "comprehensive_analysis"),
-        (("归纳概括", "概括题", "概括"), "summary"),
-    )
-    for markers, mapped in aliases:
-        if any(marker in normalized for marker in markers):
-            return mapped
+    direct = guokao_shenlun_category(str(question.question_type or ""))
+    if direct is not None:
+        return direct.code
+    metadata_category = guokao_shenlun_category_from_catalog_text(normalized)
+    if metadata_category is not None:
+        return metadata_category.code
     return _infer_question_type_from_prompt(question.stem)
 
 
