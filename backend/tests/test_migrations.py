@@ -363,7 +363,31 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
                 text(f"alter table learner.mock_exam_sessions drop column {column}")
             )
         connection.execute(
-            text("drop table product.question_visual_fingerprints")
+            text("drop table if exists product.question_visual_fingerprints")
+        )
+        connection.execute(
+            text(
+                "alter table product.question_occurrences "
+                "drop constraint if exists question_occurrence_correct_ratio_check"
+            )
+        )
+        connection.execute(
+            text(
+                "alter table product.question_occurrences "
+                "drop constraint if exists question_occurrence_sample_size_check"
+            )
+        )
+        connection.execute(
+            text(
+                "alter table product.question_occurrences "
+                "drop column if exists occurrence_correct_ratio"
+            )
+        )
+        connection.execute(
+            text(
+                "alter table product.question_occurrences "
+                "drop column if exists occurrence_sample_size"
+            )
         )
         connection.execute(text("drop table product.question_quality_heads"))
         connection.execute(

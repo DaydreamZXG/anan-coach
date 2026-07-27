@@ -103,7 +103,7 @@ def create_weekly_mock_exam(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="Not enough weighted guokao questions for weekly mock exam",
         ) from exc
-    except PlanningContractError as exc:
+    except PlanningContractError:
         return public_error_response(
             request=http_request,
             status_code=status.HTTP_409_CONFLICT,

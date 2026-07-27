@@ -1,13 +1,10 @@
 import type { TodayDashboard } from "../api/generated/types.gen";
-import type { LearningProfile, PositionWorkspace } from "../domain/contracts";
 import { ApiClient } from "../api/client";
 import { PlanningApi } from "../api/planning";
 import { environment } from "../config/environment";
 
 export interface CoachRepository {
   getToday(): Promise<TodayDashboard>;
-  getPositions(): Promise<PositionWorkspace>;
-  getLearningProfile(): Promise<LearningProfile>;
 }
 
 class ApiCoachRepository implements CoachRepository {
@@ -19,14 +16,6 @@ class ApiCoachRepository implements CoachRepository {
 
   async getToday(): Promise<TodayDashboard> {
     return (await this.planning.getToday()).data;
-  }
-
-  async getPositions(): Promise<PositionWorkspace> {
-    return (await this.client.get<PositionWorkspace>("/api/v2/goals/workspace")).data;
-  }
-
-  async getLearningProfile(): Promise<LearningProfile> {
-    return (await this.client.get<LearningProfile>("/api/v2/learning-profile")).data;
   }
 }
 

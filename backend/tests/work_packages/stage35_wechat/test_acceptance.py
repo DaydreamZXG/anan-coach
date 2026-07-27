@@ -127,10 +127,10 @@ def test_stage35_wechat_c21_c24_states_and_boundaries() -> None:
         / "community-contributions"
         / "index.wxml"
     ).read_text(encoding="utf-8")
-    assert "当前无已发布政策" in contributions_markup
+    assert "当前没有生效规则" in contributions_markup
+    assert "policyMessage" in contributions_markup
     assert "aiQuotaBalance" in contributions_markup
     assert "membershipBalanceLabel" in contributions_markup
-    assert "entitlementVersion" in contributions_markup
     assert "awardIds" in contributions_markup
     assert "entryIds" in contributions_markup
 
@@ -149,6 +149,8 @@ def test_stage35_wechat_c21_c24_states_and_boundaries() -> None:
         ]
         if path.is_file()
     )
+    assert "当前没有已发布的奖励政策" in owned_text
+    assert "entitlementVersion" in owned_text
     assert "鹿鸣" not in owned_text
     assert "岸岸" in owned_text
 
