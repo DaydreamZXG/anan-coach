@@ -5,6 +5,7 @@ import { XingceLearningApi } from "../miniprogram/api/xingce-learning";
 import {
   checkpointCommand,
   runtimeFromXingceSession,
+  runtimeWithPendingCheckpoint,
 } from "../miniprogram/features/xingce/real_attempt/controller";
 import {
   assertLearnerSafeSession,
@@ -176,6 +177,118 @@ describe("real xingce attempt contracts", () => {
     const mixed = submittedXingceSession();
     if (mixed.result) mixed.result.contractVersion = null;
     expect(() => assertLearnerSafeSession(mixed)).toThrow("历史行测结果");
+  });
+});
+
+describe("collection-side P1 regressions (2026-07-27 backend launch audit §3)", () => {
+  it("keeps annotation-only and action-only questions in checkpoints so a restart loses nothing", () => {
+    // 重启前：只有批注轨迹、没有任何作答动作的题必须入选检查点。
+    let runtime = runtimeFromXingceSession(activeXingceSession({ revision: 7 }));
+    runtime = reduceTaskRuntime(runtime, {
+      type: "ANNOTATIONS_CHANGED",
+      action: "added",
+      strokes: [
+        {
+          strokeId: "stroke-1",
+          tool: "pen",
+          width: 0.012,
+          points: [
+            { x: 0.1, y: 0.2, t: 0, p: 0.62 },
+            { x: 0.3, y: 0.4, t: 16 },
+          ],
+          atMs: 1200,
+        },
+      ],
+    });
+    const beforeRestart = checkpointCommand(runtime);
+    expect(beforeRestart.answers.map((item) => item.questionId)).toEqual(["q-1"]);
+    expect(beforeRestart.answers[0]?.annotations?.[0]?.strokeId).toBe("stroke-1");
+
+    // 重启后：服务端回放的会话里该题依旧只有批注（无选项、无跳过、无动作事件），
+    // 恢复再保存时它仍要入选，否则轨迹在下一次覆盖保存时永久丢失。
+    const restored = runtimeFromXingceSession(
+      activeXingceSession({
+        revision: 8,
+        answers: [
+          {
+            ...answer("q-1", []),
+            annotations: [
+              {
+                strokeId: "stroke-1",
+                tool: "pen",
+                width: 0.012,
+                points: [
+                  { x: 0.1, y: 0.2, t: 0, p: 0.62 },
+                  { x: 0.3, y: 0.4, t: 16 },
+                ],
+                atMs: 1200,
+              },
+            ],
+          },
+        ],
+      }),
+    );
+    const afterRestart = checkpointCommand(restored);
+    expect(afterRestart.answers.map((item) => item.questionId)).toEqual(["q-1"]);
+    expect(afterRestart.answers[0]?.annotations?.[0]?.points).toEqual([
+      { x: 0.1, y: 0.2, t: 0, p: 0.62 },
+      { x: 0.3, y: 0.4, t: 16 },
+    ]);
+
+    // 只有动作事实（如暂停）的题同样入选。
+    let actionOnly = runtimeFromXingceSession(activeXingceSession({ revision: 9 }));
+    actionOnly = reduceTaskRuntime(actionOnly, { type: "ACTION_LOGGED", action: "paused" });
+    const actionCommand = checkpointCommand(actionOnly);
+    expect(actionCommand.answers.map((item) => item.questionId)).toEqual(["q-1"]);
+    expect(actionCommand.answers[0]?.actionEvents?.map((entry) => entry.type)).toContain("paused");
+
+    // 最小 payload 原则不回退：全空题不入选，未动过的会话保存仍被拒绝。
+    expect(() => checkpointCommand(runtimeFromXingceSession(activeXingceSession()))).toThrow(
+      "至少明确作答或跳过",
+    );
+  });
+
+  it("round-trips stored pen pressure through session restore and the next checkpoint", () => {
+    const persistedPoints = [
+      { x: 0.11, y: 0.22, t: 0, p: 0.62 },
+      { x: 0.31, y: 0.42, t: 16, p: 1 },
+      // 无压感设备写下的旧点：恢复时不得硬造 p。
+      { x: 0.51, y: 0.62, t: 32 },
+    ];
+    const persistedAnnotations = [
+      {
+        strokeId: "stroke-pressure",
+        tool: "pen" as const,
+        width: 0.012,
+        points: persistedPoints,
+        atMs: 900,
+      },
+    ];
+    const session = activeXingceSession({
+      revision: 6,
+      answers: [{ ...answer("q-1", ["B"]), annotations: persistedAnnotations }],
+    });
+
+    const restored = runtimeFromXingceSession(session);
+    const restoredPoints = restored.attempts["q-1"]?.annotations?.[0]?.points;
+    expect(restoredPoints).toEqual(persistedPoints);
+    expect(restoredPoints?.[0]?.p).toBe(0.62);
+    expect(restoredPoints?.[2]).not.toHaveProperty("p");
+
+    // 恢复后立刻再保存：下一次检查点不得以无 p 的 payload 覆盖已落库版本。
+    const nextCheckpoint = checkpointCommand(restored);
+    expect(nextCheckpoint.answers[0]?.annotations?.[0]?.points).toEqual(persistedPoints);
+
+    // 待重试检查点恢复共用同一映射：p 同样原样带回、再保存不丢。
+    const retryRuntime = runtimeWithPendingCheckpoint(session, {
+      expectedRevision: 6,
+      currentQuestionId: "q-1",
+      answers: [{ ...answer("q-1", ["B"]), annotations: persistedAnnotations }],
+      totalElapsedSeconds: 20,
+    });
+    expect(checkpointCommand(retryRuntime).answers[0]?.annotations?.[0]?.points).toEqual(
+      persistedPoints,
+    );
   });
 });
 

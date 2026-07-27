@@ -181,7 +181,11 @@ export function checkpointCommand(runtime: TaskRuntimeState): XingceCheckpointCo
         answer.eliminatedOptionIds.length > 0 ||
         answer.marked ||
         answer.draftText.trim().length > 0 ||
-        answer.materialPosition !== undefined,
+        answer.materialPosition !== undefined ||
+        // 上线审计 §三 P1：只有批注轨迹或动作事实的题也必须入选，
+        // 否则重启后永久丢失；全空题仍被排除，保持最小 payload。
+        (answer.annotations !== undefined && answer.annotations.length > 0) ||
+        (answer.actionEvents !== undefined && answer.actionEvents.length > 0),
     )
     .map((answer) => ({
       questionId: answer.questionId,
@@ -274,6 +278,10 @@ function toRuntimeAttempt(answer: XingceTaskSession["answers"][number]): Questio
               y: point.y,
               // 契约增量 v1：逐点毫秒偏移随会话恢复带回。
               ...(point.t !== undefined && point.t !== null ? { t: point.t } : {}),
+              // 上线审计 §三 P1：已落库压感 p（0<p<=1，可选）原样带回，
+              // 否则恢复后下一次保存会以无 p 的 payload 覆盖最新版本；
+              // 无 p 的旧点不硬造该字段。
+              ...(point.p !== undefined && point.p !== null ? { p: point.p } : {}),
             })),
             atMs: stroke.atMs,
             // 契约增量 v1：擦除墓碑随会话恢复带回，渲染层负责过滤。
