@@ -91,6 +91,9 @@ describe("tablet responsive layout contract", () => {
     expect(brainStyles).toContain("max-width: 1120px");
     expect(reportingStyles).toContain("grid-template-columns: repeat(2, minmax(0, 1fr))");
     expect(captureStyles).toContain("max-width: 900px");
+    expect(captureStyles).toContain(".capture-page--camera");
+    expect(captureStyles).toContain("width: min(72vw, 680px)");
+    expect(captureStyles).toContain("max-height: 780px");
     expect(loginStyles).toContain("max-width: 560px");
     expect(loginStyles).toContain("margin: 0 auto");
   });

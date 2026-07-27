@@ -1422,6 +1422,17 @@ button.capture-sheet__close {
 }
 
 @media (min-width: 700px) {
+  /*
+   * 平板拍摄态占满一屏分配空间：顶部模式、取景、快门和隐私说明共同参与
+   * 布局，避免手机尺寸的取景框悬在大块空白中，也不把快门推到屏幕外。
+   */
+  .capture-page--camera {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    min-height: 0;
+  }
+
   .ocr-content,
   .match-content,
   .solution-content {
@@ -1446,8 +1457,36 @@ button.capture-sheet__close {
   }
 
   .camera-workspace {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding-top: 20px;
     padding-right: max(calc(56 * var(--rpx)), calc((100vw - 720px) / 2));
+    padding-bottom: 16px;
     padding-left: max(calc(56 * var(--rpx)), calc((100vw - 720px) / 2));
+  }
+
+  .camera-frame {
+    flex: 1 1 auto;
+    width: min(72vw, 680px);
+    max-width: 680px;
+    height: auto;
+    max-height: 780px;
+  }
+
+  .camera-track {
+    flex: 0 0 auto;
+    margin-top: 16px;
+  }
+
+  .camera-controls,
+  .material-actions,
+  .camera-privacy {
+    flex: 0 0 auto;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 720px;
+    margin-right: auto;
+    margin-left: auto;
   }
 
   .capture-sheet {

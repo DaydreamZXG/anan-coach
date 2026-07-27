@@ -1,4 +1,4 @@
-<view class="capture-page {{permissionDenied || (state && state.status === 'idle') ? 'capture-page--dark' : ''}}">
+<view class="capture-page {{permissionDenied || (state && state.status === 'idle') ? 'capture-page--dark' : ''}} {{!permissionDenied && state && state.status === 'idle' && captureStage === 'camera' ? 'capture-page--camera' : ''}}">
   <block wx:if="{{configurationError}}">
     <workbench-nav id="runtime-workbench-nav" title="拍照搜题" back-behavior="emit" bind:back="goBack" />
     <state-view
