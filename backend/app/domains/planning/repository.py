@@ -624,20 +624,20 @@ class PlanningRepository:
             text(
                 """
                 select question.module_name
-                from learner.practice_answers answer
+                from learning.xingce_assessments assessment
                 join product.questions question
-                  on question.question_id = answer.question_id
-                where answer.user_id = cast(:user_id as uuid)
-                  and answer.answered_at >= now() - interval '60 days'
+                  on question.question_id = assessment.question_id
+                where assessment.user_id = cast(:user_id as uuid)
+                  and assessment.created_at >= :now - interval '60 days'
                   and question.module_name is not null
                 group by question.module_name
                 having count(*) >= 5
-                order by avg(case when answer.correct then 1.0 else 0.0 end),
+                order by avg(case when assessment.correct then 1.0 else 0.0 end),
                          count(*) desc, question.module_name
                 limit 1
                 """
             ),
-            {"user_id": user_id},
+            {"user_id": user_id, "now": now},
         ).scalar_one_or_none()
         due_reflections = list(
             session.execute(
