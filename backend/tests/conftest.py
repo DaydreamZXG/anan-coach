@@ -268,6 +268,11 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in knowledge_map_question_bindings._STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
+        openilink_hub_bot_links = import_module(
+            "migrations.versions.20260727_69_openilink_hub_bot_links"
+        )
+        for statement in openilink_hub_bot_links._STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
 
 
 def _split_postgres_statements(script: str) -> list[str]:

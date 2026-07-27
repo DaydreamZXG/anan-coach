@@ -10,6 +10,7 @@ WorkingDirectory=/srv/gongkao-dazi/current/backend
 EnvironmentFile=/etc/gongkao-dazi/api.env
 EnvironmentFile=/etc/gongkao-dazi/db.env
 EnvironmentFile=-/etc/gongkao-dazi/ilink-channel.env
+EnvironmentFile=-/etc/gongkao-dazi/openilink-hub.env
 ExecStart=/srv/gongkao-dazi/current/backend/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000
 Restart=always
 RestartSec=3

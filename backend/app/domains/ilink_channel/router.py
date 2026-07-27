@@ -11,14 +11,22 @@ from app.core.config import get_settings
 from app.db.session import get_db_session
 from app.domains.auth.deps import get_current_user
 from app.domains.auth.repository import AuthenticatedUser
+from app.domains.ilink_channel.hub_client import OpenILinkHubError
+from app.domains.ilink_channel.hub_service import OpenILinkHubBotService
+from app.domains.ilink_channel.hub_settings import (
+    OpenILinkHubConfigurationError,
+    OpenILinkHubSettings,
+)
 from app.domains.ilink_channel.repository import ILinkConflict, ILinkNotFound, ILinkRepository
 from app.domains.ilink_channel.resolver import PhotoResolutionError, TosTransientImageStore
 from app.domains.ilink_channel.schemas import (
     ILinkChannelView,
     ILinkDataDeletion,
     ILinkDataExport,
+    HubBotAuthorizationView,
     IssueLinkCommand,
     RevokeLinkCommand,
+    StartHubBotAuthorizationCommand,
 )
 from app.domains.ilink_channel.service import ILinkChannelService
 from app.domains.ilink_channel.settings import ILinkConfigurationError, ILinkSettings
@@ -54,6 +62,136 @@ def _service() -> ILinkChannelService:
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="微信发图搜题尚未完成安全配置。",
         ) from exc
+
+
+def _hub_service() -> OpenILinkHubBotService:
+    try:
+        return OpenILinkHubBotService(
+            settings=OpenILinkHubSettings.from_environment(),
+            identity_settings=ILinkSettings.from_environment(),
+        )
+    except (OpenILinkHubConfigurationError, ILinkConfigurationError) as exc:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="微信岸岸正在完成连接配置，请稍后再试。",
+        ) from exc
+
+
+def _raise_hub_unavailable(exc: OpenILinkHubError) -> None:
+    raise HTTPException(
+        status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+        detail="微信岸岸暂时没有连上，请重新试一次。",
+    ) from exc
+
+
+@router.get("/bot", response_model=PublicApiEnvelope[HubBotAuthorizationView])
+def hub_bot_view(
+    request: Request,
+    response: Response,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+    service: Annotated[OpenILinkHubBotService, Depends(_hub_service)],
+) -> PublicApiEnvelope[HubBotAuthorizationView]:
+    result = service.view(session, user_id=UUID(current_user.user_id))
+    return public_success_envelope(request=request, response=response, data=result)
+
+
+@router.post(
+    "/bot/authorizations",
+    response_model=PublicApiEnvelope[HubBotAuthorizationView],
+)
+def start_hub_bot_authorization(
+    request: Request,
+    response: Response,
+    command: StartHubBotAuthorizationCommand,
+    idempotency_key: IdempotencyKey,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+    service: Annotated[OpenILinkHubBotService, Depends(_hub_service)],
+) -> PublicApiEnvelope[HubBotAuthorizationView]:
+    try:
+        result = service.start_authorization(
+            session,
+            user_id=UUID(current_user.user_id),
+            command_id=f"{current_user.user_id}:{idempotency_key}",
+            replace_pending=command.replace_pending,
+        )
+        session.commit()
+    except ILinkConflict as exc:
+        session.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="当前微信连接状态已经变化，请刷新后再试。",
+        ) from exc
+    except OpenILinkHubError as exc:
+        session.rollback()
+        _raise_hub_unavailable(exc)
+    return public_success_envelope(request=request, response=response, data=result)
+
+
+@router.get(
+    "/bot/authorizations/{authorization_id}",
+    response_model=PublicApiEnvelope[HubBotAuthorizationView],
+)
+def poll_hub_bot_authorization(
+    authorization_id: UUID,
+    request: Request,
+    response: Response,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+    service: Annotated[OpenILinkHubBotService, Depends(_hub_service)],
+) -> PublicApiEnvelope[HubBotAuthorizationView]:
+    try:
+        result = service.poll_authorization(
+            session,
+            user_id=UUID(current_user.user_id),
+            authorization_id=authorization_id,
+        )
+        session.commit()
+    except ILinkNotFound as exc:
+        session.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="这次扫码已经结束，请重新生成二维码。",
+        ) from exc
+    except ILinkConflict as exc:
+        session.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="连接状态已经变化，请重新读取。",
+        ) from exc
+    except OpenILinkHubError as exc:
+        session.rollback()
+        _raise_hub_unavailable(exc)
+    return public_success_envelope(request=request, response=response, data=result)
+
+
+@router.delete("/bot", response_model=PublicApiEnvelope[HubBotAuthorizationView])
+def revoke_hub_bot(
+    request: Request,
+    response: Response,
+    idempotency_key: IdempotencyKey,
+    current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
+    session: Annotated[Session, Depends(get_db_session)],
+    service: Annotated[OpenILinkHubBotService, Depends(_hub_service)],
+) -> PublicApiEnvelope[HubBotAuthorizationView]:
+    try:
+        result = service.revoke(
+            session,
+            user_id=UUID(current_user.user_id),
+            command_id=f"{current_user.user_id}:{idempotency_key}",
+        )
+        session.commit()
+    except ILinkConflict as exc:
+        session.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="连接状态已经变化，请刷新后再试。",
+        ) from exc
+    except OpenILinkHubError as exc:
+        session.rollback()
+        _raise_hub_unavailable(exc)
+    return public_success_envelope(request=request, response=response, data=result)
 
 
 @router.get("", response_model=PublicApiEnvelope[ILinkChannelView])

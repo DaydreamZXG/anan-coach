@@ -21,6 +21,8 @@ dependencies = [
   "pypdf==6.14.2",
   "pypdfium2==5.7.1",
   "Pillow==12.3.0",
+  "qrcode[pil]>=8,<9",
+  "websockets>=16,<17",
 ]
 
 [project.optional-dependencies]

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "repository": "xzwork/openilink-hub",
+  "version": "0.1.6",
+  "tag": "v0.1.6",
+  "commit": "81bfdde82020d653e518af672e53dac0a30eaef5",
+  "license": "MIT",
+  "assetUrl": "https://github.com/xzwork/openilink-hub/releases/download/v0.1.6/openilink-hub_0.1.6_linux_amd64.tar.gz",
+  "assetSha256": "8b4b977315c7a05c9426738475f391d23e793b422114bf69a20fdd7ec042e21d",
+  "listen": "127.0.0.1:9800",
+  "reviewedEndpoints": [
+    "POST /api/auth/register",
+    "POST /api/auth/login",
+    "POST /api/bots/bind/start",
+    "GET /api/bots/bind/status/{sessionID}",
+    "PUT /api/bots/{id}/ai",
+    "DELETE /api/bots/{id}",
+    "PUT /api/admin/config/ai"
+  ]
+}

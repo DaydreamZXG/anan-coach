@@ -1,6 +1,6 @@
 import { currentAuthSession } from "../../auth/session";
 import { ApiClient, ApiClientError } from "../../api/client";
-import { ILinkChannelApi, type ILinkChannelView } from "../../api/ilink-channel";
+import { ILinkChannelApi, type HubBotAuthorizationView } from "../../api/ilink-channel";
 import { loginUrlForReturn } from "../../app/navigation/auth-return";
 import {
   answerIngestionUrl,
@@ -35,12 +35,12 @@ interface CaptureImportPageData {
   state: CaptureImportState | null;
   configurationError: string;
   mode: "search" | "import";
-  channelView: ILinkChannelView | null;
+  channelView: HubBotAuthorizationView | null;
   channelStatus: "hidden" | "loading" | "ready" | "unavailable" | "error";
   channelAutoOpen: boolean;
   channelError: string;
   channelWriting: boolean;
-  channelExpired: boolean;
+  channelPolling: boolean;
   captureStage: "camera" | "crop";
   cameraReady: boolean;
   cameraError: string;
@@ -84,9 +84,9 @@ interface CaptureImportPageCustom {
   openChannelSheet(): void;
   closeChannelSheet(): void;
   loadChannel(): Promise<void>;
-  issueChannelCode(): Promise<void>;
-  replaceChannelCode(): Promise<void>;
-  copyChannelCode(): void;
+  startChannelAuthorization(): Promise<void>;
+  replaceChannelAuthorization(): Promise<void>;
+  pollChannelAuthorization(): Promise<void>;
   revokeChannelLink(): Promise<void>;
   goBack(): void;
   noop(): void;
@@ -101,6 +101,7 @@ const runtimes = new ExternalLearningPageRuntimeRegistry<
   CaptureImportPage,
   CaptureImportController
 >();
+const channelPollTimers = new WeakMap<CaptureImportPage, ReturnType<typeof setTimeout>>();
 
 Page<CaptureImportPageData, CaptureImportPageCustom>({
   data: {
@@ -112,7 +113,7 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     channelAutoOpen: false,
     channelError: "",
     channelWriting: false,
-    channelExpired: false,
+    channelPolling: false,
     captureStage: "camera",
     cameraReady: false,
     cameraError: "",
@@ -165,7 +166,18 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
   },
 
   onUnload() {
+    stopChannelPolling(this);
     runtimes.detach(this);
+  },
+
+  onShow() {
+    if (
+      this.data.channelSheetOpen &&
+      this.data.channelView?.authorizationId &&
+      ["waiting_scan", "scanned"].includes(this.data.channelView.state)
+    ) {
+      scheduleChannelPoll(this);
+    }
   },
 
   async chooseCamera() {
@@ -406,9 +418,16 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
 
   openChannelSheet() {
     this.setData({ channelSheetOpen: true });
+    if (
+      this.data.channelView?.authorizationId &&
+      ["waiting_scan", "scanned"].includes(this.data.channelView.state)
+    ) {
+      scheduleChannelPoll(this);
+    }
   },
 
   closeChannelSheet() {
+    stopChannelPolling(this);
     this.setData({ channelSheetOpen: false });
   },
 
@@ -419,76 +438,100 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     try {
       const response = await new ILinkChannelApi(
         new ApiClient(undefined, session.accessToken),
-      ).get();
+      ).getHubBot();
       const view = response.data;
       this.setData({
         channelView: view,
         channelStatus: "ready",
         channelError: "",
-        channelExpired:
-          view.linkState === "pending" &&
-          Boolean(view.expiresAt) &&
-          new Date(view.expiresAt ?? 0).getTime() <= Date.now(),
       });
       if (this.data.channelAutoOpen) {
         this.setData({ channelAutoOpen: false });
         this.openChannelSheet();
+      } else if (
+        this.data.channelSheetOpen &&
+        view.authorizationId &&
+        ["waiting_scan", "scanned"].includes(view.state)
+      ) {
+        scheduleChannelPoll(this);
       }
     } catch (error) {
-      if (error instanceof ApiClientError && error.statusCode === 503) {
-        this.setData({
-          channelStatus: "unavailable",
-          channelError: "",
-          channelSheetOpen: false,
-        });
-        return;
-      }
       this.setData({
+        channelStatus:
+          error instanceof ApiClientError && error.statusCode === 503 ? "unavailable" : "error",
+        channelError:
+          error instanceof ApiClientError
+            ? `${error.message}（请求 ${error.requestId}）`
+            : "微信岸岸的连接状态没有加载成功，请重新读取。",
+      });
+      if (this.data.channelAutoOpen) {
+        this.setData({ channelAutoOpen: false, channelSheetOpen: true });
+      }
+    }
+  },
+
+  async startChannelAuthorization() {
+    await writeChannel(this, false);
+  },
+
+  async replaceChannelAuthorization() {
+    await writeChannel(this, true);
+  },
+
+  async pollChannelAuthorization() {
+    const authorizationId = this.data.channelView?.authorizationId;
+    const session = currentAuthSession();
+    if (!authorizationId || !session || this.data.channelPolling || !this.data.channelSheetOpen) {
+      return;
+    }
+    this.setData({ channelPolling: true, channelError: "" });
+    try {
+      const response = await new ILinkChannelApi(
+        new ApiClient(undefined, session.accessToken),
+      ).pollHubBot(authorizationId);
+      const view = response.data;
+      this.setData({
+        channelView: view,
+        channelStatus: "ready",
+        channelPolling: false,
+        channelError: "",
+      });
+      if (["waiting_scan", "scanned"].includes(view.state)) {
+        scheduleChannelPoll(this, 400);
+      }
+    } catch (error) {
+      this.setData({
+        channelPolling: false,
         channelStatus: "error",
         channelError:
           error instanceof ApiClientError
             ? `${error.message}（请求 ${error.requestId}）`
-            : "微信发图搜题连接状态没有加载成功。",
+            : "暂时没有读到微信确认结果，请再检查一次。",
       });
     }
   },
 
-  async issueChannelCode() {
-    await writeChannel(this, false);
-  },
-
-  async replaceChannelCode() {
-    await writeChannel(this, true);
-  },
-
-  copyChannelCode() {
-    const code = this.data.channelView?.bindingCode?.trim();
-    if (!code || this.data.channelExpired) return;
-    void wx.setClipboardData({ data: code });
-  },
-
   async revokeChannelLink() {
-    const linkId = this.data.channelView?.linkId;
     const session = currentAuthSession();
-    if (!linkId || !session || this.data.channelWriting) return;
+    if (!this.data.channelView || !session || this.data.channelWriting) return;
     const decision = await wx.showModal({
-      title: "解除微信发图搜题？",
-      content: "解除后，这个微信入口不能再读取你的查询和个人收录。历史内容仍可在账户内删除。",
+      title: "解除微信岸岸？",
+      content: "解除后，当前专属 Bot 会停止工作；再次使用需要重新扫码连接。",
       confirmText: "确认解除",
       confirmColor: "#c94747",
     });
     if (!decision.confirm) return;
+    stopChannelPolling(this);
     this.setData({ channelWriting: true, channelError: "" });
     try {
       const key = await createIdempotencyKey("ilink-revoke");
       const response = await new ILinkChannelApi(
         new ApiClient(undefined, session.accessToken),
-      ).revoke(linkId, key);
+      ).revokeHubBot(key);
       this.setData({
         channelView: response.data,
         channelStatus: "ready",
         channelWriting: false,
-        channelExpired: false,
       });
     } catch (error) {
       this.setData({
@@ -554,24 +597,41 @@ async function writeChannel(page: CaptureImportPage, replacePending: boolean) {
   if (!session || page.data.channelWriting) return;
   page.setData({ channelWriting: true, channelError: "" });
   try {
-    const key = await createIdempotencyKey("ilink-code");
-    const response = await new ILinkChannelApi(new ApiClient(undefined, session.accessToken)).issue(
-      replacePending,
-      key,
-    );
+    const key = await createIdempotencyKey("ilink-hub-authorize");
+    const response = await new ILinkChannelApi(
+      new ApiClient(undefined, session.accessToken),
+    ).startHubBot(replacePending, key);
     page.setData({
       channelView: response.data,
       channelStatus: "ready",
       channelWriting: false,
-      channelExpired: false,
     });
+    scheduleChannelPoll(page);
   } catch (error) {
     page.setData({
       channelWriting: false,
       channelError:
         error instanceof ApiClientError
           ? `${error.message}（请求 ${error.requestId}）`
-          : "连接码没有生成成功。",
+          : "微信二维码没有生成成功，请重新试一次。",
     });
   }
+}
+
+function stopChannelPolling(page: CaptureImportPage): void {
+  const timer = channelPollTimers.get(page);
+  if (timer !== undefined) {
+    clearTimeout(timer);
+    channelPollTimers.delete(page);
+  }
+}
+
+function scheduleChannelPoll(page: CaptureImportPage, delay = 0): void {
+  stopChannelPolling(page);
+  if (!page.data.channelSheetOpen) return;
+  const timer = setTimeout(() => {
+    channelPollTimers.delete(page);
+    void page.pollChannelAuthorization();
+  }, delay);
+  channelPollTimers.set(page, timer);
 }

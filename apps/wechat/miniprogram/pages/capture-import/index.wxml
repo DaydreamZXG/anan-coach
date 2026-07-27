@@ -408,27 +408,39 @@
     </view>
   </view>
 
-  <view wx:if="{{channelSheetOpen && channelStatus !== 'unavailable'}}" class="capture-sheet-mask motion-mask" catchtouchmove="noop" bindtap="closeChannelSheet"></view>
-  <view wx:if="{{channelSheetOpen && channelStatus !== 'unavailable'}}" class="capture-sheet capture-sheet--channel motion-sheet">
+  <view wx:if="{{channelSheetOpen}}" class="capture-sheet-mask motion-mask" catchtouchmove="noop" bindtap="closeChannelSheet"></view>
+  <view wx:if="{{channelSheetOpen}}" class="capture-sheet capture-sheet--channel motion-sheet">
     <view class="capture-sheet__handle"></view>
     <view class="capture-sheet__header">
-      <view class="capture-sheet__title">微信发图搜题</view>
+      <view class="capture-sheet__title">微信里的岸岸</view>
       <button hover-class="item--hover" class="capture-sheet__close" bindtap="closeChannelSheet">×</button>
     </view>
-    <view class="capture-sheet__copy">连接后，可以在微信里直接发送裁剪好的单题图片。</view>
+    <view class="capture-sheet__copy">为当前账号连接专属岸岸 Bot。连接后，直接在微信里发送文字或裁剪好的题目图片。</view>
     <view wx:if="{{channelStatus === 'loading'}}" class="channel-state">正在核对连接状态…</view>
-    <view wx:elif="{{channelStatus === 'error'}}" class="channel-state channel-state--error">{{channelError}}</view>
+    <view wx:elif="{{channelStatus === 'error' || channelStatus === 'unavailable'}}">
+      <view class="channel-state channel-state--error">{{channelError}}</view>
+      <button hover-class="item--hover" class="capture-secondary-button" bindtap="loadChannel">重新读取</button>
+    </view>
     <block wx:elif="{{channelView}}">
-      <button hover-class="item--hover" wx:if="{{channelView.linkState === 'unbound' || channelView.linkState === 'revoked'}}" class="capture-primary-button tap-tactile" loading="{{channelWriting}}" bindtap="issueChannelCode">生成连接码</button>
-      <block wx:elif="{{channelView.linkState === 'pending'}}">
-        <view hover-class="item--hover" class="channel-code" bindtap="copyChannelCode"><text>{{channelExpired ? '连接码已过期' : channelView.bindingCode}}</text><text wx:if="{{!channelExpired}}">复制</text></view>
-        <button hover-class="item--hover" class="capture-secondary-button" loading="{{channelWriting}}" bindtap="replaceChannelCode">{{channelExpired ? '重新生成' : '作废并换一个码'}}</button>
+      <button hover-class="item--hover" wx:if="{{channelView.state === 'unbound' || channelView.state === 'revoked'}}" class="capture-primary-button tap-tactile" loading="{{channelWriting}}" bindtap="startChannelAuthorization">生成微信二维码</button>
+      <block wx:elif="{{channelView.state === 'waiting_scan' || channelView.state === 'scanned'}}">
+        <view class="channel-qr-card">
+          <image class="channel-qr-image" src="{{channelView.qrImageDataUrl}}" mode="aspectFit" show-menu-by-longpress />
+          <view class="channel-qr-title">{{channelView.statusCopy}}</view>
+          <view class="channel-qr-copy">{{channelView.usageCopy}}</view>
+        </view>
+        <button hover-class="item--hover" class="capture-primary-button tap-tactile" loading="{{channelPolling}}" bindtap="pollChannelAuthorization">我已在微信确认</button>
+        <button hover-class="item--hover" class="capture-secondary-button" loading="{{channelWriting}}" bindtap="replaceChannelAuthorization">换一个二维码</button>
         <button hover-class="item--hover" class="control-center capture-danger-link tap-tactile" loading="{{channelWriting}}" bindtap="revokeChannelLink">取消连接</button>
       </block>
-      <block wx:elif="{{channelView.linkState === 'bound'}}">
-        <view class="channel-bound">● 已连接 · 已查询 {{channelView.queryCount}} 次</view>
-        <view class="channel-state">{{channelView.evidenceCopy}}</view>
+      <block wx:elif="{{channelView.state === 'connected'}}">
+        <view class="channel-bound">● {{channelView.statusCopy}}</view>
+        <view class="channel-state">{{channelView.usageCopy}}</view>
         <button hover-class="item--hover" class="control-center capture-danger-link tap-tactile" loading="{{channelWriting}}" bindtap="revokeChannelLink">解除连接</button>
+      </block>
+      <block wx:elif="{{channelView.state === 'reauth_required'}}">
+        <view class="channel-state channel-state--error">{{channelView.statusCopy}}</view>
+        <button hover-class="item--hover" class="capture-primary-button tap-tactile" loading="{{channelWriting}}" bindtap="replaceChannelAuthorization">重新生成二维码</button>
       </block>
     </block>
   </view>

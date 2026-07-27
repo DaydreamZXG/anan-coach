@@ -40,31 +40,45 @@ describe("official iLink photo channel", () => {
     await api.get();
     await api.issue(false, "ilink-code-command-1");
     await api.revoke("link-1", "ilink-revoke-command-1");
+    await api.getHubBot();
+    await api.startHubBot(false, "hub-start-command-1");
+    await api.pollHubBot("authorization-1");
+    await api.revokeHubBot("hub-revoke-command-1");
 
     expect(requests.map((item) => item.url)).toEqual([
       "https://api.example.test/api/v2/ilink-channel",
       "https://api.example.test/api/v2/ilink-channel/link-codes",
       "https://api.example.test/api/v2/ilink-channel/links/link-1/revoke",
+      "https://api.example.test/api/v2/ilink-channel/bot",
+      "https://api.example.test/api/v2/ilink-channel/bot/authorizations",
+      "https://api.example.test/api/v2/ilink-channel/bot/authorizations/authorization-1",
+      "https://api.example.test/api/v2/ilink-channel/bot",
     ]);
     expect(requests[1]?.header?.Authorization).toBe("Bearer access-token-1");
     expect(requests[1]?.header?.["Idempotency-Key"]).toBe("ilink-code-command-1");
+    expect(requests[4]?.header?.["Idempotency-Key"]).toBe("hub-start-command-1");
+    expect(requests[5]?.timeout).toBe(50_000);
+    expect(requests[6]?.method).toBe("DELETE");
+    expect(requests[6]?.header?.["Idempotency-Key"]).toBe("hub-revoke-command-1");
   });
 
-  it("renders every enabled link state, hides an unavailable optional channel, and keeps the evidence boundary", () => {
+  it("renders every bot authorization state and keeps the evidence boundary", () => {
     for (const token of [
       "channelStatus === 'loading'",
       "channelStatus === 'error'",
-      "channelStatus !== 'unavailable'",
-      "微信发图搜题",
-      "channelView.linkState === 'unbound'",
-      "channelView.linkState === 'revoked'",
-      "channelView.linkState === 'pending'",
-      "channelView.linkState === 'bound'",
-      "channelExpired",
-      "channelView.evidenceCopy",
-      "issueChannelCode",
-      "replaceChannelCode",
-      "copyChannelCode",
+      "channelStatus === 'unavailable'",
+      "微信里的岸岸",
+      "channelView.state === 'unbound'",
+      "channelView.state === 'revoked'",
+      "channelView.state === 'waiting_scan'",
+      "channelView.state === 'scanned'",
+      "channelView.state === 'connected'",
+      "channelView.state === 'reauth_required'",
+      "channelView.qrImageDataUrl",
+      "channelView.statusCopy",
+      "startChannelAuthorization",
+      "replaceChannelAuthorization",
+      "pollChannelAuthorization",
       "revokeChannelLink",
     ]) {
       expect(captureTemplate).toContain(token);

@@ -19,10 +19,28 @@ class RevokeLinkCommand(StrictModel):
     expected_link_id: UUID = Field(alias="expectedLinkId")
 
 
+class StartHubBotAuthorizationCommand(StrictModel):
+    replace_pending: bool = Field(default=False, alias="replacePending")
+
+
+class HubBotAuthorizationView(StrictModel):
+    state: Literal[
+        "unbound",
+        "waiting_scan",
+        "scanned",
+        "connected",
+        "reauth_required",
+        "revoked",
+    ]
+    authorization_id: UUID | None = Field(default=None, alias="authorizationId")
+    qr_image_data_url: str | None = Field(default=None, alias="qrImageDataUrl")
+    expires_at: datetime | None = Field(default=None, alias="expiresAt")
+    status_copy: str = Field(alias="statusCopy")
+    usage_copy: str = Field(alias="usageCopy")
+
+
 class ILinkChannelView(StrictModel):
-    link_state: Literal["unbound", "pending", "bound", "revoked"] = Field(
-        alias="linkState"
-    )
+    link_state: Literal["unbound", "pending", "bound", "revoked"] = Field(alias="linkState")
     link_id: UUID | None = Field(default=None, alias="linkId")
     binding_code: str | None = Field(default=None, alias="bindingCode")
     expires_at: datetime | None = Field(default=None, alias="expiresAt")
@@ -60,12 +78,8 @@ class AnswerProjection(StrictModel):
     track: Literal["xingce", "essay"]
     recognized_payload: dict[str, object] = Field(alias="recognizedPayload")
     content_version_id: str | None = Field(default=None, alias="contentVersionId")
-    authorization_snapshot_ref: str | None = Field(
-        default=None, alias="authorizationSnapshotRef"
-    )
-    model_provenance: dict[str, object] | None = Field(
-        default=None, alias="modelProvenance"
-    )
+    authorization_snapshot_ref: str | None = Field(default=None, alias="authorizationSnapshotRef")
+    model_provenance: dict[str, object] | None = Field(default=None, alias="modelProvenance")
 
 
 class QueryView(StrictModel):
@@ -81,9 +95,9 @@ class QueryView(StrictModel):
         "ambiguous",
         "material_required",
     ] = Field(alias="answerKind")
-    collection_state: Literal[
-        "not_collected", "collected", "queued_for_reattempt", "deleted"
-    ] = Field(alias="collectionState")
+    collection_state: Literal["not_collected", "collected", "queued_for_reattempt", "deleted"] = (
+        Field(alias="collectionState")
+    )
     reply_text: str = Field(alias="replyText")
     ability_impact: Literal["none_until_independent_attempt"] = Field(
         default="none_until_independent_attempt", alias="abilityImpact"

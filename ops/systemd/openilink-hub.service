@@ -1,0 +1,25 @@
+[Unit]
+Description=OpeniLink Hub for Anan WeChat bots
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=openilink
+Group=openilink
+WorkingDirectory=/var/lib/openilink-hub
+EnvironmentFile=/etc/openilink-hub/env
+ExecStart=/opt/openilink-hub/current/openilink-hub
+Restart=always
+RestartSec=3
+TimeoutStopSec=45
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/openilink-hub
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

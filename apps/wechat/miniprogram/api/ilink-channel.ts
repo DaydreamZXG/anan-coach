@@ -14,6 +14,18 @@ export interface ILinkChannelView {
   evidenceCopy: string;
 }
 
+export type HubBotState =
+  "unbound" | "waiting_scan" | "scanned" | "connected" | "reauth_required" | "revoked";
+
+export interface HubBotAuthorizationView {
+  state: HubBotState;
+  authorizationId: string | null;
+  qrImageDataUrl: string | null;
+  expiresAt: string | null;
+  statusCopy: string;
+  usageCopy: string;
+}
+
 const ROOT = "/api/v2/ilink-channel";
 
 export class ILinkChannelApi {
@@ -37,5 +49,33 @@ export class ILinkChannelApi {
       { expectedLinkId: linkId },
       { idempotencyKey },
     );
+  }
+
+  getHubBot(): Promise<ApiEnvelope<HubBotAuthorizationView>> {
+    return this.client.get<HubBotAuthorizationView>(`${ROOT}/bot`);
+  }
+
+  startHubBot(
+    replacePending: boolean,
+    idempotencyKey: string,
+  ): Promise<ApiEnvelope<HubBotAuthorizationView>> {
+    return this.client.post<HubBotAuthorizationView>(
+      `${ROOT}/bot/authorizations`,
+      { replacePending },
+      { idempotencyKey },
+    );
+  }
+
+  pollHubBot(authorizationId: string): Promise<ApiEnvelope<HubBotAuthorizationView>> {
+    return this.client.get<HubBotAuthorizationView>(
+      `${ROOT}/bot/authorizations/${encodeURIComponent(authorizationId)}`,
+      { timeoutMs: 50_000 },
+    );
+  }
+
+  revokeHubBot(idempotencyKey: string): Promise<ApiEnvelope<HubBotAuthorizationView>> {
+    return this.client.delete<HubBotAuthorizationView>(`${ROOT}/bot`, {
+      idempotencyKey,
+    });
   }
 }
