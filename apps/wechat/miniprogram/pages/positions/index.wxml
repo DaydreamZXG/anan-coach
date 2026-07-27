@@ -41,7 +41,7 @@
           <view class="context-card__summary">
             <view class="context-card__count">
               <text class="sparkle-mark">✦</text>
-              <text>已筛出 <text class="context-card__number">{{workspace.items.length}}</text> 个可报岗位</text>
+              <text>已筛出 <text class="context-card__number">{{workspace.eligibleCount}}</text> 个可报岗位</text>
             </view>
             <button hover-class="item--hover" class="context-card__link" bindtap="openSearch">查看全部 <text class="tiny-chevron">›</text></button>
           </view>

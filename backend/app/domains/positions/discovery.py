@@ -27,6 +27,7 @@ from app.domains.positions.schemas import (
 )
 from app.domains.positions.target_scores import (
     PositionTargetScoreOwner,
+    TargetScoreReleaseContext,
     TargetScoreVersionConflictError,
 )
 from app.domains.qualification.repository import (
@@ -88,6 +89,35 @@ class PositionDiscoveryService:
             session,
             user_id=user_id,
         )
+        return self._search_page(
+            session,
+            user_id=user_id,
+            release=release,
+            target_context=target_context,
+            profile_version=profile_version,
+            region=region,
+            city=city,
+            query=query,
+            limit=limit,
+            cursor=cursor,
+            excluded_position_id=None,
+        )
+
+    def _search_page(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        release: PositionRuleRelease,
+        target_context: TargetScoreReleaseContext,
+        profile_version: int,
+        region: str | None,
+        city: str | None,
+        query: str | None,
+        limit: int,
+        cursor: str | None,
+        excluded_position_id: str | None,
+    ) -> PositionDiscoveryResponse:
         context = _context_fingerprint(
             user_id=user_id,
             profile_version=profile_version,
@@ -95,6 +125,7 @@ class PositionDiscoveryService:
             region=region,
             city=city,
             query=query,
+            excluded_position_id=excluded_position_id,
         )
         decoded = _decode_cursor(cursor, expected_context=context) if cursor else None
         rows = session.execute(
@@ -110,6 +141,7 @@ class PositionDiscoveryService:
                 "query": query,
                 "query_like": f"%{query}%" if query else None,
                 "position_ids": None,
+                "excluded_position_id": excluded_position_id,
                 "cursor_rank": decoded.eligibility_rank if decoded else None,
                 "cursor_headcount": decoded.headcount if decoded else None,
                 "cursor_position_id": decoded.position_id if decoded else None,
@@ -163,16 +195,31 @@ class PositionDiscoveryService:
         cursor: str | None,
         now: datetime | None = None,
     ) -> PositionWorkspaceResponse:
-        discovery = self.search(
+        release = self._active_release(session, exam_year=None)
+        target_context = self._target_scores.context_for_release(
+            release=release,
+            now=now,
+        )
+        profile_version = self._qualification.get_profile_version(
             session,
             user_id=user_id,
-            exam_year=None,
+        )
+        primary_position_id = self._confirmed_primary_goal_position_id(
+            session,
+            user_id=user_id,
+        )
+        discovery = self._search_page(
+            session,
+            user_id=user_id,
+            release=release,
+            target_context=target_context,
+            profile_version=profile_version,
             region=region,
             city=city,
             query=query,
             limit=limit,
             cursor=cursor,
-            now=now,
+            excluded_position_id=primary_position_id,
         )
         ability = self._ability.get_current(
             session,
@@ -180,6 +227,17 @@ class PositionDiscoveryService:
             exam_year=discovery.exam_year,
             now=now,
         )
+        items = list(discovery.items)
+        if cursor is None and primary_position_id is not None:
+            primary_goal = self._load_primary_goal(
+                session,
+                user_id=user_id,
+                position_id=primary_position_id,
+                release=release,
+                target_context=target_context,
+                profile_version=profile_version,
+            )
+            items = [primary_goal, *items]
         return PositionWorkspaceResponse(
             exam_year=discovery.exam_year,
             learner_profile_version=discovery.learner_profile_version,
@@ -195,11 +253,78 @@ class PositionDiscoveryService:
                         exam_year=discovery.exam_year,
                     ),
                 )
-                for item in discovery.items
+                for item in items
             ],
             next_cursor=discovery.next_cursor,
             has_more=discovery.has_more,
         )
+
+    @staticmethod
+    def _confirmed_primary_goal_position_id(
+        session: Session,
+        *,
+        user_id: str,
+    ) -> str | None:
+        position_id = session.execute(
+            text(
+                """
+                select position_id::text
+                from learner.position_goal_versions
+                where user_id = cast(:user_id as uuid)
+                  and role = 'primary'
+                  and status = 'confirmed'
+                """
+            ),
+            {"user_id": user_id},
+        ).scalar_one_or_none()
+        return str(position_id) if position_id is not None else None
+
+    def _load_primary_goal(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        position_id: str,
+        release: PositionRuleRelease,
+        target_context: TargetScoreReleaseContext,
+        profile_version: int,
+    ) -> PositionDiscoveryItem:
+        rows = (
+            session.execute(
+                text(_DISCOVERY_SQL),
+                {
+                    "user_id": user_id,
+                    "profile_version": profile_version,
+                    "exam_year": release.exam_year,
+                    "rule_set_version": release.rule_set_version,
+                    "position_data_version": release.position_data_version,
+                    "region": None,
+                    "city": None,
+                    "query": None,
+                    "query_like": None,
+                    "position_ids": [str(position_id)],
+                    "excluded_position_id": None,
+                    "cursor_rank": None,
+                    "cursor_headcount": None,
+                    "cursor_position_id": None,
+                    "limit_plus_one": 2,
+                },
+            )
+            .mappings()
+            .all()
+        )
+        if not rows:
+            raise TargetScoreVersionConflictError(
+                "The confirmed primary goal no longer belongs to the active position release"
+            )
+
+        row = rows[0]
+        target_score = self._target_scores.ranges_for_positions(
+            session,
+            position_ids=[str(position_id)],
+            context=target_context,
+        )[str(position_id)]
+        return _item_from_row(row, target_score=target_score)
 
     def compare(
         self,
@@ -233,6 +358,7 @@ class PositionDiscoveryService:
                 "query": None,
                 "query_like": None,
                 "position_ids": position_ids,
+                "excluded_position_id": None,
                 "cursor_rank": None,
                 "cursor_headcount": None,
                 "cursor_position_id": None,
@@ -325,6 +451,7 @@ class PositionDiscoveryService:
                 "query": None,
                 "query_like": None,
                 "position_ids": [position_id],
+                "excluded_position_id": None,
                 "cursor_rank": None,
                 "cursor_headcount": None,
                 "cursor_position_id": None,
@@ -456,6 +583,7 @@ def _context_fingerprint(
     region: str | None,
     city: str | None,
     query: str | None,
+    excluded_position_id: str | None,
 ) -> str:
     payload = {
         "userId": user_id,
@@ -465,6 +593,7 @@ def _context_fingerprint(
         "region": region,
         "city": city,
         "query": query,
+        "excludedPositionId": excluded_position_id,
     }
     raw = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     return sha256(raw.encode("utf-8")).hexdigest()[:24]
@@ -547,6 +676,10 @@ candidate_positions as (
     and (
       cast(:position_ids as uuid[]) is null
       or position.position_id = any(cast(:position_ids as uuid[]))
+    )
+    and (
+      cast(:excluded_position_id as uuid) is null
+      or position.position_id <> cast(:excluded_position_id as uuid)
     )
     and (cast(:region as text) is null or position.region = cast(:region as text))
     and (cast(:city as text) is null or position.city = cast(:city as text))

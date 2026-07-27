@@ -34,6 +34,9 @@ COMPARISON_TOKEN = "position-comparison-route-token"
 
 def _seed_discovery_world(
     factory: sessionmaker[Session],
+    *,
+    extra_eligible_count: int = 0,
+    primary_goal_key: str | None = None,
 ) -> tuple[str, dict[str, str]]:
     user_id = str(uuid4())
     specs = {
@@ -107,6 +110,34 @@ def _seed_discovery_world(
                     **spec,
                 },
             )
+        for index in range(extra_eligible_count):
+            key = f"extra_eligible_{index}"
+            position_id = str(uuid4())
+            position_ids[key] = position_id
+            session.execute(
+                text(
+                    """
+                    insert into product.positions (
+                      position_id, source_id, year, position_code, name,
+                      department_full, system_code, region, city, paper_type,
+                      headcount, education_min, major_required, political_req,
+                      service_min_yrs, remark
+                    ) values (
+                      :position_id, :source_id, 2026, :position_code, :name,
+                      :department, 'tax', '江西', '南昌市', 'administrativeLaw',
+                      :headcount, '不限', '不限', '不限', 0, '无特殊要求'
+                    )
+                    """
+                ),
+                {
+                    "position_id": position_id,
+                    "source_id": f"discovery-{key}",
+                    "position_code": f"300110019{index:03d}",
+                    "name": f"extra-{index}-一级行政执法员",
+                    "department": f"国家税务总局额外测试局{index}",
+                    "headcount": 100 - index,
+                },
+            )
         repository = QualificationRepository()
         repository.replace_facts(
             session,
@@ -146,6 +177,12 @@ def _seed_discovery_world(
         release_service.activate(session, release_id=release_id, activated_at=NOW)
         _insert_score(session, position_ids["eligible"], 2024, 121.5)
         _insert_score(session, position_ids["eligible"], 2025, 123.5)
+        if primary_goal_key is not None:
+            _insert_confirmed_primary_goal(
+                session,
+                user_id=user_id,
+                position_id=position_ids[primary_goal_key],
+            )
     return user_id, position_ids
 
 
@@ -530,6 +567,101 @@ def test_workspace_and_fit_routes_bind_active_versions_ability_and_hard_requirem
     assert detail.json()["data"]["fit"] == fit
 
 
+def test_workspace_pins_confirmed_primary_goal_outside_the_first_candidate_page(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id, ids = _seed_discovery_world(
+        db_session_factory,
+        extra_eligible_count=9,
+        primary_goal_key="eligible",
+    )
+    service = PositionDiscoveryService()
+
+    with db_session_factory() as session:
+        ordinary_page = service.search(
+            session,
+            user_id=user_id,
+            exam_year=2026,
+            region=None,
+            city=None,
+            query=None,
+            limit=8,
+            cursor=None,
+        )
+        workspace = service.workspace(
+            session,
+            user_id=user_id,
+            region=None,
+            city=None,
+            query=None,
+            limit=8,
+            cursor=None,
+        )
+        next_workspace_page = service.workspace(
+            session,
+            user_id=user_id,
+            region=None,
+            city=None,
+            query=None,
+            limit=8,
+            cursor=workspace.next_cursor,
+        )
+        filtered_workspace = service.workspace(
+            session,
+            user_id=user_id,
+            region="北京",
+            city=None,
+            query=None,
+            limit=8,
+            cursor=None,
+        )
+
+    assert ids["eligible"] not in {item.position_id for item in ordinary_page.items}
+    assert workspace.items[0].position_id == ids["eligible"]
+    assert workspace.items[0].is_primary_goal is True
+    assert len(workspace.items) == 9
+    assert len({item.position_id for item in workspace.items}) == 9
+    assert workspace.has_more is ordinary_page.has_more
+    candidate_ids = [
+        item.position_id
+        for item in [*workspace.items, *next_workspace_page.items]
+        if not item.is_primary_goal
+    ]
+    assert ids["eligible"] not in candidate_ids
+    assert len(candidate_ids) == len(set(candidate_ids)) == len(ids) - 1
+    assert next_workspace_page.has_more is False
+    assert filtered_workspace.items[0].position_id == ids["eligible"]
+    assert [item.position_id for item in filtered_workspace.items if not item.is_primary_goal] == [
+        ids["ineligible"]
+    ]
+
+
+def test_workspace_preserves_mixed_eligibility_facts_for_truthful_client_counts(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id, _ = _seed_discovery_world(db_session_factory)
+
+    with db_session_factory() as session:
+        workspace = PositionDiscoveryService().workspace(
+            session,
+            user_id=user_id,
+            region=None,
+            city=None,
+            query=None,
+            limit=8,
+            cursor=None,
+        )
+
+    statuses = [item.eligibility_status for item in workspace.items]
+    assert statuses == [
+        "eligible",
+        "eligible",
+        "needs_confirmation",
+        "ineligible",
+    ]
+    assert sum(status == "eligible" for status in statuses) == 2
+
+
 def test_workspace_and_fit_reject_expired_target_basis_with_stable_error(
     db_session_factory: sessionmaker[Session],
 ) -> None:
@@ -617,4 +749,61 @@ def _insert_score(session: Session, position_id: str, year: int, score: float) -
             """
         ),
         {"position_id": position_id, "evidence_id": evidence_id},
+    )
+
+
+def _insert_confirmed_primary_goal(
+    session: Session,
+    *,
+    user_id: str,
+    position_id: str,
+) -> None:
+    snapshot_id = str(uuid4())
+    session.execute(
+        text(
+            """
+            insert into learner.eligibility_snapshots (
+              snapshot_id, user_id, position_id, learner_profile_version,
+              rule_set_version, position_data_version, status, checks,
+              missing_fact_keys, evaluated_at
+            ) values (
+              cast(:snapshot_id as uuid), cast(:user_id as uuid),
+              cast(:position_id as uuid), 2, 'guokao-2026-rules-v1',
+              'guokao-2026-discovery-v1', 'eligible', '[]'::jsonb,
+              '[]'::jsonb, :evaluated_at
+            )
+            """
+        ),
+        {
+            "snapshot_id": snapshot_id,
+            "user_id": user_id,
+            "position_id": position_id,
+            "evaluated_at": NOW,
+        },
+    )
+    session.execute(
+        text(
+            """
+            insert into learner.position_goal_versions (
+              goal_version_id, user_id, position_id, role, status,
+              target_score_lower, target_score_recommended, target_score_upper,
+              target_score_evidence_level, target_score_sample_count,
+              target_score_valid_until, learner_profile_version,
+              eligibility_snapshot_id, position_data_version, created_at
+            ) values (
+              cast(:goal_version_id as uuid), cast(:user_id as uuid),
+              cast(:position_id as uuid), 'primary', 'confirmed',
+              121, 125, 129, 'direct', 2, :valid_until, 2,
+              cast(:snapshot_id as uuid), 'guokao-2026-discovery-v1', :created_at
+            )
+            """
+        ),
+        {
+            "goal_version_id": str(uuid4()),
+            "user_id": user_id,
+            "position_id": position_id,
+            "valid_until": NOW + timedelta(days=180),
+            "snapshot_id": snapshot_id,
+            "created_at": NOW,
+        },
     )

@@ -265,16 +265,17 @@ describe("position page lifecycle ownership", () => {
     storage.set(`${positionStoragePrefix()}.user-a.comparison`, ["position-1", "position-2"]);
     page.onShow?.call(page);
     expect(requests).toHaveLength(4);
-    resolveEnvelope(
-      requiredAt(requests, 2),
-      workspace(["position-1", "position-2"]),
-      "request-workspace-new",
-    );
+    const refreshedWorkspace = workspace(["position-1", "position-2"]);
+    const pendingItem = refreshedWorkspace.items[1];
+    if (!pendingItem) throw new Error("workspace fixture is missing its second item");
+    pendingItem.eligibilityStatus = "needs_confirmation";
+    resolveEnvelope(requiredAt(requests, 2), refreshedWorkspace, "request-workspace-new");
     resolveEnvelope(requiredAt(requests, 3), qualificationGaps(), "request-gaps-new");
     await flushPromises();
 
     expect(page.data.workspace).toMatchObject({
       status: "ready",
+      eligibleCount: 1,
       selectedIds: ["position-1", "position-2"],
       items: [
         { positionId: "position-1", comparisonSelected: true },

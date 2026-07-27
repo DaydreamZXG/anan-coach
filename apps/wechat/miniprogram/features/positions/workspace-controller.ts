@@ -28,6 +28,7 @@ export interface PositionWorkspaceState {
   error: PositionOperationError | null;
   refreshError: PositionOperationError | null;
   items: SelectablePositionWorkspaceItemView[];
+  eligibleCount: number;
   primaryGoal: SelectablePositionWorkspaceItemView | null;
   candidateItems: SelectablePositionWorkspaceItemView[];
   selectedIds: string[];
@@ -74,6 +75,7 @@ export class PositionWorkspaceController {
       error: null,
       refreshError: null,
       items: [],
+      eligibleCount: 0,
       primaryGoal: null,
       candidateItems: [],
       selectedIds: this.store.loadComparison(),
@@ -115,6 +117,7 @@ export class PositionWorkspaceController {
       ...this.state,
       selectedIds,
       items: retainedItems,
+      eligibleCount: eligibleItemCount(retainedItems),
       primaryGoal: retainedItems.find((item) => item.isPrimaryGoal) ?? null,
       candidateItems: retainedItems.filter((item) => !item.isPrimaryGoal).slice(0, 4),
       status: hasRetainedWorkspace ? this.state.status : "loading",
@@ -145,6 +148,7 @@ export class PositionWorkspaceController {
         error: null,
         refreshError: null,
         items,
+        eligibleCount: eligibleItemCount(items),
         selectedIds: currentSelectedIds,
         primaryGoal: items.find((item) => item.isPrimaryGoal) ?? null,
         candidateItems: items.filter((item) => !item.isPrimaryGoal).slice(0, 4),
@@ -239,6 +243,7 @@ export class PositionWorkspaceController {
       ...this.state,
       selectedIds,
       items,
+      eligibleCount: eligibleItemCount(items),
       primaryGoal: items.find((item) => item.isPrimaryGoal) ?? null,
       candidateItems: items.filter((item) => !item.isPrimaryGoal).slice(0, 4),
     };
@@ -253,6 +258,7 @@ export class PositionWorkspaceController {
       ...this.state,
       selectedIds: [],
       items,
+      eligibleCount: eligibleItemCount(items),
       primaryGoal: items.find((item) => item.isPrimaryGoal) ?? null,
       candidateItems: items.filter((item) => !item.isPrimaryGoal).slice(0, 4),
     };
@@ -281,6 +287,10 @@ export class PositionWorkspaceController {
   private isQualificationCurrent(epoch: number): boolean {
     return !this.disposed && epoch === this.qualificationEpoch;
   }
+}
+
+function eligibleItemCount(items: SelectablePositionWorkspaceItemView[]): number {
+  return items.filter((item) => item.eligibilityStatus === "eligible").length;
 }
 
 function selectableWorkspaceItem(
