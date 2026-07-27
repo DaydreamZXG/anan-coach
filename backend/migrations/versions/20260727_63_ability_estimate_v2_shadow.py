@@ -2,8 +2,9 @@
 
 能力估计 v2 影子算法（ability-estimate-v2-shadow-1）落库：
 
-1. product.question_occurrences 增加两列全国作答统计（可空、无回填）：
-   - occurrence_correct_ratio：该次出现的全国正确率（0~1）；
+1. product.question_occurrences 补齐两列全国作答统计：
+   - occurrence_correct_ratio：兼容现有题库的 0~100 百分数，也接受新写入的
+     0~1 比例；读取层统一归一化到 0~1；
    - occurrence_sample_size：该次出现的作答样本量，用于多次出现的样本加权。
    缺失 occurrence_correct_ratio 的题目不参与 v2 难度锚定（显式缺省，不硬给数）。
 
@@ -34,24 +35,67 @@ depends_on: str | Sequence[str] | None = None
 _STATEMENTS = (
     """
     alter table product.question_occurrences
-      add column occurrence_correct_ratio numeric(6, 5)
+      add column if not exists occurrence_correct_ratio double precision
     """,
     """
     alter table product.question_occurrences
-      add column occurrence_sample_size integer
+      add column if not exists occurrence_sample_size integer
     """,
     """
-    alter table product.question_occurrences
-      add constraint question_occurrence_correct_ratio_check check (
-        occurrence_correct_ratio is null
-        or (occurrence_correct_ratio >= 0 and occurrence_correct_ratio <= 1)
-      )
+    do $$
+    begin
+      if exists (
+        select 1
+        from information_schema.columns
+        where table_schema = 'product'
+          and table_name = 'question_occurrences'
+          and column_name = 'occurrence_total_count'
+      ) then
+        update product.question_occurrences
+        set occurrence_sample_size = occurrence_total_count
+        where occurrence_sample_size is null
+          and occurrence_total_count > 0;
+      end if;
+    end
+    $$
     """,
     """
-    alter table product.question_occurrences
-      add constraint question_occurrence_sample_size_check check (
-        occurrence_sample_size is null or occurrence_sample_size > 0
-      )
+    do $$
+    begin
+      if not exists (
+        select 1
+        from pg_constraint
+        where conrelid = 'product.question_occurrences'::regclass
+          and conname = 'question_occurrence_correct_ratio_check'
+      ) then
+        alter table product.question_occurrences
+          add constraint question_occurrence_correct_ratio_check check (
+            occurrence_correct_ratio is null
+            or (
+              occurrence_correct_ratio >= 0
+              and occurrence_correct_ratio <= 100
+            )
+          );
+      end if;
+    end
+    $$
+    """,
+    """
+    do $$
+    begin
+      if not exists (
+        select 1
+        from pg_constraint
+        where conrelid = 'product.question_occurrences'::regclass
+          and conname = 'question_occurrence_sample_size_check'
+      ) then
+        alter table product.question_occurrences
+          add constraint question_occurrence_sample_size_check check (
+            occurrence_sample_size is null or occurrence_sample_size > 0
+          );
+      end if;
+    end
+    $$
     """,
     # 影子估计表：样本不足时 theta/SE/置信区间整体缺省（null）而不是硬给数，
     # 用 check 把「缺省」和 insufficient_sample 标志锁死成同一件事。
@@ -91,7 +135,7 @@ _STATEMENTS = (
     )
     """,
     """
-    create index learning_ability_v2_shadow_user_idx
+    create index if not exists learning_ability_v2_shadow_user_idx
       on learning.ability_estimate_v2_shadow(user_id, subject, computed_at desc)
     """,
 )

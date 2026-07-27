@@ -9,7 +9,8 @@
 
 算法概要：
 1. 题目难度 b = logit(1 - 全国正确率)。全国正确率来自
-   product.question_occurrences.occurrence_correct_ratio；同一题多次出现时按
+   product.question_occurrences.occurrence_correct_ratio；历史题库中的
+   0~100 百分数会在读取时归一化为 0~1。同一题多次出现时按
    occurrence_sample_size 做样本加权平均（缺样本量的出现按权重 1 计）。
    没有任何正确率数据的题目不参与 v2（显式排除，留痕在 strata 里）。
 2. 用户水平 θ 用 Rasch 单参数模型估计，蒙猜校正采用 4 选 1 下界 c = 0.25 的
@@ -115,12 +116,23 @@ def aggregate_question_difficulty(
     for ratio, sample_size in occurrence_rows:
         if ratio is None:
             continue
+        normalized_ratio = _normalize_stored_correct_ratio(float(ratio))
+        if normalized_ratio is None:
+            continue
         weight = float(sample_size) if sample_size is not None and sample_size > 0 else 1.0
-        weighted_sum += float(ratio) * weight
+        weighted_sum += normalized_ratio * weight
         weight_total += weight
     if weight_total <= 0:
         return None
     return difficulty_from_correct_ratio(weighted_sum / weight_total)
+
+
+def _normalize_stored_correct_ratio(value: float) -> float | None:
+    if 0.0 <= value <= 1.0:
+        return value
+    if 1.0 < value <= 100.0:
+        return value / 100.0
+    return None
 
 
 def answer_probability(theta: float, difficulty_b: float) -> float:

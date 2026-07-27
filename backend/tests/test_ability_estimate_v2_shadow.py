@@ -54,6 +54,10 @@ def test_multiple_occurrences_use_sample_weighted_ratio() -> None:
     assert aggregate_question_difficulty([(0.9, None), (0.5, None)]) == pytest.approx(
         difficulty_from_correct_ratio(0.7)
     )
+    assert aggregate_question_difficulty([(90.0, 300), (50.0, 100)]) == pytest.approx(
+        difficulty_from_correct_ratio(0.8)
+    )
+    assert aggregate_question_difficulty([(-1.0, 100), (101.0, 100)]) is None
     # 没有任何正确率数据：题目不参与 v2，显式缺省。
     assert aggregate_question_difficulty([]) is None
     assert aggregate_question_difficulty([(None, 500)]) is None
