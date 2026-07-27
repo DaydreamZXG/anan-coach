@@ -5,11 +5,8 @@
     "pages/ability/index",
     "pages/anan/index",
     "pages/me/index",
-    "pages/practice/index",
     "pages/daily-settlement/index",
-    "pages/onboarding/index",
     "pages/essay-material/index",
-    "pages/mock-exam/index",
     "pages/mock-report/index",
     "pages/retake/index",
     "pages/plan-history/index",
@@ -18,38 +15,19 @@
     "pages/weekly-plan/index",
     "pages/membership/index",
     "pages/privacy/index",
-    "pages/positions/index",
-    "pages/positions/search/index",
-    "pages/positions/detail/index",
-    "pages/positions/compare/index",
-    "pages/positions/goal/index",
-    "pages/positions/briefing/index",
-    "pages/profile/qualification/index",
     "pages/notification-settings/index",
     "pages/support/index",
-    "pages/onboarding/entry/index",
-    "pages/onboarding/preparation-experience/index",
-    "pages/onboarding/position-preference/index",
-    "pages/onboarding/study-preference/index",
-    "pages/onboarding/ability-baseline/index",
-    "pages/onboarding/result/index",
-    "pages/profile/archive/index",
     "pages/xingce-task-intro/index",
     "pages/report-center/index",
     "pages/external-report/index",
     "pages/report-overview/index",
     "pages/global-report/index",
-    "pages/reflection/index",
     "pages/xingce-mastery/index",
     "pages/essay-compose/index",
     "pages/essay-review/index",
     "pages/essay-rewrite/index",
     "pages/essay-evidence/index",
-    "pages/essay-task/index",
-    "pages/capture-import/index",
     "pages/learning-packets/index",
-    "pages/private-knowledge/index",
-    "pages/private-knowledge/detail/index",
     "pages/answer-ingestion/index",
     "pages/community-draft/index",
     "pages/community-structure/index",
@@ -89,6 +67,66 @@
       "root": "packages/anan-growth",
       "name": "anan-growth",
       "pages": ["asset-entry/index"]
+    },
+    {
+      "root": "pages/capture-import",
+      "name": "capture-import",
+      "pages": ["index"]
+    },
+    {
+      "root": "pages/private-knowledge",
+      "name": "private-knowledge",
+      "pages": ["index", "detail/index"]
+    },
+    {
+      "root": "pages/onboarding",
+      "name": "onboarding",
+      "pages": [
+        "index",
+        "entry/index",
+        "preparation-experience/index",
+        "position-preference/index",
+        "study-preference/index",
+        "ability-baseline/index",
+        "result/index"
+      ]
+    },
+    {
+      "root": "pages/positions",
+      "name": "positions",
+      "pages": [
+        "index",
+        "search/index",
+        "detail/index",
+        "compare/index",
+        "goal/index",
+        "briefing/index"
+      ]
+    },
+    {
+      "root": "pages/profile",
+      "name": "profile",
+      "pages": ["qualification/index", "archive/index"]
+    },
+    {
+      "root": "pages/practice",
+      "name": "practice",
+      "pages": ["index"]
+    },
+    {
+      "root": "pages/mock-exam",
+      "name": "mock-exam",
+      "pages": ["index"]
+    },
+    {
+      "root": "pages/reflection",
+      "name": "reflection",
+      "pages": ["index"]
+    },
+    {
+      "root": "pages/essay-task",
+      "name": "essay-task",
+      "pages": ["index"]
     }
   ],
   "window": {
@@ -125,9 +163,9 @@
   },
   "style": "v2",
   "lazyCodeLoading": "requiredComponents",
-  "requiredPrivateInfos": ["getFuzzyLocation"],
+  "requiredPrivateInfos": ["getLocation"],
   "permission": {
-    "scope.userFuzzyLocation": {
+    "scope.userLocation": {
       "desc": "用于展示你当前位置附近的天气，帮助安排当天学习"
     }
   },

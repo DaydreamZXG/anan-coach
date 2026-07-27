@@ -5,7 +5,7 @@ import type { DailyOpeningView } from "../miniprogram/api/generated/types.gen";
 import { DailyOpeningController } from "../miniprogram/features/daily-opening/controller";
 import { presentDailyOpening } from "../miniprogram/features/daily-opening/presentation";
 import {
-  readFuzzyWeatherLocation,
+  readWeatherLocation,
   WeatherLocationPermissionDeniedError,
 } from "../miniprogram/platform/weather-location";
 
@@ -118,25 +118,34 @@ describe("step 10 daily opening", () => {
     expect(todayTemplate).not.toContain("openWeatherAttribution");
     expect(todayTemplate).not.toContain("天气数据来源");
     expect(appConfig).not.toContain('"pages/weather-attribution/index"');
-    expect(appConfig).toContain('"scope.userFuzzyLocation"');
-    expect(appConfig).toContain('"getFuzzyLocation"');
+    expect(appConfig).toContain('"scope.userLocation"');
+    expect(appConfig).toContain('"getLocation"');
   });
 
-  it("reads fuzzy mini-program location and distinguishes permission denial", async () => {
+  it("reads approved mini-program location, coarsens it, and distinguishes permission denial", async () => {
     vi.stubGlobal("wx", {
       getSetting: () => Promise.resolve({ authSetting: {} }),
-      getFuzzyLocation: (options: WechatMiniprogram.GetFuzzyLocationOption) =>
-        options.success?.({ latitude: 28.682, longitude: 115.858, errMsg: "getFuzzyLocation:ok" }),
+      getLocation: (options: WechatMiniprogram.GetLocationOption) =>
+        options.success?.({
+          latitude: 28.682,
+          longitude: 115.858,
+          speed: 0,
+          accuracy: 10,
+          altitude: 0,
+          verticalAccuracy: 10,
+          horizontalAccuracy: 10,
+          errMsg: "getLocation:ok",
+        }),
     });
-    await expect(readFuzzyWeatherLocation()).resolves.toEqual({
-      latitude: 28.682,
-      longitude: 115.858,
+    await expect(readWeatherLocation()).resolves.toEqual({
+      latitude: 28.68,
+      longitude: 115.86,
     });
 
     vi.stubGlobal("wx", {
-      getSetting: () => Promise.resolve({ authSetting: { "scope.userFuzzyLocation": false } }),
+      getSetting: () => Promise.resolve({ authSetting: { "scope.userLocation": false } }),
     });
-    await expect(readFuzzyWeatherLocation()).rejects.toBeInstanceOf(
+    await expect(readWeatherLocation()).rejects.toBeInstanceOf(
       WeatherLocationPermissionDeniedError,
     );
     vi.unstubAllGlobals();

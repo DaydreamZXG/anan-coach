@@ -3,6 +3,8 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { registeredPages } from "./app-pages.mjs";
+
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const miniprogramRoot = path.join(projectRoot, "miniprogram");
 const appConfig = JSON.parse(await readFile(path.join(miniprogramRoot, "app.json"), "utf8"));
@@ -34,7 +36,7 @@ const forbiddenLegacyTopClasses = [
 ];
 
 const customRoutes = [];
-for (const route of appConfig.pages) {
+for (const route of registeredPages(appConfig)) {
   const pageConfigPath = path.join(miniprogramRoot, `${route}.json`);
   const pageConfig = JSON.parse(await readFile(pageConfigPath, "utf8"));
   if (pageConfig.navigationStyle !== "custom") continue;

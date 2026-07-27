@@ -1,4 +1,4 @@
-export interface FuzzyWeatherLocation {
+export interface WeatherLocation {
   latitude: number;
   longitude: number;
 }
@@ -17,19 +17,22 @@ export class WeatherLocationUnavailableError extends Error {
   }
 }
 
-export async function readFuzzyWeatherLocation(): Promise<FuzzyWeatherLocation> {
+export async function readWeatherLocation(): Promise<WeatherLocation> {
   const setting = await wx.getSetting();
-  if (setting.authSetting["scope.userFuzzyLocation"] === false) {
+  if (setting.authSetting["scope.userLocation"] === false) {
     throw new WeatherLocationPermissionDeniedError();
   }
-  if (typeof wx.getFuzzyLocation !== "function") {
-    throw new WeatherLocationUnavailableError("当前微信版本不支持模糊定位，请升级微信后再试。");
+  if (typeof wx.getLocation !== "function") {
+    throw new WeatherLocationUnavailableError("当前微信版本不支持定位，请升级微信后再试。");
   }
-  return new Promise<FuzzyWeatherLocation>((resolve, reject) => {
-    wx.getFuzzyLocation({
+  return new Promise<WeatherLocation>((resolve, reject) => {
+    wx.getLocation({
       type: "wgs84",
       success: ({ latitude, longitude }) => {
-        resolve({ latitude, longitude });
+        resolve({
+          latitude: coarsenCoordinate(latitude),
+          longitude: coarsenCoordinate(longitude),
+        });
       },
       fail: (error) => {
         if (isPermissionDenial(error)) {
@@ -42,9 +45,13 @@ export async function readFuzzyWeatherLocation(): Promise<FuzzyWeatherLocation> 
   });
 }
 
-export async function openFuzzyWeatherLocationSetting(): Promise<boolean> {
+export async function openWeatherLocationSetting(): Promise<boolean> {
   const setting = await wx.openSetting();
-  return setting.authSetting["scope.userFuzzyLocation"] === true;
+  return setting.authSetting["scope.userLocation"] === true;
+}
+
+function coarsenCoordinate(value: number): number {
+  return Math.round(value * 100) / 100;
 }
 
 function isPermissionDenial(error: unknown): boolean {

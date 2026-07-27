@@ -15,8 +15,8 @@ import { clearAuthSession, currentAccessToken, currentAuthSession } from "../../
 import { environment } from "../../config/environment";
 import { consumeLatestTodayDashboard } from "../../features/planning/runtime-state";
 import {
-  openFuzzyWeatherLocationSetting,
-  readFuzzyWeatherLocation,
+  openWeatherLocationSetting,
+  readWeatherLocation,
   WeatherLocationPermissionDeniedError,
 } from "../../platform/weather-location";
 import {
@@ -242,7 +242,7 @@ Page<TodayPageData, TodayPageCustom>({
   async syncWeatherLocation(interactive) {
     if (this.data.weatherLocationStatus === "requesting") return;
     if (interactive && this.data.weatherLocationStatus === "denied") {
-      const enabled = await openFuzzyWeatherLocationSetting();
+      const enabled = await openWeatherLocationSetting();
       if (!enabled) return;
     }
     this.setData({
@@ -250,7 +250,7 @@ Page<TodayPageData, TodayPageCustom>({
       weatherLocationMessage: "",
     });
     try {
-      const location = await readFuzzyWeatherLocation();
+      const location = await readWeatherLocation();
       await controllers.get(this)?.controller?.opening.updateWeatherLocation({
         label: "当前位置附近",
         latitude: location.latitude,
