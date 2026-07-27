@@ -385,6 +385,7 @@ class PhotoQuestionResolver:
         channel_settings: ILinkSettings,
         storage: TosTransientImageStore | None = None,
         recognizer: QueryRecognitionProcessor | None = None,
+        primary: ExternalAIAnswerProvider | None = None,
         secondary: SecondaryAnswerProvider | None = None,
     ) -> None:
         self._core = core_settings
@@ -393,17 +394,12 @@ class PhotoQuestionResolver:
         self._recognizer = recognizer or QueryRecognitionProcessor(
             core=core_settings, channel=channel_settings
         )
-        self._secondary = secondary or SecondaryAnswerProvider()
-        self._primary = ExternalAIAnswerProvider(self._core)
-        try:
-            self._primary.validate_configuration()
-            self._secondary.validate()
-        except (
-            AIProviderConfigurationError,
-            ExternalAIAnswerProviderError,
-            PhotoResolutionError,
-        ) as exc:
-            raise PhotoResolutionError("answer_providers_not_approved") from exc
+        # Matching an authorized question does not use either answer model.
+        # Keep those dependencies lazy so a model outage or an unapproved
+        # release cannot take the whole iLink inbox (binding, plan queries and
+        # authorized question-bank answers) offline.
+        self._primary = primary
+        self._secondary = secondary
 
     def resolve(
         self,
@@ -489,14 +485,32 @@ class PhotoQuestionResolver:
         self, *, query: MatchQuery, recognized: dict[str, object], query_id: UUID
     ) -> AnswerProjection:
         try:
-            primary = self._primary.generate(
+            primary_provider, secondary_provider = self._answer_providers()
+        except (
+            AIProviderConfigurationError,
+            ExternalAIAnswerProviderError,
+            PhotoResolutionError,
+        ):
+            return AnswerProjection(
+                answerKind="ambiguous",
+                answerText="这道题暂时没有可核验的答案",
+                explanation=(
+                    "题面已经识别，但没有命中你有权查看的题库版本，"
+                    "两套独立 AI 解析也尚未同时通过运行校验。"
+                ),
+                track=query.track.value,
+                recognizedPayload=recognized,
+                modelProvenance=None,
+            )
+        try:
+            primary = primary_provider.generate(
                 query=query,
                 source_segment_refs=tuple(str(item) for item in recognized["segmentRefs"]),
                 idempotency_key=f"ilink-primary-answer:{query_id}",
             )
         except ExternalAIAnswerProviderError as exc:
             raise PhotoResolutionError(exc.code, retryable=exc.retryable) from exc
-        secondary = self._secondary.generate(
+        secondary = secondary_provider.generate(
             query=query, idempotency_key=f"ilink-secondary-answer:{query_id}"
         )
         if _answer_identity(primary.output.answer) != _answer_identity(secondary.answer):
@@ -523,8 +537,8 @@ class PhotoQuestionResolver:
                 "policy": "dual-independent-agreement@v1",
                 "agreement": True,
                 "primary": {
-                    "provider": self._primary.provider_name,
-                    "model": self._primary.model,
+                    "provider": primary_provider.provider_name,
+                    "model": primary_provider.model,
                     "outputFingerprint": primary.output_fingerprint,
                     "requestFingerprint": primary.provider_request_id_fingerprint,
                 },
@@ -536,6 +550,17 @@ class PhotoQuestionResolver:
                 },
             },
         )
+
+    def _answer_providers(
+        self,
+    ) -> tuple[ExternalAIAnswerProvider, SecondaryAnswerProvider]:
+        primary = self._primary or ExternalAIAnswerProvider(self._core)
+        secondary = self._secondary or SecondaryAnswerProvider()
+        primary.validate_configuration()
+        secondary.validate()
+        self._primary = primary
+        self._secondary = secondary
+        return primary, secondary
 
 
 def _match_query(result: ProcessorResult) -> tuple[MatchQuery, dict[str, object]]:
