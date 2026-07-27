@@ -77,8 +77,18 @@ set +a
 : "${MIGRATION_DATABASE_URL:?MIGRATION_DATABASE_URL is required}"
 : "${REQUIRED_DATABASE_REVISION:?REQUIRED_DATABASE_REVISION is required}"
 : "${WEKNORA_PRIVATE_KNOWLEDGE_MODE:?WEKNORA_PRIVATE_KNOWLEDGE_MODE must be explicit}"
-if [[ "${REQUIRED_DATABASE_REVISION}" != "20260727_64" ]]; then
-  printf '%s\n' "production release requires database revision 20260727_64" >&2
+artifact_revision="$(
+  "${target}/backend/.venv/bin/alembic" heads \
+    | awk 'NF {print $1}'
+)"
+if [[ -z "${artifact_revision}" || "${artifact_revision}" == *$'\n'* ]]; then
+  printf '%s\n' "release artifact must contain exactly one database head" >&2
+  exit 1
+fi
+if [[ "${REQUIRED_DATABASE_REVISION}" != "${artifact_revision}" ]]; then
+  printf '%s\n' \
+    "REQUIRED_DATABASE_REVISION must match release artifact head ${artifact_revision}" \
+    >&2
   exit 1
 fi
 case "${WEKNORA_PRIVATE_KNOWLEDGE_MODE}" in
@@ -100,6 +110,17 @@ if [[ "${current_revision}" != "${REQUIRED_DATABASE_REVISION}" ]]; then
   printf '%s\n' "database revision does not match release requirement" >&2
   exit 1
 fi
+
+: "${GONGKAO_KNOWLEDGE_MAP_RELEASE_VERSION:?GONGKAO_KNOWLEDGE_MAP_RELEASE_VERSION is required}"
+: "${GONGKAO_KNOWLEDGE_MAP_SOURCE_DATA_VERSION:?GONGKAO_KNOWLEDGE_MAP_SOURCE_DATA_VERSION is required}"
+: "${GONGKAO_KNOWLEDGE_MAP_FRESH_UNTIL:?GONGKAO_KNOWLEDGE_MAP_FRESH_UNTIL is required}"
+knowledge_database_url="${GONGKAO_KNOWLEDGE_MAP_DATABASE_URL:-}"
+if [[ -z "${knowledge_database_url}" ]]; then
+  knowledge_database_url="${MIGRATION_DATABASE_URL/postgresql+psycopg:/postgresql:}"
+fi
+GONGKAO_KNOWLEDGE_MAP_DATABASE_URL="${knowledge_database_url}" \
+GONGKAO_KNOWLEDGE_MAP_DATABASE_OS_USER="${MIGRATION_DATABASE_OS_USER:-postgres}" \
+  "${target}/scripts/server_refresh_knowledge_map_nodes.sh" --local
 
 install_release_units "${target}"
 install -D -m 0750 "${target}/ops/scripts/activate_release.sh" "${controller_root}/activate_release.sh"
@@ -124,6 +145,14 @@ if [[ "${COMMERCIAL_MODE:-free_cold_start}" == "paid" \
   runtime_units+=(gongkao-dazi-commerce-worker)
 else
   systemctl stop gongkao-dazi-commerce-worker 2>/dev/null || true
+fi
+if [[ "${ESSAY_REVIEW_WORKER_ENABLED:-false}" == "true" ]]; then
+  "${target}/backend/.venv/bin/python" -c \
+    'from app.core.config import get_settings; from app.domains.essay_intelligence.review_worker import GroundedEssayReviewWorker; GroundedEssayReviewWorker(settings=get_settings())'
+  systemctl enable gongkao-dazi-essay-review-worker
+  runtime_units+=(gongkao-dazi-essay-review-worker)
+else
+  systemctl disable --now gongkao-dazi-essay-review-worker 2>/dev/null || true
 fi
 
 case "${ILINK_CHANNEL_ENABLED:-false}" in
