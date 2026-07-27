@@ -4,6 +4,8 @@ from datetime import UTC, datetime, timedelta
 from importlib import import_module
 from uuid import UUID, uuid4
 
+import pytest
+from pydantic import ValidationError
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
@@ -14,6 +16,7 @@ from app.contracts.external_learning.models import (
     LicenseUseRequest,
 )
 from app.domains.answer_ingestion.schemas import (
+    AnswerEntry,
     ConfirmAnswerCandidateCommand,
     CreateAnswerCandidateCommand,
 )
@@ -34,6 +37,20 @@ from app.domains.xingce_learning.content_version import question_content_version
 
 
 NOW = datetime(2026, 7, 15, 12, 0, tzinfo=UTC)
+
+
+def test_omr_blank_candidate_requires_explicit_correction_state() -> None:
+    pending = AnswerEntry(
+        bindingCode="ANSWER-BINDING-1",
+        answer="",
+        confidence=0.2,
+        requiresCorrection=True,
+    )
+
+    assert pending.answer == ""
+    assert pending.requires_correction is True
+    with pytest.raises(ValidationError, match="blank answers must be marked for correction"):
+        AnswerEntry(bindingCode="ANSWER-BINDING-1", answer="")
 
 
 class FakeLicenseEvaluator:
@@ -70,9 +87,7 @@ class FakePacketRenderer(PacketRenderer):
     def __init__(self) -> None:
         self.calls = 0
 
-    def render(
-        self, *, request: PacketRenderRequest, idempotency_key: str
-    ) -> PacketRenderResult:
+    def render(self, *, request: PacketRenderRequest, idempotency_key: str) -> PacketRenderResult:
         self.calls += 1
         assert idempotency_key == f"offline-packet-render:{request.packet_version_id}"
         return PacketRenderResult(
@@ -103,21 +118,23 @@ def test_existing_question_publication_migration_does_not_accumulate_advisory_lo
             """
         )
     )
-    migration = import_module(
-        "migrations.versions.20260715_21_stage15_external_learning_runtime"
-    )
+    migration = import_module("migrations.versions.20260715_21_stage15_external_learning_runtime")
 
     migration._publish_existing_question_versions(db_session.connection())
 
-    assert db_session.execute(
-        text("select count(*) from product.question_content_heads")
-    ).scalar_one() == 40
-    assert db_session.execute(
-        text(
-            "select count(*) from pg_locks "
-            "where pid = pg_backend_pid() and locktype = 'advisory'"
-        )
-    ).scalar_one() == 0
+    assert (
+        db_session.execute(text("select count(*) from product.question_content_heads")).scalar_one()
+        == 40
+    )
+    assert (
+        db_session.execute(
+            text(
+                "select count(*) from pg_locks "
+                "where pid = pg_backend_pid() and locktype = 'advisory'"
+            )
+        ).scalar_one()
+        == 0
+    )
 
 
 def test_packet_render_and_confirmed_answer_round_trip(db_session: Session) -> None:
@@ -161,9 +178,7 @@ def test_packet_render_and_confirmed_answer_round_trip(db_session: Session) -> N
             """
         )
     )
-    source = LearningPackageRepository().question_snapshot(
-        db_session, question_id="q-stage15-1"
-    )
+    source = LearningPackageRepository().question_snapshot(db_session, question_id="q-stage15-1")
     assert source is not None
     content_version_id = question_content_version_id(source)
     published = SQLQuestionContentCatalog(
@@ -179,19 +194,19 @@ def test_packet_render_and_confirmed_answer_round_trip(db_session: Session) -> N
     )
     license_id = uuid4()
     packet_command = CreatePacketCommand(
-            renderFormat="pdf",
-            expiresInDays=14,
-            items=(
-                PacketContentInput(
-                    questionId="q-stage15-1",
-                    contentVersionId=content_version_id,
-                    contentLicenseId=license_id,
-                    expectedAuthorizationEpoch=1,
-                    track="xingce",
-                    components=(ContentComponent.QUESTION_PROMPT,),
-                ),
+        renderFormat="pdf",
+        expiresInDays=14,
+        items=(
+            PacketContentInput(
+                questionId="q-stage15-1",
+                contentVersionId=content_version_id,
+                contentLicenseId=license_id,
+                expectedAuthorizationEpoch=1,
+                track="xingce",
+                components=(ContentComponent.QUESTION_PROMPT,),
             ),
-        )
+        ),
+    )
     requested = packet_service.request_packet(
         user_id=str(user_id),
         idempotency_key="packet-roundtrip-001",
@@ -216,9 +231,7 @@ def test_packet_render_and_confirmed_answer_round_trip(db_session: Session) -> N
     assert completed_job.status == "succeeded"
     db_session.commit()
 
-    ready = LearningPackageRepository().current_packet(
-        db_session, packet_id=requested.packet_id
-    )
+    ready = LearningPackageRepository().current_packet(db_session, packet_id=requested.packet_id)
     assert ready is not None
     assert ready.state == "ready"
     assert ready.version_no == 3
@@ -241,9 +254,10 @@ def test_packet_render_and_confirmed_answer_round_trip(db_session: Session) -> N
     )
     assert candidate.state == "candidate"
     assert candidate.candidate_payload["confirmedForLearning"] is False
-    assert db_session.execute(
-        text("select count(*) from learning.external_answer_facts")
-    ).scalar_one() == 0
+    assert (
+        db_session.execute(text("select count(*) from learning.external_answer_facts")).scalar_one()
+        == 0
+    )
 
     receipt = answer_service.confirm_candidate(
         user_id=str(user_id),
@@ -257,12 +271,16 @@ def test_packet_render_and_confirmed_answer_round_trip(db_session: Session) -> N
     db_session.commit()
     assert receipt.ingestion.state == "committed"
     assert receipt.ingestion.candidate_payload["confirmedForLearning"] is True
-    fact = db_session.execute(
-        text(
-            "select target_writer, evidence_policy_version, review_state, answer_payload "
-            "from learning.external_answer_facts"
+    fact = (
+        db_session.execute(
+            text(
+                "select target_writer, evidence_policy_version, review_state, answer_payload "
+                "from learning.external_answer_facts"
+            )
         )
-    ).mappings().one()
+        .mappings()
+        .one()
+    )
     assert fact["target_writer"] == "xingce_learning"
     assert fact["evidence_policy_version"] == "external-confirmed-lower-weight-v1"
     assert fact["review_state"] == "user_confirmed"
@@ -278,7 +296,6 @@ def test_packet_render_and_confirmed_answer_round_trip(db_session: Session) -> N
     assert module.external_evidence_count == 1
     assert module.correct_rate is None
     assert any(
-        item.entity_type == "external_answer_fact"
-        and item.role == "user_confirmed_external_answer"
+        item.entity_type == "external_answer_fact" and item.role == "user_confirmed_external_answer"
         for item in module.evidence_refs
     )

@@ -429,6 +429,12 @@ class LearningBrainRepository:
                 text(
                     """
                     with current_confirmed as (
+                      -- 判头 v2（2026-07-27 审计 §三 AI 消费侧）：
+                      -- 1) supersedes 链判头：改判（confirm/replace 复议）落新确认
+                      --    版本并引用旧链头，被取代的旧错因不再计入；
+                      -- 2) 决定链兜底：收回（reject/defer 复议）不产生新确认版本，
+                      --    无法靠链条表达，按「所属决定已被后继决定取代」排除。
+                      --    该条件同时覆盖历史上尚未建立 supersedes 链的数据。
                       select cause.*
                       from learning.xingce_confirmed_cause_versions cause
                       where cause.user_id = cast(:user_id as uuid)
@@ -437,14 +443,21 @@ class LearningBrainRepository:
                           where successor.supersedes_confirmed_cause_version_id =
                                 cause.confirmed_cause_version_id
                         )
-                    ), question_candidates as (
-                      -- 逐题候选来自 AI 确认候选的 append-only payload；
-                      -- 只有 ai_confirmed 的会话决定才允许消费 AI 的逐题 causeCode，
-                      -- user_replacement 仍走 session 摊派回退。
+                        and not exists (
+                          select 1
+                          from learning.xingce_cause_decision_versions revoked_by
+                          where revoked_by.supersedes_decision_version_id =
+                                cause.decision_version_id
+                        )
+                    ), question_candidate_entries as (
+                      -- 保留所有逐题状态，供回退分支区分“旧候选没有逐题合同”
+                      -- 和“新候选明确声明非 candidate 的证据边界”。后者
+                      -- 绝不能因为没有 candidate 状态而退回整组错因摊派。
                       select
                         cause.confirmed_cause_version_id,
                         cause.created_at,
                         question_item.item->>'questionId' as question_id,
+                        question_item.item->>'status' as status,
                         question_item.item->>'causeCode' as cause_code
                       from current_confirmed cause
                       join learning.xingce_cause_candidate_versions candidate
@@ -453,8 +466,14 @@ class LearningBrainRepository:
                         coalesce(candidate.payload->'questionCandidates', '[]'::jsonb)
                       ) question_item(item)
                       where cause.source_kind = 'ai_confirmed'
-                        and question_item.item->>'status' = 'candidate'
-                        and coalesce(question_item.item->>'causeCode', '') <> ''
+                    ), question_candidates as (
+                      -- 逐题候选来自 AI 确认候选的 append-only payload；
+                      -- 只有 status=candidate 才进入错因聚合，其他状态只作为
+                      -- 显式证据边界，不推断、不回退。
+                      select *
+                      from question_candidate_entries
+                      where status = 'candidate'
+                        and coalesce(cause_code, '') <> ''
                     ), xingce_question as (
                       -- 优先：逐题 causeCode 按题归模块（证据不足的题没有行，不硬给）。
                       select
@@ -517,10 +536,13 @@ class LearningBrainRepository:
                         on assessment.session_id = cause.session_id
                       join product.questions question
                         on question.question_id = assessment.question_id
-                      where not exists (
-                        select 1 from question_candidates question_candidate
-                        where question_candidate.confirmed_cause_version_id =
-                              cause.confirmed_cause_version_id
+                      where (
+                        cause.source_kind <> 'ai_confirmed'
+                        or not exists (
+                          select 1 from question_candidate_entries question_entry
+                          where question_entry.confirmed_cause_version_id =
+                                cause.confirmed_cause_version_id
+                        )
                       )
                       and not exists (
                         select 1

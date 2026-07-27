@@ -16,7 +16,7 @@ class AnswerModel(BaseModel):
 
 class AnswerEntry(AnswerModel):
     binding_code: str = Field(alias="bindingCode", min_length=4, max_length=64)
-    answer: str = Field(min_length=1, max_length=20_000)
+    answer: str = Field(max_length=20_000)
     confidence: float | None = Field(default=None, ge=0, le=1)
     requires_correction: bool = Field(default=False, alias="requiresCorrection")
 
@@ -24,8 +24,8 @@ class AnswerEntry(AnswerModel):
     def normalize(self) -> "AnswerEntry":
         self.binding_code = self.binding_code.strip().upper()
         self.answer = self.answer.strip()
-        if not self.answer:
-            raise ValueError("answer cannot be blank")
+        if not self.answer and not self.requires_correction:
+            raise ValueError("blank answers must be marked for correction")
         return self
 
 
@@ -105,9 +105,9 @@ class AnswerIngestionWorkspace(AnswerModel):
     packet_item_count: int | None = Field(alias="packetItemCount")
     partial_reasons: tuple[str, ...] = Field(alias="partialReasons")
     expires_at: datetime | None = Field(alias="expiresAt")
-    diagnostic_eligibility: Literal[
-        "blocked_unconfirmed", "eligible_committed"
-    ] = Field(alias="diagnosticEligibility")
+    diagnostic_eligibility: Literal["blocked_unconfirmed", "eligible_committed"] = Field(
+        alias="diagnosticEligibility"
+    )
     generated_at: datetime = Field(alias="generatedAt")
 
 

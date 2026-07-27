@@ -227,7 +227,7 @@ export class ExternalLearningApi implements ExternalLearningGateway {
     );
     validateAccess(response.data);
     const temporaryPath = await downloadPrivateFile(response.data);
-    const localFilePath = await persistDownloadedFile(temporaryPath);
+    const localFilePath = await persistDownloadedFile(temporaryPath, response.data.fileType);
     return {
       packetVersionId: response.data.packetVersionId,
       localFilePath,
@@ -428,7 +428,7 @@ function answerEntriesFromOmr(
       }
       return {
         bindingCode: item.answerBindingCode,
-        answer: mark.selectedOptions.length ? mark.selectedOptions.join("") : "[未识别]",
+        answer: mark.selectedOptions.join(""),
         confidence: mark.confidence,
         requiresCorrection: Boolean(mark.ambiguous) || mark.selectedOptions.length !== 1,
       };
@@ -497,11 +497,14 @@ function downloadPrivateFile(access: PacketAccessProjection): Promise<string> {
   });
 }
 
-function persistDownloadedFile(tempFilePath: string): Promise<string> {
+function persistDownloadedFile(
+  tempFilePath: string,
+  fileType: PacketAccessProjection["fileType"],
+): Promise<string> {
   return persistUserDataFile({
     tempFilePath,
     filenamePrefix: "anan-learning-packet",
-    extension: "pdf",
+    extension: fileType === "note_app_file" ? "md" : "pdf",
     failureMessage: "学习包无法保存到本地。",
   });
 }

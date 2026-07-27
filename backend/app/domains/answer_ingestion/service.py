@@ -205,7 +205,9 @@ class AnswerIngestionService:
         current = self._required_current(user_id=user_id, ingestion_id=ingestion_id)
         if current.state != "candidate" or current.version_no != command.expected_version_no:
             raise AnswerIngestionError(
-                "answer_candidate_version_conflict", "答案候选已经变化，请刷新后重试。", status_code=409
+                "answer_candidate_version_conflict",
+                "答案候选已经变化，请刷新后重试。",
+                status_code=409,
             )
         assert current.packet_version_id is not None
         packet_row = self._repository.packet(
@@ -272,7 +274,9 @@ class AnswerIngestionService:
         current = self._required_current(user_id=user_id, ingestion_id=ingestion_id)
         if current.state != "candidate" or current.version_no != command.expected_version_no:
             raise AnswerIngestionError(
-                "answer_candidate_version_conflict", "答案候选已经变化，请刷新后重试。", status_code=409
+                "answer_candidate_version_conflict",
+                "答案候选已经变化，请刷新后重试。",
+                status_code=409,
             )
         assert current.packet_version_id is not None
         packet_row = self._repository.packet(
@@ -300,8 +304,7 @@ class AnswerIngestionService:
                 status_code=409,
             )
         confirmed_recognition_refs = tuple(
-            f"recognition-revision:{item}"
-            for item in (confirmed_recognition_ids or ())
+            f"recognition-revision:{item}" for item in (confirmed_recognition_ids or ())
         )
         bindings = self._repository.packet_bindings(
             self._session, packet_id=UUID(str(packet_row["packet_id"])), user_id=user_id
@@ -450,9 +453,7 @@ class AnswerIngestionService:
                     orderNo=order_no,
                     answerBindingCode=packet_item.answer_binding_code,
                     answer=str(entry.get("answer", "")),
-                    confidence=(
-                        float(confidence_value) if confidence_value is not None else None
-                    ),
+                    confidence=(float(confidence_value) if confidence_value is not None else None),
                     requiresCorrection=bool(entry.get("requiresCorrection", False)),
                 )
             )
@@ -462,15 +463,11 @@ class AnswerIngestionService:
             packetTitle=_packet_title(packet),
             packetItemCount=len(packet.items),
             partialReasons=(
-                ("外部作答证据已确认并写入学习事实。",)
-                if ingestion.state == "committed"
-                else ()
+                ("外部作答证据已确认并写入学习事实。",) if ingestion.state == "committed" else ()
             ),
             expiresAt=packet.expires_at,
             diagnosticEligibility=(
-                "eligible_committed"
-                if ingestion.state == "committed"
-                else "blocked_unconfirmed"
+                "eligible_committed" if ingestion.state == "committed" else "blocked_unconfirmed"
             ),
             generatedAt=self._clock(),
         )
@@ -478,9 +475,7 @@ class AnswerIngestionService:
     def list_targets(self, *, user_id: str) -> AnswerTargetSnapshot:
         now = self._clock()
         targets: list[PacketAnswerTarget] = []
-        for row in self._repository.current_ready_packets(
-            self._session, user_id=user_id, at=now
-        ):
+        for row in self._repository.current_ready_packets(self._session, user_id=user_id, at=now):
             packet = OfflinePacketVersion.model_validate(row["contract_payload"])
             if any(
                 not self._licenses.snapshot_status(snapshot_id=UUID(ref)).valid
@@ -504,9 +499,7 @@ class AnswerIngestionService:
                         track=track,
                         itemCount=count,
                         versionLabel=(
-                            f"第 {packet.version_no} 版"
-                            if packet.version_no > 1
-                            else "初始版本"
+                            f"第 {packet.version_no} 版" if packet.version_no > 1 else "初始版本"
                         ),
                         expiresAt=packet.expires_at,
                     )
@@ -525,7 +518,11 @@ class AnswerIngestionService:
                 raise AnswerIngestionError(
                     "answer_binding_invalid", "答案编号不属于当前学习包。", status_code=409
                 )
-            if str(binding["track"]) == "xingce" and not _valid_objective_answer(entry.answer):
+            if (
+                str(binding["track"]) == "xingce"
+                and not _valid_objective_answer(entry.answer)
+                and not entry.requires_correction
+            ):
                 raise AnswerIngestionError(
                     "objective_answer_invalid", "行测答案必须是有效选项字母。", status_code=422
                 )
@@ -533,7 +530,9 @@ class AnswerIngestionService:
                 {
                     "bindingDigest": digest,
                     "contentVersionId": str(binding["content_version_id"]),
-                    "answer": entry.answer.strip().upper() if str(binding["track"]) == "xingce" else entry.answer.strip(),
+                    "answer": entry.answer.strip().upper()
+                    if str(binding["track"]) == "xingce"
+                    else entry.answer.strip(),
                     "confidence": entry.confidence,
                     "requiresCorrection": entry.requires_correction,
                 }
@@ -556,7 +555,9 @@ class AnswerIngestionService:
             status = self._licenses.snapshot_status(snapshot_id=UUID(snapshot_ref))
             if not status.valid:
                 raise AnswerIngestionError(
-                    "packet_license_revoked", "学习包内容授权已经失效，不能继续回录。", status_code=403
+                    "packet_license_revoked",
+                    "学习包内容授权已经失效，不能继续回录。",
+                    status_code=403,
                 )
 
     def _required_current(self, *, user_id: str, ingestion_id: UUID) -> AnswerIngestionVersion:
@@ -564,7 +565,9 @@ class AnswerIngestionService:
             self._session, user_id=user_id, ingestion_id=ingestion_id, for_update=True
         )
         if current is None:
-            raise AnswerIngestionError("answer_ingestion_not_found", "答案录入不存在。", status_code=404)
+            raise AnswerIngestionError(
+                "answer_ingestion_not_found", "答案录入不存在。", status_code=404
+            )
         return current
 
     def _command_replay(
@@ -648,15 +651,15 @@ def _packet_binding_code(packet: OfflinePacketVersion, order_no: int) -> str:
 
 
 def _packet_title(packet: OfflinePacketVersion) -> str:
-    created = packet.created_at.astimezone(ZoneInfo("Asia/Shanghai")).strftime(
-        "%m月%d日 %H:%M"
-    )
+    created = packet.created_at.astimezone(ZoneInfo("Asia/Shanghai")).strftime("%m月%d日 %H:%M")
     return f"行测学习包 · {created.lstrip('0').replace('月0', '月')}"
 
 
 def _valid_objective_answer(value: str) -> bool:
     normalized = value.strip().upper()
-    return bool(normalized) and len(normalized) <= 8 and all("A" <= item <= "H" for item in normalized)
+    return (
+        bool(normalized) and len(normalized) <= 8 and all("A" <= item <= "H" for item in normalized)
+    )
 
 
 def _subject_ref(user_id: str) -> str:

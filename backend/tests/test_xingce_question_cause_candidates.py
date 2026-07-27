@@ -158,6 +158,47 @@ def test_missing_question_candidates_fall_back_to_session_apportionment(
     assert rows[0]["display_name"] == "漏看了题干中的关键限定词"
 
 
+def test_explicitly_insufficient_questions_do_not_fall_back_to_session_cause(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    client, auth, _task, submitted = _submitted_attempt(
+        db_session_factory,
+        token="question-cause-all-insufficient-token",
+        choices=["D", "C", "B"],
+    )
+    question_ids = [
+        str(question["questionId"]) for question in submitted["bundle"]["questions"]
+    ]
+    review = submitted["review"]
+    _reflect(client, auth, review, key="question-cause-all-insufficient-reflection")
+    _run_one(
+        db_session_factory,
+        _PerQuestionProvider(dict.fromkeys(question_ids)),
+    )
+    current = client.get(
+        f"/api/v2/xingce/task-sessions/{submitted['sessionId']}",
+        headers=auth,
+    ).json()["data"]
+    candidate = current["review"]["aiCandidate"]
+    assert {
+        item["status"] for item in candidate["questionCandidates"]
+    } == {"evidence_insufficient"}
+
+    decision = client.put(
+        f"/api/v2/xingce/attempt-reviews/{review['reviewId']}/cause-decision",
+        headers={**auth, "Idempotency-Key": "question-cause-all-insufficient-decision"},
+        json={
+            "expectedRevision": current["review"]["revision"],
+            "candidateVersionId": candidate["candidateVersionId"],
+            "decision": "confirm",
+        },
+    )
+    assert decision.status_code == 200, decision.text
+
+    user_id = _session_owner(db_session_factory, session_id=submitted["sessionId"])
+    assert _xingce_patterns(db_session_factory, user_id=user_id) == []
+
+
 class _PerQuestionProvider(SequenceProvider):
     """按题给出候选/证据不足判断的桩 provider；引用真实冻结证据。"""
 

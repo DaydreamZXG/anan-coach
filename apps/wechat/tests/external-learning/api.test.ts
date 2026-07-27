@@ -266,6 +266,46 @@ describe("external learning API gateway", () => {
     expect(grant.localFilePath).toBe(copyOptions?.destPath);
   });
 
+  it("persists a note-app learning packet with its real markdown extension", async () => {
+    const post = vi.fn(() =>
+      Promise.resolve(
+        envelope({
+          packetVersionId: "packet-version-note",
+          downloadUrl: "https://tos.example.test/private/packet.md",
+          fileType: "note_app_file",
+          expiresAt: "2099-07-15T01:00:00Z",
+        }),
+      ),
+    );
+    const downloadFile = vi.fn((options: WechatMiniprogram.DownloadFileOption) => {
+      options.success?.({
+        tempFilePath: "/tmp/downloaded.md",
+        filePath: "",
+        statusCode: 200,
+        profile: {} as WechatMiniprogram.RequestProfile,
+        errMsg: "downloadFile:ok",
+      });
+      return {} as WechatMiniprogram.DownloadTask;
+    });
+    const copyFile = vi.fn((options: WechatMiniprogram.CopyFileOption) => {
+      options.success?.({ errCode: 0, errMsg: "copyFile:ok" });
+    });
+    vi.stubGlobal("wx", {
+      env: { USER_DATA_PATH: "/user-data" },
+      downloadFile,
+      getFileSystemManager: () => ({ copyFile }),
+    });
+
+    const grant = await new ExternalLearningApi(client({ post })).getPacketAccess(
+      "packet-version-note",
+    );
+
+    expect(copyFile.mock.calls[0]?.[0]?.destPath).toMatch(
+      /^\/user-data\/anan-learning-packet-\d+-[a-z0-9]+\.md$/u,
+    );
+    expect(grant.fileType).toBe("note_app_file");
+  });
+
   it("sends answer binding codes for corrections and atomically confirms the ingestion", async () => {
     const put = vi.fn(() =>
       Promise.resolve(
@@ -384,6 +424,60 @@ describe("external learning API gateway", () => {
       { idempotencyKey: "answer-image-command:candidate", timeoutMs: 60_000 },
     );
     expect(result.ingestion.inputMode).toBe("answer_sheet_omr");
+  });
+
+  it("preserves an unrecognized OMR mark as a correctable blank candidate", async () => {
+    const digest = zeroDigest;
+    const file = answerImage();
+    const candidate = answerWorkspace({
+      ingestion: ingestion({
+        inputMode: "answer_sheet_omr",
+        sourceArtifactVersionIds: ["artifact-version-1"],
+      }),
+    });
+    const post = vi
+      .fn()
+      .mockResolvedValueOnce(envelope(startUpload(file, digest, "single_put")))
+      .mockResolvedValueOnce(envelope(completeUpload(file, digest)))
+      .mockResolvedValueOnce(
+        envelope(
+          recognition({
+            recognitionKind: "answer_sheet_omr",
+            candidatePayload: {
+              omrMarks: [{ itemNo: 1, selectedOptions: [], confidence: 0.2, ambiguous: true }],
+            },
+          }),
+        ),
+      )
+      .mockResolvedValueOnce(envelope(withoutRequestId(candidate)));
+    const get = vi.fn().mockResolvedValueOnce(envelope(packet()));
+    const rawRequest = vi.fn((options: WechatMiniprogram.RequestOption<ArrayBuffer>) => {
+      options.success?.(requestSuccess(new ArrayBuffer(0), 200));
+      return {} as WechatMiniprogram.RequestTask;
+    });
+    stubFileRuntime(file, digest, rawRequest);
+
+    await new ExternalLearningApi(client({ get, post })).createAnswerImage(
+      { packetVersionId: "packet-version-1", track: "xingce", file },
+      "answer-image-blank-command",
+      vi.fn(),
+    );
+
+    expect(post).toHaveBeenNthCalledWith(
+      4,
+      "/api/v2/external-learning/answer-ingestions",
+      expect.objectContaining({
+        entries: [
+          {
+            bindingCode: "answer-binding-1",
+            answer: "",
+            confidence: 0.2,
+            requiresCorrection: true,
+          },
+        ],
+      }),
+      { idempotencyKey: "answer-image-blank-command:candidate", timeoutMs: 60_000 },
+    );
   });
 });
 
