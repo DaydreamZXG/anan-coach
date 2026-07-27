@@ -250,7 +250,10 @@ class ProcessorApproval(StrictModel):
     security_review_ref: NonBlank = Field(alias="securityReviewRef")
     approval_receipt_ref: NonBlank = Field(alias="approvalReceiptRef")
     transport_security: Literal["tls"] = Field(default="tls", alias="transportSecurity")
-    provider_data_handling: Literal["contracted_zero_retention"] = Field(
+    provider_data_handling: Literal[
+        "contracted_zero_retention",
+        "operator_accepted_external_processing",
+    ] = Field(
         default="contracted_zero_retention", alias="providerDataHandling"
     )
     model_training_use: Literal["prohibited"] = Field(

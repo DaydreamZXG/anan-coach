@@ -502,9 +502,12 @@ def _bounded_response(
                 "Grok recognition response exceeds its approved capacity"
             )
         chunks.append(chunk)
+    headers = httpx.Headers(response.headers)
+    for name in ("Content-Encoding", "Content-Length", "Transfer-Encoding"):
+        headers.pop(name, None)
     return httpx.Response(
         status_code=response.status_code,
-        headers=response.headers,
+        headers=headers,
         content=b"".join(chunks),
         request=response.request,
     )

@@ -11,6 +11,9 @@ from app.domains.external_ingestion.recognition.errors import ProcessorConfigura
 from app.domains.external_ingestion.recognition.grok_vision import (
     GrokVisionRecognitionProcessor,
 )
+from app.domains.external_ingestion.recognition.modal_paddle import (
+    ModalPaddleOCRRecognitionProcessor,
+)
 from app.domains.external_ingestion.recognition.models import ProcessorApproval
 from app.domains.external_ingestion.recognition.processor import (
     HTTPRecognitionProcessor,
@@ -64,6 +67,27 @@ def build_recognition_service(*, session: Session, settings: Settings) -> Recogn
             maximum_input_bytes=settings.recognition_processor_max_input_bytes,
             maximum_output_bytes=settings.recognition_processor_max_output_bytes,
             maximum_pages=settings.recognition_processor_max_pages,
+        )
+    elif adapter == "modal_paddle_ocr":
+        if settings.recognition_processor_max_pages != 1:
+            raise ProcessorConfigurationError(
+                "Modal recognition is approved for one image page per request"
+            )
+        if any(
+            approval.model_release != settings.recognition_processor_actual_model.strip()
+            for approval in approvals
+        ):
+            raise ProcessorConfigurationError(
+                "Modal recognition approval model release does not match runtime"
+            )
+        processor = ModalPaddleOCRRecognitionProcessor(
+            endpoint=endpoint,
+            bearer_token=settings.recognition_processor_token,
+            expected_provider_release=settings.recognition_processor_release_id,
+            expected_model_release=settings.recognition_processor_actual_model,
+            source_reader=PrivateObjectReader(settings),
+            maximum_input_bytes=settings.recognition_processor_max_input_bytes,
+            maximum_output_bytes=settings.recognition_processor_max_output_bytes,
         )
     else:
         raise ProcessorConfigurationError(

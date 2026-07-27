@@ -38,6 +38,9 @@ from app.domains.external_ingestion.recognition.errors import (
 from app.domains.external_ingestion.recognition.grok_vision import (
     GrokVisionRecognitionProcessor,
 )
+from app.domains.external_ingestion.recognition.modal_paddle import (
+    ModalPaddleOCRRecognitionProcessor,
+)
 from app.domains.external_ingestion.recognition.models import (
     ProcessorApproval,
     ProcessorRequest,
@@ -183,6 +186,23 @@ class QueryRecognitionProcessor:
                 endpoint=endpoint,
                 bearer_token=core.recognition_processor_token,
                 expected_provider_release=core.recognition_processor_release_id,
+            )
+        elif adapter == "modal_paddle_ocr":
+            if core.recognition_processor_max_pages != 1:
+                raise PhotoResolutionError("recognition_page_limit_invalid")
+            if any(
+                approval.model_release != core.recognition_processor_actual_model.strip()
+                for approval in approvals
+            ):
+                raise PhotoResolutionError("recognition_model_approval_drift")
+            processor = ModalPaddleOCRRecognitionProcessor(
+                endpoint=endpoint,
+                bearer_token=core.recognition_processor_token,
+                expected_provider_release=core.recognition_processor_release_id,
+                expected_model_release=core.recognition_processor_actual_model,
+                source_reader=PrivateObjectReader(core),
+                maximum_input_bytes=core.recognition_processor_max_input_bytes,
+                maximum_output_bytes=core.recognition_processor_max_output_bytes,
             )
         else:
             raise PhotoResolutionError("recognition_adapter_unsupported")

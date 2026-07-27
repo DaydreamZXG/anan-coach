@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from contextlib import contextmanager
+import gzip
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -63,6 +64,7 @@ def _processor(
     *,
     payload: dict[str, object],
     actual_model: str = "grok-4.5-build-free",
+    compressed_response: bool = False,
     maximum_output_bytes: int = 1024 * 1024,
 ) -> GrokVisionRecognitionProcessor:
     def handler(request: httpx.Request) -> httpx.Response:
@@ -71,22 +73,26 @@ def _processor(
         assert request.headers["Idempotency-Key"] == "recognize-command-1"
         body = json.loads(request.content)
         assert body["model"] == "grok-4.5"
-        return httpx.Response(
-            200,
-            json={
-                "id": "provider-request-1",
-                "model": actual_model,
-                "choices": [
-                    {
-                        "message": {
-                            "content": "```json\n"
-                            + json.dumps(payload, ensure_ascii=False)
-                            + "\n```"
-                        }
+        envelope = {
+            "id": "provider-request-1",
+            "model": actual_model,
+            "choices": [
+                {
+                    "message": {
+                        "content": "```json\n"
+                        + json.dumps(payload, ensure_ascii=False)
+                        + "\n```"
                     }
-                ],
-            },
-        )
+                }
+            ],
+        }
+        if compressed_response:
+            return httpx.Response(
+                200,
+                headers={"Content-Encoding": "gzip"},
+                content=gzip.compress(json.dumps(envelope).encode()),
+            )
+        return httpx.Response(200, json=envelope)
 
     return GrokVisionRecognitionProcessor(
         endpoint="http://34.96.236.81:8317/v1",
@@ -136,6 +142,21 @@ def test_grok_vision_accepts_code_fenced_schema_and_seals_local_evidence(
     assert len(result.page_image_sha256) == 1
     assert len(result.page_image_sha256[0]) == 64
     assert len(result.visual_fingerprints[0]) == 64
+
+
+def test_grok_vision_accepts_gzip_response_without_double_decoding(
+    tmp_path: Path,
+) -> None:
+    source = _image(tmp_path)
+
+    result = _processor(
+        source,
+        payload=_ocr_payload(),
+        compressed_response=True,
+    ).process(_request(source))
+
+    assert result.provider_request_id == "provider-request-1"
+    assert result.text_spans[0].text == "资料分析题干"
 
 
 def test_grok_vision_rejects_actual_model_release_drift(tmp_path: Path) -> None:
