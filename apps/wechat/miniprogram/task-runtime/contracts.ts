@@ -183,6 +183,11 @@ export interface CreateTaskRuntimeInput {
   attempts?: Record<string, QuestionAttemptDraft> | undefined;
   currentQuestionIndex?: number | undefined;
   totalElapsedSeconds?: number | undefined;
+  /**
+   * 会话全局活跃毫秒。恢复检查点或本地草稿时显式传入，
+   * createTaskRuntime 会与秒级累计取最大值，保证动作时间线不倒退。
+   */
+  sessionElapsedMs?: number | undefined;
   reflectionRequired?: boolean | undefined;
   reflectionCompleted?: boolean | undefined;
   causeDecisionRequired?: boolean | undefined;

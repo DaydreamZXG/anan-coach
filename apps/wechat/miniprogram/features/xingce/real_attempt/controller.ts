@@ -95,6 +95,10 @@ export function runtimeWithPendingCheckpoint(
     currentQuestionIndex,
     attempts,
     totalElapsedSeconds: Math.max(server.totalElapsedSeconds, command.totalElapsedSeconds),
+    sessionElapsedMs: Math.max(
+      restoredSessionElapsedMs(server),
+      sessionElapsedMsFromAttempts(attempts),
+    ),
     revision: server.revision,
     serverState: "answering",
     phase: "answering",
@@ -123,6 +127,10 @@ export function runtimeFromXingceSession(sessionValue: XingceTaskSession): TaskR
     currentQuestionIndex,
     attempts,
     totalElapsedSeconds: session.totalElapsedSeconds,
+    sessionElapsedMs: Math.max(
+      session.totalElapsedSeconds * 1000,
+      sessionElapsedMsFromAttempts(attempts),
+    ),
     revision: session.revision,
     serverState: runtimeServerState(session.state),
     phase,
@@ -163,6 +171,11 @@ export function mergePendingDraft(
     currentQuestionIndex: Math.min(local.currentQuestionIndex, server.questionOrder.length - 1),
     attempts,
     totalElapsedSeconds: Math.max(local.totalElapsedSeconds, server.totalElapsedSeconds),
+    sessionElapsedMs: Math.max(
+      restoredSessionElapsedMs(local),
+      restoredSessionElapsedMs(server),
+      sessionElapsedMsFromAttempts(attempts),
+    ),
     revision: server.revision,
     serverState: server.serverState,
     phase: "answering",
@@ -256,6 +269,11 @@ function stageSet(mode: XingceTaskMode): ReadonlySet<string> {
 }
 
 function toRuntimeAttempt(answer: XingceTaskSession["answers"][number]): QuestionAttemptDraft {
+  const elapsedMs = Math.max(
+    answer.elapsedSeconds * 1000,
+    ...(answer.actionEvents ?? []).map((entry) => entry.atMs),
+    ...(answer.annotations ?? []).map((stroke) => stroke.atMs),
+  );
   return {
     questionId: answer.questionId,
     selectedOptionIds: [...answer.selectedOptionIds],
@@ -264,6 +282,7 @@ function toRuntimeAttempt(answer: XingceTaskSession["answers"][number]): Questio
     marked: answer.marked,
     skipped: answer.skipped,
     elapsedSeconds: answer.elapsedSeconds,
+    elapsedMs,
     draftText: answer.draftText,
     ...(answer.materialPosition ? { materialPosition: { ...answer.materialPosition } } : {}),
     // 恢复会话时把已持久化的批注与动作事实带回运行时。
@@ -307,6 +326,24 @@ function toRuntimeAttempt(answer: XingceTaskSession["answers"][number]): Questio
     // 契约增量 v1：溢出标记随会话恢复带回，避免再次静默。
     ...(answer.actionEventsTruncated ? { actionEventsTruncated: true } : {}),
   };
+}
+
+function restoredSessionElapsedMs(runtime: TaskRuntimeState): number {
+  return Math.max(
+    runtime.sessionElapsedMs ?? runtime.totalElapsedSeconds * 1000,
+    sessionElapsedMsFromAttempts(runtime.attempts),
+  );
+}
+
+function sessionElapsedMsFromAttempts(attempts: Record<string, QuestionAttemptDraft>): number {
+  return Math.max(
+    0,
+    ...Object.values(attempts).flatMap((attempt) =>
+      (attempt.actionEvents ?? []).flatMap((entry) =>
+        entry.sessionAtMs === undefined ? [] : [entry.sessionAtMs],
+      ),
+    ),
+  );
 }
 
 function cloneAttempt(attempt: QuestionAttemptDraft | undefined): QuestionAttemptDraft {

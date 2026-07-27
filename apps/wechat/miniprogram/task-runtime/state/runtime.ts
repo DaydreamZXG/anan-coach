@@ -40,6 +40,9 @@ export function createTaskRuntime(input: CreateTaskRuntimeInput): TaskRuntimeSta
   }
   assertRevision(input.revision ?? 0);
   assertElapsedSeconds(input.totalElapsedSeconds ?? 0, "Total elapsed seconds");
+  if (input.sessionElapsedMs !== undefined) {
+    assertElapsedSeconds(input.sessionElapsedMs, "Session elapsed milliseconds");
+  }
   assertOptionalIdentifier(input.serverSessionId, "serverSessionId");
   assertOptionalIdentifier(input.planTaskId, "planTaskId");
   assertOptionalIdentifier(input.contentVersionId, "contentVersionId");
@@ -77,6 +80,14 @@ export function createTaskRuntime(input: CreateTaskRuntimeInput): TaskRuntimeSta
     currentQuestionIndex,
     attempts,
     totalElapsedSeconds: input.totalElapsedSeconds ?? 0,
+    ...(input.sessionElapsedMs !== undefined
+      ? {
+          sessionElapsedMs: Math.max(
+            input.sessionElapsedMs,
+            (input.totalElapsedSeconds ?? 0) * 1000,
+          ),
+        }
+      : {}),
     exitPolicy:
       input.reflectionRequired && !input.reflectionCompleted
         ? "blocked"

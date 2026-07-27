@@ -46,6 +46,7 @@ export function activeXingceSession(
     sharedMaterial?: boolean;
     answers?: XingceAnswerCheckpoint[];
     revision?: number;
+    totalElapsedSeconds?: number;
   } = {},
 ): XingceTaskSession {
   const shared = options.sharedMaterial ?? false;
@@ -101,7 +102,7 @@ export function activeXingceSession(
     },
     currentQuestionId: "q-1",
     answers: options.answers ?? [],
-    totalElapsedSeconds: 12,
+    totalElapsedSeconds: options.totalElapsedSeconds ?? 12,
     result: null,
     verificationOutcome: null,
     review: null,

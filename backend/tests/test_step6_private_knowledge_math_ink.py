@@ -41,9 +41,7 @@ def test_myscript_request_uses_exact_body_hmac_and_never_sends_hmac_key() -> Non
         body = request.content
         captured["body"] = body
         captured["headers"] = dict(request.headers)
-        expected = hmac.new(
-            f"{application_key}{hmac_key}".encode(), body, sha512
-        ).hexdigest()
+        expected = hmac.new(f"{application_key}{hmac_key}".encode(), body, sha512).hexdigest()
         assert request.headers["hmac"] == expected
         assert hmac_key.encode() not in body
         return httpx.Response(
@@ -80,9 +78,7 @@ def test_math_ink_candidate_is_idempotent_owner_bound_and_user_confirmed(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     token = "step6-math-owner-token"
-    user_id = _seed_learner_and_published_essay_content(
-        db_session_factory, access_token=token
-    )
+    user_id = _seed_learner_and_published_essay_content(db_session_factory, access_token=token)
     _seed_objective_questions(db_session_factory, count=3)
     client = _client(db_session_factory)
     auth = {"Authorization": f"Bearer {token}"}
@@ -99,6 +95,8 @@ def test_math_ink_candidate_is_idempotent_owner_bound_and_user_confirmed(
         {
             "sessionId": session_view["sessionId"],
             "questionId": question_id,
+            "sessionAtMs": 12_000,
+            "questionElapsedMs": 8_000,
             "scaleX": 0.264583,
             "scaleY": 0.264583,
             "strokes": [{"x": [10, 20], "y": [30, 40], "t": [0, 12]}],
@@ -127,6 +125,15 @@ def test_math_ink_candidate_is_idempotent_owner_bound_and_user_confirmed(
         assert candidate.formula is not None
         assert replay.formula == candidate.formula
         assert provider.calls == 1
+        stored_clock = session.execute(
+            text(
+                "select ink_payload from learning.math_ink_commands "
+                "where request_id = cast(:request_id as uuid)"
+            ),
+            {"request_id": str(candidate.request_id)},
+        ).scalar_one()
+        assert stored_clock["sessionAtMs"] == 12_000
+        assert stored_clock["questionElapsedMs"] == 8_000
         confirmed = service.confirm(
             owner_user_id=user_id,
             formula_version_id=candidate.formula.formula_version_id,
@@ -156,14 +163,31 @@ def test_math_ink_candidate_is_idempotent_owner_bound_and_user_confirmed(
             service.confirm(
                 owner_user_id=other_user,
                 formula_version_id=candidate.formula.formula_version_id,
-                command=ConfirmFormulaCommand(
-                    expectedVersionNo=1, latex=r"x=\frac{3}{5}"
-                ),
+                command=ConfirmFormulaCommand(expectedVersionNo=1, latex=r"x=\frac{3}{5}"),
             )
         except MathInkNotFound:
             pass
         else:
             raise AssertionError("another account confirmed the owner's formula")
+
+
+def test_math_ink_active_clock_must_be_in_range_and_in_order() -> None:
+    payload = {
+        "sessionId": str(uuid4()),
+        "questionId": "math-clock-q",
+        "sessionAtMs": 8_000,
+        "questionElapsedMs": 8_001,
+        "scaleX": 0.264583,
+        "scaleY": 0.264583,
+        "strokes": [{"x": [1, 2], "y": [3, 4], "t": [0, 8]}],
+    }
+
+    try:
+        RecognizeMathInkCommand.model_validate(payload)
+    except ValueError as exc:
+        assert "question elapsed time cannot exceed" in str(exc)
+    else:
+        raise AssertionError("question clock exceeded the session clock")
 
 
 def test_private_markdown_round_trip_search_isolation_and_complete_delete(
@@ -210,9 +234,7 @@ aliases: [基期量]
         assert first.chunk_count >= 2
         assert service.search(owner_user_id=owner, query="基期量").citations
         assert not service.search(owner_user_id=other, query="基期量").citations
-        exported = service.export_markdown(
-            owner_user_id=owner, source_id=first.source_id
-        )
+        exported = service.export_markdown(owner_user_id=owner, source_id=first.source_id)
         assert exported.content.count("anan_source_id:") == 1
         assert "tags:" in exported.content
         session.commit()
@@ -255,9 +277,7 @@ aliases: [基期量]
 
     storage = _DeleteStorage()
     with db_session_factory() as session:
-        processed = PrivateKnowledgeDeletionWorker(storage=storage).process_next(
-            session
-        )  # type: ignore[arg-type]
+        processed = PrivateKnowledgeDeletionWorker(storage=storage).process_next(session)  # type: ignore[arg-type]
         assert processed is not None
         assert processed.status == "succeeded"
 
@@ -269,9 +289,7 @@ aliases: [基期量]
             "learning.private_knowledge_chunks",
             "learning.private_knowledge_search_index",
         ):
-            assert (
-                session.execute(text(f"select count(*) from {table}")).scalar_one() == 0
-            )
+            assert session.execute(text(f"select count(*) from {table}")).scalar_one() == 0
         states = (
             session.execute(
                 text(

@@ -22,10 +22,7 @@ class InkStroke(MathInkModel):
     def aligned_points(self) -> "InkStroke":
         if not (len(self.x) == len(self.y) == len(self.t)):
             raise ValueError("stroke coordinate and time arrays must align")
-        if any(
-            not isfinite(value) or value < 0 or value > 10000
-            for value in (*self.x, *self.y)
-        ):
+        if any(not isfinite(value) or value < 0 or value > 10000 for value in (*self.x, *self.y)):
             raise ValueError("stroke coordinates are outside the supported surface")
         if any(value < 0 for value in self.t) or any(
             later < earlier for earlier, later in pairwise(self.t)
@@ -37,6 +34,18 @@ class InkStroke(MathInkModel):
 class RecognizeMathInkCommand(MathInkModel):
     session_id: UUID = Field(alias="sessionId")
     question_id: str = Field(alias="questionId", min_length=1, max_length=240)
+    session_at_ms: int | None = Field(
+        default=None,
+        alias="sessionAtMs",
+        ge=0,
+        le=86_400_000,
+    )
+    question_elapsed_ms: int | None = Field(
+        default=None,
+        alias="questionElapsedMs",
+        ge=0,
+        le=86_400_000,
+    )
     scale_x: float = Field(alias="scaleX", gt=0.01, le=5)
     scale_y: float = Field(alias="scaleY", gt=0.01, le=5)
     strokes: tuple[InkStroke, ...] = Field(min_length=1, max_length=128)
@@ -45,6 +54,12 @@ class RecognizeMathInkCommand(MathInkModel):
     def bounded_request(self) -> "RecognizeMathInkCommand":
         if sum(len(stroke.x) for stroke in self.strokes) > 20_000:
             raise ValueError("math ink request exceeds 20000 points")
+        if (
+            self.session_at_ms is not None
+            and self.question_elapsed_ms is not None
+            and self.question_elapsed_ms > self.session_at_ms
+        ):
+            raise ValueError("question elapsed time cannot exceed the session active time")
         return self
 
 
@@ -70,9 +85,7 @@ class FormulaVersion(MathInkModel):
     state: Literal["candidate", "confirmed", "rejected"]
     latex: str
     source: Literal["myscript_candidate", "user_confirmed"]
-    supersedes_formula_version_id: UUID | None = Field(
-        alias="supersedesFormulaVersionId"
-    )
+    supersedes_formula_version_id: UUID | None = Field(alias="supersedesFormulaVersionId")
     created_at: datetime = Field(alias="createdAt")
     confirmed_at: datetime | None = Field(alias="confirmedAt")
 

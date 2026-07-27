@@ -1063,9 +1063,13 @@ Page<PracticePageData, PracticePageCustom>({
 
   async recognizeMathInk(event) {
     const runtime = runtimes.get(this);
-    const questionId = runtime?.task?.questionOrder[runtime.task.currentQuestionIndex];
     const auth = currentAuthSession();
-    if (!runtime?.session || !questionId || !auth || this.data.mathInkRecognizing) return;
+    if (!runtime?.session || !runtime.task || !auth || this.data.mathInkRecognizing) return;
+    const questionId = runtime.task.questionOrder[runtime.task.currentQuestionIndex];
+    if (!questionId) return;
+    const attempt = runtime.task.attempts[questionId];
+    const sessionAtMs = runtime.task.sessionElapsedMs ?? runtime.task.totalElapsedSeconds * 1000;
+    const questionElapsedMs = attempt?.elapsedMs ?? (attempt?.elapsedSeconds ?? 0) * 1000;
     this.setData({ mathInkRecognizing: true, mathInkCandidate: null, mathInkError: "" });
     try {
       const result = await new MathInkApi(
@@ -1074,6 +1078,8 @@ Page<PracticePageData, PracticePageCustom>({
         {
           sessionId: runtime.session.sessionId,
           questionId,
+          sessionAtMs,
+          questionElapsedMs,
           scaleX: 0.264583,
           scaleY: 0.264583,
           strokes: event.detail.strokes,

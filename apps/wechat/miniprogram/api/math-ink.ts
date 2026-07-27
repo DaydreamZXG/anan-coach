@@ -35,6 +35,8 @@ export class MathInkApi {
     command: {
       sessionId: string;
       questionId: string;
+      sessionAtMs?: number;
+      questionElapsedMs?: number;
       scaleX: number;
       scaleY: number;
       strokes: InkStroke[];

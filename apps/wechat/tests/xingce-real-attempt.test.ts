@@ -4,6 +4,7 @@ import { ApiClient } from "../miniprogram/api/client";
 import { XingceLearningApi } from "../miniprogram/api/xingce-learning";
 import {
   checkpointCommand,
+  mergePendingDraft,
   runtimeFromXingceSession,
   runtimeWithPendingCheckpoint,
 } from "../miniprogram/features/xingce/real_attempt/controller";
@@ -289,6 +290,71 @@ describe("collection-side P1 regressions (2026-07-27 backend launch audit §3)",
     expect(checkpointCommand(retryRuntime).answers[0]?.annotations?.[0]?.points).toEqual(
       persistedPoints,
     );
+  });
+
+  it("never rewinds question or session millisecond clocks after restore and merge", () => {
+    const persisted = activeXingceSession({
+      revision: 10,
+      totalElapsedSeconds: 1,
+      answers: [
+        {
+          ...answer("q-1", ["B"]),
+          elapsedSeconds: 1,
+          actionEvents: [
+            {
+              atMs: 1_337,
+              sessionAtMs: 1_337,
+              type: "option_selected",
+              optionId: "B",
+            },
+          ],
+        },
+      ],
+    });
+    let restored = runtimeFromXingceSession(persisted);
+    expect(restored.attempts["q-1"]?.elapsedMs).toBe(1_337);
+    expect(restored.sessionElapsedMs).toBe(1_337);
+
+    // 不经过 TICK 立即操作，新增事件也不得退回秒级回执的 1000ms。
+    restored = reduceTaskRuntime(restored, { type: "ANSWER_SELECTED", optionIds: ["C"] });
+    expect(restored.attempts["q-1"]?.actionEvents?.at(-1)).toMatchObject({
+      atMs: 1_337,
+      sessionAtMs: 1_337,
+      type: "option_changed",
+    });
+
+    const pending = runtimeWithPendingCheckpoint(persisted, {
+      expectedRevision: 10,
+      currentQuestionId: "q-1",
+      answers: [
+        {
+          ...answer("q-1", ["B"]),
+          elapsedSeconds: 1,
+          actionEvents: [
+            {
+              atMs: 1_500,
+              sessionAtMs: 1_700,
+              type: "option_selected",
+              optionId: "B",
+            },
+          ],
+        },
+      ],
+      totalElapsedSeconds: 1,
+    });
+    expect(pending.attempts["q-1"]?.elapsedMs).toBe(1_500);
+    expect(pending.sessionElapsedMs).toBe(1_700);
+
+    const merged = mergePendingDraft(
+      activeXingceSession({
+        revision: 11,
+        totalElapsedSeconds: 1,
+        answers: [{ ...answer("q-1", ["B"]), elapsedSeconds: 1 }],
+      }),
+      pending,
+    );
+    expect(merged.attempts["q-1"]?.elapsedMs).toBe(1_500);
+    expect(merged.sessionElapsedMs).toBe(1_700);
   });
 });
 
