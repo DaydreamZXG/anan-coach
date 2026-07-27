@@ -5,6 +5,7 @@ from hashlib import sha256
 from typing import Literal
 
 from app.domains.planning.engine import PriorityBreakdown, TaskCandidate
+from app.domains.xingce_learning.contracts import XINGCE_QUESTION_BUNDLE_SIZE
 
 
 AbilityReadiness = Literal["unavailable", "partial", "complete", "stale"]
@@ -47,13 +48,22 @@ class ObjectivePlanningSnapshot:
     due_reflection_version_id: str | None = None
     due_verification_mastery_id: str | None = None
     due_verification_version_id: str | None = None
+    baseline_question_count: int = 0
+    targeted_question_count: int = 0
+    verification_question_count: int = 0
 
     def __post_init__(self) -> None:
+        if (
+            min(
+                self.baseline_question_count,
+                self.targeted_question_count,
+                self.verification_question_count,
+            )
+            < 0
+        ):
+            raise ValueError("objective question supply counts cannot be negative")
         if self.closure_readiness == "available":
-            if (
-                self.due_reflection_count is None
-                or self.due_verification_count is None
-            ):
+            if self.due_reflection_count is None or self.due_verification_count is None:
                 raise ValueError("available objective closure requires canonical due counts")
             if self.closure_unavailable_reason is not None:
                 raise ValueError("available objective closure cannot have an unavailable reason")
@@ -73,10 +83,7 @@ class ObjectivePlanningSnapshot:
             ):
                 raise ValueError("due verification requires a frozen mastery source")
             return
-        if (
-            self.due_reflection_count is not None
-            or self.due_verification_count is not None
-        ):
+        if self.due_reflection_count is not None or self.due_verification_count is not None:
             raise ValueError("unavailable objective closure cannot publish synthetic due counts")
         if not self.closure_unavailable_reason:
             raise ValueError("unavailable objective closure requires an explicit reason")
@@ -218,15 +225,16 @@ def _objective_candidates(
     time_fit = _time_fit(20, available_minutes)
     candidates: list[TaskCandidate] = []
     if snapshot.baseline_required and not (
-        (snapshot.due_verification_count or 0) > 0
-        or (snapshot.due_reflection_count or 0) > 0
+        (snapshot.due_verification_count or 0) > 0 or (snapshot.due_reflection_count or 0) > 0
     ):
-        candidates.append(_baseline_candidate(goal, evidence, time_fit))
+        if snapshot.baseline_question_count >= XINGCE_QUESTION_BUNDLE_SIZE:
+            candidates.append(_baseline_candidate(goal, evidence, time_fit))
         return candidates
 
     if (
         snapshot.closure_readiness == "available"
         and (snapshot.due_verification_count or 0) > 0
+        and snapshot.verification_question_count >= XINGCE_QUESTION_BUNDLE_SIZE
     ):
         candidates.append(
             TaskCandidate(
@@ -249,10 +257,7 @@ def _objective_candidates(
                 ),
             )
         )
-    if (
-        snapshot.closure_readiness == "available"
-        and (snapshot.due_reflection_count or 0) > 0
-    ):
+    if snapshot.closure_readiness == "available" and (snapshot.due_reflection_count or 0) > 0:
         candidates.append(
             TaskCandidate(
                 candidate_key="xingce-due-reflection",
@@ -279,7 +284,10 @@ def _objective_candidates(
             )
         )
     if snapshot.baseline_required:
-        candidates.append(_baseline_candidate(goal, evidence, time_fit))
+        if snapshot.baseline_question_count >= XINGCE_QUESTION_BUNDLE_SIZE:
+            candidates.append(_baseline_candidate(goal, evidence, time_fit))
+        return candidates
+    if snapshot.targeted_question_count < XINGCE_QUESTION_BUNDLE_SIZE:
         return candidates
     module = snapshot.weakest_module or "国考高频模块"
     candidates.append(
@@ -340,8 +348,7 @@ def _essay_candidate(
     available_minutes: int,
 ) -> TaskCandidate | None:
     if (
-        snapshot.next_stage
-        in {"content_unavailable", "evaluation_pending", "closure_unavailable"}
+        snapshot.next_stage in {"content_unavailable", "evaluation_pending", "closure_unavailable"}
         or snapshot.task_version_id is None
     ):
         return None
@@ -523,8 +530,7 @@ def _baseline_definition(
 ) -> tuple[str, str, str, int, str, str, float, float]:
     reading_minutes = min(15, max(10, available_minutes))
     reason = (
-        "题目与完整材料已通过门禁，但可审计评分规程尚未发布；"
-        "先完成不依赖假评分点的材料阅读。"
+        "题目与完整材料已通过门禁，但可审计评分规程尚未发布；先完成不依赖假评分点的材料阅读。"
         if snapshot.rubric_version_id is None
         else "完整作答必须建立在逐段材料证据上；先完成可验收的材料阅读，不跳过找点依据。"
     )
@@ -564,9 +570,7 @@ def _essay_closure_start_url(snapshot: EssayPlanningSnapshot, stage: str) -> str
             "attemptId": snapshot.attempt_id,
             "baseReviewVersionId": snapshot.review_version_id,
             "baseAnswerVersionId": snapshot.source_answer_version_id,
-            "findingDecisionArtifactVersionId": (
-                snapshot.finding_decision_artifact_version_id
-            ),
+            "findingDecisionArtifactVersionId": (snapshot.finding_decision_artifact_version_id),
             "basedOnAnswerVersionId": snapshot.answer_version_id,
         }
         if any(value is None for value in required.values()):
@@ -588,8 +592,7 @@ def _essay_closure_start_url(snapshot: EssayPlanningSnapshot, stage: str) -> str
         raise ValueError("essay transfer candidate lacks a frozen writer source")
     if (
         snapshot.task_version_id == snapshot.source_task_version_id
-        or snapshot.material_bundle_version_id
-        == snapshot.source_material_bundle_version_id
+        or snapshot.material_bundle_version_id == snapshot.source_material_bundle_version_id
     ):
         raise ValueError("essay transfer candidate must bind distinct content")
     return (

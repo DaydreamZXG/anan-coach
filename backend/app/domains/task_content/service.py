@@ -30,14 +30,29 @@ PUBLIC_QUESTION_ASSET_HOSTS = frozenset({"kg.xingguoxian.cn"})
 PUBLIC_QUESTION_ASSET_PATH_PREFIX = "/assets/"
 RICH_TEXT_TAGS = frozenset(
     {
-        "b", "br", "em", "i", "li", "ol", "p", "span", "strong",
-        "sub", "sup", "table", "tbody", "td", "tfoot", "th", "thead",
-        "tr", "u", "ul",
+        "b",
+        "br",
+        "em",
+        "i",
+        "li",
+        "ol",
+        "p",
+        "span",
+        "strong",
+        "sub",
+        "sup",
+        "table",
+        "tbody",
+        "td",
+        "tfoot",
+        "th",
+        "thead",
+        "tr",
+        "u",
+        "ul",
     }
 )
-RICH_TEXT_BLOCKED_TAGS = frozenset(
-    {"iframe", "object", "script", "style", "svg", "template"}
-)
+RICH_TEXT_BLOCKED_TAGS = frozenset({"iframe", "object", "script", "style", "svg", "template"})
 FORMULA_PATTERN = re.compile(
     r"\\\[(?P<display>.+?)\\\]|\\\((?P<inline>.+?)\\\)|"
     r"\$\$(?P<dollar_display>.+?)\$\$|(?<!\$)\$(?P<dollar_inline>[^$\n]+?)\$(?!\$)",
@@ -57,9 +72,7 @@ def freeze_learner_bundle(
     *,
     scoring_policy_version: str,
     content_version_id: Callable[[dict[str, Any]], str],
-    published_explanation: Callable[
-        [dict[str, Any]], tuple[str | None, str | None]
-    ],
+    published_explanation: Callable[[dict[str, Any]], tuple[str | None, str | None]],
 ) -> tuple[SafeQuestionBundle, dict[str, Any]]:
     safe_questions: list[SafeQuestion] = []
     scoring_questions: list[dict[str, Any]] = []
@@ -67,17 +80,7 @@ def freeze_learner_bundle(
     for source in source_questions:
         version_id = content_version_id(source)
         material_id: str | None = None
-        source_assets = [
-            {**asset, "public_url": public_url}
-            for asset in source["assets"]
-            if (public_url := public_question_asset_url(asset.get("image_src")))
-            is not None
-        ]
-        if source.get("visual_required") and not source_assets:
-            raise TaskContentContractError(
-                "visual_asset_unavailable",
-                "The visual question has no published learner-safe image.",
-            )
+        source_assets, correct_options = validate_learner_question(source)
         material_html = safe_rich_html(source.get("material_html"))
         stem_html = safe_rich_html(source.get("stem_html"))
         if source.get("material_text") or material_html or source_assets:
@@ -123,13 +126,6 @@ def freeze_learner_bundle(
             )
             for option in source["options"]
         ]
-        correct_options = answer_options(str(source["answer"]))
-        option_ids = {option.option_id for option in options}
-        if not correct_options or not set(correct_options).issubset(option_ids):
-            raise TaskContentContractError(
-                "answer_key_invalid",
-                "The answer key does not match the frozen option set.",
-            )
         safe_questions.append(
             SafeQuestion(
                 questionId=str(source["question_id"]),
@@ -163,12 +159,8 @@ def freeze_learner_bundle(
             }
         )
     frozen_payload = {
-        "materials": [
-            item.model_dump(by_alias=True, mode="json") for item in materials.values()
-        ],
-        "questions": [
-            item.model_dump(by_alias=True, mode="json") for item in safe_questions
-        ],
+        "materials": [item.model_dump(by_alias=True, mode="json") for item in materials.values()],
+        "questions": [item.model_dump(by_alias=True, mode="json") for item in safe_questions],
         "scoring": scoring_questions,
         "scoringPolicyVersion": scoring_policy_version,
     }
@@ -186,6 +178,30 @@ def freeze_learner_bundle(
     }
 
 
+def validate_learner_question(
+    source: dict[str, Any],
+) -> tuple[list[dict[str, Any]], list[str]]:
+    """Validate the same immutable content gate used by planning and delivery."""
+    source_assets = [
+        {**asset, "public_url": public_url}
+        for asset in source["assets"]
+        if (public_url := public_question_asset_url(asset.get("image_src"))) is not None
+    ]
+    if source.get("visual_required") and not source_assets:
+        raise TaskContentContractError(
+            "visual_asset_unavailable",
+            "The visual question has no published learner-safe image.",
+        )
+    correct_options = answer_options(str(source["answer"]))
+    option_ids = {str(option["label"]).strip().upper() for option in source["options"]}
+    if not correct_options or not set(correct_options).issubset(option_ids):
+        raise TaskContentContractError(
+            "answer_key_invalid",
+            "The answer key does not match the frozen option set.",
+        )
+    return source_assets, correct_options
+
+
 class _SafeRichHTMLParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
@@ -193,9 +209,7 @@ class _SafeRichHTMLParser(HTMLParser):
         self.open_tags: list[str] = []
         self.blocked_depth = 0
 
-    def handle_starttag(
-        self, tag: str, attrs: list[tuple[str, str | None]]
-    ) -> None:
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         normalized = tag.casefold()
         if self.blocked_depth:
             if normalized in RICH_TEXT_BLOCKED_TAGS:
@@ -218,9 +232,7 @@ class _SafeRichHTMLParser(HTMLParser):
         if normalized != "br":
             self.open_tags.append(normalized)
 
-    def handle_startendtag(
-        self, tag: str, attrs: list[tuple[str, str | None]]
-    ) -> None:
+    def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         self.handle_starttag(tag, attrs)
         normalized = tag.casefold()
         if normalized in self.open_tags:
@@ -268,9 +280,7 @@ class _ParagraphHTMLParser(HTMLParser):
         self._buffer: list[str] = []
         self.paragraphs: list[str] = []
 
-    def handle_starttag(
-        self, tag: str, attrs: list[tuple[str, str | None]]
-    ) -> None:
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         del attrs
         normalized = tag.casefold()
         if normalized == "table":
@@ -314,9 +324,7 @@ class _TableHTMLParser(HTMLParser):
         self._occupied: set[tuple[int, int]] = set()
         self._cell: dict[str, Any] | None = None
 
-    def handle_starttag(
-        self, tag: str, attrs: list[tuple[str, str | None]]
-    ) -> None:
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         normalized = tag.casefold()
         if normalized == "table":
             self._table_depth += 1
@@ -420,9 +428,7 @@ def rich_content(
                 RichFormulaBlock(
                     blockId=_content_block_id(scope, len(blocks), "formula"),
                     expression=expression.strip(),
-                    display=bool(
-                        match.group("display") or match.group("dollar_display")
-                    ),
+                    display=bool(match.group("display") or match.group("dollar_display")),
                 )
             )
             cursor = match.end()

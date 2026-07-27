@@ -88,9 +88,7 @@ def test_xingce_question_asset_policy_only_accepts_owned_public_https() -> None:
     assert _public_question_asset_url(owned) == owned
     assert _public_question_asset_url("questions/private/q-1.png") is None
     assert _public_question_asset_url("http://kg.xingguoxian.cn/assets/q-1.png") is None
-    assert (
-        _public_question_asset_url("https://kg.xingguoxian.cn/private/q-1.png") is None
-    )
+    assert _public_question_asset_url("https://kg.xingguoxian.cn/private/q-1.png") is None
 
 
 def test_xingce_rich_text_is_sanitized_and_unreviewed_explanation_is_hidden() -> None:
@@ -121,20 +119,19 @@ def test_xingce_rich_text_is_sanitized_and_unreviewed_explanation_is_hidden() ->
     ) == ("已经验收的解析", "ai_rewrite")
     assert _public_question_asset_url("https://evil.example/assets/q-1.png") is None
     assert (
-        _public_question_asset_url(
-            "https://gongkao-dazi-prod.tos-cn-guangzhou.volces.com/q-1.png"
-        )
+        _public_question_asset_url("https://gongkao-dazi-prod.tos-cn-guangzhou.volces.com/q-1.png")
         is None
     )
 
 
-def test_visual_question_without_owned_public_image_is_not_executable(
+def test_visual_question_without_owned_public_image_is_not_planned(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     token = "xingce-visual-gate-token"
     _seed_learner_and_published_essay_content(
         db_session_factory,
         access_token=token,
+        include_objective_questions=False,
     )
     _seed_objective_questions(
         db_session_factory,
@@ -144,21 +141,17 @@ def test_visual_question_without_owned_public_image_is_not_executable(
     )
     client = _client(db_session_factory)
     auth = {"Authorization": f"Bearer {token}"}
-    task = _xingce_task(client, auth)
+    response = client.get("/api/v2/plans/today", headers=auth)
 
-    response = client.post(
-        "/api/v2/xingce/task-sessions",
-        headers={**auth, "Idempotency-Key": "visual-gate-start"},
-        json={"planTaskId": task["id"]},
+    assert response.status_code == 200, response.text
+    plan = response.json()["data"]
+    assert all(task["track"] != "xingce" for task in plan["tasks"])
+    assert plan["dualTrackExplanation"]["omittedTrackReasons"]["xingce"] == (
+        "当前没有满足内容与证据门禁的行测任务。"
     )
-
-    assert response.status_code == 503
-    assert response.json()["code"] == "xingce_content_unavailable"
     with db_session_factory() as session:
         assert (
-            session.execute(
-                text("select count(*) from learning.xingce_task_sessions")
-            ).scalar_one()
+            session.execute(text("select count(*) from learning.xingce_task_sessions")).scalar_one()
             == 0
         )
 
@@ -254,6 +247,4 @@ def _seed_objective_questions(
 def _xingce_task(client: TestClient, auth: dict[str, str]) -> dict[str, Any]:
     response = client.get("/api/v2/plans/today", headers=auth)
     assert response.status_code == 200, response.text
-    return next(
-        task for task in response.json()["data"]["tasks"] if task["track"] == "xingce"
-    )
+    return next(task for task in response.json()["data"]["tasks"] if task["track"] == "xingce")

@@ -16,6 +16,8 @@ from app.domains.planning.candidates import (
     ObjectivePlanningSnapshot,
 )
 from app.domains.planning.errors import PlanningContractError
+from app.domains.xingce_learning.contracts import XINGCE_QUESTION_BUNDLE_SIZE
+from app.domains.xingce_learning.real_attempt.repository import XingceAttemptRepository
 
 
 @dataclass(frozen=True)
@@ -95,6 +97,13 @@ class ActiveStrategyDecision:
 
 
 class PlanningRepository:
+    def __init__(
+        self,
+        *,
+        xingce_repository: XingceAttemptRepository | None = None,
+    ) -> None:
+        self._xingce_repository = xingce_repository or XingceAttemptRepository()
+
     def lock_user(self, session: Session, *, user_id: str) -> None:
         owner = session.execute(
             text(
@@ -107,20 +116,22 @@ class PlanningRepository:
             raise PlanningContractError("Learner does not exist")
 
     def profile(self, session: Session, *, user_id: str) -> ProfileSnapshot:
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 select profile_version, daily_minutes, study_mode
                 from learner.profiles
                 where user_id = cast(:user_id as uuid)
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one_or_none()
-        if row is None or row["daily_minutes"] is None or row["study_mode"] is None:
-            raise PlanningContractError(
-                "Daily planning requires an onboarding study schedule"
+                ),
+                {"user_id": user_id},
             )
+            .mappings()
+            .one_or_none()
+        )
+        if row is None or row["daily_minutes"] is None or row["study_mode"] is None:
+            raise PlanningContractError("Daily planning requires an onboarding study schedule")
         return ProfileSnapshot(
             profile_version=int(row["profile_version"]),
             daily_minutes=int(row["daily_minutes"]),
@@ -136,9 +147,10 @@ class PlanningRepository:
         local_date: date,
         now: datetime,
     ) -> PreferenceSnapshot:
-        current = session.execute(
-            text(
-                """
+        current = (
+            session.execute(
+                text(
+                    """
                 select preference.*
                 from learning.weekly_study_preference_versions preference
                 where preference.user_id = cast(:user_id as uuid)
@@ -153,9 +165,12 @@ class PlanningRepository:
                 order by preference.effective_from desc, preference.version_no desc
                 limit 1
                 """
-            ),
-            {"user_id": user_id, "local_date": local_date},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id, "local_date": local_date},
+            )
+            .mappings()
+            .one_or_none()
+        )
         if current is not None and (
             bool(current["confirmed"])
             or (
@@ -174,9 +189,10 @@ class PlanningRepository:
             "timezone": "Asia/Shanghai",
         }
         fingerprint = _fingerprint(payload)
-        existing = session.execute(
-            text(
-                """
+        existing = (
+            session.execute(
+                text(
+                    """
                 select * from learning.weekly_study_preference_versions
                 where user_id = cast(:user_id as uuid)
                   and effective_from <= :local_date
@@ -191,20 +207,24 @@ class PlanningRepository:
                 order by effective_from desc, version_no desc
                 limit 1
                 """
-            ),
-            {
-                "user_id": user_id,
-                "local_date": local_date,
-                "input_fingerprint": fingerprint,
-            },
-        ).mappings().one_or_none()
+                ),
+                {
+                    "user_id": user_id,
+                    "local_date": local_date,
+                    "input_fingerprint": fingerprint,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
         if existing is not None:
             return _preference_snapshot(existing)
         preference_id = str(uuid4())
         version_no = int(current["version_no"]) + 1 if current is not None else 1
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 insert into learning.weekly_study_preference_versions (
                   preference_version_id, command_id, user_id, version_no,
                   timezone, weekday_minutes, weekend_minutes, long_block_minutes,
@@ -219,27 +239,28 @@ class PlanningRepository:
                   :input_fingerprint, cast(:supersedes_id as uuid), :created_at
                 ) returning *
                 """
-            ),
-            {
-                "preference_version_id": preference_id,
-                "command_id": (
-                    f"planning-system-default:{user_id}:v{version_no}:{fingerprint}"
                 ),
-                "user_id": user_id,
-                "version_no": version_no,
-                "daily_minutes": profile.daily_minutes,
-                "long_block_minutes": min(120, profile.daily_minutes),
-                "fragment_minutes": min(25, profile.daily_minutes),
-                "effective_from": local_date,
-                "input_fingerprint": fingerprint,
-                "supersedes_id": (
-                    str(current["preference_version_id"])
-                    if current is not None
-                    else None
-                ),
-                "created_at": now,
-            },
-        ).mappings().one()
+                {
+                    "preference_version_id": preference_id,
+                    "command_id": (
+                        f"planning-system-default:{user_id}:v{version_no}:{fingerprint}"
+                    ),
+                    "user_id": user_id,
+                    "version_no": version_no,
+                    "daily_minutes": profile.daily_minutes,
+                    "long_block_minutes": min(120, profile.daily_minutes),
+                    "fragment_minutes": min(25, profile.daily_minutes),
+                    "effective_from": local_date,
+                    "input_fingerprint": fingerprint,
+                    "supersedes_id": (
+                        str(current["preference_version_id"]) if current is not None else None
+                    ),
+                    "created_at": now,
+                },
+            )
+            .mappings()
+            .one()
+        )
         return _preference_snapshot(row)
 
     def current_or_create_capacity(
@@ -251,9 +272,10 @@ class PlanningRepository:
         preference: PreferenceSnapshot,
         now: datetime,
     ) -> CapacitySnapshot:
-        current = session.execute(
-            text(
-                """
+        current = (
+            session.execute(
+                text(
+                    """
                 select capacity.*
                 from learning.daily_capacity_versions capacity
                 where capacity.user_id = cast(:user_id as uuid)
@@ -267,13 +289,15 @@ class PlanningRepository:
                 order by capacity.version_no desc
                 limit 1
                 """
-            ),
-            {"user_id": user_id, "local_date": local_date},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id, "local_date": local_date},
+            )
+            .mappings()
+            .one_or_none()
+        )
         if current is not None and (
             bool(current["confirmed"])
-            or str(current["weekly_preference_version_id"])
-            == preference.preference_version_id
+            or str(current["weekly_preference_version_id"]) == preference.preference_version_id
         ):
             return _capacity_snapshot(current)
         available_minutes = (
@@ -290,9 +314,10 @@ class PlanningRepository:
             "confidence": 3,
         }
         fingerprint = _fingerprint(payload)
-        existing = session.execute(
-            text(
-                """
+        existing = (
+            session.execute(
+                text(
+                    """
                 select * from learning.daily_capacity_versions
                 where user_id = cast(:user_id as uuid)
                   and local_date = :local_date
@@ -304,19 +329,23 @@ class PlanningRepository:
                           daily_capacity_versions.capacity_version_id
                   )
                 """
-            ),
-            {
-                "user_id": user_id,
-                "local_date": local_date,
-                "input_fingerprint": fingerprint,
-            },
-        ).mappings().one_or_none()
+                ),
+                {
+                    "user_id": user_id,
+                    "local_date": local_date,
+                    "input_fingerprint": fingerprint,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
         if existing is not None:
             return _capacity_snapshot(existing)
         version_no = int(current["version_no"]) + 1 if current is not None else 1
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 insert into learning.daily_capacity_versions (
                   capacity_version_id, command_id, user_id, local_date, version_no,
                   available_minutes, energy_level, stress_level, confidence_level,
@@ -330,24 +359,27 @@ class PlanningRepository:
                   cast(:supersedes_id as uuid), :recorded_at
                 ) returning *
                 """
-            ),
-            {
-                "capacity_version_id": str(uuid4()),
-                "command_id": (
-                    f"planning-capacity:{user_id}:{local_date}:v{version_no}:{fingerprint}"
                 ),
-                "user_id": user_id,
-                "local_date": local_date,
-                "version_no": version_no,
-                "available_minutes": available_minutes,
-                "preference_version_id": preference.preference_version_id,
-                "input_fingerprint": fingerprint,
-                "supersedes_id": (
-                    str(current["capacity_version_id"]) if current is not None else None
-                ),
-                "recorded_at": now,
-            },
-        ).mappings().one()
+                {
+                    "capacity_version_id": str(uuid4()),
+                    "command_id": (
+                        f"planning-capacity:{user_id}:{local_date}:v{version_no}:{fingerprint}"
+                    ),
+                    "user_id": user_id,
+                    "local_date": local_date,
+                    "version_no": version_no,
+                    "available_minutes": available_minutes,
+                    "preference_version_id": preference.preference_version_id,
+                    "input_fingerprint": fingerprint,
+                    "supersedes_id": (
+                        str(current["capacity_version_id"]) if current is not None else None
+                    ),
+                    "recorded_at": now,
+                },
+            )
+            .mappings()
+            .one()
+        )
         return _capacity_snapshot(row)
 
     def current_capacity(
@@ -359,9 +391,10 @@ class PlanningRepository:
         for_update: bool = False,
     ) -> RowMapping | None:
         lock_clause = "for update of capacity" if for_update else ""
-        return session.execute(
-            text(
-                f"""
+        return (
+            session.execute(
+                text(
+                    f"""
                 select capacity.*
                 from learning.daily_capacity_versions capacity
                 where capacity.user_id = cast(:user_id as uuid)
@@ -374,9 +407,12 @@ class PlanningRepository:
                   )
                 {lock_clause}
                 """
-            ),
-            {"user_id": user_id, "local_date": local_date},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id, "local_date": local_date},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def capacity_by_command(
         self,
@@ -385,16 +421,20 @@ class PlanningRepository:
         user_id: str,
         command_id: str,
     ) -> RowMapping | None:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 select * from learning.daily_capacity_versions
                 where user_id = cast(:user_id as uuid)
                   and command_id = :command_id
                 """
-            ),
-            {"user_id": user_id, "command_id": command_id},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id, "command_id": command_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def insert_user_capacity(
         self,
@@ -402,9 +442,10 @@ class PlanningRepository:
         *,
         values: dict[str, Any],
     ) -> RowMapping:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 insert into learning.daily_capacity_versions (
                   capacity_version_id, command_id, user_id, local_date, version_no,
                   available_minutes, energy_level, stress_level, confidence_level,
@@ -419,9 +460,12 @@ class PlanningRepository:
                   cast(:supersedes_capacity_version_id as uuid), :recorded_at
                 ) returning *
                 """
-            ),
-            values,
-        ).mappings().one()
+                ),
+                values,
+            )
+            .mappings()
+            .one()
+        )
 
     def goal_and_ability(
         self,
@@ -429,9 +473,10 @@ class PlanningRepository:
         *,
         user_id: str,
     ) -> GoalAbilitySnapshot:
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 select
                   goal.goal_version_id,
                   position.name as position_name,
@@ -477,9 +522,12 @@ class PlanningRepository:
                 ) estimate on true
                 where learner.user_id = cast(:user_id as uuid)
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
         return GoalAbilitySnapshot(
             goal_version_id=_optional_str(row["goal_version_id"]),
             position_name=row["position_name"],
@@ -503,9 +551,7 @@ class PlanningRepository:
             estimate_confidence=row["estimate_confidence"],
             estimate_valid_until=row["estimate_valid_until"],
             evidence_summary=(
-                dict(row["evidence_summary"])
-                if row["evidence_summary"] is not None
-                else None
+                dict(row["evidence_summary"]) if row["evidence_summary"] is not None else None
             ),
         )
 
@@ -627,7 +673,9 @@ class PlanningRepository:
                 text(
                     """
                     select mastery.mastery_id::text,
-                           mastery.mastery_version_id::text
+                           mastery.mastery_version_id::text,
+                           mastery.module_name,
+                           mastery.used_question_ids
                     from learning.xingce_mastery_state_versions mastery
                     where mastery.user_id = cast(:user_id as uuid)
                       and mastery.due_at is not null
@@ -664,6 +712,47 @@ class PlanningRepository:
         ).scalar_one_or_none()
         first_reflection = due_reflections[0] if due_reflections else None
         first_mastery = due_mastery[0] if due_mastery else None
+        baseline_required = (
+            goal.estimate_version_id is None
+            or goal.xingce_recommended is None
+            or goal.estimate_valid_until is None
+            or _as_utc(goal.estimate_valid_until) <= _as_utc(now)
+        )
+        baseline_question_count = 0
+        targeted_question_count = 0
+        verification_question_count = 0
+        if baseline_required:
+            baseline_question_count = len(
+                self._xingce_repository.select_frozen_questions(
+                    session,
+                    module_name=None,
+                    limit=XINGCE_QUESTION_BUNDLE_SIZE,
+                    user_id=user_id,
+                )
+            )
+        else:
+            targeted_question_count = len(
+                self._xingce_repository.select_frozen_questions(
+                    session,
+                    module_name=str(weakest) if weakest else None,
+                    limit=XINGCE_QUESTION_BUNDLE_SIZE,
+                    user_id=user_id,
+                )
+            )
+        if first_mastery is not None:
+            verification_question_count = len(
+                self._xingce_repository.select_frozen_questions(
+                    session,
+                    module_name=(
+                        str(first_mastery["module_name"]) if first_mastery["module_name"] else None
+                    ),
+                    limit=XINGCE_QUESTION_BUNDLE_SIZE,
+                    user_id=user_id,
+                    excluded_question_ids=[
+                        str(question_id) for question_id in first_mastery["used_question_ids"]
+                    ],
+                )
+            )
         source_version_id = (
             str(first_mastery["mastery_version_id"])
             if first_mastery is not None
@@ -678,12 +767,7 @@ class PlanningRepository:
             )
         )
         return ObjectivePlanningSnapshot(
-            baseline_required=(
-                goal.estimate_version_id is None
-                or goal.xingce_recommended is None
-                or goal.estimate_valid_until is None
-                or _as_utc(goal.estimate_valid_until) <= _as_utc(now)
-            ),
+            baseline_required=baseline_required,
             due_reflection_count=len(due_reflections),
             due_verification_count=len(due_mastery),
             weakest_module=str(weakest) if weakest else None,
@@ -691,30 +775,23 @@ class PlanningRepository:
             closure_readiness="available",
             closure_unavailable_reason=None,
             due_reflection_session_id=(
-                str(first_reflection["session_id"])
-                if first_reflection is not None
-                else None
+                str(first_reflection["session_id"]) if first_reflection is not None else None
             ),
             due_reflection_review_id=(
-                str(first_reflection["review_id"])
-                if first_reflection is not None
-                else None
+                str(first_reflection["review_id"]) if first_reflection is not None else None
             ),
             due_reflection_version_id=(
-                str(first_reflection["review_version_id"])
-                if first_reflection is not None
-                else None
+                str(first_reflection["review_version_id"]) if first_reflection is not None else None
             ),
             due_verification_mastery_id=(
-                str(first_mastery["mastery_id"])
-                if first_mastery is not None
-                else None
+                str(first_mastery["mastery_id"]) if first_mastery is not None else None
             ),
             due_verification_version_id=(
-                str(first_mastery["mastery_version_id"])
-                if first_mastery is not None
-                else None
+                str(first_mastery["mastery_version_id"]) if first_mastery is not None else None
             ),
+            baseline_question_count=baseline_question_count,
+            targeted_question_count=targeted_question_count,
+            verification_question_count=verification_question_count,
         )
 
     def essay_snapshot(
@@ -724,9 +801,10 @@ class PlanningRepository:
         user_id: str,
         goal: GoalAbilitySnapshot,
     ) -> EssayPlanningSnapshot:
-        published = session.execute(
-            text(
-                """
+        published = (
+            session.execute(
+                text(
+                    """
                 select
                   task.task_version_id::text,
                   task.question_type,
@@ -782,13 +860,17 @@ class PlanningRepository:
                          task.created_at desc, task.task_version_id
                 limit 1
                 """
+                )
             )
-        ).mappings().one_or_none()
+            .mappings()
+            .one_or_none()
+        )
         if published is None:
             return EssayPlanningSnapshot("content_unavailable", None)
-        latest = session.execute(
-            text(
-                """
+        latest = (
+            session.execute(
+                text(
+                    """
                 select
                   attempt.attempt_id::text,
                   attempt.task_version_id::text,
@@ -873,9 +955,12 @@ class PlanningRepository:
                 order by attempt.submitted_at desc, attempt.attempt_id
                 limit 1
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
         closure_snapshot = self._essay_mastery_snapshot(
             session,
             user_id=user_id,
@@ -883,9 +968,10 @@ class PlanningRepository:
         )
         if closure_snapshot is not None:
             return closure_snapshot
-        artifacts = session.execute(
-            text(
-                """
+        artifacts = (
+            session.execute(
+                text(
+                    """
                 select distinct on (artifact.artifact_type)
                        artifact.artifact_type,
                        artifact.artifact_version_id::text
@@ -909,21 +995,19 @@ class PlanningRepository:
                 order by artifact.artifact_type, artifact.created_at desc,
                          artifact.artifact_version_id desc
                 """
-            ),
-            {
-                "user_id": user_id,
-                "task_version_id": str(published["task_version_id"]),
-                "material_bundle_version_id": str(
-                    published["material_bundle_version_id"]
                 ),
-                "rubric_version_id": _optional_str(
-                    published["rubric_version_id"]
-                ),
-            },
-        ).mappings().all()
+                {
+                    "user_id": user_id,
+                    "task_version_id": str(published["task_version_id"]),
+                    "material_bundle_version_id": str(published["material_bundle_version_id"]),
+                    "rubric_version_id": _optional_str(published["rubric_version_id"]),
+                },
+            )
+            .mappings()
+            .all()
+        )
         artifact_versions = {
-            str(item["artifact_type"]): str(item["artifact_version_id"])
-            for item in artifacts
+            str(item["artifact_type"]): str(item["artifact_version_id"]) for item in artifacts
         }
         if latest is None:
             material_annotation_id = artifact_versions.get("material_annotation")
@@ -951,9 +1035,7 @@ class PlanningRepository:
             return EssayPlanningSnapshot(
                 next_stage,  # type: ignore[arg-type]
                 str(published["task_version_id"]),
-                material_bundle_version_id=str(
-                    published["material_bundle_version_id"]
-                ),
+                material_bundle_version_id=str(published["material_bundle_version_id"]),
                 rubric_version_id=rubric_id,
                 question_type=str(published["question_type"]),
                 word_limit=int(published["word_limit"]),
@@ -1014,10 +1096,13 @@ class PlanningRepository:
             stage = "review_due"
         elif latest["rewrite_version_id"] is None:
             stage = "rewrite_due"
-        elif latest["verification_version_id"] is None or latest["transfer_status"] == "inconclusive":
-            fresh_task = session.execute(
-                text(
-                    """
+        elif (
+            latest["verification_version_id"] is None or latest["transfer_status"] == "inconclusive"
+        ):
+            fresh_task = (
+                session.execute(
+                    text(
+                        """
                     select
                       task.task_version_id::text,
                       task.question_type,
@@ -1067,15 +1152,16 @@ class PlanningRepository:
                              task.created_at desc, task.task_version_id
                     limit 1
                     """
-                ),
-                {"source_task_id": task_id},
-            ).mappings().one_or_none()
+                    ),
+                    {"source_task_id": task_id},
+                )
+                .mappings()
+                .one_or_none()
+            )
             if fresh_task is not None:
                 stage = "transfer_due"
                 task_id = str(fresh_task["task_version_id"])
-                material_bundle_version_id = str(
-                    fresh_task["material_bundle_version_id"]
-                )
+                material_bundle_version_id = str(fresh_task["material_bundle_version_id"])
                 rubric_version_id = str(fresh_task["rubric_version_id"])
                 question_type = str(fresh_task["question_type"])
                 word_limit = int(fresh_task["word_limit"])
@@ -1098,12 +1184,8 @@ class PlanningRepository:
             answer_version_id=_optional_str(latest["answer_version_id"]),
             review_version_id=_optional_str(latest["review_version_id"]),
             rewrite_version_id=_optional_str(latest["rewrite_version_id"]),
-            transfer_verification_version_id=_optional_str(
-                latest["verification_version_id"]
-            ),
-            review_acknowledgement_version_id=_optional_str(
-                review_acknowledgement_id
-            ),
+            transfer_verification_version_id=_optional_str(latest["verification_version_id"]),
+            review_acknowledgement_version_id=_optional_str(review_acknowledgement_id),
             pending_reason=pending_reason,
             weakest_dimension=(
                 _weakest_dimension(latest["findings"], latest["rewrite_plan"])
@@ -1155,11 +1237,7 @@ class PlanningRepository:
             and _as_utc(item["due_at"]) <= datetime.now(UTC)
         ]
         if not due_heads:
-            scheduled = [
-                item
-                for item in heads
-                if item["state"] in {"rewrite_due", "transfer_due"}
-            ]
+            scheduled = [item for item in heads if item["state"] in {"rewrite_due", "transfer_due"}]
             if scheduled:
                 earliest = min(scheduled, key=lambda item: item["due_at"])
                 return EssayPlanningSnapshot(
@@ -1173,13 +1251,9 @@ class PlanningRepository:
                     mastery_version_ids=tuple(
                         str(item["mastery_version_id"]) for item in scheduled
                     ),
-                    mastery_ids=tuple(
-                        str(item["mastery_id"]) for item in scheduled
-                    ),
+                    mastery_ids=tuple(str(item["mastery_id"]) for item in scheduled),
                 )
-            consumed_attempt_ids = {
-                str(item["source_attempt_id"]) for item in heads
-            }
+            consumed_attempt_ids = {str(item["source_attempt_id"]) for item in heads}
             transfer_version_ids = [
                 str(item["transfer_verification_version_id"])
                 for item in heads
@@ -1197,9 +1271,10 @@ class PlanningRepository:
                 ).scalar_one_or_none()
                 if transfer_attempt_id is not None:
                     consumed_attempt_ids.add(str(transfer_attempt_id))
-            if latest_attempt is not None and str(
-                latest_attempt["attempt_id"]
-            ) not in consumed_attempt_ids:
+            if (
+                latest_attempt is not None
+                and str(latest_attempt["attempt_id"]) not in consumed_attempt_ids
+            ):
                 return None
             return EssayPlanningSnapshot(
                 "content_unavailable",
@@ -1209,9 +1284,7 @@ class PlanningRepository:
                     "在出现新的真实作答或未解决证据前，不重复生成复写或迁移训练。"
                 ),
                 mastery_state="stable_mastered",
-                mastery_version_ids=tuple(
-                    str(item["mastery_version_id"]) for item in heads
-                ),
+                mastery_version_ids=tuple(str(item["mastery_version_id"]) for item in heads),
                 mastery_ids=tuple(str(item["mastery_id"]) for item in heads),
             )
 
@@ -1222,9 +1295,7 @@ class PlanningRepository:
             if str(item["finding_decision_artifact_version_id"]) == decision_id
         ]
         states = {str(item["state"]) for item in group}
-        if "stable_mastered" in states or not states.issubset(
-            {"rewrite_due", "transfer_due"}
-        ):
+        if "stable_mastered" in states or not states.issubset({"rewrite_due", "transfer_due"}):
             return _essay_closure_gap(
                 "申论掌握度 current head 状态互相冲突，无法确定唯一可写闭环。"
             )
@@ -1238,21 +1309,18 @@ class PlanningRepository:
             for item in group
         }
         if len(identity) != 1:
-            return _essay_closure_gap(
-                "申论掌握度 current head 的来源题目、作答或评阅不一致。"
-            )
+            return _essay_closure_gap("申论掌握度 current head 的来源题目、作答或评阅不一致。")
         rewrite_ids = {
             str(item["rewrite_version_id"])
             for item in group
             if item["rewrite_version_id"] is not None
         }
         if len(rewrite_ids) > 1:
-            return _essay_closure_gap(
-                "申论掌握度 current head 绑定了不同 source rewrite 版本。"
-            )
-        context = session.execute(
-            text(
-                """
+            return _essay_closure_gap("申论掌握度 current head 绑定了不同 source rewrite 版本。")
+        context = (
+            session.execute(
+                text(
+                    """
                 select
                   mastery.mastery_version_id,
                   source_attempt.attempt_id::text as source_attempt_id,
@@ -1354,27 +1422,26 @@ class PlanningRepository:
                 where mastery.mastery_version_id = cast(:mastery_version_id as uuid)
                   and mastery.user_id = cast(:user_id as uuid)
                 """
-            ),
-            {
-                "mastery_version_id": str(group[0]["mastery_version_id"]),
-                "user_id": user_id,
-            },
-        ).mappings().one()
+                ),
+                {
+                    "mastery_version_id": str(group[0]["mastery_version_id"]),
+                    "user_id": user_id,
+                },
+            )
+            .mappings()
+            .one()
+        )
         gap = _essay_closure_context_gap(context, decision_id=decision_id)
         if gap is not None:
             return _essay_closure_gap(gap)
         expected_rewrite_id = next(iter(rewrite_ids), None)
         if expected_rewrite_id != _optional_str(context["rewrite_version_id"]):
-            return _essay_closure_gap(
-                "申论掌握度 head 引用的 rewrite 不是当前 owned writer 版本。"
-            )
+            return _essay_closure_gap("申论掌握度 head 引用的 rewrite 不是当前 owned writer 版本。")
         if expected_rewrite_id is not None and (
             context["rewrite_contract_version"] != "essay-rewrite-writer@v2"
             or context["rewrite_policy_version"] != "essay-mastery@v1"
         ):
-            return _essay_closure_gap(
-                "申论掌握度 head 引用了非 canonical essay rewrite writer。"
-            )
+            return _essay_closure_gap("申论掌握度 head 引用了非 canonical essay rewrite writer。")
         transfer_ids = {
             str(item["transfer_verification_version_id"])
             for item in group
@@ -1383,9 +1450,7 @@ class PlanningRepository:
         if len(transfer_ids) > 1 or next(iter(transfer_ids), None) != _optional_str(
             context["transfer_verification_version_id"]
         ):
-            return _essay_closure_gap(
-                "申论掌握度 head 引用的 transfer verification 不一致。"
-            )
+            return _essay_closure_gap("申论掌握度 head 引用的 transfer verification 不一致。")
 
         stage = "rewrite_due" if "rewrite_due" in states else "transfer_due"
         rewrite_version_id = _optional_str(context["rewrite_version_id"])
@@ -1403,9 +1468,7 @@ class PlanningRepository:
             target = self._essay_fresh_transfer_content(
                 session,
                 source_task_version_id=str(context["source_task_version_id"]),
-                source_material_bundle_version_id=str(
-                    context["source_material_bundle_version_id"]
-                ),
+                source_material_bundle_version_id=str(context["source_material_bundle_version_id"]),
             )
             if target is None:
                 return _essay_closure_gap(
@@ -1419,9 +1482,7 @@ class PlanningRepository:
             maximum_score = float(target["maximum_score"])
         else:
             task_version_id = str(context["source_task_version_id"])
-            material_bundle_version_id = str(
-                context["source_material_bundle_version_id"]
-            )
+            material_bundle_version_id = str(context["source_material_bundle_version_id"])
             rubric_version_id = str(context["source_rubric_version_id"])
             question_type = str(context["question_type"])
             word_limit = int(context["word_limit"])
@@ -1452,14 +1513,10 @@ class PlanningRepository:
                 context["rewrite_plan"],
             ),
             mastery_state=stage,
-            mastery_version_ids=tuple(
-                str(item["mastery_version_id"]) for item in ordered
-            ),
+            mastery_version_ids=tuple(str(item["mastery_version_id"]) for item in ordered),
             mastery_ids=tuple(str(item["mastery_id"]) for item in ordered),
             source_task_version_id=str(context["source_task_version_id"]),
-            source_material_bundle_version_id=str(
-                context["source_material_bundle_version_id"]
-            ),
+            source_material_bundle_version_id=str(context["source_material_bundle_version_id"]),
             source_answer_version_id=str(context["source_answer_version_id"]),
             finding_decision_artifact_version_id=decision_id,
         )
@@ -1471,9 +1528,10 @@ class PlanningRepository:
         source_task_version_id: str,
         source_material_bundle_version_id: str,
     ) -> RowMapping | None:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 select task.task_version_id::text, task.question_type,
                        task.word_limit, task.maximum_score,
                        material.material_bundle_version_id::text,
@@ -1520,12 +1578,15 @@ class PlanningRepository:
                 order by task.created_at desc, task.task_version_id
                 limit 1
                 """
-            ),
-            {
-                "source_task_id": source_task_version_id,
-                "source_material_id": source_material_bundle_version_id,
-            },
-        ).mappings().one_or_none()
+                ),
+                {
+                    "source_task_id": source_task_version_id,
+                    "source_material_id": source_material_bundle_version_id,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def recent_track_minutes(
         self,
@@ -1534,9 +1595,10 @@ class PlanningRepository:
         user_id: str,
         before_date: date,
     ) -> dict[str, int]:
-        rows = session.execute(
-            text(
-                """
+        rows = (
+            session.execute(
+                text(
+                    """
                 select task.track, coalesce(sum(execution.elapsed_minutes), 0) as minutes
                 from learning.task_execution_versions execution
                 join learning.daily_plan_tasks task
@@ -1552,9 +1614,12 @@ class PlanningRepository:
                   )
                 group by task.track
                 """
-            ),
-            {"user_id": user_id, "before_date": before_date},
-        ).mappings().all()
+                ),
+                {"user_id": user_id, "before_date": before_date},
+            )
+            .mappings()
+            .all()
+        )
         return {str(row["track"]): int(row["minutes"]) for row in rows}
 
     def weekly_mock_due(
@@ -1589,9 +1654,10 @@ class PlanningRepository:
         local_date: date,
         input_fingerprint: str,
     ) -> RowMapping | None:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 select * from learning.daily_plan_versions
                 where user_id = cast(:user_id as uuid)
                   and local_date = :local_date
@@ -1604,13 +1670,16 @@ class PlanningRepository:
                 order by version_no desc
                 limit 1
                 """
-            ),
-            {
-                "user_id": user_id,
-                "local_date": local_date,
-                "input_fingerprint": input_fingerprint,
-            },
-        ).mappings().one_or_none()
+                ),
+                {
+                    "user_id": user_id,
+                    "local_date": local_date,
+                    "input_fingerprint": input_fingerprint,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def current_plan(
         self,
@@ -1619,9 +1688,10 @@ class PlanningRepository:
         user_id: str,
         local_date: date,
     ) -> RowMapping | None:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 select plan.*
                 from learning.daily_plan_versions plan
                 where plan.user_id = cast(:user_id as uuid)
@@ -1633,9 +1703,12 @@ class PlanningRepository:
                 order by plan.version_no desc
                 limit 1
                 """
-            ),
-            {"user_id": user_id, "local_date": local_date},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id, "local_date": local_date},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def plan_for_capacity(
         self,
@@ -1644,9 +1717,10 @@ class PlanningRepository:
         user_id: str,
         capacity_version_id: str,
     ) -> RowMapping | None:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 select plan.*
                 from learning.daily_plan_versions plan
                 where plan.user_id = cast(:user_id as uuid)
@@ -1654,9 +1728,12 @@ class PlanningRepository:
                 order by plan.version_no desc
                 limit 1
                 """
-            ),
-            {"user_id": user_id, "capacity_version_id": capacity_version_id},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id, "capacity_version_id": capacity_version_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def capacity_version(
         self,
@@ -1665,16 +1742,20 @@ class PlanningRepository:
         user_id: str,
         capacity_version_id: str,
     ) -> RowMapping | None:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 select * from learning.daily_capacity_versions
                 where user_id = cast(:user_id as uuid)
                   and capacity_version_id = cast(:capacity_version_id as uuid)
                 """
-            ),
-            {"user_id": user_id, "capacity_version_id": capacity_version_id},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id, "capacity_version_id": capacity_version_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def plan_for_execution(
         self,
@@ -1683,9 +1764,10 @@ class PlanningRepository:
         user_id: str,
         execution_version_id: str,
     ) -> RowMapping | None:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 select plan.*
                 from learning.daily_plan_versions plan
                 where plan.user_id = cast(:user_id as uuid)
@@ -1693,15 +1775,18 @@ class PlanningRepository:
                 order by plan.local_date desc, plan.version_no desc
                 limit 1
                 """
-            ),
-            {
-                "user_id": user_id,
-                "execution_ref": json.dumps(
-                    [{"entityId": execution_version_id}],
-                    sort_keys=True,
                 ),
-            },
-        ).mappings().one_or_none()
+                {
+                    "user_id": user_id,
+                    "execution_ref": json.dumps(
+                        [{"entityId": execution_version_id}],
+                        sort_keys=True,
+                    ),
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def plan_tasks(
         self,
@@ -1748,7 +1833,9 @@ class PlanningRepository:
                     """
                 ),
                 {"plan_version_id": plan_version_id},
-            ).mappings().all()
+            )
+            .mappings()
+            .all()
         )
 
     def execution_inputs(
@@ -1784,7 +1871,9 @@ class PlanningRepository:
                     """
                 ),
                 {"user_id": user_id, "local_date": local_date},
-            ).mappings().all()
+            )
+            .mappings()
+            .all()
         )
 
     def current_task_for_execution(
@@ -1794,9 +1883,10 @@ class PlanningRepository:
         user_id: str,
         task_id: str,
     ) -> RowMapping | None:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 select task.*,
                        plan.generated_at as plan_generated_at,
                        plan.valid_until as plan_valid_until
@@ -1811,9 +1901,12 @@ class PlanningRepository:
                   )
                 for update of task
                 """
-            ),
-            {"user_id": user_id, "task_id": task_id},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id, "task_id": task_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def owned_task_for_execution(
         self,
@@ -1823,18 +1916,22 @@ class PlanningRepository:
         task_id: str,
     ) -> RowMapping | None:
         """Load an immutable owned task when replaying a completed command."""
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 select task.*
                 from learning.daily_plan_tasks task
                 where task.task_id = cast(:task_id as uuid)
                   and task.user_id = cast(:user_id as uuid)
                 for update of task
                 """
-            ),
-            {"user_id": user_id, "task_id": task_id},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id, "task_id": task_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def current_task_execution(
         self,
@@ -1843,9 +1940,10 @@ class PlanningRepository:
         user_id: str,
         work_item_key: str,
     ) -> RowMapping | None:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 select execution.*
                 from learning.task_execution_versions execution
                 where execution.user_id = cast(:user_id as uuid)
@@ -1857,9 +1955,12 @@ class PlanningRepository:
                   )
                 for update of execution
                 """
-            ),
-            {"user_id": user_id, "work_item_key": work_item_key},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id, "work_item_key": work_item_key},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def task_execution_by_command(
         self,
@@ -1868,16 +1969,20 @@ class PlanningRepository:
         user_id: str,
         command_id: str,
     ) -> RowMapping | None:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 select * from learning.task_execution_versions
                 where user_id = cast(:user_id as uuid)
                   and command_id = :command_id
                 """
-            ),
-            {"user_id": user_id, "command_id": command_id},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id, "command_id": command_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def execution_evidence_exists(
         self,
@@ -1929,18 +2034,13 @@ class PlanningRepository:
         expected_review_version = expected_ref("essay_review_version")
         expected_rewrite_version = expected_ref("essay_rewrite_version")
         expected_source_task_version = expected_ref("essay_source_task_version")
-        expected_source_material_version = expected_ref(
-            "essay_source_material_bundle_version"
-        )
-        expected_source_answer_version = expected_ref(
-            "essay_source_answer_version"
-        )
+        expected_source_material_version = expected_ref("essay_source_material_bundle_version")
+        expected_source_answer_version = expected_ref("essay_source_answer_version")
         expected_finding_decision = expected_ref("essay_finding_decision")
         expected_mastery_versions = [
             str(item["versionId"])
             for item in task["evidence_refs"]
-            if item.get("entityType") == "essay_mastery_state_version"
-            and item.get("versionId")
+            if item.get("entityType") == "essay_mastery_state_version" and item.get("versionId")
         ]
         expected_material_annotation = expected_ref("essay_material_annotation")
         expected_point_extraction = expected_ref("essay_point_extraction")
@@ -1974,8 +2074,7 @@ class PlanningRepository:
                 return False
             submitted_answer_version = submitted_evidence.get("essay_answer_version")
             if reflection_required and (
-                task["stage"] != "essay_drafting"
-                or submitted_answer_version is None
+                task["stage"] != "essay_drafting" or submitted_answer_version is None
             ):
                 return False
             return (
@@ -2348,9 +2447,10 @@ class PlanningRepository:
         *,
         values: dict[str, Any],
     ) -> RowMapping:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 insert into learning.task_execution_versions (
                   execution_version_id, command_id, user_id, local_date,
                   task_id, plan_version_id, plan_version_no, candidate_key,
@@ -2369,9 +2469,12 @@ class PlanningRepository:
                   :supersedes_execution_version_no, :recorded_at
                 ) returning *
                 """
-            ),
-            values,
-        ).mappings().one()
+                ),
+                values,
+            )
+            .mappings()
+            .one()
+        )
 
     def insert_plan(
         self,
@@ -2379,9 +2482,10 @@ class PlanningRepository:
         *,
         values: dict[str, Any],
     ) -> RowMapping:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 insert into learning.daily_plan_versions (
                   plan_version_id, command_id, user_id, local_date, version_no,
                   capacity_version_id, weekly_preference_version_id, day_mode,
@@ -2407,9 +2511,12 @@ class PlanningRepository:
                   :valid_until
                 ) returning *
                 """
-            ),
-            values,
-        ).mappings().one()
+                ),
+                values,
+            )
+            .mappings()
+            .one()
+        )
 
     def insert_plan_task(
         self,
@@ -2417,9 +2524,10 @@ class PlanningRepository:
         *,
         values: dict[str, Any],
     ) -> RowMapping:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 insert into learning.daily_plan_tasks (
                   task_id, plan_version_id, user_id, local_date, plan_version_no,
                   candidate_key, work_item_key, task_order, track, stage, kind, title, reason,
@@ -2438,9 +2546,12 @@ class PlanningRepository:
                   :input_fingerprint, :created_at
                 ) returning *
                 """
-            ),
-            values,
-        ).mappings().one()
+                ),
+                values,
+            )
+            .mappings()
+            .one()
+        )
 
 
 def _preference_snapshot(row: RowMapping) -> PreferenceSnapshot:
@@ -2520,9 +2631,7 @@ def _weakest_dimension_key(findings: Any, rewrite_plan: Any = None) -> str | Non
         if isinstance(finding.get("findingId"), str)
     }
     priority_ids = (
-        rewrite_plan.get("priorityFindingIds")
-        if isinstance(rewrite_plan, dict)
-        else None
+        rewrite_plan.get("priorityFindingIds") if isinstance(rewrite_plan, dict) else None
     )
     if isinstance(priority_ids, list):
         for finding_id in priority_ids:
@@ -2596,14 +2705,11 @@ def _essay_closure_context_gap(
     if (
         str(context["decision_artifact_version_id"]) != decision_id
         or context["decision_artifact_type"] != "review_acknowledgement"
-        or str(context["decision_review_version_id"])
-        != str(context["source_review_version_id"])
-        or str(context["decision_task_version_id"])
-        != str(context["source_task_version_id"])
+        or str(context["decision_review_version_id"]) != str(context["source_review_version_id"])
+        or str(context["decision_task_version_id"]) != str(context["source_task_version_id"])
         or str(context["decision_material_bundle_version_id"])
         != str(context["source_material_bundle_version_id"])
-        or str(context["decision_rubric_version_id"])
-        != str(context["source_rubric_version_id"])
+        or str(context["decision_rubric_version_id"]) != str(context["source_rubric_version_id"])
     ):
         return "申论掌握度 head 与 finding decision 的精确来源不一致。"
     return None

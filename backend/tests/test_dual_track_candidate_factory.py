@@ -11,7 +11,16 @@ from app.domains.planning.candidates import (
 def test_missing_component_evidence_creates_both_baseline_tracks() -> None:
     candidates = build_dual_track_candidates(
         goal=_goal(readiness="partial"),
-        objective=ObjectivePlanningSnapshot(True, 0, 0, None, None, "available", None),
+        objective=ObjectivePlanningSnapshot(
+            True,
+            0,
+            0,
+            None,
+            None,
+            "available",
+            None,
+            baseline_question_count=3,
+        ),
         essay=EssayPlanningSnapshot(
             "baseline_due",
             "essay-task-v1",

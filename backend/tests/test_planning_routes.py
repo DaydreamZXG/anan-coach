@@ -33,6 +33,8 @@ from app.domains.planning.candidates import (
 from app.domains.planning.router import get_planning_service
 from app.domains.planning.schemas import DailyCapacityCommand
 from app.domains.planning.service import PlanningService, _materialize_plan_task_start_url
+from app.domains.xingce_learning.real_attempt.schemas import StartTaskSessionCommand
+from app.domains.xingce_learning.real_attempt.service import XingceAttemptService
 from app.main import create_app
 
 
@@ -200,6 +202,91 @@ def test_dual_track_plan_persists_one_idempotent_xingce_and_essay_budget(
             ).scalar_one()
             == 1
         )
+
+
+def test_plan_omits_xingce_when_the_start_contract_has_no_three_question_bundle(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id = _seed_learner_and_published_essay_content(
+        db_session_factory,
+        include_objective_questions=False,
+    )
+
+    with db_session_factory.begin() as session:
+        plan = PlanningService().get_or_create_today(
+            session,
+            user_id=user_id,
+            now=NOW,
+            local_date=NOW.date(),
+        )
+
+    assert all(task.track != "xingce" for task in plan.tasks)
+    assert plan.dual_track_explanation.omitted_track_reasons["xingce"] == (
+        "当前没有满足内容与证据门禁的行测任务。"
+    )
+
+
+def test_started_question_bundles_never_repeat_and_exhausted_supply_is_not_planned(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id = _seed_learner_and_published_essay_content(db_session_factory)
+    planning = PlanningService()
+    attempts = XingceAttemptService()
+    delivered: list[set[str]] = []
+
+    for offset in range(2):
+        current = NOW + timedelta(days=offset)
+        with db_session_factory.begin() as session:
+            plan = planning.get_or_create_today(
+                session,
+                user_id=user_id,
+                now=current,
+                local_date=current.date(),
+            )
+            task = next(item for item in plan.tasks if item.track == "xingce")
+            started = attempts.start_or_resume(
+                session,
+                user_id=user_id,
+                command_id=f"start-distinct-bundle-{offset}",
+                command=StartTaskSessionCommand(planTaskId=task.id),
+                now=current,
+            )
+            delivered.append({question.question_id for question in started.bundle.questions})
+
+    assert len(delivered[0]) == 3
+    assert len(delivered[1]) == 3
+    assert delivered[0].isdisjoint(delivered[1])
+
+    other_user_id = _seed_planning_learner(db_session_factory)
+    with db_session_factory.begin() as session:
+        other_plan = planning.get_or_create_today(
+            session,
+            user_id=other_user_id,
+            now=NOW,
+            local_date=NOW.date(),
+        )
+        other_task = next(item for item in other_plan.tasks if item.track == "xingce")
+        other_started = attempts.start_or_resume(
+            session,
+            user_id=other_user_id,
+            command_id="start-distinct-bundle-other-user",
+            command=StartTaskSessionCommand(planTaskId=other_task.id),
+            now=NOW,
+        )
+    assert {
+        question.question_id for question in other_started.bundle.questions
+    } == delivered[0]
+
+    exhausted_day = NOW + timedelta(days=2)
+    with db_session_factory.begin() as session:
+        exhausted = planning.get_or_create_today(
+            session,
+            user_id=user_id,
+            now=exhausted_day,
+            local_date=exhausted_day.date(),
+        )
+
+    assert all(task.track != "xingce" for task in exhausted.tasks)
 
 
 def test_today_plan_route_requires_authenticated_learner() -> None:
@@ -1473,6 +1560,7 @@ def _seed_learner_and_published_essay_content(
     access_token: str | None = None,
     include_rubric: bool = True,
     material_version_no: int = 1,
+    include_objective_questions: bool = True,
 ) -> str:
     user_id = str(uuid4())
     task_version_id = str(uuid4())
@@ -1486,6 +1574,8 @@ def _seed_learner_and_published_essay_content(
             ),
             {"user_id": user_id},
         )
+        if include_objective_questions:
+            _seed_shared_objective_question_bank(session)
         if access_token:
             session.execute(
                 text(
@@ -1652,6 +1742,81 @@ def _seed_learner_and_published_essay_content(
                     "rubric_sha": "d" * 64,
                 },
             )
+    return user_id
+
+
+def _seed_shared_objective_question_bank(
+    session: Session,
+    *,
+    count: int = 6,
+) -> None:
+    labels = ("A", "B", "C", "D")
+    for index in range(1, count + 1):
+        question_id = f"planning-shared-question-{index}"
+        session.execute(
+            text(
+                """
+                insert into product.questions (
+                  question_id, domain, status, module_name, question_type,
+                  stem, answer, shared_context_required, visual_required,
+                  occurrence_count, latest_year
+                ) values (
+                  :question_id, 'objective', 'canonical', '言语理解',
+                  'single_choice', :stem, :answer, false, false,
+                  :occurrence_count, 2025
+                )
+                on conflict (question_id) do nothing
+                """
+            ),
+            {
+                "question_id": question_id,
+                "stem": f"计划供给验收题 {index}",
+                "answer": labels[(index - 1) % len(labels)],
+                "occurrence_count": 100 - index,
+            },
+        )
+        for option_index, label in enumerate(labels, start=1):
+            session.execute(
+                text(
+                    """
+                    insert into product.question_options (
+                      question_id, option_index, label, option_text
+                    ) values (
+                      :question_id, :option_index, :label, :option_text
+                    )
+                    on conflict (question_id, option_index) do nothing
+                    """
+                ),
+                {
+                    "question_id": question_id,
+                    "option_index": option_index,
+                    "label": label,
+                    "option_text": f"选项 {label}",
+                },
+            )
+
+
+def _seed_planning_learner(factory: sessionmaker[Session]) -> str:
+    user_id = str(uuid4())
+    with factory.begin() as session:
+        session.execute(
+            text(
+                "insert into learner.users (user_id, display_name) "
+                "values (:user_id, '隔离验收学习者')"
+            ),
+            {"user_id": user_id},
+        )
+        session.execute(
+            text(
+                """
+                insert into learner.profiles (
+                  user_id, daily_minutes, study_mode, onboarding_complete,
+                  profile_version
+                ) values (:user_id, 45, 'parttime', true, 1)
+                """
+            ),
+            {"user_id": user_id},
+        )
     return user_id
 
 

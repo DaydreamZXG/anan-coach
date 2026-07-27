@@ -7,6 +7,11 @@ from sqlalchemy import text
 from sqlalchemy.engine import RowMapping
 from sqlalchemy.orm import Session
 
+from app.domains.task_content.service import (
+    TaskContentContractError,
+    validate_learner_question,
+)
+
 
 class XingceAttemptRepository:
     def question_dispute_by_idempotency_key(
@@ -147,12 +152,19 @@ class XingceAttemptRepository:
         *,
         module_name: str | None,
         limit: int,
+        user_id: str | None = None,
         excluded_question_ids: list[str] | None = None,
     ) -> list[dict[str, Any]]:
-        rows = (
-            session.execute(
-                text(
-                    """
+        if limit <= 0:
+            return []
+        questions: list[dict[str, Any]] = []
+        offset = 0
+        batch_size = max(24, limit * 4)
+        while len(questions) < limit:
+            rows = list(
+                session.execute(
+                    text(
+                        """
                 select
                   question.question_id, question.module_name, question.question_type,
                   question.stem, question.stem_html, question.answer,
@@ -176,6 +188,30 @@ class XingceAttemptRepository:
                     question.question_id = any(cast(:excluded_question_ids as text[]))
                   )
                   and (
+                    cast(:user_id as text) is null
+                    or (
+                      not exists (
+                        select 1
+                        from learning.xingce_assessments assessment
+                        where assessment.user_id = cast(:user_id as uuid)
+                          and assessment.question_id = question.question_id
+                      )
+                      and not exists (
+                        select 1
+                        from learning.xingce_task_sessions exposed_session
+                        cross join lateral jsonb_array_elements(
+                          coalesce(
+                            exposed_session.safe_bundle -> 'questions',
+                            '[]'::jsonb
+                          )
+                        ) exposed_question
+                        where exposed_session.user_id = cast(:user_id as uuid)
+                          and exposed_question ->> 'questionId' =
+                              question.question_id
+                      )
+                    )
+                  )
+                  and (
                     not question.visual_required
                     or exists (
                       select 1 from product.question_assets visual
@@ -192,52 +228,69 @@ class XingceAttemptRepository:
                   question.latest_year desc nulls last,
                   question.occurrence_count desc nulls last,
                   question.question_id
-                limit :limit
+                limit :batch_size
+                offset :offset
                 """
-                ),
-                {
-                    "module_name": module_name,
-                    "excluded_question_ids": excluded_question_ids or [],
-                    "limit": limit,
-                },
+                    ),
+                    {
+                        "module_name": module_name,
+                        "user_id": user_id,
+                        "excluded_question_ids": excluded_question_ids or [],
+                        "batch_size": batch_size,
+                        "offset": offset,
+                    },
+                )
+                .mappings()
+                .all()
             )
-            .mappings()
-            .all()
-        )
-        questions: list[dict[str, Any]] = []
-        for row in rows:
-            question = dict(row)
-            question["options"] = [
-                dict(item)
-                for item in session.execute(
-                    text(
-                        """
-                        select label, option_text, option_html
-                        from product.question_options
-                        where question_id = :question_id
-                        order by option_index
-                        """
-                    ),
-                    {"question_id": row["question_id"]},
-                ).mappings()
-            ]
-            question["assets"] = [
-                dict(item)
-                for item in session.execute(
-                    text(
-                        """
-                        select asset_id, part_kind, part_index, image_ordinal,
-                               image_src, object_key, is_representative_asset
-                        from product.question_assets
-                        where question_id = :question_id
-                        order by part_kind nulls last, part_index nulls last,
-                                 image_ordinal nulls last, asset_id
-                        """
-                    ),
-                    {"question_id": row["question_id"]},
-                ).mappings()
-            ]
-            questions.append(question)
+            if not rows:
+                break
+            offset += len(rows)
+            question_ids = [str(row["question_id"]) for row in rows]
+            options_by_question: dict[str, list[dict[str, Any]]] = {}
+            for item in session.execute(
+                text(
+                    """
+                    select question_id, label, option_text, option_html
+                    from product.question_options
+                    where question_id = any(cast(:question_ids as text[]))
+                    order by question_id, option_index
+                    """
+                ),
+                {"question_ids": question_ids},
+            ).mappings():
+                options_by_question.setdefault(str(item["question_id"]), []).append(dict(item))
+            assets_by_question: dict[str, list[dict[str, Any]]] = {}
+            for item in session.execute(
+                text(
+                    """
+                    select question_id, asset_id, part_kind, part_index,
+                           image_ordinal, image_src, object_key,
+                           is_representative_asset
+                    from product.question_assets
+                    where question_id = any(cast(:question_ids as text[]))
+                    order by question_id, part_kind nulls last,
+                             part_index nulls last, image_ordinal nulls last,
+                             asset_id
+                    """
+                ),
+                {"question_ids": question_ids},
+            ).mappings():
+                assets_by_question.setdefault(str(item["question_id"]), []).append(dict(item))
+            for row in rows:
+                question = dict(row)
+                question_id = str(row["question_id"])
+                question["options"] = options_by_question.get(question_id, [])
+                question["assets"] = assets_by_question.get(question_id, [])
+                try:
+                    validate_learner_question(question)
+                except TaskContentContractError:
+                    continue
+                questions.append(question)
+                if len(questions) == limit:
+                    break
+            if len(rows) < batch_size:
+                break
         return questions
 
     def insert_assessment(self, session: Session, *, values: dict[str, Any]) -> None:
@@ -284,9 +337,7 @@ class XingceAttemptRepository:
             ).mappings()
         )
 
-    def insert_review_version(
-        self, session: Session, *, values: dict[str, Any]
-    ) -> RowMapping:
+    def insert_review_version(self, session: Session, *, values: dict[str, Any]) -> RowMapping:
         return (
             session.execute(
                 text(
@@ -343,9 +394,7 @@ class XingceAttemptRepository:
             .one_or_none()
         )
 
-    def insert_reflection(
-        self, session: Session, *, values: dict[str, Any]
-    ) -> RowMapping:
+    def insert_reflection(self, session: Session, *, values: dict[str, Any]) -> RowMapping:
         return (
             session.execute(
                 text(
@@ -389,9 +438,7 @@ class XingceAttemptRepository:
             .one_or_none()
         )
 
-    def insert_cause_decision(
-        self, session: Session, *, values: dict[str, Any]
-    ) -> RowMapping:
+    def insert_cause_decision(self, session: Session, *, values: dict[str, Any]) -> RowMapping:
         return (
             session.execute(
                 text(
@@ -547,9 +594,7 @@ class XingceAttemptRepository:
             ).scalar_one()
         )
 
-    def insert_plan_evidence(
-        self, session: Session, *, values: dict[str, Any]
-    ) -> RowMapping:
+    def insert_plan_evidence(self, session: Session, *, values: dict[str, Any]) -> RowMapping:
         return (
             session.execute(
                 text(
@@ -600,6 +645,7 @@ class XingceAttemptRepository:
             .mappings()
             .one_or_none()
         )
+
 
 def _json(value: object) -> str:
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))

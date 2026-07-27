@@ -25,6 +25,7 @@ from app.domains.xingce_learning.cause_agent.service import (
     CauseAgentWorkflow,
     CauseAgentWorkflowError,
 )
+from app.domains.xingce_learning.contracts import XINGCE_QUESTION_BUNDLE_SIZE
 from app.domains.xingce_learning.real_attempt.repository import XingceAttemptRepository
 from app.domains.xingce_learning.content_version import question_content_version_id
 from app.domains.xingce_learning.mastery.service import (
@@ -132,9 +133,7 @@ class XingceAttemptService:
             work_item_key=str(task["work_item_key"]),
         )
         if existing is not None:
-            projection = self._projection(
-                session, user_id=user_id, task_session=existing
-            )
+            projection = self._projection(session, user_id=user_id, task_session=existing)
             self._record_command(
                 session,
                 user_id=user_id,
@@ -173,9 +172,7 @@ class XingceAttemptService:
                     "复测计划绑定的掌握版本已结算、尚未到期或不属于当前用户。",
                     status_code=409,
                 )
-            module_name = (
-                str(mastery["module_name"]) if mastery["module_name"] else None
-            )
+            module_name = str(mastery["module_name"]) if mastery["module_name"] else None
             verification_stage = str(mastery["verification_stage"])
             excluded_question_ids = [
                 str(question_id) for question_id in mastery["used_question_ids"]
@@ -183,10 +180,11 @@ class XingceAttemptService:
         source_questions = self._repository.select_frozen_questions(
             session,
             module_name=module_name,
-            limit=3,
+            limit=XINGCE_QUESTION_BUNDLE_SIZE,
+            user_id=user_id,
             excluded_question_ids=excluded_question_ids,
         )
-        if len(source_questions) < 3:
+        if len(source_questions) < XINGCE_QUESTION_BUNDLE_SIZE:
             raise XingceAttemptError(
                 "xingce_content_unavailable",
                 "当前计划模块没有足够的三道独立题目通过内容与答案键门禁。",
@@ -210,9 +208,7 @@ class XingceAttemptService:
                 "work_item_key": str(task["work_item_key"]),
                 "mode": mode,
                 "bundle_version_id": safe_bundle.bundle_version_id,
-                "safe_bundle": _json(
-                    safe_bundle.model_dump(by_alias=True, mode="json")
-                ),
+                "safe_bundle": _json(safe_bundle.model_dump(by_alias=True, mode="json")),
                 "scoring_bundle": _json(scoring_bundle),
                 "source_mastery_id": source_mastery_id,
                 "source_mastery_version_id": source_mastery_version_id,
@@ -331,11 +327,7 @@ class XingceAttemptService:
         )
         bundle = SafeQuestionBundle.model_validate(task_session["safe_bundle"])
         question = next(
-            (
-                item
-                for item in bundle.questions
-                if item.question_id == command.question_id
-            ),
+            (item for item in bundle.questions if item.question_id == command.question_id),
             None,
         )
         if question is None or question.content_version_id != command.content_version_id:
@@ -362,9 +354,7 @@ class XingceAttemptService:
                 f"sha256:{_hash(answer_state)}" if answer_state is not None else None
             ),
             "materialPosition": (
-                answer_state.get("materialPosition")
-                if answer_state is not None
-                else None
+                answer_state.get("materialPosition") if answer_state is not None else None
             ),
         }
         row = self._repository.insert_question_dispute(
@@ -427,8 +417,7 @@ class XingceAttemptService:
         if command.current_question_id not in questions:
             raise _conflict("current question is not part of the frozen bundle")
         merged = {
-            str(item["questionId"]): dict(item)
-            for item in dict(row["checkpoint"])["answers"]
+            str(item["questionId"]): dict(item) for item in dict(row["checkpoint"])["answers"]
         }
         for answer in command.answers:
             question = questions.get(answer.question_id)
@@ -438,9 +427,7 @@ class XingceAttemptService:
             if not set(answer.selected_option_ids).issubset(valid_options) or not set(
                 answer.eliminated_option_ids
             ).issubset(valid_options):
-                raise _conflict(
-                    "checkpoint contains an option outside the frozen question"
-                )
+                raise _conflict("checkpoint contains an option outside the frozen question")
             previous_payload = merged.get(answer.question_id)
             if previous_payload is not None and answer.elapsed_seconds < int(
                 previous_payload["elapsedSeconds"]
@@ -524,15 +511,11 @@ class XingceAttemptService:
         if command.total_elapsed_seconds < int(row["total_elapsed_seconds"]):
             raise _conflict("total elapsed time cannot decrease")
         scoring = dict(row["scoring_bundle"])
-        factored_result_contract = scoring.get("scoringPolicyVersion") == (
-            SCORING_POLICY_VERSION
-        )
+        factored_result_contract = scoring.get("scoringPolicyVersion") == (SCORING_POLICY_VERSION)
         if factored_result_contract:
             frozen_version = scoring.get("scoringBundleVersion")
             versioned_payload = {
-                key: value
-                for key, value in scoring.items()
-                if key != "scoringBundleVersion"
+                key: value for key, value in scoring.items() if key != "scoringBundleVersion"
             }
             if (
                 not isinstance(scoring.get("timingPolicy"), dict)
@@ -545,14 +528,10 @@ class XingceAttemptService:
                     status_code=500,
                 )
         checkpoint = dict(row["checkpoint"])
-        answers = {
-            str(item["questionId"]): dict(item) for item in checkpoint["answers"]
-        }
+        answers = {str(item["questionId"]): dict(item) for item in checkpoint["answers"]}
         question_ids = [str(item["questionId"]) for item in scoring["questions"]]
         if set(answers) != set(question_ids):
-            raise _conflict(
-                "every frozen question must be answered or explicitly skipped"
-            )
+            raise _conflict("every frozen question must be answered or explicitly skipped")
 
         result_items: list[dict[str, Any]] = []
         assessment_ids: list[str] = []
@@ -580,9 +559,7 @@ class XingceAttemptService:
             )
             correct_options = [str(value) for value in frozen["correctOptionIds"]]
             selected = [str(value) for value in answer["selectedOptionIds"]]
-            correct = not bool(answer["skipped"]) and sorted(selected) == sorted(
-                correct_options
-            )
+            correct = not bool(answer["skipped"]) and sorted(selected) == sorted(correct_options)
             active_abandon = bool(answer["skipped"])
             if active_abandon:
                 result_code = "skipped"
@@ -619,9 +596,7 @@ class XingceAttemptService:
                             if active_abandon
                             else ("correct" if correct else "incorrect")
                         ),
-                        "disposition": (
-                            "active_abandon" if active_abandon else "answered"
-                        ),
+                        "disposition": ("active_abandon" if active_abandon else "answered"),
                         "confidenceEvidence": (
                             "unreported"
                             if active_abandon or answer.get("confidence") is None
@@ -705,9 +680,7 @@ class XingceAttemptService:
                 attempt_record_id=attempt_record_id,
                 scoring_policy_version=SCORING_POLICY_VERSION,
             )
-            assessment_result_code = (
-                "unanswered" if result_code == "skipped" else result_code
-            )
+            assessment_result_code = "unanswered" if result_code == "skipped" else result_code
             assessment_id = str(uuid4())
             assessment_ids.append(assessment_id)
             result_items.append(result_item)
@@ -815,10 +788,7 @@ class XingceAttemptService:
             to_state="submitted",
             resource_version_refs=[
                 f"task-session:{session_id}:{submitted['revision']}",
-                *[
-                    f"attempt-record:{record['attempt_record_id']}"
-                    for record in attempt_records
-                ],
+                *[f"attempt-record:{record['attempt_record_id']}" for record in attempt_records],
                 f"planning-evidence:{pending['evidence_version_id']}",
             ],
             reason_code="xingce_attempt_group_submitted",
@@ -893,9 +863,7 @@ class XingceAttemptService:
             self._media_repository.bind_available_artifacts(
                 session,
                 user_id=user_id,
-                artifact_version_ids=[
-                    str(item) for item in command.voice_artifact_version_ids
-                ],
+                artifact_version_ids=[str(item) for item in command.voice_artifact_version_ids],
                 entity_type="xingce_reflection",
                 entity_version_id=reflection_id,
                 created_at=recorded_at,
@@ -993,8 +961,7 @@ class XingceAttemptService:
             int(review["revision"]) != command.expected_revision
             or review["state"] != "cause_followup_due"
             or review["cause_candidate_version_id"] is None
-            or str(review["cause_candidate_version_id"])
-            != str(command.candidate_version_id)
+            or str(review["cause_candidate_version_id"]) != str(command.candidate_version_id)
         ):
             raise _conflict("cause-followup review revision changed")
         candidate = self._repository.cause_candidate(
@@ -1074,13 +1041,11 @@ class XingceAttemptService:
         }
         revision_states = {"immediate_verification_due", "mastery_recorded"}
         is_revision = str(review["state"]) in revision_states
-        if int(review["revision"]) != command.expected_revision or str(
-            review["state"]
-        ) not in (initial_states | revision_states):
+        if int(review["revision"]) != command.expected_revision or str(review["state"]) not in (
+            initial_states | revision_states
+        ):
             raise _conflict("cause-decision review revision changed")
-        if review["reflection_version_id"] is None or review[
-            "cause_candidate_version_id"
-        ] is None:
+        if review["reflection_version_id"] is None or review["cause_candidate_version_id"] is None:
             raise _conflict("cause-decision review has no frozen candidate")
         if command.decision != "skip" and str(review["cause_candidate_version_id"]) != str(
             command.candidate_version_id
@@ -1121,9 +1086,7 @@ class XingceAttemptService:
             ),
         )
         decision_id = str(uuid4())
-        confirmed_cause_id = (
-            str(uuid4()) if command.decision in {"confirm", "replace"} else None
-        )
+        confirmed_cause_id = str(uuid4()) if command.decision in {"confirm", "replace"} else None
         self._repository.insert_cause_decision(
             session,
             values={
@@ -1133,9 +1096,7 @@ class XingceAttemptService:
                 "review_id": review_id,
                 "session_id": str(task_session["session_id"]),
                 "version_no": (
-                    int(previous_decision["version_no"]) + 1
-                    if previous_decision is not None
-                    else 1
+                    int(previous_decision["version_no"]) + 1 if previous_decision is not None else 1
                 ),
                 "decision": command.decision,
                 "replacement_cause": command.replacement_cause,
@@ -1172,9 +1133,7 @@ class XingceAttemptService:
                     "candidate_version_id": str(candidate["candidate_version_id"]),
                     "version_no": 1,
                     "source_kind": (
-                        "ai_confirmed"
-                        if command.decision == "confirm"
-                        else "user_replacement"
+                        "ai_confirmed" if command.decision == "confirm" else "user_replacement"
                     ),
                     "cause_code": (
                         str(candidate_payload["causeCode"])
@@ -1184,9 +1143,7 @@ class XingceAttemptService:
                     # 结构化改写码：用户改写时可选的 8 码之一；未选码保持 null，
                     # 旧行为（单一 user_replacement 桶）完全不变。
                     "replacement_code": (
-                        command.replacement_code
-                        if command.decision == "replace"
-                        else None
+                        command.replacement_code if command.decision == "replace" else None
                     ),
                     "cause_text": (
                         str(candidate_payload["summary"])
@@ -1393,9 +1350,7 @@ class XingceAttemptService:
                         voiceArtifactVersionIds=reflection["payload"].get(
                             "voiceArtifactVersionIds", []
                         ),
-                        itemInterpretations=reflection["payload"].get(
-                            "itemInterpretations", []
-                        ),
+                        itemInterpretations=reflection["payload"].get("itemInterpretations", []),
                         versionNo=int(reflection["version_no"]),
                     )
                     if reflection is not None
@@ -1405,9 +1360,7 @@ class XingceAttemptService:
                     CauseDecisionVersionProjection(
                         decisionVersionId=str(decision["decision_version_id"]),
                         candidateVersionId=decision["candidate_version_id"],
-                        confirmedCauseVersionId=decision[
-                            "confirmed_cause_version_id"
-                        ],
+                        confirmedCauseVersionId=decision["confirmed_cause_version_id"],
                         decision=str(decision["decision"]),
                         replacementCause=decision["replacement_cause"],
                         versionNo=int(decision["version_no"]),
@@ -1419,19 +1372,13 @@ class XingceAttemptService:
         group_summary = _group_summary(
             items,
             review_state=str(review["state"]) if review is not None else None,
-            reflection_payload=(
-                dict(reflection["payload"]) if reflection is not None else None
-            ),
+            reflection_payload=(dict(reflection["payload"]) if reflection is not None else None),
         )
         result: XingceAttemptResult | None = None
         if items and aggregate_code is not None:
             change_counts = [item.answer_change_count for item in items]
             result = XingceAttemptResult(
-                contractVersion=(
-                    "xingce-attempt-result@v2"
-                    if group_summary is not None
-                    else None
-                ),
+                contractVersion=("xingce-attempt-result@v2" if group_summary is not None else None),
                 attemptId=str(task_session["attempt_group_id"]),
                 resultCode=aggregate_code,
                 correctCount=sum(
@@ -1479,9 +1426,7 @@ class XingceAttemptService:
             mode=str(task_session["mode"]),
             bundle=SafeQuestionBundle.model_validate(task_session["safe_bundle"]),
             currentQuestionId=str(task_session["current_question_id"]),
-            answers=[
-                AnswerCheckpoint.model_validate(item) for item in checkpoint["answers"]
-            ],
+            answers=[AnswerCheckpoint.model_validate(item) for item in checkpoint["answers"]],
             totalElapsedSeconds=int(task_session["total_elapsed_seconds"]),
             result=result,
             verificationOutcome=verification_outcome,
@@ -1518,16 +1463,12 @@ class XingceAttemptService:
             user_id=user_id,
             mastery_version_id=str(source_version_id),
         )
-        scoring_context = dict(task_session["scoring_bundle"]).get(
-            "verificationContext"
-        )
+        scoring_context = dict(task_session["scoring_bundle"]).get("verificationContext")
         if (
             source is None
             or not isinstance(scoring_context, dict)
-            or scoring_context.get("sourceMasteryVersionId")
-            != str(source_version_id)
-            or scoring_context.get("verificationStage")
-            != str(source["verification_stage"])
+            or scoring_context.get("sourceMasteryVersionId") != str(source_version_id)
+            or scoring_context.get("verificationStage") != str(source["verification_stage"])
         ):
             raise XingceAttemptError(
                 "xingce_verification_source_invalid",
@@ -1615,9 +1556,7 @@ class XingceAttemptService:
                 "同一幂等键不能用于不同的行测命令。",
                 status_code=409,
             )
-        return TaskSessionProjection.model_validate_json(
-            _json(existing["response_payload"])
-        )
+        return TaskSessionProjection.model_validate_json(_json(existing["response_payload"]))
 
     def _record_command(
         self,
@@ -1744,9 +1683,7 @@ def _append_attempt_recorded_event(
         command_id=command_id,
         occurred_at=occurred_at,
         payload={
-            "taskSessionRef": (
-                f"task-session:{session_id}:{attempt_record['session_revision']}"
-            ),
+            "taskSessionRef": (f"task-session:{session_id}:{attempt_record['session_revision']}"),
             "targetTrack": "xingce",
             "taskItemRef": str(attempt_record["question_id"]),
             "itemAttemptId": str(attempt_record["item_attempt_id"]),
@@ -1897,19 +1834,15 @@ def _group_summary(
     ):
         return None
     guessed_correct = sum(
-        item.objective_verdict == "correct"
-        and item.confidence_evidence == "low"
-        for item in items
+        item.objective_verdict == "correct" and item.confidence_evidence == "low" for item in items
     )
     genuine_correct = sum(
-        item.objective_verdict == "correct"
-        and item.confidence_evidence in {"medium", "high"}
+        item.objective_verdict == "correct" and item.confidence_evidence in {"medium", "high"}
         for item in items
     )
     active_abandon = sum(item.disposition == "active_abandon" for item in items)
     advisory_exceeded = sum(
-        item.timing_evidence is not None
-        and item.timing_evidence.status == "advisory_exceeded"
+        item.timing_evidence is not None and item.timing_evidence.status == "advisory_exceeded"
         for item in items
     )
     interpretations = (
@@ -1918,8 +1851,7 @@ def _group_summary(
         else []
     )
     method_correct_calculation_error = sum(
-        isinstance(item, dict)
-        and item.get("interpretation") == "method_correct_calculation_error"
+        isinstance(item, dict) and item.get("interpretation") == "method_correct_calculation_error"
         for item in interpretations
     )
     if len(items) == 3 and active_abandon == 3:
@@ -1960,8 +1892,7 @@ def _verification_status(
     if confirmed_invalidated:
         return "disputed_or_invalidated", "confirmed_invalidated"
     if all(
-        item.objective_verdict == "correct" and item.disposition == "answered"
-        for item in items
+        item.objective_verdict == "correct" and item.disposition == "answered" for item in items
     ):
         return "passed", "valid"
     return "not_passed", "valid"
@@ -2142,11 +2073,7 @@ def _candidate_projection(candidate: RowMapping | None) -> AICauseCandidateState
     return AICauseCandidateState(
         state=state,
         candidateVersionId=str(candidate["candidate_version_id"]),
-        reason=(
-            str(candidate["reason_code"])
-            if candidate["reason_code"] is not None
-            else None
-        ),
+        reason=(str(candidate["reason_code"]) if candidate["reason_code"] is not None else None),
         causeCode=payload.get("causeCode"),
         summary=payload.get("summary"),
         improvement=payload.get("improvement"),
