@@ -53,6 +53,94 @@ class PlanningInsightsRepository:
             .one_or_none()
         )
 
+    def daily_settlement_task_facts(
+        self,
+        *,
+        user_id: str,
+        local_date: date,
+        current_plan_version_id: str,
+    ) -> list[RowMapping]:
+        return list(
+            self._session.execute(
+                text(
+                    """
+                    with latest_executions as (
+                      select execution.*
+                      from learning.task_execution_versions execution
+                      where execution.user_id = cast(:user_id as uuid)
+                        and execution.local_date = :local_date
+                        and not exists (
+                          select 1
+                          from learning.task_execution_versions successor
+                          where successor.supersedes_execution_version_id =
+                                execution.execution_version_id
+                        )
+                    ),
+                    executed_tasks as (
+                      select
+                        task.task_id,
+                        task.plan_version_id,
+                        task.plan_version_no,
+                        task.task_order,
+                        task.work_item_key,
+                        task.track,
+                        task.title,
+                        task.estimated_minutes,
+                        execution.status,
+                        execution.elapsed_minutes,
+                        execution.evidence_refs
+                      from latest_executions execution
+                      join learning.daily_plan_tasks task
+                        on task.task_id = execution.task_id
+                       and task.plan_version_id = execution.plan_version_id
+                       and task.user_id = execution.user_id
+                       and task.local_date = execution.local_date
+                       and task.plan_version_no = execution.plan_version_no
+                       and task.candidate_key = execution.candidate_key
+                       and task.work_item_key = execution.work_item_key
+                    ),
+                    current_tasks_without_execution as (
+                      select
+                        task.task_id,
+                        task.plan_version_id,
+                        task.plan_version_no,
+                        task.task_order,
+                        task.work_item_key,
+                        task.track,
+                        task.title,
+                        task.estimated_minutes,
+                        'ready'::text as status,
+                        0::integer as elapsed_minutes,
+                        '[]'::jsonb as evidence_refs
+                      from learning.daily_plan_tasks task
+                      where task.user_id = cast(:user_id as uuid)
+                        and task.local_date = :local_date
+                        and task.plan_version_id =
+                            cast(:current_plan_version_id as uuid)
+                        and not exists (
+                          select 1
+                          from latest_executions execution
+                          where execution.work_item_key = task.work_item_key
+                        )
+                    ),
+                    settlement_facts as (
+                      select * from executed_tasks
+                      union all
+                      select * from current_tasks_without_execution
+                    )
+                    select *
+                    from settlement_facts
+                    order by plan_version_no, task_order, task_id
+                    """
+                ),
+                {
+                    "user_id": user_id,
+                    "local_date": local_date,
+                    "current_plan_version_id": current_plan_version_id,
+                },
+            ).mappings()
+        )
+
     def daily_plan_summaries(
         self,
         *,

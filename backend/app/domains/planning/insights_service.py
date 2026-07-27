@@ -33,7 +33,7 @@ from app.domains.planning.insights_schemas import (
     WeeklyPlanVersion,
 )
 from app.domains.planning.repository import PlanningRepository
-from app.domains.planning.schemas import PlanningEvidenceRef, TodayTask
+from app.domains.planning.schemas import PlanningEvidenceRef
 from app.domains.planning.service import PLAN_ALGORITHM_VERSION, PlanningService
 from app.platform.outbox import OutboxRepository
 
@@ -104,7 +104,12 @@ class PlanningInsightsService:
         user_id: str,
     ) -> DailySettlementView:
         dashboard = self._planning.get_or_create_today(session, user_id=user_id)
-        tasks = [_settlement_task(task) for task in dashboard.tasks]
+        task_facts = PlanningInsightsRepository(session).daily_settlement_task_facts(
+            user_id=user_id,
+            local_date=dashboard.local_date,
+            current_plan_version_id=str(dashboard.plan_version_id),
+        )
+        tasks = [_settlement_task_from_fact(fact) for fact in task_facts]
         complete = sum(item.status == "complete" for item in tasks)
         abandoned = sum(item.status == "abandoned" for item in tasks)
         open_count = len(tasks) - complete - abandoned
@@ -309,23 +314,21 @@ class PlanningInsightsService:
         return PlanChangeHistory(items=items, nextCursor=None)
 
 
-def _settlement_task(task: TodayTask) -> SettlementTask:
-    execution = task.execution
-    status = task.status
-    evidence_refs = execution.evidence_refs if execution is not None else []
+def _settlement_task_from_fact(fact: RowMapping) -> SettlementTask:
+    status = str(fact["status"])
     risk_code = None
     if status == "abandoned":
         risk_code = "task_abandoned"
     elif status in {"ready", "in_progress"}:
         risk_code = "task_open"
     return SettlementTask(
-        taskId=task.id,
-        track=task.track,
-        title=task.title,
+        taskId=UUID(str(fact["task_id"])),
+        track=str(fact["track"]),
+        title=str(fact["title"]),
         status=status,
-        plannedMinutes=task.estimated_minutes,
-        elapsedMinutes=execution.elapsed_minutes if execution is not None else 0,
-        evidenceRefs=evidence_refs,
+        plannedMinutes=int(fact["estimated_minutes"]),
+        elapsedMinutes=int(fact["elapsed_minutes"]),
+        evidenceRefs=[PlanningEvidenceRef.model_validate(item) for item in fact["evidence_refs"]],
         riskCode=risk_code,
     )
 
