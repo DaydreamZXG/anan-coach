@@ -10,6 +10,11 @@ from sqlalchemy import text
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
+from app.domains.mock_exam.migration_compat import (
+    assert_revision_33_migration_context,
+    get_revision_33_frozen_question_sources,
+)
+
 
 class MockExamTrajectoryWriteConflict(RuntimeError):
     def __init__(self, *, constraint_name: str) -> None:
@@ -331,8 +336,17 @@ class MockExamRepository:
         self,
         *,
         question_ids: list[str],
-        knowledge_release: KnowledgeMapReleaseSnapshot,
+        knowledge_release: KnowledgeMapReleaseSnapshot | None = None,
     ) -> list[dict[str, Any]]:
+        if knowledge_release is None:
+            # Published revision 20260716_33 imports this repository and calls
+            # the historical one-argument interface. Production call sites
+            # must continue to pass an explicit frozen knowledge release.
+            assert_revision_33_migration_context(session=self._session)
+            return get_revision_33_frozen_question_sources(
+                session=self._session,
+                question_ids=question_ids,
+            )
         rows = (
             self._session.execute(
                 text(

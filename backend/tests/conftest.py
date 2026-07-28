@@ -10,6 +10,8 @@ import tempfile
 from collections.abc import Iterator
 from importlib import import_module
 
+from alembic import command
+from alembic.config import Config
 import pytest
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import Engine
@@ -273,6 +275,13 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in openilink_hub_bot_links._STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
+    config = Config(str(Path(__file__).resolve().parents[1] / "alembic.ini"))
+    config.set_main_option(
+        "sqlalchemy.url",
+        engine.url.render_as_string(hide_password=False),
+    )
+    command.stamp(config, "20260727_69")
+    command.upgrade(config, "head")
 
 
 def _split_postgres_statements(script: str) -> list[str]:
@@ -353,6 +362,7 @@ def _split_postgres_statements(script: str) -> list[str]:
 
 def _drop_test_schema(engine: Engine) -> None:
     with engine.begin() as conn:
+        conn.execute(text("drop table if exists public.alembic_version"))
         conn.execute(text("drop schema if exists messaging cascade"))
         conn.execute(text("drop schema if exists product cascade"))
         conn.execute(text("drop schema if exists learner cascade"))

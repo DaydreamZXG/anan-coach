@@ -64,9 +64,13 @@ def _support_principal(
 def ready(session: Annotated[Session, Depends(get_db_session)]) -> dict[str, str]:
     settings = get_settings()
     session.execute(text("select 1")).scalar_one()
-    migration = session.execute(
-        text("select version_num from alembic_version")
-    ).scalar_one_or_none()
+    migrations = tuple(
+        str(value)
+        for value in session.execute(
+            text("select version_num from alembic_version order by version_num")
+        ).scalars()
+    )
+    migration = migrations[0] if len(migrations) == 1 else None
     required_tables_ready = session.execute(
         text(
             "select to_regclass('commerce.wechat_orders') is not null "
@@ -79,7 +83,10 @@ def ready(session: Annotated[Session, Depends(get_db_session)]) -> dict[str, str
             "and to_regclass('messaging.daily_opening_preference_versions') is not null"
         )
     ).scalar_one()
-    if migration != settings.required_database_revision or not required_tables_ready:
+    if (
+        migration not in settings.compatible_database_revisions
+        or not required_tables_ready
+    ):
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="database schema is not at the required release",

@@ -12,6 +12,10 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
 
 from app.core.config import Settings, get_settings
+from app.core.database_compatibility import (
+    artifact_database_compatible_revisions,
+    artifact_database_revision,
+)
 from app.domains.ai.governance.contracts import GlobalAskContext
 from app.domains.ai.governance.retrieval import AuthorizedHybridRetriever
 from app.domains.data_rights.repository import (
@@ -96,10 +100,14 @@ def test_weknora_runtime_matches_reviewed_upstream_lock() -> None:
 def test_required_database_revision_tracks_projection_schema(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    monkeypatch.delenv("REQUIRED_DATABASE_REVISION", raising=False)
+    monkeypatch.setenv("REQUIRED_DATABASE_REVISION", "stale-deployment-copy")
+    artifact_revision = artifact_database_revision()
+    compatible_revisions = artifact_database_compatible_revisions()
 
-    assert Settings().required_database_revision == "20260727_68"
-    assert get_settings().required_database_revision == "20260727_68"
+    assert Settings().required_database_revision == artifact_revision
+    assert get_settings().required_database_revision == artifact_revision
+    assert Settings().compatible_database_revisions == compatible_revisions
+    assert get_settings().compatible_database_revisions == compatible_revisions
 
 
 def test_operations_env_declares_weknora_activation_contract() -> None:
@@ -107,7 +115,7 @@ def test_operations_env_declares_weknora_activation_contract() -> None:
         Path(__file__).resolve().parents[2] / "ops" / "env.example"
     )
 
-    assert values["REQUIRED_DATABASE_REVISION"] == "20260727_68"
+    assert values["REQUIRED_DATABASE_REVISION"] == artifact_database_revision()
     assert values["WEKNORA_PRIVATE_KNOWLEDGE_MODE"] == "canonical"
     assert values["WEKNORA_BASE_URL"] == ""
     assert values["WEKNORA_MANAGE_API_KEY"] == ""

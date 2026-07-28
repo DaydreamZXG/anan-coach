@@ -11,6 +11,7 @@ incoming="${root}/incoming/anan-${release_id}.tar.gz"
 target="${root}/${release_id}"
 previous_target="$(readlink -f "${current_link}" 2>/dev/null || true)"
 switched=false
+previous_compatible_with_candidate=false
 
 case "${release_id}" in
   *[!A-Za-z0-9._-]*|'')
@@ -40,6 +41,12 @@ restore_previous_release() {
   local exit_code=$?
   trap - ERR
   if [[ "${switched}" == true && -n "${previous_target}" && -d "${previous_target}" ]]; then
+    if [[ "${previous_compatible_with_candidate}" != true ]]; then
+      printf '%s\n' \
+        "refusing to restore an artifact not preflighted for the migrated database" \
+        >&2
+      exit "${exit_code}"
+    fi
     ln -sfn "${previous_target}" "${current_link}"
     install_release_units "${previous_target}" || true
     systemctl disable --now gongkao-dazi-ilink-worker 2>/dev/null || true
@@ -80,19 +87,30 @@ set +a
 : "${MIGRATION_DATABASE_URL:?MIGRATION_DATABASE_URL is required}"
 : "${REQUIRED_DATABASE_REVISION:?REQUIRED_DATABASE_REVISION is required}"
 : "${WEKNORA_PRIVATE_KNOWLEDGE_MODE:?WEKNORA_PRIVATE_KNOWLEDGE_MODE must be explicit}"
+artifact_contract="${target}/ops/release-db-compatibility.env"
 artifact_revision="$(
-  "${target}/backend/.venv/bin/alembic" heads \
-    | awk 'NF {print $1}'
+  "${target}/backend/.venv/bin/python" \
+    -m app.core.database_compatibility head \
+    --backend-root "${target}/backend"
 )"
-if [[ -z "${artifact_revision}" || "${artifact_revision}" == *$'\n'* ]]; then
-  printf '%s\n' "release artifact must contain exactly one database head" >&2
-  exit 1
-fi
+"${target}/backend/.venv/bin/python" \
+  -m app.core.database_compatibility compatible-revisions \
+  --backend-root "${target}/backend" \
+  --contract "${artifact_contract}" >/dev/null
 if [[ "${REQUIRED_DATABASE_REVISION}" != "${artifact_revision}" ]]; then
   printf '%s\n' \
     "REQUIRED_DATABASE_REVISION must match release artifact head ${artifact_revision}" \
     >&2
   exit 1
+fi
+if [[ -n "${previous_target}" && -d "${previous_target}" ]]; then
+  previous_contract="${previous_target}/ops/release-db-compatibility.env"
+  "${target}/backend/.venv/bin/python" \
+    -m app.core.database_compatibility assert-revision \
+    --backend-root "${previous_target}/backend" \
+    --contract "${previous_contract}" \
+    --revision "${artifact_revision}" >/dev/null
+  previous_compatible_with_candidate=true
 fi
 case "${WEKNORA_PRIVATE_KNOWLEDGE_MODE}" in
   canonical|weknora) ;;
@@ -107,9 +125,12 @@ sudo -u "${MIGRATION_DATABASE_OS_USER:-postgres}" \
 current_revision="$(
   sudo -u "${MIGRATION_DATABASE_OS_USER:-postgres}" \
     env DATABASE_URL="${MIGRATION_DATABASE_URL}" \
-    "${target}/backend/.venv/bin/alembic" current | awk 'NR == 1 {print $1}'
+    "${target}/backend/.venv/bin/python" \
+      -m app.core.database_compatibility assert-current \
+      --backend-root "${target}/backend" \
+      --contract "${artifact_contract}"
 )"
-if [[ "${current_revision}" != "${REQUIRED_DATABASE_REVISION}" ]]; then
+if [[ "${current_revision}" != "${artifact_revision}" ]]; then
   printf '%s\n' "database revision does not match release requirement" >&2
   exit 1
 fi
@@ -187,7 +208,7 @@ for _ in $(seq 1 30); do
 done
 if [[ "$ready" != true ]]; then
   systemctl --no-pager --full status gongkao-dazi-api >&2 || true
-  exit 1
+  false
 fi
 for unit in "${runtime_units[@]}"; do
   systemctl is-active --quiet "${unit}"

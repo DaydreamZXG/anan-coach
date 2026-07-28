@@ -2,22 +2,187 @@ from __future__ import annotations
 
 from collections.abc import Iterator
 from datetime import UTC, datetime, timedelta
+from pathlib import Path
 from uuid import uuid4
 import json
 
 from fastapi.testclient import TestClient
 import pytest
 from sqlalchemy import text
+from sqlalchemy.engine import Engine
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, sessionmaker
 
 from app.core.config import Settings
 from app.core.config import get_settings
+from app.core.database_compatibility import (
+    ArtifactDatabaseCompatibility,
+    DatabaseCompatibilityError,
+    assert_database_is_compatible,
+    artifact_database_revision,
+    current_database_revisions,
+    load_artifact_database_compatibility,
+)
 from app.contracts.guokao_xingce import GUOKAO_XINGCE_MODULES
 from app.db.session import get_db_session
+from app.domains.data_rights.worker import DataRightsWorker
+from app.domains.external_ingestion.answering.worker import ExternalAIAnswerWorker
 from app.domains.external_ingestion.matching.catalog import SQLQuestionContentCatalog
+from app.domains.learning_packages.worker import PacketRenderWorker
 from app.domains.operations import router as operations_router
+from app.domains.private_knowledge.worker import PrivateKnowledgeDeletionWorker
 from app.main import create_app
+from app.platform.jobs import BackgroundJobRepository
+from app.workers.external_learning import ExternalLearningWorker
+
+
+class _IdleUploadService:
+    def recover_pending(self, **_kwargs: object) -> tuple[()]:
+        return ()
+
+    def expire_stale(self, **_kwargs: object) -> tuple[()]:
+        return ()
+
+
+def test_test_database_fixture_reaches_artifact_head(db_engine: Engine) -> None:
+    assert current_database_revisions(
+        db_engine.url.render_as_string(hide_password=False)
+    ) == (artifact_database_revision(),)
+    with db_engine.connect() as connection:
+        assert connection.execute(
+            text(
+                """
+                select exists (
+                  select 1
+                  from ai_audit.processor_release_records
+                  where processor_release_record_id =
+                    'hunyuan-cloud-function-companion-20260728-1'
+                )
+                """
+            )
+        ).scalar_one() is True
+
+
+def test_artifact_compatibility_accepts_only_declared_database_revision(
+    db_engine: Engine,
+) -> None:
+    compatibility = load_artifact_database_compatibility(
+        Path(__file__).resolve().parents[2]
+        / "ops"
+        / "release-db-compatibility.env"
+    )
+    database_url = db_engine.url.render_as_string(hide_password=False)
+
+    assert (
+        assert_database_is_compatible(
+            compatibility,
+            database_url=database_url,
+        )
+        == artifact_database_revision()
+    )
+    with db_engine.begin() as connection:
+        connection.execute(
+            text("update alembic_version set version_num = 'incompatible-revision'")
+        )
+    with pytest.raises(DatabaseCompatibilityError, match="is not compatible"):
+        assert_database_is_compatible(
+            compatibility,
+            database_url=database_url,
+        )
+
+
+def test_current_head_standard_workers_start_idle(
+    db_session: Session,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("WEKNORA_PRIVATE_KNOWLEDGE_MODE", "canonical")
+    settings = Settings()
+    jobs = BackgroundJobRepository()
+    external_worker = ExternalLearningWorker(
+        session=db_session,
+        settings=settings,
+        packet_worker=PacketRenderWorker(
+            renderer=object(),
+            license_evaluator=object(),
+            jobs=jobs,
+        ),
+        answer_worker=ExternalAIAnswerWorker(
+            settings=settings,
+            provider=object(),
+        ),
+        upload_service=_IdleUploadService(),
+        jobs=jobs,
+        private_knowledge_worker=PrivateKnowledgeDeletionWorker(
+            storage=object(),
+            jobs=jobs,
+        ),
+    )
+
+    assert external_worker.run_once(now=datetime.now(UTC)) is False
+    assert (
+        DataRightsWorker(
+            storage=object(),
+            settings=settings,
+        ).process_next(db_session)
+        is None
+    )
+
+
+def test_ready_rejects_revision_outside_artifact_compatibility_set(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    with db_session_factory.begin() as session:
+        session.execute(text("update alembic_version set version_num = 'stale-revision'"))
+
+    response = _client(db_session_factory).get("/ready")
+
+    assert response.status_code == 503
+    assert response.json()["detail"] == "database schema is not at the required release"
+
+
+def test_ready_accepts_newer_database_declared_by_old_head_artifact(
+    db_session_factory: sessionmaker[Session],
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    database_revision = artifact_database_revision()
+    compatibility = _synthetic_old_head_compatibility(
+        tmp_path,
+        compatible_revisions=("synthetic_old_head", database_revision),
+    )
+    _seed_release(db_session_factory, activated_at=datetime.now(UTC))
+    _seed_knowledge_release(db_session_factory)
+    settings = Settings(
+        required_database_revision=compatibility.migration_head,
+        compatible_database_revisions=compatibility.compatible_revisions,
+    )
+    monkeypatch.setattr(operations_router, "get_settings", lambda: settings)
+
+    response = _client(db_session_factory).get("/ready")
+
+    assert response.status_code == 200, response.text
+    assert response.json()["migration"] == database_revision
+
+
+def test_ready_rejects_newer_database_not_declared_by_old_head_artifact(
+    db_session_factory: sessionmaker[Session],
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    compatibility = _synthetic_old_head_compatibility(
+        tmp_path,
+        compatible_revisions=("synthetic_old_head",),
+    )
+    settings = Settings(
+        required_database_revision=compatibility.migration_head,
+        compatible_database_revisions=compatibility.compatible_revisions,
+    )
+    monkeypatch.setattr(operations_router, "get_settings", lambda: settings)
+
+    response = _client(db_session_factory).get("/ready")
+
+    assert response.status_code == 503
+    assert response.json()["detail"] == "database schema is not at the required release"
 
 
 def test_ready_rejects_missing_position_rule_release(
@@ -273,6 +438,41 @@ def _client(db_session_factory: sessionmaker[Session]) -> TestClient:
 
     app.dependency_overrides[get_db_session] = override_db_session
     return TestClient(app)
+
+
+def _synthetic_old_head_compatibility(
+    tmp_path: Path,
+    *,
+    compatible_revisions: tuple[str, ...],
+) -> ArtifactDatabaseCompatibility:
+    backend_root = tmp_path / "old-artifact" / "backend"
+    versions = backend_root / "migrations" / "versions"
+    versions.mkdir(parents=True)
+    (backend_root / "alembic.ini").write_text(
+        "[alembic]\nscript_location = %(here)s/migrations\n",
+        encoding="utf-8",
+    )
+    (versions / "synthetic_old_head.py").write_text(
+        "revision = 'synthetic_old_head'\n"
+        "down_revision = None\n"
+        "branch_labels = None\n"
+        "depends_on = None\n",
+        encoding="utf-8",
+    )
+    contract = backend_root.parent / "ops" / "release-db-compatibility.env"
+    contract.parent.mkdir(parents=True)
+    contract.write_text(
+        "ARTIFACT_DATABASE_COMPATIBILITY_CONTRACT="
+        "artifact-db-compatibility@v1\n"
+        "ARTIFACT_DATABASE_MIGRATION_HEAD=synthetic_old_head\n"
+        "ARTIFACT_DATABASE_COMPATIBLE_REVISIONS="
+        f"{','.join(compatible_revisions)}\n",
+        encoding="utf-8",
+    )
+    return load_artifact_database_compatibility(
+        contract,
+        backend_root=backend_root,
+    )
 
 
 def _seed_alembic_revision(db_session_factory: sessionmaker[Session]) -> None:

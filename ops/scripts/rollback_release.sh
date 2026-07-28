@@ -59,6 +59,22 @@ set +a
 
 test -d "${target}/backend"
 test -x "${target}/backend/.venv/bin/uvicorn"
+: "${MIGRATION_DATABASE_URL:?MIGRATION_DATABASE_URL is required}"
+compatibility_python="${current_link}/backend/.venv/bin/python"
+test -x "${compatibility_python}"
+artifact_contract="${target}/ops/release-db-compatibility.env"
+"${compatibility_python}" \
+  -m app.core.database_compatibility compatible-revisions \
+  --backend-root "${target}/backend" \
+  --contract "${artifact_contract}" >/dev/null
+current_revision="$(
+  sudo -u "${MIGRATION_DATABASE_OS_USER:-postgres}" \
+    env DATABASE_URL="${MIGRATION_DATABASE_URL}" \
+    "${compatibility_python}" \
+      -m app.core.database_compatibility assert-current \
+      --backend-root "${target}/backend" \
+      --contract "${artifact_contract}"
+)"
 install_release_units "${target}"
 runtime_units=(
   gongkao-dazi-api
@@ -118,4 +134,5 @@ for unit in "${runtime_units[@]}"; do
   systemctl is-active --quiet "${unit}"
 done
 trap - ERR
-printf '%s\n' "rolled back application release to ${release_id}"
+printf '%s\n' \
+  "rolled back application release to ${release_id} at database revision ${current_revision}"

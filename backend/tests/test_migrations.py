@@ -9,8 +9,28 @@ import pytest
 from sqlalchemy import inspect, text
 from sqlalchemy.engine import Engine
 from sqlalchemy.exc import DBAPIError
+from sqlalchemy.orm import Session
+
+from app.core.database_compatibility import (
+    artifact_database_revision,
+    load_artifact_database_compatibility,
+)
+from app.domains.mock_exam.migration_compat import (
+    Revision33MigrationContextError,
+)
+from app.domains.mock_exam.repository import MockExamRepository
 
 BACKEND_ROOT = Path(__file__).resolve().parents[1]
+# This intentionally compares only objects owned by W0-MIGRATION. It is not a
+# claim that the shadow fixture is equivalent to the full production schema.
+W0_MIGRATION_OWNED_FINGERPRINT_TABLES = (
+    "ai_audit.processor_release_records",
+    "learner.mock_exam_session_supersessions",
+    "learner.mock_exam_sessions",
+    "learner.mock_exam_trajectory_events",
+    "product.mock_exam_paper_versions",
+    "product.mock_exam_scoring_policy_versions",
+)
 
 
 class _ScalarResult:
@@ -31,6 +51,57 @@ class _RuntimeGrantBind:
 
     def exec_driver_sql(self, statement: str) -> None:
         self.statements.append(statement)
+
+
+def test_artifact_database_contract_matches_single_alembic_head() -> None:
+    compatibility = load_artifact_database_compatibility(
+        BACKEND_ROOT.parent / "ops" / "release-db-compatibility.env",
+        backend_root=BACKEND_ROOT,
+    )
+
+    assert compatibility.migration_head == artifact_database_revision()
+    assert compatibility.compatible_revisions == {
+        compatibility.migration_head,
+    }
+
+
+def test_release_switches_enforce_artifact_database_compatibility() -> None:
+    for script_name in ("activate_release.sh", "rollback_release.sh"):
+        script = (
+            BACKEND_ROOT.parent / "ops" / "scripts" / script_name
+        ).read_text(encoding="utf-8")
+        compatibility_check = script.index(
+            "-m app.core.database_compatibility compatible-revisions"
+        )
+        database_check = script.index(
+            "-m app.core.database_compatibility assert-current"
+        )
+        pointer_switch = script.index('ln -sfn "${target}" "${current_link}"')
+
+        assert compatibility_check < database_check < pointer_switch
+
+
+def test_database_revision_has_one_deployment_configuration_owner() -> None:
+    ops_root = BACKEND_ROOT.parent / "ops"
+    declarations = {
+        path.relative_to(ops_root)
+        for path in ops_root.glob("*env.example")
+        if "REQUIRED_DATABASE_REVISION=" in path.read_text(encoding="utf-8")
+    }
+
+    assert declarations == {Path("env.example")}
+
+
+def test_revision_33_legacy_repository_interface_rejects_head_runtime(
+    db_session: Session,
+) -> None:
+    with pytest.raises(
+        Revision33MigrationContextError,
+        match="outside its in-progress Alembic upgrade",
+    ):
+        MockExamRepository(db_session).get_frozen_question_sources(
+            question_ids=["runtime-must-not-use-legacy-question-source"]
+        )
 
 
 def test_messaging_runtime_access_migration_grants_current_and_future_objects(
@@ -218,6 +289,8 @@ def _seed_v12_onboarding_history(engine: Engine) -> None:
 def test_wechat_identity_migration_upgrades_from_audited_baseline(
     db_engine: Engine,
 ) -> None:
+    shadow_schema_fingerprint = _w0_migration_owned_schema_fingerprint(db_engine)
+    shadow_data_fingerprint = _w0_migration_owned_data_fingerprint(db_engine)
     config = Config(str(BACKEND_ROOT / "alembic.ini"))
     config.set_main_option(
         "sqlalchemy.url",
@@ -227,7 +300,6 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
     # knowledge-map release migration through its real downgrade before
     # reconstructing the audited v12 shape, otherwise the later full upgrade
     # would encounter release objects that did not exist at v12.
-    command.stamp(config, "20260727_68")
     command.downgrade(config, "20260727_64")
 
     with db_engine.begin() as connection:
@@ -599,6 +671,14 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
         _seed_v12_onboarding_history(db_engine)
         command.upgrade(config, "head")
 
+        assert (
+            _w0_migration_owned_schema_fingerprint(db_engine)
+            == shadow_schema_fingerprint
+        )
+        assert (
+            _w0_migration_owned_data_fingerprint(db_engine)
+            == shadow_data_fingerprint
+        )
         inspector = inspect(db_engine)
         assert "wechat_identities" in inspector.get_table_names(schema="learner")
         assert "account_events" in inspector.get_table_names(schema="learner")
@@ -1309,6 +1389,156 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
     finally:
         with db_engine.begin() as connection:
             connection.execute(text("drop table if exists public.alembic_version"))
+
+
+def _w0_migration_owned_schema_fingerprint(
+    engine: Engine,
+) -> tuple[tuple[object, ...], ...]:
+    with engine.connect() as connection:
+        return tuple(
+            tuple(row)
+            for row in connection.execute(
+                text(
+                    """
+                    with target_tables as (
+                      select
+                        namespace.oid as namespace_oid,
+                        relation.oid as relation_oid,
+                        namespace.nspname as schema_name,
+                        relation.relname as table_name
+                      from pg_class relation
+                      join pg_namespace namespace
+                        on namespace.oid = relation.relnamespace
+                      where namespace.nspname || '.' || relation.relname =
+                        any(:table_names)
+                    ), objects as (
+                      select
+                        'column' as object_kind,
+                        target.schema_name,
+                        target.table_name,
+                        attribute.attname as object_order,
+                        attribute.attname as object_name,
+                        concat_ws(
+                          '|',
+                          format_type(attribute.atttypid, attribute.atttypmod),
+                          attribute.attnotnull::text,
+                          coalesce(
+                            pg_get_expr(default_value.adbin, default_value.adrelid),
+                            ''
+                          )
+                        ) as definition
+                      from target_tables target
+                      join pg_attribute attribute
+                        on attribute.attrelid = target.relation_oid
+                       and attribute.attnum > 0
+                       and not attribute.attisdropped
+                      left join pg_attrdef default_value
+                        on default_value.adrelid = attribute.attrelid
+                       and default_value.adnum = attribute.attnum
+                      union all
+                      select
+                        'constraint',
+                        target.schema_name,
+                        target.table_name,
+                        constraint_def.conname,
+                        constraint_def.conname,
+                        pg_get_constraintdef(constraint_def.oid, true)
+                      from target_tables target
+                      join pg_constraint constraint_def
+                        on constraint_def.conrelid = target.relation_oid
+                      union all
+                      select
+                        'index',
+                        target.schema_name,
+                        target.table_name,
+                        index_relation.relname,
+                        index_relation.relname,
+                        pg_get_indexdef(index_def.indexrelid)
+                      from target_tables target
+                      join pg_index index_def
+                        on index_def.indrelid = target.relation_oid
+                      join pg_class index_relation
+                        on index_relation.oid = index_def.indexrelid
+                      union all
+                      select
+                        'trigger',
+                        target.schema_name,
+                        target.table_name,
+                        trigger_def.tgname,
+                        trigger_def.tgname,
+                        pg_get_triggerdef(trigger_def.oid, true)
+                      from target_tables target
+                      join pg_trigger trigger_def
+                        on trigger_def.tgrelid = target.relation_oid
+                       and not trigger_def.tgisinternal
+                    )
+                    select
+                      object_kind,
+                      schema_name,
+                      table_name,
+                      object_name,
+                      definition
+                    from objects
+                    order by
+                      object_kind,
+                      schema_name,
+                      table_name,
+                      object_order,
+                      object_name
+                    """
+                ),
+                {
+                    "table_names": list(
+                        W0_MIGRATION_OWNED_FINGERPRINT_TABLES
+                    )
+                },
+            )
+        )
+
+
+def _w0_migration_owned_data_fingerprint(
+    engine: Engine,
+) -> tuple[tuple[object, ...], ...]:
+    with engine.connect() as connection:
+        return tuple(
+            tuple(row)
+            for row in connection.execute(
+                text(
+                    """
+                    select
+                      'mock_scoring_policy',
+                      scoring_policy_version_id,
+                      state,
+                      metric_name,
+                      metric_unit,
+                      definition,
+                      module_weights::text,
+                      interval_method,
+                      confidence_level::text,
+                      calibration_status,
+                      calibration_sample_size::text,
+                      evidence_ref
+                    from product.mock_exam_scoring_policy_versions
+                    union all
+                    select
+                      'processor_release',
+                      processor_release_record_id,
+                      real_user_status,
+                      provider_key,
+                      provider_release,
+                      display_name,
+                      operator_name,
+                      endpoint_fingerprint,
+                      data_region,
+                      model_training_use,
+                      retention_policy,
+                      evidence_fingerprint
+                    from ai_audit.processor_release_records
+                    order by 1, 2
+                    """
+                )
+            )
+        )
 
 
 def test_stage15_migration_refuses_destructive_downgrade_with_facts(
