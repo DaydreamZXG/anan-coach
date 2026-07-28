@@ -51,6 +51,7 @@ from app.domains.companion.service import (
     _information_action,
 )
 from app.domains.memory.repository import LearnerMemoryRepository
+from app.domains.method_cards.repository import MethodCardRecord, MethodCardRepository
 from app.main import create_app
 from tests.knowledge_map_vocabulary_helpers import (
     activate_knowledge_release,
@@ -798,6 +799,68 @@ def test_companion_knowledge_release_expires_during_the_same_transaction(
             user_id=user_id,
             node_id="km_growth",
         ).method_cards == []
+
+
+def test_companion_shared_method_card_exact_replay_preserves_context(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id = _seed_user(db_session_factory, token="method-card-replay-token")
+    _seed_knowledge_map(db_session_factory)
+
+    with db_session_factory() as session:
+        before_timestamps = session.execute(
+            text(
+                """
+                select created_at, updated_at
+                from product.method_cards
+                where id = 'mc_growth'
+                """
+            )
+        ).one()
+        before_context = CompanionRepository(session).get_context(
+            user_id=user_id,
+            node_id="km_growth",
+        ).method_cards
+
+        assert MethodCardRepository(session).upsert_cards(
+            [_companion_shared_method_card()]
+        ) == 1
+
+        after_timestamps = session.execute(
+            text(
+                """
+                select created_at, updated_at
+                from product.method_cards
+                where id = 'mc_growth'
+                """
+            )
+        ).one()
+        after_context = CompanionRepository(session).get_context(
+            user_id=user_id,
+            node_id="km_growth",
+        ).method_cards
+        release_status = session.execute(
+            text(
+                """
+                select status
+                from product.knowledge_map_releases
+                where release_id =
+                      '11111111-1111-4111-8111-111111111111'::uuid
+                """
+            )
+        ).scalar_one()
+
+    assert before_context == [
+        {
+            "id": "mc_growth",
+            "title": "增长率三步法",
+            "fix_action": "先写公式再代数。",
+            "tag_path": "增长率",
+        }
+    ]
+    assert after_context == before_context
+    assert after_timestamps == before_timestamps
+    assert release_status == "active"
 
 
 def test_external_wrong_question_rejects_image_unsupported_node(
@@ -1754,6 +1817,9 @@ def _seed_knowledge_map(
     fresh_until: datetime | None = None,
 ) -> None:
     with db_session_factory() as session:
+        MethodCardRepository(session).upsert_cards(
+            [_companion_shared_method_card()]
+        )
         seed_released_module_vocabulary(
             session,
             version="vocab@companion-tests-current",
@@ -1871,52 +1937,6 @@ def _seed_knowledge_map(
                 """
             )
         )
-        session.execute(
-            text(
-                """
-                insert into product.method_cards (
-                  id,
-                  exam_scope,
-                  track,
-                  module_name,
-                  tag_path,
-                  title,
-                  recognition,
-                  applicability,
-                  method_steps,
-                  error_signatures,
-                  fix_action,
-                  time_budget_sec,
-                  accuracy_rule,
-                  pitfall,
-                  author_note,
-                  validation,
-                  priority,
-                  status
-                ) values (
-                  'mc_growth',
-                  'guokao',
-                  'xingce',
-                  '资料分析',
-                  '增长率',
-                  '增长率三步法',
-                  '看到同比/增长率',
-                  '{}'::jsonb,
-                  '["定位基期","计算增长"]'::jsonb,
-                  '[]'::jsonb,
-                  '先写公式再代数。',
-                  90,
-                  '公式正确且单位一致',
-                  null,
-                  'test',
-                  '{}'::jsonb,
-                  5,
-                  'published'
-                )
-                on conflict (id) do nothing
-                """
-            )
-        )
         seed_minimal_release_binding(
             session,
             release_id="11111111-1111-4111-8111-111111111111",
@@ -1931,10 +1951,36 @@ def _seed_knowledge_map(
         session.commit()
 
 
+def _companion_shared_method_card() -> MethodCardRecord:
+    return MethodCardRecord(
+        id="mc_growth",
+        exam_scope="guokao",
+        track="xingce",
+        module_name="资料分析",
+        tag_path="增长率",
+        title="增长率三步法",
+        recognition="看到同比/增长率",
+        applicability={},
+        method_steps=["定位基期", "计算增长"],
+        error_signatures=[],
+        fix_action="先写公式再代数。",
+        time_budget_sec=90,
+        accuracy_rule="公式正确且单位一致",
+        pitfall=None,
+        author_note="test",
+        validation={},
+        priority=5,
+        status="published",
+    )
+
+
 def _seed_retired_duplicate_knowledge_map(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     with db_session_factory() as session:
+        MethodCardRepository(session).upsert_cards(
+            [_companion_shared_method_card()]
+        )
         seed_released_module_vocabulary(
             session,
             version="vocab@companion-tests-retired",

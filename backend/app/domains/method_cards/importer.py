@@ -6,6 +6,7 @@ from pathlib import Path
 import re
 from typing import Any, Iterable
 
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 import yaml
 
@@ -26,6 +27,10 @@ class MethodCardImportResult:
 _CARD_ID_RE = re.compile(r"^mc_[a-z0-9_]+$")
 _SNAKE_RE = re.compile(r"^[a-z][a-z0-9_]*$")
 _YAML_SUFFIXES = {".yaml", ".yml"}
+_IMMUTABLE_RELEASE_SQLSTATE = "23514"
+_IMMUTABLE_RELEASE_MESSAGE = (
+    "method cards referenced by published knowledge releases are immutable"
+)
 
 
 def import_method_cards(
@@ -39,11 +44,27 @@ def import_method_cards(
         cards.extend(_load_cards_from_file(yaml_file))
     _reject_duplicate_ids(cards)
 
-    MethodCardRepository(session).upsert_cards(cards)
+    try:
+        MethodCardRepository(session).upsert_cards(cards)
+    except IntegrityError as exc:
+        if not _is_released_method_card_drift(exc):
+            raise
+        session.rollback()
+        raise MethodCardImportError(
+            "Method-card import contains same-ID content drift for a card "
+            "referenced by an active or retired knowledge release"
+        ) from exc
     return MethodCardImportResult(
         file_count=len(yaml_files),
         card_count=len(cards),
         card_ids=[card.id for card in cards],
+    )
+
+
+def _is_released_method_card_drift(error: IntegrityError) -> bool:
+    return (
+        getattr(error.orig, "sqlstate", None) == _IMMUTABLE_RELEASE_SQLSTATE
+        and _IMMUTABLE_RELEASE_MESSAGE in str(error.orig)
     )
 
 

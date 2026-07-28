@@ -4,6 +4,7 @@ from dataclasses import replace
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 import subprocess
+import sys
 from uuid import uuid4
 
 import pytest
@@ -12,6 +13,7 @@ from sqlalchemy.engine import Engine
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
+from app.domains.method_cards.importer import MethodCardImportError, import_method_cards
 from app.domains.method_cards.repository import MethodCardRecord, MethodCardRepository
 from tests.knowledge_map_vocabulary_helpers import (
     activate_knowledge_release,
@@ -22,6 +24,14 @@ from tests.knowledge_map_vocabulary_helpers import (
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 VOCAB_LOADER = REPO_ROOT / "scripts" / "sql" / "vocabulary" / "load_vocabulary_seed.sql"
+METHOD_CARD_FIXTURE = (
+    REPO_ROOT
+    / "backend"
+    / "tests"
+    / "fixtures"
+    / "method_cards"
+    / "mc_ziliao_jiqiliang_published.yaml"
+)
 
 
 def test_vocab_loader_declares_complete_staging_contract() -> None:
@@ -436,22 +446,192 @@ def test_release_activation_freezes_identity_nodes_and_vocabulary(
             )
 
 
+@pytest.mark.parametrize("release_status", ("active", "retired"))
 def test_released_method_card_allows_exact_replay_and_rejects_content_drift(
     db_session: Session,
+    release_status: str,
 ) -> None:
-    now = datetime.now(UTC)
-    card = _method_card("mc_immutable")
+    card = _method_card(f"mc_immutable_{release_status}")
     repository = MethodCardRepository(db_session)
     assert repository.upsert_cards([card]) == 1
-    original_updated_at = db_session.execute(
-        text("select updated_at from product.method_cards where id = :card_id"),
+    release_id = _reference_method_card(
+        db_session,
+        card_id=card.id,
+        release_status=release_status,
+    )
+    original = db_session.execute(
+        text(
+            """
+            select created_at, updated_at
+            from product.method_cards
+            where id = :card_id
+            """
+        ),
         {"card_id": card.id},
-    ).scalar_one()
+    ).one()
+    original_card = repository.get_published_card(card.id)
+    original_release = db_session.execute(
+        text(
+            """
+            select status, source_fingerprint
+            from product.knowledge_map_releases
+            where release_id = cast(:release_id as uuid)
+            """
+        ),
+        {"release_id": release_id},
+    ).one()
 
+    assert repository.upsert_cards([card]) == 1
+    replayed = db_session.execute(
+        text(
+            """
+            select created_at, updated_at
+            from product.method_cards
+            where id = :card_id
+            """
+        ),
+        {"card_id": card.id},
+    ).one()
+    assert replayed == original
+    assert repository.get_published_card(card.id) == original_card
+    assert (
+        db_session.execute(
+            text(
+                """
+                select status, source_fingerprint
+                from product.knowledge_map_releases
+                where release_id = cast(:release_id as uuid)
+                """
+            ),
+            {"release_id": release_id},
+        ).one()
+        == original_release
+    )
+    assert original_release.status == release_status
+
+    with pytest.raises(IntegrityError, match="referenced by published"):
+        repository.upsert_cards(
+            [replace(card, fix_action="内容已漂移，必须使用新方法卡 ID")]
+        )
+    db_session.rollback()
+
+    stored = repository.get_published_card(card.id)
+    assert stored is not None
+    assert stored["fix_action"] == card.fix_action
+
+
+def test_import_retry_after_committed_response_loss_and_drift_is_fail_closed(
+    db_engine: Engine,
+    db_session: Session,
+    tmp_path: Path,
+) -> None:
+    yaml_path = tmp_path / METHOD_CARD_FIXTURE.name
+    original_yaml = METHOD_CARD_FIXTURE.read_text(encoding="utf-8")
+    yaml_path.write_text(original_yaml, encoding="utf-8")
+    first = import_method_cards(session=db_session, paths=[yaml_path])
+    card_id = first.card_ids[0]
+    _reference_method_card(db_session, card_id=card_id, release_status="active")
+    original = db_session.execute(
+        text(
+            """
+            select created_at, updated_at, title
+            from product.method_cards
+            where id = :card_id
+            """
+        ),
+        {"card_id": card_id},
+    ).one()
+
+    with pytest.raises(ConnectionError, match="response lost after commit"):
+        committed = import_method_cards(session=db_session, paths=[yaml_path])
+        assert committed == first
+        raise ConnectionError("response lost after commit")
+
+    replayed = import_method_cards(session=db_session, paths=[yaml_path])
+    assert replayed == first
+    cli_replay = subprocess.run(
+        [
+            sys.executable,
+            str(REPO_ROOT / "scripts" / "import_method_cards.py"),
+            str(yaml_path),
+            "--database-url",
+            db_engine.url.render_as_string(hide_password=False),
+        ],
+        cwd=REPO_ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert cli_replay.returncode == 0, cli_replay.stderr
+    assert f"imported 1 method cards from 1 YAML file(s): {card_id}" in cli_replay.stdout
+    assert (
+        db_session.execute(
+            text(
+                """
+                select created_at, updated_at, title
+                from product.method_cards
+                where id = :card_id
+                """
+            ),
+            {"card_id": card_id},
+        ).one()
+        == original
+    )
+
+    yaml_path.write_text(
+        original_yaml.replace(
+            "title: 基期量计算：化除为乘",
+            "title: 同一 ID 的发布内容漂移",
+        ),
+        encoding="utf-8",
+    )
+    with pytest.raises(MethodCardImportError, match="same-ID content drift"):
+        import_method_cards(session=db_session, paths=[yaml_path])
+    cli_drift = subprocess.run(
+        [
+            sys.executable,
+            str(REPO_ROOT / "scripts" / "import_method_cards.py"),
+            str(yaml_path),
+            "--database-url",
+            db_engine.url.render_as_string(hide_password=False),
+        ],
+        cwd=REPO_ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert cli_drift.returncode == 2
+    assert "same-ID content drift" in cli_drift.stderr
+    assert "Traceback" not in cli_drift.stderr
+
+    # The importer rolls back the rejected batch, leaving its Session reusable.
+    assert (
+        db_session.execute(
+            text(
+                """
+                select created_at, updated_at, title
+                from product.method_cards
+                where id = :card_id
+                """
+            ),
+            {"card_id": card_id},
+        ).one()
+        == original
+    )
+
+
+def _reference_method_card(
+    session: Session,
+    *,
+    card_id: str,
+    release_status: str,
+) -> str:
+    now = datetime.now(UTC)
     release_id = str(uuid4())
+    node_id = f"km_method_card_{release_id}"
     vocab_version = f"vocab@method-card-{release_id}"
-    seed_released_module_vocabulary(db_session, version=vocab_version)
-    db_session.execute(
+    seed_released_module_vocabulary(session, version=vocab_version)
+    session.execute(
         text(
             """
             insert into product.knowledge_map_releases (
@@ -474,7 +654,7 @@ def test_released_method_card_allows_exact_replay_and_rejects_content_drift(
             "fresh_until": now + timedelta(days=30),
         },
     )
-    db_session.execute(
+    session.execute(
         text(
             """
             insert into product.knowledge_map_nodes (
@@ -482,45 +662,47 @@ def test_released_method_card_allows_exact_replay_and_rejects_content_drift(
               node_type, tag_type, tag_value, display_path, support_status,
               method_card_ids, status
             ) values (
-              cast(:release_id as uuid), 'km_method_card_immutable',
-                  'guokao', 'xingce', '资料分析', 'knowledge_point',
-                  'knowledge_point', '增长率', '行测/资料分析/增长率',
-                  'text_supported', jsonb_build_array(cast(:card_id as text)),
-                  'published'
+              cast(:release_id as uuid), :node_id,
+              'guokao', 'xingce', '资料分析', 'knowledge_point',
+              'knowledge_point', '增长率', '行测/资料分析/增长率',
+              'text_supported', jsonb_build_array(cast(:card_id as text)),
+              'published'
             )
             """
         ),
-        {"release_id": release_id, "card_id": card.id},
+        {
+            "release_id": release_id,
+            "node_id": node_id,
+            "card_id": card_id,
+        },
     )
     seed_minimal_release_binding(
-        db_session,
+        session,
         release_id=release_id,
-        node_id="km_method_card_immutable",
+        node_id=node_id,
         question_id=f"q_method_card_{release_id}",
     )
     activate_knowledge_release(
-        db_session,
+        session,
         release_id=release_id,
         activated_at=now,
     )
-    db_session.commit()
-
-    assert repository.upsert_cards([card]) == 1
-    replayed_updated_at = db_session.execute(
-        text("select updated_at from product.method_cards where id = :card_id"),
-        {"card_id": card.id},
-    ).scalar_one()
-    assert replayed_updated_at == original_updated_at
-
-    with pytest.raises(IntegrityError, match="referenced by published"):
-        repository.upsert_cards(
-            [replace(card, fix_action="内容已漂移，必须使用新方法卡 ID")]
+    if release_status == "retired":
+        session.execute(
+            text(
+                """
+                update product.knowledge_map_releases
+                set status = 'retired', retired_at = :retired_at
+                where release_id = cast(:release_id as uuid)
+                """
+            ),
+            {
+                "release_id": release_id,
+                "retired_at": now + timedelta(seconds=1),
+            },
         )
-    db_session.rollback()
-
-    stored = repository.get_published_card(card.id)
-    assert stored is not None
-    assert stored["fix_action"] == card.fix_action
+    session.commit()
+    return release_id
 
 
 def _run_vocab_loader(

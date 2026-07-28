@@ -65,6 +65,14 @@ class MethodCardRepository:
         return dict(row) if row else None
 
     def upsert_cards(self, cards: list[MethodCardRecord]) -> int:
+        """Write cards through the METHOD-CARD-REPLAY@v1 database contract.
+
+        The INSERT path is intentional: migration 73's BEFORE INSERT guard
+        accepts canonical exact replays for released cards and rejects drift
+        before PostgreSQL reaches the conflict update. The conflict predicate
+        then preserves both timestamps for exact replay while retaining
+        contract-compliant updates for unreferenced drafts.
+        """
         for card in cards:
             self._session.execute(
                 text(
