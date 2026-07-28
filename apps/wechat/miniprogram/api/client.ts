@@ -1,5 +1,6 @@
 import { environment } from "../config/environment";
 import type { ApiEnvelope, ApiErrorPayload } from "../domain/contracts";
+import { currentAuthSession, type ActiveAuthSession } from "../auth/session";
 
 type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 
@@ -9,19 +10,28 @@ export interface ApiRequestOptions {
   taskEditLease?: { leaseId: string; generation: number };
 }
 
+/** A response was received, or transport completion is still unknown to the caller. */
+export type ApiClientErrorClassification = "http_response" | "transport_unknown";
+
 export class ApiClientError extends Error {
   constructor(
     message: string,
     readonly statusCode: number,
     readonly requestId: string,
     readonly payload?: ApiErrorPayload,
+    readonly classification: ApiClientErrorClassification = statusCode === 0
+      ? "transport_unknown"
+      : "http_response",
   ) {
     super(message);
     this.name = "ApiClientError";
   }
 }
 
-export type UnauthorizedHandler = () => void;
+export type UnauthorizedHandler = (
+  origin: ActiveAuthSession | undefined,
+  requestId: string,
+) => void;
 
 let onUnauthorized: UnauthorizedHandler | null = null;
 
@@ -94,6 +104,7 @@ export class ApiClient {
     options?: ApiRequestOptions,
   ): Promise<ApiEnvelope<T>> {
     const correlationId = createRequestId();
+    const originSession = captureOriginSession(this.accessToken);
     return new Promise((resolve, reject) => {
       const requestOptions: WechatMiniprogram.RequestOption<ApiEnvelope<T>> = {
         url: `${this.baseUrl}${path}`,
@@ -118,9 +129,11 @@ export class ApiClient {
             return;
           }
 
-          if (response.statusCode === 401) onUnauthorized?.();
           const payload: unknown = response.data;
           const publicError = isApiErrorPayload(payload) ? payload : undefined;
+          if (response.statusCode === 401) {
+            onUnauthorized?.(originSession, publicError?.requestId ?? correlationId);
+          }
           reject(
             new ApiClientError(
               humanReadableMessage(publicError?.message),
@@ -138,4 +151,11 @@ export class ApiClient {
       wx.request<ApiEnvelope<T>>(requestOptions);
     });
   }
+}
+
+function captureOriginSession(accessToken: string | undefined): ActiveAuthSession | undefined {
+  if (!accessToken) return undefined;
+  const current = currentAuthSession();
+  if (!current || current.accessToken !== accessToken) return undefined;
+  return { ...current };
 }

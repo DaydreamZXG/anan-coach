@@ -1,4 +1,4 @@
-import { clearAuthSession, storeAuthSession } from "../auth/session";
+import { clearAuthSession, clearAuthSessionIfCurrent, storeAuthSession } from "../auth/session";
 import { setUnauthorizedHandler } from "./client";
 import type { WechatAuthSessionData } from "./generated/types.gen";
 
@@ -11,7 +11,7 @@ export function clearSession(): void {
 }
 
 export function installUnauthorizedReset(): void {
-  setUnauthorizedHandler(() => {
-    clearSession();
+  setUnauthorizedHandler((origin) => {
+    clearAuthSessionIfCurrent(origin);
   });
 }

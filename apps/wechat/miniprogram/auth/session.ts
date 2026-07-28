@@ -3,35 +3,46 @@ const legacyAccessTokenKey = "gongkao.auth.accessToken";
 const deviceIdKey = "gongkao.installation.deviceId";
 
 interface SessionAppOptions {
-  globalData: { accessToken?: string; userId?: string; displayName?: string };
+  globalData: { accessToken?: string; userId?: string; displayName?: string; generation?: string };
 }
 
 export interface AuthSession {
   accessToken: string;
   userId: string;
   displayName?: string;
+  /** Optional only for legacy typed fixtures; persisted/current sessions always contain it. */
+  generation?: string;
 }
 
-export function currentAuthSession(): AuthSession | undefined {
+export interface ActiveAuthSession extends AuthSession {
+  generation: string;
+}
+
+export function currentAuthSession(): ActiveAuthSession | undefined {
   const globalData = getApp<SessionAppOptions>().globalData;
-  if (validIdentifier(globalData.accessToken) && validIdentifier(globalData.userId)) {
+  if (
+    validIdentifier(globalData.accessToken) &&
+    validIdentifier(globalData.userId) &&
+    validIdentifier(globalData.generation)
+  ) {
     const displayName = normalizedDisplayName(globalData.displayName);
     return {
       accessToken: globalData.accessToken,
       userId: globalData.userId,
       ...(displayName ? { displayName } : {}),
+      generation: globalData.generation,
     };
   }
   const persisted: unknown = wx.getStorageSync(authSessionKey);
-  if (!isAuthSession(persisted)) {
+  const session = readPersistedSession(persisted);
+  if (!session) {
     wx.removeStorageSync(legacyAccessTokenKey);
     return undefined;
   }
+  if (!isAuthSession(persisted)) wx.setStorageSync(authSessionKey, session);
   wx.removeStorageSync(legacyAccessTokenKey);
-  globalData.accessToken = persisted.accessToken;
-  globalData.userId = persisted.userId;
-  if (persisted.displayName) globalData.displayName = persisted.displayName;
-  return persisted;
+  applySessionToGlobalData(globalData, session);
+  return session;
 }
 
 export function currentAccessToken(): string | undefined {
@@ -47,20 +58,17 @@ export function storeAuthSession(
   userId: string,
   displayName?: string | null,
 ): void {
-  const session = validatedAuthSession(accessToken, userId, displayName);
-  wx.setStorageSync(authSessionKey, session);
-  wx.removeStorageSync(legacyAccessTokenKey);
-  const globalData = getApp<SessionAppOptions>().globalData;
-  globalData.accessToken = session.accessToken;
-  globalData.userId = session.userId;
-  if (session.displayName) globalData.displayName = session.displayName;
-  else delete globalData.displayName;
+  writeAuthSession(
+    validatedAuthSession(accessToken, userId, displayName, createSessionGeneration()),
+  );
 }
 
 export function updateAuthDisplayName(displayName?: string | null): void {
   const session = currentAuthSession();
   if (!session) return;
-  storeAuthSession(session.accessToken, session.userId, displayName);
+  writeAuthSession(
+    validatedAuthSession(session.accessToken, session.userId, displayName, session.generation),
+  );
 }
 
 export function clearAuthSession(): void {
@@ -68,8 +76,30 @@ export function clearAuthSession(): void {
   delete globalData.accessToken;
   delete globalData.userId;
   delete globalData.displayName;
+  delete globalData.generation;
   wx.removeStorageSync(authSessionKey);
   wx.removeStorageSync(legacyAccessTokenKey);
+}
+
+/** Clears only the session that owned a failed request. */
+export function clearAuthSessionIfCurrent(origin: ActiveAuthSession | undefined): boolean {
+  if (!origin || !sameSessionOwner(currentAuthSession(), origin)) return false;
+  clearAuthSession();
+  return true;
+}
+
+/** Session ownership intentionally excludes mutable presentation metadata. */
+export function sameSessionOwner(
+  current: ActiveAuthSession | undefined,
+  origin: ActiveAuthSession | undefined,
+): boolean {
+  return (
+    current !== undefined &&
+    origin !== undefined &&
+    current.accessToken === origin.accessToken &&
+    current.userId === origin.userId &&
+    current.generation === origin.generation
+  );
 }
 
 export function currentDeviceId(): string {
@@ -84,12 +114,14 @@ function validatedAuthSession(
   accessToken: string,
   userId: string,
   displayName?: string | null,
-): AuthSession {
+  generation?: string,
+): ActiveAuthSession {
   const normalizedName = normalizedDisplayName(displayName);
   const session = {
     accessToken: accessToken.trim(),
     userId: userId.trim(),
     ...(normalizedName ? { displayName: normalizedName } : {}),
+    generation: generation?.trim() ?? "",
   };
   if (!isAuthSession(session)) {
     throw new Error("Authenticated session requires a stable user and access token");
@@ -97,13 +129,55 @@ function validatedAuthSession(
   return session;
 }
 
-function isAuthSession(value: unknown): value is AuthSession {
+function isAuthSession(value: unknown): value is ActiveAuthSession {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    validIdentifier((value as Partial<AuthSession>).accessToken) &&
+    validIdentifier((value as Partial<AuthSession>).userId) &&
+    validIdentifier((value as Partial<AuthSession>).generation)
+  );
+}
+
+function readPersistedSession(value: unknown): ActiveAuthSession | undefined {
+  if (isAuthSession(value)) return value;
+  if (!isLegacyAuthSession(value)) return undefined;
+  return validatedAuthSession(
+    value.accessToken,
+    value.userId,
+    value.displayName,
+    createSessionGeneration(),
+  );
+}
+
+function isLegacyAuthSession(value: unknown): value is Omit<AuthSession, "generation"> {
   return (
     typeof value === "object" &&
     value !== null &&
     validIdentifier((value as Partial<AuthSession>).accessToken) &&
     validIdentifier((value as Partial<AuthSession>).userId)
   );
+}
+
+function writeAuthSession(session: ActiveAuthSession): void {
+  wx.setStorageSync(authSessionKey, session);
+  wx.removeStorageSync(legacyAccessTokenKey);
+  applySessionToGlobalData(getApp<SessionAppOptions>().globalData, session);
+}
+
+function applySessionToGlobalData(
+  globalData: SessionAppOptions["globalData"],
+  session: ActiveAuthSession,
+): void {
+  globalData.accessToken = session.accessToken;
+  globalData.userId = session.userId;
+  globalData.generation = session.generation;
+  if (session.displayName) globalData.displayName = session.displayName;
+  else delete globalData.displayName;
+}
+
+function createSessionGeneration(): string {
+  return `session-${String(Date.now())}-${Math.random().toString(36).slice(2, 14)}`;
 }
 
 function validIdentifier(value: unknown): value is string {
