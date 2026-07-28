@@ -39,6 +39,7 @@ def test_claim_kill_restart_uses_lease_and_fences_the_old_worker(
         job_type=EXPORT_JOB_TYPE,
         input_version="personal-data-export@v1",
         payload={"exportRequestId": str(uuid4()), "userId": str(uuid4())},
+        run_after=NOW,
     )
     first = jobs.claim_next(db_session, job_types=(EXPORT_JOB_TYPE,), now=NOW)
     assert first is not None
@@ -95,6 +96,7 @@ def test_retry_and_checkpoint_reject_an_expired_token(db_session: Session) -> No
         job_type=EXPORT_JOB_TYPE,
         input_version="personal-data-export@v1",
         payload={"exportRequestId": str(uuid4()), "userId": str(uuid4())},
+        run_after=NOW,
     )
     claimed = jobs.claim_next(db_session, job_types=(EXPORT_JOB_TYPE,), now=NOW)
     assert claimed is not None and claimed.claim_token is not None
@@ -130,6 +132,7 @@ def test_seven_day_data_rights_claim_is_reclaimed_by_worker_poll(
         job_type=EXPORT_JOB_TYPE,
         input_version="personal-data-export@v1",
         payload={"exportRequestId": str(uuid4()), "userId": str(uuid4())},
+        run_after=NOW,
     )
     stale = jobs.claim_next(db_session, job_types=(EXPORT_JOB_TYPE,), now=NOW)
     assert stale is not None and stale.claim_token is not None
@@ -164,6 +167,7 @@ def test_legacy_running_row_without_lease_is_recovered(db_session: Session) -> N
         job_type=EXPORT_JOB_TYPE,
         input_version="personal-data-export@v1",
         payload={"exportRequestId": str(uuid4()), "userId": str(uuid4())},
+        run_after=NOW,
     )
     legacy_token = uuid4()
     db_session.execute(
@@ -205,6 +209,7 @@ def test_concurrent_claims_never_share_a_job(
             job_type=EXPORT_JOB_TYPE,
             input_version="personal-data-export@v1",
             payload={"exportRequestId": str(uuid4()), "userId": str(uuid4())},
+            run_after=NOW,
         )
 
     with db_session_factory() as first_session, db_session_factory() as second_session:
