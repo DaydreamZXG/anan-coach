@@ -39,17 +39,21 @@ if [ ! -d "$SOURCE_ROOT/miniprogram" ] || [ ! -f "$SOURCE_ROOT/project.config.js
   exit 1
 fi
 
-SOURCE_HEAD=$(git -C "$SOURCE_REPOSITORY" rev-parse --verify HEAD)
-if [ "$SOURCE_HEAD" != "$SOURCE_COMMIT" ]; then
-  echo "WECHAT_AUDIT_SOURCE_COMMIT does not match source repository HEAD" >&2
-  exit 1
-fi
-SOURCE_STATUS=$(git -C "$SOURCE_REPOSITORY" status --porcelain=v1 --untracked-files=normal)
-if [ -n "$SOURCE_STATUS" ]; then
-  echo "Refusing dirty source worktree:" >&2
-  echo "$SOURCE_STATUS" >&2
-  exit 1
-fi
+assert_source_stable() {
+  SOURCE_HEAD=$(git -C "$SOURCE_REPOSITORY" rev-parse --verify HEAD)
+  if [ "$SOURCE_HEAD" != "$SOURCE_COMMIT" ]; then
+    echo "WECHAT_AUDIT_SOURCE_COMMIT does not match source repository HEAD" >&2
+    exit 1
+  fi
+  SOURCE_STATUS=$(git -C "$SOURCE_REPOSITORY" status --porcelain=v1 --untracked-files=normal)
+  if [ -n "$SOURCE_STATUS" ]; then
+    echo "Refusing dirty source worktree:" >&2
+    echo "$SOURCE_STATUS" >&2
+    exit 1
+  fi
+}
+
+assert_source_stable
 
 PREPARE_RELATIVE_PATH=tools/audit/c/prepare_runtime_project.sh
 PREPARE_TOOL_COMMIT=$(git -C "$REPO_ROOT" rev-parse --verify HEAD)
@@ -139,6 +143,11 @@ AUDIT_RUNTIME_NONCE="$RUNTIME_NONCE" AUDIT_SOURCE_COMMIT="$SOURCE_COMMIT" \
 grep -Fq "__wechatAuditRuntimeIdentity" "$AUDIT_APP"
 grep -Fq "nonce: \"$RUNTIME_NONCE\"" "$AUDIT_APP"
 grep -Fq "sourceCommit: \"$SOURCE_COMMIT\"" "$AUDIT_APP"
+
+# Re-check after all source reads and runtime-only mutations. A concurrent
+# source change makes this unique runtime unusable rather than producing
+# ambiguous provenance markers.
+assert_source_stable
 
 printf '%s\n' "$SOURCE_COMMIT" > "$RUNTIME_ROOT/.audit-source-commit"
 printf '%s\n' \

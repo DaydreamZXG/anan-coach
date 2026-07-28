@@ -21,6 +21,16 @@ export function requiredFullCommit(value, label = "commit") {
   return commit;
 }
 
+export function requiredSafeLabel(value, label = "label") {
+  const safeLabel = String(value ?? "");
+  assert.match(
+    safeLabel,
+    /^[a-z0-9][a-z0-9-]*$/u,
+    `${label} must contain only lowercase letters, digits, and hyphens`,
+  );
+  return safeLabel;
+}
+
 export async function readCleanSourceGitEvidence(
   sourceRepositoryRoot,
   declaredSourceCommit,
@@ -60,6 +70,19 @@ export async function readCleanSourceGitEvidence(
     declaredCommit: expectedCommit,
     clean: true,
     status: "",
+  };
+}
+
+export function assertSourceGitEvidenceUnchanged(initial, final) {
+  assert.deepEqual(
+    final,
+    initial,
+    "Source Git evidence changed during the audit capture",
+  );
+  return {
+    validation: "unchanged-clean-head",
+    initial,
+    final,
   };
 }
 
@@ -241,11 +264,7 @@ export async function reserveProfileOutputs({
   auditRoot,
   profile,
 }) {
-  assert.match(
-    profile,
-    /^[a-z0-9][a-z0-9-]*$/u,
-    `Unsafe profile label: ${profile}`,
-  );
+  requiredSafeLabel(profile, "Audit profile");
   const resolvedAuditRoot = await ensureSafeDirectoryTree(
     allowedRoot,
     auditRoot,

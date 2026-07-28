@@ -8,6 +8,8 @@ evidence without changing the formal source worktree.
 - `WECHAT_AUDIT_SOURCE_COMMIT` is mandatory and must be the source
   repository's full 40-character `HEAD`.
 - The complete source worktree must be clean before preparation or capture.
+  Preparation checks again after copying; capture checks again before writing
+  its manifest and marks the run failed if the source evidence drifted.
 - The executing capture script and its safety module must have working blobs
   identical to their paths in the tool repository's `HEAD`. Their commit and
   blob IDs are written to every manifest.
@@ -19,7 +21,8 @@ evidence without changing the formal source worktree.
   DevTools service returns the exact same identity.
 - `screenshots/` and `logs/` may not traverse symlinks. A profile directory is
   an atomic `mkdir` lock, while its log and manifest use exclusive-create file
-  handles.
+  handles. Scenario IDs are safe labels and screenshot paths must remain strict
+  descendants of that profile directory.
 
 The prepared runtime's `node_modules` entry is intentionally a symlink to the
 clean source worktree. It is a read-only dependency input, not an output path.

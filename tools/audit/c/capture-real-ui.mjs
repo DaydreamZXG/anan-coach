@@ -22,10 +22,12 @@ const {
   assertDisjointTrees,
   assertRuntimeIdentityMatches,
   assertSafeOutputTarget,
+  assertSourceGitEvidenceUnchanged,
   parseLoopbackWebSocketEndpoint,
   parseRuntimeIdentity,
   readCleanSourceGitEvidence,
   requiredFullCommit,
+  requiredSafeLabel,
   reserveProfileOutputs,
 } = await import(pathToFileURL(safetyModulePath).href);
 const sourceRepositoryRoot = path.resolve(
@@ -134,6 +136,9 @@ const packageAssetScenarios = [
 }));
 
 const allScenarios = [...visualScenarios, ...packageAssetScenarios];
+for (const scenario of allScenarios) {
+  requiredSafeLabel(scenario.id, "Audit scenario");
+}
 const selectedScenarios = scenarioFilter.size
   ? allScenarios.filter((scenario) => scenarioFilter.has(scenario.id))
   : allScenarios;
@@ -222,6 +227,7 @@ program.on("console", (event) => {
 let systemInfo;
 let chromeMetrics;
 let fatalError = null;
+let sourceIntegrity;
 
 try {
   systemInfo = await withTimeout(
@@ -330,6 +336,29 @@ try {
   }
 }
 
+try {
+  const finalSourceGitEvidence = await readCleanSourceGitEvidence(
+    sourceRepositoryRoot,
+    declaredSourceCommit,
+  );
+  sourceIntegrity = assertSourceGitEvidenceUnchanged(
+    sourceGitEvidence,
+    finalSourceGitEvidence,
+  );
+} catch (error) {
+  const sourceIntegrityError = errorText(error);
+  sourceIntegrity = {
+    validation: "failed",
+    initial: sourceGitEvidence,
+    final: null,
+    error: sourceIntegrityError,
+  };
+  fatalError = fatalError
+    ? `${fatalError}\nSource integrity failure: ${sourceIntegrityError}`
+    : `Source integrity failure: ${sourceIntegrityError}`;
+  process.exitCode = 1;
+}
+
 const manifest = {
   schemaVersion: 2,
   auditKind: "wechat-devtools-real-render",
@@ -338,6 +367,7 @@ const manifest = {
   sourceRepository: displayPath(sourceRepositoryRoot),
   sourceCommit,
   sourceGitEvidence,
+  sourceIntegrity,
   runtimeSourceMarker,
   runtimeIdentity: runtimeIdentityEvidence,
   automationBinding: {
@@ -457,10 +487,11 @@ async function captureScenario(miniProgram, scenario, record) {
 
   const screenshotPath = path.resolve(
     profileScreenshotDirectory,
-    `${scenario.id}.png`,
+    `${requiredSafeLabel(scenario.id, "Audit scenario")}.png`,
   );
   assertAllowedOutput(screenshotPath);
   await assertSafeOutputTarget(allowedAuditRoot, screenshotPath);
+  await assertSafeOutputTarget(profileScreenshotDirectory, screenshotPath);
   await assertPathAbsent(screenshotPath);
   record.stage = "screenshot";
   await miniProgram.screenshot({ path: screenshotPath });
@@ -971,15 +1002,6 @@ function numericCssValue(value) {
     if (Number.isFinite(parsed)) return parsed;
   }
   return 0;
-}
-
-function requiredSafeLabel(value) {
-  assert.match(
-    value,
-    /^[a-z0-9][a-z0-9-]*$/u,
-    `Unsafe profile label: ${value}`,
-  );
-  return value;
 }
 
 function optionalPositiveInteger(value) {

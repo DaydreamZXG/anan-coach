@@ -15,8 +15,10 @@ import { promisify } from "node:util";
 import {
   assertRuntimeIdentityMatches,
   assertSafeOutputTarget,
+  assertSourceGitEvidenceUnchanged,
   parseLoopbackWebSocketEndpoint,
   readCleanSourceGitEvidence,
+  requiredSafeLabel,
   reserveProfileOutputs,
 } from "./capture-safety.mjs";
 
@@ -83,6 +85,68 @@ test("rejects a running runtime identity that differs from disk", () => {
         nonce: "c".repeat(64),
       }),
     /does not match the prepared audit runtime/u,
+  );
+});
+
+test("rejects source evidence that drifts during capture", () => {
+  const initial = {
+    head: "a".repeat(40),
+    declaredCommit: "a".repeat(40),
+    clean: true,
+    status: "",
+  };
+  assert.throws(
+    () =>
+      assertSourceGitEvidenceUnchanged(initial, {
+        ...initial,
+        head: "b".repeat(40),
+      }),
+    /changed during the audit capture/u,
+  );
+});
+
+test("rejects unsafe scenario labels and profile escape paths", async (t) => {
+  assert.throws(
+    () => requiredSafeLabel("../outside", "Audit scenario"),
+    /must contain only lowercase letters, digits, and hyphens/u,
+  );
+  const temporaryRoot = await mkdtemp(
+    path.join(os.tmpdir(), "wechat-audit-profile-boundary-"),
+  );
+  t.after(() => rm(temporaryRoot, { force: true, recursive: true }));
+  const allowedRoot = path.join(temporaryRoot, "audit");
+  const profileRoot = path.join(allowedRoot, "screenshots", "standard");
+  await mkdir(profileRoot, { recursive: true });
+  await assert.rejects(
+    assertSafeOutputTarget(
+      profileRoot,
+      path.join(allowedRoot, "screenshots", "escaped.png"),
+    ),
+    /must be a strict descendant/u,
+  );
+});
+
+test("root guard rejects a profile whose upper output directory was replaced by a symlink", async (t) => {
+  const temporaryRoot = await mkdtemp(
+    path.join(os.tmpdir(), "wechat-audit-replaced-root-"),
+  );
+  t.after(() => rm(temporaryRoot, { force: true, recursive: true }));
+  const allowedRoot = path.join(temporaryRoot, "audit");
+  const screenshotRoot = path.join(allowedRoot, "screenshots");
+  const profileRoot = path.join(screenshotRoot, "standard");
+  const outsideRoot = path.join(temporaryRoot, "outside");
+  await Promise.all([
+    mkdir(profileRoot, { recursive: true }),
+    mkdir(path.join(outsideRoot, "standard"), { recursive: true }),
+  ]);
+  await rm(screenshotRoot, { recursive: true });
+  await symlink(outsideRoot, screenshotRoot);
+  await assert.rejects(
+    assertSafeOutputTarget(
+      allowedRoot,
+      path.join(profileRoot, "capture.png"),
+    ),
+    /must not traverse a symlink/u,
   );
 });
 
