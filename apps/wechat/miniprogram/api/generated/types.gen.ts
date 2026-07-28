@@ -19973,6 +19973,12 @@ export type GetRankProfileApiV1RankProfileGetResponse = GetRankProfileApiV1RankP
 
 export type SubmitCardVerdictApiV1ReviewSessionsDocketIdCardsCardIdVerdictPostData = {
     body: ReviewVerdictRequest;
+    headers?: {
+        /**
+         * Idempotency-Key
+         */
+        'idempotency-key'?: string | null;
+    };
     path: {
         /**
          * Docket Id
