@@ -17,6 +17,47 @@ const repositoryRoot = resolve(root, "../..");
 const backendRoot = resolve(repositoryRoot, "backend");
 const outputPath = resolve(root, "miniprogram/api/generated/types.gen.ts");
 
+export function exportLockedOpenApiSchema(
+  backendDirectory,
+  schemaPath,
+  environment,
+  execute = execFileSync,
+) {
+  const isolatedEnvironment = { ...environment };
+  for (const name of [
+    "PYTHONHOME",
+    "PYTHONPATH",
+    "VIRTUAL_ENV",
+    "UV_ACTIVE",
+    "UV_NO_PROJECT",
+    "UV_NO_SYNC",
+    "UV_PROJECT_ENVIRONMENT",
+  ]) {
+    delete isolatedEnvironment[name];
+  }
+  execute(
+    "uv",
+    [
+      "run",
+      "--project",
+      backendDirectory,
+      "--locked",
+      "--isolated",
+      "--no-dev",
+      "--no-env-file",
+      "python",
+      resolve(backendDirectory, "scripts/export_openapi.py"),
+      "--output",
+      schemaPath,
+    ],
+    {
+      cwd: backendDirectory,
+      env: isolatedEnvironment,
+      stdio: "inherit",
+    },
+  );
+}
+
 function normalizeGeneratedSource(source) {
   return `${source.replaceAll("\r\n", "\n").trimEnd()}\n`;
 }
@@ -92,9 +133,6 @@ function run(arguments_) {
   try {
     const schemaPath = resolve(temporaryRoot, "openapi.json");
     const generatedDirectory = resolve(temporaryRoot, "generated");
-    const python = existsSync(resolve(backendRoot, ".venv/bin/python"))
-      ? resolve(backendRoot, ".venv/bin/python")
-      : "python3";
     const deterministicEnvironment = {
       ...process.env,
       LANG: "C",
@@ -104,11 +142,7 @@ function run(arguments_) {
       TZ: "UTC",
     };
 
-    execFileSync(
-      python,
-      [resolve(backendRoot, "scripts/export_openapi.py"), "--output", schemaPath],
-      { cwd: backendRoot, env: deterministicEnvironment, stdio: "inherit" },
-    );
+    exportLockedOpenApiSchema(backendRoot, schemaPath, deterministicEnvironment);
     execFileSync(
       resolve(root, "node_modules/.bin/openapi-ts"),
       [

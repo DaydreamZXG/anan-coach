@@ -2,8 +2,10 @@ import { spawn } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
   existsSync,
+  lstatSync,
   mkdtempSync,
   mkdirSync,
+  readlinkSync,
   readFileSync,
   readdirSync,
   rmSync,
@@ -13,12 +15,20 @@ import {
 import { tmpdir } from "node:os";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
-import { checkGeneratedSource, writeGeneratedSourceAtomically } from "../scripts/generate-api.mjs";
+import {
+  checkGeneratedSource,
+  exportLockedOpenApiSchema,
+  writeGeneratedSourceAtomically,
+} from "../scripts/generate-api.mjs";
 
 const root = resolve(import.meta.dirname, "..");
+const backendRoot = resolve(root, "../..", "backend");
 const scriptPath = resolve(root, "scripts/generate-api.mjs");
 const outputPath = resolve(root, "miniprogram/api/generated/types.gen.ts");
 const outputDirectory = resolve(outputPath, "..");
+const backendEnvironmentPath = resolve(backendRoot, ".venv");
+const backendLockPath = resolve(backendRoot, "uv.lock");
+const backendProjectPath = resolve(backendRoot, "pyproject.toml");
 
 function observe(child) {
   return new Promise((resolveResult, reject) => {
@@ -62,6 +72,16 @@ function snapshotGeneratedContract() {
       mtimeMs: target.mtimeMs,
       size: target.size,
     },
+  };
+}
+
+function snapshotBackendAuthority() {
+  return {
+    environment: existsSync(backendEnvironmentPath)
+      ? snapshotEnvironmentPath(backendEnvironmentPath)
+      : null,
+    lock: snapshotFile(backendLockPath),
+    project: snapshotFile(backendProjectPath),
   };
 }
 
@@ -109,7 +129,8 @@ describe("generate-api check mode repository isolation", () => {
     });
   });
 
-  it("keeps PID-shaped sentinels and generated contract metadata across concurrent checks", async () => {
+  it("ignores mismatched venvs and preserves repository metadata across concurrent checks", async () => {
+    assertLockedExporterIgnoresMismatchedVenv();
     const executions = [spawnCli(["--check"]), spawnCli(["--check"])];
     const sentinels = executions.map(({ child }) => `${outputPath}.${String(child.pid)}.tmp`);
     try {
@@ -120,10 +141,12 @@ describe("generate-api check mode repository isolation", () => {
         });
       }
       const before = snapshotGeneratedContract();
+      const backendBefore = snapshotBackendAuthority();
       const results = await Promise.all(executions.map(({ result }) => result));
 
       expect(results.map(({ exitCode }) => exitCode)).toEqual([0, 0]);
       expect(snapshotGeneratedContract()).toEqual(before);
+      expect(snapshotBackendAuthority()).toEqual(backendBefore);
       expect(sentinels.map((sentinel) => readFileSync(sentinel, "utf8"))).toEqual([
         "sentinel-0",
         "sentinel-1",
@@ -150,6 +173,56 @@ describe("generate-api check mode repository isolation", () => {
   });
 });
 
+function assertLockedExporterIgnoresMismatchedVenv() {
+  const temporaryBackend = mkdtempSync(resolve(tmpdir(), "generate-api-locked-backend-"));
+  const schemaPath = resolve(temporaryBackend, "openapi.json");
+  const mismatchedPython = resolve(temporaryBackend, ".venv/bin/python");
+  const calls = [];
+  try {
+    mkdirSync(resolve(mismatchedPython, ".."), { recursive: true });
+    writeFileSync(mismatchedPython, "#!/bin/sh\necho 0.140.7\n", { mode: 0o755 });
+    exportLockedOpenApiSchema(
+      temporaryBackend,
+      schemaPath,
+      {
+        PATH: process.env.PATH,
+        PYTHONHOME: "/tmp/host-python",
+        PYTHONPATH: "/tmp/host-packages",
+        UV_NO_SYNC: "1",
+        UV_PROJECT_ENVIRONMENT: resolve(temporaryBackend, ".venv"),
+        VIRTUAL_ENV: resolve(temporaryBackend, ".venv"),
+      },
+      (...arguments_) => {
+        calls.push(arguments_);
+      },
+    );
+
+    expect(calls).toHaveLength(1);
+    expect(calls[0]?.[0]).toBe("uv");
+    expect(calls[0]?.[1]).toEqual([
+      "run",
+      "--project",
+      temporaryBackend,
+      "--locked",
+      "--isolated",
+      "--no-dev",
+      "--no-env-file",
+      "python",
+      resolve(temporaryBackend, "scripts/export_openapi.py"),
+      "--output",
+      schemaPath,
+    ]);
+    expect(calls[0]?.[2]).toMatchObject({
+      cwd: temporaryBackend,
+      env: { PATH: process.env.PATH },
+      stdio: "inherit",
+    });
+    expect(readFileSync(mismatchedPython, "utf8")).toContain("0.140.7");
+  } finally {
+    rmSync(temporaryBackend, { force: true, recursive: true });
+  }
+}
+
 function snapshotPath(directoryPath, targetPath) {
   const target = statSync(targetPath);
   const directory = statSync(directoryPath);
@@ -165,5 +238,25 @@ function snapshotPath(directoryPath, targetPath) {
       mtimeMs: target.mtimeMs,
       size: target.size,
     },
+  };
+}
+
+function snapshotFile(path) {
+  const stat = statSync(path);
+  return {
+    hash: createHash("sha256").update(readFileSync(path)).digest("hex"),
+    mode: stat.mode,
+    mtimeMs: stat.mtimeMs,
+    size: stat.size,
+  };
+}
+
+function snapshotEnvironmentPath(path) {
+  const stat = lstatSync(path);
+  return {
+    linkTarget: stat.isSymbolicLink() ? readlinkSync(path) : null,
+    mode: stat.mode,
+    mtimeMs: stat.mtimeMs,
+    size: stat.size,
   };
 }
