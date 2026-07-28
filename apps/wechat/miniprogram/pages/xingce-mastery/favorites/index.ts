@@ -140,6 +140,11 @@ Page<QuestionFavoritesPageData, QuestionFavoritesPageCustom>({
       return;
     }
     const mutationEpoch = ++runtime.mutationEpoch;
+    if (runtime.requestInFlight) {
+      runtime.requestEpoch += 1;
+      runtime.requestInFlight = false;
+    }
+    runtime.refreshAfterRequest = true;
     runtime.mutationInFlight.add(questionId);
     patchItem(this, questionId, {
       mutationStatus: "saving",
@@ -196,8 +201,10 @@ Page<QuestionFavoritesPageData, QuestionFavoritesPageCustom>({
       if (
         runtimes.attached(this, runtime) &&
         runtime.visible &&
-        runtime.mutationEpoch !== mutationEpoch
+        runtime.mutationInFlight.size === 0 &&
+        sameSessionOwner(currentAuthSession(), runtime.ownerSession)
       ) {
+        runtime.refreshAfterRequest = false;
         scheduleRefresh(this, runtime);
       }
     }
@@ -219,6 +226,10 @@ async function loadFavorites(
   runtime: QuestionFavoritesPageRuntime,
   append: boolean,
 ): Promise<void> {
+  if (runtime.mutationInFlight.size > 0) {
+    runtime.refreshAfterRequest = true;
+    return;
+  }
   if (runtime.requestInFlight || (append && !runtime.nextCursor)) return;
   if (!sameSessionOwner(currentAuthSession(), runtime.ownerSession)) {
     runtimes.detach(page);
@@ -338,12 +349,15 @@ function ownsMutation(
     runtimes.owns(page, runtime) &&
     runtime.mutationEpoch === mutationEpoch &&
     runtime.mutationInFlight.has(questionId) &&
-    page.data.items.some((item) => item.questionId === questionId) &&
     sameSessionOwner(currentAuthSession(), runtime.ownerSession)
   );
 }
 
 function scheduleRefresh(page: QuestionFavoritesPage, runtime: QuestionFavoritesPageRuntime): void {
+  if (runtime.mutationInFlight.size > 0) {
+    runtime.refreshAfterRequest = true;
+    return;
+  }
   if (runtime.requestInFlight) {
     runtime.refreshAfterRequest = true;
     return;
