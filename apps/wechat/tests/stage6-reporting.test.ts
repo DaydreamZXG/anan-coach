@@ -1,7 +1,9 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import type { ApiClient } from "../miniprogram/api/client";
+import type { ApiEnvelope } from "../miniprogram/domain/contracts";
 import type { RecognitionRevision } from "../miniprogram/api/external-learning-contracts";
+import type { ReportCenterProjection } from "../miniprogram/api/generated/types.gen";
 import { ReportingApi } from "../miniprogram/api/reporting";
 import { routes } from "../miniprogram/app/navigation/routes";
 import { registerReportPage } from "../miniprogram/features/reporting/report-page";
@@ -21,7 +23,10 @@ import {
   removePendingMockTrajectory,
 } from "../miniprogram/pages/mock-exam/pending-store";
 
-afterEach(() => vi.unstubAllGlobals());
+afterEach(() => {
+  vi.unstubAllGlobals();
+  vi.resetModules();
+});
 
 describe("stage 6 mock reporting", () => {
   it("registers F01-F04 and F13 as real mini-program routes", () => {
@@ -130,7 +135,229 @@ describe("stage 6 mock reporting", () => {
 
     expect(switchTab).toHaveBeenCalledWith({ url: routes.today });
   });
+
+  it("keeps a newer report-center projection when an older successful request arrives later", async () => {
+    const harness = await captureReportCenterPage();
+
+    harness.page.onShow();
+    harness.page.onShow();
+    respondReportSuccess(harness.requests[1], reportCenter("newer"));
+    await flushMicrotasks();
+    respondReportSuccess(harness.requests[0], reportCenter("older"));
+    await flushMicrotasks();
+
+    expect(harness.page.data.status).toBe("ready");
+    expect(reportMarker(harness.page.data.center)).toBe("newer");
+  });
+
+  it("keeps a newer report-center projection when an older request later fails", async () => {
+    const harness = await captureReportCenterPage();
+
+    harness.page.onShow();
+    harness.page.onShow();
+    respondReportSuccess(harness.requests[1], reportCenter("newer"));
+    await flushMicrotasks();
+    respondReportFailure(harness.requests[0]);
+    await flushMicrotasks();
+
+    expect(harness.page.data.status).toBe("ready");
+    expect(harness.page.data.errorMessage).toBe("");
+    expect(reportMarker(harness.page.data.center)).toBe("newer");
+  });
+
+  it("does not set report-center data after hide or unload", async () => {
+    const harness = await captureReportCenterPage();
+
+    harness.page.onShow();
+    const callsBeforeHide = harness.page.setDataCalls;
+    harness.page.onHide();
+    respondReportSuccess(harness.requests[0], reportCenter("hidden"));
+    await flushMicrotasks();
+    expect(harness.page.setDataCalls).toBe(callsBeforeHide);
+
+    harness.page.onShow();
+    const callsBeforeUnload = harness.page.setDataCalls;
+    harness.page.onUnload();
+    respondReportFailure(harness.requests[1]);
+    await flushMicrotasks();
+    expect(harness.page.setDataCalls).toBe(callsBeforeUnload);
+  });
+
+  it("rejects old report-center responses after an account or same-token generation change", async () => {
+    const harness = await captureReportCenterPage();
+
+    harness.page.onShow();
+    harness.appState.globalData = {
+      accessToken: "token-b",
+      userId: "user-b",
+      generation: "generation-b",
+    };
+    respondReportSuccess(harness.requests[0], reportCenter("account-a"));
+    await flushMicrotasks();
+    expect(harness.page.data.center).toBeNull();
+
+    harness.page.onShow();
+    harness.appState.globalData = {
+      accessToken: "token-b",
+      userId: "user-b",
+      generation: "generation-c",
+    };
+    respondReportSuccess(harness.requests[1], reportCenter("generation-b"));
+    await flushMicrotasks();
+    expect(harness.page.data.center).toBeNull();
+
+    harness.page.onShow();
+    respondReportSuccess(harness.requests[2], reportCenter("current"));
+    await flushMicrotasks();
+    expect(harness.page.data.status).toBe("ready");
+    expect(reportMarker(harness.page.data.center)).toBe("current");
+  });
+
+  it("renders the latest report-center request failure", async () => {
+    const harness = await captureReportCenterPage();
+
+    harness.page.onShow();
+    respondReportFailure(harness.requests[0]);
+    await flushMicrotasks();
+
+    expect(harness.page.data.status).toBe("error");
+    expect(harness.page.data.errorMessage).toBe("报告中心暂时不可用，请重试。");
+    expect(harness.page.data.requestId).toBe("report-center-failed");
+  });
 });
+
+interface CapturedReportCenterDefinition {
+  data: Record<string, unknown>;
+  onShow(this: ReportCenterTestPage): void;
+  onHide(this: ReportCenterTestPage): void;
+  onUnload(this: ReportCenterTestPage): void;
+}
+
+interface ReportCenterTestPage extends CapturedReportCenterDefinition {
+  data: {
+    status: string;
+    errorMessage: string;
+    requestId: string;
+    center: unknown;
+  };
+  setDataCalls: number;
+  setData(patch: Record<string, unknown>): void;
+}
+
+interface ReportCenterHarness {
+  page: ReportCenterTestPage;
+  requests: Array<WechatMiniprogram.RequestOption<ApiEnvelope<ReportCenterProjection>>>;
+  appState: {
+    globalData: {
+      accessToken: string;
+      userId: string;
+      generation: string;
+    };
+  };
+}
+
+async function captureReportCenterPage(): Promise<ReportCenterHarness> {
+  let definition: CapturedReportCenterDefinition | undefined;
+  const requests: Array<WechatMiniprogram.RequestOption<ApiEnvelope<ReportCenterProjection>>> = [];
+  const storage = new Map<string, unknown>();
+  const appState = {
+    globalData: {
+      accessToken: "token-a",
+      userId: "user-a",
+      generation: "generation-a",
+    },
+  };
+  vi.stubGlobal("Page", (value: CapturedReportCenterDefinition) => {
+    definition = value;
+  });
+  vi.stubGlobal("getApp", () => appState);
+  vi.stubGlobal("wx", {
+    getStorageSync: (key: string) => storage.get(key),
+    setStorageSync: (key: string, value: unknown) => storage.set(key, value),
+    removeStorageSync: (key: string) => storage.delete(key),
+    request: (options: WechatMiniprogram.RequestOption<ApiEnvelope<ReportCenterProjection>>) => {
+      requests.push(options);
+    },
+    reLaunch: vi.fn(() => Promise.resolve()),
+  });
+
+  await import("../miniprogram/pages/report-center/index");
+  if (!definition) throw new Error("report-center page was not registered");
+  const page: ReportCenterTestPage = {
+    ...definition,
+    data: {
+      status: String(definition.data.status),
+      errorMessage: String(definition.data.errorMessage),
+      requestId: String(definition.data.requestId),
+      center: definition.data.center,
+    },
+    setDataCalls: 0,
+    setData(patch: Record<string, unknown>) {
+      this.setDataCalls += 1;
+      Object.assign(this.data, patch);
+    },
+  };
+  return { page, requests, appState };
+}
+
+function respondReportSuccess(
+  options: WechatMiniprogram.RequestOption<ApiEnvelope<ReportCenterProjection>> | undefined,
+  center: ReportCenterProjection,
+): void {
+  options?.success?.({
+    data: {
+      data: center,
+      requestId: "report-center-success",
+      generatedAt: "2026-07-28T10:00:00Z",
+    },
+    statusCode: 200,
+    header: {},
+    cookies: [],
+    exception: { reasons: [], retryCount: 0 },
+    profile: {} as WechatMiniprogram.RequestProfile,
+    useHttpDNS: false,
+    errMsg: "request:ok",
+  });
+}
+
+function respondReportFailure(
+  options: WechatMiniprogram.RequestOption<ApiEnvelope<ReportCenterProjection>> | undefined,
+): void {
+  options?.success?.({
+    data: {
+      code: "service_unavailable",
+      message: "报告中心暂时不可用，请重试。",
+      requestId: "report-center-failed",
+    } as unknown as ApiEnvelope<ReportCenterProjection>,
+    statusCode: 503,
+    header: {},
+    cookies: [],
+    exception: { reasons: [], retryCount: 0 },
+    profile: {} as WechatMiniprogram.RequestProfile,
+    useHttpDNS: false,
+    errMsg: "request:ok",
+  });
+}
+
+function reportCenter(marker: string): ReportCenterProjection {
+  return {
+    generatedAt: "2026-07-28T10:00:00Z",
+    latestExternalReport: null,
+    reportCards: [],
+    standardPapers: [],
+    auditMarker: marker,
+  } as unknown as ReportCenterProjection;
+}
+
+function reportMarker(value: unknown): string | undefined {
+  if (!value || typeof value !== "object") return undefined;
+  const marker = (value as { auditMarker?: unknown }).auditMarker;
+  return typeof marker === "string" ? marker : undefined;
+}
+
+async function flushMicrotasks(turns = 12): Promise<void> {
+  for (let turn = 0; turn < turns; turn += 1) await Promise.resolve();
+}
 
 function recognitionRevision(): RecognitionRevision {
   return {
