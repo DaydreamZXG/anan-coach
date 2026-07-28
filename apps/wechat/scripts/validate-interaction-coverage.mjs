@@ -8,11 +8,19 @@ import {
   pageInteractionMatrix,
 } from "../e2e/page-interaction-matrix.mjs";
 import { visualScenarios } from "../e2e/visual-scenarios.mjs";
+import { assertBusinessCoverage, routeInventory } from "./app-pages.mjs";
+import {
+  assertSelectorBindsHandler,
+  interactionEventKinds,
+} from "./interaction-contract-identity.mjs";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const miniProgramRoot = path.resolve(projectRoot, "miniprogram");
 const app = JSON.parse(await readFile(path.resolve(miniProgramRoot, "app.json"), "utf8"));
-const registeredPages = new Set(app.pages ?? []);
+const routeManifest = JSON.parse(
+  await readFile(path.resolve(miniProgramRoot, "app/navigation/routes.manifest.json"), "utf8"),
+);
+const inventory = routeInventory(app, routeManifest);
 const scenarioById = new Map(visualScenarios.map((scenario) => [scenario.id, scenario]));
 const matrixByPage = new Map();
 const allowedEvidence = new Set(Object.values(interactionEvidenceKinds));
@@ -21,7 +29,10 @@ let readOnlyCount = 0;
 let platformDeviceCount = 0;
 
 for (const contract of pageInteractionMatrix) {
-  assert.ok(registeredPages.has(contract.route), `Unknown interaction page: ${contract.route}`);
+  assert.ok(
+    inventory.allRoutes.includes(contract.route),
+    `Unknown interaction page: ${contract.route}`,
+  );
   assert.ok(!matrixByPage.has(contract.route), `Duplicate interaction page: ${contract.route}`);
   matrixByPage.set(contract.route, contract);
 
@@ -38,6 +49,12 @@ for (const contract of pageInteractionMatrix) {
     allowedEvidence.has(interaction.evidence),
     `${contract.route} has invalid evidence kind`,
   );
+  if (interaction.handler) {
+    assert.ok(
+      Object.values(interactionEventKinds).includes(interaction.eventKind),
+      `${contract.route} has unsupported interaction event kind: ${interaction.eventKind}`,
+    );
+  }
   const wxml = await readFile(path.resolve(miniProgramRoot, `${contract.route}.wxml`), "utf8");
   const controllerPath = path.resolve(miniProgramRoot, `${contract.route}.ts`);
   const controller = await readControllerClosure(controllerPath);
@@ -53,20 +70,17 @@ for (const contract of pageInteractionMatrix) {
   }
 
   assert.ok(interaction.handler, `${contract.route} has no primary handler`);
-  assert.ok(interaction.selector, `${contract.route} has no primary selector`);
-  if (interaction.selector.startsWith(".")) {
-    assert.match(
-      wxml,
-      new RegExp(`\\b${escapeRegExp(interaction.selector.slice(1))}\\b`, "u"),
-      `${contract.route} WXML does not expose ${interaction.selector}`,
-    );
-  } else {
-    assert.match(
-      wxml,
-      new RegExp(`<${escapeRegExp(interaction.selector)}(?:\\s|>)`, "u"),
-      `${contract.route} WXML does not expose ${interaction.selector}`,
-    );
-  }
+  assert.ok(
+    interaction.selector,
+    `${contract.route} has no primary selector`,
+  );
+  assertSelectorBindsHandler({
+    route: contract.route,
+    wxml,
+    selector: interaction.selector,
+    handler: interaction.handler,
+    eventKind: interaction.eventKind,
+  });
   if (interaction.within) {
     assert.match(
       wxml,
@@ -74,11 +88,6 @@ for (const contract of pageInteractionMatrix) {
       `${contract.route} WXML does not expose interaction container ${interaction.within}`,
     );
   }
-  assert.match(
-    wxml,
-    new RegExp(`["':]${escapeRegExp(interaction.handler)}["}]`, "u"),
-    `${contract.route} WXML does not bind ${interaction.handler}`,
-  );
   assert.match(
     controller,
     new RegExp(`\\b${escapeRegExp(interaction.handler)}\\s*\\(`, "u"),
@@ -88,16 +97,12 @@ for (const contract of pageInteractionMatrix) {
   else bindingControllerCount += 1;
 }
 
-assert.deepEqual(
-  [...registeredPages].filter((route) => !matrixByPage.has(route)),
-  [],
-  "Registered pages missing from the purpose-level interaction matrix",
-);
+assertBusinessCoverage(inventory, matrixByPage.keys(), "Interaction coverage");
 
 process.stdout.write(
   `Validated ${String(pageInteractionMatrix.length)} page interaction contracts: ` +
     `${String(bindingControllerCount)} binding/controller, ${String(readOnlyCount)} read-only, ` +
-    `${String(platformDeviceCount)} platform-device.\n`,
+    `${String(platformDeviceCount)} platform-device; ${String(inventory.assetEntryRoutes.length)} asset entries are N/A.\n`,
 );
 
 function escapeRegExp(value) {

@@ -11,6 +11,7 @@ function page(
     selector = null,
     index = 0,
     within = null,
+    eventKind = "tap",
     evidence = null,
     dataset = {},
     observable = true,
@@ -30,6 +31,7 @@ function page(
           selector,
           index,
           within,
+          eventKind,
           dataset,
           observable,
           evidence: evidence ?? BINDING_CONTROLLER,
@@ -39,6 +41,7 @@ function page(
           selector: null,
           index: 0,
           within: null,
+          eventKind: null,
           dataset: {},
           observable: false,
           evidence: evidence ?? RUNTIME_READ_ONLY,
@@ -58,12 +61,13 @@ export const pageInteractionMatrix = [
   }),
   page("pages/today/index", "b01-today-ready", "从今日计划进入当前任务", {
     handler: "openTask",
-    selector: ".task",
+    selector: ".primary-button",
     dataset: { id: "today-task-1" },
   }),
   page("pages/positions/index", "d01-position-workspace-needs-profile", "补齐资格后再做岗位判断", {
     handler: "openQualificationProfile",
     selector: "state-view",
+    eventKind: "action",
   }),
   page("pages/positions/search/index", "d02-position-search-ready", "打开筛选后的岗位依据", {
     handler: "openPosition",
@@ -93,7 +97,7 @@ export const pageInteractionMatrix = [
     "维护报考资格档案",
     {
       handler: "next",
-      selector: ".primary-action",
+      selector: ".s9-primary-button",
       observable: false,
     },
   ),
@@ -253,7 +257,8 @@ export const pageInteractionMatrix = [
   }),
   page("pages/private-knowledge/index", "h04-private-knowledge-ready", "检索个人私有知识", {
     handler: "search",
-    selector: ".search-button",
+    selector: ".library-search__input",
+    eventKind: "confirm",
   }),
   page(
     "pages/private-knowledge/detail/index",

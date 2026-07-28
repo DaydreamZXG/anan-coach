@@ -3,11 +3,15 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { registeredPages } from "./app-pages.mjs";
+import { routeInventory } from "./app-pages.mjs";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const miniprogramRoot = path.join(projectRoot, "miniprogram");
 const appConfig = JSON.parse(await readFile(path.join(miniprogramRoot, "app.json"), "utf8"));
+const routeManifest = JSON.parse(
+  await readFile(path.join(miniprogramRoot, "app/navigation/routes.manifest.json"), "utf8"),
+);
+const inventory = routeInventory(appConfig, routeManifest);
 const tabRoutes = new Set(appConfig.tabBar.list.map((item) => item.pagePath));
 const safeTopExceptions = new Map([
   ["pages/login/index", 'safe-top mode="status"'],
@@ -36,7 +40,7 @@ const forbiddenLegacyTopClasses = [
 ];
 
 const customRoutes = [];
-for (const route of registeredPages(appConfig)) {
+for (const route of inventory.allRoutes) {
   const pageConfigPath = path.join(miniprogramRoot, `${route}.json`);
   const pageConfig = JSON.parse(await readFile(pageConfigPath, "utf8"));
   if (pageConfig.navigationStyle !== "custom") continue;

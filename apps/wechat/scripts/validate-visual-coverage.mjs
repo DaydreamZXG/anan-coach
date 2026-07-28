@@ -4,10 +4,15 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { visualScenarios } from "../e2e/visual-scenarios.mjs";
+import { assertBusinessCoverage, routeInventory } from "./app-pages.mjs";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const app = JSON.parse(await readFile(path.resolve(projectRoot, "miniprogram/app.json"), "utf8"));
-const registeredPages = new Set(app.pages ?? []);
+const miniprogramRoot = path.resolve(projectRoot, "miniprogram");
+const app = JSON.parse(await readFile(path.join(miniprogramRoot, "app.json"), "utf8"));
+const routeManifest = JSON.parse(
+  await readFile(path.join(miniprogramRoot, "app/navigation/routes.manifest.json"), "utf8"),
+);
+const inventory = routeInventory(app, routeManifest);
 const scenarioIds = new Set();
 const coveredPages = new Set();
 
@@ -17,17 +22,16 @@ for (const scenario of visualScenarios) {
   scenarioIds.add(scenario.id);
 
   const route = scenario.route.split("?", 1)[0].replace(/^\//u, "");
-  assert.ok(registeredPages.has(route), `Visual scenario uses an unregistered page: ${route}`);
+  assert.ok(
+    inventory.allRoutes.includes(route),
+    `Visual scenario uses an unregistered page: ${route}`,
+  );
   coveredPages.add(route);
 }
 
-const missing = [...registeredPages].filter((route) => !coveredPages.has(route));
-assert.deepEqual(
-  missing,
-  [],
-  `Registered pages without a visual runtime scenario:\n${missing.join("\n")}`,
-);
+assertBusinessCoverage(inventory, coveredPages, "Visual coverage");
 
 process.stdout.write(
-  `Validated ${String(visualScenarios.length)} scenarios covering ${String(coveredPages.size)} registered pages.\n`,
+  `Validated ${String(visualScenarios.length)} scenarios covering ${String(coveredPages.size)} business pages; ` +
+    `${String(inventory.assetEntryRoutes.length)} asset entries are N/A.\n`,
 );

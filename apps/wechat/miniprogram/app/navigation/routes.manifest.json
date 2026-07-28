@@ -1,7 +1,7 @@
 {
-  "version": 1,
+  "version": 2,
   "entry": "pages/login/index",
-  "registeredPages": [
+  "businessPages": [
     "pages/login/index",
     "pages/today/index",
     "pages/ability/index",
@@ -60,6 +60,14 @@
     "pages/day-adjustment/index",
     "pages/ability-module/index",
     "pages/error-pattern/index"
+  ],
+  "assetEntryPages": [
+    "packages/anan-thinking/asset-entry/index",
+    "packages/anan-reminder/asset-entry/index",
+    "packages/anan-encouragement/asset-entry/index",
+    "packages/anan-rest/asset-entry/index",
+    "packages/anan-deprioritize/asset-entry/index",
+    "packages/anan-growth/asset-entry/index"
   ],
   "tabs": [
     {

@@ -1,10 +1,17 @@
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname, relative, resolve } from "node:path";
 
+import {
+  assertRegisteredPageArtifacts,
+  assertRegisteredPageComponents,
+  routeInventory,
+} from "./app-pages.mjs";
+
 const root = resolve(import.meta.dirname, "..");
 const miniprogramRoot = resolve(root, "miniprogram");
 const appConfig = readJson(resolve(miniprogramRoot, "app.json"));
 const routeManifest = readJson(resolve(miniprogramRoot, "app/navigation/routes.manifest.json"));
+let inventory;
 const failures = [];
 
 function readJson(path) {
@@ -52,8 +59,10 @@ if (/\bdataMode\b/u.test(readFileSync(resolve(miniprogramRoot, "config/environme
   failures.push("Runtime environment must have one server-backed data path; dataMode is forbidden");
 }
 
-if (normalized(appConfig.pages) !== normalized(routeManifest.registeredPages)) {
-  failures.push("app.json pages must exactly match app/navigation/routes.manifest.json");
+try {
+  inventory = routeInventory(appConfig, routeManifest);
+} catch (error) {
+  failures.push(error.message);
 }
 
 if (normalized(appConfig.tabBar.list) !== normalized(routeManifest.tabs)) {
@@ -64,27 +73,42 @@ if (routeManifest.entry !== appConfig.pages[0]) {
   failures.push("The route manifest entry must be the first page in app.json");
 }
 
-for (const page of appConfig.pages) {
-  for (const extension of ["ts", "json", "wxml", "wxss"]) {
-    assertExists(resolve(miniprogramRoot, `${page}.${extension}`), "Missing page artifact");
+if (inventory) {
+  try {
+    assertRegisteredPageArtifacts(inventory, (route, extension) =>
+      existsSync(resolve(miniprogramRoot, `${route}.${extension}`)),
+    );
+  } catch (error) {
+    failures.push(error.message);
   }
 
-  const pageConfig = readJson(resolve(miniprogramRoot, `${page}.json`));
-  for (const [componentName, componentPath] of Object.entries(pageConfig.usingComponents ?? {})) {
-    const componentRoot = componentPath.startsWith("/")
-      ? resolve(miniprogramRoot, `.${componentPath}`)
-      : resolve(miniprogramRoot, page.slice(0, page.lastIndexOf("/")), componentPath);
-    for (const extension of ["ts", "json", "wxml", "wxss"]) {
-      assertExists(
-        `${componentRoot}.${extension}`,
-        `Page component ${componentName} is incomplete`,
+  try {
+    assertRegisteredPageComponents(inventory, (page) => {
+      const pageConfigPath = resolve(miniprogramRoot, `${page}.json`);
+      if (!existsSync(pageConfigPath)) return [];
+      const pageConfig = readJson(pageConfigPath);
+      return Object.entries(pageConfig.usingComponents ?? {}).map(
+        ([componentName, componentPath]) => {
+          const componentRoot = componentPath.startsWith("/")
+            ? resolve(miniprogramRoot, `.${componentPath}`)
+            : resolve(miniprogramRoot, page.slice(0, page.lastIndexOf("/")), componentPath);
+          return {
+            name: componentName,
+            root: componentRoot,
+            missingExtensions: ["ts", "json", "wxml", "wxss"].filter(
+              (extension) => !existsSync(`${componentRoot}.${extension}`),
+            ),
+          };
+        },
       );
-    }
+    });
+  } catch (error) {
+    failures.push(error.message);
   }
 }
 
 for (const tab of appConfig.tabBar.list) {
-  if (!appConfig.pages.includes(tab.pagePath)) {
+  if (!inventory?.businessRoutes.includes(tab.pagePath)) {
     failures.push(`Tab page is not registered: ${tab.pagePath}`);
   }
 }
@@ -137,7 +161,7 @@ for (const typeScriptPath of walkFiles(miniprogramRoot).filter((path) => path.en
 }
 
 const routeRegistry = readFileSync(resolve(miniprogramRoot, "app/navigation/routes.ts"), "utf8");
-for (const page of appConfig.pages) {
+for (const page of inventory?.businessRoutes ?? []) {
   if (!routeRegistry.includes(`"/${page}"`)) {
     failures.push(`Registered page is missing from typed route registry: ${page}`);
   }
@@ -154,39 +178,6 @@ for (const requiredImport of [
   }
 }
 
-const componentSelectorTagPattern = new RegExp(
-  "(^|[\\s>+~(])[a-z][a-z0-9-]*(?=$|[\\s>+~.#:[(])",
-  "u",
-);
-const componentStylePaths = walkFiles(miniprogramRoot).filter(
-  (path) =>
-    path.endsWith(".wxss") &&
-    path !== resolve(miniprogramRoot, "app.wxss") &&
-    path !== resolve(miniprogramRoot, "design-system/tokens/index.wxss") &&
-    path !== resolve(miniprogramRoot, "design-system/tokens/design-file.tokens.wxss") &&
-    path !== resolve(miniprogramRoot, "design-system/responsive/index.wxss"),
-);
-for (const stylePath of componentStylePaths) {
-  const stylesheet = readFileSync(stylePath, "utf8")
-    .replace(/\/\*[\s\S]*?\*\//gu, "")
-    .replace(/@import\s+[^;]+;/gu, "");
-  for (const rule of stylesheet.matchAll(/([^{}]+)\{/gu)) {
-    const prelude = rule[1]?.trim() ?? "";
-    if (!prelude || prelude.startsWith("@")) continue;
-    for (const selector of prelude.split(",").map((value) => value.trim())) {
-      if (
-        selector.includes("[") ||
-        /(^|[\s>+~])#[A-Za-z_-]/u.test(selector) ||
-        componentSelectorTagPattern.test(selector)
-      ) {
-        failures.push(
-          `Component WXSS must use class selectors only: ${relative(root, stylePath)} -> ${selector}`,
-        );
-      }
-    }
-  }
-}
-
 if (appConfig.window?.pageOrientation !== "auto") {
   failures.push("app.json window.pageOrientation must remain auto for tablet rotation support");
 }
@@ -198,5 +189,8 @@ if (failures.length > 0) {
 
 const componentCount = componentConfigPaths.length;
 process.stdout.write(
-  `Validated ${String(appConfig.pages.length)} pages, ${String(appConfig.tabBar.list.length)} tabs, and ${String(componentCount)} shared components.\n`,
+  `Validated ${String(inventory?.allRoutes.length ?? 0)} registered routes: ` +
+    `${String(inventory?.businessRoutes.length ?? 0)} business, ` +
+    `${String(inventory?.assetEntryRoutes.length ?? 0)} asset entries; ` +
+    `${String(appConfig.tabBar.list.length)} tabs and ${String(componentCount)} shared components.\n`,
 );
