@@ -435,6 +435,203 @@ describe("stage 2 F02 mock exam", () => {
     expect(harness.page.data.questionTransition).toBe("");
     harness.page.onUnload.call(harness.page);
   });
+
+  it("stops the old runtime on 401 and resumes the exact pending checkpoint with a new session", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-07-15T02:10:00.000Z"));
+    const harness = await createMockAuthRecoveryHarness();
+
+    harness.page.onLoad.call(harness.page, { sessionId: "mock-session-1" });
+    harness.page.onShow.call(harness.page);
+    const initialSessionRequest = findRequest(harness.requests, (request) =>
+      request.url.endsWith("/api/v1/mock-exams/mock-session-1"),
+    );
+    expect(requestHeader(initialSessionRequest, "Authorization")).toBe("Bearer old-token");
+    resolveRequest(initialSessionRequest, sessionPayload());
+    await flushMicrotasks();
+
+    const initialLeaseRequest = findRequest(harness.requests, (request) =>
+      request.url.endsWith("/api/v2/task-editing/leases"),
+    );
+    resolveRequest(initialLeaseRequest, apiEnvelope(taskLease("mock-session-1", 3, "owned")));
+    await flushMicrotasks();
+    expect(harness.page.data.status).toBe("ready");
+
+    const oldTrajectoryRequest = findRequest(harness.requests, (request) =>
+      request.url.endsWith("/trajectory-events"),
+    );
+    harness.page.selectOption.call(harness.page, optionEvent("B"));
+    await vi.advanceTimersByTimeAsync(800);
+    await flushMicrotasks();
+
+    const expiredCheckpoint = findRequest(harness.requests, (request) =>
+      request.url.endsWith("/checkpoint"),
+    );
+    const pendingKey = "gongkao.mock-exam.pending.v1.user-a.mock-session-1.checkpoint";
+    const originalIdempotencyKey = requestHeader(expiredCheckpoint, "Idempotency-Key");
+    expect(originalIdempotencyKey).toBeTruthy();
+    rejectUnauthorized(expiredCheckpoint);
+    await flushMicrotasks();
+
+    expect(harness.app.globalData.accessToken).toBeUndefined();
+    expect(harness.page.data).toMatchObject({
+      status: "unavailable",
+      showLoginAction: true,
+      interactionLocked: true,
+      syncLabel: "等待重新登录",
+    });
+    expect(vi.getTimerCount()).toBe(0);
+    expect(
+      (harness.storage.get(pendingKey) as { idempotencyKey?: string } | undefined)?.idempotencyKey,
+    ).toBe(originalIdempotencyKey);
+
+    const requestCountAfterExpiry = harness.requests.length;
+    harness.page.retry.call(harness.page);
+    expect(harness.requests).toHaveLength(requestCountAfterExpiry);
+    await vi.advanceTimersByTimeAsync(5_000);
+    await flushMicrotasks();
+    expect(harness.requests).toHaveLength(requestCountAfterExpiry);
+
+    resolveRequest(oldTrajectoryRequest, {});
+    await flushMicrotasks();
+    expect(harness.page.data.status).toBe("unavailable");
+    expect(
+      harness.storage.get("gongkao.mock-exam.trajectory.v1.user-a.mock-session-1"),
+    ).toBeTruthy();
+
+    harness.page.goLogin.call(harness.page);
+    expect(harness.reLaunch).toHaveBeenCalledWith({
+      url:
+        "/pages/login/index?returnTo=" +
+        encodeURIComponent("/pages/mock-exam/index?sessionId=mock-session-1"),
+    });
+
+    harness.app.globalData = {
+      accessToken: "new-token",
+      userId: "user-a",
+      generation: "session-new",
+    };
+    harness.page.onShow.call(harness.page);
+    const resumedSessionRequest = findRequest(
+      harness.requests,
+      (request) =>
+        request.url.endsWith("/api/v1/mock-exams/mock-session-1") &&
+        requestHeader(request, "Authorization") === "Bearer new-token",
+    );
+    resolveRequest(resumedSessionRequest, sessionPayload());
+    await flushMicrotasks();
+    const resumedLeaseRequest = findRequest(
+      harness.requests,
+      (request) =>
+        request.url.endsWith("/api/v2/task-editing/leases") &&
+        requestHeader(request, "Authorization") === "Bearer new-token",
+    );
+    resolveRequest(resumedLeaseRequest, apiEnvelope(taskLease("mock-session-1", 3, "owned")));
+    await flushMicrotasks();
+
+    const resumedCheckpoint = findRequest(
+      harness.requests,
+      (request) =>
+        request !== expiredCheckpoint &&
+        request.url.endsWith("/checkpoint") &&
+        requestHeader(request, "Authorization") === "Bearer new-token",
+    );
+    expect(requestHeader(resumedCheckpoint, "Idempotency-Key")).toBe(originalIdempotencyKey);
+    expect(resumedCheckpoint.data).toMatchObject({
+      expectedRevision: 3,
+      answers: [{ questionId: "q-1", selectedAnswer: "B" }],
+    });
+    expect(
+      harness.requests
+        .slice(requestCountAfterExpiry)
+        .some((request) => requestHeader(request, "Authorization") === "Bearer old-token"),
+    ).toBe(false);
+
+    resolveRequest(resumedCheckpoint, {
+      sessionId: "mock-session-1",
+      status: "assigned",
+      revision: 4,
+      checkpoint: {
+        currentQuestionId: "q-1",
+        answers: [
+          {
+            questionId: "q-1",
+            selectedAnswer: "B",
+            eliminatedOptionIds: [],
+            marked: false,
+            draftText: "",
+          },
+        ],
+      },
+      checkpointUpdatedAt: "2026-07-15T02:10:01.000Z",
+    });
+    await flushMicrotasks();
+    expect(harness.page.data).toMatchObject({
+      status: "ready",
+      syncLabel: "已确认上次进度",
+      showLoginAction: false,
+    });
+    harness.page.onUnload.call(harness.page);
+  });
+
+  it("never loads another account's pending mock command after authentication changes", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-07-15T02:10:00.000Z"));
+    const harness = await createMockAuthRecoveryHarness();
+    const oldPendingKey = "gongkao.mock-exam.pending.v1.user-a.mock-session-1.checkpoint";
+    harness.storage.set(oldPendingKey, pendingMockCheckpoint("user-a", "old-user-command", "B"));
+
+    harness.page.onLoad.call(harness.page, { sessionId: "mock-session-1" });
+    harness.page.onShow.call(harness.page);
+    const expiredRequest = findRequest(harness.requests, (request) =>
+      request.url.endsWith("/api/v1/mock-exams/mock-session-1"),
+    );
+    rejectUnauthorized(expiredRequest);
+    await flushMicrotasks();
+
+    harness.app.globalData = {
+      accessToken: "other-token",
+      userId: "user-b",
+      generation: "session-user-b",
+    };
+    harness.page.onShow.call(harness.page);
+    const otherSessionRequest = findRequest(
+      harness.requests,
+      (request) =>
+        request.url.endsWith("/api/v1/mock-exams/mock-session-1") &&
+        requestHeader(request, "Authorization") === "Bearer other-token",
+    );
+    resolveRequest(otherSessionRequest, sessionPayload());
+    await flushMicrotasks();
+    const otherLeaseRequest = findRequest(
+      harness.requests,
+      (request) =>
+        request.url.endsWith("/api/v2/task-editing/leases") &&
+        requestHeader(request, "Authorization") === "Bearer other-token",
+    );
+    resolveRequest(otherLeaseRequest, apiEnvelope(taskLease("mock-session-1", 3, "owned")));
+    await flushMicrotasks();
+
+    expect(harness.page.data.status).toBe("ready");
+    expect(
+      (
+        harness.page.data.question as
+          { options?: Array<{ optionId?: string; selected?: boolean }> } | undefined
+      )?.options?.find((option) => option.optionId === "B")?.selected,
+    ).toBe(false);
+    expect(
+      harness.requests.some(
+        (request) =>
+          request.url.endsWith("/checkpoint") &&
+          requestHeader(request, "Authorization") === "Bearer other-token",
+      ),
+    ).toBe(false);
+    expect(
+      (harness.storage.get(oldPendingKey) as { idempotencyKey?: string } | undefined)
+        ?.idempotencyKey,
+    ).toBe("old-user-command");
+    harness.page.onUnload.call(harness.page);
+  });
 });
 
 function sessionPayload() {
@@ -710,12 +907,83 @@ async function createMockPage(
   };
 }
 
+async function createMockAuthRecoveryHarness(): Promise<{
+  app: {
+    globalData: {
+      accessToken?: string;
+      userId?: string;
+      generation?: string;
+    };
+  };
+  page: TestMockPage;
+  reLaunch: ReturnType<typeof vi.fn>;
+  requests: WechatMiniprogram.RequestOption[];
+  storage: Map<string, unknown>;
+}> {
+  let captured: CapturedMockPage | undefined;
+  const requests: WechatMiniprogram.RequestOption[] = [];
+  const storage = new Map<string, unknown>();
+  const reLaunch = vi.fn(() => Promise.resolve());
+  const app: {
+    globalData: {
+      accessToken?: string;
+      userId?: string;
+      generation?: string;
+    };
+  } = {
+    globalData: {
+      accessToken: "old-token",
+      userId: "user-a",
+      generation: "session-old",
+    },
+  };
+  vi.stubGlobal("Page", (definition: CapturedMockPage) => {
+    captured = definition;
+  });
+  vi.stubGlobal("getApp", () => app);
+  vi.stubGlobal("wx", {
+    getStorageSync: (key: string) => storage.get(key),
+    setStorageSync: (key: string, value: unknown) => storage.set(key, clone(value)),
+    removeStorageSync: (key: string) => storage.delete(key),
+    getStorageInfoSync: () => ({
+      keys: [...storage.keys()],
+      currentSize: 0,
+      limitSize: 10_240,
+    }),
+    getRandomValues: () => Promise.resolve({ randomValues: new Uint8Array(16).fill(11).buffer }),
+    request: (options: WechatMiniprogram.RequestOption) => {
+      requests.push(options);
+    },
+    showModal: () => Promise.resolve({ confirm: true, cancel: false }),
+    showToast: vi.fn(() => Promise.resolve()),
+    navigateBack: () => Promise.resolve(),
+    navigateTo: () => Promise.resolve(),
+    reLaunch,
+    switchTab: () => Promise.resolve(),
+    pageScrollTo: vi.fn(() => Promise.resolve()),
+  });
+  const { installUnauthorizedReset } = await import("../miniprogram/api/auth");
+  installUnauthorizedReset();
+  await import("../miniprogram/pages/mock-exam/index");
+  if (!captured) throw new Error("Mock exam page was not registered");
+  const page: TestMockPage = {
+    ...captured,
+    data: clone(captured.data),
+    setData(patch: Record<string, unknown>) {
+      Object.assign(this.data, patch);
+    },
+  };
+  return { app, page, reLaunch, requests, storage };
+}
+
 interface CapturedMockPage {
   data: Record<string, unknown>;
   onLoad(this: TestMockPage, options: Record<string, string | undefined>): void;
   onShow(this: TestMockPage): void;
   onHide(this: TestMockPage): void;
   onUnload(this: TestMockPage): void;
+  retry(this: TestMockPage): void;
+  goLogin(this: TestMockPage): void;
   inputDraft(this: TestMockPage, event: WechatMiniprogram.Input): void;
   selectOption(this: TestMockPage, event: WechatMiniprogram.BaseEvent): void;
   nextQuestion(this: TestMockPage): void;
@@ -798,5 +1066,64 @@ function taskLease(
     acquiredAt: "2026-07-19T00:00:00Z",
     lastSeenAt: "2026-07-19T00:00:00Z",
     takenOverAt: null,
+  };
+}
+
+function findRequest(
+  requests: WechatMiniprogram.RequestOption[],
+  predicate: (request: WechatMiniprogram.RequestOption) => boolean,
+): WechatMiniprogram.RequestOption {
+  const request = requests.find(predicate);
+  if (!request) throw new Error("Expected mock request was not issued");
+  return request;
+}
+
+function requestHeader(request: WechatMiniprogram.RequestOption, name: string): string | undefined {
+  const value = (request.header as Record<string, unknown> | undefined)?.[name];
+  return typeof value === "string" ? value : undefined;
+}
+
+function resolveRequest(request: WechatMiniprogram.RequestOption, data: unknown): void {
+  request.success?.({
+    statusCode: 200,
+    data,
+  } as never);
+}
+
+function rejectUnauthorized(request: WechatMiniprogram.RequestOption): void {
+  request.success?.({
+    statusCode: 401,
+    data: {
+      code: "AUTH_EXPIRED",
+      message: "登录状态已过期",
+      requestId: "request-auth-expired",
+    },
+  } as never);
+}
+
+function pendingMockCheckpoint(
+  ownerUserId: string,
+  idempotencyKey: string,
+  selectedAnswer: string | null,
+) {
+  return {
+    kind: "checkpoint",
+    ownerUserId,
+    sessionId: "mock-session-1",
+    idempotencyKey,
+    command: {
+      expectedRevision: 3,
+      currentQuestionId: "q-1",
+      answers: [
+        {
+          questionId: "q-1",
+          selectedAnswer,
+          eliminatedOptionIds: [],
+          marked: false,
+          draftText: "",
+        },
+      ],
+    },
+    storedAt: "2026-07-15T02:09:00.000Z",
   };
 }

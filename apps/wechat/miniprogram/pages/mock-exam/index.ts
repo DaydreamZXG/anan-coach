@@ -17,12 +17,13 @@ import {
   resolveRevisionConflict,
   TaskEditTakeoverDeclined,
 } from "../../features/task-editing/coordinator";
+import { loginUrlForReturn } from "../../app/navigation/auth-return";
 import { routes } from "../../app/navigation/routes";
 import { isValidPlanTaskId } from "../../features/xingce/real_attempt/contracts";
 import { TaskHelpApi, type TaskHelpCommand } from "../../api/task-help";
-import { currentAuthSession } from "../../auth/session";
+import { currentAuthSession, sameSessionOwner, type ActiveAuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";
-import { createIdempotencyKey } from "../../platform/command-id";
+import { createIdempotencyKey, stableFingerprint } from "../../platform/command-id";
 import type { TaskRuntimeState } from "../../task-runtime/contracts";
 import type { ContentDisplayPreferences } from "../../task-runtime/content-renderer/model";
 import {
@@ -184,6 +185,8 @@ interface MockExamPageCustom {
 type MockExamPageInstance = WechatMiniprogram.Page.Instance<MockExamPageData, MockExamPageCustom>;
 
 interface PageRuntime {
+  page: MockExamPageInstance;
+  authSession: ActiveAuthSession;
   ownerUserId: string;
   api: MockExamApi;
   helpApi: TaskHelpApi;
@@ -209,7 +212,14 @@ interface PageRuntime {
   swipeStart: SwipeNavSample | null;
 }
 
+interface MockExamLaunchContext {
+  requestedSessionId: string;
+  requestedPlanTaskId: string;
+  returnUrl: string;
+}
+
 const runtimes = new WeakMap<MockExamPageInstance, PageRuntime>();
+const launchContexts = new WeakMap<MockExamPageInstance, MockExamLaunchContext>();
 const mockAnsweringPolicy = taskToolPolicy("mock", "answering");
 const disputeCategories: MockExamPageData["disputeCategories"] = [
   { value: "stem_error", label: "题干错误" },
@@ -274,21 +284,11 @@ Page<MockExamPageData, MockExamPageCustom>({
       eyeCare: contentPreferences.colorMode === "eye_care",
       materialReaderState: createMaterialReaderState(undefined, contentPreferences),
     });
-    const auth = currentAuthSession();
-    if (!auth) {
-      this.setData({
-        status: "unavailable",
-        errorTitle: "登录后才能开始整卷模考",
-        errorMessage: "模考时间、作答进度和交卷记录必须绑定你的账号。",
-        showLoginAction: true,
-      });
-      return;
-    }
-    const client = new ApiClient(environment.apiBaseUrl, auth.accessToken);
     const requestedSessionId = options.sessionId?.trim() ?? "";
     const requestedPlanTaskId = options.planTaskId?.trim() ?? "";
     if (
       (requestedSessionId && requestedPlanTaskId) ||
+      (requestedSessionId && !isValidPlanTaskId(requestedSessionId)) ||
       (requestedPlanTaskId && !isValidPlanTaskId(requestedPlanTaskId))
     ) {
       this.setData({
@@ -298,32 +298,41 @@ Page<MockExamPageData, MockExamPageCustom>({
       });
       return;
     }
-    this.setData({ reportSessionId: requestedSessionId });
-    runtimes.set(this, {
-      ownerUserId: auth.userId,
-      api: new MockExamApi(client),
-      helpApi: new TaskHelpApi(client),
-      editingApi: new TaskEditingApi(client),
+    const context: MockExamLaunchContext = {
       requestedSessionId,
       requestedPlanTaskId,
-      visible: false,
-      disposed: false,
-      mutationVersion: 0,
-      dirtyQuestionIds: new Set<string>(),
-      nextTrajectoryEventSeq: 1,
-      submitInFlight: false,
-      swipeStart: null,
-    });
+      returnUrl: mockExamReturnUrl(requestedSessionId, requestedPlanTaskId),
+    };
+    launchContexts.set(this, context);
+    this.setData({ reportSessionId: requestedSessionId });
+    const auth = currentAuthSession();
+    if (!auth) {
+      showMockLoginRequired(this, false);
+      return;
+    }
+    bindMockSession(this, context, auth, false);
     void this.loadExam();
   },
 
   onShow() {
-    const runtime = runtimes.get(this);
-    if (!runtime || runtime.disposed) return;
-    if (currentAuthSession()?.userId !== runtime.ownerUserId) {
-      invalidateForAccountChange(this, runtime);
+    const context = launchContexts.get(this);
+    if (!context) return;
+    const auth = currentAuthSession();
+    const currentRuntime = runtimes.get(this);
+    if (!auth) {
+      if (currentRuntime) enterMockAuthRequired(this, currentRuntime);
+      else showMockLoginRequired(this, false);
       return;
     }
+    const runtime =
+      currentRuntime && sameSessionOwner(auth, currentRuntime.authSession)
+        ? currentRuntime
+        : bindMockSession(this, context, auth, true);
+    if (runtime !== currentRuntime) {
+      void this.loadExam();
+      return;
+    }
+    if (runtime.disposed) return;
     runtime.visible = true;
     if (runtime.session && runtime.task && this.data.status === "ready") {
       refreshClock(this, runtime);
@@ -352,17 +361,20 @@ Page<MockExamPageData, MockExamPageCustom>({
 
   onUnload() {
     const runtime = runtimes.get(this);
-    if (!runtime) return;
-    runtime.disposed = true;
-    stopClock(runtime);
-    clearAutosave(runtime);
+    if (runtime) disposeRuntime(runtime);
     runtimes.delete(this);
+    launchContexts.delete(this);
   },
 
   async loadExam() {
     const runtime = runtimes.get(this);
     if (!runtime || runtime.disposed) return;
-    this.setData({ status: "loading", errorTitle: "", errorMessage: "" });
+    this.setData({
+      status: "loading",
+      errorTitle: "",
+      errorMessage: "",
+      showLoginAction: false,
+    });
     try {
       const session = runtime.requestedSessionId
         ? await runtime.api.getSession(runtime.requestedSessionId)
@@ -382,6 +394,7 @@ Page<MockExamPageData, MockExamPageCustom>({
           status: "submitted",
           title: session.title,
           reportSessionId: session.sessionId,
+          showLoginAction: false,
           interactionLocked: true,
           syncLabel: "本场已交卷",
           toolPolicy: taskToolPolicy("mock", "submitted"),
@@ -417,6 +430,7 @@ Page<MockExamPageData, MockExamPageCustom>({
         localBaseRevision,
         pendingSubmitBeforeClaim !== undefined || pendingCheckpointBeforeClaim !== undefined,
       );
+      if (runtimes.get(this) !== runtime) return;
       if (runtime.editOwnership.conflictChoice === "use_server") {
         clearPendingMockSubmit(runtime.ownerUserId, session.sessionId);
         clearPendingMockCheckpoint(runtime.ownerUserId, session.sessionId);
@@ -428,6 +442,7 @@ Page<MockExamPageData, MockExamPageCustom>({
           pendingSubmitBeforeClaim,
         );
       }
+      if (runtimes.get(this) !== runtime) return;
       runtime.session = session;
       runtime.task = runtimeFromMockSession(session, Date.now());
       initializeTrajectory(runtime, session);
@@ -453,6 +468,7 @@ Page<MockExamPageData, MockExamPageCustom>({
       startClock(this, runtime);
     } catch (error) {
       if (runtimes.get(this) !== runtime) return;
+      if (enterMockAuthRequired(this, runtime, error)) return;
       if (error instanceof TaskEditTakeoverDeclined) {
         this.setData({
           status: "unavailable",
@@ -466,11 +482,26 @@ Page<MockExamPageData, MockExamPageCustom>({
   },
 
   retry() {
+    const context = launchContexts.get(this);
+    const auth = currentAuthSession();
+    if (!context || !auth) {
+      const runtime = runtimes.get(this);
+      if (runtime) enterMockAuthRequired(this, runtime);
+      else showMockLoginRequired(this, false);
+      return;
+    }
+    const currentRuntime = runtimes.get(this);
+    if (!currentRuntime || !sameSessionOwner(auth, currentRuntime.authSession)) {
+      bindMockSession(this, context, auth, true);
+    }
     void this.loadExam();
   },
 
   goLogin() {
-    void wx.navigateTo({ url: "/pages/login/index" });
+    const returnUrl = launchContexts.get(this)?.returnUrl;
+    void wx.reLaunch({
+      url: returnUrl ? loginUrlForReturn(returnUrl) : routes.login,
+    });
   },
 
   async exit() {
@@ -701,6 +732,7 @@ Page<MockExamPageData, MockExamPageCustom>({
       });
     } catch (error) {
       if (runtime.disposed) return;
+      if (enterMockAuthRequired(this, runtime, error)) return;
       this.setData({
         helpStatus: "error",
         helpMessage: errorMessage(error, "帮助请求未提交成功，请保留当前页面后重试。"),
@@ -791,6 +823,7 @@ Page<MockExamPageData, MockExamPageCustom>({
       });
     } catch (error) {
       if (runtimes.get(this) !== runtime) return;
+      if (enterMockAuthRequired(this, runtime, error)) return;
       this.setData({
         disputeStatus: "error",
         disputeMessage: errorMessage(error, "争议没有提交成功，请保留当前页面后重试。"),
@@ -946,6 +979,8 @@ function applyRuntimeToPage(
   });
   page.setData({
     status: "ready",
+    showLoginAction: false,
+    interactionLocked: false,
     title: session.title,
     reportSessionId: session.sessionId,
     question: {
@@ -1041,8 +1076,8 @@ async function performCheckpointSave(
       idempotencyKey,
       requiredMockEditToken(runtime),
     );
-    clearPendingMockCheckpoint(runtime.ownerUserId, session.sessionId);
     if (runtimes.get(page) !== runtime) return true;
+    clearPendingMockCheckpoint(runtime.ownerUserId, session.sessionId);
     const updated = sessionWithCheckpointReceipt(session, receipt);
     runtime.session = updated;
     runtime.task =
@@ -1062,6 +1097,7 @@ async function performCheckpointSave(
     return true;
   } catch (error) {
     if (runtimes.get(page) !== runtime) return false;
+    if (enterMockAuthRequired(page, runtime, error)) return false;
     if (
       error instanceof ApiClientError &&
       error.statusCode === 409 &&
@@ -1113,8 +1149,8 @@ async function resumePendingCheckpoint(
         pending.idempotencyKey,
         requiredMockEditToken(runtime),
       );
+      if (runtimes.get(page) !== runtime) return true;
       clearPendingMockCheckpoint(runtime.ownerUserId, pending.sessionId);
-      if (runtime.disposed) return true;
       const updated = sessionWithCheckpointReceipt(requiredSession(runtime), receipt);
       runtime.session = updated;
       runtime.task = runtimeFromMockSession(updated, Date.now(), runtime.task);
@@ -1124,12 +1160,12 @@ async function resumePendingCheckpoint(
       applyRuntimeToPage(page, runtime, "已确认上次进度");
       return true;
     } catch (error) {
-      if (!runtime.disposed) {
-        page.setData({
-          syncLabel: "上次进度待确认",
-          errorMessage: errorMessage(error, "上次保存结果未知，将继续确认刚才那次保存。"),
-        });
-      }
+      if (runtimes.get(page) !== runtime) return false;
+      if (enterMockAuthRequired(page, runtime, error)) return false;
+      page.setData({
+        syncLabel: "上次进度待确认",
+        errorMessage: errorMessage(error, "上次保存结果未知，将继续确认刚才那次保存。"),
+      });
       return false;
     }
   })();
@@ -1158,6 +1194,7 @@ async function executeSubmit(
       clearAutosave(runtime);
     } else if (!pending) {
       const saved = await saveCheckpoint(page, runtime);
+      if (runtimes.get(page) !== runtime) return;
       if (!saved) {
         page.setData({ interactionLocked: false });
         return;
@@ -1184,11 +1221,11 @@ async function executeSubmit(
       } satisfies PendingMockSubmit);
     storePendingMockSubmit(submission);
     const receipt = await submitWithLease(runtime, submission);
+    if (runtimes.get(page) !== runtime) return;
     const committedSession = requiredSession(runtime);
     const task = requiredTask(runtime);
     clearPendingMockSubmit(runtime.ownerUserId, session.sessionId);
     clearPendingMockCheckpoint(runtime.ownerUserId, session.sessionId);
-    if (runtime.disposed) return;
     stopClock(runtime);
     runtime.task = reduceTaskRuntime(task, {
       type: "TASK_SUBMITTED",
@@ -1215,7 +1252,8 @@ async function executeSubmit(
       },
     });
   } catch (error) {
-    if (runtime.disposed) return;
+    if (runtimes.get(page) !== runtime) return;
+    if (enterMockAuthRequired(page, runtime, error)) return;
     const lostEditing =
       error instanceof ApiClientError &&
       error.statusCode === 409 &&
@@ -1262,8 +1300,14 @@ async function submitWithLease(
       ownership.lease,
       submission.command.expectedRevision,
     );
+    if (!ownsRuntime(runtime)) {
+      throw new Error("Mock runtime was invalidated during submit recovery", { cause: error });
+    }
     runtime.editOwnership = resolved;
     const latest = await runtime.api.getSession(submission.sessionId);
+    if (!ownsRuntime(runtime)) {
+      throw new Error("Mock runtime was invalidated during submit recovery", { cause: error });
+    }
     if (latest.status !== "assigned") {
       clearPendingMockSubmit(runtime.ownerUserId, submission.sessionId);
       throw new Error("云端已经完成交卷，当前设备不再重复提交。", { cause: error });
@@ -1412,11 +1456,14 @@ async function performTrajectoryFlush(runtime: PageRuntime): Promise<boolean> {
     if (!item) return true;
     try {
       await runtime.api.recordTrajectory(item.sessionId, item.command, item.idempotencyKey);
+      if (!ownsRuntime(runtime)) return false;
       removePendingMockTrajectory(runtime.ownerUserId, item.sessionId, item.idempotencyKey);
     } catch (error) {
+      if (enterMockAuthRequired(runtime.page, runtime, error)) return false;
       if (!(error instanceof ApiClientError) || error.statusCode !== 409 || rebased) return false;
       try {
         const latest = await runtime.api.getSession(session.sessionId);
+        if (!ownsRuntime(runtime)) return false;
         if (latest.status !== "assigned") {
           replacePendingMockTrajectory(runtime.ownerUserId, session.sessionId, []);
           return true;
@@ -1424,7 +1471,8 @@ async function performTrajectoryFlush(runtime: PageRuntime): Promise<boolean> {
         runtime.session = latest;
         rebaseTrajectory(runtime, latest.nextTrajectoryEventSeq);
         rebased = true;
-      } catch {
+      } catch (recoveryError) {
+        if (enterMockAuthRequired(runtime.page, runtime, recoveryError)) return false;
         return false;
       }
     }
@@ -1462,20 +1510,24 @@ async function rebasePendingMockAfterChoice(
   const storedAt = new Date().toISOString();
   if (checkpoint) {
     localTask = runtimeWithPendingMockCheckpoint(localTask, checkpoint.command);
+    const idempotencyKey = await createIdempotencyKey("mock-checkpoint-resolved");
+    if (runtime.disposed) return;
     clearPendingMockCheckpoint(runtime.ownerUserId, session.sessionId);
     storePendingMockCheckpoint({
       ...checkpoint,
-      idempotencyKey: await createIdempotencyKey("mock-checkpoint-resolved"),
+      idempotencyKey,
       command: buildMockCheckpointCommand(localTask),
       storedAt,
     });
   }
   if (submission) {
     localTask = runtimeWithPendingMockSubmit(localTask, submission.command);
+    const idempotencyKey = await createIdempotencyKey("mock-submit-resolved");
+    if (runtime.disposed) return;
     clearPendingMockSubmit(runtime.ownerUserId, session.sessionId);
     storePendingMockSubmit({
       ...submission,
-      idempotencyKey: await createIdempotencyKey("mock-submit-resolved"),
+      idempotencyKey,
       command: buildMockSubmitCommand(localTask),
       storedAt,
     });
@@ -1496,8 +1548,10 @@ async function resolveMockCheckpointConflict(
       ownership.lease,
       localBaseRevision,
     );
+    if (runtimes.get(page) !== runtime) return false;
     runtime.editOwnership = resolved;
     const latest = await runtime.api.getSession(ownership.lease.resourceId);
+    if (runtimes.get(page) !== runtime) return false;
     clearPendingMockCheckpoint(runtime.ownerUserId, ownership.lease.resourceId);
     if (latest.status !== "assigned") {
       runtime.session = latest;
@@ -1528,6 +1582,7 @@ async function resolveMockCheckpointConflict(
     runtime.mutationVersion += 1;
     const command = buildMockCheckpointCommand(runtime.task);
     const idempotencyKey = await createIdempotencyKey("mock-checkpoint-resolved");
+    if (runtimes.get(page) !== runtime) return false;
     storePendingMockCheckpoint({
       kind: "checkpoint",
       ownerUserId: runtime.ownerUserId,
@@ -1542,6 +1597,7 @@ async function resolveMockCheckpointConflict(
       idempotencyKey,
       requiredMockEditToken(runtime),
     );
+    if (runtimes.get(page) !== runtime) return false;
     clearPendingMockCheckpoint(runtime.ownerUserId, latest.sessionId);
     const updated = sessionWithCheckpointReceipt(latest, receipt);
     runtime.session = updated;
@@ -1550,6 +1606,8 @@ async function resolveMockCheckpointConflict(
     applyRuntimeToPage(page, runtime, "已按你的选择保留本机草稿");
     return true;
   } catch (error) {
+    if (runtimes.get(page) !== runtime) return false;
+    if (enterMockAuthRequired(page, runtime, error)) return false;
     runtime.task = reduceTaskRuntime(requiredTask(runtime), {
       type: "SAVE_FAILED",
       requestId: error instanceof ApiClientError ? error.requestId : "mock-conflict-failed",
@@ -1637,24 +1695,147 @@ function failPage(page: MockExamPageInstance, error: unknown, title: string): vo
   });
 }
 
-function invalidateForAccountChange(page: MockExamPageInstance, runtime: PageRuntime): void {
-  runtime.disposed = true;
-  stopClock(runtime);
-  clearAutosave(runtime);
-  runtimes.delete(page);
+function bindMockSession(
+  page: MockExamPageInstance,
+  context: MockExamLaunchContext,
+  authSession: ActiveAuthSession,
+  visible: boolean,
+): PageRuntime {
+  const previous = runtimes.get(page);
+  if (previous) {
+    persistAuthRecoveryCheckpoint(previous);
+    disposeRuntime(previous);
+  }
+  const client = new ApiClient(environment.apiBaseUrl, authSession.accessToken);
+  const runtime: PageRuntime = {
+    page,
+    authSession: { ...authSession },
+    ownerUserId: authSession.userId,
+    api: new MockExamApi(client),
+    helpApi: new TaskHelpApi(client),
+    editingApi: new TaskEditingApi(client),
+    requestedSessionId: context.requestedSessionId,
+    requestedPlanTaskId: context.requestedPlanTaskId,
+    visible,
+    disposed: false,
+    mutationVersion: 0,
+    dirtyQuestionIds: new Set<string>(),
+    nextTrajectoryEventSeq: 1,
+    submitInFlight: false,
+    swipeStart: null,
+  };
+  runtimes.set(page, runtime);
   page.setData({
-    status: "unavailable",
-    errorTitle: "账号已经变更",
-    errorMessage: "旧账号的整卷和进度已从当前页面清除，请用当前账号重新进入。",
-    showLoginAction: true,
+    showLoginAction: false,
+    interactionLocked: false,
     question: null,
-    interactionLocked: true,
     answerSheetOpen: false,
     materialOpen: false,
     toolsOpen: false,
     helpOpen: false,
     disputeOpen: false,
   });
+  return runtime;
+}
+
+function enterMockAuthRequired(
+  page: MockExamPageInstance,
+  runtime: PageRuntime,
+  error?: unknown,
+): boolean {
+  const apiError = error instanceof ApiClientError ? error : null;
+  if (error !== undefined && apiError?.statusCode !== 401) return false;
+  if (runtimes.get(page) !== runtime) return true;
+  const wasVisible = runtime.visible;
+  persistAuthRecoveryCheckpoint(runtime);
+  disposeRuntime(runtime);
+  runtimes.delete(page);
+  const replacement = currentAuthSession();
+  const context = launchContexts.get(page);
+  if (replacement && context && !sameSessionOwner(replacement, runtime.authSession)) {
+    bindMockSession(page, context, replacement, wasVisible);
+    void page.loadExam();
+    return true;
+  }
+  showMockLoginRequired(page, apiError !== null, apiError?.requestId);
+  return true;
+}
+
+function showMockLoginRequired(
+  page: MockExamPageInstance,
+  expired: boolean,
+  requestId?: string,
+): void {
+  page.setData({
+    status: "unavailable",
+    errorTitle: expired ? "登录状态已过期" : "登录后才能开始整卷模考",
+    errorMessage: expired
+      ? `本机作答进度已保留，请重新登录后继续。${requestId ? `（请求 ${requestId}）` : ""}`
+      : "模考时间、作答进度和交卷记录必须绑定你的账号。",
+    showLoginAction: true,
+    question: null,
+    interactionLocked: true,
+    syncLabel: expired ? "等待重新登录" : "尚未登录",
+    answerSheetOpen: false,
+    materialOpen: false,
+    toolsOpen: false,
+    helpOpen: false,
+    disputeOpen: false,
+    submitConfirmOpen: false,
+  });
+}
+
+function persistAuthRecoveryCheckpoint(runtime: PageRuntime): void {
+  const session = runtime.session;
+  const task = runtime.task;
+  if (!session || session.status !== "assigned" || !task) return;
+  if (loadPendingMockSubmit(runtime.ownerUserId, session.sessionId)) return;
+  if (task.syncState === "saved" && runtime.dirtyQuestionIds.size === 0) return;
+  const existing = loadPendingMockCheckpoint(runtime.ownerUserId, session.sessionId);
+  if (existing) {
+    const includedQuestionIds = new Set(
+      existing.command.answers.map((answer) => answer.questionId),
+    );
+    const currentForExistingScope = buildMockCheckpointCommand(task, includedQuestionIds);
+    if (stableFingerprint(existing.command) === stableFingerprint(currentForExistingScope)) return;
+  }
+  const command = buildMockCheckpointCommand(task);
+  const fingerprint = stableFingerprint({
+    ownerUserId: runtime.ownerUserId,
+    sessionId: session.sessionId,
+    mutationVersion: runtime.mutationVersion,
+    command,
+  }).slice(0, 32);
+  storePendingMockCheckpoint({
+    kind: "checkpoint",
+    ownerUserId: runtime.ownerUserId,
+    sessionId: session.sessionId,
+    idempotencyKey: `mock-auth-recovery-${fingerprint}`,
+    command,
+    storedAt: new Date().toISOString(),
+  });
+}
+
+function disposeRuntime(runtime: PageRuntime): void {
+  runtime.disposed = true;
+  runtime.visible = false;
+  runtime.swipeStart = null;
+  stopClock(runtime);
+  clearAutosave(runtime);
+}
+
+function ownsRuntime(runtime: PageRuntime): boolean {
+  return !runtime.disposed && runtimes.get(runtime.page) === runtime;
+}
+
+function mockExamReturnUrl(requestedSessionId: string, requestedPlanTaskId: string): string {
+  if (requestedSessionId) {
+    return `${routes.mockExam}?sessionId=${encodeURIComponent(requestedSessionId)}`;
+  }
+  if (requestedPlanTaskId) {
+    return `${routes.mockExam}?planTaskId=${encodeURIComponent(requestedPlanTaskId)}`;
+  }
+  return routes.mockExam;
 }
 
 function errorMessage(error: unknown, fallback: string): string {
