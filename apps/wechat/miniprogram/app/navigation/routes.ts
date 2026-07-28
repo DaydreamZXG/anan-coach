@@ -1,4 +1,10 @@
-import { parseEssayTaskStage, writableEssayStages } from "../../features/essay-task/capabilities";
+import {
+  essayStageCapability,
+  inferEssayStageFromMode,
+  parseEssayTaskStage,
+  parseEssayWriterContext,
+  type EssayTaskStage,
+} from "../../features/essay-task/capabilities";
 import type { OnboardingResultProjection } from "../../api/generated/types.gen";
 import type { OnboardingNextStep } from "../../features/onboarding/types";
 import {
@@ -178,9 +184,14 @@ export function registeredTaskNavigationTarget(
     if (
       !query ||
       !stage ||
-      !writableEssayStages.has(stage) ||
-      !query.taskVersionId ||
-      !query.planTaskId
+      !hasOnlyKeys(query, essayTaskRouteKeys(stage)) ||
+      (query.mode !== undefined && inferEssayStageFromMode(query.mode) !== stage) ||
+      !isValidPlanTaskId(query.taskVersionId) ||
+      !isValidPlanTaskId(query.planTaskId) ||
+      Object.entries(query).some(
+        ([key, value]) => key !== "stage" && key !== "mode" && !isValidPlanTaskId(value),
+      ) ||
+      !essayStageCapability(stage, parseEssayWriterContext(stage, query)).writable
     ) {
       return null;
     }
@@ -305,6 +316,36 @@ function parseQuery(url: string): Record<string, string> | null {
     return null;
   }
   return result;
+}
+
+function essayTaskRouteKeys(stage: EssayTaskStage): string[] {
+  const common = ["stage", "mode", "taskVersionId", "planTaskId", "basedOnExecutionVersionId"];
+  if (stage === "essay_rewrite") {
+    return [
+      ...common,
+      "attemptId",
+      "baseReviewVersionId",
+      "baseAnswerVersionId",
+      "findingDecisionArtifactVersionId",
+      "basedOnAnswerVersionId",
+      "basedOnRewriteVersionId",
+    ];
+  }
+  if (stage === "essay_transfer") {
+    return [
+      ...common,
+      "materialBundleVersionId",
+      "sourceRewriteVersionId",
+      "sourceFindingDecisionArtifactVersionId",
+      "basedOnTransferVerificationVersionId",
+    ];
+  }
+  return common;
+}
+
+function hasOnlyKeys(query: Record<string, string>, allowedKeys: string[]): boolean {
+  const allowed = new Set(allowedKeys);
+  return Object.keys(query).every((key) => allowed.has(key));
 }
 
 function withQuery(path: AppRoute, values: Record<string, string | undefined>): string {

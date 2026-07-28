@@ -75,10 +75,13 @@ describe("authenticated navigation return contract", () => {
   it("preserves validated essay and mock task deep links across login", () => {
     const essay =
       "/pages/essay-task/index?taskVersionId=essay-v1&planTaskId=plan-1&stage=essay_material_reading";
+    const rewrite =
+      "/pages/essay-task/index?stage=essay_rewrite&taskVersionId=essay-v1&planTaskId=plan-1&attemptId=attempt-1&baseReviewVersionId=review-1&baseAnswerVersionId=answer-1&findingDecisionArtifactVersionId=decision-1&basedOnAnswerVersionId=answer-1";
     const mockBySession = "/pages/mock-exam/index?sessionId=mock-session-1";
     const mockByPlan = "/pages/mock-exam/index?planTaskId=plan-1";
 
     expect(authenticatedReturnTarget(essay)).toEqual({ mode: "navigateTo", url: essay });
+    expect(authenticatedReturnTarget(rewrite)).toEqual({ mode: "navigateTo", url: rewrite });
     expect(authenticatedReturnTarget(mockBySession)).toEqual({
       mode: "navigateTo",
       url: mockBySession,
@@ -100,6 +103,16 @@ describe("authenticated navigation return contract", () => {
     ).toBeNull();
     expect(authenticatedReturnTarget("/pages/mock-exam/index?sessionId=%20")).toBeNull();
     expect(authenticatedReturnTarget("/pages/mock-exam/index?redirect=https%3A%2F%2Fx")).toBeNull();
+    expect(
+      authenticatedReturnTarget(
+        "/pages/essay-task/index?stage=essay_drafting&taskVersionId=essay-v1&planTaskId=plan-1&redirect=https%3A%2F%2Fx",
+      ),
+    ).toBeNull();
+    expect(
+      authenticatedReturnTarget(
+        "/pages/essay-task/index?stage=essay_rewrite&taskVersionId=essay-v1&planTaskId=plan-1",
+      ),
+    ).toBeNull();
   });
 
   it("rejects malformed briefing and workspace score queries", () => {

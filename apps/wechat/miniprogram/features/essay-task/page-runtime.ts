@@ -24,6 +24,9 @@ export interface EssayTaskPageRuntime {
   activeTaskVersionId: string;
   activePlanTaskId: string;
   activeUserId: string;
+  activeAccessToken: string;
+  activeSessionGeneration: string;
+  returnUrl: string;
   basedOnExecutionVersionId: string | undefined;
   pendingCompletion: PendingPlanTaskCompletion | null;
   pendingDraftingSubmission: PendingEssayDraftingSubmission | null;
@@ -58,6 +61,9 @@ export function createEssayTaskPageRuntime(): EssayTaskPageRuntime {
     activeTaskVersionId: "",
     activePlanTaskId: "",
     activeUserId: "",
+    activeAccessToken: "",
+    activeSessionGeneration: "",
+    returnUrl: "",
     basedOnExecutionVersionId: undefined,
     pendingCompletion: null,
     pendingDraftingSubmission: null,
@@ -140,6 +146,9 @@ export class EssayTaskPageRuntimeRegistry<TPage extends object> {
     runtime.voiceRecorder = null;
     runtime.voicePreview = null;
     runtime.activeUserId = "";
+    runtime.activeAccessToken = "";
+    runtime.activeSessionGeneration = "";
+    runtime.returnUrl = "";
     runtime.pendingCompletion = null;
     runtime.pendingDraftingSubmission = null;
     runtime.closureDraft = null;

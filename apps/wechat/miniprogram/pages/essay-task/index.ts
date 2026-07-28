@@ -11,8 +11,9 @@ import {
 import { ApiClient, ApiClientError } from "../../api/client";
 import { LearningMediaApi } from "../../api/learning-media";
 import { EssayHandwritingApi } from "../../api/essay-handwriting";
+import { loginUrlForReturn } from "../../app/navigation/auth-return";
 import { routes } from "../../app/navigation/routes";
-import { currentAuthSession } from "../../auth/session";
+import { currentAuthSession, type ActiveAuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";
 import {
   essayStageCapability,
@@ -20,6 +21,7 @@ import {
   parseEssayWriterContext,
   parseEssayTaskStage,
   type EssayStageCapability,
+  type EssayTaskStage,
 } from "../../features/essay-task/capabilities";
 import {
   buildRewriteCommand,
@@ -385,8 +387,8 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     runtime.writerContext = runtime.activeStage
       ? parseEssayWriterContext(runtime.activeStage, options)
       : null;
+    runtime.returnUrl = essayTaskReturnUrl(options, runtime.activeStage);
     runtime.startedAt = Date.now();
-    startTimer(this, runtime);
 
     if (!runtime.activeStage || !runtime.activeTaskVersionId || !runtime.activePlanTaskId) {
       this.setData({
@@ -416,54 +418,31 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       });
       return;
     }
-    runtime.activeUserId = session.userId;
-    clearLegacyEssayPending();
-    runtime.pendingCompletion = loadStoredPlanTaskCompletion(session.userId, {
-      taskVersionId: runtime.activeTaskVersionId,
-      stage: runtime.activeStage,
-      planTaskId: runtime.activePlanTaskId,
-    });
-    runtime.pendingDraftingSubmission =
-      runtime.activeStage === "essay_drafting"
-        ? loadStoredDraftingSubmission(session.userId, {
-            taskVersionId: runtime.activeTaskVersionId,
-            planTaskId: runtime.activePlanTaskId,
-          })
-        : null;
-    if (runtime.pendingDraftingSubmission) {
-      clearEssayDraftingDraft(session.userId, runtime.activePlanTaskId);
-    }
-    if (runtime.activeStage === "essay_rewrite" || runtime.activeStage === "essay_transfer") {
-      const writerContext = runtime.writerContext;
-      if (writerContext?.kind === "rewrite") {
-        runtime.closureDraft = loadEssayClosureDraft(session.userId, {
-          kind: "rewrite",
-          taskVersionId: runtime.activeTaskVersionId,
-          planTaskId: runtime.activePlanTaskId,
-          writerContext,
-        });
-      } else if (writerContext?.kind === "transfer") {
-        runtime.closureDraft = loadEssayClosureDraft(session.userId, {
-          kind: "transfer",
-          taskVersionId: runtime.activeTaskVersionId,
-          planTaskId: runtime.activePlanTaskId,
-          writerContext,
-        });
-      }
-    }
-    const client = new ApiClient(environment.apiBaseUrl, session.accessToken);
-    runtime.api = new EssayIntelligenceApi(client);
-    runtime.essayHandwritingApi = new EssayHandwritingApi(client);
-    runtime.learningMediaApi = new LearningMediaApi(client);
-    runtime.voiceUploadCoordinator = new ReflectionVoiceUploadCoordinator(runtime.learningMediaApi);
-    runtime.voiceRecorder = new WechatVoiceRecorder();
-    runtime.voicePreview = new WechatVoicePreview();
+    bindEssaySession(this, runtime, session);
+    startTimer(this, runtime);
     void this.loadWorkspace();
   },
 
   onShow() {
     const runtime = pageRuntimes.get(this);
     if (!runtime) return;
+    const session = currentAuthSession();
+    if (!session) {
+      if (runtime.api) enterEssayAuthRequired(this, runtime);
+      return;
+    }
+    if (
+      runtime.activeUserId !== session.userId ||
+      runtime.activeAccessToken !== session.accessToken ||
+      runtime.activeSessionGeneration !== session.generation
+    ) {
+      bindEssaySession(this, runtime, session);
+      runtime.pageVisible = true;
+      startTimer(this, runtime);
+      void this.loadWorkspace();
+      return;
+    }
+    if (!runtime.api) return;
     runtime.pageVisible = true;
     if (runtime.startedAt > 0) startTimer(this, runtime);
     if (this.data.status === "ready" && runtime.activeReviewJobId) {
@@ -636,6 +615,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       }
     } catch (error) {
       if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (enterEssayAuthRequired(this, runtime, error)) return;
       const apiError = error instanceof ApiClientError ? error : null;
       this.setData({
         status: "error",
@@ -653,7 +633,20 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
   },
 
   retry() {
-    if (!currentAuthSession()) return;
+    const runtime = pageRuntimes.get(this);
+    const session = currentAuthSession();
+    if (!runtime || !session) {
+      if (runtime) enterEssayAuthRequired(this, runtime);
+      return;
+    }
+    if (
+      runtime.activeUserId !== session.userId ||
+      runtime.activeAccessToken !== session.accessToken ||
+      runtime.activeSessionGeneration !== session.generation
+    ) {
+      bindEssaySession(this, runtime, session);
+    }
+    if (!runtime.api) return;
     void this.loadWorkspace();
   },
 
@@ -662,7 +655,10 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
   },
 
   goLogin() {
-    void wx.navigateTo({ url: routes.login });
+    const returnUrl = pageRuntimes.get(this)?.returnUrl;
+    void wx.reLaunch({
+      url: returnUrl ? loginUrlForReturn(returnUrl) : routes.login,
+    });
   },
 
   openMaterial() {
@@ -1109,6 +1105,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       this.setData({ handwriting: reviewingHandwritingState(revision, file.localPath) });
     } catch (error) {
       if (!pageRuntimes.owns(this, runtime)) return;
+      if (enterEssayAuthRequired(this, runtime, error)) return;
       this.setData({
         handwriting: {
           ...this.data.handwriting,
@@ -1207,6 +1204,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       });
     } catch (error) {
       if (!pageRuntimes.owns(this, runtime)) return;
+      if (enterEssayAuthRequired(this, runtime, error)) return;
       this.setData({
         handwriting: {
           ...this.data.handwriting,
@@ -1342,6 +1340,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       }
     } catch (error) {
       if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (enterEssayAuthRequired(this, runtime, error)) return;
       this.setData({
         canSubmit: false,
         submissionStatus: "error",
@@ -1557,6 +1556,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       applyRewriteResult(this, result);
     } catch (error) {
       if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (enterEssayAuthRequired(this, runtime, error)) return;
       const terminalConflict = isTerminalClosureConflict(error);
       if (terminalConflict && runtime.closureDraft?.kind === "rewrite") {
         runtime.closureDraft = { ...runtime.closureDraft, terminalConflict: true };
@@ -1640,6 +1640,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       });
     } catch (error) {
       if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (enterEssayAuthRequired(this, runtime, error)) return;
       const terminalConflict = isTerminalClosureConflict(error);
       if (terminalConflict) {
         draft = { ...draft, phase: "context_invalid" };
@@ -1705,6 +1706,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       });
     } catch (error) {
       if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (enterEssayAuthRequired(this, runtime, error)) return;
       this.setData({
         submissionStatus: "error",
         submissionMessage: closureErrorMessage(error),
@@ -1812,6 +1814,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       });
     } catch (error) {
       if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (enterEssayAuthRequired(this, runtime, error)) return;
       this.setData({ submissionStatus: "error", submissionMessage: closureErrorMessage(error) });
     }
   },
@@ -2125,6 +2128,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       applyReviewJob(this, runtime, job);
     } catch (error) {
       if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (enterEssayAuthRequired(this, runtime, error)) return;
       const apiError = error instanceof ApiClientError ? error : null;
       this.setData({
         submissionStatus: "error",
@@ -2177,6 +2181,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       applyReviewJob(this, runtime, job);
     } catch (error) {
       if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (enterEssayAuthRequired(this, runtime, error)) return;
       const apiError = error instanceof ApiClientError ? error : null;
       this.setData({
         submissionStatus: "error",
@@ -2210,6 +2215,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       });
     } catch (error) {
       if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (enterEssayAuthRequired(this, runtime, error)) return;
       const apiError = error instanceof ApiClientError ? error : null;
       this.setData({
         submissionStatus: "error",
@@ -2305,6 +2311,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       });
     } catch (error) {
       if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
+      if (enterEssayAuthRequired(this, runtime, error)) return;
       const apiError = error instanceof ApiClientError ? error : null;
       const conflict = apiError?.statusCode === 409;
       if (conflict && runtime.pendingCompletion) {
@@ -2331,6 +2338,147 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     }
   },
 });
+
+function bindEssaySession(
+  page: EssayTaskPageInstance,
+  runtime: EssayTaskPageRuntime,
+  session: ActiveAuthSession,
+): void {
+  if (!runtime.activeStage) return;
+  if (runtime.activeUserId && runtime.activeUserId !== session.userId) {
+    flushDraftingAutosave(page, runtime);
+  }
+  pageRuntimes.beginRequest(runtime);
+  stopTimer(runtime);
+  stopReviewPoll(runtime);
+  runtime.voiceRecorder?.dispose();
+  runtime.voicePreview?.dispose();
+  runtime.activeUserId = session.userId;
+  runtime.activeAccessToken = session.accessToken;
+  runtime.activeSessionGeneration = session.generation;
+  runtime.pendingCompletion = null;
+  runtime.pendingDraftingSubmission = null;
+  runtime.closureDraft = null;
+  runtime.rewriteReview = null;
+  runtime.transferSourceReview = null;
+  runtime.transferReview = null;
+  runtime.activeReviewIntent = null;
+  runtime.activeReviewJobId = "";
+
+  clearLegacyEssayPending();
+  runtime.pendingCompletion = loadStoredPlanTaskCompletion(session.userId, {
+    taskVersionId: runtime.activeTaskVersionId,
+    stage: runtime.activeStage,
+    planTaskId: runtime.activePlanTaskId,
+  });
+  runtime.pendingDraftingSubmission =
+    runtime.activeStage === "essay_drafting"
+      ? loadStoredDraftingSubmission(session.userId, {
+          taskVersionId: runtime.activeTaskVersionId,
+          planTaskId: runtime.activePlanTaskId,
+        })
+      : null;
+  if (runtime.pendingDraftingSubmission) {
+    clearEssayDraftingDraft(session.userId, runtime.activePlanTaskId);
+  }
+  if (runtime.activeStage === "essay_rewrite" || runtime.activeStage === "essay_transfer") {
+    const writerContext = runtime.writerContext;
+    if (writerContext?.kind === "rewrite") {
+      runtime.closureDraft = loadEssayClosureDraft(session.userId, {
+        kind: "rewrite",
+        taskVersionId: runtime.activeTaskVersionId,
+        planTaskId: runtime.activePlanTaskId,
+        writerContext,
+      });
+    } else if (writerContext?.kind === "transfer") {
+      runtime.closureDraft = loadEssayClosureDraft(session.userId, {
+        kind: "transfer",
+        taskVersionId: runtime.activeTaskVersionId,
+        planTaskId: runtime.activePlanTaskId,
+        writerContext,
+      });
+    }
+  }
+
+  const client = new ApiClient(environment.apiBaseUrl, session.accessToken);
+  runtime.api = new EssayIntelligenceApi(client);
+  runtime.essayHandwritingApi = new EssayHandwritingApi(client);
+  runtime.learningMediaApi = new LearningMediaApi(client);
+  runtime.voiceUploadCoordinator = new ReflectionVoiceUploadCoordinator(runtime.learningMediaApi);
+  runtime.voiceRecorder = new WechatVoiceRecorder();
+  runtime.voicePreview = new WechatVoicePreview();
+  page.setData({
+    showLoginAction: false,
+    voiceRecording: false,
+    voicePlayingSegmentId: "",
+  });
+}
+
+function enterEssayAuthRequired(
+  page: EssayTaskPageInstance,
+  runtime: EssayTaskPageRuntime,
+  error?: unknown,
+): boolean {
+  const apiError = error instanceof ApiClientError ? error : null;
+  if (error !== undefined && apiError?.statusCode !== 401) return false;
+  if (!pageRuntimes.owns(page, runtime)) return true;
+
+  flushDraftingAutosave(page, runtime);
+  pageRuntimes.beginRequest(runtime);
+  runtime.pageVisible = false;
+  stopTimer(runtime);
+  stopReviewPoll(runtime);
+  runtime.reviewPollInFlight = false;
+  runtime.voiceRecorder?.stop();
+  runtime.voicePreview?.stop();
+  runtime.api = null;
+  runtime.essayHandwritingApi = null;
+  runtime.learningMediaApi = null;
+  runtime.voiceUploadCoordinator = null;
+  page.setData({
+    status: "unavailable",
+    errorTitle: apiError ? "登录状态已过期" : "登录后才能继续申论任务",
+    errorMessage: apiError
+      ? `本页进度已保留，请重新登录后继续。（请求 ${apiError.requestId}）`
+      : "学习记录必须绑定你的账号，请重新登录后继续。",
+    showLoginAction: true,
+    submissionStatus: "error",
+    submissionMessage: "本页进度已保留，重新登录后会从服务器和本机记录恢复。",
+    draftLocked: true,
+    canSubmit: false,
+  });
+  return true;
+}
+
+function essayTaskReturnUrl(
+  options: Record<string, string | undefined>,
+  stage: EssayTaskStage | null,
+): string {
+  if (!stage) return "";
+  const values: Record<string, string | undefined> = {
+    stage,
+    taskVersionId: options.taskVersionId,
+    planTaskId: options.planTaskId,
+    basedOnExecutionVersionId: options.basedOnExecutionVersionId,
+    attemptId: options.attemptId,
+    baseReviewVersionId: options.baseReviewVersionId,
+    baseAnswerVersionId: options.baseAnswerVersionId,
+    findingDecisionArtifactVersionId: options.findingDecisionArtifactVersionId,
+    basedOnAnswerVersionId: options.basedOnAnswerVersionId,
+    basedOnRewriteVersionId: options.basedOnRewriteVersionId,
+    materialBundleVersionId: options.materialBundleVersionId,
+    sourceRewriteVersionId: options.sourceRewriteVersionId,
+    sourceFindingDecisionArtifactVersionId: options.sourceFindingDecisionArtifactVersionId,
+    basedOnTransferVerificationVersionId: options.basedOnTransferVerificationVersionId,
+  };
+  const query = Object.entries(values)
+    .flatMap(([key, value]) => {
+      const normalized = value?.trim() ?? "";
+      return normalized ? [`${encodeURIComponent(key)}=${encodeURIComponent(normalized)}`] : [];
+    })
+    .join("&");
+  return query ? `${routes.essayTask}?${query}` : "";
+}
 
 function persistRewriteDraft(
   page: EssayTaskPageInstance,
@@ -2733,6 +2881,7 @@ function handleDraftingRequestError(
   error: unknown,
 ): void {
   if (!pageRuntimes.owns(page, runtime)) return;
+  if (enterEssayAuthRequired(page, runtime, error)) return;
   const apiError = error instanceof ApiClientError ? error : null;
   const conflict = apiError?.statusCode === 409;
   const completionPending = runtime.pendingDraftingSubmission?.phase === "completion_pending";
