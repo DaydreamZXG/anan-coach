@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
+import json
+from typing import Any
 from uuid import uuid4
 
 from sqlalchemy import text
@@ -15,6 +17,7 @@ class ReviewCardRecord:
     question_id: str
     module_name: str | None
     correct_answer: str | None
+    status: str
 
 
 @dataclass(frozen=True)
@@ -29,9 +32,63 @@ class VerdictRecord:
     created_at: datetime
 
 
+@dataclass(frozen=True)
+class ReviewVerdictCommandRecord:
+    command_type: str
+    target_id: str | None
+    request_fingerprint: str
+    response_payload: dict[str, Any]
+
+
 class ReviewSessionRepository:
     def __init__(self, session: Session) -> None:
         self._session = session
+
+    def lock_command(self, *, user_id: str, command_id: str) -> None:
+        self._session.execute(
+            text(
+                """
+                select pg_advisory_xact_lock(
+                  hashtextextended(:lock_identity, 0)
+                )
+                """
+            ),
+            {"lock_identity": f"review-verdict:{user_id}:{command_id}"},
+        )
+
+    def get_command(
+        self,
+        *,
+        user_id: str,
+        command_id: str,
+    ) -> ReviewVerdictCommandRecord | None:
+        row = (
+            self._session.execute(
+                text(
+                    """
+                select
+                  command_type,
+                  target_id::text as target_id,
+                  request_fingerprint,
+                  response_payload
+                from learning.xingce_commands
+                where user_id = cast(:user_id as uuid)
+                  and command_id = :command_id
+                """
+                ),
+                {"user_id": user_id, "command_id": command_id},
+            )
+            .mappings()
+            .first()
+        )
+        if row is None:
+            return None
+        return ReviewVerdictCommandRecord(
+            command_type=str(row["command_type"]),
+            target_id=str(row["target_id"]) if row["target_id"] is not None else None,
+            request_fingerprint=str(row["request_fingerprint"]),
+            response_payload=dict(row["response_payload"]),
+        )
 
     def get_card_for_user(
         self,
@@ -39,16 +96,20 @@ class ReviewSessionRepository:
         user_id: str,
         docket_id: str,
         card_id: str,
+        for_update: bool = False,
     ) -> ReviewCardRecord | None:
-        row = self._session.execute(
-            text(
-                """
+        locking_clause = "for update of dc" if for_update else ""
+        row = (
+            self._session.execute(
+                text(
+                    f"""
                 select
                   d.docket_id::text as docket_id,
                   dc.card_id::text as card_id,
                   dc.question_id,
                   dc.module_name,
-                  q.answer as correct_answer
+                  q.answer as correct_answer,
+                  dc.status
                 from learner.dockets d
                 join learner.docket_cards dc on dc.docket_id = d.docket_id
                 join product.questions q on q.question_id = dc.question_id
@@ -56,14 +117,18 @@ class ReviewSessionRepository:
                   and d.docket_id = cast(:docket_id as uuid)
                   and dc.card_id = cast(:card_id as uuid)
                 limit 1
+                {locking_clause}
                 """
-            ),
-            {
-                "user_id": user_id,
-                "docket_id": docket_id,
-                "card_id": card_id,
-            },
-        ).mappings().first()
+                ),
+                {
+                    "user_id": user_id,
+                    "docket_id": docket_id,
+                    "card_id": card_id,
+                },
+            )
+            .mappings()
+            .first()
+        )
         if row is None:
             return None
         return ReviewCardRecord(
@@ -74,6 +139,24 @@ class ReviewSessionRepository:
             correct_answer=(
                 row["correct_answer"] if isinstance(row["correct_answer"], str) else None
             ),
+            status=str(row["status"]),
+        )
+
+    def verdict_exists(self, *, user_id: str, card_id: str) -> bool:
+        return bool(
+            self._session.execute(
+                text(
+                    """
+                    select exists (
+                      select 1
+                      from learner.verdicts
+                      where user_id = cast(:user_id as uuid)
+                        and card_id = cast(:card_id as uuid)
+                    )
+                    """
+                ),
+                {"user_id": user_id, "card_id": card_id},
+            ).scalar_one()
         )
 
     def record_verdict(
@@ -85,9 +168,10 @@ class ReviewSessionRepository:
         correct: bool,
         elapsed_seconds: int | None,
     ) -> VerdictRecord:
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 insert into learner.verdicts (
                   verdict_id,
                   user_id,
@@ -109,12 +193,6 @@ class ReviewSessionRepository:
                   :elapsed_seconds,
                   now()
                 )
-                on conflict (user_id, card_id)
-                do update set
-                  selected_answer = excluded.selected_answer,
-                  correct = excluded.correct,
-                  elapsed_seconds = excluded.elapsed_seconds,
-                  created_at = now()
                 returning
                   verdict_id::text as verdict_id,
                   docket_id::text as docket_id,
@@ -125,30 +203,33 @@ class ReviewSessionRepository:
                   elapsed_seconds,
                   created_at
                 """
-            ),
-            {
-                "verdict_id": str(uuid4()),
-                "user_id": user_id,
-                "docket_id": card.docket_id,
-                "card_id": card.card_id,
-                "question_id": card.question_id,
-                "selected_answer": selected_answer,
-                "correct": correct,
-                "elapsed_seconds": elapsed_seconds,
-            },
-        ).mappings().one()
+                ),
+                {
+                    "verdict_id": str(uuid4()),
+                    "user_id": user_id,
+                    "docket_id": card.docket_id,
+                    "card_id": card.card_id,
+                    "question_id": card.question_id,
+                    "selected_answer": selected_answer,
+                    "correct": correct,
+                    "elapsed_seconds": elapsed_seconds,
+                },
+            )
+            .mappings()
+            .one()
+        )
         self._session.execute(
             text(
                 """
                 update learner.docket_cards
                 set status = 'completed',
                     updated_at = now()
-                where card_id = cast(:card_id as uuid)
+                where docket_id = cast(:docket_id as uuid)
+                  and card_id = cast(:card_id as uuid)
                 """
             ),
-            {"card_id": card.card_id},
+            {"docket_id": card.docket_id, "card_id": card.card_id},
         )
-        self._session.commit()
         return VerdictRecord(
             verdict_id=str(row["verdict_id"]),
             docket_id=str(row["docket_id"]),
@@ -157,9 +238,58 @@ class ReviewSessionRepository:
             selected_answer=str(row["selected_answer"]),
             correct=bool(row["correct"]),
             elapsed_seconds=(
-                int(row["elapsed_seconds"])
-                if row["elapsed_seconds"] is not None
-                else None
+                int(row["elapsed_seconds"]) if row["elapsed_seconds"] is not None else None
             ),
             created_at=row["created_at"],
         )
+
+    def record_command(
+        self,
+        *,
+        user_id: str,
+        command_id: str,
+        card_id: str,
+        request_fingerprint: str,
+        response_payload: dict[str, Any],
+    ) -> None:
+        self._session.execute(
+            text(
+                """
+                insert into learning.xingce_commands (
+                  user_id,
+                  command_id,
+                  command_type,
+                  target_id,
+                  request_fingerprint,
+                  response_payload,
+                  created_at
+                ) values (
+                  cast(:user_id as uuid),
+                  :command_id,
+                  'review_verdict',
+                  cast(:card_id as uuid),
+                  :request_fingerprint,
+                  cast(:response_payload as jsonb),
+                  now()
+                )
+                """
+            ),
+            {
+                "user_id": user_id,
+                "command_id": command_id,
+                "card_id": card_id,
+                "request_fingerprint": request_fingerprint,
+                "response_payload": json.dumps(
+                    response_payload,
+                    ensure_ascii=False,
+                    separators=(",", ":"),
+                    sort_keys=True,
+                ),
+            },
+        )
+
+    def commit(self) -> None:
+        self._session.commit()
+
+    def rollback(self) -> None:
+        self._session.rollback()
