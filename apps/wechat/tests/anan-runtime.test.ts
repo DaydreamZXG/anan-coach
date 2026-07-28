@@ -16,6 +16,8 @@ import { companionFailureView } from "../miniprogram/features/companion/presenta
 import { stableFingerprint } from "../miniprogram/platform/command-id";
 import { operationAttemptStorageKey } from "../miniprogram/platform/operation-attempt-store";
 
+type AnanRequest = WechatMiniprogram.RequestOption<ApiEnvelope<unknown>>;
+
 afterEach(() => {
   vi.unstubAllGlobals();
   vi.resetModules();
@@ -123,6 +125,402 @@ describe("岸岸小程序运行时", () => {
     });
   });
 
+  it("profile 成功而 today 失败时保留 partial，可安全提问且不伪造空计划", async () => {
+    const harness = await captureAnanPage();
+
+    const load = harness.page.loadContext();
+    await waitForRequestCount(harness.requests, 2);
+    respondApiSuccess(
+      requestByPath(harness.requests, "/api/v2/learning-brain/profile"),
+      learningProfile(),
+    );
+    respondApiFailure(
+      requestByPath(harness.requests, "/api/v2/plans/today"),
+      503,
+      "计划服务暂时不可用。",
+      "today-unavailable",
+    );
+    await load;
+
+    expect(harness.page.data).toMatchObject({
+      contextStatus: "partial",
+      askAvailable: true,
+      profileAskAvailable: true,
+      learnerStateVersion: "learner-state-v1",
+      profileSourceStatus: "ready",
+      todaySourceStatus: "unavailable",
+      todaySourceRequestId: "today-unavailable",
+      contextGoalLabel: "主目标状态不可用",
+      contextTaskLabel: "今日计划不可用",
+      insightVisible: false,
+      retryProfileVisible: false,
+      retryTodayVisible: true,
+    });
+    expect(harness.page.data.contextGoalLabel).not.toBe("主目标待确认");
+    expect(harness.page.data.contextTaskLabel).not.toBe("今日 0 项任务");
+    expect(harness.page.data.insightTitle).not.toBe("还没有确认主目标岗位");
+    expect(harness.page.data.contextNoticeCopy).toContain("不会把未载入的计划当成 0 项");
+
+    harness.page.setData({ question: "根据学习档案，下一步先补什么？" });
+    const ask = harness.page.ask();
+    await waitForRequestCount(harness.requests, 3);
+    const askRequest = requestByPath(harness.requests, "/api/v2/companion/ask");
+    expect(companionRequestPayload(askRequest)).toEqual({
+      questionText: "根据学习档案，下一步先补什么？",
+      context: {
+        routeId: "pages/anan/index",
+        workspace: "training",
+        objectRefs: [],
+        learnerStateVersion: "learner-state-v1",
+      },
+    });
+    expect(Object.keys(companionRequestPayload(askRequest)?.context ?? {}).sort()).toEqual([
+      "learnerStateVersion",
+      "objectRefs",
+      "routeId",
+      "workspace",
+    ]);
+    respondCompanionSuccess(askRequest);
+    await ask;
+
+    const retryToday = harness.page.retryTodayContext();
+    await waitForRequestCount(harness.requests, 4);
+    expect(harness.requests[3]?.url).toContain("/api/v2/plans/today");
+    respondApiSuccess(harness.requests[3], todayDashboard());
+    await retryToday;
+    expect(harness.page.data).toMatchObject({
+      contextStatus: "ready",
+      askAvailable: true,
+      profileSourceStatus: "ready",
+      todaySourceStatus: "ready",
+      contextNoticeVisible: false,
+    });
+  });
+
+  it("profile 失败而 today 成功时展示 today 事实但禁发，并可单独重试 profile", async () => {
+    const harness = await captureAnanPage();
+
+    const load = harness.page.loadContext();
+    await waitForRequestCount(harness.requests, 2);
+    respondApiFailure(
+      requestByPath(harness.requests, "/api/v2/learning-brain/profile"),
+      503,
+      "学习档案暂时不可用。",
+      "profile-unavailable",
+    );
+    respondApiSuccess(
+      requestByPath(harness.requests, "/api/v2/plans/today"),
+      todayDashboard({ activeTaskCount: 2, positionName: "省直综合岗" }),
+    );
+    await load;
+
+    expect(harness.page.data).toMatchObject({
+      contextStatus: "partial",
+      askAvailable: false,
+      profileAskAvailable: false,
+      learnerStateVersion: "",
+      profileSourceStatus: "unavailable",
+      profileSourceRequestId: "profile-unavailable",
+      todaySourceStatus: "ready",
+      contextGoalLabel: "主目标已确认",
+      contextTaskLabel: "今日 2 项任务",
+      insightVisible: false,
+      retryProfileVisible: true,
+      retryTodayVisible: false,
+    });
+    harness.page.setData({ question: "现在该做什么？" });
+    await harness.page.ask();
+    expect(harness.requests).toHaveLength(2);
+
+    const retryProfile = harness.page.retryProfileContext();
+    await waitForRequestCount(harness.requests, 3);
+    expect(harness.requests[2]?.url).toContain("/api/v2/learning-brain/profile");
+    respondApiSuccess(harness.requests[2], learningProfile());
+    await retryProfile;
+    expect(harness.page.data).toMatchObject({
+      contextStatus: "ready",
+      askAvailable: true,
+      learnerStateVersion: "learner-state-v1",
+      profileSourceStatus: "ready",
+      todaySourceStatus: "ready",
+    });
+  });
+
+  it("profile 与 today 都失败时进入 error，不生成任何空数据结论", async () => {
+    const harness = await captureAnanPage();
+
+    const load = harness.page.loadContext();
+    await waitForRequestCount(harness.requests, 2);
+    respondApiFailure(
+      requestByPath(harness.requests, "/api/v2/learning-brain/profile"),
+      503,
+      "学习档案暂时不可用。",
+      "profile-failed",
+    );
+    respondApiFailure(
+      requestByPath(harness.requests, "/api/v2/plans/today"),
+      503,
+      "今日计划暂时不可用。",
+      "today-failed",
+    );
+    await load;
+
+    expect(harness.page.data).toMatchObject({
+      contextStatus: "error",
+      askAvailable: false,
+      learnerStateVersion: "",
+      profileSourceStatus: "unavailable",
+      todaySourceStatus: "unavailable",
+      contextGoalLabel: "主目标状态不可用",
+      contextTaskLabel: "今日计划不可用",
+      contextReviewLabel: "复测信息不完整",
+      contextNoticeTitle: "学习档案与今日计划未就绪",
+      contextNoticeCopy: "学习档案和今日计划都没有载入；请分别重新读取两个失败来源。",
+      insightVisible: false,
+      retryProfileVisible: true,
+      retryTodayVisible: true,
+    });
+    expect(harness.page.data.contextGoalLabel).not.toBe("主目标待确认");
+    expect(harness.page.data.contextTaskLabel).not.toBe("今日 0 项任务");
+    expect(harness.page.data.insightTitle).not.toBe("还没有确认主目标岗位");
+  });
+
+  it("只有双来源成功时才把真正无目标和 0 任务呈现为空状态", async () => {
+    const harness = await captureAnanPage();
+
+    const load = harness.page.loadContext();
+    await waitForRequestCount(harness.requests, 2);
+    respondApiSuccess(
+      requestByPath(harness.requests, "/api/v2/learning-brain/profile"),
+      learningProfile(),
+    );
+    respondApiSuccess(
+      requestByPath(harness.requests, "/api/v2/plans/today"),
+      todayDashboard({ activeTaskCount: 0, positionName: null }),
+    );
+    await load;
+
+    expect(harness.page.data).toMatchObject({
+      contextStatus: "ready",
+      askAvailable: true,
+      contextGoalLabel: "主目标待确认",
+      contextTaskLabel: "今日 0 项任务",
+      insightVisible: true,
+      insightTitle: "还没有确认主目标岗位",
+      insightAction: "positions",
+    });
+  });
+
+  it("today 刷新失败时保留旧计划并标记 stale，关闭依赖 today 的 insight", async () => {
+    const harness = await captureAnanPage();
+    const load = harness.page.loadContext();
+    await waitForRequestCount(harness.requests, 2);
+    respondApiSuccess(
+      requestByPath(harness.requests, "/api/v2/learning-brain/profile"),
+      learningProfile(),
+    );
+    respondApiSuccess(
+      requestByPath(harness.requests, "/api/v2/plans/today"),
+      todayDashboard({ activeTaskCount: 2, positionName: "省直综合岗" }),
+    );
+    await load;
+
+    const retry = harness.page.retryTodayContext();
+    await waitForRequestCount(harness.requests, 3);
+    respondApiFailure(harness.requests[2], 503, "今日计划刷新失败。", "today-refresh-failed");
+    await retry;
+
+    expect(harness.page.data).toMatchObject({
+      contextStatus: "partial",
+      askAvailable: true,
+      profileSourceStatus: "ready",
+      todaySourceStatus: "stale",
+      todaySourceRequestId: "today-refresh-failed",
+      contextGoalLabel: "上次同步 · 主目标已确认",
+      contextTaskLabel: "上次同步 · 今日 2 项任务",
+      todaySourceLabel: "今日计划 · 刷新失败，显示上次数据",
+      insightVisible: false,
+      retryTodayVisible: true,
+    });
+    expect(harness.page.data.contextNoticeCopy).toContain("不会把上次的计划当成最新安排");
+  });
+
+  it("profile 刷新失败时保留旧档案并标记 stale，但硬性关闭提问", async () => {
+    const harness = await captureAnanPage();
+    const load = harness.page.loadContext();
+    await waitForRequestCount(harness.requests, 2);
+    respondApiSuccess(
+      requestByPath(harness.requests, "/api/v2/learning-brain/profile"),
+      learningProfile(),
+    );
+    respondApiSuccess(requestByPath(harness.requests, "/api/v2/plans/today"), todayDashboard());
+    await load;
+
+    const retry = harness.page.retryProfileContext();
+    await waitForRequestCount(harness.requests, 3);
+    respondApiFailure(harness.requests[2], 503, "学习档案刷新失败。", "profile-refresh-failed");
+    await retry;
+
+    expect(harness.page.data).toMatchObject({
+      contextStatus: "partial",
+      askAvailable: false,
+      learnerStateVersion: "learner-state-v1",
+      profileSourceStatus: "stale",
+      profileSourceRequestId: "profile-refresh-failed",
+      todaySourceStatus: "ready",
+      contextEvidenceLabel: "上次同步 · 6 条学习记录",
+      profileSourceLabel: "学习档案 · 刷新失败，显示上次数据",
+      insightVisible: false,
+      retryProfileVisible: true,
+    });
+    harness.page.setData({ question: "不应发送的问题" });
+    await harness.page.ask();
+    expect(harness.requests).toHaveLength(3);
+  });
+
+  it("并发 retry 与全量读取只接受各来源最新一代结果，迟到旧结果不能覆盖", async () => {
+    const harness = await captureAnanPage();
+
+    const initialLoad = harness.page.loadContext();
+    await waitForRequestCount(harness.requests, 2);
+    respondApiSuccess(harness.requests[0], learningProfile("learner-state-v1"));
+    respondApiSuccess(harness.requests[1], todayDashboard({ activeTaskCount: 1 }));
+    await initialLoad;
+
+    const olderRetry = harness.page.retryProfileContext();
+    await waitForRequestCount(harness.requests, 3);
+    const newerLoad = harness.page.loadContext();
+    await waitForRequestCount(harness.requests, 5);
+
+    expect(
+      harness.requests.map((request) => request.url.slice(request.url.indexOf("/api"))),
+    ).toEqual([
+      "/api/v2/learning-brain/profile",
+      "/api/v2/plans/today",
+      "/api/v2/learning-brain/profile",
+      "/api/v2/learning-brain/profile",
+      "/api/v2/plans/today",
+    ]);
+    respondApiSuccess(harness.requests[3], learningProfile("learner-state-v2"));
+    respondApiSuccess(
+      harness.requests[4],
+      todayDashboard({ activeTaskCount: 2, positionName: "最新岗位" }),
+    );
+    await newerLoad;
+
+    respondApiSuccess(harness.requests[2], learningProfile("learner-state-outdated"));
+    await olderRetry;
+
+    expect(harness.page.data).toMatchObject({
+      contextStatus: "ready",
+      askAvailable: true,
+      profileSourceStatus: "ready",
+      todaySourceStatus: "ready",
+      learnerStateVersion: "learner-state-v2",
+      profileLearnerStateVersion: "learner-state-v2",
+      contextGoalLabel: "主目标已确认",
+      contextTaskLabel: "今日 2 项任务",
+      profileRefreshing: false,
+      todayRefreshing: false,
+    });
+    expect(harness.page.data).not.toHaveProperty("profileSource");
+    expect(harness.page.data).not.toHaveProperty("todaySource");
+  });
+
+  it("页面卸载会使上下文代际失效，迟到响应不得再 setData", async () => {
+    const harness = await captureAnanPage();
+
+    const load = harness.page.loadContext();
+    await waitForRequestCount(harness.requests, 2);
+    harness.page.onUnload();
+    const dataAfterUnload = clone(harness.page.data);
+
+    respondApiSuccess(harness.requests[0], learningProfile("learner-state-late"));
+    respondApiSuccess(harness.requests[1], todayDashboard({ activeTaskCount: 3 }));
+    await load;
+
+    expect(harness.page.data).toEqual(dataAfterUnload);
+  });
+
+  it("全量上下文响应跨完整会话后不得投影到新账号 UI", async () => {
+    const harness = await captureAnanPage();
+
+    const load = harness.page.loadContext();
+    await waitForRequestCount(harness.requests, 2);
+    const bUi = switchToAccountB(harness);
+    respondApiSuccess(harness.requests[0], learningProfile("learner-state-from-a"));
+    respondApiSuccess(harness.requests[1], todayDashboard({ activeTaskCount: 3 }));
+    await load;
+
+    expectResponseUi(harness.page, bUi);
+    expect(harness.page.data.learnerStateVersion).toBe("");
+    expect(harness.page.data.profileSourceStatus).toBe("loading");
+    expect(harness.page.data.todaySourceStatus).toBe("loading");
+  });
+
+  it("切换账号后的新读取不会把旧账号缓存降级为 stale", async () => {
+    const harness = await captureAnanPage();
+    const firstLoad = harness.page.loadContext();
+    await waitForRequestCount(harness.requests, 2);
+    respondApiSuccess(harness.requests[0], learningProfile("learner-state-user-a"));
+    respondApiSuccess(harness.requests[1], todayDashboard({ activeTaskCount: 2 }));
+    await firstLoad;
+
+    harness.appState.globalData = {
+      accessToken: "token-b",
+      userId: "user-b",
+      generation: "generation-b",
+    };
+    const secondLoad = harness.page.loadContext();
+    await waitForRequestCount(harness.requests, 4);
+    respondApiFailure(
+      harness.requests[2],
+      503,
+      "B 用户学习档案暂时不可用。",
+      "profile-user-b-failed",
+    );
+    respondApiFailure(
+      harness.requests[3],
+      503,
+      "B 用户今日计划暂时不可用。",
+      "today-user-b-failed",
+    );
+    await secondLoad;
+
+    expect(harness.page.data).toMatchObject({
+      contextStatus: "error",
+      askAvailable: false,
+      profileAskAvailable: false,
+      learnerStateVersion: "",
+      profileLearnerStateVersion: "",
+      profileSourceStatus: "unavailable",
+      todaySourceStatus: "unavailable",
+      contextEvidenceLabel: "学习档案不可用",
+      contextTaskLabel: "今日计划不可用",
+    });
+    expect(harness.page.data.contextEvidenceLabel).not.toContain("上次同步");
+    expect(harness.page.data.contextTaskLabel).not.toContain("上次同步");
+  });
+
+  it("单来源 retry 响应跨 token 轮换后不得覆盖新会话 UI", async () => {
+    const harness = await captureAnanPage();
+    const load = harness.page.loadContext();
+    await waitForRequestCount(harness.requests, 2);
+    respondApiSuccess(harness.requests[0], learningProfile("learner-state-v1"));
+    respondApiSuccess(harness.requests[1], todayDashboard());
+    await load;
+
+    const retry = harness.page.retryProfileContext();
+    await waitForRequestCount(harness.requests, 3);
+    const rotatedUi = switchToRotatedSessionForUserA(harness);
+    respondApiSuccess(harness.requests[2], learningProfile("learner-state-from-old-token"));
+    await retry;
+
+    expectResponseUi(harness.page, rotatedUi);
+    expect(harness.page.data.learnerStateVersion).toBe("learner-state-v1");
+    expect(harness.page.data.profileLearnerStateVersion).toBe("learner-state-v1");
+  });
+
   it("保留 transport unknown attempt，并让同一问题重试复用 key 后完成", async () => {
     const harness = await captureAnanPage();
     prepareAsk(harness.page, "资料分析增长率怎么补？");
@@ -152,6 +550,7 @@ describe("岸岸小程序运行时", () => {
     prepareAsk(firstRuntime.page, "原岗位上下文里的问题");
     firstRuntime.page.setData({
       learnerStateVersion: "learner-state-original",
+      profileLearnerStateVersion: "learner-state-original",
       askRouteId: "pages/positions/detail",
       askWorkspace: "position",
       askObjectRefs: [{ type: "position", id: "position-1", version: "position-v1" }],
@@ -210,6 +609,62 @@ describe("岸岸小程序运行时", () => {
     expect(JSON.stringify(companionRequestPayload(restarted.requests[0]))).not.toContain("token-a");
     expect(JSON.stringify(attemptValue(restarted, "user-a"))).not.toContain("token-a");
     respondCompanionSuccess(restarted.requests[0]);
+    await retry;
+
+    expect(attempt(restarted, "user-a")?.state).toBe("succeeded");
+  });
+
+  it("恢复冻结原问题后即使 profile 异步失败，仍可精确复用原 payload 与 key", async () => {
+    const firstRuntime = await captureAnanPage();
+    prepareAsk(firstRuntime.page, "继续确认原问题");
+    firstRuntime.page.setData({
+      learnerStateVersion: "learner-state-frozen",
+      profileLearnerStateVersion: "learner-state-frozen",
+      askRouteId: "pages/positions/detail",
+      askWorkspace: "position",
+      askObjectRefs: [{ type: "position", id: "position-frozen", version: "position-v1" }],
+    });
+
+    const firstAsk = firstRuntime.page.ask();
+    await waitForRequestCount(firstRuntime.requests, 1);
+    const originalPayload = companionRequestPayload(firstRuntime.requests[0]);
+    const originalKey = idempotencyKey(firstRuntime.requests[0]);
+    respondTransportFailure(firstRuntime.requests[0]);
+    await firstAsk;
+
+    vi.resetModules();
+    const restarted = await captureAnanPage({
+      appState: firstRuntime.appState,
+      entropy: firstRuntime.entropy,
+      storage: firstRuntime.storage,
+    });
+    restarted.page.onShow();
+
+    const load = restarted.page.loadContext();
+    await waitForRequestCount(restarted.requests, 2);
+    respondApiFailure(restarted.requests[0], 503, "学习档案刷新失败。", "profile-recovery-failed");
+    respondApiSuccess(restarted.requests[1], todayDashboard({ activeTaskCount: 2 }));
+    await load;
+
+    expect(restarted.page.data).toMatchObject({
+      contextStatus: "partial",
+      profileAskAvailable: false,
+      recoveryAskAvailable: true,
+      askAvailable: true,
+      profileSourceStatus: "unavailable",
+      todaySourceStatus: "ready",
+      learnerStateVersion: "learner-state-frozen",
+      stateLabel: "回答结果待安全确认",
+    });
+    expect(restarted.page.data.contextNoticeCopy).toContain(
+      "已有待确认的原问题仍会沿用发送时的上下文继续确认",
+    );
+
+    const retry = restarted.page.ask();
+    await waitForRequestCount(restarted.requests, 3);
+    expect(idempotencyKey(restarted.requests[2])).toBe(originalKey);
+    expect(companionRequestPayload(restarted.requests[2])).toEqual(originalPayload);
+    respondCompanionSuccess(restarted.requests[2]);
     await retry;
 
     expect(attempt(restarted, "user-a")?.state).toBe("succeeded");
@@ -332,7 +787,13 @@ describe("岸岸小程序运行时", () => {
     await first;
 
     harness.page.restoreAskedQuestion();
-    harness.page.setData({ question: "编辑后的新问题" });
+    harness.page.setData({
+      question: "编辑后的新问题",
+      askAvailable: true,
+      profileAskAvailable: true,
+      learnerStateVersion: "learner-state-v1",
+      profileLearnerStateVersion: "learner-state-v1",
+    });
     const second = harness.page.ask();
     await waitForRequestCount(harness.requests, 2);
     const secondKey = idempotencyKey(harness.requests[1]);
@@ -359,6 +820,12 @@ describe("岸岸小程序运行时", () => {
     await first;
 
     harness.page.restoreAskedQuestion();
+    harness.page.setData({
+      askAvailable: true,
+      profileAskAvailable: true,
+      learnerStateVersion: "learner-state-v1",
+      profileLearnerStateVersion: "learner-state-v1",
+    });
     harness.page.clearLaunchContext();
     const second = harness.page.ask();
     await waitForRequestCount(harness.requests, 2);
@@ -394,6 +861,12 @@ describe("岸岸小程序运行时", () => {
       userId: "user-b",
       generation: "generation-b",
     };
+    harness.page.setData({
+      askAvailable: true,
+      profileAskAvailable: true,
+      learnerStateVersion: "learner-state-b",
+      profileLearnerStateVersion: "learner-state-b",
+    });
     const second = harness.page.ask();
     await waitForRequestCount(harness.requests, 2);
     respondTransportFailure(harness.requests[1]);
@@ -477,7 +950,11 @@ interface CapturedAnanPage {
   data: Record<string, unknown>;
   ask(this: AnanTestPage): Promise<void>;
   clearLaunchContext(this: AnanTestPage): void;
+  loadContext(this: AnanTestPage): Promise<void>;
   onShow(this: AnanTestPage): void;
+  onUnload(this: AnanTestPage): void;
+  retryProfileContext(this: AnanTestPage): Promise<void>;
+  retryTodayContext(this: AnanTestPage): Promise<void>;
   restoreAskedQuestion(this: AnanTestPage): void;
 }
 
@@ -487,7 +964,7 @@ interface AnanTestPage extends CapturedAnanPage {
 
 interface AnanHarness {
   page: AnanTestPage;
-  requests: Array<WechatMiniprogram.RequestOption<ApiEnvelope<CompanionAskResponse>>>;
+  requests: AnanRequest[];
   storage: Map<string, unknown>;
   writes: unknown[];
   entropy: { value: number };
@@ -508,7 +985,7 @@ async function captureAnanPage(
   } = {},
 ): Promise<AnanHarness> {
   let definition: CapturedAnanPage | undefined;
-  const requests: Array<WechatMiniprogram.RequestOption<ApiEnvelope<CompanionAskResponse>>> = [];
+  const requests: AnanRequest[] = [];
   const storage = existing.storage ?? new Map<string, unknown>();
   const writes: unknown[] = [];
   const appState =
@@ -536,7 +1013,7 @@ async function captureAnanPage(
       entropy.value += 1;
       return Promise.resolve({ randomValues: new Uint8Array(16).fill(entropy.value).buffer });
     },
-    request: (options: WechatMiniprogram.RequestOption<ApiEnvelope<CompanionAskResponse>>) => {
+    request: (options: AnanRequest) => {
       requests.push(options);
     },
     pageScrollTo: vi.fn(() => Promise.resolve()),
@@ -558,7 +1035,11 @@ async function captureAnanPage(
 function prepareAsk(page: AnanTestPage, question: string): void {
   page.setData({
     contextStatus: "ready",
+    askAvailable: true,
+    profileAskAvailable: true,
+    recoveryAskAvailable: false,
     learnerStateVersion: "learner-state-v1",
+    profileLearnerStateVersion: "learner-state-v1",
     question,
     askedQuestion: "",
     submitting: false,
@@ -640,9 +1121,90 @@ function attemptState(value: unknown): string | undefined {
   return typeof state === "string" ? state : undefined;
 }
 
-function idempotencyKey(
-  options: WechatMiniprogram.RequestOption<ApiEnvelope<CompanionAskResponse>> | undefined,
-): string | undefined {
+function requestByPath(requests: AnanRequest[], path: string): AnanRequest {
+  const request = [...requests].reverse().find((candidate) => candidate.url.endsWith(path));
+  if (!request) throw new Error(`request was not captured: ${path}`);
+  return request;
+}
+
+function respondApiSuccess(options: AnanRequest | undefined, data: unknown): void {
+  options?.success?.({
+    data: {
+      data,
+      requestId: "context-success",
+      generatedAt: "2026-07-28T10:00:00Z",
+    },
+    statusCode: 200,
+    header: {},
+    cookies: [],
+    exception: { reasons: [], retryCount: 0 },
+    profile: {} as WechatMiniprogram.RequestProfile,
+    useHttpDNS: false,
+    errMsg: "request:ok",
+  });
+}
+
+function respondApiFailure(
+  options: AnanRequest | undefined,
+  statusCode: number,
+  message: string,
+  requestId: string,
+): void {
+  options?.success?.({
+    data: {
+      code: "context_unavailable",
+      message,
+      requestId,
+    } as unknown as ApiEnvelope<unknown>,
+    statusCode,
+    header: {},
+    cookies: [],
+    exception: { reasons: [], retryCount: 0 },
+    profile: {} as WechatMiniprogram.RequestProfile,
+    useHttpDNS: false,
+    errMsg: "request:ok",
+  });
+}
+
+function learningProfile(profileVersionId = "learner-state-v1") {
+  return {
+    profileVersionId,
+    evidenceSummary: {
+      scoreEvidenceCount: 1,
+      xingceAttemptCount: 2,
+      xingceMasteryCount: 1,
+      essayMasteryCount: 1,
+      taskExecutionCount: 1,
+      externalAnswerCount: 0,
+    },
+    decisionSummary: {
+      reviewDueCount: 0,
+    },
+  };
+}
+
+function todayDashboard(
+  options: {
+    activeTaskCount?: number;
+    positionName?: string | null;
+  } = {},
+) {
+  const activeTaskCount = options.activeTaskCount ?? 1;
+  return {
+    capacity: { availableMinutes: 60 },
+    dueReflectionCount: 0,
+    dueVerificationCount: 0,
+    goalGap: {
+      positionName: options.positionName === undefined ? "省直综合岗" : options.positionName,
+    },
+    tasks: Array.from({ length: activeTaskCount }, (_value, index) => ({
+      id: `task-${String(index + 1)}`,
+      status: "ready",
+    })),
+  };
+}
+
+function idempotencyKey(options: AnanRequest | undefined): string | undefined {
   const header: unknown = options?.header;
   if (!header || typeof header !== "object") return undefined;
   const key = (header as Record<string, unknown>)["Idempotency-Key"];
@@ -650,14 +1212,12 @@ function idempotencyKey(
 }
 
 function companionRequestPayload(
-  options: WechatMiniprogram.RequestOption<ApiEnvelope<CompanionAskResponse>> | undefined,
+  options: AnanRequest | undefined,
 ): CompanionAskRequest | undefined {
   return options?.data as CompanionAskRequest | undefined;
 }
 
-function respondTransportFailure(
-  options: WechatMiniprogram.RequestOption<ApiEnvelope<CompanionAskResponse>> | undefined,
-): void {
+function respondTransportFailure(options: AnanRequest | undefined): void {
   options?.fail?.({
     errMsg: "request:fail timeout",
     errno: -1,
@@ -666,10 +1226,7 @@ function respondTransportFailure(
   });
 }
 
-function respondHttpFailure(
-  options: WechatMiniprogram.RequestOption<ApiEnvelope<CompanionAskResponse>> | undefined,
-  statusCode = 422,
-): void {
+function respondHttpFailure(options: AnanRequest | undefined, statusCode = 422): void {
   options?.success?.({
     data: {
       code: "companion_rejected",
@@ -686,9 +1243,7 @@ function respondHttpFailure(
   });
 }
 
-function respondCompanionSuccess(
-  options: WechatMiniprogram.RequestOption<ApiEnvelope<CompanionAskResponse>> | undefined,
-): void {
+function respondCompanionSuccess(options: AnanRequest | undefined): void {
   options?.success?.({
     data: {
       data: companionResponse(),
@@ -730,10 +1285,7 @@ function companionResponse(): CompanionAskResponse {
   };
 }
 
-async function waitForRequestCount(
-  requests: Array<WechatMiniprogram.RequestOption<ApiEnvelope<CompanionAskResponse>>>,
-  expected: number,
-): Promise<void> {
+async function waitForRequestCount(requests: AnanRequest[], expected: number): Promise<void> {
   for (let turn = 0; turn < 30; turn += 1) {
     if (requests.length >= expected) return;
     await Promise.resolve();

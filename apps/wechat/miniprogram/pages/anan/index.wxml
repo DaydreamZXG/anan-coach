@@ -17,7 +17,7 @@
             aria-hidden="true"
           />
         </view>
-        <view class="coach-core__copy">我已经同步了你的岗位、能力和今天的计划。</view>
+        <view class="coach-core__copy">{{contextCoreCopy}}</view>
         <view class="context-chips">
           <button hover-class="item--hover" class="context-chip" bindtap="openPositions">{{contextGoalLabel}}</button>
           <button hover-class="item--hover" class="context-chip" bindtap="openToday">{{contextTaskLabel}}</button>
@@ -44,13 +44,41 @@
         <view class="loading-line"></view>
         <view class="loading-line loading-line--short"></view>
       </view>
-      <view wx:elif="{{contextStatus === 'error'}}" class="coach-card coach-error">
-        <view class="coach-card__title">备考状态没有同步完成</view>
-        <view class="coach-card__copy">{{errorMessage}}</view>
-        <view wx:if="{{requestId}}" class="request-id">问题编号 · {{requestId}}</view>
-        <button hover-class="item--hover" class="secondary-action" bindtap="retryContext">重新读取</button>
+      <view wx:elif="{{contextNoticeVisible}}" class="coach-card context-notice">
+        <view class="coach-card__title">{{contextNoticeTitle}}</view>
+        <view class="coach-card__copy">{{contextNoticeCopy}}</view>
+        <view class="context-source-list">
+          <view wx:if="{{profileIssueVisible}}" class="context-source-row">
+            <view class="context-source-row__label">{{profileSourceLabel}}</view>
+            <view class="context-source-row__message">{{profileSourceMessage}}</view>
+            <view wx:if="{{profileSourceRequestId}}" class="request-id">问题编号 · {{profileSourceRequestId}}</view>
+          </view>
+          <view wx:if="{{todayIssueVisible}}" class="context-source-row">
+            <view class="context-source-row__label">{{todaySourceLabel}}</view>
+            <view class="context-source-row__message">{{todaySourceMessage}}</view>
+            <view wx:if="{{todaySourceRequestId}}" class="request-id">问题编号 · {{todaySourceRequestId}}</view>
+          </view>
+        </view>
+        <view class="context-retry-actions">
+          <button
+            wx:if="{{retryProfileVisible}}"
+            hover-class="item--hover"
+            class="secondary-action"
+            loading="{{profileRefreshing}}"
+            disabled="{{profileRefreshing}}"
+            bindtap="retryProfileContext"
+          >重新读取学习档案</button>
+          <button
+            wx:if="{{retryTodayVisible}}"
+            hover-class="item--hover"
+            class="secondary-action"
+            loading="{{todayRefreshing}}"
+            disabled="{{todayRefreshing}}"
+            bindtap="retryTodayContext"
+          >重新读取今日计划</button>
+        </view>
       </view>
-      <view wx:elif="{{!insightDismissed}}" class="coach-card insight-card" aria-label="{{insightTitle}}">
+      <view wx:if="{{contextStatus !== 'loading' && insightVisible && !insightDismissed}}" class="coach-card insight-card" aria-label="{{insightTitle}}">
         <view class="insight-heading">
           <image class="insight-icon" src="/assets/icons/anan/sparkles-indigo.svg" mode="aspectFit" />
           <text>岸岸发现</text>
@@ -93,7 +121,7 @@
       </view>
 
       <view
-        wx:if="{{contextStatus === 'ready' && errorMessage && !submitting && !answer}}"
+        wx:if="{{contextStatus !== 'loading' && errorMessage && !submitting && !answer}}"
         class="coach-card coach-error ask-error-card"
       >
         <view class="coach-card__title">这次没有收到岸岸的回答</view>
@@ -158,9 +186,9 @@
         bindinput="inputQuestion"
       />
       <button hover-class="item--hover"
-        class="composer-send {{contextStatus !== 'ready' ? 'composer-send--disabled' : ''}}"
+        class="composer-send {{!askAvailable ? 'composer-send--disabled' : ''}}"
         loading="{{submitting}}"
-        disabled="{{contextStatus !== 'ready' || submitting}}"
+        disabled="{{!askAvailable || submitting}}"
         bindtap="ask"
       >
         <image wx:if="{{!submitting}}" class="composer-send__icon" src="/assets/icons/anan/send-arrow-white.svg" mode="aspectFit" />

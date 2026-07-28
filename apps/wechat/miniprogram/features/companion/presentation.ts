@@ -1,4 +1,9 @@
-import type { CompanionAskResponse, CompanionCitation } from "../../api/generated/types.gen";
+import type {
+  CompanionAskResponse,
+  CompanionCitation,
+  LearningBrainProfileVersion,
+  TodayDashboard,
+} from "../../api/generated/types.gen";
 import { ApiClientError } from "../../api/client";
 
 export type CompanionCitationView = CompanionCitation & {
@@ -20,6 +25,42 @@ export interface CompanionFailureView {
   semanticState: CompanionAskResponse["semanticState"];
   message: string;
   requestId: string;
+}
+
+export type CompanionContextSourceState<T> =
+  | { status: "loading" }
+  | { status: "ready"; value: T }
+  | { status: "stale"; value: T; message: string; requestId: string }
+  | { status: "unavailable"; message: string; requestId: string };
+
+export interface CompanionContextView {
+  contextStatus: "loading" | "ready" | "partial" | "error";
+  askAvailable: boolean;
+  learnerStateVersion: string;
+  contextCoreCopy: string;
+  contextGoalLabel: string;
+  contextTaskLabel: string;
+  contextReviewLabel: string;
+  contextCapacityLabel: string;
+  contextEvidenceLabel: string;
+  contextNoticeVisible: boolean;
+  contextNoticeTitle: string;
+  contextNoticeCopy: string;
+  profileIssueVisible: boolean;
+  profileSourceLabel: string;
+  profileSourceMessage: string;
+  profileSourceRequestId: string;
+  todayIssueVisible: boolean;
+  todaySourceLabel: string;
+  todaySourceMessage: string;
+  todaySourceRequestId: string;
+  retryProfileVisible: boolean;
+  retryTodayVisible: boolean;
+  insightVisible: boolean;
+  insightTitle: string;
+  insightCopy: string;
+  insightActionLabel: string;
+  insightAction: "mastery" | "positions" | "today" | "adjustment";
 }
 
 const sourceLabels: Record<string, string> = {
@@ -130,4 +171,246 @@ export function companionFailureView(error: unknown): CompanionFailureView {
     message: "岸岸这次没有完成回答。请编辑问题后再试；若仍失败，请提供问题编号。",
     requestId: error.requestId,
   };
+}
+
+export function companionContextView(
+  profileSource: CompanionContextSourceState<LearningBrainProfileVersion>,
+  todaySource: CompanionContextSourceState<TodayDashboard>,
+): CompanionContextView {
+  const profile = contextSourceValue(profileSource);
+  const dashboard = contextSourceValue(todaySource);
+  const profileReady = profileSource.status === "ready";
+  const todayReady = todaySource.status === "ready";
+  const hasContextValue = profile !== undefined || dashboard !== undefined;
+  const contextStatus: CompanionContextView["contextStatus"] =
+    profileSource.status === "loading" && todaySource.status === "loading" && !hasContextValue
+      ? "loading"
+      : profileReady && todayReady
+        ? "ready"
+        : hasContextValue
+          ? "partial"
+          : "error";
+  const learnerStateVersion = profile?.profileVersionId.trim() ?? "";
+  const askAvailable = profileReady && learnerStateVersion.length > 0;
+  const evidenceCount = profile
+    ? profile.evidenceSummary.scoreEvidenceCount +
+      profile.evidenceSummary.xingceAttemptCount +
+      profile.evidenceSummary.xingceMasteryCount +
+      profile.evidenceSummary.essayMasteryCount +
+      profile.evidenceSummary.taskExecutionCount +
+      (profile.evidenceSummary.externalAnswerCount ?? 0)
+    : 0;
+  const activeTaskCount =
+    dashboard?.tasks.filter((task) => task.status === "ready" || task.status === "in_progress")
+      .length ?? 0;
+  const goalName = dashboard?.goalGap.positionName?.trim() ?? "";
+  const dueCount =
+    profile && dashboard
+      ? (dashboard.dueReflectionCount ?? 0) +
+        (dashboard.dueVerificationCount ?? 0) +
+        profile.decisionSummary.reviewDueCount
+      : null;
+  const profileStalePrefix = profileSource.status === "stale" ? "上次同步 · " : "";
+  const todayStalePrefix = todaySource.status === "stale" ? "上次同步 · " : "";
+  const reviewStalePrefix =
+    profileSource.status === "stale" || todaySource.status === "stale" ? "上次同步 · " : "";
+  const base = {
+    contextStatus,
+    askAvailable,
+    learnerStateVersion,
+    contextCoreCopy: contextCoreCopy(profileSource, todaySource),
+    contextGoalLabel: dashboard
+      ? `${todayStalePrefix}${goalName ? "主目标已确认" : "主目标待确认"}`
+      : "主目标状态不可用",
+    contextTaskLabel: dashboard
+      ? `${todayStalePrefix}今日 ${String(activeTaskCount)} 项任务`
+      : "今日计划不可用",
+    contextReviewLabel:
+      dueCount === null
+        ? "复测信息不完整"
+        : `${reviewStalePrefix}${dueCount > 0 ? `${String(dueCount)} 项待复测` : "暂无到期复测"}`,
+    contextCapacityLabel: dashboard
+      ? `${todayStalePrefix}${durationLabel(dashboard.capacity.availableMinutes)}`
+      : "可用时间不可用",
+    contextEvidenceLabel: profile
+      ? `${profileStalePrefix}${String(evidenceCount)} 条学习记录`
+      : "学习档案不可用",
+    ...contextNotice(profileSource, todaySource),
+  };
+
+  if (!profileReady || !todayReady || !profile || !dashboard) {
+    return {
+      ...base,
+      insightVisible: false,
+      insightTitle: "同步完整后再给出备考判断",
+      insightCopy: "缺失或过期的来源不会被当成空数据。",
+      insightActionLabel: "查看今天",
+      insightAction: "today",
+    };
+  }
+
+  if (dueCount !== null && dueCount > 0) {
+    return {
+      ...base,
+      insightVisible: true,
+      insightTitle: `${String(dueCount)} 项复测或学习取舍已经到期`,
+      insightCopy: "继续学新内容前，先处理到期项，才能判断之前的问题有没有真正修好。",
+      insightActionLabel: "查看到期项",
+      insightAction: "mastery",
+    };
+  }
+  if (!goalName) {
+    return {
+      ...base,
+      insightVisible: true,
+      insightTitle: "还没有确认主目标岗位",
+      insightCopy: "没有目标岗位时，岸岸只能按通用国考能力安排，无法判断分差和学习取舍。",
+      insightActionLabel: "去确认岗位",
+      insightAction: "positions",
+    };
+  }
+  if (activeTaskCount > 0) {
+    return {
+      ...base,
+      insightVisible: true,
+      insightTitle: `今天有 ${String(activeTaskCount)} 项任务可以推进`,
+      insightCopy: "岸岸会结合刚完成的作答更新能力；任何计划调整都会先展示变化，再由你确认。",
+      insightActionLabel: "查看今天",
+      insightAction: "today",
+    };
+  }
+  return {
+    ...base,
+    insightVisible: true,
+    insightTitle: "今天还没有形成可执行安排",
+    insightCopy: "确认今天可用时间、精力和压力后，岸岸才能生成真实任务。",
+    insightActionLabel: "调整今天",
+    insightAction: "adjustment",
+  };
+}
+
+function contextSourceValue<T>(source: CompanionContextSourceState<T>): T | undefined {
+  return source.status === "ready" || source.status === "stale" ? source.value : undefined;
+}
+
+function contextCoreCopy(
+  profileSource: CompanionContextSourceState<LearningBrainProfileVersion>,
+  todaySource: CompanionContextSourceState<TodayDashboard>,
+): string {
+  if (profileSource.status === "loading" && todaySource.status === "loading") {
+    return "正在同步你的学习档案和今日计划。";
+  }
+  if (profileSource.status === "ready" && todaySource.status === "ready") {
+    return "我已经同步了你的岗位、能力和今天的计划。";
+  }
+  if (profileSource.status === "ready") {
+    return todaySource.status === "stale"
+      ? "学习档案可用，今日计划正在显示上次同步结果。"
+      : "学习档案可用，今日计划暂时没有载入。";
+  }
+  if (profileSource.status === "stale") {
+    return "正在显示上次的学习档案；刷新成功前暂时不能发送问题。";
+  }
+  if (todaySource.status === "ready" || todaySource.status === "stale") {
+    return "今日计划可查看，学习档案暂时不可用，不能发送问题。";
+  }
+  return "学习档案和今日计划都没有载入。";
+}
+
+function contextNotice(
+  profileSource: CompanionContextSourceState<LearningBrainProfileVersion>,
+  todaySource: CompanionContextSourceState<TodayDashboard>,
+): Pick<
+  CompanionContextView,
+  | "contextNoticeVisible"
+  | "contextNoticeTitle"
+  | "contextNoticeCopy"
+  | "profileIssueVisible"
+  | "profileSourceLabel"
+  | "profileSourceMessage"
+  | "profileSourceRequestId"
+  | "todayIssueVisible"
+  | "todaySourceLabel"
+  | "todaySourceMessage"
+  | "todaySourceRequestId"
+  | "retryProfileVisible"
+  | "retryTodayVisible"
+> {
+  const profileIssue = profileSource.status === "stale" || profileSource.status === "unavailable";
+  const todayIssue = todaySource.status === "stale" || todaySource.status === "unavailable";
+  const profileReady = profileSource.status === "ready";
+  const todayStale = todaySource.status === "stale";
+  const profileSourceMessage =
+    profileSource.status === "stale" || profileSource.status === "unavailable"
+      ? profileSource.message
+      : "";
+  const profileSourceRequestId =
+    profileSource.status === "stale" || profileSource.status === "unavailable"
+      ? profileSource.requestId
+      : "";
+  const todaySourceMessage =
+    todaySource.status === "stale" || todaySource.status === "unavailable"
+      ? todaySource.message
+      : "";
+  const todaySourceRequestId =
+    todaySource.status === "stale" || todaySource.status === "unavailable"
+      ? todaySource.requestId
+      : "";
+  let contextNoticeCopy = "";
+  if (profileReady && todayIssue) {
+    contextNoticeCopy = todayStale
+      ? "仍可基于学习档案提问；岸岸不会把上次的计划当成最新安排。"
+      : "仍可基于学习档案提问；岸岸不会把未载入的计划当成 0 项，也不会据此判断主目标。";
+  } else if (profileIssue) {
+    contextNoticeCopy =
+      profileSource.status === "stale"
+        ? "保留上次同步的数据供查看；学习档案刷新成功前，提问入口保持关闭。"
+        : todaySource.status === "stale" || todaySource.status === "ready"
+          ? "今日计划即使可查看，也不能替代学习档案版本；请先重新读取学习档案。"
+          : todaySource.status === "unavailable"
+            ? "学习档案和今日计划都没有载入；请分别重新读取两个失败来源。"
+            : "学习档案还没有载入；请先重新读取学习档案。";
+  }
+
+  return {
+    contextNoticeVisible: profileIssue || todayIssue,
+    contextNoticeTitle:
+      profileIssue && todayIssue
+        ? "学习档案与今日计划未就绪"
+        : profileIssue
+          ? "学习档案未就绪"
+          : "今日计划未完整同步",
+    contextNoticeCopy,
+    profileIssueVisible: profileIssue,
+    profileSourceLabel:
+      profileSource.status === "stale"
+        ? "学习档案 · 刷新失败，显示上次数据"
+        : profileSource.status === "unavailable"
+          ? "学习档案 · 暂时不可用"
+          : profileSource.status === "loading"
+            ? "学习档案 · 正在读取"
+            : "学习档案 · 已同步",
+    profileSourceMessage,
+    profileSourceRequestId,
+    todayIssueVisible: todayIssue,
+    todaySourceLabel:
+      todaySource.status === "stale"
+        ? "今日计划 · 刷新失败，显示上次数据"
+        : todaySource.status === "unavailable"
+          ? "今日计划 · 暂时不可用"
+          : todaySource.status === "loading"
+            ? "今日计划 · 正在读取"
+            : "今日计划 · 已同步",
+    todaySourceMessage,
+    todaySourceRequestId,
+    retryProfileVisible: profileIssue,
+    retryTodayVisible: todayIssue,
+  };
+}
+
+function durationLabel(value: number | null | undefined): string {
+  if (value === null || value === undefined) return "可用时间待确认";
+  if (value === 0) return "当前没有可用时间";
+  const hours = value / 60;
+  return `当前可用 ${Number.isInteger(hours) ? String(hours) : hours.toFixed(1)} 小时`;
 }

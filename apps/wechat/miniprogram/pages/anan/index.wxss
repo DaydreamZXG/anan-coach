@@ -269,6 +269,37 @@
 .ask-error-card {
   border-color: var(--color-danger-soft);
 }
+.context-notice {
+  border-color: var(--figma-color-warning-soft);
+}
+.context-source-list {
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(28 * var(--rpx));
+}
+.context-source-row {
+  padding: calc(20 * var(--rpx)) calc(24 * var(--rpx));
+  border-radius: var(--radius-24);
+  background: var(--figma-color-warning-soft);
+}
+.context-source-row__label {
+  color: var(--figma-color-warning-deep);
+  font-size: var(--text-micro);
+  font-weight: 700;
+}
+.context-source-row__message {
+  margin-top: calc(8 * var(--rpx));
+  color: var(--color-ink-secondary);
+  font-size: var(--text-micro);
+  line-height: 1.55;
+}
+.context-retry-actions {
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(28 * var(--rpx));
+}
 .request-id {
   margin-top: calc(12 * var(--rpx));
   color: var(--ink-3);

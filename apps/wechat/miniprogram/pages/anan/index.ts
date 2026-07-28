@@ -10,8 +10,10 @@ import { PlanningApi } from "../../api/planning";
 import { routes } from "../../app/navigation/routes";
 import {
   companionAnswerView,
+  companionContextView,
   companionFailureView,
   type CompanionAnswerView,
+  type CompanionContextSourceState,
 } from "../../features/companion/presentation";
 import { resolveCompanionAction } from "../../features/learning-brain/companion-action";
 import { errorView, requireAuthenticatedClient } from "../../features/learning-brain/presentation";
@@ -22,7 +24,7 @@ import {
   consumeCompanionLaunchContext,
   type CompanionLaunchContext,
 } from "../../features/companion/context-store";
-import { currentAuthSession, sameSessionOwner } from "../../auth/session";
+import { currentAuthSession, sameSessionOwner, type ActiveAuthSession } from "../../auth/session";
 
 const stateLabels: Record<CompanionAskResponse["semanticState"], string> = {
   ready: "已根据当前证据回答",
@@ -38,18 +40,86 @@ const companionAskScope = "companion-ask";
 const companionAttemptTtlMs = 7 * 24 * 60 * 60 * 1000;
 const companionPendingMessage = "本次问题结果待确认，再试会继续确认。";
 
-type PrimaryInsightAction = "mastery" | "positions" | "today" | "adjustment";
+interface CompanionContextRuntime {
+  ownerSession: ActiveAuthSession | undefined;
+  profileSource: CompanionContextSourceState<LearningBrainProfileVersion>;
+  todaySource: CompanionContextSourceState<TodayDashboard>;
+  profileGeneration: number;
+  todayGeneration: number;
+  profileRetryInFlight: boolean;
+  todayRetryInFlight: boolean;
+}
+
+const contextRuntimeByPage = new WeakMap<object, CompanionContextRuntime>();
+
+interface CompanionAskDraft {
+  question: string;
+  askRouteId: string;
+  askWorkspace: CompanionAskRequest["context"]["workspace"];
+  askObjectRefs: NonNullable<CompanionAskRequest["context"]["objectRefs"]>;
+  askTaskMode: CompanionAskRequest["context"]["taskMode"] | undefined;
+  askTaskStage: CompanionAskRequest["context"]["taskStage"] | undefined;
+}
 
 function defaultCompanionWorkspace(): CompanionLaunchContext["workspace"] {
   return "training";
 }
 
+function loadingContextSource<T>(): CompanionContextSourceState<T> {
+  return { status: "loading" };
+}
+
+function createContextRuntime(ownerSession?: ActiveAuthSession): CompanionContextRuntime {
+  return {
+    ownerSession,
+    profileSource: loadingContextSource<LearningBrainProfileVersion>(),
+    todaySource: loadingContextSource<TodayDashboard>(),
+    profileGeneration: 0,
+    todayGeneration: 0,
+    profileRetryInFlight: false,
+    todayRetryInFlight: false,
+  };
+}
+
+function contextRuntimeFor(page: object): CompanionContextRuntime {
+  const existing = contextRuntimeByPage.get(page);
+  if (existing) return existing;
+  const created = createContextRuntime();
+  contextRuntimeByPage.set(page, created);
+  return created;
+}
+
+function contextRuntimeForSession(
+  page: object,
+  session: ActiveAuthSession,
+): { runtime: CompanionContextRuntime; reset: boolean } {
+  const existing = contextRuntimeByPage.get(page);
+  if (existing && sameSessionOwner(existing.ownerSession, session)) {
+    return { runtime: existing, reset: false };
+  }
+  if (existing) {
+    existing.profileGeneration += 1;
+    existing.todayGeneration += 1;
+  }
+  const runtime = createContextRuntime(session);
+  contextRuntimeByPage.set(page, runtime);
+  return { runtime, reset: true };
+}
+
 Page({
   data: {
     contextStatus: "loading",
+    askAvailable: false,
+    profileAskAvailable: false,
+    recoveryAskAvailable: false,
+    profileSourceStatus: "loading",
+    todaySourceStatus: "loading",
+    profileRefreshing: false,
+    todayRefreshing: false,
     manualKeyboard: false,
     keyboardOffset: 0,
     learnerStateVersion: "",
+    profileLearnerStateVersion: "",
     question: "",
     askedQuestion: "",
     submitting: false,
@@ -59,11 +129,26 @@ Page({
     stateLabel: "正在读取学习记录",
     companionIntent: "companion",
     answer: null as CompanionAnswerView | null,
+    contextCoreCopy: "正在同步你的学习档案和今日计划。",
     contextGoalLabel: "正在读取",
     contextTaskLabel: "正在读取",
     contextReviewLabel: "正在读取",
     contextCapacityLabel: "正在读取",
     contextEvidenceLabel: "0 条学习记录",
+    contextNoticeVisible: false,
+    contextNoticeTitle: "",
+    contextNoticeCopy: "",
+    profileIssueVisible: false,
+    profileSourceLabel: "学习档案 · 正在读取",
+    profileSourceMessage: "",
+    profileSourceRequestId: "",
+    todayIssueVisible: false,
+    todaySourceLabel: "今日计划 · 正在读取",
+    todaySourceMessage: "",
+    todaySourceRequestId: "",
+    retryProfileVisible: false,
+    retryTodayVisible: false,
+    insightVisible: false,
     insightTitle: "正在同步你的备考状态",
     insightCopy: "岗位、能力和今天的计划会在这里汇合。",
     insightActionLabel: "查看今天",
@@ -91,7 +176,18 @@ Page({
     if (typeof this.getTabBar === "function") {
       this.getTabBar().setData({ active: "anan" });
     }
-    if (!this.restoreUnfinishedCompanionAttempt()) this.applyLaunchContext();
+    if (!this.restoreUnfinishedCompanionAttempt()) {
+      this.applyLaunchContext();
+      this.syncAskAvailability();
+    }
+  },
+
+  onUnload() {
+    const runtime = contextRuntimeByPage.get(this);
+    if (!runtime) return;
+    runtime.profileGeneration += 1;
+    runtime.todayGeneration += 1;
+    contextRuntimeByPage.delete(this);
   },
 
   restoreUnfinishedCompanionAttempt(): boolean {
@@ -109,6 +205,8 @@ Page({
     const command = attempt.canonicalInput;
     this.setData({
       contextStatus: "ready",
+      askAvailable: true,
+      recoveryAskAvailable: true,
       question: command.questionText,
       askedQuestion: "",
       submitting: false,
@@ -165,35 +263,174 @@ Page({
       askTaskMode: undefined,
       askTaskStage: undefined,
     });
+    this.syncAskAvailability();
   },
 
   async loadContext() {
+    const auth = currentAuthSession();
     const client = requireAuthenticatedClient();
-    if (!client) return;
-    this.setData({ contextStatus: "loading", errorMessage: "", requestId: "" });
-    try {
-      const [{ data: profile }, dashboardResult] = await Promise.all([
-        new LearningBrainApi(client).getProfile(),
-        new PlanningApi(client).getToday().catch(() => null),
-      ]);
-      this.setData({
-        contextStatus: "ready",
-        learnerStateVersion: profile.profileVersionId,
-        stateLabel: "可以问当前学习、计划或岗位问题",
-        insightDismissed: false,
-        ...companionContextView(profile, dashboardResult?.data ?? null),
-      });
-    } catch (error) {
-      const view = errorView(error, "学习记录没有加载成功，暂时不能提交问题。");
-      this.setData({
-        contextStatus: "error",
-        semanticState: "failed",
-        stateLabel: "学习记录同步失败",
-        errorMessage: view.message,
-        requestId: view.requestId,
-        companionIntent: "reminder",
-      });
+    if (!auth || !client) return;
+    const { runtime, reset } = contextRuntimeForSession(this, auth);
+    if (reset) {
+      this.applyContextProjection({ profileRefreshing: false, todayRefreshing: false });
     }
+    const previousProfile = runtime.profileSource;
+    const previousToday = runtime.todaySource;
+    const profileGeneration = ++runtime.profileGeneration;
+    const todayGeneration = ++runtime.todayGeneration;
+    if (!contextSourceHasValue(previousProfile) && !contextSourceHasValue(previousToday)) {
+      this.setData({ contextStatus: "loading" });
+    }
+    this.setData({
+      profileRefreshing: true,
+      todayRefreshing: true,
+      errorMessage: "",
+      requestId: "",
+    });
+    const [profileResult, todayResult] = await Promise.allSettled([
+      new LearningBrainApi(client).getProfile().then(({ data }) => data),
+      new PlanningApi(client).getToday().then(({ data }) => data),
+    ]);
+    if (!sameSessionOwner(currentAuthSession(), auth)) return;
+    const refreshingPatch: {
+      profileRefreshing?: boolean;
+      todayRefreshing?: boolean;
+    } = {};
+    let acceptedResult = false;
+    if (runtime.profileGeneration === profileGeneration) {
+      runtime.profileSource = settledContextSource(
+        profileResult,
+        previousProfile,
+        "学习档案没有加载成功，暂时不能提交问题。",
+      );
+      refreshingPatch.profileRefreshing = false;
+      acceptedResult = true;
+    }
+    if (runtime.todayGeneration === todayGeneration) {
+      runtime.todaySource = settledContextSource(
+        todayResult,
+        previousToday,
+        "今日计划没有加载成功，请稍后单独重试。",
+      );
+      refreshingPatch.todayRefreshing = false;
+      acceptedResult = true;
+    }
+    if (acceptedResult) this.applyContextProjection(refreshingPatch);
+  },
+
+  async retryProfileContext() {
+    const auth = currentAuthSession();
+    const client = requireAuthenticatedClient();
+    if (!auth || !client) return;
+    const { runtime, reset } = contextRuntimeForSession(this, auth);
+    if (reset) {
+      this.applyContextProjection({ profileRefreshing: false, todayRefreshing: false });
+    }
+    if (runtime.profileRetryInFlight || this.data.profileRefreshing) return;
+    runtime.profileRetryInFlight = true;
+    const previousProfile = runtime.profileSource;
+    const profileGeneration = ++runtime.profileGeneration;
+    this.setData({ profileRefreshing: true });
+    const [profileResult] = await Promise.allSettled([
+      new LearningBrainApi(client).getProfile().then(({ data }) => data),
+    ]);
+    runtime.profileRetryInFlight = false;
+    if (!sameSessionOwner(currentAuthSession(), auth)) return;
+    if (runtime.profileGeneration !== profileGeneration) return;
+    runtime.profileSource = settledContextSource(
+      profileResult,
+      previousProfile,
+      "学习档案没有加载成功，暂时不能提交问题。",
+    );
+    this.applyContextProjection({ profileRefreshing: false });
+  },
+
+  async retryTodayContext() {
+    const auth = currentAuthSession();
+    const client = requireAuthenticatedClient();
+    if (!auth || !client) return;
+    const { runtime, reset } = contextRuntimeForSession(this, auth);
+    if (reset) {
+      this.applyContextProjection({ profileRefreshing: false, todayRefreshing: false });
+    }
+    if (runtime.todayRetryInFlight || this.data.todayRefreshing) return;
+    runtime.todayRetryInFlight = true;
+    const previousToday = runtime.todaySource;
+    const todayGeneration = ++runtime.todayGeneration;
+    this.setData({ todayRefreshing: true });
+    const [todayResult] = await Promise.allSettled([
+      new PlanningApi(client).getToday().then(({ data }) => data),
+    ]);
+    runtime.todayRetryInFlight = false;
+    if (!sameSessionOwner(currentAuthSession(), auth)) return;
+    if (runtime.todayGeneration !== todayGeneration) return;
+    runtime.todaySource = settledContextSource(
+      todayResult,
+      previousToday,
+      "今日计划没有加载成功，请稍后单独重试。",
+    );
+    this.applyContextProjection({ todayRefreshing: false });
+  },
+
+  applyContextProjection(refreshingPatch: {
+    profileRefreshing?: boolean;
+    todayRefreshing?: boolean;
+  }) {
+    const runtime = contextRuntimeFor(this);
+    const projection = companionContextView(runtime.profileSource, runtime.todaySource);
+    const auth = currentAuthSession();
+    const recoveryCommand = auth ? recoverableCompanionCommand(auth.userId, this.data) : null;
+    const recoveryAskAvailable = recoveryCommand !== null;
+    const askAvailable = projection.askAvailable || recoveryAskAvailable;
+    const learnerStateVersion =
+      recoveryCommand?.context.learnerStateVersion ?? projection.learnerStateVersion;
+    const contextNoticeCopy = recoveryAskAvailable
+      ? `${projection.contextNoticeCopy} 已有待确认的原问题仍会沿用发送时的上下文继续确认。`.trim()
+      : projection.contextNoticeCopy;
+    this.setData({
+      ...projection,
+      ...refreshingPatch,
+      askAvailable,
+      profileAskAvailable: projection.askAvailable,
+      recoveryAskAvailable,
+      profileSourceStatus: runtime.profileSource.status,
+      todaySourceStatus: runtime.todaySource.status,
+      learnerStateVersion,
+      profileLearnerStateVersion: projection.learnerStateVersion,
+      contextNoticeCopy,
+      ...(recoveryAskAvailable
+        ? { stateLabel: stateLabels.provider_pending }
+        : projection.contextStatus === "loading"
+          ? { stateLabel: "正在读取学习记录" }
+          : projection.askAvailable
+            ? { stateLabel: "可以问当前学习、计划或岗位问题" }
+            : { stateLabel: "学习记录同步失败" }),
+      insightDismissed: false,
+    });
+  },
+
+  syncAskAvailability() {
+    const auth = currentAuthSession();
+    if (auth) {
+      const { reset } = contextRuntimeForSession(this, auth);
+      if (reset) {
+        this.applyContextProjection({ profileRefreshing: false, todayRefreshing: false });
+        return;
+      }
+    }
+    const recoveryCommand = auth ? recoverableCompanionCommand(auth.userId, this.data) : null;
+    const recoveryAskAvailable = recoveryCommand !== null;
+    const runtime = contextRuntimeFor(this);
+    const projection = companionContextView(runtime.profileSource, runtime.todaySource);
+    this.setData({
+      askAvailable: this.data.profileAskAvailable || recoveryAskAvailable,
+      recoveryAskAvailable,
+      learnerStateVersion:
+        recoveryCommand?.context.learnerStateVersion ?? this.data.profileLearnerStateVersion,
+      contextNoticeCopy: recoveryAskAvailable
+        ? `${projection.contextNoticeCopy} 已有待确认的原问题仍会沿用发送时的上下文继续确认。`.trim()
+        : projection.contextNoticeCopy,
+    });
   },
 
   onKeyboardHeight(event: WechatMiniprogram.TextareaKeyboardHeightChange) {
@@ -205,34 +442,50 @@ Page({
 
   inputQuestion(event: WechatMiniprogram.Input) {
     this.setData({ question: event.detail.value });
+    this.syncAskAvailability();
   },
 
   choosePrompt(event: WechatMiniprogram.BaseEvent) {
     const question = String(event.currentTarget.dataset.question ?? "").trim();
-    if (question) this.setData({ question });
+    if (question) {
+      this.setData({ question });
+      this.syncAskAvailability();
+    }
   },
 
   async ask() {
     const auth = currentAuthSession();
     const client = requireAuthenticatedClient();
-    if (!auth || !client || this.data.submitting || this.data.contextStatus !== "ready") return;
+    if (!auth || !client || this.data.submitting) return;
     const question = this.data.question.trim();
     if (!/[\u3400-\u9fffA-Za-z0-9]/u.test(question)) {
       this.setData({ errorMessage: "写一个词或一句话，让岸岸知道你想问什么。" });
       return;
     }
+    const recoveryCommand = recoverableCompanionCommand(auth.userId, {
+      ...this.data,
+      question,
+    });
+    if (!this.data.profileAskAvailable && !recoveryCommand) return;
+    const learnerStateVersion = (
+      recoveryCommand?.context.learnerStateVersion ?? this.data.profileLearnerStateVersion
+    ).trim();
+    if (!learnerStateVersion) return;
     const currentCommand = companionAskCommand(question, {
       routeId: this.data.askRouteId,
       workspace: this.data.askWorkspace,
       objectRefs: this.data.askObjectRefs,
       taskMode: this.data.askTaskMode,
       taskStage: this.data.askTaskStage,
-      learnerStateVersion: this.data.learnerStateVersion,
+      learnerStateVersion,
     });
     this.setData({
       submitting: true,
       askedQuestion: question,
       question: "",
+      askAvailable: this.data.profileAskAvailable,
+      recoveryAskAvailable: false,
+      learnerStateVersion: this.data.profileLearnerStateVersion,
       errorMessage: "",
       requestId: "",
       answer: null,
@@ -259,6 +512,9 @@ Page({
       if (!sameSessionOwner(currentAuthSession(), auth)) return;
       this.setData({
         submitting: false,
+        askAvailable: this.data.profileAskAvailable,
+        recoveryAskAvailable: false,
+        learnerStateVersion: this.data.profileLearnerStateVersion,
         semanticState: data.semanticState,
         stateLabel: stateLabels[data.semanticState],
         companionIntent: data.companionIntent,
@@ -275,6 +531,9 @@ Page({
       const view = unknownOutcome ? transportUnknownView(error) : companionFailureView(error);
       this.setData({
         submitting: false,
+        askAvailable: this.data.profileAskAvailable,
+        recoveryAskAvailable: false,
+        learnerStateVersion: this.data.profileLearnerStateVersion,
         semanticState: view.semanticState,
         stateLabel: stateLabels[view.semanticState],
         companionIntent: "reminder",
@@ -296,6 +555,7 @@ Page({
       stateLabel: "可以修改问题后重新发送",
       companionIntent: "companion",
     });
+    this.syncAskAvailability();
   },
 
   retryContext() {
@@ -379,6 +639,36 @@ Page({
   },
 });
 
+function settledContextSource<T>(
+  result: PromiseSettledResult<T>,
+  previous: CompanionContextSourceState<T>,
+  fallback: string,
+): CompanionContextSourceState<T> {
+  if (result.status === "fulfilled") {
+    return { status: "ready", value: result.value };
+  }
+  const view = errorView(result.reason, fallback);
+  if (contextSourceHasValue(previous)) {
+    return {
+      status: "stale",
+      value: previous.value,
+      message: view.message,
+      requestId: view.requestId,
+    };
+  }
+  return {
+    status: "unavailable",
+    message: view.message,
+    requestId: view.requestId,
+  };
+}
+
+function contextSourceHasValue<T>(
+  source: CompanionContextSourceState<T>,
+): source is Extract<CompanionContextSourceState<T>, { status: "ready" | "stale" }> {
+  return source.status === "ready" || source.status === "stale";
+}
+
 function companionAskCommand(
   questionText: string,
   context: {
@@ -402,6 +692,33 @@ function companionAskCommand(
       learnerStateVersion: context.learnerStateVersion,
     },
   };
+}
+
+function recoverableCompanionCommand(
+  ownerUserId: string,
+  draft: CompanionAskDraft,
+): CompanionAskRequest | null {
+  const attempt = new OperationAttemptStore(ownerUserId).load(companionAskScope);
+  if (
+    !attempt ||
+    (attempt.state !== "pending" && attempt.state !== "unknown") ||
+    !isCompanionAskRequest(attempt.canonicalInput)
+  ) {
+    return null;
+  }
+  const command = attempt.canonicalInput;
+  if (command.questionText !== draft.question.trim()) return null;
+  const currentContext: CompanionAskRequest["context"] = {
+    routeId: draft.askRouteId,
+    workspace: draft.askWorkspace,
+    objectRefs: [...draft.askObjectRefs],
+    ...(draft.askTaskMode && draft.askTaskStage
+      ? { taskMode: draft.askTaskMode, taskStage: draft.askTaskStage }
+      : {}),
+    // learnerStateVersion 不是用户选择项；恢复时只能沿用持久化 command 的冻结版本。
+    learnerStateVersion: command.context.learnerStateVersion,
+  };
+  return sameUserSelectedCompanionContext(command.context, currentContext) ? command : null;
 }
 
 function cancelChangedCompanionAttempt(
@@ -573,74 +890,4 @@ function isPlainObject(value: unknown): value is Record<string, unknown> {
   if (!value || typeof value !== "object" || Array.isArray(value)) return false;
   const prototype: unknown = Object.getPrototypeOf(value) as unknown;
   return prototype === Object.prototype || prototype === null;
-}
-
-function companionContextView(
-  profile: LearningBrainProfileVersion,
-  dashboard: TodayDashboard | null,
-) {
-  const evidenceCount =
-    profile.evidenceSummary.scoreEvidenceCount +
-    profile.evidenceSummary.xingceAttemptCount +
-    profile.evidenceSummary.xingceMasteryCount +
-    profile.evidenceSummary.essayMasteryCount +
-    profile.evidenceSummary.taskExecutionCount +
-    (profile.evidenceSummary.externalAnswerCount ?? 0);
-  const dueCount =
-    (dashboard?.dueReflectionCount ?? 0) +
-    (dashboard?.dueVerificationCount ?? 0) +
-    profile.decisionSummary.reviewDueCount;
-  const activeTaskCount =
-    dashboard?.tasks.filter((task) => task.status === "ready" || task.status === "in_progress")
-      .length ?? 0;
-  const goalName = dashboard?.goalGap.positionName?.trim() ?? "";
-  const base = {
-    contextGoalLabel: goalName ? "主目标已确认" : "主目标待确认",
-    contextTaskLabel: `今日 ${String(activeTaskCount)} 项任务`,
-    contextReviewLabel: dueCount > 0 ? `${String(dueCount)} 项待复测` : "暂无到期复测",
-    contextCapacityLabel: durationLabel(dashboard?.capacity.availableMinutes),
-    contextEvidenceLabel: `${String(evidenceCount)} 条学习记录`,
-  };
-
-  if (dueCount > 0) {
-    return {
-      ...base,
-      insightTitle: `${String(dueCount)} 项复测或学习取舍已经到期`,
-      insightCopy: "继续学新内容前，先处理到期项，才能判断之前的问题有没有真正修好。",
-      insightActionLabel: "查看到期项",
-      insightAction: "mastery" as PrimaryInsightAction,
-    };
-  }
-  if (!goalName) {
-    return {
-      ...base,
-      insightTitle: "还没有确认主目标岗位",
-      insightCopy: "没有目标岗位时，岸岸只能按通用国考能力安排，无法判断分差和学习取舍。",
-      insightActionLabel: "去确认岗位",
-      insightAction: "positions" as PrimaryInsightAction,
-    };
-  }
-  if (activeTaskCount > 0) {
-    return {
-      ...base,
-      insightTitle: `今天有 ${String(activeTaskCount)} 项任务可以推进`,
-      insightCopy: "岸岸会结合刚完成的作答更新能力；任何计划调整都会先展示变化，再由你确认。",
-      insightActionLabel: "查看今天",
-      insightAction: "today" as PrimaryInsightAction,
-    };
-  }
-  return {
-    ...base,
-    insightTitle: "今天还没有形成可执行安排",
-    insightCopy: "确认今天可用时间、精力和压力后，岸岸才能生成真实任务。",
-    insightActionLabel: "调整今天",
-    insightAction: "adjustment" as PrimaryInsightAction,
-  };
-}
-
-function durationLabel(value: number | null | undefined): string {
-  if (value === null || value === undefined) return "可用时间待确认";
-  if (value === 0) return "当前没有可用时间";
-  const hours = value / 60;
-  return `当前可用 ${Number.isInteger(hours) ? String(hours) : hours.toFixed(1)} 小时`;
 }
