@@ -1866,7 +1866,8 @@ create table learning.xingce_commands (
       command_id text not null,
       command_type text not null check (command_type in (
         'session_start', 'checkpoint_save', 'attempt_submit',
-        'reflection_submit', 'cause_decision', 'review_verdict'
+        'reflection_submit', 'cause_followup', 'cause_decision',
+        'review_verdict'
       )),
       target_id uuid,
       request_fingerprint text not null check (length(request_fingerprint) = 64),
@@ -1880,7 +1881,8 @@ create table learning.xingce_commands (
         and jsonb_typeof(response_payload) = 'object'
         and command_type in (
           'session_start', 'checkpoint_save', 'attempt_submit',
-          'reflection_submit', 'cause_decision', 'review_verdict'
+          'reflection_submit', 'cause_followup', 'cause_decision',
+          'review_verdict'
         )
       )
     );

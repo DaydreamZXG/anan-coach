@@ -23,6 +23,7 @@ _EXISTING_COMMAND_TYPES = (
     "checkpoint_save",
     "attempt_submit",
     "reflection_submit",
+    "cause_followup",
     "cause_decision",
 )
 _COMMAND_TYPES = (*_EXISTING_COMMAND_TYPES, "review_verdict")

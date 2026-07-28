@@ -59,7 +59,12 @@ def test_review_verdict_command_extends_receipts_without_weakening_append_only(
         )
         for command_id, command_type in (
             ("wave1-review-verdict-command", "review_verdict"),
-            ("wave1-existing-command", "session_start"),
+            ("wave1-session-start-command", "session_start"),
+            ("wave1-checkpoint-save-command", "checkpoint_save"),
+            ("wave1-attempt-submit-command", "attempt_submit"),
+            ("wave1-reflection-submit-command", "reflection_submit"),
+            ("wave1-cause-followup-command", "cause_followup"),
+            ("wave1-cause-decision-command", "cause_decision"),
         ):
             connection.execute(
                 text(
@@ -156,7 +161,7 @@ def test_review_verdict_command_extends_receipts_without_weakening_append_only(
                 ),
                 {"user_id": user_id},
             ).scalar_one()
-            == 2
+            == 7
         )
 
 
