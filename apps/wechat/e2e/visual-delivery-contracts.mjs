@@ -138,7 +138,7 @@ export const visualDeliveryContracts = [
     "/pages/reflection/index",
     "completed",
     ".completed-screen",
-    ["这轮复盘记下了", "等待复测验证"],
+    ["这轮复盘记下了", "下一题只做这个动作"],
     ".reflection-primary",
   ),
   deliveryState(

@@ -8,6 +8,11 @@ import type {
   XingceTaskSession,
   XingceVerificationOutcome,
 } from "../../../api/xingce-learning";
+import {
+  registeredTaskNavigationTarget,
+  routes,
+  type RegisteredNavigationTarget,
+} from "../../../app/navigation/routes";
 import type {
   AnnotationStroke,
   AttemptActionEvent,
@@ -177,6 +182,18 @@ export interface XingceResultView {
   group: XingceGroupSummaryView | null;
   verification: XingceVerificationOutcomeView | null;
   reviewId: string;
+}
+
+export interface XingceAcceptedCorrectionView {
+  source: "confirmed_candidate" | "user_replacement";
+  correction: string;
+  action: string;
+}
+
+export interface XingceReflectionClosureView {
+  acceptedCorrection: XingceAcceptedCorrectionView | null;
+  statusTitle: string;
+  statusDescription: string;
 }
 
 const confidenceLabels: Record<NonNullable<QuestionAttemptDraft["confidence"]>, string> = {
@@ -410,6 +427,100 @@ export function presentXingceCauseCandidate(
       hasBoundVersion &&
       ["candidate_ready", "evidence_insufficient", "terminated"].includes(candidate.state),
   };
+}
+
+/**
+ * Projects only a server-settled, user-accepted correction into the completion UI.
+ * Rejected, deferred, version-mismatched, or incomplete candidates are never promoted
+ * to an accepted statement on the client.
+ */
+export function presentXingceReflectionClosure(
+  session: XingceTaskSession,
+): XingceReflectionClosureView {
+  const acceptedCorrection = acceptedCorrectionFor(session);
+  if (acceptedCorrection) {
+    return {
+      acceptedCorrection,
+      statusTitle: "这次只改一个动作",
+      statusDescription:
+        acceptedCorrection.source === "confirmed_candidate"
+          ? "先按已确认的动作做一遍，再用独立新题验证，不把一次答对当成已经掌握。"
+          : "按你确认的说法和动作做一遍，再用独立新题验证。",
+    };
+  }
+  return {
+    acceptedCorrection: null,
+    statusTitle: "这次没有形成确认纠偏",
+    statusDescription:
+      "当前没有同时得到用户确认且可核对的主要纠偏与具体动作，不会把候选判断包装成结论。",
+  };
+}
+
+function acceptedCorrectionFor(session: XingceTaskSession): XingceAcceptedCorrectionView | null {
+  const review = session.review;
+  const decision = review?.causeDecision;
+  if (
+    !review ||
+    !decision ||
+    session.state !== "completed" ||
+    !session.completion ||
+    !decision.confirmedCauseVersionId?.trim()
+  ) {
+    return null;
+  }
+  if (decision.decision === "confirm") {
+    const candidate = review.aiCandidate;
+    const candidateVersionId = decision.candidateVersionId?.trim() ?? "";
+    const correction = candidate.summary?.trim() ?? "";
+    const action = candidate.improvement?.trim() ?? "";
+    return candidate.state === "candidate_ready" &&
+      candidateVersionId &&
+      candidateVersionId === candidate.candidateVersionId?.trim() &&
+      correction &&
+      action
+      ? { source: "confirmed_candidate", correction, action }
+      : null;
+  }
+  if (decision.decision === "replace") {
+    const correction = decision.replacementCause?.trim() ?? "";
+    const action = review.reflection?.strategyNote?.trim() ?? "";
+    return correction && action ? { source: "user_replacement", correction, action } : null;
+  }
+  return null;
+}
+
+/**
+ * Selects an already-owned, ready verification task from the settled Today plan.
+ * The returned URL must pass the shared task-route allowlist and bind back to the
+ * exact plan task ID; the client never invents a variant or navigation target.
+ */
+export function presentXingceImmediateVerification(
+  session: XingceTaskSession,
+): RegisteredNavigationTarget | null {
+  const tasks = session.completion?.plan.tasks ?? [];
+  for (const task of tasks) {
+    if (
+      task.track !== "xingce" ||
+      task.stage !== "objective_verification" ||
+      task.kind !== "verification" ||
+      task.status !== "ready"
+    ) {
+      continue;
+    }
+    const navigation = registeredTaskNavigationTarget(task.startUrl, task.id);
+    const [path] = navigation?.url.split("?", 1) ?? [];
+    const expectedUrl = `${routes.xingceTaskIntro}?mode=verification&planTaskId=${encodeURIComponent(task.id)}`;
+    if (
+      !navigation ||
+      navigation.mode !== "navigateTo" ||
+      path !== routes.xingceTaskIntro ||
+      navigation.url !== expectedUrl
+    ) {
+      continue;
+    }
+    return navigation;
+  }
+  return null;
 }
 
 export function formatElapsed(totalSeconds: number): string {

@@ -1224,32 +1224,72 @@
   line-height: 1.65;
 }
 
-/* Figma 15:19：证据数据卡，行间用 #f9fafb 细分隔线。 */
-.completed-card {
+/* PF-001：完成页只保留一条已确认纠偏与一个下题动作。 */
+.completed-correction-card {
   box-sizing: border-box;
   width: 100%;
-  margin: calc(40 * var(--rpx)) 0 calc(40 * var(--rpx));
-  padding: calc(8 * var(--rpx)) calc(32 * var(--rpx));
-  border-radius: var(--radius-64);
+  margin-top: calc(40 * var(--rpx));
+  padding: calc(32 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--color-line);
+  border-radius: var(--radius-32);
   background: var(--figma-color-surface);
   box-shadow: var(--shadow-card);
+  text-align: left;
 }
 
-.completed-row {
+.completed-correction-step {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(20 * var(--rpx));
+}
+
+.completed-correction-step__marker {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: calc(24 * var(--rpx));
-  padding: calc(28 * var(--rpx)) 0;
-  border-bottom: calc(1 * var(--rpx)) solid var(--figma-color-surface-subtle);
-  color: var(--color-ink-secondary);
-  font-size: var(--text-body-lg);
+  justify-content: center;
+  flex: 0 0 auto;
+  width: calc(52 * var(--rpx));
+  height: calc(52 * var(--rpx));
+  border-radius: 50%;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-deep);
+  font-size: var(--text-micro);
+  font-weight: 800;
+}
+
+.completed-correction-step__marker--action {
+  background: var(--color-ink);
+  color: var(--color-on-primary);
+}
+
+.completed-correction-step__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.completed-correction-step__label {
+  color: var(--color-muted);
+  font-size: var(--text-micro);
   font-weight: 700;
 }
 
-.completed-row--last:last-child,
-.completed-row--accent:last-child {
-  border-bottom: 0;
+.completed-correction-step__copy {
+  margin-top: calc(8 * var(--rpx));
+  color: var(--color-ink);
+  font-size: var(--text-body-lg);
+  font-weight: 700;
+  line-height: 1.65;
+}
+
+.completed-correction-rail {
+  width: calc(2 * var(--rpx));
+  height: calc(28 * var(--rpx));
+  margin: calc(6 * var(--rpx)) 0 calc(6 * var(--rpx)) calc(25 * var(--rpx));
+  background: var(--color-line-strong);
+}
+
+.completed-primary {
+  margin-top: calc(40 * var(--rpx));
 }
 
 button.summary-insight__toggle,
@@ -1401,17 +1441,6 @@ button.review-material-entry {
   border-radius: var(--radius-capsule);
   background: var(--figma-color-surface);
   box-shadow: var(--shadow-card);
-}
-
-.completed-row__value {
-  color: var(--figma-color-ink);
-  font-size: var(--text-section);
-  font-weight: 700;
-}
-
-.completed-row__value--accent,
-.completed-row--accent {
-  color: var(--color-muted);
 }
 
 /* ===== Figma 75:2 · 原题轨迹回放 ===== */

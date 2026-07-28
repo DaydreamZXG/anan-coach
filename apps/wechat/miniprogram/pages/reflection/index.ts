@@ -48,7 +48,10 @@ import {
 } from "../../features/xingce/real_attempt/contracts";
 import {
   presentXingceCauseCandidate,
+  presentXingceImmediateVerification,
+  presentXingceReflectionClosure,
   presentXingceResult,
+  type XingceReflectionClosureView,
   type XingceCauseCandidateView,
   type XingceResultItemView,
   type XingceResultView,
@@ -152,7 +155,9 @@ interface ReflectionPageData {
   emptyRichContentBlocks: RichContentBlock[];
   emptyContentAnchors: ContentAnchor[];
   moreEvidenceOpen: boolean;
-  hasUpdatedPlan: boolean;
+  completionClosure: XingceReflectionClosureView;
+  hasImmediateVerification: boolean;
+  verificationNavigationLocked: boolean;
 }
 
 interface ReflectionPageCustom {
@@ -189,6 +194,7 @@ interface ReflectionPageCustom {
   replaceCause(): Promise<void>;
   deferCause(): Promise<void>;
   returnToday(): void;
+  startImmediateVerification(): Promise<void>;
   selectReviewItem(event: WechatMiniprogram.BaseEvent): void;
   openReviewMaterial(): void;
   confirmCauseAndNext(): void;
@@ -222,6 +228,7 @@ interface ReflectionRuntime {
   replacingSegmentId: string | null;
   causePollTimer: ReturnType<typeof setTimeout> | null;
   reviewFormEntered: boolean;
+  verificationNavigationStarted: boolean;
 }
 
 type ReflectionPageInstance = WechatMiniprogram.Page.Instance<
@@ -279,7 +286,13 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     emptyRichContentBlocks: [],
     emptyContentAnchors: [],
     moreEvidenceOpen: false,
-    hasUpdatedPlan: false,
+    completionClosure: {
+      acceptedCorrection: null,
+      statusTitle: "这次没有形成确认纠偏",
+      statusDescription: "当前没有完整的结算记录，不会把候选判断当成已确认结论。",
+    },
+    hasImmediateVerification: false,
+    verificationNavigationLocked: false,
   },
 
   onLoad(options: Record<string, string | undefined>) {
@@ -334,6 +347,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       replacingSegmentId: null,
       causePollTimer: null,
       reviewFormEntered: hasReflectionDraft(mediaDraft),
+      verificationNavigationStarted: false,
     };
     runtimes.set(this, runtime);
     syncVoiceView(this, runtime);
@@ -343,6 +357,8 @@ Page<ReflectionPageData, ReflectionPageCustom>({
   onShow() {
     const runtime = runtimes.get(this);
     if (!runtime || runtime.disposed) return;
+    runtime.verificationNavigationStarted = false;
+    this.setData({ verificationNavigationLocked: false });
     if (!currentAccountOwns(runtime)) {
       invalidateForAccountChange(this, runtime);
       return;
@@ -955,6 +971,33 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     void wx.switchTab({ url: routes.today });
   },
 
+  async startImmediateVerification() {
+    const runtime = runtimes.get(this);
+    if (
+      !runtime?.session ||
+      runtime.disposed ||
+      runtime.verificationNavigationStarted ||
+      this.data.verificationNavigationLocked
+    ) {
+      return;
+    }
+    const verification = presentXingceImmediateVerification(runtime.session);
+    if (!verification) {
+      this.returnToday();
+      return;
+    }
+    runtime.verificationNavigationStarted = true;
+    this.setData({ verificationNavigationLocked: true });
+    try {
+      await wx.navigateTo({ url: verification.url });
+    } catch {
+      if (!runtimeIsActive(this, runtime)) return;
+      runtime.verificationNavigationStarted = false;
+      this.setData({ verificationNavigationLocked: false });
+      void wx.showToast({ title: "新题暂时打不开，请稍后再试", icon: "none" });
+    }
+  },
+
   noop() {},
 });
 
@@ -1411,6 +1454,8 @@ function applySession(
     Math.max(0, reviewItems.length - 1),
   );
   const activeReviewItem = reviewItems[currentReviewIndex] ?? null;
+  const completionClosure = presentXingceReflectionClosure(session);
+  const immediateVerification = presentXingceImmediateVerification(session);
   page.setData({
     status: "ready",
     phase,
@@ -1421,7 +1466,9 @@ function applySession(
     currentReviewIndex,
     activeReviewItem,
     materialReaderState: materialReaderStateFor(activeReviewItem, page.data.displayPreferences),
-    hasUpdatedPlan: Boolean(session.completion?.plan),
+    completionClosure,
+    hasImmediateVerification: immediateVerification !== null,
+    verificationNavigationLocked: runtime.verificationNavigationStarted,
     // 逐题候选 chip 需要真实题号：传入结果条目做位置映射，纯展示不加交互。
     causeCandidate: presentXingceCauseCandidate(review.aiCandidate, resultView?.items ?? []),
     rawText: hasLocalDraft

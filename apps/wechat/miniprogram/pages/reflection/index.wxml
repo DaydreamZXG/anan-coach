@@ -369,15 +369,39 @@
       <view class="completed-icon-pill check-pop">
         <view class="completed-icon">✓</view>
       </view>
-      <view class="completed-title">复盘完成</view>
-      <view class="completed-copy">后续复测会验证这次判断。只有多次出现一致证据，才会更新为稳定能力结论。</view>
-      <view class="completed-card">
-        <view class="completed-row"><text>本次作答证据</text><view class="completed-row__value"><count-up value="{{result ? result.totalCount : 0}}" /><text> 条</text></view></view>
-        <view class="completed-row"><text>原话与错因</text><text class="completed-row__value">已确认</text></view>
-        <view class="completed-row completed-row--last"><text>能力画像</text><text class="completed-row__value">等待复测验证</text></view>
-        <view wx:if="{{hasUpdatedPlan}}" class="completed-row completed-row--accent"><text>今日计划</text><text class="completed-row__value completed-row__value--accent">已重新同步</text></view>
+      <view class="completed-title">{{completionClosure.statusTitle}}</view>
+      <view class="completed-copy">{{completionClosure.statusDescription}}</view>
+      <view wx:if="{{completionClosure.acceptedCorrection}}" class="completed-correction-card">
+        <view class="completed-correction-step">
+          <view class="completed-correction-step__marker">1</view>
+          <view class="completed-correction-step__content">
+            <view class="completed-correction-step__label">本次主要纠偏</view>
+            <view class="completed-correction-step__copy">{{completionClosure.acceptedCorrection.correction}}</view>
+          </view>
+        </view>
+        <view class="completed-correction-rail" aria-hidden="true"></view>
+        <view class="completed-correction-step">
+          <view class="completed-correction-step__marker completed-correction-step__marker--action">2</view>
+          <view class="completed-correction-step__content">
+            <view class="completed-correction-step__label">下一题只做这个动作</view>
+            <view class="completed-correction-step__copy">{{completionClosure.acceptedCorrection.action}}</view>
+          </view>
+        </view>
       </view>
-      <button hover-class="item--hover" class="reflection-primary tap-tactile" bindtap="returnToday">完成复盘</button>
+      <button
+        hover-class="item--hover"
+        wx:if="{{hasImmediateVerification}}"
+        class="reflection-primary completed-primary tap-tactile"
+        loading="{{verificationNavigationLocked}}"
+        disabled="{{verificationNavigationLocked}}"
+        bindtap="startImmediateVerification"
+      >马上用一道新题试试</button>
+      <button
+        hover-class="item--hover"
+        wx:else
+        class="reflection-primary completed-primary tap-tactile"
+        bindtap="returnToday"
+      >返回今日计划</button>
     </view>
 
     <!-- Figma 113:2 Summary/FixedActionDock：主 CTA 固定在底部操作坞，不随正文滚动。 -->

@@ -3750,7 +3750,17 @@ export const visualScenarios = [
       emptyRichContentBlocks: [],
       emptyContentAnchors: [],
       moreEvidenceOpen: false,
-      hasUpdatedPlan: true,
+      completionClosure: {
+        acceptedCorrection: {
+          source: "confirmed_candidate",
+          correction: "题干方向识别错误",
+          action: "先圈出题目问法，再比较选项。",
+        },
+        statusTitle: "这次只改一个动作",
+        statusDescription: "先按已确认的动作做一遍，再用独立新题验证，不把一次答对当成已经掌握。",
+      },
+      hasImmediateVerification: true,
+      verificationNavigationLocked: false,
     },
   },
   {
