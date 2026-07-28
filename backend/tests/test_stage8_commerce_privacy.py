@@ -220,7 +220,7 @@ def test_founder_order_payment_refund_and_unified_entitlement(
 
 
 def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -> None:
-    now = datetime.now(UTC)
+    now = datetime(2025, 1, 1, 12, 0, tzinfo=UTC)
     user_id = _seed_wechat_user(db_session)
     evidence_id = uuid4()
     report_id = uuid4()
@@ -419,6 +419,20 @@ def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -
         request=DataExportCreateRequest(command_key="personal-export-command-0001"),
     )
     assert export.state == "queued"
+    assert (
+        db_session.execute(
+            text(
+                """
+                select job.run_after
+                from privacy.data_export_requests request
+                join platform.background_jobs job on job.job_id = request.job_id
+                where request.export_request_id = cast(:export_id as uuid)
+                """
+            ),
+            {"export_id": str(export.export_request_id)},
+        ).scalar_one()
+        == now
+    )
     worker = DataRightsWorker(
         storage=FakeStorage(),
         settings=Settings(privacy_export_expiry_seconds=86400),
@@ -452,6 +466,20 @@ def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -
         ),
     )
     assert deletion.state == "queued"
+    assert (
+        db_session.execute(
+            text(
+                """
+                select job.run_after
+                from privacy.account_deletion_requests request
+                join platform.background_jobs job on job.job_id = request.job_id
+                where request.deletion_request_id = cast(:deletion_id as uuid)
+                """
+            ),
+            {"deletion_id": str(deletion.deletion_request_id)},
+        ).scalar_one()
+        == now
+    )
     completed_deletion_job = worker.process_next(db_session)
     assert completed_deletion_job is not None
     assert completed_deletion_job.status == "succeeded", (

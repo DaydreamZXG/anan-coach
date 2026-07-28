@@ -165,6 +165,7 @@ class DataRightsRepository:
             input_version="personal-data-export@v1",
             payload={"exportRequestId": str(export_id), "userId": user_id},
             max_attempts=3,
+            run_after=now,
         )
         row = (
             self._session.execute(
@@ -312,6 +313,7 @@ class DataRightsRepository:
             input_version="account-erasure@v1",
             payload={"deletionRequestId": str(deletion_id), "userId": user_id},
             max_attempts=5,
+            run_after=now,
         )
         phrase_hash = sha256(confirmation_phrase.encode("utf-8")).hexdigest()
         row = (
