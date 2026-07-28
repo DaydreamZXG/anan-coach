@@ -1,10 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import {
-  assertSelectorBindsHandler,
-  hasClassToken,
-} from "./interaction-contract-identity.mjs";
+import { assertSelectorBindsHandler, hasClassToken } from "./interaction-contract-identity.mjs";
 
 // This suite is intentionally named *.node-test.mjs so Vitest does not collect it.
 
@@ -138,10 +135,7 @@ test("does not accept selector text embedded in another attribute value", () => 
 });
 
 test("matches only exact class tokens", () => {
-  assert.equal(
-    hasClassToken('<view class="task-heading primary-task"></view>', "task"),
-    false,
-  );
+  assert.equal(hasClassToken('<view class="task-heading primary-task"></view>', "task"), false);
   assert.equal(hasClassToken("<view class='summary task active'></view>", "task"), true);
 });
 

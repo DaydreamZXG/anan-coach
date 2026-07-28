@@ -113,15 +113,13 @@ export function onboardingResultView(result: OnboardingResultProjection): Onboar
         ...base,
         eyebrow: "资格范围已生成 · 岗位可以稍后再选",
         title: "先开始学习，目标岗位可以边练边定",
-        description:
-          "当前资格范围已经保存。你可以直接开始第一组训练，确认主目标后再补充岗位分差。",
+        description: "当前资格范围已经保存。你可以直接开始第一组训练，确认主目标后再补充岗位分差。",
         actionLabel: "先进入今日学习",
         confidenceLabel: "学习可开始",
         confidenceTone: "calibrating",
         reliableJudgment:
           "当前资格事实已经形成候选范围，现有资料足以安排起点训练；系统不会替你擅自决定主报岗位。",
-        riskJudgment:
-          "在你确认主目标前只是不计算岗位分差，不影响行测、申论诊断和日常训练。",
+        riskJudgment: "在你确认主目标前只是不计算岗位分差，不影响行测、申论诊断和日常训练。",
         primarySuggestionTitle: "开始第一组任务",
         primarySuggestionCopy: "先建立真实能力起点，岗位可以稍后再完善",
       };

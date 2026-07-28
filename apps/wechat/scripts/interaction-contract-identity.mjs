@@ -15,10 +15,7 @@ export function assertSelectorBindsHandler({ route, wxml, selector, handler, eve
     elementMatchesSelector(element, selector),
   );
 
-  assert.ok(
-    selectorElements.length > 0,
-    `${route} WXML does not expose ${selector}`,
-  );
+  assert.ok(selectorElements.length > 0, `${route} WXML does not expose ${selector}`);
   const eventAttributes = [`bind${eventKind}`, `bind:${eventKind}`];
   assert.ok(
     selectorElements.some((element) =>
@@ -67,9 +64,7 @@ function openingElements(wxml) {
 
 function elementMatchesSelector(element, selector) {
   if (selector.startsWith(".")) {
-    return (element.attributes.get("class") ?? "")
-      .split(/\s+/u)
-      .includes(selector.slice(1));
+    return (element.attributes.get("class") ?? "").split(/\s+/u).includes(selector.slice(1));
   }
   return element.name === selector;
 }
@@ -80,7 +75,7 @@ function findOpeningTagEnd(source, start) {
     const character = source[index];
     if (quote) {
       if (character === quote) quote = null;
-    } else if (character === "\"" || character === "'") {
+    } else if (character === '"' || character === "'") {
       quote = character;
     } else if (character === ">") {
       return index;
@@ -115,7 +110,7 @@ function parseAttributes(source) {
     cursor += 1;
     while (/\s/u.test(source[cursor] ?? "")) cursor += 1;
     const quote = source[cursor];
-    if (quote === "\"" || quote === "'") {
+    if (quote === '"' || quote === "'") {
       cursor += 1;
       const valueStart = cursor;
       while (cursor < source.length && source[cursor] !== quote) cursor += 1;

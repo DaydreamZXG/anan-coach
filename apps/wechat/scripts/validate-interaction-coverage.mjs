@@ -70,10 +70,7 @@ for (const contract of pageInteractionMatrix) {
   }
 
   assert.ok(interaction.handler, `${contract.route} has no primary handler`);
-  assert.ok(
-    interaction.selector,
-    `${contract.route} has no primary selector`,
-  );
+  assert.ok(interaction.selector, `${contract.route} has no primary selector`);
   assertSelectorBindsHandler({
     route: contract.route,
     wxml,
