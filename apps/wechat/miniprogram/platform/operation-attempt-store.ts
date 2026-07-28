@@ -1,7 +1,11 @@
-import { createIdempotencyKey, stableFingerprint } from "./command-id";
+import { createIdempotencyKey, stableFingerprint, stableJson } from "./command-id";
 
-const storagePrefix = "gongkao.operation-attempt.v1";
-const schemaVersion = 1;
+// v1 did not persist canonicalInput, so it cannot be migrated or replayed safely.
+// A separate v2 prefix leaves v1 records intact for rollback; unresolved v1 attempts
+// block creation of a new v2 key until their outcome is recovered or they expire.
+const storagePrefix = "gongkao.operation-attempt.v2";
+const legacyStoragePrefix = "gongkao.operation-attempt.v1";
+const schemaVersion = 2;
 const reusableStates = new Set<OperationAttemptState>(["pending", "unknown"]);
 const completedStates = new Set<OperationAttemptState>(["succeeded", "terminal", "cancelled"]);
 const pendingBegins = new Map<string, Promise<OperationAttemptRecord>>();
@@ -9,9 +13,10 @@ const pendingBegins = new Map<string, Promise<OperationAttemptRecord>>();
 export type OperationAttemptState = "pending" | "unknown" | "succeeded" | "terminal" | "cancelled";
 
 export interface OperationAttemptRecord {
-  schemaVersion: 1;
+  schemaVersion: 2;
   ownerUserId: string;
   scope: string;
+  canonicalInput: unknown;
   canonicalFingerprint: string;
   idempotencyKey: string;
   state: OperationAttemptState;
@@ -28,10 +33,29 @@ export interface BeginOperationAttemptInput {
   nowMs?: number;
 }
 
+interface LegacyOperationAttemptRecord {
+  schemaVersion: 1;
+  ownerUserId: string;
+  scope: string;
+  canonicalFingerprint: string;
+  idempotencyKey: string;
+  state: OperationAttemptState;
+  createdAtMs: number;
+  updatedAtMs: number;
+  expiresAtMs: number;
+}
+
 export class OperationAttemptConflictError extends Error {
   constructor(message: string) {
     super(message);
     this.name = "OperationAttemptConflictError";
+  }
+}
+
+export class OperationAttemptMigrationRequiredError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "OperationAttemptMigrationRequiredError";
   }
 }
 
@@ -75,7 +99,8 @@ export class OperationAttemptStore {
       throw new Error("operation attempt expiry must be in the future");
     }
 
-    const canonicalFingerprint = stableFingerprint(input.canonicalInput);
+    const canonicalInput = copyCanonicalInput(input.canonicalInput);
+    const canonicalFingerprint = stableFingerprint(canonicalInput);
     const existing = this.load(input.scope, nowMs);
     if (existing && reusableStates.has(existing.state)) {
       if (existing.canonicalFingerprint !== canonicalFingerprint) {
@@ -85,12 +110,18 @@ export class OperationAttemptStore {
       }
       return existing;
     }
+    if (this.hasUnresolvedLegacyAttempt(input.scope, nowMs)) {
+      throw new OperationAttemptMigrationRequiredError(
+        "legacy operation attempt requires recovery before a new attempt can begin",
+      );
+    }
 
     const idempotencyKey = await createIdempotencyKey(input.idempotencyKeyPrefix);
     const record: OperationAttemptRecord = {
       schemaVersion,
       ownerUserId: this.ownerUserId,
       scope: input.scope,
+      canonicalInput,
       canonicalFingerprint,
       idempotencyKey,
       state: "pending",
@@ -98,7 +129,10 @@ export class OperationAttemptStore {
       updatedAtMs: nowMs,
       expiresAtMs: input.expiresAtMs,
     };
-    wx.setStorageSync(operationAttemptStorageKey(this.ownerUserId, input.scope), record);
+    wx.setStorageSync(
+      operationAttemptStorageKey(this.ownerUserId, input.scope),
+      copyRecord(record),
+    );
     return copyRecord(record);
   }
 
@@ -113,6 +147,17 @@ export class OperationAttemptStore {
       return null;
     }
     return copyRecord(value);
+  }
+
+  private hasUnresolvedLegacyAttempt(scope: string, nowMs: number): boolean {
+    const value: unknown = wx.getStorageSync(
+      operationAttemptStorageKeyForPrefix(legacyStoragePrefix, this.ownerUserId, scope),
+    );
+    return (
+      isLegacyOperationAttemptRecord(value, this.ownerUserId, scope) &&
+      reusableStates.has(value.state) &&
+      value.expiresAtMs > nowMs
+    );
   }
 
   markTransportUnknown(
@@ -177,15 +222,23 @@ export class OperationAttemptStore {
       state: nextState,
       updatedAtMs,
     };
-    wx.setStorageSync(operationAttemptStorageKey(this.ownerUserId, scope), updated);
+    wx.setStorageSync(operationAttemptStorageKey(this.ownerUserId, scope), copyRecord(updated));
     return copyRecord(updated);
   }
 }
 
 export function operationAttemptStorageKey(ownerUserId: string, scope: string): string {
+  return operationAttemptStorageKeyForPrefix(storagePrefix, ownerUserId, scope);
+}
+
+function operationAttemptStorageKeyForPrefix(
+  prefix: string,
+  ownerUserId: string,
+  scope: string,
+): string {
   assertIdentityPart(ownerUserId, "owner user ID");
   assertIdentityPart(scope, "operation scope");
-  return `${storagePrefix}.${encodeStorageSegment(ownerUserId)}.${encodeStorageSegment(scope)}`;
+  return `${prefix}.${encodeStorageSegment(ownerUserId)}.${encodeStorageSegment(scope)}`;
 }
 
 export function operationAttemptStoragePrefix(): string {
@@ -197,6 +250,63 @@ function isOperationAttemptRecord(
   expectedOwnerUserId: string,
   expectedScope: string,
 ): value is OperationAttemptRecord {
+  if (!isPlainObject(value)) return false;
+  const keys = Object.keys(value);
+  const expectedKeys = [
+    "canonicalInput",
+    "canonicalFingerprint",
+    "createdAtMs",
+    "expiresAtMs",
+    "idempotencyKey",
+    "ownerUserId",
+    "schemaVersion",
+    "scope",
+    "state",
+    "updatedAtMs",
+  ];
+  if (
+    keys.length !== expectedKeys.length ||
+    expectedKeys.some((key) => !Object.prototype.hasOwnProperty.call(value, key))
+  ) {
+    return false;
+  }
+
+  const state = value.state;
+  if (
+    value.schemaVersion === schemaVersion &&
+    value.ownerUserId === expectedOwnerUserId &&
+    value.scope === expectedScope &&
+    typeof value.canonicalFingerprint === "string" &&
+    value.canonicalFingerprint.length > 0 &&
+    typeof value.idempotencyKey === "string" &&
+    value.idempotencyKey.length > 0 &&
+    isOperationAttemptState(state) &&
+    isTimestamp(value.createdAtMs) &&
+    isTimestamp(value.updatedAtMs) &&
+    isTimestamp(value.expiresAtMs) &&
+    value.createdAtMs <= value.updatedAtMs &&
+    value.updatedAtMs < value.expiresAtMs
+  ) {
+    return canonicalInputMatchesFingerprint(value.canonicalInput, value.canonicalFingerprint);
+  }
+  return false;
+}
+
+function isOperationAttemptState(value: unknown): value is OperationAttemptState {
+  return (
+    value === "pending" ||
+    value === "unknown" ||
+    value === "succeeded" ||
+    value === "terminal" ||
+    value === "cancelled"
+  );
+}
+
+function isLegacyOperationAttemptRecord(
+  value: unknown,
+  expectedOwnerUserId: string,
+  expectedScope: string,
+): value is LegacyOperationAttemptRecord {
   if (!isPlainObject(value)) return false;
   const keys = Object.keys(value);
   const expectedKeys = [
@@ -219,7 +329,7 @@ function isOperationAttemptRecord(
 
   const state = value.state;
   return (
-    value.schemaVersion === schemaVersion &&
+    value.schemaVersion === 1 &&
     value.ownerUserId === expectedOwnerUserId &&
     value.scope === expectedScope &&
     typeof value.canonicalFingerprint === "string" &&
@@ -232,16 +342,6 @@ function isOperationAttemptRecord(
     isTimestamp(value.expiresAtMs) &&
     value.createdAtMs <= value.updatedAtMs &&
     value.updatedAtMs < value.expiresAtMs
-  );
-}
-
-function isOperationAttemptState(value: unknown): value is OperationAttemptState {
-  return (
-    value === "pending" ||
-    value === "unknown" ||
-    value === "succeeded" ||
-    value === "terminal" ||
-    value === "cancelled"
   );
 }
 
@@ -279,5 +379,23 @@ function isMissingStorageValue(value: unknown): boolean {
 }
 
 function copyRecord(record: OperationAttemptRecord): OperationAttemptRecord {
-  return { ...record };
+  return {
+    ...record,
+    canonicalInput: copyCanonicalInput(record.canonicalInput),
+  };
+}
+
+function copyCanonicalInput(value: unknown): unknown {
+  return JSON.parse(stableJson(value)) as unknown;
+}
+
+function canonicalInputMatchesFingerprint(
+  canonicalInput: unknown,
+  canonicalFingerprint: string,
+): boolean {
+  try {
+    return stableFingerprint(canonicalInput) === canonicalFingerprint;
+  } catch {
+    return false;
+  }
 }

@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { stableFingerprint, stableJson } from "../miniprogram/platform/command-id";
 import {
   OperationAttemptConflictError,
+  OperationAttemptMigrationRequiredError,
   OperationAttemptStateError,
   OperationAttemptStore,
   operationAttemptStorageKey,
@@ -103,9 +104,10 @@ describe("OperationAttemptStore", () => {
     const replay = await begin(store, { elapsedSeconds: 42, answer: "B" });
 
     expect(first).toEqual({
-      schemaVersion: 1,
+      schemaVersion: 2,
       ownerUserId: "user-a",
       scope: "review:card-1",
+      canonicalInput: { answer: "B", elapsedSeconds: 42 },
       canonicalFingerprint: stableFingerprint({ answer: "B", elapsedSeconds: 42 }),
       idempotencyKey: "review-00000000-0000-4000-8000-000000000001",
       state: "pending",
@@ -128,6 +130,54 @@ describe("OperationAttemptStore", () => {
 
     expect(second).toEqual(first);
     expect(getRandomValues).toHaveBeenCalledTimes(1);
+  });
+
+  it("persists the canonical input for recovery after a new store instance", async () => {
+    const payload = {
+      answer: "乙",
+      context: ["材料一", { note: "岸岸🦦" }],
+      submitted: true,
+    };
+    const firstStore = new OperationAttemptStore("user-a");
+    const first = await begin(firstStore, payload);
+
+    const restartedStore = new OperationAttemptStore("user-a");
+    const recovered = restartedStore.load("review:card-1", nowMs + 1);
+
+    expect(recovered).toEqual(first);
+    expect(recovered?.canonicalInput).toEqual(payload);
+    expect(recovered?.canonicalFingerprint).toBe(stableFingerprint(payload));
+    expect(recovered).not.toHaveProperty("token");
+    expect(recovered?.canonicalInput).not.toHaveProperty("token");
+    expect(getRandomValues).toHaveBeenCalledTimes(1);
+  });
+
+  it("isolates persisted input from caller and returned-record mutation", async () => {
+    const payload = {
+      answer: "B",
+      nested: { reasons: ["first"] },
+    };
+    const store = new OperationAttemptStore("user-a");
+    const first = await begin(store, payload);
+
+    payload.answer = "C";
+    payload.nested.reasons.push("caller mutation");
+    const firstInput = first.canonicalInput as typeof payload;
+    firstInput.answer = "D";
+    firstInput.nested.reasons.push("returned mutation");
+
+    const recovered = store.load("review:card-1", nowMs + 1);
+    expect(recovered?.canonicalInput).toEqual({
+      answer: "B",
+      nested: { reasons: ["first"] },
+    });
+
+    const recoveredInput = recovered?.canonicalInput as typeof payload;
+    recoveredInput.nested.reasons.push("load mutation");
+    expect(store.load("review:card-1", nowMs + 2)?.canonicalInput).toEqual({
+      answer: "B",
+      nested: { reasons: ["first"] },
+    });
   });
 
   it("fails closed when unfinished scope input drifts", async () => {
@@ -201,7 +251,7 @@ describe("OperationAttemptStore", () => {
   it("clears malformed and wrong-owner records instead of accepting them", async () => {
     const key = operationAttemptStorageKey("user-a", "review:card-1");
     storage.set(key, {
-      schemaVersion: 1,
+      schemaVersion: 2,
       ownerUserId: "user-b",
       scope: "review:card-1",
       state: "pending",
@@ -212,6 +262,90 @@ describe("OperationAttemptStore", () => {
     expect(storage.has(key)).toBe(false);
     const fresh = await begin(store, { answer: "B" });
     expect(fresh.ownerUserId).toBe("user-a");
+  });
+
+  it.each([
+    [
+      "tampered payload",
+      {
+        canonicalInput: { answer: "C" },
+        canonicalFingerprint: stableFingerprint({ answer: "B" }),
+      },
+    ],
+    [
+      "malformed payload",
+      {
+        canonicalInput: { answer: undefined },
+        canonicalFingerprint: stableFingerprint({ answer: "B" }),
+      },
+    ],
+  ])("removes a %s instead of recovering it", (_label, overrides) => {
+    const key = operationAttemptStorageKey("user-a", "review:card-1");
+    const record: Record<string, unknown> = {
+      schemaVersion: 2,
+      ownerUserId: "user-a",
+      scope: "review:card-1",
+      canonicalInput: { answer: "B" },
+      canonicalFingerprint: stableFingerprint({ answer: "B" }),
+      idempotencyKey: "review-existing-key",
+      state: "unknown",
+      createdAtMs: nowMs,
+      updatedAtMs: nowMs + 1,
+      expiresAtMs,
+    };
+    Object.assign(record, overrides);
+    storage.set(key, record);
+
+    expect(new OperationAttemptStore("user-a").load("review:card-1", nowMs + 2)).toBeNull();
+    expect(storage.has(key)).toBe(false);
+  });
+
+  it.each<OperationAttemptState>(["pending", "unknown"])(
+    "blocks a new key while an unmigratable v1 attempt is %s",
+    async (state) => {
+      const v1Key = "gongkao.operation-attempt.v1.user-a.review%3Acard-1";
+      const legacyRecord = legacyAttempt(state);
+      storage.set(v1Key, legacyRecord);
+
+      await expect(
+        begin(new OperationAttemptStore("user-a"), { answer: "B" }),
+      ).rejects.toBeInstanceOf(OperationAttemptMigrationRequiredError);
+
+      expect(operationAttemptStoragePrefix()).toBe("gongkao.operation-attempt.v2");
+      expect(storage.get(v1Key)).toBe(legacyRecord);
+      expect(storage.has(operationAttemptStorageKey("user-a", "review:card-1"))).toBe(false);
+      expect(getRandomValues).not.toHaveBeenCalled();
+    },
+  );
+
+  it("does not let a completed v2 record bypass an unresolved v1 guard", async () => {
+    const store = new OperationAttemptStore("user-a");
+    const first = await begin(store, { answer: "B" });
+    store.markSucceeded("review:card-1", first.idempotencyKey, nowMs + 1);
+    const v1Key = "gongkao.operation-attempt.v1.user-a.review%3Acard-1";
+    const legacyRecord = legacyAttempt("unknown");
+    storage.set(v1Key, legacyRecord);
+
+    await expect(begin(store, { answer: "B" }, nowMs + 2)).rejects.toBeInstanceOf(
+      OperationAttemptMigrationRequiredError,
+    );
+
+    expect(storage.get(v1Key)).toBe(legacyRecord);
+    expect(getRandomValues).toHaveBeenCalledTimes(1);
+  });
+
+  it.each([
+    ["completed", legacyAttempt("succeeded")],
+    ["expired", legacyAttempt("unknown", nowMs)],
+  ])("retains but ignores a %s v1 attempt", async (_label, legacyRecord) => {
+    const v1Key = "gongkao.operation-attempt.v1.user-a.review%3Acard-1";
+    storage.set(v1Key, legacyRecord);
+
+    const current = await begin(new OperationAttemptStore("user-a"), { answer: "B" });
+
+    expect(current.schemaVersion).toBe(2);
+    expect(current.idempotencyKey).not.toBe(legacyRecord.idempotencyKey);
+    expect(storage.get(v1Key)).toBe(legacyRecord);
   });
 
   it("isolates accounts and encodes owner and scope without segment collisions", async () => {
@@ -276,4 +410,18 @@ function transition(
     case "unknown":
       throw new Error(`unsupported completed test state: ${state}`);
   }
+}
+
+function legacyAttempt(state: OperationAttemptState, legacyExpiresAtMs: number = expiresAtMs) {
+  return {
+    schemaVersion: 1,
+    ownerUserId: "user-a",
+    scope: "review:card-1",
+    canonicalFingerprint: stableFingerprint({ answer: "B" }),
+    idempotencyKey: "review-legacy-key",
+    state,
+    createdAtMs: 0,
+    updatedAtMs: 0,
+    expiresAtMs: legacyExpiresAtMs,
+  };
 }
