@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session, sessionmaker
 from app.domains.task_help.repository import TaskHelpSessionContext
 from app.domains.task_help.schemas import TaskHelpRequest
 from app.domains.task_help.service import TaskHelpService
+from tests.factories import seed_route_frozen_release
 from tests.test_mock_exam_calibration import (
     _make_client,
     _seed_mock_qbank,
@@ -19,7 +20,7 @@ from tests.test_planning_routes import (
     _client,
     _seed_learner_and_published_essay_content,
 )
-from tests.test_xingce_learning_routes import _seed_objective_questions, _xingce_task
+from tests.test_xingce_learning_routes import _xingce_task
 from tests.task_editing_helpers import claim_task_edit_headers
 
 
@@ -416,8 +417,12 @@ def test_xingce_dispute_is_bound_to_frozen_content_and_server_evidence(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     token = "stage2-xingce-dispute-token"
-    _seed_learner_and_published_essay_content(db_session_factory, access_token=token)
-    _seed_objective_questions(db_session_factory)
+    _seed_learner_and_published_essay_content(
+        db_session_factory,
+        access_token=token,
+        include_objective_questions=False,
+    )
+    seed_route_frozen_release(db_session_factory)
     client = _client(db_session_factory)
     auth = {"Authorization": f"Bearer {token}"}
     task = _xingce_task(client, auth)

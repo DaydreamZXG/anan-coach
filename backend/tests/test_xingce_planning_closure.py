@@ -8,12 +8,12 @@ from fastapi.testclient import TestClient
 from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
 
+from tests.factories import seed_route_frozen_release
 from tests.test_planning_routes import (
     _client,
     _seed_learner_and_published_essay_content,
 )
 from tests.test_xingce_learning_routes import (
-    _seed_objective_questions,
     _xingce_task,
 )
 from tests.task_editing_helpers import claim_task_edit_headers
@@ -538,8 +538,12 @@ def _submitted_attempt(
     token: str,
     choices: list[str],
 ) -> tuple[TestClient, dict[str, str], dict[str, Any], dict[str, Any]]:
-    _seed_learner_and_published_essay_content(factory, access_token=token)
-    _seed_objective_questions(factory, count=6)
+    _seed_learner_and_published_essay_content(
+        factory,
+        access_token=token,
+        include_objective_questions=False,
+    )
+    seed_route_frozen_release(factory, count=6)
     client = _client(factory)
     auth = {"Authorization": f"Bearer {token}"}
     task = _xingce_task(client, auth)

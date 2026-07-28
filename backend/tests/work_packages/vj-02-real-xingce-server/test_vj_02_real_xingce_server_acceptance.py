@@ -10,6 +10,7 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
 
 from app.domains.auth.repository import token_hash_for_tests
+from tests.factories import FrozenQuestionSeed, seed_canonical_frozen_release
 from tests.test_planning_routes import (
     _client,
     _seed_active_route_day_preference,
@@ -29,6 +30,7 @@ def test_vj_02_real_xingce_server_as_01(
     _seed_learner_and_published_essay_content(
         db_session_factory,
         access_token=first_token,
+        include_objective_questions=False,
     )
     _seed_second_learner(db_session_factory, access_token=second_token)
     _seed_objective_questions(db_session_factory)
@@ -620,7 +622,11 @@ def _started_session(
     *,
     token: str,
 ) -> tuple[TestClient, dict[str, str], dict[str, Any]]:
-    _seed_learner_and_published_essay_content(factory, access_token=token)
+    _seed_learner_and_published_essay_content(
+        factory,
+        access_token=token,
+        include_objective_questions=False,
+    )
     _seed_objective_questions(factory)
     client = _client(factory)
     auth = {"Authorization": f"Bearer {token}"}
@@ -713,7 +719,16 @@ def _answer(
 
 
 def _seed_objective_questions(factory: sessionmaker[Session]) -> None:
-    with factory.begin() as session:
+    questions = tuple(
+        FrozenQuestionSeed(
+            question_id=f"real-xingce-question-{index}",
+            stem=f"真实行测题干 {index}",
+            answer=answer,
+            material_text=material,
+            shared_context_required=material is not None,
+            occurrence_count=100 - index,
+            explanation=f"真实题解析 {index}",
+        )
         for index, (answer, material) in enumerate(
             (
                 ("A", "共用材料：基层治理需要精准施策。"),
@@ -721,62 +736,14 @@ def _seed_objective_questions(factory: sessionmaker[Session]) -> None:
                 ("C", None),
             ),
             start=1,
-        ):
-            question_id = f"real-xingce-question-{index}"
-            session.execute(
-                text(
-                    """
-                    insert into product.questions (
-                      question_id, domain, status, module_name, question_type,
-                      stem, answer, material_text, shared_context_required,
-                      visual_required, occurrence_count, latest_year
-                    ) values (
-                      :question_id, 'objective', 'canonical', '言语理解', 'single_choice',
-                      :stem, :answer, :material, :shared_context_required,
-                      false, :occurrence_count, 2026
-                    )
-                    """
-                ),
-                {
-                    "question_id": question_id,
-                    "stem": f"真实行测题干 {index}",
-                    "answer": answer,
-                    "material": material,
-                    "shared_context_required": material is not None,
-                    "occurrence_count": 100 - index,
-                },
-            )
-            for option_index, label in enumerate(("A", "B", "C", "D"), start=1):
-                session.execute(
-                    text(
-                        """
-                        insert into product.question_options (
-                          question_id, option_index, label, option_text
-                        ) values (:question_id, :option_index, :label, :option_text)
-                        """
-                    ),
-                    {
-                        "question_id": question_id,
-                        "option_index": option_index,
-                        "label": label,
-                        "option_text": f"选项 {label}",
-                    },
-                )
-            session.execute(
-                text(
-                    """
-                    insert into product.question_explanations (
-                      question_id, preferred_analysis, analysis_source, analysis_status
-                    ) values (
-                      :question_id, :analysis, 'own_bank', 'verified'
-                    )
-                    """
-                ),
-                {
-                    "question_id": question_id,
-                    "analysis": f"真实题解析 {index}",
-                },
-            )
+        )
+    )
+    with factory.begin() as session:
+        seed_canonical_frozen_release(
+            session,
+            release_key="real-xingce-server",
+            questions=questions,
+        )
 
 
 def _seed_second_learner(

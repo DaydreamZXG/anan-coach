@@ -24,10 +24,10 @@ from app.domains.private_knowledge.repository import PrivateKnowledgeRepository
 from app.domains.private_knowledge.schemas import CreatePrivateSourceCommand
 from app.domains.private_knowledge.service import PrivateKnowledgeService
 from app.domains.private_knowledge.worker import PrivateKnowledgeDeletionWorker
+from tests.factories import seed_route_frozen_release
 from tests.test_planning_routes import _seed_learner_and_published_essay_content
 from tests.test_xingce_learning_routes import (
     _client,
-    _seed_objective_questions,
     _xingce_task,
 )
 
@@ -78,8 +78,12 @@ def test_math_ink_candidate_is_idempotent_owner_bound_and_user_confirmed(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     token = "step6-math-owner-token"
-    user_id = _seed_learner_and_published_essay_content(db_session_factory, access_token=token)
-    _seed_objective_questions(db_session_factory, count=3)
+    user_id = _seed_learner_and_published_essay_content(
+        db_session_factory,
+        access_token=token,
+        include_objective_questions=False,
+    )
+    seed_route_frozen_release(db_session_factory, count=3)
     client = _client(db_session_factory)
     auth = {"Authorization": f"Bearer {token}"}
     task = _xingce_task(client, auth)

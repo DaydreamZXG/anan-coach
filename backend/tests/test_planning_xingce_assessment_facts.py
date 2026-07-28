@@ -10,7 +10,11 @@ from sqlalchemy.orm import Session, sessionmaker
 
 from app.domains.planning.schemas import TodayDashboard
 from app.domains.planning.service import PlanningService
-from tests.knowledge_map_vocabulary_helpers import seed_released_module_vocabulary
+from tests.factories import (
+    FrozenKnowledgeNodeSeed,
+    FrozenQuestionSeed,
+    seed_canonical_frozen_release,
+)
 from tests.test_planning_routes import (
     NOW,
     _seed_learner_and_published_essay_content,
@@ -21,23 +25,14 @@ from tests.test_planning_routes import (
 def test_next_targeted_plan_uses_user_isolated_assessment_weakest_module(
     db_session_factory: sessionmaker[Session],
 ) -> None:
-    user_id = _seed_learner_and_published_essay_content(db_session_factory)
+    user_id = _seed_learner_and_published_essay_content(
+        db_session_factory,
+        include_objective_questions=False,
+    )
     other_user_id = _seed_planning_learner(db_session_factory)
     planning = PlanningService()
 
     with db_session_factory.begin() as session:
-        initial = planning.get_or_create_today(
-            session,
-            user_id=user_id,
-            now=NOW,
-            local_date=NOW.date(),
-        )
-        other_initial = planning.get_or_create_today(
-            session,
-            user_id=other_user_id,
-            now=NOW,
-            local_date=NOW.date(),
-        )
         quantity_ids = _insert_objective_questions(
             session,
             prefix="assessment-quantity",
@@ -73,6 +68,18 @@ def test_next_targeted_plan_uses_user_isolated_assessment_weakest_module(
             prefix="assessment-data",
             module_name="资料分析",
             count=6,
+        )
+        initial = planning.get_or_create_today(
+            session,
+            user_id=user_id,
+            now=NOW,
+            local_date=NOW.date(),
+        )
+        other_initial = planning.get_or_create_today(
+            session,
+            user_id=other_user_id,
+            now=NOW,
+            local_date=NOW.date(),
         )
         _insert_assessment_facts(
             session,
@@ -420,92 +427,50 @@ def _insert_active_knowledge_node(
     question_ids: list[str],
     now: datetime,
 ) -> None:
-    release_id = str(uuid4())
-    seed_released_module_vocabulary(
-        session,
-        version="vocab@v1",
-        aliases={
-            "言语理解": "verbal_comprehension",
-            "逻辑判断": "judgment_reasoning",
-            "资科分析": "data_analysis",
-        },
-    )
-    session.execute(
-        text(
-            """
-            insert into product.knowledge_map_releases (
-              release_id, release_version, exam_scope, track,
-              source_data_version, vocab_version, generator_version,
-              source_fingerprint, generated_at, fresh_until, status,
-              node_count, activated_at
-            ) values (
-              cast(:release_id as uuid), 'knowledge-map@assessment-facts-v1',
-              'guokao', 'xingce', 'assessment-facts@test-v1', 'vocab@v1',
-              'refresh_knowledge_map_nodes_v3', :source_fingerprint,
-              :generated_at, :fresh_until, 'draft', 0, null
-            )
-            """
-        ),
-        {
-            "release_id": release_id,
-            "source_fingerprint": _digest(f"release:{release_id}"),
-            "generated_at": now - timedelta(days=1),
-            "fresh_until": now + timedelta(days=30),
-        },
-    )
-    session.execute(
-        text(
-            """
-            insert into product.knowledge_map_nodes (
-              release_id, node_id, exam_scope, track, module_name,
-              node_type, tag_type, tag_value, display_path,
-              support_status, near5_window_start_year,
-              near5_window_end_year, near5_weight,
-              near5_occurrence_count, stable_for_old_questions, status
-            ) values (
-              cast(:release_id as uuid), 'assessment-facts-quantity-node',
-              'guokao', 'xingce', :module_name, 'knowledge_point',
-              'knowledge_point', :tag_value, :display_path,
-              'text_supported', 2022, 2026, 0.8, 12, true, 'published'
-            )
-            """
-        ),
-        {
-            "release_id": release_id,
-            "module_name": module_name,
-            "tag_value": tag_value,
-            "display_path": f"{module_name}/{tag_value}",
-        },
-    )
-    for index, question_id in enumerate(question_ids):
+    question_rows = list(
         session.execute(
             text(
                 """
-                insert into product.question_tags (
-                  question_tag_id, question_id, tag_type, tag_value,
-                  sort_order, evidence_link_count
-                ) values (
-                  :question_tag_id, :question_id, 'knowledge_point',
-                  :tag_value, 1, 1
+                select
+                  question_id, module_name, stem, answer,
+                  occurrence_count, latest_year
+                from product.questions
+                where question_id = any(cast(:question_ids as text[]))
+                order by array_position(
+                  cast(:question_ids as text[]),
+                  question_id
                 )
                 """
             ),
-            {
-                "question_tag_id": f"assessment-facts-tag-{index + 1}",
-                "question_id": question_id,
-                "tag_value": tag_value,
-            },
+            {"question_ids": question_ids},
+        ).mappings()
+    )
+    questions = tuple(
+        FrozenQuestionSeed(
+            question_id=str(row["question_id"]),
+            module_name=str(row["module_name"]),
+            stem=str(row["stem"]),
+            answer=str(row["answer"]),
+            node_id="assessment-facts-language-node",
+            occurrence_count=int(row["occurrence_count"]),
+            latest_year=int(row["latest_year"]),
         )
-    session.execute(
-        text(
-            """
-            update product.knowledge_map_releases
-            set status = 'active', node_count = 1, activated_at = :activated_at
-            where release_id = cast(:release_id as uuid)
-              and status = 'draft'
-            """
+        for row in question_rows
+    )
+    seed_canonical_frozen_release(
+        session,
+        release_key="assessment-facts-targeted",
+        questions=questions,
+        nodes=(
+            FrozenKnowledgeNodeSeed(
+                node_id="assessment-facts-language-node",
+                module_name=module_name,
+                tag_value=tag_value,
+                near5_weight=0.8,
+                near5_occurrence_count=12,
+            ),
         ),
-        {"release_id": release_id, "activated_at": now - timedelta(hours=23)},
+        reference_time=now,
     )
 
 

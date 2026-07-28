@@ -13,11 +13,12 @@ from app.domains.xingce_learning.real_attempt.service import (
     _group_summary,
     _verification_status,
 )
+from tests.factories import seed_route_frozen_release
 from tests.test_planning_routes import (
     _client,
     _seed_learner_and_published_essay_content,
 )
-from tests.test_xingce_learning_routes import _seed_objective_questions, _xingce_task
+from tests.test_xingce_learning_routes import _xingce_task
 from tests.task_editing_helpers import claim_task_edit_headers
 
 
@@ -283,8 +284,12 @@ def _started_session(
     *,
     token: str,
 ) -> tuple[TestClient, dict[str, str], dict, dict]:
-    _seed_learner_and_published_essay_content(factory, access_token=token)
-    _seed_objective_questions(factory, count=6)
+    _seed_learner_and_published_essay_content(
+        factory,
+        access_token=token,
+        include_objective_questions=False,
+    )
+    seed_route_frozen_release(factory, count=6)
     client = _client(factory)
     auth = {"Authorization": f"Bearer {token}"}
     task = _xingce_task(client, auth)

@@ -7,11 +7,12 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
 
 from app.domains.auth.repository import token_hash_for_tests
+from tests.factories import seed_route_frozen_release
 from tests.test_planning_routes import (
     _client,
     _seed_learner_and_published_essay_content,
 )
-from tests.test_xingce_learning_routes import _seed_objective_questions, _xingce_task
+from tests.test_xingce_learning_routes import _xingce_task
 
 
 def test_c01_briefing_is_owned_versioned_and_does_not_start_session(
@@ -21,8 +22,9 @@ def test_c01_briefing_is_owned_versioned_and_does_not_start_session(
     _seed_learner_and_published_essay_content(
         db_session_factory,
         access_token=token,
+        include_objective_questions=False,
     )
-    _seed_objective_questions(db_session_factory)
+    seed_route_frozen_release(db_session_factory)
     client = _client(db_session_factory)
     auth = {"Authorization": f"Bearer {token}"}
     task = _xingce_task(client, auth)
@@ -67,6 +69,7 @@ def test_c01_briefing_rejects_another_account_task(
     _seed_learner_and_published_essay_content(
         db_session_factory,
         access_token=owner_token,
+        include_objective_questions=False,
     )
     with db_session_factory.begin() as session:
         other_user_id = str(uuid4())
@@ -95,7 +98,7 @@ def test_c01_briefing_rejects_another_account_task(
                 "expires_at": datetime.now(UTC) + timedelta(days=1),
             },
         )
-    _seed_objective_questions(db_session_factory)
+    seed_route_frozen_release(db_session_factory)
     client = _client(db_session_factory)
     task = _xingce_task(client, {"Authorization": f"Bearer {owner_token}"})
 

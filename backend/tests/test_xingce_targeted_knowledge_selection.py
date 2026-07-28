@@ -18,12 +18,14 @@ from app.domains.xingce_learning.real_attempt.service import (
     _hash,
     _selection_lineage_refs,
 )
-from tests.task_editing_helpers import claim_task_edit_headers
-from tests.knowledge_map_vocabulary_helpers import (
-    activate_knowledge_release,
-    bind_question_to_release_node,
-    seed_released_module_vocabulary,
+from tests.factories import (
+    FrozenKnowledgeNodeSeed,
+    FrozenQuestionSeed,
+    NegativeFrozenReleaseScenario,
+    seed_canonical_frozen_release,
+    seed_negative_frozen_release,
 )
+from tests.task_editing_helpers import claim_task_edit_headers
 from tests.test_planning_routes import (
     _client,
     _seed_active_route_day_preference,
@@ -192,8 +194,20 @@ def test_baseline_selection_fails_closed_without_active_knowledge_release(
     user_id = _seed_learner_and_published_essay_content(
         db_session_factory,
         access_token="baseline-without-tree-token",
+        include_objective_questions=False,
     )
     with db_session_factory.begin() as session:
+        seed_negative_frozen_release(
+            session,
+            scenario=NegativeFrozenReleaseScenario.MISSING,
+            release_key="baseline-without-active-release",
+            questions=_shared_question_seeds(
+                node_id_by_index={
+                    index: "canonical-verbal-practice"
+                    for index in range(1, 7)
+                }
+            ),
+        )
         selected = XingceAttemptRepository().select_frozen_questions(
             session,
             module_name=None,
@@ -304,10 +318,7 @@ def test_targeted_start_freezes_selection_context_and_submit_lineage(
     context = scoring["selectionContext"]
     assert context == {
         "contractVersion": "xingce-targeted-selection@v1",
-        "releaseId": _active_release_id(db_session_factory),
-        "releaseVersion": "knowledge-map@test-v1",
-        "sourceDataVersion": "question-bank@test-v1",
-        "vocabVersion": "vocab@v1",
+        **_active_release_metadata(db_session_factory),
         "freshUntil": context["freshUntil"],
         "nodeId": "lineage-node",
         "nodeType": "micro_skill",
@@ -336,9 +347,9 @@ def test_targeted_start_freezes_selection_context_and_submit_lineage(
         ).scalars().all()
     expected_tree_refs = {
         f"knowledge-map-release:{context['releaseId']}",
-        "knowledge-map-release-version:knowledge-map@test-v1",
-        "knowledge-map-source-data-version:question-bank@test-v1",
-        "knowledge-map-vocab-version:vocab@v1",
+        f"knowledge-map-release-version:{context['releaseVersion']}",
+        f"knowledge-map-source-data-version:{context['sourceDataVersion']}",
+        f"knowledge-map-vocab-version:{context['vocabVersion']}",
         "knowledge-map-node:lineage-node",
     }
     assert lineage_rows
@@ -494,125 +505,83 @@ def _seed_targeted_learner(
     nodes: tuple[dict[str, Any], ...],
     tags: dict[str, tuple[int, ...]],
 ) -> str:
-    user_id = _seed_learner_and_published_essay_content(factory, access_token=token)
-    release_id = str(uuid4())
+    user_id = _seed_learner_and_published_essay_content(
+        factory,
+        access_token=token,
+        include_objective_questions=False,
+    )
+    node_seeds = tuple(
+        FrozenKnowledgeNodeSeed(
+            node_id=str(node["node_id"]),
+            module_name=str(node["module_name"]),
+            node_type=str(node["node_type"]),
+            tag_type=str(node["tag_type"]),
+            tag_value=str(node["tag_value"]),
+            near5_weight=float(node["weight"]),
+            near5_occurrence_count=int(node["occurrences"]),
+        )
+        for node in nodes
+    )
+    node_id_by_index = {
+        index: str(
+            next(item for item in nodes if item["tag_value"] == tag_value)["node_id"]
+        )
+        for tag_value, indexes in tags.items()
+        for index in indexes
+    }
+    module_name_by_index = {
+        index: str(
+            next(item for item in nodes if item["tag_value"] == tag_value)[
+                "module_name"
+            ]
+        )
+        for tag_value, indexes in tags.items()
+        for index in indexes
+    }
+    questions = _shared_question_seeds(
+        node_id_by_index=node_id_by_index,
+        module_name_by_index=module_name_by_index,
+    )
     with factory.begin() as session:
-        seed_released_module_vocabulary(
-            session,
-            version="vocab@v1",
-            aliases={
-                "言语理解": "verbal_comprehension",
-                "逻辑判断": "judgment_reasoning",
-                "资科分析": "data_analysis",
-            },
-        )
         _insert_complete_ability_estimate(session, user_id=user_id, now=now)
-        _insert_release_and_nodes(
-            session,
-            release_id=release_id,
-            now=now,
-            fresh_until=fresh_until,
-            nodes=nodes,
-        )
-        for tag_value, indexes in tags.items():
-            node = next(item for item in nodes if item["tag_value"] == tag_value)
-            for index in indexes:
-                session.execute(
-                    text(
-                        """
-                        insert into product.question_tags (
-                          question_tag_id, question_id, tag_type, tag_value,
-                          sort_order, evidence_link_count
-                        ) values (
-                          :question_tag_id, :question_id, :tag_type, :tag_value,
-                          1, 1
-                        )
-                        """
-                    ),
-                    {
-                        "question_tag_id": f"{release_id}:{tag_value}:{index}",
-                        "question_id": f"planning-shared-question-{index}",
-                        "tag_type": node["tag_type"],
-                        "tag_value": tag_value,
-                    },
-                )
-                bind_question_to_release_node(
-                    session,
-                    release_id=release_id,
-                    node_id=str(node["node_id"]),
-                    question_id=f"planning-shared-question-{index}",
-                )
-        activate_knowledge_release(
-            session,
-            release_id=release_id,
-            activated_at=now - timedelta(days=1) + timedelta(minutes=1),
-        )
+        if fresh_until is not None and fresh_until <= now:
+            seed_negative_frozen_release(
+                session,
+                scenario=NegativeFrozenReleaseScenario.STALE,
+                release_key=f"targeted:{token}",
+                questions=questions,
+                nodes=node_seeds,
+                reference_time=now,
+            )
+        else:
+            seed_canonical_frozen_release(
+                session,
+                release_key=f"targeted:{token}",
+                questions=questions,
+                nodes=node_seeds,
+                reference_time=now,
+            )
     return user_id
 
 
-def _insert_release_and_nodes(
-    session: Session,
+def _shared_question_seeds(
     *,
-    release_id: str,
-    now: datetime,
-    fresh_until: datetime | None,
-    nodes: tuple[dict[str, Any], ...],
-) -> None:
-    generated_at = now - timedelta(days=1)
-    session.execute(
-        text(
-            """
-            insert into product.knowledge_map_releases (
-              release_id, release_version, exam_scope, track,
-              source_data_version, vocab_version, generator_version,
-              source_fingerprint, generated_at, fresh_until, status,
-              node_count, activated_at
-            ) values (
-              cast(:release_id as uuid), 'knowledge-map@test-v1',
-              'guokao', 'xingce', 'question-bank@test-v1', 'vocab@v1',
-              'refresh_knowledge_map_nodes_v3', :source_fingerprint,
-              :generated_at, :fresh_until, 'draft', 0, null
-            )
-            """
-        ),
-        {
-            "release_id": release_id,
-            "source_fingerprint": sha256(release_id.encode()).hexdigest(),
-            "generated_at": generated_at,
-            "fresh_until": fresh_until or now + timedelta(days=2),
-        },
-    )
-    for node in nodes:
-        session.execute(
-            text(
-                """
-                insert into product.knowledge_map_nodes (
-                  release_id, node_id, exam_scope, track, module_name,
-                  node_type, tag_type, tag_value, display_path,
-                  support_status, near5_window_start_year,
-                  near5_window_end_year, near5_weight,
-                  near5_occurrence_count, stable_for_old_questions,
-                  status
-                ) values (
-                  cast(:release_id as uuid), :node_id, 'guokao', 'xingce',
-                  :module_name, :node_type, :tag_type, :tag_value,
-                  :display_path, 'text_supported', 2022, 2026, :weight,
-                  :occurrences, true, 'published'
-                )
-                """
-            ),
-            {
-                "release_id": release_id,
-                "node_id": node["node_id"],
-                "module_name": node["module_name"],
-                "node_type": node["node_type"],
-                "tag_type": node["tag_type"],
-                "tag_value": node["tag_value"],
-                "display_path": f"{node['module_name']}/{node['tag_value']}",
-                "weight": node["weight"],
-                "occurrences": node["occurrences"],
-            },
+    node_id_by_index: dict[int, str],
+    module_name_by_index: dict[int, str] | None = None,
+) -> tuple[FrozenQuestionSeed, ...]:
+    labels = ("A", "B", "C", "D")
+    return tuple(
+        FrozenQuestionSeed(
+            question_id=f"planning-shared-question-{index}",
+            stem=f"计划供给验收题 {index}",
+            answer=labels[(index - 1) % len(labels)],
+            node_id=node_id_by_index[index],
+            module_name=(module_name_by_index or {}).get(index, "言语理解"),
+            occurrence_count=100 - index,
+            latest_year=2025,
         )
+        for index in sorted(node_id_by_index)
+    )
 
 
 def _insert_complete_ability_estimate(
@@ -782,13 +751,25 @@ def _checkpoint_and_submit(
     )
 
 
-def _active_release_id(factory: sessionmaker[Session]) -> str:
+def _active_release_metadata(
+    factory: sessionmaker[Session],
+) -> dict[str, str]:
     with factory() as session:
-        return str(
+        row = (
             session.execute(
                 text(
-                    "select release_id from product.knowledge_map_releases "
+                    "select release_id, release_version, "
+                    "source_data_version, vocab_version "
+                    "from product.knowledge_map_releases "
                     "where status = 'active'"
                 )
-            ).scalar_one()
+            )
+            .mappings()
+            .one()
         )
+    return {
+        "releaseId": str(row["release_id"]),
+        "releaseVersion": str(row["release_version"]),
+        "sourceDataVersion": str(row["source_data_version"]),
+        "vocabVersion": str(row["vocab_version"]),
+    }

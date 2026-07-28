@@ -8,6 +8,11 @@ from sqlalchemy.orm import Session, sessionmaker
 
 from app.domains.auth.repository import token_hash_for_tests
 from app.domains.calibration.repository import CalibrationRepository
+from tests.factories import (
+    FrozenKnowledgeNodeSeed,
+    FrozenQuestionSeed,
+    seed_canonical_frozen_release,
+)
 from tests.task_editing_helpers import claim_task_edit_headers
 from tests.test_planning_routes import (
     _client,
@@ -15,7 +20,6 @@ from tests.test_planning_routes import (
     _seed_learner_and_published_essay_content,
 )
 from tests.test_xingce_learning_routes import (
-    _seed_objective_questions,
     _xingce_task,
 )
 
@@ -29,8 +33,7 @@ def test_calibration_aggregates_assessments_without_legacy_practice_answers(
         access_token=first_token,
         include_objective_questions=False,
     )
-    _seed_objective_questions(db_session_factory, count=6)
-    _assign_calibration_dimensions(db_session_factory)
+    _seed_calibration_frozen_release(db_session_factory)
     _submit_assessments(
         db_session_factory,
         token=first_token,
@@ -92,43 +95,49 @@ def test_calibration_aggregates_assessments_without_legacy_practice_answers(
     assert first.practice_correct == 2
 
 
-def _assign_calibration_dimensions(
+def _seed_calibration_frozen_release(
     db_session_factory: sessionmaker[Session],
 ) -> None:
-    dimensions = (
-        ("xingce-route-question-1", "资料分析", "基期量计算"),
-        ("xingce-route-question-2", "资料分析", "基期量计算"),
-        ("xingce-route-question-3", "判断推理", "图形推理"),
+    node_by_index = (
+        ("calibration-data-node", "资料分析", "基期量计算"),
+        ("calibration-data-node", "资料分析", "基期量计算"),
+        ("calibration-reasoning-node", "判断推理", "图形推理"),
+        ("calibration-verbal-node", "言语理解", "言语理解基础"),
+        ("calibration-verbal-node", "言语理解", "言语理解基础"),
+        ("calibration-verbal-node", "言语理解", "言语理解基础"),
     )
     with db_session_factory.begin() as session:
-        for question_id, module_name, tag_value in dimensions:
-            session.execute(
-                text(
-                    """
-                    update product.questions
-                    set module_name = :module_name
-                    where question_id = :question_id
-                    """
-                ),
-                {"question_id": question_id, "module_name": module_name},
-            )
-            session.execute(
-                text(
-                    """
-                    insert into product.question_tags (
-                      question_tag_id, question_id, tag_type, tag_value
-                    ) values (
-                      :question_tag_id, :question_id,
-                      'knowledge_point', :tag_value
-                    )
-                    """
-                ),
-                {
-                    "question_tag_id": f"calibration-tag:{question_id}",
-                    "question_id": question_id,
-                    "tag_value": tag_value,
-                },
-            )
+        seed_canonical_frozen_release(
+            session,
+            release_key="calibration-assessment",
+            questions=tuple(
+                FrozenQuestionSeed(
+                    question_id=f"xingce-route-question-{index}",
+                    stem=f"行测路由验收题 {index}",
+                    answer=("A", "B", "C", "D")[(index - 1) % 4],
+                    node_id=node_id,
+                    module_name=module_name,
+                    occurrence_count=100 - index,
+                    explanation=f"解析 {index}",
+                )
+                for index, (node_id, module_name, _tag_value) in enumerate(
+                    node_by_index,
+                    start=1,
+                )
+            ),
+            nodes=tuple(
+                FrozenKnowledgeNodeSeed(
+                    node_id=node_id,
+                    module_name=(
+                        "言语理解与表达"
+                        if module_name == "言语理解"
+                        else module_name
+                    ),
+                    tag_value=tag_value,
+                )
+                for node_id, module_name, tag_value in dict.fromkeys(node_by_index)
+            ),
+        )
 
 
 def _submit_assessments(

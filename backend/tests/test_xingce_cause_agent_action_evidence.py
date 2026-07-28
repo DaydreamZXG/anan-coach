@@ -15,6 +15,7 @@ from app.domains.ai.model_cost import ModelTokenUsage
 from app.domains.xingce_learning.cause_agent.provider import CauseAgentProviderResult
 from app.domains.xingce_learning.cause_agent.repository import CauseAgentRepository
 from app.domains.xingce_learning.cause_agent.tools import CauseAgentTools
+from tests.factories import seed_route_frozen_release
 from tests.task_editing_helpers import claim_task_edit_headers
 from tests.test_planning_routes import (
     _client,
@@ -25,7 +26,7 @@ from tests.test_xingce_cause_agent_workflow import (
     _reflect,
     _run_one,
 )
-from tests.test_xingce_learning_routes import _seed_objective_questions, _xingce_task
+from tests.test_xingce_learning_routes import _xingce_task
 from tests.test_xingce_planning_closure import _submitted_attempt
 
 
@@ -267,8 +268,12 @@ def _submitted_attempt_with_trace(
 ) -> tuple[TestClient, dict[str, str], dict[str, Any], list[str]]:
     """与 _submitted_attempt 同构，但第一题带真实动作事件与批注笔画。"""
 
-    _seed_learner_and_published_essay_content(factory, access_token=token)
-    _seed_objective_questions(factory, count=6)
+    _seed_learner_and_published_essay_content(
+        factory,
+        access_token=token,
+        include_objective_questions=False,
+    )
+    seed_route_frozen_release(factory, count=6)
     client = _client(factory)
     auth = {"Authorization": f"Bearer {token}"}
     task = _xingce_task(client, auth)

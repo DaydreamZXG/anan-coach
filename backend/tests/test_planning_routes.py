@@ -36,10 +36,22 @@ from app.domains.planning.service import PlanningService, _materialize_plan_task
 from app.domains.xingce_learning.real_attempt.schemas import StartTaskSessionCommand
 from app.domains.xingce_learning.real_attempt.service import XingceAttemptService
 from app.main import create_app
+from tests.factories import (
+    assert_canonical_frozen_release,
+    seed_planning_shared_frozen_release,
+)
 
 
 NOW = datetime(2026, 7, 13, 8, tzinfo=UTC)
 TOKEN = "planning-v2-route-token"
+
+
+def test_canonical_frozen_release_factory_satisfies_current_contract(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    with db_session_factory.begin() as session:
+        release = seed_planning_shared_frozen_release(session)
+        assert_canonical_frozen_release(session, release)
 
 
 def test_essay_planning_only_uses_exact_grounded_learning_evidence() -> None:
@@ -1750,50 +1762,7 @@ def _seed_shared_objective_question_bank(
     *,
     count: int = 6,
 ) -> None:
-    labels = ("A", "B", "C", "D")
-    for index in range(1, count + 1):
-        question_id = f"planning-shared-question-{index}"
-        session.execute(
-            text(
-                """
-                insert into product.questions (
-                  question_id, domain, status, module_name, question_type,
-                  stem, answer, shared_context_required, visual_required,
-                  occurrence_count, latest_year
-                ) values (
-                  :question_id, 'objective', 'canonical', '言语理解',
-                  'single_choice', :stem, :answer, false, false,
-                  :occurrence_count, 2025
-                )
-                on conflict (question_id) do nothing
-                """
-            ),
-            {
-                "question_id": question_id,
-                "stem": f"计划供给验收题 {index}",
-                "answer": labels[(index - 1) % len(labels)],
-                "occurrence_count": 100 - index,
-            },
-        )
-        for option_index, label in enumerate(labels, start=1):
-            session.execute(
-                text(
-                    """
-                    insert into product.question_options (
-                      question_id, option_index, label, option_text
-                    ) values (
-                      :question_id, :option_index, :label, :option_text
-                    )
-                    on conflict (question_id, option_index) do nothing
-                    """
-                ),
-                {
-                    "question_id": question_id,
-                    "option_index": option_index,
-                    "label": label,
-                    "option_text": f"选项 {label}",
-                },
-            )
+    seed_planning_shared_frozen_release(session, count=count)
 
 
 def _seed_planning_learner(factory: sessionmaker[Session]) -> str:
