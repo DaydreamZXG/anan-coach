@@ -71,7 +71,12 @@ def test_openapi_bearer_operations_match_code_dependency_graph() -> None:
         }
     }
     code_operations = _code_bearer_operations(app)
-    assert len(code_operations) == 225
+    assert len(code_operations) == 228
+    assert {
+        ("/api/v2/xingce/question-favorites", "get"),
+        ("/api/v2/xingce/question-favorites/{question_id}", "get"),
+        ("/api/v2/xingce/question-favorites/{question_id}", "put"),
+    }.issubset(code_operations)
     assert _openapi_bearer_operations(schema) == code_operations
     for path, path_item in schema["paths"].items():
         for method, operation in path_item.items():

@@ -73,6 +73,12 @@ class DataRightsRepository:
                     """
                 select
                   (select count(*) from learning.score_evidence where user_id = cast(:user_id as uuid)) as score_count,
+                  (
+                    select count(*)
+                    from learning.xingce_question_favorite_states
+                    where user_id = cast(:user_id as uuid)
+                      and favorited
+                  ) as favorite_count,
                   (select count(*) from learning.source_artifact_versions where owner_user_id = cast(:user_id as uuid)) as material_count,
                   (select count(*) from learning.report_projection_versions where user_id = cast(:user_id as uuid)) as report_count,
                   (select count(*) from ai_audit.model_call_ledger where user_id = cast(:user_id as uuid)) as ai_count,
@@ -102,7 +108,10 @@ class DataRightsRepository:
                 DataCategoryView(
                     category="learning_evidence",
                     title="成绩与学习证据",
-                    item_count=int(counts["score_count"]),
+                    item_count=(
+                        int(counts["score_count"])
+                        + int(counts["favorite_count"])
+                    ),
                     retention="账户存续期间；注销后解除身份映射",
                 ),
                 DataCategoryView(
@@ -145,6 +154,7 @@ class DataRightsRepository:
                 "删除微信/Apple 身份映射与私有上传对象",
                 "删除 AI 督学偏好、授权、发送与打开记录",
                 "删除作答设备标识、编辑租约与接管记录",
+                "删除题目收藏状态与幂等命令记录",
                 "清除显示名、邮箱和支付 OpenID",
                 "仅保留无法用于恢复账户的审计与法定账务事实",
             ],
@@ -408,6 +418,23 @@ class DataRightsRepository:
             ),
             "scoreEvidence": self._many_json(
                 "select * from learning.score_evidence where user_id = cast(:user_id as uuid) order by occurred_at",
+                user_id,
+            ),
+            "questionFavorites": self._many_json(
+                "select question_id, saved_content_version_id, "
+                "source_session_id, favorited, revision, favorited_at, "
+                "created_at, updated_at "
+                "from learning.xingce_question_favorite_states "
+                "where user_id = cast(:user_id as uuid) "
+                "order by updated_at, question_id",
+                user_id,
+            ),
+            "questionFavoriteCommands": self._many_json(
+                "select command_id, question_id, request_fingerprint, "
+                "response_payload, created_at "
+                "from learning.xingce_question_favorite_commands "
+                "where user_id = cast(:user_id as uuid) "
+                "order by created_at, command_id",
                 user_id,
             ),
             "qualificationFacts": self._many_json(
@@ -1216,6 +1243,16 @@ class DataRightsRepository:
                     scanner_receipt = '{}'::jsonb
                 where user_id = cast(:user_id as uuid)
                 """,
+            ),
+            (
+                "xingce_question_favorite_commands",
+                "delete from learning.xingce_question_favorite_commands "
+                "where user_id = cast(:user_id as uuid)",
+            ),
+            (
+                "xingce_question_favorite_states",
+                "delete from learning.xingce_question_favorite_states "
+                "where user_id = cast(:user_id as uuid)",
             ),
             (
                 "xingce_sessions",

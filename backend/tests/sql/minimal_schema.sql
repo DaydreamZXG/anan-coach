@@ -1929,6 +1929,62 @@ create table learning.xingce_task_sessions (
 create index learning_xingce_sessions_owner_state_idx
       on learning.xingce_task_sessions(user_id, state, updated_at);
 
+create table learning.xingce_question_favorite_states (
+      user_id uuid not null references learner.users(user_id),
+      question_id text not null references product.questions(question_id),
+      saved_content_version_id text,
+      source_session_id uuid,
+      favorited boolean not null,
+      revision bigint not null check (revision >= 1),
+      favorited_at timestamptz,
+      created_at timestamptz not null,
+      updated_at timestamptz not null,
+      primary key (user_id, question_id),
+      constraint xingce_question_favorite_state_shape_check check (
+        updated_at >= created_at
+        and (
+          (
+            favorited
+            and saved_content_version_id is not null
+            and source_session_id is not null
+            and favorited_at is not null
+          )
+          or (
+            not favorited
+            and saved_content_version_id is null
+            and source_session_id is null
+            and favorited_at is null
+          )
+        )
+      )
+    );
+
+create index learning_xingce_favorites_page_idx
+      on learning.xingce_question_favorite_states (
+        user_id, favorited_at desc, question_id
+      )
+      where favorited;
+
+create table learning.xingce_question_favorite_commands (
+      user_id uuid not null references learner.users(user_id),
+      command_id text not null,
+      question_id text not null references product.questions(question_id),
+      request_fingerprint text not null check (length(request_fingerprint) = 64),
+      response_payload jsonb not null check (
+        jsonb_typeof(response_payload) = 'object'
+      ),
+      created_at timestamptz not null,
+      primary key (user_id, command_id),
+      constraint xingce_question_favorite_command_shape_check check (
+        char_length(command_id) between 8 and 160
+      )
+    );
+
+create index learning_xingce_favorite_commands_created_idx
+      on learning.xingce_question_favorite_commands (
+        user_id, created_at, command_id
+      );
+
 create table learning.xingce_answer_versions (
       answer_version_id uuid primary key,
       command_id text not null,
@@ -2275,7 +2331,39 @@ create function learning.reject_xingce_fact_mutation()
     end;
     $$;
 
+create function learning.enforce_xingce_question_favorite_transition()
+    returns trigger language plpgsql as $$
+    begin
+      if tg_op = 'INSERT' then
+        if new.revision <> 1 then
+          raise exception using
+            errcode = '23514',
+            message = 'a new Xingce favorite state must start at revision 1';
+        end if;
+        return new;
+      end if;
+
+      if new.user_id <> old.user_id
+         or new.question_id <> old.question_id
+         or new.created_at <> old.created_at
+         or new.revision <> old.revision + 1
+         or new.favorited = old.favorited
+         or new.updated_at < old.updated_at then
+        raise exception using
+          errcode = '23514',
+          message = 'invalid Xingce favorite state transition';
+      end if;
+      return new;
+    end;
+    $$;
+
 create trigger xingce_commands_append_only before update or delete on learning.xingce_commands for each row execute function learning.reject_xingce_fact_mutation();
+
+create trigger xingce_question_favorite_commands_append_only before update or delete on learning.xingce_question_favorite_commands for each row execute function learning.reject_xingce_fact_mutation();
+
+create trigger xingce_question_favorite_state_transition before insert or update on learning.xingce_question_favorite_states for each row execute function learning.enforce_xingce_question_favorite_transition();
+
+create trigger xingce_question_favorite_state_delete_guard before delete on learning.xingce_question_favorite_states for each row execute function learning.reject_xingce_fact_mutation();
 
 create trigger xingce_answer_versions_append_only before update or delete on learning.xingce_answer_versions for each row execute function learning.reject_xingce_fact_mutation();
 

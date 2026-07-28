@@ -37,12 +37,14 @@ def test_wave1_revisions_are_linear_and_single_head() -> None:
     revision71 = import_module("migrations.versions.20260728_71_review_verdict_command_contract")
     revision72 = import_module("migrations.versions.20260728_72_job_lease_contract")
     revision73 = import_module("migrations.versions.20260728_73_method_card_exact_replay")
+    revision74 = import_module("migrations.versions.20260728_74_xingce_question_favorites")
     script = ScriptDirectory.from_config(Config(str(BACKEND_ROOT / "alembic.ini")))
 
     assert revision71.down_revision == "20260728_70"
     assert revision72.down_revision == "20260728_71"
     assert revision73.down_revision == "20260728_72"
-    assert script.get_heads() == ["20260728_73"]
+    assert revision74.down_revision == "20260728_73"
+    assert script.get_heads() == ["20260728_74"]
 
 
 def test_review_verdict_command_extends_receipts_without_weakening_append_only(

@@ -17,10 +17,14 @@ from app.domains.memory.repository import (
     LearnerWorkbenchSectionRecord,
 )
 from app.domains.memory.service import LearnerMemoryService
+from app.domains.xingce_learning.favorites.router import (
+    router as xingce_favorites_router,
+)
 from app.domains.xingce_learning.real_attempt.router import router as xingce_router
 
 router = APIRouter()
 router.include_router(xingce_router)
+router.include_router(xingce_favorites_router)
 
 
 @router.get("/health")
