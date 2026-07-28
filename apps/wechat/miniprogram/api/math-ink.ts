@@ -1,48 +1,20 @@
 import type { ApiClient } from "./client";
+import type {
+  ConfirmFormulaCommand,
+  FormulaVersion as GeneratedFormulaVersion,
+  InkStroke as GeneratedInkStroke,
+  MathInkRecognitionResult as GeneratedMathInkRecognitionResult,
+  RecognizeMathInkCommand,
+} from "./generated/types.gen";
 
-export interface InkStroke {
-  x: number[];
-  y: number[];
-  t: number[];
-}
-
-export interface FormulaVersion {
-  formulaVersionId: string;
-  formulaId: string;
-  requestId: string;
-  sessionId: string;
-  questionId: string;
-  versionNo: number;
-  state: "candidate" | "confirmed" | "rejected";
-  latex: string;
-  source: "myscript_candidate" | "user_confirmed";
-  supersedesFormulaVersionId: string | null;
-  createdAt: string;
-  confirmedAt: string | null;
-}
-
-export interface MathInkRecognitionResult {
-  state: "candidate" | "failed";
-  requestId: string;
-  formula: FormulaVersion | null;
-  failureCode: string | null;
-}
+export type InkStroke = GeneratedInkStroke;
+export type FormulaVersion = GeneratedFormulaVersion;
+export type MathInkRecognitionResult = GeneratedMathInkRecognitionResult;
 
 export class MathInkApi {
   constructor(private readonly client: ApiClient) {}
 
-  async recognize(
-    command: {
-      sessionId: string;
-      questionId: string;
-      sessionAtMs?: number;
-      questionElapsedMs?: number;
-      scaleX: number;
-      scaleY: number;
-      strokes: InkStroke[];
-    },
-    idempotencyKey: string,
-  ) {
+  async recognize(command: RecognizeMathInkCommand, idempotencyKey: string) {
     return (
       await this.client.post<MathInkRecognitionResult>("/api/v2/math-ink/recognitions", command, {
         idempotencyKey,
@@ -52,10 +24,14 @@ export class MathInkApi {
   }
 
   async confirm(formula: FormulaVersion, latex: string) {
+    const command: ConfirmFormulaCommand = {
+      expectedVersionNo: formula.versionNo,
+      latex,
+    };
     return (
       await this.client.post<FormulaVersion>(
         `/api/v2/math-ink/formulas/${encodeURIComponent(formula.formulaVersionId)}/confirm`,
-        { expectedVersionNo: formula.versionNo, latex },
+        command,
         { timeoutMs: 30_000 },
       )
     ).data;

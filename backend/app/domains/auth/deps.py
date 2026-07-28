@@ -2,7 +2,8 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from fastapi import Depends, Header, HTTPException, status
+from fastapi import Depends, HTTPException, Request, Security, status
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
@@ -11,6 +12,13 @@ from app.domains.auth.apple import AppleIdentityVerifier
 from app.domains.auth.repository import AuthRepository, AuthenticatedUser
 from app.domains.auth.service import AuthService
 from app.domains.auth.wechat import WechatIdentityExchange
+
+
+bearer_security = HTTPBearer(
+    scheme_name="BearerAuth",
+    description="Opaque access token issued by the authentication endpoints.",
+    auto_error=False,
+)
 
 
 def get_auth_repository(
@@ -43,8 +51,13 @@ def get_auth_service(
 
 
 def require_bearer_token(
-    authorization: Annotated[str | None, Header(alias="Authorization")] = None,
+    request: Request,
+    _security_credentials: Annotated[
+        HTTPAuthorizationCredentials | None,
+        Security(bearer_security),
+    ],
 ) -> str:
+    authorization = request.headers.get("Authorization")
     if not authorization:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

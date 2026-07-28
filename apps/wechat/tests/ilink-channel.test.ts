@@ -1,6 +1,7 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, expectTypeOf, it, vi } from "vitest";
 import { ApiClient } from "../miniprogram/api/client";
-import { ILinkChannelApi } from "../miniprogram/api/ilink-channel";
+import type { HubBotAuthorizationView as GeneratedHubBotAuthorizationView } from "../miniprogram/api/generated/types.gen";
+import { ILinkChannelApi, type HubBotAuthorizationView } from "../miniprogram/api/ilink-channel";
 
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import captureTemplate from "../miniprogram/pages/capture-import/index.wxml?raw";
@@ -8,6 +9,10 @@ import captureTemplate from "../miniprogram/pages/capture-import/index.wxml?raw"
 import botSheetTemplate from "../miniprogram/components/ilink-bot-sheet/index.wxml?raw";
 
 describe("official iLink photo channel", () => {
+  it("keeps the wrapper contract identical to the generated Hub Bot type", () => {
+    expectTypeOf<HubBotAuthorizationView>().toEqualTypeOf<GeneratedHubBotAuthorizationView>();
+  });
+
   it("uses authenticated idempotent account-bound endpoints", async () => {
     const requests: WechatMiniprogram.RequestOption[] = [];
     vi.stubGlobal("wx", {
@@ -88,5 +93,57 @@ describe("official iLink photo channel", () => {
     expect(captureTemplate).toContain("<ilink-bot-sheet");
     expect(captureTemplate).toContain("不进入公共题库");
     expect(captureTemplate).toContain("不用于训练基础模型");
+  });
+
+  it("passes through missing, null, and full generated TypeScript fixtures", async () => {
+    const fixtures = [
+      {
+        state: "unbound",
+        statusCopy: "尚未连接",
+        usageCopy: "扫码后使用",
+      },
+      {
+        state: "waiting_scan",
+        authorizationId: null,
+        qrImageDataUrl: null,
+        expiresAt: null,
+        statusCopy: "等待扫码",
+        usageCopy: "请使用微信扫码",
+      },
+      {
+        state: "connected",
+        authorizationId: "authorization-1",
+        qrImageDataUrl: "data:image/png;base64,fixture",
+        expiresAt: "2026-07-28T08:00:00Z",
+        statusCopy: "已连接",
+        usageCopy: "可以开始使用",
+      },
+    ] satisfies HubBotAuthorizationView[];
+    let responseIndex = 0;
+    vi.stubGlobal("wx", {
+      request: (options: WechatMiniprogram.RequestOption) => {
+        const fixture = fixtures[responseIndex];
+        responseIndex += 1;
+        options.success?.({
+          data: {
+            data: fixture,
+            requestId: `hub-fixture-${String(responseIndex)}`,
+            generatedAt: "2026-07-28T07:00:00Z",
+          },
+          statusCode: 200,
+          header: {},
+          cookies: [],
+          exception: { reasons: [], retryCount: 0 },
+          profile: {} as WechatMiniprogram.RequestProfile,
+          useHttpDNS: false,
+          errMsg: "request:ok",
+        });
+      },
+    });
+    const api = new ILinkChannelApi(new ApiClient("https://api.example.test", "access-token-1"));
+
+    await expect(api.getHubBot()).resolves.toMatchObject({ data: fixtures[0] });
+    await expect(api.getHubBot()).resolves.toMatchObject({ data: fixtures[1] });
+    await expect(api.getHubBot()).resolves.toMatchObject({ data: fixtures[2] });
   });
 });

@@ -834,6 +834,7 @@ export type AnswerSubmission = {
      * Selectedanswer
      */
     selectedAnswer: string;
+    taskVersion: PracticeTaskVersion;
 };
 
 /**
@@ -6230,6 +6231,36 @@ export type HttpValidationError = {
 };
 
 /**
+ * HubBotAuthorizationView
+ */
+export type HubBotAuthorizationView = {
+    /**
+     * Authorizationid
+     */
+    authorizationId?: string | null;
+    /**
+     * Expiresat
+     */
+    expiresAt?: string | null;
+    /**
+     * Qrimagedataurl
+     */
+    qrImageDataUrl?: string | null;
+    /**
+     * State
+     */
+    state: 'unbound' | 'waiting_scan' | 'scanned' | 'connected' | 'reauth_required' | 'revoked';
+    /**
+     * Statuscopy
+     */
+    statusCopy: string;
+    /**
+     * Usagecopy
+     */
+    usageCopy: string;
+};
+
+/**
  * ILinkChannelView
  */
 export type ILinkChannelView = {
@@ -10416,6 +10447,151 @@ export type PositionWorkspaceResponse = {
 };
 
 /**
+ * PracticeQuestion
+ */
+export type PracticeQuestion = {
+    /**
+     * Answer
+     */
+    answer?: string | null;
+    /**
+     * Assets
+     */
+    assets: Array<QuestionAsset>;
+    /**
+     * Contentversionid
+     */
+    contentVersionId: string;
+    /**
+     * Difficulty
+     */
+    difficulty?: number | null;
+    /**
+     * Displaylevel1
+     */
+    displayLevel1?: string | null;
+    /**
+     * Displaylevel2
+     */
+    displayLevel2?: string | null;
+    /**
+     * Displaylevel3
+     */
+    displayLevel3?: string | null;
+    /**
+     * Domain
+     */
+    domain: 'objective' | 'essay' | string;
+    explanation?: QuestionExplanation | null;
+    /**
+     * Firstyear
+     */
+    firstYear?: number | null;
+    /**
+     * Knowledgechunks
+     */
+    knowledgeChunks: Array<KnowledgeChunk>;
+    /**
+     * Knowledgefamily
+     */
+    knowledgeFamily?: string | null;
+    /**
+     * Latestyear
+     */
+    latestYear?: number | null;
+    /**
+     * Materialhtml
+     */
+    materialHtml?: string | null;
+    /**
+     * Materialtext
+     */
+    materialText?: string | null;
+    /**
+     * Microskill
+     */
+    microSkill?: string | null;
+    /**
+     * Modulename
+     */
+    moduleName?: string | null;
+    /**
+     * Needsmultimodal
+     */
+    needsMultimodal: boolean;
+    /**
+     * Occurrencecount
+     */
+    occurrenceCount?: number | null;
+    /**
+     * Occurrenceprovincecount
+     */
+    occurrenceProvinceCount?: number | null;
+    /**
+     * Occurrences
+     */
+    occurrences: Array<QuestionOccurrence>;
+    /**
+     * Options
+     */
+    options: Array<QuestionOption>;
+    /**
+     * Questionid
+     */
+    questionId: string;
+    /**
+     * Questiontype
+     */
+    questionType?: string | null;
+    /**
+     * Sharedcontextrequired
+     */
+    sharedContextRequired: boolean;
+    /**
+     * Sourcemembercount
+     */
+    sourceMemberCount?: number | null;
+    /**
+     * Status
+     */
+    status?: string | null;
+    /**
+     * Stem
+     */
+    stem: string;
+    /**
+     * Stemhtml
+     */
+    stemHtml?: string | null;
+    /**
+     * Tags
+     */
+    tags: Array<QuestionTag>;
+    /**
+     * Teachingpoint
+     */
+    teachingPoint?: string | null;
+    /**
+     * Visualrequired
+     */
+    visualRequired: boolean;
+};
+
+/**
+ * PracticeQuestionVersion
+ */
+export type PracticeQuestionVersion = {
+    /**
+     * Contentversionid
+     */
+    contentVersionId: string;
+    /**
+     * Questionid
+     */
+    questionId: string;
+};
+
+/**
  * PracticeTask
  */
 export type PracticeTask = {
@@ -10426,11 +10602,12 @@ export type PracticeTask = {
     /**
      * Questions
      */
-    questions: Array<QuestionDetail>;
+    questions: Array<PracticeQuestion>;
     /**
      * Taskid
      */
     taskId: string;
+    taskVersion: PracticeTaskVersion;
     /**
      * Title
      */
@@ -10439,6 +10616,32 @@ export type PracticeTask = {
      * Track
      */
     track: string;
+};
+
+/**
+ * PracticeTaskVersion
+ */
+export type PracticeTaskVersion = {
+    /**
+     * Bundleversionid
+     */
+    bundleVersionId: string;
+    /**
+     * Nodeid
+     */
+    nodeId: string;
+    /**
+     * Questions
+     */
+    questions: [
+        PracticeQuestionVersion,
+        PracticeQuestionVersion,
+        PracticeQuestionVersion
+    ];
+    /**
+     * Releaseid
+     */
+    releaseId: string;
 };
 
 /**
@@ -11863,6 +12066,21 @@ export type PublicApiEnvelopeFeedbackReceipt = {
  */
 export type PublicApiEnvelopeFormulaVersion = {
     data: FormulaVersion;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[HubBotAuthorizationView]
+ */
+export type PublicApiEnvelopeHubBotAuthorizationView = {
+    data: HubBotAuthorizationView;
     /**
      * Generatedat
      */
@@ -14070,6 +14288,10 @@ export type RecognitionRevision = {
  */
 export type RecognizeMathInkCommand = {
     /**
+     * Questionelapsedms
+     */
+    questionElapsedMs?: number | null;
+    /**
      * Questionid
      */
     questionId: string;
@@ -14081,6 +14303,10 @@ export type RecognizeMathInkCommand = {
      * Scaley
      */
     scaleY: number;
+    /**
+     * Sessionatms
+     */
+    sessionAtMs?: number | null;
     /**
      * Sessionid
      */
@@ -15564,6 +15790,16 @@ export type Stage8Catalog = {
      * Servertime
      */
     serverTime: string;
+};
+
+/**
+ * StartHubBotAuthorizationCommand
+ */
+export type StartHubBotAuthorizationCommand = {
+    /**
+     * Replacepending
+     */
+    replacePending?: boolean;
 };
 
 /**
@@ -18495,25 +18731,10 @@ export type LoginWithAppleApiV1AuthApplePostResponse = LoginWithAppleApiV1AuthAp
 
 export type LogoutApiV1AuthLogoutPostData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/auth/logout';
 };
-
-export type LogoutApiV1AuthLogoutPostErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type LogoutApiV1AuthLogoutPostError = LogoutApiV1AuthLogoutPostErrors[keyof LogoutApiV1AuthLogoutPostErrors];
 
 export type LogoutApiV1AuthLogoutPostResponses = {
     /**
@@ -18526,25 +18747,10 @@ export type LogoutApiV1AuthLogoutPostResponse = LogoutApiV1AuthLogoutPostRespons
 
 export type GetMeApiV1AuthMeGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/auth/me';
 };
-
-export type GetMeApiV1AuthMeGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetMeApiV1AuthMeGetError = GetMeApiV1AuthMeGetErrors[keyof GetMeApiV1AuthMeGetErrors];
 
 export type GetMeApiV1AuthMeGetResponses = {
     /**
@@ -18577,25 +18783,10 @@ export type BootstrapApiV1BootstrapGetResponse = BootstrapApiV1BootstrapGetRespo
 
 export type GetAbilityEstimateApiV1CalibrationAbilityGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/calibration/ability';
 };
-
-export type GetAbilityEstimateApiV1CalibrationAbilityGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetAbilityEstimateApiV1CalibrationAbilityGetError = GetAbilityEstimateApiV1CalibrationAbilityGetErrors[keyof GetAbilityEstimateApiV1CalibrationAbilityGetErrors];
 
 export type GetAbilityEstimateApiV1CalibrationAbilityGetResponses = {
     /**
@@ -18633,12 +18824,6 @@ export type RegisterAppStoreNotificationApiV1CommerceAppStoreNotificationsPostRe
 
 export type RegisterAppStoreTransactionApiV1CommerceAppStoreTransactionsPostData = {
     body: AppStoreTransactionRequest;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/commerce/app-store/transactions';
@@ -18680,25 +18865,10 @@ export type GetCatalogApiV1CommerceCatalogGetResponse = GetCatalogApiV1CommerceC
 
 export type GetEntitlementApiV1CommerceEntitlementGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/commerce/entitlement';
 };
-
-export type GetEntitlementApiV1CommerceEntitlementGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetEntitlementApiV1CommerceEntitlementGetError = GetEntitlementApiV1CommerceEntitlementGetErrors[keyof GetEntitlementApiV1CommerceEntitlementGetErrors];
 
 export type GetEntitlementApiV1CommerceEntitlementGetResponses = {
     /**
@@ -18716,10 +18886,6 @@ export type AskCompanionApiV1CompanionAskPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -18751,10 +18917,6 @@ export type ResolveExternalQuestionApiV1CompanionExternalQuestionsResolvePostDat
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -18781,12 +18943,6 @@ export type ResolveExternalQuestionApiV1CompanionExternalQuestionsResolvePostRes
 
 export type ConfirmExternalQuestionApiV1CompanionExternalQuestionsIntakeIdConfirmPostData = {
     body: ExternalQuestionConfirmRequest;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Intake Id
@@ -18817,25 +18973,10 @@ export type ConfirmExternalQuestionApiV1CompanionExternalQuestionsIntakeIdConfir
 
 export type OpenCourtApiV1DocketsOpenCourtPostData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/dockets/open-court';
 };
-
-export type OpenCourtApiV1DocketsOpenCourtPostErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type OpenCourtApiV1DocketsOpenCourtPostError = OpenCourtApiV1DocketsOpenCourtPostErrors[keyof OpenCourtApiV1DocketsOpenCourtPostErrors];
 
 export type OpenCourtApiV1DocketsOpenCourtPostResponses = {
     /**
@@ -18942,25 +19083,10 @@ export type CompareEssayRewriteApiV1EssayTasksTaskIdRewritePostResponses = {
 
 export type GetTodayFeedApiV1FeedTodayGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/feed/today';
 };
-
-export type GetTodayFeedApiV1FeedTodayGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetTodayFeedApiV1FeedTodayGetError = GetTodayFeedApiV1FeedTodayGetErrors[keyof GetTodayFeedApiV1FeedTodayGetErrors];
 
 export type GetTodayFeedApiV1FeedTodayGetResponses = {
     /**
@@ -19061,25 +19187,10 @@ export type GetQuestionApiV1KnowledgeQuestionsQuestionIdGetResponse = GetQuestio
 
 export type GetMemoryApiV1LearnerMemoryGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/learner/memory';
 };
-
-export type GetMemoryApiV1LearnerMemoryGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetMemoryApiV1LearnerMemoryGetError = GetMemoryApiV1LearnerMemoryGetErrors[keyof GetMemoryApiV1LearnerMemoryGetErrors];
 
 export type GetMemoryApiV1LearnerMemoryGetResponses = {
     /**
@@ -19092,12 +19203,6 @@ export type GetMemoryApiV1LearnerMemoryGetResponse = GetMemoryApiV1LearnerMemory
 
 export type UpdateProfileApiV1LearnerProfilePutData = {
     body: LearnerProfileUpdate;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/learner/profile';
@@ -19127,12 +19232,6 @@ export type UpdateProfileApiV1LearnerProfilePutResponse = UpdateProfileApiV1Lear
 
 export type GetMethodCardApiV1MethodCardsCardIdGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Card Id
@@ -19171,10 +19270,6 @@ export type CreateWeeklyMockExamApiV1MockExamsWeeklyPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key'?: string | null;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -19201,12 +19296,6 @@ export type CreateWeeklyMockExamApiV1MockExamsWeeklyPostResponse = CreateWeeklyM
 
 export type GetMockExamSessionApiV1MockExamsSessionIdGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Session Id
@@ -19242,10 +19331,6 @@ export type SaveMockExamCheckpointApiV1MockExamsSessionIdCheckpointPutData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
         /**
          * X-Task-Edit-Lease
          */
@@ -19290,10 +19375,6 @@ export type ReportMockExamQuestionDisputeApiV1MockExamsSessionIdDisputesPostData
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -19325,12 +19406,6 @@ export type ReportMockExamQuestionDisputeApiV1MockExamsSessionIdDisputesPostResp
 
 export type GetMockExamReviewApiV1MockExamsSessionIdReviewGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Session Id
@@ -19361,12 +19436,6 @@ export type GetMockExamReviewApiV1MockExamsSessionIdReviewGetResponse = GetMockE
 
 export type MarkMockExamReviewViewedApiV1MockExamsSessionIdReviewViewPostData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Session Id
@@ -19402,10 +19471,6 @@ export type SubmitMockExamApiV1MockExamsSessionIdSubmitPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key'?: string | null;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
         /**
          * X-Task-Edit-Lease
          */
@@ -19445,12 +19510,6 @@ export type SubmitMockExamApiV1MockExamsSessionIdSubmitPostResponse = SubmitMock
 
 export type CompleteOnboardingApiV1OnboardingCompletePostData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/onboarding/complete';
@@ -19461,13 +19520,7 @@ export type CompleteOnboardingApiV1OnboardingCompletePostErrors = {
      * Use the v2 onboarding owner.
      */
     410: unknown;
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
 };
-
-export type CompleteOnboardingApiV1OnboardingCompletePostError = CompleteOnboardingApiV1OnboardingCompletePostErrors[keyof CompleteOnboardingApiV1OnboardingCompletePostErrors];
 
 export type CompleteOnboardingApiV1OnboardingCompletePostResponses = {
     /**
@@ -19480,25 +19533,10 @@ export type CompleteOnboardingApiV1OnboardingCompletePostResponse = CompleteOnbo
 
 export type GetPlacementTestApiV1OnboardingPlacementTestGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/onboarding/placement-test';
 };
-
-export type GetPlacementTestApiV1OnboardingPlacementTestGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetPlacementTestApiV1OnboardingPlacementTestGetError = GetPlacementTestApiV1OnboardingPlacementTestGetErrors[keyof GetPlacementTestApiV1OnboardingPlacementTestGetErrors];
 
 export type GetPlacementTestApiV1OnboardingPlacementTestGetResponses = {
     /**
@@ -19511,12 +19549,6 @@ export type GetPlacementTestApiV1OnboardingPlacementTestGetResponse = GetPlaceme
 
 export type SubmitPlacementTestApiV1OnboardingPlacementTestAnswersPostData = {
     body: PlacementSubmitRequest;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/onboarding/placement-test/answers';
@@ -19542,25 +19574,10 @@ export type SubmitPlacementTestApiV1OnboardingPlacementTestAnswersPostResponse =
 
 export type GetOnboardingProfileApiV1OnboardingProfileGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/onboarding/profile';
 };
-
-export type GetOnboardingProfileApiV1OnboardingProfileGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetOnboardingProfileApiV1OnboardingProfileGetError = GetOnboardingProfileApiV1OnboardingProfileGetErrors[keyof GetOnboardingProfileApiV1OnboardingProfileGetErrors];
 
 export type GetOnboardingProfileApiV1OnboardingProfileGetResponses = {
     /**
@@ -19573,12 +19590,6 @@ export type GetOnboardingProfileApiV1OnboardingProfileGetResponse = GetOnboardin
 
 export type UpdateOnboardingProfileApiV1OnboardingProfilePutData = {
     body: OnboardingProfileUpdate;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/onboarding/profile';
@@ -19604,12 +19615,6 @@ export type UpdateOnboardingProfileApiV1OnboardingProfilePutResponse = UpdateOnb
 
 export type RecommendPositionsApiV1PositionDecisionsRecommendationsGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query: {
         /**
@@ -19684,25 +19689,10 @@ export type RecommendPositionsApiV1PositionDecisionsRecommendationsGetResponse =
 
 export type ListMajorsApiV1PositionsMajorsGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/positions/majors';
 };
-
-export type ListMajorsApiV1PositionsMajorsGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type ListMajorsApiV1PositionsMajorsGetError = ListMajorsApiV1PositionsMajorsGetErrors[keyof ListMajorsApiV1PositionsMajorsGetErrors];
 
 export type ListMajorsApiV1PositionsMajorsGetResponses = {
     /**
@@ -19715,25 +19705,10 @@ export type ListMajorsApiV1PositionsMajorsGetResponse = ListMajorsApiV1Positions
 
 export type ListRegionsApiV1PositionsRegionsGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/positions/regions';
 };
-
-export type ListRegionsApiV1PositionsRegionsGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type ListRegionsApiV1PositionsRegionsGetError = ListRegionsApiV1PositionsRegionsGetErrors[keyof ListRegionsApiV1PositionsRegionsGetErrors];
 
 export type ListRegionsApiV1PositionsRegionsGetResponses = {
     /**
@@ -19746,12 +19721,6 @@ export type ListRegionsApiV1PositionsRegionsGetResponse = ListRegionsApiV1Positi
 
 export type SearchPositionsApiV1PositionsSearchGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query: {
         /**
@@ -19818,12 +19787,6 @@ export type SearchPositionsApiV1PositionsSearchGetResponse = SearchPositionsApiV
 
 export type GetPositionDetailApiV1PositionsPositionIdGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Position Id
@@ -19854,12 +19817,6 @@ export type GetPositionDetailApiV1PositionsPositionIdGetResponse = GetPositionDe
 
 export type GetPositionTargetScoreApiV1PositionsPositionIdTargetScoreGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Position Id
@@ -19890,12 +19847,6 @@ export type GetPositionTargetScoreApiV1PositionsPositionIdTargetScoreGetResponse
 
 export type GetPracticeTaskApiV1PracticeTasksTaskIdGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Task Id
@@ -19926,12 +19877,6 @@ export type GetPracticeTaskApiV1PracticeTasksTaskIdGetResponse = GetPracticeTask
 
 export type SubmitPracticeAnswerApiV1PracticeTasksTaskIdAnswersPostData = {
     body: AnswerSubmission;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Task Id
@@ -19962,25 +19907,10 @@ export type SubmitPracticeAnswerApiV1PracticeTasksTaskIdAnswersPostResponse = Su
 
 export type GetCourtStateApiV1ProgressionCourtStateGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/progression/court-state';
 };
-
-export type GetCourtStateApiV1ProgressionCourtStateGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetCourtStateApiV1ProgressionCourtStateGetError = GetCourtStateApiV1ProgressionCourtStateGetErrors[keyof GetCourtStateApiV1ProgressionCourtStateGetErrors];
 
 export type GetCourtStateApiV1ProgressionCourtStateGetResponses = {
     /**
@@ -19993,25 +19923,10 @@ export type GetCourtStateApiV1ProgressionCourtStateGetResponse = GetCourtStateAp
 
 export type GetProgressionProfileApiV1ProgressionProfileGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/progression/profile';
 };
-
-export type GetProgressionProfileApiV1ProgressionProfileGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetProgressionProfileApiV1ProgressionProfileGetError = GetProgressionProfileApiV1ProgressionProfileGetErrors[keyof GetProgressionProfileApiV1ProgressionProfileGetErrors];
 
 export type GetProgressionProfileApiV1ProgressionProfileGetResponses = {
     /**
@@ -20042,25 +19957,10 @@ export type GetRankConfigsApiV1RankConfigsGetResponse = GetRankConfigsApiV1RankC
 
 export type GetRankProfileApiV1RankProfileGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/rank/profile';
 };
-
-export type GetRankProfileApiV1RankProfileGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetRankProfileApiV1RankProfileGetError = GetRankProfileApiV1RankProfileGetErrors[keyof GetRankProfileApiV1RankProfileGetErrors];
 
 export type GetRankProfileApiV1RankProfileGetResponses = {
     /**
@@ -20073,12 +19973,6 @@ export type GetRankProfileApiV1RankProfileGetResponse = GetRankProfileApiV1RankP
 
 export type SubmitCardVerdictApiV1ReviewSessionsDocketIdCardsCardIdVerdictPostData = {
     body: ReviewVerdictRequest;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Docket Id
@@ -20113,25 +20007,10 @@ export type SubmitCardVerdictApiV1ReviewSessionsDocketIdCardsCardIdVerdictPostRe
 
 export type GetTodayTaskstreamApiV1TaskstreamTodayGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/taskstream/today';
 };
-
-export type GetTodayTaskstreamApiV1TaskstreamTodayGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetTodayTaskstreamApiV1TaskstreamTodayGetError = GetTodayTaskstreamApiV1TaskstreamTodayGetErrors[keyof GetTodayTaskstreamApiV1TaskstreamTodayGetErrors];
 
 export type GetTodayTaskstreamApiV1TaskstreamTodayGetResponses = {
     /**
@@ -20144,25 +20023,10 @@ export type GetTodayTaskstreamApiV1TaskstreamTodayGetResponse = GetTodayTaskstre
 
 export type GetTomorrowTaskstreamApiV1TaskstreamTomorrowGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/taskstream/tomorrow';
 };
-
-export type GetTomorrowTaskstreamApiV1TaskstreamTomorrowGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetTomorrowTaskstreamApiV1TaskstreamTomorrowGetError = GetTomorrowTaskstreamApiV1TaskstreamTomorrowGetErrors[keyof GetTomorrowTaskstreamApiV1TaskstreamTomorrowGetErrors];
 
 export type GetTomorrowTaskstreamApiV1TaskstreamTomorrowGetResponses = {
     /**
@@ -20175,25 +20039,10 @@ export type GetTomorrowTaskstreamApiV1TaskstreamTomorrowGetResponse = GetTomorro
 
 export type WorkbenchPreviewApiV1WorkbenchPreviewGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v1/workbench/preview';
 };
-
-export type WorkbenchPreviewApiV1WorkbenchPreviewGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type WorkbenchPreviewApiV1WorkbenchPreviewGetError = WorkbenchPreviewApiV1WorkbenchPreviewGetErrors[keyof WorkbenchPreviewApiV1WorkbenchPreviewGetErrors];
 
 export type WorkbenchPreviewApiV1WorkbenchPreviewGetResponses = {
     /**
@@ -20210,12 +20059,6 @@ export type WorkbenchPreviewApiV1WorkbenchPreviewGetResponse = WorkbenchPreviewA
 
 export type GetCurrentAbilityEstimateApiV2AbilityEstimatesCurrentGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/ability-estimates/current';
@@ -20273,12 +20116,6 @@ export type GetCurrentAbilityEstimateApiV2AbilityEstimatesCurrentGetResponse = G
 
 export type GetAccountOverviewApiV2AuthAccountGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/auth/account';
@@ -20336,12 +20173,6 @@ export type GetAccountOverviewApiV2AuthAccountGetResponse = GetAccountOverviewAp
 
 export type UpdateAccountProfileApiV2AuthAccountProfilePutData = {
     body: AccountProfileUpdate;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/auth/account/profile';
@@ -20399,12 +20230,6 @@ export type UpdateAccountProfileApiV2AuthAccountProfilePutResponse = UpdateAccou
 
 export type LogoutCurrentWechatSessionApiV2AuthLogoutPostData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/auth/logout';
@@ -20462,12 +20287,6 @@ export type LogoutCurrentWechatSessionApiV2AuthLogoutPostResponse = LogoutCurren
 
 export type LogoutAllWechatSessionsApiV2AuthLogoutAllPostData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/auth/logout-all';
@@ -20525,12 +20344,6 @@ export type LogoutAllWechatSessionsApiV2AuthLogoutAllPostResponse = LogoutAllWec
 
 export type RevokeAccountSessionApiV2AuthSessionsSessionIdDeleteData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Session Id
@@ -20655,10 +20468,6 @@ export type RecordDeliveryOpenApiV2CoachNotificationsDeliveriesDeliveryIdOpenedP
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -20727,10 +20536,6 @@ export type UpdatePreferenceApiV2CoachNotificationsPreferencesPutData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -20794,10 +20599,6 @@ export type DisableNotificationsApiV2CoachNotificationsPreferencesDisablePostDat
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -20856,12 +20657,6 @@ export type DisableNotificationsApiV2CoachNotificationsPreferencesDisablePostRes
 
 export type GetSettingsViewApiV2CoachNotificationsSettingsGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/coach-notifications/settings';
@@ -20924,10 +20719,6 @@ export type RecordWechatSubscriptionApiV2CoachNotificationsWechatSubscriptionsPo
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -21043,12 +20834,6 @@ export type GetCatalogApiV2CommerceCatalogGetResponse = GetCatalogApiV2CommerceC
 
 export type GetDashboardApiV2CommerceDashboardGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/commerce/dashboard';
@@ -21106,12 +20891,6 @@ export type GetDashboardApiV2CommerceDashboardGetResponse = GetDashboardApiV2Com
 
 export type ListOrdersApiV2CommerceOrdersGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/commerce/orders';
@@ -21169,12 +20948,6 @@ export type ListOrdersApiV2CommerceOrdersGetResponse = ListOrdersApiV2CommerceOr
 
 export type GetProcessRewardsApiV2CommerceProcessRewardsGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/commerce/process-rewards';
@@ -21232,12 +21005,6 @@ export type GetProcessRewardsApiV2CommerceProcessRewardsGetResponse = GetProcess
 
 export type GetRefundEligibilityApiV2CommerceRefundEligibilityGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/commerce/refund-eligibility';
@@ -21295,12 +21062,6 @@ export type GetRefundEligibilityApiV2CommerceRefundEligibilityGetResponse = GetR
 
 export type CreateVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersPostData = {
     body: VirtualPaymentOrderCreateRequest;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/commerce/virtual-payment/orders';
@@ -21358,12 +21119,6 @@ export type CreateVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersPostRespon
 
 export type ReconcileVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersOrderIdReconcilePostData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Order Id
@@ -21426,12 +21181,6 @@ export type ReconcileVirtualPaymentOrderApiV2CommerceVirtualPaymentOrdersOrderId
 
 export type RequestVirtualPaymentRefundApiV2CommerceVirtualPaymentOrdersOrderIdRefundsPostData = {
     body: WechatRefundRequest;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Order Id
@@ -21606,12 +21355,6 @@ export type ReceiveVirtualPaymentEventApiV2CommerceWechatVirtualPaymentEventsPos
 
 export type ConfirmWeeklyReflectionApiV2CommerceWeeklyReflectionsPostData = {
     body: WeeklyReflectionConfirmRequest;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/commerce/weekly-reflections';
@@ -21669,12 +21412,6 @@ export type ConfirmWeeklyReflectionApiV2CommerceWeeklyReflectionsPostResponse = 
 
 export type GetContributionsApiV2CommunityMethodCardsContributionsGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: {
         /**
@@ -21737,12 +21474,6 @@ export type GetContributionsApiV2CommunityMethodCardsContributionsGetResponse = 
 
 export type DiscoverApiV2CommunityMethodCardsDiscoveryPostData = {
     body: DiscoveryRequest;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/community-method-cards/discovery';
@@ -21800,12 +21531,6 @@ export type DiscoverApiV2CommunityMethodCardsDiscoveryPostResponse = DiscoverApi
 
 export type CreateDraftApiV2CommunityMethodCardsDraftsPostData = {
     body: DraftCreate;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/community-method-cards/drafts';
@@ -21863,12 +21588,6 @@ export type CreateDraftApiV2CommunityMethodCardsDraftsPostResponse = CreateDraft
 
 export type CreateExposureApiV2CommunityMethodCardsExposuresPostData = {
     body: ExposureCreate;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/community-method-cards/exposures';
@@ -21926,12 +21645,6 @@ export type CreateExposureApiV2CommunityMethodCardsExposuresPostResponse = Creat
 
 export type RecordFeedbackApiV2CommunityMethodCardsFeedbackPostData = {
     body: FeedbackRecord;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/community-method-cards/feedback';
@@ -21989,12 +21702,6 @@ export type RecordFeedbackApiV2CommunityMethodCardsFeedbackPostResponse = Record
 
 export type ReportCardApiV2CommunityMethodCardsReportsPostData = {
     body: ReportCreate;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/community-method-cards/reports';
@@ -22052,12 +21759,6 @@ export type ReportCardApiV2CommunityMethodCardsReportsPostResponse = ReportCardA
 
 export type CompleteTrialApiV2CommunityMethodCardsTrialsPostData = {
     body: TrialComplete;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/community-method-cards/trials';
@@ -22115,12 +21816,6 @@ export type CompleteTrialApiV2CommunityMethodCardsTrialsPostResponse = CompleteT
 
 export type RecordDelayedVerificationApiV2CommunityMethodCardsTrialsTrialIdDelayedVerificationsPostData = {
     body: DelayedVerificationRecord;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Trial Id
@@ -22183,12 +21878,6 @@ export type RecordDelayedVerificationApiV2CommunityMethodCardsTrialsTrialIdDelay
 
 export type GetPublicCardDetailApiV2CommunityMethodCardsVersionsCardVersionIdGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Card Version Id
@@ -22251,12 +21940,6 @@ export type GetPublicCardDetailApiV2CommunityMethodCardsVersionsCardVersionIdGet
 
 export type RetireCardApiV2CommunityMethodCardsCardIdRetirePostData = {
     body: RetireCard;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Card Id
@@ -22319,12 +22002,6 @@ export type RetireCardApiV2CommunityMethodCardsCardIdRetirePostResponse = Retire
 
 export type GenerateCandidateApiV2CommunityMethodCardsCardIdStructureCandidatePostData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Card Id
@@ -22387,12 +22064,6 @@ export type GenerateCandidateApiV2CommunityMethodCardsCardIdStructureCandidatePo
 
 export type SubmitForReviewApiV2CommunityMethodCardsCardIdSubmitPostData = {
     body: CardSubmit;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Card Id
@@ -22455,12 +22126,6 @@ export type SubmitForReviewApiV2CommunityMethodCardsCardIdSubmitPostResponse = S
 
 export type ConfirmCandidateApiV2CommunityMethodCardsCardIdVersionsConfirmPostData = {
     body: CandidateConfirm;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Card Id
@@ -22523,12 +22188,6 @@ export type ConfirmCandidateApiV2CommunityMethodCardsCardIdVersionsConfirmPostRe
 
 export type GetWorkspaceApiV2CommunityMethodCardsCardIdWorkspaceGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Card Id
@@ -22591,12 +22250,6 @@ export type GetWorkspaceApiV2CommunityMethodCardsCardIdWorkspaceGetResponse = Ge
 
 export type GetRewardLedgerApiV2CommunityRewardsLedgerGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/community-rewards/ledger';
@@ -22659,10 +22312,6 @@ export type AskCompanionV2ApiV2CompanionAskPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -22721,12 +22370,6 @@ export type AskCompanionV2ApiV2CompanionAskPostResponse = AskCompanionV2ApiV2Com
 
 export type RequestDeletionApiV2DataRightsDeletionsPostData = {
     body: AccountDeletionCreateRequest;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/data-rights/deletions';
@@ -22784,12 +22427,6 @@ export type RequestDeletionApiV2DataRightsDeletionsPostResponse = RequestDeletio
 
 export type DeletionStatusApiV2DataRightsDeletionsDeletionIdGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Deletion Id
@@ -22852,12 +22489,6 @@ export type DeletionStatusApiV2DataRightsDeletionsDeletionIdGetResponse = Deleti
 
 export type CreateExportApiV2DataRightsExportsPostData = {
     body: DataExportCreateRequest;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/data-rights/exports';
@@ -22915,12 +22546,6 @@ export type CreateExportApiV2DataRightsExportsPostResponse = CreateExportApiV2Da
 
 export type ExportStatusApiV2DataRightsExportsExportIdGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Export Id
@@ -22983,12 +22608,6 @@ export type ExportStatusApiV2DataRightsExportsExportIdGetResponse = ExportStatus
 
 export type ExportPayloadApiV2DataRightsExportsExportIdPayloadGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Export Id
@@ -23051,12 +22670,6 @@ export type ExportPayloadApiV2DataRightsExportsExportIdPayloadGetResponse = Expo
 
 export type OverviewApiV2DataRightsOverviewGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/data-rights/overview';
@@ -23119,10 +22732,6 @@ export type CreateEssayAnswerApiV2EssayIntelligenceAnswersPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -23186,10 +22795,6 @@ export type RecordLearningArtifactApiV2EssayIntelligenceArtifactsPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -23253,10 +22858,6 @@ export type RecordArtifactAndCompletePlanTaskApiV2EssayIntelligenceArtifactsComp
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -23315,12 +22916,6 @@ export type RecordArtifactAndCompletePlanTaskApiV2EssayIntelligenceArtifactsComp
 
 export type GetLearningArtifactApiV2EssayIntelligenceArtifactsArtifactVersionIdGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Artifact Version Id
@@ -23388,10 +22983,6 @@ export type CreateEssayAttemptApiV2EssayIntelligenceAttemptsPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -23455,10 +23046,6 @@ export type CompleteEssayDraftingPlanTaskApiV2EssayIntelligenceDraftingCompleteP
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -23517,12 +23104,6 @@ export type CompleteEssayDraftingPlanTaskApiV2EssayIntelligenceDraftingCompleteP
 
 export type AccessEssayHandwritingArtifactApiV2EssayIntelligenceHandwritingArtifactsArtifactVersionIdAccessPostData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Artifact Version Id
@@ -23590,10 +23171,6 @@ export type StartEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingRec
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -23657,10 +23234,6 @@ export type CorrectEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingR
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -23729,10 +23302,6 @@ export type ConfirmEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingR
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -23796,12 +23365,6 @@ export type ConfirmEssayHandwritingRecognitionApiV2EssayIntelligenceHandwritingR
 
 export type GetEssayMasteryApiV2EssayIntelligenceMasteryGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/essay-intelligence/mastery';
@@ -23859,12 +23422,6 @@ export type GetEssayMasteryApiV2EssayIntelligenceMasteryGetResponse = GetEssayMa
 
 export type GetGroundedEssayReviewJobApiV2EssayIntelligenceReviewJobsJobIdGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Job Id
@@ -23932,10 +23489,6 @@ export type RegenerateGroundedEssayReviewApiV2EssayIntelligenceReviewJobsJobIdRe
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -24004,10 +23557,6 @@ export type QueueGroundedEssayReviewApiV2EssayIntelligenceReviewsPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -24071,10 +23620,6 @@ export type EnsureCurrentGroundedEssayReviewApiV2EssayIntelligenceReviewsCurrent
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -24133,12 +23678,6 @@ export type EnsureCurrentGroundedEssayReviewApiV2EssayIntelligenceReviewsCurrent
 
 export type GetGroundedEssayReviewApiV2EssayIntelligenceReviewsReviewVersionIdGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Review Version Id
@@ -24206,10 +23745,6 @@ export type RecordEssayRewriteApiV2EssayIntelligenceRewritesPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -24273,10 +23808,6 @@ export type RecordEssayRewriteAndCompletePlanTaskApiV2EssayIntelligenceRewritesC
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -24335,12 +23866,6 @@ export type RecordEssayRewriteAndCompletePlanTaskApiV2EssayIntelligenceRewritesC
 
 export type GetEssayRewriteComparisonApiV2EssayIntelligenceRewritesRewriteVersionIdComparisonGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Rewrite Version Id
@@ -24403,12 +23928,6 @@ export type GetEssayRewriteComparisonApiV2EssayIntelligenceRewritesRewriteVersio
 
 export type GetCurrentTaskArtifactsApiV2EssayIntelligenceTasksTaskVersionIdArtifactsCurrentGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Task Version Id
@@ -24471,12 +23990,6 @@ export type GetCurrentTaskArtifactsApiV2EssayIntelligenceTasksTaskVersionIdArtif
 
 export type GetTaskWorkspaceApiV2EssayIntelligenceTasksTaskVersionIdWorkspaceGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Task Version Id
@@ -24544,10 +24057,6 @@ export type RecordEssayTransferApiV2EssayIntelligenceTransfersPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -24611,10 +24120,6 @@ export type RecordEssayTransferAndCompletePlanTaskApiV2EssayIntelligenceTransfer
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -24678,10 +24183,6 @@ export type ConfirmImportAiAnswerApiV2ExternalLearningAiAnswersAnswerVersionIdCo
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -24750,10 +24251,6 @@ export type CreateCandidateApiV2ExternalLearningAnswerIngestionsPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -24812,12 +24309,6 @@ export type CreateCandidateApiV2ExternalLearningAnswerIngestionsPostResponse = C
 
 export type ListTargetsApiV2ExternalLearningAnswerIngestionsTargetsGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/external-learning/answer-ingestions/targets';
@@ -24875,12 +24366,6 @@ export type ListTargetsApiV2ExternalLearningAnswerIngestionsTargetsGetResponse =
 
 export type GetIngestionApiV2ExternalLearningAnswerIngestionsIngestionIdGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Ingestion Id
@@ -24948,10 +24433,6 @@ export type CorrectCandidateApiV2ExternalLearningAnswerIngestionsIngestionIdCand
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -25020,10 +24501,6 @@ export type ConfirmCandidateApiV2ExternalLearningAnswerIngestionsIngestionIdConf
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -25087,12 +24564,6 @@ export type ConfirmCandidateApiV2ExternalLearningAnswerIngestionsIngestionIdConf
 
 export type GetImportApiV2ExternalLearningImportsImportIdGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Import Id
@@ -25160,10 +24631,6 @@ export type RequestImportAiAnswerApiV2ExternalLearningImportsImportIdAiAnswersPo
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -25232,10 +24699,6 @@ export type ConfirmImportMatchApiV2ExternalLearningImportsImportIdMatchesContent
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -25308,10 +24771,6 @@ export type ProcessImportApiV2ExternalLearningImportsImportIdProcessPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -25380,10 +24839,6 @@ export type CorrectImportRecognitionApiV2ExternalLearningImportsImportIdRecognit
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -25456,10 +24911,6 @@ export type ConfirmImportRecognitionApiV2ExternalLearningImportsImportIdRecognit
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -25527,12 +24978,6 @@ export type ConfirmImportRecognitionApiV2ExternalLearningImportsImportIdRecognit
 
 export type ListPacketsApiV2ExternalLearningPacketsGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/external-learning/packets';
@@ -25595,10 +25040,6 @@ export type CreatePacketApiV2ExternalLearningPacketsPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -25662,10 +25103,6 @@ export type RenewPacketApiV2ExternalLearningPacketsPacketIdRenewPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -25734,10 +25171,6 @@ export type RetryPacketApiV2ExternalLearningPacketsPacketIdRetryPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -25801,12 +25234,6 @@ export type RetryPacketApiV2ExternalLearningPacketsPacketIdRetryPostResponse = R
 
 export type GetPacketApiV2ExternalLearningPacketsPacketVersionIdGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Packet Version Id
@@ -25869,12 +25296,6 @@ export type GetPacketApiV2ExternalLearningPacketsPacketVersionIdGetResponse = Ge
 
 export type AccessPacketApiV2ExternalLearningPacketsPacketVersionIdAccessPostData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Packet Version Id
@@ -25942,10 +25363,6 @@ export type StartRecognitionApiV2ExternalLearningRecognitionsPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -26004,12 +25421,6 @@ export type StartRecognitionApiV2ExternalLearningRecognitionsPostResponse = Star
 
 export type GetRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisionIdGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Recognition Revision Id
@@ -26077,10 +25488,6 @@ export type CorrectRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisi
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -26149,10 +25556,6 @@ export type ConfirmRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisi
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -26221,10 +25624,6 @@ export type RejectRecognitionApiV2ExternalLearningRecognitionsRecognitionRevisio
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -26293,10 +25692,6 @@ export type ReprocessRecognitionApiV2ExternalLearningRecognitionsRecognitionRevi
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -26365,10 +25760,6 @@ export type StartUploadApiV2ExternalLearningUploadsPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -26427,12 +25818,6 @@ export type StartUploadApiV2ExternalLearningUploadsPostResponse = StartUploadApi
 
 export type GetUploadApiV2ExternalLearningUploadsUploadSessionIdGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Upload Session Id
@@ -26495,12 +25880,6 @@ export type GetUploadApiV2ExternalLearningUploadsUploadSessionIdGetResponse = Ge
 
 export type CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePostData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Upload Session Id
@@ -26563,12 +25942,6 @@ export type CompleteUploadApiV2ExternalLearningUploadsUploadSessionIdCompletePos
 
 export type ChannelViewApiV2IlinkChannelGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/ilink-channel';
@@ -26624,6 +25997,251 @@ export type ChannelViewApiV2IlinkChannelGetResponses = {
 
 export type ChannelViewApiV2IlinkChannelGetResponse = ChannelViewApiV2IlinkChannelGetResponses[keyof ChannelViewApiV2IlinkChannelGetResponses];
 
+export type RevokeHubBotApiV2IlinkChannelBotDeleteData = {
+    body?: never;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/ilink-channel/bot';
+};
+
+export type RevokeHubBotApiV2IlinkChannelBotDeleteErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type RevokeHubBotApiV2IlinkChannelBotDeleteError = RevokeHubBotApiV2IlinkChannelBotDeleteErrors[keyof RevokeHubBotApiV2IlinkChannelBotDeleteErrors];
+
+export type RevokeHubBotApiV2IlinkChannelBotDeleteResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeHubBotAuthorizationView;
+};
+
+export type RevokeHubBotApiV2IlinkChannelBotDeleteResponse = RevokeHubBotApiV2IlinkChannelBotDeleteResponses[keyof RevokeHubBotApiV2IlinkChannelBotDeleteResponses];
+
+export type HubBotViewApiV2IlinkChannelBotGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v2/ilink-channel/bot';
+};
+
+export type HubBotViewApiV2IlinkChannelBotGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type HubBotViewApiV2IlinkChannelBotGetError = HubBotViewApiV2IlinkChannelBotGetErrors[keyof HubBotViewApiV2IlinkChannelBotGetErrors];
+
+export type HubBotViewApiV2IlinkChannelBotGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeHubBotAuthorizationView;
+};
+
+export type HubBotViewApiV2IlinkChannelBotGetResponse = HubBotViewApiV2IlinkChannelBotGetResponses[keyof HubBotViewApiV2IlinkChannelBotGetResponses];
+
+export type StartHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsPostData = {
+    body: StartHubBotAuthorizationCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/ilink-channel/bot/authorizations';
+};
+
+export type StartHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type StartHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsPostError = StartHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsPostErrors[keyof StartHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsPostErrors];
+
+export type StartHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeHubBotAuthorizationView;
+};
+
+export type StartHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsPostResponse = StartHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsPostResponses[keyof StartHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsPostResponses];
+
+export type PollHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsAuthorizationIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Authorization Id
+         */
+        authorization_id: string;
+    };
+    query?: never;
+    url: '/api/v2/ilink-channel/bot/authorizations/{authorization_id}';
+};
+
+export type PollHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsAuthorizationIdGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type PollHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsAuthorizationIdGetError = PollHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsAuthorizationIdGetErrors[keyof PollHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsAuthorizationIdGetErrors];
+
+export type PollHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsAuthorizationIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeHubBotAuthorizationView;
+};
+
+export type PollHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsAuthorizationIdGetResponse = PollHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsAuthorizationIdGetResponses[keyof PollHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsAuthorizationIdGetResponses];
+
 export type DeleteChannelDataApiV2IlinkChannelDataDeleteData = {
     body?: never;
     headers: {
@@ -26631,10 +26249,6 @@ export type DeleteChannelDataApiV2IlinkChannelDataDeleteData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -26693,12 +26307,6 @@ export type DeleteChannelDataApiV2IlinkChannelDataDeleteResponse = DeleteChannel
 
 export type ExportChannelDataApiV2IlinkChannelDataExportGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/ilink-channel/data-export';
@@ -26761,10 +26369,6 @@ export type IssueLinkCodeApiV2IlinkChannelLinkCodesPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -26828,10 +26432,6 @@ export type RevokeLinkApiV2IlinkChannelLinksLinkIdRevokePostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -26895,12 +26495,6 @@ export type RevokeLinkApiV2IlinkChannelLinksLinkIdRevokePostResponse = RevokeLin
 
 export type GetLearningBrainErrorPatternApiV2LearningBrainErrorPatternsPatternIdGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Pattern Id
@@ -26963,12 +26557,6 @@ export type GetLearningBrainErrorPatternApiV2LearningBrainErrorPatternsPatternId
 
 export type GetLearningBrainModuleApiV2LearningBrainModulesTrackModuleKeyGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Track
@@ -27035,12 +26623,6 @@ export type GetLearningBrainModuleApiV2LearningBrainModulesTrackModuleKeyGetResp
 
 export type GetLearningBrainProfileApiV2LearningBrainProfileGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/learning-brain/profile';
@@ -27103,10 +26685,6 @@ export type CreateLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesP
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -27170,10 +26748,6 @@ export type DecideLearningStrategyCandidateApiV2LearningBrainStrategyCandidatesC
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -27242,10 +26816,6 @@ export type StartLearningMediaUploadApiV2LearningMediaUploadsPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -27304,12 +26874,6 @@ export type StartLearningMediaUploadApiV2LearningMediaUploadsPostResponse = Star
 
 export type GetLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Upload Session Id
@@ -27377,10 +26941,6 @@ export type CompleteLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdC
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -27444,12 +27004,6 @@ export type CompleteLearningMediaUploadApiV2LearningMediaUploadsUploadSessionIdC
 
 export type ConfirmFormulaApiV2MathInkFormulasFormulaVersionIdConfirmPostData = {
     body: ConfirmFormulaCommand;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Formula Version Id
@@ -27517,10 +27071,6 @@ export type RecognizeFormulaApiV2MathInkRecognitionsPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -27584,10 +27134,6 @@ export type RecordMockExamTrajectoryEventApiV2MockExamsSessionIdTrajectoryEvents
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -27651,12 +27197,6 @@ export type RecordMockExamTrajectoryEventApiV2MockExamsSessionIdTrajectoryEvents
 
 export type GetAbilityBaselineApiV2OnboardingAbilityBaselineGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/onboarding/ability-baseline';
@@ -27719,10 +27259,6 @@ export type PutAbilityBaselineApiV2OnboardingAbilityBaselinePutData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -27786,10 +27322,6 @@ export type AcknowledgeOnboardingResultApiV2OnboardingCompletePostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -27848,12 +27380,6 @@ export type AcknowledgeOnboardingResultApiV2OnboardingCompletePostResponse = Ack
 
 export type GetPositionPreferenceApiV2OnboardingPositionPreferenceGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/onboarding/position-preference';
@@ -27916,10 +27442,6 @@ export type PutPositionPreferenceApiV2OnboardingPositionPreferencePutData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -27978,12 +27500,6 @@ export type PutPositionPreferenceApiV2OnboardingPositionPreferencePutResponse = 
 
 export type GetPreparationExperienceApiV2OnboardingPreparationExperienceGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/onboarding/preparation-experience';
@@ -28046,10 +27562,6 @@ export type PutPreparationExperienceApiV2OnboardingPreparationExperiencePutData 
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -28108,12 +27620,6 @@ export type PutPreparationExperienceApiV2OnboardingPreparationExperiencePutRespo
 
 export type GetOnboardingProgressApiV2OnboardingProgressGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/onboarding/progress';
@@ -28176,10 +27682,6 @@ export type CompleteQualificationMilestoneApiV2OnboardingQualificationCompletePo
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -28238,12 +27740,6 @@ export type CompleteQualificationMilestoneApiV2OnboardingQualificationCompletePo
 
 export type GetOnboardingResultApiV2OnboardingResultGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/onboarding/result';
@@ -28301,12 +27797,6 @@ export type GetOnboardingResultApiV2OnboardingResultGetResponse = GetOnboardingR
 
 export type GetWeeklyStudyPreferenceApiV2OnboardingStudyPreferenceGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/onboarding/study-preference';
@@ -28369,10 +27859,6 @@ export type PutWeeklyStudyPreferenceApiV2OnboardingStudyPreferencePutData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -28431,12 +27917,6 @@ export type PutWeeklyStudyPreferenceApiV2OnboardingStudyPreferencePutResponse = 
 
 export type GetDailyOpeningApiV2PlansDailyOpeningGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/plans/daily-opening';
@@ -28499,10 +27979,6 @@ export type RecordCoffeeDecisionApiV2PlansDailyOpeningCoffeeDecisionsPostData = 
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -28566,10 +28042,6 @@ export type RecordDailyOpeningImpressionApiV2PlansDailyOpeningImpressionsPostDat
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -28628,12 +28100,6 @@ export type RecordDailyOpeningImpressionApiV2PlansDailyOpeningImpressionsPostRes
 
 export type GetDailyOpeningPreferencesApiV2PlansDailyOpeningPreferencesGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/plans/daily-opening/preferences';
@@ -28696,10 +28162,6 @@ export type UpdateDailyOpeningPreferencesApiV2PlansDailyOpeningPreferencesPutDat
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -28763,10 +28225,6 @@ export type UpdateWeatherLocationApiV2PlansDailyOpeningWeatherLocationPutData = 
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -28825,12 +28283,6 @@ export type UpdateWeatherLocationApiV2PlansDailyOpeningWeatherLocationPutRespons
 
 export type GetPlanChangeHistoryApiV2PlansHistoryGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/plans/history';
@@ -28893,10 +28345,6 @@ export type RecordTaskExecutionApiV2PlansTasksTaskIdExecutionPutData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -28960,12 +28408,6 @@ export type RecordTaskExecutionApiV2PlansTasksTaskIdExecutionPutResponse = Recor
 
 export type GetTodayPlanApiV2PlansTodayGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/plans/today';
@@ -29023,12 +28465,6 @@ export type GetTodayPlanApiV2PlansTodayGetResponse = GetTodayPlanApiV2PlansToday
 
 export type GetTodayPlanBasisApiV2PlansTodayBasisGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/plans/today/basis';
@@ -29091,10 +28527,6 @@ export type SetTodayCapacityApiV2PlansTodayCapacityPutData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -29153,12 +28585,6 @@ export type SetTodayCapacityApiV2PlansTodayCapacityPutResponse = SetTodayCapacit
 
 export type PreviewTodayCapacityApiV2PlansTodayCapacityPreviewPostData = {
     body: DailyCapacityCommand;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/plans/today/capacity/preview';
@@ -29216,12 +28642,6 @@ export type PreviewTodayCapacityApiV2PlansTodayCapacityPreviewPostResponse = Pre
 
 export type GetTodayPlanSettlementApiV2PlansTodaySettlementGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/plans/today/settlement';
@@ -29279,12 +28699,6 @@ export type GetTodayPlanSettlementApiV2PlansTodaySettlementGetResponse = GetToda
 
 export type GetWeeklyPlanApiV2PlansWeekGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/plans/week';
@@ -29347,10 +28761,6 @@ export type ConfirmPrimaryPositionGoalApiV2PositionGoalsPrimaryPutData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -29414,10 +28824,6 @@ export type PreviewPrimaryPositionGoalApiV2PositionGoalsPrimaryPreviewPostData =
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -29476,12 +28882,6 @@ export type PreviewPrimaryPositionGoalApiV2PositionGoalsPrimaryPreviewPostRespon
 
 export type DiscoverPositionsApiV2PositionsGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: {
         /**
@@ -29564,12 +28964,6 @@ export type DiscoverPositionsApiV2PositionsGetResponse = DiscoverPositionsApiV2P
 
 export type ComparePositionsApiV2PositionsComparePostData = {
     body: PositionComparisonRequest;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/positions/compare';
@@ -29627,12 +29021,6 @@ export type ComparePositionsApiV2PositionsComparePostResponse = ComparePositions
 
 export type ListPositionMajorsV2ApiV2PositionsMajorsGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/positions/majors';
@@ -29690,12 +29078,6 @@ export type ListPositionMajorsV2ApiV2PositionsMajorsGetResponse = ListPositionMa
 
 export type ListPositionRegionsV2ApiV2PositionsRegionsGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/positions/regions';
@@ -29753,12 +29135,6 @@ export type ListPositionRegionsV2ApiV2PositionsRegionsGetResponse = ListPosition
 
 export type GetPositionWorkspaceApiV2PositionsWorkspaceGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: {
         /**
@@ -29837,12 +29213,6 @@ export type GetPositionWorkspaceApiV2PositionsWorkspaceGetResponse = GetPosition
 
 export type GetPositionDetailV2ApiV2PositionsPositionIdGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Position Id
@@ -29905,12 +29275,6 @@ export type GetPositionDetailV2ApiV2PositionsPositionIdGetResponse = GetPosition
 
 export type EvaluatePositionEligibilityApiV2PositionsPositionIdEligibilityPostData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Position Id
@@ -29973,12 +29337,6 @@ export type EvaluatePositionEligibilityApiV2PositionsPositionIdEligibilityPostRe
 
 export type GetPositionFitV2ApiV2PositionsPositionIdFitGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Position Id
@@ -30046,10 +29404,6 @@ export type ConfirmPositionRequirementApiV2PositionsPositionIdRequirementsRequir
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -30117,12 +29471,6 @@ export type ConfirmPositionRequirementApiV2PositionsPositionIdRequirementsRequir
 
 export type GetPositionTargetScoreV2ApiV2PositionsPositionIdTargetScoreGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Position Id
@@ -30201,12 +29549,6 @@ export type ExternalAiProcessorsApiV2PrivacyExternalAiProcessorsGetResponse = Ex
 
 export type DeletionStatusApiV2PrivateKnowledgeDeletionsDeletionIdGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Deletion Id
@@ -30269,12 +29611,6 @@ export type DeletionStatusApiV2PrivateKnowledgeDeletionsDeletionIdGetResponse = 
 
 export type SearchSourcesApiV2PrivateKnowledgeSearchGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query: {
         /**
@@ -30341,12 +29677,6 @@ export type SearchSourcesApiV2PrivateKnowledgeSearchGetResponse = SearchSourcesA
 
 export type ListSourcesApiV2PrivateKnowledgeSourcesGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/private-knowledge/sources';
@@ -30409,10 +29739,6 @@ export type CreateSourceApiV2PrivateKnowledgeSourcesPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -30476,10 +29802,6 @@ export type DeleteSourceApiV2PrivateKnowledgeSourcesSourceIdDeleteData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -30543,12 +29865,6 @@ export type DeleteSourceApiV2PrivateKnowledgeSourcesSourceIdDeleteResponse = Del
 
 export type ExportMarkdownApiV2PrivateKnowledgeSourcesSourceIdMarkdownGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Source Id
@@ -30611,12 +29927,6 @@ export type ExportMarkdownApiV2PrivateKnowledgeSourcesSourceIdMarkdownGetRespons
 
 export type GetQualificationGapsApiV2QualificationGapsGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/qualification/gaps';
@@ -30674,12 +29984,6 @@ export type GetQualificationGapsApiV2QualificationGapsGetResponse = GetQualifica
 
 export type GetQualificationProfileApiV2QualificationProfileGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/qualification/profile';
@@ -30742,10 +30046,6 @@ export type UpdateQualificationProfileApiV2QualificationProfilePutData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -30804,12 +30104,6 @@ export type UpdateQualificationProfileApiV2QualificationProfilePutResponse = Upd
 
 export type GetReportCenterApiV2ReportingCenterGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/reporting/center';
@@ -30872,10 +30166,6 @@ export type CreateExternalMockReportDraftApiV2ReportingExternalMocksPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -30934,12 +30224,6 @@ export type CreateExternalMockReportDraftApiV2ReportingExternalMocksPostResponse
 
 export type GetExternalMockReportApiV2ReportingExternalMocksReportVersionIdGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Report Version Id
@@ -31007,10 +30291,6 @@ export type ConfirmExternalMockReportApiV2ReportingExternalMocksReportVersionIdC
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -31079,10 +30359,6 @@ export type StartExternalScoreRecognitionApiV2ReportingExternalScoreRecognitions
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -31146,10 +30422,6 @@ export type CorrectExternalScoreRecognitionApiV2ReportingExternalScoreRecognitio
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -31218,10 +30490,6 @@ export type ConfirmExternalScoreRecognitionApiV2ReportingExternalScoreRecognitio
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -31285,12 +30553,6 @@ export type ConfirmExternalScoreRecognitionApiV2ReportingExternalScoreRecognitio
 
 export type GetReportProjectionApiV2ReportingReportsReportKindGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Report Kind
@@ -31358,12 +30620,6 @@ export type GetReportProjectionApiV2ReportingReportsReportKindGetResponse = GetR
 
 export type GetRetakeWorkspaceApiV2RetakeGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/retake';
@@ -31426,10 +30682,6 @@ export type EnrollRetakeProgramApiV2RetakeProgramsPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -31488,12 +30740,6 @@ export type EnrollRetakeProgramApiV2RetakeProgramsPostResponse = EnrollRetakePro
 
 export type GetScoreEvidenceHistoryApiV2ScoreEvidenceGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/score-evidence';
@@ -31556,10 +30802,6 @@ export type ReportScoreEvidenceApiV2ScoreEvidenceReportedPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -31618,12 +30860,6 @@ export type ReportScoreEvidenceApiV2ScoreEvidenceReportedPostResponse = ReportSc
 
 export type ClaimTaskEditLeaseApiV2TaskEditingLeasesPostData = {
     body: ClaimTaskEditLeaseCommand;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/task-editing/leases';
@@ -31681,12 +30917,6 @@ export type ClaimTaskEditLeaseApiV2TaskEditingLeasesPostResponse = ClaimTaskEdit
 
 export type BeginTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdConflictPostData = {
     body: BeginTaskEditConflictCommand;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Resource Type
@@ -31753,12 +30983,6 @@ export type BeginTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdCon
 
 export type ResolveTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdResolvePostData = {
     body: ResolveTaskEditConflictCommand;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Resource Type
@@ -31825,12 +31049,6 @@ export type ResolveTaskEditConflictApiV2TaskEditingLeasesResourceTypeResourceIdR
 
 export type TakeOverTaskEditLeaseApiV2TaskEditingLeasesResourceTypeResourceIdTakeoverPostData = {
     body: TakeOverTaskEditLeaseCommand;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Resource Type
@@ -31897,12 +31115,6 @@ export type TakeOverTaskEditLeaseApiV2TaskEditingLeasesResourceTypeResourceIdTak
 
 export type GetTaskHelpApiV2TaskHelpPostData = {
     body: TaskHelpRequest;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: never;
     url: '/api/v2/task-help';
@@ -31933,10 +31145,6 @@ export type DecideAttemptCauseApiV2XingceAttemptReviewsReviewIdCauseDecisionPutD
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -32005,10 +31213,6 @@ export type SubmitAttemptCauseFollowupApiV2XingceAttemptReviewsReviewIdCauseFoll
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -32077,10 +31281,6 @@ export type SubmitAttemptReflectionApiV2XingceAttemptReviewsReviewIdReflectionPu
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -32144,12 +31344,6 @@ export type SubmitAttemptReflectionApiV2XingceAttemptReviewsReviewIdReflectionPu
 
 export type GetMasteryQueueApiV2XingceMasteryQueueGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path?: never;
     query?: {
         /**
@@ -32220,12 +31414,6 @@ export type GetMasteryQueueApiV2XingceMasteryQueueGetResponse = GetMasteryQueueA
 
 export type GetXingceTaskBriefingApiV2XingcePlanTasksPlanTaskIdBriefingGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Plan Task Id
@@ -32293,10 +31481,6 @@ export type StartOrResumeTaskSessionApiV2XingceTaskSessionsPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path?: never;
     query?: never;
@@ -32355,12 +31539,6 @@ export type StartOrResumeTaskSessionApiV2XingceTaskSessionsPostResponse = StartO
 
 export type GetTaskSessionApiV2XingceTaskSessionsSessionIdGetData = {
     body?: never;
-    headers?: {
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
-    };
     path: {
         /**
          * Session Id
@@ -32428,10 +31606,6 @@ export type SaveTaskSessionCheckpointApiV2XingceTaskSessionsSessionIdCheckpointP
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
         /**
          * X-Task-Edit-Lease
          */
@@ -32508,10 +31682,6 @@ export type ReportQuestionDisputeApiV2XingceTaskSessionsSessionIdDisputesPostDat
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
     };
     path: {
         /**
@@ -32580,10 +31750,6 @@ export type SubmitTaskSessionApiV2XingceTaskSessionsSessionIdSubmitPostData = {
          * Idempotency-Key
          */
         'Idempotency-Key': string;
-        /**
-         * Authorization
-         */
-        Authorization?: string | null;
         /**
          * X-Task-Edit-Lease
          */

@@ -1,30 +1,17 @@
 import type { ApiEnvelope } from "../domain/contracts";
 import type { ApiClient } from "./client";
+import type {
+  HubBotAuthorizationView as GeneratedHubBotAuthorizationView,
+  ILinkChannelView as GeneratedILinkChannelView,
+  IssueLinkCommand,
+  RevokeLinkCommand,
+  StartHubBotAuthorizationCommand,
+} from "./generated/types.gen";
 
-export type ILinkState = "unbound" | "pending" | "bound" | "revoked";
-
-export interface ILinkChannelView {
-  linkState: ILinkState;
-  linkId: string | null;
-  bindingCode: string | null;
-  expiresAt: string | null;
-  queryCount: number;
-  collectionCount: number;
-  usageCopy: string;
-  evidenceCopy: string;
-}
-
-export type HubBotState =
-  "unbound" | "waiting_scan" | "scanned" | "connected" | "reauth_required" | "revoked";
-
-export interface HubBotAuthorizationView {
-  state: HubBotState;
-  authorizationId: string | null;
-  qrImageDataUrl: string | null;
-  expiresAt: string | null;
-  statusCopy: string;
-  usageCopy: string;
-}
+export type ILinkChannelView = GeneratedILinkChannelView;
+export type ILinkState = ILinkChannelView["linkState"];
+export type HubBotAuthorizationView = GeneratedHubBotAuthorizationView;
+export type HubBotState = HubBotAuthorizationView["state"];
 
 const ROOT = "/api/v2/ilink-channel";
 
@@ -36,17 +23,15 @@ export class ILinkChannelApi {
   }
 
   issue(replacePending: boolean, idempotencyKey: string): Promise<ApiEnvelope<ILinkChannelView>> {
-    return this.client.post<ILinkChannelView>(
-      `${ROOT}/link-codes`,
-      { replacePending },
-      { idempotencyKey },
-    );
+    const command: IssueLinkCommand = { replacePending };
+    return this.client.post<ILinkChannelView>(`${ROOT}/link-codes`, command, { idempotencyKey });
   }
 
   revoke(linkId: string, idempotencyKey: string): Promise<ApiEnvelope<ILinkChannelView>> {
+    const command: RevokeLinkCommand = { expectedLinkId: linkId };
     return this.client.post<ILinkChannelView>(
       `${ROOT}/links/${encodeURIComponent(linkId)}/revoke`,
-      { expectedLinkId: linkId },
+      command,
       { idempotencyKey },
     );
   }
@@ -59,11 +44,10 @@ export class ILinkChannelApi {
     replacePending: boolean,
     idempotencyKey: string,
   ): Promise<ApiEnvelope<HubBotAuthorizationView>> {
-    return this.client.post<HubBotAuthorizationView>(
-      `${ROOT}/bot/authorizations`,
-      { replacePending },
-      { idempotencyKey },
-    );
+    const command: StartHubBotAuthorizationCommand = { replacePending };
+    return this.client.post<HubBotAuthorizationView>(`${ROOT}/bot/authorizations`, command, {
+      idempotencyKey,
+    });
   }
 
   pollHubBot(authorizationId: string): Promise<ApiEnvelope<HubBotAuthorizationView>> {
