@@ -86,20 +86,6 @@ class FakeHubClient:
 
 
 def _insert_users(session: Session) -> None:
-    session.execute(
-        text(
-            """
-            create table messaging.ilink_command_receipts (
-              command_id text primary key,
-              command_type text not null,
-              user_id uuid references learner.users(user_id),
-              request_fingerprint char(64) not null,
-              result_payload jsonb not null,
-              created_at timestamptz not null
-            )
-            """
-        )
-    )
     for user_id in (USER_A, USER_B):
         session.execute(
             text(
