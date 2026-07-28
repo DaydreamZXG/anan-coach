@@ -1,5 +1,6 @@
 import { CompanionApi } from "../../api/companion";
 import type {
+  CompanionAskRequest,
   CompanionAskResponse,
   LearningBrainProfileVersion,
   TodayDashboard,
@@ -14,12 +15,14 @@ import {
 } from "../../features/companion/presentation";
 import { resolveCompanionAction } from "../../features/learning-brain/companion-action";
 import { errorView, requireAuthenticatedClient } from "../../features/learning-brain/presentation";
-import { createIdempotencyKey } from "../../platform/command-id";
+import { ApiClientError } from "../../api/client";
+import { stableFingerprint } from "../../platform/command-id";
+import { OperationAttemptStore } from "../../platform/operation-attempt-store";
 import {
   consumeCompanionLaunchContext,
   type CompanionLaunchContext,
 } from "../../features/companion/context-store";
-import { currentAuthSession } from "../../auth/session";
+import { currentAuthSession, sameSessionOwner } from "../../auth/session";
 
 const stateLabels: Record<CompanionAskResponse["semanticState"], string> = {
   ready: "已根据当前证据回答",
@@ -30,6 +33,10 @@ const stateLabels: Record<CompanionAskResponse["semanticState"], string> = {
   provider_pending: "回答结果待安全确认",
   failed: "本次回答未完成",
 };
+
+const companionAskScope = "companion-ask";
+const companionAttemptTtlMs = 7 * 24 * 60 * 60 * 1000;
+const companionPendingMessage = "本次问题结果待确认，再试会继续确认。";
 
 type PrimaryInsightAction = "mastery" | "positions" | "today" | "adjustment";
 
@@ -84,7 +91,45 @@ Page({
     if (typeof this.getTabBar === "function") {
       this.getTabBar().setData({ active: "anan" });
     }
-    this.applyLaunchContext();
+    if (!this.restoreUnfinishedCompanionAttempt()) this.applyLaunchContext();
+  },
+
+  restoreUnfinishedCompanionAttempt(): boolean {
+    const auth = currentAuthSession();
+    if (!auth) return false;
+    const attempt = new OperationAttemptStore(auth.userId).load(companionAskScope);
+    if (
+      !attempt ||
+      (attempt.state !== "pending" && attempt.state !== "unknown") ||
+      !isCompanionAskRequest(attempt.canonicalInput)
+    ) {
+      return false;
+    }
+    if (this.data.submitting) return true;
+    const command = attempt.canonicalInput;
+    this.setData({
+      contextStatus: "ready",
+      question: command.questionText,
+      askedQuestion: "",
+      submitting: false,
+      errorMessage: companionPendingMessage,
+      requestId: "",
+      semanticState: "provider_pending",
+      stateLabel: stateLabels.provider_pending,
+      companionIntent: "reminder",
+      answer: null,
+      contextBannerVisible: false,
+      contextSourceLabel: "",
+      contextTitle: "",
+      contextSummary: "",
+      askRouteId: command.context.routeId,
+      askWorkspace: command.context.workspace,
+      askObjectRefs: (command.context.objectRefs ?? []).map((item) => ({ ...item })),
+      askTaskMode: command.context.taskMode ?? undefined,
+      askTaskStage: command.context.taskStage ?? undefined,
+      learnerStateVersion: command.context.learnerStateVersion,
+    });
+    return true;
   },
 
   applyLaunchContext() {
@@ -168,13 +213,22 @@ Page({
   },
 
   async ask() {
+    const auth = currentAuthSession();
     const client = requireAuthenticatedClient();
-    if (!client || this.data.submitting || this.data.contextStatus !== "ready") return;
+    if (!auth || !client || this.data.submitting || this.data.contextStatus !== "ready") return;
     const question = this.data.question.trim();
     if (!/[\u3400-\u9fffA-Za-z0-9]/u.test(question)) {
       this.setData({ errorMessage: "写一个词或一句话，让岸岸知道你想问什么。" });
       return;
     }
+    const currentCommand = companionAskCommand(question, {
+      routeId: this.data.askRouteId,
+      workspace: this.data.askWorkspace,
+      objectRefs: this.data.askObjectRefs,
+      taskMode: this.data.askTaskMode,
+      taskStage: this.data.askTaskStage,
+      learnerStateVersion: this.data.learnerStateVersion,
+    });
     this.setData({
       submitting: true,
       askedQuestion: question,
@@ -189,25 +243,20 @@ Page({
     void wx
       .pageScrollTo({ selector: "#ask-exchange", offsetTop: -12, duration: 240 })
       .catch(() => undefined);
+    const attempts = new OperationAttemptStore(auth.userId);
+    let attempt: Awaited<ReturnType<OperationAttemptStore["begin"]>> | undefined;
     try {
-      const { data } = await new CompanionApi(client).ask(
-        {
-          questionText: question,
-          context: {
-            routeId: this.data.askRouteId,
-            workspace: this.data.askWorkspace,
-            objectRefs: this.data.askObjectRefs,
-            ...(this.data.askTaskMode && this.data.askTaskStage
-              ? {
-                  taskMode: this.data.askTaskMode,
-                  taskStage: this.data.askTaskStage,
-                }
-              : {}),
-            learnerStateVersion: this.data.learnerStateVersion,
-          },
-        },
-        await createIdempotencyKey("companion"),
-      );
+      const command = companionCommandForRetry(attempts, currentCommand);
+      cancelChangedCompanionAttempt(attempts, command);
+      attempt = await attempts.begin({
+        scope: companionAskScope,
+        canonicalInput: command,
+        idempotencyKeyPrefix: "companion",
+        expiresAtMs: Date.now() + companionAttemptTtlMs,
+      });
+      const { data } = await new CompanionApi(client).ask(command, attempt.idempotencyKey);
+      attempts.markSucceeded(companionAskScope, attempt.idempotencyKey);
+      if (!sameSessionOwner(currentAuthSession(), auth)) return;
       this.setData({
         submitting: false,
         semanticState: data.semanticState,
@@ -216,7 +265,14 @@ Page({
         answer: companionAnswerView(data, stateLabels[data.semanticState]),
       });
     } catch (error) {
-      const view = companionFailureView(error);
+      const unknownOutcome = isTransportUnknownOutcome(error);
+      if (attempt) {
+        if (unknownOutcome)
+          attempts.markTransportUnknown(companionAskScope, attempt.idempotencyKey);
+        else attempts.markTerminal(companionAskScope, attempt.idempotencyKey);
+      }
+      if (!sameSessionOwner(currentAuthSession(), auth)) return;
+      const view = unknownOutcome ? transportUnknownView(error) : companionFailureView(error);
       this.setData({
         submitting: false,
         semanticState: view.semanticState,
@@ -322,6 +378,202 @@ Page({
     navigate();
   },
 });
+
+function companionAskCommand(
+  questionText: string,
+  context: {
+    routeId: string;
+    workspace: CompanionAskRequest["context"]["workspace"];
+    objectRefs: NonNullable<CompanionAskRequest["context"]["objectRefs"]>;
+    taskMode: CompanionAskRequest["context"]["taskMode"] | undefined;
+    taskStage: CompanionAskRequest["context"]["taskStage"] | undefined;
+    learnerStateVersion: string;
+  },
+): CompanionAskRequest {
+  return {
+    questionText,
+    context: {
+      routeId: context.routeId,
+      workspace: context.workspace,
+      objectRefs: [...context.objectRefs],
+      ...(context.taskMode && context.taskStage
+        ? { taskMode: context.taskMode, taskStage: context.taskStage }
+        : {}),
+      learnerStateVersion: context.learnerStateVersion,
+    },
+  };
+}
+
+function cancelChangedCompanionAttempt(
+  attempts: OperationAttemptStore,
+  canonicalInput: CompanionAskRequest,
+): void {
+  const existing = attempts.load(companionAskScope);
+  if (
+    existing &&
+    (existing.state === "pending" || existing.state === "unknown") &&
+    existing.canonicalFingerprint !== stableFingerprint(canonicalInput)
+  ) {
+    attempts.cancel(companionAskScope, existing.idempotencyKey);
+  }
+}
+
+function companionCommandForRetry(
+  attempts: OperationAttemptStore,
+  currentCommand: CompanionAskRequest,
+): CompanionAskRequest {
+  const existing = attempts.load(companionAskScope);
+  if (
+    !existing ||
+    (existing.state !== "pending" && existing.state !== "unknown") ||
+    !isCompanionAskRequest(existing.canonicalInput) ||
+    existing.canonicalInput.questionText !== currentCommand.questionText ||
+    !sameUserSelectedCompanionContext(existing.canonicalInput.context, currentCommand.context)
+  ) {
+    return currentCommand;
+  }
+  return existing.canonicalInput;
+}
+
+function sameUserSelectedCompanionContext(
+  persisted: CompanionAskRequest["context"],
+  current: CompanionAskRequest["context"],
+): boolean {
+  return (
+    persisted.routeId === current.routeId &&
+    persisted.workspace === current.workspace &&
+    persisted.taskMode === current.taskMode &&
+    persisted.taskStage === current.taskStage &&
+    stableFingerprint(persisted.objectRefs ?? []) === stableFingerprint(current.objectRefs ?? [])
+  );
+}
+
+function isTransportUnknownOutcome(error: unknown): boolean {
+  return !(
+    error instanceof ApiClientError &&
+    error.classification === "http_response" &&
+    error.statusCode >= 400 &&
+    error.statusCode < 500 &&
+    error.statusCode !== 408
+  );
+}
+
+function transportUnknownView(error: unknown): {
+  semanticState: CompanionAskResponse["semanticState"];
+  message: string;
+  requestId: string;
+} {
+  return {
+    semanticState: "provider_pending",
+    message: companionPendingMessage,
+    requestId: error instanceof ApiClientError ? error.requestId : "",
+  };
+}
+
+function isCompanionAskRequest(value: unknown): value is CompanionAskRequest {
+  if (!hasExactKeys(value, ["context", "questionText"])) return false;
+  if (
+    !isBoundedTrimmedString(value.questionText, 800) ||
+    !/[\u3400-\u9fffA-Za-z0-9]/u.test(value.questionText)
+  ) {
+    return false;
+  }
+  const context = value.context;
+  if (!isPlainObject(context)) return false;
+  const hasTaskMode = Object.prototype.hasOwnProperty.call(context, "taskMode");
+  const hasTaskStage = Object.prototype.hasOwnProperty.call(context, "taskStage");
+  if (hasTaskMode !== hasTaskStage) return false;
+  const expectedKeys = ["learnerStateVersion", "objectRefs", "routeId", "workspace"];
+  if (hasTaskMode) expectedKeys.push("taskMode", "taskStage");
+  if (!hasExactKeys(context, expectedKeys)) return false;
+  if (
+    !isBoundedTrimmedString(context.routeId, 200) ||
+    !isBoundedTrimmedString(context.learnerStateVersion, 200) ||
+    !isCompanionWorkspace(context.workspace) ||
+    !Array.isArray(context.objectRefs) ||
+    context.objectRefs.length > 12 ||
+    !context.objectRefs.every(isCompanionObjectRef)
+  ) {
+    return false;
+  }
+  const identities = context.objectRefs.map((item) => stableFingerprint(item));
+  if (new Set(identities).size !== identities.length) return false;
+  return (
+    !hasTaskMode ||
+    (isCompanionTaskMode(context.taskMode) && isCompanionTaskStage(context.taskStage))
+  );
+}
+
+function isCompanionObjectRef(
+  value: unknown,
+): value is NonNullable<CompanionAskRequest["context"]["objectRefs"]>[number] {
+  if (!hasExactKeys(value, ["id", "type", "version"])) return false;
+  return (
+    isCompanionObjectType(value.type) &&
+    isBoundedTrimmedString(value.id, 200) &&
+    isBoundedTrimmedString(value.version, 200)
+  );
+}
+
+function isCompanionWorkspace(
+  value: unknown,
+): value is CompanionAskRequest["context"]["workspace"] {
+  return value === "today" || value === "training" || value === "position" || value === "profile";
+}
+
+function isCompanionTaskMode(
+  value: unknown,
+): value is NonNullable<CompanionAskRequest["context"]["taskMode"]> {
+  return value === "practice" || value === "retest" || value === "mock" || value === "essay";
+}
+
+function isCompanionTaskStage(
+  value: unknown,
+): value is NonNullable<CompanionAskRequest["context"]["taskStage"]> {
+  return (
+    value === "reading" || value === "answering" || value === "submitted" || value === "reviewing"
+  );
+}
+
+function isCompanionObjectType(
+  value: unknown,
+): value is NonNullable<CompanionAskRequest["context"]["objectRefs"]>[number]["type"] {
+  return (
+    value === "position" ||
+    value === "question" ||
+    value === "material" ||
+    value === "attempt" ||
+    value === "plan" ||
+    value === "report"
+  );
+}
+
+function isBoundedTrimmedString(value: unknown, maxLength: number): value is string {
+  return (
+    typeof value === "string" &&
+    value.length > 0 &&
+    value.length <= maxLength &&
+    value.trim() === value
+  );
+}
+
+function hasExactKeys(
+  value: unknown,
+  expectedKeys: readonly string[],
+): value is Record<string, unknown> {
+  if (!isPlainObject(value)) return false;
+  const keys = Object.keys(value);
+  return (
+    keys.length === expectedKeys.length &&
+    expectedKeys.every((key) => Object.prototype.hasOwnProperty.call(value, key))
+  );
+}
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false;
+  const prototype: unknown = Object.getPrototypeOf(value) as unknown;
+  return prototype === Object.prototype || prototype === null;
+}
 
 function companionContextView(
   profile: LearningBrainProfileVersion,
