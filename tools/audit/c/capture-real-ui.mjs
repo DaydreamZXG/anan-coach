@@ -2,10 +2,7 @@ import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
 import {
   access,
-  appendFile,
-  mkdir,
   readFile,
-  writeFile,
 } from "node:fs/promises";
 import { constants } from "node:fs";
 import path from "node:path";
@@ -13,20 +10,31 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { promisify } from "node:util";
 
 const execFileAsync = promisify(execFile);
-const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
+const captureScriptPath = fileURLToPath(import.meta.url);
+const scriptDirectory = path.dirname(captureScriptPath);
 const repositoryRoot = path.resolve(scriptDirectory, "../../..");
+const safetyModulePath = path.resolve(scriptDirectory, "capture-safety.mjs");
+const toolGitEvidence = await readToolGitEvidence([
+  captureScriptPath,
+  safetyModulePath,
+]);
+const {
+  assertDisjointTrees,
+  assertRuntimeIdentityMatches,
+  assertSafeOutputTarget,
+  parseLoopbackWebSocketEndpoint,
+  parseRuntimeIdentity,
+  readCleanSourceGitEvidence,
+  requiredFullCommit,
+  reserveProfileOutputs,
+} = await import(pathToFileURL(safetyModulePath).href);
 const sourceRepositoryRoot = path.resolve(
   process.env.WECHAT_AUDIT_SOURCE_REPOSITORY ?? repositoryRoot,
 );
-const declaredSourceCommit =
-  process.env.WECHAT_AUDIT_SOURCE_COMMIT?.trim() || null;
-if (sourceRepositoryRoot !== repositoryRoot) {
-  assert.match(
-    declaredSourceCommit ?? "",
-    /^[0-9a-f]{40}$/u,
-    "WECHAT_AUDIT_SOURCE_COMMIT must be the full 40-character commit when capturing another worktree",
-  );
-}
+const declaredSourceCommit = requiredFullCommit(
+  process.env.WECHAT_AUDIT_SOURCE_COMMIT,
+  "WECHAT_AUDIT_SOURCE_COMMIT",
+);
 const wechatSourceRoot = path.resolve(sourceRepositoryRoot, "apps/wechat");
 const runtimeProjectRoot = path.resolve(
   process.env.WECHAT_AUDIT_PROJECT ??
@@ -36,10 +44,18 @@ const auditRoot = path.resolve(
   process.env.WECHAT_AUDIT_OUTPUT_ROOT ??
     path.resolve(repositoryRoot, "audit/subagents/c"),
 );
+const allowedAuditRoot = path.resolve(repositoryRoot, "audit");
 assertAllowedAuditRoot(auditRoot);
+assertDisjointTrees(runtimeProjectRoot, auditRoot, {
+  first: "Audit runtime",
+  second: "audit output",
+});
 
-const sourceGitEvidence = await readSourceGitEvidence();
-const sourceCommit = declaredSourceCommit ?? sourceGitEvidence.head;
+const sourceGitEvidence = await readCleanSourceGitEvidence(
+  sourceRepositoryRoot,
+  declaredSourceCommit,
+);
+const sourceCommit = sourceGitEvidence.head;
 const runtimeSourceMarker = (
   await readFile(
     path.resolve(runtimeProjectRoot, ".audit-source-commit"),
@@ -50,6 +66,13 @@ assert.equal(
   runtimeSourceMarker,
   sourceCommit,
   "Audit runtime was not prepared from the declared source commit",
+);
+const runtimeIdentity = parseRuntimeIdentity(
+  await readFile(
+    path.resolve(runtimeProjectRoot, ".audit-runtime-identity.json"),
+    "utf8",
+  ),
+  sourceCommit,
 );
 const runtimeEnvironmentSource = await readFile(
   path.resolve(runtimeProjectRoot, "miniprogram/config/environment.ts"),
@@ -78,8 +101,6 @@ const [
   importSourceModule("e2e/visual-scenarios.mjs"),
 ]);
 
-const screenshotRoot = path.resolve(auditRoot, "screenshots");
-const logRoot = path.resolve(auditRoot, "logs");
 const cliPath =
   process.env.WECHAT_DEVTOOLS_CLI ??
   "/Applications/wechatwebdevtools.app/Contents/MacOS/cli";
@@ -125,39 +146,54 @@ assert.equal(
 const deliveryByScenario = new Map(
   visualDeliveryContracts.map((contract) => [contract.scenarioId, contract]),
 );
-const profileScreenshotDirectory = path.resolve(screenshotRoot, profile);
-const profileLogPath = path.resolve(logRoot, `${profile}.jsonl`);
-const profileManifestPath = path.resolve(logRoot, `${profile}-manifest.json`);
+const automationEndpoint = parseLoopbackWebSocketEndpoint(
+  process.env.WECHAT_DEVTOOLS_AUTOMATION_ENDPOINT,
+);
+await access(
+  path.resolve(runtimeProjectRoot, "project.config.json"),
+  constants.R_OK,
+);
+if (automationEndpoint === null) await access(cliPath, constants.X_OK);
 
-assertAllowedOutput(profileScreenshotDirectory);
-assertAllowedOutput(profileLogPath);
-assertAllowedOutput(profileManifestPath);
-await Promise.all([
-  assertPathAbsent(profileScreenshotDirectory),
-  assertPathAbsent(profileLogPath),
-  assertPathAbsent(profileManifestPath),
-]);
-await Promise.all([
-  access(cliPath, constants.X_OK),
-  access(
-    path.resolve(runtimeProjectRoot, "project.config.json"),
-    constants.R_OK,
-  ),
-  mkdir(profileScreenshotDirectory, { recursive: true }),
-  mkdir(logRoot, { recursive: true }),
-]);
-await writeFile(profileLogPath, "", "utf8");
+const startedAt = new Date().toISOString();
+const ownsProgram = automationEndpoint === null;
+let program;
+let runtimeIdentityEvidence;
+let outputReservation;
+try {
+  program = automationEndpoint
+    ? await connectWithRetry(automationEndpoint, 30_000)
+    : await automator.launch({
+        cliPath,
+        projectPath: runtimeProjectRoot,
+        timeout: 120_000,
+        trustProject: true,
+      });
+  const runningRuntimeIdentity = parseRuntimeIdentity(
+    await readRunningRuntimeIdentity(program),
+    sourceCommit,
+  );
+  runtimeIdentityEvidence = assertRuntimeIdentityMatches(
+    runtimeIdentity,
+    runningRuntimeIdentity,
+  );
+  outputReservation = await reserveProfileOutputs({
+    allowedRoot: allowedAuditRoot,
+    auditRoot,
+    profile,
+  });
+} catch (error) {
+  await releaseProgram(program, ownsProgram);
+  throw error;
+}
 
-const automationEndpoint =
-  process.env.WECHAT_DEVTOOLS_AUTOMATION_ENDPOINT?.trim();
-const program = automationEndpoint
-  ? await connectWithRetry(automationEndpoint, 30_000)
-  : await automator.launch({
-      cliPath,
-      projectPath: runtimeProjectRoot,
-      timeout: 120_000,
-      trustProject: true,
-    });
+const {
+  profileScreenshotDirectory,
+  profileLogPath,
+  profileManifestPath,
+  logHandle: profileLogHandle,
+  manifestHandle: profileManifestHandle,
+} = outputReservation;
 
 const runtimeFailures = [];
 const actionableWarnings = [];
@@ -183,7 +219,6 @@ program.on("console", (event) => {
   if (isActionableRuntimeWarning(message)) actionableWarnings.push(record);
 });
 
-const startedAt = new Date().toISOString();
 let systemInfo;
 let chromeMetrics;
 let fatalError = null;
@@ -259,7 +294,7 @@ try {
     }
     record.completedAt = new Date().toISOString();
     records.push(record);
-    await appendJsonLine(profileLogPath, { type: "scenario", ...record });
+    await appendJsonLine(profileLogHandle, { type: "scenario", ...record });
     if (abortAfterRecord) {
       fatalError = `Aborted after non-cancellable scenario timeout: ${scenario.id}`;
       break;
@@ -283,7 +318,7 @@ try {
   }
   try {
     await withTimeout(
-      program.close(),
+      releaseProgram(program, ownsProgram),
       15_000,
       "DevTools automation close timed out",
     );
@@ -296,13 +331,20 @@ try {
 }
 
 const manifest = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   auditKind: "wechat-devtools-real-render",
+  captureTool: toolGitEvidence,
   projectSource: displayPath(runtimeProjectRoot),
   sourceRepository: displayPath(sourceRepositoryRoot),
   sourceCommit,
   sourceGitEvidence,
   runtimeSourceMarker,
+  runtimeIdentity: runtimeIdentityEvidence,
+  automationBinding: {
+    mode: ownsProgram ? "launched-prepared-runtime" : "connected-loopback",
+    endpoint: automationEndpoint,
+    runtimeIdentityValidation: runtimeIdentityEvidence.validation,
+  },
   profile,
   startedAt,
   completedAt: new Date().toISOString(),
@@ -335,11 +377,19 @@ const manifest = {
   fatalError,
   records,
 };
-await writeFile(
-  profileManifestPath,
-  `${JSON.stringify(manifest, null, 2)}\n`,
-  "utf8",
-);
+try {
+  await profileLogHandle.sync();
+  await profileManifestHandle.writeFile(
+    `${JSON.stringify(manifest, null, 2)}\n`,
+    "utf8",
+  );
+  await profileManifestHandle.sync();
+} finally {
+  await Promise.allSettled([
+    profileLogHandle.close(),
+    profileManifestHandle.close(),
+  ]);
+}
 process.stdout.write(
   `Manifest: ${path.relative(repositoryRoot, profileManifestPath)}; ` +
     `captured ${manifest.capturedCount}/${manifest.scenarioCount}; ` +
@@ -410,6 +460,8 @@ async function captureScenario(miniProgram, scenario, record) {
     `${scenario.id}.png`,
   );
   assertAllowedOutput(screenshotPath);
+  await assertSafeOutputTarget(allowedAuditRoot, screenshotPath);
+  await assertPathAbsent(screenshotPath);
   record.stage = "screenshot";
   await miniProgram.screenshot({ path: screenshotPath });
   record.stage = "screenshot-dimensions";
@@ -904,8 +956,8 @@ async function readPngDimensions(filename) {
   };
 }
 
-async function appendJsonLine(filename, value) {
-  await appendFile(filename, `${JSON.stringify(value)}\n`, "utf8");
+async function appendJsonLine(fileHandle, value) {
+  await fileHandle.appendFile(`${JSON.stringify(value)}\n`, "utf8");
 }
 
 function routePath(route) {
@@ -967,72 +1019,11 @@ async function assertPathAbsent(filename) {
   assert.fail(`Refusing to overwrite existing audit evidence: ${filename}`);
 }
 
-async function readSourceGitEvidence() {
-  const [
-    { stdout: headOutput },
-    { stdout: statusOutput },
-    { stdout: wechatStatusOutput },
-  ] = await Promise.all([
-    execFileAsync(
-      "git",
-      ["-C", sourceRepositoryRoot, "rev-parse", "--verify", "HEAD"],
-      { encoding: "utf8" },
-    ),
-    execFileAsync(
-      "git",
-      [
-        "-C",
-        sourceRepositoryRoot,
-        "status",
-        "--porcelain=v1",
-        "--untracked-files=normal",
-      ],
-      { encoding: "utf8" },
-    ),
-    execFileAsync(
-      "git",
-      [
-        "-C",
-        sourceRepositoryRoot,
-        "status",
-        "--porcelain=v1",
-        "--untracked-files=normal",
-        "--",
-        "apps/wechat",
-      ],
-      { encoding: "utf8" },
-    ),
-  ]);
-  const head = headOutput.trim();
-  const status = statusOutput.trim();
-  const wechatStatus = wechatStatusOutput.trim();
-  assert.equal(
-    wechatStatus,
-    "",
-    `Refusing a dirty apps/wechat source tree:\n${wechatStatus}`,
-  );
-  if (sourceRepositoryRoot !== repositoryRoot) {
-    assert.equal(
-      head,
-      declaredSourceCommit,
-      "WECHAT_AUDIT_SOURCE_COMMIT does not match source repository HEAD",
-    );
-    assert.equal(status, "", `Refusing a dirty source worktree:\n${status}`);
-  }
-  return {
-    head,
-    clean: status === "",
-    wechatClean: wechatStatus === "",
-    status,
-  };
-}
-
 function assertAllowedAuditRoot(filename) {
-  const allowedRoot = path.resolve(repositoryRoot, "audit");
-  const relative = path.relative(allowedRoot, filename);
+  const relative = path.relative(allowedAuditRoot, filename);
   assert.ok(
     relative !== "" && !relative.startsWith("..") && !path.isAbsolute(relative),
-    `Refusing audit root outside ${allowedRoot}: ${filename}`,
+    `Refusing audit root outside ${allowedAuditRoot}: ${filename}`,
   );
 }
 
@@ -1086,6 +1077,104 @@ function safeJson(value) {
 
 function errorText(error) {
   return String(error?.stack ?? error?.message ?? error);
+}
+
+async function readToolGitEvidence(filenames) {
+  const { stdout: headOutput } = await execFileAsync(
+    "git",
+    ["-C", repositoryRoot, "rev-parse", "--verify", "HEAD"],
+    { encoding: "utf8" },
+  );
+  const commit = headOutput.trim();
+  assert.match(
+    commit,
+    /^[0-9a-f]{40}$/u,
+    "Capture tool repository HEAD must be a full Git commit",
+  );
+  const files = [];
+  for (const filename of filenames) {
+    const relativePath = path.relative(repositoryRoot, filename);
+    assert.ok(
+      relativePath !== "" &&
+        !relativePath.startsWith("..") &&
+        !path.isAbsolute(relativePath),
+      `Capture tool file is outside its repository: ${filename}`,
+    );
+    const [
+      { stdout: treeBlobOutput },
+      { stdout: workingBlobOutput },
+      { stdout: statusOutput },
+    ] = await Promise.all([
+      execFileAsync(
+        "git",
+        ["-C", repositoryRoot, "rev-parse", `HEAD:${relativePath}`],
+        { encoding: "utf8" },
+      ),
+      execFileAsync("git", ["-C", repositoryRoot, "hash-object", filename], {
+        encoding: "utf8",
+      }),
+      execFileAsync(
+        "git",
+        [
+          "-C",
+          repositoryRoot,
+          "status",
+          "--porcelain=v1",
+          "--untracked-files=normal",
+          "--",
+          relativePath,
+        ],
+        { encoding: "utf8" },
+      ),
+    ]);
+    const treeBlob = treeBlobOutput.trim();
+    const workingBlob = workingBlobOutput.trim();
+    const status = statusOutput.trim();
+    assert.equal(
+      workingBlob,
+      treeBlob,
+      `Capture tool working blob differs from HEAD:${relativePath}`,
+    );
+    assert.equal(
+      status,
+      "",
+      `Capture tool path is dirty: ${relativePath}\n${status}`,
+    );
+    files.push({
+      path: relativePath,
+      treeBlob,
+      workingBlob,
+      clean: true,
+    });
+  }
+  return {
+    repository: repositoryRoot,
+    commit,
+    files,
+  };
+}
+
+async function readRunningRuntimeIdentity(miniProgram) {
+  const payload = await withTimeout(
+    miniProgram.evaluate(function readAuditRuntimeIdentity() {
+      const app = getApp();
+      return JSON.stringify(
+        app?.globalData?.__wechatAuditRuntimeIdentity ?? null,
+      );
+    }),
+    10_000,
+    "Audit runtime identity probe timed out",
+  );
+  return JSON.parse(String(payload));
+}
+
+async function releaseProgram(miniProgram, ownsSession) {
+  if (!miniProgram) return;
+  if (ownsSession) {
+    await miniProgram.close();
+    return;
+  }
+  miniProgram.disconnect();
 }
 
 async function connectWithRetry(wsEndpoint, timeoutMs) {
