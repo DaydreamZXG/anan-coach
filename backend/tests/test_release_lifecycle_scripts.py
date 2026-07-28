@@ -21,6 +21,7 @@ RUNTIME_UNITS = (
     "gongkao-dazi-data-rights-worker",
 )
 ESSAY_REVIEW_WORKER_UNIT = "gongkao-dazi-essay-review-worker"
+CAUSE_AGENT_WORKER_UNIT = "gongkao-dazi-cause-agent-worker"
 
 
 @dataclass(frozen=True, slots=True)
@@ -119,6 +120,25 @@ def test_rollback_accepts_newer_database_declared_by_old_head_artifact(
     assert harness.database_revision_file.read_text(encoding="utf-8").strip() == (
         CANDIDATE_REVISION
     )
+
+
+def test_activation_enables_and_restarts_cause_agent_in_standard_topology(
+    tmp_path: Path,
+) -> None:
+    harness = _release_harness(
+        tmp_path,
+        previous_compatible_revisions=(PREVIOUS_REVISION, CANDIDATE_REVISION),
+    )
+
+    result = harness.activate()
+
+    assert result.returncode == 0, result.stderr
+    events = harness.events_file.read_text(encoding="utf-8")
+    assert f"systemctl enable {CAUSE_AGENT_WORKER_UNIT}" in events
+    restart = next(
+        line for line in events.splitlines() if line.startswith("systemctl restart ")
+    )
+    assert restart.split().count(CAUSE_AGENT_WORKER_UNIT) == 1
 
 
 def test_rollback_rejects_database_revision_not_declared_by_old_head_artifact(
@@ -332,6 +352,11 @@ def _write_release(
         unit_path = root / "ops" / "systemd" / f"{unit}.service"
         unit_path.parent.mkdir(parents=True, exist_ok=True)
         unit_path.write_text(f"[Unit]\nDescription={unit}\n", encoding="utf-8")
+    cause_agent_unit = root / "ops" / "systemd" / f"{CAUSE_AGENT_WORKER_UNIT}.service"
+    cause_agent_unit.write_text(
+        f"[Unit]\nDescription={CAUSE_AGENT_WORKER_UNIT}\n",
+        encoding="utf-8",
+    )
     essay_review_unit = root / "ops" / "systemd" / f"{ESSAY_REVIEW_WORKER_UNIT}.service"
     essay_review_unit.write_text(
         f"[Unit]\nDescription={ESSAY_REVIEW_WORKER_UNIT}\n",

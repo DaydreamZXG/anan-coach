@@ -49,9 +49,14 @@ def channel_settings() -> ILinkSettings:
 
 
 def install_schema(session: Session) -> None:
-    migration = import_module("migrations.versions.20260721_48_ilink_photo_channel")
-    for statement in migration._STATEMENTS:
-        session.connection().exec_driver_sql(statement.replace("%", "%%"))
+    if session.execute(
+        text("select to_regclass('messaging.ilink_channel_links')")
+    ).scalar_one() is None:
+        migration = import_module(
+            "migrations.versions.20260721_48_ilink_photo_channel"
+        )
+        for statement in migration._STATEMENTS:
+            session.connection().exec_driver_sql(statement.replace("%", "%%"))
     session.execute(
         text(
             "insert into learner.users (user_id, display_name, account_status) "

@@ -22,12 +22,17 @@ from app.domains.xingce_learning.cause_agent.contracts import (
 from app.domains.xingce_learning.cause_agent.provider import CauseAgentProvider
 from app.domains.xingce_learning.cause_agent.repository import CauseAgentRepository
 from app.domains.xingce_learning.real_attempt.repository import XingceAttemptRepository
-from app.platform.jobs import BackgroundJobRepository
+from app.platform.jobs import BackgroundJobRepository, job_registration
 from app.platform.outbox import OutboxRepository
 
 
 CAUSE_AGENT_JOB_TYPE = "xingce_cause_agent_v1"
 CAUSE_AGENT_JOB_INPUT_VERSION = "cause-agent-run@v1"
+
+job_registration(
+    job_type=CAUSE_AGENT_JOB_TYPE,
+    queue_name="platform.background_jobs",
+)
 
 
 class CauseProviderIdentity(Protocol):

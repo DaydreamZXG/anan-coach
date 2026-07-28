@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 from datetime import UTC, datetime
 import json
 from typing import Any
@@ -9,6 +10,8 @@ from sqlalchemy import text
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
+from app.platform.jobs import job_registration
+
 
 class ILinkConflict(RuntimeError):
     pass
@@ -16,6 +19,21 @@ class ILinkConflict(RuntimeError):
 
 class ILinkNotFound(LookupError):
     pass
+
+
+ILINK_OBJECT_DELETION_JOB_TYPE = "ilink_object_deletion_v1"
+_ILINK_DELETION_REGISTRATION = job_registration(
+    job_type=ILINK_OBJECT_DELETION_JOB_TYPE,
+    queue_name="messaging.ilink_object_deletion_queue",
+)
+
+
+@dataclass(frozen=True, slots=True)
+class ILinkObjectDeletionClaim:
+    object_ref: str
+    claim_token: UUID
+    claimed_at: datetime
+    lease_expires_at: datetime
 
 
 class ILinkRepository:
@@ -823,9 +841,36 @@ class ILinkRepository:
             {"bot": bot_account_id},
         )
 
-    def claim_object_deletions(self, *, limit: int, now: datetime) -> tuple[str, ...]:
+    def recover_stale_object_deletions(self, *, now: datetime) -> int:
+        result = self._session.execute(
+            text(
+                """
+                update messaging.ilink_object_deletion_queue set
+                  state = 'pending',
+                  attempt_count = greatest(attempt_count - 1, 0),
+                  failure_code = 'stale_claim_recovered',
+                  claim_token = null,
+                  claimed_at = null,
+                  lease_expires_at = null,
+                  updated_at = :now
+                where state = 'deleting'
+                  and (
+                    lease_expires_at <= :now
+                    or lease_expires_at is null
+                  )
+                """
+            ),
+            {"now": now},
+        )
+        return int(result.rowcount or 0)
+
+    def claim_object_deletions(
+        self, *, limit: int, now: datetime
+    ) -> tuple[ILinkObjectDeletionClaim, ...]:
         if limit < 1 or limit > 100:
             raise ValueError("object deletion claim limit is outside policy")
+        self.recover_stale_object_deletions(now=now)
+        lease_expires_at = now + _ILINK_DELETION_REGISTRATION.lease_duration
         rows = self._session.execute(
             text(
                 """
@@ -838,37 +883,85 @@ class ILinkRepository:
                 )
                 update messaging.ilink_object_deletion_queue queue set
                   state = 'deleting', attempt_count = attempt_count + 1,
-                  failure_code = null, updated_at = :now
+                  failure_code = null,
+                  claim_token = gen_random_uuid(),
+                  claimed_at = :now,
+                  lease_expires_at = :lease_expires_at,
+                  updated_at = :now
                 from candidates where queue.object_ref = candidates.object_ref
-                returning queue.object_ref
+                returning queue.object_ref, queue.claim_token, queue.claimed_at,
+                  queue.lease_expires_at
                 """
             ),
-            {"limit": limit, "now": now},
-        ).scalars()
-        return tuple(str(value) for value in rows)
-
-    def complete_object_deletion(self, *, object_ref: str) -> None:
-        self._session.execute(
-            text(
-                "delete from messaging.ilink_object_deletion_queue "
-                "where object_ref = :object_ref and state = 'deleting'"
-            ),
-            {"object_ref": object_ref},
+            {
+                "limit": limit,
+                "now": now,
+                "lease_expires_at": lease_expires_at,
+            },
+        ).mappings()
+        return tuple(
+            ILinkObjectDeletionClaim(
+                object_ref=str(row["object_ref"]),
+                claim_token=UUID(str(row["claim_token"])),
+                claimed_at=row["claimed_at"],
+                lease_expires_at=row["lease_expires_at"],
+            )
+            for row in rows
         )
 
-    def fail_object_deletion(
-        self, *, object_ref: str, failure_code: str, now: datetime
+    def complete_object_deletion(
+        self,
+        *,
+        object_ref: str,
+        claim_token: UUID,
+        now: datetime,
     ) -> None:
-        self._session.execute(
+        changed = self._session.execute(
+            text(
+                "delete from messaging.ilink_object_deletion_queue "
+                "where object_ref = :object_ref and state = 'deleting' "
+                "and claim_token = :claim_token and lease_expires_at > :now"
+            ),
+            {
+                "object_ref": object_ref,
+                "claim_token": str(claim_token),
+                "now": now,
+            },
+        ).rowcount
+        if changed != 1:
+            raise ILinkConflict(
+                "only the active deletion claim can complete object deletion"
+            )
+
+    def fail_object_deletion(
+        self,
+        *,
+        object_ref: str,
+        claim_token: UUID,
+        failure_code: str,
+        now: datetime,
+    ) -> None:
+        changed = self._session.execute(
             text(
                 """
                 update messaging.ilink_object_deletion_queue set
-                  state = 'failed', failure_code = :failure_code, updated_at = :now
+                  state = 'failed', failure_code = :failure_code,
+                  claim_token = null, claimed_at = null, lease_expires_at = null,
+                  updated_at = :now
                 where object_ref = :object_ref and state = 'deleting'
+                  and claim_token = :claim_token
+                  and lease_expires_at > :now
                 """
             ),
-            {"object_ref": object_ref, "failure_code": failure_code, "now": now},
-        )
+            {
+                "object_ref": object_ref,
+                "claim_token": str(claim_token),
+                "failure_code": failure_code,
+                "now": now,
+            },
+        ).rowcount
+        if changed != 1:
+            raise ILinkConflict("only the active deletion claim can retry deletion")
 
     def event(
         self,

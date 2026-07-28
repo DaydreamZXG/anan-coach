@@ -154,7 +154,9 @@ runtime_units=(
   gongkao-dazi-api
   gongkao-dazi-external-learning-worker
   gongkao-dazi-data-rights-worker
+  gongkao-dazi-cause-agent-worker
 )
+systemctl enable gongkao-dazi-cause-agent-worker
 if [[ "${COACH_NOTIFICATIONS_ENABLED:-false}" == "true" \
   && -f "${target}/backend/app/workers/coach_notifications.py" ]]; then
   runtime_units+=(gongkao-dazi-coach-notification-worker)

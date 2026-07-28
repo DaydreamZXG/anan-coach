@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import UTC, datetime, timedelta
 from functools import lru_cache
+import os
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Header, HTTPException, status
@@ -28,6 +29,11 @@ from app.domains.operations.support import (
     SupportOrderView,
     SupportPrincipal,
     read_order_for_support,
+)
+from app.platform.jobs import (
+    JOB_LEASE_CONTRACT_VERSION,
+    JOB_REGISTRY,
+    JobRegistration,
 )
 
 
@@ -237,6 +243,31 @@ def ready(session: Annotated[Session, Depends(get_db_session)]) -> dict[str, str
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="knowledge map release is not ready",
         )
+    job_health = _job_queue_health(
+        session,
+        now=checked_at,
+        registrations=tuple(
+            registration
+            for registration in JOB_REGISTRY
+            if _job_registration_enabled(registration)
+        ),
+    )
+    stale_job_types = tuple(
+        registration.job_type
+        for registration in JOB_REGISTRY
+        if _job_registration_enabled(registration)
+        and (
+            job_health[registration.job_type]["queue_age_seconds"]
+            > registration.queue_readiness_age.total_seconds()
+            or job_health[registration.job_type]["running_age_seconds"]
+            > registration.running_readiness_age.total_seconds()
+        )
+    )
+    if stale_job_types:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="background job consumers are not ready",
+        )
     if (
         settings.environment.strip().casefold() == "production"
         and settings.coach_notifications_enabled
@@ -347,6 +378,7 @@ def ready(session: Annotated[Session, Depends(get_db_session)]) -> dict[str, str
         "positionDataVersion": str(release["position_data_version"]),
         "knowledgeMapRelease": str(knowledge_release["release_version"]),
         "knowledgeMapSourceDataVersion": str(knowledge_release["source_data_version"]),
+        "jobLeaseContract": JOB_LEASE_CONTRACT_VERSION,
         "time": checked_at.isoformat(),
     }
 
@@ -435,7 +467,127 @@ def metrics(
         "anan_coach_notification_enabled_without_grant": int(row["coach_enabled_without_grant"]),
         "anan_coach_notification_stale_claims": int(row["coach_stale_claims"]),
     }
-    return "\n".join(f"{key} {value}" for key, value in values.items()) + "\n"
+    health = _job_queue_health(
+        session,
+        now=datetime.now(UTC),
+        registrations=JOB_REGISTRY,
+    )
+    job_values = tuple(
+        (
+            f'anan_job_queue_oldest_age_seconds{{job_type="{registration.job_type}"}}',
+            int(health[registration.job_type]["queue_age_seconds"]),
+        )
+        for registration in JOB_REGISTRY
+    ) + tuple(
+        (
+            f'anan_job_running_oldest_age_seconds{{job_type="{registration.job_type}"}}',
+            int(health[registration.job_type]["running_age_seconds"]),
+        )
+        for registration in JOB_REGISTRY
+    )
+    return (
+        "\n".join(
+            (
+                *(f"{key} {value}" for key, value in values.items()),
+                *(f"{key} {value}" for key, value in job_values),
+            )
+        )
+        + "\n"
+    )
+
+
+def _job_registration_enabled(registration: JobRegistration) -> bool:
+    if registration.enabled_setting is None:
+        return True
+    return (
+        os.getenv(registration.enabled_setting, "false").strip().casefold()
+        == "true"
+    )
+
+
+def _job_queue_health(
+    session: Session,
+    *,
+    now: datetime,
+    registrations: tuple[JobRegistration, ...],
+) -> dict[str, dict[str, float]]:
+    health = {
+        registration.job_type: {
+            "queue_age_seconds": 0.0,
+            "running_age_seconds": 0.0,
+        }
+        for registration in registrations
+    }
+    background_types = tuple(
+        registration.job_type
+        for registration in registrations
+        if registration.queue_name == "platform.background_jobs"
+    )
+    if background_types:
+        rows = (
+            session.execute(
+                text(
+                    """
+                    select
+                      job_type,
+                      coalesce(greatest(extract(epoch from (
+                        :now - min(run_after) filter (
+                          where status = 'queued' and run_after <= :now
+                        )
+                      )), 0), 0) as queue_age_seconds,
+                      coalesce(greatest(extract(epoch from (
+                        :now - min(claimed_at) filter (
+                          where status = 'running'
+                        )
+                      )), 0), 0) as running_age_seconds
+                    from platform.background_jobs
+                    where job_type = any(cast(:job_types as text[]))
+                      and status in ('queued', 'running')
+                    group by job_type
+                    """
+                ),
+                {"now": now, "job_types": list(background_types)},
+            )
+            .mappings()
+            .all()
+        )
+        for row in rows:
+            health[str(row["job_type"])] = {
+                "queue_age_seconds": float(row["queue_age_seconds"]),
+                "running_age_seconds": float(row["running_age_seconds"]),
+            }
+    if any(
+        registration.queue_name == "messaging.ilink_object_deletion_queue"
+        for registration in registrations
+    ):
+        row = (
+            session.execute(
+                text(
+                    """
+                    select
+                      coalesce(greatest(extract(epoch from (
+                        :now - min(updated_at) filter (
+                          where state in ('pending', 'failed')
+                        )
+                      )), 0), 0) as queue_age_seconds,
+                      coalesce(greatest(extract(epoch from (
+                        :now - min(claimed_at) filter (
+                          where state = 'deleting'
+                        )
+                      )), 0), 0) as running_age_seconds
+                    from messaging.ilink_object_deletion_queue
+                    """
+                ),
+                {"now": now},
+            )
+            .mappings()
+            .one()
+        )
+        health["ilink_object_deletion_v1"] = {
+            "queue_age_seconds": float(row["queue_age_seconds"]),
+            "running_age_seconds": float(row["running_age_seconds"]),
+        }
+    return health
 
 
 def _coach_template_id_for_metrics(settings: Settings) -> str:

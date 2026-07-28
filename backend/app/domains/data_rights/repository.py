@@ -16,13 +16,19 @@ from app.domains.data_rights.schemas import (
     DataExportView,
     PrivacyOverview,
 )
-from app.platform.jobs import BackgroundJobRepository
+from app.platform.jobs import BackgroundJobRepository, job_registration
 
 
 EXPORT_JOB_TYPE = "personal_data_export_v1"
 DELETION_JOB_TYPE = "account_erasure_v1"
 POLICY_VERSION = "personal-data-control@v1"
 CONFIRMATION_PHRASE = "删除我的岸岸账户"
+
+for _job_type in (EXPORT_JOB_TYPE, DELETION_JOB_TYPE):
+    job_registration(
+        job_type=_job_type,
+        queue_name="platform.background_jobs",
+    )
 
 
 class DataRightsConflict(RuntimeError):

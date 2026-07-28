@@ -390,8 +390,31 @@ def test_ready_reports_active_position_rule_release(
         "positionDataVersion": "guokao-2026-source-sha256-test",
         "knowledgeMapRelease": "knowledge-map@ready-test-v1",
         "knowledgeMapSourceDataVersion": "question-bank@ready-test-v1",
+        "jobLeaseContract": "JOB-LEASE@v1",
         "time": payload["time"],
     }
+
+
+def test_ready_rejects_a_registered_queue_past_its_age_budget(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _seed_alembic_revision(db_session_factory)
+    _seed_release(db_session_factory, activated_at=datetime.now(UTC))
+    _seed_knowledge_release(db_session_factory)
+    with db_session_factory.begin() as session:
+        BackgroundJobRepository().enqueue(
+            session,
+            job_key="readiness:cause-agent:stale",
+            job_type="xingce_cause_agent_v1",
+            input_version="cause-agent-run@v1",
+            payload={"runId": str(uuid4())},
+            run_after=datetime.now(UTC) - timedelta(minutes=6),
+        )
+
+    response = _client(db_session_factory).get("/ready")
+
+    assert response.status_code == 503
+    assert response.json()["detail"] == "background job consumers are not ready"
 
 
 def test_ready_allows_independently_disabled_external_ai_scenarios(

@@ -3,6 +3,7 @@ from __future__ import annotations
 import logging
 import signal
 import threading
+from collections.abc import Callable
 from datetime import UTC, datetime, timedelta
 
 from app.core.config import get_settings
@@ -19,7 +20,7 @@ LOGGER = logging.getLogger("gongkao.ilink")
 
 
 class ILinkWorker:
-    def __init__(self) -> None:
+    def __init__(self, *, clock: Callable[[], datetime] | None = None) -> None:
         self._settings = ILinkSettings.from_environment()
         self._settings.validate_worker()
         self._client = ILinkProtocolClient(self._settings)
@@ -34,12 +35,14 @@ class ILinkWorker:
             key_id=self._settings.identity_key_id,
         )
         self._stop = threading.Event()
+        self._clock = clock or (lambda: datetime.now(UTC))
 
     def stop(self, *_args) -> None:
         self._stop.set()
 
     def run(self) -> None:
         failures = 0
+        self._recover_object_deletions()
         while not self._stop.is_set():
             try:
                 self._run_retention_maintenance()
@@ -71,7 +74,7 @@ class ILinkWorker:
                 self._stop.wait(min(30.0, 2.0 ** min(failures, 5)))
 
     def _run_retention_maintenance(self) -> None:
-        now = datetime.now(UTC)
+        now = self._clock()
         with self._sessions() as session:
             repository = ILinkRepository(session)
             stale_count = repository.expire_stale_processing(
@@ -120,33 +123,49 @@ class ILinkWorker:
                     value, purpose=f"updates-cursor:{self._settings.bot_account_id}"
                 ),
                 key_id=self._cipher.key_id,
-                now=datetime.now(UTC),
+                now=self._clock(),
             )
             session.commit()
 
     def _drain_object_deletions(self) -> None:
         with self._sessions() as session:
-            refs = ILinkRepository(session).claim_object_deletions(
-                limit=20, now=datetime.now(UTC)
+            claims = ILinkRepository(session).claim_object_deletions(
+                limit=20, now=self._clock()
             )
             session.commit()
-        for object_ref in refs:
+        for claim in claims:
             try:
-                self._storage.delete(object_ref=object_ref)
+                self._storage.delete(object_ref=claim.object_ref)
             except PhotoResolutionError as exc:
                 with self._sessions() as session:
                     ILinkRepository(session).fail_object_deletion(
-                        object_ref=object_ref,
+                        object_ref=claim.object_ref,
+                        claim_token=claim.claim_token,
                         failure_code=exc.code,
-                        now=datetime.now(UTC),
+                        now=self._clock(),
                     )
                     session.commit()
             else:
                 with self._sessions() as session:
                     ILinkRepository(session).complete_object_deletion(
-                        object_ref=object_ref
+                        object_ref=claim.object_ref,
+                        claim_token=claim.claim_token,
+                        now=self._clock(),
                     )
                     session.commit()
+
+    def _recover_object_deletions(self) -> int:
+        with self._sessions() as session:
+            recovered = ILinkRepository(session).recover_stale_object_deletions(
+                now=self._clock()
+            )
+            session.commit()
+        if recovered:
+            LOGGER.warning(
+                "iLink worker recovered stale object deletions",
+                extra={"recovered_deletions": recovered},
+            )
+        return recovered
 
     def _clear_cursor(self) -> None:
         with self._sessions() as session:

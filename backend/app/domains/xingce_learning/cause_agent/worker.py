@@ -95,11 +95,16 @@ class CauseAgentWorker:
         except Exception:
             session.rollback()
             current = self._jobs.by_id(session, job_id=job.job_id)
-            if current is not None and current.status == "running" and current.claim_token:
+            if (
+                current is not None
+                and current.status == "running"
+                and current.claim_token == job.claim_token
+                and job.claim_token is not None
+            ):
                 failed = self._jobs.fail(
                     session,
-                    job_id=current.job_id,
-                    claim_token=current.claim_token,
+                    job_id=job.job_id,
+                    claim_token=job.claim_token,
                     error_code="cause_agent_worker_unexpected",
                     error_message="cause_agent_worker_unexpected",
                     retryable=True,
