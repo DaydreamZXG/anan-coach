@@ -72,6 +72,36 @@ describe("authenticated navigation return contract", () => {
     });
   });
 
+  it("preserves validated essay and mock task deep links across login", () => {
+    const essay =
+      "/pages/essay-task/index?taskVersionId=essay-v1&planTaskId=plan-1&stage=essay_material_reading";
+    const mockBySession = "/pages/mock-exam/index?sessionId=mock-session-1";
+    const mockByPlan = "/pages/mock-exam/index?planTaskId=plan-1";
+
+    expect(authenticatedReturnTarget(essay)).toEqual({ mode: "navigateTo", url: essay });
+    expect(authenticatedReturnTarget(mockBySession)).toEqual({
+      mode: "navigateTo",
+      url: mockBySession,
+    });
+    expect(authenticatedReturnTarget(mockByPlan)).toEqual({
+      mode: "navigateTo",
+      url: mockByPlan,
+    });
+    expect(loginUrlForReturn(mockBySession)).toBe(
+      `/pages/login/index?returnTo=${encodeURIComponent(mockBySession)}`,
+    );
+  });
+
+  it("rejects ambiguous or unowned mock task return arguments", () => {
+    expect(
+      authenticatedReturnTarget(
+        "/pages/mock-exam/index?sessionId=mock-session-1&planTaskId=plan-1",
+      ),
+    ).toBeNull();
+    expect(authenticatedReturnTarget("/pages/mock-exam/index?sessionId=%20")).toBeNull();
+    expect(authenticatedReturnTarget("/pages/mock-exam/index?redirect=https%3A%2F%2Fx")).toBeNull();
+  });
+
   it("rejects malformed briefing and workspace score queries", () => {
     expect(authenticatedReturnTarget("/pages/positions/briefing/index")).toBeNull();
     expect(authenticatedReturnTarget("/pages/positions/briefing/index?positionId=%20")).toBeNull();

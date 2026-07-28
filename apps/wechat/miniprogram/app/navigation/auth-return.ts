@@ -64,7 +64,9 @@ export function authenticatedReturnTarget(startUrl: string): RegisteredNavigatio
   if (path === routes.reflection) {
     return rawQuery === undefined ? navigation : null;
   }
-  if (path === routes.essayTask) return registeredTaskNavigationTarget(navigation.url);
+  if (path === routes.essayTask || path === routes.mockExam) {
+    return registeredTaskNavigationTarget(navigation.url);
+  }
 
   const query = parseExactQuery(rawQuery);
   if (!query) return null;
