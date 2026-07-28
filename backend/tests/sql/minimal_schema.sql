@@ -40,16 +40,29 @@ create table platform.background_jobs (
   run_after timestamptz not null default now(),
   claimed_at timestamptz,
   claim_token uuid,
+  lease_expires_at timestamptz,
   last_error_code text,
   last_error_message text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   completed_at timestamptz,
-  check (attempt_count <= max_attempts)
+  check (attempt_count <= max_attempts),
+  constraint background_jobs_lease_fencing_check check (
+    lease_expires_at is null
+    or (
+      claim_token is not null
+      and claimed_at is not null
+      and lease_expires_at > claimed_at
+    )
+  )
 );
 
 create index platform_background_jobs_claim_idx
   on platform.background_jobs(status, run_after, created_at);
+
+create index platform_background_jobs_lease_recovery_idx
+  on platform.background_jobs(status, lease_expires_at, run_after, created_at)
+  where status in ('queued', 'running');
 
 create index platform_essay_review_job_review_version_idx
   on platform.background_jobs ((payload->>'reviewVersionId'), created_at)
@@ -1853,14 +1866,23 @@ create table learning.xingce_commands (
       command_id text not null,
       command_type text not null check (command_type in (
         'session_start', 'checkpoint_save', 'attempt_submit',
-        'reflection_submit', 'cause_decision'
+        'reflection_submit', 'cause_decision', 'review_verdict'
       )),
       target_id uuid,
       request_fingerprint text not null check (length(request_fingerprint) = 64),
       response_payload jsonb not null check (jsonb_typeof(response_payload) = 'object'),
       created_at timestamptz not null,
       primary key (user_id, command_id),
-      check (char_length(command_id) between 8 and 260)
+      check (char_length(command_id) between 8 and 260),
+      constraint xingce_commands_wave1_shape_check check (
+        char_length(command_id) between 8 and 260
+        and length(request_fingerprint) = 64
+        and jsonb_typeof(response_payload) = 'object'
+        and command_type in (
+          'session_start', 'checkpoint_save', 'attempt_submit',
+          'reflection_submit', 'cause_decision', 'review_verdict'
+        )
+      )
     );
 
 create index learning_xingce_commands_user_created_idx

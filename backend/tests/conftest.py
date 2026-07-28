@@ -222,6 +222,9 @@ def _reset_test_schema(engine: Engine) -> None:
         step10 = import_module("migrations.versions.20260719_47_daily_opening")
         for statement in step10._STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
+        ilink_photo_channel = import_module("migrations.versions.20260721_48_ilink_photo_channel")
+        for statement in ilink_photo_channel._STATEMENTS:
+            conn.exec_driver_sql(statement.replace("%", "%%"))
         mock_plan_closure = import_module("migrations.versions.20260723_55_mock_plan_closure")
         for statement in mock_plan_closure._TEST_STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
