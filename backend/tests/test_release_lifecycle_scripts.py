@@ -20,6 +20,7 @@ RUNTIME_UNITS = (
     "gongkao-dazi-external-learning-worker",
     "gongkao-dazi-data-rights-worker",
 )
+ESSAY_REVIEW_WORKER_UNIT = "gongkao-dazi-essay-review-worker"
 
 
 @dataclass(frozen=True, slots=True)
@@ -42,11 +43,11 @@ class ReleaseHarness:
             timeout=20,
         )
 
-    def rollback(self) -> subprocess.CompletedProcess[str]:
+    def rollback(self, *, fault: str = "") -> subprocess.CompletedProcess[str]:
         return subprocess.run(
             [str(ROLLBACK_SCRIPT), "previous"],
             check=False,
-            env=self.environment,
+            env={**self.environment, "HARNESS_FAULT": fault},
             capture_output=True,
             text=True,
             timeout=20,
@@ -136,12 +137,67 @@ def test_rollback_rejects_database_revision_not_declared_by_old_head_artifact(
     assert harness.current_link.resolve() == harness.candidate_target
 
 
+def test_rollback_enables_and_validates_configured_essay_review_worker(
+    tmp_path: Path,
+) -> None:
+    harness = _release_harness(
+        tmp_path,
+        previous_compatible_revisions=(PREVIOUS_REVISION, CANDIDATE_REVISION),
+        database_revision=CANDIDATE_REVISION,
+        current_points_to_candidate=True,
+        essay_review_worker_enabled="true",
+    )
+
+    result = harness.rollback()
+
+    assert result.returncode == 0, result.stderr
+    events = harness.events_file.read_text(encoding="utf-8")
+    assert "essay-worker-constructor" in events
+    assert f"systemctl enable {ESSAY_REVIEW_WORKER_UNIT}" in events
+    assert f"systemctl restart {' '.join((*RUNTIME_UNITS, ESSAY_REVIEW_WORKER_UNIT))}" in events
+
+
+def test_rollback_disables_unconfigured_essay_review_worker(tmp_path: Path) -> None:
+    harness = _release_harness(
+        tmp_path,
+        previous_compatible_revisions=(PREVIOUS_REVISION, CANDIDATE_REVISION),
+        database_revision=CANDIDATE_REVISION,
+        current_points_to_candidate=True,
+    )
+
+    result = harness.rollback()
+
+    assert result.returncode == 0, result.stderr
+    events = harness.events_file.read_text(encoding="utf-8")
+    assert "essay-worker-constructor" not in events
+    assert f"systemctl disable --now {ESSAY_REVIEW_WORKER_UNIT}" in events
+
+
+def test_rollback_rejects_invalid_essay_worker_before_pointer_switch(
+    tmp_path: Path,
+) -> None:
+    harness = _release_harness(
+        tmp_path,
+        previous_compatible_revisions=(PREVIOUS_REVISION, CANDIDATE_REVISION),
+        database_revision=CANDIDATE_REVISION,
+        current_points_to_candidate=True,
+        essay_review_worker_enabled="true",
+    )
+
+    result = harness.rollback(fault="essay-worker")
+
+    assert result.returncode != 0
+    assert harness.current_link.resolve() == harness.candidate_target
+    assert "essay-worker-constructor" in harness.events_file.read_text(encoding="utf-8")
+
+
 def _release_harness(
     tmp_path: Path,
     *,
     previous_compatible_revisions: tuple[str, ...],
     database_revision: str = PREVIOUS_REVISION,
     current_points_to_candidate: bool = False,
+    essay_review_worker_enabled: str = "false",
 ) -> ReleaseHarness:
     release_root = tmp_path / "releases"
     incoming = release_root / "incoming"
@@ -210,6 +266,7 @@ def _release_harness(
     events_file.write_text("", encoding="utf-8")
     (config_root / "api.env").write_text(
         "WEKNORA_PRIVATE_KNOWLEDGE_MODE=canonical\n"
+        f"ESSAY_REVIEW_WORKER_ENABLED={essay_review_worker_enabled}\n"
         "COACH_NOTIFICATIONS_ENABLED=false\n"
         "COMMERCIAL_MODE=free_cold_start\n"
         "ILINK_CHANNEL_ENABLED=false\n"
@@ -275,6 +332,14 @@ def _write_release(
         unit_path = root / "ops" / "systemd" / f"{unit}.service"
         unit_path.parent.mkdir(parents=True, exist_ok=True)
         unit_path.write_text(f"[Unit]\nDescription={unit}\n", encoding="utf-8")
+    essay_review_unit = root / "ops" / "systemd" / f"{ESSAY_REVIEW_WORKER_UNIT}.service"
+    essay_review_unit.write_text(
+        f"[Unit]\nDescription={ESSAY_REVIEW_WORKER_UNIT}\n",
+        encoding="utf-8",
+    )
+    essay_review_entrypoint = root / "backend" / "app" / "workers" / "essay_reviews.py"
+    essay_review_entrypoint.parent.mkdir(parents=True, exist_ok=True)
+    essay_review_entrypoint.write_text("# essay review worker\n", encoding="utf-8")
     refresh = root / "scripts" / "server_refresh_knowledge_map_nodes.sh"
     _write_executable(refresh, "#!/usr/bin/env bash\nset -euo pipefail\nexit 0\n")
     if include_contract:
@@ -307,6 +372,12 @@ if [[ "${1:-}" == "-m" && "${2:-}" == "pip" ]]; then
   exit 0
 fi
 if [[ "${1:-}" == "-c" ]]; then
+  if [[ "${2:-}" == *"GroundedEssayReviewWorker"* ]]; then
+    printf '%s\\n' "essay-worker-constructor" >> "${HARNESS_EVENTS_FILE}"
+    if [[ "${HARNESS_FAULT:-}" == "essay-worker" ]]; then
+      exit 45
+    fi
+  fi
   exit 0
 fi
 if [[ "${1:-}" != "-m" || "${2:-}" != "app.core.database_compatibility" ]]; then
@@ -424,7 +495,7 @@ set -euo pipefail
 while [[ "${1:-}" == "--no-pager" || "${1:-}" == "--full" ]]; do shift; done
 command_name="${1:?}"
 shift
-printf 'systemctl %s\\n' "$command_name" >> "${HARNESS_EVENTS_FILE}"
+printf 'systemctl %s %s\\n' "$command_name" "$*" >> "${HARNESS_EVENTS_FILE}"
 if [[ "$command_name" == "restart" && "${HARNESS_FAULT:-}" == "restart" ]] \
   && [[ ! -e "${HARNESS_RESTART_MARKER}" ]]; then
   touch "${HARNESS_RESTART_MARKER}"

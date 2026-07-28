@@ -5,7 +5,8 @@
 Current initial slice:
 
 - FastAPI backend with health, auth, onboarding, position, planning, practice, essay, recognition, privacy, and daily-opening endpoints.
-- WeChat Mini Program with 今日、岗位、我的三栏主路径 and 53 registered pages.
+- WeChat Mini Program with 今日、岗位、岸岸、我的四栏主路径 and 64 registered routes
+  (58 business routes and 6 asset entries).
 - 行测、申论、岗位决策、拍照搜题、私人资料库 and AI 督学 are first-class product tracks.
 - Production candidate server at `https://kg.xingguoxian.cn`.
 
@@ -25,5 +26,9 @@ Current initial slice:
 ./scripts/verify_backend.sh
 ./scripts/verify_wechat.sh
 ```
+
+`scripts/verify_wechat.sh` 是唯一 WeChat 验证入口，并委托 `npm run check` 执行格式、类型、
+ESLint、设计/导航/结构/覆盖/资产门禁、OpenAPI 只读检查、Node contract/gate tests、
+完整 Vitest 与云函数 Node tests。
 
 Secrets are not stored in the repository.

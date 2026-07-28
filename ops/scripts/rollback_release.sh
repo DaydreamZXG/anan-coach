@@ -81,6 +81,22 @@ runtime_units=(
   gongkao-dazi-external-learning-worker
   gongkao-dazi-data-rights-worker
 )
+case "${ESSAY_REVIEW_WORKER_ENABLED:-false}" in
+  true)
+    test -f "${target}/backend/app/workers/essay_reviews.py"
+    "${target}/backend/.venv/bin/python" -c \
+      'from app.core.config import get_settings; from app.domains.essay_intelligence.review_worker import GroundedEssayReviewWorker; from app.workers.essay_reviews import _validate_worker_settings; settings = get_settings(); _validate_worker_settings(settings); GroundedEssayReviewWorker(settings=settings)'
+    systemctl enable gongkao-dazi-essay-review-worker
+    runtime_units+=(gongkao-dazi-essay-review-worker)
+    ;;
+  false)
+    systemctl disable --now gongkao-dazi-essay-review-worker 2>/dev/null || true
+    ;;
+  *)
+    printf '%s\n' "ESSAY_REVIEW_WORKER_ENABLED must be true or false" >&2
+    exit 1
+    ;;
+esac
 if [[ "${COACH_NOTIFICATIONS_ENABLED:-false}" == "true" \
   && -f "${target}/backend/app/workers/coach_notifications.py" ]]; then
   runtime_units+=(gongkao-dazi-coach-notification-worker)
