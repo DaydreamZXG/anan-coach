@@ -225,6 +225,12 @@ export const pageInteractionMatrix = [
     selector: ".card-action",
     dataset: { itemid: "visual-mastery-item-001" },
   }),
+  page("pages/xingce-mastery/favorites/index", "c19-xingce-favorites-list", "取消一条长期收藏", {
+    handler: "cancelFavorite",
+    selector: ".favorite-card__cancel",
+    dataset: { questionid: "favorite-current" },
+    observable: false,
+  }),
   page("pages/essay-material/index", "f10-essay-material-map", "带着材料地图进入作答", {
     handler: "returnToWriter",
     selector: ".material-return",

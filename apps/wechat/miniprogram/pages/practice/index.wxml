@@ -14,7 +14,8 @@
   timerPausable="{{status === 'ready' && sessionState === 'answering'}}"
   timerPaused="{{taskPaused}}"
   marked="{{view && view.question ? view.question.marked : false}}"
-  toolsAvailable="{{status === 'ready' && sessionState === 'answering'}}"
+  companionAvailable="{{status === 'ready' && sessionState === 'answering'}}"
+  toolsAvailable="{{false}}"
   footerAvailable="{{status === 'ready' && sessionState === 'answering' && view && view.current === view.total}}"
   headerAvailable="{{status !== 'ready' || sessionState === 'answering'}}"
   bindexit="exit"
@@ -24,6 +25,7 @@
   bindtimer="toggleTaskPause"
   bindmark="toggleMarked"
   bindtools="openTaskTools"
+  bindcompanion="openAnanContext"
 >
   <view wx:if="{{status === 'loading'}}" class="page-state">
     <state-view state="loading" title="正在恢复真实作答" description="正在恢复你上次的作答进度。" />
@@ -52,41 +54,13 @@
     <block wx:if="{{sessionState === 'answering'}}">
       <view class="practice-workspace {{view.question.material ? 'practice-workspace--with-material' : 'practice-workspace--single'}}">
         <view wx:if="{{view.question.material}}" class="material-reader-shell {{materialOpen ? 'material-reader-shell--immersive' : ''}}">
-          <!-- Figma 2:76：材料标题行承载收藏、岸岸与收起，顶栏因此不必挤满一排。 -->
+          <!-- 共享材料栏只描述材料范围与折叠；当前题动作统一放在题目栏。 -->
           <view class="practice-material-head">
             <view class="practice-material-chip">
               <text>{{view.question.moduleName}} · 共享材料</text>
               <text wx:if="{{view.materialScopeLabel}}"> ({{view.materialScopeLabel}})</text>
             </view>
             <view class="practice-material-actions">
-              <button
-                class="practice-material-action practice-material-action--mark {{view.question.marked ? 'practice-material-action--marked' : ''}}"
-                hover-class="item--hover"
-                disabled="{{interactionLocked}}"
-                aria-label="{{view.question.marked ? '取消标记本题' : '标记本题'}}"
-                bindtap="toggleMarked"
-              >
-                <image
-                  class="practice-material-icon practice-material-icon--bookmark"
-                  src="/assets/icons/task/bookmark-active.svg"
-                  mode="aspectFit"
-                  aria-hidden="true"
-                />
-              </button>
-              <button
-                class="practice-material-action practice-material-action--anan"
-                hover-class="item--hover"
-                disabled="{{interactionLocked}}"
-                aria-label="就本题追问岸岸"
-                bindtap="openAnanContext"
-              >
-                <image
-                  class="practice-material-icon practice-material-icon--anan"
-                  src="/assets/icons/task/anan.svg"
-                  mode="aspectFit"
-                  aria-hidden="true"
-                />
-              </button>
               <button
                 class="practice-material-action practice-material-action--collapse"
                 hover-class="item--hover"
@@ -137,6 +111,57 @@
           class="practice-question-body {{view && view.current === view.total ? 'practice-question-body--with-footer' : ''}} {{questionTransition ? 'motion-question-in--' + questionTransition : ''}}"
           bindanimationend="clearQuestionTransition"
         >
+          <view class="practice-question-toolbar">
+            <view class="practice-question-context">
+              <text class="practice-question-context__module">{{view.question.moduleName}}</text>
+              <text class="practice-question-context__position">第 {{view.current}} 题</text>
+            </view>
+            <view class="practice-question-actions" aria-label="当前题操作">
+              <button
+                class="question-tool question-tool--favorite question-tool--{{favoriteStatus}} {{favoriteState === 'favorited' ? 'question-tool--active' : ''}}"
+                hover-class="item--hover"
+                disabled="{{interactionLocked || favoriteStatus === 'loading' || favoriteStatus === 'saving'}}"
+                aria-label="{{favoriteAriaLabel}}"
+                bindtap="toggleFavorite"
+              >
+                <image
+                  class="question-tool__icon question-tool__icon--favorite"
+                  src="/assets/icons/task/bookmark-active.svg"
+                  mode="aspectFit"
+                  aria-hidden="true"
+                />
+                <text class="question-tool__label">{{favoriteButtonLabel}}</text>
+              </button>
+              <button
+                class="question-tool question-tool--mark {{view.question.marked ? 'question-tool--active' : ''}}"
+                hover-class="item--hover"
+                disabled="{{interactionLocked}}"
+                aria-label="{{view.question.marked ? '取消标记本题' : '标记本题'}}"
+                bindtap="toggleMarked"
+              >
+                <view class="question-tool__mark-icon" aria-hidden="true">!</view>
+                <text class="question-tool__label">{{view.question.marked ? '已标记' : '标记'}}</text>
+              </button>
+              <button
+                class="question-tool question-tool--more"
+                hover-class="item--hover"
+                disabled="{{interactionLocked}}"
+                aria-label="打开更多做题工具"
+                bindtap="openTaskTools"
+              >
+                <view class="question-tool__more-icon" aria-hidden="true">•••</view>
+                <text class="question-tool__label">更多</text>
+              </button>
+            </view>
+          </view>
+          <view
+            wx:if="{{favoriteMessage}}"
+            class="favorite-feedback favorite-feedback--{{favoriteStatus}}"
+            role="{{favoriteStatus === 'error' || favoriteStatus === 'unknown' ? 'alert' : 'status'}}"
+          >
+            <text>{{favoriteMessage}}</text>
+            <text wx:if="{{favoriteRequestId && (favoriteStatus === 'error' || favoriteStatus === 'unknown')}}" class="favorite-feedback__request">问题编号 · {{favoriteRequestId}}</text>
+          </view>
           <view class="question-hero">
             <view class="question-heading">
               <text class="question-number">{{view.current}}.</text>
@@ -424,8 +449,8 @@
     bindclose="closeTaskOverlay"
   >
     <view class="task-tool-grid">
+      <button hover-class="item--hover" class="control-center task-tool-item" bindtap="toggleDraft">草稿</button>
       <button hover-class="item--hover" class="control-center task-tool-item" bindtap="openAnnotation">题面批注</button>
-      <button hover-class="item--hover" class="control-center task-tool-item" bindtap="toggleMarked">{{view.question.marked ? '取消标记' : '标记本题'}}</button>
       <button hover-class="item--hover" wx:if="{{toolPolicy.dispute_report}}" class="control-center task-tool-item" bindtap="openDispute">题目争议</button>
       <button hover-class="item--hover" wx:if="{{toolPolicy.operation_help}}" class="control-center task-tool-item" bindtap="openTaskHelp">操作/故障帮助</button>
       <button hover-class="item--hover" class="control-center task-tool-item {{displayPreferences.colorMode === 'eye_care' ? 'task-tool-item--active' : ''}}" bindtap="toggleDisplayEyeCare">护眼模式</button>

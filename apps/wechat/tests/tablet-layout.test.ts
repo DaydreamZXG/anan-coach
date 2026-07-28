@@ -10,6 +10,10 @@ import practiceTemplate from "../miniprogram/pages/practice/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import practiceStylesRaw from "../miniprogram/pages/practice/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
+import favoritesTemplate from "../miniprogram/pages/xingce-mastery/favorites/index.wxml?raw";
+// @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
+import favoritesStylesRaw from "../miniprogram/pages/xingce-mastery/favorites/index.wxss?raw";
+// @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import mockTemplate from "../miniprogram/pages/mock-exam/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import mockStylesRaw from "../miniprogram/pages/mock-exam/index.wxss?raw";
@@ -46,6 +50,7 @@ function ruleBodies(source: string, selector: string): string[] {
 const responsiveStyles = normalizeRpxCalc(responsiveStylesRaw);
 const taskShellStyles = normalizeRpxCalc(taskShellStylesRaw);
 const practiceStyles = normalizeRpxCalc(practiceStylesRaw);
+const favoritesStyles = normalizeRpxCalc(favoritesStylesRaw);
 const mockStyles = normalizeRpxCalc(mockStylesRaw);
 const essayStyles = normalizeRpxCalc(essayStylesRaw);
 const essayWorkbenchStyles = normalizeRpxCalc(essayWorkbenchStylesRaw);
@@ -126,6 +131,16 @@ describe("tablet responsive layout contract", () => {
       expect(ctaLeft).toBeGreaterThanOrEqual(sheetLeft);
       expect(ctaRight).toBeLessThanOrEqual(sheetRight);
     }
+  });
+
+  it("keeps the favorites list readable in tablet portrait and landscape", () => {
+    expect(favoritesTemplate).toContain('class="favorites-list"');
+    expect(favoritesTemplate).toContain('class="favorite-card__cancel control-center"');
+    expect(favoritesStyles).toContain("@media (min-width: 768px)");
+    expect(favoritesStyles).toContain("grid-template-columns: repeat(2, minmax(0, 1fr))");
+    expect(favoritesStyles).toContain("@media (min-width: 1024px)");
+    expect(favoritesStyles).toContain("max-width: 920px");
+    expect(favoritesStyles).toMatch(/\.favorite-card__cancel,[\s\S]*?min-height:\s*44px;/u);
   });
 
   it("keeps essay source context beside the canonical writing workflow", () => {

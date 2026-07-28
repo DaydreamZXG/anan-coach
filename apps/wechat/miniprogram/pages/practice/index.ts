@@ -2,6 +2,7 @@ import { ApiClient, ApiClientError } from "../../api/client";
 import { CompanionApi } from "../../api/companion";
 import { LearningBrainApi } from "../../api/learning-brain";
 import { MathInkApi, type FormulaVersion, type InkStroke } from "../../api/math-ink";
+import { QuestionFavoritesApi } from "../../api/question-favorites";
 import { TaskEditingApi } from "../../api/task-editing";
 import {
   XingceLearningApi,
@@ -14,7 +15,7 @@ import {
   type TaskHelpPageObjectReference,
 } from "../../api/task-help";
 import { routes } from "../../app/navigation/routes";
-import { currentAuthSession } from "../../auth/session";
+import { currentAuthSession, sameSessionOwner } from "../../auth/session";
 import { environment } from "../../config/environment";
 import { createCoachRepository } from "../../data/coach-repository";
 import {
@@ -29,6 +30,10 @@ import {
   isValidPlanTaskId,
   parseXingceTaskMode,
 } from "../../features/xingce/real_attempt/contracts";
+import {
+  executeQuestionFavoriteCommand,
+  type QuestionFavoriteDesiredState,
+} from "../../features/xingce/favorites/command";
 import { XingcePageRuntimeRegistry } from "../../features/xingce/real_attempt/page-runtime";
 import {
   presentXingceTask,
@@ -85,6 +90,14 @@ interface PracticePageData {
   showLoginAction: boolean;
   showTodayAction: boolean;
   view: XingceTaskView | null;
+  favoriteStatus: "idle" | "loading" | "ready" | "saving" | "unknown" | "error";
+  favoriteState: QuestionFavoriteDesiredState;
+  favoriteQuestionId: string;
+  favoriteDesiredState: QuestionFavoriteDesiredState | "";
+  favoriteButtonLabel: string;
+  favoriteAriaLabel: string;
+  favoriteMessage: string;
+  favoriteRequestId: string;
   sessionState: XingceTaskSession["state"] | "";
   materialOpen: boolean;
   materialQuestionId: string;
@@ -207,6 +220,7 @@ interface PracticePageCustom {
   selectOption(event: WechatMiniprogram.BaseEvent): void;
   toggleEliminated(event: WechatMiniprogram.BaseEvent): void;
   selectConfidence(event: WechatMiniprogram.BaseEvent): void;
+  toggleFavorite(): Promise<void>;
   toggleMarked(): void;
   skipQuestion(): void;
   inputDraft(event: WechatMiniprogram.Input): void;
@@ -238,6 +252,14 @@ Page<PracticePageData, PracticePageCustom>({
     showLoginAction: false,
     showTodayAction: false,
     view: null,
+    favoriteStatus: "idle",
+    favoriteState: "not_favorited",
+    favoriteQuestionId: "",
+    favoriteDesiredState: "",
+    favoriteButtonLabel: "收藏",
+    favoriteAriaLabel: "收藏本题",
+    favoriteMessage: "",
+    favoriteRequestId: "",
     sessionState: "",
     materialOpen: false,
     materialQuestionId: "",
@@ -326,8 +348,10 @@ Page<PracticePageData, PracticePageCustom>({
       return;
     }
     runtime.ownerUserId = auth.userId;
+    runtime.ownerSessionGeneration = auth.generation;
     const client = new ApiClient(environment.apiBaseUrl, auth.accessToken);
     runtime.api = new XingceLearningApi(client);
+    runtime.favoriteApi = new QuestionFavoritesApi(client);
     runtime.editingApi = new TaskEditingApi(client);
     void this.loadTask();
   },
@@ -341,14 +365,19 @@ Page<PracticePageData, PracticePageCustom>({
       return;
     }
     if (!runtime.session) return;
-    if (runtime.session.state !== "answering") void this.loadTask();
-    else startTimer(this, runtime);
+    if (runtime.session.state !== "answering") {
+      void this.loadTask();
+    } else {
+      startTimer(this, runtime);
+      void loadCurrentQuestionFavorite(this, runtime, true);
+    }
   },
 
   onHide() {
     const runtime = runtimes.get(this);
     if (!runtime) return;
     runtime.visible = false;
+    runtime.favoriteRequestEpoch += 1;
     stopTimer(runtime);
     if (runtime.task) void autosaveCheckpoint(this, runtime, { leaving: true });
   },
@@ -1019,6 +1048,128 @@ Page<PracticePageData, PracticePageCustom>({
     void saveCheckpointIfPossible(this, runtime);
   },
 
+  async toggleFavorite() {
+    const runtime = runtimes.get(this);
+    const question = this.data.view?.question;
+    if (
+      !runtime?.favoriteApi ||
+      !runtime.session ||
+      !question ||
+      runtime.favoriteMutationInFlight ||
+      this.data.favoriteStatus === "loading" ||
+      this.data.favoriteStatus === "saving"
+    ) {
+      return;
+    }
+    if (
+      this.data.favoriteStatus === "error" ||
+      this.data.favoriteQuestionId !== question.questionId
+    ) {
+      await loadCurrentQuestionFavorite(this, runtime, true);
+      return;
+    }
+    const desiredState =
+      this.data.favoriteStatus === "unknown" && this.data.favoriteDesiredState
+        ? this.data.favoriteDesiredState
+        : this.data.favoriteState === "favorited"
+          ? "not_favorited"
+          : "favorited";
+    const requestEpoch = ++runtime.favoriteRequestEpoch;
+    const originQuestionId = question.questionId;
+    const originSession = currentAuthSession();
+    if (!originSession || !currentAccountOwns(runtime)) {
+      invalidateForAccountChange(this, runtime);
+      return;
+    }
+    runtime.favoriteMutationInFlight = true;
+    applyPracticeFavoriteState(this, {
+      status: "saving",
+      favoriteState: this.data.favoriteState,
+      questionId: originQuestionId,
+      desiredState,
+      message: "",
+      requestId: "",
+    });
+    try {
+      const outcome = await executeQuestionFavoriteCommand({
+        api: runtime.favoriteApi,
+        ownerUserId: runtime.ownerUserId,
+        questionId: originQuestionId,
+        desiredState,
+        ...(desiredState === "favorited"
+          ? {
+              contentVersionId: question.contentVersionId,
+              sourceSessionId: runtime.session.sessionId,
+            }
+          : {}),
+      });
+      if (!ownsFavoriteResponse(this, runtime, requestEpoch, originQuestionId, originSession)) {
+        invalidateFavoriteOwnerChange(this, runtime, originSession);
+        return;
+      }
+      if (outcome.kind === "succeeded") {
+        applyPracticeFavoriteState(this, {
+          status: "ready",
+          favoriteState: outcome.favoriteState,
+          questionId: originQuestionId,
+          desiredState: "",
+          message:
+            outcome.favoriteState === "favorited"
+              ? "已收藏，可在“收藏题目”中找回。"
+              : "已取消收藏；本次标记状态不受影响。",
+          requestId: outcome.requestId,
+        });
+        void wx.showToast({
+          title: outcome.favoriteState === "favorited" ? "已收藏" : "已取消收藏",
+          icon: "none",
+          duration: 1600,
+        });
+        return;
+      }
+      if (outcome.kind === "unknown") {
+        applyPracticeFavoriteState(this, {
+          status: "unknown",
+          favoriteState: outcome.favoriteState ?? this.data.favoriteState,
+          questionId: originQuestionId,
+          desiredState,
+          message: outcome.message,
+          requestId: outcome.requestId,
+        });
+        return;
+      }
+      applyPracticeFavoriteState(this, {
+        status: "error",
+        favoriteState: this.data.favoriteState,
+        questionId: originQuestionId,
+        desiredState: "",
+        message: `收藏状态没有改变：${outcome.message}`,
+        requestId: outcome.requestId,
+      });
+    } catch (error) {
+      if (!ownsFavoriteResponse(this, runtime, requestEpoch, originQuestionId, originSession)) {
+        invalidateFavoriteOwnerChange(this, runtime, originSession);
+        return;
+      }
+      applyPracticeFavoriteState(this, {
+        status: "error",
+        favoriteState: this.data.favoriteState,
+        questionId: originQuestionId,
+        desiredState: "",
+        message: error instanceof Error ? error.message : "收藏状态没有改变，请重新读取。",
+        requestId: error instanceof ApiClientError ? error.requestId : "",
+      });
+    } finally {
+      runtime.favoriteMutationInFlight = false;
+      if (
+        runtimes.owns(this, runtime) &&
+        runtime.visible &&
+        runtime.favoriteRequestEpoch !== requestEpoch
+      ) {
+        void loadCurrentQuestionFavorite(this, runtime, true);
+      }
+    }
+  },
+
   toggleMarked() {
     const runtime = runtimes.get(this);
     if (!runtime?.task || this.data.interactionLocked) return;
@@ -1401,6 +1552,7 @@ function render(
   const answerSheetSubtitle = `${answerSheetModuleName} · 共 ${String(answerSheetItems.length)} 题`;
   const answerSheetModuleCounts = `${String(answerSheetLegend.answered)} 已答 · ${String(answerSheetLegend.unanswered)} 未答 · 1 当前`;
   const alreadyReady = page.data.status === "ready";
+  const favoriteQuestionChanged = page.data.favoriteQuestionId !== currentQuestionId;
   page.setData({
     ...(alreadyReady ? { status: "ready" as const } : {}),
     errorTitle: "",
@@ -1427,6 +1579,162 @@ function render(
     afterRenderTick(() => {
       if (runtimes.owns(page, runtime)) page.setData({ status: "ready" });
     });
+  }
+  if (favoriteQuestionChanged && runtime.visible) {
+    void loadCurrentQuestionFavorite(page, runtime);
+  }
+}
+
+async function loadCurrentQuestionFavorite(
+  page: PracticePageInstance,
+  runtime: NonNullable<ReturnType<typeof runtimes.get>>,
+  force = false,
+): Promise<void> {
+  if (!runtime.favoriteApi || !runtime.session || !runtime.task || !runtime.visible) return;
+  const questionId = runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? "";
+  if (!questionId) return;
+  if (
+    !force &&
+    page.data.favoriteQuestionId === questionId &&
+    page.data.favoriteStatus !== "idle" &&
+    page.data.favoriteStatus !== "error"
+  ) {
+    return;
+  }
+  const originSession = currentAuthSession();
+  if (!originSession || !currentAccountOwns(runtime)) {
+    invalidateForAccountChange(page, runtime);
+    return;
+  }
+  const requestEpoch = ++runtime.favoriteRequestEpoch;
+  applyPracticeFavoriteState(page, {
+    status: "loading",
+    favoriteState:
+      page.data.favoriteQuestionId === questionId ? page.data.favoriteState : "not_favorited",
+    questionId,
+    desiredState: "",
+    message: "",
+    requestId: "",
+  });
+  try {
+    const response = await runtime.favoriteApi.getState(questionId);
+    if (!ownsFavoriteResponse(page, runtime, requestEpoch, questionId, originSession)) {
+      invalidateFavoriteOwnerChange(page, runtime, originSession);
+      return;
+    }
+    if (response.data.questionId !== questionId) {
+      throw new Error("收藏服务返回了另一道题的状态。");
+    }
+    applyPracticeFavoriteState(page, {
+      status: "ready",
+      favoriteState: response.data.favoriteState,
+      questionId,
+      desiredState: "",
+      message: "",
+      requestId: response.requestId,
+    });
+  } catch (error) {
+    if (!ownsFavoriteResponse(page, runtime, requestEpoch, questionId, originSession)) {
+      invalidateFavoriteOwnerChange(page, runtime, originSession);
+      return;
+    }
+    if (error instanceof ApiClientError && error.statusCode === 401) {
+      stopTimer(runtime);
+      page.setData({
+        status: "unavailable",
+        errorTitle: "登录状态已失效",
+        errorMessage: "当前作答仍保留在本机；重新登录后请从今日计划继续。",
+        showLoginAction: true,
+        interactionLocked: true,
+      });
+      return;
+    }
+    applyPracticeFavoriteState(page, {
+      status: "error",
+      favoriteState: page.data.favoriteState,
+      questionId,
+      desiredState: "",
+      message: "收藏状态没有读到；标记和作答仍可正常使用。",
+      requestId: error instanceof ApiClientError ? error.requestId : "",
+    });
+  }
+}
+
+function applyPracticeFavoriteState(
+  page: PracticePageInstance,
+  input: {
+    status: PracticePageData["favoriteStatus"];
+    favoriteState: QuestionFavoriteDesiredState;
+    questionId: string;
+    desiredState: QuestionFavoriteDesiredState | "";
+    message: string;
+    requestId: string;
+  },
+): void {
+  const active = input.favoriteState === "favorited";
+  const buttonLabel =
+    input.status === "loading"
+      ? "读取中"
+      : input.status === "saving"
+        ? input.desiredState === "favorited"
+          ? "收藏中"
+          : "取消中"
+        : input.status === "unknown"
+          ? input.desiredState === "favorited"
+            ? "重试收藏"
+            : "重试取消"
+          : input.status === "error"
+            ? "重新读取"
+            : active
+              ? "已收藏"
+              : "收藏";
+  page.setData({
+    favoriteStatus: input.status,
+    favoriteState: input.favoriteState,
+    favoriteQuestionId: input.questionId,
+    favoriteDesiredState: input.desiredState,
+    favoriteButtonLabel: buttonLabel,
+    favoriteAriaLabel:
+      input.status === "unknown"
+        ? `${buttonLabel}，结果待确认`
+        : input.status === "error"
+          ? "重新读取本题收藏状态"
+          : active
+            ? "取消收藏本题"
+            : "收藏本题",
+    favoriteMessage: input.message,
+    favoriteRequestId: input.requestId,
+  });
+}
+
+function ownsFavoriteResponse(
+  page: PracticePageInstance,
+  runtime: NonNullable<ReturnType<typeof runtimes.get>>,
+  requestEpoch: number,
+  questionId: string,
+  originSession: NonNullable<ReturnType<typeof currentAuthSession>>,
+): boolean {
+  const currentQuestionId = runtime.task?.questionOrder[runtime.task.currentQuestionIndex] ?? "";
+  return (
+    runtimes.owns(page, runtime) &&
+    runtime.visible &&
+    runtime.favoriteRequestEpoch === requestEpoch &&
+    currentQuestionId === questionId &&
+    sameSessionOwner(currentAuthSession(), originSession) &&
+    currentAccountOwns(runtime)
+  );
+}
+
+function invalidateFavoriteOwnerChange(
+  page: PracticePageInstance,
+  runtime: NonNullable<ReturnType<typeof runtimes.get>>,
+  originSession: NonNullable<ReturnType<typeof currentAuthSession>>,
+): void {
+  if (
+    runtimes.owns(page, runtime) &&
+    (!sameSessionOwner(currentAuthSession(), originSession) || !currentAccountOwns(runtime))
+  ) {
+    invalidateForAccountChange(page, runtime);
   }
 }
 
@@ -1741,7 +2049,10 @@ function errorMessage(error: unknown): string {
 }
 
 function currentAccountOwns(runtime: NonNullable<ReturnType<typeof runtimes.get>>): boolean {
-  return currentAuthSession()?.userId === runtime.ownerUserId;
+  const current = currentAuthSession();
+  return (
+    current?.userId === runtime.ownerUserId && current.generation === runtime.ownerSessionGeneration
+  );
 }
 
 function invalidateForAccountChange(
@@ -1756,6 +2067,14 @@ function invalidateForAccountChange(
     errorMessage: "旧账号的题目和进度已从当前页面清除，请以当前账号重新进入今日计划。",
     showLoginAction: true,
     view: null,
+    favoriteStatus: "idle",
+    favoriteState: "not_favorited",
+    favoriteQuestionId: "",
+    favoriteDesiredState: "",
+    favoriteButtonLabel: "收藏",
+    favoriteAriaLabel: "收藏本题",
+    favoriteMessage: "",
+    favoriteRequestId: "",
     sessionState: "",
     interactionLocked: true,
   });

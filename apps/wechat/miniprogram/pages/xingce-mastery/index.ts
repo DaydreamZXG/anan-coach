@@ -53,6 +53,7 @@ interface XingceMasteryPageCustom {
   goLogin(): void;
   selectBucket(event: WechatMiniprogram.BaseEvent): void;
   loadMore(): void;
+  openFavorites(): void;
   openItem(event: WechatMiniprogram.BaseEvent): Promise<void>;
 }
 
@@ -138,6 +139,10 @@ Page<XingceMasteryPageData, XingceMasteryPageCustom>({
     const runtime = runtimes.get(this);
     if (!runtime?.nextCursor || runtime.loadingMore || runtime.requestInFlight) return;
     void loadPage(this, runtime, true);
+  },
+
+  openFavorites() {
+    void wx.navigateTo({ url: routes.xingceFavorites });
   },
 
   async openItem(event) {

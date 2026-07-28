@@ -7,11 +7,11 @@
     "productPlan": "docs/engineering/2026-07-24-ui-ux-remediation-plan.md"
   },
   "summary": {
-    "registeredRouteCount": 58,
+    "registeredRouteCount": 59,
     "directlyMappedRouteCount": 31,
-    "unmappedRouteCount": 27,
+    "unmappedRouteCount": 28,
     "reuseExistingDesignCount": 8,
-    "mergeIntoDesignedFlowCount": 7,
+    "mergeIntoDesignedFlowCount": 8,
     "hideUntilProductActivationCount": 6,
     "newDesignRequiredCount": 6
   },
@@ -161,6 +161,16 @@
       ],
       "targetFlow": "ability.mastery",
       "reason": "掌握队列是能力页下钻状态，不需要独立视觉体系。"
+    },
+    {
+      "routeName": "xingceFavorites",
+      "route": "/pages/xingce-mastery/favorites/index",
+      "disposition": "merge_into_designed_flow",
+      "targetFigmaNodeIds": [
+        "4:2"
+      ],
+      "targetFlow": "ability.mastery.favorites",
+      "reason": "收藏题目是错题与掌握容器的平级找回视图，沿用能力页信息层级，不作为第五个掌握分组。"
     },
     {
       "routeName": "essayCompose",

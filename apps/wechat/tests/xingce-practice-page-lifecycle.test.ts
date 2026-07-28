@@ -29,7 +29,11 @@ describe("xingce practice page lifecycle", () => {
     await flushMicrotasks();
 
     expect(runtime.requests.filter((item) => item.method === "PUT")).toHaveLength(1);
-    expect(runtime.requests.filter((item) => item.method === "GET")).toHaveLength(1);
+    expect(
+      runtime.requests.filter(
+        (item) => item.method === "GET" && item.url.includes("/api/v2/xingce/task-sessions/"),
+      ),
+    ).toHaveLength(1);
     expect(vi.getTimerCount()).toBe(0);
     runtime.page.onUnload.call(runtime.page);
   });
@@ -38,7 +42,12 @@ describe("xingce practice page lifecycle", () => {
     vi.useFakeTimers();
     let releaseRefresh: (() => void) | undefined;
     const runtime = await createPracticePage((options, session) => {
-      if (options.method !== "GET") return false;
+      if (
+        options.method !== "GET" ||
+        !options.url.includes(`/api/v2/xingce/task-sessions/${session.sessionId}`)
+      ) {
+        return false;
+      }
       releaseRefresh = () => options.success?.(apiSuccess(session));
       return true;
     });
@@ -85,6 +94,218 @@ describe("xingce practice page lifecycle", () => {
     // 答题卡点当前题＝没有切题，不应打断已有的阅读位置。
     runtime.page.selectQuestion.call(runtime.page, sheetTapEvent(0));
     expect(runtime.page.data.questionScrollTop).toBe(0);
+    runtime.page.onUnload.call(runtime.page);
+  });
+});
+
+describe("xingce practice favorite ownership and idempotency", () => {
+  it("ignores a late favorite read after switching to another question", async () => {
+    vi.useFakeTimers();
+    let releaseQuestionOne: (() => void) | undefined;
+    const runtime = await createPracticePage((options) => {
+      if (!isFavoriteRequest(options, "GET")) return false;
+      const questionId = favoriteQuestionId(options);
+      if (questionId === "q-1") {
+        releaseQuestionOne = () =>
+          options.success?.(apiSuccess(favoriteStateResponse("q-1", "not_favorited")));
+        return true;
+      }
+      options.success?.(apiSuccess(favoriteStateResponse(questionId, "favorited")));
+      return true;
+    });
+
+    expect(runtime.page.data.favoriteQuestionId).toBe("q-1");
+    expect(runtime.page.data.favoriteStatus).toBe("loading");
+
+    runtime.page.nextQuestion.call(runtime.page);
+    await flushMicrotasks();
+    expect(runtime.page.data.favoriteQuestionId).toBe("q-2");
+    expect(runtime.page.data.favoriteState).toBe("favorited");
+
+    releaseQuestionOne?.();
+    await flushMicrotasks();
+    expect(runtime.page.data.favoriteQuestionId).toBe("q-2");
+    expect(runtime.page.data.favoriteState).toBe("favorited");
+    runtime.page.onUnload.call(runtime.page);
+  });
+
+  it("invalidates the whole current page when the same account gets a new session generation", async () => {
+    vi.useFakeTimers();
+    let releaseFavorite: (() => void) | undefined;
+    const runtime = await createPracticePage((options) => {
+      if (!isFavoriteRequest(options, "GET")) return false;
+      releaseFavorite = () =>
+        options.success?.(apiSuccess(favoriteStateResponse("q-1", "favorited")));
+      return true;
+    });
+
+    runtime.globalData.generation = "generation-b";
+    releaseFavorite?.();
+    await flushMicrotasks();
+
+    expect(runtime.page.data.status).toBe("unavailable");
+    expect(runtime.page.data.view).toBeNull();
+    expect(runtime.page.data.favoriteStatus).toBe("idle");
+    expect(runtime.page.data.interactionLocked).toBe(true);
+  });
+
+  it("invalidates the whole current page when a late response belongs to another account", async () => {
+    vi.useFakeTimers();
+    let releaseFavorite: (() => void) | undefined;
+    const runtime = await createPracticePage((options) => {
+      if (!isFavoriteRequest(options, "GET")) return false;
+      releaseFavorite = () =>
+        options.success?.(apiSuccess(favoriteStateResponse("q-1", "favorited")));
+      return true;
+    });
+
+    runtime.globalData.userId = "user-b";
+    runtime.globalData.generation = "generation-b";
+    releaseFavorite?.();
+    await flushMicrotasks();
+
+    expect(runtime.page.data.status).toBe("unavailable");
+    expect(runtime.page.data.view).toBeNull();
+    expect(runtime.page.data.favoriteQuestionId).toBe("");
+    expect(runtime.page.data.interactionLocked).toBe(true);
+  });
+
+  it("accepts an unknown write only after the authoritative read reaches the desired state", async () => {
+    vi.useFakeTimers();
+    let writeStarted = false;
+    const runtime = await createPracticePage((options) => {
+      if (isFavoriteRequest(options, "PUT")) {
+        writeStarted = true;
+        options.fail?.(requestFailure());
+        return true;
+      }
+      if (isFavoriteRequest(options, "GET")) {
+        options.success?.(
+          apiSuccess(favoriteStateResponse("q-1", writeStarted ? "favorited" : "not_favorited")),
+        );
+        return true;
+      }
+      return false;
+    });
+
+    await runtime.page.toggleFavorite.call(runtime.page);
+
+    expect(runtime.page.data.favoriteStatus).toBe("ready");
+    expect(runtime.page.data.favoriteState).toBe("favorited");
+    expect(runtime.page.data.favoriteMessage).toContain("已收藏");
+    runtime.page.onUnload.call(runtime.page);
+  });
+
+  it("keeps an unknown write retryable with the same key when the authoritative state is not reached", async () => {
+    vi.useFakeTimers();
+    let writeCount = 0;
+    const idempotencyKeys: string[] = [];
+    const runtime = await createPracticePage((options) => {
+      if (isFavoriteRequest(options, "PUT")) {
+        writeCount += 1;
+        idempotencyKeys.push(String(options.header?.["Idempotency-Key"] ?? ""));
+        if (writeCount === 1) {
+          options.fail?.(requestFailure());
+        } else {
+          options.success?.(
+            apiSuccess({
+              questionId: "q-1",
+              favoriteState: "favorited",
+              favoritedAt: "2026-07-28T12:00:00Z",
+              savedContentVersionId: "b".repeat(64),
+              revision: 1,
+              updatedAt: "2026-07-28T12:00:00Z",
+            }),
+          );
+        }
+        return true;
+      }
+      if (isFavoriteRequest(options, "GET")) {
+        options.success?.(apiSuccess(favoriteStateResponse("q-1", "not_favorited")));
+        return true;
+      }
+      return false;
+    });
+
+    await runtime.page.toggleFavorite.call(runtime.page);
+    expect(runtime.page.data.favoriteStatus).toBe("unknown");
+    expect(runtime.page.data.favoriteDesiredState).toBe("favorited");
+
+    await runtime.page.toggleFavorite.call(runtime.page);
+    expect(idempotencyKeys).toHaveLength(2);
+    expect(idempotencyKeys[1]).toBe(idempotencyKeys[0]);
+    expect(runtime.page.data.favoriteStatus).toBe("ready");
+    expect(runtime.page.data.favoriteState).toBe("favorited");
+    runtime.page.onUnload.call(runtime.page);
+  });
+
+  it("coalesces repeated taps while a favorite write is still in flight", async () => {
+    vi.useFakeTimers();
+    let releaseWrite: (() => void) | undefined;
+    const runtime = await createPracticePage((options) => {
+      if (!isFavoriteRequest(options, "PUT")) return false;
+      releaseWrite = () =>
+        options.success?.(
+          apiSuccess({
+            questionId: "q-1",
+            favoriteState: "favorited",
+            favoritedAt: "2026-07-28T12:00:00Z",
+            savedContentVersionId: "b".repeat(64),
+            revision: 1,
+            updatedAt: "2026-07-28T12:00:00Z",
+          }),
+        );
+      return true;
+    });
+
+    const first = runtime.page.toggleFavorite.call(runtime.page);
+    const second = runtime.page.toggleFavorite.call(runtime.page);
+    await flushMicrotasks();
+    expect(runtime.requests.filter((item) => isFavoriteRequest(item, "PUT"))).toHaveLength(1);
+
+    releaseWrite?.();
+    await Promise.all([first, second]);
+    expect(runtime.page.data.favoriteState).toBe("favorited");
+    runtime.page.onUnload.call(runtime.page);
+  });
+
+  it("atomically leaves saving state and clears old-account content after a 401 write", async () => {
+    vi.useFakeTimers();
+    const runtime = await createPracticePage((options) => {
+      if (!isFavoriteRequest(options, "PUT")) return false;
+      options.success?.(apiFailure(401, "登录状态已过期", "favorite-write-401"));
+      return true;
+    });
+
+    await runtime.page.toggleFavorite.call(runtime.page);
+
+    expect(runtime.page.data.status).toBe("unavailable");
+    expect(runtime.page.data.view).toBeNull();
+    expect(runtime.page.data.favoriteStatus).toBe("idle");
+    expect(runtime.page.data.favoriteButtonLabel).toBe("收藏");
+    expect(runtime.page.data.interactionLocked).toBe(true);
+    expect(runtime.globalData.accessToken).toBeUndefined();
+  });
+
+  it("force-refreshes the authoritative state after hiding and returning", async () => {
+    vi.useFakeTimers();
+    let state: "favorited" | "not_favorited" = "not_favorited";
+    const runtime = await createPracticePage((options) => {
+      if (!isFavoriteRequest(options, "GET")) return false;
+      options.success?.(apiSuccess(favoriteStateResponse("q-1", state)));
+      return true;
+    });
+
+    expect(runtime.page.data.favoriteState).toBe("not_favorited");
+    runtime.page.onHide.call(runtime.page);
+    await flushMicrotasks();
+    state = "favorited";
+    runtime.page.onShow.call(runtime.page);
+    await flushMicrotasks();
+
+    expect(runtime.page.data.favoriteStatus).toBe("ready");
+    expect(runtime.page.data.favoriteState).toBe("favorited");
+    expect(runtime.requests.filter((item) => isFavoriteRequest(item, "GET"))).toHaveLength(2);
     runtime.page.onUnload.call(runtime.page);
   });
 });
@@ -193,6 +414,11 @@ async function createPracticePage(
   let session = activeXingceSession({ mode });
   const requests: WechatMiniprogram.RequestOption[] = [];
   const { wxStorage } = createMemoryWechatStorage();
+  const globalData = {
+    accessToken: "real-token",
+    userId: "user-a",
+    generation: "generation-a",
+  };
   const request = vi.fn((options: WechatMiniprogram.RequestOption) => {
     requests.push(options);
     if (options.url.endsWith("/api/v2/task-editing/leases")) {
@@ -210,6 +436,39 @@ async function createPracticePage(
           acquiredAt: "2026-07-19T00:00:00Z",
           lastSeenAt: "2026-07-19T00:00:00Z",
           takenOverAt: null,
+        }),
+      );
+      return;
+    }
+    if (intercept?.(options, session)) return;
+    if (options.url.includes("/api/v2/xingce/question-favorites/")) {
+      const questionId = decodeURIComponent(options.url.split("/").at(-1) ?? "");
+      if (options.method === "GET") {
+        options.success?.(
+          apiSuccess({
+            questionId,
+            favoriteState: "not_favorited",
+            favoritedAt: null,
+            savedContentVersionId: null,
+            currentContentVersionId: "b".repeat(64),
+            availability: "available",
+            contentChanged: false,
+            revision: 0,
+            updatedAt: null,
+          }),
+        );
+        return;
+      }
+      const desiredState = (options.data as { desiredState: "favorited" | "not_favorited" })
+        .desiredState;
+      options.success?.(
+        apiSuccess({
+          questionId,
+          favoriteState: desiredState,
+          favoritedAt: desiredState === "favorited" ? "2026-07-28T12:00:00Z" : null,
+          savedContentVersionId: desiredState === "favorited" ? "b".repeat(64) : null,
+          revision: 1,
+          updatedAt: "2026-07-28T12:00:00Z",
         }),
       );
       return;
@@ -233,15 +492,12 @@ async function createPracticePage(
       options.success?.(apiSuccess(session));
       return;
     }
-    if (intercept?.(options, session)) return;
     options.success?.(apiSuccess(session));
   });
   vi.stubGlobal("Page", (definition: CapturedPracticePage) => {
     captured = definition;
   });
-  vi.stubGlobal("getApp", () => ({
-    globalData: { accessToken: "real-token", userId: "user-a" },
-  }));
+  vi.stubGlobal("getApp", () => ({ globalData }));
   vi.stubGlobal("wx", {
     ...wxStorage,
     request,
@@ -252,6 +508,8 @@ async function createPracticePage(
     redirectTo: vi.fn(() => Promise.resolve()),
     switchTab: vi.fn(() => Promise.resolve()),
   });
+  const { installUnauthorizedReset } = await import("../miniprogram/api/auth");
+  installUnauthorizedReset();
   await import("../miniprogram/pages/practice/index");
   if (!captured) throw new Error("practice page was not registered");
   const setData = vi.fn(function (this: TestPracticePage, patch: Record<string, unknown>) {
@@ -266,7 +524,7 @@ async function createPracticePage(
   page.onShow.call(page);
   await flushMicrotasks();
   expect(page.data.status).toBe("ready");
-  return { page, requests, setData };
+  return { page, requests, setData, globalData };
 }
 
 interface CapturedPracticePage {
@@ -283,11 +541,63 @@ interface CapturedPracticePage {
   onQuestionTouchMove(this: TestPracticePage, event: WechatMiniprogram.TouchEvent): void;
   onQuestionTouchEnd(this: TestPracticePage, event: WechatMiniprogram.TouchEvent): void;
   clearQuestionTransition(this: TestPracticePage): void;
+  toggleFavorite(this: TestPracticePage): Promise<void>;
 }
 
 interface TestPracticePage extends CapturedPracticePage {
   data: Record<string, unknown>;
   setData(patch: Record<string, unknown>): void;
+}
+
+function isFavoriteRequest(
+  options: WechatMiniprogram.RequestOption,
+  method: "GET" | "PUT",
+): boolean {
+  return options.method === method && options.url.includes("/api/v2/xingce/question-favorites/");
+}
+
+function favoriteQuestionId(options: WechatMiniprogram.RequestOption): string {
+  return decodeURIComponent(options.url.split("/").at(-1) ?? "");
+}
+
+function favoriteStateResponse(questionId: string, favoriteState: "favorited" | "not_favorited") {
+  return {
+    questionId,
+    favoriteState,
+    favoritedAt: favoriteState === "favorited" ? "2026-07-28T12:00:00Z" : null,
+    savedContentVersionId: favoriteState === "favorited" ? "b".repeat(64) : null,
+    currentContentVersionId: "b".repeat(64),
+    availability: "available",
+    contentChanged: false,
+    revision: favoriteState === "favorited" ? 1 : 0,
+    updatedAt: favoriteState === "favorited" ? "2026-07-28T12:00:00Z" : null,
+  };
+}
+
+function requestFailure(): WechatMiniprogram.RequestFailCallbackErr {
+  return {
+    errMsg: "request:fail timeout",
+    errno: -1,
+    exception: { reasons: [], retryCount: 0 },
+    useHttpDNS: false,
+  };
+}
+
+function apiFailure(
+  statusCode: number,
+  message: string,
+  requestId: string,
+): WechatMiniprogram.RequestSuccessCallbackResult {
+  return {
+    data: { code: "UNAUTHORIZED", message, requestId },
+    statusCode,
+    header: {},
+    cookies: [],
+    exception: { reasons: [], retryCount: 0 },
+    profile: {} as WechatMiniprogram.RequestProfile,
+    useHttpDNS: false,
+    errMsg: "request:ok",
+  };
 }
 
 function inputEvent(value: string): WechatMiniprogram.Input {

@@ -29,6 +29,7 @@ Component({
     timerPaused: { type: Boolean, value: false },
     marked: { type: Boolean, value: false },
     toolsAvailable: { type: Boolean, value: true },
+    companionAvailable: { type: Boolean, value: false },
     focusToolAvailable: { type: Boolean, value: false },
     footerAvailable: { type: Boolean, value: true },
     headerAvailable: { type: Boolean, value: true },
@@ -73,6 +74,9 @@ Component({
     },
     openTools() {
       this.triggerEvent("tools");
+    },
+    openCompanion() {
+      this.triggerEvent("companion");
     },
     openFocusTool() {
       this.triggerEvent("focustool");

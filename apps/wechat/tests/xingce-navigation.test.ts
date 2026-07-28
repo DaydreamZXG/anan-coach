@@ -80,6 +80,12 @@ describe("real xingce task navigation", () => {
       url: "/pages/xingce-mastery/index",
     });
     expect(registeredTaskNavigationTarget(routes.xingceMastery)).toBeNull();
+    expect(routes.xingceFavorites).toBe("/pages/xingce-mastery/favorites/index");
+    expect(registeredNavigationTarget(routes.xingceFavorites)).toEqual({
+      mode: "navigateTo",
+      url: "/pages/xingce-mastery/favorites/index",
+    });
+    expect(registeredTaskNavigationTarget(routes.xingceFavorites)).toBeNull();
   });
 
   it("registers C01 only with one explicit plan task and briefing mode", () => {

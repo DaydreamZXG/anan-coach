@@ -6,6 +6,14 @@
     <view wx:if="{{generatedAtLabel}}" class="hero-updated type-data">{{generatedAtLabel}}</view>
   </view>
 
+  <button hover-class="item--hover" class="favorites-entry" bindtap="openFavorites">
+    <view class="favorites-entry__copy">
+      <view class="favorites-entry__title">收藏题目</view>
+      <view class="favorites-entry__description">长期保存、跨设备找回；不占用错题与掌握分组</view>
+    </view>
+    <view class="favorites-entry__arrow" aria-hidden="true">›</view>
+  </button>
+
   <view class="bucket-tabs" role="tablist" aria-label="错题与掌握分组">
     <view hover-class="item--hover"
       wx:for="{{tabs}}"

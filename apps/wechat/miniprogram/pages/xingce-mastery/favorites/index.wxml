@@ -1,0 +1,84 @@
+<view class="s9-page favorites-page">
+  <view class="favorites-hero">
+    <view class="favorites-eyebrow">行测长期收藏</view>
+    <view class="favorites-title">收藏题目</view>
+    <view class="favorites-copy">收藏会跟随账号跨设备同步；标记仍表示本次任务里“稍后检查”，两者互不替代。</view>
+  </view>
+
+  <state-view
+    wx:if="{{status === 'loading'}}"
+    custom-class="favorites-state-view"
+    state="loading"
+    title="正在加载收藏题目"
+    description="正在读取当前账号的最新收藏。"
+  />
+
+  <state-view
+    wx:elif="{{status === 'error'}}"
+    custom-class="favorites-state-view"
+    state="error"
+    title="{{errorTitle}}"
+    description="{{errorMessage}}"
+    request-id="{{requestId}}"
+    action-text="重新加载"
+    bind:action="retry"
+  />
+
+  <view wx:elif="{{status === 'unavailable'}}" class="favorites-account-gate">
+    <state-view custom-class="favorites-state-view" state="error" title="{{errorTitle}}" description="{{errorMessage}}" />
+    <ui-button wx:if="{{showLoginAction}}" custom-class="favorites-state-action" label="重新登录" bind:action="goLogin" />
+  </view>
+
+  <block wx:else>
+    <view wx:if="{{refreshMessage}}" class="favorites-refresh-note" role="status">{{refreshMessage}}</view>
+
+    <view wx:if="{{partialErrorMessage}}" class="favorites-partial-warning" role="alert">
+      <view>{{partialErrorMessage}}</view>
+      <view wx:if="{{partialRequestId}}" class="type-data">问题编号 · {{partialRequestId}}</view>
+      <button hover-class="item--hover" class="favorites-warning-action control-center" bindtap="retryLoadMore">按原位置重试</button>
+    </view>
+
+    <state-view
+      wx:if="{{!items.length}}"
+      custom-class="favorites-state-view"
+      state="empty"
+      title="还没有收藏题目"
+      description="刷题时点题目栏的“收藏”，退出任务后仍能在这里找到。"
+    />
+
+    <view class="favorites-list">
+      <view wx:for="{{items}}" wx:key="questionId" class="favorite-card favorite-card--{{item.availabilityTone}}">
+        <view class="favorite-card__head">
+          <view class="favorite-card__meta">
+            <view class="favorite-card__module">{{item.moduleLabel}}</view>
+            <view class="favorite-card__time type-data">{{item.favoritedAtLabel}}</view>
+          </view>
+          <view class="favorite-card__state favorite-card__state--{{item.availabilityTone}}">{{item.availabilityLabel}}</view>
+        </view>
+
+        <view wx:if="{{!item.unavailable}}" class="favorite-card__stem">{{item.stem}}</view>
+        <view class="favorite-card__description">{{item.availabilityDescription}}</view>
+
+        <view wx:if="{{item.mutationMessage}}" class="favorite-card__mutation favorite-card__mutation--{{item.mutationStatus}}" role="{{item.mutationStatus === 'unknown' || item.mutationStatus === 'error' ? 'alert' : 'status'}}">
+          <text>{{item.mutationMessage}}</text>
+          <text wx:if="{{item.mutationRequestId}}" class="favorite-card__request type-data">问题编号 · {{item.mutationRequestId}}</text>
+        </view>
+
+        <button
+          hover-class="item--hover"
+          class="favorite-card__cancel control-center"
+          loading="{{item.mutationStatus === 'saving'}}"
+          disabled="{{item.mutationStatus === 'saving'}}"
+          data-questionid="{{item.questionId}}"
+          bindtap="cancelFavorite"
+        >{{item.mutationStatus === 'unknown' ? '重新确认取消' : item.mutationStatus === 'saving' ? '正在取消' : '取消收藏'}}</button>
+      </view>
+    </view>
+
+    <view wx:if="{{items.length}}" class="favorites-pagination">
+      <button hover-class="item--hover" wx:if="{{hasMore && !loadingMore && !partialErrorMessage}}" class="favorites-load-more control-center" bindtap="loadMore">加载更多</button>
+      <view wx:elif="{{loadingMore}}" class="favorites-page-note">正在读取下一页收藏…</view>
+      <view wx:elif="{{!hasMore}}" class="favorites-page-note">已显示当前账号的全部收藏</view>
+    </view>
+  </block>
+</view>

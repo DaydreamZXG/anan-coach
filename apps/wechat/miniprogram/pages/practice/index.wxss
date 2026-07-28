@@ -96,7 +96,7 @@
   width: 100%;
 }
 
-/* Figma 2:76 材料标题行：题型胶囊 + 收藏 / 岸岸 / 收起。 */
+/* 共享材料栏只承载材料类型、覆盖题号与展开/收起。 */
 .practice-material-head {
   box-sizing: border-box;
   display: flex;
@@ -135,9 +135,9 @@
 .practice-material-action {
   box-sizing: border-box;
   display: flex;
-  width: calc(56 * var(--rpx));
-  min-width: calc(56 * var(--rpx));
-  height: calc(56 * var(--rpx));
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
   margin: 0;
@@ -151,15 +151,6 @@
   border: 0;
 }
 
-/* Figma 94:5 岸岸圆钮：AI 渐变 + 紫色投影。 */
-.practice-material-action--anan {
-  width: calc(56 * var(--rpx));
-  min-width: calc(56 * var(--rpx));
-  height: calc(56 * var(--rpx));
-  background: var(--figma-gradient-ai);
-  box-shadow: var(--shadow-ai);
-}
-
 /* Figma 2:80 收起按钮 */
 .practice-material-action--collapse {
   background: var(--figma-color-surface-subtle);
@@ -171,23 +162,9 @@
   height: calc(36 * var(--rpx));
 }
 
-.practice-material-icon--anan {
-  width: calc(26 * var(--rpx));
-  height: calc(26 * var(--rpx));
-}
-
 .practice-material-icon--collapse {
   width: calc(32 * var(--rpx));
   height: calc(32 * var(--rpx));
-}
-
-/* 未标记时收藏图标降权，保留同一枚 Figma 资产。 */
-.practice-material-action--mark .practice-material-icon--bookmark {
-  opacity: 0.28;
-}
-
-.practice-material-action--marked .practice-material-icon--bookmark {
-  opacity: 1;
 }
 
 .question-rich-content,
@@ -283,6 +260,166 @@
 
 .practice-question-body--with-footer {
   padding-bottom: calc(224 * var(--rpx));
+}
+
+.practice-question-toolbar {
+  display: grid;
+  align-items: center;
+  gap: calc(16 * var(--rpx));
+  margin-bottom: calc(28 * var(--rpx));
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.practice-question-context {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: calc(3 * var(--rpx));
+}
+
+.practice-question-context__module {
+  overflow: hidden;
+  color: var(--color-ink-secondary);
+  font-size: var(--text-micro);
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.practice-question-context__position {
+  color: var(--color-faint);
+  font-family: var(--font-family-data);
+  font-size: var(--text-micro);
+}
+
+.practice-question-actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 4px;
+}
+
+.question-tool {
+  box-sizing: border-box;
+  display: flex;
+  width: 48px;
+  min-width: 44px;
+  min-height: 52px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  margin: 0;
+  padding: 3px 2px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-16);
+  color: var(--color-muted);
+  background: transparent;
+  line-height: normal;
+}
+
+.question-tool::after {
+  border: 0;
+}
+
+.question-tool__icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+.question-tool__icon--favorite {
+  opacity: 0.28;
+}
+
+.question-tool__label {
+  max-width: 44px;
+  overflow: hidden;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+
+.question-tool__mark-icon {
+  display: flex;
+  box-sizing: border-box;
+  width: 18px;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid currentcolor;
+  border-radius: 50%;
+  font-family: var(--font-family-data);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.question-tool__more-icon {
+  height: 18px;
+  font-family: var(--font-family-data);
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 13px;
+  letter-spacing: 1px;
+}
+
+.question-tool--favorite.question-tool--active {
+  color: var(--figma-color-warning);
+  background: var(--figma-color-warning-soft);
+}
+
+.question-tool--favorite.question-tool--active .question-tool__icon--favorite {
+  opacity: 1;
+}
+
+.question-tool--mark.question-tool--active {
+  color: var(--color-primary-deep);
+  background: var(--color-primary-soft);
+}
+
+.question-tool--unknown {
+  border-color: var(--color-warning-a42);
+  color: var(--color-warning);
+  background: var(--color-warning-soft);
+}
+
+.question-tool--error {
+  border-color: rgba(176, 64, 76, 0.24);
+  color: var(--color-danger);
+  background: var(--color-danger-soft);
+}
+
+.favorite-feedback {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: calc(8 * var(--rpx)) calc(16 * var(--rpx));
+  margin: 0 0 calc(24 * var(--rpx));
+  padding: calc(14 * var(--rpx)) calc(18 * var(--rpx));
+  border-radius: var(--radius-16);
+  color: var(--color-ink-secondary);
+  background: var(--color-primary-soft);
+  font-size: var(--text-micro);
+  line-height: 1.5;
+}
+
+.favorite-feedback--unknown {
+  color: var(--color-warning);
+  background: var(--color-warning-soft);
+}
+
+.favorite-feedback--error {
+  color: var(--color-danger);
+  background: var(--color-danger-soft);
+}
+
+.favorite-feedback__request {
+  color: currentcolor;
+  font-family: var(--font-family-data);
+  opacity: 0.74;
 }
 
 .question-hero {
@@ -1153,15 +1290,9 @@ button.submit-button {
   }
 
   .practice-material-action {
-    width: 36px;
-    min-width: 36px;
-    height: 36px;
-  }
-
-  .practice-material-action--anan {
-    width: 32px;
-    min-width: 32px;
-    height: 32px;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
   }
 
   .option-list {

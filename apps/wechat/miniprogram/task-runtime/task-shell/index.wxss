@@ -790,8 +790,9 @@
   display: none;
 }
 
-/* 「当前工具」按钮，Figma 2:57 落在胶囊左侧，不使用 margin-left:auto。 */
-.task-shell--xingce .task-header-button--tool {
+/* 行测最后一个会话级动作落在胶囊左侧，不使用 margin-left:auto。 */
+.task-shell--xingce .task-header-button--tool,
+.task-shell--xingce .task-header-button--companion {
   flex: 0 0 calc(56 * var(--rpx));
   width: calc(56 * var(--rpx));
   min-width: calc(56 * var(--rpx));
@@ -799,6 +800,14 @@
   height: calc(56 * var(--rpx));
   border-radius: var(--radius-16);
   background: transparent;
+}
+
+.task-shell--xingce .task-header-button--companion {
+  min-width: 44px;
+  min-height: 44px;
+  color: var(--color-on-primary);
+  background: var(--figma-gradient-ai);
+  box-shadow: var(--shadow-ai);
 }
 
 .task-shell--xingce .task-progress-label {

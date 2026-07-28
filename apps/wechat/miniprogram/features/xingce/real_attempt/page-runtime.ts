@@ -6,13 +6,16 @@ import type {
 import type { TaskRuntimeState } from "../../../task-runtime/contracts";
 import type { SwipeNavSample } from "../../../task-runtime/swipe-nav";
 import type { TaskEditingApi } from "../../../api/task-editing";
+import type { QuestionFavoritesApi } from "../../../api/question-favorites";
 import type { TaskEditOwnership } from "../../task-editing/coordinator";
 
 export interface XingcePageRuntime {
   api: XingceLearningApi | null;
+  favoriteApi: QuestionFavoritesApi | null;
   editingApi: TaskEditingApi | null;
   editOwnership: TaskEditOwnership | null;
   ownerUserId: string;
+  ownerSessionGeneration: string;
   planTaskId: string;
   requestedMode: XingceTaskMode | null;
   session: XingceTaskSession | null;
@@ -28,15 +31,19 @@ export interface XingcePageRuntime {
   visible: boolean;
   disposed: boolean;
   requestEpoch: number;
+  favoriteRequestEpoch: number;
+  favoriteMutationInFlight: boolean;
   reflectionNavigationStarted: boolean;
 }
 
 function createRuntime(): XingcePageRuntime {
   return {
     api: null,
+    favoriteApi: null,
     editingApi: null,
     editOwnership: null,
     ownerUserId: "",
+    ownerSessionGeneration: "",
     planTaskId: "",
     requestedMode: null,
     session: null,
@@ -50,6 +57,8 @@ function createRuntime(): XingcePageRuntime {
     visible: false,
     disposed: false,
     requestEpoch: 0,
+    favoriteRequestEpoch: 0,
+    favoriteMutationInFlight: false,
     reflectionNavigationStarted: false,
   };
 }
@@ -74,6 +83,7 @@ export class XingcePageRuntimeRegistry<TPage extends object> {
 
   beginRequest(runtime: XingcePageRuntime): number {
     runtime.requestEpoch += 1;
+    runtime.favoriteRequestEpoch += 1;
     return runtime.requestEpoch;
   }
 
@@ -90,6 +100,7 @@ export class XingcePageRuntimeRegistry<TPage extends object> {
     if (runtime.timerHandle !== undefined) clearInterval(runtime.timerHandle);
     runtime.timerHandle = undefined;
     runtime.api = null;
+    runtime.favoriteApi = null;
     runtime.editingApi = null;
     runtime.editOwnership = null;
     runtime.session = null;

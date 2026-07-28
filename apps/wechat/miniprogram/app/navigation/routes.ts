@@ -49,6 +49,7 @@ export const routes = {
   globalReport: "/pages/global-report/index",
   reflection: "/pages/reflection/index",
   xingceMastery: "/pages/xingce-mastery/index",
+  xingceFavorites: "/pages/xingce-mastery/favorites/index",
   essayMaterial: "/pages/essay-material/index",
   essayCompose: "/pages/essay-compose/index",
   essayReview: "/pages/essay-review/index",

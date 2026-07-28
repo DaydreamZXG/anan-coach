@@ -23,6 +23,7 @@
     "pages/report-overview/index",
     "pages/global-report/index",
     "pages/xingce-mastery/index",
+    "pages/xingce-mastery/favorites/index",
     "pages/essay-compose/index",
     "pages/essay-review/index",
     "pages/essay-rewrite/index",

@@ -108,10 +108,21 @@
         <view wx:else class="task-icon task-icon--bookmark" aria-hidden="true"></view>
       </button>
 
-      <!--
-        行测做题顶栏只到「当前工具」为止（Figma 2:57，x=230）。收藏与岸岸属于
-        上下文动作，放在材料标题行，避免顶栏挤到微信胶囊下方。
-      -->
+      <button
+        hover-class="item--hover"
+        wx:if="{{companionAvailable}}"
+        class="task-header-button task-header-button--anan task-header-button--companion"
+        aria-label="就当前题问岸岸"
+        bindtap="openCompanion"
+      >
+        <image
+          class="task-asset-icon task-asset-icon--anan"
+          src="/assets/icons/task/anan.svg"
+          mode="aspectFit"
+          aria-hidden="true"
+        />
+      </button>
+
       <button hover-class="item--hover" wx:if="{{toolsAvailable}}" class="task-header-button task-header-button--tool" aria-label="打开当前工具" bindtap="openTools">
         <image
           wx:if="{{layoutVariant === 'xingce'}}"

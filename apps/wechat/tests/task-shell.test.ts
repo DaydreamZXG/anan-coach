@@ -27,9 +27,11 @@ describe("compact task shell", () => {
     expect(taskShellTemplate).toContain("--task-navigation-height");
     expect(taskShellStyles).toContain(".task-shell--xingce .task-header");
     expect(taskShellStyles).toContain("padding: 0 var(--task-capsule-reserve)");
-    // Figma 2:27：顶栏止于「当前工具」；岸岸与收藏移到材料标题行（practice 页）。
+    // practice 可用专属 companion prop 把岸岸放在会话级顶栏；其他消费者仍保留 tools。
     expect(taskShellStyles).toContain(".task-shell--xingce .task-header-button--tool");
-    expect(taskShellStyles).not.toContain(".task-shell--xingce .task-header-button--anan");
+    expect(taskShellTemplate).toContain('wx:if="{{companionAvailable}}"');
+    expect(taskShellTemplate).toContain('bindtap="openCompanion"');
+    expect(taskShellStyles).toContain(".task-shell--xingce .task-header-button--companion");
     // sticky 基础规则的 top 偏移必须在 xingce 变体里归零，否则导航整行下坠。
     expect(taskShellStyles).toMatch(/\.task-shell--xingce \.task-header \{[^}]*top: 0/);
   });
