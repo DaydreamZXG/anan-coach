@@ -116,6 +116,75 @@ describe("PF-001 immediate verification target", () => {
     });
   });
 
+  it("reject、defer、证据不足和无确认版本即使带复测任务也安全回退", () => {
+    const rejected = withVerificationTask(completedXingceSession("reject"));
+    const deferred = withVerificationTask(completedXingceSession("reject"));
+    const deferredDecision = requiredReview(deferred).causeDecision;
+    if (!deferredDecision) throw new Error("fixture completion requires decision");
+    deferredDecision.decision = "defer";
+
+    const insufficient = withVerificationTask(confirmedCandidateSession());
+    requiredReview(insufficient).aiCandidate.state = "evidence_insufficient";
+
+    const unconfirmed = withVerificationTask(confirmedCandidateSession());
+    const unconfirmedDecision = requiredReview(unconfirmed).causeDecision;
+    if (!unconfirmedDecision) throw new Error("fixture completion requires decision");
+    unconfirmedDecision.confirmedCauseVersionId = null;
+
+    for (const session of [rejected, deferred, insufficient, unconfirmed]) {
+      expect(presentXingceImmediateVerification(session)).toBeNull();
+    }
+  });
+
+  it.each([
+    ["owner", "other_owner"],
+    ["entityType", "xingce_attempt_review_version"],
+    ["role", "due_verification"],
+    ["entityId", "61000000-0000-4000-8000-000000000099"],
+    ["versionId", "61000000-0000-4000-8000-000000000099"],
+  ] as const)("决策绑定字段 %s 不精确时不打开复测", (field, value) => {
+    const session = withVerificationTask(confirmedCandidateSession());
+    const reference = requiredFirstTask(session).evidenceRefs[0];
+    if (!reference) throw new Error("fixture decision evidence is required");
+    reference[field] = value;
+
+    expect(presentXingceImmediateVerification(session)).toBeNull();
+  });
+
+  it("决策绑定缺失或重复时不猜测", () => {
+    const missing = withVerificationTask(confirmedCandidateSession());
+    requiredFirstTask(missing).evidenceRefs = [];
+    expect(presentXingceImmediateVerification(missing)).toBeNull();
+
+    const duplicated = withVerificationTask(confirmedCandidateSession());
+    const reference = requiredFirstTask(duplicated).evidenceRefs[0];
+    if (!reference) throw new Error("fixture decision evidence is required");
+    requiredFirstTask(duplicated).evidenceRefs.push({ ...reference });
+    expect(presentXingceImmediateVerification(duplicated)).toBeNull();
+  });
+
+  it("多个到期复测只打开绑定当前 decisionVersionId 的任务", () => {
+    const session = withVerificationTask(confirmedCandidateSession());
+    if (!session.completion) throw new Error("fixture completion is required");
+    const current = requiredFirstTask(session);
+    const oldTaskId = "81000000-0000-4000-8000-000000000002";
+    const oldDecisionVersionId = "61000000-0000-4000-8000-000000000002";
+    session.completion.plan.tasks = [
+      {
+        ...current,
+        id: oldTaskId,
+        startUrl: `/pages/xingce-task-intro/index?mode=verification&planTaskId=${oldTaskId}`,
+        evidenceRefs: [verificationDecisionEvidence(oldDecisionVersionId)],
+      },
+      current,
+    ];
+
+    expect(presentXingceImmediateVerification(session)).toEqual({
+      mode: "navigateTo",
+      url: verificationUrl,
+    });
+  });
+
   it("没有合格复测任务时返回空，让页面回退今日计划", () => {
     const session = completedXingceSession("replace");
     expect(presentXingceImmediateVerification(session)).toBeNull();
@@ -233,6 +302,8 @@ function withVerificationTask(session: XingceTaskSession): XingceTaskSession {
   if (!session.completion) throw new Error("fixture completion is required");
   const existing = session.completion.plan.tasks[0];
   if (!existing) throw new Error("fixture Today task is required");
+  const decisionVersionId = requiredReview(session).causeDecision?.decisionVersionId;
+  if (!decisionVersionId) throw new Error("fixture cause decision is required");
   session.completion.plan.tasks = [
     {
       ...existing,
@@ -243,9 +314,20 @@ function withVerificationTask(session: XingceTaskSession): XingceTaskSession {
       status: "ready",
       title: "即时独立复测",
       startUrl: verificationUrl,
+      evidenceRefs: [verificationDecisionEvidence(decisionVersionId)],
     },
   ];
   return session;
+}
+
+function verificationDecisionEvidence(decisionVersionId: string) {
+  return {
+    owner: "objective_learning",
+    entityType: "xingce_cause_decision_version",
+    entityId: decisionVersionId,
+    versionId: decisionVersionId,
+    role: "immediate_verification_source",
+  };
 }
 
 function requiredReview(session: XingceTaskSession): NonNullable<XingceTaskSession["review"]> {

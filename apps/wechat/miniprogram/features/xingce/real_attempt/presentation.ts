@@ -497,6 +497,9 @@ function acceptedCorrectionFor(session: XingceTaskSession): XingceAcceptedCorrec
 export function presentXingceImmediateVerification(
   session: XingceTaskSession,
 ): RegisteredNavigationTarget | null {
+  const acceptedCorrection = acceptedCorrectionFor(session);
+  const decisionVersionId = session.review?.causeDecision?.decisionVersionId.trim() ?? "";
+  if (!acceptedCorrection || !decisionVersionId) return null;
   const tasks = session.completion?.plan.tasks ?? [];
   for (const task of tasks) {
     if (
@@ -504,6 +507,23 @@ export function presentXingceImmediateVerification(
       task.stage !== "objective_verification" ||
       task.kind !== "verification" ||
       task.status !== "ready"
+    ) {
+      continue;
+    }
+    const decisionBindings = Array.isArray(task.evidenceRefs)
+      ? task.evidenceRefs.filter(
+          (reference) =>
+            reference.owner === "objective_learning" &&
+            reference.entityType === "xingce_cause_decision_version" &&
+            reference.role === "immediate_verification_source",
+        )
+      : [];
+    const decisionBinding = decisionBindings.at(0);
+    if (
+      decisionBindings.length !== 1 ||
+      !decisionBinding ||
+      decisionBinding.entityId !== decisionVersionId ||
+      decisionBinding.versionId !== decisionVersionId
     ) {
       continue;
     }

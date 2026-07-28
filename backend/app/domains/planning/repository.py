@@ -689,7 +689,8 @@ class PlanningRepository:
                     select mastery.mastery_id::text,
                            mastery.mastery_version_id::text,
                            mastery.module_name,
-                           mastery.used_question_ids
+                           mastery.used_question_ids,
+                           mastery.evidence_refs
                     from learning.xingce_mastery_state_versions mastery
                     where mastery.user_id = cast(:user_id as uuid)
                       and mastery.due_at is not null
@@ -804,6 +805,11 @@ class PlanningRepository:
             ),
             due_verification_version_id=(
                 str(first_mastery["mastery_version_id"]) if first_mastery is not None else None
+            ),
+            due_verification_decision_version_id=(
+                _strict_cause_decision_version_id(first_mastery["evidence_refs"])
+                if first_mastery is not None
+                else None
             ),
             baseline_question_count=baseline_question_count,
             targeted_question_count=targeted_question_count,
@@ -2767,6 +2773,23 @@ def _essay_closure_context_gap(
 
 def _optional_str(value: Any) -> str | None:
     return str(value) if value is not None else None
+
+
+def _strict_cause_decision_version_id(evidence_refs: object) -> str | None:
+    if not isinstance(evidence_refs, list):
+        return None
+    prefix = "cause-decision-version:"
+    matches: list[str] = []
+    for evidence_ref in evidence_refs:
+        if not isinstance(evidence_ref, str) or not evidence_ref.startswith(prefix):
+            continue
+        candidate = evidence_ref.removeprefix(prefix)
+        try:
+            if str(UUID(candidate)) == candidate:
+                matches.append(candidate)
+        except ValueError:
+            continue
+    return matches[0] if len(matches) == 1 else None
 
 
 def _as_utc(value: datetime) -> datetime:

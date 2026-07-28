@@ -80,6 +80,16 @@ def test_reflection_worker_candidate_and_confirmation_are_one_audited_chain(
     confirmed = decision.json()["data"]
     assert confirmed["review"]["causeDecision"]["decision"] == "confirm"
     assert confirmed["review"]["causeDecision"]["confirmedCauseVersionId"]
+    decision_version_id = confirmed["review"]["causeDecision"]["decisionVersionId"]
+    assert _verification_decision_bindings(confirmed) == [
+        {
+            "owner": "objective_learning",
+            "entityType": "xingce_cause_decision_version",
+            "entityId": decision_version_id,
+            "versionId": decision_version_id,
+            "role": "immediate_verification_source",
+        }
+    ]
 
     with db_session_factory() as session:
         assert session.execute(
@@ -104,6 +114,116 @@ def test_reflection_worker_candidate_and_confirmation_are_one_audited_chain(
                 "where event_type = 'succeeded'"
             )
         ).scalar_one() == 6
+
+
+def test_multiple_due_mastery_projects_only_the_selected_frozen_decision_evidence(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    client, auth, _task, submitted = _submitted_attempt(
+        db_session_factory,
+        token="cause-agent-multiple-due-token",
+        choices=["D", "B", "C"],
+    )
+    review = submitted["review"]
+    _reflect(client, auth, review, key="cause-multiple-due-reflection")
+    _run_one(db_session_factory, SequenceProvider(["candidate_ready"]))
+    candidate_view = client.get(
+        f"/api/v2/xingce/task-sessions/{submitted['sessionId']}",
+        headers=auth,
+    ).json()["data"]
+    candidate = candidate_view["review"]["aiCandidate"]
+    decision = client.put(
+        f"/api/v2/xingce/attempt-reviews/{review['reviewId']}/cause-decision",
+        headers={**auth, "Idempotency-Key": "cause-multiple-due-confirm"},
+        json={
+            "expectedRevision": candidate_view["review"]["revision"],
+            "candidateVersionId": candidate["candidateVersionId"],
+            "decision": "confirm",
+        },
+    )
+    assert decision.status_code == 200, decision.text
+    confirmed = decision.json()["data"]
+    current_decision_version_id = confirmed["review"]["causeDecision"]["decisionVersionId"]
+    older_decision_version_id = "71000000-0000-4000-8000-000000000002"
+    older_mastery_id = "72000000-0000-4000-8000-000000000002"
+    older_mastery_version_id = "73000000-0000-4000-8000-000000000002"
+
+    with db_session_factory.begin() as session:
+        current = (
+            session.execute(
+                text(
+                    """
+                select *
+                from learning.xingce_mastery_state_versions
+                where source_session_id = cast(:session_id as uuid)
+                  and not exists (
+                    select 1
+                    from learning.xingce_mastery_state_versions successor
+                    where successor.supersedes_mastery_version_id =
+                          xingce_mastery_state_versions.mastery_version_id
+                  )
+                """
+                ),
+                {"session_id": confirmed["sessionId"]},
+            )
+            .mappings()
+            .one()
+        )
+        older_evidence_refs = [
+            (
+                f"cause-decision-version:{older_decision_version_id}"
+                if str(reference).startswith("cause-decision-version:")
+                else str(reference)
+            )
+            for reference in current["evidence_refs"]
+        ]
+        session.execute(
+            text(
+                """
+                insert into learning.xingce_mastery_state_versions (
+                  mastery_version_id, mastery_id, command_id, user_id,
+                  version_no, state, verification_stage, due_at, rating,
+                  module_name, scheduler_card, scheduler_review_log,
+                  scheduler_parameters, scheduler_algorithm_version,
+                  scheduler_policy_version, used_question_ids,
+                  source_review_id, source_review_version_id, source_session_id,
+                  evidence_refs, supersedes_mastery_version_id, created_at
+                )
+                select
+                  cast(:mastery_version_id as uuid), cast(:mastery_id as uuid),
+                  command_id, user_id, 1, state, verification_stage,
+                  due_at - interval '1 minute', null, module_name,
+                  scheduler_card, scheduler_review_log, scheduler_parameters,
+                  scheduler_algorithm_version, scheduler_policy_version,
+                  used_question_ids, source_review_id, source_review_version_id,
+                  source_session_id, cast(:evidence_refs as jsonb), null,
+                  created_at - interval '1 minute'
+                from learning.xingce_mastery_state_versions
+                where mastery_version_id = cast(:source_mastery_version_id as uuid)
+                """
+            ),
+            {
+                "mastery_version_id": older_mastery_version_id,
+                "mastery_id": older_mastery_id,
+                "evidence_refs": json.dumps(older_evidence_refs),
+                "source_mastery_version_id": str(current["mastery_version_id"]),
+            },
+        )
+
+    today_response = client.get("/api/v2/plans/today", headers=auth)
+    assert today_response.status_code == 200, today_response.text
+    today = today_response.json()["data"]
+    assert today["dueVerificationCount"] == 2
+    assert _verification_decision_bindings({"completion": {"plan": today}}) == [
+        {
+            "owner": "objective_learning",
+            "entityType": "xingce_cause_decision_version",
+            "entityId": older_decision_version_id,
+            "versionId": older_decision_version_id,
+            "role": "immediate_verification_source",
+        }
+    ]
+    assert older_decision_version_id != current_decision_version_id
 
 
 def test_followup_reuses_frozen_evidence_and_cannot_create_extra_tool_calls(
@@ -200,6 +320,16 @@ def test_reject_and_defer_never_materialize_a_confirmed_cause(
     assert rejected.status_code == 200, rejected.text
     rejected_view = rejected.json()["data"]
     assert rejected_view["review"]["causeDecision"]["confirmedCauseVersionId"] is None
+    rejected_decision_version_id = rejected_view["review"]["causeDecision"]["decisionVersionId"]
+    assert _verification_decision_bindings(rejected_view) == [
+        {
+            "owner": "objective_learning",
+            "entityType": "xingce_cause_decision_version",
+            "entityId": rejected_decision_version_id,
+            "versionId": rejected_decision_version_id,
+            "role": "immediate_verification_source",
+        }
+    ]
 
     deferred = client.put(
         f"/api/v2/xingce/attempt-reviews/{review['reviewId']}/cause-decision",
@@ -354,3 +484,16 @@ def _run_one(
         completed = worker.process_next(session)
     assert completed is not None
     assert completed.status == "succeeded"
+
+
+def _verification_decision_bindings(view: dict[str, Any]) -> list[dict[str, Any]]:
+    verification_task = next(
+        task
+        for task in view["completion"]["plan"]["tasks"]
+        if task["stage"] == "objective_verification"
+    )
+    return [
+        evidence
+        for evidence in verification_task["evidenceRefs"]
+        if evidence.get("role") == "immediate_verification_source"
+    ]

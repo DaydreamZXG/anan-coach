@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from hashlib import sha256
 from typing import Literal
+from uuid import UUID
 
 from app.domains.planning.engine import PriorityBreakdown, TaskCandidate
 from app.domains.xingce_learning.contracts import XINGCE_QUESTION_BUNDLE_SIZE
@@ -48,6 +49,7 @@ class ObjectivePlanningSnapshot:
     due_reflection_version_id: str | None = None
     due_verification_mastery_id: str | None = None
     due_verification_version_id: str | None = None
+    due_verification_decision_version_id: str | None = None
     baseline_question_count: int = 0
     targeted_question_count: int = 0
     verification_question_count: int = 0
@@ -62,6 +64,10 @@ class ObjectivePlanningSnapshot:
             < 0
         ):
             raise ValueError("objective question supply counts cannot be negative")
+        if self.due_verification_decision_version_id is not None and not _is_canonical_uuid(
+            self.due_verification_decision_version_id
+        ):
+            raise ValueError("due verification decision version must be a canonical UUID")
         if self.closure_readiness == "available":
             if self.due_reflection_count is None or self.due_verification_count is None:
                 raise ValueError("available objective closure requires canonical due counts")
@@ -212,6 +218,16 @@ def _objective_candidates(
                 "role": "due_verification",
             }
         )
+        if snapshot.due_verification_decision_version_id:
+            evidence.append(
+                {
+                    "owner": "objective_learning",
+                    "entityType": "xingce_cause_decision_version",
+                    "entityId": snapshot.due_verification_decision_version_id,
+                    "versionId": snapshot.due_verification_decision_version_id,
+                    "role": "immediate_verification_source",
+                }
+            )
     if snapshot.due_reflection_review_id and snapshot.due_reflection_version_id:
         evidence.append(
             {
@@ -715,3 +731,10 @@ def _time_fit(task_minutes: int, available_minutes: int) -> float:
     ideal_block = min(30, max(10, available_minutes // 2))
     distance = abs(task_minutes - ideal_block)
     return round(max(0.2, 1 - distance / max(ideal_block, 1)), 3)
+
+
+def _is_canonical_uuid(value: str) -> bool:
+    try:
+        return str(UUID(value)) == value
+    except ValueError:
+        return False

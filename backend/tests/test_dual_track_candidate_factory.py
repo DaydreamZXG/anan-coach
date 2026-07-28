@@ -1,11 +1,14 @@
 from __future__ import annotations
 
+import pytest
+
 from app.domains.planning.candidates import (
     EssayPlanningSnapshot,
     GoalPlanningSnapshot,
     ObjectivePlanningSnapshot,
     build_dual_track_candidates,
 )
+from app.domains.planning.repository import _strict_cause_decision_version_id
 
 
 def test_missing_component_evidence_creates_both_baseline_tracks() -> None:
@@ -131,6 +134,88 @@ def test_finished_rewrite_requires_fresh_material_transfer() -> None:
         and ref["entityId"] == "essay-source-task-v2"
         for ref in essay.evidence_refs
     )
+
+
+def test_due_verification_projects_only_the_frozen_cause_decision_version() -> None:
+    decision_version_id = "00000000-0000-4000-8000-000000000003"
+    candidates = build_dual_track_candidates(
+        goal=_goal(),
+        objective=ObjectivePlanningSnapshot(
+            False,
+            0,
+            1,
+            "判断推理",
+            "00000000-0000-4000-8000-000000000002",
+            "available",
+            None,
+            due_verification_mastery_id="00000000-0000-4000-8000-000000000001",
+            due_verification_version_id="00000000-0000-4000-8000-000000000002",
+            due_verification_decision_version_id=decision_version_id,
+            verification_question_count=3,
+        ),
+        essay=EssayPlanningSnapshot("content_unavailable", None),
+        available_minutes=45,
+    )
+
+    verification = next(
+        item for item in candidates.candidates if item.stage == "objective_verification"
+    )
+    assert [
+        ref
+        for ref in verification.evidence_refs
+        if ref.get("role") == "immediate_verification_source"
+    ] == [
+        {
+            "owner": "objective_learning",
+            "entityType": "xingce_cause_decision_version",
+            "entityId": decision_version_id,
+            "versionId": decision_version_id,
+            "role": "immediate_verification_source",
+        }
+    ]
+
+
+def test_due_verification_rejects_noncanonical_decision_version() -> None:
+    with pytest.raises(ValueError, match="canonical UUID"):
+        ObjectivePlanningSnapshot(
+            False,
+            0,
+            1,
+            "判断推理",
+            "objective-v4",
+            "available",
+            None,
+            due_verification_mastery_id="00000000-0000-4000-8000-000000000001",
+            due_verification_version_id="00000000-0000-4000-8000-000000000002",
+            due_verification_decision_version_id="not-a-uuid",
+        )
+
+
+def test_mastery_evidence_requires_exactly_one_canonical_cause_decision_version() -> None:
+    decision_version_id = "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa3"
+    other_version_id = "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa4"
+    assert (
+        _strict_cause_decision_version_id(
+            [
+                "review-version:00000000-0000-4000-8000-000000000001",
+                f"cause-decision-version:{decision_version_id}",
+                "unknown-evidence:ignored",
+            ]
+        )
+        == decision_version_id
+    )
+    for refs in (
+        [],
+        [f"cause-decision-version:{decision_version_id}"] * 2,
+        [
+            f"cause-decision-version:{decision_version_id}",
+            f"cause-decision-version:{other_version_id}",
+        ],
+        ["cause-decision-version:not-a-uuid"],
+        [f"cause-decision-version:{decision_version_id.upper()}"],
+        {"cause-decision-version": decision_version_id},
+    ):
+        assert _strict_cause_decision_version_id(refs) is None
 
 
 def test_missing_published_essay_content_is_explicitly_omitted() -> None:
