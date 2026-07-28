@@ -12,6 +12,15 @@
   color: var(--color-surface);
 }
 
+.capture-page--camera {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 .capture-channel-entry,
 .capture-sheet__close {
   min-height: calc(72 * var(--rpx));
@@ -415,6 +424,11 @@
   padding: calc(24 * var(--rpx)) calc(56 * var(--rpx));
 }
 
+.capture-page--camera .camera-workspace {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
 .camera-frame {
   position: relative;
   display: flex;
@@ -628,12 +642,20 @@
   opacity: 0.45;
 }
 
+.camera-bottom-panel {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  background: var(--ink);
+}
+
 .camera-error {
-  position: absolute;
-  right: calc(48 * var(--rpx));
-  bottom: calc(154 * var(--rpx));
-  left: calc(48 * var(--rpx));
-  z-index: 3;
+  box-sizing: border-box;
+  width: calc(100% - calc(96 * var(--rpx)));
+  max-width: 720px;
+  margin: 0 auto;
   padding: calc(20 * var(--rpx)) calc(24 * var(--rpx));
   border: calc(1 * var(--rpx)) solid rgba(251, 191, 36, 0.42);
   border-radius: var(--radius-capsule);
@@ -641,11 +663,12 @@
   color: var(--figma-color-warning);
   font-size: var(--text-micro);
   font-weight: 700;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
   text-align: center;
 }
 
 .camera-privacy {
-  /* 跟随快门行之后正常排布，不再绝对定位压住控件。 */
   padding: calc(12 * var(--rpx)) calc(40 * var(--rpx))
     calc(calc(12 * var(--rpx)) + env(safe-area-inset-bottom));
   background: var(--ink);
@@ -1374,13 +1397,6 @@ button.capture-sheet__close {
    * 平板拍摄态占满一屏分配空间：顶部模式、取景、快门和隐私说明共同参与
    * 布局，避免手机尺寸的取景框悬在大块空白中，也不把快门推到屏幕外。
    */
-  .capture-page--camera {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    min-height: 0;
-  }
-
   .ocr-content,
   .match-content,
   .solution-content {
@@ -1428,6 +1444,7 @@ button.capture-sheet__close {
 
   .camera-controls,
   .material-actions,
+  .camera-error,
   .camera-privacy {
     flex: 0 0 auto;
     box-sizing: border-box;

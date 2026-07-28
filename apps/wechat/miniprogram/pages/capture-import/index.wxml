@@ -114,18 +114,20 @@
       </view>
     </view>
 
-    <view wx:if="{{mode === 'search'}}" class="camera-controls">
-      <button hover-class="item--hover" class="camera-control" bindtap="chooseAlbum"><text class="album-glyph">▧</text><text>相册</text></button>
-      <button hover-class="item--hover" class="camera-shutter tap-tactile" disabled="{{!cameraReady}}" bindtap="chooseCamera"><text class="camera-shutter__core"></text></button>
-      <view class="camera-control camera-control--placeholder"></view>
+    <view class="camera-bottom-panel">
+      <view wx:if="{{cameraError || state.validationError}}" class="camera-error">{{cameraError || state.validationError}}</view>
+      <view wx:if="{{mode === 'search'}}" class="camera-controls">
+        <button hover-class="item--hover" class="camera-control" bindtap="chooseAlbum"><text class="album-glyph">▧</text><text>相册</text></button>
+        <button hover-class="item--hover" class="camera-shutter tap-tactile" disabled="{{!cameraReady}}" bindtap="chooseCamera"><text class="camera-shutter__core"></text></button>
+        <view class="camera-control camera-control--placeholder"></view>
+      </view>
+      <view wx:else class="material-actions">
+        <button hover-class="item--hover" class="control-center material-action" disabled="{{!cameraReady}}" bindtap="chooseCamera">拍摄材料</button>
+        <button hover-class="item--hover" class="control-center material-action" bindtap="chooseAlbum">相册</button>
+        <button hover-class="item--hover" class="control-center material-action material-action--primary tap-tactile" bindtap="choosePdf">导入 PDF</button>
+      </view>
+      <view class="camera-privacy">题图只用于本次识别与个人检索，不进入公共题库，不用于训练基础模型。</view>
     </view>
-    <view wx:else class="material-actions">
-      <button hover-class="item--hover" class="control-center material-action" disabled="{{!cameraReady}}" bindtap="chooseCamera">拍摄材料</button>
-      <button hover-class="item--hover" class="control-center material-action" bindtap="chooseAlbum">相册</button>
-      <button hover-class="item--hover" class="control-center material-action material-action--primary tap-tactile" bindtap="choosePdf">导入 PDF</button>
-    </view>
-    <view wx:if="{{cameraError || state.validationError}}" class="camera-error">{{cameraError || state.validationError}}</view>
-    <view class="camera-privacy">题图只用于本次识别与个人检索，不进入公共题库，不用于训练基础模型。</view>
   </block>
 
   <block wx:elif="{{state && (state.status === 'uploading' || state.status === 'processing')}}">
