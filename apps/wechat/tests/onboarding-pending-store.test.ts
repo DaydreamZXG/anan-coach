@@ -51,6 +51,7 @@ describe("onboarding pending storage", () => {
   it("keeps qualification recovery exact and scoped to its authenticated account", () => {
     const draft = {
       education: "本科",
+      degree: "学士",
       major: "法学",
       graduationYear: 2026,
       freshGraduate: "true" as const,
@@ -68,6 +69,7 @@ describe("onboarding pending storage", () => {
         draft,
         facts: [
           { key: "education", value: "本科" },
+          { key: "degree", value: "学士" },
           { key: "major", value: "法学" },
           { key: "graduation_year", value: 2026 },
           { key: "fresh_graduate", value: true },

@@ -50,7 +50,7 @@
           <view class="requirement-row">
             <text class="requirement-row__icon requirement-row__icon--{{item.statusTone}}">{{item.status === 'met' ? '✓' : '!'}}</text>
             <view class="requirement-row__main">
-              <view class="requirement-row__title">{{item.field}}</view>
+              <view class="requirement-row__title">{{item.fieldLabel}}</view>
               <view class="requirement-row__copy">{{item.conditionLabel}}</view>
               <view class="requirement-row__evidence">{{item.statusLabel}} · {{item.evidenceLabel}}</view>
               <view wx:if="{{item.operator === 'manual_review'}}" class="requirement-confirm">

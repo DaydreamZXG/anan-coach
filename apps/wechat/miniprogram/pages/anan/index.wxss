@@ -266,6 +266,9 @@
 .coach-error .secondary-action {
   margin-top: calc(28 * var(--rpx)) !important;
 }
+.ask-error-card {
+  border-color: var(--color-danger-soft);
+}
 .request-id {
   margin-top: calc(12 * var(--rpx));
   color: var(--ink-3);

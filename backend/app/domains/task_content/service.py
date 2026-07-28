@@ -277,8 +277,11 @@ class _ParagraphHTMLParser(HTMLParser):
         super().__init__(convert_charrefs=True)
         self._table_depth = 0
         self._capture_depth = 0
-        self._buffer: list[str] = []
-        self.paragraphs: list[str] = []
+        self._text_buffer: list[str] = []
+        self._html_buffer: list[str] = []
+        self._inline_tags: list[str] = []
+        self._underline_text_starts: list[int] = []
+        self.paragraphs: list[tuple[str, str | None]] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         del attrs
@@ -290,28 +293,68 @@ class _ParagraphHTMLParser(HTMLParser):
             return
         if normalized in {"p", "li"}:
             if self._capture_depth == 0:
-                self._buffer = []
+                self._text_buffer = []
+                self._html_buffer = []
+                self._inline_tags = []
+                self._underline_text_starts = []
             self._capture_depth += 1
-        elif normalized == "br" and self._capture_depth:
-            self._buffer.append("\n")
+            return
+        if not self._capture_depth:
+            return
+        if normalized == "br":
+            self._text_buffer.append("\n")
+            self._html_buffer.append("<br>")
+            return
+        if normalized in {"b", "em", "i", "span", "strong", "sub", "sup", "u"}:
+            self._html_buffer.append(f"<{normalized}>")
+            self._inline_tags.append(normalized)
+            if normalized == "u":
+                self._underline_text_starts.append(len(self._text_buffer))
 
     def handle_endtag(self, tag: str) -> None:
         normalized = tag.casefold()
         if normalized == "table":
             self._table_depth = max(0, self._table_depth - 1)
             return
-        if self._table_depth or normalized not in {"p", "li"}:
+        if self._table_depth:
+            return
+        if (
+            self._capture_depth
+            and normalized in {"b", "em", "i", "span", "strong", "sub", "sup", "u"}
+            and normalized in self._inline_tags
+        ):
+            while self._inline_tags:
+                current = self._inline_tags.pop()
+                if current == "u" and self._underline_text_starts:
+                    start = self._underline_text_starts.pop()
+                    if not "".join(self._text_buffer[start:]).strip():
+                        del self._text_buffer[start:]
+                        self._text_buffer.append("____")
+                self._html_buffer.append(f"</{current}>")
+                if current == normalized:
+                    break
+            return
+        if normalized not in {"p", "li"}:
             return
         if self._capture_depth:
             self._capture_depth -= 1
         if self._capture_depth == 0:
-            value = " ".join("".join(self._buffer).split())
-            if value:
-                self.paragraphs.append(value)
+            while self._inline_tags:
+                self._html_buffer.append(f"</{self._inline_tags.pop()}>")
+            text_value = " ".join("".join(self._text_buffer).split())
+            html_value = "".join(self._html_buffer).strip()
+            has_inline_markup = bool(
+                re.search(r"</?(?:b|br|em|i|span|strong|sub|sup|u)(?:>|\s)", html_value)
+            )
+            if text_value:
+                self.paragraphs.append(
+                    (text_value, html_value if has_inline_markup else None)
+                )
 
     def handle_data(self, data: str) -> None:
         if not self._table_depth and self._capture_depth:
-            self._buffer.append(data)
+            self._text_buffer.append(data)
+            self._html_buffer.append(escape(data, quote=False))
 
 
 class _TableHTMLParser(HTMLParser):
@@ -393,22 +436,22 @@ def rich_content(
     visual_required: bool,
 ) -> list[RichContentBlock]:
     blocks: list[RichContentBlock] = []
-    paragraphs: list[str] = []
+    paragraphs: list[tuple[str, str | None]] = []
     if html:
         paragraph_parser = _ParagraphHTMLParser()
         paragraph_parser.feed(html)
         paragraph_parser.close()
         paragraphs = paragraph_parser.paragraphs
     if not paragraphs and isinstance(text, str):
-        paragraphs = [line.strip() for line in text.splitlines() if line.strip()]
-    for paragraph in paragraphs:
+        paragraphs = [(line.strip(), None) for line in text.splitlines() if line.strip()]
+    for paragraph, paragraph_html in paragraphs:
         matches = list(FORMULA_PATTERN.finditer(paragraph))
         if not matches:
             blocks.append(
                 RichParagraphBlock(
                     blockId=_content_block_id(scope, len(blocks), "paragraph"),
                     text=paragraph,
-                    html=None,
+                    html=paragraph_html,
                 )
             )
             continue

@@ -535,6 +535,8 @@ def _item_from_row(
     reason_codes: list[str] = []
     if not row["compilation_id"]:
         reason_codes.append("requirements_missing")
+    if bool(row["source_conditions_incomplete"]):
+        reason_codes.append("source_conditions_incomplete")
     if int(row["pending_count"] or 0) > 0:
         reason_codes.append("conditions_need_confirmation")
     if int(row["not_met_count"] or 0) > 0:
@@ -666,7 +668,10 @@ candidate_positions as (
     position.paper_type,
     position.headcount,
     position.has_extra_exam,
-    compilation.compilation_id
+    compilation.compilation_id,
+    coalesce(compilation.warnings, '[]'::jsonb)
+      @> '["source_conditions_incomplete"]'::jsonb
+      as source_conditions_incomplete
   from product.positions position
   left join product.position_rule_compilations compilation
     on compilation.position_id = position.position_id
@@ -744,13 +749,19 @@ eligibility as (
   select
     candidate.*,
     count(checks.requirement_id) filter (where checks.check_status = 'met') as met_count,
-    count(checks.requirement_id) filter (where checks.check_status = 'needs_confirmation') as pending_count,
+    count(checks.requirement_id) filter (where checks.check_status = 'needs_confirmation')
+      + case when candidate.source_conditions_incomplete then 1 else 0 end
+      as pending_count,
     count(checks.requirement_id) filter (where checks.check_status = 'not_met') as not_met_count,
     coalesce(
       array_agg(checks.requirement_id::text order by checks.requirement_id::text)
         filter (where checks.check_status = 'needs_confirmation'),
       array[]::text[]
-    ) as pending_requirement_ids,
+    ) || case
+      when candidate.source_conditions_incomplete
+      then array['source-conditions-incomplete']::text[]
+      else array[]::text[]
+    end as pending_requirement_ids,
     coalesce(
       array_agg(checks.requirement_id::text order by checks.requirement_id::text)
         filter (where checks.check_status = 'not_met'),
@@ -759,6 +770,7 @@ eligibility as (
     case
       when candidate.compilation_id is null then 'needs_confirmation'
       when count(checks.requirement_id) filter (where checks.check_status = 'not_met') > 0 then 'ineligible'
+      when candidate.source_conditions_incomplete then 'needs_confirmation'
       when count(checks.requirement_id) filter (where checks.check_status = 'needs_confirmation') > 0 then 'needs_confirmation'
       else 'eligible'
     end as eligibility_status
@@ -767,7 +779,8 @@ eligibility as (
   group by candidate.position_id, candidate.position_code, candidate.name,
            candidate.department_full, candidate.system_code, candidate.region,
            candidate.city, candidate.paper_type, candidate.headcount,
-           candidate.has_extra_exam, candidate.compilation_id
+           candidate.has_extra_exam, candidate.compilation_id,
+           candidate.source_conditions_incomplete
 ),
 annual_scores as (
   select link.position_id, evidence.year,

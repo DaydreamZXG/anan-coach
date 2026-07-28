@@ -10,6 +10,7 @@ import {
 function draft(changes: Partial<QualificationDraft> = {}): QualificationDraft {
   return {
     education: "本科",
+    degree: "学士",
     major: "法学",
     graduationYear: 2026,
     freshGraduate: "true",
@@ -25,6 +26,7 @@ function draft(changes: Partial<QualificationDraft> = {}): QualificationDraft {
 describe("qualification onboarding", () => {
   it("blocks each incomplete hard-condition step", () => {
     expect(validateQualificationStep(draft({ education: "" }), 0)).toBe("请选择最高学历。");
+    expect(validateQualificationStep(draft({ degree: "" }), 0)).toBe("请选择已取得的学位。");
     expect(validateQualificationStep(draft({ major: "法" }), 0)).toContain("完整专业名称");
     expect(validateQualificationStep(draft({ freshGraduate: "" }), 1)).toContain("应届");
     expect(validateQualificationStep(draft({ politicalStatus: "" }), 1)).toContain("政治面貌");
@@ -36,6 +38,7 @@ describe("qualification onboarding", () => {
   it("produces only canonical qualification facts and omits blank hukou", () => {
     expect(qualificationFactsFromDraft(draft())).toEqual([
       { key: "education", value: "本科" },
+      { key: "degree", value: "学士" },
       { key: "major", value: "法学" },
       { key: "graduation_year", value: 2026 },
       { key: "fresh_graduate", value: true },
@@ -44,6 +47,12 @@ describe("qualification onboarding", () => {
       { key: "grassroots_years", value: 0 },
       { key: "service_project", value: "无" },
     ]);
+  });
+
+  it("normalizes legacy postgraduate education labels to the canonical fact values", () => {
+    expect(
+      qualificationFactsFromDraft(draft({ education: "硕士研究生", degree: "硕士" })),
+    ).toContainEqual({ key: "education", value: "硕士" });
   });
 
   it("normalizes user-entered strings without changing their meaning", () => {

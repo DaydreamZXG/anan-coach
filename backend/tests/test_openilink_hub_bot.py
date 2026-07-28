@@ -14,7 +14,7 @@ from app.domains.ilink_channel.hub_settings import (
     OpenILinkHubConfigurationError,
     OpenILinkHubSettings,
 )
-from app.domains.ilink_channel.repository import ILinkNotFound
+from app.domains.ilink_channel.repository import ILinkNotFound, ILinkRepository
 from app.domains.ilink_channel.settings import ILinkSettings
 
 
@@ -191,3 +191,18 @@ def test_hub_origin_is_private_loopback_only() -> None:
     )
     with pytest.raises(OpenILinkHubConfigurationError):
         invalid.validate()
+
+
+def test_hub_command_lock_is_transaction_scoped(db_session: Session) -> None:
+    locked = db_session.execute(
+        text("select pg_try_advisory_xact_lock(hashtextextended(:command_id, 0))"),
+        {"command_id": "user-a:hub-start-race"},
+    ).scalar_one()
+    assert locked is True
+
+    ILinkRepository(db_session).lock_command(command_id="user-a:hub-start-race")
+    still_held = db_session.execute(
+        text("select pg_try_advisory_xact_lock(hashtextextended(:command_id, 0))"),
+        {"command_id": "user-a:hub-start-race"},
+    ).scalar_one()
+    assert still_held is True

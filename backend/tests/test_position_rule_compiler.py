@@ -4,6 +4,10 @@ from app.domains.qualification.compiler import (
     RawPositionConditions,
     compile_position_rules,
 )
+from app.domains.positions.source_contract import (
+    OFFICIAL_POSITION_CONTRACT,
+    OFFICIAL_POSITION_FIELD_NAMES,
+)
 from app.domains.qualification.schemas import QualificationFact
 from app.domains.qualification.service import evaluate_eligibility
 from datetime import UTC, datetime
@@ -44,6 +48,28 @@ def _fact(key: str, value: object) -> QualificationFact:
             "effectiveAt": NOW,
         }
     )
+
+
+def _official_payload(**field_changes: object) -> dict[str, object]:
+    fields: dict[str, object] = {key: "" for key in OFFICIAL_POSITION_FIELD_NAMES}
+    fields.update(
+        {
+            "degree": "与最高学历相对应的学位",
+            "serviceProject": "无限制",
+            **field_changes,
+        }
+    )
+    return {
+        "contractVersion": OFFICIAL_POSITION_CONTRACT,
+        "positionDataVersion": "guokao-2026-official-v1",
+        "source": {
+            "fileName": "2026.xls",
+            "sha256": "a" * 64,
+            "sheetName": "中央党群机关",
+            "rowNumber": 3,
+        },
+        "officialFields": fields,
+    }
 
 
 def test_compiles_known_education_exact_majors_and_service_years() -> None:
@@ -96,6 +122,67 @@ def test_unmapped_raw_fields_create_a_blocking_audit_rule() -> None:
     assert "raw_fields_require_confirmation" in compiled.warnings
 
 
+def test_official_payload_compiles_degree_without_treating_audit_fields_as_unknown() -> None:
+    compiled = _compile(_source(raw_payload=_official_payload()))
+
+    degree = next(item for item in compiled.requirements if item.field == "degree")
+    assert degree.operator == "one_of"
+    assert degree.expected == ["学士", "硕士", "博士"]
+    assert "raw_fields_require_confirmation" not in compiled.warnings
+    assert all(
+        "未映射条件字段" not in item.source_text
+        for item in compiled.requirements
+    )
+
+
+def test_official_service_project_labels_map_to_profile_facts() -> None:
+    compiled = _compile(
+        _source(
+            raw_payload=_official_payload(
+                serviceProject=(
+                    "大学生村官、农村义务教育阶段学校教师特设岗位计划、"
+                    "“三支一扶”计划、大学生志愿服务西部计划、"
+                    "在军队服役5年（含）以上的高校毕业生退役士兵"
+                )
+            )
+        )
+    )
+
+    service_project = next(
+        item for item in compiled.requirements if item.field == "service_project"
+    )
+    assert service_project.operator == "one_of"
+    assert service_project.expected == [
+        "大学生村官",
+        "特岗教师",
+        "三支一扶",
+        "西部计划",
+        "高校毕业生退役士兵",
+    ]
+
+
+def test_official_education_variants_compile_to_canonical_profile_values() -> None:
+    expected = {
+        "仅限大专": ["大专"],
+        "大专或本科": ["大专", "本科"],
+        "本科或硕士研究生": ["本科", "硕士"],
+        "仅限硕士研究生": ["硕士"],
+        "仅限博士研究生": ["博士"],
+    }
+
+    for education, options in expected.items():
+        compiled = _compile(
+            _source(
+                education_min=education,
+                raw_payload=_official_payload(degree="无要求"),
+            )
+        )
+        requirement = next(
+            item for item in compiled.requirements if item.field == "education"
+        )
+        assert requirement.expected == options
+
+
 def test_exact_fresh_graduate_remark_is_deterministic() -> None:
     compiled = _compile(_source(remark="仅限应届高校毕业生"))
 
@@ -117,6 +204,43 @@ def test_fingerprint_and_requirement_ids_are_stable_but_change_with_source() -> 
         item.requirement_id for item in first.requirements
     ]
     assert changed.source_fingerprint != first.source_fingerprint
+
+
+def test_incomplete_source_release_can_never_compile_as_eligible() -> None:
+    source = _source()
+    complete = compile_position_rules(
+        source,
+        rule_set_version="guokao-2026-v2",
+        position_data_version="guokao-2026-fixture",
+        source_conditions_complete=True,
+    )
+    incomplete = compile_position_rules(
+        source,
+        rule_set_version="guokao-2026-v2",
+        position_data_version="guokao-2026-fixture",
+        source_conditions_complete=False,
+    )
+
+    assert incomplete.status == "needs_confirmation"
+    assert "source_conditions_incomplete" in incomplete.warnings
+    assert incomplete.source_fingerprint != complete.source_fingerprint
+
+    result = evaluate_eligibility(
+        facts=[_fact("education", "本科"), _fact("major", "法学")],
+        requirements=list(incomplete.requirements),
+        rule_set_version="guokao-2026-v2",
+        position_data_version="guokao-2026-fixture",
+        evaluated_at=NOW,
+        requirements_authoritative=True,
+        source_conditions_complete=False,
+    )
+    assert result.status == "needs_confirmation"
+    source_check = next(
+        check
+        for check in result.checks
+        if check.reason_code == "source_conditions_incomplete"
+    )
+    assert source_check.requirement_id == "source-conditions-incomplete"
 
 
 def test_authoritative_no_condition_compilation_can_be_eligible() -> None:

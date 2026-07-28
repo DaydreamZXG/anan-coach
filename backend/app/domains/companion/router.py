@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from app.core.config import get_settings
 from app.db.session import get_db_session
 from app.domains.ai.audit import AIAuditRepository
-from app.domains.ai.provider import AIProvider
+from app.domains.ai.hunyuan_companion import companion_provider
 from app.domains.auth.deps import get_current_user
 from app.domains.auth.repository import AuthenticatedUser
 from app.domains.commerce.deps import get_commerce_service
@@ -64,7 +64,7 @@ def get_companion_service(
         repository=CompanionRepository(session),
         audit_repository=AIAuditRepository(session),
         commerce_service=commerce_service,
-        ai_provider=AIProvider(settings),
+        ai_provider=companion_provider(settings),
         session=session,
         settings=settings,
     )

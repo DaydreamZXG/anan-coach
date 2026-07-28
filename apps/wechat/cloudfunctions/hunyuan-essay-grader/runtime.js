@@ -6,11 +6,19 @@ const CONTRACT_VERSION = "hunyuan-text-candidate@v2";
 const PROVIDER_NAME = "cloudbase-hunyuan";
 const CONNECTIVITY_PURPOSE = "connectivity_probe";
 const ESSAY_SCORE_PURPOSE = "essay_score_candidate";
+const COMPANION_PURPOSE = "companion_answer";
 const DEFAULT_MODEL = "hunyuan-2.0-instruct-20251111";
 const DEFAULT_MAX_INPUT_BYTES = 196608;
 const DEFAULT_MAX_OUTPUT_BYTES = 262144;
 const REQUEST_ID_PATTERN = /^[A-Za-z0-9][A-Za-z0-9._:-]{7,127}$/;
 const MESSAGE_ROLES = new Set(["system", "user", "assistant"]);
+const COMPANION_RESPONSE_KEYS = [
+  "answer",
+  "nextActions",
+  "sourceRefs",
+  "confidence",
+  "limitations",
+];
 
 class HunyuanTransportError extends Error {
   constructor(code, message) {
@@ -53,7 +61,7 @@ function validateRequest(event, maxInputBytes) {
   if (typeof event.requestId !== "string" || !REQUEST_ID_PATTERN.test(event.requestId)) {
     throw new HunyuanTransportError("request_invalid", "invalid request identity");
   }
-  if (![CONNECTIVITY_PURPOSE, ESSAY_SCORE_PURPOSE].includes(event.purpose)) {
+  if (![CONNECTIVITY_PURPOSE, ESSAY_SCORE_PURPOSE, COMPANION_PURPOSE].includes(event.purpose)) {
     throw new HunyuanTransportError("request_invalid", "purpose is not enabled in this release");
   }
   if (!Array.isArray(event.messages) || event.messages.length < 1 || event.messages.length > 8) {
@@ -80,14 +88,14 @@ function validateRequest(event, maxInputBytes) {
     }
   }
   if (
-    event.purpose === ESSAY_SCORE_PURPOSE &&
+    [ESSAY_SCORE_PURPOSE, COMPANION_PURPOSE].includes(event.purpose) &&
     (event.messages.length !== 2 ||
       event.messages[0].role !== "system" ||
       event.messages[1].role !== "user")
   ) {
     throw new HunyuanTransportError(
       "request_invalid",
-      "essay scoring requires one server-owned system message and one input document",
+      "formal generation requires one server-owned system message and one input document",
     );
   }
   const inputBytes = Buffer.byteLength(JSON.stringify(event), "utf8");
@@ -127,6 +135,113 @@ function normalizeUsage(usage) {
   return { promptTokens, completionTokens, totalTokens };
 }
 
+function normalizeCompanionList(value, { minimum, maximum, unique = false }) {
+  const source = typeof value === "string" ? [value] : value;
+  if (!Array.isArray(source)) {
+    throw new HunyuanTransportError(
+      "response_invalid",
+      "Hunyuan Companion list field has an invalid type",
+    );
+  }
+  const normalized = source.map((item) => {
+    if (typeof item !== "string" || !item.trim()) {
+      throw new HunyuanTransportError(
+        "response_invalid",
+        "Hunyuan Companion list field contains invalid text",
+      );
+    }
+    return item.trim();
+  });
+  const items = unique ? [...new Set(normalized)] : normalized;
+  if (items.length < minimum || items.length > maximum) {
+    throw new HunyuanTransportError(
+      "response_invalid",
+      "Hunyuan Companion list field has an invalid length",
+    );
+  }
+  return items;
+}
+
+function normalizeCompanionConfidence(value) {
+  if (typeof value === "string") {
+    const normalized = value.trim().toLowerCase();
+    const label = {
+      low: "low",
+      medium: "medium",
+      high: "high",
+      低: "low",
+      中: "medium",
+      高: "high",
+    }[normalized];
+    if (label) return label;
+    if (normalized) {
+      const parsed = Number(normalized);
+      if (Number.isFinite(parsed)) return normalizeCompanionConfidence(parsed);
+    }
+  }
+  if (typeof value === "number" && Number.isFinite(value) && value >= 0 && value <= 1) {
+    if (value < 0.5) return "low";
+    if (value < 0.8) return "medium";
+    return "high";
+  }
+  throw new HunyuanTransportError(
+    "response_invalid",
+    "Hunyuan Companion confidence has an invalid type",
+  );
+}
+
+function normalizeCompanionText(text) {
+  const trimmed = text.trim();
+  const fenced = trimmed.match(/^```(?:json)?\s*([\s\S]*?)\s*```$/i);
+  let payload;
+  try {
+    payload = JSON.parse(fenced ? fenced[1] : trimmed);
+  } catch (_error) {
+    throw new HunyuanTransportError(
+      "response_invalid",
+      "Hunyuan Companion output is not valid JSON",
+    );
+  }
+  if (
+    !payload ||
+    typeof payload !== "object" ||
+    Array.isArray(payload) ||
+    !ownKeysAre(payload, COMPANION_RESPONSE_KEYS)
+  ) {
+    throw new HunyuanTransportError(
+      "response_invalid",
+      "Hunyuan Companion output does not match the response contract",
+    );
+  }
+  if (
+    typeof payload.answer !== "string" ||
+    !payload.answer.trim() ||
+    payload.answer.trim().length > 4000
+  ) {
+    throw new HunyuanTransportError(
+      "response_invalid",
+      "Hunyuan Companion answer has an invalid type",
+    );
+  }
+  return JSON.stringify({
+    answer: payload.answer.trim(),
+    nextActions: normalizeCompanionList(payload.nextActions, {
+      minimum: 1,
+      maximum: 3,
+    }),
+    sourceRefs: normalizeCompanionList(payload.sourceRefs, {
+      minimum: 1,
+      maximum: 8,
+      unique: true,
+    }),
+    confidence: normalizeCompanionConfidence(payload.confidence),
+    limitations: normalizeCompanionList(payload.limitations, {
+      minimum: 0,
+      maximum: 8,
+    }),
+  });
+}
+
 function createHandler({ createModel, model, maxInputBytes, maxOutputBytes }) {
   if (typeof createModel !== "function") {
     throw new HunyuanTransportError("configuration_invalid", "createModel is required");
@@ -144,8 +259,20 @@ function createHandler({ createModel, model, maxInputBytes, maxOutputBytes }) {
         {
           model: configuredModel,
           messages: event.messages,
-          temperature: event.purpose === ESSAY_SCORE_PURPOSE ? 0 : 0.1,
+          temperature:
+            event.purpose === ESSAY_SCORE_PURPOSE
+              ? 0
+              : event.purpose === COMPANION_PURPOSE
+                ? 0.2
+                : 0.1,
           top_p: 0.8,
+          ...(event.purpose === COMPANION_PURPOSE
+            ? {
+                response_format: {
+                  type: "json_object",
+                },
+              }
+            : {}),
         },
         { timeout: 120000 },
       );
@@ -155,9 +282,12 @@ function createHandler({ createModel, model, maxInputBytes, maxOutputBytes }) {
     if (result && result.error) {
       throw new HunyuanTransportError("provider_failed", "Hunyuan returned an error result");
     }
-    const text = result && typeof result.text === "string" ? result.text : "";
+    let text = result && typeof result.text === "string" ? result.text : "";
     if (!text) {
       throw new HunyuanTransportError("response_invalid", "Hunyuan returned no text");
+    }
+    if (event.purpose === COMPANION_PURPOSE) {
+      text = normalizeCompanionText(text);
     }
     if (Buffer.byteLength(text, "utf8") > outputLimit) {
       throw new HunyuanTransportError(
@@ -181,10 +311,12 @@ module.exports = {
   CONTRACT_VERSION,
   CONNECTIVITY_PURPOSE,
   ESSAY_SCORE_PURPOSE,
+  COMPANION_PURPOSE,
   DEFAULT_MODEL,
   HunyuanTransportError,
   createHandler,
   normalizeInvocationEvent,
+  normalizeCompanionText,
   normalizeUsage,
   validateRequest,
 };

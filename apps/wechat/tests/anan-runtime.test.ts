@@ -1,10 +1,12 @@
 import { describe, expect, it } from "vitest";
 
+import { ApiClientError } from "../miniprogram/api/client";
 import {
   ANAN_INTENT_LABELS,
   resolveAnanVisual,
   type AnanIntent,
 } from "../miniprogram/design-system/companion/anan-companion/runtime";
+import { companionFailureView } from "../miniprogram/features/companion/presentation";
 
 describe("岸岸小程序运行时", () => {
   it("按语义请求选择正式资产、动效和无障碍名称", () => {
@@ -93,5 +95,18 @@ describe("岸岸小程序运行时", () => {
         visualStage: "",
       }),
     ).toBeNull();
+  });
+
+  it("外部回答服务未获安全接入时说明未发送资料并保留问题编号", () => {
+    const view = companionFailureView(
+      new ApiClientError("刚才这一步没有成功，请稍后再试一次。", 503, "mp-anan-503"),
+    );
+
+    expect(view).toEqual({
+      semanticState: "provider_pending",
+      message:
+        "岸岸的回答服务尚未完成安全接入，本次没有把你的学习资料发给外部模型。请保留问题编号，服务恢复后再试。",
+      requestId: "mp-anan-503",
+    });
   });
 });

@@ -92,6 +92,21 @@
         </view>
       </view>
 
+      <view
+        wx:if="{{contextStatus === 'ready' && errorMessage && !submitting && !answer}}"
+        class="coach-card coach-error ask-error-card"
+      >
+        <view class="coach-card__title">这次没有收到岸岸的回答</view>
+        <view class="coach-card__copy">{{errorMessage}}</view>
+        <view wx:if="{{requestId}}" class="request-id">问题编号 · {{requestId}}</view>
+        <button
+          wx:if="{{askedQuestion}}"
+          hover-class="item--hover"
+          class="secondary-action"
+          bindtap="restoreAskedQuestion"
+        >编辑后重试</button>
+      </view>
+
       <view wx:if="{{answer}}" class="answer-card">
         <view class="answer-header">
           <view>

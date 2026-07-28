@@ -1,4 +1,3 @@
-import { ApiClientError } from "../../api/client";
 import { CompanionApi } from "../../api/companion";
 import type {
   CompanionAskResponse,
@@ -10,6 +9,7 @@ import { PlanningApi } from "../../api/planning";
 import { routes } from "../../app/navigation/routes";
 import {
   companionAnswerView,
+  companionFailureView,
   type CompanionAnswerView,
 } from "../../features/companion/presentation";
 import { resolveCompanionAction } from "../../features/learning-brain/companion-action";
@@ -216,17 +216,30 @@ Page({
         answer: companionAnswerView(data, stateLabels[data.semanticState]),
       });
     } catch (error) {
-      const semanticState = failureState(error);
-      const view = errorView(error, "本次回答未完成，请根据状态稍后再试。");
+      const view = companionFailureView(error);
       this.setData({
         submitting: false,
-        semanticState,
-        stateLabel: stateLabels[semanticState],
+        semanticState: view.semanticState,
+        stateLabel: stateLabels[view.semanticState],
         companionIntent: "reminder",
         errorMessage: view.message,
         requestId: view.requestId,
       });
     }
+  },
+
+  restoreAskedQuestion() {
+    const question = this.data.askedQuestion.trim();
+    if (!question) return;
+    this.setData({
+      question,
+      askedQuestion: "",
+      errorMessage: "",
+      requestId: "",
+      semanticState: "ready",
+      stateLabel: "可以修改问题后重新发送",
+      companionIntent: "companion",
+    });
   },
 
   retryContext() {
@@ -309,14 +322,6 @@ Page({
     navigate();
   },
 });
-
-function failureState(error: unknown): CompanionAskResponse["semanticState"] {
-  if (!(error instanceof ApiClientError)) return "failed";
-  if (error.statusCode === 429) return "quota_exhausted";
-  if (error.statusCode === 403) return "permission_denied";
-  if (error.statusCode === 502 || error.statusCode === 503) return "provider_pending";
-  return "failed";
-}
 
 function companionContextView(
   profile: LearningBrainProfileVersion,

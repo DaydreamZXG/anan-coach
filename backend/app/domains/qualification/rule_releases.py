@@ -112,6 +112,9 @@ class PositionRuleReleaseService:
         ).mappings().all()
         if not rows:
             raise RuleReleaseContractError("The release year has no positions")
+        source_conditions_complete = all(
+            row["raw_json"] is not None for row in rows
+        )
 
         timestamp = compiled_at or datetime.now(UTC)
         status_counts = {
@@ -136,6 +139,7 @@ class PositionRuleReleaseService:
                 source,
                 rule_set_version=release["rule_set_version"],
                 position_data_version=release["position_data_version"],
+                source_conditions_complete=source_conditions_complete,
             )
             existing = session.execute(
                 text(

@@ -72,7 +72,7 @@ class AICompanionAnswerResult:
     provider_request_id_fingerprint: str | None = None
 
 
-class _CompanionProviderAnswer(BaseModel):
+class CompanionProviderAnswer(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     answer: str = Field(min_length=1, max_length=4000)
@@ -82,7 +82,7 @@ class _CompanionProviderAnswer(BaseModel):
     limitations: list[str] = Field(max_length=8)
 
     @model_validator(mode="after")
-    def unique_grounding(self) -> "_CompanionProviderAnswer":
+    def unique_grounding(self) -> "CompanionProviderAnswer":
         if len(self.source_refs) != len(set(self.source_refs)):
             raise ValueError("sourceRefs must be unique")
         if any(not item.strip() for item in self.next_actions):
@@ -166,7 +166,7 @@ class AIProvider:
                 "confidence": "low | medium | high",
                 "limitations": ["0-8 explicit limitations"],
             },
-            "required_output_schema": _CompanionProviderAnswer.model_json_schema(
+            "required_output_schema": CompanionProviderAnswer.model_json_schema(
                 by_alias=True
             ),
         }
@@ -212,7 +212,7 @@ class AIProvider:
                     "json_schema": {
                         "name": "companion_grounded_answer",
                         "strict": True,
-                        "schema": _CompanionProviderAnswer.model_json_schema(
+                        "schema": CompanionProviderAnswer.model_json_schema(
                             by_alias=True
                         ),
                     },
@@ -367,7 +367,7 @@ class AIProvider:
                 output_fingerprint=output_fingerprint,
             )
         try:
-            parsed = _CompanionProviderAnswer.model_validate(
+            parsed = CompanionProviderAnswer.model_validate(
                 parse_provider_json_object(content)
             )
         except (ValidationError, ValueError, json.JSONDecodeError, RecursionError) as exc:

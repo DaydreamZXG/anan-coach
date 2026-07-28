@@ -85,6 +85,114 @@ test("accepts formal scoring only with the closed two-message contract", async (
   );
 });
 
+test("accepts companion answers only through the server-owned two-message contract", async () => {
+  let providerInput;
+  const main = createHandler({
+    createModel: () => ({
+      generateText: async (input) => {
+        providerInput = input;
+        return {
+          text: JSON.stringify({
+            answer: "先复盘今天的错因。",
+            nextActions: ["完成一道同类题"],
+            sourceRefs: ["source-1"],
+            confidence: "high",
+            limitations: [],
+          }),
+        };
+      },
+    }),
+  });
+  const result = await main(
+    request({
+      purpose: "companion_answer",
+      messages: [
+        { role: "system", content: "server-owned companion contract" },
+        { role: "user", content: "minimized learner context" },
+      ],
+    }),
+  );
+  assert.equal(providerInput.temperature, 0.2);
+  assert.deepEqual(providerInput.response_format, {
+    type: "json_object",
+  });
+  assert.match(result.text, /先复盘今天的错因/);
+  await assert.rejects(
+    () =>
+      main(
+        request({
+          purpose: "companion_answer",
+          messages: [{ role: "user", content: "caller prompt" }],
+        }),
+      ),
+    HunyuanTransportError,
+  );
+});
+
+test("normalizes documented Hunyuan companion type drift without inventing content", async () => {
+  const main = createHandler({
+    createModel: () => ({
+      generateText: async () => ({
+        text: JSON.stringify({
+          answer: "今晚先练资料分析。",
+          nextActions: "完成一道同类题",
+          sourceRefs: ["source-1", "source-1"],
+          confidence: 0.95,
+          limitations: "仅依据当前计划。",
+        }),
+      }),
+    }),
+  });
+
+  const result = await main(
+    request({
+      purpose: "companion_answer",
+      messages: [
+        { role: "system", content: "server-owned companion contract" },
+        { role: "user", content: "minimized learner context" },
+      ],
+    }),
+  );
+
+  assert.deepEqual(JSON.parse(result.text), {
+    answer: "今晚先练资料分析。",
+    nextActions: ["完成一道同类题"],
+    sourceRefs: ["source-1"],
+    confidence: "high",
+    limitations: ["仅依据当前计划。"],
+  });
+});
+
+test("rejects companion content that cannot be normalized to the closed contract", async () => {
+  const main = createHandler({
+    createModel: () => ({
+      generateText: async () => ({
+        text: JSON.stringify({
+          answer: "今晚先练资料分析。",
+          nextActions: [],
+          sourceRefs: [],
+          confidence: "certain",
+          limitations: [],
+        }),
+      }),
+    }),
+  });
+
+  await assert.rejects(
+    () =>
+      main(
+        request({
+          purpose: "companion_answer",
+          messages: [
+            { role: "system", content: "server-owned companion contract" },
+            { role: "user", content: "minimized learner context" },
+          ],
+        }),
+      ),
+    HunyuanTransportError,
+  );
+});
+
 test("removes only the CloudBase gateway context before closed validation", () => {
   assert.deepEqual(
     normalizeInvocationEvent({ ...request(), tcbContext: { requestId: "provider-owned" } }),

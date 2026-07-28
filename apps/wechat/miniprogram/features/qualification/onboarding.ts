@@ -2,6 +2,7 @@ import type { QualificationFactInput, QualificationProfile } from "../../api/gen
 
 export interface QualificationDraft {
   education: string;
+  degree: string;
   major: string;
   graduationYear: number;
   freshGraduate: "" | "true" | "false";
@@ -14,6 +15,7 @@ export interface QualificationDraft {
 
 export const emptyQualificationDraft: Readonly<QualificationDraft> = {
   education: "",
+  degree: "",
   major: "",
   graduationYear: -1,
   freshGraduate: "",
@@ -26,6 +28,7 @@ export const emptyQualificationDraft: Readonly<QualificationDraft> = {
 
 export function validateQualificationStep(draft: QualificationDraft, step: number): string {
   if (step === 0 && !draft.education) return "请选择最高学历。";
+  if (step === 0 && !draft.degree) return "请选择已取得的学位。";
   if (step === 0 && draft.major.trim().length < 2) return "请输入毕业证上的完整专业名称。";
   if (step === 0 && draft.graduationYear < 2000) return "请选择毕业年份。";
   if (step === 1 && !draft.freshGraduate) return "请选择是否属于应届高校毕业生。";
@@ -46,6 +49,7 @@ export function validateQualificationDraft(draft: QualificationDraft): string {
 
 export function validateOnboardingQualificationDraft(draft: QualificationDraft): string {
   if (!draft.education) return "请选择最高学历。";
+  if (!draft.degree) return "请选择已取得的学位。";
   if (draft.major.trim().length < 2) return "请输入毕业证上的完整专业名称。";
   if (draft.graduationYear < 2000) return "请选择毕业年份。";
   if (!draft.freshGraduate) return "请确认毕业年份对应的应届身份。";
@@ -56,7 +60,10 @@ export function validateOnboardingQualificationDraft(draft: QualificationDraft):
 
 export function qualificationFactsFromDraft(draft: QualificationDraft): QualificationFactInput[] {
   const facts: QualificationFactInput[] = [];
-  if (draft.education) facts.push({ key: "education", value: draft.education });
+  if (draft.education) {
+    facts.push({ key: "education", value: canonicalEducation(draft.education) });
+  }
+  if (draft.degree) facts.push({ key: "degree", value: draft.degree });
   if (draft.major.trim()) facts.push({ key: "major", value: draft.major.trim() });
   if (draft.graduationYear >= 2000) {
     facts.push({ key: "graduation_year", value: draft.graduationYear });
@@ -81,7 +88,8 @@ export function qualificationFactsFromDraft(draft: QualificationDraft): Qualific
 export function qualificationDraftFromProfile(profile: QualificationProfile): QualificationDraft {
   const facts = new Map(profile.facts.map((fact) => [fact.key, fact.value]));
   return {
-    education: stringFact(facts.get("education")),
+    education: canonicalEducation(stringFact(facts.get("education"))),
+    degree: stringFact(facts.get("degree")),
     major: stringFact(facts.get("major")),
     graduationYear: numberFact(facts.get("graduation_year")),
     freshGraduate: booleanFact(facts.get("fresh_graduate")),
@@ -111,4 +119,10 @@ function booleanFact(value: QualificationFactInput["value"] | undefined): "" | "
 
 function numberFact(value: QualificationFactInput["value"] | undefined): number {
   return typeof value === "number" && Number.isSafeInteger(value) ? value : -1;
+}
+
+function canonicalEducation(value: string): string {
+  if (value === "硕士研究生") return "硕士";
+  if (value === "博士研究生") return "博士";
+  return value;
 }

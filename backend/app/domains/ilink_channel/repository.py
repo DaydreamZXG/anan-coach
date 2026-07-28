@@ -22,6 +22,13 @@ class ILinkRepository:
     def __init__(self, session: Session) -> None:
         self._session = session
 
+    def lock_command(self, *, command_id: str) -> None:
+        """Serialize one idempotent command until the surrounding transaction commits."""
+        self._session.execute(
+            text("select pg_advisory_xact_lock(hashtextextended(:command_id, 0))"),
+            {"command_id": command_id},
+        )
+
     def link_for_user(self, *, user_id: UUID, for_update: bool = False):
         suffix = " for update" if for_update else ""
         return self._session.execute(

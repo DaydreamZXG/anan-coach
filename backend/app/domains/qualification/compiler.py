@@ -7,10 +7,15 @@ import re
 from typing import Literal
 from uuid import NAMESPACE_URL, uuid5
 
+from app.domains.positions.source_contract import (
+    OFFICIAL_POSITION_CONTRACT,
+    OFFICIAL_POSITION_FIELD_NAMES,
+)
 from app.domains.qualification.schemas import PositionRequirement
 
 
-COMPILER_VERSION = "guokao-position-rules-v1"
+COMPILER_VERSION = "guokao-position-rules-v2"
+SOURCE_CONDITIONS_INCOMPLETE_WARNING = "source_conditions_incomplete"
 UNRESTRICTED = {"", "不限", "无", "无要求", "不限制", "专业不限", "无特殊要求"}
 EDUCATION_OPTIONS = {
     "大专及以上": ["大专", "本科", "硕士", "博士"],
@@ -19,13 +24,18 @@ EDUCATION_OPTIONS = {
     "大学本科及以上": ["本科", "硕士", "博士"],
     "硕士研究生及以上": ["硕士", "博士"],
     "研究生及以上": ["硕士", "博士"],
+    "本科或硕士研究生": ["本科", "硕士"],
+    "大专或本科": ["大专", "本科"],
     "大专": ["大专"],
     "专科": ["大专"],
+    "仅限大专": ["大专"],
     "本科": ["本科"],
     "大学本科": ["本科"],
     "仅限本科": ["本科"],
     "硕士研究生": ["硕士"],
+    "仅限硕士研究生": ["硕士"],
     "博士研究生": ["博士"],
+    "仅限博士研究生": ["博士"],
 }
 KNOWN_POLITICAL = {"中共党员", "中共预备党员", "共青团员", "群众", "民主党派"}
 FRESH_GRADUATE_REMARKS = {
@@ -33,6 +43,15 @@ FRESH_GRADUATE_REMARKS = {
     "限应届高校毕业生",
     "仅限应届毕业生",
     "限应届毕业生",
+}
+SERVICE_PROJECT_LABELS = {
+    "大学生村官": "大学生村官",
+    "农村义务教育阶段学校教师特设岗位计划": "特岗教师",
+    "“三支一扶”计划": "三支一扶",
+    '"三支一扶"计划': "三支一扶",
+    "三支一扶计划": "三支一扶",
+    "大学生志愿服务西部计划": "西部计划",
+    "在军队服役5年（含）以上的高校毕业生退役士兵": "高校毕业生退役士兵",
 }
 
 
@@ -68,6 +87,7 @@ def compile_position_rules(
     *,
     rule_set_version: str,
     position_data_version: str,
+    source_conditions_complete: bool = True,
 ) -> CompiledPositionRules:
     requirements: list[PositionRequirement] = []
     warnings: list[str] = []
@@ -75,6 +95,13 @@ def compile_position_rules(
     _compile_education(source, requirements, warnings, rule_set_version, position_data_version)
     _compile_major(source, requirements, warnings, rule_set_version, position_data_version)
     _compile_political(source, requirements, warnings, rule_set_version, position_data_version)
+    _compile_official_payload(
+        source,
+        requirements,
+        warnings,
+        rule_set_version,
+        position_data_version,
+    )
     if source.service_min_yrs and source.service_min_yrs > 0:
         requirements.append(
             _requirement(
@@ -108,10 +135,15 @@ def compile_position_rules(
         rule_set_version,
         position_data_version,
     )
+    if not source_conditions_complete:
+        warnings.append(SOURCE_CONDITIONS_INCOMPLETE_WARNING)
 
     manual_count = sum(item.operator == "manual_review" for item in requirements)
-    if not requirements:
-        status: CompilationStatus = "no_conditions"
+    status: CompilationStatus
+    if not source_conditions_complete:
+        status = "needs_confirmation"
+    elif not requirements:
+        status = "no_conditions"
     elif manual_count:
         status = "needs_confirmation"
     else:
@@ -120,7 +152,10 @@ def compile_position_rules(
         requirements=tuple(requirements),
         status=status,
         warnings=tuple(dict.fromkeys(warnings)),
-        source_fingerprint=_fingerprint(source),
+        source_fingerprint=_fingerprint(
+            source,
+            source_conditions_complete=source_conditions_complete,
+        ),
     )
 
 
@@ -285,6 +320,8 @@ def _compile_unmapped_raw_fields(
 ) -> None:
     if source.raw_payload in (None, {}, ""):
         return
+    if _official_fields(source.raw_payload) is not None:
+        return
     known_keys = {
         "id",
         "source_id",
@@ -326,6 +363,161 @@ def _compile_unmapped_raw_fields(
             )
         )
     warnings.append("raw_fields_require_confirmation")
+
+
+def _compile_official_payload(
+    source: RawPositionConditions,
+    requirements: list[PositionRequirement],
+    warnings: list[str],
+    rule_set_version: str,
+    position_data_version: str,
+) -> None:
+    fields = _official_fields(source.raw_payload)
+    if fields is None:
+        return
+    _compile_degree(
+        source,
+        fields,
+        requirements,
+        warnings,
+        rule_set_version,
+        position_data_version,
+    )
+    _compile_service_project(
+        source,
+        fields,
+        requirements,
+        warnings,
+        rule_set_version,
+        position_data_version,
+    )
+
+
+def _official_fields(raw_payload: object | None) -> dict[str, object] | None:
+    if not isinstance(raw_payload, dict):
+        return None
+    if raw_payload.get("contractVersion") != OFFICIAL_POSITION_CONTRACT:
+        return None
+    fields = raw_payload.get("officialFields")
+    source = raw_payload.get("source")
+    position_data_version = raw_payload.get("positionDataVersion")
+    if (
+        not isinstance(fields, dict)
+        or not isinstance(source, dict)
+        or not isinstance(position_data_version, str)
+        or not position_data_version.strip()
+    ):
+        return None
+    if set(fields) != set(OFFICIAL_POSITION_FIELD_NAMES):
+        return None
+    return fields
+
+
+def _compile_degree(
+    source: RawPositionConditions,
+    fields: dict[str, object],
+    requirements: list[PositionRequirement],
+    warnings: list[str],
+    rule_set_version: str,
+    position_data_version: str,
+) -> None:
+    degree = _normalize(_string_field(fields, "degree"))
+    if _unrestricted(degree):
+        return
+    expected: list[str] | None
+    if degree in {"学士", "硕士", "博士"}:
+        expected = [degree]
+    elif degree == "与最高学历相对应的学位":
+        education = _normalize(source.education_min)
+        education_options = EDUCATION_OPTIONS.get(education)
+        expected = (
+            list(
+                dict.fromkeys(
+                    mapped
+                    for option in education_options or []
+                    if (mapped := {"本科": "学士", "硕士": "硕士", "博士": "博士"}.get(option))
+                )
+            )
+            or None
+        )
+    else:
+        expected = None
+    if expected is None:
+        requirements.append(
+            _manual_requirement(
+                source,
+                field="degree",
+                source_text=degree,
+                source_field="raw_json.officialFields.degree",
+                rule_set_version=rule_set_version,
+                position_data_version=position_data_version,
+            )
+        )
+        warnings.append("degree_requires_confirmation")
+        return
+    requirements.append(
+        _requirement(
+            source,
+            field="degree",
+            operator="one_of",
+            expected=expected,
+            source_text=degree,
+            source_field="raw_json.officialFields.degree",
+            rule_set_version=rule_set_version,
+            position_data_version=position_data_version,
+        )
+    )
+
+
+def _compile_service_project(
+    source: RawPositionConditions,
+    fields: dict[str, object],
+    requirements: list[PositionRequirement],
+    warnings: list[str],
+    rule_set_version: str,
+    position_data_version: str,
+) -> None:
+    value = _normalize(_string_field(fields, "serviceProject"))
+    if _unrestricted(value) or value == "无限制":
+        return
+    normalized = value.replace("，", "、").replace(",", "、")
+    official_labels = [part for part in normalized.split("、") if part]
+    expected: list[str] = []
+    for label in official_labels:
+        mapped = SERVICE_PROJECT_LABELS.get(label)
+        if mapped is None:
+            requirements.append(
+                _manual_requirement(
+                    source,
+                    field="service_project",
+                    source_text=value,
+                    source_field="raw_json.officialFields.serviceProject",
+                    rule_set_version=rule_set_version,
+                    position_data_version=position_data_version,
+                )
+            )
+            warnings.append("service_project_requires_confirmation")
+            return
+        expected.append(mapped)
+    if not expected:
+        return
+    requirements.append(
+        _requirement(
+            source,
+            field="service_project",
+            operator="one_of",
+            expected=list(dict.fromkeys(expected)),
+            source_text=value,
+            source_field="raw_json.officialFields.serviceProject",
+            rule_set_version=rule_set_version,
+            position_data_version=position_data_version,
+        )
+    )
+
+
+def _string_field(fields: dict[str, object], key: str) -> str:
+    value = fields.get(key)
+    return value if isinstance(value, str) else ""
 
 
 def _manual_requirement(
@@ -389,7 +581,11 @@ def _split_options(value: str) -> list[str]:
     return [part for part in re.split(r"[、,，;/；]", normalized) if part]
 
 
-def _fingerprint(source: RawPositionConditions) -> str:
+def _fingerprint(
+    source: RawPositionConditions,
+    *,
+    source_conditions_complete: bool,
+) -> str:
     payload = {
         "positionId": source.position_id,
         "educationMin": source.education_min,
@@ -399,6 +595,7 @@ def _fingerprint(source: RawPositionConditions) -> str:
         "hukouReq": source.hukou_req,
         "remark": source.remark,
         "rawPayload": source.raw_payload,
+        "sourceConditionsComplete": source_conditions_complete,
     }
     encoded = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     return sha256(encoded.encode("utf-8")).hexdigest()

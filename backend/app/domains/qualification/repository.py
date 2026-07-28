@@ -631,6 +631,38 @@ class QualificationRepository:
             },
         ).scalar_one()
 
+    def source_conditions_are_complete(
+        self,
+        session: Session,
+        *,
+        position_id: str,
+        rule_set_version: str,
+        position_data_version: str,
+    ) -> bool:
+        return bool(
+            session.execute(
+                text(
+                    """
+                    select coalesce(
+                      not (
+                        warnings @> '["source_conditions_incomplete"]'::jsonb
+                      ),
+                      false
+                    )
+                    from product.position_rule_compilations
+                    where position_id = cast(:position_id as uuid)
+                      and rule_set_version = :rule_set_version
+                      and position_data_version = :position_data_version
+                    """
+                ),
+                {
+                    "position_id": position_id,
+                    "rule_set_version": rule_set_version,
+                    "position_data_version": position_data_version,
+                },
+            ).scalar_one_or_none()
+        )
+
     def save_snapshot(
         self,
         session: Session,

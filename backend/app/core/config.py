@@ -93,6 +93,7 @@ class Settings:
     ai_small_model: str = ""
     ai_high_capability_model: str = ""
     ai_api_key: str = ""
+    ai_companion_transport: str = "openai_compatible"
     ai_companion_provider_release_id: str = ""
     ai_companion_provider_https_host_allowlist: str = ""
     ai_companion_provider_dpa_confirmed: bool = False
@@ -354,6 +355,10 @@ def get_settings() -> Settings:
         ai_small_model=os.getenv("AI_SMALL_MODEL", ""),
         ai_high_capability_model=os.getenv("AI_HIGH_CAPABILITY_MODEL", ""),
         ai_api_key=os.getenv("AI_API_KEY", ""),
+        ai_companion_transport=os.getenv(
+            "AI_COMPANION_TRANSPORT",
+            "openai_compatible",
+        ),
         ai_companion_provider_release_id=os.getenv(
             "AI_COMPANION_PROVIDER_RELEASE_ID",
             "",

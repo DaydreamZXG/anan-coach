@@ -8,6 +8,13 @@ from typing import Any
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
+from app.importers.guokao_official_positions import (
+    OFFICIAL_POSITION_CONTRACT,
+    GuokaoOfficialPositionError,
+    load_official_position_catalog,
+    merge_official_position_catalog,
+)
+
 
 class GwyPositionImportError(ValueError):
     pass
@@ -17,6 +24,7 @@ class GwyPositionImportError(ValueError):
 class GwyPositionImportResult:
     systems: int
     positions: int
+    official_positions_enriched: int
     position_score_histories: int
     system_score_histories: int
     position_score_links: int
@@ -28,6 +36,9 @@ def import_gwy_positions(
     session: Session,
     source_path: Path,
     batch_size: int = 1000,
+    official_source_path: Path | None = None,
+    official_exam_year: int | None = None,
+    position_data_version: str | None = None,
 ) -> GwyPositionImportResult:
     source = source_path.expanduser().resolve()
     if not source.exists():
@@ -38,6 +49,27 @@ def import_gwy_positions(
     with sqlite3.connect(source) as sqlite_conn:
         sqlite_conn.row_factory = sqlite3.Row
         _require_source_tables(sqlite_conn)
+        position_rows = _read_rows(sqlite_conn, _POSITIONS_SQL)
+        official_positions_enriched = 0
+        if official_source_path is not None:
+            if official_exam_year is None or not position_data_version:
+                raise GwyPositionImportError(
+                    "official_exam_year and position_data_version are required "
+                    "with official_source_path"
+                )
+            try:
+                catalog = load_official_position_catalog(
+                    official_source_path,
+                    exam_year=official_exam_year,
+                    position_data_version=position_data_version,
+                )
+                position_rows = merge_official_position_catalog(
+                    position_rows,
+                    catalog=catalog,
+                )
+            except GuokaoOfficialPositionError as exc:
+                raise GwyPositionImportError(str(exc)) from exc
+            official_positions_enriched = len(catalog.rows)
         systems = _upsert_rows(
             session=session,
             rows=_read_rows(sqlite_conn, "select code, name_zh, paper_type, is_big_six from systems"),
@@ -46,7 +78,7 @@ def import_gwy_positions(
         )
         positions = _upsert_rows(
             session=session,
-            rows=_read_rows(sqlite_conn, _POSITIONS_SQL),
+            rows=position_rows,
             sql=_UPSERT_POSITION,
             batch_size=batch_size,
         )
@@ -74,6 +106,7 @@ def import_gwy_positions(
     return GwyPositionImportResult(
         systems=systems,
         positions=positions,
+        official_positions_enriched=official_positions_enriched,
         position_score_histories=score_histories,
         system_score_histories=system_score_histories,
         position_score_links=links,
@@ -81,7 +114,14 @@ def import_gwy_positions(
     )
 
 
-def verify_gwy_position_import(session: Session, *, source_path: Path) -> dict[str, Any]:
+def verify_gwy_position_import(
+    session: Session,
+    *,
+    source_path: Path,
+    official_source_path: Path | None = None,
+    official_exam_year: int | None = None,
+    position_data_version: str | None = None,
+) -> dict[str, Any]:
     source = source_path.expanduser().resolve()
     if not source.exists():
         raise GwyPositionImportError(f"gwy.db not found: {source}")
@@ -123,6 +163,62 @@ def verify_gwy_position_import(session: Session, *, source_path: Path) -> dict[s
             "target": target_counts["position_score_links"],
         }
 
+    official_verification: dict[str, Any] | None = None
+    if official_source_path is not None:
+        if official_exam_year is None or not position_data_version:
+            raise GwyPositionImportError(
+                "official_exam_year and position_data_version are required "
+                "with official_source_path"
+            )
+        try:
+            catalog = load_official_position_catalog(
+                official_source_path,
+                exam_year=official_exam_year,
+                position_data_version=position_data_version,
+            )
+        except GuokaoOfficialPositionError as exc:
+            raise GwyPositionImportError(str(exc)) from exc
+        official_target = session.execute(
+            text(
+                """
+                select
+                  count(*) as total,
+                  count(*) filter (
+                    where raw_json ->> 'contractVersion' = :contract_version
+                      and raw_json ->> 'positionDataVersion' = :position_data_version
+                      and raw_json #>> '{source,sha256}' = :source_sha256
+                  ) as verified
+                from product.positions
+                where year = :exam_year
+                """
+            ),
+            {
+                "contract_version": OFFICIAL_POSITION_CONTRACT,
+                "position_data_version": catalog.position_data_version,
+                "source_sha256": catalog.source_sha256,
+                "exam_year": catalog.exam_year,
+            },
+        ).mappings().one()
+        official_verification = {
+            "exam_year": catalog.exam_year,
+            "position_data_version": catalog.position_data_version,
+            "source_sha256": catalog.source_sha256,
+            "source_positions": len(catalog.rows),
+            "target_positions": int(official_target["total"]),
+            "verified_positions": int(official_target["verified"]),
+        }
+        if (
+            official_verification["source_positions"]
+            != official_verification["target_positions"]
+            or official_verification["source_positions"]
+            != official_verification["verified_positions"]
+        ):
+            mismatches["official_position_catalog"] = {
+                "source": official_verification["source_positions"],
+                "target": official_verification["target_positions"],
+                "verified": official_verification["verified_positions"],
+            }
+
     coverage = session.execute(
         text(
             """
@@ -151,6 +247,7 @@ def verify_gwy_position_import(session: Session, *, source_path: Path) -> dict[s
         "source_link_count": source_link_count,
         "mismatches": mismatches,
         "coverage_by_year": coverage_rows,
+        "official_catalog": official_verification,
         "ok": not mismatches,
     }
 

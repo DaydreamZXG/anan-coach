@@ -80,7 +80,7 @@ describe("today dual-track planning", () => {
     expect(essayView?.navigationUrl).toContain("planTaskId=task-shenlun-material");
   });
 
-  it("binds the authoritative plan task before opening a Xingce briefing", () => {
+  it("opens the authoritative Xingce briefing URL issued by the server", () => {
     const [source] = prototypeToday.tasks;
     if (!source || source.track !== "xingce") throw new Error("Xingce fixture is required");
     const task = presentTodayDashboard({
@@ -88,7 +88,7 @@ describe("today dual-track planning", () => {
       tasks: [
         {
           ...source,
-          startUrl: "/pages/xingce-task-intro/index?mode=targeted",
+          startUrl: "/pages/xingce-task-intro/index?mode=targeted&planTaskId=task-data",
         },
       ],
     }).tasks[0];
@@ -97,6 +97,27 @@ describe("today dual-track planning", () => {
     expect(task?.navigationUrl).toBe(
       "/pages/xingce-task-intro/index?mode=targeted&planTaskId=task-data",
     );
+  });
+
+  it.each([
+    "/pages/xingce-task-intro/index?mode=targeted",
+    "/pages/xingce-task-intro/index?mode=targeted&planTaskId=another-task",
+    "/pages/xingce-task-intro/index?mode=targeted&planTaskId=task-data&planTaskId=task-data",
+  ])("rejects a Xingce briefing URL that is not authoritative: %s", (startUrl) => {
+    const [source] = prototypeToday.tasks;
+    if (!source || source.track !== "xingce") throw new Error("Xingce fixture is required");
+    const task = presentTodayDashboard({
+      ...prototypeToday,
+      tasks: [{ ...source, startUrl }],
+    }).tasks[0];
+
+    expect(task).toMatchObject({
+      canOpen: false,
+      navigationMode: null,
+      navigationUrl: null,
+    });
+    expect(task?.disabledReason).toContain("任务入口生成失败");
+    expect(task?.disabledReason).not.toContain("所需资料齐全");
   });
 
   it("does not treat a registered static prototype as an executable task page", () => {
@@ -112,7 +133,7 @@ describe("today dual-track planning", () => {
       navigationMode: null,
       navigationUrl: null,
     });
-    expect(prototypeOnly?.disabledReason).toContain("所需资料齐全后");
+    expect(prototypeOnly?.disabledReason).toContain("任务入口生成失败");
   });
 
   it("presents execution status and elapsed time without exposing raw status roles", () => {

@@ -154,4 +154,6 @@
       <button hover-class="item--hover" class="profile-editor__save tap-tactile" loading="{{profileSaving}}" disabled="{{profileSaving}}" bindtap="saveProfile">保存修改</button>
     </view>
   </view>
+
+  <ilink-bot-sheet visible="{{wechatChannelOpen}}" bindclose="closeWechatChannel" />
 </view>

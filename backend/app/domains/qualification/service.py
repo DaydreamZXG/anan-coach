@@ -21,6 +21,7 @@ def evaluate_eligibility(
     position_data_version: str,
     evaluated_at: datetime | None = None,
     requirements_authoritative: bool = False,
+    source_conditions_complete: bool = True,
     confirmations: list[RequirementConfirmation] | None = None,
 ) -> EligibilityEvaluation:
     """Evaluate hard conditions without inventing facts or interpreting prose."""
@@ -33,19 +34,26 @@ def evaluate_eligibility(
     }
 
     if not requirements and not requirements_authoritative:
-        return EligibilityEvaluation(
-            status="needs_confirmation",
-            checks=[
-                RequirementCheck(
-                    requirement_id="position-requirements",
-                    status="needs_confirmation",
-                    reason_code="requirements_missing",
-                )
-            ],
-            missing_fact_keys=[],
-            rule_set_version=rule_set_version,
-            position_data_version=position_data_version,
-            evaluated_at=evaluated_at or datetime.now(UTC),
+        checks.append(
+            RequirementCheck(
+                requirement_id="position-requirements",
+                status="needs_confirmation",
+                reason_code="requirements_missing",
+                field="other_conditions",
+                source_text="该岗位的完整报考条件尚未形成可核验规则。",
+                source_reference=f"position-release:{position_data_version}",
+            )
+        )
+    if not source_conditions_complete:
+        checks.append(
+            RequirementCheck(
+                requirement_id="source-conditions-incomplete",
+                status="needs_confirmation",
+                reason_code="source_conditions_incomplete",
+                field="other_conditions",
+                source_text="当前岗位版本没有保留完整官方报考条件，暂时不能确认可报。",
+                source_reference=f"position-release:{position_data_version}",
+            )
         )
 
     for requirement in requirements:

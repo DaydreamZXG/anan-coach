@@ -26,6 +26,7 @@ export interface PositionCardView extends PositionDiscoveryItem {
 export interface RequirementCheckView extends RequirementCheck {
   statusLabel: string;
   statusTone: "success" | "warning" | "danger";
+  fieldLabel: string;
   conditionLabel: string;
   evidenceLabel: string;
 }
@@ -130,6 +131,21 @@ export function positionRouteSummaryView(item: PositionRouteSummary): PositionRo
 
 export function requirementCheckView(check: RequirementCheck): RequirementCheckView {
   const evidenceIds = check.evidenceIds ?? [];
+  const fieldLabels: Record<string, string> = {
+    education: "学历",
+    degree: "学位",
+    major: "专业",
+    graduation_year: "毕业年份",
+    fresh_graduate: "应届身份",
+    political_status: "政治面貌",
+    work_years: "普通工作经历",
+    grassroots_years: "基层工作经历",
+    service_project: "服务基层项目",
+    hukou: "户籍 / 生源地",
+    age: "年龄",
+    certifications: "资格证书",
+    other_conditions: "其他报考条件",
+  };
   const status = {
     met: ["符合", "success"],
     needs_confirmation: ["待确认", "warning"],
@@ -139,6 +155,7 @@ export function requirementCheckView(check: RequirementCheck): RequirementCheckV
     ...check,
     statusLabel: status[0],
     statusTone: status[1],
+    fieldLabel: fieldLabels[check.field ?? ""] ?? "报考条件",
     conditionLabel: check.sourceText ?? "岗位结构化条件尚未完成",
     evidenceLabel: check.confirmationId
       ? "引用本人针对该岗位原文的明确确认"
@@ -146,7 +163,9 @@ export function requirementCheckView(check: RequirementCheck): RequirementCheckV
         ? `引用 ${String(evidenceIds.length)} 条本人资格事实证据`
         : check.reasonCode === "requirements_missing"
           ? "该岗位的报考条件还未整理完整"
-          : "需要补充或确认资格事实",
+          : check.reasonCode === "source_conditions_incomplete"
+            ? "当前岗位版本缺少完整官方备注，不能确认可报"
+            : "需要补充或确认资格事实",
   };
 }
 
@@ -325,6 +344,9 @@ export function qualificationGapView(gap: QualificationGap): QualificationGapVie
 }
 
 function conditionSummary(item: PositionDiscoveryItem): string {
+  if (item.reasonCodes.includes("source_conditions_incomplete")) {
+    return "完整官方条件尚未入库，暂不判断可报";
+  }
   if (item.eligibilityStatus === "eligible") {
     return `${String(item.metCount)} 项硬条件已逐条匹配`;
   }

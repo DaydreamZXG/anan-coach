@@ -37,6 +37,7 @@ def _seed_discovery_world(
     *,
     extra_eligible_count: int = 0,
     primary_goal_key: str | None = None,
+    source_complete: bool = True,
 ) -> tuple[str, dict[str, str]]:
     user_id = str(uuid4())
     specs = {
@@ -93,11 +94,12 @@ def _seed_discovery_world(
                       position_id, source_id, year, position_code, name,
                       department_full, system_code, region, city, paper_type,
                       headcount, education_min, major_required, political_req,
-                      service_min_yrs, remark
+                      service_min_yrs, remark, raw_json
                     ) values (
                       :position_id, :source_id, 2026, :position_code, :name,
                       :department, 'tax', :region, :city, 'administrativeLaw',
-                      :headcount, :education, :major, '不限', :service, :remark
+                      :headcount, :education, :major, '不限', :service, :remark,
+                      cast(:raw_json as jsonb)
                     )
                     """
                 ),
@@ -107,6 +109,7 @@ def _seed_discovery_world(
                     "position_code": f"30011000900{index}",
                     "name": f"{key}-一级行政执法员",
                     "department": f"国家税务总局{spec['city']}测试局",
+                    "raw_json": "{}" if source_complete else None,
                     **spec,
                 },
             )
@@ -121,11 +124,12 @@ def _seed_discovery_world(
                       position_id, source_id, year, position_code, name,
                       department_full, system_code, region, city, paper_type,
                       headcount, education_min, major_required, political_req,
-                      service_min_yrs, remark
+                      service_min_yrs, remark, raw_json
                     ) values (
                       :position_id, :source_id, 2026, :position_code, :name,
                       :department, 'tax', '江西', '南昌市', 'administrativeLaw',
-                      :headcount, '不限', '不限', '不限', 0, '无特殊要求'
+                      :headcount, '不限', '不限', '不限', 0, '无特殊要求',
+                      cast(:raw_json as jsonb)
                     )
                     """
                 ),
@@ -136,6 +140,7 @@ def _seed_discovery_world(
                     "name": f"extra-{index}-一级行政执法员",
                     "department": f"国家税务总局额外测试局{index}",
                     "headcount": 100 - index,
+                    "raw_json": "{}" if source_complete else None,
                 },
             )
         repository = QualificationRepository()
@@ -221,6 +226,33 @@ def test_discovery_orders_by_eligibility_before_headcount_and_exposes_direct_sco
     assert eligible.target_score.evidence_level == "direct"
     assert "conditions_need_confirmation" in result.items[2].reason_codes
     assert "hard_condition_not_met" in result.items[3].reason_codes
+
+
+def test_discovery_never_claims_eligible_when_release_source_is_incomplete(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id, ids = _seed_discovery_world(
+        db_session_factory,
+        source_complete=False,
+    )
+    with db_session_factory() as session:
+        result = PositionDiscoveryService().search(
+            session,
+            user_id=user_id,
+            exam_year=2026,
+            region="江西",
+            city="赣州市",
+            query="eligible",
+            limit=10,
+            cursor=None,
+        )
+
+    assert [item.position_id for item in result.items] == [ids["eligible"]]
+    item = result.items[0]
+    assert item.eligibility_status == "needs_confirmation"
+    assert item.pending_count == 1
+    assert item.pending_requirement_ids == ["source-conditions-incomplete"]
+    assert "source_conditions_incomplete" in item.reason_codes
 
 
 def test_discovery_cursor_is_lossless_and_bound_to_profile_and_filters(

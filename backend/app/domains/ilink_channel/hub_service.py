@@ -76,6 +76,7 @@ class OpenILinkHubBotService:
             {"userId": str(user_id), "replacePending": replace_pending},
             purpose="hub-start-command",
         )
+        receipts.lock_command(command_id=command_id)
         replay = receipts.command_receipt(command_id=command_id)
         if replay is not None:
             if replay["request_fingerprint"] != request_fingerprint:
@@ -211,6 +212,7 @@ class OpenILinkHubBotService:
             {"userId": str(user_id)},
             purpose="hub-revoke-command",
         )
+        receipts.lock_command(command_id=command_id)
         replay = receipts.command_receipt(command_id=command_id)
         if replay is not None:
             if replay["request_fingerprint"] != request_fingerprint:

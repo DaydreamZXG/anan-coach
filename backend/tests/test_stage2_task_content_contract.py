@@ -83,6 +83,35 @@ def test_rich_content_contract_supports_long_material_merged_8_column_table_and_
     assert scoring["questions"][0]["correctOptionIds"] == ["B"]
 
 
+def test_rich_content_contract_preserves_underlined_blanks_from_the_source_stem() -> None:
+    source = _source(
+        stem=(
+            "除了至今的电车难题外，还有价值观问题——当 AI 拥有自主设定目标的能力时，"
+            "如何确保目标符合人类利益、与人类价值观相符？"
+        ),
+        stem_html=(
+            "<p>除了至今的“电车难题”外，还有日益重要的价值观问题"
+            "<u>&nbsp;&nbsp;&nbsp;&nbsp;</u>当AI拥有自主设定目标的能力时，"
+            "又该如何确保这些目标符合人类利益、与人类价值观相"
+            "<u>&nbsp;&nbsp;</u>？依次填入画横线部分最恰当的一项是：</p>"
+        ),
+    )
+
+    bundle, _ = freeze_learner_bundle(
+        [source],
+        scoring_policy_version="test-v1",
+        content_version_id=question_content_version_id,
+        published_explanation=lambda item: ("secret explanation", "verified"),
+    )
+
+    stem = bundle.questions[0].stem_content[0]
+    assert stem.type == "paragraph"
+    assert stem.html is not None
+    assert stem.html.count("<u>") == 2
+    assert stem.html.count("</u>") == 2
+    assert stem.text.count("____") == 2
+
+
 def test_dispute_command_rejects_client_supplied_answer_or_evidence() -> None:
     with pytest.raises(ValidationError):
         ReportQuestionDisputeCommand.model_validate(

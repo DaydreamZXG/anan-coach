@@ -31,6 +31,7 @@ interface MajorOption {
 
 interface QualificationPageData extends QualificationDraft {
   educationOptions: string[];
+  degreeOptions: string[];
   graduationOptions: GraduationOption[];
   serviceProjectOptions: string[];
   majorSuggestions: MajorOption[];
@@ -57,6 +58,7 @@ interface QualificationPageCustom {
   inputMajor(event: WechatMiniprogram.CustomEvent<{ value: string }>): void;
   selectMajor(event: WechatMiniprogram.BaseEvent): void;
   chooseEducation(event: WechatMiniprogram.PickerChange): void;
+  chooseDegree(event: WechatMiniprogram.PickerChange): void;
   chooseGraduation(event: WechatMiniprogram.PickerChange): void;
   chooseServiceMode(event: WechatMiniprogram.BaseEvent): void;
   chooseServiceProject(event: WechatMiniprogram.BaseEvent): void;
@@ -72,7 +74,8 @@ type QualificationPage = WechatMiniprogram.Page.Instance<
   QualificationPageCustom
 >;
 
-const educationOptions = ["大专", "本科", "硕士研究生", "博士研究生"];
+const educationOptions = ["大专", "本科", "硕士", "博士"];
+const degreeOptions = ["无学位", "学士", "硕士", "博士"];
 const graduationOptions: GraduationOption[] = [
   { label: "2026（应届）", year: 2026, freshGraduate: "true" },
   { label: "2025（择业期应届）", year: 2025, freshGraduate: "true" },
@@ -96,6 +99,7 @@ Page<QualificationPageData, QualificationPageCustom>({
   data: {
     ...emptyQualificationDraft,
     educationOptions,
+    degreeOptions,
     graduationOptions,
     serviceProjectOptions,
     majorSuggestions: [],
@@ -162,6 +166,11 @@ Page<QualificationPageData, QualificationPageCustom>({
   chooseEducation(event) {
     const education = educationOptions[Number(event.detail.value)];
     if (education) runtimes.get(this)?.controller?.changeDraft({ education });
+  },
+
+  chooseDegree(event) {
+    const degree = degreeOptions[Number(event.detail.value)];
+    if (degree) runtimes.get(this)?.controller?.changeDraft({ degree });
   },
 
   chooseGraduation(event) {
@@ -270,6 +279,7 @@ function pageState(state: QualificationControllerState): Partial<QualificationPa
       state.status !== "ready" ||
       state.saving ||
       !draft.education ||
+      !draft.degree ||
       draft.major.trim().length < 2 ||
       draft.graduationYear < 2000 ||
       !draft.freshGraduate ||

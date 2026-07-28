@@ -122,6 +122,12 @@ class QualificationApplicationService:
             rule_set_version=release.rule_set_version,
             position_data_version=release.position_data_version,
         )
+        source_conditions_complete = self._repository.source_conditions_are_complete(
+            session,
+            position_id=position_id,
+            rule_set_version=release.rule_set_version,
+            position_data_version=release.position_data_version,
+        )
         confirmations = self._repository.list_current_requirement_confirmations(
             session,
             user_id=user_id,
@@ -134,6 +140,7 @@ class QualificationApplicationService:
             position_data_version=release.position_data_version,
             evaluated_at=now,
             requirements_authoritative=requirements_authoritative,
+            source_conditions_complete=source_conditions_complete,
             confirmations=confirmations,
         )
         snapshot_id = self._repository.save_snapshot(

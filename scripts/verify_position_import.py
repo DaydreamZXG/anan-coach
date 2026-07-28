@@ -25,6 +25,19 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Verify imported 国考 position counts")
     parser.add_argument("--source", required=True, help="Path to gwy.db")
     parser.add_argument(
+        "--official-source",
+        help="Path to the official 国考 position .xls/.xlsx workbook",
+    )
+    parser.add_argument(
+        "--official-exam-year",
+        type=int,
+        help="Exam year represented by --official-source",
+    )
+    parser.add_argument(
+        "--position-data-version",
+        help="Immutable release identifier attached to the official source rows",
+    )
+    parser.add_argument(
         "--database-url",
         default=os.getenv("QBANK_IMPORT_DATABASE_URL") or os.getenv("DATABASE_URL"),
         help="SQLAlchemy database URL. Defaults to QBANK_IMPORT_DATABASE_URL or DATABASE_URL.",
@@ -36,7 +49,15 @@ def main() -> int:
     engine = create_engine(_normalize_database_url(args.database_url), pool_pre_ping=True, future=True)
     try:
         with Session(engine, future=True) as session:
-            result = verify_gwy_position_import(session, source_path=Path(args.source))
+            result = verify_gwy_position_import(
+                session,
+                source_path=Path(args.source),
+                official_source_path=(
+                    Path(args.official_source) if args.official_source else None
+                ),
+                official_exam_year=args.official_exam_year,
+                position_data_version=args.position_data_version,
+            )
     except GwyPositionImportError as exc:
         print(f"position import verification failed: {exc}", file=sys.stderr)
         return 2

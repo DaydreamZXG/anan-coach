@@ -161,11 +161,17 @@ export function onboardingResultActionTarget(
 
 export function registeredTaskNavigationTarget(
   startUrl: string,
+  expectedPlanTaskId?: string,
 ): RegisteredNavigationTarget | null {
   const navigation = registeredNavigationTarget(startUrl);
   if (!navigation) return null;
   const [path] = navigation.url.split("?", 1);
   if (!path || !taskExecutionRoutePaths.has(path)) return null;
+  if (expectedPlanTaskId !== undefined) {
+    const expected = expectedPlanTaskId.trim();
+    const query = parseQuery(navigation.url);
+    if (!expected || !query || query.planTaskId !== expected) return null;
+  }
   if (path === routes.essayTask) {
     const query = parseQuery(navigation.url);
     const stage = parseEssayTaskStage(query?.stage);

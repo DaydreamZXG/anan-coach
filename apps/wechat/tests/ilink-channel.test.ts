@@ -4,6 +4,8 @@ import { ILinkChannelApi } from "../miniprogram/api/ilink-channel";
 
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import captureTemplate from "../miniprogram/pages/capture-import/index.wxml?raw";
+// @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
+import botSheetTemplate from "../miniprogram/components/ilink-bot-sheet/index.wxml?raw";
 
 describe("official iLink photo channel", () => {
   it("uses authenticated idempotent account-bound endpoints", async () => {
@@ -64,26 +66,26 @@ describe("official iLink photo channel", () => {
 
   it("renders every bot authorization state and keeps the evidence boundary", () => {
     for (const token of [
-      "channelStatus === 'loading'",
-      "channelStatus === 'error'",
-      "channelStatus === 'unavailable'",
+      "status === 'loading'",
+      "status === 'error'",
       "微信里的岸岸",
-      "channelView.state === 'unbound'",
-      "channelView.state === 'revoked'",
-      "channelView.state === 'waiting_scan'",
-      "channelView.state === 'scanned'",
-      "channelView.state === 'connected'",
-      "channelView.state === 'reauth_required'",
-      "channelView.qrImageDataUrl",
-      "channelView.statusCopy",
-      "startChannelAuthorization",
-      "replaceChannelAuthorization",
-      "pollChannelAuthorization",
-      "revokeChannelLink",
+      "view.state === 'unbound'",
+      "view.state === 'revoked'",
+      "view.state === 'waiting_scan'",
+      "view.state === 'scanned'",
+      "view.state === 'connected'",
+      "view.state === 'reauth_required'",
+      "view.qrImageDataUrl",
+      "view.statusCopy",
+      "startAuthorization",
+      "replaceAuthorization",
+      "pollAuthorization",
+      "revoke",
     ]) {
-      expect(captureTemplate).toContain(token);
+      expect(botSheetTemplate).toContain(token);
     }
-    expect(captureTemplate).not.toContain("所需服务暂时不可用");
+    expect(botSheetTemplate).not.toContain("所需服务暂时不可用");
+    expect(captureTemplate).toContain("<ilink-bot-sheet");
     expect(captureTemplate).toContain("不进入公共题库");
     expect(captureTemplate).toContain("不用于训练基础模型");
   });

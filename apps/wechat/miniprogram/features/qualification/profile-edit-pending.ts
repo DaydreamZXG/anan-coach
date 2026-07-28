@@ -6,9 +6,10 @@ import {
   type QualificationDraft,
 } from "./onboarding";
 
-const SCHEMA_VERSION = 1 as const;
+const SCHEMA_VERSION = 2 as const;
 const TTL_MS = 7 * 24 * 60 * 60 * 1_000;
-const storageRoot = `gongkao.qualification.profile-edit.pending.v${String(SCHEMA_VERSION)}`;
+const storageFamilyRoot = "gongkao.qualification.profile-edit.pending";
+const storageRoot = `${storageFamilyRoot}.v${String(SCHEMA_VERSION)}`;
 
 interface PendingEnvelope {
   schemaVersion: typeof SCHEMA_VERSION;
@@ -65,7 +66,7 @@ export function clearPendingQualificationProfileEdit(ownerUserId: string): void 
 
 export function clearAllQualificationProfileEditPending(): void {
   for (const key of wx.getStorageInfoSync().keys) {
-    if (key.startsWith(`${storageRoot}.`)) wx.removeStorageSync(key);
+    if (key.startsWith(`${storageFamilyRoot}.v`)) wx.removeStorageSync(key);
   }
 }
 
@@ -102,6 +103,7 @@ function isQualificationDraft(value: unknown): value is QualificationDraft {
   if (!isRecord(value)) return false;
   return (
     typeof value.education === "string" &&
+    typeof value.degree === "string" &&
     typeof value.major === "string" &&
     Number.isSafeInteger(value.graduationYear) &&
     (value.freshGraduate === "" ||

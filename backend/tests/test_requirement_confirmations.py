@@ -42,12 +42,12 @@ def _seed_manual_requirement(
                 insert into product.positions (
                   position_id, source_id, year, position_code, name, department_full,
                   system_code, region, paper_type, headcount, education_min,
-                  major_required, political_req, service_min_yrs, remark
+                  major_required, political_req, service_min_yrs, remark, raw_json
                 ) values (
                   :position_id, 'manual-position', 2026, '300110001999',
                   '一级行政执法员', '国家税务总局测试局', 'tax', '江西',
                   'administrativeLaw', 2, '本科', '法学类', '不限', 0,
-                  '须持有法律职业资格证书A证'
+                  '须持有法律职业资格证书A证', '{}'::jsonb
                 )
                 """
             ),

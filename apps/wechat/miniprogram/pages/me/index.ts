@@ -135,6 +135,7 @@ Page({
     targetContextStatus: "loading",
     targetContextError: "",
     targetContextRequestId: "",
+    wechatChannelOpen: false,
   },
 
   onHide() {
@@ -402,8 +403,11 @@ Page({
   },
 
   openWechatChannel() {
-    // 微信里拍题甩给岸岸，答案带出处；绑定与管理面板在拍搜页承载。
-    void wx.navigateTo({ url: `${routes.captureImport}?channel=open` });
+    this.setData({ wechatChannelOpen: true });
+  },
+
+  closeWechatChannel() {
+    this.setData({ wechatChannelOpen: false });
   },
 
   openPrivacy() {

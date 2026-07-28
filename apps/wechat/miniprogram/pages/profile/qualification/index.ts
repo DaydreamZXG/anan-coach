@@ -27,6 +27,7 @@ interface QualificationProfilePageData extends QualificationDraft {
   current: number;
   steps: typeof steps;
   educationOptions: string[];
+  degreeOptions: string[];
   graduationYears: number[];
   error: string;
   requestId: string;
@@ -43,6 +44,7 @@ interface QualificationProfilePageCustom {
   back(): void;
   retryLoad(): void;
   chooseEducation(event: WechatMiniprogram.PickerChange): void;
+  chooseDegree(event: WechatMiniprogram.PickerChange): void;
   inputMajor(event: WechatMiniprogram.CustomEvent<{ value: string }>): void;
   chooseGraduationYear(event: WechatMiniprogram.PickerChange): void;
   chooseFreshGraduate(event: WechatMiniprogram.BaseEvent): void;
@@ -68,6 +70,7 @@ const runtimes = new PageControllerRegistry<
   QualificationProfileEditorController
 >();
 const educationOptions = ["大专", "本科", "硕士", "博士"];
+const degreeOptions = ["无学位", "学士", "硕士", "博士"];
 const graduationYears = Array.from({ length: 27 }, (_, index) => 2026 - index);
 
 Page<QualificationProfilePageData, QualificationProfilePageCustom>({
@@ -76,6 +79,7 @@ Page<QualificationProfilePageData, QualificationProfilePageCustom>({
     current: 0,
     steps,
     educationOptions,
+    degreeOptions,
     graduationYears,
     error: "",
     requestId: "",
@@ -112,6 +116,13 @@ Page<QualificationProfilePageData, QualificationProfilePageCustom>({
     const education = educationOptions[Number(event.detail.value)];
     if (education) {
       runtimes.get(this)?.controller?.changeDraft({ education });
+    }
+  },
+
+  chooseDegree(event) {
+    const degree = degreeOptions[Number(event.detail.value)];
+    if (degree) {
+      runtimes.get(this)?.controller?.changeDraft({ degree });
     }
   },
 
@@ -215,6 +226,7 @@ function pageState(state: QualificationProfileEditorState): QualificationProfile
     current: state.current,
     steps,
     educationOptions,
+    degreeOptions,
     graduationYears,
     error: state.validationError || state.errorMessage,
     requestId: state.requestId,

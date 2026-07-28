@@ -1,4 +1,5 @@
 import type { CompanionAskResponse, CompanionCitation } from "../../api/generated/types.gen";
+import { ApiClientError } from "../../api/client";
 
 export type CompanionCitationView = CompanionCitation & {
   sourceLabel: string;
@@ -14,6 +15,12 @@ export type CompanionAnswerView = Omit<CompanionAskResponse, "citations"> & {
   agentLabel: string;
   answerTypeLabel: string;
 };
+
+export interface CompanionFailureView {
+  semanticState: CompanionAskResponse["semanticState"];
+  message: string;
+  requestId: string;
+}
 
 const sourceLabels: Record<string, string> = {
   learner_activity: "练习与模考记录",
@@ -59,5 +66,49 @@ export function companionAnswerView(
       planner: "计划教练",
     }[response.respondingAgent],
     answerTypeLabel: answerTypeLabels[response.answerType] ?? "学习解答",
+  };
+}
+
+export function companionFailureView(error: unknown): CompanionFailureView {
+  if (!(error instanceof ApiClientError)) {
+    return {
+      semanticState: "failed",
+      message: "岸岸这次没有完成回答。请检查网络后编辑问题再试一次。",
+      requestId: "",
+    };
+  }
+  if (error.statusCode === 429) {
+    return {
+      semanticState: "quota_exhausted",
+      message: "今天的提问额度已经用完，本次没有继续处理。明天可以再次提问。",
+      requestId: error.requestId,
+    };
+  }
+  if (error.statusCode === 403) {
+    return {
+      semanticState: "permission_denied",
+      message: "当前页面里的资料不能用于这次回答。请返回原页面重新发起提问。",
+      requestId: error.requestId,
+    };
+  }
+  if (error.statusCode === 502 || error.statusCode === 503) {
+    return {
+      semanticState: "provider_pending",
+      message:
+        "岸岸的回答服务尚未完成安全接入，本次没有把你的学习资料发给外部模型。请保留问题编号，服务恢复后再试。",
+      requestId: error.requestId,
+    };
+  }
+  if (error.statusCode === 0) {
+    return {
+      semanticState: "failed",
+      message: "网络连接中断，问题没有发送成功。请检查网络后编辑问题再试一次。",
+      requestId: error.requestId,
+    };
+  }
+  return {
+    semanticState: "failed",
+    message: "岸岸这次没有完成回答。请编辑问题后再试；若仍失败，请提供问题编号。",
+    requestId: error.requestId,
   };
 }

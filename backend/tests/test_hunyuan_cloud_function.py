@@ -199,6 +199,30 @@ def test_invokes_formal_score_candidate_without_exposing_model_selection() -> No
     assert result.text == '{"score":{}}'
 
 
+def test_invokes_companion_answer_with_stable_request_identity() -> None:
+    content = (
+        '{"answer":"先复盘","nextActions":["完成一道同类题"],'
+        '"sourceRefs":["source-1"],"confidence":"high","limitations":[]}'
+    )
+    payload = _payload(requestId="companion-20260728-0001", text=content)
+    client = _Client(_Response(payload))
+    result = HunyuanCloudFunctionClient(
+        _settings(),
+        client_factory=lambda: client,  # type: ignore[arg-type]
+    ).answer_companion(
+        request_id="companion-20260728-0001",
+        messages=[
+            {"role": "system", "content": "server-owned companion contract"},
+            {"role": "user", "content": "minimized learner context"},
+        ],
+    )
+
+    request = json.loads(client.content)
+    assert request["purpose"] == "companion_answer"
+    assert request["requestId"] == "companion-20260728-0001"
+    assert result.text == content
+
+
 def test_http_429_is_typed_retryable_without_exposing_response_body() -> None:
     client = _Client(_Response({"secret": "must-not-surface"}, status_code=429))
     transport = HunyuanCloudFunctionClient(

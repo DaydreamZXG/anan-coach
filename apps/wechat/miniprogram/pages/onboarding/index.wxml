@@ -69,7 +69,16 @@
               </picker>
             </view>
             <view class="picker-field">
-              <view class="picker-label">毕业年份</view>
+              <view class="picker-label">已取得学位</view>
+              <picker mode="selector" range="{{degreeOptions}}" bindchange="chooseDegree">
+                <view class="picker-control {{degree ? 'picker-control--filled' : ''}}">
+                  <text>{{degree || '请选择'}}</text>
+                  <view class="picker-chevron"></view>
+                </view>
+              </picker>
+            </view>
+            <view class="picker-field picker-field--wide">
+              <view class="picker-label">毕业年份与应届身份</view>
               <picker mode="selector" range="{{graduationOptions}}" range-key="label" bindchange="chooseGraduation">
                 <view class="picker-control {{graduationLabel ? 'picker-control--filled' : ''}}">
                   <text>{{graduationLabel || '请选择'}}</text>

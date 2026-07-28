@@ -276,10 +276,8 @@ function presentTask(task: TodayTask): TaskView {
   const contextualStartUrl =
     task.track === "essay"
       ? withEssayTaskContext(task.startUrl, task.stage, task.id, task.execution?.executionVersionId)
-      : task.track === "xingce"
-        ? withXingcePlanTaskContext(task.startUrl, task.stage, task.id)
-        : task.startUrl;
-  const navigation = terminal ? null : registeredTaskNavigationTarget(contextualStartUrl);
+      : task.startUrl;
+  const navigation = terminal ? null : registeredTaskNavigationTarget(contextualStartUrl, task.id);
   return {
     id: task.id,
     kind: task.kind,
@@ -310,20 +308,8 @@ function presentTask(task: TodayTask): TaskView {
       ? ""
       : terminal
         ? "这项任务已经结束，不需要重复开始。"
-        : "这项任务还没准备好，所需资料齐全后就会开放。",
+        : "任务入口生成失败，请刷新今日安排；若仍未恢复，请联系岸岸并提供问题编号。",
   };
-}
-
-function withXingcePlanTaskContext(startUrl: string, stage: TaskStage, planTaskId: string): string {
-  if (
-    stage !== "objective_baseline" &&
-    stage !== "objective_practice" &&
-    stage !== "objective_verification"
-  ) {
-    return startUrl;
-  }
-  const separator = startUrl.includes("?") ? "&" : "?";
-  return `${startUrl}${separator}planTaskId=${encodeURIComponent(planTaskId)}`;
 }
 
 function presentAllocation(allocation: TrackAllocation): TrackAllocationView {

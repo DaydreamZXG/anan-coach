@@ -55,12 +55,12 @@ def _seed_positions(factory: sessionmaker[Session]) -> list[str]:
                       position_id, source_id, year, position_code, name,
                       department_full, system_code, region, paper_type, headcount,
                       education_min, major_required, political_req,
-                      service_min_yrs, hukou_req, remark
+                      service_min_yrs, hukou_req, remark, raw_json
                     ) values (
                       :position_id, :source_id, 2026, :position_code,
                       '一级行政执法员', '国家税务总局测试局', 'tax', '江西',
                       'administrativeLaw', 2, :education, :major, :political,
-                      :service, :hukou, :remark
+                      :service, :hukou, :remark, '{}'::jsonb
                     )
                     """
                 ),

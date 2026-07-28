@@ -263,6 +263,7 @@ function progressApi(overrides: Partial<ProgressApi> = {}): ProgressApi {
 function validDraft(changes: Partial<QualificationDraft> = {}): QualificationDraft {
   return {
     education: "本科",
+    degree: "学士",
     major: "法学",
     graduationYear: 2026,
     freshGraduate: "true",

@@ -28,10 +28,11 @@ import {
   type StudyPreferenceDraft,
 } from "./study-preference";
 
-export const ONBOARDING_PENDING_SCHEMA_VERSION = 1 as const;
+export const ONBOARDING_PENDING_SCHEMA_VERSION = 2 as const;
 export const ONBOARDING_PENDING_TTL_MS = 7 * 24 * 60 * 60 * 1_000;
 
-const storageRoot = `gongkao.onboarding.pending.v${String(ONBOARDING_PENDING_SCHEMA_VERSION)}`;
+const storageFamilyRoot = "gongkao.onboarding.pending";
+const storageRoot = `${storageFamilyRoot}.v${String(ONBOARDING_PENDING_SCHEMA_VERSION)}`;
 
 interface PendingEnvelope<T> {
   schemaVersion: typeof ONBOARDING_PENDING_SCHEMA_VERSION;
@@ -321,17 +322,17 @@ export function clearPendingResultAcknowledgement(ownerUserId: string): void {
 }
 
 export function clearOnboardingPendingForUser(ownerUserId: string): void {
-  clearPendingPreparationExperience(ownerUserId);
-  clearPendingQualification(ownerUserId);
-  clearPendingPositionPreference(ownerUserId);
-  clearPendingAbilityBaseline(ownerUserId);
-  clearPendingStudyPreference(ownerUserId);
-  clearPendingResultAcknowledgement(ownerUserId);
+  const owner = encodeURIComponent(required(ownerUserId, "userId"));
+  for (const key of wx.getStorageInfoSync().keys) {
+    if (key.startsWith(`${storageFamilyRoot}.v`) && key.includes(`.${owner}.`)) {
+      wx.removeStorageSync(key);
+    }
+  }
 }
 
 export function clearAllOnboardingPending(): void {
   for (const key of wx.getStorageInfoSync().keys) {
-    if (key.startsWith(`${storageRoot}.`)) wx.removeStorageSync(key);
+    if (key.startsWith(`${storageFamilyRoot}.v`)) wx.removeStorageSync(key);
   }
 }
 
@@ -509,6 +510,7 @@ function isQualificationDraft(value: unknown): value is QualificationDraft {
   if (!isRecord(value)) return false;
   return (
     typeof value.education === "string" &&
+    typeof value.degree === "string" &&
     typeof value.major === "string" &&
     Number.isSafeInteger(value.graduationYear) &&
     (value.freshGraduate === "" ||
@@ -519,7 +521,7 @@ function isQualificationDraft(value: unknown): value is QualificationDraft {
     Number.isSafeInteger(value.grassrootsYears) &&
     typeof value.serviceProject === "string" &&
     typeof value.hukou === "string" &&
-    Object.keys(value).length === 9
+    Object.keys(value).length === 10
   );
 }
 

@@ -67,6 +67,15 @@
               </picker>
             </view>
             <view class="picker-field">
+              <view class="picker-label">已取得学位</view>
+              <picker mode="selector" range="{{degreeOptions}}" bindchange="chooseDegree">
+                <view class="picker-control {{degree ? 'picker-control--filled' : ''}}">
+                  <text>{{degree || '请选择'}}</text>
+                  <view class="picker-chevron"></view>
+                </view>
+              </picker>
+            </view>
+            <view class="picker-field picker-field--wide">
               <view class="picker-label">毕业年份</view>
               <picker mode="selector" range="{{graduationYears}}" bindchange="chooseGraduationYear">
                 <view class="picker-control {{graduationYear >= 2000 ? 'picker-control--filled' : ''}}">
@@ -181,7 +190,7 @@
             <view class="review-badge">本人确认</view>
           </view>
           <view class="review-list">
-            <view class="review-row"><text class="review-label">学历与专业</text><text class="review-value">{{education}} · {{major}}</text></view>
+            <view class="review-row"><text class="review-label">学历、学位与专业</text><text class="review-value">{{education}} · {{degree}} · {{major}}</text></view>
             <view class="review-row"><text class="review-label">毕业年份</text><text class="review-value">{{graduationYear}} 年</text></view>
             <view class="review-row"><text class="review-label">考生身份</text><text class="review-value">{{freshGraduate === 'true' ? '应届高校毕业生' : '社会人员'}}</text></view>
             <view class="review-row"><text class="review-label">政治面貌</text><text class="review-value">{{politicalStatus}}</text></view>

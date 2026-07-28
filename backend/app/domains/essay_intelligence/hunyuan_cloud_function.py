@@ -15,6 +15,7 @@ CONTRACT_VERSION = "hunyuan-text-candidate@v2"
 PROVIDER_NAME = "cloudbase-hunyuan"
 CONNECTIVITY_PURPOSE = "connectivity_probe"
 ESSAY_SCORE_PURPOSE = "essay_score_candidate"
+COMPANION_PURPOSE = "companion_answer"
 _IDENTIFIER_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{7,127}$")
 _ENVIRONMENT_PATTERN = re.compile(r"^[a-z0-9][a-z0-9-]{2,63}$")
 _FUNCTION_PATTERN = re.compile(r"^[A-Za-z][A-Za-z0-9_-]{0,59}$")
@@ -74,6 +75,44 @@ class HunyuanCloudFunctionSettings:
             ),
             maximum_output_bytes=int(
                 os.getenv("CLOUDBASE_HUNYUAN_MAX_OUTPUT_BYTES", "262144")
+            ),
+        )
+
+    @classmethod
+    def from_companion_environment(cls) -> "HunyuanCloudFunctionSettings":
+        shared = cls.from_environment()
+        return cls(
+            environment_id=os.getenv(
+                "CLOUDBASE_COMPANION_ENV_ID",
+                shared.environment_id,
+            ),
+            api_key=os.getenv(
+                "CLOUDBASE_COMPANION_API_KEY",
+                shared.api_key,
+            ),
+            function_name=os.getenv(
+                "CLOUDBASE_HUNYUAN_COMPANION_FUNCTION_NAME",
+                shared.function_name,
+            ),
+            release_id=os.getenv(
+                "CLOUDBASE_HUNYUAN_COMPANION_RELEASE_ID",
+                "",
+            ),
+            model=os.getenv(
+                "CLOUDBASE_HUNYUAN_COMPANION_MODEL",
+                shared.model,
+            ),
+            maximum_input_bytes=int(
+                os.getenv(
+                    "CLOUDBASE_HUNYUAN_COMPANION_MAX_INPUT_BYTES",
+                    str(shared.maximum_input_bytes),
+                )
+            ),
+            maximum_output_bytes=int(
+                os.getenv(
+                    "CLOUDBASE_HUNYUAN_COMPANION_MAX_OUTPUT_BYTES",
+                    str(shared.maximum_output_bytes),
+                )
             ),
         )
 
@@ -170,11 +209,27 @@ class HunyuanCloudFunctionClient:
             messages=messages,
         )
 
+    def answer_companion(
+        self,
+        *,
+        request_id: str,
+        messages: list[HunyuanMessage],
+    ) -> HunyuanCloudFunctionResult:
+        return self._invoke(
+            request_id=request_id,
+            purpose=COMPANION_PURPOSE,
+            messages=messages,
+        )
+
     def _invoke(
         self,
         *,
         request_id: str,
-        purpose: Literal["connectivity_probe", "essay_score_candidate"],
+        purpose: Literal[
+            "connectivity_probe",
+            "essay_score_candidate",
+            "companion_answer",
+        ],
         messages: list[HunyuanMessage],
     ) -> HunyuanCloudFunctionResult:
         document = _request_document(
@@ -236,7 +291,11 @@ class HunyuanCloudFunctionClient:
 def _request_document(
     *,
     request_id: str,
-    purpose: Literal["connectivity_probe", "essay_score_candidate"],
+    purpose: Literal[
+        "connectivity_probe",
+        "essay_score_candidate",
+        "companion_answer",
+    ],
     messages: list[HunyuanMessage],
 ) -> dict[str, Any]:
     if _IDENTIFIER_PATTERN.fullmatch(request_id) is None:
