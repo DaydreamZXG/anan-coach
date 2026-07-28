@@ -35,6 +35,14 @@ function normalizeRpxCalc(source: unknown): string {
   return source.replace(/calc\((-?\d+(?:\.\d+)?) \* var\(--rpx\)\)/gu, "$1rpx");
 }
 
+function ruleBodies(source: string, selector: string): string[] {
+  const escapedSelector = selector.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
+  return Array.from(
+    source.matchAll(new RegExp(`${escapedSelector}\\s*\\{([^}]+)\\}`, "gu")),
+    (match) => match[1] ?? "",
+  );
+}
+
 const responsiveStyles = normalizeRpxCalc(responsiveStylesRaw);
 const taskShellStyles = normalizeRpxCalc(taskShellStylesRaw);
 const practiceStyles = normalizeRpxCalc(practiceStylesRaw);
@@ -75,6 +83,49 @@ describe("tablet responsive layout contract", () => {
     expect(mockTemplate).toContain('class="mock-question-pane ');
     expect(mockTemplate).toContain('class="mock-material-pane"');
     expect(mockStyles).toContain("grid-template-columns: minmax(360px, 0.95fr)");
+  });
+
+  it("keeps the practice answer card and CTA inside phone and tablet viewports", () => {
+    const [phoneRule, tabletRule] = ruleBodies(practiceStyles, ".answer-card__sheet");
+    expect(practiceStyles).toContain("@media (min-width: 768px)");
+    expect(phoneRule).toBeDefined();
+    expect(tabletRule).toBeDefined();
+
+    expect(phoneRule).toMatch(/\bright:\s*0;/u);
+    expect(phoneRule).toMatch(/\bleft:\s*0;/u);
+    expect(phoneRule).toMatch(/\bpadding:\s*16rpx 40rpx/u);
+    expect(tabletRule).toMatch(/\bright:\s*50%;/u);
+    expect(tabletRule).toMatch(/\bleft:\s*auto;/u);
+    expect(tabletRule).toMatch(/\bwidth:\s*100%;/u);
+    expect(tabletRule).toMatch(/\bmax-width:\s*560px;/u);
+    expect(tabletRule).toMatch(/\btransform:\s*translateX\(50%\);/u);
+    expect(tabletRule).toMatch(/\bpadding:\s*8px 20px/u);
+
+    for (const viewportWidth of [320, 363, 390, 767]) {
+      const horizontalPadding = (40 * viewportWidth) / 750;
+      const sheetLeft = 0;
+      const sheetRight = viewportWidth;
+      const ctaLeft = sheetLeft + horizontalPadding;
+      const ctaRight = sheetRight - horizontalPadding;
+
+      expect(sheetLeft).toBeGreaterThanOrEqual(0);
+      expect(sheetRight).toBeLessThanOrEqual(viewportWidth);
+      expect(ctaLeft).toBeGreaterThanOrEqual(sheetLeft);
+      expect(ctaRight).toBeLessThanOrEqual(sheetRight);
+    }
+
+    for (const viewportWidth of [768, 800, 1024]) {
+      const sheetWidth = Math.min(viewportWidth, 560);
+      const sheetLeft = (viewportWidth - sheetWidth) / 2;
+      const sheetRight = sheetLeft + sheetWidth;
+      const ctaLeft = sheetLeft + 20;
+      const ctaRight = sheetRight - 20;
+
+      expect(sheetLeft).toBeGreaterThanOrEqual(0);
+      expect(sheetRight).toBeLessThanOrEqual(viewportWidth);
+      expect(ctaLeft).toBeGreaterThanOrEqual(sheetLeft);
+      expect(ctaRight).toBeLessThanOrEqual(sheetRight);
+    }
   });
 
   it("keeps essay source context beside the canonical writing workflow", () => {
