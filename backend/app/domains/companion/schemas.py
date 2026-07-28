@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+import re
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from app.domains.essay.schemas import AIQuotaState
 from app.domains.ai.governance.contracts import GlobalAskContext
@@ -13,8 +14,16 @@ class CompanionBaseModel(BaseModel):
 
 
 class CompanionAskRequest(CompanionBaseModel):
-    question_text: str = Field(alias="questionText", min_length=4, max_length=800)
+    question_text: str = Field(alias="questionText", min_length=1, max_length=800)
     context: GlobalAskContext
+
+    @field_validator("question_text")
+    @classmethod
+    def meaningful_question(cls, value: str) -> str:
+        normalized = " ".join(value.split())
+        if re.search(r"[\u3400-\u9fffA-Za-z0-9]", normalized) is None:
+            raise ValueError("question must contain a meaningful word or number")
+        return normalized
 
 
 class CompanionCitation(CompanionBaseModel):

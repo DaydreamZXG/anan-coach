@@ -173,36 +173,51 @@
   text-align: center;
 }
 
-@media (min-width: 768px) {
+/* 平板不是把手机稿同比放大：在足够高的宽屏设备上改为品牌区与登录区并排。 */
+@media (min-width: 600px) and (min-height: 600px) {
   .login-content {
-    max-width: 560px;
-    min-height: calc(100vh - 96px);
-    padding: 36px 52px calc(36px + env(safe-area-inset-bottom));
+    display: grid;
+    max-width: 1040px;
+    min-height: calc(100vh - 80px);
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: center;
+    gap: 32px;
+    padding: 40px 32px calc(40px + env(safe-area-inset-bottom));
+  }
+
+  .login-lockup {
+    align-items: flex-start;
+    text-align: left;
   }
 
   .brain-logo-shell {
-    width: 96px;
-    height: 96px;
-    margin-bottom: 32px;
-    border-radius: 32px;
+    width: 88px;
+    height: 88px;
+    margin-bottom: 28px;
+    border-radius: 30px;
   }
 
   .brain-logo {
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
   }
 
   .login-title {
-    font-size: 42px;
+    font-size: 40px;
+    line-height: 1.15;
   }
 
   .login-subtitle {
     margin-top: 14px;
-    font-size: 17px;
+    font-size: 16px;
+    line-height: 1.65;
   }
 
   .login-actions {
-    margin-top: 54px;
+    width: 100%;
+    max-width: 440px;
+    justify-self: end;
+    margin-top: 0;
   }
 
   .wechat-button {
@@ -215,5 +230,28 @@
   .legal {
     margin-top: 20px;
     font-size: 12px;
+  }
+}
+
+@media (min-width: 900px) and (min-height: 600px) {
+  .login-content {
+    gap: 80px;
+    padding-right: 64px;
+    padding-left: 64px;
+  }
+
+  .brain-logo-shell {
+    width: 104px;
+    height: 104px;
+    border-radius: 34px;
+  }
+
+  .brain-logo {
+    width: 52px;
+    height: 52px;
+  }
+
+  .login-title {
+    font-size: 46px;
   }
 }

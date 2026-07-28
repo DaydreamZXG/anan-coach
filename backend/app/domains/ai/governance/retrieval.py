@@ -30,6 +30,12 @@ class RetrievedSource(RetrievalModel):
     reference: EvidenceReference
     trust_scope: str = Field(alias="trustScope", min_length=1, max_length=80)
     excerpt: str = Field(min_length=1, max_length=2000)
+    display_summary: str | None = Field(
+        default=None,
+        alias="displaySummary",
+        min_length=1,
+        max_length=500,
+    )
     lexical_score: float = Field(alias="lexicalScore", ge=0, le=1)
     semantic_score: float = Field(alias="semanticScore", ge=0, le=1)
     source_weight: float = Field(alias="sourceWeight", ge=0, le=1)
@@ -70,6 +76,7 @@ class _Candidate:
     trust_scope: str
     source_weight: float
     untrusted_input: bool
+    display_summary: str | None = None
     retrieval_score: float = 0.0
 
 
@@ -152,6 +159,7 @@ class AuthorizedHybridRetriever:
                 reference=candidate.reference,
                 trustScope=candidate.trust_scope,
                 excerpt=_excerpt(candidate.text),
+                displaySummary=candidate.display_summary,
                 lexicalScore=round(lexical, 6),
                 semanticScore=round(semantic, 6),
                 sourceWeight=candidate.source_weight,
@@ -1057,6 +1065,7 @@ def context_candidate(
     text_value: str,
     trust_scope: str,
     source_weight: float,
+    display_summary: str | None = None,
 ) -> _Candidate:
     return _Candidate(
         reference=EvidenceReference(
@@ -1070,6 +1079,7 @@ def context_candidate(
         trust_scope=trust_scope,
         source_weight=source_weight,
         untrusted_input=False,
+        display_summary=display_summary,
     )
 
 

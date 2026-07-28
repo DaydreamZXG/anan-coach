@@ -1406,13 +1406,108 @@ def _build_persona_prompt(context: CompanionContextRecord) -> str:
         "你是公考学习搭子岸岸，表达直接、亲切、克制，不使用官场角色扮演、古风称呼或夸张鼓励。"
         "一切建言必须且只能基于传入的 learner_context，"
         "不得编造课程、分数、岗位、错题或方法卡；若 learner_context 数据不足，须直说数据不足并给出采集动作。"
-        "learningBrain 中的能力、模块、错误模式与计划结论都带版本；解释时应引用其版本和证据，"
+        "learningBrain 中的能力、模块、错误模式与计划结论都带内部版本；版本只用于系统追溯，"
+        "对用户只说明可理解的事实和证据，不得输出 JSON、英文键名、枚举值、UUID、算法名、版本号或内部来源标识。"
         "不得把本次回答、用户情绪或未确认候选写成新的能力事实。"
         "你同时负责行测和申论：申论建议必须优先引用 grounded review、结构化复盘和今日申论计划；"
         "system_compiled/unverified 评分规程下的单题分数只能称为低置信 AI 训练估分，"
         "不得冒充官方分数，也不得直接据此推断岗位总分差。"
         "回答先给结论，再说明证据与局限，最后给出一到三个可执行动作。"
     )
+
+
+def _display_number(value: object) -> str | None:
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        return None
+    return f"{float(value):g}"
+
+
+def _activity_citation_summary(context: CompanionContextRecord) -> str:
+    parts = [
+        f"已记录 {context.practice_answers} 道行测练习，其中 {context.wrong_answers} 道错题",
+        f"已完成 {context.mock_exams} 次模考",
+    ]
+    if context.latest_mock_score is not None:
+        parts.append(f"最近一次模考记录为 {context.latest_mock_score:g} 分")
+    module_names = [
+        str(item.get("module_name", "")).strip()
+        for item in context.top_wrong_modules
+        if str(item.get("module_name", "")).strip()
+    ]
+    if module_names:
+        parts.append(f"目前错题较多的模块包括{'、'.join(module_names)}")
+    return "；".join(parts) + "。"
+
+
+def _learning_brain_citation_summary(profile: dict[str, object]) -> str:
+    ability = profile.get("ability")
+    ability_map = ability if isinstance(ability, dict) else {}
+    estimate = ability_map.get("estimate")
+    estimate_map = estimate if isinstance(estimate, dict) else {}
+    total = estimate_map.get("total")
+    total_map = total if isinstance(total, dict) else {}
+    xingce = estimate_map.get("xingce")
+    xingce_map = xingce if isinstance(xingce, dict) else {}
+    shenlun = estimate_map.get("shenlun")
+    shenlun_map = shenlun if isinstance(shenlun, dict) else {}
+    evidence = profile.get("evidenceSummary")
+    evidence_map = evidence if isinstance(evidence, dict) else {}
+    decision = profile.get("decisionSummary")
+    decision_map = decision if isinstance(decision, dict) else {}
+
+    parts: list[str] = []
+    total_score = _display_number(total_map.get("recommended"))
+    xingce_score = _display_number(xingce_map.get("recommended"))
+    shenlun_score = _display_number(shenlun_map.get("recommended"))
+    if total_score is not None:
+        score_parts = []
+        if xingce_score is not None:
+            score_parts.append(f"行测约 {xingce_score} 分")
+        if shenlun_score is not None:
+            score_parts.append(f"申论约 {shenlun_score} 分")
+        detail = f"（{'、'.join(score_parts)}）" if score_parts else ""
+        parts.append(f"当前综合能力参考值约 {total_score} 分{detail}")
+
+    evidence_count = sum(
+        int(evidence_map.get(key, 0))
+        for key in (
+            "scoreEvidenceCount",
+            "xingceAttemptCount",
+            "xingceMasteryCount",
+            "essayMasteryCount",
+            "taskExecutionCount",
+            "externalAnswerCount",
+        )
+        if isinstance(evidence_map.get(key, 0), int)
+    )
+    if evidence_count > 0:
+        parts.append(f"本次判断汇总了 {evidence_count} 条已记录学习证据")
+
+    review_due = decision_map.get("reviewDueCount")
+    if isinstance(review_due, int):
+        parts.append(f"当前有 {review_due} 项待复测" if review_due > 0 else "当前没有待复测项目")
+    if not parts:
+        return "已读取当前学习档案中的能力、错因与计划记录。"
+    return "；".join(parts) + "。"
+
+
+def _target_position_citation_summary(context: CompanionContextRecord) -> str:
+    exam_labels = {"guokao": "国考", "national": "国考"}
+    exam_label = exam_labels.get(
+        (context.target_exam or "").strip().casefold(),
+        (context.target_exam or "当前考试").strip(),
+    )
+    target_label = (
+        f"当前主目标岗位为「{context.position_group}」"
+        if context.position_group
+        else "尚未确认具体主目标岗位"
+    )
+    score_label = (
+        f"，目标总分为 {context.target_score:g} 分"
+        if context.target_score is not None
+        else ""
+    )
+    return f"{exam_label}：{target_label}{score_label}。"
 
 
 def _context_retrieval_candidates(context: CompanionContextRecord) -> tuple[Any, ...]:
@@ -1435,6 +1530,7 @@ def _context_retrieval_candidates(context: CompanionContextRecord) -> tuple[Any,
                 text_value=json.dumps(activity, ensure_ascii=False, sort_keys=True),
                 trust_scope="learner_activity",
                 source_weight=0.9,
+                display_summary=_activity_citation_summary(context),
             )
         )
     if context.learning_brain_profile is not None:
@@ -1449,6 +1545,7 @@ def _context_retrieval_candidates(context: CompanionContextRecord) -> tuple[Any,
                 text_value=json.dumps(profile, ensure_ascii=False, sort_keys=True),
                 trust_scope="learning_brain",
                 source_weight=1.0,
+                display_summary=_learning_brain_citation_summary(profile),
             )
         )
     if _has_essay_context(context):
@@ -1470,6 +1567,7 @@ def _context_retrieval_candidates(context: CompanionContextRecord) -> tuple[Any,
                 text_value=json.dumps(essay, ensure_ascii=False, sort_keys=True),
                 trust_scope="essay_learning",
                 source_weight=0.95,
+                display_summary=_essay_citation_summary(context),
             )
         )
     if context.position_group or context.target_score is not None:
@@ -1490,6 +1588,7 @@ def _context_retrieval_candidates(context: CompanionContextRecord) -> tuple[Any,
                 text_value=json.dumps(position, ensure_ascii=False, sort_keys=True),
                 trust_scope="target_position",
                 source_weight=1.0,
+                display_summary=_target_position_citation_summary(context),
             )
         )
     for card in context.method_cards:
@@ -1503,6 +1602,7 @@ def _context_retrieval_candidates(context: CompanionContextRecord) -> tuple[Any,
                 text_value=f"{card['title']}：{card['fix_action']}；{card['tag_path']}",
                 trust_scope="published_method_card",
                 source_weight=0.9,
+                display_summary=f"{card['title']}：{card['fix_action']}。",
             )
         )
     return tuple(candidates)
@@ -1557,7 +1657,7 @@ def _selected_citations(
             sourceId=source_ref,
             version=selected[source_ref].reference.version,
             anchor=selected[source_ref].reference.anchor,
-            summary=selected[source_ref].excerpt,
+            summary=selected[source_ref].display_summary or selected[source_ref].excerpt,
         )
         for source_ref in source_refs
     ]
@@ -1692,10 +1792,15 @@ def _essay_citation_summary(context: CompanionContextRecord) -> str:
     ]
     review = context.latest_essay_review
     if review is not None:
+        confidence = {
+            "low": "依据较少",
+            "medium": "依据一般",
+            "high": "依据充分",
+        }.get(str(review["confidence"]), "依据待补充")
         parts.append(
             "最近训练估分 "
             f"{review['recommendedScore']:g}/{review['maximumScore']:g}"
-            f"（{review['confidence']}置信）"
+            f"（{confidence}）"
         )
     if context.today_essay_plan is not None:
         parts.append(f"今日任务：{context.today_essay_plan['title']}")

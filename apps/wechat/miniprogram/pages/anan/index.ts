@@ -171,8 +171,8 @@ Page({
     const client = requireAuthenticatedClient();
     if (!client || this.data.submitting || this.data.contextStatus !== "ready") return;
     const question = this.data.question.trim();
-    if (question.length < 4) {
-      this.setData({ errorMessage: "请至少写 4 个字，让岸岸知道你在问什么。" });
+    if (!/[\u3400-\u9fffA-Za-z0-9]/u.test(question)) {
+      this.setData({ errorMessage: "写一个词或一句话，让岸岸知道你想问什么。" });
       return;
     }
     this.setData({

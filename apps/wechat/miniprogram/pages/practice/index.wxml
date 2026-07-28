@@ -15,7 +15,7 @@
   timerPaused="{{taskPaused}}"
   marked="{{view && view.question ? view.question.marked : false}}"
   toolsAvailable="{{status === 'ready' && sessionState === 'answering'}}"
-  footerAvailable="{{status === 'ready' && sessionState === 'answering'}}"
+  footerAvailable="{{status === 'ready' && sessionState === 'answering' && view && view.current === view.total}}"
   headerAvailable="{{status !== 'ready' || sessionState === 'answering'}}"
   bindexit="exit"
   bindmaterial="toggleMaterial"
@@ -134,7 +134,7 @@
           bindtouchend="onQuestionTouchEnd"
         >
         <view
-          class="practice-question-body {{questionTransition ? 'motion-question-in--' + questionTransition : ''}}"
+          class="practice-question-body {{view && view.current === view.total ? 'practice-question-body--with-footer' : ''}} {{questionTransition ? 'motion-question-in--' + questionTransition : ''}}"
           bindanimationend="clearQuestionTransition"
         >
           <view class="question-hero">
@@ -205,6 +205,11 @@
 
           <view class="question-actions">
             <button class="skip-button question-action" hover-class="item--hover" disabled="{{interactionLocked}}" bindtap="skipQuestion">{{view.question.skipped ? '已明确跳过' : '这题先放弃，稍后再看'}}</button>
+          </view>
+          <view wx:if="{{view.current < view.total}}" class="question-swipe-hint">
+            <text>←</text>
+            <text>左右滑动切题，点顶部题号可打开答题卡</text>
+            <text>→</text>
           </view>
         </view>
         </scroll-view>
@@ -474,8 +479,7 @@
     <view wx:if="{{disputeReceipt}}" class="overlay-result">{{disputeReceipt}}</view>
   </ui-sheet>
 
-  <view slot="footer" class="task-footer-actions" wx:if="{{status === 'ready' && sessionState === 'answering'}}">
-    <button hover-class="item--hover" class="footer-previous {{view.current === 1 || interactionLocked ? 'footer-previous--disabled' : ''}}" disabled="{{view.current === 1 || interactionLocked}}" bindtap="previousQuestion">上一题</button>
-    <button hover-class="item--hover" class="primary-button submit-button" disabled="{{interactionLocked}}" bindtap="footerAction">{{view.current < view.total ? '下一题' : (canSubmit ? '交卷并查看结果' : '查看未完成题目')}}</button>
+  <view slot="footer" class="task-footer-actions" wx:if="{{status === 'ready' && sessionState === 'answering' && view && view.current === view.total}}">
+    <button hover-class="item--hover" class="primary-button submit-button" disabled="{{interactionLocked}}" bindtap="footerAction">{{canSubmit ? '交卷并查看结果' : '查看未完成题目'}}</button>
   </view>
 </task-shell>

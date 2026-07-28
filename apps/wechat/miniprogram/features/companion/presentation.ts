@@ -40,6 +40,24 @@ const answerTypeLabels: Record<string, string> = {
   learning_explanation: "学习解答",
 };
 
+const citationFallbackSummaries: Record<string, string> = {
+  learner_activity: "已读取当前账号的练习、错题与模考记录。",
+  learning_brain: "已读取当前学习档案中的能力、错因与计划记录。",
+  essay_learning: "已读取当前账号的申论作答、批改与复盘记录。",
+  target_position: "已读取当前账号已确认的考试目标与岗位资料。",
+  method_card: "已读取与当前问题相关的学习方法。",
+  user_material: "已读取你授权给本次回答使用的私人资料片段。",
+};
+
+function publicCitationSummary(citation: CompanionCitation): string {
+  const summary = citation.summary.replace(/\s+/gu, " ").trim();
+  const exposesStructuredPayload =
+    /^(?:\{|\[)/u.test(summary) ||
+    /"(?:[A-Za-z][A-Za-z0-9_]*|[a-z]+_[a-z0-9_]+)"\s*:/u.test(summary);
+  if (summary && !exposesStructuredPayload) return summary;
+  return citationFallbackSummaries[citation.kind] ?? "已读取与当前问题相关的学习依据。";
+}
+
 export function companionAnswerView(
   response: CompanionAskResponse,
   stateLabel: string,
@@ -51,6 +69,7 @@ export function companionAnswerView(
     ...response,
     citations: response.citations.map((citation) => ({
       ...citation,
+      summary: publicCitationSummary(citation),
       sourceLabel: sourceLabels[citation.kind] ?? "学习依据",
     })),
     quotaRemaining,

@@ -12,6 +12,10 @@ import profileStylesRaw from "../miniprogram/pages/me/index.wxss?raw";
 import tabBarStylesRaw from "../miniprogram/custom-tab-bar/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import tabBarTemplate from "../miniprogram/custom-tab-bar/index.wxml?raw";
+// @ts-expect-error Vite exposes mini-program component logic through its raw asset loader.
+import tabBarLogic from "../miniprogram/custom-tab-bar/index.ts?raw";
+// @ts-expect-error Vite exposes mini-program page logic through its raw asset loader.
+import profileLogic from "../miniprogram/pages/me/index.ts?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import componentHostTokensRaw from "../miniprogram/design-system/tokens/component-host.tokens.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
@@ -77,7 +81,15 @@ describe("Design File core tab composition", () => {
     );
     expect(tabBarStyles).not.toContain("calc(64rpx + env(safe-area-inset-bottom))");
     expect(tabBarStyles).toContain("line-height: 30rpx");
-    expect(tabBarTemplate).toContain('class="tab-bar component-token-host"');
+    expect(tabBarTemplate).toContain('wx:if="{{!hidden}}" class="tab-bar component-token-host"');
+  });
+
+  it("hides the custom tab bar while profile sheets are open", () => {
+    expect(tabBarLogic).toContain("hidden: false");
+    expect(tabBarLogic).toContain("setHidden(hidden: boolean)");
+    expect(tabBarTemplate).toContain('wx:if="{{!hidden}}"');
+    expect(profileLogic).toContain("this.setTabBarHidden(true)");
+    expect(profileLogic).toContain("profileEditorOpen || this.data.wechatChannelOpen");
   });
 
   it("keeps isolated tab-bar host tokens synchronized with the Design File", () => {

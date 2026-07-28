@@ -139,14 +139,17 @@ Page({
   },
 
   onHide() {
-    if (this.data.profileEditorOpen) {
-      void wx.showTabBar({ animation: false }).catch(() => undefined);
+    if (this.data.profileEditorOpen || this.data.wechatChannelOpen) {
+      this.setTabBarHidden(false);
     }
   },
 
   onShow() {
     if (typeof this.getTabBar === "function") {
-      this.getTabBar().setData({ active: "me" });
+      this.getTabBar().setData({
+        active: "me",
+        hidden: this.data.profileEditorOpen || this.data.wechatChannelOpen,
+      });
     }
     if (!currentAccessToken()) {
       void wx.reLaunch({ url: "/pages/login/index" });
@@ -291,8 +294,7 @@ Page({
 
   openProfileEditor() {
     if (this.data.profileSaving) return;
-    // custom-tab-bar 在部分渲染层级高于页面弹层，弹窗期间按官方方案隐藏。
-    void wx.hideTabBar({ animation: false }).catch(() => undefined);
+    this.setTabBarHidden(true);
     this.setData({
       profileEditorOpen: true,
       profileDraftName: this.data.displayName === "岸岸学员" ? "" : this.data.displayName,
@@ -323,7 +325,7 @@ Page({
 
   closeProfileEditor() {
     if (!this.data.profileSaving) {
-      void wx.showTabBar({ animation: false }).catch(() => undefined);
+      this.setTabBarHidden(false);
       this.setData({ profileEditorOpen: false, profileEditorError: "" });
     }
   },
@@ -353,7 +355,7 @@ Page({
         profileSaving: false,
         profileEditorOpen: false,
       });
-      void wx.showTabBar({ animation: false }).catch(() => undefined);
+      this.setTabBarHidden(false);
       void wx.showToast({ title: "个人资料已更新", icon: "success" });
     } catch (error) {
       const apiError = error instanceof ApiClientError ? error : undefined;
@@ -403,11 +405,23 @@ Page({
   },
 
   openWechatChannel() {
+    this.setTabBarHidden(true);
     this.setData({ wechatChannelOpen: true });
   },
 
   closeWechatChannel() {
     this.setData({ wechatChannelOpen: false });
+    this.setTabBarHidden(false);
+  },
+
+  setTabBarHidden(hidden: boolean) {
+    if (typeof this.getTabBar === "function") {
+      this.getTabBar().setData({ hidden });
+    }
+    const operation = hidden
+      ? wx.hideTabBar({ animation: false })
+      : wx.showTabBar({ animation: false });
+    void operation.catch(() => undefined);
   },
 
   openPrivacy() {

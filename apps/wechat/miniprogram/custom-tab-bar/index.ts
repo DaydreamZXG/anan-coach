@@ -39,10 +39,14 @@ Component({
       activeIcon: string;
     }>,
     active: "today",
+    hidden: false,
   },
   methods: {
     setActive(key: string) {
       this.setData({ active: key });
+    },
+    setHidden(hidden: boolean) {
+      this.setData({ hidden });
     },
     onTap(e: WechatMiniprogram.TouchEvent) {
       const { path, key } = e.currentTarget.dataset as {

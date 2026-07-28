@@ -278,7 +278,11 @@
 
 .practice-question-body {
   box-sizing: border-box;
-  padding: calc(48 * var(--rpx)) calc(40 * var(--rpx)) calc(224 * var(--rpx));
+  padding: calc(48 * var(--rpx)) calc(40 * var(--rpx)) calc(72 * var(--rpx));
+}
+
+.practice-question-body--with-footer {
+  padding-bottom: calc(224 * var(--rpx));
 }
 
 .question-hero {
@@ -655,7 +659,6 @@ button.pause-resume {
 }
 
 button.answer-card__cta,
-button.footer-previous,
 button.submit-button {
   width: 100%;
 }
@@ -988,14 +991,10 @@ button.submit-button {
   width: 100%;
 }
 
-/* Figma 2:199：两枚等宽按钮，间距 12px。 */
 .task-footer-actions {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: calc(24 * var(--rpx));
+  display: block;
 }
 
-.footer-previous,
 .task-footer-actions .submit-button {
   box-sizing: border-box;
   width: 100%;
@@ -1009,27 +1008,11 @@ button.submit-button {
   line-height: calc(109 * var(--rpx));
 }
 
-/* Figma 2:200 */
-.footer-previous {
-  color: var(--figma-color-ink-secondary);
-  background: var(--figma-color-canvas);
-}
-
 /* Figma 2:203 */
 .task-footer-actions .submit-button {
   color: var(--figma-color-on-dark);
   background: var(--figma-color-ink);
   box-shadow: var(--shadow-elevated);
-}
-
-.footer-previous::after {
-  border: 0;
-}
-
-.footer-previous--disabled {
-  color: var(--color-faint);
-  background: var(--color-surface-soft);
-  opacity: 1;
 }
 
 .help-sheet {
@@ -1617,15 +1600,14 @@ button.submit-button {
   pointer-events: auto;
 }
 
-/* 平板：上一题以描边次级钮常驻可见，禁用只降透明度。 */
-@media (min-width: 1024px) {
-  .footer-previous {
-    border: 1px solid var(--color-line-strong);
-    background: var(--color-surface);
-    color: var(--color-ink-secondary);
-  }
-
-  .footer-previous--disabled {
-    opacity: 0.45;
-  }
+.question-swipe-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(28 * var(--rpx));
+  color: var(--figma-color-faint);
+  font-size: var(--text-micro);
+  line-height: 1.5;
+  text-align: center;
 }

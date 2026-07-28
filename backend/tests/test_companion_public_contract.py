@@ -1,0 +1,138 @@
+from uuid import uuid4
+
+import pytest
+
+from app.domains.companion.repository import CompanionContextRecord
+from app.domains.companion.schemas import CompanionAskRequest
+from app.domains.companion.service import (
+    _build_persona_prompt,
+    _context_retrieval_candidates,
+    _selected_citations,
+)
+
+
+def _context() -> CompanionContextRecord:
+    return CompanionContextRecord(
+        target_exam="guokao",
+        position_group=None,
+        target_score=131.8,
+        baseline_xingce_score=None,
+        baseline_shenlun_score=None,
+        practice_answers=12,
+        wrong_answers=3,
+        mock_exams=1,
+        latest_mock_score=118.5,
+        top_wrong_modules=[{"module_name": "资料分析", "wrong_count": 2}],
+        method_cards=[],
+        current_shenlun_estimate=None,
+        essay_attempts=0,
+        grounded_essay_reviews=0,
+        latest_essay_review=None,
+        latest_essay_reflection=None,
+        today_essay_plan=None,
+        essay_plan_omission_reason=None,
+        learning_brain_profile={
+            "profileVersionId": str(uuid4()),
+            "versionNo": 3,
+            "ability": {
+                "estimate": {
+                    "total": {"recommended": 112},
+                    "xingce": {"recommended": 62},
+                    "shenlun": {"recommended": 50},
+                }
+            },
+            "evidenceSummary": {
+                "scoreEvidenceCount": 1,
+                "xingceAttemptCount": 0,
+                "xingceMasteryCount": 0,
+                "essayMasteryCount": 0,
+                "taskExecutionCount": 1,
+                "externalAnswerCount": 0,
+            },
+            "decisionSummary": {"reviewDueCount": 0},
+        },
+    )
+
+
+def _ask_body(question: str) -> dict[str, object]:
+    return {
+        "questionText": question,
+        "context": {
+            "routeId": "pages/anan/index",
+            "workspace": "training",
+            "objectRefs": [],
+            "learnerStateVersion": "profile-1",
+        },
+    }
+
+
+def test_short_meaningful_question_is_valid() -> None:
+    request = CompanionAskRequest.model_validate(_ask_body("咋办"))
+
+    assert request.question_text == "咋办"
+
+
+def test_punctuation_only_question_is_invalid() -> None:
+    with pytest.raises(ValueError, match="meaningful word or number"):
+        CompanionAskRequest.model_validate(_ask_body("？？"))
+
+
+def test_context_sources_separate_model_payload_from_public_summary() -> None:
+    context = _context()
+    candidates = _context_retrieval_candidates(context)
+    summaries = {
+        candidate.reference.kind: candidate.display_summary for candidate in candidates
+    }
+
+    assert summaries["learner_activity"] == (
+        "已记录 12 道行测练习，其中 3 道错题；已完成 1 次模考；"
+        "最近一次模考记录为 118.5 分；目前错题较多的模块包括资料分析。"
+    )
+    assert summaries["learning_brain"] == (
+        "当前综合能力参考值约 112 分（行测约 62 分、申论约 50 分）；"
+        "本次判断汇总了 2 条已记录学习证据；当前没有待复测项目。"
+    )
+    assert summaries["target_position"] == "国考：尚未确认具体主目标岗位，目标总分为 131.8 分。"
+    assert all("{" not in (summary or "") for summary in summaries.values())
+
+
+def test_selected_citation_uses_public_summary_instead_of_json_excerpt() -> None:
+    source_id = "profile-current"
+    bundle = {
+        "bundleId": str(uuid4()),
+        "policyVersion": "authorized-hybrid-retrieval@v1",
+        "queryFingerprint": "a" * 64,
+        "sources": [
+            {
+                "reference": {
+                    "kind": "learning_brain",
+                    "sourceId": source_id,
+                    "version": "3",
+                    "anchor": "profile-evidence",
+                    "title": "当前学习档案",
+                },
+                "trustScope": "learning_brain",
+                "excerpt": '{"algorithmVersion":"ability-estimate-v1"}',
+                "displaySummary": "当前能力参考值约 112 分，依据仍较少。",
+                "lexicalScore": 0.5,
+                "semanticScore": 0.5,
+                "sourceWeight": 1,
+                "finalScore": 0.8,
+                "untrustedInput": False,
+            }
+        ],
+        "blockedSourceRefs": [],
+        "securityDecision": "clear",
+    }
+
+    citations = _selected_citations(bundle, [source_id])
+
+    assert citations[0].summary == "当前能力参考值约 112 分，依据仍较少。"
+    assert "algorithmVersion" not in citations[0].summary
+
+
+def test_persona_forbids_internal_identifiers_in_user_answers() -> None:
+    prompt = _build_persona_prompt(_context())
+
+    assert "不得输出 JSON" in prompt
+    assert "版本号或内部来源标识" in prompt
