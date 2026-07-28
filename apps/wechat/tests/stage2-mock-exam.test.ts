@@ -345,6 +345,153 @@ describe("stage 2 F02 mock exam", () => {
     harness.page.onUnload.call(harness.page);
   });
 
+  it("converges a 409 conflict to the server submitted state and keeps it terminal", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-07-15T03:00:00.000Z"));
+    const harness = await createMockPage(sessionPayload(), {
+      submitConflictOnce: true,
+      terminalAfterConflict: "submitted",
+    });
+    Object.assign(harness.page.data, {
+      answerSheetOpen: true,
+      draftOpen: true,
+      materialOpen: true,
+      toolsOpen: true,
+      helpOpen: true,
+      disputeOpen: true,
+    });
+
+    harness.page.submitExam.call(harness.page);
+    const firstSubmit = harness.page.confirmSubmitExam.call(harness.page);
+    const repeatedSubmit = harness.page.confirmSubmitExam.call(harness.page);
+    await Promise.all([firstSubmit, repeatedSubmit]);
+    await flushMicrotasks();
+
+    expect(harness.requests.filter((request) => request.url.endsWith("/submit"))).toHaveLength(1);
+    expect(harness.requests.some((request) => request.url.endsWith("/conflict"))).toBe(true);
+    expect(harness.requests.some((request) => request.url.endsWith("/resolve"))).toBe(true);
+    expect(harness.page.data).toMatchObject({
+      status: "submitted",
+      errorTitle: "本场模考已经交卷",
+      errorMessage: "服务端已确认交卷，正式模考报告可进入查看。",
+      syncLabel: "交卷已确认",
+      interactionLocked: true,
+      question: null,
+      receipt: null,
+      reportSessionId: "mock-session-1",
+      answerSheetOpen: false,
+      draftOpen: false,
+      materialOpen: false,
+      toolsOpen: false,
+      helpOpen: false,
+      disputeOpen: false,
+      submitConfirmOpen: false,
+    });
+    expect(vi.getTimerCount()).toBe(0);
+    expect(harness.storage.has("gongkao.mock-exam.pending.v1.user-a.mock-session-1.submit")).toBe(
+      false,
+    );
+    expect(
+      harness.storage.has("gongkao.mock-exam.pending.v1.user-a.mock-session-1.checkpoint"),
+    ).toBe(false);
+
+    const requestCount = harness.requests.length;
+    harness.page.submitExam.call(harness.page);
+    await harness.page.confirmSubmitExam.call(harness.page);
+    harness.page.onHide.call(harness.page);
+    harness.page.onShow.call(harness.page);
+    await flushMicrotasks();
+    expect(harness.requests).toHaveLength(requestCount);
+    expect(vi.getTimerCount()).toBe(0);
+
+    harness.page.openMockReport.call(harness.page);
+    expect(harness.navigateTo).toHaveBeenCalledWith({
+      url: "/pages/mock-report/index?sessionId=mock-session-1",
+    });
+    harness.page.onUnload.call(harness.page);
+  });
+
+  it("converges a 409 conflict to reviewed without claiming a new local submit", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-07-15T03:00:00.000Z"));
+    const harness = await createMockPage(sessionPayload(), {
+      submitConflictOnce: true,
+      terminalAfterConflict: "reviewed",
+    });
+
+    harness.page.submitExam.call(harness.page);
+    await harness.page.confirmSubmitExam.call(harness.page);
+    await flushMicrotasks();
+
+    expect(harness.requests.filter((request) => request.url.endsWith("/submit"))).toHaveLength(1);
+    expect(harness.page.data).toMatchObject({
+      status: "submitted",
+      errorTitle: "本场模考已完成",
+      errorMessage: "服务端已确认交卷，正式模考报告可继续查看。",
+      syncLabel: "评阅已完成",
+      interactionLocked: true,
+      reportSessionId: "mock-session-1",
+    });
+    expect(vi.getTimerCount()).toBe(0);
+    harness.page.onUnload.call(harness.page);
+  });
+
+  it("restores an initial terminal session and clears obsolete local commands", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-07-15T03:00:00.000Z"));
+    const terminal = sessionPayload();
+    terminal.status = "submitted";
+    const harness = await createMockPage(terminal, { seedPendingCommands: true });
+
+    expect(harness.page.data).toMatchObject({
+      status: "submitted",
+      syncLabel: "交卷已确认",
+      interactionLocked: true,
+      reportSessionId: "mock-session-1",
+    });
+    expect(
+      harness.requests.some((request) => request.url.endsWith("/api/v2/task-editing/leases")),
+    ).toBe(false);
+    expect(harness.storage.has("gongkao.mock-exam.pending.v1.user-a.mock-session-1.submit")).toBe(
+      false,
+    );
+    expect(
+      harness.storage.has("gongkao.mock-exam.pending.v1.user-a.mock-session-1.checkpoint"),
+    ).toBe(false);
+    expect(vi.getTimerCount()).toBe(0);
+    harness.page.onUnload.call(harness.page);
+  });
+
+  it("does not let a late terminal recovery mutate an unloaded page or clear its pending submit", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-07-15T03:00:00.000Z"));
+    const harness = await createMockPage(sessionPayload(), {
+      submitConflictOnce: true,
+      terminalAfterConflict: "submitted",
+      deferTerminalSession: true,
+    });
+
+    harness.page.submitExam.call(harness.page);
+    const submission = harness.page.confirmSubmitExam.call(harness.page);
+    await flushMicrotasks();
+    expect(harness.requests.filter((request) => request.url.endsWith("/submit"))).toHaveLength(1);
+    expect(harness.storage.has("gongkao.mock-exam.pending.v1.user-a.mock-session-1.submit")).toBe(
+      true,
+    );
+
+    harness.page.onUnload.call(harness.page);
+    const stateAfterUnload = clone(harness.page.data);
+    harness.releaseTerminalSession();
+    await submission;
+    await flushMicrotasks();
+
+    expect(harness.page.data).toEqual(stateAfterUnload);
+    expect(harness.storage.has("gongkao.mock-exam.pending.v1.user-a.mock-session-1.submit")).toBe(
+      true,
+    );
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
   it("uploads collected action events with a ticking ms clock in mock checkpoints", async () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date("2026-07-15T02:00:00.000Z"));
@@ -761,15 +908,33 @@ function option(optionId: string, text: string) {
 
 async function createMockPage(
   initialSession: ReturnType<typeof sessionPayload>,
-  behavior: { deferCheckpoint?: boolean; submitConflictOnce?: boolean } = {},
+  behavior: {
+    deferCheckpoint?: boolean;
+    submitConflictOnce?: boolean;
+    terminalAfterConflict?: "submitted" | "reviewed";
+    deferTerminalSession?: boolean;
+    seedPendingCommands?: boolean;
+  } = {},
 ) {
   let captured: CapturedMockPage | undefined;
   let session = clone(initialSession);
   const requests: WechatMiniprogram.RequestOption[] = [];
   const storage = new Map<string, unknown>();
   const pageScrollTo = vi.fn(() => Promise.resolve());
+  const navigateTo = vi.fn(() => Promise.resolve());
   let deferredCheckpointSuccess: (() => void) | undefined;
+  let deferredTerminalSessionSuccess: (() => void) | undefined;
   let submitConflictRemaining = behavior.submitConflictOnce ? 1 : 0;
+  if (behavior.seedPendingCommands) {
+    storage.set(
+      "gongkao.mock-exam.pending.v1.user-a.mock-session-1.checkpoint",
+      pendingMockCheckpoint("user-a", "seed-checkpoint", "B"),
+    );
+    storage.set(
+      "gongkao.mock-exam.pending.v1.user-a.mock-session-1.submit",
+      pendingMockSubmit("user-a", "seed-submit", "B"),
+    );
+  }
   vi.stubGlobal("Page", (definition: CapturedMockPage) => {
     captured = definition;
   });
@@ -838,7 +1003,11 @@ async function createMockPage(
       if (options.url.endsWith("/submit")) {
         if (submitConflictRemaining > 0) {
           submitConflictRemaining -= 1;
-          session = { ...session, revision: session.revision + 1 };
+          session = {
+            ...session,
+            revision: session.revision + 1,
+            ...(behavior.terminalAfterConflict ? { status: behavior.terminalAfterConflict } : {}),
+          };
           options.success?.({
             statusCode: 409,
             data: {
@@ -873,12 +1042,21 @@ async function createMockPage(
         } as never);
         return;
       }
+      if (options.url.endsWith(`/api/v1/mock-exams/${session.sessionId}`)) {
+        const succeed = () => options.success?.({ statusCode: 200, data: session } as never);
+        if (behavior.deferTerminalSession && session.status !== "assigned") {
+          deferredTerminalSessionSuccess = succeed;
+        } else {
+          succeed();
+        }
+        return;
+      }
       options.success?.({ statusCode: 200, data: session } as never);
     },
     showModal: () => Promise.resolve({ confirm: true, cancel: false }),
     showToast: vi.fn(() => Promise.resolve()),
     navigateBack: () => Promise.resolve(),
-    navigateTo: () => Promise.resolve(),
+    navigateTo,
     switchTab: () => Promise.resolve(),
     pageScrollTo,
   });
@@ -894,15 +1072,24 @@ async function createMockPage(
   page.onLoad.call(page, {});
   page.onShow.call(page);
   await flushMicrotasks();
-  expect(page.data.status).toBe("ready");
+  expect(page.data.status).toBe(initialSession.status === "assigned" ? "ready" : "submitted");
   return {
     page,
     requests,
+    storage,
     pageScrollTo,
+    navigateTo,
     releaseCheckpoint() {
       if (!deferredCheckpointSuccess) throw new Error("No checkpoint response is pending");
       deferredCheckpointSuccess();
       deferredCheckpointSuccess = undefined;
+    },
+    releaseTerminalSession() {
+      if (!deferredTerminalSessionSuccess) {
+        throw new Error("No terminal session response is pending");
+      }
+      deferredTerminalSessionSuccess();
+      deferredTerminalSessionSuccess = undefined;
     },
   };
 }
@@ -992,6 +1179,9 @@ interface CapturedMockPage {
   onQuestionTouchMove(this: TestMockPage, event: WechatMiniprogram.TouchEvent): void;
   onQuestionTouchEnd(this: TestMockPage, event: WechatMiniprogram.TouchEvent): void;
   clearQuestionTransition(this: TestMockPage): void;
+  submitExam(this: TestMockPage): void;
+  confirmSubmitExam(this: TestMockPage): Promise<void>;
+  openMockReport(this: TestMockPage): void;
 }
 
 interface TestMockPage extends CapturedMockPage {
@@ -1123,6 +1313,24 @@ function pendingMockCheckpoint(
           draftText: "",
         },
       ],
+    },
+    storedAt: "2026-07-15T02:09:00.000Z",
+  };
+}
+
+function pendingMockSubmit(
+  ownerUserId: string,
+  idempotencyKey: string,
+  selectedAnswer: string | null,
+) {
+  return {
+    kind: "submit",
+    ownerUserId,
+    sessionId: "mock-session-1",
+    idempotencyKey,
+    command: {
+      expectedRevision: 3,
+      answers: [{ questionId: "q-1", selectedAnswer }],
     },
     storedAt: "2026-07-15T02:09:00.000Z",
   };

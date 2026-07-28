@@ -212,6 +212,10 @@ interface PageRuntime {
   swipeStart: SwipeNavSample | null;
 }
 
+type MockSubmitOutcome =
+  | { kind: "receipt"; receipt: MockExamSubmitReceipt }
+  | { kind: "terminal_session"; session: MockExamLearnerSession };
+
 interface MockExamLaunchContext {
   requestedSessionId: string;
   requestedPlanTaskId: string;
@@ -387,28 +391,7 @@ Page<MockExamPageData, MockExamPageCustom>({
         throw new Error("本场模考没有绑定今日任务，请返回今日计划后重新进入。");
       }
       if (session.status !== "assigned") {
-        runtime.session = session;
-        delete runtime.task;
-        stopClock(runtime);
-        this.setData({
-          status: "submitted",
-          title: session.title,
-          reportSessionId: session.sessionId,
-          showLoginAction: false,
-          interactionLocked: true,
-          syncLabel: "本场已交卷",
-          toolPolicy: taskToolPolicy("mock", "submitted"),
-          pageObjectReference: {
-            pageCode: "F02",
-            route: "/pages/mock-exam/index",
-            track: "xingce",
-            objectType: "task_session",
-            objectId: session.sessionId,
-            taskMode: "mock",
-            lifecycle: "submitted",
-          },
-          errorMessage: "本场模考已经交卷，答案解析只在正式报告页展示。",
-        });
+        convergeToTerminalSession(this, runtime, session);
         return;
       }
       const pendingSubmitBeforeClaim = loadPendingMockSubmit(
@@ -833,6 +816,7 @@ Page<MockExamPageData, MockExamPageCustom>({
 
   // Figma 98:2：底部确认面板取代系统弹窗，展示真实的已答/未答/标记与未答题号。
   submitExam() {
+    if (this.data.status !== "ready" || this.data.interactionLocked) return;
     const runtime = requiredRuntime(this);
     const task = requiredTask(runtime);
     const missingLabels = task.questionOrder
@@ -858,6 +842,10 @@ Page<MockExamPageData, MockExamPageCustom>({
   },
 
   async confirmSubmitExam() {
+    if (this.data.status !== "ready" || this.data.interactionLocked) {
+      this.setData({ submitConfirmOpen: false });
+      return;
+    }
     const runtime = requiredRuntime(this);
     this.setData({ submitConfirmOpen: false });
     await executeSubmit(this, runtime);
@@ -1183,7 +1171,15 @@ async function executeSubmit(
   pending?: PendingMockSubmit,
   skipCheckpoint = false,
 ): Promise<void> {
-  if (runtime.submitInFlight) return;
+  if (
+    runtime.submitInFlight ||
+    !ownsRuntime(runtime) ||
+    page.data.status !== "ready" ||
+    runtime.session?.status !== "assigned" ||
+    !runtime.task
+  ) {
+    return;
+  }
   runtime.submitInFlight = true;
   page.setData({ interactionLocked: true, syncLabel: "正在交卷" });
   try {
@@ -1220,8 +1216,13 @@ async function executeSubmit(
         storedAt: new Date().toISOString(),
       } satisfies PendingMockSubmit);
     storePendingMockSubmit(submission);
-    const receipt = await submitWithLease(runtime, submission);
+    const outcome = await submitWithLease(runtime, submission);
     if (runtimes.get(page) !== runtime) return;
+    if (outcome.kind === "terminal_session") {
+      convergeToTerminalSession(page, runtime, outcome.session);
+      return;
+    }
+    const receipt = outcome.receipt;
     const committedSession = requiredSession(runtime);
     const task = requiredTask(runtime);
     clearPendingMockSubmit(runtime.ownerUserId, session.sessionId);
@@ -1277,14 +1278,17 @@ async function executeSubmit(
 async function submitWithLease(
   runtime: PageRuntime,
   submission: PendingMockSubmit,
-): Promise<MockExamSubmitReceipt> {
+): Promise<MockSubmitOutcome> {
   try {
-    return await runtime.api.submit(
-      submission.sessionId,
-      submission.command,
-      submission.idempotencyKey,
-      requiredMockEditToken(runtime),
-    );
+    return {
+      kind: "receipt",
+      receipt: await runtime.api.submit(
+        submission.sessionId,
+        submission.command,
+        submission.idempotencyKey,
+        requiredMockEditToken(runtime),
+      ),
+    };
   } catch (error) {
     if (
       !(error instanceof ApiClientError) ||
@@ -1308,9 +1312,11 @@ async function submitWithLease(
     if (!ownsRuntime(runtime)) {
       throw new Error("Mock runtime was invalidated during submit recovery", { cause: error });
     }
+    if (latest.sessionId !== submission.sessionId) {
+      throw new Error("Mock submit recovery changed session ownership", { cause: error });
+    }
     if (latest.status !== "assigned") {
-      clearPendingMockSubmit(runtime.ownerUserId, submission.sessionId);
-      throw new Error("云端已经完成交卷，当前设备不再重复提交。", { cause: error });
+      return { kind: "terminal_session", session: latest };
     }
     const serverTask = runtimeFromMockSession(latest, Date.now(), runtime.task);
     const selectedTask =
@@ -1327,12 +1333,15 @@ async function submitWithLease(
     };
     clearPendingMockSubmit(runtime.ownerUserId, submission.sessionId);
     storePendingMockSubmit(rebased);
-    return runtime.api.submit(
-      rebased.sessionId,
-      rebased.command,
-      rebased.idempotencyKey,
-      requiredMockEditToken(runtime),
-    );
+    return {
+      kind: "receipt",
+      receipt: await runtime.api.submit(
+        rebased.sessionId,
+        rebased.command,
+        rebased.idempotencyKey,
+        requiredMockEditToken(runtime),
+      ),
+    };
   }
 }
 
@@ -1554,16 +1563,7 @@ async function resolveMockCheckpointConflict(
     if (runtimes.get(page) !== runtime) return false;
     clearPendingMockCheckpoint(runtime.ownerUserId, ownership.lease.resourceId);
     if (latest.status !== "assigned") {
-      runtime.session = latest;
-      delete runtime.task;
-      stopClock(runtime);
-      page.setData({
-        status: "submitted",
-        interactionLocked: true,
-        syncLabel: "本场已交卷",
-        reportSessionId: latest.sessionId,
-        errorMessage: "云端已结束本场模考，当前设备不再写入离线草稿。",
-      });
+      convergeToTerminalSession(page, runtime, latest);
       return true;
     }
     runtime.session = latest;
@@ -1677,6 +1677,57 @@ function sessionWithCheckpointReceipt(
       }),
     },
   };
+}
+
+function convergeToTerminalSession(
+  page: MockExamPageInstance,
+  runtime: PageRuntime,
+  session: MockExamLearnerSession,
+): void {
+  if (session.status === "assigned") {
+    throw new Error("Mock terminal convergence requires a submitted or reviewed session");
+  }
+  const reviewed = session.status === "reviewed";
+  runtime.session = session;
+  delete runtime.task;
+  delete runtime.editOwnership;
+  runtime.dirtyQuestionIds.clear();
+  stopClock(runtime);
+  clearAutosave(runtime);
+  clearPendingMockSubmit(runtime.ownerUserId, session.sessionId);
+  clearPendingMockCheckpoint(runtime.ownerUserId, session.sessionId);
+  page.setData({
+    status: "submitted",
+    title: session.title,
+    errorTitle: reviewed ? "本场模考已完成" : "本场模考已经交卷",
+    errorMessage: reviewed
+      ? "服务端已确认交卷，正式模考报告可继续查看。"
+      : "服务端已确认交卷，正式模考报告可进入查看。",
+    showLoginAction: false,
+    question: null,
+    interactionLocked: true,
+    syncLabel: reviewed ? "评阅已完成" : "交卷已确认",
+    answerSheetOpen: false,
+    draftOpen: false,
+    materialOpen: false,
+    toolsOpen: false,
+    helpOpen: false,
+    disputeOpen: false,
+    submitConfirmOpen: false,
+    questionTransition: "",
+    receipt: null,
+    reportSessionId: session.sessionId,
+    toolPolicy: taskToolPolicy("mock", "submitted"),
+    pageObjectReference: {
+      pageCode: "F02",
+      route: "/pages/mock-exam/index",
+      track: "xingce",
+      objectType: "task_session",
+      objectId: session.sessionId,
+      taskMode: "mock",
+      lifecycle: "submitted",
+    },
+  });
 }
 
 function dataset(event: WechatMiniprogram.BaseEvent, name: string): string {

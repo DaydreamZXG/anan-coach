@@ -55,7 +55,11 @@
   </view>
 
   <view wx:elif="{{status === 'submitted'}}" class="page-state">
-    <state-view state="empty" title="本场模考已经交卷" description="答案解析只在正式报告页按权限展示。" />
+    <state-view
+      state="empty"
+      title="{{errorTitle || '本场模考已经交卷'}}"
+      description="{{errorMessage || '答案解析只在正式报告页按权限展示。'}}"
+    />
     <button hover-class="item--hover" wx:if="{{reportSessionId}}" class="primary-button" bindtap="openMockReport">查看正式模考报告</button>
     <view wx:else class="inline-warning">找不到这场模考的记录，请从报告中心重新进入。</view>
     <button hover-class="item--hover" class="secondary-button" bindtap="returnToday">返回今日计划</button>
