@@ -101,6 +101,17 @@ def test_hunyuan_companion_uses_closed_cloud_function_contract() -> None:
     assert prepared["providerReplayRetentionSeconds"] == 0
 
 
+def test_hunyuan_companion_validates_without_openai_gateway_credentials() -> None:
+    provider, _ = _provider(
+        '{"answer":"继续。","nextActions":["完成任务"],'
+        '"sourceRefs":["source-1"],"confidence":"high","limitations":[]}'
+    )
+
+    provider.validate_configuration(idempotency_key="release-configuration-check")
+
+    assert provider.release_id == "hunyuan-companion-2026-07-28.1"
+
+
 def test_hunyuan_companion_rejects_unstructured_output() -> None:
     provider, _ = _provider("我建议你先做资料分析。")
     prepared = _prepared(provider)

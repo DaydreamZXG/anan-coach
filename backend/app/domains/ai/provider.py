@@ -110,6 +110,10 @@ class AIProvider:
         return f"gemini_web2api@{release}" if release else "gemini_web2api"
 
     @property
+    def release_id(self) -> str:
+        return self._settings.ai_companion_provider_release_id.strip()
+
+    @property
     def model(self) -> str:
         return self._settings.ai_small_model.strip() or self._settings.ai_model
 

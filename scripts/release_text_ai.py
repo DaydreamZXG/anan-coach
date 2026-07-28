@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 from datetime import UTC, datetime, timedelta
 from decimal import Decimal
 from hashlib import sha256
@@ -19,6 +20,7 @@ from app.domains.ai.governance.evaluation import (
     load_golden_manifest,
 )
 from app.domains.ai.governance.repository import AIGovernanceRepository
+from app.domains.ai.hunyuan_companion import companion_provider
 from app.domains.ai.model_cost import ModelPriceCard, ModelTokenUsage
 from app.domains.ai.provider import AIProvider
 from app.domains.essay_intelligence.grounded_provider import (
@@ -136,6 +138,7 @@ def _publish(
     prompt_version: str,
     schema_version: str,
     price_version: str,
+    release_id: str = RELEASE_ID,
 ) -> None:
     existing = _current_deployment(
         scenario_key=suite.scenario_key,
@@ -185,7 +188,7 @@ def _publish(
             )
         deployment_id = repository.publish_scenario_deployment(
             session,
-            release_id=RELEASE_ID,
+            release_id=release_id,
             scenario_key=suite.scenario_key,
             operation=operation,
             provider=provider,
@@ -209,6 +212,9 @@ def _release_companion(
 ) -> None:
     policy = scenario_policy(suite.scenario_key)
     operation = "companion_answer"
+    release_id = provider.release_id.strip()
+    if not release_id:
+        raise RuntimeError("Companion provider release ID is required for evaluation")
     model = provider.model_for_tier(policy.model_tier)
     existing = _current_deployment(
         scenario_key=suite.scenario_key,
@@ -254,7 +260,7 @@ def _release_companion(
                 }
                 for ref in facts
             ],
-            idempotency_key=f"release-evaluation:{RELEASE_ID}:{case.case_id}",
+            idempotency_key=f"release-evaluation:{release_id}:{case.case_id}",
         )
         output: dict[str, Any] = {
             "answer": result.answer,
@@ -280,6 +286,7 @@ def _release_companion(
         prompt_version=provider.prompt_version,
         schema_version=provider.schema_version,
         price_version=price_card.version,
+        release_id=release_id,
     )
 
 
@@ -778,24 +785,52 @@ def _release_rubric(
         )
 
 
-def main() -> None:
+def _parse_args(argv: list[str] | None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Evaluate and publish versioned text-AI scenario deployments."
+    )
+    parser.add_argument(
+        "--family",
+        choices=("all", "companion", "cause", "review", "rubric"),
+        default="all",
+        help="Evaluate only one provider family; defaults to every text-AI family.",
+    )
+    return parser.parse_args(argv)
+
+
+def main(argv: list[str] | None = None) -> None:
+    args = _parse_args(argv)
     settings = get_settings()
     price_card = ModelPriceCard.from_settings(settings)
-    companion = AIProvider(settings)
-    cause = CauseAgentProvider(settings)
-    review = GroundedEssayReviewProvider(settings)
-    rubric = GuokaoRubricAIProvider(settings)
-    companion.validate_configuration(idempotency_key="release-configuration-check")
-    cause.validate_configuration()
+    companion = (
+        companion_provider(settings) if args.family in {"all", "companion"} else None
+    )
+    cause = (
+        CauseAgentProvider(settings) if args.family in {"all", "cause"} else None
+    )
+    review = (
+        GroundedEssayReviewProvider(settings)
+        if args.family in {"all", "review"}
+        else None
+    )
+    rubric = (
+        GuokaoRubricAIProvider(settings)
+        if args.family in {"all", "rubric"}
+        else None
+    )
+    if companion is not None:
+        companion.validate_configuration(idempotency_key="release-configuration-check")
+    if cause is not None:
+        cause.validate_configuration()
     suites = load_golden_manifest().suites
     for suite in suites:
-        if suite.scenario_key in COMPANION_SCENARIOS:
+        if suite.scenario_key in COMPANION_SCENARIOS and companion is not None:
             _release_companion(suite, provider=companion, price_card=price_card)
-        elif suite.scenario_key == "xingce_cause_analysis":
+        elif suite.scenario_key == "xingce_cause_analysis" and cause is not None:
             _release_cause(suite, provider=cause, price_card=price_card)
-        elif suite.scenario_key == "essay_grounded_review":
+        elif suite.scenario_key == "essay_grounded_review" and review is not None:
             _release_review(suite, provider=review, price_card=price_card)
-        elif suite.scenario_key == "essay_rubric_compilation":
+        elif suite.scenario_key == "essay_rubric_compilation" and rubric is not None:
             _release_rubric(suite, provider=rubric, price_card=price_card)
 
 

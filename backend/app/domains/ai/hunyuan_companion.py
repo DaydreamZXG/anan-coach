@@ -22,6 +22,7 @@ from app.domains.essay_intelligence.hunyuan_cloud_function import (
     HunyuanCloudFunctionConfigurationError,
     HunyuanCloudFunctionError,
     HunyuanCloudFunctionSettings,
+    validate_hunyuan_cloud_function_configuration,
 )
 
 
@@ -52,6 +53,10 @@ class HunyuanCompanionProvider(AIProvider):
         return f"cloudbase-hunyuan@{self._hunyuan_settings.release_id.strip()}"
 
     @property
+    def release_id(self) -> str:
+        return self._hunyuan_settings.release_id.strip()
+
+    @property
     def model(self) -> str:
         return self._hunyuan_settings.model.strip()
 
@@ -59,6 +64,16 @@ class HunyuanCompanionProvider(AIProvider):
         if tier not in {"small", "high"}:
             raise AIProviderConfigurationError("Unsupported Companion model tier")
         return self.model
+
+    def validate_configuration(self, *, idempotency_key: str) -> None:
+        if not idempotency_key.strip():
+            raise AIProviderConfigurationError(
+                "A stable provider idempotency key is required for Companion"
+            )
+        try:
+            validate_hunyuan_cloud_function_configuration(self._hunyuan_settings)
+        except HunyuanCloudFunctionConfigurationError as exc:
+            raise AIProviderConfigurationError(str(exc)) from exc
 
     def prepare_companion_question(
         self,
