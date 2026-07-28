@@ -213,7 +213,9 @@ export function withEssayTaskContext(
       const [rawKey = "", rawValue = ""] = item.split("=", 2);
       const key = decodeURIComponent(rawKey);
       decodeURIComponent(rawValue);
-      if (!["stage", "planTaskId", "basedOnExecutionVersionId"].includes(key)) pairs.push(item);
+      if (!["stage", "mode", "planTaskId", "basedOnExecutionVersionId"].includes(key)) {
+        pairs.push(item);
+      }
     }
   } catch {
     return startUrl;
