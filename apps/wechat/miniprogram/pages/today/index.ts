@@ -159,7 +159,7 @@ Page<TodayPageData, TodayPageCustom>({
       confidenceLabel: capacityScaleLabel("confidence", view.confidenceLevel),
       headerContextLabel:
         view.positionName === "尚未确认主目标岗位"
-          ? "主目标岗位还没有确认"
+          ? "国考学习计划"
           : `主目标 · ${view.positionName}`,
     });
   },

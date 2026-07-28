@@ -134,7 +134,7 @@ class PlanningInsightsService:
         elif status in {"partial", "in_progress"}:
             summary = "今天只记录已经完成的内容；未完成部分不会机械顺延，明天会重新安排。"
         elif status == "empty":
-            summary = "今天还没有可执行任务，请先补齐目标岗位和学习时间。"
+            summary = "今天还没有可执行任务，请先确认学习时间并完成起点诊断。"
         else:
             summary = "今天的任务还没有开始，完成后这里会汇总真实投入和学习结果。"
         return DailySettlementView(

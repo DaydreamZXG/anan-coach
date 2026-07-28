@@ -43,7 +43,7 @@ describe("onboarding result controller", () => {
       "onboarding-result-command-1",
     );
     expect(loadPendingResultAcknowledgement("user-a")).toBeNull();
-    expect(advance).toHaveBeenCalledWith({ kind: "action", action: "choose_position" });
+    expect(advance).toHaveBeenCalledWith({ kind: "action", action: "enter_workspace" });
   });
 
   it("locks the same acknowledgement command across an unknown network result", async () => {
@@ -100,7 +100,7 @@ describe("onboarding result controller", () => {
 
     expect(getProgress).toHaveBeenCalledTimes(2);
     expect(loadPendingResultAcknowledgement("user-a")).toBeNull();
-    expect(advance).toHaveBeenCalledWith({ kind: "action", action: "choose_position" });
+    expect(advance).toHaveBeenCalledWith({ kind: "action", action: "enter_workspace" });
   });
 });
 
@@ -148,7 +148,7 @@ function resultProjection(): OnboardingResultProjection {
       sourceType: "user_confirmed",
       createdAt: "2026-07-13T00:00:00Z",
     },
-    nextAction: "choose_position",
+    nextAction: "enter_workspace",
     generatedAt: "2026-07-13T00:00:00Z",
     validUntil: "2027-07-12T00:00:00Z",
   };

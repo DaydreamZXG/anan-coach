@@ -111,35 +111,36 @@ export function onboardingResultView(result: OnboardingResultProjection): Onboar
     case "position_selection_required":
       return {
         ...base,
-        eyebrow: "资格范围已生成 · 目标待本人选择",
-        title: "先选一个主目标，再计算你离它多远",
+        eyebrow: "资格范围已生成 · 岗位可以稍后再选",
+        title: "先开始学习，目标岗位可以边练边定",
         description:
-          "已找到当前确认可报的岗位，但最终目标由你选择。目标变化后，分差和计划都会重新计算。",
-        actionLabel: "选择主目标岗位",
-        confidenceLabel: "待选目标",
+          "当前资格范围已经保存。你可以直接开始第一组训练，确认主目标后再补充岗位分差。",
+        actionLabel: "先进入今日学习",
+        confidenceLabel: "学习可开始",
         confidenceTone: "calibrating",
-        reliableJudgment: "当前资格事实已经形成可报候选范围，系统没有替你擅自决定主报岗位。",
+        reliableJudgment:
+          "当前资格事实已经形成候选范围，现有资料足以安排起点训练；系统不会替你擅自决定主报岗位。",
         riskJudgment:
-          "在你确认主目标前，目标分区间和当前分差都不能成立；选岗后会按最新证据重新计算。",
-        primarySuggestionTitle: "探索候选岗位空间",
-        primarySuggestionCopy: "查看当前可报、待确认和不满足条件的依据",
+          "在你确认主目标前只是不计算岗位分差，不影响行测、申论诊断和日常训练。",
+        primarySuggestionTitle: "开始第一组任务",
+        primarySuggestionCopy: "先建立真实能力起点，岗位可以稍后再完善",
       };
     case "no_eligible_position":
       return {
         ...base,
-        eyebrow: "当前没有已确认可报岗位",
-        title: "先核验资格缺口，不编造岗位分差",
+        eyebrow: "岗位条件仍有待确认项",
+        title: "先开始学习，岗位核验不会卡住你",
         description:
-          "可能是本年度岗位尚无匹配，也可能仍有条件待确认。系统会保留逐条岗位原文和你的资格事实供核验。",
-        actionLabel: "查看资格与岗位依据",
-        confidenceLabel: "待核验",
+          "系统会保留岗位原文和资格事实供你稍后核验；当前先按国考共同能力要求建立训练起点。",
+        actionLabel: "先进入今日学习",
+        confidenceLabel: "岗位待核验",
         confidenceTone: "review",
         reliableJudgment:
-          "当前资格档案和岗位规则已完成一次正式匹配，但没有形成可以确认的可报岗位结论。",
+          "资格档案已保存，当前岗位规则没有形成可直接确认的结论；这不会阻止行测和申论训练。",
         riskJudgment:
-          "这不等于最终无岗；职位数据变化、证明材料补充或资格事实修订后，都可能改变候选范围。",
-        primarySuggestionTitle: "查看资格与岗位依据",
-        primarySuggestionCopy: "逐条核对岗位原文、资格事实和待确认条件",
+          "这不等于最终无岗。职位变化、证明材料补充或资格事实修订后，候选范围仍会重新计算。",
+        primarySuggestionTitle: "开始第一组任务",
+        primarySuggestionCopy: "先建立真实能力起点，之后再核验岗位条件",
       };
   }
 }

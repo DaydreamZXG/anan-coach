@@ -40,19 +40,22 @@ describe("onboarding result presentation", () => {
   });
 
   it.each([
-    ["position_selection_required", "先选一个主目标"],
-    ["no_eligible_position", "不编造岗位分差"],
+    ["position_selection_required", "先开始学习"],
+    ["no_eligible_position", "不会卡住你"],
   ] as const)("keeps %s distinct", (status, title) => {
     const projection = result({ status });
     projection.primaryGoal = null;
     projection.scoreGap = null;
-    projection.nextAction = "choose_position";
+    projection.nextAction = "enter_workspace";
     projection.reasonCode =
       status === "position_selection_required"
         ? "primary_goal_missing"
         : "no_current_eligible_position";
 
-    expect(onboardingResultView(projection).title).toContain(title);
+    const view = onboardingResultView(projection);
+    expect(view.title).toContain(title);
+    expect(view.action).toBe("enter_workspace");
+    expect(view.actionLabel).toContain("今日学习");
   });
 });
 

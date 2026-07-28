@@ -1318,8 +1318,8 @@ def _plan_copy(
     if not tasks:
         if goal_gap.readiness != "complete":
             return (
-                "先定目标，今天的安排才有方向",
-                "在「我的」里确认目标岗位后，岸岸会对着分差生成真实训练；不会用凑数任务填满今天。",
+                "今天先把训练起点准备好",
+                "确认今天可用时间并完成起点诊断；目标岗位可以稍后再选，不影响先开始学习。",
             )
         if not capacity.confirmed:
             return (

@@ -515,7 +515,7 @@ class OnboardingProgressService:
                 primary_goal=None,
                 score_gap=None,
                 weekly_preference=preference,
-                next_action="choose_position",
+                next_action="enter_workspace",
                 generated_at=generated_at,
                 valid_until=context.valid_until,
             )

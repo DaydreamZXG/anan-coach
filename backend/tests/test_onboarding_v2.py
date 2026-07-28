@@ -258,7 +258,7 @@ def test_v2_onboarding_progress_is_resumable_idempotent_and_auditable(
     assert result_data["status"] == "no_eligible_position"
     assert result_data["reasonCode"] == "no_current_eligible_position"
     assert result_data["scoreGap"] is None
-    assert result_data["nextAction"] == "choose_position"
+    assert result_data["nextAction"] == "enter_workspace"
     assert result_data["validUntil"] is not None
 
     completed = client.post(
