@@ -9,15 +9,21 @@ uv run uvicorn app.main:app --reload
 ```
 
 The committed `uv.lock` is the reproducible dependency set. A plain virtual
-environment remains available for environments that do not install `uv`:
+environment remains available as an explicit compatibility path for environments
+that cannot install `uv`:
 
 ```bash
 python3 -m venv .venv
 . .venv/bin/activate
 python -m pip install -e ".[dev]"
-python -m pytest
+PYTHON="$PWD/.venv/bin/python" ../scripts/verify_backend.sh
 uvicorn app.main:app --reload
 ```
+
+`scripts/verify_backend.sh` uses an isolated `uv run --locked --extra dev`
+environment by default and never auto-selects `backend/.venv`. Set `PYTHON`
+explicitly only when using the compatibility path; CI must use the locked
+default.
 
 Initial endpoints:
 
