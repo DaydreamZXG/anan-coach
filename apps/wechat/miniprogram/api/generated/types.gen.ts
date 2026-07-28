@@ -12767,6 +12767,51 @@ export type PublicApiEnvelopeQuestionDisputeReceipt = {
 };
 
 /**
+ * PublicApiEnvelope[QuestionFavoritePage]
+ */
+export type PublicApiEnvelopeQuestionFavoritePage = {
+    data: QuestionFavoritePage;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[QuestionFavoriteReceipt]
+ */
+export type PublicApiEnvelopeQuestionFavoriteReceipt = {
+    data: QuestionFavoriteReceipt;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[QuestionFavoriteState]
+ */
+export type PublicApiEnvelopeQuestionFavoriteState = {
+    data: QuestionFavoriteState;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[RecognitionRevision]
  */
 export type PublicApiEnvelopeRecognitionRevision = {
@@ -13838,6 +13883,171 @@ export type QuestionExplanation = {
      * Storedanalysis
      */
     storedAnalysis?: string | null;
+};
+
+/**
+ * QuestionFavoriteListItem
+ */
+export type QuestionFavoriteListItem = {
+    /**
+     * Availability
+     */
+    availability: 'available' | 'unavailable';
+    /**
+     * Contentchanged
+     */
+    contentChanged: boolean;
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'xingce-question-favorite@v1';
+    /**
+     * Currentcontentversionid
+     */
+    currentContentVersionId?: string | null;
+    /**
+     * Favoritestate
+     */
+    favoriteState: 'favorited' | 'not_favorited';
+    /**
+     * Favoritedat
+     */
+    favoritedAt?: string | null;
+    preview?: QuestionFavoritePreview | null;
+    /**
+     * Questionid
+     */
+    questionId: string;
+    /**
+     * Revision
+     */
+    revision: number;
+    /**
+     * Savedcontentversionid
+     */
+    savedContentVersionId?: string | null;
+    /**
+     * Updatedat
+     */
+    updatedAt?: string | null;
+};
+
+/**
+ * QuestionFavoritePage
+ */
+export type QuestionFavoritePage = {
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'xingce-question-favorites-page@v1';
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Items
+     */
+    items: Array<QuestionFavoriteListItem>;
+    /**
+     * Nextcursor
+     *
+     * 账户内实时 keyset 游标，不承诺跨请求的强快照；并发变更后可刷新首屏读取当前状态。
+     */
+    nextCursor?: string | null;
+};
+
+/**
+ * QuestionFavoritePreview
+ */
+export type QuestionFavoritePreview = {
+    /**
+     * Modulename
+     */
+    moduleName?: string | null;
+    /**
+     * Stem
+     */
+    stem: string;
+};
+
+/**
+ * QuestionFavoriteReceipt
+ */
+export type QuestionFavoriteReceipt = {
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'xingce-question-favorite@v1';
+    /**
+     * Favoritestate
+     */
+    favoriteState: 'favorited' | 'not_favorited';
+    /**
+     * Favoritedat
+     */
+    favoritedAt?: string | null;
+    /**
+     * Questionid
+     */
+    questionId: string;
+    /**
+     * Revision
+     */
+    revision: number;
+    /**
+     * Savedcontentversionid
+     */
+    savedContentVersionId?: string | null;
+    /**
+     * Updatedat
+     */
+    updatedAt?: string | null;
+};
+
+/**
+ * QuestionFavoriteState
+ */
+export type QuestionFavoriteState = {
+    /**
+     * Availability
+     */
+    availability: 'available' | 'unavailable';
+    /**
+     * Contentchanged
+     */
+    contentChanged: boolean;
+    /**
+     * Contractversion
+     */
+    contractVersion?: 'xingce-question-favorite@v1';
+    /**
+     * Currentcontentversionid
+     */
+    currentContentVersionId?: string | null;
+    /**
+     * Favoritestate
+     */
+    favoriteState: 'favorited' | 'not_favorited';
+    /**
+     * Favoritedat
+     */
+    favoritedAt?: string | null;
+    /**
+     * Questionid
+     */
+    questionId: string;
+    /**
+     * Revision
+     */
+    revision: number;
+    /**
+     * Savedcontentversionid
+     */
+    savedContentVersionId?: string | null;
+    /**
+     * Updatedat
+     */
+    updatedAt?: string | null;
 };
 
 /**
@@ -15659,6 +15869,24 @@ export type SessionRevocationResult = {
      * Sessionid
      */
     sessionId: string;
+};
+
+/**
+ * SetQuestionFavoriteCommand
+ */
+export type SetQuestionFavoriteCommand = {
+    /**
+     * Contentversionid
+     */
+    contentVersionId?: string | null;
+    /**
+     * Desiredstate
+     */
+    desiredState: 'favorited' | 'not_favorited';
+    /**
+     * Sourcesessionid
+     */
+    sourceSessionId?: string | null;
 };
 
 /**
@@ -31479,6 +31707,204 @@ export type GetXingceTaskBriefingApiV2XingcePlanTasksPlanTaskIdBriefingGetRespon
 };
 
 export type GetXingceTaskBriefingApiV2XingcePlanTasksPlanTaskIdBriefingGetResponse = GetXingceTaskBriefingApiV2XingcePlanTasksPlanTaskIdBriefingGetResponses[keyof GetXingceTaskBriefingApiV2XingcePlanTasksPlanTaskIdBriefingGetResponses];
+
+export type ListQuestionFavoritesApiV2XingceQuestionFavoritesGetData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Cursor
+         *
+         * 账户内实时 keyset 游标；并发取消或重新收藏可能把题目移到首屏，刷新列表可读取当前权威状态。
+         */
+        cursor?: string | null;
+        /**
+         * Pagesize
+         */
+        pageSize?: number;
+    };
+    url: '/api/v2/xingce/question-favorites';
+};
+
+export type ListQuestionFavoritesApiV2XingceQuestionFavoritesGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type ListQuestionFavoritesApiV2XingceQuestionFavoritesGetError = ListQuestionFavoritesApiV2XingceQuestionFavoritesGetErrors[keyof ListQuestionFavoritesApiV2XingceQuestionFavoritesGetErrors];
+
+export type ListQuestionFavoritesApiV2XingceQuestionFavoritesGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeQuestionFavoritePage;
+};
+
+export type ListQuestionFavoritesApiV2XingceQuestionFavoritesGetResponse = ListQuestionFavoritesApiV2XingceQuestionFavoritesGetResponses[keyof ListQuestionFavoritesApiV2XingceQuestionFavoritesGetResponses];
+
+export type GetQuestionFavoriteApiV2XingceQuestionFavoritesQuestionIdGetData = {
+    body?: never;
+    path: {
+        /**
+         * Question Id
+         */
+        question_id: string;
+    };
+    query?: never;
+    url: '/api/v2/xingce/question-favorites/{question_id}';
+};
+
+export type GetQuestionFavoriteApiV2XingceQuestionFavoritesQuestionIdGetErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type GetQuestionFavoriteApiV2XingceQuestionFavoritesQuestionIdGetError = GetQuestionFavoriteApiV2XingceQuestionFavoritesQuestionIdGetErrors[keyof GetQuestionFavoriteApiV2XingceQuestionFavoritesQuestionIdGetErrors];
+
+export type GetQuestionFavoriteApiV2XingceQuestionFavoritesQuestionIdGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeQuestionFavoriteState;
+};
+
+export type GetQuestionFavoriteApiV2XingceQuestionFavoritesQuestionIdGetResponse = GetQuestionFavoriteApiV2XingceQuestionFavoritesQuestionIdGetResponses[keyof GetQuestionFavoriteApiV2XingceQuestionFavoritesQuestionIdGetResponses];
+
+export type SetQuestionFavoriteApiV2XingceQuestionFavoritesQuestionIdPutData = {
+    body: SetQuestionFavoriteCommand;
+    headers: {
+        /**
+         * Idempotency-Key
+         */
+        'Idempotency-Key': string;
+    };
+    path: {
+        /**
+         * Question Id
+         */
+        question_id: string;
+    };
+    query?: never;
+    url: '/api/v2/xingce/question-favorites/{question_id}';
+};
+
+export type SetQuestionFavoriteApiV2XingceQuestionFavoritesQuestionIdPutErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type SetQuestionFavoriteApiV2XingceQuestionFavoritesQuestionIdPutError = SetQuestionFavoriteApiV2XingceQuestionFavoritesQuestionIdPutErrors[keyof SetQuestionFavoriteApiV2XingceQuestionFavoritesQuestionIdPutErrors];
+
+export type SetQuestionFavoriteApiV2XingceQuestionFavoritesQuestionIdPutResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeQuestionFavoriteReceipt;
+};
+
+export type SetQuestionFavoriteApiV2XingceQuestionFavoritesQuestionIdPutResponse = SetQuestionFavoriteApiV2XingceQuestionFavoritesQuestionIdPutResponses[keyof SetQuestionFavoriteApiV2XingceQuestionFavoritesQuestionIdPutResponses];
 
 export type StartOrResumeTaskSessionApiV2XingceTaskSessionsPostData = {
     body: StartTaskSessionCommand;
