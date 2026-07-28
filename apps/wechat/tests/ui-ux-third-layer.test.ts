@@ -19,6 +19,10 @@ import meLogic from "../miniprogram/pages/me/index.ts?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import practiceTemplate from "../miniprogram/pages/practice/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
+import essayEvidenceTemplate from "../miniprogram/pages/essay-evidence/index.wxml?raw";
+// @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
+import essayEvidenceStylesRaw from "../miniprogram/pages/essay-evidence/index.wxss?raw";
+// @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import privateKnowledgeTemplate from "../miniprogram/pages/private-knowledge/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import privateKnowledgeDetailTemplate from "../miniprogram/pages/private-knowledge/detail/index.wxml?raw";
@@ -31,6 +35,8 @@ function normalizeRpxCalc(source: unknown): string {
 }
 
 const sheetStyles = normalizeRpxCalc(sheetStylesRaw);
+const essayEvidenceTemplateText = normalizeRpxCalc(essayEvidenceTemplate);
+const essayEvidenceStyles = normalizeRpxCalc(essayEvidenceStylesRaw);
 
 describe("third-layer UI and UX contracts", () => {
   it("keeps ui-sheet mounted through its exit transition", () => {
@@ -64,6 +70,33 @@ describe("third-layer UI and UX contracts", () => {
     expect(meTemplate).toContain('bindtap="openAuthorizationSettings"');
     expect(meLogic).toContain("await wx.openSetting()");
     expect(meTemplate).not.toContain("申论记录");
+  });
+
+  it("wraps the essay evidence title only at complete Chinese phrases", () => {
+    const phrases = Array.from(
+      essayEvidenceTemplateText.matchAll(
+        /<text class="essay-evidence-title__phrase">([^<]+)<\/text>/gu,
+      ),
+      (match) => match[1] ?? "",
+    );
+
+    expect(phrases).toEqual(["为什么这样评，", "逐条说清楚"]);
+    expect(essayEvidenceTemplateText).toContain('class="workbench-title essay-evidence-title"');
+    expect(essayEvidenceStyles).toMatch(
+      /\.essay-evidence-title\s*\{[^}]*display:\s*flex;[^}]*flex-wrap:\s*wrap;/su,
+    );
+    expect(essayEvidenceStyles).toMatch(
+      /\.essay-evidence-title__phrase\s*\{[^}]*flex:\s*0 0 auto;[^}]*white-space:\s*nowrap;/su,
+    );
+
+    const titleWidthRpx = 650;
+    const titleFontRpx = 48;
+    const phraseWidthsAtLargeText = phrases.map(
+      (phrase) => Array.from(phrase).length * titleFontRpx * 1.3,
+    );
+    expect(Math.max(...phraseWidthsAtLargeText)).toBeLessThan(titleWidthRpx);
+    expect(phrases.join("").length * titleFontRpx).toBeLessThan(titleWidthRpx);
+    expect(phrases.join("").length * titleFontRpx * 1.3).toBeGreaterThan(titleWidthRpx);
   });
 
   it("keeps logout explicit and bound to the existing account workflow", () => {

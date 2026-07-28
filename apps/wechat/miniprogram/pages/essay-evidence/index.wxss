@@ -1,1 +1,11 @@
 @import "../../features/essay-workbench/page-shell.wxss";
+
+.essay-evidence-title {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.essay-evidence-title__phrase {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}

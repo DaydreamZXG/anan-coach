@@ -1,5 +1,9 @@
 <view class="s9-page workbench-page">
-  <view class="workbench-hero"><view class="workbench-kicker">申论评分依据</view><view class="workbench-title">为什么这样评，一条一条说清楚</view><view class="workbench-copy">评分点、你的作答、材料原文和评阅理由都在这一页。</view></view>
+  <view class="workbench-hero">
+    <view class="workbench-kicker">申论评分依据</view>
+    <view class="workbench-title essay-evidence-title"><text class="essay-evidence-title__phrase">为什么这样评，</text><text class="essay-evidence-title__phrase">逐条说清楚</text></view>
+    <view class="workbench-copy">评分点、你的作答、材料原文和评阅理由都在这一页。</view>
+  </view>
   <state-view wx:if="{{status === 'loading'}}" state="loading" />
   <state-view wx:elif="{{status === 'error'}}" state="error" title="没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="{{retryAllowed ? '重新加载' : ''}}" bind:action="retryLoad" />
   <block wx:elif="{{review && view}}">
