@@ -154,7 +154,7 @@ export class ApiClient {
 }
 
 function captureOriginSession(accessToken: string | undefined): ActiveAuthSession | undefined {
-  if (!accessToken) return undefined;
+  if (!accessToken || typeof getApp !== "function") return undefined;
   const current = currentAuthSession();
   if (!current || current.accessToken !== accessToken) return undefined;
   return { ...current };

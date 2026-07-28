@@ -87,6 +87,83 @@ describe("authenticated session identity", () => {
     expect(reread).toEqual(upgraded);
   });
 
+  it("upgrades a legacy global session once and persists its fixed generation", () => {
+    globalData = {
+      accessToken: "token-global",
+      userId: "user-global",
+      displayName: "  旧 用户  ",
+    };
+
+    const upgraded = currentAuthSession();
+    const reread = currentAuthSession();
+
+    expect(upgraded).toMatchObject({
+      accessToken: "token-global",
+      userId: "user-global",
+      displayName: "旧 用户",
+    });
+    expect(upgraded?.generation).toMatch(/^session-/u);
+    expect(reread).toEqual(upgraded);
+    expect(globalData.generation).toBe(upgraded?.generation);
+    expect(storage.get("gongkao.auth.session.v1")).toEqual(upgraded);
+  });
+
+  it("keeps one generated legacy-global generation when storage APIs are unavailable", () => {
+    vi.stubGlobal("wx", {});
+    globalData = { accessToken: "token-memory", userId: "user-memory" };
+
+    const first = currentAuthSession();
+    const second = currentAuthSession();
+
+    expect(first?.generation).toMatch(/^session-/u);
+    expect(second).toEqual(first);
+    expect(globalData.generation).toBe(first?.generation);
+  });
+
+  it("reuses a matching persisted generation while upgrading legacy global data", () => {
+    storage.set("gongkao.auth.session.v1", {
+      accessToken: "token-a",
+      userId: "user-a",
+      displayName: "持久用户",
+      generation: "session-persisted",
+    });
+    globalData = { accessToken: "token-a", userId: "user-a" };
+
+    expect(currentAuthSession()).toEqual({
+      accessToken: "token-a",
+      userId: "user-a",
+      displayName: "持久用户",
+      generation: "session-persisted",
+    });
+    expect(globalData.generation).toBe("session-persisted");
+  });
+
+  it.each([
+    ["token only", { accessToken: "token-a" }],
+    ["user only", { userId: "user-a" }],
+    ["blank generation", { accessToken: "token-a", userId: "user-a", generation: "   " }],
+  ])("fails closed for a malformed global session: %s", (_label, malformed) => {
+    storage.set("gongkao.auth.session.v1", {
+      accessToken: "persisted-token",
+      userId: "persisted-user",
+      generation: "session-persisted",
+    });
+    globalData = malformed;
+
+    expect(currentAuthSession()).toBeUndefined();
+  });
+
+  it("does not upgrade a persisted session with a malformed generation", () => {
+    storage.set("gongkao.auth.session.v1", {
+      accessToken: "token-a",
+      userId: "user-a",
+      generation: "",
+    });
+
+    expect(currentAuthSession()).toBeUndefined();
+    expect(storage.has("gongkao.auth.session.v1")).toBe(false);
+  });
+
   it("preserves the generation when only the display name changes", () => {
     storeAuthSession("token-a", "user-a", "原名称");
     const generation = currentAuthSession()?.generation;

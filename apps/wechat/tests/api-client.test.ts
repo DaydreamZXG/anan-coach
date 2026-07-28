@@ -59,6 +59,37 @@ describe("ApiClient", () => {
     expect(response.requestId).toBe("api-success-1");
   });
 
+  it("sends an authenticated request without capturing origin outside an app runtime", async () => {
+    vi.stubGlobal("getApp", undefined);
+    const request = vi.fn((options: WechatMiniprogram.RequestOption) => {
+      expect(options.header).toMatchObject({ Authorization: "Bearer standalone-token" });
+      respondSuccess(options, "api-standalone-1");
+    });
+    vi.stubGlobal("wx", { request });
+
+    const response = await new ApiClient(
+      "https://api.example.test",
+      "standalone-token",
+    ).get<TestPayload>("/value");
+
+    expect(response.requestId).toBe("api-standalone-1");
+    expect(request).toHaveBeenCalledOnce();
+  });
+
+  it("treats a temporarily unbound getApp runtime as having no origin session", async () => {
+    vi.stubGlobal("getApp", () => {
+      throw new Error("no active mini-program app");
+    });
+    const request = vi.fn((options: WechatMiniprogram.RequestOption) => {
+      respondSuccess(options, "api-unbound-1");
+    });
+    vi.stubGlobal("wx", { request });
+
+    await expect(
+      new ApiClient("https://api.example.test", "standalone-token").get<TestPayload>("/value"),
+    ).resolves.toMatchObject({ requestId: "api-unbound-1" });
+  });
+
   it("preserves the public server error and request ID", async () => {
     vi.stubGlobal(
       "wx",
@@ -249,6 +280,26 @@ function respondUnauthorized(options: WechatMiniprogram.RequestOption | undefine
       requestId: "api-auth-401",
     },
     statusCode: 401,
+    header: {},
+    cookies: [],
+    exception: { reasons: [], retryCount: 0 },
+    profile: {} as WechatMiniprogram.RequestProfile,
+    useHttpDNS: false,
+    errMsg: "request:ok",
+  });
+}
+
+function respondSuccess(
+  options: WechatMiniprogram.RequestOption | undefined,
+  requestId: string,
+): void {
+  options?.success?.({
+    data: {
+      data: { value: "ok" },
+      requestId,
+      generatedAt: "2026-07-12T12:00:00Z",
+    },
+    statusCode: 200,
     header: {},
     cookies: [],
     exception: { reasons: [], retryCount: 0 },
