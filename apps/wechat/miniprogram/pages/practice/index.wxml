@@ -136,11 +136,11 @@
                 class="question-tool question-tool--mark {{view.question.marked ? 'question-tool--active' : ''}}"
                 hover-class="item--hover"
                 disabled="{{interactionLocked}}"
-                aria-label="{{view.question.marked ? '取消标记本题' : '标记本题'}}"
+                aria-label="{{view.question.marked ? '取消本题存疑' : '将本题设为存疑'}}"
                 bindtap="toggleMarked"
               >
                 <view class="question-tool__mark-icon" aria-hidden="true">!</view>
-                <text class="question-tool__label">{{view.question.marked ? '已标记' : '标记'}}</text>
+                <text class="question-tool__label">{{view.question.marked ? '已存疑' : '存疑'}}</text>
               </button>
               <button
                 class="question-tool question-tool--draft"
@@ -356,7 +356,7 @@
             </view>
             <view class="answer-card__legend-item">
               <view class="answer-card__legend-dot answer-card__legend-dot--marked" aria-hidden="true"></view>
-              <text>标记 {{answerSheetLegend.marked}}</text>
+              <text>存疑 {{answerSheetLegend.marked}}</text>
             </view>
           </view>
 
@@ -369,20 +369,20 @@
               <view wx:for="{{answerSheetItems}}" wx:key="index" class="answer-card__cell">
                 <button hover-class="item--hover"
                   class="answer-card__question answer-card__question--{{item.active ? 'current' : item.state}} {{!item.active && item.marked ? 'answer-card__question--marked' : ''}}"
-                  aria-label="第 {{item.label}} 题{{item.active ? '，当前题' : item.marked ? '，已标记' : item.state === 'answered' ? '，已作答' : '，未作答'}}"
+                  aria-label="第 {{item.label}} 题{{item.active ? '，当前题' : item.marked ? '，已存疑' : item.state === 'answered' ? '，已作答' : '，未作答'}}"
                   data-index="{{item.index}}"
                   bindtap="selectQuestion"
                 >{{item.label}}</button>
                 <view wx:if="{{item.marked && !item.active}}" class="answer-card__marked-badge" aria-hidden="true">!</view>
               </view>
             </view>
-            <view class="answer-card__hint">点题号即可直接切换，标记题会进入复盘</view>
+            <view class="answer-card__hint">点题号即可直接切换，存疑题会优先复盘</view>
           </view>
 
           <view class="answer-card__insight">
             <image class="answer-card__insight-icon" src="/assets/icons/task/answer-card-insight.svg" mode="aspectFit" aria-hidden="true" />
             <view class="answer-card__insight-copy">
-              <view class="answer-card__insight-title">岸岸会记住你的标记与存疑</view>
+              <view class="answer-card__insight-title">岸岸会记住你存疑的题</view>
               <view class="answer-card__insight-sub">交卷后优先进入证据复盘</view>
             </view>
           </view>
@@ -398,7 +398,7 @@
         max-height="80vh"
         bindclose="toggleDraft"
       >
-        <button hover-class="item--hover" slot="action" class="mark-action {{view.question.marked ? 'mark-action--active' : ''}}" bindtap="toggleMarked">{{view.question.marked ? '已标记' : '标记'}}</button>
+        <button hover-class="item--hover" slot="action" class="mark-action {{view.question.marked ? 'mark-action--active' : ''}}" bindtap="toggleMarked">{{view.question.marked ? '已存疑' : '存疑'}}</button>
         <textarea cursor-spacing="24" class="draft-input draft-input--sheet" value="{{view.question.draftText}}" maxlength="4000" placeholder="写下公式、排除理由或仍不确定的点……" bindinput="inputDraft"></textarea>
         <button hover-class="item--hover" class="math-ink-entry" bindtap="toggleMathInk">{{mathInkOpen ? '收起手写公式' : '手写公式识别'}}</button>
         <view wx:if="{{mathInkOpen}}" class="math-ink-panel">

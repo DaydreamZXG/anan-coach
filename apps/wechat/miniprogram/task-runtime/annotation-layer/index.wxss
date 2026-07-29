@@ -21,31 +21,6 @@
   inset: 0;
 }
 
-/* 草稿状态提示：告诉用户已保存，不暴露内部 annotation 命名。 */
-.annotation-layer__badge {
-  position: absolute;
-  top: calc(24 * var(--rpx));
-  right: calc(28 * var(--rpx));
-  display: flex;
-  height: calc(56 * var(--rpx));
-  align-items: center;
-  gap: calc(16 * var(--rpx));
-  padding: 0 calc(20 * var(--rpx));
-  border: calc(1 * var(--rpx)) solid rgb(79 57 246 / 10%);
-  border-radius: var(--radius-32);
-  color: var(--color-ink-secondary);
-  background: var(--color-surface-soft);
-  font-size: var(--text-micro);
-  font-weight: 700;
-}
-
-.annotation-layer__badge-dot {
-  width: calc(14 * var(--rpx));
-  height: calc(14 * var(--rpx));
-  border-radius: 50%;
-  background: var(--color-primary-deep);
-}
-
 .annotation-layer__lasso-bar {
   position: absolute;
   bottom: calc(200 * var(--rpx));

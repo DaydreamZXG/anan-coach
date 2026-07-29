@@ -1119,7 +1119,7 @@ Page<PracticePageData, PracticePageCustom>({
           message:
             outcome.favoriteState === "favorited"
               ? "已收藏，可在“收藏题目”中找回。"
-              : "已取消收藏；本次标记状态不受影响。",
+              : "已取消收藏；本次存疑状态不受影响。",
           requestId: outcome.requestId,
         });
         void wx.showToast({
@@ -1657,7 +1657,7 @@ async function loadCurrentQuestionFavorite(
       favoriteState: page.data.favoriteState,
       questionId,
       desiredState: "",
-      message: "收藏状态没有读到；标记和作答仍可正常使用。",
+      message: "收藏状态没有读到；存疑和作答仍可正常使用。",
       requestId: error instanceof ApiClientError ? error.requestId : "",
     });
   }

@@ -108,6 +108,8 @@ describe("xingce practice page lifecycle", () => {
     expect(practiceTemplate).toContain('aria-label="打开草稿"');
     expect(practiceTemplate).toContain('bindtap="openAnnotation"');
     expect(practiceTemplate).not.toContain('class="question-tool question-tool--more"');
+    expect(practiceTemplate).toContain("'已存疑' : '存疑'");
+    expect(practiceTemplate).not.toContain("'已标记' : '标记'");
 
     Object.assign(runtime.page.data, {
       toolsOpen: true,

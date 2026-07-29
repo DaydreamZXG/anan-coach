@@ -147,7 +147,7 @@ export const visualDeliveryContracts = [
     "/pages/practice/index",
     "answer-sheet",
     ".answer-card__sheet",
-    ["答题卡", "点题号即可直接切换，标记题会进入复盘"],
+    ["答题卡", "点题号即可直接切换，存疑题会优先复盘"],
     ".answer-card__cta",
   ),
   deliveryState(
@@ -156,7 +156,7 @@ export const visualDeliveryContracts = [
     "/pages/practice/index",
     "annotation",
     ".practice-annotation-host--active",
-    ["草稿", "根据材料，下列说法正确的是？"],
+    ["画笔", "根据材料，下列说法正确的是？"],
   ),
   deliveryState(
     "75:2",

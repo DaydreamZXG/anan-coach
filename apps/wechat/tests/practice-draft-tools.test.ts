@@ -36,16 +36,17 @@ afterEach(() => {
 });
 
 describe("practice drawable draft tools", () => {
-  it("keeps only the obvious drawing modes and calls the experience 草稿", async () => {
+  it("keeps only the obvious drawing modes without covering the question", async () => {
     const definition = await captureAnnotationComponent();
 
     expect(definition.data.tools.map((item) => item.value)).toEqual(["pan", "pen", "eraser"]);
     expect(definition.data.tools.map((item) => item.label)).toEqual(["滑动", "画笔", "橡皮"]);
-    expect(annotationTemplate).toContain("草稿 · 自动保存");
     expect(annotationTemplate).toContain('catchtap="undo">撤销</button>');
     expect(annotationTemplate).toContain('catchtap="clearAll">清空</button>');
     expect(annotationTemplate).toContain('catchtap="finish">完成</button>');
     expect(annotationTemplate).toContain('catchtap="openMore">更多</button>');
+    expect(annotationTemplate).not.toContain("annotation-layer__badge");
+    expect(annotationTemplate).not.toContain("自动保存");
     expect(annotationTemplate).not.toContain("批注中");
   });
 

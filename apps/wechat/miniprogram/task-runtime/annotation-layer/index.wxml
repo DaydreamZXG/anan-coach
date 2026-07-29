@@ -23,12 +23,6 @@
     catchtouchcancel="onTouchEnd"
   ></view>
 
-  <!-- 用户只需理解“草稿”；笔迹数据仍沿用 annotation 合同自动保存。 -->
-  <view wx:if="{{mode === 'annotate'}}" class="annotation-layer__badge">
-    <view class="annotation-layer__badge-dot" aria-hidden="true"></view>
-    <text>草稿 · 自动保存</text>
-  </view>
-
   <view wx:if="{{mode === 'annotate' && lassoSelectedCount > 0}}" class="annotation-layer__lasso-bar">
     <text>已圈选 {{lassoSelectedCount}} 笔</text>
     <button hover-class="item--hover" class="annotation-layer__lasso-delete" catchtap="deleteLassoSelection">删除所选</button>
