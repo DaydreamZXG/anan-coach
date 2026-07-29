@@ -1,0 +1,75 @@
+{
+  "size": {
+    "total": 2334414,
+    "packages": [
+      {
+        "name": "TOTAL",
+        "size": 2334414
+      },
+      {
+        "name": "main",
+        "size": 1560300
+      },
+      {
+        "name": "/packages/anan-deprioritize/",
+        "size": 1187
+      },
+      {
+        "name": "/packages/anan-encouragement/",
+        "size": 1189
+      },
+      {
+        "name": "/packages/anan-growth/",
+        "size": 954
+      },
+      {
+        "name": "/packages/anan-reminder/",
+        "size": 1179
+      },
+      {
+        "name": "/packages/anan-rest/",
+        "size": 1171
+      },
+      {
+        "name": "/packages/anan-thinking/",
+        "size": 1179
+      },
+      {
+        "name": "/pages/capture-import/",
+        "size": 61769
+      },
+      {
+        "name": "/pages/essay-task/",
+        "size": 141341
+      },
+      {
+        "name": "/pages/mock-exam/",
+        "size": 82896
+      },
+      {
+        "name": "/pages/onboarding/",
+        "size": 99833
+      },
+      {
+        "name": "/pages/positions/",
+        "size": 59813
+      },
+      {
+        "name": "/pages/practice/",
+        "size": 104502
+      },
+      {
+        "name": "/pages/private-knowledge/",
+        "size": 64879
+      },
+      {
+        "name": "/pages/profile/",
+        "size": 42159
+      },
+      {
+        "name": "/pages/reflection/",
+        "size": 110063
+      }
+    ]
+  }
+}
