@@ -44,6 +44,7 @@ interface CaptureImportPageData {
 }
 
 interface CaptureImportPageCustom {
+  imageEditorOpening: boolean;
   chooseCamera(): Promise<void>;
   handleCameraInit(): void;
   handleCameraError(
@@ -89,6 +90,8 @@ const runtimes = new ExternalLearningPageRuntimeRegistry<
 >();
 
 Page<CaptureImportPageData, CaptureImportPageCustom>({
+  imageEditorOpening: false,
+
   data: {
     state: null,
     configurationError: "",
@@ -170,6 +173,7 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
         receiptVisible: false,
         recordSheetOpen: false,
       });
+      await this.editPendingImage();
     } catch (error) {
       const message = externalLearningError(error).message;
       if (cameraPermissionWasDenied(error)) {
@@ -211,13 +215,17 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
   },
 
   async editPendingImage() {
+    if (this.imageEditorOpening) return;
     const file = this.data.pendingFile;
     if (!file) return;
+    this.imageEditorOpening = true;
     try {
       const edited = await editQuestionImage(file);
       if (edited) this.setData({ pendingFile: edited });
     } catch (error) {
       void wx.showToast({ title: externalLearningError(error).message, icon: "none" });
+    } finally {
+      this.imageEditorOpening = false;
     }
   },
 
@@ -423,6 +431,7 @@ async function chooseForReview(page: CaptureImportPage, source: "camera" | "albu
         receiptVisible: false,
         recordSheetOpen: false,
       });
+      await page.editPendingImage();
     }
   } catch (error) {
     void wx.showToast({ title: externalLearningError(error).message, icon: "none" });

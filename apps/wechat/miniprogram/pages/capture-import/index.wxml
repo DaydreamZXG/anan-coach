@@ -50,23 +50,23 @@
   <block wx:elif="{{state && state.status === 'idle' && captureStage === 'crop'}}">
     <workbench-nav
       id="runtime-workbench-nav"
-      title="裁剪校正"
+      title="确认图片"
       tone="dark"
       back-behavior="emit"
       bind:back="goBack"
     />
     <view class="crop-stage">
-      <image class="crop-image" src="{{pendingFile.localPath}}" mode="aspectFit" />
-      <view class="crop-frame">
-        <view class="crop-corner crop-corner--tl"></view>
-        <view class="crop-corner crop-corner--tr"></view>
-        <view class="crop-corner crop-corner--bl"></view>
-        <view class="crop-corner crop-corner--br"></view>
-      </view>
+      <image
+        class="crop-image"
+        src="{{pendingFile.localPath}}"
+        mode="aspectFit"
+        bindtap="editPendingImage"
+      />
+      <view class="crop-edit-hint">点按图片可重新裁剪</view>
     </view>
     <view class="crop-actions">
       <button hover-class="item--hover" class="control-center crop-actions__quiet" bindtap="discardPendingImage">重拍</button>
-      <button hover-class="item--hover" class="control-center crop-actions__tool" bindtap="editPendingImage">编辑裁剪</button>
+      <button hover-class="item--hover" class="control-center crop-actions__tool" bindtap="editPendingImage">重新裁剪</button>
       <button hover-class="item--hover" class="control-center crop-actions__confirm tap-tactile" bindtap="confirmPendingImage">确认</button>
     </view>
   </block>

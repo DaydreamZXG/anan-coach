@@ -323,52 +323,20 @@
   background: linear-gradient(135deg, var(--figma-color-ink-strong), var(--ink));
 }
 
-.crop-frame {
+.crop-edit-hint {
   position: absolute;
-  top: calc(110 * var(--rpx));
-  right: calc(80 * var(--rpx));
-  bottom: calc(110 * var(--rpx));
-  left: calc(80 * var(--rpx));
-  border: calc(4 * var(--rpx)) solid var(--color-primary-bright);
-  background: rgba(124, 134, 255, 0.08);
-  box-shadow: var(--shadow-spotlight-mask);
-}
-
-.crop-corner,
-.camera-corner {
-  position: absolute;
-  box-sizing: border-box;
-  width: calc(48 * var(--rpx));
-  height: calc(48 * var(--rpx));
-}
-
-.crop-corner {
-  width: calc(28 * var(--rpx));
-  height: calc(28 * var(--rpx));
-  border: calc(5 * var(--rpx)) solid var(--color-surface);
-  border-radius: 50%;
-  background: var(--color-primary-bright);
-  transform: translate(-50%, -50%);
-}
-
-.crop-corner--tl {
-  top: 0;
-  left: 0;
-}
-
-.crop-corner--tr {
-  top: 0;
-  right: calc(-28 * var(--rpx));
-}
-
-.crop-corner--bl {
-  bottom: calc(-28 * var(--rpx));
-  left: 0;
-}
-
-.crop-corner--br {
-  right: calc(-28 * var(--rpx));
-  bottom: calc(-28 * var(--rpx));
+  right: calc(72 * var(--rpx));
+  bottom: calc(72 * var(--rpx));
+  left: calc(72 * var(--rpx));
+  padding: calc(18 * var(--rpx)) calc(24 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-pill);
+  color: var(--color-surface);
+  background: rgba(13, 24, 40, 0.82);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  text-align: center;
+  pointer-events: none;
 }
 
 .crop-actions {
@@ -470,6 +438,10 @@
 }
 
 .camera-corner {
+  position: absolute;
+  box-sizing: border-box;
+  width: calc(48 * var(--rpx));
+  height: calc(48 * var(--rpx));
   z-index: 2;
   border-color: var(--color-surface);
   border-style: solid;

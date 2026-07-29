@@ -288,7 +288,7 @@ export const visualDeliveryContracts = [
     "/pages/capture-import/index",
     "crop",
     ".crop-stage",
-    ["裁剪校正", "确认"],
+    ["确认图片", "点按图片可重新裁剪", "确认"],
     ".crop-actions__confirm",
     ".capture-page",
   ),
