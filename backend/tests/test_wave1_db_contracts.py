@@ -38,13 +38,32 @@ def test_wave1_revisions_are_linear_and_single_head() -> None:
     revision72 = import_module("migrations.versions.20260728_72_job_lease_contract")
     revision73 = import_module("migrations.versions.20260728_73_method_card_exact_replay")
     revision74 = import_module("migrations.versions.20260728_74_xingce_question_favorites")
+    revision75 = import_module(
+        "migrations.versions.20260729_75_xingce_delivery_selection_index"
+    )
     script = ScriptDirectory.from_config(Config(str(BACKEND_ROOT / "alembic.ini")))
 
     assert revision71.down_revision == "20260728_70"
     assert revision72.down_revision == "20260728_71"
     assert revision73.down_revision == "20260728_72"
     assert revision74.down_revision == "20260728_73"
-    assert script.get_heads() == ["20260728_74"]
+    assert revision75.down_revision == "20260728_74"
+    assert script.get_heads() == ["20260729_75"]
+
+
+def test_xingce_delivery_selection_has_release_question_covering_index(
+    db_engine: Engine,
+) -> None:
+    indexes = {
+        item["name"]: item
+        for item in inspect(db_engine).get_indexes(
+            "knowledge_map_question_bindings",
+            schema="product",
+        )
+    }
+    index = indexes["product_knowledge_map_binding_baseline_selection_idx"]
+    assert index["column_names"] == ["release_id", "question_id"]
+    assert "delivery_eligible" in str(index["dialect_options"]["postgresql_where"])
 
 
 def test_review_verdict_command_extends_receipts_without_weakening_append_only(
