@@ -574,7 +574,7 @@ function completeUpload(file: LocalImportFile | LocalAnswerImageFile, digest: st
     session: {
       ...uploadSession(file, "available", digest, mode),
       recognitionEligible: true,
-      uploadedPartCount: 1,
+      uploadedPartCount: mode === "multipart" ? 1 : 0,
     },
     artifact: sourceArtifact({
       sourceKind: file.sourceKind,
@@ -609,7 +609,7 @@ function uploadSession(
     failureCode: null,
     uploadMode: mode,
     partSize: mode === "multipart" ? 8 * 1024 * 1024 : null,
-    partCount: 1,
+    partCount: mode === "multipart" ? 1 : 0,
     uploadedPartCount: 0,
   };
 }

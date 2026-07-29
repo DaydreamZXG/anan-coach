@@ -309,13 +309,13 @@ function assertUploadReplay(
     session.byteSize !== file.byteSize ||
     session.contentSha256 !== digest ||
     session.uploadMode !== expectedMode ||
-    session.partCount !== (expectedPartCount || 1) ||
+    session.partCount !== expectedPartCount ||
     session.partSize !== (expectedMode === "multipart" ? multipartPartBytes : null)
   ) {
     throw new ApiClientError(
-      "原上传命令与当前文件不一致，已拒绝复用幂等结果。",
+      "服务器返回的上传会话与当前文件不一致，请重新选择。",
       409,
-      "upload-replay-mismatch",
+      "upload-session-contract-mismatch",
     );
   }
 }
