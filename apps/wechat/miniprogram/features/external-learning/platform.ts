@@ -22,11 +22,21 @@ export async function editQuestionImage(file: LocalImportFile): Promise<LocalImp
   if (file.mimeType === "application/pdf") return null;
   try {
     const editedPath = await new Promise<string>((resolve, reject) => {
+      const onSuccess = (result: WechatMiniprogram.CropImageSuccessCallbackResult) => {
+        resolve(result.tempFilePath);
+      };
+      if (typeof wx.cropImage === "function") {
+        wx.cropImage({
+          src: file.localPath,
+          cropScale: "9:16",
+          success: onSuccess,
+          fail: reject,
+        });
+        return;
+      }
       wx.editImage({
         src: file.localPath,
-        success: (result) => {
-          resolve(result.tempFilePath);
-        },
+        success: onSuccess,
         fail: reject,
       });
     });

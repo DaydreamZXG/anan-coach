@@ -60,7 +60,7 @@ describe("capture import native camera", () => {
     expect(chooseMedia).not.toHaveBeenCalled();
   });
 
-  it("opens the native image editor immediately instead of rendering fake draggable handles", () => {
+  it("opens native cropping directly instead of stopping at the image-editing landing screen", () => {
     const cropStart = captureTemplate.indexOf("captureStage === 'crop'");
     const cropEnd = captureTemplate.indexOf(
       "<block wx:elif=\"{{state && state.status === 'idle'}}\">",
@@ -69,7 +69,12 @@ describe("capture import native camera", () => {
     const cropTemplate = captureTemplate.slice(cropStart, cropEnd);
 
     expect(captureLogic.match(/await (?:this|page)\.editPendingImage\(\);/gu)).toHaveLength(2);
-    expect(externalLearningPlatform).toContain("wx.editImage({");
+    expect(externalLearningPlatform).toContain('typeof wx.cropImage === "function"');
+    expect(externalLearningPlatform).toContain("wx.cropImage({");
+    expect(externalLearningPlatform).toContain('cropScale: "9:16"');
+    expect(externalLearningPlatform.indexOf("wx.cropImage({")).toBeLessThan(
+      externalLearningPlatform.indexOf("wx.editImage({"),
+    );
     expect(cropTemplate).toContain('bindtap="editPendingImage"');
     expect(cropTemplate).toContain("点按图片可重新裁剪");
     expect(cropTemplate).not.toContain("crop-frame");
