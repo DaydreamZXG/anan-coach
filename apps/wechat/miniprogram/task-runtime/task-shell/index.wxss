@@ -803,8 +803,25 @@
 }
 
 .task-shell--xingce .task-header-button--companion {
+  flex: 0 0 44px;
+  width: 44px;
   min-width: 44px;
+  max-width: 44px;
+  height: 44px;
   min-height: 44px;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* 保留 44px 易点热区，视觉仍是原版 56rpx 紫粉圆与 13px 星芒。 */
+.task-companion-mark {
+  display: flex;
+  width: calc(56 * var(--rpx));
+  height: calc(56 * var(--rpx));
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
   color: var(--color-on-primary);
   background: var(--figma-gradient-ai);
   box-shadow: var(--shadow-ai);

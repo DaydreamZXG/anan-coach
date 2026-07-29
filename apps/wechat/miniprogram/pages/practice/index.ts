@@ -566,6 +566,9 @@ Page<PracticePageData, PracticePageCustom>({
       disputeOpen: false,
       draftOpen: false,
       answerSheetOpen: false,
+      annotationOpen: false,
+      ananContextOpen: false,
+      selection: { key: "", text: "", toolbarTop: 0 },
     });
   },
 
@@ -698,7 +701,7 @@ Page<PracticePageData, PracticePageCustom>({
         // 120 笔上限含墓碑；满员时先物理删除最旧的已擦除笔画腾位。
         const strokes = appendStrokeWithinLimit(view.question.annotations, stroke);
         if (!strokes) {
-          void wx.showToast({ title: "批注笔画已达上限", icon: "none" });
+          void wx.showToast({ title: "草稿笔画已达上限", icon: "none" });
           return;
         }
         runtime.task = reduceTaskRuntime(runtime.task, {

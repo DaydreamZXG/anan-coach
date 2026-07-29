@@ -21,7 +21,7 @@
   inset: 0;
 }
 
-/* Figma 72:3：批注中 · 自动保存 */
+/* 草稿状态提示：告诉用户已保存，不暴露内部 annotation 命名。 */
 .annotation-layer__badge {
   position: absolute;
   top: calc(24 * var(--rpx));
@@ -73,31 +73,34 @@
   line-height: 1.4;
 }
 
-/* Figma 72:18：批注工具栏（h72 r24 白底描边投影，固定底部）。 */
+/* 两行草稿工具栏：第一行选择操作方式，第二行完成低频管理动作。 */
 .annotation-layer__toolbar {
   position: absolute;
   right: calc(24 * var(--rpx));
   bottom: calc(calc(24 * var(--rpx)) + env(safe-area-inset-bottom));
   left: calc(24 * var(--rpx));
   box-sizing: border-box;
-  display: flex;
-  height: calc(144 * var(--rpx));
-  align-items: center;
+  display: grid;
   gap: calc(8 * var(--rpx));
-  padding: calc(16 * var(--rpx)) calc(12 * var(--rpx));
+  padding: calc(16 * var(--rpx));
   border: calc(1 * var(--rpx)) solid var(--figma-color-line);
-  border-radius: var(--radius-48);
+  border-radius: var(--radius-32);
   background: var(--figma-color-surface);
   box-shadow: var(--shadow-elevated);
 }
 
-/* Figma 72:19：43×56 工具。 */
+.annotation-layer__tools {
+  display: grid;
+  gap: calc(8 * var(--rpx));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .annotation-layer__tool {
   box-sizing: border-box;
   display: flex;
-  width: calc(86 * var(--rpx));
-  min-width: calc(86 * var(--rpx));
-  height: calc(112 * var(--rpx));
+  width: 100%;
+  min-width: 0;
+  height: calc(88 * var(--rpx));
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -126,46 +129,55 @@
   line-height: calc(24 * var(--rpx));
 }
 
-/* Figma 72:34：撤销圆钮。 */
-.annotation-layer__undo {
-  box-sizing: border-box;
-  display: flex;
-  width: calc(76 * var(--rpx));
-  min-width: calc(76 * var(--rpx));
-  height: calc(76 * var(--rpx));
-  align-items: center;
-  justify-content: center;
-  margin: 0 0 0 auto;
-  padding: 0;
-  border: 0;
-  border-radius: var(--radius-40);
-  color: var(--color-ink-secondary);
-  background: var(--figma-color-canvas);
-  font-size: var(--text-title-sm);
-  line-height: 1;
+.annotation-layer__actions {
+  display: grid;
+  gap: calc(8 * var(--rpx));
+  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.35fr);
 }
 
-/* Figma 72:36：完成。 */
-.annotation-layer__done {
+.annotation-layer__secondary-action {
   box-sizing: border-box;
   display: flex;
-  width: calc(132 * var(--rpx));
-  min-width: calc(132 * var(--rpx));
-  height: calc(96 * var(--rpx));
+  width: 100%;
+  min-width: 0;
+  height: calc(72 * var(--rpx));
   align-items: center;
   justify-content: center;
   margin: 0;
   padding: 0;
   border: 0;
-  border-radius: var(--radius-32);
+  border-radius: var(--radius-16);
+  color: var(--color-ink-secondary);
+  background: var(--figma-color-canvas);
+  font-size: var(--text-micro);
+  font-weight: 700;
+  line-height: normal;
+}
+
+.annotation-layer__secondary-action--danger {
+  color: var(--color-danger);
+}
+
+.annotation-layer__done {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  height: calc(72 * var(--rpx));
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-16);
   color: var(--figma-color-on-dark);
   background: var(--color-primary-deep);
-  font-size: var(--text-body);
+  font-size: var(--text-caption);
   font-weight: 700;
 }
 
 .annotation-layer__tool::after,
-.annotation-layer__undo::after,
+.annotation-layer__secondary-action::after,
 .annotation-layer__done::after,
 .annotation-layer__lasso-delete::after {
   border: 0;

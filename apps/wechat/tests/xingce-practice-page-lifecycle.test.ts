@@ -11,6 +11,8 @@ import {
   createMemoryWechatStorage,
   xingceIds,
 } from "./work_packages/vj-02-real-xingce-wechat/harness";
+// @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
+import practiceTemplate from "../miniprogram/pages/practice/index.wxml?raw";
 
 afterEach(() => {
   vi.useRealTimers();
@@ -94,6 +96,52 @@ describe("xingce practice page lifecycle", () => {
     // 答题卡点当前题＝没有切题，不应打断已有的阅读位置。
     runtime.page.selectQuestion.call(runtime.page, sheetTapEvent(0));
     expect(runtime.page.data.questionScrollTop).toBe(0);
+    runtime.page.onUnload.call(runtime.page);
+  });
+
+  it("opens the drawable draft directly from the question pen without a mode chooser", async () => {
+    vi.useFakeTimers();
+    const runtime = await createPracticePage();
+
+    expect(practiceTemplate).toContain('class="question-tool question-tool--draft"');
+    expect(practiceTemplate).toContain('src="/assets/icons/task/draft.svg"');
+    expect(practiceTemplate).toContain('aria-label="打开草稿"');
+    expect(practiceTemplate).toContain('bindtap="openAnnotation"');
+    expect(practiceTemplate).not.toContain('class="question-tool question-tool--more"');
+
+    Object.assign(runtime.page.data, {
+      toolsOpen: true,
+      draftOpen: true,
+      answerSheetOpen: true,
+      ananContextOpen: true,
+      selection: { key: "stem-1", text: "题干", toolbarTop: 100 },
+    });
+    runtime.page.openAnnotation.call(runtime.page);
+
+    expect(runtime.page.data.annotationOpen).toBe(true);
+    expect(runtime.page.data.toolsOpen).toBe(false);
+    expect(runtime.page.data.draftOpen).toBe(false);
+    expect(runtime.page.data.answerSheetOpen).toBe(false);
+    expect(runtime.page.data.ananContextOpen).toBe(false);
+    expect(runtime.page.data.selection).toEqual({ key: "", text: "", toolbarTop: 0 });
+    runtime.page.onUnload.call(runtime.page);
+  });
+
+  it("leaves drawing mode before opening secondary settings and help", async () => {
+    vi.useFakeTimers();
+    const runtime = await createPracticePage();
+    Object.assign(runtime.page.data, {
+      annotationOpen: true,
+      ananContextOpen: true,
+      selection: { key: "stem-1", text: "题干", toolbarTop: 100 },
+    });
+
+    runtime.page.openTaskTools.call(runtime.page);
+
+    expect(runtime.page.data.toolsOpen).toBe(true);
+    expect(runtime.page.data.annotationOpen).toBe(false);
+    expect(runtime.page.data.ananContextOpen).toBe(false);
+    expect(runtime.page.data.selection).toEqual({ key: "", text: "", toolbarTop: 0 });
     runtime.page.onUnload.call(runtime.page);
   });
 });
@@ -542,6 +590,8 @@ interface CapturedPracticePage {
   onQuestionTouchEnd(this: TestPracticePage, event: WechatMiniprogram.TouchEvent): void;
   clearQuestionTransition(this: TestPracticePage): void;
   toggleFavorite(this: TestPracticePage): Promise<void>;
+  openAnnotation(this: TestPracticePage): void;
+  openTaskTools(this: TestPracticePage): void;
 }
 
 interface TestPracticePage extends CapturedPracticePage {

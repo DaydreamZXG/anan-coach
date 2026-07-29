@@ -32,6 +32,14 @@ describe("compact task shell", () => {
     expect(taskShellTemplate).toContain('wx:if="{{companionAvailable}}"');
     expect(taskShellTemplate).toContain('bindtap="openCompanion"');
     expect(taskShellStyles).toContain(".task-shell--xingce .task-header-button--companion");
+    expect(taskShellTemplate).toContain('class="task-companion-mark"');
+    expect(taskShellTemplate).toContain('src="/assets/icons/task/anan.svg"');
+    expect(taskShellStyles).toMatch(
+      /\.task-shell--xingce \.task-header-button--companion \{[^}]*width: 44px;[^}]*height: 44px;[^}]*background: transparent;/u,
+    );
+    expect(taskShellStyles).toMatch(
+      /\.task-companion-mark \{[^}]*width: 56rpx;[^}]*height: 56rpx;[^}]*border-radius: 50%;[^}]*background: var\(--figma-gradient-ai\);/u,
+    );
     // sticky 基础规则的 top 偏移必须在 xingce 变体里归零，否则导航整行下坠。
     expect(taskShellStyles).toMatch(/\.task-shell--xingce \.task-header \{[^}]*top: 0/);
   });

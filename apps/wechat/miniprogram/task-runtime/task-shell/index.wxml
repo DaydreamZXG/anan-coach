@@ -115,12 +115,13 @@
         aria-label="就当前题问岸岸"
         bindtap="openCompanion"
       >
-        <image
-          class="task-asset-icon task-asset-icon--anan"
-          src="/assets/icons/task/anan.svg"
-          mode="aspectFit"
-          aria-hidden="true"
-        />
+        <view class="task-companion-mark" aria-hidden="true">
+          <image
+            class="task-asset-icon task-asset-icon--anan"
+            src="/assets/icons/task/anan.svg"
+            mode="aspectFit"
+          />
+        </view>
       </button>
 
       <button hover-class="item--hover" wx:if="{{toolsAvailable}}" class="task-header-button task-header-button--tool" aria-label="打开当前工具" bindtap="openTools">

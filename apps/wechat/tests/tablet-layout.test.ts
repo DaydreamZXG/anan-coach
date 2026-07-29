@@ -167,8 +167,14 @@ describe("tablet responsive layout contract", () => {
     expect(captureStyles).toContain("width: min(72vw, 680px)");
     expect(captureStyles).toContain("max-height: 780px");
     expect(loginStyles).toContain("@media (min-width: 600px) and (min-height: 600px)");
-    expect(loginStyles).toContain("max-width: 1040px");
-    expect(loginStyles).toContain("grid-template-columns: minmax(0, 0.9fr)");
+    expect(loginStyles).toContain("max-width: 520px");
+    expect(loginStyles).toContain("flex-direction: column");
+    expect(loginStyles).toContain("justify-content: center");
+    expect(loginStyles).toContain("max-width: 440px");
+    expect(loginStyles).toContain("align-self: center");
+    expect(loginStyles).not.toContain("grid-template-columns");
+    expect(loginStyles).not.toContain("justify-self: end");
+    expect(loginStyles).not.toContain("gap: 80px");
     expect(loginStyles).toContain("margin: 0 auto");
   });
 });

@@ -173,21 +173,22 @@
   text-align: center;
 }
 
-/* 平板不是把手机稿同比放大：在足够高的宽屏设备上改为品牌区与登录区并排。 */
+/* 平板横竖屏仍是一项连续的登录任务：品牌、说明、操作和协议共用同一中心轴。 */
 @media (min-width: 600px) and (min-height: 600px) {
   .login-content {
-    display: grid;
-    max-width: 1040px;
-    min-height: calc(100vh - 80px);
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    align-items: center;
-    gap: 32px;
+    display: flex;
+    width: 100%;
+    max-width: 520px;
+    min-height: 0;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
     padding: 40px 32px calc(40px + env(safe-area-inset-bottom));
   }
 
   .login-lockup {
-    align-items: flex-start;
-    text-align: left;
+    align-items: center;
+    text-align: center;
   }
 
   .brain-logo-shell {
@@ -216,8 +217,8 @@
   .login-actions {
     width: 100%;
     max-width: 440px;
-    justify-self: end;
-    margin-top: 0;
+    align-self: center;
+    margin-top: 44px;
   }
 
   .wechat-button {
@@ -230,28 +231,5 @@
   .legal {
     margin-top: 20px;
     font-size: 12px;
-  }
-}
-
-@media (min-width: 900px) and (min-height: 600px) {
-  .login-content {
-    gap: 80px;
-    padding-right: 64px;
-    padding-left: 64px;
-  }
-
-  .brain-logo-shell {
-    width: 104px;
-    height: 104px;
-    border-radius: 34px;
-  }
-
-  .brain-logo {
-    width: 52px;
-    height: 52px;
-  }
-
-  .login-title {
-    font-size: 46px;
   }
 }

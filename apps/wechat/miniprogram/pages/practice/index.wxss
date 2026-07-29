@@ -357,13 +357,9 @@
   line-height: 1;
 }
 
-.question-tool__more-icon {
-  height: 18px;
-  font-family: var(--font-family-data);
-  font-size: 15px;
-  font-weight: 800;
-  line-height: 13px;
-  letter-spacing: 1px;
+.question-tool__icon--draft {
+  width: 19px;
+  height: 19px;
 }
 
 .question-tool--favorite.question-tool--active {

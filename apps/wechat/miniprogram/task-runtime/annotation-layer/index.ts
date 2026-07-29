@@ -271,10 +271,8 @@ Component({
     tool: "pen",
     tools: [
       { value: "pan", glyph: "✋", label: "滑动" },
-      { value: "pen", glyph: "✎", label: "笔" },
-      { value: "highlighter", glyph: "▆", label: "荧光" },
+      { value: "pen", glyph: "✎", label: "画笔" },
       { value: "eraser", glyph: "◫", label: "橡皮" },
-      { value: "lasso", glyph: "◌", label: "套索" },
     ],
     lassoSelectedCount: 0,
     drawnStrokeCount: 0,
@@ -378,7 +376,7 @@ Component({
           // 契约增量 v1：120 笔上限含墓碑；满员时物理删除最旧的已擦除笔画腾位。
           const strokes = appendStrokeWithinLimit(currentStrokes(this), stroke);
           if (!strokes) {
-            void wx.showToast({ title: "批注笔画已达上限", icon: "none" });
+            void wx.showToast({ title: "草稿笔画已达上限", icon: "none" });
             redraw(this);
             return;
           }
@@ -440,6 +438,36 @@ Component({
         strokes: tombstoneStrokes(strokes, (stroke) => stroke === lastLive, nowMs(this)),
         action: "erased",
       });
+    },
+
+    async clearAll() {
+      const strokes = currentStrokes(this);
+      if (liveStrokes(strokes).length === 0) {
+        void wx.showToast({ title: "草稿还是空的", icon: "none" });
+        return;
+      }
+      const decision = await wx.showModal({
+        title: "清空草稿？",
+        content: "本题已经画下的内容会被清空。",
+        confirmText: "清空",
+        confirmColor: "#b0404c",
+        cancelText: "保留",
+      });
+      if (!decision.confirm) return;
+      const state = runtime(this);
+      state.activeStroke = null;
+      state.lassoPath = [];
+      state.selectedStrokeIds = new Set();
+      this.setData({ lassoSelectedCount: 0 });
+      this.triggerEvent("strokeschange", {
+        // 仍写入擦除墓碑，保留 annotations/action evidence 的完整事件轨迹。
+        strokes: tombstoneStrokes(strokes, () => true, nowMs(this)),
+        action: "erased",
+      });
+    },
+
+    openMore() {
+      this.triggerEvent("more");
     },
 
     finish() {

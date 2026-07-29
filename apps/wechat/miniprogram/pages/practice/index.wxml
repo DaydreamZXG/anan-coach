@@ -143,14 +143,19 @@
                 <text class="question-tool__label">{{view.question.marked ? '已标记' : '标记'}}</text>
               </button>
               <button
-                class="question-tool question-tool--more"
+                class="question-tool question-tool--draft"
                 hover-class="item--hover"
                 disabled="{{interactionLocked}}"
-                aria-label="打开更多做题工具"
-                bindtap="openTaskTools"
+                aria-label="打开草稿"
+                bindtap="openAnnotation"
               >
-                <view class="question-tool__more-icon" aria-hidden="true">•••</view>
-                <text class="question-tool__label">更多</text>
+                <image
+                  class="question-tool__icon question-tool__icon--draft"
+                  src="/assets/icons/task/draft.svg"
+                  mode="aspectFit"
+                  aria-hidden="true"
+                />
+                <text class="question-tool__label">草稿</text>
               </button>
             </view>
           </view>
@@ -239,7 +244,7 @@
         </view>
         </scroll-view>
 
-        <!-- Figma 70:2 题面直接批注：笔迹层覆盖在题面上，static 时触摸穿透。 -->
+        <!-- 草稿直接覆盖在题面上；非绘写时已有笔迹静态显示且触摸穿透。 -->
         <view class="practice-annotation-host {{annotationOpen ? 'practice-annotation-host--active' : ''}}">
           <annotation-layer
             mode="{{annotationOpen ? 'annotate' : (view.question.annotations.length ? 'static' : 'hidden')}}"
@@ -248,6 +253,7 @@
             elapsedMs="{{view.question.elapsedMs || -1}}"
             bindstrokeschange="changeAnnotations"
             binddone="closeAnnotation"
+            bindmore="openTaskTools"
           />
         </view>
       </view>
@@ -427,7 +433,7 @@
           </view>
           <view class="pause-title">训练已暂停</view>
           <view class="pause-time type-data">{{view.elapsedLabel}}</view>
-          <view class="pause-copy">先把气喘匀，题就在原地等你。\n暂停期间不计入作答用时。\n材料位置、答案与批注均已保留。</view>
+          <view class="pause-copy">先把气喘匀，题就在原地等你。\n暂停期间不计入作答用时。\n材料位置、答案与草稿均已保留。</view>
           <button hover-class="item--hover" class="pause-resume" bindtap="toggleTaskPause">继续作答</button>
           <button hover-class="item--hover" class="control-center pause-exit" bindtap="exit">结束本次训练</button>
         </view>
@@ -441,16 +447,14 @@
 
   <ui-sheet
     visible="{{toolsOpen}}"
-    title="做题工具"
-    copy="修改会自动保存"
+    title="设置与帮助"
+    copy="草稿会自动保存"
     show-close
     level="overlay"
     max-height="86vh"
     bindclose="closeTaskOverlay"
   >
     <view class="task-tool-grid">
-      <button hover-class="item--hover" class="control-center task-tool-item" bindtap="toggleDraft">草稿</button>
-      <button hover-class="item--hover" class="control-center task-tool-item" bindtap="openAnnotation">题面批注</button>
       <button hover-class="item--hover" wx:if="{{toolPolicy.dispute_report}}" class="control-center task-tool-item" bindtap="openDispute">题目争议</button>
       <button hover-class="item--hover" wx:if="{{toolPolicy.operation_help}}" class="control-center task-tool-item" bindtap="openTaskHelp">操作/故障帮助</button>
       <button hover-class="item--hover" class="control-center task-tool-item {{displayPreferences.colorMode === 'eye_care' ? 'task-tool-item--active' : ''}}" bindtap="toggleDisplayEyeCare">护眼模式</button>

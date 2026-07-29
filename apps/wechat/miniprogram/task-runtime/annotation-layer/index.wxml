@@ -1,5 +1,5 @@
 <!--
-  Figma 70:2 · 题面直接批注 / 75:2 · 原题轨迹回放 共用的笔迹层。
+  草稿与原题轨迹回放共用的笔迹层。
   mode:
     - static   只显示已有笔迹，触摸完全穿透（题面可正常阅读与滚动）
     - annotate 显示工具栏；滑动工具下触摸穿透，其余工具捕获触摸作画
@@ -23,10 +23,10 @@
     catchtouchcancel="onTouchEnd"
   ></view>
 
-  <!-- Figma 72:3：批注中 · 自动保存 -->
+  <!-- 用户只需理解“草稿”；笔迹数据仍沿用 annotation 合同自动保存。 -->
   <view wx:if="{{mode === 'annotate'}}" class="annotation-layer__badge">
     <view class="annotation-layer__badge-dot" aria-hidden="true"></view>
-    <text>批注中 · 自动保存</text>
+    <text>草稿 · 自动保存</text>
   </view>
 
   <view wx:if="{{mode === 'annotate' && lassoSelectedCount > 0}}" class="annotation-layer__lasso-bar">
@@ -34,19 +34,25 @@
     <button hover-class="item--hover" class="annotation-layer__lasso-delete" catchtap="deleteLassoSelection">删除所选</button>
   </view>
 
-  <!-- Figma 72:18：批注工具栏，固定在底部。 -->
+  <!-- 草稿工具栏只暴露必要动作；高级能力保留在底层但不增加学习成本。 -->
   <view wx:if="{{mode === 'annotate'}}" class="annotation-layer__toolbar">
-    <button hover-class="item--hover"
-      wx:for="{{tools}}"
-      wx:key="value"
-      class="annotation-layer__tool {{tool === item.value ? 'annotation-layer__tool--active' : ''}}"
-      data-tool="{{item.value}}"
-      catchtap="selectTool"
-    >
-      <view class="annotation-layer__tool-glyph">{{item.glyph}}</view>
-      <view class="annotation-layer__tool-label">{{item.label}}</view>
-    </button>
-    <button hover-class="item--hover" class="annotation-layer__undo" aria-label="撤销上一笔" catchtap="undo">↩</button>
-    <button hover-class="item--hover" class="annotation-layer__done" catchtap="finish">完成</button>
+    <view class="annotation-layer__tools">
+      <button hover-class="item--hover"
+        wx:for="{{tools}}"
+        wx:key="value"
+        class="annotation-layer__tool {{tool === item.value ? 'annotation-layer__tool--active' : ''}}"
+        data-tool="{{item.value}}"
+        catchtap="selectTool"
+      >
+        <view class="annotation-layer__tool-glyph">{{item.glyph}}</view>
+        <view class="annotation-layer__tool-label">{{item.label}}</view>
+      </button>
+    </view>
+    <view class="annotation-layer__actions">
+      <button hover-class="item--hover" class="annotation-layer__secondary-action" catchtap="undo">撤销</button>
+      <button hover-class="item--hover" class="annotation-layer__secondary-action annotation-layer__secondary-action--danger" catchtap="clearAll">清空</button>
+      <button hover-class="item--hover" class="annotation-layer__secondary-action" catchtap="openMore">更多</button>
+      <button hover-class="item--hover" class="annotation-layer__done" catchtap="finish">完成</button>
+    </view>
   </view>
 </view>
