@@ -146,19 +146,54 @@
 
 .legal {
   display: flex;
+  min-height: 44px;
   align-items: center;
   justify-content: center;
-  gap: calc(16 * var(--rpx));
-  margin-top: calc(48 * var(--rpx));
+  gap: calc(12 * var(--rpx));
+  margin-top: calc(32 * var(--rpx));
   color: var(--figma-color-faint);
   font-size: var(--text-caption);
   line-height: 1.5;
   text-align: center;
 }
 
-.legal-check {
-  width: calc(28 * var(--rpx));
-  height: calc(28 * var(--rpx));
+.legal-consent,
+.legal-checkbox-label {
+  display: flex;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+}
+
+.legal-checkbox {
+  transform: scale(0.86);
+}
+
+.legal-copy {
+  display: flex;
+  min-height: 44px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+button.legal-link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  margin: 0;
+  padding: 0 calc(4 * var(--rpx));
+  border: 0;
+  background: transparent;
+  color: var(--figma-color-ink);
+  font: inherit;
+  font-weight: 700;
+  line-height: 44px;
+}
+
+button.legal-link::after {
+  border: 0;
 }
 
 .error-message {
@@ -229,7 +264,7 @@
   }
 
   .legal {
-    margin-top: 20px;
+    margin-top: 16px;
     font-size: 12px;
   }
 }

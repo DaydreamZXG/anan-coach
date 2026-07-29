@@ -9,10 +9,6 @@ kg.xingguoxian.cn {
 		file_server
 	}
 
-	handle_path /coding-tools-mcp/* {
-		reverse_proxy 127.0.0.1:18765
-	}
-
 	handle {
 		reverse_proxy 127.0.0.1:8000
 	}

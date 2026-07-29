@@ -3679,6 +3679,12 @@ export const visualScenarios = [
     },
   },
   {
+    id: "g03-terms-ready",
+    route: "/pages/terms/index",
+    authenticated: false,
+    data: {},
+  },
+  {
     id: "h01-capture-search-idle",
     route: "/pages/capture-import/index",
     authenticated: true,

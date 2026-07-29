@@ -7,10 +7,10 @@
     "productPlan": "docs/engineering/2026-07-24-ui-ux-remediation-plan.md"
   },
   "summary": {
-    "registeredRouteCount": 59,
+    "registeredRouteCount": 60,
     "directlyMappedRouteCount": 31,
-    "unmappedRouteCount": 28,
-    "reuseExistingDesignCount": 8,
+    "unmappedRouteCount": 29,
+    "reuseExistingDesignCount": 9,
     "mergeIntoDesignedFlowCount": 8,
     "hideUntilProductActivationCount": 6,
     "newDesignRequiredCount": 6
@@ -70,6 +70,16 @@
       "targetFigmaNodeIds": [],
       "targetFlow": "account.dataRights",
       "reason": "导出、删除、授权和私人资料边界需要正式数据与隐私页面，现有 Design File 未交付。"
+    },
+    {
+      "routeName": "terms",
+      "route": "/pages/terms/index",
+      "disposition": "reuse_existing_design",
+      "targetFigmaNodeIds": [
+        "31:2"
+      ],
+      "targetFlow": "account.terms",
+      "reason": "用户协议从登录页进入，沿用登录页的单列信息层级和现有 Stage 9 卡片体系，不建立新的视觉语言。"
     },
     {
       "routeName": "positionBriefing",

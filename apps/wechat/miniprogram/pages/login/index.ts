@@ -10,6 +10,7 @@ import {
 } from "../../app/navigation/auth-return";
 import {
   onboardingNavigationTarget,
+  routes,
   type RegisteredNavigationTarget,
 } from "../../app/navigation/routes";
 import { PageControllerRegistry } from "../../app/runtime/controller-registry";
@@ -41,6 +42,7 @@ Page({
   data: {
     submitting: false,
     restoring: false,
+    legalAccepted: false,
     errorCode: "",
     errorMessage: "",
   },
@@ -56,7 +58,27 @@ Page({
   },
 
   login() {
+    if (!this.data.legalAccepted) {
+      void wx.showToast({ title: "请先阅读并同意用户协议与隐私保护指引", icon: "none" });
+      return;
+    }
     void controllers.get(this)?.controller?.login();
+  },
+
+  toggleLegalConsent(event: WechatMiniprogram.CheckboxGroupChange) {
+    this.setData({ legalAccepted: event.detail.value.includes("accepted") });
+  },
+
+  openTerms() {
+    void wx.navigateTo({ url: routes.terms });
+  },
+
+  openPrivacy() {
+    wx.openPrivacyContract({
+      fail: () => {
+        void wx.showToast({ title: "隐私保护指引暂时无法打开，请稍后重试", icon: "none" });
+      },
+    });
   },
 });
 

@@ -156,7 +156,7 @@ export const visualDeliveryContracts = [
     "/pages/practice/index",
     "annotation",
     ".practice-annotation-host--active",
-    ["画笔", "根据材料，下列说法正确的是？"],
+    ["草稿", "根据材料，下列说法正确的是？"],
   ),
   deliveryState(
     "75:2",

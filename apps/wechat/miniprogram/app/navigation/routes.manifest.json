@@ -20,6 +20,7 @@
     "pages/weekly-plan/index",
     "pages/membership/index",
     "pages/privacy/index",
+    "pages/terms/index",
     "pages/positions/index",
     "pages/positions/search/index",
     "pages/positions/detail/index",

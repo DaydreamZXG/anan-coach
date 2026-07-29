@@ -117,6 +117,9 @@ export const pageInteractionMatrix = [
     handler: "createExport",
     selector: ".privacy-secondary",
   }),
+  page("pages/terms/index", "g03-terms-ready", "阅读用户协议", {
+    evidence: RUNTIME_READ_ONLY,
+  }),
   page("pages/support/index", "f10-support-placeholder", "预览客服群二维码", {
     handler: "previewGroupQr",
     selector: ".qr-action",

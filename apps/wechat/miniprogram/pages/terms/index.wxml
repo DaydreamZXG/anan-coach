@@ -1,0 +1,44 @@
+<view class="s9-page terms-page">
+  <view class="terms-hero">
+    <view class="s9-card-kicker">岸岸用户协议</view>
+    <view class="terms-title">先把边界说清楚，再一起备考</view>
+    <view class="terms-copy">本服务由微信公众平台公示的小程序运营主体提供。继续使用前，请阅读以下约定。</view>
+  </view>
+
+  <view class="terms-stack">
+    <view class="s9-card terms-card">
+      <view class="s9-card-title">1. 服务内容</view>
+      <view class="s9-card-copy">岸岸提供公务员考试相关的建档、岗位信息整理、学习计划、刷题、模考、复盘和 AI 辅助分析。服务用于备考参考，不替代招录机关公告、资格审查或正式考试结果。</view>
+    </view>
+
+    <view class="s9-card terms-card">
+      <view class="s9-card-title">2. 账户与使用</view>
+      <view class="s9-card-copy">你通过微信身份登录并使用本人账户。请勿冒用他人身份、批量抓取内容、绕过访问限制，或以影响服务稳定和其他用户权益的方式使用本服务。</view>
+    </view>
+
+    <view class="s9-card terms-card">
+      <view class="s9-card-title">3. 你提交的内容</view>
+      <view class="s9-card-copy">你应确保上传的题目、资料、图片、录音和文字具有合法来源，不包含违法、有害或侵犯他人权益的内容。岸岸只在提供相应学习功能所需的范围内处理这些内容。</view>
+    </view>
+
+    <view class="s9-card terms-card">
+      <view class="s9-card-title">4. AI 辅助边界</view>
+      <view class="s9-card-copy">AI 生成的解析、建议、岗位判断和批改结果可能存在误差。涉及报名资格、考试政策和重要决定时，请以招录机关发布的信息为准，并对关键事实进行核验。</view>
+    </view>
+
+    <view class="s9-card terms-card">
+      <view class="s9-card-title">5. 免费冷启动</view>
+      <view class="s9-card-copy">当前版本不提供购买入口，也不会创建支付订单。未来如开放付费服务，将另行展示商品、价格、服务期限、退款规则并取得你的确认。</view>
+    </view>
+
+    <view class="s9-card terms-card">
+      <view class="s9-card-title">6. 隐私与数据权利</view>
+      <view class="s9-card-copy">个人信息的处理目的、类型和共享情况以微信展示的《隐私保护指引》为准。登录后可在“我的 → 数据与隐私”查看、导出或申请删除个人数据。</view>
+    </view>
+
+    <view class="s9-card terms-card">
+      <view class="s9-card-title">7. 联系与协议更新</view>
+      <view class="s9-card-copy">遇到问题可通过“我的 → 客服与帮助”联系微信客服。协议发生重要变化时，我们会在生效前以页面提示等合理方式告知；不同意变化时，可停止使用并申请删除账户。</view>
+    </view>
+  </view>
+</view>

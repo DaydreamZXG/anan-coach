@@ -25,10 +25,10 @@
     <view class="login-actions fade-slide-in fade-slide-in--2">
       <view wx:if="{{errorMessage}}" class="error-message">{{errorMessage}}</view>
       <button
-        class="wechat-button {{submitting || restoring ? 'wechat-button--disabled' : ''}} tap-tactile"
+        class="wechat-button {{submitting || restoring || !legalAccepted ? 'wechat-button--disabled' : ''}} tap-tactile"
         hover-class="item--hover"
         loading="{{submitting || restoring}}"
-        disabled="{{submitting || restoring}}"
+        disabled="{{submitting || restoring || !legalAccepted}}"
         bindtap="login"
       >
         <view wx:if="{{!submitting && !restoring}}" class="wechat-button__content">
@@ -43,13 +43,17 @@
         <text wx:else>{{restoring ? '正在恢复登录…' : '正在登录…'}}</text>
       </button>
       <view class="legal">
-        <image
-          class="legal-check"
-          src="/assets/icons/anan/check-faint.svg"
-          mode="aspectFit"
-          aria-hidden="true"
-        />
-        <text>登录即代表同意用户协议与隐私政策</text>
+        <checkbox-group class="legal-consent" bindchange="toggleLegalConsent">
+          <label class="legal-checkbox-label" aria-label="同意用户协议与隐私保护指引">
+            <checkbox class="legal-checkbox" value="accepted" checked="{{legalAccepted}}" color="#101828" />
+          </label>
+        </checkbox-group>
+        <view class="legal-copy">
+          <text>我已阅读并同意</text>
+          <button hover-class="item--hover" class="legal-link" bindtap="openTerms">用户协议</button>
+          <text>和</text>
+          <button hover-class="item--hover" class="legal-link" bindtap="openPrivacy">隐私保护指引</button>
+        </view>
       </view>
     </view>
   </view>

@@ -15,6 +15,7 @@
     "pages/weekly-plan/index",
     "pages/membership/index",
     "pages/privacy/index",
+    "pages/terms/index",
     "pages/notification-settings/index",
     "pages/support/index",
     "pages/xingce-task-intro/index",
@@ -168,6 +169,9 @@
   "permission": {
     "scope.camera": {
       "desc": "用于拍摄你主动选择识别的题目、材料和手写答案"
+    },
+    "scope.record": {
+      "desc": "用于录制你主动发起的语音复盘和申论作答说明"
     },
     "scope.userLocation": {
       "desc": "用于展示你当前位置附近的天气，帮助安排当天学习"

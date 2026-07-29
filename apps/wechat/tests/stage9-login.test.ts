@@ -4,6 +4,8 @@ import { describe, expect, it } from "vitest";
 import template from "../miniprogram/pages/login/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import stylesRaw from "../miniprogram/pages/login/index.wxss?raw";
+// @ts-expect-error Vite exposes mini-program sources through its raw asset loader.
+import source from "../miniprogram/pages/login/index.ts?raw";
 
 function normalizeRpxCalc(source: unknown): string {
   if (typeof source !== "string") throw new Error("Raw mini-program asset must be text.");
@@ -20,14 +22,17 @@ describe("stage 9 login composition", () => {
     expect(template).toContain('class="brain-logo"');
     expect(template).toContain('src="/assets/icons/anan/brain-outline-ink.svg"');
     expect(template).toContain('src="/assets/icons/anan/arrow-right-white.svg"');
-    expect(template).toContain('src="/assets/icons/anan/check-faint.svg"');
     expect(template).not.toContain("brain-lobe");
     expect(template).not.toContain("brain-stem");
-    expect(template).toContain('class="wechat-button {{submitting || restoring');
+    expect(template).toContain('class="wechat-button {{submitting || restoring || !legalAccepted');
     expect(template).toContain("wechat-button--disabled");
-    expect(template).toContain('disabled="{{submitting || restoring}}"');
+    expect(template).toContain('disabled="{{submitting || restoring || !legalAccepted}}"');
     expect(template).not.toContain("<ui-button");
-    expect(template).toContain("登录即代表同意用户协议与隐私政策");
+    expect(template).toContain('bindchange="toggleLegalConsent"');
+    expect(template).toContain('bindtap="openTerms">用户协议</button>');
+    expect(template).toContain('bindtap="openPrivacy">隐私保护指引</button>');
+    expect(source).toContain("wx.openPrivacyContract");
+    expect(source).toContain("routes.terms");
   });
 
   it("uses the Design File asset and keeps a clear login action hierarchy", () => {
@@ -42,6 +47,8 @@ describe("stage 9 login composition", () => {
     expect(styles).not.toContain(".brain-lobe");
     expect(styles).not.toContain(".brain-stem");
     expect(styles).toContain(".wechat-button");
+    expect(styles).toContain("button.legal-link");
+    expect(styles).toContain("min-height: 44px");
     expect(styles).toContain("width: 100% !important");
     expect(styles).toContain("background: var(--figma-color-ink)");
     expect(styles).not.toContain("rgba(240, 195, 140");

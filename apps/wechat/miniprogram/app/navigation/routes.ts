@@ -29,6 +29,7 @@ export const routes = {
   studyPreference: "/pages/study-preference/index",
   membership: "/pages/membership/index",
   privacy: "/pages/privacy/index",
+  terms: "/pages/terms/index",
   support: "/pages/support/index",
   onboarding: "/pages/onboarding/index",
   onboardingEntry: "/pages/onboarding/entry/index",
