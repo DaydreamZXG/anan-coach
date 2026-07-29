@@ -1,0 +1,5 @@
+backend/migrations/versions/20260716_33_stage6_mock_reporting.py:62:    from app.domains.mock_exam.repository import MockExamRepository
+backend/migrations/versions/20260716_33_stage6_mock_reporting.py:63:    from app.domains.task_content.service import (
+backend/migrations/versions/20260716_33_stage6_mock_reporting.py:67:    from app.domains.xingce_learning.content_version import (
+backend/migrations/versions/20260715_21_stage15_external_learning_runtime.py:104:    from app.domains.external_ingestion.matching.catalog import (
+backend/migrations/versions/20260715_21_stage15_external_learning_runtime.py:110:    from app.domains.xingce_learning.content_version import (

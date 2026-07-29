@@ -1,0 +1,5 @@
+diff_exit_code=1
+committed_lines=32769
+generated_lines=33270
+diff_lines=579
+schema_paths=233

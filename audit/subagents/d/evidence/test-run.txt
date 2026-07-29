@@ -1,0 +1,34 @@
+Frontend state/API-contract audit reproduction run
+Date: 2026-07-28
+Git HEAD: 01752f1d7b8b606b6900160eebba0888d8def294
+
+Command:
+  apps/wechat/node_modules/.bin/vitest run \
+    tools/audit/d/state-contract.audit.test.ts \
+    tools/audit/b/session-expiry.audit.test.ts \
+    --config apps/wechat/vitest.config.ts
+
+Result:
+  RUN  v4.1.10 /Users/zxg/Documents/新项目
+  Test Files  2 passed (2)
+  Tests       9 passed (9)
+  Duration    767ms
+
+Interpretation:
+  Seven tests in tools/audit/d/state-contract.audit.test.ts reproduce:
+  1. develop/trial/release all resolve to the production-candidate API origin;
+  2. a delayed 401 for an old token clears a newly stored session;
+  3. an older report-center response overwrites a newer response;
+  4. companion retry sends the same command with a new idempotency key;
+  5. a planning-service failure is presented by the companion as confirmed absence;
+  6. day-capacity retry sends the same versioned command with a new idempotency key;
+  7. coach-preference retry sends the same versioned command with a new idempotency key.
+
+  Two tests owned by subaudit B reproduce the post-401 recovery symptoms in
+  essay-task and mock-exam. They are referenced here only for root-cause
+  correlation and must not be entered twice in the unified findings ledger.
+
+Safety:
+  All wx.request calls were stubbed in-process. No request reached
+  kg.xingguoxian.cn or any other external service, and no real session,
+  user data, database, or payment was accessed.

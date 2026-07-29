@@ -1,0 +1,70 @@
+{
+  "packageScripts": {
+    "check": "npm run format:check && npm run typecheck && eslint . --max-warnings 0 && npm run tokens:validate && npm run interactions:validate && npm run controls:validate && npm run navigation:validate && npm run design:validate",
+    "api:generate": "node scripts/generate-api.mjs",
+    "controls:validate": "node scripts/validate-control-alignment.mjs",
+    "design:validate": "node scripts/validate-design-source.mjs",
+    "format": "prettier --write \"**/*.{ts,js,json,mjs,md,html,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,js,json,mjs,md,html,css}\"",
+    "interactions:validate": "node scripts/validate-interactions.mjs",
+    "navigation:validate": "node scripts/validate-navigation.mjs",
+    "test": "vitest run",
+    "test:cloud": "node --test cloudfunctions/hunyuan-essay-grader/runtime.test.js",
+    "tokens:validate": "node scripts/validate-tokens.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "auditClaims": {
+    "readmeApiCheckPresent": false,
+    "readmeStructureCheckPresent": false
+  },
+  "scriptFiles": [
+    {
+      "file": "app-pages.mjs",
+      "referencedByPackageScript": false
+    },
+    {
+      "file": "generate-api.mjs",
+      "referencedByPackageScript": true
+    },
+    {
+      "file": "style-codemod.py",
+      "referencedByPackageScript": false
+    },
+    {
+      "file": "validate-anan-assets.mjs",
+      "referencedByPackageScript": false
+    },
+    {
+      "file": "validate-control-alignment.mjs",
+      "referencedByPackageScript": true
+    },
+    {
+      "file": "validate-design-source.mjs",
+      "referencedByPackageScript": true
+    },
+    {
+      "file": "validate-interaction-coverage.mjs",
+      "referencedByPackageScript": false
+    },
+    {
+      "file": "validate-interactions.mjs",
+      "referencedByPackageScript": true
+    },
+    {
+      "file": "validate-navigation.mjs",
+      "referencedByPackageScript": true
+    },
+    {
+      "file": "validate-structure.mjs",
+      "referencedByPackageScript": false
+    },
+    {
+      "file": "validate-tokens.mjs",
+      "referencedByPackageScript": true
+    },
+    {
+      "file": "validate-visual-coverage.mjs",
+      "referencedByPackageScript": false
+    }
+  ]
+}

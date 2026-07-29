@@ -1,0 +1,2071 @@
+{
+  "generatedAt": "2026-07-28T07:02:42.245Z",
+  "commit": "01752f1d7b8b606b6900160eebba0888d8def294",
+  "counts": {
+    "mainRegistered": 36,
+    "subpackageRegistered": 28,
+    "totalRegistered": 64,
+    "uniqueRegistered": 64,
+    "diskPages": 64,
+    "visualScenarios": 88,
+    "visualScenarioRoutes": 58,
+    "interactionContracts": 58,
+    "typedRoutes": 58,
+    "routeManifestPages": 58
+  },
+  "registeredPages": [
+    {
+      "route": "pages/login/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": true,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "login",
+      "inRouteManifest": true,
+      "directInboundFiles": [
+        "apps/wechat/miniprogram/features/learning-brain/presentation.ts",
+        "apps/wechat/miniprogram/pages/me/index.ts",
+        "apps/wechat/miniprogram/pages/mock-exam/index.ts",
+        "apps/wechat/miniprogram/pages/notification-settings/index.ts",
+        "apps/wechat/miniprogram/pages/privacy/index.ts",
+        "apps/wechat/miniprogram/pages/private-knowledge/detail/index.ts",
+        "apps/wechat/miniprogram/pages/private-knowledge/index.ts"
+      ],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/pages/ability/index.ts",
+        "apps/wechat/miniprogram/pages/community-contributions/index.ts",
+        "apps/wechat/miniprogram/pages/community-draft/index.ts",
+        "apps/wechat/miniprogram/pages/community-structure/index.ts",
+        "apps/wechat/miniprogram/pages/community-trial/index.ts",
+        "apps/wechat/miniprogram/pages/daily-settlement/index.ts",
+        "apps/wechat/miniprogram/pages/essay-review/index.ts",
+        "apps/wechat/miniprogram/pages/essay-task/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/ability-baseline/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/entry/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/position-preference/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/preparation-experience/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/result/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/study-preference/index.ts",
+        "apps/wechat/miniprogram/pages/plan-basis/index.ts",
+        "apps/wechat/miniprogram/pages/positions/briefing/index.ts",
+        "apps/wechat/miniprogram/pages/positions/compare/index.ts",
+        "apps/wechat/miniprogram/pages/positions/detail/index.ts",
+        "apps/wechat/miniprogram/pages/positions/goal/index.ts",
+        "apps/wechat/miniprogram/pages/positions/index.ts",
+        "apps/wechat/miniprogram/pages/practice/index.ts",
+        "apps/wechat/miniprogram/pages/profile/archive/index.ts",
+        "apps/wechat/miniprogram/pages/profile/qualification/index.ts",
+        "apps/wechat/miniprogram/pages/reflection/index.ts",
+        "apps/wechat/miniprogram/pages/retake/index.ts",
+        "apps/wechat/miniprogram/pages/study-preference/index.ts",
+        "apps/wechat/miniprogram/pages/weekly-plan/index.ts",
+        "apps/wechat/miniprogram/pages/xingce-mastery/index.ts",
+        "apps/wechat/miniprogram/pages/xingce-task-intro/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/features/learning-brain/presentation.ts",
+        "apps/wechat/miniprogram/pages/ability/index.ts",
+        "apps/wechat/miniprogram/pages/community-contributions/index.ts",
+        "apps/wechat/miniprogram/pages/community-draft/index.ts",
+        "apps/wechat/miniprogram/pages/community-structure/index.ts",
+        "apps/wechat/miniprogram/pages/community-trial/index.ts",
+        "apps/wechat/miniprogram/pages/daily-settlement/index.ts",
+        "apps/wechat/miniprogram/pages/essay-review/index.ts",
+        "apps/wechat/miniprogram/pages/essay-task/index.ts",
+        "apps/wechat/miniprogram/pages/me/index.ts",
+        "apps/wechat/miniprogram/pages/mock-exam/index.ts",
+        "apps/wechat/miniprogram/pages/notification-settings/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/ability-baseline/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/entry/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/position-preference/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/preparation-experience/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/result/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/study-preference/index.ts",
+        "apps/wechat/miniprogram/pages/plan-basis/index.ts",
+        "apps/wechat/miniprogram/pages/positions/briefing/index.ts",
+        "apps/wechat/miniprogram/pages/positions/compare/index.ts",
+        "apps/wechat/miniprogram/pages/positions/detail/index.ts",
+        "apps/wechat/miniprogram/pages/positions/goal/index.ts",
+        "apps/wechat/miniprogram/pages/positions/index.ts",
+        "apps/wechat/miniprogram/pages/practice/index.ts",
+        "apps/wechat/miniprogram/pages/privacy/index.ts",
+        "apps/wechat/miniprogram/pages/private-knowledge/detail/index.ts",
+        "apps/wechat/miniprogram/pages/private-knowledge/index.ts",
+        "apps/wechat/miniprogram/pages/profile/archive/index.ts",
+        "apps/wechat/miniprogram/pages/profile/qualification/index.ts",
+        "apps/wechat/miniprogram/pages/reflection/index.ts",
+        "apps/wechat/miniprogram/pages/retake/index.ts",
+        "apps/wechat/miniprogram/pages/study-preference/index.ts",
+        "apps/wechat/miniprogram/pages/weekly-plan/index.ts",
+        "apps/wechat/miniprogram/pages/xingce-mastery/index.ts",
+        "apps/wechat/miniprogram/pages/xingce-task-intro/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 3,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "a01-login-default",
+        "url": "/pages/login/index",
+        "authenticated": false
+      },
+      "requiredParameters": "returnTo 可选",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "1c847a56d8f8fc39c23cb23a6929c9a1f840e09a33e9287ce282c99a1b58aa53"
+    },
+    {
+      "route": "pages/today/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": true,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "today",
+      "inRouteManifest": true,
+      "directInboundFiles": [
+        "apps/wechat/miniprogram/components/workbench-nav/index.ts",
+        "apps/wechat/miniprogram/custom-tab-bar/index.ts",
+        "apps/wechat/miniprogram/pages/mock-exam/index.ts"
+      ],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/features/learning-brain/companion-action.ts",
+        "apps/wechat/miniprogram/features/reporting/report-page.ts",
+        "apps/wechat/miniprogram/pages/ability-module/index.ts",
+        "apps/wechat/miniprogram/pages/anan/index.ts",
+        "apps/wechat/miniprogram/pages/capture-import/index.ts",
+        "apps/wechat/miniprogram/pages/daily-settlement/index.ts",
+        "apps/wechat/miniprogram/pages/day-adjustment/index.ts",
+        "apps/wechat/miniprogram/pages/error-pattern/index.ts",
+        "apps/wechat/miniprogram/pages/essay-review/index.ts",
+        "apps/wechat/miniprogram/pages/essay-rewrite/index.ts",
+        "apps/wechat/miniprogram/pages/external-report/index.ts",
+        "apps/wechat/miniprogram/pages/positions/briefing/index.ts",
+        "apps/wechat/miniprogram/pages/positions/goal/index.ts",
+        "apps/wechat/miniprogram/pages/positions/index.ts",
+        "apps/wechat/miniprogram/pages/practice/index.ts",
+        "apps/wechat/miniprogram/pages/reflection/index.ts",
+        "apps/wechat/miniprogram/pages/retake/index.ts",
+        "apps/wechat/miniprogram/pages/today/index.ts",
+        "apps/wechat/miniprogram/pages/weekly-plan/index.ts",
+        "apps/wechat/miniprogram/pages/xingce-mastery/index.ts",
+        "apps/wechat/miniprogram/pages/xingce-task-intro/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/components/workbench-nav/index.ts",
+        "apps/wechat/miniprogram/custom-tab-bar/index.ts",
+        "apps/wechat/miniprogram/features/learning-brain/companion-action.ts",
+        "apps/wechat/miniprogram/features/reporting/report-page.ts",
+        "apps/wechat/miniprogram/pages/ability-module/index.ts",
+        "apps/wechat/miniprogram/pages/anan/index.ts",
+        "apps/wechat/miniprogram/pages/capture-import/index.ts",
+        "apps/wechat/miniprogram/pages/daily-settlement/index.ts",
+        "apps/wechat/miniprogram/pages/day-adjustment/index.ts",
+        "apps/wechat/miniprogram/pages/error-pattern/index.ts",
+        "apps/wechat/miniprogram/pages/essay-review/index.ts",
+        "apps/wechat/miniprogram/pages/essay-rewrite/index.ts",
+        "apps/wechat/miniprogram/pages/external-report/index.ts",
+        "apps/wechat/miniprogram/pages/mock-exam/index.ts",
+        "apps/wechat/miniprogram/pages/positions/briefing/index.ts",
+        "apps/wechat/miniprogram/pages/positions/goal/index.ts",
+        "apps/wechat/miniprogram/pages/positions/index.ts",
+        "apps/wechat/miniprogram/pages/practice/index.ts",
+        "apps/wechat/miniprogram/pages/reflection/index.ts",
+        "apps/wechat/miniprogram/pages/retake/index.ts",
+        "apps/wechat/miniprogram/pages/weekly-plan/index.ts",
+        "apps/wechat/miniprogram/pages/xingce-mastery/index.ts",
+        "apps/wechat/miniprogram/pages/xingce-task-intro/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "b01-today-ready",
+        "url": "/pages/today/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "e2b2339f9c56624a8775d70a8d4242e9d229407cad93bbde7b0fb1df5fcfa055"
+    },
+    {
+      "route": "pages/ability/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": true,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "ability",
+      "inRouteManifest": true,
+      "directInboundFiles": [
+        "apps/wechat/miniprogram/custom-tab-bar/index.ts"
+      ],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/pages/external-report/index.ts",
+        "apps/wechat/miniprogram/pages/me/index.ts",
+        "apps/wechat/miniprogram/pages/profile/archive/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/custom-tab-bar/index.ts",
+        "apps/wechat/miniprogram/pages/external-report/index.ts",
+        "apps/wechat/miniprogram/pages/me/index.ts",
+        "apps/wechat/miniprogram/pages/profile/archive/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "e01-learning-profile-ready",
+        "url": "/pages/ability/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "ee9b2c49433183deac6acc1940cff45110889112b53bfebff4ee8ed3b10e0c3f"
+    },
+    {
+      "route": "pages/anan/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": true,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "anan",
+      "inRouteManifest": true,
+      "directInboundFiles": [
+        "apps/wechat/miniprogram/custom-tab-bar/index.ts"
+      ],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/features/reporting/report-page.ts",
+        "apps/wechat/miniprogram/pages/ability/index.ts",
+        "apps/wechat/miniprogram/pages/capture-import/index.ts",
+        "apps/wechat/miniprogram/pages/daily-settlement/index.ts",
+        "apps/wechat/miniprogram/pages/error-pattern/index.ts",
+        "apps/wechat/miniprogram/pages/essay-review/index.ts",
+        "apps/wechat/miniprogram/pages/essay-task/index.ts",
+        "apps/wechat/miniprogram/pages/me/index.ts",
+        "apps/wechat/miniprogram/pages/plan-basis/index.ts",
+        "apps/wechat/miniprogram/pages/positions/detail/index.ts",
+        "apps/wechat/miniprogram/pages/reflection/index.ts",
+        "apps/wechat/miniprogram/pages/weekly-plan/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/custom-tab-bar/index.ts",
+        "apps/wechat/miniprogram/features/reporting/report-page.ts",
+        "apps/wechat/miniprogram/pages/ability/index.ts",
+        "apps/wechat/miniprogram/pages/capture-import/index.ts",
+        "apps/wechat/miniprogram/pages/daily-settlement/index.ts",
+        "apps/wechat/miniprogram/pages/error-pattern/index.ts",
+        "apps/wechat/miniprogram/pages/essay-review/index.ts",
+        "apps/wechat/miniprogram/pages/essay-task/index.ts",
+        "apps/wechat/miniprogram/pages/me/index.ts",
+        "apps/wechat/miniprogram/pages/plan-basis/index.ts",
+        "apps/wechat/miniprogram/pages/positions/detail/index.ts",
+        "apps/wechat/miniprogram/pages/reflection/index.ts",
+        "apps/wechat/miniprogram/pages/weekly-plan/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "e04-companion-grounded-answer",
+        "url": "/pages/anan/index",
+        "authenticated": true
+      },
+      "requiredParameters": "taskId/track/taskType/title 可选上下文",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "27dce7deb8eb19cbcc6db1baeb19dec30ca757f79f97596e9afec305461f8a1a"
+    },
+    {
+      "route": "pages/me/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": true,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "me",
+      "inRouteManifest": true,
+      "directInboundFiles": [
+        "apps/wechat/miniprogram/custom-tab-bar/index.ts"
+      ],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/pages/profile/archive/index.ts",
+        "apps/wechat/miniprogram/pages/study-preference/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/custom-tab-bar/index.ts",
+        "apps/wechat/miniprogram/pages/profile/archive/index.ts",
+        "apps/wechat/miniprogram/pages/study-preference/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "f09-profile-ready",
+        "url": "/pages/me/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "b4385ae44140f61897233df2784e2c70ad5388ff73d9ce211135aab38cdd0668"
+    },
+    {
+      "route": "pages/daily-settlement/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "dailySettlement",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/today/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/today/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "b04-daily-settlement-ready",
+        "url": "/pages/daily-settlement/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "be4cc7ed9123ecc477bb2cabbddc4eaa9fde8f852b3af940adc757ef6f8108be"
+    },
+    {
+      "route": "pages/essay-material/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "essayMaterial",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/essay-task/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/essay-task/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "f10-essay-material-map",
+        "url": "/pages/essay-material/index?taskVersionId=visual-essay-task",
+        "authenticated": true
+      },
+      "requiredParameters": "taskVersionId=visual-essay-task",
+      "missingParameterExpectation": "应就地提示",
+      "implementationFingerprint": "d3391846805bef02d41753e81905a298ada6cc29ede5704278f7024715731994"
+    },
+    {
+      "route": "pages/mock-report/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "mockReport",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/mock-exam/index.ts",
+        "apps/wechat/miniprogram/pages/report-center/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/mock-exam/index.ts",
+        "apps/wechat/miniprogram/pages/report-center/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "f03-mock-report-ready",
+        "url": "/pages/mock-report/index?sessionId=visual-mock-session-v1",
+        "authenticated": true
+      },
+      "requiredParameters": "sessionId 可选（默认 current）",
+      "missingParameterExpectation": "合法/默认 current",
+      "implementationFingerprint": "52e846719f967af506188f485efa95d5776457d6d3bebe52512786d323c0a5ab"
+    },
+    {
+      "route": "pages/retake/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "retake",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [],
+      "inboundFiles": [],
+      "orphanCandidate": true,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "a08-retake-workspace-ready",
+        "url": "/pages/retake/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "aaaedabcf35e8bacdde4467764a84c0ea91f86151730d3aa9b79e35d4f971253"
+    },
+    {
+      "route": "pages/plan-history/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "planHistory",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/me/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/me/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "e05-plan-history-ready",
+        "url": "/pages/plan-history/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "4d91b90d11e154caf96a2f85659f5b4a86f062f802ff1db477589e285192c568"
+    },
+    {
+      "route": "pages/study-preference/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "studyPreference",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/me/index.ts",
+        "apps/wechat/miniprogram/pages/profile/archive/index.ts",
+        "apps/wechat/miniprogram/pages/today/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/me/index.ts",
+        "apps/wechat/miniprogram/pages/profile/archive/index.ts",
+        "apps/wechat/miniprogram/pages/today/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "f15-study-preference-settings-ready",
+        "url": "/pages/study-preference/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "92583f27ea8ca3aa94ca68a0fd48269c98d8118c6523774d8623cb26b0098336"
+    },
+    {
+      "route": "pages/plan-basis/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "planBasis",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/ability/index.ts",
+        "apps/wechat/miniprogram/pages/today/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/ability/index.ts",
+        "apps/wechat/miniprogram/pages/today/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "b02-plan-basis-ready",
+        "url": "/pages/plan-basis/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "7b9d3af13b595f8f0b9147e3a94423b80a8b4b80cab31b6f5eedd85808fe4006"
+    },
+    {
+      "route": "pages/weekly-plan/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "weeklyPlan",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/anan/index.ts",
+        "apps/wechat/miniprogram/pages/daily-settlement/index.ts",
+        "apps/wechat/miniprogram/pages/plan-history/index.ts",
+        "apps/wechat/miniprogram/pages/today/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/anan/index.ts",
+        "apps/wechat/miniprogram/pages/daily-settlement/index.ts",
+        "apps/wechat/miniprogram/pages/plan-history/index.ts",
+        "apps/wechat/miniprogram/pages/today/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "b05-weekly-plan-ready",
+        "url": "/pages/weekly-plan/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "19296e837125e9b5bc0e73704e98e799787787dc04d1ad7e29ef1ea4efbea937"
+    },
+    {
+      "route": "pages/membership/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "membership",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [],
+      "inboundFiles": [],
+      "orphanCandidate": true,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "g01-open-access-ready",
+        "url": "/pages/membership/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "c007d1156ad55de4e8dedf6a8d043b0e260887af7e02488760a93c64db91e808"
+    },
+    {
+      "route": "pages/privacy/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "privacy",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/me/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/me/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "g02-privacy-ready",
+        "url": "/pages/privacy/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "253deb917a43a87a4d10a543016f55c5894c2dbcc4c2a56a53e85bbf6412b4aa"
+    },
+    {
+      "route": "pages/notification-settings/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "notificationSettings",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/me/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/me/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "h05-coach-notification-settings-ready",
+        "url": "/pages/notification-settings/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "d867aca258dffa5abd98ae03818fa439b1e5ce1df66c243a85f70bcb0a21da39"
+    },
+    {
+      "route": "pages/support/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "support",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [],
+      "inboundFiles": [],
+      "orphanCandidate": true,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "f10-support-placeholder",
+        "url": "/pages/support/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "f193677413acb6f01c97bbc19eae22f03d212425b74c878a1443431e1cadded9"
+    },
+    {
+      "route": "pages/xingce-task-intro/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "xingceTaskIntro",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/features/xingce/mastery/contracts.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/features/xingce/mastery/contracts.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "c01-xingce-briefing-ready",
+        "url": "/pages/xingce-task-intro/index?mode=verification&planTaskId=visual-plan-task-001",
+        "authenticated": true
+      },
+      "requiredParameters": "mode=verification&planTaskId=visual-plan-task-001",
+      "missingParameterExpectation": "应拒绝猜测任务",
+      "implementationFingerprint": "0c0cc3c3fb02a8e282e9c5479cd9d5bdd8ed6a5e364644c61935cef1b68be3bb"
+    },
+    {
+      "route": "pages/report-center/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "reportCenter",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/me/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/me/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "f01-report-center-ready",
+        "url": "/pages/report-center/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "221a65dd3a499c632ff459fce222a93738cd371935c287cb3060ca26d3d9c65c"
+    },
+    {
+      "route": "pages/external-report/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "externalReport",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/report-center/index.ts",
+        "apps/wechat/miniprogram/pages/retake/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/report-center/index.ts",
+        "apps/wechat/miniprogram/pages/retake/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "f04-external-score-final-review",
+        "url": "/pages/external-report/index",
+        "authenticated": false
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "3e89a7489c628d61f9d9a9a25d8c1feb7380459a8b81213f5f439e2425ee6159"
+    },
+    {
+      "route": "pages/report-overview/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "reportOverview",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [],
+      "inboundFiles": [],
+      "orphanCandidate": true,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "f02-report-overview-ready",
+        "url": "/pages/report-overview/index?kind=weekly",
+        "authenticated": true
+      },
+      "requiredParameters": "kind=weekly 可选",
+      "missingParameterExpectation": "合法/默认周期",
+      "implementationFingerprint": "e7cf5666789c889b0e892a0460bcec88a55e3d6b627c1b4904c250a61b6a70a0"
+    },
+    {
+      "route": "pages/global-report/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "globalReport",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [],
+      "inboundFiles": [],
+      "orphanCandidate": true,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "f13-global-report-ready",
+        "url": "/pages/global-report/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "c11a5f45922ce572ef7190bf3f33193a8366e4e44adcf6cce95313eebb1cab18"
+    },
+    {
+      "route": "pages/xingce-mastery/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "xingceMastery",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/anan/index.ts",
+        "apps/wechat/miniprogram/pages/today/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/anan/index.ts",
+        "apps/wechat/miniprogram/pages/today/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "c08-xingce-mastery-queue",
+        "url": "/pages/xingce-mastery/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "6404bcbd361d5b2ef3f06c56407d2fbd245f3324e33f96cab6c5dca03d7dfdda"
+    },
+    {
+      "route": "pages/essay-compose/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "essayCompose",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/essay-task/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/essay-task/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "f11-essay-compose-workbench",
+        "url": "/pages/essay-compose/index?taskVersionId=visual-essay-task&planTaskId=visual-plan",
+        "authenticated": true
+      },
+      "requiredParameters": "taskVersionId=visual-essay-task&planTaskId=visual-plan",
+      "missingParameterExpectation": "应就地提示",
+      "implementationFingerprint": "0af39abebc7678ff1593c1bd0f025a49bd404edf18d0f26de853348fa559e656"
+    },
+    {
+      "route": "pages/essay-review/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "essayReview",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/essay-task/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/essay-task/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "f06-essay-review-evidence",
+        "url": "/pages/essay-review/index?taskVersionId=visual-essay-task",
+        "authenticated": true
+      },
+      "requiredParameters": "taskVersionId=visual-essay-task（reviewVersionId 可选）",
+      "missingParameterExpectation": "应就地提示",
+      "implementationFingerprint": "0924bbbf8ea4db90f6f45cee80c81cf00e1e04b77debb0b9cb36805b817e4f1e"
+    },
+    {
+      "route": "pages/essay-rewrite/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "essayRewrite",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/essay-task/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/essay-task/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "f07-essay-rewrite-comparison",
+        "url": "/pages/essay-rewrite/index?taskVersionId=visual-essay-task",
+        "authenticated": true
+      },
+      "requiredParameters": "taskVersionId=visual-essay-task",
+      "missingParameterExpectation": "应就地提示",
+      "implementationFingerprint": "fbfa5b145ea06b9d0043e7783ea0414d3a9ea7f375764c48c51758c992c49a06"
+    },
+    {
+      "route": "pages/essay-evidence/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "essayEvidence",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/essay-task/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/essay-task/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "f12-essay-grounding-evidence",
+        "url": "/pages/essay-evidence/index?taskVersionId=visual-essay-task",
+        "authenticated": true
+      },
+      "requiredParameters": "taskVersionId=visual-essay-task（reviewVersionId 可选）",
+      "missingParameterExpectation": "应就地提示",
+      "implementationFingerprint": "d16038a7846894b7ba030dfe268d3fd18491f641caaaada3a3f47029ac6dd1fb"
+    },
+    {
+      "route": "pages/learning-packets/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "learningPackets",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/pages/answer-ingestion/index.ts",
+        "apps/wechat/miniprogram/pages/me/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/pages/answer-ingestion/index.ts",
+        "apps/wechat/miniprogram/pages/me/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "h02-learning-packets-ready",
+        "url": "/pages/learning-packets/index",
+        "authenticated": true
+      },
+      "requiredParameters": "contentVersionId 可选",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "0b26034867e68c15040b7630bdf6c0d990fc604cb4ccb383fbc94834e63f1da0"
+    },
+    {
+      "route": "pages/answer-ingestion/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "answerIngestion",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "h03-answer-ingestion-draft",
+        "url": "/pages/answer-ingestion/index?packetVersionId=packet-v3",
+        "authenticated": true
+      },
+      "requiredParameters": "packetVersionId=packet-v3（或 ingestionId，二选一）",
+      "missingParameterExpectation": "需运行验证",
+      "implementationFingerprint": "2d75122efe5faff35585dd8325fcc555b7548bfe7e29349e4e116e0f8de25997"
+    },
+    {
+      "route": "pages/community-draft/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "communityDraft",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [],
+      "inboundFiles": [],
+      "orphanCandidate": true,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "c21-community-draft-private",
+        "url": "/pages/community-draft/index",
+        "authenticated": true
+      },
+      "requiredParameters": "reviewId/track/taskVersionId 可选",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "82a51ae540c635db1736162b7caa012edc39b668f89a701b8719980f4bba13ca"
+    },
+    {
+      "route": "pages/community-structure/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "communityStructure",
+      "inRouteManifest": true,
+      "directInboundFiles": [
+        "apps/wechat/miniprogram/pages/community-draft/index.ts"
+      ],
+      "typedInboundFiles": [],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/community-draft/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "c22-community-structure-confirm",
+        "url": "/pages/community-structure/index?cardId=visual-community-card",
+        "authenticated": true
+      },
+      "requiredParameters": "cardId=visual-community-card",
+      "missingParameterExpectation": "应显示地址不完整",
+      "implementationFingerprint": "86bdb859bc37bef78c0ddeb6972a9cd1df939d28118ba39f4319b868b2940f74"
+    },
+    {
+      "route": "pages/community-trial/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "communityTrial",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [],
+      "inboundFiles": [],
+      "orphanCandidate": true,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "c23-community-independent-trial",
+        "url": "/pages/community-trial/index?track=xingce&applicability=%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90",
+        "authenticated": true
+      },
+      "requiredParameters": "track=xingce&applicability=资料分析",
+      "missingParameterExpectation": "需运行验证",
+      "implementationFingerprint": "e90940b80973b57c00af2e1919ef40017932c626622e5e3d46e7bd3a4547b0d2"
+    },
+    {
+      "route": "pages/community-contributions/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "communityContributions",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [],
+      "inboundFiles": [],
+      "orphanCandidate": true,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "c24-community-contributions-ledger",
+        "url": "/pages/community-contributions/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "d309cf1c282b2c13296bc92541b8b2e6c9d99677dd14f86a9bb2bcea00200d77"
+    },
+    {
+      "route": "pages/day-adjustment/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "dayAdjustment",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/features/learning-brain/companion-action.ts",
+        "apps/wechat/miniprogram/pages/anan/index.ts",
+        "apps/wechat/miniprogram/pages/plan-basis/index.ts",
+        "apps/wechat/miniprogram/pages/today/index.ts",
+        "apps/wechat/miniprogram/pages/weekly-plan/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/features/learning-brain/companion-action.ts",
+        "apps/wechat/miniprogram/pages/anan/index.ts",
+        "apps/wechat/miniprogram/pages/plan-basis/index.ts",
+        "apps/wechat/miniprogram/pages/today/index.ts",
+        "apps/wechat/miniprogram/pages/weekly-plan/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "b03-day-adjustment-ready",
+        "url": "/pages/day-adjustment/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "f3f2176e05343be2703a2c08647dabc0d7a5d9dadece02d23798c5b232315055"
+    },
+    {
+      "route": "pages/ability-module/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "abilityModule",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/ability/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/ability/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "e02-ability-module-ready",
+        "url": "/pages/ability-module/index?track=xingce&moduleKey=%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90",
+        "authenticated": true
+      },
+      "requiredParameters": "track=xingce&moduleKey=资料分析",
+      "missingParameterExpectation": "应就地提示",
+      "implementationFingerprint": "2ffc1e2c1f11cb86f85b3887621d2a64bae693e07a08e4785ae98b64c0325038"
+    },
+    {
+      "route": "pages/error-pattern/index",
+      "packageName": "main",
+      "packageRoot": "",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "errorPattern",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/ability/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/ability/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "e03-error-pattern-ready",
+        "url": "/pages/error-pattern/index?patternId=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "authenticated": true
+      },
+      "requiredParameters": "patternId=<64 hex>",
+      "missingParameterExpectation": "应就地提示",
+      "implementationFingerprint": "ae21ac05a81fa2d6355794358eebc4aa20b80c01b656268b175a83b0ed0b305b"
+    },
+    {
+      "route": "packages/anan-thinking/asset-entry/index",
+      "packageName": "anan-thinking",
+      "packageRoot": "packages/anan-thinking",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "",
+      "inRouteManifest": false,
+      "directInboundFiles": [],
+      "typedInboundFiles": [],
+      "inboundFiles": [],
+      "orphanCandidate": true,
+      "visualScenarioCount": 0,
+      "interactionContract": false,
+      "representativeScenario": null,
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "92580c52271523df4c1ed0149cb4df9556c299a49390d40718c4923ebf00c745"
+    },
+    {
+      "route": "packages/anan-reminder/asset-entry/index",
+      "packageName": "anan-reminder",
+      "packageRoot": "packages/anan-reminder",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "",
+      "inRouteManifest": false,
+      "directInboundFiles": [],
+      "typedInboundFiles": [],
+      "inboundFiles": [],
+      "orphanCandidate": true,
+      "visualScenarioCount": 0,
+      "interactionContract": false,
+      "representativeScenario": null,
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "5880824f58eec70b2b9b2b65feacd7126510e28f1497aded237bf4f18c5bdafc"
+    },
+    {
+      "route": "packages/anan-encouragement/asset-entry/index",
+      "packageName": "anan-encouragement",
+      "packageRoot": "packages/anan-encouragement",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "",
+      "inRouteManifest": false,
+      "directInboundFiles": [],
+      "typedInboundFiles": [],
+      "inboundFiles": [],
+      "orphanCandidate": true,
+      "visualScenarioCount": 0,
+      "interactionContract": false,
+      "representativeScenario": null,
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "80cf9aea1cad0fb5ff26228ebf5416b9b2b9625a19ddcf3f94a5a1750f42fa3a"
+    },
+    {
+      "route": "packages/anan-rest/asset-entry/index",
+      "packageName": "anan-rest",
+      "packageRoot": "packages/anan-rest",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "",
+      "inRouteManifest": false,
+      "directInboundFiles": [],
+      "typedInboundFiles": [],
+      "inboundFiles": [],
+      "orphanCandidate": true,
+      "visualScenarioCount": 0,
+      "interactionContract": false,
+      "representativeScenario": null,
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "176607b1cd0cf869468b2c7ebde376b5efd81fdecf3f97a1bb7ae0ad2b19fcac"
+    },
+    {
+      "route": "packages/anan-deprioritize/asset-entry/index",
+      "packageName": "anan-deprioritize",
+      "packageRoot": "packages/anan-deprioritize",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "",
+      "inRouteManifest": false,
+      "directInboundFiles": [],
+      "typedInboundFiles": [],
+      "inboundFiles": [],
+      "orphanCandidate": true,
+      "visualScenarioCount": 0,
+      "interactionContract": false,
+      "representativeScenario": null,
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "c25818d2cbb6e64d55a457b29a0d095cdc985eecbfca540770c7708f8bc986c2"
+    },
+    {
+      "route": "packages/anan-growth/asset-entry/index",
+      "packageName": "anan-growth",
+      "packageRoot": "packages/anan-growth",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "",
+      "inRouteManifest": false,
+      "directInboundFiles": [],
+      "typedInboundFiles": [],
+      "inboundFiles": [],
+      "orphanCandidate": true,
+      "visualScenarioCount": 0,
+      "interactionContract": false,
+      "representativeScenario": null,
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "63fea48ca4c36cc0e23fa7482f13b4e2491faee45266e4b9559124ca2684063b"
+    },
+    {
+      "route": "pages/capture-import/index",
+      "packageName": "capture-import",
+      "packageRoot": "pages/capture-import",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "captureImport",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/features/learning-brain/companion-action.ts",
+        "apps/wechat/miniprogram/pages/learning-packets/index.ts",
+        "apps/wechat/miniprogram/pages/today/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/features/learning-brain/companion-action.ts",
+        "apps/wechat/miniprogram/pages/learning-packets/index.ts",
+        "apps/wechat/miniprogram/pages/today/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 11,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "h01-capture-search-idle",
+        "url": "/pages/capture-import/index",
+        "authenticated": true
+      },
+      "requiredParameters": "importId/channel 可选",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "5c5df048a60ccfb715d7645ce28d917dc971ef815d54af5d855394d1bdd4cc2a"
+    },
+    {
+      "route": "pages/private-knowledge/index",
+      "packageName": "private-knowledge",
+      "packageRoot": "pages/private-knowledge",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "privateKnowledge",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/me/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/me/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 3,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "h04-private-knowledge-ready",
+        "url": "/pages/private-knowledge/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "9ff53cd5c02a59e208015f8c1a8f90dc3f225fbe8506d1e64b95e784b738a98e"
+    },
+    {
+      "route": "pages/private-knowledge/detail/index",
+      "packageName": "private-knowledge",
+      "packageRoot": "pages/private-knowledge",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "privateKnowledgeDetail",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/private-knowledge/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/private-knowledge/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "h07-private-knowledge-detail-ready",
+        "url": "/pages/private-knowledge/detail/index?id=source-1",
+        "authenticated": true
+      },
+      "requiredParameters": "id=source-1",
+      "missingParameterExpectation": "当前实现 navigateBack",
+      "implementationFingerprint": "b1c8c41943d985046fd238ebdb9d0098d644127672834fae911920e6bb0541ce"
+    },
+    {
+      "route": "pages/onboarding/index",
+      "packageName": "onboarding",
+      "packageRoot": "pages/onboarding",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "onboarding",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/onboarding/position-preference/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/onboarding/position-preference/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 2,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "a04-qualification-review",
+        "url": "/pages/onboarding/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "0eae2ae5e08417d2c6171078d5f067c35c6c09fa9cb6bcb7b60dd4943cd7b977"
+    },
+    {
+      "route": "pages/onboarding/entry/index",
+      "packageName": "onboarding",
+      "packageRoot": "pages/onboarding",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "onboardingEntry",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/onboarding/preparation-experience/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/onboarding/preparation-experience/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "a09-onboarding-entry",
+        "url": "/pages/onboarding/entry/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "3945e940e59bf630d67215bd743b58afb643f6c668361f545cfecb32f0096c2f"
+    },
+    {
+      "route": "pages/onboarding/preparation-experience/index",
+      "packageName": "onboarding",
+      "packageRoot": "pages/onboarding",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "onboardingPreparationExperience",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/onboarding/entry/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/index.ts",
+        "apps/wechat/miniprogram/pages/profile/archive/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/onboarding/entry/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/index.ts",
+        "apps/wechat/miniprogram/pages/profile/archive/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "a03-preparation-experience-ready",
+        "url": "/pages/onboarding/preparation-experience/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "e5014ee7a9b96e6e5151a87f6c1757e5738f3e6d10a146a7814983ba28e6f1a1"
+    },
+    {
+      "route": "pages/onboarding/position-preference/index",
+      "packageName": "onboarding",
+      "packageRoot": "pages/onboarding",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "onboardingPositionPreference",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/onboarding/study-preference/index.ts",
+        "apps/wechat/miniprogram/pages/profile/archive/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/onboarding/study-preference/index.ts",
+        "apps/wechat/miniprogram/pages/profile/archive/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "a10-position-preference-ready",
+        "url": "/pages/onboarding/position-preference/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "8a5ad55a96aa721ec69b7b1f69aafa98e400891e3c71efdc255cd0468a893d68"
+    },
+    {
+      "route": "pages/onboarding/study-preference/index",
+      "packageName": "onboarding",
+      "packageRoot": "pages/onboarding",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "onboardingStudyPreference",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/onboarding/ability-baseline/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/position-preference/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/onboarding/ability-baseline/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/position-preference/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "a06-study-preference-ready",
+        "url": "/pages/onboarding/study-preference/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "a9b36a28311e7f1ab40a293eba5e4bde804ec5c7641173b525f7538d531934d2"
+    },
+    {
+      "route": "pages/onboarding/ability-baseline/index",
+      "packageName": "onboarding",
+      "packageRoot": "pages/onboarding",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "onboardingAbilityBaseline",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [],
+      "inboundFiles": [],
+      "orphanCandidate": true,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "a11-ability-baseline-ready",
+        "url": "/pages/onboarding/ability-baseline/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "b51fcafdfa5116586793611eb2177b2e4fa4c0152a910dba2170dd8fc5ed7ced"
+    },
+    {
+      "route": "pages/onboarding/result/index",
+      "packageName": "onboarding",
+      "packageRoot": "pages/onboarding",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "onboardingResult",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/onboarding/ability-baseline/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/onboarding/ability-baseline/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "a07-onboarding-result-ready",
+        "url": "/pages/onboarding/result/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "f18326a63c1d888622b6f80ff2bee2a64c3b963901c1addd92dc4e18cbfce3b1"
+    },
+    {
+      "route": "pages/positions/index",
+      "packageName": "positions",
+      "packageRoot": "pages/positions",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "positions",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/features/learning-brain/companion-action.ts",
+        "apps/wechat/miniprogram/pages/anan/index.ts",
+        "apps/wechat/miniprogram/pages/me/index.ts",
+        "apps/wechat/miniprogram/pages/positions/compare/index.ts",
+        "apps/wechat/miniprogram/pages/positions/detail/index.ts",
+        "apps/wechat/miniprogram/pages/positions/goal/index.ts",
+        "apps/wechat/miniprogram/pages/positions/search/index.ts",
+        "apps/wechat/miniprogram/pages/profile/qualification/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/features/learning-brain/companion-action.ts",
+        "apps/wechat/miniprogram/pages/anan/index.ts",
+        "apps/wechat/miniprogram/pages/me/index.ts",
+        "apps/wechat/miniprogram/pages/positions/compare/index.ts",
+        "apps/wechat/miniprogram/pages/positions/detail/index.ts",
+        "apps/wechat/miniprogram/pages/positions/goal/index.ts",
+        "apps/wechat/miniprogram/pages/positions/search/index.ts",
+        "apps/wechat/miniprogram/pages/profile/qualification/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 2,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "d01-position-workspace-needs-profile",
+        "url": "/pages/positions/index",
+        "authenticated": true
+      },
+      "requiredParameters": "score=1 可选（打开成绩单）",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "5ab6a4de94761af6a245a82f619dc8e63929afcbb644b7d8a357a55a129bfebc"
+    },
+    {
+      "route": "pages/positions/search/index",
+      "packageName": "positions",
+      "packageRoot": "pages/positions",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "positionSearch",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/pages/positions/compare/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/pages/positions/compare/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "d02-position-search-ready",
+        "url": "/pages/positions/search/index?q=%E7%A8%8E%E5%8A%A1",
+        "authenticated": true
+      },
+      "requiredParameters": "q/examYear/region/city 可选筛选",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "7a18678e5d41f5491622288460935437935a5ed435863b82a1cd218992442d30"
+    },
+    {
+      "route": "pages/positions/detail/index",
+      "packageName": "positions",
+      "packageRoot": "pages/positions",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "positionDetail",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "d03-position-detail-ready",
+        "url": "/pages/positions/detail/index?positionId=position-1",
+        "authenticated": true
+      },
+      "requiredParameters": "positionId=position-1",
+      "missingParameterExpectation": "应就地提示",
+      "implementationFingerprint": "3b1d73a36869bbf8316740f3aa1133c25580c96d59998990ccf6746076c4c6a9"
+    },
+    {
+      "route": "pages/positions/compare/index",
+      "packageName": "positions",
+      "packageRoot": "pages/positions",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "positionCompare",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "d04-position-compare-ready",
+        "url": "/pages/positions/compare/index?ids=position-1%2Cposition-2",
+        "authenticated": true
+      },
+      "requiredParameters": "ids=position-1,position-2",
+      "missingParameterExpectation": "应就地提示",
+      "implementationFingerprint": "30c7baa5a36ba6529b758d3078dbfebb07bb29a39e505fd90746200f35277310"
+    },
+    {
+      "route": "pages/positions/goal/index",
+      "packageName": "positions",
+      "packageRoot": "pages/positions",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "positionGoal",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 2,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "d05-position-goal-preview",
+        "url": "/pages/positions/goal/index?positionId=position-1",
+        "authenticated": true
+      },
+      "requiredParameters": "positionId=position-1",
+      "missingParameterExpectation": "应就地提示",
+      "implementationFingerprint": "0c34a72aac83bca9f3171eb043443ad418dcc94cc5dc0412a0e10dd71badb403"
+    },
+    {
+      "route": "pages/positions/briefing/index",
+      "packageName": "positions",
+      "packageRoot": "pages/positions",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "positionBriefing",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "d06-position-briefing-ready",
+        "url": "/pages/positions/briefing/index?positionId=position-1",
+        "authenticated": true
+      },
+      "requiredParameters": "positionId=position-1",
+      "missingParameterExpectation": "应就地提示",
+      "implementationFingerprint": "357f94bf047b719543f788c348b825b171d11ea202c87333f2ad76a29b03be78"
+    },
+    {
+      "route": "pages/profile/qualification/index",
+      "packageName": "profile",
+      "packageRoot": "pages/profile",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "qualificationProfile",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/positions/compare/index.ts",
+        "apps/wechat/miniprogram/pages/positions/detail/index.ts",
+        "apps/wechat/miniprogram/pages/positions/goal/index.ts",
+        "apps/wechat/miniprogram/pages/positions/index.ts",
+        "apps/wechat/miniprogram/pages/positions/search/index.ts",
+        "apps/wechat/miniprogram/pages/profile/archive/index.ts",
+        "apps/wechat/miniprogram/pages/today/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/positions/compare/index.ts",
+        "apps/wechat/miniprogram/pages/positions/detail/index.ts",
+        "apps/wechat/miniprogram/pages/positions/goal/index.ts",
+        "apps/wechat/miniprogram/pages/positions/index.ts",
+        "apps/wechat/miniprogram/pages/positions/search/index.ts",
+        "apps/wechat/miniprogram/pages/profile/archive/index.ts",
+        "apps/wechat/miniprogram/pages/today/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "f14-qualification-profile-review",
+        "url": "/pages/profile/qualification/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "2baf38bbad6d81bcdefe59902f26f06a80a095910690424aa1e221d67df78e2a"
+    },
+    {
+      "route": "pages/profile/archive/index",
+      "packageName": "profile",
+      "packageRoot": "pages/profile",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "profileArchive",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/me/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/ability-baseline/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/entry/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/position-preference/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/preparation-experience/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/result/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/study-preference/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/me/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/ability-baseline/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/entry/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/position-preference/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/preparation-experience/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/result/index.ts",
+        "apps/wechat/miniprogram/pages/onboarding/study-preference/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 1,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "f16-profile-archive-ready",
+        "url": "/pages/profile/archive/index",
+        "authenticated": true
+      },
+      "requiredParameters": "无必需参数",
+      "missingParameterExpectation": "合法",
+      "implementationFingerprint": "b3e54a46af283d5e5805eb38607501f28d0dded1af710cfa42aa8dc0757ee17c"
+    },
+    {
+      "route": "pages/practice/index",
+      "packageName": "practice",
+      "packageRoot": "pages/practice",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "practice",
+      "inRouteManifest": true,
+      "directInboundFiles": [
+        "apps/wechat/miniprogram/features/xingce/briefing/contracts.ts",
+        "apps/wechat/miniprogram/features/xingce/real_attempt/contracts.ts"
+      ],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/practice/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/features/xingce/briefing/contracts.ts",
+        "apps/wechat/miniprogram/features/xingce/real_attempt/contracts.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 7,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "c02-xingce-answering-toolbar",
+        "url": "/pages/practice/index?mode=targeted&planTaskId=visual-plan-task-001",
+        "authenticated": true
+      },
+      "requiredParameters": "mode=targeted&planTaskId=visual-plan-task-001",
+      "missingParameterExpectation": "应显示地址不完整",
+      "implementationFingerprint": "6eeaa6346214a46e8ebf117f07a3756c5d2a8dcc6c2119b281d100507a6e1aff"
+    },
+    {
+      "route": "pages/mock-exam/index",
+      "packageName": "mock-exam",
+      "packageRoot": "pages/mock-exam",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "mockExam",
+      "inRouteManifest": true,
+      "directInboundFiles": [
+        "apps/wechat/miniprogram/pages/mock-exam/index.ts"
+      ],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/pages/report-center/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/pages/report-center/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 2,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "c06-mock-exam-answering",
+        "url": "/pages/mock-exam/index?sessionId=visual-mock-session-v1",
+        "authenticated": true
+      },
+      "requiredParameters": "sessionId=visual-mock-session-v1（或 planTaskId，二选一）",
+      "missingParameterExpectation": "允许创建/恢复默认模考，需运行验证",
+      "implementationFingerprint": "208020f5920cd5446a8e86b409060156405f4673227948ba01349a133421e556"
+    },
+    {
+      "route": "pages/reflection/index",
+      "packageName": "reflection",
+      "packageRoot": "pages/reflection",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "reflection",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/features/learning-brain/companion-action.ts",
+        "apps/wechat/miniprogram/features/xingce/mastery/contracts.ts",
+        "apps/wechat/miniprogram/pages/practice/index.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/features/learning-brain/companion-action.ts",
+        "apps/wechat/miniprogram/features/xingce/mastery/contracts.ts",
+        "apps/wechat/miniprogram/pages/practice/index.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 6,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "c03-xingce-factored-result",
+        "url": "/pages/reflection/index?sessionId=visual-session-001&reviewId=visual-review-001",
+        "authenticated": true
+      },
+      "requiredParameters": "sessionId=visual-session-001&reviewId=visual-review-001",
+      "missingParameterExpectation": "应显示地址不完整",
+      "implementationFingerprint": "e28d581786e13e8fd11cd6fe5022044b6bd6a49dd451a0932570c48df36f387b"
+    },
+    {
+      "route": "pages/essay-task/index",
+      "packageName": "essay-task",
+      "packageRoot": "pages/essay-task",
+      "isEntry": false,
+      "isTab": false,
+      "diskPage": true,
+      "missingArtifacts": [],
+      "typedRouteKey": "essayTask",
+      "inRouteManifest": true,
+      "directInboundFiles": [],
+      "typedInboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/features/essay-workbench/presentation.ts"
+      ],
+      "inboundFiles": [
+        "apps/wechat/miniprogram/app/navigation/auth-return.ts",
+        "apps/wechat/miniprogram/features/essay-workbench/presentation.ts"
+      ],
+      "orphanCandidate": false,
+      "visualScenarioCount": 2,
+      "interactionContract": true,
+      "representativeScenario": {
+        "id": "f05-essay-rewrite-ready",
+        "url": "/pages/essay-task/index?stage=essay_rewrite&taskVersionId=visual-essay-task&planTaskId=visual-plan&attemptId=visual-attempt&baseReviewVersionId=visual-review&baseAnswerVersionId=visual-answer&findingDecisionArtifactVersionId=visual-decision&basedOnAnswerVersionId=visual-answer",
+        "authenticated": true
+      },
+      "requiredParameters": "stage + taskVersionId + planTaskId（阶段相关版本参数）",
+      "missingParameterExpectation": "应显示地址不完整",
+      "implementationFingerprint": "609d03d2d8926fcb6b2c0f1f0dabdda5459bcb18d57eae1ab483fa00616374db"
+    }
+  ],
+  "diskOnlyPages": [],
+  "registeredMissingOnDisk": [],
+  "manifestOnlyPages": [],
+  "registeredMissingFromManifest": [
+    "packages/anan-thinking/asset-entry/index",
+    "packages/anan-reminder/asset-entry/index",
+    "packages/anan-encouragement/asset-entry/index",
+    "packages/anan-rest/asset-entry/index",
+    "packages/anan-deprioritize/asset-entry/index",
+    "packages/anan-growth/asset-entry/index"
+  ],
+  "unregisteredLiteralReferences": [],
+  "exactDuplicateImplementations": []
+}

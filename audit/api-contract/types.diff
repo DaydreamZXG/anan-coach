@@ -1,0 +1,579 @@
+--- /Users/zxg/Documents/新项目/apps/wechat/miniprogram/api/generated/types.gen.ts	2026-07-27 11:58:51
++++ /Users/zxg/Documents/新项目/audit/api-contract/generated/types.gen.ts	2026-07-28 12:59:34
+@@ -834,6 +834,7 @@
+      * Selectedanswer
+      */
+     selectedAnswer: string;
++    taskVersion: PracticeTaskVersion;
+ };
+ 
+ /**
+@@ -6227,6 +6228,36 @@
+      * Detail
+      */
+     detail?: Array<ValidationError>;
++};
++
++/**
++ * HubBotAuthorizationView
++ */
++export type HubBotAuthorizationView = {
++    /**
++     * Authorizationid
++     */
++    authorizationId?: string | null;
++    /**
++     * Expiresat
++     */
++    expiresAt?: string | null;
++    /**
++     * Qrimagedataurl
++     */
++    qrImageDataUrl?: string | null;
++    /**
++     * State
++     */
++    state: 'unbound' | 'waiting_scan' | 'scanned' | 'connected' | 'reauth_required' | 'revoked';
++    /**
++     * Statuscopy
++     */
++    statusCopy: string;
++    /**
++     * Usagecopy
++     */
++    usageCopy: string;
+ };
+ 
+ /**
+@@ -10416,6 +10447,151 @@
+ };
+ 
+ /**
++ * PracticeQuestion
++ */
++export type PracticeQuestion = {
++    /**
++     * Answer
++     */
++    answer?: string | null;
++    /**
++     * Assets
++     */
++    assets: Array<QuestionAsset>;
++    /**
++     * Contentversionid
++     */
++    contentVersionId: string;
++    /**
++     * Difficulty
++     */
++    difficulty?: number | null;
++    /**
++     * Displaylevel1
++     */
++    displayLevel1?: string | null;
++    /**
++     * Displaylevel2
++     */
++    displayLevel2?: string | null;
++    /**
++     * Displaylevel3
++     */
++    displayLevel3?: string | null;
++    /**
++     * Domain
++     */
++    domain: 'objective' | 'essay' | string;
++    explanation?: QuestionExplanation | null;
++    /**
++     * Firstyear
++     */
++    firstYear?: number | null;
++    /**
++     * Knowledgechunks
++     */
++    knowledgeChunks: Array<KnowledgeChunk>;
++    /**
++     * Knowledgefamily
++     */
++    knowledgeFamily?: string | null;
++    /**
++     * Latestyear
++     */
++    latestYear?: number | null;
++    /**
++     * Materialhtml
++     */
++    materialHtml?: string | null;
++    /**
++     * Materialtext
++     */
++    materialText?: string | null;
++    /**
++     * Microskill
++     */
++    microSkill?: string | null;
++    /**
++     * Modulename
++     */
++    moduleName?: string | null;
++    /**
++     * Needsmultimodal
++     */
++    needsMultimodal: boolean;
++    /**
++     * Occurrencecount
++     */
++    occurrenceCount?: number | null;
++    /**
++     * Occurrenceprovincecount
++     */
++    occurrenceProvinceCount?: number | null;
++    /**
++     * Occurrences
++     */
++    occurrences: Array<QuestionOccurrence>;
++    /**
++     * Options
++     */
++    options: Array<QuestionOption>;
++    /**
++     * Questionid
++     */
++    questionId: string;
++    /**
++     * Questiontype
++     */
++    questionType?: string | null;
++    /**
++     * Sharedcontextrequired
++     */
++    sharedContextRequired: boolean;
++    /**
++     * Sourcemembercount
++     */
++    sourceMemberCount?: number | null;
++    /**
++     * Status
++     */
++    status?: string | null;
++    /**
++     * Stem
++     */
++    stem: string;
++    /**
++     * Stemhtml
++     */
++    stemHtml?: string | null;
++    /**
++     * Tags
++     */
++    tags: Array<QuestionTag>;
++    /**
++     * Teachingpoint
++     */
++    teachingPoint?: string | null;
++    /**
++     * Visualrequired
++     */
++    visualRequired: boolean;
++};
++
++/**
++ * PracticeQuestionVersion
++ */
++export type PracticeQuestionVersion = {
++    /**
++     * Contentversionid
++     */
++    contentVersionId: string;
++    /**
++     * Questionid
++     */
++    questionId: string;
++};
++
++/**
+  * PracticeTask
+  */
+ export type PracticeTask = {
+@@ -10426,11 +10602,12 @@
+     /**
+      * Questions
+      */
+-    questions: Array<QuestionDetail>;
++    questions: Array<PracticeQuestion>;
+     /**
+      * Taskid
+      */
+     taskId: string;
++    taskVersion: PracticeTaskVersion;
+     /**
+      * Title
+      */
+@@ -10442,6 +10619,32 @@
+ };
+ 
+ /**
++ * PracticeTaskVersion
++ */
++export type PracticeTaskVersion = {
++    /**
++     * Bundleversionid
++     */
++    bundleVersionId: string;
++    /**
++     * Nodeid
++     */
++    nodeId: string;
++    /**
++     * Questions
++     */
++    questions: [
++        PracticeQuestionVersion,
++        PracticeQuestionVersion,
++        PracticeQuestionVersion
++    ];
++    /**
++     * Releaseid
++     */
++    releaseId: string;
++};
++
++/**
+  * PreparationExperienceProfile
+  */
+ export type PreparationExperienceProfile = {
+@@ -11863,6 +12066,21 @@
+  */
+ export type PublicApiEnvelopeFormulaVersion = {
+     data: FormulaVersion;
++    /**
++     * Generatedat
++     */
++    generatedAt: string;
++    /**
++     * Requestid
++     */
++    requestId: string;
++};
++
++/**
++ * PublicApiEnvelope[HubBotAuthorizationView]
++ */
++export type PublicApiEnvelopeHubBotAuthorizationView = {
++    data: HubBotAuthorizationView;
+     /**
+      * Generatedat
+      */
+@@ -14070,6 +14288,10 @@
+  */
+ export type RecognizeMathInkCommand = {
+     /**
++     * Questionelapsedms
++     */
++    questionElapsedMs?: number | null;
++    /**
+      * Questionid
+      */
+     questionId: string;
+@@ -14082,6 +14304,10 @@
+      */
+     scaleY: number;
+     /**
++     * Sessionatms
++     */
++    sessionAtMs?: number | null;
++    /**
+      * Sessionid
+      */
+     sessionId: string;
+@@ -15567,6 +15793,16 @@
+ };
+ 
+ /**
++ * StartHubBotAuthorizationCommand
++ */
++export type StartHubBotAuthorizationCommand = {
++    /**
++     * Replacepending
++     */
++    replacePending?: boolean;
++};
++
++/**
+  * StartLearningMediaUploadCommand
+  */
+ export type StartLearningMediaUploadCommand = {
+@@ -26624,6 +26860,271 @@
+ 
+ export type ChannelViewApiV2IlinkChannelGetResponse = ChannelViewApiV2IlinkChannelGetResponses[keyof ChannelViewApiV2IlinkChannelGetResponses];
+ 
++export type RevokeHubBotApiV2IlinkChannelBotDeleteData = {
++    body?: never;
++    headers: {
++        /**
++         * Idempotency-Key
++         */
++        'Idempotency-Key': string;
++        /**
++         * Authorization
++         */
++        Authorization?: string | null;
++    };
++    path?: never;
++    query?: never;
++    url: '/api/v2/ilink-channel/bot';
++};
++
++export type RevokeHubBotApiV2IlinkChannelBotDeleteErrors = {
++    /**
++     * The request is invalid for the current business state.
++     */
++    400: PublicApiError;
++    /**
++     * Authentication is required or no longer valid.
++     */
++    401: PublicApiError;
++    /**
++     * The authenticated account cannot perform this action.
++     */
++    403: PublicApiError;
++    /**
++     * The requested resource does not exist.
++     */
++    404: PublicApiError;
++    /**
++     * The request conflicts with the current resource revision.
++     */
++    409: PublicApiError;
++    /**
++     * The request body or parameters failed validation.
++     */
++    422: PublicApiError;
++    /**
++     * The request exceeded a controlled rate or quota.
++     */
++    429: PublicApiError;
++    /**
++     * The server could not complete the request.
++     */
++    500: PublicApiError;
++    /**
++     * A required service is temporarily unavailable.
++     */
++    503: PublicApiError;
++};
++
++export type RevokeHubBotApiV2IlinkChannelBotDeleteError = RevokeHubBotApiV2IlinkChannelBotDeleteErrors[keyof RevokeHubBotApiV2IlinkChannelBotDeleteErrors];
++
++export type RevokeHubBotApiV2IlinkChannelBotDeleteResponses = {
++    /**
++     * Successful Response
++     */
++    200: PublicApiEnvelopeHubBotAuthorizationView;
++};
++
++export type RevokeHubBotApiV2IlinkChannelBotDeleteResponse = RevokeHubBotApiV2IlinkChannelBotDeleteResponses[keyof RevokeHubBotApiV2IlinkChannelBotDeleteResponses];
++
++export type HubBotViewApiV2IlinkChannelBotGetData = {
++    body?: never;
++    headers?: {
++        /**
++         * Authorization
++         */
++        Authorization?: string | null;
++    };
++    path?: never;
++    query?: never;
++    url: '/api/v2/ilink-channel/bot';
++};
++
++export type HubBotViewApiV2IlinkChannelBotGetErrors = {
++    /**
++     * The request is invalid for the current business state.
++     */
++    400: PublicApiError;
++    /**
++     * Authentication is required or no longer valid.
++     */
++    401: PublicApiError;
++    /**
++     * The authenticated account cannot perform this action.
++     */
++    403: PublicApiError;
++    /**
++     * The requested resource does not exist.
++     */
++    404: PublicApiError;
++    /**
++     * The request conflicts with the current resource revision.
++     */
++    409: PublicApiError;
++    /**
++     * The request body or parameters failed validation.
++     */
++    422: PublicApiError;
++    /**
++     * The request exceeded a controlled rate or quota.
++     */
++    429: PublicApiError;
++    /**
++     * The server could not complete the request.
++     */
++    500: PublicApiError;
++    /**
++     * A required service is temporarily unavailable.
++     */
++    503: PublicApiError;
++};
++
++export type HubBotViewApiV2IlinkChannelBotGetError = HubBotViewApiV2IlinkChannelBotGetErrors[keyof HubBotViewApiV2IlinkChannelBotGetErrors];
++
++export type HubBotViewApiV2IlinkChannelBotGetResponses = {
++    /**
++     * Successful Response
++     */
++    200: PublicApiEnvelopeHubBotAuthorizationView;
++};
++
++export type HubBotViewApiV2IlinkChannelBotGetResponse = HubBotViewApiV2IlinkChannelBotGetResponses[keyof HubBotViewApiV2IlinkChannelBotGetResponses];
++
++export type StartHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsPostData = {
++    body: StartHubBotAuthorizationCommand;
++    headers: {
++        /**
++         * Idempotency-Key
++         */
++        'Idempotency-Key': string;
++        /**
++         * Authorization
++         */
++        Authorization?: string | null;
++    };
++    path?: never;
++    query?: never;
++    url: '/api/v2/ilink-channel/bot/authorizations';
++};
++
++export type StartHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsPostErrors = {
++    /**
++     * The request is invalid for the current business state.
++     */
++    400: PublicApiError;
++    /**
++     * Authentication is required or no longer valid.
++     */
++    401: PublicApiError;
++    /**
++     * The authenticated account cannot perform this action.
++     */
++    403: PublicApiError;
++    /**
++     * The requested resource does not exist.
++     */
++    404: PublicApiError;
++    /**
++     * The request conflicts with the current resource revision.
++     */
++    409: PublicApiError;
++    /**
++     * The request body or parameters failed validation.
++     */
++    422: PublicApiError;
++    /**
++     * The request exceeded a controlled rate or quota.
++     */
++    429: PublicApiError;
++    /**
++     * The server could not complete the request.
++     */
++    500: PublicApiError;
++    /**
++     * A required service is temporarily unavailable.
++     */
++    503: PublicApiError;
++};
++
++export type StartHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsPostError = StartHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsPostErrors[keyof StartHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsPostErrors];
++
++export type StartHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsPostResponses = {
++    /**
++     * Successful Response
++     */
++    200: PublicApiEnvelopeHubBotAuthorizationView;
++};
++
++export type StartHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsPostResponse = StartHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsPostResponses[keyof StartHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsPostResponses];
++
++export type PollHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsAuthorizationIdGetData = {
++    body?: never;
++    headers?: {
++        /**
++         * Authorization
++         */
++        Authorization?: string | null;
++    };
++    path: {
++        /**
++         * Authorization Id
++         */
++        authorization_id: string;
++    };
++    query?: never;
++    url: '/api/v2/ilink-channel/bot/authorizations/{authorization_id}';
++};
++
++export type PollHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsAuthorizationIdGetErrors = {
++    /**
++     * The request is invalid for the current business state.
++     */
++    400: PublicApiError;
++    /**
++     * Authentication is required or no longer valid.
++     */
++    401: PublicApiError;
++    /**
++     * The authenticated account cannot perform this action.
++     */
++    403: PublicApiError;
++    /**
++     * The requested resource does not exist.
++     */
++    404: PublicApiError;
++    /**
++     * The request conflicts with the current resource revision.
++     */
++    409: PublicApiError;
++    /**
++     * The request body or parameters failed validation.
++     */
++    422: PublicApiError;
++    /**
++     * The request exceeded a controlled rate or quota.
++     */
++    429: PublicApiError;
++    /**
++     * The server could not complete the request.
++     */
++    500: PublicApiError;
++    /**
++     * A required service is temporarily unavailable.
++     */
++    503: PublicApiError;
++};
++
++export type PollHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsAuthorizationIdGetError = PollHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsAuthorizationIdGetErrors[keyof PollHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsAuthorizationIdGetErrors];
++
++export type PollHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsAuthorizationIdGetResponses = {
++    /**
++     * Successful Response
++     */
++    200: PublicApiEnvelopeHubBotAuthorizationView;
++};
++
++export type PollHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsAuthorizationIdGetResponse = PollHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsAuthorizationIdGetResponses[keyof PollHubBotAuthorizationApiV2IlinkChannelBotAuthorizationsAuthorizationIdGetResponses];
++
+ export type DeleteChannelDataApiV2IlinkChannelDataDeleteData = {
+     body?: never;
+     headers: {

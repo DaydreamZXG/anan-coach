@@ -1,0 +1,16 @@
+check	status	exit_code	started_at	finished_at	duration_seconds	log
+architecture	PASS	0	2026-07-28T04:51:46Z	2026-07-28T04:51:46Z	0	audit/baseline/architecture.log
+wechat-format	FAIL	1	2026-07-28T04:51:46Z	2026-07-28T04:51:52Z	6	audit/baseline/wechat-format.log
+wechat-typecheck	PASS	0	2026-07-28T04:51:52Z	2026-07-28T04:51:56Z	4	audit/baseline/wechat-typecheck.log
+wechat-lint	PASS	0	2026-07-28T04:51:56Z	2026-07-28T04:52:13Z	17	audit/baseline/wechat-lint.log
+wechat-tokens	PASS	0	2026-07-28T04:52:13Z	2026-07-28T04:52:13Z	0	audit/baseline/wechat-tokens.log
+wechat-interactions	PASS	0	2026-07-28T04:52:13Z	2026-07-28T04:52:13Z	0	audit/baseline/wechat-interactions.log
+wechat-controls	PASS	0	2026-07-28T04:52:13Z	2026-07-28T04:52:17Z	4	audit/baseline/wechat-controls.log
+wechat-navigation	PASS	0	2026-07-28T04:52:17Z	2026-07-28T04:52:18Z	1	audit/baseline/wechat-navigation.log
+wechat-design	PASS	0	2026-07-28T04:52:18Z	2026-07-28T04:52:18Z	0	audit/baseline/wechat-design.log
+wechat-vitest	PASS	0	2026-07-28T04:52:18Z	2026-07-28T04:52:26Z	8	audit/baseline/wechat-vitest.log
+wechat-cloud-tests	PASS	0	2026-07-28T04:52:26Z	2026-07-28T04:52:26Z	0	audit/baseline/wechat-cloud-tests.log
+backend-ruff	PASS	0	2026-07-28T04:52:26Z	2026-07-28T04:52:27Z	1	audit/baseline/backend-ruff.log
+backend-pytest	FAIL	1	2026-07-28T04:52:27Z	2026-07-28T05:32:08Z	2381	audit/baseline/backend-pytest.log
+alembic-heads	PASS	0	2026-07-28T05:32:08Z	2026-07-28T05:32:08Z	0	audit/baseline/alembic-heads.log
+alembic-history	PASS	0	2026-07-28T05:32:08Z	2026-07-28T05:32:09Z	1	audit/baseline/alembic-history.log

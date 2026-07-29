@@ -1,0 +1,101 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_____ test_dual_track_plan_persists_one_idempotent_xingce_and_essay_budget _____
+
+db_session_factory = sessionmaker(class_='Session', autocommit=False, future=True, bind=Engine(postgresql+psycopg://postgres@127.0.0.1:63230/postgres), autoflush=False, expire_on_commit=False)
+
+    def test_dual_track_plan_persists_one_idempotent_xingce_and_essay_budget(
+        db_session_factory: sessionmaker[Session],
+    ) -> None:
+        user_id = _seed_learner_and_published_essay_content(db_session_factory)
+        service = PlanningService()
+    
+        with db_session_factory.begin() as session:
+            first = service.get_or_create_today(
+                session,
+                user_id=user_id,
+                now=NOW,
+                local_date=NOW.date(),
+            )
+        with db_session_factory.begin() as session:
+            replay = service.get_or_create_today(
+                session,
+                user_id=user_id,
+                now=NOW,
+                local_date=NOW.date(),
+            )
+    
+        assert first.plan_version_id == replay.plan_version_id
+        assert first.plan_basis == "evidence_priority_v2"
+        assert first.day_mode == "normal"
+        assert first.goal_gap.readiness == "unavailable"
+        assert first.goal_gap.baseline_gap is None
+        assert first.capacity.available_minutes == 45
+        assert first.capacity.confirmed is False
+>       assert sum(task.estimated_minutes for task in first.tasks) == 35
+E       assert 15 == 35
+E        +  where 15 = sum(<generator object test_dual_track_plan_persists_one_idempotent_xingce_and_essay_budget.<locals>.<genexpr> at 0x10eb2fe80>)
+
+tests/test_planning_routes.py:160: AssertionError
+_____________ test_today_plan_route_uses_the_authenticated_learner _____________
+
+db_session_factory = sessionmaker(class_='Session', autocommit=False, future=True, bind=Engine(postgresql+psycopg://postgres@127.0.0.1:63230/postgres), autoflush=False, expire_on_commit=False)
+
+    def test_today_plan_route_uses_the_authenticated_learner(
+        db_session_factory: sessionmaker[Session],
+    ) -> None:
+        _seed_learner_and_published_essay_content(
+            db_session_factory,
+            access_token=TOKEN,
+        )
+    
+        response = _client(db_session_factory).get(
+            "/api/v2/plans/today",
+            headers={"Authorization": f"Bearer {TOKEN}"},
+        )
+    
+        assert response.status_code == 200
+        body = response.json()["data"]
+>       assert {task["track"] for task in body["tasks"]} == {"xingce", "essay"}
+E       AssertionError: assert {'essay'} == {'essay', 'xingce'}
+E         
+E         Extra items in the right set:
+E         'xingce'
+E         Use -v to get more diff
+
+tests/test_planning_routes.py:358: AssertionError
+______ test_daily_settlement_retains_terminal_tasks_removed_by_replanning ______
+
+db_session_factory = sessionmaker(class_='Session', autocommit=False, future=True, bind=Engine(postgresql+psycopg://postgres@127.0.0.1:63230/postgres), autoflush=False, expire_on_commit=False)
+
+    def test_daily_settlement_retains_terminal_tasks_removed_by_replanning(
+        db_session_factory: sessionmaker[Session],
+    ) -> None:
+        user_id = _seed_learner_and_published_essay_content(db_session_factory)
+        with db_session_factory.begin() as session:
+            _seed_shared_objective_question_bank(session)
+        planning = PlanningService(now=lambda: NOW)
+    
+        with db_session_factory.begin() as session:
+            original = planning.get_or_create_today(
+                session,
+                user_id=user_id,
+                now=NOW,
+                local_date=NOW.date(),
+            )
+>       xingce = next(task for task in original.tasks if task.track == "xingce")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       StopIteration
+
+tests/test_daily_settlement_facts.py:34: StopIteration
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/zxg/Documents/新项目/backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_planning_routes.py::test_dual_track_plan_persists_one_idempotent_xingce_and_essay_budget
+FAILED tests/test_planning_routes.py::test_today_plan_route_uses_the_authenticated_learner
+FAILED tests/test_daily_settlement_facts.py::test_daily_settlement_retains_terminal_tasks_removed_by_replanning
+3 failed, 1 warning in 17.98s

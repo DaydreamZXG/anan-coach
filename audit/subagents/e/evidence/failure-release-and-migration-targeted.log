@@ -1,0 +1,907 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+___ test_released_method_card_allows_exact_replay_and_rejects_content_drift ____
+
+self = <sqlalchemy.engine.base.Connection object at 0x1079dbaa0>
+dialect = <sqlalchemy.dialects.postgresql.psycopg.PGDialect_psycopg object at 0x106a0a180>
+context = <sqlalchemy.dialects.postgresql.psycopg.PGExecutionContext_psycopg object at 0x1079dbbc0>
+statement = <sqlalchemy.dialects.postgresql.psycopg.PGCompiler_psycopg object at 0x1079a6b70>
+parameters = [{'accuracy_rule': '单位和时期均一致。', 'applicability': '{"modules":["资料分析"]}', 'author_note': '测试方法卡', 'error_signatures': '[{"code":"base_period","description":"基期混淆"}]', ...}]
+
+    def _exec_single_context(
+        self,
+        dialect: Dialect,
+        context: ExecutionContext,
+        statement: Union[str, Compiled],
+        parameters: Optional[_AnyMultiExecuteParams],
+    ) -> CursorResult[Any]:
+        """continue the _execute_context() method for a single DBAPI
+        cursor.execute() or cursor.executemany() call.
+    
+        """
+        if dialect.bind_typing is BindTyping.SETINPUTSIZES:
+            generic_setinputsizes = context._prepare_set_input_sizes()
+    
+            if generic_setinputsizes:
+                try:
+                    dialect.do_set_input_sizes(
+                        context.cursor, generic_setinputsizes, context
+                    )
+                except BaseException as e:
+                    self._handle_dbapi_exception(
+                        e, str(statement), parameters, None, context
+                    )
+    
+        cursor, str_statement, parameters = (
+            context.cursor,
+            context.statement,
+            context.parameters,
+        )
+    
+        effective_parameters: Optional[_AnyExecuteParams]
+    
+        if not context.executemany:
+            effective_parameters = parameters[0]
+        else:
+            effective_parameters = parameters
+    
+        if self._has_events or self.engine._has_events:
+            for fn in self.dispatch.before_cursor_execute:
+                str_statement, effective_parameters = fn(
+                    self,
+                    cursor,
+                    str_statement,
+                    effective_parameters,
+                    context,
+                    context.executemany,
+                )
+    
+        if self._echo:
+            self._log_info(str_statement)
+    
+            stats = context._get_cache_stats()
+    
+            if not self.engine.hide_parameters:
+                self._log_info(
+                    "[%s] %r",
+                    stats,
+                    sql_util._repr_params(
+                        effective_parameters,
+                        batches=10,
+                        ismulti=context.executemany,
+                    ),
+                )
+            else:
+                self._log_info(
+                    "[%s] [SQL parameters hidden due to hide_parameters=True]",
+                    stats,
+                )
+    
+        evt_handled: bool = False
+        try:
+            if context.execute_style is ExecuteStyle.EXECUTEMANY:
+                effective_parameters = cast(
+                    "_CoreMultiExecuteParams", effective_parameters
+                )
+                if self.dialect._has_events:
+                    for fn in self.dialect.dispatch.do_executemany:
+                        if fn(
+                            cursor,
+                            str_statement,
+                            effective_parameters,
+                            context,
+                        ):
+                            evt_handled = True
+                            break
+                if not evt_handled:
+                    self.dialect.do_executemany(
+                        cursor,
+                        str_statement,
+                        effective_parameters,
+                        context,
+                    )
+            elif not effective_parameters and context.no_parameters:
+                if self.dialect._has_events:
+                    for fn in self.dialect.dispatch.do_execute_no_params:
+                        if fn(cursor, str_statement, context):
+                            evt_handled = True
+                            break
+                if not evt_handled:
+                    self.dialect.do_execute_no_params(
+                        cursor, str_statement, context
+                    )
+            else:
+                effective_parameters = cast(
+                    "_CoreSingleExecuteParams", effective_parameters
+                )
+                if self.dialect._has_events:
+                    for fn in self.dialect.dispatch.do_execute:
+                        if fn(
+                            cursor,
+                            str_statement,
+                            effective_parameters,
+                            context,
+                        ):
+                            evt_handled = True
+                            break
+                if not evt_handled:
+>                   self.dialect.do_execute(
+                        cursor, str_statement, effective_parameters, context
+                    )
+
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1969: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <psycopg.Cursor [closed] [INERROR] (host=127.0.0.1 port=63383 database=postgres) at 0x107233710>
+query = '\n                    insert into product.method_cards (\n                      id,\n                      exam_scope...                excluded.priority,\n                      excluded.status\n                    )\n                    '
+params = {'accuracy_rule': '单位和时期均一致。', 'applicability': '{"modules":["资料分析"]}', 'author_note': '测试方法卡', 'error_signatures': '[{"code":"base_period","description":"基期混淆"}]', ...}
+
+    def execute(
+        self,
+        query: Query,
+        params: Params | None = None,
+        *,
+        prepare: bool | None = None,
+        binary: bool | None = None,
+    ) -> Self:
+        """
+        Execute a query or command to the database.
+        """
+        try:
+            with self._conn.lock:
+                self._conn.wait(
+                    self._execute_gen(query, params, prepare=prepare, binary=binary)
+                )
+        except e._NO_TRACEBACK as ex:
+>           raise ex.with_traceback(None)
+E           psycopg.errors.CheckViolation: method cards referenced by published knowledge releases are immutable
+E           CONTEXT:  PL/pgSQL function product.guard_released_method_card_mutation() line 19 at RAISE
+
+.venv/lib/python3.12/site-packages/psycopg/cursor.py:117: CheckViolation
+
+The above exception was the direct cause of the following exception:
+
+db_session = <sqlalchemy.orm.session.Session object at 0x1059ef470>
+
+    def test_released_method_card_allows_exact_replay_and_rejects_content_drift(
+        db_session: Session,
+    ) -> None:
+        now = datetime.now(UTC)
+        card = _method_card("mc_immutable")
+        repository = MethodCardRepository(db_session)
+        assert repository.upsert_cards([card]) == 1
+        original_updated_at = db_session.execute(
+            text("select updated_at from product.method_cards where id = :card_id"),
+            {"card_id": card.id},
+        ).scalar_one()
+    
+        release_id = str(uuid4())
+        vocab_version = f"vocab@method-card-{release_id}"
+        seed_released_module_vocabulary(db_session, version=vocab_version)
+        db_session.execute(
+            text(
+                """
+                insert into product.knowledge_map_releases (
+                  release_id, release_version, exam_scope, track,
+                  source_data_version, vocab_version, generator_version,
+                  source_fingerprint, generated_at, fresh_until, status, node_count
+                ) values (
+                  cast(:release_id as uuid), :release_version, 'guokao', 'xingce',
+                  'question-bank@method-card', :vocab_version, 'generator@method-card',
+                  :fingerprint, :generated_at, :fresh_until, 'draft', 0
+                )
+                """
+            ),
+            {
+                "release_id": release_id,
+                "release_version": f"knowledge-map@method-card-{release_id}",
+                "vocab_version": vocab_version,
+                "fingerprint": release_id.replace("-", "") * 2,
+                "generated_at": now - timedelta(hours=1),
+                "fresh_until": now + timedelta(days=30),
+            },
+        )
+        db_session.execute(
+            text(
+                """
+                insert into product.knowledge_map_nodes (
+                  release_id, node_id, exam_scope, track, module_name,
+                  node_type, tag_type, tag_value, display_path, support_status,
+                  method_card_ids, status
+                ) values (
+                  cast(:release_id as uuid), 'km_method_card_immutable',
+                      'guokao', 'xingce', '资料分析', 'knowledge_point',
+                      'knowledge_point', '增长率', '行测/资料分析/增长率',
+                      'text_supported', jsonb_build_array(cast(:card_id as text)),
+                      'published'
+                )
+                """
+            ),
+            {"release_id": release_id, "card_id": card.id},
+        )
+        seed_minimal_release_binding(
+            db_session,
+            release_id=release_id,
+            node_id="km_method_card_immutable",
+            question_id=f"q_method_card_{release_id}",
+        )
+        activate_knowledge_release(
+            db_session,
+            release_id=release_id,
+            activated_at=now,
+        )
+        db_session.commit()
+    
+>       assert repository.upsert_cards([card]) == 1
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_knowledge_release_immutability.py:508: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+app/domains/method_cards/repository.py:69: in upsert_cards
+    self._session.execute(
+.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py:2373: in execute
+    return self._execute_internal(
+.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py:2280: in _execute_internal
+    result = conn.execute(
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1421: in execute
+    return meth(
+.venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py:526: in _execute_on_connection
+    return connection._execute_clauseelement(
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1643: in _execute_clauseelement
+    ret = self._execute_context(
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1848: in _execute_context
+    return self._exec_single_context(
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1988: in _exec_single_context
+    self._handle_dbapi_exception(
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:2365: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <psycopg.Cursor [closed] [INERROR] (host=127.0.0.1 port=63383 database=postgres) at 0x107233710>
+query = '\n                    insert into product.method_cards (\n                      id,\n                      exam_scope...                excluded.priority,\n                      excluded.status\n                    )\n                    '
+params = {'accuracy_rule': '单位和时期均一致。', 'applicability': '{"modules":["资料分析"]}', 'author_note': '测试方法卡', 'error_signatures': '[{"code":"base_period","description":"基期混淆"}]', ...}
+
+    def execute(
+        self,
+        query: Query,
+        params: Params | None = None,
+        *,
+        prepare: bool | None = None,
+        binary: bool | None = None,
+    ) -> Self:
+        """
+        Execute a query or command to the database.
+        """
+        try:
+            with self._conn.lock:
+                self._conn.wait(
+                    self._execute_gen(query, params, prepare=prepare, binary=binary)
+                )
+        except e._NO_TRACEBACK as ex:
+>           raise ex.with_traceback(None)
+E           sqlalchemy.exc.IntegrityError: (psycopg.errors.CheckViolation) method cards referenced by published knowledge releases are immutable
+E           CONTEXT:  PL/pgSQL function product.guard_released_method_card_mutation() line 19 at RAISE
+E           [SQL: 
+E                               insert into product.method_cards (
+E                                 id,
+E                                 exam_scope,
+E                                 track,
+E                                 module_name,
+E                                 tag_path,
+E                                 title,
+E                                 recognition,
+E                                 applicability,
+E                                 method_steps,
+E                                 error_signatures,
+E                                 fix_action,
+E                                 time_budget_sec,
+E                                 accuracy_rule,
+E                                 pitfall,
+E                                 author_note,
+E                                 validation,
+E                                 priority,
+E                                 status,
+E                                 created_at,
+E                                 updated_at
+E                               ) values (
+E                                 %(id)s,
+E                                 %(exam_scope)s,
+E                                 %(track)s,
+E                                 %(module_name)s,
+E                                 %(tag_path)s,
+E                                 %(title)s,
+E                                 %(recognition)s,
+E                                 cast(%(applicability)s as jsonb),
+E                                 cast(%(method_steps)s as jsonb),
+E                                 cast(%(error_signatures)s as jsonb),
+E                                 %(fix_action)s,
+E                                 %(time_budget_sec)s,
+E                                 %(accuracy_rule)s,
+E                                 %(pitfall)s,
+E                                 %(author_note)s,
+E                                 cast(%(validation)s as jsonb),
+E                                 %(priority)s,
+E                                 %(status)s,
+E                                 now(),
+E                                 now()
+E                               )
+E                               on conflict (id) do update set
+E                                 exam_scope = excluded.exam_scope,
+E                                 track = excluded.track,
+E                                 module_name = excluded.module_name,
+E                                 tag_path = excluded.tag_path,
+E                                 title = excluded.title,
+E                                 recognition = excluded.recognition,
+E                                 applicability = excluded.applicability,
+E                                 method_steps = excluded.method_steps,
+E                                 error_signatures = excluded.error_signatures,
+E                                 fix_action = excluded.fix_action,
+E                                 time_budget_sec = excluded.time_budget_sec,
+E                                 accuracy_rule = excluded.accuracy_rule,
+E                                 pitfall = excluded.pitfall,
+E                                 author_note = excluded.author_note,
+E                                 validation = excluded.validation,
+E                                 priority = excluded.priority,
+E                                 status = excluded.status,
+E                                 updated_at = now()
+E                               where (
+E                                 product.method_cards.exam_scope,
+E                                 product.method_cards.track,
+E                                 product.method_cards.module_name,
+E                                 product.method_cards.tag_path,
+E                                 product.method_cards.title,
+E                                 product.method_cards.recognition,
+E                                 product.method_cards.applicability,
+E                                 product.method_cards.method_steps,
+E                                 product.method_cards.error_signatures,
+E                                 product.method_cards.fix_action,
+E                                 product.method_cards.time_budget_sec,
+E                                 product.method_cards.accuracy_rule,
+E                                 product.method_cards.pitfall,
+E                                 product.method_cards.author_note,
+E                                 product.method_cards.validation,
+E                                 product.method_cards.priority,
+E                                 product.method_cards.status
+E                               ) is distinct from (
+E                                 excluded.exam_scope,
+E                                 excluded.track,
+E                                 excluded.module_name,
+E                                 excluded.tag_path,
+E                                 excluded.title,
+E                                 excluded.recognition,
+E                                 excluded.applicability,
+E                                 excluded.method_steps,
+E                                 excluded.error_signatures,
+E                                 excluded.fix_action,
+E                                 excluded.time_budget_sec,
+E                                 excluded.accuracy_rule,
+E                                 excluded.pitfall,
+E                                 excluded.author_note,
+E                                 excluded.validation,
+E                                 excluded.priority,
+E                                 excluded.status
+E                               )
+E                               ]
+E           [parameters: {'id': 'mc_immutable', 'exam_scope': 'guokao', 'track': 'xingce', 'module_name': '资料分析', 'tag_path': '增长率', 'title': '增长率识别', 'recognition': '看到增长与基期关系时使用。', 'applicability': '{"modules":["资料分析"]}', 'method_steps': '["识别口径","代入计算"]', 'error_signatures': '[{"code":"base_period","description":"基期混淆"}]', 'fix_action': '先标出现期与基期，再代入公式。', 'time_budget_sec': 90, 'accuracy_rule': '单位和时期均一致。', 'pitfall': '不要混用同比与环比。', 'author_note': '测试方法卡', 'validation': '{"status":"verified"}', 'priority': 3, 'status': 'published'}]
+E           (Background on this error at: https://sqlalche.me/e/20/gkpj)
+
+.venv/lib/python3.12/site-packages/psycopg/cursor.py:117: IntegrityError
+________ test_wechat_identity_migration_upgrades_from_audited_baseline _________
+
+db_engine = Engine(postgresql+psycopg://postgres@127.0.0.1:63383/postgres)
+
+    def test_wechat_identity_migration_upgrades_from_audited_baseline(
+        db_engine: Engine,
+    ) -> None:
+        config = Config(str(BACKEND_ROOT / "alembic.ini"))
+        config.set_main_option(
+            "sqlalchemy.url",
+            db_engine.url.render_as_string(hide_password=False),
+        )
+        # The shared fixture installs the current schema directly. Revert the
+        # knowledge-map release migration through its real downgrade before
+        # reconstructing the audited v12 shape, otherwise the later full upgrade
+        # would encounter release objects that did not exist at v12.
+        command.stamp(config, "20260727_68")
+        command.downgrade(config, "20260727_64")
+    
+        with db_engine.begin() as connection:
+            # conftest installs the current schema before this test reconstructs the
+            # audited v12 baseline. Remove every later object so Alembic upgrades
+            # from the same database shape that production v12 actually had.
+            connection.execute(text("drop schema if exists messaging cascade"))
+            migration35 = import_module(
+                "migrations.versions.20260717_35_commerce_privacy_operations"
+            )
+            migration30 = import_module(
+                "migrations.versions.20260716_30_community_production_closure"
+            )
+            migration34 = import_module(
+                "migrations.versions.20260716_34_ai_governance"
+            )
+            migration28 = import_module(
+                "migrations.versions.20260716_28_community_method_cards"
+            )
+            definitions = connection.execute(
+                text(
+                    "select definition from privacy.append_only_function_snapshots "
+                    "order by function_name"
+                )
+            ).scalars()
+            for definition in definitions:
+                connection.exec_driver_sql(str(definition))
+            connection.execute(
+                text("drop function if exists privacy.erasure_authorized(jsonb)")
+            )
+            for table_name in reversed(migration35._PRIVACY_TABLES):
+                connection.execute(
+                    text(f"drop table if exists privacy.{table_name} cascade")
+                )
+            for table_name in reversed(migration35._COMMERCE_TABLES):
+                connection.execute(
+                    text(f"drop table if exists commerce.{table_name} cascade")
+                )
+            connection.execute(
+                text("drop table if exists learning.retake_program_versions cascade")
+            )
+            connection.execute(
+                text("alter table learning.score_evidence drop column if exists erased_at")
+            )
+            connection.execute(
+                text(
+                    "drop table if exists "
+                    "learner.ability_baseline_declaration_versions cascade"
+                )
+            )
+            connection.execute(
+                text(
+                    "drop function if exists "
+                    "learner.enforce_ability_baseline_immutability()"
+                )
+            )
+            connection.execute(
+                text("drop table if exists learner.position_preference_versions cascade")
+            )
+            connection.execute(
+                text(
+                    "drop function if exists "
+                    "learner.enforce_position_preference_immutability()"
+                )
+            )
+            connection.execute(
+                text("drop function if exists commerce.enforce_stage8_state_transition()")
+            )
+            connection.execute(text("drop schema if exists privacy cascade"))
+            connection.execute(
+                text(
+                    "delete from commerce.iap_products "
+                    "where product_id = 'founder_experience_30d'"
+                )
+            )
+            for table_name in reversed(migration34._TABLES):
+                connection.execute(
+                    text(f"drop table if exists ai_audit.{table_name} cascade")
+                )
+            for function_name in (
+                "ai_audit.validate_external_ai_operation",
+                "ai_audit.validate_model_call_attribution",
+                "ai_audit.validate_ai_scenario_deployment",
+            ):
+                connection.execute(text(f"drop function if exists {function_name}()"))
+            later_tables = (
+                *migration30._DROP_ORDER,
+                ("community_method_card_delayed_verifications", "product"),
+                *migration28._DROP_ORDER,
+            )
+            for table_name, schema_name in later_tables:
+                connection.execute(
+                    text(f"drop table if exists {schema_name}.{table_name} cascade")
+                )
+            for function_name in (
+                "commerce.validate_community_membership_activation",
+                "commerce.validate_community_ai_reservation_event",
+                "commerce.validate_community_ai_reservation",
+                "product.enforce_community_policy_resource_update",
+                "commerce.reject_community_reward_history_mutation",
+                "product.reject_community_method_history_mutation",
+            ):
+                connection.execute(text(f"drop function if exists {function_name}()"))
+            connection.execute(
+                text("drop table learner.mock_exam_trajectory_events cascade")
+            )
+            connection.execute(
+                text(
+                    "alter table learner.mock_exam_sessions "
+                    "drop column scoring_policy_version_id, "
+                    "drop column paper_version_id"
+                )
+            )
+            connection.execute(
+                text(
+                    "drop index if exists "
+                    "learner.mock_exam_source_plan_task_unique_idx"
+                )
+            )
+            connection.execute(
+                text(
+                    "alter table learner.mock_exam_sessions "
+                    "drop column if exists source_plan_task_id"
+                )
+            )
+            connection.execute(text("drop table product.mock_exam_paper_versions cascade"))
+            connection.execute(
+                text("drop table product.mock_exam_scoring_policy_versions cascade")
+            )
+            connection.execute(text("drop table learner.mock_exam_commands"))
+            connection.execute(text("drop index learner.mock_exam_one_assigned_per_owner_idx"))
+            connection.execute(
+                text("drop table learner.mock_exam_session_supersessions")
+            )
+            for column in (
+                "scoring_snapshot",
+                "learner_bundle",
+                "checkpoint_updated_at",
+                "checkpoint",
+                "deadline_at",
+                "started_at",
+                "revision",
+            ):
+                connection.execute(
+                    text(f"alter table learner.mock_exam_sessions drop column {column}")
+                )
+            connection.execute(
+                text("drop table if exists product.question_visual_fingerprints")
+            )
+            connection.execute(
+                text(
+                    "alter table product.question_occurrences "
+                    "drop constraint if exists question_occurrence_correct_ratio_check"
+                )
+            )
+            connection.execute(
+                text(
+                    "alter table product.question_occurrences "
+                    "drop constraint if exists question_occurrence_sample_size_check"
+                )
+            )
+            connection.execute(
+                text(
+                    "alter table product.question_occurrences "
+                    "drop column if exists occurrence_correct_ratio"
+                )
+            )
+            connection.execute(
+                text(
+                    "alter table product.question_occurrences "
+                    "drop column if exists occurrence_sample_size"
+                )
+            )
+            connection.execute(text("drop table product.question_quality_heads"))
+            connection.execute(
+                text("drop table product.question_quality_decision_disputes")
+            )
+            connection.execute(text("drop table product.question_quality_commands"))
+            connection.execute(
+                text("drop table product.question_quality_decision_versions")
+            )
+            connection.execute(text("drop table product.question_content_heads"))
+            connection.execute(text("drop table product.question_content_versions"))
+            connection.execute(
+                text("drop function product.reject_question_content_version_mutation()")
+            )
+            connection.execute(text("drop index product.product_question_stem_trgm_idx"))
+            connection.execute(
+                text("drop table product.content_license_authorization_snapshots")
+            )
+            connection.execute(text("drop table product.content_license_heads"))
+            connection.execute(
+                text("drop table product.content_license_record_versions")
+            )
+            connection.execute(text("drop table product.content_license_commands"))
+            connection.execute(
+                text("drop function product.reject_content_license_history_mutation()")
+            )
+            connection.execute(text("drop table learner.onboarding_progress_events"))
+            connection.execute(text("drop table learner.onboarding_commands"))
+            connection.execute(text("drop table learner.onboarding_progress"))
+            connection.execute(text("drop table learner.preparation_experience_versions"))
+            connection.execute(
+                text(
+                    "drop function learner.enforce_preparation_experience_immutability()"
+                )
+            )
+            connection.execute(
+                text("drop function learner.enforce_onboarding_progress_transition()")
+            )
+            connection.execute(
+                text("drop function learner.reject_onboarding_history_mutation()")
+            )
+            connection.execute(
+                text("drop trigger onboarding_profile_enforce_projection on learner.profiles")
+            )
+            connection.execute(
+                text("drop function learner.enforce_onboarding_profile_projection()")
+            )
+            connection.execute(text("drop table commerce.feature_usage_reservations"))
+            connection.execute(
+                text("drop function commerce.enforce_feature_usage_reservation_update()")
+            )
+            for table_name in (
+                "app_store_transactions",
+                "app_store_notification_events",
+                "entitlement_usage_daily",
+                "entitlement_audit_logs",
+                "user_entitlements",
+                "iap_products",
+            ):
+                connection.execute(
+                    text(f"drop table commerce.{table_name}")
+                )
+            connection.execute(text("drop table ai_audit.agent_tool_call_events"))
+            connection.execute(text("drop table ai_audit.agent_run_versions"))
+            connection.execute(text("drop table ai_audit.agent_definition_releases"))
+            connection.execute(
+                text("drop table ai_audit.essay_review_grading_bindings cascade")
+            )
+            connection.execute(
+                text("drop table ai_audit.essay_grading_adjudications cascade")
+            )
+            connection.execute(
+                text("drop table ai_audit.essay_grading_candidates cascade")
+            )
+            connection.execute(text("drop table ai_audit.essay_grading_runs cascade"))
+            connection.execute(text("drop table ai_audit.essay_review_model_calls"))
+            connection.execute(text("drop table ai_audit.essay_review_checkpoints"))
+            connection.execute(
+                text("drop table ai_audit.external_processing_receipts cascade")
+            )
+            connection.execute(
+                text("drop function ai_audit.validate_external_processing_receipt()")
+            )
+            connection.execute(
+                text("drop table ai_audit.processor_release_records cascade")
+            )
+            connection.execute(
+                text("drop table ai_audit.external_processing_boundary_releases cascade")
+            )
+            connection.execute(text("drop table ai_audit.model_call_ledger cascade"))
+            connection.execute(
+                text("drop function ai_audit.enforce_model_call_ledger_transition()")
+            )
+            connection.execute(
+                text("drop function ai_audit.reject_append_only_mutation()")
+            )
+            connection.execute(text("drop schema learning cascade"))
+            connection.execute(text("drop table product.essay_rubric_versions"))
+            connection.execute(text("drop table product.essay_material_segments"))
+            connection.execute(text("drop table product.essay_material_bundle_versions"))
+            connection.execute(text("drop table product.essay_task_versions"))
+            connection.execute(text("drop table learner.position_goal_previews"))
+            connection.execute(text("drop table learner.account_events"))
+            connection.execute(text("drop table learner.position_goal_events"))
+            connection.execute(text("drop table learner.position_goal_versions"))
+            connection.execute(text("drop table learner.eligibility_snapshots"))
+            connection.execute(text("drop table learner.qualification_evidence"))
+            connection.execute(text("drop table learner.qualification_requirement_confirmations"))
+            connection.execute(text("drop table learner.qualification_facts"))
+            connection.execute(text("drop table learner.qualification_profile_changes"))
+            connection.execute(text("drop table product.position_requirements"))
+            connection.execute(text("drop table product.position_rule_compilations"))
+            connection.execute(text("drop table product.position_rule_releases"))
+            connection.execute(text("alter table learner.app_sessions drop column revoked_reason"))
+            connection.execute(
+                text(
+                    "alter table learner.users "
+                    "drop constraint if exists users_avatar_style_check"
+                )
+            )
+            connection.execute(
+                text("alter table learner.users drop column if exists avatar_style")
+            )
+            connection.execute(
+                text("alter table learner.users drop column account_status_changed_at")
+            )
+            connection.execute(text("alter table learner.users drop column account_status"))
+            connection.execute(text("alter table learner.profiles drop column profile_version"))
+            connection.execute(text("drop table learner.wechat_identities"))
+            connection.execute(text("drop schema platform cascade"))
+            connection.execute(
+                text(
+                    """
+                    insert into learner.users (user_id, display_name)
+                    values ('00000000-0000-0000-0000-000000000241', 'legacy-duplicate-mock');
+    
+                    insert into product.questions (
+                      question_id, domain, status, module_name, question_type, stem, answer
+                    ) values (
+                      'q-legacy-duplicate-mock', 'objective', 'active',
+                      '判断推理', 'single_choice', '迁移保留题目', 'A'
+                    );
+    
+                    insert into product.question_options (
+                      question_id, option_index, label, option_text
+                    ) values
+                      ('q-legacy-duplicate-mock', 1, 'A', '正确选项'),
+                      ('q-legacy-duplicate-mock', 2, 'B', '干扰选项');
+    
+                    insert into learner.mock_exam_sessions (
+                      session_id, user_id, exam_scope, track, status,
+                      question_ids, blueprint, answers, review_payload,
+                      review_viewed_at, submitted_at, created_at, updated_at
+                    ) values
+                    (
+                      '00000000-0000-0000-0000-000000000242',
+                      '00000000-0000-0000-0000-000000000241',
+                      'guokao', 'xingce', 'assigned',
+                      '["q-legacy-duplicate-mock"]'::jsonb,
+                      jsonb_build_array(jsonb_build_object(
+                        'moduleName', '判断推理', 'questionCount', 1
+                      )),
+                      null, null,
+                      null, null, '2026-07-01T00:00:00Z', '2026-07-01T00:00:00Z'
+                    ),
+                    (
+                      '00000000-0000-0000-0000-000000000243',
+                      '00000000-0000-0000-0000-000000000241',
+                      'guokao', 'xingce', 'assigned',
+                      '["q-legacy-duplicate-mock"]'::jsonb,
+                      jsonb_build_array(jsonb_build_object(
+                        'moduleName', '判断推理', 'questionCount', 1
+                      )),
+                      null, null,
+                      null, null, '2026-07-01T00:01:00Z', '2026-07-01T00:01:00Z'
+                    ),
+                    (
+                      '00000000-0000-0000-0000-000000000244',
+                      '00000000-0000-0000-0000-000000000241',
+                      'guokao', 'xingce', 'reviewed',
+                      '["q-legacy-duplicate-mock"]'::jsonb,
+                      jsonb_build_object(
+                        'modules', jsonb_build_object('判断推理', 1)
+                      ),
+                      '[]'::jsonb, '{}'::jsonb,
+                      '2026-07-01T00:03:00Z', '2026-07-01T00:02:00Z',
+                      '2026-07-01T00:02:00Z', '2026-07-01T00:03:00Z'
+                    );
+                    """
+                )
+            )
+    
+        try:
+            command.stamp(config, "20260712_00")
+            command.upgrade(config, "20260713_12")
+            _seed_v12_essay_history(db_engine)
+            _seed_v12_onboarding_history(db_engine)
+>           command.upgrade(config, "head")
+
+tests/test_migrations.py:600: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/alembic/command.py:490: in upgrade
+    script.run_env()
+.venv/lib/python3.12/site-packages/alembic/script/base.py:556: in run_env
+    util.load_python_file(self.dir, "env.py")
+.venv/lib/python3.12/site-packages/alembic/util/pyfiles.py:116: in load_python_file
+    module = load_module_py(module_id, path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/alembic/util/pyfiles.py:136: in load_module_py
+    spec.loader.exec_module(module)  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap_external>:999: in exec_module
+    ???
+<frozen importlib._bootstrap>:488: in _call_with_frames_removed
+    ???
+migrations/env.py:48: in <module>
+    run_migrations_online()
+migrations/env.py:42: in run_migrations_online
+    context.run_migrations()
+<string>:8: in run_migrations
+    ???
+.venv/lib/python3.12/site-packages/alembic/runtime/environment.py:969: in run_migrations
+    self.get_context().run_migrations(**kw)
+.venv/lib/python3.12/site-packages/alembic/runtime/migration.py:626: in run_migrations
+    step.migration_fn(**kw)
+migrations/versions/20260716_33_stage6_mock_reporting.py:24: in upgrade
+    _freeze_legacy_assigned_sessions(op.get_bind())
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+bind = <sqlalchemy.engine.base.Connection object at 0x107d31430>
+
+    def _freeze_legacy_assigned_sessions(bind: Connection) -> None:
+        import json
+    
+        from sqlalchemy.orm import Session
+    
+        from app.domains.mock_exam.repository import MockExamRepository
+        from app.domains.task_content.service import (
+            TaskContentContractError,
+            freeze_learner_bundle,
+        )
+        from app.domains.xingce_learning.content_version import (
+            question_content_version_id,
+        )
+    
+        session = Session(bind=bind)
+        repository = MockExamRepository(session)
+        assigned = bind.execute(
+            sa.text(
+                """
+                select session_id::text, question_ids, checkpoint
+                from learner.mock_exam_sessions
+                where status = 'assigned'
+                order by created_at, session_id
+                """
+            )
+        ).mappings()
+        for row in assigned:
+            session_id = str(row["session_id"])
+            question_ids = [str(value) for value in (row["question_ids"] or [])]
+            if not question_ids:
+                raise RuntimeError(
+                    f"legacy assigned mock session {session_id} has no questions"
+                )
+>           sources = repository.get_frozen_question_sources(question_ids=question_ids)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           TypeError: MockExamRepository.get_frozen_question_sources() missing 1 required keyword-only argument: 'knowledge_release'
+
+migrations/versions/20260716_33_stage6_mock_reporting.py:90: TypeError
+----------------------------- Captured stderr call -----------------------------
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running stamp_revision  -> 20260727_68
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running downgrade 20260727_68 -> 20260727_67, Freeze release-scoped question-to-node bindings and delivery facts.
+INFO  [alembic.runtime.migration] Running downgrade 20260727_67 -> 20260727_66, Freeze external-question knowledge bindings to their resolved release.
+INFO  [alembic.runtime.migration] Running downgrade 20260727_66 -> 20260727_65, Freeze published knowledge-map releases and their governed dependencies.
+INFO  [alembic.runtime.migration] Running downgrade 20260727_65 -> 20260727_64, Version knowledge-map publication and retain every historical release.
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running stamp_revision 20260727_64 -> 20260712_00
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 20260712_00 -> 20260712_01, Add WeChat mini-program identities.
+INFO  [alembic.runtime.migration] Running upgrade 20260712_01 -> 20260712_02, Add durable platform outbox and background jobs.
+INFO  [alembic.runtime.migration] Running upgrade 20260712_02 -> 20260712_03, Add versioned qualification facts, eligibility snapshots, and position goals.
+INFO  [alembic.runtime.migration] Running upgrade 20260712_03 -> 20260712_04, Add server-owned position rule and data release registry.
+INFO  [alembic.runtime.migration] Running upgrade 20260712_04 -> 20260712_05, Add auditable rule compilation and generic manual-review facts.
+INFO  [alembic.runtime.migration] Running upgrade 20260712_05 -> 20260712_06, Add append-only learner confirmations for manual position requirements.
+INFO  [alembic.runtime.migration] Running upgrade 20260712_06 -> 20260712_07, Add explicit account state, session revocation reasons, and account audit events.
+INFO  [alembic.runtime.migration] Running upgrade 20260712_07 -> 20260712_08, Add expiring, single-use primary position goal previews.
+INFO  [alembic.runtime.migration] Running upgrade 20260712_08 -> 20260713_09, Add immutable score evidence and versioned ability estimates.
+INFO  [alembic.runtime.migration] Running upgrade 20260713_09 -> 20260713_10, Add append-only, source-grounded essay intelligence v2 records.
+INFO  [alembic.runtime.migration] Running upgrade 20260713_10 -> 20260713_11, Add immutable, versioned dual-track planning records.
+INFO  [alembic.runtime.migration] Running upgrade 20260713_11 -> 20260713_12, Add canonical immutable essay learning artifacts.
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 20260713_12 -> 20260713_13, Bind rubrics to materials and add privacy-safe AI cost accounting.
+INFO  [alembic.runtime.migration] Running upgrade 20260713_13 -> 20260713_14, Add idempotent, auditable feature-usage reservations.
+INFO  [alembic.runtime.migration] Running upgrade 20260713_14 -> 20260713_15, Add durable, versioned essay review intents.
+INFO  [alembic.runtime.migration] Running upgrade 20260713_15 -> 20260713_16, Enforce planning evidence integrity and explicit objective closure readiness.
+INFO  [alembic.runtime.migration] Running upgrade 20260713_16 -> 20260713_17, Add durable, replay-safe Companion paid-command ledger.
+INFO  [alembic.runtime.migration] Running upgrade 20260713_17 -> 20260713_18, Add the onboarding progress owner and versioned weekly study preferences.
+INFO  [alembic.runtime.migration] Running upgrade 20260713_18 -> 20260715_19, Add the canonical Xingce attempt, reflection and planning-evidence writer.
+INFO  [alembic.runtime.migration] Running upgrade 20260715_19 -> 20260715_20, Add the Stage 1.5 external-learning and content-license owners.
+INFO  [alembic.runtime.migration] Running upgrade 20260715_20 -> 20260715_21, Add the Stage 1.5 external-learning runtime ledger.
+INFO  [alembic.runtime.migration] Running upgrade 20260715_21 -> 20260715_22, Add the Stage 2 task-content dispute ledger.
+INFO  [alembic.runtime.migration] Running upgrade 20260715_22 -> 20260716_23, Add the canonical Xingce mastery and verification scheduler.
+INFO  [alembic.runtime.migration] Running upgrade 20260716_23 -> 20260716_24, Add the commercial Xingce cause-agent lifecycle.
+INFO  [alembic.runtime.migration] Running upgrade 20260716_24 -> 20260716_25, Add canonical essay closure writers and mastery state versions.
+INFO  [alembic.runtime.migration] Running upgrade 20260716_25 -> 20260716_26, Add private, versioned learning-media uploads and reflection bindings.
+INFO  [alembic.runtime.migration] Running upgrade 20260716_26 -> 20260716_27, Add append-only question quality adjudication and current projection.
+INFO  [alembic.runtime.migration] Running upgrade 20260716_27 -> 20260716_28, Add owner-separated community method cards, trials, and contribution rewards.
+INFO  [alembic.runtime.migration] Running upgrade 20260716_28 -> 20260716_29, Move delayed community-card verification into append-only history.
+INFO  [alembic.runtime.migration] Running upgrade 20260716_29 -> 20260716_30, Close production evidence, policy, and reward-lot gaps for community cards.
+INFO  [alembic.runtime.migration] Running upgrade 20260716_30 -> 20260716_31, Add the shared learning-brain and weekly planning authorities.
+INFO  [alembic.runtime.migration] Running upgrade 20260716_31 -> 20260716_32, Bind essay OCR answers to confirmed handwriting evidence.
+INFO  [alembic.runtime.migration] Running upgrade 20260716_32 -> 20260716_33, Add versioned mock papers, external score reports and report projections.
+=========================== short test summary info ============================
+FAILED tests/test_knowledge_release_immutability.py::test_released_method_card_allows_exact_replay_and_rejects_content_drift
+FAILED tests/test_migrations.py::test_wechat_identity_migration_upgrades_from_audited_baseline
+2 failed in 8.52s

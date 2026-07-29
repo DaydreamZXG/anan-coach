@@ -1,0 +1,15 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Visual scenario uses an unregistered page: pages/profile/qualification/index
+    at file:///Users/zxg/Documents/%E6%96%B0%E9%A1%B9%E7%9B%AE/apps/wechat/scripts/validate-visual-coverage.mjs:20:10 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.16.0
