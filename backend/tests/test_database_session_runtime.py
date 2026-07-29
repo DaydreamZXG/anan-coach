@@ -16,6 +16,7 @@ def test_postgres_runtime_bounds_pool_and_database_waits() -> None:
     connect_args = options["connect_args"]
     assert isinstance(connect_args, dict)
     assert connect_args["options"] == (
+        "-c jit=off "
         "-c statement_timeout=15000 "
         "-c lock_timeout=3000 "
         "-c idle_in_transaction_session_timeout=120000"

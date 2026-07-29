@@ -21,7 +21,7 @@ afterEach(() => {
 });
 
 describe("xingce practice page lifecycle", () => {
-  it("keeps the timer stopped after a hidden-page checkpoint refresh", async () => {
+  it("keeps the timer stopped and avoids a duplicate refresh after a hidden-page save", async () => {
     vi.useFakeTimers();
     const runtime = await createPracticePage();
 
@@ -35,17 +35,17 @@ describe("xingce practice page lifecycle", () => {
       runtime.requests.filter(
         (item) => item.method === "GET" && item.url.includes("/api/v2/xingce/task-sessions/"),
       ),
-    ).toHaveLength(1);
+    ).toHaveLength(0);
     expect(vi.getTimerCount()).toBe(0);
     runtime.page.onUnload.call(runtime.page);
   });
 
-  it("ignores a late checkpoint refresh after the page is unloaded", async () => {
+  it("ignores a late checkpoint response after the page is unloaded", async () => {
     vi.useFakeTimers();
     let releaseRefresh: (() => void) | undefined;
     const runtime = await createPracticePage((options, session) => {
       if (
-        options.method !== "GET" ||
+        options.method !== "PUT" ||
         !options.url.includes(`/api/v2/xingce/task-sessions/${session.sessionId}`)
       ) {
         return false;

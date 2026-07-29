@@ -45,6 +45,7 @@ def _postgres_engine_options(settings: Settings) -> dict[str, object]:
         raise DatabaseConfigurationError("Database timeout values must be positive")
     postgres_options = " ".join(
         (
+            "-c jit=off",
             f"-c statement_timeout={settings.database_statement_timeout_ms}",
             f"-c lock_timeout={settings.database_lock_timeout_ms}",
             "-c idle_in_transaction_session_timeout="

@@ -1830,7 +1830,7 @@ async function saveCheckpoint(
       };
       storePendingXingceCheckpoint(ownerUserId, pending);
     }
-    await api.saveCheckpoint(
+    const saved = await api.saveCheckpoint(
       pending.sessionId,
       pending.command,
       pending.idempotencyKey,
@@ -1843,21 +1843,15 @@ async function saveCheckpoint(
       invalidateForAccountChange(page, runtime);
       return;
     }
-    const current = await api.getSession(pending.sessionId);
-    if (!runtimes.owns(page, runtime)) return;
-    if (!currentAccountOwns(runtime)) {
-      invalidateForAccountChange(page, runtime);
-      return;
-    }
     page.setData({ hasPendingCheckpoint: false, pendingCheckpointMessage: "" });
-    applySession(page, runtime, current.data);
+    applySession(page, runtime, saved.data);
   } catch (error) {
     if (!runtimes.owns(page, runtime)) return;
     if (commandConfirmed) {
       page.setData({
         status: "error",
-        errorTitle: "进度已保存，但页面刷新失败",
-        errorMessage: "刚才的保存已确认；请重新加载当前作答后再继续。",
+        errorTitle: "进度已保存，但页面更新失败",
+        errorMessage: "刚才的保存已确认；请重新进入当前作答后再继续。",
         hasPendingCheckpoint: false,
         pendingCheckpointMessage: "",
         interactionLocked: true,
