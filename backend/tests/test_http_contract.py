@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from fastapi.testclient import TestClient
 from pydantic import BaseModel, Field
+from sqlalchemy.exc import TimeoutError as SQLAlchemyTimeoutError
 
 from app.main import create_app
 
@@ -70,6 +71,27 @@ def test_api_not_found_uses_public_contract() -> None:
         "code": "not_found",
         "message": "请求的内容不存在。",
         "requestId": "mp-not-found-contract-1",
+    }
+
+
+def test_database_saturation_returns_retryable_public_contract() -> None:
+    app = create_app()
+
+    @app.get("/api/v2/_database-timeout-test")
+    def database_timeout_test() -> None:
+        raise SQLAlchemyTimeoutError("pool exhausted")
+
+    response = TestClient(app).get(
+        "/api/v2/_database-timeout-test",
+        headers={"X-Request-ID": "mp-database-busy-1"},
+    )
+
+    assert response.status_code == 503
+    assert response.headers["Retry-After"] == "1"
+    assert response.json() == {
+        "code": "database_busy",
+        "message": "当前请求较多，请稍后重试。",
+        "requestId": "mp-database-busy-1",
     }
 
 

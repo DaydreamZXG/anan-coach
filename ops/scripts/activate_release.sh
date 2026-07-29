@@ -12,6 +12,7 @@ target="${root}/${release_id}"
 previous_target="$(readlink -f "${current_link}" 2>/dev/null || true)"
 switched=false
 previous_compatible_with_candidate=false
+release_retention_count="${RELEASE_RETENTION_COUNT:-3}"
 
 case "${release_id}" in
   *[!A-Za-z0-9._-]*|'')
@@ -19,6 +20,11 @@ case "${release_id}" in
     exit 2
     ;;
 esac
+if [[ ! "${release_retention_count}" =~ ^[0-9]+$ ]] \
+  || (( release_retention_count < 2 )); then
+  printf '%s\n' "RELEASE_RETENTION_COUNT must be an integer of at least 2" >&2
+  exit 2
+fi
 
 install_release_units() {
   local release_root="$1"
@@ -61,6 +67,38 @@ restore_previous_release() {
     done
   fi
   exit "${exit_code}"
+}
+
+prune_old_releases() {
+  local entry
+  local reserved=1
+  local extra_kept=0
+  local extra_limit
+  if [[ -n "${previous_target}" && "${previous_target}" != "${target}" ]]; then
+    reserved=2
+  fi
+  extra_limit=$((release_retention_count - reserved))
+  while IFS= read -r entry; do
+    [[ -n "${entry}" ]] || continue
+    if [[ "${entry}" == "${target}" || "${entry}" == "${previous_target}" ]]; then
+      continue
+    fi
+    if (( extra_kept < extra_limit )); then
+      extra_kept=$((extra_kept + 1))
+      continue
+    fi
+    case "${entry}" in
+      "${root}"/*) rm -rf -- "${entry}" ;;
+      *)
+        printf '%s\n' "refusing unsafe release cleanup target ${entry}" >&2
+        return 1
+        ;;
+    esac
+  done < <(
+    find "${root}" -mindepth 1 -maxdepth 1 -type d \
+      ! -name incoming -print | sort -r
+  )
+  rm -f -- "${incoming}" "${incoming}.sha256"
 }
 
 trap restore_previous_release ERR
@@ -215,5 +253,6 @@ fi
 for unit in "${runtime_units[@]}"; do
   systemctl is-active --quiet "${unit}"
 done
+prune_old_releases
 trap - ERR
 printf '%s\n' "activated release ${release_id} at database revision ${current_revision}"

@@ -134,12 +134,19 @@ stays blocked and is never dispatched as a new charge.
 > connection and advisory lock. This connection closes before provider I/O, but
 > it is intentionally outside the API `QueuePool`. Capacity approval must use
 > `workers × (main-pool maximum + simultaneous checkpoint maximum)`, then add
-> background-worker, migration/operations, and failover headroom. With
-> SQLAlchemy defaults the main-pool maximum is 15 per process (5 pooled + 10
-> overflow); if paid dispatches can fill that pool, a checkpoint burst can
-> briefly approach 30 connections per process. The current application does not
+> background-worker, migration/operations, and failover headroom. The configured
+> main-pool maximum is 10 per process (5 pooled + 5 overflow); if paid
+> dispatches can fill that pool, a checkpoint burst can briefly approach 20
+> connections per process. The current application does not
 > impose an internal checkpoint-concurrency ceiling, so a verified ingress/API
 > concurrency limit and a database saturation load test are also release gates.
+>
+> The runtime database engine bounds each process to 10 main-pool connections
+> (5 pooled + 5 overflow), waits at most 5 seconds for a pool slot, cancels a
+> database statement after 15 seconds, cancels lock acquisition after 3 seconds,
+> and closes an idle transaction after 120 seconds. The API service runs two
+> worker processes, so its main-pool ceiling is 20 connections. Background
+> workers and checkpoint connections still require separate capacity headroom.
 
 WeChat mini-program login exchanges the temporary `wx.login` code only on the
 server. Configure `WECHAT_MINI_APP_ID` and `WECHAT_MINI_APP_SECRET`; the secret

@@ -97,6 +97,7 @@ def public_error_response(
     code: str,
     message: str,
     details: dict[str, Any] | None = None,
+    headers: dict[str, str] | None = None,
 ) -> JSONResponse:
     request_id = request_id_from(request)
     payload = PublicApiError(
@@ -105,9 +106,12 @@ def public_error_response(
         requestId=request_id,
         details=details,
     )
+    response_headers = {REQUEST_ID_HEADER: request_id}
+    if headers:
+        response_headers.update(headers)
     return JSONResponse(
         status_code=status_code,
-        headers={REQUEST_ID_HEADER: request_id},
+        headers=response_headers,
         content=payload.model_dump(by_alias=True, exclude_none=True),
     )
 
@@ -175,6 +179,16 @@ def unexpected_exception_response(request: Request, _: Exception) -> JSONRespons
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
         code="internal_error",
         message="服务暂时无法完成请求。",
+    )
+
+
+def database_resource_exception_response(request: Request, _: Exception) -> JSONResponse:
+    return public_error_response(
+        request=request,
+        status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+        code="database_busy",
+        message="当前请求较多，请稍后重试。",
+        headers={"Retry-After": "1"},
     )
 
 

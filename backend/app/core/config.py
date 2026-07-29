@@ -203,6 +203,12 @@ class Settings:
     support_jwt_issuer: str = ""
     support_jwt_audience: str = ""
     database_url: str = ""
+    database_pool_size: int = 5
+    database_max_overflow: int = 5
+    database_pool_timeout_seconds: float = 5.0
+    database_statement_timeout_ms: int = 15_000
+    database_lock_timeout_ms: int = 3_000
+    database_idle_transaction_timeout_ms: int = 120_000
 
 
 def get_settings() -> Settings:
@@ -682,6 +688,18 @@ def get_settings() -> Settings:
         support_jwt_issuer=os.getenv("SUPPORT_JWT_ISSUER", ""),
         support_jwt_audience=os.getenv("SUPPORT_JWT_AUDIENCE", ""),
         database_url=os.getenv("DATABASE_URL", ""),
+        database_pool_size=int(os.getenv("DATABASE_POOL_SIZE", "5")),
+        database_max_overflow=int(os.getenv("DATABASE_MAX_OVERFLOW", "5")),
+        database_pool_timeout_seconds=float(
+            os.getenv("DATABASE_POOL_TIMEOUT_SECONDS", "5")
+        ),
+        database_statement_timeout_ms=int(
+            os.getenv("DATABASE_STATEMENT_TIMEOUT_MS", "15000")
+        ),
+        database_lock_timeout_ms=int(os.getenv("DATABASE_LOCK_TIMEOUT_MS", "3000")),
+        database_idle_transaction_timeout_ms=int(
+            os.getenv("DATABASE_IDLE_TRANSACTION_TIMEOUT_MS", "120000")
+        ),
     )
 
 

@@ -141,6 +141,32 @@ def test_activation_enables_and_restarts_cause_agent_in_standard_topology(
     assert restart.split().count(CAUSE_AGENT_WORKER_UNIT) == 1
 
 
+def test_successful_activation_keeps_bounded_releases_and_consumes_artifact(
+    tmp_path: Path,
+) -> None:
+    harness = _release_harness(
+        tmp_path,
+        previous_compatible_revisions=(PREVIOUS_REVISION, CANDIDATE_REVISION),
+    )
+    stale_releases = tuple(
+        harness.release_root / f"stale-{index}" for index in range(4)
+    )
+    for index, release in enumerate(stale_releases):
+        release.mkdir()
+        os.utime(release, (index, index))
+
+    result = harness.activate()
+
+    assert result.returncode == 0, result.stderr
+    retained = {
+        path.name
+        for path in harness.release_root.iterdir()
+        if path.is_dir() and path.name not in {"current", "incoming"}
+    }
+    assert retained == {"candidate", "previous", "stale-3"}
+    assert list((harness.release_root / "incoming").iterdir()) == []
+
+
 def test_rollback_rejects_database_revision_not_declared_by_old_head_artifact(
     tmp_path: Path,
 ) -> None:

@@ -5,6 +5,8 @@ from collections.abc import Awaitable, Callable
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from fastapi.routing import iter_route_contexts
+from sqlalchemy.exc import OperationalError
+from sqlalchemy.exc import TimeoutError as SQLAlchemyTimeoutError
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.requests import Request
 from starlette.responses import Response
@@ -32,6 +34,7 @@ from app.domains.task_editing.router import task_editing_exception_response
 from app.domains.task_editing.service import TaskEditingError
 from app.platform.http import (
     REQUEST_ID_HEADER,
+    database_resource_exception_response,
     http_exception_response,
     resolve_request_id,
     unexpected_exception_response,
@@ -70,6 +73,8 @@ def create_app() -> FastAPI:
 
     app.add_exception_handler(StarletteHTTPException, http_exception_response)
     app.add_exception_handler(RequestValidationError, validation_exception_response)
+    app.add_exception_handler(OperationalError, database_resource_exception_response)
+    app.add_exception_handler(SQLAlchemyTimeoutError, database_resource_exception_response)
     app.add_exception_handler(Exception, unexpected_exception_response)
     for exception_type in (
         Stage8CommerceConflict,
