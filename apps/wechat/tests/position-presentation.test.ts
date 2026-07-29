@@ -3,6 +3,7 @@ import {
   qualificationActionView,
   positionCardView,
   positionComparisonItemView,
+  positionRecommendationPresentation,
   qualificationGapView,
   primaryGoalPreviewView,
   requirementCheckView,
@@ -10,6 +11,7 @@ import {
 import type {
   PositionComparisonItem,
   PositionDiscoveryItem,
+  PositionWorkspaceItem,
   RequirementCheck,
 } from "../miniprogram/api/generated/types.gen";
 
@@ -192,7 +194,7 @@ describe("position presentation", () => {
 
   it("renders backend evidence without inventing a probability", () => {
     const view = positionCardView(position());
-    expect(view.eligibilityLabel).toBe("可报");
+    expect(view.eligibilityLabel).toBe("资格已确认");
     expect(view.scoreLabel).toBe("126.2–131.8");
     expect(view.scoreEvidenceLabel).toContain("6 个真实样本");
     expect(JSON.stringify(view)).not.toContain("概率");
@@ -210,6 +212,51 @@ describe("position presentation", () => {
     expect(view.eligibilityLabel).toBe("待确认");
     expect(view.conditionSummary).toContain("2 项");
     expect(view.scoreLabel).toBe("暂无可靠区间");
+  });
+
+  it("requires confirmed eligibility and complete fit evidence before calling a position recommended", () => {
+    expect(positionRecommendationPresentation(workspacePosition())).toEqual({
+      recommendationBucket: "recommended",
+      recommendationEvidenceAvailable: true,
+      recommendationEvidenceLabel: "资格、目标分与能力分差证据完整",
+    });
+
+    expect(
+      positionRecommendationPresentation(
+        workspacePosition({
+          fit: {
+            status: "evidence_unavailable",
+            band: null,
+            evidenceStatus: "partial",
+            evidenceReasonCodes: ["ability_estimate_partial"],
+            scoreGap: null,
+            requirementsBurden: {
+              additionalExamRequired: false,
+              hardConditionNotMetCount: 0,
+              hardConditionNotMetRequirementIds: [],
+              pendingRequirementCount: 0,
+              pendingRequirementIds: [],
+            },
+          },
+        }),
+      ),
+    ).toMatchObject({
+      recommendationBucket: "eligible_evidence_pending",
+      recommendationEvidenceAvailable: false,
+    });
+
+    expect(
+      positionRecommendationPresentation(
+        workspacePosition({
+          eligibilityStatus: "needs_confirmation",
+          pendingCount: 1,
+          pendingRequirementIds: ["major"],
+        }),
+      ),
+    ).toMatchObject({
+      recommendationBucket: "needs_confirmation",
+      recommendationEvidenceAvailable: false,
+    });
   });
 
   it("shows the original condition and evidence lineage", () => {
@@ -230,3 +277,30 @@ describe("position presentation", () => {
     expect(view.evidenceLabel).toContain("1 条");
   });
 });
+
+function workspacePosition(changes: Partial<PositionWorkspaceItem> = {}): PositionWorkspaceItem {
+  return {
+    ...position(),
+    fit: {
+      status: "overlap",
+      band: "overlap",
+      evidenceStatus: "ready",
+      evidenceReasonCodes: [],
+      scoreGap: {
+        direction: "positive_means_target_above_current",
+        lower: -2,
+        recommended: 1,
+        upper: 4,
+        unit: "points",
+      },
+      requirementsBurden: {
+        additionalExamRequired: false,
+        hardConditionNotMetCount: 0,
+        hardConditionNotMetRequirementIds: [],
+        pendingRequirementCount: 0,
+        pendingRequirementIds: [],
+      },
+    },
+    ...changes,
+  };
+}

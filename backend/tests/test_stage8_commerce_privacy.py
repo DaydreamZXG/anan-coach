@@ -7,7 +7,7 @@ from uuid import uuid4
 import pytest
 from sqlalchemy.exc import DBAPIError
 from sqlalchemy import text
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, sessionmaker
 
 from app.core.config import Settings
 from app.domains.ai.governance.repository import (
@@ -45,6 +45,13 @@ from app.domains.data_rights.schemas import (
 )
 from app.domains.data_rights.service import DataRightsService
 from app.domains.data_rights.worker import DataRightsWorker
+from tests.test_planning_routes import _client
+from tests.test_xingce_targeted_knowledge_selection import (
+    _node,
+    _seed_targeted_learner,
+    _start,
+    _targeted_task,
+)
 
 
 class FakeWechatPayGateway:
@@ -124,13 +131,9 @@ class FakeWechatPayGateway:
     def query_refund(self, *, out_refund_no: str) -> WechatRefundResult:
         return self.refunds[out_refund_no]
 
-    def verify_notification(
-        self, *, headers: object, body: bytes
-    ) -> WechatNotification:
+    def verify_notification(self, *, headers: object, body: bytes) -> WechatNotification:
         del headers, body
-        raise AssertionError(
-            "notification verification is not used in this contract test"
-        )
+        raise AssertionError("notification verification is not used in this contract test")
 
 
 class FakeStorage:
@@ -186,9 +189,7 @@ def test_founder_order_payment_refund_and_unified_entitlement(
     assert created.order.payment is not None
 
     gateway.orders[created.order.out_trade_no]["state"] = "SUCCESS"
-    reconciled = service.reconcile_order(
-        user_id=user_id, order_id=created.order.order_id
-    )
+    reconciled = service.reconcile_order(user_id=user_id, order_id=created.order.order_id)
     assert reconciled.state == "paid"
     entitlement = service.dashboard(user_id=user_id).entitlement
     assert entitlement.tier == "pro"
@@ -221,7 +222,89 @@ def test_founder_order_payment_refund_and_unified_entitlement(
 
 def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -> None:
     now = datetime(2025, 1, 1, 12, 0, tzinfo=UTC)
-    user_id = _seed_wechat_user(db_session)
+    privacy_factory = sessionmaker(
+        bind=db_session.get_bind(),
+        autoflush=False,
+        autocommit=False,
+        expire_on_commit=False,
+        future=True,
+    )
+    token = "privacy-erasure-xingce-token"
+    xingce_fixture_now = datetime.now(UTC)
+    user_id = _seed_targeted_learner(
+        privacy_factory,
+        token=token,
+        now=xingce_fixture_now,
+        nodes=(
+            _node(
+                "privacy-erasure-node",
+                "micro_skill",
+                "micro_skill",
+                "隐私擦除",
+                0.90,
+                3,
+            ),
+        ),
+        tags={"隐私擦除": (1, 2, 3)},
+        question_ids_by_index={
+            1: "privacy-erasure-question-1",
+            2: "privacy-erasure-question-2",
+            3: "privacy-erasure-question-3",
+        },
+    )
+    with privacy_factory.begin() as session:
+        session.execute(
+            text(
+                """
+                update learner.users
+                set display_name = '阿岸', email = 'anan@example.test'
+                where user_id = cast(:user_id as uuid)
+                """
+            ),
+            {"user_id": user_id},
+        )
+        session.execute(
+            text(
+                """
+                insert into learner.wechat_identities (
+                  identity_id, user_id, app_id, open_id, union_id,
+                  session_key_hash, last_login_at
+                ) values (
+                  gen_random_uuid(), cast(:user_id as uuid), 'stage8-test-app',
+                  :open_id, :union_id, repeat('a', 64), now()
+                )
+                """
+            ),
+            {
+                "user_id": user_id,
+                "open_id": f"openid-{uuid4().hex}",
+                "union_id": f"union-{uuid4().hex}",
+            },
+        )
+    xingce_auth = {"Authorization": f"Bearer {token}"}
+    xingce_client = _client(privacy_factory)
+    xingce_task = _targeted_task(xingce_client, xingce_auth)
+    xingce_session = _start(
+        xingce_client,
+        xingce_auth,
+        xingce_task,
+        key="privacy-erasure-xingce-start",
+    )
+    xingce_session_id = xingce_session["sessionId"]
+    assert (
+        db_session.execute(
+            text(
+                """
+                select count(*)
+                from learning.xingce_question_exposures
+                where user_id = cast(:user_id as uuid)
+                  and session_id = cast(:session_id as uuid)
+                """
+            ),
+            {"user_id": user_id, "session_id": xingce_session_id},
+        ).scalar_one()
+        == 3
+    )
     evidence_id = uuid4()
     report_id = uuid4()
     experience_id = uuid4()
@@ -440,13 +523,9 @@ def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -
     )
     completed_job = worker.process_next(db_session)
     assert completed_job is not None and completed_job.status == "succeeded"
-    completed = service.export_status(
-        user_id=user_id, export_id=export.export_request_id
-    )
+    completed = service.export_status(user_id=user_id, export_id=export.export_request_id)
     assert completed.state == "completed"
-    payload = service.export_payload(
-        user_id=user_id, export_id=export.export_request_id
-    )
+    payload = service.export_payload(user_id=user_id, export_id=export.export_request_id)
     assert payload.payload["contractVersion"] == "personal-data-export@v1"
     assert payload.payload["preparationExperience"][0]["retake"] is True
     assert payload.payload["preparationExperience"][0]["prior_exam_years"] == [2024]
@@ -482,9 +561,7 @@ def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -
     )
     completed_deletion_job = worker.process_next(db_session)
     assert completed_deletion_job is not None
-    assert completed_deletion_job.status == "succeeded", (
-        completed_deletion_job.last_error_message
-    )
+    assert completed_deletion_job.status == "succeeded", completed_deletion_job.last_error_message
     user = (
         db_session.execute(
             text(
@@ -500,6 +577,38 @@ def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -
     assert user["email"] is None
     assert user["is_active"] is False
     assert user["account_status"] == "disabled"
+    erased_xingce_session = (
+        db_session.execute(
+            text(
+                """
+                select safe_bundle, scoring_bundle, checkpoint
+                from learning.xingce_task_sessions
+                where user_id = cast(:user_id as uuid)
+                  and session_id = cast(:session_id as uuid)
+                """
+            ),
+            {"user_id": user_id, "session_id": xingce_session_id},
+        )
+        .mappings()
+        .one()
+    )
+    assert erased_xingce_session["safe_bundle"] == {}
+    assert erased_xingce_session["scoring_bundle"] == {}
+    assert erased_xingce_session["checkpoint"] == {"answers": []}
+    assert (
+        db_session.execute(
+            text(
+                """
+                select count(*)
+                from learning.xingce_question_exposures
+                where user_id = cast(:user_id as uuid)
+                  and session_id = cast(:session_id as uuid)
+                """
+            ),
+            {"user_id": user_id, "session_id": xingce_session_id},
+        ).scalar_one()
+        == 0
+    )
     deletion_events = (
         db_session.execute(
             text(
@@ -516,10 +625,7 @@ def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -
     assert deletion_events == ["not_dispatched_local_unreleased"]
     assert (
         db_session.execute(
-            text(
-                "select count(*) from learner.profiles "
-                "where user_id = cast(:user_id as uuid)"
-            ),
+            text("select count(*) from learner.profiles where user_id = cast(:user_id as uuid)"),
             {"user_id": user_id},
         ).scalar_one()
         == 0
@@ -607,9 +713,7 @@ def test_data_export_and_account_erasure_are_durable_jobs(db_session: Session) -
     assert erased_report["next_plan_evidence_refs"] == []
     assert (
         db_session.execute(
-            text(
-                "select count(*) from ai_audit.interaction_logs where learner_key = :user_id"
-            ),
+            text("select count(*) from ai_audit.interaction_logs where learner_key = :user_id"),
             {"user_id": user_id},
         ).scalar_one()
         == 0
@@ -688,9 +792,7 @@ def test_four_weekly_reflections_issue_process_reward_and_replay_safely(
         wechat_pay_order_expiry_seconds=1800,
     )
     gateway = FakeWechatPayGateway(now=paid_at)
-    service = _commerce_service(
-        db_session, gateway=gateway, settings=settings, now=paid_at
-    )
+    service = _commerce_service(db_session, gateway=gateway, settings=settings, now=paid_at)
     offer = service.catalog().offers[0]
     versions = {item.policy_kind: item.policy_version for item in offer.policies}
     created = service.create_order(

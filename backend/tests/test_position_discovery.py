@@ -139,7 +139,7 @@ def _seed_discovery_world(
                     "position_code": f"300110019{index:03d}",
                     "name": f"extra-{index}-一级行政执法员",
                     "department": f"国家税务总局额外测试局{index}",
-                    "headcount": 100 - index,
+                    "headcount": 1000 - index,
                     "raw_json": "{}" if source_complete else None,
                 },
             )
@@ -207,24 +207,25 @@ def test_discovery_orders_by_eligibility_before_headcount_and_exposes_direct_sco
             cursor=None,
         )
 
-    assert [item.position_id for item in result.items] == [
-        ids["eligible"],
-        ids["no_conditions"],
-        ids["pending"],
-        ids["ineligible"],
-    ]
+    ordered_ids = [item.position_id for item in result.items]
+    assert ordered_ids[0] == ids["no_conditions"]
+    assert set(ordered_ids[1:3]) == {ids["eligible"], ids["pending"]}
+    assert ordered_ids[3] == ids["ineligible"]
     assert [item.eligibility_status for item in result.items] == [
         "eligible",
-        "eligible",
+        "needs_confirmation",
         "needs_confirmation",
         "ineligible",
     ]
-    eligible = result.items[0]
-    assert eligible.met_count == 3
-    assert eligible.target_score is not None
-    assert eligible.target_score.recommended == 124.48
-    assert eligible.target_score.evidence_level == "direct"
-    assert "conditions_need_confirmation" in result.items[2].reason_codes
+    catalog_pending = next(item for item in result.items if item.position_id == ids["eligible"])
+    assert catalog_pending.met_count == 2
+    assert catalog_pending.pending_count == 1
+    assert catalog_pending.target_score is not None
+    assert catalog_pending.target_score.recommended == 124.48
+    assert catalog_pending.target_score.evidence_level == "direct"
+    assert "conditions_need_confirmation" in catalog_pending.reason_codes
+    pending = next(item for item in result.items if item.position_id == ids["pending"])
+    assert "conditions_need_confirmation" in pending.reason_codes
     assert "hard_condition_not_met" in result.items[3].reason_codes
 
 
@@ -250,8 +251,8 @@ def test_discovery_never_claims_eligible_when_release_source_is_incomplete(
     assert [item.position_id for item in result.items] == [ids["eligible"]]
     item = result.items[0]
     assert item.eligibility_status == "needs_confirmation"
-    assert item.pending_count == 1
-    assert item.pending_requirement_ids == ["source-conditions-incomplete"]
+    assert item.pending_count == 2
+    assert "source-conditions-incomplete" in item.pending_requirement_ids
     assert "source_conditions_incomplete" in item.reason_codes
 
 
@@ -349,7 +350,7 @@ def test_comparison_preserves_selection_order_and_returns_deterministic_highligh
     assert result.rule_set_version == "guokao-2026-rules-v1"
     assert result.position_data_version == "guokao-2026-discovery-v1"
     assert result.items[0].paper_type == "administrativeLaw"
-    assert result.highlights.confirmed_eligible_position_ids == [ids["eligible"]]
+    assert result.highlights.confirmed_eligible_position_ids == []
     assert result.highlights.largest_headcount_position_ids == [ids["ineligible"]]
     assert result.highlights.lowest_target_score_position_ids == [ids["eligible"]]
 
@@ -400,7 +401,7 @@ def test_comparison_binds_facts_to_the_reported_profile_version(
 
     assert result.learner_profile_version == 2
     assert result.items[0].eligibility_status == "ineligible"
-    assert result.items[1].eligibility_status == "eligible"
+    assert result.items[1].eligibility_status == "needs_confirmation"
 
 
 def test_qualification_gaps_only_reports_unresolved_inputs_that_affect_positions(
@@ -414,15 +415,30 @@ def test_qualification_gaps_only_reports_unresolved_inputs_that_affect_positions
     assert summary.learner_profile_version == 2
     assert summary.rule_set_version == "guokao-2026-rules-v1"
     assert summary.position_data_version == "guokao-2026-discovery-v1"
-    assert summary.total_affected_positions == 1
+    assert summary.total_affected_positions == 3
     assert summary.complete is True
     assert {gap.fact_key for gap in summary.gaps} == {"major", "other_conditions"}
-    for gap in summary.gaps:
-        assert gap.gap_type == "position_confirmation"
-        assert gap.action == "review_position_requirement"
-        assert gap.affected_position_count == 1
-        assert gap.sample_position_ids == [ids["pending"]]
-        assert gap.sample_position_codes == ["300110009002"]
+    gaps = {gap.fact_key: gap for gap in summary.gaps}
+    major_gap = gaps["major"]
+    assert major_gap.gap_type == "position_confirmation"
+    assert major_gap.action == "review_position_requirement"
+    assert major_gap.affected_position_count == 3
+    assert set(major_gap.sample_position_ids) == {
+        ids["eligible"],
+        ids["pending"],
+        ids["ineligible"],
+    }
+    assert major_gap.sample_position_codes == [
+        "300110009000",
+        "300110009002",
+        "300110009003",
+    ]
+    other_gap = gaps["other_conditions"]
+    assert other_gap.gap_type == "position_confirmation"
+    assert other_gap.action == "review_position_requirement"
+    assert other_gap.affected_position_count == 1
+    assert other_gap.sample_position_ids == [ids["pending"]]
+    assert other_gap.sample_position_codes == ["300110009002"]
 
 
 def test_qualification_gaps_are_user_isolated_and_report_missing_facts(
@@ -445,9 +461,8 @@ def test_qualification_gaps_are_user_isolated_and_report_missing_facts(
 
     gaps = {(gap.fact_key, gap.gap_type): gap for gap in summary.gaps}
     assert gaps[("education", "missing_fact")].affected_position_count == 3
-    assert gaps[("major", "missing_fact")].affected_position_count == 2
     assert gaps[("grassroots_years", "missing_fact")].affected_position_count == 1
-    assert gaps[("major", "position_confirmation")].affected_position_count == 1
+    assert gaps[("major", "position_confirmation")].affected_position_count == 3
     assert gaps[("other_conditions", "position_confirmation")].affected_position_count == 1
     assert summary.total_affected_positions == 3
     assert summary.complete is False
@@ -480,8 +495,14 @@ def test_comparison_route_uses_authenticated_profile_and_returns_no_winner(
         headers={"Authorization": f"Bearer {COMPARISON_TOKEN}"},
     )
     assert gaps.status_code == 200
-    assert gaps.json()["data"]["learnerProfileVersion"] == 2
-    assert gaps.json()["data"]["gaps"][0]["samplePositionIds"] == [ids["pending"]]
+    gap_data = gaps.json()["data"]
+    assert gap_data["learnerProfileVersion"] == 2
+    assert gap_data["gaps"][0]["factKey"] == "major"
+    assert set(gap_data["gaps"][0]["samplePositionIds"]) == {
+        ids["eligible"],
+        ids["pending"],
+        ids["ineligible"],
+    }
 
 
 def test_workspace_and_fit_routes_bind_active_versions_ability_and_hard_requirements(
@@ -508,28 +529,20 @@ def test_workspace_and_fit_routes_bind_active_versions_ability_and_hard_requirem
     assert unavailable_data["examYear"] == 2026
     assert unavailable_data["abilityEstimate"]["readiness"] == "unavailable"
     unavailable_eligible = next(
-        item
-        for item in unavailable_data["items"]
-        if item["positionId"] == ids["eligible"]
+        item for item in unavailable_data["items"] if item["positionId"] == ids["eligible"]
     )
     assert unavailable_eligible["fit"]["status"] == "evidence_unavailable"
     assert unavailable_eligible["fit"]["evidenceStatus"] == "unavailable"
     assert unavailable_eligible["fit"]["band"] is None
     assert unavailable_eligible["fit"]["scoreGap"] is None
-    assert unavailable_eligible["fit"]["evidenceReasonCodes"] == [
-        "ability_estimate_unavailable"
-    ]
+    assert unavailable_eligible["fit"]["evidenceReasonCodes"] == ["ability_estimate_unavailable"]
 
     pending = next(
-        item
-        for item in unavailable_data["items"]
-        if item["positionId"] == ids["pending"]
+        item for item in unavailable_data["items"] if item["positionId"] == ids["pending"]
     )
     pending_burden = pending["fit"]["requirementsBurden"]
     assert pending_burden["pendingRequirementCount"] > 0
-    assert pending_burden["pendingRequirementCount"] == len(
-        pending_burden["pendingRequirementIds"]
-    )
+    assert pending_burden["pendingRequirementCount"] == len(pending_burden["pendingRequirementIds"])
     assert pending_burden["hardConditionNotMetCount"] == len(
         pending_burden["hardConditionNotMetRequirementIds"]
     )
@@ -598,6 +611,243 @@ def test_workspace_and_fit_routes_bind_active_versions_ability_and_hard_requirem
     )
     assert detail.status_code == 200
     assert detail.json()["data"]["fit"] == fit
+
+
+def test_workspace_ranks_a_bounded_pool_by_qualification_fit_and_burden_before_headcount(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id, ids = _seed_discovery_world(
+        db_session_factory,
+        extra_eligible_count=9,
+    )
+    high_headcount_id = ids["extra_eligible_0"]
+    better_fit_outside_old_page_id = ids["extra_eligible_8"]
+    with db_session_factory.begin() as session:
+        for year in (2024, 2025):
+            _insert_score(
+                session,
+                high_headcount_id,
+                year,
+                145,
+                evidence_position_code="300110009101",
+            )
+            _insert_score(
+                session,
+                better_fit_outside_old_page_id,
+                year,
+                112,
+                evidence_position_code="300110009102",
+            )
+        AbilityEstimateService().record_reported_score(
+            session,
+            user_id=user_id,
+            command_id="position-workspace-ranking-ability",
+            report=ReportedScoreEvidenceRequest(
+                reported_context="full_mock",
+                xingce_score=65,
+                shenlun_score=60,
+                timed_status="timed",
+                occurred_at=NOW + timedelta(hours=1),
+            ),
+            now=NOW + timedelta(hours=2),
+        )
+
+    service = PositionDiscoveryService()
+    with db_session_factory() as session:
+        legacy_page = service.search(
+            session,
+            user_id=user_id,
+            exam_year=2026,
+            region=None,
+            city=None,
+            query=None,
+            limit=1,
+            cursor=None,
+            now=NOW + timedelta(hours=3),
+        )
+        workspace = service.workspace(
+            session,
+            user_id=user_id,
+            region=None,
+            city=None,
+            query=None,
+            limit=8,
+            cursor=None,
+            now=NOW + timedelta(hours=3),
+        )
+        second = service.workspace(
+            session,
+            user_id=user_id,
+            region=None,
+            city=None,
+            query=None,
+            limit=8,
+            cursor=workspace.next_cursor,
+            now=NOW + timedelta(hours=3),
+        )
+        transitioned = service.workspace(
+            session,
+            user_id=user_id,
+            region=None,
+            city=None,
+            query=None,
+            limit=8,
+            cursor=legacy_page.next_cursor,
+            now=NOW + timedelta(hours=3),
+        )
+        transitioned_next = service.workspace(
+            session,
+            user_id=user_id,
+            region=None,
+            city=None,
+            query=None,
+            limit=8,
+            cursor=transitioned.next_cursor,
+            now=NOW + timedelta(hours=3),
+        )
+
+    first_ids = [item.position_id for item in workspace.items]
+    paged_ids = [item.position_id for item in [*workspace.items, *second.items]]
+    assert better_fit_outside_old_page_id in first_ids
+    assert paged_ids.index(better_fit_outside_old_page_id) < paged_ids.index(high_headcount_id)
+    assert all(item.eligibility_status == "eligible" for item in workspace.items)
+    assert len(set(paged_ids)) == len(paged_ids)
+    assert workspace.next_cursor is not None
+    assert [item.position_id for item in legacy_page.items] == [high_headcount_id]
+    assert high_headcount_id not in {item.position_id for item in transitioned.items}
+    assert better_fit_outside_old_page_id in {item.position_id for item in transitioned.items}
+    transitioned_ids = [
+        item.position_id for item in [*transitioned.items, *transitioned_next.items]
+    ]
+    assert len(set(transitioned_ids)) == len(transitioned_ids)
+    assert high_headcount_id not in transitioned_ids
+
+    with db_session_factory.begin() as session:
+        AbilityEstimateService().record_reported_score(
+            session,
+            user_id=user_id,
+            command_id="position-workspace-ranking-ability-v2",
+            report=ReportedScoreEvidenceRequest(
+                reported_context="full_mock",
+                xingce_score=70,
+                shenlun_score=65,
+                timed_status="timed",
+                occurred_at=NOW + timedelta(hours=4),
+            ),
+            now=NOW + timedelta(hours=5),
+        )
+    with pytest.raises(PositionDiscoveryCursorError):
+        with db_session_factory() as session:
+            service.workspace(
+                session,
+                user_id=user_id,
+                region=None,
+                city=None,
+                query=None,
+                limit=8,
+                cursor=workspace.next_cursor,
+                now=NOW + timedelta(hours=6),
+            )
+
+
+def test_workspace_pool_caps_at_200_and_rejects_a_legacy_cursor_at_candidate_201(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id, ids = _seed_discovery_world(
+        db_session_factory,
+        extra_eligible_count=201,
+    )
+    service = PositionDiscoveryService()
+
+    with db_session_factory() as session:
+        search_200 = service.search(
+            session,
+            user_id=user_id,
+            exam_year=2026,
+            region=None,
+            city=None,
+            query=None,
+            limit=200,
+            cursor=None,
+            now=NOW + timedelta(hours=1),
+        )
+        search_201 = service.search(
+            session,
+            user_id=user_id,
+            exam_year=2026,
+            region=None,
+            city=None,
+            query=None,
+            limit=201,
+            cursor=None,
+            now=NOW + timedelta(hours=1),
+        )
+        first_workspace_page = service.workspace(
+            session,
+            user_id=user_id,
+            region=None,
+            city=None,
+            query=None,
+            limit=199,
+            cursor=None,
+            now=NOW + timedelta(hours=1),
+        )
+        final_workspace_page = service.workspace(
+            session,
+            user_id=user_id,
+            region=None,
+            city=None,
+            query=None,
+            limit=199,
+            cursor=first_workspace_page.next_cursor,
+            now=NOW + timedelta(hours=1),
+        )
+        after_legacy_pool_boundary = service.workspace(
+            session,
+            user_id=user_id,
+            region=None,
+            city=None,
+            query=None,
+            limit=8,
+            cursor=search_200.next_cursor,
+            now=NOW + timedelta(hours=1),
+        )
+
+    workspace_ids = [
+        item.position_id
+        for item in [
+            *first_workspace_page.items,
+            *final_workspace_page.items,
+        ]
+    ]
+    assert search_200.items[-1].position_id == ids["extra_eligible_199"]
+    assert search_201.items[-1].position_id == ids["extra_eligible_200"]
+    assert len(workspace_ids) == len(set(workspace_ids)) == 200
+    assert ids["extra_eligible_199"] in workspace_ids
+    assert ids["extra_eligible_200"] not in workspace_ids
+    assert first_workspace_page.has_more is True
+    assert first_workspace_page.next_cursor is not None
+    assert [item.position_id for item in final_workspace_page.items] == [ids["extra_eligible_199"]]
+    assert final_workspace_page.has_more is False
+    assert final_workspace_page.next_cursor is None
+    assert after_legacy_pool_boundary.items == []
+    assert after_legacy_pool_boundary.has_more is False
+
+    with pytest.raises(
+        PositionDiscoveryCursorError,
+        match="outside the bounded candidate pool",
+    ):
+        with db_session_factory() as session:
+            service.workspace(
+                session,
+                user_id=user_id,
+                region=None,
+                city=None,
+                query=None,
+                limit=8,
+                cursor=search_201.next_cursor,
+                now=NOW + timedelta(hours=1),
+            )
 
 
 def test_workspace_pins_confirmed_primary_goal_outside_the_first_candidate_page(
@@ -688,11 +938,12 @@ def test_workspace_preserves_mixed_eligibility_facts_for_truthful_client_counts(
     statuses = [item.eligibility_status for item in workspace.items]
     assert statuses == [
         "eligible",
-        "eligible",
+        "needs_confirmation",
         "needs_confirmation",
         "ineligible",
     ]
-    assert sum(status == "eligible" for status in statuses) == 2
+    assert sum(status == "eligible" for status in statuses) == 1
+    assert sum(status == "needs_confirmation" for status in statuses) == 2
 
 
 def test_workspace_and_fit_reject_expired_target_basis_with_stable_error(
@@ -757,7 +1008,14 @@ def _seed_session(factory: sessionmaker[Session], *, user_id: str, token: str) -
         )
 
 
-def _insert_score(session: Session, position_id: str, year: int, score: float) -> None:
+def _insert_score(
+    session: Session,
+    position_id: str,
+    year: int,
+    score: float,
+    *,
+    evidence_position_code: str = "300110009000",
+) -> None:
     evidence_id = session.execute(
         text(
             """
@@ -766,12 +1024,17 @@ def _insert_score(session: Session, position_id: str, year: int, score: float) -
               position_title, entry_score_min, source_name,
               source_file_sha256, candidate_count
             ) values (
-              :year, '360000', '300110009000', '国家税务总局测试局',
+              :year, '360000', :evidence_position_code, '国家税务总局测试局',
               '机关处室', '一级行政执法员', :score, 'fixture', :sha, 5
             ) returning evidence_id
             """
         ),
-        {"year": year, "score": score, "sha": f"{year:064d}"[-64:]},
+        {
+            "year": year,
+            "score": score,
+            "evidence_position_code": evidence_position_code,
+            "sha": f"{year}{evidence_position_code}".zfill(64)[-64:],
+        },
     ).scalar_one()
     session.execute(
         text(

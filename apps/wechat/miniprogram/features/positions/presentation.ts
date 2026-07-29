@@ -65,6 +65,10 @@ export interface PositionFitView extends PositionFitAssessment {
 export interface PositionWorkspaceItemView extends PositionCardView {
   fit: PositionFitAssessment;
   fitView: PositionFitView;
+  recommendationBucket:
+    "recommended" | "eligible_evidence_pending" | "needs_confirmation" | "ineligible";
+  recommendationEvidenceAvailable: boolean;
+  recommendationEvidenceLabel: string;
 }
 
 export interface QualificationGapView extends QualificationGap {
@@ -227,10 +231,57 @@ export function positionComparisonItemView(
 }
 
 export function positionWorkspaceItemView(item: PositionWorkspaceItem): PositionWorkspaceItemView {
+  const recommendation = positionRecommendationPresentation(item);
   return {
     ...positionCardView(item),
     fit: item.fit,
     fitView: positionFitView(item.fit),
+    ...recommendation,
+  };
+}
+
+export function positionRecommendationPresentation(
+  item: PositionWorkspaceItem,
+): Pick<
+  PositionWorkspaceItemView,
+  "recommendationBucket" | "recommendationEvidenceAvailable" | "recommendationEvidenceLabel"
+> {
+  if (item.eligibilityStatus === "needs_confirmation") {
+    return {
+      recommendationBucket: "needs_confirmation",
+      recommendationEvidenceAvailable: false,
+      recommendationEvidenceLabel: "资格仍有待确认项，不进入优势推荐",
+    };
+  }
+  if (item.eligibilityStatus === "ineligible") {
+    return {
+      recommendationBucket: "ineligible",
+      recommendationEvidenceAvailable: false,
+      recommendationEvidenceLabel: "存在明确不符合项，不进入优势推荐",
+    };
+  }
+
+  const fit = item.fit;
+  const hasCompleteFitEvidence =
+    fit.status !== "evidence_unavailable" &&
+    fit.evidenceStatus === "ready" &&
+    fit.band !== null &&
+    fit.scoreGap !== null &&
+    fit.evidenceReasonCodes.length === 0 &&
+    fit.requirementsBurden.pendingRequirementCount === 0 &&
+    fit.requirementsBurden.hardConditionNotMetCount === 0 &&
+    item.targetScore !== null;
+  if (hasCompleteFitEvidence) {
+    return {
+      recommendationBucket: "recommended",
+      recommendationEvidenceAvailable: true,
+      recommendationEvidenceLabel: "资格、目标分与能力分差证据完整",
+    };
+  }
+  return {
+    recommendationBucket: "eligible_evidence_pending",
+    recommendationEvidenceAvailable: false,
+    recommendationEvidenceLabel: "资格已确认，推荐证据仍待补齐",
   };
 }
 
@@ -379,7 +430,7 @@ function eligibilityPresentation(
   status: PositionDiscoveryItem["eligibilityStatus"],
 ): [string, PositionCardView["eligibilityTone"]] {
   return {
-    eligible: ["可报", "success"],
+    eligible: ["资格已确认", "success"],
     needs_confirmation: ["待确认", "warning"],
     ineligible: ["不可报", "muted"],
   }[status] as [string, PositionCardView["eligibilityTone"]];

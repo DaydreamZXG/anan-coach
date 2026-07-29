@@ -6,6 +6,8 @@ import type {
   PositionDiscoveryResponse,
   PositionEligibilitySnapshot,
   PositionFitAssessment,
+  PositionWorkspaceItem,
+  PositionWorkspaceResponse,
   PrimaryGoalConfirmResponse,
   PrimaryGoalPreview,
 } from "../miniprogram/api/generated/types.gen";
@@ -24,6 +26,7 @@ import {
 } from "../miniprogram/features/positions/error-state";
 import { PositionPageRuntimeRegistry } from "../miniprogram/features/positions/runtime";
 import { PositionGoalController } from "../miniprogram/features/positions/goal-controller";
+import { PositionWorkspaceController } from "../miniprogram/features/positions/workspace-controller";
 import { positionFitView } from "../miniprogram/features/positions/presentation";
 import {
   clearPositionStateForUser,
@@ -254,6 +257,120 @@ describe("position discovery controller", () => {
 
     expect(api.discoverPositions).not.toHaveBeenCalled();
     expect(controller.snapshot().validationError).toContain("2000–2100");
+  });
+});
+
+describe("position workspace controller", () => {
+  it("only exposes eligible positions with complete fit evidence as advantage recommendations", async () => {
+    const getPositionWorkspace = vi.fn().mockResolvedValue(
+      workspaceEnvelope([
+        workspaceItem({
+          positionId: "recommended",
+          fit: readyFit(),
+        }),
+        workspaceItem({
+          positionId: "eligible-evidence-pending",
+          fit: evidenceUnavailableFit(),
+        }),
+        workspaceItem({
+          positionId: "needs-confirmation",
+          eligibilityStatus: "needs_confirmation",
+          pendingCount: 1,
+          pendingRequirementIds: ["major"],
+          fit: evidenceUnavailableFit({
+            requirementsBurden: {
+              additionalExamRequired: false,
+              hardConditionNotMetCount: 0,
+              hardConditionNotMetRequirementIds: [],
+              pendingRequirementCount: 1,
+              pendingRequirementIds: ["major"],
+            },
+          }),
+        }),
+        workspaceItem({
+          positionId: "ineligible",
+          eligibilityStatus: "ineligible",
+          notMetCount: 1,
+          notMetRequirementIds: ["education"],
+          fit: readyFit({
+            requirementsBurden: {
+              additionalExamRequired: false,
+              hardConditionNotMetCount: 1,
+              hardConditionNotMetRequirementIds: ["education"],
+              pendingRequirementCount: 0,
+              pendingRequirementIds: [],
+            },
+          }),
+        }),
+      ]),
+    );
+    const controller = new PositionWorkspaceController({
+      qualificationApi: {
+        getPositionWorkspace,
+        getQualificationGaps: vi.fn(),
+      },
+      store: new PositionStateStore("user-a"),
+      onChange: vi.fn(),
+    });
+
+    await controller.refreshPositions();
+
+    const state = controller.snapshot();
+    expect(state.candidateItems.map((item) => item.positionId)).toEqual(["recommended"]);
+    expect(state.candidateItems[0]).toMatchObject({
+      eligibilityStatus: "eligible",
+      recommendationEvidenceAvailable: true,
+    });
+    expect(state.evidencePendingItems.map((item) => item.positionId)).toEqual([
+      "eligible-evidence-pending",
+    ]);
+    expect(state.needsConfirmationItems.map((item) => item.positionId)).toEqual([
+      "needs-confirmation",
+    ]);
+    expect(state.candidateItems.map((item) => item.positionId)).not.toContain("ineligible");
+  });
+
+  it("keeps a primary goal separate without letting it populate recommendation buckets", async () => {
+    const getPositionWorkspace = vi.fn().mockResolvedValue(
+      workspaceEnvelope([
+        workspaceItem({
+          positionId: "primary-pending",
+          isPrimaryGoal: true,
+          eligibilityStatus: "needs_confirmation",
+          pendingCount: 1,
+          pendingRequirementIds: ["other_conditions"],
+          fit: evidenceUnavailableFit({
+            requirementsBurden: {
+              additionalExamRequired: false,
+              hardConditionNotMetCount: 0,
+              hardConditionNotMetRequirementIds: [],
+              pendingRequirementCount: 1,
+              pendingRequirementIds: ["other_conditions"],
+            },
+          }),
+        }),
+      ]),
+    );
+    const controller = new PositionWorkspaceController({
+      qualificationApi: {
+        getPositionWorkspace,
+        getQualificationGaps: vi.fn(),
+      },
+      store: new PositionStateStore("user-a"),
+      onChange: vi.fn(),
+    });
+
+    await controller.refreshPositions();
+
+    expect(controller.snapshot()).toMatchObject({
+      primaryGoal: {
+        positionId: "primary-pending",
+        recommendationBucket: "needs_confirmation",
+      },
+      candidateItems: [],
+      evidencePendingItems: [],
+      needsConfirmationItems: [],
+    });
   });
 });
 
@@ -757,7 +874,9 @@ describe("position page lifecycle registry", () => {
   });
 });
 
-function evidenceUnavailableFit(): PositionFitAssessment {
+function evidenceUnavailableFit(
+  changes: Partial<PositionFitAssessment> = {},
+): PositionFitAssessment {
   return {
     status: "evidence_unavailable",
     band: null,
@@ -771,6 +890,60 @@ function evidenceUnavailableFit(): PositionFitAssessment {
       pendingRequirementCount: 0,
       pendingRequirementIds: [],
     },
+    ...changes,
+  };
+}
+
+function readyFit(changes: Partial<PositionFitAssessment> = {}): PositionFitAssessment {
+  return {
+    status: "overlap",
+    band: "overlap",
+    evidenceStatus: "ready",
+    evidenceReasonCodes: [],
+    scoreGap: {
+      lower: -2,
+      recommended: 1,
+      upper: 4,
+      unit: "points",
+      direction: "positive_means_target_above_current",
+    },
+    requirementsBurden: {
+      additionalExamRequired: false,
+      hardConditionNotMetCount: 0,
+      hardConditionNotMetRequirementIds: [],
+      pendingRequirementCount: 0,
+      pendingRequirementIds: [],
+    },
+    ...changes,
+  };
+}
+
+function workspaceItem(changes: Partial<PositionWorkspaceItem> = {}): PositionWorkspaceItem {
+  return {
+    ...position(),
+    fit: readyFit(),
+    ...changes,
+  };
+}
+
+function workspaceEnvelope(items: PositionWorkspaceItem[]): ApiEnvelope<PositionWorkspaceResponse> {
+  return {
+    data: {
+      abilityEstimate: {
+        readiness: "unavailable",
+        estimate: null,
+        missingComponents: ["xingce", "shenlun"],
+      },
+      examYear: 2026,
+      hasMore: false,
+      items,
+      learnerProfileVersion: 2,
+      nextCursor: null,
+      positionDataVersion: "positions-v1",
+      ruleSetVersion: "rules-v1",
+    },
+    requestId: "request-workspace",
+    generatedAt: "2026-07-13T00:00:00Z",
   };
 }
 

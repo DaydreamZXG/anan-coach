@@ -33,6 +33,8 @@ export interface PositionWorkspaceState {
   eligibleCount: number;
   primaryGoal: SelectablePositionWorkspaceItemView | null;
   candidateItems: SelectablePositionWorkspaceItemView[];
+  evidencePendingItems: SelectablePositionWorkspaceItemView[];
+  needsConfirmationItems: SelectablePositionWorkspaceItemView[];
   selectedIds: string[];
   examYear: number;
   learnerProfileVersion: number;
@@ -81,6 +83,8 @@ export class PositionWorkspaceController {
       eligibleCount: 0,
       primaryGoal: null,
       candidateItems: [],
+      evidencePendingItems: [],
+      needsConfirmationItems: [],
       selectedIds: this.store.loadComparison(),
       examYear: 0,
       learnerProfileVersion: 0,
@@ -121,9 +125,7 @@ export class PositionWorkspaceController {
       ...this.state,
       selectedIds,
       items: retainedItems,
-      eligibleCount: eligibleItemCount(retainedItems),
-      primaryGoal: retainedItems.find((item) => item.isPrimaryGoal) ?? null,
-      candidateItems: retainedItems.filter((item) => !item.isPrimaryGoal).slice(0, 4),
+      ...workspaceGroups(retainedItems),
       status: hasRetainedWorkspace ? this.state.status : "loading",
       error: null,
       refreshError: null,
@@ -152,10 +154,8 @@ export class PositionWorkspaceController {
         error: null,
         refreshError: null,
         items,
-        eligibleCount: eligibleItemCount(items),
+        ...workspaceGroups(items),
         selectedIds: currentSelectedIds,
-        primaryGoal: items.find((item) => item.isPrimaryGoal) ?? null,
-        candidateItems: items.filter((item) => !item.isPrimaryGoal).slice(0, 4),
         examYear: response.data.examYear,
         learnerProfileVersion: response.data.learnerProfileVersion,
         ruleSetVersion: response.data.ruleSetVersion,
@@ -249,9 +249,7 @@ export class PositionWorkspaceController {
       ...this.state,
       selectedIds,
       items,
-      eligibleCount: eligibleItemCount(items),
-      primaryGoal: items.find((item) => item.isPrimaryGoal) ?? null,
-      candidateItems: items.filter((item) => !item.isPrimaryGoal).slice(0, 4),
+      ...workspaceGroups(items),
     };
     this.publish();
     return { accepted: true, reason: exists ? "removed" : "selected" };
@@ -264,9 +262,7 @@ export class PositionWorkspaceController {
       ...this.state,
       selectedIds: [],
       items,
-      eligibleCount: eligibleItemCount(items),
-      primaryGoal: items.find((item) => item.isPrimaryGoal) ?? null,
-      candidateItems: items.filter((item) => !item.isPrimaryGoal).slice(0, 4),
+      ...workspaceGroups(items),
     };
     this.publish();
   }
@@ -297,6 +293,32 @@ export class PositionWorkspaceController {
 
 function eligibleItemCount(items: SelectablePositionWorkspaceItemView[]): number {
   return items.filter((item) => item.eligibilityStatus === "eligible").length;
+}
+
+function workspaceGroups(
+  items: SelectablePositionWorkspaceItemView[],
+): Pick<
+  PositionWorkspaceState,
+  | "eligibleCount"
+  | "primaryGoal"
+  | "candidateItems"
+  | "evidencePendingItems"
+  | "needsConfirmationItems"
+> {
+  const candidates = items.filter((item) => !item.isPrimaryGoal);
+  return {
+    eligibleCount: eligibleItemCount(items),
+    primaryGoal: items.find((item) => item.isPrimaryGoal) ?? null,
+    candidateItems: candidates
+      .filter((item) => item.recommendationBucket === "recommended")
+      .slice(0, 4),
+    evidencePendingItems: candidates
+      .filter((item) => item.recommendationBucket === "eligible_evidence_pending")
+      .slice(0, 4),
+    needsConfirmationItems: candidates
+      .filter((item) => item.recommendationBucket === "needs_confirmation")
+      .slice(0, 4),
+  };
 }
 
 function selectableWorkspaceItem(
@@ -331,6 +353,8 @@ function cloneWorkspaceState(state: PositionWorkspaceState): PositionWorkspaceSt
     items,
     primaryGoal: state.primaryGoal ? cloneWorkspaceItem(state.primaryGoal) : null,
     candidateItems: state.candidateItems.map(cloneWorkspaceItem),
+    evidencePendingItems: state.evidencePendingItems.map(cloneWorkspaceItem),
+    needsConfirmationItems: state.needsConfirmationItems.map(cloneWorkspaceItem),
     selectedIds: [...state.selectedIds],
     delivery: state.delivery ? { ...state.delivery } : null,
     ability: state.ability ? { ...state.ability } : null,

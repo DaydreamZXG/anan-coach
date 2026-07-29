@@ -6,7 +6,11 @@ from uuid import uuid4
 import pytest
 
 from app.domains.ability_estimation.schemas import AbilityEstimateCurrent
-from app.domains.positions.fit import evaluate_position_fit
+from app.domains.positions.fit import (
+    evaluate_position_fit,
+    has_position_recommendation_evidence,
+    position_recommendation_sort_key,
+)
 from app.domains.positions.schemas import PositionDiscoveryItem, TargetScoreRange
 from app.main import create_app
 
@@ -57,6 +61,87 @@ def test_fit_band_boundaries_and_gap_semantics_are_deterministic() -> None:
     assert overlap.score_gap.lower == -12.0
     assert overlap.score_gap.recommended == 0.0
     assert overlap.score_gap.upper == 12.0
+
+
+def test_recommendation_sort_requires_eligibility_then_uses_fit_and_burden() -> None:
+    ability = _complete_ability(lower=118, recommended=125, upper=132)
+    well_matched = _position(
+        target=_target(),
+        eligibility_status="eligible",
+        headcount=1,
+        has_extra_exam=False,
+        pending_count=0,
+        not_met_count=0,
+    )
+    same_fit_with_extra_exam = _position(
+        target=_target(),
+        eligibility_status="eligible",
+        headcount=20,
+        has_extra_exam=True,
+        pending_count=0,
+        not_met_count=0,
+    )
+    high_target = _position(
+        target=TargetScoreRange(
+            lower_bound=140,
+            recommended=145,
+            upper_bound=150,
+            sample_count=8,
+            basis_level="direct",
+            evidence_level="direct",
+            generated_at=NOW,
+            valid_until=NOW + timedelta(days=365),
+        ),
+        eligibility_status="eligible",
+        headcount=30,
+        has_extra_exam=False,
+        pending_count=0,
+        not_met_count=0,
+    )
+    pending = _position(
+        target=TargetScoreRange(
+            lower_bound=100,
+            recommended=105,
+            upper_bound=110,
+            sample_count=8,
+            basis_level="direct",
+            evidence_level="direct",
+            generated_at=NOW,
+            valid_until=NOW + timedelta(days=365),
+        ),
+        eligibility_status="needs_confirmation",
+        headcount=100,
+        has_extra_exam=False,
+        pending_count=1,
+        not_met_count=0,
+    )
+    positions = [pending, high_target, same_fit_with_extra_exam, well_matched]
+    fits = {
+        position.position_id: evaluate_position_fit(
+            position=position,
+            ability=ability,
+            exam_year=2026,
+        )
+        for position in positions
+    }
+
+    ranked = sorted(
+        positions,
+        key=lambda position: position_recommendation_sort_key(
+            position=position,
+            fit=fits[position.position_id],
+        ),
+    )
+
+    assert ranked == [well_matched, same_fit_with_extra_exam, high_target, pending]
+    assert has_position_recommendation_evidence(
+        position=well_matched,
+        fit=fits[well_matched.position_id],
+    )
+    assert not has_position_recommendation_evidence(
+        position=pending,
+        fit=fits[pending.position_id],
+    )
 
 
 def test_openapi_publishes_required_workspace_fit_contract_without_probability_or_hours() -> None:
@@ -180,9 +265,17 @@ def _target() -> TargetScoreRange:
     )
 
 
-def _position(*, target: TargetScoreRange | None) -> PositionDiscoveryItem:
-    pending_id = str(uuid4())
-    not_met_id = str(uuid4())
+def _position(
+    *,
+    target: TargetScoreRange | None,
+    eligibility_status: str = "needs_confirmation",
+    headcount: int = 1,
+    has_extra_exam: bool = True,
+    pending_count: int = 1,
+    not_met_count: int = 1,
+) -> PositionDiscoveryItem:
+    pending_ids = [str(uuid4()) for _ in range(pending_count)]
+    not_met_ids = [str(uuid4()) for _ in range(not_met_count)]
     return PositionDiscoveryItem(
         position_id=str(uuid4()),
         position_code="300110000001",
@@ -191,14 +284,14 @@ def _position(*, target: TargetScoreRange | None) -> PositionDiscoveryItem:
         system_code="test",
         region="北京",
         city="北京市",
-        headcount=1,
-        has_extra_exam=True,
-        eligibility_status="needs_confirmation",
+        headcount=headcount,
+        has_extra_exam=has_extra_exam,
+        eligibility_status=eligibility_status,
         met_count=0,
-        pending_count=1,
-        not_met_count=1,
-        pending_requirement_ids=[pending_id],
-        not_met_requirement_ids=[not_met_id],
+        pending_count=pending_count,
+        not_met_count=not_met_count,
+        pending_requirement_ids=pending_ids,
+        not_met_requirement_ids=not_met_ids,
         reason_codes=[],
         target_score=target,
         is_primary_goal=False,

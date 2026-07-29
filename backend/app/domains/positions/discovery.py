@@ -11,8 +11,12 @@ from uuid import UUID
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
+from app.domains.ability_estimation.schemas import AbilityEstimateCurrent
 from app.domains.ability_estimation.service import AbilityEstimateService
-from app.domains.positions.fit import evaluate_position_fit
+from app.domains.positions.fit import (
+    evaluate_position_fit,
+    position_recommendation_sort_key,
+)
 from app.domains.positions.schemas import (
     PositionComparisonHighlights,
     PositionComparisonItem,
@@ -44,12 +48,32 @@ class PositionComparisonError(ValueError):
     pass
 
 
+WORKSPACE_CANDIDATE_POOL_LIMIT = 200
+
+
 @dataclass(frozen=True)
 class DiscoveryCursor:
     context: str
     eligibility_rank: int
     headcount: int
     position_id: str
+
+
+@dataclass(frozen=True)
+class WorkspaceCursor:
+    context: str
+    ranking_fingerprint: str | None
+    position_id: str
+    legacy_eligibility_rank: int | None = None
+    legacy_headcount: int | None = None
+    legacy_position_id: str | None = None
+
+
+@dataclass(frozen=True)
+class WorkspacePage:
+    items: tuple[PositionWorkspaceItem, ...]
+    next_cursor: str | None
+    has_more: bool
 
 
 class PositionDiscoveryService:
@@ -63,9 +87,7 @@ class PositionDiscoveryService:
         self._target_scores = target_scores or PositionTargetScoreOwner(
             qualification=self._qualification
         )
-        self._ability = ability or AbilityEstimateService(
-            qualification=self._qualification
-        )
+        self._ability = ability or AbilityEstimateService(qualification=self._qualification)
 
     def search(
         self,
@@ -128,26 +150,30 @@ class PositionDiscoveryService:
             excluded_position_id=excluded_position_id,
         )
         decoded = _decode_cursor(cursor, expected_context=context) if cursor else None
-        rows = session.execute(
-            text(_DISCOVERY_SQL),
-            {
-                "user_id": user_id,
-                "profile_version": profile_version,
-                "exam_year": release.exam_year,
-                "rule_set_version": release.rule_set_version,
-                "position_data_version": release.position_data_version,
-                "region": region,
-                "city": city,
-                "query": query,
-                "query_like": f"%{query}%" if query else None,
-                "position_ids": None,
-                "excluded_position_id": excluded_position_id,
-                "cursor_rank": decoded.eligibility_rank if decoded else None,
-                "cursor_headcount": decoded.headcount if decoded else None,
-                "cursor_position_id": decoded.position_id if decoded else None,
-                "limit_plus_one": limit + 1,
-            },
-        ).mappings().all()
+        rows = (
+            session.execute(
+                text(_DISCOVERY_SQL),
+                {
+                    "user_id": user_id,
+                    "profile_version": profile_version,
+                    "exam_year": release.exam_year,
+                    "rule_set_version": release.rule_set_version,
+                    "position_data_version": release.position_data_version,
+                    "region": region,
+                    "city": city,
+                    "query": query,
+                    "query_like": f"%{query}%" if query else None,
+                    "position_ids": None,
+                    "excluded_position_id": excluded_position_id,
+                    "cursor_rank": decoded.eligibility_rank if decoded else None,
+                    "cursor_headcount": decoded.headcount if decoded else None,
+                    "cursor_position_id": decoded.position_id if decoded else None,
+                    "limit_plus_one": limit + 1,
+                },
+            )
+            .mappings()
+            .all()
+        )
         has_more = len(rows) > limit
         page_rows = rows[:limit]
         target_scores = self._target_scores.ranges_for_positions(
@@ -208,12 +234,19 @@ class PositionDiscoveryService:
             session,
             user_id=user_id,
         )
-        discovery = self._search_page(
+        ability = self._ability.get_current(
+            session,
+            user_id=user_id,
+            exam_year=release.exam_year,
+            now=now,
+        )
+        page = self._workspace_page(
             session,
             user_id=user_id,
             release=release,
             target_context=target_context,
             profile_version=profile_version,
+            ability=ability,
             region=region,
             city=city,
             query=query,
@@ -221,13 +254,7 @@ class PositionDiscoveryService:
             cursor=cursor,
             excluded_position_id=primary_position_id,
         )
-        ability = self._ability.get_current(
-            session,
-            user_id=user_id,
-            exam_year=discovery.exam_year,
-            now=now,
-        )
-        items = list(discovery.items)
+        items = list(page.items)
         if cursor is None and primary_position_id is not None:
             primary_goal = self._load_primary_goal(
                 session,
@@ -237,26 +264,176 @@ class PositionDiscoveryService:
                 target_context=target_context,
                 profile_version=profile_version,
             )
-            items = [primary_goal, *items]
-        return PositionWorkspaceResponse(
-            exam_year=discovery.exam_year,
-            learner_profile_version=discovery.learner_profile_version,
-            rule_set_version=discovery.rule_set_version,
-            position_data_version=discovery.position_data_version,
-            ability_estimate=ability,
-            items=[
+            items = [
                 PositionWorkspaceItem(
-                    **item.model_dump(),
+                    **primary_goal.model_dump(),
                     fit=evaluate_position_fit(
-                        position=item,
+                        position=primary_goal,
                         ability=ability,
-                        exam_year=discovery.exam_year,
+                        exam_year=release.exam_year,
+                    ),
+                ),
+                *items,
+            ]
+        return PositionWorkspaceResponse(
+            exam_year=release.exam_year,
+            learner_profile_version=profile_version,
+            rule_set_version=release.rule_set_version,
+            position_data_version=release.position_data_version,
+            ability_estimate=ability,
+            items=items,
+            next_cursor=page.next_cursor,
+            has_more=page.has_more,
+        )
+
+    def _workspace_page(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        release: PositionRuleRelease,
+        target_context: TargetScoreReleaseContext,
+        profile_version: int,
+        ability: AbilityEstimateCurrent,
+        region: str | None,
+        city: str | None,
+        query: str | None,
+        limit: int,
+        cursor: str | None,
+        excluded_position_id: str | None,
+    ) -> WorkspacePage:
+        base_context = _context_fingerprint(
+            user_id=user_id,
+            profile_version=profile_version,
+            release=release,
+            region=region,
+            city=city,
+            query=query,
+            excluded_position_id=excluded_position_id,
+        )
+        context = _workspace_context_fingerprint(
+            base_context=base_context,
+            ability=ability,
+        )
+        # The workspace is a bounded recommendation surface, not the exhaustive
+        # position search.  Its fixed pool is four times the public maximum page
+        # size, so fit ranking is never a cosmetic reorder of only the visible page.
+        rows = (
+            session.execute(
+                text(_DISCOVERY_SQL),
+                {
+                    "user_id": user_id,
+                    "profile_version": profile_version,
+                    "exam_year": release.exam_year,
+                    "rule_set_version": release.rule_set_version,
+                    "position_data_version": release.position_data_version,
+                    "region": region,
+                    "city": city,
+                    "query": query,
+                    "query_like": f"%{query}%" if query else None,
+                    "position_ids": None,
+                    "excluded_position_id": excluded_position_id,
+                    "cursor_rank": None,
+                    "cursor_headcount": None,
+                    "cursor_position_id": None,
+                    "limit_plus_one": WORKSPACE_CANDIDATE_POOL_LIMIT,
+                },
+            )
+            .mappings()
+            .all()
+        )
+        target_scores = self._target_scores.ranges_for_positions(
+            session,
+            position_ids=[str(row["position_id"]) for row in rows],
+            context=target_context,
+        )
+        ranked: list[PositionWorkspaceItem] = []
+        for row in rows:
+            position_id = str(row["position_id"])
+            position = _item_from_row(
+                row,
+                target_score=target_scores[position_id],
+            )
+            ranked.append(
+                PositionWorkspaceItem(
+                    **position.model_dump(),
+                    fit=evaluate_position_fit(
+                        position=position,
+                        ability=ability,
+                        exam_year=release.exam_year,
                     ),
                 )
-                for item in items
-            ],
-            next_cursor=discovery.next_cursor,
-            has_more=discovery.has_more,
+            )
+        ranked.sort(
+            key=lambda item: position_recommendation_sort_key(
+                position=item,
+                fit=item.fit,
+            )
+        )
+        decoded = (
+            _decode_workspace_cursor(
+                cursor,
+                expected_context=context,
+                expected_legacy_context=base_context,
+            )
+            if cursor
+            else None
+        )
+        if (
+            decoded is not None
+            and decoded.legacy_eligibility_rank is not None
+            and decoded.legacy_headcount is not None
+            and decoded.legacy_position_id is not None
+        ):
+            if all(item.position_id != decoded.legacy_position_id for item in ranked):
+                raise PositionDiscoveryCursorError(
+                    "The legacy workspace cursor is outside the bounded candidate pool"
+                )
+            legacy_boundary = (
+                decoded.legacy_eligibility_rank,
+                -decoded.legacy_headcount,
+                decoded.legacy_position_id,
+            )
+            ranked = [item for item in ranked if _legacy_discovery_sort_key(item) > legacy_boundary]
+        ranking_fingerprint = _workspace_ranking_fingerprint(ranked)
+        if (
+            decoded is not None
+            and decoded.ranking_fingerprint is not None
+            and decoded.ranking_fingerprint != ranking_fingerprint
+        ):
+            raise PositionDiscoveryCursorError("The workspace cursor ranking evidence has changed")
+        start = 0
+        if decoded is not None and decoded.ranking_fingerprint is not None:
+            start = next(
+                (
+                    index + 1
+                    for index, item in enumerate(ranked)
+                    if item.position_id == decoded.position_id
+                ),
+                -1,
+            )
+            if start < 0:
+                raise PositionDiscoveryCursorError(
+                    "The workspace cursor no longer belongs to the bounded candidate pool"
+                )
+        page_items = ranked[start : start + limit]
+        has_more = start + len(page_items) < len(ranked)
+        next_cursor = None
+        if has_more and page_items:
+            next_cursor = _encode_workspace_cursor(
+                WorkspaceCursor(
+                    context=context,
+                    ranking_fingerprint=ranking_fingerprint,
+                    position_id=page_items[-1].position_id,
+                    legacy_eligibility_rank=(decoded.legacy_eligibility_rank if decoded else None),
+                    legacy_headcount=decoded.legacy_headcount if decoded else None,
+                    legacy_position_id=(decoded.legacy_position_id if decoded else None),
+                )
+            )
+        return WorkspacePage(
+            items=tuple(page_items),
+            next_cursor=next_cursor,
+            has_more=has_more,
         )
 
     @staticmethod
@@ -345,26 +522,30 @@ class PositionDiscoveryService:
             session,
             user_id=user_id,
         )
-        rows = session.execute(
-            text(_DISCOVERY_SQL),
-            {
-                "user_id": user_id,
-                "profile_version": profile_version,
-                "exam_year": release.exam_year,
-                "rule_set_version": release.rule_set_version,
-                "position_data_version": release.position_data_version,
-                "region": None,
-                "city": None,
-                "query": None,
-                "query_like": None,
-                "position_ids": position_ids,
-                "excluded_position_id": None,
-                "cursor_rank": None,
-                "cursor_headcount": None,
-                "cursor_position_id": None,
-                "limit_plus_one": 4,
-            },
-        ).mappings().all()
+        rows = (
+            session.execute(
+                text(_DISCOVERY_SQL),
+                {
+                    "user_id": user_id,
+                    "profile_version": profile_version,
+                    "exam_year": release.exam_year,
+                    "rule_set_version": release.rule_set_version,
+                    "position_data_version": release.position_data_version,
+                    "region": None,
+                    "city": None,
+                    "query": None,
+                    "query_like": None,
+                    "position_ids": position_ids,
+                    "excluded_position_id": None,
+                    "cursor_rank": None,
+                    "cursor_headcount": None,
+                    "cursor_position_id": None,
+                    "limit_plus_one": 4,
+                },
+            )
+            .mappings()
+            .all()
+        )
         rows_by_id = {str(row["position_id"]): row for row in rows}
         if set(rows_by_id) != set(position_ids):
             raise PositionComparisonError(
@@ -384,9 +565,7 @@ class PositionDiscoveryService:
         ]
         largest_headcount = max(item.headcount for item in items)
         reliable_scores = [
-            item.target_score.recommended
-            for item in items
-            if item.target_score is not None
+            item.target_score.recommended for item in items if item.target_score is not None
         ]
         lowest_target = min(reliable_scores) if reliable_scores else None
         return PositionComparisonResponse(
@@ -397,14 +576,10 @@ class PositionDiscoveryService:
             items=items,
             highlights=PositionComparisonHighlights(
                 confirmed_eligible_position_ids=[
-                    item.position_id
-                    for item in items
-                    if item.eligibility_status == "eligible"
+                    item.position_id for item in items if item.eligibility_status == "eligible"
                 ],
                 largest_headcount_position_ids=[
-                    item.position_id
-                    for item in items
-                    if item.headcount == largest_headcount
+                    item.position_id for item in items if item.headcount == largest_headcount
                 ],
                 lowest_target_score_position_ids=[
                     item.position_id
@@ -438,26 +613,30 @@ class PositionDiscoveryService:
             session,
             user_id=user_id,
         )
-        rows = session.execute(
-            text(_DISCOVERY_SQL),
-            {
-                "user_id": user_id,
-                "profile_version": profile_version,
-                "exam_year": release.exam_year,
-                "rule_set_version": release.rule_set_version,
-                "position_data_version": release.position_data_version,
-                "region": None,
-                "city": None,
-                "query": None,
-                "query_like": None,
-                "position_ids": [position_id],
-                "excluded_position_id": None,
-                "cursor_rank": None,
-                "cursor_headcount": None,
-                "cursor_position_id": None,
-                "limit_plus_one": 2,
-            },
-        ).mappings().all()
+        rows = (
+            session.execute(
+                text(_DISCOVERY_SQL),
+                {
+                    "user_id": user_id,
+                    "profile_version": profile_version,
+                    "exam_year": release.exam_year,
+                    "rule_set_version": release.rule_set_version,
+                    "position_data_version": release.position_data_version,
+                    "region": None,
+                    "city": None,
+                    "query": None,
+                    "query_like": None,
+                    "position_ids": [position_id],
+                    "excluded_position_id": None,
+                    "cursor_rank": None,
+                    "cursor_headcount": None,
+                    "cursor_position_id": None,
+                    "limit_plus_one": 2,
+                },
+            )
+            .mappings()
+            .all()
+        )
         if not rows:
             # The owner already established that the position exists. Not finding it
             # in this release therefore means its version membership changed.
@@ -601,6 +780,47 @@ def _context_fingerprint(
     return sha256(raw.encode("utf-8")).hexdigest()[:24]
 
 
+def _workspace_context_fingerprint(
+    *,
+    base_context: str,
+    ability: AbilityEstimateCurrent,
+) -> str:
+    estimate = ability.estimate
+    payload = {
+        "baseContext": base_context,
+        "abilityReadiness": ability.readiness,
+        "abilityEstimateVersionId": (
+            estimate.estimate_version_id if estimate is not None else None
+        ),
+        "abilityInputFingerprint": (estimate.input_fingerprint if estimate is not None else None),
+    }
+    raw = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return sha256(raw.encode("utf-8")).hexdigest()[:24]
+
+
+def _workspace_ranking_fingerprint(items: list[PositionWorkspaceItem]) -> str:
+    raw = json.dumps(
+        [item.position_id for item in items],
+        ensure_ascii=False,
+        separators=(",", ":"),
+    )
+    return sha256(raw.encode("utf-8")).hexdigest()[:24]
+
+
+def _legacy_discovery_sort_key(
+    item: PositionDiscoveryItem,
+) -> tuple[int, int, str]:
+    return (
+        {
+            "eligible": 0,
+            "needs_confirmation": 1,
+            "ineligible": 2,
+        }[item.eligibility_status],
+        -item.headcount,
+        item.position_id,
+    )
+
+
 def _encode_cursor(cursor: DiscoveryCursor) -> str:
     payload = json.dumps(
         {
@@ -614,6 +834,94 @@ def _encode_cursor(cursor: DiscoveryCursor) -> str:
         sort_keys=True,
     ).encode("utf-8")
     return base64.urlsafe_b64encode(payload).decode("ascii").rstrip("=")
+
+
+def _encode_workspace_cursor(cursor: WorkspaceCursor) -> str:
+    if cursor.ranking_fingerprint is None:
+        raise ValueError("A workspace cursor requires a ranking fingerprint")
+    legacy = None
+    if (
+        cursor.legacy_eligibility_rank is not None
+        and cursor.legacy_headcount is not None
+        and cursor.legacy_position_id is not None
+    ):
+        legacy = {
+            "r": cursor.legacy_eligibility_rank,
+            "h": cursor.legacy_headcount,
+            "p": cursor.legacy_position_id,
+        }
+    payload = json.dumps(
+        {
+            "v": 2,
+            "c": cursor.context,
+            "f": cursor.ranking_fingerprint,
+            "p": cursor.position_id,
+            "l": legacy,
+        },
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode("utf-8")
+    return base64.urlsafe_b64encode(payload).decode("ascii").rstrip("=")
+
+
+def _decode_workspace_cursor(
+    value: str,
+    *,
+    expected_context: str,
+    expected_legacy_context: str,
+) -> WorkspaceCursor:
+    try:
+        padded = value + "=" * (-len(value) % 4)
+        payload = json.loads(base64.urlsafe_b64decode(padded).decode("utf-8"))
+        if not isinstance(payload, dict):
+            raise ValueError
+        version = payload.get("v")
+        if version == 1:
+            legacy = _decode_cursor(
+                value,
+                expected_context=expected_legacy_context,
+            )
+            return WorkspaceCursor(
+                context=expected_context,
+                ranking_fingerprint=None,
+                position_id=legacy.position_id,
+                legacy_eligibility_rank=legacy.eligibility_rank,
+                legacy_headcount=legacy.headcount,
+                legacy_position_id=legacy.position_id,
+            )
+        position_id = str(UUID(payload["p"]))
+        ranking_fingerprint = payload["f"]
+        legacy_payload = payload.get("l")
+        legacy_rank = None
+        legacy_headcount = None
+        legacy_position_id = None
+        if legacy_payload is not None:
+            legacy_rank = int(legacy_payload["r"])
+            legacy_headcount = int(legacy_payload["h"])
+            legacy_position_id = str(UUID(legacy_payload["p"]))
+            if legacy_rank not in (0, 1, 2) or legacy_headcount < 1:
+                raise ValueError
+        if (
+            version != 2
+            or payload["c"] != expected_context
+            or not isinstance(ranking_fingerprint, str)
+            or len(ranking_fingerprint) != 24
+        ):
+            raise ValueError
+        return WorkspaceCursor(
+            context=payload["c"],
+            ranking_fingerprint=ranking_fingerprint,
+            position_id=position_id,
+            legacy_eligibility_rank=legacy_rank,
+            legacy_headcount=legacy_headcount,
+            legacy_position_id=legacy_position_id,
+        )
+    except PositionDiscoveryCursorError:
+        raise
+    except (KeyError, TypeError, ValueError, json.JSONDecodeError) as exc:
+        raise PositionDiscoveryCursorError(
+            "The workspace cursor is invalid or its ranking evidence has changed"
+        ) from exc
 
 
 def _decode_cursor(value: str, *, expected_context: str) -> DiscoveryCursor:

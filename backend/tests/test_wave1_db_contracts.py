@@ -38,12 +38,9 @@ def test_wave1_revisions_are_linear_and_single_head() -> None:
     revision72 = import_module("migrations.versions.20260728_72_job_lease_contract")
     revision73 = import_module("migrations.versions.20260728_73_method_card_exact_replay")
     revision74 = import_module("migrations.versions.20260728_74_xingce_question_favorites")
-    revision75 = import_module(
-        "migrations.versions.20260729_75_xingce_delivery_selection_index"
-    )
-    revision76 = import_module(
-        "migrations.versions.20260729_76_optional_reflection_text"
-    )
+    revision75 = import_module("migrations.versions.20260729_75_xingce_delivery_selection_index")
+    revision76 = import_module("migrations.versions.20260729_76_optional_reflection_text")
+    revision77 = import_module("migrations.versions.20260730_77_xingce_selection_projection")
     script = ScriptDirectory.from_config(Config(str(BACKEND_ROOT / "alembic.ini")))
 
     assert revision71.down_revision == "20260728_70"
@@ -52,7 +49,8 @@ def test_wave1_revisions_are_linear_and_single_head() -> None:
     assert revision74.down_revision == "20260728_73"
     assert revision75.down_revision == "20260728_74"
     assert revision76.down_revision == "20260729_75"
-    assert script.get_heads() == ["20260729_76"]
+    assert revision77.down_revision == "20260729_76"
+    assert script.get_heads() == ["20260730_77"]
 
 
 def test_xingce_delivery_selection_has_release_question_covering_index(

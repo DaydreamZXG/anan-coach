@@ -41,7 +41,7 @@
           <view class="context-card__summary">
             <view class="context-card__count">
               <text class="sparkle-mark">✦</text>
-              <text>已筛出 <text class="context-card__number">{{workspace.eligibleCount}}</text> 个可报岗位</text>
+              <text>已筛出 <text class="context-card__number">{{workspace.eligibleCount}}</text> 个资格已确认岗位</text>
             </view>
             <button hover-class="item--hover" class="context-card__link" bindtap="openSearch">查看全部 <text class="tiny-chevron">›</text></button>
           </view>
@@ -63,6 +63,7 @@
           <view class="position-card__title">{{workspace.primaryGoal.name}}</view>
           <view class="position-tag-row">
             <text class="position-tag position-tag--primary">当前主目标</text>
+            <text class="position-tag position-tag--{{workspace.primaryGoal.eligibilityTone}}">{{workspace.primaryGoal.eligibilityLabel}}</text>
             <text class="position-tag">{{workspace.primaryGoal.region}}{{workspace.primaryGoal.city ? ' · ' + workspace.primaryGoal.city : ''}}</text>
             <text class="position-tag">{{workspace.primaryGoal.fitView.bandLabel}}</text>
           </view>
@@ -73,8 +74,8 @@
         </view>
       </block>
 
-      <view class="position-section-title">{{workspace.primaryGoal ? '其他适合你的岗位' : '为你筛出的优势岗位'}} ({{workspace.candidateItems.length}})</view>
-      <view class="discovery-list position-card-grid">
+      <view wx:if="{{workspace.candidateItems.length}}" class="position-section-title">{{workspace.primaryGoal ? '其他优势推荐' : '为你筛出的优势岗位'}} ({{workspace.candidateItems.length}})</view>
+      <view wx:if="{{workspace.candidateItems.length}}" class="discovery-list position-card-grid">
         <view
           wx:for="{{workspace.candidateItems}}"
           wx:key="positionId"
@@ -90,6 +91,7 @@
             <text class="position-tag">{{item.region}}{{item.city ? ' · ' + item.city : ''}}</text>
             <text class="position-tag">招 {{item.headcount}} 人</text>
           </view>
+          <view class="position-card__eyebrow">{{item.recommendationEvidenceLabel}}</view>
           <view class="position-insight {{item.fitView.statusTone === 'success' ? 'position-insight--cyan' : ''}}">
             <text class="position-insight__mark">{{item.fitView.statusTone === 'success' ? '⌖' : '✦'}}</text>
             <text class="position-insight__copy">{{item.fitView.nextActionCopy}}</text>
@@ -106,11 +108,82 @@
         </view>
       </view>
 
-      <view wx:if="{{workspace.status === 'empty' || !workspace.candidateItems.length && !workspace.primaryGoal}}" class="position-empty-card">
-        <view class="position-empty-card__title">暂时没有匹配岗位</view>
-        <view class="position-empty-card__copy">核对一下专业和学历——条件差一个字，岗位就会漏网。</view>
-        <button hover-class="item--hover" class="secondary-pill" bindtap="openQualificationProfile">核对报考资料</button>
+      <view wx:if="{{!workspace.candidateItems.length && !workspace.primaryGoal}}" class="position-empty-card">
+        <view class="position-empty-card__title">暂时没有优势推荐</view>
+        <view class="position-empty-card__copy">只有资格已确认、目标分与能力分差证据都完整的岗位，才会进入这里。</view>
+        <button hover-class="item--hover" class="secondary-pill" bindtap="openScoreSheet">补充成绩证据</button>
       </view>
+
+      <block wx:if="{{workspace.evidencePendingItems.length}}">
+        <view class="position-section-title">资格已确认，待补推荐证据 ({{workspace.evidencePendingItems.length}})</view>
+        <view class="discovery-list position-card-grid">
+          <view
+            wx:for="{{workspace.evidencePendingItems}}"
+            wx:key="positionId"
+            class="discovery-card"
+            hover-class="item--hover"
+            data-id="{{item.positionId}}"
+            bindtap="openPosition"
+          >
+            <view class="position-card__eyebrow">{{item.departmentFull}}</view>
+            <view class="position-card__title">{{item.name}}</view>
+            <view class="position-tag-row">
+              <text class="position-tag position-tag--success">资格已确认</text>
+              <text class="position-tag">{{item.region}}{{item.city ? ' · ' + item.city : ''}}</text>
+              <text class="position-tag">{{item.fitView.evidenceStatusLabel}}</text>
+            </view>
+            <view class="position-insight">
+              <text class="position-insight__mark">✦</text>
+              <text class="position-insight__copy">{{item.recommendationEvidenceLabel}}。{{item.fitView.nextActionCopy}}</text>
+            </view>
+            <view class="position-card__actions">
+              <button
+                hover-class="item--hover"
+                class="compare-link {{item.comparisonSelected ? 'compare-link--selected' : ''}}"
+                data-id="{{item.positionId}}"
+                catchtap="toggleComparison"
+              >{{item.comparisonSelected ? '✓ 已加入对比' : '＋ 加入对比'}}</button>
+              <text class="position-card__open">查看证据 ›</text>
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <block wx:if="{{workspace.needsConfirmationItems.length}}">
+        <view class="position-section-title">待确认岗位 ({{workspace.needsConfirmationItems.length}})</view>
+        <view class="position-inline-alert">这些岗位尚未通过全部硬条件核验，不会进入优势推荐。</view>
+        <view class="discovery-list position-card-grid">
+          <view
+            wx:for="{{workspace.needsConfirmationItems}}"
+            wx:key="positionId"
+            class="discovery-card"
+            hover-class="item--hover"
+            data-id="{{item.positionId}}"
+            bindtap="openPosition"
+          >
+            <view class="position-card__eyebrow">{{item.departmentFull}}</view>
+            <view class="position-card__title">{{item.name}}</view>
+            <view class="position-tag-row">
+              <text class="position-tag position-tag--warning">待确认</text>
+              <text class="position-tag">{{item.region}}{{item.city ? ' · ' + item.city : ''}}</text>
+              <text class="position-tag">{{item.pendingCount}} 项待确认</text>
+            </view>
+            <view class="position-insight">
+              <text class="position-insight__mark">!</text>
+              <text class="position-insight__copy">{{item.recommendationEvidenceLabel}}。{{item.fitView.nextActionCopy}}</text>
+            </view>
+            <view class="position-card__actions">
+              <button
+                hover-class="item--hover"
+                class="compare-link {{item.comparisonSelected ? 'compare-link--selected' : ''}}"
+                data-id="{{item.positionId}}"
+                catchtap="toggleComparison"
+              >{{item.comparisonSelected ? '✓ 已加入对比' : '＋ 加入对比'}}</button>
+              <text class="position-card__open">核对条件 ›</text>
+            </view>
+          </view>
+        </view>
+      </block>
 
       <view wx:if="{{workspace.qualificationAction}}" class="compact-action-card">
         <view>

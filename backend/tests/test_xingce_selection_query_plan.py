@@ -43,7 +43,12 @@ def test_question_selection_limits_candidates_before_loading_content() -> None:
 
     assert selected == []
     normalized = " ".join(session.statement.split())
-    ranked = normalized.index("ranked_candidates as materialized")
-    content_join = normalized.index("join product.question_content_versions")
-    assert ranked < content_join
-    assert normalized.index("limit :batch_size", ranked) < content_join
+    candidates = normalized.index("candidate_ids as materialized")
+    content_join = normalized.index("left join product.question_content_versions")
+    assert candidates < content_join
+    assert normalized.index("limit :candidate_batch_size", candidates) < content_join
+    assert "digest(binding.question_id, 'sha256')" in normalized
+    assert "learning.xingce_question_exposures" in normalized
+    assert "learning.xingce_task_sessions" not in normalized
+    assert "jsonb_array_elements" not in normalized
+    assert "safe_bundle" not in normalized

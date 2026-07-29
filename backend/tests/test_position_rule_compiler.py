@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import pytest
+
 from app.domains.qualification.compiler import (
     RawPositionConditions,
     compile_position_rules,
@@ -14,6 +16,8 @@ from datetime import UTC, datetime
 
 
 NOW = datetime(2026, 7, 12, tzinfo=UTC)
+TEST_MAJOR_CATALOG = frozenset({"法学", "汉语言文学", "人类学"})
+TEST_MAJOR_CATALOG_VERSION = "test-major-catalog@2022-v1"
 
 
 def _source(**changes: object) -> RawPositionConditions:
@@ -30,11 +34,18 @@ def _source(**changes: object) -> RawPositionConditions:
     return RawPositionConditions(**values)  # type: ignore[arg-type]
 
 
-def _compile(source: RawPositionConditions):
+def _compile(
+    source: RawPositionConditions,
+    *,
+    major_catalog_names: frozenset[str] | None = TEST_MAJOR_CATALOG,
+    major_catalog_version: str | None = TEST_MAJOR_CATALOG_VERSION,
+):
     return compile_position_rules(
         source,
         rule_set_version="guokao-2026-v1",
         position_data_version="guokao-2026-fixture",
+        major_catalog_names=major_catalog_names,
+        major_catalog_version=major_catalog_version,
     )
 
 
@@ -86,9 +97,7 @@ def test_compiles_known_education_exact_majors_and_service_years() -> None:
 
 
 def test_major_category_and_hukou_are_never_guessed() -> None:
-    compiled = _compile(
-        _source(major_required="法学类", hukou_req="限江西省户籍或生源")
-    )
+    compiled = _compile(_source(major_required="法学类", hukou_req="限江西省户籍或生源"))
 
     assert compiled.status == "needs_confirmation"
     by_field = {item.field: item for item in compiled.requirements}
@@ -98,25 +107,128 @@ def test_major_category_and_hukou_are_never_guessed() -> None:
     assert "major_requires_catalog_confirmation" in compiled.warnings
 
 
+def test_exact_major_names_compile_without_treating_name_characters_as_categories() -> None:
+    compiled = _compile(_source(major_required="仅限人类学专业、法学"))
+
+    requirement = next(item for item in compiled.requirements if item.field == "major")
+    assert requirement.operator == "contains_any"
+    assert requirement.expected == ["人类学", "人类学专业", "法学"]
+    assert compiled.status == "deterministic"
+
+    result = evaluate_eligibility(
+        facts=[_fact("education", "本科"), _fact("major", "人类学")],
+        requirements=list(compiled.requirements),
+        rule_set_version="guokao-2026-v1",
+        position_data_version="guokao-2026-fixture",
+        evaluated_at=NOW,
+        requirements_authoritative=True,
+    )
+    assert result.status == "eligible"
+
+
+@pytest.mark.parametrize(
+    "major_required",
+    [
+        "男性",
+        "汉族",
+        "专业",
+        "本科专业不限",
+        "财会审计",
+        "法学、男性",
+    ],
+)
+def test_plain_chinese_tokens_outside_the_bound_catalog_remain_manual(
+    major_required: str,
+) -> None:
+    compiled = _compile(_source(major_required=major_required))
+
+    requirement = next(item for item in compiled.requirements if item.field == "major")
+    assert requirement.operator == "manual_review"
+    assert compiled.status == "needs_confirmation"
+    assert "major_requires_catalog_confirmation" in compiled.warnings
+    result = evaluate_eligibility(
+        facts=[_fact("education", "本科"), _fact("major", major_required)],
+        requirements=list(compiled.requirements),
+        rule_set_version="guokao-2026-v1",
+        position_data_version="guokao-2026-fixture",
+        evaluated_at=NOW,
+        requirements_authoritative=True,
+    )
+    assert result.status == "needs_confirmation"
+
+
+def test_exact_major_fails_closed_without_a_versioned_catalog_snapshot() -> None:
+    compiled = _compile(
+        _source(major_required="法学"),
+        major_catalog_names=None,
+        major_catalog_version=None,
+    )
+
+    requirement = next(item for item in compiled.requirements if item.field == "major")
+    assert requirement.operator == "manual_review"
+    assert compiled.status == "needs_confirmation"
+    assert "major_catalog_unavailable" in compiled.warnings
+
+
+def test_major_catalog_snapshot_changes_the_source_fingerprint() -> None:
+    source = _source(major_required="法学")
+    first = _compile(source)
+    expanded = _compile(
+        source,
+        major_catalog_names=TEST_MAJOR_CATALOG | {"社会学"},
+        major_catalog_version="test-major-catalog@2022-v2",
+    )
+    unavailable = _compile(
+        source,
+        major_catalog_names=None,
+        major_catalog_version=None,
+    )
+
+    assert first.source_fingerprint != expanded.source_fingerprint
+    assert first.source_fingerprint != unavailable.source_fingerprint
+
+
+@pytest.mark.parametrize(
+    "major_required",
+    [
+        "社会学类",
+        "法学及相关专业",
+        "本科：法学；研究生：法律硕士",
+        "法学（不含知识产权方向）",
+        "法学（含知识产权专业）",
+        "法学（限通过法律职业资格考试）",
+        "英语（限英语专业八级）",
+        "汉语言文学（师范）",
+        "一级学科为法学",
+        "所学专业为法学",
+        "030101K法学",
+        "法学和汉语言文学",
+        "法学及汉语言文学",
+        "法学等专业",
+    ],
+)
+def test_complex_major_expressions_remain_manual_review(major_required: str) -> None:
+    compiled = _compile(_source(major_required=major_required))
+
+    requirement = next(item for item in compiled.requirements if item.field == "major")
+    assert requirement.operator == "manual_review"
+    assert compiled.status == "needs_confirmation"
+    assert "major_requires_catalog_confirmation" in compiled.warnings
+
+
 def test_unrecognized_remark_creates_a_blocking_other_condition() -> None:
     compiled = _compile(_source(remark="须持有法律职业资格证书A证"))
 
-    requirement = next(
-        item for item in compiled.requirements if item.field == "other_conditions"
-    )
+    requirement = next(item for item in compiled.requirements if item.field == "other_conditions")
     assert requirement.operator == "manual_review"
     assert requirement.source_text == "须持有法律职业资格证书A证"
     assert compiled.status == "needs_confirmation"
 
 
 def test_unmapped_raw_fields_create_a_blocking_audit_rule() -> None:
-    compiled = _compile(
-        _source(raw_payload={"position_code": "3001", "minimum_degree": "学士"})
-    )
+    compiled = _compile(_source(raw_payload={"position_code": "3001", "minimum_degree": "学士"}))
 
-    requirement = next(
-        item for item in compiled.requirements if item.field == "other_conditions"
-    )
+    requirement = next(item for item in compiled.requirements if item.field == "other_conditions")
     assert requirement.operator == "manual_review"
     assert "minimum_degree" in requirement.source_text
     assert "raw_fields_require_confirmation" in compiled.warnings
@@ -129,10 +241,7 @@ def test_official_payload_compiles_degree_without_treating_audit_fields_as_unkno
     assert degree.operator == "one_of"
     assert degree.expected == ["学士", "硕士", "博士"]
     assert "raw_fields_require_confirmation" not in compiled.warnings
-    assert all(
-        "未映射条件字段" not in item.source_text
-        for item in compiled.requirements
-    )
+    assert all("未映射条件字段" not in item.source_text for item in compiled.requirements)
 
 
 def test_official_service_project_labels_map_to_profile_facts() -> None:
@@ -177,18 +286,14 @@ def test_official_education_variants_compile_to_canonical_profile_values() -> No
                 raw_payload=_official_payload(degree="无要求"),
             )
         )
-        requirement = next(
-            item for item in compiled.requirements if item.field == "education"
-        )
+        requirement = next(item for item in compiled.requirements if item.field == "education")
         assert requirement.expected == options
 
 
 def test_exact_fresh_graduate_remark_is_deterministic() -> None:
     compiled = _compile(_source(remark="仅限应届高校毕业生"))
 
-    requirement = next(
-        item for item in compiled.requirements if item.field == "fresh_graduate"
-    )
+    requirement = next(item for item in compiled.requirements if item.field == "fresh_graduate")
     assert requirement.operator == "equals"
     assert requirement.expected is True
     assert compiled.status == "deterministic"
@@ -236,9 +341,7 @@ def test_incomplete_source_release_can_never_compile_as_eligible() -> None:
     )
     assert result.status == "needs_confirmation"
     source_check = next(
-        check
-        for check in result.checks
-        if check.reason_code == "source_conditions_incomplete"
+        check for check in result.checks if check.reason_code == "source_conditions_incomplete"
     )
     assert source_check.requirement_id == "source-conditions-incomplete"
 

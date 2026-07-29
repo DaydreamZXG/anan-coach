@@ -12,6 +12,66 @@ from app.domains.positions.schemas import (
 )
 
 
+def has_position_recommendation_evidence(
+    *,
+    position: PositionDiscoveryItem,
+    fit: PositionFitAssessment,
+) -> bool:
+    """Only fully eligible positions with replayable fit evidence are recommendable."""
+
+    burden = fit.requirements_burden
+    return (
+        position.eligibility_status == "eligible"
+        and fit.status != "evidence_unavailable"
+        and fit.evidence_status == "ready"
+        and fit.band is not None
+        and fit.score_gap is not None
+        and not fit.evidence_reason_codes
+        and burden.pending_requirement_count == 0
+        and burden.hard_condition_not_met_count == 0
+    )
+
+
+def position_recommendation_sort_key(
+    *,
+    position: PositionDiscoveryItem,
+    fit: PositionFitAssessment,
+) -> tuple[int, int, int, float, int, int, int, int, str]:
+    """Return the stable workspace ordering key.
+
+    Qualification is the first gate.  Within the same qualification state,
+    complete ability/target evidence, fit band, score gap and requirement
+    burden all outrank headcount.  Position id is the final deterministic
+    tiebreaker.
+    """
+
+    eligibility_rank = {
+        "eligible": 0,
+        "needs_confirmation": 1,
+        "ineligible": 2,
+    }[position.eligibility_status]
+    evidence_rank = 0 if fit.evidence_status == "ready" else 1
+    band_rank = {
+        "conservative": 0,
+        "overlap": 1,
+        "below_target": 2,
+        None: 3,
+    }[fit.band]
+    score_gap = fit.score_gap.recommended if fit.score_gap is not None else float("inf")
+    burden = fit.requirements_burden
+    return (
+        eligibility_rank,
+        evidence_rank,
+        band_rank,
+        score_gap,
+        int(burden.additional_exam_required),
+        burden.pending_requirement_count,
+        burden.hard_condition_not_met_count,
+        -position.headcount,
+        position.position_id,
+    )
+
+
 def evaluate_position_fit(
     *,
     position: PositionDiscoveryItem,

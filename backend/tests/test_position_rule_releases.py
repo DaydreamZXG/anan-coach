@@ -90,42 +90,58 @@ def test_compile_release_is_audited_conservative_and_idempotent(
         summary = service.compile_draft(session, release_id=release_id, compiled_at=NOW)
 
     assert summary.position_count == 3
-    assert summary.deterministic_count == 1
-    assert summary.needs_confirmation_count == 1
+    assert summary.deterministic_count == 0
+    assert summary.needs_confirmation_count == 2
     assert summary.no_conditions_count == 1
-    assert summary.manual_review_count == 3
+    assert summary.requirements_count == 8
+    assert summary.manual_review_count == 4
 
     with db_session_factory.begin() as session:
         repeated = service.compile_draft(session, release_id=release_id, compiled_at=NOW)
     assert repeated == summary
 
     with db_session_factory() as session:
-        audits = session.execute(
-            text(
-                """
-                select position_id, status, requirements_count, manual_review_count
+        audits = (
+            session.execute(
+                text(
+                    """
+                select
+                  position_id,
+                  status,
+                  requirements_count,
+                  manual_review_count,
+                  warnings
                 from product.position_rule_compilations
                 order by position_id
                 """
+                )
             )
-        ).mappings().all()
-        requirements = session.execute(
-            text(
-                """
+            .mappings()
+            .all()
+        )
+        requirements = (
+            session.execute(
+                text(
+                    """
                 select position_id::text as position_id, fact_key, operator, source_reference
                 from product.position_requirements
                 order by position_id, fact_key
                 """
+                )
             )
-        ).mappings().all()
+            .mappings()
+            .all()
+        )
     assert len(audits) == 3
     assert sum(row["requirements_count"] for row in audits) == len(requirements)
-    manual_fields = {
-        row["fact_key"] for row in requirements if row["operator"] == "manual_review"
-    }
+    manual_fields = {row["fact_key"] for row in requirements if row["operator"] == "manual_review"}
     assert manual_fields == {"major", "hukou", "other_conditions"}
     assert all(row["source_reference"].startswith("product.positions:") for row in requirements)
     assert {row["position_id"] for row in requirements}.issubset(set(position_ids))
+    catalog_unavailable_count = sum(
+        "major_catalog_unavailable" in row["warnings"] for row in audits
+    )
+    assert catalog_unavailable_count == 2
 
 
 def test_release_cannot_activate_until_every_position_is_compiled(
@@ -164,19 +180,25 @@ def test_activation_is_atomic_and_publishes_release_event(
         service.activate(session, release_id=release_id, activated_at=NOW)
 
     with db_session_factory() as session:
-        release = session.execute(
-            text("select status, activated_at from product.position_rule_releases")
-        ).mappings().one()
-        outbox = session.execute(
-            text(
-                """
+        release = (
+            session.execute(text("select status, activated_at from product.position_rule_releases"))
+            .mappings()
+            .one()
+        )
+        outbox = (
+            session.execute(
+                text(
+                    """
                 select event_type, aggregate_id, payload
                 from platform.outbox_events
                 where deduplication_key = :key
                 """
-            ),
-            {"key": f"position-rule-release:{release_id}:activated"},
-        ).mappings().one()
+                ),
+                {"key": f"position-rule-release:{release_id}:activated"},
+            )
+            .mappings()
+            .one()
+        )
     assert release["status"] == "active"
     assert release["activated_at"] == NOW
     assert outbox["event_type"] == "position_rule_release.activated"
@@ -199,7 +221,9 @@ def test_compiled_release_rejects_source_mutation_under_same_version(
         service.compile_draft(session, release_id=release_id, compiled_at=NOW)
     with db_session_factory.begin() as session:
         session.execute(
-            text("update product.positions set major_required = '新闻传播学类' where position_id = :id"),
+            text(
+                "update product.positions set major_required = '新闻传播学类' where position_id = :id"
+            ),
             {"id": position_ids[0]},
         )
 

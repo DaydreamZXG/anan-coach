@@ -6,7 +6,6 @@ import re
 import shutil
 import socket
 import subprocess
-import tempfile
 from collections.abc import Iterator
 from importlib import import_module
 
@@ -38,7 +37,6 @@ def postgres_url(tmp_path_factory: pytest.TempPathFactory) -> Iterator[str]:
 
     data_dir = tmp_path_factory.mktemp("postgres-data")
     log_file = tmp_path_factory.mktemp("postgres-log") / "postgres.log"
-    socket_dir = Path(tempfile.mkdtemp(prefix="pgsock-", dir="/tmp"))
     port = _free_port()
 
     subprocess.run(
@@ -56,7 +54,7 @@ def postgres_url(tmp_path_factory: pytest.TempPathFactory) -> Iterator[str]:
             "-l",
             str(log_file),
             "-o",
-            f"-p {port} -h 127.0.0.1 -k {socket_dir}",
+            (f"-p {port} -h 127.0.0.1 -c unix_socket_directories=''"),
             "start",
             "-w",
         ],
@@ -76,7 +74,6 @@ def postgres_url(tmp_path_factory: pytest.TempPathFactory) -> Iterator[str]:
             stderr=subprocess.STDOUT,
             text=True,
         )
-        shutil.rmtree(socket_dir, ignore_errors=True)
 
 
 @pytest.fixture()

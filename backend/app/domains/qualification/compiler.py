@@ -14,7 +14,7 @@ from app.domains.positions.source_contract import (
 from app.domains.qualification.schemas import PositionRequirement
 
 
-COMPILER_VERSION = "guokao-position-rules-v2"
+COMPILER_VERSION = "guokao-position-rules-v3"
 SOURCE_CONDITIONS_INCOMPLETE_WARNING = "source_conditions_incomplete"
 UNRESTRICTED = {"", "不限", "无", "无要求", "不限制", "专业不限", "无特殊要求"}
 EDUCATION_OPTIONS = {
@@ -53,6 +53,39 @@ SERVICE_PROJECT_LABELS = {
     "大学生志愿服务西部计划": "西部计划",
     "在军队服役5年（含）以上的高校毕业生退役士兵": "高校毕业生退役士兵",
 }
+MAJOR_COMPLEX_MARKERS = (
+    "相关专业",
+    "相近专业",
+    "专业目录",
+    "学科目录",
+    "一级学科",
+    "二级学科",
+    "专业代码",
+    "所学专业",
+    "专业为",
+    "专业要求",
+    "详见",
+    "及以上",
+    "以上专业",
+    "以下专业",
+    "除",
+    "不含",
+    "包含",
+    "含",
+    "包括",
+    "方向",
+    "须",
+    "取得",
+    "通过",
+    "资格",
+    "且",
+    "和",
+    "及",
+    "并且",
+    "以及",
+)
+MAJOR_EXACT_TOKEN = re.compile(r"[\u3400-\u9fff·]+")
+MAJOR_CATEGORY = re.compile(r"(?:专业|学科|门)?类(?:[（(]|$)")
 
 
 @dataclass(frozen=True)
@@ -88,12 +121,32 @@ def compile_position_rules(
     rule_set_version: str,
     position_data_version: str,
     source_conditions_complete: bool = True,
+    major_catalog_names: frozenset[str] | None = None,
+    major_catalog_version: str | None = None,
 ) -> CompiledPositionRules:
     requirements: list[PositionRequirement] = []
     warnings: list[str] = []
+    normalized_major_catalog = (
+        frozenset(normalized for name in major_catalog_names if (normalized := _normalize(name)))
+        if major_catalog_names
+        else None
+    )
+    major_catalog_fingerprint = _major_catalog_fingerprint(
+        names=normalized_major_catalog,
+        version=major_catalog_version,
+    )
+    if major_catalog_fingerprint is None:
+        normalized_major_catalog = None
 
     _compile_education(source, requirements, warnings, rule_set_version, position_data_version)
-    _compile_major(source, requirements, warnings, rule_set_version, position_data_version)
+    _compile_major(
+        source,
+        requirements,
+        warnings,
+        rule_set_version,
+        position_data_version,
+        major_catalog_names=normalized_major_catalog,
+    )
     _compile_political(source, requirements, warnings, rule_set_version, position_data_version)
     _compile_official_payload(
         source,
@@ -155,6 +208,8 @@ def compile_position_rules(
         source_fingerprint=_fingerprint(
             source,
             source_conditions_complete=source_conditions_complete,
+            major_catalog_version=major_catalog_version,
+            major_catalog_fingerprint=major_catalog_fingerprint,
         ),
     )
 
@@ -203,13 +258,17 @@ def _compile_major(
     warnings: list[str],
     rule_set_version: str,
     position_data_version: str,
+    *,
+    major_catalog_names: frozenset[str] | None,
 ) -> None:
     value = _normalize(source.major_required)
     if _unrestricted(value):
         return
-    risky = ("类", "相关", "相近", "目录", "代码", "以", "详见", "等专业")
-    parts = _split_options(value)
-    if not parts or any(term in value for term in risky):
+    parts = _parse_exact_major_options(
+        value,
+        major_catalog_names=major_catalog_names,
+    )
+    if parts is None:
         requirements.append(
             _manual_requirement(
                 source,
@@ -221,6 +280,8 @@ def _compile_major(
             )
         )
         warnings.append("major_requires_catalog_confirmation")
+        if major_catalog_names is None:
+            warnings.append("major_catalog_unavailable")
         return
     requirements.append(
         _requirement(
@@ -234,6 +295,57 @@ def _compile_major(
             position_data_version=position_data_version,
         )
     )
+
+
+def _parse_exact_major_options(
+    value: str,
+    *,
+    major_catalog_names: frozenset[str] | None,
+) -> list[str] | None:
+    """Return only exact major names whose OR semantics are mechanically safe.
+
+    Official category, catalogue, direction and exclusion expressions remain
+    manual-review requirements.  A terminal ``专业`` and the explicit wrappers
+    ``限``/``仅限`` are accepted as lexical aliases rather than category guesses.
+    """
+
+    # Without one immutable catalogue snapshot, even a plain Chinese token
+    # cannot be proven to be a major rather than an unrelated condition.
+    if not major_catalog_names:
+        return None
+    if any(char in value for char in "（）()") or re.search(r"\d", value):
+        return None
+    if any(marker in value for marker in MAJOR_COMPLEX_MARKERS):
+        return None
+    if MAJOR_CATEGORY.search(value) or re.search(r"(?:等|等专业)$", value):
+        return None
+
+    raw_parts = _split_options(value)
+    if not raw_parts:
+        return None
+
+    options: list[str] = []
+    for raw_part in raw_parts:
+        part = raw_part
+        if part.startswith("仅限"):
+            part = part[2:]
+        elif part.startswith("限"):
+            part = part[1:]
+        if not part or MAJOR_EXACT_TOKEN.fullmatch(part) is None:
+            return None
+
+        if part in major_catalog_names:
+            canonical = part
+        elif part.endswith("专业") and len(part) > 2 and part[:-2] in major_catalog_names:
+            canonical = part[:-2]
+        else:
+            return None
+        if MAJOR_CATEGORY.search(canonical):
+            return None
+        options.append(canonical)
+        if canonical != part:
+            options.append(part)
+    return list(dict.fromkeys(options))
 
 
 def _compile_political(
@@ -552,9 +664,7 @@ def _requirement(
     rule_set_version: str,
     position_data_version: str,
 ) -> PositionRequirement:
-    identity = (
-        f"{source.position_id}:{rule_set_version}:{position_data_version}:{field}"
-    )
+    identity = f"{source.position_id}:{rule_set_version}:{position_data_version}:{field}"
     return PositionRequirement.model_validate(
         {
             "requirementId": str(uuid5(NAMESPACE_URL, identity)),
@@ -581,10 +691,32 @@ def _split_options(value: str) -> list[str]:
     return [part for part in re.split(r"[、,，;/；]", normalized) if part]
 
 
+def _major_catalog_fingerprint(
+    *,
+    names: frozenset[str] | None,
+    version: str | None,
+) -> str | None:
+    normalized_version = (version or "").strip()
+    if not names or not normalized_version:
+        return None
+    encoded = json.dumps(
+        {
+            "version": normalized_version,
+            "names": sorted(names),
+        },
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    return sha256(encoded.encode("utf-8")).hexdigest()
+
+
 def _fingerprint(
     source: RawPositionConditions,
     *,
     source_conditions_complete: bool,
+    major_catalog_version: str | None,
+    major_catalog_fingerprint: str | None,
 ) -> str:
     payload = {
         "positionId": source.position_id,
@@ -596,6 +728,10 @@ def _fingerprint(
         "remark": source.remark,
         "rawPayload": source.raw_payload,
         "sourceConditionsComplete": source_conditions_complete,
+        "majorCatalogVersion": (
+            major_catalog_version if major_catalog_fingerprint is not None else None
+        ),
+        "majorCatalogFingerprint": major_catalog_fingerprint,
     }
     encoded = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     return sha256(encoded.encode("utf-8")).hexdigest()
