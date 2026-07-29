@@ -75,6 +75,12 @@ export interface QualificationGapView extends QualificationGap {
   tone: "warning" | "danger";
 }
 
+export interface QualificationActionView {
+  title: string;
+  copy: string;
+  label: string;
+}
+
 export interface PositionRouteSummaryView extends PositionRouteSummary {
   eligibilityLabel: string;
   eligibilityTone: PositionCardView["eligibilityTone"];
@@ -340,6 +346,19 @@ export function qualificationGapView(gap: QualificationGap): QualificationGapVie
           : "档案尚未填写",
     actionLabel: isPositionConfirmation ? "在待确认岗位中处理" : "补充资格档案",
     tone: gap.gapType === "conflicting_fact" ? "danger" : "warning",
+  };
+}
+
+export function qualificationActionView(
+  gaps: QualificationGapView[],
+): QualificationActionView | null {
+  if (gaps.length === 0) return null;
+  const profileGaps = gaps.filter((gap) => gap.action === "complete_profile");
+  if (profileGaps.length === 0) return null;
+  return {
+    title: `还有 ${String(profileGaps.length)} 项报考资料待补充`,
+    copy: "补齐档案后，岗位判断会自动更新。",
+    label: "去补充",
   };
 }
 

@@ -112,12 +112,12 @@
         <button hover-class="item--hover" class="secondary-pill" bindtap="openQualificationProfile">核对报考资料</button>
       </view>
 
-      <view wx:if="{{!workspace.qualificationComplete}}" class="compact-action-card">
+      <view wx:if="{{workspace.qualificationAction}}" class="compact-action-card">
         <view>
-          <view class="compact-action-card__title">还有 {{workspace.qualificationGaps.length}} 项资料待确认</view>
-          <view class="compact-action-card__copy">补完整后，岗位判断会自动更新。</view>
+          <view class="compact-action-card__title">{{workspace.qualificationAction.title}}</view>
+          <view class="compact-action-card__copy">{{workspace.qualificationAction.copy}}</view>
         </view>
-        <button hover-class="item--hover" class="compact-action-card__button" bindtap="openQualificationProfile">去确认</button>
+        <button hover-class="item--hover" class="compact-action-card__button" bindtap="openQualificationAction">{{workspace.qualificationAction.label}}</button>
       </view>
 
       <view class="quiet-actions">

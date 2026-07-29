@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  qualificationActionView,
   positionCardView,
   positionComparisonItemView,
   qualificationGapView,
@@ -59,6 +60,48 @@ describe("position presentation", () => {
     expect(gap.factLabel).toBe("专业");
     expect(gap.statusLabel).toBe("需按岗位原文确认");
     expect(gap.actionLabel).toBe("在待确认岗位中处理");
+  });
+
+  it("does not present catalog-wide position confirmations as an incomplete profile", () => {
+    const action = qualificationActionView([
+      qualificationGapView({
+        factKey: "major",
+        gapType: "position_confirmation",
+        affectedPositionCount: 12,
+        samplePositionIds: ["position-1"],
+        samplePositionCodes: ["3001"],
+        action: "review_position_requirement",
+      }),
+      qualificationGapView({
+        factKey: "other_conditions",
+        gapType: "position_confirmation",
+        affectedPositionCount: 8,
+        samplePositionIds: ["position-2"],
+        samplePositionCodes: ["3002"],
+        action: "review_position_requirement",
+      }),
+    ]);
+
+    expect(action).toBeNull();
+  });
+
+  it("keeps true missing profile facts routed to profile completion", () => {
+    const action = qualificationActionView([
+      qualificationGapView({
+        factKey: "hukou",
+        gapType: "missing_fact",
+        affectedPositionCount: 4,
+        samplePositionIds: ["position-1"],
+        samplePositionCodes: ["3001"],
+        action: "complete_profile",
+      }),
+    ]);
+
+    expect(action).toEqual({
+      title: "还有 1 项报考资料待补充",
+      copy: "补齐档案后，岗位判断会自动更新。",
+      label: "去补充",
+    });
   });
 
   it("presents a goal change preview without deriving business impact", () => {

@@ -415,7 +415,7 @@ def test_qualification_gaps_only_reports_unresolved_inputs_that_affect_positions
     assert summary.rule_set_version == "guokao-2026-rules-v1"
     assert summary.position_data_version == "guokao-2026-discovery-v1"
     assert summary.total_affected_positions == 1
-    assert summary.complete is False
+    assert summary.complete is True
     assert {gap.fact_key for gap in summary.gaps} == {"major", "other_conditions"}
     for gap in summary.gaps:
         assert gap.gap_type == "position_confirmation"
@@ -450,6 +450,7 @@ def test_qualification_gaps_are_user_isolated_and_report_missing_facts(
     assert gaps[("major", "position_confirmation")].affected_position_count == 1
     assert gaps[("other_conditions", "position_confirmation")].affected_position_count == 1
     assert summary.total_affected_positions == 3
+    assert summary.complete is False
 
 
 def test_comparison_route_uses_authenticated_profile_and_returns_no_winner(

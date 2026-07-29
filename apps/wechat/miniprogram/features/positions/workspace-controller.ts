@@ -9,8 +9,10 @@ import {
 } from "./contracts";
 import { positionOperationError } from "./error-state";
 import {
+  qualificationActionView,
   positionWorkspaceItemView,
   qualificationGapView,
+  type QualificationActionView,
   type PositionWorkspaceItemView,
   type QualificationGapView,
 } from "./presentation";
@@ -44,6 +46,7 @@ export interface PositionWorkspaceState {
   qualificationError: PositionOperationError | null;
   qualificationGaps: QualificationGapView[];
   qualificationComplete: boolean;
+  qualificationAction: QualificationActionView | null;
   totalAffectedPositions: number;
   qualificationDelivery: PositionDeliveryView | null;
 }
@@ -91,6 +94,7 @@ export class PositionWorkspaceController {
       qualificationError: null,
       qualificationGaps: [],
       qualificationComplete: false,
+      qualificationAction: null,
       totalAffectedPositions: 0,
       qualificationDelivery: null,
     };
@@ -205,12 +209,14 @@ export class PositionWorkspaceController {
     try {
       const response = await this.qualificationApi.getQualificationGaps();
       if (!this.isQualificationCurrent(epoch)) return;
+      const qualificationGaps = response.data.gaps.map(qualificationGapView);
       this.state = {
         ...this.state,
         qualificationStatus: "ready",
         qualificationError: null,
-        qualificationGaps: response.data.gaps.map(qualificationGapView),
+        qualificationGaps,
         qualificationComplete: response.data.complete,
+        qualificationAction: qualificationActionView(qualificationGaps),
         totalAffectedPositions: response.data.totalAffectedPositions,
         qualificationDelivery: deliveryView(response),
       };
@@ -330,6 +336,7 @@ function cloneWorkspaceState(state: PositionWorkspaceState): PositionWorkspaceSt
     ability: state.ability ? { ...state.ability } : null,
     qualificationError: state.qualificationError ? { ...state.qualificationError } : null,
     qualificationGaps: state.qualificationGaps.map((item) => ({ ...item })),
+    qualificationAction: state.qualificationAction ? { ...state.qualificationAction } : null,
     qualificationDelivery: state.qualificationDelivery ? { ...state.qualificationDelivery } : null,
   };
 }

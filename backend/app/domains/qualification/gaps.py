@@ -40,6 +40,9 @@ class QualificationGapService:
             for row in rows
         ]
         total_affected = int(rows[0]["total_affected_positions"]) if rows else 0
+        profile_complete = not any(
+            gap.gap_type in {"missing_fact", "conflicting_fact"} for gap in gaps
+        )
         return QualificationGapSummary(
             exam_year=release.exam_year,
             learner_profile_version=profile_version,
@@ -47,7 +50,7 @@ class QualificationGapService:
             position_data_version=release.position_data_version,
             total_affected_positions=total_affected,
             gaps=gaps,
-            complete=not gaps,
+            complete=profile_complete,
         )
 
 
