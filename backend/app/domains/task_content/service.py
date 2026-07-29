@@ -26,12 +26,12 @@ from app.domains.task_content.schemas import (
 )
 
 
-PUBLIC_QUESTION_ASSET_HOSTS = frozenset({"kg.xingguoxian.cn"})
-PUBLIC_QUESTION_ASSET_PATH_PREFIX = "/assets/"
 PUBLISHED_QUESTION_OBJECT_PREFIX = (
     "data/question-bank-export/files/source-question-bank/"
     "fenbi-final-analysis-v1-20260613-assets/"
 )
+PUBLIC_QUESTION_ASSET_HOSTS = frozenset({"img.xingguoxian.cn"})
+PUBLIC_QUESTION_ASSET_PATH_PREFIX = f"/{PUBLISHED_QUESTION_OBJECT_PREFIX}"
 PUBLISHED_QUESTION_IMAGE_SUFFIXES = frozenset({".gif", ".jpeg", ".jpg", ".png"})
 RICH_TEXT_TAGS = frozenset(
     {
@@ -633,7 +633,7 @@ def published_question_asset_url(asset: object) -> str | None:
     ):
         return None
     encoded_key = quote(candidate, safe="/")
-    return f"https://kg.xingguoxian.cn/assets/{encoded_key}"
+    return f"https://img.xingguoxian.cn/{encoded_key}"
 
 
 def _content_block_id(scope: str, index: int, kind: str) -> str:

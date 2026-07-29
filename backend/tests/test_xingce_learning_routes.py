@@ -83,12 +83,16 @@ def test_xingce_learning_routes_require_authentication() -> None:
 
 
 def test_xingce_question_asset_policy_only_accepts_owned_public_https() -> None:
-    owned = "https://kg.xingguoxian.cn/assets/questions/q-1.png"
+    owned = (
+        "https://img.xingguoxian.cn/"
+        "data/question-bank-export/files/source-question-bank/"
+        "fenbi-final-analysis-v1-20260613-assets/questions/q-1.png"
+    )
 
     assert _public_question_asset_url(owned) == owned
     assert _public_question_asset_url("questions/private/q-1.png") is None
-    assert _public_question_asset_url("http://kg.xingguoxian.cn/assets/q-1.png") is None
-    assert _public_question_asset_url("https://kg.xingguoxian.cn/private/q-1.png") is None
+    assert _public_question_asset_url(owned.replace("https://", "http://")) is None
+    assert _public_question_asset_url("https://img.xingguoxian.cn/private/q-1.png") is None
 
 
 def test_xingce_rich_text_is_sanitized_and_unreviewed_explanation_is_hidden() -> None:
@@ -236,7 +240,10 @@ def _seed_objective_questions(
                         "asset_id": f"asset-{question_id}",
                         "question_id": question_id,
                         "image_src": (
-                            f"https://kg.xingguoxian.cn/assets/questions/{question_id}.png"
+                            "https://img.xingguoxian.cn/"
+                            "data/question-bank-export/files/source-question-bank/"
+                            "fenbi-final-analysis-v1-20260613-assets/questions/"
+                            f"{question_id}.png"
                             if valid_public_asset
                             else f"https://evil.example/{question_id}.png"
                         ),

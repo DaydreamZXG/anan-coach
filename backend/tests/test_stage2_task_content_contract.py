@@ -43,7 +43,9 @@ def test_rich_content_contract_supports_long_material_merged_8_column_table_and_
                 "part_index": 0,
                 "image_ordinal": 0,
                 "image_src": (
-                    "https://kg.xingguoxian.cn/assets/questions/"
+                    "https://img.xingguoxian.cn/"
+                    "data/question-bank-export/files/source-question-bank/"
+                    "fenbi-final-analysis-v1-20260613-assets/questions/"
                     "q-stage2-4096x2160.png"
                 ),
                 "object_key": "questions/q-stage2-4096x2160.png",
@@ -114,7 +116,7 @@ def test_rich_content_contract_publishes_a_valid_imported_question_object_key() 
     )
 
     assert bundle.materials[0].assets[0].url == (
-        "https://kg.xingguoxian.cn/assets/"
+        "https://img.xingguoxian.cn/"
         "data/question-bank-export/files/source-question-bank/"
         "fenbi-final-analysis-v1-20260613-assets/"
         "%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90/%E5%9B%BE%201.png"
