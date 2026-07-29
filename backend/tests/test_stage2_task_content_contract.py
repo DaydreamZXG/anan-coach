@@ -5,7 +5,10 @@ import json
 import pytest
 from pydantic import ValidationError
 
-from app.domains.task_content.service import freeze_learner_bundle
+from app.domains.task_content.service import (
+    TaskContentContractError,
+    freeze_learner_bundle,
+)
 from app.domains.mock_exam.service import (
     MockExamUnavailableError,
     _validate_single_choice_snapshot,
@@ -81,6 +84,66 @@ def test_rich_content_contract_supports_long_material_merged_8_column_table_and_
     assert '"answer"' not in encoded
     assert '"correctOptionIds"' not in encoded
     assert scoring["questions"][0]["correctOptionIds"] == ["B"]
+
+
+def test_rich_content_contract_publishes_a_valid_imported_question_object_key() -> None:
+    object_key = (
+        "data/question-bank-export/files/source-question-bank/"
+        "fenbi-final-analysis-v1-20260613-assets/资料分析/图 1.png"
+    )
+    source = _source(
+        visual_required=True,
+        assets=[
+            {
+                "asset_id": "asset-imported",
+                "part_kind": "chart",
+                "part_index": 0,
+                "image_ordinal": 0,
+                "image_src": "files/资料分析/图 1.png",
+                "object_key": object_key,
+                "is_representative_asset": True,
+            }
+        ],
+    )
+
+    bundle, _ = freeze_learner_bundle(
+        [source],
+        scoring_policy_version="test-v1",
+        content_version_id=question_content_version_id,
+        published_explanation=lambda item: ("secret explanation", "verified"),
+    )
+
+    assert bundle.materials[0].assets[0].url == (
+        "https://kg.xingguoxian.cn/assets/"
+        "data/question-bank-export/files/source-question-bank/"
+        "fenbi-final-analysis-v1-20260613-assets/"
+        "%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90/%E5%9B%BE%201.png"
+    )
+
+
+def test_rich_content_contract_rejects_an_object_outside_the_published_prefix() -> None:
+    source = _source(
+        visual_required=True,
+        assets=[
+            {
+                "asset_id": "asset-private",
+                "part_kind": "chart",
+                "part_index": 0,
+                "image_ordinal": 0,
+                "image_src": "files/private.png",
+                "object_key": "private/users/user-1/private.png",
+                "is_representative_asset": True,
+            }
+        ],
+    )
+
+    with pytest.raises(TaskContentContractError, match="no published learner-safe image"):
+        freeze_learner_bundle(
+            [source],
+            scoring_policy_version="test-v1",
+            content_version_id=question_content_version_id,
+            published_explanation=lambda item: ("secret explanation", "verified"),
+        )
 
 
 def test_rich_content_contract_preserves_underlined_blanks_from_the_source_stem() -> None:

@@ -7,7 +7,7 @@ from html.parser import HTMLParser
 import json
 import re
 from typing import Any
-from urllib.parse import urlsplit
+from urllib.parse import quote, urlsplit
 
 from app.domains.task_content.schemas import (
     ContentAnchor,
@@ -28,6 +28,11 @@ from app.domains.task_content.schemas import (
 
 PUBLIC_QUESTION_ASSET_HOSTS = frozenset({"kg.xingguoxian.cn"})
 PUBLIC_QUESTION_ASSET_PATH_PREFIX = "/assets/"
+PUBLISHED_QUESTION_OBJECT_PREFIX = (
+    "data/question-bank-export/files/source-question-bank/"
+    "fenbi-final-analysis-v1-20260613-assets/"
+)
+PUBLISHED_QUESTION_IMAGE_SUFFIXES = frozenset({".gif", ".jpeg", ".jpg", ".png"})
 RICH_TEXT_TAGS = frozenset(
     {
         "b",
@@ -185,7 +190,7 @@ def validate_learner_question(
     source_assets = [
         {**asset, "public_url": public_url}
         for asset in source["assets"]
-        if (public_url := public_question_asset_url(asset.get("image_src"))) is not None
+        if (public_url := published_question_asset_url(asset)) is not None
     ]
     if source.get("visual_required") and not source_assets:
         raise TaskContentContractError(
@@ -601,6 +606,34 @@ def public_question_asset_url(value: object) -> str | None:
     ):
         return None
     return candidate
+
+
+def published_question_asset_url(asset: object) -> str | None:
+    if not isinstance(asset, dict):
+        return None
+    existing_url = public_question_asset_url(asset.get("image_src"))
+    if existing_url is not None:
+        return existing_url
+    object_key = asset.get("object_key")
+    if not isinstance(object_key, str):
+        return None
+    candidate = object_key.strip()
+    path_parts = candidate.split("/")
+    if (
+        not candidate.startswith(PUBLISHED_QUESTION_OBJECT_PREFIX)
+        or "\\" in candidate
+        or any(
+            part in {"", ".", ".."} or any(ord(character) < 32 for character in part)
+            for part in path_parts
+        )
+        or not any(
+            candidate.casefold().endswith(suffix)
+            for suffix in PUBLISHED_QUESTION_IMAGE_SUFFIXES
+        )
+    ):
+        return None
+    encoded_key = quote(candidate, safe="/")
+    return f"https://kg.xingguoxian.cn/assets/{encoded_key}"
 
 
 def _content_block_id(scope: str, index: int, kind: str) -> str:
