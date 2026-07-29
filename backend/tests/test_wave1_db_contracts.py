@@ -41,6 +41,9 @@ def test_wave1_revisions_are_linear_and_single_head() -> None:
     revision75 = import_module(
         "migrations.versions.20260729_75_xingce_delivery_selection_index"
     )
+    revision76 = import_module(
+        "migrations.versions.20260729_76_optional_reflection_text"
+    )
     script = ScriptDirectory.from_config(Config(str(BACKEND_ROOT / "alembic.ini")))
 
     assert revision71.down_revision == "20260728_70"
@@ -48,7 +51,8 @@ def test_wave1_revisions_are_linear_and_single_head() -> None:
     assert revision73.down_revision == "20260728_72"
     assert revision74.down_revision == "20260728_73"
     assert revision75.down_revision == "20260728_74"
-    assert script.get_heads() == ["20260729_75"]
+    assert revision76.down_revision == "20260729_75"
+    assert script.get_heads() == ["20260729_76"]
 
 
 def test_xingce_delivery_selection_has_release_question_covering_index(

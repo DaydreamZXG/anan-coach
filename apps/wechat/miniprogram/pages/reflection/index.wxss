@@ -264,7 +264,7 @@
   gap: var(--figma-space-4);
 }
 
-/* Figma 13:129/13:145：40px 圆形题号；正常题浅灰，需复盘题红圈。 */
+/* 题号颜色只表达客观结果强度，不能把所有“需复盘”都渲染成答错。 */
 .summary-question-dot {
   display: flex;
   width: calc(80 * var(--rpx));
@@ -279,28 +279,51 @@
   font-weight: 700;
 }
 
-.summary-question-dot--review {
+.summary-question-dot--danger {
   border-color: var(--figma-color-danger-soft-strong);
   background: var(--figma-color-danger-soft);
   color: var(--figma-color-danger-deep);
 }
 
-.summary-question-dot--normal {
+.summary-question-dot--warning {
+  border-color: var(--color-warning-a42);
+  background: var(--figma-color-warning-soft);
+  color: var(--figma-color-warning-deep);
+}
+
+.summary-question-dot--success {
+  border-color: var(--figma-color-success);
+  background: var(--figma-color-success-soft);
+  color: var(--figma-color-success);
+}
+
+.summary-question-dot--neutral {
   border-color: var(--figma-color-line);
   background: var(--figma-color-surface-subtle);
   color: var(--figma-color-ink);
 }
 
-/* Figma 13:149：红色小注「复盘·超时」。 */
 .summary-question-label {
   overflow: hidden;
   width: 100%;
-  color: var(--figma-color-danger);
+  color: var(--figma-color-muted);
   font-size: var(--text-micro);
   font-weight: 500;
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.summary-question-label--danger {
+  color: var(--figma-color-danger);
+}
+
+.summary-question-label--warning {
+  color: var(--figma-color-warning-deep);
+}
+
+.summary-question-label--neutral {
+  color: var(--figma-color-muted);
 }
 
 .summary-actions {
@@ -485,17 +508,42 @@
 }
 
 .answer-compare__label {
+  flex: none;
   margin-right: calc(20 * var(--rpx));
   font-size: var(--text-caption);
   font-weight: 700;
 }
 
+.answer-compare__line {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  align-items: flex-start;
+}
+
+.answer-compare__content {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: calc(4 * var(--rpx));
+}
+
 .answer-compare__value {
   font-size: var(--text-caption);
-  font-weight: 600;
+  font-weight: 700;
+}
+
+.answer-compare__text {
+  color: var(--color-ink-secondary);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  line-height: 1.55;
 }
 
 .answer-compare__mark {
+  flex: none;
+  margin-left: calc(16 * var(--rpx));
   font-size: var(--text-section);
   font-weight: 700;
 }
@@ -548,16 +596,36 @@
   font-weight: 700;
 }
 
+.structured-review__section {
+  margin-top: calc(16 * var(--rpx));
+  padding: calc(22 * var(--rpx)) calc(24 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--line);
+  border-radius: var(--radius-24);
+  background: var(--figma-color-surface-subtle);
+}
+
+.structured-review__section--answer {
+  border-color: var(--figma-color-success-soft);
+  background: var(--figma-color-success-soft);
+}
+
 .structured-review__spark {
   color: var(--color-muted);
   font-size: var(--text-body-lg);
 }
 
 .structured-review__label {
-  margin-top: calc(24 * var(--rpx));
   color: var(--ink-3);
   font-size: var(--text-micro);
   font-weight: 700;
+}
+
+.structured-review__answer {
+  margin-top: calc(8 * var(--rpx));
+  color: var(--figma-color-success);
+  font-size: var(--text-body);
+  font-weight: 700;
+  line-height: 1.65;
 }
 
 .structured-review__copy {

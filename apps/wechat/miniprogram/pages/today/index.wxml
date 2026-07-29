@@ -199,10 +199,6 @@
             <image class="icon icon--small" src="/assets/icons/today/calendar-days-secondary.png" mode="aspectFit" />
             <text>周计划</text>
           </button>
-          <button hover-class="item--hover" class="tool-link" bindtap="openDailySettlement">
-            <image class="icon icon--small" src="/assets/icons/today/refresh-cw-secondary.png" mode="aspectFit" />
-            <text>每日结算</text>
-          </button>
         </view>
       </view>
       </view>

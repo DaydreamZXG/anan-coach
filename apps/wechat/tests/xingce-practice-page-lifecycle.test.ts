@@ -40,6 +40,46 @@ describe("xingce practice page lifecycle", () => {
     runtime.page.onUnload.call(runtime.page);
   });
 
+  it("updates only timer leaves each second instead of rerendering the complete question", async () => {
+    vi.useFakeTimers();
+    const runtime = await createPracticePage();
+    const callsBeforeTick = runtime.setData.mock.calls.length;
+
+    await vi.advanceTimersByTimeAsync(1_000);
+
+    const tickWrites = runtime.setData.mock.calls.slice(callsBeforeTick).map(([patch]) => patch);
+    expect(tickWrites).toContainEqual(
+      expect.objectContaining({
+        "view.elapsedLabel": "00:13",
+        "view.question.elapsedLabel": "00:01",
+      }),
+    );
+    expect(tickWrites.some((patch) => Object.hasOwn(patch, "view"))).toBe(false);
+    runtime.page.onUnload.call(runtime.page);
+  });
+
+  it("keeps the complete question mounted across the periodic autosave", async () => {
+    vi.useFakeTimers();
+    const runtime = await createPracticePage();
+    runtime.page.inputDraft.call(runtime.page, inputEvent("等待自动保存的草稿"));
+    const callsBeforeAutosave = runtime.setData.mock.calls.length;
+
+    // 初始恢复和定时器启动可能跨过一个秒边界，多推进 1 秒覆盖第一个
+    // 确定触发的 15 秒自动保存窗口。
+    await vi.advanceTimersByTimeAsync(16_000);
+    await flushMicrotasks();
+
+    expect(runtime.requests.filter((item) => item.method === "PUT")).toHaveLength(1);
+    const autosaveWrites: Array<Record<string, unknown>> = runtime.setData.mock.calls
+      .slice(callsBeforeAutosave)
+      .map(([patch]) => patch);
+    expect(autosaveWrites.some((patch) => Object.hasOwn(patch, "view"))).toBe(false);
+    const statusWrite = autosaveWrites.find((patch) => Object.hasOwn(patch, "view.syncLabel"));
+    expect(typeof statusWrite?.["view.syncLabel"]).toBe("string");
+    expect(typeof statusWrite?.["view.question.elapsedSeconds"]).toBe("number");
+    runtime.page.onUnload.call(runtime.page);
+  });
+
   it("ignores a late checkpoint response after the page is unloaded", async () => {
     vi.useFakeTimers();
     let releaseRefresh: (() => void) | undefined;
@@ -411,7 +451,6 @@ describe("xingce practice swipe question navigation", () => {
       { ananContextOpen: true },
       { annotationOpen: true },
       { materialOpen: true },
-      { selection: { key: "stem-1", text: "选中句", toolbarTop: 120 } },
       { interactionLocked: true },
       { taskPaused: true },
     ];
@@ -424,6 +463,22 @@ describe("xingce practice swipe question navigation", () => {
     // 守卫恢复后同一手势立即生效，证明守卫矩阵是唯一拦截原因。
     swipe(runtime.page, { fromX: 300, toX: 140, y: 400 });
     expect(currentOf(runtime.page)).toBe(2);
+    runtime.page.onUnload.call(runtime.page);
+  });
+
+  it("dismisses an accidental stem selection and still switches questions by swipe", async () => {
+    vi.useFakeTimers();
+    const runtime = await createPracticePage();
+    runtime.page.data.selection = {
+      key: "stem-1",
+      text: "不小心点中的题干",
+      toolbarTop: 120,
+    };
+
+    swipe(runtime.page, { fromX: 300, toX: 140, y: 400 });
+
+    expect(currentOf(runtime.page)).toBe(2);
+    expect(runtime.page.data.selection).toEqual({ key: "", text: "", toolbarTop: 0 });
     runtime.page.onUnload.call(runtime.page);
   });
 

@@ -17,6 +17,10 @@ import {
   submittedXingceSession,
   xingceIds,
 } from "./work_packages/vj-02-real-xingce-wechat/harness";
+// @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
+import reflectionTemplate from "../miniprogram/pages/reflection/index.wxml?raw";
+// @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
+import reflectionStyles from "../miniprogram/pages/reflection/index.wxss?raw";
 
 const nextCandidateId = "56000000-0000-4000-8000-000000000001";
 
@@ -27,10 +31,25 @@ afterEach(() => {
 });
 
 describe("stage 3 factored result presentation", () => {
-  it("把真会、猜对、不会、主动放弃和方法对计算错作为独立事实", () => {
-    expect(presentXingceResult(submittedXingceSession("correct"))?.items[0]?.resultLabel).toBe(
-      "真会",
+  it("按真实结果分色，不把所有需复盘题统一显示成红色", () => {
+    expect(reflectionTemplate).toContain(
+      "summary-question-dot summary-question-dot--{{item.resultTone}}",
     );
+    expect(reflectionTemplate).toContain(
+      "summary-question-label summary-question-label--{{item.resultTone}}",
+    );
+    for (const tone of ["danger", "warning", "success", "neutral"]) {
+      expect(reflectionStyles).toContain(`.summary-question-dot--${tone}`);
+    }
+    expect(reflectionStyles).not.toContain(".summary-question-dot--review");
+  });
+
+  it("把真会、猜对、不会、主动放弃和方法对计算错作为独立事实", () => {
+    expect(presentXingceResult(submittedXingceSession("correct"))?.items[0]).toMatchObject({
+      resultLabel: "真会",
+      selectedAnswerText: "选项 B",
+      correctAnswerText: "选项 A",
+    });
     expect(
       presentXingceResult(submittedXingceSession("guessed_correct"))?.items[0]?.resultLabel,
     ).toBe("猜对");

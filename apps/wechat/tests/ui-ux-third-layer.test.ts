@@ -28,6 +28,8 @@ import privateKnowledgeTemplate from "../miniprogram/pages/private-knowledge/ind
 import privateKnowledgeDetailTemplate from "../miniprogram/pages/private-knowledge/detail/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import todayTemplate from "../miniprogram/pages/today/index.wxml?raw";
+// @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
+import todayStylesRaw from "../miniprogram/pages/today/index.wxss?raw";
 
 function normalizeRpxCalc(source: unknown): string {
   if (typeof source !== "string") throw new Error("Raw mini-program asset must be text.");
@@ -37,6 +39,7 @@ function normalizeRpxCalc(source: unknown): string {
 const sheetStyles = normalizeRpxCalc(sheetStylesRaw);
 const essayEvidenceTemplateText = normalizeRpxCalc(essayEvidenceTemplate);
 const essayEvidenceStyles = normalizeRpxCalc(essayEvidenceStylesRaw);
+const todayStyles = normalizeRpxCalc(todayStylesRaw);
 
 describe("third-layer UI and UX contracts", () => {
   it("keeps ui-sheet mounted through its exit transition", () => {
@@ -104,5 +107,18 @@ describe("third-layer UI and UX contracts", () => {
     expect(meLogic).toContain('title: "退出当前设备？"');
     expect(meLogic).toContain("await new AccountApi");
     expect(meLogic).toContain('wx.reLaunch({ url: "/pages/login/index" })');
+  });
+
+  it("presents today's secondary destinations as clear, non-duplicated actions", () => {
+    expect(todayTemplate).toContain("结束今天并复盘");
+    expect(todayTemplate).toContain("错题与掌握");
+    expect(todayTemplate).toContain("周计划");
+    expect(todayTemplate).not.toContain("每日结算");
+    expect(todayStyles).toMatch(
+      /\.settlement-button\s*\{[^}]*background:\s*var\(--ink\);[^}]*color:\s*var\(--color-surface\);/su,
+    );
+    expect(todayStyles).toMatch(
+      /\.tool-link\s*\{[^}]*flex:\s*1;[^}]*border:[^;]+;[^}]*background:\s*var\(--color-surface\);/su,
+    );
   });
 });

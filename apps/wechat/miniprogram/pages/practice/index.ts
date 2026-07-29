@@ -36,6 +36,7 @@ import {
 } from "../../features/xingce/favorites/command";
 import { XingcePageRuntimeRegistry } from "../../features/xingce/real_attempt/page-runtime";
 import {
+  formatElapsed,
   presentXingceTask,
   type XingceTaskView,
 } from "../../features/xingce/real_attempt/presentation";
@@ -1004,7 +1005,10 @@ Page<PracticePageData, PracticePageCustom>({
     if (!runtime?.task || this.data.interactionLocked) return;
     const previousIndex = runtime.task.currentQuestionIndex;
     runtime.task = reduceTaskRuntime(runtime.task, { type: "QUESTION_CHANGED", index });
-    this.setData({ answerSheetOpen: false });
+    this.setData({
+      answerSheetOpen: false,
+      selection: { key: "", text: "", toolbarTop: 0 },
+    });
     render(this, runtime);
     if (runtime.task.currentQuestionIndex !== previousIndex) resetQuestionScroll(this);
     void saveCheckpointIfPossible(this, runtime);
@@ -1750,9 +1754,9 @@ function afterRenderTick(callback: () => void): void {
 }
 
 /**
- * 快滑切题的守卫矩阵：任一浮层/模式激活时手势一律不触发（宁可不触发
- * 不可误触发）——批注模式、材料沉浸态、画词工具条、各类 sheet/面板、
- * 暂停卡与交互锁定都会吃掉横向手势的语义。
+ * 快滑切题的守卫矩阵：任一模态浮层/模式激活时手势一律不触发（宁可
+ * 不触发不可误触发）。题干画词工具条不是模态状态；用户横滑时应直接
+ * 收起选区并切题，不能把误点变成只能退出页面的死锁。
  */
 function swipeNavigationBlocked(page: PracticePageInstance): boolean {
   const data = page.data;
@@ -1763,7 +1767,6 @@ function swipeNavigationBlocked(page: PracticePageInstance): boolean {
     data.taskPaused ||
     data.annotationOpen ||
     data.materialOpen ||
-    Boolean(data.selection.key) ||
     data.answerSheetOpen ||
     data.draftOpen ||
     data.toolsOpen ||
@@ -1779,6 +1782,7 @@ function changeQuestion(page: PracticePageInstance, delta: number): void {
   const next = runtime.task.currentQuestionIndex + delta;
   if (next < 0 || next >= runtime.task.questionOrder.length) return;
   runtime.task = reduceTaskRuntime(runtime.task, { type: "QUESTION_CHANGED", index: next });
+  page.setData({ selection: { key: "", text: "", toolbarTop: 0 } });
   render(page, runtime);
   resetQuestionScroll(page);
   void saveCheckpointIfPossible(page, runtime);
@@ -1813,7 +1817,7 @@ async function saveCheckpoint(
   runtime.saveInFlight = true;
   stopTimer(runtime);
   runtime.task = reduceTaskRuntime(runtime.task, { type: "SAVE_REQUESTED" });
-  render(page, runtime);
+  renderRuntimeStatusLeaves(page, runtime);
   page.setData({ interactionLocked: true });
   const localDraft = runtime.task;
   let commandConfirmed = false;
@@ -1844,7 +1848,7 @@ async function saveCheckpoint(
       return;
     }
     page.setData({ hasPendingCheckpoint: false, pendingCheckpointMessage: "" });
-    applySession(page, runtime, saved.data);
+    applySavedCheckpoint(page, runtime, saved.data);
   } catch (error) {
     if (!runtimes.owns(page, runtime)) return;
     if (commandConfirmed) {
@@ -1996,9 +2000,73 @@ function startTimer(
     const ms = Math.min(60_000, Math.max(0, Math.round(now - runtime.lastTickAtMs)));
     runtime.lastTickAtMs = now;
     runtime.task = reduceTaskRuntime(runtime.task, { type: "TICK", seconds: 1, ms });
-    render(page, runtime);
+    renderTimerTick(page, runtime);
     void autosaveCheckpoint(page, runtime);
   }, 1_000);
+}
+
+/**
+ * 计时只更新三个文本/数值叶子，避免每秒把完整题面、材料和富文本选项重新
+ * 传给视图层。完整 render 只留给答案、切题和服务端状态变化。
+ */
+function renderTimerTick(
+  page: PracticePageInstance,
+  runtime: NonNullable<ReturnType<typeof runtimes.get>>,
+): void {
+  if (!runtime.task || !page.data.view) return;
+  const questionId = runtime.task.questionOrder[runtime.task.currentQuestionIndex] ?? "";
+  const attempt = runtime.task.attempts[questionId];
+  if (!attempt) return;
+  page.setData({
+    "view.elapsedLabel": formatElapsed(runtime.task.totalElapsedSeconds),
+    "view.question.elapsedLabel": formatElapsed(attempt.elapsedSeconds),
+    "view.question.elapsedSeconds": attempt.elapsedSeconds,
+    "view.question.elapsedMs": attempt.elapsedMs ?? attempt.elapsedSeconds * 1000,
+  });
+}
+
+/**
+ * 周期自动保存成功时服务端返回的是同一份题面与刚提交的检查点。只替换
+ * runtime 的权威修订号，并更新计时/同步叶子；重新 setData 整个 view
+ * 会让 scroll-view 底部先清空再排版，形成真机可见的下方闪屏。
+ */
+function applySavedCheckpoint(
+  page: PracticePageInstance,
+  runtime: NonNullable<ReturnType<typeof runtimes.get>>,
+  session: XingceTaskSession,
+): void {
+  if (session.state !== "answering") {
+    applySession(page, runtime, session);
+    return;
+  }
+  runtime.session = session;
+  runtime.planTaskId = session.planTaskId;
+  runtime.task = runtimeFromXingceSession(session);
+  runtime.lastAutosaveElapsedSeconds = runtime.task.totalElapsedSeconds;
+  page.setData({
+    hasPendingCheckpoint: false,
+    pendingCheckpointMessage: "",
+    interactionLocked: false,
+    sessionState: session.state,
+  });
+  renderRuntimeStatusLeaves(page, runtime);
+  if (runtime.visible) startTimer(page, runtime);
+}
+
+function renderRuntimeStatusLeaves(
+  page: PracticePageInstance,
+  runtime: NonNullable<ReturnType<typeof runtimes.get>>,
+): void {
+  if (!runtime.session || !runtime.task || !page.data.view) return;
+  const view = presentXingceTask(runtime.session, runtime.task);
+  page.setData({
+    "view.elapsedLabel": view.elapsedLabel,
+    "view.syncLabel": view.syncLabel,
+    "view.question.elapsedLabel": view.question.elapsedLabel,
+    "view.question.elapsedSeconds": view.question.elapsedSeconds,
+    "view.question.elapsedMs": view.question.elapsedMs,
+    helpSyncState: runtime.task.syncState,
+  });
 }
 
 function stopTimer(runtime: NonNullable<ReturnType<typeof runtimes.get>>): void {

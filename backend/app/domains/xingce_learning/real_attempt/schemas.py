@@ -175,7 +175,7 @@ class ItemInterpretation(XingceModel):
 
 class ReflectionCommand(XingceModel):
     expected_revision: int = Field(alias="expectedRevision", ge=1)
-    raw_text: str = Field(alias="rawText", min_length=1, max_length=4_000)
+    raw_text: str = Field(alias="rawText", max_length=4_000)
     tags: list[str] = Field(min_length=1, max_length=12)
     strategy_note: str | None = Field(default=None, alias="strategyNote", max_length=2_000)
     doubt_note: str | None = Field(default=None, alias="doubtNote", max_length=2_000)
@@ -193,8 +193,8 @@ class ReflectionCommand(XingceModel):
     def normalize_user_voice(self) -> "ReflectionCommand":
         self.raw_text = self.raw_text.strip()
         tags = [tag.strip() for tag in self.tags]
-        if not self.raw_text or any(not tag for tag in tags) or len(tags) != len(set(tags)):
-            raise ValueError("reflection text and unique non-blank tags are required")
+        if any(not tag for tag in tags) or len(tags) != len(set(tags)):
+            raise ValueError("unique non-blank reflection tags are required")
         self.tags = tags
         self.strategy_note = (self.strategy_note or "").strip() or None
         self.doubt_note = (self.doubt_note or "").strip() or None

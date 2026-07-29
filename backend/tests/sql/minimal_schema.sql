@@ -2160,7 +2160,8 @@ create table learning.xingce_reflection_versions (
       version_no bigint not null check (version_no >= 1),
       payload jsonb not null check (
         jsonb_typeof(payload) = 'object'
-        and length(trim(payload->>'rawText')) > 0
+        and jsonb_typeof(payload->'rawText') = 'string'
+        and length(payload->>'rawText') <= 4000
         and jsonb_typeof(payload->'tags') = 'array'
         and jsonb_array_length(payload->'tags') > 0
       ),

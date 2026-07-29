@@ -69,10 +69,9 @@ describe("VJ-02 real xingce WeChat AS-04", () => {
     expect(page.data.phase).toBe("reflection");
 
     await page.submitReflection.call(page);
-    expect(showToast.mock.calls[0]?.[0].title).toContain("真实想法");
+    expect(showToast.mock.calls[0]?.[0].title).toContain("至少选择一个错因");
     expect(writes).toHaveLength(0);
 
-    page.inputRawText.call(page, inputEvent("我把‘不符合’看成了‘符合’。"));
     page.toggleTag.call(page, tapEvent("misread"));
     await page.submitReflection.call(page);
 
@@ -81,7 +80,7 @@ describe("VJ-02 real xingce WeChat AS-04", () => {
     const reflectionData: unknown = writes[0]?.data;
     expect(reflectionData).toEqual({
       expectedRevision: 1,
-      rawText: "我把‘不符合’看成了‘符合’。",
+      rawText: "",
       tags: ["misread"],
       itemInterpretations: [],
     });

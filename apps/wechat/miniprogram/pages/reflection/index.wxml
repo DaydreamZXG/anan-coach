@@ -73,11 +73,11 @@
         <view class="summary-legacy__copy">只保留当时的成绩，不再重新推断缺失的作答过程。</view>
       </view>
 
-      <!-- Figma 13:126：题号一览，需复盘题（即将进入错因复盘的题）统一红圈 + 「复盘·原因」小注。 -->
+      <!-- 题号一览按客观结果分色：答错红、猜对/计算失误橙、稳定答对绿、证据未记录灰。 -->
       <view wx:if="{{result.items.length}}" class="summary-question-strip">
         <view wx:for="{{result.items}}" wx:key="questionId" class="summary-question-strip__item">
-          <view class="summary-question-dot summary-question-dot--{{item.resultTone === 'success' ? 'normal' : 'review'}}">{{item.positionNumber}}</view>
-          <view wx:if="{{item.resultTone !== 'success'}}" class="summary-question-label">复盘·{{item.resultLabel}}</view>
+          <view class="summary-question-dot summary-question-dot--{{item.resultTone}}">{{item.positionNumber}}</view>
+          <view wx:if="{{item.resultTone !== 'success'}}" class="summary-question-label summary-question-label--{{item.resultTone}}">复盘·{{item.resultLabel}}</view>
         </view>
       </view>
 
@@ -141,12 +141,24 @@
         </view>
         <!-- Figma 14:36/14:44：红绿答案卡。 -->
         <view class="answer-compare {{activeReviewItem.selectedLabel === activeReviewItem.correctLabel ? 'answer-compare--right' : 'answer-compare--wrong'}}">
-          <view class="answer-compare__line"><text class="answer-compare__label">你的答案</text><text class="answer-compare__value">{{activeReviewItem.selectedLabel}}</text></view>
+          <view class="answer-compare__line">
+            <text class="answer-compare__label">你的答案</text>
+            <view class="answer-compare__content">
+              <text class="answer-compare__value">{{activeReviewItem.selectedLabel}}</text>
+              <text class="answer-compare__text">{{activeReviewItem.selectedAnswerText}}</text>
+            </view>
+          </view>
           <view wx:if="{{activeReviewItem.selectedLabel === activeReviewItem.correctLabel}}" class="answer-compare__mark answer-compare__mark--right">✓</view>
           <view wx:else class="answer-compare__mark answer-compare__mark--wrong">×</view>
         </view>
         <view class="answer-compare answer-compare--right">
-          <view class="answer-compare__line"><text class="answer-compare__label">正确答案</text><text class="answer-compare__value">{{activeReviewItem.correctLabel}}</text></view>
+          <view class="answer-compare__line">
+            <text class="answer-compare__label">正确答案</text>
+            <view class="answer-compare__content">
+              <text class="answer-compare__value">{{activeReviewItem.correctLabel}}</text>
+              <text class="answer-compare__text">{{activeReviewItem.correctAnswerText}}</text>
+            </view>
+          </view>
           <view class="answer-compare__mark answer-compare__mark--right">✓</view>
         </view>
         <view class="answer-facts">
@@ -157,11 +169,19 @@
       <!-- Figma 14:70：岸岸结构化解析，层级：正确结论 → 最短解题路径 → 你的具体错点。 -->
       <view wx:if="{{activeReviewItem}}" class="structured-review">
         <view class="structured-review__head"><text class="structured-review__spark">✦</text><text>岸岸结构化解析</text></view>
-        <view class="structured-review__label">正确结论</view>
-        <view class="structured-review__copy">{{activeReviewItem.objectiveLabel}}</view>
-        <view class="structured-review__label">最短解题路径</view>
-        <view class="structured-review__copy">{{activeReviewItem.explanation}}</view>
-        <view class="structured-review__source">{{activeReviewItem.explanationSource}}</view>
+        <view class="structured-review__section structured-review__section--answer">
+          <view class="structured-review__label">正确结论</view>
+          <view class="structured-review__answer">{{activeReviewItem.correctLabel}} · {{activeReviewItem.correctAnswerText}}</view>
+        </view>
+        <view class="structured-review__section">
+          <view class="structured-review__label">最短解题路径</view>
+          <view class="structured-review__copy">{{activeReviewItem.explanation}}</view>
+          <view class="structured-review__source">解析来源 · {{activeReviewItem.explanationSource}}</view>
+        </view>
+        <view class="structured-review__section">
+          <view class="structured-review__label">你的作答对照</view>
+          <view class="structured-review__copy">你选了 {{activeReviewItem.selectedLabel}} · {{activeReviewItem.selectedAnswerText}}</view>
+        </view>
         <view wx:if="{{activeReviewItem.timingExceeded}}" class="structured-review__errorpoint">
           <view class="structured-review__errorpoint-title">你的具体错点</view>
           <view class="structured-review__errorpoint-copy">这题超过建议用时；这里只记录事实，不自动把“超时”判成错因。</view>
@@ -176,7 +196,7 @@
 
       <view class="reason-card">
         <view class="reason-card__title">错因确认</view>
-        <view class="reason-card__copy">可以多选。岸岸会结合你的原话提出候选错因，最终仍由你确认。</view>
+        <view class="reason-card__copy">至少选一项，可以多选。文字原因是选填，岸岸只会依据你实际提供的信息提出候选错因。</view>
         <view class="tag-grid">
           <button hover-class="item--hover"
             wx:for="{{tagOptions}}"
@@ -193,7 +213,7 @@
           value="{{rawText}}"
           maxlength="4000"
           disabled="{{interactionLocked}}"
-          placeholder="写下当时真实的判断，例如：我把题目问的“不符合”看成了“符合”……"
+          placeholder="选填：写下当时真实的判断，例如我把“不符合”看成了“符合”"
           bindinput="inputRawText"
         />
       </view>
@@ -417,7 +437,7 @@
         loading="{{interactionLocked}}"
         disabled="{{interactionLocked || voiceBusy || isRecording}}"
         bindtap="confirmCauseAndNext"
-      >{{currentReviewIndex < reviewItems.length - 1 ? '确认错因，看下一题' : '保存原话，继续确认错因'}}</button>
+      >{{currentReviewIndex < reviewItems.length - 1 ? '确认错因，看下一题' : '保存错因，继续确认'}}</button>
     </view>
 
     <!-- Figma 75:2 · 原题轨迹回放：题面 + 笔迹回放 + 底部回放工具栏。 -->

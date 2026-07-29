@@ -93,6 +93,8 @@ export interface XingceResultItemView {
   timingExceeded: boolean;
   selectedLabel: string;
   correctLabel: string;
+  selectedAnswerText: string;
+  correctAnswerText: string;
   explanation: string;
   explanationSource: string;
   /** Figma 75:2/78:2：本题的批注笔迹与动作事实（缺失时为空数组）。 */
@@ -672,6 +674,8 @@ function presentResultItem(
     timingExceeded: timing.status === "advisory_exceeded",
     selectedLabel: item.selectedOptionIds.length > 0 ? item.selectedOptionIds.join("、") : "未作答",
     correctLabel: item.correctOptionIds.join("、"),
+    selectedAnswerText: answerText(item.selectedOptionIds, question),
+    correctAnswerText: answerText(item.correctOptionIds, question),
     explanation: item.explanation ?? "这道题暂时没有解析。",
     explanationSource: item.explanationSource ?? "解析来源未提供",
     annotations: (answer?.annotations ?? []).map((stroke) => ({
@@ -703,6 +707,16 @@ function presentResultItem(
     trajectoryAvailable:
       (answer?.annotations?.length ?? 0) > 0 || (answer?.actionEvents?.length ?? 0) > 0,
   };
+}
+
+function answerText(optionIds: string[], question: XingceLearnerQuestion): string {
+  if (optionIds.length === 0) return "本题未选择答案";
+  return optionIds
+    .map((optionId) => {
+      const option = question.options.find((candidate) => candidate.optionId === optionId);
+      return option?.text.trim() || `选项 ${optionId} 的内容暂不可用`;
+    })
+    .join("；");
 }
 
 function resultFactChips(

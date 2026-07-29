@@ -588,27 +588,36 @@
   min-height: calc(88 * var(--rpx));
   justify-content: center;
   gap: calc(16 * var(--rpx));
-  border: calc(1 * var(--rpx)) solid var(--line);
+  border: calc(1 * var(--rpx)) solid var(--ink);
   border-radius: var(--radius-40);
-  background: var(--color-surface-soft);
-  color: var(--ink-2);
+  background: var(--ink);
+  box-shadow: var(--shadow);
+  color: var(--color-surface);
   font-size: var(--text-body-lg);
   font-weight: 700;
 }
 
+.icon--settlement {
+  filter: brightness(0) invert(1);
+}
+
 .tool-row {
-  justify-content: center;
-  gap: calc(48 * var(--rpx));
+  gap: calc(16 * var(--rpx));
   margin-top: calc(32 * var(--rpx));
 }
 
 .tool-link {
-  width: auto;
+  width: 0;
+  min-height: calc(80 * var(--rpx));
+  flex: 1;
+  justify-content: center;
   gap: calc(12 * var(--rpx));
-  color: var(--ink-2);
+  border: calc(1 * var(--rpx)) solid var(--line);
+  border-radius: var(--radius-32);
+  background: var(--color-surface);
+  color: var(--ink);
   font-size: var(--text-caption);
-  font-weight: 500;
-  opacity: 0.7;
+  font-weight: 700;
 }
 
 .task-error,

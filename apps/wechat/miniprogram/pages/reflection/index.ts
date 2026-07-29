@@ -799,8 +799,8 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       return;
     let pending = loadPendingXingceReflection(runtime.ownerUserId, runtime.reviewId);
     const rawText = this.data.rawText.trim();
-    if (!pending && (!rawText || runtime.selectedTags.size === 0)) {
-      void wx.showToast({ title: "请写下真实想法并至少选择一个标签", icon: "none" });
+    if (!pending && runtime.selectedTags.size === 0) {
+      void wx.showToast({ title: "请至少选择一个错因", icon: "none" });
       return;
     }
     const unreadyVoice = runtime.mediaDraft.voiceSegments.some(
