@@ -1,0 +1,30 @@
+{
+  "generatedAt": "2026-07-28T07:28:44.736Z",
+  "gitCommit": "01752f1d7b8b606b6900160eebba0888d8def294",
+  "registeredRouteCount": 64,
+  "mainPackageRouteCount": 36,
+  "subpackageRouteCount": 28,
+  "productRouteCount": 58,
+  "assetPreviewRouteCount": 6,
+  "visualScenarioCount": 88,
+  "visualScenarioUniqueRouteCount": 58,
+  "interactionContractCount": 58,
+  "componentCount": 25,
+  "openapiPresent": true,
+  "realRenderManifestPaths": {
+    "long-android-nova14ultra-core": "audit/subagents/c/logs/long-android-nova14ultra-core-manifest.json",
+    "probe-capture-import-2": "audit/subagents/c/logs/probe-capture-import-2-manifest.json",
+    "probe-capture-import": "audit/subagents/c/logs/probe-capture-import-manifest.json",
+    "probe-standard": "audit/subagents/c/logs/probe-standard-manifest.json",
+    "small-iphone5-core": "audit/subagents/c/logs/small-iphone5-core-manifest.json",
+    "small-iphone5-probe": "audit/subagents/c/logs/small-iphone5-probe-manifest.json",
+    "standard-390x844-b2": "audit/subagents/c/logs/standard-390x844-b2-manifest.json",
+    "standard-390x844": "audit/subagents/c/logs/standard-390x844-manifest.json",
+    "tablet-ipad-landscape-b1": "audit/subagents/c/logs/tablet-ipad-landscape-b1-manifest.json",
+    "tablet-ipad-landscape-b2": "audit/subagents/c/logs/tablet-ipad-landscape-b2-manifest.json",
+    "tablet-ipad-landscape-real-b1": "audit/subagents/c/logs/tablet-ipad-landscape-real-b1-manifest.json",
+    "tablet-ipad-landscape-real-b2": "audit/subagents/c/logs/tablet-ipad-landscape-real-b2-manifest.json"
+  },
+  "devtoolsPageReadyRouteCount": 64,
+  "devtoolsPageReadyProductRouteCount": 58
+}
