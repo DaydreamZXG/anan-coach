@@ -367,6 +367,16 @@ class XingceAttemptRepository:
                      and count(
                        distinct binding.shared_context_required
                      ) = 1
+                ),
+                ranked_candidates as materialized (
+                  select *
+                  from frozen_candidates
+                  order by
+                    latest_year desc nulls last,
+                    occurrence_count desc,
+                    question_id
+                  limit :batch_size
+                  offset :offset
                 )
                 select
                   candidate.question_id,
@@ -377,7 +387,7 @@ class XingceAttemptRepository:
                   candidate.latest_year,
                   candidate.occurrence_count,
                   content.snapshot_payload
-                from frozen_candidates candidate
+                from ranked_candidates candidate
                 join product.question_content_versions content
                   on content.question_id = candidate.question_id
                  and content.content_version_id =
@@ -387,8 +397,6 @@ class XingceAttemptRepository:
                   candidate.latest_year desc nulls last,
                   candidate.occurrence_count desc,
                   candidate.question_id
-                limit :batch_size
-                offset :offset
                 """
                     ),
                     {
