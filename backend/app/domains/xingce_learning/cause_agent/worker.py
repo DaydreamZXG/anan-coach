@@ -185,6 +185,13 @@ class CauseAgentWorker:
                 evidence=evidence,
             )
         except CauseAgentProviderConfigurationError:
+            if job.attempt_count < job.max_attempts:
+                return self._fail_job(
+                    session,
+                    job=job,
+                    code="cause_agent_provider_configuration_invalid",
+                    retryable=True,
+                )
             self._refund_reservation_if_open(session, job=job)
             return self._publish_termination(
                 session,

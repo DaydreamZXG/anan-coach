@@ -27,10 +27,12 @@ class FakeOfficialClient:
         self.objects: dict[str, SimpleNamespace] = {}
         self.parts: dict[str, tuple[UploadedPart, ...]] = {}
         self.create_calls = 0
+        self.presign_calls = 0
         self.complete_calls = 0
         self.abort_calls = 0
 
     def pre_signed_url(self, **kwargs):
+        self.presign_calls += 1
         headers = dict(kwargs["header"])
         headers["host"] = "bucket.tos.example.invalid"
         return SimpleNamespace(
@@ -157,6 +159,33 @@ def test_official_sdk_presign_binds_every_single_and_part_integrity_header() -> 
     assert part.signed_headers["x-tos-content-sha256"] == "b" * 64
     assert "uploadId=upload-1" in part.url
     assert "partNumber=1" in part.url
+
+
+def test_client_presign_uses_public_endpoint_without_moving_server_operations() -> None:
+    internal = FakeOfficialClient()
+    public = FakeOfficialClient()
+    sdk = VolcengineTosSdkFacade(
+        client=internal,
+        presign_client=public,
+        tos_module=tos,
+        region="cn-guangzhou",
+        endpoint="https://tos-cn-guangzhou.ivolces.com",
+        presign_endpoint="https://tos-cn-guangzhou.volces.com",
+        clock=lambda: NOW,
+    )
+
+    signed = sdk.presign_private_put(
+        bucket="bucket-test",
+        key="private/external-learning/public-client.jpg",
+        mime_type="image/jpeg",
+        byte_size=100,
+        content_sha256="a" * 64,
+        expires_at=NOW + timedelta(minutes=10),
+    )
+
+    assert signed.url.startswith("https://bucket.tos.example.invalid/")
+    assert internal.presign_calls == 0
+    assert public.presign_calls == 1
 
 
 def test_official_facade_multipart_init_complete_and_abort_are_replay_safe() -> None:

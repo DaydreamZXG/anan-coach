@@ -17,7 +17,7 @@ class TosPrivateObjectAccessSigner:
             for value in (
                 settings.tos_access_key,
                 settings.tos_secret_key,
-                settings.tos_endpoint,
+                settings.tos_presign_endpoint,
                 settings.tos_region,
                 settings.tos_bucket,
             )
@@ -30,7 +30,7 @@ class TosPrivateObjectAccessSigner:
         self._client = tos.TosClientV2(
             settings.tos_access_key,
             settings.tos_secret_key,
-            settings.tos_endpoint,
+            settings.tos_presign_endpoint,
             settings.tos_region,
         )
 

@@ -122,10 +122,14 @@ export class CaptureImportController {
     this.commandPreparing = true;
     let pending: PendingImport;
     try {
-      pending = this.pendingImport ?? {
-        command,
-        idempotencyKey: await this.createCommandKey("external-import"),
-      };
+      const replay = this.pendingImport;
+      pending =
+        replay && sameImportCommand(replay.command, command)
+          ? replay
+          : {
+              command,
+              idempotencyKey: await this.createCommandKey("external-import"),
+            };
     } catch (error) {
       this.patch({ status: "error", error: externalLearningError(error), pendingRecovery: false });
       return;
@@ -513,6 +517,21 @@ export class CaptureImportController {
     if (this.pollHandle !== undefined) this.cancelSchedule(this.pollHandle);
     this.pollHandle = undefined;
   }
+}
+
+function sameImportCommand(
+  left: PendingImport["command"],
+  right: PendingImport["command"],
+): boolean {
+  return (
+    left.learningTrack === right.learningTrack &&
+    left.file.localPath === right.file.localPath &&
+    left.file.displayName === right.file.displayName &&
+    left.file.sourceKind === right.file.sourceKind &&
+    left.file.mimeType === right.file.mimeType &&
+    left.file.byteSize === right.file.byteSize &&
+    left.file.pageCount === right.file.pageCount
+  );
 }
 
 export function validateImportFile(file: LocalImportFile): string {

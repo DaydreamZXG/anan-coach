@@ -73,6 +73,21 @@ describe("real xingce task navigation", () => {
     ).toBeNull();
   });
 
+  it("validates reflection tasks by session and review instead of requiring a plan task query", () => {
+    const url =
+      "/pages/reflection/index?sessionId=92a7f463-8c4f-416a-84c8-448386fc174a&reviewId=7efb10ba-d8a7-4fec-80dd-13243006c2b7";
+
+    expect(
+      registeredTaskNavigationTarget(url, "1385aa76-666b-48d8-b6d0-63a913237792"),
+    ).toEqual({ mode: "navigateTo", url });
+    expect(
+      registeredTaskNavigationTarget(
+        `${url}&planTaskId=1385aa76-666b-48d8-b6d0-63a913237792`,
+        "1385aa76-666b-48d8-b6d0-63a913237792",
+      ),
+    ).toBeNull();
+  });
+
   it("registers C08 as an authenticated non-task destination", () => {
     expect(routes.xingceMastery).toBe("/pages/xingce-mastery/index");
     expect(registeredNavigationTarget(routes.xingceMastery)).toEqual({

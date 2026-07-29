@@ -17,7 +17,10 @@ from app.domains.xingce_learning.cause_agent.contracts import (
     CauseAgentOutput,
     FollowupRequired,
 )
-from app.domains.xingce_learning.cause_agent.provider import CauseAgentProviderResult
+from app.domains.xingce_learning.cause_agent.provider import (
+    CauseAgentProviderConfigurationError,
+    CauseAgentProviderResult,
+)
 from app.domains.xingce_learning.cause_agent.worker import CauseAgentWorker
 from tests.test_xingce_planning_closure import _submitted_attempt
 
@@ -447,6 +450,75 @@ class SequenceProvider:
             ).hexdigest(),
             latency_ms=25,
         )
+
+
+class RecoveringConfigurationProvider(SequenceProvider):
+    available = False
+
+    def validate_configuration(self) -> None:
+        if not self.available:
+            raise CauseAgentProviderConfigurationError(
+                "verified processor DPA/data terms are required"
+            )
+
+
+def test_reflection_is_durable_while_provider_configuration_recovers(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    client, auth, _task, submitted = _submitted_attempt(
+        db_session_factory,
+        token="cause-agent-configuration-recovery-token",
+        choices=["D", "B", "C"],
+    )
+    reflected = _reflect(
+        client,
+        auth,
+        submitted["review"],
+        key="cause-configuration-recovery-reflection",
+    )
+    assert reflected["state"] == "cause_candidate_processing"
+    assert reflected["review"]["reflection"]["rawText"]
+
+    provider = RecoveringConfigurationProvider(["candidate_ready"])
+    worker = CauseAgentWorker(
+        settings=Settings(),
+        provider=provider,
+        price_card=ModelPriceCard(
+            version="cause-agent-test-v1",
+            input_cny_per_million=Decimal("1.00"),
+            cached_input_cny_per_million=Decimal("0.10"),
+            output_cny_per_million=Decimal("2.00"),
+        ),
+    )
+    with db_session_factory() as session:
+        retry = worker.process_next(session)
+    assert retry is not None
+    assert retry.status == "queued"
+    with db_session_factory.begin() as session:
+        assert session.execute(
+            text("select count(*) from learning.xingce_reflection_versions")
+        ).scalar_one() == 1
+        session.execute(
+            text(
+                "update platform.background_jobs "
+                "set run_after = now() "
+                "where job_id = cast(:job_id as uuid)"
+            ),
+            {"job_id": str(retry.job_id)},
+        )
+
+    provider.available = True
+    with db_session_factory() as session:
+        completed = worker.process_next(session)
+    assert completed is not None
+    assert completed.status == "succeeded"
+
+    current = client.get(
+        f"/api/v2/xingce/task-sessions/{submitted['sessionId']}",
+        headers=auth,
+    )
+    assert current.status_code == 200, current.text
+    assert current.json()["data"]["state"] == "cause_decision_required"
 
 
 def _reflect(client: Any, auth: dict[str, str], review: dict[str, Any], *, key: str) -> dict[str, Any]:

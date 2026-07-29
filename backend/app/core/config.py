@@ -28,6 +28,7 @@ class Settings:
     tos_bucket: str = "gongkao-dazi-prod"
     tos_region: str = "cn-guangzhou"
     tos_endpoint: str = ""
+    tos_presign_endpoint: str = ""
     tos_access_key: str = ""
     tos_secret_key: str = ""
     tos_quarantine_prefix: str = "private/quarantine/external-learning"
@@ -220,6 +221,7 @@ def get_settings() -> Settings:
         tos_bucket=os.getenv("TOS_BUCKET", "gongkao-dazi-prod"),
         tos_region=os.getenv("TOS_REGION", "cn-guangzhou"),
         tos_endpoint=os.getenv("TOS_ENDPOINT", ""),
+        tos_presign_endpoint=os.getenv("TOS_PRESIGN_ENDPOINT", ""),
         tos_access_key=os.getenv("TOS_ACCESS_KEY", ""),
         tos_secret_key=os.getenv("TOS_SECRET_KEY", ""),
         tos_quarantine_prefix=os.getenv(

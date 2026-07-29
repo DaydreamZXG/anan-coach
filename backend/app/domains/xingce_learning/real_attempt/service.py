@@ -18,9 +18,6 @@ from app.domains.planning.xingce_evidence import record_pending_xingce_evidence
 from app.domains.planning.xingce_start import start_xingce_plan_task
 from app.domains.learning_media.repository import LearningMediaRepository
 from app.domains.xingce_learning.cause_agent.repository import CauseAgentRepository
-from app.domains.xingce_learning.cause_agent.provider import (
-    CauseAgentProviderConfigurationError,
-)
 from app.domains.xingce_learning.cause_agent.service import (
     CauseAgentWorkflow,
     CauseAgentWorkflowError,
@@ -920,12 +917,6 @@ class XingceAttemptService:
                 "xingce_cause_agent_contract_conflict",
                 "解题 Agent 输入版本已经变化，请刷新复盘状态后重试。",
                 status_code=409,
-            ) from exc
-        except CauseAgentProviderConfigurationError as exc:
-            raise XingceAttemptError(
-                "xingce_cause_agent_unavailable",
-                "解题 Agent 生产配置未通过安全校验，复盘尚未进入 AI 处理。",
-                status_code=503,
             ) from exc
         except CommerceQuotaExceededError as exc:
             raise XingceAttemptError(

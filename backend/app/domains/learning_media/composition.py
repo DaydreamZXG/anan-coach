@@ -23,6 +23,7 @@ def build_learning_media_storage(settings: Settings) -> TosPrivateObjectStorageA
             access_key=settings.tos_access_key,
             secret_key=settings.tos_secret_key,
             endpoint=settings.tos_endpoint,
+            presign_endpoint=settings.tos_presign_endpoint,
             region=settings.tos_region,
         ),
     )

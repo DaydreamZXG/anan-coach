@@ -99,6 +99,30 @@ describe("today dual-track planning", () => {
     );
   });
 
+  it("opens a server-issued reflection task without inventing a planTaskId query", () => {
+    const [source] = prototypeToday.tasks;
+    if (!source) throw new Error("Xingce fixture is required");
+    const startUrl =
+      "/pages/reflection/index?sessionId=92a7f463-8c4f-416a-84c8-448386fc174a&reviewId=7efb10ba-d8a7-4fec-80dd-13243006c2b7";
+    const task = presentTodayDashboard({
+      ...prototypeToday,
+      tasks: [
+        {
+          ...source,
+          kind: "reflection",
+          stage: "objective_reflection",
+          startUrl,
+        },
+      ],
+    }).tasks[0];
+
+    expect(task).toMatchObject({
+      canOpen: true,
+      navigationMode: "navigateTo",
+      navigationUrl: startUrl,
+    });
+  });
+
   it.each([
     "/pages/xingce-task-intro/index?mode=targeted",
     "/pages/xingce-task-intro/index?mode=targeted&planTaskId=another-task",

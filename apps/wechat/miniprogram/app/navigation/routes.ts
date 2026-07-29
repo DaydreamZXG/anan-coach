@@ -175,7 +175,7 @@ export function registeredTaskNavigationTarget(
   if (!navigation) return null;
   const [path] = navigation.url.split("?", 1);
   if (!path || !taskExecutionRoutePaths.has(path)) return null;
-  if (expectedPlanTaskId !== undefined) {
+  if (expectedPlanTaskId !== undefined && path !== routes.reflection) {
     const expected = expectedPlanTaskId.trim();
     const query = parseQuery(navigation.url);
     if (!expected || !query || query.planTaskId !== expected) return null;

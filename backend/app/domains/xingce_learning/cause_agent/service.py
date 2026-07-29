@@ -112,7 +112,6 @@ class CauseAgentWorkflow:
                 command_id=command_id,
                 created_at=created_at,
             )
-        self._provider.validate_configuration()
         run_id = str(uuid4())
         reservation = self._commerce(session).reserve_feature_usage(
             user_id=user_id,

@@ -121,9 +121,16 @@ class DailyOpeningView(DailyOpeningModel):
 
 
 class ImpressionCommand(DailyOpeningModel):
-    plan_version_id: UUID = Field(alias="planVersionId")
-    preference_version_id: UUID = Field(alias="preferenceVersionId")
-    location_version_id: UUID | None = Field(default=None, alias="locationVersionId")
+    # FastAPI validates parsed request bodies in Python mode. These identifiers
+    # therefore need field-local JSON-string coercion even though the rest of
+    # the command remains strict.
+    plan_version_id: UUID = Field(alias="planVersionId", strict=False)
+    preference_version_id: UUID = Field(alias="preferenceVersionId", strict=False)
+    location_version_id: UUID | None = Field(
+        default=None,
+        alias="locationVersionId",
+        strict=False,
+    )
     weather_fingerprint: str | None = Field(
         default=None, alias="weatherFingerprint", pattern=r"^[0-9a-f]{64}$"
     )

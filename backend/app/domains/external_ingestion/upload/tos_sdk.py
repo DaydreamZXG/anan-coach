@@ -31,18 +31,27 @@ class VolcengineTosSdkFacade:
         self,
         *,
         client: Any,
+        presign_client: Any | None = None,
         tos_module: Any,
         region: str,
         endpoint: str,
+        presign_endpoint: str | None = None,
         clock: Callable[[], datetime] | None = None,
     ) -> None:
-        if not region.strip() or not endpoint.startswith("https://"):
+        resolved_presign_endpoint = presign_endpoint or endpoint
+        if (
+            not region.strip()
+            or not endpoint.startswith("https://")
+            or not resolved_presign_endpoint.startswith("https://")
+        ):
             raise UploadContractError("official TOS client identity is invalid")
         self._client = client
+        self._presign_client = presign_client or client
         self._tos = tos_module
         self._identity = TosClientIdentity(
             region=region, endpoint=endpoint.rstrip("/")
         )
+        self._presign_endpoint = resolved_presign_endpoint.rstrip("/")
         self._clock = clock or (lambda: datetime.now(UTC))
 
     @classmethod
@@ -52,6 +61,7 @@ class VolcengineTosSdkFacade:
         access_key: str,
         secret_key: str,
         endpoint: str,
+        presign_endpoint: str | None = None,
         region: str,
         security_token: str | None = None,
         clock: Callable[[], datetime] | None = None,
@@ -71,11 +81,25 @@ class VolcengineTosSdkFacade:
             region,
             security_token=security_token,
         )
+        resolved_presign_endpoint = presign_endpoint or endpoint
+        presign_client = (
+            client
+            if resolved_presign_endpoint.rstrip("/") == endpoint.rstrip("/")
+            else tos.TosClientV2(
+                access_key,
+                secret_key,
+                resolved_presign_endpoint,
+                region,
+                security_token=security_token,
+            )
+        )
         return cls(
             client=client,
+            presign_client=presign_client,
             tos_module=tos,
             region=region,
             endpoint=endpoint,
+            presign_endpoint=resolved_presign_endpoint,
             clock=clock,
         )
 
@@ -337,7 +361,7 @@ class VolcengineTosSdkFacade:
         ttl = ceil((expires_at - self._clock()).total_seconds())
         if not 60 <= ttl <= 86_400:
             raise UploadContractError("TOS presign TTL must be between 60s and 24h")
-        output = self._client.pre_signed_url(
+        output = self._presign_client.pre_signed_url(
             http_method=self._tos.HttpMethodType.Http_Method_Put,
             bucket=bucket,
             key=key,

@@ -125,6 +125,9 @@ set +a
 : "${MIGRATION_DATABASE_URL:?MIGRATION_DATABASE_URL is required}"
 : "${REQUIRED_DATABASE_REVISION:?REQUIRED_DATABASE_REVISION is required}"
 : "${WEKNORA_PRIVATE_KNOWLEDGE_MODE:?WEKNORA_PRIVATE_KNOWLEDGE_MODE must be explicit}"
+: "${TOS_PRESIGN_ENDPOINT:?TOS_PRESIGN_ENDPOINT is required}"
+"${target}/backend/.venv/bin/python" \
+  "${target}/ops/scripts/probe_tos_public_presign.py"
 artifact_contract="${target}/ops/release-db-compatibility.env"
 artifact_revision="$(
   "${target}/backend/.venv/bin/python" \

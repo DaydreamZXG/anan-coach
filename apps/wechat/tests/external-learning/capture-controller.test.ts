@@ -272,6 +272,36 @@ describe("capture import controller", () => {
     expect(controller.snapshot()).toMatchObject({ status: "review", pendingRecovery: false });
   });
 
+  it("starts a new upload command when the user selects a different file after uncertainty", async () => {
+    const beginImport = vi
+      .fn()
+      .mockRejectedValueOnce({ status: 0, message: "network", requestId: "request-1" })
+      .mockResolvedValueOnce(importWorkspace());
+    let key = 0;
+    const controller = new CaptureImportController({
+      gateway: gateway({ beginImport }),
+      onChange: vi.fn(),
+      createCommandKey: () => Promise.resolve(`import-command-${String(++key)}`),
+    });
+
+    await controller.startImport(image());
+    const replacement = {
+      ...image(),
+      localPath: "/tmp/question-retaken.jpg",
+      displayName: "question-retaken.jpg",
+    };
+    await controller.startImport(replacement);
+
+    expect(beginImport).toHaveBeenCalledTimes(2);
+    expect(beginImport.mock.calls[0]?.[1]).toBe("import-command-1");
+    expect(beginImport.mock.calls[1]?.[0]).toEqual({
+      file: replacement,
+      learningTrack: "xingce",
+    });
+    expect(beginImport.mock.calls[1]?.[1]).toBe("import-command-2");
+    expect(controller.snapshot()).toMatchObject({ status: "review", pendingRecovery: false });
+  });
+
   it("starts a clean capture after reset and ignores the previous operation result", async () => {
     let resolve!: (value: ReturnType<typeof importWorkspace>) => void;
     const pending = new Promise<ReturnType<typeof importWorkspace>>((complete) => {

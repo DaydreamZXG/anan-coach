@@ -141,6 +141,21 @@ def test_daily_opening_binds_current_plan_and_displays_only_once() -> None:
     assert second.display_state == "already_seen"
 
 
+def test_impression_command_accepts_uuid_strings_from_fastapi_json_body() -> None:
+    command = ImpressionCommand.model_validate(
+        {
+            "planVersionId": PLAN_ID,
+            "preferenceVersionId": str(PREFERENCE_ID),
+            "locationVersionId": None,
+            "weatherFingerprint": None,
+            "coffeeState": "disabled",
+        }
+    )
+
+    assert str(command.plan_version_id) == PLAN_ID
+    assert command.preference_version_id == PREFERENCE_ID
+
+
 def test_daily_opening_data_exports_without_secret_and_erases_completely(
     db_session: Session,
 ) -> None:
