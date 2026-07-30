@@ -268,26 +268,41 @@ def test_started_question_bundles_never_repeat_and_exhausted_supply_is_not_plann
     assert len(delivered[0]) == 3
     assert len(delivered[1]) == 3
     assert delivered[0].isdisjoint(delivered[1])
+    expected_supply = delivered[0] | delivered[1]
+    assert len(expected_supply) == 6
 
     other_user_id = _seed_planning_learner(db_session_factory)
-    with db_session_factory.begin() as session:
-        other_plan = planning.get_or_create_today(
-            session,
-            user_id=other_user_id,
-            now=NOW,
-            local_date=NOW.date(),
-        )
-        other_task = next(item for item in other_plan.tasks if item.track == "xingce")
-        other_started = attempts.start_or_resume(
-            session,
-            user_id=other_user_id,
-            command_id="start-distinct-bundle-other-user",
-            command=StartTaskSessionCommand(planTaskId=other_task.id),
-            now=NOW,
-        )
-    assert {
-        question.question_id for question in other_started.bundle.questions
-    } == delivered[0]
+    other_delivered: list[set[str]] = []
+    for offset in range(2):
+        current = NOW + timedelta(days=offset)
+        with db_session_factory.begin() as session:
+            other_plan = planning.get_or_create_today(
+                session,
+                user_id=other_user_id,
+                now=current,
+                local_date=current.date(),
+            )
+            other_task = next(
+                item for item in other_plan.tasks if item.track == "xingce"
+            )
+            other_started = attempts.start_or_resume(
+                session,
+                user_id=other_user_id,
+                command_id=f"start-distinct-bundle-other-user-{offset}",
+                command=StartTaskSessionCommand(planTaskId=other_task.id),
+                now=current,
+            )
+            other_delivered.append(
+                {
+                    question.question_id
+                    for question in other_started.bundle.questions
+                }
+            )
+
+    assert len(other_delivered[0]) == 3
+    assert len(other_delivered[1]) == 3
+    assert other_delivered[0].isdisjoint(other_delivered[1])
+    assert other_delivered[0] | other_delivered[1] == expected_supply
 
     exhausted_day = NOW + timedelta(days=2)
     with db_session_factory.begin() as session:
