@@ -16,7 +16,9 @@ previous_guard_capable=false
 release_retention_count="${RELEASE_RETENTION_COUNT:-3}"
 control_plane_backup=""
 control_plane_changed=false
+control_plane_restore_failed=false
 control_plane_destinations=()
+activation_committed=false
 activation_marker_created=false
 eligibility_marker_created=false
 success_activation_marker=""
@@ -585,6 +587,11 @@ for raw in path.read_text(encoding="utf-8").splitlines():
     assignments[key] = value.strip().strip("\"'")
 if "BACKUP_TARGET_ID" in assignments:
     raise SystemExit("BACKUP_TARGET_ID is forbidden")
+if "REQUIRED_DATABASE_REVISION" in assignments:
+    raise SystemExit(
+        "backup.env must not define REQUIRED_DATABASE_REVISION; "
+        "backup derives it from the current release artifact"
+    )
 expected = {
     "BACKUP_TARGET_AUTHORITY_FILE": "/etc/gongkao-dazi/backup-target-authority.json",
     "PGPASSFILE": "/etc/gongkao-dazi/secrets/backup.pgpass",
@@ -977,6 +984,216 @@ resolve_current_data_authority() {
     "${global_data_receipt}"
 }
 
+validate_backup_unit_contract() {
+  local service="$1"
+  local timer="$2"
+  local expected_entrypoint="$3"
+  local expected_environment="$4"
+  python3 - \
+    "${service}" \
+    "${timer}" \
+    "${expected_entrypoint}" \
+    "${expected_environment}" <<'PY'
+from pathlib import Path
+import sys
+
+service_path = Path(sys.argv[1])
+timer_path = Path(sys.argv[2])
+expected_entrypoint = sys.argv[3]
+expected_environment = sys.argv[4]
+
+
+def load_unit(path: Path) -> dict[tuple[str, str], list[str]]:
+    section: str | None = None
+    properties: dict[tuple[str, str], list[str]] = {}
+    for number, raw in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+        line = raw.strip()
+        if not line or line.startswith(("#", ";")):
+            continue
+        if line.startswith("[") and line.endswith("]"):
+            section = line[1:-1]
+            if not section:
+                raise SystemExit(f"{path}: empty section at line {number}")
+            continue
+        if section is None or "=" not in line:
+            raise SystemExit(f"{path}: invalid unit line {number}")
+        key, value = line.split("=", 1)
+        if not key:
+            raise SystemExit(f"{path}: empty property at line {number}")
+        properties.setdefault((section, key), []).append(value)
+    return properties
+
+
+def require_one(
+    path: Path,
+    properties: dict[tuple[str, str], list[str]],
+    section: str,
+    key: str,
+) -> str:
+    values = properties.get((section, key), [])
+    if len(values) != 1:
+        raise SystemExit(f"{path}: expected exactly one {section}.{key}")
+    return values[0]
+
+
+service = load_unit(service_path)
+service_expectations = {
+    ("Unit", "After"): "postgresql.service network-online.target",
+    ("Service", "Type"): "oneshot",
+    ("Service", "User"): "gongkao-backup",
+    ("Service", "Group"): "gongkao-backup",
+    ("Service", "EnvironmentFile"): expected_environment,
+    ("Service", "ExecStart"): expected_entrypoint,
+    ("Service", "NoNewPrivileges"): "true",
+    ("Service", "PrivateTmp"): "true",
+    ("Service", "PrivateDevices"): "true",
+    ("Service", "ProtectSystem"): "strict",
+    ("Service", "ProtectHome"): "true",
+    ("Service", "ProtectControlGroups"): "true",
+    ("Service", "ProtectKernelModules"): "true",
+    ("Service", "ProtectKernelTunables"): "true",
+    ("Service", "ProtectKernelLogs"): "true",
+    ("Service", "ProtectClock"): "true",
+    ("Service", "ProtectHostname"): "true",
+    ("Service", "ProtectProc"): "invisible",
+    ("Service", "ProcSubset"): "pid",
+    ("Service", "RestrictNamespaces"): "true",
+    ("Service", "RestrictRealtime"): "true",
+    ("Service", "RestrictSUIDSGID"): "true",
+    ("Service", "LockPersonality"): "true",
+    ("Service", "RemoveIPC"): "true",
+    ("Service", "CapabilityBoundingSet"): "",
+    ("Service", "AmbientCapabilities"): "",
+    ("Service", "RestrictAddressFamilies"): "AF_UNIX AF_INET AF_INET6",
+    ("Service", "SystemCallArchitectures"): "native",
+    ("Service", "UMask"): "0077",
+}
+for (section, key), expected in service_expectations.items():
+    actual = require_one(service_path, service, section, key)
+    if actual != expected:
+        raise SystemExit(
+            f"{service_path}: invalid {section}.{key} backup contract"
+        )
+service_path_expectations = {
+    ("Service", "ReadOnlyPaths"): [
+        "/etc/gongkao-dazi/backup-target-authority.json",
+        "/etc/gongkao-dazi/secrets/backup.pgpass",
+        "/etc/gongkao-dazi/secrets/backup-signing.pem",
+    ],
+    ("Service", "ReadWritePaths"): [
+        "/var/backups/gongkao-dazi/encrypted",
+        "/var/lib/gongkao-backup/metrics",
+    ],
+    ("Service", "InaccessiblePaths"): [
+        "-/etc/gongkao-dazi/api.env",
+        "-/etc/gongkao-dazi/db.env",
+    ],
+}
+for (section, key), expected in service_path_expectations.items():
+    actual = service.get((section, key), [])
+    if actual != expected:
+        raise SystemExit(
+            f"{service_path}: invalid {section}.{key} backup sandbox contract"
+        )
+
+timer = load_unit(timer_path)
+timer_expectations = {
+    ("Timer", "Unit"): "gongkao-dazi-backup.service",
+    ("Timer", "OnCalendar"): "*-*-* 00/6:15:00",
+    ("Timer", "Persistent"): "true",
+    ("Timer", "RandomizedDelaySec"): "300",
+    ("Install", "WantedBy"): "timers.target",
+}
+for (section, key), expected in timer_expectations.items():
+    actual = require_one(timer_path, timer, section, key)
+    if actual != expected:
+        raise SystemExit(f"{timer_path}: invalid {section}.{key} backup contract")
+PY
+}
+
+assert_no_packaged_backup_dropins() {
+  local unit_root="$1"
+  local unit
+  for unit in gongkao-dazi-backup.service gongkao-dazi-backup.timer; do
+    if [[ -e "${unit_root}/${unit}.d" \
+      || -L "${unit_root}/${unit}.d" ]]; then
+      printf '%s\n' "release backup units must not contain drop-ins" >&2
+      return 1
+    fi
+  done
+}
+
+assert_no_effective_backup_dropins() {
+  local unit
+  local drop_ins
+  for unit in gongkao-dazi-backup.service gongkao-dazi-backup.timer; do
+    if [[ -e "${systemd_root}/${unit}.d" \
+      || -L "${systemd_root}/${unit}.d" ]]; then
+      printf '%s\n' "installed backup units must not contain drop-ins" >&2
+      return 1
+    fi
+    drop_ins="$(
+      systemctl show \
+        --property=DropInPaths \
+        --value \
+        "${unit}"
+    )"
+    if [[ -n "${drop_ins}" ]]; then
+      printf '%s\n' \
+        "effective backup unit ${unit} contains forbidden drop-ins" \
+        >&2
+      return 1
+    fi
+  done
+}
+
+assert_release_backup_control_plane() {
+  local release_root="$1"
+  local service="${release_root}/ops/systemd/gongkao-dazi-backup.service"
+  local timer="${release_root}/ops/systemd/gongkao-dazi-backup.timer"
+  local entrypoint="${release_root}/ops/scripts/backup.sh"
+  for path in "${service}" "${timer}" "${entrypoint}"; do
+    assert_root_owned_file "${path}"
+  done
+  test -x "${entrypoint}"
+  /bin/bash -n "${entrypoint}"
+  assert_no_packaged_backup_dropins "${release_root}/ops/systemd"
+  validate_backup_unit_contract \
+    "${service}" \
+    "${timer}" \
+    "${current_link}/ops/scripts/backup.sh" \
+    "/etc/gongkao-dazi/backup.env"
+  assert_no_effective_backup_dropins
+}
+
+assert_installed_target_backup_control_plane() {
+  local service="${systemd_root}/gongkao-dazi-backup.service"
+  local timer="${systemd_root}/gongkao-dazi-backup.timer"
+  local entrypoint="${target}/ops/scripts/backup.sh"
+  local environment="${runtime_config_root}/backup.env"
+  local resolved_current
+  resolved_current="$(readlink -f "${current_link}")"
+  if [[ "${resolved_current}" != "${target}" ]]; then
+    printf '%s\n' \
+      "installed backup controller is not bound to the activated release" \
+      >&2
+    return 1
+  fi
+  assert_sealed_release_config_snapshot "${runtime_config_root}"
+  for path in "${service}" "${timer}" "${entrypoint}" "${environment}"; do
+    assert_root_owned_file "${path}"
+  done
+  test -x "${entrypoint}"
+  sudo -u gongkao-backup test -x "${entrypoint}"
+  /bin/bash -n "${entrypoint}"
+  validate_backup_unit_contract \
+    "${service}" \
+    "${timer}" \
+    "${current_link}/ops/scripts/backup.sh" \
+    "${environment}"
+  assert_no_effective_backup_dropins
+}
+
 install_release_units() {
   local release_root="$1"
   local unit
@@ -1067,18 +1284,36 @@ prepare_control_plane_backup() {
 restore_control_plane() {
   local destination
   local name
+  local temporary
+  local failed=false
   if [[ "${control_plane_changed}" != true || -z "${control_plane_backup}" ]]; then
     return
   fi
   for destination in "${control_plane_destinations[@]}"; do
     name="$(basename "${destination}")"
     if [[ -f "${control_plane_backup}/${name}.missing" ]]; then
-      rm -f -- "${destination}"
+      if ! rm -f -- "${destination}"; then
+        failed=true
+      fi
     else
-      cp -p -- "${control_plane_backup}/${name}" "${destination}"
+      if ! temporary="$(mktemp "${destination}.restore.XXXXXX")"; then
+        failed=true
+        continue
+      fi
+      if ! cp -p -- "${control_plane_backup}/${name}" "${temporary}" \
+        || ! mv -f -- "${temporary}" "${destination}"; then
+        rm -f -- "${temporary}" || true
+        failed=true
+      fi
     fi
   done
-  systemctl daemon-reload
+  if ! systemctl daemon-reload; then
+    failed=true
+  fi
+  if [[ "${failed}" == true ]]; then
+    control_plane_restore_failed=true
+    return 1
+  fi
   control_plane_changed=false
 }
 
@@ -1246,24 +1481,49 @@ remove_provisional_success_markers() {
   fi
 }
 
+disable_unit_during_recovery() {
+  local unit="$1"
+  if ! systemctl disable --now "${unit}"; then
+    printf '%s\n' "failed to disable ${unit} during activation recovery" >&2
+  fi
+}
+
 restore_previous_release() {
   local exit_code=$?
   trap - ERR
-  remove_provisional_success_markers || true
-  restore_control_plane || true
+  if [[ "${activation_committed}" == true ]]; then
+    printf '%s\n' \
+      "activation is committed; post-commit cleanup failed without rolling back the active release" \
+      >&2
+    exit "${exit_code}"
+  fi
+  if ! remove_provisional_success_markers; then
+    printf '%s\n' "failed to remove provisional activation markers" >&2
+  fi
+  if ! restore_control_plane; then
+    printf '%s\n' \
+      "failed to restore the previous control plane; recovery material is retained at ${control_plane_backup}" \
+      >&2
+  fi
   if [[ "${switched}" == true && -n "${previous_target}" && -d "${previous_target}" ]]; then
     if [[ "${previous_compatible_with_candidate}" != true \
       || "${previous_guard_capable}" != true ]]; then
       printf '%s\n' \
         "refusing to restore an artifact without compatibility and guard preflight" \
         >&2
-      discard_control_plane_backup || true
+      if [[ "${control_plane_restore_failed}" != true ]] \
+        && ! discard_control_plane_backup; then
+        printf '%s\n' "failed to discard the control-plane recovery material" >&2
+      fi
       exit "${exit_code}"
     fi
     if ! assert_sealed_release_config_snapshot \
       "${root}/runtime-config/$(basename "${previous_target}")"; then
       printf '%s\n' "previous release lacks a sealed runtime configuration snapshot" >&2
-      discard_control_plane_backup || true
+      if [[ "${control_plane_restore_failed}" != true ]] \
+        && ! discard_control_plane_backup; then
+        printf '%s\n' "failed to discard the control-plane recovery material" >&2
+      fi
       exit "${exit_code}"
     fi
     ln -sfn "${previous_target}" "${current_link}"
@@ -1278,14 +1538,13 @@ restore_previous_release() {
       && -f "${previous_target}/backend/app/workers/essay_reviews.py" ]]; then
       restore_units+=(gongkao-dazi-essay-review-worker)
     else
-      systemctl disable --now gongkao-dazi-essay-review-worker 2>/dev/null || true
+      disable_unit_during_recovery gongkao-dazi-essay-review-worker
     fi
     if [[ "${coach_notifications_enabled}" == "true" \
       && -f "${previous_target}/backend/app/workers/coach_notifications.py" ]]; then
       restore_units+=(gongkao-dazi-coach-notification-worker)
     else
-      systemctl disable --now \
-        gongkao-dazi-coach-notification-worker 2>/dev/null || true
+      disable_unit_during_recovery gongkao-dazi-coach-notification-worker
     fi
     if [[ "${COMMERCIAL_MODE:-free_cold_start}" == "paid" \
       && -f "${previous_target}/ops/systemd/gongkao-dazi-commerce-worker.service" \
@@ -1295,19 +1554,31 @@ restore_previous_release() {
       && -n "${WECHAT_VIRTUAL_PAY_MESSAGE_ENCODING_AES_KEY:-}" ]]; then
       restore_units+=(gongkao-dazi-commerce-worker)
     else
-      systemctl disable --now gongkao-dazi-commerce-worker 2>/dev/null || true
+      disable_unit_during_recovery gongkao-dazi-commerce-worker
     fi
     if [[ "${ilink_channel_enabled}" == "true" \
       && -f "${previous_target}/backend/app/workers/ilink_channel.py" ]]; then
       restore_units+=(gongkao-dazi-ilink-worker)
     else
-      systemctl disable --now gongkao-dazi-ilink-worker 2>/dev/null || true
+      disable_unit_during_recovery gongkao-dazi-ilink-worker
     fi
-    systemctl enable "${restore_units[@]}" || true
-    systemctl restart "${restore_units[@]}" || true
+    if ! systemctl enable "${restore_units[@]}"; then
+      printf '%s\n' "failed to re-enable the previous runtime units" >&2
+    fi
+    if ! systemctl restart "${restore_units[@]}"; then
+      printf '%s\n' "failed to restart the previous runtime units" >&2
+    fi
   fi
-  write_failed_activation_marker || true
-  discard_control_plane_backup || true
+  if ! write_failed_activation_marker; then
+    printf '%s\n' "failed to write the activation failure marker" >&2
+  fi
+  if [[ "${control_plane_restore_failed}" == true ]]; then
+    printf '%s\n' \
+      "control-plane recovery remains incomplete; retained ${control_plane_backup}" \
+      >&2
+  elif ! discard_control_plane_backup; then
+    printf '%s\n' "failed to discard the control-plane recovery material" >&2
+  fi
   exit "${exit_code}"
 }
 
@@ -1389,6 +1660,7 @@ test ! -e "${target}"
 mkdir -p "${target}"
 tar -xzf "${incoming}" -C "${target}"
 assert_guard_capable_release "${release_manifest}" "${target}"
+assert_release_backup_control_plane "${target}"
 authority_root="${target}/release-authority"
 mkdir -p "${authority_root}"
 install -m 0444 \
@@ -1728,10 +2000,12 @@ fi
 for unit in "${runtime_units[@]}"; do
   systemctl is-active --quiet "${unit}"
 done
+assert_installed_target_backup_control_plane
 write_success_activation_markers
-prune_old_releases
-prune_orphaned_runtime_config_snapshots
 discard_control_plane_backup
 control_plane_changed=false
+activation_committed=true
+prune_old_releases
+prune_orphaned_runtime_config_snapshots
 trap - ERR
 printf '%s\n' "activated release ${release_id} at database revision ${current_revision}"

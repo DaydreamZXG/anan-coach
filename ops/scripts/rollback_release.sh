@@ -12,6 +12,7 @@ switched=false
 current_guard_capable=false
 control_plane_backup=""
 control_plane_changed=false
+control_plane_restore_failed=false
 control_plane_destinations=()
 runtime_identity_changed=false
 runtime_config_root=""
@@ -19,6 +20,8 @@ essay_review_worker_enabled=false
 coach_notifications_enabled=false
 ilink_channel_enabled=false
 backup_timer_forced_disabled=false
+backup_timer_initial_unit_file_state=""
+backup_timer_initial_active_state=""
 
 case "${release_id}" in
   *[!A-Za-z0-9._-]*|'')
@@ -553,6 +556,11 @@ for raw in path.read_text(encoding="utf-8").splitlines():
     assignments[key] = value.strip().strip("\"'")
 if "BACKUP_TARGET_ID" in assignments:
     raise SystemExit("BACKUP_TARGET_ID is forbidden")
+if "REQUIRED_DATABASE_REVISION" in assignments:
+    raise SystemExit(
+        "backup.env must not define REQUIRED_DATABASE_REVISION; "
+        "backup derives it from the current release artifact"
+    )
 expected = {
     "BACKUP_TARGET_AUTHORITY_FILE": "/etc/gongkao-dazi/backup-target-authority.json",
     "PGPASSFILE": "/etc/gongkao-dazi/secrets/backup.pgpass",
@@ -1001,6 +1009,14 @@ install_release_units() {
   local found=false
   shopt -s nullglob
   for unit in "${release_root}/ops/systemd/"*.service "${release_root}/ops/systemd/"*.timer; do
+    case "$(basename "${unit}")" in
+      gongkao-dazi-backup.service|gongkao-dazi-backup.timer)
+        # Rollback keeps the locked current release's hardened backup
+        # controller. Never load a possibly legacy target backup unit, even
+        # briefly, while replacing the application runtime units.
+        continue
+        ;;
+    esac
     destination="${systemd_root}/$(basename "${unit}")"
     temporary="$(mktemp "${systemd_root}/.release-unit.XXXXXX")"
     if ! python3 - "${unit}" "${temporary}" "${runtime_config_root}" <<'PY'
@@ -1069,14 +1085,218 @@ assert_hardened_backup_control_plane() {
   fi
 }
 
+assert_backup_timer_disabled() {
+  local unit="gongkao-dazi-backup.timer"
+  local unit_file_state
+  local active_state
+  unit_file_state="$(
+    systemctl show \
+      --property=UnitFileState \
+      --value \
+      "${unit}"
+  )"
+  active_state="$(
+    systemctl show \
+      --property=ActiveState \
+      --value \
+      "${unit}"
+  )"
+  if [[ "${unit_file_state}" != "disabled" \
+    || "${active_state}" != "inactive" ]]; then
+    printf '%s\n' \
+      "backup timer interlock failed: expected disabled/inactive, got ${unit_file_state}/${active_state}" \
+      >&2
+    return 1
+  fi
+}
+
+assert_backup_timer_enabled() {
+  local unit="gongkao-dazi-backup.timer"
+  local unit_file_state
+  local active_state
+  unit_file_state="$(
+    systemctl show \
+      --property=UnitFileState \
+      --value \
+      "${unit}"
+  )"
+  active_state="$(
+    systemctl show \
+      --property=ActiveState \
+      --value \
+      "${unit}"
+  )"
+  if [[ "${unit_file_state}" != "enabled" \
+    || "${active_state}" != "active" ]]; then
+    printf '%s\n' \
+      "backup timer recovery failed: expected enabled/active, got ${unit_file_state}/${active_state}" \
+      >&2
+    return 1
+  fi
+}
+
+disable_backup_timer_interlock() {
+  backup_timer_initial_unit_file_state="$(
+    systemctl show \
+      --property=UnitFileState \
+      --value \
+      gongkao-dazi-backup.timer
+  )"
+  backup_timer_initial_active_state="$(
+    systemctl show \
+      --property=ActiveState \
+      --value \
+      gongkao-dazi-backup.timer
+  )"
+  case "${backup_timer_initial_unit_file_state}/${backup_timer_initial_active_state}" in
+    enabled/active|disabled/inactive) ;;
+    *)
+      printf '%s\n' \
+        "backup timer has an unsupported pre-rollback state ${backup_timer_initial_unit_file_state}/${backup_timer_initial_active_state}" \
+        >&2
+      return 1
+      ;;
+  esac
+  if ! systemctl disable --now gongkao-dazi-backup.timer; then
+    printf '%s\n' "failed to disable the backup timer before rollback" >&2
+    return 1
+  fi
+  assert_backup_timer_disabled
+  backup_timer_forced_disabled=true
+}
+
+read_donor_backup_enabled() {
+  local environment="$1"
+  python3 - "${environment}" <<'PY'
+from pathlib import Path
+import sys
+
+values: list[str] = []
+for raw in Path(sys.argv[1]).read_text(encoding="utf-8").splitlines():
+    if raw.startswith("BACKUP_ENABLED="):
+        values.append(raw.split("=", 1)[1])
+if len(values) != 1 or values[0] not in {"true", "false"}:
+    raise SystemExit("donor backup snapshot has an invalid BACKUP_ENABLED")
+print(values[0])
+PY
+}
+
+finalize_backup_timer_state() {
+  local controller_snapshot="${root}/runtime-config/${current_release_id}"
+  local backup_enabled
+  backup_enabled="$(read_donor_backup_enabled "${controller_snapshot}/backup.env")"
+  if [[ "${backup_enabled}" == "true" \
+    && "${backup_timer_initial_unit_file_state}" == "enabled" \
+    && "${backup_timer_initial_active_state}" == "active" ]]; then
+    systemctl enable --now gongkao-dazi-backup.timer
+    assert_backup_timer_enabled
+    backup_timer_forced_disabled=false
+    printf '%s\n' \
+      "restored enabled/active backup scheduling with the validated donor controller"
+    return
+  fi
+  assert_backup_timer_disabled
+  printf '%s\n' \
+    "backup timer remains disabled/inactive; production enablement is blocked until BACKUP_ENABLED=true and the runbook backup/recovery gate is complete" \
+    >&2
+}
+
+restore_backup_timer_after_failure() {
+  if [[ "${backup_timer_forced_disabled}" != true ]]; then
+    return
+  fi
+  if [[ "${control_plane_restore_failed}" == true ]]; then
+    if ! systemctl disable --now gongkao-dazi-backup.timer \
+      || ! assert_backup_timer_disabled; then
+      printf '%s\n' \
+        "failed to hold the backup timer disabled after control-plane recovery failed" \
+        >&2
+    fi
+    return
+  fi
+  if [[ "${backup_timer_initial_unit_file_state}" == "enabled" \
+    && "${backup_timer_initial_active_state}" == "active" ]]; then
+    if ! systemctl enable --now gongkao-dazi-backup.timer \
+      || ! assert_backup_timer_enabled; then
+      printf '%s\n' \
+        "failed to restore the original enabled/active backup timer state" \
+        >&2
+    fi
+    return
+  fi
+  if ! systemctl disable --now gongkao-dazi-backup.timer \
+    || ! assert_backup_timer_disabled; then
+    printf '%s\n' "failed to keep the backup timer disabled during recovery" >&2
+  fi
+}
+
 restore_hardened_backup_control_plane() {
-  local name
-  for name in \
-    gongkao-dazi-backup.service \
-    gongkao-dazi-backup.timer; do
-    test -f "${control_plane_backup}/${name}"
-    cp -p -- "${control_plane_backup}/${name}" "${systemd_root}/${name}"
-  done
+  local controller_snapshot="${root}/runtime-config/${current_release_id}"
+  local service_name="gongkao-dazi-backup.service"
+  local timer_name="gongkao-dazi-backup.timer"
+  local temporary
+  assert_sealed_release_config_snapshot "${controller_snapshot}"
+  assert_root_owned_file "${previous_target}/ops/scripts/backup.sh"
+  assert_root_owned_file "${controller_snapshot}/backup.env"
+  test -f "${control_plane_backup}/${service_name}"
+  test -f "${control_plane_backup}/${timer_name}"
+  temporary="$(mktemp "${systemd_root}/.backup-controller.XXXXXX")"
+  if ! python3 - \
+    "${control_plane_backup}/${service_name}" \
+    "${temporary}" \
+    "${previous_target}/ops/scripts/backup.sh" \
+    "${controller_snapshot}/backup.env" <<'PY'
+from pathlib import Path
+import sys
+
+source, destination, entrypoint, environment = map(Path, sys.argv[1:])
+lines: list[str] = []
+exec_start_count = 0
+environment_file_count = 0
+for raw in source.read_text(encoding="utf-8").splitlines():
+    if raw.startswith("ExecStart="):
+        exec_start_count += 1
+        current = raw.split("=", 1)[1]
+        if (
+            not current
+            or current.startswith("-")
+            or any(character.isspace() for character in current)
+            or not Path(current).is_absolute()
+            or Path(current).parts[-3:] != ("ops", "scripts", "backup.sh")
+        ):
+            raise SystemExit("installed backup service has an invalid ExecStart")
+        lines.append(f"ExecStart={entrypoint}")
+        continue
+    if raw.startswith("EnvironmentFile="):
+        environment_file_count += 1
+        current = raw.split("=", 1)[1]
+        if (
+            not current
+            or current.startswith("-")
+            or any(character.isspace() for character in current)
+            or not Path(current).is_absolute()
+            or Path(current).name != "backup.env"
+        ):
+            raise SystemExit("installed backup service has an invalid EnvironmentFile")
+        lines.append(f"EnvironmentFile={environment}")
+        continue
+    lines.append(raw)
+if exec_start_count != 1 or environment_file_count != 1:
+    raise SystemExit(
+        "installed backup service must define one ExecStart and one EnvironmentFile"
+    )
+destination.write_text("\n".join(lines) + "\n", encoding="utf-8")
+PY
+  then
+    rm -f -- "${temporary}"
+    return 1
+  fi
+  if ! install -m 0644 "${temporary}" "${systemd_root}/${service_name}"; then
+    rm -f -- "${temporary}"
+    return 1
+  fi
+  rm -f -- "${temporary}"
+  cp -p -- "${control_plane_backup}/${timer_name}" "${systemd_root}/${timer_name}"
   systemctl daemon-reload
 }
 
@@ -1121,18 +1341,36 @@ prepare_control_plane_backup() {
 restore_control_plane() {
   local destination
   local name
+  local temporary
+  local failed=false
   if [[ "${control_plane_changed}" != true || -z "${control_plane_backup}" ]]; then
     return
   fi
   for destination in "${control_plane_destinations[@]}"; do
     name="$(basename "${destination}")"
     if [[ -f "${control_plane_backup}/${name}.missing" ]]; then
-      rm -f -- "${destination}"
+      if ! rm -f -- "${destination}"; then
+        failed=true
+      fi
     else
-      cp -p -- "${control_plane_backup}/${name}" "${destination}"
+      if ! temporary="$(mktemp "${destination}.restore.XXXXXX")"; then
+        failed=true
+        continue
+      fi
+      if ! cp -p -- "${control_plane_backup}/${name}" "${temporary}" \
+        || ! mv -f -- "${temporary}" "${destination}"; then
+        rm -f -- "${temporary}" || true
+        failed=true
+      fi
     fi
   done
-  systemctl daemon-reload
+  if ! systemctl daemon-reload; then
+    failed=true
+  fi
+  if [[ "${failed}" == true ]]; then
+    control_plane_restore_failed=true
+    return 1
+  fi
   control_plane_changed=false
 }
 
@@ -1154,12 +1392,20 @@ discard_control_plane_backup() {
   control_plane_backup=""
 }
 
+disable_unit_during_recovery() {
+  local unit="$1"
+  if ! systemctl disable --now "${unit}"; then
+    printf '%s\n' "failed to disable ${unit} during rollback recovery" >&2
+  fi
+}
+
 restore_original_pointer() {
   local exit_code=$?
   trap - ERR
-  restore_control_plane || true
-  if [[ "${backup_timer_forced_disabled}" == true ]]; then
-    systemctl disable --now gongkao-dazi-backup.timer 2>/dev/null || true
+  if ! restore_control_plane; then
+    printf '%s\n' \
+      "failed to restore the original control plane; recovery material is retained at ${control_plane_backup}" \
+      >&2
   fi
   if [[ "${switched}" == true \
     && "${current_guard_capable}" == true \
@@ -1168,7 +1414,10 @@ restore_original_pointer() {
     if ! assert_sealed_release_config_snapshot \
       "${root}/runtime-config/$(basename "${previous_target}")"; then
       printf '%s\n' "current release lacks a sealed runtime configuration snapshot" >&2
-      discard_control_plane_backup || true
+      if [[ "${control_plane_restore_failed}" != true ]] \
+        && ! discard_control_plane_backup; then
+        printf '%s\n' "failed to discard the control-plane recovery material" >&2
+      fi
       exit "${exit_code}"
     fi
     ln -sfn "${previous_target}" "${current_link}"
@@ -1183,14 +1432,13 @@ restore_original_pointer() {
       && -f "${previous_target}/backend/app/workers/essay_reviews.py" ]]; then
       restore_units+=(gongkao-dazi-essay-review-worker)
     else
-      systemctl disable --now gongkao-dazi-essay-review-worker 2>/dev/null || true
+      disable_unit_during_recovery gongkao-dazi-essay-review-worker
     fi
     if [[ "${coach_notifications_enabled}" == "true" \
       && -f "${previous_target}/backend/app/workers/coach_notifications.py" ]]; then
       restore_units+=(gongkao-dazi-coach-notification-worker)
     else
-      systemctl disable --now \
-        gongkao-dazi-coach-notification-worker 2>/dev/null || true
+      disable_unit_during_recovery gongkao-dazi-coach-notification-worker
     fi
     if [[ "${COMMERCIAL_MODE:-free_cold_start}" == "paid" \
       && -f "${previous_target}/ops/systemd/gongkao-dazi-commerce-worker.service" \
@@ -1200,18 +1448,29 @@ restore_original_pointer() {
       && -n "${WECHAT_VIRTUAL_PAY_MESSAGE_ENCODING_AES_KEY:-}" ]]; then
       restore_units+=(gongkao-dazi-commerce-worker)
     else
-      systemctl disable --now gongkao-dazi-commerce-worker 2>/dev/null || true
+      disable_unit_during_recovery gongkao-dazi-commerce-worker
     fi
     if [[ "${ilink_channel_enabled}" == "true" \
       && -f "${previous_target}/backend/app/workers/ilink_channel.py" ]]; then
       restore_units+=(gongkao-dazi-ilink-worker)
     else
-      systemctl disable --now gongkao-dazi-ilink-worker 2>/dev/null || true
+      disable_unit_during_recovery gongkao-dazi-ilink-worker
     fi
-    systemctl enable "${restore_units[@]}" || true
-    systemctl restart "${restore_units[@]}" || true
+    if ! systemctl enable "${restore_units[@]}"; then
+      printf '%s\n' "failed to re-enable the original runtime units" >&2
+    fi
+    if ! systemctl restart "${restore_units[@]}"; then
+      printf '%s\n' "failed to restart the original runtime units" >&2
+    fi
   fi
-  discard_control_plane_backup || true
+  restore_backup_timer_after_failure
+  if [[ "${control_plane_restore_failed}" == true ]]; then
+    printf '%s\n' \
+      "control-plane recovery remains incomplete; retained ${control_plane_backup}" \
+      >&2
+  elif ! discard_control_plane_backup; then
+    printf '%s\n' "failed to discard the control-plane recovery material" >&2
+  fi
   exit "${exit_code}"
 }
 
@@ -1556,8 +1815,7 @@ esac
 
 assert_sealed_release_config_snapshot "${runtime_config_root}"
 assert_hardened_backup_control_plane "${previous_target}"
-systemctl disable --now gongkao-dazi-backup.timer 2>/dev/null || true
-backup_timer_forced_disabled=true
+disable_backup_timer_interlock
 prepare_control_plane_backup
 control_plane_changed=true
 install_release_units "${target}"
@@ -1604,6 +1862,7 @@ fi
 for unit in "${runtime_units[@]}"; do
   systemctl is-active --quiet "${unit}"
 done
+finalize_backup_timer_state
 control_plane_changed=false
 discard_control_plane_backup
 trap - ERR

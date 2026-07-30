@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [[ "${REQUIRED_DATABASE_REVISION+x}" == "x" ]]; then
+  printf '%s\n' \
+    "REQUIRED_DATABASE_REVISION is forbidden for backup; the current release artifact owns database compatibility" \
+    >&2
+  exit 64
+fi
+
 : "${BACKUP_ENABLED:?BACKUP_ENABLED is required}"
 : "${BACKUP_DATABASE_URL:?BACKUP_DATABASE_URL is required}"
 : "${BACKUP_DIRECTORY:?BACKUP_DIRECTORY is required}"
@@ -9,7 +16,6 @@ set -euo pipefail
 : "${BACKUP_SOURCE_ENVIRONMENT_ID:?BACKUP_SOURCE_ENVIRONMENT_ID is required}"
 : "${BACKUP_TARGET_AUTHORITY_FILE:?BACKUP_TARGET_AUTHORITY_FILE is required}"
 : "${BACKUP_RETENTION_DAYS:?BACKUP_RETENTION_DAYS is required}"
-: "${REQUIRED_DATABASE_REVISION:?REQUIRED_DATABASE_REVISION is required}"
 : "${BACKUP_METRICS_FILE:?BACKUP_METRICS_FILE is required}"
 : "${PGPASSFILE:?PGPASSFILE is required}"
 
@@ -58,9 +64,12 @@ script_directory="$(cd "$(dirname "$0")" && pwd -P)"
 release_root="$(cd "${script_directory}/../.." && pwd -P)"
 artifact_helper="${script_directory}/backup_artifact.py"
 backup_python="${release_root}/backend/.venv/bin/python"
+artifact_database_contract="${release_root}/ops/release-db-compatibility.env"
 test -f "${artifact_helper}"
 test ! -L "${artifact_helper}"
 test -x "${backup_python}"
+test -f "${artifact_database_contract}"
+test ! -L "${artifact_database_contract}"
 "${backup_python}" "${artifact_helper}" verify-backup-authority \
   --target-authority-file "${BACKUP_TARGET_AUTHORITY_FILE}" \
   --source-environment-id "${BACKUP_SOURCE_ENVIRONMENT_ID}" \
@@ -68,6 +77,31 @@ test -x "${backup_python}"
   --signing-private-key-file "${BACKUP_SIGNING_PRIVATE_KEY_FILE}" \
   --passfile "${PGPASSFILE}" \
   >/dev/null
+PYTHONPATH="${script_directory}" "${backup_python}" -c \
+  'import os; from backup_artifact import _validate_database_url; _validate_database_url(os.environ["BACKUP_DATABASE_URL"])'
+case "${BACKUP_DATABASE_URL}" in
+  postgresql://*)
+    compatibility_database_url="postgresql+psycopg://${BACKUP_DATABASE_URL#postgresql://}"
+    ;;
+  postgres://*)
+    compatibility_database_url="postgresql+psycopg://${BACKUP_DATABASE_URL#postgres://}"
+    ;;
+  *)
+    printf '%s\n' "database authority must be an explicit libpq URL" >&2
+    exit 64
+    ;;
+esac
+required_database_revision="$(
+  PYTHONPATH="${release_root}/backend" \
+    DATABASE_URL="${compatibility_database_url}" \
+    "${backup_python}" -m app.core.database_compatibility assert-current \
+      --backend-root "${release_root}/backend" \
+      --contract "${artifact_database_contract}"
+)"
+if [[ -z "${required_database_revision}" ]]; then
+  printf '%s\n' "release database compatibility validation returned no revision" >&2
+  exit 1
+fi
 exec 9>"${BACKUP_DIRECTORY}/.anan-backup.lock"
 if ! flock --nonblock 9; then
   printf '%s\n' "another database backup is already running" >&2
@@ -108,7 +142,7 @@ mkdir -p "${payload}"
   --database-url "${BACKUP_DATABASE_URL}" \
   --dump "${dump}" \
   --manifest "${manifest}" \
-  --required-revision "${REQUIRED_DATABASE_REVISION}" \
+  --required-revision "${required_database_revision}" \
   --source-environment-id "${BACKUP_SOURCE_ENVIRONMENT_ID}" \
   --backup-target-authority-file "${BACKUP_TARGET_AUTHORITY_FILE}" \
   --backup-directory "${BACKUP_DIRECTORY}"

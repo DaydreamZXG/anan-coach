@@ -17,8 +17,12 @@ import time
 from types import SimpleNamespace
 
 import psycopg
+from psycopg import sql
 import pytest
+from sqlalchemy import create_engine, text
 from sqlalchemy.engine import Engine
+
+from app.core.database_compatibility import current_database_revisions
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -250,7 +254,7 @@ def test_frozen_v3_manifest_remains_restorable_but_reports_legacy_unbound(
             return False
 
         def execute(self, query: str, *_args):
-            if "select version_num from alembic_version" in query:
+            if "select version_num from public.alembic_version" in query:
                 return Result(all_rows=[("20260719_46",)])
             if "select count(*)" in query:
                 return Result(one=(0,))
@@ -932,6 +936,10 @@ def test_backup_entrypoints_fail_closed_and_restore_requires_evidence() -> None:
 
     assert '[[ "${BACKUP_ENABLED}" != "true" ]]' in backup
     assert "--source-environment-id" in backup
+    assert "REQUIRED_DATABASE_REVISION is forbidden for backup" in backup
+    assert "from backup_artifact import _validate_database_url" in backup
+    assert "-m app.core.database_compatibility assert-current" in backup
+    assert '--required-revision "${required_database_revision}"' in backup
     assert "openssl dgst -sha256 -sign" in backup
     assert "flock --nonblock" in backup
     assert 'mktemp -d "${BACKUP_DIRECTORY}/.${set_basename}.staging.XXXXXX"' in backup
@@ -953,6 +961,19 @@ def test_backup_entrypoints_fail_closed_and_restore_requires_evidence() -> None:
         '"${RESTORE_REPORT_DIRECTORY}/.${report_set_basename}.staging.${restore_identity}.XXXXXX"'
     ) in restore
     assert '"${signature_partial}" "${report_partial}"' in restore
+
+
+def test_backup_rejects_copied_database_revision_before_any_runtime_work() -> None:
+    result = subprocess.run(
+        [str(ROOT / "ops" / "scripts" / "backup.sh")],
+        check=False,
+        env={**os.environ, "REQUIRED_DATABASE_REVISION": "stale-copy"},
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 64
+    assert "REQUIRED_DATABASE_REVISION is forbidden for backup" in result.stderr
 
 
 def test_sigkill_before_atomic_publish_leaves_no_restore_selectable_backup(
@@ -996,6 +1017,13 @@ def test_sigkill_before_atomic_publish_leaves_no_restore_selectable_backup(
         "# fixture path checked by backup.sh\n",
         encoding="utf-8",
     )
+    artifact_database_contract = release_root / "ops" / "release-db-compatibility.env"
+    artifact_database_contract.write_text(
+        "ARTIFACT_DATABASE_COMPATIBILITY_CONTRACT=artifact-db-compatibility@v1\n"
+        f"ARTIFACT_DATABASE_MIGRATION_HEAD={CURRENT_DATABASE_REVISION}\n"
+        f"ARTIFACT_DATABASE_COMPATIBLE_REVISIONS={CURRENT_DATABASE_REVISION}\n",
+        encoding="utf-8",
+    )
     backup_python = release_root / "backend" / ".venv" / "bin" / "python"
     backup_python.parent.mkdir(parents=True)
 
@@ -1003,6 +1031,29 @@ def test_sigkill_before_atomic_publish_leaves_no_restore_selectable_backup(
         backup_python,
         """#!/usr/bin/env bash
 set -euo pipefail
+if [[ "${1:-}" == "-c" ]]; then
+  exit 0
+fi
+if [[ "${1:-}" == "-m" ]]; then
+  if [[ "${2:-}" != "app.core.database_compatibility" \
+    || "${3:-}" != "assert-current" ]]; then
+    printf '%s\\n' "unexpected compatibility command: $*" >&2
+    exit 96
+  fi
+  shift 3
+  contract=""
+  while (( $# > 0 )); do
+    case "$1" in
+      --backend-root) shift 2 ;;
+      --contract) contract="$2"; shift 2 ;;
+      *) printf '%s\\n' "unexpected compatibility argument: $1" >&2; exit 96 ;;
+    esac
+  done
+  [[ "${contract}" == "${BACKUP_TEST_ARTIFACT_CONTRACT}" ]]
+  [[ "${DATABASE_URL}" == "${BACKUP_TEST_COMPATIBILITY_DATABASE_URL}" ]]
+  printf '%s\\n' "${BACKUP_TEST_ARTIFACT_REVISION}"
+  exit 0
+fi
 shift
 command="$1"
 shift
@@ -1015,13 +1066,16 @@ case "${command}" in
   capture)
     dump=""
     manifest=""
+    required_revision=""
     while (( $# > 0 )); do
       case "$1" in
         --dump) dump="$2"; shift 2 ;;
         --manifest) manifest="$2"; shift 2 ;;
+        --required-revision) required_revision="$2"; shift 2 ;;
         *) shift ;;
       esac
     done
+    [[ "${required_revision}" == "${BACKUP_TEST_ARTIFACT_REVISION}" ]]
     printf '%s\\n' "fake custom dump" >"${dump}"
     printf '%s\\n' '{"formatVersion":"test"}' >"${manifest}"
     ;;
@@ -1104,8 +1158,12 @@ printf '%s\\n' "fake detached signature" >"${output}"
         "BACKUP_TARGET_AUTHORITY_FILE": str(target_authority),
         "PGPASSFILE": str(passfile),
         "BACKUP_RETENTION_DAYS": "30",
-        "REQUIRED_DATABASE_REVISION": CURRENT_DATABASE_REVISION,
         "BACKUP_METRICS_FILE": str(metrics_directory / "backup.prom"),
+        "BACKUP_TEST_ARTIFACT_CONTRACT": str(artifact_database_contract),
+        "BACKUP_TEST_ARTIFACT_REVISION": CURRENT_DATABASE_REVISION,
+        "BACKUP_TEST_COMPATIBILITY_DATABASE_URL": (
+            "postgresql+psycopg://backup@127.0.0.1:5432/gongkao"
+        ),
         "BACKUP_TEST_RUN_ID": run_id,
         "BACKUP_TEST_PUBLISH_READY": str(publish_ready),
     }
@@ -1593,6 +1651,31 @@ def test_database_authority_rejects_libpq_environment_overrides(
         "postgresql://backup@db.example.invalid/gongkao",
         "postgresql://backup@db.example.invalid:5432/",
         "postgresql://backup@db.example.invalid:5432/gongkao?hostaddr=127.0.0.1",
+        (
+            "postgresql://backup@db.example.invalid:5432/gongkao"
+            "?options=-csearch_path%3Dshadow"
+        ),
+        (
+            "postgresql://backup@db.example.invalid:5432/gongkao"
+            "?host=other.example.invalid&port=6543"
+        ),
+        "postgresql://backup@db.example.invalid:5432/gongkao?dbname=other",
+        "postgresql://backup@db.example.invalid:5432/gongkao?user=other",
+        (
+            "postgresql://backup@db.example.invalid:5432/gongkao"
+            "?host=first.example.invalid&host=second.example.invalid"
+        ),
+        (
+            "postgresql://backup@db.example.invalid:5432/gongkao"
+            "?sslmode=require&sslmode=disable"
+        ),
+        "postgresql://back%75p@db.example.invalid:5432/gongkao",
+        "postgresql://backup@%64b.example.invalid:5432/gongkao",
+        "postgresql://backup@db.example.invalid:%35%34%33%32/gongkao",
+        "postgresql://backup@db.example.invalid:5432/gong%6Bao",
+        "postgresql://backup@db.example.invalid:5432/gongkao%2Fshadow",
+        "postgresql://backup@%2Fvar%2Frun%2Fpostgresql:5432/gongkao",
+        "postgresql://backup@db1.example.invalid,db2.example.invalid:5432/gongkao",
         "service=production",
     ),
 )
@@ -1601,6 +1684,168 @@ def test_database_authority_requires_one_explicit_target(
 ) -> None:
     with pytest.raises(backup_artifact.BackupContractError):
         backup_artifact._validate_database_url(database_url)
+
+
+def test_database_authority_allows_one_transport_policy() -> None:
+    backup_artifact._validate_database_url(
+        "postgresql://backup@db.example.invalid:5432/gongkao"
+        "?sslmode=verify%2Dfull&sslrootcert=%2Fetc%2Fssl%2Fpostgres-ca.pem"
+    )
+
+
+def test_validated_url_targets_same_database_for_compatibility_and_capture(
+    postgres_url: str,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    suffix = str(time.time_ns())
+    decoded_database = f"backup_parser_target_{suffix}"
+    encoded_database = decoded_database.replace("_", "%5F", 1)
+    literal_database = encoded_database
+    decoded_revision = f"decoded-{suffix}"
+    literal_revision = f"literal-{suffix}"
+    admin_database_url = postgres_url.replace(
+        "postgresql+psycopg:",
+        "postgresql:",
+        1,
+    )
+    admin_parameters = backup_artifact.conninfo_to_dict(admin_database_url)
+    user = str(admin_parameters["user"])
+    host = str(admin_parameters["host"])
+    port = str(admin_parameters["port"])
+    assert all("%" not in value for value in (user, host, port))
+    rendered_host = f"[{host}]" if ":" in host else host
+    database_authority = f"postgresql://{user}@{rendered_host}:{port}"
+    canonical_url = f"{database_authority}/{decoded_database}"
+    differential_url = f"{database_authority}/{encoded_database}"
+    literal_seed_url = (
+        f"{database_authority}/{encoded_database.replace('%', '%25')}"
+    )
+
+    with psycopg.connect(admin_database_url, autocommit=True) as admin_connection:
+        for database_name in (decoded_database, literal_database):
+            admin_connection.execute(
+                sql.SQL("drop database if exists {} with (force)").format(
+                    sql.Identifier(database_name)
+                )
+            )
+            admin_connection.execute(
+                sql.SQL("create database {}").format(sql.Identifier(database_name))
+            )
+    try:
+        for database_url, revision in (
+            (canonical_url, decoded_revision),
+            (literal_seed_url, literal_revision),
+        ):
+            with psycopg.connect(database_url) as connection:
+                connection.execute(
+                    """
+                    create table public.alembic_version (
+                      version_num varchar(255) not null
+                    )
+                    """
+                )
+                connection.execute(
+                    "insert into public.alembic_version (version_num) values (%s)",
+                    (revision,),
+                )
+
+        with pytest.raises(
+            backup_artifact.BackupContractError,
+            match="must not use percent-encoding",
+        ):
+            backup_artifact._validate_database_url(differential_url)
+
+        with psycopg.connect(differential_url) as libpq_connection:
+            assert (
+                libpq_connection.execute("select current_database()").fetchone()[0]
+                == decoded_database
+            )
+        differential_engine = create_engine(
+            differential_url.replace(
+                "postgresql:",
+                "postgresql+psycopg:",
+                1,
+            ),
+            future=True,
+        )
+        try:
+            with differential_engine.connect() as sqlalchemy_connection:
+                assert (
+                    sqlalchemy_connection.execute(
+                        text("select current_database()")
+                    ).scalar_one()
+                    == literal_database
+                )
+        finally:
+            differential_engine.dispose()
+
+        backup_artifact._validate_database_url(canonical_url)
+        compatibility_url = canonical_url.replace(
+            "postgresql:",
+            "postgresql+psycopg:",
+            1,
+        )
+        assert current_database_revisions(compatibility_url) == (
+            decoded_revision,
+        )
+
+        capture_databases: list[str] = []
+
+        def capture_publication_authority(*, connection, required_revision):
+            assert required_revision == decoded_revision
+            capture_databases.append(
+                str(connection.execute("select current_database()").fetchone()[0])
+            )
+            return _publication_authority(
+                revision=decoded_revision,
+                deployment_environment="production-cn-1",
+            )
+
+        def fake_backup_command(command, **_kwargs):
+            if command[:2] == ["pg_dump", "--version"]:
+                return subprocess.CompletedProcess(
+                    command,
+                    0,
+                    stdout="pg_dump (PostgreSQL) 16.0\n",
+                )
+            if command[0] == "pg_dump":
+                dump_argument = next(
+                    argument for argument in command if argument.startswith("--file=")
+                )
+                Path(dump_argument.split("=", 1)[1]).write_bytes(b"fixture dump")
+            return subprocess.CompletedProcess(command, 0, stdout="")
+
+        monkeypatch.setattr(
+            backup_artifact,
+            "_load_backup_target_authority",
+            lambda **_kwargs: _backup_target_authority(),
+        )
+        monkeypatch.setattr(
+            backup_artifact,
+            "_capture_active_publication_authority",
+            capture_publication_authority,
+        )
+        monkeypatch.setattr(backup_artifact, "CRITICAL_TABLES", ())
+        monkeypatch.setattr(backup_artifact.subprocess, "run", fake_backup_command)
+        backup_artifact.capture(
+            database_url=canonical_url,
+            dump_path=tmp_path / "database.dump",
+            manifest_path=tmp_path / "manifest.json",
+            required_revision=decoded_revision,
+            source_environment_id="production-cn-1",
+            backup_target_authority_file=tmp_path / "unused-authority.json",
+            backup_directory=tmp_path,
+        )
+        assert capture_databases == [decoded_database]
+    finally:
+        with psycopg.connect(admin_database_url, autocommit=True) as admin_connection:
+            for database_name in (decoded_database, literal_database):
+                admin_connection.execute(
+                    sql.SQL("drop database if exists {} with (force)").format(
+                        sql.Identifier(database_name)
+                    )
+                )
 
 
 def test_restore_rejects_another_database_on_the_source_cluster() -> None:

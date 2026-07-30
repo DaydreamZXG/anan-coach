@@ -18,6 +18,7 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parents[2]
 ACTIVATE_SCRIPT = REPO_ROOT / "ops" / "scripts" / "activate_release.sh"
 ROLLBACK_SCRIPT = REPO_ROOT / "ops" / "scripts" / "rollback_release.sh"
+BACKUP_SCRIPT = REPO_ROOT / "ops" / "scripts" / "backup.sh"
 DATA_PUBLISH_SCRIPT = REPO_ROOT / "ops" / "scripts" / "publish_commercial_data_release.sh"
 LOCKED_DATA_PUBLISH_SCRIPT = (
     REPO_ROOT / "ops" / "scripts" / "publish_commercial_data_release_locked.sh"
@@ -71,11 +72,21 @@ class ReleaseHarness:
     controller_root: Path
     systemd_root: Path
 
-    def activate(self, *, fault: str = "") -> subprocess.CompletedProcess[str]:
+    def activate(
+        self,
+        *,
+        fault: str = "",
+        release_id: str = "candidate",
+        environment_overrides: dict[str, str] | None = None,
+    ) -> subprocess.CompletedProcess[str]:
         return subprocess.run(
-            [str(ACTIVATE_SCRIPT), "candidate"],
+            [str(ACTIVATE_SCRIPT), release_id],
             check=False,
-            env={**self.environment, "HARNESS_FAULT": fault},
+            env={
+                **self.environment,
+                **(environment_overrides or {}),
+                "HARNESS_FAULT": fault,
+            },
             capture_output=True,
             text=True,
             timeout=RELEASE_HARNESS_TIMEOUT_SECONDS,
@@ -1293,6 +1304,34 @@ def test_release_rejects_backup_authority_path_escape_before_control_change(
     assert "systemctl " not in harness.events_file.read_text(encoding="utf-8")
 
 
+@pytest.mark.parametrize(
+    ("operation", "current_points_to_candidate"),
+    (("activate", False), ("rollback", True)),
+)
+def test_release_rejects_backup_database_revision_copy_before_control_change(
+    tmp_path: Path,
+    operation: str,
+    current_points_to_candidate: bool,
+) -> None:
+    harness = _release_harness(
+        tmp_path,
+        previous_compatible_revisions=(PREVIOUS_REVISION, CANDIDATE_REVISION),
+        current_points_to_candidate=current_points_to_candidate,
+    )
+    backup_environment = Path(harness.environment["GONGKAO_CONFIG_ROOT"]) / "backup.env"
+    backup_environment.write_text(
+        backup_environment.read_text(encoding="utf-8") + "REQUIRED_DATABASE_REVISION=stale-copy\n",
+        encoding="utf-8",
+    )
+    backup_environment.chmod(0o600)
+
+    result = getattr(harness, operation)()
+
+    assert result.returncode != 0
+    assert "backup.env must not define REQUIRED_DATABASE_REVISION" in result.stderr
+    assert "systemctl " not in harness.events_file.read_text(encoding="utf-8")
+
+
 def test_rollback_rejects_symlinked_sysusers_authority_before_control_change(
     tmp_path: Path,
 ) -> None:
@@ -1383,6 +1422,297 @@ def test_rollback_legacy_target_uses_current_backup_authority_and_keeps_timer_di
     assert "User=gongkao-backup" in installed_backup_service
     assert "Group=gongkao-backup" in installed_backup_service
     assert "User=deploy" not in installed_backup_service
+
+
+def test_rollback_backup_timer_disable_is_a_hard_interlock(
+    tmp_path: Path,
+) -> None:
+    harness = _release_harness(
+        tmp_path,
+        previous_compatible_revisions=(PREVIOUS_REVISION, CANDIDATE_REVISION),
+        current_points_to_candidate=True,
+    )
+    control_plane_before = _control_plane_snapshot(harness)
+
+    result = harness.rollback(fault="backup-timer-disable")
+
+    assert result.returncode != 0
+    assert "failed to disable the backup timer before rollback" in result.stderr
+    assert harness.current_link.resolve() == harness.candidate_target
+    assert _control_plane_snapshot(harness) == control_plane_before
+    assert _backup_timer_states(harness) == ("enabled", "active")
+    systemctl_events = [
+        line
+        for line in harness.events_file.read_text(encoding="utf-8").splitlines()
+        if line.startswith("systemctl ")
+    ]
+    assert systemctl_events == [
+        "systemctl disable --now gongkao-dazi-backup.timer"
+    ]
+
+
+def test_successful_rollback_keeps_one_runnable_donor_backup_binding(
+    tmp_path: Path,
+) -> None:
+    harness = _release_harness(
+        tmp_path,
+        previous_compatible_revisions=(PREVIOUS_REVISION, CANDIDATE_REVISION),
+        current_points_to_candidate=True,
+        previous_backup_required_revision=PREVIOUS_REVISION,
+    )
+    _write_backup_compatibility_entrypoints(harness)
+    old_entrypoint = harness.previous_target / "ops" / "scripts" / "backup.sh"
+    old_entrypoint_before = old_entrypoint.read_bytes()
+
+    result = harness.rollback()
+
+    assert result.returncode == 0, result.stderr
+    assert harness.current_link.resolve() == harness.previous_target
+    entrypoint, environment_file = _installed_backup_binding(harness)
+    assert entrypoint == harness.candidate_target / "ops" / "scripts" / "backup.sh"
+    assert environment_file == (
+        _runtime_snapshot(harness, harness.candidate_target) / "backup.env"
+    )
+    execution = _execute_installed_backup_binding(harness)
+    assert execution.returncode == 0, execution.stderr
+    assert execution.stdout == "candidate-backup-controller\n"
+    assert old_entrypoint.read_bytes() == old_entrypoint_before
+    assert _backup_timer_states(harness) == ("disabled", "inactive")
+    events = harness.events_file.read_text(encoding="utf-8")
+    assert "systemctl disable --now gongkao-dazi-backup.timer" in events
+    assert "systemctl enable gongkao-dazi-backup.timer" not in events
+
+
+def test_failed_rollback_restores_original_runnable_backup_binding(
+    tmp_path: Path,
+) -> None:
+    harness = _release_harness(
+        tmp_path,
+        previous_compatible_revisions=(PREVIOUS_REVISION, CANDIDATE_REVISION),
+        current_points_to_candidate=True,
+        previous_backup_required_revision=PREVIOUS_REVISION,
+    )
+    _write_backup_compatibility_entrypoints(harness)
+    installed_service = harness.systemd_root / "gongkao-dazi-backup.service"
+    candidate_environment = (
+        _runtime_snapshot(harness, harness.candidate_target) / "backup.env"
+    )
+    installed_service.write_text(
+        installed_service.read_text(encoding="utf-8").replace(
+            "/etc/gongkao-dazi/backup.env",
+            str(candidate_environment),
+        ),
+        encoding="utf-8",
+    )
+    original_service = installed_service.read_bytes()
+    before = _execute_installed_backup_binding(harness)
+    assert before.returncode == 0, before.stderr
+    assert before.stdout == "candidate-backup-controller\n"
+
+    result = harness.rollback(fault="readiness")
+
+    assert result.returncode != 0
+    assert harness.current_link.resolve() == harness.candidate_target
+    assert installed_service.read_bytes() == original_service
+    execution = _execute_installed_backup_binding(harness)
+    assert execution.returncode == 0, execution.stderr
+    assert execution.stdout == "candidate-backup-controller\n"
+    events = harness.events_file.read_text(encoding="utf-8")
+    assert events.count("systemctl disable --now gongkao-dazi-backup.timer") >= 2
+    assert "systemctl enable gongkao-dazi-backup.timer" not in events
+
+
+def test_activation_rejects_invalid_target_backup_control_plane_and_keeps_donor(
+    tmp_path: Path,
+) -> None:
+    harness = _release_harness(
+        tmp_path,
+        previous_compatible_revisions=(PREVIOUS_REVISION, CANDIDATE_REVISION),
+        current_points_to_candidate=True,
+    )
+    rollback = harness.rollback()
+    assert rollback.returncode == 0, rollback.stderr
+    donor_service = (
+        harness.systemd_root / "gongkao-dazi-backup.service"
+    ).read_bytes()
+    systemctl_events_before = _systemctl_events(harness)
+
+    for index, backup_fault in enumerate(
+        (
+            "missing-service",
+            "invalid-service",
+            "missing-timer",
+            "invalid-timer",
+            "missing-script",
+            "invalid-script",
+        )
+    ):
+        release_id = f"third-invalid-{index}"
+        _stage_activation_release(
+            harness,
+            release_id=release_id,
+            backup_fault=backup_fault,
+        )
+        result = harness.activate(
+            release_id=release_id,
+            environment_overrides=_third_activation_environment(),
+        )
+
+        assert result.returncode != 0, backup_fault
+        assert harness.current_link.resolve() == harness.previous_target
+        assert (
+            harness.systemd_root / "gongkao-dazi-backup.service"
+        ).read_bytes() == donor_service
+        assert _systemctl_events(harness) == systemctl_events_before
+        assert harness.candidate_target.is_dir()
+        assert _runtime_snapshot(harness, harness.candidate_target).is_dir()
+        assert _installed_backup_binding(harness) == (
+            harness.candidate_target / "ops" / "scripts" / "backup.sh",
+            _runtime_snapshot(harness, harness.candidate_target) / "backup.env",
+        )
+
+
+def test_failed_third_activation_restores_and_retains_rollback_donor(
+    tmp_path: Path,
+) -> None:
+    harness = _release_harness(
+        tmp_path,
+        previous_compatible_revisions=(PREVIOUS_REVISION, CANDIDATE_REVISION),
+        current_points_to_candidate=True,
+    )
+    rollback = harness.rollback()
+    assert rollback.returncode == 0, rollback.stderr
+    _stage_activation_release(harness, release_id="third")
+    control_plane_before = _control_plane_snapshot(harness)
+
+    result = harness.activate(
+        fault="readiness",
+        release_id="third",
+        environment_overrides=_third_activation_environment(),
+    )
+
+    assert result.returncode != 0
+    assert harness.current_link.resolve() == harness.previous_target
+    assert _control_plane_snapshot(harness) == control_plane_before
+    assert harness.candidate_target.is_dir()
+    assert _runtime_snapshot(harness, harness.candidate_target).is_dir()
+    assert _installed_backup_binding(harness) == (
+        harness.candidate_target / "ops" / "scripts" / "backup.sh",
+        _runtime_snapshot(harness, harness.candidate_target) / "backup.env",
+    )
+    assert _backup_timer_states(harness) == ("disabled", "inactive")
+
+
+def test_activation_surfaces_control_plane_restore_failure_and_retains_recovery(
+    tmp_path: Path,
+) -> None:
+    harness = _release_harness(
+        tmp_path,
+        previous_compatible_revisions=(PREVIOUS_REVISION, CANDIDATE_REVISION),
+        current_points_to_candidate=True,
+    )
+    rollback = harness.rollback()
+    assert rollback.returncode == 0, rollback.stderr
+    _stage_activation_release(harness, release_id="third")
+    control_plane_before = _control_plane_snapshot(harness)
+
+    result = harness.activate(
+        fault="control-plane-restore",
+        release_id="third",
+        environment_overrides=_third_activation_environment(),
+    )
+
+    assert result.returncode != 0
+    assert "failed to restore the previous control plane" in result.stderr
+    retained_line = next(
+        line
+        for line in result.stderr.splitlines()
+        if "recovery material is retained at " in line
+    )
+    retained = Path(retained_line.rsplit(" ", 1)[1])
+    try:
+        assert retained.is_dir()
+        assert retained.name.startswith("anan-control-plane.")
+        assert harness.current_link.resolve() == harness.previous_target
+        assert _control_plane_snapshot(harness) == control_plane_before
+        assert harness.candidate_target.is_dir()
+        assert _runtime_snapshot(harness, harness.candidate_target).is_dir()
+        assert _installed_backup_binding(harness) == (
+            harness.candidate_target / "ops" / "scripts" / "backup.sh",
+            _runtime_snapshot(harness, harness.candidate_target)
+            / "backup.env",
+        )
+    finally:
+        shutil.rmtree(retained)
+
+
+def test_third_activation_replaces_donor_before_retention_two_prunes_it(
+    tmp_path: Path,
+) -> None:
+    harness = _release_harness(
+        tmp_path,
+        previous_compatible_revisions=(PREVIOUS_REVISION, CANDIDATE_REVISION),
+        current_points_to_candidate=True,
+    )
+    rollback = harness.rollback()
+    assert rollback.returncode == 0, rollback.stderr
+    _stage_activation_release(harness, release_id="third")
+
+    result = harness.activate(
+        release_id="third",
+        environment_overrides=_third_activation_environment(),
+    )
+
+    third = harness.release_root / "third"
+    third_snapshot = _runtime_snapshot(harness, third)
+    assert result.returncode == 0, result.stderr
+    assert harness.current_link.resolve() == third
+    assert _installed_backup_binding(harness) == (
+        harness.current_link / "ops" / "scripts" / "backup.sh",
+        third_snapshot / "backup.env",
+    )
+    assert harness.previous_target.is_dir()
+    assert third.is_dir()
+    assert not harness.candidate_target.exists()
+    assert not _runtime_snapshot(harness, harness.candidate_target).exists()
+    assert _backup_timer_states(harness) == ("disabled", "inactive")
+
+
+def test_post_commit_cleanup_failure_never_restores_a_pruned_donor(
+    tmp_path: Path,
+) -> None:
+    harness = _release_harness(
+        tmp_path,
+        previous_compatible_revisions=(PREVIOUS_REVISION, CANDIDATE_REVISION),
+        current_points_to_candidate=True,
+    )
+    rollback = harness.rollback()
+    assert rollback.returncode == 0, rollback.stderr
+    _stage_activation_release(harness, release_id="third")
+
+    result = harness.activate(
+        fault="post-donor-prune-cleanup",
+        release_id="third",
+        environment_overrides=_third_activation_environment(),
+    )
+
+    third = harness.release_root / "third"
+    third_snapshot = _runtime_snapshot(harness, third)
+    assert result.returncode != 0
+    assert "activation is committed; post-commit cleanup failed" in result.stderr
+    assert harness.current_link.resolve() == third
+    assert _installed_backup_binding(harness) == (
+        harness.current_link / "ops" / "scripts" / "backup.sh",
+        third_snapshot / "backup.env",
+    )
+    assert not harness.candidate_target.exists()
+    assert _runtime_snapshot(harness, harness.candidate_target).is_dir()
+    assert (
+        third / "release-authority" / "activation.json"
+    ).is_file()
+    assert not (
+        third / "release-authority" / "activation-failed.json"
+    ).exists()
 
 
 def test_release_mutators_require_the_signed_guard_capability_contract() -> None:
@@ -1631,6 +1961,8 @@ def _release_harness(
     essay_review_worker_enabled: str = "false",
     coach_notifications_enabled: str = "false",
     ilink_channel_enabled: str = "false",
+    previous_backup_required_revision: str | None = None,
+    backup_enabled: str = "false",
 ) -> ReleaseHarness:
     release_root = tmp_path / "releases"
     incoming = release_root / "incoming"
@@ -1648,6 +1980,9 @@ def _release_harness(
     events_file = state_root / "events"
     restart_marker = state_root / "restart-failed"
     install_marker = state_root / "install-failed"
+    daemon_reload_marker = state_root / "daemon-reload-seen"
+    backup_timer_unit_file_state = state_root / "backup-timer-unit-file-state"
+    backup_timer_active_state = state_root / "backup-timer-active-state"
 
     for directory in (
         incoming,
@@ -1675,6 +2010,7 @@ def _release_harness(
         revision=CANDIDATE_REVISION,
         compatible_revisions=(CANDIDATE_REVISION,),
         include_contract=True,
+        current_link=current_link,
     )
     _install_runtime_shims(previous, shim_root=shim_root)
     if current_points_to_candidate:
@@ -1817,6 +2153,12 @@ def _release_harness(
         )
     database_revision_file.write_text(database_revision, encoding="utf-8")
     events_file.write_text("", encoding="utf-8")
+    if backup_enabled == "true":
+        backup_timer_unit_file_state.write_text("enabled\n", encoding="utf-8")
+        backup_timer_active_state.write_text("active\n", encoding="utf-8")
+    else:
+        backup_timer_unit_file_state.write_text("disabled\n", encoding="utf-8")
+        backup_timer_active_state.write_text("inactive\n", encoding="utf-8")
     (config_root / "api.env").write_text(
         "WEKNORA_PRIVATE_KNOWLEDGE_MODE=canonical\n"
         f"ESSAY_REVIEW_WORKER_ENABLED={essay_review_worker_enabled}\n"
@@ -1851,7 +2193,7 @@ def _release_harness(
     )
     (config_root / "db.env").chmod(0o600)
     (config_root / "backup.env").write_text(
-        "BACKUP_ENABLED=false\n"
+        f"BACKUP_ENABLED={backup_enabled}\n"
         "BACKUP_DATABASE_URL=postgresql://gongkao@127.0.0.1:5432/gongkao\n"
         "PGPASSFILE=/etc/gongkao-dazi/secrets/backup.pgpass\n"
         "BACKUP_DIRECTORY=/var/backups/gongkao-dazi/encrypted\n"
@@ -1859,7 +2201,6 @@ def _release_harness(
         "BACKUP_SIGNING_PRIVATE_KEY_FILE=/etc/gongkao-dazi/secrets/backup-signing.pem\n"
         "BACKUP_SOURCE_ENVIRONMENT_ID=preproduction\n"
         "BACKUP_TARGET_AUTHORITY_FILE=/etc/gongkao-dazi/backup-target-authority.json\n"
-        f"REQUIRED_DATABASE_REVISION={CANDIDATE_REVISION}\n"
         "BACKUP_RETENTION_DAYS=30\n"
         "BACKUP_METRICS_FILE=/var/lib/gongkao-backup/metrics/anan-backup.prom\n",
         encoding="utf-8",
@@ -1946,6 +2287,11 @@ def _release_harness(
         "HARNESS_EVENTS_FILE": str(events_file),
         "HARNESS_RESTART_MARKER": str(restart_marker),
         "HARNESS_INSTALL_MARKER": str(install_marker),
+        "HARNESS_DAEMON_RELOAD_MARKER": str(daemon_reload_marker),
+        "HARNESS_BACKUP_TIMER_UNIT_FILE_STATE": str(
+            backup_timer_unit_file_state
+        ),
+        "HARNESS_BACKUP_TIMER_ACTIVE_STATE": str(backup_timer_active_state),
         "HARNESS_CONFIG_ROTATION_SOURCE": str(state_root / "rotated-db.env"),
         "HARNESS_CONFIG_ROTATION_TARGET": str(config_root / "db.env"),
         "HARNESS_REAL_PYTHON": sys.executable,
@@ -1962,12 +2308,29 @@ def _release_harness(
         "DATA_RELEASE_COORDINATION_LOCK": str(state_root / "data-release.lock"),
         "DATA_RELEASE_AUTHORITY_ROOT": str(data_authority_root),
     }
-    _seed_release_config_snapshot(
-        previous,
-        config_root=config_root,
-        commit=ROLLBACK_COMMIT,
-        receipt_sha256=data_receipt_sha256,
-    )
+    backup_environment = config_root / "backup.env"
+    current_backup_environment = backup_environment.read_text(encoding="utf-8")
+    if previous_backup_required_revision is not None:
+        backup_environment.write_text(
+            current_backup_environment
+            + f"REQUIRED_DATABASE_REVISION={previous_backup_required_revision}\n",
+            encoding="utf-8",
+        )
+        backup_environment.chmod(0o600)
+    try:
+        _seed_release_config_snapshot(
+            previous,
+            config_root=config_root,
+            commit=ROLLBACK_COMMIT,
+            receipt_sha256=data_receipt_sha256,
+        )
+    finally:
+        if previous_backup_required_revision is not None:
+            backup_environment.write_text(
+                current_backup_environment,
+                encoding="utf-8",
+            )
+            backup_environment.chmod(0o600)
     if current_points_to_candidate:
         _seed_release_config_snapshot(
             candidate,
@@ -1988,6 +2351,160 @@ def _release_harness(
     )
 
 
+def _third_activation_environment() -> dict[str, str]:
+    return {
+        "EXPECTED_ROLLBACK_RELEASE_ID": "previous",
+        "EXPECTED_GIT_COMMIT": CANDIDATE_COMMIT,
+        "EXPECTED_ROLLBACK_GIT_COMMIT": ROLLBACK_COMMIT,
+        "RELEASE_RETENTION_COUNT": "2",
+    }
+
+
+def _stage_activation_release(
+    harness: ReleaseHarness,
+    *,
+    release_id: str,
+    backup_fault: str = "",
+) -> None:
+    artifact = harness.release_root.parent / f"{release_id}-artifact"
+    artifact.mkdir()
+    _write_release(
+        artifact,
+        revision=CANDIDATE_REVISION,
+        compatible_revisions=(CANDIDATE_REVISION,),
+        include_contract=True,
+        current_link=harness.current_link,
+    )
+    backup_service = (
+        artifact / "ops" / "systemd" / "gongkao-dazi-backup.service"
+    )
+    backup_timer = (
+        artifact / "ops" / "systemd" / "gongkao-dazi-backup.timer"
+    )
+    backup_script = artifact / "ops" / "scripts" / "backup.sh"
+    match backup_fault:
+        case "":
+            pass
+        case "missing-service":
+            backup_service.unlink()
+        case "invalid-service":
+            backup_service.write_text(
+                backup_service.read_text(encoding="utf-8").replace(
+                    f"ExecStart={harness.current_link}/ops/scripts/backup.sh",
+                    (
+                        "ExecStart="
+                        f"{harness.candidate_target}/ops/scripts/backup.sh"
+                    ),
+                ),
+                encoding="utf-8",
+            )
+        case "missing-timer":
+            backup_timer.unlink()
+        case "invalid-timer":
+            backup_timer.write_text(
+                backup_timer.read_text(encoding="utf-8").replace(
+                    "Unit=gongkao-dazi-backup.service",
+                    "Unit=legacy-backup.service",
+                ),
+                encoding="utf-8",
+            )
+        case "missing-script":
+            backup_script.unlink()
+        case "invalid-script":
+            backup_script.chmod(0o644)
+        case _:
+            raise AssertionError(f"unsupported backup fault: {backup_fault}")
+
+    incoming = harness.release_root / "incoming"
+    archive_path = incoming / f"anan-{release_id}.tar.gz"
+    with tarfile.open(archive_path, "w:gz") as archive:
+        for child in artifact.iterdir():
+            archive.add(child, arcname=child.name)
+    archive_digest = hashlib.sha256(archive_path.read_bytes()).hexdigest()
+    (incoming / f"anan-{release_id}.tar.gz.sha256").write_text(
+        f"{archive_digest}  {archive_path.name}\n",
+        encoding="utf-8",
+    )
+
+    data_authority_root = Path(
+        harness.environment["DATA_RELEASE_AUTHORITY_ROOT"]
+    )
+    data_receipt = (data_authority_root / "current").resolve() / "receipt.json"
+    data_receipt_bytes = data_receipt.read_bytes()
+    data_authority = json.loads(data_receipt_bytes)
+    manifest = incoming / f"anan-{release_id}.release.json"
+    manifest.write_text(
+        json.dumps(
+            {
+                "schemaVersion": 4,
+                "releaseId": release_id,
+                "source": {"gitCommit": CANDIDATE_COMMIT},
+                "deployment": {
+                    "environment": "preproduction",
+                    "rollbackReleaseId": "previous",
+                },
+                "dataAuthorities": {
+                    "receipt": {"authority": data_authority},
+                },
+                "guardCapabilities": {
+                    "commercialDataPublication": {
+                        "capability": "commercial-data-publication-guard",
+                        "contractVersion": (
+                            "commercial-data-publication-guard@v1"
+                        ),
+                        "markerPath": (
+                            "ops/commercial-data-publication-guard.json"
+                        ),
+                        "markerSha256": hashlib.sha256(
+                            (
+                                artifact
+                                / "ops"
+                                / "commercial-data-publication-guard.json"
+                            ).read_bytes()
+                        ).hexdigest(),
+                    }
+                },
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    manifest_digest = hashlib.sha256(manifest.read_bytes()).hexdigest()
+    (incoming / f"anan-{release_id}.release.json.sha256").write_text(
+        f"{manifest_digest}  {manifest.name}\n",
+        encoding="utf-8",
+    )
+    (incoming / f"anan-{release_id}.release.json.sig").write_bytes(
+        b"release-harness-signature"
+    )
+    verifier = incoming / f"anan-{release_id}.verifier.py"
+    verifier.write_text("# release harness verifier\n", encoding="utf-8")
+    assert hashlib.sha256(verifier.read_bytes()).hexdigest() == (
+        harness.environment["EXPECTED_VERIFIER_SHA256"]
+    )
+    (incoming / f"anan-{release_id}.wechat-upload-receipt.json").write_text(
+        '{"schemaVersion":"release-harness"}\n',
+        encoding="utf-8",
+    )
+    (
+        incoming / f"anan-{release_id}.wechat-upload-receipt.json.sig"
+    ).write_bytes(b"wechat-upload-harness-signature")
+    (incoming / f"anan-{release_id}.wechat-upload-info.json").write_text(
+        '{"size":{"packages":[{"name":"__FULL__","size":1024}]}}\n',
+        encoding="utf-8",
+    )
+    (incoming / f"anan-{release_id}.wechat-upload.log").write_text(
+        "release harness upload log\n",
+        encoding="utf-8",
+    )
+    (incoming / f"anan-{release_id}.data-release-receipt.json").write_bytes(
+        data_receipt_bytes
+    )
+    (
+        incoming / f"anan-{release_id}.data-release-receipt.json.sig"
+    ).write_bytes(b"data-release-harness-signature")
+
+
 def _write_release(
     root: Path,
     *,
@@ -1995,6 +2512,7 @@ def _write_release(
     compatible_revisions: tuple[str, ...],
     include_contract: bool,
     guard_capable: bool = True,
+    current_link: Path | None = None,
 ) -> None:
     (root / "backend" / "migrations").mkdir(parents=True)
     (root / "backend" / "HEAD_REVISION").write_text(revision, encoding="utf-8")
@@ -2052,6 +2570,10 @@ def _write_release(
         ROLLBACK_SCRIPT.read_text(encoding="utf-8"),
         encoding="utf-8",
     )
+    shutil.copy2(
+        BACKUP_SCRIPT,
+        root / "ops" / "scripts" / "backup.sh",
+    )
     _write_executable(
         root / "ops" / "scripts" / "probe_tos_public_presign.py",
         "#!/usr/bin/env python3\n",
@@ -2084,10 +2606,19 @@ def _write_release(
         "gongkao-dazi-backup.service",
         "gongkao-dazi-backup.timer",
     ):
-        shutil.copy2(
-            REPO_ROOT / "ops" / "systemd" / name,
-            backup_systemd_root / name,
-        )
+        source = REPO_ROOT / "ops" / "systemd" / name
+        destination = backup_systemd_root / name
+        if name == "gongkao-dazi-backup.service":
+            destination.write_text(
+                source.read_text(encoding="utf-8").replace(
+                    "/srv/gongkao-dazi/current",
+                    str(current_link or root.parent / "current"),
+                ),
+                encoding="utf-8",
+            )
+            destination.chmod(source.stat().st_mode & 0o777)
+        else:
+            shutil.copy2(source, destination)
     essay_review_entrypoint = root / "backend" / "app" / "workers" / "essay_reviews.py"
     essay_review_entrypoint.parent.mkdir(parents=True, exist_ok=True)
     essay_review_entrypoint.write_text("# essay review worker\n", encoding="utf-8")
@@ -2443,6 +2974,21 @@ fi
 """,
     )
     _write_executable(
+        fake_bin / "rm",
+        """#!/usr/bin/env bash
+set -euo pipefail
+if [[ "${HARNESS_FAULT:-}" == "post-donor-prune-cleanup" ]]; then
+  for argument in "$@"; do
+    if [[ "$argument" == \
+      "${STAGING_RELEASE_ROOT}/incoming/anan-third.tar.gz" ]]; then
+      exit 56
+    fi
+  done
+fi
+exec /bin/rm "$@"
+""",
+    )
+    _write_executable(
         fake_bin / "find",
         """#!/usr/bin/env bash
 set -euo pipefail
@@ -2556,6 +3102,42 @@ while [[ "${1:-}" == "--no-pager" || "${1:-}" == "--full" ]]; do shift; done
 command_name="${1:?}"
 shift
 printf 'systemctl %s %s\\n' "$command_name" "$*" >> "${HARNESS_EVENTS_FILE}"
+if [[ "$command_name" == "disable" \
+  && "$*" == "--now gongkao-dazi-backup.timer" ]]; then
+  if [[ "${HARNESS_FAULT:-}" == "backup-timer-disable" ]]; then
+    exit 45
+  fi
+  printf '%s\\n' "disabled" > "${HARNESS_BACKUP_TIMER_UNIT_FILE_STATE}"
+  printf '%s\\n' "inactive" > "${HARNESS_BACKUP_TIMER_ACTIVE_STATE}"
+  exit 0
+fi
+if [[ "$command_name" == "enable" \
+  && "$*" == "--now gongkao-dazi-backup.timer" ]]; then
+  printf '%s\\n' "enabled" > "${HARNESS_BACKUP_TIMER_UNIT_FILE_STATE}"
+  printf '%s\\n' "active" > "${HARNESS_BACKUP_TIMER_ACTIVE_STATE}"
+  exit 0
+fi
+if [[ "$command_name" == "show" ]]; then
+  case "$*" in
+    "--property=UnitFileState --value gongkao-dazi-backup.timer")
+      cat "${HARNESS_BACKUP_TIMER_UNIT_FILE_STATE}"
+      ;;
+    "--property=ActiveState --value gongkao-dazi-backup.timer")
+      cat "${HARNESS_BACKUP_TIMER_ACTIVE_STATE}"
+      ;;
+    *)
+      exit 47
+      ;;
+  esac
+  exit 0
+fi
+if [[ "$command_name" == "daemon-reload" \
+  && "${HARNESS_FAULT:-}" == "control-plane-restore" ]]; then
+  if [[ -e "${HARNESS_DAEMON_RELOAD_MARKER}" ]]; then
+    exit 49
+  fi
+  touch "${HARNESS_DAEMON_RELOAD_MARKER}"
+fi
 if [[ "$command_name" == "restart" && "${HARNESS_FAULT:-}" == "restart" ]] \
   && [[ ! -e "${HARNESS_RESTART_MARKER}" ]]; then
   touch "${HARNESS_RESTART_MARKER}"
@@ -2576,7 +3158,10 @@ exit 0
         fake_bin / "curl",
         """#!/usr/bin/env bash
 set -euo pipefail
-if [[ "${HARNESS_FAULT:-}" == "readiness" ]]; then exit 22; fi
+if [[ "${HARNESS_FAULT:-}" == "readiness" \
+  || "${HARNESS_FAULT:-}" == "control-plane-restore" ]]; then
+  exit 22
+fi
 printf '{}\\n'
 """,
     )
@@ -2599,6 +3184,84 @@ def _control_plane_snapshot(harness: ReleaseHarness) -> dict[str, bytes]:
             if path.is_file():
                 snapshot[f"{root.name}/{path.name}"] = path.read_bytes()
     return snapshot
+
+
+def _systemctl_events(harness: ReleaseHarness) -> list[str]:
+    return [
+        line
+        for line in harness.events_file.read_text(encoding="utf-8").splitlines()
+        if line.startswith("systemctl ")
+    ]
+
+
+def _backup_timer_states(harness: ReleaseHarness) -> tuple[str, str]:
+    return (
+        Path(
+            harness.environment["HARNESS_BACKUP_TIMER_UNIT_FILE_STATE"]
+        ).read_text(encoding="utf-8").strip(),
+        Path(
+            harness.environment["HARNESS_BACKUP_TIMER_ACTIVE_STATE"]
+        ).read_text(encoding="utf-8").strip(),
+    )
+
+
+def _write_backup_compatibility_entrypoints(harness: ReleaseHarness) -> None:
+    _write_executable(
+        harness.previous_target / "ops" / "scripts" / "backup.sh",
+        f"""#!/usr/bin/env bash
+set -euo pipefail
+: "${{REQUIRED_DATABASE_REVISION:?legacy revision is required}}"
+[[ "${{REQUIRED_DATABASE_REVISION}}" == "{PREVIOUS_REVISION}" ]]
+printf '%s\\n' "previous-backup-controller"
+""",
+    )
+    _write_executable(
+        harness.candidate_target / "ops" / "scripts" / "backup.sh",
+        """#!/usr/bin/env bash
+set -euo pipefail
+[[ "${REQUIRED_DATABASE_REVISION+x}" != "x" ]]
+[[ "${BACKUP_ENABLED}" == "false" ]]
+printf '%s\\n' "candidate-backup-controller"
+""",
+    )
+
+
+def _installed_backup_binding(harness: ReleaseHarness) -> tuple[Path, Path]:
+    service = harness.systemd_root / "gongkao-dazi-backup.service"
+    values: dict[str, list[str]] = {"ExecStart": [], "EnvironmentFile": []}
+    for raw in service.read_text(encoding="utf-8").splitlines():
+        for key in values:
+            prefix = f"{key}="
+            if raw.startswith(prefix):
+                values[key].append(raw.removeprefix(prefix))
+    assert len(values["ExecStart"]) == 1
+    assert len(values["EnvironmentFile"]) == 1
+    entrypoint = values["ExecStart"][0]
+    environment = values["EnvironmentFile"][0]
+    assert entrypoint and not any(character.isspace() for character in entrypoint)
+    assert environment and not environment.startswith("-")
+    return Path(entrypoint), Path(environment)
+
+
+def _execute_installed_backup_binding(
+    harness: ReleaseHarness,
+) -> subprocess.CompletedProcess[str]:
+    entrypoint, environment_file = _installed_backup_binding(harness)
+    assignments: dict[str, str] = {}
+    for raw in environment_file.read_text(encoding="utf-8").splitlines():
+        if not raw or raw.startswith("#"):
+            continue
+        name, value = raw.split("=", 1)
+        assert name not in assignments
+        assignments[name] = value
+    return subprocess.run(
+        [str(entrypoint)],
+        check=False,
+        env={"PATH": os.environ["PATH"], **assignments},
+        capture_output=True,
+        text=True,
+        timeout=5,
+    )
 
 
 def _assert_runtime_identity(

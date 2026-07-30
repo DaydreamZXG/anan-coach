@@ -71,6 +71,45 @@ def test_test_database_fixture_reaches_artifact_head(db_engine: Engine) -> None:
         )
 
 
+def test_database_revision_authority_is_public_under_hostile_search_path(
+    db_engine: Engine,
+) -> None:
+    shadow_schema = "shadow_revision_authority"
+    with db_engine.begin() as connection:
+        connection.execute(text(f"drop schema if exists {shadow_schema} cascade"))
+        connection.execute(text(f"create schema {shadow_schema}"))
+        connection.execute(
+            text(
+                f"""
+                create table {shadow_schema}.alembic_version (
+                  version_num varchar(255) not null
+                )
+                """
+            )
+        )
+        connection.execute(
+            text(
+                f"""
+                insert into {shadow_schema}.alembic_version (version_num)
+                values ('shadow-revision')
+                """
+            )
+        )
+    database_url = db_engine.url.render_as_string(hide_password=False)
+    separator = "&" if "?" in database_url else "?"
+    hostile_url = (
+        f"{database_url}{separator}"
+        f"options=-csearch_path%3D{shadow_schema}"
+    )
+    try:
+        assert current_database_revisions(hostile_url) == (
+            artifact_database_revision(),
+        )
+    finally:
+        with db_engine.begin() as connection:
+            connection.execute(text(f"drop schema if exists {shadow_schema} cascade"))
+
+
 def test_artifact_compatibility_accepts_only_declared_database_revision(
     db_engine: Engine,
 ) -> None:

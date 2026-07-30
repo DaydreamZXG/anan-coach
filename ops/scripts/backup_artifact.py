@@ -25,6 +25,7 @@ import tarfile
 import tempfile
 import time
 from typing import Any
+from urllib.parse import parse_qsl, urlsplit
 from uuid import UUID, uuid4
 
 import psycopg
@@ -216,7 +217,7 @@ def capture(
         revisions = [
             str(row[0])
             for row in connection.execute(
-                "select version_num from alembic_version order by version_num"
+                "select version_num from public.alembic_version order by version_num"
             ).fetchall()
         ]
         if revisions != [required_revision]:
@@ -638,7 +639,7 @@ def verify_restore(
         revisions = [
             str(row[0])
             for row in connection.execute(
-                "select version_num from alembic_version order by version_num"
+                "select version_num from public.alembic_version order by version_num"
             ).fetchall()
         ]
         expected_revision = str(manifest["databaseRevision"])
@@ -724,10 +725,56 @@ def _validate_database_url(database_url: str) -> None:
         raise BackupContractError("use a libpq URL, not a SQLAlchemy driver URL")
     if not database_url.startswith(("postgresql://", "postgres://")):
         raise BackupContractError("database authority must be an explicit libpq URL")
+    try:
+        parsed_url = urlsplit(database_url)
+        query_parameters = parse_qsl(
+            parsed_url.query,
+            keep_blank_values=True,
+            strict_parsing=True,
+        )
+    except ValueError as exc:
+        raise BackupContractError("database URL query parameters are invalid") from exc
+    if parsed_url.fragment:
+        raise BackupContractError("database URL must not contain a fragment")
+    if "%" in parsed_url.netloc or "%" in parsed_url.path:
+        raise BackupContractError(
+            "database URL authority and database path must not use percent-encoding"
+        )
+    seen_query_parameters: set[str] = set()
+    duplicate_query_parameters: set[str] = set()
+    authority_query_parameters = {
+        "dbname",
+        "host",
+        "hostaddr",
+        "options",
+        "passfile",
+        "password",
+        "port",
+        "service",
+        "user",
+    }
+    forbidden_query_parameters: set[str] = set()
+    for raw_name, _value in query_parameters:
+        name = raw_name.casefold()
+        if name in seen_query_parameters:
+            duplicate_query_parameters.add(name)
+        seen_query_parameters.add(name)
+        if name in authority_query_parameters:
+            forbidden_query_parameters.add(name)
+    if duplicate_query_parameters:
+        raise BackupContractError(
+            "database URL repeats query parameters: "
+            + ", ".join(sorted(duplicate_query_parameters))
+        )
+    if forbidden_query_parameters:
+        raise BackupContractError(
+            "database URL query may not override connection authority: "
+            + ", ".join(sorted(forbidden_query_parameters))
+        )
     parameters = conninfo_to_dict(database_url)
     forbidden_parameters = sorted(
         parameter
-        for parameter in ("password", "passfile", "hostaddr", "service")
+        for parameter in ("password", "passfile", "hostaddr", "service", "options")
         if parameters.get(parameter)
     )
     if forbidden_parameters:
@@ -741,7 +788,11 @@ def _validate_database_url(database_url: str) -> None:
             raise BackupContractError(
                 f"database URL must bind exactly one explicit {required}"
             )
-    if not str(parameters["port"]).isdigit():
+    host = str(parameters["host"])
+    if "/" in host or host.startswith("@"):
+        raise BackupContractError("database URL must use one explicit TCP host")
+    port = str(parameters["port"])
+    if not port.isdigit() or not 1 <= int(port) <= 65535:
         raise BackupContractError("database URL port is invalid")
 
 
