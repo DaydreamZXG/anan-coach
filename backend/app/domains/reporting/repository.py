@@ -29,9 +29,10 @@ class ReportingRepository:
         recognition_revision_id: str,
         artifact_version_id: str,
     ) -> RowMapping | None:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 select recognition.*, artifact.content_sha256, artifact.mime_type,
                        artifact.source_kind
                 from learning.recognition_revisions recognition
@@ -52,27 +53,34 @@ class ReportingRepository:
                           recognition.recognition_revision_id
                   )
                 """
-            ),
-            {
-                "recognition_id": recognition_revision_id,
-                "artifact_id": artifact_version_id,
-                "user_id": user_id,
-            },
-        ).mappings().one_or_none()
+                ),
+                {
+                    "recognition_id": recognition_revision_id,
+                    "artifact_id": artifact_version_id,
+                    "user_id": user_id,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def report_for_command(
         self, session: Session, *, user_id: str, idempotency_key: str
     ) -> tuple[RowMapping, RowMapping] | None:
-        command = session.execute(
-            text(
-                """
+        command = (
+            session.execute(
+                text(
+                    """
                 select * from learning.external_mock_report_commands
                 where user_id = cast(:user_id as uuid)
                   and idempotency_key = :idempotency_key
                 """
-            ),
-            {"user_id": user_id, "idempotency_key": idempotency_key},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id, "idempotency_key": idempotency_key},
+            )
+            .mappings()
+            .one_or_none()
+        )
         if command is None:
             return None
         report = self.report(
@@ -90,9 +98,10 @@ class ReportingRepository:
         user_id: str,
         recognition_revision_id: str,
     ) -> RowMapping | None:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 select report.*
                 from learning.external_mock_report_versions report
                 where report.user_id = cast(:user_id as uuid)
@@ -104,9 +113,12 @@ class ReportingRepository:
                 order by report.version_no desc
                 limit 1
                 """
-            ),
-            {"user_id": user_id, "recognition_id": recognition_revision_id},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id, "recognition_id": recognition_revision_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def insert_report(
         self,
@@ -114,9 +126,10 @@ class ReportingRepository:
         *,
         values: dict[str, Any],
     ) -> RowMapping:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 insert into learning.external_mock_report_versions (
                   report_version_id, report_id, command_id, user_id, version_no,
                   state, artifact_version_id, recognition_revision_id,
@@ -139,14 +152,17 @@ class ReportingRepository:
                 )
                 returning *
                 """
-            ),
-            {
-                **values,
-                "module_scores": json.dumps(
-                    values.get("module_scores", {}), ensure_ascii=False, sort_keys=True
                 ),
-            },
-        ).mappings().one()
+                {
+                    **values,
+                    "module_scores": json.dumps(
+                        values.get("module_scores", {}), ensure_ascii=False, sort_keys=True
+                    ),
+                },
+            )
+            .mappings()
+            .one()
+        )
 
     def insert_command(
         self,
@@ -193,16 +209,20 @@ class ReportingRepository:
         user_id: str,
         report_version_id: str,
     ) -> RowMapping | None:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 select * from learning.external_mock_report_versions
                 where report_version_id = cast(:report_version_id as uuid)
                   and user_id = cast(:user_id as uuid)
                 """
-            ),
-            {"report_version_id": report_version_id, "user_id": user_id},
-        ).mappings().one_or_none()
+                ),
+                {"report_version_id": report_version_id, "user_id": user_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def confirmed_for_artifact(
         self,
@@ -211,33 +231,39 @@ class ReportingRepository:
         user_id: str,
         artifact_version_id: str,
     ) -> RowMapping | None:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 select * from learning.external_mock_report_versions
                 where user_id = cast(:user_id as uuid)
                   and artifact_version_id = cast(:artifact_version_id as uuid)
                   and state = 'confirmed'
                 limit 1
                 """
-            ),
-            {"user_id": user_id, "artifact_version_id": artifact_version_id},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id, "artifact_version_id": artifact_version_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
-    def latest_confirmed_external(
-        self, session: Session, *, user_id: str
-    ) -> RowMapping | None:
-        return session.execute(
-            text(
-                """
+    def latest_confirmed_external(self, session: Session, *, user_id: str) -> RowMapping | None:
+        return (
+            session.execute(
+                text(
+                    """
                 select * from learning.external_mock_report_versions
                 where user_id = cast(:user_id as uuid) and state = 'confirmed'
                 order by occurred_at desc, confirmed_at desc
                 limit 1
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def external_history(self, session: Session, *, user_id: str) -> list[RowMapping]:
         return list(
@@ -276,9 +302,7 @@ class ReportingRepository:
             ).mappings()
         )
 
-    def latest_mock_session(
-        self, session: Session, *, user_id: str
-    ) -> RowMapping | None:
+    def latest_mock_session(self, session: Session, *, user_id: str) -> RowMapping | None:
         rows = self.mock_sessions(session, user_id=user_id)
         return rows[0] if rows else None
 
@@ -297,20 +321,43 @@ class ReportingRepository:
         )
 
     def current_goal(self, session: Session, *, user_id: str) -> RowMapping | None:
-        return session.execute(
-            text(
-                """
-                select goal.*, position.name as position_name,
-                       position.department_full as department_name
-                from learner.position_goal_versions goal
-                join product.positions position on position.position_id = goal.position_id
+        return (
+            session.execute(
+                text(
+                    """
+                select
+                  goal.*,
+                  case when position_snapshot.snapshot_id is not null
+                    then position_snapshot.name else legacy_position.name
+                  end as position_name,
+                  case when position_snapshot.snapshot_id is not null
+                    then position_snapshot.department_full
+                    else legacy_position.department_full
+                  end as department_name
+                from learner.current_primary_position_goals goal
+                left join product.position_import_batches import_batch
+                  on import_batch.position_data_version
+                       = goal.position_data_version
+                left join product.position_snapshots position_snapshot
+                  on position_snapshot.position_id = goal.position_id
+                 and position_snapshot.position_data_version
+                       = goal.position_data_version
+                left join product.positions legacy_position
+                  on legacy_position.position_id = goal.position_id
+                 and import_batch.position_data_version is null
                 where goal.user_id = cast(:user_id as uuid)
-                  and goal.role = 'primary' and goal.status = 'confirmed'
+                  and coalesce(
+                    position_snapshot.position_id,
+                    legacy_position.position_id
+                  ) is not null
                 limit 1
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def recent_set_summaries(
         self, session: Session, *, user_id: str, limit: int = 12
@@ -338,9 +385,7 @@ class ReportingRepository:
             ).mappings()
         )
 
-    def weekly_execution_summary(
-        self, session: Session, *, user_id: str
-    ) -> list[RowMapping]:
+    def weekly_execution_summary(self, session: Session, *, user_id: str) -> list[RowMapping]:
         return list(
             session.execute(
                 text(
@@ -386,23 +431,27 @@ class ReportingRepository:
         subject_ref: str,
         input_fingerprint: str,
     ) -> RowMapping | None:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 select * from learning.report_projection_versions
                 where user_id = cast(:user_id as uuid)
                   and report_kind = :report_kind
                   and subject_ref = :subject_ref
                   and input_fingerprint = :input_fingerprint
                 """
-            ),
-            {
-                "user_id": user_id,
-                "report_kind": report_kind,
-                "subject_ref": subject_ref,
-                "input_fingerprint": input_fingerprint,
-            },
-        ).mappings().one_or_none()
+                ),
+                {
+                    "user_id": user_id,
+                    "report_kind": report_kind,
+                    "subject_ref": subject_ref,
+                    "input_fingerprint": input_fingerprint,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def insert_projection(
         self,
@@ -410,9 +459,10 @@ class ReportingRepository:
         *,
         values: dict[str, Any],
     ) -> RowMapping:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 insert into learning.report_projection_versions (
                   projection_version_id, user_id, report_kind, subject_ref,
                   chart_contract_version, input_fingerprint, payload,
@@ -424,15 +474,18 @@ class ReportingRepository:
                   cast(:next_plan_evidence_refs as jsonb), :generated_at
                 ) returning *
                 """
-            ),
-            {
-                **values,
-                "payload": json.dumps(values["payload"], ensure_ascii=False, sort_keys=True),
-                "evidence_refs": json.dumps(
-                    values["evidence_refs"], ensure_ascii=False, sort_keys=True
                 ),
-                "next_plan_evidence_refs": json.dumps(
-                    values["next_plan_evidence_refs"], ensure_ascii=False, sort_keys=True
-                ),
-            },
-        ).mappings().one()
+                {
+                    **values,
+                    "payload": json.dumps(values["payload"], ensure_ascii=False, sort_keys=True),
+                    "evidence_refs": json.dumps(
+                        values["evidence_refs"], ensure_ascii=False, sort_keys=True
+                    ),
+                    "next_plan_evidence_refs": json.dumps(
+                        values["next_plan_evidence_refs"], ensure_ascii=False, sort_keys=True
+                    ),
+                },
+            )
+            .mappings()
+            .one()
+        )

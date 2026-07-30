@@ -10,6 +10,9 @@ from sqlalchemy.orm import Session, sessionmaker
 
 from app.db.session import get_db_session
 from app.domains.auth.repository import token_hash_for_tests
+from app.domains.companion.repository import CompanionRepository
+from app.domains.planning.repository import PlanningRepository
+from app.domains.reporting.repository import ReportingRepository
 from app.main import create_app
 
 
@@ -20,6 +23,20 @@ def test_v2_profile_eligibility_and_primary_goal_contract(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     user_id = _seed_user(db_session_factory)
+    with db_session_factory() as session:
+        assert (
+            session.execute(
+                text(
+                    """
+                select target_exam
+                from learner.profiles
+                where user_id = cast(:user_id as uuid)
+                """
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            is None
+        )
     position_id = _seed_position_release_requirement_and_scores(db_session_factory)
     client = _client(db_session_factory)
     headers = {
@@ -170,23 +187,145 @@ def test_v2_profile_eligibility_and_primary_goal_contract(
     )
     assert replayed_goal.status_code == 200
     assert (
-        replayed_goal.json()["data"]["goal"]["goalVersionId"]
-        == goal_body["goal"]["goalVersionId"]
+        replayed_goal.json()["data"]["goal"]["goalVersionId"] == goal_body["goal"]["goalVersionId"]
     )
     assert replayed_goal.json()["data"]["planImpact"] == goal_body["planImpact"]
 
     with db_session_factory() as session:
-        assert session.execute(
-            text(
-                "select count(*) from learner.position_goal_versions where user_id = :user_id"
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 1
-        assert session.execute(
-            text(
-                "select count(*) from platform.outbox_events where event_type = 'position_goal.changed'"
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from learner.position_goal_versions where user_id = :user_id"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 1
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from platform.outbox_events where event_type = 'position_goal.changed'"
+                )
+            ).scalar_one()
+            == 1
+        )
+        profile_projection = (
+            session.execute(
+                text(
+                    """
+                select target_exam, target_region, position_group,
+                       target_position_id::text as target_position_id,
+                       target_position_data_version
+                from learner.profiles
+                where user_id = cast(:user_id as uuid)
+                """
+                ),
+                {"user_id": user_id},
             )
-        ).scalar_one() == 1
+            .mappings()
+            .one()
+        )
+        assert profile_projection["target_exam"] == "guokao"
+        assert profile_projection["target_region"] is None
+        assert profile_projection["position_group"] is None
+        assert profile_projection["target_position_id"] == position_id
+        assert profile_projection["target_position_data_version"] == "guokao-2026-fixture"
+        assert (
+            CompanionRepository(session)
+            .get_context(
+                user_id=user_id,
+                node_id=None,
+            )
+            .target_score
+            is not None
+        )
+        assert (
+            ReportingRepository().current_goal(
+                session,
+                user_id=user_id,
+            )
+            is not None
+        )
+        assert (
+            PlanningRepository()
+            .goal_and_ability(
+                session,
+                user_id=user_id,
+            )
+            .goal_version_id
+            is not None
+        )
+
+    with db_session_factory.begin() as session:
+        session.execute(
+            text(
+                """
+                update product.position_rule_releases
+                set status = 'retired'
+                where position_data_version = 'guokao-2026-fixture'
+                  and status = 'active'
+                """
+            )
+        )
+
+    onboarding_after_retirement = client.get(
+        "/api/v1/onboarding/profile",
+        headers={"Authorization": f"Bearer {TOKEN}"},
+    )
+    assert onboarding_after_retirement.status_code == 200
+    assert onboarding_after_retirement.json()["targetPositionId"] is None
+    assert onboarding_after_retirement.json()["targetScore"] is None
+    memory_after_retirement = client.get(
+        "/api/v1/learner/memory",
+        headers={"Authorization": f"Bearer {TOKEN}"},
+    )
+    assert memory_after_retirement.status_code == 200
+    assert memory_after_retirement.json()["profile"]["targetPositionId"] is None
+    assert memory_after_retirement.json()["profile"]["targetScore"] is None
+    with db_session_factory() as session:
+        assert (
+            CompanionRepository(session)
+            .get_context(
+                user_id=user_id,
+                node_id=None,
+            )
+            .target_score
+            is None
+        )
+        assert (
+            ReportingRepository().current_goal(
+                session,
+                user_id=user_id,
+            )
+            is None
+        )
+        assert (
+            PlanningRepository()
+            .goal_and_ability(
+                session,
+                user_id=user_id,
+            )
+            .goal_version_id
+            is None
+        )
+        raw_projection = (
+            session.execute(
+                text(
+                    """
+                select target_exam, target_position_id::text as target_position_id,
+                       target_position_data_version
+                from learner.profiles
+                where user_id = cast(:user_id as uuid)
+                """
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
+        assert raw_projection["target_exam"] == "guokao"
+        assert raw_projection["target_position_id"] == position_id
+        assert raw_projection["target_position_data_version"] == "guokao-2026-fixture"
 
 
 def test_v2_missing_requirement_or_fact_never_returns_eligible(
@@ -214,8 +353,7 @@ def test_v2_missing_requirement_or_fact_never_returns_eligible(
     assert response.status_code == 200
     assert response.json()["data"]["evaluation"]["status"] == "needs_confirmation"
     assert (
-        response.json()["data"]["evaluation"]["checks"][0]["reasonCode"]
-        == "requirements_missing"
+        response.json()["data"]["evaluation"]["checks"][0]["reasonCode"] == "requirements_missing"
     )
 
 
@@ -276,22 +414,17 @@ def test_v2_position_list_reports_no_active_release_with_stable_code(
     assert response.json()["code"] == "position_release_unavailable"
 
 
-def test_v2_target_score_rejects_expired_release_with_stable_code(
+def test_v2_target_score_rejects_closed_release_with_stable_code(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     _seed_user(db_session_factory)
-    position_id = _seed_position_release_requirement_and_scores(db_session_factory)
-    with db_session_factory.begin() as session:
-        session.execute(
-            text(
-                """
-                update product.position_rule_releases
-                set activated_at = :expired_at
-                where status = 'active'
-                """
-            ),
-            {"expired_at": datetime.now(UTC) - timedelta(days=366)},
-        )
+    now = datetime.now(UTC)
+    position_id = _seed_position_release_requirement_and_scores(
+        db_session_factory,
+        activated_at=now - timedelta(days=10),
+        window_opens_at=now - timedelta(days=11),
+        window_closes_at=now - timedelta(days=1),
+    )
 
     response = _client(db_session_factory).get(
         f"/api/v2/positions/{position_id}/target-score",
@@ -299,7 +432,41 @@ def test_v2_target_score_rejects_expired_release_with_stable_code(
     )
 
     assert response.status_code == 409
-    assert response.json()["code"] == "target_score_basis_expired"
+    body = response.json()
+    assert body["code"] == "position_release_closed"
+    assert body["message"] == "本年度岗位报名周期已经结束，当前仅可用于历史参考。"
+    assert body["details"]["phase"] == "closed"
+    assert body["details"]["examYear"] == 2026
+    assert body["details"]["closesAt"]
+
+
+def test_v2_position_list_reports_closed_cycle_without_claiming_it_is_unpublished(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _seed_user(db_session_factory)
+    now = datetime.now(UTC)
+    _seed_position_release_requirement_and_scores(
+        db_session_factory,
+        activated_at=now - timedelta(days=10),
+        window_opens_at=now - timedelta(days=11),
+        window_closes_at=now - timedelta(days=1),
+    )
+
+    response = _client(db_session_factory).get(
+        "/api/v2/positions",
+        headers={"Authorization": f"Bearer {TOKEN}"},
+    )
+
+    assert response.status_code == 409
+    body = response.json()
+    assert body["code"] == "position_release_closed"
+    assert body["message"] == "本年度岗位报名周期已经结束，当前仅可用于历史参考。"
+    assert body["details"]["phase"] == "closed"
+    assert body["details"]["examYear"] == 2026
+    assert (
+        body["details"]["officialSourceUrl"]
+        == "https://example.gov.cn/guokao/qualification-fixture"
+    )
 
 
 def test_v2_primary_preview_rejects_snapshot_from_superseded_position_version(
@@ -393,6 +560,8 @@ def test_v2_primary_confirm_rejects_release_change_after_preview(
                 """
             )
         )
+        replacement_release_id = str(uuid4())
+        replacement_activated_at = datetime.now(UTC)
         session.execute(
             text(
                 """
@@ -401,11 +570,30 @@ def test_v2_primary_confirm_rejects_release_change_after_preview(
                   position_data_version, status, activated_at
                 ) values (
                   :release_id, 'guokao', 2026, 'guokao-2026-v2',
-                  'guokao-2026-fixture-v2', 'active', :activated_at
+                  'guokao-2026-fixture-v2', 'draft', null
                 )
                 """
             ),
-            {"release_id": str(uuid4()), "activated_at": datetime.now(UTC)},
+            {"release_id": replacement_release_id},
+        )
+        _insert_release_window(
+            session,
+            release_id=replacement_release_id,
+            opens_at=replacement_activated_at - timedelta(days=1),
+            closes_at=replacement_activated_at + timedelta(days=30),
+        )
+        session.execute(
+            text(
+                """
+                update product.position_rule_releases
+                set status = 'active', activated_at = :activated_at
+                where release_id = cast(:release_id as uuid)
+                """
+            ),
+            {
+                "release_id": replacement_release_id,
+                "activated_at": replacement_activated_at,
+            },
         )
 
     response = client.put(
@@ -471,10 +659,17 @@ def _seed_position_release_requirement_and_scores(
     *,
     include_requirements: bool = True,
     include_compilation: bool | None = None,
+    activated_at: datetime | None = None,
+    window_opens_at: datetime | None = None,
+    window_closes_at: datetime | None = None,
 ) -> str:
     if include_compilation is None:
         include_compilation = include_requirements
     position_id = str(uuid4())
+    release_id = str(uuid4())
+    activation_time = activated_at or datetime.now(UTC)
+    opens_at = window_opens_at or activation_time - timedelta(days=1)
+    closes_at = window_closes_at or activation_time + timedelta(days=30)
     with factory.begin() as session:
         session.execute(
             text(
@@ -499,11 +694,17 @@ def _seed_position_release_requirement_and_scores(
                   position_data_version, status, activated_at
                 ) values (
                   :release_id, 'guokao', 2026, 'guokao-2026-v1',
-                  'guokao-2026-fixture', 'active', :activated_at
+                  'guokao-2026-fixture', 'draft', null
                 )
                 """
             ),
-            {"release_id": str(uuid4()), "activated_at": datetime.now(UTC)},
+            {"release_id": release_id},
+        )
+        _insert_release_window(
+            session,
+            release_id=release_id,
+            opens_at=opens_at,
+            closes_at=closes_at,
         )
         if include_requirements:
             session.execute(
@@ -575,4 +776,51 @@ def _seed_position_release_requirement_and_scores(
                 ),
                 {"position_id": position_id, "evidence_id": evidence_id},
             )
+        session.execute(
+            text(
+                """
+                update product.position_rule_releases
+                set status = 'active', activated_at = :activated_at
+                where release_id = cast(:release_id as uuid)
+                """
+            ),
+            {"release_id": release_id, "activated_at": activation_time},
+        )
     return position_id
+
+
+def _insert_release_window(
+    session: Session,
+    *,
+    release_id: str,
+    opens_at: datetime,
+    closes_at: datetime,
+) -> None:
+    session.execute(
+        text(
+            """
+            insert into product.position_release_windows (
+              window_id, release_id, window_kind, sequence_no,
+              opens_at, closes_at, official_source_url,
+              official_source_title, official_source_published_at,
+              official_source_received_at, official_source_sha256,
+              official_source_receipt
+            ) values (
+              cast(:window_id as uuid), cast(:release_id as uuid),
+              'primary', 1, :opens_at, :closes_at,
+              'https://example.gov.cn/guokao/qualification-fixture',
+              '资格判定测试岗位发布窗口', :published_at, :received_at,
+              :source_sha256, 'qualification-v2-fixture'
+            )
+            """
+        ),
+        {
+            "window_id": str(uuid4()),
+            "release_id": release_id,
+            "opens_at": opens_at,
+            "closes_at": closes_at,
+            "published_at": opens_at - timedelta(days=2),
+            "received_at": opens_at - timedelta(days=1),
+            "source_sha256": "c" * 64,
+        },
+    )

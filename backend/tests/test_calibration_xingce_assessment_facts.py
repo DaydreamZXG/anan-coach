@@ -53,8 +53,7 @@ def test_calibration_aggregates_assessments_without_legacy_practice_answers(
 
     with db_session_factory() as session:
         assert (
-            session.execute(text("select count(*) from learner.practice_answers")).scalar_one()
-            == 0
+            session.execute(text("select count(*) from learner.practice_answers")).scalar_one() == 0
         )
         first = CalibrationRepository(session).get_raw(user_id=first_user_id)
         second = CalibrationRepository(session).get_raw(user_id=second_user_id)
@@ -98,13 +97,12 @@ def test_calibration_aggregates_assessments_without_legacy_practice_answers(
 def _seed_calibration_frozen_release(
     db_session_factory: sessionmaker[Session],
 ) -> None:
+    # Keep this aggregation fixture to one complete bundle. Question delivery
+    # intentionally uses a per-user stable cursor when a larger pool is available.
     node_by_index = (
         ("calibration-data-node", "资料分析", "基期量计算"),
         ("calibration-data-node", "资料分析", "基期量计算"),
         ("calibration-reasoning-node", "判断推理", "图形推理"),
-        ("calibration-verbal-node", "言语理解", "言语理解基础"),
-        ("calibration-verbal-node", "言语理解", "言语理解基础"),
-        ("calibration-verbal-node", "言语理解", "言语理解基础"),
     )
     with db_session_factory.begin() as session:
         seed_canonical_frozen_release(
@@ -128,11 +126,7 @@ def _seed_calibration_frozen_release(
             nodes=tuple(
                 FrozenKnowledgeNodeSeed(
                     node_id=node_id,
-                    module_name=(
-                        "言语理解与表达"
-                        if module_name == "言语理解"
-                        else module_name
-                    ),
+                    module_name=module_name,
                     tag_value=tag_value,
                 )
                 for node_id, module_name, tag_value in dict.fromkeys(node_by_index)

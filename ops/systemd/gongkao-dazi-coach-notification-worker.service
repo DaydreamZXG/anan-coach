@@ -1,20 +1,45 @@
 [Unit]
 Description=Gongkao Dazi AI supervision WeChat notification worker
-After=network.target postgresql.service
+After=network-online.target postgresql.service
+Wants=network-online.target
 
 [Service]
 Type=simple
-User=deploy
-Group=deploy
+User=gongkao-wkr-coach
+Group=gongkao-wkr-coach
 WorkingDirectory=/srv/gongkao-dazi/current/backend
-EnvironmentFile=/etc/gongkao-dazi/api.env
+Environment=PYTHONDONTWRITEBYTECODE=1
+EnvironmentFile=/etc/gongkao-dazi/worker-coach-notification.env
 EnvironmentFile=/etc/gongkao-dazi/db.env
+EnvironmentFile=/etc/gongkao-dazi/worker-heartbeat-coach-notification.env
+EnvironmentFile=/etc/gongkao-dazi/release-runtime.env
 ExecStart=/srv/gongkao-dazi/current/backend/.venv/bin/python -m app.workers.coach_notifications
 Restart=always
 RestartSec=3
 TimeoutStopSec=45
 NoNewPrivileges=true
 PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectKernelLogs=true
+ProtectClock=true
+ProtectHostname=true
+ProtectProc=invisible
+ProcSubset=pid
+RestrictNamespaces=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RemoveIPC=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+SystemCallArchitectures=native
+UMask=0077
 
 [Install]
 WantedBy=multi-user.target

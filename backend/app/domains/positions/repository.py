@@ -41,23 +41,33 @@ class PositionScorePredictionFilters:
 
 
 class PositionRepository:
-    def __init__(self, session: Session) -> None:
+    def __init__(
+        self,
+        session: Session,
+        *,
+        position_data_version: str | None = None,
+    ) -> None:
         self._session = session
+        self._position_data_version = position_data_version
         self._has_extra_exam_column: bool | None = None
 
     def _extra_exam_column_available(self) -> bool:
         if self._has_extra_exam_column is None:
-            row = self._session.execute(
-                text(
-                    """
+            row = (
+                self._session.execute(
+                    text(
+                        """
                     select count(*) as count
                     from information_schema.columns
                     where table_schema = 'product'
                       and table_name = 'positions'
                       and column_name = 'has_extra_exam'
                     """
+                    )
                 )
-            ).mappings().one()
+                .mappings()
+                .one()
+            )
             self._has_extra_exam_column = int(row["count"]) > 0
         return self._has_extra_exam_column
 
@@ -110,7 +120,9 @@ class PositionRepository:
               p.political_req is null
               or btrim(p.political_req) = ''
               or p.political_req like '%不限%'
-              or """ + " or ".join(political_like_conditions) + """
+              or """
+            + " or ".join(political_like_conditions)
+            + """
             )
             """,
         ]
@@ -124,13 +136,12 @@ class PositionRepository:
             where.append("p.has_extra_exam = :has_extra_exam")
             params["has_extra_exam"] = filters.has_extra_exam
 
-        extra_exam_select = (
-            "p.has_extra_exam" if self._extra_exam_column_available() else "false"
-        )
+        extra_exam_select = "p.has_extra_exam" if self._extra_exam_column_available() else "false"
 
-        rows = self._session.execute(
-            text(
-                f"""
+        rows = (
+            self._session.execute(
+                text(
+                    f"""
                 with score_rows as (
                   select
                     l.position_id,
@@ -196,26 +207,68 @@ class PositionRepository:
                   p.position_code
                 limit :limit
                 """
-            ),
-            params,
-        ).mappings().all()
+                ),
+                params,
+            )
+            .mappings()
+            .all()
+        )
         return [dict(row) for row in rows]
 
     def list_regions(self) -> list[dict[str, Any]]:
-        rows = self._session.execute(
-            text(
-                """
+        rows = (
+            self._session.execute(
+                text(
+                    """
+                with open_releases as (
+                  select distinct
+                    release.exam_year,
+                    release.position_data_version
+                  from product.position_rule_releases release
+                  join product.position_release_windows business_window
+                    on business_window.release_id = release.release_id
+                   and business_window.opens_at <= statement_timestamp()
+                   and statement_timestamp() < business_window.closes_at
+                  where release.exam_code = 'guokao'
+                    and release.status = 'active'
+                    and release.content_digest is not null
+                ),
+                effective_positions as (
+                  select snapshot.region, snapshot.city
+                  from open_releases release
+                  join product.position_import_batches import_batch
+                    on import_batch.position_data_version
+                         = release.position_data_version
+                  join product.position_snapshots snapshot
+                    on snapshot.position_data_version
+                         = release.position_data_version
+                   and snapshot.year = release.exam_year
+                  union all
+                  select position.region, position.city
+                  from open_releases release
+                  join product.positions position
+                    on position.year = release.exam_year
+                  where not exists (
+                    select 1
+                    from product.position_import_batches import_batch
+                    where import_batch.position_data_version
+                          = release.position_data_version
+                  )
+                )
                 select
                   p.region as region,
                   p.city as city
-                from product.positions p
+                from effective_positions p
                 where p.region is not null
                   and btrim(p.region) <> ''
                 group by p.region, p.city
                 order by p.region, p.city
                 """
+                )
             )
-        ).mappings().all()
+            .mappings()
+            .all()
+        )
         provinces: dict[str, dict[str, dict[str, set[str]]]] = {}
         for row in rows:
             region = str(row["region"]) if row["region"] is not None else ""
@@ -249,9 +302,10 @@ class PositionRepository:
 
         数据来源：product.major_categories / major_sub_categories / major_catalog
         """
-        rows = self._session.execute(
-            text(
-                """
+        rows = (
+            self._session.execute(
+                text(
+                    """
                 select
                   c.code        as category_code,
                   c.name        as category_name,
@@ -266,8 +320,11 @@ class PositionRepository:
                   on m.sub_category_code = s.code
                 order by c.display_order, s.display_order, m.display_order
                 """
+                )
             )
-        ).mappings().all()
+            .mappings()
+            .all()
+        )
         result: list[dict[str, Any]] = []
         for row in rows:
             result.append(
@@ -283,12 +340,11 @@ class PositionRepository:
         return result
 
     def get_position_detail(self, *, position_id: str) -> dict[str, Any] | None:
-        extra_exam_select = (
-            "p.has_extra_exam" if self._extra_exam_column_available() else "false"
-        )
-        row = self._session.execute(
-            text(
-                f"""
+        extra_exam_select = "p.has_extra_exam" if self._extra_exam_column_available() else "false"
+        row = (
+            self._session.execute(
+                text(
+                    f"""
                 select
                   p.position_id,
                   p.year,
@@ -310,32 +366,27 @@ class PositionRepository:
                 from product.positions p
                 where p.position_id = cast(:position_id as uuid)
                 """
-            ),
-            {"position_id": position_id},
-        ).mappings().first()
+                ),
+                {"position_id": position_id},
+            )
+            .mappings()
+            .first()
+        )
         return dict(row) if row else None
 
     def get_position_score_stats(self, *, position_id: str) -> dict[str, Any] | None:
-        row = self._session.execute(
-            text(
-                """
-                with score_rows as (
-                  select
-                    e.year,
-                    e.entry_score_min::numeric as entry_score_min
-                  from product.position_entry_score_links l
-                  join product.position_entry_score_evidence e
-                    on e.evidence_id = l.evidence_id
-                  where l.position_id = cast(:position_id as uuid)
-                  union all
-                  select
-                    h.year,
-                    h.entry_score_min::numeric as entry_score_min
-                  from product.position_score_links l
-                  join product.position_score_histories h
-                    on h.score_history_id = l.score_history_id
-                  where l.position_id = cast(:position_id as uuid)
-                    and h.entry_score_min is not null
+        score_rows = self._effective_score_rows_source()
+        row = (
+            self._session.execute(
+                text(
+                    f"""
+                with raw_score_rows as (
+                  {score_rows}
+                ),
+                score_rows as (
+                  select year, entry_score_min
+                  from raw_score_rows
+                  where position_id = cast(:position_id as uuid)
                 )
                 select
                   array_agg(year order by year) as years,
@@ -344,17 +395,26 @@ class PositionRepository:
                   (array_agg(entry_score_min order by year desc))[1] as latest_entry_score
                 from score_rows
                 """
-            ),
-            {"position_id": position_id},
-        ).mappings().one()
+                ),
+                {
+                    "position_id": position_id,
+                    "position_data_version": self._position_data_version,
+                },
+            )
+            .mappings()
+            .one()
+        )
         if int(row["source_count"]) == 0:
             return None
         return dict(row)
 
     def get_position_context(self, *, position_id: str) -> dict[str, Any] | None:
-        row = self._session.execute(
-            text(
-                """
+        cte, source = self._effective_position_source()
+        row = (
+            self._session.execute(
+                text(
+                    f"""
+                {cte}
                 select
                   position_id,
                   year,
@@ -367,12 +427,18 @@ class PositionRepository:
                   major_required,
                   political_req,
                   service_min_yrs
-                from product.positions
+                from {source}
                 where position_id = cast(:position_id as uuid)
                 """
-            ),
-            {"position_id": position_id},
-        ).mappings().first()
+                ),
+                {
+                    "position_id": position_id,
+                    "position_data_version": self._position_data_version,
+                },
+            )
+            .mappings()
+            .first()
+        )
         return dict(row) if row else None
 
     def get_position_contexts(
@@ -382,9 +448,12 @@ class PositionRepository:
     ) -> dict[str, dict[str, Any]]:
         if not position_ids:
             return {}
-        rows = self._session.execute(
-            text(
-                """
+        cte, source = self._effective_position_source()
+        rows = (
+            self._session.execute(
+                text(
+                    f"""
+                {cte}
                 select
                   position_id,
                   year,
@@ -397,12 +466,18 @@ class PositionRepository:
                   major_required,
                   political_req,
                   service_min_yrs
-                from product.positions
+                from {source}
                 where position_id = any(cast(:position_ids as uuid[]))
                 """
-            ),
-            {"position_ids": position_ids},
-        ).mappings().all()
+                ),
+                {
+                    "position_ids": position_ids,
+                    "position_data_version": self._position_data_version,
+                },
+            )
+            .mappings()
+            .all()
+        )
         return {str(row["position_id"]): dict(row) for row in rows}
 
     def list_target_score_points(
@@ -412,32 +487,22 @@ class PositionRepository:
         basis_level: str,
     ) -> list[dict[str, Any]]:
         conditions = _target_score_basis_condition(basis_level)
+        cte, source = self._effective_position_source()
+        cte_prefix = f"{cte}," if cte else "with"
+        score_rows = self._effective_score_rows_source()
 
-        rows = self._session.execute(
-            text(
-                f"""
-                with target_position as (
+        rows = (
+            self._session.execute(
+                text(
+                    f"""
+                {cte_prefix}
+                target_position as (
                   select *
-                  from product.positions
+                  from {source}
                   where position_id = cast(:position_id as uuid)
                 ),
                 raw_score_rows as (
-                  select
-                    l.position_id,
-                    e.year,
-                    e.entry_score_min::numeric as entry_score_min
-                  from product.position_entry_score_links l
-                  join product.position_entry_score_evidence e
-                    on e.evidence_id = l.evidence_id
-                  union all
-                  select
-                    l.position_id,
-                    h.year,
-                    h.entry_score_min::numeric as entry_score_min
-                  from product.position_score_links l
-                  join product.position_score_histories h
-                    on h.score_history_id = l.score_history_id
-                  where h.entry_score_min is not null
+                  {score_rows}
                 ),
                 score_points as (
                   select
@@ -452,7 +517,7 @@ class PositionRepository:
                     p.service_min_yrs,
                     s.year as score_year,
                     avg(s.entry_score_min) as entry_score_min
-                  from product.positions p
+                  from {source} p
                   join raw_score_rows s on s.position_id = p.position_id
                   group by
                     p.position_id,
@@ -472,12 +537,19 @@ class PositionRepository:
                   sp.entry_score_min
                 from score_points sp
                 cross join target_position t
-                where {conditions}
+                where sp.position_year = t.year
+                  and ({conditions})
                 order by sp.score_year, sp.position_id
                 """
-            ),
-            {"position_id": position_id},
-        ).mappings().all()
+                ),
+                {
+                    "position_id": position_id,
+                    "position_data_version": self._position_data_version,
+                },
+            )
+            .mappings()
+            .all()
+        )
         return [dict(row) for row in rows]
 
     def list_target_score_points_for_positions(
@@ -491,31 +563,21 @@ class PositionRepository:
         if not position_ids:
             return {}
         conditions = _target_score_basis_condition(basis_level)
-        rows = self._session.execute(
-            text(
-                f"""
-                with target_positions as (
+        cte, source = self._effective_position_source()
+        cte_prefix = f"{cte}," if cte else "with"
+        score_rows = self._effective_score_rows_source()
+        rows = (
+            self._session.execute(
+                text(
+                    f"""
+                {cte_prefix}
+                target_positions as (
                   select *
-                  from product.positions
+                  from {source}
                   where position_id = any(cast(:position_ids as uuid[]))
                 ),
                 raw_score_rows as (
-                  select
-                    l.position_id,
-                    e.year,
-                    e.entry_score_min::numeric as entry_score_min
-                  from product.position_entry_score_links l
-                  join product.position_entry_score_evidence e
-                    on e.evidence_id = l.evidence_id
-                  union all
-                  select
-                    l.position_id,
-                    h.year,
-                    h.entry_score_min::numeric as entry_score_min
-                  from product.position_score_links l
-                  join product.position_score_histories h
-                    on h.score_history_id = l.score_history_id
-                  where h.entry_score_min is not null
+                  {score_rows}
                 ),
                 score_points as (
                   select
@@ -530,7 +592,7 @@ class PositionRepository:
                     p.service_min_yrs,
                     s.year as score_year,
                     avg(s.entry_score_min) as entry_score_min
-                  from product.positions p
+                  from {source} p
                   join raw_score_rows s on s.position_id = p.position_id
                   group by
                     p.position_id,
@@ -550,15 +612,21 @@ class PositionRepository:
                   sp.score_year,
                   sp.entry_score_min
                 from target_positions t
-                join score_points sp on {conditions}
+                join score_points sp
+                  on sp.position_year = t.year
+                 and ({conditions})
                 order by t.position_id, sp.score_year, sp.position_id
                 """
-            ),
-            {"position_ids": position_ids},
-        ).mappings().all()
-        result: dict[str, list[dict[str, Any]]] = {
-            position_id: [] for position_id in position_ids
-        }
+                ),
+                {
+                    "position_ids": position_ids,
+                    "position_data_version": self._position_data_version,
+                },
+            )
+            .mappings()
+            .all()
+        )
+        result: dict[str, list[dict[str, Any]]] = {position_id: [] for position_id in position_ids}
         for row in rows:
             result[str(row["target_position_id"])].append(
                 {
@@ -642,9 +710,10 @@ class PositionRepository:
             where.append("p.system_code = :system_code")
             params["system_code"] = filters.system_code
 
-        rows = self._session.execute(
-            text(
-                f"""
+        rows = (
+            self._session.execute(
+                text(
+                    f"""
                 with raw_score_rows as (
                   select
                     l.position_id,
@@ -697,10 +766,106 @@ class PositionRepository:
                 order by entry_score_min, position_id
                 limit :limit
                 """
-            ),
-            params,
-        ).mappings().all()
+                ),
+                params,
+            )
+            .mappings()
+            .all()
+        )
         return [dict(row) for row in rows]
+
+    def _effective_position_source(self) -> tuple[str, str]:
+        if self._position_data_version is None:
+            return "", "product.positions"
+        return _EFFECTIVE_POSITIONS_CTE, "effective_positions"
+
+    def _effective_score_rows_source(self) -> str:
+        if self._position_data_version is None:
+            return _LEGACY_SCORE_ROWS_SQL
+        return _VERSIONED_SCORE_ROWS_SQL
+
+
+_EFFECTIVE_POSITIONS_CTE = """
+with effective_positions as (
+  select
+    snapshot.position_id,
+    snapshot.year,
+    snapshot.position_code,
+    snapshot.name,
+    snapshot.department_full,
+    snapshot.system_code,
+    snapshot.region,
+    snapshot.city,
+    snapshot.paper_type,
+    snapshot.headcount,
+    snapshot.education_min,
+    snapshot.major_required,
+    snapshot.political_req,
+    snapshot.hukou_req,
+    snapshot.service_min_yrs,
+    snapshot.has_extra_exam,
+    snapshot.remark,
+    snapshot.raw_json
+  from product.position_snapshots snapshot
+  where snapshot.position_data_version = :position_data_version
+  union all
+  select
+    position.position_id,
+    position.year,
+    position.position_code,
+    position.name,
+    position.department_full,
+    position.system_code,
+    position.region,
+    position.city,
+    position.paper_type,
+    position.headcount,
+    position.education_min,
+    position.major_required,
+    position.political_req,
+    position.hukou_req,
+    position.service_min_yrs,
+    position.has_extra_exam,
+    position.remark,
+    position.raw_json
+  from product.positions position
+  where not exists (
+    select 1
+    from product.position_import_batches import_batch
+    where import_batch.position_data_version = :position_data_version
+  )
+)
+"""
+
+
+_LEGACY_SCORE_ROWS_SQL = """
+select
+  link.position_id,
+  evidence.year,
+  evidence.entry_score_min::numeric as entry_score_min
+from product.position_entry_score_links link
+join product.position_entry_score_evidence evidence
+  on evidence.evidence_id = link.evidence_id
+union all
+select
+  link.position_id,
+  history.year,
+  history.entry_score_min::numeric as entry_score_min
+from product.position_score_links link
+join product.position_score_histories history
+  on history.score_history_id = link.score_history_id
+where history.entry_score_min is not null
+"""
+
+
+_VERSIONED_SCORE_ROWS_SQL = """
+select
+  score.position_id,
+  score.score_year as year,
+  score.entry_score_min::numeric as entry_score_min
+from product.position_score_snapshots score
+where score.position_data_version = :position_data_version
+"""
 
 
 def _target_score_basis_condition(basis_level: str) -> str:
@@ -806,7 +971,7 @@ def _parse_city_field(city: str, region: str) -> tuple[str, str | None]:
     if not text:
         return "", None
     if region and text.startswith(region):
-        text = text[len(region):]
+        text = text[len(region) :]
     if text.startswith("省"):
         text = text[1:]
     if text.startswith("市"):
@@ -818,7 +983,7 @@ def _parse_city_field(city: str, region: str) -> tuple[str, str | None]:
     if idx == -1:
         return text, None
     city_name = text[: idx + 1]
-    rest = text[idx + 1:]
+    rest = text[idx + 1 :]
     if not rest:
         return city_name, None
     return city_name, rest

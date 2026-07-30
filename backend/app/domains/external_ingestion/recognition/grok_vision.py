@@ -16,6 +16,8 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_valida
 from app.contracts.external_learning.models import RecognitionKind
 from app.domains.external_ingestion.recognition.errors import (
     ProcessorConfigurationError,
+    ProcessorDispatchUnknownError,
+    ProcessorNotDispatchedError,
     ProcessorResponseError,
 )
 from app.domains.external_ingestion.recognition.models import (
@@ -25,6 +27,7 @@ from app.domains.external_ingestion.recognition.models import (
     ProcessorRequest,
     ProcessorResult,
     TextSpan,
+    enforce_provider_dispatch_fence,
 )
 from app.internal_services.private_objects import PrivateObjectReader
 
@@ -76,9 +79,7 @@ _OptionLabel = Annotated[str, Field(pattern=r"^[A-H]$")]
 
 class _VisionOMRMark(_StrictModel):
     item_no: int = Field(alias="itemNo", ge=1)
-    selected_options: tuple[_OptionLabel, ...] = Field(
-        alias="selectedOptions", max_length=8
-    )
+    selected_options: tuple[_OptionLabel, ...] = Field(alias="selectedOptions", max_length=8)
     box: _VisionBox
     confidence: float = Field(ge=0, le=1)
     ambiguous: bool
@@ -129,9 +130,7 @@ class GrokVisionRecognitionProcessor:
             expected_actual_model,
         )
         if not all(value.strip() for value in required):
-            raise ProcessorConfigurationError(
-                "Grok recognition provider identity is incomplete"
-            )
+            raise ProcessorConfigurationError("Grok recognition provider identity is incomplete")
         if maximum_input_bytes <= 0 or maximum_output_bytes <= 0 or maximum_pages <= 0:
             raise ProcessorConfigurationError(
                 "Grok recognition input, output and page limits must be positive"
@@ -157,14 +156,14 @@ class GrokVisionRecognitionProcessor:
         return self._release
 
     def process(self, request: ProcessorRequest) -> ProcessorResult:
-        suffix = {
-            "image/jpeg": ".jpg",
-            "image/png": ".png",
-            "application/pdf": ".pdf",
-        }.get(request.mime_type)
-        if suffix is None:
-            raise ProcessorResponseError("Grok recognition input MIME is unsupported")
         try:
+            suffix = {
+                "image/jpeg": ".jpg",
+                "image/png": ".png",
+                "application/pdf": ".pdf",
+            }.get(request.mime_type)
+            if suffix is None:
+                raise ValueError("Grok recognition input MIME is unsupported")
             with self._source_reader.open(
                 object_ref=request.object_ref,
                 expected_sha256=request.input_sha256,
@@ -189,28 +188,38 @@ class GrokVisionRecognitionProcessor:
                     raise ProcessorResponseError(
                         "Grok recognition request exceeds its approved input capacity"
                     )
-                headers = {
-                    "Authorization": f"Bearer {self._token}",
-                    "Content-Type": "application/json",
-                    "Idempotency-Key": request.idempotency_key,
-                }
-                with self._client_factory() as client:
-                    with client.stream(
-                        "POST",
-                        f"{self._endpoint}/chat/completions",
-                        headers=headers,
-                        content=encoded,
-                    ) as streamed:
-                        response = _bounded_response(
-                            streamed,
-                            maximum_bytes=self._maximum_output_bytes,
-                        )
-                response.raise_for_status()
+        except ProcessorNotDispatchedError:
+            raise
+        except Exception as exc:
+            message = str(exc).strip() or ("Grok recognition input failed before provider dispatch")
+            raise ProcessorNotDispatchedError(message) from exc
+
+        enforce_provider_dispatch_fence(request)
+        headers = {
+            "Authorization": f"Bearer {self._token}",
+            "Content-Type": "application/json",
+            "Idempotency-Key": request.idempotency_key,
+        }
+        try:
+            with self._client_factory() as client:
+                with client.stream(
+                    "POST",
+                    f"{self._endpoint}/chat/completions",
+                    headers=headers,
+                    content=encoded,
+                ) as streamed:
+                    response = _bounded_response(
+                        streamed,
+                        maximum_bytes=self._maximum_output_bytes,
+                    )
+            response.raise_for_status()
         except ProcessorResponseError:
             raise
-        except (httpx.HTTPError, ValueError) as exc:
-            raise ProcessorResponseError(
-                "Grok recognition provider or private source is unavailable"
+        except httpx.HTTPStatusError as exc:
+            raise ProcessorResponseError("Grok recognition provider rejected the request") from exc
+        except httpx.HTTPError as exc:
+            raise ProcessorDispatchUnknownError(
+                "Grok recognition dispatch outcome is unknown"
             ) from exc
         return self._result(response=response, request=request, pages=pages)
 
@@ -262,9 +271,7 @@ class GrokVisionRecognitionProcessor:
             provider_request_id = envelope["id"]
             content = envelope["choices"][0]["message"]["content"]
         except (KeyError, IndexError, TypeError, ValueError) as exc:
-            raise ProcessorResponseError(
-                "Grok recognition envelope is contract-invalid"
-            ) from exc
+            raise ProcessorResponseError("Grok recognition envelope is contract-invalid") from exc
         if not isinstance(actual_model, str) or actual_model != self._actual_model:
             raise ProcessorResponseError("Grok recognition model release drifted")
         if (
@@ -439,10 +446,7 @@ def _vision_pages(
             raise ProcessorResponseError("image upload carries an invalid page count")
     if not images or len(images) > maximum_pages:
         raise ProcessorResponseError("Grok recognition received no approved pages")
-    return tuple(
-        _encode_page(image, page_no=index)
-        for index, image in enumerate(images, start=1)
-    )
+    return tuple(_encode_page(image, page_no=index) for index, image in enumerate(images, start=1))
 
 
 def _encode_page(image: Image.Image, *, page_no: int) -> _VisionPage:
@@ -479,9 +483,7 @@ def _difference_hash_256(image: Image.Image) -> str:
     return f"{value:064x}"
 
 
-def _bounded_response(
-    response: httpx.Response, *, maximum_bytes: int
-) -> httpx.Response:
+def _bounded_response(response: httpx.Response, *, maximum_bytes: int) -> httpx.Response:
     content_length = response.headers.get("Content-Length")
     if content_length is not None:
         try:
@@ -498,9 +500,7 @@ def _bounded_response(
     for chunk in response.iter_bytes():
         total += len(chunk)
         if total > maximum_bytes:
-            raise ProcessorResponseError(
-                "Grok recognition response exceeds its approved capacity"
-            )
+            raise ProcessorResponseError("Grok recognition response exceeds its approved capacity")
         chunks.append(chunk)
     headers = httpx.Headers(response.headers)
     for name in ("Content-Encoding", "Content-Length", "Transfer-Encoding"):
@@ -548,9 +548,7 @@ def _segments(
             raise ProcessorResponseError("Grok segment crosses page boundaries")
         box = _union_box(tuple(item.box for item in selected))
         refs = tuple(item.span_id for item in selected)
-        fingerprint = sha256(
-            f"{segment.segment_kind}:{','.join(refs)}".encode()
-        ).hexdigest()[:12]
+        fingerprint = sha256(f"{segment.segment_kind}:{','.join(refs)}".encode()).hexdigest()[:12]
         result.append(
             PageSegment(
                 segmentId=f"segment-{index + 1}-{fingerprint}",
@@ -620,9 +618,7 @@ def _validate_kind_shape(
     elif kind == RecognitionKind.EXAM_SEGMENTATION:
         if not spans or not segments or marks:
             raise ProcessorResponseError("Grok segmentation result is incomplete")
-        if not any(
-            item.segment_kind in {"question", "essay_prompt"} for item in segments
-        ):
+        if not any(item.segment_kind in {"question", "essay_prompt"} for item in segments):
             raise ProcessorResponseError("Grok segmentation contains no question prompt")
     elif kind == RecognitionKind.ANSWER_SHEET_OMR:
         if not marks or segments:

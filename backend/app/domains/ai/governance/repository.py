@@ -60,14 +60,18 @@ class AIGovernanceRepository:
                 "created_at": datetime.now(UTC),
             },
         )
-        stored = session.execute(
-            text(
-                "select family, case_manifest_sha256, case_count, required_dimensions "
-                "from ai_audit.evaluation_suite_releases "
-                "where suite_version = :suite_version"
-            ),
-            {"suite_version": suite.suite_version},
-        ).mappings().one()
+        stored = (
+            session.execute(
+                text(
+                    "select family, case_manifest_sha256, case_count, required_dimensions "
+                    "from ai_audit.evaluation_suite_releases "
+                    "where suite_version = :suite_version"
+                ),
+                {"suite_version": suite.suite_version},
+            )
+            .mappings()
+            .one()
+        )
         if (
             str(stored["family"]),
             str(stored["case_manifest_sha256"]),
@@ -217,9 +221,7 @@ class AIGovernanceRepository:
                 "deployment_fingerprint": deployment_fingerprint(identity),
                 "evaluation_suite_version": policy.evaluation_suite_version,
                 "supersedes_deployment_id": (
-                    str(supersedes_deployment_id)
-                    if supersedes_deployment_id is not None
-                    else None
+                    str(supersedes_deployment_id) if supersedes_deployment_id is not None else None
                 ),
                 "published_at": datetime.now(UTC),
             },
@@ -249,8 +251,7 @@ class AIGovernanceRepository:
             for item in bundle.sources
         ]
         blocked = [
-            item.model_dump(by_alias=True, mode="json")
-            for item in bundle.blocked_source_refs
+            item.model_dump(by_alias=True, mode="json") for item in bundle.blocked_source_refs
         ]
         session.execute(
             text(
@@ -301,62 +302,22 @@ class AIGovernanceRepository:
         retrieval_bundle_id: UUID | None,
         reservation_id: UUID | None,
         reservation_source: str | None,
+        price_version: str | None = None,
     ) -> AICallAttribution:
         policy = scenario_policy(scenario_key)
         deployment_id: UUID | None = None
         evaluation_state = "local_unreleased"
         if environment.strip().casefold() == "production":
-            row = session.execute(
-                text(
-                    """
-                    select deployment.deployment_id
-                    from ai_audit.scenario_deployments deployment
-                    where deployment.scenario_key = :scenario_key
-                      and deployment.operation = :operation
-                      and deployment.provider = :provider
-                      and deployment.model = :model
-                      and deployment.prompt_version = :prompt_version
-                      and deployment.schema_version = :schema_version
-                      and deployment.responding_agent = :responding_agent
-                      and deployment.impact_level = :impact_level
-                      and deployment.model_tier = :model_tier
-                      and deployment.route_policy_version = :route_policy_version
-                      and deployment.permission_policy_version =
-                          :permission_policy_version
-                      and deployment.injection_policy_version =
-                          :injection_policy_version
-                      and deployment.evaluation_suite_version =
-                          :evaluation_suite_version
-                      and not exists (
-                        select 1 from ai_audit.scenario_deployments successor
-                        where successor.supersedes_deployment_id =
-                              deployment.deployment_id
-                      )
-                    order by deployment.published_at desc
-                    limit 1
-                    """
-                ),
-                {
-                    "scenario_key": scenario_key,
-                    "operation": operation,
-                    "provider": provider,
-                    "model": model,
-                    "prompt_version": prompt_version,
-                    "schema_version": schema_version,
-                    "responding_agent": policy.responding_agent,
-                    "impact_level": policy.impact_level,
-                    "model_tier": policy.model_tier,
-                    "route_policy_version": ROUTE_POLICY_VERSION,
-                    "permission_policy_version": PAGE_PERMISSION_POLICY_VERSION,
-                    "injection_policy_version": PROMPT_INJECTION_POLICY_VERSION,
-                    "evaluation_suite_version": policy.evaluation_suite_version,
-                },
-            ).mappings().one_or_none()
-            if row is None:
-                raise AIGovernanceReleaseError(
-                    "No evaluated production deployment matches this AI call identity"
-                )
-            deployment_id = UUID(str(row["deployment_id"]))
+            deployment_id = self.require_current_deployment(
+                session,
+                scenario_key=scenario_key,
+                operation=operation,
+                provider=provider,
+                model=model,
+                prompt_version=prompt_version,
+                schema_version=schema_version,
+                price_version=price_version,
+            )
             evaluation_state = "passed"
         return AICallAttribution(
             scenarioKey=scenario_key,
@@ -375,6 +336,85 @@ class AIGovernanceRepository:
             reservationSource=reservation_source,
             entitlementState=("reserved" if reservation_id else "not_applicable"),
         )
+
+    def require_current_deployment(
+        self,
+        session: Session,
+        *,
+        scenario_key: ScenarioKey,
+        operation: str,
+        provider: str,
+        model: str,
+        prompt_version: str,
+        schema_version: str,
+        price_version: str | None = None,
+    ) -> UUID:
+        policy = scenario_policy(scenario_key)
+        row = (
+            session.execute(
+                text(
+                    """
+                select deployment.deployment_id
+                from ai_audit.scenario_deployments deployment
+                join ai_audit.release_evaluation_runs evaluation
+                  on evaluation.evaluation_run_id = deployment.evaluation_run_id
+                 and evaluation.status = 'passed'
+                where deployment.scenario_key = :scenario_key
+                  and deployment.operation = :operation
+                  and deployment.provider = :provider
+                  and deployment.model = :model
+                  and deployment.prompt_version = :prompt_version
+                  and deployment.schema_version = :schema_version
+                  and deployment.responding_agent = :responding_agent
+                  and deployment.impact_level = :impact_level
+                  and deployment.model_tier = :model_tier
+                  and deployment.route_policy_version = :route_policy_version
+                  and deployment.permission_policy_version =
+                      :permission_policy_version
+                  and deployment.injection_policy_version =
+                      :injection_policy_version
+                  and deployment.cost_policy_version = :cost_policy_version
+                  and deployment.evaluation_suite_version =
+                      :evaluation_suite_version
+                  and (
+                    cast(:price_version as text) is null
+                    or evaluation.price_version = cast(:price_version as text)
+                  )
+                  and not exists (
+                    select 1 from ai_audit.scenario_deployments successor
+                    where successor.supersedes_deployment_id =
+                          deployment.deployment_id
+                  )
+                order by deployment.published_at desc
+                limit 1
+                """
+                ),
+                {
+                    "scenario_key": scenario_key,
+                    "operation": operation,
+                    "provider": provider,
+                    "model": model,
+                    "prompt_version": prompt_version,
+                    "schema_version": schema_version,
+                    "responding_agent": policy.responding_agent,
+                    "impact_level": policy.impact_level,
+                    "model_tier": policy.model_tier,
+                    "route_policy_version": ROUTE_POLICY_VERSION,
+                    "permission_policy_version": PAGE_PERMISSION_POLICY_VERSION,
+                    "injection_policy_version": PROMPT_INJECTION_POLICY_VERSION,
+                    "cost_policy_version": AI_COST_POLICY_VERSION,
+                    "evaluation_suite_version": policy.evaluation_suite_version,
+                    "price_version": price_version,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
+        if row is None:
+            raise AIGovernanceReleaseError(
+                "No evaluated production deployment matches this AI call identity"
+            )
+        return UUID(str(row["deployment_id"]))
 
     def insert_model_call_attribution(
         self,
@@ -428,18 +468,22 @@ class AIGovernanceRepository:
                 "created_at": datetime.now(UTC),
             },
         )
-        stored = session.execute(
-            text(
-                """
+        stored = (
+            session.execute(
+                text(
+                    """
                 select scenario_key, operation, evidence_fingerprint,
                        deployment_id, evaluation_state, reservation_id,
                        reservation_source
                 from ai_audit.model_call_attributions
                 where call_id = cast(:call_id as uuid)
                 """
-            ),
-            {"call_id": str(call_id)},
-        ).mappings().one()
+                ),
+                {"call_id": str(call_id)},
+            )
+            .mappings()
+            .one()
+        )
         expected = (
             attribution.scenario_key,
             attribution.operation,
@@ -453,17 +497,9 @@ class AIGovernanceRepository:
             str(stored["scenario_key"]),
             str(stored["operation"]),
             str(stored["evidence_fingerprint"]),
-            (
-                UUID(str(stored["deployment_id"]))
-                if stored["deployment_id"] is not None
-                else None
-            ),
+            (UUID(str(stored["deployment_id"])) if stored["deployment_id"] is not None else None),
             str(stored["evaluation_state"]),
-            (
-                UUID(str(stored["reservation_id"]))
-                if stored["reservation_id"] is not None
-                else None
-            ),
+            (UUID(str(stored["reservation_id"])) if stored["reservation_id"] is not None else None),
             (
                 str(stored["reservation_source"])
                 if stored["reservation_source"] is not None

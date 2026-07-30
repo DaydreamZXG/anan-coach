@@ -45,6 +45,7 @@ from app.domains.external_ingestion.recognition.models import (
     ProcessorApproval,
     ProcessorRequest,
     ProcessorResult,
+    provider_replay_key,
 )
 from app.domains.external_ingestion.recognition.processor import (
     HTTPRecognitionProcessor,
@@ -251,7 +252,11 @@ class QueryRecognitionProcessor:
                     inputSha256=image.content_sha256,
                     pageCount=1,
                     recognitionKind="exam_segmentation",
-                    idempotencyKey=f"ilink-recognition:{user_id}:{query_id}:{image.content_sha256}",
+                    idempotencyKey=provider_replay_key(
+                        owner_user_id=user_id,
+                        operation="ilink_recognize",
+                        command_id=query_id,
+                    ),
                 )
             )
         except (ProcessorConfigurationError, ProcessorResponseError) as exc:
@@ -364,7 +369,14 @@ class SecondaryAnswerProvider:
             )
             if not request_id:
                 raise ValueError("request identity missing")
-        except (httpx.HTTPError, KeyError, IndexError, TypeError, ValueError, ValidationError) as exc:
+        except (
+            httpx.HTTPError,
+            KeyError,
+            IndexError,
+            TypeError,
+            ValueError,
+            ValidationError,
+        ) as exc:
             raise PhotoResolutionError("secondary_answer_failed") from exc
         output = parsed.model_dump(by_alias=True, mode="json")
         return SecondaryAnswer(
@@ -465,9 +477,7 @@ class PhotoQuestionResolver:
             if not reference_decision.allowed or not reference_decision.snapshot_ref:
                 raise PhotoResolutionError("matched_answer_not_authorized")
             return AnswerProjection(
-                answerKind=(
-                    "authorized_exact" if match_kind == "exact" else "similar_reference"
-                ),
+                answerKind=("authorized_exact" if match_kind == "exact" else "similar_reference"),
                 answerText=content.reference_answer,
                 explanation=(
                     content.solution_explanation
@@ -635,12 +645,13 @@ def _authorized_candidate(
     authorization = SQLMatchAuthorization(session)
     query_text = "\n".join((query.prompt_text, *query.option_texts, *query.material_texts))
     scored = []
-    for content in catalog.search(
-        query=query, maximum_candidates=policy.maximum_candidates
-    ):
+    for content in catalog.search(query=query, maximum_candidates=policy.maximum_candidates):
         if content.track != query.track:
             continue
-        if content.distribution_class == "account_private" and content.owner_user_id != owner_user_id:
+        if (
+            content.distribution_class == "account_private"
+            and content.owner_user_id != owner_user_id
+        ):
             continue
         purpose = (
             "owner_private_match"
@@ -656,9 +667,7 @@ def _authorized_candidate(
             (content.prompt_text, *content.option_texts, *content.material_texts)
         )
         text_score = text_similarity(query_text, content_text)
-        visual_score = visual_similarity(
-            query.visual_fingerprints, content.visual_fingerprints
-        )
+        visual_score = visual_similarity(query.visual_fingerprints, content.visual_fingerprints)
         has_visual = bool(query.visual_fingerprints and content.visual_fingerprints)
         score = round(
             text_score * policy.text_weight + visual_score * policy.visual_weight
@@ -669,7 +678,13 @@ def _authorized_candidate(
         exact = text_score == 1.0 and (not has_visual or visual_score == 1.0)
         if exact or score >= policy.similar_threshold:
             scored.append(
-                (score if not exact else 1.0, content.content_version_id, content, "exact" if exact else "similar", decision.snapshot_ref)
+                (
+                    score if not exact else 1.0,
+                    content.content_version_id,
+                    content,
+                    "exact" if exact else "similar",
+                    decision.snapshot_ref,
+                )
             )
     scored.sort(key=lambda item: (-item[0], item[1]))
     if not scored:

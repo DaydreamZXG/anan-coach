@@ -12,6 +12,14 @@ from sqlalchemy.engine import Connection, Engine, RowMapping
 from sqlalchemy.orm import Session
 from sqlalchemy.pool import NullPool
 
+from app.core.config import get_settings
+from app.db.session import (
+    _postgres_engine_options,
+    commercial_data_publication_guard_installed,
+    commercial_data_publication_runtime_identity,
+    install_commercial_data_publication_guard,
+)
+
 
 class CompanionCommandConflict(RuntimeError):
     """An idempotency key was reused with different immutable input."""
@@ -114,9 +122,10 @@ class CompanionCommandRepository:
             )
             if current.terminal:
                 return current
-            row = session.execute(
-                text(
-                    """
+            row = (
+                session.execute(
+                    text(
+                        """
                     update platform.companion_paid_commands
                        set delivery_count = delivery_count + 1,
                            updated_at = now()
@@ -124,18 +133,22 @@ class CompanionCommandRepository:
                        and status in ('processing', 'provider_uncertain')
                     returning *
                     """
-                ),
-                {"command_id": str(current.command_id)},
-            ).mappings().one_or_none()
+                    ),
+                    {"command_id": str(current.command_id)},
+                )
+                .mappings()
+                .one_or_none()
+            )
             if row is None:
                 raise CompanionCommandStateError(
                     "Companion command changed while it was being claimed"
                 )
             return _record(row)
 
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 insert into platform.companion_paid_commands (
                   command_id, user_id, feature, idempotency_key,
                   request_fingerprint, request_contract_version,
@@ -157,20 +170,23 @@ class CompanionCommandRepository:
                 )
                 returning *
                 """
-            ),
-            {
-                "command_id": str(uuid4()),
-                "user_id": user_id,
-                "feature": feature,
-                "idempotency_key": idempotency_key,
-                "request_fingerprint": request_fingerprint,
-                "request_contract_version": request_contract_version,
-                "execution_payload": _json(execution_payload),
-                "response_contract_version": response_contract_version,
-                "reservation_key": reservation_key,
-                "provider_idempotency_key": provider_idempotency_key,
-            },
-        ).mappings().one()
+                ),
+                {
+                    "command_id": str(uuid4()),
+                    "user_id": user_id,
+                    "feature": feature,
+                    "idempotency_key": idempotency_key,
+                    "request_fingerprint": request_fingerprint,
+                    "request_contract_version": request_contract_version,
+                    "execution_payload": _json(execution_payload),
+                    "response_contract_version": response_contract_version,
+                    "reservation_key": reservation_key,
+                    "provider_idempotency_key": provider_idempotency_key,
+                },
+            )
+            .mappings()
+            .one()
+        )
         return _record(row)
 
     def lock_for_execution(
@@ -211,9 +227,10 @@ class CompanionCommandRepository:
         engine = _new_checkpoint_engine(session)
         try:
             with engine.begin() as connection:
-                row = connection.execute(
-                    text(
-                        """
+                row = (
+                    connection.execute(
+                        text(
+                            """
                         update platform.companion_paid_commands
                            set status = 'processing',
                                provider_attempt_count = provider_attempt_count + 1,
@@ -222,15 +239,16 @@ class CompanionCommandRepository:
                            and status in ('processing', 'provider_uncertain')
                         returning *
                         """
-                    ),
-                    {"command_id": str(command_id)},
-                ).mappings().one_or_none()
+                        ),
+                        {"command_id": str(command_id)},
+                    )
+                    .mappings()
+                    .one_or_none()
+                )
         finally:
             engine.dispose()
         if row is None:
-            raise CompanionCommandStateError(
-                "Only an open Companion command can call the provider"
-            )
+            raise CompanionCommandStateError("Only an open Companion command can call the provider")
         return _record(row)
 
     def succeed(
@@ -243,9 +261,10 @@ class CompanionCommandRepository:
         provider_request_id_fingerprint: str | None = None,
     ) -> CompanionCommandRecord:
         fingerprint = payload_fingerprint(response_payload)
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 update platform.companion_paid_commands
                    set status = 'succeeded', response_status_code = 200,
                        response_payload = cast(:response_payload as jsonb),
@@ -259,19 +278,20 @@ class CompanionCommandRepository:
                    and status = 'processing'
                 returning *
                 """
-            ),
-            {
-                "command_id": str(command_id),
-                "response_payload": _json(response_payload),
-                "response_fingerprint": fingerprint,
-                "provider_request_id_header": provider_request_id_header,
-                "provider_request_id_fingerprint": provider_request_id_fingerprint,
-            },
-        ).mappings().one_or_none()
-        if row is None:
-            raise CompanionCommandStateError(
-                "Only a processing Companion command can succeed"
+                ),
+                {
+                    "command_id": str(command_id),
+                    "response_payload": _json(response_payload),
+                    "response_fingerprint": fingerprint,
+                    "provider_request_id_header": provider_request_id_header,
+                    "provider_request_id_fingerprint": provider_request_id_fingerprint,
+                },
             )
+            .mappings()
+            .one_or_none()
+        )
+        if row is None:
+            raise CompanionCommandStateError("Only a processing Companion command can succeed")
         return _record(row)
 
     def fail(
@@ -286,9 +306,10 @@ class CompanionCommandRepository:
         provider_request_id_fingerprint: str | None = None,
     ) -> CompanionCommandRecord:
         fingerprint = payload_fingerprint(response_payload)
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 update platform.companion_paid_commands
                    set status = 'failed', response_status_code = :status_code,
                        response_payload = cast(:response_payload as jsonb),
@@ -302,21 +323,22 @@ class CompanionCommandRepository:
                    and status = 'processing'
                 returning *
                 """
-            ),
-            {
-                "command_id": str(command_id),
-                "status_code": status_code,
-                "response_payload": _json(response_payload),
-                "response_fingerprint": fingerprint,
-                "error_code": error_code,
-                "provider_request_id_header": provider_request_id_header,
-                "provider_request_id_fingerprint": provider_request_id_fingerprint,
-            },
-        ).mappings().one_or_none()
-        if row is None:
-            raise CompanionCommandStateError(
-                "Only a processing Companion command can fail"
+                ),
+                {
+                    "command_id": str(command_id),
+                    "status_code": status_code,
+                    "response_payload": _json(response_payload),
+                    "response_fingerprint": fingerprint,
+                    "error_code": error_code,
+                    "provider_request_id_header": provider_request_id_header,
+                    "provider_request_id_fingerprint": provider_request_id_fingerprint,
+                },
             )
+            .mappings()
+            .one_or_none()
+        )
+        if row is None:
+            raise CompanionCommandStateError("Only a processing Companion command can fail")
         return _record(row)
 
     def mark_provider_uncertain(
@@ -326,9 +348,10 @@ class CompanionCommandRepository:
         command_id: UUID,
         error_code: str,
     ) -> CompanionCommandRecord:
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 update platform.companion_paid_commands
                    set status = 'provider_uncertain',
                        last_error_code = :error_code,
@@ -337,9 +360,12 @@ class CompanionCommandRepository:
                    and status = 'processing'
                 returning *
                 """
-            ),
-            {"command_id": str(command_id), "error_code": error_code},
-        ).mappings().one_or_none()
+                ),
+                {"command_id": str(command_id), "error_code": error_code},
+            )
+            .mappings()
+            .one_or_none()
+        )
         if row is None:
             raise CompanionCommandStateError(
                 "Only a processing Companion command can become uncertain"
@@ -356,18 +382,22 @@ class CompanionCommandRepository:
         for_update: bool,
     ) -> CompanionCommandRecord | None:
         suffix = " for update" if for_update else ""
-        row = session.execute(
-            text(
-                "select * from platform.companion_paid_commands "
-                "where user_id = cast(:user_id as uuid) and feature = :feature "
-                f"and idempotency_key = :idempotency_key{suffix}"
-            ),
-            {
-                "user_id": user_id,
-                "feature": feature,
-                "idempotency_key": idempotency_key,
-            },
-        ).mappings().one_or_none()
+        row = (
+            session.execute(
+                text(
+                    "select * from platform.companion_paid_commands "
+                    "where user_id = cast(:user_id as uuid) and feature = :feature "
+                    f"and idempotency_key = :idempotency_key{suffix}"
+                ),
+                {
+                    "user_id": user_id,
+                    "feature": feature,
+                    "idempotency_key": idempotency_key,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
         return _record(row) if row is not None else None
 
 
@@ -389,9 +419,7 @@ def request_fingerprint(
 
 
 def stable_command_key(*, user_id: str, feature: str, idempotency_key: str) -> str:
-    digest = sha256(
-        f"{user_id}\n{feature}\n{idempotency_key}".encode("utf-8")
-    ).hexdigest()
+    digest = sha256(f"{user_id}\n{feature}\n{idempotency_key}".encode("utf-8")).hexdigest()
     return f"companion:{feature}:{digest}"
 
 
@@ -452,19 +480,13 @@ def _record(row: RowMapping) -> CompanionCommandRecord:
         execution_payload=dict(row["execution_payload"]),
         status=str(row["status"]),
         response_status_code=(
-            int(row["response_status_code"])
-            if row["response_status_code"] is not None
-            else None
+            int(row["response_status_code"]) if row["response_status_code"] is not None else None
         ),
         response_payload=(
-            dict(row["response_payload"])
-            if row["response_payload"] is not None
-            else None
+            dict(row["response_payload"]) if row["response_payload"] is not None else None
         ),
         response_fingerprint=(
-            str(row["response_fingerprint"])
-            if row["response_fingerprint"] is not None
-            else None
+            str(row["response_fingerprint"]) if row["response_fingerprint"] is not None else None
         ),
         response_contract_version=str(row["response_contract_version"]),
         reservation_key=str(row["reservation_key"]),
@@ -476,9 +498,7 @@ def _record(row: RowMapping) -> CompanionCommandRecord:
         delivery_count=int(row["delivery_count"]),
         provider_attempt_count=int(row["provider_attempt_count"]),
         provider_request_id_header=row["provider_request_id_header"],
-        provider_request_id_fingerprint=row[
-            "provider_request_id_fingerprint"
-        ],
+        provider_request_id_fingerprint=row["provider_request_id_fingerprint"],
         last_error_code=row["last_error_code"],
         created_at=row["created_at"],
         updated_at=row["updated_at"],
@@ -506,9 +526,29 @@ def _new_checkpoint_engine(session: Session) -> Engine:
     # A separate NullPool avoids deadlocking the API pool when every in-flight
     # request holds its main transaction lock and needs one short checkpoint
     # connection. The checkpoint connection is closed before provider I/O.
-    return create_engine(
-        bind.url,
-        poolclass=NullPool,
-        pool_pre_ping=True,
-        future=True,
-    )
+    engine_options: dict[str, Any] = {
+        "poolclass": NullPool,
+        "pool_pre_ping": True,
+        "future": True,
+    }
+    if bind.dialect.name == "postgresql":
+        # The short-lived engine is independently constructed, so it cannot
+        # inherit dialect-private state from the parent Engine. Rebuild only
+        # the public, validated PostgreSQL connection policy used by the
+        # production engine; NullPool deliberately replaces the pool options.
+        postgres_options = _postgres_engine_options(get_settings())
+        engine_options["connect_args"] = postgres_options["connect_args"]
+    checkpoint_engine = create_engine(bind.url, **engine_options)
+    if commercial_data_publication_guard_installed(bind):
+        runtime_identity = commercial_data_publication_runtime_identity(bind)
+        if runtime_identity is None:
+            raise CompanionCommandStateError(
+                "Companion provider checkpoint is missing runtime identity"
+            )
+        install_commercial_data_publication_guard(
+            checkpoint_engine,
+            runtime_environment=runtime_identity[0],
+            application_git_commit=runtime_identity[1],
+            data_receipt_sha256=runtime_identity[2],
+        )
+    return checkpoint_engine

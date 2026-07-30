@@ -1,12 +1,24 @@
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor
 import importlib.util
+import inspect
 import io
 import json
+import os
 from pathlib import Path
+import signal
+import stat
+import subprocess
+import sys
 import tarfile
+import tempfile
+import time
+from types import SimpleNamespace
 
+import psycopg
 import pytest
+from sqlalchemy.engine import Engine
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -15,6 +27,111 @@ SPEC = importlib.util.spec_from_file_location("backup_artifact", SCRIPT)
 assert SPEC is not None and SPEC.loader is not None
 backup_artifact = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(backup_artifact)
+sys.path.insert(0, str(ROOT / "ops" / "scripts"))
+try:
+    PUBLICATION_SPEC = importlib.util.spec_from_file_location(
+        "backup_test_commercial_data_publication",
+        ROOT / "ops" / "scripts" / "commercial_data_publication.py",
+    )
+    assert PUBLICATION_SPEC is not None and PUBLICATION_SPEC.loader is not None
+    publication = importlib.util.module_from_spec(PUBLICATION_SPEC)
+    PUBLICATION_SPEC.loader.exec_module(publication)
+finally:
+    sys.path.remove(str(ROOT / "ops" / "scripts"))
+
+
+CANDIDATE_COMMIT = "1" * 40
+ROLLBACK_COMMIT = "7" * 40
+BASELINE_RECEIPT = "a" * 64
+ACTIVE_RECEIPT = "b" * 64
+CURRENT_DATABASE_REVISION = "20260730_88"
+
+
+def _publication_authority(
+    *,
+    request_digest: str = "c" * 64,
+    active_receipt: str = ACTIVE_RECEIPT,
+    revision: str = "20260719_46",
+    deployment_environment: str = "production-cn-1",
+) -> dict[str, object]:
+    return {
+        "schemaVersion": backup_artifact.PUBLICATION_AUTHORITY_FORMAT_VERSION,
+        "publicationId": "00000000-0000-0000-0000-000000000001",
+        "state": "active",
+        "requestDigest": request_digest,
+        "publicationDigest": backup_artifact._publication_digest_for(
+            request_digest=request_digest,
+            active_receipt_sha256=active_receipt,
+        ),
+        "activeReceiptSha256": active_receipt,
+        "deploymentEnvironment": deployment_environment,
+        "expectedDatabaseRevision": revision,
+        "compatibleApplicationCommits": [
+            CANDIDATE_COMMIT,
+            ROLLBACK_COMMIT,
+        ],
+    }
+
+
+def _database_url(engine: Engine) -> str:
+    return engine.url.render_as_string(hide_password=False)
+
+
+def _libpq_url(engine: Engine) -> str:
+    return _database_url(engine).replace(
+        "postgresql+psycopg:",
+        "postgresql:",
+        1,
+    )
+
+
+def _request() -> dict[str, object]:
+    return publication.build_request(
+        candidate_commit=CANDIDATE_COMMIT,
+        rollback_commit=ROLLBACK_COMMIT,
+        environment="preproduction",
+        expected_revision=CURRENT_DATABASE_REVISION,
+        position_exam_code="guokao",
+        position_exam_year=2026,
+        position_rule_set_version="rules-v1",
+        position_data_version="positions-v1",
+        position_window_manifest_sha256="d" * 64,
+        knowledge_exam_scope="guokao",
+        knowledge_track="xingce",
+        knowledge_release_version="knowledge-v1",
+        knowledge_source_data_version="knowledge-source-v1",
+        knowledge_fresh_until="2026-12-31T00:00:00+00:00",
+    )
+
+
+def _activate_publication(engine: Engine) -> None:
+    request = _request()
+    started = publication.start_next_publication(
+        database_url=_database_url(engine),
+        request=request,
+        previous_receipt_sha256=BASELINE_RECEIPT,
+    )
+    with psycopg.connect(_libpq_url(engine), autocommit=True) as holder:
+        holder.execute(
+            "select pg_advisory_lock(%s)",
+            (backup_artifact.COMMERCIAL_DATA_PUBLICATION_ADVISORY_LOCK_KEY,),
+        )
+        try:
+            publication.record_publication_receipt(
+                database_url=_database_url(engine),
+                expected_request_digest=started["requestDigest"],
+                receipt_sha256=ACTIVE_RECEIPT,
+            )
+            publication.finish_publication(
+                database_url=_database_url(engine),
+                expected_request_digest=started["requestDigest"],
+                receipt_sha256=ACTIVE_RECEIPT,
+            )
+        finally:
+            holder.execute(
+                "select pg_advisory_unlock(%s)",
+                (backup_artifact.COMMERCIAL_DATA_PUBLICATION_ADVISORY_LOCK_KEY,),
+            )
 
 
 def test_backup_manifest_binds_snapshot_revision_dump_and_critical_tables(
@@ -22,35 +139,313 @@ def test_backup_manifest_binds_snapshot_revision_dump_and_critical_tables(
 ) -> None:
     dump = tmp_path / "database.dump"
     dump.write_bytes(b"immutable custom-format fixture")
-    counts = {
-        table: index for index, table in enumerate(backup_artifact.CRITICAL_TABLES)
-    }
+    counts = {table: index for index, table in enumerate(backup_artifact.CRITICAL_TABLES)}
 
     manifest = backup_artifact.build_manifest(
         created_at="2026-07-19T01:02:03+00:00",
         source_environment_id="production-cn-1",
         backup_target_id="cross-domain-object-store-1",
-        source_identity="gongkao|10.0.0.8|5432",
+        source_identity="cluster-1|gongkao|16384",
+        source_cluster_identity="cluster-1",
         database_revision="20260719_46",
         pg_dump_version="pg_dump (PostgreSQL) 17.5",
         dump_path=dump,
         row_counts=counts,
+        publication_authority=_publication_authority(),
     )
     manifest_path = tmp_path / "manifest.json"
     manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
 
-    loaded = backup_artifact.load_and_verify_manifest(
-        manifest_path=manifest_path, dump_path=dump
-    )
+    loaded = backup_artifact.load_and_verify_manifest(manifest_path=manifest_path, dump_path=dump)
     assert loaded["databaseRevision"] == "20260719_46"
     assert loaded["criticalTableRowCounts"] == counts
-    assert "gongkao|10.0.0.8|5432" not in json.dumps(loaded)
+    assert "cluster-1|gongkao|16384" not in json.dumps(loaded)
+    assert loaded["sourceClusterIdentitySha256"]
+    assert loaded["commercialDataPublication"]["activeReceiptSha256"] == ACTIVE_RECEIPT
 
     dump.write_bytes(b"tampered")
     with pytest.raises(backup_artifact.BackupContractError, match="dump size"):
-        backup_artifact.load_and_verify_manifest(
-            manifest_path=manifest_path, dump_path=dump
+        backup_artifact.load_and_verify_manifest(manifest_path=manifest_path, dump_path=dump)
+
+
+def test_same_nanosecond_backup_run_identities_are_unique() -> None:
+    timestamp_ns = 1_785_366_123_456_789_012
+
+    with ThreadPoolExecutor(max_workers=16) as executor:
+        run_ids = list(
+            executor.map(
+                lambda _index: backup_artifact.new_backup_run_id(timestamp_ns=timestamp_ns),
+                range(128),
+            )
         )
+
+    assert len(set(run_ids)) == len(run_ids)
+    assert all(backup_artifact.BACKUP_RUN_ID.fullmatch(run_id) for run_id in run_ids)
+    assert len({run_id.rsplit("-", 1)[0] for run_id in run_ids}) == 1
+
+
+def test_backup_set_publication_is_atomic_durable_and_never_overwrites(
+    tmp_path: Path,
+) -> None:
+    backup_directory = tmp_path / "backups"
+    backup_directory.mkdir()
+    run_id = backup_artifact.new_backup_run_id(
+        timestamp_ns=1_785_366_123_456_789_012,
+        random_token="1" * 32,
+    )
+    artifact_basename = f"anan-{run_id}.backup.age"
+    destination = backup_directory / f"anan-{run_id}.backup-set"
+
+    def stage(payload: bytes) -> Path:
+        staging = Path(
+            tempfile.mkdtemp(
+                prefix=f".{destination.name}.staging.",
+                dir=backup_directory,
+            )
+        )
+        artifact = staging / f".{artifact_basename}.partial"
+        signature = staging / f".{artifact_basename}.sig.partial"
+        checksum = staging / f".{artifact_basename}.sha256.partial"
+        artifact.write_bytes(payload)
+        signature.write_bytes(b"detached-signature")
+        checksum.write_text(
+            f"{backup_artifact.sha256_file(artifact)}  {artifact_basename}\n",
+            encoding="utf-8",
+        )
+        return staging
+
+    first_staging = stage(b"first encrypted backup")
+    published = backup_artifact.publish_backup_set(
+        staging_directory=first_staging,
+        destination_directory=destination,
+        artifact_basename=artifact_basename,
+    )
+
+    assert published == destination / artifact_basename
+    assert published.read_bytes() == b"first encrypted backup"
+    assert not first_staging.exists()
+    assert (
+        backup_artifact.verify_backup_file_layout(backup_file=published)["layout"] == "atomic-set"
+    )
+
+    second_staging = stage(b"must not replace the first backup")
+    with pytest.raises(
+        backup_artifact.BackupContractError,
+        match="already exists",
+    ):
+        backup_artifact.publish_backup_set(
+            staging_directory=second_staging,
+            destination_directory=destination,
+            artifact_basename=artifact_basename,
+        )
+    assert published.read_bytes() == b"first encrypted backup"
+
+    loose_directory = tmp_path / "loose"
+    loose_directory.mkdir()
+    loose = loose_directory / artifact_basename
+    loose.write_bytes(published.read_bytes())
+    Path(f"{loose}.sig").write_bytes(Path(f"{published}.sig").read_bytes())
+    Path(f"{loose}.sha256").write_bytes(Path(f"{published}.sha256").read_bytes())
+    with pytest.raises(
+        backup_artifact.BackupContractError,
+        match="outside its atomic set",
+    ):
+        backup_artifact.verify_backup_file_layout(backup_file=loose)
+
+    legacy = loose_directory / "anan-20260730T010203Z.backup.age"
+    legacy.write_bytes(b"complete legacy backup")
+    Path(f"{legacy}.sig").write_bytes(b"legacy signature")
+    Path(f"{legacy}.sha256").write_text(
+        f"{backup_artifact.sha256_file(legacy)}  {legacy.name}\n",
+        encoding="utf-8",
+    )
+    assert (
+        backup_artifact.verify_backup_file_layout(backup_file=legacy)["layout"]
+        == "legacy-complete-set"
+    )
+
+
+def test_restore_snapshot_uses_nofollow_regular_single_link_files(
+    tmp_path: Path,
+) -> None:
+    run_id = backup_artifact.new_backup_run_id(
+        timestamp_ns=1_785_366_123_456_789_012,
+        random_token="2" * 32,
+    )
+    artifact_basename = f"anan-{run_id}.backup.age"
+    backup_set = tmp_path / f"anan-{run_id}.backup-set"
+    backup_set.mkdir()
+    artifact = backup_set / artifact_basename
+    artifact.write_bytes(b"encrypted snapshot")
+    Path(f"{artifact}.sig").write_bytes(b"detached signature")
+    Path(f"{artifact}.sha256").write_text(
+        f"{backup_artifact.sha256_file(artifact)}  {artifact_basename}\n",
+        encoding="utf-8",
+    )
+
+    snapshot = tmp_path / "snapshot"
+    result = backup_artifact.snapshot_restore_set(
+        backup_file=artifact,
+        snapshot_directory=snapshot,
+    )
+
+    assert Path(result["artifact"]).read_bytes() == b"encrypted snapshot"
+    assert result["artifactSha256"] == backup_artifact.sha256_file(artifact)
+    assert stat.S_IMODE(snapshot.stat().st_mode) == 0o700
+    assert all(stat.S_IMODE(path.stat().st_mode) == 0o600 for path in snapshot.iterdir())
+
+    signature = Path(f"{artifact}.sig")
+    signature.unlink()
+    signature.symlink_to(tmp_path / "attacker-controlled-signature")
+    with pytest.raises(
+        backup_artifact.BackupContractError,
+        match="without following links",
+    ):
+        backup_artifact.snapshot_restore_set(
+            backup_file=artifact,
+            snapshot_directory=tmp_path / "symlink-snapshot",
+        )
+
+
+def test_restore_snapshot_rejects_source_identity_change_during_copy(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    run_id = backup_artifact.new_backup_run_id(
+        timestamp_ns=1_785_366_123_456_789_012,
+        random_token="8" * 32,
+    )
+    artifact_basename = f"anan-{run_id}.backup.age"
+    backup_set = tmp_path / f"anan-{run_id}.backup-set"
+    backup_set.mkdir()
+    artifact = backup_set / artifact_basename
+    artifact.write_bytes(b"A" * (1024 * 1024 + 1))
+    Path(f"{artifact}.sig").write_bytes(b"signature A")
+    Path(f"{artifact}.sha256").write_text(
+        f"{backup_artifact.sha256_file(artifact)}  {artifact_basename}\n",
+        encoding="utf-8",
+    )
+    replacement = tmp_path / "replacement"
+    replacement.write_bytes(b"unsigned replacement B")
+    real_read = backup_artifact.os.read
+    replaced = False
+
+    def coordinated_read(descriptor: int, length: int) -> bytes:
+        nonlocal replaced
+        value = real_read(descriptor, length)
+        if value and not replaced:
+            replaced = True
+            replacement.replace(artifact)
+        return value
+
+    monkeypatch.setattr(backup_artifact.os, "read", coordinated_read)
+
+    with pytest.raises(
+        backup_artifact.BackupContractError,
+        match="changed while its snapshot was copied",
+    ):
+        backup_artifact.snapshot_restore_set(
+            backup_file=artifact,
+            snapshot_directory=tmp_path / "raced-snapshot",
+        )
+    assert replaced is True
+
+
+def test_restore_lock_ready_file_binds_identity_and_live_holder_pid(
+    tmp_path: Path,
+) -> None:
+    restore_identity = "9" * 64
+    workspace = backup_artifact.create_restore_workspace(
+        state_directory=tmp_path / "restore-state",
+        restore_identity=restore_identity,
+    )
+    ready_file = workspace / "restore-lock.ready"
+    backup_artifact._write_exclusive_json(
+        ready_file,
+        {
+            "schemaVersion": "anan-restore-target-lock/v1",
+            "restoreIdentity": restore_identity,
+            "holderPid": os.getpid(),
+        },
+    )
+
+    backup_artifact.verify_restore_target_lock_ready(
+        ready_file=ready_file,
+        expected_restore_identity=restore_identity,
+        expected_holder_pid=os.getpid(),
+    )
+    with pytest.raises(
+        backup_artifact.BackupContractError,
+        match="readiness is invalid",
+    ):
+        backup_artifact.verify_restore_target_lock_ready(
+            ready_file=ready_file,
+            expected_restore_identity="a" * 64,
+            expected_holder_pid=os.getpid(),
+        )
+
+
+def test_concurrent_same_restore_report_identity_never_overwrites(
+    tmp_path: Path,
+) -> None:
+    report_directory = tmp_path / "restore-reports"
+    report_directory.mkdir()
+    run_id = backup_artifact.new_backup_run_id(
+        timestamp_ns=1_785_366_123_456_789_012,
+        random_token="3" * 32,
+    )
+    backup_run_id = backup_artifact.new_backup_run_id(
+        timestamp_ns=1_785_366_000_000_000_000,
+        random_token="4" * 32,
+    )
+    report_basename = f"anan-{backup_run_id}-{run_id}-restore-report.json"
+    destination = report_directory / f"anan-{run_id}.restore-report-set"
+
+    def stage(payload: bytes) -> Path:
+        staging = Path(
+            tempfile.mkdtemp(
+                prefix=f".{destination.name}.staging.",
+                dir=report_directory,
+            )
+        )
+        report = staging / f".{report_basename}.partial"
+        signature = staging / f".{report_basename}.sig.partial"
+        checksum = staging / f".{report_basename}.sha256.partial"
+        report.write_bytes(payload)
+        signature.write_bytes(b"signature:" + payload)
+        checksum.write_text(
+            f"{backup_artifact.sha256_file(report)}  {report_basename}\n",
+            encoding="utf-8",
+        )
+        return staging
+
+    stagings = (stage(b"first report"), stage(b"second report"))
+
+    def publish(staging: Path) -> tuple[str, str]:
+        try:
+            published = backup_artifact.publish_restore_report_set(
+                staging_directory=staging,
+                destination_directory=destination,
+                report_basename=report_basename,
+            )
+        except backup_artifact.BackupContractError as exc:
+            return ("error", str(exc))
+        return ("published", str(published))
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        results = list(executor.map(publish, stagings))
+
+    assert [result[0] for result in results].count("published") == 1
+    assert [result[0] for result in results].count("error") == 1
+    error = next(result[1] for result in results if result[0] == "error")
+    assert "already exists" in error
+    published_report = destination / report_basename
+    assert published_report.read_bytes() in {b"first report", b"second report"}
+    assert {path.name for path in destination.iterdir()} == {
+        report_basename,
+        f"{report_basename}.sha256",
+        f"{report_basename}.sig",
+    }
 
 
 def test_bundle_extraction_rejects_path_traversal_and_unexpected_members(
@@ -64,24 +459,1139 @@ def test_bundle_extraction_rejects_path_traversal_and_unexpected_members(
         archive.addfile(member, io.BytesIO(payload))
 
     with pytest.raises(backup_artifact.BackupContractError, match="member set"):
-        backup_artifact.extract_bundle(
-            bundle_path=bundle, output_directory=tmp_path / "output"
-        )
+        backup_artifact.extract_bundle(bundle_path=bundle, output_directory=tmp_path / "output")
     assert not (tmp_path / "outside").exists()
+
+
+def test_backup_rejects_publishing_authority(db_engine: Engine) -> None:
+    publication.start_next_publication(
+        database_url=_database_url(db_engine),
+        request=_request(),
+        previous_receipt_sha256=BASELINE_RECEIPT,
+    )
+    with psycopg.connect(_libpq_url(db_engine)) as connection:
+        connection.execute("begin transaction isolation level repeatable read read only")
+        connection.execute(
+            "select pg_advisory_xact_lock_shared(%s)",
+            (backup_artifact.COMMERCIAL_DATA_PUBLICATION_ADVISORY_LOCK_KEY,),
+        )
+        with pytest.raises(
+            backup_artifact.BackupContractError,
+            match="not active and exact",
+        ):
+            backup_artifact._capture_active_publication_authority(
+                connection=connection,
+                required_revision=CURRENT_DATABASE_REVISION,
+            )
+
+
+def test_backup_capture_locks_before_reading_or_exporting_snapshot() -> None:
+    source = inspect.getsource(backup_artifact.capture)
+
+    assert (
+        backup_artifact.COMMERCIAL_DATA_PUBLICATION_ADVISORY_LOCK_KEY
+        == publication.COMMERCIAL_DATA_PUBLICATION_ADVISORY_LOCK_KEY
+    )
+    begin = source.index("begin transaction isolation level repeatable read read only")
+    shared_lock = source.index("pg_advisory_xact_lock_shared")
+    authority = source.index("_capture_active_publication_authority")
+    snapshot = source.index("pg_export_snapshot")
+    assert begin < shared_lock < authority < snapshot
+
+
+def test_backup_shared_and_publication_exclusive_locks_are_mutually_exclusive(
+    db_engine: Engine,
+) -> None:
+    key = backup_artifact.COMMERCIAL_DATA_PUBLICATION_ADVISORY_LOCK_KEY
+    with (
+        psycopg.connect(_libpq_url(db_engine), autocommit=True) as publisher,
+        psycopg.connect(_libpq_url(db_engine)) as backup,
+    ):
+        publisher.execute("select pg_advisory_lock(%s)", (key,))
+        backup.execute("begin transaction isolation level repeatable read read only")
+        backup.execute("set local lock_timeout = '200ms'")
+        with pytest.raises(psycopg.errors.LockNotAvailable):
+            backup.execute("select pg_advisory_xact_lock_shared(%s)", (key,))
+        backup.rollback()
+        publisher.execute("select pg_advisory_unlock(%s)", (key,))
+
+        backup.execute("begin transaction isolation level repeatable read read only")
+        backup.execute("select pg_advisory_xact_lock_shared(%s)", (key,))
+        assert (
+            publisher.execute(
+                "select pg_try_advisory_lock(%s)",
+                (key,),
+            ).fetchone()[0]
+            is False
+        )
+        backup.rollback()
+        assert (
+            publisher.execute(
+                "select pg_try_advisory_lock(%s)",
+                (key,),
+            ).fetchone()[0]
+            is True
+        )
+        publisher.execute("select pg_advisory_unlock(%s)", (key,))
+
+
+def test_restore_rejects_self_consistent_tampered_publication_authority(
+    db_engine: Engine,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _activate_publication(db_engine)
+    with psycopg.connect(_libpq_url(db_engine)) as connection:
+        connection.execute(
+            "select pg_advisory_xact_lock_shared(%s)",
+            (backup_artifact.COMMERCIAL_DATA_PUBLICATION_ADVISORY_LOCK_KEY,),
+        )
+        authority = backup_artifact._capture_active_publication_authority(
+            connection=connection,
+            required_revision=CURRENT_DATABASE_REVISION,
+        )
+    dump = tmp_path / "database.dump"
+    dump.write_bytes(b"immutable custom-format fixture")
+    manifest = backup_artifact.build_manifest(
+        created_at="2026-07-30T01:02:03+00:00",
+        source_environment_id="preproduction",
+        backup_target_id="cross-domain-object-store-1",
+        source_identity="cluster-1|gongkao|16384",
+        source_cluster_identity="cluster-1",
+        database_revision=CURRENT_DATABASE_REVISION,
+        pg_dump_version="pg_dump (PostgreSQL) 17.5",
+        dump_path=dump,
+        row_counts={table: 0 for table in backup_artifact.CRITICAL_TABLES},
+        publication_authority=authority,
+    )
+    tampered_receipt = "e" * 64
+    manifest["commercialDataPublication"]["activeReceiptSha256"] = tampered_receipt
+    manifest["commercialDataPublication"]["publicationDigest"] = (
+        backup_artifact._publication_digest_for(
+            request_digest=authority["requestDigest"],
+            active_receipt_sha256=tampered_receipt,
+        )
+    )
+    manifest_path = tmp_path / "manifest.json"
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    monkeypatch.setattr(
+        backup_artifact,
+        "_load_restore_target_authority",
+        lambda **_kwargs: {},
+    )
+    monkeypatch.setattr(
+        backup_artifact,
+        "_assert_restore_target_database",
+        lambda **_kwargs: None,
+    )
+
+    with pytest.raises(
+        backup_artifact.BackupContractError,
+        match="does not match the backup snapshot",
+    ):
+        backup_artifact.verify_restore(
+            database_url=_libpq_url(db_engine),
+            manifest_path=manifest_path,
+            dump_path=dump,
+            target_environment_id="isolated-restore-1",
+            target_identity_file=tmp_path / "unused-target.json",
+            artifact_sha256="f" * 64,
+            report_path=tmp_path / "restore-report.json",
+        )
 
 
 def test_backup_entrypoints_fail_closed_and_restore_requires_evidence() -> None:
     backup = (ROOT / "ops" / "scripts" / "backup.sh").read_text(encoding="utf-8")
-    restore = (ROOT / "ops" / "scripts" / "restore_rehearsal.sh").read_text(
-        encoding="utf-8"
-    )
+    restore = (ROOT / "ops" / "scripts" / "restore_rehearsal.sh").read_text(encoding="utf-8")
 
     assert '[[ "${BACKUP_ENABLED}" != "true" ]]' in backup
     assert "--source-environment-id" in backup
     assert "openssl dgst -sha256 -sign" in backup
     assert "flock --nonblock" in backup
+    assert 'mktemp -d "${BACKUP_DIRECTORY}/.${set_basename}.staging.XXXXXX"' in backup
+    assert "publish-set" in backup
+    retention_observation = backup.split("retention_candidate_sets=", maxsplit=1)[1]
+    assert "-exec rm -rf" not in retention_observation
+    assert "-delete" not in retention_observation
+    assert "anan_backup_retention_candidate_sets" in retention_observation
+    assert "anan_backup_legacy_retention_candidate_files" in retention_observation
+    assert "snapshot-restore-set" in restore
+    assert "hold-restore-target-lock" in restore
     assert "isolated-disposable-database" in restore
     assert "restore-preflight" in restore
+    assert "--target-identity-file" in restore
     assert "openssl dgst -sha256 -verify" in restore
     assert "verify-restore" in restore
-    assert '"${report}.sig"' in restore
+    assert "publish-restore-report-set" in restore
+    assert (
+        '"${RESTORE_REPORT_DIRECTORY}/.${report_set_basename}.staging.${restore_identity}.XXXXXX"'
+    ) in restore
+    assert '"${signature_partial}" "${report_partial}"' in restore
+
+
+def test_sigkill_before_atomic_publish_leaves_no_restore_selectable_backup(
+    tmp_path: Path,
+) -> None:
+    fake_bin = tmp_path / "bin"
+    fake_bin.mkdir()
+    backup_directory = tmp_path / "backups"
+    metrics_directory = tmp_path / "metrics"
+    metrics_directory.mkdir()
+    publish_ready = tmp_path / "publish-ready"
+    run_id = "20260730T010203.000000000Z-" + ("2" * 32)
+
+    _write_executable(
+        fake_bin / "python3",
+        """#!/usr/bin/env bash
+set -euo pipefail
+shift
+command="$1"
+shift
+case "${command}" in
+  new-run-id)
+    printf '%s\\n' "${BACKUP_TEST_RUN_ID}"
+    ;;
+  capture)
+    dump=""
+    manifest=""
+    while (( $# > 0 )); do
+      case "$1" in
+        --dump) dump="$2"; shift 2 ;;
+        --manifest) manifest="$2"; shift 2 ;;
+        *) shift ;;
+      esac
+    done
+    printf '%s\\n' "fake custom dump" >"${dump}"
+    printf '%s\\n' '{"formatVersion":"test"}' >"${manifest}"
+    ;;
+  publish-set)
+    staging=""
+    artifact=""
+    while (( $# > 0 )); do
+      case "$1" in
+        --staging-directory) staging="$2"; shift 2 ;;
+        --artifact-basename) artifact="$2"; shift 2 ;;
+        *) shift ;;
+      esac
+    done
+    mv "${staging}/.${artifact}.partial" "${staging}/${artifact}"
+    mv "${staging}/.${artifact}.sig.partial" "${staging}/${artifact}.sig"
+    mv "${staging}/.${artifact}.sha256.partial" \
+      "${staging}/${artifact}.sha256"
+    : >"${BACKUP_TEST_PUBLISH_READY}"
+    while :; do sleep 1; done
+    ;;
+  *)
+    printf '%s\\n' "unexpected fake python command: ${command}" >&2
+    exit 97
+    ;;
+esac
+""",
+    )
+    _write_executable(
+        fake_bin / "age",
+        """#!/usr/bin/env bash
+set -euo pipefail
+output=""
+input=""
+while (( $# > 0 )); do
+  case "$1" in
+    --recipient) shift 2 ;;
+    --output) output="$2"; shift 2 ;;
+    *) input="$1"; shift ;;
+  esac
+done
+cp "${input}" "${output}"
+""",
+    )
+    _write_executable(
+        fake_bin / "openssl",
+        """#!/usr/bin/env bash
+set -euo pipefail
+output=""
+while (( $# > 0 )); do
+  if [[ "$1" == "-out" ]]; then
+    output="$2"
+    shift 2
+  else
+    shift
+  fi
+done
+printf '%s\\n' "fake detached signature" >"${output}"
+""",
+    )
+    for command in ("flock", "pg_dump", "pg_restore"):
+        _write_executable(
+            fake_bin / command,
+            "#!/usr/bin/env bash\nexit 0\n",
+        )
+    signing_key = tmp_path / "signing.pem"
+    signing_key.write_text("test key\n", encoding="utf-8")
+    environment = {
+        **os.environ,
+        "PATH": f"{fake_bin}:{os.environ['PATH']}",
+        "BACKUP_ENABLED": "true",
+        "BACKUP_DATABASE_URL": ("postgresql://backup@127.0.0.1:5432/gongkao"),
+        "BACKUP_DIRECTORY": str(backup_directory),
+        "AGE_RECIPIENT": "age1test",
+        "BACKUP_SIGNING_PRIVATE_KEY_FILE": str(signing_key),
+        "BACKUP_SOURCE_ENVIRONMENT_ID": "preproduction",
+        "BACKUP_TARGET_ID": "test-target",
+        "BACKUP_RETENTION_DAYS": "30",
+        "REQUIRED_DATABASE_REVISION": CURRENT_DATABASE_REVISION,
+        "BACKUP_METRICS_FILE": str(metrics_directory / "backup.prom"),
+        "BACKUP_TEST_RUN_ID": run_id,
+        "BACKUP_TEST_PUBLISH_READY": str(publish_ready),
+    }
+    process = subprocess.Popen(
+        [str(ROOT / "ops" / "scripts" / "backup.sh")],
+        cwd=ROOT,
+        env=environment,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        start_new_session=True,
+    )
+    try:
+        deadline = time.monotonic() + 10
+        while not publish_ready.is_file() and process.poll() is None:
+            if time.monotonic() >= deadline:
+                pytest.fail("backup did not reach the pre-publication kill window")
+            time.sleep(0.01)
+        assert process.poll() is None
+        os.killpg(process.pid, signal.SIGKILL)
+        process.wait(timeout=5)
+    finally:
+        if process.poll() is None:
+            os.killpg(process.pid, signal.SIGKILL)
+            process.wait(timeout=5)
+
+    assert list(backup_directory.glob("anan-*.backup-set/anan-*.backup.age")) == []
+    stranded = list(backup_directory.rglob("anan-*.backup.age"))
+    assert len(stranded) == 1
+    with pytest.raises(
+        backup_artifact.BackupContractError,
+        match="unpublished staging directory",
+    ):
+        backup_artifact.verify_backup_file_layout(backup_file=stranded[0])
+    assert not (metrics_directory / "backup.prom").exists()
+
+
+def test_same_instant_restore_rehearsals_publish_distinct_complete_sets(
+    tmp_path: Path,
+) -> None:
+    environment, report_directory, metrics_file, _sign_ready = _restore_rehearsal_test_environment(
+        tmp_path
+    )
+
+    def run_restore(index: int) -> subprocess.CompletedProcess[str]:
+        run_environment = {
+            **environment,
+            "RESTORE_DATABASE_URL": (
+                f"postgresql://restore@127.0.0.1:5432/disposable_report_writer_{index}"
+            ),
+        }
+        return subprocess.run(
+            [str(ROOT / "ops" / "scripts" / "restore_rehearsal.sh")],
+            cwd=ROOT,
+            env=run_environment,
+            capture_output=True,
+            text=True,
+            timeout=15,
+            check=False,
+        )
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        results = list(executor.map(run_restore, range(2)))
+
+    assert [result.returncode for result in results] == [0, 0], [
+        (result.stdout, result.stderr) for result in results
+    ]
+    report_paths = [Path(result.stdout.strip().splitlines()[-1]) for result in results]
+    assert len(set(report_paths)) == 2
+    assert all(path.is_file() for path in report_paths)
+    assert len({path.parent for path in report_paths}) == 2
+    fixed_timestamp = environment["RESTORE_TEST_FIXED_TIMESTAMP"]
+    assert all(path.parent.name.startswith(f"anan-{fixed_timestamp}-") for path in report_paths)
+    for report in report_paths:
+        assert {path.name for path in report.parent.iterdir()} == {
+            report.name,
+            f"{report.name}.sha256",
+            f"{report.name}.sig",
+        }
+        assert Path(f"{report}.sha256").read_text(encoding="utf-8") == (
+            f"{backup_artifact.sha256_file(report)}  {report.name}\n"
+        )
+        assert Path(f"{report}.sig").read_text(encoding="utf-8") == (
+            f"signature for .{report.name}.partial\n"
+        )
+    assert len(list(report_directory.glob("anan-*.restore-report-set"))) == 2
+    assert not list(report_directory.glob(".*.restore-report-set.staging.*"))
+    assert metrics_file.is_file()
+
+
+def test_same_name_restore_rehearsal_processes_never_overwrite(
+    tmp_path: Path,
+) -> None:
+    environment, report_directory, metrics_file, _sign_ready = _restore_rehearsal_test_environment(
+        tmp_path
+    )
+    barrier_directory = tmp_path / "verify-barrier"
+    barrier_directory.mkdir()
+    environment["RESTORE_TEST_FIXED_TOKEN"] = "6" * 32
+    environment["RESTORE_TEST_VERIFY_BARRIER"] = str(barrier_directory)
+
+    def run_restore(index: int) -> subprocess.CompletedProcess[str]:
+        run_environment = {
+            **environment,
+            "RESTORE_DATABASE_URL": (
+                f"postgresql://restore@127.0.0.1:5432/disposable_report_collision_{index}"
+            ),
+        }
+        return subprocess.run(
+            [str(ROOT / "ops" / "scripts" / "restore_rehearsal.sh")],
+            cwd=ROOT,
+            env=run_environment,
+            capture_output=True,
+            text=True,
+            timeout=15,
+            check=False,
+        )
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        results = list(executor.map(run_restore, range(2)))
+
+    assert sorted(result.returncode for result in results) == [0, 1], [
+        (result.stdout, result.stderr) for result in results
+    ]
+    failed = next(result for result in results if result.returncode != 0)
+    assert "already exists" in failed.stderr
+    report_sets = list(report_directory.glob("anan-*.restore-report-set"))
+    assert len(report_sets) == 1
+    report_paths = list(report_sets[0].glob("*-restore-report.json"))
+    assert len(report_paths) == 1
+    report = report_paths[0]
+    assert {path.name for path in report.parent.iterdir()} == {
+        report.name,
+        f"{report.name}.sha256",
+        f"{report.name}.sig",
+    }
+    assert Path(f"{report}.sha256").read_text(encoding="utf-8") == (
+        f"{backup_artifact.sha256_file(report)}  {report.name}\n"
+    )
+    assert not list(report_directory.glob(".*.restore-report-set.staging.*"))
+    assert metrics_file.is_file()
+
+
+@pytest.mark.parametrize("replacement_window", ("after-verify", "after-decrypt"))
+def test_restore_source_replacement_cannot_change_snapshot_or_report_digest(
+    tmp_path: Path,
+    replacement_window: str,
+) -> None:
+    (
+        environment,
+        _report_directory,
+        _metrics_file,
+        _sign_ready,
+    ) = _restore_rehearsal_test_environment(tmp_path)
+    backup_file = Path(environment["BACKUP_FILE"])
+    original_payload = backup_file.read_bytes()
+    original_digest = backup_artifact.sha256_file(backup_file)
+    observed_content = tmp_path / f"{replacement_window}-observed"
+    ready = tmp_path / f"{replacement_window}-ready"
+    release = tmp_path / f"{replacement_window}-release"
+    if replacement_window == "after-verify":
+        environment.update(
+            {
+                "RESTORE_TEST_VERIFY_CONTENT_FILE": str(observed_content),
+                "RESTORE_TEST_VERIFY_READY": str(ready),
+                "RESTORE_TEST_VERIFY_RELEASE": str(release),
+            }
+        )
+    else:
+        environment.update(
+            {
+                "RESTORE_TEST_AGE_CONTENT_FILE": str(observed_content),
+                "RESTORE_TEST_AGE_READY": str(ready),
+                "RESTORE_TEST_AGE_RELEASE": str(release),
+            }
+        )
+
+    process = subprocess.Popen(
+        [str(ROOT / "ops" / "scripts" / "restore_rehearsal.sh")],
+        cwd=ROOT,
+        env=environment,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+    )
+    try:
+        deadline = time.monotonic() + 10
+        while not ready.is_file() and process.poll() is None:
+            if time.monotonic() >= deadline:
+                stdout, stderr = process.communicate(timeout=1)
+                pytest.fail(
+                    "restore did not reach the coordinated replacement window: "
+                    f"stdout={stdout!r}, stderr={stderr!r}"
+                )
+            time.sleep(0.01)
+        assert process.poll() is None
+        replacement = tmp_path / "unsigned-replacement"
+        replacement.write_bytes(b"unsigned encrypted snapshot B")
+        replacement.replace(backup_file)
+        Path(f"{backup_file}.sig").write_bytes(b"signature B")
+        Path(f"{backup_file}.sha256").write_text(
+            f"{backup_artifact.sha256_file(backup_file)}  {backup_file.name}\n",
+            encoding="utf-8",
+        )
+        release.touch()
+        stdout, stderr = process.communicate(timeout=15)
+    finally:
+        if process.poll() is None:
+            process.kill()
+            process.wait(timeout=5)
+
+    assert process.returncode == 0, (stdout, stderr)
+    report = Path(stdout.strip().splitlines()[-1])
+    report_payload = json.loads(report.read_text(encoding="utf-8"))
+    assert observed_content.read_bytes() == original_payload
+    assert report_payload["artifactSha256"] == original_digest
+    assert backup_artifact.sha256_file(backup_file) != original_digest
+
+
+def test_same_target_restore_lock_fails_second_writer_before_pg_restore(
+    tmp_path: Path,
+) -> None:
+    (
+        environment,
+        _report_directory,
+        _metrics_file,
+        _sign_ready,
+    ) = _restore_rehearsal_test_environment(tmp_path)
+    lock_directory = tmp_path / "target-locks"
+    lock_directory.mkdir()
+    restore_barrier = tmp_path / "pg-restore-barrier"
+    restore_barrier.mkdir()
+    restore_release = tmp_path / "pg-restore-release"
+    environment.update(
+        {
+            "RESTORE_TEST_LOCK_DIRECTORY": str(lock_directory),
+            "RESTORE_TEST_PG_RESTORE_BARRIER": str(restore_barrier),
+            "RESTORE_TEST_PG_RESTORE_RELEASE": str(restore_release),
+        }
+    )
+
+    first = subprocess.Popen(
+        [str(ROOT / "ops" / "scripts" / "restore_rehearsal.sh")],
+        cwd=ROOT,
+        env=environment,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+    )
+    try:
+        deadline = time.monotonic() + 10
+        while not list(restore_barrier.iterdir()) and first.poll() is None:
+            if time.monotonic() >= deadline:
+                pytest.fail("first restore did not enter pg_restore")
+            time.sleep(0.01)
+        assert first.poll() is None
+        second = subprocess.run(
+            [str(ROOT / "ops" / "scripts" / "restore_rehearsal.sh")],
+            cwd=ROOT,
+            env=environment,
+            capture_output=True,
+            text=True,
+            timeout=15,
+            check=False,
+        )
+        assert second.returncode == 75, (second.stdout, second.stderr)
+        assert "already locked" in second.stderr
+        assert len(list(restore_barrier.iterdir())) == 1
+        restore_release.touch()
+        first_stdout, first_stderr = first.communicate(timeout=15)
+    finally:
+        if first.poll() is None:
+            first.kill()
+            first.wait(timeout=5)
+
+    assert first.returncode == 0, (first_stdout, first_stderr)
+
+
+def test_restore_advisory_lock_is_scoped_to_verified_database_identity(
+    db_engine: Engine,
+) -> None:
+    with (
+        psycopg.connect(_libpq_url(db_engine), autocommit=True) as holder,
+        psycopg.connect(_libpq_url(db_engine), autocommit=True) as contender,
+    ):
+        _, restore_identity, _ = backup_artifact._database_identities(holder)
+        other_identity = backup_artifact.hashlib.sha256(
+            f"{restore_identity}|different-database".encode("utf-8")
+        ).hexdigest()
+        lock_key = backup_artifact._restore_advisory_lock_key(restore_identity)
+        other_lock_key = backup_artifact._restore_advisory_lock_key(other_identity)
+        assert lock_key != other_lock_key
+
+        holder.execute("select pg_advisory_lock(%s)", (lock_key,))
+        try:
+            assert (
+                contender.execute(
+                    "select pg_try_advisory_lock(%s)",
+                    (lock_key,),
+                ).fetchone()[0]
+                is False
+            )
+            assert (
+                contender.execute(
+                    "select pg_try_advisory_lock(%s)",
+                    (other_lock_key,),
+                ).fetchone()[0]
+                is True
+            )
+            contender.execute(
+                "select pg_advisory_unlock(%s)",
+                (other_lock_key,),
+            )
+        finally:
+            holder.execute("select pg_advisory_unlock(%s)", (lock_key,))
+
+
+def test_different_target_restore_identities_do_not_share_a_lock(
+    tmp_path: Path,
+) -> None:
+    (
+        environment,
+        _report_directory,
+        _metrics_file,
+        _sign_ready,
+    ) = _restore_rehearsal_test_environment(tmp_path)
+    lock_directory = tmp_path / "target-locks"
+    lock_directory.mkdir()
+    restore_barrier = tmp_path / "pg-restore-barrier"
+    restore_barrier.mkdir()
+    restore_release = tmp_path / "pg-restore-release"
+    common = {
+        **environment,
+        "RESTORE_TEST_LOCK_DIRECTORY": str(lock_directory),
+        "RESTORE_TEST_PG_RESTORE_BARRIER": str(restore_barrier),
+        "RESTORE_TEST_PG_RESTORE_RELEASE": str(restore_release),
+    }
+    environments = [
+        {
+            **common,
+            "RESTORE_DATABASE_URL": (
+                f"postgresql://restore@127.0.0.1:5432/isolated_target_{index}"
+            ),
+        }
+        for index in range(2)
+    ]
+    processes = [
+        subprocess.Popen(
+            [str(ROOT / "ops" / "scripts" / "restore_rehearsal.sh")],
+            cwd=ROOT,
+            env=run_environment,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+        for run_environment in environments
+    ]
+    try:
+        deadline = time.monotonic() + 10
+        while len(list(restore_barrier.iterdir())) < 2 and all(
+            process.poll() is None for process in processes
+        ):
+            if time.monotonic() >= deadline:
+                pytest.fail("different restore targets did not both enter pg_restore")
+            time.sleep(0.01)
+        assert len(list(restore_barrier.iterdir())) == 2
+        restore_release.touch()
+        results = [process.communicate(timeout=15) for process in processes]
+    finally:
+        for process in processes:
+            if process.poll() is None:
+                process.kill()
+                process.wait(timeout=5)
+
+    assert [process.returncode for process in processes] == [0, 0], results
+
+
+def test_sigkill_residue_is_private_and_reaped_by_next_same_target_run(
+    tmp_path: Path,
+) -> None:
+    environment, report_directory, metrics_file, sign_ready = _restore_rehearsal_test_environment(
+        tmp_path
+    )
+    environment["RESTORE_TEST_BLOCK_SIGNING"] = "true"
+    process = subprocess.Popen(
+        [str(ROOT / "ops" / "scripts" / "restore_rehearsal.sh")],
+        cwd=ROOT,
+        env=environment,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        start_new_session=True,
+    )
+    try:
+        deadline = time.monotonic() + 10
+        while not sign_ready.is_file() and process.poll() is None:
+            if time.monotonic() >= deadline:
+                stdout, stderr = process.communicate(timeout=1)
+                pytest.fail(
+                    "restore did not reach the report-signing kill window: "
+                    f"stdout={stdout!r}, stderr={stderr!r}"
+                )
+            time.sleep(0.01)
+        assert process.poll() is None
+        os.killpg(process.pid, signal.SIGKILL)
+        process.wait(timeout=5)
+    finally:
+        if process.poll() is None:
+            os.killpg(process.pid, signal.SIGKILL)
+            process.wait(timeout=5)
+
+    assert not list(report_directory.glob("anan-*.restore-report-set"))
+    staging_directories = list(report_directory.glob(".*.restore-report-set.staging.*"))
+    assert len(staging_directories) == 1
+    staged_names = {path.name for path in staging_directories[0].iterdir()}
+    assert len(staged_names) == 2
+    assert all(name.startswith(".anan-") for name in staged_names)
+    assert any(name.endswith("-restore-report.json.partial") for name in staged_names)
+    assert any(name.endswith("-restore-report.json.sha256.partial") for name in staged_names)
+    assert not metrics_file.exists()
+    restore_identity = backup_artifact.hashlib.sha256(
+        environment["RESTORE_DATABASE_URL"].encode("utf-8")
+    ).hexdigest()
+    state_directory = Path(environment["RESTORE_REHEARSAL_STATE_DIRECTORY"])
+    workspaces = list(state_directory.glob(f".anan-restore-{restore_identity}.work.*"))
+    assert len(workspaces) == 1
+    stranded_workspace = workspaces[0]
+    assert stat.S_IMODE(stranded_workspace.stat().st_mode) == 0o700
+    assert (stranded_workspace / "backup.tar").is_file()
+    assert (stranded_workspace / "payload" / "database.dump").is_file()
+    stranded_staging = staging_directories[0]
+
+    environment["RESTORE_TEST_BLOCK_SIGNING"] = "false"
+    sign_ready.unlink(missing_ok=True)
+    rerun = subprocess.run(
+        [str(ROOT / "ops" / "scripts" / "restore_rehearsal.sh")],
+        cwd=ROOT,
+        env=environment,
+        capture_output=True,
+        text=True,
+        timeout=15,
+        check=False,
+    )
+
+    assert rerun.returncode == 0, (rerun.stdout, rerun.stderr)
+    assert not stranded_workspace.exists()
+    assert not stranded_staging.exists()
+    assert not list(state_directory.glob(f".anan-restore-{restore_identity}.work.*"))
+    assert not list(report_directory.glob(".*.restore-report-set.staging.*"))
+    assert len(list(report_directory.glob("anan-*.restore-report-set"))) == 1
+    assert metrics_file.is_file()
+
+
+@pytest.mark.parametrize(
+    "variable",
+    (
+        "PGHOST",
+        "PGHOSTADDR",
+        "PGPORT",
+        "PGDATABASE",
+        "PGUSER",
+        "PGSERVICE",
+        "PGSERVICEFILE",
+        "PGSSLMODE",
+        "PGOPTIONS",
+    ),
+)
+def test_database_authority_rejects_libpq_environment_overrides(
+    monkeypatch: pytest.MonkeyPatch,
+    variable: str,
+) -> None:
+    monkeypatch.setenv(variable, "attacker-controlled")
+
+    with pytest.raises(
+        backup_artifact.BackupContractError,
+        match="libpq environment",
+    ):
+        backup_artifact._validate_database_url("postgresql://backup@127.0.0.1:5432/gongkao")
+
+
+@pytest.mark.parametrize(
+    "database_url",
+    (
+        "postgresql:///gongkao",
+        "postgresql://backup@db.example.invalid/gongkao",
+        "postgresql://backup@db.example.invalid:5432/",
+        "postgresql://backup@db.example.invalid:5432/gongkao?hostaddr=127.0.0.1",
+        "service=production",
+    ),
+)
+def test_database_authority_requires_one_explicit_target(
+    database_url: str,
+) -> None:
+    with pytest.raises(backup_artifact.BackupContractError):
+        backup_artifact._validate_database_url(database_url)
+
+
+def test_restore_rejects_another_database_on_the_source_cluster() -> None:
+    source_cluster = backup_artifact.hashlib.sha256(b"cluster-1").hexdigest()
+    manifest = {
+        "sourceClusterIdentitySha256": source_cluster,
+        "sourceDatabaseIdentitySha256": "0" * 64,
+    }
+    authority = {
+        "databaseName": "disposable",
+        "clusterSystemIdentifierSha256": source_cluster,
+    }
+    connection = _IdentityConnection(
+        database_name="disposable",
+        database_oid="20000",
+        system_identifier="cluster-1",
+    )
+
+    with pytest.raises(
+        backup_artifact.BackupContractError,
+        match="source PostgreSQL cluster",
+    ):
+        backup_artifact._assert_restore_target_database(
+            connection=connection,
+            manifest=manifest,
+            target_authority=authority,
+        )
+
+
+def test_restore_target_authority_is_root_owned_and_executor_bound(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    authority_path = tmp_path / "restore-target.json"
+    executor_hash = "1" * 64
+    authority_path.write_text(
+        json.dumps(
+            {
+                "schemaVersion": backup_artifact.RESTORE_TARGET_FORMAT_VERSION,
+                "purpose": backup_artifact.RESTORE_TARGET_PURPOSE,
+                "environmentId": "isolated-restore-1",
+                "executorIdentitySha256": executor_hash,
+                "databaseName": "disposable",
+                "clusterSystemIdentifierSha256": "2" * 64,
+            }
+        ),
+        encoding="utf-8",
+    )
+    real_stat = Path.stat
+
+    def trusted_stat(path: Path, *args, **kwargs):
+        if path == authority_path:
+            return SimpleNamespace(st_uid=0, st_mode=stat.S_IFREG | 0o400)
+        return real_stat(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "stat", trusted_stat)
+    monkeypatch.setattr(
+        backup_artifact,
+        "_executor_identity_sha256",
+        lambda: executor_hash,
+    )
+
+    loaded = backup_artifact._load_restore_target_authority(
+        path=authority_path,
+        expected_environment_id="isolated-restore-1",
+    )
+
+    assert loaded["databaseName"] == "disposable"
+
+
+class _IdentityResult:
+    def __init__(self, row: tuple[str, str, str]) -> None:
+        self._row = row
+
+    def fetchone(self) -> tuple[str, str, str]:
+        return self._row
+
+
+class _IdentityConnection:
+    def __init__(
+        self,
+        *,
+        database_name: str,
+        database_oid: str,
+        system_identifier: str,
+    ) -> None:
+        self._row = (database_name, database_oid, system_identifier)
+
+    def execute(self, _query: str) -> _IdentityResult:
+        return _IdentityResult(self._row)
+
+
+def _restore_rehearsal_test_environment(
+    tmp_path: Path,
+) -> tuple[dict[str, str], Path, Path, Path]:
+    fake_bin = tmp_path / "bin"
+    fake_bin.mkdir()
+    report_directory = tmp_path / "restore-reports"
+    report_directory.mkdir()
+    metrics_directory = tmp_path / "metrics"
+    metrics_directory.mkdir()
+    metrics_file = metrics_directory / "restore.prom"
+    sign_ready = tmp_path / "report-sign-ready"
+
+    backup_run_id = "20260729T235959.123456789Z-" + ("5" * 32)
+    artifact_basename = f"anan-{backup_run_id}.backup.age"
+    backup_set = tmp_path / f"anan-{backup_run_id}.backup-set"
+    backup_set.mkdir()
+    backup_file = backup_set / artifact_basename
+    backup_file.write_bytes(b"encrypted backup fixture")
+    Path(f"{backup_file}.sig").write_bytes(b"backup signature fixture")
+    Path(f"{backup_file}.sha256").write_text(
+        f"{backup_artifact.sha256_file(backup_file)}  {artifact_basename}\n",
+        encoding="utf-8",
+    )
+
+    _write_executable(
+        fake_bin / "python3",
+        """#!/usr/bin/env bash
+set -euo pipefail
+helper="$1"
+shift
+command="$1"
+shift
+case "${command}" in
+  new-run-id)
+    if [[ -n "${RESTORE_TEST_FIXED_TIMESTAMP:-}" ]]; then
+      token="${RESTORE_TEST_FIXED_TOKEN:-}"
+      if [[ -z "${token}" ]]; then
+        token="$(
+          "${RESTORE_TEST_REAL_PYTHON}" \
+            -c 'import secrets; print(secrets.token_hex(16))'
+        )"
+      fi
+      printf '%s-%s\\n' "${RESTORE_TEST_FIXED_TIMESTAMP}" "${token}"
+    else
+      exec "${RESTORE_TEST_REAL_PYTHON}" "${helper}" new-run-id "$@"
+    fi
+    ;;
+  verify-set-layout|snapshot-restore-set|verify-restore-target-lock-ready|create-restore-workspace|reap-restore-residue|publish-restore-report-set)
+    exec "${RESTORE_TEST_REAL_PYTHON}" "${helper}" "${command}" "$@"
+    ;;
+  restore-target-identity)
+    database_url=""
+    while (( $# > 0 )); do
+      case "$1" in
+        --database-url) database_url="$2"; shift 2 ;;
+        *) shift ;;
+      esac
+    done
+    if [[ -n "${RESTORE_TEST_TARGET_IDENTITY:-}" ]]; then
+      printf '%s\n' "${RESTORE_TEST_TARGET_IDENTITY}"
+    else
+      printf '%s' "${database_url}" | shasum -a 256 | awk '{print $1}'
+    fi
+    ;;
+  hold-restore-target-lock)
+    expected_identity=""
+    ready_file=""
+    while (( $# > 0 )); do
+      case "$1" in
+        --expected-restore-identity) expected_identity="$2"; shift 2 ;;
+        --ready-file) ready_file="$2"; shift 2 ;;
+        *) shift ;;
+      esac
+    done
+    lock_path=""
+    cleanup_lock() {
+      if [[ -n "${lock_path}" ]]; then
+        rmdir "${lock_path}" 2>/dev/null || true
+      fi
+    }
+    trap cleanup_lock EXIT
+    trap 'exit 0' TERM INT
+    if [[ -n "${RESTORE_TEST_LOCK_DIRECTORY:-}" ]]; then
+      lock_path="${RESTORE_TEST_LOCK_DIRECTORY}/${expected_identity}.lock"
+      if ! mkdir "${lock_path}" 2>/dev/null; then
+        printf '%s\n' "test restore target is already locked" >&2
+        exit 75
+      fi
+    fi
+    printf '{"schemaVersion":"anan-restore-target-lock/v1","restoreIdentity":"%s","holderPid":%s}\n' \
+      "${expected_identity}" "$$" >"${ready_file}"
+    parent_pid="${PPID}"
+    while kill -0 "${parent_pid}" 2>/dev/null; do
+      sleep 0.02
+    done
+    ;;
+  extract)
+    output=""
+    while (( $# > 0 )); do
+      case "$1" in
+        --output-directory) output="$2"; shift 2 ;;
+        *) shift ;;
+      esac
+    done
+    mkdir -p "${output}"
+    printf '%s\\n' "fake custom dump" >"${output}/database.dump"
+    printf '%s\\n' '{"formatVersion":"test"}' >"${output}/manifest.json"
+    ;;
+  restore-preflight)
+    ;;
+  verify-restore)
+    report=""
+    artifact_sha256=""
+    while (( $# > 0 )); do
+      case "$1" in
+        --report) report="$2"; shift 2 ;;
+        --artifact-sha256) artifact_sha256="$2"; shift 2 ;;
+        *) shift ;;
+      esac
+    done
+    printf '{"result":"passed","writerPid":%s,"artifactSha256":"%s"}\\n' \
+      "$$" "${artifact_sha256}" >"${report}"
+    if [[ -n "${RESTORE_TEST_VERIFY_BARRIER:-}" ]]; then
+      : >"${RESTORE_TEST_VERIFY_BARRIER}/$$"
+      while [[ "$(
+        find "${RESTORE_TEST_VERIFY_BARRIER}" -type f | wc -l | tr -d ' '
+      )" -lt 2 ]]; do
+        sleep 0.01
+      done
+    fi
+    ;;
+  *)
+    printf '%s\\n' "unexpected fake python command: ${command}" >&2
+    exit 97
+    ;;
+esac
+""",
+    )
+    _write_executable(
+        fake_bin / "age",
+        """#!/usr/bin/env bash
+set -euo pipefail
+output=""
+input=""
+while (( $# > 0 )); do
+  case "$1" in
+    --identity) shift 2 ;;
+    --output) output="$2"; shift 2 ;;
+    *) input="$1"; shift ;;
+  esac
+done
+cp "${input}" "${output}"
+if [[ -n "${RESTORE_TEST_AGE_CONTENT_FILE:-}" ]]; then
+  cp "${input}" "${RESTORE_TEST_AGE_CONTENT_FILE}"
+fi
+if [[ -n "${RESTORE_TEST_AGE_READY:-}" ]]; then
+  : >"${RESTORE_TEST_AGE_READY}"
+  while [[ ! -f "${RESTORE_TEST_AGE_RELEASE}" ]]; do
+    sleep 0.01
+  done
+fi
+""",
+    )
+    _write_executable(
+        fake_bin / "openssl",
+        """#!/usr/bin/env bash
+set -euo pipefail
+is_sign="false"
+output=""
+input=""
+while (( $# > 0 )); do
+  case "$1" in
+    -sign)
+      is_sign="true"
+      shift 2
+      ;;
+    -out)
+      output="$2"
+      shift 2
+      ;;
+    *)
+      input="$1"
+      shift
+      ;;
+  esac
+done
+if [[ "${is_sign}" == "true" ]]; then
+  if [[ "${RESTORE_TEST_BLOCK_SIGNING:-false}" == "true" ]]; then
+    : >"${RESTORE_TEST_SIGN_READY}"
+    while :; do sleep 1; done
+  fi
+  printf 'signature for %s\\n' "$(basename "${input}")" >"${output}"
+elif [[ -n "${RESTORE_TEST_VERIFY_CONTENT_FILE:-}" ]]; then
+  cp "${input}" "${RESTORE_TEST_VERIFY_CONTENT_FILE}"
+  : >"${RESTORE_TEST_VERIFY_READY}"
+  while [[ ! -f "${RESTORE_TEST_VERIFY_RELEASE}" ]]; do
+    sleep 0.01
+  done
+fi
+""",
+    )
+    _write_executable(
+        fake_bin / "pg_restore",
+        """#!/usr/bin/env bash
+set -euo pipefail
+for argument in "$@"; do
+  if [[ "${argument}" == "--list" ]]; then
+    exit 0
+  fi
+done
+if [[ -n "${RESTORE_TEST_PG_RESTORE_BARRIER:-}" ]]; then
+  mkdir "${RESTORE_TEST_PG_RESTORE_BARRIER}/$$"
+  while [[ ! -f "${RESTORE_TEST_PG_RESTORE_RELEASE}" ]]; do
+    sleep 0.01
+  done
+fi
+""",
+    )
+
+    age_identity = tmp_path / "age-identity.txt"
+    backup_public_key = tmp_path / "backup-public.pem"
+    report_private_key = tmp_path / "report-private.pem"
+    target_identity = tmp_path / "restore-target.json"
+    for path in (
+        age_identity,
+        backup_public_key,
+        report_private_key,
+        target_identity,
+    ):
+        path.write_text("test fixture\n", encoding="utf-8")
+
+    environment = {
+        **os.environ,
+        "PATH": f"{fake_bin}:{os.environ['PATH']}",
+        "RESTORE_DATABASE_URL": ("postgresql://restore@127.0.0.1:5432/disposable"),
+        "BACKUP_FILE": str(backup_file),
+        "AGE_IDENTITY_FILE": str(age_identity),
+        "BACKUP_SIGNING_PUBLIC_KEY_FILE": str(backup_public_key),
+        "RESTORE_REPORT_SIGNING_PRIVATE_KEY_FILE": str(report_private_key),
+        "RESTORE_REHEARSAL_ACK": "isolated-disposable-database",
+        "RESTORE_TARGET_ENVIRONMENT_ID": "isolated-restore-1",
+        "RESTORE_TARGET_IDENTITY_FILE": str(target_identity),
+        "RESTORE_REPORT_DIRECTORY": str(report_directory),
+        "RESTORE_METRICS_FILE": str(metrics_file),
+        "RESTORE_REHEARSAL_STATE_DIRECTORY": str(tmp_path / "restore-state"),
+        "RESTORE_TEST_REAL_PYTHON": sys.executable,
+        "RESTORE_TEST_FIXED_TIMESTAMP": "20260730T010203.123456789Z",
+        "RESTORE_TEST_FIXED_TOKEN": "",
+        "RESTORE_TEST_VERIFY_BARRIER": "",
+        "RESTORE_TEST_BLOCK_SIGNING": "false",
+        "RESTORE_TEST_SIGN_READY": str(sign_ready),
+        "RESTORE_TEST_TARGET_IDENTITY": "",
+        "RESTORE_TEST_LOCK_DIRECTORY": "",
+        "RESTORE_TEST_VERIFY_CONTENT_FILE": "",
+        "RESTORE_TEST_VERIFY_READY": "",
+        "RESTORE_TEST_VERIFY_RELEASE": "",
+        "RESTORE_TEST_AGE_CONTENT_FILE": "",
+        "RESTORE_TEST_AGE_READY": "",
+        "RESTORE_TEST_AGE_RELEASE": "",
+        "RESTORE_TEST_PG_RESTORE_BARRIER": "",
+        "RESTORE_TEST_PG_RESTORE_RELEASE": "",
+    }
+    return environment, report_directory, metrics_file, sign_ready
+
+
+def _write_executable(path: Path, source: str) -> None:
+    path.write_text(source, encoding="utf-8")
+    path.chmod(0o755)

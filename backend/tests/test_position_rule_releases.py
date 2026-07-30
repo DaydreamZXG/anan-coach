@@ -8,12 +8,30 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
 
 from app.domains.qualification.rule_releases import (
+    PositionReleaseWindowInput,
     PositionRuleReleaseService,
     RuleReleaseContractError,
 )
 
 
 NOW = datetime(2026, 7, 12, 16, tzinfo=UTC)
+
+
+def _audited_windows() -> list[PositionReleaseWindowInput]:
+    return [
+        PositionReleaseWindowInput(
+            kind="primary",
+            sequence_no=1,
+            opens_at=datetime(2026, 7, 10, tzinfo=UTC),
+            closes_at=datetime(2026, 10, 31, tzinfo=UTC),
+            official_source_url="https://example.gov.cn/guokao/2026/announcement",
+            official_source_title="2026年度考试录用公务员公告",
+            official_source_published_at=datetime(2026, 7, 1, tzinfo=UTC),
+            official_source_received_at=datetime(2026, 7, 2, tzinfo=UTC),
+            official_source_sha256="a" * 64,
+            official_source_receipt="fixture-receipt-primary",
+        )
+    ]
 
 
 def _seed_positions(factory: sessionmaker[Session]) -> list[str]:
@@ -136,7 +154,10 @@ def test_compile_release_is_audited_conservative_and_idempotent(
     assert sum(row["requirements_count"] for row in audits) == len(requirements)
     manual_fields = {row["fact_key"] for row in requirements if row["operator"] == "manual_review"}
     assert manual_fields == {"major", "hukou", "other_conditions"}
-    assert all(row["source_reference"].startswith("product.positions:") for row in requirements)
+    assert all(
+        row["source_reference"].startswith("product.position_snapshots:guokao-2026-fixture-v1:")
+        for row in requirements
+    )
     assert {row["position_id"] for row in requirements}.issubset(set(position_ids))
     catalog_unavailable_count = sum(
         "major_catalog_unavailable" in row["warnings"] for row in audits
@@ -177,6 +198,11 @@ def test_activation_is_atomic_and_publishes_release_event(
             position_data_version="guokao-2026-fixture-v1",
         )
         service.compile_draft(session, release_id=release_id, compiled_at=NOW)
+        service.configure_windows(
+            session,
+            release_id=release_id,
+            windows=_audited_windows(),
+        )
         service.activate(session, release_id=release_id, activated_at=NOW)
 
     with db_session_factory() as session:

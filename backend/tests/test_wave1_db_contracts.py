@@ -41,6 +41,27 @@ def test_wave1_revisions_are_linear_and_single_head() -> None:
     revision75 = import_module("migrations.versions.20260729_75_xingce_delivery_selection_index")
     revision76 = import_module("migrations.versions.20260729_76_optional_reflection_text")
     revision77 = import_module("migrations.versions.20260730_77_xingce_selection_projection")
+    revision78 = import_module("migrations.versions.20260730_78_position_release_windows")
+    revision79 = import_module("migrations.versions.20260730_79_position_import_snapshots")
+    revision80 = import_module("migrations.versions.20260730_80_job_consumer_heartbeats")
+    revision81 = import_module(
+        "migrations.versions.20260730_81_commercial_data_publication_protocol"
+    )
+    revision82 = import_module("migrations.versions.20260730_82_position_authority_hardening")
+    revision83 = import_module(
+        "migrations.versions.20260730_83_commercial_publication_acl_hardening"
+    )
+    revision84 = import_module("migrations.versions.20260730_84_background_job_authority")
+    revision85 = import_module(
+        "migrations.versions.20260730_85_position_score_snapshot_immutability"
+    )
+    revision86 = import_module("migrations.versions.20260730_86_worker_heartbeat_principals")
+    revision87 = import_module(
+        "migrations.versions.20260730_87_recognition_operation_terminal_authority"
+    )
+    revision88 = import_module(
+        "migrations.versions.20260730_88_recognition_reconciliation_outcomes"
+    )
     script = ScriptDirectory.from_config(Config(str(BACKEND_ROOT / "alembic.ini")))
 
     assert revision71.down_revision == "20260728_70"
@@ -50,7 +71,26 @@ def test_wave1_revisions_are_linear_and_single_head() -> None:
     assert revision75.down_revision == "20260728_74"
     assert revision76.down_revision == "20260729_75"
     assert revision77.down_revision == "20260729_76"
-    assert script.get_heads() == ["20260730_77"]
+    assert revision78.down_revision == "20260730_77"
+    assert revision79.down_revision == "20260730_78"
+    assert revision80.down_revision == "20260730_79"
+    assert revision81.down_revision == "20260730_80"
+    assert revision82.down_revision == "20260730_81"
+    assert revision83.down_revision == "20260730_82"
+    assert revision84.down_revision == "20260730_83"
+    assert revision85.down_revision == "20260730_84"
+    assert revision86.down_revision == "20260730_85"
+    assert revision87.down_revision == "20260730_86"
+    assert revision88.down_revision == "20260730_87"
+    assert script.get_heads() == ["20260730_88"]
+    with pytest.raises(RuntimeError, match="forward-only"):
+        revision77.downgrade()
+    with pytest.raises(RuntimeError, match="forward-only"):
+        revision78.downgrade()
+    with pytest.raises(RuntimeError, match="forward-only"):
+        revision79.downgrade()
+    with pytest.raises(RuntimeError, match="forward-only"):
+        revision85.downgrade()
 
 
 def test_xingce_delivery_selection_has_release_question_covering_index(
@@ -170,6 +210,7 @@ def test_review_verdict_command_extends_receipts_without_weakening_append_only(
         "sqlalchemy.url",
         db_engine.url.render_as_string(hide_password=False),
     )
+    command.stamp(config, "20260728_71")
     with pytest.raises(RuntimeError, match="review-verdict receipts exist"):
         command.downgrade(config, "20260728_70")
     with db_engine.connect() as connection:
@@ -204,12 +245,12 @@ def test_job_lease_schema_preserves_legacy_nulls_and_fences_new_leases(
                 ) values
                 (
                   cast(:legacy_job_id as uuid), 'wave1-legacy-running',
-                  'data_rights_export', 'v1', '{}'::jsonb, 'running',
+                  'personal_data_export_v1', 'v1', '{}'::jsonb, 'running',
                   1, 3, now(), null, null, null
                 ),
                 (
                   cast(:valid_job_id as uuid), 'wave1-fenced-running',
-                  'data_rights_export', 'v1', '{}'::jsonb, 'running',
+                  'personal_data_export_v1', 'v1', '{}'::jsonb, 'running',
                   1, 3, now(), now(), cast(:claim_token as uuid),
                   now() + interval '5 minutes'
                 )
@@ -323,6 +364,7 @@ def test_job_lease_schema_preserves_legacy_nulls_and_fences_new_leases(
         "sqlalchemy.url",
         db_engine.url.render_as_string(hide_password=False),
     )
+    command.stamp(config, "20260728_72")
     with pytest.raises(RuntimeError, match="claim or lease facts exist"):
         command.downgrade(config, "20260728_71")
     with db_engine.connect() as connection:
@@ -362,6 +404,9 @@ def test_shadow_schema_matches_real_wave1_migration_round_trip(
         db_engine.url.render_as_string(hide_password=False),
     )
 
+    # Reposition only Alembic's test cursor so this historical round trip does
+    # not weaken the forward-only commercial authorities introduced at 80/81.
+    command.stamp(config, "20260730_79")
     command.downgrade(config, "20260728_70")
     command.upgrade(config, "head")
 

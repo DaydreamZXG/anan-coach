@@ -1,11 +1,9 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime
-from hashlib import sha256
 from importlib import import_module
 import json
 from pathlib import Path
-from uuid import uuid4
 
 from alembic import command
 from alembic.config import Config
@@ -14,11 +12,10 @@ from sqlalchemy import text
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session, sessionmaker
 
-from tests.test_planning_routes import _client
+from tests.test_knowledge_point_ability import _seed_xingce_assessments
 from tests.test_xingce_targeted_knowledge_selection import (
     _node,
     _seed_targeted_learner,
-    _targeted_task,
 )
 
 
@@ -36,7 +33,7 @@ class _OptionalMappingResult:
         return self._value
 
 
-def test_projection_indexes_are_built_and_removed_without_table_write_locks() -> None:
+def test_projection_indexes_are_built_without_table_write_locks() -> None:
     migration = import_module("migrations.versions.20260730_77_xingce_selection_projection")
 
     assert len(migration._CONCURRENT_INDEX_STATEMENTS) == 5
@@ -50,11 +47,13 @@ def test_projection_indexes_are_built_and_removed_without_table_write_locks() ->
     )
     assert len(migration._CONCURRENT_INDEX_NAMES) == 5
     assert migration._BACKFILL_BATCH_SIZE == 500
-    assert len(migration._CONCURRENT_DOWN_STATEMENTS) == 5
-    assert all(
-        "drop index concurrently if exists" in " ".join(statement.split()).lower()
-        for statement in migration._CONCURRENT_DOWN_STATEMENTS
-    )
+
+
+def test_selection_projection_migration_is_forward_only() -> None:
+    migration = import_module("migrations.versions.20260730_77_xingce_selection_projection")
+
+    with pytest.raises(RuntimeError, match="forward-only"):
+        migration.downgrade()
 
 
 @pytest.mark.parametrize(
@@ -233,14 +232,14 @@ def test_xingce_selection_projection_schema_uses_compatible_function_indexes(
 
 
 def test_projection_runtime_role_has_read_only_table_access(
-    db_engine: Engine,
+    db_engine_at_revision_76: Engine,
 ) -> None:
+    db_engine = db_engine_at_revision_76
     config = Config(str(BACKEND_ROOT / "alembic.ini"))
     config.set_main_option(
         "sqlalchemy.url",
         db_engine.url.render_as_string(hide_password=False),
     )
-    command.downgrade(config, "20260729_76")
     with db_engine.begin() as connection:
         connection.execute(
             text(
@@ -304,13 +303,21 @@ def test_projection_runtime_role_has_read_only_table_access(
                     """
                 )
             )
+            connection.execute(text("drop owned by gongkao_api"))
             connection.execute(text("drop role if exists gongkao_api"))
 
 
-def test_task_session_projection_is_replaceable_and_round_trips_from_revision_76(
-    db_engine: Engine,
-    db_session_factory: sessionmaker[Session],
+def test_task_session_projection_upgrades_from_revision_76_and_remains_replaceable(
+    db_engine_at_revision_76: Engine,
 ) -> None:
+    db_engine = db_engine_at_revision_76
+    db_session_factory = sessionmaker(
+        bind=db_engine,
+        autoflush=False,
+        autocommit=False,
+        expire_on_commit=False,
+        future=True,
+    )
     now = datetime.now(UTC)
     token = "selection-projection-migration-token"
     user_id = _seed_targeted_learner(
@@ -334,11 +341,15 @@ def test_task_session_projection_is_replaceable_and_round_trips_from_revision_76
             3: "projection-question-3",
         },
     )
-    task = _targeted_task(
-        _client(db_session_factory),
-        {"Authorization": f"Bearer {token}"},
+    _seed_xingce_assessments(
+        db_session_factory,
+        user_id=user_id,
+        id_prefix="selection-projection-migration",
+        rows=[
+            ("projection-question-1", True),
+            ("projection-question-2", False),
+        ],
     )
-    session_id = str(uuid4())
     safe_bundle = {
         "questions": [
             {"questionId": "projection-question-1"},
@@ -350,69 +361,25 @@ def test_task_session_projection_is_replaceable_and_round_trips_from_revision_76
     }
 
     with db_session_factory.begin() as session:
-        task_row = (
+        session_id = str(
             session.execute(
                 text(
                     """
-                    select plan_version_id, local_date
-                    from learning.daily_plan_tasks
-                    where task_id = cast(:task_id as uuid)
+                    select session_id
+                    from learning.xingce_task_sessions
+                    where user_id = cast(:user_id as uuid)
+                    order by created_at desc, session_id desc
+                    limit 1
                     """
                 ),
-                {"task_id": task["id"]},
+                {"user_id": user_id},
             )
-            .mappings()
+            .scalars()
             .one()
         )
         session.execute(
             text(
                 """
-                insert into learning.xingce_task_sessions (
-                  session_id, user_id, source_plan_task_id,
-                  source_plan_version_id, local_date, work_item_key,
-                  mode, state, revision, bundle_version_id,
-                  safe_bundle, scoring_bundle, current_question_id,
-                  checkpoint, total_elapsed_seconds, created_at, updated_at
-                ) values (
-                  cast(:session_id as uuid), cast(:user_id as uuid),
-                  cast(:source_plan_task_id as uuid),
-                  cast(:source_plan_version_id as uuid),
-                  :local_date, :work_item_key, 'targeted', 'active', 1,
-                  :bundle_version_id, cast(:safe_bundle as jsonb),
-                  '{}'::jsonb, 'projection-question-1',
-                  '{"answers":[]}'::jsonb, 0, :created_at, :created_at
-                )
-                """
-            ),
-            {
-                "session_id": session_id,
-                "user_id": user_id,
-                "source_plan_task_id": task["id"],
-                "source_plan_version_id": str(task_row["plan_version_id"]),
-                "local_date": task_row["local_date"],
-                "work_item_key": sha256(f"projection-test:{session_id}".encode()).hexdigest(),
-                "bundle_version_id": sha256(f"projection-bundle:{session_id}".encode()).hexdigest(),
-                "safe_bundle": json.dumps(safe_bundle),
-                "created_at": now,
-            },
-        )
-        projected = tuple(
-            session.execute(
-                text(
-                    """
-                    select question_id
-                    from learning.xingce_question_exposures
-                    where user_id = cast(:user_id as uuid)
-                      and session_id = cast(:session_id as uuid)
-                    order by question_id
-                    """
-                ),
-                {"user_id": user_id, "session_id": session_id},
-            ).scalars()
-        )
-        session.execute(
-            text(
-                """
                 update learning.xingce_task_sessions
                 set safe_bundle = cast(:safe_bundle as jsonb)
                 where session_id = cast(:session_id as uuid)
@@ -420,76 +387,16 @@ def test_task_session_projection_is_replaceable_and_round_trips_from_revision_76
                 """
             ),
             {
+                "session_id": session_id,
+                "user_id": user_id,
                 "safe_bundle": json.dumps(safe_bundle),
-                "session_id": session_id,
-                "user_id": user_id,
             },
         )
-        projected_count = int(
-            session.execute(
-                text(
-                    """
-                    select count(*)
-                    from learning.xingce_question_exposures
-                    where user_id = cast(:user_id as uuid)
-                      and session_id = cast(:session_id as uuid)
-                    """
-                ),
-                {"user_id": user_id, "session_id": session_id},
-            ).scalar_one()
-        )
-        replacement_bundle = {
-            "questions": [
-                {"questionId": "projection-question-2"},
-                {"questionId": "projection-question-3"},
-            ]
-        }
-        session.execute(
-            text(
-                """
-                update learning.xingce_task_sessions
-                set safe_bundle = cast(:safe_bundle as jsonb)
-                where session_id = cast(:session_id as uuid)
-                  and user_id = cast(:user_id as uuid)
-                """
-            ),
-            {
-                "safe_bundle": json.dumps(replacement_bundle),
-                "session_id": session_id,
-                "user_id": user_id,
-            },
-        )
-        replaced = tuple(
-            session.execute(
-                text(
-                    """
-                    select question_id
-                    from learning.xingce_question_exposures
-                    where user_id = cast(:user_id as uuid)
-                      and session_id = cast(:session_id as uuid)
-                    order by question_id
-                    """
-                ),
-                {"user_id": user_id, "session_id": session_id},
-            ).scalars()
-        )
-
-    assert projected == (
-        "projection-question-1",
-        "projection-question-2",
-    )
-    assert projected_count == 2
-    assert replaced == (
-        "projection-question-2",
-        "projection-question-3",
-    )
-
     config = Config(str(BACKEND_ROOT / "alembic.ini"))
     config.set_main_option(
         "sqlalchemy.url",
         db_engine.url.render_as_string(hide_password=False),
     )
-    command.downgrade(config, "20260729_76")
     with db_engine.begin() as connection:
         assert (
             connection.execute(
@@ -508,11 +415,46 @@ def test_task_session_projection_is_replaceable_and_round_trips_from_revision_76
             ),
             {"session_id": session_id, "user_id": user_id},
         ).scalar_one()
-    assert persisted_bundle == replacement_bundle
+    assert persisted_bundle == safe_bundle
 
     command.upgrade(config, "head")
     with db_engine.begin() as connection:
         backfilled = tuple(
+            connection.execute(
+                text(
+                    """
+                    select question_id
+                    from learning.xingce_question_exposures
+                    where user_id = cast(:user_id as uuid)
+                      and session_id = cast(:session_id as uuid)
+                    order by question_id
+                    """
+                ),
+                {"user_id": user_id, "session_id": session_id},
+            ).scalars()
+        )
+        replacement_bundle = {
+            "questions": [
+                {"questionId": "projection-question-2"},
+                {"questionId": "projection-question-3"},
+            ]
+        }
+        connection.execute(
+            text(
+                """
+                update learning.xingce_task_sessions
+                set safe_bundle = cast(:safe_bundle as jsonb)
+                where session_id = cast(:session_id as uuid)
+                  and user_id = cast(:user_id as uuid)
+                """
+            ),
+            {
+                "safe_bundle": json.dumps(replacement_bundle),
+                "session_id": session_id,
+                "user_id": user_id,
+            },
+        )
+        replaced = tuple(
             connection.execute(
                 text(
                     """
@@ -552,6 +494,10 @@ def test_task_session_projection_is_replaceable_and_round_trips_from_revision_76
         )
 
     assert backfilled == (
+        "projection-question-1",
+        "projection-question-2",
+    )
+    assert replaced == (
         "projection-question-2",
         "projection-question-3",
     )

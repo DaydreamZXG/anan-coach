@@ -14,8 +14,10 @@
     <state-view
       wx:elif="{{workspace.status === 'noActiveRelease'}}"
       state="empty"
-      title="本年度岗位尚未正式发布"
-      description="正式职位表发布后，这里会按你的资格自动筛选。"
+      title="{{workspace.error.title}}"
+      description="{{workspace.error.message}}"
+      action-text="查看能力分析"
+      bind:action="openPreparation"
     />
     <state-view
       wx:elif="{{workspace.status !== 'ready' && workspace.status !== 'empty'}}"

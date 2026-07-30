@@ -32,6 +32,7 @@ interface PositionGoalPageCustom {
   goBack(): void;
   retry(): void;
   openQualificationProfile(): void;
+  openPreparation(): void;
   openDetail(): void;
   confirmGoal(): void;
   openBeginnerBriefing(): void;
@@ -139,6 +140,10 @@ Page<PositionGoalPageData, PositionGoalPageCustom>({
 
   openQualificationProfile() {
     void wx.navigateTo({ url: routes.qualificationProfile });
+  },
+
+  openPreparation() {
+    void wx.switchTab({ url: routes.ability });
   },
 
   openDetail() {

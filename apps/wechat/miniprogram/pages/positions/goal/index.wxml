@@ -24,10 +24,10 @@
     <state-view
       wx:elif="{{state.status === 'noActiveRelease'}}"
       state="empty"
-      title="目标岗位已不在当前发布中"
-      description="返回岗位列表重新选择。"
-      action-text="返回核对"
-      bind:action="openDetail"
+      title="{{state.error.title}}"
+      description="{{state.error.message}}"
+      action-text="继续备考"
+      bind:action="openPreparation"
     />
     <state-view
       wx:elif="{{state.status !== 'ready' && state.status !== 'confirming' && state.status !== 'confirmed'}}"

@@ -18,7 +18,8 @@ from app.domains.onboarding.schemas import (
     PlacementSubmitResponse,
     PlacementTestTask,
 )
-from app.domains.positions.service import PositionService
+from app.domains.positions.target_scores import PositionTargetScoreOwner
+from sqlalchemy.orm import Session
 from app.domains.study_budget import (
     FULLTIME_DEFAULT_DAILY_MINUTES,
     PARTTIME_DEFAULT_DAILY_MINUTES,
@@ -39,13 +40,15 @@ class OnboardingService:
     def __init__(
         self,
         *,
+        session: Session,
         repository: OnboardingRepository,
         knowledge_service: KnowledgeService,
-        position_service: PositionService,
+        target_score_owner: PositionTargetScoreOwner | None = None,
     ) -> None:
+        self._session = session
         self._repository = repository
         self._knowledge_service = knowledge_service
-        self._position_service = position_service
+        self._target_score_owner = target_score_owner or PositionTargetScoreOwner()
 
     def get_profile(self, *, user_id: str) -> LearnerProfileRecord:
         return _memory_profile(self._repository.get_profile(user_id=user_id))
@@ -64,12 +67,24 @@ class OnboardingService:
                 else PARTTIME_DEFAULT_DAILY_MINUTES
             )
 
-        target_score = update.target_score
+        target_score = None
+        target_position_data_version = None
         if update.target_position_id:
-            position_target_score = self._position_service.target_score_for_position(
-                position_id=update.target_position_id
+            release_context = self._target_score_owner.active_context_for_position(
+                self._session,
+                position_id=update.target_position_id,
             )
-            target_score = position_target_score if position_target_score is not None else update.target_score
+            target_position_data_version = release_context.release.position_data_version
+            position_target_score = self._target_score_owner.range_for_position(
+                self._session,
+                position_id=update.target_position_id,
+                context=release_context,
+            )
+            target_score = (
+                position_target_score.recommended
+                if position_target_score is not None
+                else update.target_score
+            )
 
         profile = self._repository.upsert_profile(
             user_id=user_id,
@@ -82,6 +97,7 @@ class OnboardingService:
             daily_minutes=daily_minutes,
             target_position_id=update.target_position_id,
             target_score=target_score,
+            target_position_data_version=target_position_data_version,
             baseline_source=update.baseline_source,
             baseline_xingce_score=update.baseline_xingce_score,
             baseline_shenlun_score=update.baseline_shenlun_score,
@@ -150,9 +166,7 @@ class OnboardingService:
                 module_name=module,
                 correct=counts["correct"],
                 total=counts["total"],
-                accuracy=round(counts["correct"] / counts["total"], 4)
-                if counts["total"]
-                else 0.0,
+                accuracy=round(counts["correct"] / counts["total"], 4) if counts["total"] else 0.0,
             )
             for module, counts in sorted(module_totals.items())
         ]
@@ -208,6 +222,7 @@ def _memory_profile(record: OnboardingProfileRecord) -> LearnerProfileRecord:
         study_mode=record.study_mode,
         target_position_id=record.target_position_id,
         target_score=record.target_score,
+        target_position_data_version=record.target_position_data_version,
         baseline_source=record.baseline_source,
         baseline_xingce_score=record.baseline_xingce_score,
         baseline_shenlun_score=record.baseline_shenlun_score,

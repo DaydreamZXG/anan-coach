@@ -9,6 +9,7 @@ Group=deploy
 WorkingDirectory=/srv/gongkao-dazi/current/backend
 EnvironmentFile=/etc/gongkao-dazi/api.env
 EnvironmentFile=/etc/gongkao-dazi/db.env
+EnvironmentFile=/etc/gongkao-dazi/release-runtime.env
 ExecStart=/srv/gongkao-dazi/current/backend/.venv/bin/python -m app.workers.commerce
 Restart=always
 RestartSec=3

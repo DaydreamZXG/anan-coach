@@ -223,7 +223,7 @@ export const visualDeliveryContracts = [
   ),
   delivery("18:2", "d00-position-discovery-ready", "/pages/positions/index", ".position-content", [
     "岗位决策台",
-    "其他适合你的岗位",
+    "其他优势推荐",
   ]),
   delivery(
     "19:2",

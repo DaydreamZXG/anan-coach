@@ -16,12 +16,16 @@ BACKEND = Path(__file__).resolve().parents[2] / "backend"
 if str(BACKEND) not in sys.path:
     sys.path.insert(0, str(BACKEND))
 
-from app.core.config import get_settings  # noqa: E402
+from app.core.config import Settings, get_settings  # noqa: E402
 from app.internal_services.private_objects import PrivateObjectReader  # noqa: E402
 
 
-def audit(*, verify_private_object: bool) -> tuple[dict[str, object], bool]:
-    settings = get_settings()
+def audit(
+    *,
+    verify_private_object: bool,
+    settings: Settings | None = None,
+) -> tuple[dict[str, object], bool]:
+    settings = settings or get_settings()
     if not settings.database_url:
         raise SystemExit("DATABASE_URL is required")
     engine = create_engine(settings.database_url, pool_pre_ping=True, future=True)
@@ -53,9 +57,10 @@ def audit(*, verify_private_object: bool) -> tuple[dict[str, object], bool]:
             str(row["real_user_status"]): int(row["release_count"])
             for row in status_rows
         }
-        checks = connection.execute(
-            text(
-                """
+        checks = (
+            connection.execute(
+                text(
+                    """
                 select
                   (select count(*) from ai_audit.processor_release_records
                     where real_user_status = 'approved'
@@ -74,11 +79,73 @@ def audit(*, verify_private_object: bool) -> tuple[dict[str, object], bool]:
                         where receipt.model_call_id = call.call_id
                       )) as model_calls_without_receipt,
                   (select count(*) from ai_audit.external_ai_operation_ledger operation
-                    where operation.completed_at >= cast(:cutover as timestamptz)
+                    where operation.started_at >= cast(:cutover as timestamptz)
                       and not exists (
                         select 1 from ai_audit.external_processing_receipts receipt
                         where receipt.external_operation_id = operation.operation_id
                       )) as recognition_calls_without_receipt,
+                  (select count(*) from ai_audit.external_ai_operation_ledger operation
+                    where operation.status = 'running')
+                    as recognition_nonterminal_operations,
+                  (select count(*)
+                     from ai_audit.external_ai_operation_ledger operation
+                     left join commerce.feature_usage_reservations catalog_reservation
+                       on operation.reservation_source = 'catalog'
+                      and catalog_reservation.reservation_id = operation.reservation_id
+                     left join commerce.community_reward_ai_usage_reservations
+                       reward_reservation
+                       on operation.reservation_source = 'community_reward'
+                      and reward_reservation.reservation_id = operation.reservation_id
+                     left join commerce.community_reward_ai_usage_reservation_events
+                       reward_event
+                       on reward_event.reservation_id = reward_reservation.reservation_id
+                    where operation.reservation_id is not null
+                      and (
+                        operation.reservation_source not in ('catalog', 'community_reward')
+                        or (
+                          operation.reservation_source = 'catalog'
+                          and (
+                            catalog_reservation.reservation_id is null
+                            or (
+                              operation.status = 'running'
+                              and (operation.entitlement_state <> 'reserved'
+                                or catalog_reservation.status <> 'reserved')
+                            )
+                            or (
+                              operation.status = 'succeeded'
+                              and (operation.entitlement_state <> 'consumed'
+                                or catalog_reservation.status <> 'consumed')
+                            )
+                            or (
+                              operation.status in ('failed', 'outcome_unknown')
+                              and (operation.entitlement_state <> 'released'
+                                or catalog_reservation.status <> 'refunded')
+                            )
+                          )
+                        )
+                        or (
+                          operation.reservation_source = 'community_reward'
+                          and (
+                            reward_reservation.reservation_id is null
+                            or (
+                              operation.status = 'running'
+                              and (operation.entitlement_state <> 'reserved'
+                                or reward_event.reservation_id is not null)
+                            )
+                            or (
+                              operation.status = 'succeeded'
+                              and (operation.entitlement_state <> 'consumed'
+                                or reward_event.event_type is distinct from 'consumed')
+                            )
+                            or (
+                              operation.status in ('failed', 'outcome_unknown')
+                              and (operation.entitlement_state <> 'released'
+                                or reward_event.event_type is distinct from 'released')
+                            )
+                          )
+                        )
+                      ))
+                    as recognition_quota_lifecycle_mismatches,
                   (select count(*) from product.community_method_card_candidates candidate
                     where candidate.created_at >= cast(:cutover as timestamptz)
                       and not exists (
@@ -94,27 +161,51 @@ def audit(*, verify_private_object: bool) -> tuple[dict[str, object], bool]:
                         ('tos://' || :bucket || '/private/%'))
                     as invalid_private_object_refs
                 """
-            ),
-            {"cutover": cutover, "bucket": settings.tos_bucket},
-        ).mappings().one()
+                ),
+                {"cutover": cutover, "bucket": settings.tos_bucket},
+            )
+            .mappings()
+            .one()
+        )
         integer_checks = {key: int(value) for key, value in checks.items()}
         for key, value in integer_checks.items():
             if value:
                 failures.append(f"{key}:{value}")
+        recognition_usage_rows = connection.execute(
+            text(
+                """
+                select operation.usage_state, count(*) as receipt_count
+                  from ai_audit.external_processing_receipts receipt
+                  join ai_audit.external_ai_operation_ledger operation
+                    on operation.operation_id = receipt.external_operation_id
+                 where receipt.purpose = 'recognition_process'
+                 group by operation.usage_state
+                 order by operation.usage_state
+                """
+            )
+        ).mappings()
+        recognition_usage_counts = {
+            str(row["usage_state"]): int(row["receipt_count"])
+            for row in recognition_usage_rows
+        }
 
         object_probe: dict[str, object] = {"requested": verify_private_object}
         if verify_private_object:
-            artifact = connection.execute(
-                text(
-                    """
+            artifact = (
+                connection.execute(
+                    text(
+                        """
                     select object_ref, content_sha256, byte_size, mime_type
                     from learning.source_artifact_versions
                     where state = 'available' and object_ref is not null
                     order by created_at desc
                     limit 1
                     """
+                    )
                 )
-            ).mappings().one_or_none()
+                .mappings()
+                .one_or_none()
+            )
             if artifact is None:
                 failures.append("private_object_probe:no_available_artifact")
                 object_probe["status"] = "no_available_artifact"
@@ -147,6 +238,16 @@ def audit(*, verify_private_object: bool) -> tuple[dict[str, object], bool]:
         "processorReleaseCounts": release_counts,
         "realUserDispatchEnabled": release_counts.get("approved", 0) > 0,
         "checks": integer_checks,
+        "recognitionReceiptUsageStateCounts": recognition_usage_counts,
+        "receiptSemantics": (
+            "external_processing_receipts are durable authorized dispatch intents; "
+            "they are not standalone proof of provider egress or acceptance. "
+            "For OCR, join external_ai_operation_ledger.usage_state: "
+            "not_dispatched proves local rejection before provider I/O, actual "
+            "records a received provider response with conservative cost attribution "
+            "(not provider acceptance or invoiceable usage), and unknown records an "
+            "unknowable outcome."
+        ),
         "privateObjectProbe": object_probe,
         "failures": failures,
         "passed": not failures,

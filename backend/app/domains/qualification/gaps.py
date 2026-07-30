@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from datetime import datetime
+
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
@@ -11,19 +13,33 @@ class QualificationGapService:
     def __init__(self, repository: QualificationRepository | None = None) -> None:
         self._repository = repository or QualificationRepository()
 
-    def summarize(self, session: Session, *, user_id: str) -> QualificationGapSummary:
-        release = self._repository.active_release(session, exam_code="guokao")
+    def summarize(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        now: datetime | None = None,
+    ) -> QualificationGapSummary:
+        release = self._repository.active_release(
+            session,
+            exam_code="guokao",
+            now=now,
+        )
         profile_version = self._repository.get_profile_version(session, user_id=user_id)
-        rows = session.execute(
-            text(_QUALIFICATION_GAPS_SQL),
-            {
-                "user_id": user_id,
-                "profile_version": profile_version,
-                "exam_year": release.exam_year,
-                "rule_set_version": release.rule_set_version,
-                "position_data_version": release.position_data_version,
-            },
-        ).mappings().all()
+        rows = (
+            session.execute(
+                text(_QUALIFICATION_GAPS_SQL),
+                {
+                    "user_id": user_id,
+                    "profile_version": profile_version,
+                    "exam_year": release.exam_year,
+                    "rule_set_version": release.rule_set_version,
+                    "position_data_version": release.position_data_version,
+                },
+            )
+            .mappings()
+            .all()
+        )
         gaps = [
             QualificationGap(
                 fact_key=row["fact_key"],
@@ -71,6 +87,19 @@ latest_confirmations as (
     and profile_version <= cast(:profile_version as bigint)
   order by requirement_id, profile_version desc, confirmed_at desc
 ),
+effective_positions as (
+  select snapshot.position_id, snapshot.year, snapshot.position_code
+  from product.position_snapshots snapshot
+  where snapshot.position_data_version = :position_data_version
+  union all
+  select position.position_id, position.year, position.position_code
+  from product.positions position
+  where not exists (
+    select 1
+    from product.position_import_batches import_batch
+    where import_batch.position_data_version = :position_data_version
+  )
+),
 classified as (
   select
     requirement.position_id,
@@ -85,7 +114,7 @@ classified as (
       else null
     end as gap_type
   from product.position_requirements requirement
-  join product.positions position
+  join effective_positions position
     on position.position_id = requirement.position_id
    and position.year = cast(:exam_year as integer)
   join product.position_rule_compilations compilation

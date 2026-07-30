@@ -14,8 +14,9 @@ import {
   type Weekday,
 } from "../../features/onboarding/study-preference";
 import type { OnboardingNextStep } from "../../features/onboarding/types";
+import { studyMinutesScrollTargets, type StudyMinutesScrollTargets } from "./scroll-position";
 
-interface StudyPreferencePageData {
+interface StudyPreferencePageData extends StudyMinutesScrollTargets {
   state: StudyPreferenceControllerState | null;
   weekdays: ReadonlyArray<{ value: Weekday; label: string }>;
   timeOptions: ReadonlyArray<StudyTimeOption>;
@@ -46,7 +47,15 @@ const weekdays: StudyPreferencePageData["weekdays"] = [
 ];
 
 Page<StudyPreferencePageData, StudyPreferencePageCustom>({
-  data: { state: null, weekdays, timeOptions: studyTimeOptions },
+  data: {
+    state: null,
+    weekdays,
+    timeOptions: studyTimeOptions,
+    ...studyMinutesScrollTargets({
+      weekdayMinutes: studyTimeOptions[0]?.minutes ?? 30,
+      weekendMinutes: studyTimeOptions[0]?.minutes ?? 30,
+    }),
+  },
 
   onLoad() {
     mountController(this);
@@ -109,7 +118,9 @@ function mountController(page: StudyPreferencePage): void {
     api: new OnboardingApi(new ApiClient(undefined, session.accessToken)),
     mode: "settings",
     onChange: (state) => {
-      if (runtimes.owns(page, runtime)) page.setData({ state });
+      if (runtimes.owns(page, runtime)) {
+        page.setData({ state, ...studyMinutesScrollTargets(state.draft) });
+      }
     },
     onAdvance: (step) => {
       if (runtimes.owns(page, runtime)) navigateOnboardingStep(step);
@@ -132,7 +143,8 @@ function mountController(page: StudyPreferencePage): void {
     },
   });
   runtime.controller = controller;
-  page.setData({ state: controller.snapshot() });
+  const state = controller.snapshot();
+  page.setData({ state, ...studyMinutesScrollTargets(state.draft) });
   void controller.load();
 }
 

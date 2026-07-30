@@ -5,9 +5,10 @@ from decimal import Decimal
 from uuid import uuid4
 
 from sqlalchemy import text
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, sessionmaker
 
 from app.contracts.external_learning.models import RecognitionKind
+from app.core.config import Settings
 from app.domains.external_ingestion.matching.models import (
     AuthorizationDecision,
     IndexedContent,
@@ -26,6 +27,9 @@ from app.domains.external_ingestion.recognition.models import (
     TextSpan,
 )
 from app.domains.external_ingestion.recognition.processor import ProcessorRegistry
+from app.domains.external_ingestion.recognition.operations import (
+    SQLRecognitionOperationCoordinator,
+)
 from app.domains.external_ingestion.recognition.repository import SQLRecognitionRepository
 from app.domains.external_ingestion.recognition.service import RecognitionService
 
@@ -77,6 +81,7 @@ class SQLRoundTripAuthorization:
 
 def test_sql_repositories_preserve_immutable_recognition_and_match_lineage(
     db_session: Session,
+    db_session_factory: sessionmaker[Session],
 ) -> None:
     owner = uuid4()
     artifact = uuid4()
@@ -108,6 +113,7 @@ def test_sql_repositories_preserve_immutable_recognition_and_match_lineage(
             "created_at": NOW,
         },
     )
+    db_session.commit()
     recognition_repository = SQLRecognitionRepository(db_session)
     approval = ProcessorApproval(
         policyVersion="ocr-private@2026-07",
@@ -125,14 +131,23 @@ def test_sql_repositories_preserve_immutable_recognition_and_match_lineage(
         dpaEvidenceRef="dpa:sql-test",
         securityReviewRef="security:sql-test",
         approvalReceiptRef="approval:sql-test",
+        providerIdempotencyCapability="replayable_queryable",
+        providerIdempotencyScope="provider_account",
+        providerIdempotencyKeyHeader="Idempotency-Key",
+        providerRequestIdSource="body:providerRequestId",
+        providerReplayRetentionSeconds=604_800,
+        providerIdempotencyEvidenceRef="provider-contract:sql-test",
         validFrom=NOW - timedelta(days=1),
         validUntil=NOW + timedelta(days=1),
     )
     recognition_service = RecognitionService(
         repository=recognition_repository,
-        processors=ProcessorRegistry(
-            (approval,), {"ocr-primary": SQLRoundTripProcessor()}
+        operations=SQLRecognitionOperationCoordinator(
+            session_factory=db_session_factory,
+            settings=Settings(),
+            processor_endpoint_fingerprint="e" * 64,
         ),
+        processors=ProcessorRegistry((approval,), {"ocr-primary": SQLRoundTripProcessor()}),
         clock=lambda: NOW,
     )
     candidate = recognition_service.recognize(
@@ -150,17 +165,24 @@ def test_sql_repositories_preserve_immutable_recognition_and_match_lineage(
     )
 
     assert confirmed.supersedes_recognition_revision_id == candidate.recognition_revision_id
-    assert recognition_repository.revision(
-        recognition_revision_id=confirmed.recognition_revision_id
-    ) == confirmed
-    cost = db_session.execute(
-        text(
-            "select scenario_key, operation, model, billing_unit, unit_count, "
-            "total_cost_cny, status from ai_audit.external_ai_operation_ledger "
-            "where operation_key = :operation_key"
-        ),
-        {"operation_key": f"recognition:{candidate.recognition_revision_id}"},
-    ).mappings().one()
+    assert (
+        recognition_repository.revision(recognition_revision_id=confirmed.recognition_revision_id)
+        == confirmed
+    )
+    cost = (
+        db_session.execute(
+            text(
+                "select scenario_key, operation, model, billing_unit, unit_count, "
+                "total_cost_cny, status, usage_state, entitlement_state, "
+                "reservation_id, reservation_source "
+                "from ai_audit.external_ai_operation_ledger "
+                "where operation_key = :operation_key"
+            ),
+            {"operation_key": f"recognition:{candidate.recognition_revision_id}"},
+        )
+        .mappings()
+        .one()
+    )
     assert cost["scenario_key"] == "recognition_printed_ocr"
     assert cost["operation"] == "recognition_process"
     assert cost["model"] == "sql-ocr-model@v1"
@@ -168,6 +190,30 @@ def test_sql_repositories_preserve_immutable_recognition_and_match_lineage(
     assert cost["unit_count"] == 1
     assert cost["total_cost_cny"] == Decimal("0.01")
     assert cost["status"] == "succeeded"
+    assert cost["usage_state"] == "actual"
+    assert cost["entitlement_state"] == "consumed"
+    assert cost["reservation_id"] is not None
+    assert cost["reservation_source"] == "catalog"
+    assert (
+        db_session.execute(
+            text(
+                "select count(*) from ai_audit.external_processing_receipts "
+                "where external_operation_id = :operation_id"
+            ),
+            {"operation_id": str(candidate.recognition_revision_id)},
+        ).scalar_one()
+        == 1
+    )
+    assert (
+        db_session.execute(
+            text(
+                "select status from commerce.feature_usage_reservations "
+                "where reservation_id = :reservation_id"
+            ),
+            {"reservation_id": str(cost["reservation_id"])},
+        ).scalar_one()
+        == "consumed"
+    )
 
     indexed = IndexedContent(
         contentVersionId="question-content-version-sql-1",
@@ -220,20 +266,27 @@ def test_sql_repositories_preserve_immutable_recognition_and_match_lineage(
     assert match_confirmed.supersedes_content_match_version_id == (
         match_candidate.content_match_version_id
     )
-    assert matching_repository.version(
-        content_match_version_id=match_confirmed.content_match_version_id
-    ) == match_confirmed
-    assert db_session.execute(
-        text(
-            "select count(*) from learning.recognition_revisions "
-            "where owner_user_id = :owner"
-        ),
-        {"owner": str(owner)},
-    ).scalar_one() == 2
-    assert db_session.execute(
-        text(
-            "select count(*) from learning.content_match_versions "
-            "where owner_user_id = :owner"
-        ),
-        {"owner": str(owner)},
-    ).scalar_one() == 2
+    assert (
+        matching_repository.version(
+            content_match_version_id=match_confirmed.content_match_version_id
+        )
+        == match_confirmed
+    )
+    assert (
+        db_session.execute(
+            text(
+                "select count(*) from learning.recognition_revisions where owner_user_id = :owner"
+            ),
+            {"owner": str(owner)},
+        ).scalar_one()
+        == 2
+    )
+    assert (
+        db_session.execute(
+            text(
+                "select count(*) from learning.content_match_versions where owner_user_id = :owner"
+            ),
+            {"owner": str(owner)},
+        ).scalar_one()
+        == 2
+    )

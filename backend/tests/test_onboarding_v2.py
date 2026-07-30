@@ -54,14 +54,14 @@ def test_v2_onboarding_progress_is_resumable_idempotent_and_auditable(
         headers={**headers, "Idempotency-Key": "qualification-facts-a02"},
         json={
             "facts": [
-                    {"key": "education", "value": "本科"},
-                    {"key": "major", "value": "法学"},
-                    {"key": "graduation_year", "value": 2026},
-                    {"key": "fresh_graduate", "value": True},
-                    {"key": "political_status", "value": "群众"},
-                    {"key": "work_years", "value": 0},
-                    {"key": "grassroots_years", "value": 0},
-                    {"key": "service_project", "value": "无"},
+                {"key": "education", "value": "本科"},
+                {"key": "major", "value": "法学"},
+                {"key": "graduation_year", "value": 2026},
+                {"key": "fresh_graduate", "value": True},
+                {"key": "political_status", "value": "群众"},
+                {"key": "work_years", "value": 0},
+                {"key": "grassroots_years", "value": 0},
+                {"key": "service_project", "value": "无"},
             ]
         },
     )
@@ -87,10 +87,7 @@ def test_v2_onboarding_progress_is_resumable_idempotent_and_auditable(
         headers=headers,
     )
     assert missing_position_preference.status_code == 404
-    assert (
-        missing_position_preference.json()["code"]
-        == "position_preference_missing"
-    )
+    assert missing_position_preference.json()["code"] == "position_preference_missing"
     position_preference_command = {
         "expectedPreferenceVersion": 0,
         "preferredRegions": ["北京"],
@@ -112,20 +109,14 @@ def test_v2_onboarding_progress_is_resumable_idempotent_and_auditable(
         json=position_preference_command,
     )
     assert position_preference_replay.status_code == 200
-    assert (
-        position_preference_replay.json()["data"]
-        == position_preference.json()["data"]
-    )
+    assert position_preference_replay.json()["data"] == position_preference.json()["data"]
     position_preference_changed_replay = client.put(
         "/api/v2/onboarding/position-preference",
         headers={**headers, "Idempotency-Key": "position-preference-a04"},
         json={**position_preference_command, "acceptsRelocation": False},
     )
     assert position_preference_changed_replay.status_code == 409
-    assert (
-        position_preference_changed_replay.json()["code"]
-        == "idempotency_key_reused"
-    )
+    assert position_preference_changed_replay.json()["code"] == "idempotency_key_reused"
     stale_position_preference = client.put(
         "/api/v2/onboarding/position-preference",
         headers={**headers, "Idempotency-Key": "position-preference-stale"},
@@ -135,10 +126,7 @@ def test_v2_onboarding_progress_is_resumable_idempotent_and_auditable(
         },
     )
     assert stale_position_preference.status_code == 409
-    assert (
-        stale_position_preference.json()["code"]
-        == "position_preference_version_conflict"
-    )
+    assert stale_position_preference.json()["code"] == "position_preference_version_conflict"
 
     resumed = client.post(
         "/api/v2/auth/wechat",
@@ -280,64 +268,86 @@ def test_v2_onboarding_progress_is_resumable_idempotent_and_auditable(
     assert final_auth["onboardingProgress"]["nextStep"] == "workspace"
 
     with db_session_factory() as session:
-        projection = session.execute(
-            text(
-                """
+        projection = (
+            session.execute(
+                text(
+                    """
                 select profile.onboarding_complete, progress.completed,
                        progress.progress_version
                 from learner.profiles profile
                 join learner.onboarding_progress progress using (user_id)
                 where profile.user_id = cast(:user_id as uuid)
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
         assert projection["onboarding_complete"] is True
         assert projection["completed"] is True
         assert projection["progress_version"] == 5
-        assert session.execute(
-            text(
-                "select count(*) from learner.onboarding_progress_events "
-                "where user_id = cast(:user_id as uuid)"
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 4
-        assert session.execute(
-            text(
-                "select count(*) from learning.weekly_study_preference_versions "
-                "where user_id = cast(:user_id as uuid)"
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 1
-        assert session.execute(
-            text(
-                "select count(*) from learner.position_preference_versions "
-                "where user_id = cast(:user_id as uuid)"
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 1
-        assert session.execute(
-            text(
-                "select count(*) "
-                "from learner.ability_baseline_declaration_versions "
-                "where user_id = cast(:user_id as uuid)"
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 2
-        assert session.execute(
-            text(
-                "select count(*) from learning.score_evidence "
-                "where user_id = cast(:user_id as uuid)"
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 1
-        assert session.execute(
-            text(
-                "select count(*) from platform.outbox_events "
-                "where aggregate_id = :user_id and event_type like 'onboarding.%'"
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 6
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from learner.onboarding_progress_events "
+                    "where user_id = cast(:user_id as uuid)"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 4
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from learning.weekly_study_preference_versions "
+                    "where user_id = cast(:user_id as uuid)"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 1
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from learner.position_preference_versions "
+                    "where user_id = cast(:user_id as uuid)"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 1
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) "
+                    "from learner.ability_baseline_declaration_versions "
+                    "where user_id = cast(:user_id as uuid)"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 2
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from learning.score_evidence "
+                    "where user_id = cast(:user_id as uuid)"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 1
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from platform.outbox_events "
+                    "where aggregate_id = :user_id and event_type like 'onboarding.%'"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 6
+        )
 
 
 def test_v2_onboarding_returns_stable_missing_and_version_errors(
@@ -438,11 +448,14 @@ def test_qualification_revision_invalidates_only_an_open_milestone(
         {"key": "grassroots_years", "value": 0},
         {"key": "service_project", "value": "无"},
     ]
-    assert client.put(
-        "/api/v2/qualification/profile",
-        headers={**headers, "Idempotency-Key": "facts-before-confirmation"},
-        json={"facts": original_facts},
-    ).status_code == 200
+    assert (
+        client.put(
+            "/api/v2/qualification/profile",
+            headers={**headers, "Idempotency-Key": "facts-before-confirmation"},
+            json={"facts": original_facts},
+        ).status_code
+        == 200
+    )
     confirmed = client.post(
         "/api/v2/onboarding/qualification/complete",
         headers={**headers, "Idempotency-Key": "qualification-confirmed"},
@@ -458,9 +471,7 @@ def test_qualification_revision_invalidates_only_an_open_milestone(
         headers={**headers, "Idempotency-Key": "facts-after-confirmation"},
         json={
             "facts": [
-                {**fact, "value": "行政管理"}
-                if fact["key"] == "major"
-                else fact
+                {**fact, "value": "行政管理"} if fact["key"] == "major" else fact
                 for fact in original_facts
             ]
         },
@@ -478,9 +489,7 @@ def test_qualification_revision_invalidates_only_an_open_milestone(
         headers={**headers, "Idempotency-Key": "facts-after-confirmation"},
         json={
             "facts": [
-                {**fact, "value": "行政管理"}
-                if fact["key"] == "major"
-                else fact
+                {**fact, "value": "行政管理"} if fact["key"] == "major" else fact
                 for fact in original_facts
             ]
         },
@@ -492,7 +501,10 @@ def test_qualification_revision_invalidates_only_an_open_milestone(
 def test_onboarding_result_requires_parallel_current_scores_before_gap(
     db_session_factory: sessionmaker[Session],
 ) -> None:
-    _seed_active_release(db_session_factory)
+    release_id, release_valid_until = _seed_position_release(
+        db_session_factory,
+        activate=False,
+    )
     client = _client(db_session_factory)
     login = client.post(
         "/api/v2/auth/wechat",
@@ -546,6 +558,8 @@ def test_onboarding_result_requires_parallel_current_scores_before_gap(
     position_id = _seed_current_goal_and_partial_estimate(
         db_session_factory,
         user_id=user_id,
+        release_id=release_id,
+        release_valid_until=release_valid_until,
     )
 
     partial = client.get("/api/v2/onboarding/result", headers=headers)
@@ -568,10 +582,7 @@ def test_onboarding_result_requires_parallel_current_scores_before_gap(
     assert complete_data["abilityEstimate"]["xingce"] is not None
     assert complete_data["abilityEstimate"]["shenlun"] is not None
     assert complete_data["scoreGap"]["unit"] == "points"
-    assert (
-        complete_data["scoreGap"]["direction"]
-        == "positive_means_target_above_current"
-    )
+    assert complete_data["scoreGap"]["direction"] == "positive_means_target_above_current"
     assert complete_data["scoreGap"]["lower"] <= complete_data["scoreGap"]["upper"]
     assert complete_data["validUntil"] is not None
 
@@ -615,6 +626,18 @@ def _record_preparation_experience(
 
 
 def _seed_active_release(factory: sessionmaker[Session]) -> None:
+    _seed_position_release(factory, activate=True)
+
+
+def _seed_position_release(
+    factory: sessionmaker[Session],
+    *,
+    activate: bool,
+) -> tuple[str, datetime]:
+    release_id = str(uuid4())
+    activated_at = datetime.now(UTC)
+    opens_at = activated_at - timedelta(days=1)
+    closes_at = activated_at + timedelta(days=30)
     with factory.begin() as session:
         session.execute(
             text(
@@ -623,19 +646,74 @@ def _seed_active_release(factory: sessionmaker[Session]) -> None:
                   release_id, exam_code, exam_year, rule_set_version,
                   position_data_version, status, activated_at
                 ) values (
-                  gen_random_uuid(), 'guokao', 2026, 'guokao-2026-onboarding',
-                  'guokao-2026-onboarding-data', 'active', :activated_at
+                  cast(:release_id as uuid), 'guokao', 2026,
+                  'guokao-2026-onboarding', 'guokao-2026-onboarding-data',
+                  'draft', null
                 )
                 """
             ),
-            {"activated_at": datetime.now(UTC)},
+            {"release_id": release_id},
         )
+        session.execute(
+            text(
+                """
+                insert into product.position_release_windows (
+                  window_id, release_id, window_kind, sequence_no,
+                  opens_at, closes_at, official_source_url,
+                  official_source_title, official_source_published_at,
+                  official_source_received_at, official_source_sha256,
+                  official_source_receipt
+                ) values (
+                  gen_random_uuid(), cast(:release_id as uuid), 'primary', 1,
+                  :opens_at, :closes_at,
+                  'https://example.gov.cn/guokao/onboarding-fixture',
+                  '新手引导测试岗位发布窗口', :published_at, :received_at,
+                  :source_sha256, 'onboarding-v2-fixture'
+                )
+                """
+            ),
+            {
+                "release_id": release_id,
+                "opens_at": opens_at,
+                "closes_at": closes_at,
+                "published_at": opens_at - timedelta(days=2),
+                "received_at": opens_at - timedelta(days=1),
+                "source_sha256": "d" * 64,
+            },
+        )
+        if activate:
+            _activate_release(
+                session,
+                release_id=release_id,
+                activated_at=activated_at,
+            )
+    return release_id, closes_at
+
+
+def _activate_release(
+    session: Session,
+    *,
+    release_id: str,
+    activated_at: datetime,
+) -> None:
+    session.execute(
+        text(
+            """
+            update product.position_rule_releases
+            set status = 'active', activated_at = :activated_at
+            where release_id = cast(:release_id as uuid)
+            """
+        ),
+        {"release_id": release_id, "activated_at": activated_at},
+    )
 
 
 def _seed_current_goal_and_partial_estimate(
     factory: sessionmaker[Session],
     *,
     user_id: str,
+    release_id: str,
+    release_valid_until: datetime,
 ) -> str:
     position_id = str(uuid4())
     snapshot_id = str(uuid4())
@@ -687,6 +765,11 @@ def _seed_current_goal_and_partial_estimate(
                 ),
                 {"position_id": position_id, "evidence_id": evidence_id},
             )
+        _activate_release(
+            session,
+            release_id=release_id,
+            activated_at=now,
+        )
         session.execute(
             text(
                 """
@@ -732,7 +815,7 @@ def _seed_current_goal_and_partial_estimate(
                 "position_id": position_id,
                 "snapshot_id": snapshot_id,
                 "now": now,
-                "valid_until": now + timedelta(days=30),
+                "valid_until": release_valid_until,
             },
         )
         partial_summary = {

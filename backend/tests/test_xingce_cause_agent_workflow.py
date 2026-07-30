@@ -95,28 +95,38 @@ def test_reflection_worker_candidate_and_confirmation_are_one_audited_chain(
     ]
 
     with db_session_factory() as session:
-        assert session.execute(
-            text("select count(*) from learning.xingce_confirmed_cause_versions")
-        ).scalar_one() == 1
-        run = session.execute(
-            text(
-                "select state, model_call_count, tool_call_count "
-                "from ai_audit.agent_run_versions "
-                "where not exists (select 1 from ai_audit.agent_run_versions newer "
-                "where newer.supersedes_run_version_id = agent_run_versions.run_version_id)"
+        assert (
+            session.execute(
+                text("select count(*) from learning.xingce_confirmed_cause_versions")
+            ).scalar_one()
+            == 1
+        )
+        run = (
+            session.execute(
+                text(
+                    "select state, model_call_count, tool_call_count "
+                    "from ai_audit.agent_run_versions "
+                    "where not exists (select 1 from ai_audit.agent_run_versions newer "
+                    "where newer.supersedes_run_version_id = agent_run_versions.run_version_id)"
+                )
             )
-        ).mappings().one()
+            .mappings()
+            .one()
+        )
         assert dict(run) == {
             "state": "candidate_ready",
             "model_call_count": 1,
             "tool_call_count": 6,
         }
-        assert session.execute(
-            text(
-                "select count(*) from ai_audit.agent_tool_call_events "
-                "where event_type = 'succeeded'"
-            )
-        ).scalar_one() == 6
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from ai_audit.agent_tool_call_events "
+                    "where event_type = 'succeeded'"
+                )
+            ).scalar_one()
+            == 6
+        )
 
 
 def test_multiple_due_mastery_projects_only_the_selected_frozen_decision_evidence(
@@ -272,26 +282,34 @@ def test_followup_reuses_frozen_evidence_and_cannot_create_extra_tool_calls(
     assert provider.followup_answers == [None, "我是漏看了题干中“不正确”三个字。"]
 
     with db_session_factory() as session:
-        current_run = session.execute(
-            text(
-                "select state, followup_round, model_call_count, tool_call_count "
-                "from ai_audit.agent_run_versions run "
-                "where not exists (select 1 from ai_audit.agent_run_versions newer "
-                "where newer.supersedes_run_version_id = run.run_version_id)"
+        current_run = (
+            session.execute(
+                text(
+                    "select state, followup_round, model_call_count, tool_call_count "
+                    "from ai_audit.agent_run_versions run "
+                    "where not exists (select 1 from ai_audit.agent_run_versions newer "
+                    "where newer.supersedes_run_version_id = run.run_version_id)"
+                )
             )
-        ).mappings().one()
+            .mappings()
+            .one()
+        )
         assert dict(current_run) == {
             "state": "candidate_ready",
             "followup_round": 1,
             "model_call_count": 2,
             "tool_call_count": 6,
         }
-        assert session.execute(
-            text("select count(*) from ai_audit.agent_tool_call_events")
-        ).scalar_one() == 18
-        assert session.execute(
-            text("select count(*) from ai_audit.model_call_ledger")
-        ).scalar_one() == 2
+        assert (
+            session.execute(
+                text("select count(*) from ai_audit.agent_tool_call_events")
+            ).scalar_one()
+            == 18
+        )
+        assert (
+            session.execute(text("select count(*) from ai_audit.model_call_ledger")).scalar_one()
+            == 2
+        )
 
 
 def test_reject_and_defer_never_materialize_a_confirmed_cause(
@@ -346,9 +364,12 @@ def test_reject_and_defer_never_materialize_a_confirmed_cause(
     assert deferred.status_code == 200, deferred.text
     assert deferred.json()["data"]["review"]["causeDecision"]["decision"] == "defer"
     with db_session_factory() as session:
-        assert session.execute(
-            text("select count(*) from learning.xingce_confirmed_cause_versions")
-        ).scalar_one() == 0
+        assert (
+            session.execute(
+                text("select count(*) from learning.xingce_confirmed_cause_versions")
+            ).scalar_one()
+            == 0
+        )
 
 
 def test_ungrounded_provider_output_is_published_as_audited_termination(
@@ -365,7 +386,11 @@ def test_ungrounded_provider_output_is_published_as_audited_termination(
         submitted["review"],
         key="cause-termination-reflection",
     )
-    _run_one(db_session_factory, SequenceProvider(["invalid_grounding"]))
+    _run_one(
+        db_session_factory,
+        SequenceProvider(["invalid_grounding"]),
+        expected_status="failed",
+    )
 
     current = client.get(
         f"/api/v2/xingce/task-sessions/{submitted['sessionId']}",
@@ -373,18 +398,20 @@ def test_ungrounded_provider_output_is_published_as_audited_termination(
     ).json()["data"]
     assert current["state"] == "cause_agent_terminated"
     assert current["review"]["aiCandidate"]["state"] == "terminated"
-    assert current["review"]["aiCandidate"]["reason"] == (
-        "cause_agent_output_not_grounded"
-    )
+    assert current["review"]["aiCandidate"]["reason"] == ("cause_agent_output_not_grounded")
     with db_session_factory() as session:
-        run = session.execute(
-            text(
-                "select state, termination_reason, model_call_count, tool_call_count "
-                "from ai_audit.agent_run_versions run "
-                "where not exists (select 1 from ai_audit.agent_run_versions newer "
-                "where newer.supersedes_run_version_id = run.run_version_id)"
+        run = (
+            session.execute(
+                text(
+                    "select state, termination_reason, model_call_count, tool_call_count "
+                    "from ai_audit.agent_run_versions run "
+                    "where not exists (select 1 from ai_audit.agent_run_versions newer "
+                    "where newer.supersedes_run_version_id = run.run_version_id)"
+                )
             )
-        ).mappings().one()
+            .mappings()
+            .one()
+        )
         assert dict(run) == {
             "state": "terminated",
             "termination_reason": "cause_agent_output_not_grounded",
@@ -495,9 +522,12 @@ def test_reflection_is_durable_while_provider_configuration_recovers(
     assert retry is not None
     assert retry.status == "queued"
     with db_session_factory.begin() as session:
-        assert session.execute(
-            text("select count(*) from learning.xingce_reflection_versions")
-        ).scalar_one() == 1
+        assert (
+            session.execute(
+                text("select count(*) from learning.xingce_reflection_versions")
+            ).scalar_one()
+            == 1
+        )
         session.execute(
             text(
                 "update platform.background_jobs "
@@ -521,7 +551,9 @@ def test_reflection_is_durable_while_provider_configuration_recovers(
     assert current.json()["data"]["state"] == "cause_decision_required"
 
 
-def _reflect(client: Any, auth: dict[str, str], review: dict[str, Any], *, key: str) -> dict[str, Any]:
+def _reflect(
+    client: Any, auth: dict[str, str], review: dict[str, Any], *, key: str
+) -> dict[str, Any]:
     response = client.put(
         f"/api/v2/xingce/attempt-reviews/{review['reviewId']}/reflection",
         headers={**auth, "Idempotency-Key": key},
@@ -541,6 +573,8 @@ def _reflect(client: Any, auth: dict[str, str], review: dict[str, Any], *, key: 
 def _run_one(
     factory: sessionmaker[Session],
     provider: SequenceProvider,
+    *,
+    expected_status: str = "succeeded",
 ) -> None:
     worker = CauseAgentWorker(
         settings=Settings(),
@@ -555,7 +589,7 @@ def _run_one(
     with factory() as session:
         completed = worker.process_next(session)
     assert completed is not None
-    assert completed.status == "succeeded"
+    assert completed.status == expected_status
 
 
 def _verification_decision_bindings(view: dict[str, Any]) -> list[dict[str, Any]]:

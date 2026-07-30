@@ -107,6 +107,7 @@ class QualificationApplicationService:
         release = self._repository.active_release_for_position(
             session,
             position_id=position_id,
+            now=now,
         )
         profile_version = self._repository.get_profile_version(session, user_id=user_id)
         facts = self._repository.list_current_facts(session, user_id=user_id)

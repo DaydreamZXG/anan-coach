@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Annotated
+from typing import Annotated, NoReturn
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 
@@ -16,6 +16,16 @@ from app.domains.positions.router import get_position_service
 from app.domains.positions.service import PositionService
 
 router = APIRouter(prefix="/api/v1/position-decisions", tags=["position-decisions"])
+
+
+def _raise_release_unbound_endpoint_retired() -> NoReturn:
+    raise HTTPException(
+        status_code=status.HTTP_410_GONE,
+        detail=(
+            "Release-unbound position recommendations are retired; "
+            "use /api/v2/qualification/positions/workspace"
+        ),
+    )
 
 
 def get_position_decision_service(
@@ -45,6 +55,7 @@ def recommend_positions(
     limit: int = Query(default=30, ge=1, le=100),
 ) -> PositionDecisionResponse:
     del current_user
+    _raise_release_unbound_endpoint_retired()
     try:
         return service.recommend_positions(
             year=year,

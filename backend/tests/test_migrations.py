@@ -67,15 +67,11 @@ def test_artifact_database_contract_matches_single_alembic_head() -> None:
 
 def test_release_switches_enforce_artifact_database_compatibility() -> None:
     for script_name in ("activate_release.sh", "rollback_release.sh"):
-        script = (
-            BACKEND_ROOT.parent / "ops" / "scripts" / script_name
-        ).read_text(encoding="utf-8")
+        script = (BACKEND_ROOT.parent / "ops" / "scripts" / script_name).read_text(encoding="utf-8")
         compatibility_check = script.index(
             "-m app.core.database_compatibility compatible-revisions"
         )
-        database_check = script.index(
-            "-m app.core.database_compatibility assert-current"
-        )
+        database_check = script.index("-m app.core.database_compatibility assert-current")
         pointer_switch = script.index('ln -sfn "${target}" "${current_link}"')
 
         assert compatibility_check < database_check < pointer_switch
@@ -107,9 +103,7 @@ def test_revision_33_legacy_repository_interface_rejects_head_runtime(
 def test_messaging_runtime_access_migration_grants_current_and_future_objects(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    migration = import_module(
-        "migrations.versions.20260721_48_messaging_runtime_access"
-    )
+    migration = import_module("migrations.versions.20260721_48_messaging_runtime_access")
     bind = _RuntimeGrantBind(runtime_role_exists=True)
     monkeypatch.setattr(migration.op, "get_bind", lambda: bind)
 
@@ -117,10 +111,8 @@ def test_messaging_runtime_access_migration_grants_current_and_future_objects(
 
     assert bind.statements == [
         "grant usage on schema messaging to gongkao_api",
-        "grant select, insert, update, delete on all tables "
-        "in schema messaging to gongkao_api",
-        "grant usage, select, update on all sequences "
-        "in schema messaging to gongkao_api",
+        "grant select, insert, update, delete on all tables in schema messaging to gongkao_api",
+        "grant usage, select, update on all sequences in schema messaging to gongkao_api",
         "alter default privileges in schema messaging "
         "grant select, insert, update, delete on tables to gongkao_api",
         "alter default privileges in schema messaging "
@@ -131,9 +123,7 @@ def test_messaging_runtime_access_migration_grants_current_and_future_objects(
 def test_messaging_runtime_access_migration_is_inert_without_runtime_role(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    migration = import_module(
-        "migrations.versions.20260721_48_messaging_runtime_access"
-    )
+    migration = import_module("migrations.versions.20260721_48_messaging_runtime_access")
     bind = _RuntimeGrantBind(runtime_role_exists=False)
     monkeypatch.setattr(migration.op, "get_bind", lambda: bind)
 
@@ -287,8 +277,9 @@ def _seed_v12_onboarding_history(engine: Engine) -> None:
 
 
 def test_wechat_identity_migration_upgrades_from_audited_baseline(
-    db_engine: Engine,
+    db_engine_at_revision_64: Engine,
 ) -> None:
+    db_engine = db_engine_at_revision_64
     shadow_schema_fingerprint = _w0_migration_owned_schema_fingerprint(db_engine)
     shadow_data_fingerprint = _w0_migration_owned_data_fingerprint(db_engine)
     config = Config(str(BACKEND_ROOT / "alembic.ini"))
@@ -296,29 +287,16 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
         "sqlalchemy.url",
         db_engine.url.render_as_string(hide_password=False),
     )
-    # The shared fixture installs the current schema directly. Revert the
-    # knowledge-map release migration through its real downgrade before
-    # reconstructing the audited v12 shape, otherwise the later full upgrade
-    # would encounter release objects that did not exist at v12.
-    command.downgrade(config, "20260727_64")
-
     with db_engine.begin() as connection:
-        # conftest installs the current schema before this test reconstructs the
-        # audited v12 baseline. Remove every later object so Alembic upgrades
-        # from the same database shape that production v12 actually had.
+        # This fixture starts at v64, the last boundary before the immutable
+        # knowledge-release chain. Reconstruct the audited legacy shape only
+        # inside this isolated PostgreSQL instance; never downgrade through a
+        # forward-only production migration.
         connection.execute(text("drop schema if exists messaging cascade"))
-        migration35 = import_module(
-            "migrations.versions.20260717_35_commerce_privacy_operations"
-        )
-        migration30 = import_module(
-            "migrations.versions.20260716_30_community_production_closure"
-        )
-        migration34 = import_module(
-            "migrations.versions.20260716_34_ai_governance"
-        )
-        migration28 = import_module(
-            "migrations.versions.20260716_28_community_method_cards"
-        )
+        migration35 = import_module("migrations.versions.20260717_35_commerce_privacy_operations")
+        migration30 = import_module("migrations.versions.20260716_30_community_production_closure")
+        migration34 = import_module("migrations.versions.20260716_34_ai_governance")
+        migration28 = import_module("migrations.versions.20260716_28_community_method_cards")
         definitions = connection.execute(
             text(
                 "select definition from privacy.append_only_function_snapshots "
@@ -327,58 +305,36 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
         ).scalars()
         for definition in definitions:
             connection.exec_driver_sql(str(definition))
-        connection.execute(
-            text("drop function if exists privacy.erasure_authorized(jsonb)")
-        )
+        connection.execute(text("drop function if exists privacy.erasure_authorized(jsonb)"))
         for table_name in reversed(migration35._PRIVACY_TABLES):
-            connection.execute(
-                text(f"drop table if exists privacy.{table_name} cascade")
-            )
+            connection.execute(text(f"drop table if exists privacy.{table_name} cascade"))
         for table_name in reversed(migration35._COMMERCE_TABLES):
-            connection.execute(
-                text(f"drop table if exists commerce.{table_name} cascade")
-            )
-        connection.execute(
-            text("drop table if exists learning.retake_program_versions cascade")
-        )
+            connection.execute(text(f"drop table if exists commerce.{table_name} cascade"))
+        connection.execute(text("drop table if exists learning.retake_program_versions cascade"))
         connection.execute(
             text("alter table learning.score_evidence drop column if exists erased_at")
         )
         connection.execute(
-            text(
-                "drop table if exists "
-                "learner.ability_baseline_declaration_versions cascade"
-            )
+            text("drop table if exists learner.ability_baseline_declaration_versions cascade")
         )
         connection.execute(
-            text(
-                "drop function if exists "
-                "learner.enforce_ability_baseline_immutability()"
-            )
+            text("drop function if exists learner.enforce_ability_baseline_immutability()")
         )
         connection.execute(
             text("drop table if exists learner.position_preference_versions cascade")
         )
         connection.execute(
-            text(
-                "drop function if exists "
-                "learner.enforce_position_preference_immutability()"
-            )
+            text("drop function if exists learner.enforce_position_preference_immutability()")
         )
         connection.execute(
             text("drop function if exists commerce.enforce_stage8_state_transition()")
         )
         connection.execute(text("drop schema if exists privacy cascade"))
         connection.execute(
-            text(
-                "delete from commerce.iap_products "
-                "where product_id = 'founder_experience_30d'"
-            )
+            text("delete from commerce.iap_products where product_id = 'founder_experience_30d'")
         )
         for table_name in reversed(migration34._TABLES):
-            connection.execute(
-                text(f"drop table if exists ai_audit.{table_name} cascade")
-            )
+            connection.execute(text(f"drop table if exists ai_audit.{table_name} cascade"))
         for function_name in (
             "ai_audit.validate_external_ai_operation",
             "ai_audit.validate_model_call_attribution",
@@ -391,9 +347,7 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
             *migration28._DROP_ORDER,
         )
         for table_name, schema_name in later_tables:
-            connection.execute(
-                text(f"drop table if exists {schema_name}.{table_name} cascade")
-            )
+            connection.execute(text(f"drop table if exists {schema_name}.{table_name} cascade"))
         for function_name in (
             "commerce.validate_community_membership_activation",
             "commerce.validate_community_ai_reservation_event",
@@ -403,9 +357,7 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
             "product.reject_community_method_history_mutation",
         ):
             connection.execute(text(f"drop function if exists {function_name}()"))
-        connection.execute(
-            text("drop table learner.mock_exam_trajectory_events cascade")
-        )
+        connection.execute(text("drop table learner.mock_exam_trajectory_events cascade"))
         connection.execute(
             text(
                 "alter table learner.mock_exam_sessions "
@@ -414,26 +366,16 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
             )
         )
         connection.execute(
-            text(
-                "drop index if exists "
-                "learner.mock_exam_source_plan_task_unique_idx"
-            )
+            text("drop index if exists learner.mock_exam_source_plan_task_unique_idx")
         )
         connection.execute(
-            text(
-                "alter table learner.mock_exam_sessions "
-                "drop column if exists source_plan_task_id"
-            )
+            text("alter table learner.mock_exam_sessions drop column if exists source_plan_task_id")
         )
         connection.execute(text("drop table product.mock_exam_paper_versions cascade"))
-        connection.execute(
-            text("drop table product.mock_exam_scoring_policy_versions cascade")
-        )
+        connection.execute(text("drop table product.mock_exam_scoring_policy_versions cascade"))
         connection.execute(text("drop table learner.mock_exam_commands"))
         connection.execute(text("drop index learner.mock_exam_one_assigned_per_owner_idx"))
-        connection.execute(
-            text("drop table learner.mock_exam_session_supersessions")
-        )
+        connection.execute(text("drop table learner.mock_exam_session_supersessions"))
         for column in (
             "scoring_snapshot",
             "learner_bundle",
@@ -443,12 +385,8 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
             "started_at",
             "revision",
         ):
-            connection.execute(
-                text(f"alter table learner.mock_exam_sessions drop column {column}")
-            )
-        connection.execute(
-            text("drop table if exists product.question_visual_fingerprints")
-        )
+            connection.execute(text(f"alter table learner.mock_exam_sessions drop column {column}"))
+        connection.execute(text("drop table if exists product.question_visual_fingerprints"))
         connection.execute(
             text(
                 "alter table product.question_occurrences "
@@ -474,51 +412,31 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
             )
         )
         connection.execute(text("drop table product.question_quality_heads"))
-        connection.execute(
-            text("drop table product.question_quality_decision_disputes")
-        )
+        connection.execute(text("drop table product.question_quality_decision_disputes"))
         connection.execute(text("drop table product.question_quality_commands"))
-        connection.execute(
-            text("drop table product.question_quality_decision_versions")
-        )
+        connection.execute(text("drop table product.question_quality_decision_versions"))
         connection.execute(text("drop table product.question_content_heads"))
         connection.execute(text("drop table product.question_content_versions"))
-        connection.execute(
-            text("drop function product.reject_question_content_version_mutation()")
-        )
+        connection.execute(text("drop function product.reject_question_content_version_mutation()"))
         connection.execute(text("drop index product.product_question_stem_trgm_idx"))
-        connection.execute(
-            text("drop table product.content_license_authorization_snapshots")
-        )
+        connection.execute(text("drop table product.content_license_authorization_snapshots"))
         connection.execute(text("drop table product.content_license_heads"))
-        connection.execute(
-            text("drop table product.content_license_record_versions")
-        )
+        connection.execute(text("drop table product.content_license_record_versions"))
         connection.execute(text("drop table product.content_license_commands"))
-        connection.execute(
-            text("drop function product.reject_content_license_history_mutation()")
-        )
+        connection.execute(text("drop function product.reject_content_license_history_mutation()"))
         connection.execute(text("drop table learner.onboarding_progress_events"))
         connection.execute(text("drop table learner.onboarding_commands"))
         connection.execute(text("drop table learner.onboarding_progress"))
         connection.execute(text("drop table learner.preparation_experience_versions"))
         connection.execute(
-            text(
-                "drop function learner.enforce_preparation_experience_immutability()"
-            )
+            text("drop function learner.enforce_preparation_experience_immutability()")
         )
-        connection.execute(
-            text("drop function learner.enforce_onboarding_progress_transition()")
-        )
-        connection.execute(
-            text("drop function learner.reject_onboarding_history_mutation()")
-        )
+        connection.execute(text("drop function learner.enforce_onboarding_progress_transition()"))
+        connection.execute(text("drop function learner.reject_onboarding_history_mutation()"))
         connection.execute(
             text("drop trigger onboarding_profile_enforce_projection on learner.profiles")
         )
-        connection.execute(
-            text("drop function learner.enforce_onboarding_profile_projection()")
-        )
+        connection.execute(text("drop function learner.enforce_onboarding_profile_projection()"))
         connection.execute(text("drop table commerce.feature_usage_reservations"))
         connection.execute(
             text("drop function commerce.enforce_feature_usage_reservation_update()")
@@ -531,43 +449,25 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
             "user_entitlements",
             "iap_products",
         ):
-            connection.execute(
-                text(f"drop table commerce.{table_name}")
-            )
+            connection.execute(text(f"drop table commerce.{table_name}"))
         connection.execute(text("drop table ai_audit.agent_tool_call_events"))
         connection.execute(text("drop table ai_audit.agent_run_versions"))
         connection.execute(text("drop table ai_audit.agent_definition_releases"))
-        connection.execute(
-            text("drop table ai_audit.essay_review_grading_bindings cascade")
-        )
-        connection.execute(
-            text("drop table ai_audit.essay_grading_adjudications cascade")
-        )
-        connection.execute(
-            text("drop table ai_audit.essay_grading_candidates cascade")
-        )
+        connection.execute(text("drop table ai_audit.essay_review_grading_bindings cascade"))
+        connection.execute(text("drop table ai_audit.essay_grading_adjudications cascade"))
+        connection.execute(text("drop table ai_audit.essay_grading_candidates cascade"))
         connection.execute(text("drop table ai_audit.essay_grading_runs cascade"))
         connection.execute(text("drop table ai_audit.essay_review_model_calls"))
         connection.execute(text("drop table ai_audit.essay_review_checkpoints"))
-        connection.execute(
-            text("drop table ai_audit.external_processing_receipts cascade")
-        )
-        connection.execute(
-            text("drop function ai_audit.validate_external_processing_receipt()")
-        )
-        connection.execute(
-            text("drop table ai_audit.processor_release_records cascade")
-        )
+        connection.execute(text("drop table ai_audit.external_processing_receipts cascade"))
+        connection.execute(text("drop function ai_audit.validate_external_processing_receipt()"))
+        connection.execute(text("drop table ai_audit.processor_release_records cascade"))
         connection.execute(
             text("drop table ai_audit.external_processing_boundary_releases cascade")
         )
         connection.execute(text("drop table ai_audit.model_call_ledger cascade"))
-        connection.execute(
-            text("drop function ai_audit.enforce_model_call_ledger_transition()")
-        )
-        connection.execute(
-            text("drop function ai_audit.reject_append_only_mutation()")
-        )
+        connection.execute(text("drop function ai_audit.enforce_model_call_ledger_transition()"))
+        connection.execute(text("drop function ai_audit.reject_append_only_mutation()"))
         connection.execute(text("drop schema learning cascade"))
         connection.execute(text("drop table product.essay_rubric_versions"))
         connection.execute(text("drop table product.essay_material_segments"))
@@ -587,17 +487,10 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
         connection.execute(text("drop table product.position_rule_releases"))
         connection.execute(text("alter table learner.app_sessions drop column revoked_reason"))
         connection.execute(
-            text(
-                "alter table learner.users "
-                "drop constraint if exists users_avatar_style_check"
-            )
+            text("alter table learner.users drop constraint if exists users_avatar_style_check")
         )
-        connection.execute(
-            text("alter table learner.users drop column if exists avatar_style")
-        )
-        connection.execute(
-            text("alter table learner.users drop column account_status_changed_at")
-        )
+        connection.execute(text("alter table learner.users drop column if exists avatar_style"))
+        connection.execute(text("alter table learner.users drop column account_status_changed_at"))
         connection.execute(text("alter table learner.users drop column account_status"))
         connection.execute(text("alter table learner.profiles drop column profile_version"))
         connection.execute(text("drop table learner.wechat_identities"))
@@ -669,24 +562,27 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
         command.upgrade(config, "20260713_12")
         _seed_v12_essay_history(db_engine)
         _seed_v12_onboarding_history(db_engine)
+        command.upgrade(config, "20260727_64")
         command.upgrade(config, "head")
 
-        assert (
-            _w0_migration_owned_schema_fingerprint(db_engine)
-            == shadow_schema_fingerprint
-        )
-        assert (
-            _w0_migration_owned_data_fingerprint(db_engine)
-            == shadow_data_fingerprint
-        )
+        assert _w0_migration_owned_schema_fingerprint(db_engine) == shadow_schema_fingerprint
+        upgraded_data_fingerprint = _w0_migration_owned_data_fingerprint(db_engine)
+        assert set(shadow_data_fingerprint).issubset(upgraded_data_fingerprint)
+        assert {
+            row[1] for row in upgraded_data_fingerprint if row not in shadow_data_fingerprint
+        } == {"hunyuan-cloud-function-companion-20260728-1"}
         inspector = inspect(db_engine)
         assert "wechat_identities" in inspector.get_table_names(schema="learner")
         assert "account_events" in inspector.get_table_names(schema="learner")
-        assert "mock_exam_session_supersessions" in inspector.get_table_names(
-            schema="learner"
-        )
+        assert "mock_exam_session_supersessions" in inspector.get_table_names(schema="learner")
         assert set(inspector.get_table_names(schema="platform")) == {
+            "background_job_consumer_heartbeats",
+            "background_job_consumer_principal_registry",
+            "background_job_consumer_registry",
+            "background_job_type_registry",
             "background_jobs",
+            "commercial_data_publication_state",
+            "commercial_data_publication_transitions",
             "companion_paid_commands",
             "outbox_events",
         }
@@ -705,27 +601,34 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
         assert {
             "platform_essay_review_job_review_version_idx",
             "platform_essay_review_job_user_answer_idx",
-        }.issubset({
-            index["name"]
-            for index in inspector.get_indexes(
-                "background_jobs",
-                schema="platform",
-            )
-        })
+        }.issubset(
+            {
+                index["name"]
+                for index in inspector.get_indexes(
+                    "background_jobs",
+                    schema="platform",
+                )
+            }
+        )
         with db_engine.connect() as connection:
-            assigned_sessions = connection.execute(
-                text(
-                    """
+            assigned_sessions = (
+                connection.execute(
+                    text(
+                        """
                     select session_id::text
                     from learner.mock_exam_sessions
                     where user_id = '00000000-0000-0000-0000-000000000241'
                       and status = 'assigned'
                     """
+                    )
                 )
-            ).scalars().all()
-            kept_session = connection.execute(
-                text(
-                    """
+                .scalars()
+                .all()
+            )
+            kept_session = (
+                connection.execute(
+                    text(
+                        """
                     select scoring_policy_version_id,
                            learner_bundle->>'bundleVersionId' as bundle_version_id,
                            jsonb_array_length(learner_bundle->'questions') as question_count,
@@ -733,8 +636,11 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
                     from learner.mock_exam_sessions
                     where session_id = '00000000-0000-0000-0000-000000000242'
                     """
+                    )
                 )
-            ).mappings().one()
+                .mappings()
+                .one()
+            )
             reviewed_paper_blueprint_type = connection.execute(
                 text(
                     """
@@ -747,20 +653,22 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
                     """
                 )
             ).scalar_one()
-            archived = connection.execute(
-                text(
-                    """
+            archived = (
+                connection.execute(
+                    text(
+                        """
                     select archived_session_id::text, kept_session_id::text,
                            original_row->>'status' as original_status
                     from learner.mock_exam_session_supersessions
                     where owner_user_id = '00000000-0000-0000-0000-000000000241'
                     """
+                    )
                 )
-            ).mappings().one()
+                .mappings()
+                .one()
+            )
         assert assigned_sessions == ["00000000-0000-0000-0000-000000000242"]
-        assert kept_session["scoring_policy_version_id"] == (
-            "mock-balanced-performance-index-v1"
-        )
+        assert kept_session["scoring_policy_version_id"] == ("mock-balanced-performance-index-v1")
         assert len(str(kept_session["bundle_version_id"])) == 64
         assert kept_session["question_count"] == 1
         assert kept_session["current_question_id"] == "q-legacy-duplicate-mock"
@@ -821,9 +729,7 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
         assert "position_requirements" in inspector.get_table_names(schema="product")
         assert "position_rule_releases" in inspector.get_table_names(schema="product")
         assert "position_rule_compilations" in inspector.get_table_names(schema="product")
-        assert "feature_usage_reservations" in inspector.get_table_names(
-            schema="commerce"
-        )
+        assert "feature_usage_reservations" in inspector.get_table_names(schema="commerce")
         assert {
             "iap_products",
             "user_entitlements",
@@ -833,24 +739,23 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
             "entitlement_audit_logs",
         }.issubset(inspector.get_table_names(schema="commerce"))
         profile_columns = {
-            column["name"]
-            for column in inspector.get_columns("profiles", schema="learner")
+            column["name"] for column in inspector.get_columns("profiles", schema="learner")
         }
         assert "profile_version" in profile_columns
         user_columns = {
             column["name"] for column in inspector.get_columns("users", schema="learner")
         }
         session_columns = {
-            column["name"]
-            for column in inspector.get_columns("app_sessions", schema="learner")
+            column["name"] for column in inspector.get_columns("app_sessions", schema="learner")
         }
         assert "account_status" in user_columns
         assert "revoked_reason" in session_columns
 
         with db_engine.connect() as connection:
-            scheduled = connection.execute(
-                text(
-                    """
+            scheduled = (
+                connection.execute(
+                    text(
+                        """
                     select progress.qualification_ready,
                            progress.experience_ready,
                            progress.study_preference_ready,
@@ -869,8 +774,11 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
                     where progress.user_id =
                       '00000000-0000-0000-0000-000000000221'
                     """
+                    )
                 )
-            ).mappings().one()
+                .mappings()
+                .one()
+            )
             assert scheduled["qualification_ready"] is True
             assert scheduled["experience_ready"] is True
             assert scheduled["declaration_status"] == "legacy_not_collected"
@@ -879,9 +787,10 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
             assert scheduled["onboarding_complete"] is True
             assert scheduled["weekday_minutes"] == 90
 
-            no_schedule = connection.execute(
-                text(
-                    """
+            no_schedule = (
+                connection.execute(
+                    text(
+                        """
                     select progress.qualification_ready,
                            progress.experience_ready,
                            progress.study_preference_ready,
@@ -896,8 +805,11 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
                     where progress.user_id =
                       '00000000-0000-0000-0000-000000000222'
                     """
+                    )
                 )
-            ).mappings().one()
+                .mappings()
+                .one()
+            )
             assert no_schedule["qualification_ready"] is True
             assert no_schedule["experience_ready"] is True
             assert no_schedule["declaration_status"] == "legacy_not_collected"
@@ -909,14 +821,14 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
             schema="learner",
         )
         assert any(
-            constraint["column_names"] == ["app_id", "open_id"]
-            for constraint in unique_constraints
+            constraint["column_names"] == ["app_id", "open_id"] for constraint in unique_constraints
         )
 
         with db_engine.connect() as connection:
-            legacy_review = connection.execute(
-                text(
-                    """
+            legacy_review = (
+                connection.execute(
+                    text(
+                        """
                     select score_confidence_reasons, grounding_contract_version,
                            grounding_report, execution_fingerprint,
                            execution_attempt_no
@@ -924,21 +836,28 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
                      where review_version_id =
                            '00000000-0000-0000-0000-000000000208'
                     """
+                    )
                 )
-            ).mappings().one()
+                .mappings()
+                .one()
+            )
             assert all(value is None for value in legacy_review.values())
 
-            legacy_compiled_rubric = connection.execute(
-                text(
-                    """
+            legacy_compiled_rubric = (
+                connection.execute(
+                    text(
+                        """
                     select material_bundle_version_id,
                            compilation_input_fingerprint, compilation_audit
                       from product.essay_rubric_versions
                      where rubric_version_id =
                            '00000000-0000-0000-0000-000000000205'
                     """
+                    )
                 )
-            ).mappings().one()
+                .mappings()
+                .one()
+            )
             assert all(value is None for value in legacy_compiled_rubric.values())
 
             quarantining_constraints = dict(
@@ -987,23 +906,20 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
                     },
                 ).all()
             }
-            assert "score_confidence_reasons is not null" in (
-                null_guard_definitions[
-                    "essay_review_score_confidence_reasons_check"
-                ]
+            assert (
+                "score_confidence_reasons is not null"
+                in (null_guard_definitions["essay_review_score_confidence_reasons_check"])
             )
-            grounding_definition = null_guard_definitions[
-                "essay_review_grounding_report_check"
-            ]
-            assert "grounding_contract_version is not null" in (
-                grounding_definition
-            )
+            grounding_definition = null_guard_definitions["essay_review_grounding_report_check"]
+            assert "grounding_contract_version is not null" in (grounding_definition)
             assert "grounding_report is not null" in grounding_definition
-            assert "compilation_input_fingerprint is not null" in (
-                null_guard_definitions["essay_rubric_material_binding_check"]
+            assert (
+                "compilation_input_fingerprint is not null"
+                in (null_guard_definitions["essay_rubric_material_binding_check"])
             )
-            assert "compilation_audit is not null" in (
-                null_guard_definitions["essay_rubric_compilation_audit_check"]
+            assert (
+                "compilation_audit is not null"
+                in (null_guard_definitions["essay_rubric_compilation_audit_check"])
             )
 
             essay_constraint_names = set(
@@ -1317,75 +1233,6 @@ def test_wechat_identity_migration_upgrades_from_audited_baseline(
                     )
                 )
 
-        with db_engine.begin() as connection:
-            connection.execute(
-                text(
-                    "drop trigger mock_exam_session_supersessions_append_only "
-                    "on learner.mock_exam_session_supersessions"
-                )
-            )
-            connection.execute(
-                text(
-                    "delete from learner.mock_exam_session_supersessions "
-                    "where owner_user_id = "
-                    "'00000000-0000-0000-0000-000000000241'"
-                )
-            )
-            connection.execute(
-                text(
-                    "delete from learner.mock_exam_sessions "
-                    "where user_id = '00000000-0000-0000-0000-000000000241'"
-                )
-            )
-            connection.execute(
-                text(
-                    "delete from product.question_content_heads "
-                    "where question_id = 'q-legacy-duplicate-mock'"
-                )
-            )
-            connection.execute(
-                text(
-                    "drop trigger question_content_versions_append_only "
-                    "on product.question_content_versions"
-                )
-            )
-            connection.execute(
-                text(
-                    "delete from product.question_content_versions "
-                    "where question_id = 'q-legacy-duplicate-mock'"
-                )
-            )
-            connection.execute(
-                text(
-                    "alter table learner.preparation_experience_versions "
-                    "disable trigger preparation_experience_versions_append_only"
-                )
-            )
-            connection.execute(
-                text(
-                    "update learner.preparation_experience_versions "
-                    "set current_status = 'unspecified'"
-                )
-            )
-            connection.execute(
-                text(
-                    "alter table learner.preparation_experience_versions "
-                    "enable trigger preparation_experience_versions_append_only"
-                )
-            )
-        command.downgrade(config, "20260713_09")
-        downgraded = inspect(db_engine)
-        assert set(downgraded.get_table_names(schema="learning")) == {
-            "ability_estimate_versions",
-            "score_evidence",
-        }
-        assert "essay_task_versions" not in downgraded.get_table_names(
-            schema="product"
-        )
-        command.upgrade(config, "20260713_10")
-        assert "essay_review_versions" in inspect(db_engine).get_table_names(
-            schema="learning"
-        )
     finally:
         with db_engine.begin() as connection:
             connection.execute(text("drop table if exists public.alembic_version"))
@@ -1487,11 +1334,7 @@ def _w0_migration_owned_schema_fingerprint(
                       object_name
                     """
                 ),
-                {
-                    "table_names": list(
-                        W0_MIGRATION_OWNED_FINGERPRINT_TABLES
-                    )
-                },
+                {"table_names": list(W0_MIGRATION_OWNED_FINGERPRINT_TABLES)},
             )
         )
 
@@ -1545,9 +1388,7 @@ def test_stage15_migration_refuses_destructive_downgrade_with_facts(
     db_engine: Engine,
 ) -> None:
     config = Config(str(BACKEND_ROOT / "alembic.ini"))
-    config.set_main_option(
-        "sqlalchemy.url", db_engine.url.render_as_string(hide_password=False)
-    )
+    config.set_main_option("sqlalchemy.url", db_engine.url.render_as_string(hide_password=False))
     command.stamp(config, "20260715_20")
     with db_engine.begin() as connection:
         connection.execute(
@@ -1576,9 +1417,7 @@ def test_stage15_migration_refuses_destructive_downgrade_with_facts(
     with pytest.raises(RuntimeError, match="destructive downgrade is forbidden"):
         command.downgrade(config, "20260715_19")
 
-    assert "source_artifact_versions" in inspect(db_engine).get_table_names(
-        schema="learning"
-    )
+    assert "source_artifact_versions" in inspect(db_engine).get_table_names(schema="learning")
     with db_engine.begin() as connection:
         connection.execute(text("drop table if exists public.alembic_version"))
 
@@ -1587,9 +1426,7 @@ def test_stage35_community_method_card_migration(
     db_engine: Engine,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    migration = import_module(
-        "migrations.versions.20260716_28_community_method_cards"
-    )
+    migration = import_module("migrations.versions.20260716_28_community_method_cards")
     existing = set(inspect(db_engine).get_table_names(schema="product"))
     if "community_method_cards" not in existing:
         with db_engine.begin() as connection:
@@ -1673,9 +1510,7 @@ def test_knowledge_map_release_migration_archives_each_legacy_scope(
     db_engine: Engine,
 ) -> None:
     config = Config(str(BACKEND_ROOT / "alembic.ini"))
-    config.set_main_option(
-        "sqlalchemy.url", db_engine.url.render_as_string(hide_password=False)
-    )
+    config.set_main_option("sqlalchemy.url", db_engine.url.render_as_string(hide_password=False))
     command.stamp(config, "20260727_68")
     command.downgrade(config, "20260727_64")
 
@@ -1768,14 +1603,10 @@ def test_knowledge_map_release_migration_archives_each_legacy_scope(
     assert all(row["activated_at"] is None for row in releases)
     assert all(row["retired_at"] is not None for row in releases)
     assert all(
-        row["release_version"].startswith(
-            "knowledge-map@legacy-pre-20260727-65:"
-        )
+        row["release_version"].startswith("knowledge-map@legacy-pre-20260727-65:")
         for row in releases
     )
-    assert {row["release_id"] for row in nodes} == {
-        row["release_id"] for row in releases
-    }
+    assert {row["release_id"] for row in nodes} == {row["release_id"] for row in releases}
     assert primary_key_columns == ["release_id", "node_id"]
 
     # The fixed pre-v65 archive is the only populated state from which v66 may
@@ -1792,9 +1623,7 @@ def test_knowledge_release_immutability_requires_forward_migration_after_publica
     db_engine: Engine,
 ) -> None:
     config = Config(str(BACKEND_ROOT / "alembic.ini"))
-    config.set_main_option(
-        "sqlalchemy.url", db_engine.url.render_as_string(hide_password=False)
-    )
+    config.set_main_option("sqlalchemy.url", db_engine.url.render_as_string(hide_password=False))
     command.stamp(config, "20260727_68")
     with db_engine.begin() as connection:
         connection.execute(

@@ -24,11 +24,13 @@ from app.domains.qualification.service import evaluate_eligibility
 
 
 NOW = datetime(2026, 7, 12, 14, tzinfo=UTC)
+WINDOW_CLOSE = datetime(2026, 10, 31, tzinfo=UTC)
 
 
 def _seed_context(factory: sessionmaker[Session]) -> tuple[str, str, int, str]:
     user_id = str(uuid4())
     position_id = str(uuid4())
+    release_id = str(uuid4())
     with factory.begin() as session:
         session.execute(
             text("insert into learner.users (user_id, display_name) values (:id, '学习者')"),
@@ -47,6 +49,57 @@ def _seed_context(factory: sessionmaker[Session]) -> tuple[str, str, int, str]:
                 """
             ),
             {"position_id": position_id, "source_id": f"source-{position_id}"},
+        )
+        session.execute(
+            text(
+                """
+                insert into product.position_rule_releases (
+                  release_id, exam_code, exam_year, rule_set_version,
+                  position_data_version, status
+                ) values (
+                  cast(:release_id as uuid), 'guokao', 2026,
+                  'guokao-2026-v1', 'guokao-2026-20260712', 'draft'
+                )
+                """
+            ),
+            {"release_id": release_id},
+        )
+        session.execute(
+            text(
+                """
+                insert into product.position_release_windows (
+                  window_id, release_id, window_kind, sequence_no,
+                  opens_at, closes_at, official_source_url,
+                  official_source_title, official_source_published_at,
+                  official_source_received_at, official_source_sha256,
+                  official_source_receipt
+                ) values (
+                  gen_random_uuid(), cast(:release_id as uuid), 'primary', 1,
+                  :opens_at, :closes_at,
+                  'https://example.gov.cn/guokao/2026/announcement',
+                  '2026年度考试录用公务员公告',
+                  :published_at, :received_at, repeat('c', 64),
+                  'position-goal-fixture-primary'
+                )
+                """
+            ),
+            {
+                "release_id": release_id,
+                "opens_at": datetime(2026, 7, 10, tzinfo=UTC),
+                "closes_at": WINDOW_CLOSE,
+                "published_at": datetime(2026, 7, 1, tzinfo=UTC),
+                "received_at": datetime(2026, 7, 2, tzinfo=UTC),
+            },
+        )
+        session.execute(
+            text(
+                """
+                update product.position_rule_releases
+                set status = 'active', activated_at = :activated_at
+                where release_id = cast(:release_id as uuid)
+                """
+            ),
+            {"release_id": release_id, "activated_at": NOW},
         )
         repository = QualificationRepository()
         version, facts = repository.replace_facts(
@@ -101,7 +154,7 @@ def _target_score() -> TargetScoreRange:
         evidence_level="direct",
         sample_count=6,
         generated_at=NOW,
-        valid_until=datetime(2026, 10, 31, tzinfo=UTC),
+        valid_until=WINDOW_CLOSE,
     )
 
 
@@ -173,37 +226,65 @@ def test_confirm_primary_goal_writes_history_projection_event_and_outbox_atomica
         goal = service.confirm_primary_goal(session, command=command, now=NOW)
 
     with db_session_factory() as session:
-        profile = session.execute(
-            text("select target_position_id, target_score from learner.profiles where user_id = :id"),
-            {"id": user_id},
-        ).mappings().one()
-        event = session.execute(
-            text("select * from learner.position_goal_events where command_id = :id"),
-            {"id": command.command_id},
-        ).mappings().one()
-        outbox = session.execute(
-            text("select * from platform.outbox_events where deduplication_key = :key"),
-            {"key": f"position-goal:{command.command_id}"},
-        ).mappings().one()
+        profile = (
+            session.execute(
+                text(
+                    """
+                select target_exam, target_region, position_group,
+                       target_position_id, target_score,
+                       target_position_data_version
+                from learner.profiles
+                where user_id = :id
+                """
+                ),
+                {"id": user_id},
+            )
+            .mappings()
+            .one()
+        )
+        event = (
+            session.execute(
+                text("select * from learner.position_goal_events where command_id = :id"),
+                {"id": command.command_id},
+            )
+            .mappings()
+            .one()
+        )
+        outbox = (
+            session.execute(
+                text("select * from platform.outbox_events where deduplication_key = :key"),
+                {"key": f"position-goal:{command.command_id}"},
+            )
+            .mappings()
+            .one()
+        )
 
     assert goal.status == "confirmed"
     assert goal.role == "primary"
+    assert profile["target_exam"] == "guokao"
+    assert profile["target_region"] is None
+    assert profile["position_group"] is None
     assert str(profile["target_position_id"]) == position_id
     assert float(profile["target_score"]) == 129
+    assert profile["target_position_data_version"] == "guokao-2026-20260712"
     assert event["event_type"] == "goal_selected"
     assert outbox["event_type"] == "position_goal.changed"
     assert outbox["aggregate_id"] == goal.goal_version_id
     with db_session_factory() as session:
-        used_preview = session.execute(
-            text(
-                """
+        used_preview = (
+            session.execute(
+                text(
+                    """
                 select used_at, used_by_command_id
                 from learner.position_goal_previews
                 where preview_id = :preview_id
                 """
-            ),
-            {"preview_id": preview.preview_id},
-        ).mappings().one()
+                ),
+                {"preview_id": preview.preview_id},
+            )
+            .mappings()
+            .one()
+        )
     assert used_preview["used_at"] == NOW
     assert used_preview["used_by_command_id"] == command.command_id
 
@@ -359,9 +440,7 @@ def test_preview_rejects_a_snapshot_owned_by_another_user(
             {"user_id": other_user_id},
         )
         session.execute(
-            text(
-                "insert into learner.profiles (user_id, profile_version) values (:user_id, 1)"
-            ),
+            text("insert into learner.profiles (user_id, profile_version) values (:user_id, 1)"),
             {"user_id": other_user_id},
         )
 
@@ -424,17 +503,21 @@ def test_new_goal_version_retires_previous_primary_without_destroying_history(
         )
 
     with db_session_factory() as session:
-        rows = session.execute(
-            text(
-                """
+        rows = (
+            session.execute(
+                text(
+                    """
                 select goal_version_id, status, supersedes_goal_version_id
                 from learner.position_goal_versions
                 where user_id = :user_id
                 order by created_at, goal_version_id
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().all()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .all()
+        )
     by_id = {str(row["goal_version_id"]): row for row in rows}
     assert by_id[first.goal_version_id]["status"] == "retired"
     assert by_id[second.goal_version_id]["status"] == "confirmed"
@@ -507,9 +590,7 @@ def test_target_score_expiry_is_enforced_before_preview_and_confirmation(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     user_id, position_id, version, snapshot_id = _seed_context(db_session_factory)
-    expiring_target = _target_score().model_copy(
-        update={"valid_until": NOW + timedelta(minutes=5)}
-    )
+    expiring_target = _target_score().model_copy(update={"valid_until": NOW + timedelta(minutes=5)})
     with db_session_factory.begin() as session:
         preview = PositionGoalService().create_primary_goal_preview(
             session,

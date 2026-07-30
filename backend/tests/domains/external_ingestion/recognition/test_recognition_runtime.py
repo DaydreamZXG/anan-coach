@@ -74,6 +74,12 @@ def _modal_approval() -> str:
                 "dpaEvidenceRef": "https://modal.com/docs/guide/security#data-retention",
                 "securityReviewRef": "ops/modal/anan_ocr_service.py",
                 "approvalReceiptRef": "operator-modal-ocr-20260727",
+                "providerIdempotencyCapability": "replayable_queryable",
+                "providerIdempotencyScope": "provider_account",
+                "providerIdempotencyKeyHeader": "Idempotency-Key",
+                "providerRequestIdSource": "X-Request-ID",
+                "providerReplayRetentionSeconds": 604800,
+                "providerIdempotencyEvidenceRef": ("operator-modal-ocr-idempotency-20260727"),
                 "validFrom": "2026-07-27T00:00:00Z",
                 "validUntil": "2027-07-27T00:00:00Z",
             }
@@ -95,6 +101,7 @@ def test_approval_records_operator_accepted_external_processing_truthfully() -> 
 def test_runtime_constructs_release_pinned_modal_processor() -> None:
     service = build_recognition_service(
         session=None,  # type: ignore[arg-type]
+        operation_session_factory=lambda: None,  # type: ignore[arg-type,return-value]
         settings=_settings(
             recognition_processor_enabled=True,
             recognition_processor_endpoint="https://operator--recognize.modal.run",
@@ -105,9 +112,7 @@ def test_runtime_constructs_release_pinned_modal_processor() -> None:
             recognition_processor_max_input_bytes=10 * 1024 * 1024,
             recognition_processor_max_output_bytes=2 * 1024 * 1024,
             recognition_processor_max_pages=1,
-            recognition_processor_https_host_allowlist=(
-                "operator--recognize.modal.run"
-            ),
+            recognition_processor_https_host_allowlist=("operator--recognize.modal.run"),
             recognition_processor_approvals_json=_modal_approval(),
             tos_access_key="test-access-key",
             tos_secret_key="test-secret-key",
@@ -124,21 +129,15 @@ def test_runtime_rejects_modal_multi_page_configuration() -> None:
             session=None,  # type: ignore[arg-type]
             settings=_settings(
                 recognition_processor_enabled=True,
-                recognition_processor_endpoint=(
-                    "https://operator--recognize.modal.run"
-                ),
+                recognition_processor_endpoint=("https://operator--recognize.modal.run"),
                 recognition_processor_token="private-modal-token",
-                recognition_processor_release_id=(
-                    "modal-paddleocr-vl-v1-20260727-r1"
-                ),
+                recognition_processor_release_id=("modal-paddleocr-vl-v1-20260727-r1"),
                 recognition_processor_adapter="modal_paddle_ocr",
                 recognition_processor_actual_model="PaddleOCR-VL-v1",
                 recognition_processor_max_input_bytes=10 * 1024 * 1024,
                 recognition_processor_max_output_bytes=2 * 1024 * 1024,
                 recognition_processor_max_pages=2,
-                recognition_processor_https_host_allowlist=(
-                    "operator--recognize.modal.run"
-                ),
+                recognition_processor_https_host_allowlist=("operator--recognize.modal.run"),
                 recognition_processor_approvals_json=_modal_approval(),
                 tos_access_key="test-access-key",
                 tos_secret_key="test-secret-key",

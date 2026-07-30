@@ -8,7 +8,9 @@ from sqlalchemy import text
 from sqlalchemy.engine import RowMapping
 from sqlalchemy.orm import Session, sessionmaker
 
+from app.core.config import Settings
 from app.domains.auth.repository import token_hash_for_tests
+from app.domains.external_ingestion.answering.worker import ExternalAIAnswerWorker
 from app.domains.external_ingestion.upload.models import (
     ObjectMetadata,
     ScanReceipt,
@@ -22,6 +24,10 @@ from app.domains.learning_media.service import (
     LearningMediaService,
 )
 from app.domains.learning_media.worker import LearningMediaWorker
+from app.domains.learning_packages.worker import PacketRenderWorker
+from app.domains.private_knowledge.worker import PrivateKnowledgeDeletionWorker
+from app.platform.jobs import BackgroundJobRepository
+from app.workers.external_learning import ExternalLearningWorker
 from tests.test_essay_learning_artifacts import (
     _client as _essay_client,
     _content_ids,
@@ -133,6 +139,14 @@ class FakeLearningMediaScanner:
         )
 
 
+class _IdleUploadService:
+    def recover_pending(self, **_kwargs: object) -> tuple[()]:
+        return ()
+
+    def expire_stale(self, **_kwargs: object) -> tuple[()]:
+        return ()
+
+
 def test_reflection_voice_upload_is_private_scanned_and_versioned(
     db_session_factory: sessionmaker[Session],
 ) -> None:
@@ -197,17 +211,110 @@ def test_reflection_voice_upload_is_private_scanned_and_versioned(
             user_id=user_id,
             upload_session_id=str(started.session.upload_session_id),
         )
-        artifact_row = session.execute(
-            text(
-                "select object_ref, scanner_receipt from "
-                "learning.learning_media_artifact_versions"
+        artifact_row = (
+            session.execute(
+                text(
+                    "select object_ref, scanner_receipt from "
+                    "learning.learning_media_artifact_versions"
+                )
             )
-        ).mappings().one()
+            .mappings()
+            .one()
+        )
     assert available.session.state == "available"
     assert available.artifact is not None
     assert available.artifact.artifact_version_id == started.session.artifact_version_id
     assert artifact_row["object_ref"] == started.authorization.object_ref
     assert artifact_row["scanner_receipt"]["verdict"] == "clean"
+
+
+def test_external_learning_worker_processes_real_learning_media_scan(
+    db_session_factory: sessionmaker[Session],
+    monkeypatch,
+) -> None:
+    monkeypatch.setenv("WEKNORA_PRIVATE_KNOWLEDGE_MODE", "canonical")
+    user_id = _seed_user(db_session_factory)
+    storage = FakeLearningMediaStorage()
+    service = LearningMediaService(storage=storage)
+    digest = "f" * 64
+    command = StartLearningMediaUploadCommand(
+        purpose="reflection_voice",
+        originalFilename="external-loop.mp3",
+        mimeType="audio/mpeg",
+        byteSize=3072,
+        contentSha256=digest,
+        durationMilliseconds=11_000,
+    )
+    with db_session_factory() as session:
+        started = service.start(
+            session,
+            user_id=user_id,
+            command_id="external-loop-media-start",
+            command=command,
+        )
+        session.commit()
+    assert started.authorization is not None
+    storage.objects[started.authorization.object_ref] = ObjectMetadata(
+        object_ref=started.authorization.object_ref,
+        byte_size=3072,
+        content_sha256=digest,
+        mime_type="audio/mpeg",
+        access="private",
+        server_side_encrypted=True,
+    )
+    with db_session_factory() as session:
+        service.complete(
+            session,
+            user_id=user_id,
+            upload_session_id=str(started.session.upload_session_id),
+            command_id="external-loop-media-complete",
+        )
+        session.commit()
+
+    settings = Settings()
+    jobs = BackgroundJobRepository()
+    with db_session_factory() as session:
+        worker = ExternalLearningWorker(
+            session=session,
+            settings=settings,
+            packet_worker=PacketRenderWorker(
+                renderer=object(),
+                license_evaluator=object(),
+                jobs=jobs,
+            ),
+            answer_worker=ExternalAIAnswerWorker(
+                settings=settings,
+                provider=object(),
+            ),
+            upload_service=_IdleUploadService(),
+            jobs=jobs,
+            learning_media_worker=LearningMediaWorker(
+                storage=storage,
+                scanner=FakeLearningMediaScanner(),
+                jobs=jobs,
+            ),
+            private_knowledge_worker=PrivateKnowledgeDeletionWorker(
+                storage=object(),
+                jobs=jobs,
+            ),
+        )
+        assert worker.run_once(now=datetime.now(UTC)) is True
+
+    with db_session_factory() as session:
+        available = service.get(
+            session,
+            user_id=user_id,
+            upload_session_id=str(started.session.upload_session_id),
+        )
+        scan_status = session.execute(
+            text(
+                "select status from platform.background_jobs "
+                "where job_type = 'learning_media_scan_v1'"
+            )
+        ).scalar_one()
+    assert available.session.state == "available"
+    assert available.artifact is not None
+    assert scan_status == "succeeded"
 
 
 def test_reflection_voice_rejects_integrity_mismatch_before_scan(
@@ -380,23 +487,32 @@ def test_xingce_reflection_voice_binding_is_atomic_owned_and_retained(
         )
         assert response.status_code == 409, response.text
         with db_session_factory() as session:
-            assert session.execute(
-                text(
-                    "select count(*) from learning.xingce_reflection_versions "
-                    "where review_id = cast(:review_id as uuid)"
-                ),
-                {"review_id": review["reviewId"]},
-            ).scalar_one() == 0
-            assert session.execute(
-                text("select count(*) from learning.learning_media_bindings")
-            ).scalar_one() == 0
-            assert session.execute(
-                text(
-                    "select count(*) from learning.xingce_commands "
-                    "where command_id = :command_id"
-                ),
-                {"command_id": command_id},
-            ).scalar_one() == 0
+            assert (
+                session.execute(
+                    text(
+                        "select count(*) from learning.xingce_reflection_versions "
+                        "where review_id = cast(:review_id as uuid)"
+                    ),
+                    {"review_id": review["reviewId"]},
+                ).scalar_one()
+                == 0
+            )
+            assert (
+                session.execute(
+                    text("select count(*) from learning.learning_media_bindings")
+                ).scalar_one()
+                == 0
+            )
+            assert (
+                session.execute(
+                    text(
+                        "select count(*) from learning.xingce_commands "
+                        "where command_id = :command_id"
+                    ),
+                    {"command_id": command_id},
+                ).scalar_one()
+                == 0
+            )
 
     success = client.put(
         f"/api/v2/xingce/attempt-reviews/{review['reviewId']}/reflection",
@@ -408,20 +524,20 @@ def test_xingce_reflection_voice_binding_is_atomic_owned_and_retained(
     )
     assert success.status_code == 200, success.text
     reflection = success.json()["data"]["review"]["reflection"]
-    assert reflection["voiceArtifactVersionIds"] == [
-        str(owned.session.artifact_version_id)
-    ]
+    assert reflection["voiceArtifactVersionIds"] == [str(owned.session.artifact_version_id)]
     with db_session_factory() as session:
-        binding = session.execute(
-            text(
-                "select user_id, artifact_version_id, entity_type, entity_version_id "
-                "from learning.learning_media_bindings"
+        binding = (
+            session.execute(
+                text(
+                    "select user_id, artifact_version_id, entity_type, entity_version_id "
+                    "from learning.learning_media_bindings"
+                )
             )
-        ).mappings().one()
+            .mappings()
+            .one()
+        )
     assert str(binding["user_id"]) == user_id
-    assert str(binding["artifact_version_id"]) == str(
-        owned.session.artifact_version_id
-    )
+    assert str(binding["artifact_version_id"]) == str(owned.session.artifact_version_id)
     assert binding["entity_type"] == "xingce_reflection"
     assert str(binding["entity_version_id"]) == reflection["reflectionVersionId"]
 
@@ -443,13 +559,16 @@ def test_xingce_reflection_voice_binding_is_atomic_owned_and_retained(
     }
     assert storage.delete_invocations == []
     with db_session_factory() as session:
-        assert session.execute(
-            text(
-                "select state from learning.learning_media_upload_sessions "
-                "where upload_session_id = cast(:upload_session_id as uuid)"
-            ),
-            {"upload_session_id": str(owned.session.upload_session_id)},
-        ).scalar_one() == "available"
+        assert (
+            session.execute(
+                text(
+                    "select state from learning.learning_media_upload_sessions "
+                    "where upload_session_id = cast(:upload_session_id as uuid)"
+                ),
+                {"upload_session_id": str(owned.session.upload_session_id)},
+            ).scalar_one()
+            == "available"
+        )
 
 
 def test_essay_reflection_voice_binding_is_atomic_and_owned(
@@ -507,21 +626,30 @@ def test_essay_reflection_voice_binding_is_atomic_and_owned(
         )
         assert response.status_code == 409, response.text
         with db_session_factory() as session:
-            assert session.execute(
-                text(
-                    "select count(*) from learning.essay_learning_artifact_versions "
-                    "where artifact_type = 'reflection'"
-                )
-            ).scalar_one() == 0
-            assert session.execute(
-                text("select count(*) from learning.learning_media_bindings")
-            ).scalar_one() == 0
-            assert session.execute(
-                text(
-                    "select count(*) from platform.outbox_events "
-                    "where event_type = 'essay_learning_artifact.recorded'"
-                )
-            ).scalar_one() == 0
+            assert (
+                session.execute(
+                    text(
+                        "select count(*) from learning.essay_learning_artifact_versions "
+                        "where artifact_type = 'reflection'"
+                    )
+                ).scalar_one()
+                == 0
+            )
+            assert (
+                session.execute(
+                    text("select count(*) from learning.learning_media_bindings")
+                ).scalar_one()
+                == 0
+            )
+            assert (
+                session.execute(
+                    text(
+                        "select count(*) from platform.outbox_events "
+                        "where event_type = 'essay_learning_artifact.recorded'"
+                    )
+                ).scalar_one()
+                == 0
+            )
 
     success = client.post(
         "/api/v2/essay-intelligence/artifacts",
@@ -538,16 +666,18 @@ def test_essay_reflection_voice_binding_is_atomic_and_owned(
         str(owned.session.artifact_version_id)
     ]
     with db_session_factory() as session:
-        binding = session.execute(
-            text(
-                "select user_id, artifact_version_id, entity_type, entity_version_id "
-                "from learning.learning_media_bindings"
+        binding = (
+            session.execute(
+                text(
+                    "select user_id, artifact_version_id, entity_type, entity_version_id "
+                    "from learning.learning_media_bindings"
+                )
             )
-        ).mappings().one()
+            .mappings()
+            .one()
+        )
     assert str(binding["user_id"]) == user_id
-    assert str(binding["artifact_version_id"]) == str(
-        owned.session.artifact_version_id
-    )
+    assert str(binding["artifact_version_id"]) == str(owned.session.artifact_version_id)
     assert binding["entity_type"] == "essay_reflection"
     assert str(binding["entity_version_id"]) == reflection["artifactVersionId"]
 
@@ -580,22 +710,31 @@ def test_unbound_retention_cleanup_recovers_after_restart_without_duplicate_fact
     assert len(storage.delete_invocations) == 1
     assert storage.physically_deleted == [object_ref]
     with db_session_factory() as session:
-        assert session.execute(
-            text(
-                "select state from learning.learning_media_upload_sessions "
-                "where upload_session_id = cast(:upload_session_id as uuid)"
-            ),
-            {"upload_session_id": str(available.session.upload_session_id)},
-        ).scalar_one() == "available"
-        assert session.execute(
-            text("select count(*) from learning.learning_media_artifact_versions")
-        ).scalar_one() == 1
-        assert session.execute(
-            text(
-                "select count(*) from learning.learning_media_audit_events "
-                "where event_type = 'learning-media-retention-expired@v1'"
-            )
-        ).scalar_one() == 0
+        assert (
+            session.execute(
+                text(
+                    "select state from learning.learning_media_upload_sessions "
+                    "where upload_session_id = cast(:upload_session_id as uuid)"
+                ),
+                {"upload_session_id": str(available.session.upload_session_id)},
+            ).scalar_one()
+            == "available"
+        )
+        assert (
+            session.execute(
+                text("select count(*) from learning.learning_media_artifact_versions")
+            ).scalar_one()
+            == 1
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from learning.learning_media_audit_events "
+                    "where event_type = 'learning-media-retention-expired@v1'"
+                )
+            ).scalar_one()
+            == 0
+        )
 
     recovered_at = expires_at + timedelta(minutes=1)
     with db_session_factory.begin() as session:
@@ -630,44 +769,52 @@ def test_unbound_retention_cleanup_recovers_after_restart_without_duplicate_fact
             user_id=user_id,
             upload_session_id=str(available.session.upload_session_id),
         )
-        versions = session.execute(
-            text(
-                "select artifact_version_id, version_no, state, object_ref, "
-                "supersedes_artifact_version_id "
-                "from learning.learning_media_artifact_versions "
-                "order by version_no"
+        versions = (
+            session.execute(
+                text(
+                    "select artifact_version_id, version_no, state, object_ref, "
+                    "supersedes_artifact_version_id "
+                    "from learning.learning_media_artifact_versions "
+                    "order by version_no"
+                )
             )
-        ).mappings().all()
-        audit = session.execute(
-            text(
-                "select sequence_no, from_state, to_state, evidence "
-                "from learning.learning_media_audit_events "
-                "where event_type = 'learning-media-retention-expired@v1'"
+            .mappings()
+            .all()
+        )
+        audit = (
+            session.execute(
+                text(
+                    "select sequence_no, from_state, to_state, evidence "
+                    "from learning.learning_media_audit_events "
+                    "where event_type = 'learning-media-retention-expired@v1'"
+                )
             )
-        ).mappings().one()
-        event = session.execute(
-            text(
-                "select deduplication_key, aggregate_id, payload "
-                "from platform.outbox_events "
-                "where event_type = 'learning-media-retention-expired@v1'"
+            .mappings()
+            .one()
+        )
+        event = (
+            session.execute(
+                text(
+                    "select deduplication_key, aggregate_id, payload "
+                    "from platform.outbox_events "
+                    "where event_type = 'learning-media-retention-expired@v1'"
+                )
             )
-        ).mappings().one()
+            .mappings()
+            .one()
+        )
     assert projection.session.state == "expired"
     assert projection.session.failure_code == "unbound_retention_expired"
     assert projection.artifact is not None
     assert projection.artifact.state == "deleted"
-    assert str(projection.artifact.artifact_version_id) == str(
-        versions[1]["artifact_version_id"]
-    )
+    assert str(projection.artifact.artifact_version_id) == str(versions[1]["artifact_version_id"])
     assert projection.artifact.artifact_version_id != available.session.artifact_version_id
     assert [(row["version_no"], row["state"]) for row in versions] == [
         (1, "available"),
         (2, "deleted"),
     ]
     assert versions[1]["object_ref"] is None
-    assert versions[1]["supersedes_artifact_version_id"] == versions[0][
-        "artifact_version_id"
-    ]
+    assert versions[1]["supersedes_artifact_version_id"] == versions[0]["artifact_version_id"]
     assert audit["sequence_no"] == 4
     assert (audit["from_state"], audit["to_state"]) == (
         "available",

@@ -11,10 +11,13 @@ mkdir -p "${artifact_dir}" "${release_root}/incoming"
 
 build_release() {
   local release_id="$1"
-  RELEASE_ID="${release_id}" ARTIFACT_OUTPUT_DIR="${artifact_dir}" \
-    "${root}/ops/scripts/build_immutable_artifact.sh" >/dev/null
-  cp "${artifact_dir}/anan-${release_id}.tar.gz" "${release_root}/incoming/"
-  cp "${artifact_dir}/anan-${release_id}.tar.gz.sha256" "${release_root}/incoming/"
+  local artifact_path
+  artifact_path="$(
+    RELEASE_ID="${release_id}" ARTIFACT_OUTPUT_DIR="${artifact_dir}" \
+      "${root}/ops/scripts/build_immutable_artifact.sh"
+  )"
+  cp "${artifact_path}" "${release_root}/incoming/"
+  cp "${artifact_path}.sha256" "${release_root}/incoming/"
   (
     cd "${release_root}/incoming"
     shasum -a 256 -c "anan-${release_id}.tar.gz.sha256"

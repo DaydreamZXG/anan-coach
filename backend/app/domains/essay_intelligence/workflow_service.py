@@ -57,6 +57,10 @@ ESSAY_REVIEW_JOB_TYPE = "essay_grounded_review_v2"
 ESSAY_REVIEW_JOB_INPUT_VERSION = "essay-grounded-review-job-v2"
 
 
+class EssayReviewWorkerUnavailable(RuntimeError):
+    """Raised when a public write would enqueue work with no enabled consumer."""
+
+
 class EssayReviewWorkflowService:
     def __init__(
         self,
@@ -216,12 +220,8 @@ class EssayReviewWorkflowService:
         )
         based_on = command.based_on_answer_version_id
         if current is None and based_on is not None:
-            raise EssayWorkflowContractError(
-                "Attempt has no answer version to supersede"
-            )
-        if current is not None and (
-            based_on is None or based_on != current["answer_version_id"]
-        ):
+            raise EssayWorkflowContractError("Attempt has no answer version to supersede")
+        if current is not None and (based_on is None or based_on != current["answer_version_id"]):
             raise EssayWorkflowContractError(
                 "Answer changed; reload the current version before saving"
             )
@@ -232,9 +232,7 @@ class EssayReviewWorkflowService:
             at=created_at,
         )
         thinking = (
-            command.thinking.model_dump(by_alias=True, mode="json")
-            if command.thinking
-            else None
+            command.thinking.model_dump(by_alias=True, mode="json") if command.thinking else None
         )
         row = self._repository.insert_answer(
             session,
@@ -249,17 +247,13 @@ class EssayReviewWorkflowService:
                 "source_artifact_version_id": source_evidence[0],
                 "recognition_revision_id": source_evidence[1],
                 "answer_text": command.answer_text,
-                "answer_sha256": sha256(
-                    command.answer_text.encode("utf-8")
-                ).hexdigest(),
+                "answer_sha256": sha256(command.answer_text.encode("utf-8")).hexdigest(),
                 "thinking_payload": (
                     json.dumps(thinking, ensure_ascii=False, sort_keys=True)
                     if thinking is not None
                     else None
                 ),
-                "thinking_sha256": (
-                    _fingerprint(thinking) if thinking is not None else None
-                ),
+                "thinking_sha256": (_fingerprint(thinking) if thinking is not None else None),
                 "input_fingerprint": fingerprint,
                 "supersedes_answer_version_id": (
                     str(current["answer_version_id"]) if current else None
@@ -311,9 +305,7 @@ class EssayReviewWorkflowService:
         assert command.source_artifact_version_id is not None
         assert command.recognition_revision_id is not None
         repository = SQLRecognitionRepository(session)
-        revision = repository.revision(
-            recognition_revision_id=command.recognition_revision_id
-        )
+        revision = repository.revision(recognition_revision_id=command.recognition_revision_id)
         if revision is None or str(revision.owner_user_id) != user_id:
             raise EssayWorkflowContractError(
                 "OCR source recognition does not belong to the learner"
@@ -331,10 +323,7 @@ class EssayReviewWorkflowService:
             owner_user_id=revision.owner_user_id,
             recognition_kind=revision.recognition_kind.value,
         )
-        if (
-            head is None
-            or head.recognition_revision_id != revision.recognition_revision_id
-        ):
+        if head is None or head.recognition_revision_id != revision.recognition_revision_id:
             raise EssayWorkflowContractError(
                 "OCR source recognition has been superseded; confirm the current revision"
             )
@@ -397,6 +386,7 @@ class EssayReviewWorkflowService:
     ) -> EssayCurrentReviewEnsureResult:
         """Idempotently queue the server-owned current answer on any device."""
 
+        self._require_worker_available()
         self._repository.lock_user(session, user_id=user_id)
         candidate = self._repository.current_review_candidate(
             session,
@@ -462,6 +452,7 @@ class EssayReviewWorkflowService:
         command: EssayReviewQueueCommand,
         commerce_service: CommerceService,
     ) -> EssayReviewJobView:
+        self._require_worker_available()
         self._repository.lock_user(session, user_id=user_id)
         request_fingerprint = _fingerprint(
             {
@@ -480,9 +471,7 @@ class EssayReviewWorkflowService:
             _require_fingerprint(replay["request_fingerprint"], request_fingerprint)
             job = self._jobs.by_id(session, job_id=UUID(str(replay["job_id"])))
             if job is None:
-                raise EssayWorkflowContractError(
-                    "Grounded review command references a missing job"
-                )
+                raise EssayWorkflowContractError("Grounded review command references a missing job")
             return self._job_view(session, user_id=user_id, job=job)
         return self._queue_review_locked(
             session,
@@ -504,6 +493,7 @@ class EssayReviewWorkflowService:
         source_job_id: UUID,
         commerce_service: CommerceService,
     ) -> EssayReviewJobView:
+        self._require_worker_available()
         self._repository.lock_user(session, user_id=user_id)
         request_fingerprint = _fingerprint(
             {
@@ -522,9 +512,7 @@ class EssayReviewWorkflowService:
             _require_fingerprint(replay["request_fingerprint"], request_fingerprint)
             job = self._jobs.by_id(session, job_id=UUID(str(replay["job_id"])))
             if job is None:
-                raise EssayWorkflowContractError(
-                    "Grounded review command references a missing job"
-                )
+                raise EssayWorkflowContractError("Grounded review command references a missing job")
             return self._job_view(session, user_id=user_id, job=job)
         source = self._jobs.by_id(session, job_id=source_job_id)
         if source is None or source.payload.get("userId") != user_id:
@@ -560,6 +548,13 @@ class EssayReviewWorkflowService:
             commerce_service=commerce_service,
             allow_new_execution=True,
         )
+
+    def _require_worker_available(self) -> None:
+        if (
+            not self._settings.essay_review_worker_enabled
+            and self._execution_identity_override is None
+        ):
+            raise EssayReviewWorkerUnavailable("Essay review is temporarily unavailable")
 
     def _current_review_request(
         self,
@@ -795,9 +790,7 @@ class EssayReviewWorkflowService:
     ) -> EssayReviewIntentView:
         created_at = now or datetime.now(UTC)
         version_no = int(current["version_no"]) + 1 if current is not None else 1
-        supersedes = (
-            UUID(str(current["intent_version_id"])) if current is not None else None
-        )
+        supersedes = UUID(str(current["intent_version_id"])) if current is not None else None
         state_fingerprint = _fingerprint(
             {
                 "contractVersion": "essay-review-intent-state-v1",
@@ -805,9 +798,7 @@ class EssayReviewWorkflowService:
                 "versionNo": version_no,
                 "status": status,
                 "jobId": str(job.job_id) if job else None,
-                "quota": quota.model_dump(by_alias=True, mode="json")
-                if quota
-                else None,
+                "quota": quota.model_dump(by_alias=True, mode="json") if quota else None,
                 "retryAfter": retry_after.isoformat() if retry_after else None,
                 "supersedesIntentVersionId": str(supersedes) if supersedes else None,
             }
@@ -841,9 +832,7 @@ class EssayReviewWorkflowService:
                 "quota_access_mode": quota.access_mode if quota else None,
                 "quota_limit": quota.limit if quota else None,
                 "retry_after": retry_after,
-                "supersedes_intent_version_id": (
-                    str(supersedes) if supersedes else None
-                ),
+                "supersedes_intent_version_id": (str(supersedes) if supersedes else None),
                 "created_at": created_at,
             },
         )
@@ -886,9 +875,7 @@ class EssayReviewWorkflowService:
             review_scope=request.review_scope,
         )
         if inserted is None or inserted["intent_version_id"] != intent_version_id:
-            raise EssayWorkflowContractError(
-                "Review intent version was not installed as current"
-            )
+            raise EssayWorkflowContractError("Review intent version was not installed as current")
         return review_intent_from_row(inserted)
 
     def _queue_review_locked(
@@ -1024,8 +1011,7 @@ class EssayReviewWorkflowService:
                 )
             elif not allow_new_execution:
                 raise EssayWorkflowContractError(
-                    "The previous grounded review failed; use the explicit "
-                    "regenerate command"
+                    "The previous grounded review failed; use the explicit regenerate command"
                 )
             execution_attempt_no = latest_attempt_no + 1
 
@@ -1086,9 +1072,7 @@ class EssayReviewWorkflowService:
             "executionProvider": provider_identity,
             "executionModel": model,
             "supersedesReviewVersionId": (
-                str(previous_review["review_version_id"])
-                if previous_review is not None
-                else None
+                str(previous_review["review_version_id"]) if previous_review is not None else None
             ),
             "quotaReservation": {
                 "reservationId": str(reservation.reservation_id),
@@ -1157,9 +1141,7 @@ class EssayReviewWorkflowService:
         if self._execution_identity_override is not None:
             return self._execution_identity_override
         try:
-            return EssayMultiModelRuntimePlan.from_settings(
-                self._settings
-            ).execution_identity
+            return EssayMultiModelRuntimePlan.from_settings(self._settings).execution_identity
         except EssayMultiModelRuntimeConfigurationError as exc:
             raise EssayWorkflowContractError(
                 "Formal multi-model essay grading plan is not approved"
@@ -1223,9 +1205,7 @@ class EssayReviewWorkflowService:
         if payload.get("userId") != user_id:
             raise EssayWorkflowNotFound("Owned essay review job does not exist")
         if job.status not in {"queued", "running", "succeeded", "failed"}:
-            raise EssayWorkflowContractError(
-                f"Essay review job has unsupported state {job.status}"
-            )
+            raise EssayWorkflowContractError(f"Essay review job has unsupported state {job.status}")
         request = payload["request"]
         review_version_id = UUID(str(payload["reviewVersionId"]))
         review = None
@@ -1269,11 +1249,7 @@ def _job_quota(job: BackgroundJob) -> EssayReviewQuota:
             feature=payload["feature"],
             used=int(payload["used"]),
             access_mode=payload["accessMode"],
-            limit=(
-                int(payload["limit"])
-                if payload["accessMode"] == "entitlement_quota"
-                else None
-            ),
+            limit=(int(payload["limit"]) if payload["accessMode"] == "entitlement_quota" else None),
             usage_date=date.fromisoformat(str(payload["usageDate"])),
         )
     except (KeyError, TypeError, ValueError) as exc:
@@ -1281,9 +1257,7 @@ def _job_quota(job: BackgroundJob) -> EssayReviewQuota:
             "Grounded review job lacks immutable quota evidence"
         ) from exc
     if quota.feature != "essay_review":
-        raise EssayWorkflowContractError(
-            "Grounded review job carries a different feature quota"
-        )
+        raise EssayWorkflowContractError("Grounded review job carries a different feature quota")
     return quota
 
 

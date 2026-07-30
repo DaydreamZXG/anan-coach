@@ -1,19 +1,46 @@
 [Unit]
 Description=Gongkao Dazi External Learning Worker
-After=network.target postgresql.service clamav-daemon.service
+After=network-online.target postgresql.service clamav-daemon.service
+Wants=network-online.target
 Requires=clamav-daemon.service
 
 [Service]
 Type=simple
-User=deploy
-Group=deploy
+User=gongkao-wkr-external
+Group=gongkao-wkr-external
 WorkingDirectory=/srv/gongkao-dazi/current/backend
-EnvironmentFile=/etc/gongkao-dazi/api.env
+Environment=PYTHONDONTWRITEBYTECODE=1
+EnvironmentFile=/etc/gongkao-dazi/worker-external-learning.env
 EnvironmentFile=/etc/gongkao-dazi/db.env
+EnvironmentFile=/etc/gongkao-dazi/worker-heartbeat-external-learning.env
+EnvironmentFile=/etc/gongkao-dazi/release-runtime.env
 ExecStart=/srv/gongkao-dazi/current/backend/.venv/bin/python -m app.workers.external_learning
 Restart=always
 RestartSec=3
 TimeoutStopSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectKernelLogs=true
+ProtectClock=true
+ProtectHostname=true
+ProtectProc=invisible
+ProcSubset=pid
+RestrictNamespaces=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RemoveIPC=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+SystemCallArchitectures=native
+UMask=0077
 
 [Install]
 WantedBy=multi-user.target

@@ -13,11 +13,11 @@ from app.domains.auth.repository import token_hash_for_tests
 from app.main import create_app
 
 
-def test_position_decision_recommends_safe_balanced_and_stretch_buckets(
+def test_position_decision_release_unbound_recommendations_are_retired(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     _seed_user(db_session_factory, token="decision-token")
-    safe_id = _seed_position_with_score(
+    _seed_position_with_score(
         db_session_factory,
         source_id="decision-safe",
         position_code="300110100001",
@@ -25,7 +25,7 @@ def test_position_decision_recommends_safe_balanced_and_stretch_buckets(
         headcount=3,
         scores=[(2023, 108.0), (2024, 110.0), (2025, 111.0)],
     )
-    balanced_id = _seed_position_with_score(
+    _seed_position_with_score(
         db_session_factory,
         source_id="decision-balanced",
         position_code="300110100002",
@@ -33,7 +33,7 @@ def test_position_decision_recommends_safe_balanced_and_stretch_buckets(
         headcount=2,
         scores=[(2023, 116.0), (2024, 118.0), (2025, 120.0)],
     )
-    stretch_id = _seed_position_with_score(
+    _seed_position_with_score(
         db_session_factory,
         source_id="decision-stretch",
         position_code="300110100003",
@@ -60,41 +60,15 @@ def test_position_decision_recommends_safe_balanced_and_stretch_buckets(
         },
     )
 
-    assert response.status_code == 200
-    body = response.json()
-    assert body["riskPreference"] == "balanced"
-    assert body["currentScore"] == 115.0
-    assert body["unverifiedConditions"] == ["freshGraduate"]
-    assert "先保底" in body["summary"]
-    assert body["nextActions"]
-
-    buckets = {bucket["bucket"]: bucket for bucket in body["recommendationBuckets"]}
-    assert set(buckets) == {"safe", "balanced", "stretch"}
-    assert buckets["safe"]["title"] == "保底岗位"
-    assert buckets["balanced"]["title"] == "稳妥岗位"
-    assert buckets["stretch"]["title"] == "冲刺岗位"
-
-    safe_item = buckets["safe"]["items"][0]
-    balanced_item = buckets["balanced"]["items"][0]
-    stretch_item = buckets["stretch"]["items"][0]
-    assert safe_item["position"]["positionId"] == safe_id
-    assert balanced_item["position"]["positionId"] == balanced_id
-    assert stretch_item["position"]["positionId"] == stretch_id
-    assert safe_item["scoreGap"] < 0
-    assert 0 < balanced_item["scoreGap"] <= 10
-    assert stretch_item["scoreGap"] > 10
-    assert safe_item["admissionChanceScore"] > balanced_item["admissionChanceScore"]
-    assert balanced_item["admissionChanceScore"] > stretch_item["admissionChanceScore"]
-    assert "low_headcount" in stretch_item["riskTags"]
-    assert "extra_exam" in stretch_item["riskTags"]
-    assert any("目标分" in reason for reason in balanced_item["reasons"])
+    assert response.status_code == 410
+    assert "release-unbound" in response.json()["detail"].lower()
 
 
-def test_position_decision_predicts_score_from_regional_major_samples(
+def test_position_decision_prediction_cannot_bypass_release_lifecycle(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     _seed_user(db_session_factory, token="prediction-token")
-    target_id = _seed_position_with_score(
+    _seed_position_with_score(
         db_session_factory,
         source_id="decision-predicted-target",
         position_code="300110200001",
@@ -134,40 +108,7 @@ def test_position_decision_predicts_score_from_regional_major_samples(
         },
     )
 
-    assert response.status_code == 200
-    items = [
-        item
-        for bucket in response.json()["recommendationBuckets"]
-        for item in bucket["items"]
-    ]
-    predicted_item = next(
-        item for item in items if item["position"]["positionId"] == target_id
-    )
-    assert predicted_item["decisionTargetScore"] == 121.5
-    assert predicted_item["scoreGap"] == 6.5
-    assert predicted_item["bucket"] == "balanced"
-    assert "predicted_score" in predicted_item["riskTags"]
-    assert "low_prediction_sample" in predicted_item["riskTags"]
-    assert any("同地区同专业" in reason for reason in predicted_item["reasons"])
-
-    basis = predicted_item["decisionScoreBasis"]
-    assert basis["basisType"] == "regional_major_prediction"
-    assert basis["targetScore"] == 121.5
-    assert basis["averageEntryScore"] == 120.0
-    assert basis["latestScoreYear"] == 2025
-    assert basis["sampleCount"] == 2
-    assert basis["samplePositionCount"] == 2
-    assert basis["safetyMargin"] == 1.5
-    assert basis["confidence"] == "low"
-    assert basis["matchedDimensions"] == [
-        "region",
-        "city",
-        "system",
-        "major",
-        "education",
-        "political",
-        "serviceYears",
-    ]
+    assert response.status_code == 410
 
 
 def test_position_decision_requires_authenticated_user(

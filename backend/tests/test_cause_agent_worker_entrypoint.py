@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Callable
-from contextlib import AbstractContextManager
+from contextlib import AbstractContextManager, nullcontext
 from pathlib import Path
 
 import pytest
@@ -62,6 +62,7 @@ def test_cause_agent_worker_recovers_on_start_then_processes_and_sleeps() -> Non
             session_factory=_session_factory,
             monotonic=lambda: 0.0,
             sleep=stop_after_sleep,
+            heartbeat_runtime=nullcontext(),
         )
 
     assert len(worker.recovery_sessions) == 1
@@ -88,6 +89,7 @@ def test_cause_agent_worker_recovers_again_on_the_declared_cadence() -> None:
             session_factory=_session_factory,
             monotonic=lambda: next(timestamps),
             sleep=lambda _seconds: None,
+            heartbeat_runtime=nullcontext(),
         )
 
     assert len(worker.recovery_sessions) == 2
@@ -105,6 +107,7 @@ def test_cause_agent_worker_does_not_swallow_process_errors() -> None:
             session_factory=_session_factory,
             monotonic=lambda: 0.0,
             sleep=lambda _seconds: None,
+            heartbeat_runtime=nullcontext(),
         )
 
     assert len(worker.recovery_sessions) == 1
@@ -114,8 +117,12 @@ def test_cause_agent_worker_does_not_swallow_process_errors() -> None:
 def test_cause_agent_worker_systemd_unit_uses_formal_module_and_hardening() -> None:
     source = SERVICE_UNIT.read_text(encoding="utf-8")
 
-    assert "EnvironmentFile=/etc/gongkao-dazi/api.env" in source
-    assert "EnvironmentFile=/etc/gongkao-dazi/db.env" in source
+    assert [line for line in source.splitlines() if line.startswith("EnvironmentFile=")] == [
+        "EnvironmentFile=/etc/gongkao-dazi/worker-cause-agent.env",
+        "EnvironmentFile=/etc/gongkao-dazi/db.env",
+        "EnvironmentFile=/etc/gongkao-dazi/worker-heartbeat-cause-agent.env",
+        "EnvironmentFile=/etc/gongkao-dazi/release-runtime.env",
+    ]
     assert (
         "ExecStart=/srv/gongkao-dazi/current/backend/.venv/bin/python "
         "-m app.workers.xingce_cause_agent"

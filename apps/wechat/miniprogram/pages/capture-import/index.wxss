@@ -21,6 +21,13 @@
   overflow-y: auto;
 }
 
+.capture-page--permission {
+  height: 100vh;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 .capture-channel-entry,
 .capture-sheet__close {
   min-height: calc(72 * var(--rpx));
@@ -122,6 +129,11 @@
   text-align: center;
 }
 
+.capture-page--permission .permission-screen {
+  min-height: calc(100vh - calc(120 * var(--rpx)));
+  padding-bottom: calc(calc(64 * var(--rpx)) + env(safe-area-inset-bottom));
+}
+
 .permission-icon,
 .no-hit-icon {
   display: flex;
@@ -196,6 +208,14 @@
   color: var(--ink-3);
 }
 
+.permission-privacy {
+  max-width: calc(580 * var(--rpx));
+  margin-top: calc(32 * var(--rpx));
+  color: var(--color-faint);
+  font-size: var(--text-micro);
+  line-height: 1.55;
+}
+
 .capture-cyan-button,
 .capture-ai-button,
 .capture-primary-button,
@@ -206,7 +226,7 @@
   justify-content: center;
   box-sizing: border-box;
   width: 100%;
-  min-height: calc(96 * var(--rpx));
+  min-height: max(calc(96 * var(--rpx)), 44px);
   border-radius: var(--radius-48);
   font-size: var(--text-section);
   font-weight: 700;
@@ -624,6 +644,10 @@
 }
 
 .camera-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(20 * var(--rpx));
   box-sizing: border-box;
   width: calc(100% - calc(96 * var(--rpx)));
   max-width: 720px;
@@ -638,6 +662,22 @@
   line-height: 1.45;
   overflow-wrap: anywhere;
   text-align: center;
+}
+
+.camera-error__copy {
+  min-width: 0;
+}
+
+.camera-error__action {
+  flex: none;
+  min-height: 44px;
+  padding: 0 calc(24 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid rgba(251, 191, 36, 0.5);
+  border-radius: var(--radius-capsule);
+  background: rgba(15, 23, 42, 0.52);
+  color: var(--figma-color-warning);
+  font-size: var(--text-micro);
+  font-weight: 800;
 }
 
 .camera-privacy {
@@ -1354,6 +1394,10 @@ button.camera-control {
 
 button.camera-shutter {
   width: calc(144 * var(--rpx));
+}
+
+button.camera-error__action {
+  width: auto;
 }
 
 button.material-action {

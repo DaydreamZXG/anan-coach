@@ -32,6 +32,5 @@ for (const scenario of visualScenarios) {
 assertBusinessCoverage(inventory, coveredPages, "Visual coverage");
 
 process.stdout.write(
-  `Validated ${String(visualScenarios.length)} scenarios covering ${String(coveredPages.size)} business pages; ` +
-    `${String(inventory.assetEntryRoutes.length)} asset entries are N/A.\n`,
+  `Validated ${String(visualScenarios.length)} scenarios covering ${String(coveredPages.size)} registered business pages.\n`,
 );

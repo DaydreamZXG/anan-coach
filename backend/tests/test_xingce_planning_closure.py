@@ -80,10 +80,7 @@ def test_all_correct_reflection_rejects_unsupported_cause_and_completes_plan(
     assert completed["review"]["state"] == "immediate_verification_due"
     assert completed["review"]["causeDecision"]["decision"] == "reject"
     assert completed["completion"]["receiptId"]
-    assert all(
-        planned["id"] != task["id"]
-        for planned in completed["completion"]["plan"]["tasks"]
-    )
+    assert all(planned["id"] != task["id"] for planned in completed["completion"]["plan"]["tasks"])
     with db_session_factory() as session:
         execution = (
             session.execute(
@@ -302,9 +299,7 @@ def test_abandoned_plan_execution_is_preserved_and_late_evidence_is_linked(
         headers={**auth, "Idempotency-Key": "late-link-cause"},
         json={
             "expectedRevision": reflected_data["review"]["revision"],
-            "candidateVersionId": reflected_data["review"]["aiCandidate"][
-                "candidateVersionId"
-            ],
+            "candidateVersionId": reflected_data["review"]["aiCandidate"]["candidateVersionId"],
             "decision": "replace",
             "replacementCause": "第一题虽答对，但判断依据不完整。",
         },
@@ -375,12 +370,8 @@ def test_due_mastery_version_runs_independent_verification_and_schedules_first_r
         None,
     )
     assert verification_task is not None, {
-        "stages": [
-            task["stage"] for task in decided_data["completion"]["plan"]["tasks"]
-        ],
-        "dueVerificationCount": decided_data["completion"]["plan"][
-            "dueVerificationCount"
-        ],
+        "stages": [task["stage"] for task in decided_data["completion"]["plan"]["tasks"]],
+        "dueVerificationCount": decided_data["completion"]["plan"]["dueVerificationCount"],
         "inputVersions": decided_data["completion"]["plan"]["inputVersions"],
     }
     started = client.post(
@@ -401,9 +392,7 @@ def test_due_mastery_version_runs_independent_verification_and_schedules_first_r
         ),
     }
     assert verification["mode"] == "verification"
-    question_ids = [
-        question["questionId"] for question in verification["bundle"]["questions"]
-    ]
+    question_ids = [question["questionId"] for question in verification["bundle"]["questions"]]
     assert question_ids == [
         "xingce-route-question-4",
         "xingce-route-question-5",
@@ -502,9 +491,7 @@ def test_due_mastery_version_runs_independent_verification_and_schedules_first_r
 def test_xingce_migration_downgrade_guard_detects_personal_records(
     db_session_factory: sessionmaker[Session],
 ) -> None:
-    migration = importlib.import_module(
-        "migrations.versions.20260715_19_xingce_learning_closure"
-    )
+    migration = importlib.import_module("migrations.versions.20260715_19_xingce_learning_closure")
     with db_session_factory.begin() as session:
         assert migration._has_xingce_learning_records(session.connection()) is False
         user_id = str(uuid4())
@@ -565,6 +552,28 @@ def _submitted_attempt(
         ),
     }
     questions = started["bundle"]["questions"]
+    with factory() as session:
+        scoring_bundle = session.execute(
+            text(
+                "select scoring_bundle from learning.xingce_task_sessions "
+                "where session_id = cast(:session_id as uuid)"
+            ),
+            {"session_id": started["sessionId"]},
+        ).scalar_one()
+    correct_options_by_question = {
+        str(item["questionId"]): [str(option) for option in item["correctOptionIds"]]
+        for item in scoring_bundle["questions"]
+    }
+    legacy_correct_options = ["A", "B", "C"]
+    resolved_choices: list[str] = []
+    for index, (question, choice) in enumerate(zip(questions, choices, strict=True)):
+        correct_options = correct_options_by_question[question["questionId"]]
+        if choice == legacy_correct_options[index]:
+            resolved_choices.append(correct_options[0])
+            continue
+        resolved_choices.append(
+            next(option for option in ("A", "B", "C", "D") if option not in correct_options)
+        )
     checkpoint = client.put(
         f"/api/v2/xingce/task-sessions/{started['sessionId']}/checkpoint",
         headers={**auth, "Idempotency-Key": f"checkpoint-{token}"},
@@ -584,7 +593,7 @@ def _submitted_attempt(
                     "materialPosition": None,
                 }
                 for index, (question, choice) in enumerate(
-                    zip(questions, choices, strict=True)
+                    zip(questions, resolved_choices, strict=True)
                 )
             ],
             "totalElapsedSeconds": 132,

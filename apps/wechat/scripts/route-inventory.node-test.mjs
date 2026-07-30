@@ -17,29 +17,26 @@ const routeManifest = readJson(
   resolve(projectRoot, "miniprogram/app/navigation/routes.manifest.json"),
 );
 
-test("classifies all registered routes as 60 business pages and 6 asset entries", () => {
+test("classifies all 60 registered routes as business pages", () => {
   const inventory = routeInventory(appConfig, routeManifest);
 
-  assert.equal(inventory.allRoutes.length, 66);
+  assert.equal(inventory.allRoutes.length, 60);
   assert.equal(inventory.businessRoutes.length, 60);
-  assert.equal(inventory.assetEntryRoutes.length, 6);
+  assert.deepEqual(inventory.assetEntryRoutes, []);
 });
 
 test("preserves the route inventory when a business page moves between main and subpackage", () => {
   const before = {
     pages: ["pages/login/index"],
-    subPackages: [
-      { root: "pages/profile", pages: ["qualification/index"] },
-      { root: "packages/anan-thinking", pages: ["asset-entry/index"] },
-    ],
+    subPackages: [{ root: "pages/profile", pages: ["qualification/index"] }],
   };
   const after = {
     pages: ["pages/login/index", "pages/profile/qualification/index"],
-    subPackages: [{ root: "packages/anan-thinking", pages: ["asset-entry/index"] }],
+    subPackages: [],
   };
   const manifest = {
     businessPages: ["pages/login/index", "pages/profile/qualification/index"],
-    assetEntryPages: ["packages/anan-thinking/asset-entry/index"],
+    assetEntryPages: [],
   };
 
   assert.deepEqual(routeInventory(before, manifest), routeInventory(after, manifest));
@@ -57,55 +54,26 @@ test("reports the exact missing business-page artifact", () => {
   );
 });
 
-test("reports the exact missing asset-entry artifact", () => {
+test("reports the exact missing registered-page component dependency", () => {
   const inventory = routeInventory(
-    {
-      pages: ["pages/login/index"],
-      subPackages: [{ root: "packages/anan-thinking", pages: ["asset-entry/index"] }],
-    },
-    {
-      businessPages: ["pages/login/index"],
-      assetEntryPages: ["packages/anan-thinking/asset-entry/index"],
-    },
-  );
-
-  assert.throws(
-    () =>
-      assertRegisteredPageArtifacts(
-        inventory,
-        (route, extension) =>
-          route !== "packages/anan-thinking/asset-entry/index" || extension !== "wxml",
-      ),
-    /Missing registered page artifact: packages\/anan-thinking\/asset-entry\/index\.wxml/u,
-  );
-});
-
-test("reports the exact missing asset-entry component dependency", () => {
-  const inventory = routeInventory(
-    {
-      pages: ["pages/login/index"],
-      subPackages: [{ root: "packages/anan-thinking", pages: ["asset-entry/index"] }],
-    },
-    {
-      businessPages: ["pages/login/index"],
-      assetEntryPages: ["packages/anan-thinking/asset-entry/index"],
-    },
+    { pages: ["pages/login/index"] },
+    { businessPages: ["pages/login/index"], assetEntryPages: [] },
   );
 
   assert.throws(
     () =>
       assertRegisteredPageComponents(inventory, (route) =>
-        route === "packages/anan-thinking/asset-entry/index"
+        route === "pages/login/index"
           ? [
               {
-                name: "anan-visual",
-                root: "packages/anan-thinking/components/visual/index",
+                name: "login-card",
+                root: "components/login-card/index",
                 missingExtensions: ["wxml"],
               },
             ]
           : [],
       ),
-    /Registered page component anan-visual is incomplete: packages\/anan-thinking\/components\/visual\/index\.wxml/u,
+    /Registered page component login-card is incomplete: components\/login-card\/index\.wxml/u,
   );
 });
 
@@ -133,29 +101,33 @@ test("reports the exact business route when its interaction contract is deleted"
   );
 });
 
-test("keeps asset entries explicit N/A instead of admitting them to business coverage", () => {
-  const inventory = routeInventory(
-    {
-      pages: ["pages/login/index"],
-      subPackages: [{ root: "packages/anan-thinking", pages: ["asset-entry/index"] }],
-    },
-    {
-      businessPages: ["pages/login/index"],
-      assetEntryPages: ["packages/anan-thinking/asset-entry/index"],
-    },
-  );
+test("rejects internal asset hosts from both registration and manifest classifications", () => {
+  const assetEntry = "packages/anan-thinking/asset-entry/index";
 
-  assert.doesNotThrow(() =>
-    assertBusinessCoverage(inventory, ["pages/login/index"], "Visual coverage"),
+  assert.throws(
+    () =>
+      routeInventory(
+        {
+          pages: ["pages/login/index"],
+          subPackages: [{ root: "packages/anan-thinking", pages: ["asset-entry/index"] }],
+        },
+        {
+          businessPages: ["pages/login/index", assetEntry],
+          assetEntryPages: [],
+        },
+      ),
+    /Internal asset entry sources must not be registered/u,
   );
   assert.throws(
     () =>
-      assertBusinessCoverage(
-        inventory,
-        ["pages/login/index", "packages/anan-thinking/asset-entry/index"],
-        "Visual coverage",
+      routeInventory(
+        { pages: ["pages/login/index"] },
+        {
+          businessPages: ["pages/login/index"],
+          assetEntryPages: [assetEntry],
+        },
       ),
-    /Visual coverage must only cover business routes: packages\/anan-thinking\/asset-entry\/index/u,
+    /Internal asset entry sources must not be registered/u,
   );
 });
 

@@ -258,6 +258,7 @@ class ExternalProcessingRepository:
         input_fingerprint: str,
         production_authorization_required: bool,
         dispatched_at: datetime | None,
+        receipt_phase: str = "authorized_dispatch_intent",
     ) -> UUID:
         if not declared_provider_release.strip():
             raise ExternalProcessingAuthorizationError(
@@ -270,6 +271,10 @@ class ExternalProcessingRepository:
         if not data_categories or any(not item.strip() for item in data_categories):
             raise ExternalProcessingAuthorizationError(
                 "external processing data categories are required"
+            )
+        if receipt_phase != "authorized_dispatch_intent":
+            raise ExternalProcessingAuthorizationError(
+                "external processing receipt phase is unsupported"
             )
         at = dispatched_at or datetime.now(UTC)
         release_record_id: str | None = None
@@ -294,7 +299,8 @@ class ExternalProcessingRepository:
                   community_candidate_id,
                   processor_release_record_id, declared_provider_release,
                   endpoint_fingerprint, scenario_key, purpose, data_categories,
-                  input_fingerprint, authorization_state, dispatched_at
+                  input_fingerprint, authorization_state, receipt_phase,
+                  dispatched_at
                 ) values (
                   cast(:receipt_id as uuid), cast(:user_id as uuid),
                   cast(:model_call_id as uuid), cast(:external_operation_id as uuid),
@@ -302,7 +308,7 @@ class ExternalProcessingRepository:
                   :release_record_id, :declared_provider_release,
                   :endpoint_fingerprint, :scenario_key, :purpose,
                   cast(:data_categories as jsonb), :input_fingerprint,
-                  :authorization_state, :dispatched_at
+                  :authorization_state, :receipt_phase, :dispatched_at
                 )
                 on conflict do nothing
                 """
@@ -325,32 +331,37 @@ class ExternalProcessingRepository:
                 "data_categories": json.dumps(data_categories),
                 "input_fingerprint": input_fingerprint,
                 "authorization_state": authorization_state,
+                "receipt_phase": receipt_phase,
                 "dispatched_at": at,
             },
         )
-        existing = session.execute(
-            text(
-                """
+        existing = (
+            session.execute(
+                text(
+                    """
                 select receipt_id, user_id, processor_release_record_id,
                        declared_provider_release, endpoint_fingerprint,
                        scenario_key, purpose, data_categories, input_fingerprint,
-                       authorization_state
+                       authorization_state, receipt_phase
                 from ai_audit.external_processing_receipts
                 where model_call_id = cast(:model_call_id as uuid)
                    or external_operation_id = cast(:external_operation_id as uuid)
                    or community_candidate_id = cast(:community_candidate_id as uuid)
                 """
-            ),
-            {
-                "model_call_id": str(model_call_id) if model_call_id else None,
-                "external_operation_id": (
-                    str(external_operation_id) if external_operation_id else None
                 ),
-                "community_candidate_id": (
-                    str(community_candidate_id) if community_candidate_id else None
-                ),
-            },
-        ).mappings().one()
+                {
+                    "model_call_id": str(model_call_id) if model_call_id else None,
+                    "external_operation_id": (
+                        str(external_operation_id) if external_operation_id else None
+                    ),
+                    "community_candidate_id": (
+                        str(community_candidate_id) if community_candidate_id else None
+                    ),
+                },
+            )
+            .mappings()
+            .one()
+        )
         expected = (
             str(user_id) if user_id is not None else None,
             release_record_id,
@@ -361,6 +372,7 @@ class ExternalProcessingRepository:
             tuple(data_categories),
             input_fingerprint,
             authorization_state,
+            receipt_phase,
         )
         observed = (
             str(existing["user_id"]) if existing["user_id"] is not None else None,
@@ -372,6 +384,7 @@ class ExternalProcessingRepository:
             tuple(existing["data_categories"]),
             str(existing["input_fingerprint"]),
             str(existing["authorization_state"]),
+            str(existing["receipt_phase"]),
         )
         if observed != expected:
             raise ExternalProcessingAuthorizationError(

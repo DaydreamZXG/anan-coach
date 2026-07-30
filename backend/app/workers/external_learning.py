@@ -8,14 +8,26 @@ from threading import Event
 from sqlalchemy.orm import Session
 
 from app.core.config import Settings, get_settings
-from app.db.session import get_session_factory
+from app.db.session import (
+    get_session_factory,
+    get_worker_heartbeat_session_factory,
+)
 from app.domains.external_ingestion.composition import build_upload_service
 from app.domains.external_ingestion.composition import build_private_object_storage
 from app.domains.external_ingestion.answering.worker import ExternalAIAnswerWorker
+from app.domains.external_ingestion.recognition.operations import (
+    RECOGNITION_RECONCILIATION_MIN_AGE_SECONDS,
+    reconcile_stale_recognition_operations,
+)
 from app.domains.external_ingestion.upload.service import UploadService
+from app.domains.learning_media.composition import (
+    build_learning_media_scanner,
+    build_learning_media_storage,
+)
+from app.domains.learning_media.worker import LearningMediaWorker
 from app.domains.learning_packages.composition import build_packet_render_worker
 from app.domains.learning_packages.worker import PacketRenderWorker
-from app.platform.jobs import BackgroundJobRepository
+from app.platform.jobs import BackgroundJobRepository, JobConsumerHeartbeatRuntime
 from app.domains.private_knowledge.worker import PrivateKnowledgeDeletionWorker
 from app.domains.private_knowledge.projection import build_projection_gateway
 
@@ -24,7 +36,7 @@ LOGGER = logging.getLogger("external_learning_worker")
 
 
 class ExternalLearningWorker:
-    """Runs packet rendering and durable upload maintenance in one process."""
+    """Runs the deployed external-learning job topology in one process."""
 
     def __init__(
         self,
@@ -35,11 +47,13 @@ class ExternalLearningWorker:
         answer_worker: ExternalAIAnswerWorker | None = None,
         upload_service: UploadService | None = None,
         jobs: BackgroundJobRepository | None = None,
+        learning_media_worker: LearningMediaWorker | None = None,
         private_knowledge_worker: PrivateKnowledgeDeletionWorker | None = None,
     ) -> None:
         _validate_worker_settings(settings)
         self._session = session
         self._settings = settings
+        self._jobs = jobs or BackgroundJobRepository()
         self._packet_worker = packet_worker or build_packet_render_worker(
             session=session,
             settings=settings,
@@ -49,10 +63,12 @@ class ExternalLearningWorker:
             session=session,
             settings=settings,
         )
-        self._jobs = jobs or BackgroundJobRepository()
-        self._private_knowledge_projection = build_projection_gateway(
-            session, jobs=self._jobs
+        self._learning_media_worker = learning_media_worker or LearningMediaWorker(
+            storage=build_learning_media_storage(settings),
+            scanner=build_learning_media_scanner(settings),
+            jobs=self._jobs,
         )
+        self._private_knowledge_projection = build_projection_gateway(session, jobs=self._jobs)
         self._private_knowledge_worker = private_knowledge_worker or PrivateKnowledgeDeletionWorker(
             storage=build_private_object_storage(settings),
             jobs=self._jobs,
@@ -65,9 +81,9 @@ class ExternalLearningWorker:
         did_work = False
         if self._private_knowledge_projection is not None:
             try:
-                did_work = bool(
-                    self._private_knowledge_projection.cleanup_account_deletions()
-                ) or did_work
+                did_work = (
+                    bool(self._private_knowledge_projection.cleanup_account_deletions()) or did_work
+                )
             except Exception:
                 self._session.rollback()
                 LOGGER.exception("private knowledge account-erasure projection cleanup failed")
@@ -78,8 +94,7 @@ class ExternalLearningWorker:
             )
         try:
             did_work = (
-                self._private_knowledge_worker.process_next(self._session) is not None
-                or did_work
+                self._private_knowledge_worker.process_next(self._session) is not None or did_work
             )
         except Exception:
             LOGGER.exception("private knowledge deletion job failed unexpectedly")
@@ -91,28 +106,41 @@ class ExternalLearningWorker:
             did_work = self._packet_worker.process_next(self._session) is not None or did_work
         except Exception:
             LOGGER.exception("packet render job failed unexpectedly")
+        try:
+            did_work = (
+                self._learning_media_worker.process_next(self._session) is not None or did_work
+            )
+        except Exception:
+            self._session.rollback()
+            LOGGER.exception("learning media job failed unexpectedly")
         return did_work
 
     def _maintain(self, *, now: datetime) -> bool:
         try:
+            recognition = reconcile_stale_recognition_operations(
+                self._session,
+                stale_before=now
+                - timedelta(
+                    seconds=(self._settings.recognition_operation_reconciliation_age_seconds)
+                ),
+                completed_at=now,
+                limit=(self._settings.recognition_operation_reconciliation_batch_size),
+            )
             stale_jobs = self._jobs.requeue_stale(
                 self._session,
                 job_types=(
                     *PacketRenderWorker.JOB_TYPES,
                     *ExternalAIAnswerWorker.JOB_TYPES,
                     *PrivateKnowledgeDeletionWorker.JOB_TYPES,
+                    *LearningMediaWorker.JOB_TYPES,
                 ),
                 stale_before=now
-                - timedelta(
-                    seconds=self._settings.external_learning_stale_claim_seconds
-                ),
+                - timedelta(seconds=self._settings.external_learning_stale_claim_seconds),
                 now=now,
             )
             recovered = self._uploads.recover_pending(
                 before=now
-                - timedelta(
-                    seconds=self._settings.external_learning_upload_recovery_age_seconds
-                ),
+                - timedelta(seconds=self._settings.external_learning_upload_recovery_age_seconds),
                 limit=self._settings.external_learning_maintenance_batch_size,
             )
             expired = self._uploads.expire_stale(
@@ -124,10 +152,12 @@ class ExternalLearningWorker:
             self._session.rollback()
             LOGGER.exception("external learning maintenance failed")
             return False
-        if stale_jobs or recovered or expired:
+        if recognition.operations or stale_jobs or recovered or expired:
             LOGGER.info(
                 "external learning maintenance completed",
                 extra={
+                    "reconciled_recognition_operations": recognition.operations,
+                    "released_recognition_reservations": (recognition.refunded_reservations),
                     "stale_jobs": stale_jobs,
                     "recovered_uploads": len(recovered),
                     "expired_uploads": len(expired),
@@ -149,31 +179,42 @@ def run() -> None:
     signal.signal(signal.SIGINT, request_stop)
 
     session_factory = get_session_factory()
-    with session_factory() as session:
-        worker = ExternalLearningWorker(session=session, settings=settings)
-        LOGGER.info("external learning worker started")
-        while not stop.is_set():
-            did_work = worker.run_once()
-            if not did_work:
-                stop.wait(settings.external_learning_worker_poll_seconds)
+    heartbeat_session_factory = get_worker_heartbeat_session_factory(
+        consumer_unit="gongkao-dazi-external-learning-worker",
+        consumer_entrypoint="app.workers.external_learning",
+    )
+    with JobConsumerHeartbeatRuntime(
+        session_factory=heartbeat_session_factory,
+        consumer_unit="gongkao-dazi-external-learning-worker",
+        consumer_entrypoint="app.workers.external_learning",
+    ):
+        with session_factory() as session:
+            worker = ExternalLearningWorker(session=session, settings=settings)
+            LOGGER.info("external learning worker started")
+            while not stop.is_set():
+                did_work = worker.run_once()
+                if not did_work:
+                    stop.wait(settings.external_learning_worker_poll_seconds)
 
 
 def _validate_worker_settings(settings: Settings) -> None:
     positive_values = {
-        "EXTERNAL_LEARNING_WORKER_POLL_SECONDS": (
-            settings.external_learning_worker_poll_seconds
-        ),
+        "EXTERNAL_LEARNING_WORKER_POLL_SECONDS": (settings.external_learning_worker_poll_seconds),
         "EXTERNAL_LEARNING_MAINTENANCE_INTERVAL_SECONDS": (
             settings.external_learning_maintenance_interval_seconds
         ),
         "EXTERNAL_LEARNING_UPLOAD_RECOVERY_AGE_SECONDS": (
             settings.external_learning_upload_recovery_age_seconds
         ),
-        "EXTERNAL_LEARNING_STALE_CLAIM_SECONDS": (
-            settings.external_learning_stale_claim_seconds
-        ),
+        "EXTERNAL_LEARNING_STALE_CLAIM_SECONDS": (settings.external_learning_stale_claim_seconds),
         "EXTERNAL_LEARNING_MAINTENANCE_BATCH_SIZE": (
             settings.external_learning_maintenance_batch_size
+        ),
+        "RECOGNITION_OPERATION_RECONCILIATION_AGE_SECONDS": (
+            settings.recognition_operation_reconciliation_age_seconds
+        ),
+        "RECOGNITION_OPERATION_RECONCILIATION_BATCH_SIZE": (
+            settings.recognition_operation_reconciliation_batch_size
         ),
     }
     invalid = [name for name, value in positive_values.items() if value <= 0]
@@ -181,6 +222,16 @@ def _validate_worker_settings(settings: Settings) -> None:
         raise ValueError(f"worker settings must be positive: {', '.join(invalid)}")
     if settings.external_learning_maintenance_batch_size > 1_000:
         raise ValueError("EXTERNAL_LEARNING_MAINTENANCE_BATCH_SIZE cannot exceed 1000")
+    if settings.recognition_operation_reconciliation_batch_size > 1_000:
+        raise ValueError("RECOGNITION_OPERATION_RECONCILIATION_BATCH_SIZE cannot exceed 1000")
+    if (
+        settings.recognition_operation_reconciliation_age_seconds
+        < RECOGNITION_RECONCILIATION_MIN_AGE_SECONDS
+    ):
+        raise ValueError(
+            "RECOGNITION_OPERATION_RECONCILIATION_AGE_SECONDS must preserve "
+            "the provider timeout safety margin"
+        )
 
 
 if __name__ == "__main__":

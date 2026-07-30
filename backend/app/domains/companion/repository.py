@@ -79,24 +79,31 @@ class CompanionRepository:
         user_id: str,
         node_id: str | None,
     ) -> CompanionContextRecord:
-        profile = self._session.execute(
-            text(
-                """
+        profile = (
+            self._session.execute(
+                text(
+                    """
                 select
-                  target_exam,
-                  position_group,
-                  target_score,
-                  baseline_xingce_score,
-                  baseline_shenlun_score
-                from learner.profiles
-                where user_id = cast(:user_id as uuid)
+                  profile.target_exam,
+                  profile.position_group,
+                  current_target.target_score,
+                  profile.baseline_xingce_score,
+                  profile.baseline_shenlun_score
+                from learner.profiles profile
+                left join learner.current_profile_position_projections current_target
+                  on current_target.user_id = profile.user_id
+                where profile.user_id = cast(:user_id as uuid)
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().first()
-        summary = self._session.execute(
-            text(
-                """
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .first()
+        )
+        summary = (
+            self._session.execute(
+                text(
+                    """
                 select
                   (
                     select count(*)
@@ -124,23 +131,31 @@ class CompanionRepository:
                     limit 1
                   ) as latest_mock_score
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
-        rank = self._session.execute(
-            text(
-                """
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
+        rank = (
+            self._session.execute(
+                text(
+                    """
                 select r.xp, r.fame, r.consecutive_days, c.rank_level, c.rank_name
                 from learner.official_ranks r
                 join product.official_rank_config c on c.rank_code = r.rank_code
                 where r.user_id = cast(:user_id as uuid)
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().first()
-        wrong_module_rows = self._session.execute(
-            text(
-                """
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .first()
+        )
+        wrong_module_rows = (
+            self._session.execute(
+                text(
+                    """
                 select q.module_name, count(*) as wrong_count
                 from learner.practice_answers pa
                 join product.questions q on q.question_id = pa.question_id
@@ -150,9 +165,12 @@ class CompanionRepository:
                 group by q.module_name
                 order by wrong_count desc, q.module_name
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().all()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .all()
+        )
         module_vocabulary = load_current_module_vocabulary(
             self._session,
             exam_scope="guokao",
@@ -162,9 +180,10 @@ class CompanionRepository:
             wrong_module_rows,
             vocabulary=module_vocabulary,
         )
-        method_cards = self._session.execute(
-            text(
-                """
+        method_cards = (
+            self._session.execute(
+                text(
+                    """
                 with active_releases as (
                   select
                     release.release_id,
@@ -204,26 +223,34 @@ class CompanionRepository:
                 order by mc.priority desc, mc.id
                 limit 3
                 """
-            ),
-            {
-                "node_id": node_id,
-                "release_id": (
-                    module_vocabulary.release_id
-                    if module_vocabulary is not None
-                    else None
                 ),
-            },
-        ).mappings().all()
-        ability = self._session.execute(
-            text(
-                """
-                with current_release as (
-                  select release.exam_code, release.exam_year
-                    from product.position_rule_releases release
-                   where release.exam_code = 'guokao'
-                     and release.status = 'active'
-                   order by release.exam_year desc
-                   limit 1
+                {
+                    "node_id": node_id,
+                    "release_id": (
+                        module_vocabulary.release_id if module_vocabulary is not None else None
+                    ),
+                },
+            )
+            .mappings()
+            .all()
+        )
+        ability = (
+            self._session.execute(
+                text(
+                    """
+                with open_releases as materialized (
+                  select distinct release.release_id, release.exam_code, release.exam_year
+                  from product.position_rule_releases release
+                  join product.position_release_windows business_window
+                    on business_window.release_id = release.release_id
+                   and business_window.opens_at <= statement_timestamp()
+                   and statement_timestamp() < business_window.closes_at
+                  where release.exam_code = 'guokao'
+                    and release.status = 'active'
+                ), current_release as (
+                  select exam_code, exam_year
+                  from open_releases
+                  where (select count(*) from open_releases) = 1
                 )
                 select shenlun_lower, shenlun_recommended, shenlun_upper,
                        confidence, generated_at, valid_until
@@ -242,12 +269,16 @@ class CompanionRepository:
                  order by estimate.generated_at desc, estimate.estimate_version_id
                  limit 1
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one_or_none()
-        essay_summary = self._session.execute(
-            text(
-                """
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
+        essay_summary = (
+            self._session.execute(
+                text(
+                    """
                 select
                   (select count(*)
                      from learning.essay_attempts attempt
@@ -266,12 +297,16 @@ class CompanionRepository:
                                review.review_version_id
                       )) as grounded_reviews
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
-        current_essay_evidence = self._session.execute(
-            text(
-                """
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
+        current_essay_evidence = (
+            self._session.execute(
+                text(
+                    """
                 with canonical_attempt as (
                   select attempt.*
                     from learning.essay_attempts attempt
@@ -378,9 +413,12 @@ class CompanionRepository:
                      limit 1
                   ) reflection on true
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
         latest_review = (
             current_essay_evidence
             if current_essay_evidence is not None
@@ -393,9 +431,10 @@ class CompanionRepository:
             and current_essay_evidence["reflection_artifact_version_id"] is not None
             else None
         )
-        current_plan = self._session.execute(
-            text(
-                """
+        current_plan = (
+            self._session.execute(
+                text(
+                    """
                 select plan.track_explanation,
                        (
                          select jsonb_build_object(
@@ -435,12 +474,16 @@ class CompanionRepository:
                  order by plan.generated_at desc, plan.plan_version_id
                  limit 1
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one_or_none()
-        learning_brain = self._session.execute(
-            text(
-                """
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
+        learning_brain = (
+            self._session.execute(
+                text(
+                    """
                 select profile_version_id, version_no, readiness,
                        ability_snapshot, evidence_summary, module_abilities,
                        error_patterns, decision_summary, conflicts,
@@ -456,13 +499,18 @@ class CompanionRepository:
                  order by profile.version_no desc
                  limit 1
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one_or_none()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
         return CompanionContextRecord(
             target_exam=profile["target_exam"] if profile else None,
             position_group=profile["position_group"] if profile else None,
-            target_score=float(profile["target_score"]) if profile and profile["target_score"] is not None else None,
+            target_score=float(profile["target_score"])
+            if profile and profile["target_score"] is not None
+            else None,
             baseline_xingce_score=(
                 float(profile["baseline_xingce_score"])
                 if profile and profile["baseline_xingce_score"] is not None
@@ -501,15 +549,16 @@ class CompanionRepository:
             latest_essay_reflection=_essay_reflection_summary(latest_reflection),
             today_essay_plan=(
                 dict(current_plan["essay_task"])
-                if current_plan is not None
-                and isinstance(current_plan["essay_task"], dict)
+                if current_plan is not None and isinstance(current_plan["essay_task"], dict)
                 else None
             ),
             essay_plan_omission_reason=_essay_omission_reason(current_plan),
             rank_level=int(rank["rank_level"]) if rank and rank["rank_level"] is not None else None,
             rank_name=str(rank["rank_name"]) if rank and rank["rank_name"] is not None else None,
             fame=int(rank["fame"]) if rank and rank["fame"] is not None else None,
-            consecutive_days=int(rank["consecutive_days"]) if rank and rank["consecutive_days"] is not None else None,
+            consecutive_days=int(rank["consecutive_days"])
+            if rank and rank["consecutive_days"] is not None
+            else None,
             xp=int(rank["xp"]) if rank and rank["xp"] is not None else None,
             learning_brain_profile=(
                 {
@@ -547,9 +596,10 @@ class CompanionRepository:
         canonical_module = vocabulary.canonicalize(module_name)
         if canonical_module is None:
             return None
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 with active_releases as (
                   select
                     release.release_id,
@@ -590,14 +640,17 @@ class CompanionRepository:
                   node.node_id
                 limit 1
                 """
-            ),
-            {
-                "release_id": vocabulary.release_id,
-                "module_name": canonical_module,
-                "tag_type": tag_type,
-                "tag_value": tag_value,
-            },
-        ).mappings().first()
+                ),
+                {
+                    "release_id": vocabulary.release_id,
+                    "module_name": canonical_module,
+                    "tag_type": tag_type,
+                    "tag_value": tag_value,
+                },
+            )
+            .mappings()
+            .first()
+        )
         if row is None:
             return None
         return KnowledgeMapCandidateRecord(
@@ -704,9 +757,10 @@ class CompanionRepository:
         intake_id: str,
         user_id: str,
     ) -> ExternalQuestionIntakeRecord | None:
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 select
                   intake_id,
                   user_id,
@@ -722,9 +776,12 @@ class CompanionRepository:
                 where intake_id = cast(:intake_id as uuid)
                   and user_id = cast(:user_id as uuid)
                 """
-            ),
-            {"intake_id": intake_id, "user_id": user_id},
-        ).mappings().first()
+                ),
+                {"intake_id": intake_id, "user_id": user_id},
+            )
+            .mappings()
+            .first()
+        )
         if row is None:
             return None
         return ExternalQuestionIntakeRecord(
@@ -897,9 +954,7 @@ def _essay_reflection_summary(row: Any) -> dict[str, object] | None:
 
 
 def _essay_omission_reason(current_plan: Any) -> str | None:
-    if current_plan is None or not isinstance(
-        current_plan["track_explanation"], dict
-    ):
+    if current_plan is None or not isinstance(current_plan["track_explanation"], dict):
         return None
     reasons = current_plan["track_explanation"].get("omittedTrackReasons")
     if not isinstance(reasons, dict):

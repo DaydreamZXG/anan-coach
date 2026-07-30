@@ -22,6 +22,7 @@ class LearnerProfileRecord:
     study_mode: str | None = None
     target_position_id: str | None = None
     target_score: float | None = None
+    target_position_data_version: str | None = None
     baseline_source: str | None = None
     baseline_xingce_score: float | None = None
     baseline_shenlun_score: float | None = None
@@ -66,9 +67,10 @@ class LearnerMemoryRepository:
 
     def get_memory(self, *, user_id: str) -> LearnerMemoryRecord:
         self.ensure_profile(user_id=user_id)
-        profile = self._session.execute(
-            text(
-                """
+        profile = (
+            self._session.execute(
+                text(
+                    """
                 select
                   target_exam,
                   target_region,
@@ -80,23 +82,30 @@ class LearnerMemoryRepository:
                   political_status,
                   grassroots_years,
                   study_mode,
-                  target_position_id,
-                  target_score,
+                  current_target.target_position_id,
+                  current_target.target_score,
+                  current_target.target_position_data_version,
                   baseline_source,
                   baseline_xingce_score,
                   baseline_shenlun_score,
                   baseline_weak_modules,
                   baseline_module_snapshot,
                   onboarding_complete
-                from learner.profiles
-                where user_id = cast(:user_id as uuid)
+                from learner.profiles profile
+                left join learner.current_profile_position_projections current_target
+                  on current_target.user_id = profile.user_id
+                where profile.user_id = cast(:user_id as uuid)
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
-        summary = self._session.execute(
-            text(
-                """
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
+        summary = (
+            self._session.execute(
+                text(
+                    """
                 select
                   (
                     select count(*)
@@ -115,9 +124,12 @@ class LearnerMemoryRepository:
                     where learner_key = :learner_key
                   ) as essay_attempts
                 """
-            ),
-            {"user_id": user_id, "learner_key": user_id},
-        ).mappings().one()
+                ),
+                {"user_id": user_id, "learner_key": user_id},
+            )
+            .mappings()
+            .one()
+        )
         return LearnerMemoryRecord(
             profile=LearnerProfileRecord(
                 target_exam=profile["target_exam"],
@@ -136,10 +148,9 @@ class LearnerMemoryRepository:
                     else None
                 ),
                 target_score=(
-                    float(profile["target_score"])
-                    if profile["target_score"] is not None
-                    else None
+                    float(profile["target_score"]) if profile["target_score"] is not None else None
                 ),
+                target_position_data_version=profile["target_position_data_version"],
                 baseline_source=profile["baseline_source"],
                 baseline_xingce_score=(
                     float(profile["baseline_xingce_score"])
@@ -245,9 +256,10 @@ class LearnerMemoryRepository:
         user_id: str,
         completed_on: date,
     ) -> list[str]:
-        rows = self._session.execute(
-            text(
-                """
+        rows = (
+            self._session.execute(
+                text(
+                    """
                 select distinct task_id
                 from learner.practice_answers
                 where user_id = cast(:user_id as uuid)
@@ -265,13 +277,16 @@ class LearnerMemoryRepository:
                   and (review_viewed_at at time zone 'UTC')::date = :completed_on
                 order by task_id
                 """
-            ),
-            {
-                "user_id": user_id,
-                "learner_key": user_id,
-                "completed_on": completed_on,
-            },
-        ).mappings().all()
+                ),
+                {
+                    "user_id": user_id,
+                    "learner_key": user_id,
+                    "completed_on": completed_on,
+                },
+            )
+            .mappings()
+            .all()
+        )
         return [str(row["task_id"]) for row in rows]
 
     def list_workbench_sections(
@@ -381,9 +396,10 @@ class LearnerMemoryRepository:
         *,
         user_id: str,
     ) -> str | None:
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 select review_payload ->> 'nextWeekReason' as reason
                 from learner.mock_exam_sessions
                 where user_id = cast(:user_id as uuid)
@@ -391,9 +407,12 @@ class LearnerMemoryRepository:
                 order by submitted_at desc nulls last, created_at desc
                 limit 1
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().first()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .first()
+        )
         return str(row["reason"]) if row and row["reason"] else None
 
     def _list_practice_workbench_objects(
@@ -402,9 +421,10 @@ class LearnerMemoryRepository:
         user_id: str,
         limit: int,
     ) -> list[LearnerWorkbenchObjectRecord]:
-        rows = self._session.execute(
-            text(
-                """
+        rows = (
+            self._session.execute(
+                text(
+                    """
                 select
                   task_id,
                   max(answered_at) as latest_answered_at,
@@ -417,9 +437,12 @@ class LearnerMemoryRepository:
                 order by latest_answered_at desc
                 limit :limit
                 """
-            ),
-            {"user_id": user_id, "limit": limit},
-        ).mappings().all()
+                ),
+                {"user_id": user_id, "limit": limit},
+            )
+            .mappings()
+            .all()
+        )
         objects: list[LearnerWorkbenchObjectRecord] = []
         for row in rows:
             latest_answered_at = row["latest_answered_at"]
@@ -449,9 +472,10 @@ class LearnerMemoryRepository:
         user_id: str,
         limit: int,
     ) -> list[LearnerWorkbenchObjectRecord]:
-        rows = self._session.execute(
-            text(
-                """
+        rows = (
+            self._session.execute(
+                text(
+                    """
                 select
                   d.docket_id::text as docket_id,
                   d.docket_date,
@@ -466,9 +490,12 @@ class LearnerMemoryRepository:
                 order by latest_answered_at desc
                 limit :limit
                 """
-            ),
-            {"user_id": user_id, "limit": limit},
-        ).mappings().all()
+                ),
+                {"user_id": user_id, "limit": limit},
+            )
+            .mappings()
+            .all()
+        )
         objects: list[LearnerWorkbenchObjectRecord] = []
         for row in rows:
             latest_answered_at = row["latest_answered_at"]
@@ -498,9 +525,10 @@ class LearnerMemoryRepository:
         user_id: str,
         limit: int,
     ) -> list[LearnerWorkbenchObjectRecord]:
-        rows = self._session.execute(
-            text(
-                """
+        rows = (
+            self._session.execute(
+                text(
+                    """
                 select
                   attempt_id,
                   task_id,
@@ -516,9 +544,12 @@ class LearnerMemoryRepository:
                 order by updated_at desc
                 limit :limit
                 """
-            ),
-            {"learner_key": user_id, "limit": limit},
-        ).mappings().all()
+                ),
+                {"learner_key": user_id, "limit": limit},
+            )
+            .mappings()
+            .all()
+        )
         objects: list[LearnerWorkbenchObjectRecord] = []
         for row in rows:
             updated_at = row["updated_at"]
@@ -550,9 +581,10 @@ class LearnerMemoryRepository:
         unviewed_only: bool = False,
     ) -> list[LearnerWorkbenchObjectRecord]:
         unviewed_sql = "and review_viewed_at is null" if unviewed_only else ""
-        rows = self._session.execute(
-            text(
-                f"""
+        rows = (
+            self._session.execute(
+                text(
+                    f"""
                 select
                   session_id,
                   review_payload,
@@ -566,9 +598,12 @@ class LearnerMemoryRepository:
                 order by submitted_at desc nulls last, created_at desc
                 limit :limit
                 """
-            ),
-            {"user_id": user_id, "limit": limit},
-        ).mappings().all()
+                ),
+                {"user_id": user_id, "limit": limit},
+            )
+            .mappings()
+            .all()
+        )
         objects: list[LearnerWorkbenchObjectRecord] = []
         for row in rows:
             review = dict(row["review_payload"] or {})
@@ -600,9 +635,10 @@ class LearnerMemoryRepository:
         user_id: str,
         limit: int,
     ) -> list[LearnerWorkbenchObjectRecord]:
-        rows = self._session.execute(
-            text(
-                """
+        rows = (
+            self._session.execute(
+                text(
+                    """
                 select
                   ewq.external_question_id,
                   release.release_id,
@@ -627,9 +663,12 @@ class LearnerMemoryRepository:
                 order by ewq.created_at desc
                 limit :limit
                 """
-            ),
-            {"user_id": user_id, "limit": limit},
-        ).mappings().all()
+                ),
+                {"user_id": user_id, "limit": limit},
+            )
+            .mappings()
+            .all()
+        )
         objects: list[LearnerWorkbenchObjectRecord] = []
         for row in rows:
             created_at = row["created_at"]

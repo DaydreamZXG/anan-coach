@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, datetime
 from math import sqrt
 
 from sqlalchemy.orm import Session
@@ -16,14 +16,20 @@ from app.domains.qualification.repository import (
 )
 
 
-# Target-score evidence is an annual-release projection. It never receives a
-# request-relative sliding expiry: every reader of one release observes the
-# same generatedAt and validUntil pair.
-TARGET_SCORE_RELEASE_VALIDITY = timedelta(days=365)
-
-
 class PositionTargetScoreContractError(RuntimeError):
     code = "target_score_contract_error"
+
+    def __init__(
+        self,
+        message: str,
+        *,
+        code: str | None = None,
+        details: dict[str, object] | None = None,
+    ) -> None:
+        super().__init__(message)
+        if code is not None:
+            self.code = code
+        self.details = details
 
 
 class TargetScoreReleaseUnavailableError(PositionTargetScoreContractError):
@@ -70,10 +76,13 @@ class PositionTargetScoreOwner:
                 session,
                 exam_code="guokao",
                 exam_year=exam_year,
+                now=now,
             )
         except PositionRuleReleaseUnavailable as exc:
             raise TargetScoreReleaseUnavailableError(
-                "No active guokao position release"
+                "No active guokao position release",
+                code=exc.code,
+                details=exc.details,
             ) from exc
         return self.context_for_release(release=release, now=now)
 
@@ -89,12 +98,15 @@ class PositionTargetScoreOwner:
                 session,
                 position_id=position_id,
                 exam_code="guokao",
+                now=now,
             )
         except LookupError as exc:
             raise PositionNotFoundError(position_id) from exc
         except PositionRuleReleaseUnavailable as exc:
             raise TargetScoreReleaseUnavailableError(
-                "No active guokao position release for the requested position"
+                "No active guokao position release for the requested position",
+                code=exc.code,
+                details=exc.details,
             ) from exc
         return self.context_for_release(release=release, now=now)
 
@@ -110,10 +122,11 @@ class PositionTargetScoreOwner:
             raise TargetScoreVersionConflictError(
                 "The active position release activation time is not yet effective"
             )
-        valid_until = generated_at + TARGET_SCORE_RELEASE_VALIDITY
-        if checked_at >= valid_until:
+        window_opens_at = _as_utc(release.current_window.opens_at)
+        valid_until = _as_utc(release.current_window.closes_at)
+        if checked_at < window_opens_at or checked_at >= valid_until:
             raise TargetScoreExpiredError(
-                "The active position release target-score evidence has expired"
+                "The position release target-score evidence is outside its business window"
             )
         return TargetScoreReleaseContext(
             release=release,
@@ -138,7 +151,10 @@ class PositionTargetScoreOwner:
             expected_rule_set_version=expected_rule_set_version,
             expected_position_data_version=expected_position_data_version,
         )
-        repository = PositionRepository(session)
+        repository = PositionRepository(
+            session,
+            position_data_version=context.release.position_data_version,
+        )
         position_contexts = repository.get_position_contexts(position_ids=ordered_ids)
         missing = next(
             (position_id for position_id in ordered_ids if position_id not in position_contexts),
@@ -232,9 +248,7 @@ def target_score_range_from_basis(
         uncertainty = 5.0
 
     if basis.basis_level is None:
-        raise TargetScoreUnavailableError(
-            "The position target-score basis level is unavailable"
-        )
+        raise TargetScoreUnavailableError("The position target-score basis level is unavailable")
     recommended = round(basis.target_score, 2)
     return TargetScoreRange(
         lower_bound=round(max(0.0, recommended - uncertainty), 2),

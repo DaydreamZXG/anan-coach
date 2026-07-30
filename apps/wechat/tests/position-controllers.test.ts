@@ -768,6 +768,10 @@ describe("position semantic contracts", () => {
   it.each([
     ["onboarding_qualification_incomplete", "needsProfile"],
     ["position_release_unavailable", "noActiveRelease"],
+    ["position_release_upcoming", "noActiveRelease"],
+    ["position_release_between_windows", "noActiveRelease"],
+    ["position_release_closed", "noActiveRelease"],
+    ["position_release_conflict", "versionConflict"],
     ["qualification_profile_version_conflict", "versionConflict"],
     ["position_not_found", "notFound"],
   ])("maps stable server code %s to %s", (code, status) => {
@@ -777,6 +781,25 @@ describe("position semantic contracts", () => {
       requestId: "r-1",
     });
     expect(positionOperationError(error).status).toBe(status);
+  });
+
+  it.each([
+    ["position_release_unavailable", "本年度岗位数据尚未发布"],
+    ["position_release_upcoming", "报名周期尚未开始"],
+    ["position_release_between_windows", "当前处于补录等待期"],
+    ["position_release_closed", "本年度报名已经结束"],
+  ])("does not collapse lifecycle code %s into a false release phase", (code, title) => {
+    const error = new ApiClientError("服务端生命周期说明", 409, "r-lifecycle", {
+      code,
+      message: "服务端生命周期说明",
+      requestId: "r-lifecycle",
+    });
+    expect(positionOperationError(error)).toMatchObject({
+      status: "noActiveRelease",
+      title,
+      message: "服务端生命周期说明",
+      retryable: false,
+    });
   });
 
   it("renders only service-declared invalidations", () => {

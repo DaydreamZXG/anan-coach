@@ -1,0 +1,33 @@
+global:
+  scrape_interval: 30s
+  evaluation_interval: 30s
+
+rule_files:
+  - /etc/prometheus/rules/stage8.rules.yml
+  - /etc/prometheus/rules/commercial-readiness.rules.yml
+
+scrape_configs:
+  - job_name: gongkao-dazi-api
+    scheme: https
+    metrics_path: /internal/metrics
+    authorization:
+      type: Bearer
+      credentials_file: /etc/prometheus/secrets/gongkao-metrics-token
+    static_configs:
+      - targets: ["REPLACE_WITH_API_HOST"]
+  - job_name: gongkao-dazi-ready
+    metrics_path: /probe
+    params:
+      module: [gongkao_http_2xx]
+    static_configs:
+      - targets: ["https://REPLACE_WITH_API_HOST/ready"]
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: REPLACE_WITH_BLACKBOX_EXPORTER_HOST
+  - job_name: gongkao-dazi-node
+    static_configs:
+      - targets: ["REPLACE_WITH_NODE_EXPORTER_HOST"]

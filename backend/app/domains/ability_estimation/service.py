@@ -100,10 +100,12 @@ class AbilityEstimateService:
             session,
             exam_code="guokao",
             exam_year=exam_year,
+            now=now,
         )
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 select *
                 from learning.ability_estimate_versions
                 where user_id = cast(:user_id as uuid)
@@ -117,13 +119,16 @@ class AbilityEstimateService:
                   )
                 limit 1
                 """
-            ),
-            {
-                "user_id": user_id,
-                "exam_code": release.exam_code,
-                "exam_year": release.exam_year,
-            },
-        ).mappings().one_or_none()
+                ),
+                {
+                    "user_id": user_id,
+                    "exam_code": release.exam_code,
+                    "exam_year": release.exam_year,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
         if row is None:
             return AbilityEstimateCurrent(
                 estimate=None,
@@ -147,11 +152,17 @@ class AbilityEstimateService:
         session: Session,
         *,
         user_id: str,
+        now: datetime | None = None,
     ) -> ScoreEvidenceHistory:
-        release = self._qualification.active_release(session, exam_code="guokao")
-        rows = session.execute(
-            text(
-                """
+        release = self._qualification.active_release(
+            session,
+            exam_code="guokao",
+            now=now,
+        )
+        rows = (
+            session.execute(
+                text(
+                    """
                 select evidence.*, successor.evidence_id as superseded_by_evidence_id
                 from learning.score_evidence evidence
                 left join learning.score_evidence successor
@@ -162,13 +173,16 @@ class AbilityEstimateService:
                 order by evidence.occurred_at desc, evidence.created_at desc,
                          evidence.evidence_id desc
                 """
-            ),
-            {
-                "user_id": user_id,
-                "exam_code": release.exam_code,
-                "exam_year": release.exam_year,
-            },
-        ).mappings().all()
+                ),
+                {
+                    "user_id": user_id,
+                    "exam_code": release.exam_code,
+                    "exam_year": release.exam_year,
+                },
+            )
+            .mappings()
+            .all()
+        )
         return ScoreEvidenceHistory(items=[_history_schema(row) for row in rows])
 
     def record_reported_score(
@@ -224,7 +238,11 @@ class AbilityEstimateService:
             raise AbilityEstimateContractError(
                 f"Score evidence must be newer than {MAX_EVIDENCE_AGE_DAYS} days"
             )
-        release = self._qualification.active_release(session, exam_code="guokao")
+        release = self._qualification.active_release(
+            session,
+            exam_code="guokao",
+            now=timestamp,
+        )
         payload = _command_payload(
             user_id=user_id,
             exam_code=release.exam_code,
@@ -272,9 +290,7 @@ class AbilityEstimateService:
                 {"evidence_id": supersedes_id},
             ).scalar_one_or_none()
             if successor is not None:
-                raise AbilityEstimateContractError(
-                    "Score evidence has already been superseded"
-                )
+                raise AbilityEstimateContractError("Score evidence has already been superseded")
 
         evidence_id = str(uuid4())
         total_score = (
@@ -282,9 +298,10 @@ class AbilityEstimateService:
             if report.xingce_score is not None and report.shenlun_score is not None
             else None
         )
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 insert into learning.score_evidence (
                   evidence_id, command_id, user_id, exam_code, exam_year,
                   source_type, reported_context, xingce_score, shenlun_score,
@@ -300,24 +317,27 @@ class AbilityEstimateService:
                 on conflict (command_id) do nothing
                 returning *
                 """
-            ),
-            {
-                "evidence_id": evidence_id,
-                "command_id": command_id,
-                "user_id": user_id,
-                "exam_code": release.exam_code,
-                "exam_year": release.exam_year,
-                "reported_context": report.reported_context,
-                "xingce_score": report.xingce_score,
-                "shenlun_score": report.shenlun_score,
-                "total_score": total_score,
-                "timed_status": report.timed_status,
-                "occurred_at": occurred_at,
-                "supersedes_evidence_id": supersedes_id,
-                "command_payload": json.dumps(payload, ensure_ascii=False, sort_keys=True),
-                "created_at": timestamp,
-            },
-        ).mappings().one_or_none()
+                ),
+                {
+                    "evidence_id": evidence_id,
+                    "command_id": command_id,
+                    "user_id": user_id,
+                    "exam_code": release.exam_code,
+                    "exam_year": release.exam_year,
+                    "reported_context": report.reported_context,
+                    "xingce_score": report.xingce_score,
+                    "shenlun_score": report.shenlun_score,
+                    "total_score": total_score,
+                    "timed_status": report.timed_status,
+                    "occurred_at": occurred_at,
+                    "supersedes_evidence_id": supersedes_id,
+                    "command_payload": json.dumps(payload, ensure_ascii=False, sort_keys=True),
+                    "created_at": timestamp,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
         if row is None:
             row = self._evidence_for_command(session, command_id)
             if row is None or row["command_payload"] != payload:
@@ -363,9 +383,7 @@ class AbilityEstimateService:
                 f"Score evidence must be newer than {MAX_EVIDENCE_AGE_DAYS} days"
             )
         if xingce_score is None and shenlun_score is None:
-            raise AbilityEstimateContractError(
-                "External mock evidence requires a component score"
-            )
+            raise AbilityEstimateContractError("External mock evidence requires a component score")
         owner = session.execute(
             text(
                 "select user_id from learner.users "
@@ -375,7 +393,11 @@ class AbilityEstimateService:
         ).scalar_one_or_none()
         if owner is None:
             raise AbilityEstimateContractError("Learner does not exist")
-        release = self._qualification.active_release(session, exam_code="guokao")
+        release = self._qualification.active_release(
+            session,
+            exam_code="guokao",
+            now=timestamp,
+        )
         payload = {
             "userId": user_id,
             "examCode": release.exam_code,
@@ -410,9 +432,10 @@ class AbilityEstimateService:
             if xingce_score is not None and shenlun_score is not None
             else None
         )
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 insert into learning.score_evidence (
                   evidence_id, command_id, user_id, exam_code, exam_year,
                   source_type, reported_context, xingce_score, shenlun_score,
@@ -427,21 +450,24 @@ class AbilityEstimateService:
                 )
                 returning *
                 """
-            ),
-            {
-                "evidence_id": evidence_id,
-                "command_id": command_id,
-                "user_id": user_id,
-                "exam_code": release.exam_code,
-                "exam_year": release.exam_year,
-                "xingce_score": xingce_score,
-                "shenlun_score": shenlun_score,
-                "total_score": total_score,
-                "occurred_at": evidence_at,
-                "command_payload": json.dumps(payload, ensure_ascii=False, sort_keys=True),
-                "created_at": timestamp,
-            },
-        ).mappings().one()
+                ),
+                {
+                    "evidence_id": evidence_id,
+                    "command_id": command_id,
+                    "user_id": user_id,
+                    "exam_code": release.exam_code,
+                    "exam_year": release.exam_year,
+                    "xingce_score": xingce_score,
+                    "shenlun_score": shenlun_score,
+                    "total_score": total_score,
+                    "occurred_at": evidence_at,
+                    "command_payload": json.dumps(payload, ensure_ascii=False, sort_keys=True),
+                    "created_at": timestamp,
+                },
+            )
+            .mappings()
+            .one()
+        )
         estimate = self._get_or_create_estimate(
             session,
             user_id=user_id,
@@ -455,10 +481,14 @@ class AbilityEstimateService:
         )
 
     def _evidence_for_command(self, session: Session, command_id: str) -> RowMapping | None:
-        return session.execute(
-            text("select * from learning.score_evidence where command_id = :command_id"),
-            {"command_id": command_id},
-        ).mappings().one_or_none()
+        return (
+            session.execute(
+                text("select * from learning.score_evidence where command_id = :command_id"),
+                {"command_id": command_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
     def _estimate_created_for_evidence(
         self,
@@ -469,9 +499,10 @@ class AbilityEstimateService:
         exam_year: int,
         evidence_id: str,
     ) -> AbilityEstimateVersion:
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 select *
                 from learning.ability_estimate_versions
                 where user_id = cast(:user_id as uuid)
@@ -488,14 +519,17 @@ class AbilityEstimateService:
                   )
                 limit 1
                 """
-            ),
-            {
-                "user_id": user_id,
-                "exam_code": exam_code,
-                "exam_year": exam_year,
-                "evidence_ids": json.dumps([evidence_id]),
-            },
-        ).mappings().one_or_none()
+                ),
+                {
+                    "user_id": user_id,
+                    "exam_code": exam_code,
+                    "exam_year": exam_year,
+                    "evidence_ids": json.dumps([evidence_id]),
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
         if row is None:
             raise AbilityEstimateContractError(
                 "Score evidence command has no persisted estimate result"
@@ -511,9 +545,10 @@ class AbilityEstimateService:
         exam_year: int,
         generated_at: datetime,
     ) -> AbilityEstimateVersion:
-        rows = session.execute(
-            text(
-                """
+        rows = (
+            session.execute(
+                text(
+                    """
                 select evidence.*
                 from learning.score_evidence evidence
                 where evidence.user_id = cast(:user_id as uuid)
@@ -529,22 +564,26 @@ class AbilityEstimateService:
                   )
                 order by evidence.occurred_at, evidence.evidence_id
                 """
-            ),
-            {
-                "user_id": user_id,
-                "exam_code": exam_code,
-                "exam_year": exam_year,
-                "generated_at": generated_at,
-                "max_evidence_age_days": MAX_EVIDENCE_AGE_DAYS,
-            },
-        ).mappings().all()
+                ),
+                {
+                    "user_id": user_id,
+                    "exam_code": exam_code,
+                    "exam_year": exam_year,
+                    "generated_at": generated_at,
+                    "max_evidence_age_days": MAX_EVIDENCE_AGE_DAYS,
+                },
+            )
+            .mappings()
+            .all()
+        )
         evidence = [_internal_evidence(row) for row in rows]
         if not evidence:
             raise AbilityEstimateContractError("Cannot estimate ability without score evidence")
         fingerprint = _fingerprint(evidence)
-        existing = session.execute(
-            text(
-                """
+        existing = (
+            session.execute(
+                text(
+                    """
                 select *
                 from learning.ability_estimate_versions
                 where user_id = cast(:user_id as uuid)
@@ -552,14 +591,17 @@ class AbilityEstimateService:
                   and exam_year = :exam_year
                   and input_fingerprint = :input_fingerprint
                 """
-            ),
-            {
-                "user_id": user_id,
-                "exam_code": exam_code,
-                "exam_year": exam_year,
-                "input_fingerprint": fingerprint,
-            },
-        ).mappings().one_or_none()
+                ),
+                {
+                    "user_id": user_id,
+                    "exam_code": exam_code,
+                    "exam_year": exam_year,
+                    "input_fingerprint": fingerprint,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
         if existing is not None:
             return _estimate_from_row(existing)
 
@@ -655,14 +697,19 @@ class AbilityEstimateService:
             "generated_at": generated_at,
             "valid_until": valid_until,
         }
-        row = session.execute(
-            text(_INSERT_ESTIMATE_SQL),
-            values,
-        ).mappings().one_or_none()
+        row = (
+            session.execute(
+                text(_INSERT_ESTIMATE_SQL),
+                values,
+            )
+            .mappings()
+            .one_or_none()
+        )
         if row is None:
-            row = session.execute(
-                text(
-                    """
+            row = (
+                session.execute(
+                    text(
+                        """
                     select *
                     from learning.ability_estimate_versions
                     where user_id = cast(:user_id as uuid)
@@ -670,9 +717,12 @@ class AbilityEstimateService:
                       and exam_year = :exam_year
                       and input_fingerprint = :input_fingerprint
                     """
-                ),
-                values,
-            ).mappings().one()
+                    ),
+                    values,
+                )
+                .mappings()
+                .one()
+            )
         else:
             self._outbox.append(
                 session,
@@ -699,9 +749,7 @@ def _estimate_component(
     field: str,
 ) -> _ComponentEstimate | None:
     observations = [
-        (item, getattr(item, field))
-        for item in evidence
-        if getattr(item, field) is not None
+        (item, getattr(item, field)) for item in evidence if getattr(item, field) is not None
     ]
     if not observations:
         return None
@@ -732,10 +780,7 @@ def _estimate_component(
         recommended=round(mean, 2),
         upper=round(min(100.0, mean + width), 2),
     )
-    system_count = sum(
-        item.verification_status == "system_verified"
-        for item, _ in observations
-    )
+    system_count = sum(item.verification_status == "system_verified" for item, _ in observations)
     if not conflict and weight_sum >= 1.6 and system_count >= 2:
         confidence = "high"
     elif not conflict and weight_sum >= 0.7:

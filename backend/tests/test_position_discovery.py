@@ -24,12 +24,33 @@ from app.domains.qualification.repository import (
     FactMutation,
     QualificationRepository,
 )
-from app.domains.qualification.rule_releases import PositionRuleReleaseService
+from app.domains.qualification.rule_releases import (
+    PositionReleaseWindowInput,
+    PositionRuleReleaseService,
+)
 from app.main import create_app
 
 
 NOW = datetime(2026, 7, 12, 18, tzinfo=UTC)
+WINDOW_CLOSE = datetime(2026, 10, 31, tzinfo=UTC)
 COMPARISON_TOKEN = "position-comparison-route-token"
+
+
+def _audited_windows() -> list[PositionReleaseWindowInput]:
+    return [
+        PositionReleaseWindowInput(
+            kind="primary",
+            sequence_no=1,
+            opens_at=datetime(2026, 7, 10, tzinfo=UTC),
+            closes_at=WINDOW_CLOSE,
+            official_source_url="https://example.gov.cn/guokao/2026/announcement",
+            official_source_title="2026年度考试录用公务员公告",
+            official_source_published_at=datetime(2026, 7, 1, tzinfo=UTC),
+            official_source_received_at=datetime(2026, 7, 2, tzinfo=UTC),
+            official_source_sha256="b" * 64,
+            official_source_receipt="discovery-fixture-primary",
+        )
+    ]
 
 
 def _seed_discovery_world(
@@ -38,6 +59,8 @@ def _seed_discovery_world(
     extra_eligible_count: int = 0,
     primary_goal_key: str | None = None,
     source_complete: bool = True,
+    eligible_has_extra_exam: bool = False,
+    extra_score_profiles: dict[int, float] | None = None,
 ) -> tuple[str, dict[str, str]]:
     user_id = str(uuid4())
     specs = {
@@ -94,11 +117,12 @@ def _seed_discovery_world(
                       position_id, source_id, year, position_code, name,
                       department_full, system_code, region, city, paper_type,
                       headcount, education_min, major_required, political_req,
-                      service_min_yrs, remark, raw_json
+                      service_min_yrs, remark, has_extra_exam, raw_json
                     ) values (
                       :position_id, :source_id, 2026, :position_code, :name,
                       :department, 'tax', :region, :city, 'administrativeLaw',
                       :headcount, :education, :major, '不限', :service, :remark,
+                      :has_extra_exam,
                       cast(:raw_json as jsonb)
                     )
                     """
@@ -110,6 +134,7 @@ def _seed_discovery_world(
                     "name": f"{key}-一级行政执法员",
                     "department": f"国家税务总局{spec['city']}测试局",
                     "raw_json": "{}" if source_complete else None,
+                    "has_extra_exam": eligible_has_extra_exam if key == "eligible" else False,
                     **spec,
                 },
             )
@@ -179,9 +204,23 @@ def _seed_discovery_world(
             position_data_version="guokao-2026-discovery-v1",
         )
         release_service.compile_draft(session, release_id=release_id, compiled_at=NOW)
-        release_service.activate(session, release_id=release_id, activated_at=NOW)
+        release_service.configure_windows(
+            session,
+            release_id=release_id,
+            windows=_audited_windows(),
+        )
         _insert_score(session, position_ids["eligible"], 2024, 121.5)
         _insert_score(session, position_ids["eligible"], 2025, 123.5)
+        for index, score in (extra_score_profiles or {}).items():
+            for score_year in (2024, 2025):
+                _insert_score(
+                    session,
+                    position_ids[f"extra_eligible_{index}"],
+                    score_year,
+                    score,
+                    evidence_position_code=f"300110019{index:03d}",
+                )
+        release_service.activate(session, release_id=release_id, activated_at=NOW)
         if primary_goal_key is not None:
             _insert_confirmed_primary_goal(
                 session,
@@ -508,16 +547,11 @@ def test_comparison_route_uses_authenticated_profile_and_returns_no_winner(
 def test_workspace_and_fit_routes_bind_active_versions_ability_and_hard_requirements(
     db_session_factory: sessionmaker[Session],
 ) -> None:
-    user_id, ids = _seed_discovery_world(db_session_factory)
+    user_id, ids = _seed_discovery_world(
+        db_session_factory,
+        eligible_has_extra_exam=True,
+    )
     _seed_session(db_session_factory, user_id=user_id, token=COMPARISON_TOKEN)
-    with db_session_factory.begin() as session:
-        session.execute(
-            text(
-                "update product.positions set has_extra_exam = true "
-                "where position_id = cast(:position_id as uuid)"
-            ),
-            {"position_id": ids["eligible"]},
-        )
 
     client = _client(db_session_factory)
     unavailable = client.get(
@@ -619,25 +653,11 @@ def test_workspace_ranks_a_bounded_pool_by_qualification_fit_and_burden_before_h
     user_id, ids = _seed_discovery_world(
         db_session_factory,
         extra_eligible_count=9,
+        extra_score_profiles={0: 145, 8: 112},
     )
     high_headcount_id = ids["extra_eligible_0"]
     better_fit_outside_old_page_id = ids["extra_eligible_8"]
     with db_session_factory.begin() as session:
-        for year in (2024, 2025):
-            _insert_score(
-                session,
-                high_headcount_id,
-                year,
-                145,
-                evidence_position_code="300110009101",
-            )
-            _insert_score(
-                session,
-                better_fit_outside_old_page_id,
-                year,
-                112,
-                evidence_position_code="300110009102",
-            )
         AbilityEstimateService().record_reported_score(
             session,
             user_id=user_id,
@@ -946,7 +966,7 @@ def test_workspace_preserves_mixed_eligibility_facts_for_truthful_client_counts(
     assert sum(status == "needs_confirmation" for status in statuses) == 2
 
 
-def test_workspace_and_fit_reject_expired_target_basis_with_stable_error(
+def test_workspace_and_fit_reject_closed_release_with_stable_error(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     user_id, ids = _seed_discovery_world(db_session_factory)
@@ -955,9 +975,8 @@ def test_workspace_and_fit_reject_expired_target_basis_with_stable_error(
         session.execute(
             text(
                 "update product.position_rule_releases "
-                "set activated_at = :expired_at where status = 'active'"
-            ),
-            {"expired_at": datetime.now(UTC) - timedelta(days=366)},
+                "set status = 'retired' where status = 'active'"
+            )
         )
 
     client = _client(db_session_factory)
@@ -971,9 +990,9 @@ def test_workspace_and_fit_reject_expired_target_basis_with_stable_error(
     )
 
     assert workspace.status_code == 409
-    assert workspace.json()["code"] == "target_score_basis_expired"
+    assert workspace.json()["code"] == "position_release_unavailable"
     assert fit.status_code == 409
-    assert fit.json()["code"] == "target_score_basis_expired"
+    assert fit.json()["code"] == "position_release_unavailable"
 
 
 def _client(factory: sessionmaker[Session]) -> TestClient:
@@ -1098,7 +1117,7 @@ def _insert_confirmed_primary_goal(
             "goal_version_id": str(uuid4()),
             "user_id": user_id,
             "position_id": position_id,
-            "valid_until": NOW + timedelta(days=180),
+            "valid_until": WINDOW_CLOSE,
             "snapshot_id": snapshot_id,
             "created_at": NOW,
         },

@@ -27,8 +27,7 @@ from sqlalchemy.orm import Session
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 BACKEND_ROOT = REPOSITORY_ROOT / "backend"
 DEFAULT_OUTPUT_DIRECTORY = Path(
-    "/Users/zxg/Documents/新项目/audit/commercial-repair/"
-    "overnight-20260730-010444"
+    "/Users/zxg/Documents/新项目/audit/commercial-repair/overnight-20260730-010444"
 )
 BINDING_COUNT = 99_409
 NODE_COUNT = 563
@@ -551,9 +550,7 @@ def _capture_repository_query(
         if "candidate_ids as materialized" not in statement:
             return
         if not isinstance(parameters, dict):
-            raise AssertionError(
-                f"{scenario_name}: expected mapping query parameters"
-            )
+            raise AssertionError(f"{scenario_name}: expected mapping query parameters")
         captured.append((statement, dict(parameters)))
 
     event.listen(engine, "before_cursor_execute", capture)
@@ -663,8 +660,7 @@ def _plan_assertions(
     large_sorts = [
         node
         for node in nodes
-        if node.get("Node Type") == "Sort"
-        and int(node.get("Actual Rows", 0)) > 96
+        if node.get("Node Type") == "Sort" and int(node.get("Actual Rows", 0)) > 96
     ]
     disk_sorts = [
         node
@@ -682,14 +678,11 @@ def _plan_assertions(
         if node.get("Node Type") == "Limit"
     ]
     task_session_relations = [
-        node
-        for node in nodes
-        if node.get("Relation Name") == "xingce_task_sessions"
+        node for node in nodes if node.get("Relation Name") == "xingce_task_sessions"
     ]
     max_binding_scan_rows = max(
         (
-            int(node.get("Actual Rows", 0))
-            * max(int(node.get("Actual Loops", 1)), 1)
+            int(node.get("Actual Rows", 0)) * max(int(node.get("Actual Loops", 1)), 1)
             for node in binding_scans
         ),
         default=0,
@@ -814,8 +807,7 @@ def _database_metadata(
             network["server_address"] is not None
             or network["server_port"] is not None
             or network["listen_addresses"] != ""
-            or network["unix_socket_directories"]
-            != str(expected_socket_directory)
+            or network["unix_socket_directories"] != str(expected_socket_directory)
         ):
             raise AssertionError(f"PostgreSQL isolation check failed: {network}")
         directory_mode = stat.S_IMODE(expected_socket_directory.stat().st_mode)
@@ -826,8 +818,7 @@ def _database_metadata(
             if not path.name.endswith(".lock")
         )
         socket_modes = {
-            path.name: stat.S_IMODE(path.stat().st_mode)
-            for path in socket_paths
+            path.name: stat.S_IMODE(path.stat().st_mode) for path in socket_paths
         }
         if (
             directory_mode != 0o700
@@ -879,7 +870,9 @@ def _database_metadata(
         heads = tuple(
             str(value)
             for value in connection.execute(
-                text("select version_num from public.alembic_version order by version_num")
+                text(
+                    "select version_num from public.alembic_version order by version_num"
+                )
             ).scalars()
         )
         indexes = {
@@ -950,9 +943,7 @@ def _database_metadata(
         "socketIsolation": {
             "parentDirectoryMode": oct(parent_mode),
             "socketDirectoryMode": oct(directory_mode),
-            "socketModes": {
-                name: oct(mode) for name, mode in socket_modes.items()
-            },
+            "socketModes": {name: oct(mode) for name, mode in socket_modes.items()},
             "hostRulesReject": True,
             "localRulesTrust": True,
             "hbaRules": hba_rules,
@@ -1011,12 +1002,10 @@ def _run(repetitions: int) -> tuple[dict[str, Any], dict[str, str]]:
     from tests.conftest import _reset_test_schema
 
     repository_path = (
-        BACKEND_ROOT
-        / "app/domains/xingce_learning/real_attempt/repository.py"
+        BACKEND_ROOT / "app/domains/xingce_learning/real_attempt/repository.py"
     )
     migration_path = (
-        BACKEND_ROOT
-        / "migrations/versions/20260730_77_xingce_selection_projection.py"
+        BACKEND_ROOT / "migrations/versions/20260730_77_xingce_selection_projection.py"
     )
     artifact: dict[str, Any] = {
         "schemaVersion": "xingce-selection-explain@1",
@@ -1127,8 +1116,7 @@ def _run(repetitions: int) -> tuple[dict[str, Any], dict[str, str]]:
                     repetitions_metrics.append(metrics)
                     repetitions_assertions.append(assertions)
                 execution_times = [
-                    float(item["executionTimeMs"])
-                    for item in repetitions_metrics
+                    float(item["executionTimeMs"]) for item in repetitions_metrics
                 ]
                 scenario_assertions = repetitions_assertions[-1]
                 structure_passed = all(
@@ -1169,8 +1157,7 @@ def _run(repetitions: int) -> tuple[dict[str, Any], dict[str, str]]:
             artifact["overallPassed"] = all(
                 item["passed"] for item in artifact["fixtureAssertions"]
             ) and all(
-                bool(scenario["structurePassed"])
-                for scenario in artifact["scenarios"]
+                bool(scenario["structurePassed"]) for scenario in artifact["scenarios"]
             )
         finally:
             engine.dispose()

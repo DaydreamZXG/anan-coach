@@ -484,8 +484,13 @@ class PlanningRepository:
                     """
                 select
                   goal.goal_version_id,
-                  position.name as position_name,
-                  position.department_full as department_name,
+                  case when position_snapshot.snapshot_id is not null
+                    then position_snapshot.name else legacy_position.name
+                  end as position_name,
+                  case when position_snapshot.snapshot_id is not null
+                    then position_snapshot.department_full
+                    else legacy_position.department_full
+                  end as department_name,
                   goal.target_score_lower,
                   goal.target_score_recommended,
                   goal.target_score_upper,
@@ -506,12 +511,18 @@ class PlanningRepository:
                   estimate.valid_until as estimate_valid_until,
                   estimate.evidence_summary
                 from learner.users learner
-                left join learner.position_goal_versions goal
+                left join learner.current_primary_position_goals goal
                   on goal.user_id = learner.user_id
-                 and goal.role = 'primary'
-                 and goal.status = 'confirmed'
-                left join product.positions position
-                  on position.position_id = goal.position_id
+                left join product.position_import_batches import_batch
+                  on import_batch.position_data_version
+                       = goal.position_data_version
+                left join product.position_snapshots position_snapshot
+                  on position_snapshot.position_id = goal.position_id
+                 and position_snapshot.position_data_version
+                       = goal.position_data_version
+                left join product.positions legacy_position
+                  on legacy_position.position_id = goal.position_id
+                 and import_batch.position_data_version is null
                 left join lateral (
                   select current_estimate.*
                   from learning.ability_estimate_versions current_estimate
@@ -625,9 +636,10 @@ class PlanningRepository:
         goal: GoalAbilitySnapshot,
         now: datetime,
     ) -> ObjectivePlanningSnapshot:
-        module_assessments = session.execute(
-            text(
-                """
+        module_assessments = (
+            session.execute(
+                text(
+                    """
                 select question.module_name,
                        count(*) as assessment_count,
                        count(*) filter (where assessment.correct) as correct_count
@@ -640,9 +652,12 @@ class PlanningRepository:
                 group by question.module_name
                 order by question.module_name
                 """
-            ),
-            {"user_id": user_id, "now": now},
-        ).mappings().all()
+                ),
+                {"user_id": user_id, "now": now},
+            )
+            .mappings()
+            .all()
+        )
         module_vocabulary = load_current_module_vocabulary(
             session,
             exam_scope="guokao",

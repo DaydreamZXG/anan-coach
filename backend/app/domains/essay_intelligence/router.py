@@ -86,6 +86,7 @@ from app.domains.essay_intelligence.workflow_schemas import (
     EssayReviewQueueCommand,
 )
 from app.domains.essay_intelligence.workflow_service import (
+    EssayReviewWorkerUnavailable,
     EssayReviewWorkflowService,
 )
 from app.platform.http import (
@@ -571,6 +572,12 @@ def queue_grounded_essay_review(
         )
         session.commit()
         return public_success_envelope(request=request, response=response, data=result)
+    except EssayReviewWorkerUnavailable as exc:
+        session.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=str(exc),
+        ) from exc
     except EssayWorkflowNotFound as exc:
         session.rollback()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
@@ -615,6 +622,12 @@ def ensure_current_grounded_essay_review(
         )
         session.commit()
         return public_success_envelope(request=request, response=response, data=result)
+    except EssayReviewWorkerUnavailable as exc:
+        session.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=str(exc),
+        ) from exc
     except EssayWorkflowNotFound as exc:
         session.rollback()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
@@ -651,6 +664,12 @@ def regenerate_grounded_essay_review(
         )
         session.commit()
         return public_success_envelope(request=request, response=response, data=result)
+    except EssayReviewWorkerUnavailable as exc:
+        session.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=str(exc),
+        ) from exc
     except EssayWorkflowNotFound as exc:
         session.rollback()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc

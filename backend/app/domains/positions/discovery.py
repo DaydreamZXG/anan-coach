@@ -102,7 +102,7 @@ class PositionDiscoveryService:
         cursor: str | None,
         now: datetime | None = None,
     ) -> PositionDiscoveryResponse:
-        release = self._active_release(session, exam_year=exam_year)
+        release = self._active_release(session, exam_year=exam_year, now=now)
         target_context = self._target_scores.context_for_release(
             release=release,
             now=now,
@@ -159,6 +159,7 @@ class PositionDiscoveryService:
                     "exam_year": release.exam_year,
                     "rule_set_version": release.rule_set_version,
                     "position_data_version": release.position_data_version,
+                    "current_window_closes_at": release.current_window.closes_at,
                     "region": region,
                     "city": city,
                     "query": query,
@@ -221,7 +222,7 @@ class PositionDiscoveryService:
         cursor: str | None,
         now: datetime | None = None,
     ) -> PositionWorkspaceResponse:
-        release = self._active_release(session, exam_year=None)
+        release = self._active_release(session, exam_year=None, now=now)
         target_context = self._target_scores.context_for_release(
             release=release,
             now=now,
@@ -233,6 +234,7 @@ class PositionDiscoveryService:
         primary_position_id = self._confirmed_primary_goal_position_id(
             session,
             user_id=user_id,
+            release=release,
         )
         ability = self._ability.get_current(
             session,
@@ -327,6 +329,7 @@ class PositionDiscoveryService:
                     "exam_year": release.exam_year,
                     "rule_set_version": release.rule_set_version,
                     "position_data_version": release.position_data_version,
+                    "current_window_closes_at": release.current_window.closes_at,
                     "region": region,
                     "city": city,
                     "query": query,
@@ -441,18 +444,35 @@ class PositionDiscoveryService:
         session: Session,
         *,
         user_id: str,
+        release: PositionRuleRelease,
     ) -> str | None:
         position_id = session.execute(
             text(
                 """
-                select position_id::text
-                from learner.position_goal_versions
-                where user_id = cast(:user_id as uuid)
-                  and role = 'primary'
-                  and status = 'confirmed'
+                select goal.position_id::text
+                from learner.current_primary_position_goals goal
+                left join product.position_import_batches import_batch
+                  on import_batch.position_data_version = :position_data_version
+                left join product.position_snapshots position_snapshot
+                  on position_snapshot.position_id = goal.position_id
+                 and position_snapshot.position_data_version
+                       = :position_data_version
+                left join product.positions legacy_position
+                  on legacy_position.position_id = goal.position_id
+                 and import_batch.position_data_version is null
+                where goal.user_id = cast(:user_id as uuid)
+                  and goal.position_data_version = :position_data_version
+                  and goal.target_score_valid_until = :current_window_closes_at
+                  and coalesce(position_snapshot.year, legacy_position.year)
+                        = :exam_year
                 """
             ),
-            {"user_id": user_id},
+            {
+                "user_id": user_id,
+                "position_data_version": release.position_data_version,
+                "current_window_closes_at": release.current_window.closes_at,
+                "exam_year": release.exam_year,
+            },
         ).scalar_one_or_none()
         return str(position_id) if position_id is not None else None
 
@@ -475,6 +495,7 @@ class PositionDiscoveryService:
                     "exam_year": release.exam_year,
                     "rule_set_version": release.rule_set_version,
                     "position_data_version": release.position_data_version,
+                    "current_window_closes_at": release.current_window.closes_at,
                     "region": None,
                     "city": None,
                     "query": None,
@@ -513,7 +534,7 @@ class PositionDiscoveryService:
     ) -> PositionComparisonResponse:
         if not 2 <= len(position_ids) <= 3 or len(position_ids) != len(set(position_ids)):
             raise PositionComparisonError("Compare two or three unique positions")
-        release = self._active_release(session, exam_year=None)
+        release = self._active_release(session, exam_year=None, now=now)
         target_context = self._target_scores.context_for_release(
             release=release,
             now=now,
@@ -531,6 +552,7 @@ class PositionDiscoveryService:
                     "exam_year": release.exam_year,
                     "rule_set_version": release.rule_set_version,
                     "position_data_version": release.position_data_version,
+                    "current_window_closes_at": release.current_window.closes_at,
                     "region": None,
                     "city": None,
                     "query": None,
@@ -622,6 +644,7 @@ class PositionDiscoveryService:
                     "exam_year": release.exam_year,
                     "rule_set_version": release.rule_set_version,
                     "position_data_version": release.position_data_version,
+                    "current_window_closes_at": release.current_window.closes_at,
                     "region": None,
                     "city": None,
                     "query": None,
@@ -698,11 +721,13 @@ class PositionDiscoveryService:
         session: Session,
         *,
         exam_year: int | None,
+        now: datetime | None,
     ) -> PositionRuleRelease:
         return self._qualification.active_release(
             session,
             exam_code="guokao",
             exam_year=exam_year,
+            now=now,
         )
 
 
@@ -769,8 +794,10 @@ def _context_fingerprint(
     payload = {
         "userId": user_id,
         "profileVersion": profile_version,
+        "releaseId": release.release_id,
         "ruleSetVersion": release.rule_set_version,
         "positionDataVersion": release.position_data_version,
+        "businessWindowId": release.current_window.window_id,
         "region": region,
         "city": city,
         "query": query,
@@ -964,6 +991,40 @@ latest_confirmations as (
     and profile_version <= cast(:profile_version as bigint)
   order by requirement_id, profile_version desc, confirmed_at desc
 ),
+effective_positions as (
+  select
+    position.position_id,
+    case when snapshot.snapshot_id is not null
+      then snapshot.year else position.year end as year,
+    case when snapshot.snapshot_id is not null
+      then snapshot.position_code else position.position_code end as position_code,
+    case when snapshot.snapshot_id is not null
+      then snapshot.name else position.name end as name,
+    case when snapshot.snapshot_id is not null
+      then snapshot.department_full else position.department_full
+    end as department_full,
+    case when snapshot.snapshot_id is not null
+      then snapshot.system_code else position.system_code end as system_code,
+    case when snapshot.snapshot_id is not null
+      then snapshot.region else position.region end as region,
+    case when snapshot.snapshot_id is not null
+      then snapshot.city else position.city end as city,
+    case when snapshot.snapshot_id is not null
+      then snapshot.paper_type else position.paper_type end as paper_type,
+    case when snapshot.snapshot_id is not null
+      then snapshot.headcount else position.headcount end as headcount,
+    case when snapshot.snapshot_id is not null
+      then snapshot.has_extra_exam else position.has_extra_exam
+    end as has_extra_exam
+  from product.positions position
+  left join product.position_import_batches import_batch
+    on import_batch.position_data_version = :position_data_version
+  left join product.position_snapshots snapshot
+    on snapshot.position_id = position.position_id
+   and snapshot.position_data_version = :position_data_version
+  where import_batch.position_data_version is null
+     or snapshot.snapshot_id is not null
+),
 candidate_positions as (
   select
     position.position_id,
@@ -980,7 +1041,7 @@ candidate_positions as (
     coalesce(compilation.warnings, '[]'::jsonb)
       @> '["source_conditions_incomplete"]'::jsonb
       as source_conditions_incomplete
-  from product.positions position
+  from effective_positions position
   left join product.position_rule_compilations compilation
     on compilation.position_id = position.position_id
    and compilation.rule_set_version = :rule_set_version
@@ -1091,15 +1152,14 @@ eligibility as (
            candidate.source_conditions_incomplete
 ),
 annual_scores as (
-  select link.position_id, evidence.year,
-         avg(evidence.entry_score_min) as average_score,
+  select score.position_id, score.score_year as year,
+         avg(score.entry_score_min) as average_score,
          count(*) as sample_count
-  from product.position_entry_score_links link
-  join product.position_entry_score_evidence evidence
-    on evidence.evidence_id = link.evidence_id
-  join candidate_positions candidate on candidate.position_id = link.position_id
-  where evidence.entry_score_min is not null
-  group by link.position_id, evidence.year
+  from product.position_score_snapshots score
+  join candidate_positions candidate
+    on candidate.position_id = score.position_id
+  where score.position_data_version = :position_data_version
+  group by score.position_id, score.score_year
 ),
 latest_scores as (
   select distinct on (position_id)
@@ -1126,11 +1186,11 @@ ranked as (
   from eligibility
   left join latest_scores latest on latest.position_id = eligibility.position_id
   left join score_totals totals on totals.position_id = eligibility.position_id
-  left join learner.position_goal_versions goal
+  left join learner.current_primary_position_goals goal
     on goal.position_id = eligibility.position_id
    and goal.user_id = cast(:user_id as uuid)
-   and goal.role = 'primary'
-   and goal.status = 'confirmed'
+   and goal.position_data_version = cast(:position_data_version as text)
+   and goal.target_score_valid_until = cast(:current_window_closes_at as timestamptz)
 )
 select *
 from ranked

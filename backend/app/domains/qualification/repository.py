@@ -3,10 +3,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import UTC, datetime
 import json
-from typing import Any
+from typing import Any, Literal
 from uuid import uuid4
 
 from sqlalchemy import text
+from sqlalchemy.engine import RowMapping
 from sqlalchemy.orm import Session
 
 from app.domains.qualification.schemas import (
@@ -36,17 +37,86 @@ class QualificationContractError(RuntimeError):
 
 
 class PositionRuleReleaseUnavailable(QualificationContractError):
-    def __init__(self, message: str) -> None:
-        super().__init__(message, code="position_release_unavailable")
+    def __init__(
+        self,
+        message: str,
+        *,
+        lifecycle: PositionReleaseLifecycle | None = None,
+    ) -> None:
+        phase = lifecycle.phase if lifecycle is not None else "conflict"
+        code = {
+            "upcoming": "position_release_upcoming",
+            "gap": "position_release_between_windows",
+            "closed": "position_release_closed",
+            "no_release": "position_release_unavailable",
+            "conflict": "position_release_conflict",
+        }.get(phase, "position_release_conflict")
+        details: dict[str, Any] = {
+            "phase": phase,
+            "examCode": lifecycle.exam_code if lifecycle is not None else "guokao",
+        }
+        if lifecycle is not None:
+            if lifecycle.exam_year is not None:
+                details["examYear"] = lifecycle.exam_year
+            if lifecycle.release_id is not None:
+                details["releaseId"] = lifecycle.release_id
+            if lifecycle.window is not None:
+                details["windowKind"] = lifecycle.window.kind
+                details["opensAt"] = lifecycle.window.opens_at.isoformat()
+                details["closesAt"] = lifecycle.window.closes_at.isoformat()
+                details["officialSourceTitle"] = lifecycle.window.official_source_title
+                details["officialSourceUrl"] = lifecycle.window.official_source_url
+        super().__init__(message, code=code, details=details)
+
+
+@dataclass(frozen=True)
+class PositionReleaseWindow:
+    window_id: str
+    kind: Literal["primary", "supplemental"]
+    sequence_no: int
+    opens_at: datetime
+    closes_at: datetime
+    official_source_url: str
+    official_source_title: str
+    official_source_published_at: datetime
+    official_source_received_at: datetime
+    official_source_sha256: str
+    official_source_receipt: str
+
+
+PositionReleasePhase = Literal[
+    "open",
+    "upcoming",
+    "gap",
+    "closed",
+    "no_release",
+    "conflict",
+]
 
 
 @dataclass(frozen=True)
 class PositionRuleRelease:
+    release_id: str
     exam_code: str
     exam_year: int
     rule_set_version: str
     position_data_version: str
+    content_digest: str
     activated_at: datetime
+    current_window: PositionReleaseWindow
+
+
+@dataclass(frozen=True)
+class PositionReleaseLifecycle:
+    phase: PositionReleasePhase
+    release_id: str | None
+    exam_code: str
+    exam_year: int | None
+    rule_set_version: str | None
+    position_data_version: str | None
+    content_digest: str | None
+    activated_at: datetime | None
+    window: PositionReleaseWindow | None
 
 
 @dataclass(frozen=True)
@@ -74,36 +144,155 @@ class QualificationRepository:
         *,
         exam_code: str = "guokao",
         exam_year: int | None = None,
+        now: datetime | None = None,
     ) -> PositionRuleRelease:
-        row = session.execute(
-            text(
-                """
-                select exam_code, exam_year, rule_set_version, position_data_version,
-                       activated_at
-                from product.position_rule_releases
-                where exam_code = :exam_code
-                  and status = 'active'
-                  and (
-                    cast(:exam_year as integer) is null
-                    or exam_year = cast(:exam_year as integer)
-                  )
-                order by exam_year desc
-                limit 1
-                """
-            ),
-            {"exam_code": exam_code, "exam_year": exam_year},
-        ).mappings().one_or_none()
-        if row is None:
+        lifecycle = self.release_lifecycle(
+            session,
+            exam_code=exam_code,
+            exam_year=exam_year,
+            now=now,
+        )
+        if (
+            lifecycle.phase != "open"
+            or lifecycle.release_id is None
+            or lifecycle.exam_year is None
+            or lifecycle.rule_set_version is None
+            or lifecycle.position_data_version is None
+            or lifecycle.content_digest is None
+            or lifecycle.activated_at is None
+            or lifecycle.window is None
+        ):
             raise PositionRuleReleaseUnavailable(
-                f"No active {exam_code} position release"
+                f"No open {exam_code} position release (phase={lifecycle.phase})",
+                lifecycle=lifecycle,
             )
         return PositionRuleRelease(
-            exam_code=row["exam_code"],
-            exam_year=int(row["exam_year"]),
-            rule_set_version=row["rule_set_version"],
-            position_data_version=row["position_data_version"],
-            activated_at=row["activated_at"],
+            release_id=lifecycle.release_id,
+            exam_code=lifecycle.exam_code,
+            exam_year=lifecycle.exam_year,
+            rule_set_version=lifecycle.rule_set_version,
+            position_data_version=lifecycle.position_data_version,
+            content_digest=lifecycle.content_digest,
+            activated_at=lifecycle.activated_at,
+            current_window=lifecycle.window,
         )
+
+    def release_lifecycle(
+        self,
+        session: Session,
+        *,
+        exam_code: str = "guokao",
+        exam_year: int | None = None,
+        now: datetime | None = None,
+    ) -> PositionReleaseLifecycle:
+        checked_at = _aware_utc(now or datetime.now(UTC))
+        rows = (
+            session.execute(
+                text(
+                    """
+                    select
+                      release.release_id::text as release_id,
+                      release.exam_code,
+                      release.exam_year,
+                      release.rule_set_version,
+                      release.position_data_version,
+                      release.content_digest,
+                      release.activated_at,
+                      business_window.window_id::text as window_id,
+                      business_window.window_kind,
+                      business_window.sequence_no,
+                      business_window.opens_at,
+                      business_window.closes_at,
+                      business_window.official_source_url,
+                      business_window.official_source_title,
+                      business_window.official_source_published_at,
+                      business_window.official_source_received_at,
+                      business_window.official_source_sha256,
+                      business_window.official_source_receipt
+                    from product.position_rule_releases release
+                    left join product.position_release_windows business_window
+                      on business_window.release_id = release.release_id
+                    where release.exam_code = :exam_code
+                      and release.status = 'active'
+                      and (
+                        cast(:exam_year as integer) is null
+                        or release.exam_year = cast(:exam_year as integer)
+                      )
+                    order by
+                      release.exam_year desc,
+                      release.activated_at desc,
+                      business_window.opens_at,
+                      business_window.window_kind,
+                      business_window.sequence_no
+                    """
+                ),
+                {"exam_code": exam_code, "exam_year": exam_year},
+            )
+            .mappings()
+            .all()
+        )
+        if not rows:
+            return _no_position_release(exam_code)
+
+        grouped: dict[str, list[RowMapping]] = {}
+        for row in rows:
+            grouped.setdefault(str(row["release_id"]), []).append(row)
+        lifecycles = [
+            _lifecycle_from_release_rows(release_rows, checked_at=checked_at)
+            for release_rows in grouped.values()
+        ]
+        open_lifecycles = [lifecycle for lifecycle in lifecycles if lifecycle.phase == "open"]
+        if len(open_lifecycles) > 1:
+            return PositionReleaseLifecycle(
+                phase="conflict",
+                release_id=None,
+                exam_code=exam_code,
+                exam_year=None,
+                rule_set_version=None,
+                position_data_version=None,
+                content_digest=None,
+                activated_at=None,
+                window=None,
+            )
+        if open_lifecycles:
+            return open_lifecycles[0]
+
+        gap_lifecycles = [lifecycle for lifecycle in lifecycles if lifecycle.phase == "gap"]
+        if gap_lifecycles:
+            return min(
+                gap_lifecycles,
+                key=lambda lifecycle: (
+                    lifecycle.window.opens_at
+                    if lifecycle.window is not None
+                    else datetime.max.replace(tzinfo=UTC),
+                    -(lifecycle.exam_year or 0),
+                ),
+            )
+        upcoming_lifecycles = [
+            lifecycle for lifecycle in lifecycles if lifecycle.phase == "upcoming"
+        ]
+        if upcoming_lifecycles:
+            return min(
+                upcoming_lifecycles,
+                key=lambda lifecycle: (
+                    lifecycle.window.opens_at
+                    if lifecycle.window is not None
+                    else datetime.max.replace(tzinfo=UTC),
+                    -(lifecycle.exam_year or 0),
+                ),
+            )
+        closed_lifecycles = [lifecycle for lifecycle in lifecycles if lifecycle.phase == "closed"]
+        if closed_lifecycles:
+            return max(
+                closed_lifecycles,
+                key=lambda lifecycle: (
+                    lifecycle.window.closes_at
+                    if lifecycle.window is not None
+                    else datetime.min.replace(tzinfo=UTC),
+                    lifecycle.exam_year or 0,
+                ),
+            )
+        return _no_position_release(exam_code)
 
     def record_requirement_confirmation(
         self,
@@ -117,6 +306,7 @@ class QualificationRepository:
         command_id: str,
         now: datetime | None = None,
     ) -> RequirementConfirmation:
+        timestamp = _aware_utc(now or datetime.now(UTC))
         payload = {
             "userId": user_id,
             "positionId": position_id,
@@ -124,18 +314,22 @@ class QualificationRepository:
             "response": response,
             "statement": statement,
         }
-        existing = session.execute(
-            text(
-                """
+        existing = (
+            session.execute(
+                text(
+                    """
                 select confirmation.*, change.command_payload
                 from learner.qualification_requirement_confirmations confirmation
                 join learner.qualification_profile_changes change
                   on change.change_id = confirmation.change_id
                 where confirmation.command_id = :command_id
                 """
-            ),
-            {"command_id": command_id},
-        ).mappings().one_or_none()
+                ),
+                {"command_id": command_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
         if existing is not None:
             if existing["command_payload"] != payload:
                 raise QualificationContractError(
@@ -149,20 +343,37 @@ class QualificationRepository:
                 """
                 select requirement.requirement_id
                 from product.position_requirements requirement
-                join product.positions position
-                  on position.position_id = requirement.position_id
                 join product.position_rule_releases release
-                  on release.exam_year = position.year
-                 and release.rule_set_version = requirement.rule_set_version
+                  on release.rule_set_version = requirement.rule_set_version
                  and release.position_data_version = requirement.position_data_version
                  and release.exam_code = 'guokao'
                  and release.status = 'active'
+                left join product.position_import_batches import_batch
+                  on import_batch.position_data_version
+                       = release.position_data_version
+                left join product.position_snapshots position_snapshot
+                  on position_snapshot.position_id = requirement.position_id
+                 and position_snapshot.position_data_version
+                       = release.position_data_version
+                left join product.positions legacy_position
+                  on legacy_position.position_id = requirement.position_id
+                 and import_batch.position_data_version is null
+                join product.position_release_windows business_window
+                  on business_window.release_id = release.release_id
+                 and business_window.opens_at <= cast(:confirmed_at as timestamptz)
+                 and cast(:confirmed_at as timestamptz) < business_window.closes_at
                 where requirement.requirement_id = cast(:requirement_id as uuid)
                   and requirement.position_id = cast(:position_id as uuid)
                   and requirement.operator = 'manual_review'
+                  and coalesce(position_snapshot.year, legacy_position.year)
+                        = release.exam_year
                 """
             ),
-            {"requirement_id": requirement_id, "position_id": position_id},
+            {
+                "requirement_id": requirement_id,
+                "position_id": position_id,
+                "confirmed_at": timestamp,
+            },
         ).scalar_one_or_none()
         if requirement is None:
             raise QualificationContractError(
@@ -200,7 +411,6 @@ class QualificationRepository:
             ),
             {"user_id": user_id, "requirement_id": requirement_id},
         ).scalar_one_or_none()
-        timestamp = now or datetime.now(UTC)
         change_id = str(uuid4())
         session.execute(
             text(
@@ -226,9 +436,10 @@ class QualificationRepository:
             },
         )
         confirmation_id = str(uuid4())
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 insert into learner.qualification_requirement_confirmations (
                   confirmation_id, change_id, command_id, user_id, position_id,
                   requirement_id, profile_version, response, statement,
@@ -240,21 +451,24 @@ class QualificationRepository:
                   cast(:supersedes_confirmation_id as uuid), :confirmed_at
                 ) returning *
                 """
-            ),
-            {
-                "confirmation_id": confirmation_id,
-                "change_id": change_id,
-                "command_id": command_id,
-                "user_id": user_id,
-                "position_id": position_id,
-                "requirement_id": requirement_id,
-                "profile_version": next_version,
-                "response": response,
-                "statement": statement,
-                "supersedes_confirmation_id": str(previous) if previous else None,
-                "confirmed_at": timestamp,
-            },
-        ).mappings().one()
+                ),
+                {
+                    "confirmation_id": confirmation_id,
+                    "change_id": change_id,
+                    "command_id": command_id,
+                    "user_id": user_id,
+                    "position_id": position_id,
+                    "requirement_id": requirement_id,
+                    "profile_version": next_version,
+                    "response": response,
+                    "statement": statement,
+                    "supersedes_confirmation_id": str(previous) if previous else None,
+                    "confirmed_at": timestamp,
+                },
+            )
+            .mappings()
+            .one()
+        )
         session.execute(
             text(
                 """
@@ -298,38 +512,63 @@ class QualificationRepository:
         *,
         position_id: str,
         exam_code: str = "guokao",
+        now: datetime | None = None,
     ) -> PositionRuleRelease:
-        position_year = session.execute(
+        position_exists = session.execute(
             text(
-                "select year from product.positions where position_id = cast(:position_id as uuid)"
+                """
+                select exists (
+                  select 1
+                  from product.positions
+                  where position_id = cast(:position_id as uuid)
+                )
+                """
             ),
             {"position_id": position_id},
-        ).scalar_one_or_none()
-        if position_year is None:
+        ).scalar_one()
+        if not position_exists:
             raise LookupError(position_id)
-        row = session.execute(
+        position_year = session.execute(
             text(
                 """
-                select exam_code, exam_year, rule_set_version, position_data_version,
-                       activated_at
-                from product.position_rule_releases
-                where exam_code = :exam_code
-                  and exam_year = :exam_year
-                  and status = 'active'
+                select release.exam_year
+                from product.position_rule_releases release
+                left join product.position_import_batches import_batch
+                  on import_batch.position_data_version
+                       = release.position_data_version
+                left join product.position_snapshots position_snapshot
+                  on position_snapshot.position_id = cast(:position_id as uuid)
+                 and position_snapshot.position_data_version
+                       = release.position_data_version
+                left join product.positions legacy_position
+                  on legacy_position.position_id = cast(:position_id as uuid)
+                 and import_batch.position_data_version is null
+                where release.exam_code = :exam_code
+                  and release.status = 'active'
+                  and coalesce(position_snapshot.year, legacy_position.year)
+                        = release.exam_year
+                order by release.exam_year desc, release.activated_at desc
+                limit 1
                 """
             ),
-            {"exam_code": exam_code, "exam_year": int(position_year)},
-        ).mappings().one_or_none()
-        if row is None:
-            raise PositionRuleReleaseUnavailable(
-                f"No active {exam_code} rule release for {position_year}"
-            )
-        return PositionRuleRelease(
-            exam_code=row["exam_code"],
-            exam_year=row["exam_year"],
-            rule_set_version=row["rule_set_version"],
-            position_data_version=row["position_data_version"],
-            activated_at=row["activated_at"],
+            {"position_id": position_id, "exam_code": exam_code},
+        ).scalar_one_or_none()
+        if position_year is None:
+            position_year = session.execute(
+                text(
+                    """
+                    select year
+                    from product.positions
+                    where position_id = cast(:position_id as uuid)
+                    """
+                ),
+                {"position_id": position_id},
+            ).scalar_one()
+        return self.active_release(
+            session,
+            exam_code=exam_code,
+            exam_year=int(position_year),
+            now=now,
         )
 
     def get_profile_version(self, session: Session, *, user_id: str) -> int:
@@ -377,16 +616,20 @@ class QualificationRepository:
             )
 
         command_payload = _mutation_payload(mutations)
-        existing_change = session.execute(
-            text(
-                """
+        existing_change = (
+            session.execute(
+                text(
+                    """
                 select change_id, user_id::text as user_id, to_profile_version, command_payload
                 from learner.qualification_profile_changes
                 where command_id = :command_id
                 """
-            ),
-            {"command_id": command_id},
-        ).mappings().one_or_none()
+                ),
+                {"command_id": command_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
         if existing_change is not None:
             if (
                 existing_change["user_id"] != user_id
@@ -551,9 +794,10 @@ class QualificationRepository:
         return [self._fact_from_row(session, row) for row in rows]
 
     def list_current_facts(self, session: Session, *, user_id: str) -> list[QualificationFact]:
-        rows = session.execute(
-            text(
-                """
+        rows = (
+            session.execute(
+                text(
+                    """
                 select distinct on (fact.fact_key)
                   fact.fact_id, fact.fact_key, fact.value, fact.verification_status,
                   fact.effective_at, fact.supersedes_fact_id
@@ -561,9 +805,12 @@ class QualificationRepository:
                 where fact.user_id = cast(:user_id as uuid)
                 order by fact.fact_key, fact.profile_version desc, fact.recorded_at desc
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().all()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .all()
+        )
         return [self._fact_from_row(session, row) for row in rows]
 
     def list_requirements(
@@ -713,9 +960,10 @@ class QualificationRepository:
         if row is not None:
             return str(row)
 
-        existing = session.execute(
-            text(
-                """
+        existing = (
+            session.execute(
+                text(
+                    """
                 select snapshot_id, status, checks, missing_fact_keys, evaluated_at
                 from learner.eligibility_snapshots
                 where user_id = cast(:user_id as uuid)
@@ -724,9 +972,12 @@ class QualificationRepository:
                   and rule_set_version = :rule_set_version
                   and position_data_version = :position_data_version
                 """
-            ),
-            payload,
-        ).mappings().one()
+                ),
+                payload,
+            )
+            .mappings()
+            .one()
+        )
         expected_checks = json.loads(payload["checks"])
         expected_missing = json.loads(payload["missing_fact_keys"])
         if (
@@ -810,6 +1061,90 @@ class QualificationRepository:
         )
 
 
+def _lifecycle_from_release_rows(
+    rows: list[RowMapping],
+    *,
+    checked_at: datetime,
+) -> PositionReleaseLifecycle:
+    release = rows[0]
+    windows = [
+        _position_release_window_from_row(row) for row in rows if row["window_id"] is not None
+    ]
+    if not windows:
+        return _no_position_release(str(release["exam_code"]))
+
+    current = next(
+        (window for window in windows if window.opens_at <= checked_at < window.closes_at),
+        None,
+    )
+    if current is not None:
+        phase: PositionReleasePhase = "open"
+        selected_window = current
+    else:
+        future = [window for window in windows if checked_at < window.opens_at]
+        past = [window for window in windows if window.closes_at <= checked_at]
+        if future and past:
+            phase = "gap"
+            selected_window = min(future, key=lambda window: window.opens_at)
+        elif future:
+            phase = "upcoming"
+            selected_window = min(future, key=lambda window: window.opens_at)
+        else:
+            phase = "closed"
+            selected_window = max(past, key=lambda window: window.closes_at)
+    return PositionReleaseLifecycle(
+        phase=phase,
+        release_id=str(release["release_id"]),
+        exam_code=str(release["exam_code"]),
+        exam_year=int(release["exam_year"]),
+        rule_set_version=str(release["rule_set_version"]),
+        position_data_version=str(release["position_data_version"]),
+        content_digest=(
+            str(release["content_digest"]) if release["content_digest"] is not None else None
+        ),
+        activated_at=_aware_utc(release["activated_at"]),
+        window=selected_window,
+    )
+
+
+def _position_release_window_from_row(row: RowMapping) -> PositionReleaseWindow:
+    return PositionReleaseWindow(
+        window_id=str(row["window_id"]),
+        kind=row["window_kind"],
+        sequence_no=int(row["sequence_no"]),
+        opens_at=_aware_utc(row["opens_at"]),
+        closes_at=_aware_utc(row["closes_at"]),
+        official_source_url=str(row["official_source_url"]),
+        official_source_title=str(row["official_source_title"]),
+        official_source_published_at=_aware_utc(row["official_source_published_at"]),
+        official_source_received_at=_aware_utc(row["official_source_received_at"]),
+        official_source_sha256=str(row["official_source_sha256"]),
+        official_source_receipt=str(row["official_source_receipt"]),
+    )
+
+
+def _no_position_release(exam_code: str) -> PositionReleaseLifecycle:
+    return PositionReleaseLifecycle(
+        phase="no_release",
+        release_id=None,
+        exam_code=exam_code,
+        exam_year=None,
+        rule_set_version=None,
+        position_data_version=None,
+        content_digest=None,
+        activated_at=None,
+        window=None,
+    )
+
+
+def _aware_utc(value: datetime) -> datetime:
+    if value.tzinfo is None or value.utcoffset() is None:
+        raise PositionRuleReleaseUnavailable(
+            "Position release lifecycle timestamps must include a timezone"
+        )
+    return value.astimezone(UTC)
+
+
 def _mutation_payload(mutations: list[FactMutation]) -> list[dict[str, Any]]:
     return sorted(
         [
@@ -841,8 +1176,6 @@ def _confirmation_from_row(row: Any) -> RequirementConfirmation:
         statement=row["statement"],
         confirmed_at=row["confirmed_at"],
         supersedes_confirmation_id=(
-            str(row["supersedes_confirmation_id"])
-            if row["supersedes_confirmation_id"]
-            else None
+            str(row["supersedes_confirmation_id"]) if row["supersedes_confirmation_id"] else None
         ),
     )

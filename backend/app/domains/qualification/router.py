@@ -86,6 +86,10 @@ def _target_score_error_response(
 ) -> Response:
     messages = {
         "position_release_unavailable": "当前考试年度没有已生效的岗位数据版本。",
+        "position_release_upcoming": "本年度招录岗位已经核验，报名周期尚未开始。",
+        "position_release_between_windows": "首轮报名已经结束，后续补录窗口尚未开始。",
+        "position_release_closed": "本年度岗位报名周期已经结束，当前仅可用于历史参考。",
+        "position_release_conflict": "岗位发布状态存在冲突，暂不能作为报考依据。",
         "target_score_basis_expired": "当前岗位目标分依据已过期，请等待新的岗位数据版本。",
         "position_data_version_conflict": "岗位数据版本已更新，请刷新后重试。",
         "target_score_unavailable": "该岗位暂无足够的真实进面分样本，无法生成目标分区间。",
@@ -95,15 +99,28 @@ def _target_score_error_response(
         status_code=status.HTTP_409_CONFLICT,
         code=error.code,
         message=messages.get(error.code, "目标分依据无法用于当前岗位版本。"),
+        details=error.details,
     )
 
 
-def _position_release_unavailable_response(*, request: Request) -> Response:
+def _position_release_unavailable_response(
+    *,
+    request: Request,
+    error: PositionRuleReleaseUnavailable,
+) -> Response:
+    messages = {
+        "position_release_unavailable": "当前考试年度没有已生效的岗位数据版本。",
+        "position_release_upcoming": "本年度招录岗位已经核验，报名周期尚未开始。",
+        "position_release_between_windows": "首轮报名已经结束，后续补录窗口尚未开始。",
+        "position_release_closed": "本年度岗位报名周期已经结束，当前仅可用于历史参考。",
+        "position_release_conflict": "岗位发布状态存在冲突，暂不能作为报考依据。",
+    }
     return public_error_response(
         request=request,
         status_code=status.HTTP_409_CONFLICT,
-        code="position_release_unavailable",
-        message="当前考试年度没有已生效的岗位数据版本。",
+        code=error.code,
+        message=messages.get(error.code, "当前岗位发布不能用于报考决策。"),
+        details=error.details,
     )
 
 
@@ -119,6 +136,11 @@ def _qualification_error_response(
         "qualification_evaluation_conflict": "资格判断依据已变化，请刷新后重新判断。",
         "idempotency_key_reused": "同一幂等键已用于不同的资格建档命令。",
         "qualification_contract_conflict": "资格档案状态已变化，请刷新后重试。",
+        "position_release_unavailable": "当前考试年度没有已生效的岗位数据版本。",
+        "position_release_upcoming": "本年度招录岗位已经核验，报名周期尚未开始。",
+        "position_release_between_windows": "首轮报名已经结束，后续补录窗口尚未开始。",
+        "position_release_closed": "本年度岗位报名周期已经结束，当前仅可用于历史参考。",
+        "position_release_conflict": "岗位发布状态存在冲突，暂不能作为报考依据。",
     }
     return public_error_response(
         request=request,
@@ -163,8 +185,8 @@ def discover_positions(
         return public_success_envelope(request=request, response=response, data=result)
     except PositionDiscoveryCursorError as exc:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
-    except PositionRuleReleaseUnavailable:
-        return _position_release_unavailable_response(request=request)
+    except PositionRuleReleaseUnavailable as exc:
+        return _position_release_unavailable_response(request=request, error=exc)
     except PositionTargetScoreContractError as exc:
         return _target_score_error_response(request=request, error=exc)
     except QualificationContractError as exc:
@@ -199,8 +221,8 @@ def get_position_workspace(
         return public_success_envelope(request=request, response=response, data=result)
     except PositionDiscoveryCursorError as exc:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
-    except PositionRuleReleaseUnavailable:
-        return _position_release_unavailable_response(request=request)
+    except PositionRuleReleaseUnavailable as exc:
+        return _position_release_unavailable_response(request=request, error=exc)
     except PositionTargetScoreContractError as exc:
         return _target_score_error_response(request=request, error=exc)
     except QualificationContractError as exc:
@@ -223,8 +245,8 @@ def get_qualification_gaps(
             user_id=current_user.user_id,
         )
         return public_success_envelope(request=request, response=response, data=result)
-    except PositionRuleReleaseUnavailable:
-        return _position_release_unavailable_response(request=request)
+    except PositionRuleReleaseUnavailable as exc:
+        return _position_release_unavailable_response(request=request, error=exc)
     except QualificationContractError as exc:
         return _qualification_error_response(request=request, error=exc)
 
@@ -279,8 +301,8 @@ def compare_positions(
         return public_success_envelope(request=request, response=response, data=result)
     except PositionComparisonError as exc:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
-    except PositionRuleReleaseUnavailable:
-        return _position_release_unavailable_response(request=request)
+    except PositionRuleReleaseUnavailable as exc:
+        return _position_release_unavailable_response(request=request, error=exc)
     except QualificationContractError as exc:
         return _qualification_error_response(request=request, error=exc)
     except PositionTargetScoreContractError as exc:
@@ -306,7 +328,9 @@ def get_position_fit_v2(
         )
         return public_success_envelope(request=request, response=response, data=result)
     except PositionNotFoundError as exc:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Position not found") from exc
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Position not found"
+        ) from exc
     except PositionTargetScoreContractError as exc:
         return _target_score_error_response(request=request, error=exc)
     except QualificationContractError as exc:
@@ -332,7 +356,9 @@ def get_position_detail_v2(
         )
         return public_success_envelope(request=request, response=response, data=result)
     except PositionNotFoundError as exc:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Position not found") from exc
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Position not found"
+        ) from exc
     except PositionTargetScoreContractError as exc:
         return _target_score_error_response(request=request, error=exc)
     except QualificationContractError as exc:
@@ -371,7 +397,9 @@ def get_position_target_score_v2(
         )
         return public_success_envelope(request=request, response=response, data=result)
     except PositionNotFoundError as exc:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Position not found") from exc
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Position not found"
+        ) from exc
     except PositionTargetScoreContractError as exc:
         return _target_score_error_response(request=request, error=exc)
 
@@ -437,10 +465,12 @@ def evaluate_position_eligibility(
         return public_success_envelope(request=request, response=response, data=result)
     except LookupError as exc:
         session.rollback()
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Position not found") from exc
-    except PositionRuleReleaseUnavailable:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Position not found"
+        ) from exc
+    except PositionRuleReleaseUnavailable as exc:
         session.rollback()
-        return _position_release_unavailable_response(request=request)
+        return _position_release_unavailable_response(request=request, error=exc)
     except QualificationContractError as exc:
         session.rollback()
         return _qualification_error_response(request=request, error=exc)
@@ -500,9 +530,10 @@ def preview_primary_position_goal(
     session: Annotated[Session, Depends(get_db_session)],
 ) -> PublicApiEnvelope[PrimaryGoalPreview] | Response:
     try:
-        snapshot = session.execute(
-            text(
-                """
+        snapshot = (
+            session.execute(
+                text(
+                    """
                 select snapshot.learner_profile_version,
                        snapshot.rule_set_version,
                        snapshot.position_data_version,
@@ -514,25 +545,24 @@ def preview_primary_position_goal(
                   and snapshot.user_id = cast(:user_id as uuid)
                   and snapshot.position_id = cast(:position_id as uuid)
                 """
-            ),
-            {
-                "snapshot_id": preview_request.eligibility_snapshot_id,
-                "user_id": current_user.user_id,
-                "position_id": preview_request.position_id,
-            },
-        ).mappings().one_or_none()
+                ),
+                {
+                    "snapshot_id": preview_request.eligibility_snapshot_id,
+                    "user_id": current_user.user_id,
+                    "position_id": preview_request.position_id,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
         if snapshot is None:
             raise PositionGoalContractError("Eligibility snapshot does not match the goal")
         if snapshot["status"] != "eligible":
             raise PositionGoalContractError(
                 "Only a confirmed eligible snapshot can become the primary goal"
             )
-        if int(snapshot["learner_profile_version"]) != int(
-            snapshot["current_profile_version"]
-        ):
-            raise PositionGoalContractError(
-                "Learner profile changed; reevaluate eligibility"
-            )
+        if int(snapshot["learner_profile_version"]) != int(snapshot["current_profile_version"]):
+            raise PositionGoalContractError("Learner profile changed; reevaluate eligibility")
 
         target_score_owner = PositionTargetScoreOwner()
         target_context = target_score_owner.active_context_for_position(
@@ -566,7 +596,9 @@ def preview_primary_position_goal(
         )
     except PositionNotFoundError as exc:
         session.rollback()
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Position not found") from exc
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Position not found"
+        ) from exc
     except PositionTargetScoreContractError as exc:
         session.rollback()
         return _target_score_error_response(request=http_request, error=exc)
@@ -652,7 +684,9 @@ def confirm_primary_position_goal(
         )
     except PositionNotFoundError as exc:
         session.rollback()
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Position not found") from exc
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Position not found"
+        ) from exc
     except PositionTargetScoreContractError as exc:
         session.rollback()
         return _target_score_error_response(request=http_request, error=exc)

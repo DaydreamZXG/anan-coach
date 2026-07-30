@@ -5,21 +5,41 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-User=deploy
-Group=deploy
+User=gongkao-wkr-ilink
+Group=gongkao-wkr-ilink
 WorkingDirectory=/srv/gongkao-dazi/current/backend
-EnvironmentFile=/etc/gongkao-dazi/api.env
+Environment=PYTHONDONTWRITEBYTECODE=1
+EnvironmentFile=/etc/gongkao-dazi/ilink-channel.env
+EnvironmentFile=/etc/gongkao-dazi/ilink-worker.env
 EnvironmentFile=/etc/gongkao-dazi/db.env
-EnvironmentFile=-/etc/gongkao-dazi/ilink-channel.env
-EnvironmentFile=-/etc/gongkao-dazi/ilink-worker.env
+EnvironmentFile=/etc/gongkao-dazi/worker-heartbeat-ilink.env
+EnvironmentFile=/etc/gongkao-dazi/release-runtime.env
 ExecStart=/srv/gongkao-dazi/current/backend/.venv/bin/python -m app.workers.ilink_channel
 Restart=always
 RestartSec=3
 TimeoutStopSec=45
 NoNewPrivileges=true
 PrivateTmp=true
+PrivateDevices=true
 ProtectSystem=strict
 ProtectHome=true
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectKernelLogs=true
+ProtectClock=true
+ProtectHostname=true
+ProtectProc=invisible
+ProcSubset=pid
+RestrictNamespaces=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RemoveIPC=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+SystemCallArchitectures=native
 UMask=0077
 
 [Install]

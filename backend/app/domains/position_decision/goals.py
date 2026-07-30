@@ -55,21 +55,23 @@ class PositionGoalService:
         position_id: str,
         target_score: TargetScoreRange,
     ) -> PrimaryGoalPlanImpact:
-        current = session.execute(
-            text(
-                """
+        current = (
+            session.execute(
+                text(
+                    """
                 select position_id::text as position_id, target_score_recommended
                 from learner.position_goal_versions
                 where user_id = cast(:user_id as uuid)
                   and role = 'primary'
                   and status = 'confirmed'
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one_or_none()
-        previous_score = (
-            float(current["target_score_recommended"]) if current is not None else None
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one_or_none()
         )
+        previous_score = float(current["target_score_recommended"]) if current is not None else None
         return PrimaryGoalPlanImpact(
             requires_plan_rebuild=True,
             change_type="goal_changed" if current is not None else "goal_selected",
@@ -111,16 +113,20 @@ class PositionGoalService:
             "positionId": position_id,
             "eligibilitySnapshotId": eligibility_snapshot_id,
         }
-        existing = session.execute(
-            text(
-                """
+        existing = (
+            session.execute(
+                text(
+                    """
                 select *
                 from learner.position_goal_previews
                 where request_id = :request_id
                 """
-            ),
-            {"request_id": request_id},
-        ).mappings().one_or_none()
+                ),
+                {"request_id": request_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
         if existing is not None:
             if existing["request_payload"] != request_payload:
                 raise PositionGoalContractError(
@@ -128,9 +134,10 @@ class PositionGoalService:
                 )
             return _preview_from_row(existing)
 
-        snapshot = session.execute(
-            text(
-                """
+        snapshot = (
+            session.execute(
+                text(
+                    """
                 select snapshot.status, profile.profile_version
                 from learner.eligibility_snapshots snapshot
                 join learner.profiles profile on profile.user_id = snapshot.user_id
@@ -140,23 +147,24 @@ class PositionGoalService:
                   and snapshot.learner_profile_version = :learner_profile_version
                   and snapshot.position_data_version = :position_data_version
                 """
-            ),
-            {
-                "snapshot_id": eligibility_snapshot_id,
-                "user_id": user_id,
-                "position_id": position_id,
-                "learner_profile_version": learner_profile_version,
-                "position_data_version": position_data_version,
-            },
-        ).mappings().one_or_none()
+                ),
+                {
+                    "snapshot_id": eligibility_snapshot_id,
+                    "user_id": user_id,
+                    "position_id": position_id,
+                    "learner_profile_version": learner_profile_version,
+                    "position_data_version": position_data_version,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
         if snapshot is None or snapshot["status"] != "eligible":
             raise PositionGoalContractError(
                 "Only an owned, confirmed eligible snapshot can be previewed"
             )
         if int(snapshot["profile_version"]) != learner_profile_version:
-            raise PositionGoalContractError(
-                "Learner profile changed; reevaluate eligibility"
-            )
+            raise PositionGoalContractError("Learner profile changed; reevaluate eligibility")
 
         current = session.execute(
             text(
@@ -178,9 +186,10 @@ class PositionGoalService:
             target_score=target_score,
         )
         expires_at = created_at + PRIMARY_GOAL_PREVIEW_TTL
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 insert into learner.position_goal_previews (
                   preview_id, request_id, user_id, position_id,
                   eligibility_snapshot_id, from_goal_version_id,
@@ -198,46 +207,53 @@ class PositionGoalService:
                 on conflict (request_id) do nothing
                 returning *
                 """
-            ),
-            {
-                "preview_id": str(uuid4()),
-                "request_id": request_id,
-                "user_id": user_id,
-                "position_id": position_id,
-                "eligibility_snapshot_id": eligibility_snapshot_id,
-                "from_goal_version_id": current_goal_version_id,
-                "learner_profile_version": learner_profile_version,
-                "position_data_version": position_data_version,
-                "target_score": json.dumps(
-                    target_score.model_dump(by_alias=True, mode="json"),
-                    ensure_ascii=False,
-                    sort_keys=True,
                 ),
-                "plan_impact": json.dumps(
-                    plan_impact.model_dump(by_alias=True, mode="json"),
-                    ensure_ascii=False,
-                    sort_keys=True,
-                ),
-                "request_payload": json.dumps(
-                    request_payload,
-                    ensure_ascii=False,
-                    sort_keys=True,
-                ),
-                "expires_at": expires_at,
-                "created_at": created_at,
-            },
-        ).mappings().one_or_none()
+                {
+                    "preview_id": str(uuid4()),
+                    "request_id": request_id,
+                    "user_id": user_id,
+                    "position_id": position_id,
+                    "eligibility_snapshot_id": eligibility_snapshot_id,
+                    "from_goal_version_id": current_goal_version_id,
+                    "learner_profile_version": learner_profile_version,
+                    "position_data_version": position_data_version,
+                    "target_score": json.dumps(
+                        target_score.model_dump(by_alias=True, mode="json"),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    ),
+                    "plan_impact": json.dumps(
+                        plan_impact.model_dump(by_alias=True, mode="json"),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    ),
+                    "request_payload": json.dumps(
+                        request_payload,
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    ),
+                    "expires_at": expires_at,
+                    "created_at": created_at,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
         if row is None:
-            row = session.execute(
-                text(
-                    """
+            row = (
+                session.execute(
+                    text(
+                        """
                     select *
                     from learner.position_goal_previews
                     where request_id = :request_id
                     """
-                ),
-                {"request_id": request_id},
-            ).mappings().one()
+                    ),
+                    {"request_id": request_id},
+                )
+                .mappings()
+                .one()
+            )
             if row["request_payload"] != request_payload:
                 raise PositionGoalContractError(
                     "An existing preview request ID refers to different goal inputs"
@@ -251,17 +267,21 @@ class PositionGoalService:
         user_id: str,
         preview_id: str,
     ) -> PrimaryGoalPreview:
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 select *
                 from learner.position_goal_previews
                 where preview_id = cast(:preview_id as uuid)
                   and user_id = cast(:user_id as uuid)
                 """
-            ),
-            {"preview_id": preview_id, "user_id": user_id},
-        ).mappings().one_or_none()
+                ),
+                {"preview_id": preview_id, "user_id": user_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
         if row is None:
             raise PositionGoalContractError("Primary goal preview does not exist")
         return _preview_from_row(row)
@@ -317,18 +337,22 @@ class PositionGoalService:
         changed_at = now or datetime.now(UTC)
         if command.target_score.valid_until <= changed_at:
             raise TargetScoreExpiredError("Target-score evidence has expired")
-        preview = session.execute(
-            text(
-                """
+        preview = (
+            session.execute(
+                text(
+                    """
                 select *
                 from learner.position_goal_previews
                 where preview_id = cast(:preview_id as uuid)
                   and user_id = cast(:user_id as uuid)
                 for update
                 """
-            ),
-            {"preview_id": command.preview_id, "user_id": command.user_id},
-        ).mappings().one_or_none()
+                ),
+                {"preview_id": command.preview_id, "user_id": command.user_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
         if preview is None:
             raise PositionGoalContractError("Primary goal preview does not exist")
         if preview["used_at"] is not None:
@@ -337,21 +361,18 @@ class PositionGoalService:
             raise PositionGoalContractError("Primary goal preview has expired")
         if (
             str(preview["position_id"]) != command.position_id
-            or str(preview["eligibility_snapshot_id"])
-            != command.eligibility_snapshot_id
+            or str(preview["eligibility_snapshot_id"]) != command.eligibility_snapshot_id
             or (
                 str(preview["from_goal_version_id"])
                 if preview["from_goal_version_id"] is not None
                 else None
             )
             != command.expected_previous_goal_version_id
-            or int(preview["learner_profile_version"])
-            != command.learner_profile_version
+            or int(preview["learner_profile_version"]) != command.learner_profile_version
             or preview["position_data_version"] != command.position_data_version
             or preview["target_score"]
             != command.target_score.model_dump(by_alias=True, mode="json")
-            or preview["plan_impact"]
-            != command.plan_impact.model_dump(by_alias=True, mode="json")
+            or preview["plan_impact"] != command.plan_impact.model_dump(by_alias=True, mode="json")
         ):
             raise PositionGoalContractError("Primary goal preview does not match confirmation")
 
@@ -371,17 +392,21 @@ class PositionGoalService:
         if int(profile_version) != command.learner_profile_version:
             raise PositionGoalContractError("Learner profile changed; reevaluate eligibility")
 
-        snapshot = session.execute(
-            text(
-                """
+        snapshot = (
+            session.execute(
+                text(
+                    """
                 select user_id::text as user_id, position_id::text as position_id,
                        learner_profile_version, position_data_version, status
                 from learner.eligibility_snapshots
                 where snapshot_id = cast(:snapshot_id as uuid)
                 """
-            ),
-            {"snapshot_id": command.eligibility_snapshot_id},
-        ).mappings().one_or_none()
+                ),
+                {"snapshot_id": command.eligibility_snapshot_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
         if snapshot is None:
             raise PositionGoalContractError("Eligibility snapshot does not exist")
         if (
@@ -427,9 +452,10 @@ class PositionGoalService:
             )
 
         goal_version_id = str(uuid4())
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 insert into learner.position_goal_versions (
                   goal_version_id, user_id, position_id, role, status,
                   target_score_lower, target_score_recommended, target_score_upper,
@@ -448,24 +474,27 @@ class PositionGoalService:
                 )
                 returning *
                 """
-            ),
-            {
-                "goal_version_id": goal_version_id,
-                "user_id": command.user_id,
-                "position_id": command.position_id,
-                "target_score_lower": command.target_score.lower_bound,
-                "target_score_recommended": command.target_score.recommended,
-                "target_score_upper": command.target_score.upper_bound,
-                "target_score_evidence_level": command.target_score.evidence_level,
-                "target_score_sample_count": command.target_score.sample_count,
-                "target_score_valid_until": command.target_score.valid_until,
-                "learner_profile_version": command.learner_profile_version,
-                "eligibility_snapshot_id": command.eligibility_snapshot_id,
-                "position_data_version": command.position_data_version,
-                "supersedes_goal_version_id": previous_id,
-                "created_at": changed_at,
-            },
-        ).mappings().one()
+                ),
+                {
+                    "goal_version_id": goal_version_id,
+                    "user_id": command.user_id,
+                    "position_id": command.position_id,
+                    "target_score_lower": command.target_score.lower_bound,
+                    "target_score_recommended": command.target_score.recommended,
+                    "target_score_upper": command.target_score.upper_bound,
+                    "target_score_evidence_level": command.target_score.evidence_level,
+                    "target_score_sample_count": command.target_score.sample_count,
+                    "target_score_valid_until": command.target_score.valid_until,
+                    "learner_profile_version": command.learner_profile_version,
+                    "eligibility_snapshot_id": command.eligibility_snapshot_id,
+                    "position_data_version": command.position_data_version,
+                    "supersedes_goal_version_id": previous_id,
+                    "created_at": changed_at,
+                },
+            )
+            .mappings()
+            .one()
+        )
 
         event_type = "goal_changed" if previous_id else "goal_selected"
         event_id = str(uuid4())
@@ -502,23 +531,49 @@ class PositionGoalService:
         )
 
         # This is an explicit compatibility projection for v1 readers; goal history is canonical.
-        session.execute(
+        # Derive the exam owner from the same current release instead of trusting a
+        # legacy profile field that v2 qualification never owned.
+        projected_exam_code = session.execute(
             text(
                 """
-                update learner.profiles
-                set target_position_id = cast(:position_id as uuid),
+                with current_release as (
+                  select release.exam_code
+                  from product.position_rule_releases release
+                  where release.position_data_version = :position_data_version
+                    and release.status = 'active'
+                    and release.content_digest is not null
+                    and product.position_projection_is_current(
+                      cast(:position_id as uuid),
+                      :position_data_version,
+                      release.exam_code,
+                      statement_timestamp()
+                    )
+                  order by release.activated_at desc, release.release_id
+                  limit 1
+                )
+                update learner.profiles profile
+                set target_exam = current_release.exam_code,
+                    target_position_id = cast(:position_id as uuid),
                     target_score = :target_score,
+                    target_position_data_version = :position_data_version,
                     updated_at = :updated_at
+                from current_release
                 where user_id = cast(:user_id as uuid)
+                returning current_release.exam_code
                 """
             ),
             {
                 "user_id": command.user_id,
                 "position_id": command.position_id,
                 "target_score": command.target_score.recommended,
+                "position_data_version": command.position_data_version,
                 "updated_at": changed_at,
             },
-        )
+        ).scalar_one_or_none()
+        if projected_exam_code is None:
+            raise PositionGoalContractError(
+                "Position release is no longer active for the selected goal"
+            )
         self._outbox.append(
             session,
             deduplication_key=f"position-goal:{command.command_id}",
@@ -551,18 +606,22 @@ class PositionGoalService:
         return _goal_from_row(row, target_score=command.target_score)
 
     def _goal_for_command(self, session: Session, command_id: str) -> RowMapping | None:
-        return session.execute(
-            text(
-                """
+        return (
+            session.execute(
+                text(
+                    """
                 select goal.*, event.command_payload
                 from learner.position_goal_events event
                 join learner.position_goal_versions goal
                   on goal.goal_version_id = event.to_goal_version_id
                 where event.command_id = :command_id
                 """
-            ),
-            {"command_id": command_id},
-        ).mappings().one_or_none()
+                ),
+                {"command_id": command_id},
+            )
+            .mappings()
+            .one_or_none()
+        )
 
 
 def _command_payload(command: ConfirmPrimaryGoalCommand) -> dict[str, Any]:
@@ -586,9 +645,7 @@ def _preview_from_row(row: RowMapping) -> PrimaryGoalPreview:
         position_id=str(row["position_id"]),
         eligibility_snapshot_id=str(row["eligibility_snapshot_id"]),
         current_goal_version_id=(
-            str(row["from_goal_version_id"])
-            if row["from_goal_version_id"] is not None
-            else None
+            str(row["from_goal_version_id"]) if row["from_goal_version_id"] is not None else None
         ),
         learner_profile_version=int(row["learner_profile_version"]),
         position_data_version=row["position_data_version"],

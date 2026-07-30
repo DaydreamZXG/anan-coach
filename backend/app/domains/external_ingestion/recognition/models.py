@@ -1,16 +1,45 @@
 from __future__ import annotations
 
+from collections.abc import Callable
 from datetime import datetime
 from decimal import Decimal
+from hashlib import sha256
 from typing import Annotated, Literal
 from uuid import UUID
 
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, StringConstraints, model_validator
 
 from app.contracts.external_learning.models import RecognitionKind, Sha256Hex, SourceKind
+from app.domains.ai.provider_contract import validate_provider_audit_contract
+from app.domains.external_ingestion.recognition.errors import ProcessorNotDispatchedError
 
 
 NonBlank = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=500)]
+ProviderReplayKey = Annotated[
+    str,
+    StringConstraints(pattern=r"^ocr-v1-[0-9a-f]{64}$"),
+]
+
+
+def provider_replay_key(
+    *,
+    owner_user_id: UUID,
+    operation: str,
+    command_id: UUID,
+) -> str:
+    """Return a stable provider key without exposing client keys or account IDs."""
+
+    normalized_operation = operation.strip().casefold()
+    if not normalized_operation or any(
+        not (character.isalnum() or character == "_") for character in normalized_operation
+    ):
+        raise ValueError("recognition provider replay operation is invalid")
+    digest = sha256(
+        (
+            f"recognition-provider-replay@v1:{owner_user_id}:{normalized_operation}:{command_id}"
+        ).encode("utf-8")
+    ).hexdigest()
+    return f"ocr-v1-{digest}"
 
 
 class StrictModel(BaseModel):
@@ -70,15 +99,9 @@ class QuestionUnit(StrictModel):
 
     question_unit_id: Sha256Hex = Field(alias="questionUnitId")
     ordinal: int = Field(ge=1)
-    prompt_segment_refs: tuple[NonBlank, ...] = Field(
-        alias="promptSegmentRefs", min_length=1
-    )
-    option_segment_refs: tuple[NonBlank, ...] = Field(
-        default=(), alias="optionSegmentRefs"
-    )
-    material_segment_refs: tuple[NonBlank, ...] = Field(
-        default=(), alias="materialSegmentRefs"
-    )
+    prompt_segment_refs: tuple[NonBlank, ...] = Field(alias="promptSegmentRefs", min_length=1)
+    option_segment_refs: tuple[NonBlank, ...] = Field(default=(), alias="optionSegmentRefs")
+    material_segment_refs: tuple[NonBlank, ...] = Field(default=(), alias="materialSegmentRefs")
 
     @model_validator(mode="after")
     def unique_refs(self) -> "QuestionUnit":
@@ -107,9 +130,9 @@ class OMRMark(StrictModel):
 
 class OMRExpectedItem(StrictModel):
     item_no: int = Field(alias="itemNo", ge=1)
-    option_labels: tuple[
-        Annotated[str, StringConstraints(pattern=r"^[A-H]$")], ...
-    ] = Field(alias="optionLabels", min_length=2, max_length=8)
+    option_labels: tuple[Annotated[str, StringConstraints(pattern=r"^[A-H]$")], ...] = Field(
+        alias="optionLabels", min_length=2, max_length=8
+    )
 
     @model_validator(mode="after")
     def unique_option_labels(self) -> "OMRExpectedItem":
@@ -128,9 +151,7 @@ class OMRLayout(StrictModel):
     @model_validator(mode="after")
     def ordered_unique_items(self) -> "OMRLayout":
         item_numbers = [item.item_no for item in self.items]
-        if item_numbers != sorted(item_numbers) or len(item_numbers) != len(
-            set(item_numbers)
-        ):
+        if item_numbers != sorted(item_numbers) or len(item_numbers) != len(set(item_numbers)):
             raise ValueError("OMR layout item numbers must be ordered and unique")
         return self
 
@@ -142,20 +163,14 @@ class RecognitionCandidatePayload(StrictModel):
     kind: RecognitionKind
     text_spans: tuple[TextSpan, ...] = Field(default=(), alias="textSpans")
     segments: tuple[PageSegment, ...] = ()
-    question_units: tuple[QuestionUnit, ...] = Field(
-        default=(), alias="questionUnits"
-    )
+    question_units: tuple[QuestionUnit, ...] = Field(default=(), alias="questionUnits")
     omr_marks: tuple[OMRMark, ...] = Field(default=(), alias="omrMarks")
     page_image_sha256: tuple[Sha256Hex, ...] = Field(default=(), alias="pageImageSha256")
-    visual_fingerprints: tuple[Sha256Hex, ...] = Field(
-        default=(), alias="visualFingerprints"
-    )
+    visual_fingerprints: tuple[Sha256Hex, ...] = Field(default=(), alias="visualFingerprints")
     processor_request_id_hash: Sha256Hex = Field(alias="processorRequestIdHash")
     processor_output_contract: NonBlank = Field(alias="processorOutputContract")
     request_hash: Sha256Hex = Field(alias="requestHash")
-    predecessor_revision_id: UUID | None = Field(
-        default=None, alias="predecessorRevisionId"
-    )
+    predecessor_revision_id: UUID | None = Field(default=None, alias="predecessorRevisionId")
     correction_reason: str | None = Field(default=None, alias="correctionReason", max_length=500)
 
     @model_validator(mode="after")
@@ -170,9 +185,7 @@ class RecognitionCandidatePayload(StrictModel):
         for segment in self.segments:
             unknown_refs = set(segment.text_span_refs) - known_spans
             if unknown_refs:
-                raise ValueError(
-                    "segment textSpanRefs must resolve to spans in the same payload"
-                )
+                raise ValueError("segment textSpanRefs must resolve to spans in the same payload")
         item_numbers = [item.item_no for item in self.omr_marks]
         if len(item_numbers) != len(set(item_numbers)):
             raise ValueError("recognition OMR item numbers must be unique")
@@ -243,9 +256,7 @@ class ProcessorApproval(StrictModel):
     )
     approved_kinds: tuple[RecognitionKind, ...] = Field(alias="approvedKinds", min_length=1)
     approved_mime_types: tuple[NonBlank, ...] = Field(alias="approvedMimeTypes", min_length=1)
-    data_region: Literal["mainland_china", "operator_selected_external"] = Field(
-        alias="dataRegion"
-    )
+    data_region: Literal["mainland_china", "operator_selected_external"] = Field(alias="dataRegion")
     dpa_evidence_ref: NonBlank = Field(alias="dpaEvidenceRef")
     security_review_ref: NonBlank = Field(alias="securityReviewRef")
     approval_receipt_ref: NonBlank = Field(alias="approvalReceiptRef")
@@ -253,15 +264,33 @@ class ProcessorApproval(StrictModel):
     provider_data_handling: Literal[
         "contracted_zero_retention",
         "operator_accepted_external_processing",
-    ] = Field(
-        default="contracted_zero_retention", alias="providerDataHandling"
-    )
+    ] = Field(default="contracted_zero_retention", alias="providerDataHandling")
     model_training_use: Literal["prohibited"] = Field(
         default="prohibited", alias="modelTrainingUse"
     )
     provider_retention_seconds: int | None = Field(
         default=0, alias="providerRetentionSeconds", ge=0
     )
+    provider_idempotency_capability: Literal[
+        "replayable_queryable",
+        "nonreplayable_audited",
+    ] = Field(alias="providerIdempotencyCapability")
+    provider_idempotency_scope: Literal["provider_account", "endpoint"] = Field(
+        alias="providerIdempotencyScope"
+    )
+    provider_idempotency_key_header: Literal["Idempotency-Key"] = Field(
+        alias="providerIdempotencyKeyHeader"
+    )
+    provider_request_id_source: Literal[
+        "body:providerRequestId",
+        "body:id",
+        "X-Request-ID",
+    ] = Field(alias="providerRequestIdSource")
+    provider_replay_retention_seconds: int = Field(
+        alias="providerReplayRetentionSeconds",
+        ge=0,
+    )
+    provider_idempotency_evidence_ref: NonBlank = Field(alias="providerIdempotencyEvidenceRef")
     valid_from: AwareDatetime = Field(alias="validFrom")
     valid_until: AwareDatetime = Field(alias="validUntil")
 
@@ -278,6 +307,12 @@ class ProcessorApproval(StrictModel):
             and self.provider_retention_seconds != 0
         ):
             raise ValueError("contracted zero-retention processing must record zero seconds")
+        validate_provider_audit_contract(
+            idempotency_capability=self.provider_idempotency_capability,
+            idempotency_key_header=self.provider_idempotency_key_header,
+            request_id_source=self.provider_request_id_source,
+            replay_retention_seconds=self.provider_replay_retention_seconds,
+        )
         return self
 
     def permits(self, *, kind: RecognitionKind, mime_type: str, at: datetime) -> bool:
@@ -299,8 +334,13 @@ class ProcessorRequest(StrictModel):
     input_sha256: Sha256Hex = Field(alias="inputSha256")
     page_count: int | None = Field(default=None, alias="pageCount", ge=1)
     recognition_kind: RecognitionKind = Field(alias="recognitionKind")
-    idempotency_key: NonBlank = Field(alias="idempotencyKey")
+    idempotency_key: ProviderReplayKey = Field(alias="idempotencyKey")
     omr_layout: OMRLayout | None = Field(default=None, alias="omrLayout")
+    before_provider_dispatch: Callable[[], None] | None = Field(
+        default=None,
+        exclude=True,
+        repr=False,
+    )
 
     @model_validator(mode="after")
     def context_matches_kind(self) -> "ProcessorRequest":
@@ -309,6 +349,22 @@ class ProcessorRequest(StrictModel):
         ):
             raise ValueError("answer-sheet OMR requests require a sealed packet layout")
         return self
+
+
+def enforce_provider_dispatch_fence(request: ProcessorRequest) -> None:
+    """Run the durable claim immediately before provider client construction."""
+
+    guard = request.before_provider_dispatch
+    if guard is None:
+        return
+    try:
+        guard()
+    except ProcessorNotDispatchedError:
+        raise
+    except Exception as exc:
+        raise ProcessorNotDispatchedError(
+            "recognition provider dispatch was denied before provider I/O"
+        ) from exc
 
 
 class ProcessorResult(StrictModel):
@@ -320,9 +376,7 @@ class ProcessorResult(StrictModel):
     segments: tuple[PageSegment, ...] = ()
     omr_marks: tuple[OMRMark, ...] = Field(default=(), alias="omrMarks")
     page_image_sha256: tuple[Sha256Hex, ...] = Field(default=(), alias="pageImageSha256")
-    visual_fingerprints: tuple[Sha256Hex, ...] = Field(
-        default=(), alias="visualFingerprints"
-    )
+    visual_fingerprints: tuple[Sha256Hex, ...] = Field(default=(), alias="visualFingerprints")
     confidence: float | None = Field(default=None, ge=0, le=1)
 
 

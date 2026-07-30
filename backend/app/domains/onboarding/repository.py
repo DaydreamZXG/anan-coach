@@ -23,6 +23,7 @@ class OnboardingProfileRecord:
     study_mode: str | None
     target_position_id: str | None
     target_score: float | None
+    target_position_data_version: str | None
     baseline_source: str | None
     baseline_xingce_score: float | None
     baseline_shenlun_score: float | None
@@ -37,9 +38,10 @@ class OnboardingRepository:
 
     def get_profile(self, *, user_id: str) -> OnboardingProfileRecord:
         self.ensure_profile(user_id=user_id)
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 select
                   target_exam,
                   target_region,
@@ -51,20 +53,26 @@ class OnboardingRepository:
                   political_status,
                   grassroots_years,
                   study_mode,
-                  target_position_id,
-                  target_score,
+                  current_target.target_position_id,
+                  current_target.target_score,
+                  current_target.target_position_data_version,
                   baseline_source,
                   baseline_xingce_score,
                   baseline_shenlun_score,
                   baseline_weak_modules,
                   baseline_module_snapshot,
                   onboarding_complete
-                from learner.profiles
-                where user_id = cast(:user_id as uuid)
+                from learner.profiles profile
+                left join learner.current_profile_position_projections current_target
+                  on current_target.user_id = profile.user_id
+                where profile.user_id = cast(:user_id as uuid)
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
         return _profile_from_row(row)
 
     def ensure_profile(self, *, user_id: str) -> None:
@@ -102,14 +110,16 @@ class OnboardingRepository:
         daily_minutes: int | None,
         target_position_id: str | None,
         target_score: float | None,
+        target_position_data_version: str | None,
         baseline_source: str | None,
         baseline_xingce_score: float | None,
         baseline_shenlun_score: float | None,
         baseline_weak_modules: list[str],
     ) -> OnboardingProfileRecord:
-        row = self._session.execute(
-            text(
-                """
+        row = (
+            self._session.execute(
+                text(
+                    """
                 insert into learner.profiles (
                   user_id,
                   target_exam,
@@ -124,6 +134,7 @@ class OnboardingRepository:
                   daily_minutes,
                   target_position_id,
                   target_score,
+                  target_position_data_version,
                   baseline_source,
                   baseline_xingce_score,
                   baseline_shenlun_score,
@@ -144,6 +155,7 @@ class OnboardingRepository:
                   :daily_minutes,
                   cast(:target_position_id as uuid),
                   cast(:target_score as numeric),
+                  :target_position_data_version,
                   :baseline_source,
                   cast(:baseline_xingce_score as numeric),
                   cast(:baseline_shenlun_score as numeric),
@@ -164,6 +176,8 @@ class OnboardingRepository:
                   daily_minutes = excluded.daily_minutes,
                   target_position_id = excluded.target_position_id,
                   target_score = excluded.target_score,
+                  target_position_data_version =
+                    excluded.target_position_data_version,
                   baseline_source = excluded.baseline_source,
                   baseline_xingce_score = excluded.baseline_xingce_score,
                   baseline_shenlun_score = excluded.baseline_shenlun_score,
@@ -171,24 +185,28 @@ class OnboardingRepository:
                   updated_at = now()
                 returning *
                 """
-            ),
-            {
-                "user_id": user_id,
-                "education": education,
-                "major": major,
-                "fresh_graduate": fresh_graduate,
-                "political_status": political_status,
-                "grassroots_years": grassroots_years,
-                "study_mode": study_mode,
-                "daily_minutes": daily_minutes,
-                "target_position_id": target_position_id,
-                "target_score": target_score,
-                "baseline_source": baseline_source,
-                "baseline_xingce_score": baseline_xingce_score,
-                "baseline_shenlun_score": baseline_shenlun_score,
-                "baseline_weak_modules": json.dumps(baseline_weak_modules, ensure_ascii=False),
-            },
-        ).mappings().one()
+                ),
+                {
+                    "user_id": user_id,
+                    "education": education,
+                    "major": major,
+                    "fresh_graduate": fresh_graduate,
+                    "political_status": political_status,
+                    "grassroots_years": grassroots_years,
+                    "study_mode": study_mode,
+                    "daily_minutes": daily_minutes,
+                    "target_position_id": target_position_id,
+                    "target_score": target_score,
+                    "target_position_data_version": target_position_data_version,
+                    "baseline_source": baseline_source,
+                    "baseline_xingce_score": baseline_xingce_score,
+                    "baseline_shenlun_score": baseline_shenlun_score,
+                    "baseline_weak_modules": json.dumps(baseline_weak_modules, ensure_ascii=False),
+                },
+            )
+            .mappings()
+            .one()
+        )
         self._session.commit()
         return _profile_from_row(row)
 
@@ -283,6 +301,7 @@ def _profile_from_row(row: Any) -> OnboardingProfileRecord:
             str(row["target_position_id"]) if row["target_position_id"] is not None else None
         ),
         target_score=_optional_float(row["target_score"]),
+        target_position_data_version=row["target_position_data_version"],
         baseline_source=row["baseline_source"],
         baseline_xingce_score=_optional_float(row["baseline_xingce_score"]),
         baseline_shenlun_score=_optional_float(row["baseline_shenlun_score"]),

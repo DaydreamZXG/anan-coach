@@ -50,8 +50,10 @@
     <state-view
       wx:elif="{{state.status === 'noActiveRelease'}}"
       state="empty"
-      title="本年度岗位尚未正式发布"
-      description="正式职位表发布后再来查看。"
+      title="{{state.error.title}}"
+      description="{{state.error.message}}"
+      action-text="查看能力分析"
+      bind:action="openPreparation"
     />
     <state-view
       wx:elif="{{state.status !== 'ready' && state.status !== 'empty'}}"

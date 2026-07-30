@@ -565,8 +565,37 @@ class AuthorizedHybridRetriever:
                        eligibility.checks as eligibility_checks,
                        eligibility.missing_fact_keys
                   from learner.position_goal_versions goal
-                  join product.positions position
-                    on position.position_id = goal.position_id
+                  join lateral (
+                    select
+                      snapshot.year, snapshot.position_code, snapshot.name,
+                      snapshot.department_full, snapshot.system_code,
+                      snapshot.region, snapshot.city, snapshot.paper_type,
+                      snapshot.headcount, snapshot.education_min,
+                      snapshot.major_required, snapshot.political_req,
+                      snapshot.hukou_req, snapshot.service_min_yrs,
+                      snapshot.has_extra_exam, snapshot.remark
+                    from product.position_snapshots snapshot
+                    where snapshot.position_id = goal.position_id
+                      and snapshot.position_data_version
+                            = goal.position_data_version
+                    union all
+                    select
+                      legacy.year, legacy.position_code, legacy.name,
+                      legacy.department_full, legacy.system_code,
+                      legacy.region, legacy.city, legacy.paper_type,
+                      legacy.headcount, legacy.education_min,
+                      legacy.major_required, legacy.political_req,
+                      legacy.hukou_req, legacy.service_min_yrs,
+                      legacy.has_extra_exam, legacy.remark
+                    from product.positions legacy
+                    where legacy.position_id = goal.position_id
+                      and not exists (
+                        select 1
+                        from product.position_import_batches import_batch
+                        where import_batch.position_data_version
+                              = goal.position_data_version
+                      )
+                  ) position on true
                   join learner.eligibility_snapshots eligibility
                     on eligibility.snapshot_id = goal.eligibility_snapshot_id
                    and eligibility.user_id = goal.user_id
@@ -605,8 +634,37 @@ class AuthorizedHybridRetriever:
                            eligibility.checks as eligibility_checks,
                            eligibility.missing_fact_keys
                       from learner.eligibility_snapshots eligibility
-                      join product.positions position
-                        on position.position_id = eligibility.position_id
+                      join lateral (
+                        select
+                          snapshot.year, snapshot.position_code, snapshot.name,
+                          snapshot.department_full, snapshot.system_code,
+                          snapshot.region, snapshot.city, snapshot.paper_type,
+                          snapshot.headcount, snapshot.education_min,
+                          snapshot.major_required, snapshot.political_req,
+                          snapshot.hukou_req, snapshot.service_min_yrs,
+                          snapshot.has_extra_exam, snapshot.remark
+                        from product.position_snapshots snapshot
+                        where snapshot.position_id = eligibility.position_id
+                          and snapshot.position_data_version
+                                = eligibility.position_data_version
+                        union all
+                        select
+                          legacy.year, legacy.position_code, legacy.name,
+                          legacy.department_full, legacy.system_code,
+                          legacy.region, legacy.city, legacy.paper_type,
+                          legacy.headcount, legacy.education_min,
+                          legacy.major_required, legacy.political_req,
+                          legacy.hukou_req, legacy.service_min_yrs,
+                          legacy.has_extra_exam, legacy.remark
+                        from product.positions legacy
+                        where legacy.position_id = eligibility.position_id
+                          and not exists (
+                            select 1
+                            from product.position_import_batches import_batch
+                            where import_batch.position_data_version
+                                  = eligibility.position_data_version
+                          )
+                      ) position on true
                      where eligibility.user_id = cast(:user_id as uuid)
                        and eligibility.position_id = cast(:position_id as uuid)
                        and eligibility.snapshot_id = cast(:version as uuid)

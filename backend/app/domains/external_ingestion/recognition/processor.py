@@ -11,6 +11,8 @@ from pydantic import ValidationError
 from app.contracts.external_learning.models import RecognitionKind
 from app.domains.external_ingestion.recognition.errors import (
     ProcessorConfigurationError,
+    ProcessorDispatchUnknownError,
+    ProcessorNotDispatchedError,
     ProcessorNotApproved,
     ProcessorResponseError,
 )
@@ -18,6 +20,7 @@ from app.domains.external_ingestion.recognition.models import (
     ProcessorApproval,
     ProcessorRequest,
     ProcessorResult,
+    enforce_provider_dispatch_fence,
 )
 
 
@@ -42,15 +45,11 @@ class ProcessorRegistry:
         unknown = set(processors) - set(approval_routes)
         if unknown:
             raise ProcessorConfigurationError(
-                "processor implementations exist without an approval: "
-                + ", ".join(sorted(unknown))
+                "processor implementations exist without an approval: " + ", ".join(sorted(unknown))
             )
         for approval in approvals:
             processor = processors.get(approval.route)
-            if (
-                processor is not None
-                and processor.provider_release != approval.provider_release
-            ):
+            if processor is not None and processor.provider_release != approval.provider_release:
                 raise ProcessorConfigurationError(
                     "processor implementation release does not match its approval"
                 )
@@ -115,19 +114,26 @@ class HTTPRecognitionProcessor:
         return self._release
 
     def process(self, request: ProcessorRequest) -> ProcessorResult:
-        headers = {
-            "Authorization": f"Bearer {self._token}",
-            "Content-Type": "application/json",
-            "Idempotency-Key": request.idempotency_key,
-            "X-Processor-Release": self._release,
-        }
-        body = request.model_dump(by_alias=True, mode="json")
+        try:
+            headers = {
+                "Authorization": f"Bearer {self._token}",
+                "Content-Type": "application/json",
+                "Idempotency-Key": request.idempotency_key,
+                "X-Processor-Release": self._release,
+            }
+            body = request.model_dump(by_alias=True, mode="json")
+            encoded = json.dumps(body, ensure_ascii=False, sort_keys=True)
+        except Exception as exc:
+            raise ProcessorNotDispatchedError(
+                "recognition request failed local serialization before provider dispatch"
+            ) from exc
+        enforce_provider_dispatch_fence(request)
         try:
             with self._client_factory() as client:
                 response = client.post(
                     f"{self._endpoint}/v1/recognize",
                     headers=headers,
-                    content=json.dumps(body, ensure_ascii=False, sort_keys=True),
+                    content=encoded,
                 )
             response.raise_for_status()
             release = response.headers.get("X-Processor-Release", "").strip()
@@ -136,7 +142,15 @@ class HTTPRecognitionProcessor:
             return ProcessorResult.model_validate(response.json())
         except ProcessorResponseError:
             raise
-        except (httpx.HTTPError, ValueError, ValidationError) as exc:
+        except httpx.HTTPStatusError as exc:
+            raise ProcessorResponseError(
+                "recognition processor returned no contract-valid result"
+            ) from exc
+        except httpx.HTTPError as exc:
+            raise ProcessorDispatchUnknownError(
+                "recognition processor dispatch outcome is unknown"
+            ) from exc
+        except (ValueError, ValidationError) as exc:
             raise ProcessorResponseError(
                 "recognition processor returned no contract-valid result"
             ) from exc

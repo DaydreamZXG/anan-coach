@@ -27,6 +27,7 @@ def _free_port() -> int:
 def postgres_url(tmp_path_factory: pytest.TempPathFactory) -> Iterator[str]:
     configured_url = os.getenv("TEST_DATABASE_URL")
     if configured_url:
+        _provision_test_heartbeat_roles(configured_url)
         yield configured_url
         return
 
@@ -64,8 +65,10 @@ def postgres_url(tmp_path_factory: pytest.TempPathFactory) -> Iterator[str]:
         text=True,
     )
 
+    database_url = f"postgresql+psycopg://postgres@127.0.0.1:{port}/postgres"
+    _provision_test_heartbeat_roles(database_url)
     try:
-        yield f"postgresql+psycopg://postgres@127.0.0.1:{port}/postgres"
+        yield database_url
     finally:
         subprocess.run(
             [pg_ctl, "-D", str(data_dir), "stop", "-m", "fast", "-w"],
@@ -76,10 +79,228 @@ def postgres_url(tmp_path_factory: pytest.TempPathFactory) -> Iterator[str]:
         )
 
 
+def _provision_test_heartbeat_roles(database_url: str) -> None:
+    """Provision the migration-84 role prerequisite inside the isolated test PG."""
+
+    engine = create_engine(database_url, pool_pre_ping=True, future=True)
+    try:
+        with engine.begin() as connection:
+            connection.exec_driver_sql(
+                """
+                do $$
+                begin
+                  if not exists (
+                    select 1 from pg_roles
+                    where rolname = 'gongkao_worker_heartbeat'
+                  ) then
+                    create role gongkao_worker_heartbeat
+                      nologin inherit nosuperuser nocreatedb nocreaterole
+                      noreplication nobypassrls;
+                  end if;
+                  if not exists (
+                    select 1 from pg_roles
+                    where rolname = 'gongkao_worker_heartbeat_login'
+                  ) then
+                    create role gongkao_worker_heartbeat_login
+                      login inherit nosuperuser nocreatedb nocreaterole
+                      noreplication nobypassrls;
+                  end if;
+                  grant gongkao_worker_heartbeat
+                    to gongkao_worker_heartbeat_login;
+                  if not exists (
+                    select 1 from pg_roles
+                    where rolname =
+                      'gongkao_worker_heartbeat_data_rights'
+                  ) then
+                    create role gongkao_worker_heartbeat_data_rights
+                      nologin inherit nosuperuser nocreatedb nocreaterole
+                      noreplication nobypassrls;
+                  end if;
+                  if not exists (
+                    select 1 from pg_roles
+                    where rolname =
+                      'gongkao_worker_heartbeat_data_rights_login'
+                  ) then
+                    create role
+                      gongkao_worker_heartbeat_data_rights_login
+                      login inherit nosuperuser nocreatedb nocreaterole
+                      noreplication nobypassrls;
+                  end if;
+                  grant gongkao_worker_heartbeat_data_rights
+                    to gongkao_worker_heartbeat_data_rights_login;
+                  if not exists (
+                    select 1 from pg_roles
+                    where rolname =
+                      'gongkao_worker_heartbeat_cause_agent'
+                  ) then
+                    create role gongkao_worker_heartbeat_cause_agent
+                      nologin inherit nosuperuser nocreatedb nocreaterole
+                      noreplication nobypassrls;
+                  end if;
+                  if not exists (
+                    select 1 from pg_roles
+                    where rolname =
+                      'gongkao_worker_heartbeat_cause_agent_login'
+                  ) then
+                    create role
+                      gongkao_worker_heartbeat_cause_agent_login
+                      login inherit nosuperuser nocreatedb nocreaterole
+                      noreplication nobypassrls;
+                  end if;
+                  grant gongkao_worker_heartbeat_cause_agent
+                    to gongkao_worker_heartbeat_cause_agent_login;
+                  if not exists (
+                    select 1 from pg_roles
+                    where rolname =
+                      'gongkao_worker_heartbeat_external_learning'
+                  ) then
+                    create role
+                      gongkao_worker_heartbeat_external_learning
+                      nologin inherit nosuperuser nocreatedb nocreaterole
+                      noreplication nobypassrls;
+                  end if;
+                  if not exists (
+                    select 1 from pg_roles
+                    where rolname =
+                      'gongkao_worker_heartbeat_external_learning_login'
+                  ) then
+                    create role
+                      gongkao_worker_heartbeat_external_learning_login
+                      login inherit nosuperuser nocreatedb nocreaterole
+                      noreplication nobypassrls;
+                  end if;
+                  grant gongkao_worker_heartbeat_external_learning
+                    to gongkao_worker_heartbeat_external_learning_login;
+                  if not exists (
+                    select 1 from pg_roles
+                    where rolname =
+                      'gongkao_worker_heartbeat_essay_review'
+                  ) then
+                    create role gongkao_worker_heartbeat_essay_review
+                      nologin inherit nosuperuser nocreatedb nocreaterole
+                      noreplication nobypassrls;
+                  end if;
+                  if not exists (
+                    select 1 from pg_roles
+                    where rolname =
+                      'gongkao_worker_heartbeat_essay_review_login'
+                  ) then
+                    create role
+                      gongkao_worker_heartbeat_essay_review_login
+                      login inherit nosuperuser nocreatedb nocreaterole
+                      noreplication nobypassrls;
+                  end if;
+                  grant gongkao_worker_heartbeat_essay_review
+                    to gongkao_worker_heartbeat_essay_review_login;
+                  if not exists (
+                    select 1 from pg_roles
+                    where rolname =
+                      'gongkao_worker_heartbeat_coach_notification'
+                  ) then
+                    create role
+                      gongkao_worker_heartbeat_coach_notification
+                      nologin inherit nosuperuser nocreatedb nocreaterole
+                      noreplication nobypassrls;
+                  end if;
+                  if not exists (
+                    select 1 from pg_roles
+                    where rolname =
+                      'gongkao_worker_heartbeat_coach_notification_login'
+                  ) then
+                    create role
+                      gongkao_worker_heartbeat_coach_notification_login
+                      login inherit nosuperuser nocreatedb nocreaterole
+                      noreplication nobypassrls;
+                  end if;
+                  grant gongkao_worker_heartbeat_coach_notification
+                    to
+                      gongkao_worker_heartbeat_coach_notification_login;
+                  if not exists (
+                    select 1 from pg_roles
+                    where rolname = 'gongkao_worker_heartbeat_ilink'
+                  ) then
+                    create role gongkao_worker_heartbeat_ilink
+                      nologin inherit nosuperuser nocreatedb nocreaterole
+                      noreplication nobypassrls;
+                  end if;
+                  if not exists (
+                    select 1 from pg_roles
+                    where rolname =
+                      'gongkao_worker_heartbeat_ilink_login'
+                  ) then
+                    create role gongkao_worker_heartbeat_ilink_login
+                      login inherit nosuperuser nocreatedb nocreaterole
+                      noreplication nobypassrls;
+                  end if;
+                  grant gongkao_worker_heartbeat_ilink
+                    to gongkao_worker_heartbeat_ilink_login;
+                end;
+                $$
+                """
+            )
+    finally:
+        engine.dispose()
+
+
 @pytest.fixture()
 def db_engine(postgres_url: str) -> Iterator[Engine]:
     engine = create_engine(postgres_url, pool_pre_ping=True, future=True)
     _reset_test_schema(engine)
+    try:
+        yield engine
+    finally:
+        _drop_test_schema(engine)
+        engine.dispose()
+
+
+@pytest.fixture()
+def db_engine_at_revision_64(postgres_url: str) -> Iterator[Engine]:
+    engine = create_engine(postgres_url, pool_pre_ping=True, future=True)
+    _reset_test_schema(engine, target_revision="20260727_64")
+    try:
+        yield engine
+    finally:
+        _drop_test_schema(engine)
+        engine.dispose()
+
+
+@pytest.fixture()
+def db_engine_at_revision_76(postgres_url: str) -> Iterator[Engine]:
+    engine = create_engine(postgres_url, pool_pre_ping=True, future=True)
+    _reset_test_schema(engine, target_revision="20260729_76")
+    try:
+        yield engine
+    finally:
+        _drop_test_schema(engine)
+        engine.dispose()
+
+
+@pytest.fixture()
+def db_engine_at_revision_77(postgres_url: str) -> Iterator[Engine]:
+    engine = create_engine(postgres_url, pool_pre_ping=True, future=True)
+    _reset_test_schema(engine, target_revision="20260730_77")
+    try:
+        yield engine
+    finally:
+        _drop_test_schema(engine)
+        engine.dispose()
+
+
+@pytest.fixture()
+def db_engine_at_revision_83(postgres_url: str) -> Iterator[Engine]:
+    engine = create_engine(postgres_url, pool_pre_ping=True, future=True)
+    _reset_test_schema(engine, target_revision="20260730_83")
+    try:
+        yield engine
+    finally:
+        _drop_test_schema(engine)
+        engine.dispose()
+
+
+@pytest.fixture()
+def db_engine_at_revision_85(postgres_url: str) -> Iterator[Engine]:
+    engine = create_engine(postgres_url, pool_pre_ping=True, future=True)
+    _reset_test_schema(engine, target_revision="20260730_85")
     try:
         yield engine
     finally:
@@ -104,7 +325,11 @@ def db_session(db_session_factory: sessionmaker[Session]) -> Iterator[Session]:
         yield session
 
 
-def _reset_test_schema(engine: Engine) -> None:
+def _reset_test_schema(
+    engine: Engine,
+    *,
+    target_revision: str = "head",
+) -> None:
     _drop_test_schema(engine)
     schema_sql = Path(__file__).with_name("sql").joinpath("minimal_schema.sql").read_text()
     with engine.begin() as conn:
@@ -250,38 +475,40 @@ def _reset_test_schema(engine: Engine) -> None:
         )
         for statement in mock_trajectory_conflicts._STATEMENTS:
             conn.exec_driver_sql(statement.replace("%", "%%"))
-        knowledge_map_releases = import_module(
-            "migrations.versions.20260727_65_knowledge_map_releases"
-        )
-        for statement in knowledge_map_releases._STATEMENTS:
-            conn.exec_driver_sql(statement.replace("%", "%%"))
-        knowledge_release_immutability = import_module(
-            "migrations.versions.20260727_66_knowledge_release_immutability"
-        )
-        for statement in knowledge_release_immutability._STATEMENTS:
-            conn.exec_driver_sql(statement.replace("%", "%%"))
-        external_question_knowledge_lineage = import_module(
-            "migrations.versions.20260727_67_external_question_knowledge_lineage"
-        )
-        for statement in external_question_knowledge_lineage._STATEMENTS:
-            conn.exec_driver_sql(statement.replace("%", "%%"))
-        knowledge_map_question_bindings = import_module(
-            "migrations.versions.20260727_68_knowledge_map_question_bindings"
-        )
-        for statement in knowledge_map_question_bindings._STATEMENTS:
-            conn.exec_driver_sql(statement.replace("%", "%%"))
-        openilink_hub_bot_links = import_module(
-            "migrations.versions.20260727_69_openilink_hub_bot_links"
-        )
-        for statement in openilink_hub_bot_links._STATEMENTS:
-            conn.exec_driver_sql(statement.replace("%", "%%"))
+        if target_revision != "20260727_64":
+            knowledge_map_releases = import_module(
+                "migrations.versions.20260727_65_knowledge_map_releases"
+            )
+            for statement in knowledge_map_releases._STATEMENTS:
+                conn.exec_driver_sql(statement.replace("%", "%%"))
+            knowledge_release_immutability = import_module(
+                "migrations.versions.20260727_66_knowledge_release_immutability"
+            )
+            for statement in knowledge_release_immutability._STATEMENTS:
+                conn.exec_driver_sql(statement.replace("%", "%%"))
+            external_question_knowledge_lineage = import_module(
+                "migrations.versions.20260727_67_external_question_knowledge_lineage"
+            )
+            for statement in external_question_knowledge_lineage._STATEMENTS:
+                conn.exec_driver_sql(statement.replace("%", "%%"))
+            knowledge_map_question_bindings = import_module(
+                "migrations.versions.20260727_68_knowledge_map_question_bindings"
+            )
+            for statement in knowledge_map_question_bindings._STATEMENTS:
+                conn.exec_driver_sql(statement.replace("%", "%%"))
+            openilink_hub_bot_links = import_module(
+                "migrations.versions.20260727_69_openilink_hub_bot_links"
+            )
+            for statement in openilink_hub_bot_links._STATEMENTS:
+                conn.exec_driver_sql(statement.replace("%", "%%"))
     config = Config(str(Path(__file__).resolve().parents[1] / "alembic.ini"))
     config.set_main_option(
         "sqlalchemy.url",
         engine.url.render_as_string(hide_password=False),
     )
-    command.stamp(config, "20260727_69")
-    command.upgrade(config, "head")
+    fixture_revision = "20260727_64" if target_revision == "20260727_64" else "20260727_69"
+    command.stamp(config, fixture_revision)
+    command.upgrade(config, target_revision)
 
 
 def _split_postgres_statements(script: str) -> list[str]:

@@ -101,7 +101,7 @@ def test_background_job_key_is_idempotent_and_input_is_immutable(
     first = repository.enqueue(
         db_session,
         job_key="essay-review:attempt-1:v1",
-        job_type="essay_review",
+        job_type="essay_grounded_review_v2",
         input_version="attempt-1:v1",
         payload={"attemptId": "attempt-1"},
         max_attempts=2,
@@ -109,7 +109,7 @@ def test_background_job_key_is_idempotent_and_input_is_immutable(
     duplicate = repository.enqueue(
         db_session,
         job_key="essay-review:attempt-1:v1",
-        job_type="essay_review",
+        job_type="essay_grounded_review_v2",
         input_version="attempt-1:v1",
         payload={"attemptId": "attempt-1"},
         max_attempts=2,
@@ -120,7 +120,7 @@ def test_background_job_key_is_idempotent_and_input_is_immutable(
         repository.enqueue(
             db_session,
             job_key="essay-review:attempt-1:v1",
-            job_type="essay_review",
+            job_type="essay_grounded_review_v2",
             input_version="attempt-1:v2",
             payload={"attemptId": "attempt-1"},
         )
@@ -132,7 +132,7 @@ def test_background_job_claim_retry_and_terminal_failure(db_session: Session) ->
     repository.enqueue(
         db_session,
         job_key="ocr:report-1:v1",
-        job_type="external_report_ocr",
+        job_type="external_question_answer_v1",
         input_version="report-1:v1",
         payload={"reportId": "report-1"},
         max_attempts=2,
@@ -141,7 +141,7 @@ def test_background_job_claim_retry_and_terminal_failure(db_session: Session) ->
 
     first_claim = repository.claim_next(
         db_session,
-        job_types=("external_report_ocr",),
+        job_types=("external_question_answer_v1",),
         now=now,
     )
     assert first_claim is not None and first_claim.claim_token is not None
@@ -178,7 +178,7 @@ def test_background_job_success_requires_active_claim(db_session: Session) -> No
     repository.enqueue(
         db_session,
         job_key="profile-rebuild:user-1:v4",
-        job_type="learning_profile_rebuild",
+        job_type="personal_data_export_v1",
         input_version="user-1:v4",
         payload={"userId": "user-1", "evidenceVersion": 4},
     )

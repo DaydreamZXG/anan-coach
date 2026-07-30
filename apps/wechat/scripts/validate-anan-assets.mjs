@@ -8,6 +8,16 @@ const componentRoot = resolve(appRoot, "design-system/companion/anan-companion")
 const manifest = readJson(resolve(componentRoot, "runtime-manifest.json"));
 const appConfig = readJson(resolve(appRoot, "app.json"));
 const failures = [];
+const registeredAnanPackages = (appConfig.subPackages ?? []).filter(
+  ({ root }) => typeof root === "string" && root.startsWith("packages/anan-"),
+);
+if (registeredAnanPackages.length > 0) {
+  failures.push(
+    `Internal Anan asset packages must not register app pages: ${registeredAnanPackages
+      .map(({ name }) => name)
+      .join(", ")}`,
+  );
+}
 
 const coreBytes = manifest.core.assets.reduce((total, relativePath) => {
   const path = resolve(componentRoot, relativePath);
@@ -24,7 +34,6 @@ if (coreBytes > manifest.core.budgetBytes) {
   failures.push(`Core assets exceed ${manifest.core.budgetBytes} bytes: ${coreBytes}`);
 }
 
-const packageNames = new Set((appConfig.subPackages ?? []).map((item) => item.name));
 for (const [intent, release] of Object.entries(manifest.intents)) {
   const animationPath =
     intent === "companion"
@@ -36,9 +45,8 @@ for (const [intent, release] of Object.entries(manifest.intents)) {
   }
   if (intent === "companion") continue;
   const packageName = `anan-${intent}`;
-  if (!packageNames.has(packageName)) failures.push(`Missing subpackage: ${packageName}`);
   const packageRoot = resolve(appRoot, `packages/${packageName}`);
-  validatePackageEntry(packageName, packageRoot);
+  validatePackageSource(packageName, packageRoot);
   for (const asset of [
     "inline-64@2x.webp",
     "card-160@2x.webp",
@@ -56,10 +64,7 @@ for (const [intent, release] of Object.entries(manifest.intents)) {
   }
 }
 
-if (!packageNames.has(manifest.growth.package)) {
-  failures.push(`Missing growth subpackage: ${manifest.growth.package}`);
-}
-validatePackageEntry("anan-growth", resolve(appRoot, "packages/anan-growth"));
+validatePackageSource("anan-growth", resolve(appRoot, "packages/anan-growth"));
 const growthRoot = resolve(appRoot, "packages/anan-growth/assets/v1.0.0");
 for (const asset of [manifest.growth.default, ...Object.values(manifest.growth.stages)]) {
   if (!isFile(resolve(growthRoot, asset))) failures.push(`Missing growth asset: ${asset}`);
@@ -113,15 +118,11 @@ function validateAsset(path, expectedBytes, expectedHash) {
   if (hash !== expectedHash) failures.push(`Unexpected animation hash for ${path}: ${hash}`);
 }
 
-function validatePackageEntry(packageName, packageRoot) {
-  const packageConfig = (appConfig.subPackages ?? []).find((item) => item.name === packageName);
-  if (!packageConfig || packageConfig.pages.length === 0) {
-    failures.push(`Subpackage has no explicit asset entry page: ${packageName}`);
-    return;
-  }
+function validatePackageSource(packageName, packageRoot) {
   for (const extension of ["ts", "json", "wxml", "wxss"]) {
-    const pagePath = resolve(packageRoot, `${packageConfig.pages[0]}.${extension}`);
-    if (!isFile(pagePath)) failures.push(`Incomplete ${packageName} entry: ${pagePath}`);
+    const entryPath = resolve(packageRoot, `asset-entry/index.${extension}`);
+    if (!isFile(entryPath))
+      failures.push(`Incomplete internal ${packageName} source: ${entryPath}`);
   }
 }
 

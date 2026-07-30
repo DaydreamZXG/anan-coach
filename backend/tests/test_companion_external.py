@@ -132,10 +132,7 @@ class FakeCompanionAIProvider:
             assert isinstance(sources, list) and sources
             source_ref = sources[0]["sourceRef"]
             assert isinstance(source_ref, str)
-            answer = (
-                f"基于 {context['practiceAnswers']} 次练习，"
-                "先修复资料分析增长率。"
-            )
+            answer = f"基于 {context['practiceAnswers']} 次练习，先修复资料分析增长率。"
             result = AICompanionAnswerResult(
                 answer=answer,
                 next_actions=["回看增长率方法卡", "再做 3 道同类题"],
@@ -143,9 +140,7 @@ class FakeCompanionAIProvider:
                 confidence="medium",
                 limitations=["仅基于当前已确认学习证据。"],
                 latency_ms=12,
-                response_summary=(
-                    '{"answer":"ok","nextActions":["回看增长率方法卡"]}'
-                ),
+                response_summary=('{"answer":"ok","nextActions":["回看增长率方法卡"]}'),
                 usage=ModelTokenUsage(
                     input_tokens=120,
                     cached_input_tokens=0,
@@ -431,9 +426,7 @@ def test_companion_context_uses_only_current_canonical_essay_evidence(
     assert priority_findings[0]["diagnosis"] == "valid-current-answer-review"
     assert context.latest_essay_reflection is not None
     assert context.latest_essay_reflection["nextChange"] == "current-answer-v2"
-    assert "RAW_CURRENT_ANSWER_V2_MUST_NOT_ENTER_COMPANION" not in str(
-        _context_payload(context)
-    )
+    assert "RAW_CURRENT_ANSWER_V2_MUST_NOT_ENTER_COMPANION" not in str(_context_payload(context))
 
     _insert_companion_orphan_attempt(
         db_session_factory,
@@ -586,16 +579,20 @@ def test_companion_ask_is_quota_gated_and_audited(
         }
     ]
     with db_session_factory() as session:
-        log = session.execute(
-            text(
-                """
+        log = (
+            session.execute(
+                text(
+                    """
                 select feature, provider, status, metadata
                 from ai_audit.interaction_logs
                 where learner_key = :learner_key
                 """
-            ),
-            {"learner_key": user_id},
-        ).mappings().one()
+                ),
+                {"learner_key": user_id},
+            )
+            .mappings()
+            .one()
+        )
         assert log["feature"] == "companion_ask"
         assert log["provider"] == "fake_companion_provider"
         assert log["status"] == "succeeded"
@@ -663,19 +660,21 @@ def test_external_wrong_question_requires_existing_supported_map_node(
     assert body["candidates"][0]["displayPath"] == "行测/资料分析/增长率"
 
     with db_session_factory() as session:
-        intake = session.execute(
-            text(
-                """
+        intake = (
+            session.execute(
+                text(
+                    """
                 select knowledge_release_id, selected_node_id
                 from learner.external_question_intakes
                 where intake_id = cast(:intake_id as uuid)
                 """
-            ),
-            {"intake_id": body["intakeId"]},
-        ).mappings().one()
-        assert str(intake["knowledge_release_id"]) == (
-            "11111111-1111-4111-8111-111111111111"
+                ),
+                {"intake_id": body["intakeId"]},
+            )
+            .mappings()
+            .one()
         )
+        assert str(intake["knowledge_release_id"]) == ("11111111-1111-4111-8111-111111111111")
         assert intake["selected_node_id"] == "km_growth"
 
     _switch_active_knowledge_map_release(db_session_factory)
@@ -690,34 +689,29 @@ def test_external_wrong_question_requires_existing_supported_map_node(
     assert confirmed.json()["memorySource"] == "external"
 
     with db_session_factory() as session:
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 select knowledge_release_id, node_id, source, error_summary
                 from learner.external_wrong_questions
                 where user_id = cast(:user_id as uuid)
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
-        assert str(row["knowledge_release_id"]) == (
-            "11111111-1111-4111-8111-111111111111"
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
         )
+        assert str(row["knowledge_release_id"]) == ("11111111-1111-4111-8111-111111111111")
         assert row["node_id"] == "km_growth"
         assert row["source"] == "external"
         assert row["error_summary"] == "把同比增长率和增长量混了。"
 
-        sections = LearnerMemoryRepository(session).list_workbench_sections(
-            user_id=user_id
-        )
-        external_section = next(
-            section for section in sections if section.id == "external_wrong"
-        )
+        sections = LearnerMemoryRepository(session).list_workbench_sections(user_id=user_id)
+        external_section = next(section for section in sections if section.id == "external_wrong")
         assert len(external_section.objects) == 1
-        assert (
-            external_section.objects[0].payload["displayPath"]
-            == "行测/资料分析/增长率"
-        )
+        assert external_section.objects[0].payload["displayPath"] == "行测/资料分析/增长率"
         assert external_section.objects[0].payload["knowledgeReleaseId"] == (
             "11111111-1111-4111-8111-111111111111"
         )
@@ -795,10 +789,13 @@ def test_companion_knowledge_release_expires_during_the_same_transaction(
             )
             is None
         )
-        assert repository.get_context(
-            user_id=user_id,
-            node_id="km_growth",
-        ).method_cards == []
+        assert (
+            repository.get_context(
+                user_id=user_id,
+                node_id="km_growth",
+            ).method_cards
+            == []
+        )
 
 
 def test_companion_shared_method_card_exact_replay_preserves_context(
@@ -817,14 +814,16 @@ def test_companion_shared_method_card_exact_replay_preserves_context(
                 """
             )
         ).one()
-        before_context = CompanionRepository(session).get_context(
-            user_id=user_id,
-            node_id="km_growth",
-        ).method_cards
+        before_context = (
+            CompanionRepository(session)
+            .get_context(
+                user_id=user_id,
+                node_id="km_growth",
+            )
+            .method_cards
+        )
 
-        assert MethodCardRepository(session).upsert_cards(
-            [_companion_shared_method_card()]
-        ) == 1
+        assert MethodCardRepository(session).upsert_cards([_companion_shared_method_card()]) == 1
 
         after_timestamps = session.execute(
             text(
@@ -835,10 +834,14 @@ def test_companion_shared_method_card_exact_replay_preserves_context(
                 """
             )
         ).one()
-        after_context = CompanionRepository(session).get_context(
-            user_id=user_id,
-            node_id="km_growth",
-        ).method_cards
+        after_context = (
+            CompanionRepository(session)
+            .get_context(
+                user_id=user_id,
+                node_id="km_growth",
+            )
+            .method_cards
+        )
         release_status = session.execute(
             text(
                 """
@@ -1007,57 +1010,71 @@ def test_companion_ask_replays_full_response_and_rejects_key_reuse(
     assert len(provider.attempt_keys) == 1
 
     with db_session_factory() as session:
-        command = session.execute(
-            text(
-                """
+        command = (
+            session.execute(
+                text(
+                    """
                 select status, response_payload, response_fingerprint,
                        provider_attempt_count
                   from platform.companion_paid_commands
                  where user_id = cast(:user_id as uuid)
                    and feature = 'companion_ask'
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
         assert command["status"] == "succeeded"
         assert command["response_payload"] == first.json()
         assert len(command["response_fingerprint"]) == 64
         assert command["provider_attempt_count"] == 1
-        assert session.execute(
-            text(
-                """
+        assert (
+            session.execute(
+                text(
+                    """
                 select used_count
                   from commerce.entitlement_usage_daily
                  where user_id = cast(:user_id as uuid)
                    and feature = 'companion_ask'
                 """
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 1
-        event = session.execute(
-            text(
-                """
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 1
+        )
+        event = (
+            session.execute(
+                text(
+                    """
                 select event_type, payload
                   from platform.outbox_events
                  where aggregate_type = 'companion_paid_command'
                    and payload->>'userId' = :user_id
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
         assert event["event_type"] == "companion.command.succeeded"
         assert event["payload"]["status"] == "succeeded"
-        assert session.execute(
-            text(
-                """
+        assert (
+            session.execute(
+                text(
+                    """
                 select count(*) from ai_audit.model_call_ledger
                  where user_id = cast(:user_id as uuid)
                    and feature = 'companion_ask'
                    and status = 'succeeded'
                 """
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 1
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 1
+        )
 
 
 def test_external_resolve_replay_creates_one_intake_and_consumes_once(
@@ -1102,34 +1119,40 @@ def test_external_resolve_replay_creates_one_intake_and_consumes_once(
     assert replay.status_code == 200
     assert replay.json() == first.json()
     with db_session_factory() as session:
-        assert session.execute(
-            text(
-                "select count(*) from learner.external_question_intakes "
-                "where user_id = cast(:user_id as uuid)"
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 1
-        command = session.execute(
-            text(
-                """
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from learner.external_question_intakes "
+                    "where user_id = cast(:user_id as uuid)"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 1
+        )
+        command = (
+            session.execute(
+                text(
+                    """
                 select request_contract_version, execution_payload
                 from platform.companion_paid_commands
                 where user_id = cast(:user_id as uuid)
                   and feature = 'external_wrong_intake'
                   and idempotency_key = 'external-replay-command-1'
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
-        assert command["request_contract_version"] == (
-            "external-question-resolve-command-v2"
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
         )
+        assert command["request_contract_version"] == ("external-question-resolve-command-v2")
         assert command["execution_payload"]["contractVersion"] == (
             "external-question-resolve-execution-v2"
         )
-        assert command["execution_payload"]["resolution"][
-            "selectedKnowledgeReleaseId"
-        ] == "11111111-1111-4111-8111-111111111111"
+        assert (
+            command["execution_payload"]["resolution"]["selectedKnowledgeReleaseId"]
+            == "11111111-1111-4111-8111-111111111111"
+        )
         intake_release_id = session.execute(
             text(
                 """
@@ -1140,17 +1163,18 @@ def test_external_resolve_replay_creates_one_intake_and_consumes_once(
             ),
             {"user_id": user_id},
         ).scalar_one()
-        assert str(intake_release_id) == (
-            "11111111-1111-4111-8111-111111111111"
+        assert str(intake_release_id) == ("11111111-1111-4111-8111-111111111111")
+        assert (
+            session.execute(
+                text(
+                    "select used_count from commerce.entitlement_usage_daily "
+                    "where user_id = cast(:user_id as uuid) "
+                    "and feature = 'external_wrong_intake'"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 1
         )
-        assert session.execute(
-            text(
-                "select used_count from commerce.entitlement_usage_daily "
-                "where user_id = cast(:user_id as uuid) "
-                "and feature = 'external_wrong_intake'"
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 1
 
 
 def test_concurrent_companion_retries_execute_provider_once(
@@ -1211,26 +1235,33 @@ def test_provider_timeout_replays_same_accepted_request_without_second_charge(
     assert len(provider.attempt_keys) == 2
     assert provider.attempt_keys[0] == provider.attempt_keys[1]
     with db_session_factory() as session:
-        command = session.execute(
-            text(
-                "select status, delivery_count, provider_attempt_count "
-                "from platform.companion_paid_commands "
-                "where user_id = cast(:user_id as uuid) "
-                "and feature = 'companion_ask'"
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
+        command = (
+            session.execute(
+                text(
+                    "select status, delivery_count, provider_attempt_count "
+                    "from platform.companion_paid_commands "
+                    "where user_id = cast(:user_id as uuid) "
+                    "and feature = 'companion_ask'"
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
         assert command["status"] == "succeeded"
         assert command["delivery_count"] == 2
         assert command["provider_attempt_count"] == 2
-        assert session.execute(
-            text(
-                "select used_count from commerce.entitlement_usage_daily "
-                "where user_id = cast(:user_id as uuid) "
-                "and feature = 'companion_ask'"
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 1
+        assert (
+            session.execute(
+                text(
+                    "select used_count from commerce.entitlement_usage_daily "
+                    "where user_id = cast(:user_id as uuid) "
+                    "and feature = 'companion_ask'"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 1
+        )
 
 
 def test_expired_provider_replay_window_never_dispatches_a_second_unknown_charge(
@@ -1261,9 +1292,10 @@ def test_expired_provider_replay_window_never_dispatches_a_second_unknown_charge
     assert provider.billing_count == 1
     assert len(provider.attempt_keys) == 1
     with db_session_factory() as session:
-        state = session.execute(
-            text(
-                """
+        state = (
+            session.execute(
+                text(
+                    """
                 select command.status, command.provider_attempt_count,
                        reservation.status as reservation_status
                   from platform.companion_paid_commands command
@@ -1272,9 +1304,12 @@ def test_expired_provider_replay_window_never_dispatches_a_second_unknown_charge
                  where command.user_id = cast(:user_id as uuid)
                    and command.feature = 'companion_ask'
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
         assert dict(state) == {
             "status": "provider_uncertain",
             "provider_attempt_count": 1,
@@ -1319,9 +1354,10 @@ def test_uncertain_replay_reuses_original_price_snapshot_after_config_drift(
     assert provider.billing_count == 1
     assert provider.attempt_keys[0] == provider.attempt_keys[1]
     with db_session_factory() as session:
-        call = session.execute(
-            text(
-                """
+        call = (
+            session.execute(
+                text(
+                    """
                 select status, price_version,
                        input_rate_cny_per_million,
                        output_rate_cny_per_million
@@ -1329,9 +1365,12 @@ def test_uncertain_replay_reuses_original_price_snapshot_after_config_drift(
                  where user_id = cast(:user_id as uuid)
                    and feature = 'companion_ask'
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
         assert call["status"] == "succeeded"
         assert call["price_version"] == TEST_PRICE_CARD.version
         assert Decimal(call["input_rate_cny_per_million"]) == Decimal("1")
@@ -1359,9 +1398,10 @@ def test_initial_runtime_provider_configuration_failure_refunds_and_terminates(
 
     assert response.status_code == 503
     with db_session_factory() as session:
-        state = session.execute(
-            text(
-                """
+        state = (
+            session.execute(
+                text(
+                    """
                 select command.status, command.provider_attempt_count,
                        reservation.status as reservation_status,
                        model_call.status as model_call_status,
@@ -1377,9 +1417,12 @@ def test_initial_runtime_provider_configuration_failure_refunds_and_terminates(
                  where command.user_id = cast(:user_id as uuid)
                    and command.feature = 'companion_ask'
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
         assert dict(state) == {
             "status": "failed",
             "provider_attempt_count": 1,
@@ -1418,9 +1461,10 @@ def test_initial_preflight_configuration_failure_refunds_without_dispatch(
         assert failure.value.status_code == 503
 
     with db_session_factory() as session:
-        state = session.execute(
-            text(
-                """
+        state = (
+            session.execute(
+                text(
+                    """
                 select command.status, command.provider_attempt_count,
                        reservation.status as reservation_status,
                        usage.used_count,
@@ -1436,9 +1480,12 @@ def test_initial_preflight_configuration_failure_refunds_without_dispatch(
                  where command.user_id = cast(:user_id as uuid)
                    and command.feature = 'companion_ask'
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
         assert dict(state) == {
             "status": "failed",
             "provider_attempt_count": 0,
@@ -1498,9 +1545,10 @@ def test_crash_before_durable_provider_dispatch_allows_safe_drift_refund(
         assert failure.value.status_code == 503
 
     with db_session_factory() as session:
-        state = session.execute(
-            text(
-                """
+        state = (
+            session.execute(
+                text(
+                    """
                 select command.status, command.provider_attempt_count,
                        reservation.status as reservation_status,
                        model_call.status as model_call_status
@@ -1512,9 +1560,12 @@ def test_crash_before_durable_provider_dispatch_allows_safe_drift_refund(
                  where command.user_id = cast(:user_id as uuid)
                    and command.feature = 'companion_ask'
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
         assert dict(state) == {
             "status": "failed",
             "provider_attempt_count": 0,
@@ -1568,9 +1619,10 @@ def test_provider_success_then_db_commit_failure_replays_same_provider_key(
                 request=request,
             )
     with db_session_factory() as checkpoint_session:
-        checkpoint = checkpoint_session.execute(
-            text(
-                """
+        checkpoint = (
+            checkpoint_session.execute(
+                text(
+                    """
                 select command.status, command.provider_attempt_count,
                        reservation.status as reservation_status
                   from platform.companion_paid_commands command
@@ -1579,9 +1631,12 @@ def test_provider_success_then_db_commit_failure_replays_same_provider_key(
                  where command.user_id = cast(:user_id as uuid)
                    and command.feature = 'companion_ask'
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
         assert dict(checkpoint) == {
             "status": "provider_uncertain",
             "provider_attempt_count": 1,
@@ -1604,24 +1659,31 @@ def test_provider_success_then_db_commit_failure_replays_same_provider_key(
     assert len(provider.attempt_keys) == 2
     assert provider.attempt_keys[0] == provider.attempt_keys[1]
     with db_session_factory() as session:
-        command = session.execute(
-            text(
-                "select status, response_payload from platform.companion_paid_commands "
-                "where user_id = cast(:user_id as uuid) "
-                "and feature = 'companion_ask'"
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
+        command = (
+            session.execute(
+                text(
+                    "select status, response_payload from platform.companion_paid_commands "
+                    "where user_id = cast(:user_id as uuid) "
+                    "and feature = 'companion_ask'"
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
         assert command["status"] == "succeeded"
         assert command["response_payload"]["answer"] == recovered.answer
-        assert session.execute(
-            text(
-                "select used_count from commerce.entitlement_usage_daily "
-                "where user_id = cast(:user_id as uuid) "
-                "and feature = 'companion_ask'"
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 1
+        assert (
+            session.execute(
+                text(
+                    "select used_count from commerce.entitlement_usage_daily "
+                    "where user_id = cast(:user_id as uuid) "
+                    "and feature = 'companion_ask'"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 1
+        )
 
 
 def _make_client(
@@ -1662,9 +1724,7 @@ def _companion_service(
         audit_repository=AIAuditRepository(session),
         commerce_service=CommerceService(
             repository=CommerceRepository(session),
-            app_store_verifier=StaticAppStoreTransactionVerifier(
-                _verified_transaction()
-            ),
+            app_store_verifier=StaticAppStoreTransactionVerifier(_verified_transaction()),
             commercial_mode="paid",
             usage_access_mode="entitlement_quota",
         ),
@@ -1817,9 +1877,7 @@ def _seed_knowledge_map(
     fresh_until: datetime | None = None,
 ) -> None:
     with db_session_factory() as session:
-        MethodCardRepository(session).upsert_cards(
-            [_companion_shared_method_card()]
-        )
+        MethodCardRepository(session).upsert_cards([_companion_shared_method_card()])
         seed_released_module_vocabulary(
             session,
             version="vocab@companion-tests-current",
@@ -1866,8 +1924,7 @@ def _seed_knowledge_map(
                 """
             ),
             {
-                "fresh_until": fresh_until
-                or datetime.now(UTC) + timedelta(days=7),
+                "fresh_until": fresh_until or datetime.now(UTC) + timedelta(days=7),
             },
         )
         session.execute(
@@ -1978,9 +2035,7 @@ def _seed_retired_duplicate_knowledge_map(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     with db_session_factory() as session:
-        MethodCardRepository(session).upsert_cards(
-            [_companion_shared_method_card()]
-        )
+        MethodCardRepository(session).upsert_cards([_companion_shared_method_card()])
         seed_released_module_vocabulary(
             session,
             version="vocab@companion-tests-retired",
@@ -2076,7 +2131,8 @@ def _seed_retired_duplicate_knowledge_map(
         activate_knowledge_release(
             session,
             release_id="22222222-2222-4222-8222-222222222222",
-            activated_at=datetime.now(UTC) - timedelta(
+            activated_at=datetime.now(UTC)
+            - timedelta(
                 days=2,
                 hours=12,
             ),
@@ -2311,6 +2367,7 @@ def _seed_companion_canonical_evidence(
     attempt_id = str(uuid4())
     answer_id = str(uuid4())
     expired_current_estimate_id = str(uuid4())
+    position_release_id = str(uuid4())
     raw_answer = "RAW_ANSWER_V1_MUST_NOT_ENTER_COMPANION"
     now = datetime.now(UTC)
     evidence = {
@@ -2331,15 +2388,52 @@ def _seed_companion_canonical_evidence(
                 """
                 insert into product.position_rule_releases (
                   release_id, exam_code, exam_year, rule_set_version,
-                  position_data_version, status, activated_at
+                  position_data_version, status
                 ) values (
                   cast(:release_id as uuid), 'guokao', 2027,
                   'companion-rules-v1', 'companion-positions-v1',
-                  'active', :activated_at
+                  'draft'
                 )
                 """
             ),
-            {"release_id": str(uuid4()), "activated_at": now},
+            {"release_id": position_release_id},
+        )
+        session.execute(
+            text(
+                """
+                insert into product.position_release_windows (
+                  window_id, release_id, window_kind, sequence_no,
+                  opens_at, closes_at, official_source_url,
+                  official_source_title, official_source_published_at,
+                  official_source_received_at, official_source_sha256,
+                  official_source_receipt
+                ) values (
+                  gen_random_uuid(), cast(:release_id as uuid), 'primary', 1,
+                  :opens_at, :closes_at,
+                  'https://example.gov.cn/guokao/2027/announcement',
+                  '2027年度考试录用公务员公告',
+                  :published_at, :received_at, repeat('d', 64),
+                  'companion-fixture-primary'
+                )
+                """
+            ),
+            {
+                "release_id": position_release_id,
+                "opens_at": now - timedelta(days=1),
+                "closes_at": now + timedelta(days=30),
+                "published_at": now - timedelta(days=3),
+                "received_at": now - timedelta(days=2),
+            },
+        )
+        session.execute(
+            text(
+                """
+                update product.position_rule_releases
+                set status = 'active', activated_at = :activated_at
+                where release_id = cast(:release_id as uuid)
+                """
+            ),
+            {"release_id": position_release_id, "activated_at": now},
         )
         session.execute(
             text(
@@ -2369,9 +2463,7 @@ def _seed_companion_canonical_evidence(
                 "expired_estimate_id": expired_current_estimate_id,
                 "user_id": user_id,
                 "old_fingerprint": _companion_test_hash("old-estimate"),
-                "expired_fingerprint": _companion_test_hash(
-                    "expired-current-estimate"
-                ),
+                "expired_fingerprint": _companion_test_hash("expired-current-estimate"),
                 "now": now,
                 "future": now + timedelta(days=30),
                 "expired_generated": now - timedelta(days=2),
@@ -2419,9 +2511,7 @@ def _seed_companion_canonical_evidence(
                 "task_id": task_id,
                 "task_key": f"companion-task:{task_id}",
                 "material_sha": _companion_test_hash("companion-material"),
-                "other_material_sha": _companion_test_hash(
-                    "companion-other-material"
-                ),
+                "other_material_sha": _companion_test_hash("companion-other-material"),
             },
         )
         session.execute(
@@ -2454,9 +2544,7 @@ def _seed_companion_canonical_evidence(
                 "material_id": material_id,
                 "other_material_id": other_material_id,
                 "rubric_sha": _companion_test_hash("companion-rubric"),
-                "other_rubric_sha": _companion_test_hash(
-                    "companion-other-rubric"
-                ),
+                "other_rubric_sha": _companion_test_hash("companion-other-rubric"),
             },
         )
         session.execute(
@@ -2482,9 +2570,7 @@ def _seed_companion_canonical_evidence(
                 "task_key": f"companion-task:{task_id}",
                 "material_id": material_id,
                 "rubric_id": rubric_id,
-                "input_fingerprint": _companion_test_hash(
-                    "companion-attempt-v1"
-                ),
+                "input_fingerprint": _companion_test_hash("companion-attempt-v1"),
                 "submitted_at": now - timedelta(minutes=10),
             },
         )
@@ -2511,9 +2597,7 @@ def _seed_companion_canonical_evidence(
                 "task_id": task_id,
                 "answer_text": raw_answer,
                 "answer_sha": _companion_test_hash(raw_answer),
-                "input_fingerprint": _companion_test_hash(
-                    "companion-answer-v1"
-                ),
+                "input_fingerprint": _companion_test_hash("companion-answer-v1"),
                 "created_at": now - timedelta(minutes=9),
             },
         )
@@ -2571,9 +2655,7 @@ def _insert_current_shenlun_estimate(
                 "lower": recommended - 5,
                 "recommended": recommended,
                 "upper": recommended + 5,
-                "fingerprint": _companion_test_hash(
-                    f"current-estimate:{estimate_id}"
-                ),
+                "fingerprint": _companion_test_hash(f"current-estimate:{estimate_id}"),
                 "supersedes_id": supersedes_estimate_id,
                 "generated_at": datetime.now(UTC),
                 "valid_until": datetime.now(UTC) + timedelta(days=30),
@@ -2618,9 +2700,7 @@ def _insert_companion_answer(
                 "version_no": version_no,
                 "answer_text": answer_text,
                 "answer_sha": _companion_test_hash(answer_text),
-                "input_fingerprint": _companion_test_hash(
-                    f"companion-answer:{answer_id}"
-                ),
+                "input_fingerprint": _companion_test_hash(f"companion-answer:{answer_id}"),
                 "supersedes_answer_id": supersedes_answer_id,
                 "created_at": datetime.now(UTC),
             },
@@ -2687,15 +2767,11 @@ def _insert_companion_review(
                 "material_id": evidence["material"],
                 "rubric_id": evidence["rubric"],
                 "marker": marker,
-                "input_fingerprint": _companion_test_hash(
-                    f"companion-review-input:{review_id}"
-                ),
+                "input_fingerprint": _companion_test_hash(f"companion-review-input:{review_id}"),
                 "execution_fingerprint": _companion_test_hash(
                     f"companion-review-execution:{review_id}"
                 ),
-                "output_fingerprint": _companion_test_hash(
-                    f"companion-review-output:{review_id}"
-                ),
+                "output_fingerprint": _companion_test_hash(f"companion-review-output:{review_id}"),
                 "generated_at": generated_at,
                 "valid_until": valid_until,
             },
@@ -2741,17 +2817,13 @@ def _insert_companion_reflection(
                 "artifact_id": artifact_id,
                 "command_id": f"companion-reflection:{artifact_id}",
                 "user_id": evidence["user"],
-                "scope_key": _companion_test_hash(
-                    f"companion-reflection-scope:{artifact_id}"
-                ),
+                "scope_key": _companion_test_hash(f"companion-reflection-scope:{artifact_id}"),
                 "task_id": evidence["task"],
                 "material_id": material_id,
                 "rubric_id": rubric_id,
                 "answer_id": answer_id,
                 "marker": marker,
-                "payload_sha": _companion_test_hash(
-                    f"companion-reflection-payload:{artifact_id}"
-                ),
+                "payload_sha": _companion_test_hash(f"companion-reflection-payload:{artifact_id}"),
                 "input_fingerprint": _companion_test_hash(
                     f"companion-reflection-input:{artifact_id}"
                 ),
@@ -2792,9 +2864,7 @@ def _insert_companion_orphan_attempt(
                 "task_key": f"companion-task:{evidence['task']}",
                 "material_id": evidence["material"],
                 "rubric_id": evidence["rubric"],
-                "input_fingerprint": _companion_test_hash(
-                    f"companion-orphan-attempt:{attempt_id}"
-                ),
+                "input_fingerprint": _companion_test_hash(f"companion-orphan-attempt:{attempt_id}"),
                 "submitted_at": submitted_at,
             },
         )

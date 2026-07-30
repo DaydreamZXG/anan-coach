@@ -11,6 +11,10 @@ from sqlalchemy.orm import Session, sessionmaker
 from app.db.session import get_db_session
 from app.domains.auth.repository import token_hash_for_tests
 from app.domains.onboarding.service import PLACEMENT_PLAN, PLACEMENT_TASK_ID
+from app.domains.qualification.rule_releases import (
+    PositionReleaseWindowInput,
+    PositionRuleReleaseService,
+)
 from app.main import create_app
 
 
@@ -19,6 +23,7 @@ def test_onboarding_profile_derives_target_score_from_real_position_score(
 ) -> None:
     user_id = _seed_user(db_session_factory, token="onboard-token")
     position_id = _seed_position_with_entry_score(db_session_factory)
+    _seed_open_position_release(db_session_factory)
     client = _make_db_client(db_session_factory)
 
     response = client.put(
@@ -54,27 +59,31 @@ def test_onboarding_profile_derives_target_score_from_real_position_score(
     assert complete.json()["code"] == "onboarding_v1_retired"
 
     with db_session_factory() as session:
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 select education, major, baseline_source, onboarding_complete
                 from learner.profiles
                 where user_id = cast(:user_id as uuid)
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
     assert row["education"] == "本科"
     assert row["major"] == "法学"
     assert row["baseline_source"] == "self_report"
     assert row["onboarding_complete"] is False
 
 
-def test_position_search_filters_hard_conditions_and_returns_score_stats(
+def test_release_unbound_position_search_is_retired(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     _seed_user(db_session_factory, token="position-token")
-    position_id = _seed_position_with_entry_score(db_session_factory)
+    _seed_position_with_entry_score(db_session_factory)
     _seed_unmatched_position(db_session_factory)
     client = _make_db_client(db_session_factory)
 
@@ -91,26 +100,11 @@ def test_position_search_filters_hard_conditions_and_returns_score_stats(
         },
     )
 
-    assert response.status_code == 200
-    body = response.json()
-    assert body["unverifiedConditions"] == ["freshGraduate"]
-    assert [item["positionId"] for item in body["items"]] == [position_id]
-    item = body["items"][0]
-    assert item["entryScore"]["years"] == [2023, 2024]
-    assert item["entryScore"]["averageEntryScore"] == 120.5
-    assert item["entryScore"]["targetScore"] == 122.77
-    assert item["entryScore"]["targetScoreBasis"]["basisLevel"] == "direct"
-    assert item["entryScore"]["targetScoreBasis"]["driftPerYear"] == 2.0
-    assert item["entryScore"]["targetScoreBasis"]["safetyMargin"] == 1.27
-    assert item["eligibilityBasis"] == [
-        "education_min",
-        "major_required",
-        "political_req",
-        "service_min_yrs",
-    ]
+    assert response.status_code == 410
+    assert "release-unbound" in response.json()["detail"].lower()
 
 
-def test_position_target_score_uses_l2_same_city_system_cohort(
+def test_release_unbound_position_target_score_is_retired(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     _seed_user(db_session_factory, token="cohort-token")
@@ -122,20 +116,12 @@ def test_position_target_score_uses_l2_same_city_system_cohort(
         headers={"Authorization": "Bearer cohort-token"},
     )
 
-    assert response.status_code == 200
-    basis = response.json()["targetScoreBasis"]
-    assert basis["basisLevel"] == "L2"
-    assert basis["samplePositionCount"] == 3
-    assert basis["scoreSampleCount"] == 3
-    assert basis["annualScores"] == [
-        {"year": 2023, "averageEntryScore": 126.0, "sampleCount": 1},
-        {"year": 2024, "averageEntryScore": 128.0, "sampleCount": 1},
-        {"year": 2025, "averageEntryScore": 131.0, "sampleCount": 1},
-    ]
-    assert basis["driftPerYear"] == 2.5
-    assert basis["latestAverageScore"] == 131.0
-    assert basis["targetScore"] == 131.0
-    assert basis["safetyMargin"] == 0.0
+    assert response.status_code == 410
+    detail = client.get(
+        f"/api/v1/positions/{position_id}",
+        headers={"Authorization": "Bearer cohort-token"},
+    )
+    assert detail.status_code == 410
 
 
 def test_onboarding_keeps_user_target_score_when_position_cohort_is_insufficient(
@@ -143,6 +129,7 @@ def test_onboarding_keeps_user_target_score_when_position_cohort_is_insufficient
 ) -> None:
     _seed_user(db_session_factory, token="manual-target-token")
     position_id = _seed_position_without_scores(db_session_factory)
+    _seed_open_position_release(db_session_factory)
     client = _make_db_client(db_session_factory)
 
     response = client.put(
@@ -162,6 +149,30 @@ def test_onboarding_keeps_user_target_score_when_position_cohort_is_insufficient
 
     assert response.status_code == 200
     assert response.json()["targetScore"] == 130
+
+
+def test_onboarding_rejects_release_unbound_target_position_write(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _seed_user(db_session_factory, token="unbound-target-token")
+    position_id = _seed_position_with_entry_score(db_session_factory)
+
+    response = _make_db_client(db_session_factory).put(
+        "/api/v1/onboarding/profile",
+        headers={"Authorization": "Bearer unbound-target-token"},
+        json={
+            "education": "本科",
+            "major": "法学",
+            "freshGraduate": True,
+            "politicalStatus": "群众",
+            "grassrootsYears": 0,
+            "targetPositionId": position_id,
+            "baselineSource": "none",
+        },
+    )
+
+    assert response.status_code == 409
+    assert "active" in response.json()["detail"].lower()
 
 
 def test_placement_test_uses_real_questions_and_persists_baseline(
@@ -201,26 +212,34 @@ def test_placement_test_uses_real_questions_and_persists_baseline(
     assert len(body["moduleResults"]) == 6
 
     with db_session_factory() as session:
-        profile = session.execute(
-            text(
-                """
+        profile = (
+            session.execute(
+                text(
+                    """
                 select baseline_source, baseline_xingce_score
                 from learner.profiles
                 where user_id = cast(:user_id as uuid)
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
-        attempts = session.execute(
-            text(
-                """
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
+        attempts = (
+            session.execute(
+                text(
+                    """
                 select count(*) as count
                 from learner.placement_attempts
                 where user_id = cast(:user_id as uuid)
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
     assert profile["baseline_source"] == "placement_test"
     assert float(profile["baseline_xingce_score"]) == 100.0
     assert int(attempts["count"]) == 1
@@ -235,6 +254,41 @@ def _make_db_client(db_session_factory: sessionmaker[Session]) -> TestClient:
 
     app.dependency_overrides[get_db_session] = override_db_session
     return TestClient(app)
+
+
+def _seed_open_position_release(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    now = datetime.now(UTC)
+    with db_session_factory.begin() as session:
+        service = PositionRuleReleaseService()
+        release_id = service.ensure_draft(
+            session,
+            exam_code="guokao",
+            exam_year=2026,
+            rule_set_version="onboarding-position-rules-v1",
+            position_data_version="onboarding-position-data-v1",
+        )
+        service.compile_draft(session, release_id=release_id, compiled_at=now)
+        service.configure_windows(
+            session,
+            release_id=release_id,
+            windows=[
+                PositionReleaseWindowInput(
+                    kind="primary",
+                    sequence_no=1,
+                    opens_at=now - timedelta(days=1),
+                    closes_at=now + timedelta(days=1),
+                    official_source_url=("https://example.gov.cn/onboarding-position-release"),
+                    official_source_title="建档岗位测试公告",
+                    official_source_published_at=now - timedelta(days=3),
+                    official_source_received_at=now - timedelta(days=2),
+                    official_source_sha256="b" * 64,
+                    official_source_receipt="onboarding-position-release-fixture",
+                )
+            ],
+        )
+        service.activate(session, release_id=release_id, activated_at=now)
 
 
 def _seed_user(db_session_factory: sessionmaker[Session], *, token: str) -> str:

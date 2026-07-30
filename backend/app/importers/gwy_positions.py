@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from hashlib import sha256
+import json
 from pathlib import Path
 import sqlite3
 from typing import Any
@@ -45,6 +47,7 @@ def import_gwy_positions(
         raise GwyPositionImportError(f"gwy.db not found: {source}")
     if batch_size < 1:
         raise GwyPositionImportError("batch_size must be positive")
+    version = _validated_position_data_version(position_data_version)
 
     with sqlite3.connect(source) as sqlite_conn:
         sqlite_conn.row_factory = sqlite3.Row
@@ -61,7 +64,7 @@ def import_gwy_positions(
                 catalog = load_official_position_catalog(
                     official_source_path,
                     exam_year=official_exam_year,
-                    position_data_version=position_data_version,
+                    position_data_version=version,
                 )
                 position_rows = merge_official_position_catalog(
                     position_rows,
@@ -70,17 +73,40 @@ def import_gwy_positions(
             except GuokaoOfficialPositionError as exc:
                 raise GwyPositionImportError(str(exc)) from exc
             official_positions_enriched = len(catalog.rows)
+        snapshot_rows = [
+            _position_snapshot_row(row, position_data_version=version) for row in position_rows
+        ]
+        batch_source_sha256 = _position_batch_fingerprint(snapshot_rows)
+        _ensure_import_batch(
+            session,
+            position_data_version=version,
+            source_sha256=batch_source_sha256,
+            position_count=len(snapshot_rows),
+        )
         systems = _upsert_rows(
             session=session,
-            rows=_read_rows(sqlite_conn, "select code, name_zh, paper_type, is_big_six from systems"),
+            rows=_read_rows(
+                sqlite_conn, "select code, name_zh, paper_type, is_big_six from systems"
+            ),
             sql=_UPSERT_SYSTEM,
             batch_size=batch_size,
         )
         positions = _upsert_rows(
             session=session,
-            rows=position_rows,
-            sql=_UPSERT_POSITION,
+            rows=snapshot_rows,
+            sql=_INSERT_POSITION_IDENTITY,
             batch_size=batch_size,
+        )
+        _upsert_rows(
+            session=session,
+            rows=snapshot_rows,
+            sql=_INSERT_POSITION_SNAPSHOT,
+            batch_size=batch_size,
+        )
+        _verify_position_snapshot_rows(
+            session,
+            rows=snapshot_rows,
+            position_data_version=version,
         )
         score_histories = _upsert_rows(
             session=session,
@@ -125,8 +151,11 @@ def verify_gwy_position_import(
     source = source_path.expanduser().resolve()
     if not source.exists():
         raise GwyPositionImportError(f"gwy.db not found: {source}")
+    version = _validated_position_data_version(position_data_version)
 
     with sqlite3.connect(source) as sqlite_conn:
+        sqlite_conn.row_factory = sqlite3.Row
+        position_rows = _read_rows(sqlite_conn, _POSITIONS_SQL)
         source_counts = {
             "systems": _sqlite_count(sqlite_conn, "systems"),
             "positions": _sqlite_count(sqlite_conn, "positions"),
@@ -174,31 +203,43 @@ def verify_gwy_position_import(
             catalog = load_official_position_catalog(
                 official_source_path,
                 exam_year=official_exam_year,
-                position_data_version=position_data_version,
+                position_data_version=version,
+            )
+            position_rows = merge_official_position_catalog(
+                position_rows,
+                catalog=catalog,
             )
         except GuokaoOfficialPositionError as exc:
             raise GwyPositionImportError(str(exc)) from exc
-        official_target = session.execute(
-            text(
-                """
+        official_target = (
+            session.execute(
+                text(
+                    """
                 select
                   count(*) as total,
                   count(*) filter (
-                    where raw_json ->> 'contractVersion' = :contract_version
-                      and raw_json ->> 'positionDataVersion' = :position_data_version
-                      and raw_json #>> '{source,sha256}' = :source_sha256
+                    where snapshot.raw_json ->> 'contractVersion' = :contract_version
+                      and snapshot.raw_json ->> 'positionDataVersion'
+                            = :position_data_version
+                      and snapshot.raw_json #>> '{source,sha256}' = :source_sha256
                   ) as verified
                 from product.positions
-                where year = :exam_year
+                join product.position_snapshots snapshot
+                  on snapshot.position_id = positions.position_id
+                 and snapshot.position_data_version = :position_data_version
+                where snapshot.year = :exam_year
                 """
-            ),
-            {
-                "contract_version": OFFICIAL_POSITION_CONTRACT,
-                "position_data_version": catalog.position_data_version,
-                "source_sha256": catalog.source_sha256,
-                "exam_year": catalog.exam_year,
-            },
-        ).mappings().one()
+                ),
+                {
+                    "contract_version": OFFICIAL_POSITION_CONTRACT,
+                    "position_data_version": catalog.position_data_version,
+                    "source_sha256": catalog.source_sha256,
+                    "exam_year": catalog.exam_year,
+                },
+            )
+            .mappings()
+            .one()
+        )
         official_verification = {
             "exam_year": catalog.exam_year,
             "position_data_version": catalog.position_data_version,
@@ -208,8 +249,7 @@ def verify_gwy_position_import(
             "verified_positions": int(official_target["verified"]),
         }
         if (
-            official_verification["source_positions"]
-            != official_verification["target_positions"]
+            official_verification["source_positions"] != official_verification["target_positions"]
             or official_verification["source_positions"]
             != official_verification["verified_positions"]
         ):
@@ -219,21 +259,84 @@ def verify_gwy_position_import(
                 "verified": official_verification["verified_positions"],
             }
 
-    coverage = session.execute(
-        text(
+    batch = (
+        session.execute(
+            text(
+                """
+            select source_sha256, position_count
+            from product.position_import_batches
+            where position_data_version = :position_data_version
             """
+            ),
+            {"position_data_version": version},
+        )
+        .mappings()
+        .one_or_none()
+    )
+    expected_snapshot_rows = [
+        _position_snapshot_row(row, position_data_version=version) for row in position_rows
+    ]
+    expected_batch_fingerprint = _position_batch_fingerprint(expected_snapshot_rows)
+    if batch is None:
+        mismatches["position_import_batch"] = {
+            "source": expected_batch_fingerprint,
+            "target": None,
+        }
+    elif batch["source_sha256"] != expected_batch_fingerprint or int(
+        batch["position_count"]
+    ) != len(expected_snapshot_rows):
+        mismatches["position_import_batch"] = {
+            "source": {
+                "sha256": expected_batch_fingerprint,
+                "positions": len(expected_snapshot_rows),
+            },
+            "target": {
+                "sha256": batch["source_sha256"],
+                "positions": int(batch["position_count"]),
+            },
+        }
+
+    target_counts["positions"] = int(
+        session.execute(
+            text(
+                """
+                select count(*)
+                from product.position_snapshots
+                where position_data_version = :position_data_version
+                """
+            ),
+            {"position_data_version": version},
+        ).scalar_one()
+    )
+    mismatches.pop("positions", None)
+    if source_counts["positions"] != target_counts["positions"]:
+        mismatches["positions"] = {
+            "source": source_counts["positions"],
+            "target": target_counts["positions"],
+        }
+
+    coverage = (
+        session.execute(
+            text(
+                """
             select
-              p.year,
+              snapshot.year,
               count(*) as positions,
               count(l.score_history_id) as positions_with_score,
               round(100.0 * count(l.score_history_id) / nullif(count(*), 0), 1) as pct
-            from product.positions p
-            left join product.position_score_links l on l.position_id = p.position_id
-            group by p.year
-            order by p.year
+            from product.position_snapshots snapshot
+            left join product.position_score_links l
+              on l.position_id = snapshot.position_id
+            where snapshot.position_data_version = :position_data_version
+            group by snapshot.year
+            order by snapshot.year
             """
+            ),
+            {"position_data_version": version},
         )
-    ).mappings().all()
+        .mappings()
+        .all()
+    )
 
     coverage_rows = []
     for row in coverage:
@@ -248,6 +351,8 @@ def verify_gwy_position_import(
         "mismatches": mismatches,
         "coverage_by_year": coverage_rows,
         "official_catalog": official_verification,
+        "position_data_version": version,
+        "position_import_batch": dict(batch) if batch is not None else None,
         "ok": not mismatches,
     }
 
@@ -342,6 +447,164 @@ def _pg_count(session: Session, qualified_table: str) -> int:
     return int(session.execute(text(f"select count(*) from {qualified_table}")).scalar_one())
 
 
+def _validated_position_data_version(value: str | None) -> str:
+    version = value.strip() if value is not None else ""
+    if not version:
+        raise GwyPositionImportError(
+            "position_data_version is required for every immutable position import"
+        )
+    if len(version) > 200:
+        raise GwyPositionImportError("position_data_version must be at most 200 characters")
+    return version
+
+
+def _position_snapshot_row(
+    row: dict[str, Any],
+    *,
+    position_data_version: str,
+) -> dict[str, Any]:
+    normalized_raw_json = _normalized_json(row.get("raw_json"))
+    payload = {
+        "source_id": str(row["source_id"]),
+        "year": int(row["year"]),
+        "position_code": str(row["position_code"]),
+        "name": str(row["name"]),
+        "department_full": str(row["department_full"]),
+        "system_code": str(row["system_code"]),
+        "region": str(row["region"]),
+        "city": row.get("city"),
+        "paper_type": str(row["paper_type"]),
+        "headcount": int(row["headcount"]),
+        "education_min": row.get("education_min"),
+        "major_required": row.get("major_required"),
+        "political_req": row.get("political_req"),
+        "hukou_req": row.get("hukou_req"),
+        "service_min_yrs": row.get("service_min_yrs"),
+        "has_extra_exam": bool(row.get("has_extra_exam", False)),
+        "remark": row.get("remark"),
+        "raw_json": normalized_raw_json,
+    }
+    fingerprint = sha256(
+        json.dumps(
+            payload,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+    return {
+        **payload,
+        "raw_json": (
+            json.dumps(normalized_raw_json, ensure_ascii=False, sort_keys=True)
+            if normalized_raw_json is not None
+            else None
+        ),
+        "position_data_version": position_data_version,
+        "source_fingerprint": fingerprint,
+    }
+
+
+def _normalized_json(value: Any) -> Any:
+    if value is None:
+        return None
+    if isinstance(value, str):
+        try:
+            return json.loads(value)
+        except json.JSONDecodeError as exc:
+            raise GwyPositionImportError("position raw_json is not valid JSON") from exc
+    return value
+
+
+def _position_batch_fingerprint(rows: list[dict[str, Any]]) -> str:
+    if not rows:
+        raise GwyPositionImportError("position import batch must not be empty")
+    authority = [
+        (str(row["source_id"]), str(row["source_fingerprint"]))
+        for row in sorted(rows, key=lambda item: str(item["source_id"]))
+    ]
+    return sha256(
+        json.dumps(
+            authority,
+            ensure_ascii=False,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+
+
+def _ensure_import_batch(
+    session: Session,
+    *,
+    position_data_version: str,
+    source_sha256: str,
+    position_count: int,
+) -> None:
+    existing = (
+        session.execute(
+            text(
+                """
+            select source_sha256, position_count
+            from product.position_import_batches
+            where position_data_version = :position_data_version
+            """
+            ),
+            {"position_data_version": position_data_version},
+        )
+        .mappings()
+        .one_or_none()
+    )
+    if existing is not None:
+        if (
+            existing["source_sha256"] != source_sha256
+            or int(existing["position_count"]) != position_count
+        ):
+            raise GwyPositionImportError(
+                "position_data_version already identifies a different immutable import"
+            )
+        return
+    session.execute(
+        text(
+            """
+            insert into product.position_import_batches (
+              position_data_version, source_sha256, position_count
+            ) values (
+              :position_data_version, :source_sha256, :position_count
+            )
+            """
+        ),
+        {
+            "position_data_version": position_data_version,
+            "source_sha256": source_sha256,
+            "position_count": position_count,
+        },
+    )
+
+
+def _verify_position_snapshot_rows(
+    session: Session,
+    *,
+    rows: list[dict[str, Any]],
+    position_data_version: str,
+) -> None:
+    stored = {
+        str(row["source_id"]): str(row["source_fingerprint"])
+        for row in session.execute(
+            text(
+                """
+                select source_id, source_fingerprint
+                from product.position_snapshots
+                where position_data_version = :position_data_version
+                """
+            ),
+            {"position_data_version": position_data_version},
+        ).mappings()
+    }
+    expected = {str(row["source_id"]): str(row["source_fingerprint"]) for row in rows}
+    if stored != expected:
+        raise GwyPositionImportError(
+            "stored position snapshot does not match the immutable import batch"
+        )
+
+
 _POSITIONS_SQL = """
 select
   id as source_id,
@@ -418,7 +681,7 @@ on conflict (system_code) do update set
   updated_at = now()
 """
 
-_UPSERT_POSITION = """
+_INSERT_POSITION_IDENTITY = """
 insert into product.positions (
   source_id,
   year,
@@ -437,6 +700,7 @@ insert into product.positions (
   service_min_yrs,
   remark,
   raw_json,
+  has_extra_exam,
   updated_at
 ) values (
   :source_id,
@@ -456,26 +720,61 @@ insert into product.positions (
   :service_min_yrs,
   :remark,
   cast(:raw_json as jsonb),
+  :has_extra_exam,
   now()
 )
-on conflict (source_id) do update set
-  year = excluded.year,
-  position_code = excluded.position_code,
-  name = excluded.name,
-  department_full = excluded.department_full,
-  system_code = excluded.system_code,
-  region = excluded.region,
-  city = excluded.city,
-  paper_type = excluded.paper_type,
-  headcount = excluded.headcount,
-  education_min = excluded.education_min,
-  major_required = excluded.major_required,
-  political_req = excluded.political_req,
-  hukou_req = excluded.hukou_req,
-  service_min_yrs = excluded.service_min_yrs,
-  remark = excluded.remark,
-  raw_json = excluded.raw_json,
-  updated_at = now()
+on conflict (source_id) do nothing
+"""
+
+_INSERT_POSITION_SNAPSHOT = """
+insert into product.position_snapshots (
+  position_id,
+  position_data_version,
+  source_id,
+  year,
+  position_code,
+  name,
+  department_full,
+  system_code,
+  region,
+  city,
+  paper_type,
+  headcount,
+  education_min,
+  major_required,
+  political_req,
+  hukou_req,
+  service_min_yrs,
+  has_extra_exam,
+  remark,
+  raw_json,
+  source_fingerprint
+)
+select
+  position.position_id,
+  :position_data_version,
+  :source_id,
+  :year,
+  :position_code,
+  :name,
+  :department_full,
+  :system_code,
+  :region,
+  :city,
+  :paper_type,
+  :headcount,
+  :education_min,
+  :major_required,
+  :political_req,
+  :hukou_req,
+  :service_min_yrs,
+  :has_extra_exam,
+  :remark,
+  cast(:raw_json as jsonb),
+  :source_fingerprint
+from product.positions position
+where position.source_id = :source_id
+on conflict (position_id, position_data_version) do nothing
 """
 
 _UPSERT_POSITION_SCORE = """

@@ -36,6 +36,7 @@ interface PositionWorkspacePageCustom {
   openSearch(): void;
   openQualificationProfile(): void;
   openQualificationAction(): void;
+  openPreparation(): void;
   openPosition(event: WechatMiniprogram.BaseEvent): void;
   toggleComparison(event: WechatMiniprogram.BaseEvent): void;
   clearComparison(): void;
@@ -151,6 +152,10 @@ Page<PositionWorkspacePageData, PositionWorkspacePageCustom>({
 
   openQualificationAction() {
     void wx.navigateTo({ url: routes.qualificationProfile });
+  },
+
+  openPreparation() {
+    void wx.switchTab({ url: routes.ability });
   },
 
   openPosition(event) {

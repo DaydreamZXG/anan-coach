@@ -36,6 +36,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--position-data-version",
+        required=True,
         help="Immutable release identifier attached to the official source rows",
     )
     parser.add_argument(
@@ -46,9 +47,13 @@ def main() -> int:
     parser.add_argument("--batch-size", type=int, default=1000)
     args = parser.parse_args()
     if not args.database_url:
-        parser.error("--database-url, QBANK_IMPORT_DATABASE_URL, or DATABASE_URL is required")
+        parser.error(
+            "--database-url, QBANK_IMPORT_DATABASE_URL, or DATABASE_URL is required"
+        )
 
-    engine = create_engine(_normalize_database_url(args.database_url), pool_pre_ping=True, future=True)
+    engine = create_engine(
+        _normalize_database_url(args.database_url), pool_pre_ping=True, future=True
+    )
     try:
         with Session(engine, future=True) as session:
             result = import_gwy_positions(
@@ -76,7 +81,13 @@ def main() -> int:
     finally:
         engine.dispose()
 
-    print(json.dumps({"import": result.__dict__, "verification": verification}, ensure_ascii=False, indent=2))
+    print(
+        json.dumps(
+            {"import": result.__dict__, "verification": verification},
+            ensure_ascii=False,
+            indent=2,
+        )
+    )
     return 0 if verification["ok"] else 1
 
 

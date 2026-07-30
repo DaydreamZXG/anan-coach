@@ -5,8 +5,12 @@ import signal
 from threading import Event
 
 from app.core.config import get_settings
-from app.db.session import get_session_factory
+from app.db.session import (
+    get_session_factory,
+    get_worker_heartbeat_session_factory,
+)
 from app.domains.coach_notifications.worker import CoachNotificationWorker
+from app.platform.jobs import JobConsumerHeartbeatRuntime
 
 
 LOGGER = logging.getLogger("coach_notification_worker")
@@ -22,13 +26,23 @@ def run() -> None:
 
     signal.signal(signal.SIGTERM, request_stop)
     signal.signal(signal.SIGINT, request_stop)
-    with get_session_factory()() as session:
-        worker = CoachNotificationWorker(session=session, settings=settings)
-        LOGGER.info("coach notification worker started")
-        while not stop.is_set():
-            did_work = worker.run_once()
-            if not did_work:
-                stop.wait(settings.coach_notification_worker_poll_seconds)
+    session_factory = get_session_factory()
+    heartbeat_session_factory = get_worker_heartbeat_session_factory(
+        consumer_unit="gongkao-dazi-coach-notification-worker",
+        consumer_entrypoint="app.workers.coach_notifications",
+    )
+    with JobConsumerHeartbeatRuntime(
+        session_factory=heartbeat_session_factory,
+        consumer_unit="gongkao-dazi-coach-notification-worker",
+        consumer_entrypoint="app.workers.coach_notifications",
+    ):
+        with session_factory() as session:
+            worker = CoachNotificationWorker(session=session, settings=settings)
+            LOGGER.info("coach notification worker started")
+            while not stop.is_set():
+                did_work = worker.run_once()
+                if not did_work:
+                    stop.wait(settings.coach_notification_worker_poll_seconds)
 
 
 if __name__ == "__main__":

@@ -253,49 +253,6 @@ _BACKFILL_BATCH_SQL = text(
 )
 
 
-_CONCURRENT_DOWN_STATEMENTS = (
-    """
-    drop index concurrently if exists
-      product.product_knowledge_map_binding_release_selection_idx
-    """,
-    """
-    drop index concurrently if exists
-      product.product_knowledge_map_binding_node_selection_idx
-    """,
-    """
-    drop index concurrently if exists
-      product.product_knowledge_map_binding_module_selection_idx_v2
-    """,
-    """
-    drop index concurrently if exists
-      learning.learning_xingce_assessments_user_question_idx
-    """,
-    """
-    drop index concurrently if exists
-      learning.learning_xingce_exposures_user_question_idx
-    """,
-)
-
-
-_DOWN_STATEMENTS = (
-    """
-    drop trigger if exists xingce_task_session_capture_question_exposures
-      on learning.xingce_task_sessions
-    """,
-    """
-    drop function if exists learning.capture_xingce_question_exposures()
-    """,
-    """
-    drop function if exists learning.sync_xingce_question_exposures(
-      uuid, uuid, jsonb, timestamptz
-    )
-    """,
-    """
-    drop table if exists learning.xingce_question_exposures
-    """,
-)
-
-
 def _grant_runtime_access() -> None:
     bind = op.get_bind()
     role_exists = bind.execute(
@@ -367,9 +324,7 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    context = op.get_context()
-    with context.autocommit_block():
-        for statement in _CONCURRENT_DOWN_STATEMENTS:
-            op.execute(statement)
-    for statement in _DOWN_STATEMENTS:
-        op.execute(statement)
+    raise RuntimeError(
+        "migration 20260730_77 is forward-only: indexed question exposure "
+        "authority contains user training history; publish a forward migration"
+    )

@@ -50,9 +50,7 @@ class ModelPriceCard:
 
     def __post_init__(self) -> None:
         if not self.version.strip() or self.version != self.version.strip():
-            raise ModelCostConfigurationError(
-                "AI price version must be a non-empty trimmed value"
-            )
+            raise ModelCostConfigurationError("AI price version must be a non-empty trimmed value")
         rates = (
             self.input_cny_per_million,
             self.cached_input_cny_per_million,
@@ -75,9 +73,7 @@ class ModelPriceCard:
             raise ModelCostConfigurationError("AI_PRICE_VERSION is required")
         try:
             input_rate = Decimal(settings.ai_input_cny_per_million_tokens)
-            cached_rate = Decimal(
-                settings.ai_cached_input_cny_per_million_tokens
-            )
+            cached_rate = Decimal(settings.ai_cached_input_cny_per_million_tokens)
             output_rate = Decimal(settings.ai_output_cny_per_million_tokens)
         except (InvalidOperation, ValueError) as exc:
             raise ModelCostConfigurationError(
@@ -92,17 +88,11 @@ class ModelPriceCard:
 
     def cost(self, usage: ModelTokenUsage) -> "ModelCallCost":
         uncached = usage.input_tokens - usage.cached_input_tokens
-        input_cost = _money(
-            Decimal(uncached) * self.input_cny_per_million / MILLION
-        )
+        input_cost = _money(Decimal(uncached) * self.input_cny_per_million / MILLION)
         cached_cost = _money(
-            Decimal(usage.cached_input_tokens)
-            * self.cached_input_cny_per_million
-            / MILLION
+            Decimal(usage.cached_input_tokens) * self.cached_input_cny_per_million / MILLION
         )
-        output_cost = _money(
-            Decimal(usage.output_tokens) * self.output_cny_per_million / MILLION
-        )
+        output_cost = _money(Decimal(usage.output_tokens) * self.output_cny_per_million / MILLION)
         return ModelCallCost(
             input_cost_cny=input_cost,
             cached_input_cost_cny=cached_cost,
@@ -176,16 +166,15 @@ class ModelCallLedgerRepository:
             "schema_version": schema_version,
             "price_version": price_card.version,
             "input_rate_cny_per_million": price_card.input_cny_per_million,
-            "cached_input_rate_cny_per_million": (
-                price_card.cached_input_cny_per_million
-            ),
+            "cached_input_rate_cny_per_million": (price_card.cached_input_cny_per_million),
             "output_rate_cny_per_million": price_card.output_cny_per_million,
             "input_fingerprint": input_fingerprint,
             "started_at": started_at or datetime.now(UTC),
         }
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 insert into ai_audit.model_call_ledger (
                   call_id, call_key, user_id, job_id, feature, operation,
                   provider, model, prompt_version, schema_version, price_version,
@@ -205,9 +194,12 @@ class ModelCallLedgerRepository:
                 on conflict (call_key) do nothing
                 returning *
                 """
-            ),
-            values,
-        ).mappings().first()
+                ),
+                values,
+            )
+            .mappings()
+            .first()
+        )
         if row is None:
             existing = self.get_existing(
                 session,
@@ -312,13 +304,14 @@ class ModelCallLedgerRepository:
         operation: str,
         input_fingerprint: str,
     ) -> ModelCallRecord | None:
-        row = session.execute(
-            text(
-                "select * from ai_audit.model_call_ledger "
-                "where call_key = :call_key"
-            ),
-            {"call_key": call_key},
-        ).mappings().one_or_none()
+        row = (
+            session.execute(
+                text("select * from ai_audit.model_call_ledger where call_key = :call_key"),
+                {"call_key": call_key},
+            )
+            .mappings()
+            .one_or_none()
+        )
         if row is None:
             return None
         immutable = {
@@ -343,9 +336,10 @@ class ModelCallLedgerRepository:
         input_fingerprint: str,
         output_fingerprint: str,
     ) -> ModelCallRecord:
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 select * from ai_audit.model_call_ledger
                  where call_id = cast(:call_id as uuid)
                    and job_id = cast(:job_id as uuid)
@@ -353,14 +347,17 @@ class ModelCallLedgerRepository:
                    and input_fingerprint = :input_fingerprint
                    and output_fingerprint = :output_fingerprint
                 """
-            ),
-            {
-                "call_id": str(call_id),
-                "job_id": str(job_id),
-                "input_fingerprint": input_fingerprint,
-                "output_fingerprint": output_fingerprint,
-            },
-        ).mappings().one_or_none()
+                ),
+                {
+                    "call_id": str(call_id),
+                    "job_id": str(job_id),
+                    "input_fingerprint": input_fingerprint,
+                    "output_fingerprint": output_fingerprint,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
         if row is None:
             raise ModelCallLedgerError(
                 "Review checkpoint is not backed by a matching completed model call"
@@ -375,27 +372,95 @@ class ModelCallLedgerRepository:
         job_id: UUID,
         input_fingerprint: str,
     ) -> ModelCallRecord:
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 select * from ai_audit.model_call_ledger
                  where call_id = cast(:call_id as uuid)
                    and job_id = cast(:job_id as uuid)
                    and status in ('succeeded', 'failed')
                    and input_fingerprint = :input_fingerprint
                 """
-            ),
-            {
-                "call_id": str(call_id),
-                "job_id": str(job_id),
-                "input_fingerprint": input_fingerprint,
-            },
-        ).mappings().one_or_none()
-        if row is None:
-            raise ModelCallLedgerError(
-                "Checkpoint is not backed by a matching terminal model call"
+                ),
+                {
+                    "call_id": str(call_id),
+                    "job_id": str(job_id),
+                    "input_fingerprint": input_fingerprint,
+                },
             )
+            .mappings()
+            .one_or_none()
+        )
+        if row is None:
+            raise ModelCallLedgerError("Checkpoint is not backed by a matching terminal model call")
         return _record(row)
+
+    def records_for_job(
+        self,
+        session: Session,
+        *,
+        job_id: UUID,
+        for_update: bool = False,
+    ) -> tuple[ModelCallRecord, ...]:
+        """Return the immutable call set owned by one durable job.
+
+        Domain terminal coordinators use the optional row lock to settle a
+        running call and its quota reservation in the same transaction.
+        """
+
+        lock = " for update" if for_update else ""
+        rows = (
+            session.execute(
+                text(
+                    """
+                select * from ai_audit.model_call_ledger
+                 where job_id = cast(:job_id as uuid)
+                 order by started_at, call_id
+                """
+                    + lock
+                ),
+                {"job_id": str(job_id)},
+            )
+            .mappings()
+            .all()
+        )
+        return tuple(_record(row) for row in rows)
+
+    def fail_if_running(
+        self,
+        session: Session,
+        *,
+        call_id: UUID,
+        error_code: str,
+        latency_ms: int,
+        completed_at: datetime | None = None,
+    ) -> ModelCallRecord:
+        """Idempotently close a call while preserving its first terminal fact."""
+
+        row = (
+            session.execute(
+                text(
+                    "select * from ai_audit.model_call_ledger "
+                    "where call_id = cast(:call_id as uuid) for update"
+                ),
+                {"call_id": str(call_id)},
+            )
+            .mappings()
+            .one_or_none()
+        )
+        if row is None:
+            raise ModelCallLedgerError("Model call does not exist")
+        current = _record(row)
+        if current.status != "running":
+            return current
+        return self.fail(
+            session,
+            call_id=call_id,
+            error_code=error_code,
+            latency_ms=latency_ms,
+            completed_at=completed_at,
+        )
 
     def succeed(
         self,
@@ -407,20 +472,25 @@ class ModelCallLedgerRepository:
         latency_ms: int,
         completed_at: datetime | None = None,
     ) -> ModelCallRecord:
-        snapshot = session.execute(
-            text(
-                "select * from ai_audit.model_call_ledger "
-                "where call_id = cast(:call_id as uuid) and status = 'running' "
-                "for update"
-            ),
-            {"call_id": str(call_id)},
-        ).mappings().one_or_none()
+        snapshot = (
+            session.execute(
+                text(
+                    "select * from ai_audit.model_call_ledger "
+                    "where call_id = cast(:call_id as uuid) and status = 'running' "
+                    "for update"
+                ),
+                {"call_id": str(call_id)},
+            )
+            .mappings()
+            .one_or_none()
+        )
         if snapshot is None:
             raise ModelCallLedgerError("Only a running model call can succeed")
         cost = _record(snapshot).price_card.cost(usage)
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 update ai_audit.model_call_ledger
                    set status = 'succeeded', output_fingerprint = :output_fingerprint,
                        input_tokens = :input_tokens,
@@ -435,21 +505,24 @@ class ModelCallLedgerRepository:
                  where call_id = cast(:call_id as uuid) and status = 'running'
                  returning *
                 """
-            ),
-            {
-                "call_id": str(call_id),
-                "output_fingerprint": output_fingerprint,
-                "input_tokens": usage.input_tokens,
-                "cached_input_tokens": usage.cached_input_tokens,
-                "output_tokens": usage.output_tokens,
-                "input_cost_cny": cost.input_cost_cny,
-                "cached_input_cost_cny": cost.cached_input_cost_cny,
-                "output_cost_cny": cost.output_cost_cny,
-                "total_cost_cny": cost.total_cost_cny,
-                "latency_ms": latency_ms,
-                "completed_at": completed_at or datetime.now(UTC),
-            },
-        ).mappings().first()
+                ),
+                {
+                    "call_id": str(call_id),
+                    "output_fingerprint": output_fingerprint,
+                    "input_tokens": usage.input_tokens,
+                    "cached_input_tokens": usage.cached_input_tokens,
+                    "output_tokens": usage.output_tokens,
+                    "input_cost_cny": cost.input_cost_cny,
+                    "cached_input_cost_cny": cost.cached_input_cost_cny,
+                    "output_cost_cny": cost.output_cost_cny,
+                    "total_cost_cny": cost.total_cost_cny,
+                    "latency_ms": latency_ms,
+                    "completed_at": completed_at or datetime.now(UTC),
+                },
+            )
+            .mappings()
+            .first()
+        )
         if row is None:
             raise ModelCallLedgerError("Only a running model call can succeed")
         return _record(row)
@@ -463,23 +536,27 @@ class ModelCallLedgerRepository:
         latency_ms: int,
         completed_at: datetime | None = None,
     ) -> ModelCallRecord:
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 update ai_audit.model_call_ledger
                    set status = 'failed', error_code = :error_code,
                        latency_ms = :latency_ms, completed_at = :completed_at
                  where call_id = cast(:call_id as uuid) and status = 'running'
                  returning *
                 """
-            ),
-            {
-                "call_id": str(call_id),
-                "error_code": error_code,
-                "latency_ms": latency_ms,
-                "completed_at": completed_at or datetime.now(UTC),
-            },
-        ).mappings().first()
+                ),
+                {
+                    "call_id": str(call_id),
+                    "error_code": error_code,
+                    "latency_ms": latency_ms,
+                    "completed_at": completed_at or datetime.now(UTC),
+                },
+            )
+            .mappings()
+            .first()
+        )
         if row is None:
             raise ModelCallLedgerError("Only a running model call can fail")
         return _record(row)
@@ -500,17 +577,13 @@ def _record(row: RowMapping) -> ModelCallRecord:
         status=str(row["status"]),
         input_fingerprint=str(row["input_fingerprint"]),
         output_fingerprint=(
-            str(row["output_fingerprint"])
-            if row["output_fingerprint"] is not None
-            else None
+            str(row["output_fingerprint"]) if row["output_fingerprint"] is not None else None
         ),
         error_code=str(row["error_code"]) if row["error_code"] is not None else None,
         price_card=ModelPriceCard(
             version=str(row["price_version"]),
             input_cny_per_million=Decimal(str(row["input_rate_cny_per_million"])),
-            cached_input_cny_per_million=Decimal(
-                str(row["cached_input_rate_cny_per_million"])
-            ),
+            cached_input_cny_per_million=Decimal(str(row["cached_input_rate_cny_per_million"])),
             output_cny_per_million=Decimal(str(row["output_rate_cny_per_million"])),
         ),
     )

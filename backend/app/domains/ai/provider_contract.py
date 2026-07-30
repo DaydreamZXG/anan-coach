@@ -13,6 +13,7 @@ from app.core.config import Settings
 REPLAYABLE_QUERYABLE = "replayable_queryable"
 NONREPLAYABLE_AUDITED = "nonreplayable_audited"
 BODY_REQUEST_ID_SOURCE = "body:id"
+_BODY_REQUEST_ID_SOURCE = re.compile(r"body:[A-Za-z][A-Za-z0-9_]*")
 _JSON_CODE_FENCE = re.compile(
     r"\A```(?:json)?\s*(?P<payload>\{.*\})\s*```\Z",
     re.DOTALL | re.IGNORECASE,
@@ -62,20 +63,18 @@ def validate_provider_audit_contract(
     capability = idempotency_capability.strip()
     if capability not in {REPLAYABLE_QUERYABLE, NONREPLAYABLE_AUDITED}:
         raise ValueError(
-            "provider requires verified replayable_queryable or "
-            "nonreplayable_audited idempotency"
+            "provider requires verified replayable_queryable or nonreplayable_audited idempotency"
         )
     if re.fullmatch(r"[A-Za-z0-9-]+", idempotency_key_header.strip()) is None:
         raise ValueError("provider IDEMPOTENCY_KEY_HEADER is required")
     source = request_id_source.strip()
-    if source != BODY_REQUEST_ID_SOURCE and re.fullmatch(
-        r"[A-Za-z0-9-]+", source
-    ) is None:
+    if (
+        _BODY_REQUEST_ID_SOURCE.fullmatch(source) is None
+        and re.fullmatch(r"[A-Za-z0-9-]+", source) is None
+    ):
         raise ValueError("provider REQUEST_ID_HEADER or body:id source is required")
     if capability == REPLAYABLE_QUERYABLE and replay_retention_seconds < 604_800:
-        raise ValueError(
-            "provider REPLAY_RETENTION_SECONDS must be at least seven days"
-        )
+        raise ValueError("provider REPLAY_RETENTION_SECONDS must be at least seven days")
     if capability == NONREPLAYABLE_AUDITED and replay_retention_seconds != 0:
         raise ValueError("non-replayable providers must declare zero replay retention")
 
@@ -98,8 +97,8 @@ def provider_request_audit(
     configured_source: str,
 ) -> tuple[str | None, str | None]:
     source = configured_source.strip()
-    if source == BODY_REQUEST_ID_SOURCE:
-        raw = envelope.get("id")
+    if _BODY_REQUEST_ID_SOURCE.fullmatch(source) is not None:
+        raw = envelope.get(source.removeprefix("body:"))
     else:
         source = source.casefold()
         raw = response.headers.get(source) if source else None

@@ -99,7 +99,7 @@ assertBusinessCoverage(inventory, matrixByPage.keys(), "Interaction coverage");
 process.stdout.write(
   `Validated ${String(pageInteractionMatrix.length)} page interaction contracts: ` +
     `${String(bindingControllerCount)} binding/controller, ${String(readOnlyCount)} read-only, ` +
-    `${String(platformDeviceCount)} platform-device; ${String(inventory.assetEntryRoutes.length)} asset entries are N/A.\n`,
+    `${String(platformDeviceCount)} platform-device; all registered pages are business routes.\n`,
 );
 
 function escapeRegExp(value) {

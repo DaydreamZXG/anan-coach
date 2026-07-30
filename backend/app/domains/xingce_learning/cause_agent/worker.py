@@ -81,8 +81,37 @@ class CauseAgentWorker:
             stale_before=recovered_at - timedelta(minutes=15),
             now=recovered_at,
         )
+        self._reconcile_persisted_terminal_jobs(session)
         session.commit()
         return count
+
+    def reconcile_terminal_job(
+        self,
+        session: Session,
+        *,
+        job_id: UUID,
+    ) -> BackgroundJob:
+        """Idempotently converge a persisted terminated run and its job ledgers."""
+
+        job = self._jobs.by_id(session, job_id=job_id)
+        if job is None or job.job_type != CAUSE_AGENT_JOB_TYPE:
+            raise JobContractError("cause-agent job does not exist")
+        run = self._repository.current_run(
+            session,
+            run_id=str(job.payload["runId"]),
+            user_id=str(job.payload["userId"]),
+            for_update=True,
+        )
+        if run is None or str(run["state"]) not in {"terminated", "failed"}:
+            raise JobContractError("cause-agent run is not terminal")
+        final = self._reconcile_existing_terminal(
+            session,
+            job=job,
+            run=run,
+            code=str(run["termination_reason"] or "cause_agent_terminated"),
+        )
+        session.commit()
+        return final
 
     def process_next(self, session: Session) -> BackgroundJob | None:
         job = self._jobs.claim_next(session, job_types=(CAUSE_AGENT_JOB_TYPE,))
@@ -101,6 +130,42 @@ class CauseAgentWorker:
                 and current.claim_token == job.claim_token
                 and job.claim_token is not None
             ):
+                if current.attempt_count >= current.max_attempts:
+                    run = self._repository.current_run(
+                        session,
+                        run_id=str(current.payload["runId"]),
+                        user_id=str(current.payload["userId"]),
+                        for_update=True,
+                    )
+                    if run is not None and str(run["state"]) in {"queued", "running"}:
+                        return self._publish_termination(
+                            session,
+                            job=current,
+                            run=run,
+                            code="cause_agent_worker_unexpected",
+                            evidence=None,
+                        )
+                    quota_state = self._settle_terminal_resources(
+                        session,
+                        job=current,
+                        code="cause_agent_worker_unexpected",
+                    )
+                    failed = self._jobs.fail(
+                        session,
+                        job_id=current.job_id,
+                        claim_token=current.claim_token,
+                        error_code="cause_agent_worker_unexpected",
+                        error_message="cause_agent_worker_unexpected",
+                        retryable=False,
+                        result={
+                            **(current.result or {}),
+                            "state": "failed",
+                            "businessOutcome": "terminated",
+                            "quotaState": quota_state,
+                        },
+                    )
+                    session.commit()
+                    return failed
                 failed = self._jobs.fail(
                     session,
                     job_id=job.job_id,
@@ -132,16 +197,29 @@ class CauseAgentWorker:
                 retryable=False,
             )
         if str(run["state"]) not in {"queued", "running"}:
-            return self._jobs.succeed(
-                session,
-                job_id=job.job_id,
-                claim_token=job.claim_token,
-                result={"runId": str(run["run_id"]), "state": str(run["state"])},
-            )
+            if str(run["state"]) in {"terminated", "failed"}:
+                final = self._reconcile_existing_terminal(
+                    session,
+                    job=job,
+                    run=run,
+                    code=str(run["termination_reason"] or "cause_agent_terminated"),
+                )
+            else:
+                final = self._jobs.succeed(
+                    session,
+                    job_id=job.job_id,
+                    claim_token=job.claim_token,
+                    result={
+                        "runId": str(run["run_id"]),
+                        "state": str(run["state"]),
+                        "businessOutcome": "completed",
+                    },
+                )
+            session.commit()
+            return final
         try:
             evidence = self._load_or_execute_tools(session, job=job, run=run)
         except AgentRuntimeViolation as exc:
-            self._refund_reservation_if_open(session, job=job)
             return self._publish_termination(
                 session,
                 job=job,
@@ -168,7 +246,6 @@ class CauseAgentWorker:
                 followup_round=int(run["followup_round"]),
             )
         except AgentRuntimeViolation as exc:
-            self._refund_reservation_if_open(session, job=job)
             return self._publish_termination(
                 session,
                 job=job,
@@ -192,7 +269,6 @@ class CauseAgentWorker:
                     code="cause_agent_provider_configuration_invalid",
                     retryable=True,
                 )
-            self._refund_reservation_if_open(session, job=job)
             return self._publish_termination(
                 session,
                 job=job,
@@ -378,6 +454,7 @@ class CauseAgentWorker:
                 retrieval_bundle_id=None,
                 reservation_id=UUID(str(job.payload["reservationId"])),
                 reservation_source=str(job.payload["reservationSource"]),
+                price_version=self._price_card.version,
             ),
             processor_release_id=self._provider.provider_release_id,
             processor_endpoint_fingerprint=endpoint_fingerprint(
@@ -404,15 +481,6 @@ class CauseAgentWorker:
                         latency_ms=exc.latency_ms,
                     )
                 self._consume_reservation(session, job=job)
-                session.commit()
-            elif record.status == "running" and not exc.retryable:
-                self._ledger.fail(
-                    session,
-                    call_id=record.call_id,
-                    error_code=exc.code,
-                    latency_ms=exc.latency_ms,
-                )
-                self._refund_reservation_if_open(session, job=job)
                 session.commit()
             raise
         if record.status == "succeeded":
@@ -444,9 +512,7 @@ class CauseAgentWorker:
                 "outputFingerprint": result.output_fingerprint,
                 "modelCallId": str(record.call_id),
                 "providerRequestIdHeader": result.provider_request_id_header,
-                "providerRequestIdFingerprint": (
-                    result.provider_request_id_fingerprint
-                ),
+                "providerRequestIdFingerprint": (result.provider_request_id_fingerprint),
                 "quotaState": "consumed",
             },
         )
@@ -465,7 +531,10 @@ class CauseAgentWorker:
         termination_reason: str | None = None,
         model_call_delta: int = 1,
     ) -> BackgroundJob:
-        current_job = self._jobs.by_id(session, job_id=job.job_id) or job
+        session.execute(
+            text("select pg_advisory_xact_lock(hashtextextended(:key, 0))"),
+            {"key": f"xingce-cause-terminal:{job.job_id}"},
+        )
         current_run = self._repository.current_run(
             session,
             run_id=str(run["run_id"]),
@@ -474,6 +543,60 @@ class CauseAgentWorker:
         )
         if current_run is None:
             raise JobContractError("cause-agent run disappeared before publication")
+        if str(current_run["state"]) not in {"queued", "running"}:
+            if str(current_run["state"]) in {"terminated", "failed"}:
+                final = self._reconcile_existing_terminal(
+                    session,
+                    job=job,
+                    run=current_run,
+                    code=str(current_run["termination_reason"] or "cause_agent_terminated"),
+                )
+            else:
+                current_job = self._jobs.by_id(
+                    session,
+                    job_id=job.job_id,
+                    for_update=True,
+                )
+                if current_job is None:
+                    raise JobContractError("cause-agent job disappeared after publication")
+                if current_job.status == "succeeded":
+                    final = current_job
+                elif (
+                    current_job.status == "running"
+                    and current_job.claim_token == job.claim_token
+                    and job.claim_token is not None
+                ):
+                    final = self._jobs.succeed(
+                        session,
+                        job_id=job.job_id,
+                        claim_token=job.claim_token,
+                        result={
+                            **(current_job.result or {}),
+                            "runId": str(current_run["run_id"]),
+                            "state": str(current_run["state"]),
+                            "businessOutcome": "completed",
+                        },
+                    )
+                else:
+                    raise JobContractError("cause-agent published run disagrees with its job")
+            session.commit()
+            return final
+        current_job = self._jobs.by_id(session, job_id=job.job_id) or job
+        candidate_state = published_state or output.kind
+        if candidate_state == "terminated":
+            quota_state = self._settle_terminal_resources(
+                session,
+                job=job,
+                code=termination_reason or "cause_agent_terminated",
+            )
+        else:
+            result_checkpoint = current_job.result
+            quota_state = (
+                str(result_checkpoint.get("quotaState"))
+                if isinstance(result_checkpoint, dict)
+                and result_checkpoint.get("quotaState") in {"consumed", "reserved", "not_charged"}
+                else "reserved"
+            )
         previous = self._attempts.latest_cause_candidate(
             session,
             user_id=str(run["user_id"]),
@@ -484,21 +607,11 @@ class CauseAgentWorker:
             "contractVersion": "cause-candidate@v2",
             **output.model_dump(by_alias=True, mode="json"),
         }
-        result_checkpoint = current_job.result
-        quota_state = (
-            str(result_checkpoint.get("quotaState"))
-            if isinstance(result_checkpoint, dict)
-            and result_checkpoint.get("quotaState")
-            in {"consumed", "reserved", "not_charged"}
-            else "reserved"
-        )
         payload["quotaState"] = quota_state
-        candidate_state = published_state or output.kind
         if termination_reason is not None:
             payload["terminationReason"] = termination_reason
-        reason_code = (
-            termination_reason
-            or (output.reason_code if isinstance(output, EvidenceInsufficient) else None)
+        reason_code = termination_reason or (
+            output.reason_code if isinstance(output, EvidenceInsufficient) else None
         )
         candidate = self._attempts.insert_cause_candidate(
             session,
@@ -515,9 +628,7 @@ class CauseAgentWorker:
                 "agent_run_id": str(run["run_id"]),
                 "payload": _json(payload),
                 "output_fingerprint": output_fingerprint,
-                "entitlement_policy_version": str(
-                    job.payload["entitlementPolicyVersion"]
-                ),
+                "entitlement_policy_version": str(job.payload["entitlementPolicyVersion"]),
                 "supersedes_candidate_version_id": (
                     str(previous["candidate_version_id"]) if previous else None
                 ),
@@ -543,8 +654,7 @@ class CauseAgentWorker:
                 state=candidate_state,
                 candidate_version_id=candidate_id,
                 progress_fingerprint=output_fingerprint,
-                model_call_count=int(current_run["model_call_count"])
-                + model_call_delta,
+                model_call_count=int(current_run["model_call_count"]) + model_call_delta,
                 tool_call_count=tool_count + current_tool_count,
                 termination_reason=termination_reason,
             ),
@@ -607,16 +717,35 @@ class CauseAgentWorker:
                 "schemaVersion": 1,
             },
         )
-        final = self._jobs.succeed(
-            session,
-            job_id=job.job_id,
-            claim_token=job.claim_token,
-            result={
-                **(current_job.result or {}),
-                "candidateVersionId": str(candidate["candidate_version_id"]),
-                "state": candidate_state,
-            },
-        )
+        job_result = {
+            **(current_job.result or {}),
+            "candidateVersionId": str(candidate["candidate_version_id"]),
+            "runId": str(run["run_id"]),
+            "state": candidate_state,
+            "businessOutcome": ("terminated" if candidate_state == "terminated" else "completed"),
+            "quotaState": quota_state,
+        }
+        if candidate_state == "terminated":
+            if job.claim_token is None:
+                raise JobContractError("cause-agent termination lost its claim")
+            final = self._jobs.fail(
+                session,
+                job_id=job.job_id,
+                claim_token=job.claim_token,
+                error_code=termination_reason or "cause_agent_terminated",
+                error_message=termination_reason or "cause_agent_terminated",
+                retryable=False,
+                result=job_result,
+            )
+        else:
+            if job.claim_token is None:
+                raise JobContractError("cause-agent publication lost its claim")
+            final = self._jobs.succeed(
+                session,
+                job_id=job.job_id,
+                claim_token=job.claim_token,
+                result=job_result,
+            )
         session.commit()
         return final
 
@@ -665,6 +794,170 @@ class CauseAgentWorker:
             model_call_delta=model_call_delta,
         )
 
+    def _reconcile_persisted_terminal_jobs(self, session: Session) -> None:
+        job_ids = (
+            session.execute(
+                text(
+                    """
+                select job.job_id
+                from platform.background_jobs job
+                join ai_audit.agent_run_versions run on run.job_id = job.job_id
+                 and not exists (
+                   select 1 from ai_audit.agent_run_versions successor
+                   where successor.supersedes_run_version_id = run.run_version_id
+                 )
+                where job.job_type = :job_type
+                  and run.state in ('terminated', 'failed')
+                  and (
+                    job.status <> 'failed'
+                    or exists (
+                      select 1 from ai_audit.model_call_ledger ledger
+                      where ledger.job_id = job.job_id
+                        and ledger.status = 'running'
+                    )
+                    or exists (
+                      select 1 from commerce.feature_usage_reservations reservation
+                      where reservation.job_id = job.job_id
+                        and reservation.status = 'reserved'
+                    )
+                    or exists (
+                      select 1
+                      from commerce.community_reward_ai_usage_reservations reservation
+                      where not exists (
+                        select 1
+                        from commerce.community_reward_ai_usage_reservation_events event
+                        where event.reservation_id = reservation.reservation_id
+                      )
+                        and exists (
+                          select 1 from commerce.entitlement_audit_logs binding
+                          where binding.action = 'community_reward_ai_job_bound'
+                            and binding.metadata ->> 'reservationId' =
+                              reservation.reservation_id::text
+                            and binding.metadata ->> 'jobId' = job.job_id::text
+                        )
+                    )
+                  )
+                order by job.created_at, job.job_id
+                limit 100
+                """
+                ),
+                {"job_type": CAUSE_AGENT_JOB_TYPE},
+            )
+            .scalars()
+            .all()
+        )
+        for job_id in job_ids:
+            job = self._jobs.by_id(session, job_id=job_id)
+            if job is None:
+                continue
+            run = self._repository.current_run(
+                session,
+                run_id=str(job.payload["runId"]),
+                user_id=str(job.payload["userId"]),
+                for_update=True,
+            )
+            if run is None or str(run["state"]) not in {"terminated", "failed"}:
+                continue
+            self._reconcile_existing_terminal(
+                session,
+                job=job,
+                run=run,
+                code=str(run["termination_reason"] or "cause_agent_terminated"),
+            )
+
+    def _reconcile_existing_terminal(
+        self,
+        session: Session,
+        *,
+        job: BackgroundJob,
+        run: Any,
+        code: str,
+    ) -> BackgroundJob:
+        quota_state = self._settle_terminal_resources(
+            session,
+            job=job,
+            code=code,
+        )
+        current_job = self._jobs.by_id(
+            session,
+            job_id=job.job_id,
+            for_update=True,
+        )
+        if current_job is None:
+            raise JobContractError("cause-agent terminal job disappeared")
+        if current_job.status == "failed":
+            return current_job
+        return self._jobs.reconcile_business_failure(
+            session,
+            job_id=current_job.job_id,
+            error_code=code,
+            error_message=code,
+            result={
+                **(current_job.result or {}),
+                "runId": str(run["run_id"]),
+                "state": str(run["state"]),
+                "businessOutcome": "terminated",
+                "quotaState": quota_state,
+            },
+        )
+
+    def _settle_terminal_resources(
+        self,
+        session: Session,
+        *,
+        job: BackgroundJob,
+        code: str,
+    ) -> str:
+        records = self._ledger.records_for_job(
+            session,
+            job_id=job.job_id,
+            for_update=True,
+        )
+        if len(records) > 1:
+            raise JobContractError("cause-agent job has more than one model-call ledger")
+        ledger = records[0] if records else None
+        if ledger is not None and ledger.status == "running":
+            ledger = self._ledger.fail_if_running(
+                session,
+                call_id=ledger.call_id,
+                error_code=code,
+                latency_ms=0,
+            )
+        should_consume = ledger is not None and ledger.status == "succeeded"
+
+        commerce = CommerceRepository(session)
+        reservation = commerce.feature_usage_reservation_by_key(
+            reservation_key=str(job.payload["reservationKey"]),
+            for_update=True,
+        )
+        if reservation is None:
+            raise JobContractError("cause-agent quota reservation does not exist")
+        if (
+            str(reservation.reservation_id) != str(job.payload["reservationId"])
+            or reservation.source != str(job.payload["reservationSource"])
+            or (reservation.job_id is not None and reservation.job_id != job.job_id)
+        ):
+            raise JobContractError("cause-agent quota reservation identity changed")
+
+        if should_consume:
+            if reservation.status == "refunded":
+                raise JobContractError("succeeded model call has a refunded reservation")
+            if reservation.status == "reserved":
+                commerce.consume_feature_usage(
+                    reservation_key=reservation.reservation_key,
+                    commit=False,
+                )
+            return "consumed"
+
+        if reservation.status == "consumed":
+            raise JobContractError("failed or absent model call has a consumed reservation")
+        if reservation.status == "reserved":
+            commerce.refund_feature_usage(
+                reservation_key=reservation.reservation_key,
+                commit=False,
+            )
+        return "not_charged"
+
     def _fail_job(
         self,
         session: Session,
@@ -675,6 +968,19 @@ class CauseAgentWorker:
     ) -> BackgroundJob:
         if job.claim_token is None:
             raise JobContractError("cause-agent job lost its claim")
+        result: dict[str, Any] | None = None
+        if not retryable:
+            quota_state = self._settle_terminal_resources(
+                session,
+                job=job,
+                code=code,
+            )
+            result = {
+                **(job.result or {}),
+                "state": "failed",
+                "businessOutcome": "terminated",
+                "quotaState": quota_state,
+            }
         failed = self._jobs.fail(
             session,
             job_id=job.job_id,
@@ -682,6 +988,7 @@ class CauseAgentWorker:
             error_code=code,
             error_message=code,
             retryable=retryable,
+            result=result,
         )
         session.commit()
         return failed
@@ -711,8 +1018,7 @@ class CauseAgentWorker:
         if not required.issubset(payload):
             raise JobContractError("cause-agent job payload is incomplete")
         if (
-            payload["definitionReleaseId"]
-            != CAUSE_AGENT_DEFINITION.definition_release_id
+            payload["definitionReleaseId"] != CAUSE_AGENT_DEFINITION.definition_release_id
             or payload["definitionSha256"] != CAUSE_AGENT_DEFINITION.fingerprint
             or payload["provider"] != self._provider.provider_name
             or payload["providerReleaseId"] != self._provider.provider_release_id
@@ -727,50 +1033,6 @@ class CauseAgentWorker:
             reservation_key=str(job.payload["reservationKey"]),
             commit=False,
         )
-
-    def _refund_reservation_if_open(
-        self,
-        session: Session,
-        *,
-        job: BackgroundJob,
-    ) -> None:
-        source = str(job.payload["reservationSource"])
-        reservation_key = str(job.payload["reservationKey"])
-        if source == "catalog":
-            status = session.execute(
-                text(
-                    "select status from commerce.feature_usage_reservations "
-                    "where reservation_key = :reservation_key"
-                ),
-                {"reservation_key": reservation_key},
-            ).scalar_one_or_none()
-        elif source == "community_reward":
-            status = session.execute(
-                text(
-                    "select coalesce(event.event_type, 'reserved') "
-                    "from commerce.community_reward_ai_usage_reservations reservation "
-                    "left join commerce.community_reward_ai_usage_reservation_events event "
-                    "on event.reservation_id = reservation.reservation_id "
-                    "where reservation.reservation_key = :reservation_key"
-                ),
-                {"reservation_key": reservation_key},
-            ).scalar_one_or_none()
-        else:
-            raise JobContractError("cause-agent reservation source is unsupported")
-        if status == "reserved":
-            CommerceRepository(session).refund_feature_usage(
-                reservation_key=reservation_key,
-                commit=False,
-            )
-            if job.claim_token is not None:
-                current = self._jobs.by_id(session, job_id=job.job_id)
-                base = current.result if current is not None and current.result else {}
-                self._jobs.checkpoint(
-                    session,
-                    job_id=job.job_id,
-                    claim_token=job.claim_token,
-                    result={**base, "quotaState": "not_charged"},
-                )
 
 
 def _next_run_values(

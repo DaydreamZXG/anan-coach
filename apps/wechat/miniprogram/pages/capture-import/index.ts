@@ -33,6 +33,7 @@ interface CaptureImportPageData {
   configurationError: string;
   mode: "search" | "import";
   captureStage: "camera" | "crop";
+  cameraVisible: boolean;
   cameraReady: boolean;
   cameraError: string;
   permissionDenied: boolean;
@@ -46,6 +47,7 @@ interface CaptureImportPageData {
 interface CaptureImportPageCustom {
   imageEditorOpening: boolean;
   chooseCamera(): Promise<void>;
+  retryCamera(): Promise<void>;
   handleCameraInit(): void;
   handleCameraError(
     event: WechatMiniprogram.CustomEvent<{ errCode?: number; errMsg?: string }>,
@@ -97,6 +99,7 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     configurationError: "",
     mode: "search",
     captureStage: "camera",
+    cameraVisible: true,
     cameraReady: false,
     cameraError: "",
     permissionDenied: false,
@@ -184,6 +187,29 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     }
   },
 
+  async retryCamera() {
+    let granted = (await ensureCameraPermission()) === "granted";
+    if (!granted) granted = await requestCameraSetting();
+    if (!granted) {
+      this.setData({
+        permissionDenied: true,
+        cameraVisible: false,
+        cameraReady: false,
+        cameraError: "",
+      });
+      return;
+    }
+    this.setData({
+      permissionDenied: false,
+      cameraVisible: false,
+      cameraReady: false,
+      cameraError: "",
+    });
+    wx.nextTick(() => {
+      this.setData({ cameraVisible: true });
+    });
+  },
+
   handleCameraInit() {
     this.setData({ cameraReady: true, cameraError: "", permissionDenied: false });
   },
@@ -245,6 +271,7 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
   discardPendingImage() {
     this.setData({
       captureStage: "camera",
+      cameraVisible: true,
       cameraReady: false,
       cameraError: "",
       pendingFile: null,
@@ -316,6 +343,7 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     runtimes.get(this)?.reset();
     this.setData({
       captureStage: "camera",
+      cameraVisible: true,
       cameraReady: false,
       cameraError: "",
       permissionDenied: false,

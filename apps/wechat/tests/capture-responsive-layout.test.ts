@@ -35,6 +35,7 @@ const cameraErrorCopy = "相机没有启动成功，请检查系统相机权限�
 
 const supportedProfiles: DeviceProfile[] = [
   { width: 320, height: 568, safeInsetBottom: 0 },
+  { width: 375, height: 667, safeInsetBottom: 0 },
   { width: 363, height: 817, safeInsetBottom: 0 },
   { width: 390, height: 844, safeInsetBottom: 34 },
   { width: 768, height: 1024, safeInsetBottom: 0 },
@@ -113,7 +114,20 @@ describe("capture camera responsive error layout", () => {
     expect(ruleFor(".camera-bottom-panel")).toMatch(/flex:\s*0 0 auto;/u);
     expect(ruleFor(".camera-error")).not.toMatch(/position:\s*absolute;/u);
     expect(ruleFor(".camera-error")).toMatch(/overflow-wrap:\s*anywhere;/u);
+    expect(captureTemplate).toContain('class="control-center camera-error__action"');
+    expect(captureTemplate).toContain('bindtap="retryCamera"');
+    expect(ruleFor(".camera-error__action")).toMatch(/min-height:\s*44px;/u);
     expect(ruleFor(".camera-privacy")).toContain("env(safe-area-inset-bottom)");
+  });
+
+  it("keeps permission recovery and its privacy explanation in the scrollable safe area", () => {
+    expect(captureTemplate).toContain("capture-page--permission");
+    expect(captureTemplate).toContain('class="permission-privacy"');
+    expect(captureTemplate).toContain("不进入公共题库，也不用于训练基础模型");
+    expect(ruleFor(".capture-page--permission")).toMatch(/overflow-y:\s*auto;/u);
+    expect(ruleFor(".capture-page--permission .permission-screen")).toContain(
+      "env(safe-area-inset-bottom)",
+    );
   });
 
   it("lets the viewport own the camera page while preserving a scroll fallback", () => {

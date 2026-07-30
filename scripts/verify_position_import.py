@@ -35,6 +35,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--position-data-version",
+        required=True,
         help="Immutable release identifier attached to the official source rows",
     )
     parser.add_argument(
@@ -44,9 +45,13 @@ def main() -> int:
     )
     args = parser.parse_args()
     if not args.database_url:
-        parser.error("--database-url, QBANK_IMPORT_DATABASE_URL, or DATABASE_URL is required")
+        parser.error(
+            "--database-url, QBANK_IMPORT_DATABASE_URL, or DATABASE_URL is required"
+        )
 
-    engine = create_engine(_normalize_database_url(args.database_url), pool_pre_ping=True, future=True)
+    engine = create_engine(
+        _normalize_database_url(args.database_url), pool_pre_ping=True, future=True
+    )
     try:
         with Session(engine, future=True) as session:
             result = verify_gwy_position_import(

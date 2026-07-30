@@ -29,14 +29,15 @@
           <view><view class="field-label">工作日可学习</view><view class="field-copy">按 0.5 小时选择，不需要换算分钟</view></view>
           <view class="time-choice__current type-data">{{state.presentation.weekdayDurationLabel}}</view>
         </view>
-        <scroll-view scroll-x class="time-options" enhanced show-scrollbar="{{false}}">
+        <scroll-view scroll-x scroll-with-animation class="time-options" enhanced show-scrollbar="{{false}}" scroll-into-view="{{weekdayMinutesTarget}}" aria-label="工作日可学习时长，左右滑动查看更多">
           <view class="time-options__inner">
-            <view hover-class="item--hover" wx:for="{{timeOptions}}" wx:key="minutes" class="time-option {{state.draft.weekdayMinutes === item.minutes ? 'time-option--active' : ''}}" data-field="weekdayMinutes" data-minutes="{{item.minutes}}" bindtap="selectMinutes">
+            <view id="weekday-minutes-{{item.minutes}}" hover-class="item--hover" wx:for="{{timeOptions}}" wx:key="minutes" class="time-option {{state.draft.weekdayMinutes === item.minutes ? 'time-option--active' : ''}}" data-field="weekdayMinutes" data-minutes="{{item.minutes}}" bindtap="selectMinutes">
               <text class="time-option__label">{{item.label}}</text>
               <text class="time-option__caption">{{item.caption}}</text>
             </view>
           </view>
         </scroll-view>
+        <view class="time-options__hint" aria-hidden="true"><text class="time-options__hint-arrow">↔</text><text>左右滑动查看更多时长</text></view>
       </view>
       <view class="budget-divider"></view>
       <view class="time-choice">
@@ -44,14 +45,15 @@
           <view><view class="field-label">周末可学习</view><view class="field-copy">容纳模考、申论套题或完整材料训练</view></view>
           <view class="time-choice__current type-data">{{state.presentation.weekendDurationLabel}}</view>
         </view>
-        <scroll-view scroll-x class="time-options" enhanced show-scrollbar="{{false}}">
+        <scroll-view scroll-x scroll-with-animation class="time-options" enhanced show-scrollbar="{{false}}" scroll-into-view="{{weekendMinutesTarget}}" aria-label="周末可学习时长，左右滑动查看更多">
           <view class="time-options__inner">
-            <view hover-class="item--hover" wx:for="{{timeOptions}}" wx:key="minutes" class="time-option {{state.draft.weekendMinutes === item.minutes ? 'time-option--active' : ''}}" data-field="weekendMinutes" data-minutes="{{item.minutes}}" bindtap="selectMinutes">
+            <view id="weekend-minutes-{{item.minutes}}" hover-class="item--hover" wx:for="{{timeOptions}}" wx:key="minutes" class="time-option {{state.draft.weekendMinutes === item.minutes ? 'time-option--active' : ''}}" data-field="weekendMinutes" data-minutes="{{item.minutes}}" bindtap="selectMinutes">
               <text class="time-option__label">{{item.label}}</text>
               <text class="time-option__caption">{{item.caption}}</text>
             </view>
           </view>
         </scroll-view>
+        <view class="time-options__hint" aria-hidden="true"><text class="time-options__hint-arrow">↔</text><text>左右滑动查看更多时长</text></view>
       </view>
     </view>
 

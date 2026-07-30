@@ -19,9 +19,7 @@ class EssayAttemptCreateCommand(EssayContractModel):
     task_version_id: UUID = Field(alias="taskVersionId")
     material_bundle_version_id: UUID = Field(alias="materialBundleVersionId")
     rubric_version_id: UUID = Field(alias="rubricVersionId")
-    source_context: Literal["in_program", "paper", "external"] = Field(
-        alias="sourceContext"
-    )
+    source_context: Literal["in_program", "paper", "external"] = Field(alias="sourceContext")
     timed_status: Literal["timed", "untimed", "unknown"] = Field(alias="timedStatus")
     elapsed_seconds: int | None = Field(default=None, alias="elapsedSeconds", ge=1)
 
@@ -57,25 +55,22 @@ class EssayAnswerCreateCommand(EssayContractModel):
     @model_validator(mode="after")
     def validate_source_evidence(self) -> "EssayAnswerCreateCommand":
         has_evidence = (
-            self.source_artifact_version_id is not None
-            and self.recognition_revision_id is not None
+            self.source_artifact_version_id is not None and self.recognition_revision_id is not None
         )
         if self.source_type == "ocr_confirmed" and not has_evidence:
             raise ValueError(
-                "ocr_confirmed answers require sourceArtifactVersionId and "
-                "recognitionRevisionId"
+                "ocr_confirmed answers require sourceArtifactVersionId and recognitionRevisionId"
             )
         if self.source_type == "typed" and (
-            self.source_artifact_version_id is not None
-            or self.recognition_revision_id is not None
+            self.source_artifact_version_id is not None or self.recognition_revision_id is not None
         ):
             raise ValueError("typed answers cannot carry OCR source evidence")
         return self
 
 
 class EssayReviewQueueCommand(EssayContractModel):
-    attempt_id: UUID = Field(alias="attemptId")
-    answer_version_id: UUID = Field(alias="answerVersionId")
+    attempt_id: UUID = Field(alias="attemptId", strict=False)
+    answer_version_id: UUID = Field(alias="answerVersionId", strict=False)
     review_scope: Literal["grounded_full"] = Field(alias="reviewScope")
 
 
@@ -116,9 +111,7 @@ class EssayReviewIntentView(EssayContractModel):
     material_bundle_version_id: UUID = Field(alias="materialBundleVersionId")
     rubric_version_id: UUID = Field(alias="rubricVersionId")
     review_scope: Literal["grounded_full"] = Field(alias="reviewScope")
-    input_fingerprint: str = Field(
-        alias="inputFingerprint", min_length=64, max_length=64
-    )
+    input_fingerprint: str = Field(alias="inputFingerprint", min_length=64, max_length=64)
     intent_fingerprint: str = Field(
         alias="intentFingerprint",
         min_length=64,
@@ -146,9 +139,7 @@ class EssayReviewIntentView(EssayContractModel):
     def validate_state_shape(self) -> "EssayReviewIntentView":
         if self.status == "pending":
             if any((self.job_id, self.job_status, self.quota, self.retry_after)):
-                raise ValueError(
-                    "pending review intent cannot carry queue or quota state"
-                )
+                raise ValueError("pending review intent cannot carry queue or quota state")
         elif self.status == "waiting_quota":
             if self.job_id is not None or self.job_status is not None:
                 raise ValueError("quota-waiting review intent cannot carry a job")

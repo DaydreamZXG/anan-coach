@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Annotated
+from typing import Annotated, NoReturn
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
@@ -19,6 +19,15 @@ from app.domains.positions.schemas import (
 from app.domains.positions.service import PositionNotFoundError, PositionService
 
 router = APIRouter(prefix="/api/v1/positions", tags=["positions"])
+
+
+def _raise_release_unbound_endpoint_retired() -> NoReturn:
+    raise HTTPException(
+        status_code=status.HTTP_410_GONE,
+        detail=(
+            "This release-unbound position endpoint is retired; use /api/v2/qualification/positions"
+        ),
+    )
 
 
 def get_position_service(
@@ -43,6 +52,7 @@ def search_positions(
     limit: int = Query(default=20, ge=1, le=100),
 ) -> PositionSearchResponse:
     del current_user
+    _raise_release_unbound_endpoint_retired()
     try:
         return service.search_positions(
             year=year,
@@ -88,6 +98,7 @@ def get_position_detail(
     service: Annotated[PositionService, Depends(get_position_service)],
 ) -> PositionDetail:
     del current_user
+    _raise_release_unbound_endpoint_retired()
     try:
         return service.get_position_detail(position_id=position_id)
     except PositionNotFoundError as exc:
@@ -104,6 +115,7 @@ def get_position_target_score(
     service: Annotated[PositionService, Depends(get_position_service)],
 ) -> PositionTargetScoreResponse:
     del current_user
+    _raise_release_unbound_endpoint_retired()
     try:
         return service.get_target_score_response(position_id=position_id)
     except PositionNotFoundError as exc:

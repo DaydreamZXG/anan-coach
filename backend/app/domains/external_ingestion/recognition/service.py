@@ -5,6 +5,7 @@ from datetime import UTC, datetime, timedelta
 from hashlib import sha256
 import json
 import time
+from typing import Literal
 from uuid import NAMESPACE_URL, UUID, uuid5
 
 from app.contracts.external_learning.models import (
@@ -14,17 +15,29 @@ from app.contracts.external_learning.models import (
 )
 from app.domains.external_ingestion.recognition.errors import (
     ArtifactNotProcessable,
+    ProcessorDispatchUnknownError,
+    ProcessorNotDispatchedError,
+    ProcessorResponseError,
     RecognitionIdempotencyConflict,
     RecognitionNotFound,
+    RecognitionOperationPersistenceError,
+    RecognitionOperationReconciliationRequired,
     RecognitionTransitionError,
     RecognitionVersionConflict,
 )
 from app.domains.external_ingestion.recognition.models import (
+    ArtifactInput,
     RecognitionCandidatePayload,
     RecognitionEvidenceDecision,
     OMRLayout,
+    ProcessorApproval,
     ProcessorRequest,
     QuestionUnit,
+    provider_replay_key,
+)
+from app.domains.external_ingestion.recognition.operation_contracts import (
+    RecognitionOperationPort,
+    RecognitionOperationSpec,
 )
 from app.domains.external_ingestion.recognition.processor import ProcessorRegistry
 from app.domains.external_ingestion.recognition.repository import RecognitionRepositoryPort
@@ -36,6 +49,7 @@ class RecognitionService:
         *,
         repository: RecognitionRepositoryPort,
         processors: ProcessorRegistry,
+        operations: RecognitionOperationPort | None = None,
         clock: Callable[[], datetime] | None = None,
         candidate_ttl: timedelta = timedelta(days=7),
     ) -> None:
@@ -43,6 +57,7 @@ class RecognitionService:
             raise ValueError("recognition candidate TTL must be positive")
         self._repository = repository
         self._processors = processors
+        self._operations = operations
         self._clock = clock or (lambda: datetime.now(UTC))
         self._candidate_ttl = candidate_ttl
 
@@ -81,11 +96,14 @@ class RecognitionService:
         if existing is not None:
             self._assert_replay(existing, request_hash)
             return existing
-        if self._repository.head(
-            artifact_version_id=artifact_version_id,
-            owner_user_id=owner_user_id,
-            recognition_kind=recognition_kind.value,
-        ) is not None:
+        if (
+            self._repository.head(
+                artifact_version_id=artifact_version_id,
+                owner_user_id=owner_user_id,
+                recognition_kind=recognition_kind.value,
+            )
+            is not None
+        ):
             raise RecognitionVersionConflict(
                 "initial recognition already exists; use correction or a distinct kind"
             )
@@ -112,56 +130,83 @@ class RecognitionService:
             inputSha256=artifact.content_sha256,
             pageCount=artifact.page_count,
             recognitionKind=recognition_kind,
-            idempotencyKey=idempotency_key,
-            omrLayout=omr_layout,
-        )
-        started = time.monotonic()
-        result = processor.process(processor_request)
-        latency_ms = int((time.monotonic() - started) * 1000)
-        payload = RecognitionCandidatePayload(
-            kind=recognition_kind,
-            textSpans=result.text_spans,
-            segments=result.segments,
-            questionUnits=(
-                _question_units(
-                    input_sha256=artifact.content_sha256,
-                    segments=result.segments,
-                )
-                if recognition_kind == RecognitionKind.EXAM_SEGMENTATION
-                else ()
+            idempotencyKey=provider_replay_key(
+                owner_user_id=owner_user_id,
+                operation="recognize",
+                command_id=revision_id,
             ),
-            omrMarks=result.omr_marks,
-            pageImageSha256=result.page_image_sha256,
-            visualFingerprints=result.visual_fingerprints,
-            processorRequestIdHash=sha256(
-                result.provider_request_id.encode("utf-8")
-            ).hexdigest(),
-            processorOutputContract=result.contract_version,
-            requestHash=request_hash,
+            omrLayout=omr_layout,
+            before_provider_dispatch=lambda: self._claim_provider_dispatch(revision_id),
         )
-        output_payload = payload.model_dump(by_alias=True, mode="json")
-        revision = RecognitionRevision(
-            recognitionRevisionId=revision_id,
-            artifactVersionId=artifact_version_id,
-            ownerUserId=owner_user_id,
-            revisionNo=1,
-            recognitionKind=recognition_kind,
-            state=CandidateState.CANDIDATE,
-            processorPolicyVersion=approval.policy_version,
-            processorRoute=approval.route,
-            inputSha256=artifact.content_sha256,
-            outputSha256=_hash(output_payload),
-            candidatePayload=output_payload,
-            confidence=result.confidence,
-            expiresAt=now + self._candidate_ttl,
-            createdAt=now,
-        )
-        self._repository.insert(revision)
-        self._record_external_cost(
-            revision=revision,
+        operation = self._operation_spec(
+            operation_id=revision_id,
+            owner_user_id=owner_user_id,
             artifact=artifact,
+            recognition_kind=recognition_kind,
             approval=approval,
-            latency_ms=latency_ms,
+            request_hash=request_hash,
+            started_at=now,
+        )
+        self._begin_external_operation(operation)
+        started = time.monotonic()
+        provider_response_received = False
+        try:
+            result = processor.process(processor_request)
+            provider_response_received = True
+            payload = RecognitionCandidatePayload(
+                kind=recognition_kind,
+                textSpans=result.text_spans,
+                segments=result.segments,
+                questionUnits=(
+                    _question_units(
+                        input_sha256=artifact.content_sha256,
+                        segments=result.segments,
+                    )
+                    if recognition_kind == RecognitionKind.EXAM_SEGMENTATION
+                    else ()
+                ),
+                omrMarks=result.omr_marks,
+                pageImageSha256=result.page_image_sha256,
+                visualFingerprints=result.visual_fingerprints,
+                processorRequestIdHash=sha256(
+                    result.provider_request_id.encode("utf-8")
+                ).hexdigest(),
+                processorOutputContract=result.contract_version,
+                requestHash=request_hash,
+            )
+            output_payload = payload.model_dump(by_alias=True, mode="json")
+            revision = RecognitionRevision(
+                recognitionRevisionId=revision_id,
+                artifactVersionId=artifact_version_id,
+                ownerUserId=owner_user_id,
+                revisionNo=1,
+                recognitionKind=recognition_kind,
+                state=CandidateState.CANDIDATE,
+                processorPolicyVersion=approval.policy_version,
+                processorRoute=approval.route,
+                inputSha256=artifact.content_sha256,
+                outputSha256=_hash(output_payload),
+                candidatePayload=output_payload,
+                confidence=result.confidence,
+                expiresAt=now + self._candidate_ttl,
+                createdAt=now,
+            )
+        except Exception as exc:
+            self._complete_external_failure(
+                operation_id=operation.operation_id,
+                error_code=_processing_error_code(exc),
+                usage_state=_failure_usage_state(
+                    exc,
+                    provider_response_received=provider_response_received,
+                ),
+                latency_ms=_latency_ms(started),
+            )
+            raise
+        self._complete_external_success(
+            operation_id=operation.operation_id,
+            revision=revision,
+            output_fingerprint=revision.output_sha256,
+            latency_ms=_latency_ms(started),
         )
         return revision
 
@@ -255,9 +300,7 @@ class RecognitionService:
             self._assert_replay(existing, request_hash)
             return existing
         self._repository.lock(
-            key=_aggregate_lock(
-                owner_user_id, source.artifact_version_id, source.recognition_kind
-            )
+            key=_aggregate_lock(owner_user_id, source.artifact_version_id, source.recognition_kind)
         )
         existing = self._repository.revision(recognition_revision_id=revision_id)
         if existing is not None:
@@ -294,123 +337,226 @@ class RecognitionService:
             mime_type=artifact.mime_type,
             at=now,
         )
-        started = time.monotonic()
-        result = processor.process(
-            ProcessorRequest(
-                artifactVersionId=artifact.artifact_version_id,
-                ownerScopeHash=_hash({"ownerUserId": str(owner_user_id)}),
-                objectRef=artifact.object_ref,
-                mimeType=artifact.mime_type,
-                inputSha256=artifact.content_sha256,
-                pageCount=artifact.page_count,
-                recognitionKind=source.recognition_kind,
-                idempotencyKey=idempotency_key,
-                omrLayout=omr_layout,
-            )
-        )
-        latency_ms = int((time.monotonic() - started) * 1000)
-        payload = RecognitionCandidatePayload(
-            kind=source.recognition_kind,
-            textSpans=result.text_spans,
-            segments=result.segments,
-            questionUnits=(
-                _question_units(
-                    input_sha256=artifact.content_sha256,
-                    segments=result.segments,
-                )
-                if source.recognition_kind == RecognitionKind.EXAM_SEGMENTATION
-                else ()
-            ),
-            omrMarks=result.omr_marks,
-            pageImageSha256=result.page_image_sha256,
-            visualFingerprints=result.visual_fingerprints,
-            processorRequestIdHash=sha256(
-                result.provider_request_id.encode("utf-8")
-            ).hexdigest(),
-            processorOutputContract=result.contract_version,
-            requestHash=request_hash,
-            predecessorRevisionId=source.recognition_revision_id,
-        )
-        dumped = payload.model_dump(by_alias=True, mode="json")
-        revision = RecognitionRevision(
-            recognitionRevisionId=revision_id,
-            artifactVersionId=source.artifact_version_id,
-            ownerUserId=owner_user_id,
-            revisionNo=head.revision_no + 1,
-            recognitionKind=source.recognition_kind,
-            state=CandidateState.CANDIDATE,
-            processorPolicyVersion=approval.policy_version,
-            processorRoute=approval.route,
-            inputSha256=artifact.content_sha256,
-            outputSha256=_hash(dumped),
-            candidatePayload=dumped,
-            confidence=result.confidence,
-            supersedesRecognitionRevisionId=source.recognition_revision_id,
-            expiresAt=now + self._candidate_ttl,
-            createdAt=now,
-        )
-        self._repository.insert(revision)
-        self._record_external_cost(
-            revision=revision,
+        operation = self._operation_spec(
+            operation_id=revision_id,
+            owner_user_id=owner_user_id,
             artifact=artifact,
+            recognition_kind=source.recognition_kind,
             approval=approval,
-            latency_ms=latency_ms,
+            request_hash=request_hash,
+            started_at=now,
+        )
+        self._begin_external_operation(operation)
+        started = time.monotonic()
+        provider_response_received = False
+        try:
+            result = processor.process(
+                ProcessorRequest(
+                    artifactVersionId=artifact.artifact_version_id,
+                    ownerScopeHash=_hash({"ownerUserId": str(owner_user_id)}),
+                    objectRef=artifact.object_ref,
+                    mimeType=artifact.mime_type,
+                    inputSha256=artifact.content_sha256,
+                    pageCount=artifact.page_count,
+                    recognitionKind=source.recognition_kind,
+                    idempotencyKey=provider_replay_key(
+                        owner_user_id=owner_user_id,
+                        operation="reprocess",
+                        command_id=revision_id,
+                    ),
+                    omrLayout=omr_layout,
+                    before_provider_dispatch=lambda: self._claim_provider_dispatch(revision_id),
+                )
+            )
+            provider_response_received = True
+            payload = RecognitionCandidatePayload(
+                kind=source.recognition_kind,
+                textSpans=result.text_spans,
+                segments=result.segments,
+                questionUnits=(
+                    _question_units(
+                        input_sha256=artifact.content_sha256,
+                        segments=result.segments,
+                    )
+                    if source.recognition_kind == RecognitionKind.EXAM_SEGMENTATION
+                    else ()
+                ),
+                omrMarks=result.omr_marks,
+                pageImageSha256=result.page_image_sha256,
+                visualFingerprints=result.visual_fingerprints,
+                processorRequestIdHash=sha256(
+                    result.provider_request_id.encode("utf-8")
+                ).hexdigest(),
+                processorOutputContract=result.contract_version,
+                requestHash=request_hash,
+                predecessorRevisionId=source.recognition_revision_id,
+            )
+            dumped = payload.model_dump(by_alias=True, mode="json")
+            revision = RecognitionRevision(
+                recognitionRevisionId=revision_id,
+                artifactVersionId=source.artifact_version_id,
+                ownerUserId=owner_user_id,
+                revisionNo=head.revision_no + 1,
+                recognitionKind=source.recognition_kind,
+                state=CandidateState.CANDIDATE,
+                processorPolicyVersion=approval.policy_version,
+                processorRoute=approval.route,
+                inputSha256=artifact.content_sha256,
+                outputSha256=_hash(dumped),
+                candidatePayload=dumped,
+                confidence=result.confidence,
+                supersedesRecognitionRevisionId=source.recognition_revision_id,
+                expiresAt=now + self._candidate_ttl,
+                createdAt=now,
+            )
+        except Exception as exc:
+            self._complete_external_failure(
+                operation_id=operation.operation_id,
+                error_code=_processing_error_code(exc),
+                usage_state=_failure_usage_state(
+                    exc,
+                    provider_response_received=provider_response_received,
+                ),
+                latency_ms=_latency_ms(started),
+            )
+            raise
+        self._complete_external_success(
+            operation_id=operation.operation_id,
+            revision=revision,
+            output_fingerprint=revision.output_sha256,
+            latency_ms=_latency_ms(started),
         )
         return revision
 
-    def _record_external_cost(
+    def _operation_spec(
         self,
         *,
-        revision: RecognitionRevision,
-        artifact,
-        approval,
-        latency_ms: int,
-    ) -> None:
-        unit_count = (
-            artifact.page_count or 1
-            if approval.billing_unit in {"page", "image"}
-            else 1
-        )
+        operation_id: UUID,
+        owner_user_id: UUID,
+        artifact: ArtifactInput,
+        recognition_kind: RecognitionKind,
+        approval: ProcessorApproval,
+        request_hash: str,
+        started_at: datetime,
+    ) -> RecognitionOperationSpec:
+        unit_count = (artifact.page_count or 1) if approval.billing_unit in {"page", "image"} else 1
         scenario_key = {
             RecognitionKind.PRINTED_OCR: "recognition_printed_ocr",
             RecognitionKind.HANDWRITING_OCR: "recognition_handwriting_ocr",
             RecognitionKind.EXAM_SEGMENTATION: "recognition_printed_ocr",
             RecognitionKind.ANSWER_SHEET_OMR: "recognition_score_report",
-        }[revision.recognition_kind]
-        self._repository.record_external_operation(
-            values={
-                "operation_id": str(revision.recognition_revision_id),
-                "operation_key": f"recognition:{revision.recognition_revision_id}",
-                "user_id": str(revision.owner_user_id),
-                "scenario_key": scenario_key,
-                "operation": "recognition_process",
-                "provider": approval.provider,
-                "model": approval.model_release,
-                "provider_release": approval.provider_release,
-                "prompt_version": approval.prompt_version,
-                "schema_version": approval.output_contract,
-                "price_version": approval.price_version,
-                "billing_unit": approval.billing_unit,
-                "unit_count": unit_count,
-                "unit_price_cny": approval.unit_price_cny,
-                "input_fingerprint": revision.input_sha256,
-                "output_fingerprint": revision.output_sha256,
-                "evidence_refs": json.dumps(
-                    [
-                        {
-                            "kind": "source_artifact",
-                            "sourceId": str(revision.artifact_version_id),
-                            "version": revision.input_sha256,
-                            "anchor": "artifact",
-                        }
-                    ],
-                    ensure_ascii=False,
-                    sort_keys=True,
-                ),
-                "latency_ms": latency_ms,
-                "completed_at": self._clock(),
-            }
+        }[recognition_kind]
+        return RecognitionOperationSpec(
+            operation_id=operation_id,
+            operation_key=f"recognition:{operation_id}",
+            owner_user_id=owner_user_id,
+            artifact_version_id=artifact.artifact_version_id,
+            request_hash=request_hash,
+            scenario_key=scenario_key,
+            operation="recognition_process",
+            provider=approval.provider,
+            model=approval.model_release,
+            provider_release=approval.provider_release,
+            prompt_version=approval.prompt_version,
+            schema_version=approval.output_contract,
+            price_version=approval.price_version,
+            billing_unit=approval.billing_unit,
+            unit_count=unit_count,
+            unit_price_cny=approval.unit_price_cny,
+            input_fingerprint=artifact.content_sha256,
+            started_at=started_at,
         )
+
+    def _begin_external_operation(self, spec: RecognitionOperationSpec) -> None:
+        operations = self._required_operations()
+        state = operations.begin(spec=spec)
+        if not state.created:
+            raise RecognitionOperationReconciliationRequired(
+                "recognition operation already dispatched; reconcile its durable "
+                f"{state.status}/{state.usage_state} state before retry"
+            )
+
+    def _claim_provider_dispatch(self, operation_id: UUID) -> None:
+        state = self._required_operations().claim_provider_dispatch(
+            operation_id=operation_id,
+            claimed_at=self._clock(),
+        )
+        if state.status != "running":
+            raise ProcessorNotDispatchedError(
+                "recognition operation closed before provider dispatch"
+            )
+
+    def _complete_external_success(
+        self,
+        *,
+        operation_id: UUID,
+        revision: RecognitionRevision,
+        output_fingerprint: str,
+        latency_ms: int,
+    ) -> None:
+        operations = self._required_operations()
+        completed_at = self._clock()
+        try:
+            state = operations.succeed(
+                operation_id=operation_id,
+                revision=revision,
+                output_fingerprint=output_fingerprint,
+                latency_ms=latency_ms,
+                completed_at=completed_at,
+            )
+        except Exception as exc:
+            try:
+                operations.fail(
+                    operation_id=operation_id,
+                    error_code="recognition_terminal_success_persistence_failed",
+                    usage_state="actual",
+                    latency_ms=latency_ms,
+                    completed_at=completed_at,
+                )
+            except Exception as terminal_exc:
+                raise RecognitionOperationPersistenceError(
+                    "recognition operation remains running and requires reconciliation"
+                ) from terminal_exc
+            raise RecognitionOperationPersistenceError(
+                "recognition result could not be durably finalized"
+            ) from exc
+        if state.status != "succeeded" or state.usage_state != "actual":
+            raise RecognitionOperationPersistenceError(
+                "recognition success conflicts with an existing terminal operation"
+            )
+
+    def _complete_external_failure(
+        self,
+        *,
+        operation_id: UUID,
+        error_code: str,
+        usage_state: Literal["actual", "unknown", "not_dispatched"],
+        latency_ms: int,
+    ) -> None:
+        try:
+            state = self._required_operations().fail(
+                operation_id=operation_id,
+                error_code=error_code,
+                usage_state=usage_state,
+                latency_ms=latency_ms,
+                completed_at=self._clock(),
+            )
+        except Exception as exc:
+            raise RecognitionOperationPersistenceError(
+                "recognition operation remains running and requires reconciliation"
+            ) from exc
+        expected_status = "outcome_unknown" if usage_state == "unknown" else "failed"
+        if state.status != expected_status or state.usage_state != usage_state:
+            raise RecognitionOperationPersistenceError(
+                "recognition failure conflicts with an existing terminal operation"
+            )
+
+    def _required_operations(self) -> RecognitionOperationPort:
+        if self._operations is None:
+            raise RecognitionOperationPersistenceError(
+                "durable recognition operation coordinator is not configured"
+            )
+        return self._operations
 
     def confirm(
         self,
@@ -528,9 +674,7 @@ class RecognitionService:
             self._assert_replay(existing, request_hash)
             return existing
         self._repository.lock(
-            key=_aggregate_lock(
-                owner_user_id, source.artifact_version_id, source.recognition_kind
-            )
+            key=_aggregate_lock(owner_user_id, source.artifact_version_id, source.recognition_kind)
         )
         existing = self._repository.revision(recognition_revision_id=revision_id)
         if existing is not None:
@@ -578,9 +722,7 @@ class RecognitionService:
     def _owned_revision(
         self, owner_user_id: UUID, recognition_revision_id: UUID
     ) -> RecognitionRevision:
-        revision = self._repository.revision(
-            recognition_revision_id=recognition_revision_id
-        )
+        revision = self._repository.revision(recognition_revision_id=recognition_revision_id)
         if revision is None or revision.owner_user_id != owner_user_id:
             raise RecognitionNotFound("recognition revision was not found for this owner")
         return revision
@@ -670,6 +812,37 @@ def _question_units(*, input_sha256: str, segments: tuple) -> tuple[QuestionUnit
             "segmentation output contains no independently matchable question prompt"
         )
     return tuple(sealed)
+
+
+def _latency_ms(started: float) -> int:
+    return max(0, int((time.monotonic() - started) * 1000))
+
+
+def _processing_error_code(exc: Exception) -> str:
+    declared = getattr(exc, "code", None)
+    if isinstance(declared, str) and declared.strip():
+        normalized = declared.strip().casefold()
+        if all(character.isalnum() or character == "_" for character in normalized):
+            return normalized[:160]
+    if isinstance(exc, (TypeError, ValueError)):
+        return "recognition_output_contract_invalid"
+    return "recognition_processing_failed"
+
+
+def _failure_usage_state(
+    exc: Exception,
+    *,
+    provider_response_received: bool,
+) -> Literal["actual", "unknown", "not_dispatched"]:
+    if isinstance(exc, ProcessorNotDispatchedError):
+        return "not_dispatched"
+    if provider_response_received:
+        return "actual"
+    if isinstance(exc, ProcessorResponseError) and not isinstance(
+        exc, ProcessorDispatchUnknownError
+    ):
+        return "actual"
+    return "unknown"
 
 
 def _command_id(owner_user_id: UUID, operation: str, idempotency_key: str) -> UUID:

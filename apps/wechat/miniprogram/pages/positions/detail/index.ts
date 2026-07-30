@@ -31,6 +31,7 @@ interface PositionDetailPageCustom {
   retry(): void;
   openQualificationProfile(): void;
   openPositionsWorkspace(): void;
+  openPreparation(): void;
   confirmRequirement(event: WechatMiniprogram.BaseEvent): void;
   toggleComparison(): void;
   openComparison(): void;
@@ -134,6 +135,10 @@ Page<PositionDetailPageData, PositionDetailPageCustom>({
 
   openPositionsWorkspace() {
     void wx.redirectTo({ url: routes.positions });
+  },
+
+  openPreparation() {
+    void wx.switchTab({ url: routes.ability });
   },
 
   confirmRequirement(event) {

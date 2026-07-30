@@ -121,8 +121,7 @@ class OnboardingProgressService:
             and bool(current_row["retake"]) == command.retake
             and [int(value) for value in current_row["prior_exam_years"]]
             == command.prior_exam_years
-            and str(current_row.get("current_status") or "unspecified")
-            == command.current_status
+            and str(current_row.get("current_status") or "unspecified") == command.current_status
         )
         if current_is_same:
             experience = self._repository.current_experience(session, user_id=user_id)
@@ -440,27 +439,52 @@ class OnboardingProgressService:
                 "当前国考岗位发布或目标分证据不可用。",
             ) from exc
 
-        goal = session.execute(
-            text(
-                """
+        goal = (
+            session.execute(
+                text(
+                    """
                 select goal.goal_version_id::text as goal_version_id,
                        goal.position_id::text as position_id,
                        goal.position_data_version,
-                       position.name as position_name,
-                       position.department_full as department_name
-                from learner.position_goal_versions goal
+                       case when position_snapshot.snapshot_id is not null
+                         then position_snapshot.name else legacy_position.name
+                       end as position_name,
+                       case when position_snapshot.snapshot_id is not null
+                         then position_snapshot.department_full
+                         else legacy_position.department_full
+                       end as department_name
+                from learner.current_primary_position_goals goal
                 join learner.profiles profile on profile.user_id = goal.user_id
-                join product.positions position on position.position_id = goal.position_id
+                left join product.position_import_batches import_batch
+                  on import_batch.position_data_version
+                       = goal.position_data_version
+                left join product.position_snapshots position_snapshot
+                  on position_snapshot.position_id = goal.position_id
+                 and position_snapshot.position_data_version
+                       = goal.position_data_version
+                left join product.positions legacy_position
+                  on legacy_position.position_id = goal.position_id
+                 and import_batch.position_data_version is null
                 where goal.user_id = cast(:user_id as uuid)
-                  and goal.role = 'primary'
-                  and goal.status = 'confirmed'
                   and goal.learner_profile_version = profile.profile_version
-                  and position.year = :exam_year
+                  and goal.position_data_version = :position_data_version
+                  and goal.target_score_valid_until =
+                        :current_window_closes_at
+                  and coalesce(position_snapshot.year, legacy_position.year)
+                        = :exam_year
                 limit 1
                 """
-            ),
-            {"user_id": user_id, "exam_year": context.release.exam_year},
-        ).mappings().one_or_none()
+                ),
+                {
+                    "user_id": user_id,
+                    "exam_year": context.release.exam_year,
+                    "position_data_version": context.release.position_data_version,
+                    "current_window_closes_at": context.valid_until,
+                },
+            )
+            .mappings()
+            .one_or_none()
+        )
         try:
             ability = AbilityEstimateService().get_current(
                 session,
@@ -480,13 +504,25 @@ class OnboardingProgressService:
                         select count(distinct snapshot.position_id)
                         from learner.eligibility_snapshots snapshot
                         join learner.profiles profile on profile.user_id = snapshot.user_id
-                        join product.positions position on position.position_id = snapshot.position_id
+                        left join product.position_import_batches import_batch
+                          on import_batch.position_data_version
+                               = snapshot.position_data_version
+                        left join product.position_snapshots position_snapshot
+                          on position_snapshot.position_id = snapshot.position_id
+                         and position_snapshot.position_data_version
+                               = snapshot.position_data_version
+                        left join product.positions legacy_position
+                          on legacy_position.position_id = snapshot.position_id
+                         and import_batch.position_data_version is null
                         where snapshot.user_id = cast(:user_id as uuid)
                           and snapshot.status = 'eligible'
                           and snapshot.learner_profile_version = profile.profile_version
                           and snapshot.rule_set_version = :rule_set_version
                           and snapshot.position_data_version = :position_data_version
-                          and position.year = :exam_year
+                          and coalesce(
+                            position_snapshot.year,
+                            legacy_position.year
+                          ) = :exam_year
                         """
                     ),
                     {
@@ -499,14 +535,10 @@ class OnboardingProgressService:
             )
             return OnboardingResultProjection(
                 status=(
-                    "position_selection_required"
-                    if eligible_count > 0
-                    else "no_eligible_position"
+                    "position_selection_required" if eligible_count > 0 else "no_eligible_position"
                 ),
                 reason_code=(
-                    "primary_goal_missing"
-                    if eligible_count > 0
-                    else "no_current_eligible_position"
+                    "primary_goal_missing" if eligible_count > 0 else "no_current_eligible_position"
                 ),
                 progress_version=progress.progress_version,
                 qualification_profile_version=progress.qualification_profile_version,
@@ -561,8 +593,7 @@ class OnboardingProgressService:
                 generated_at=generated_at,
                 valid_until=(
                     min(target_score.valid_until, ability.estimate.valid_until)
-                    if ability.estimate is not None
-                    and ability.readiness != "stale"
+                    if ability.estimate is not None and ability.readiness != "stale"
                     else target_score.valid_until
                 ),
             )
@@ -664,8 +695,7 @@ class OnboardingProgressService:
         current_is_same = bool(
             current_row is not None
             and bool(current_row["confirmed"])
-            and str(current_row["input_fingerprint"])
-            == payload_fingerprint(preference_payload)
+            and str(current_row["input_fingerprint"]) == payload_fingerprint(preference_payload)
         )
         if current_is_same:
             preference = self._repository.current_preference(session, user_id=user_id)
@@ -688,12 +718,9 @@ class OnboardingProgressService:
             )
             preference_changed = True
 
-        progress_changed = (
-            not progress.completed
-            and (
-                not progress.study_preference_ready
-                or progress.study_preference_version != preference.preference_version
-            )
+        progress_changed = not progress.completed and (
+            not progress.study_preference_ready
+            or progress.study_preference_version != preference.preference_version
         )
         before_version = progress.progress_version
         if progress_changed:

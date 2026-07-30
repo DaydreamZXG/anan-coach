@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "entry": "pages/login/index",
   "businessPages": [
     "pages/login/index",
@@ -63,14 +63,7 @@
     "pages/ability-module/index",
     "pages/error-pattern/index"
   ],
-  "assetEntryPages": [
-    "packages/anan-thinking/asset-entry/index",
-    "packages/anan-reminder/asset-entry/index",
-    "packages/anan-encouragement/asset-entry/index",
-    "packages/anan-rest/asset-entry/index",
-    "packages/anan-deprioritize/asset-entry/index",
-    "packages/anan-growth/asset-entry/index"
-  ],
+  "assetEntryPages": [],
   "tabs": [
     {
       "pagePath": "pages/today/index",

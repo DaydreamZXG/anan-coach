@@ -7,13 +7,17 @@ from collections.abc import Callable
 from datetime import UTC, datetime, timedelta
 
 from app.core.config import get_settings
-from app.db.session import get_session_factory
+from app.db.session import (
+    get_session_factory,
+    get_worker_heartbeat_session_factory,
+)
 from app.domains.ilink_channel.crypto import ILinkIdentityCipher
 from app.domains.ilink_channel.protocol import ILinkProtocolClient, ILinkProtocolError
 from app.domains.ilink_channel.repository import ILinkRepository
 from app.domains.ilink_channel.resolver import PhotoResolutionError, TosTransientImageStore
 from app.domains.ilink_channel.settings import ILinkSettings
 from app.domains.ilink_channel.workflow import ILinkPhotoWorkflow
+from app.platform.jobs import JobConsumerHeartbeatRuntime
 
 
 LOGGER = logging.getLogger("gongkao.ilink")
@@ -29,6 +33,10 @@ class ILinkWorker:
         )
         self._storage = TosTransientImageStore(get_settings())
         self._sessions = get_session_factory()
+        self._heartbeat_sessions = get_worker_heartbeat_session_factory(
+            consumer_unit="gongkao-dazi-ilink-worker",
+            consumer_entrypoint="app.workers.ilink_channel",
+        )
         self._cipher = ILinkIdentityCipher(
             encryption_key=self._settings.encryption_key_bytes(),
             hmac_key=self._settings.identity_hmac_key,
@@ -41,6 +49,14 @@ class ILinkWorker:
         self._stop.set()
 
     def run(self) -> None:
+        with JobConsumerHeartbeatRuntime(
+            session_factory=self._heartbeat_sessions,
+            consumer_unit="gongkao-dazi-ilink-worker",
+            consumer_entrypoint="app.workers.ilink_channel",
+        ):
+            self._run_loop()
+
+    def _run_loop(self) -> None:
         failures = 0
         self._recover_object_deletions()
         while not self._stop.is_set():
@@ -53,9 +69,7 @@ class ILinkWorker:
                     if self._stop.is_set():
                         return
                     with self._sessions() as session:
-                        self._workflow.process(
-                            session, message=message, client=self._client
-                        )
+                        self._workflow.process(session, message=message, client=self._client)
                 self._save_cursor(batch.updates_buf)
                 self._drain_object_deletions()
                 failures = 0
@@ -78,14 +92,12 @@ class ILinkWorker:
         with self._sessions() as session:
             repository = ILinkRepository(session)
             stale_count = repository.expire_stale_processing(
-                before=now
-                - timedelta(seconds=self._settings.transient_retention_seconds),
+                before=now - timedelta(seconds=self._settings.transient_retention_seconds),
                 limit=200,
                 now=now,
             )
             answered_count = repository.expire_answered_transients(
-                before=now
-                - timedelta(seconds=self._settings.transient_retention_seconds),
+                before=now - timedelta(seconds=self._settings.transient_retention_seconds),
                 limit=200,
                 now=now,
             )
@@ -105,9 +117,7 @@ class ILinkWorker:
 
     def _load_cursor(self) -> str:
         with self._sessions() as session:
-            row = ILinkRepository(session).cursor(
-                bot_account_id=self._settings.bot_account_id
-            )
+            row = ILinkRepository(session).cursor(bot_account_id=self._settings.bot_account_id)
             if row is None:
                 return ""
             return self._cipher.decrypt(
@@ -129,9 +139,7 @@ class ILinkWorker:
 
     def _drain_object_deletions(self) -> None:
         with self._sessions() as session:
-            claims = ILinkRepository(session).claim_object_deletions(
-                limit=20, now=self._clock()
-            )
+            claims = ILinkRepository(session).claim_object_deletions(limit=20, now=self._clock())
             session.commit()
         for claim in claims:
             try:
@@ -156,9 +164,7 @@ class ILinkWorker:
 
     def _recover_object_deletions(self) -> int:
         with self._sessions() as session:
-            recovered = ILinkRepository(session).recover_stale_object_deletions(
-                now=self._clock()
-            )
+            recovered = ILinkRepository(session).recover_stale_object_deletions(now=self._clock())
             session.commit()
         if recovered:
             LOGGER.warning(
@@ -169,9 +175,7 @@ class ILinkWorker:
 
     def _clear_cursor(self) -> None:
         with self._sessions() as session:
-            ILinkRepository(session).clear_cursor(
-                bot_account_id=self._settings.bot_account_id
-            )
+            ILinkRepository(session).clear_cursor(bot_account_id=self._settings.bot_account_id)
             session.commit()
 
 

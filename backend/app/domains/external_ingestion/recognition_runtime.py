@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+from collections.abc import Callable
 import json
 from urllib.parse import urlsplit
 
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, sessionmaker
 
 from app.core.config import Settings
 from app.domains.ai.external_processing import endpoint_fingerprint
@@ -15,6 +16,9 @@ from app.domains.external_ingestion.recognition.modal_paddle import (
     ModalPaddleOCRRecognitionProcessor,
 )
 from app.domains.external_ingestion.recognition.models import ProcessorApproval
+from app.domains.external_ingestion.recognition.operations import (
+    SQLRecognitionOperationCoordinator,
+)
 from app.domains.external_ingestion.recognition.processor import (
     HTTPRecognitionProcessor,
     ProcessorRegistry,
@@ -24,7 +28,12 @@ from app.domains.external_ingestion.recognition.service import RecognitionServic
 from app.internal_services.private_objects import PrivateObjectReader
 
 
-def build_recognition_service(*, session: Session, settings: Settings) -> RecognitionService:
+def build_recognition_service(
+    *,
+    session: Session,
+    settings: Settings,
+    operation_session_factory: Callable[[], Session] | None = None,
+) -> RecognitionService:
     if not settings.recognition_processor_enabled:
         raise ProcessorConfigurationError("recognition processor is not enabled")
     endpoint = _approved_endpoint(settings)
@@ -39,8 +48,17 @@ def build_recognition_service(*, session: Session, settings: Settings) -> Recogn
         ) from exc
     adapter = settings.recognition_processor_adapter.strip().casefold()
     if any(approval.transport_security != "tls" for approval in approvals):
+        raise ProcessorConfigurationError("recognition approvals must require TLS")
+    expected_request_id_source = {
+        "private_contract": "body:providerRequestId",
+        "grok_vision_chat_completions": "body:id",
+        "modal_paddle_ocr": "X-Request-ID",
+    }.get(adapter)
+    if expected_request_id_source is not None and any(
+        approval.provider_request_id_source != expected_request_id_source for approval in approvals
+    ):
         raise ProcessorConfigurationError(
-            "recognition approvals must require TLS"
+            "recognition provider request identity source does not match its adapter"
         )
     if adapter == "private_contract":
         processor = HTTPRecognitionProcessor(
@@ -50,8 +68,7 @@ def build_recognition_service(*, session: Session, settings: Settings) -> Recogn
         )
     elif adapter == "grok_vision_chat_completions":
         if any(
-            approval.model_release
-            != settings.recognition_processor_actual_model.strip()
+            approval.model_release != settings.recognition_processor_actual_model.strip()
             for approval in approvals
         ):
             raise ProcessorConfigurationError(
@@ -90,13 +107,20 @@ def build_recognition_service(*, session: Session, settings: Settings) -> Recogn
             maximum_output_bytes=settings.recognition_processor_max_output_bytes,
         )
     else:
-        raise ProcessorConfigurationError(
-            "RECOGNITION_PROCESSOR_ADAPTER is unsupported"
+        raise ProcessorConfigurationError("RECOGNITION_PROCESSOR_ADAPTER is unsupported")
+    if operation_session_factory is None:
+        operation_session_factory = sessionmaker(
+            bind=session.get_bind(),
+            autoflush=False,
+            autocommit=False,
+            expire_on_commit=False,
+            future=True,
         )
     return RecognitionService(
-        repository=SQLRecognitionRepository(
-            session,
-            environment=settings.environment,
+        repository=SQLRecognitionRepository(session),
+        operations=SQLRecognitionOperationCoordinator(
+            session_factory=operation_session_factory,
+            settings=settings,
             processor_endpoint_fingerprint=endpoint_fingerprint(endpoint),
         ),
         processors=ProcessorRegistry(
@@ -140,9 +164,7 @@ def _approved_endpoint(settings: Settings) -> str:
         and not parsed.fragment
     )
     if not structurally_valid:
-        raise ProcessorConfigurationError(
-            "recognition processor endpoint is not an approved host"
-        )
+        raise ProcessorConfigurationError("recognition processor endpoint is not an approved host")
     if parsed.scheme.casefold() != "https":
         raise ProcessorConfigurationError(
             "recognition processor must use HTTPS for learner content"

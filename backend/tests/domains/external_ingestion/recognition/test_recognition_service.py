@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime, timedelta
+from decimal import Decimal
 from uuid import UUID
 
 import pytest
@@ -10,6 +11,8 @@ from app.domains.external_ingestion.recognition.errors import (
     ProcessorNotApproved,
     RecognitionIdempotencyConflict,
     RecognitionNotFound,
+    RecognitionOperationPersistenceError,
+    RecognitionOperationReconciliationRequired,
     RecognitionTransitionError,
     RecognitionVersionConflict,
 )
@@ -24,6 +27,9 @@ from app.domains.external_ingestion.recognition.models import (
     TextSpan,
 )
 from app.domains.external_ingestion.recognition.processor import ProcessorRegistry
+from app.domains.external_ingestion.recognition.operation_contracts import (
+    RecognitionOperationState,
+)
 from app.domains.external_ingestion.recognition.service import RecognitionService
 from app.domains.external_ingestion.recognition.service import _question_units
 
@@ -48,8 +54,9 @@ class Repo:
             )
         }
         self.revisions = {}
+        self.insert_failures = 0
         self.locks: list[str] = []
-        self.operations: list[dict[str, object]] = []
+        self.operations = Operations(self)
 
     def lock(self, *, key: str) -> None:
         self.locks.append(key)
@@ -71,18 +78,116 @@ class Repo:
         return max(matches, key=lambda item: item.revision_no, default=None)
 
     def insert(self, revision):
+        if self.insert_failures > 0:
+            self.insert_failures -= 1
+            raise RuntimeError("revision persistence failed")
         if revision.recognition_revision_id in self.revisions:
             raise AssertionError("duplicate recognition revision")
         self.revisions[revision.recognition_revision_id] = revision
 
-    def record_external_operation(self, *, values):
-        self.operations.append(dict(values))
+
+class Operations:
+    def __init__(self, repository: Repo) -> None:
+        self.repository = repository
+        self.rows = {}
+        self.receipts: list[UUID] = []
+        self.quota_states: dict[UUID, str] = {}
+        self.quota_transitions: list[tuple[UUID, str]] = []
+        self.fail_persistence_errors = 0
+
+    def begin(self, *, spec):
+        existing = self.rows.get(spec.operation_id)
+        if existing is not None:
+            if existing["spec"].request_hash != spec.request_hash:
+                raise RecognitionIdempotencyConflict("recognition idempotency key request changed")
+            return self._state(spec.operation_id, created=False)
+        self.rows[spec.operation_id] = {
+            "spec": spec,
+            "status": "running",
+            "usage_state": "planned",
+            "output_fingerprint": None,
+            "error_code": None,
+            "total_cost_cny": None,
+        }
+        self.receipts.append(spec.operation_id)
+        self.quota_states[spec.operation_id] = "reserved"
+        return self._state(spec.operation_id, created=True)
+
+    def succeed(
+        self,
+        *,
+        operation_id,
+        revision,
+        output_fingerprint,
+        latency_ms,
+        completed_at,
+    ):
+        row = self.rows[operation_id]
+        if row["status"] == "running":
+            self.repository.insert(revision)
+            row.update(
+                status="succeeded",
+                usage_state="actual",
+                output_fingerprint=output_fingerprint,
+                total_cost_cny=Decimal("0.01"),
+                latency_ms=latency_ms,
+                completed_at=completed_at,
+            )
+            self.quota_states[operation_id] = "consumed"
+            self.quota_transitions.append((operation_id, "consumed"))
+        return self._state(operation_id, created=False)
+
+    def fail(
+        self,
+        *,
+        operation_id,
+        error_code,
+        usage_state,
+        latency_ms,
+        completed_at,
+    ):
+        if self.fail_persistence_errors > 0:
+            self.fail_persistence_errors -= 1
+            raise RuntimeError("terminal database unavailable")
+        row = self.rows[operation_id]
+        if row["status"] == "running":
+            terminal_status = "outcome_unknown" if usage_state == "unknown" else "failed"
+            row.update(
+                status=terminal_status,
+                usage_state=usage_state,
+                total_cost_cny=(
+                    Decimal("0.01")
+                    if usage_state == "actual"
+                    else Decimal("0")
+                    if usage_state == "not_dispatched"
+                    else None
+                ),
+                error_code=error_code,
+                latency_ms=latency_ms,
+                completed_at=completed_at,
+            )
+            self.quota_states[operation_id] = "refunded"
+            self.quota_transitions.append((operation_id, "refunded"))
+        return self._state(operation_id, created=False)
+
+    def _state(self, operation_id: UUID, *, created: bool):
+        row = self.rows[operation_id]
+        spec = row["spec"]
+        return RecognitionOperationState(
+            operation_id=operation_id,
+            operation_key=spec.operation_key,
+            status=row["status"],
+            usage_state=row["usage_state"],
+            created=created,
+        )
 
 
 class Processor:
-    def __init__(self, *, failures: int = 0) -> None:
+    def __init__(self, *, failures: int = 0, malformed_results: int = 0) -> None:
         self.failures = failures
+        self.malformed_results = malformed_results
         self.calls = 0
+        self.requests = []
 
     @property
     def provider_release(self):
@@ -90,11 +195,15 @@ class Processor:
 
     def process(self, request):
         self.calls += 1
+        self.requests.append(request)
         if self.calls <= self.failures:
-            raise RuntimeError("provider unavailable")
+            raise TimeoutError("provider accepted the request and then timed out")
+        malformed = self.calls <= self.failures + self.malformed_results
         return ProcessorResult(
             providerRequestId=f"provider-request-{self.calls}",
-            textSpans=(
+            textSpans=()
+            if malformed
+            else (
                 TextSpan(
                     spanId="span-1",
                     text="下列说法正确的是",
@@ -125,6 +234,12 @@ def approval(*, valid_until: datetime = NOW + timedelta(days=30)) -> ProcessorAp
         dpaEvidenceRef="dpa:ocr:2026",
         securityReviewRef="security-review:ocr:2026-07",
         approvalReceiptRef="approval:ocr:2026-07",
+        providerIdempotencyCapability="replayable_queryable",
+        providerIdempotencyScope="provider_account",
+        providerIdempotencyKeyHeader="Idempotency-Key",
+        providerRequestIdSource="body:providerRequestId",
+        providerReplayRetentionSeconds=604_800,
+        providerIdempotencyEvidenceRef="provider-contract:ocr:2026-07",
         validFrom=NOW - timedelta(days=1),
         validUntil=valid_until,
     )
@@ -133,6 +248,7 @@ def approval(*, valid_until: datetime = NOW + timedelta(days=30)) -> ProcessorAp
 def service(repo: Repo, processor: Processor, *, approval_value=None) -> RecognitionService:
     return RecognitionService(
         repository=repo,
+        operations=repo.operations,
         processors=ProcessorRegistry(
             (approval_value or approval(),), {"private-ocr-primary": processor}
         ),
@@ -170,9 +286,7 @@ def test_candidate_is_immutable_and_cannot_affect_learning_until_user_confirmati
     assert confirmed.revision_no == 2
     assert confirmed.recognition_revision_id != candidate.recognition_revision_id
     assert before.allowed is False
-    assert not any(
-        (before.may_affect_ability, before.may_affect_cause, before.may_affect_plan)
-    )
+    assert not any((before.may_affect_ability, before.may_affect_cause, before.may_affect_plan))
     assert after.allowed is True
     assert all((after.may_affect_ability, after.may_affect_cause, after.may_affect_plan))
 
@@ -188,6 +302,39 @@ def test_recognition_replay_returns_same_revision_without_recalling_provider() -
     assert replay == first
     assert processor.calls == 1
     assert len(repo.revisions) == 1
+
+
+def test_provider_replay_key_is_server_namespaced_and_cross_owner_isolated() -> None:
+    first_repo = Repo()
+    first_processor = Processor()
+    recognize(service(first_repo, first_processor), key="client-reused-key")
+
+    second_repo = Repo()
+    second_repo.artifacts[(ARTIFACT, OTHER)] = ArtifactInput(
+        artifactVersionId=ARTIFACT,
+        ownerUserId=OTHER,
+        state="available",
+        sourceKind="camera_image",
+        objectRef="tos://private/user-202/artifact-301",
+        mimeType="image/jpeg",
+        contentSha256="2" * 64,
+    )
+    second_processor = Processor()
+    second_pipeline = service(second_repo, second_processor)
+    second_pipeline.recognize(
+        owner_user_id=OTHER,
+        artifact_version_id=ARTIFACT,
+        recognition_kind=RecognitionKind.PRINTED_OCR,
+        processor_route="private-ocr-primary",
+        idempotency_key="client-reused-key",
+    )
+
+    first_key = first_processor.requests[0].idempotency_key
+    second_key = second_processor.requests[0].idempotency_key
+    assert first_key.startswith("ocr-v1-")
+    assert second_key.startswith("ocr-v1-")
+    assert "client-reused-key" not in first_key
+    assert first_key != second_key
 
 
 def test_same_idempotency_key_with_changed_request_is_rejected() -> None:
@@ -206,18 +353,57 @@ def test_same_idempotency_key_with_changed_request_is_rejected() -> None:
         )
 
 
-def test_provider_failure_writes_nothing_and_retry_recovers() -> None:
+@pytest.mark.parametrize("failure_mode", ["accepted_timeout", "malformed_response"])
+def test_initial_provider_failure_closes_terminal_and_same_key_never_redispatches(
+    failure_mode: str,
+) -> None:
     repo = Repo()
+    processor = Processor(
+        failures=1 if failure_mode == "accepted_timeout" else 0,
+        malformed_results=1 if failure_mode == "malformed_response" else 0,
+    )
+    pipeline = service(repo, processor)
+
+    expected_error = TimeoutError if failure_mode == "accepted_timeout" else ValueError
+    with pytest.raises(expected_error):
+        recognize(pipeline)
+    assert repo.revisions == {}
+    operation_id = next(iter(repo.operations.rows))
+    operation = repo.operations.rows[operation_id]
+    assert operation["status"] == (
+        "outcome_unknown" if failure_mode == "accepted_timeout" else "failed"
+    )
+    expected_usage_state = "unknown" if failure_mode == "accepted_timeout" else "actual"
+    assert operation["usage_state"] == expected_usage_state
+    assert operation["total_cost_cny"] == (
+        None if failure_mode == "accepted_timeout" else Decimal("0.01")
+    )
+    assert operation["output_fingerprint"] is None
+    assert repo.operations.receipts == [operation_id]
+    assert repo.operations.quota_states[operation_id] == "refunded"
+
+    with pytest.raises(RecognitionOperationReconciliationRequired):
+        recognize(pipeline)
+    assert processor.calls == 1
+    assert repo.operations.quota_transitions.count((operation_id, "refunded")) == 1
+
+
+def test_initial_running_operation_fails_closed_when_terminal_write_is_unavailable() -> None:
+    repo = Repo()
+    repo.operations.fail_persistence_errors = 1
     processor = Processor(failures=1)
     pipeline = service(repo, processor)
 
-    with pytest.raises(RuntimeError, match="provider unavailable"):
-        recognize(pipeline)
-    assert repo.revisions == {}
+    with pytest.raises(RecognitionOperationPersistenceError):
+        recognize(pipeline, key="recognize-running-unknown")
+    operation_id = next(iter(repo.operations.rows))
+    assert repo.operations.rows[operation_id]["status"] == "running"
+    assert repo.operations.rows[operation_id]["usage_state"] == "planned"
+    assert repo.operations.quota_states[operation_id] == "reserved"
 
-    recovered = recognize(pipeline)
-    assert recovered.state == CandidateState.CANDIDATE
-    assert processor.calls == 2
+    with pytest.raises(RecognitionOperationReconciliationRequired):
+        recognize(pipeline, key="recognize-running-unknown")
+    assert processor.calls == 1
 
 
 @pytest.mark.parametrize(
@@ -225,15 +411,19 @@ def test_provider_failure_writes_nothing_and_retry_recovers() -> None:
     [
         (ProcessorRegistry((), {}), "not fully approved"),
         (
-            ProcessorRegistry(
-                (approval(valid_until=NOW),), {"private-ocr-primary": Processor()}
-            ),
+            ProcessorRegistry((approval(valid_until=NOW),), {"private-ocr-primary": Processor()}),
             "outside its approved",
         ),
     ],
 )
 def test_unconfigured_or_expired_processor_fails_closed(registry, expected) -> None:
-    pipeline = RecognitionService(repository=Repo(), processors=registry, clock=lambda: NOW)
+    repo = Repo()
+    pipeline = RecognitionService(
+        repository=repo,
+        operations=repo.operations,
+        processors=registry,
+        clock=lambda: NOW,
+    )
 
     with pytest.raises(ProcessorNotApproved, match=expected):
         recognize(pipeline)
@@ -301,11 +491,7 @@ def test_new_correction_revokes_old_confirmed_revision_current_authority() -> No
     )
     payload = RecognitionCandidatePayload.model_validate(confirmed.candidate_payload)
     corrected_input = payload.model_copy(
-        update={
-            "text_spans": (
-                payload.text_spans[0].model_copy(update={"text": "修订后的题干"}),
-            )
-        }
+        update={"text_spans": (payload.text_spans[0].model_copy(update={"text": "修订后的题干"}),)}
     )
 
     corrected = pipeline.correct(
@@ -340,6 +526,7 @@ def test_expired_candidate_cannot_be_confirmed_or_admitted() -> None:
     processor = Processor()
     pipeline = RecognitionService(
         repository=repo,
+        operations=repo.operations,
         processors=ProcessorRegistry((approval(),), {"private-ocr-primary": processor}),
         clock=lambda: NOW,
         candidate_ttl=timedelta(seconds=1),
@@ -347,6 +534,7 @@ def test_expired_candidate_cannot_be_confirmed_or_admitted() -> None:
     candidate = recognize(pipeline)
     later = RecognitionService(
         repository=repo,
+        operations=repo.operations,
         processors=ProcessorRegistry((approval(),), {"private-ocr-primary": processor}),
         clock=lambda: NOW + timedelta(seconds=2),
     )
@@ -378,6 +566,176 @@ def test_expired_candidate_cannot_be_confirmed_or_admitted() -> None:
     assert recovered.revision_no == 2
     assert recovered.expires_at > NOW + timedelta(seconds=2)
     assert replay == recovered
+
+
+@pytest.mark.parametrize("failure_mode", ["accepted_timeout", "malformed_response"])
+def test_reprocess_provider_failure_closes_terminal_and_same_key_never_redispatches(
+    failure_mode: str,
+) -> None:
+    repo = Repo()
+    initial_processor = Processor()
+    initial = RecognitionService(
+        repository=repo,
+        operations=repo.operations,
+        processors=ProcessorRegistry((approval(),), {"private-ocr-primary": initial_processor}),
+        clock=lambda: NOW,
+        candidate_ttl=timedelta(seconds=1),
+    )
+    source = recognize(initial, key="recognize-before-reprocess-failure")
+    processor = Processor(
+        failures=1 if failure_mode == "accepted_timeout" else 0,
+        malformed_results=1 if failure_mode == "malformed_response" else 0,
+    )
+    later = RecognitionService(
+        repository=repo,
+        operations=repo.operations,
+        processors=ProcessorRegistry((approval(),), {"private-ocr-primary": processor}),
+        clock=lambda: NOW + timedelta(seconds=2),
+    )
+
+    expected_error = TimeoutError if failure_mode == "accepted_timeout" else ValueError
+    with pytest.raises(expected_error):
+        later.reprocess(
+            owner_user_id=OWNER,
+            recognition_revision_id=source.recognition_revision_id,
+            expected_revision_no=1,
+            processor_route="private-ocr-primary",
+            idempotency_key="reprocess-provider-failure",
+        )
+    failed = [
+        (operation_id, row)
+        for operation_id, row in repo.operations.rows.items()
+        if row["status"] == ("outcome_unknown" if failure_mode == "accepted_timeout" else "failed")
+    ]
+    assert len(failed) == 1
+    operation_id, operation = failed[0]
+    expected_usage_state = "unknown" if failure_mode == "accepted_timeout" else "actual"
+    assert operation["usage_state"] == expected_usage_state
+    assert operation["total_cost_cny"] == (
+        None if failure_mode == "accepted_timeout" else Decimal("0.01")
+    )
+    assert repo.operations.quota_states[operation_id] == "refunded"
+
+    with pytest.raises(RecognitionOperationReconciliationRequired):
+        later.reprocess(
+            owner_user_id=OWNER,
+            recognition_revision_id=source.recognition_revision_id,
+            expected_revision_no=1,
+            processor_route="private-ocr-primary",
+            idempotency_key="reprocess-provider-failure",
+        )
+    assert processor.calls == 1
+    assert repo.operations.quota_transitions.count((operation_id, "refunded")) == 1
+
+
+@pytest.mark.parametrize("command", ["recognize", "reprocess"])
+def test_post_provider_revision_persistence_failure_is_actual_and_never_redispatches(
+    command: str,
+) -> None:
+    repo = Repo()
+    source = None
+    if command == "reprocess":
+        source_pipeline = RecognitionService(
+            repository=repo,
+            operations=repo.operations,
+            processors=ProcessorRegistry((approval(),), {"private-ocr-primary": Processor()}),
+            clock=lambda: NOW,
+            candidate_ttl=timedelta(seconds=1),
+        )
+        source = recognize(
+            source_pipeline,
+            key="recognize-before-revision-persistence-failure",
+        )
+
+    repo.insert_failures = 1
+    processor = Processor()
+    pipeline = RecognitionService(
+        repository=repo,
+        operations=repo.operations,
+        processors=ProcessorRegistry((approval(),), {"private-ocr-primary": processor}),
+        clock=lambda: NOW + timedelta(seconds=2),
+    )
+
+    def dispatch() -> None:
+        if command == "recognize":
+            recognize(pipeline, key="recognize-revision-persistence-failure")
+            return
+        assert source is not None
+        pipeline.reprocess(
+            owner_user_id=OWNER,
+            recognition_revision_id=source.recognition_revision_id,
+            expected_revision_no=1,
+            processor_route="private-ocr-primary",
+            idempotency_key="reprocess-revision-persistence-failure",
+        )
+
+    with pytest.raises(RecognitionOperationPersistenceError):
+        dispatch()
+
+    failed = [
+        (operation_id, row)
+        for operation_id, row in repo.operations.rows.items()
+        if row["status"] == "failed"
+    ]
+    assert len(failed) == 1
+    operation_id, operation = failed[0]
+    assert operation["usage_state"] == "actual"
+    assert operation["total_cost_cny"] == Decimal("0.01")
+    assert operation["output_fingerprint"] is None
+    assert repo.operations.quota_states[operation_id] == "refunded"
+    assert repo.operations.quota_transitions.count((operation_id, "refunded")) == 1
+
+    with pytest.raises(RecognitionOperationReconciliationRequired):
+        dispatch()
+    assert processor.calls == 1
+
+
+def test_reprocess_running_operation_fails_closed_when_terminal_write_is_unavailable() -> None:
+    repo = Repo()
+    initial = RecognitionService(
+        repository=repo,
+        operations=repo.operations,
+        processors=ProcessorRegistry((approval(),), {"private-ocr-primary": Processor()}),
+        clock=lambda: NOW,
+        candidate_ttl=timedelta(seconds=1),
+    )
+    source = recognize(initial, key="recognize-before-running-reprocess")
+    repo.operations.fail_persistence_errors = 1
+    processor = Processor(failures=1)
+    later = RecognitionService(
+        repository=repo,
+        operations=repo.operations,
+        processors=ProcessorRegistry((approval(),), {"private-ocr-primary": processor}),
+        clock=lambda: NOW + timedelta(seconds=2),
+    )
+
+    with pytest.raises(RecognitionOperationPersistenceError):
+        later.reprocess(
+            owner_user_id=OWNER,
+            recognition_revision_id=source.recognition_revision_id,
+            expected_revision_no=1,
+            processor_route="private-ocr-primary",
+            idempotency_key="reprocess-running-unknown",
+        )
+    running = [
+        (operation_id, row)
+        for operation_id, row in repo.operations.rows.items()
+        if row["status"] == "running"
+    ]
+    assert len(running) == 1
+    operation_id, operation = running[0]
+    assert operation["usage_state"] == "planned"
+    assert repo.operations.quota_states[operation_id] == "reserved"
+
+    with pytest.raises(RecognitionOperationReconciliationRequired):
+        later.reprocess(
+            owner_user_id=OWNER,
+            recognition_revision_id=source.recognition_revision_id,
+            expected_revision_no=1,
+            processor_route="private-ocr-primary",
+            idempotency_key="reprocess-running-unknown",
+        )
+    assert processor.calls == 1
 
 
 def test_text_span_ids_are_unique_and_segment_refs_must_resolve() -> None:
@@ -419,9 +777,7 @@ def test_text_span_ids_are_unique_and_segment_refs_must_resolve() -> None:
             {
                 **base,
                 "segments": (
-                    base["segments"][0].model_copy(
-                        update={"text_span_refs": ("missing-span",)}
-                    ),
+                    base["segments"][0].model_copy(update={"text_span_refs": ("missing-span",)}),
                 ),
             }
         )

@@ -72,16 +72,24 @@ def test_reported_score_creates_complete_version_and_is_immutable_idempotent(
     assert changed.status_code == 409
 
     with db_session_factory() as session:
-        assert session.execute(text("select count(*) from learning.score_evidence")).scalar_one() == 1
-        assert session.execute(
-            text("select count(*) from learning.ability_estimate_versions")
-        ).scalar_one() == 1
-        assert session.execute(
-            text(
-                "select count(*) from platform.outbox_events "
-                "where event_type = 'ability_estimate.changed'"
-            )
-        ).scalar_one() == 1
+        assert (
+            session.execute(text("select count(*) from learning.score_evidence")).scalar_one() == 1
+        )
+        assert (
+            session.execute(
+                text("select count(*) from learning.ability_estimate_versions")
+            ).scalar_one()
+            == 1
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from platform.outbox_events "
+                    "where event_type = 'ability_estimate.changed'"
+                )
+            ).scalar_one()
+            == 1
+        )
 
 
 def test_partial_components_become_one_versioned_total_estimate(
@@ -249,10 +257,15 @@ def test_unverified_single_question_ai_review_never_becomes_score_or_gap_evidenc
         "missingComponents": ["xingce", "shenlun"],
     }
     with db_session_factory() as session:
-        assert session.execute(text("select count(*) from learning.score_evidence")).scalar_one() == 0
-        assert session.execute(
-            text("select count(*) from learning.ability_estimate_versions")
-        ).scalar_one() == 0
+        assert (
+            session.execute(text("select count(*) from learning.score_evidence")).scalar_one() == 0
+        )
+        assert (
+            session.execute(
+                text("select count(*) from learning.ability_estimate_versions")
+            ).scalar_one()
+            == 0
+        )
 
 
 def test_reported_score_endpoint_rejects_ai_review_as_an_evidence_source(
@@ -418,9 +431,10 @@ def test_concurrent_evidence_updates_serialize_into_one_complete_latest_input_se
             future.result()
 
     with db_session_factory() as session:
-        latest = session.execute(
-            text(
-                """
+        latest = (
+            session.execute(
+                text(
+                    """
                 select status, source_evidence_ids, evidence_summary
                 from learning.ability_estimate_versions
                 where user_id = cast(:user_id as uuid)
@@ -432,9 +446,12 @@ def test_concurrent_evidence_updates_serialize_into_one_complete_latest_input_se
                   )
                 limit 1
                 """
-            ),
-            {"user_id": user_id},
-        ).mappings().one()
+                ),
+                {"user_id": user_id},
+            )
+            .mappings()
+            .one()
+        )
     assert latest["status"] == "complete"
     assert len(latest["source_evidence_ids"]) == 2
     assert latest["evidence_summary"]["evidenceCount"] == 2
@@ -743,19 +760,12 @@ def test_idempotent_replay_uses_original_exam_release_after_active_year_changes(
                 """
             )
         )
-        session.execute(
-            text(
-                """
-                insert into product.position_rule_releases (
-                  release_id, exam_code, exam_year, rule_set_version,
-                  position_data_version, status, activated_at
-                ) values (
-                  :release_id, 'guokao', 2027, 'rules-v2', 'positions-v2',
-                  'active', :activated_at
-                )
-                """
-            ),
-            {"release_id": str(uuid4()), "activated_at": NOW + timedelta(days=1)},
+        _insert_active_release(
+            session,
+            exam_year=2027,
+            rule_set_version="rules-v2",
+            position_data_version="positions-v2",
+            activated_at=NOW + timedelta(days=1),
         )
 
     replay = client.post(
@@ -766,19 +776,14 @@ def test_idempotent_replay_uses_original_exam_release_after_active_year_changes(
 
     assert replay.status_code == 200
     replay_data = replay.json()["data"]
-    assert (
-        replay_data["evidence"]["evidenceId"]
-        == original_data["evidence"]["evidenceId"]
-    )
+    assert replay_data["evidence"]["evidenceId"] == original_data["evidence"]["evidenceId"]
     assert replay_data["evidence"]["examYear"] == 2026
     assert (
         replay_data["estimate"]["estimateVersionId"]
         == original_data["estimate"]["estimateVersionId"]
     )
     with db_session_factory() as session:
-        count = session.execute(
-            text("select count(*) from learning.score_evidence")
-        ).scalar_one()
+        count = session.execute(text("select count(*) from learning.score_evidence")).scalar_one()
     assert count == 1
 
 
@@ -815,21 +820,12 @@ def test_score_evidence_history_exposes_immutable_correction_chain(
     response = client.get("/api/v2/score-evidence", headers=authorization)
 
     assert response.status_code == 200
-    items = {
-        item["evidenceId"]: item
-        for item in response.json()["data"]["items"]
-    }
+    items = {item["evidenceId"]: item for item in response.json()["data"]["items"]}
     assert set(items) == {original["evidenceId"], corrected["evidenceId"]}
     assert items[original["evidenceId"]]["active"] is False
-    assert (
-        items[original["evidenceId"]]["supersededByEvidenceId"]
-        == corrected["evidenceId"]
-    )
+    assert items[original["evidenceId"]]["supersededByEvidenceId"] == corrected["evidenceId"]
     assert items[corrected["evidenceId"]]["active"] is True
-    assert (
-        items[corrected["evidenceId"]]["supersedesEvidenceId"]
-        == original["evidenceId"]
-    )
+    assert items[corrected["evidenceId"]]["supersedesEvidenceId"] == original["evidenceId"]
     assert items[corrected["evidenceId"]]["reportedContext"] == "full_mock"
 
 
@@ -894,21 +890,82 @@ def _client(factory: sessionmaker[Session]) -> TestClient:
 def _seed_user_and_release(factory: sessionmaker[Session], *, token: str) -> str:
     user_id = _seed_user(factory, token=token)
     with factory.begin() as session:
-        session.execute(
-            text(
-                """
-                insert into product.position_rule_releases (
-                  release_id, exam_code, exam_year, rule_set_version,
-                  position_data_version, status, activated_at
-                ) values (
-                  :release_id, 'guokao', 2026, 'rules-v1', 'positions-v1',
-                  'active', :activated_at
-                )
-                """
-            ),
-            {"release_id": str(uuid4()), "activated_at": NOW},
+        _insert_active_release(
+            session,
+            exam_year=2026,
+            rule_set_version="rules-v1",
+            position_data_version="positions-v1",
+            activated_at=NOW,
         )
     return user_id
+
+
+def _insert_active_release(
+    session: Session,
+    *,
+    exam_year: int,
+    rule_set_version: str,
+    position_data_version: str,
+    activated_at: datetime,
+) -> None:
+    release_id = str(uuid4())
+    session.execute(
+        text(
+            """
+            insert into product.position_rule_releases (
+              release_id, exam_code, exam_year, rule_set_version,
+              position_data_version, status, activated_at
+            ) values (
+              cast(:release_id as uuid), 'guokao', :exam_year,
+              :rule_set_version, :position_data_version, 'draft', null
+            )
+            """
+        ),
+        {
+            "release_id": release_id,
+            "exam_year": exam_year,
+            "rule_set_version": rule_set_version,
+            "position_data_version": position_data_version,
+        },
+    )
+    session.execute(
+        text(
+            """
+            insert into product.position_release_windows (
+              window_id, release_id, window_kind, sequence_no,
+              opens_at, closes_at, official_source_url,
+              official_source_title, official_source_published_at,
+              official_source_received_at, official_source_sha256,
+              official_source_receipt
+            ) values (
+              cast(:window_id as uuid), cast(:release_id as uuid),
+              'primary', 1, :opens_at, :closes_at,
+              'https://example.gov.cn/guokao/ability-fixture',
+              '能力估计测试岗位发布窗口', :published_at, :received_at,
+              :source_sha256, 'ability-estimation-fixture'
+            )
+            """
+        ),
+        {
+            "window_id": str(uuid4()),
+            "release_id": release_id,
+            "opens_at": activated_at - timedelta(days=30),
+            "closes_at": activated_at + timedelta(days=730),
+            "published_at": activated_at - timedelta(days=40),
+            "received_at": activated_at - timedelta(days=35),
+            "source_sha256": "a" * 64,
+        },
+    )
+    session.execute(
+        text(
+            """
+            update product.position_rule_releases
+            set status = 'active', activated_at = :activated_at
+            where release_id = cast(:release_id as uuid)
+            """
+        ),
+        {"release_id": release_id, "activated_at": activated_at},
+    )
 
 
 def _seed_user(factory: sessionmaker[Session], *, token: str) -> str:

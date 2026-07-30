@@ -5,7 +5,18 @@ const needsProfileCodes = new Set([
   "onboarding_qualification_incomplete",
   "qualification_profile_missing",
 ]);
-const noActiveReleaseCodes = new Set(["position_release_unavailable"]);
+const noActiveReleaseCodes = new Set([
+  "position_release_unavailable",
+  "position_release_upcoming",
+  "position_release_between_windows",
+  "position_release_closed",
+]);
+const releaseTitles: Record<string, string> = {
+  position_release_unavailable: "本年度岗位数据尚未发布",
+  position_release_upcoming: "报名周期尚未开始",
+  position_release_between_windows: "当前处于补录等待期",
+  position_release_closed: "本年度报名已经结束",
+};
 const versionConflictCodes = new Set([
   "qualification_profile_version_conflict",
   "onboarding_progress_version_conflict",
@@ -51,10 +62,19 @@ export function positionOperationError(error: unknown): PositionOperationError {
   if (noActiveReleaseCodes.has(code)) {
     return {
       status: "noActiveRelease",
-      title: "本年度岗位尚未正式发布",
+      title: releaseTitles[code] ?? "当前没有开放报名的岗位",
       message: error.message,
       requestId: error.requestId,
       retryable: false,
+    };
+  }
+  if (code === "position_release_conflict") {
+    return {
+      status: "versionConflict",
+      title: "岗位发布状态需要核验",
+      message: error.message,
+      requestId: error.requestId,
+      retryable: true,
     };
   }
   if (versionConflictCodes.has(code)) {

@@ -673,7 +673,10 @@ def _requirement(
             "expected": expected,
             "hardCondition": True,
             "sourceText": source_text,
-            "sourceReference": f"product.positions:{source.position_id}:{source_field}",
+            "sourceReference": (
+                "product.position_snapshots:"
+                f"{position_data_version}:{source.position_id}:{source_field}"
+            ),
         }
     )
 

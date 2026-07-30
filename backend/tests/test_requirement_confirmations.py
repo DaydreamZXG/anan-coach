@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from collections.abc import Iterator
 from uuid import uuid4
 
@@ -19,7 +19,10 @@ from app.domains.qualification.repository import (
     QualificationContractError,
     QualificationRepository,
 )
-from app.domains.qualification.rule_releases import PositionRuleReleaseService
+from app.domains.qualification.rule_releases import (
+    PositionReleaseWindowInput,
+    PositionRuleReleaseService,
+)
 from app.main import create_app
 
 
@@ -82,6 +85,24 @@ def _seed_manual_requirement(
             position_data_version="guokao-2026-manual-v1",
         )
         release_service.compile_draft(session, release_id=release_id, compiled_at=NOW)
+        release_service.configure_windows(
+            session,
+            release_id=release_id,
+            windows=[
+                PositionReleaseWindowInput(
+                    kind="primary",
+                    sequence_no=1,
+                    opens_at=NOW - timedelta(days=1),
+                    closes_at=NOW + timedelta(days=30),
+                    official_source_url="https://example.gov.cn/guokao/2026/requirements",
+                    official_source_title="2026 年度国考测试公告",
+                    official_source_published_at=NOW - timedelta(days=8),
+                    official_source_received_at=NOW - timedelta(days=7),
+                    official_source_sha256="a" * 64,
+                    official_source_receipt="requirement-confirmation-fixture",
+                )
+            ],
+        )
         release_service.activate(session, release_id=release_id, activated_at=NOW)
         requirement_id = session.execute(
             text(

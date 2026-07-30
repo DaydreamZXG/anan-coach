@@ -1,4 +1,4 @@
-<view class="capture-page {{permissionDenied || (state && state.status === 'idle') ? 'capture-page--dark' : ''}} {{!permissionDenied && state && state.status === 'idle' && captureStage === 'camera' ? 'capture-page--camera' : ''}}">
+<view class="capture-page {{permissionDenied || (state && state.status === 'idle') ? 'capture-page--dark' : ''}} {{permissionDenied ? 'capture-page--permission' : ''}} {{!permissionDenied && state && state.status === 'idle' && captureStage === 'camera' ? 'capture-page--camera' : ''}}">
   <block wx:if="{{configurationError}}">
     <workbench-nav id="runtime-workbench-nav" title="拍照搜题" back-behavior="emit" bind:back="goBack" />
     <state-view
@@ -22,6 +22,7 @@
       <view class="permission-copy">岸岸需要使用相机拍摄你选择的题目和材料，请在系统设置中允许授权。</view>
       <button hover-class="item--hover" class="capture-cyan-button" bindtap="retryCameraPermission">去开启相机权限</button>
       <button hover-class="item--hover" class="capture-dark-quiet" bindtap="goBack">返回</button>
+      <view class="permission-privacy">只有你主动选择的题图会用于本次识别和个人检索，不进入公共题库，也不用于训练基础模型。</view>
     </view>
   </block>
 
@@ -90,6 +91,7 @@
     <view class="camera-workspace">
       <view class="camera-frame {{mode === 'import' ? 'camera-frame--material' : ''}}">
         <camera
+          wx:if="{{cameraVisible}}"
           class="camera-preview"
           device-position="back"
           flash="auto"
@@ -115,7 +117,10 @@
     </view>
 
     <view class="camera-bottom-panel">
-      <view wx:if="{{cameraError || state.validationError}}" class="camera-error">{{cameraError || state.validationError}}</view>
+      <view wx:if="{{cameraError || state.validationError}}" class="camera-error">
+        <text class="camera-error__copy">{{cameraError || state.validationError}}</text>
+        <button wx:if="{{cameraError}}" hover-class="item--hover" class="control-center camera-error__action" bindtap="retryCamera">重试相机</button>
+      </view>
       <view wx:if="{{mode === 'search'}}" class="camera-controls">
         <button hover-class="item--hover" class="camera-control" bindtap="chooseAlbum"><text class="album-glyph">▧</text><text>相册</text></button>
         <button hover-class="item--hover" class="camera-shutter tap-tactile" disabled="{{!cameraReady}}" bindtap="chooseCamera"><text class="camera-shutter__core"></text></button>

@@ -25,15 +25,20 @@ from app.core.database_compatibility import (
 )
 from app.contracts.guokao_xingce import GUOKAO_XINGCE_MODULES
 from app.db.session import get_db_session
+from app.domains.ai.capability_readiness import CapabilityReadiness
 from app.domains.data_rights.worker import DataRightsWorker
 from app.domains.external_ingestion.answering.worker import ExternalAIAnswerWorker
 from app.domains.external_ingestion.matching.catalog import SQLQuestionContentCatalog
+from app.domains.learning_media.worker import LearningMediaWorker
 from app.domains.learning_packages.worker import PacketRenderWorker
 from app.domains.operations import router as operations_router
 from app.domains.private_knowledge.worker import PrivateKnowledgeDeletionWorker
 from app.main import create_app
-from app.platform.jobs import BackgroundJobRepository
+from app.platform.jobs import JOB_REGISTRY, BackgroundJobRepository
 from app.workers.external_learning import ExternalLearningWorker
+from tests.heartbeat_principal_helpers import (
+    record_heartbeat_as_principal,
+)
 
 
 class _IdleUploadService:
@@ -45,13 +50,14 @@ class _IdleUploadService:
 
 
 def test_test_database_fixture_reaches_artifact_head(db_engine: Engine) -> None:
-    assert current_database_revisions(
-        db_engine.url.render_as_string(hide_password=False)
-    ) == (artifact_database_revision(),)
+    assert current_database_revisions(db_engine.url.render_as_string(hide_password=False)) == (
+        artifact_database_revision(),
+    )
     with db_engine.connect() as connection:
-        assert connection.execute(
-            text(
-                """
+        assert (
+            connection.execute(
+                text(
+                    """
                 select exists (
                   select 1
                   from ai_audit.processor_release_records
@@ -59,17 +65,17 @@ def test_test_database_fixture_reaches_artifact_head(db_engine: Engine) -> None:
                     'hunyuan-cloud-function-companion-20260728-1'
                 )
                 """
-            )
-        ).scalar_one() is True
+                )
+            ).scalar_one()
+            is True
+        )
 
 
 def test_artifact_compatibility_accepts_only_declared_database_revision(
     db_engine: Engine,
 ) -> None:
     compatibility = load_artifact_database_compatibility(
-        Path(__file__).resolve().parents[2]
-        / "ops"
-        / "release-db-compatibility.env"
+        Path(__file__).resolve().parents[2] / "ops" / "release-db-compatibility.env"
     )
     database_url = db_engine.url.render_as_string(hide_password=False)
 
@@ -81,9 +87,7 @@ def test_artifact_compatibility_accepts_only_declared_database_revision(
         == artifact_database_revision()
     )
     with db_engine.begin() as connection:
-        connection.execute(
-            text("update alembic_version set version_num = 'incompatible-revision'")
-        )
+        connection.execute(text("update alembic_version set version_num = 'incompatible-revision'"))
     with pytest.raises(DatabaseCompatibilityError, match="is not compatible"):
         assert_database_is_compatible(
             compatibility,
@@ -112,6 +116,11 @@ def test_current_head_standard_workers_start_idle(
         ),
         upload_service=_IdleUploadService(),
         jobs=jobs,
+        learning_media_worker=LearningMediaWorker(
+            storage=object(),
+            scanner=object(),
+            jobs=jobs,
+        ),
         private_knowledge_worker=PrivateKnowledgeDeletionWorker(
             storage=object(),
             jobs=jobs,
@@ -193,22 +202,47 @@ def test_ready_rejects_missing_position_rule_release(
     response = _client(db_session_factory).get("/ready")
 
     assert response.status_code == 503
-    assert response.json()["detail"] == "position rule release is not ready"
+    assert response.json()["detail"] == (
+        "position rule release authority is not ready (phase=no_release)"
+    )
 
 
-def test_ready_rejects_expired_position_rule_release(
+def test_ready_accepts_closed_position_business_window_for_non_selection_routes(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     _seed_alembic_revision(db_session_factory)
+    now = datetime.now(UTC)
     _seed_release(
         db_session_factory,
-        activated_at=datetime.now(UTC) - timedelta(days=366),
+        activated_at=now - timedelta(days=366),
+        window_opens_at=now - timedelta(days=367),
+        window_closes_at=now - timedelta(days=365),
     )
+    _seed_knowledge_release(db_session_factory)
 
     response = _client(db_session_factory).get("/ready")
 
-    assert response.status_code == 503
-    assert response.json()["detail"] == "position rule release is not ready"
+    assert response.status_code == 200, response.text
+    assert response.json()["positionReleasePhase"] == "closed"
+
+
+def test_ready_accepts_upcoming_position_business_window_for_preparation_routes(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _seed_alembic_revision(db_session_factory)
+    now = datetime.now(UTC)
+    _seed_release(
+        db_session_factory,
+        activated_at=now,
+        window_opens_at=now + timedelta(days=1),
+        window_closes_at=now + timedelta(days=8),
+    )
+    _seed_knowledge_release(db_session_factory)
+
+    response = _client(db_session_factory).get("/ready")
+
+    assert response.status_code == 200, response.text
+    assert response.json()["positionReleasePhase"] == "upcoming"
 
 
 def test_ready_rejects_missing_knowledge_map_release(
@@ -375,8 +409,21 @@ def test_ready_reports_active_position_rule_release(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     _seed_alembic_revision(db_session_factory)
-    _seed_release(db_session_factory, activated_at=datetime.now(UTC))
+    window_opens_at, window_closes_at = _seed_release(
+        db_session_factory,
+        activated_at=datetime.now(UTC),
+    )
     _seed_knowledge_release(db_session_factory)
+    with db_session_factory() as session:
+        position_release_content_digest = session.execute(
+            text(
+                """
+                select content_digest
+                from product.position_rule_releases
+                where status = 'active'
+                """
+            )
+        ).scalar_one()
 
     response = _client(db_session_factory).get("/ready")
 
@@ -388,6 +435,12 @@ def test_ready_reports_active_position_rule_release(
         "migration": get_settings().required_database_revision,
         "positionRuleRelease": "guokao-2026-rules-v1",
         "positionDataVersion": "guokao-2026-source-sha256-test",
+        "positionReleasePhase": "open",
+        "positionWindowKind": "primary",
+        "positionWindowOpensAt": window_opens_at.isoformat(),
+        "positionWindowClosesAt": window_closes_at.isoformat(),
+        "positionWindowSourceSha256": "b" * 64,
+        "positionReleaseContentDigest": position_release_content_digest,
         "knowledgeMapRelease": "knowledge-map@ready-test-v1",
         "knowledgeMapSourceDataVersion": "question-bank@ready-test-v1",
         "jobLeaseContract": "JOB-LEASE@v1",
@@ -417,19 +470,80 @@ def test_ready_rejects_a_registered_queue_past_its_age_budget(
     assert response.json()["detail"] == "background job consumers are not ready"
 
 
-def test_ready_allows_independently_disabled_external_ai_scenarios(
+def test_ready_rejects_an_idle_mandatory_consumer_without_a_recent_heartbeat(
     db_session_factory: sessionmaker[Session],
-    monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     _seed_alembic_revision(db_session_factory)
     _seed_release(db_session_factory, activated_at=datetime.now(UTC))
     _seed_knowledge_release(db_session_factory)
-    settings = Settings(environment="production")
+    with db_session_factory.begin() as session:
+        session.execute(
+            text(
+                """
+                delete from platform.background_job_consumer_heartbeats
+                where consumer_unit = 'gongkao-dazi-cause-agent-worker'
+                """
+            )
+        )
+
+    response = _client(db_session_factory).get("/ready")
+
+    assert response.status_code == 503
+    assert response.json()["detail"] == "background job consumers are not ready"
+
+
+def test_ready_rejects_a_legacy_unregistered_active_job(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _seed_alembic_revision(db_session_factory)
+    _seed_release(db_session_factory, activated_at=datetime.now(UTC))
+    _seed_knowledge_release(db_session_factory)
+    with db_session_factory.begin() as session:
+        session.execute(text("alter table platform.background_jobs disable trigger all"))
+        session.execute(
+            text(
+                """
+                insert into platform.background_jobs (
+                  job_id, job_key, job_type, input_version, payload,
+                  status, attempt_count, max_attempts, run_after
+                ) values (
+                  cast(:job_id as uuid), 'legacy:orphan-readiness',
+                  'legacy_orphan_v1', 'legacy@v1', '{}'::jsonb,
+                  'queued', 0, 3, statement_timestamp()
+                )
+                """
+            ),
+            {"job_id": str(uuid4())},
+        )
+        session.execute(text("alter table platform.background_jobs enable trigger all"))
+
+    response = _client(db_session_factory).get("/ready")
+
+    assert response.status_code == 503
+    assert response.json()["detail"] == "background job consumers are not ready"
+
+
+@pytest.mark.parametrize(
+    "environment",
+    ("production", "staging", "preproduction"),
+)
+def test_deployed_ready_rejects_disabled_ocr_and_cause_capabilities(
+    db_session_factory: sessionmaker[Session],
+    monkeypatch: pytest.MonkeyPatch,
+    environment: str,
+) -> None:
+    _seed_alembic_revision(db_session_factory)
+    _seed_release(db_session_factory, activated_at=datetime.now(UTC))
+    _seed_knowledge_release(db_session_factory)
+    settings = Settings(environment=environment)
     monkeypatch.setattr(operations_router, "get_settings", lambda: settings)
 
     response = _client(db_session_factory).get("/ready")
 
-    assert response.status_code == 200
+    assert response.status_code == 503
+    assert response.json()["detail"] == (
+        "required AI capabilities are not ready: ocr=disabled, xingce_cause_agent=disabled"
+    )
 
 
 def test_ready_requires_release_for_an_approved_external_ai_scenario(
@@ -445,6 +559,26 @@ def test_ready_requires_release_for_an_approved_external_ai_scenario(
         ai_companion_provider_release_id="missing-release",
     )
     monkeypatch.setattr(operations_router, "get_settings", lambda: settings)
+    monkeypatch.setattr(
+        operations_router,
+        "ocr_readiness",
+        lambda *_args, **_kwargs: CapabilityReadiness(
+            capability="ocr",
+            ready=True,
+            reason="ready",
+            provider_release_id="approved-ocr",
+        ),
+    )
+    monkeypatch.setattr(
+        operations_router,
+        "cause_agent_readiness",
+        lambda *_args, **_kwargs: CapabilityReadiness(
+            capability="xingce_cause_agent",
+            ready=True,
+            reason="ready",
+            provider_release_id="approved-cause",
+        ),
+    )
 
     response = _client(db_session_factory).get("/ready")
 
@@ -514,7 +648,12 @@ def _seed_release(
     db_session_factory: sessionmaker[Session],
     *,
     activated_at: datetime,
-) -> None:
+    window_opens_at: datetime | None = None,
+    window_closes_at: datetime | None = None,
+) -> tuple[datetime, datetime]:
+    release_id = str(uuid4())
+    opens_at = window_opens_at or datetime.now(UTC) - timedelta(days=1)
+    closes_at = window_closes_at or datetime.now(UTC) + timedelta(days=1)
     with db_session_factory.begin() as session:
         session.execute(
             text(
@@ -525,15 +664,73 @@ def _seed_release(
                 ) values (
                   cast(:release_id as uuid), 'guokao', 2026,
                   'guokao-2026-rules-v1', 'guokao-2026-source-sha256-test',
-                  'active', :activated_at
+                  'draft', null
                 )
                 """
             ),
             {
-                "release_id": str(uuid4()),
+                "release_id": release_id,
+            },
+        )
+        session.execute(
+            text(
+                """
+                insert into product.position_release_windows (
+                  window_id, release_id, window_kind, sequence_no,
+                  opens_at, closes_at, official_source_url,
+                  official_source_title, official_source_published_at,
+                  official_source_received_at, official_source_sha256,
+                  official_source_receipt
+                ) values (
+                  cast(:window_id as uuid), cast(:release_id as uuid),
+                  'primary', 1, :opens_at, :closes_at,
+                  'https://example.gov.cn/guokao/2026/announcement',
+                  '2026 年度中央机关公开遴选公告',
+                  :published_at, :received_at, :source_sha256,
+                  'readiness-fixture-receipt'
+                )
+                """
+            ),
+            {
+                "window_id": str(uuid4()),
+                "release_id": release_id,
+                "opens_at": opens_at,
+                "closes_at": closes_at,
+                "published_at": opens_at - timedelta(days=7),
+                "received_at": opens_at - timedelta(days=6),
+                "source_sha256": "b" * 64,
+            },
+        )
+        session.execute(
+            text(
+                """
+                update product.position_rule_releases
+                set status = 'active', activated_at = :activated_at
+                where release_id = cast(:release_id as uuid)
+                """
+            ),
+            {
+                "release_id": release_id,
                 "activated_at": activated_at,
             },
         )
+        for consumer_unit, consumer_entrypoint in sorted(
+            {
+                (
+                    registration.consumer_unit,
+                    str(registration.consumer_entrypoint),
+                )
+                for registration in JOB_REGISTRY
+                if registration.deployment_state == "deployed"
+            }
+        ):
+            record_heartbeat_as_principal(
+                session,
+                consumer_unit=consumer_unit,
+                consumer_entrypoint=consumer_entrypoint,
+                process_instance_id=uuid4(),
+            )
+    return opens_at, closes_at
 
 
 def _seed_knowledge_release(

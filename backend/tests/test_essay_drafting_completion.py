@@ -9,6 +9,7 @@ from fastapi.testclient import TestClient
 from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
 
+from app.core.config import Settings
 from app.domains.auth.repository import token_hash_for_tests
 from app.db.session import get_db_session
 from app.domains.commerce.deps import get_commerce_service
@@ -48,6 +49,69 @@ from tests.test_planning_routes import _seed_learner_and_published_essay_content
 NOW = datetime(2026, 7, 13, 8, tzinfo=UTC)
 
 
+def test_public_review_writes_fail_closed_when_worker_is_disabled(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    token = "essay-review-worker-disabled-token"
+    _seed_learner_and_published_essay_content(
+        db_session_factory,
+        access_token=token,
+    )
+    client = _base_client(db_session_factory)
+    app = cast(Any, client.app)
+    app.dependency_overrides[get_essay_review_workflow_service] = lambda: (
+        EssayReviewWorkflowService(
+            settings=Settings(essay_review_worker_enabled=False),
+        )
+    )
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Idempotency-Key": "essay-worker-disabled-0001",
+    }
+    queue_payload = {
+        "attemptId": str(uuid4()),
+        "answerVersionId": str(uuid4()),
+        "reviewScope": "grounded_full",
+    }
+    ensure_payload = {
+        "taskVersionId": str(uuid4()),
+        "materialBundleVersionId": str(uuid4()),
+        "rubricVersionId": str(uuid4()),
+        "reviewScope": "grounded_full",
+    }
+
+    responses = (
+        client.post(
+            "/api/v2/essay-intelligence/reviews",
+            headers=headers,
+            json=queue_payload,
+        ),
+        client.post(
+            "/api/v2/essay-intelligence/reviews/current/ensure",
+            headers=headers,
+            json=ensure_payload,
+        ),
+        client.post(
+            f"/api/v2/essay-intelligence/review-jobs/{uuid4()}/regenerate",
+            headers=headers,
+        ),
+    )
+
+    for response in responses:
+        assert response.status_code == 503, response.json()
+    assert {response.json()["code"] for response in responses} == {"service_unavailable"}
+    with db_session_factory() as session:
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from platform.background_jobs "
+                    "where job_type = 'essay_grounded_review_v2'"
+                )
+            ).scalar_one()
+            == 0
+        )
+
+
 def test_atomic_drafting_completion_is_owned_versioned_and_strongly_idempotent(
     db_session_factory: sessionmaker[Session],
 ) -> None:
@@ -67,20 +131,17 @@ def test_atomic_drafting_completion_is_owned_versioned_and_strongly_idempotent(
     result = response.json()["data"]
     assert result["attempt"]["taskVersionId"] == context["ids"]["task"]
     assert result["answer"]["attemptId"] == result["attempt"]["attemptId"]
-    assert result["reflection"]["answerVersionId"] == result["answer"][
-        "answerVersionId"
-    ]
+    assert result["reflection"]["answerVersionId"] == result["answer"]["answerVersionId"]
     assert result["completion"]["execution"]["status"] == "complete"
-    assert not any(
-        item["track"] == "essay" for item in result["completion"]["plan"]["tasks"]
+    assert not any(item["track"] == "essay" for item in result["completion"]["plan"]["tasks"])
+    assert (
+        "AI 评阅仍在生成"
+        in result["completion"]["plan"]["dualTrackExplanation"]["omittedTrackReasons"]["essay"]
     )
-    assert "AI 评阅仍在生成" in result["completion"]["plan"][
-        "dualTrackExplanation"
-    ]["omittedTrackReasons"]["essay"]
-    assert {
-        item["entityType"]
-        for item in result["completion"]["execution"]["evidenceRefs"]
-    } == {"essay_answer_version", "reflection_artifact"}
+    assert {item["entityType"] for item in result["completion"]["execution"]["evidenceRefs"]} == {
+        "essay_answer_version",
+        "reflection_artifact",
+    }
     answer_ref = next(
         item
         for item in result["completion"]["execution"]["evidenceRefs"]
@@ -163,19 +224,25 @@ def test_atomic_drafting_completion_is_owned_versioned_and_strongly_idempotent(
             )
             == 1
         )
-        assert session.execute(
-            text(
-                "select count(*) from commerce.feature_usage_reservations "
-                "where user_id = cast(:user_id as uuid) and feature = 'essay_review'"
-            ),
-            {"user_id": context["user_id"]},
-        ).scalar_one() == 0
-        assert session.execute(
-            text(
-                "select count(*) from platform.outbox_events "
-                "where aggregate_type = 'essay_review_intent'"
-            )
-        ).scalar_one() == 1
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from commerce.feature_usage_reservations "
+                    "where user_id = cast(:user_id as uuid) and feature = 'essay_review'"
+                ),
+                {"user_id": context["user_id"]},
+            ).scalar_one()
+            == 0
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from platform.outbox_events "
+                    "where aggregate_type = 'essay_review_intent'"
+                )
+            ).scalar_one()
+            == 1
+        )
 
 
 def test_expired_drafting_task_returns_stable_conflict_without_partial_writes(
@@ -244,9 +311,7 @@ def test_late_planning_version_conflict_rolls_back_attempt_answer_and_reflection
             ),
             now=NOW,
         )
-    current_task = next(
-        item for item in in_progress.plan.tasks if item.stage == "essay_drafting"
-    )
+    current_task = next(item for item in in_progress.plan.tasks if item.stage == "essay_drafting")
     context["task"] = current_task
     command = {
         **_create_command(context),
@@ -369,12 +434,15 @@ def test_current_review_ensure_is_cross_device_and_business_idempotent(
     assert unowned.status_code == 404
 
     with db_session_factory() as session:
-        assert session.execute(
-            text(
-                "select count(*) from platform.background_jobs "
-                "where job_type = 'essay_grounded_review_v2'"
-            )
-        ).scalar_one() == 1
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from platform.background_jobs "
+                    "where job_type = 'essay_grounded_review_v2'"
+                )
+            ).scalar_one()
+            == 1
+        )
         assert (
             _count(
                 session,
@@ -452,19 +520,25 @@ def test_quota_waiting_is_durable_without_rolling_back_drafting_facts(
             )
             == 2
         )
-        assert session.execute(
-            text(
-                "select count(*) from platform.background_jobs "
-                "where job_type = 'essay_grounded_review_v2'"
-            )
-        ).scalar_one() == 0
-        assert session.execute(
-            text(
-                "select count(*) from commerce.feature_usage_reservations "
-                "where user_id = cast(:user_id as uuid) and feature = 'essay_review'"
-            ),
-            {"user_id": context["user_id"]},
-        ).scalar_one() == 1
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from platform.background_jobs "
+                    "where job_type = 'essay_grounded_review_v2'"
+                )
+            ).scalar_one()
+            == 0
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from commerce.feature_usage_reservations "
+                    "where user_id = cast(:user_id as uuid) and feature = 'essay_review'"
+                ),
+                {"user_id": context["user_id"]},
+            ).scalar_one()
+            == 1
+        )
 
 
 def test_existing_attempt_and_answer_must_be_current_and_owned(
@@ -510,7 +584,9 @@ def test_drafting_command_rejects_wrong_stage_and_content_versions_before_writin
     ids = _content_ids(db_session_factory)
     client = _client(db_session_factory)
     auth = {"Authorization": f"Bearer {token}"}
-    material = _post(client, auth, "stage-material", _material_command(ids["task"], ids["material"]))
+    material = _post(
+        client, auth, "stage-material", _material_command(ids["task"], ids["material"])
+    )
     point = _post(
         client,
         auth,
@@ -547,9 +623,7 @@ def test_drafting_command_rejects_wrong_stage_and_content_versions_before_writin
             now=NOW,
             local_date=NOW.date(),
         )
-    context["task"] = next(
-        item for item in drafting_plan.tasks if item.stage == "essay_drafting"
-    )
+    context["task"] = next(item for item in drafting_plan.tasks if item.stage == "essay_drafting")
     mismatch = {
         **_create_command(context),
         "materialBundleVersionId": str(uuid4()),
@@ -696,9 +770,7 @@ def _count(
     return int(
         session.execute(
             text(
-                f"select count(*) from {table} "
-                "where user_id = cast(:user_id as uuid) "
-                f"{extra_sql}"
+                f"select count(*) from {table} where user_id = cast(:user_id as uuid) {extra_sql}"
             ),
             {"user_id": user_id},
         ).scalar_one()

@@ -190,7 +190,6 @@ if (failures.length > 0) {
 const componentCount = componentConfigPaths.length;
 process.stdout.write(
   `Validated ${String(inventory?.allRoutes.length ?? 0)} registered routes: ` +
-    `${String(inventory?.businessRoutes.length ?? 0)} business, ` +
-    `${String(inventory?.assetEntryRoutes.length ?? 0)} asset entries; ` +
+    `${String(inventory?.businessRoutes.length ?? 0)} business, no internal asset hosts; ` +
     `${String(appConfig.tabBar.list.length)} tabs and ${String(componentCount)} shared components.\n`,
 );

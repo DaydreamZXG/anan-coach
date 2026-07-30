@@ -28,7 +28,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: anan-${{ inputs.release_id }}
-          path: |
-            dist/anan-${{ inputs.release_id }}.tar.gz
-            dist/anan-${{ inputs.release_id }}.tar.gz.sha256
+          # Preserve the complete atomic publication unit: artifact, release
+          # manifest, and both checksum sidecars.
+          path: dist/anan-${{ inputs.release_id }}.release-set/
           if-no-files-found: error

@@ -46,8 +46,8 @@ from app.domains.onboarding.v2_schemas import (
     StudyPreferenceWrite,
     WeeklyStudyPreference,
 )
-from app.domains.positions.router import get_position_service
-from app.domains.positions.service import PositionNotFoundError, PositionService
+from app.domains.positions.service import PositionNotFoundError
+from app.domains.positions.target_scores import PositionTargetScoreContractError
 from app.platform.http import (
     COMMON_API_ERROR_RESPONSES,
     PublicApiEnvelope,
@@ -72,12 +72,11 @@ def _v2_idempotency_key(
 def get_onboarding_service(
     session: Annotated[Session, Depends(get_db_session)],
     knowledge_service: Annotated[KnowledgeService, Depends(get_knowledge_service)],
-    position_service: Annotated[PositionService, Depends(get_position_service)],
 ) -> OnboardingService:
     return OnboardingService(
+        session=session,
         repository=OnboardingRepository(session),
         knowledge_service=knowledge_service,
-        position_service=position_service,
     )
 
 
@@ -103,6 +102,11 @@ def update_onboarding_profile(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Position not found",
+        ) from exc
+    except PositionTargetScoreContractError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=str(exc),
         ) from exc
 
 
@@ -153,9 +157,7 @@ def submit_placement_test(
     try:
         return service.submit_placement_test(
             user_id=current_user.user_id,
-            answers={
-                answer.question_id: answer.selected_answer for answer in request.answers
-            },
+            answers={answer.question_id: answer.selected_answer for answer in request.answers},
         )
     except QuestionNotFoundError as exc:
         raise HTTPException(

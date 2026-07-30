@@ -18,6 +18,8 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_valida
 from app.contracts.external_learning.models import RecognitionKind
 from app.domains.external_ingestion.recognition.errors import (
     ProcessorConfigurationError,
+    ProcessorDispatchUnknownError,
+    ProcessorNotDispatchedError,
     ProcessorResponseError,
 )
 from app.domains.external_ingestion.recognition.models import (
@@ -26,6 +28,7 @@ from app.domains.external_ingestion.recognition.models import (
     ProcessorRequest,
     ProcessorResult,
     TextSpan,
+    enforce_provider_dispatch_fence,
 )
 
 
@@ -61,6 +64,8 @@ _ESSAY_CUES = (
     "写一篇",
     "谈谈你的理解",
 )
+
+
 class _PrivateSourceReader(Protocol):
     def open(
         self,
@@ -189,17 +194,17 @@ class ModalPaddleOCRRecognitionProcessor:
         return self._release
 
     def process(self, request: ProcessorRequest) -> ProcessorResult:
-        if request.mime_type not in {"image/jpeg", "image/png"}:
-            raise ProcessorResponseError("Modal recognition supports JPEG and PNG only")
-        if request.page_count not in {None, 1}:
-            raise ProcessorResponseError("Modal recognition accepts one image page per request")
-        if request.recognition_kind not in {
-            RecognitionKind.PRINTED_OCR,
-            RecognitionKind.EXAM_SEGMENTATION,
-        }:
-            raise ProcessorResponseError("Modal recognition kind is not supported")
-        suffix = ".jpg" if request.mime_type == "image/jpeg" else ".png"
         try:
+            if request.mime_type not in {"image/jpeg", "image/png"}:
+                raise ValueError("Modal recognition supports JPEG and PNG only")
+            if request.page_count not in {None, 1}:
+                raise ValueError("Modal recognition accepts one image page per request")
+            if request.recognition_kind not in {
+                RecognitionKind.PRINTED_OCR,
+                RecognitionKind.EXAM_SEGMENTATION,
+            }:
+                raise ValueError("Modal recognition kind is not supported")
+            suffix = ".jpg" if request.mime_type == "image/jpeg" else ".png"
             with self._source_reader.open(
                 object_ref=request.object_ref,
                 expected_sha256=request.input_sha256,
@@ -230,28 +235,40 @@ class ModalPaddleOCRRecognitionProcessor:
                     sort_keys=True,
                     separators=(",", ":"),
                 ).encode("utf-8")
-                headers = {
-                    "Authorization": f"Bearer {self._token}",
-                    "Content-Type": "application/json",
-                    "Idempotency-Key": request.idempotency_key,
-                }
-                with self._client_factory() as client:
-                    with client.stream(
-                        "POST",
-                        self._endpoint,
-                        headers=headers,
-                        content=encoded,
-                    ) as streamed:
-                        response = _bounded_response(
-                            streamed,
-                            maximum_bytes=self._maximum_output_bytes,
-                        )
-                response.raise_for_status()
+        except ProcessorNotDispatchedError:
+            raise
+        except Exception as exc:
+            message = str(exc).strip() or (
+                "Modal recognition input failed before provider dispatch"
+            )
+            raise ProcessorNotDispatchedError(message) from exc
+
+        enforce_provider_dispatch_fence(request)
+        headers = {
+            "Authorization": f"Bearer {self._token}",
+            "Content-Type": "application/json",
+            "Idempotency-Key": request.idempotency_key,
+        }
+        try:
+            with self._client_factory() as client:
+                with client.stream(
+                    "POST",
+                    self._endpoint,
+                    headers=headers,
+                    content=encoded,
+                ) as streamed:
+                    response = _bounded_response(
+                        streamed,
+                        maximum_bytes=self._maximum_output_bytes,
+                    )
+            response.raise_for_status()
         except ProcessorResponseError:
             raise
-        except (httpx.HTTPError, OSError, ValueError) as exc:
-            raise ProcessorResponseError(
-                "Modal recognition provider or private source is unavailable"
+        except httpx.HTTPStatusError as exc:
+            raise ProcessorResponseError("Modal recognition provider rejected the request") from exc
+        except httpx.HTTPError as exc:
+            raise ProcessorDispatchUnknownError(
+                "Modal recognition dispatch outcome is unknown"
             ) from exc
         return self._result(
             response=response,

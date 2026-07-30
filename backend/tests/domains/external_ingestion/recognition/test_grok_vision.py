@@ -22,6 +22,9 @@ from app.domains.external_ingestion.recognition.models import (
 )
 
 
+PROVIDER_REPLAY_KEY = "ocr-v1-" + "b" * 64
+
+
 class FakePrivateObjectReader:
     def __init__(self, source: Path) -> None:
         self.source = source
@@ -46,7 +49,7 @@ def _request(source: Path, *, kind: str = "printed_ocr") -> ProcessorRequest:
         "inputSha256": sha256(source.read_bytes()).hexdigest(),
         "pageCount": 1,
         "recognitionKind": kind,
-        "idempotencyKey": "recognize-command-1",
+        "idempotencyKey": PROVIDER_REPLAY_KEY,
     }
     if kind == "answer_sheet_omr":
         values["omrLayout"] = OMRLayout(
@@ -66,11 +69,12 @@ def _processor(
     actual_model: str = "grok-4.5-build-free",
     compressed_response: bool = False,
     maximum_output_bytes: int = 1024 * 1024,
+    dispatch_events: list[str] | None = None,
 ) -> GrokVisionRecognitionProcessor:
     def handler(request: httpx.Request) -> httpx.Response:
         assert str(request.url) == "http://34.96.236.81:8317/v1/chat/completions"
         assert request.headers["Authorization"] == "Bearer private-test-token"
-        assert request.headers["Idempotency-Key"] == "recognize-command-1"
+        assert request.headers["Idempotency-Key"] == PROVIDER_REPLAY_KEY
         body = json.loads(request.content)
         assert body["model"] == "grok-4.5"
         envelope = {
@@ -79,9 +83,7 @@ def _processor(
             "choices": [
                 {
                     "message": {
-                        "content": "```json\n"
-                        + json.dumps(payload, ensure_ascii=False)
-                        + "\n```"
+                        "content": "```json\n" + json.dumps(payload, ensure_ascii=False) + "\n```"
                     }
                 }
             ],
@@ -94,6 +96,13 @@ def _processor(
             )
         return httpx.Response(200, json=envelope)
 
+    transport = httpx.MockTransport(handler)
+
+    def client_factory() -> httpx.Client:
+        if dispatch_events is not None:
+            assert dispatch_events == ["claimed"]
+        return httpx.Client(transport=transport)
+
     return GrokVisionRecognitionProcessor(
         endpoint="http://34.96.236.81:8317/v1",
         bearer_token="private-test-token",
@@ -104,7 +113,7 @@ def _processor(
         maximum_input_bytes=8 * 1024 * 1024,
         maximum_output_bytes=maximum_output_bytes,
         maximum_pages=5,
-        client_factory=lambda: httpx.Client(transport=httpx.MockTransport(handler)),
+        client_factory=client_factory,
     )
 
 
@@ -133,8 +142,16 @@ def test_grok_vision_accepts_code_fenced_schema_and_seals_local_evidence(
     tmp_path: Path,
 ) -> None:
     source = _image(tmp_path)
+    dispatch_events: list[str] = []
+    request = _request(source).model_copy(
+        update={"before_provider_dispatch": lambda: dispatch_events.append("claimed")}
+    )
 
-    result = _processor(source, payload=_ocr_payload()).process(_request(source))
+    result = _processor(
+        source,
+        payload=_ocr_payload(),
+        dispatch_events=dispatch_events,
+    ).process(request)
 
     assert result.provider_request_id == "provider-request-1"
     assert result.text_spans[0].text == "资料分析题干"
@@ -142,6 +159,7 @@ def test_grok_vision_accepts_code_fenced_schema_and_seals_local_evidence(
     assert len(result.page_image_sha256) == 1
     assert len(result.page_image_sha256[0]) == 64
     assert len(result.visual_fingerprints[0]) == 64
+    assert dispatch_events == ["claimed"]
 
 
 def test_grok_vision_accepts_gzip_response_without_double_decoding(
@@ -194,9 +212,7 @@ def test_grok_vision_rejects_omr_item_set_drift(tmp_path: Path) -> None:
     }
 
     with pytest.raises(ProcessorResponseError, match="sealed packet"):
-        _processor(source, payload=payload).process(
-            _request(source, kind="answer_sheet_omr")
-        )
+        _processor(source, payload=payload).process(_request(source, kind="answer_sheet_omr"))
 
 
 def test_grok_vision_rejects_oversized_provider_response(tmp_path: Path) -> None:

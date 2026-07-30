@@ -11,6 +11,33 @@ if (( $# > 0 )); then
   printf '%s\n' "usage: $0 [--local]" >&2
   exit 2
 fi
+if [[ "${DATA_RELEASE_COORDINATION_LOCK_HELD:-}" != "1" ]]; then
+  printf '%s\n' \
+    "knowledge-map publication requires the commercial data release lock" >&2
+  exit 1
+fi
+: "${DATA_RELEASE_COORDINATION_LOCK_PATH:?commercial data release lock path is required}"
+if [[ ! "${DATA_RELEASE_COORDINATION_LOCK_PATH}" =~ ^/[A-Za-z0-9._/-]+$ ]]; then
+  printf '%s\n' "commercial data release lock path is invalid" >&2
+  exit 2
+fi
+test -f "${DATA_RELEASE_COORDINATION_LOCK_PATH}"
+test ! -L "${DATA_RELEASE_COORDINATION_LOCK_PATH}"
+test "$(stat -c '%u' "${DATA_RELEASE_COORDINATION_LOCK_PATH}")" = 0
+test "$(stat -c '%a' "${DATA_RELEASE_COORDINATION_LOCK_PATH}")" = 600
+inherited_lock="$(
+  readlink -f "/proc/$$/fd/9"
+)"
+trusted_lock="$(readlink -f "${DATA_RELEASE_COORDINATION_LOCK_PATH}")"
+if [[ "${inherited_lock}" != "${trusted_lock}" ]]; then
+  printf '%s\n' \
+    "knowledge-map publication did not inherit the trusted release lock" >&2
+  exit 1
+fi
+# On an inherited locked open-file description this is a no-op success. If a
+# direct caller supplied fd 9 without locking it, this acquires the same
+# exclusive lock for the duration of this process before any database write.
+flock -n 9
 
 HOST="${GONGKAO_SERVER_HOST:-101.96.198.253}"
 SSH_KEY="${GONGKAO_SSH_KEY:-$HOME/.ssh/gongkao_dazi_ed25519}"
@@ -33,7 +60,9 @@ run_psql() {
   if [[ "${execution_mode}" == "local" ]]; then
     : "${GONGKAO_KNOWLEDGE_MAP_DATABASE_URL:?GONGKAO_KNOWLEDGE_MAP_DATABASE_URL is required for --local}"
     : "${GONGKAO_KNOWLEDGE_MAP_DATABASE_OS_USER:?GONGKAO_KNOWLEDGE_MAP_DATABASE_OS_USER is required for --local}"
+    : "${GONGKAO_KNOWLEDGE_MAP_PGPASSFILE:?GONGKAO_KNOWLEDGE_MAP_PGPASSFILE is required for --local}"
     sudo -u "${GONGKAO_KNOWLEDGE_MAP_DATABASE_OS_USER}" \
+      env PGPASSFILE="${GONGKAO_KNOWLEDGE_MAP_PGPASSFILE}" \
       psql \
       -v ON_ERROR_STOP=1 \
       --set=release_version="${GONGKAO_KNOWLEDGE_MAP_RELEASE_VERSION}" \

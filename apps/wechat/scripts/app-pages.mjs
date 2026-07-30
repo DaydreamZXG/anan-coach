@@ -9,14 +9,18 @@ export function registeredPages(appConfig) {
 }
 
 /**
- * The app config owns registration. The route manifest classifies each registered
- * route so coverage gates can distinguish user-facing pages from package-only
- * asset entries.
+ * app.json is the registration authority. The route manifest and typed route
+ * registry enumerate the same user-facing surface for independent validation.
+ * Asset component sources may remain in the repository, but must never be
+ * admitted as registered pages.
  */
 export function routeInventory(appConfig, routeManifest) {
   const allRoutes = registeredPages(appConfig);
   const businessRoutes = routeManifest.businessPages ?? [];
   const assetEntryRoutes = routeManifest.assetEntryPages ?? [];
+  const internalAssetHosts = allRoutes.filter((route) =>
+    /^packages\/anan-[^/]+\/asset-entry\/index$/u.test(route),
+  );
 
   assert.equal(
     new Set(allRoutes).size,
@@ -24,9 +28,14 @@ export function routeInventory(appConfig, routeManifest) {
     "app.json registered routes must not contain duplicates",
   );
   assert.deepEqual(
-    [...businessRoutes, ...assetEntryRoutes].sort(),
+    internalAssetHosts,
+    [],
+    "Internal asset entry sources must not be registered as app pages",
+  );
+  assert.deepEqual(
+    businessRoutes.slice().sort(),
     [...allRoutes].sort(),
-    "Route manifest businessPages + assetEntryPages must exactly classify all app.json registered routes",
+    "Route manifest businessPages must exactly enumerate all app.json registered routes",
   );
   assert.equal(
     new Set(businessRoutes).size,
@@ -39,9 +48,9 @@ export function routeInventory(appConfig, routeManifest) {
     "Route manifest assetEntryPages must not contain duplicates",
   );
   assert.equal(
-    new Set([...businessRoutes, ...assetEntryRoutes]).size,
-    businessRoutes.length + assetEntryRoutes.length,
-    "Route manifest route categories must not overlap",
+    assetEntryRoutes.length,
+    0,
+    "Internal asset entry sources must not be registered or listed as public pages",
   );
 
   return {

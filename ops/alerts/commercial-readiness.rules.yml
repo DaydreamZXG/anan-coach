@@ -1,0 +1,93 @@
+groups:
+  - name: commercial-readiness
+    rules:
+      - alert: GongkaoApiUnavailable
+        expr: up{job="gongkao-dazi-api"} == 0
+        for: 2m
+        labels: { severity: critical }
+        annotations: { summary: "岸岸 API 连续两分钟不可采集" }
+      - alert: GongkaoReadyProbeUnavailable
+        expr: absent(probe_success{job="gongkao-dazi-ready"}) or probe_success{job="gongkao-dazi-ready"} != 1
+        for: 2m
+        labels: { severity: critical }
+        annotations: { summary: "岸岸 /ready 聚合探针不可用" }
+      - alert: GongkaoDatabaseNotReady
+        expr: anan_database_ready != 1
+        for: 1m
+        labels: { severity: critical }
+        annotations: { summary: "岸岸数据库或迁移版本未就绪" }
+      - alert: GongkaoCommercialDataPublicationUnavailable
+        expr: absent(anan_commercial_data_publication_exact) or anan_commercial_data_publication_exact != 1
+        for: 1m
+        labels: { severity: critical }
+        annotations: { summary: "商业数据发布权威缺失、非 active 或摘要不一致" }
+      - alert: GongkaoBackgroundJobFailure
+        expr: anan_background_jobs_failed_recent > 0
+        for: 5m
+        labels: { severity: critical }
+        annotations: { summary: "过去十五分钟存在后台任务技术失败" }
+      - alert: GongkaoBackgroundBusinessTermination
+        expr: anan_background_jobs_business_terminated_recent > 0
+        for: 5m
+        labels: { severity: warning }
+        annotations: { summary: "过去十五分钟存在显式业务终止，需观察原因分布" }
+      - alert: GongkaoBackgroundJobRegistryDrift
+        expr: absent(anan_background_job_registry_exact) or anan_background_job_registry_exact != 1
+        for: 1m
+        labels: { severity: critical }
+        annotations: { summary: "数据库 job 注册权威与应用制品不一致" }
+      - alert: GongkaoUnregisteredBackgroundJob
+        expr: anan_background_jobs_unregistered_active > 0
+        for: 1m
+        labels: { severity: critical }
+        annotations: { summary: "存在绕过注册权威的活动后台任务" }
+      - alert: GongkaoEnabledJobConsumerHeartbeatUnhealthy
+        expr: (anan_job_consumer_deployed == 1) and on(job_type) (anan_job_consumer_enabled == 1) and on(job_type) (anan_job_consumer_heartbeat_healthy != 1)
+        for: 2m
+        labels: { severity: critical }
+        annotations: { summary: "已部署且启用的后台消费者 heartbeat 不健康" }
+      - alert: GongkaoDisabledJobConsumerBacklog
+        expr: ((anan_job_consumer_deployed == 0) or on(job_type) (anan_job_consumer_enabled == 0)) and on(job_type) ((anan_job_queued + on(job_type) anan_job_running) > 0)
+        for: 2m
+        labels: { severity: critical }
+        annotations: { summary: "未部署或关闭的后台消费者仍有 backlog" }
+      - alert: GongkaoJobQueueStale
+        expr: anan_job_queue_oldest_age_seconds > anan_job_queue_readiness_age_seconds
+        for: 2m
+        labels: { severity: critical }
+        annotations: { summary: "后台队列超过该 job 的 readiness 年龄" }
+      - alert: GongkaoJobClaimStale
+        expr: anan_job_running_oldest_age_seconds > anan_job_running_readiness_age_seconds
+        for: 2m
+        labels: { severity: critical }
+        annotations: { summary: "后台任务 claim 超过该 job 的运行年龄" }
+      - alert: GongkaoAIModelLedgerStale
+        expr: anan_ai_model_calls_running_stale > 0
+        for: 2m
+        labels: { severity: critical }
+        annotations: { summary: "AI model ledger 长时间停留 running" }
+      - alert: GongkaoAIQuotaReservationStale
+        expr: anan_ai_usage_reservations_open_stale > 0
+        for: 2m
+        labels: { severity: critical }
+        annotations: { summary: "AI 配额 reservation 长时间未结清" }
+      - alert: GongkaoOCRCapabilityUnavailable
+        expr: anan_recognition_capability_ready != 1
+        for: 2m
+        labels: { severity: critical }
+        annotations: { summary: "真实用户 OCR processor 不可用或未批准" }
+      - alert: GongkaoCauseAICapabilityUnavailable
+        expr: anan_xingce_cause_capability_ready != 1
+        for: 2m
+        labels: { severity: critical }
+        annotations: { summary: "错因 AI provider 不可用或未批准" }
+      - alert: GongkaoEncryptedBackupMissing
+        expr: absent(anan_backup_last_success_unixtime) or time() - anan_backup_last_success_unixtime > 28800
+        for: 15m
+        labels: { severity: critical }
+        annotations: { summary: "八小时内没有成功的加密备份证据" }
+      - alert: GongkaoRestoreRehearsalStale
+        expr: absent(anan_restore_rehearsal_last_success_unixtime) or time() - anan_restore_rehearsal_last_success_unixtime > 2592000
+        for: 1h
+        labels: { severity: critical }
+        annotations: { summary: "三十天内没有隔离恢复演练证据" }

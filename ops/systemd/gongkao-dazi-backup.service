@@ -8,6 +8,6 @@ User=deploy
 Group=deploy
 EnvironmentFile=/etc/gongkao-dazi/db.env
 EnvironmentFile=/etc/gongkao-dazi/backup.env
-ExecStart=/srv/gongkao-dazi/ops/scripts/backup.sh
+ExecStart=/srv/gongkao-dazi/current/ops/scripts/backup.sh
 NoNewPrivileges=true
 PrivateTmp=true

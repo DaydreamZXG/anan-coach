@@ -14,6 +14,7 @@ interface CapturedPageDefinition {
   onShow?(this: TestPage): void;
   onUnload(this: TestPage): void;
   goBack?(this: TestPage): void;
+  openPreparation?(this: TestPage): void;
 }
 
 interface TestPage extends CapturedPageDefinition {
@@ -479,6 +480,20 @@ describe("position page back navigation fallbacks", () => {
       page.goBack?.call(page);
       expect(navigateBack).toHaveBeenCalledTimes(1);
       expect(fallback).toHaveBeenCalledWith({ url: fallbackUrl });
+    },
+  );
+});
+
+describe("position release lifecycle actions", () => {
+  it.each(lifecycleScenarios)(
+    "$name keeps a real preparation path when no recruitment window is open",
+    async ({ load }) => {
+      const definition = await capturePage(load);
+      const page = instantiatePage(definition);
+
+      page.openPreparation?.call(page);
+
+      expect(switchTab).toHaveBeenCalledWith({ url: "/pages/ability/index" });
     },
   );
 });

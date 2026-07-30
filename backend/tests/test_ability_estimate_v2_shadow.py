@@ -77,9 +77,7 @@ def test_guessing_floor_bounds_answer_probability() -> None:
     assert answer_probability(10.0, 0.0) == pytest.approx(1.0, abs=1e-3)
     # 单调性。
     assert (
-        answer_probability(-1.0, 0.0)
-        < answer_probability(0.0, 0.0)
-        < answer_probability(1.0, 0.0)
+        answer_probability(-1.0, 0.0) < answer_probability(0.0, 0.0) < answer_probability(1.0, 0.0)
     )
 
 
@@ -123,14 +121,8 @@ def test_timing_layer_classification() -> None:
     assert classify_timing_layer(None) == "untimed"
     assert classify_timing_layer({"timingStatus": "within_advisory"}) == "timed"
     assert classify_timing_layer({"timingStatus": "advisory_exceeded"}) == "untimed"
-    assert (
-        classify_timing_layer({"questionElapsedSeconds": 40, "advisorySeconds": 50})
-        == "timed"
-    )
-    assert (
-        classify_timing_layer({"questionElapsedSeconds": 70, "advisorySeconds": 50})
-        == "untimed"
-    )
+    assert classify_timing_layer({"questionElapsedSeconds": 40, "advisorySeconds": 50}) == "timed"
+    assert classify_timing_layer({"questionElapsedSeconds": 70, "advisorySeconds": 50}) == "untimed"
     # 采集契约 v1 的毫秒时钟优先于秒级检查点字段。
     assert (
         classify_timing_layer(
@@ -201,9 +193,7 @@ def test_layers_mock_weight_and_append_only(
             _seed_practice_answer(
                 session, user_id=weak_user, question_id=question_id, correct=False
             )
-        _seed_practice_answer(
-            session, user_id=strong_user, question_id="q-no-ratio", correct=True
-        )
+        _seed_practice_answer(session, user_id=strong_user, question_id="q-no-ratio", correct=True)
         _seed_mock_session(
             session,
             user_id=strong_user,
@@ -327,6 +317,7 @@ def _seed_user(factory: sessionmaker[Session]) -> str:
 
 def _seed_release(factory: sessionmaker[Session]) -> None:
     with factory.begin() as session:
+        release_id = str(uuid4())
         session.execute(
             text(
                 """
@@ -335,11 +326,49 @@ def _seed_release(factory: sessionmaker[Session]) -> None:
                   position_data_version, status, activated_at
                 ) values (
                   :release_id, 'guokao', 2026, 'rules-v1', 'positions-v1',
-                  'active', :activated_at
+                  'draft', null
                 )
                 """
             ),
-            {"release_id": str(uuid4()), "activated_at": NOW},
+            {"release_id": release_id},
+        )
+        session.execute(
+            text(
+                """
+                insert into product.position_release_windows (
+                  window_id, release_id, window_kind, sequence_no,
+                  opens_at, closes_at, official_source_url,
+                  official_source_title, official_source_published_at,
+                  official_source_received_at, official_source_sha256,
+                  official_source_receipt
+                ) values (
+                  cast(:window_id as uuid), cast(:release_id as uuid),
+                  'primary', 1, :opens_at, :closes_at,
+                  'https://example.gov.cn/guokao/shadow-fixture',
+                  '能力估计影子测试岗位发布窗口', :published_at, :received_at,
+                  :source_sha256, 'ability-shadow-fixture'
+                )
+                """
+            ),
+            {
+                "window_id": str(uuid4()),
+                "release_id": release_id,
+                "opens_at": NOW - timedelta(days=30),
+                "closes_at": NOW + timedelta(days=730),
+                "published_at": NOW - timedelta(days=40),
+                "received_at": NOW - timedelta(days=35),
+                "source_sha256": "b" * 64,
+            },
+        )
+        session.execute(
+            text(
+                """
+                update product.position_rule_releases
+                set status = 'active', activated_at = :activated_at
+                where release_id = cast(:release_id as uuid)
+                """
+            ),
+            {"release_id": release_id, "activated_at": NOW},
         )
 
 
@@ -473,17 +502,21 @@ def _seed_mock_session(
 
 
 def _v1_rows(session: Session) -> list[dict[str, object]]:
-    rows = session.execute(
-        text(
-            """
+    rows = (
+        session.execute(
+            text(
+                """
             select estimate_version_id::text as estimate_version_id,
                    xingce_lower, xingce_recommended, xingce_upper,
                    confidence, algorithm_version, generated_at
             from learning.ability_estimate_versions
             order by generated_at, estimate_version_id
             """
+            )
         )
-    ).mappings().all()
+        .mappings()
+        .all()
+    )
     return [dict(row) for row in rows]
 
 
