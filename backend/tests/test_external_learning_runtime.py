@@ -34,6 +34,7 @@ from app.domains.learning_packages.service import LearningPackageService
 from app.domains.learning_packages.worker import PacketRenderWorker
 from app.domains.learning_brain.service import LearningBrainService
 from app.domains.xingce_learning.content_version import question_content_version_id
+from tests.position_release_helpers import seed_active_position_release
 
 
 NOW = datetime(2026, 7, 15, 12, 0, tzinfo=UTC)
@@ -143,19 +144,12 @@ def test_packet_render_and_confirmed_answer_round_trip(db_session: Session) -> N
         text("insert into learner.users (user_id, display_name) values (:id, '学习者')"),
         {"id": str(user_id)},
     )
-    db_session.execute(
-        text(
-            """
-            insert into product.position_rule_releases (
-              release_id, exam_code, exam_year, rule_set_version,
-              position_data_version, status, activated_at
-            ) values (
-              :release_id, 'guokao', 2026, 'external-learning-rules',
-              'external-learning-positions', 'active', :activated_at
-            )
-            """
-        ),
-        {"release_id": str(uuid4()), "activated_at": NOW},
+    seed_active_position_release(
+        db_session,
+        activated_at=NOW,
+        database_now=datetime.now(UTC),
+        rule_set_version="external-learning-rules",
+        position_data_version="external-learning-positions",
     )
     db_session.execute(
         text(

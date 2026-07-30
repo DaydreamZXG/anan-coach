@@ -68,9 +68,7 @@ def test_question_favorite_routes_require_authentication() -> None:
     )
 
     assert [response.status_code for response in requests] == [401, 401, 401]
-    assert {
-        response.json()["code"] for response in requests
-    } == {"authentication_required"}
+    assert {response.json()["code"] for response in requests} == {"authentication_required"}
 
 
 def test_set_state_exact_replay_drift_and_mark_independence(
@@ -163,27 +161,36 @@ def test_set_state_exact_replay_drift_and_mark_independence(
     assert removed.json()["data"]["favoriteState"] == "not_favorited"
     assert repeated_remove.status_code == 200
     assert repeated_remove.json()["data"]["revision"] == 2
-    assert client.get(
-        "/api/v2/xingce/question-favorites",
-        headers=auth,
-    ).json()["data"]["items"] == []
+    assert (
+        client.get(
+            "/api/v2/xingce/question-favorites",
+            headers=auth,
+        ).json()["data"]["items"]
+        == []
+    )
 
-    assert _checkpoint(
-        db_session_factory,
-        user_id=user_id,
-        session_id=started["sessionId"],
-    ) == before_checkpoint
+    assert (
+        _checkpoint(
+            db_session_factory,
+            user_id=user_id,
+            session_id=started["sessionId"],
+        )
+        == before_checkpoint
+    )
     with db_session_factory() as session:
-        assert session.execute(
-            text(
-                """
+        assert (
+            session.execute(
+                text(
+                    """
                 select count(*)
                 from learning.xingce_cause_candidate_versions
                 where user_id = cast(:user_id as uuid)
                 """
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 0
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 0
+        )
 
 
 def test_source_ownership_unknown_question_and_account_isolation(
@@ -349,16 +356,12 @@ def test_content_update_and_withdrawal_keep_safe_tombstone(
     assert updated_item["preview"]["moduleName"] == (
         updated_module[: FAVORITE_PREVIEW_MODULE_MAX_LENGTH - 1] + "…"
     )
-    assert (
-        len(updated_item["preview"]["moduleName"])
-        == FAVORITE_PREVIEW_MODULE_MAX_LENGTH
-    )
+    assert len(updated_item["preview"]["moduleName"]) == FAVORITE_PREVIEW_MODULE_MAX_LENGTH
 
     with db_session_factory.begin() as session:
         session.execute(
             text(
-                "update product.questions set status = 'retired' "
-                "where question_id = :question_id"
+                "update product.questions set status = 'retired' where question_id = :question_id"
             ),
             {"question_id": question_id},
         )
@@ -448,10 +451,7 @@ def test_favorite_list_live_keyset_is_scoped_and_refreshes_concurrent_moves(
     second_data = second.json()["data"]
     assert len(second_data["items"]) == 1
     assert second_data["nextCursor"] is None
-    ids = [
-        item["questionId"]
-        for item in [*first_data["items"], *second_data["items"]]
-    ]
+    ids = [item["questionId"] for item in [*first_data["items"], *second_data["items"]]]
     assert len(ids) == len(set(ids)) == len(questions)
 
     invalid = client.get(
@@ -478,31 +478,35 @@ def test_favorite_list_live_keyset_is_scoped_and_refreshes_concurrent_moves(
     assert live_first["nextCursor"]
     first_live_id = live_first["items"][0]["questionId"]
     moved_question = next(
-        question
-        for question in questions
-        if question["questionId"] != first_live_id
+        question for question in questions if question["questionId"] != first_live_id
     )
     moved_id = moved_question["questionId"]
     moved_path = f"/api/v2/xingce/question-favorites/{moved_id}"
-    assert client.put(
-        moved_path,
-        headers={
-            **auth,
-            "Idempotency-Key": "favorite-page-live-unset-0001",
-        },
-        json={"desiredState": "not_favorited"},
-    ).status_code == 200
-    assert client.put(
-        moved_path,
-        headers={
-            **auth,
-            "Idempotency-Key": "favorite-page-live-reset-0001",
-        },
-        json=_favorite_body(
-            question=moved_question,
-            session_id=started["sessionId"],
-        ),
-    ).status_code == 200
+    assert (
+        client.put(
+            moved_path,
+            headers={
+                **auth,
+                "Idempotency-Key": "favorite-page-live-unset-0001",
+            },
+            json={"desiredState": "not_favorited"},
+        ).status_code
+        == 200
+    )
+    assert (
+        client.put(
+            moved_path,
+            headers={
+                **auth,
+                "Idempotency-Key": "favorite-page-live-reset-0001",
+            },
+            json=_favorite_body(
+                question=moved_question,
+                session_id=started["sessionId"],
+            ),
+        ).status_code
+        == 200
+    )
 
     continued_ids: list[str] = []
     cursor = live_first["nextCursor"]
@@ -514,9 +518,7 @@ def test_favorite_list_live_keyset_is_scoped_and_refreshes_concurrent_moves(
         )
         assert continued.status_code == 200
         continued_data = continued.json()["data"]
-        continued_ids.extend(
-            item["questionId"] for item in continued_data["items"]
-        )
+        continued_ids.extend(item["questionId"] for item in continued_data["items"])
         cursor = continued_data["nextCursor"]
     assert len(continued_ids) == len(set(continued_ids))
     assert first_live_id not in continued_ids
@@ -541,9 +543,7 @@ def test_favorite_list_live_keyset_is_scoped_and_refreshes_concurrent_moves(
         params={"pageSize": 100},
     )
     assert refreshed.status_code == 200
-    refreshed_ids = [
-        item["questionId"] for item in refreshed.json()["data"]["items"]
-    ]
+    refreshed_ids = [item["questionId"] for item in refreshed.json()["data"]["items"]]
     assert len(refreshed_ids) == len(set(refreshed_ids)) == len(questions)
     assert moved_id in refreshed_ids
 
@@ -582,16 +582,12 @@ def test_question_lock_serializes_distinct_commands_and_revision(
 
     def remove_in_second_transaction() -> int:
         with db_session_factory() as session:
-            result = QuestionFavoriteService(
-                repository=SignalingRepository()
-            ).set_state(
+            result = QuestionFavoriteService(repository=SignalingRepository()).set_state(
                 session,
                 user_id=user_id,
                 question_id=question_id,
                 command_id="favorite-race-unset-0001",
-                command=SetQuestionFavoriteCommand(
-                    desiredState="not_favorited"
-                ),
+                command=SetQuestionFavoriteCommand(desiredState="not_favorited"),
             )
             session.commit()
             return result.revision
@@ -662,16 +658,12 @@ def test_question_lock_orders_timestamp_by_commit_not_request_start(
 
     def earlier_request_committing_last() -> QuestionFavoriteReceipt:
         with db_session_factory() as session:
-            receipt = QuestionFavoriteService(
-                repository=DelayedQuestionLockRepository()
-            ).set_state(
+            receipt = QuestionFavoriteService(repository=DelayedQuestionLockRepository()).set_state(
                 session,
                 user_id=user_id,
                 question_id=question_id,
                 command_id="favorite-lock-order-unset-0001",
-                command=SetQuestionFavoriteCommand(
-                    desiredState="not_favorited"
-                ),
+                command=SetQuestionFavoriteCommand(desiredState="not_favorited"),
             )
             session.commit()
             return receipt
@@ -721,9 +713,7 @@ def test_state_and_receipt_roll_back_together_on_receipt_failure(
 
     with db_session_factory() as session:
         with pytest.raises(RuntimeError, match="injected receipt failure"):
-            QuestionFavoriteService(
-                repository=FailingReceiptRepository()
-            ).set_state(
+            QuestionFavoriteService(repository=FailingReceiptRepository()).set_state(
                 session,
                 user_id=user_id,
                 question_id=question["questionId"],
@@ -738,26 +728,32 @@ def test_state_and_receipt_roll_back_together_on_receipt_failure(
         session.rollback()
 
     with db_session_factory() as session:
-        assert session.execute(
-            text(
-                """
+        assert (
+            session.execute(
+                text(
+                    """
                 select count(*)
                 from learning.xingce_question_favorite_states
                 where user_id = cast(:user_id as uuid)
                 """
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 0
-        assert session.execute(
-            text(
-                """
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 0
+        )
+        assert (
+            session.execute(
+                text(
+                    """
                 select count(*)
                 from learning.xingce_question_favorite_commands
                 where user_id = cast(:user_id as uuid)
                 """
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 0
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 0
+        )
 
 
 def test_database_rejects_revision_and_receipt_drift(
@@ -826,17 +822,20 @@ def test_database_rejects_revision_and_receipt_drift(
         )
         assert stored is not None
         assert stored["revision"] == 1
-        assert session.execute(
-            text(
-                """
+        assert (
+            session.execute(
+                text(
+                    """
                 select count(*)
                 from learning.xingce_question_favorite_commands
                 where user_id = cast(:user_id as uuid)
                   and command_id = 'favorite-database-guard-0001'
                 """
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 1
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 1
+        )
 
 
 def test_favorites_are_exported_and_deleted_with_the_account(
@@ -862,9 +861,7 @@ def test_favorites_are_exported_and_deleted_with_the_account(
         rights = DataRightsRepository(session)
         overview = rights.overview(user_id=user_id, now=now)
         learning_evidence = next(
-            item
-            for item in overview.categories
-            if item.category == "learning_evidence"
+            item for item in overview.categories if item.category == "learning_evidence"
         )
         assert learning_evidence.item_count >= 1
         exported = rights.build_export_payload(user_id=user_id, now=now)
@@ -905,28 +902,34 @@ def test_favorites_are_exported_and_deleted_with_the_account(
         assert erased["xingce_question_favorite_states"] == 1
         assert erased["xingce_question_favorite_commands"] == 1
 
-        assert session.execute(
-            text(
-                "select count(*) "
-                "from learning.xingce_question_favorite_states "
-                "where user_id = cast(:user_id as uuid)"
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 0
-        assert session.execute(
-            text(
-                "select count(*) "
-                "from learning.xingce_question_favorite_commands "
-                "where user_id = cast(:user_id as uuid)"
-            ),
-            {"user_id": user_id},
-        ).scalar_one() == 0
+        assert (
+            session.execute(
+                text(
+                    "select count(*) "
+                    "from learning.xingce_question_favorite_states "
+                    "where user_id = cast(:user_id as uuid)"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 0
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) "
+                    "from learning.xingce_question_favorite_commands "
+                    "where user_id = cast(:user_id as uuid)"
+                ),
+                {"user_id": user_id},
+            ).scalar_one()
+            == 0
+        )
 
 
 def test_revision_74_schema_and_73_to_74_round_trip(
-    db_engine: Engine,
+    db_engine_at_revision_76: Engine,
 ) -> None:
-    inspector = inspect(db_engine)
+    inspector = inspect(db_engine_at_revision_76)
     assert {
         "xingce_question_favorite_states",
         "xingce_question_favorite_commands",
@@ -946,17 +949,17 @@ def test_revision_74_schema_and_73_to_74_round_trip(
     config = Config(str(BACKEND_ROOT / "alembic.ini"))
     config.set_main_option(
         "sqlalchemy.url",
-        db_engine.url.render_as_string(hide_password=False),
+        db_engine_at_revision_76.url.render_as_string(hide_password=False),
     )
     alembic_command.downgrade(config, "20260728_73")
     assert "xingce_question_favorite_states" not in inspect(
-        db_engine
+        db_engine_at_revision_76
     ).get_table_names(schema="learning")
     alembic_command.upgrade(config, "20260728_74")
     assert {
         "xingce_question_favorite_states",
         "xingce_question_favorite_commands",
-    }.issubset(inspect(db_engine).get_table_names(schema="learning"))
+    }.issubset(inspect(db_engine_at_revision_76).get_table_names(schema="learning"))
 
 
 def _prepare_source(
@@ -974,11 +977,7 @@ def _prepare_source(
     auth = {"Authorization": f"Bearer {token}"}
     dashboard = client.get("/api/v2/plans/today", headers=auth)
     assert dashboard.status_code == 200, dashboard.text
-    task = next(
-        item
-        for item in dashboard.json()["data"]["tasks"]
-        if item["track"] == "xingce"
-    )
+    task = next(item for item in dashboard.json()["data"]["tasks"] if item["track"] == "xingce")
     started = client.post(
         "/api/v2/xingce/task-sessions",
         headers={**auth, "Idempotency-Key": f"favorite-source-{token}"},
@@ -1059,6 +1058,5 @@ def _checkpoint(
 class _EmptyPrivateStorage:
     def delete_private(self, *, object_ref: str, operation_key: str) -> None:
         raise AssertionError(
-            f"favorite privacy fixture unexpectedly owned {object_ref} "
-            f"for {operation_key}"
+            f"favorite privacy fixture unexpectedly owned {object_ref} for {operation_key}"
         )

@@ -641,7 +641,6 @@ def _seed_user(db_session_factory: sessionmaker[Session], *, token: str) -> str:
                   position_group,
                   daily_minutes,
                   study_mode,
-                  target_score,
                   baseline_source,
                   baseline_xingce_score,
                   onboarding_complete
@@ -652,7 +651,6 @@ def _seed_user(db_session_factory: sessionmaker[Session], *, token: str) -> str:
                   '中央机关综合管理岗',
                   120,
                   'parttime',
-                  132,
                   'self_report',
                   60,
                   true

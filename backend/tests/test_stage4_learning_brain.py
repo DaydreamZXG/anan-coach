@@ -30,6 +30,7 @@ from app.domains.planning.repository import ActiveStrategyDecision
 from app.domains.planning.schemas import PlanningEvidenceRef
 from app.domains.planning.service import _apply_strategy_decisions
 from app.main import create_app
+from tests.position_release_helpers import seed_active_position_release
 
 
 NOW = datetime(2026, 7, 16, 8, tzinfo=UTC)
@@ -76,9 +77,7 @@ def _candidate(*, stage: str, key: str) -> TaskCandidate:
 
 def _apply_stage4(engine: Engine) -> object:
     migration = import_module("migrations.versions.20260716_31_learning_brain_planning")
-    if "learner_brain_profile_versions" not in inspect(engine).get_table_names(
-        schema="learning"
-    ):
+    if "learner_brain_profile_versions" not in inspect(engine).get_table_names(schema="learning"):
         with engine.begin() as connection:
             for statement in migration._STATEMENTS:
                 connection.execute(text(statement))
@@ -92,19 +91,12 @@ def _seed_user_and_release(factory: sessionmaker[Session]) -> str:
             text("insert into learner.users (user_id, display_name) values (:id, '阶段四学习者')"),
             {"id": user_id},
         )
-        session.execute(
-            text(
-                """
-                insert into product.position_rule_releases (
-                  release_id, exam_code, exam_year, rule_set_version,
-                  position_data_version, status, activated_at
-                ) values (
-                  :release_id, 'guokao', 2026, 'stage4-rules',
-                  'stage4-positions', 'active', :activated_at
-                )
-                """
-            ),
-            {"release_id": str(uuid4()), "activated_at": NOW},
+        seed_active_position_release(
+            session,
+            activated_at=NOW,
+            database_now=datetime.now(UTC),
+            rule_set_version="stage4-rules",
+            position_data_version="stage4-positions",
         )
     return user_id
 
@@ -202,27 +194,31 @@ def test_learning_brain_replays_same_inputs_without_inventing_evidence(
             node_id=None,
         )
         assert companion_context.learning_brain_profile is not None
-        assert (
-            companion_context.learning_brain_profile["profileVersionId"]
-            == str(first.profile_version_id)
+        assert companion_context.learning_brain_profile["profileVersionId"] == str(
+            first.profile_version_id
         )
         assert _context_payload(companion_context)["learningBrain"] is not None
         assert "learning_brain" in [
-            item.reference.kind
-            for item in _context_retrieval_candidates(companion_context)
+            item.reference.kind for item in _context_retrieval_candidates(companion_context)
         ]
         persona = _build_persona_prompt(companion_context)
         assert "岸岸" in persona
         assert "沈砚" not in persona
-        assert session.execute(
-            text("select count(*) from learning.learner_brain_profile_versions")
-        ).scalar_one() == 1
-        assert session.execute(
-            text(
-                "select count(*) from platform.outbox_events "
-                "where event_type = 'learning_brain.profile.changed'"
-            )
-        ).scalar_one() == 1
+        assert (
+            session.execute(
+                text("select count(*) from learning.learner_brain_profile_versions")
+            ).scalar_one()
+            == 1
+        )
+        assert (
+            session.execute(
+                text(
+                    "select count(*) from platform.outbox_events "
+                    "where event_type = 'learning_brain.profile.changed'"
+                )
+            ).scalar_one()
+            == 1
+        )
 
 
 def test_weekly_contract_requires_exact_contiguous_five_plus_one_plus_one() -> None:
@@ -320,9 +316,7 @@ def test_confirmed_strategy_changes_new_learning_but_preserves_required_closure(
     assert deprioritized[0].priority.goal_gain == 0.28
     assert deprioritized[0].priority.ability_gain == 0.28
     assert "阶段降权" in deprioritized[0].reason
-    assert deprioritized[0].evidence_refs[0]["entityType"] == (
-        "strategy_decision_version"
-    )
+    assert deprioritized[0].evidence_refs[0]["entityType"] == ("strategy_decision_version")
     assert deprioritized[1] == closure
     assert "strategy_phase_deprioritize_applied" in codes
     assert "strategy_preserved_required_closure" in codes

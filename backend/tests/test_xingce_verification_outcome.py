@@ -61,11 +61,33 @@ def test_verification_outcome_binds_source_and_treats_dispute_as_pending(
         ),
     }
     questions = verification["bundle"]["questions"]
-    assert [item["questionId"] for item in questions] == [
-        "xingce-route-question-4",
-        "xingce-route-question-5",
-        "xingce-route-question-6",
-    ]
+    verification_question_ids = [item["questionId"] for item in questions]
+    with db_session_factory() as session:
+        source_scoring_bundle = session.execute(
+            text(
+                "select scoring_bundle from learning.xingce_task_sessions "
+                "where session_id = cast(:session_id as uuid)"
+            ),
+            {"session_id": submitted["sessionId"]},
+        ).scalar_one()
+        verification_scoring_bundle = session.execute(
+            text(
+                "select scoring_bundle from learning.xingce_task_sessions "
+                "where session_id = cast(:session_id as uuid)"
+            ),
+            {"session_id": verification["sessionId"]},
+        ).scalar_one()
+    source_question_ids = [str(item["questionId"]) for item in source_scoring_bundle["questions"]]
+    correct_options_by_question = {
+        str(item["questionId"]): [str(option) for option in item["correctOptionIds"]]
+        for item in verification_scoring_bundle["questions"]
+    }
+    assert len(verification_question_ids) == 3
+    assert len(set(verification_question_ids)) == 3
+    assert set(verification_question_ids).isdisjoint(source_question_ids)
+    assert set(verification_question_ids) | set(source_question_ids) == {
+        f"xingce-route-question-{index}" for index in range(1, 7)
+    }
     checkpoint = client.put(
         f"/api/v2/xingce/task-sessions/{verification['sessionId']}/checkpoint",
         headers={**auth, "Idempotency-Key": "verification-outcome-checkpoint"},
@@ -73,10 +95,12 @@ def test_verification_outcome_binds_source_and_treats_dispute_as_pending(
             "expectedRevision": verification["revision"],
             "currentQuestionId": questions[-1]["questionId"],
             "answers": [
-                _answer(question["questionId"], choice, 35 + index)
-                for index, (question, choice) in enumerate(
-                    zip(questions, ["D", "A", "B"], strict=True)
+                _answer(
+                    question["questionId"],
+                    correct_options_by_question[question["questionId"]][0],
+                    35 + index,
                 )
+                for index, question in enumerate(questions)
             ],
             "totalElapsedSeconds": 120,
         },
@@ -102,8 +126,7 @@ def test_verification_outcome_binds_source_and_treats_dispute_as_pending(
     with db_session_factory.begin() as session:
         session.execute(
             text(
-                "update product.questions set status = 'withdrawn' "
-                "where question_id = :question_id"
+                "update product.questions set status = 'withdrawn' where question_id = :question_id"
             ),
             {"question_id": questions[0]["questionId"]},
         )

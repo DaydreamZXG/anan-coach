@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session, sessionmaker
 
 from app.domains.auth.repository import token_hash_for_tests
 from app.domains.learning_brain.repository import LearningBrainRepository
+from tests.position_release_helpers import seed_active_position_release
 from tests.task_editing_helpers import claim_task_edit_headers
 from tests.test_planning_routes import (
     _client,
@@ -263,24 +264,14 @@ def _seed_user_for_existing_catalog(
 
 
 def _seed_active_position_release(factory: sessionmaker[Session]) -> None:
+    now = datetime.now(UTC)
     with factory.begin() as session:
-        session.execute(
-            text(
-                """
-                insert into product.position_rule_releases (
-                  release_id, exam_code, exam_year, rule_set_version,
-                  position_data_version, status, activated_at
-                ) values (
-                  cast(:release_id as uuid), 'guokao', 2026,
-                  'brain-timing-rules', 'brain-timing-positions',
-                  'active', :activated_at
-                )
-                """
-            ),
-            {
-                "release_id": str(uuid4()),
-                "activated_at": datetime.now(UTC),
-            },
+        seed_active_position_release(
+            session,
+            activated_at=now,
+            database_now=now,
+            rule_set_version="brain-timing-rules",
+            position_data_version="brain-timing-positions",
         )
 
 

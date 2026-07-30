@@ -14,6 +14,7 @@ from app.db.session import get_db_session
 from app.domains.auth.repository import token_hash_for_tests
 from app.domains.learning_brain.service import LearningBrainService
 from app.main import create_app
+from tests.position_release_helpers import seed_active_position_release
 
 
 NOW = datetime(2026, 7, 26, 8, tzinfo=UTC)
@@ -63,8 +64,7 @@ def test_calibration_groups_knowledge_points_and_refuses_low_sample_conclusions(
     assert response.status_code == 200
     body = response.json()
     estimates = {
-        (item["moduleName"], item["tagValue"]): item
-        for item in body["knowledgePointEstimates"]
+        (item["moduleName"], item["tagValue"]): item for item in body["knowledgePointEstimates"]
     }
 
     sufficient = estimates[("资料分析", "基期量计算")]
@@ -220,7 +220,6 @@ def _seed_user(db_session_factory: sessionmaker[Session], *, token: str) -> str:
                   position_group,
                   daily_minutes,
                   study_mode,
-                  target_score,
                   baseline_source,
                   baseline_xingce_score,
                   onboarding_complete
@@ -231,7 +230,6 @@ def _seed_user(db_session_factory: sessionmaker[Session], *, token: str) -> str:
                   '中央机关综合管理岗',
                   120,
                   'parttime',
-                  132,
                   'self_report',
                   60,
                   true
@@ -256,19 +254,12 @@ def _seed_user_and_release(db_session_factory: sessionmaker[Session]) -> str:
             ),
             {"user_id": user_id},
         )
-        session.execute(
-            text(
-                """
-                insert into product.position_rule_releases (
-                  release_id, exam_code, exam_year, rule_set_version,
-                  position_data_version, status, activated_at
-                ) values (
-                  :release_id, 'guokao', 2026, 'kp-rules',
-                  'kp-positions', 'active', :activated_at
-                )
-                """
-            ),
-            {"release_id": str(uuid4()), "activated_at": NOW},
+        seed_active_position_release(
+            session,
+            activated_at=NOW,
+            database_now=datetime.now(UTC),
+            rule_set_version="kp-rules",
+            position_data_version="kp-positions",
         )
         session.commit()
     return user_id
@@ -482,9 +473,7 @@ def _seed_xingce_assessments(
             .one_or_none()
         )
         plan_id = str(uuid4())
-        plan_version_no = (
-            int(previous_plan["version_no"]) + 1 if previous_plan is not None else 1
-        )
+        plan_version_no = int(previous_plan["version_no"]) + 1 if previous_plan is not None else 1
         session.execute(
             text(
                 """
@@ -522,9 +511,7 @@ def _seed_xingce_assessments(
                 "preference_id": str(preference_id),
                 "input_fingerprint": _hash("plan", user_id, id_prefix),
                 "supersedes_plan_id": (
-                    str(previous_plan["plan_version_id"])
-                    if previous_plan is not None
-                    else None
+                    str(previous_plan["plan_version_id"]) if previous_plan is not None else None
                 ),
                 "recorded_at": recorded_at,
                 "valid_until": recorded_at + timedelta(days=1),
@@ -632,8 +619,7 @@ def _seed_xingce_assessments(
                 "safe_bundle": json.dumps(
                     {
                         "questions": [
-                            {"questionId": question_id}
-                            for question_id, _is_correct in rows
+                            {"questionId": question_id} for question_id, _is_correct in rows
                         ]
                     }
                 ),
@@ -700,9 +686,7 @@ def _seed_xingce_assessments(
                 {
                     "attempt_record_id": attempt_record_id,
                     "attempt_group_id": attempt_group_id,
-                    "item_attempt_id": _hash(
-                        "item-attempt", user_id, id_prefix, str(index)
-                    ),
+                    "item_attempt_id": _hash("item-attempt", user_id, id_prefix, str(index)),
                     "submit_command_id": submit_command_id,
                     "user_id": user_id,
                     "session_id": session_id,
@@ -742,17 +726,11 @@ def _seed_xingce_assessments(
                     "question_id": question_id,
                     "answer_version_id": answer_version_id,
                     "content_version_id": content_version_id,
-                    "assessment_key_hash": _hash(
-                        "assessment", user_id, id_prefix, str(index)
-                    ),
+                    "assessment_key_hash": _hash("assessment", user_id, id_prefix, str(index)),
                     "result_code": "correct" if is_correct else "incorrect",
                     "correct": is_correct,
                     "result_snapshot": json.dumps(
-                        {
-                            "objectiveVerdict": (
-                                "correct" if is_correct else "incorrect"
-                            )
-                        }
+                        {"objectiveVerdict": ("correct" if is_correct else "incorrect")}
                     ),
                     "recorded_at": recorded_at,
                 },

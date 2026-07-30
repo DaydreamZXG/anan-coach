@@ -10,12 +10,7 @@ from app.workers.essay_reviews import _validate_worker_settings
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-SERVICE_UNIT = (
-    REPO_ROOT
-    / "ops"
-    / "systemd"
-    / "gongkao-dazi-essay-review-worker.service"
-)
+SERVICE_UNIT = REPO_ROOT / "ops" / "systemd" / "gongkao-dazi-essay-review-worker.service"
 
 
 def test_essay_worker_requires_explicit_enablement() -> None:
@@ -78,11 +73,11 @@ def test_essay_worker_accepts_bounded_loop_settings() -> None:
 def test_essay_worker_systemd_unit_uses_formal_module_and_hardening() -> None:
     source = SERVICE_UNIT.read_text(encoding="utf-8")
 
-    assert "EnvironmentFile=/etc/gongkao-dazi/api.env" in source
+    assert "EnvironmentFile=/etc/gongkao-dazi/worker-essay-review.env" in source
+    assert "EnvironmentFile=/etc/gongkao-dazi/api.env" not in source
     assert "EnvironmentFile=/etc/gongkao-dazi/db.env" in source
     assert (
-        "ExecStart=/srv/gongkao-dazi/current/backend/.venv/bin/python "
-        "-m app.workers.essay_reviews"
+        "ExecStart=/srv/gongkao-dazi/current/backend/.venv/bin/python -m app.workers.essay_reviews"
     ) in source
     assert "NoNewPrivileges=true" in source
     assert "ProtectSystem=strict" in source

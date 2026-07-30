@@ -13,6 +13,7 @@ from app.db.session import get_db_session
 from app.domains.auth.deps import get_wechat_identity_exchange
 from app.domains.auth.wechat import WechatIdentityClaims
 from app.main import create_app
+from tests.position_release_helpers import seed_active_position_release
 
 
 class _WechatExchange:
@@ -54,10 +55,7 @@ def test_retake_learning_owns_multi_year_loss_recovery_contract(
         },
     )
     assert declaration.status_code == 200
-    assert (
-        declaration.json()["data"]["experience"]["recommendedEntry"]
-        == "retake_loss_recovery"
-    )
+    assert declaration.json()["data"]["experience"]["recommendedEntry"] == "retake_loss_recovery"
 
     official_evidence_id = _seed_score_evidence(
         db_session_factory,
@@ -84,9 +82,9 @@ def test_retake_learning_owns_multi_year_loss_recovery_contract(
     assert workspace.status_code == 200
     workspace_data = workspace.json()["data"]
     assert workspace_data["targetExamYear"] == 2026
-    assert [
-        option["evidenceId"] for option in workspace_data["eligibleScoreEvidence"]
-    ] == [official_evidence_id]
+    assert [option["evidenceId"] for option in workspace_data["eligibleScoreEvidence"]] == [
+        official_evidence_id
+    ]
     assert "不参与退款" in workspace_data["scoreUseBoundary"]
 
     created = client.post(
@@ -101,10 +99,7 @@ def test_retake_learning_owns_multi_year_loss_recovery_contract(
     assert program["refundUsesScore"] is False
     assert program["rewardUsesScore"] is False
     assert program["trainingUsesScore"] is True
-    assert any(
-        "行测六模块" in focus
-        for focus in program["lossStructure"]["trainingFocus"]
-    )
+    assert any("行测六模块" in focus for focus in program["lossStructure"]["trainingFocus"])
 
     replay = client.post(
         "/api/v2/retake/programs",
@@ -165,19 +160,12 @@ def _seed_active_release(
     now: datetime,
 ) -> None:
     with factory.begin() as session:
-        session.execute(
-            text(
-                """
-                insert into product.position_rule_releases (
-                  release_id, exam_code, exam_year, rule_set_version,
-                  position_data_version, status, activated_at
-                ) values (
-                  gen_random_uuid(), 'guokao', 2026, 'guokao-2026-retake',
-                  'guokao-2026-retake-data', 'active', :activated_at
-                )
-                """
-            ),
-            {"activated_at": now},
+        seed_active_position_release(
+            session,
+            activated_at=now,
+            database_now=now,
+            rule_set_version="guokao-2026-retake",
+            position_data_version="guokao-2026-retake-data",
         )
 
 

@@ -395,22 +395,19 @@ def test_job_lease_schema_preserves_legacy_nulls_and_fences_new_leases(
 
 
 def test_shadow_schema_matches_real_wave1_migration_round_trip(
-    db_engine: Engine,
+    db_engine_at_revision_76: Engine,
 ) -> None:
-    expected = _wave1_schema_fingerprint(db_engine)
+    expected = _wave1_schema_fingerprint(db_engine_at_revision_76)
     config = Config(str(BACKEND_ROOT / "alembic.ini"))
     config.set_main_option(
         "sqlalchemy.url",
-        db_engine.url.render_as_string(hide_password=False),
+        db_engine_at_revision_76.url.render_as_string(hide_password=False),
     )
 
-    # Reposition only Alembic's test cursor so this historical round trip does
-    # not weaken the forward-only commercial authorities introduced at 80/81.
-    command.stamp(config, "20260730_79")
     command.downgrade(config, "20260728_70")
-    command.upgrade(config, "head")
+    command.upgrade(config, "20260729_76")
 
-    assert _wave1_schema_fingerprint(db_engine) == expected
+    assert _wave1_schema_fingerprint(db_engine_at_revision_76) == expected
 
 
 @pytest.mark.parametrize("release_status", ("active", "retired"))
