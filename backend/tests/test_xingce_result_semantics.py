@@ -30,6 +30,18 @@ def test_result_projection_separates_verdict_disposition_confidence_and_timing(
         token="xingce-result-facts-token",
     )
     questions = started["bundle"]["questions"]
+    with db_session_factory() as session:
+        scoring_bundle = session.execute(
+            text(
+                "select scoring_bundle from learning.xingce_task_sessions "
+                "where session_id = cast(:session_id as uuid)"
+            ),
+            {"session_id": started["sessionId"]},
+        ).scalar_one()
+    correct_options_by_question = {
+        str(item["questionId"]): [str(option) for option in item["correctOptionIds"]]
+        for item in scoring_bundle["questions"]
+    }
     advisory = task["estimatedMinutes"] * 20
     checkpoint = client.put(
         f"/api/v2/xingce/task-sessions/{started['sessionId']}/checkpoint",
@@ -38,10 +50,15 @@ def test_result_projection_separates_verdict_disposition_confidence_and_timing(
             "expectedRevision": started["revision"],
             "currentQuestionId": questions[-1]["questionId"],
             "answers": [
-                _answer(questions[0]["questionId"], "A", "high", 30),
+                _answer(
+                    questions[0]["questionId"],
+                    correct_options_by_question[questions[0]["questionId"]][0],
+                    "high",
+                    30,
+                ),
                 _answer(
                     questions[1]["questionId"],
-                    "B",
+                    correct_options_by_question[questions[1]["questionId"]][0],
                     "low",
                     advisory + 1,
                 ),

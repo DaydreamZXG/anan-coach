@@ -393,12 +393,34 @@ def test_due_mastery_version_runs_independent_verification_and_schedules_first_r
     }
     assert verification["mode"] == "verification"
     question_ids = [question["questionId"] for question in verification["bundle"]["questions"]]
-    assert question_ids == [
-        "xingce-route-question-4",
-        "xingce-route-question-5",
-        "xingce-route-question-6",
-    ]
-    correct_choices = ["D", "A", "B"]
+    with db_session_factory() as session:
+        source_scoring_bundle = session.execute(
+            text(
+                "select scoring_bundle from learning.xingce_task_sessions "
+                "where session_id = cast(:session_id as uuid)"
+            ),
+            {"session_id": submitted["sessionId"]},
+        ).scalar_one()
+        verification_scoring_bundle = session.execute(
+            text(
+                "select scoring_bundle from learning.xingce_task_sessions "
+                "where session_id = cast(:session_id as uuid)"
+            ),
+            {"session_id": verification["sessionId"]},
+        ).scalar_one()
+    source_question_ids = {
+        str(item["questionId"]) for item in source_scoring_bundle["questions"]
+    }
+    correct_options_by_question = {
+        str(item["questionId"]): [str(option) for option in item["correctOptionIds"]]
+        for item in verification_scoring_bundle["questions"]
+    }
+    assert len(question_ids) == 3
+    assert len(set(question_ids)) == 3
+    assert set(question_ids).isdisjoint(source_question_ids)
+    assert set(question_ids) | source_question_ids == {
+        f"xingce-route-question-{index}" for index in range(1, 7)
+    }
     checkpoint = client.put(
         f"/api/v2/xingce/task-sessions/{verification['sessionId']}/checkpoint",
         headers={**auth, "Idempotency-Key": "mastery-verification-checkpoint"},
@@ -408,7 +430,7 @@ def test_due_mastery_version_runs_independent_verification_and_schedules_first_r
             "answers": [
                 {
                     "questionId": question_id,
-                    "selectedOptionIds": [choice],
+                    "selectedOptionIds": [correct_options_by_question[question_id][0]],
                     "eliminatedOptionIds": [],
                     "confidence": "high",
                     "marked": False,
@@ -417,9 +439,7 @@ def test_due_mastery_version_runs_independent_verification_and_schedules_first_r
                     "draftText": "",
                     "materialPosition": None,
                 }
-                for index, (question_id, choice) in enumerate(
-                    zip(question_ids, correct_choices, strict=True)
-                )
+                for index, question_id in enumerate(question_ids)
             ],
             "totalElapsedSeconds": 150,
         },
