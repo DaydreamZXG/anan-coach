@@ -15,6 +15,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import pwd
 import re
 import secrets
 import shutil
@@ -30,7 +31,11 @@ import psycopg
 from psycopg.conninfo import conninfo_to_dict
 
 
-FORMAT_VERSION = "anan-postgres-backup/v3"
+FORMAT_VERSION = "anan-postgres-backup/v4"
+LEGACY_FORMAT_VERSION = "anan-postgres-backup/v3"
+BACKUP_TARGET_FORMAT_VERSION = "anan-backup-target/v1"
+BACKUP_TARGET_PURPOSE = "backup-target-binding"
+BACKUP_EXECUTOR_USER = "gongkao-backup"
 RESTORE_TARGET_FORMAT_VERSION = "anan-restore-target/v1"
 RESTORE_TARGET_PURPOSE = "isolated-disposable-restore"
 PUBLICATION_AUTHORITY_FORMAT_VERSION = (
@@ -42,6 +47,20 @@ COMMERCIAL_DATA_PUBLICATION_ADVISORY_LOCK_KEY = 0x474B444154415001
 HEX_SHA256 = re.compile(r"^[0-9a-f]{64}$")
 COMMIT = re.compile(r"^[0-9a-f]{40,64}$")
 SAFE_ENVIRONMENT = re.compile(r"^[A-Za-z0-9._-]+$")
+MOUNT_DEVICE = re.compile(r"^[0-9]+:[0-9]+$")
+BACKUP_TARGET_EVIDENCE_KEYS = {
+    "schemaVersion",
+    "purpose",
+    "targetId",
+    "sourceEnvironmentId",
+    "sourceMachineIdentitySha256",
+    "backupDirectory",
+    "targetMountPoint",
+    "targetMountRootSha256",
+    "targetDeviceMajorMinor",
+    "targetFilesystemType",
+    "targetMountSourceSha256",
+}
 CRITICAL_TABLES = (
     "learner.users",
     "learning.xingce_task_sessions",
@@ -109,7 +128,7 @@ def build_manifest(
     *,
     created_at: str,
     source_environment_id: str,
-    backup_target_id: str,
+    backup_target_authority: dict[str, str],
     source_identity: str,
     source_cluster_identity: str,
     database_revision: str,
@@ -127,11 +146,20 @@ def build_manifest(
         expected_revision=database_revision,
         expected_environment=source_environment_id,
     )
+    _validate_backup_target_evidence(
+        backup_target_authority,
+        expected_source_environment_id=source_environment_id,
+    )
+    target_authority_digest = hashlib.sha256(
+        _canonical_json(backup_target_authority).encode("utf-8")
+    ).hexdigest()
     return {
         "formatVersion": FORMAT_VERSION,
         "createdAt": created_at,
         "sourceEnvironmentId": source_environment_id,
-        "backupTargetId": backup_target_id,
+        "backupTargetId": backup_target_authority["targetId"],
+        "backupTargetAuthority": dict(sorted(backup_target_authority.items())),
+        "backupTargetAuthoritySha256": target_authority_digest,
         "sourceDatabaseIdentitySha256": hashlib.sha256(
             source_identity.encode("utf-8")
         ).hexdigest(),
@@ -157,9 +185,15 @@ def capture(
     manifest_path: Path,
     required_revision: str,
     source_environment_id: str,
-    backup_target_id: str,
+    backup_target_authority_file: Path,
+    backup_directory: Path,
 ) -> None:
     _validate_database_url(database_url)
+    backup_target = _load_backup_target_authority(
+        path=backup_target_authority_file,
+        expected_source_environment_id=source_environment_id,
+        backup_directory=backup_directory,
+    )
     dump_path.parent.mkdir(parents=True, exist_ok=True)
     with psycopg.connect(database_url) as connection:
         connection.execute(
@@ -221,7 +255,7 @@ def capture(
         manifest = build_manifest(
             created_at=datetime.now(UTC).isoformat(),
             source_environment_id=source_environment_id,
-            backup_target_id=backup_target_id,
+            backup_target_authority=backup_target,
             source_identity=(f"{system_identifier}|{database_name}|{database_oid}"),
             source_cluster_identity=str(system_identifier),
             database_revision=required_revision,
@@ -232,6 +266,235 @@ def capture(
         )
         _write_json(manifest_path, manifest)
         connection.rollback()
+
+
+def verify_backup_authority(
+    *,
+    target_authority_file: Path,
+    source_environment_id: str,
+    backup_directory: Path,
+    signing_private_key_file: Path,
+    passfile: Path,
+) -> dict[str, str]:
+    """Verify the dedicated executor, its private inputs, and the live target."""
+
+    try:
+        executor_name = pwd.getpwuid(os.geteuid()).pw_name
+    except KeyError as exc:
+        raise BackupContractError("backup executor Unix identity is unavailable") from exc
+    if executor_name != BACKUP_EXECUTOR_USER:
+        raise BackupContractError(
+            f"backup must run as the dedicated {BACKUP_EXECUTOR_USER} Unix principal"
+        )
+    _assert_private_executor_file(
+        signing_private_key_file,
+        label="backup signing private key",
+    )
+    _assert_private_executor_file(passfile, label="backup PGPASSFILE")
+    _assert_private_backup_directory(backup_directory)
+    return _load_backup_target_authority(
+        path=target_authority_file,
+        expected_source_environment_id=source_environment_id,
+        backup_directory=backup_directory,
+    )
+
+
+def _assert_private_executor_file(path: Path, *, label: str) -> None:
+    if not path.is_absolute():
+        raise BackupContractError(f"{label} must be an absolute path")
+    try:
+        metadata = path.lstat()
+    except OSError as exc:
+        raise BackupContractError(f"{label} is unavailable") from exc
+    if (
+        not stat.S_ISREG(metadata.st_mode)
+        or stat.S_ISLNK(metadata.st_mode)
+        or metadata.st_nlink != 1
+        or metadata.st_uid != os.geteuid()
+        or stat.S_IMODE(metadata.st_mode) != 0o600
+    ):
+        raise BackupContractError(
+            f"{label} must be a single-link mode-0600 regular file owned by "
+            "the backup executor"
+        )
+
+
+def _assert_private_backup_directory(path: Path) -> None:
+    if not path.is_absolute():
+        raise BackupContractError("backup directory must be an absolute path")
+    try:
+        metadata = path.lstat()
+        resolved = path.resolve(strict=True)
+    except OSError as exc:
+        raise BackupContractError("backup directory is unavailable") from exc
+    if (
+        resolved != path
+        or not stat.S_ISDIR(metadata.st_mode)
+        or stat.S_ISLNK(metadata.st_mode)
+        or metadata.st_uid != os.geteuid()
+        or stat.S_IMODE(metadata.st_mode) != 0o700
+    ):
+        raise BackupContractError(
+            "backup directory must be a canonical mode-0700 directory owned by "
+            "the backup executor"
+        )
+
+
+def _load_backup_target_authority(
+    *,
+    path: Path,
+    expected_source_environment_id: str,
+    backup_directory: Path,
+) -> dict[str, str]:
+    authority = _read_root_owned_authority(path, label="backup target authority")
+    if not isinstance(authority, dict) or set(authority) != BACKUP_TARGET_EVIDENCE_KEYS:
+        raise BackupContractError("backup target authority fields are invalid")
+    _validate_backup_target_evidence(
+        authority,
+        expected_source_environment_id=expected_source_environment_id,
+    )
+    if authority["sourceMachineIdentitySha256"] != _executor_identity_sha256():
+        raise BackupContractError("backup target authority belongs to another source host")
+    _assert_private_backup_directory(backup_directory)
+    mount_identity = _live_mount_identity(backup_directory)
+    expected_live_binding = {
+        "backupDirectory": str(backup_directory),
+        **mount_identity,
+    }
+    for key, value in expected_live_binding.items():
+        if authority.get(key) != value:
+            raise BackupContractError(
+                "backup target authority does not match the live target mount"
+            )
+    if mount_identity["targetMountPoint"] == "/":
+        raise BackupContractError(
+            "backup target must use a dedicated mounted filesystem"
+        )
+    return {key: str(value) for key, value in authority.items()}
+
+
+def _validate_backup_target_evidence(
+    authority: Any,
+    *,
+    expected_source_environment_id: str,
+) -> None:
+    if not isinstance(authority, dict) or set(authority) != BACKUP_TARGET_EVIDENCE_KEYS:
+        raise BackupContractError("backup target authority fields are invalid")
+    if (
+        authority.get("schemaVersion") != BACKUP_TARGET_FORMAT_VERSION
+        or authority.get("purpose") != BACKUP_TARGET_PURPOSE
+        or not all(isinstance(value, str) and value for value in authority.values())
+        or SAFE_ENVIRONMENT.fullmatch(authority["targetId"]) is None
+        or SAFE_ENVIRONMENT.fullmatch(authority["sourceEnvironmentId"]) is None
+        or authority["sourceEnvironmentId"] != expected_source_environment_id
+        or not HEX_SHA256.fullmatch(authority["sourceMachineIdentitySha256"])
+        or not Path(authority["backupDirectory"]).is_absolute()
+        or not Path(authority["targetMountPoint"]).is_absolute()
+        or MOUNT_DEVICE.fullmatch(authority["targetDeviceMajorMinor"]) is None
+        or SAFE_ENVIRONMENT.fullmatch(authority["targetFilesystemType"]) is None
+        or not HEX_SHA256.fullmatch(authority["targetMountRootSha256"])
+        or not HEX_SHA256.fullmatch(authority["targetMountSourceSha256"])
+    ):
+        raise BackupContractError("backup target authority does not match the request")
+
+
+def _read_root_owned_authority(path: Path, *, label: str) -> Any:
+    if not path.is_absolute() or not hasattr(os, "O_NOFOLLOW"):
+        raise BackupContractError(f"{label} requires an absolute no-follow path")
+    flags = os.O_RDONLY | os.O_NOFOLLOW
+    if hasattr(os, "O_CLOEXEC"):
+        flags |= os.O_CLOEXEC
+    try:
+        descriptor = os.open(path, flags)
+    except OSError as exc:
+        raise BackupContractError(f"{label} is unreadable") from exc
+    try:
+        metadata = os.fstat(descriptor)
+        if (
+            not stat.S_ISREG(metadata.st_mode)
+            or metadata.st_nlink != 1
+            or metadata.st_uid != 0
+            or stat.S_IMODE(metadata.st_mode) != 0o444
+        ):
+            raise BackupContractError(
+                f"{label} must be a single-link root-owned mode-0444 regular file"
+            )
+        with os.fdopen(os.dup(descriptor), "r", encoding="utf-8") as source:
+            return json.load(source)
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise BackupContractError(f"{label} payload is invalid") from exc
+    finally:
+        os.close(descriptor)
+
+
+def _live_mount_identity(path: Path) -> dict[str, str]:
+    """Bind a target path to the Linux kernel's current mount authority."""
+
+    mountinfo = Path("/proc/self/mountinfo")
+    try:
+        lines = mountinfo.read_text(encoding="utf-8").splitlines()
+        resolved = path.resolve(strict=True)
+    except (OSError, UnicodeDecodeError) as exc:
+        raise BackupContractError("live backup target mount identity is unavailable") from exc
+    matches: list[tuple[int, int, str, str, str, str, str]] = []
+    for line in lines:
+        fields = line.split()
+        try:
+            separator = fields.index("-")
+            mount_id = int(fields[0])
+            device = fields[2]
+            mount_root = _decode_mountinfo_path(fields[3])
+            mount_point = _decode_mountinfo_path(fields[4])
+            filesystem_type = fields[separator + 1]
+            mount_source = _decode_mountinfo_path(fields[separator + 2])
+        except (ValueError, IndexError):
+            raise BackupContractError("live mountinfo contains an invalid record")
+        try:
+            if os.path.commonpath((str(resolved), mount_point)) != mount_point:
+                continue
+        except ValueError:
+            continue
+        matches.append(
+            (
+                len(Path(mount_point).parts),
+                mount_id,
+                mount_point,
+                device,
+                filesystem_type,
+                mount_source,
+                mount_root,
+            )
+        )
+    if not matches:
+        raise BackupContractError("backup directory is not covered by a live mount")
+    _, _, mount_point, device, filesystem_type, mount_source, mount_root = max(matches)
+    directory_metadata = os.stat(resolved)
+    actual_device = (
+        f"{os.major(directory_metadata.st_dev)}:{os.minor(directory_metadata.st_dev)}"
+    )
+    if actual_device != device:
+        raise BackupContractError(
+            "backup directory device does not match the selected live mount"
+        )
+    return {
+        "targetMountPoint": mount_point,
+        "targetMountRootSha256": hashlib.sha256(
+            mount_root.encode("utf-8")
+        ).hexdigest(),
+        "targetDeviceMajorMinor": device,
+        "targetFilesystemType": filesystem_type,
+        "targetMountSourceSha256": hashlib.sha256(
+            mount_source.encode("utf-8")
+        ).hexdigest(),
+    }
+
+
+def _decode_mountinfo_path(value: str) -> str:
+    return re.sub(
+        r"\\([0-7]{3})",
+        lambda match: chr(int(match.group(1), 8)),
+        value,
+    )
 
 
 def extract_bundle(*, bundle_path: Path, output_directory: Path) -> None:
@@ -256,11 +519,29 @@ def extract_bundle(*, bundle_path: Path, output_directory: Path) -> None:
 
 def load_and_verify_manifest(*, manifest_path: Path, dump_path: Path) -> dict[str, Any]:
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    if (
-        not isinstance(manifest, dict)
-        or manifest.get("formatVersion") != FORMAT_VERSION
-    ):
+    if not isinstance(manifest, dict) or manifest.get("formatVersion") not in {
+        LEGACY_FORMAT_VERSION,
+        FORMAT_VERSION,
+    }:
         raise BackupContractError("unsupported backup format")
+    if manifest["formatVersion"] == FORMAT_VERSION:
+        target_authority = manifest.get("backupTargetAuthority")
+        _validate_backup_target_evidence(
+            target_authority,
+            expected_source_environment_id=str(manifest.get("sourceEnvironmentId")),
+        )
+        target_authority_digest = hashlib.sha256(
+            _canonical_json(target_authority).encode("utf-8")
+        ).hexdigest()
+        if (
+            manifest.get("backupTargetId") != target_authority["targetId"]
+            or manifest.get("backupTargetAuthoritySha256") != target_authority_digest
+        ):
+            raise BackupContractError(
+                "backup target authority evidence does not match its manifest digest"
+            )
+    elif not isinstance(manifest.get("backupTargetId"), str):
+        raise BackupContractError("legacy backup target identity is missing")
     for label in (
         "sourceDatabaseIdentitySha256",
         "sourceClusterIdentitySha256",
@@ -393,11 +674,24 @@ def verify_restore(
         "sourceEnvironmentId": manifest["sourceEnvironmentId"],
         "targetEnvironmentId": target_environment_id,
         "backupTargetId": manifest["backupTargetId"],
+        **_backup_target_report_evidence(manifest),
         "databaseRevision": expected_revision,
         "commercialDataPublication": restored_publication_authority,
         "criticalTableRowCounts": actual_counts,
     }
     _write_json(report_path, report)
+
+
+def _backup_target_report_evidence(manifest: dict[str, Any]) -> dict[str, Any]:
+    if manifest.get("formatVersion") == FORMAT_VERSION:
+        return {
+            "backupTargetAuthorityStatus": "root-approved-live-mount-bound",
+            "backupTargetAuthoritySha256": manifest["backupTargetAuthoritySha256"],
+        }
+    return {
+        "backupTargetAuthorityStatus": "legacy-unbound",
+        "backupTargetAuthoritySha256": None,
+    }
 
 
 def _validate_database_url(database_url: str) -> None:
@@ -1825,6 +2119,24 @@ def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("new-run-id")
+    backup_authority_parser = commands.add_parser("verify-backup-authority")
+    backup_authority_parser.add_argument(
+        "--target-authority-file",
+        type=Path,
+        required=True,
+    )
+    backup_authority_parser.add_argument("--source-environment-id", required=True)
+    backup_authority_parser.add_argument(
+        "--backup-directory",
+        type=Path,
+        required=True,
+    )
+    backup_authority_parser.add_argument(
+        "--signing-private-key-file",
+        type=Path,
+        required=True,
+    )
+    backup_authority_parser.add_argument("--passfile", type=Path, required=True)
     publish_parser = commands.add_parser("publish-set")
     publish_parser.add_argument(
         "--staging-directory",
@@ -1894,7 +2206,12 @@ def _parser() -> argparse.ArgumentParser:
     capture_parser.add_argument("--manifest", type=Path, required=True)
     capture_parser.add_argument("--required-revision", required=True)
     capture_parser.add_argument("--source-environment-id", required=True)
-    capture_parser.add_argument("--backup-target-id", required=True)
+    capture_parser.add_argument(
+        "--backup-target-authority-file",
+        type=Path,
+        required=True,
+    )
+    capture_parser.add_argument("--backup-directory", type=Path, required=True)
     extract_parser = commands.add_parser("extract")
     extract_parser.add_argument("--bundle", type=Path, required=True)
     extract_parser.add_argument("--output-directory", type=Path, required=True)
@@ -1919,6 +2236,19 @@ def main() -> None:
     arguments = _parser().parse_args()
     if arguments.command == "new-run-id":
         print(new_backup_run_id())
+    elif arguments.command == "verify-backup-authority":
+        print(
+            json.dumps(
+                verify_backup_authority(
+                    target_authority_file=arguments.target_authority_file,
+                    source_environment_id=arguments.source_environment_id,
+                    backup_directory=arguments.backup_directory,
+                    signing_private_key_file=arguments.signing_private_key_file,
+                    passfile=arguments.passfile,
+                ),
+                sort_keys=True,
+            )
+        )
     elif arguments.command == "publish-set":
         print(
             publish_backup_set(
@@ -2000,7 +2330,8 @@ def main() -> None:
             manifest_path=arguments.manifest,
             required_revision=arguments.required_revision,
             source_environment_id=arguments.source_environment_id,
-            backup_target_id=arguments.backup_target_id,
+            backup_target_authority_file=arguments.backup_target_authority_file,
+            backup_directory=arguments.backup_directory,
         )
     elif arguments.command == "extract":
         extract_bundle(

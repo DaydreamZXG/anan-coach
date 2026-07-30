@@ -18,6 +18,7 @@ runtime_config_root=""
 essay_review_worker_enabled=false
 coach_notifications_enabled=false
 ilink_channel_enabled=false
+backup_timer_forced_disabled=false
 
 case "${release_id}" in
   *[!A-Za-z0-9._-]*|'')
@@ -530,7 +531,90 @@ for path, key, enabled in expected:
 PY
 }
 
-ensure_worker_runtime_principals() {
+validate_backup_environment_authority_paths() {
+  local path="${config_root}/backup.env"
+  [[ -e "${path}" ]] || return 0
+  assert_root_owned_file "${path}"
+  python3 - "${path}" <<'PY'
+from pathlib import Path
+import sys
+
+path = Path(sys.argv[1])
+assignments: dict[str, str] = {}
+for raw in path.read_text(encoding="utf-8").splitlines():
+    line = raw.strip()
+    if not line or line.startswith("#"):
+        continue
+    if "=" not in line:
+        raise SystemExit("backup.env contains an invalid assignment")
+    key, value = line.split("=", 1)
+    if key in assignments:
+        raise SystemExit(f"backup.env duplicates {key}")
+    assignments[key] = value.strip().strip("\"'")
+if "BACKUP_TARGET_ID" in assignments:
+    raise SystemExit("BACKUP_TARGET_ID is forbidden")
+expected = {
+    "BACKUP_TARGET_AUTHORITY_FILE": "/etc/gongkao-dazi/backup-target-authority.json",
+    "PGPASSFILE": "/etc/gongkao-dazi/secrets/backup.pgpass",
+    "BACKUP_SIGNING_PRIVATE_KEY_FILE": "/etc/gongkao-dazi/secrets/backup-signing.pem",
+    "BACKUP_DIRECTORY": "/var/backups/gongkao-dazi/encrypted",
+    "BACKUP_METRICS_FILE": "/var/lib/gongkao-backup/metrics/anan-backup.prom",
+}
+for key, value in expected.items():
+    if assignments.get(key) != value:
+        raise SystemExit(f"backup.env {key} violates the systemd isolation contract")
+PY
+}
+
+provision_host_backup_authority() {
+  local release_root="$1"
+  local sysusers_contract="${release_root}/ops/sysusers.d/gongkao-dazi-workers.conf"
+  local tmpfiles_contract="${release_root}/ops/tmpfiles.d/gongkao-dazi-backup.conf"
+  local api_uid
+  local entry
+  local backup_gid
+  local backup_shell
+  local backup_uid
+  local uid
+  local user
+  test -f "${sysusers_contract}"
+  test ! -L "${sysusers_contract}"
+  assert_root_owned_file "${sysusers_contract}"
+  test -f "${tmpfiles_contract}"
+  test ! -L "${tmpfiles_contract}"
+  assert_root_owned_file "${tmpfiles_contract}"
+  assert_root_owned_file "${config_root}/db-ca.pem"
+  command -v systemd-sysusers >/dev/null
+  systemd-sysusers "${sysusers_contract}"
+  command -v systemd-tmpfiles >/dev/null
+  systemd-tmpfiles --create "${tmpfiles_contract}"
+  api_uid="$(id -u deploy)"
+  entry="$(getent passwd gongkao-backup)"
+  IFS=: read -r _ _ backup_uid backup_gid _ _ backup_shell <<<"${entry}"
+  if [[ ! "${backup_uid}" =~ ^[0-9]+$ \
+    || ! "${backup_gid}" =~ ^[0-9]+$ \
+    || "${backup_uid}" == "${api_uid}" \
+    || "${backup_shell}" != */nologin \
+    || "$(id -gn gongkao-backup)" != "gongkao-backup" ]]; then
+    printf '%s\n' "backup runtime principal is not isolated" >&2
+    return 1
+  fi
+  for user in \
+    gongkao-wkr-data \
+    gongkao-wkr-cause \
+    gongkao-wkr-external \
+    gongkao-wkr-essay \
+    gongkao-wkr-coach \
+    gongkao-wkr-ilink; do
+    uid="$(id -u "${user}")"
+    if [[ "${uid}" == "${backup_uid}" ]]; then
+      printf '%s\n' "backup runtime principal aliases ${user}" >&2
+      return 1
+    fi
+  done
+}
+
+ensure_target_runtime_principals() {
   local release_root="$1"
   local sysusers_contract="${release_root}/ops/sysusers.d/gongkao-dazi-workers.conf"
   local api_uid
@@ -542,6 +626,7 @@ ensure_worker_runtime_principals() {
   local seen_uids=" "
   test -f "${sysusers_contract}"
   test ! -L "${sysusers_contract}"
+  assert_root_owned_file "${sysusers_contract}"
   assert_root_owned_file "${config_root}/db-ca.pem"
   command -v systemd-sysusers >/dev/null
   systemd-sysusers "${sysusers_contract}"
@@ -561,7 +646,7 @@ ensure_worker_runtime_principals() {
       || "${seen_uids}" == *" ${uid} "* \
       || "${shell}" != */nologin \
       || "$(id -gn "${user}")" != "${user}" ]]; then
-      printf '%s\n' "worker runtime principal is not isolated: ${user}" >&2
+      printf '%s\n' "target runtime principal is not isolated: ${user}" >&2
       return 1
     fi
     seen_uids+="${uid} "
@@ -961,6 +1046,40 @@ PY
   systemctl daemon-reload
 }
 
+assert_hardened_backup_control_plane() {
+  local release_root="$1"
+  local service_source="${release_root}/ops/systemd/gongkao-dazi-backup.service"
+  local timer_source="${release_root}/ops/systemd/gongkao-dazi-backup.timer"
+  local installed_service="${systemd_root}/gongkao-dazi-backup.service"
+  local installed_timer="${systemd_root}/gongkao-dazi-backup.timer"
+  for path in \
+    "${service_source}" \
+    "${timer_source}" \
+    "${installed_service}" \
+    "${installed_timer}"; do
+    assert_root_owned_file "${path}"
+  done
+  grep -Fx 'User=gongkao-backup' "${service_source}" >/dev/null
+  grep -Fx 'Group=gongkao-backup' "${service_source}" >/dev/null
+  grep -Fx 'User=gongkao-backup' "${installed_service}" >/dev/null
+  grep -Fx 'Group=gongkao-backup' "${installed_service}" >/dev/null
+  if grep -Fx 'User=deploy' "${service_source}" "${installed_service}" >/dev/null; then
+    printf '%s\n' "active backup control plane is not hardened" >&2
+    return 1
+  fi
+}
+
+restore_hardened_backup_control_plane() {
+  local name
+  for name in \
+    gongkao-dazi-backup.service \
+    gongkao-dazi-backup.timer; do
+    test -f "${control_plane_backup}/${name}"
+    cp -p -- "${control_plane_backup}/${name}" "${systemd_root}/${name}"
+  done
+  systemctl daemon-reload
+}
+
 prepare_control_plane_backup() {
   local source
   local destination
@@ -980,6 +1099,19 @@ prepare_control_plane_backup() {
     found=true
   done
   shopt -u nullglob
+  for name in \
+    gongkao-dazi-backup.service \
+    gongkao-dazi-backup.timer; do
+    destination="${systemd_root}/${name}"
+    if [[ " ${control_plane_destinations[*]} " != *" ${destination} "* ]]; then
+      control_plane_destinations+=("${destination}")
+      if [[ -e "${destination}" || -L "${destination}" ]]; then
+        cp -p -- "${destination}" "${control_plane_backup}/${name}"
+      else
+        : > "${control_plane_backup}/${name}.missing"
+      fi
+    fi
+  done
   if [[ "${found}" != true ]]; then
     printf '%s\n' "release contains no systemd unit definitions" >&2
     return 1
@@ -1026,6 +1158,9 @@ restore_original_pointer() {
   local exit_code=$?
   trap - ERR
   restore_control_plane || true
+  if [[ "${backup_timer_forced_disabled}" == true ]]; then
+    systemctl disable --now gongkao-dazi-backup.timer 2>/dev/null || true
+  fi
   if [[ "${switched}" == true \
     && "${current_guard_capable}" == true \
     && -n "${previous_target}" \
@@ -1082,7 +1217,9 @@ restore_original_pointer() {
 
 trap restore_original_pointer ERR
 
-ensure_worker_runtime_principals "${target}"
+validate_backup_environment_authority_paths
+provision_host_backup_authority "${previous_target}"
+ensure_target_runtime_principals "${target}"
 validate_worker_workload_environments
 use_release_config_snapshot
 load_snapshot_environment "${runtime_config_root}/api.env"
@@ -1418,9 +1555,13 @@ case "${ilink_channel_enabled}" in
 esac
 
 assert_sealed_release_config_snapshot "${runtime_config_root}"
+assert_hardened_backup_control_plane "${previous_target}"
+systemctl disable --now gongkao-dazi-backup.timer 2>/dev/null || true
+backup_timer_forced_disabled=true
 prepare_control_plane_backup
 control_plane_changed=true
 install_release_units "${target}"
+restore_hardened_backup_control_plane
 ln -sfn "${target}" "${current_link}"
 switched=true
 runtime_identity_changed=true

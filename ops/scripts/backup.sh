@@ -7,13 +7,31 @@ set -euo pipefail
 : "${AGE_RECIPIENT:?AGE_RECIPIENT is required}"
 : "${BACKUP_SIGNING_PRIVATE_KEY_FILE:?BACKUP_SIGNING_PRIVATE_KEY_FILE is required}"
 : "${BACKUP_SOURCE_ENVIRONMENT_ID:?BACKUP_SOURCE_ENVIRONMENT_ID is required}"
-: "${BACKUP_TARGET_ID:?BACKUP_TARGET_ID is required}"
+: "${BACKUP_TARGET_AUTHORITY_FILE:?BACKUP_TARGET_AUTHORITY_FILE is required}"
 : "${BACKUP_RETENTION_DAYS:?BACKUP_RETENTION_DAYS is required}"
 : "${REQUIRED_DATABASE_REVISION:?REQUIRED_DATABASE_REVISION is required}"
 : "${BACKUP_METRICS_FILE:?BACKUP_METRICS_FILE is required}"
+: "${PGPASSFILE:?PGPASSFILE is required}"
 
 if [[ "${BACKUP_ENABLED}" != "true" ]]; then
   printf '%s\n' "database backup is intentionally disabled" >&2
+  exit 64
+fi
+if [[ -n "${BACKUP_TARGET_ID:-}" ]]; then
+  printf '%s\n' \
+    "BACKUP_TARGET_ID is forbidden; use the root-owned target authority" >&2
+  exit 64
+fi
+if [[ "${BACKUP_TARGET_AUTHORITY_FILE}" != \
+  "/etc/gongkao-dazi/backup-target-authority.json" \
+  || "${PGPASSFILE}" != "/etc/gongkao-dazi/secrets/backup.pgpass" \
+  || "${BACKUP_SIGNING_PRIVATE_KEY_FILE}" != \
+  "/etc/gongkao-dazi/secrets/backup-signing.pem" \
+  || "${BACKUP_DIRECTORY}" != "/var/backups/gongkao-dazi/encrypted" \
+  || "${BACKUP_METRICS_FILE}" != \
+  "/var/lib/gongkao-backup/metrics/anan-backup.prom" ]]; then
+  printf '%s\n' \
+    "backup authority paths must match the systemd isolation contract" >&2
   exit 64
 fi
 if [[ ! "${BACKUP_RETENTION_DAYS}" =~ ^[1-9][0-9]*$ ]]; then
@@ -28,7 +46,7 @@ if [[ "${BACKUP_METRICS_FILE}" != /* ]]; then
   printf '%s\n' "BACKUP_METRICS_FILE must be an absolute path" >&2
   exit 64
 fi
-for command in age flock openssl pg_dump pg_restore python3 shasum tar; do
+for command in age flock openssl pg_dump pg_restore shasum tar; do
   command -v "${command}" >/dev/null || {
     printf '%s\n' "required backup command is unavailable: ${command}" >&2
     exit 69
@@ -36,17 +54,27 @@ for command in age flock openssl pg_dump pg_restore python3 shasum tar; do
 done
 
 umask 077
-mkdir -p "${BACKUP_DIRECTORY}"
-test -d "${BACKUP_DIRECTORY}"
-test ! -L "${BACKUP_DIRECTORY}"
+script_directory="$(cd "$(dirname "$0")" && pwd -P)"
+release_root="$(cd "${script_directory}/../.." && pwd -P)"
+artifact_helper="${script_directory}/backup_artifact.py"
+backup_python="${release_root}/backend/.venv/bin/python"
+test -f "${artifact_helper}"
+test ! -L "${artifact_helper}"
+test -x "${backup_python}"
+"${backup_python}" "${artifact_helper}" verify-backup-authority \
+  --target-authority-file "${BACKUP_TARGET_AUTHORITY_FILE}" \
+  --source-environment-id "${BACKUP_SOURCE_ENVIRONMENT_ID}" \
+  --backup-directory "${BACKUP_DIRECTORY}" \
+  --signing-private-key-file "${BACKUP_SIGNING_PRIVATE_KEY_FILE}" \
+  --passfile "${PGPASSFILE}" \
+  >/dev/null
 exec 9>"${BACKUP_DIRECTORY}/.anan-backup.lock"
 if ! flock --nonblock 9; then
   printf '%s\n' "another database backup is already running" >&2
   exit 75
 fi
 
-artifact_helper="$(dirname "$0")/backup_artifact.py"
-run_id="$(python3 "${artifact_helper}" new-run-id)"
+run_id="$("${backup_python}" "${artifact_helper}" new-run-id)"
 set_basename="anan-${run_id}.backup-set"
 basename="anan-${run_id}.backup.age"
 published_set="${BACKUP_DIRECTORY}/${set_basename}"
@@ -76,13 +104,14 @@ signature_partial="${staging}/.${basename}.sig.partial"
 checksum_partial="${staging}/.${basename}.sha256.partial"
 
 mkdir -p "${payload}"
-python3 "${artifact_helper}" capture \
+"${backup_python}" "${artifact_helper}" capture \
   --database-url "${BACKUP_DATABASE_URL}" \
   --dump "${dump}" \
   --manifest "${manifest}" \
   --required-revision "${REQUIRED_DATABASE_REVISION}" \
   --source-environment-id "${BACKUP_SOURCE_ENVIRONMENT_ID}" \
-  --backup-target-id "${BACKUP_TARGET_ID}"
+  --backup-target-authority-file "${BACKUP_TARGET_AUTHORITY_FILE}" \
+  --backup-directory "${BACKUP_DIRECTORY}"
 tar --create --file "${bundle}" --directory "${payload}" manifest.json database.dump
 age --recipient "${AGE_RECIPIENT}" --output "${encrypted_partial}" "${bundle}"
 openssl dgst -sha256 -sign "${BACKUP_SIGNING_PRIVATE_KEY_FILE}" \
@@ -95,7 +124,7 @@ printf '%s  %s\n' "${digest}" "${basename}" > "${checksum_partial}"
 # filesystem as BACKUP_DIRECTORY, and restore rejects hidden staging paths.
 rm -rf -- "${work}"
 encrypted="$(
-  python3 "${artifact_helper}" publish-set \
+  "${backup_python}" "${artifact_helper}" publish-set \
     --staging-directory "${staging}" \
     --destination-directory "${published_set}" \
     --artifact-basename "${basename}"

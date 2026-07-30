@@ -563,9 +563,45 @@ for path, key, enabled in expected:
 PY
 }
 
-ensure_worker_runtime_principals() {
+validate_backup_environment_authority_paths() {
+  local path="${config_root}/backup.env"
+  [[ -e "${path}" ]] || return 0
+  assert_root_owned_file "${path}"
+  python3 - "${path}" <<'PY'
+from pathlib import Path
+import sys
+
+path = Path(sys.argv[1])
+assignments: dict[str, str] = {}
+for raw in path.read_text(encoding="utf-8").splitlines():
+    line = raw.strip()
+    if not line or line.startswith("#"):
+        continue
+    if "=" not in line:
+        raise SystemExit("backup.env contains an invalid assignment")
+    key, value = line.split("=", 1)
+    if key in assignments:
+        raise SystemExit(f"backup.env duplicates {key}")
+    assignments[key] = value.strip().strip("\"'")
+if "BACKUP_TARGET_ID" in assignments:
+    raise SystemExit("BACKUP_TARGET_ID is forbidden")
+expected = {
+    "BACKUP_TARGET_AUTHORITY_FILE": "/etc/gongkao-dazi/backup-target-authority.json",
+    "PGPASSFILE": "/etc/gongkao-dazi/secrets/backup.pgpass",
+    "BACKUP_SIGNING_PRIVATE_KEY_FILE": "/etc/gongkao-dazi/secrets/backup-signing.pem",
+    "BACKUP_DIRECTORY": "/var/backups/gongkao-dazi/encrypted",
+    "BACKUP_METRICS_FILE": "/var/lib/gongkao-backup/metrics/anan-backup.prom",
+}
+for key, value in expected.items():
+    if assignments.get(key) != value:
+        raise SystemExit(f"backup.env {key} violates the systemd isolation contract")
+PY
+}
+
+ensure_isolated_runtime_principals() {
   local release_root="$1"
   local sysusers_contract="${release_root}/ops/sysusers.d/gongkao-dazi-workers.conf"
+  local tmpfiles_contract="${release_root}/ops/tmpfiles.d/gongkao-dazi-backup.conf"
   local api_uid
   local entry
   local gid
@@ -575,9 +611,15 @@ ensure_worker_runtime_principals() {
   local seen_uids=" "
   test -f "${sysusers_contract}"
   test ! -L "${sysusers_contract}"
+  assert_root_owned_file "${sysusers_contract}"
+  test -f "${tmpfiles_contract}"
+  test ! -L "${tmpfiles_contract}"
+  assert_root_owned_file "${tmpfiles_contract}"
   assert_root_owned_file "${config_root}/db-ca.pem"
   command -v systemd-sysusers >/dev/null
   systemd-sysusers "${sysusers_contract}"
+  command -v systemd-tmpfiles >/dev/null
+  systemd-tmpfiles --create "${tmpfiles_contract}"
   api_uid="$(id -u deploy)"
   for user in \
     gongkao-wkr-data \
@@ -585,7 +627,8 @@ ensure_worker_runtime_principals() {
     gongkao-wkr-external \
     gongkao-wkr-essay \
     gongkao-wkr-coach \
-    gongkao-wkr-ilink; do
+    gongkao-wkr-ilink \
+    gongkao-backup; do
     entry="$(getent passwd "${user}")"
     IFS=: read -r _ _ uid gid _ _ shell <<<"${entry}"
     if [[ ! "${uid}" =~ ^[0-9]+$ \
@@ -594,7 +637,7 @@ ensure_worker_runtime_principals() {
       || "${seen_uids}" == *" ${uid} "* \
       || "${shell}" != */nologin \
       || "$(id -gn "${user}")" != "${user}" ]]; then
-      printf '%s\n' "worker runtime principal is not isolated: ${user}" >&2
+      printf '%s\n' "runtime principal is not isolated: ${user}" >&2
       return 1
     fi
     seen_uids+="${uid} "
@@ -1380,7 +1423,8 @@ UV_NO_PROGRESS=1 "${uv_binary}" sync \
   --no-dev \
   --no-editable \
   --project "${target}/backend"
-ensure_worker_runtime_principals "${target}"
+validate_backup_environment_authority_paths
+ensure_isolated_runtime_principals "${target}"
 validate_worker_workload_environments
 create_release_config_snapshot
 load_snapshot_environment "${runtime_config_root}/api.env"

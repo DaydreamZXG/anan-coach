@@ -73,6 +73,25 @@ def _publication_authority(
     }
 
 
+def _backup_target_authority(
+    *,
+    source_environment_id: str = "production-cn-1",
+) -> dict[str, str]:
+    return {
+        "schemaVersion": backup_artifact.BACKUP_TARGET_FORMAT_VERSION,
+        "purpose": backup_artifact.BACKUP_TARGET_PURPOSE,
+        "targetId": "cross-domain-object-store-1",
+        "sourceEnvironmentId": source_environment_id,
+        "sourceMachineIdentitySha256": "1" * 64,
+        "backupDirectory": "/mnt/anan-backup/encrypted",
+        "targetMountPoint": "/mnt/anan-backup",
+        "targetDeviceMajorMinor": "8:17",
+        "targetFilesystemType": "ext4",
+        "targetMountRootSha256": "3" * 64,
+        "targetMountSourceSha256": "2" * 64,
+    }
+
+
 def _database_url(engine: Engine) -> str:
     return engine.url.render_as_string(hide_password=False)
 
@@ -144,7 +163,7 @@ def test_backup_manifest_binds_snapshot_revision_dump_and_critical_tables(
     manifest = backup_artifact.build_manifest(
         created_at="2026-07-19T01:02:03+00:00",
         source_environment_id="production-cn-1",
-        backup_target_id="cross-domain-object-store-1",
+        backup_target_authority=_backup_target_authority(),
         source_identity="cluster-1|gongkao|16384",
         source_cluster_identity="cluster-1",
         database_revision="20260719_46",
@@ -162,10 +181,119 @@ def test_backup_manifest_binds_snapshot_revision_dump_and_critical_tables(
     assert "cluster-1|gongkao|16384" not in json.dumps(loaded)
     assert loaded["sourceClusterIdentitySha256"]
     assert loaded["commercialDataPublication"]["activeReceiptSha256"] == ACTIVE_RECEIPT
+    assert loaded["backupTargetAuthority"]["targetDeviceMajorMinor"] == "8:17"
+    assert loaded["backupTargetAuthoritySha256"] == backup_artifact.hashlib.sha256(
+        backup_artifact._canonical_json(loaded["backupTargetAuthority"]).encode("utf-8")
+    ).hexdigest()
 
+    legacy_manifest = dict(manifest)
+    legacy_manifest["formatVersion"] = backup_artifact.LEGACY_FORMAT_VERSION
+    legacy_manifest.pop("backupTargetAuthority")
+    legacy_manifest.pop("backupTargetAuthoritySha256")
+    manifest_path.write_text(json.dumps(legacy_manifest), encoding="utf-8")
+    legacy_loaded = backup_artifact.load_and_verify_manifest(
+        manifest_path=manifest_path,
+        dump_path=dump,
+    )
+    assert backup_artifact._backup_target_report_evidence(legacy_loaded) == {
+        "backupTargetAuthorityStatus": "legacy-unbound",
+        "backupTargetAuthoritySha256": None,
+    }
+
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
     dump.write_bytes(b"tampered")
     with pytest.raises(backup_artifact.BackupContractError, match="dump size"):
         backup_artifact.load_and_verify_manifest(manifest_path=manifest_path, dump_path=dump)
+
+
+def test_frozen_v3_manifest_remains_restorable_but_reports_legacy_unbound(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    dump = tmp_path / "database.dump"
+    dump.write_bytes(b"frozen v3 custom-format fixture")
+    publication_authority = _publication_authority()
+    manifest = backup_artifact.build_manifest(
+        created_at="2026-07-19T01:02:03+00:00",
+        source_environment_id="production-cn-1",
+        backup_target_authority=_backup_target_authority(),
+        source_identity="cluster-1|gongkao|16384",
+        source_cluster_identity="cluster-1",
+        database_revision="20260719_46",
+        pg_dump_version="pg_dump (PostgreSQL) 17.5",
+        dump_path=dump,
+        row_counts={table: 0 for table in backup_artifact.CRITICAL_TABLES},
+        publication_authority=publication_authority,
+    )
+    manifest["formatVersion"] = backup_artifact.LEGACY_FORMAT_VERSION
+    manifest.pop("backupTargetAuthority")
+    manifest.pop("backupTargetAuthoritySha256")
+    manifest_path = tmp_path / "manifest-v3.json"
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+
+    class Result:
+        def __init__(self, *, one=None, all_rows=None) -> None:
+            self.one = one
+            self.all_rows = all_rows
+
+        def fetchone(self):
+            return self.one
+
+        def fetchall(self):
+            return self.all_rows
+
+    class Connection:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def execute(self, query: str, *_args):
+            if "select version_num from alembic_version" in query:
+                return Result(all_rows=[("20260719_46",)])
+            if "select count(*)" in query:
+                return Result(one=(0,))
+            return Result(one=(True,))
+
+    monkeypatch.setattr(backup_artifact.psycopg, "connect", lambda *_args, **_kwargs: Connection())
+    monkeypatch.setattr(
+        backup_artifact,
+        "_load_restore_target_authority",
+        lambda **_kwargs: {},
+    )
+    monkeypatch.setattr(
+        backup_artifact,
+        "_assert_restore_target_database",
+        lambda **_kwargs: None,
+    )
+    monkeypatch.setattr(
+        backup_artifact,
+        "_capture_active_publication_authority",
+        lambda **_kwargs: publication_authority,
+    )
+
+    backup_artifact.restore_preflight(
+        database_url="postgresql://restore@127.0.0.1:5432/disposable",
+        manifest_path=manifest_path,
+        dump_path=dump,
+        target_environment_id="isolated-restore-1",
+        target_identity_file=tmp_path / "authority.json",
+    )
+    report_path = tmp_path / "restore-report.json"
+    backup_artifact.verify_restore(
+        database_url="postgresql://restore@127.0.0.1:5432/disposable",
+        manifest_path=manifest_path,
+        dump_path=dump,
+        target_environment_id="isolated-restore-1",
+        target_identity_file=tmp_path / "authority.json",
+        artifact_sha256="f" * 64,
+        report_path=report_path,
+    )
+
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    assert report["backupTargetAuthorityStatus"] == "legacy-unbound"
+    assert report["backupTargetAuthoritySha256"] is None
 
 
 def test_same_nanosecond_backup_run_identities_are_unique() -> None:
@@ -499,6 +627,202 @@ def test_backup_capture_locks_before_reading_or_exporting_snapshot() -> None:
     assert begin < shared_lock < authority < snapshot
 
 
+def test_backup_target_authority_binds_source_and_live_mount(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    backup_directory = tmp_path / "backup"
+    backup_directory.mkdir(mode=0o700)
+    machine_identity = "1" * 64
+    mount_identity = {
+        "targetMountPoint": str(tmp_path),
+        "targetDeviceMajorMinor": "8:17",
+        "targetFilesystemType": "ext4",
+        "targetMountRootSha256": "3" * 64,
+        "targetMountSourceSha256": "2" * 64,
+    }
+    authority = {
+        "schemaVersion": backup_artifact.BACKUP_TARGET_FORMAT_VERSION,
+        "purpose": backup_artifact.BACKUP_TARGET_PURPOSE,
+        "targetId": "backup-failure-domain-b",
+        "sourceEnvironmentId": "production-cn-1",
+        "sourceMachineIdentitySha256": machine_identity,
+        "backupDirectory": str(backup_directory),
+        **mount_identity,
+    }
+    monkeypatch.setattr(
+        backup_artifact,
+        "_read_root_owned_authority",
+        lambda *_args, **_kwargs: authority,
+    )
+    monkeypatch.setattr(
+        backup_artifact,
+        "_executor_identity_sha256",
+        lambda: machine_identity,
+    )
+    monkeypatch.setattr(
+        backup_artifact,
+        "_live_mount_identity",
+        lambda _path: mount_identity,
+    )
+
+    loaded = backup_artifact._load_backup_target_authority(
+        path=tmp_path / "root-authority.json",
+        expected_source_environment_id="production-cn-1",
+        backup_directory=backup_directory,
+    )
+
+    assert loaded["targetId"] == "backup-failure-domain-b"
+    authority["targetDeviceMajorMinor"] = "8:18"
+    with pytest.raises(
+        backup_artifact.BackupContractError,
+        match="live target mount",
+    ):
+        backup_artifact._load_backup_target_authority(
+            path=tmp_path / "root-authority.json",
+            expected_source_environment_id="production-cn-1",
+            backup_directory=backup_directory,
+        )
+
+
+def test_live_mount_binding_selects_top_mount_and_cross_checks_directory_device(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    backup_directory = tmp_path / "mounted-backup"
+    backup_directory.mkdir()
+    mount_point = str(tmp_path)
+    old_source = "/dev/old"
+    live_source = "/dev/live"
+    mountinfo = "\n".join(
+        (
+            f"100 1 8:16 /old-root {mount_point} rw - ext4 {old_source} rw",
+            f"101 1 8:17 /live-root {mount_point} rw - ext4 {live_source} rw",
+        )
+    )
+    real_read_text = Path.read_text
+
+    def mountinfo_read_text(path: Path, *args, **kwargs):
+        if path == Path("/proc/self/mountinfo"):
+            return mountinfo
+        return real_read_text(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", mountinfo_read_text)
+    monkeypatch.setattr(
+        os,
+        "stat",
+        lambda _path: SimpleNamespace(st_dev=os.makedev(8, 17)),
+    )
+
+    identity = backup_artifact._live_mount_identity(backup_directory)
+
+    assert identity["targetDeviceMajorMinor"] == "8:17"
+    assert identity["targetMountSourceSha256"] == backup_artifact.hashlib.sha256(
+        live_source.encode("utf-8")
+    ).hexdigest()
+    assert identity["targetMountRootSha256"] == backup_artifact.hashlib.sha256(
+        b"/live-root"
+    ).hexdigest()
+
+
+def test_backup_authority_requires_dedicated_executor_and_private_credentials(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    backup_directory = tmp_path / "backup"
+    backup_directory.mkdir(mode=0o700)
+    signing_key = tmp_path / "backup-signing.pem"
+    passfile = tmp_path / "backup.pgpass"
+    for path in (signing_key, passfile):
+        path.write_text("fixture\n", encoding="utf-8")
+        path.chmod(0o600)
+    monkeypatch.setattr(
+        backup_artifact.pwd,
+        "getpwuid",
+        lambda _uid: SimpleNamespace(pw_name=backup_artifact.BACKUP_EXECUTOR_USER),
+    )
+    monkeypatch.setattr(
+        backup_artifact,
+        "_load_backup_target_authority",
+        lambda **_kwargs: {"targetId": "backup-failure-domain-b"},
+    )
+
+    verified = backup_artifact.verify_backup_authority(
+        target_authority_file=tmp_path / "root-authority.json",
+        source_environment_id="production-cn-1",
+        backup_directory=backup_directory,
+        signing_private_key_file=signing_key,
+        passfile=passfile,
+    )
+    assert verified["targetId"] == "backup-failure-domain-b"
+
+    signing_key.chmod(0o640)
+    with pytest.raises(
+        backup_artifact.BackupContractError,
+        match="mode-0600",
+    ):
+        backup_artifact.verify_backup_authority(
+            target_authority_file=tmp_path / "root-authority.json",
+            source_environment_id="production-cn-1",
+            backup_directory=backup_directory,
+            signing_private_key_file=signing_key,
+            passfile=passfile,
+        )
+
+    monkeypatch.setattr(
+        backup_artifact.pwd,
+        "getpwuid",
+        lambda _uid: SimpleNamespace(pw_name="deploy"),
+    )
+    with pytest.raises(
+        backup_artifact.BackupContractError,
+        match="dedicated gongkao-backup",
+    ):
+        backup_artifact.verify_backup_authority(
+            target_authority_file=tmp_path / "root-authority.json",
+            source_environment_id="production-cn-1",
+            backup_directory=backup_directory,
+            signing_private_key_file=signing_key,
+            passfile=passfile,
+        )
+
+
+def test_backup_target_authority_file_must_be_root_owned_and_nofollow(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    authority_path = tmp_path / "backup-target-authority.json"
+    authority_path.write_text('{"schemaVersion":"fixture"}\n', encoding="utf-8")
+    authority_path.chmod(0o444)
+    real_fstat = os.fstat
+
+    def root_owned_fstat(descriptor: int):
+        metadata = real_fstat(descriptor)
+        return SimpleNamespace(
+            st_mode=metadata.st_mode,
+            st_nlink=metadata.st_nlink,
+            st_uid=0,
+        )
+
+    monkeypatch.setattr(os, "fstat", root_owned_fstat)
+    loaded = backup_artifact._read_root_owned_authority(
+        authority_path,
+        label="backup target authority",
+    )
+    assert loaded == {"schemaVersion": "fixture"}
+
+    link = tmp_path / "authority-link.json"
+    link.symlink_to(authority_path)
+    with pytest.raises(
+        backup_artifact.BackupContractError,
+        match="unreadable",
+    ):
+        backup_artifact._read_root_owned_authority(
+            link,
+            label="backup target authority",
+        )
+
+
 def test_backup_shared_and_publication_exclusive_locks_are_mutually_exclusive(
     db_engine: Engine,
 ) -> None:
@@ -555,7 +879,9 @@ def test_restore_rejects_self_consistent_tampered_publication_authority(
     manifest = backup_artifact.build_manifest(
         created_at="2026-07-30T01:02:03+00:00",
         source_environment_id="preproduction",
-        backup_target_id="cross-domain-object-store-1",
+        backup_target_authority=_backup_target_authority(
+            source_environment_id="preproduction"
+        ),
         source_identity="cluster-1|gongkao|16384",
         source_cluster_identity="cluster-1",
         database_revision=CURRENT_DATABASE_REVISION,
@@ -635,19 +961,54 @@ def test_sigkill_before_atomic_publish_leaves_no_restore_selectable_backup(
     fake_bin = tmp_path / "bin"
     fake_bin.mkdir()
     backup_directory = tmp_path / "backups"
+    backup_directory.mkdir(mode=0o700)
     metrics_directory = tmp_path / "metrics"
     metrics_directory.mkdir()
     publish_ready = tmp_path / "publish-ready"
     run_id = "20260730T010203.000000000Z-" + ("2" * 32)
+    release_root = tmp_path / "release"
+    script_directory = release_root / "ops" / "scripts"
+    script_directory.mkdir(parents=True)
+    backup_script = script_directory / "backup.sh"
+    backup_script_source = (ROOT / "ops" / "scripts" / "backup.sh").read_text(
+        encoding="utf-8"
+    )
+    for production_path, fixture_path in {
+        "/etc/gongkao-dazi/backup-target-authority.json": str(
+            tmp_path / "backup-target-authority.json"
+        ),
+        "/etc/gongkao-dazi/secrets/backup.pgpass": str(tmp_path / "backup.pgpass"),
+        "/etc/gongkao-dazi/secrets/backup-signing.pem": str(
+            tmp_path / "signing.pem"
+        ),
+        "/var/backups/gongkao-dazi/encrypted": str(backup_directory),
+        "/var/lib/gongkao-backup/metrics/anan-backup.prom": str(
+            metrics_directory / "backup.prom"
+        ),
+    }.items():
+        backup_script_source = backup_script_source.replace(
+            production_path,
+            fixture_path,
+        )
+    backup_script.write_text(backup_script_source, encoding="utf-8")
+    backup_script.chmod(0o755)
+    (script_directory / "backup_artifact.py").write_text(
+        "# fixture path checked by backup.sh\n",
+        encoding="utf-8",
+    )
+    backup_python = release_root / "backend" / ".venv" / "bin" / "python"
+    backup_python.parent.mkdir(parents=True)
 
     _write_executable(
-        fake_bin / "python3",
+        backup_python,
         """#!/usr/bin/env bash
 set -euo pipefail
 shift
 command="$1"
 shift
 case "${command}" in
+  verify-backup-authority)
+    ;;
   new-run-id)
     printf '%s\\n' "${BACKUP_TEST_RUN_ID}"
     ;;
@@ -727,6 +1088,10 @@ printf '%s\\n' "fake detached signature" >"${output}"
         )
     signing_key = tmp_path / "signing.pem"
     signing_key.write_text("test key\n", encoding="utf-8")
+    passfile = tmp_path / "backup.pgpass"
+    passfile.write_text("test password fixture\n", encoding="utf-8")
+    target_authority = tmp_path / "backup-target-authority.json"
+    target_authority.write_text("{}\n", encoding="utf-8")
     environment = {
         **os.environ,
         "PATH": f"{fake_bin}:{os.environ['PATH']}",
@@ -736,7 +1101,8 @@ printf '%s\\n' "fake detached signature" >"${output}"
         "AGE_RECIPIENT": "age1test",
         "BACKUP_SIGNING_PRIVATE_KEY_FILE": str(signing_key),
         "BACKUP_SOURCE_ENVIRONMENT_ID": "preproduction",
-        "BACKUP_TARGET_ID": "test-target",
+        "BACKUP_TARGET_AUTHORITY_FILE": str(target_authority),
+        "PGPASSFILE": str(passfile),
         "BACKUP_RETENTION_DAYS": "30",
         "REQUIRED_DATABASE_REVISION": CURRENT_DATABASE_REVISION,
         "BACKUP_METRICS_FILE": str(metrics_directory / "backup.prom"),
@@ -744,7 +1110,7 @@ printf '%s\\n' "fake detached signature" >"${output}"
         "BACKUP_TEST_PUBLISH_READY": str(publish_ready),
     }
     process = subprocess.Popen(
-        [str(ROOT / "ops" / "scripts" / "backup.sh")],
+        [str(backup_script)],
         cwd=ROOT,
         env=environment,
         stdout=subprocess.PIPE,

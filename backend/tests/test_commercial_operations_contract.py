@@ -89,6 +89,55 @@ def test_backup_and_restore_publish_atomic_textfile_metrics() -> None:
     assert 'mv "${metrics_partial}" "${RESTORE_METRICS_FILE}"' in restore
 
 
+def test_backup_authority_isolated_from_api_runtime() -> None:
+    backup_unit = (
+        REPOSITORY_ROOT / "ops" / "systemd" / "gongkao-dazi-backup.service"
+    ).read_text(encoding="utf-8")
+    api_unit = (
+        REPOSITORY_ROOT / "ops" / "systemd" / "gongkao-dazi-api.service"
+    ).read_text(encoding="utf-8")
+    sysusers = (
+        REPOSITORY_ROOT / "ops" / "sysusers.d" / "gongkao-dazi-workers.conf"
+    ).read_text(encoding="utf-8")
+    backup_environment = (
+        REPOSITORY_ROOT / "ops" / "backup.env.example"
+    ).read_text(encoding="utf-8")
+
+    assert "User=gongkao-backup" in backup_unit
+    assert "Group=gongkao-backup" in backup_unit
+    assert "EnvironmentFile=/etc/gongkao-dazi/db.env" not in backup_unit
+    assert "ProtectSystem=strict" in backup_unit
+    assert "CapabilityBoundingSet=\n" in backup_unit
+    assert "ReadWritePaths=/var/backups/gongkao-dazi/encrypted" in backup_unit
+    for protected_path in (
+        "/etc/gongkao-dazi/backup.env",
+        "/etc/gongkao-dazi/backup-target-authority.json",
+        "/etc/gongkao-dazi/secrets/backup.pgpass",
+        "/etc/gongkao-dazi/secrets/backup-signing.pem",
+        "/var/backups/gongkao-dazi/encrypted",
+    ):
+        assert f"InaccessiblePaths=-{protected_path}" in api_unit
+    assert "gongkao-backup" in sysusers
+    assert "/usr/sbin/nologin" in sysusers
+    assert "BACKUP_TARGET_AUTHORITY_FILE=" in backup_environment
+    assert "\nBACKUP_TARGET_ID=" not in backup_environment
+    backup_script = (
+        REPOSITORY_ROOT / "ops" / "scripts" / "backup.sh"
+    ).read_text(encoding="utf-8")
+    for fixed_path in (
+        "/etc/gongkao-dazi/backup-target-authority.json",
+        "/etc/gongkao-dazi/secrets/backup.pgpass",
+        "/etc/gongkao-dazi/secrets/backup-signing.pem",
+        "/var/backups/gongkao-dazi/encrypted",
+        "/var/lib/gongkao-backup/metrics/anan-backup.prom",
+    ):
+        assert fixed_path in backup_script
+        if fixed_path.endswith("/anan-backup.prom"):
+            assert str(Path(fixed_path).parent) in backup_unit
+        else:
+            assert fixed_path in backup_unit or f"-{fixed_path}" in api_unit
+
+
 def test_monitoring_examples_require_external_hosts_and_secret_files() -> None:
     prometheus = (REPOSITORY_ROOT / "ops" / "monitoring" / "prometheus.yml.example").read_text(
         encoding="utf-8"

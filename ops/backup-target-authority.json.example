@@ -1,0 +1,13 @@
+{
+  "backupDirectory": "/var/backups/gongkao-dazi/encrypted",
+  "purpose": "backup-target-binding",
+  "schemaVersion": "anan-backup-target/v1",
+  "sourceEnvironmentId": "REPLACE_WITH_UNIQUE_SOURCE_ENVIRONMENT",
+  "sourceMachineIdentitySha256": "REPLACE_WITH_SHA256_OF_TRUSTED_ETC_MACHINE_ID",
+  "targetDeviceMajorMinor": "REPLACE_WITH_LIVE_MOUNTINFO_MAJOR_MINOR",
+  "targetFilesystemType": "REPLACE_WITH_LIVE_MOUNTINFO_FILESYSTEM_TYPE",
+  "targetId": "REPLACE_WITH_APPROVED_CROSS_FAILURE_DOMAIN_TARGET",
+  "targetMountPoint": "/var/backups/gongkao-dazi",
+  "targetMountRootSha256": "REPLACE_WITH_SHA256_OF_LIVE_MOUNTINFO_ROOT",
+  "targetMountSourceSha256": "REPLACE_WITH_SHA256_OF_LIVE_MOUNTINFO_SOURCE"
+}

@@ -332,6 +332,12 @@ def test_activation_enables_and_restarts_cause_agent_in_standard_topology(
     assert "position-release-compile" not in events
     assert "knowledge-release-refresh" not in events
     assert "systemd-sysusers " in events
+    assert "gongkao-backup" in (
+        REPO_ROOT / "ops" / "sysusers.d" / "gongkao-dazi-workers.conf"
+    ).read_text(encoding="utf-8")
+    assert "gongkao-backup" in (
+        REPO_ROOT / "ops" / "scripts" / "activate_release.sh"
+    ).read_text(encoding="utf-8")
     assert events.index("data-release-authority verify") < events.index("systemctl restart")
     _assert_runtime_identity(harness, commit=CANDIDATE_COMMIT)
 
@@ -1216,6 +1222,169 @@ def test_data_publication_and_application_switch_share_one_lock_contract() -> No
     assert "/data-releases" in rollback
 
 
+def test_release_controllers_provision_isolated_backup_principal_before_control_change() -> None:
+    sysusers = (
+        REPO_ROOT / "ops" / "sysusers.d" / "gongkao-dazi-workers.conf"
+    ).read_text(encoding="utf-8")
+    assert "u gongkao-backup" in sysusers
+    assert "/usr/sbin/nologin" in sysusers
+
+    for script_path in (ACTIVATE_SCRIPT, ROLLBACK_SCRIPT):
+        script = script_path.read_text(encoding="utf-8")
+        assert "systemd-sysusers" in script
+        assert "systemd-tmpfiles" in script
+        assert "gongkao-backup" in script
+        assert 'api_uid="$(id -u deploy)"' in script
+        if script_path == ACTIVATE_SCRIPT:
+            authority_call = 'ensure_isolated_runtime_principals "${target}"'
+            assert "${shell}\" != */nologin" in script
+        else:
+            authority_call = 'provision_host_backup_authority "${previous_target}"'
+            assert "${backup_shell}\" != */nologin" in script
+            assert 'ensure_target_runtime_principals "${target}"' in script
+            assert "gongkao-dazi-backup.timer" in script
+            assert script.rindex(authority_call) < script.rindex(
+                'ensure_target_runtime_principals "${target}"'
+            )
+        assert script.rindex(authority_call) < script.rindex(
+            "prepare_control_plane_backup"
+        )
+        assert script.index('systemd-sysusers "${sysusers_contract}"') < script.rindex(
+            authority_call
+        )
+        assert script.index(
+            'systemd-tmpfiles --create "${tmpfiles_contract}"'
+        ) < script.rindex(authority_call)
+        assert script.rindex(
+            "validate_backup_environment_authority_paths"
+        ) < script.rindex(authority_call)
+
+
+@pytest.mark.parametrize(
+    ("operation", "current_points_to_candidate"),
+    (("activate", False), ("rollback", True)),
+)
+def test_release_rejects_backup_authority_path_escape_before_control_change(
+    tmp_path: Path,
+    operation: str,
+    current_points_to_candidate: bool,
+) -> None:
+    harness = _release_harness(
+        tmp_path,
+        previous_compatible_revisions=(PREVIOUS_REVISION, CANDIDATE_REVISION),
+        current_points_to_candidate=current_points_to_candidate,
+    )
+    config_root = Path(harness.environment["GONGKAO_CONFIG_ROOT"])
+    (config_root / "backup.env").write_text(
+        "BACKUP_ENABLED=false\n"
+        "BACKUP_TARGET_AUTHORITY_FILE=/tmp/caller-selected-authority.json\n"
+        "PGPASSFILE=/etc/gongkao-dazi/secrets/backup.pgpass\n"
+        "BACKUP_SIGNING_PRIVATE_KEY_FILE=/etc/gongkao-dazi/secrets/backup-signing.pem\n"
+        "BACKUP_DIRECTORY=/var/backups/gongkao-dazi/encrypted\n"
+        "BACKUP_METRICS_FILE=/var/lib/gongkao-backup/metrics/anan-backup.prom\n",
+        encoding="utf-8",
+    )
+    (config_root / "backup.env").chmod(0o600)
+
+    result = getattr(harness, operation)()
+
+    assert result.returncode != 0
+    assert "violates the systemd isolation contract" in result.stderr
+    assert "systemctl " not in harness.events_file.read_text(encoding="utf-8")
+
+
+def test_rollback_rejects_symlinked_sysusers_authority_before_control_change(
+    tmp_path: Path,
+) -> None:
+    harness = _release_harness(
+        tmp_path,
+        previous_compatible_revisions=(PREVIOUS_REVISION, CANDIDATE_REVISION),
+        current_points_to_candidate=True,
+    )
+    contract = (
+        harness.previous_target
+        / "ops"
+        / "sysusers.d"
+        / "gongkao-dazi-workers.conf"
+    )
+    replacement = contract.with_name("mutable-sysusers.conf")
+    replacement.write_text(contract.read_text(encoding="utf-8"), encoding="utf-8")
+    contract.unlink()
+    contract.symlink_to(replacement)
+
+    result = harness.rollback()
+
+    assert result.returncode != 0
+    events = harness.events_file.read_text(encoding="utf-8")
+    assert events.count("systemd-sysusers ") == 1
+    assert str(harness.candidate_target / "ops" / "sysusers.d") in events
+    assert "systemctl " not in harness.events_file.read_text(encoding="utf-8")
+    assert harness.current_link.resolve() == harness.candidate_target
+
+
+def test_rollback_legacy_target_uses_current_backup_authority_and_keeps_timer_disabled(
+    tmp_path: Path,
+) -> None:
+    harness = _release_harness(
+        tmp_path,
+        previous_compatible_revisions=(PREVIOUS_REVISION, CANDIDATE_REVISION),
+        current_points_to_candidate=True,
+    )
+    legacy_sysusers = (
+        harness.previous_target
+        / "ops"
+        / "sysusers.d"
+        / "gongkao-dazi-workers.conf"
+    )
+    legacy_sysusers.write_text(
+        "\n".join(
+            line
+            for line in legacy_sysusers.read_text(encoding="utf-8").splitlines()
+            if "gongkao-backup" not in line
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (
+        harness.previous_target
+        / "ops"
+        / "tmpfiles.d"
+        / "gongkao-dazi-backup.conf"
+    ).unlink()
+    legacy_backup_service = (
+        harness.previous_target
+        / "ops"
+        / "systemd"
+        / "gongkao-dazi-backup.service"
+    )
+    legacy_backup_service.write_text(
+        legacy_backup_service.read_text(encoding="utf-8")
+        .replace("User=gongkao-backup", "User=deploy")
+        .replace("Group=gongkao-backup", "Group=deploy"),
+        encoding="utf-8",
+    )
+
+    result = harness.rollback()
+
+    assert result.returncode == 0, result.stderr
+    assert harness.current_link.resolve() == harness.previous_target
+    events = harness.events_file.read_text(encoding="utf-8")
+    assert (
+        f"systemd-tmpfiles --create "
+        f"{harness.candidate_target}/ops/tmpfiles.d/gongkao-dazi-backup.conf"
+    ) in events
+    timer_disable = "systemctl disable --now gongkao-dazi-backup.timer"
+    assert timer_disable in events
+    assert events.index(timer_disable) < events.index("systemctl daemon-reload")
+    installed_backup_service = (
+        Path(harness.environment["GONGKAO_SYSTEMD_ROOT"])
+        / "gongkao-dazi-backup.service"
+    ).read_text(encoding="utf-8")
+    assert "User=gongkao-backup" in installed_backup_service
+    assert "Group=gongkao-backup" in installed_backup_service
+    assert "User=deploy" not in installed_backup_service
+
+
 def test_release_mutators_require_the_signed_guard_capability_contract() -> None:
     activation = ACTIVATE_SCRIPT.read_text(encoding="utf-8")
     rollback = ROLLBACK_SCRIPT.read_text(encoding="utf-8")
@@ -1681,6 +1850,21 @@ def _release_harness(
         encoding="utf-8",
     )
     (config_root / "db.env").chmod(0o600)
+    (config_root / "backup.env").write_text(
+        "BACKUP_ENABLED=false\n"
+        "BACKUP_DATABASE_URL=postgresql://gongkao@127.0.0.1:5432/gongkao\n"
+        "PGPASSFILE=/etc/gongkao-dazi/secrets/backup.pgpass\n"
+        "BACKUP_DIRECTORY=/var/backups/gongkao-dazi/encrypted\n"
+        "AGE_RECIPIENT=age1releaseharness\n"
+        "BACKUP_SIGNING_PRIVATE_KEY_FILE=/etc/gongkao-dazi/secrets/backup-signing.pem\n"
+        "BACKUP_SOURCE_ENVIRONMENT_ID=preproduction\n"
+        "BACKUP_TARGET_AUTHORITY_FILE=/etc/gongkao-dazi/backup-target-authority.json\n"
+        f"REQUIRED_DATABASE_REVISION={CANDIDATE_REVISION}\n"
+        "BACKUP_RETENTION_DAYS=30\n"
+        "BACKUP_METRICS_FILE=/var/lib/gongkao-backup/metrics/anan-backup.prom\n",
+        encoding="utf-8",
+    )
+    (config_root / "backup.env").chmod(0o600)
     (state_root / "rotated-db.env").write_text(
         "DATABASE_URL=postgresql+psycopg:///rotated-after-preflight\n"
         "MIGRATION_DATABASE_URL=postgresql+psycopg:///release-test\n"
@@ -1828,9 +2012,14 @@ def _write_release(
     )
     (root / "ops" / "scripts").mkdir(parents=True)
     (root / "ops" / "sysusers.d").mkdir(parents=True)
+    (root / "ops" / "tmpfiles.d").mkdir(parents=True)
     shutil.copy2(
         REPO_ROOT / "ops" / "sysusers.d" / "gongkao-dazi-workers.conf",
         root / "ops" / "sysusers.d" / "gongkao-dazi-workers.conf",
+    )
+    shutil.copy2(
+        REPO_ROOT / "ops" / "tmpfiles.d" / "gongkao-dazi-backup.conf",
+        root / "ops" / "tmpfiles.d" / "gongkao-dazi-backup.conf",
     )
     for name in (
         "worker-data-rights.env.example",
@@ -1889,6 +2078,15 @@ def _write_release(
                 1,
             ),
             encoding="utf-8",
+        )
+    backup_systemd_root = root / "ops" / "systemd"
+    for name in (
+        "gongkao-dazi-backup.service",
+        "gongkao-dazi-backup.timer",
+    ):
+        shutil.copy2(
+            REPO_ROOT / "ops" / "systemd" / name,
+            backup_systemd_root / name,
         )
     essay_review_entrypoint = root / "backend" / "app" / "workers" / "essay_reviews.py"
     essay_review_entrypoint.parent.mkdir(parents=True, exist_ok=True)
@@ -2289,6 +2487,7 @@ case "${1:-}" in
       gongkao-wkr-essay) printf '%s\\n' 2004 ;;
       gongkao-wkr-coach) printf '%s\\n' 2005 ;;
       gongkao-wkr-ilink) printf '%s\\n' 2006 ;;
+      gongkao-backup) printf '%s\\n' 2100 ;;
       *) exit 1 ;;
     esac
     ;;
@@ -2318,6 +2517,15 @@ printf '%s:x:%s:%s::/nonexistent:/usr/sbin/nologin\\n' \
 set -euo pipefail
 test -f "${1:?}"
 printf 'systemd-sysusers %s\\n' "$1" >> "${HARNESS_EVENTS_FILE}"
+""",
+    )
+    _write_executable(
+        fake_bin / "systemd-tmpfiles",
+        """#!/usr/bin/env bash
+set -euo pipefail
+[[ "${1:-}" == "--create" ]]
+test -f "${2:?}"
+printf 'systemd-tmpfiles %s %s\\n' "$1" "$2" >> "${HARNESS_EVENTS_FILE}"
 """,
     )
     _write_executable(
