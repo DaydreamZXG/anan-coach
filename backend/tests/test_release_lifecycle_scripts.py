@@ -27,6 +27,10 @@ PREVIOUS_REVISION = "20260727_69"
 CANDIDATE_REVISION = "20260728_70"
 CANDIDATE_COMMIT = "1" * 40
 ROLLBACK_COMMIT = "7" * 40
+# Deadlock guard for shell lifecycle harnesses, not a release latency SLO.
+# A 20-second per-call budget was below observed full-suite host jitter even
+# though the same activation path completed in 9 seconds when reproduced alone.
+RELEASE_HARNESS_TIMEOUT_SECONDS = 60
 RUNTIME_UNITS = (
     "gongkao-dazi-api",
     "gongkao-dazi-external-learning-worker",
@@ -74,7 +78,7 @@ class ReleaseHarness:
             env={**self.environment, "HARNESS_FAULT": fault},
             capture_output=True,
             text=True,
-            timeout=20,
+            timeout=RELEASE_HARNESS_TIMEOUT_SECONDS,
         )
 
     def rollback(self, *, fault: str = "") -> subprocess.CompletedProcess[str]:
@@ -84,7 +88,7 @@ class ReleaseHarness:
             env={**self.environment, "HARNESS_FAULT": fault},
             capture_output=True,
             text=True,
-            timeout=20,
+            timeout=RELEASE_HARNESS_TIMEOUT_SECONDS,
         )
 
 
