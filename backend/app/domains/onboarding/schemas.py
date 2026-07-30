@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 from typing import Literal
+from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from app.domains.knowledge.schemas import QuestionDetail
 from app.domains.memory.schemas import LearnerProfile
@@ -32,8 +33,20 @@ class OnboardingProfileUpdate(OnboardingBaseModel):
     baseline_shenlun_score: float | None = Field(default=None, alias="baselineShenlunScore", ge=0, le=100)
     baseline_weak_modules: list[str] = Field(default_factory=list, alias="baselineWeakModules")
 
+    @field_validator("target_position_id")
+    @classmethod
+    def validate_target_position_id(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        try:
+            return str(UUID(value.strip()))
+        except ValueError:
+            raise ValueError("targetPositionId must be a valid UUID") from None
+
     @model_validator(mode="after")
     def validate_baseline(self) -> "OnboardingProfileUpdate":
+        if self.target_score is not None and self.target_position_id is None:
+            raise ValueError("targetScore requires targetPositionId")
         if self.baseline_source == "self_report" and (
             self.baseline_xingce_score is None and self.baseline_shenlun_score is None
         ):

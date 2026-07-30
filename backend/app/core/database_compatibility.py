@@ -116,7 +116,10 @@ def current_database_revisions(database_url: str) -> tuple[str, ...]:
             revisions = tuple(
                 str(value)
                 for value in connection.execute(
-                    text("select version_num from alembic_version order by version_num")
+                    text(
+                        "select version_num "
+                        "from public.alembic_version order by version_num"
+                    )
                 ).scalars()
             )
     finally:

@@ -39,13 +39,28 @@ describe("WeChat page registration authority", () => {
     expect(new Set(registered).size).toBe(registered.length);
   });
 
-  it("does not register internal Anan asset hosts as pages", () => {
+  it("keeps Anan visuals in asset-only subpackages without registering pages", () => {
     const registered = registeredPages();
     const assetSubpackages = appConfig.subPackages.filter(({ name }) =>
       assetPackageNames.includes(name as (typeof assetPackageNames)[number]),
     );
 
-    expect(assetSubpackages).toEqual([]);
+    expect(assetSubpackages).toHaveLength(assetPackageNames.length);
+    expect(
+      assetSubpackages.map(({ name, root, pages, entry }) => ({
+        name,
+        root,
+        pages,
+        entry,
+      })),
+    ).toEqual(
+      assetPackageNames.map((packageName) => ({
+        name: packageName,
+        root: `packages/${packageName}`,
+        pages: [],
+        entry: "package-entry.js",
+      })),
+    );
     expect(routeManifest.assetEntryPages).toEqual([]);
     for (const route of assetEntryRoutes) {
       expect(registered).not.toContain(route);

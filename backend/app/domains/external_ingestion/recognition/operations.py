@@ -17,6 +17,10 @@ from app.domains.ai.external_processing import (
 )
 from app.domains.ai.governance.catalog import scenario_policy
 from app.domains.ai.governance.contracts import ScenarioKey
+from app.domains.ai.governance.repository import (
+    AIGovernanceReleaseError,
+    AIGovernanceRepository,
+)
 from app.domains.commerce.app_store import AppStoreSignedTransactionVerifier
 from app.domains.commerce.repository import (
     CommerceQuotaExceededError,
@@ -73,11 +77,7 @@ class SQLRecognitionOperationCoordinator:
                 self._assert_replay(existing, spec=spec)
                 return _state(existing, created=False)
 
-            deployment_id, evaluation_state = self._deployment(
-                session=session,
-                spec=spec,
-                evaluation_suite_version=policy.evaluation_suite_version,
-            )
+            deployment_id, evaluation_state = self._deployment(session=session, spec=spec)
             reservation_id: UUID | None = None
             reservation_source: str | None = None
             entitlement_state = "not_applicable"
@@ -462,45 +462,25 @@ class SQLRecognitionOperationCoordinator:
         *,
         session: Session,
         spec: RecognitionOperationSpec,
-        evaluation_suite_version: str,
     ) -> tuple[UUID | None, str]:
         if self._settings.environment.strip().casefold() != "production":
             return None, "local_unreleased"
-        deployment_id = session.execute(
-            text(
-                """
-                select deployment_id from ai_audit.scenario_deployments
-                where scenario_key = :scenario_key
-                  and operation = :operation
-                  and provider = :provider
-                  and model = :model
-                  and prompt_version = :prompt_version
-                  and schema_version = :schema_version
-                  and evaluation_suite_version = :evaluation_suite_version
-                  and not exists (
-                    select 1 from ai_audit.scenario_deployments successor
-                    where successor.supersedes_deployment_id =
-                          scenario_deployments.deployment_id
-                  )
-                order by published_at desc
-                limit 1
-                """
-            ),
-            {
-                "scenario_key": spec.scenario_key,
-                "operation": spec.operation,
-                "provider": spec.provider,
-                "model": spec.model,
-                "prompt_version": spec.prompt_version,
-                "schema_version": spec.schema_version,
-                "evaluation_suite_version": evaluation_suite_version,
-            },
-        ).scalar_one_or_none()
-        if deployment_id is None:
+        try:
+            deployment_id = AIGovernanceRepository().require_current_deployment(
+                session,
+                scenario_key=cast(ScenarioKey, spec.scenario_key),
+                operation=spec.operation,
+                provider=spec.provider,
+                model=spec.model,
+                prompt_version=spec.prompt_version,
+                schema_version=spec.schema_version,
+                price_version=spec.price_version,
+            )
+        except AIGovernanceReleaseError as exc:
             raise ProcessorConfigurationError(
                 "no evaluated production deployment matches recognition operation"
-            )
-        return UUID(str(deployment_id)), "passed"
+            ) from exc
+        return deployment_id, "passed"
 
     def _commerce(self, session: Session) -> CommerceService:
         return CommerceService(

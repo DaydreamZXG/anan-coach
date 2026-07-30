@@ -151,6 +151,69 @@ def test_onboarding_keeps_user_target_score_when_position_cohort_is_insufficient
     assert response.json()["targetScore"] == 130
 
 
+def test_onboarding_rejects_target_score_without_a_position_instead_of_dropping_it(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _seed_user(db_session_factory, token="manual-score-only-token")
+    client = _make_db_client(db_session_factory)
+
+    response = client.put(
+        "/api/v1/onboarding/profile",
+        headers={"Authorization": "Bearer manual-score-only-token"},
+        json={
+            "education": "本科",
+            "major": "法学",
+            "freshGraduate": True,
+            "politicalStatus": "群众",
+            "grassrootsYears": 0,
+            "targetScore": 130,
+            "baselineSource": "none",
+        },
+    )
+
+    assert response.status_code == 422
+    assert "targetScore requires targetPositionId" in str(response.json())
+
+
+def test_onboarding_rejects_invalid_target_position_ids_without_writing(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id = _seed_user(db_session_factory, token="invalid-target-position-token")
+    client = _make_db_client(db_session_factory)
+
+    for target_position_id in ("", "not-a-uuid"):
+        response = client.put(
+            "/api/v1/onboarding/profile",
+            headers={"Authorization": "Bearer invalid-target-position-token"},
+            json={
+                "education": "本科",
+                "major": "法学",
+                "freshGraduate": True,
+                "politicalStatus": "群众",
+                "grassrootsYears": 0,
+                "targetPositionId": target_position_id,
+                "targetScore": 130,
+                "baselineSource": "none",
+            },
+        )
+
+        assert response.status_code == 422, target_position_id
+        assert "targetPositionId must be a valid UUID" in str(response.json())
+
+    with db_session_factory() as session:
+        profile_count = session.execute(
+            text(
+                """
+                select count(*)
+                from learner.profiles
+                where user_id = cast(:user_id as uuid)
+                """
+            ),
+            {"user_id": user_id},
+        ).scalar_one()
+    assert profile_count == 0
+
+
 def test_onboarding_rejects_release_unbound_target_position_write(
     db_session_factory: sessionmaker[Session],
 ) -> None:

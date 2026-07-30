@@ -41,6 +41,42 @@
   ],
   "subPackages": [
     {
+      "root": "packages/anan-thinking",
+      "name": "anan-thinking",
+      "pages": [],
+      "entry": "package-entry.js"
+    },
+    {
+      "root": "packages/anan-reminder",
+      "name": "anan-reminder",
+      "pages": [],
+      "entry": "package-entry.js"
+    },
+    {
+      "root": "packages/anan-encouragement",
+      "name": "anan-encouragement",
+      "pages": [],
+      "entry": "package-entry.js"
+    },
+    {
+      "root": "packages/anan-rest",
+      "name": "anan-rest",
+      "pages": [],
+      "entry": "package-entry.js"
+    },
+    {
+      "root": "packages/anan-deprioritize",
+      "name": "anan-deprioritize",
+      "pages": [],
+      "entry": "package-entry.js"
+    },
+    {
+      "root": "packages/anan-growth",
+      "name": "anan-growth",
+      "pages": [],
+      "entry": "package-entry.js"
+    },
+    {
       "root": "pages/capture-import",
       "name": "capture-import",
       "pages": ["index"]

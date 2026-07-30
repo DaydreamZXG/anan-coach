@@ -4,6 +4,7 @@ from dataclasses import replace
 from datetime import UTC, datetime, timedelta
 from decimal import Decimal
 from importlib import import_module, util
+import json
 from pathlib import Path
 from threading import Event, Thread
 from uuid import UUID, uuid4
@@ -19,6 +20,17 @@ from app.contracts.external_learning.models import (
     RecognitionRevision,
 )
 from app.core.config import Settings
+from app.domains.ai.capability_readiness import ocr_readiness
+from app.domains.ai.external_processing import endpoint_fingerprint
+from app.domains.ai.governance import repository as governance_repository_module
+from app.domains.ai.governance.catalog import scenario_policy
+from app.domains.ai.governance.evaluation import (
+    evaluate_suite,
+    load_golden_manifest,
+    reference_observations,
+)
+from app.domains.ai.governance.repository import AIGovernanceRepository
+from app.domains.external_ingestion.recognition.errors import ProcessorConfigurationError
 from app.domains.external_ingestion.recognition.models import (
     BoundingBox,
     ProcessorApproval,
@@ -41,6 +53,7 @@ from app.workers.external_learning import _validate_worker_settings
 
 
 NOW = datetime(2026, 7, 30, 8, tzinfo=UTC)
+PRODUCTION_OCR_ENDPOINT = "https://ocr-selection.example.com/v1"
 
 
 class CountingProcessor:
@@ -184,6 +197,316 @@ def _seed_owner_artifact(
         )
         session.commit()
     return owner, artifact
+
+
+def _production_ocr_settings() -> Settings:
+    approval_payload = _approval().model_dump(by_alias=True, mode="json")
+    return Settings(
+        environment="production",
+        recognition_processor_enabled=True,
+        recognition_processor_endpoint=PRODUCTION_OCR_ENDPOINT,
+        recognition_processor_token="test-ocr-token",
+        recognition_processor_release_id=CountingProcessor.provider_release,
+        recognition_processor_adapter="private_contract",
+        recognition_processor_https_host_allowlist="ocr-selection.example.com",
+        recognition_processor_approvals_json=json.dumps([approval_payload]),
+        recognition_default_import_route="ocr-primary",
+    )
+
+
+def _insert_active_ocr_release(session: Session) -> None:
+    session.execute(
+        text(
+            """
+            insert into ai_audit.processor_release_records (
+              processor_release_record_id, provider_key, provider_release,
+              display_name, operator_name, endpoint_fingerprint,
+              transport_security, real_user_status, purposes, data_categories,
+              data_region, model_training_use, retention_policy,
+              retention_seconds, deletion_support, evidence,
+              evidence_fingerprint, verified_at, valid_from, valid_until,
+              published_at
+            ) values (
+              'ocr-selection-release-record', 'ocr-selection-provider',
+              :provider_release, 'OCR selection test processor',
+              'OCR selection test operator', :endpoint_fingerprint,
+              'tls', 'approved', '["recognition_process"]'::jsonb,
+              '["uploaded_image"]'::jsonb, 'mainland_china',
+              'contractually_prohibited', 'zero_retention', 0,
+              'not_applicable_zero_retention',
+              '{
+                "operatorIdentity":"operator-v1",
+                "dataProcessingTerms":"dpa-v1",
+                "trainingUse":"prohibited-v1",
+                "retention":"zero-v1",
+                "transportReview":"tls-v1"
+              }'::jsonb,
+              repeat('a', 64), :verified_at, :valid_from, :valid_until,
+              :published_at
+            )
+            """
+        ),
+        {
+            "provider_release": CountingProcessor.provider_release,
+            "endpoint_fingerprint": endpoint_fingerprint(PRODUCTION_OCR_ENDPOINT),
+            "verified_at": NOW - timedelta(days=2),
+            "valid_from": NOW - timedelta(days=1),
+            "valid_until": NOW + timedelta(days=30),
+            "published_at": NOW - timedelta(days=1),
+        },
+    )
+
+
+def _publish_current_ocr_deployment_leaves(
+    session: Session,
+) -> tuple[UUID, UUID]:
+    suite = next(
+        item
+        for item in load_golden_manifest().suites
+        if item.scenario_key == "recognition_printed_ocr"
+    )
+    repository = AIGovernanceRepository()
+    repository.register_evaluation_suite(session, suite=suite)
+    policy = scenario_policy("recognition_printed_ocr")
+    deployment_ids: list[UUID] = []
+    for release_id, price_version, maximum_cost in (
+        ("ocr-compatible-earlier", "ocr-price@v1", Decimal("100")),
+        ("ocr-incompatible-later", "ocr-price@v2", Decimal("101")),
+    ):
+        report = evaluate_suite(
+            suite=suite,
+            observations=reference_observations(suite),
+            maximum_mean_cost_cny=maximum_cost,
+            maximum_p95_cost_cny=maximum_cost,
+        )
+        evaluation_run_id = repository.record_evaluation_run(
+            session,
+            report=report,
+            operation="recognition_process",
+            provider="vendor",
+            model="ocr-model@v1",
+            model_tier=policy.model_tier,
+            prompt_version="recognition-processor-policy@v1",
+            schema_version="recognition-processor-output@v1",
+            price_version=price_version,
+        )
+        deployment_ids.append(
+            repository.publish_scenario_deployment(
+                session,
+                release_id=release_id,
+                scenario_key="recognition_printed_ocr",
+                operation="recognition_process",
+                provider="vendor",
+                model="ocr-model@v1",
+                prompt_version="recognition-processor-policy@v1",
+                schema_version="recognition-processor-output@v1",
+                evaluation_run_id=evaluation_run_id,
+            )
+        )
+    compatible_id, incompatible_id = deployment_ids
+    return compatible_id, incompatible_id
+
+
+def test_readiness_and_durable_coordinator_share_price_compatible_deployment(
+    db_session_factory: sessionmaker[Session],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    governance_times = iter(NOW + timedelta(microseconds=index) for index in range(5))
+
+    class _GovernanceClock:
+        @staticmethod
+        def now(timezone) -> datetime:
+            assert timezone is UTC
+            return next(governance_times)
+
+    monkeypatch.setattr(governance_repository_module, "datetime", _GovernanceClock)
+    settings = _production_ocr_settings()
+    with db_session_factory() as session:
+        _insert_active_ocr_release(session)
+        compatible_id, incompatible_id = _publish_current_ocr_deployment_leaves(session)
+        current_leaves = (
+            session.execute(
+                text(
+                    """
+                    select deployment.deployment_id, evaluation.price_version
+                      from ai_audit.scenario_deployments deployment
+                      join ai_audit.release_evaluation_runs evaluation
+                        on evaluation.evaluation_run_id =
+                           deployment.evaluation_run_id
+                     where deployment.scenario_key = 'recognition_printed_ocr'
+                       and deployment.operation = 'recognition_process'
+                       and not exists (
+                         select 1
+                           from ai_audit.scenario_deployments successor
+                          where successor.supersedes_deployment_id =
+                                deployment.deployment_id
+                       )
+                     order by deployment.published_at desc
+                    """
+                )
+            )
+            .mappings()
+            .all()
+        )
+        session.commit()
+
+    assert [
+        (UUID(str(row["deployment_id"])), str(row["price_version"]))
+        for row in current_leaves
+    ] == [
+        (incompatible_id, "ocr-price@v2"),
+        (compatible_id, "ocr-price@v1"),
+    ]
+    with db_session_factory() as session:
+        readiness = ocr_readiness(session, settings=settings, at=NOW)
+    assert (readiness.ready, readiness.reason) == (True, "ready")
+
+    owner, artifact = _seed_owner_artifact(db_session_factory)
+    processor = CountingProcessor()
+    with db_session_factory() as session:
+        service = RecognitionService(
+            repository=SQLRecognitionRepository(session),
+            operations=SQLRecognitionOperationCoordinator(
+                session_factory=db_session_factory,
+                settings=settings,
+                processor_endpoint_fingerprint=endpoint_fingerprint(
+                    PRODUCTION_OCR_ENDPOINT
+                ),
+            ),
+            processors=ProcessorRegistry(
+                (_approval(),),
+                {"ocr-primary": processor},
+            ),
+            clock=lambda: NOW,
+        )
+        revision = service.recognize(
+            owner_user_id=owner,
+            artifact_version_id=artifact,
+            recognition_kind=RecognitionKind.PRINTED_OCR,
+            processor_route="ocr-primary",
+            idempotency_key="price-compatible-selection",
+        )
+        session.rollback()
+
+    assert processor.calls == 1
+    with db_session_factory() as session:
+        selected = (
+            session.execute(
+                text(
+                    """
+                    select deployment_id, evaluation_state, status, usage_state,
+                           entitlement_state, reservation_id
+                      from ai_audit.external_ai_operation_ledger
+                     where operation_id = :operation_id
+                    """
+                ),
+                {"operation_id": str(revision.recognition_revision_id)},
+            )
+            .mappings()
+            .one()
+        )
+        incompatible_passed = session.execute(
+            text(
+                """
+                select count(*)
+                  from ai_audit.external_ai_operation_ledger
+                 where deployment_id = :deployment_id
+                   and evaluation_state = 'passed'
+                """
+            ),
+            {"deployment_id": str(incompatible_id)},
+        ).scalar_one()
+        reservation_status = session.execute(
+            text(
+                "select status from commerce.feature_usage_reservations "
+                "where reservation_id = :reservation_id"
+            ),
+            {"reservation_id": str(selected["reservation_id"])},
+        ).scalar_one()
+    assert (
+        selected["deployment_id"],
+        selected["evaluation_state"],
+        selected["status"],
+        selected["usage_state"],
+        selected["entitlement_state"],
+        reservation_status,
+    ) == (
+        compatible_id,
+        "passed",
+        "succeeded",
+        "actual",
+        "consumed",
+        "consumed",
+    )
+    assert incompatible_passed == 0
+
+    blocked_owner, blocked_artifact = _seed_owner_artifact(db_session_factory)
+    unapproved_price = _approval().model_copy(
+        update={"price_version": "ocr-price@unapproved"}
+    )
+    with db_session_factory() as session:
+        blocked_service = RecognitionService(
+            repository=SQLRecognitionRepository(session),
+            operations=SQLRecognitionOperationCoordinator(
+                session_factory=db_session_factory,
+                settings=settings,
+                processor_endpoint_fingerprint=endpoint_fingerprint(
+                    PRODUCTION_OCR_ENDPOINT
+                ),
+            ),
+            processors=ProcessorRegistry(
+                (unapproved_price,),
+                {"ocr-primary": processor},
+            ),
+            clock=lambda: NOW,
+        )
+        with pytest.raises(
+            ProcessorConfigurationError,
+            match="no evaluated production deployment",
+        ):
+            blocked_service.recognize(
+                owner_user_id=blocked_owner,
+                artifact_version_id=blocked_artifact,
+                recognition_kind=RecognitionKind.PRINTED_OCR,
+                processor_route="ocr-primary",
+                idempotency_key="unapproved-price-fails-closed",
+            )
+        session.rollback()
+
+    assert processor.calls == 1
+    with db_session_factory() as session:
+        blocked_side_effects = (
+            session.execute(
+                text(
+                    """
+                    select
+                      (
+                        select count(*)
+                          from ai_audit.external_ai_operation_ledger
+                         where user_id = :owner
+                      ) as ledger_rows,
+                      (
+                        select count(*)
+                          from ai_audit.external_processing_receipts
+                         where user_id = :owner
+                      ) as dispatch_receipts,
+                      (
+                        select count(*)
+                          from commerce.feature_usage_reservations
+                         where user_id = :owner
+                      ) as quota_reservations
+                    """
+                ),
+                {"owner": str(blocked_owner)},
+            )
+            .mappings()
+            .one()
+        )
+    assert dict(blocked_side_effects) == {
+        "ledger_rows": 0,
+        "dispatch_receipts": 0,
+        "quota_reservations": 0,
+    }
 
 
 def test_migration_87_is_chained_after_worker_principal_authority() -> None:

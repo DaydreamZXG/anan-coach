@@ -11,9 +11,15 @@ const failures = [];
 const registeredAnanPackages = (appConfig.subPackages ?? []).filter(
   ({ root }) => typeof root === "string" && root.startsWith("packages/anan-"),
 );
-if (registeredAnanPackages.length > 0) {
+if (
+  registeredAnanPackages.length !== 6 ||
+  registeredAnanPackages.some(
+    ({ pages, entry }) =>
+      !Array.isArray(pages) || pages.length !== 0 || entry !== "package-entry.js",
+  )
+) {
   failures.push(
-    `Internal Anan asset packages must not register app pages: ${registeredAnanPackages
+    `Internal Anan visuals require six asset-only subpackages: ${registeredAnanPackages
       .map(({ name }) => name)
       .join(", ")}`,
   );

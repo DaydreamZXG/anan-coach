@@ -45,5 +45,12 @@ apps/wechat/tests/visual/artifacts/
 
 # WeChat DevTools TS compiler output (in-place compiled artifacts)
 apps/wechat/miniprogram/**/*.js
+# Authored entrypoints for the six asset-only Anan subpackages.
+!apps/wechat/miniprogram/packages/anan-thinking/package-entry.js
+!apps/wechat/miniprogram/packages/anan-reminder/package-entry.js
+!apps/wechat/miniprogram/packages/anan-encouragement/package-entry.js
+!apps/wechat/miniprogram/packages/anan-rest/package-entry.js
+!apps/wechat/miniprogram/packages/anan-deprioritize/package-entry.js
+!apps/wechat/miniprogram/packages/anan-growth/package-entry.js
 # Stray configs created when miniprogram/ is opened as project root by mistake
 apps/wechat/miniprogram/project*.json

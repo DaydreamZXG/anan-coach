@@ -51,7 +51,7 @@ CANDIDATE_COMMIT = "1" * 40
 ROLLBACK_COMMIT = "7" * 40
 
 
-def _seed_revision_77_authority(engine: Engine) -> None:
+def _seed_bootstrap_authority(engine: Engine) -> None:
     now = datetime.now(UTC)
     position_id = str(uuid4())
     position_release_id = str(uuid4())
@@ -243,17 +243,17 @@ def _sign_receipt(receipt: Path, directory: Path) -> tuple[Path, Path]:
     return public_key, signature
 
 
-def test_revision_77_bootstrap_sigkill_rolls_back_and_exact_resume_succeeds(
-    db_engine_at_revision_77: Engine,
+def test_revision_76_external_transaction_bootstrap_is_atomic_and_resumable(
+    db_engine_at_revision_76: Engine,
     tmp_path: Path,
 ) -> None:
-    db_engine = db_engine_at_revision_77
-    _seed_revision_77_authority(db_engine)
+    db_engine = db_engine_at_revision_76
+    _seed_bootstrap_authority(db_engine)
     database_url = _libpq_url(db_engine)
     receipt_payload = authority.capture_bootstrap_authority(
         database_url=database_url,
         environment="preproduction",
-        expected_revision="20260730_77",
+        expected_revision="20260729_76",
         application_commit=ROLLBACK_COMMIT,
         position_exam_code="guokao",
         position_exam_year=2026,
@@ -340,7 +340,7 @@ publication.bootstrap_upgrade_and_begin(
     with db_engine.connect() as connection:
         assert (
             connection.execute(text("select version_num from public.alembic_version")).scalar_one()
-            == "20260730_77"
+            == "20260729_76"
         )
         assert (
             connection.execute(

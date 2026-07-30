@@ -172,6 +172,11 @@ _CONCURRENT_INDEX_STATEMENTS = (
     """,
 )
 
+_TRANSACTIONAL_INDEX_STATEMENTS = tuple(
+    statement.replace("create index concurrently", "create index", 1)
+    for statement in _CONCURRENT_INDEX_STATEMENTS
+)
+
 _CONCURRENT_INDEX_NAMES = (
     ("product", "product_knowledge_map_binding_release_selection_idx"),
     ("product", "product_knowledge_map_binding_node_selection_idx"),
@@ -267,11 +272,15 @@ def _grant_runtime_access() -> None:
     bind.exec_driver_sql("grant select on learning.xingce_question_exposures to gongkao_api")
 
 
-def _ensure_concurrent_indexes() -> None:
+def _ensure_indexes(
+    *,
+    statements: tuple[str, ...],
+    concurrently: bool,
+) -> None:
     bind = op.get_bind()
     for (schema_name, index_name), statement in zip(
         _CONCURRENT_INDEX_NAMES,
-        _CONCURRENT_INDEX_STATEMENTS,
+        statements,
         strict=True,
     ):
         index_state = (
@@ -285,8 +294,48 @@ def _ensure_concurrent_indexes() -> None:
         if index_state is not None:
             if bool(index_state["indisvalid"]) and bool(index_state["indisready"]):
                 continue
-            op.execute(f'drop index concurrently if exists "{schema_name}"."{index_name}"')
+            concurrent_clause = " concurrently" if concurrently else ""
+            op.execute(f'drop index{concurrent_clause} if exists "{schema_name}"."{index_name}"')
         op.execute(statement)
+
+
+def _ensure_concurrent_indexes() -> None:
+    _ensure_indexes(
+        statements=_CONCURRENT_INDEX_STATEMENTS,
+        concurrently=True,
+    )
+
+
+def _ensure_transactional_indexes() -> None:
+    _ensure_indexes(
+        statements=_TRANSACTIONAL_INDEX_STATEMENTS,
+        concurrently=False,
+    )
+
+
+def _uses_externally_owned_connection() -> bool:
+    # Alembic's supported shared-connection recipe stores the caller-owned
+    # SQLAlchemy connection here.  An autocommit block would unconditionally
+    # commit that caller's transaction, so this path must contain transactional
+    # PostgreSQL statements only.
+    return op.get_context().config.attributes.get("connection") is not None
+
+
+def _backfill_exposures() -> None:
+    cursor: str | None = None
+    while True:
+        row = (
+            op.get_bind()
+            .execute(
+                _BACKFILL_BATCH_SQL,
+                {"cursor": cursor, "batch_size": _BACKFILL_BATCH_SIZE},
+            )
+            .mappings()
+            .one()
+        )
+        if int(row["session_count"]) == 0:
+            break
+        cursor = str(row["next_cursor"])
 
 
 def upgrade() -> None:
@@ -294,31 +343,30 @@ def upgrade() -> None:
         op.execute(statement)
 
     context = op.get_context()
-    with context.autocommit_block():
-        _ensure_concurrent_indexes()
+    externally_owned_connection = _uses_externally_owned_connection()
+    if externally_owned_connection:
+        # The commercial-data bootstrap verifies its signed baseline, migrates
+        # from revision 76 through head, and writes the publishing singleton in
+        # one caller-owned transaction.  PostgreSQL does not allow CONCURRENTLY
+        # inside that transaction, so use equivalent transactional indexes.
+        _ensure_transactional_indexes()
+    else:
+        with context.autocommit_block():
+            _ensure_concurrent_indexes()
 
     for statement in _TRIGGER_STATEMENTS:
         op.execute(statement)
 
-    # Entering the autocommit block commits the short trigger DDL transaction.
-    # Every following statement locks and reconciles at most one bounded batch,
-    # so concurrent task-session updates either precede the snapshot or wait
-    # briefly and then fire the installed trigger with the newer bundle.
-    cursor: str | None = None
-    with context.autocommit_block():
-        while True:
-            row = (
-                op.get_bind()
-                .execute(
-                    _BACKFILL_BATCH_SQL,
-                    {"cursor": cursor, "batch_size": _BACKFILL_BATCH_SIZE},
-                )
-                .mappings()
-                .one()
-            )
-            if int(row["session_count"]) == 0:
-                break
-            cursor = str(row["next_cursor"])
+    if externally_owned_connection:
+        _backfill_exposures()
+    else:
+        # Entering this autocommit block commits the short trigger DDL
+        # transaction. Every following statement locks and reconciles at most
+        # one bounded batch, so concurrent task-session updates either precede
+        # the snapshot or wait briefly and then fire the installed trigger with
+        # the newer bundle.
+        with context.autocommit_block():
+            _backfill_exposures()
 
     _grant_runtime_access()
 
