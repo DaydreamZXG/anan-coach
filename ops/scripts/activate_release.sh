@@ -1643,6 +1643,12 @@ prune_orphaned_runtime_config_snapshots() {
         ;;
     esac
     if [[ ! -d "${root}/${release_name}" || -L "${root}/${release_name}" ]]; then
+      # Sealed snapshots are stored with a 0500 directory and 0400 files, so
+      # restore owner write permission first; unprivileged removal fails
+      # otherwise (for example on macOS test harnesses). BSD chmod does not
+      # accept "--"; the snapshot path is absolute, so it cannot begin with
+      # a dash.
+      chmod -R u+w "${snapshot}"
       rm -rf -- "${snapshot}"
     fi
   done < <(find "${snapshot_store}" -mindepth 1 -maxdepth 1 -type d -print | sort)

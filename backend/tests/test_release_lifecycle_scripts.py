@@ -1431,6 +1431,7 @@ def test_rollback_backup_timer_disable_is_a_hard_interlock(
         tmp_path,
         previous_compatible_revisions=(PREVIOUS_REVISION, CANDIDATE_REVISION),
         current_points_to_candidate=True,
+        backup_enabled="true",
     )
     control_plane_before = _control_plane_snapshot(harness)
 
@@ -3101,7 +3102,9 @@ set -euo pipefail
 while [[ "${1:-}" == "--no-pager" || "${1:-}" == "--full" ]]; do shift; done
 command_name="${1:?}"
 shift
-printf 'systemctl %s %s\\n' "$command_name" "$*" >> "${HARNESS_EVENTS_FILE}"
+if [[ "$command_name" != "show" ]]; then
+  printf 'systemctl %s %s\\n' "$command_name" "$*" >> "${HARNESS_EVENTS_FILE}"
+fi
 if [[ "$command_name" == "disable" \
   && "$*" == "--now gongkao-dazi-backup.timer" ]]; then
   if [[ "${HARNESS_FAULT:-}" == "backup-timer-disable" ]]; then
@@ -3124,6 +3127,12 @@ if [[ "$command_name" == "show" ]]; then
       ;;
     "--property=ActiveState --value gongkao-dazi-backup.timer")
       cat "${HARNESS_BACKUP_TIMER_ACTIVE_STATE}"
+      ;;
+    "--property=DropInPaths --value gongkao-dazi-backup.service")
+      printf '%s\\n' "${HARNESS_BACKUP_SERVICE_DROPIN_PATHS:-}"
+      ;;
+    "--property=DropInPaths --value gongkao-dazi-backup.timer")
+      printf '%s\\n' "${HARNESS_BACKUP_TIMER_DROPIN_PATHS:-}"
       ;;
     *)
       exit 47

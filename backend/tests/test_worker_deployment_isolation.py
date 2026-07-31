@@ -204,13 +204,22 @@ def test_sysusers_provisions_exactly_the_six_non_login_accounts() -> None:
         if line.strip() and not line.lstrip().startswith("#")
     ]
 
-    assert len(rows) == 6
-    assert {row[1] for row in rows} == {str(contract["user"]) for contract in WORKERS.values()}
+    worker_rows = [row for row in rows if row[1] != "gongkao-backup"]
+    backup_rows = [row for row in rows if row[1] == "gongkao-backup"]
+
+    assert len(worker_rows) == 6
+    assert len(backup_rows) == 1
+    assert {row[1] for row in worker_rows} == {
+        str(contract["user"]) for contract in WORKERS.values()
+    }
     for row in rows:
         assert len(row) == 6
         assert row[0] == "u"
         assert row[2] == "-"
-        assert row[-2:] == ["/nonexistent", "/usr/sbin/nologin"]
+        assert row[-1] == "/usr/sbin/nologin"
+    for row in worker_rows:
+        assert row[-2] == "/nonexistent"
+    assert backup_rows[0][-2] == "/var/lib/gongkao-backup"
 
 
 def test_worker_units_load_only_scoped_environment_files_and_fail_closed() -> None:
@@ -311,7 +320,15 @@ def _unit_directives(unit: str) -> dict[str, dict[str, object]]:
         key, separator, value = line.partition("=")
         assert separator and section
         existing = result[section].get(key)
-        if key in {"EnvironmentFile", "Environment", "After", "Before", "Requires", "Wants"}:
+        if key in {
+            "EnvironmentFile",
+            "Environment",
+            "After",
+            "Before",
+            "Requires",
+            "Wants",
+            "InaccessiblePaths",
+        }:
             if existing is None:
                 result[section][key] = [value]
             else:
