@@ -575,10 +575,13 @@ function presentQuestion(
     positionLabel: `第 ${String(index + 1)} / ${String(total)} 题`,
     options: question.options.map((option) => ({
       ...option,
-      content: normalizeRichContent(
-        option.content,
-        option.text,
-        `${question.questionId}-option-${option.optionId}`,
+      // 剥掉题库自带的 "A、" 前缀，避免与前端 label 视觉重复。
+      content: stripOptionContentPrefix(
+        normalizeRichContent(
+          option.content,
+          option.text,
+          `${question.questionId}-option-${option.optionId}`,
+        ),
       ),
       selected: selected.has(option.optionId),
       eliminated: eliminated.has(option.optionId),
@@ -624,6 +627,26 @@ function normalizeRichContent(
   if (Array.isArray(blocks) && blocks.length > 0) return blocks as RichContentBlock[];
   const text = plainText?.trim();
   return text ? [{ type: "paragraph", blockId, text }] : [];
+}
+
+/**
+ * 选项内容展示时剥离题库自带的 "A、" / "B、" 前缀——前端已单独渲染 label，
+ * 文本里的前缀会造成视觉重复（"A" + "A、紫杉醇…"）。只剥开头一个选项字母，
+ * 不影响正文里出现的类似文本。
+ */
+const OPTION_LABEL_PREFIX = /^[A-H]\s*[、.．:：]\s*/;
+
+function stripOptionLabelPrefix(text: string): string {
+  return text.replace(OPTION_LABEL_PREFIX, "");
+}
+
+/** 把选项 content 块的前缀剥掉（只改展示，不动原始数据）。 */
+function stripOptionContentPrefix(blocks: RichContentBlock[]): RichContentBlock[] {
+  return blocks.map((block) =>
+    block.type === "paragraph" && block.text
+      ? { ...block, text: stripOptionLabelPrefix(block.text) }
+      : block,
+  );
 }
 
 function presentResultItem(
