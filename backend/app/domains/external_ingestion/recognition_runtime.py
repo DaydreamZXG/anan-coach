@@ -9,6 +9,9 @@ from sqlalchemy.orm import Session, sessionmaker
 from app.core.config import Settings
 from app.domains.ai.external_processing import endpoint_fingerprint
 from app.domains.external_ingestion.recognition.errors import ProcessorConfigurationError
+from app.domains.external_ingestion.recognition.gemma_vision import (
+    GemmaVisionRecognitionProcessor,
+)
 from app.domains.external_ingestion.recognition.grok_vision import (
     GrokVisionRecognitionProcessor,
 )
@@ -52,6 +55,7 @@ def build_recognition_service(
     expected_request_id_source = {
         "private_contract": "body:providerRequestId",
         "grok_vision_chat_completions": "body:id",
+        "gemma_vision_relay": "body:id",
         "modal_paddle_ocr": "X-Request-ID",
     }.get(adapter)
     if expected_request_id_source is not None and any(
@@ -75,6 +79,25 @@ def build_recognition_service(
                 "Grok recognition approval model release does not match runtime"
             )
         processor = GrokVisionRecognitionProcessor(
+            endpoint=endpoint,
+            bearer_token=settings.recognition_processor_token,
+            expected_provider_release=settings.recognition_processor_release_id,
+            requested_model=settings.recognition_processor_model,
+            expected_actual_model=settings.recognition_processor_actual_model,
+            source_reader=PrivateObjectReader(settings),
+            maximum_input_bytes=settings.recognition_processor_max_input_bytes,
+            maximum_output_bytes=settings.recognition_processor_max_output_bytes,
+            maximum_pages=settings.recognition_processor_max_pages,
+        )
+    elif adapter == "gemma_vision_relay":
+        if any(
+            approval.model_release != settings.recognition_processor_actual_model.strip()
+            for approval in approvals
+        ):
+            raise ProcessorConfigurationError(
+                "Gemma recognition approval model release does not match runtime"
+            )
+        processor = GemmaVisionRecognitionProcessor(
             endpoint=endpoint,
             bearer_token=settings.recognition_processor_token,
             expected_provider_release=settings.recognition_processor_release_id,
