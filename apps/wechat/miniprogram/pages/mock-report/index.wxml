@@ -2,6 +2,7 @@
   <state-view wx:if="{{status === 'loading'}}" state="loading" />
   <state-view wx:elif="{{status === 'error'}}" state="error" title="模考报告没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
   <block wx:elif="{{report}}">
+    <view class="report-nav-back" bindtap="back" aria-label="返回报告中心">‹ 返回</view>
     <view class="s9-hero"><view class="report-kicker">{{report.title}}</view><view class="s9-title">分数只是结果，失分结构才决定下一步</view><view class="s9-subtitle">按模块、时间和错误原因拆解，不用一次成绩替代长期判断。</view><view class="s9-chip-row"><view class="s9-chip report-chip">{{generatedAtLabel}}</view><view class="s9-chip report-chip">{{evidenceCount}} 条学习记录</view><view class="s9-chip report-chip">数据已核对</view></view></view>
     <view class="report-layout">
       <view wx:if="{{partial}}" class="report-banner">这份报告数据不全，只展示已有的部分。</view>

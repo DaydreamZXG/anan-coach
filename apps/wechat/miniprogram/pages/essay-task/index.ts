@@ -178,6 +178,7 @@ interface EssayTaskPageData {
   hasSavedEvidence: boolean;
   submissionStatus: SubmissionStatus;
   submissionMessage: string;
+  submissionRequestId: string;
   elapsedLabel: string;
   pointCategoryLabels: string[];
   overallTheme: string;
@@ -344,6 +345,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     hasSavedEvidence: false,
     submissionStatus: "idle",
     submissionMessage: "",
+    submissionRequestId: "",
     elapsedLabel: "00:00:00",
     pointCategoryLabels,
     overallTheme: "",
@@ -621,7 +623,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         status: "error",
         errorTitle: apiError?.statusCode === 404 ? "题目内容不可用" : "申论任务加载失败",
         errorMessage: apiError
-          ? `${apiError.message}（请求 ${apiError.requestId}）`
+          ? `${apiError.message}`
           : "当前申论任务没有成功加载，请稍后重试。",
       });
     }
@@ -781,11 +783,20 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
 
   removePoint(event: WechatMiniprogram.BaseEvent) {
     const index = datasetIndex(event);
-    markDraftChanged(this);
-    this.setData({
-      points: this.data.points.filter((_, itemIndex) => itemIndex !== index),
-      submissionStatus: "idle",
-    });
+    if (!this.data.points[index]) return;
+    void (async () => {
+      const confirm = await wx.showModal({
+        title: "删除这个要点？",
+        content: "这个要点将从提纲中移除。",
+        confirmText: "确认删除",
+      });
+      if (!confirm.confirm) return;
+      markDraftChanged(this);
+      this.setData({
+        points: this.data.points.filter((_, itemIndex) => itemIndex !== index),
+        submissionStatus: "idle",
+      });
+    })();
   },
 
   changePointCategory(event: WechatMiniprogram.CustomEvent<{ value: string }>) {
@@ -845,11 +856,20 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
 
   removeOutlineSection(event: WechatMiniprogram.BaseEvent) {
     const index = datasetIndex(event);
-    markDraftChanged(this);
-    this.setData({
-      outlineSections: this.data.outlineSections.filter((_, itemIndex) => itemIndex !== index),
-      submissionStatus: "idle",
-    });
+    if (!this.data.outlineSections[index]) return;
+    void (async () => {
+      const confirm = await wx.showModal({
+        title: "删除这段提纲？",
+        content: "这段提纲将被移除。",
+        confirmText: "确认删除",
+      });
+      if (!confirm.confirm) return;
+      markDraftChanged(this);
+      this.setData({
+        outlineSections: this.data.outlineSections.filter((_, itemIndex) => itemIndex !== index),
+        submissionStatus: "idle",
+      });
+    })();
   },
 
   inputOutlineField(event: WechatMiniprogram.Input) {
@@ -1848,6 +1868,12 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
     const segment = this.data.voiceSegments.find((item) => item.segmentId === segmentId);
     if (!runtime || !segment || ["authorizing", "uploading", "scanning"].includes(segment.state))
       return;
+    const confirm = await wx.showModal({
+      title: "删除这段录音？",
+      content: "删除后不会随本次申论提交，本地录音也会一并清理。",
+      confirmText: "确认删除",
+    });
+    if (!confirm.confirm || !pageRuntimes.owns(this, runtime)) return;
     try {
       await deleteLocalVoice(segment.localPath);
       if (!pageRuntimes.owns(this, runtime)) return;
@@ -2133,8 +2159,9 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       this.setData({
         submissionStatus: "error",
         submissionMessage: apiError
-          ? `评阅状态暂未同步：${apiError.message}（问题编号 ${apiError.requestId}）。进度已保留，将继续查询。`
+          ? `评阅状态暂未同步：${apiError.message}。进度已保留，将继续查询。`
           : "评阅状态暂未同步，进度已保留，将继续查询。",
+        submissionRequestId: apiError?.requestId ?? "",
       });
       scheduleReviewPoll(this, runtime, 5_000);
     } finally {
@@ -2186,7 +2213,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       this.setData({
         submissionStatus: "error",
         submissionMessage: apiError
-          ? `${apiError.message}（问题编号 ${apiError.requestId}）。原评阅进度已保留，可以直接重试。`
+          ? `${apiError.message}。原评阅进度已保留，可以直接重试。`
           : "刚才的重评结果还不确定，原评阅进度已保留，可以直接重试。",
         canRegenerateReview: true,
       });
@@ -2220,7 +2247,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       this.setData({
         submissionStatus: "error",
         submissionMessage: apiError
-          ? `完整评阅没有加载成功：${apiError.message}（问题编号 ${apiError.requestId}）`
+          ? `完整评阅没有加载成功：${apiError.message}`
           : "完整评阅没有加载成功。",
       });
     }
@@ -2324,7 +2351,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           : apiError?.statusCode === 409
             ? "任务已经在其他设备或页面更新，本次没有写入不完整记录。请从今日页重新进入。"
             : apiError
-              ? `${apiError.message}（请求 ${apiError.requestId}）`
+              ? `${apiError.message}`
               : "答案、复盘和任务完成状态还没有完全确认，请直接重试。";
       this.setData({
         submissionStatus: "error",
@@ -2439,7 +2466,7 @@ function enterEssayAuthRequired(
     status: "unavailable",
     errorTitle: apiError ? "登录状态已过期" : "登录后才能继续申论任务",
     errorMessage: apiError
-      ? `本页进度已保留，请重新登录后继续。（请求 ${apiError.requestId}）`
+      ? `本页进度已保留，请重新登录后继续。`
       : "学习记录必须绑定你的账号，请重新登录后继续。",
     showLoginAction: true,
     submissionStatus: "error",
@@ -2615,7 +2642,7 @@ function closureErrorMessage(error: unknown): string {
     return error.message;
   }
   if (error instanceof ApiClientError) {
-    return `${error.message}（请求 ${error.requestId}）`;
+    return `${error.message}`;
   }
   return error instanceof Error ? error.message : "申论内容没有完整保存，请重试。";
 }
@@ -2623,7 +2650,7 @@ function closureErrorMessage(error: unknown): string {
 function handwritingErrorMessage(error: unknown): string {
   if (error instanceof EssayHandwritingError) return error.message;
   if (error instanceof ApiClientError) {
-    return `${error.message}（请求 ${error.requestId}）`;
+    return `${error.message}`;
   }
   return error instanceof Error ? error.message : "手写识别没有形成可确认的文字。";
 }
@@ -2900,7 +2927,7 @@ function handleDraftingRequestError(
           ? "任务已经在其他设备或页面更新，本次没有写入不完整记录。请从今日页重新进入。"
           : "作答和计划已经保存，但评阅依据发生变化。请返回今日页重新进入。"
         : apiError
-          ? `${apiError.message}（问题编号 ${apiError.requestId}）。${completionPending ? "刚才的提交内容已保留" : "评阅任务已保存在账户中"}，可以直接重试。`
+          ? `${apiError.message}。${completionPending ? "刚才的提交内容已保留" : "评阅任务已保存在账户中"}，可以直接重试。`
           : `请求没有获得完整响应。${completionPending ? "刚才的提交内容已保留" : "评阅任务已保存在账户中"}，可以直接重试。`;
   page.setData({
     submissionStatus: "error",

@@ -15,7 +15,7 @@ export interface Environment {
 }
 
 export const environment: Environment = {
-  apiBaseUrl: "https://kg.xingguoxian.cn",
+  apiBaseUrl: "https://kg.xingguoxian.cn/staging",
   fontAssets: {
     mapleMonoCnRegularUrl: "https://kg.xingguoxian.cn/assets/fonts/maple-mono-cn-regular-v7.9.woff",
     mapleMonoCnBoldUrl: "https://kg.xingguoxian.cn/assets/fonts/maple-mono-cn-bold-v7.9.woff",

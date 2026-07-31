@@ -132,7 +132,11 @@ Page<PositionPreferencePageData, PositionPreferencePageCustom>({
   },
 
   back() {
-    void wx.redirectTo({ url: routes.onboarding });
+    if (getCurrentPages().length > 1) {
+      void wx.navigateBack();
+      return;
+    }
+    void wx.redirectTo({ url: routes.onboardingEntry });
   },
 });
 
@@ -165,7 +169,7 @@ function mountController(page: PositionPreferencePage): void {
         void wx.redirectTo({ url: routes.profileArchive });
         return;
       }
-      void wx.redirectTo({ url: routes.onboardingStudyPreference });
+      void wx.navigateTo({ url: routes.onboardingStudyPreference });
     },
     isSessionCurrent: () => {
       const current = currentAuthSession();

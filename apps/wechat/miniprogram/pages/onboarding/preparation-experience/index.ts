@@ -120,6 +120,10 @@ Page<PreparationExperiencePageData, PreparationExperiencePageCustom>({
   },
 
   back() {
+    if (getCurrentPages().length > 1) {
+      void wx.navigateBack();
+      return;
+    }
     void wx.redirectTo({ url: routes.onboardingEntry });
   },
 

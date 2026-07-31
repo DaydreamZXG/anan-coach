@@ -2,6 +2,7 @@
   <state-view wx:if="{{status === 'loading'}}" state="loading" />
   <state-view wx:elif="{{status === 'error'}}" state="error" title="全局报告没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
   <block wx:elif="{{report}}">
+    <view class="report-nav-back" bindtap="back" aria-label="返回报告中心">‹ 返回</view>
     <view class="s9-hero"><view class="report-kicker">{{report.title}}</view><view class="s9-title">把分差、能力和行动放在一张图里</view><view class="s9-subtitle">所有数据都来自你的真实作答。</view><view class="s9-chip-row"><view class="s9-chip report-chip">{{generatedAtLabel}}</view><view class="s9-chip report-chip">{{evidenceCount}} 条学习记录</view><view class="s9-chip report-chip">6 类图表</view></view></view>
     <view class="report-layout">
       <view wx:if="{{partial}}" class="report-banner">没数据的地方先空着，做几次题就有了。</view>

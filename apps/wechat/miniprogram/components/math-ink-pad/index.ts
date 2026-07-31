@@ -21,6 +21,8 @@ interface InkRuntime {
   context: WechatMiniprogram.CanvasRenderingContext.CanvasRenderingContext2D | null;
   width: number;
   height: number;
+  left: number;
+  top: number;
 }
 
 const runtimes = new WeakMap<object, InkRuntime>();
@@ -29,6 +31,60 @@ function runtime(instance: object): InkRuntime {
   const value = runtimes.get(instance);
   if (!value) throw new Error("数学手写画布尚未初始化。");
   return value;
+}
+
+/**
+ * 确保画布节点就绪并返回 2d context。
+ * ui-sheet 懒挂载 + 关闭即销毁子树，画布节点可能晚于 ready() 首帧就绪，
+ * 且收起→重开会重建组件。查询失败或节点未挂载时静默保留，由调用方
+ * （startStroke / scheduleRedraw）再次触发重查，避免"第二题画不出来"。
+ */
+function ensureCanvas(host: InkHost, ready: () => void): void {
+  const state = runtime(host);
+  if (state.context) {
+    ready();
+    return;
+  }
+  const query = host.createSelectorQuery();
+  query.select("#mathInkCanvas").fields({ node: true, size: true, rect: true });
+  query.exec(
+    (
+      results: Array<{
+        node?: WechatMiniprogram.Canvas;
+        width?: number;
+        height?: number;
+        left?: number;
+        top?: number;
+      } | null>,
+    ) => {
+      const node = results[0]?.node;
+      const width = results[0]?.width ?? 0;
+      const height = results[0]?.height ?? 0;
+      if (!node || width <= 0 || height <= 0) return;
+      const pixelRatio = wx.getWindowInfo().pixelRatio;
+      node.width = width * pixelRatio;
+      node.height = height * pixelRatio;
+      const context = node.getContext("2d");
+      context.scale(pixelRatio, pixelRatio);
+      context.strokeStyle = "#18322c";
+      context.lineWidth = 3;
+      context.lineCap = "round";
+      context.lineJoin = "round";
+      state.canvas = node;
+      state.context = context;
+      state.width = width;
+      state.height = height;
+      state.left = results[0]?.left ?? 0;
+      state.top = results[0]?.top ?? 0;
+      host.setData({ canvasReady: true });
+      ready();
+    },
+  );
+}
+
+interface InkHost {
+  createSelectorQuery(): WechatMiniprogram.SelectorQuery;
+  setData(data: Partial<{ canvasReady: boolean }>): void;
 }
 
 Component({
@@ -49,36 +105,29 @@ Component({
         context: null,
         width: 0,
         height: 0,
+        left: 0,
+        top: 0,
       });
     },
     ready() {
-      wx.createSelectorQuery()
-        .in(this)
-        .select("#mathInkCanvas")
-        .fields({ node: true, size: true }, (raw) => {
-          const result = raw as {
-            node?: WechatMiniprogram.Canvas;
-            width?: number;
-            height?: number;
-          };
-          if (!result.node || !result.width || !result.height) return;
-          const state = runtime(this);
-          const pixelRatio = wx.getWindowInfo().pixelRatio;
-          result.node.width = result.width * pixelRatio;
-          result.node.height = result.height * pixelRatio;
-          const context = result.node.getContext("2d");
-          context.scale(pixelRatio, pixelRatio);
-          context.strokeStyle = "#18322c";
-          context.lineWidth = 3;
-          context.lineCap = "round";
-          context.lineJoin = "round";
-          state.canvas = result.node;
-          state.context = context;
-          state.width = result.width;
-          state.height = result.height;
-          this.setData({ canvasReady: true });
-        })
-        .exec();
+      runtimes.set(this, {
+        strokes: [],
+        currentStroke: null,
+        startedAt: Date.now(),
+        canvas: null,
+        context: null,
+        width: 0,
+        height: 0,
+        left: 0,
+        top: 0,
+      });
+      // 画布节点可能晚于首帧就绪；先查一次，失败则 300ms 后补查。
+      wx.nextTick(() => {
+        ensureCanvas(this, () => {});
+      });
+      setTimeout(() => {
+        ensureCanvas(this, () => {});
+      }, 300);
     },
     detached() {
       runtimes.delete(this);
@@ -89,7 +138,11 @@ Component({
       const touch = event.touches[0];
       if (!touch) return;
       const state = runtime(this);
-      if (!state.context) return;
+      if (!state.context) {
+        // 画布尚未就绪：重查一次；仍失败则静默返回，由后续触摸重试。
+        ensureCanvas(this, () => {});
+        return;
+      }
       const point = this.point(touch);
       state.currentStroke = [point];
       state.strokes.push(state.currentStroke);
@@ -140,9 +193,12 @@ Component({
     },
     point(touch: TouchPoint): Point {
       const state = runtime(this);
+      // 相对画布左上角的坐标，避免画布不在屏幕原点时笔迹整体偏移。
+      const x = (touch.clientX ?? touch.x ?? 0) - state.left;
+      const y = (touch.clientY ?? touch.y ?? 0) - state.top;
       return {
-        x: touch.x ?? touch.clientX ?? 0,
-        y: touch.y ?? touch.clientY ?? 0,
+        x,
+        y,
         t: Math.max(0, Date.now() - state.startedAt),
       };
     },

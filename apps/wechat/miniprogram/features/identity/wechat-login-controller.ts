@@ -162,9 +162,11 @@ function presentWechatSessionRestoreError(error: unknown): WechatSessionRestoreF
   return {
     code: code || "session_restore_failed",
     message: apiError
-      ? `暂时无法恢复上次登录（请求 ${apiError.requestId}），你也可以重新微信登录。`
-      : "暂时无法恢复上次登录，你也可以重新微信登录。",
-    discardSession: false,
+      ? `暂时无法恢复上次登录（请求 ${apiError.requestId}），请重新微信登录。`
+      : "暂时无法恢复上次登录，请重新微信登录。",
+    // 任何恢复失败都清掉过期/不可用会话，落到干净登录页；
+    // 否则下次冷启动自动重试同一个失败恢复，形成死循环。
+    discardSession: true,
   };
 }
 

@@ -28,7 +28,7 @@
             </view>
             <view class="time-control">
               <button hover-class="item--hover" class="time-step" data-field="weekdayMinutes" data-delta="-30" bindtap="adjustMinutes">−</button>
-              <slider class="time-slider" min="30" max="720" step="30" value="{{state.draft.weekdayMinutes}}" block-size="18" block-color="#615fff" activeColor="#615fff" backgroundColor="#e5e7eb" data-field="weekdayMinutes" bindchange="changeMinutes" />
+              <slider class="time-slider" min="30" max="720" step="30" value="{{state.draft.weekdayMinutes}}" block-size="18" block-color="#00b8db" activeColor="#00b8db" backgroundColor="#e5e7eb" data-field="weekdayMinutes" bindchange="changeMinutes" />
               <button hover-class="item--hover" class="time-step time-step--plus" data-field="weekdayMinutes" data-delta="30" bindtap="adjustMinutes">＋</button>
             </view>
           </view>
@@ -42,7 +42,7 @@
             </view>
             <view class="time-control">
               <button hover-class="item--hover" class="time-step" data-field="weekendMinutes" data-delta="-30" bindtap="adjustMinutes">−</button>
-              <slider class="time-slider" min="30" max="720" step="30" value="{{state.draft.weekendMinutes}}" block-size="18" block-color="#615fff" activeColor="#615fff" backgroundColor="#e5e7eb" data-field="weekendMinutes" bindchange="changeMinutes" />
+              <slider class="time-slider" min="30" max="720" step="30" value="{{state.draft.weekendMinutes}}" block-size="18" block-color="#00b8db" activeColor="#00b8db" backgroundColor="#e5e7eb" data-field="weekendMinutes" bindchange="changeMinutes" />
               <button hover-class="item--hover" class="time-step time-step--plus" data-field="weekendMinutes" data-delta="30" bindtap="adjustMinutes">＋</button>
             </view>
           </view>

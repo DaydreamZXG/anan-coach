@@ -179,9 +179,10 @@ Page<TodayPageData, TodayPageCustom>({
     }
     this.setData({ taskOpeningId: task.id, taskNavigationError: "" });
     const fail = (result: WechatMiniprogram.GeneralCallbackResult) => {
+      console.warn("task navigation failed", result.errMsg);
       this.setData({
         taskOpeningId: "",
-        taskNavigationError: result.errMsg || "任务页面没有打开，请重试。",
+        taskNavigationError: "任务页面没有打开，请重试。",
       });
     };
     if (task.navigationMode === "switchTab") {
@@ -298,7 +299,8 @@ Page<TodayPageData, TodayPageCustom>({
       this.setData({ openingCollapsed: true });
     };
     const fail = (result: WechatMiniprogram.GeneralCallbackResult) => {
-      this.setData({ openingError: result.errMsg || "学习页面没有打开，请重试。" });
+      console.warn("opening navigation failed", result.errMsg);
+      this.setData({ openingError: "学习页面没有打开，请重试。" });
     };
     if (target.mode === "switchTab") {
       wx.switchTab({ url: target.url, success, fail });

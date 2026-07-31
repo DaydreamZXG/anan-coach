@@ -231,7 +231,7 @@
         <view class="field-label">材料出处 <text class="field-hint">至少选 1 段</text></view>
         <checkbox-group data-index="{{index}}" bindchange="changePointSources">
           <label wx:for="{{item.sourceOptions}}" wx:for-item="segment" wx:key="segmentId" class="source-option">
-            <checkbox value="{{segment.segmentId}}" checked="{{segment.checked}}" color="#3D7EFF" />
+            <checkbox value="{{segment.segmentId}}" checked="{{segment.checked}}" color="#00b8db" />
             <view>
               <view class="source-label">{{segment.directoryLabel}} · {{segment.paragraphLabel}}</view>
               <view class="source-preview">{{segment.text}}</view>
@@ -274,7 +274,7 @@
         <view class="field-label">支撑要点 <text class="field-hint">至少选 1 个</text></view>
         <checkbox-group data-index="{{index}}" bindchange="changeOutlineSources">
           <label wx:for="{{item.pointOptions}}" wx:for-item="point" wx:key="pointId" class="point-option">
-            <checkbox value="{{point.pointId}}" checked="{{point.checked}}" color="#3D7EFF" />
+            <checkbox value="{{point.pointId}}" checked="{{point.checked}}" color="#00b8db" />
             <view>{{point.label}}</view>
           </label>
         </checkbox-group>
@@ -579,7 +579,7 @@
           <view class="review-guide-title">明确选择迁移验证维度</view>
           <checkbox-group bindchange="changeTransferCriteria">
             <label wx:for="{{criterionOptions}}" wx:key="criterionCode" class="criterion-option {{item.checked ? 'criterion-option--checked' : ''}}">
-              <checkbox value="{{item.criterionCode}}" checked="{{item.checked}}" color="#3D7EFF" />
+              <checkbox value="{{item.criterionCode}}" checked="{{item.checked}}" color="#00b8db" />
               <view>{{item.label}}</view>
             </label>
           </checkbox-group>
@@ -646,7 +646,7 @@
         <view class="field-label">本次优先修正 <text class="field-hint">选 1–3 个</text></view>
         <checkbox-group bindchange="changePriorityFindings">
           <label wx:for="{{view.findings}}" wx:key="findingId" class="priority-option {{item.priorityDisabled ? 'priority-option--disabled' : ''}}">
-            <checkbox value="{{item.findingId}}" disabled="{{item.priorityDisabled}}" checked="{{item.priority}}" color="#8b5cf6" />
+            <checkbox value="{{item.findingId}}" disabled="{{item.priorityDisabled}}" checked="{{item.priority}}" color="#00b8db" />
             <view>{{item.typeLabel}} · {{item.diagnosis}}</view>
           </label>
         </checkbox-group>
@@ -669,6 +669,7 @@
     <view wx:if="{{submissionMessage}}" class="submission-message submission-message--{{submissionStatus}}">
       {{submissionMessage}}
     </view>
+    <view wx:if="{{submissionRequestId}}" class="request-id">问题编号 {{submissionRequestId}}</view>
       </view>
     </view>
   </view>

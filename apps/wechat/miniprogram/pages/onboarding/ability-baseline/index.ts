@@ -83,7 +83,11 @@ Page<AbilityBaselinePageData, AbilityBaselinePageCustom>({
   },
 
   back() {
-    void wx.redirectTo({ url: routes.onboardingStudyPreference });
+    if (getCurrentPages().length > 1) {
+      void wx.navigateBack();
+      return;
+    }
+    void wx.redirectTo({ url: routes.onboardingEntry });
   },
 });
 
@@ -112,7 +116,7 @@ function mountController(page: AbilityBaselinePage): void {
           void wx.redirectTo({ url: routes.profileArchive });
           return;
         }
-        void wx.redirectTo({ url: routes.onboardingResult });
+        void wx.navigateTo({ url: routes.onboardingResult });
       }
     },
     isSessionCurrent: () => {

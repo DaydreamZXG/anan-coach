@@ -100,7 +100,11 @@ Page<StudyPreferencePageData, StudyPreferencePageCustom>({
   },
 
   back() {
-    void wx.redirectTo({ url: routes.onboardingPositionPreference });
+    if (getCurrentPages().length > 1) {
+      void wx.navigateBack();
+      return;
+    }
+    void wx.redirectTo({ url: routes.onboardingEntry });
   },
 });
 

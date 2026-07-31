@@ -57,12 +57,22 @@
   border-top: 0;
   color: var(--color-muted);
 }
+.report-nav-back {
+  padding: calc(16 * var(--rpx)) 0 calc(8 * var(--rpx));
+  color: var(--color-primary);
+  font-size: var(--text-body);
+  font-weight: 600;
+  line-height: calc(44 * var(--rpx));
+}
+.report-nav-back::after {
+  border: 0;
+}
 button.report-next-action {
   width: 100%;
   min-height: calc(88 * var(--rpx));
   margin: calc(20 * var(--rpx)) 0 0;
   border-radius: var(--radius-24);
-  background: var(--color-primary);
+  background: var(--color-ink);
   color: var(--color-surface);
   font-size: var(--text-body);
   font-weight: 700;

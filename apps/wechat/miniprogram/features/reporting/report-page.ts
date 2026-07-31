@@ -59,6 +59,15 @@ export function registerReportPage(defaultKind: ReportKind, pageCode: PageCode):
     retry() {
       void this.loadReport();
     },
+    back() {
+      // 从报告中心进入时返回上一页；无返回栈（冷启动直达）时回今日计划。
+      const pages = getCurrentPages();
+      if (pages.length > 1) {
+        void wx.navigateBack();
+      } else {
+        void wx.switchTab({ url: routes.today });
+      }
+    },
     openNextAction() {
       void wx.switchTab({ url: routes.today });
     },

@@ -991,6 +991,13 @@
   color: var(--color-danger);
 }
 
+.request-id {
+  margin-top: calc(8 * var(--rpx));
+  color: var(--color-muted);
+  font-size: var(--text-micro);
+  line-height: 1.5;
+}
+
 .footer-content {
   width: 100%;
 }

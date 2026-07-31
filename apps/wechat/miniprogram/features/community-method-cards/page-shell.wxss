@@ -200,7 +200,7 @@ button.action-button.action-button {
   margin: calc(24 * var(--rpx)) 0 0;
   border: 0;
   border-radius: var(--radius-24);
-  background: var(--color-primary);
+  background: var(--color-ink);
   color: var(--color-surface);
   font-size: var(--text-caption);
   font-weight: 800;
@@ -213,8 +213,9 @@ button.action-button.action-button {
 }
 
 .secondary-button {
-  background: var(--color-primary-soft);
-  color: var(--color-primary-deep);
+  background: var(--color-surface);
+  color: var(--color-primary);
+  border: calc(1 * var(--rpx)) solid var(--color-line-strong);
 }
 
 .danger-button {

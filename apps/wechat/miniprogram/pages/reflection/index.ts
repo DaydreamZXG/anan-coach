@@ -227,6 +227,7 @@ interface ReflectionRuntime {
   preview: WechatVoicePreview | null;
   replacingSegmentId: string | null;
   causePollTimer: ReturnType<typeof setTimeout> | null;
+  causePollCount: number;
   reviewFormEntered: boolean;
   verificationNavigationStarted: boolean;
 }
@@ -346,6 +347,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       preview: null,
       replacingSegmentId: null,
       causePollTimer: null,
+      causePollCount: 0,
       reviewFormEntered: hasReflectionDraft(mediaDraft),
       verificationNavigationStarted: false,
     };
@@ -799,7 +801,12 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       return;
     let pending = loadPendingXingceReflection(runtime.ownerUserId, runtime.reviewId);
     const rawText = this.data.rawText.trim();
-    if (!pending && runtime.selectedTags.size === 0) {
+    // 全对（无 critical item）时没有错因可反思，不强制选 tag；
+    // 有错题时仍需至少选一个错因。
+    const allCorrect =
+      this.data.reviewItems.length > 0 &&
+      this.data.reviewItems.every((item) => item.resultTone === "success");
+    if (!pending && !allCorrect && runtime.selectedTags.size === 0) {
       void wx.showToast({ title: "请至少选择一个错因", icon: "none" });
       return;
     }
@@ -827,6 +834,17 @@ Page<ReflectionPageData, ReflectionPageCustom>({
         );
         const idempotencyKey = await createIdempotencyKey("xingce-reflection");
         if (!runtimeIsActive(this, runtime)) return;
+        const allCorrect =
+          this.data.reviewItems.length > 0 &&
+          this.data.reviewItems.every((item) => item.resultTone === "success");
+        // 全对时没有可反思的错因，tags 为空时补一个中性占位 tag，
+        // 避免后端 ReflectionCommand.tags(min_length=1) 拒绝提交。
+        const tags =
+          runtime.selectedTags.size > 0
+            ? [...runtime.selectedTags]
+            : allCorrect
+              ? ["全部正确"]
+              : [];
         pending = {
           kind: "reflection",
           sessionId: runtime.sessionId,
@@ -835,7 +853,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
           command: {
             expectedRevision: review.revision,
             rawText,
-            tags: [...runtime.selectedTags],
+            tags,
             ...(this.data.strategyNote.trim()
               ? { strategyNote: this.data.strategyNote.trim() }
               : {}),
@@ -877,6 +895,8 @@ Page<ReflectionPageData, ReflectionPageCustom>({
   async refreshCauseCandidate() {
     const runtime = runtimes.get(this);
     if (!runtime || runtime.disposed || runtime.submitting) return;
+    // 用户手动重试：重置轮询上限
+    runtime.causePollCount = 0;
     await pollCauseCandidate(this, runtime, true);
   },
 
@@ -1322,6 +1342,16 @@ async function pollCauseCandidate(
 function scheduleCausePoll(page: ReflectionPageInstance, runtime: ReflectionRuntime): void {
   clearCausePoll(runtime);
   if (!runtimeIsActive(page, runtime)) return;
+  // 轮询上限：约 15 秒（10 次 × 1.5s）仍未出结果，停止并展示超时态，
+  // 避免 AI 归因服务挂起时用户无限转圈。
+  if (runtime.causePollCount >= 10) {
+    runtime.causePollCount = 0;
+    page.setData({
+      pendingMessage: "错因分析暂时没有完成，你的原话已保存，可稍后在今日计划继续。",
+    });
+    return;
+  }
+  runtime.causePollCount += 1;
   runtime.causePollTimer = setTimeout(() => {
     runtime.causePollTimer = null;
     void pollCauseCandidate(page, runtime, false);

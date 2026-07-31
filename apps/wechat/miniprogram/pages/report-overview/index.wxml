@@ -2,6 +2,7 @@
   <state-view wx:if="{{status === 'loading'}}" state="loading" />
   <state-view wx:elif="{{status === 'error'}}" state="error" title="报告没有加载成功" description="{{errorMessage}}" request-id="{{requestId}}" action-text="重新加载" bind:action="retry" />
   <block wx:elif="{{report}}">
+    <view class="report-nav-back" bindtap="back" aria-label="返回报告中心">‹ 返回</view>
     <view class="s9-hero"><view class="report-kicker">{{report.title}}</view><view class="s9-title">{{kind === 'single_set' ? '这一组题，暴露了什么' : kind === 'position_gap' ? '离目标岗位，还差在哪里' : '这一周，哪些变化值得继续'}}</view><view class="s9-subtitle">时间、训练、错题、申论和岗位目标，都在这份报告里。</view><view class="s9-chip-row"><view class="s9-chip report-chip">{{generatedAtLabel}}</view><view class="s9-chip report-chip">{{evidenceCount}} 条学习记录</view></view></view>
     <view class="report-layout">
       <view wx:if="{{partial}}" class="report-banner">当前只能生成部分结论，缺失项不会被猜测填充。</view>
