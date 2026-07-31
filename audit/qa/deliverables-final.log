@@ -1,0 +1,27 @@
+[PASS] audit/page-inventory.csv: 64 rows, required columns and unique key(s) route
+[PASS] audit/component-inventory.csv: 25 rows, required columns and unique key(s) path
+[PASS] audit/api-inventory.csv: 244 rows, required columns and unique key(s) method+path, operation_id
+[PASS] audit/coverage-matrix.csv: 64 rows, required columns and unique key(s) route
+[PASS] page-inventory and coverage-matrix contain the same 64 routes
+[PASS] audit/summary.md: exists, non-empty, no TODO/TBD/PLACEHOLDER
+[PASS] audit/repair-plan.md: exists, non-empty, no TODO/TBD/PLACEHOLDER
+[PASS] audit/subagents/c/manifest.json: C manifest counts are 88 business scenarios, 58 business routes, 6 asset entries and 64 registered routes
+[INFO] Git status outside audit/ and tools/audit/ is attribution-only and does not fail validation:
+ M docs/engineering/2026-07-27-feature-chain-audit.md
+ M ops/RUNBOOK.md
+ M ops/caddy/Caddyfile
+ M ops/ilink-channel.env.example
+ M ops/scripts/rollback_release.sh
+ M ops/weknora.env.example
+?? backend/tests/test_production_edge_contract.py
+?? backend/tests/test_release_lifecycle_scripts.py
+?? reports/2026-07-28-real-device-follow-up.md
+?? tmp-screenshots/ScreenShot_2026-07-25_095635_972.png
+?? tmp-screenshots/ScreenShot_2026-07-25_095647_970.png
+?? tmp-screenshots/ScreenShot_2026-07-25_095710_721.png
+?? tmp-screenshots/ScreenShot_2026-07-25_095726_026.png
+?? tmp-screenshots/clean_ScreenShot_2026-07-25_095635_972.png
+?? tmp-screenshots/clean_ScreenShot_2026-07-25_095647_970.png
+?? tmp-screenshots/clean_ScreenShot_2026-07-25_095710_721.png
+?? tmp-screenshots/clean_ScreenShot_2026-07-25_095726_026.png
+deliverable validation: 8 passed, 0 skipped, 4 failed
