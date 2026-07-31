@@ -37,11 +37,25 @@ class AnnotationPoint(XingceModel):
     p: float | None = Field(default=None, gt=0, le=1)
 
 
+class AnnotationAnchor(XingceModel):
+    """契约增量 v2：批注锚定到具体文字段。
+
+    block_id 与 SafeQuestionBundle 的 RichParagraphBlock.blockId 同源（由 scope+序号
+    确定性生成，随 contentVersionId 冻结），segment_index 是该块内句段序号，
+    segment_text 是用户标记的实际原文。AI 据此理解"标记了哪句"。
+    """
+
+    block_id: str = Field(alias="blockId", min_length=1, max_length=80)
+    segment_index: int = Field(alias="segmentIndex", ge=0, le=1024)
+    segment_text: str = Field(alias="segmentText", min_length=1, max_length=200)
+
+
 class AnnotationStroke(XingceModel):
     """Figma 70:2 题面直接批注：一条笔或荧光笔轨迹。
 
     契约增量 v1：橡皮/套索不再物理删除笔画，改为写 erasedAtMs 墓碑；
     渲染与回放过滤墓碑笔画。120 笔/题上限含墓碑。
+    契约增量 v2：anchor 可选，锚定到具体文字段；旧笔迹缺省为普通涂画。
     """
 
     stroke_id: str = Field(alias="strokeId", min_length=1, max_length=64)
@@ -50,6 +64,7 @@ class AnnotationStroke(XingceModel):
     points: list[AnnotationPoint] = Field(min_length=2, max_length=240)
     at_ms: int = Field(alias="atMs", ge=0, le=86_400_000)
     erased_at_ms: int | None = Field(default=None, alias="erasedAtMs", ge=0, le=86_400_000)
+    anchor: AnnotationAnchor | None = Field(default=None)
 
     @model_validator(mode="after")
     def validate_point_timing(self) -> "AnnotationStroke":

@@ -424,7 +424,7 @@ class SequenceProvider:
     provider_name = "xingce_cause_provider@local-unreleased"
     provider_release_id = "local-unreleased"
     model = "gemini-3.5-flash"
-    prompt_version = "xingce-cause-prompt@v3"
+    prompt_version = "xingce-cause-prompt@v4"
     schema_version = "cause-candidate@v2"
 
     def __init__(self, outputs: Iterable[str]) -> None:

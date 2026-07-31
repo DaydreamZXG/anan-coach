@@ -157,7 +157,7 @@ class MockExamService:
         knowledge_release = self._repository.resolve_fresh_active_knowledge_release()
         if knowledge_release is None:
             raise MockExamUnavailableError(
-                "A unique fresh guokao xingce knowledge release is required"
+                "模考暂不可用：缺少当前有效的知识图谱发布，请稍后再试。"
             )
         question_ids: list[str] = []
         blueprint_payload: list[dict[str, object]] = []
@@ -165,7 +165,7 @@ class MockExamService:
             module_code = _MODULE_CODE_BY_DISPLAY_NAME.get(module_name)
             if module_code is None:
                 raise MockExamUnavailableError(
-                    f"Published mock module is not in the guokao catalog: {module_name}"
+                    f"模考暂不可用：模块 {module_name} 不在当前国考目录中。"
                 )
             module_question_ids = self._repository.select_module_question_ids(
                 user_id=user_id,
@@ -176,8 +176,7 @@ class MockExamService:
             )
             if len(module_question_ids) != count:
                 raise MockExamUnavailableError(
-                    f"Not enough executable guokao questions for {module_name}: "
-                    f"{len(module_question_ids)}/{count}"
+                    f"模考暂不可用：{module_name} 可用题目不足（{len(module_question_ids)}/{count}），请稍后再试。"
                 )
             question_ids.extend(module_question_ids)
             blueprint_payload.append({"moduleName": module_name, "questionCount": count})
@@ -691,7 +690,7 @@ class MockExamService:
                     "Mock paper knowledge lineage is malformed",
                     code="mock_knowledge_lineage_invalid",
                 ) from exc
-            raise MockExamUnavailableError("Mock paper knowledge lineage is malformed") from exc
+            raise MockExamUnavailableError("模考暂不可用：试卷知识溯源数据异常。") from exc
         if release is not None and not self._repository.knowledge_release_matches(release=release):
             if for_submission:
                 raise MockExamSubmissionError(
@@ -699,7 +698,7 @@ class MockExamService:
                     code="mock_knowledge_lineage_invalid",
                 )
             raise MockExamUnavailableError(
-                "Mock paper knowledge lineage no longer matches its release"
+                "模考暂不可用：试卷与当前知识图谱发布不一致，请重新开始模考。"
             )
         return release
 

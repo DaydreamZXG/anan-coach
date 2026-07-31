@@ -259,6 +259,13 @@ class AuthorizedHybridRetriever:
                   where attempt.user_id = cast(:user_id as uuid)
                     and attempt.material_bundle_version_id = cast(:object_id as uuid)
                     and attempt.task_version_id = cast(:version as uuid)
+                  union all
+                  select 1
+                  from learning.xingce_task_sessions task_session,
+                       jsonb_array_elements(task_session.safe_bundle -> 'materials') material
+                  where task_session.user_id = cast(:user_id as uuid)
+                    and task_session.state = 'active'
+                    and material ->> 'materialId' = :object_id
                 )
             """,
         }
@@ -303,6 +310,31 @@ class AuthorizedHybridRetriever:
         ).scalar_one()
         if bool(xingce):
             return True
+        # 做题中的题目也属于当前用户：请求解答当前题时，题目尚未写入
+        # xingce_attempt_records（还没提交答案），但从进行中的 task session
+        # 的 scoring_bundle 里能找到。做题页的「岸岸 · 当前题目」依赖这条授权。
+        in_active_session = self._session.execute(
+            text(
+                """
+                select exists (
+                  select 1
+                  from learning.xingce_task_sessions task_session,
+                       jsonb_array_elements(task_session.scoring_bundle -> 'questions') question
+                  where task_session.user_id = cast(:user_id as uuid)
+                    and task_session.state = 'active'
+                    and question ->> 'questionId' = :question_id
+                    and question ->> 'contentVersionId' = :version
+                )
+                """
+            ),
+            {
+                "user_id": user_id,
+                "question_id": question_id,
+                "version": version,
+            },
+        ).scalar_one()
+        if bool(in_active_session):
+            return True
         essay_version = _uuid_or_none(version)
         if essay_version is None:
             return False
@@ -313,7 +345,10 @@ class AuthorizedHybridRetriever:
                     select exists (
                       select 1 from learning.essay_attempts attempt
                       where attempt.user_id = cast(:user_id as uuid)
-                        and attempt.task_key = :question_id
+                        and (
+                          attempt.task_key = :question_id
+                          or attempt.task_version_id = cast(:question_id as uuid)
+                        )
                         and attempt.task_version_id = cast(:version as uuid)
                     )
                     """
@@ -367,7 +402,16 @@ class AuthorizedHybridRetriever:
                       select 1 from learning.essay_attempts attempt
                       where attempt.user_id = cast(:user_id as uuid)
                         and attempt.attempt_id = cast(:attempt_id as uuid)
-                        and attempt.task_version_id = cast(:version as uuid)
+                        and (
+                          attempt.task_version_id = cast(:version as uuid)
+                          or exists (
+                            select 1
+                            from learning.essay_review_versions review
+                            where review.user_id = attempt.user_id
+                              and review.attempt_id = attempt.attempt_id
+                              and review.review_version_id = cast(:version as uuid)
+                          )
+                        )
                     )
                     """
                 ),

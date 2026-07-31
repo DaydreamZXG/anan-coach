@@ -19,9 +19,9 @@ from app.domains.xingce_learning.real_attempt.schemas import CauseDecisionComman
 
 def test_cause_agent_definition_freezes_tools_and_budgets() -> None:
     assert CAUSE_AGENT_DEFINITION.contract_version == "cause-agent-definition@v1"
-    assert CAUSE_AGENT_DEFINITION.prompt_version == "xingce-cause-prompt@v3"
+    assert CAUSE_AGENT_DEFINITION.prompt_version == "xingce-cause-prompt@v4"
     assert CAUSE_AGENT_DEFINITION.definition_release_id == (
-        "xingce-cause-agent-2026-07-26.2"
+        "xingce-cause-agent-2026-07-31.1"
     )
     assert [tool.name for tool in CAUSE_AGENT_DEFINITION.tools] == [
         "load_attempt_evidence",

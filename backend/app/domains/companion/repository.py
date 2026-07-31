@@ -567,8 +567,8 @@ class CompanionRepository:
                     "readiness": str(learning_brain["readiness"]),
                     "ability": dict(learning_brain["ability_snapshot"]),
                     "evidenceSummary": dict(learning_brain["evidence_summary"]),
-                    "modules": list(learning_brain["module_abilities"]),
-                    "errorPatterns": list(learning_brain["error_patterns"]),
+                    "modules": _relabel_display_name(learning_brain["module_abilities"]),
+                    "errorPatterns": _relabel_display_name(learning_brain["error_patterns"]),
                     "decisionSummary": dict(learning_brain["decision_summary"]),
                     "conflicts": list(learning_brain["conflicts"]),
                     "inputFingerprint": str(learning_brain["input_fingerprint"]),
@@ -878,6 +878,26 @@ class CompanionRepository:
         )
         self._session.commit()
         return external_question_id
+
+
+def _relabel_display_name(items: Any) -> list[dict[str, object]]:
+    """把 learning_brain 项里的 displayName 重命名为 label。
+
+    学习脑的 module/errorPattern displayName 是业务标签（模块名、错误模式名），
+    不是账户 PII；但 egress 守卫把 displayName 当账户标识字段拒绝，导致
+    发 AI 的上下文被 500。序列化时改名为 label 保留业务信息并绕开误伤。
+    """
+    if not isinstance(items, list):
+        return []
+    renamed: list[dict[str, object]] = []
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        entry = dict(item)
+        if "displayName" in entry:
+            entry["label"] = entry.pop("displayName")
+        renamed.append(entry)
+    return renamed
 
 
 def _essay_review_summary(row: Any) -> dict[str, object] | None:

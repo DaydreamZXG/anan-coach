@@ -81,7 +81,7 @@ def test_only_approved_enabled_processors_are_real_user_ready(
         operation="cause_candidate_generate",
         provider=f"xingce_cause_provider@{cause_release}",
         model="gemini-3.5-flash",
-        prompt_version="xingce-cause-prompt@v3",
+        prompt_version="xingce-cause-prompt@v4",
         schema_version="cause-candidate@v2",
     )
 

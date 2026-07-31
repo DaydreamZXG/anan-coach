@@ -27,7 +27,7 @@ from app.domains.xingce_learning.cause_agent.contracts import (
 )
 
 
-CAUSE_AGENT_PROMPT_VERSION = "xingce-cause-prompt@v3"
+CAUSE_AGENT_PROMPT_VERSION = "xingce-cause-prompt@v4"
 CAUSE_AGENT_SCHEMA_VERSION = "cause-candidate@v2"
 CAUSE_AGENT_PROVIDER_INPUT_VERSION = "xingce-cause-provider-input@v1"
 
@@ -178,12 +178,21 @@ class CauseAgentProvider:
                 "只可描述其中可见的行为和公式；某题 events 为空、没有笔画或没有"
                 "公式时，必须视为该题过程未知，不得编造作答过程或书写内容；"
                 "actionEventsTruncated 为 true 时事件序列只是前缀，不得当作完整"
-                "轨迹下结论。证据足够时返回 candidate_ready；需要一个高信息量问题"
-                "时返回 followup_required；否则返回 evidence_insufficient。"
-                "另外在 questionCandidates 中给每道非答对的题各一条逐题判断："
-                "证据足够时给出 causeCode、confidence、evidenceRefs、rationale；"
-                "该题证据不足时必须显式 status=evidence_insufficient，不得硬给"
-                "causeCode，也绝不给答对的题编造错因。只返回 JSON。"
+                "轨迹下结论。actionTrace 的 annotationSummary 中，anchoredSegments"
+                "是用户用批注笔迹锚定的文字段：锚定文字是题面/材料的原文，不是"
+                "用户输入。当某题存在锚定时，把「用户标记了哪句原文」当作重要"
+                "证据：分析用户的认知动作（为什么划这句、各段的标记顺序、"
+                "荧光笔高亮与普通笔划线的意图差异）；引用锚定文字时只能引用"
+                "anchor 里出现的原文，绝不编造或改写原文。若 attempt 中所有题目"
+                "都答对（无 incorrect/timeout/unanswered 等非正确结果），必须返回"
+                "evidence_insufficient，reasonCode 用 no_incorrect_attempt，绝不"
+                "返回 candidate_ready 或硬造错因。证据足够时返回 candidate_ready；"
+                "需要一个高信息量问题时返回 followup_required；否则返回"
+                "evidence_insufficient。另外在 questionCandidates 中给每道非答对"
+                "的题各一条逐题判断：证据足够时给出 causeCode、confidence、"
+                "evidenceRefs、rationale；该题证据不足时必须显式"
+                "status=evidence_insufficient，不得硬给 causeCode，也绝不给答对"
+                "的题编造错因。只返回 JSON。"
             ),
             "requiredContract": CAUSE_AGENT_SCHEMA_VERSION,
             "requiredOutputSchema": CauseAgentProviderEnvelope.model_json_schema(
@@ -267,8 +276,12 @@ class CauseAgentProvider:
         latency_ms = int((time.monotonic() - started) * 1000)
         try:
             envelope = response.json()
-            if envelope.get("model") is not None and envelope.get("model") != self.model:
-                raise ValueError("provider model drifted")
+            # 方舟 Ark-code-latest 是 Auto 模式：返回的 model 字段是 "auto" 而非配置名。
+            # 此时允许 model=="auto" 与配置名匹配，避免误判模型漂移。
+            returned_model = envelope.get("model")
+            if returned_model is not None and returned_model != self.model:
+                if not (self.model == "ark-code-latest" and returned_model == "auto"):
+                    raise ValueError("provider model drifted")
             usage = _usage(envelope["usage"])
             content = envelope["choices"][0]["message"]["content"]
             if not isinstance(content, str):
@@ -286,10 +299,14 @@ class CauseAgentProvider:
             output_fingerprint = sha256(
                 json.dumps(envelope if "envelope" in locals() else {}, sort_keys=True).encode()
             ).hexdigest()
+            # 结构化响应无效通常是模型瞬态输出问题（偶发坏 JSON），重试大概率成功；
+            # 受 background job max_attempts 上限约束，不会无限重试。账单测试
+            # test_usage_known_provider_failure_keeps_consumed_quota_when_job_terminates
+            # 已按 retryable=True 断言 queued→queued→failed。
             raise CauseAgentProviderError(
                 "provider_response_invalid",
                 "cause-agent provider returned an invalid structured response",
-                retryable=False,
+                retryable=True,
                 usage=usage if "usage" in locals() else None,
                 output_fingerprint=output_fingerprint,
                 latency_ms=latency_ms,

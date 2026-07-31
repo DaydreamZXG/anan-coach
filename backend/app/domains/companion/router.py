@@ -87,7 +87,7 @@ def ask_companion(
     except CompanionCommandConflict as exc:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail="Idempotency key was already used with a different request",
+            detail="请求已提交，请勿重复操作。",
         ) from exc
     except CompanionCommandFailure as exc:
         raise HTTPException(
@@ -124,7 +124,7 @@ def ask_companion_v2(
     except CompanionCommandConflict as exc:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail="Idempotency key was already used with a different request",
+            detail="请求已提交，请勿重复操作。",
         ) from exc
     except (LearningBrainContractError, PositionRuleReleaseUnavailable) as exc:
         session.rollback()
@@ -153,7 +153,7 @@ def resolve_external_question(
     except CompanionCommandConflict as exc:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail="Idempotency key was already used with a different request",
+            detail="请求已提交，请勿重复操作。",
         ) from exc
     except CompanionCommandFailure as exc:
         raise HTTPException(
@@ -181,10 +181,10 @@ def confirm_external_question(
     except ExternalQuestionIntakeNotFoundError as exc:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail="External question intake not found",
+            detail="外部题目不存在或已失效。",
         ) from exc
     except ExternalQuestionConfirmationError as exc:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail="External question intake cannot be confirmed",
+            detail="外部题目确认失败，请稍后再试。",
         ) from exc

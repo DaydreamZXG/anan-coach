@@ -743,7 +743,12 @@ class XingceAttemptService:
         if submitted is None:
             raise _conflict("attempt revision changed")
         review_id = str(uuid4())
-        requires_cause = True
+        # 全对（无 incorrect/timeout/unanswered/guessed 之外的失败结果）时，
+        # 没有错因可确认，requires_cause_decision 置 False，前端不再强制选错因。
+        all_correct = bool(result_items) and all(
+            item["resultCode"] in {"correct", "guessed_correct"} for item in result_items
+        )
+        requires_cause = not all_correct
         self._repository.insert_review_version(
             session,
             values={

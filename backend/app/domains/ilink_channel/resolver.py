@@ -259,8 +259,12 @@ class QueryRecognitionProcessor:
                     ),
                 )
             )
-        except (ProcessorConfigurationError, ProcessorResponseError) as exc:
+        except ProcessorConfigurationError as exc:
+            # 配置错误是确定性失败（处理器未批准/参数非法），重试不会成功。
             raise PhotoResolutionError("recognition_failed", retryable=False) from exc
+        except ProcessorResponseError as exc:
+            # 上游响应错误（5xx/超时/结果不可用）多为瞬态，允许重试。
+            raise PhotoResolutionError("recognition_failed", retryable=True) from exc
 
 
 class _SecondaryAnswerBody(BaseModel):

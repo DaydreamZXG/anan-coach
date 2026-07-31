@@ -31,6 +31,10 @@ _PAGE_PERMISSIONS: dict[str, tuple[set[str], set[str]]] = {
     "pages/positions/goal/index": ({"position"}, {"position", "report"}),
     "pages/practice/index": ({"training"}, {"question", "attempt", "material"}),
     "pages/essay-task/index": ({"training"}, {"question", "attempt", "material"}),
+    "pages/error-pattern/index": ({"profile"}, {"report", "attempt"}),
+    "pages/essay-review/index": ({"training"}, {"question", "attempt", "material"}),
+    "pages/capture-import/index": ({"training"}, {"question", "attempt", "material"}),
+    "pages/reflection/index": ({"training"}, {"question", "attempt", "material"}),
     "pages/report-overview/index": (
         {"training", "profile"},
         {"report", "plan", "attempt"},

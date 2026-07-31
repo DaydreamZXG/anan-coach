@@ -44,7 +44,7 @@ def test_action_trace_tool_reports_only_recorded_behavior(
             _scope(session, session_id)
         )
 
-    assert trace["contractVersion"] == "xingce-action-trace@v1"
+    assert trace["contractVersion"] == "xingce-action-trace@v2"
     items = {item["questionId"]: item for item in trace["items"]}
     assert set(items) == set(question_ids)
 
@@ -80,6 +80,103 @@ def test_action_trace_tool_reports_only_recorded_behavior(
         }
         assert untraced["actionEventsTruncated"] is False
 
+    assert trace["evidenceRefs"] == [f"action-trace:{first}"]
+
+
+def test_action_trace_collects_anchored_segments_in_stroke_order_and_dedupes(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _client_obj, _auth, submitted, question_ids = _submitted_attempt_with_trace(
+        db_session_factory,
+        token="cause-anchor-trace-token",
+        first_question_annotations=[
+            {
+                "strokeId": "stroke-1",
+                "tool": "pen",
+                "width": 0.01,
+                "points": [{"x": 0.1, "y": 0.2}, {"x": 0.3, "y": 0.4}],
+                "atMs": 3_000,
+                "anchor": {
+                    "blockId": "block-stem-01",
+                    "segmentIndex": 1,
+                    "segmentText": "下列说法不正确的是",
+                },
+            },
+            {
+                "strokeId": "stroke-2",
+                "tool": "highlighter",
+                "width": 0.05,
+                "points": [{"x": 0.5, "y": 0.5}, {"x": 0.6, "y": 0.55}],
+                "atMs": 8_000,
+                "anchor": {
+                    "blockId": "block-stem-01",
+                    "segmentIndex": 1,
+                    "segmentText": "下列说法不正确的是",
+                },
+            },
+            {
+                "strokeId": "stroke-3",
+                "tool": "pen",
+                "width": 0.01,
+                "points": [{"x": 0.4, "y": 0.3}, {"x": 0.45, "y": 0.35}],
+                "atMs": 9_000,
+                "anchor": {
+                    "blockId": "block-stem-01",
+                    "segmentIndex": 2,
+                    "segmentText": "与题意最相符",
+                },
+            },
+            # 无 anchor 的旧笔迹不产生锚定段。
+            {
+                "strokeId": "stroke-4",
+                "tool": "pen",
+                "width": 0.01,
+                "points": [{"x": 0.2, "y": 0.2}, {"x": 0.25, "y": 0.25}],
+                "atMs": 10_000,
+            },
+        ],
+    )
+    session_id = str(submitted["sessionId"])
+    first = question_ids[0]
+    with db_session_factory() as session:
+        trace = _tools(session, session_id).load_action_trace(_scope(session, session_id))
+
+    assert trace["contractVersion"] == "xingce-action-trace@v2"
+    traced = next(item for item in trace["items"] if item["questionId"] == first)
+    # 旧式统计字段保持原样，锚定段按首次标记时间升序、同段去重计数。
+    assert traced["annotationSummary"] == {
+        "strokeCount": 4,
+        "erasedStrokeCount": 0,
+        "firstStrokeAtMs": 3_000,
+        "lastStrokeAtMs": 10_000,
+        "anchoredSegments": [
+            {
+                "blockId": "block-stem-01",
+                "segmentIndex": 1,
+                "segmentText": "下列说法不正确的是",
+                "strokeCount": 2,
+            },
+            {
+                "blockId": "block-stem-01",
+                "segmentIndex": 2,
+                "segmentText": "与题意最相符",
+                "strokeCount": 1,
+            },
+        ],
+        "anchoredSummary": (
+            "用户依次标记了「下列说法不正确的是」、「与题意最相符」"
+        ),
+    }
+    # 无 anchor 的题保持旧结构，绝不新增锚定字段。
+    untraced = next(
+        item for item in trace["items"] if item["questionId"] != first
+    )
+    assert set(untraced["annotationSummary"]) == {
+        "strokeCount",
+        "erasedStrokeCount",
+        "firstStrokeAtMs",
+        "lastStrokeAtMs",
+    }
     assert trace["evidenceRefs"] == [f"action-trace:{first}"]
 
 
@@ -183,7 +280,7 @@ def test_candidate_citing_action_trace_and_ink_formula_refs_passes_grounding(
             text("select result from platform.background_jobs")
         ).scalar_one()
         evidence = job_result["evidence"]
-        assert evidence["actionTrace"]["contractVersion"] == "xingce-action-trace@v1"
+        assert evidence["actionTrace"]["contractVersion"] == "xingce-action-trace@v2"
         assert f"action-trace:{first}" in evidence["actionTrace"]["evidenceRefs"]
         assert evidence["inkFormulas"]["contractVersion"] == "xingce-ink-formula@v1"
         assert any(
@@ -265,8 +362,13 @@ def _submitted_attempt_with_trace(
     factory: sessionmaker[Session],
     *,
     token: str,
+    first_question_annotations: list[dict[str, Any]] | None = None,
 ) -> tuple[TestClient, dict[str, str], dict[str, Any], list[str]]:
-    """与 _submitted_attempt 同构，但第一题带真实动作事件与批注笔画。"""
+    """与 _submitted_attempt 同构，但第一题带真实动作事件与批注笔画。
+
+    first_question_annotations 可覆盖第一题的批注笔画（含 anchor）；
+    缺省时使用无 anchor 的旧式两笔。
+    """
 
     _seed_learner_and_published_essay_content(
         factory,
@@ -326,26 +428,30 @@ def _submitted_attempt_with_trace(
                 {"atMs": 22_000, "type": "question_left"},
             ]
             answer["actionEventsTruncated"] = True
-            answer["annotations"] = [
-                {
-                    "strokeId": "stroke-1",
-                    "tool": "pen",
-                    "width": 0.01,
-                    "points": [
-                        {"x": 0.1, "y": 0.2, "t": 0},
-                        {"x": 0.3, "y": 0.4, "t": 40},
-                    ],
-                    "atMs": 3_000,
-                },
-                {
-                    "strokeId": "stroke-2",
-                    "tool": "highlighter",
-                    "width": 0.05,
-                    "points": [{"x": 0.5, "y": 0.5}, {"x": 0.6, "y": 0.55}],
-                    "atMs": 8_000,
-                    "erasedAtMs": 15_000,
-                },
-            ]
+            answer["annotations"] = (
+                first_question_annotations
+                if first_question_annotations is not None
+                else [
+                    {
+                        "strokeId": "stroke-1",
+                        "tool": "pen",
+                        "width": 0.01,
+                        "points": [
+                            {"x": 0.1, "y": 0.2, "t": 0},
+                            {"x": 0.3, "y": 0.4, "t": 40},
+                        ],
+                        "atMs": 3_000,
+                    },
+                    {
+                        "strokeId": "stroke-2",
+                        "tool": "highlighter",
+                        "width": 0.05,
+                        "points": [{"x": 0.5, "y": 0.5}, {"x": 0.6, "y": 0.55}],
+                        "atMs": 8_000,
+                        "erasedAtMs": 15_000,
+                    },
+                ]
+            )
         answers.append(answer)
     checkpoint = client.put(
         f"/api/v2/xingce/task-sessions/{started['sessionId']}/checkpoint",

@@ -30,6 +30,7 @@ from app.domains.xingce_learning.cause_agent.contracts import (
     CauseAgentEvidence,
     CauseAgentOutput,
     EvidenceInsufficient,
+    scrub_cause_output_user_text,
     validate_grounded_output,
 )
 from app.domains.xingce_learning.cause_agent.provider import (
@@ -245,6 +246,9 @@ class CauseAgentWorker:
                 evidence=evidence,
                 followup_round=int(run["followup_round"]),
             )
+            # 校验通过后、落库前，把 AI 输出里面向用户的文本中的内部 question id
+            # 替换成中性说法，避免 cq_xxx 泄漏到用户看到的候选内容。
+            output = scrub_cause_output_user_text(output)
         except AgentRuntimeViolation as exc:
             return self._publish_termination(
                 session,
@@ -412,6 +416,55 @@ class CauseAgentWorker:
         round_no = int(run["followup_round"])
         if int(run["model_call_count"]) >= CAUSE_AGENT_DEFINITION.budget.max_model_calls:
             raise AgentRuntimeViolation("model_call_budget_exhausted")
+        # 全对短路：attempt 里没有任何非正确结果时，没有错因可整理，不调模型。
+        # 模型在“全对”时倾向硬凑 candidate_ready，这里从数据上保证一定走
+        # evidence_insufficient，避免让用户被迫确认一个不存在的错因。
+        result_codes = set(evidence.attempt_result_codes.values())
+        if result_codes and result_codes <= {"correct", "guessed_correct"}:
+            # 全对短路：evidence_refs 来自各证据段，空证据时回退到 run 的版本引用，
+            # 避免 EvidenceInsufficient 的 evidence_refs min_length=1 校验失败。
+            evidence_refs = sorted(evidence.allowed_evidence_refs)
+            if not evidence_refs:
+                evidence_refs = list(run.get("input_version_refs") or [])
+            output = EvidenceInsufficient(
+                reason_code="no_incorrect_attempt",
+                explanation="本次练习全部作答正确，没有需要整理错因的题目。",
+                missing_evidence=[
+                    "attempt includes no incorrect, unanswered, or timed-out question"
+                ],
+                evidence_refs=evidence_refs,
+            )
+            output_fingerprint = fingerprint(
+                {
+                    "allCorrectShortCircuit": True,
+                    "output": output.model_dump(by_alias=True, mode="json"),
+                }
+            )
+            # 短路路径不调模型、不建额度预留：显式在 checkpoint 写 not_charged，
+            # 否则 _publish_output 会读到 None 落到 "reserved"，额度悬挂不消费不退款。
+            current_job = self._jobs.by_id(session, job_id=job.job_id)
+            base = current_job.result if current_job and current_job.result else {}
+            self._jobs.checkpoint(
+                session,
+                job_id=job.job_id,
+                claim_token=job.claim_token,
+                result={
+                    **base,
+                    "phase": "provider_completed",
+                    "providerOutput": output.model_dump(by_alias=True, mode="json"),
+                    "outputFingerprint": output_fingerprint,
+                    "quotaState": "not_charged",
+                },
+            )
+            # 服务层入队时已创建 reserved 预留；短路不消费，必须释放为 refunded，
+            # 否则额度永久悬挂。与 _settle_terminal_resources 的 no-consumption 分支一致。
+            self._settle_terminal_resources(
+                session,
+                job=job,
+                code="no_incorrect_attempt",
+            )
+            session.commit()
+            return output, output_fingerprint
         self._provider.validate_configuration()
         call_key = f"xingce-cause:{run['run_id']}:round:{round_no}"
         input_fingerprint = fingerprint(

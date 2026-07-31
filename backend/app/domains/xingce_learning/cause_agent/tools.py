@@ -8,7 +8,7 @@ from app.domains.xingce_learning.cause_agent.repository import CauseAgentReposit
 
 
 CAUSE_TAXONOMY_VERSION = "xingce-cause-taxonomy@v1"
-ACTION_TRACE_CONTRACT_VERSION = "xingce-action-trace@v1"
+ACTION_TRACE_CONTRACT_VERSION = "xingce-action-trace@v2"
 INK_FORMULA_CONTRACT_VERSION = "xingce-ink-formula@v1"
 CAUSES = (
     ("stem_misread", "题干条件或问法审读错误"),
@@ -145,6 +145,8 @@ class CauseAgentTools:
 
         数据源是 learning.xingce_task_sessions.checkpoint 已冻结的 answers；
         没有记录的题保持显式空（events=[]、笔画统计为 0），不推断过程。
+        契约增量 v2：笔画携带 anchor 时，额外汇总用户实际锚定的文字段
+        （anchoredSegments + anchoredSummary）；无 anchor 的旧笔迹保持原有字段。
         """
 
         self._require_scope(arguments)
@@ -175,20 +177,24 @@ class CauseAgentTools:
             strokes = list(answer.get("annotations", []))
             stroke_at_ms = sorted(int(stroke["atMs"]) for stroke in strokes)
             truncated = bool(answer.get("actionEventsTruncated", False))
+            annotation_summary: dict[str, Any] = {
+                "strokeCount": len(strokes),
+                "erasedStrokeCount": sum(
+                    1
+                    for stroke in strokes
+                    if stroke.get("erasedAtMs") is not None
+                ),
+                "firstStrokeAtMs": stroke_at_ms[0] if stroke_at_ms else None,
+                "lastStrokeAtMs": stroke_at_ms[-1] if stroke_at_ms else None,
+            }
+            anchored = _collect_anchored_segments(strokes)
+            if anchored is not None:
+                annotation_summary.update(anchored)
             items.append(
                 {
                     "questionId": question_id,
                     "events": events,
-                    "annotationSummary": {
-                        "strokeCount": len(strokes),
-                        "erasedStrokeCount": sum(
-                            1
-                            for stroke in strokes
-                            if stroke.get("erasedAtMs") is not None
-                        ),
-                        "firstStrokeAtMs": stroke_at_ms[0] if stroke_at_ms else None,
-                        "lastStrokeAtMs": stroke_at_ms[-1] if stroke_at_ms else None,
-                    },
+                    "annotationSummary": annotation_summary,
                     # 端上 400 事件截断标记：为 true 时事件序列只是前缀，
                     # 错因判断必须知道后续动作缺失，而不是当作完整轨迹。
                     "actionEventsTruncated": truncated,
@@ -258,3 +264,70 @@ class CauseAgentTools:
             ],
             "evidenceRefs": [f"cause-taxonomy:{CAUSE_TAXONOMY_VERSION}"],
         }
+
+
+def _collect_anchored_segments(
+    strokes: list[dict[str, Any]],
+) -> dict[str, Any] | None:
+    """把用户锚定批注的笔画汇总为 AI 可读的锚定文字段。
+
+    仅汇总真实存在的 anchor；没有一条笔画携带 anchor 时返回 None，
+    annotationSummary 保持旧结构（向后兼容无 anchor 的旧笔迹）。
+    契约增量 v2：锚定文字是用户标记的题面/材料原文，不是用户输入。
+    """
+
+    if not strokes:
+        return None
+    ordered: list[dict[str, Any]] = []
+    seen: set[tuple[str, int]] = set()
+    for stroke in strokes:
+        anchor = stroke.get("anchor")
+        if not isinstance(anchor, dict):
+            continue
+        block_id = str(anchor.get("blockId", ""))
+        try:
+            segment_index = int(anchor["segmentIndex"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        if not block_id or segment_index < 0:
+            continue
+        segment_text = str(anchor.get("segmentText", "")).strip()
+        if not segment_text:
+            continue
+        if (block_id, segment_index) not in seen:
+            # 收集顺序稳定：同 blockId+segmentIndex 的首笔时间即该段首次被标记时间。
+            seen.add((block_id, segment_index))
+            ordered.append(
+                {
+                    "blockId": block_id,
+                    "segmentIndex": segment_index,
+                    "segmentText": segment_text,
+                    "strokeCount": 1,
+                    "firstStrokeAtMs": int(stroke["atMs"]),
+                }
+            )
+        else:
+            for item in ordered:
+                if (
+                    item["blockId"] == block_id
+                    and item["segmentIndex"] == segment_index
+                ):
+                    item["strokeCount"] += 1
+                    break
+    if not ordered:
+        return None
+    ordered.sort(key=lambda item: item["firstStrokeAtMs"])
+    segments = [
+        {
+            "blockId": item["blockId"],
+            "segmentIndex": item["segmentIndex"],
+            "segmentText": item["segmentText"],
+            "strokeCount": item["strokeCount"],
+        }
+        for item in ordered
+    ]
+    text_parts = [f"「{item['segmentText']}」" for item in ordered]
+    return {
+        "anchoredSegments": segments,
+        "anchoredSummary": "用户依次标记了" + "、".join(text_parts),
+    }

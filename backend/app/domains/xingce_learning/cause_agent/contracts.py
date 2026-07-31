@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
@@ -8,6 +9,68 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 CAUSE_CANDIDATE_CONTRACT_VERSION = "cause-candidate@v2"
 CAUSE_DECISION_CONTRACT_VERSION = "cause-decision@v2"
 ENTITLEMENT_POLICY_VERSION = "metered-model-round@v1"
+
+# 内部 question id 形如 cq_<hex>（答题轨迹与题库对象标识），不是用户可读内容。
+# 模型可能在面向用户的文本里直接引用它们；落库前统一替换成中性说法。
+_INTERNAL_QUESTION_ID_RE = re.compile(r"\bcq_[0-9a-f]{8,}\b")
+
+
+def scrub_user_facing_text(text: str) -> str:
+    """把 AI 输出中面向用户的文本里的内部 question id 替换为中性说法。"""
+    return _INTERNAL_QUESTION_ID_RE.sub("某道题目", text)
+
+
+def scrub_cause_output_user_text(output: CauseAgentOutput) -> CauseAgentOutput:
+    """清洗 AI 输出中所有会展示给用户的文本字段里的内部 question id。
+
+    校验之后、落库之前调用，作为 prompt 约束之外的兜底，确保内部对象标识
+    不会泄漏到用户看到的错因候选内容里。模型是 frozen 的，用 model_copy
+    重建实例。
+    """
+    if isinstance(output, CandidateReady):
+        new_items = None
+        if output.question_candidates:
+            new_items = [
+                item.model_copy(
+                    update={"rationale": scrub_user_facing_text(item.rationale)}
+                )
+                for item in output.question_candidates
+            ]
+        return output.model_copy(
+            update={
+                "summary": scrub_user_facing_text(output.summary),
+                "improvement": scrub_user_facing_text(output.improvement),
+                **({"question_candidates": new_items} if new_items is not None else {}),
+            }
+        )
+    if isinstance(output, FollowupRequired):
+        return output.model_copy(
+            update={
+                "question": scrub_user_facing_text(output.question),
+                "rationale": scrub_user_facing_text(output.rationale),
+            }
+        )
+    if isinstance(output, EvidenceInsufficient):
+        return output.model_copy(
+            update={
+                "explanation": scrub_user_facing_text(output.explanation),
+                **(
+                    {
+                        "question_candidates": [
+                            item.model_copy(
+                                update={
+                                    "rationale": scrub_user_facing_text(item.rationale)
+                                }
+                            )
+                            for item in output.question_candidates
+                        ]
+                    }
+                    if output.question_candidates
+                    else {}
+                ),
+            }
+        )
+    return output
 
 
 class CauseModel(BaseModel):

@@ -99,9 +99,11 @@ def create_weekly_mock_exam(
             command_id=idempotency_key,
         )
     except MockExamUnavailableError as exc:
+        # 透传真实原因：可能缺少知识图谱发布、模块不在目录或题库不足，
+        # 统一写死成一种文案会误导用户排查。
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Not enough weighted guokao questions for weekly mock exam",
+            detail=str(exc),
         ) from exc
     except PlanningContractError:
         return public_error_response(

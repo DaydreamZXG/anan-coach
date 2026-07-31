@@ -49,8 +49,8 @@ class AgentBudget(AgentContractModel):
 class AgentDefinition(AgentContractModel):
     # 审计惯例：定义内容（工具集/prompt）变更时发布新的 release id，
     # 旧 release 行在 ai_audit.agent_definition_releases 中保持不可变。
-    definition_release_id: Literal["xingce-cause-agent-2026-07-26.2"] = Field(
-        default="xingce-cause-agent-2026-07-26.2",
+    definition_release_id: Literal["xingce-cause-agent-2026-07-31.1"] = Field(
+        default="xingce-cause-agent-2026-07-31.1",
         alias="definitionReleaseId",
     )
     agent_key: Literal["xingce_cause"] = Field(default="xingce_cause", alias="agentKey")
@@ -58,8 +58,8 @@ class AgentDefinition(AgentContractModel):
         default=AGENT_DEFINITION_CONTRACT_VERSION,
         alias="contractVersion",
     )
-    prompt_version: Literal["xingce-cause-prompt@v3"] = Field(
-        default="xingce-cause-prompt@v3",
+    prompt_version: Literal["xingce-cause-prompt@v4"] = Field(
+        default="xingce-cause-prompt@v4",
         alias="promptVersion",
     )
     schema_version: Literal["cause-candidate@v2"] = Field(
