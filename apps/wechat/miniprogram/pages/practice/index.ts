@@ -1,5 +1,6 @@
 import { ApiClient, ApiClientError } from "../../api/client";
 import { CompanionApi } from "../../api/companion";
+import { companionFailureView } from "../../features/companion/presentation";
 import { LearningBrainApi } from "../../api/learning-brain";
 import { MathInkApi, type FormulaVersion, type InkStroke } from "../../api/math-ink";
 import { QuestionFavoritesApi } from "../../api/question-favorites";
@@ -60,6 +61,7 @@ import { createIdempotencyKey } from "../../platform/command-id";
 import { decideAutosave, decideExit } from "../../task-runtime/state/autosave";
 import { appendStrokeWithinLimit } from "../../task-runtime/annotation-layer/strokes";
 import type { AnnotationStroke } from "../../task-runtime/contracts";
+import type { AnchorSegmentRect } from "../../task-runtime/annotation-layer/anchor";
 import { reduceTaskRuntime, unansweredQuestionIds } from "../../task-runtime/state/runtime";
 import type {
   ContentAnchor,
@@ -128,8 +130,21 @@ interface PracticePageData {
   ananContextOpen: boolean;
   /** Figma 70:2：题面批注模式。 */
   annotationOpen: boolean;
+  /** 契约增量 v2：当前题干句段的视口矩形表，喂给批注层做锚定与滚动跟随。 */
+  annotationSegments: AnchorSegmentRect[];
+  /** 契约增量 v2：题干实时 scrollTop，驱动批注绘制换算（与受控 scroll-top 分离）。 */
+  questionScrollPosition: number;
+  /** 契约增量 v2：题目内容总高（px），批注层内容坐标系换算基准。 */
+  questionContentHeight: number;
   /** Figma 84:2：画词选择状态。 */
-  selection: { key: string; text: string; toolbarTop: number };
+  selection: {
+    key: string;
+    text: string;
+    toolbarTop: number;
+    hasCancel: boolean;
+    /** 选中句段的视口矩形，滚动时据此跟随句子重定位工具条。 */
+    anchorRect: { top?: number; bottom?: number } | null;
+  };
   /** Figma 97:2：上下文追问岸岸。 */
   ananInput: string;
   ananAsking: boolean;
@@ -196,6 +211,10 @@ interface PracticePageCustom {
       rect: { top?: number; bottom?: number } | null;
     }>,
   ): void;
+  /** 画词工具条：收起选择（去掉高亮与工具条）。 */
+  clearSelection(): void;
+  /** 画词工具条：点空白处收起（同样的语义）。 */
+  dismissSelection(): void;
   explainSelection(): void;
   compareSelectionOptions(): void;
   askAboutSelection(): void;
@@ -234,6 +253,10 @@ interface PracticePageCustom {
   onQuestionTouchStart(event: WechatMiniprogram.TouchEvent): void;
   onQuestionTouchMove(event: WechatMiniprogram.TouchEvent): void;
   onQuestionTouchEnd(event: WechatMiniprogram.TouchEvent): void;
+  /** 契约增量 v2：题干滚动后把 scrollTop 传给批注层做内容坐标绘制换算。 */
+  onQuestionScroll(event: WechatMiniprogram.ScrollViewScroll): void;
+  /** 契约增量 v2：题干渲染器上报句段视口矩形（批注锚定的权威来源）。 */
+  onSegmentRects(event: WechatMiniprogram.CustomEvent<{ segments: AnchorSegmentRect[] }>): void;
   clearQuestionTransition(): void;
   footerAction(): void;
   submitAttempt(): Promise<void>;
@@ -294,7 +317,10 @@ Page<PracticePageData, PracticePageCustom>({
     questionTransition: "",
     ananContextOpen: false,
     annotationOpen: false,
-    selection: { key: "", text: "", toolbarTop: 0 },
+    annotationSegments: [] as AnchorSegmentRect[],
+    questionScrollPosition: 0,
+    questionContentHeight: 0,
+    selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
     ananInput: "",
     ananAsking: false,
     ananReply: "",
@@ -569,7 +595,7 @@ Page<PracticePageData, PracticePageCustom>({
       answerSheetOpen: false,
       annotationOpen: false,
       ananContextOpen: false,
-      selection: { key: "", text: "", toolbarTop: 0 },
+      selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
     });
   },
 
@@ -607,12 +633,48 @@ Page<PracticePageData, PracticePageCustom>({
       draftOpen: false,
       answerSheetOpen: false,
       ananContextOpen: false,
-      selection: { key: "", text: "", toolbarTop: 0 },
+      selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
     });
+    // 契约增量 v2：打开批注即触发句段重测，确保批注层拿到的 anchors 是最新位置。
+    requestSegmentRects(this);
   },
 
   closeAnnotation() {
     this.setData({ annotationOpen: false });
+  },
+
+  // 契约增量 v2：内容坐标系下滚动天然跟随 —— 只把 scrollTop 传给批注层做
+  // 绘制换算，不做任何重测/平移/写回。contentHeight 切题/首绘时已量好。
+  onQuestionScroll(event: WechatMiniprogram.ScrollViewScroll) {
+    const scrollTop = event.detail.scrollTop;
+    if (Number.isFinite(scrollTop) && Math.abs(scrollTop - this.data.questionScrollPosition) >= 1) {
+      this.setData({ questionScrollPosition: scrollTop });
+    }
+    refreshSelectionPosition(this);
+  },
+
+  // 契约增量 v2：题干 content-renderer 上报句段视口矩形，作为批注锚定的权威来源。
+  // 页面级 createSelectorQuery 查不到 virtualHost 组件内部节点，必须由渲染器内部测量上报。
+  onSegmentRects(event: WechatMiniprogram.CustomEvent<{ segments: AnchorSegmentRect[] }>) {
+    const segments = Array.isArray(event.detail.segments) ? event.detail.segments : [];
+    if (segments.length === 0) return;
+    // 相同表不重复 setData（滚动帧内避免触发递归更新风暴）。
+    const current = this.data.annotationSegments;
+    if (
+      current.length === segments.length &&
+      current.every((entry, index) => {
+        const candidate = segments[index];
+        return (
+          candidate &&
+          entry.blockId === candidate.blockId &&
+          entry.segmentIndex === candidate.segmentIndex &&
+          Math.abs(entry.top - candidate.top) < 0.5
+        );
+      })
+    ) {
+      return;
+    }
+    this.setData({ annotationSegments: segments });
   },
 
   // 笔迹层提交（新增或擦除都是完整替换），进入 runtime 并触发自动保存。
@@ -628,17 +690,48 @@ Page<PracticePageData, PracticePageCustom>({
     void autosaveCheckpoint(this, runtime);
   },
 
-  // Figma 84:2 画词：选中句段并把工具条放在选区下方（避开选中文字与固定底栏）。
+  // Figma 84:2 画词：长按选中句段并把工具条放在选区下方（避开选中文字与固定底栏）。
   tapStemSegment(event) {
     const { key, text, rect } = event.detail;
     if (this.data.selection.key === key) {
-      this.setData({ selection: { key: "", text: "", toolbarTop: 0 } });
+      this.clearSelection();
       return;
     }
     const windowHeight = wx.getWindowInfo().windowHeight;
     const preferred = (rect?.bottom ?? 0) + 10;
     const toolbarTop = Math.min(preferred, windowHeight - 180);
-    this.setData({ selection: { key, text, toolbarTop } });
+    this.setData({
+      selection: { key, text, toolbarTop, hasCancel: true, anchorRect: rect ?? null },
+    });
+    // 记录选区当前的视口矩形，滚动时据此跟随句子。
+    const query = this.createSelectorQuery();
+    query.select(`#segment-${key}`).boundingClientRect();
+    query.exec(
+      (
+        results: Array<{ top?: number; bottom?: number } | null>,
+      ) => {
+        if (this.data.selection.key !== key) return;
+        this.setData({
+          selection: {
+            key,
+            text,
+            toolbarTop,
+            hasCancel: true,
+            anchorRect: results[0] ?? null,
+          },
+        });
+      },
+    );
+  },
+
+  /** 画词工具条：关闭选择、去掉高亮与工具条。 */
+  clearSelection() {
+    this.setData({ selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null } });
+  },
+
+  /** 画词工具条：点空白处关闭（同样的收起语义）。 */
+  dismissSelection() {
+    this.clearSelection();
   },
 
   explainSelection() {
@@ -665,7 +758,18 @@ Page<PracticePageData, PracticePageCustom>({
     const runtime = runtimes.get(this);
     const text = this.data.selection.text.trim();
     const view = this.data.view;
+    const selectionKey = this.data.selection.key;
     if (!runtime?.task || !text || !view) return;
+    // 契约增量 v2：把"选了哪句"固化成 anchor（blockId:segmentIndex 来自 selection.key）。
+    const keyParts = selectionKey.split(":");
+    const anchor =
+      keyParts.length === 2 && keyParts[0] && Number.isInteger(Number(keyParts[1]))
+        ? {
+            blockId: keyParts[0],
+            segmentIndex: Number(keyParts[1]),
+            segmentText: text,
+          }
+        : null;
     const query = this.createSelectorQuery();
     query.select(".practice-workspace").boundingClientRect();
     query.exec(
@@ -696,6 +800,8 @@ Page<PracticePageData, PracticePageCustom>({
             { x: 0.08, y: normalizedY },
             { x: 0.92, y: normalizedY },
           ],
+          // 契约增量 v2：手工标记自带锚定（选中句段），AI 可见"标记了哪句"。
+          ...(anchor ? { anchor } : {}),
           // 契约增量 v1：atMs 用本题活跃毫秒（真毫秒精度）。
           atMs: attempt ? (attempt.elapsedMs ?? attempt.elapsedSeconds * 1000) : 0,
         };
@@ -792,7 +898,7 @@ Page<PracticePageData, PracticePageCustom>({
                 : []),
             ],
             taskMode: runtime.session.mode === "verification" ? "retest" : "practice",
-            taskStage: "answering",
+            taskStage: runtime.session.state === "answering" ? "answering" : "submitted",
             learnerStateVersion,
           },
         },
@@ -806,8 +912,7 @@ Page<PracticePageData, PracticePageCustom>({
     } catch (error) {
       this.setData({
         ananAsking: false,
-        ananError:
-          error instanceof ApiClientError ? error.message : "岸岸暂时没有回应，请稍后再试。",
+        ananError: companionFailureView(error).message,
       });
     }
   },
@@ -951,8 +1056,12 @@ Page<PracticePageData, PracticePageCustom>({
   toggleDraft() {
     const runtime = runtimes.get(this);
     if (!runtime?.session || runtime.session.state !== "answering") return;
+    const closing = this.data.draftOpen;
     this.setData({
       draftOpen: !this.data.draftOpen,
+      // 关闭草稿时一并收起手写面板，避免 ui-sheet 销毁重建画布后
+      // math-ink-pad 仍保持展开、重新初始化时抢不到节点而画不出来。
+      ...(closing ? { mathInkOpen: false, mathInkCandidate: null, mathInkLatex: "" } : {}),
       answerSheetOpen: false,
       toolsOpen: false,
       helpOpen: false,
@@ -993,7 +1102,8 @@ Page<PracticePageData, PracticePageCustom>({
       return;
     }
     if (this.data.canSubmit) {
-      void this.submitAttempt();
+      // 交卷是终局操作：先打开答题卡让用户确认已答/未答/存疑，再点确认交卷。
+      this.toggleAnswerSheet();
       return;
     }
     this.toggleAnswerSheet();
@@ -1007,7 +1117,9 @@ Page<PracticePageData, PracticePageCustom>({
     runtime.task = reduceTaskRuntime(runtime.task, { type: "QUESTION_CHANGED", index });
     this.setData({
       answerSheetOpen: false,
-      selection: { key: "", text: "", toolbarTop: 0 },
+      // 切题后题干 DOM 整体替换：退出批注模式，避免旧题句段矩形错配新题。
+      annotationOpen: false,
+      selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
     });
     render(this, runtime);
     if (runtime.task.currentQuestionIndex !== previousIndex) resetQuestionScroll(this);
@@ -1359,6 +1471,7 @@ Page<PracticePageData, PracticePageCustom>({
   async submitAttempt() {
     const runtime = runtimes.get(this);
     if (!runtime?.api || !runtime.task || !runtime.session || runtime.submitInFlight) return;
+    this.setData({ answerSheetOpen: false });
     const missing = unansweredQuestionIds(runtime.task);
     if (missing.length > 0) {
       this.setData({ answerSheetOpen: true });
@@ -1584,8 +1697,13 @@ function render(
   });
   if (!alreadyReady) {
     afterRenderTick(() => {
-      if (runtimes.owns(page, runtime)) page.setData({ status: "ready" });
+      if (runtimes.owns(page, runtime)) {
+        page.setData({ status: "ready" });
+        measureQuestionContent(page, runtime);
+      }
     });
+  } else {
+    measureQuestionContent(page, runtime);
   }
   if (favoriteQuestionChanged && runtime.visible) {
     void loadCurrentQuestionFavorite(page, runtime);
@@ -1754,6 +1872,30 @@ function afterRenderTick(callback: () => void): void {
 }
 
 /**
+ * 契约增量 v2：测量题目内容总高（px），作为批注层内容坐标系的换算基准。
+ * scroll-view 的 scrollHeight 即全部内容高度，与 scrollTop 同源，天然匹配。
+ */
+function measureQuestionContent(
+  page: PracticePageInstance,
+  runtime: NonNullable<ReturnType<typeof runtimes.get>>,
+): void {
+  if (!runtime.task) return;
+  const query = page.createSelectorQuery();
+  query.select(".practice-question-pane").fields({ size: true, scrollOffset: true });
+  query.exec(
+    (
+      results: Array<{ height?: number; scrollHeight?: number } | null>,
+    ) => {
+      if (!runtimes.owns(page, runtime)) return;
+      const scrollHeight = results[0]?.scrollHeight;
+      if (scrollHeight && Number.isFinite(scrollHeight) && scrollHeight > 0) {
+        page.setData({ questionContentHeight: scrollHeight });
+      }
+    },
+  );
+}
+
+/**
  * 快滑切题的守卫矩阵：任一模态浮层/模式激活时手势一律不触发（宁可
  * 不触发不可误触发）。题干画词工具条不是模态状态；用户横滑时应直接
  * 收起选区并切题，不能把误点变成只能退出页面的死锁。
@@ -1782,7 +1924,11 @@ function changeQuestion(page: PracticePageInstance, delta: number): void {
   const next = runtime.task.currentQuestionIndex + delta;
   if (next < 0 || next >= runtime.task.questionOrder.length) return;
   runtime.task = reduceTaskRuntime(runtime.task, { type: "QUESTION_CHANGED", index: next });
-  page.setData({ selection: { key: "", text: "", toolbarTop: 0 } });
+  page.setData({
+    selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
+    // 契约增量 v2：切题后题干 DOM 整体替换，退出批注模式避免旧矩形错配新题。
+    annotationOpen: false,
+  });
   render(page, runtime);
   resetQuestionScroll(page);
   void saveCheckpointIfPossible(page, runtime);
@@ -1791,6 +1937,63 @@ function changeQuestion(page: PracticePageInstance, delta: number): void {
 function resetQuestionScroll(page: PracticePageInstance): void {
   // 微信 scroll-top 同值不会重新触发滚动：在 0 与 0.1 之间交替，保证每次切题都真正回到顶部。
   page.setData({ questionScrollTop: page.data.questionScrollTop === 0 ? 0.1 : 0 });
+}
+
+/**
+ * 契约增量 v2：滚动跟随由宿主重测驱动——滚动时调用题干 content-renderer
+ * 的 measureSegmentRects()，渲染器内部重测句段真实视口矩形并经 bindsegmentrects
+ * 上报；批注层对比前后 rects 平移已锚定笔迹。
+ * annotate（批注中）与 static（已完成的涂画展示）都要跟随，故不限制 annotationOpen；
+ * 60ms 节流在帧率与重测成本间取平衡。
+ */
+function requestSegmentRects(page: PracticePageInstance): void {
+  const runtime = runtimes.get(page);
+  if (!runtime || !runtime.task) return;
+  const renderer = page.selectComponent(".question-stem") as
+    | { measureSegmentRects?: () => void }
+    | undefined;
+  if (typeof renderer?.measureSegmentRects === "function") {
+    renderer.measureSegmentRects();
+  }
+}
+
+/**
+ * 契约增量 v2：画词工具条跟随选中句段滚动——重查句段视口矩形，
+ * 按位移更新 toolbarTop（150ms 节流，避免滚动风暴）。
+ */
+function refreshSelectionPosition(page: PracticePageInstance): void {
+  const runtime = runtimes.get(page);
+  const selection = page.data.selection;
+  if (!runtime || !selection.key || selection.anchorRect === null) return;
+  const now = Date.now();
+  if (now - runtime.lastSelectionPositionAtMs < 150) return;
+  runtime.lastSelectionPositionAtMs = now;
+  const query = page.createSelectorQuery();
+  query.select(`#segment-${selection.key}`).boundingClientRect();
+  query.exec(
+    (
+      results: Array<{ top?: number; bottom?: number } | null>,
+    ) => {
+      if (page.data.selection.key !== selection.key) return;
+      const rect = results[0];
+      const anchorRect = selection.anchorRect;
+      if (!rect || !anchorRect) return;
+      const dy = (rect.top ?? 0) - (anchorRect.top ?? 0);
+      if (Math.abs(dy) < 2) return;
+      const windowHeight = wx.getWindowInfo().windowHeight;
+      const preferred = (rect.bottom ?? 0) + 10;
+      const toolbarTop = Math.min(preferred, windowHeight - 180);
+      page.setData({
+        selection: {
+          key: selection.key,
+          text: selection.text,
+          toolbarTop,
+          hasCancel: true,
+          anchorRect: rect,
+        },
+      });
+    },
+  );
 }
 
 async function saveCheckpointIfPossible(

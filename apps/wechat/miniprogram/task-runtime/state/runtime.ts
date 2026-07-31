@@ -272,6 +272,7 @@ export function reduceTaskRuntime(
             ...attempt,
             annotations: event.strokes.map((stroke) => ({
               ...stroke,
+              ...(stroke.anchor ? { anchor: { ...stroke.anchor } } : {}),
               points: stroke.points.map((point) => ({ ...point })),
             })),
           },
@@ -491,6 +492,7 @@ function cloneAttempt(attempt: QuestionAttemptDraft): QuestionAttemptDraft {
       ? {
           annotations: attempt.annotations.map((stroke) => ({
             ...stroke,
+            ...(stroke.anchor ? { anchor: { ...stroke.anchor } } : {}),
             points: stroke.points.map((point) => ({ ...point })),
           })),
         }

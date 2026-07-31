@@ -1,5 +1,11 @@
 import type { AnnotationStroke } from "../contracts";
 import {
+  normalizeSegmentRects,
+  resolveStrokeAnchor,
+  type AnchorSegmentRect,
+  type NormalizedSegmentRect,
+} from "./anchor";
+import {
   appendStrokeWithinLimit,
   capturedPoint,
   liveStrokes,
@@ -11,9 +17,14 @@ import {
 
 /**
  * Figma 70:2/75:2 的笔迹层。
- * 笔迹坐标归一化到层宽高（0..1），与后端 AnnotationStroke 合同一致。
- * 契约增量 v1：逐点带相对起笔的毫秒偏移 t 与可选归一化压感 p；
- * 擦除只盖 erasedAtMs 墓碑。
+ *
+ * 坐标体系（内容坐标系，笔记 App 成熟做法）：
+ * - 笔迹点归一化到「题目内容」宽高（0..1），滚动不改变笔迹坐标 → 持久化永远合法、
+ *   永不越界成负数、不产生滚动位移补偿的任何 bug。
+ * - 绘制时按当前 scrollTop 换算到视口：drawY = p.y * contentHeight - scrollTop。
+ * - 触笔时反向换算：contentY = (clientY - canvasTop + scrollTop) / contentHeight。
+ * - 句段表同样存内容坐标，命中在内容空间完成，滚动后天然一致。
+ * - static（已完成涂画展示）/ annotate 共用同一绘制，滚动时笔迹天然跟随，无需重测。
  */
 
 const PEN_COLOR = "#4f39f6";
@@ -47,6 +58,15 @@ interface LayerRuntime {
   lassoPath: NormalizedPoint[];
   selectedStrokeIds: Set<string>;
   strokeSequence: number;
+  /**
+   * 契约增量 v2：题干句段表（内容坐标系，滚动恒定）。命中在内容空间完成，
+   * 滚动后依然一致，不需要滚动补偿。缺省空表 → 笔迹照常绘制但不做锚定。
+   */
+  segments: NormalizedSegmentRect[];
+  /** 题目内容总高（px），来自宿主；笔迹/句段的内容坐标换算基准。 */
+  contentHeight: number;
+  /** 当前滚动位置（px），只影响绘制换算，不改变任何存储坐标。 */
+  scrollTop: number;
 }
 
 const runtimes = new WeakMap<object, LayerRuntime>();
@@ -67,6 +87,9 @@ function runtime(instance: object): LayerRuntime {
       lassoPath: [],
       selectedStrokeIds: new Set(),
       strokeSequence: 0,
+      segments: [],
+      contentHeight: 0,
+      scrollTop: 0,
     };
     runtimes.set(instance, value);
   }
@@ -80,6 +103,9 @@ interface AnnotationLayerHost {
     elapsedSeconds: number;
     elapsedMs: number;
     replayMs: number;
+    segments: unknown;
+    scrollTop: number;
+    contentHeight: number;
     tool: string;
     lassoSelectedCount: number;
     drawnStrokeCount: number;
@@ -105,9 +131,14 @@ function visibleStrokes(host: AnnotationLayerHost): AnnotationStroke[] {
   return strokesVisibleAtReplay(strokes, host.data.replayMs);
 }
 
+/** 内容坐标 → 视口坐标（绘制用）；y 减去滚动偏移。 */
+function contentToViewport(state: LayerRuntime, y: number): number {
+  return y * state.contentHeight - state.scrollTop;
+}
+
 function drawStroke(state: LayerRuntime, stroke: AnnotationStroke, selected: boolean): void {
   const context = state.context;
-  if (!context || stroke.points.length < 2) return;
+  if (!context || stroke.points.length < 2 || state.contentHeight <= 0) return;
   context.save();
   context.lineCap = "round";
   context.lineJoin = "round";
@@ -120,7 +151,9 @@ function drawStroke(state: LayerRuntime, stroke: AnnotationStroke, selected: boo
   context.beginPath();
   stroke.points.forEach((point, index) => {
     const x = point.x * state.width;
-    const y = point.y * state.height;
+    const y = contentToViewport(state, point.y);
+    // 完全在视口外的段直接跳过，减少滚动时的绘制成本。
+    if (y < -state.height || y > state.height * 2) return;
     if (index === 0) context.moveTo(x, y);
     else context.lineTo(x, y);
   });
@@ -150,7 +183,7 @@ function redraw(host: AnnotationLayerHost): void {
     context.beginPath();
     state.lassoPath.forEach((point, index) => {
       const x = point.x * state.width;
-      const y = point.y * state.height;
+      const y = contentToViewport(state, point.y);
       if (index === 0) context.moveTo(x, y);
       else context.lineTo(x, y);
     });
@@ -172,6 +205,27 @@ function scheduleRedraw(host: AnnotationLayerHost, attempt = 0): void {
       }, 300);
     }
   });
+}
+
+/**
+ * 契约增量 v2：把宿主上报的句段视口矩形归一化到内容坐标系并整表替换。
+ * 只在 segments / contentHeight 变化时执行（测量时刻的 scrollTop 一并计入）；
+ * 纯滚动不重跑 —— 内容坐标滚动恒定，重跑反而会把当前 scrollTop 重复计入。
+ */
+function syncSegments(host: AnnotationLayerHost): void {
+  const state = runtime(host);
+  const raw = host.data.segments;
+  if (!Array.isArray(raw) || state.contentHeight <= 0) {
+    state.segments = [];
+    return;
+  }
+  const next = normalizeSegmentRects(
+    raw as AnchorSegmentRect[],
+    state,
+    host.data.scrollTop,
+    state.contentHeight,
+  );
+  state.segments = next.length > 0 ? next : [];
 }
 
 function ensureCanvas(host: AnnotationLayerHost, ready: () => void): void {
@@ -207,6 +261,10 @@ function ensureCanvas(host: AnnotationLayerHost, ready: () => void): void {
       state.height = height;
       state.left = results[0]?.left ?? 0;
       state.top = results[0]?.top ?? 0;
+      state.contentHeight = host.data.contentHeight;
+      state.scrollTop = host.data.scrollTop;
+      // 画布尺寸就绪后按当前句段表重算内容坐标（此前可能因尺寸未就绪失败）。
+      syncSegments(host);
       ready();
     },
   );
@@ -243,15 +301,17 @@ function touchForce(event: WechatMiniprogram.TouchEvent): number | undefined {
   return touch?.force;
 }
 
-function normalizedPoint(
+/** 视口触点 → 内容坐标（0..1 相对内容宽高）。滚动只加一个 scrollTop，坐标恒定。 */
+function contentPoint(
   host: AnnotationLayerHost,
   event: WechatMiniprogram.TouchEvent,
 ): NormalizedPoint | null {
   const state = runtime(host);
   const touch = (event.touches[0] ?? event.changedTouches[0]) as TouchPointLike | undefined;
-  if (!touch || state.width <= 0 || state.height <= 0) return null;
+  if (!touch || state.width <= 0 || state.contentHeight <= 0) return null;
   const x = ((touch.clientX ?? touch.x ?? 0) - state.left) / state.width;
-  const y = ((touch.clientY ?? touch.y ?? 0) - state.top) / state.height;
+  const y =
+    ((touch.clientY ?? touch.y ?? 0) - state.top + state.scrollTop) / state.contentHeight;
   if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
   return { x: Math.min(1, Math.max(0, x)), y: Math.min(1, Math.max(0, y)) };
 }
@@ -266,12 +326,26 @@ Component({
     elapsedMs: { type: Number, value: -1 },
     /** replay 模式：只画 atMs ≤ replayMs 且尚未走到 erasedAtMs 的笔迹。 */
     replayMs: { type: Number, value: 0 },
+    /**
+     * 契约增量 v2：题干句段的视口矩形表（像素，宿主 content-renderer 测量）。
+     * 归一化到内容坐标系后做锚定命中；滚动恒定，无需重测。
+     */
+    segments: { type: null, value: [] },
+    /**
+     * 契约增量 v2：题干滚动区的 scrollTop（像素）。只参与绘制换算
+     * （drawY = contentY * contentHeight - scrollTop），不改变存储坐标。
+     */
+    scrollTop: { type: Number, value: 0 },
+    /** 契约增量 v2：题目内容总高（像素），内容坐标系换算基准。 */
+    contentHeight: { type: Number, value: 0 },
   },
   data: {
     tool: "pen",
     tools: [
       { value: "pan", glyph: "✋", label: "滑动" },
       { value: "pen", glyph: "✎", label: "画笔" },
+      // 契约增量 v2：自由画荧光笔，命中句段后给笔迹盖 anchor，AI 可见"标记了哪句"。
+      { value: "highlighter", glyph: "🖍", label: "荧光笔" },
       { value: "eraser", glyph: "◫", label: "橡皮" },
     ],
     lassoSelectedCount: 0,
@@ -284,6 +358,19 @@ Component({
       if (this.data.mode === "hidden") {
         runtime(this).sessionSawPressure = false;
       }
+      scheduleRedraw(this);
+    },
+    // 句段/内容高变化：整表换算一次（内容坐标恒定）。纯滚动不触发本分支。
+    "segments, contentHeight"(this: AnnotationLayerHost) {
+      runtime(this).contentHeight = this.data.contentHeight;
+      if (this.data.mode !== "hidden") {
+        syncSegments(this);
+        scheduleRedraw(this);
+      }
+    },
+    // 滚动只更新绘制偏移，重绘即可（同步、零重测、零坐标写入）。
+    scrollTop(this: AnnotationLayerHost) {
+      runtime(this).scrollTop = this.data.scrollTop;
       scheduleRedraw(this);
     },
   },
@@ -312,7 +399,7 @@ Component({
 
     onTouchStart(event: WechatMiniprogram.TouchEvent) {
       const state = runtime(this);
-      const point = normalizedPoint(this, event);
+      const point = contentPoint(this, event);
       if (!point) {
         ensureCanvas(this, () => {});
         return;
@@ -345,7 +432,7 @@ Component({
 
     onTouchMove(event: WechatMiniprogram.TouchEvent) {
       const state = runtime(this);
-      const point = normalizedPoint(this, event);
+      const point = contentPoint(this, event);
       if (!point) return;
       const tool = this.data.tool;
       if ((tool === "pen" || tool === "highlighter") && state.activeStroke) {
@@ -373,8 +460,21 @@ Component({
         const stroke = state.activeStroke;
         state.activeStroke = null;
         if (stroke.points.length >= 2) {
+          // 契约增量 v2：内容空间最近句段命中 → 给笔画盖 anchor（AI 可见"标记了哪句"）。
+          // 只存契约字段（blockId/segmentIndex/segmentText）。
+          const anchor = resolveStrokeAnchor(stroke, state.segments);
+          const anchored = anchor
+            ? {
+                ...stroke,
+                anchor: {
+                  blockId: anchor.blockId,
+                  segmentIndex: anchor.segmentIndex,
+                  segmentText: anchor.segmentText,
+                },
+              }
+            : stroke;
           // 契约增量 v1：120 笔上限含墓碑；满员时物理删除最旧的已擦除笔画腾位。
-          const strokes = appendStrokeWithinLimit(currentStrokes(this), stroke);
+          const strokes = appendStrokeWithinLimit(currentStrokes(this), anchored);
           if (!strokes) {
             void wx.showToast({ title: "草稿笔画已达上限", icon: "none" });
             redraw(this);
@@ -398,6 +498,7 @@ Component({
 
     eraseAt(point: NormalizedPoint) {
       // 契约增量 v1：橡皮不物理删除，命中的活笔画盖 erasedAtMs 墓碑。
+      // 内容坐标统一，命中与滚动无关。
       const strokes = currentStrokes(this);
       const next = tombstoneStrokes(
         strokes,

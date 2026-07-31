@@ -44,6 +44,17 @@ export interface AnnotationStroke {
    * 渲染与回放过滤该字段非空的笔画（回放在 replayMs >= erasedAtMs 时消失）。
    */
   erasedAtMs?: number;
+  /**
+   * 契约增量 v2：锚定到具体文字段。blockId 与后端 RichParagraphBlock.blockId 同源
+   * （由 scope+序号确定性生成，随 contentVersionId 冻结），segmentIndex 是该块内
+   * 句段序号，segmentText 是用户标记的实际原文。AI 据此理解"标记了哪句"。
+   * 旧笔迹无锚定字段时视为普通涂画。
+   */
+  anchor?: {
+    blockId: string;
+    segmentIndex: number;
+    segmentText: string;
+  } | null;
 }
 
 /** Figma 75:2/78:2 的作答动作事实。 */

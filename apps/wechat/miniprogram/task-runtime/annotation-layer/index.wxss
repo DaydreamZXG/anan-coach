@@ -6,7 +6,14 @@
   pointer-events: none;
 }
 
-.annotation-layer--annotate {
+/*
+ * annotate 模式也不整体拦截触摸：容器保持穿透，只有真正需要交互的子层
+ * （捕获层/工具栏/套索条）单独接收事件。这样切到「滑动」工具时，捕获层
+ * 隐藏，触摸穿透给下面的 scroll-view，题目才能正常滚动。
+ */
+.annotation-layer__capture,
+.annotation-layer__toolbar,
+.annotation-layer__lasso-bar {
   pointer-events: auto;
 }
 
@@ -67,7 +74,7 @@
 .annotation-layer__tools {
   display: grid;
   gap: calc(8 * var(--rpx));
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .annotation-layer__tool {

@@ -34,6 +34,12 @@ export interface XingcePageRuntime {
   favoriteRequestEpoch: number;
   favoriteMutationInFlight: boolean;
   reflectionNavigationStarted: boolean;
+  /** 契约增量 v2：批注锚定的题干句段矩形表对应的题号；切题后重建。 */
+  annotationSegmentsQuestionId: string;
+  /** 契约增量 v2：批注锚定矩形表最近一次查询的 Date.now()，用于滚动节流。 */
+  lastAnnotationSegmentsAtMs: number;
+  /** 画词工具条跟随句子的重定位最近一次 Date.now()，用于滚动节流。 */
+  lastSelectionPositionAtMs: number;
 }
 
 function createRuntime(): XingcePageRuntime {
@@ -60,6 +66,9 @@ function createRuntime(): XingcePageRuntime {
     favoriteRequestEpoch: 0,
     favoriteMutationInFlight: false,
     reflectionNavigationStarted: false,
+    annotationSegmentsQuestionId: "",
+    lastAnnotationSegmentsAtMs: 0,
+    lastSelectionPositionAtMs: 0,
   };
 }
 

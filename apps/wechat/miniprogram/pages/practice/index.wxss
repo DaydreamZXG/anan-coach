@@ -1119,6 +1119,27 @@ button.submit-button {
   font-size: var(--text-section);
   font-weight: 700;
 }
+
+.answer-card__submit {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  height: calc(108 * var(--rpx));
+  align-items: center;
+  justify-content: center;
+  margin: calc(16 * var(--rpx)) 0 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-40);
+  color: var(--color-surface);
+  background: var(--color-primary);
+  font-size: var(--text-section);
+  font-weight: 700;
+}
+
+.answer-card__submit::after {
+  border: 0;
+}
 .task-footer-actions,
 .submit-button {
   width: 100%;
@@ -1426,9 +1447,16 @@ button.submit-button {
 
 /* ===== Figma 84:161 · 画词工具条 ===== */
 
-.selection-toolbar {
+/* 透明全屏捕捉层：点空白处收起工具条（不拦截滚动）。 */
+.selection-backdrop {
   position: fixed;
   z-index: var(--z-overlay);
+  inset: 0;
+}
+
+.selection-toolbar {
+  position: fixed;
+  z-index: calc(var(--z-overlay) + 1);
   left: 50%;
   display: flex;
   height: calc(92 * var(--rpx));
@@ -1460,6 +1488,11 @@ button.submit-button {
 
 .selection-toolbar__action--anan {
   color: var(--color-primary-bright);
+}
+
+/* 收起：单独的动作，视觉轻量（只放 ✕），避免误点又弹回。 */
+.selection-toolbar__action--dismiss {
+  color: rgb(255 255 255 / 60%);
 }
 
 .selection-toolbar__divider {
@@ -1717,7 +1750,9 @@ button.submit-button {
   border: 0;
 }
 
-/* 批注层宿主：仅作为相态锚点，本身不拦截触摸。 */
+/* 批注层宿主：仅作为相态锚点，本身不拦截触摸。
+   --active 只标记"批注层已打开"给内部渲染判断，宿主自身保持 pointer-events:none，
+   触摸是否拦截由批注层内部的捕获层/工具栏决定（滑动工具下题目可正常滚动）。 */
 .practice-annotation-host {
   position: absolute;
   inset: 0;
@@ -1725,7 +1760,7 @@ button.submit-button {
 }
 
 .practice-annotation-host--active {
-  pointer-events: auto;
+  pointer-events: none;
 }
 
 .question-swipe-hint {

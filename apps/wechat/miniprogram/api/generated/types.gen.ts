@@ -502,6 +502,14 @@ export type AnnotationPoint = {
  */
 export type AnnotationStroke = {
     /**
+     * 契约增量 v2：锚定到具体文字段（可选，旧笔迹缺省为普通涂画）。
+     */
+    anchor?: {
+        blockId: string;
+        segmentIndex: number;
+        segmentText: string;
+    } | null;
+    /**
      * Atms
      */
     atMs: number;

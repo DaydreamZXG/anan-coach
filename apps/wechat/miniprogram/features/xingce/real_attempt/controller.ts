@@ -307,6 +307,17 @@ function toRuntimeAttempt(answer: XingceTaskSession["answers"][number]): Questio
             ...(stroke.erasedAtMs !== undefined && stroke.erasedAtMs !== null
               ? { erasedAtMs: stroke.erasedAtMs }
               : {}),
+            // 契约增量 v2：锚定文字段随会话恢复带回，否则保存→重进后 AI 无法
+            // 知道用户标记了哪句原文。
+            ...(stroke.anchor
+              ? {
+                  anchor: {
+                    blockId: stroke.anchor.blockId,
+                    segmentIndex: stroke.anchor.segmentIndex,
+                    segmentText: stroke.anchor.segmentText,
+                  },
+                }
+              : {}),
           })),
         }
       : {}),

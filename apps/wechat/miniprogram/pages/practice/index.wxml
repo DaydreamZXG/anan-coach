@@ -106,6 +106,7 @@
           bindtouchstart="onQuestionTouchStart"
           bindtouchmove="onQuestionTouchMove"
           bindtouchend="onQuestionTouchEnd"
+          bindscroll="onQuestionScroll"
         >
         <view
           class="practice-question-body {{view && view.current === view.total ? 'practice-question-body--with-footer' : ''}} {{questionTransition ? 'motion-question-in--' + questionTransition : ''}}"
@@ -179,6 +180,7 @@
                 selectable
                 selectedSegmentKey="{{selection.key}}"
                 bindsegmenttap="tapStemSegment"
+                bindsegmentrects="onSegmentRects"
               />
             </view>
           </view>
@@ -251,6 +253,9 @@
             strokes="{{view.question.annotations}}"
             elapsedSeconds="{{view.question.elapsedSeconds}}"
             elapsedMs="{{view.question.elapsedMs || -1}}"
+            segments="{{annotationSegments}}"
+            scroll-top="{{questionScrollPosition}}"
+            content-height="{{questionContentHeight}}"
             bindstrokeschange="changeAnnotations"
             binddone="closeAnnotation"
             bindmore="openTaskTools"
@@ -258,17 +263,25 @@
         </view>
       </view>
 
-      <!-- Figma 84:161 画词工具条：不遮住选中文字，也不遮住固定底栏。 -->
+      <!-- Figma 84:161 画词工具条：不遮住选中文字，也不遮住固定底栏；点空白处收起。 -->
       <view
         wx:if="{{selection.key && !ananContextOpen && !annotationOpen}}"
-        class="selection-toolbar"
-        style="top: {{selection.toolbarTop}}px;"
+        class="selection-backdrop"
+        catchtap="dismissSelection"
       >
-        <button hover-class="item--hover" class="selection-toolbar__action" catchtap="explainSelection">解释</button>
-        <view class="selection-toolbar__divider" aria-hidden="true"></view>
-        <button hover-class="item--hover" class="selection-toolbar__action" catchtap="compareSelectionOptions">对比选项</button>
-        <view class="selection-toolbar__divider" aria-hidden="true"></view>
-        <button hover-class="item--hover" class="selection-toolbar__action selection-toolbar__action--anan" catchtap="askAboutSelection">问岸岸</button>
+        <view
+          class="selection-toolbar"
+          style="top: {{selection.toolbarTop}}px;"
+          catchtap="noop"
+        >
+          <button hover-class="item--hover" class="selection-toolbar__action" catchtap="explainSelection">解释</button>
+          <view class="selection-toolbar__divider" aria-hidden="true"></view>
+          <button hover-class="item--hover" class="selection-toolbar__action" catchtap="compareSelectionOptions">对比选项</button>
+          <view class="selection-toolbar__divider" aria-hidden="true"></view>
+          <button hover-class="item--hover" class="selection-toolbar__action selection-toolbar__action--anan" catchtap="askAboutSelection">问岸岸</button>
+          <view class="selection-toolbar__divider" aria-hidden="true"></view>
+          <button hover-class="item--hover" class="selection-toolbar__action selection-toolbar__action--dismiss" catchtap="dismissSelection">✕</button>
+        </view>
       </view>
 
       <!-- Figma 97:2 上下文追问岸岸：当前题目的操作面板，不是普通聊天页。 -->
@@ -388,6 +401,7 @@
           </view>
 
           <button hover-class="item--hover" class="answer-card__cta" bindtap="toggleAnswerSheet">继续第 {{view.current}} 题</button>
+          <button hover-class="item--hover" class="answer-card__submit" bindtap="submitAttempt">确认交卷并查看结果</button>
         </view>
       </view>
 
