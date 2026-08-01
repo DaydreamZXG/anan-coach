@@ -67,6 +67,9 @@
 | P7 | 做题页交互反噬修复 | ✅ **已完成**：① 内容块点击"反弹"——去掉 content-block 的 `hover-class` 缩放反馈，非锚点段落点击不再触发材料跳转；② 点题干句子弹工具条——改为**长按**才呼出，轻点零副作用；③ 工具条**跟随句子滚动** + **可取消**（✕ 按钮 + 点空白收起 + 再点同句收起） |
 | P8 | 批注锚定滚动跟随（内容坐标系重构） | ✅ **已完成**：把批注层从"视口坐标+滚动补偿"重构为**内容坐标系**（笔迹存相对题目内容的比例，滚动只改 scrollTop 绘制偏移）——彻底解决负坐标 422、递归卡帧、完成态钉死三个连环 bug。手机端实测：滚动跟随正常、保存正常、anchor 落库。**平板/旋转适配**：手机↔平板旋转后标记错位（内容重排但 contentHeight 未重测），已确认是小问题，列入 P9 |
 | P9 | 平板旋转适配批注错位 | ⏳ 待做：`onResize` 时重测 `questionContentHeight` + 重新归一化笔迹，使旋转后标记不错位。独立小工程，优先级低 |
+| P10 | 拍照识题增强（预处理 + OCR providers） | ✅ **已完成**：① 移植 peipeishua `image_preprocess.py`（自动裁剪照片背景 + 降采样，纯 PIL 无 numpy）；② gemma_vision adapter（tp.ergou.pro 中转，OpenAI 视觉格式）——实测中转/Caddy 正常，卡在 AI Studio 限流（临时）；③ **MinerU adapter**（公益中转 ocr.eo.mk，上传→轮询→zip→Markdown，高速 5 秒，50 并发，正常题图验证可出内容）。3 个 OCR provider（Paddle/Gemma/MinerU）并列 |
+| P11 | 拍照识题：真实照片验证 | ⏳ 待做：配 staging 选一个 adapter（优先 MinerU，50 并发最稳），用真实照片验证「拍照→识别→匹配原题」效果 |
+| P12 | 拍照找原题（图像匹配） | ⏳ 待做：peipeishua picture-pi（ORB/SSCD/FAISS 索引）已确认可复用（6,157 带图题 + 24,622 索引行，判断推理/图形推理与国考知识树一致）。配套：**全量题库数据已下载到本地 `data-import/`（3.5G：sydw-public 118k 题、fenbi 国考省考题图、match_index 图像索引）**，peipeishua 服务器已清理 |
 | P6 | 500+ 未提交文件梳理成 commit 波次 | 见 §6 K1 |
 
 ---
