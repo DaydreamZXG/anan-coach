@@ -71,8 +71,17 @@
 | P11 | 拍照识题：真实照片验证 | ⏳ 待做：配 staging 选一个 adapter（优先 MinerU，50 并发最稳），用真实照片验证「拍照→识别→匹配原题」效果 |
 | P12 | 拍照找原题（图像匹配） | ⏳ 待做：peipeishua picture-pi（ORB/SSCD/FAISS 索引）已确认可复用（6,157 带图题 + 24,622 索引行，判断推理/图形推理与国考知识树一致）。配套：**全量题库数据已下载到本地 `data-import/`（3.5G）**，peipeishua 服务器已清理 |
 | P13 | 题库全量导入（peipeishua） | ✅ **已完成**：① sydw-public **118,820 题**（含 196 图形题）导入 staging（questions+options+explanations+tags 四表全齐）；② fenbi **104,762 题**（902 份国考/省考/选调试卷，含 difficulty/rate/correct_ratio + images 图题资源）导入。**staging 题库总计 278,796 题**。导入脚本 `scripts/import_pp_questions.py` + `scripts/import_fenbi.py` 已提交 |
-| P14 | 图像资源迁移 | ⏳ 待做：fenbi 的 `images`（图题，粉笔原图 + 本地图）迁移到 `question_assets`，给图像匹配铺路 |
+| P14 | 图像资源迁移 | ✅ **已完成**：fenbi 题图（28,392 张，296M）传 staging + 29,082 条 assets 关联 11,796 题（题干图+选项图，通过 an:key）。总 assets 81k。给 P12 图像匹配铺好数据地基 |
 | P15 | OCR 真实配置验证 | ⏳ 待做：staging 启用一个 OCR provider（优先 MinerU，50 并发最稳）接进拍照识题，真实照片验证「拍照→识别→匹配原题」 |
+| P16 | 题库质量收尾 | ✅ **已完成**：① 公基分离——6.5 万 sydw 公基题独立成 gongji 模块，行测常识保持干净（~18.8k）；② 来源脱敏——fenbi: 前缀改 an:（58k 题 + 46k occurrence），避免 codex 误删。**最终：23.1 万题，标准 6 模块 + 公基** |
+
+## 商业题库地基最终状态（2026-08-01）
+
+- **23.1 万题**：20.6 万客观 + 2.4 万判断（去重删 4.7 万真重复后）
+- **模块分布**：公基 6.5万 / 言语 2.5万 / 判断 2万 / 常识 1.9万 / 政治 1.9万 / 资料 1.5万 / 数量 1万
+- **15.3 万题**挂知识点标签，**16.9 万题**挂标准模块标签
+- **11,796 题**挂图（图像匹配地基）
+- 检索走数据库索引（matching 引擎已有），不扫全表
 | P6 | 500+ 未提交文件梳理成 commit 波次 | 见 §6 K1 |
 
 ---
