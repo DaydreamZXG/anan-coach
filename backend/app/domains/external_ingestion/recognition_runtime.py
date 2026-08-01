@@ -15,6 +15,9 @@ from app.domains.external_ingestion.recognition.gemma_vision import (
 from app.domains.external_ingestion.recognition.grok_vision import (
     GrokVisionRecognitionProcessor,
 )
+from app.domains.external_ingestion.recognition.mineru_ocr import (
+    MinerURecognitionProcessor,
+)
 from app.domains.external_ingestion.recognition.modal_paddle import (
     ModalPaddleOCRRecognitionProcessor,
 )
@@ -103,6 +106,16 @@ def build_recognition_service(
             expected_provider_release=settings.recognition_processor_release_id,
             requested_model=settings.recognition_processor_model,
             expected_actual_model=settings.recognition_processor_actual_model,
+            source_reader=PrivateObjectReader(settings),
+            maximum_input_bytes=settings.recognition_processor_max_input_bytes,
+            maximum_output_bytes=settings.recognition_processor_max_output_bytes,
+            maximum_pages=settings.recognition_processor_max_pages,
+        )
+    elif adapter == "mineru_ocr":
+        processor = MinerURecognitionProcessor(
+            endpoint=endpoint,
+            bearer_token=settings.recognition_processor_token,
+            expected_provider_release=settings.recognition_processor_release_id,
             source_reader=PrivateObjectReader(settings),
             maximum_input_bytes=settings.recognition_processor_max_input_bytes,
             maximum_output_bytes=settings.recognition_processor_max_output_bytes,
