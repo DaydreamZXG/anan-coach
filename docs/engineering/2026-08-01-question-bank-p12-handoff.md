@@ -85,6 +85,32 @@ gongji）、来源脱敏（fenbi:→an:，58k 题 + 46k occurrence）。
   就这样）——**staging 迁移链与代码 release 漂移**。本次表结构改动是**直接 SQL 加列**，
   没走 alembic；生产由正式迁移 20260801_90 管。
 
+### ⚠️ 环境拓扑（2026-08-01 修正，必读）
+
+这台机器 **101.96.198.253 上跑着两套隔离环境**，连不同库：
+
+| 环境 | systemd 服务 | 数据库 | 题量 |
+| --- | --- | --- | --- |
+| **生产** | `gongkao-dazi-api`(8000) | `gongkao_dazi` | **5.5 万**(canonical 层) |
+| **Staging** | `gongkao-dazi-staging-api`(8101) | `gongkao_dazi_staging` | **23.1 万**(导入的新题) |
+
+- **23.1 万新题在 `gongkao_dazi_staging` 库**（导入脚本默认连这个库）。
+- `gongkao_dazi` 是生产库，只有 5.5 万 canonical 题。**P12 的指纹最初误写进了生产库**
+  （因为用了 `QBANK_IMPORT_DATABASE_URL`=`gongkao_dazi`），已修正：生产库清空并还原表结构，
+  指纹在 staging 库（`gongkao_dazi_staging`）重新生成。
+- **指纹现在在 staging 库**：7361 条/7361 题，四哈希齐全，精确匹配 30/30 验证通过。
+- **「门禁」真实存在但只拦迁移，不拦读**：`ops/release-db-compatibility.env` 的
+  `ARTIFACT_DATABASE_MIGRATION_HEAD` 必须与 Alembic head 一致，否则 `alembic upgrade`
+  会被 `DatabaseCompatibilityError` 拦截。新增迁移后要同步更新该文件（本地和 staging 各一份）。
+  读取（`gongkao_staging` 角色读 product 各表）畅通无阻，已实测 23.1 万题全可读。
+
+### 操作备忘（staging 库相关命令）
+
+- staging API 连接串：`/etc/gongkao-dazi/staging-db.env` 的 `DATABASE_URL`（`gongkao_staging` 角色）。
+- staging 库跑 alembic：`cd /srv/gongkao-dazi/staging/backend && source /etc/gongkao-dazi/staging-db.env && DATABASE_URL=... alembic upgrade head`
+  （release venv 有 alembic：`/srv/gongkao-dazi/releases/20260729T1208Z-qualification-297076ef7/backend/.venv/bin/alembic`）。
+- 指纹回填（staging 库）：`source /etc/gongkao-dazi/staging-db.env && QBANK_IMPORT_DATABASE_URL="${DATABASE_URL//+psycopg/}" python3 generate_visual_fingerprints.py`。
+
 ## 四、下一步（接手者从这里继续）
 
 1. **P15（OCR 真实配置验证）**：staging 启用 MinerU，真实照片「拍照 → OCR → 文字匹配」——
