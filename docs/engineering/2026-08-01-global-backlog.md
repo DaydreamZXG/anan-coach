@@ -69,7 +69,10 @@
 | P9 | 平板旋转适配批注错位 | ⏳ 待做：`onResize` 时重测 `questionContentHeight` + 重新归一化笔迹，使旋转后标记不错位。独立小工程，优先级低 |
 | P10 | 拍照识题增强（预处理 + OCR providers） | ✅ **已完成**：① 移植 peipeishua `image_preprocess.py`（自动裁剪照片背景 + 降采样，纯 PIL 无 numpy）；② gemma_vision adapter（tp.ergou.pro 中转，OpenAI 视觉格式）——实测中转/Caddy 正常，卡在 AI Studio 限流（临时）；③ **MinerU adapter**（公益中转 ocr.eo.mk，上传→轮询→zip→Markdown，高速 5 秒，50 并发，正常题图验证可出内容）。3 个 OCR provider（Paddle/Gemma/MinerU）并列 |
 | P11 | 拍照识题：真实照片验证 | ⏳ 待做：配 staging 选一个 adapter（优先 MinerU，50 并发最稳），用真实照片验证「拍照→识别→匹配原题」效果 |
-| P12 | 拍照找原题（图像匹配） | ⏳ 待做：peipeishua picture-pi（ORB/SSCD/FAISS 索引）已确认可复用（6,157 带图题 + 24,622 索引行，判断推理/图形推理与国考知识树一致）。配套：**全量题库数据已下载到本地 `data-import/`（3.5G：sydw-public 118k 题、fenbi 国考省考题图、match_index 图像索引）**，peipeishua 服务器已清理 |
+| P12 | 拍照找原题（图像匹配） | ⏳ 待做：peipeishua picture-pi（ORB/SSCD/FAISS 索引）已确认可复用（6,157 带图题 + 24,622 索引行，判断推理/图形推理与国考知识树一致）。配套：**全量题库数据已下载到本地 `data-import/`（3.5G）**，peipeishua 服务器已清理 |
+| P13 | 题库全量导入（peipeishua） | ✅ **已完成**：① sydw-public **118,820 题**（含 196 图形题）导入 staging（questions+options+explanations+tags 四表全齐）；② fenbi **104,762 题**（902 份国考/省考/选调试卷，含 difficulty/rate/correct_ratio + images 图题资源）导入。**staging 题库总计 278,796 题**。导入脚本 `scripts/import_pp_questions.py` + `scripts/import_fenbi.py` 已提交 |
+| P14 | 图像资源迁移 | ⏳ 待做：fenbi 的 `images`（图题，粉笔原图 + 本地图）迁移到 `question_assets`，给图像匹配铺路 |
+| P15 | OCR 真实配置验证 | ⏳ 待做：staging 启用一个 OCR provider（优先 MinerU，50 并发最稳）接进拍照识题，真实照片验证「拍照→识别→匹配原题」 |
 | P6 | 500+ 未提交文件梳理成 commit 波次 | 见 §6 K1 |
 
 ---
