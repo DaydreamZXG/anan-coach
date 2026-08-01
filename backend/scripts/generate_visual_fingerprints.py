@@ -38,14 +38,16 @@ def main() -> None:
     conn.autocommit = False
     cur = conn.cursor()
 
-    # 取带 assets + 有 content_version 的题（确保外键满足）
+    # 取带 assets + 有 content_version 的题（确保外键满足），每题只取一张代表资产
     cur.execute(
         """
-        select a.question_id, a.asset_id, a.image_src, c.content_version_id
+        select distinct on (a.question_id)
+               a.question_id, a.asset_id, a.image_src, c.content_version_id
         from product.question_assets a
         join product.question_content_versions c on c.question_id = a.question_id
         where a.is_representative_asset = true
           and a.image_src is not null and a.image_src != ''
+        order by a.question_id, a.part_kind, a.part_index, a.image_ordinal
         """
     )
     rows = cur.fetchall()
@@ -73,8 +75,9 @@ def main() -> None:
             insert into product.question_visual_fingerprints (
                 visual_fingerprint_id, question_id, content_version_id,
                 fingerprint_sha256, fingerprint_policy_version,
-                source_asset_ref, created_at
-            ) values (%s, %s, %s, %s, %s, %s, %s)
+                source_asset_ref, created_at,
+                phash, dhash, ahash, edge_dhash
+            ) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             on conflict (content_version_id, fingerprint_sha256) do nothing
             """,
             (
@@ -85,6 +88,10 @@ def main() -> None:
                 POLICY_VERSION,
                 asset_id,
                 datetime.now(UTC),
+                hashes["phash"],
+                hashes["dhash"],
+                hashes["ahash"],
+                hashes["edge_dhash"],
             ),
         )
         written += cur.rowcount
