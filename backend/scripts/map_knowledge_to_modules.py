@@ -113,6 +113,8 @@ def main() -> None:
     _NORMALIZE = {
         "判断推理": "reasoning",
         "言语理解与表达": "verbal_comprehension",
+        "言语理解与表达能力": "verbal_comprehension",
+        "言语理解": "verbal_comprehension",
         "资料分析": "data_analysis",
         "常识判断": "general_knowledge",
         "数量关系": "quantitative",
@@ -121,6 +123,8 @@ def main() -> None:
         "数理能力": "quantitative",
         "科学素养": "general_knowledge",
         "综合知识": "general_knowledge",
+        "政治理论": "political_theory",
+        "政治": "political_theory",
     }
     cur.execute("select distinct tag_value from product.question_tags where tag_type = 'module'")
     norm_count = 0
