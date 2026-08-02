@@ -25,7 +25,7 @@ export function externalLearningError(error: unknown): ExternalLearningError {
       ? candidate.statusCode
       : typeof candidate.status === "number"
         ? candidate.status
-        : 0;
+        : null;
   const code = stringValue(details.code) || statusCode(status);
   const requestId = stringValue(details.requestId) || stringValue(candidate.requestId);
   const message =
@@ -41,7 +41,7 @@ export function externalLearningError(error: unknown): ExternalLearningError {
       uncertain: false,
     };
   }
-  const uncertain = status === 0 || status >= 500;
+  const uncertain = status === 0 || (status !== null && status >= 500);
   return {
     code,
     title: titleFor(code, status),
@@ -52,10 +52,11 @@ export function externalLearningError(error: unknown): ExternalLearningError {
   };
 }
 
-function titleFor(code: string, status: number): string {
+function titleFor(code: string, status: number | null): string {
   if (isExternalProcessorBlocked(code, "")) return "外部 AI 处理器未放行";
   if (code.includes("expired")) return "这次内容已过期";
   if (code.includes("quarantined") || code.includes("unsafe")) return "文件未通过安全检查";
+  if (code.includes("scanner")) return "文件安全检查暂不可用";
   if (code.includes("conflict") || status === 409) return "内容刚刚有更新";
   if (status === 413 || code.includes("file_too_large")) return "文件超过限制";
   if (status === 415 || code.includes("unsupported")) return "文件格式不支持";
@@ -63,12 +64,12 @@ function titleFor(code: string, status: number): string {
   return "操作没有完成";
 }
 
-function statusCode(status: number): string {
+function statusCode(status: number | null): string {
   if (status === 0) return "network_error";
   if (status === 409) return "version_conflict";
   if (status === 413) return "file_too_large";
   if (status === 415) return "unsupported_file_type";
-  return status > 0 ? `http_${String(status)}` : "unknown_error";
+  return status !== null && status > 0 ? `http_${String(status)}` : "unknown_error";
 }
 
 function isExternalProcessorBlocked(code: string, message: string): boolean {

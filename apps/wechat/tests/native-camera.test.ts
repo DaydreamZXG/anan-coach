@@ -60,7 +60,7 @@ describe("capture import native camera", () => {
     expect(chooseMedia).not.toHaveBeenCalled();
   });
 
-  it("opens native cropping directly instead of stopping at the image-editing landing screen", () => {
+  it("keeps native cropping optional on the image confirmation screen", () => {
     const cropStart = captureTemplate.indexOf("captureStage === 'crop'");
     const cropEnd = captureTemplate.indexOf(
       "<block wx:elif=\"{{state && state.status === 'idle'}}\">",
@@ -68,7 +68,8 @@ describe("capture import native camera", () => {
     );
     const cropTemplate = captureTemplate.slice(cropStart, cropEnd);
 
-    expect(captureLogic.match(/await (?:this|page)\.editPendingImage\(\);/gu)).toHaveLength(2);
+    expect(captureLogic).not.toMatch(/await (?:this|page)\.editPendingImage\(\);/u);
+    expect(captureLogic).toContain("裁剪工具没有打开，可直接确认原图");
     expect(externalLearningPlatform).toContain('typeof wx.cropImage === "function"');
     expect(externalLearningPlatform).toContain("wx.cropImage({");
     expect(externalLearningPlatform).toContain('cropScale: "9:16"');
@@ -80,5 +81,15 @@ describe("capture import native camera", () => {
     expect(cropTemplate).not.toContain("crop-frame");
     expect(cropTemplate).not.toContain("crop-corner");
     expect(cropTemplate).not.toContain("touchmove");
+  });
+
+  it("renders a confirmed match from the catalog instead of OCR fragments", () => {
+    expect(captureTemplate).toContain("state.activeQuestionUnit.matchedContent.promptText");
+    expect(captureTemplate).toContain("state.activeQuestionUnit.matchedContent.materialTexts");
+    expect(captureTemplate).toContain(
+      "state.activeQuestionUnit.matchedContent.solutionExplanation",
+    );
+    expect(captureTemplate).toContain("catalogOptions");
+    expect(captureTemplate).not.toContain("详细精讲会保存在这道题的个人学习包中");
   });
 });

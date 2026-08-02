@@ -13,6 +13,7 @@ from app.domains.external_ingestion.matching.models import (
     IndexedContent,
     MatchQuery,
 )
+from app.domains.external_ingestion.recognition.models import VisualFeatureHash
 from app.domains.xingce_learning.content_version import question_content_version_id
 
 
@@ -40,16 +41,20 @@ class SQLQuestionContentCatalog:
         sql_prefilter_threshold: float = 0.05,
         prefetch_factor: int = 8,
         maximum_prefetch: int = 500,
+        visual_hamming_threshold: int = 12,
     ) -> None:
         if not 0 <= sql_prefilter_threshold <= 1:
             raise ValueError("SQL matching prefilter threshold must be between zero and one")
         if prefetch_factor < 1 or maximum_prefetch < 1:
             raise ValueError("matching prefetch limits must be positive")
+        if not 0 <= visual_hamming_threshold <= 64:
+            raise ValueError("visual hamming threshold must be between zero and 64")
         self._session = session
         self._clock = clock or (lambda: datetime.now(UTC))
         self._threshold = sql_prefilter_threshold
         self._prefetch_factor = prefetch_factor
         self._maximum_prefetch = maximum_prefetch
+        self._visual_hamming_threshold = visual_hamming_threshold
 
     def publish_current(self, *, question_id: str) -> IndexedContent:
         """Publish the canonical current question snapshot and atomically move its head."""
@@ -148,29 +153,113 @@ class SQLQuestionContentCatalog:
         normalized = normalize_text(
             "\n".join((query.prompt_text, *query.option_texts, *query.material_texts))
         )
-        if not normalized or maximum_candidates < 1:
+        visual = list(dict.fromkeys(query.visual_fingerprints))
+        phashes = [item.phash for item in query.visual_feature_hashes]
+        dhashes = [item.dhash for item in query.visual_feature_hashes]
+        ahashes = [item.ahash for item in query.visual_feature_hashes]
+        edge_dhashes = [item.edge_dhash for item in query.visual_feature_hashes]
+        if (
+            not normalized
+            and not visual
+            and not query.visual_feature_hashes
+        ) or maximum_candidates < 1:
             return ()
         prefetch = min(
             self._maximum_prefetch,
             max(maximum_candidates, maximum_candidates * self._prefetch_factor),
         )
-        visual = list(dict.fromkeys(query.visual_fingerprints))
-        search_grams = _search_grams(normalized)
+        self._session.execute(
+            text("select set_config('pg_trgm.similarity_threshold', :threshold, true)"),
+            {"threshold": str(self._threshold)},
+        )
         rows = self._session.execute(
             text(
                 """
-                select version.content_version_id
+                select version.content_version_id,
+                  (
+                    exists (
+                      select 1
+                      from product.question_visual_fingerprints visual
+                      where visual.question_id = version.question_id
+                        and visual.content_version_id = version.content_version_id
+                        and visual.fingerprint_sha256 = any(cast(:visual as text[]))
+                    )
+                    or exists (
+                      select 1
+                      from product.question_visual_fingerprints visual
+                      where visual.question_id = version.question_id
+                        and visual.content_version_id = version.content_version_id
+                        and (
+                          (visual.phash is not null and exists (
+                            select 1 from unnest(cast(:phashes as text[])) as query_hash(value)
+                            where bit_count((('x' || visual.phash)::bit(64)) # (('x' || query_hash.value)::bit(64))) <= :visual_hamming_threshold
+                          ))
+                          or (visual.dhash is not null and exists (
+                            select 1 from unnest(cast(:dhashes as text[])) as query_hash(value)
+                            where bit_count((('x' || visual.dhash)::bit(64)) # (('x' || query_hash.value)::bit(64))) <= :visual_hamming_threshold
+                          ))
+                          or (visual.ahash is not null and exists (
+                            select 1 from unnest(cast(:ahashes as text[])) as query_hash(value)
+                            where bit_count((('x' || visual.ahash)::bit(64)) # (('x' || query_hash.value)::bit(64))) <= :visual_hamming_threshold
+                          ))
+                          or (visual.edge_dhash is not null and exists (
+                            select 1 from unnest(cast(:edge_dhashes as text[])) as query_hash(value)
+                            where bit_count((('x' || visual.edge_dhash)::bit(64)) # (('x' || query_hash.value)::bit(64))) <= :visual_hamming_threshold
+                          ))
+                        )
+                    )
+                  ) as visual_match,
+                  (
+                    select min(candidate.distance)
+                    from (
+                      select bit_count(
+                        (('x' || visual.phash)::bit(64)) #
+                        (('x' || query_hash.value)::bit(64))
+                      ) as distance
+                      from product.question_visual_fingerprints visual
+                      cross join unnest(cast(:phashes as text[])) as query_hash(value)
+                      where visual.question_id = version.question_id
+                        and visual.content_version_id = version.content_version_id
+                        and visual.phash is not null
+                      union all
+                      select bit_count(
+                        (('x' || visual.dhash)::bit(64)) #
+                        (('x' || query_hash.value)::bit(64))
+                      ) as distance
+                      from product.question_visual_fingerprints visual
+                      cross join unnest(cast(:dhashes as text[])) as query_hash(value)
+                      where visual.question_id = version.question_id
+                        and visual.content_version_id = version.content_version_id
+                        and visual.dhash is not null
+                      union all
+                      select bit_count(
+                        (('x' || visual.ahash)::bit(64)) #
+                        (('x' || query_hash.value)::bit(64))
+                      ) as distance
+                      from product.question_visual_fingerprints visual
+                      cross join unnest(cast(:ahashes as text[])) as query_hash(value)
+                      where visual.question_id = version.question_id
+                        and visual.content_version_id = version.content_version_id
+                        and visual.ahash is not null
+                      union all
+                      select bit_count(
+                        (('x' || visual.edge_dhash)::bit(64)) #
+                        (('x' || query_hash.value)::bit(64))
+                      ) as distance
+                      from product.question_visual_fingerprints visual
+                      cross join unnest(cast(:edge_dhashes as text[])) as query_hash(value)
+                      where visual.question_id = version.question_id
+                        and visual.content_version_id = version.content_version_id
+                        and visual.edge_dhash is not null
+                    ) candidate
+                  ) as visual_distance
                 from product.question_content_heads head
                 join product.question_content_versions version
                   on version.question_id = head.question_id
                  and version.content_version_id = head.content_version_id
                 where version.track = :track
                   and (
-                    (
-                      select count(*)::double precision
-                      from unnest(cast(:search_grams as text[])) gram
-                      where strpos(version.normalized_search_text, gram) > 0
-                    ) / cardinality(cast(:search_grams as text[])) >= :threshold
+                    version.normalized_search_text % :normalized
                     or (
                       cardinality(cast(:visual as text[])) > 0
                       and exists (
@@ -181,20 +270,47 @@ class SQLQuestionContentCatalog:
                           and visual.fingerprint_sha256 = any(cast(:visual as text[]))
                       )
                     )
+                    or exists (
+                      select 1
+                      from product.question_visual_fingerprints visual
+                      where visual.question_id = version.question_id
+                        and visual.content_version_id = version.content_version_id
+                        and (
+                          (visual.phash is not null and exists (
+                            select 1 from unnest(cast(:phashes as text[])) as query_hash(value)
+                            where bit_count(
+                              (('x' || visual.phash)::bit(64)) #
+                              (('x' || query_hash.value)::bit(64))
+                            ) <= :visual_hamming_threshold
+                          ))
+                          or (visual.dhash is not null and exists (
+                            select 1 from unnest(cast(:dhashes as text[])) as query_hash(value)
+                            where bit_count(
+                              (('x' || visual.dhash)::bit(64)) #
+                              (('x' || query_hash.value)::bit(64))
+                            ) <= :visual_hamming_threshold
+                          ))
+                          or (visual.ahash is not null and exists (
+                            select 1 from unnest(cast(:ahashes as text[])) as query_hash(value)
+                            where bit_count(
+                              (('x' || visual.ahash)::bit(64)) #
+                              (('x' || query_hash.value)::bit(64))
+                            ) <= :visual_hamming_threshold
+                          ))
+                          or (visual.edge_dhash is not null and exists (
+                            select 1 from unnest(cast(:edge_dhashes as text[])) as query_hash(value)
+                            where bit_count(
+                              (('x' || visual.edge_dhash)::bit(64)) #
+                              (('x' || query_hash.value)::bit(64))
+                            ) <= :visual_hamming_threshold
+                          ))
+                        )
+                    )
                   )
                 order by
-                  exists (
-                    select 1
-                    from product.question_visual_fingerprints visual
-                    where visual.question_id = version.question_id
-                      and visual.content_version_id = version.content_version_id
-                      and visual.fingerprint_sha256 = any(cast(:visual as text[]))
-                  ) desc,
-                  (
-                    select count(*)::double precision
-                    from unnest(cast(:search_grams as text[])) gram
-                    where strpos(version.normalized_search_text, gram) > 0
-                  ) / cardinality(cast(:search_grams as text[])) desc,
+                  visual_match desc,
+                  visual_distance asc nulls last,
+                  similarity(version.normalized_search_text, :normalized) desc,
                   version.content_version_id
                 limit :prefetch
                 """
@@ -202,9 +318,12 @@ class SQLQuestionContentCatalog:
             {
                 "track": query.track.value,
                 "normalized": normalized,
-                "search_grams": search_grams,
-                "threshold": self._threshold,
                 "visual": visual,
+                "phashes": phashes,
+                "dhashes": dhashes,
+                "ahashes": ahashes,
+                "edge_dhashes": edge_dhashes,
+                "visual_hamming_threshold": self._visual_hamming_threshold,
                 "prefetch": prefetch,
             },
         ).scalars()
@@ -235,12 +354,11 @@ class SQLQuestionContentCatalog:
             snapshot=snapshot,
             expected_normalized_search_text=str(row["normalized_search_text"]),
         )
-        fingerprints = tuple(
-            str(value)
-            for value in self._session.execute(
+        visual_rows = tuple(
+            self._session.execute(
                 text(
                     """
-                    select fingerprint_sha256
+                    select fingerprint_sha256, phash, dhash, ahash, edge_dhash
                     from product.question_visual_fingerprints
                     where question_id = :question_id
                       and content_version_id = :content_version_id
@@ -251,7 +369,18 @@ class SQLQuestionContentCatalog:
                     "question_id": str(row["question_id"]),
                     "content_version_id": content_version_id,
                 },
-            ).scalars()
+            ).mappings()
+        )
+        fingerprints = tuple(str(item["fingerprint_sha256"]) for item in visual_rows)
+        visual_feature_hashes = tuple(
+            VisualFeatureHash(
+                phash=str(item["phash"]),
+                dhash=str(item["dhash"]),
+                ahash=str(item["ahash"]),
+                edgeDhash=str(item["edge_dhash"]),
+            )
+            for item in visual_rows
+            if all(item[name] is not None for name in ("phash", "dhash", "ahash", "edge_dhash"))
         )
         options = tuple(
             str(item.get("option_text") or "").strip()
@@ -268,6 +397,7 @@ class SQLQuestionContentCatalog:
             optionTexts=options,
             materialTexts=(material,) if material else (),
             visualFingerprints=fingerprints,
+            visualFeatureHashes=visual_feature_hashes,
             referenceAnswer=answer,
             solutionExplanation=explanation,
             distributionClass="licensed_transferable",
@@ -374,17 +504,6 @@ def _snapshot_search_text(snapshot: Mapping[str, Any]) -> str:
                 *options,
                 str(snapshot.get("material_text") or ""),
             )
-        )
-    )
-
-
-def _search_grams(normalized: str) -> list[str]:
-    if len(normalized) == 1:
-        return [normalized]
-    return list(
-        dict.fromkeys(
-            normalized[index : index + 2]
-            for index in range(len(normalized) - 1)
         )
     )
 

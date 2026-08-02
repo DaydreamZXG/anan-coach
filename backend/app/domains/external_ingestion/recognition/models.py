@@ -46,6 +46,18 @@ class StrictModel(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True, populate_by_name=True)
 
 
+Hash64Hex = Annotated[str, StringConstraints(pattern=r"^[0-9a-f]{16}$")]
+
+
+class VisualFeatureHash(StrictModel):
+    """Transform-tolerant hashes for one source image."""
+
+    phash: Hash64Hex
+    dhash: Hash64Hex
+    ahash: Hash64Hex
+    edge_dhash: Hash64Hex = Field(alias="edgeDhash")
+
+
 class ArtifactInput(StrictModel):
     artifact_version_id: UUID = Field(alias="artifactVersionId")
     owner_user_id: UUID = Field(alias="ownerUserId")
@@ -167,6 +179,9 @@ class RecognitionCandidatePayload(StrictModel):
     omr_marks: tuple[OMRMark, ...] = Field(default=(), alias="omrMarks")
     page_image_sha256: tuple[Sha256Hex, ...] = Field(default=(), alias="pageImageSha256")
     visual_fingerprints: tuple[Sha256Hex, ...] = Field(default=(), alias="visualFingerprints")
+    visual_feature_hashes: tuple[VisualFeatureHash, ...] = Field(
+        default=(), alias="visualFeatureHashes"
+    )
     processor_request_id_hash: Sha256Hex = Field(alias="processorRequestIdHash")
     processor_output_contract: NonBlank = Field(alias="processorOutputContract")
     request_hash: Sha256Hex = Field(alias="requestHash")
@@ -265,8 +280,8 @@ class ProcessorApproval(StrictModel):
         "contracted_zero_retention",
         "operator_accepted_external_processing",
     ] = Field(default="contracted_zero_retention", alias="providerDataHandling")
-    model_training_use: Literal["prohibited"] = Field(
-        default="prohibited", alias="modelTrainingUse"
+    model_training_use: Literal["prohibited", "not_asserted"] = Field(
+        default="not_asserted", alias="modelTrainingUse"
     )
     provider_retention_seconds: int | None = Field(
         default=0, alias="providerRetentionSeconds", ge=0
@@ -274,23 +289,30 @@ class ProcessorApproval(StrictModel):
     provider_idempotency_capability: Literal[
         "replayable_queryable",
         "nonreplayable_audited",
-    ] = Field(alias="providerIdempotencyCapability")
+    ] = Field(
+        default="nonreplayable_audited",
+        alias="providerIdempotencyCapability",
+    )
     provider_idempotency_scope: Literal["provider_account", "endpoint"] = Field(
-        alias="providerIdempotencyScope"
+        default="endpoint", alias="providerIdempotencyScope"
     )
     provider_idempotency_key_header: Literal["Idempotency-Key"] = Field(
-        alias="providerIdempotencyKeyHeader"
+        default="Idempotency-Key", alias="providerIdempotencyKeyHeader"
     )
     provider_request_id_source: Literal[
         "body:providerRequestId",
         "body:id",
         "X-Request-ID",
-    ] = Field(alias="providerRequestIdSource")
+    ] = Field(default="X-Request-ID", alias="providerRequestIdSource")
     provider_replay_retention_seconds: int = Field(
+        default=0,
         alias="providerReplayRetentionSeconds",
         ge=0,
     )
-    provider_idempotency_evidence_ref: NonBlank = Field(alias="providerIdempotencyEvidenceRef")
+    provider_idempotency_evidence_ref: NonBlank = Field(
+        default="mvp-runtime-default@v1",
+        alias="providerIdempotencyEvidenceRef",
+    )
     valid_from: AwareDatetime = Field(alias="validFrom")
     valid_until: AwareDatetime = Field(alias="validUntil")
 
@@ -377,6 +399,9 @@ class ProcessorResult(StrictModel):
     omr_marks: tuple[OMRMark, ...] = Field(default=(), alias="omrMarks")
     page_image_sha256: tuple[Sha256Hex, ...] = Field(default=(), alias="pageImageSha256")
     visual_fingerprints: tuple[Sha256Hex, ...] = Field(default=(), alias="visualFingerprints")
+    visual_feature_hashes: tuple[VisualFeatureHash, ...] = Field(
+        default=(), alias="visualFeatureHashes"
+    )
     confidence: float | None = Field(default=None, ge=0, le=1)
 
 

@@ -509,7 +509,7 @@ def test_ready_rejects_a_registered_queue_past_its_age_budget(
     assert response.json()["detail"] == "background job consumers are not ready"
 
 
-def test_ready_rejects_an_idle_mandatory_consumer_without_a_recent_heartbeat(
+def test_local_ready_accepts_an_idle_empty_queue_without_a_recent_heartbeat(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     _seed_alembic_revision(db_session_factory)
@@ -524,6 +524,33 @@ def test_ready_rejects_an_idle_mandatory_consumer_without_a_recent_heartbeat(
                 """
             )
         )
+
+    response = _client(db_session_factory).get("/ready")
+
+    assert response.status_code == 200
+
+
+def test_production_ready_rejects_an_idle_mandatory_consumer_without_a_recent_heartbeat(
+    db_session_factory: sessionmaker[Session],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _seed_alembic_revision(db_session_factory)
+    _seed_release(db_session_factory, activated_at=datetime.now(UTC))
+    _seed_knowledge_release(db_session_factory)
+    with db_session_factory.begin() as session:
+        session.execute(
+            text(
+                """
+                delete from platform.background_job_consumer_heartbeats
+                where consumer_unit = 'gongkao-dazi-cause-agent-worker'
+                """
+            )
+        )
+    monkeypatch.setattr(
+        operations_router,
+        "get_settings",
+        lambda: Settings(environment="production"),
+    )
 
     response = _client(db_session_factory).get("/ready")
 

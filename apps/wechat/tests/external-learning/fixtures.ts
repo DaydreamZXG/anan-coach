@@ -123,6 +123,7 @@ export function questionUnit(overrides: Partial<ImportQuestionUnit> = {}): Impor
     ordinal: 1,
     segmentIds: ["segment-1"],
     match: contentMatch(),
+    matchedContent: null,
     referenceAnswer: null,
     aiAnswer: null,
     state: "match_review",

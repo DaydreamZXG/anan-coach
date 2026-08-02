@@ -38,6 +38,7 @@ class Settings:
     upload_quota_policy_version: str = ""
     upload_maximum_pending_bytes_per_user: int = 0
     upload_maximum_stored_bytes_per_user: int = 0
+    upload_malware_scan_enabled: bool = False
     upload_scanner_base_url: str = ""
     upload_scanner_api_key: str = ""
     upload_scanner_release_id: str = ""
@@ -242,6 +243,9 @@ def get_settings() -> Settings:
         ),
         upload_maximum_stored_bytes_per_user=int(
             os.getenv("UPLOAD_MAXIMUM_STORED_BYTES_PER_USER", "0")
+        ),
+        upload_malware_scan_enabled=_environment_bool(
+            "UPLOAD_MALWARE_SCAN_ENABLED", default=False
         ),
         upload_scanner_base_url=os.getenv("UPLOAD_SCANNER_BASE_URL", ""),
         upload_scanner_api_key=os.getenv("UPLOAD_SCANNER_API_KEY", ""),

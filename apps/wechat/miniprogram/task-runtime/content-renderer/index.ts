@@ -60,7 +60,7 @@ Component({
     "blocks, anchors, zoom, preferences"() {
       syncContent(this);
     },
-    "selectable"() {
+    selectable() {
       this.measureSegmentRects();
     },
   },
@@ -101,7 +101,12 @@ Component({
                     ? Number(ds.segmentIndex)
                     : Number(ds.segmentIndex);
                 const segmentText = typeof ds.text === "string" ? ds.text : "";
-                if (!blockId || !Number.isInteger(segmentIndex) || segmentIndex < 0 || !segmentText) {
+                if (
+                  !blockId ||
+                  !Number.isInteger(segmentIndex) ||
+                  segmentIndex < 0 ||
+                  !segmentText
+                ) {
                   return null;
                 }
                 return {

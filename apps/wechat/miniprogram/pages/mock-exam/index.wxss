@@ -29,7 +29,10 @@
 }
 
 .mock-paper {
-  min-height: 100%;
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
   font-size: var(--text-body-lg);
   transition:
     background 180ms ease,
@@ -39,8 +42,6 @@
   font-size: var(--text-section);
 }
 .mock-paper--eye-care {
-  margin: calc(-30 * var(--rpx)) calc(var(--space-page-x) * -1) 0;
-  padding: calc(30 * var(--rpx)) var(--space-page-x);
   background: var(--good-soft);
 }
 .inline-warning {
@@ -104,45 +105,81 @@
   white-space: pre-wrap;
 }
 
-.question-card {
-  padding: calc(32 * var(--rpx)) calc(4 * var(--rpx)) calc(24 * var(--rpx));
-}
-.question-meta {
+.mock-workspace {
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
 }
-/* 题型胶囊与行测做题页同款（Figma 2:77）。 */
-.module-pill {
-  display: inline-flex;
-  min-width: 0;
-  align-items: center;
-  overflow: hidden;
-  padding: calc(8 * var(--rpx)) calc(20 * var(--rpx));
-  border-radius: var(--radius-64);
-  background: var(--color-primary-soft);
-  color: var(--color-primary-deep);
-  font-size: var(--text-micro);
+
+/* 与练习页同构：宿主只负责定位，实际触摸策略由 annotation-layer 控制。 */
+.mock-annotation-host {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.mock-annotation-host--active {
+  pointer-events: none;
+}
+
+.mock-question-pane {
+  box-sizing: border-box;
+  height: 100%;
+  min-height: 0;
+  flex: 1;
+}
+
+.mock-question-body {
+  box-sizing: border-box;
+  padding: calc(48 * var(--rpx)) calc(40 * var(--rpx)) calc(96 * var(--rpx));
+}
+
+.question-hero {
+  position: relative;
+  padding: 0;
+  color: var(--figma-color-ink);
+  background: transparent;
+}
+
+.question-heading {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: calc(16 * var(--rpx));
+}
+
+.question-number {
+  flex: none;
+  padding-top: calc(4 * var(--rpx));
+  color: var(--figma-color-ink);
+  font-family: var(--font-family-data);
+  font-size: var(--text-section);
   font-weight: 700;
-  line-height: calc(33 * var(--rpx));
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: calc(44.8 * var(--rpx));
+  letter-spacing: calc(-0.32 * var(--rpx));
 }
-.question-position {
-  color: var(--color-muted);
-  font-size: var(--text-micro);
-}
+
 .question-stem {
-  margin-top: calc(24 * var(--rpx));
-  color: var(--color-ink);
-  font-size: inherit;
-  font-weight: 600;
-  line-height: 1.75;
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  flex: 1;
+  margin-top: 0;
+  color: var(--figma-color-ink);
+  font-family: var(--font-family-reading);
+  font-size: var(--text-section);
+  font-weight: 700;
+  line-height: calc(52 * var(--rpx));
+  letter-spacing: calc(-0.32 * var(--rpx));
 }
 /* 选项区与行测做题页同源（Figma 2:142–2:166），整卷只在计时/答题卡上有差异。 */
 .option-list {
   display: grid;
   gap: calc(24 * var(--rpx));
+  padding: calc(48 * var(--rpx)) 0 0;
   grid-auto-rows: 1fr;
 }
 .option-list--locked {
@@ -242,107 +279,10 @@
   height: calc(36 * var(--rpx));
 }
 
-.draft-card {
-  margin-top: calc(28 * var(--rpx));
-  padding: calc(28 * var(--rpx));
-}
-.draft-copy {
-  margin-top: calc(8 * var(--rpx));
-  color: var(--color-muted);
-  font-size: var(--text-micro);
-}
-.mark-button {
-  margin: 0;
-  padding: 0 calc(20 * var(--rpx));
-  border: calc(1 * var(--rpx)) solid var(--color-line);
-  border-radius: var(--radius-capsule);
-  background: var(--color-surface-soft);
-  color: var(--color-muted);
-  font-size: var(--text-micro);
-}
-.mark-button--active {
-  border-color: var(--color-warning);
-  background: var(--color-warning-soft);
-  color: var(--color-warning);
-}
-.draft-input {
-  box-sizing: border-box;
-  width: 100%;
-  min-height: calc(180 * var(--rpx));
-  margin-top: calc(24 * var(--rpx));
-  padding: calc(24 * var(--rpx));
-  border-radius: var(--radius-compact);
-  background: var(--color-surface-soft);
-  font-family: var(--font-family-data);
-  font-size: var(--text-caption);
-  line-height: 1.65;
-}
 .help-sheet {
   padding: 0 0 calc(calc(24 * var(--rpx)) + env(safe-area-inset-bottom));
 }
-
-.draft-input--sheet {
-  min-height: calc(320 * var(--rpx));
-}
-
-.mock-timer-notice {
-  margin-top: calc(20 * var(--rpx));
-  padding: calc(20 * var(--rpx)) calc(20 * var(--rpx));
-  border-radius: var(--radius-compact);
-  color: var(--color-muted);
-  background: var(--color-surface-soft);
-  font-size: var(--text-micro);
-  line-height: 1.6;
-}
-
-.draft-sheet-action {
-  width: 100%;
-  margin-top: calc(24 * var(--rpx));
-}
-.sheet-grid {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: calc(12 * var(--rpx));
-  padding-bottom: calc(40 * var(--rpx));
-}
-.sheet-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 0;
-  height: calc(66 * var(--rpx));
-  margin: 0;
-  padding: 0;
-  border: calc(1 * var(--rpx)) solid var(--color-line);
-  border-radius: var(--radius-12);
-  background: var(--color-surface-soft);
-  color: var(--color-muted);
-  font-family: var(--font-family-data);
-  font-size: var(--text-micro);
-}
-.sheet-item--answered {
-  border-color: rgba(22, 131, 99, 0.35);
-  background: var(--color-success-soft);
-  color: var(--color-success);
-}
-.sheet-item--marked {
-  border-color: rgba(185, 141, 47, 0.35);
-  background: var(--color-warning-soft);
-  color: var(--color-warning);
-}
-.sheet-item--active {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 calc(3 * var(--rpx)) var(--color-primary-a16);
-}
-
-.display-tools {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: calc(16 * var(--rpx));
-  margin-top: calc(28 * var(--rpx));
-}
-.tool-chip,
-.tool-row {
+.tool-chip {
   margin: 0;
   border: calc(1 * var(--rpx)) solid var(--color-line);
   border-radius: var(--radius-compact);
@@ -354,15 +294,6 @@
   border-color: var(--color-primary);
   background: var(--color-primary-soft);
   color: var(--color-primary-deep);
-}
-.tool-row {
-  margin-top: calc(16 * var(--rpx));
-  text-align: left;
-}
-.tool-row--submit {
-  border-color: var(--color-danger-soft);
-  background: var(--color-danger-soft);
-  color: var(--color-danger);
 }
 .help-result {
   margin: 0 calc(32 * var(--rpx)) calc(28 * var(--rpx));
@@ -402,33 +333,8 @@
   margin-top: calc(20 * var(--rpx));
 }
 
-.footer-actions,
-.footer-next {
-  width: 100%;
-}
 .footer-actions {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
-  gap: calc(16 * var(--rpx));
-}
-.footer-previous {
-  box-sizing: border-box;
   width: 100%;
-  min-height: calc(88 * var(--rpx));
-  margin: 0;
-  border: 0;
-  border-radius: var(--radius-32);
-  background: var(--color-canvas);
-  color: var(--color-ink-secondary);
-  font-size: var(--text-body);
-  font-weight: 700;
-  line-height: calc(88 * var(--rpx));
-}
-.footer-previous::after {
-  border: 0;
-}
-.footer-previous--disabled {
-  opacity: 0.38;
 }
 .submitted-workspace {
   padding: calc(20 * var(--rpx)) 0 calc(64 * var(--rpx));
@@ -508,6 +414,7 @@
   }
 
   .mock-paper {
+    width: 100%;
     font-size: 17px;
   }
 
@@ -525,17 +432,8 @@
     font-size: 16px;
   }
 
-  .question-card {
-    padding: 24px 4px 18px;
-  }
-
-  .module-pill,
-  .question-position {
-    font-size: 13px;
-  }
-
-  .question-stem {
-    margin-top: 16px;
+  .mock-question-body {
+    padding: 24px 20px 48px;
   }
 
   .option-list {
@@ -543,37 +441,24 @@
   }
 
   .option-card {
-    grid-template-columns: 38px minmax(0, 1fr) 44px;
+    grid-template-columns: 24px minmax(0, 1fr);
     gap: 12px;
-    min-height: 72px;
-    padding: 12px;
+    min-height: 0;
+    padding: 17px;
     border-width: 1px;
-    border-radius: 15px;
+    border-radius: 20px;
   }
 
   .option-label {
-    width: 36px;
-    height: 36px;
+    width: 24px;
+    height: 24px;
   }
 
   .eliminate-action {
-    width: 44px;
-    min-width: 44px;
-    height: 44px;
-    border-radius: 14px;
-    font-size: 21px;
-    line-height: 1;
-  }
-
-  .sheet-grid {
-    grid-template-columns: repeat(12, 1fr);
-    gap: 8px;
-  }
-
-  .sheet-item {
-    height: 44px;
-    border-radius: 9px;
-    font-size: 13px;
+    width: 48px;
+    min-width: 48px;
+    height: auto;
+    border-radius: 20px;
   }
 }
 
@@ -585,7 +470,7 @@
   .mock-workspace {
     display: grid;
     grid-template-columns: minmax(360px, 0.95fr) minmax(0, 1.15fr);
-    align-items: start;
+    align-items: stretch;
     gap: 32px;
   }
 
@@ -597,15 +482,14 @@
   }
 
   .mock-material-pane {
-    position: sticky;
-    top: 84px;
     min-width: 0;
-    max-height: calc(100vh - 180px);
-    overflow-y: auto;
+    height: 100%;
+    overflow: hidden;
   }
 
   .mock-question-pane {
     min-width: 0;
+    height: 100%;
   }
 }
 

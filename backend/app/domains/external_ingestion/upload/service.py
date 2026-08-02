@@ -66,7 +66,7 @@ class UploadRecoveryRequired(RuntimeError):
 
 
 class UploadService:
-    """Coordinates private ingestion without exposing unscanned bytes downstream.
+    """Coordinates private ingestion without exposing unverified bytes downstream.
 
     Repository writes participate in the composition root's SQL transaction. All
     external operations carry stable operation keys and are required to replay.
@@ -77,8 +77,8 @@ class UploadService:
         *,
         repository: UploadRepositoryPort,
         object_storage: PrivateObjectStoragePort,
-        scanner: MalwareScannerPort,
-        scanner_approval: ScannerRuntimeApproval,
+        scanner: MalwareScannerPort | None,
+        scanner_approval: ScannerRuntimeApproval | None,
         reservations: UploadReservationPort,
         policy: UploadPolicy | None = None,
         clock: Callable[[], datetime] | None = None,
@@ -116,7 +116,10 @@ class UploadService:
                     owner_user_id=request.owner_user_id,
                     session_id=existing.session_id,
                 )
-                if session.state != UploadState.AWAITING_UPLOAD:
+                if session.state not in {
+                    UploadState.AWAITING_UPLOAD,
+                    UploadState.SCAN_FAILED,
+                }:
                     raise UploadUnavailable(
                         f"upload start already resolved as {session.state.value}"
                     )
@@ -320,7 +323,11 @@ class UploadService:
             elif session.state == UploadState.SCANNING:
                 session = self._scan(session=session)
             if session.state == UploadState.SCAN_FAILED:
-                raise UploadUnavailable("malware scanning did not produce a decision")
+                return CompleteUploadResult(
+                    session=session,
+                    artifact=None,
+                    replayed=False,
+                )
             if session.state == UploadState.QUARANTINED:
                 return CompleteUploadResult(
                     session=session,
@@ -476,6 +483,10 @@ class UploadService:
         return self._scan(session=scanning)
 
     def _scan(self, *, session: UploadSession) -> UploadSession:
+        if self._scanner is None:
+            return self._complete_metadata_validation(session=session)
+        if self._scanner_approval is None:
+            raise UploadContractError("enabled malware scanner has no runtime approval")
         try:
             receipt = self._scanner.scan(
                 object_ref=session.object_ref,
@@ -594,6 +605,54 @@ class UploadService:
             replacement=finalizing,
             event_type="upload_scan_clean",
             details={"scanId": receipt.scan_id},
+        )
+        return finalizing
+
+    def _complete_metadata_validation(self, *, session: UploadSession) -> UploadSession:
+        """Finish MVP uploads after private-object integrity validation.
+
+        The object store metadata was already checked against the signed upload
+        authorization in ``_verify_and_scan``.  The optional malware scanner is
+        deliberately not part of the small-test launch path.
+        """
+        if session.mime_type == "application/pdf" and session.page_count is None:
+            failed = session.transition(
+                UploadState.SCAN_FAILED,
+                at=self._clock(),
+                failure_code="pdf_page_count_required",
+            )
+            self._persist_transition(
+                previous=session,
+                replacement=failed,
+                event_type="upload_metadata_validation_failed",
+                details={"reason": "pdf_page_count_required"},
+            )
+            return failed
+        receipt = ScanReceipt(
+            scan_id=f"metadata-{session.session_id}",
+            verdict=ScanVerdict.CLEAN,
+            detected_mime_type=session.mime_type,
+            content_sha256=session.content_sha256,
+            scanner_policy_version="private-object-integrity@v1",
+            provider_route="local-private-object-metadata",
+            data_processing_agreement_version="not-applicable",
+            definition_version="not-applicable",
+            scanned_at=self._clock(),
+            detected_page_count=(
+                session.page_count if session.mime_type == "application/pdf" else None
+            ),
+        )
+        finalizing = session.transition(
+            UploadState.FINALIZING,
+            at=self._clock(),
+            scan_receipt=receipt,
+            failure_code=None,
+        )
+        self._persist_transition(
+            previous=session,
+            replacement=finalizing,
+            event_type="upload_metadata_validated",
+            details={},
         )
         return finalizing
 

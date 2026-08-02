@@ -10,6 +10,7 @@
 - question.answer -> answer
 """
 import json
+from hashlib import sha256
 import sys
 import time
 from pathlib import Path
@@ -20,8 +21,31 @@ import psycopg
 DB_URL = sys.argv[1] if len(sys.argv) > 1 else "postgresql:///gongkao_dazi_staging?host=/var/run/postgresql"
 SRC = Path(sys.argv[2]) if len(sys.argv) > 2 else Path("/tmp/pp-100.jsonl")
 LIMIT = int(sys.argv[3]) if len(sys.argv) > 3 else 0  # 0 = 全量
+SOURCE_DATASET_ID = "sydw-public-import-20260801"
 
 LABELS = ["A", "B", "C", "D", "E", "F", "G", "H"]
+
+
+def _stable_identifier(prefix: str, *parts: str) -> str:
+    digest = sha256("\x1f".join(parts).encode("utf-8")).hexdigest()
+    return f"{prefix}_{digest[:24]}"
+
+
+def _existing_question_id(cur: psycopg.Cursor, source_question_id: str) -> str | None:
+    row = cur.execute(
+        """
+        select question_id
+        from product.questions
+        where representative_source_question_id = %s
+        union
+        select question_id
+        from product.question_occurrences
+        where source_question_id = %s
+        limit 1
+        """,
+        (source_question_id, source_question_id),
+    ).fetchone()
+    return str(row[0]) if row else None
 
 
 def main() -> None:
@@ -41,19 +65,28 @@ def main() -> None:
             if not q.get("stem") and not q.get("stemHtml"):
                 skipped += 1
                 continue
-            qid = f"pp_{uuid4().hex[:24]}"
+            source_question_id = str(d.get("sourceQuestionId") or "").strip()
+            if not source_question_id:
+                print("SKIP question without sourceQuestionId", file=sys.stderr)
+                skipped += 1
+                continue
+            if _existing_question_id(cur, source_question_id) is not None:
+                skipped += 1
+                continue
+            qid = _stable_identifier("pp", SOURCE_DATASET_ID, source_question_id)
+            cur.execute("savepoint import_question")
             try:
                 cur.execute(
                     """
                     insert into product.questions (
-                        question_id, representative_source_question_id,
+                        question_id, domain, status, representative_source_question_id,
                         module_name, question_type, visual_required,
                         stem, stem_html, answer
-                    ) values (%s, %s, %s, %s, %s, %s, %s, %s)
+                    ) values (%s, 'objective', 'active', %s, %s, %s, %s, %s, %s, %s)
                     """,
                     (
                         qid,
-                        d.get("sourceQuestionId"),
+                        source_question_id,
                         d.get("section") or "单项选择题",
                         q.get("type") or d.get("section") or "单项选择题",
                         bool(d.get("isGraphicReasoning")),
@@ -115,15 +148,33 @@ def main() -> None:
                                 qid,
                                 str(kp.get("id")) if isinstance(kp, dict) else None,
                                 "knowledge_point",
-                                tag_value,
-                            ),
-                        )
+                        tag_value,
+                    ),
+                )
+                cur.execute(
+                    """
+                    insert into product.question_occurrences (
+                        occurrence_id, question_id, source_question_id, source_dataset_id
+                    ) values (%s, %s, %s, %s)
+                    on conflict (occurrence_id) do nothing
+                    """,
+                    (
+                        _stable_identifier("occ", qid, source_question_id),
+                        qid,
+                        source_question_id,
+                        SOURCE_DATASET_ID,
+                    ),
+                )
+                cur.execute("release savepoint import_question")
                 inserted += 1
             except psycopg.Error as exc:
-                conn.rollback()
-                print(f"ERROR {d.get('sourceQuestionId')}: {exc}", file=sys.stderr)
+                cur.execute("rollback to savepoint import_question")
+                cur.execute("release savepoint import_question")
+                print(f"ERROR {source_question_id}: {exc}", file=sys.stderr)
                 skipped += 1
                 continue
+            if inserted % 500 == 0:
+                conn.commit()
 
     conn.commit()
     cur.close()
@@ -133,4 +184,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

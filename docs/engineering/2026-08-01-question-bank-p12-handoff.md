@@ -113,6 +113,13 @@ gongji）、来源脱敏（fenbi:→an:，58k 题 + 46k occurrence）。
 
 ## 四、下一步（接手者从这里继续）
 
+0. **先执行 qbank-v1 收口（代码已完成，尚未写 staging）**：先把本次迁移和
+   `ops/release-db-compatibility.env` 随同同一 staging 代码版本部署；再依次运行
+   `finalize_question_bank.py audit`、`apply`、`verify`。该程序只接受
+   `*_staging` 数据库，只追加来源 occurrence / 内容版本并归一模块，不删除题目。
+   本地隔离 PostgreSQL 已验证：同源重放不重复、单题失败不回滚整批、合格题可生成当前内容版本。
+   **不得**把本地脚本直接拷到当前 staging 目录后执行：该目录的代码身份与仓库不一致，先形成一个
+   可追溯的 staging 代码版本。
 1. **P15（OCR 真实配置验证）**：staging 启用 MinerU，真实照片「拍照 → OCR → 文字匹配」——
    这是「拍照找原题」的**主路径**，与 P12 图像匹配同链条。优先级高于图像匹配深化。
 2. 决定两个数据缺口怎么处理：①7667 个缺失文件是否从本地补传；②是否给 pp_ 新题补

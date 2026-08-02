@@ -96,24 +96,27 @@ class HttpMalwareScannerClient:
 
 def build_upload_service(*, session: Session, settings: Settings) -> UploadService:
     storage = build_private_object_storage(settings)
-
-    scanner_client = HttpMalwareScannerClient(settings)
-    scanner_approval = ScannerApproval(
-        provider_route=settings.upload_scanner_route,
-        scanner_policy_version=settings.upload_scanner_policy_version,
-        data_processing_agreement_version=settings.upload_scanner_dpa_version,
-        mainland_processing_only=settings.upload_scanner_mainland_only,
-        maximum_definition_age=settings.upload_scanner_maximum_definition_age,
-    )
-    scanner = ApprovedMalwareScannerAdapter(
-        approval=scanner_approval,
-        client=scanner_client,
-    )
+    scanner = None
+    scanner_runtime_approval = None
+    if settings.upload_malware_scan_enabled:
+        scanner_client = HttpMalwareScannerClient(settings)
+        scanner_approval = ScannerApproval(
+            provider_route=settings.upload_scanner_route,
+            scanner_policy_version=settings.upload_scanner_policy_version,
+            data_processing_agreement_version=settings.upload_scanner_dpa_version,
+            mainland_processing_only=settings.upload_scanner_mainland_only,
+            maximum_definition_age=settings.upload_scanner_maximum_definition_age,
+        )
+        scanner = ApprovedMalwareScannerAdapter(
+            approval=scanner_approval,
+            client=scanner_client,
+        )
+        scanner_runtime_approval = scanner_approval.runtime_approval()
     return UploadService(
         repository=PostgresUploadRepository(session=session),
         object_storage=storage,
         scanner=scanner,
-        scanner_approval=scanner_approval.runtime_approval(),
+        scanner_approval=scanner_runtime_approval,
         reservations=PostgresUploadReservationAdapter(
             session=session,
             policy=UploadQuotaPolicy(

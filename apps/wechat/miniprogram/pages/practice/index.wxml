@@ -112,54 +112,19 @@
           class="practice-question-body {{view && view.current === view.total ? 'practice-question-body--with-footer' : ''}} {{questionTransition ? 'motion-question-in--' + questionTransition : ''}}"
           bindanimationend="clearQuestionTransition"
         >
-          <view class="practice-question-toolbar">
-            <view class="practice-question-context">
-              <text class="practice-question-context__module">{{view.question.moduleName}}</text>
-              <text class="practice-question-context__position">第 {{view.current}} 题</text>
-            </view>
-            <view class="practice-question-actions" aria-label="当前题操作">
-              <button
-                class="question-tool question-tool--favorite question-tool--{{favoriteStatus}} {{favoriteState === 'favorited' ? 'question-tool--active' : ''}}"
-                hover-class="item--hover"
-                disabled="{{interactionLocked || favoriteStatus === 'loading' || favoriteStatus === 'saving'}}"
-                aria-label="{{favoriteAriaLabel}}"
-                bindtap="toggleFavorite"
-              >
-                <image
-                  class="question-tool__icon question-tool__icon--favorite"
-                  src="/assets/icons/task/bookmark-active.svg"
-                  mode="aspectFit"
-                  aria-hidden="true"
-                />
-                <text class="question-tool__label">{{favoriteButtonLabel}}</text>
-              </button>
-              <button
-                class="question-tool question-tool--mark {{view.question.marked ? 'question-tool--active' : ''}}"
-                hover-class="item--hover"
-                disabled="{{interactionLocked}}"
-                aria-label="{{view.question.marked ? '取消本题存疑' : '将本题设为存疑'}}"
-                bindtap="toggleMarked"
-              >
-                <view class="question-tool__mark-icon" aria-hidden="true">!</view>
-                <text class="question-tool__label">{{view.question.marked ? '已存疑' : '存疑'}}</text>
-              </button>
-              <button
-                class="question-tool question-tool--draft"
-                hover-class="item--hover"
-                disabled="{{interactionLocked}}"
-                aria-label="打开草稿"
-                bindtap="openAnnotation"
-              >
-                <image
-                  class="question-tool__icon question-tool__icon--draft"
-                  src="/assets/icons/task/draft.svg"
-                  mode="aspectFit"
-                  aria-hidden="true"
-                />
-                <text class="question-tool__label">草稿</text>
-              </button>
-            </view>
-          </view>
+          <question-toolbar
+            moduleName="{{view.question.moduleName}}"
+            current="{{view.current}}"
+            interactionLocked="{{interactionLocked}}"
+            favoriteAvailable="{{true}}"
+            favoriteStatus="{{favoriteStatus}}"
+            favorited="{{favoriteState === 'favorited'}}"
+            favoriteButtonLabel="{{favoriteButtonLabel}}"
+            marked="{{view.question.marked}}"
+            bindfavorite="toggleFavorite"
+            bindmark="toggleMarked"
+            binddraft="openAnnotation"
+          />
           <view
             wx:if="{{favoriteMessage}}"
             class="favorite-feedback favorite-feedback--{{favoriteStatus}}"
@@ -339,71 +304,23 @@
       </view>
 
       <!-- Figma 59:2 / 60:4：答题卡半屏 Bottom Sheet，题号使用圆形状态。 -->
-      <view wx:if="{{answerSheetOpen}}" class="answer-card motion-mask" catchtouchmove="noop">
-        <view class="answer-card__mask" catchtap="toggleAnswerSheet" aria-label="关闭答题卡"></view>
-        <view class="answer-card__sheet">
-          <view class="answer-card__handle-row" aria-hidden="true">
-            <view class="answer-card__handle"></view>
-          </view>
-
-          <view class="answer-card__header">
-            <view class="answer-card__title-group">
-              <view class="answer-card__title">答题卡</view>
-              <view class="answer-card__subtitle">{{answerSheetSubtitle}}</view>
-            </view>
-            <button hover-class="item--hover" class="answer-card__close" aria-label="关闭答题卡" bindtap="toggleAnswerSheet">×</button>
-          </view>
-
-          <view class="answer-card__legend">
-            <view class="answer-card__legend-item">
-              <view class="answer-card__legend-dot answer-card__legend-dot--answered" aria-hidden="true"></view>
-              <text>已答 {{answerSheetLegend.answered}}</text>
-            </view>
-            <view class="answer-card__legend-item">
-              <view class="answer-card__legend-dot answer-card__legend-dot--unanswered" aria-hidden="true"></view>
-              <text>未答 {{answerSheetLegend.unanswered}}</text>
-            </view>
-            <view class="answer-card__legend-item">
-              <view class="answer-card__legend-dot answer-card__legend-dot--current" aria-hidden="true"></view>
-              <text>当前 1</text>
-            </view>
-            <view class="answer-card__legend-item">
-              <view class="answer-card__legend-dot answer-card__legend-dot--marked" aria-hidden="true"></view>
-              <text>存疑 {{answerSheetLegend.marked}}</text>
-            </view>
-          </view>
-
-          <view class="answer-card__section">
-            <view class="answer-card__module-row">
-              <view class="answer-card__module-name">{{answerSheetModuleName}}</view>
-              <view class="answer-card__module-counts">{{answerSheetModuleCounts}}</view>
-            </view>
-            <view class="answer-card__grid">
-              <view wx:for="{{answerSheetItems}}" wx:key="index" class="answer-card__cell">
-                <button hover-class="item--hover"
-                  class="answer-card__question answer-card__question--{{item.active ? 'current' : item.state}} {{!item.active && item.marked ? 'answer-card__question--marked' : ''}}"
-                  aria-label="第 {{item.label}} 题{{item.active ? '，当前题' : item.marked ? '，已存疑' : item.state === 'answered' ? '，已作答' : '，未作答'}}"
-                  data-index="{{item.index}}"
-                  bindtap="selectQuestion"
-                >{{item.label}}</button>
-                <view wx:if="{{item.marked && !item.active}}" class="answer-card__marked-badge" aria-hidden="true">!</view>
-              </view>
-            </view>
-            <view class="answer-card__hint">点题号即可直接切换，存疑题会优先复盘</view>
-          </view>
-
-          <view class="answer-card__insight">
-            <image class="answer-card__insight-icon" src="/assets/icons/task/answer-card-insight.svg" mode="aspectFit" aria-hidden="true" />
-            <view class="answer-card__insight-copy">
-              <view class="answer-card__insight-title">岸岸会记住你存疑的题</view>
-              <view class="answer-card__insight-sub">交卷后优先进入证据复盘</view>
-            </view>
-          </view>
-
-          <button hover-class="item--hover" class="answer-card__cta" bindtap="toggleAnswerSheet">继续第 {{view.current}} 题</button>
-          <button hover-class="item--hover" class="answer-card__submit" bindtap="submitAttempt">确认交卷并查看结果</button>
-        </view>
-      </view>
+      <answer-sheet
+        visible="{{answerSheetOpen}}"
+        current="{{view.current}}"
+        items="{{answerSheetItems}}"
+        answered="{{answerSheetLegend.answered}}"
+        unanswered="{{answerSheetLegend.unanswered}}"
+        marked="{{answerSheetLegend.marked}}"
+        subtitle="{{answerSheetSubtitle}}"
+        moduleName="{{answerSheetModuleName}}"
+        moduleCounts="{{answerSheetModuleCounts}}"
+        insightAvailable="{{true}}"
+        hint="点题号即可直接切换，存疑题会优先复盘"
+        submitLabel="确认交卷并查看结果"
+        bindclose="toggleAnswerSheet"
+        bindselect="selectQuestionFromSheet"
+        bindsubmit="submitAttempt"
+      />
 
       <ui-sheet
         visible="{{draftOpen}}"
@@ -459,27 +376,18 @@
     </view>
   </block>
 
-  <ui-sheet
+  <task-tools-panel
     visible="{{toolsOpen}}"
-    title="设置与帮助"
-    copy="草稿会自动保存"
-    show-close
-    level="overlay"
-    max-height="86vh"
+    preferences="{{displayPreferences}}"
+    disputeAvailable="{{toolPolicy.dispute_report}}"
+    helpAvailable="{{toolPolicy.operation_help}}"
     bindclose="closeTaskOverlay"
-  >
-    <view class="task-tool-grid">
-      <button hover-class="item--hover" wx:if="{{toolPolicy.dispute_report}}" class="control-center task-tool-item" bindtap="openDispute">题目争议</button>
-      <button hover-class="item--hover" wx:if="{{toolPolicy.operation_help}}" class="control-center task-tool-item" bindtap="openTaskHelp">操作/故障帮助</button>
-      <button hover-class="item--hover" class="control-center task-tool-item {{displayPreferences.colorMode === 'eye_care' ? 'task-tool-item--active' : ''}}" bindtap="toggleDisplayEyeCare">护眼模式</button>
-    </view>
-    <view class="display-tool-row">
-      <button hover-class="item--hover" class="display-tool-button" bindtap="decreaseDisplayFont">A−</button>
-      <view>字号 {{displayPreferences.fontScale * 100}}%</view>
-      <button hover-class="item--hover" class="display-tool-button" bindtap="increaseDisplayFont">A＋</button>
-    </view>
-    <view class="locked-tools">公式卡、完整解析和解题 AI 在提交前不可用；国考模式不提供计算器。</view>
-  </ui-sheet>
+    binddispute="openDispute"
+    bindhelp="openTaskHelp"
+    bindtoggleeyecare="toggleDisplayEyeCare"
+    binddecreasefont="decreaseDisplayFont"
+    bindincreasefont="increaseDisplayFont"
+  />
 
   <ui-sheet
     visible="{{helpOpen}}"

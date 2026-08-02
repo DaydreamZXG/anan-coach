@@ -469,6 +469,30 @@ export type AccountSessionView = {
 };
 
 /**
+ * AnnotationAnchor
+ *
+ * 契约增量 v2：批注锚定到具体文字段。
+ *
+ * block_id 与 SafeQuestionBundle 的 RichParagraphBlock.blockId 同源（由 scope+序号
+ * 确定性生成，随 contentVersionId 冻结），segment_index 是该块内句段序号，
+ * segment_text 是用户标记的实际原文。AI 据此理解"标记了哪句"。
+ */
+export type AnnotationAnchor = {
+    /**
+     * Blockid
+     */
+    blockId: string;
+    /**
+     * Segmentindex
+     */
+    segmentIndex: number;
+    /**
+     * Segmenttext
+     */
+    segmentText: string;
+};
+
+/**
  * AnnotationPoint
  *
  * 题面批注坐标，归一化到批注层宽高（0..1）。
@@ -499,16 +523,10 @@ export type AnnotationPoint = {
  *
  * 契约增量 v1：橡皮/套索不再物理删除笔画，改为写 erasedAtMs 墓碑；
  * 渲染与回放过滤墓碑笔画。120 笔/题上限含墓碑。
+ * 契约增量 v2：anchor 可选，锚定到具体文字段；旧笔迹缺省为普通涂画。
  */
 export type AnnotationStroke = {
-    /**
-     * 契约增量 v2：锚定到具体文字段（可选，旧笔迹缺省为普通涂画）。
-     */
-    anchor?: {
-        blockId: string;
-        segmentIndex: number;
-        segmentText: string;
-    } | null;
+    anchor?: AnnotationAnchor | null;
     /**
      * Atms
      */
@@ -6403,11 +6421,38 @@ export type ImportAiAnswer = {
 };
 
 /**
+ * ImportMatchedContent
+ */
+export type ImportMatchedContent = {
+    /**
+     * Contentversionid
+     */
+    contentVersionId: string;
+    /**
+     * Materialtexts
+     */
+    materialTexts: Array<string>;
+    /**
+     * Optiontexts
+     */
+    optionTexts: Array<string>;
+    /**
+     * Prompttext
+     */
+    promptText: string;
+    /**
+     * Solutionexplanation
+     */
+    solutionExplanation: string | null;
+};
+
+/**
  * ImportQuestionUnit
  */
 export type ImportQuestionUnit = {
     aiAnswer: ImportAiAnswer | null;
     match: ContentMatchVersion | null;
+    matchedContent: ImportMatchedContent | null;
     /**
      * Ordinal
      */
@@ -14411,6 +14456,10 @@ export type RecognitionCandidatePayload = {
      */
     textSpans?: Array<TextSpan>;
     /**
+     * Visualfeaturehashes
+     */
+    visualFeatureHashes?: Array<VisualFeatureHash>;
+    /**
      * Visualfingerprints
      */
     visualFingerprints?: Array<string>;
@@ -14562,7 +14611,7 @@ export type ReflectionCommand = {
     /**
      * Tags
      */
-    tags: Array<string>;
+    tags?: Array<string>;
     /**
      * Voiceartifactversionids
      */
@@ -17719,6 +17768,30 @@ export type VirtualPaymentOrderCreateRequest = {
      * Paymentlogincode
      */
     paymentLoginCode: string;
+};
+
+/**
+ * VisualFeatureHash
+ *
+ * Transform-tolerant hashes for one source image.
+ */
+export type VisualFeatureHash = {
+    /**
+     * Ahash
+     */
+    ahash: string;
+    /**
+     * Dhash
+     */
+    dhash: string;
+    /**
+     * Edgedhash
+     */
+    edgeDhash: string;
+    /**
+     * Phash
+     */
+    phash: string;
 };
 
 /**

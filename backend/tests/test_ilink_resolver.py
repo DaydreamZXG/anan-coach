@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import base64
+import json
 from typing import cast
 from uuid import UUID
 
@@ -59,3 +60,51 @@ def test_answer_models_are_lazy_and_unapproved_models_abstain() -> None:
     assert result.answer_kind == "ambiguous"
     assert result.answer_text == "这道题暂时没有可核验的答案"
     assert result.model_provenance is None
+
+
+def test_ilink_recognition_accepts_the_shared_mineru_adapter() -> None:
+    route = "photo-query-approved-v1"
+    release = "mineru-staging-20260802"
+    approval = {
+        "policyVersion": "mineru-policy-v1",
+        "route": route,
+        "provider": "mineru",
+        "providerRelease": release,
+        "modelRelease": "mineru-vlm",
+        "promptVersion": "mineru-exam-segmentation-v1",
+        "priceVersion": "mineru-community-v1",
+        "billingUnit": "page",
+        "unitPriceCny": "0",
+        "approvedKinds": ["exam_segmentation"],
+        "approvedMimeTypes": ["image/jpeg", "image/png"],
+        "dataRegion": "operator_selected_external",
+        "dpaEvidenceRef": "operator-approved-mineru-staging",
+        "securityReviewRef": "mineru-staging-review",
+        "approvalReceiptRef": "mineru-staging-20260802",
+        "validFrom": "2026-08-01T00:00:00Z",
+        "validUntil": "2027-08-01T00:00:00Z",
+    }
+    processor = QueryRecognitionProcessor(
+        core=Settings(
+            recognition_processor_enabled=True,
+            recognition_processor_endpoint="https://ocr.eo.mk/api/v1",
+            recognition_processor_token="mineru-test-token",
+            recognition_processor_release_id=release,
+            recognition_processor_adapter="mineru_ocr",
+            recognition_processor_model="mineru-vlm",
+            recognition_processor_actual_model="mineru-vlm",
+            recognition_processor_max_input_bytes=10 * 1024 * 1024,
+            recognition_processor_max_output_bytes=4 * 1024 * 1024,
+            recognition_processor_max_pages=1,
+            recognition_processor_https_host_allowlist="ocr.eo.mk",
+            recognition_processor_approvals_json=json.dumps([approval]),
+            tos_access_key="test-access-key",
+            tos_secret_key="test-secret-key",
+            tos_endpoint="https://tos-cn-guangzhou.ivolces.com",
+            tos_region="cn-guangzhou",
+            tos_bucket="test-private-bucket",
+        ),
+        channel=_channel_settings(),
+    )
+
+    assert processor.provider_release == release

@@ -191,7 +191,8 @@ class ItemInterpretation(XingceModel):
 class ReflectionCommand(XingceModel):
     expected_revision: int = Field(alias="expectedRevision", ge=1)
     raw_text: str = Field(alias="rawText", max_length=4_000)
-    tags: list[str] = Field(min_length=1, max_length=12)
+    # 用户标签是对已采集作答证据的可选补充，不是启动 AI 归因的门禁。
+    tags: list[str] = Field(default_factory=list, max_length=12)
     strategy_note: str | None = Field(default=None, alias="strategyNote", max_length=2_000)
     doubt_note: str | None = Field(default=None, alias="doubtNote", max_length=2_000)
     voice_artifact_version_ids: list[UUID] = Field(

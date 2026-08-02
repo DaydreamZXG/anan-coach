@@ -12,6 +12,78 @@ afterEach(() => {
 });
 
 describe("capture import controller", () => {
+  it("prefers the confirmed catalog question over OCR segments", async () => {
+    const getImport = vi.fn(() =>
+      Promise.resolve(
+        importWorkspace({
+          state: "ready",
+          recognition: recognition({ state: "confirmed", confirmedAt: "2026-07-15T02:00:00Z" }),
+          recognitionSegments: [
+            {
+              segmentId: "prompt",
+              pageNo: 1,
+              ordinal: 1,
+              text: "题干",
+              confidence: 0.9,
+              state: "confirmed",
+              requiresCorrection: false,
+            },
+            {
+              segmentId: "options",
+              pageNo: 1,
+              ordinal: 2,
+              text: "A 选项一\nB 选项二",
+              confidence: 0.9,
+              state: "confirmed",
+              requiresCorrection: false,
+            },
+            {
+              segmentId: "material",
+              pageNo: 1,
+              ordinal: 3,
+              text: "材料",
+              confidence: 0.9,
+              state: "confirmed",
+              requiresCorrection: false,
+            },
+          ],
+          questionUnits: [
+            questionUnit({
+              state: "ready",
+              segmentIds: ["material", "prompt", "options"],
+              matchedContent: {
+                contentVersionId: "content-version-1",
+                promptText: "题库完整题干",
+                optionTexts: ["A、题库选项一", "B、题库选项二"],
+                materialTexts: ["题库材料"],
+                solutionExplanation: "题库解析",
+              },
+            }),
+          ],
+          diagnosticEligibility: "eligible_confirmed",
+        }),
+      ),
+    );
+    const controller = new CaptureImportController({
+      gateway: gateway({ getImport }),
+      onChange: vi.fn(),
+    });
+
+    await controller.load("import-1");
+
+    expect(controller.snapshot().solutionSegments.map((segment) => segment.segmentId)).toEqual([
+      "material",
+      "prompt",
+      "options",
+    ]);
+    expect(controller.snapshot().activeQuestionUnit?.matchedContent?.promptText).toBe(
+      "题库完整题干",
+    );
+    expect(controller.snapshot().activeQuestionUnit?.matchedContent?.solutionExplanation).toBe(
+      "题库解析",
+    );
+  });
+
   it("rejects oversized images before upload", async () => {
     const api = gateway();
     const beginImport = vi.spyOn(api, "beginImport");
@@ -114,10 +186,11 @@ describe("capture import controller", () => {
         }),
       ),
     );
+    const createCommandKey = vi.fn((prefix: string) => Promise.resolve(`${prefix}-key`));
     const controller = new CaptureImportController({
       gateway: gateway({ reviseRecognition, confirmRecognition, confirmMatch }),
       onChange: vi.fn(),
-      createCommandKey: (prefix) => Promise.resolve(`${prefix}-key`),
+      createCommandKey,
     });
 
     await controller.startImport(image());
@@ -130,11 +203,11 @@ describe("capture import controller", () => {
         expectedRevisionNo: 1,
         segments: [{ segmentId: "segment-1", text: "修正后的题目文本" }],
       }),
-      "external-ocr-revision-key",
+      "external-confirm-key:revision",
     );
     expect(confirmRecognition).toHaveBeenCalledWith(
       expect.objectContaining({ recognitionRevisionId: "recognition-2", expectedRevisionNo: 2 }),
-      "external-ocr-confirm-key",
+      "external-confirm-key:recognition",
     );
     expect(confirmMatch).not.toHaveBeenCalled();
     expect(controller.snapshot()).toMatchObject({
@@ -147,8 +220,11 @@ describe("capture import controller", () => {
 
     expect(confirmMatch).toHaveBeenCalledWith(
       expect.objectContaining({ confirmedContentVersionId: "content-version-1" }),
-      "external-match-confirm-key",
+      "external-confirm-key:match",
     );
+    expect(
+      createCommandKey.mock.calls.filter(([prefix]) => prefix === "external-confirm"),
+    ).toHaveLength(1);
     expect(controller.snapshot()).toMatchObject({
       status: "success",
       workspace: {

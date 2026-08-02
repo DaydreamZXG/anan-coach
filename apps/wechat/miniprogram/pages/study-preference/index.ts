@@ -127,12 +127,13 @@ function mountController(page: StudyPreferencePage): void {
     },
     onSaved: () => {
       if (!runtimes.owns(page, runtime)) return;
-      void wx.showToast({ title: "学习时间已更新", icon: "success" });
+      void wx.showToast({ title: "已更新，正在重排", icon: "success" });
       setTimeout(() => {
         if (!runtimes.owns(page, runtime)) return;
-        wx.navigateBack({
+        wx.switchTab({
+          url: routes.today,
           fail: () => {
-            void wx.switchTab({ url: routes.me });
+            void wx.navigateBack({ delta: 1 });
           },
         });
       }, 700);

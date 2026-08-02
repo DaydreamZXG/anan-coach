@@ -256,6 +256,33 @@ class MatchingService:
             outputSha256=sha256(content.reference_answer.encode("utf-8")).hexdigest(),
         )
 
+    def matched_content(
+        self,
+        *,
+        owner_user_id: UUID,
+        recognition: RecognitionRevision,
+        match: ContentMatchVersion,
+    ) -> IndexedContent:
+        """Return the confirmed catalog snapshot instead of OCR-derived display text."""
+
+        self._require_confirmed_lineage(owner_user_id, recognition, match)
+        assert match.confirmed_content_version_id is not None
+        content = self._catalog.get(
+            content_version_id=match.confirmed_content_version_id
+        )
+        if content is None:
+            raise MatchNotFound("confirmed content version no longer exists")
+        decision = self._authorization.authorize(
+            owner_user_id=owner_user_id,
+            content=content,
+            purpose=_match_purpose(content),
+        )
+        if not decision.allowed:
+            raise MatchingAuthorizationError(
+                "confirmed content is no longer authorized for display"
+            )
+        return content
+
     def ai_answer_candidate(
         self,
         *,
@@ -379,20 +406,28 @@ class MatchingService:
             candidate_text = _content_text(content)
             text_score = text_similarity(query_text, candidate_text)
             visual_score = visual_similarity(
-                query.visual_fingerprints, content.visual_fingerprints
+                query.visual_feature_hashes, content.visual_feature_hashes
+            )
+            has_text_pair = bool(
+                normalize_text(query_text) and normalize_text(candidate_text)
             )
             has_visual_pair = bool(
-                query.visual_fingerprints and content.visual_fingerprints
+                query.visual_feature_hashes and content.visual_feature_hashes
             )
-            score = (
-                (text_score * self._policy.text_weight)
-                + (visual_score * self._policy.visual_weight)
-                if has_visual_pair
-                else text_score
-            )
+            if has_text_pair and has_visual_pair:
+                score = (
+                    (text_score * self._policy.text_weight)
+                    + (visual_score * self._policy.visual_weight)
+                )
+            elif has_visual_pair:
+                score = visual_score
+            else:
+                score = text_score
             score = round(score, 12)
-            exact = text_score == self._policy.exact_text_threshold and (
-                not has_visual_pair or visual_score == 1
+            exact = (
+                has_text_pair
+                and text_score == self._policy.exact_text_threshold
+                and (not has_visual_pair or visual_score == 1)
             )
             if not exact and score < self._policy.similar_threshold:
                 continue
@@ -440,7 +475,7 @@ class MatchingService:
 
     def _complete(self, query: MatchQuery) -> bool:
         if query.track != LearningTrack.ESSAY:
-            return bool(normalize_text(query.prompt_text))
+            return bool(normalize_text(query.prompt_text) or query.visual_feature_hashes)
         if len(normalize_text(query.prompt_text)) < self._policy.essay_min_prompt_chars:
             return False
         return not self._policy.essay_require_material or bool(

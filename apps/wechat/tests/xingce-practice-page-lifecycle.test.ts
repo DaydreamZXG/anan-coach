@@ -13,6 +13,8 @@ import {
 } from "./work_packages/vj-02-real-xingce-wechat/harness";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import practiceTemplate from "../miniprogram/pages/practice/index.wxml?raw";
+// @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
+import questionToolbarTemplate from "../miniprogram/task-runtime/question-toolbar/index.wxml?raw";
 
 afterEach(() => {
   vi.useRealTimers();
@@ -143,13 +145,14 @@ describe("xingce practice page lifecycle", () => {
     vi.useFakeTimers();
     const runtime = await createPracticePage();
 
-    expect(practiceTemplate).toContain('class="question-tool question-tool--draft"');
-    expect(practiceTemplate).toContain('src="/assets/icons/task/draft.svg"');
-    expect(practiceTemplate).toContain('aria-label="打开草稿"');
-    expect(practiceTemplate).toContain('bindtap="openAnnotation"');
-    expect(practiceTemplate).not.toContain('class="question-tool question-tool--more"');
-    expect(practiceTemplate).toContain("'已存疑' : '存疑'");
-    expect(practiceTemplate).not.toContain("'已标记' : '标记'");
+    expect(practiceTemplate).toContain("<question-toolbar");
+    expect(practiceTemplate).toContain('binddraft="openAnnotation"');
+    expect(questionToolbarTemplate).toContain('class="question-tool question-tool--draft"');
+    expect(questionToolbarTemplate).toContain('src="/assets/icons/task/draft.svg"');
+    expect(questionToolbarTemplate).toContain('aria-label="打开草稿"');
+    expect(questionToolbarTemplate).not.toContain('class="question-tool question-tool--more"');
+    expect(questionToolbarTemplate).toContain("'已存疑' : '存疑'");
+    expect(questionToolbarTemplate).not.toContain("'已标记' : '标记'");
 
     Object.assign(runtime.page.data, {
       toolsOpen: true,
@@ -165,7 +168,13 @@ describe("xingce practice page lifecycle", () => {
     expect(runtime.page.data.draftOpen).toBe(false);
     expect(runtime.page.data.answerSheetOpen).toBe(false);
     expect(runtime.page.data.ananContextOpen).toBe(false);
-    expect(runtime.page.data.selection).toEqual({ key: "", text: "", toolbarTop: 0 });
+    expect(runtime.page.data.selection).toEqual({
+      key: "",
+      text: "",
+      toolbarTop: 0,
+      hasCancel: false,
+      anchorRect: null,
+    });
     runtime.page.onUnload.call(runtime.page);
   });
 
@@ -183,7 +192,13 @@ describe("xingce practice page lifecycle", () => {
     expect(runtime.page.data.toolsOpen).toBe(true);
     expect(runtime.page.data.annotationOpen).toBe(false);
     expect(runtime.page.data.ananContextOpen).toBe(false);
-    expect(runtime.page.data.selection).toEqual({ key: "", text: "", toolbarTop: 0 });
+    expect(runtime.page.data.selection).toEqual({
+      key: "",
+      text: "",
+      toolbarTop: 0,
+      hasCancel: false,
+      anchorRect: null,
+    });
     runtime.page.onUnload.call(runtime.page);
   });
 });
@@ -478,7 +493,13 @@ describe("xingce practice swipe question navigation", () => {
     swipe(runtime.page, { fromX: 300, toX: 140, y: 400 });
 
     expect(currentOf(runtime.page)).toBe(2);
-    expect(runtime.page.data.selection).toEqual({ key: "", text: "", toolbarTop: 0 });
+    expect(runtime.page.data.selection).toEqual({
+      key: "",
+      text: "",
+      toolbarTop: 0,
+      hasCancel: false,
+      anchorRect: null,
+    });
     runtime.page.onUnload.call(runtime.page);
   });
 
@@ -624,6 +645,8 @@ async function createPracticePage(
     ...captured,
     data: JSON.parse(JSON.stringify(captured.data)) as Record<string, unknown>,
     setData,
+    createSelectorQuery: selectorQuery,
+    selectComponent: vi.fn(() => undefined),
   };
   page.onLoad.call(page, { mode, planTaskId: xingceIds.planTask });
   page.onShow.call(page);
@@ -654,6 +677,20 @@ interface CapturedPracticePage {
 interface TestPracticePage extends CapturedPracticePage {
   data: Record<string, unknown>;
   setData(patch: Record<string, unknown>): void;
+  createSelectorQuery(): ReturnType<typeof selectorQuery>;
+  selectComponent(selector: string): unknown;
+}
+
+function selectorQuery() {
+  const query = {
+    select: vi.fn(() => query),
+    fields: vi.fn(() => query),
+    boundingClientRect: vi.fn(() => query),
+    exec: vi.fn((callback: (results: Array<Record<string, number>>) => void) => {
+      callback([{ top: 0, bottom: 640, width: 390, height: 640, scrollHeight: 1200 }]);
+    }),
+  };
+  return query;
 }
 
 function isFavoriteRequest(

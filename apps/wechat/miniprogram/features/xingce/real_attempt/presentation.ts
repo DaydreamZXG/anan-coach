@@ -20,6 +20,7 @@ import type {
   TaskRuntimeState,
 } from "../../../task-runtime/contracts";
 import type { RichContentBlock } from "../../../task-runtime/content-renderer/model";
+import { stripOptionContentPrefix } from "../../../task-runtime/option-presentation";
 import { assertFactoredXingceResult, isFactoredXingceResult } from "./contracts";
 
 export interface XingceOptionView {
@@ -367,8 +368,8 @@ export function presentXingceCauseCandidate(
       description: "已记下你的原话，错因归类好了会通知你。",
     },
     candidate_ready: {
-      label: "岸岸给出了一个待确认错因",
-      description: "这只是候选，确认、否定、替换或稍后处理都由你决定。",
+      label: "岸岸已形成本次判断",
+      description: "可以直接按这个判断继续；如果不符合你当时的真实想法，再否定或改写。",
     },
     followup_required: {
       label: "岸岸还需要一条信息",
@@ -413,7 +414,7 @@ export function presentXingceCauseCandidate(
     stateLabel: copy.label,
     stateDescription: copy.description,
     candidateVersionId,
-    candidateVersionLabel: candidateVersionId ? "本次待确认判断" : "当前没有可确认的判断",
+    candidateVersionLabel: candidateVersionId ? "本次岸岸判断" : "当前没有可用判断",
     causeCode: candidate.causeCode ?? "",
     summary: candidate.summary ?? "",
     improvement: candidate.improvement ?? "",
@@ -582,6 +583,7 @@ function presentQuestion(
           option.text,
           `${question.questionId}-option-${option.optionId}`,
         ),
+        option.label,
       ),
       selected: selected.has(option.optionId),
       eliminated: eliminated.has(option.optionId),
@@ -627,26 +629,6 @@ function normalizeRichContent(
   if (Array.isArray(blocks) && blocks.length > 0) return blocks as RichContentBlock[];
   const text = plainText?.trim();
   return text ? [{ type: "paragraph", blockId, text }] : [];
-}
-
-/**
- * 选项内容展示时剥离题库自带的 "A、" / "B、" 前缀——前端已单独渲染 label，
- * 文本里的前缀会造成视觉重复（"A" + "A、紫杉醇…"）。只剥开头一个选项字母，
- * 不影响正文里出现的类似文本。
- */
-const OPTION_LABEL_PREFIX = /^[A-H]\s*[、.．:：]\s*/;
-
-function stripOptionLabelPrefix(text: string): string {
-  return text.replace(OPTION_LABEL_PREFIX, "");
-}
-
-/** 把选项 content 块的前缀剥掉（只改展示，不动原始数据）。 */
-function stripOptionContentPrefix(blocks: RichContentBlock[]): RichContentBlock[] {
-  return blocks.map((block) =>
-    block.type === "paragraph" && block.text
-      ? { ...block, text: stripOptionLabelPrefix(block.text) }
-      : block,
-  );
 }
 
 function presentResultItem(

@@ -98,6 +98,28 @@ def test_approval_records_operator_accepted_external_processing_truthfully() -> 
     assert parsed.provider_retention_seconds is None
 
 
+def test_legacy_staging_approval_uses_nonreplayable_mvp_defaults() -> None:
+    approval = json.loads(_modal_approval())[0]
+    for field in (
+        "providerIdempotencyCapability",
+        "providerIdempotencyScope",
+        "providerIdempotencyKeyHeader",
+        "providerRequestIdSource",
+        "providerReplayRetentionSeconds",
+        "providerIdempotencyEvidenceRef",
+    ):
+        approval.pop(field)
+
+    parsed = ProcessorApproval.model_validate(approval)
+
+    assert parsed.provider_idempotency_capability == "nonreplayable_audited"
+    assert parsed.provider_idempotency_scope == "endpoint"
+    assert parsed.provider_idempotency_key_header == "Idempotency-Key"
+    assert parsed.provider_request_id_source == "X-Request-ID"
+    assert parsed.provider_replay_retention_seconds == 0
+    assert parsed.provider_idempotency_evidence_ref == "mvp-runtime-default@v1"
+
+
 def test_runtime_constructs_release_pinned_modal_processor() -> None:
     service = build_recognition_service(
         session=None,  # type: ignore[arg-type]

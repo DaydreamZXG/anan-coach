@@ -24,6 +24,87 @@ describe("today dual-track planning", () => {
       ["essay", 20],
     ]);
     expect(view.planSectionTitle).toBe("今日双轨任务");
+    expect(view.trackViews).toEqual([
+      expect.objectContaining({
+        track: "xingce",
+        summary: "2 项待完成 · 25 分钟",
+        actionLabel: "开始",
+      }),
+      expect.objectContaining({
+        track: "essay",
+        summary: "1 项待完成 · 20 分钟",
+        actionLabel: "开始",
+      }),
+    ]);
+  });
+
+  it("turns an empty recovery day into an honest rest state while preserving both tracks", () => {
+    const view = presentTodayDashboard({
+      ...prototypeToday,
+      dayMode: "recovery",
+      isRecoveryDay: true,
+      tasks: [],
+      dueReflectionCount: 0,
+      dueVerificationCount: 0,
+      dualTrackExplanation: {
+        ...prototypeToday.dualTrackExplanation,
+        mode: "recovery_day",
+        allocations: [],
+        omittedTrackReasons: {
+          xingce: "恢复日不追加行测训练。",
+          essay: "恢复日不追加申论训练。",
+        },
+      },
+    });
+
+    expect(view).toMatchObject({
+      dayState: "recovery",
+      hasTasks: false,
+      hasExecutionActivity: false,
+      emptyStateTitle: "今天没有必做任务",
+      dueSummary: "目前没有到期复盘或验证",
+    });
+    expect(view.emptyStateCopy).toContain("不代表必须排满");
+    expect(view.trackViews.map((item) => [item.track, item.summary, item.actionLabel])).toEqual([
+      ["xingce", "恢复日不安排新任务", "查看复测"],
+      ["essay", "恢复日不安排新任务", "调整安排"],
+    ]);
+  });
+
+  it("presents a confirmed zero-minute day as intentional rest instead of unavailable work", () => {
+    const view = presentTodayDashboard({
+      ...prototypeToday,
+      dayMode: "recovery",
+      isRecoveryDay: true,
+      capacity: {
+        ...prototypeToday.capacity,
+        availableMinutes: 0,
+        confirmed: true,
+      },
+      tasks: [],
+      rationale: "恢复日只处理到期闭环，未完成任务不会累积成明日债务。",
+    });
+
+    expect(view).toMatchObject({
+      dayState: "recovery",
+      emptyStateTitle: "今天已经设为休息",
+      isRecoveryDay: true,
+    });
+    expect(view.emptyStateCopy).toContain("不安排学习任务");
+    expect(view.emptyStateCopy).not.toContain("今天有 今天不安排");
+  });
+
+  it("promotes settlement only after learning activity exists", () => {
+    const view = presentTodayDashboard({
+      ...prototypeToday,
+      tasks: prototypeToday.tasks.map((task) => ({ ...task, status: "complete" as const })),
+    });
+
+    expect(view.dayState).toBe("complete");
+    expect(view.hasTasks).toBe(false);
+    expect(view.hasExecutionActivity).toBe(true);
+    expect(view.completedTasks).toHaveLength(3);
+    expect(view.emptyStateTitle).toBe("今天的任务已经完成");
   });
 
   it("makes every assignment traceable to evidence and an explicit priority score", () => {

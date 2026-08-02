@@ -1,0 +1,61 @@
+@import "../../design-system/primitives/interaction.wxss";
+
+.task-tool-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(16 * var(--rpx));
+  margin-top: calc(28 * var(--rpx));
+}
+
+.task-tool-item,
+.display-tool-button {
+  margin: 0;
+  border: calc(1 * var(--rpx)) solid var(--color-line);
+  color: var(--color-ink-secondary);
+  background: var(--color-surface-soft);
+}
+
+.task-tool-item {
+  min-height: calc(92 * var(--rpx));
+  border-radius: var(--radius-compact);
+  font-size: var(--text-caption);
+  font-weight: 700;
+}
+
+.task-tool-item--active {
+  border-color: var(--color-primary);
+  color: var(--color-primary-deep);
+  background: var(--color-primary-soft);
+}
+
+.task-tool-item--submit {
+  color: var(--color-danger);
+}
+
+.display-tool-row {
+  display: grid;
+  grid-template-columns: calc(88 * var(--rpx)) 1fr calc(88 * var(--rpx));
+  align-items: center;
+  gap: calc(12 * var(--rpx));
+  margin-top: calc(20 * var(--rpx));
+  color: var(--color-muted);
+  font-family: var(--font-family-data);
+  font-size: var(--text-micro);
+  text-align: center;
+}
+
+.display-tool-button {
+  min-height: calc(64 * var(--rpx));
+  border-radius: var(--radius-12);
+  line-height: calc(64 * var(--rpx));
+}
+
+.locked-tools {
+  margin-top: calc(20 * var(--rpx));
+  padding: calc(20 * var(--rpx));
+  border-radius: var(--radius-16);
+  color: var(--color-ink-secondary);
+  background: var(--color-primary-soft);
+  font-size: var(--text-micro);
+  line-height: 1.6;
+}

@@ -45,10 +45,9 @@
   color: var(--good);
 }
 
-.bot-qr-card {
+.bot-code-card {
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin-bottom: calc(20 * var(--rpx));
   padding: calc(28 * var(--rpx));
   border: calc(1 * var(--rpx)) solid var(--line);
@@ -56,27 +55,35 @@
   background: var(--color-surface);
 }
 
-.bot-qr-image {
-  width: calc(360 * var(--rpx));
-  height: calc(360 * var(--rpx));
-  border-radius: var(--radius-24);
-}
-
-.bot-qr-title {
-  margin-top: calc(20 * var(--rpx));
+.bot-code-label {
   color: var(--ink);
   font-size: var(--text-body-lg);
   font-weight: 700;
   text-align: center;
 }
 
-.bot-qr-copy {
+.bot-code-copy,
+.bot-evidence {
   margin-top: calc(12 * var(--rpx));
   color: var(--ink-2);
   font-size: var(--text-caption);
   font-weight: 500;
   line-height: 1.55;
   text-align: center;
+}
+
+.bot-code {
+  margin-top: calc(20 * var(--rpx));
+  color: var(--ink);
+  font-size: calc(42 * var(--rpx));
+  font-weight: 800;
+  letter-spacing: calc(4 * var(--rpx));
+  text-align: center;
+}
+
+.bot-evidence {
+  color: var(--ink-3);
+  text-align: left;
 }
 
 .bot-primary,
@@ -115,11 +122,4 @@
 .bot-secondary::after,
 .bot-danger::after {
   border: 0;
-}
-
-@media (min-width: 768px) {
-  .bot-qr-image {
-    width: 300px;
-    height: 300px;
-  }
 }

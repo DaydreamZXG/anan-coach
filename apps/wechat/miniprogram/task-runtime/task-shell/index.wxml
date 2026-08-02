@@ -69,6 +69,13 @@
       </button>
 
       <view wx:else class="task-timer-control task-timer-control--read-only" aria-label="计时 {{elapsedLabel}}，{{syncLabel}}">
+        <image
+          wx:if="{{layoutVariant === 'xingce'}}"
+          class="task-asset-icon task-asset-icon--clock"
+          src="/assets/icons/task/clock.svg"
+          mode="aspectFit"
+          aria-hidden="true"
+        />
         <text class="task-timer">{{elapsedLabel}}</text>
         <view class="task-sync-dot task-sync-dot--{{syncTone}}" aria-hidden="true"></view>
       </view>

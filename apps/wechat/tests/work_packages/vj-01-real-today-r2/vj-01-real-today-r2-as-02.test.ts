@@ -32,7 +32,7 @@ describe("VJ-01 real Today R2 AS-02", () => {
     page.onLoad.call(page);
     page.onShow.call(page);
     expect(requests).toHaveLength(1);
-    expect(requests[0]?.url).toBe("https://kg.xingguoxian.cn/api/v2/onboarding/progress");
+    expect(requests[0]?.url).toBe("https://kg.xingguoxian.cn/staging/api/v2/onboarding/progress");
     requests[0]?.success?.(success(incompleteProgress("qualification")));
     await flushPromises();
 

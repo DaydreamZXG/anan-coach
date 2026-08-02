@@ -1,4 +1,5 @@
 import { sha256Hex } from "../../api/sha256";
+import { normalizeArrayBuffer } from "../../platform/binary-data";
 import { persistUserDataFile } from "../../platform/persistent-file";
 import type { InspectedVoiceFile } from "./contracts";
 
@@ -121,7 +122,8 @@ export async function inspectVoiceFile(localPath: string): Promise<InspectedVoic
     fileSystem.readFile({
       filePath: localPath,
       success: (result) => {
-        if (result.data instanceof ArrayBuffer) resolve(result.data);
+        const normalized = normalizeArrayBuffer(result.data);
+        if (normalized) resolve(normalized);
         else reject(new Error("本地录音返回了非二进制内容。"));
       },
       fail: () => {

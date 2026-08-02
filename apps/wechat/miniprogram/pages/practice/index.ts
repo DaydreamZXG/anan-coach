@@ -237,6 +237,7 @@ interface PracticePageCustom {
   toggleDraft(): void;
   toggleTaskPause(): void;
   selectQuestion(event: WechatMiniprogram.BaseEvent): void;
+  selectQuestionFromSheet(event: WechatMiniprogram.CustomEvent<{ index: number }>): void;
   selectOption(event: WechatMiniprogram.BaseEvent): void;
   toggleEliminated(event: WechatMiniprogram.BaseEvent): void;
   selectConfidence(event: WechatMiniprogram.BaseEvent): void;
@@ -706,27 +707,25 @@ Page<PracticePageData, PracticePageCustom>({
     // 记录选区当前的视口矩形，滚动时据此跟随句子。
     const query = this.createSelectorQuery();
     query.select(`#segment-${key}`).boundingClientRect();
-    query.exec(
-      (
-        results: Array<{ top?: number; bottom?: number } | null>,
-      ) => {
-        if (this.data.selection.key !== key) return;
-        this.setData({
-          selection: {
-            key,
-            text,
-            toolbarTop,
-            hasCancel: true,
-            anchorRect: results[0] ?? null,
-          },
-        });
-      },
-    );
+    query.exec((results: Array<{ top?: number; bottom?: number } | null>) => {
+      if (this.data.selection.key !== key) return;
+      this.setData({
+        selection: {
+          key,
+          text,
+          toolbarTop,
+          hasCancel: true,
+          anchorRect: results[0] ?? null,
+        },
+      });
+    });
   },
 
   /** 画词工具条：关闭选择、去掉高亮与工具条。 */
   clearSelection() {
-    this.setData({ selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null } });
+    this.setData({
+      selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
+    });
   },
 
   /** 画词工具条：点空白处关闭（同样的收起语义）。 */
@@ -1110,20 +1109,12 @@ Page<PracticePageData, PracticePageCustom>({
   },
 
   selectQuestion(event) {
-    const runtime = runtimes.get(this);
     const index = Number(event.currentTarget.dataset.index ?? -1);
-    if (!runtime?.task || this.data.interactionLocked) return;
-    const previousIndex = runtime.task.currentQuestionIndex;
-    runtime.task = reduceTaskRuntime(runtime.task, { type: "QUESTION_CHANGED", index });
-    this.setData({
-      answerSheetOpen: false,
-      // 切题后题干 DOM 整体替换：退出批注模式，避免旧题句段矩形错配新题。
-      annotationOpen: false,
-      selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
-    });
-    render(this, runtime);
-    if (runtime.task.currentQuestionIndex !== previousIndex) resetQuestionScroll(this);
-    void saveCheckpointIfPossible(this, runtime);
+    selectQuestionAtIndex(this, index);
+  },
+
+  selectQuestionFromSheet(event) {
+    selectQuestionAtIndex(this, event.detail.index);
   },
 
   selectOption(event) {
@@ -1882,17 +1873,13 @@ function measureQuestionContent(
   if (!runtime.task) return;
   const query = page.createSelectorQuery();
   query.select(".practice-question-pane").fields({ size: true, scrollOffset: true });
-  query.exec(
-    (
-      results: Array<{ height?: number; scrollHeight?: number } | null>,
-    ) => {
-      if (!runtimes.owns(page, runtime)) return;
-      const scrollHeight = results[0]?.scrollHeight;
-      if (scrollHeight && Number.isFinite(scrollHeight) && scrollHeight > 0) {
-        page.setData({ questionContentHeight: scrollHeight });
-      }
-    },
-  );
+  query.exec((results: Array<{ height?: number; scrollHeight?: number } | null>) => {
+    if (!runtimes.owns(page, runtime)) return;
+    const scrollHeight = results[0]?.scrollHeight;
+    if (scrollHeight && Number.isFinite(scrollHeight) && scrollHeight > 0) {
+      page.setData({ questionContentHeight: scrollHeight });
+    }
+  });
 }
 
 /**
@@ -1916,6 +1903,21 @@ function swipeNavigationBlocked(page: PracticePageInstance): boolean {
     data.disputeOpen ||
     data.ananContextOpen
   );
+}
+
+function selectQuestionAtIndex(page: PracticePageInstance, index: number): void {
+  const runtime = runtimes.get(page);
+  if (!runtime?.task || page.data.interactionLocked) return;
+  const previousIndex = runtime.task.currentQuestionIndex;
+  runtime.task = reduceTaskRuntime(runtime.task, { type: "QUESTION_CHANGED", index });
+  page.setData({
+    answerSheetOpen: false,
+    annotationOpen: false,
+    selection: { key: "", text: "", toolbarTop: 0, hasCancel: false, anchorRect: null },
+  });
+  render(page, runtime);
+  if (runtime.task.currentQuestionIndex !== previousIndex) resetQuestionScroll(page);
+  void saveCheckpointIfPossible(page, runtime);
 }
 
 function changeQuestion(page: PracticePageInstance, delta: number): void {
@@ -1950,8 +1952,7 @@ function requestSegmentRects(page: PracticePageInstance): void {
   const runtime = runtimes.get(page);
   if (!runtime || !runtime.task) return;
   const renderer = page.selectComponent(".question-stem") as
-    | { measureSegmentRects?: () => void }
-    | undefined;
+    { measureSegmentRects?: () => void } | undefined;
   if (typeof renderer?.measureSegmentRects === "function") {
     renderer.measureSegmentRects();
   }
@@ -1970,30 +1971,26 @@ function refreshSelectionPosition(page: PracticePageInstance): void {
   runtime.lastSelectionPositionAtMs = now;
   const query = page.createSelectorQuery();
   query.select(`#segment-${selection.key}`).boundingClientRect();
-  query.exec(
-    (
-      results: Array<{ top?: number; bottom?: number } | null>,
-    ) => {
-      if (page.data.selection.key !== selection.key) return;
-      const rect = results[0];
-      const anchorRect = selection.anchorRect;
-      if (!rect || !anchorRect) return;
-      const dy = (rect.top ?? 0) - (anchorRect.top ?? 0);
-      if (Math.abs(dy) < 2) return;
-      const windowHeight = wx.getWindowInfo().windowHeight;
-      const preferred = (rect.bottom ?? 0) + 10;
-      const toolbarTop = Math.min(preferred, windowHeight - 180);
-      page.setData({
-        selection: {
-          key: selection.key,
-          text: selection.text,
-          toolbarTop,
-          hasCancel: true,
-          anchorRect: rect,
-        },
-      });
-    },
-  );
+  query.exec((results: Array<{ top?: number; bottom?: number } | null>) => {
+    if (page.data.selection.key !== selection.key) return;
+    const rect = results[0];
+    const anchorRect = selection.anchorRect;
+    if (!rect || !anchorRect) return;
+    const dy = (rect.top ?? 0) - (anchorRect.top ?? 0);
+    if (Math.abs(dy) < 2) return;
+    const windowHeight = wx.getWindowInfo().windowHeight;
+    const preferred = (rect.bottom ?? 0) + 10;
+    const toolbarTop = Math.min(preferred, windowHeight - 180);
+    page.setData({
+      selection: {
+        key: selection.key,
+        text: selection.text,
+        toolbarTop,
+        hasCancel: true,
+        anchorRect: rect,
+      },
+    });
+  });
 }
 
 async function saveCheckpointIfPossible(

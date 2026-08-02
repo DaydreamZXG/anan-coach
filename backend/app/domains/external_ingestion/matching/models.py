@@ -7,6 +7,7 @@ from uuid import UUID
 from pydantic import BaseModel, ConfigDict, Field, StringConstraints, model_validator
 
 from app.contracts.external_learning.models import LearningTrack, Sha256Hex
+from app.domains.external_ingestion.recognition.models import VisualFeatureHash
 
 
 NonBlank = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=500)]
@@ -34,6 +35,9 @@ class IndexedContent(StrictModel):
     visual_fingerprints: tuple[Sha256Hex, ...] = Field(
         default=(), alias="visualFingerprints"
     )
+    visual_feature_hashes: tuple[VisualFeatureHash, ...] = Field(
+        default=(), alias="visualFeatureHashes"
+    )
     reference_answer: str | None = Field(default=None, alias="referenceAnswer", max_length=200_000)
     solution_explanation: str | None = Field(
         default=None, alias="solutionExplanation", max_length=300_000
@@ -59,13 +63,16 @@ class IndexedContent(StrictModel):
 
 class MatchQuery(StrictModel):
     track: LearningTrack
-    prompt_text: Annotated[str, StringConstraints(min_length=1, max_length=200_000)] = Field(
+    prompt_text: Annotated[str, StringConstraints(max_length=200_000)] = Field(
         alias="promptText"
     )
     option_texts: tuple[str, ...] = Field(default=(), alias="optionTexts")
     material_texts: tuple[str, ...] = Field(default=(), alias="materialTexts")
     visual_fingerprints: tuple[Sha256Hex, ...] = Field(
         default=(), alias="visualFingerprints"
+    )
+    visual_feature_hashes: tuple[VisualFeatureHash, ...] = Field(
+        default=(), alias="visualFeatureHashes"
     )
 
 

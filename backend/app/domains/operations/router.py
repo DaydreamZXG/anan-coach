@@ -314,10 +314,18 @@ def ready(session: Annotated[Session, Depends(get_db_session)]) -> dict[str, str
         now=checked_at,
         registrations=JOB_REGISTRY,
     )
-    if _active_unregistered_job_types(session) or _unready_job_types(
+    unready_job_types = _unready_job_types(
         registrations=JOB_REGISTRY,
         health=job_health,
-    ):
+    )
+    if runtime_environment in _LOCAL_READINESS_ENVIRONMENTS:
+        unready_job_types = tuple(
+            job_type
+            for job_type in unready_job_types
+            if job_health[job_type]["queued_count"] > 0
+            or job_health[job_type]["running_count"] > 0
+        )
+    if _active_unregistered_job_types(session) or unready_job_types:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="background job consumers are not ready",

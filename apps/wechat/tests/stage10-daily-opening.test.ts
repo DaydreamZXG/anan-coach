@@ -11,10 +11,21 @@ import {
 
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import todayTemplate from "../miniprogram/pages/today/index.wxml?raw";
+// @ts-expect-error Vite exposes mini-program page logic through its raw asset loader.
+import todayLogicRaw from "../miniprogram/pages/today/index.ts?raw";
 // @ts-expect-error Vite exposes mini-program configuration through its raw asset loader.
 import appConfig from "../miniprogram/app.json?raw";
 
 describe("step 10 daily opening", () => {
+  it("reloads the opening card when the authoritative Today plan version changes", () => {
+    const todayLogic = String(todayLogicRaw);
+
+    expect(todayLogic).toContain(
+      "page.data.openingRaw.planVersionId !== state.dashboard.planVersionId",
+    );
+    expect(todayLogic).toContain('page.data.openingStatus === "idle" || openingPlanChanged');
+  });
+
   it("uses authenticated idempotent endpoints without client provider secrets", async () => {
     const requests: WechatMiniprogram.RequestOption[] = [];
     vi.stubGlobal("wx", {
@@ -186,7 +197,7 @@ describe("today page start action", () => {
       expect.objectContaining({ url: "/pages/practice/index?task=task-1" }),
     );
     expect(page.data.openingCollapsed).toBe(false);
-    expect(page.data.openingError).toBe("navigateTo:fail timeout");
+    expect(page.data.openingError).toBe("学习页面没有打开，请重试。");
 
     navigateTo.mockImplementation((options: WechatMiniprogram.NavigateToOption) => {
       options.success?.({ errMsg: "navigateTo:ok", eventChannel: {} as never });

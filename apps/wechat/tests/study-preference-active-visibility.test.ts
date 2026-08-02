@@ -4,6 +4,8 @@ import { describe, expect, it } from "vitest";
 import templateRaw from "../miniprogram/pages/study-preference/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import stylesRaw from "../miniprogram/pages/study-preference/index.wxss?raw";
+// @ts-expect-error Vite exposes mini-program page logic through its raw asset loader.
+import logicRaw from "../miniprogram/pages/study-preference/index.ts?raw";
 import {
   studyMinutesOptionId,
   studyMinutesScrollTargets,
@@ -11,6 +13,7 @@ import {
 
 const template = String(templateRaw);
 const styles = String(stylesRaw);
+const logic = String(logicRaw);
 
 describe("study-preference active option visibility", () => {
   it.each([30, 150, 720])(
@@ -57,5 +60,14 @@ describe("study-preference active option visibility", () => {
     expect(template).toContain('id="weekend-minutes-{{item.minutes}}"');
     expect(template).toContain("左右滑动查看更多时长");
     expect(styles).toMatch(/\.time-options__hint\s*\{/u);
+  });
+
+  it("explains daily override precedence and returns to Today for an immediate replan read", () => {
+    expect(template).toContain("今天继续以手动时间为准");
+    expect(template).toContain("固定恢复日仍会立即影响今天的任务类型");
+    expect(styles).toMatch(/\.preference-scope-note\s*\{/u);
+    expect(logic).toContain('title: "已更新，正在重排"');
+    expect(logic).toContain("wx.switchTab({");
+    expect(logic).toContain("url: routes.today");
   });
 });

@@ -4,6 +4,7 @@ export const interactionEventKinds = Object.freeze({
   TAP: "tap",
   CONFIRM: "confirm",
   ACTION: "action",
+  TOGGLE_EYE_CARE: "toggleeyecare",
 });
 
 export function assertSelectorBindsHandler({ route, wxml, selector, handler, eventKind = "tap" }) {

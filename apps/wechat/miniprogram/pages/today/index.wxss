@@ -39,6 +39,17 @@
   align-items: center;
 }
 
+.settlement-button--quiet {
+  border-color: var(--line);
+  background: var(--color-surface);
+  box-shadow: none;
+  color: var(--ink);
+}
+
+.settlement-button--quiet .icon--settlement {
+  filter: none;
+}
+
 .today-header {
   align-items: flex-end;
   justify-content: space-between;
@@ -633,15 +644,148 @@
 }
 
 .empty-card__title {
+  margin-top: calc(16 * var(--rpx));
   font-size: var(--text-section);
   font-weight: 700;
 }
 
+.empty-card__mode {
+  display: inline-flex;
+  width: fit-content;
+  padding: calc(4 * var(--rpx)) calc(16 * var(--rpx));
+  border-radius: var(--figma-radius-pill);
+  background: var(--color-surface-soft);
+  color: var(--ink-2);
+  font-size: var(--text-micro);
+  font-weight: 700;
+}
+
 .empty-card__copy {
-  margin: calc(12 * var(--rpx)) 0 calc(28 * var(--rpx));
+  margin-top: calc(12 * var(--rpx));
   color: var(--ink-2);
   font-size: var(--text-body);
   line-height: 1.625;
+}
+
+.empty-card__summary {
+  margin: calc(20 * var(--rpx)) 0 calc(28 * var(--rpx));
+  color: var(--ink-3);
+  font-size: var(--text-caption);
+  font-weight: 600;
+}
+
+.empty-card__actions {
+  display: flex;
+  gap: calc(16 * var(--rpx));
+}
+
+.empty-card__secondary {
+  min-height: calc(80 * var(--rpx));
+  flex: 1;
+  border: calc(1 * var(--rpx)) solid var(--line);
+  border-radius: var(--radius-32);
+  background: var(--color-surface);
+  color: var(--ink);
+  font-size: var(--text-caption);
+  font-weight: 700;
+}
+
+.track-section {
+  margin-top: calc(40 * var(--rpx));
+}
+
+.track-section__head,
+.track-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.track-section__head {
+  gap: calc(16 * var(--rpx));
+  margin: 0 calc(8 * var(--rpx)) calc(24 * var(--rpx));
+}
+
+.track-section__title {
+  color: var(--ink);
+  font-size: var(--text-title-sm);
+  font-weight: 700;
+}
+
+.track-section__note {
+  color: var(--ink-3);
+  font-size: var(--text-micro);
+  font-weight: 500;
+}
+
+.track-grid {
+  display: flex;
+  gap: calc(16 * var(--rpx));
+}
+
+.track-card {
+  width: 0;
+  min-height: calc(268 * var(--rpx));
+  flex: 1;
+  padding: calc(32 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--line);
+  border-radius: var(--radius-40);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  text-align: left;
+}
+
+.track-card__name {
+  color: var(--ink);
+  font-size: var(--text-section);
+  font-weight: 700;
+}
+
+.track-card__status {
+  width: calc(12 * var(--rpx));
+  height: calc(12 * var(--rpx));
+  flex: none;
+  border-radius: 50%;
+  background: var(--line);
+}
+
+.track-card--active .track-card__status {
+  background: var(--primary);
+  box-shadow: 0 0 0 calc(8 * var(--rpx)) var(--primary-soft);
+}
+
+.track-card--complete .track-card__status {
+  background: var(--color-success);
+}
+
+.track-card__summary {
+  margin-top: calc(24 * var(--rpx));
+  color: var(--ink);
+  font-size: var(--text-caption);
+  font-weight: 700;
+}
+
+.track-card__detail {
+  display: -webkit-box;
+  min-height: calc(66 * var(--rpx));
+  margin-top: calc(8 * var(--rpx));
+  overflow: hidden;
+  color: var(--ink-3);
+  font-size: var(--text-micro);
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.track-card__action {
+  margin-top: calc(20 * var(--rpx));
+  color: var(--ink-2);
+  font-size: var(--text-caption);
+  font-weight: 700;
+}
+
+.track-card--active .track-card__action {
+  color: var(--primary);
 }
 
 /* 平板：768 起加左导航轨（单列限宽）；1024 起任务|辅助两列（粉笔式）。 */

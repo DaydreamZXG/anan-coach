@@ -1,37 +1,30 @@
 import { ApiClient, ApiClientError } from "../../api/client";
-import { ILinkChannelApi, type HubBotAuthorizationView } from "../../api/ilink-channel";
+import { ILinkChannelApi, type ILinkChannelView } from "../../api/ilink-channel";
 import { currentAuthSession } from "../../auth/session";
 import { createIdempotencyKey } from "../../platform/command-id";
 
 interface ILinkBotSheetData {
-  view: HubBotAuthorizationView | null;
+  view: ILinkChannelView | null;
   status: "idle" | "loading" | "ready" | "error";
   errorMessage: string;
   requestId: string;
   writing: boolean;
-  polling: boolean;
-  pollGeneration: number;
 }
 
-type ILinkBotSheetProperties = {
-  visible: BooleanConstructor;
-};
+type ILinkBotSheetProperties = { visible: BooleanConstructor };
 
 type ILinkBotSheetMethods = {
   close: () => void;
   load: () => Promise<void>;
-  startAuthorization: () => Promise<void>;
-  replaceAuthorization: () => Promise<void>;
-  pollAuthorization: () => Promise<void>;
+  issue: () => Promise<void>;
+  replace: () => Promise<void>;
+  writeLink: (replacePending: boolean) => Promise<void>;
+  copyCode: () => void;
   revoke: () => Promise<void>;
-  writeAuthorization: (replacePending: boolean) => Promise<void>;
-  schedulePoll: (generation: number, delay?: number) => void;
 };
 
 Component<ILinkBotSheetData, ILinkBotSheetProperties, ILinkBotSheetMethods, []>({
-  properties: {
-    visible: Boolean,
-  },
+  properties: { visible: Boolean },
 
   data: {
     view: null,
@@ -39,24 +32,11 @@ Component<ILinkBotSheetData, ILinkBotSheetProperties, ILinkBotSheetMethods, []>(
     errorMessage: "",
     requestId: "",
     writing: false,
-    polling: false,
-    pollGeneration: 0,
   },
 
   observers: {
     visible(visible: boolean) {
-      const pollGeneration = this.data.pollGeneration + 1;
-      this.setData({ pollGeneration, polling: false });
       if (visible) void this.load();
-    },
-  },
-
-  lifetimes: {
-    detached() {
-      this.setData({
-        pollGeneration: this.data.pollGeneration + 1,
-        polling: false,
-      });
     },
   },
 
@@ -64,20 +44,10 @@ Component<ILinkBotSheetData, ILinkBotSheetProperties, ILinkBotSheetMethods, []>(
     show() {
       if (this.data.visible) void this.load();
     },
-    hide() {
-      this.setData({
-        pollGeneration: this.data.pollGeneration + 1,
-        polling: false,
-      });
-    },
   },
 
   methods: {
     close() {
-      this.setData({
-        pollGeneration: this.data.pollGeneration + 1,
-        polling: false,
-      });
       this.triggerEvent("close");
     },
 
@@ -91,27 +61,15 @@ Component<ILinkBotSheetData, ILinkBotSheetProperties, ILinkBotSheetMethods, []>(
         });
         return;
       }
-      const generation = this.data.pollGeneration;
       this.setData({ status: "loading", errorMessage: "", requestId: "" });
       try {
         const response = await new ILinkChannelApi(
           new ApiClient(undefined, session.accessToken),
-        ).getHubBot();
-        if (generation !== this.data.pollGeneration) return;
-        this.setData({
-          view: response.data,
-          status: "ready",
-          errorMessage: "",
-          requestId: "",
-        });
-        if (
-          response.data.authorizationId &&
-          ["waiting_scan", "scanned"].includes(response.data.state)
-        ) {
-          this.schedulePoll(generation);
-        }
+        ).get();
+        if (!this.data.visible) return;
+        this.setData({ view: response.data, status: "ready" });
       } catch (error) {
-        if (generation !== this.data.pollGeneration) return;
+        if (!this.data.visible) return;
         const failure = presentChannelFailure(
           error,
           "微信岸岸的连接状态没有读取成功，请重新读取。",
@@ -124,34 +82,28 @@ Component<ILinkBotSheetData, ILinkBotSheetProperties, ILinkBotSheetMethods, []>(
       }
     },
 
-    async startAuthorization() {
-      await this.writeAuthorization(false);
+    async issue() {
+      await this.writeLink(false);
     },
 
-    async replaceAuthorization() {
-      await this.writeAuthorization(true);
+    async replace() {
+      await this.writeLink(true);
     },
 
-    async writeAuthorization(replacePending: boolean) {
+    async writeLink(replacePending: boolean) {
       const session = currentAuthSession();
       if (!session || this.data.writing) return;
-      const generation = this.data.pollGeneration;
       this.setData({ writing: true, errorMessage: "", requestId: "" });
       try {
-        const key = await createIdempotencyKey("ilink-hub-authorize");
+        const key = await createIdempotencyKey("ilink-link");
         const response = await new ILinkChannelApi(
           new ApiClient(undefined, session.accessToken),
-        ).startHubBot(replacePending, key);
-        if (generation !== this.data.pollGeneration) return;
-        this.setData({
-          view: response.data,
-          status: "ready",
-          writing: false,
-        });
-        this.schedulePoll(generation);
+        ).issue(replacePending, key);
+        if (!this.data.visible) return;
+        this.setData({ view: response.data, status: "ready", writing: false });
       } catch (error) {
-        if (generation !== this.data.pollGeneration) return;
-        const failure = presentChannelFailure(error, "微信二维码没有生成成功，请重新试一次。");
+        if (!this.data.visible) return;
+        const failure = presentChannelFailure(error, "微信连接码没有生成成功，请重新试一次。");
         this.setData({
           writing: false,
           status: "error",
@@ -161,71 +113,32 @@ Component<ILinkBotSheetData, ILinkBotSheetProperties, ILinkBotSheetMethods, []>(
       }
     },
 
-    async pollAuthorization() {
-      const authorizationId = this.data.view?.authorizationId;
-      const session = currentAuthSession();
-      if (!authorizationId || !session || this.data.polling || !this.data.visible) {
-        return;
-      }
-      const generation = this.data.pollGeneration;
-      this.setData({ polling: true, errorMessage: "", requestId: "" });
-      try {
-        const response = await new ILinkChannelApi(
-          new ApiClient(undefined, session.accessToken),
-        ).pollHubBot(authorizationId);
-        if (generation !== this.data.pollGeneration) return;
-        this.setData({
-          view: response.data,
-          status: "ready",
-          polling: false,
-          errorMessage: "",
-          requestId: "",
-        });
-        if (["waiting_scan", "scanned"].includes(response.data.state)) {
-          this.schedulePoll(generation, 400);
-        }
-      } catch (error) {
-        if (generation !== this.data.pollGeneration) return;
-        const failure = presentChannelFailure(error, "暂时没有读到微信确认结果，请重新检查。");
-        this.setData({
-          polling: false,
-          status: "error",
-          errorMessage: failure.message,
-          requestId: failure.requestId,
-        });
-      }
+    copyCode() {
+      const code = this.data.view?.bindingCode?.trim();
+      if (!code) return;
+      void wx.setClipboardData({ data: code });
     },
 
     async revoke() {
       const session = currentAuthSession();
-      if (!session || !this.data.view || this.data.writing) return;
+      const linkId = this.data.view?.linkId;
+      if (!session || !linkId || this.data.writing) return;
       const decision = await wx.showModal({
         title: "解除微信岸岸？",
-        content: "解除后，当前专属 Bot 会停止工作；再次使用需要重新扫码连接。",
+        content: "解除后，这个微信入口不能再读取当前账号的学习记录；需要时可重新连接。",
         confirmText: "确认解除",
       });
       if (!decision.confirm) return;
-      const pollGeneration = this.data.pollGeneration + 1;
-      this.setData({
-        pollGeneration,
-        polling: false,
-        writing: true,
-        errorMessage: "",
-        requestId: "",
-      });
+      this.setData({ writing: true, errorMessage: "", requestId: "" });
       try {
         const key = await createIdempotencyKey("ilink-revoke");
         const response = await new ILinkChannelApi(
           new ApiClient(undefined, session.accessToken),
-        ).revokeHubBot(key);
-        if (!this.data.visible || pollGeneration !== this.data.pollGeneration) return;
-        this.setData({
-          view: response.data,
-          status: "ready",
-          writing: false,
-        });
+        ).revoke(linkId, key);
+        if (!this.data.visible) return;
+        this.setData({ view: response.data, status: "ready", writing: false });
       } catch (error) {
-        if (!this.data.visible || pollGeneration !== this.data.pollGeneration) return;
+        if (!this.data.visible) return;
         const failure = presentChannelFailure(error, "解除连接没有完成，请重新试一次。");
         this.setData({
           writing: false,
@@ -235,14 +148,6 @@ Component<ILinkBotSheetData, ILinkBotSheetProperties, ILinkBotSheetMethods, []>(
         });
       }
     },
-
-    schedulePoll(generation: number, delay = 0) {
-      setTimeout(() => {
-        if (this.data.visible && generation === this.data.pollGeneration && !this.data.polling) {
-          void this.pollAuthorization();
-        }
-      }, delay);
-    },
   },
 });
 
@@ -250,9 +155,7 @@ function presentChannelFailure(
   error: unknown,
   fallback: string,
 ): { message: string; requestId: string } {
-  if (!(error instanceof ApiClientError)) {
-    return { message: fallback, requestId: "" };
-  }
+  if (!(error instanceof ApiClientError)) return { message: fallback, requestId: "" };
   if (error.statusCode === 401) {
     return {
       message: "登录状态已经失效，请重新登录后再连接微信岸岸。",
@@ -260,10 +163,7 @@ function presentChannelFailure(
     };
   }
   if (error.statusCode === 503) {
-    return {
-      message: "微信连接服务暂时没有响应，请稍后重新读取。",
-      requestId: error.requestId,
-    };
+    return { message: "微信连接服务暂时没有响应，请稍后重新读取。", requestId: error.requestId };
   }
   return { message: fallback, requestId: error.requestId };
 }

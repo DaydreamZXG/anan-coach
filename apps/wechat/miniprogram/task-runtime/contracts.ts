@@ -105,7 +105,7 @@ export interface QuestionAttemptDraft {
   materialPosition?: MaterialPosition;
   /**
    * 契约增量 v1：行测真实训练与整卷模考都必须采集动作事件；
-   * 批注仅在提供批注层入口的运行时携带（模考没有批注层，上报空数组即可）。
+   * 行测练习与模考共用批注层入口，笔迹随各自检查点上报。
    */
   annotations?: AnnotationStroke[];
   actionEvents?: AttemptActionEvent[];

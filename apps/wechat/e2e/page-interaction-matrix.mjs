@@ -192,11 +192,13 @@ export const pageInteractionMatrix = [
   }),
   page("pages/practice/index", "c02-xingce-answering-toolbar", "调整长题阅读显示", {
     handler: "toggleDisplayEyeCare",
-    selector: ".task-tool-item",
+    selector: "task-tools-panel",
+    eventKind: "toggleeyecare",
   }),
   page("pages/mock-exam/index", "c06-mock-exam-answering", "调整模考长题阅读显示", {
-    handler: "toggleEyeCare",
-    selector: ".tool-chip",
+    handler: "toggleDisplayEyeCare",
+    selector: "task-tools-panel",
+    eventKind: "toggleeyecare",
   }),
   page("pages/report-center/index", "f01-report-center-ready", "进入外部模考成绩确认", {
     handler: "openExternalScore",

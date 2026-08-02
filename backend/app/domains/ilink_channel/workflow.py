@@ -6,6 +6,11 @@ from uuid import NAMESPACE_URL, UUID, uuid5
 from sqlalchemy.orm import Session
 
 from app.core.config import Settings
+from app.domains.companion.channel import (
+    AccountScopedCompanionResponder,
+    ChannelCompanionResponder,
+    ChannelCompanionUnavailable,
+)
 from app.domains.ilink_channel.material_intake import (
     ILinkMaterialIntake,
     STORE_MATERIAL_COMMAND,
@@ -36,6 +41,7 @@ class ILinkPhotoWorkflow:
         core_settings: Settings,
         channel_settings: ILinkSettings,
         resolver: PhotoQuestionResolver | None = None,
+        companion_responder: ChannelCompanionResponder | None = None,
         clock=None,
     ) -> None:
         channel_settings.validate_worker()
@@ -44,6 +50,9 @@ class ILinkPhotoWorkflow:
         self._resolver = resolver or PhotoQuestionResolver(
             core_settings=core_settings,
             channel_settings=channel_settings,
+        )
+        self._companion = companion_responder or AccountScopedCompanionResponder(
+            settings=core_settings
         )
         self._clock = clock or (lambda: datetime.now(UTC))
         self._material_intake = ILinkMaterialIntake(
@@ -106,16 +115,23 @@ class ILinkPhotoWorkflow:
             )
             return
         if message.image is None:
-            self._send_direct(
-                client,
+            if not text_command:
+                self._send_direct(
+                    client,
+                    message=message,
+                    purpose="empty",
+                    text=(
+                        "这条消息里没有可读取的文字或图片。"
+                        "你可以直接问岸岸、发送裁剪好的单题图片，"
+                        "或发送「今天练什么」查看安排。"
+                    ),
+                )
+                return
+            self._reply_companion(
+                session,
+                user_id=user_id,
                 message=message,
-                purpose="help",
-                text=(
-                    "请发送一张已裁剪的单题图片，尽量包含完整题干、共享材料和全部选项。"
-                    "查询不会写入能力画像；得到结果后可回复「收录」「重做」「删除」，"
-                    "讲义或笔记类图片可回复「存资料」收进私有阅读室。"
-                    "发送「今天练什么」可查看今日安排摘要。"
-                ),
+                client=client,
             )
             return
         self._process_photo(
@@ -124,6 +140,34 @@ class ILinkPhotoWorkflow:
             link_id=UUID(str(link["link_id"])),
             message=message,
             client=client,
+        )
+
+    def _reply_companion(
+        self,
+        session: Session,
+        *,
+        user_id: UUID,
+        message: InboundMessage,
+        client: ILinkProtocolClient,
+    ) -> None:
+        try:
+            reply = self._companion.reply(
+                session,
+                user_id=user_id,
+                source_message_id=message.message_id,
+                question=message.text.strip(),
+            )
+        except ChannelCompanionUnavailable:
+            session.rollback()
+            reply = (
+                "岸岸这次没有回答完成，请稍后把原问题再发一次。"
+                "你仍可发送裁剪好的单题图片，或发送「今天练什么」查看安排。"
+            )
+        self._send_direct(
+            client,
+            message=message,
+            purpose="companion",
+            text=reply,
         )
 
     def _confirm_binding(

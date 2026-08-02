@@ -811,16 +811,19 @@ describe("position semantic contracts", () => {
 
   it("presents the canonical target-score validity instead of inventing a date", () => {
     expect(
-      targetValidityView({
-        basisLevel: "direct",
-        generatedAt: "2026-07-01T00:00:00Z",
-        validUntil: "2026-08-01T00:00:00Z",
-        lowerBound: 126,
-        recommended: 129,
-        upperBound: 132,
-        evidenceLevel: "direct",
-        sampleCount: 6,
-      }),
+      targetValidityView(
+        {
+          basisLevel: "direct",
+          generatedAt: "2026-07-01T00:00:00Z",
+          validUntil: "2026-08-01T00:00:00Z",
+          lowerBound: 126,
+          recommended: 129,
+          upperBound: 132,
+          evidenceLevel: "direct",
+          sampleCount: 6,
+        },
+        new Date("2026-07-15T00:00:00Z").getTime(),
+      ),
     ).toMatchObject({ available: true, expired: false });
   });
 

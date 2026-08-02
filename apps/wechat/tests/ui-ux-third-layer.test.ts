@@ -111,7 +111,9 @@ describe("third-layer UI and UX contracts", () => {
 
   it("presents today's secondary destinations as clear, non-duplicated actions", () => {
     expect(todayTemplate).toContain("结束今天并复盘");
-    expect(todayTemplate).toContain("错题与掌握");
+    expect(todayTemplate).toContain("双轨进度");
+    expect(todayTemplate).toContain("行测与申论每天都保留状态");
+    expect(todayTemplate).toContain("计划依据");
     expect(todayTemplate).toContain("周计划");
     expect(todayTemplate).not.toContain("每日结算");
     expect(todayStyles).toMatch(

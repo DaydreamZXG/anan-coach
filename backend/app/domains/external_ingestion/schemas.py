@@ -130,6 +130,14 @@ class ImportReferenceAnswer(IngestionModel):
     learning_impact: Literal["reference_only"] = Field(alias="learningImpact")
 
 
+class ImportMatchedContent(IngestionModel):
+    content_version_id: str = Field(alias="contentVersionId", min_length=1)
+    prompt_text: str = Field(alias="promptText", min_length=1)
+    option_texts: tuple[str, ...] = Field(alias="optionTexts")
+    material_texts: tuple[str, ...] = Field(alias="materialTexts")
+    solution_explanation: str | None = Field(alias="solutionExplanation")
+
+
 class ImportAIAnswer(IngestionModel):
     answer_version_id: UUID = Field(alias="answerVersionId")
     state: Literal["requested", "processing", "candidate", "confirmed", "failed"]
@@ -155,6 +163,7 @@ class ImportQuestionUnit(IngestionModel):
     ordinal: int = Field(ge=1)
     segment_ids: tuple[str, ...] = Field(alias="segmentIds", min_length=1)
     match: ContentMatchVersion | None
+    matched_content: ImportMatchedContent | None = Field(alias="matchedContent")
     reference_answer: ImportReferenceAnswer | None = Field(alias="referenceAnswer")
     ai_answer: ImportAIAnswer | None = Field(alias="aiAnswer")
     state: Literal[

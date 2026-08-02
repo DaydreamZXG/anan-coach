@@ -635,6 +635,43 @@ def test_confirmed_critical_energy_or_stress_switches_to_recovery_mode(
     )
 
 
+def test_confirmed_zero_capacity_is_an_intentional_recovery_day(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id = _seed_learner_and_published_essay_content(db_session_factory)
+    service = PlanningService()
+
+    with db_session_factory.begin() as session:
+        initial = service.get_or_create_today(
+            session,
+            user_id=user_id,
+            now=NOW,
+            local_date=NOW.date(),
+        )
+    with db_session_factory.begin() as session:
+        result = service.set_today_capacity(
+            session,
+            user_id=user_id,
+            command_id="zero-capacity-recovery-command",
+            command=DailyCapacityCommand(
+                based_on_capacity_version_id=str(initial.capacity.capacity_version_id),
+                available_minutes=0,
+                energy=3,
+                stress=3,
+                confidence_level=3,
+            ),
+            now=NOW,
+        )
+
+    assert result.capacity.available_minutes == 0
+    assert result.plan.plan_version_id != initial.plan_version_id
+    assert result.plan.day_mode == "recovery"
+    assert result.plan.is_recovery_day is True
+    assert result.plan.headline == "今天恢复，不开新知识"
+    assert result.plan.tasks == []
+    assert "capacity_recovery_mode" in result.plan.replan_reason_codes
+
+
 def test_public_task_execution_allows_progress_and_abandonment_but_not_completion(
     db_session_factory: sessionmaker[Session],
 ) -> None:

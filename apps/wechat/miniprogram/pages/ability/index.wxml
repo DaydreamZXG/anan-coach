@@ -82,9 +82,10 @@
             <view class="radar-title">行测模块状态</view>
             <view class="radar-note">综合正确率、用时、稳定掌握和复测表现，不等同于卷面分。</view>
           </view>
-          <ability-radar wx:if="{{radarPoints.length >= 3}}" points="{{radarPoints}}" />
-          <view wx:else class="ability-empty">三个模块有了真实作答，这张图就会亮起来。</view>
-          <view wx:if="{{xingceModules.length}}" class="radar-summary">模块状态来自真实作答、用时与间隔复测记录。</view>
+          <ability-radar points="{{radarPoints}}" />
+          <view class="radar-summary">
+            {{profile.evidenceSummary.xingceAttemptCount ? '模块状态来自真实作答、用时与间隔复测记录。' : '暂无真实作答，当前以 0 为基线；完成练习后会自动更新。'}}
+          </view>
         </view>
 
         <view class="module-list">
@@ -92,7 +93,8 @@
             wx:for="{{xingceModules}}"
             wx:key="moduleKey"
             hover-class="item--hover"
-            class="module-row"
+            class="module-row {{item.hasEvidence ? '' : 'module-row--baseline'}}"
+            disabled="{{!item.hasEvidence}}"
             data-track="{{item.track}}"
             data-key="{{item.moduleKey}}"
             bindtap="openModule"
@@ -103,7 +105,6 @@
               <text class="module-state module-state--{{item.statusTone}}">{{item.readinessLabel}}</text>
             </view>
           </button>
-          <view wx:if="{{!xingceModules.length}}" class="ability-card ability-empty">行测的第一组题做完，画像就从这里长出来。</view>
         </view>
       </block>
 
@@ -113,7 +114,8 @@
             wx:for="{{essayModules}}"
             wx:key="moduleKey"
             hover-class="item--hover"
-            class="module-row essay-module-row"
+            class="module-row essay-module-row {{item.hasEvidence ? '' : 'module-row--baseline'}}"
+            disabled="{{!item.hasEvidence}}"
             data-track="{{item.track}}"
             data-key="{{item.moduleKey}}"
             bindtap="openModule"
@@ -127,7 +129,6 @@
               <text class="module-state module-state--{{item.statusTone}}">{{item.readinessLabel}}</text>
             </view>
           </button>
-          <view wx:if="{{!essayModules.length}}" class="ability-card ability-empty">写下第一篇申论，这里就开始认识你。</view>
         </view>
       </block>
 

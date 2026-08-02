@@ -179,6 +179,56 @@ def test_republication_is_append_only_and_search_uses_only_atomic_current_head(
     assert [item.content_version_id for item in new_search] == [second.content_version_id]
 
 
+def test_search_recalls_transformed_image_by_perceptual_hashes(
+    db_session: Session,
+) -> None:
+    _seed_question(db_session)
+    catalog = SQLQuestionContentCatalog(db_session, clock=lambda: NOW)
+    published = catalog.publish_current(question_id="q-catalog-1")
+    db_session.execute(
+        text(
+            """
+            insert into product.question_visual_fingerprints (
+              visual_fingerprint_id, question_id, content_version_id,
+              fingerprint_sha256, fingerprint_policy_version,
+              source_asset_ref, created_at, phash, dhash, ahash, edge_dhash
+            ) values (
+              :id, 'q-catalog-1', :version, :fingerprint,
+              'visual-perceptual-256@v1', 'asset:asset-q-catalog-1', :created_at,
+              '0000000000000000', '1111111111111111',
+              '2222222222222222', '3333333333333333'
+            )
+            """
+        ),
+        {
+            "id": str(uuid4()),
+            "version": published.content_version_id,
+            "fingerprint": "4" * 64,
+            "created_at": NOW,
+        },
+    )
+
+    results = catalog.search(
+        query=MatchQuery(
+            track="xingce",
+            promptText="",
+            visualFingerprints=("9" * 64,),
+            visualFeatureHashes=(
+                {
+                    "phash": "0000000000000001",
+                    "dhash": "1111111111111110",
+                    "ahash": "2222222222222223",
+                    "edgeDhash": "3333333333333332",
+                },
+            ),
+        ),
+        maximum_candidates=5,
+    )
+
+    assert [item.content_version_id for item in results] == [published.content_version_id]
+    assert results[0].visual_feature_hashes[0].phash == "0000000000000000"
+
+
 def test_unknown_domain_and_tampered_version_fail_closed(db_session: Session) -> None:
     _seed_question(db_session, question_id="q-unknown-domain")
     db_session.execute(

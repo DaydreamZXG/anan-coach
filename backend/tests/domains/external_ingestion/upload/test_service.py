@@ -510,6 +510,64 @@ def test_clean_upload_becomes_the_only_recognition_eligible_artifact(harness) ->
     }
 
 
+def test_mvp_image_upload_completes_without_malware_scanner() -> None:
+    repository = FakeRepository()
+    storage = FakeStorage()
+    reservations = FakeReservations()
+    clock = MutableClock()
+    service = UploadService(
+        repository=repository,
+        object_storage=storage,
+        scanner=None,
+        scanner_approval=None,
+        reservations=reservations,
+        clock=clock,
+    )
+    owner = uuid4()
+    started = service.start(request(owner))
+    storage.upload(started.session)
+
+    result = service.complete(
+        owner_user_id=owner,
+        session_id=started.session.session_id,
+    )
+
+    assert result.session.state == UploadState.AVAILABLE
+    assert result.artifact is not None
+    assert result.session.scan_receipt is not None
+    assert result.session.scan_receipt.provider_route == "local-private-object-metadata"
+    assert {event.event_type for event in repository.audits.values()} >= {
+        "upload_scan_started",
+        "upload_metadata_validated",
+        "upload_available",
+    }
+
+
+def test_mvp_image_upload_still_rejects_integrity_mismatch_without_scanner() -> None:
+    repository = FakeRepository()
+    storage = FakeStorage()
+    reservations = FakeReservations()
+    service = UploadService(
+        repository=repository,
+        object_storage=storage,
+        scanner=None,
+        scanner_approval=None,
+        reservations=reservations,
+    )
+    owner = uuid4()
+    started = service.start(request(owner))
+    storage.upload(started.session, content_sha256="b" * 64)
+
+    with pytest.raises(UploadIntegrityError):
+        service.complete(
+            owner_user_id=owner,
+            session_id=started.session.session_id,
+        )
+
+    assert repository.sessions[started.session.session_id].state == UploadState.FAILED
+    assert started.session.object_ref in storage.deleted
+
+
 @pytest.mark.parametrize(
     "candidate",
     [
@@ -600,13 +658,18 @@ def test_scanner_unavailable_and_undetermined_are_retriable_but_never_eligible(
     storage.upload(started.session)
     scanner.results = [OSError("scanner down"), clean_receipt()]
 
-    with pytest.raises(UploadUnavailable):
-        service.complete(owner_user_id=owner, session_id=started.session.session_id)
+    failed = service.complete(owner_user_id=owner, session_id=started.session.session_id)
+    assert failed.session.state == UploadState.SCAN_FAILED
+    assert failed.artifact is None
     assert repository.sessions[started.session.session_id].state == UploadState.SCAN_FAILED
     with pytest.raises(UploadUnavailable):
         service.recognition_artifact(
             owner_user_id=owner, session_id=started.session.session_id
         )
+
+    replayed = service.start(request(owner))
+    assert replayed.replayed is True
+    assert replayed.session.state == UploadState.SCAN_FAILED
 
     recovered = service.complete(
         owner_user_id=owner, session_id=started.session.session_id
@@ -625,8 +688,9 @@ def test_undetermined_scan_receipt_remains_blocked_until_a_clean_retry(harness) 
         clean_receipt(),
     ]
 
-    with pytest.raises(UploadUnavailable):
-        service.complete(owner_user_id=owner, session_id=started.session.session_id)
+    failed = service.complete(owner_user_id=owner, session_id=started.session.session_id)
+    assert failed.session.state == UploadState.SCAN_FAILED
+    assert failed.artifact is None
     assert repository.sessions[started.session.session_id].failure_code == (
         "scanner_undetermined"
     )

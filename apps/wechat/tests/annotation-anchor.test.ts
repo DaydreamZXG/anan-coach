@@ -24,7 +24,14 @@ describe("annotation anchor segmentation (契约增量 v2)", () => {
     const blocks = [
       block("q1-stem", "甲说第一句。乙说第二句？"),
       { type: "paragraph", blockId: "q1-html", text: "忽略我", html: "<p>忽略我</p>" },
-      { type: "image", assetId: "a", url: "/x.png", originalOcrUrl: "", altText: "图", zoomable: true },
+      {
+        type: "image",
+        assetId: "a",
+        url: "/x.png",
+        originalOcrUrl: "",
+        altText: "图",
+        zoomable: true,
+      },
       block("q1-tail", "没有标点的一段"),
     ] as RichContentBlock[];
 
@@ -41,7 +48,15 @@ describe("annotation anchor segmentation (契约增量 v2)", () => {
     const contentHeight = 1000;
     const scrollTop = 300;
     const rects: AnchorSegmentRect[] = [
-      { blockId: "q1-stem", segmentIndex: 0, segmentText: "甲说第一句。", left: 30, top: 120, width: 80, height: 24 },
+      {
+        blockId: "q1-stem",
+        segmentIndex: 0,
+        segmentText: "甲说第一句。",
+        left: 30,
+        top: 120,
+        width: 80,
+        height: 24,
+      },
     ];
     const normalized = normalizeSegmentRects(rects, layer, scrollTop, contentHeight);
     expect(normalized[0]).toMatchObject({
@@ -60,8 +75,24 @@ describe("annotation anchor segmentation (契约增量 v2)", () => {
 
   it("resolves a stroke to its nearest segment within the match distance", () => {
     const segments: NormalizedSegmentRect[] = [
-      { blockId: "q1-stem", segmentIndex: 0, segmentText: "甲说第一句。", x: 0.1, y: 0.1, width: 0.3, height: 0.05 },
-      { blockId: "q1-stem", segmentIndex: 1, segmentText: "乙说第二句？", x: 0.1, y: 0.2, width: 0.3, height: 0.05 },
+      {
+        blockId: "q1-stem",
+        segmentIndex: 0,
+        segmentText: "甲说第一句。",
+        x: 0.1,
+        y: 0.1,
+        width: 0.3,
+        height: 0.05,
+      },
+      {
+        blockId: "q1-stem",
+        segmentIndex: 1,
+        segmentText: "乙说第二句？",
+        x: 0.1,
+        y: 0.2,
+        width: 0.3,
+        height: 0.05,
+      },
     ];
     // 划在第二句下方约 0.02（在命中距离内），应命中第二句。
     const resolved = resolveStrokeAnchor(
@@ -71,13 +102,33 @@ describe("annotation anchor segmentation (契约增量 v2)", () => {
       ]),
       segments,
     );
-    expect(resolved).toMatchObject({ blockId: "q1-stem", segmentIndex: 1, segmentText: "乙说第二句？" });
+    expect(resolved).toMatchObject({
+      blockId: "q1-stem",
+      segmentIndex: 1,
+      segmentText: "乙说第二句？",
+    });
   });
 
   it("prefers the containing segment when the stroke starts inside one (two-line highlight)", () => {
     const segments: NormalizedSegmentRect[] = [
-      { blockId: "q1-stem", segmentIndex: 0, segmentText: "甲说第一句。", x: 0.1, y: 0.1, width: 0.3, height: 0.05 },
-      { blockId: "q1-stem", segmentIndex: 1, segmentText: "乙说第二句？", x: 0.1, y: 0.2, width: 0.3, height: 0.05 },
+      {
+        blockId: "q1-stem",
+        segmentIndex: 0,
+        segmentText: "甲说第一句。",
+        x: 0.1,
+        y: 0.1,
+        width: 0.3,
+        height: 0.05,
+      },
+      {
+        blockId: "q1-stem",
+        segmentIndex: 1,
+        segmentText: "乙说第二句？",
+        x: 0.1,
+        y: 0.2,
+        width: 0.3,
+        height: 0.05,
+      },
     ];
     // 起点落在第二句内、终点落到下一行（都更接近第二句下缘）——归属起笔所在句段。
     const resolved = resolveStrokeAnchor(
@@ -92,7 +143,15 @@ describe("annotation anchor segmentation (契约增量 v2)", () => {
 
   it("returns null when no segment is within the match distance (plain scribble)", () => {
     const segments: NormalizedSegmentRect[] = [
-      { blockId: "q1-stem", segmentIndex: 0, segmentText: "甲说第一句。", x: 0.1, y: 0.1, width: 0.3, height: 0.05 },
+      {
+        blockId: "q1-stem",
+        segmentIndex: 0,
+        segmentText: "甲说第一句。",
+        x: 0.1,
+        y: 0.1,
+        width: 0.3,
+        height: 0.05,
+      },
     ];
     const resolved = resolveStrokeAnchor(
       anchoredStroke([
@@ -107,8 +166,24 @@ describe("annotation anchor segmentation (契约增量 v2)", () => {
   });
 
   it("translates points by the segment centroid displacement for scroll following", () => {
-    const from: NormalizedSegmentRect = { blockId: "q1-stem", segmentIndex: 1, segmentText: "乙", x: 0.1, y: 0.2, width: 0.3, height: 0.05 };
-    const to: NormalizedSegmentRect = { blockId: "q1-stem", segmentIndex: 1, segmentText: "乙", x: 0.1, y: 0.1, width: 0.3, height: 0.05 };
+    const from: NormalizedSegmentRect = {
+      blockId: "q1-stem",
+      segmentIndex: 1,
+      segmentText: "乙",
+      x: 0.1,
+      y: 0.2,
+      width: 0.3,
+      height: 0.05,
+    };
+    const to: NormalizedSegmentRect = {
+      blockId: "q1-stem",
+      segmentIndex: 1,
+      segmentText: "乙",
+      x: 0.1,
+      y: 0.1,
+      width: 0.3,
+      height: 0.05,
+    };
     const stroke = anchoredStroke([
       { x: 0.12, y: 0.255, t: 0, p: 0.5 },
       { x: 0.35, y: 0.255, t: 16 },

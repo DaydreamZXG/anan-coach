@@ -25,7 +25,10 @@ import { currentAuthSession, sameSessionOwner, type ActiveAuthSession } from "..
 import { environment } from "../../config/environment";
 import { createIdempotencyKey, stableFingerprint } from "../../platform/command-id";
 import type { TaskRuntimeState } from "../../task-runtime/contracts";
+import type { AnnotationStroke } from "../../task-runtime/contracts";
+import type { AnchorSegmentRect } from "../../task-runtime/annotation-layer/anchor";
 import type { ContentDisplayPreferences } from "../../task-runtime/content-renderer/model";
+import { stripOptionContentPrefix } from "../../task-runtime/option-presentation";
 import {
   loadTaskDisplayPreferences,
   storeTaskDisplayPreferences,
@@ -80,13 +83,17 @@ interface MockQuestionView extends Omit<MockExamLearnerQuestion, "options"> {
   >;
   marked: boolean;
   draftText: string;
+  annotations: AnnotationStroke[];
+  elapsedSeconds: number;
+  elapsedMs: number;
   material: MockExamLearnerMaterial | null;
 }
 
 interface MockAnswerSheetItem {
   index: number;
   label: string;
-  state: "answered" | "unanswered" | "marked";
+  state: "answered" | "unanswered";
+  marked: boolean;
   active: boolean;
 }
 
@@ -107,6 +114,10 @@ interface MockExamPageData {
   answerSheetItems: MockAnswerSheetItem[];
   answerSheetOpen: boolean;
   draftOpen: boolean;
+  annotationOpen: boolean;
+  annotationSegments: AnchorSegmentRect[];
+  questionScrollPosition: number;
+  questionContentHeight: number;
   materialOpen: boolean;
   toolsOpen: boolean;
   helpOpen: boolean;
@@ -133,6 +144,8 @@ interface MockExamPageData {
   submitConfirmOpen: boolean;
   submitElapsedLabel: string;
   submitMissingLabels: string[];
+  /** 内部题目 scroll-view 的受控位置；0/0.1 交替保证重复切题也能回顶。 */
+  questionScrollTop: number;
   /** 快滑切题的一次性转场方向（motion-question-in--*），动画结束即清空。 */
   questionTransition: "" | "prev" | "next";
 }
@@ -153,8 +166,19 @@ interface MockExamPageCustom {
   onQuestionTouchEnd(event: WechatMiniprogram.TouchEvent): void;
   clearQuestionTransition(): void;
   selectQuestion(event: WechatMiniprogram.BaseEvent): void;
+  selectQuestionFromSheet(event: WechatMiniprogram.CustomEvent<{ index: number }>): void;
   toggleAnswerSheet(): void;
   toggleDraft(): void;
+  openAnnotation(): void;
+  closeAnnotation(): void;
+  changeAnnotations(
+    event: WechatMiniprogram.CustomEvent<{
+      strokes: AnnotationStroke[];
+      action: "added" | "erased";
+    }>,
+  ): void;
+  onQuestionScroll(event: WechatMiniprogram.ScrollViewScroll): void;
+  onSegmentRects(event: WechatMiniprogram.CustomEvent<{ segments: AnchorSegmentRect[] }>): void;
   toggleMaterial(): void;
   updateMaterialPosition(
     event: WechatMiniprogram.CustomEvent<{ position: MaterialReaderPosition }>,
@@ -167,8 +191,9 @@ interface MockExamPageCustom {
   openHelp(): void;
   closeHelp(): void;
   submitHelp(event: WechatMiniprogram.CustomEvent<TaskHelpCommand>): Promise<void>;
-  setFontScale(event: WechatMiniprogram.BaseEvent): void;
-  toggleEyeCare(): void;
+  decreaseDisplayFont(): void;
+  increaseDisplayFont(): void;
+  toggleDisplayEyeCare(): void;
   reportDispute(): void;
   closeDispute(): void;
   selectDisputeCategory(event: WechatMiniprogram.BaseEvent): void;
@@ -252,6 +277,10 @@ Page<MockExamPageData, MockExamPageCustom>({
     answerSheetItems: [],
     answerSheetOpen: false,
     draftOpen: false,
+    annotationOpen: false,
+    annotationSegments: [] as AnchorSegmentRect[],
+    questionScrollPosition: 0,
+    questionContentHeight: 0,
     materialOpen: false,
     toolsOpen: false,
     helpOpen: false,
@@ -277,6 +306,7 @@ Page<MockExamPageData, MockExamPageCustom>({
     submitConfirmOpen: false,
     submitElapsedLabel: "",
     submitMissingLabels: [],
+    questionScrollTop: 0,
     questionTransition: "",
   },
 
@@ -490,18 +520,22 @@ Page<MockExamPageData, MockExamPageCustom>({
   async exit() {
     const runtime = runtimes.get(this);
     if (!runtime?.task) {
-      void wx.navigateBack();
+      leaveMockPage();
       return;
     }
-    const saved = await saveCheckpoint(this, runtime);
-    if (!saved) return;
     const result = await wx.showModal({
       title: "模考计时仍会继续",
       content: "离开页面不会暂停计时；回来后会按统一结束时间恢复。",
       confirmText: "仍要离开",
       cancelText: "继续作答",
     });
-    if (result.confirm) void wx.navigateBack();
+    if (!result.confirm) return;
+    const saved = await saveCheckpoint(this, runtime);
+    if (runtimes.get(this) !== runtime) return;
+    if (!saved) {
+      void wx.showToast({ title: "进度已保存在本机，稍后继续同步", icon: "none" });
+    }
+    leaveMockPage();
   },
 
   selectOption(event) {
@@ -593,29 +627,19 @@ Page<MockExamPageData, MockExamPageCustom>({
   },
 
   selectQuestion(event) {
-    const runtime = requiredRuntime(this);
     const index = Number(dataset(event, "index"));
-    const previousQuestionId = currentQuestionId(runtime);
-    const previousIndex = requiredTask(runtime).currentQuestionIndex;
-    const skipped = currentAttempt(runtime).selectedOptionIds.length === 0;
-    markCurrentQuestionDirty(runtime);
-    runtime.task = reduceTaskRuntime(requiredTask(runtime), { type: "QUESTION_CHANGED", index });
-    runtime.mutationVersion += 1;
-    // 交卷确认面板中点未答题号 = 回去检查该题（Figma 98:192）。
-    this.setData({ answerSheetOpen: false, submitConfirmOpen: false });
-    applyRuntimeToPage(this, runtime, "待保存");
-    if (requiredTask(runtime).currentQuestionIndex !== previousIndex) resetPageScroll();
-    scheduleAutosave(this, runtime);
-    if (skipped) {
-      queueTrajectory(runtime, "skipped", previousQuestionId, { destinationIndex: index });
-    }
-    queueTrajectory(runtime, "visited", currentQuestionId(runtime), { source: "answer_sheet" });
+    selectMockQuestionAtIndex(this, index);
+  },
+
+  selectQuestionFromSheet(event) {
+    selectMockQuestionAtIndex(this, event.detail.index);
   },
 
   toggleAnswerSheet() {
     this.setData({
       answerSheetOpen: !this.data.answerSheetOpen,
       draftOpen: false,
+      annotationOpen: false,
       toolsOpen: false,
       helpOpen: false,
     });
@@ -629,6 +653,70 @@ Page<MockExamPageData, MockExamPageCustom>({
       toolsOpen: false,
       helpOpen: false,
     });
+  },
+
+  // 与行测练习共用题面批注层；笔迹进入同一个 TaskRuntime 检查点。
+  openAnnotation() {
+    const runtime = runtimes.get(this);
+    if (!runtime?.task || runtime.task.phase !== "answering" || this.data.interactionLocked) return;
+    this.setData({
+      annotationOpen: true,
+      answerSheetOpen: false,
+      draftOpen: false,
+      toolsOpen: false,
+      helpOpen: false,
+    });
+    afterRenderTick(() => {
+      if (runtimes.get(this) !== runtime) return;
+      measureQuestionContent(this, runtime);
+      requestSegmentRects(this);
+    });
+  },
+
+  closeAnnotation() {
+    this.setData({ annotationOpen: false });
+  },
+
+  onQuestionScroll(event) {
+    const scrollTop = event.detail.scrollTop;
+    if (Number.isFinite(scrollTop) && Math.abs(scrollTop - this.data.questionScrollPosition) >= 1) {
+      this.setData({ questionScrollPosition: scrollTop });
+    }
+  },
+
+  onSegmentRects(event) {
+    const segments = Array.isArray(event.detail.segments) ? event.detail.segments : [];
+    if (segments.length === 0) return;
+    const current = this.data.annotationSegments;
+    if (
+      current.length === segments.length &&
+      current.every((entry, index) => {
+        const candidate = segments[index];
+        return (
+          candidate &&
+          entry.blockId === candidate.blockId &&
+          entry.segmentIndex === candidate.segmentIndex &&
+          Math.abs(entry.top - candidate.top) < 0.5
+        );
+      })
+    ) {
+      return;
+    }
+    this.setData({ annotationSegments: segments });
+  },
+
+  changeAnnotations(event) {
+    const runtime = runtimes.get(this);
+    if (!runtime?.task || this.data.interactionLocked) return;
+    markCurrentQuestionDirty(runtime);
+    runtime.task = reduceTaskRuntime(runtime.task, {
+      type: "ANNOTATIONS_CHANGED",
+      strokes: event.detail.strokes,
+      action: event.detail.action,
+    });
+    runtime.mutationVersion += 1;
+    applyRuntimeToPage(this, runtime, "待保存");
+    scheduleAutosave(this, runtime);
   },
 
   toggleMaterial() {
@@ -684,6 +772,7 @@ Page<MockExamPageData, MockExamPageCustom>({
       toolsOpen: !this.data.toolsOpen,
       answerSheetOpen: false,
       draftOpen: false,
+      annotationOpen: false,
       helpOpen: false,
     });
   },
@@ -693,7 +782,13 @@ Page<MockExamPageData, MockExamPageCustom>({
   },
 
   openHelp() {
-    this.setData({ helpOpen: true, toolsOpen: false, answerSheetOpen: false, draftOpen: false });
+    this.setData({
+      helpOpen: true,
+      toolsOpen: false,
+      answerSheetOpen: false,
+      draftOpen: false,
+      annotationOpen: false,
+    });
   },
 
   closeHelp() {
@@ -723,33 +818,31 @@ Page<MockExamPageData, MockExamPageCustom>({
     }
   },
 
-  setFontScale(event) {
-    const fontScale = dataset(event, "scale");
-    if (fontScale !== "standard" && fontScale !== "large") return;
-    const contentPreferences: ContentDisplayPreferences = {
+  decreaseDisplayFont() {
+    updateDisplayPreferences(this, {
       ...this.data.contentPreferences,
-      fontScale: fontScale === "large" ? 1.2 : 1,
-    };
-    this.setData({
-      fontScale,
-      contentPreferences,
-      materialReaderState: { ...this.data.materialReaderState, preferences: contentPreferences },
+      fontScale: Math.max(
+        0.9,
+        Math.round((this.data.contentPreferences.fontScale - 0.1) * 10) / 10,
+      ),
     });
-    storeTaskDisplayPreferences(contentPreferences);
   },
 
-  toggleEyeCare() {
-    const eyeCare = !this.data.eyeCare;
-    const contentPreferences: ContentDisplayPreferences = {
+  increaseDisplayFont() {
+    updateDisplayPreferences(this, {
       ...this.data.contentPreferences,
-      colorMode: eyeCare ? "eye_care" : "standard",
-    };
-    this.setData({
-      eyeCare,
-      contentPreferences,
-      materialReaderState: { ...this.data.materialReaderState, preferences: contentPreferences },
+      fontScale: Math.min(
+        1.3,
+        Math.round((this.data.contentPreferences.fontScale + 0.1) * 10) / 10,
+      ),
     });
-    storeTaskDisplayPreferences(contentPreferences);
+  },
+
+  toggleDisplayEyeCare() {
+    updateDisplayPreferences(this, {
+      ...this.data.contentPreferences,
+      colorMode: this.data.contentPreferences.colorMode === "eye_care" ? "standard" : "eye_care",
+    });
   },
 
   reportDispute() {
@@ -831,6 +924,7 @@ Page<MockExamPageData, MockExamPageCustom>({
       submitElapsedLabel: formatRemainingTime(task.totalElapsedSeconds),
       submitMissingLabels: missingLabels,
       answerSheetOpen: false,
+      annotationOpen: false,
       toolsOpen: false,
       helpOpen: false,
       disputeOpen: false,
@@ -895,6 +989,7 @@ function swipeNavigationBlocked(page: MockExamPageInstance): boolean {
     data.materialOpen ||
     data.answerSheetOpen ||
     data.draftOpen ||
+    data.annotationOpen ||
     data.toolsOpen ||
     data.helpOpen ||
     data.disputeOpen ||
@@ -913,16 +1008,88 @@ function moveQuestion(page: MockExamPageInstance, delta: number): void {
   runtime.task = reduceTaskRuntime(task, { type: "QUESTION_CHANGED", index });
   runtime.mutationVersion += 1;
   applyRuntimeToPage(page, runtime, "待保存");
-  resetPageScroll();
+  resetPageScroll(page);
   scheduleAutosave(page, runtime);
   if (skipped) queueTrajectory(runtime, "skipped", previousQuestionId, { direction: delta });
   queueTrajectory(runtime, "visited", currentQuestionId(runtime), { direction: delta });
 }
 
-function resetPageScroll(): void {
-  // 模考题面走页面级滚动，切题后立即回顶，避免带着上一题的滚动位置看新题。
-  if (typeof wx.pageScrollTo !== "function") return;
-  void wx.pageScrollTo({ scrollTop: 0, duration: 0 });
+function selectMockQuestionAtIndex(page: MockExamPageInstance, index: number): void {
+  const runtime = requiredRuntime(page);
+  const previousQuestionId = currentQuestionId(runtime);
+  const previousIndex = requiredTask(runtime).currentQuestionIndex;
+  const skipped = currentAttempt(runtime).selectedOptionIds.length === 0;
+  markCurrentQuestionDirty(runtime);
+  runtime.task = reduceTaskRuntime(requiredTask(runtime), { type: "QUESTION_CHANGED", index });
+  runtime.mutationVersion += 1;
+  page.setData({ answerSheetOpen: false, submitConfirmOpen: false });
+  applyRuntimeToPage(page, runtime, "待保存");
+  if (requiredTask(runtime).currentQuestionIndex !== previousIndex) resetPageScroll(page);
+  scheduleAutosave(page, runtime);
+  if (skipped) {
+    queueTrajectory(runtime, "skipped", previousQuestionId, { destinationIndex: index });
+  }
+  queueTrajectory(runtime, "visited", currentQuestionId(runtime), { source: "answer_sheet" });
+}
+
+function updateDisplayPreferences(
+  page: MockExamPageInstance,
+  contentPreferences: ContentDisplayPreferences,
+): void {
+  page.setData({
+    fontScale: contentPreferences.fontScale > 1 ? "large" : "standard",
+    eyeCare: contentPreferences.colorMode === "eye_care",
+    contentPreferences,
+    materialReaderState: { ...page.data.materialReaderState, preferences: contentPreferences },
+  });
+  storeTaskDisplayPreferences(contentPreferences);
+}
+
+function leaveMockPage(): void {
+  if (getCurrentPages().length > 1) {
+    void wx.navigateBack();
+    return;
+  }
+  void wx.switchTab({ url: routes.today });
+}
+
+function resetPageScroll(page: MockExamPageInstance): void {
+  // 微信 scroll-top 同值不会重新触发滚动；与行测工作台相同，在 0/0.1 间交替。
+  page.setData({
+    questionScrollTop: page.data.questionScrollTop === 0 ? 0.1 : 0,
+    questionScrollPosition: 0,
+    annotationOpen: false,
+    annotationSegments: [],
+  });
+}
+
+function afterRenderTick(callback: () => void): void {
+  if (typeof wx.nextTick === "function") {
+    wx.nextTick(callback);
+    return;
+  }
+  void Promise.resolve().then(callback);
+}
+
+/** 批注层与题目 scroll-view 共用内容坐标系，必须以真实 scrollHeight 为基准。 */
+function measureQuestionContent(page: MockExamPageInstance, runtime: PageRuntime): void {
+  if (!runtime.task || typeof page.createSelectorQuery !== "function") return;
+  const query = page.createSelectorQuery();
+  query.select(".mock-question-pane").fields({ size: true, scrollOffset: true });
+  query.exec((results: Array<{ scrollHeight?: number } | null>) => {
+    if (runtimes.get(page) !== runtime) return;
+    const scrollHeight = results[0]?.scrollHeight;
+    if (scrollHeight && Number.isFinite(scrollHeight) && scrollHeight > 0) {
+      page.setData({ questionContentHeight: scrollHeight });
+    }
+  });
+}
+
+function requestSegmentRects(page: MockExamPageInstance): void {
+  if (typeof page.selectComponent !== "function") return;
+  const renderer = page.selectComponent(".question-stem") as
+    { measureSegmentRects?: () => void } | undefined;
+  renderer?.measureSegmentRects?.();
 }
 
 function applyRuntimeToPage(
@@ -961,7 +1128,8 @@ function applyRuntimeToPage(
     return {
       index,
       label: String(index + 1),
-      state: item.marked ? "marked" : item.selectedOptionIds.length > 0 ? "answered" : "unanswered",
+      state: item.selectedOptionIds.length > 0 ? "answered" : "unanswered",
+      marked: item.marked,
       active: index === task.currentQuestionIndex,
     };
   });
@@ -975,11 +1143,15 @@ function applyRuntimeToPage(
       ...question,
       options: question.options.map((option) => ({
         ...option,
+        content: stripOptionContentPrefix(option.content, option.label),
         selected: attempt.selectedOptionIds.includes(option.optionId),
         eliminated: attempt.eliminatedOptionIds.includes(option.optionId),
       })),
       marked: attempt.marked,
       draftText: attempt.draftText,
+      annotations: attempt.annotations ?? [],
+      elapsedSeconds: attempt.elapsedSeconds,
+      elapsedMs: attempt.elapsedMs ?? attempt.elapsedSeconds * 1000,
       material,
     },
     current: task.currentQuestionIndex + 1,
@@ -1004,6 +1176,11 @@ function applyRuntimeToPage(
       taskMode: "mock",
       lifecycle: "answering",
     },
+  });
+  afterRenderTick(() => {
+    if (runtimes.get(page) !== runtime) return;
+    measureQuestionContent(page, runtime);
+    requestSegmentRects(page);
   });
 }
 
@@ -1236,6 +1413,7 @@ async function executeSubmit(
       status: "submitted",
       interactionLocked: true,
       answerSheetOpen: false,
+      annotationOpen: false,
       toolsOpen: false,
       helpOpen: false,
       syncLabel: "已交卷",
@@ -1709,6 +1887,7 @@ function convergeToTerminalSession(
     syncLabel: reviewed ? "评阅已完成" : "交卷已确认",
     answerSheetOpen: false,
     draftOpen: false,
+    annotationOpen: false,
     materialOpen: false,
     toolsOpen: false,
     helpOpen: false,
@@ -1781,6 +1960,7 @@ function bindMockSession(
     interactionLocked: false,
     question: null,
     answerSheetOpen: false,
+    annotationOpen: false,
     materialOpen: false,
     toolsOpen: false,
     helpOpen: false,
@@ -1828,6 +2008,7 @@ function showMockLoginRequired(
     interactionLocked: true,
     syncLabel: expired ? "等待重新登录" : "尚未登录",
     answerSheetOpen: false,
+    annotationOpen: false,
     materialOpen: false,
     toolsOpen: false,
     helpOpen: false,

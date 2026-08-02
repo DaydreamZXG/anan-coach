@@ -129,6 +129,27 @@ def test_reflection_worker_candidate_and_confirmation_are_one_audited_chain(
         )
 
 
+def test_reflection_without_manual_tags_still_starts_grounded_cause_analysis(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    client, auth, _task, submitted = _submitted_attempt(
+        db_session_factory,
+        token="cause-agent-no-manual-tags-token",
+        choices=["D", "B", "C"],
+    )
+
+    reflected = _reflect(
+        client,
+        auth,
+        submitted["review"],
+        key="cause-no-manual-tags-reflection",
+        tags=[],
+    )
+
+    assert reflected["state"] == "cause_candidate_processing"
+    assert reflected["review"]["reflection"]["tags"] == []
+
+
 def test_multiple_due_mastery_projects_only_the_selected_frozen_decision_evidence(
     db_session_factory: sessionmaker[Session],
 ) -> None:
@@ -552,7 +573,12 @@ def test_reflection_is_durable_while_provider_configuration_recovers(
 
 
 def _reflect(
-    client: Any, auth: dict[str, str], review: dict[str, Any], *, key: str
+    client: Any,
+    auth: dict[str, str],
+    review: dict[str, Any],
+    *,
+    key: str,
+    tags: list[str] | None = None,
 ) -> dict[str, Any]:
     response = client.put(
         f"/api/v2/xingce/attempt-reviews/{review['reviewId']}/reflection",
@@ -560,7 +586,7 @@ def _reflect(
         json={
             "expectedRevision": review["revision"],
             "rawText": "第一题我排除得太快，可能漏看了题干条件。",
-            "tags": ["审题", "排除法"],
+            "tags": ["审题", "排除法"] if tags is None else tags,
             "strategyNote": "下次先圈限定词。",
             "doubtNote": None,
             "voiceArtifactVersionIds": [],

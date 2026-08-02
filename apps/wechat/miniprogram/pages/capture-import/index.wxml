@@ -351,7 +351,19 @@
           <text class="solution-tag">{{state.learningTrack === 'xingce' ? '行测' : '申论'}}</text>
           <text class="solution-tag">{{state.activeQuestionUnit.referenceAnswer ? '题库匹配' : '用户上传图片'}}</text>
         </view>
-        <view wx:for="{{state.segments}}" wx:key="segmentId" class="solution-question__segment">{{item.text}}</view>
+        <block wx:if="{{state.activeQuestionUnit.matchedContent}}">
+          <view wx:for="{{state.activeQuestionUnit.matchedContent.materialTexts}}" wx:key="index" class="solution-question__material">{{item}}</view>
+          <view class="solution-question__stem">{{state.activeQuestionUnit.matchedContent.promptText}}</view>
+          <view class="solution-question__options">
+            <view wx:for="{{catalogOptions}}" wx:key="label" class="solution-question__option">
+              <view class="solution-question__option-label">{{item.label}}</view>
+              <view class="solution-question__option-copy">{{item.text}}</view>
+            </view>
+          </view>
+        </block>
+        <block wx:else>
+          <view wx:for="{{state.solutionSegments}}" wx:key="segmentId" class="solution-question__segment">{{item.text}}</view>
+        </block>
       </view>
 
       <view class="solution-answer-card {{state.activeQuestionUnit.aiAnswer ? 'solution-answer-card--ai' : ''}}">
@@ -369,7 +381,8 @@
 
       <view wx:if="{{state.activeQuestionUnit.referenceAnswer}}" class="solution-explanation">
         <view class="solution-section-title">题库解析</view>
-        <view class="solution-explanation__copy">已核对题库答案与授权来源。详细精讲会保存在这道题的个人学习包中。</view>
+        <view wx:if="{{state.activeQuestionUnit.matchedContent && state.activeQuestionUnit.matchedContent.solutionExplanation}}" class="solution-explanation__copy">{{state.activeQuestionUnit.matchedContent.solutionExplanation}}</view>
+        <view wx:else class="solution-explanation__copy">这道题的题库版本暂未收录解析。</view>
         <button hover-class="item--hover" class="solution-inline-action" bindtap="openLearningPackets">生成这道题的学习包 ›</button>
       </view>
 

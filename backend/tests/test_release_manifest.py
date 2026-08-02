@@ -1215,36 +1215,20 @@ def test_manifest_rejects_generated_types_digest_not_in_artifact(
         )
 
 
-def test_staging_bootstrap_uses_external_signature_and_pinned_verifier() -> None:
+def test_staging_release_is_lightweight_but_stays_inside_staging() -> None:
     script = STAGING_SCRIPT.read_text(encoding="utf-8")
 
-    signature_check = script.index("openssl dgst -sha256")
-    verifier_pin = script.index("verifier_sha256")
-    verifier_execution = script.index("anan-${release_id}.verifier.py' verify")
-    controller_extraction = script.index(
-        "tar -xOf 'anan-${release_id}.tar.gz' ops/scripts/activate_release.sh"
-    )
-
-    assert "STAGING_RELEASE_TRUST_PUBLIC_KEY" in script
-    assert "STAGING_DATA_RELEASE_TRUST_PUBLIC_KEY" in script
-    assert "STAGING_WECHAT_UPLOADER_TRUST_PUBLIC_KEY" in script
-    assert "RELEASE_SIGNING_PRIVATE_KEY" in script
-    assert "--expected-commit '${EXPECTED_GIT_COMMIT}'" in script
-    assert "--expected-release-id '${release_id}'" in script
-    assert '--expected-environment \\"\\${actual_environment}\\"' in script
-    assert '--expected-rollback-release-id \\"\\${actual_rollback}\\"' in script
-    assert "--expected-compatible-commit '${EXPECTED_GIT_COMMIT}'" in script
-    assert '--expected-compatible-commit \\"\\${previous_commit}\\"' in script
-    assert "--data-release-receipt" in script
-    assert "data-release-receipt.json.sig" in script
-    assert "--wechat-upload-receipt-signature" in script
-    assert "--wechat-upload-info-output" in script
-    assert "--wechat-uploader-trust-public-key" in script
-    assert "wechat-upload-receipt.json.sig" in script
-    assert "wechat-upload-info.json" in script
-    assert "release-environment" in script
-    assert verifier_pin < verifier_execution < controller_extraction
-    assert signature_check < controller_extraction
+    assert "rsync -az --delete" in script
+    assert "/srv/gongkao-dazi/staging" in script
+    assert "gongkao-dazi-staging-" in script
+    assert "systemctl restart" in script
+    assert "curl --fail" in script
+    assert ".staging-release-id" in script
+    assert "STAGING_RELEASE_TRUST_PUBLIC_KEY" not in script
+    assert "RELEASE_SIGNING_PRIVATE_KEY" not in script
+    assert "WECHAT_UPLOAD_RECEIPT" not in script
+    assert "DATA_RELEASE_RECEIPT" not in script
+    assert "gongkao-dazi-production" not in script
 
 
 def _builder_harness(

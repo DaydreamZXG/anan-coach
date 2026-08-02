@@ -310,8 +310,7 @@ function contentPoint(
   const touch = (event.touches[0] ?? event.changedTouches[0]) as TouchPointLike | undefined;
   if (!touch || state.width <= 0 || state.contentHeight <= 0) return null;
   const x = ((touch.clientX ?? touch.x ?? 0) - state.left) / state.width;
-  const y =
-    ((touch.clientY ?? touch.y ?? 0) - state.top + state.scrollTop) / state.contentHeight;
+  const y = ((touch.clientY ?? touch.y ?? 0) - state.top + state.scrollTop) / state.contentHeight;
   if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
   return { x: Math.min(1, Math.max(0, x)), y: Math.min(1, Math.max(0, y)) };
 }

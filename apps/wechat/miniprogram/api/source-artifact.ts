@@ -7,6 +7,7 @@ import type {
   LocalSourceArtifactFile,
   UploadProgress,
 } from "../features/external-learning/contracts";
+import { normalizeArrayBuffer } from "../platform/binary-data";
 
 interface UploadSessionProjection {
   sessionId: string;
@@ -232,7 +233,8 @@ function readFile(filePath: string, position: number, length: number): Promise<A
       position,
       length,
       success: (result) => {
-        if (result.data instanceof ArrayBuffer) resolve(result.data);
+        const bytes = normalizeArrayBuffer(result.data);
+        if (bytes) resolve(bytes);
         else reject(new Error("本地文件读取结果不是二进制数据。"));
       },
       fail: (error) => {
@@ -340,11 +342,13 @@ function uploadTerminalError(session: UploadSessionProjection): ApiClientError {
     failed: "文件安全处理失败。",
     scan_failed: "文件安全扫描未完成，不能进入识别。",
   };
-  return new ApiClientError(
-    stateMessage[session.state] ?? "文件尚未达到可识别状态。",
-    409,
-    session.failureCode ?? `upload-${session.state}`,
-  );
+  const message = stateMessage[session.state] ?? "文件尚未达到可识别状态。";
+  const code = session.failureCode ?? `upload-${session.state}`;
+  return new ApiClientError(message, session.state === "scan_failed" ? 503 : 409, "", {
+    code,
+    message,
+    requestId: "",
+  });
 }
 
 function providerError(message: string, statusCode: number): ApiClientError {

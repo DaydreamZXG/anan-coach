@@ -1,7 +1,11 @@
 import { describe, expect, expectTypeOf, it, vi } from "vitest";
 import { ApiClient } from "../miniprogram/api/client";
-import type { HubBotAuthorizationView as GeneratedHubBotAuthorizationView } from "../miniprogram/api/generated/types.gen";
-import { ILinkChannelApi, type HubBotAuthorizationView } from "../miniprogram/api/ilink-channel";
+import type { ILinkChannelView as GeneratedILinkChannelView } from "../miniprogram/api/generated/types.gen";
+import {
+  ILinkChannelApi,
+  type HubBotAuthorizationView,
+  type ILinkChannelView,
+} from "../miniprogram/api/ilink-channel";
 
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import captureTemplate from "../miniprogram/pages/capture-import/index.wxml?raw";
@@ -9,8 +13,8 @@ import captureTemplate from "../miniprogram/pages/capture-import/index.wxml?raw"
 import botSheetTemplate from "../miniprogram/components/ilink-bot-sheet/index.wxml?raw";
 
 describe("official iLink photo channel", () => {
-  it("keeps the wrapper contract identical to the generated Hub Bot type", () => {
-    expectTypeOf<HubBotAuthorizationView>().toEqualTypeOf<GeneratedHubBotAuthorizationView>();
+  it("keeps the wrapper contract identical to the generated account link type", () => {
+    expectTypeOf<ILinkChannelView>().toEqualTypeOf<GeneratedILinkChannelView>();
   });
 
   it("uses authenticated idempotent account-bound endpoints", async () => {
@@ -69,27 +73,29 @@ describe("official iLink photo channel", () => {
     expect(requests[6]?.header?.["Idempotency-Key"]).toBe("hub-revoke-command-1");
   });
 
-  it("renders every bot authorization state and keeps the evidence boundary", () => {
+  it("renders every account-link state and keeps the evidence boundary", () => {
     for (const token of [
       "status === 'loading'",
       "status === 'error'",
       "微信里的岸岸",
-      "view.state === 'unbound'",
-      "view.state === 'revoked'",
-      "view.state === 'waiting_scan'",
-      "view.state === 'scanned'",
-      "view.state === 'connected'",
-      "view.state === 'reauth_required'",
-      "view.qrImageDataUrl",
-      "view.statusCopy",
-      "startAuthorization",
-      "replaceAuthorization",
-      "pollAuthorization",
+      "view.linkState === 'unbound'",
+      "view.linkState === 'revoked'",
+      "view.linkState === 'pending'",
+      "view.linkState === 'bound'",
+      "view.bindingCode",
+      "连接码已过期",
+      "重新生成连接码",
+      "view.usageCopy",
+      "view.evidenceCopy",
+      'bindtap="issue"',
+      'bindtap="replace"',
+      'bindtap="copyCode"',
       "revoke",
     ]) {
       expect(botSheetTemplate).toContain(token);
     }
-    expect(botSheetTemplate).not.toContain("所需服务暂时不可用");
+    expect(botSheetTemplate).toContain("直接问岸岸");
+    expect(botSheetTemplate).not.toContain("专属岸岸 Bot");
     expect(captureTemplate).toContain("<ilink-bot-sheet");
     expect(captureTemplate).toContain("不进入公共题库");
     expect(captureTemplate).toContain("不用于训练基础模型");

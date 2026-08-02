@@ -42,6 +42,12 @@ interface CaptureImportPageData {
   receiptVisible: boolean;
   channelSheetOpen: boolean;
   matchCandidates: MatchCandidateView[];
+  catalogOptions: CatalogOptionView[];
+}
+
+interface CatalogOptionView {
+  label: string;
+  text: string;
 }
 
 interface CaptureImportPageCustom {
@@ -108,6 +114,7 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
     receiptVisible: false,
     channelSheetOpen: false,
     matchCandidates: [],
+    catalogOptions: [],
   },
 
   onLoad(options: Record<string, string | undefined>) {
@@ -125,12 +132,30 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
         gateway,
         onChange: (state) => {
           if (runtimes.owns(this, controller)) {
-            this.setData({
-              state,
-              matchCandidates: presentMatchCandidates(
-                state.activeQuestionUnit?.match?.candidates ?? [],
-              ),
-            });
+            const previous = this.data.state;
+            const resetSolutionScroll =
+              state.status === "success" &&
+              (previous?.status !== "success" ||
+                previous.activeQuestionUnit?.questionUnitId !==
+                  state.activeQuestionUnit?.questionUnitId);
+            this.setData(
+              {
+                state,
+                matchCandidates: presentMatchCandidates(
+                  state.activeQuestionUnit?.match?.candidates ?? [],
+                ),
+                catalogOptions: presentCatalogOptions(
+                  state.activeQuestionUnit?.matchedContent?.optionTexts ?? [],
+                ),
+              },
+              () => {
+                if (resetSolutionScroll) {
+                  wx.nextTick(() => {
+                    void wx.pageScrollTo({ scrollTop: 0, duration: 0 });
+                  });
+                }
+              },
+            );
           }
         },
       });
@@ -140,6 +165,9 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
         state,
         configurationError: "",
         matchCandidates: presentMatchCandidates(state.activeQuestionUnit?.match?.candidates ?? []),
+        catalogOptions: presentCatalogOptions(
+          state.activeQuestionUnit?.matchedContent?.optionTexts ?? [],
+        ),
       });
       const importId = options.importId?.trim();
       if (importId) void controller.load(importId);
@@ -176,7 +204,6 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
         receiptVisible: false,
         recordSheetOpen: false,
       });
-      await this.editPendingImage();
     } catch (error) {
       const message = externalLearningError(error).message;
       if (cameraPermissionWasDenied(error)) {
@@ -235,8 +262,11 @@ Page<CaptureImportPageData, CaptureImportPageCustom>({
       const file = await chooseQuestionPdf();
       const controller = runtimes.get(this);
       if (file && controller) await controller.startImport(file);
-    } catch (error) {
-      void wx.showToast({ title: externalLearningError(error).message, icon: "none" });
+    } catch {
+      void wx.showToast({
+        title: "裁剪工具没有打开，可直接确认原图",
+        icon: "none",
+      });
     }
   },
 
@@ -459,7 +489,6 @@ async function chooseForReview(page: CaptureImportPage, source: "camera" | "albu
         receiptVisible: false,
         recordSheetOpen: false,
       });
-      await page.editPendingImage();
     }
   } catch (error) {
     void wx.showToast({ title: externalLearningError(error).message, icon: "none" });
@@ -473,4 +502,15 @@ function cameraPermissionWasDenied(error: unknown): boolean {
   return (
     message.includes("auth deny") || message.includes("permission") || message.includes("authorize")
   );
+}
+
+function presentCatalogOptions(optionTexts: readonly string[]): CatalogOptionView[] {
+  return optionTexts.map((raw, index) => {
+    const fallbackLabel = String.fromCharCode(65 + index);
+    const match = raw.trim().match(/^([A-ZＡ-Ｚ])[\s、.．:：)）]+(.*)$/u);
+    return {
+      label: match?.[1]?.normalize("NFKC") ?? fallbackLabel,
+      text: (match?.[2] ?? raw).trim(),
+    };
+  });
 }

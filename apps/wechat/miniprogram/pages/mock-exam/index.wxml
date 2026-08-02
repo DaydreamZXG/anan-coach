@@ -1,5 +1,6 @@
 <task-shell
   id="runtime-task-shell"
+  layoutVariant="xingce"
   title="{{title}}"
   modeLabel="正式整卷 · 限时计时"
   current="{{current}}"
@@ -8,10 +9,11 @@
   syncLabel="{{syncLabel}}"
   materialAvailable="{{false}}"
   answerSheetAvailable="{{status === 'ready'}}"
-  draftAvailable="{{status === 'ready' && question ? true : false}}"
+  draftAvailable="{{false}}"
+  markAvailable="{{false}}"
   marked="{{question ? question.marked : false}}"
-  toolsAvailable="{{status === 'ready'}}"
-  footerAvailable="{{status === 'ready'}}"
+  toolsAvailable="{{false}}"
+  footerAvailable="{{status === 'ready' && current === total}}"
   bindexit="exit"
   bindmaterial="toggleMaterial"
   bindanswersheet="toggleAnswerSheet"
@@ -68,13 +70,6 @@
   <view wx:elif="{{status === 'ready' && question}}" class="mock-paper mock-paper--{{fontScale}} {{eyeCare ? 'mock-paper--eye-care' : ''}}">
     <view wx:if="{{errorMessage}}" class="inline-warning">{{errorMessage}}</view>
 
-    <view class="exam-status-card card">
-      <view><text class="type-data">{{answered}}</text> 已答</view>
-      <view><text class="type-data">{{unanswered}}</text> 未答</view>
-      <view><text class="type-data">{{marked}}</text> 标记</view>
-      <view class="deadline-copy">离开页面也不会暂停</view>
-    </view>
-
     <view class="mock-workspace {{question.material ? 'mock-workspace--with-material' : 'mock-workspace--single'}}">
       <material-reader
         wx:if="{{question.material}}"
@@ -91,118 +86,135 @@
         左右快滑切题只绑在题目栏（平板双栏时材料栏不参与）。
         判定阈值与已知边界（content-renderer 表格横向滚动）见 task-runtime/swipe-nav.ts。
       -->
-      <view
-        class="mock-question-pane {{questionTransition ? 'motion-question-in--' + questionTransition : ''}}"
+      <scroll-view
+        class="mock-question-pane"
+        scroll-y
+        scroll-top="{{questionScrollTop}}"
+        enhanced
+        show-scrollbar="{{false}}"
         bindtouchstart="onQuestionTouchStart"
         bindtouchmove="onQuestionTouchMove"
         bindtouchend="onQuestionTouchEnd"
-        bindanimationend="clearQuestionTransition"
+        bindscroll="onQuestionScroll"
       >
-        <view class="question-card">
-          <view class="question-meta">
-            <view class="module-pill">{{question.moduleName}}</view>
-            <view class="question-position type-data">{{current}} / {{total}}</view>
-          </view>
-          <view class="question-stem">
-            <content-renderer
-              blocks="{{question.stemContent}}"
-              zoom="1"
-              preferences="{{contentPreferences}}"
-              freeze-first-column
-              freeze-header
-            />
-          </view>
-        </view>
+        <view
+          class="mock-question-body {{questionTransition ? 'motion-question-in--' + questionTransition : ''}}"
+          bindanimationend="clearQuestionTransition"
+        >
+          <question-toolbar
+            moduleName="{{question.moduleName}}"
+            current="{{current}}"
+            interactionLocked="{{interactionLocked}}"
+            marked="{{question.marked}}"
+            settingsAvailable="{{true}}"
+            bindmark="toggleMarked"
+            binddraft="openAnnotation"
+            bindsettings="toggleTools"
+          />
 
-        <view class="option-list {{interactionLocked ? 'option-list--locked' : ''}}">
-          <view wx:for="{{question.options}}" wx:key="optionId" class="option-row">
-            <view
-              hover-class="option--hover"
-              class="option-card {{item.selected ? 'option-card--selected' : ''}} {{item.eliminated ? 'option-card--eliminated' : ''}}"
-              data-optionid="{{item.optionId}}"
-              bindtap="selectOption"
-            >
-              <view class="option-label">{{item.label}}</view>
-              <view class="option-copy">
-                <content-renderer
-                  blocks="{{item.content}}"
-                  zoom="1"
-                  preferences="{{contentPreferences}}"
-                  freeze-first-column
-                  freeze-header
-                />
-              </view>
-            </view>
-            <button hover-class="item--hover"
-              class="eliminate-action {{item.eliminated ? 'eliminate-action--active' : ''}}"
-              aria-label="{{item.eliminated ? '撤销排除选项 ' + item.label : '排除选项 ' + item.label}}"
-              data-optionid="{{item.optionId}}"
-              catchtap="toggleEliminated"
-            >
-              <image
-                class="eliminate-action__icon"
-                src="{{item.eliminated ? '/assets/icons/task/eliminate.svg' : '/assets/icons/task/eliminate-faint.svg'}}"
-                mode="aspectFit"
-                aria-hidden="true"
+          <view class="question-hero">
+            <view class="question-heading">
+              <text class="question-number">{{current}}.</text>
+              <content-renderer
+                class="question-stem"
+                blocks="{{question.stemContent}}"
+                zoom="1"
+                preferences="{{contentPreferences}}"
+                freeze-first-column
+                freeze-header
+                selectable
+                bindsegmentrects="onSegmentRects"
               />
-            </button>
+            </view>
+          </view>
+
+          <view class="option-list {{interactionLocked ? 'option-list--locked' : ''}}">
+            <view wx:for="{{question.options}}" wx:key="optionId" class="option-row">
+              <view
+                hover-class="option--hover"
+                class="option-card {{item.selected ? 'option-card--selected' : ''}} {{item.eliminated ? 'option-card--eliminated' : ''}}"
+                data-optionid="{{item.optionId}}"
+                bindtap="selectOption"
+              >
+                <view class="option-label">{{item.label}}</view>
+                <view class="option-copy">
+                  <content-renderer
+                    blocks="{{item.content}}"
+                    zoom="1"
+                    preferences="{{contentPreferences}}"
+                    freeze-first-column
+                    freeze-header
+                  />
+                </view>
+              </view>
+              <button hover-class="item--hover"
+                class="eliminate-action {{item.eliminated ? 'eliminate-action--active' : ''}}"
+                aria-label="{{item.eliminated ? '撤销排除选项 ' + item.label : '排除选项 ' + item.label}}"
+                data-optionid="{{item.optionId}}"
+                catchtap="toggleEliminated"
+              >
+                <image
+                  class="eliminate-action__icon"
+                  src="{{item.eliminated ? '/assets/icons/task/eliminate.svg' : '/assets/icons/task/eliminate-faint.svg'}}"
+                  mode="aspectFit"
+                  aria-hidden="true"
+                />
+              </button>
+            </view>
           </view>
         </view>
+      </scroll-view>
 
+      <!-- 与行测练习页共用的题面草稿：同一组件、同一笔迹契约、同一检查点保存链路。 -->
+      <view class="mock-annotation-host {{annotationOpen ? 'mock-annotation-host--active' : ''}}">
+        <annotation-layer
+          mode="{{annotationOpen ? 'annotate' : (question.annotations.length ? 'static' : 'hidden')}}"
+          strokes="{{question.annotations}}"
+          elapsedSeconds="{{question.elapsedSeconds}}"
+          elapsedMs="{{question.elapsedMs || -1}}"
+          segments="{{annotationSegments}}"
+          scroll-top="{{questionScrollPosition}}"
+          content-height="{{questionContentHeight}}"
+          bindstrokeschange="changeAnnotations"
+          binddone="closeAnnotation"
+          bindmore="toggleTools"
+        />
       </view>
     </view>
   </view>
 
-  <ui-sheet
+  <answer-sheet
     visible="{{answerSheetOpen}}"
-    title="整卷答题卡"
-    copy="{{answered}} 已答 · {{unanswered}} 未答 · {{marked}} 标记"
-    show-close
-    max-height="80vh"
+    current="{{current}}"
+    items="{{answerSheetItems}}"
+    answered="{{answered}}"
+    unanswered="{{unanswered}}"
+    marked="{{marked}}"
+    subtitle="{{question.moduleName}} · 共 {{total}} 题"
+    moduleName="{{question.moduleName}}"
+    moduleCounts="{{answered}} 已答 · {{unanswered}} 未答 · 1 当前"
+    hint="点题号即可直接切换，存疑题会保留标记"
+    submitLabel="检查并交卷"
     bindclose="toggleAnswerSheet"
-  >
-    <view class="sheet-grid">
-      <button hover-class="item--hover"
-        wx:for="{{answerSheetItems}}"
-        wx:key="index"
-        class="sheet-item sheet-item--{{item.state}} {{item.active ? 'sheet-item--active' : ''}}"
-        data-index="{{item.index}}"
-        bindtap="selectQuestion"
-      >{{item.label}}</button>
-    </view>
-  </ui-sheet>
+    bindselect="selectQuestionFromSheet"
+    bindsubmit="submitExam"
+  />
 
-  <ui-sheet
-    visible="{{draftOpen && question}}"
-    title="草稿纸"
-    copy="当前第 {{current}} / {{total}} 题 · 自动保存"
-    max-height="80vh"
-    bindclose="toggleDraft"
-  >
-    <button hover-class="item--hover" slot="action" class="mark-button {{question.marked ? 'mark-button--active' : ''}}" bindtap="toggleMarked">{{question.marked ? '已标记' : '标记'}}</button>
-    <textarea cursor-spacing="24" class="draft-input draft-input--sheet" value="{{question.draftText}}" maxlength="4000" placeholder="记录计算、排除过程或检查点……" bindinput="inputDraft"></textarea>
-    <view class="mock-timer-notice">模考按统一结束时间计时，看草稿不暂停。</view>
-    <button hover-class="item--hover" class="primary-button draft-sheet-action" bindtap="toggleDraft">收起草稿，继续作答</button>
-  </ui-sheet>
-
-  <ui-sheet
+  <task-tools-panel
     visible="{{toolsOpen}}"
-    title="模考工具"
-    copy="交卷前不提供解析、公式卡或解题 AI。"
-    show-close
-    level="overlay"
-    max-height="86vh"
+    preferences="{{contentPreferences}}"
+    disputeAvailable="{{toolPolicy.dispute_report}}"
+    helpAvailable="{{toolPolicy.operation_help}}"
+    submitAvailable="{{true}}"
+    interactionLocked="{{interactionLocked}}"
     bindclose="toggleTools"
-  >
-    <view class="display-tools">
-      <button hover-class="item--hover" class="tool-chip {{fontScale === 'standard' ? 'tool-chip--active' : ''}}" data-scale="standard" bindtap="setFontScale">标准字号</button>
-      <button hover-class="item--hover" class="tool-chip {{fontScale === 'large' ? 'tool-chip--active' : ''}}" data-scale="large" bindtap="setFontScale">大字号</button>
-      <button hover-class="item--hover" class="tool-chip {{eyeCare ? 'tool-chip--active' : ''}}" bindtap="toggleEyeCare">护眼显示</button>
-    </view>
-    <button hover-class="item--hover" class="tool-row" bindtap="reportDispute">题面异常 / 争议上报</button>
-    <button hover-class="item--hover" class="tool-row" bindtap="openHelp">操作与故障帮助</button>
-    <button hover-class="item--hover" class="tool-row tool-row--submit" disabled="{{interactionLocked}}" bindtap="submitExam">提前交卷</button>
-  </ui-sheet>
+    binddispute="reportDispute"
+    bindhelp="openHelp"
+    bindtoggleeyecare="toggleDisplayEyeCare"
+    binddecreasefont="decreaseDisplayFont"
+    bindincreasefont="increaseDisplayFont"
+    bindsubmit="submitExam"
+  />
 
   <ui-sheet
     visible="{{helpOpen && pageObjectReference}}"
@@ -257,24 +269,8 @@
     </view>
   </ui-sheet>
 
-  <view slot="footer" wx:if="{{status === 'ready'}}" class="footer-actions">
-    <button hover-class="item--hover"
-      class="footer-previous {{current === 1 || interactionLocked ? 'footer-previous--disabled' : ''}}"
-      disabled="{{current === 1 || interactionLocked}}"
-      bindtap="previousQuestion"
-    >上一题</button>
-    <button hover-class="item--hover"
-      wx:if="{{current < total}}"
-      class="primary-button footer-next"
-      disabled="{{interactionLocked}}"
-      bindtap="nextQuestion"
-    >下一题</button>
-    <button hover-class="item--hover"
-      wx:else
-      class="primary-button footer-next"
-      disabled="{{interactionLocked}}"
-      bindtap="submitExam"
-    >交卷并查看结果</button>
+  <view slot="footer" wx:if="{{status === 'ready' && current === total}}" class="footer-actions">
+    <button hover-class="item--hover" class="primary-button" disabled="{{interactionLocked}}" bindtap="submitExam">检查并交卷</button>
   </view>
 
   <!-- Figma 98:173-98:203：模考交卷底部确认面板。 -->

@@ -6,7 +6,7 @@ from io import BytesIO
 import json
 from pathlib import Path
 import re
-from typing import Callable
+from typing import Callable, Literal
 import zipfile
 
 import httpx
@@ -22,10 +22,16 @@ from app.domains.external_ingestion.recognition.errors import (
 from app.domains.external_ingestion.recognition.image_preprocess import prepare_for_ocr
 from app.domains.external_ingestion.recognition.models import (
     BoundingBox,
+    PageSegment,
     ProcessorRequest,
     ProcessorResult,
     TextSpan,
+    VisualFeatureHash,
     enforce_provider_dispatch_fence,
+)
+from app.domains.external_ingestion.recognition.visual_hash import (
+    feature_hashes,
+    fingerprint_sha256,
 )
 from app.internal_services.private_objects import PrivateObjectReader
 
@@ -36,13 +42,17 @@ MAX_POLL_SECONDS = 180.0
 
 
 class _StrictModel(BaseModel):
-    model_config = ConfigDict(extra="forbid", populate_by_name=True)
+    # Provider responses evolve by adding observational fields (for example
+    # previewUrl/extract_progress). Keep required fields typed, but tolerate
+    # additive response metadata so a harmless rollout does not break OCR.
+    model_config = ConfigDict(extra="ignore", populate_by_name=True)
 
 
 class _MinerUFileResponse(_StrictModel):
     key: str
     put_url: str = Field(alias="putUrl")
     download_url: str = Field(alias="downloadUrl")
+    preview_url: str = Field(default="", alias="previewUrl")
     headers: dict[str, str] = Field(default_factory=dict)
 
 
@@ -54,7 +64,9 @@ class _MinerUTaskStatus(_StrictModel):
     task_id: str = Field(alias="taskId")
     state: str
     err_msg: str = Field(default="", alias="errMsg")
+    err_code: int | None = Field(default=None, alias="errCode")
     full_zip_url: str = Field(default="", alias="fullZipUrl")
+    is_chem: bool = False
     can_retry: bool = False
 
 
@@ -119,7 +131,9 @@ class MinerURecognitionProcessor:
                 prefix="anan-mineru-",
                 suffix=suffix,
             ) as source:
-                pdf_bytes = self._prepare_pdf(source, mime_type=request.mime_type)
+                pdf_bytes, source_feature_hashes = self._prepare_pdf(
+                    source, mime_type=request.mime_type
+                )
         except ProcessorNotDispatchedError:
             raise
         except Exception as exc:
@@ -136,9 +150,7 @@ class MinerURecognitionProcessor:
                     raise ProcessorResponseError(
                         f"MinerU /file rejected: HTTP {file_resp.status_code}"
                     )
-                file_data = _MinerUFileResponse.model_validate(
-                    file_resp.json()["data"]
-                )
+                file_data = _MinerUFileResponse.model_validate(file_resp.json()["data"])
                 # 2. 上传文件到 OSS
                 upload = client.put(
                     file_data.put_url, content=pdf_bytes, headers=file_data.headers, timeout=120
@@ -175,38 +187,49 @@ class MinerURecognitionProcessor:
 
         provider_request_id = f"mineru:{task.task_id}"
         spans = _spans_from_markdown(markdown, provider_request_id)
+        segments = (
+            _exam_segments(spans) if request.recognition_kind.value == "exam_segmentation" else ()
+        )
         return ProcessorResult(
             providerRequestId=provider_request_id,
             textSpans=spans,
-            segments=(),
+            segments=segments,
             omrMarks=(),
             pageImageSha256=(sha256(pdf_bytes).hexdigest(),),
-            visualFingerprints=(),
+            visualFingerprints=(
+                fingerprint_sha256(source_feature_hashes.model_dump()),
+            ),
+            visualFeatureHashes=(source_feature_hashes,),
             confidence=_confidence_from_blocks(layout_blocks),
         )
 
-    def _prepare_pdf(self, source: Path, *, mime_type: str) -> bytes:
+    def _prepare_pdf(
+        self, source: Path, *, mime_type: str
+    ) -> tuple[bytes, VisualFeatureHash]:
         """把源文件统一转成单页 PDF 再喂 MinerU（它对 PDF/文档的解析最稳）。"""
         try:
             with Image.open(source) as opened:
                 prepared = prepare_for_ocr(opened, enable_crop=True, max_long_edge=2200)
         except Exception as exc:
             raise ProcessorResponseError("MinerU image cannot be decoded") from exc
+        hashes = VisualFeatureHash.model_validate(feature_hashes(prepared.image))
         buffer = BytesIO()
         prepared.image.save(buffer, "PDF", resolution=200)
         pdf = buffer.getvalue()
         if len(pdf) > self._maximum_input_bytes:
             raise ProcessorResponseError("MinerU rendered PDF exceeds its approved input capacity")
-        return pdf
+        return pdf, hashes
 
-    def _poll(self, client: httpx.Client, headers: dict[str, str], task_id: str) -> _MinerUTaskStatus:
+    def _poll(
+        self, client: httpx.Client, headers: dict[str, str], task_id: str
+    ) -> _MinerUTaskStatus:
         deadline = _now() + MAX_POLL_SECONDS
         while _now() < deadline:
-            resp = client.get(f"{self._endpoint}/extract/task/{task_id}", headers=headers, timeout=30)
+            resp = client.get(
+                f"{self._endpoint}/extract/task/{task_id}", headers=headers, timeout=30
+            )
             if resp.status_code != 200:
-                raise ProcessorResponseError(
-                    f"MinerU task poll rejected: HTTP {resp.status_code}"
-                )
+                raise ProcessorResponseError(f"MinerU task poll rejected: HTTP {resp.status_code}")
             status = _MinerUTaskStatus.model_validate(resp.json()["data"])
             if status.state == "done":
                 if not status.full_zip_url:
@@ -226,7 +249,9 @@ class MinerURecognitionProcessor:
     ) -> tuple[str, int]:
         resp = client.get(zip_url, timeout=120)
         if resp.status_code != 200:
-            raise ProcessorResponseError(f"MinerU result download rejected: HTTP {resp.status_code}")
+            raise ProcessorResponseError(
+                f"MinerU result download rejected: HTTP {resp.status_code}"
+            )
         if len(resp.content) > maximum_bytes:
             raise ProcessorResponseError("MinerU result exceeds its approved output capacity")
         try:
@@ -251,24 +276,155 @@ class MinerURecognitionProcessor:
 
 def _spans_from_markdown(markdown: str, provider_request_id: str) -> tuple[TextSpan, ...]:
     """把 full.md 的文本行拆成 TextSpan（每行一个，坐标不可得则整段一个）。"""
-    lines = [line.strip() for line in markdown.splitlines() if line.strip()]
+    lines = [
+        logical_line
+        for source_line in markdown.splitlines()
+        for logical_line in _split_inline_options(source_line.strip())
+        if logical_line
+    ]
     if not lines:
         return ()
     spans: list[TextSpan] = []
-    for index, line in enumerate(lines):
+    usable_lines = [line for line in lines if not re.match(r"^!\s*\[.*\]\(.*\)$", line)]
+    line_count = len(usable_lines)
+    for index, line in enumerate(usable_lines):
         # 跳过纯图片引用行（![](images/...)），无文字内容。
-        if re.match(r"^!\s*\[.*\]\(.*\)$", line):
-            continue
         spans.append(
             TextSpan(
                 spanId=f"{provider_request_id}:m:{index}",
                 text=line,
-                # MinerU 不返回文本坐标；用整页占位归一化框，语义是"无法定位"。
-                box=BoundingBox(pageNo=1, x=0.0, y=0.0, width=1.0, height=1.0),
+                # MinerU markdown 不带坐标；按文本行顺序生成不重叠的近似框，
+                # 保留题干/选项的阅读顺序，但不伪装成精确视觉定位。
+                box=BoundingBox(
+                    pageNo=1,
+                    x=0.0,
+                    y=index / line_count,
+                    width=1.0,
+                    height=1.0 / line_count,
+                ),
                 confidence=0.9,
             )
         )
     return tuple(spans)
+
+
+_OPTION_MARKER = re.compile(r"(?:^|[\s\n])([A-H])(?:[.．、:：)）]\s*|\s+(?=\S))")
+_OPTION_PREFIX = re.compile(r"^\s*([A-H])(?:[.．、:：)）]\s*|\s+(?=\S))")
+_QUESTION_CUES = (
+    "下列说法",
+    "下列选项",
+    "正确的是",
+    "错误的是",
+    "不正确的是",
+    "最恰当的是",
+    "最合适的是",
+    "最可能的是",
+    "最适合",
+    "最符合",
+    "不能推出",
+    "可以推出",
+    "由此可知",
+    "主要说明",
+    "意在说明",
+    "这段文字",
+    "根据材料",
+    "根据上述",
+)
+
+
+def _split_inline_options(line: str) -> tuple[str, ...]:
+    """Split MinerU lines that contain a prompt and several inline A-H options."""
+    if not line:
+        return ()
+    option_starts = [match.start(1) for match in _OPTION_MARKER.finditer(line)]
+    if not option_starts:
+        return (line,)
+    boundaries = sorted({0, *option_starts, len(line)})
+    return tuple(
+        piece
+        for start, end in zip(boundaries, boundaries[1:])
+        if (piece := line[start:end].strip())
+    )
+
+
+def _exam_segments(spans: tuple[TextSpan, ...]) -> tuple[PageSegment, ...]:
+    """Derive one-question semantic segments from MinerU's ordered markdown lines."""
+    if not spans:
+        # A visual-only question is still matchable by its source-image hashes.
+        # Seal one empty prompt region so the normal question-unit pipeline can
+        # carry the image evidence without inventing OCR text.
+        return (
+            PageSegment(
+                segmentId="mineru-segment-question-visual-only",
+                segmentKind="question",
+                box=BoundingBox(pageNo=1, x=0, y=0, width=1, height=1),
+                textSpanRefs=(),
+                confidence=0,
+            ),
+        )
+    option_indexes = {index for index, span in enumerate(spans) if _looks_like_options(span.text)}
+    non_options = [index for index in range(len(spans)) if index not in option_indexes]
+    if not non_options:
+        raise ProcessorResponseError("MinerU recognition found options without a question")
+    first_option = min(option_indexes) if option_indexes else None
+    prompt_candidates = [
+        index
+        for index in non_options
+        if _looks_like_question(spans[index].text)
+        and (first_option is None or index < first_option)
+    ]
+    if prompt_candidates:
+        prompt_index = prompt_candidates[-1]
+    elif first_option is not None:
+        predecessors = [index for index in non_options if index < first_option]
+        if not predecessors:
+            raise ProcessorResponseError("MinerU recognition cannot locate the question prompt")
+        prompt_index = predecessors[-1]
+    else:
+        prompt_index = non_options[-1]
+
+    material_indexes = [index for index in non_options if index < prompt_index]
+    trailing_indexes = [index for index in non_options if index > prompt_index]
+    segments = [_segment("prompt", "question", (spans[prompt_index],))]
+    if option_indexes:
+        segments.append(
+            _segment("options", "options", tuple(spans[i] for i in sorted(option_indexes)))
+        )
+    if material_indexes:
+        segments.append(_segment("material", "material", tuple(spans[i] for i in material_indexes)))
+    if trailing_indexes:
+        segments.append(_segment("trailing", "unknown", tuple(spans[i] for i in trailing_indexes)))
+    return tuple(segments)
+
+
+def _segment(
+    name: str,
+    kind: Literal["question", "options", "material", "answer_area", "essay_prompt", "unknown"],
+    spans: tuple[TextSpan, ...],
+) -> PageSegment:
+    identity = sha256(
+        (name + "\0" + "\0".join(span.span_id for span in spans)).encode("utf-8")
+    ).hexdigest()[:20]
+    left = min(span.box.x for span in spans)
+    top = min(span.box.y for span in spans)
+    right = max(span.box.x + span.box.width for span in spans)
+    bottom = max(span.box.y + span.box.height for span in spans)
+    return PageSegment(
+        segmentId=f"mineru-segment-{name}-{identity}",
+        segmentKind=kind,
+        box=BoundingBox(pageNo=1, x=left, y=top, width=right - left, height=bottom - top),
+        textSpanRefs=tuple(span.span_id for span in spans),
+        confidence=sum(span.confidence for span in spans) / len(spans),
+    )
+
+
+def _looks_like_question(text: str) -> bool:
+    normalized = text.strip()
+    return normalized.endswith(("?", "？")) or any(cue in normalized for cue in _QUESTION_CUES)
+
+
+def _looks_like_options(text: str) -> bool:
+    return bool(_OPTION_PREFIX.match(text)) or len(_OPTION_MARKER.findall(text)) >= 2
 
 
 def _confidence_from_blocks(para_blocks: int) -> float:

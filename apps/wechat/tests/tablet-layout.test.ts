@@ -17,6 +17,8 @@ import favoritesStylesRaw from "../miniprogram/pages/xingce-mastery/favorites/in
 import mockTemplate from "../miniprogram/pages/mock-exam/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import mockStylesRaw from "../miniprogram/pages/mock-exam/index.wxss?raw";
+// @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
+import answerSheetStylesRaw from "../miniprogram/task-runtime/answer-sheet/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import essayTemplate from "../miniprogram/pages/essay-task/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
@@ -52,6 +54,7 @@ const taskShellStyles = normalizeRpxCalc(taskShellStylesRaw);
 const practiceStyles = normalizeRpxCalc(practiceStylesRaw);
 const favoritesStyles = normalizeRpxCalc(favoritesStylesRaw);
 const mockStyles = normalizeRpxCalc(mockStylesRaw);
+const answerSheetStyles = normalizeRpxCalc(answerSheetStylesRaw);
 const essayStyles = normalizeRpxCalc(essayStylesRaw);
 const essayWorkbenchStyles = normalizeRpxCalc(essayWorkbenchStylesRaw);
 const positionStyles = normalizeRpxCalc(positionStylesRaw);
@@ -84,14 +87,22 @@ describe("tablet responsive layout contract", () => {
     expect(practiceStyles).toMatch(/\.material-reader-shell \{[^}]*height: 100%/);
 
     expect(mockTemplate).toContain('class="mock-workspace ');
-    // 题目栏 class 尾随快滑切题的一次性转场类，因此只锚定前缀。
-    expect(mockTemplate).toContain('class="mock-question-pane ');
+    expect(mockTemplate).toContain('layoutVariant="xingce"');
+    expect(mockTemplate).toContain('<scroll-view\n        class="mock-question-pane"');
+    expect(mockTemplate).toContain('scroll-top="{{questionScrollTop}}"');
+    expect(mockTemplate).toContain("<question-toolbar");
+    expect(mockTemplate).toContain("<annotation-layer");
+    expect(mockTemplate).toContain(
+      "footerAvailable=\"{{status === 'ready' && current === total}}\"",
+    );
+    expect(mockTemplate).not.toContain("footer-previous");
+    expect(mockTemplate).not.toContain(">下一题</button>");
     expect(mockTemplate).toContain('class="mock-material-pane"');
     expect(mockStyles).toContain("grid-template-columns: minmax(360px, 0.95fr)");
   });
 
   it("keeps the practice answer card and CTA inside phone and tablet viewports", () => {
-    const [phoneRule, tabletRule] = ruleBodies(practiceStyles, ".answer-card__sheet");
+    const [phoneRule, tabletRule] = ruleBodies(answerSheetStyles, ".answer-card__sheet");
     expect(practiceStyles).toContain("@media (min-width: 768px)");
     expect(phoneRule).toBeDefined();
     expect(tabletRule).toBeDefined();

@@ -55,8 +55,7 @@ const miniProgram = wsEndpoint
   ? await automator.connect({ wsEndpoint })
   : await automator.launch({
       cliPath:
-        process.env.WECHAT_DEVTOOLS_CLI ??
-        "/Applications/wechatwebdevtools.app/Contents/MacOS/cli",
+        process.env.WECHAT_DEVTOOLS_CLI ?? "/Applications/wechatwebdevtools.app/Contents/MacOS/cli",
       projectPath: projectRoot,
       timeout: 60_000,
       trustProject: true,
@@ -116,7 +115,9 @@ try {
     () => {},
   );
   if (!wsEndpoint) {
-    await withTimeout(miniProgram.close(), 10_000, "smoke connection did not close").catch(() => {});
+    await withTimeout(miniProgram.close(), 10_000, "smoke connection did not close").catch(
+      () => {},
+    );
   } else {
     await withTimeout(miniProgram.disconnect(), 10_000, "smoke disconnect stalled").catch(() => {});
   }

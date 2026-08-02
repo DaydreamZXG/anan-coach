@@ -622,9 +622,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       this.setData({
         status: "error",
         errorTitle: apiError?.statusCode === 404 ? "题目内容不可用" : "申论任务加载失败",
-        errorMessage: apiError
-          ? `${apiError.message}`
-          : "当前申论任务没有成功加载，请稍后重试。",
+        errorMessage: apiError ? apiError.message : "当前申论任务没有成功加载，请稍后重试。",
       });
     }
   },
@@ -2351,7 +2349,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
           : apiError?.statusCode === 409
             ? "任务已经在其他设备或页面更新，本次没有写入不完整记录。请从今日页重新进入。"
             : apiError
-              ? `${apiError.message}`
+              ? apiError.message
               : "答案、复盘和任务完成状态还没有完全确认，请直接重试。";
       this.setData({
         submissionStatus: "error",
@@ -2642,7 +2640,7 @@ function closureErrorMessage(error: unknown): string {
     return error.message;
   }
   if (error instanceof ApiClientError) {
-    return `${error.message}`;
+    return error.message;
   }
   return error instanceof Error ? error.message : "申论内容没有完整保存，请重试。";
 }
@@ -2650,7 +2648,7 @@ function closureErrorMessage(error: unknown): string {
 function handwritingErrorMessage(error: unknown): string {
   if (error instanceof EssayHandwritingError) return error.message;
   if (error instanceof ApiClientError) {
-    return `${error.message}`;
+    return error.message;
   }
   return error instanceof Error ? error.message : "手写识别没有形成可确认的文字。";
 }

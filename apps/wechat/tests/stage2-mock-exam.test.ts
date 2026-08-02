@@ -267,22 +267,87 @@ describe("stage 2 F02 mock exam", () => {
     harness.page.onUnload.call(harness.page);
   });
 
-  it("scrolls the page back to the top after switching questions", async () => {
+  it("resets the internal question workbench scroll after switching questions", async () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date("2026-07-15T02:00:00.000Z"));
     const harness = await createMockPage(twoQuestionSessionPayload());
 
     harness.page.nextQuestion.call(harness.page);
-    expect(harness.pageScrollTo).toHaveBeenCalledTimes(1);
-    expect(harness.pageScrollTo).toHaveBeenLastCalledWith({ scrollTop: 0, duration: 0 });
+    expect(harness.page.data.questionScrollTop).toBe(0.1);
+    expect(harness.pageScrollTo).not.toHaveBeenCalled();
 
     harness.page.selectQuestion.call(harness.page, sheetEvent(0));
-    expect(harness.pageScrollTo).toHaveBeenCalledTimes(2);
-    expect(harness.pageScrollTo).toHaveBeenLastCalledWith({ scrollTop: 0, duration: 0 });
+    expect(harness.page.data.questionScrollTop).toBe(0);
 
     // 答题卡点当前题＝没有切题，不应打断阅读位置。
     harness.page.selectQuestion.call(harness.page, sheetEvent(0));
-    expect(harness.pageScrollTo).toHaveBeenCalledTimes(2);
+    expect(harness.page.data.questionScrollTop).toBe(0);
+    harness.page.onUnload.call(harness.page);
+  });
+
+  it("leaves to Today when the mock page is the root of the page stack", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-07-15T02:00:00.000Z"));
+    const harness = await createMockPage(sessionPayload());
+
+    await harness.page.exit.call(harness.page);
+
+    expect(harness.navigateBack).not.toHaveBeenCalled();
+    expect(harness.switchTab).toHaveBeenCalledWith({ url: "/pages/today/index" });
+    harness.page.onUnload.call(harness.page);
+  });
+
+  it("strips the duplicated option label only in mock presentation", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-07-15T02:00:00.000Z"));
+    const payload = sessionPayload();
+    const firstOption = payload.questions[0]?.options[0];
+    if (!firstOption) throw new Error("mock fixture option is required");
+    const firstBlock = firstOption.content[0];
+    if (!firstBlock) throw new Error("mock fixture option content is required");
+    firstOption.text = "A、10%";
+    firstOption.content[0] = { ...firstBlock, text: "A、10%" };
+
+    const harness = await createMockPage(payload);
+
+    const rendered = harness.page.data.question as {
+      options: Array<{ label: string; content: Array<{ text?: string }> }>;
+    };
+    expect(rendered.options[0]).toMatchObject({ label: "A", content: [{ text: "10%" }] });
+    expect(payload.questions[0]?.options[0]?.content[0]?.text).toBe("A、10%");
+    harness.page.onUnload.call(harness.page);
+  });
+
+  it("reuses the xingce annotation layer and persists mock strokes through checkpoints", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-07-15T02:00:00.000Z"));
+    const harness = await createMockPage(sessionPayload());
+    const stroke = {
+      strokeId: "stroke-mock-1",
+      tool: "pen" as const,
+      width: 0.018,
+      points: [
+        { x: 0.2, y: 0.3 },
+        { x: 0.4, y: 0.5 },
+      ],
+      atMs: 1_200,
+    };
+
+    harness.page.openAnnotation.call(harness.page);
+    expect(harness.page.data.annotationOpen).toBe(true);
+
+    harness.page.changeAnnotations.call(harness.page, {
+      detail: { strokes: [stroke], action: "added" },
+    } as WechatMiniprogram.CustomEvent<{ strokes: [typeof stroke]; action: "added" }>);
+    expect(harness.page.data.question).toMatchObject({ annotations: [stroke] });
+
+    await vi.advanceTimersByTimeAsync(800);
+    await flushMicrotasks();
+    const checkpoint = harness.requests.find((request) => request.url.endsWith("/checkpoint"));
+    expect(checkpoint?.data).toMatchObject({ answers: [{ annotations: [stroke] }] });
+
+    harness.page.closeAnnotation.call(harness.page);
+    expect(harness.page.data.annotationOpen).toBe(false);
     harness.page.onUnload.call(harness.page);
   });
 
@@ -519,11 +584,12 @@ describe("stage 2 F02 mock exam", () => {
     vi.setSystemTime(new Date("2026-07-15T02:10:00.000Z"));
     const harness = await createMockPage(twoQuestionSessionPayload());
 
-    // 快滑左＝下一题：一次性转场 + 页面回顶逻辑共存。
+    // 快滑左＝下一题：一次性转场 + 内部工作台回顶逻辑共存。
     swipeOnQuestion(harness.page, { fromX: 300, toX: 140, y: 400 });
     expect(harness.page.data.current).toBe(2);
     expect(harness.page.data.questionTransition).toBe("next");
-    expect(harness.pageScrollTo).toHaveBeenCalled();
+    expect(harness.page.data.questionScrollTop).toBe(0.1);
+    expect(harness.pageScrollTo).not.toHaveBeenCalled();
     harness.page.clearQuestionTransition.call(harness.page);
 
     // 末题快滑左：底部按钮语义是交卷，手势绝不代点交卷。
@@ -922,6 +988,8 @@ async function createMockPage(
   const storage = new Map<string, unknown>();
   const pageScrollTo = vi.fn(() => Promise.resolve());
   const navigateTo = vi.fn(() => Promise.resolve());
+  const navigateBack = vi.fn(() => Promise.resolve());
+  const switchTab = vi.fn(() => Promise.resolve());
   let deferredCheckpointSuccess: (() => void) | undefined;
   let deferredTerminalSessionSuccess: (() => void) | undefined;
   let submitConflictRemaining = behavior.submitConflictOnce ? 1 : 0;
@@ -941,6 +1009,7 @@ async function createMockPage(
   vi.stubGlobal("getApp", () => ({
     globalData: { accessToken: "real-token", userId: "user-a" },
   }));
+  vi.stubGlobal("getCurrentPages", () => [{ route: "pages/mock-exam/index" }]);
   vi.stubGlobal("wx", {
     getStorageSync: (key: string) => storage.get(key),
     setStorageSync: (key: string, value: unknown) => storage.set(key, value),
@@ -1055,9 +1124,9 @@ async function createMockPage(
     },
     showModal: () => Promise.resolve({ confirm: true, cancel: false }),
     showToast: vi.fn(() => Promise.resolve()),
-    navigateBack: () => Promise.resolve(),
+    navigateBack,
     navigateTo,
-    switchTab: () => Promise.resolve(),
+    switchTab,
     pageScrollTo,
   });
   await import("../miniprogram/pages/mock-exam/index");
@@ -1079,6 +1148,8 @@ async function createMockPage(
     storage,
     pageScrollTo,
     navigateTo,
+    navigateBack,
+    switchTab,
     releaseCheckpoint() {
       if (!deferredCheckpointSuccess) throw new Error("No checkpoint response is pending");
       deferredCheckpointSuccess();
@@ -1171,7 +1242,23 @@ interface CapturedMockPage {
   onUnload(this: TestMockPage): void;
   retry(this: TestMockPage): void;
   goLogin(this: TestMockPage): void;
+  exit(this: TestMockPage): Promise<void>;
   inputDraft(this: TestMockPage, event: WechatMiniprogram.Input): void;
+  openAnnotation(this: TestMockPage): void;
+  closeAnnotation(this: TestMockPage): void;
+  changeAnnotations(
+    this: TestMockPage,
+    event: WechatMiniprogram.CustomEvent<{
+      strokes: Array<{
+        strokeId: string;
+        tool: "pen" | "highlighter";
+        width: number;
+        points: Array<{ x: number; y: number }>;
+        atMs: number;
+      }>;
+      action: "added" | "erased";
+    }>,
+  ): void;
   selectOption(this: TestMockPage, event: WechatMiniprogram.BaseEvent): void;
   nextQuestion(this: TestMockPage): void;
   selectQuestion(this: TestMockPage, event: WechatMiniprogram.BaseEvent): void;

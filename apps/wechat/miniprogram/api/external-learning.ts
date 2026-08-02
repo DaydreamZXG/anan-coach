@@ -61,6 +61,8 @@ interface OmrMarkProjection {
 }
 
 const downloadTimeoutMs = 120_000;
+const importRecoveryAttempts = 12;
+const importRecoveryDelayMs = 1_000;
 
 type RecognitionRevisionProjection = RecognitionRevision;
 
@@ -78,12 +80,47 @@ export class ExternalLearningApi implements ExternalLearningGateway {
   ): Promise<ImportWorkspace> {
     const uploaded = await this.artifacts.upload(command.file, idempotencyKey, onProgress);
     const payload: ApiProcessImportCommand = { learningTrack: command.learningTrack };
-    const response = await this.client.post<ImportWorkspaceData>(
-      `/api/v2/external-learning/imports/${encodeURIComponent(uploaded.sessionId)}/process`,
-      payload,
-      { idempotencyKey: derivedCommandKey(idempotencyKey, "process"), timeoutMs: 60_000 },
-    );
-    return importWorkspace(response);
+    const path = `/api/v2/external-learning/imports/${encodeURIComponent(uploaded.sessionId)}/process`;
+    const processKey = derivedCommandKey(idempotencyKey, "process");
+    try {
+      const response = await this.client.post<ImportWorkspaceData>(path, payload, {
+        idempotencyKey: processKey,
+        timeoutMs: 180_000,
+      });
+      return importWorkspace(response);
+    } catch (error) {
+      if (!isUpstreamProcessingTimeout(error)) throw error;
+      return this.recoverTimedOutImport(uploaded.sessionId, path, payload, processKey, error);
+    }
+  }
+
+  private async recoverTimedOutImport(
+    importId: string,
+    processPath: string,
+    payload: ApiProcessImportCommand,
+    processKey: string,
+    originalError: ApiClientError,
+  ): Promise<ImportWorkspace> {
+    let resumeRequested = false;
+    for (let attempt = 0; attempt < importRecoveryAttempts; attempt += 1) {
+      const current = await this.getImport(importId);
+      if (current.recognition?.state === "candidate" && !resumeRequested) {
+        resumeRequested = true;
+        try {
+          const response = await this.client.post<ImportWorkspaceData>(processPath, payload, {
+            idempotencyKey: derivedCommandKey(processKey, "resume"),
+            timeoutMs: 180_000,
+          });
+          return importWorkspace(response);
+        } catch (error) {
+          if (!isUpstreamProcessingTimeout(error)) throw error;
+        }
+      } else if (current.state !== "processing" && current.state !== "uploading") {
+        return current;
+      }
+      await delay(importRecoveryDelayMs);
+    }
+    throw originalError;
   }
 
   async getImport(importId: string): Promise<ImportWorkspace> {
@@ -377,6 +414,17 @@ function requiredId(value: string, label: string): string {
 function derivedCommandKey(base: string, suffix: string): string {
   const combined = `${base}:${suffix}`;
   return combined.length <= 160 ? combined : base;
+}
+
+function isUpstreamProcessingTimeout(error: unknown): error is ApiClientError {
+  return (
+    error instanceof ApiClientError &&
+    (error.statusCode === 0 || error.statusCode === 524 || error.statusCode === 504)
+  );
+}
+
+function delay(milliseconds: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }
 
 function providerError(message: string, statusCode: number): ApiClientError {

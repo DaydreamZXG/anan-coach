@@ -4,6 +4,10 @@
   "disableScroll": true,
   "usingComponents": {
     "task-shell": "../../task-runtime/task-shell/index",
+    "question-toolbar": "../../task-runtime/question-toolbar/index",
+    "annotation-layer": "../../task-runtime/annotation-layer/index",
+    "answer-sheet": "../../task-runtime/answer-sheet/index",
+    "task-tools-panel": "../../task-runtime/task-tools-panel/index",
     "state-view": "../../design-system/primitives/state-view/index",
     "global-help": "../../task-runtime/global-help/index",
     "content-renderer": "../../task-runtime/content-renderer/index",

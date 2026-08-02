@@ -3,12 +3,14 @@ from __future__ import annotations
 import base64
 from datetime import UTC, date, datetime, timedelta
 from importlib import import_module
+from types import SimpleNamespace
 from uuid import UUID, uuid4
 
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.core.config import Settings
+from app.domains.companion.channel import AccountScopedCompanionResponder
 from app.domains.ilink_channel.material_intake import PRIVATE_READING_ROOM_PATH
 from app.domains.ilink_channel.plan_projection import empty_plan_reply
 from app.domains.ilink_channel.protocol import InboundMessage, MediaReference, ValidatedImage
@@ -123,6 +125,15 @@ class FakeProtocol:
         self.sent.append(kwargs)
 
 
+class FakeCompanion:
+    def __init__(self) -> None:
+        self.calls = []
+
+    def reply(self, _session, **kwargs):
+        self.calls.append(kwargs)
+        return "先复盘这周反复出现的资料分析耗时，再调整今天的训练顺序。"
+
+
 def inbound(message_id: str, *, sender: str, text_value: str = "", image: bool = False):
     return InboundMessage(
         message_id=message_id,
@@ -170,13 +181,108 @@ def material_projection() -> AnswerProjection:
     )
 
 
-def build_workflow(resolver: FakeResolver) -> ILinkPhotoWorkflow:
+def build_workflow(
+    resolver: FakeResolver,
+    *,
+    companion: FakeCompanion | None = None,
+) -> ILinkPhotoWorkflow:
     return ILinkPhotoWorkflow(
         core_settings=Settings(),
         channel_settings=channel_settings(),
         resolver=resolver,  # type: ignore[arg-type]
+        companion_responder=companion,  # type: ignore[arg-type]
         clock=lambda: NOW,
     )
+
+
+def test_plain_text_uses_account_scoped_companion_after_binding(
+    db_session: Session,
+) -> None:
+    install_schema(db_session)
+    bind(db_session, user_id=USER_A, sender="sender-a")
+    companion = FakeCompanion()
+    protocol = FakeProtocol()
+    workflow = build_workflow(FakeResolver(material_projection()), companion=companion)
+
+    workflow.process(
+        db_session,
+        message=inbound("companion-1", sender="sender-a", text_value="我今天应该先补什么？"),
+        client=protocol,  # type: ignore[arg-type]
+    )
+
+    assert protocol.sent[-1]["text"].startswith("先复盘这周")
+    assert companion.calls == [
+        {
+            "user_id": USER_A,
+            "source_message_id": "companion-1",
+            "question": "我今天应该先补什么？",
+        }
+    ]
+
+
+def test_account_scoped_companion_serializes_profile_uuid(
+    db_session: Session,
+    monkeypatch,
+) -> None:
+    channel_module = import_module("app.domains.companion.channel")
+    profile_version_id = uuid4()
+    captured = {}
+
+    class FakeLearningBrainService:
+        def get_or_create_profile(self, _session, *, user_id):
+            assert user_id == str(USER_A)
+            return SimpleNamespace(profile_version_id=profile_version_id)
+
+    class FakeCompanionService:
+        def ask(self, **kwargs):
+            captured.update(kwargs)
+            return SimpleNamespace(answer="先做资料分析。")
+
+    monkeypatch.setattr(channel_module, "LearningBrainService", FakeLearningBrainService)
+    monkeypatch.setattr(channel_module, "CompanionRepository", lambda _session: object())
+    monkeypatch.setattr(channel_module, "AIAuditRepository", lambda _session: object())
+    monkeypatch.setattr(channel_module, "CommerceRepository", lambda _session: object())
+    monkeypatch.setattr(
+        channel_module,
+        "AppStoreSignedTransactionVerifier",
+        lambda _settings: object(),
+    )
+    monkeypatch.setattr(channel_module, "CommerceService", lambda **_kwargs: object())
+    monkeypatch.setattr(channel_module, "companion_provider", lambda _settings: object())
+    monkeypatch.setattr(
+        channel_module,
+        "CompanionService",
+        lambda **_kwargs: FakeCompanionService(),
+    )
+
+    reply = AccountScopedCompanionResponder(settings=Settings()).reply(
+        db_session,
+        user_id=USER_A,
+        source_message_id="companion-profile-version-1",
+        question="今天练什么？",
+    )
+
+    assert reply == "先做资料分析。"
+    assert captured["request"].context.learner_state_version == str(profile_version_id)
+
+
+def test_empty_message_does_not_call_companion_after_binding(
+    db_session: Session,
+) -> None:
+    install_schema(db_session)
+    bind(db_session, user_id=USER_A, sender="sender-a")
+    companion = FakeCompanion()
+    protocol = FakeProtocol()
+    workflow = build_workflow(FakeResolver(material_projection()), companion=companion)
+
+    workflow.process(
+        db_session,
+        message=inbound("empty-1", sender="sender-a", text_value="   "),
+        client=protocol,  # type: ignore[arg-type]
+    )
+
+    assert "没有可读取的文字或图片" in protocol.sent[-1]["text"]
+    assert companion.calls == []
 
 
 def test_store_material_moves_image_into_pending_private_reading_room(

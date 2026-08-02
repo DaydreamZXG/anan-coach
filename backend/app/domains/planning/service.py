@@ -1459,7 +1459,8 @@ def _needs_adaptive_recovery(capacity: CapacitySnapshot) -> bool:
     if not capacity.confirmed:
         return False
     return (
-        capacity.energy == 1
+        capacity.available_minutes == 0
+        or capacity.energy == 1
         or capacity.stress == 5
         or (capacity.energy <= 2 and capacity.stress >= 4)
     )

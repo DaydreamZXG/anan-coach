@@ -352,6 +352,10 @@ Page({
       const previewChanges = presentCapacityChanges(data.currentPlan.tasks, proposed.tasks);
       const taskDuration = plannedDuration(proposed.tasks);
       const capacityDuration = formatCapacityDuration(proposed.capacity.availableMinutes);
+      const capacityImpact =
+        proposed.capacity.availableMinutes === 0
+          ? "今天已设为休息，不安排学习任务。"
+          : `今天可用 ${capacityDuration}。`;
       const goalEvidence = proposed.goalGap.evidenceSummary.trim();
       this.setData({
         previewing: false,
@@ -361,7 +365,7 @@ Page({
         previewHeadline: proposed.headline,
         previewRationale: proposed.rationale,
         previewImpact: [
-          `调整后安排 ${String(proposed.tasks.length)} 项任务，共 ${taskDuration}；今天可用 ${capacityDuration}。`,
+          `调整后安排 ${String(proposed.tasks.length)} 项任务，共 ${taskDuration}；${capacityImpact}`,
           goalEvidence ? `目标依据：${goalEvidence}` : "",
         ]
           .filter(Boolean)

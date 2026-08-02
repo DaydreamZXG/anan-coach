@@ -31,6 +31,7 @@ from app.domains.external_ingestion.schemas import (
     CorrectImportRecognitionCommand,
     ImportRecognitionSegment,
     ImportAIAnswer,
+    ImportMatchedContent,
     ImportQuestionUnit,
     ImportReferenceAnswer,
     ImportWorkspace,
@@ -80,18 +81,41 @@ class ExternalImportWorkspaceService:
                 "文件尚未通过完整安全检查，不能开始识别。",
                 status_code=409,
             )
+        resolved_artifact_version_id = _resolved_artifact_version_id(upload)
+        existing = self._current_import_recognition(
+            owner_user_id=owner_user_id,
+            artifact_version_id=resolved_artifact_version_id,
+        )
+        if existing is not None:
+            if existing.state == CandidateState.CANDIDATE:
+                return self.confirm_recognition_and_match(
+                    owner_user_id=owner_user_id,
+                    import_id=import_id,
+                    recognition_revision_id=existing.recognition_revision_id,
+                    expected_revision_no=existing.revision_no,
+                    learning_track=learning_track,
+                    idempotency_key=f"{idempotency_key}:automatic-search",
+                )
+            return self.workspace(
+                owner_user_id=owner_user_id,
+                import_id=import_id,
+                preferred_recognition=existing,
+                learning_track=learning_track,
+            )
         recognition = self._recognitions.recognize(
             owner_user_id=owner_user_id,
-            artifact_version_id=upload.artifact_version_id,
+            artifact_version_id=resolved_artifact_version_id,
             recognition_kind=RecognitionKind.EXAM_SEGMENTATION,
             processor_route=processor_route,
             idempotency_key=idempotency_key,
         )
-        return self.workspace(
+        return self.confirm_recognition_and_match(
             owner_user_id=owner_user_id,
             import_id=import_id,
-            preferred_recognition=recognition,
+            recognition_revision_id=recognition.recognition_revision_id,
+            expected_revision_no=recognition.revision_no,
             learning_track=learning_track,
+            idempotency_key=f"{idempotency_key}:automatic-search",
         )
 
     def correct_recognition(
@@ -148,7 +172,7 @@ class ExternalImportWorkspaceService:
         payload = RecognitionCandidatePayload.model_validate(confirmed.candidate_payload)
         matches: list[ContentMatchVersion] = []
         for unit in payload.question_units:
-            match, _ = self._matching.evaluate(
+            match, evaluation = self._matching.evaluate(
                 owner_user_id=owner_user_id,
                 recognition=confirmed,
                 question_unit_id=unit.question_unit_id,
@@ -159,6 +183,17 @@ class ExternalImportWorkspaceService:
                 ),
                 idempotency_key=f"{idempotency_key}:match:{unit.question_unit_id}",
             )
+            if (
+                evaluation.ambiguity_reason in {"single_exact", "single_similar"}
+                and len(match.candidates) == 1
+            ):
+                match = self._matching.confirm(
+                    owner_user_id=owner_user_id,
+                    content_match_version_id=match.content_match_version_id,
+                    expected_version_no=match.version_no,
+                    content_version_id=match.candidates[0].content_version_id,
+                    idempotency_key=f"{idempotency_key}:exact:{unit.question_unit_id}",
+                )
             matches.append(match)
         return self.workspace(
             owner_user_id=owner_user_id,
@@ -178,9 +213,7 @@ class ExternalImportWorkspaceService:
         idempotency_key: str,
     ) -> ImportWorkspace:
         self._required_upload(owner_user_id=owner_user_id, import_id=import_id)
-        match = self._match_repository.version(
-            content_match_version_id=content_match_version_id
-        )
+        match = self._match_repository.version(content_match_version_id=content_match_version_id)
         if (
             match is None
             or match.owner_user_id != owner_user_id
@@ -202,9 +235,7 @@ class ExternalImportWorkspaceService:
             recognition_revision_id=confirmed.recognition_revision_id
         )
         if recognition is None:
-            raise ExternalImportError(
-                "recognition_not_found", "识别版本不存在。", status_code=409
-            )
+            raise ExternalImportError("recognition_not_found", "识别版本不存在。", status_code=409)
         return self.workspace(
             owner_user_id=owner_user_id,
             import_id=import_id,
@@ -224,7 +255,8 @@ class ExternalImportWorkspaceService:
         upload = self._required_upload(owner_user_id=owner_user_id, import_id=import_id)
         artifact = self._uploads.artifact_for_session(session_id=import_id)
         recognition = preferred_recognition or self._current_import_recognition(
-            owner_user_id=owner_user_id, artifact_version_id=upload.artifact_version_id
+            owner_user_id=owner_user_id,
+            artifact_version_id=_resolved_artifact_version_id(upload),
         )
         matches = {
             item.question_unit_id: item
@@ -288,9 +320,7 @@ class ExternalImportWorkspaceService:
             state=state,
             artifact=artifact,
             recognition=recognition,
-            recognitionSegments=(
-                _segments(recognition) if recognition is not None else ()
-            ),
+            recognitionSegments=(_segments(recognition) if recognition is not None else ()),
             questionUnits=question_units,
             partialReasons=tuple(dict.fromkeys(reasons)),
             failureReason=failure_reason,
@@ -329,12 +359,10 @@ class ExternalImportWorkspaceService:
         if (
             recognition is None
             or recognition.owner_user_id != owner_user_id
-            or recognition.artifact_version_id != upload.artifact_version_id
+            or recognition.artifact_version_id != _resolved_artifact_version_id(upload)
             or recognition.recognition_kind != RecognitionKind.EXAM_SEGMENTATION
         ):
-            raise ExternalImportError(
-                "recognition_not_found", "识别结果不存在。", status_code=404
-            )
+            raise ExternalImportError("recognition_not_found", "识别结果不存在。", status_code=404)
         return recognition
 
     def _current_import_recognition(
@@ -346,20 +374,22 @@ class ExternalImportWorkspaceService:
             recognition_kind=RecognitionKind.EXAM_SEGMENTATION.value,
         )
 
-    def _current_matches(
-        self, recognition_revision_id: UUID
-    ) -> tuple[ContentMatchVersion, ...]:
-        version_ids = self._session.execute(
-            text(
-                """
+    def _current_matches(self, recognition_revision_id: UUID) -> tuple[ContentMatchVersion, ...]:
+        version_ids = (
+            self._session.execute(
+                text(
+                    """
                 select distinct on (question_unit_id) content_match_version_id
                 from learning.content_match_versions
                 where recognition_revision_id = :recognition_revision_id
                 order by question_unit_id, version_no desc
                 """
-            ),
-            {"recognition_revision_id": str(recognition_revision_id)},
-        ).scalars().all()
+                ),
+                {"recognition_revision_id": str(recognition_revision_id)},
+            )
+            .scalars()
+            .all()
+        )
         return tuple(
             item
             for item in (
@@ -379,9 +409,20 @@ class ExternalImportWorkspaceService:
         return bool(
             upload is not None
             and recognition is not None
-            and recognition.artifact_version_id == upload.artifact_version_id
+            and recognition.artifact_version_id == _resolved_artifact_version_id(upload)
             and recognition.owner_user_id == upload.owner_user_id
         )
+
+
+def _resolved_artifact_version_id(upload: object) -> UUID:
+    resolved = getattr(upload, "resolved_artifact_version_id", None)
+    if isinstance(resolved, UUID):
+        return resolved
+    raise ExternalImportError(
+        "import_artifact_unresolved",
+        "导入文件尚未形成可识别的资料版本。",
+        status_code=409,
+    )
 
 
 def _corrected_payload(
@@ -410,9 +451,7 @@ def _corrected_payload(
             )
         )
         corrected_segments.append(
-            segment.model_copy(
-                update={"text_span_refs": (span_id,), "confidence": 1.0}
-            )
+            segment.model_copy(update={"text_span_refs": (span_id,), "confidence": 1.0})
         )
     return source.model_copy(
         update={"text_spans": tuple(spans), "segments": tuple(corrected_segments)}
@@ -433,9 +472,7 @@ def _segments(recognition: RecognitionRevision) -> tuple[ImportRecognitionSegmen
     for ordinal, segment in enumerate(payload.segments, start=1):
         referenced = [spans[item] for item in segment.text_span_refs if item in spans]
         text_value = "\n".join(item.text for item in referenced).strip()
-        confidence = min(
-            [segment.confidence, *(item.confidence for item in referenced)]
-        )
+        confidence = min([segment.confidence, *(item.confidence for item in referenced)])
         result.append(
             ImportRecognitionSegment(
                 segmentId=segment.segment_id,
@@ -498,6 +535,7 @@ def _match_query(
         optionTexts=tuple(item for item in options if item),
         materialTexts=tuple(item for item in materials if item),
         visualFingerprints=payload.visual_fingerprints,
+        visualFeatureHashes=payload.visual_feature_hashes,
     )
 
 
@@ -518,6 +556,7 @@ def _workspace_units(
         match = matches.get(unit.question_unit_id)
         unit_reasons: list[str] = list(_match_reasons(match)) if match else []
         reference_answer = None
+        matched_content = None
         ai_answer = None
         stored_ai = ai_answers.get(unit.question_unit_id)
         if stored_ai is not None:
@@ -540,23 +579,25 @@ def _workspace_units(
                 question_unit_id=unit.question_unit_id,
             )
             if not query.material_texts:
-                unit_reasons.append(
-                    "申论材料不完整，不能给出可靠原题或 AI 答案结论。"
-                )
-        if stored_ai is not None and stored_ai.state == "confirmed":
-            unit_state = "ready"
-        elif recognition.state == CandidateState.CANDIDATE:
-            unit_state = "recognition_review"
-        elif match is None or (
-            match.evaluation_reason in {"essay_incomplete", "no_eligible_candidate"}
-            and not match.candidates
+                unit_reasons.append("申论材料不完整，不能给出可靠原题或 AI 答案结论。")
+        if (
+            recognition.state == CandidateState.CONFIRMED
+            and match is not None
+            and match.state == "confirmed"
         ):
-            unit_state = "unmatched"
-        elif match.state == "candidate":
-            unit_state = "match_review"
-        elif match.state == "confirmed":
-            unit_state = "ready"
             try:
+                content = matching.matched_content(
+                    owner_user_id=owner_user_id,
+                    recognition=recognition,
+                    match=match,
+                )
+                matched_content = ImportMatchedContent(
+                    contentVersionId=content.content_version_id,
+                    promptText=content.prompt_text,
+                    optionTexts=content.option_texts,
+                    materialTexts=content.material_texts,
+                    solutionExplanation=content.solution_explanation,
+                )
                 answer = matching.stored_answer_candidate(
                     owner_user_id=owner_user_id,
                     recognition=recognition,
@@ -576,6 +617,19 @@ def _workspace_units(
                         authorizationState="authorized_current",
                         learningImpact="reference_only",
                     )
+        if recognition.state == CandidateState.CANDIDATE:
+            unit_state = "recognition_review"
+        elif match is not None and match.state == "confirmed":
+            unit_state = "ready"
+        elif stored_ai is not None and stored_ai.state == "confirmed":
+            unit_state = "ready"
+        elif match is None or (
+            match.evaluation_reason in {"essay_incomplete", "no_eligible_candidate"}
+            and not match.candidates
+        ):
+            unit_state = "unmatched"
+        elif match.state == "candidate":
+            unit_state = "match_review"
         else:
             unit_state = "unmatched"
         units.append(
@@ -588,6 +642,7 @@ def _workspace_units(
                     *unit.option_segment_refs,
                 ),
                 match=match,
+                matchedContent=matched_content,
                 referenceAnswer=reference_answer,
                 aiAnswer=ai_answer,
                 state=unit_state,

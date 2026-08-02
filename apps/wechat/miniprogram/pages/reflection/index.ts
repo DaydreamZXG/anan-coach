@@ -801,15 +801,6 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       return;
     let pending = loadPendingXingceReflection(runtime.ownerUserId, runtime.reviewId);
     const rawText = this.data.rawText.trim();
-    // 全对（无 critical item）时没有错因可反思，不强制选 tag；
-    // 有错题时仍需至少选一个错因。
-    const allCorrect =
-      this.data.reviewItems.length > 0 &&
-      this.data.reviewItems.every((item) => item.resultTone === "success");
-    if (!pending && !allCorrect && runtime.selectedTags.size === 0) {
-      void wx.showToast({ title: "请至少选择一个错因", icon: "none" });
-      return;
-    }
     const unreadyVoice = runtime.mediaDraft.voiceSegments.some(
       (segment) => segment.state !== "available",
     );
@@ -834,17 +825,6 @@ Page<ReflectionPageData, ReflectionPageCustom>({
         );
         const idempotencyKey = await createIdempotencyKey("xingce-reflection");
         if (!runtimeIsActive(this, runtime)) return;
-        const allCorrect =
-          this.data.reviewItems.length > 0 &&
-          this.data.reviewItems.every((item) => item.resultTone === "success");
-        // 全对时没有可反思的错因，tags 为空时补一个中性占位 tag，
-        // 避免后端 ReflectionCommand.tags(min_length=1) 拒绝提交。
-        const tags =
-          runtime.selectedTags.size > 0
-            ? [...runtime.selectedTags]
-            : allCorrect
-              ? ["全部正确"]
-              : [];
         pending = {
           kind: "reflection",
           sessionId: runtime.sessionId,
@@ -853,7 +833,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
           command: {
             expectedRevision: review.revision,
             rawText,
-            tags,
+            tags: [...runtime.selectedTags],
             ...(this.data.strategyNote.trim()
               ? { strategyNote: this.data.strategyNote.trim() }
               : {}),
@@ -1432,7 +1412,7 @@ function applySession(
   const pendingFollowup = loadPendingXingceCauseFollowup(runtime.ownerUserId, runtime.reviewId);
   const pendingCause = loadPendingXingceCauseDecision(runtime.ownerUserId, runtime.reviewId);
   const existingTags = review.reflection?.tags.filter(isXingceReflectionTag) ?? [];
-  const pendingTags = pendingReflection?.command.tags.filter(isXingceReflectionTag) ?? [];
+  const pendingTags = pendingReflection?.command.tags?.filter(isXingceReflectionTag) ?? [];
   const localDraft = runtime.mediaDraft;
   const hasLocalDraft = hasReflectionDraft(localDraft);
   if (pendingReflection || hasLocalDraft) runtime.reviewFormEntered = true;

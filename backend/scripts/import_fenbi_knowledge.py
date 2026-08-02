@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
-"""补导 fenbi 知识点(knowledge_points)到 question_tags。
+"""补导粉笔知识点(knowledge_points)到 question_tags。
 
-fenbi 题通过 representative_source_question_id = 'fenbi:<key>' 关联已导入的 pp_ 题。
-每题的 knowledge_points 写为 tag_type='knowledge_point' 的 question_tags。
+题目来源既可能是历史 ``fenbi:<key>``，也可能是脱敏后的 ``an:<key>``；两者都
+关联到同一份原始题目键。写入使用稳定 tag id，因此重复运行不会制造重复标签。
 """
 import json
-import os
 import sys
+from hashlib import sha256
 from pathlib import Path
-from uuid import uuid4
 
 import psycopg
 
@@ -16,23 +15,29 @@ DB_URL = sys.argv[1] if len(sys.argv) > 1 else "postgresql:///gongkao_dazi_stagi
 SRC = Path(sys.argv[2]) if len(sys.argv) > 2 else Path("/tmp/fenbi-json")
 
 
+def _stable_identifier(prefix: str, *parts: str) -> str:
+    digest = sha256("\x1f".join(parts).encode("utf-8")).hexdigest()
+    return f"{prefix}_{digest[:24]}"
+
+
 def main() -> None:
     conn = psycopg.connect(DB_URL)
     conn.autocommit = False
     cur = conn.cursor()
 
-    # 建立 fenbi key -> pp_ question_id 映射
+    # 建立原始 key -> pp_ question_id 映射，兼容脱敏前后的来源前缀。
     cur.execute(
         """
         select representative_source_question_id, question_id
         from product.questions
-        where representative_source_question_id like 'fenbi:%'
+        where representative_source_question_id like 'an:%'
+           or representative_source_question_id like 'fenbi:%'
         """
     )
     key_to_qid = {
-        src.removeprefix("fenbi:"): qid for src, qid in cur.fetchall()
+        src.split(":", 1)[1]: qid for src, qid in cur.fetchall()
     }
-    print(f"fenbi 题映射: {len(key_to_qid)}")
+    print(f"粉笔题映射: {len(key_to_qid)}")
 
     # 遍历所有 json 补知识点
     tagged = 0
@@ -57,18 +62,18 @@ def main() -> None:
                 cur.execute(
                     """
                     insert into product.question_tags (
-                        question_tag_id, question_id, source_tag_id, tag_type, tag_value
-                    ) values (%s, %s, %s, %s, %s)
+                        question_tag_id, question_id, tag_type, tag_value
+                    ) values (%s, %s, %s, %s)
+                    on conflict (question_tag_id) do nothing
                     """,
                     (
-                        f"kptag_{uuid4().hex[:20]}",
+                        _stable_identifier("kptag", qid, name),
                         qid,
-                        str(kp.get("id")) if isinstance(kp, dict) else None,
                         "knowledge_point",
                         name,
                     ),
                 )
-                tagged += 1
+                tagged += cur.rowcount
         conn.commit()
 
     conn.commit()

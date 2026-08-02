@@ -5,6 +5,12 @@ import { taskShellSyncTone } from "../miniprogram/task-runtime/task-shell/state"
 import taskShellTemplate from "../miniprogram/task-runtime/task-shell/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import taskShellStylesRaw from "../miniprogram/task-runtime/task-shell/index.wxss?raw";
+// @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
+import questionToolbarTemplate from "../miniprogram/task-runtime/question-toolbar/index.wxml?raw";
+// @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
+import practiceTemplate from "../miniprogram/pages/practice/index.wxml?raw";
+// @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
+import mockTemplate from "../miniprogram/pages/mock-exam/index.wxml?raw";
 
 function normalizeRpxCalc(source: unknown): string {
   if (typeof source !== "string") throw new Error("Raw mini-program asset must be text.");
@@ -42,5 +48,26 @@ describe("compact task shell", () => {
     );
     // sticky 基础规则的 top 偏移必须在 xingce 变体里归零，否则导航整行下坠。
     expect(taskShellStyles).toMatch(/\.task-shell--xingce \.task-header \{[^}]*top: 0/);
+  });
+
+  it("shares the authoritative question toolbar across practice and mock workbenches", () => {
+    expect(practiceTemplate).toContain("<question-toolbar");
+    expect(mockTemplate).toContain("<question-toolbar");
+    expect(practiceTemplate).toContain("<answer-sheet");
+    expect(mockTemplate).toContain("<answer-sheet");
+    expect(practiceTemplate).toContain("<task-tools-panel");
+    expect(mockTemplate).toContain("<task-tools-panel");
+    expect(mockTemplate).toContain('layoutVariant="xingce"');
+    expect(mockTemplate).toContain('<scroll-view\n        class="mock-question-pane"');
+    expect(mockTemplate).toContain("<annotation-layer");
+    expect(mockTemplate).toContain('binddraft="openAnnotation"');
+    expect(mockTemplate).toContain('bindstrokeschange="changeAnnotations"');
+    expect(mockTemplate).not.toContain('title="草稿纸"');
+    expect(mockTemplate).not.toContain('class="exam-status-card');
+    expect(questionToolbarTemplate).toContain('src="/assets/icons/task/bookmark-active.svg"');
+    expect(questionToolbarTemplate).toContain('src="/assets/icons/task/draft.svg"');
+    expect(questionToolbarTemplate).toContain('bindtap="mark"');
+    expect(questionToolbarTemplate).toContain('bindtap="draft"');
+    expect(questionToolbarTemplate).toContain('bindtap="settings"');
   });
 });

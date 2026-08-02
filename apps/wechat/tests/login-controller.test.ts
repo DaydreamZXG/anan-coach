@@ -86,6 +86,28 @@ describe("wechat login controller", () => {
     expect(state?.errorMessage).toContain("restore-network");
   });
 
+  it("keeps a persisted session when recovery fails with a temporary server error", async () => {
+    const harness = createHarness({
+      restoreProgress: vi.fn(() =>
+        Promise.reject(
+          new ApiClientError("服务暂时不可用", 503, "restore-upstream", {
+            code: "service_unavailable",
+            message: "服务暂时不可用",
+            requestId: "restore-upstream",
+          }),
+        ),
+      ),
+    });
+
+    await harness.controller.resume();
+
+    expect(harness.spies.discardSession).not.toHaveBeenCalled();
+    expect(harness.states.at(-1)).toMatchObject({
+      restoring: false,
+      errorCode: "service_unavailable",
+    });
+  });
+
   it("allows a new command after a typed login failure has settled", async () => {
     const authenticate = vi
       .fn(() => Promise.resolve(session()))

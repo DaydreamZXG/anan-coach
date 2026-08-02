@@ -337,7 +337,7 @@ class ILinkChannelService:
             expiresAt=row["code_expires_at"] if row else None,
             queryCount=query_count,
             collectionCount=collection_count,
-            usageCopy="在微信里给岸岸发送裁剪好的单题图片；答案会标明题库精确命中、相似参考或 AI 候选。",
+            usageCopy="在微信里直接问岸岸，或发送裁剪好的单题图片；发送「今天练什么」可查看当前安排。",
             evidenceCopy="查询、收录和重做请求都不计入能力；只有之后独立作答才会形成学习证据。",
         )
 

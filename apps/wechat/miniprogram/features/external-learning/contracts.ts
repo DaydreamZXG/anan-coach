@@ -56,6 +56,14 @@ export interface ImportReferenceAnswer {
   learningImpact: "reference_only";
 }
 
+export interface ImportMatchedContent {
+  contentVersionId: string;
+  promptText: string;
+  optionTexts: readonly string[];
+  materialTexts: readonly string[];
+  solutionExplanation: string | null;
+}
+
 export interface ImportAIAnswer {
   answerVersionId: string;
   state: "requested" | "processing" | "candidate" | "confirmed" | "failed";
@@ -75,6 +83,7 @@ export interface ImportQuestionUnit {
   ordinal: number;
   segmentIds: readonly string[];
   match: ContentMatchVersion | null;
+  matchedContent: ImportMatchedContent | null;
   referenceAnswer: ImportReferenceAnswer | null;
   aiAnswer: ImportAIAnswer | null;
   state: "recognition_review" | "match_review" | "unmatched" | "ready";

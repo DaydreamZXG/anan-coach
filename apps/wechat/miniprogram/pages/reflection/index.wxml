@@ -1,7 +1,7 @@
 <view class="s9-screen reflection-page">
   <workbench-nav
     id="runtime-workbench-nav"
-    title="{{phase === 'summary' ? '本次训练总结' : phase === 'completed' ? '这轮复盘记下了' : phase === 'reflection' ? '单题错因复盘' + (reviewItems.length ? ' · ' + (currentReviewIndex + 1) + '/' + reviewItems.length : '') : '错因确认'}}"
+    title="{{phase === 'summary' ? '本次训练总结' : phase === 'completed' ? '这轮复盘记下了' : phase === 'reflection' ? '单题错因复盘' + (reviewItems.length ? ' · ' + (currentReviewIndex + 1) + '/' + reviewItems.length : '') : '岸岸判断'}}"
     back-behavior="emit"
     bind:back="handleBack"
   />
@@ -195,8 +195,8 @@
       </view>
 
       <view class="reason-card">
-        <view class="reason-card__title">错因确认</view>
-        <view class="reason-card__copy">至少选一项，可以多选。文字原因是选填，岸岸只会依据你实际提供的信息提出候选错因。</view>
+        <view class="reason-card__title">你也可以补充</view>
+        <view class="reason-card__copy">标签和文字都是选填。不填也可以，岸岸会先根据用时、改选、排除、草稿和作答结果来判断。</view>
         <view class="tag-grid">
           <button hover-class="item--hover"
             wx:for="{{tagOptions}}"
@@ -286,7 +286,7 @@
         </view>
       </view>
 
-      <view class="reflection-boundary">别跟错题怄气，问它要个答案——岸岸给候选，结论你来下。</view>
+      <view class="reflection-boundary">你只需要留下真实作答，岸岸先做判断；有不对的地方再改。</view>
       <view class="reflection-bottom-spacer"></view>
     </view>
 
@@ -294,7 +294,7 @@
       <view class="cause-spinner"></view>
       <view class="cause-processing__title">{{causeCandidate.stateLabel}}</view>
       <view class="cause-processing__copy">{{causeCandidate.stateDescription}}</view>
-      <view class="cause-processing__boundary">复盘原话已经保存，错因仍由你最终确认。</view>
+      <view class="cause-processing__boundary">你的作答证据已经保存，岸岸正在形成默认判断。</view>
       <button hover-class="item--hover" class="reflection-secondary" disabled="{{interactionLocked}}" bindtap="refreshCauseCandidate">重新检查学习记录</button>
     </view>
 
@@ -345,7 +345,7 @@
       <!-- 逐题候选错因：错题卡 + 灰底 chip，纯展示不加交互；证据不足显式标注。 -->
       <view wx:if="{{causeCandidate.questionCandidates.length}}" class="question-cause-card">
         <view class="question-cause-card__title">逐题候选错因</view>
-        <view class="question-cause-card__copy">按题给出的候选判断，仅供参考；最终确认仍以本组为单位。</view>
+        <view class="question-cause-card__copy">按题给出岸岸的判断；你可以直接继续，也可以在下方纠正。</view>
         <view wx:for="{{causeCandidate.questionCandidates}}" wx:key="questionId" class="question-cause-item">
           <view class="question-cause-item__head">
             <text class="question-cause-item__position">{{item.positionLabel}}</text>
@@ -362,7 +362,7 @@
       </view>
 
       <block wx:if="{{causeCandidate.canDecide}}">
-        <button hover-class="item--hover" wx:if="{{causeCandidate.canConfirm}}" class="reflection-primary tap-tactile" disabled="{{interactionLocked}}" bindtap="confirmCause">确认这个错因</button>
+        <button hover-class="item--hover" wx:if="{{causeCandidate.canConfirm}}" class="reflection-primary tap-tactile" disabled="{{interactionLocked}}" bindtap="confirmCause">按岸岸的判断继续</button>
         <button hover-class="item--hover" class="reflection-secondary" disabled="{{interactionLocked}}" bindtap="rejectCause">这不是我的错因</button>
         <!-- 改写错因的可选结构化归类：单选 chip，可不选，再点一次取消。 -->
         <view class="cause-code-hint">如果换成你的说法，它更像下面哪一类？选一个可以帮你以后归类，也可以不选。</view>

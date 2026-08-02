@@ -168,6 +168,7 @@ class RecognitionService:
                 omrMarks=result.omr_marks,
                 pageImageSha256=result.page_image_sha256,
                 visualFingerprints=result.visual_fingerprints,
+                visualFeatureHashes=result.visual_feature_hashes,
                 processorRequestIdHash=sha256(
                     result.provider_request_id.encode("utf-8")
                 ).hexdigest(),
@@ -384,6 +385,7 @@ class RecognitionService:
                 omrMarks=result.omr_marks,
                 pageImageSha256=result.page_image_sha256,
                 visualFingerprints=result.visual_fingerprints,
+                visualFeatureHashes=result.visual_feature_hashes,
                 processorRequestIdHash=sha256(
                     result.provider_request_id.encode("utf-8")
                 ).hexdigest(),

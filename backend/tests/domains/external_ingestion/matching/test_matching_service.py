@@ -150,6 +150,7 @@ def content(
     *,
     prompt: str = "下列关于行政许可的说法正确的是",
     visual: str = "1" * 64,
+    visual_features=(),
     distribution_class: str = "licensed_transferable",
     owner_user_id: UUID | None = None,
     cross_user: bool = True,
@@ -161,6 +162,7 @@ def content(
         promptText=prompt,
         optionTexts=("A. 可以撤回", "B. 永远不得撤回"),
         visualFingerprints=(visual,),
+        visualFeatureHashes=visual_features,
         referenceAnswer=answer,
         solutionExplanation="依据信赖保护原则处理。",
         distributionClass=distribution_class,
@@ -192,12 +194,18 @@ def recognition(*, state=CandidateState.CONFIRMED, owner=OWNER) -> RecognitionRe
     )
 
 
-def query(*, prompt="下列关于行政许可的说法正确的是", visual="1" * 64):
+def query(
+    *,
+    prompt="下列关于行政许可的说法正确的是",
+    visual="1" * 64,
+    visual_features=(),
+):
     return MatchQuery(
         track="xingce",
         promptText=prompt,
         optionTexts=("A. 可以撤回", "B. 永远不得撤回"),
         visualFingerprints=(visual,),
+        visualFeatureHashes=visual_features,
     )
 
 
@@ -239,6 +247,62 @@ def test_exact_text_and_visual_match_stays_candidate_until_user_confirms() -> No
     assert evaluation.ambiguity_reason == "single_exact"
     assert evaluation.candidates[0].match_kind == "exact"
     assert evaluation.candidates[0].score == 1
+
+
+def test_approximate_visual_score_uses_all_four_perceptual_hashes() -> None:
+    stored = {
+        "phash": "0000000000000000",
+        "dhash": "0000000000000000",
+        "ahash": "0000000000000000",
+        "edgeDhash": "0000000000000000",
+    }
+    photographed = {
+        "phash": "0000000000000001",
+        "dhash": "0000000000000003",
+        "ahash": "0000000000000007",
+        "edgeDhash": "000000000000000f",
+    }
+    matching, _ = service(content("question-v1", visual_features=(stored,)))
+
+    _, evaluation = matching.evaluate(
+        owner_user_id=OWNER,
+        question_unit_id="a" * 64,
+        recognition=recognition(),
+        query=query(visual_features=(photographed,)),
+        idempotency_key="perceptual-visual-score",
+    )
+
+    candidate = evaluation.candidates[0]
+    assert candidate.match_kind == "similar"
+    assert candidate.visual_score == pytest.approx(1 - (10 / 256))
+    assert candidate.score == pytest.approx((1 * 0.8) + ((1 - (10 / 256)) * 0.2))
+
+
+def test_visual_only_objective_query_can_reach_matching() -> None:
+    hashes = {
+        "phash": "0000000000000000",
+        "dhash": "1111111111111111",
+        "ahash": "2222222222222222",
+        "edgeDhash": "3333333333333333",
+    }
+    matching, _ = service(
+        content("question-v1", visual_features=(hashes,)),
+    )
+
+    _, evaluation = matching.evaluate(
+        owner_user_id=OWNER,
+        question_unit_id="a" * 64,
+        recognition=recognition(),
+        query=MatchQuery(
+            track="xingce",
+            promptText="",
+            visualFeatureHashes=(hashes,),
+        ),
+        idempotency_key="visual-only",
+    )
+
+    assert evaluation.ambiguity_reason == "single_similar"
+    assert evaluation.candidates[0].visual_score == 1
 
 
 def test_unconfirmed_or_expired_recognition_never_enters_matching() -> None:
@@ -465,6 +529,12 @@ def test_external_answer_requires_recognition_match_and_answer_confirmation() ->
     assert answer is not None
     assert answer.answer_text == "答案 A，依法可以撤回行政许可。"
     assert "solutionExplanation" not in answer.model_dump(by_alias=True)
+    matched_content = matching.matched_content(
+        owner_user_id=OWNER, recognition=recognition(), match=match
+    )
+    assert matched_content.prompt_text == "下列关于行政许可的说法正确的是"
+    assert matched_content.option_texts == ("A. 可以撤回", "B. 永远不得撤回")
+    assert matched_content.solution_explanation == "依据信赖保护原则处理。"
 
     before = matching.evidence_admission(
         recognition=recognition(), match=match, answer=answer

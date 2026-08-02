@@ -141,6 +141,18 @@ Component({
       context.fill();
       context.stroke();
 
+      if (points.every((point) => point.value === 0)) {
+        context.beginPath();
+        context.arc(centerX, centerY, 4, 0, Math.PI * 2);
+        context.fillStyle = "#111827";
+        context.fill();
+        context.fillStyle = "#9ca3af";
+        context.font = "600 10px -apple-system, BlinkMacSystemFont, PingFang SC, sans-serif";
+        context.textAlign = "center";
+        context.textBaseline = "top";
+        context.fillText("0", centerX, centerY + 9);
+      }
+
       context.fillStyle = "#6b7280";
       context.font = "600 11px -apple-system, BlinkMacSystemFont, PingFang SC, sans-serif";
       context.textBaseline = "middle";

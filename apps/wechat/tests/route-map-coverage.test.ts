@@ -61,7 +61,7 @@ const pageSources: Readonly<Record<string, string>> = {
 const stateMarkers: Readonly<Record<string, readonly string[]>> = {
   "/pages/practice/index#answering": ["sessionState === 'answering'"],
   // Figma 03 · 行测练习与复盘 本轮新增的 9 个正式相态。
-  "/pages/practice/index#answer-sheet": ["answerSheetOpen", 'class="answer-card__sheet"'],
+  "/pages/practice/index#answer-sheet": ["answerSheetOpen", "<answer-sheet"],
   "/pages/practice/index#annotation": ["annotationOpen", "annotation-layer"],
   "/pages/practice/index#material-immersive": ["OPEN_FULLSCREEN", "materialReaderState"],
   "/pages/practice/index#paused": ["taskPaused", 'class="pause-card"'],

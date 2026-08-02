@@ -1,15 +1,13 @@
 <ui-sheet
   visible="{{visible}}"
   title="微信里的岸岸"
-  copy="为当前账号连接专属岸岸 Bot。连接后，可以直接在微信里发送文字或裁剪好的题目图片。"
+  copy="连接当前账号后，可以直接问岸岸、发送裁剪好的题目图片，或查看今天的安排。"
   show-close
   max-height="84vh"
   bindclose="close"
 >
   <view class="bot-sheet">
-    <view wx:if="{{status === 'loading'}}" class="bot-state">
-      正在核对连接状态…
-    </view>
+    <view wx:if="{{status === 'loading'}}" class="bot-state">正在核对连接状态…</view>
 
     <view wx:elif="{{status === 'error'}}" class="bot-error">
       <view class="bot-error__title">微信岸岸没有连接完成</view>
@@ -19,50 +17,37 @@
     </view>
 
     <block wx:elif="{{view}}">
+      <view wx:if="{{view.linkState === 'bound'}}" class="bot-connected">
+        <view class="bot-connected__title">● 微信岸岸已连接</view>
+        <view class="bot-connected__copy">{{view.usageCopy}}</view>
+        <view class="bot-evidence">{{view.evidenceCopy}}</view>
+      </view>
+
+      <view wx:elif="{{view.linkState === 'pending' && view.bindingCode}}" class="bot-code-card">
+        <view class="bot-code-label">把连接码发给微信里的岸岸 Bot</view>
+        <view class="bot-code type-data">{{view.bindingCode}}</view>
+        <view class="bot-code-copy">发送成功后回到这里重新读取，连接状态会自动按当前账号核对。</view>
+        <button hover-class="item--hover" class="bot-primary tap-tactile" bindtap="copyCode">复制连接码</button>
+        <button hover-class="item--hover" class="bot-secondary" loading="{{writing}}" disabled="{{writing}}" bindtap="replace">换一个连接码</button>
+      </view>
+
+      <view wx:elif="{{view.linkState === 'pending'}}" class="bot-error">
+        <view class="bot-error__title">连接码已过期</view>
+        <view class="bot-error__copy">重新生成一个连接码，再发给微信里的岸岸即可继续连接。</view>
+        <button hover-class="item--hover" class="bot-primary tap-tactile" loading="{{writing}}" disabled="{{writing}}" bindtap="replace">重新生成连接码</button>
+      </view>
+
       <button
-        wx:if="{{view.state === 'unbound' || view.state === 'revoked'}}"
+        wx:elif="{{view.linkState === 'unbound' || view.linkState === 'revoked'}}"
         hover-class="item--hover"
         class="bot-primary tap-tactile"
         loading="{{writing}}"
         disabled="{{writing}}"
-        bindtap="startAuthorization"
-      >生成微信二维码</button>
+        bindtap="issue"
+      >生成连接码</button>
 
-      <block wx:elif="{{view.state === 'waiting_scan' || view.state === 'scanned'}}">
-        <view wx:if="{{view.qrImageDataUrl}}" class="bot-qr-card">
-          <image
-            class="bot-qr-image"
-            src="{{view.qrImageDataUrl}}"
-            mode="aspectFit"
-            show-menu-by-longpress
-          />
-          <view class="bot-qr-title">{{view.statusCopy}}</view>
-          <view class="bot-qr-copy">{{view.usageCopy}}</view>
-        </view>
-        <view wx:else class="bot-error">
-          <view class="bot-error__title">二维码没有生成完整</view>
-          <view class="bot-error__copy">请换一个二维码后再扫码连接。</view>
-        </view>
-        <button hover-class="item--hover" class="bot-primary tap-tactile" loading="{{polling}}" disabled="{{polling}}" bindtap="pollAuthorization">我已在微信确认</button>
-        <button hover-class="item--hover" class="bot-secondary" loading="{{writing}}" disabled="{{writing}}" bindtap="replaceAuthorization">换一个二维码</button>
-        <button hover-class="item--hover" class="bot-danger" loading="{{writing}}" disabled="{{writing}}" bindtap="revoke">取消连接</button>
-      </block>
-
-      <block wx:elif="{{view.state === 'connected'}}">
-        <view class="bot-connected">
-          <view class="bot-connected__title">● {{view.statusCopy}}</view>
-          <view class="bot-connected__copy">{{view.usageCopy}}</view>
-        </view>
-        <button hover-class="item--hover" class="bot-danger" loading="{{writing}}" disabled="{{writing}}" bindtap="revoke">解除连接</button>
-      </block>
-
-      <block wx:elif="{{view.state === 'reauth_required'}}">
-        <view class="bot-error">
-          <view class="bot-error__title">{{view.statusCopy}}</view>
-          <view class="bot-error__copy">{{view.usageCopy}}</view>
-        </view>
-        <button hover-class="item--hover" class="bot-primary tap-tactile" loading="{{writing}}" disabled="{{writing}}" bindtap="replaceAuthorization">重新生成二维码</button>
-      </block>
+      <button wx:if="{{view.linkState === 'bound'}}" hover-class="item--hover" class="bot-secondary" bindtap="load">重新读取状态</button>
+      <button wx:if="{{view.linkId && view.linkState !== 'revoked'}}" hover-class="item--hover" class="bot-danger" loading="{{writing}}" disabled="{{writing}}" bindtap="revoke">解除连接</button>
     </block>
   </view>
 </ui-sheet>

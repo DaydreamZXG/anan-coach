@@ -7,7 +7,7 @@
  * 演示页面，所有项必须与 design/figma-delivery/route-map.json 一一对应。
  */
 export const visualDeliveryContracts = [
-  delivery("3:2", "b01-today-ready", "/pages/today/index", ".today-page", ["今天", "今日任务"]),
+  delivery("3:2", "b01-today-ready", "/pages/today/index", ".today-page", ["今天", "为什么这样练"]),
   delivery("4:2", "e01-learning-profile-ready", "/pages/ability/index", ".ability-page", [
     "能力",
     "目标对照",
@@ -128,8 +128,8 @@ export const visualDeliveryContracts = [
     "/pages/reflection/index",
     "cause-review",
     ".review-content",
-    // Figma 14:2：底部固定「确认错因，看下一题」。
-    ["错因确认", "岸岸结构化解析"],
+    // AI 先给出判断，用户仅在需要时补充，不再强制二次确认错因。
+    ["你也可以补充", "岸岸结构化解析"],
     ".s9-primary-button",
   ),
   deliveryState(

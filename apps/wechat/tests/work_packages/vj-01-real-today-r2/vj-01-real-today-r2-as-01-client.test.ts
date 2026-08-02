@@ -17,7 +17,7 @@ describe("VJ-01 real Today R2 AS-01 client chain", () => {
     });
 
     const request = vi.fn((options: WechatMiniprogram.RequestOption) => {
-      expect(options.url).toBe("https://kg.xingguoxian.cn/api/v2/plans/today");
+      expect(options.url).toBe("https://kg.xingguoxian.cn/staging/api/v2/plans/today");
       expect(options.method).toBe("GET");
       expect(options.header).toMatchObject({ Authorization: "Bearer server-session" });
       options.success?.(success({ planVersionId: "server-plan-version" }));

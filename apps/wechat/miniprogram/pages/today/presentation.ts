@@ -56,6 +56,18 @@ export interface OmittedTrackReasonView {
   reason: string;
 }
 
+export interface TodayTrackView {
+  track: "xingce" | "essay";
+  label: string;
+  summary: string;
+  detail: string;
+  actionLabel: string;
+  taskId: string;
+  tone: "active" | "complete" | "idle";
+}
+
+export type TodayDayState = "active" | "recovery" | "unavailable" | "complete";
+
 export interface TodayView {
   headline: string;
   rationale: string;
@@ -82,7 +94,14 @@ export interface TodayView {
   trackAllocations: TrackAllocationView[];
   omittedTrackReasons: OmittedTrackReasonView[];
   tasks: TaskView[];
+  activeTasks: TaskView[];
+  completedTasks: TaskView[];
   hasTasks: boolean;
+  hasExecutionActivity: boolean;
+  dayState: TodayDayState;
+  emptyStateTitle: string;
+  emptyStateCopy: string;
+  trackViews: TodayTrackView[];
   dueSummary: string;
   isRecoveryDay: boolean;
 }
@@ -179,6 +198,14 @@ const roleLabels: Readonly<Record<string, string>> = {
 export function presentTodayDashboard(dashboard: TodayDashboard): TodayView {
   const gap = presentGoalGap(dashboard);
   const tasks = orderedTasks(dashboard.tasks).map(presentTask);
+  const activeTasks = tasks.filter(
+    (task) => task.status === "ready" || task.status === "in_progress",
+  );
+  const completedTasks = tasks.filter((task) => task.status === "complete");
+  const hasExecutionActivity = tasks.some(
+    (task) => task.status === "in_progress" || task.status === "complete" || task.elapsedMinutes,
+  );
+  const dayState = todayDayState(dashboard, activeTasks, hasExecutionActivity);
   const allocationTracks = new Set(
     dashboard.dualTrackExplanation.allocations.map((item) => item.track),
   );
@@ -203,15 +230,116 @@ export function presentTodayDashboard(dashboard: TodayDashboard): TodayView {
     trackAllocations: dashboard.dualTrackExplanation.allocations.map(presentAllocation),
     omittedTrackReasons: presentOmittedReasons(dashboard, allocationTracks),
     tasks,
-    hasTasks: tasks.length > 0,
+    activeTasks,
+    completedTasks,
+    hasTasks: activeTasks.length > 0,
+    hasExecutionActivity,
+    dayState,
+    ...emptyStateView(dashboard, dayState),
+    trackViews: (["xingce", "essay"] as const).map((track) =>
+      presentTodayTrack(dashboard, tasks, track),
+    ),
     dueSummary: presentObjectiveClosureSummary(dashboard),
     isRecoveryDay: dashboard.dayMode === "recovery",
+  };
+}
+
+function todayDayState(
+  dashboard: TodayDashboard,
+  activeTasks: TaskView[],
+  hasExecutionActivity: boolean,
+): TodayDayState {
+  if (activeTasks.length > 0) return "active";
+  if (hasExecutionActivity) return "complete";
+  if (dashboard.dayMode === "recovery") return "recovery";
+  return "unavailable";
+}
+
+function emptyStateView(dashboard: TodayDashboard, dayState: TodayDayState) {
+  if (dayState === "recovery") {
+    if (dashboard.capacity.availableMinutes === 0) {
+      return {
+        emptyStateTitle: "今天已经设为休息",
+        emptyStateCopy:
+          "今天不安排学习任务，也不会把未完成内容累积成明日欠账。想恢复学习时，可以随时调整今天。",
+      };
+    }
+    return {
+      emptyStateTitle: "今天没有必做任务",
+      emptyStateCopy: `${dashboard.rationale} 今天有 ${formatCapacityDuration(dashboard.capacity.availableMinutes)} 可用，不代表必须排满。`,
+    };
+  }
+  if (dayState === "complete") {
+    return {
+      emptyStateTitle: "今天的任务已经完成",
+      emptyStateCopy: "学习记录已经保存，可以结束今天并完成复盘。",
+    };
+  }
+  return {
+    emptyStateTitle: dashboard.headline || "今天还没有可执行任务",
+    emptyStateCopy: dashboard.rationale || "先确认目标岗位和今天可用时间，岸岸才能生成真实安排。",
+  };
+}
+
+function presentTodayTrack(
+  dashboard: TodayDashboard,
+  tasks: TaskView[],
+  track: "xingce" | "essay",
+): TodayTrackView {
+  const matching = tasks.filter((task) => task.track === track);
+  const active = matching.filter(
+    (task) => task.status === "ready" || task.status === "in_progress",
+  );
+  const completed = matching.filter((task) => task.status === "complete");
+  const first = active[0];
+  const allocation = dashboard.dualTrackExplanation.allocations.find(
+    (item) => item.track === track,
+  );
+  const omittedReason = dashboard.dualTrackExplanation.omittedTrackReasons[track];
+  if (first) {
+    const minutes = active.reduce((total, task) => total + task.estimatedMinutes, 0);
+    return {
+      track,
+      label: trackLabels[track],
+      summary: `${String(active.length)} 项待完成 · ${formatCapacityDuration(minutes)}`,
+      detail: allocation?.reason ?? first.reason,
+      actionLabel: first.status === "in_progress" ? "继续" : "开始",
+      taskId: first.id,
+      tone: "active",
+    };
+  }
+  if (completed.length > 0) {
+    return {
+      track,
+      label: trackLabels[track],
+      summary: `${String(completed.length)} 项已完成`,
+      detail: track === "xingce" ? "今天的行测记录已归档。" : "今天的申论记录已归档。",
+      actionLabel: track === "xingce" ? "查看复测" : "调整安排",
+      taskId: "",
+      tone: "complete",
+    };
+  }
+  return {
+    track,
+    label: trackLabels[track],
+    summary: dashboard.dayMode === "recovery" ? "恢复日不安排新任务" : "今天暂未安排",
+    detail:
+      omittedReason ??
+      (track === "xingce"
+        ? "可查看已有错题与到期复测。"
+        : "申论仍保留在双轨计划中，可调整今天重新核对。"),
+    actionLabel: track === "xingce" ? "查看复测" : "调整安排",
+    taskId: "",
+    tone: "idle",
   };
 }
 
 function presentObjectiveClosureSummary(dashboard: TodayDashboard): string {
   if (dashboard.dueReflectionCount === null || dashboard.dueVerificationCount === null) {
     return "复盘与间隔验证正在整理";
+  }
+  if (dashboard.dueReflectionCount === 0 && dashboard.dueVerificationCount === 0) {
+    return "目前没有到期复盘或验证";
   }
   return `${String(dashboard.dueReflectionCount)} 项待复盘 · ${String(dashboard.dueVerificationCount)} 项待验证`;
 }

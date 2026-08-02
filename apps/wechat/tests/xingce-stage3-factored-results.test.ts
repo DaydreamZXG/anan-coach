@@ -287,6 +287,11 @@ describe("stage 3 cause workflow", () => {
       { questionId: "q-1", positionNumber: 1 },
       { questionId: "q-2", positionNumber: 2 },
     ]);
+    expect(view.stateLabel).toBe("岸岸已形成本次判断");
+    expect(view.stateDescription).toContain("直接按这个判断继续");
+    expect(view.candidateVersionLabel).toBe("本次岸岸判断");
+    expect(view.canConfirm).toBe(true);
+    expect(view.canDecide).toBe(true);
     expect(view.questionCandidates).toEqual([
       {
         questionId: "q-1",

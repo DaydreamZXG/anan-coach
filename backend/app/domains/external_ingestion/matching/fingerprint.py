@@ -6,6 +6,8 @@ import json
 import re
 import unicodedata
 
+from app.domains.external_ingestion.recognition.models import VisualFeatureHash
+
 
 _SPACE = re.compile(r"\s+")
 _PUNCT = re.compile(r"[^0-9a-z\u4e00-\u9fff]+")
@@ -32,14 +34,25 @@ def text_similarity(left: str, right: str) -> float:
     return round((jaccard * 0.6) + (sequence * 0.4), 12)
 
 
-def visual_similarity(left: tuple[str, ...], right: tuple[str, ...]) -> float:
+def visual_similarity(
+    left: tuple[VisualFeatureHash, ...], right: tuple[VisualFeatureHash, ...]
+) -> float:
     if not left or not right:
         return 0.0
     best = 0.0
     for first in left:
         for second in right:
-            xor = int(first, 16) ^ int(second, 16)
-            score = 1 - (xor.bit_count() / 256)
+            score = sum(
+                1
+                - (
+                    (
+                        int(getattr(first, name), 16)
+                        ^ int(getattr(second, name), 16)
+                    ).bit_count()
+                    / 64
+                )
+                for name in ("phash", "dhash", "ahash", "edge_dhash")
+            ) / 4
             best = max(best, score)
     return round(best, 12)
 

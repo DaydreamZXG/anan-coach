@@ -31,6 +31,7 @@ export interface CaptureImportState {
   activeQuestionUnitIndex: number;
   reviewStep: "recognition" | "match";
   segments: RecognitionSegmentView[];
+  solutionSegments: RecognitionSegmentView[];
   selectedContentVersionId: string;
   dirty: boolean;
   submitting: boolean;
@@ -248,6 +249,7 @@ export class CaptureImportController {
     this.patch({
       activeQuestionUnitIndex: index,
       activeQuestionUnit,
+      solutionSegments: orderedUnitSegments(this.state.segments, activeQuestionUnit),
       selectedContentVersionId:
         activeQuestionUnit.match?.confirmedContentVersionId ??
         activeQuestionUnit.match?.candidates.at(0)?.contentVersionId ??
@@ -342,11 +344,14 @@ export class CaptureImportController {
     }
     this.commandPreparing = true;
     try {
-      this.pendingConfirmation ??= {
-        revisionKey: await this.createCommandKey("external-ocr-revision"),
-        recognitionKey: await this.createCommandKey("external-ocr-confirm"),
-        matchKey: await this.createCommandKey("external-match-confirm"),
-      };
+      if (!this.pendingConfirmation) {
+        const confirmationKey = await this.createCommandKey("external-confirm");
+        this.pendingConfirmation = {
+          revisionKey: `${confirmationKey}:revision`,
+          recognitionKey: `${confirmationKey}:recognition`,
+          matchKey: `${confirmationKey}:match`,
+        };
+      }
     } catch (error) {
       this.patch({ status: "error", error: externalLearningError(error), pendingRecovery: false });
       return;
@@ -445,6 +450,7 @@ export class CaptureImportController {
       activeQuestionUnit?.match?.confirmedContentVersionId ??
       activeQuestionUnit?.match?.candidates.at(0)?.contentVersionId ??
       "";
+    const segments = workspace.recognitionSegments.map(recognitionSegmentView);
     this.state = {
       ...this.state,
       status,
@@ -452,7 +458,8 @@ export class CaptureImportController {
       activeQuestionUnit,
       activeQuestionUnitIndex: activeIndex,
       reviewStep: workspace.recognition?.state === "confirmed" ? "match" : "recognition",
-      segments: workspace.recognitionSegments.map(recognitionSegmentView),
+      segments,
+      solutionSegments: orderedUnitSegments(segments, activeQuestionUnit),
       selectedContentVersionId: selected,
       dirty: false,
       submitting: false,
@@ -598,6 +605,7 @@ function initialCaptureState(learningTrack: LearningTrack): CaptureImportState {
     activeQuestionUnitIndex: 0,
     reviewStep: "recognition",
     segments: [],
+    solutionSegments: [],
     selectedContentVersionId: "",
     dirty: false,
     submitting: false,
@@ -620,6 +628,13 @@ function cloneState(state: CaptureImportState): CaptureImportState {
             ...unit,
             segmentIds: [...unit.segmentIds],
             partialReasons: [...unit.partialReasons],
+            matchedContent: unit.matchedContent
+              ? {
+                  ...unit.matchedContent,
+                  optionTexts: [...unit.matchedContent.optionTexts],
+                  materialTexts: [...unit.matchedContent.materialTexts],
+                }
+              : null,
             aiAnswer: unit.aiAnswer
               ? {
                   ...unit.aiAnswer,
@@ -632,7 +647,20 @@ function cloneState(state: CaptureImportState): CaptureImportState {
         }
       : null,
     segments: state.segments.map((segment) => ({ ...segment })),
+    solutionSegments: state.solutionSegments.map((segment) => ({ ...segment })),
     activeQuestionUnit: state.activeQuestionUnit ? { ...state.activeQuestionUnit } : null,
     error: state.error ? { ...state.error } : null,
   };
+}
+
+function orderedUnitSegments(
+  segments: readonly RecognitionSegmentView[],
+  unit: ImportQuestionUnit | null,
+): RecognitionSegmentView[] {
+  if (!unit) return [];
+  const byId = new Map(segments.map((segment) => [segment.segmentId, segment]));
+  return unit.segmentIds.flatMap((segmentId) => {
+    const segment = byId.get(segmentId);
+    return segment ? [segment] : [];
+  });
 }

@@ -35,7 +35,7 @@ def _image(tmp_path: Path) -> Path:
     return target
 
 
-def _request(source: Path) -> ProcessorRequest:
+def _request(source: Path, *, recognition_kind: str = "printed_ocr") -> ProcessorRequest:
     return ProcessorRequest.model_validate(
         {
             "artifactVersionId": UUID("00000000-0000-0000-0000-000000000001"),
@@ -44,7 +44,7 @@ def _request(source: Path) -> ProcessorRequest:
             "mimeType": "image/png",
             "inputSha256": sha256(source.read_bytes()).hexdigest(),
             "pageCount": 1,
-            "recognitionKind": "printed_ocr",
+            "recognitionKind": recognition_kind,
             "idempotencyKey": PROVIDER_REPLAY_KEY,
         }
     )
@@ -82,6 +82,7 @@ def _processor(
                             "key": "api-upload/test/key",
                             "putUrl": "https://upload.test/put",
                             "downloadUrl": "https://cdn.test/download",
+                            "previewUrl": "https://cdn.test/preview",
                             "headers": {"Content-Type": "application/octet-stream"},
                         },
                     },
@@ -138,6 +139,42 @@ def test_mineru_parses_markdown_into_spans(tmp_path: Path) -> None:
     assert "下列哪项说法正确？" in texts
     assert any("地球是圆的" in text for text in texts)
     assert result.confidence == 0.9
+    assert len(result.visual_fingerprints) == 1
+    assert len(result.visual_fingerprints[0]) == 64
+    assert len(result.visual_feature_hashes) == 1
+    assert all(
+        len(value) == 16
+        for value in result.visual_feature_hashes[0].model_dump().values()
+    )
+
+
+def test_mineru_derives_ordered_segments_for_exam_import(tmp_path: Path) -> None:
+    source = _image(tmp_path)
+    processor = _processor(source)
+
+    result = processor.process(_request(source, recognition_kind="exam_segmentation"))
+
+    assert [segment.segment_kind for segment in result.segments] == ["question", "options"]
+    prompt, options = result.segments
+    assert prompt.box.y < options.box.y
+    assert len(options.text_span_refs) == 2
+
+
+def test_mineru_splits_prompt_and_inline_options(tmp_path: Path) -> None:
+    source = _image(tmp_path)
+    processor = _processor(
+        source,
+        markdown="最适合做上文标题的是（）。 A “井”里与“井”外 B “相对”才是真理",
+    )
+
+    result = processor.process(_request(source, recognition_kind="exam_segmentation"))
+
+    assert [span.text for span in result.text_spans] == [
+        "最适合做上文标题的是（）。",
+        "A “井”里与“井”外",
+        "B “相对”才是真理",
+    ]
+    assert [segment.segment_kind for segment in result.segments] == ["question", "options"]
 
 
 def test_mineru_low_confidence_on_empty_blocks(tmp_path: Path) -> None:
@@ -150,6 +187,18 @@ def test_mineru_low_confidence_on_empty_blocks(tmp_path: Path) -> None:
     # 无解析块 → 低置信度（超长截图等不可辨识场景）。
     assert result.confidence == 0.3
     assert result.text_spans == ()
+
+
+def test_mineru_seals_visual_only_exam_for_image_matching(tmp_path: Path) -> None:
+    source = _image(tmp_path)
+    processor = _processor(source, markdown="", para_blocks=0)
+
+    result = processor.process(_request(source, recognition_kind="exam_segmentation"))
+
+    assert result.text_spans == ()
+    assert len(result.visual_feature_hashes) == 1
+    assert [segment.segment_kind for segment in result.segments] == ["question"]
+    assert result.segments[0].text_span_refs == ()
 
 
 def test_mineru_rejects_failed_task(tmp_path: Path) -> None:
@@ -172,9 +221,7 @@ def test_mineru_rejects_failed_task(tmp_path: Path) -> None:
                     },
                 )
             if url.endswith("/extract/task"):
-                return httpx.Response(
-                    200, json={"code": 0, "data": {"task_id": "task-fail"}}
-                )
+                return httpx.Response(200, json={"code": 0, "data": {"task_id": "task-fail"}})
             if "/extract/task/task-fail" in url:
                 return httpx.Response(
                     200,

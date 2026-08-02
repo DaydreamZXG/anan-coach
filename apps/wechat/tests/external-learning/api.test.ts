@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ExternalLearningApi } from "../../miniprogram/api/external-learning";
-import type { ApiClient } from "../../miniprogram/api/client";
+import { ApiClientError, type ApiClient } from "../../miniprogram/api/client";
 import type { ApiEnvelope } from "../../miniprogram/domain/contracts";
 import type {
   LocalAnswerImageFile,
@@ -24,6 +24,42 @@ afterEach(() => {
 });
 
 describe("external learning API gateway", () => {
+  it("reports a persisted scan failure as recoverable service unavailability", async () => {
+    const digest = zeroDigest;
+    const file = image();
+    const completed = completeUpload(file, digest);
+    const failed = {
+      ...completed,
+      session: {
+        ...completed.session,
+        state: "scan_failed" as const,
+        failureCode: "scanner_unavailable",
+        recognitionEligible: false,
+      },
+      artifact: null,
+    };
+    const post = vi
+      .fn()
+      .mockResolvedValueOnce(envelope(startUpload(file, digest, "single_put")))
+      .mockResolvedValueOnce(envelope(failed));
+    const rawRequest = vi.fn((options: WechatMiniprogram.RequestOption<ArrayBuffer>) => {
+      options.success?.(requestSuccess(new ArrayBuffer(0), 200));
+      return {} as WechatMiniprogram.RequestTask;
+    });
+    stubFileRuntime(file, digest, rawRequest);
+
+    await expect(
+      new ExternalLearningApi(client({ post })).beginImport(
+        { file, learningTrack: "xingce" },
+        "external-import-scan-retry",
+        () => undefined,
+      ),
+    ).rejects.toMatchObject({
+      statusCode: 503,
+      payload: { code: "scanner_unavailable" },
+    });
+  });
+
   it("hashes, authorizes, PUT uploads, completes, and starts the import workspace", async () => {
     const digest = zeroDigest;
     const file = image();
@@ -76,7 +112,7 @@ describe("external learning API gateway", () => {
       3,
       "/api/v2/external-learning/imports/upload-session-1/process",
       { learningTrack: "xingce" },
-      { idempotencyKey: "external-import-command:process", timeoutMs: 60_000 },
+      { idempotencyKey: "external-import-command:process", timeoutMs: 180_000 },
     );
     expect(rawRequest).toHaveBeenCalledOnce();
     expect(progress.at(-1)).toBe(100);
@@ -85,6 +121,51 @@ describe("external learning API gateway", () => {
       requestId: "request-test",
       diagnosticEligibility: "blocked_unconfirmed",
     });
+  });
+
+  it("recovers an EdgeOne 524 by loading the finished OCR candidate and resuming matching", async () => {
+    const digest = zeroDigest;
+    const file = image();
+    const candidate = importWorkspace({
+      state: "review",
+      recognition: recognition({ state: "candidate" }),
+      questionUnits: [questionUnit()],
+    });
+    const ready = importWorkspace({
+      state: "ready",
+      recognition: recognition({ state: "confirmed", confirmedAt: "2026-07-15T02:00:00Z" }),
+      questionUnits: [questionUnit({ state: "ready" })],
+      diagnosticEligibility: "eligible_confirmed",
+    });
+    const post = vi
+      .fn()
+      .mockResolvedValueOnce(envelope(startUpload(file, digest, "single_put")))
+      .mockResolvedValueOnce(envelope(completeUpload(file, digest)))
+      .mockRejectedValueOnce(new ApiClientError("上游处理超时。", 524, "edge-request"))
+      .mockResolvedValueOnce(envelope(withoutRequestId(ready)));
+    const get = vi.fn().mockResolvedValueOnce(envelope(withoutRequestId(candidate)));
+    const rawRequest = vi.fn((options: WechatMiniprogram.RequestOption<ArrayBuffer>) => {
+      options.success?.(requestSuccess(new ArrayBuffer(0), 200));
+      return {} as WechatMiniprogram.RequestTask;
+    });
+    stubFileRuntime(file, digest, rawRequest);
+
+    const result = await new ExternalLearningApi(client({ post, get })).beginImport(
+      { file, learningTrack: "xingce" },
+      "external-import-timeout",
+      () => undefined,
+    );
+
+    expect(get).toHaveBeenCalledWith("/api/v2/external-learning/imports/upload-session-1", {
+      timeoutMs: 30_000,
+    });
+    expect(post).toHaveBeenNthCalledWith(
+      4,
+      "/api/v2/external-learning/imports/upload-session-1/process",
+      { learningTrack: "xingce" },
+      { idempotencyKey: "external-import-timeout:process:resume", timeoutMs: 180_000 },
+    );
+    expect(result).toMatchObject({ state: "ready", diagnosticEligibility: "eligible_confirmed" });
   });
 
   it("hashes every multipart slice and PUT uploads the server-authorized parts", async () => {

@@ -38,6 +38,9 @@ from app.domains.external_ingestion.recognition.errors import (
 from app.domains.external_ingestion.recognition.grok_vision import (
     GrokVisionRecognitionProcessor,
 )
+from app.domains.external_ingestion.recognition.mineru_ocr import (
+    MinerURecognitionProcessor,
+)
 from app.domains.external_ingestion.recognition.modal_paddle import (
     ModalPaddleOCRRecognitionProcessor,
 )
@@ -204,6 +207,16 @@ class QueryRecognitionProcessor:
                 source_reader=PrivateObjectReader(core),
                 maximum_input_bytes=core.recognition_processor_max_input_bytes,
                 maximum_output_bytes=core.recognition_processor_max_output_bytes,
+            )
+        elif adapter == "mineru_ocr":
+            processor = MinerURecognitionProcessor(
+                endpoint=endpoint,
+                bearer_token=core.recognition_processor_token,
+                expected_provider_release=core.recognition_processor_release_id,
+                source_reader=PrivateObjectReader(core),
+                maximum_input_bytes=core.recognition_processor_max_input_bytes,
+                maximum_output_bytes=core.recognition_processor_max_output_bytes,
+                maximum_pages=core.recognition_processor_max_pages,
             )
         else:
             raise PhotoResolutionError("recognition_adapter_unsupported")

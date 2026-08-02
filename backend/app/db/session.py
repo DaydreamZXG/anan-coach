@@ -63,13 +63,6 @@ def get_engine() -> Engine:
             if make_url(settings.database_url).get_backend_name() == "postgresql":
                 options.update(_postgres_engine_options(settings))
             _engine = create_engine(settings.database_url, **options)
-            if make_url(settings.database_url).get_backend_name() == "postgresql":
-                install_commercial_data_publication_guard(
-                    _engine,
-                    runtime_environment=settings.environment,
-                    application_git_commit=settings.application_git_commit,
-                    data_receipt_sha256=(settings.application_data_receipt_sha256),
-                )
         return _engine
 
 

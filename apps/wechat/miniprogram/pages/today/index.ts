@@ -77,6 +77,7 @@ interface TodayPageCustom {
   loadDashboard(): Promise<void>;
   replaceDashboard(dashboard: TodayDashboard, capacitySubmission: TodayCapacitySubmission): void;
   openTask(event: WechatMiniprogram.BaseEvent): void;
+  openTrack(event: WechatMiniprogram.BaseEvent): void;
   openMasteryQueue(): void;
   openPlanBasis(): void;
   openDailySettlement(): void;
@@ -166,30 +167,21 @@ Page<TodayPageData, TodayPageCustom>({
 
   openTask(event: WechatMiniprogram.BaseEvent) {
     const taskId = String(event.currentTarget.dataset.id ?? "");
-    if (!taskId || this.data.taskOpeningId) return;
-    const task = this.data.view?.tasks.find((item) => item.id === taskId);
-    if (!task) return;
-    if (!task.canOpen || !task.navigationUrl || !task.navigationMode) {
-      void wx.showModal({
-        title: "任务暂不可开始",
-        content: task.disabledReason,
-        showCancel: false,
-      });
+    openTodayTask(this, taskId);
+  },
+
+  openTrack(event: WechatMiniprogram.BaseEvent) {
+    const taskId = String(event.currentTarget.dataset.taskId ?? "");
+    const track = String(event.currentTarget.dataset.track ?? "");
+    if (taskId) {
+      openTodayTask(this, taskId);
       return;
     }
-    this.setData({ taskOpeningId: task.id, taskNavigationError: "" });
-    const fail = (result: WechatMiniprogram.GeneralCallbackResult) => {
-      console.warn("task navigation failed", result.errMsg);
-      this.setData({
-        taskOpeningId: "",
-        taskNavigationError: "任务页面没有打开，请重试。",
-      });
-    };
-    if (task.navigationMode === "switchTab") {
-      wx.switchTab({ url: task.navigationUrl, fail });
+    if (track === "xingce") {
+      this.openMasteryQueue();
       return;
     }
-    wx.navigateTo({ url: task.navigationUrl, fail });
+    if (track === "essay") this.openDayAdjustment();
   },
 
   openMasteryQueue() {
@@ -329,6 +321,33 @@ interface TodayPageInstance {
   syncWeatherLocation(interactive: boolean): Promise<void>;
 }
 
+function openTodayTask(page: TodayPageInstance, taskId: string): void {
+  if (!taskId || page.data.taskOpeningId) return;
+  const task = page.data.view?.tasks.find((item) => item.id === taskId);
+  if (!task) return;
+  if (!task.canOpen || !task.navigationUrl || !task.navigationMode) {
+    void wx.showModal({
+      title: "任务暂不可开始",
+      content: task.disabledReason,
+      showCancel: false,
+    });
+    return;
+  }
+  page.setData({ taskOpeningId: task.id, taskNavigationError: "" });
+  const fail = (result: WechatMiniprogram.GeneralCallbackResult) => {
+    console.warn("task navigation failed", result.errMsg);
+    page.setData({
+      taskOpeningId: "",
+      taskNavigationError: "任务页面没有打开，请重试。",
+    });
+  };
+  if (task.navigationMode === "switchTab") {
+    wx.switchTab({ url: task.navigationUrl, fail });
+    return;
+  }
+  wx.navigateTo({ url: task.navigationUrl, fail });
+}
+
 function createTodayController(page: TodayPageInstance): TodayController {
   return new TodayController({
     currentSession: currentAuthSession,
@@ -359,6 +378,9 @@ function createTodayController(page: TodayPageInstance): TodayController {
 
 function publishTodayState(page: TodayPageInstance, state: TodayControllerState): void {
   if (state.dashboard) {
+    const openingPlanChanged =
+      page.data.openingRaw !== null &&
+      page.data.openingRaw.planVersionId !== state.dashboard.planVersionId;
     page.replaceDashboard(state.dashboard, state.capacitySubmission);
     page.setData({
       status: "ready",
@@ -366,7 +388,7 @@ function publishTodayState(page: TodayPageInstance, state: TodayControllerState)
       capacitySubmission: state.capacitySubmission,
       capacityMessage: state.capacityMessage,
     });
-    if (page.data.openingStatus === "idle") void page.loadDailyOpening();
+    if (page.data.openingStatus === "idle" || openingPlanChanged) void page.loadDailyOpening();
     return;
   }
   page.setData({
