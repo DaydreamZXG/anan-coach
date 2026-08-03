@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import re
 from datetime import UTC, datetime
 from typing import Any, Generic, TypeVar
@@ -18,6 +19,7 @@ from starlette.responses import Response
 REQUEST_ID_HEADER = "X-Request-ID"
 REQUEST_ID_PATTERN = re.compile(r"^[A-Za-z0-9._:-]{1,120}$")
 T = TypeVar("T")
+logger = logging.getLogger(__name__)
 
 
 class PublicApiEnvelope(BaseModel, Generic[T]):
@@ -173,7 +175,14 @@ def validation_exception_response(
     )
 
 
-def unexpected_exception_response(request: Request, _: Exception) -> JSONResponse:
+def unexpected_exception_response(request: Request, exc: Exception) -> JSONResponse:
+    logger.exception(
+        "Unhandled API exception request_id=%s method=%s path=%s",
+        request_id_from(request),
+        request.method,
+        request.url.path,
+        exc_info=exc,
+    )
     return public_error_response(
         request=request,
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

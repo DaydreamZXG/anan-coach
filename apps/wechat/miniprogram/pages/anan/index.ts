@@ -506,7 +506,11 @@ Page({
         idempotencyKeyPrefix: "companion",
         expiresAtMs: Date.now() + companionAttemptTtlMs,
       });
-      const { data } = await new CompanionApi(client).ask(command, attempt.idempotencyKey);
+      const { data } = await askCompanionWithOutcomeRecovery(
+        new CompanionApi(client),
+        command,
+        attempt.idempotencyKey,
+      );
       attempts.markSucceeded(companionAskScope, attempt.idempotencyKey);
       if (!sameSessionOwner(currentAuthSession(), auth)) return;
       this.setData({
@@ -637,6 +641,29 @@ Page({
     navigate();
   },
 });
+
+async function askCompanionWithOutcomeRecovery(
+  api: CompanionApi,
+  command: CompanionAskRequest,
+  idempotencyKey: string,
+): Promise<{ data: CompanionAskResponse }> {
+  try {
+    return await api.ask(command, idempotencyKey);
+  } catch (error) {
+    // The provider result may already be committed even if response rendering or
+    // the reverse proxy fails afterwards. Confirm once with the same key so the
+    // backend replays the stored answer instead of charging for another call or
+    // showing a false failure card.
+    if (!(error instanceof ApiClientError) || !isRecoverableCompanionHttpStatus(error.statusCode)) {
+      throw error;
+    }
+    return api.ask(command, idempotencyKey);
+  }
+}
+
+function isRecoverableCompanionHttpStatus(statusCode: number): boolean {
+  return statusCode === 408 || (statusCode >= 500 && statusCode <= 599);
+}
 
 function settledContextSource<T>(
   result: PromiseSettledResult<T>,

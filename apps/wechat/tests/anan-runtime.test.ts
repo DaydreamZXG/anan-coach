@@ -785,17 +785,44 @@ describe("岸岸小程序运行时", () => {
     expect(attempt(harness, "user-a")?.state).toBe("terminal");
   });
 
-  it.each([408, 500, 503])("将明确收到的 HTTP %s 标记为 terminal", async (statusCode) => {
+  it.each([408, 500, 503])(
+    "HTTP %s 先用同一幂等键确认一次，仍失败才标记为 terminal",
+    async (statusCode) => {
+      const harness = await captureAnanPage();
+      prepareAsk(harness.page, `HTTP ${String(statusCode)} 待确认`);
+
+      const request = harness.page.ask();
+      await waitForRequestCount(harness.requests, 1);
+      respondHttpFailure(harness.requests[0], statusCode);
+      await waitForRequestCount(harness.requests, 2);
+      expect(idempotencyKey(harness.requests[1])).toBe(idempotencyKey(harness.requests[0]));
+      respondHttpFailure(harness.requests[1], statusCode);
+      await request;
+
+      expect(attempt(harness, "user-a")?.state).toBe("terminal");
+      expect(harness.page.data.errorMessage).not.toBe("本次问题结果待确认，再试会继续确认。");
+    },
+  );
+
+  it("后端已保存回答但首次回包 500 时自动取回同一结果", async () => {
     const harness = await captureAnanPage();
-    prepareAsk(harness.page, `HTTP ${String(statusCode)} 待确认`);
+    prepareAsk(harness.page, "我可以学资料分析吗");
 
     const request = harness.page.ask();
     await waitForRequestCount(harness.requests, 1);
-    respondHttpFailure(harness.requests[0], statusCode);
+    const firstKey = idempotencyKey(harness.requests[0]);
+    respondHttpFailure(harness.requests[0], 500);
+    await waitForRequestCount(harness.requests, 2);
+    expect(idempotencyKey(harness.requests[1])).toBe(firstKey);
+    respondCompanionSuccess(harness.requests[1]);
     await request;
 
-    expect(attempt(harness, "user-a")?.state).toBe("terminal");
-    expect(harness.page.data.errorMessage).not.toBe("本次问题结果待确认，再试会继续确认。");
+    expect(attempt(harness, "user-a")?.state).toBe("succeeded");
+    expect(harness.page.data).toMatchObject({
+      errorMessage: "",
+      semanticState: "ready",
+      stateLabel: "已根据当前证据回答",
+    });
   });
 
   it("仅在编辑后的 canonical input 改变时取消旧 attempt 并创建新 key", async () => {
