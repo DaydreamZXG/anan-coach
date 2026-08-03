@@ -6,6 +6,7 @@ from dataclasses import replace
 from datetime import UTC, datetime, timedelta
 from decimal import Decimal
 from hashlib import sha256
+import json
 from threading import Lock
 import time
 from typing import Annotated
@@ -28,6 +29,7 @@ from app.domains.ai.provider import (
     AICompanionAnswerResult,
     AIProvider,
     AIProviderConfigurationError,
+    AIProviderResponseError,
     _validate_production_security,
 )
 from app.domains.auth.repository import token_hash_for_tests
@@ -539,6 +541,119 @@ def test_production_provider_replay_uses_identical_key_and_request_bytes() -> No
     assert first.output_fingerprint == replay.output_fingerprint
     assert requests[0] == requests[1]
     assert requests[0][0] == "stable-provider-command-1"
+
+
+def test_deepseek_companion_uses_indexed_json_and_maps_authorized_sources() -> None:
+    observed_body: dict[str, object] = {}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        observed_body.update(json.loads(request.content))
+        return httpx.Response(
+            200,
+            headers={"X-Request-Id": "deepseek-request-1"},
+            json={
+                "id": "deepseek-request-1",
+                "model": "deepseek-v4-flash",
+                "choices": [
+                    {
+                        "message": {
+                            "content": (
+                                '{"answer":"可以，先完成今天的基线任务。",'
+                                '"nextActions":["查看今日计划"],"sourceIndexes":[1],'
+                                '"confidence":"medium","limitations":[],'
+                                '"requestedActions":[]}'
+                            )
+                        }
+                    }
+                ],
+                "usage": {
+                    "prompt_tokens": 20,
+                    "completion_tokens": 8,
+                    "prompt_tokens_details": {"cached_tokens": 0},
+                },
+            },
+        )
+
+    settings = replace(
+        _production_companion_settings(),
+        ai_model="deepseek-v4-flash",
+        ai_small_model="deepseek-v4-flash",
+        ai_high_capability_model="deepseek-v4-flash",
+    )
+    provider = AIProvider(
+        settings,
+        client_factory=lambda: httpx.Client(transport=httpx.MockTransport(handler)),
+    )
+    prepared = provider.prepare_companion_question(
+        route_decision=_provider_route_decision(),
+        question_text="我可以做资料分析吗？",
+        context={"practiceAnswers": 3},
+        sources=_grounding_sources(),
+    )
+
+    assert prepared["outputAdapter"] == "deepseek-indexed-json@v1"
+    assert prepared["sourceRefMap"] == ["test-source"]
+    assert prepared["body"]["response_format"] == {"type": "json_object"}
+    assert prepared["body"]["stream"] is False
+    assert prepared["body"]["thinking"] == {"type": "disabled"}
+
+    result = provider.answer_prepared_companion_question(
+        prepared=prepared,
+        idempotency_key="deepseek-provider-command-1",
+    )
+
+    provider_prompt = json.loads(observed_body["messages"][1]["content"])
+    assert provider_prompt["retrieved_sources"][0]["sourceIndex"] == 1
+    assert "sourceRef" not in provider_prompt["retrieved_sources"][0]
+    assert provider_prompt["output_example"]["sourceIndexes"] == [1]
+    assert result.source_refs == ["test-source"]
+    assert result.answer == "可以，先完成今天的基线任务。"
+
+
+def test_deepseek_companion_rejects_source_index_outside_authorized_map() -> None:
+    def handler(_: httpx.Request) -> httpx.Response:
+        return httpx.Response(
+            200,
+            headers={"X-Request-Id": "deepseek-request-invalid-source"},
+            json={
+                "id": "deepseek-request-invalid-source",
+                "model": "deepseek-v4-flash",
+                "choices": [
+                    {
+                        "message": {
+                            "content": (
+                                '{"answer":"先练习。","sourceIndexes":[2],"confidence":"low"}'
+                            )
+                        }
+                    }
+                ],
+                "usage": {"prompt_tokens": 10, "completion_tokens": 4},
+            },
+        )
+
+    settings = replace(
+        _production_companion_settings(),
+        ai_model="deepseek-v4-flash",
+        ai_small_model="deepseek-v4-flash",
+        ai_high_capability_model="deepseek-v4-flash",
+    )
+    provider = AIProvider(
+        settings,
+        client_factory=lambda: httpx.Client(transport=httpx.MockTransport(handler)),
+    )
+    prepared = provider.prepare_companion_question(
+        route_decision=_provider_route_decision(),
+        question_text="怎么练？",
+        context={"practiceAnswers": 1},
+        sources=_grounding_sources(),
+    )
+
+    with pytest.raises(AIProviderResponseError) as exc_info:
+        provider.answer_prepared_companion_question(
+            prepared=prepared,
+            idempotency_key="deepseek-provider-command-invalid-source",
+        )
+    assert getattr(exc_info.value, "code", None) == "provider_content_invalid"
 
 
 def test_companion_ask_is_quota_gated_and_audited(

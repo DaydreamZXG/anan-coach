@@ -22,10 +22,14 @@ from app.domains.ai.provider_contract import (
 from app.domains.companion.agent import CompanionActionRequest
 
 
-COMPANION_PROMPT_VERSION = "companion-grounded@v5"
-SUPPORTED_COMPANION_PROMPT_VERSIONS = frozenset({"companion-grounded@v4", COMPANION_PROMPT_VERSION})
+COMPANION_PROMPT_VERSION = "companion-grounded@v6"
+SUPPORTED_COMPANION_PROMPT_VERSIONS = frozenset(
+    {"companion-grounded@v4", "companion-grounded@v5", COMPANION_PROMPT_VERSION}
+)
 COMPANION_RESPONSE_SCHEMA_VERSION = "grounded-answer@v3"
-COMPANION_PROVIDER_INPUT_CONTRACT_VERSION = "companion-provider-input@v2"
+COMPANION_PROVIDER_INPUT_CONTRACT_VERSION = "companion-provider-input@v3"
+DEFAULT_COMPANION_OUTPUT_ADAPTER = "strict-json-schema@v1"
+DEEPSEEK_COMPANION_OUTPUT_ADAPTER = "deepseek-indexed-json@v1"
 
 
 class AIProviderConfigurationError(RuntimeError):
@@ -99,6 +103,35 @@ class CompanionProviderAnswer(BaseModel):
         return self
 
 
+class DeepSeekCompanionProviderAnswer(BaseModel):
+    """Provider-facing shape that never asks the model to copy internal source IDs."""
+
+    model_config = ConfigDict(extra="ignore")
+
+    answer: str = Field(min_length=1, max_length=4000)
+    next_actions: list[str] = Field(default_factory=list, alias="nextActions", max_length=3)
+    source_indexes: list[int] = Field(alias="sourceIndexes", min_length=1, max_length=8)
+    confidence: Literal["low", "medium", "high"]
+    limitations: list[str] = Field(default_factory=list, max_length=8)
+    requested_actions: list[CompanionActionRequest] = Field(
+        default_factory=list,
+        alias="requestedActions",
+        max_length=3,
+    )
+
+    @model_validator(mode="after")
+    def valid_source_indexes(self) -> "DeepSeekCompanionProviderAnswer":
+        if len(self.source_indexes) != len(set(self.source_indexes)):
+            raise ValueError("sourceIndexes must be unique")
+        if any(index < 1 for index in self.source_indexes):
+            raise ValueError("sourceIndexes must be positive")
+        if any(not item.strip() for item in self.next_actions):
+            raise ValueError("nextActions must be non-empty")
+        if any(not item.strip() for item in self.limitations):
+            raise ValueError("limitations must be non-empty")
+        return self
+
+
 class AIProvider:
     def __init__(
         self,
@@ -114,7 +147,7 @@ class AIProvider:
     @property
     def provider_name(self) -> str:
         release = self._settings.ai_companion_provider_release_id.strip()
-        return f"gemini_web2api@{release}" if release else "gemini_web2api"
+        return f"openai_compatible@{release}" if release else "openai_compatible"
 
     @property
     def release_id(self) -> str:
@@ -168,14 +201,29 @@ class AIProvider:
             "动作只是提案，不能宣称已经执行；涉及今日可学时长时，availableMinutes 必须与用户原话中的明确数值一致。"
             "涉及周节奏时只能传用户原话明确说出的模考日或恢复日；"
             "涉及目标岗位时只能传用户当前消息中完整出现的岗位 ID。"
+            "表达要像熟悉用户情况的备考搭子：先直接回答，再说明依据；语气自然、温和、简洁，"
+            "不说教、不使用客服套话、不夸张鼓励。一般用二到四句话完成正文。"
         )
         if persona:
             system_prompt = system_prompt + "\n\n" + persona
+        model_tier = str(route_decision["modelTier"])
+        selected_model = self.model_for_tier(model_tier)
+        output_adapter = _companion_output_adapter(selected_model)
+        source_ref_map = [str(item["sourceRef"]) for item in sources]
+        provider_sources = sources
+        if output_adapter == DEEPSEEK_COMPANION_OUTPUT_ADAPTER:
+            provider_sources = [
+                {
+                    "sourceIndex": index,
+                    **{key: value for key, value in item.items() if key != "sourceRef"},
+                }
+                for index, item in enumerate(sources, start=1)
+            ]
         user_prompt = {
             "route_decision": route_decision,
             "question": question_text,
             "learner_context": context,
-            "retrieved_sources": sources,
+            "retrieved_sources": provider_sources,
             "available_action_tools": [
                 {
                     "name": "preview_daily_capacity",
@@ -210,19 +258,50 @@ class AIProvider:
             "required_schema": {
                 "answer": "short Chinese answer grounded in learner_context",
                 "nextActions": ["1-3 concrete actions"],
-                "sourceRefs": ["1-8 exact sourceRef values from retrieved_sources"],
+                (
+                    "sourceIndexes"
+                    if output_adapter == DEEPSEEK_COMPANION_OUTPUT_ADAPTER
+                    else "sourceRefs"
+                ): (
+                    ["1-8 integer sourceIndex values from retrieved_sources"]
+                    if output_adapter == DEEPSEEK_COMPANION_OUTPUT_ADAPTER
+                    else ["1-8 exact sourceRef values from retrieved_sources"]
+                ),
                 "confidence": "low | medium | high",
                 "limitations": ["0-8 explicit limitations"],
                 "requestedActions": [{"name": "one available action tool", "arguments": {}}],
             },
-            "required_output_schema": CompanionProviderAnswer.model_json_schema(by_alias=True),
+            "required_output_schema": (
+                DeepSeekCompanionProviderAnswer.model_json_schema(by_alias=True)
+                if output_adapter == DEEPSEEK_COMPANION_OUTPUT_ADAPTER
+                else CompanionProviderAnswer.model_json_schema(by_alias=True)
+            ),
         }
+        if output_adapter == DEEPSEEK_COMPANION_OUTPUT_ADAPTER:
+            user_prompt["output_example"] = {
+                "answer": "可以，先完成当前基线任务，再按你的时间调整后续安排。",
+                "nextActions": ["查看今日计划"],
+                "sourceIndexes": [1],
+                "confidence": "medium",
+                "limitations": [],
+                "requestedActions": [],
+            }
         try:
             validate_minimized_external_payload(user_prompt)
         except ValueError as exc:
             raise AIProviderConfigurationError(str(exc)) from exc
-        model_tier = str(route_decision["modelTier"])
-        selected_model = self.model_for_tier(model_tier)
+        response_format: dict[str, Any]
+        if output_adapter == DEEPSEEK_COMPANION_OUTPUT_ADAPTER:
+            response_format = {"type": "json_object"}
+        else:
+            response_format = {
+                "type": "json_schema",
+                "json_schema": {
+                    "name": "companion_grounded_answer",
+                    "strict": True,
+                    "schema": CompanionProviderAnswer.model_json_schema(by_alias=True),
+                },
+            }
         return {
             "contractVersion": COMPANION_PROVIDER_INPUT_CONTRACT_VERSION,
             "promptVersion": self.prompt_version,
@@ -238,6 +317,8 @@ class AIProvider:
             ),
             "modelTier": model_tier,
             "model": selected_model,
+            "outputAdapter": output_adapter,
+            "sourceRefMap": source_ref_map,
             "body": {
                 "model": selected_model,
                 "messages": [
@@ -253,14 +334,13 @@ class AIProvider:
                     },
                 ],
                 "temperature": 0.2,
-                "response_format": {
-                    "type": "json_schema",
-                    "json_schema": {
-                        "name": "companion_grounded_answer",
-                        "strict": True,
-                        "schema": CompanionProviderAnswer.model_json_schema(by_alias=True),
-                    },
-                },
+                "response_format": response_format,
+                "stream": False,
+                **(
+                    {"thinking": {"type": "disabled"}}
+                    if output_adapter == DEEPSEEK_COMPANION_OUTPUT_ADAPTER
+                    else {}
+                ),
             },
         }
 
@@ -408,7 +488,7 @@ class AIProvider:
                 output_fingerprint=output_fingerprint,
             )
         try:
-            parsed = CompanionProviderAnswer.model_validate(parse_provider_json_object(content))
+            parsed = _parse_companion_provider_answer(prepared=prepared, content=content)
         except (ValidationError, ValueError, json.JSONDecodeError, RecursionError) as exc:
             raise AIProviderResponseError(
                 "AI provider returned non-JSON Companion content",
@@ -566,6 +646,7 @@ def _validated_prepared_body(
         or prepared.get("providerEndpointFingerprint") != provider_endpoint_fingerprint
         or prepared.get("providerReplayRetentionSeconds") != provider_replay_retention_seconds
         or prepared.get("model") != model
+        or prepared.get("outputAdapter") != _companion_output_adapter(model)
         or prepared.get("modelTier") not in {"small", "high"}
         or not isinstance(prepared.get("body"), dict)
     ):
@@ -577,7 +658,54 @@ def _validated_prepared_body(
         raise AIProviderConfigurationError(
             "Stored Companion provider input targets a different model release"
         )
+    source_ref_map = prepared.get("sourceRefMap")
+    if (
+        not isinstance(source_ref_map, list)
+        or not source_ref_map
+        or any(not isinstance(item, str) or not item for item in source_ref_map)
+    ):
+        raise AIProviderConfigurationError("Stored Companion source map is invalid")
     return body
+
+
+def _companion_output_adapter(model: str) -> str:
+    if model.strip().casefold().startswith("deepseek-v4-"):
+        return DEEPSEEK_COMPANION_OUTPUT_ADAPTER
+    return DEFAULT_COMPANION_OUTPUT_ADAPTER
+
+
+def _parse_companion_provider_answer(
+    *,
+    prepared: dict[str, Any],
+    content: str,
+) -> CompanionProviderAnswer:
+    payload = parse_provider_json_object(content)
+    if prepared.get("outputAdapter") != DEEPSEEK_COMPANION_OUTPUT_ADAPTER:
+        return CompanionProviderAnswer.model_validate(payload)
+
+    indexed = DeepSeekCompanionProviderAnswer.model_validate(payload)
+    source_ref_map = prepared.get("sourceRefMap")
+    if not isinstance(source_ref_map, list):
+        raise ValueError("sourceRefMap must be a list")
+    try:
+        source_refs = [source_ref_map[index - 1] for index in indexed.source_indexes]
+    except (IndexError, TypeError) as exc:
+        raise ValueError("sourceIndexes exceeded the authorized source map") from exc
+    if any(not isinstance(item, str) or not item for item in source_refs):
+        raise ValueError("sourceRefMap contained an invalid source reference")
+    return CompanionProviderAnswer.model_validate(
+        {
+            "answer": indexed.answer,
+            "nextActions": indexed.next_actions,
+            "sourceRefs": source_refs,
+            "confidence": indexed.confidence,
+            "limitations": indexed.limitations,
+            "requestedActions": [
+                action.model_dump(by_alias=True, mode="json")
+                for action in indexed.requested_actions
+            ],
+        }
+    )
 
 
 def _endpoint_fingerprint(value: str) -> str:

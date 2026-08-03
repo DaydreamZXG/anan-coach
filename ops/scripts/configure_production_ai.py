@@ -19,6 +19,9 @@ AI_SETTINGS = {
     "AI_MODEL": "deepseek-v4-flash",
     "AI_SMALL_MODEL": "deepseek-v4-flash",
     "AI_HIGH_CAPABILITY_MODEL": "deepseek-v4-flash",
+    "AI_COMPANION_TRANSPORT": "openai_compatible",
+    "AI_COMPANION_PROVIDER_BASE_URL": "https://tokenrhythm.studio/v1",
+    "AI_COMPANION_MODEL": "deepseek-v4-flash",
     "AI_COMPANION_PROVIDER_RELEASE_ID": "tokenrhythm-deepseek-v4-flash",
     "AI_COMPANION_PROVIDER_HTTPS_HOST_ALLOWLIST": "tokenrhythm.studio",
     "AI_COMPANION_PROVIDER_DPA_CONFIRMED": "false",
@@ -167,6 +170,7 @@ def configure(env_file: Path, api_key: str) -> None:
     operations_token = _existing_value(original, "OPERATIONS_METRICS_TOKEN")
     desired = dict(AI_SETTINGS)
     desired["AI_API_KEY"] = api_key.strip()
+    desired["AI_COMPANION_API_KEY"] = api_key.strip()
     desired["AI_ESSAY_TOKENRHYTHM_API_KEY"] = api_key.strip()
     desired["OPERATIONS_METRICS_TOKEN"] = operations_token or secrets.token_urlsafe(48)
     _rewrite_env(
@@ -189,7 +193,9 @@ def configure_ilink(env_file: Path, api_key: str) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--env-file", type=Path, default=Path("/etc/gongkao-dazi/api.env"))
+    parser.add_argument(
+        "--env-file", type=Path, default=Path("/etc/gongkao-dazi/api.env")
+    )
     parser.add_argument(
         "--ilink-env-file",
         type=Path,
