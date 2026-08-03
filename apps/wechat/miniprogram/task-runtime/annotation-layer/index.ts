@@ -311,8 +311,6 @@ interface TouchPointLike {
   y?: number;
   clientX?: number;
   clientY?: number;
-  pageX?: number;
-  pageY?: number;
   /** 契约增量 v1：iOS 压感触点的按压力度（Apple Pencil 满压约 3.3333）。 */
   force?: number;
 }
@@ -331,21 +329,11 @@ function contentPoint(
   const state = runtime(host);
   const touch = (event.touches[0] ?? event.changedTouches[0]) as TouchPointLike | undefined;
   if (!touch || state.width <= 0 || state.contentHeight <= 0) return null;
-  const target = event.currentTarget as WechatMiniprogram.Target | undefined;
-  const targetLeft = Number.isFinite(target?.offsetLeft) ? (target?.offsetLeft ?? 0) : state.left;
-  const targetTop = Number.isFinite(target?.offsetTop) ? (target?.offsetTop ?? 0) : state.top;
-  // 捕获层与 canvas 同尺寸。落笔时优先使用当前事件目标的页面坐标，避免
-  // 横竖屏切换后 selectorQuery 缓存的旧 left/top 把整条笔迹平移。
-  const localX =
-    touch.pageX !== undefined
-      ? touch.pageX - targetLeft
-      : (touch.clientX ?? touch.x ?? 0) - state.left;
-  const localY =
-    touch.pageY !== undefined
-      ? touch.pageY - targetTop
-      : (touch.clientY ?? touch.y ?? 0) - state.top;
-  const x = localX / state.width;
-  const y = (localY + state.scrollTop) / state.contentHeight;
+  // TouchEvent 的 client 坐标和 selectorQuery.rect 都以可视区域为基准。
+  // 不能使用自定义组件 currentTarget.offset*：它是组件局部口径，平板竖屏
+  // 会把整笔平移。旋转后的 rect 由 resize 生命周期重新测量。
+  const x = ((touch.clientX ?? touch.x ?? 0) - state.left) / state.width;
+  const y = ((touch.clientY ?? touch.y ?? 0) - state.top + state.scrollTop) / state.contentHeight;
   if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
   return { x: Math.min(1, Math.max(0, x)), y: Math.min(1, Math.max(0, y)) };
 }
@@ -425,7 +413,7 @@ Component({
       invalidateCanvasLayout(this);
       scheduleRedraw(this);
       // 部分安卓平板的 resize 事件早于双栏重排完成；布局稳定后再校准一次，
-      // 但不改任何笔迹数据。触点最终仍以上面的事件目标实时坐标为准。
+      // 但不改任何笔迹数据。触点继续使用同为视口口径的 client 坐标与 rect。
       setTimeout(() => {
         if (this.data.mode === "hidden") return;
         invalidateCanvasLayout(this);

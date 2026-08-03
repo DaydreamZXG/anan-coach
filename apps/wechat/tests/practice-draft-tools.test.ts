@@ -249,7 +249,7 @@ describe("practice drawable draft tools", () => {
     expect(landscapeContext.clearRect).toHaveBeenCalledWith(0, 0, 720, 360);
   });
 
-  it("uses the rotated capture layer origin instead of a stale canvas offset", async () => {
+  it("keeps portrait strokes aligned to the measured canvas viewport rect", async () => {
     const definition = await captureAnnotationComponent();
     const context = drawableCanvasContext();
     const triggerEvent = vi.fn();
@@ -259,8 +259,8 @@ describe("practice drawable draft tools", () => {
         mode: "annotate",
         strokes: [],
         segments: [],
-        scrollTop: 120,
-        contentHeight: 1_200,
+        scrollTop: 0,
+        contentHeight: 800,
       },
       setData(patch) {
         Object.assign(this.data, patch);
@@ -270,24 +270,22 @@ describe("practice drawable draft tools", () => {
         return {
           select: () => ({ fields: vi.fn() }),
           exec(callback) {
-            // 故意保留一个过早测得的 left/top；真实落笔必须使用事件目标的新原点。
-            callback([
-              { node: canvasNode(context), width: 720, height: 360, left: 300, top: 48 },
-            ]);
+            callback([{ node: canvasNode(context), width: 320, height: 600, left: 40, top: 80 }]);
           },
         };
       },
     };
     definition.observers["mode, strokes, replayMs"].call(host);
 
-    definition.methods.onTouchStart.call(host, drawingTouch(540, 184, 360, 64));
-    definition.methods.onTouchMove.call(host, drawingTouch(612, 244, 360, 64));
+    definition.methods.onTouchStart.call(host, clientTouch(120, 160));
+    definition.methods.onTouchMove.call(host, clientTouch(152, 240));
     definition.methods.onTouchEnd.call(host);
 
     const detail = triggerEvent.mock.calls.at(-1)?.[1] as { strokes: AnnotationStroke[] };
-    expect(detail.strokes[0]?.points[0]).toEqual(expect.objectContaining({ x: 0.25, y: 0.2 }));
-    expect(detail.strokes[0]?.points[1]).toEqual(expect.objectContaining({ x: 0.35, y: 0.25 }));
+    expect(detail.strokes[0]?.points[0]).toEqual(expect.objectContaining({ x: 0.25, y: 0.1 }));
+    expect(detail.strokes[0]?.points[1]).toEqual(expect.objectContaining({ x: 0.35, y: 0.2 }));
   });
+
 });
 
 async function captureAnnotationComponent(
@@ -329,18 +327,14 @@ function drawableCanvasContext(): CanvasContext {
   };
 }
 
-function drawingTouch(
-  pageX: number,
-  pageY: number,
-  offsetLeft: number,
-  offsetTop: number,
-): WechatMiniprogram.TouchEvent {
-  const touch = { pageX, pageY, clientX: pageX, clientY: pageY, identifier: 1 };
+function clientTouch(clientX: number, clientY: number): WechatMiniprogram.TouchEvent {
+  const touch = { clientX, clientY, pageX: clientX, pageY: clientY, identifier: 1 };
   return {
     type: "touchmove",
     timeStamp: 1,
-    target: { id: "capture", dataset: {}, offsetLeft, offsetTop },
-    currentTarget: { id: "capture", dataset: {}, offsetLeft, offsetTop },
+    // 故意给出错误的组件局部 offset；实现必须使用 canvas 的视口 rect。
+    target: { id: "capture", dataset: {}, offsetLeft: 0, offsetTop: 0 },
+    currentTarget: { id: "capture", dataset: {}, offsetLeft: 0, offsetTop: 0 },
     detail: {},
     touches: [touch],
     changedTouches: [touch],
