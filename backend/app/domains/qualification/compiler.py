@@ -581,19 +581,38 @@ def _append_certification_requirement(
     rule_set_version: str,
     position_data_version: str,
 ) -> None:
-    if any(item.field == "certifications" and item.expected == expected for item in requirements):
-        return
-    requirements.append(
-        _requirement(
-            source,
-            field="certifications",
-            operator="contains_any",
-            expected=expected,
-            source_text=source_text,
-            source_field="remark",
-            rule_set_version=rule_set_version,
-            position_data_version=position_data_version,
+    existing_index = next(
+        (index for index, item in enumerate(requirements) if item.field == "certifications"),
+        None,
+    )
+    if existing_index is None:
+        requirements.append(
+            _requirement(
+                source,
+                field="certifications",
+                operator="contains_any",
+                expected=expected,
+                source_text=source_text,
+                source_field="remark",
+                rule_set_version=rule_set_version,
+                position_data_version=position_data_version,
+            )
         )
+        return
+
+    existing = requirements[existing_index]
+    if existing.operator != "manual_review" and existing.expected == expected:
+        return
+    source_parts = [part for part in existing.source_text.split("；") if part]
+    if source_text not in source_parts:
+        source_parts.append(source_text)
+    requirements[existing_index] = _manual_requirement(
+        source,
+        field="certifications",
+        source_text="；".join(source_parts),
+        source_field="remark",
+        rule_set_version=rule_set_version,
+        position_data_version=position_data_version,
     )
 
 

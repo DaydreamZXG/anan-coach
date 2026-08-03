@@ -405,6 +405,20 @@ def test_common_certificate_requirements_compile_to_profile_tokens() -> None:
     assert legal.status == "deterministic"
 
 
+def test_multiple_independent_certification_clauses_use_one_manual_requirement() -> None:
+    compiled = _compile(
+        _source(remark=("研究生大学英语六级考试425分及以上，须取得法律职业资格证书A证"))
+    )
+
+    certifications = [item for item in compiled.requirements if item.field == "certifications"]
+    assert len(certifications) == 1
+    assert certifications[0].operator == "manual_review"
+    assert certifications[0].expected is None
+    assert "大学英语六级" in certifications[0].source_text
+    assert "法律职业资格证书A证" in certifications[0].source_text
+    assert compiled.status == "needs_confirmation"
+
+
 def test_fingerprint_and_requirement_ids_are_stable_but_change_with_source() -> None:
     first = _compile(_source())
     repeated = _compile(_source())
