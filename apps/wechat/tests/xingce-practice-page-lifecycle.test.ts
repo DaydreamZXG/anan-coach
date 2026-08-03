@@ -9,6 +9,7 @@ import {
   activeXingceSession,
   apiSuccess,
   createMemoryWechatStorage,
+  submittedXingceSession,
   xingceIds,
 } from "./work_packages/vj-02-real-xingce-wechat/harness";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
@@ -525,6 +526,35 @@ describe("xingce practice swipe question navigation", () => {
     expect(runtime.requests.some((request) => request.url.endsWith("/submit"))).toBe(false);
     runtime.page.onUnload.call(runtime.page);
   });
+
+  it("submits a partially answered set and freezes every remaining item as unanswered", async () => {
+    const runtime = await createPracticePage((options) => {
+      if (!options.url.endsWith("/submit")) return false;
+      options.success?.(apiSuccess(submittedXingceSession("incorrect")));
+      return true;
+    });
+
+    runtime.page.selectOption.call(runtime.page, {
+      currentTarget: { dataset: { optionid: "B" } },
+    } as unknown as WechatMiniprogram.BaseEvent);
+    await flushMicrotasks();
+    await runtime.page.submitAttempt.call(runtime.page);
+    await flushMicrotasks();
+
+    const finalCheckpoint = [...runtime.requests]
+      .reverse()
+      .find((request) => request.method === "PUT" && request.url.endsWith("/checkpoint"));
+    const answers = (finalCheckpoint?.data as XingceCheckpointCommand | undefined)?.answers;
+    expect(answers).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ questionId: "q-1", selectedOptionIds: ["B"], skipped: false }),
+        expect.objectContaining({ questionId: "q-2", selectedOptionIds: [], skipped: true }),
+        expect.objectContaining({ questionId: "q-3", selectedOptionIds: [], skipped: true }),
+      ]),
+    );
+    expect(runtime.requests.some((request) => request.url.endsWith("/submit"))).toBe(true);
+    runtime.page.onUnload.call(runtime.page);
+  });
 });
 
 type RequestInterceptor = (
@@ -670,6 +700,8 @@ interface CapturedPracticePage {
   onQuestionTouchEnd(this: TestPracticePage, event: WechatMiniprogram.TouchEvent): void;
   clearQuestionTransition(this: TestPracticePage): void;
   toggleFavorite(this: TestPracticePage): Promise<void>;
+  selectOption(this: TestPracticePage, event: WechatMiniprogram.BaseEvent): void;
+  submitAttempt(this: TestPracticePage): Promise<void>;
   openAnnotation(this: TestPracticePage): void;
   openTaskTools(this: TestPracticePage): void;
 }

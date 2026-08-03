@@ -1466,9 +1466,11 @@ Page<PracticePageData, PracticePageCustom>({
     this.setData({ answerSheetOpen: false });
     const missing = unansweredQuestionIds(runtime.task);
     if (missing.length > 0) {
-      this.setData({ answerSheetOpen: true });
-      void wx.showToast({ title: "请逐题作答或明确跳过", icon: "none" });
-      return;
+      // 用户在答题卡上已看到未答数并点击交卷：这一次确认就是对
+      // 全部剩余题的明确处置。在本地冻结为未作答后一次性保存，无需用户
+      // 逐题点“跳过”。
+      runtime.task = reduceTaskRuntime(runtime.task, { type: "UNANSWERED_FINALIZED" });
+      render(this, runtime);
     }
     if (runtime.task.syncState !== "saved") await saveCheckpoint(this, runtime);
     if (runtime.task.syncState !== "saved") return;
@@ -1671,7 +1673,7 @@ function render(
     errorMessage: "",
     view,
     sessionState: runtime.session.state,
-    canSubmit: runtime.session.state === "answering" && missing.length === 0,
+    canSubmit: runtime.session.state === "answering",
     answerSheetItems,
     answerSheetLegend,
     answerSheetSubtitle,

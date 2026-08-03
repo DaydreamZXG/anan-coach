@@ -139,6 +139,27 @@
 }
 
 /*
+ * 平板横屏已经是双栏工作台，材料栏不再使用手机窖屏的 295px/34vh 上限。
+ * 左栏从材料标题下方填满到工作台底部，与右侧题面各自滚动。
+ */
+@media (min-width: 1024px) and (orientation: landscape) {
+  .material-reader--answering,
+  .material-reader--answering .material-reader__inline {
+    display: flex;
+    height: 100%;
+    min-height: 0;
+    flex-direction: column;
+  }
+
+  .material-reader__inline-scroll--answering {
+    height: auto;
+    min-height: 0;
+    flex: 1;
+    max-height: none;
+  }
+}
+
+/*
  * Figma 80:2 · 沉浸阅读全屏面。
  * 导航行与胶囊共行（只避让实测胶囊矩形），正文卡独立滚动，
  * 工具坞浮在底部。所有几何取自 81:* 节点（px×2 → rpx）。

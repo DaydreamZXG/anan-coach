@@ -154,6 +154,7 @@ export type TaskRuntimeEvent =
   | { type: "CONFIDENCE_SET"; confidence: AnswerConfidence }
   | { type: "QUESTION_MARKED"; marked: boolean }
   | { type: "QUESTION_SKIPPED" }
+  | { type: "UNANSWERED_FINALIZED" }
   | { type: "DRAFT_CHANGED"; text: string }
   | { type: "MATERIAL_POSITION_CHANGED"; position: MaterialPosition }
   | { type: "ANNOTATIONS_CHANGED"; strokes: AnnotationStroke[]; action: "added" | "erased" }

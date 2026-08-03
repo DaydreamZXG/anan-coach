@@ -940,10 +940,22 @@ button.submit-button {
   }
 
   .material-reader-shell {
+    display: flex;
     min-width: 0;
     height: 100%;
+    min-height: 0;
+    flex-direction: column;
     margin-bottom: 0;
     overflow: hidden;
+  }
+
+  .practice-material-head {
+    flex: none;
+  }
+
+  .practice-material-reader {
+    min-height: 0;
+    flex: 1;
   }
 
   .practice-question-pane {

@@ -79,6 +79,7 @@
           </view>
 
           <material-reader
+            class="practice-material-reader"
             appearance="answering"
             inlineHeaderAvailable="{{false}}"
             title="{{view.question.material.title || '本题材料'}}"
@@ -305,6 +306,7 @@
 
       <!-- Figma 59:2 / 60:4：答题卡半屏 Bottom Sheet，题号使用圆形状态。 -->
       <answer-sheet
+        id="runtime-answer-sheet"
         visible="{{answerSheetOpen}}"
         current="{{view.current}}"
         items="{{answerSheetItems}}"
@@ -315,8 +317,8 @@
         moduleName="{{answerSheetModuleName}}"
         moduleCounts="{{answerSheetModuleCounts}}"
         insightAvailable="{{true}}"
-        hint="点题号即可直接切换，存疑题会优先复盘"
-        submitLabel="确认交卷并查看结果"
+        hint="{{answerSheetLegend.unanswered > 0 ? '未答题将按未作答记录，可直接交卷' : '点题号即可直接切换，存疑题会优先复盘'}}"
+        submitLabel="{{answerSheetLegend.unanswered > 0 ? '保留未答并交卷' : '确认交卷并查看结果'}}"
         bindclose="toggleAnswerSheet"
         bindselect="selectQuestionFromSheet"
         bindsubmit="submitAttempt"

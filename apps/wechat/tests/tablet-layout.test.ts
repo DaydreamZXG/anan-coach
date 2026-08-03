@@ -11,6 +11,8 @@ import taskShellStylesRaw from "../miniprogram/task-runtime/task-shell/index.wxs
 import practiceTemplate from "../miniprogram/pages/practice/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import practiceStylesRaw from "../miniprogram/pages/practice/index.wxss?raw";
+// @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
+import materialReaderStylesRaw from "../miniprogram/task-runtime/material-reader/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import favoritesTemplate from "../miniprogram/pages/xingce-mastery/favorites/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
@@ -55,6 +57,7 @@ const responsiveStyles = normalizeRpxCalc(responsiveStylesRaw);
 const tabBarStyles = normalizeRpxCalc(tabBarStylesRaw);
 const taskShellStyles = normalizeRpxCalc(taskShellStylesRaw);
 const practiceStyles = normalizeRpxCalc(practiceStylesRaw);
+const materialReaderStyles = normalizeRpxCalc(materialReaderStylesRaw);
 const favoritesStyles = normalizeRpxCalc(favoritesStylesRaw);
 const mockStyles = normalizeRpxCalc(mockStylesRaw);
 const answerSheetStyles = normalizeRpxCalc(answerSheetStylesRaw);
@@ -101,6 +104,14 @@ describe("tablet responsive layout contract", () => {
     expect(practiceTemplate).not.toContain("? '下一题'");
     // Figma 2:2：材料与题目各自滚动，宽屏由等高双栏承载，不再依赖 sticky。
     expect(practiceStyles).toMatch(/\.material-reader-shell \{[^}]*height: 100%/);
+    expect(practiceTemplate).toContain('class="practice-material-reader"');
+    expect(practiceStyles).toMatch(/\.practice-material-reader \{[^}]*flex:\s*1/);
+    expect(materialReaderStyles).toContain(
+      "@media (min-width: 1024px) and (orientation: landscape)",
+    );
+    expect(materialReaderStyles).toMatch(
+      /\.material-reader__inline-scroll--answering \{[^}]*max-height:\s*none/,
+    );
 
     expect(mockTemplate).toContain('class="mock-workspace ');
     expect(mockTemplate).toContain('layoutVariant="xingce"');

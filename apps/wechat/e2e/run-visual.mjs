@@ -511,7 +511,12 @@ function rectanglesOverlap(node, protectedArea) {
 async function assertDeliveryContract(program, page, scenario) {
   const contract = deliveryContractByScenarioId.get(scenario.id);
   if (!contract) return null;
-  const semanticGeometry = await readSelectorGeometry(program, page, contract.semanticSelector);
+  const semanticGeometry = await readSelectorGeometry(
+    program,
+    page,
+    contract.semanticSelector,
+    contract.componentSelector,
+  );
   assert.ok(
     semanticGeometry,
     `${scenario.id} did not render Figma ${contract.figmaNodeId} state ${contract.semanticSelector}`,
@@ -525,7 +530,12 @@ async function assertDeliveryContract(program, page, scenario) {
 
   let primaryGeometry = null;
   if (contract.primarySelector) {
-    const primary = await readSelectorGeometry(program, page, contract.primarySelector);
+    const primary = await readSelectorGeometry(
+      program,
+      page,
+      contract.primarySelector,
+      contract.componentSelector,
+    );
     assert.ok(
       primary,
       `${scenario.id} is missing primary action ${contract.primarySelector} for Figma ${contract.figmaNodeId}`,
@@ -560,9 +570,9 @@ async function assertDeliveryContract(program, page, scenario) {
  * through the page's supported SelectorQuery runtime API, matching the data
  * bridge used elsewhere in this audit.
  */
-async function readSelectorGeometry(program, page, selector) {
+async function readSelectorGeometry(program, page, selector, componentSelector) {
   const payload = await program.evaluate(
-    function queryCurrentPageGeometry(expectedRoute, targetSelector) {
+    function queryCurrentPageGeometry(expectedRoute, targetSelector, targetComponentSelector) {
       return new Promise((resolve) => {
         const pages = getCurrentPages();
         const current = pages[pages.length - 1];
@@ -576,7 +586,14 @@ async function readSelectorGeometry(program, page, selector) {
           );
           return;
         }
-        current
+        const context = targetComponentSelector
+          ? current.selectComponent(targetComponentSelector)
+          : current;
+        if (!context) {
+          resolve(JSON.stringify({ error: "component_missing", targetComponentSelector }));
+          return;
+        }
+        context
           .createSelectorQuery()
           .select(targetSelector)
           .fields(
@@ -592,13 +609,16 @@ async function readSelectorGeometry(program, page, selector) {
     },
     page.path,
     selector,
+    componentSelector ?? "",
   );
   assert.equal(typeof payload, "string", `${page.path} ${selector} returned invalid geometry`);
   const parsed = JSON.parse(payload);
   assert.equal(
     parsed.error,
     undefined,
-    `${page.path} selector query expected ${page.path} but found ${parsed.actualRoute ?? "no page"}`,
+    parsed.error === "component_missing"
+      ? `${page.path} selector query did not find ${parsed.targetComponentSelector}`
+      : `${page.path} selector query expected ${page.path} but found ${parsed.actualRoute ?? "no page"}`,
   );
   if (!parsed.result) return null;
   assert.notEqual(parsed.result.display, "none", `${page.path} ${selector} is display:none`);

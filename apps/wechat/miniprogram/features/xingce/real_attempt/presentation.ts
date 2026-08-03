@@ -300,7 +300,7 @@ export function presentXingceResult(session: XingceTaskSession): XingceResultVie
     review.reflection?.itemInterpretations ?? [],
   );
   const group = result.groupSummary;
-  if (!group) throw new Error("行测 3 题组结果缺失。");
+  if (!group) throw new Error("行测结果摘要缺失。");
   const interpreted = new Set(
     (review.reflection?.itemInterpretations ?? []).map((item) => item.questionId),
   );
@@ -328,7 +328,7 @@ export function presentXingceResult(session: XingceTaskSession): XingceResultVie
         session.bundle.materials,
       );
     }),
-    group: presentGroupSummary(group),
+    group: presentGroupSummary(group, result.totalCount),
     verification: session.verificationOutcome
       ? presentVerificationOutcome(session.verificationOutcome)
       : null,
@@ -928,22 +928,26 @@ function factoredCategory(
   return { label: "答对·信心未记录", tone: "neutral" };
 }
 
-function presentGroupSummary(summary: XingceGroupSummary): XingceGroupSummaryView {
+function presentGroupSummary(
+  summary: XingceGroupSummary,
+  totalCount: number,
+): XingceGroupSummaryView {
+  const groupLabel = `${String(totalCount)} 题训练`;
   const outcomeCopy = {
     attained: {
-      label: "3 题组已达成",
+      label: `${groupLabel}已达成`,
       tone: "success" as const,
-      description: "3 题均有客观答对且中高信心证据。",
+      description: `全部 ${String(totalCount)} 题均有客观答对且中高信心证据。`,
     },
     not_attained: {
-      label: "3 题组未达成",
+      label: `${groupLabel}已完成`,
       tone: "warning" as const,
       description: "答对不等于真会；猜对、错题和未答会分开保留。",
     },
     interrupted: {
-      label: "3 题组已中断",
+      label: `${groupLabel}已交卷`,
       tone: "neutral" as const,
-      description: "3 题均是主动放弃，不自动记为答错。",
+      description: `本次 ${String(totalCount)} 题均未作答，不自动记为答错。`,
     },
   }[summary.outcome];
   return {

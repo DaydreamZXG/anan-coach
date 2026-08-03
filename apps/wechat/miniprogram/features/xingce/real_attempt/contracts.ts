@@ -249,8 +249,13 @@ export function assertFactoredXingceResult(
   if (result.contractVersion !== "xingce-attempt-result@v2" || !result.groupSummary) {
     throw new Error("行测结果不是已确认的事实拆分。");
   }
-  if (result.totalCount !== 3 || result.items.length !== 3 || questionIds.length !== 3) {
-    throw new Error("行测组结果必须绑定完整的 3 题组。");
+  const expectedCount = questionIds.length;
+  if (
+    expectedCount < 1 ||
+    result.totalCount !== expectedCount ||
+    result.items.length !== expectedCount
+  ) {
+    throw new Error("行测结果必须绑定本次完整题目集。");
   }
   const itemIds = result.items.map((item) => item.questionId);
   if (
@@ -282,12 +287,16 @@ export function assertFactoredXingceResult(
     summary.advisoryExceeded !== advisoryExceeded ||
     summary.methodCorrectCalculationError !== methodCorrectCalculationError
   ) {
-    throw new Error("行测 3 题组计数与逐题事实不一致。");
+    throw new Error("行测结果计数与逐题事实不一致。");
   }
   const expectedOutcome =
-    activeAbandon === 3 ? "interrupted" : genuineCorrect === 3 ? "attained" : "not_attained";
+    activeAbandon === expectedCount
+      ? "interrupted"
+      : genuineCorrect === expectedCount
+        ? "attained"
+        : "not_attained";
   if (summary.outcome !== expectedOutcome) {
-    throw new Error("行测 3 题组结论与逐题事实不一致。");
+    throw new Error("行测结论与逐题事实不一致。");
   }
   return result;
 }

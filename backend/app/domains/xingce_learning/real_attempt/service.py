@@ -1898,9 +1898,9 @@ def _group_summary(
         isinstance(item, dict) and item.get("interpretation") == "method_correct_calculation_error"
         for item in interpretations
     )
-    if len(items) == 3 and active_abandon == 3:
+    if active_abandon == len(items):
         outcome = "interrupted"
-    elif len(items) == 3 and genuine_correct == 3:
+    elif genuine_correct == len(items):
         outcome = "attained"
     else:
         outcome = "not_attained"

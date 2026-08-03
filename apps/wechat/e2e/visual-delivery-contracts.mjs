@@ -147,8 +147,10 @@ export const visualDeliveryContracts = [
     "/pages/practice/index",
     "answer-sheet",
     ".answer-card__sheet",
-    ["答题卡", "点题号即可直接切换，存疑题会优先复盘"],
+    ["答题卡", "未答题将按未作答记录，可直接交卷", "保留未答并交卷"],
     ".answer-card__cta",
+    undefined,
+    "#runtime-answer-sheet",
   ),
   deliveryState(
     "70:2",
@@ -425,6 +427,7 @@ function delivery(
   requiredText,
   primarySelector,
   textSelector,
+  componentSelector,
 ) {
   return {
     figmaNodeId,
@@ -434,6 +437,7 @@ function delivery(
     requiredText,
     ...(primarySelector ? { primarySelector } : {}),
     ...(textSelector ? { textSelector } : {}),
+    ...(componentSelector ? { componentSelector } : {}),
   };
 }
 
@@ -446,6 +450,7 @@ function deliveryState(
   requiredText,
   primarySelector,
   textSelector,
+  componentSelector,
 ) {
   return {
     ...delivery(
@@ -456,6 +461,7 @@ function deliveryState(
       requiredText,
       primarySelector,
       textSelector,
+      componentSelector,
     ),
     routeState,
   };

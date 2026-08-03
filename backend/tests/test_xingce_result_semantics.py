@@ -227,9 +227,7 @@ def test_result_session_is_account_isolated(
 
 
 def test_group_interruption_and_failed_verification_are_deterministic() -> None:
-    abandoned = [
-        _fact_item(index, verdict="unanswered", abandoned=True) for index in range(3)
-    ]
+    abandoned = [_fact_item(index, verdict="unanswered", abandoned=True) for index in range(3)]
     summary = _group_summary(
         abandoned,
         review_state="reflection_due",
@@ -277,9 +275,7 @@ def test_group_interruption_and_failed_verification_are_deterministic() -> None:
     assert unreported_summary.guessed_correct == 0
     assert unreported_summary.outcome == "not_attained"
 
-    genuine_correct = [
-        _fact_item(index, verdict="correct", abandoned=False) for index in range(3)
-    ]
+    genuine_correct = [_fact_item(index, verdict="correct", abandoned=False) for index in range(3)]
     immediate = _group_summary(
         genuine_correct,
         review_state="immediate_verification_due",
@@ -294,6 +290,30 @@ def test_group_interruption_and_failed_verification_are_deterministic() -> None:
     assert immediate.immediate_verification is True
     assert immediate.scheduled is False
     assert scheduled is not None and scheduled.scheduled is True
+
+    full_length_correct = [
+        _fact_item(index, verdict="correct", abandoned=False) for index in range(30)
+    ]
+    full_length_summary = _group_summary(
+        full_length_correct,
+        review_state="reflection_due",
+        reflection_payload=None,
+    )
+    assert full_length_summary is not None
+    assert full_length_summary.outcome == "attained"
+    assert full_length_summary.genuine_correct == 30
+
+    full_length_unanswered = [
+        _fact_item(index, verdict="unanswered", abandoned=True) for index in range(30)
+    ]
+    full_length_unanswered_summary = _group_summary(
+        full_length_unanswered,
+        review_state="reflection_due",
+        reflection_payload=None,
+    )
+    assert full_length_unanswered_summary is not None
+    assert full_length_unanswered_summary.outcome == "interrupted"
+    assert full_length_unanswered_summary.active_abandon == 30
 
 
 def _started_session(
@@ -363,9 +383,7 @@ def _fact_item(
     return XingceResultItem(
         questionId=f"question-{index}",
         resultCode=(
-            "skipped"
-            if abandoned
-            else ("correct" if verdict == "correct" else "incorrect")
+            "skipped" if abandoned else ("correct" if verdict == "correct" else "incorrect")
         ),
         selectedOptionIds=[] if abandoned else ["A"],
         correctOptionIds=["A"],

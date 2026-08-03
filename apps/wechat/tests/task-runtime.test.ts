@@ -4,6 +4,7 @@ import {
   createTaskRuntime,
   reduceTaskRuntime,
   TaskTransitionError,
+  unansweredQuestionIds,
 } from "../miniprogram/task-runtime/state/runtime";
 
 describe("task runtime", () => {
@@ -32,6 +33,31 @@ describe("task runtime", () => {
     });
     expect(elapsed.totalElapsedSeconds).toBe(12);
     expect(elapsed.syncState).toBe("pending");
+  });
+
+  it("finalizes all remaining unanswered questions when the learner confirms submission", () => {
+    let state = reduceTaskRuntime(
+      createTaskRuntime({
+        taskId: "partial-submit",
+        mode: "practice",
+        questionOrder: ["q1", "q2", "q3"],
+      }),
+      { type: "TASK_STARTED", startedAt: "2026-08-03T06:00:00Z" },
+    );
+    state = reduceTaskRuntime(state, { type: "ANSWER_SELECTED", optionIds: ["B"] });
+    state = reduceTaskRuntime(state, { type: "UNANSWERED_FINALIZED" });
+
+    expect(unansweredQuestionIds(state)).toEqual([]);
+    expect(state.attempts.q1).toMatchObject({ selectedOptionIds: ["B"], skipped: false });
+    for (const questionId of ["q2", "q3"]) {
+      expect(state.attempts[questionId]).toMatchObject({
+        selectedOptionIds: [],
+        skipped: true,
+        actionEvents: [
+          expect.objectContaining({ type: "skipped", detail: "submit_with_unanswered" }),
+        ],
+      });
+    }
   });
 
   it("preserves material position, draft, elimination, confidence and marking", () => {

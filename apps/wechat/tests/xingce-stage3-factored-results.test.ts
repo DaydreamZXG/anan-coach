@@ -95,6 +95,36 @@ describe("stage 3 factored result presentation", () => {
     });
   });
 
+  it("接受 30 题训练结果，不再用固定 3 题合同拦截交卷", () => {
+    const session = submittedXingceSession("correct");
+    const baseQuestion = session.bundle.questions[0];
+    const baseAnswer = session.answers[0];
+    const baseItem = session.result?.items[0];
+    if (!baseQuestion || !baseAnswer || !baseItem || !session.result?.groupSummary) {
+      throw new Error("fixture result is required");
+    }
+    session.bundle.questions = Array.from({ length: 30 }, (_, index) => ({
+      ...baseQuestion,
+      questionId: `q-${String(index + 1)}`,
+    }));
+    session.answers = session.bundle.questions.map((question) => ({
+      ...baseAnswer,
+      questionId: question.questionId,
+    }));
+    session.result.totalCount = 30;
+    session.result.correctCount = 30;
+    session.result.items = session.bundle.questions.map((question) => ({
+      ...baseItem,
+      questionId: question.questionId,
+    }));
+    session.result.groupSummary.genuineCorrect = 30;
+
+    expect(presentXingceResult(session)?.group).toMatchObject({
+      outcome: "attained",
+      outcomeLabel: "30 题训练已达成",
+    });
+  });
+
   it("结果摘要只使用真实作答时长、超时和信心证据", () => {
     const session = submittedXingceSession("timeout");
     session.totalElapsedSeconds = 336;
