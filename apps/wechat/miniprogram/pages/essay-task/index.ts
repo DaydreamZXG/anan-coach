@@ -2340,6 +2340,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       if (enterEssayAuthRequired(this, runtime, error)) return;
       const apiError = error instanceof ApiClientError ? error : null;
       const conflict = apiError?.statusCode === 409;
+      const taskExpired = apiError?.payload?.code === "plan_task_expired";
       if (conflict && runtime.pendingCompletion) {
         clearStoredPlanTaskCompletion(runtime.activeUserId, runtime.pendingCompletion.planTaskId);
         runtime.pendingCompletion = null;
@@ -2347,18 +2348,18 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       const message =
         error instanceof EssayFormError
           ? error.message
-          : apiError?.statusCode === 409
-            ? "任务已经在其他设备或页面更新，本次没有写入不完整记录。请从今日页重新进入。"
+          : taskExpired
+            ? "任务已经过期，本次没有写入不完整记录。请从今日页重新进入。"
             : apiError
-              ? apiError.message
+              ? `${apiError.message} 当前填写内容仍然保留，可以修改后直接重试。`
               : "答案、复盘和任务完成状态还没有完全确认，请直接重试。";
       this.setData({
         submissionStatus: "error",
         submissionMessage: message,
         draftLocked: runtime.pendingCompletion !== null,
-        canSubmit: conflict ? false : this.data.canSubmit,
-        blockingReason: conflict
-          ? "当前任务已经失效，请从今日页重新进入；其他设备保存的内容不会被覆盖。"
+        canSubmit: taskExpired ? false : this.data.canSubmit,
+        blockingReason: taskExpired
+          ? "当前任务确实已经过期，请从今日页重新进入；已填写内容仍保留在本机。"
           : this.data.blockingReason,
       });
     }
@@ -2910,6 +2911,7 @@ function handleDraftingRequestError(
   if (enterEssayAuthRequired(page, runtime, error)) return;
   const apiError = error instanceof ApiClientError ? error : null;
   const conflict = apiError?.statusCode === 409;
+  const taskExpired = apiError?.payload?.code === "plan_task_expired";
   const completionPending = runtime.pendingDraftingSubmission?.phase === "completion_pending";
   if (conflict && runtime.pendingDraftingSubmission) {
     clearStoredDraftingSubmission(
@@ -2921,10 +2923,10 @@ function handleDraftingRequestError(
   const message =
     error instanceof EssayDraftingError
       ? error.message
-      : conflict
+      : taskExpired
         ? completionPending
-          ? "任务已经在其他设备或页面更新，本次没有写入不完整记录。请从今日页重新进入。"
-          : "作答和计划已经保存，但评阅依据发生变化。请返回今日页重新进入。"
+          ? "任务已经过期，本次没有写入不完整记录。请从今日页重新进入。"
+          : "作答和计划已经保存，但任务已经过期。请返回今日页重新进入。"
         : apiError
           ? `${apiError.message}。${completionPending ? "刚才的提交内容已保留" : "评阅任务已保存在账户中"}，可以直接重试。`
           : `请求没有获得完整响应。${completionPending ? "刚才的提交内容已保留" : "评阅任务已保存在账户中"}，可以直接重试。`;
@@ -2932,14 +2934,14 @@ function handleDraftingRequestError(
     submissionStatus: "error",
     submissionMessage: message,
     draftLocked: runtime.pendingDraftingSubmission !== null,
-    canSubmit: !conflict,
+    canSubmit: !taskExpired,
     hasSavedEvidence:
       page.data.hasSavedEvidence ||
       runtime.pendingDraftingSubmission?.phase === "review_pending" ||
       runtime.activeReviewIntent !== null,
     blockingReason:
-      conflict && completionPending
-        ? "当前作答上下文已失效，必须从最新今日计划重新进入。"
+      taskExpired && completionPending
+        ? "当前作答上下文已过期，必须从最新今日计划重新进入。"
         : page.data.blockingReason,
   });
 }

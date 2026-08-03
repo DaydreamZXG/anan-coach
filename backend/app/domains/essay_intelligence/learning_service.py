@@ -120,7 +120,10 @@ class EssayLearningArtifactService:
             session,
             material_bundle_version_id=material_id,
         )
-        segments = {str(item["segment_id"]): str(item["text"]) for item in segment_rows}
+        segments = _scoped_material_segments(
+            prompt=str(content["prompt"]),
+            segment_rows=segment_rows,
+        )
         self._validate_payload_dependencies(
             session,
             user_id=user_id,
@@ -724,6 +727,24 @@ def _review_intent_from_progression(
         supersedes_intent_version_id=row["review_intent_supersedes_id"],
         created_at=row["review_intent_created_at"],
     )
+
+
+def _scoped_material_segments(
+    *,
+    prompt: str,
+    segment_rows: list[RowMapping],
+) -> dict[str, str]:
+    """Return the exact material slice exposed by the task workspace."""
+    material_scope = resolve_material_scope(
+        prompt,
+        [int(item["material_order"]) for item in segment_rows],
+    )
+    selected_orders = set(material_scope.material_orders)
+    return {
+        str(item["segment_id"]): str(item["text"])
+        for item in segment_rows
+        if int(item["material_order"]) in selected_orders
+    }
 
 
 def _fingerprint(value: Any) -> str:

@@ -67,6 +67,7 @@ from app.domains.essay_intelligence.drafting_service import (
 from app.domains.planning.errors import PlanningTaskExpiredError
 from app.domains.planning.http import planning_task_expired_response
 from app.domains.planning.repository import PlanningContractError
+from app.platform.http import public_error_response
 from app.domains.commerce.deps import get_commerce_service
 from app.domains.commerce.repository import CommerceQuotaExceededError
 from app.domains.commerce.service import CommerceService
@@ -794,9 +795,22 @@ def record_artifact_and_complete_plan_task(
     except PlanningTaskExpiredError as exc:
         session.rollback()
         return planning_task_expired_response(request=request, error=exc)
-    except (EssayArtifactContractError, PlanningContractError) as exc:
+    except EssayArtifactContractError:
         session.rollback()
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(exc)) from exc
+        return public_error_response(
+            request=request,
+            status_code=status.HTTP_409_CONFLICT,
+            code="essay_artifact_conflict",
+            message="这份学习记录没有保存成功，当前填写内容仍然保留，请检查后重试。",
+        )
+    except PlanningContractError:
+        session.rollback()
+        return public_error_response(
+            request=request,
+            status_code=status.HTTP_409_CONFLICT,
+            code="plan_task_conflict",
+            message="今日计划刚刚发生变化，当前填写内容仍然保留，请刷新今日页后继续。",
+        )
 
 
 @router.get(

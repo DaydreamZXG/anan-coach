@@ -7,6 +7,7 @@ interface CapturedPageDefinition {
   onUnload(this: TestPage): void;
   retry(this: TestPage): void;
   goLogin(this: TestPage): void;
+  submitArtifact(this: TestPage): Promise<void>;
 }
 
 interface TestPage extends CapturedPageDefinition {
@@ -277,6 +278,59 @@ describe("essay task page lifecycle", () => {
     expect(storage.has("gongkao.essay.pending.v4.user-b.drafting.plan-a")).toBe(false);
     page.onUnload.call(page);
   });
+
+  it("keeps material input editable when a non-expiry conflict is returned", async () => {
+    vi.useFakeTimers();
+    const { definition, requests } = await capturePageDefinition();
+    const page = instantiatePage(definition);
+    page.onLoad.call(page, taskOptions("task-a", "plan-a"));
+    page.onShow.call(page);
+    resolveWorkspace(requiredAt(requests, 0), workspace("task-a"));
+    await flushPromises();
+    fillMaterialDraft(page, "task-a");
+
+    const submission = page.submitArtifact.call(page);
+    await flushPromises();
+    rejectConflict(
+      requiredAt(requests, 1),
+      "essay_artifact_conflict",
+      "这份学习记录没有保存成功，当前填写内容仍然保留，请检查后重试。",
+    );
+    await submission;
+
+    expect(page.data).toMatchObject({
+      canSubmit: true,
+      draftLocked: false,
+      overallTheme: "材料主题",
+    });
+    expect(String(page.data.submissionMessage)).toContain("当前填写内容仍然保留");
+    expect(String(page.data.blockingReason)).not.toContain("任务已经失效");
+    page.onUnload.call(page);
+  });
+
+  it("locks the task only when the server explicitly reports plan_task_expired", async () => {
+    vi.useFakeTimers();
+    const { definition, requests } = await capturePageDefinition();
+    const page = instantiatePage(definition);
+    page.onLoad.call(page, taskOptions("task-a", "plan-a"));
+    page.onShow.call(page);
+    resolveWorkspace(requiredAt(requests, 0), workspace("task-a"));
+    await flushPromises();
+    fillMaterialDraft(page, "task-a");
+
+    const submission = page.submitArtifact.call(page);
+    await flushPromises();
+    rejectConflict(
+      requiredAt(requests, 1),
+      "plan_task_expired",
+      "该任务所属的每日计划已过期，请刷新今日计划后继续。",
+    );
+    await submission;
+
+    expect(page.data.canSubmit).toBe(false);
+    expect(String(page.data.blockingReason)).toContain("确实已经过期");
+    page.onUnload.call(page);
+  });
 });
 
 async function capturePageDefinition(): Promise<{
@@ -496,6 +550,40 @@ function rejectUnauthorized(request: WechatMiniprogram.RequestOption): void {
     profile: {} as WechatMiniprogram.RequestProfile,
     useHttpDNS: false,
     errMsg: "request:ok",
+  });
+}
+
+function rejectConflict(
+  request: WechatMiniprogram.RequestOption,
+  code: string,
+  message: string,
+): void {
+  request.success?.({
+    data: { code, message, requestId: `request-${code}` },
+    statusCode: 409,
+    header: {},
+    cookies: [],
+    exception: { reasons: [], retryCount: 0 },
+    profile: {} as WechatMiniprogram.RequestProfile,
+    useHttpDNS: false,
+    errMsg: "request:ok",
+  });
+}
+
+function fillMaterialDraft(page: TestPage, taskVersionId: string): void {
+  page.setData({
+    canSubmit: true,
+    submissionStatus: "idle",
+    overallTheme: "材料主题",
+    materialAnnotations: [
+      {
+        segmentId: `segment-${taskVersionId}`,
+        label: "材料 1 · 第 1 段",
+        paragraphSummary: "材料正文",
+        subjectsText: "材料主体",
+        evidenceQuote: "材料正文。",
+      },
+    ],
   });
 }
 

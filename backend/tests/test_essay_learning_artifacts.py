@@ -271,6 +271,31 @@ def test_workspace_exposes_only_the_materials_named_by_the_task_prompt(
     ] == [2]
     assert workspace["material"]["segments"][0]["text"] == second_text
 
+    scoped_command = _material_command(ids["task"], ids["material"])
+    scoped_command["payload"] = {
+        "schemaType": "material_annotation",
+        "overallTheme": "第二则材料主题",
+        "annotations": [
+            {
+                "segmentId": "segment-2",
+                "paragraphSummary": "第二则材料服务于当前题目",
+                "subjects": ["当前题目"],
+                "evidenceQuote": second_text,
+            }
+        ],
+    }
+    saved = _client(db_session_factory).post(
+        "/api/v2/essay-intelligence/artifacts",
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Idempotency-Key": "scoped-material-annotation-0001",
+        },
+        json=scoped_command,
+    )
+
+    assert saved.status_code == 200, saved.text
+    assert saved.json()["data"]["payload"]["annotations"][0]["segmentId"] == "segment-2"
+
 
 def test_workspace_and_planning_bind_review_to_the_current_answer_version(
     db_session_factory: sessionmaker[Session],
