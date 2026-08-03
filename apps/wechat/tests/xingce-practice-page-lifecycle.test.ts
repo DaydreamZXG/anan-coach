@@ -27,16 +27,16 @@ describe("xingce practice page lifecycle", () => {
   it("remeasures the question content after an orientation change", async () => {
     vi.useFakeTimers();
     const runtime = await createPracticePage();
-    const measurementsBeforeResize = runtime.setData.mock.calls.filter(
-      ([patch]) => Object.hasOwn(patch, "questionContentHeight"),
+    const measurementsBeforeResize = runtime.setData.mock.calls.filter(([patch]) =>
+      Object.hasOwn(patch, "questionContentHeight"),
     ).length;
 
     runtime.page.onResize.call(runtime.page);
     await flushMicrotasks();
     await vi.advanceTimersByTimeAsync(120);
 
-    const measurementsAfterResize = runtime.setData.mock.calls.filter(
-      ([patch]) => Object.hasOwn(patch, "questionContentHeight"),
+    const measurementsAfterResize = runtime.setData.mock.calls.filter(([patch]) =>
+      Object.hasOwn(patch, "questionContentHeight"),
     ).length;
     expect(measurementsAfterResize).toBe(measurementsBeforeResize + 2);
     runtime.page.onUnload.call(runtime.page);
@@ -435,6 +435,11 @@ describe("xingce practice favorite ownership and idempotency", () => {
 });
 
 describe("xingce practice swipe question navigation", () => {
+  it("settles both touchend and native scroll-view touchcancel on the question pane", () => {
+    expect(practiceTemplate).toContain('bindtouchend="onQuestionTouchEnd"');
+    expect(practiceTemplate).toContain('bindtouchcancel="onQuestionTouchEnd"');
+  });
+
   it("switches to the next question on a fast leftward swipe with a one-shot transition", async () => {
     vi.useFakeTimers();
     const runtime = await createPracticePage();
@@ -454,6 +459,27 @@ describe("xingce practice swipe question navigation", () => {
     expect(currentOf(runtime.page)).toBe(1);
     expect(runtime.page.data.questionTransition).toBe("prev");
     await flushMicrotasks();
+    runtime.page.onUnload.call(runtime.page);
+  });
+
+  it("switches from the scrollable middle when native scrolling finishes with touchcancel", async () => {
+    vi.useFakeTimers();
+    const runtime = await createPracticePage();
+    const startAt = 10_000;
+
+    runtime.page.onQuestionTouchStart.call(runtime.page, touchEvent(300, 400, startAt));
+    runtime.page.onQuestionTouchMove.call(runtime.page, touchEvent(130, 406, startAt + 160));
+    // 微信 scroll-view 接管手势后，touchcancel 可能把 changedTouches 补成 (0,0)；
+    // WXML 将 cancel 交给同一结算函数，必须使用最后一个真实 move 触点。
+    runtime.page.onQuestionTouchEnd.call(runtime.page, {
+      type: "touchcancel",
+      timeStamp: startAt + 170,
+      touches: [],
+      changedTouches: [{ clientX: 0, clientY: 0 }],
+    } as unknown as WechatMiniprogram.TouchEvent);
+
+    expect(currentOf(runtime.page)).toBe(2);
+    expect(runtime.page.data.questionTransition).toBe("next");
     runtime.page.onUnload.call(runtime.page);
   });
 

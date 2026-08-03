@@ -8,7 +8,7 @@ import automator from "miniprogram-automator";
 import pixelmatch from "pixelmatch";
 import { PNG } from "pngjs";
 
-import { readPageData, setPageData } from "./page-data-bridge.mjs";
+import { readPageData, setComponentData, setPageData } from "./page-data-bridge.mjs";
 import { consoleEventText, isActionableRuntimeWarning } from "./runtime-warning-policy.mjs";
 import { visualDeliveryContracts } from "./visual-delivery-contracts.mjs";
 import { visualScenarios } from "./visual-scenarios.mjs";
@@ -280,6 +280,7 @@ async function captureScenario(program, scenario) {
   const fixtureData = structuredClone(scenario.data);
   await setPageData(program, page, fixtureData);
   await page.waitFor(800);
+  await applyComponentFixtures(program, page, scenario);
   if (scenario.scrollTop) {
     await program.pageScrollTo(scenario.scrollTop);
     await page.waitFor(200);
@@ -287,6 +288,7 @@ async function captureScenario(program, scenario) {
   // Page timers may keep rendering after the controller has settled. The scenario owns
   // deterministic screenshot data, so restore it once after layout/scroll stabilization.
   await setPageData(program, page, fixtureData);
+  await applyComponentFixtures(program, page, scenario);
   // automator resolves setData after the page data commit, while WXML/component layout can
   // still be one render behind. Wait for that final deterministic frame before asserting and
   // capturing, otherwise a completed network-error frame can be photographed with fixture data.
@@ -349,6 +351,12 @@ async function captureScenario(program, scenario) {
     assert.fail(
       `${scenario.id} visual difference ${(ratio * 100).toFixed(3)}% exceeds ${(maximumDifferentPixelRatio * 100).toFixed(3)}%; inspect ${diffPath}`,
     );
+  }
+}
+
+async function applyComponentFixtures(program, page, scenario) {
+  for (const fixture of scenario.componentFixtures ?? []) {
+    await setComponentData(program, page, fixture.selector, structuredClone(fixture.data));
   }
 }
 

@@ -86,12 +86,18 @@
 }
 
 .material-paragraph__text {
+  display: block;
   color: var(--color-ink);
   font-family: var(--font-family-reading);
   font-size: var(--text-body-lg);
   letter-spacing: calc(0.5 * var(--rpx));
   line-height: 1.95;
   text-align: justify;
+  text-indent: 2em;
+}
+
+.material-paragraph + .material-paragraph {
+  margin-top: var(--figma-space-8);
 }
 
 .material-annotation {

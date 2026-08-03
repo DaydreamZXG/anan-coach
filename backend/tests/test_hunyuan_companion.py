@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 from hashlib import sha256
+import json
 
 import pytest
 
 from app.core.config import Settings
-from app.domains.ai.hunyuan_companion import HunyuanCompanionProvider
+from app.domains.ai.hunyuan_companion import HunyuanCompanionProvider, companion_provider
+from app.domains.ai.provider import AIProvider
 from app.domains.ai.provider import AIProviderResponseError
 from app.domains.essay_intelligence.hunyuan_cloud_function import (
     HunyuanCloudFunctionResult,
@@ -16,8 +18,7 @@ from app.domains.essay_intelligence.hunyuan_cloud_function import (
 
 class _Transport:
     endpoint = (
-        "https://zhus-d3gkwjeltb8e1ffd7.api.tcloudbasegateway.com/"
-        "v1/functions/hunyuan-essay-grader"
+        "https://zhus-d3gkwjeltb8e1ffd7.api.tcloudbasegateway.com/v1/functions/hunyuan-essay-grader"
     )
 
     def __init__(self, text: str) -> None:
@@ -101,6 +102,49 @@ def test_hunyuan_companion_uses_closed_cloud_function_contract() -> None:
     assert prepared["providerReplayRetentionSeconds"] == 0
 
 
+def test_hunyuan_companion_accepts_the_optional_action_protocol() -> None:
+    content = (
+        '{"answer":"已识别为今晚 90 分钟。","nextActions":["预览调整"],'
+        '"sourceRefs":["source-1"],"confidence":"high","limitations":[],'
+        '"requestedActions":[{"name":"preview_daily_capacity",'
+        '"arguments":{"availableMinutes":90}}]}'
+    )
+    provider, _transport = _provider(content)
+
+    result = provider.answer_prepared_companion_question(
+        prepared=_prepared(provider),
+        idempotency_key="companion-command-action-1",
+    )
+
+    assert result.requested_actions[0].name == "preview_daily_capacity"
+    assert result.requested_actions[0].arguments == {"availableMinutes": 90}
+
+
+def test_hunyuan_companion_accepts_second_release_action_tools() -> None:
+    content = (
+        '{"answer":"已准备周节奏预览。","nextActions":["确认周节奏"],'
+        '"sourceRefs":["source-1"],"confidence":"high","limitations":[],'
+        '"requestedActions":[{"name":"preview_weekly_schedule",'
+        '"arguments":{"mockExamDay":"saturday","fixedRestDay":"sunday"}}]}'
+    )
+    provider, _transport = _provider(content)
+    prepared = _prepared(provider)
+
+    result = provider.answer_prepared_companion_question(
+        prepared=prepared,
+        idempotency_key="companion-command-action-v2",
+    )
+
+    assert result.requested_actions[0].name == "preview_weekly_schedule"
+    body = prepared["body"]
+    assert isinstance(body, dict)
+    messages = body["messages"]
+    assert isinstance(messages, list)
+    payload = json.loads(messages[1]["content"])
+    tool_names = {item["name"] for item in payload["available_action_tools"]}
+    assert {"open_profile_archive", "open_weekly_plan", "view_learning_evidence"} <= tool_names
+
+
 def test_hunyuan_companion_validates_without_openai_gateway_credentials() -> None:
     provider, _ = _provider(
         '{"answer":"继续。","nextActions":["完成任务"],'
@@ -123,3 +167,25 @@ def test_hunyuan_companion_rejects_unstructured_output() -> None:
         )
 
     assert caught.value.code == "provider_content_invalid"
+
+
+def test_openai_compatible_companion_uses_dedicated_gateway_settings() -> None:
+    provider = companion_provider(
+        Settings(
+            ai_provider_base_url="https://shared.example/v1",
+            ai_api_key="shared-key",
+            ai_model="shared-model",
+            ai_small_model="shared-small",
+            ai_high_capability_model="shared-high",
+            ai_companion_transport="openai_compatible",
+            ai_companion_provider_base_url="https://companion.example/v1",
+            ai_companion_api_key="companion-key",
+            ai_companion_model="companion-model",
+        )
+    )
+
+    assert isinstance(provider, AIProvider)
+    assert provider.model_for_tier("small") == "companion-model"
+    assert provider.model_for_tier("high") == "companion-model"
+    assert provider._settings.ai_provider_base_url == "https://companion.example/v1"
+    assert provider._settings.ai_api_key == "companion-key"

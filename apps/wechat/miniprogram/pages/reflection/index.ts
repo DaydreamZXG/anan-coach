@@ -56,6 +56,7 @@ import {
   presentXingceImmediateVerification,
   presentXingceReflectionClosure,
   presentXingceResult,
+  xingceReflectionReviewItems,
   type XingceReflectionClosureView,
   type XingceCauseCandidateView,
   type XingceResultItemView,
@@ -88,6 +89,13 @@ import {
   reduceMaterialReader,
   type MaterialReaderState,
 } from "../../task-runtime/material-reader/state";
+import {
+  resolveSwipeNav,
+  swipeSampleFromTouchEnd,
+  swipeSampleFromTouchMove,
+  swipeSampleFromTouchStart,
+  type SwipeNavSample,
+} from "../../task-runtime/swipe-nav";
 
 type ReflectionStatus = "loading" | "ready" | "error" | "unavailable";
 type ReflectionPhase =
@@ -205,6 +213,10 @@ interface ReflectionPageCustom {
   returnToday(): void;
   startImmediateVerification(): Promise<void>;
   selectReviewItem(event: WechatMiniprogram.BaseEvent): void;
+  previousReviewItem(): void;
+  onReviewTouchStart(event: WechatMiniprogram.TouchEvent): void;
+  onReviewTouchMove(event: WechatMiniprogram.TouchEvent): void;
+  onReviewTouchEnd(event: WechatMiniprogram.TouchEvent): void;
   openReviewMaterial(): void;
   confirmCauseAndNext(): void;
   openReplay(): void;
@@ -241,6 +253,8 @@ interface ReflectionRuntime {
   causePollCount: number;
   reviewFormEntered: boolean;
   verificationNavigationStarted: boolean;
+  swipeStart: SwipeNavSample | null;
+  swipeLatest: SwipeNavSample | null;
 }
 
 type ReflectionPageInstance = WechatMiniprogram.Page.Instance<
@@ -365,6 +379,8 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       causePollCount: 0,
       reviewFormEntered: hasReflectionDraft(mediaDraft),
       verificationNavigationStarted: false,
+      swipeStart: null,
+      swipeLatest: null,
     };
     runtimes.set(this, runtime);
     syncVoiceView(this, runtime);
@@ -542,13 +558,55 @@ Page<ReflectionPageData, ReflectionPageCustom>({
 
   selectReviewItem(event) {
     const index = Number(event.currentTarget.dataset.index ?? -1);
-    const item = this.data.reviewItems[index];
-    if (!item) return;
-    this.setData({
-      currentReviewIndex: index,
-      activeReviewItem: item,
-      materialReaderState: materialReaderStateFor(item, this.data.displayPreferences),
-    });
+    selectReviewIndex(this, index);
+  },
+
+  previousReviewItem() {
+    selectReviewIndex(this, this.data.currentReviewIndex - 1);
+  },
+
+  onReviewTouchStart(event) {
+    const runtime = runtimes.get(this);
+    if (!runtime || runtime.disposed || reviewSwipeBlocked(this)) return;
+    const sample = swipeSampleFromTouchStart(event);
+    runtime.swipeStart = sample;
+    runtime.swipeLatest = sample;
+  },
+
+  onReviewTouchMove(event) {
+    const runtime = runtimes.get(this);
+    if (!runtime?.swipeStart) return;
+    if (event.touches.length > 1) {
+      runtime.swipeStart = null;
+      runtime.swipeLatest = null;
+      return;
+    }
+    runtime.swipeLatest = swipeSampleFromTouchMove(event) ?? runtime.swipeLatest;
+  },
+
+  onReviewTouchEnd(event) {
+    const runtime = runtimes.get(this);
+    if (!runtime || runtime.disposed) return;
+    const start = runtime.swipeStart;
+    const end =
+      event.type === "touchcancel"
+        ? runtime.swipeLatest
+        : (swipeSampleFromTouchEnd(event) ?? runtime.swipeLatest);
+    runtime.swipeStart = null;
+    runtime.swipeLatest = null;
+    if (!start || reviewSwipeBlocked(this)) return;
+    const direction = resolveSwipeNav(start, end);
+    if (!direction) return;
+    const nextIndex = this.data.currentReviewIndex + (direction === "next" ? 1 : -1);
+    if (nextIndex < 0 || nextIndex >= this.data.reviewItems.length) {
+      void wx.showToast({
+        title: direction === "next" ? "已经是最后一道关键题" : "已经是第一道关键题",
+        icon: "none",
+        duration: 1200,
+      });
+      return;
+    }
+    selectReviewIndex(this, nextIndex);
   },
 
   // Figma 14:2：收起的共享材料入口，点开进入沉浸阅读（恢复上次位置）。
@@ -637,13 +695,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
   confirmCauseAndNext() {
     const nextIndex = this.data.currentReviewIndex + 1;
     if (nextIndex < this.data.reviewItems.length) {
-      const item = this.data.reviewItems[nextIndex];
-      if (!item) return;
-      this.setData({
-        currentReviewIndex: nextIndex,
-        activeReviewItem: item,
-        materialReaderState: materialReaderStateFor(item, this.data.displayPreferences),
-      });
+      selectReviewIndex(this, nextIndex);
       return;
     }
     void this.submitReflection();
@@ -1540,8 +1592,7 @@ function applySession(
   if (review.state === "reflection_required" && !resultView) {
     throw new Error("本次训练总结与作答记录不完整。");
   }
-  const criticalItems = resultView?.items.filter((item) => item.resultTone !== "success") ?? [];
-  const reviewItems = criticalItems.length > 0 ? criticalItems : (resultView?.items ?? []);
+  const reviewItems = xingceReflectionReviewItems(resultView?.items ?? []);
   const currentReviewIndex = Math.min(
     page.data.currentReviewIndex,
     Math.max(0, reviewItems.length - 1),
@@ -1600,6 +1651,30 @@ function applySession(
   if (phase === "cause_processing") scheduleCausePoll(page, runtime);
   else clearCausePoll(runtime);
   if (session.completion?.plan) publishLatestTodayDashboard(session.completion.plan);
+}
+
+function reviewSwipeBlocked(page: ReflectionPageInstance): boolean {
+  return (
+    page.data.interactionLocked ||
+    page.data.voiceBusy ||
+    page.data.isRecording ||
+    page.data.replayOpen ||
+    page.data.analysisOpen ||
+    page.data.materialReaderState.mode === "fullscreen"
+  );
+}
+
+function selectReviewIndex(page: ReflectionPageInstance, index: number): void {
+  const item = page.data.reviewItems[index];
+  if (!item || reviewSwipeBlocked(page)) return;
+  page.setData({
+    currentReviewIndex: index,
+    activeReviewItem: item,
+    materialReaderState: materialReaderStateFor(item, page.data.displayPreferences),
+  });
+  if (typeof wx.pageScrollTo === "function") {
+    void wx.pageScrollTo({ scrollTop: 0, duration: 0 });
+  }
 }
 
 function materialReaderStateFor(

@@ -79,6 +79,15 @@ export function swipeSampleFromTouchStart(event: SwipeNavTouchEventLike): SwipeN
   return sampleFromTouch(event.touches?.[0] ?? event.changedTouches?.[0], event.timeStamp);
 }
 
+/**
+ * touchmove 采样；scroll-view 开始原生滚动后可能以 touchcancel 而非 touchend
+ * 收尾，因此页面必须保留最后一个可用移动点，不能只依赖结束事件。
+ */
+export function swipeSampleFromTouchMove(event: SwipeNavTouchEventLike): SwipeNavSample | null {
+  if ((event.touches?.length ?? 0) > 1) return null;
+  return sampleFromTouch(event.touches?.[0] ?? event.changedTouches?.[0], event.timeStamp);
+}
+
 /** touchend 采样；结束事件的终点在 changedTouches 里。 */
 export function swipeSampleFromTouchEnd(event: SwipeNavTouchEventLike): SwipeNavSample | null {
   return sampleFromTouch(event.changedTouches?.[0] ?? event.touches?.[0], event.timeStamp);

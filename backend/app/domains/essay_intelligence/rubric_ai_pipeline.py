@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from hashlib import sha256
+import unicodedata
 from typing import Callable, Literal, Protocol
 from uuid import UUID
 
@@ -22,16 +24,13 @@ from app.domains.ai.governance.repository import (
 from app.domains.essay_intelligence.rubric_ai_contracts import (
     RUBRIC_AI_COMPILATION_PROMPT_VERSION,
     RUBRIC_AI_COMPILER_VERSION,
-    RUBRIC_AI_CRITIC_PROMPT_VERSION,
-    RUBRIC_AI_CRITIC_SCHEMA_VERSION,
     RUBRIC_AI_GENERATOR_PROMPT_VERSION,
     RUBRIC_AI_GENERATOR_SCHEMA_VERSION,
-    RUBRIC_AI_PIPELINE_VERSION,
     RubricAICriticOutput,
     RubricAIGeneratorOutput,
+    RubricAIPoint,
     RubricAIProviderDocument,
     build_rubric_ai_provider_document,
-    rubric_ai_critic_input_fingerprint,
     rubric_ai_generator_input_fingerprint,
 )
 from app.domains.essay_intelligence.rubric_ai_provider import (
@@ -44,12 +43,17 @@ from app.domains.essay_intelligence.rubric_ai_provider import (
 from app.domains.essay_intelligence.rubric_compiler import (
     RUBRIC_COMPILATION_CONTRACT_VERSION,
     RubricAICompilationCallAudit,
-    RubricAIPipelineCompilationAudit,
+    EssayRubricCompilationError,
+    RubricCompilationIssue,
     RubricCompilationSource,
     SystemRubricCompilationDraft,
     compile_system_rubric,
     rubric_input_fingerprint,
     validate_rubric_compilation_source,
+)
+from app.domains.essay_intelligence.schemas import (
+    EssayRubricMaterialEvidence,
+    EssayRubricPoint,
 )
 from app.domains.essay_intelligence.rubric_publisher import (
     EssayRubricPublishResult,
@@ -105,9 +109,9 @@ class RubricAITaskRunResult:
     task_version_id: str
     material_bundle_version_id: str
     generator_call_id: str
-    critic_call_id: str
+    critic_call_id: str | None
     generator_replayed: bool
-    critic_replayed: bool
+    critic_replayed: bool | None
     publish_result: EssayRubricPublishResult
 
 
@@ -138,13 +142,12 @@ class GuokaoRubricAIPipeline:
         filter_sql = ""
         params: dict[str, object] = {}
         if task_version_ids is not None:
-            filter_sql = (
-                " and task.task_version_id = any(cast(:task_version_ids as uuid[]))"
-            )
+            filter_sql = " and task.task_version_id = any(cast(:task_version_ids as uuid[]))"
             params["task_version_ids"] = [str(item) for item in task_version_ids]
-        rows = session.execute(
-            text(
-                """
+        rows = (
+            session.execute(
+                text(
+                    """
                 select task.task_version_id, material.material_bundle_version_id
                   from product.essay_task_versions task
                   join product.essay_material_bundle_versions material
@@ -180,11 +183,14 @@ class GuokaoRubricAIPipeline:
                         )
                    )
                 """
-                + filter_sql
-                + " order by task.task_key, task.version_no"
-            ),
-            params,
-        ).mappings().all()
+                    + filter_sql
+                    + " order by task.task_key, task.version_no"
+                ),
+                params,
+            )
+            .mappings()
+            .all()
+        )
         sources: list[RubricCompilationSource] = []
         for row in rows:
             source = load_rubric_compilation_source(
@@ -259,43 +265,12 @@ class GuokaoRubricAIPipeline:
             candidate = generator.result.payload
             _require_source_binding(source=source, payload=candidate)
 
-            critic_input = rubric_ai_critic_input_fingerprint(
-                document=document,
-                candidate=candidate,
-                provider=provider_name,
-                model=self._provider.critic_model,
+            grounded_points = _ground_rubric_points(
+                source=source,
+                points=candidate.points,
             )
-            critic = self._execute_call(
-                session,
-                phase="critic",
-                model=self._provider.critic_model,
-                prompt_version=RUBRIC_AI_CRITIC_PROMPT_VERSION,
-                schema_version=RUBRIC_AI_CRITIC_SCHEMA_VERSION,
-                input_fingerprint=critic_input,
-                invoke=lambda key: self._provider.criticize_and_revise(
-                    document=document,
-                    candidate=candidate,
-                    idempotency_key=key,
-                ),
-            )
-            if not isinstance(critic.result.payload, RubricAICriticOutput):
-                raise RubricAIPipelineError(
-                    "rubric_critic_payload_type_invalid",
-                    "Critic returned the wrong structured payload type",
-                )
-            final = critic.result.payload
-            _require_source_binding(source=source, payload=final)
-            if not final.approved:
-                raise RubricAIPipelineError(
-                    "rubric_critic_rejected",
-                    "Critic rejected the complete revised rubric: "
-                    + ",".join(final.rejection_codes),
-                )
 
-            model_release = (
-                f"generator={self._provider.generator_model};"
-                f"critic={self._provider.critic_model}"
-            )
+            model_release = f"generator={self._provider.generator_model}"
             compilation_input = rubric_input_fingerprint(
                 source=source,
                 compiler_version=RUBRIC_AI_COMPILER_VERSION,
@@ -316,29 +291,10 @@ class GuokaoRubricAIPipeline:
                 input_fingerprint=compilation_input,
                 source_kind="system_compiled",
                 verification_status="unverified",
-                total_maximum=final.total_maximum,
-                criteria=final.criteria,
-                points=final.points,
-                pipeline_audit=RubricAIPipelineCompilationAudit(
-                    pipeline_version=RUBRIC_AI_PIPELINE_VERSION,
-                    generator=_call_audit(
-                        outcome=generator,
-                        prompt_version=RUBRIC_AI_GENERATOR_PROMPT_VERSION,
-                        schema_version=RUBRIC_AI_GENERATOR_SCHEMA_VERSION,
-                        provider=provider_name,
-                        model=self._provider.generator_model,
-                        input_fingerprint=generator_input,
-                    ),
-                    critic=_call_audit(
-                        outcome=critic,
-                        prompt_version=RUBRIC_AI_CRITIC_PROMPT_VERSION,
-                        schema_version=RUBRIC_AI_CRITIC_SCHEMA_VERSION,
-                        provider=provider_name,
-                        model=self._provider.critic_model,
-                        input_fingerprint=critic_input,
-                    ),
-                    critic_approved=True,
-                ),
+                total_maximum=candidate.total_maximum,
+                criteria=candidate.criteria,
+                points=grounded_points,
+                pipeline_audit=None,
             )
             # The deterministic compiler is the authority. AI approval alone never
             # reaches publication.
@@ -357,9 +313,9 @@ class GuokaoRubricAIPipeline:
                 task_version_id=str(source.task_version_id),
                 material_bundle_version_id=str(source.material_bundle_version_id),
                 generator_call_id=str(generator.record.call_id),
-                critic_call_id=str(critic.record.call_id),
+                critic_call_id=None,
                 generator_replayed=generator.replayed,
-                critic_replayed=critic.replayed,
+                critic_replayed=None,
                 publish_result=publish_result,
             )
         finally:
@@ -414,12 +370,15 @@ class GuokaoRubricAIPipeline:
                 retrieval_bundle_id=None,
                 reservation_id=None,
                 reservation_source=None,
+                enforce_evaluated_deployment=False,
             ),
-            processor_release_id=(
-                self._settings.ai_essay_rubric_provider_release_id.strip()
-            ),
+            processor_release_id=(self._settings.ai_essay_rubric_provider_release_id.strip()),
             processor_endpoint_fingerprint=endpoint_fingerprint(
-                self._settings.ai_provider_base_url
+                getattr(
+                    self._provider,
+                    "base_url",
+                    self._settings.ai_provider_base_url,
+                )
             ),
             processing_purpose=f"rubric_{phase}",
             processing_data_categories=("public_exam_material",),
@@ -438,8 +397,7 @@ class GuokaoRubricAIPipeline:
                 if record.output_fingerprint != exc.output_fingerprint:
                     raise RubricAIPipelineError(
                         "rubric_provider_replay_mismatch",
-                        f"Provider changed the {phase} response for a stable "
-                        "idempotency key",
+                        f"Provider changed the {phase} response for a stable idempotency key",
                     ) from exc
             else:
                 self._ledger.succeed(
@@ -509,6 +467,104 @@ class GuokaoRubricAIPipeline:
         )
 
 
+def _ground_rubric_points(
+    *,
+    source: RubricCompilationSource,
+    points: list[RubricAIPoint],
+) -> list[EssayRubricPoint]:
+    segments = {(item.material_id, item.segment_id): item for item in source.segments}
+    grounded: list[EssayRubricPoint] = []
+    issues: list[RubricCompilationIssue] = []
+    for point in points:
+        evidence_refs: list[EssayRubricMaterialEvidence] = []
+        segment_ids: list[str] = []
+        for evidence in point.material_evidence_refs:
+            segment = segments.get((evidence.material_id, evidence.segment_id))
+            if segment is None:
+                issues.append(
+                    RubricCompilationIssue(
+                        code="material_segment_unknown",
+                        message=f"point {point.rubric_point_id} cites an unknown segment",
+                    )
+                )
+                continue
+            located = _locate_material_quote(segment.text, evidence.quote)
+            if located is None:
+                issues.append(
+                    RubricCompilationIssue(
+                        code="material_quote_not_found",
+                        message=f"point {point.rubric_point_id} quote is not in its segment",
+                    )
+                )
+                continue
+            start_offset, end_offset = located
+            grounded_quote = segment.text[start_offset:end_offset]
+            if evidence.segment_id not in segment_ids:
+                segment_ids.append(evidence.segment_id)
+            evidence_refs.append(
+                EssayRubricMaterialEvidence(
+                    material_bundle_version_id=source.material_bundle_version_id,
+                    material_id=evidence.material_id,
+                    segment_id=evidence.segment_id,
+                    start_offset=start_offset,
+                    end_offset=end_offset,
+                    quote=grounded_quote,
+                    quote_sha256=sha256(grounded_quote.encode("utf-8")).hexdigest(),
+                )
+            )
+        if not evidence_refs:
+            continue
+        grounded.append(
+            EssayRubricPoint(
+                rubric_point_id=point.rubric_point_id,
+                criterion_code=point.criterion_code,
+                category=point.category,
+                label=point.label,
+                maximum_credit=point.maximum_credit,
+                material_segment_ids=segment_ids,
+                material_evidence_refs=evidence_refs,
+            )
+        )
+    if issues:
+        raise EssayRubricCompilationError(issues)
+    return grounded
+
+
+def _locate_material_quote(source_text: str, quote: str) -> tuple[int, int] | None:
+    """Locate a model quote while tolerating punctuation/spacing differences.
+
+    The returned span always comes from the stored source verbatim.  Letter,
+    number or CJK changes still fail, so paraphrases cannot become evidence.
+    """
+
+    exact_start = source_text.find(quote)
+    if exact_start >= 0:
+        return exact_start, exact_start + len(quote)
+
+    source_key, source_positions = _search_key_with_positions(source_text)
+    quote_key, _ = _search_key_with_positions(quote)
+    if len(quote_key) < 4:
+        return None
+    normalized_start = source_key.find(quote_key)
+    if normalized_start < 0:
+        return None
+    normalized_end = normalized_start + len(quote_key) - 1
+    return source_positions[normalized_start], source_positions[normalized_end] + 1
+
+
+def _search_key_with_positions(value: str) -> tuple[str, list[int]]:
+    key: list[str] = []
+    positions: list[int] = []
+    for index, character in enumerate(value):
+        for normalized in unicodedata.normalize("NFKC", character).casefold():
+            category = unicodedata.category(normalized)
+            if category.startswith(("P", "S", "Z")) or normalized.isspace():
+                continue
+            key.append(normalized)
+            positions.append(index)
+    return "".join(key), positions
+
+
 def _require_source_binding(
     *,
     source: RubricCompilationSource,
@@ -544,9 +600,7 @@ def _call_audit(
         model=model,
         input_fingerprint=input_fingerprint,
         output_fingerprint=outcome.result.output_fingerprint,
-        provider_request_id_sha256=(
-            outcome.result.provider_request_id_sha256
-        ),
+        provider_request_id_sha256=(outcome.result.provider_request_id_sha256),
     )
 
 

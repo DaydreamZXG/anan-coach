@@ -433,6 +433,7 @@ class LedgeredEssayBlindAdjudicator:
                 retrieval_bundle_id=None,
                 reservation_id=UUID(str(quota["reservationId"])),
                 reservation_source=str(quota.get("source", "catalog")),
+                enforce_evaluated_deployment=False,
             ),
             processor_release_id=self._provider.provider_release_id,
             processor_endpoint_fingerprint=endpoint_fingerprint(

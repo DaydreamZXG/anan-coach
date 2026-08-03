@@ -52,6 +52,13 @@ from app.domains.companion.commands import (
     stable_command_key,
     stable_provider_key,
 )
+from app.domains.companion.agent import (
+    COMPANION_AGENT_DEFINITION_RELEASE,
+    default_companion_actions,
+    execute_companion_actions,
+    format_requested_minutes,
+    requested_plan_minutes,
+)
 from app.domains.companion.repository import (
     CompanionContextRecord,
     CompanionRepository,
@@ -265,9 +272,7 @@ class CompanionService:
             self._session.commit()
             return replay
         provider_request = _companion_provider_request(command)
-        route_decision = IntentDecision.model_validate(
-            command.execution_payload["routeDecision"]
-        )
+        route_decision = IntentDecision.model_validate(command.execution_payload["routeDecision"])
         command = self._commands.begin_provider_attempt(
             self._session,
             command_id=command.command_id,
@@ -294,9 +299,7 @@ class CompanionService:
                     scenario=route_decision.scenario_key,
                     error_code="provider_execution_configuration_changed",
                 )
-                raise AssertionError(
-                    "uncertain provider failure must raise"
-                ) from exc
+                raise AssertionError("uncertain provider failure must raise") from exc
             assert prepared.model_call is not None
             self._model_calls.fail(
                 self._session,
@@ -334,9 +337,7 @@ class CompanionService:
                 latency_ms=exc.latency_ms,
                 quota_consumed=True,
                 provider_request_id_header=exc.provider_request_id_header,
-                provider_request_id_fingerprint=(
-                    exc.provider_request_id_fingerprint
-                ),
+                provider_request_id_fingerprint=(exc.provider_request_id_fingerprint),
             )
             raise AssertionError("terminal provider failure must raise") from exc
         except HTTPStatusError as exc:
@@ -401,6 +402,18 @@ class CompanionService:
             reservation=prepared.reservation,
             commit=False,
         )
+        citations = _selected_citations(
+            command.execution_payload["retrievalBundle"],
+            result.source_refs,
+        )
+        agent_outcome = execute_companion_actions(
+            requests=getattr(result, "requested_actions", ()),
+            question_text=request.question_text,
+            fallback_actions=_allowed_actions(
+                decision=route_decision,
+                question_text=request.question_text,
+            ),
+        )
         self._audit_repository.log_interaction(
             log_id=f"companion_command_{command.command_id.hex}",
             learner_key=learner_key,
@@ -414,19 +427,29 @@ class CompanionService:
             metadata={
                 "scenario": route_decision.scenario_key,
                 "respondingAgent": route_decision.responding_agent,
-                "retrievalBundleId": command.execution_payload[
-                    "retrievalBundle"
-                ]["bundleId"],
-                "learnerStateVersion": command.execution_payload[
-                    "learnerStateVersion"
-                ],
+                "retrievalBundleId": command.execution_payload["retrievalBundle"]["bundleId"],
+                "learnerStateVersion": command.execution_payload["learnerStateVersion"],
                 "commandId": str(command.command_id),
+                "agentDefinitionReleaseId": COMPANION_AGENT_DEFINITION_RELEASE,
+                "agentRequestedToolCount": agent_outcome.requested_count,
+                "agentSucceededToolCount": agent_outcome.succeeded_count,
+                "agentToolEvents": [
+                    {
+                        key: event[key]
+                        for key in (
+                            "eventType",
+                            "toolName",
+                            "sequenceNo",
+                            "errorCode",
+                            "inputFingerprint",
+                            "outputFingerprint",
+                        )
+                        if key in event
+                    }
+                    for event in agent_outcome.events
+                ],
             },
             commit=False,
-        )
-        citations = _selected_citations(
-            command.execution_payload["retrievalBundle"],
-            result.source_refs,
         )
         response = CompanionAskResponse(
             answerId=str(command.command_id),
@@ -441,7 +464,7 @@ class CompanionService:
             confidence=result.confidence,
             limitations=result.limitations,
             knowledgeFreshness=command.execution_payload["learnerStateVersion"],
-            allowedActions=_allowed_actions(decision=route_decision),
+            allowedActions=list(agent_outcome.actions),
             highImpactDecision=_high_impact_decision(
                 decision=route_decision,
                 citations=citations,
@@ -454,9 +477,7 @@ class CompanionService:
             command_id=command.command_id,
             response_payload=response_payload,
             provider_request_id_header=result.provider_request_id_header,
-            provider_request_id_fingerprint=(
-                result.provider_request_id_fingerprint
-            ),
+            provider_request_id_fingerprint=(result.provider_request_id_fingerprint),
         )
         self._append_completion_event(
             command=succeeded,
@@ -480,7 +501,9 @@ class CompanionService:
             limitations = ["未调用模型，也未读取或修改任何学习事实。"]
         else:
             semantic_state = "permission_denied"
-            answer = "当前仍在作答阶段，只能解释界面和作答规则；提交后才能讨论答案、方法或参考要点。"
+            answer = (
+                "当前仍在作答阶段，只能解释界面和作答规则；提交后才能讨论答案、方法或参考要点。"
+            )
             limitations = ["作答前不会泄露答案、排除结论、范文或定向改写。"]
         return CompanionAskResponse(
             answerId=_deterministic_answer_id(user_id, idempotency_key),
@@ -578,9 +601,7 @@ class CompanionService:
     def _current_quota_state(self, *, user_id: str) -> AIQuotaState:
         entitlement = self._commerce_service.get_entitlement(user_id=user_id)
         quota = next(
-            item
-            for item in entitlement.feature_quotas
-            if item.feature == COMPANION_ASK_FEATURE
+            item for item in entitlement.feature_quotas if item.feature == COMPANION_ASK_FEATURE
         )
         self._session.commit()
         return AIQuotaState(
@@ -650,8 +671,7 @@ class CompanionService:
                     "status": status,
                     "reason": reason,
                     "candidates": [
-                        item.model_dump(by_alias=True, mode="json")
-                        for item in candidates
+                        item.model_dump(by_alias=True, mode="json") for item in candidates
                     ],
                     "selectedKnowledgeReleaseId": selected_knowledge_release_id,
                     "selectedNodeId": selected_node_id,
@@ -686,8 +706,7 @@ class CompanionService:
         stored_request = command.execution_payload["request"]
         resolution = command.execution_payload["resolution"]
         stored_candidates = [
-            KnowledgeMapCandidate.model_validate(item)
-            for item in resolution["candidates"]
+            KnowledgeMapCandidate.model_validate(item) for item in resolution["candidates"]
         ]
         intake_id = self._repository.create_external_intake(
             user_id=user_id,
@@ -714,9 +733,7 @@ class CompanionService:
             status=resolution["status"],
             request_summary=stored_request["stem"][:200],
             response_summary=(
-                resolution["reason"]
-                or resolution["answerPreview"]
-                or "pending confirmation"
+                resolution["reason"] or resolution["answerPreview"] or "pending confirmation"
             ),
             latency_ms=0,
             metadata={
@@ -738,9 +755,7 @@ class CompanionService:
             status=resolution["status"],
             reason=resolution["reason"],
             candidates=stored_candidates,
-            requires_user_confirmation=(
-                resolution["status"] == "pending_confirmation"
-            ),
+            requires_user_confirmation=(resolution["status"] == "pending_confirmation"),
             answer_preview=resolution["answerPreview"],
             quota=_quota_state(quota),
         )
@@ -867,12 +882,16 @@ class CompanionService:
                     str(provider_request["promptVersion"]),
                     str(provider_request["schemaVersion"]),
                 )
-                if model_call is not None and (
-                    model_call.provider,
-                    model_call.model,
-                    model_call.prompt_version,
-                    model_call.schema_version,
-                ) != provider_identity:
+                if (
+                    model_call is not None
+                    and (
+                        model_call.provider,
+                        model_call.model,
+                        model_call.prompt_version,
+                        model_call.schema_version,
+                    )
+                    != provider_identity
+                ):
                     raise AIProviderConfigurationError(
                         "Stored model call targets another provider contract"
                     )
@@ -887,9 +906,7 @@ class CompanionService:
                 raise AssertionError("provider preflight failure must raise") from exc
             if model_call is None:
                 try:
-                    price_card = self._price_card or ModelPriceCard.from_settings(
-                        self._settings
-                    )
+                    price_card = self._price_card or ModelPriceCard.from_settings(self._settings)
                     attribution = _companion_attribution(
                         session=self._session,
                         settings=self._settings,
@@ -918,9 +935,7 @@ class CompanionService:
                         ),
                         processor_endpoint_fingerprint=str(
                             provider_request.get("providerEndpointFingerprint")
-                            or endpoint_fingerprint(
-                                self._settings.ai_provider_base_url
-                            )
+                            or endpoint_fingerprint(self._settings.ai_provider_base_url)
                         ),
                         processing_purpose="companion_answer",
                         processing_data_categories=(
@@ -984,11 +999,7 @@ class CompanionService:
         if record.provider_attempt_count == 0:
             return
         retention = provider_request.get("providerReplayRetentionSeconds")
-        if (
-            isinstance(retention, bool)
-            or not isinstance(retention, int)
-            or retention <= 0
-        ):
+        if isinstance(retention, bool) or not isinstance(retention, int) or retention <= 0:
             replay_available = False
         else:
             replay_available = datetime.now(UTC) < (
@@ -1169,8 +1180,7 @@ class CompanionService:
         )
         self._audit_repository.log_interaction(
             log_id=(
-                f"companion_uncertain_{command.command_id.hex}_"
-                f"{uncertain.provider_attempt_count}"
+                f"companion_uncertain_{command.command_id.hex}_{uncertain.provider_attempt_count}"
             ),
             learner_key=learner_key,
             feature=COMPANION_ASK_FEATURE,
@@ -1235,7 +1245,9 @@ class CompanionService:
             or intake.knowledge_release_id is None
             or intake.selected_node_id is None
         ):
-            raise ExternalQuestionConfirmationError("Only pending resolved intakes can be confirmed")
+            raise ExternalQuestionConfirmationError(
+                "Only pending resolved intakes can be confirmed"
+            )
         external_question_id = self._repository.confirm_external_wrong_question(
             intake=intake,
             error_summary=request.error_summary,
@@ -1302,9 +1314,7 @@ def _terminal_response(
             error_code=command.last_error_code or "companion_command_failed",
         )
     if command.response_status_code != 200:
-        raise CompanionCommandStateError(
-            "Succeeded Companion command has an invalid status code"
-        )
+        raise CompanionCommandStateError("Succeeded Companion command has an invalid status code")
     return response_model.model_validate(payload)
 
 
@@ -1324,9 +1334,7 @@ def _companion_provider_request(
         or not isinstance(provider_request, dict)
         or command.provider_idempotency_key is None
     ):
-        raise CompanionCommandStateError(
-            "Stored Companion execution checkpoint is invalid"
-        )
+        raise CompanionCommandStateError("Stored Companion execution checkpoint is invalid")
     return dict(provider_request)
 
 
@@ -1353,6 +1361,9 @@ def _companion_attribution(
         retrieval_bundle_id=bundle.bundle_id,
         reservation_id=reservation.reservation_id,
         reservation_source=reservation.source,
+        # 岸岸是个人测试阶段的交互入口。保留完整调用归因，但不能因为缺少
+        # 企业式评测发布证明而阻断真实用户提问。
+        enforce_evaluated_deployment=False,
     )
 
 
@@ -1369,6 +1380,9 @@ def _context_payload(context: CompanionContextRecord) -> dict[str, object]:
         "latestMockScore": context.latest_mock_score,
         "topWrongModules": context.top_wrong_modules,
         "methodCards": context.method_cards,
+        "todayPlan": {
+            "tasks": context.today_plan_tasks,
+        },
         "essay": {
             "currentAbilityEstimate": context.current_shenlun_estimate,
             "attemptCount": context.essay_attempts,
@@ -1503,9 +1517,7 @@ def _target_position_citation_summary(context: CompanionContextRecord) -> str:
         else "尚未确认具体主目标岗位"
     )
     score_label = (
-        f"，目标总分为 {context.target_score:g} 分"
-        if context.target_score is not None
-        else ""
+        f"，目标总分为 {context.target_score:g} 分" if context.target_score is not None else ""
     )
     return f"{exam_label}：{target_label}{score_label}。"
 
@@ -1546,6 +1558,21 @@ def _context_retrieval_candidates(context: CompanionContextRecord) -> tuple[Any,
                 trust_scope="learning_brain",
                 source_weight=1.0,
                 display_summary=_learning_brain_citation_summary(profile),
+            )
+        )
+    if context.today_plan_tasks:
+        today_plan = {"tasks": context.today_plan_tasks}
+        candidates.append(
+            context_candidate(
+                kind="daily_plan",
+                source_id="daily-plan-current",
+                version=_stable_payload_version(today_plan),
+                anchor="current-tasks",
+                title="今日完整计划",
+                text_value=json.dumps(today_plan, ensure_ascii=False, sort_keys=True),
+                trust_scope="daily_plan",
+                source_weight=1.0,
+                display_summary=_today_plan_citation_summary(context),
             )
         )
     if _has_essay_context(context):
@@ -1666,33 +1693,24 @@ def _selected_citations(
 def _allowed_actions(
     *,
     decision: IntentDecision,
+    question_text: str | None = None,
 ) -> list[CompanionAllowedAction]:
-    if decision.answer_type == "position_explanation":
-        return [
-            CompanionAllowedAction(
-                kind="open_position_workspace",
-                label="查看岗位判断",
-                targetRef="/pages/positions/index",
-                requiresConfirmation=False,
-            )
-        ]
-    if decision.answer_type in {"plan_explanation", "strategic_deprioritization"}:
-        return [
-            CompanionAllowedAction(
-                kind="adjust_plan_preview",
-                label="预览今日计划调整",
-                targetRef="/pages/day-adjustment/index",
-                requiresConfirmation=True,
-            )
-        ]
-    return [
-        CompanionAllowedAction(
-            kind="open_training",
-            label="查看今日训练安排",
-            targetRef="/pages/today/index",
-            requiresConfirmation=False,
-        )
-    ]
+    return default_companion_actions(
+        answer_type=decision.answer_type,
+        question_text=question_text or "",
+    )
+
+
+def _requested_plan_minutes(question_text: str) -> int | None:
+    """Compatibility shim for callers of the original plan-control helper."""
+
+    return requested_plan_minutes(question_text)
+
+
+def _format_requested_minutes(value: int) -> str:
+    """Compatibility shim for existing presentation tests."""
+
+    return format_requested_minutes(value)
 
 
 def _information_action(decision: IntentDecision) -> CompanionAllowedAction:
@@ -1786,10 +1804,24 @@ def _has_essay_context(context: CompanionContextRecord) -> bool:
     )
 
 
+def _today_plan_citation_summary(context: CompanionContextRecord) -> str:
+    tasks = context.today_plan_tasks
+    if not tasks:
+        return "今日暂未安排学习任务。"
+    track_labels = {"xingce": "行测", "essay": "申论", "mock": "模考", "recovery": "复盘"}
+    task_parts = []
+    for item in tasks:
+        title = str(item.get("title") or "学习任务").strip()
+        track = track_labels.get(str(item.get("track") or ""), "学习")
+        minutes = item.get("estimatedMinutes")
+        duration = f"，{minutes} 分钟" if isinstance(minutes, int) else ""
+        status = "，已完成" if item.get("status") == "complete" else ""
+        task_parts.append(f"{track}「{title}」{duration}{status}")
+    return f"今日共 {len(tasks)} 项任务：" + "；".join(task_parts) + "。"
+
+
 def _essay_citation_summary(context: CompanionContextRecord) -> str:
-    parts = [
-        f"{context.essay_attempts} 次作答，{context.grounded_essay_reviews} 次可验证 AI 评阅"
-    ]
+    parts = [f"{context.essay_attempts} 次作答，{context.grounded_essay_reviews} 次可验证 AI 评阅"]
     review = context.latest_essay_review
     if review is not None:
         confidence = {

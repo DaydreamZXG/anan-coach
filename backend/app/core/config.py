@@ -106,6 +106,9 @@ class Settings:
     ai_high_capability_model: str = ""
     ai_api_key: str = ""
     ai_companion_transport: str = "openai_compatible"
+    ai_companion_provider_base_url: str = ""
+    ai_companion_api_key: str = ""
+    ai_companion_model: str = ""
     ai_companion_provider_release_id: str = ""
     ai_companion_provider_https_host_allowlist: str = ""
     ai_companion_provider_dpa_confirmed: bool = False
@@ -364,6 +367,12 @@ def get_settings() -> Settings:
             "AI_COMPANION_TRANSPORT",
             "openai_compatible",
         ),
+        ai_companion_provider_base_url=os.getenv(
+            "AI_COMPANION_PROVIDER_BASE_URL",
+            "",
+        ),
+        ai_companion_api_key=os.getenv("AI_COMPANION_API_KEY", ""),
+        ai_companion_model=os.getenv("AI_COMPANION_MODEL", ""),
         ai_companion_provider_release_id=os.getenv(
             "AI_COMPANION_PROVIDER_RELEASE_ID",
             "",

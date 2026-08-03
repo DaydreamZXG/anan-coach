@@ -42,12 +42,12 @@
 5. 申论材料轨迹（memory: essay-material-trajectory-backlog，backend-first）
 6. 全量文案巡礼：按 docs/design/2026-07-26-anan-voice-guide.md 的岸岸声音扫 58 页关键时刻（旗舰 6 处已改，见 voice guide commit）
 7. M0 发布清单：生产部署积压迁移、真机验收、微信提审材料（见
-   docs/engineering/2026-07-18-functional-gap-and-delivery-plan.md §6）
+   docs/engineering/global-backlog.md §3 上线阻塞，及 _archive/2026-07-18-functional-gap-and-delivery-plan.md §6）
 
 ## 三·增补（2026-07-27 晚，额度收口时的小本本）
 
-后端扎实化会话的完整状态见 docs/engineering/2026-07-27-backend-launch-audit.md（中期
-止损版审计，P0/P1/修复顺序都在那里）。未开工/缓一缓的按优先级：
+后端扎实化会话的完整状态见 docs/engineering/_archive/2026-07-27-backend-launch-audit.md（中期
+止损版审计，P0/P1/修复顺序都在那里；未决项已并入 global-backlog.md §1/§3）。未开工/缓一缓的按优先级：
 
 1. **P0 双雄**：发布管线解钉（activate_release.sh 钉在 20260721_52，积压 11 迁移）+
    生产备份启用（BACKUP_ENABLED=false 裸奔）——不修不能部署、不敢接用户。
@@ -77,11 +77,14 @@
 
 ## 四、操作备忘
 
-- 视觉套件：认证机型 iPhone 12/13 mini；设备切换写 WeappLocalData 两个
-  localstorage 的 device.current；DevTools 单实例互斥，连接死循环时
-  pkill + cli auto --auto-port 9420 + 等端口 + 20s 再连；c10 场景天生慢
-  （90s 预算）；--update 是唯一基线权威。
-- 门禁四件套：npm run check / vitest（491）/ 后端 pytest -k "xingce or
-  mock"（93）/ tokens+design validate。design-file.tokens.wxss 哈希锁定，
-  prettier 全仓 glob 会碰坏它，只 prettier 明确改过的文件。
-- 生产库只读审计走 scripts/server_import_product_knowledge.sh 的 ssh 约定。
+> 活知识已迁至 `docs/engineering/operations-playbook.md`（门禁、视觉套件、生产只读审计、
+> 部署/发布、AI/外部服务、产品/UI 文案）。本处保留当时索引，供追溯：
+>
+> - 视觉套件：认证机型 iPhone 12/13 mini；设备切换写 WeappLocalData 两个
+>   localstorage 的 device.current；DevTools 单实例互斥，连接死循环时
+>   pkill + cli auto --auto-port 9420 + 等端口 + 20s 再连；c10 场景天生慢
+>   （90s 预算）；--update 是唯一基线权威。
+> - 门禁四件套：npm run check / vitest（491）/ 后端 pytest -k "xingce or
+>   mock"（93）/ tokens+design validate。design-file.tokens.wxss 哈希锁定，
+>   prettier 全仓 glob 会碰坏它，只 prettier 明确改过的文件。
+> - 生产库只读审计走 scripts/server_import_product_knowledge.sh 的 ssh 约定。

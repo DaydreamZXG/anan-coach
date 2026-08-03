@@ -628,10 +628,17 @@ class XingceAttemptRepository:
             session.execute(
                 text(
                     """
-                    select * from learning.xingce_assessments
-                    where user_id = cast(:user_id as uuid)
-                      and session_id = cast(:session_id as uuid)
-                    order by created_at, question_id
+                    select
+                      assessment.*,
+                      content.snapshot_payload as content_snapshot
+                    from learning.xingce_assessments assessment
+                    left join product.question_content_versions content
+                      on content.question_id = assessment.question_id
+                     and content.content_version_id = assessment.content_version_id
+                     and content.track = 'xingce'
+                    where assessment.user_id = cast(:user_id as uuid)
+                      and assessment.session_id = cast(:session_id as uuid)
+                    order by assessment.created_at, assessment.question_id
                     """
                 ),
                 {"user_id": user_id, "session_id": session_id},

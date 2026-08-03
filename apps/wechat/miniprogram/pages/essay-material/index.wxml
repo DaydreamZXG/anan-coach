@@ -42,8 +42,9 @@
         wx:for="{{segments}}"
         wx:key="segmentId"
         id="{{item.anchorId}}"
-        class="material-paragraph {{selectedSegmentId === item.segmentId ? 'material-paragraph--selected' : ''}}"
+        class="material-paragraph {{selectedParagraphId === item.displayParagraphId ? 'material-paragraph--selected' : ''}}"
         data-segment-id="{{item.segmentId}}"
+        data-paragraph-id="{{item.displayParagraphId}}"
         data-material-order="{{item.materialOrder}}"
         data-text="{{item.text}}"
         bindtap="selectSegment"
@@ -52,7 +53,7 @@
         <view class="material-paragraph__body">
           <text class="material-paragraph__text" user-select>{{item.text}}</text>
           <block wx:for="{{annotations}}" wx:for-item="annotation" wx:key="segmentId">
-            <view wx:if="{{annotation.segmentId === item.segmentId}}" class="material-annotation">
+            <view wx:if="{{item.showAnnotation && annotation.segmentId === item.segmentId}}" class="material-annotation">
               <view class="material-annotation__label">已有材料标注</view>
               <view>{{annotation.summary}}</view>
               <view wx:if="{{annotation.evidenceQuote}}" class="material-annotation__quote">

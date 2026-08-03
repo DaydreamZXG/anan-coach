@@ -187,7 +187,6 @@ class VolcengineTosSdkFacade:
             "Content-Type": "application/octet-stream",
             "Content-Length": str(byte_size),
             "x-tos-content-sha256": content_sha256,
-            "x-tos-server-side-encryption": "AES256",
         }
         return self._presign(
             bucket=bucket,
@@ -196,7 +195,10 @@ class VolcengineTosSdkFacade:
             headers=headers,
             expires_at=expires_at,
             binds_content_type=True,
-            binds_server_side_encryption=True,
+            # SSE-TOS belongs to CreateMultipartUpload. TOS rejects the
+            # ordinary SSE header on UploadPart with HTTP 400; only SSE-C
+            # would repeat encryption headers for every part.
+            binds_server_side_encryption=False,
         )
 
     def list_multipart_parts(

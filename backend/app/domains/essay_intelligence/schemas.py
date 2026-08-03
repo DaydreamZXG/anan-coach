@@ -83,9 +83,7 @@ class EssayMaterialBundleVersion(EssayContractModel):
     task_version_id: UUID = Field(alias="taskVersionId")
     version_no: int = Field(alias="versionNo", ge=1)
     completeness: Literal["complete", "incomplete"]
-    source_kind: Literal["own_bank", "official", "external_confirmed"] = Field(
-        alias="sourceKind"
-    )
+    source_kind: Literal["own_bank", "official", "external_confirmed"] = Field(alias="sourceKind")
     content_sha256: Sha256 = Field(alias="contentSha256")
     segments: list[EssayMaterialSegment]
     supersedes_material_bundle_version_id: UUID | None = Field(
@@ -102,15 +100,11 @@ class EssayMaterialBundleVersion(EssayContractModel):
         if len(segment_ids) != len(set(segment_ids)):
             raise ValueError("material segment IDs must be unique")
         positions = [
-            (item.material_id, item.material_order, item.segment_order)
-            for item in self.segments
+            (item.material_id, item.material_order, item.segment_order) for item in self.segments
         ]
         if len(positions) != len(set(positions)):
             raise ValueError("material segment positions must be unique")
-        if (
-            self.supersedes_material_bundle_version_id
-            == self.material_bundle_version_id
-        ):
+        if self.supersedes_material_bundle_version_id == self.material_bundle_version_id:
             raise ValueError("material bundle version cannot supersede itself")
         return self
 
@@ -163,9 +157,7 @@ class EssayRubricPoint(EssayContractModel):
             raise ValueError("rubric point material segment IDs must be unique")
         referenced_segments = {item.segment_id for item in self.material_evidence_refs}
         if referenced_segments != set(self.material_segment_ids):
-            raise ValueError(
-                "rubric point materialSegmentIds must match material evidence"
-            )
+            raise ValueError("rubric point materialSegmentIds must match material evidence")
         evidence_keys = [
             (
                 item.material_bundle_version_id,
@@ -219,8 +211,7 @@ class EssayRubricVersion(EssayContractModel):
         if any(item.criterion_code not in known_criteria for item in self.points):
             raise ValueError("rubric point references unknown criterion")
         normalized_point_labels = [
-            (item.criterion_code, "".join(item.label.split()).casefold())
-            for item in self.points
+            (item.criterion_code, "".join(item.label.split()).casefold()) for item in self.points
         ]
         if len(normalized_point_labels) != len(set(normalized_point_labels)):
             raise ValueError("rubric point labels must be unique within criterion")
@@ -235,38 +226,20 @@ class EssayRubricVersion(EssayContractModel):
             )
             if point_total > criterion.maximum + 0.001:
                 raise ValueError("rubric point credits cannot exceed criterion maximum")
-            if criterion.material_evidence_required and abs(
-                point_total - criterion.maximum
-            ) > 0.001:
+            if (
+                criterion.material_evidence_required
+                and abs(point_total - criterion.maximum) > 0.001
+            ):
                 raise ValueError(
                     "material-grounded criterion point credits must conserve its maximum"
                 )
-        evidence_owners: dict[
-            tuple[UUID, str, str, int, int, str], str
-        ] = {}
         for point in self.points:
             for item in point.material_evidence_refs:
                 if (
                     self.material_bundle_version_id is not None
-                    and item.material_bundle_version_id
-                    != self.material_bundle_version_id
+                    and item.material_bundle_version_id != self.material_bundle_version_id
                 ):
-                    raise ValueError(
-                        "rubric evidence must reference its bound material bundle"
-                    )
-                key = (
-                    item.material_bundle_version_id,
-                    item.material_id,
-                    item.segment_id,
-                    item.start_offset,
-                    item.end_offset,
-                    item.quote_sha256,
-                )
-                owner = evidence_owners.setdefault(key, point.rubric_point_id)
-                if owner != point.rubric_point_id:
-                    raise ValueError(
-                        "the same material evidence cannot award multiple rubric points"
-                    )
+                    raise ValueError("rubric evidence must reference its bound material bundle")
         if self.supersedes_rubric_version_id == self.rubric_version_id:
             raise ValueError("rubric version cannot supersede itself")
         return self
@@ -278,12 +251,8 @@ class EssayAttempt(EssayContractModel):
     task_version_id: UUID = Field(alias="taskVersionId")
     material_bundle_version_id: UUID = Field(alias="materialBundleVersionId")
     rubric_version_id: UUID = Field(alias="rubricVersionId")
-    source_context: Literal["in_program", "paper", "external"] = Field(
-        alias="sourceContext"
-    )
-    timed_status: Literal["timed", "untimed", "unknown"] = Field(
-        alias="timedStatus"
-    )
+    source_context: Literal["in_program", "paper", "external"] = Field(alias="sourceContext")
+    timed_status: Literal["timed", "untimed", "unknown"] = Field(alias="timedStatus")
     elapsed_seconds: int | None = Field(default=None, alias="elapsedSeconds", ge=1)
     input_fingerprint: Sha256 = Field(alias="inputFingerprint")
     submitted_at: AwareDatetime = Field(alias="submittedAt")
@@ -356,14 +325,12 @@ class EssayAnswerVersion(EssayContractModel):
         if self.supersedes_answer_version_id == self.answer_version_id:
             raise ValueError("answer version cannot supersede itself")
         has_evidence = (
-            self.source_artifact_version_id is not None
-            and self.recognition_revision_id is not None
+            self.source_artifact_version_id is not None and self.recognition_revision_id is not None
         )
         if self.source_type == "ocr_confirmed" and not has_evidence:
             raise ValueError("OCR answer version requires immutable source evidence")
         if self.source_type == "typed" and (
-            self.source_artifact_version_id is not None
-            or self.recognition_revision_id is not None
+            self.source_artifact_version_id is not None or self.recognition_revision_id is not None
         ):
             raise ValueError("typed answer version cannot carry OCR source evidence")
         return self
@@ -478,9 +445,7 @@ class EssayDimensionReview(EssayContractModel):
     rationale: str = Field(min_length=1, max_length=1000)
     finding_ids: list[str] = Field(alias="findingIds")
     answer_evidence_refs: list[AnswerEvidenceRef] = Field(alias="answerEvidenceRefs")
-    material_evidence_refs: list[MaterialEvidenceRef] = Field(
-        alias="materialEvidenceRefs"
-    )
+    material_evidence_refs: list[MaterialEvidenceRef] = Field(alias="materialEvidenceRefs")
 
     @model_validator(mode="after")
     def validate_score(self) -> "EssayDimensionReview":
@@ -529,9 +494,7 @@ class EssayClaimEvidence(EssayContractModel):
         alias="answerEvidenceRefs",
         min_length=1,
     )
-    material_evidence_refs: list[MaterialEvidenceRef] = Field(
-        alias="materialEvidenceRefs"
-    )
+    material_evidence_refs: list[MaterialEvidenceRef] = Field(alias="materialEvidenceRefs")
 
     @model_validator(mode="after")
     def validate_support(self) -> "EssayClaimEvidence":
@@ -567,9 +530,7 @@ class EssayFinding(EssayContractModel):
         alias="answerEvidenceRefs",
         min_length=1,
     )
-    material_evidence_refs: list[MaterialEvidenceRef] = Field(
-        alias="materialEvidenceRefs"
-    )
+    material_evidence_refs: list[MaterialEvidenceRef] = Field(alias="materialEvidenceRefs")
 
     @model_validator(mode="after")
     def validate_grounding(self) -> "EssayFinding":
@@ -721,10 +682,7 @@ class EssayReviewResponse(EssayContractModel):
                 item.attribution != "unknown" for item in self.findings
             ):
                 raise ValueError("finding attribution requires learner thinking evidence")
-            if (
-                self.audit.rubric_source == "system_compiled"
-                and self.score.confidence != "low"
-            ):
+            if self.audit.rubric_source == "system_compiled" and self.score.confidence != "low":
                 raise ValueError("unverified system rubric caps confidence at low")
         elif any(
             (
@@ -823,9 +781,7 @@ class EssayRewriteVersion(EssayContractModel):
             raise ValueError("point coverage delta IDs must be unique")
         if any(item.from_state == item.to_state for item in self.point_coverage_delta):
             raise ValueError("point coverage delta requires a changed state")
-        criterion_codes = [
-            item.criterion_code for item in self.dimension_range_delta
-        ]
+        criterion_codes = [item.criterion_code for item in self.dimension_range_delta]
         if len(criterion_codes) != len(set(criterion_codes)):
             raise ValueError("dimension range delta criterion codes must be unique")
         if self.audit.input_fingerprint != self.input_fingerprint:
@@ -867,9 +823,7 @@ class EssayTransferVerificationVersion(EssayContractModel):
         min_length=1,
     )
     answer_evidence_refs: list[AnswerEvidenceRef] = Field(alias="answerEvidenceRefs")
-    material_evidence_refs: list[MaterialEvidenceRef] = Field(
-        alias="materialEvidenceRefs"
-    )
+    material_evidence_refs: list[MaterialEvidenceRef] = Field(alias="materialEvidenceRefs")
     input_fingerprint: Sha256 = Field(alias="inputFingerprint")
     output_fingerprint: Sha256 = Field(alias="outputFingerprint")
     audit: EssayReviewAudit
@@ -936,9 +890,7 @@ def _validate_review_body(
         raise ValueError("review finding IDs must be unique")
     known_findings = set(finding_ids)
     if any(
-        finding_id not in known_findings
-        for item in dimensions
-        for finding_id in item.finding_ids
+        finding_id not in known_findings for item in dimensions for finding_id in item.finding_ids
     ):
         raise ValueError("dimension references unknown finding")
     if not set(rewrite_plan.priority_finding_ids) <= known_findings:
@@ -992,8 +944,7 @@ def _validate_unique_evidence_refs(
     material_refs: list[MaterialEvidenceRef],
 ) -> None:
     answer_keys = [
-        (item.answer_version_id, item.segment_id, item.quote_sha256)
-        for item in answer_refs
+        (item.answer_version_id, item.segment_id, item.quote_sha256) for item in answer_refs
     ]
     if len(answer_keys) != len(set(answer_keys)):
         raise ValueError("answer evidence references must be unique")

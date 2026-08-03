@@ -789,13 +789,9 @@ function sameUserSelectedCompanionContext(
 }
 
 function isTransportUnknownOutcome(error: unknown): boolean {
-  return !(
-    error instanceof ApiClientError &&
-    error.classification === "http_response" &&
-    error.statusCode >= 400 &&
-    error.statusCode < 500 &&
-    error.statusCode !== 408
-  );
+  // 只有客户端没有收到任何 HTTP 响应时，服务端是否执行过才真正未知。
+  // 明确收到的 5xx 也是一次已结束的失败，不能把同一问题和 key 锁住七天。
+  return error instanceof ApiClientError && error.classification === "transport_unknown";
 }
 
 function transportUnknownView(error: unknown): {

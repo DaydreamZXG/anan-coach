@@ -11,12 +11,24 @@ from sqlalchemy.orm import Session
 
 from app.domains.ilink_channel.repository import ILinkRepository
 from app.domains.ilink_channel.plan_projection import today_plan_reply
+from app.domains.learning_brain.service import (
+    LearningBrainContractError,
+    LearningBrainService,
+)
+from app.domains.onboarding.progress_repository import OnboardingProgressError
+from app.domains.onboarding.progress_service import OnboardingProgressService
+from app.domains.companion.agent import (
+    is_capacity_change_request,
+    requested_plan_minutes,
+)
 from app.domains.planning.errors import PlanningContractError
 from app.domains.planning.schemas import DailyCapacityCommand, TodayDashboard
 from app.domains.planning.service import PlanningService
+from app.domains.planning.insights_service import PlanningInsightsService
 from app.domains.private_knowledge.repository import PrivateKnowledgeRepository
 from app.domains.private_knowledge.projection import build_projection_gateway
 from app.domains.private_knowledge.service import PrivateKnowledgeService
+from app.domains.qualification.repository import PositionRuleReleaseUnavailable
 
 
 HELP_COMMANDS = frozenset({"主控台", "帮助", "岸岸帮助", "你能做什么"})
@@ -24,6 +36,10 @@ PLAN_COMMANDS = frozenset({"今天", "今天练什么", "今天学什么", "今�
 NEXT_COMMANDS = frozenset({"下一步", "接下来做什么", "现在做什么"})
 PROGRESS_COMMANDS = frozenset({"进度", "今日进度", "计划进度"})
 MATERIAL_LIST_COMMANDS = frozenset({"我的资料", "资料", "资料库"})
+PROFILE_COMMANDS = frozenset({"我的档案", "个人档案", "报考档案"})
+POSITION_GOAL_COMMANDS = frozenset({"岗位目标", "目标岗位", "我的岗位"})
+WEEKLY_PLAN_COMMANDS = frozenset({"周计划", "本周计划", "这周怎么学"})
+LEARNING_EVIDENCE_COMMANDS = frozenset({"学习证据", "能力证据", "我的学习记录"})
 _CAPACITY_RE = re.compile(
     r"^(?:调整今天|今天(?:能)?学|今天(?:可)?学习)\s*(\d+(?:\.\d+)?)\s*(小时|分钟)$"
 )
@@ -47,6 +63,9 @@ class ILinkControlPlane:
         planning: PlanningService | None = None,
         knowledge_factory: Callable[[Session], PrivateKnowledgeService] | None = None,
         receipt_factory: Callable[[Session], ILinkRepository] | None = None,
+        onboarding_result_factory: Callable[[Session, str], object] | None = None,
+        weekly_plan_factory: Callable[[Session, str], object] | None = None,
+        learning_brain_factory: Callable[[Session, str], object] | None = None,
         clock: Callable[[], datetime] | None = None,
     ) -> None:
         self._planning = planning or PlanningService()
@@ -57,6 +76,24 @@ class ILinkControlPlane:
             )
         )
         self._receipt_factory = receipt_factory or ILinkRepository
+        self._onboarding_result_factory = onboarding_result_factory or (
+            lambda session, user_id: OnboardingProgressService().get_result_projection(
+                session,
+                user_id=user_id,
+            )
+        )
+        self._weekly_plan_factory = weekly_plan_factory or (
+            lambda session, user_id: PlanningInsightsService().weekly_plan(
+                session,
+                user_id=user_id,
+            )
+        )
+        self._learning_brain_factory = learning_brain_factory or (
+            lambda session, user_id: LearningBrainService().get_or_create_profile(
+                session,
+                user_id=user_id,
+            )
+        )
         self._clock = clock or (lambda: datetime.now(UTC))
 
     def handle(
@@ -90,11 +127,28 @@ class ILinkControlPlane:
             except PlanningContractError:
                 return ControlPlaneResult(_planning_setup_reply())
             return ControlPlaneResult(_progress_reply(dashboard))
+        if command in PROFILE_COMMANDS:
+            return ControlPlaneResult(self._profile_reply(session, user_id))
+        if command in POSITION_GOAL_COMMANDS:
+            return ControlPlaneResult(self._position_goal_reply(session, user_id))
+        if command in WEEKLY_PLAN_COMMANDS:
+            return ControlPlaneResult(self._weekly_plan_reply(session, user_id))
+        if command in LEARNING_EVIDENCE_COMMANDS:
+            return ControlPlaneResult(self._learning_evidence_reply(session, user_id))
         capacity = _CAPACITY_RE.fullmatch(command)
-        if capacity is not None:
-            minutes = _capacity_minutes(capacity.group(1), capacity.group(2))
+        natural_minutes = (
+            requested_plan_minutes(command) if is_capacity_change_request(command) else None
+        )
+        if capacity is not None or natural_minutes is not None:
+            minutes = (
+                _capacity_minutes(capacity.group(1), capacity.group(2))
+                if capacity is not None
+                else natural_minutes
+            )
             if minutes is None:
-                return ControlPlaneResult("今天可学时间需在 0 到 24 小时之间，例如「调整今天 10小时」。")
+                return ControlPlaneResult(
+                    "今天可学时间需在 0 到 24 小时之间，例如「调整今天 10小时」。"
+                )
             try:
                 current = self._today(session, user_id)
             except PlanningContractError:
@@ -113,8 +167,7 @@ class ILinkControlPlane:
                 now=self._clock(),
             )
             return ControlPlaneResult(
-                f"已把今天可学时间调整为 {_minutes_label(minutes)}。\n"
-                f"{_plan_reply(result.plan)}",
+                f"已把今天可学时间调整为 {_minutes_label(minutes)}。\n{_plan_reply(result.plan)}",
                 mutation_applied=True,
             )
         if command in MATERIAL_LIST_COMMANDS:
@@ -155,9 +208,94 @@ class ILinkControlPlane:
         sources = self._knowledge_factory(session).list(owner_user_id=str(user_id)).sources
         if not sources:
             return "你的资料库还是空的。发送讲义或笔记图片后回复「存资料」即可收进来。"
-        lines = [f"{index}. {source.title}（{source.page_count} 页）" for index, source in enumerate(sources[:10], 1)]
+        lines = [
+            f"{index}. {source.title}（{source.page_count} 页）"
+            for index, source in enumerate(sources[:10], 1)
+        ]
         suffix = f"\n另有 {len(sources) - 10} 份未展开。" if len(sources) > 10 else ""
         return "你的资料：\n" + "\n".join(lines) + suffix + "\n可发送「查资料 关键词」。"
+
+    def _profile_reply(self, session: Session, user_id: UUID) -> str:
+        try:
+            result = self._onboarding_result_factory(session, str(user_id))
+        except (
+            OnboardingProgressError,
+            LearningBrainContractError,
+            PositionRuleReleaseUnavailable,
+        ):
+            session.rollback()
+            return "报考档案这次没有读取完成。请到小程序「我的」里打开档案重试。"
+        goal = getattr(result, "primary_goal", None)
+        preference = getattr(result, "weekly_preference", None)
+        lines = [f"档案状态：{_onboarding_status_label(str(result.status))}。"]
+        if goal is not None:
+            lines.append(f"主目标：{goal.department_name} · {goal.position_name}。")
+        else:
+            lines.append("主目标：尚未确认，不影响继续学习。")
+        if preference is not None:
+            lines.append(
+                "常规时间："
+                f"工作日 {_minutes_label(preference.weekday_minutes)}，"
+                f"周末 {_minutes_label(preference.weekend_minutes)}。"
+            )
+        lines.append("修改资格事实或学习时间时，请在小程序档案页确认后保存。")
+        return "\n".join(lines)
+
+    def _position_goal_reply(self, session: Session, user_id: UUID) -> str:
+        try:
+            result = self._onboarding_result_factory(session, str(user_id))
+        except (
+            OnboardingProgressError,
+            LearningBrainContractError,
+            PositionRuleReleaseUnavailable,
+        ):
+            session.rollback()
+            return "岗位目标这次没有读取完成。请到小程序「岗位决策台」刷新。"
+        goal = getattr(result, "primary_goal", None)
+        if goal is None:
+            return (
+                "你还没有确认主目标岗位。这不会阻塞学习；"
+                "可以在小程序「岗位决策台」查看历史参照和可选岗位。"
+            )
+        score = goal.target_score
+        return (
+            f"当前主目标：{goal.department_name} · {goal.position_name}\n"
+            f"目标分区间：{score.lower_bound:g}–{score.upper_bound:g} 分，"
+            f"建议值 {score.recommended:g} 分。\n"
+            "更换主目标会在小程序先展示对计划的影响，确认后才生效。"
+        )
+
+    def _weekly_plan_reply(self, session: Session, user_id: UUID) -> str:
+        try:
+            weekly = self._weekly_plan_factory(session, str(user_id))
+        except (PlanningContractError, PositionRuleReleaseUnavailable):
+            session.rollback()
+            return "周计划还不能生成。请先在小程序确认每周学习时间。"
+        lines = []
+        for day in weekly.days:
+            lines.append(
+                f"{_date_weekday_label(day.local_date)}：{_weekly_mode_label(day.mode)} · "
+                f"{day.scheduled_minutes} 分钟 · {day.completed_task_count}/{day.total_task_count} 完成"
+            )
+        return f"本周 {weekly.rhythm} 节奏：\n" + "\n".join(lines)
+
+    def _learning_evidence_reply(self, session: Session, user_id: UUID) -> str:
+        try:
+            profile = self._learning_brain_factory(session, str(user_id))
+        except (LearningBrainContractError, PositionRuleReleaseUnavailable):
+            session.rollback()
+            return "学习证据这次没有汇总完成。请到小程序「能力」页刷新。"
+        evidence = profile.evidence_summary
+        xingce_modules = sum(item.track == "xingce" for item in profile.modules)
+        essay_modules = sum(item.track == "essay" for item in profile.modules)
+        return (
+            f"学习证据状态：{_brain_readiness_label(profile.readiness)}\n"
+            f"行测作答 {evidence.xingce_attempt_count} 份，行测掌握证据 "
+            f"{evidence.xingce_mastery_count} 条，申论掌握证据 "
+            f"{evidence.essay_mastery_count} 条，计划执行 {evidence.task_execution_count} 条。\n"
+            f"当前可解释模块：行测 {xingce_modules} 个，申论 {essay_modules} 个；"
+            f"待确认判断 {profile.candidate_summary.awaiting_confirmation} 条。"
+        )
 
     def _material_search(self, session: Session, user_id: UUID, query: str) -> str:
         result = self._knowledge_factory(session).search(
@@ -254,13 +392,16 @@ def _help_reply() -> str:
         "• 今天 / 下一步 / 进度\n"
         "• 调整今天 10小时（或 600分钟）\n"
         "• 我的资料 / 查资料 关键词\n"
+        "• 我的档案 / 岗位目标 / 本周计划 / 学习证据\n"
         "• 删除资料 编号（会再次确认）\n"
         "也可以直接问学习问题，或发送题目、讲义图片。"
     )
 
 
 def _planning_setup_reply() -> str:
-    return "还缺少目标或学习安排。先在小程序完成目标与常规学习时间，之后就能直接在这里控制今日计划。"
+    return (
+        "还缺少目标或学习安排。先在小程序完成目标与常规学习时间，之后就能直接在这里控制今日计划。"
+    )
 
 
 def _plan_reply(dashboard: TodayDashboard) -> str:
@@ -270,7 +411,11 @@ def _plan_reply(dashboard: TodayDashboard) -> str:
         f"{task.priority}. {task.title} · {task.estimated_minutes} 分钟 · {_status_label(task.status)}"
         for task in dashboard.tasks[:8]
     ]
-    remaining = sum(task.estimated_minutes for task in dashboard.tasks if task.status in {"ready", "in_progress"})
+    remaining = sum(
+        task.estimated_minutes
+        for task in dashboard.tasks
+        if task.status in {"ready", "in_progress"}
+    )
     return (
         f"{dashboard.headline}\n今日 {len(dashboard.tasks)} 个任务，剩余约 {remaining} 分钟：\n"
         + "\n".join(lines)
@@ -292,7 +437,11 @@ def _progress_reply(dashboard: TodayDashboard) -> str:
     total = len(dashboard.tasks)
     complete = sum(task.status == "complete" for task in dashboard.tasks)
     active = sum(task.status == "in_progress" for task in dashboard.tasks)
-    remaining = sum(task.estimated_minutes for task in dashboard.tasks if task.status in {"ready", "in_progress"})
+    remaining = sum(
+        task.estimated_minutes
+        for task in dashboard.tasks
+        if task.status in {"ready", "in_progress"}
+    )
     return f"今日进度：已完成 {complete}/{total}，进行中 {active}，剩余约 {remaining} 分钟。"
 
 
@@ -309,8 +458,43 @@ def _minutes_label(minutes: int) -> str:
     return f"{minutes} 分钟"
 
 
+def _onboarding_status_label(status: str) -> str:
+    return {
+        "evidence_sufficient": "档案与双科证据已齐",
+        "baseline_required": "还需补充能力证据",
+        "position_selection_required": "资格档案已就绪，主目标待选",
+        "no_eligible_position": "当前无可确认岗位，可继续学习",
+    }.get(status, "待刷新")
+
+
+def _weekly_mode_label(mode: str) -> str:
+    return {"training": "训练", "mock": "整卷模考", "recovery": "恢复"}.get(
+        mode,
+        mode,
+    )
+
+
+def _date_weekday_label(value) -> str:
+    return f"{value.month}月{value.day}日 周{'一二三四五六日'[value.isoweekday() - 1]}"
+
+
+def _brain_readiness_label(readiness: str) -> str:
+    return {
+        "ready": "可用",
+        "partial": "部分可用",
+        "stale": "需更新",
+        "conflicted": "有冲突待处理",
+        "unavailable": "尚无证据",
+    }.get(readiness, "待刷新")
+
+
 def _status_label(status: str) -> str:
-    return {"ready": "待开始", "in_progress": "进行中", "complete": "已完成", "abandoned": "已放弃"}.get(status, status)
+    return {
+        "ready": "待开始",
+        "in_progress": "进行中",
+        "complete": "已完成",
+        "abandoned": "已放弃",
+    }.get(status, status)
 
 
 def _resolve_source(sources, target: str):

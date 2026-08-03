@@ -8,6 +8,7 @@ import type {
 import {
   presentXingceCauseCandidate,
   presentXingceResult,
+  xingceReflectionReviewItems,
 } from "../miniprogram/features/xingce/real_attempt/presentation";
 import {
   apiSuccess,
@@ -31,6 +32,30 @@ afterEach(() => {
 });
 
 describe("stage 3 factored result presentation", () => {
+  it("错因复盘排除普通答对题，只保留真实错误与低信心猜对", () => {
+    const correctSession = submittedXingceSession("correct");
+    if (!correctSession.result?.groupSummary) throw new Error("correct result fixture is required");
+    const firstCorrectItem = correctSession.result.items[0];
+    if (!firstCorrectItem) throw new Error("correct item fixture is required");
+    firstCorrectItem.confidenceEvidence = "unreported";
+    correctSession.result.groupSummary.genuineCorrect = 2;
+    correctSession.result.groupSummary.outcome = "not_attained";
+    const correctUnreported = presentXingceResult(correctSession)?.items[0];
+    const wrong = presentXingceResult(submittedXingceSession("incorrect"))?.items[0];
+    const guessed = presentXingceResult(submittedXingceSession("guessed_correct"))?.items[0];
+    if (!correctUnreported || !wrong || !guessed) throw new Error("result views are required");
+
+    expect(
+      xingceReflectionReviewItems([correctUnreported, wrong, guessed]).map(
+        (item) => item.resultLabel,
+      ),
+    ).toEqual(["不会·答错", "猜对"]);
+    expect(reflectionTemplate).toContain('bindtouchstart="onReviewTouchStart"');
+    expect(reflectionTemplate).toContain('bindtouchcancel="onReviewTouchEnd"');
+    expect(reflectionTemplate).toContain("上一道关键题");
+    expect(reflectionTemplate).not.toContain("确认错因，看下一题");
+  });
+
   it("按真实结果分色，不把所有需复盘题统一显示成红色", () => {
     expect(reflectionTemplate).toContain(
       "summary-question-dot summary-question-dot--{{item.resultTone}}",

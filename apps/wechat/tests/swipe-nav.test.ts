@@ -4,6 +4,7 @@ import {
   defaultSwipeNavThresholds,
   resolveSwipeNav,
   swipeSampleFromTouchEnd,
+  swipeSampleFromTouchMove,
   swipeSampleFromTouchStart,
   type SwipeNavSample,
 } from "../miniprogram/task-runtime/swipe-nav";
@@ -98,5 +99,15 @@ describe("swipe-nav 触点采样", () => {
     expect(
       swipeSampleFromTouchEnd({ timeStamp: 5_200, touches: [], changedTouches: [] }),
     ).toBeNull();
+  });
+
+  it("touchmove 从仍在屏幕上的触点采样，供 scroll-view touchcancel 回退", () => {
+    expect(
+      swipeSampleFromTouchMove({
+        timeStamp: 5_140,
+        touches: [{ clientX: 92, clientY: 312 }],
+        changedTouches: [],
+      }),
+    ).toEqual({ x: 92, y: 312, timeMs: 5_140 });
   });
 });

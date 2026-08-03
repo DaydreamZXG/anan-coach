@@ -423,5 +423,5 @@
     </view>
   </view>
 
-  <ilink-bot-sheet visible="{{channelSheetOpen}}" bindclose="closeChannelSheet" />
+  <ilink-bot-sheet id="wechat-channel-sheet" visible="{{channelSheetOpen}}" bindclose="closeChannelSheet" />
 </view>

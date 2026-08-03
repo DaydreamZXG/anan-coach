@@ -91,7 +91,14 @@
       <view class="reflection-bottom-spacer"></view>
     </view>
 
-    <view wx:elif="{{phase === 'reflection'}}" class="review-content">
+    <view
+      wx:elif="{{phase === 'reflection'}}"
+      class="review-content"
+      bindtouchstart="onReviewTouchStart"
+      bindtouchmove="onReviewTouchMove"
+      bindtouchend="onReviewTouchEnd"
+      bindtouchcancel="onReviewTouchEnd"
+    >
       <view wx:if="{{result && result.availability === 'legacy_result_unavailable'}}" class="legacy-notice">
         <view class="legacy-notice__title">这是一份旧版结果</view>
         <view class="legacy-notice__copy">缺少逐题过程记录，因此只保留原始成绩，不追溯猜测用时、信心或计算过程。</view>
@@ -430,18 +437,27 @@
 
     <!-- Figma 113:2 Summary/FixedActionDock：主 CTA 固定在底部操作坞，不随正文滚动。 -->
     <view wx:if="{{phase === 'summary' && result}}" class="s9-action-dock">
-      <button hover-class="item--hover" class="s9-primary-button tap-tactile" bindtap="startReflection">复盘 {{reviewItems.length}} 道关键题</button>
+      <button hover-class="item--hover" class="s9-primary-button tap-tactile" bindtap="startReflection">{{reviewItems.length > 0 ? '复盘 ' + reviewItems.length + ' 道关键题' : '完成本组复盘'}}</button>
     </view>
 
-    <!-- Figma 14:2：错因复盘正文可滚动，「确认错因，看下一题」固定在底部。 -->
+    <!-- 复盘正文可滚动；逐题浏览不等于逐题确认错因，统一在最后提交给岸岸判断。 -->
     <view wx:if="{{phase === 'reflection'}}" class="s9-action-dock">
-      <button
-        hover-class="item--hover"
-        class="s9-primary-button tap-tactile"
-        loading="{{interactionLocked}}"
-        disabled="{{interactionLocked || voiceBusy || isRecording}}"
-        bindtap="confirmCauseAndNext"
-      >{{currentReviewIndex < reviewItems.length - 1 ? '确认错因，看下一题' : '保存错因，继续确认'}}</button>
+      <view class="s9-action-row">
+        <button
+          wx:if="{{currentReviewIndex > 0}}"
+          hover-class="item--hover"
+          class="s9-secondary-button tap-tactile"
+          disabled="{{interactionLocked || voiceBusy || isRecording}}"
+          bindtap="previousReviewItem"
+        >上一道关键题</button>
+        <button
+          hover-class="item--hover"
+          class="s9-primary-button tap-tactile"
+          loading="{{interactionLocked}}"
+          disabled="{{interactionLocked || voiceBusy || isRecording}}"
+          bindtap="confirmCauseAndNext"
+        >{{currentReviewIndex < reviewItems.length - 1 ? '看下一道关键题' : '完成复盘，交给岸岸判断'}}</button>
+      </view>
     </view>
 
     <!-- Figma 75:2 · 原题轨迹回放：题面 + 笔迹回放 + 底部回放工具栏。 -->

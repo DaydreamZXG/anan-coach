@@ -157,6 +157,8 @@ def test_official_sdk_presign_binds_every_single_and_part_integrity_header() -> 
     assert single.signed_headers["x-tos-acl"] == "private"
     assert single.signed_headers["x-tos-server-side-encryption"] == "AES256"
     assert part.signed_headers["x-tos-content-sha256"] == "b" * 64
+    assert "x-tos-server-side-encryption" not in part.signed_headers
+    assert part.binds_server_side_encryption is False
     assert "uploadId=upload-1" in part.url
     assert "partNumber=1" in part.url
 

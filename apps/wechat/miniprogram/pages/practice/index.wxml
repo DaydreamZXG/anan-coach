@@ -107,6 +107,7 @@
           bindtouchstart="onQuestionTouchStart"
           bindtouchmove="onQuestionTouchMove"
           bindtouchend="onQuestionTouchEnd"
+          bindtouchcancel="onQuestionTouchEnd"
           bindscroll="onQuestionScroll"
         >
         <view

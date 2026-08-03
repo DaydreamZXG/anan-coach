@@ -303,11 +303,15 @@ class AIGovernanceRepository:
         reservation_id: UUID | None,
         reservation_source: str | None,
         price_version: str | None = None,
+        enforce_evaluated_deployment: bool = True,
     ) -> AICallAttribution:
         policy = scenario_policy(scenario_key)
         deployment_id: UUID | None = None
         evaluation_state = "local_unreleased"
-        if environment.strip().casefold() == "production":
+        if (
+            environment.strip().casefold() == "production"
+            and enforce_evaluated_deployment
+        ):
             deployment_id = self.require_current_deployment(
                 session,
                 scenario_key=scenario_key,

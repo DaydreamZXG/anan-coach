@@ -3811,6 +3811,53 @@ export const visualScenarios = [
     }),
   },
   {
+    id: "h19-ilink-hub-qr-waiting",
+    route: "/pages/capture-import/index",
+    authenticated: true,
+    skipControllerSettlement: true,
+    data: capturePageData(
+      {
+        status: "idle",
+        learningTrack: "xingce",
+        selectedFile: null,
+        uploadProgress: null,
+        workspace: null,
+        activeQuestionUnit: null,
+        activeQuestionUnitIndex: -1,
+        reviewStep: "recognition",
+        segments: [],
+        selectedContentVersionId: "",
+        dirty: false,
+        submitting: false,
+        pendingRecovery: false,
+        validationError: "",
+        error: null,
+      },
+      { channelSheetOpen: true },
+    ),
+    componentFixtures: [
+      {
+        selector: "#wechat-channel-sheet",
+        data: {
+          status: "ready",
+          errorMessage: "",
+          requestId: "",
+          writing: false,
+          polling: false,
+          view: {
+            state: "waiting_scan",
+            authorizationId: "visual-authorization-1",
+            qrImageDataUrl:
+              "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARgAAAEYAQAAAACv9dQhAAAByUlEQVR4nO1Z0W7EMAiz0f3/LzNhSK/aQ/tSpfQauuWyFOksD4hD6Dg1O3fB8jk2O3kftnx+j58PAObU6aATlXFjtR9mm8wPxAiDINFDR/x6rvbDbLP5AcURxUzGkCZIjrphtpt83IOSiBhnBzx94qdshI+esdgPs03nxzVmfvkWPX4DHuvID+sPD4b07Ffxdn685rFl1ba1W0U7zDbZhwoVMn7SxtbOtb9jMBGcpPwZK6hK1PF/OssHHlJHQ8VNZljlmcerbphtto9HYiVHHju7tGKMyVJLzJN8mJJnyOaYKtWGAuLLz1+21WcdT7NAV8FG7fEdMc/NL5BUXimzVJEi07DOX7Yx9f/wleOqP0gyovrUMT7Lc3Kz6g8kDaHez1f5lETk5bn8yP6hBxUlfDKOMt/89fqZo3eoj9FgjUTbGq14u/5hTneRs1VnrvqMHVfqQatKF2/+9vr82d9UREpJ+4SNDn0/zHbf/QWqNb8tekPMdtP9BTLFahjs9MNsd/m4HrWh43yBZKo35on3F1Q9rtNFNoF45XfZw+8vPETi9wTG0NSz8VhHH4aVSvRvbqG0UUvMM/tjD8Nsy+fQ7Pi1bPkc21X8/AG01LYuCOhKqAAAAABJRU5ErkJggg==",
+            expiresAt: "2026-08-03T16:00:00Z",
+            statusCopy: "等待微信扫码",
+            usageCopy: "长按二维码识别，或用另一台设备扫码，然后在微信里确认。",
+          },
+        },
+      },
+    ],
+  },
+  {
     id: "h17-capture-camera-init-error",
     route: "/pages/capture-import/index",
     authenticated: true,

@@ -30,6 +30,10 @@ interface StudyPreferencePageCustom {
   retry(): void;
 }
 
+type AgentWeeklyPrefill = Partial<
+  Pick<StudyPreferenceControllerState["draft"], "fixedRestDay" | "mockExamDay">
+>;
+
 type StudyPreferencePage = WechatMiniprogram.Page.Instance<
   StudyPreferencePageData,
   StudyPreferencePageCustom
@@ -57,8 +61,8 @@ Page<StudyPreferencePageData, StudyPreferencePageCustom>({
     }),
   },
 
-  onLoad() {
-    mountController(this);
+  onLoad(options: Record<string, string | undefined>) {
+    mountController(this, parseAgentWeeklyPrefill(options));
   },
 
   onShow() {
@@ -105,7 +109,10 @@ Page<StudyPreferencePageData, StudyPreferencePageCustom>({
   },
 });
 
-function mountController(page: StudyPreferencePage): void {
+function mountController(
+  page: StudyPreferencePage,
+  agentPrefill: AgentWeeklyPrefill | null = null,
+): void {
   const session = currentAuthSession();
   if (!session) {
     runtimes.detach(page);
@@ -142,11 +149,31 @@ function mountController(page: StudyPreferencePage): void {
       const current = currentAuthSession();
       return current?.userId === session.userId && current.accessToken === session.accessToken;
     },
+    ...(agentPrefill ? { initialDraftPatch: agentPrefill } : {}),
   });
   runtime.controller = controller;
   const state = controller.snapshot();
   page.setData({ state, ...studyMinutesScrollTargets(state.draft) });
   void controller.load();
+}
+
+export function parseAgentWeeklyPrefill(
+  options: Record<string, string | undefined>,
+): AgentWeeklyPrefill | null {
+  if (options.source !== "anan") return null;
+  const allowed = new Set<Weekday>(weekdays.map((item) => item.value));
+  const fixedRestDay = allowed.has(options.fixedRestDay as Weekday)
+    ? (options.fixedRestDay as Weekday)
+    : undefined;
+  const mockExamDay = allowed.has(options.mockExamDay as Weekday)
+    ? (options.mockExamDay as Weekday)
+    : undefined;
+  if (fixedRestDay === undefined && mockExamDay === undefined) return null;
+  if (fixedRestDay !== undefined && fixedRestDay === mockExamDay) return null;
+  return {
+    ...(fixedRestDay === undefined ? {} : { fixedRestDay }),
+    ...(mockExamDay === undefined ? {} : { mockExamDay }),
+  };
 }
 
 function isStudyMinutesField(field: string): field is StudyMinutesField {

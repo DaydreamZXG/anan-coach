@@ -97,13 +97,15 @@ Page({
     previewImpact: "",
     previewing: false,
     submitting: false,
+    agentPrefillMinutes: null as number | null,
   },
 
-  onLoad() {
+  onLoad(options: Record<string, string | undefined> = {}) {
     const runtime = attemptRuntime(this);
     runtime.visible = true;
     runtime.disposed = false;
     runtime.lifecycleGeneration += 1;
+    this.setData({ agentPrefillMinutes: parseAgentPrefillMinutes(options) });
     void this.loadToday();
   },
 
@@ -151,7 +153,24 @@ Page({
       const store = new OperationAttemptStore(originSession.userId);
       const unfinished = store.load(CAPACITY_ATTEMPT_SCOPE, Date.now());
       if (!unfinished || !isUnfinishedAttempt(unfinished)) {
-        this.setData({ status: "ready", submitting: false, ...presentation });
+        const agentPrefillMinutes = this.data.agentPrefillMinutes;
+        this.setData(
+          {
+            status: "ready",
+            submitting: false,
+            ...presentation,
+            ...(agentPrefillMinutes === null
+              ? {}
+              : {
+                  minutes: agentPrefillMinutes,
+                  selectedDurationLabel: formatCapacityDuration(agentPrefillMinutes),
+                  agentPrefillMinutes: null,
+                }),
+          },
+          () => {
+            if (agentPrefillMinutes !== null) void this.generatePreview();
+          },
+        );
         return;
       }
 
@@ -513,6 +532,16 @@ Page({
     void this.loadToday();
   },
 });
+
+export function parseAgentPrefillMinutes(
+  options: Record<string, string | undefined>,
+): number | null {
+  if (options.source !== "anan") return null;
+  const raw = options.availableMinutes ?? "";
+  if (!/^\d{1,4}$/.test(raw)) return null;
+  const minutes = Number(raw);
+  return Number.isSafeInteger(minutes) && minutes >= 0 && minutes <= 1440 ? minutes : null;
+}
 
 function normalizedEnergy(value: number): number {
   if (value <= 2) return 2;

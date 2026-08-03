@@ -4,6 +4,7 @@ import type {
   EssayWorkspaceFinding,
 } from "../../api/essay-intelligence";
 import type { EssayTaskStage } from "./capabilities";
+import { materialTextParagraphs } from "./material-paragraphs";
 
 export interface MaterialSegmentView {
   anchorId: string;
@@ -12,6 +13,8 @@ export interface MaterialSegmentView {
   materialOrder: number;
   text: string;
   segmentId: string;
+  paragraphs: ReturnType<typeof materialTextParagraphs>;
+  paragraphCount: number;
 }
 
 export interface MaterialDirectoryView {
@@ -29,6 +32,7 @@ export interface WorkspaceView {
   maximumScore: number;
   materialSourceLabel: string;
   segments: MaterialSegmentView[];
+  materialParagraphCount: number;
   directory: MaterialDirectoryView[];
   rubricStatusLabel: string;
   rubricStatusDetail: string;
@@ -83,14 +87,19 @@ export function presentEssayWorkspace(
   workspace: EssayTaskWorkspace,
   artifactType: EssayArtifactType | null,
 ): WorkspaceView {
-  const segments = workspace.material.segments.map((segment, index) => ({
-    anchorId: `material-segment-${String(index + 1)}`,
-    directoryLabel: `材料 ${String(segment.materialOrder)}`,
-    paragraphLabel: `第 ${String(segment.segmentOrder)} 段`,
-    materialOrder: segment.materialOrder,
-    text: segment.text,
-    segmentId: segment.segmentId,
-  }));
+  const segments = workspace.material.segments.map((segment, index) => {
+    const paragraphs = materialTextParagraphs(segment.text, segment.segmentId);
+    return {
+      anchorId: `material-segment-${String(index + 1)}`,
+      directoryLabel: `材料 ${String(segment.materialOrder)}`,
+      paragraphLabel: `${String(paragraphs.length)} 段`,
+      materialOrder: segment.materialOrder,
+      text: segment.text,
+      segmentId: segment.segmentId,
+      paragraphs,
+      paragraphCount: paragraphs.length,
+    };
+  });
   const directory = [...new Set(segments.map((item) => item.materialOrder))].map(
     (materialOrder) => {
       const matching = segments.filter((item) => item.materialOrder === materialOrder);
@@ -100,7 +109,7 @@ export function presentEssayWorkspace(
         materialOrder,
         label: `材料 ${String(materialOrder)}`,
         firstAnchorId: first.anchorId,
-        segmentCount: matching.length,
+        segmentCount: matching.reduce((total, item) => total + item.paragraphCount, 0),
       };
     },
   );
@@ -122,6 +131,7 @@ export function presentEssayWorkspace(
       external_confirmed: "已确认外部材料",
     }[workspace.material.sourceKind],
     segments,
+    materialParagraphCount: segments.reduce((total, item) => total + item.paragraphCount, 0),
     directory,
     rubricStatusLabel: rubric ? "评分规则已就绪" : "评分规则待补充",
     rubricStatusDetail: rubric

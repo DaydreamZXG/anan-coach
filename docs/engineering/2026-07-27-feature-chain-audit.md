@@ -14,7 +14,7 @@
 
 本报告接续：
 
-- `docs/engineering/2026-07-27-backend-launch-audit.md`
+- `docs/engineering/_archive/2026-07-27-backend-launch-audit.md`
 - Claude 中断的 `feature-chain-audit-wf_a9dd83de-ba1`
 - 三路重新执行的独立审计：行测/学习大脑、模考/申论、计划/账号
 

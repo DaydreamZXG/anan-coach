@@ -12,6 +12,7 @@ from app.domains.xingce_learning.real_attempt.service import (
     _public_question_asset_url,
     _safe_rich_html,
 )
+from app.domains.xingce_learning.explanation_policy import stored_explanation
 from app.main import create_app
 from tests.test_planning_routes import (
     _client,
@@ -95,7 +96,7 @@ def test_xingce_question_asset_policy_only_accepts_owned_public_https() -> None:
     assert _public_question_asset_url("https://img.xingguoxian.cn/private/q-1.png") is None
 
 
-def test_xingce_rich_text_is_sanitized_and_unreviewed_explanation_is_hidden() -> None:
+def test_xingce_rich_text_is_sanitized_and_every_stored_explanation_is_visible() -> None:
     sanitized = _safe_rich_html(
         '<p style="color:red">材料<strong>重点</strong>'
         '<script>alert(1)</script><table><tr><td colspan="2" onclick="x()">1</td>'
@@ -112,7 +113,7 @@ def test_xingce_rich_text_is_sanitized_and_unreviewed_explanation_is_hidden() ->
             "analysis_status": "pending_review",
             "analysis_needs_review": True,
         }
-    ) == (None, None)
+    ) == ("未经确认的解析", "ai_rewrite")
     assert _published_explanation(
         {
             "preferred_analysis": "已经验收的解析",
@@ -121,6 +122,22 @@ def test_xingce_rich_text_is_sanitized_and_unreviewed_explanation_is_hidden() ->
             "analysis_needs_review": False,
         }
     ) == ("已经验收的解析", "ai_rewrite")
+    assert stored_explanation(
+        {
+            "preferred_analysis": "题库原始解析",
+            "analysis_source": "own_bank",
+            "analysis_status": "human_review_fallback_original",
+            "analysis_needs_review": True,
+        }
+    ) == ("题库原始解析", "own_bank")
+    assert stored_explanation(
+        {
+            "preferred_analysis": "待审核 AI 解析",
+            "analysis_source": "ai_rewrite",
+            "analysis_status": "pending_review",
+            "analysis_needs_review": True,
+        }
+    ) == ("待审核 AI 解析", "ai_rewrite")
     assert _public_question_asset_url("https://evil.example/assets/q-1.png") is None
     assert (
         _public_question_asset_url("https://gongkao-dazi-prod.tos-cn-guangzhou.volces.com/q-1.png")

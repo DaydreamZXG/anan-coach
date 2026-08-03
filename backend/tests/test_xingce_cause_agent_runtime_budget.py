@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
+
 import pytest
 
 from app.domains.ai.agent_runtime.contracts import (
@@ -13,7 +15,9 @@ def test_duplicate_successful_tool_signature_is_terminated() -> None:
     events: list[dict] = []
     runtime = BoundedToolRuntime(
         definition=CAUSE_AGENT_DEFINITION,
-        handlers={tool.name: lambda arguments: {"ok": arguments} for tool in CAUSE_AGENT_DEFINITION.tools},
+        handlers={
+            tool.name: lambda arguments: {"ok": arguments} for tool in CAUSE_AGENT_DEFINITION.tools
+        },
         event_sink=events.append,
     )
     arguments = {"scope": "one"}
@@ -28,7 +32,10 @@ def test_unknown_tool_and_two_consecutive_no_progress_steps_terminate() -> None:
     events: list[dict] = []
     runtime = BoundedToolRuntime(
         definition=CAUSE_AGENT_DEFINITION,
-        handlers={tool.name: lambda arguments: {"value": arguments} for tool in CAUSE_AGENT_DEFINITION.tools},
+        handlers={
+            tool.name: lambda arguments: {"value": arguments}
+            for tool in CAUSE_AGENT_DEFINITION.tools
+        },
         event_sink=events.append,
     )
     with pytest.raises(AgentRuntimeViolation, match="tool_not_allowlisted"):
@@ -50,3 +57,34 @@ def test_unknown_tool_and_two_consecutive_no_progress_steps_terminate() -> None:
             arguments={"scope": "c"},
             progress_scope={"progress": "same"},
         )
+
+
+def test_runtime_accepts_an_independent_agent_definition_protocol() -> None:
+    @dataclass(frozen=True)
+    class Tool:
+        name: str = "inspect"
+        schema_version: str = "v1"
+        behavior_version: str = "v1"
+        permission_policy_version: str = "test-read-only@v1"
+        read_only: bool = True
+
+    @dataclass(frozen=True)
+    class Budget:
+        max_tool_calls: int = 1
+        max_consecutive_no_progress: int = 1
+
+    @dataclass(frozen=True)
+    class Definition:
+        tools: tuple = (Tool(),)
+        budget: Budget = Budget()
+        tool_policy_version: str = "test-read-only@v1"
+
+    runtime = BoundedToolRuntime(
+        definition=Definition(),  # type: ignore[arg-type]
+        handlers={"inspect": lambda arguments: {"seen": arguments}},
+        event_sink=lambda _event: None,
+    )
+
+    result = runtime.execute(tool_name="inspect", arguments={"scope": "one"})
+
+    assert result.payload == {"seen": {"scope": "one"}}

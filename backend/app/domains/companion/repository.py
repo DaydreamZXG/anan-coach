@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from typing import Any
 from uuid import uuid4
@@ -35,6 +35,7 @@ class CompanionContextRecord:
     latest_essay_reflection: dict[str, object] | None
     today_essay_plan: dict[str, object] | None
     essay_plan_omission_reason: str | None
+    today_plan_tasks: list[dict[str, object]] = field(default_factory=list)
     rank_level: int | None = None
     rank_name: str | None = None
     fame: int | None = None
@@ -435,7 +436,10 @@ class CompanionRepository:
             self._session.execute(
                 text(
                     """
-                select plan.track_explanation,
+                select plan.local_date,
+                       plan.headline,
+                       plan.rationale,
+                       plan.track_explanation,
                        (
                          select jsonb_build_object(
                            'stage', task.stage,
@@ -462,7 +466,41 @@ class CompanionRepository:
                             and task.track = 'essay'
                           order by task.task_order
                           limit 1
-                       ) as essay_task
+                       ) as essay_task,
+                       coalesce(
+                         (
+                           select jsonb_agg(
+                             jsonb_build_object(
+                               'taskId', task.task_id,
+                               'track', task.track,
+                               'stage', task.stage,
+                               'title', task.title,
+                               'reason', task.reason,
+                               'estimatedMinutes', task.estimated_minutes,
+                               'status', coalesce(
+                                 (
+                                   select item.status
+                                     from learning.task_execution_versions item
+                                    where item.task_id = task.task_id
+                                      and not exists (
+                                        select 1
+                                          from learning.task_execution_versions successor
+                                         where successor.supersedes_execution_version_id =
+                                               item.execution_version_id
+                                      )
+                                    order by item.recorded_at desc,
+                                             item.execution_version_id
+                                    limit 1
+                                 ),
+                                 'pending'
+                               )
+                             ) order by task.task_order
+                           )
+                             from learning.daily_plan_tasks task
+                            where task.plan_version_id = plan.plan_version_id
+                         ),
+                         '[]'::jsonb
+                       ) as tasks
                   from learning.daily_plan_versions plan
                  where plan.user_id = cast(:user_id as uuid)
                    and plan.valid_until > now()
@@ -553,6 +591,11 @@ class CompanionRepository:
                 else None
             ),
             essay_plan_omission_reason=_essay_omission_reason(current_plan),
+            today_plan_tasks=(
+                [dict(item) for item in current_plan["tasks"]]
+                if current_plan is not None and isinstance(current_plan["tasks"], list)
+                else []
+            ),
             rank_level=int(rank["rank_level"]) if rank and rank["rank_level"] is not None else None,
             rank_name=str(rank["rank_name"]) if rank and rank["rank_name"] is not None else None,
             fame=int(rank["fame"]) if rank and rank["fame"] is not None else None,

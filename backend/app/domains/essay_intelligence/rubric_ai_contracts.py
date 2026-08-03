@@ -13,20 +13,17 @@ from app.domains.essay_intelligence.rubric_compiler import (
 from app.domains.essay_intelligence.schemas import (
     EssayContractModel,
     EssayRubricCriterion,
-    EssayRubricPoint,
     QuestionType,
 )
 
 
-RUBRIC_AI_PIPELINE_VERSION = "guokao-essay-rubric-ai-pipeline-v1"
-RUBRIC_AI_GENERATOR_PROMPT_VERSION = "guokao-essay-rubric-generator-prompt-v2"
-RUBRIC_AI_GENERATOR_SCHEMA_VERSION = "guokao-essay-rubric-generator-schema-v1"
-RUBRIC_AI_CRITIC_PROMPT_VERSION = "guokao-essay-rubric-critic-prompt-v2"
-RUBRIC_AI_CRITIC_SCHEMA_VERSION = "guokao-essay-rubric-critic-schema-v1"
-RUBRIC_AI_COMPILER_VERSION = "guokao-essay-rubric-compiler-v1"
-RUBRIC_AI_COMPILATION_PROMPT_VERSION = (
-    "guokao-essay-rubric-generator-v2+critic-v2"
-)
+RUBRIC_AI_PIPELINE_VERSION = "guokao-essay-rubric-ai-pipeline-v2"
+RUBRIC_AI_GENERATOR_PROMPT_VERSION = "guokao-essay-rubric-generator-prompt-v11"
+RUBRIC_AI_GENERATOR_SCHEMA_VERSION = "guokao-essay-rubric-generator-schema-v3"
+RUBRIC_AI_CRITIC_PROMPT_VERSION = "guokao-essay-rubric-critic-prompt-v9"
+RUBRIC_AI_CRITIC_SCHEMA_VERSION = "guokao-essay-rubric-critic-schema-v3"
+RUBRIC_AI_COMPILER_VERSION = "guokao-essay-rubric-compiler-v3"
+RUBRIC_AI_COMPILATION_PROMPT_VERSION = "guokao-essay-rubric-generator-v11"
 
 
 class RubricAIProviderSegment(EssayContractModel):
@@ -37,9 +34,7 @@ class RubricAIProviderSegment(EssayContractModel):
 
 
 class RubricAIProviderDocument(EssayContractModel):
-    pipeline_version: Literal["guokao-essay-rubric-ai-pipeline-v1"] = Field(
-        alias="pipelineVersion"
-    )
+    pipeline_version: Literal["guokao-essay-rubric-ai-pipeline-v2"] = Field(alias="pipelineVersion")
     task_version_id: UUID = Field(alias="taskVersionId")
     task_key: str = Field(alias="taskKey", min_length=1, max_length=160)
     question_type: QuestionType = Field(alias="questionType")
@@ -51,14 +46,30 @@ class RubricAIProviderDocument(EssayContractModel):
         alias="materialContentSha256",
         pattern=r"^[0-9a-f]{64}$",
     )
-    material_completeness: Literal["complete"] = Field(
-        alias="materialCompleteness"
-    )
+    material_completeness: Literal["complete"] = Field(alias="materialCompleteness")
     segments: list[RubricAIProviderSegment] = Field(min_length=1)
 
 
+class RubricAIMaterialEvidence(EssayContractModel):
+    material_id: str = Field(alias="materialId", min_length=1, max_length=160)
+    segment_id: str = Field(alias="segmentId", min_length=1, max_length=160)
+    quote: str = Field(min_length=1, max_length=1000)
+
+
+class RubricAIPoint(EssayContractModel):
+    rubric_point_id: str = Field(alias="rubricPointId", min_length=1, max_length=120)
+    criterion_code: str = Field(alias="criterionCode", min_length=1, max_length=80)
+    category: str = Field(min_length=1, max_length=80)
+    label: str = Field(min_length=1, max_length=500)
+    maximum_credit: float = Field(alias="maximumCredit", gt=0, le=100)
+    material_evidence_refs: list[RubricAIMaterialEvidence] = Field(
+        default_factory=list,
+        alias="materialEvidenceRefs",
+    )
+
+
 class RubricAIGeneratorOutput(EssayContractModel):
-    schema_version: Literal["guokao-essay-rubric-generator-schema-v1"] = Field(
+    schema_version: Literal["guokao-essay-rubric-generator-schema-v3"] = Field(
         alias="schemaVersion"
     )
     task_version_id: UUID = Field(alias="taskVersionId")
@@ -70,13 +81,11 @@ class RubricAIGeneratorOutput(EssayContractModel):
     )
     total_maximum: float = Field(alias="totalMaximum", gt=0, le=100)
     criteria: list[EssayRubricCriterion] = Field(min_length=1)
-    points: list[EssayRubricPoint] = Field(min_length=1)
+    points: list[RubricAIPoint] = Field(min_length=1)
 
 
 class RubricAICriticOutput(EssayContractModel):
-    schema_version: Literal["guokao-essay-rubric-critic-schema-v1"] = Field(
-        alias="schemaVersion"
-    )
+    schema_version: Literal["guokao-essay-rubric-critic-schema-v3"] = Field(alias="schemaVersion")
     approved: bool
     rejection_codes: list[str] = Field(
         alias="rejectionCodes",
@@ -96,14 +105,12 @@ class RubricAICriticOutput(EssayContractModel):
     )
     total_maximum: float = Field(alias="totalMaximum", gt=0, le=100)
     criteria: list[EssayRubricCriterion] = Field(min_length=1)
-    points: list[EssayRubricPoint] = Field(min_length=1)
+    points: list[RubricAIPoint] = Field(min_length=1)
 
     @model_validator(mode="after")
     def validate_decision(self) -> "RubricAICriticOutput":
         normalized = [item.strip() for item in self.rejection_codes]
-        if any(not item for item in normalized) or len(normalized) != len(
-            set(normalized)
-        ):
+        if any(not item for item in normalized) or len(normalized) != len(set(normalized)):
             raise ValueError("critic rejection codes must be non-empty and unique")
         if self.approved and normalized:
             raise ValueError("approved critic output cannot include rejection codes")

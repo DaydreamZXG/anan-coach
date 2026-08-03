@@ -785,7 +785,7 @@ describe("岸岸小程序运行时", () => {
     expect(attempt(harness, "user-a")?.state).toBe("terminal");
   });
 
-  it.each([408, 500, 503])("将 HTTP %s 保留为 unknown", async (statusCode) => {
+  it.each([408, 500, 503])("将明确收到的 HTTP %s 标记为 terminal", async (statusCode) => {
     const harness = await captureAnanPage();
     prepareAsk(harness.page, `HTTP ${String(statusCode)} 待确认`);
 
@@ -794,8 +794,8 @@ describe("岸岸小程序运行时", () => {
     respondHttpFailure(harness.requests[0], statusCode);
     await request;
 
-    expect(attempt(harness, "user-a")?.state).toBe("unknown");
-    expect(harness.page.data.errorMessage).toBe("本次问题结果待确认，再试会继续确认。");
+    expect(attempt(harness, "user-a")?.state).toBe("terminal");
+    expect(harness.page.data.errorMessage).not.toBe("本次问题结果待确认，再试会继续确认。");
   });
 
   it("仅在编辑后的 canonical input 改变时取消旧 attempt 并创建新 key", async () => {

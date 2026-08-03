@@ -18,9 +18,18 @@ export type CompanionActionResolution =
 const allowedTargets: Partial<Record<CompanionAllowedAction["kind"], ReadonlySet<string>>> = {
   add_reflection: new Set([routes.reflection]),
   adjust_plan_preview: new Set([routes.dayAdjustment]),
-  supply_information: new Set([routes.captureImport, routes.positions, routes.today]),
+  supply_information: new Set([
+    routes.captureImport,
+    routes.positions,
+    routes.privateKnowledge,
+    routes.profileArchive,
+    routes.qualificationProfile,
+    routes.studyPreference,
+    routes.weeklyPlan,
+    routes.today,
+  ]),
   open_training: new Set([routes.today]),
-  open_position_workspace: new Set([routes.positions]),
+  open_position_workspace: new Set([routes.positions, routes.positionGoal]),
 };
 
 export function resolveCompanionAction(action: CompanionAllowedAction): CompanionActionResolution {
@@ -30,9 +39,79 @@ export function resolveCompanionAction(action: CompanionAllowedAction): Companio
   if (!target) return { kind: "unavailable" };
   const [path] = target.url.split("?", 1);
   if (!path || !allowedTargets[action.kind]?.has(path)) return { kind: "unavailable" };
+  if (action.kind === "adjust_plan_preview" && !validPlanAdjustmentTarget(target.url)) {
+    return { kind: "unavailable" };
+  }
+  if (
+    action.kind === "supply_information" &&
+    path === routes.studyPreference &&
+    !validWeeklyPreferenceTarget(target.url)
+  ) {
+    return { kind: "unavailable" };
+  }
+  if (
+    action.kind === "open_position_workspace" &&
+    path === routes.positionGoal &&
+    !validPositionGoalTarget(target.url)
+  ) {
+    return { kind: "unavailable" };
+  }
   return {
     kind: "navigate",
     target,
     requiresConfirmation: action.requiresConfirmation,
   };
+}
+
+function validPlanAdjustmentTarget(url: string): boolean {
+  const query = url.split("?", 2)[1];
+  if (query === undefined) return true;
+  const params = query.split("&").map((part) => part.split("=", 2));
+  if (params.some(([key]) => key !== "source" && key !== "availableMinutes")) return false;
+  const source = params.find(([key]) => key === "source")?.[1];
+  const minutesText = params.find(([key]) => key === "availableMinutes")?.[1];
+  if (source !== "anan" || minutesText === undefined || !/^\d{1,4}$/.test(minutesText)) {
+    return false;
+  }
+  const minutes = Number(minutesText);
+  return Number.isSafeInteger(minutes) && minutes >= 0 && minutes <= 1440;
+}
+
+function validWeeklyPreferenceTarget(url: string): boolean {
+  const query = url.split("?", 2)[1];
+  if (query === undefined) return true;
+  const params = query.split("&").map((part) => part.split("=", 2));
+  if (params.some(([key]) => key !== "source" && key !== "fixedRestDay" && key !== "mockExamDay")) {
+    return false;
+  }
+  if (params.find(([key]) => key === "source")?.[1] !== "anan") return false;
+  const weekdays = new Set([
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+    "sunday",
+  ]);
+  const restDay = params.find(([key]) => key === "fixedRestDay")?.[1];
+  const mockDay = params.find(([key]) => key === "mockExamDay")?.[1];
+  if (restDay === undefined && mockDay === undefined) return false;
+  if (
+    (restDay !== undefined && !weekdays.has(restDay)) ||
+    (mockDay !== undefined && !weekdays.has(mockDay))
+  ) {
+    return false;
+  }
+  return restDay === undefined || mockDay === undefined || restDay !== mockDay;
+}
+
+function validPositionGoalTarget(url: string): boolean {
+  const query = url.split("?", 2)[1];
+  if (!query) return false;
+  const params = query.split("&").map((part) => part.split("=", 2));
+  if (params.length !== 1 || params[0]?.[0] !== "positionId") return false;
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/iu.test(
+    params[0][1] ?? "",
+  );
 }

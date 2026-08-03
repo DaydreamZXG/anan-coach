@@ -55,6 +55,44 @@ export async function setPageData(program, page, data) {
   assert.equal(result?.applied, true, `Page data bridge did not apply ${page.path}`);
 }
 
+export async function setComponentData(program, page, selector, data) {
+  const payload = await program.evaluate(
+    function setCurrentComponentData(expectedRoute, componentSelector, nextDataJson) {
+      const pages = getCurrentPages();
+      const current = pages[pages.length - 1];
+      if (!current || current.route !== expectedRoute) {
+        return JSON.stringify({
+          __pageDataBridgeError: true,
+          actualRoute: current?.route ?? null,
+          expectedRoute,
+        });
+      }
+      const component = current.selectComponent(componentSelector);
+      if (!component) {
+        return JSON.stringify({
+          __pageDataBridgeError: true,
+          missingComponent: componentSelector,
+          expectedRoute,
+        });
+      }
+      component.setData(JSON.parse(nextDataJson));
+      return JSON.stringify({ applied: true });
+    },
+    page.path,
+    selector,
+    JSON.stringify(data),
+  );
+  const result = parseBridgePayload(payload, `write ${page.path} ${selector}`);
+  assert.equal(
+    result?.__pageDataBridgeError,
+    undefined,
+    result?.missingComponent
+      ? `${page.path} does not contain ${result.missingComponent}`
+      : `Page data bridge expected ${page.path} but found ${result?.actualRoute ?? "no page"}`,
+  );
+  assert.equal(result?.applied, true, `Page data bridge did not apply ${selector}`);
+}
+
 export async function invokePageHandler(program, page, handler, dataset = {}) {
   const payload = await program.evaluate(
     function invokeCurrentPageHandler(expectedRoute, methodName, currentTargetDatasetJson) {

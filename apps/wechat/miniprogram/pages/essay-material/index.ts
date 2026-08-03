@@ -3,10 +3,13 @@ import { routes } from "../../app/navigation/routes";
 import { navigateBackOr } from "../../app/navigation/safe-back";
 import { errorView, requireAuthenticatedClient } from "../../features/learning-brain/presentation";
 import { materialDirectory } from "../../features/essay-workbench/presentation";
+import { materialTextParagraphs } from "../../features/essay-task/material-paragraphs";
 
-type MaterialSegment = EssayTaskWorkspace["material"]["segments"][number] & {
+type MaterialParagraph = EssayTaskWorkspace["material"]["segments"][number] & {
   anchorId: string;
   paragraphNumber: number;
+  displayParagraphId: string;
+  showAnnotation: boolean;
 };
 
 Page({
@@ -16,12 +19,13 @@ Page({
     requestId: "",
     workspace: null as EssayTaskWorkspace | null,
     directory: [] as ReturnType<typeof materialDirectory>,
-    segments: [] as MaterialSegment[],
+    segments: [] as MaterialParagraph[],
     annotations: [] as Array<{ segmentId: string; summary: string; evidenceQuote: string }>,
     taskVersionId: "",
     targetAnchor: "",
     activeMaterialLabel: "材料",
     selectedSegmentId: "",
+    selectedParagraphId: "",
     selectedText: "",
     insertMode: false,
     retryAllowed: false,
@@ -62,14 +66,26 @@ Page({
               evidenceQuote: item.evidenceQuote ?? "",
             }))
           : [];
-      const segments = workspace.material.segments.map((segment, index, source) => ({
-        ...segment,
-        paragraphNumber: index + 1,
-        anchorId:
-          source.findIndex((item) => item.materialOrder === segment.materialOrder) === index
-            ? `material-${String(segment.materialOrder)}`
-            : `material-segment-${segment.segmentId}`,
-      }));
+      let paragraphNumber = 0;
+      const materialAnchors = new Set<number>();
+      const segments = workspace.material.segments.flatMap((segment) => {
+        const paragraphs = materialTextParagraphs(segment.text, segment.segmentId);
+        return paragraphs.map((paragraph, index) => {
+          paragraphNumber += 1;
+          const firstForMaterial = !materialAnchors.has(segment.materialOrder);
+          if (firstForMaterial) materialAnchors.add(segment.materialOrder);
+          return {
+            ...segment,
+            text: paragraph.text,
+            paragraphNumber,
+            displayParagraphId: paragraph.paragraphId,
+            showAnnotation: index === paragraphs.length - 1,
+            anchorId: firstForMaterial
+              ? `material-${String(segment.materialOrder)}`
+              : paragraph.paragraphId,
+          };
+        });
+      });
       const targetDirectory = directory.find(
         (item) => item.firstAnchorId === this.data.targetAnchor,
       );
@@ -116,6 +132,7 @@ Page({
     this.setData({
       activeMaterialLabel: `材料 ${String(materialOrder)} / ${String(this.data.directory.length)}`,
       selectedSegmentId: "",
+      selectedParagraphId: "",
       selectedText: "",
     });
     void wx.pageScrollTo({ selector: `#${anchor}`, duration: 240 });
@@ -123,18 +140,20 @@ Page({
 
   selectSegment(event: WechatMiniprogram.BaseEvent) {
     const segmentId = String(event.currentTarget.dataset.segmentId ?? "");
+    const displayParagraphId = String(event.currentTarget.dataset.paragraphId ?? "");
     const text = String(event.currentTarget.dataset.text ?? "").trim();
     const materialOrder = Number(event.currentTarget.dataset.materialOrder ?? 0);
-    if (!segmentId || !text) return;
+    if (!segmentId || !displayParagraphId || !text) return;
     this.setData({
       selectedSegmentId: segmentId,
+      selectedParagraphId: displayParagraphId,
       selectedText: text,
       activeMaterialLabel: `材料 ${String(materialOrder)} / ${String(this.data.directory.length)}`,
     });
   },
 
   clearSelection() {
-    this.setData({ selectedSegmentId: "", selectedText: "" });
+    this.setData({ selectedSegmentId: "", selectedParagraphId: "", selectedText: "" });
   },
 
   copySelection() {

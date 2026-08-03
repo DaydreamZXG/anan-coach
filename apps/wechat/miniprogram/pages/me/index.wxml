@@ -155,5 +155,5 @@
     </view>
   </view>
 
-  <ilink-bot-sheet visible="{{wechatChannelOpen}}" bindclose="closeWechatChannel" />
+  <ilink-bot-sheet id="wechat-channel-sheet" visible="{{wechatChannelOpen}}" bindclose="closeWechatChannel" />
 </view>

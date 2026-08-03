@@ -59,6 +59,7 @@ export interface StudyPreferenceControllerOptions {
   createCommandKey?: () => Promise<string>;
   today?: () => string;
   isSessionCurrent?: () => boolean;
+  initialDraftPatch?: Partial<Pick<StudyPreferenceDraft, "fixedRestDay" | "mockExamDay">>;
 }
 
 export class StudyPreferenceController {
@@ -71,6 +72,9 @@ export class StudyPreferenceController {
   private readonly createCommandKey: () => Promise<string>;
   private readonly today: () => string;
   private readonly currentSession: () => boolean;
+  private readonly initialDraftPatch: Partial<
+    Pick<StudyPreferenceDraft, "fixedRestDay" | "mockExamDay">
+  >;
   private disposed = false;
   private operationEpoch = 0;
   private state: StudyPreferenceControllerState;
@@ -90,6 +94,7 @@ export class StudyPreferenceController {
         ));
     this.today = options.today ?? localDate;
     this.currentSession = options.isSessionCurrent ?? (() => true);
+    this.initialDraftPatch = { ...(options.initialDraftPatch ?? {}) };
     this.state = {
       status: "idle",
       draft: { ...defaultStudyPreferenceDraft },
@@ -158,6 +163,7 @@ export class StudyPreferenceController {
 
       const pending = loadPendingStudyPreference(this.userId);
       if (pending) draft = { ...pending.draft };
+      else draft = { ...draft, ...this.initialDraftPatch };
       const summary = weeklyRhythmSummary(draft);
       this.state = {
         ...this.state,

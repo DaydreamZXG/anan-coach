@@ -5,6 +5,7 @@ import type {
 } from "../../api/essay-intelligence";
 import { routes } from "../../app/navigation/routes";
 import { essaySeverityLabel } from "../essay-task/presentation";
+import { materialTextParagraphs } from "../essay-task/material-paragraphs";
 
 export interface MaterialDirectoryItem {
   materialOrder: number;
@@ -19,10 +20,14 @@ export function materialDirectory(workspace: EssayTaskWorkspace): MaterialDirect
     const segments = workspace.material.segments.filter(
       (item) => item.materialOrder === materialOrder,
     );
+    const paragraphCount = segments.reduce((total, item) => {
+      const segmentParagraphCount = materialTextParagraphs(item.text, item.segmentId).length;
+      return total + Math.max(1, segmentParagraphCount);
+    }, 0);
     return {
       materialOrder,
       label: `材料 ${String(materialOrder)}`,
-      segmentCount: segments.length,
+      segmentCount: paragraphCount,
       firstAnchorId: `material-${String(materialOrder)}`,
     };
   });

@@ -16,6 +16,8 @@ import {
   runtimeWithPendingMockCheckpoint,
   runtimeWithPendingMockSubmit,
 } from "../miniprogram/pages/mock-exam/runtime";
+// @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
+import mockExamTemplate from "../miniprogram/pages/mock-exam/index.wxml?raw";
 
 afterEach(() => {
   vi.useRealTimers();
@@ -603,6 +605,29 @@ describe("stage 2 F02 mock exam", () => {
     swipeOnQuestion(harness.page, { fromX: 120, toX: 290, y: 400 });
     expect(harness.page.data.current).toBe(1);
     expect(harness.page.data.questionTransition).toBe("prev");
+    harness.page.onUnload.call(harness.page);
+  });
+
+  it("switches in a scrollable question body when scroll-view ends the gesture with touchcancel", async () => {
+    expect(mockExamTemplate).toContain('bindtouchcancel="onQuestionTouchEnd"');
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-07-15T02:10:00.000Z"));
+    const harness = await createMockPage(twoQuestionSessionPayload());
+    const startAt = 10_000;
+
+    harness.page.onQuestionTouchStart.call(harness.page, questionTouchEvent(300, 400, startAt));
+    harness.page.onQuestionTouchMove.call(
+      harness.page,
+      questionTouchEvent(130, 406, startAt + 160),
+    );
+    harness.page.onQuestionTouchEnd.call(harness.page, {
+      type: "touchcancel",
+      timeStamp: startAt + 170,
+      touches: [],
+      changedTouches: [{ clientX: 0, clientY: 0 }],
+    } as unknown as WechatMiniprogram.TouchEvent);
+
+    expect(harness.page.data.current).toBe(2);
     harness.page.onUnload.call(harness.page);
   });
 

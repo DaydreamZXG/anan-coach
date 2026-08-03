@@ -112,7 +112,17 @@
     left: auto;
     width: min(100%, var(--layout-readable-max));
     padding: 14px var(--layout-tablet-gutter) calc(14px + env(safe-area-inset-bottom));
+    border-top: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    pointer-events: none;
     transform: translateX(50%);
+  }
+
+  .s9-action-dock > button,
+  .s9-action-dock > .s9-action-row {
+    pointer-events: auto;
   }
 }
 

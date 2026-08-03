@@ -31,6 +31,26 @@ def _context() -> CompanionContextRecord:
         latest_essay_reflection=None,
         today_essay_plan=None,
         essay_plan_omission_reason=None,
+        today_plan_tasks=[
+            {
+                "taskId": str(uuid4()),
+                "track": "xingce",
+                "stage": "objective_practice",
+                "title": "行测针对训练：言语理解与表达",
+                "reason": "当前模块需要继续训练",
+                "estimatedMinutes": 60,
+                "status": "pending",
+            },
+            {
+                "taskId": str(uuid4()),
+                "track": "essay",
+                "stage": "essay_material_reading",
+                "title": "建立申论材料地图",
+                "reason": "先完成材料理解",
+                "estimatedMinutes": 15,
+                "status": "pending",
+            },
+        ],
         learning_brain_profile={
             "profileVersionId": str(uuid4()),
             "versionNo": 3,
@@ -91,6 +111,10 @@ def test_context_sources_separate_model_payload_from_public_summary() -> None:
     assert summaries["learning_brain"] == (
         "当前综合能力参考值约 112 分（行测约 62 分、申论约 50 分）；"
         "本次判断汇总了 2 条已记录学习证据；当前没有待复测项目。"
+    )
+    assert summaries["daily_plan"] == (
+        "今日共 2 项任务：行测「行测针对训练：言语理解与表达」，60 分钟；"
+        "申论「建立申论材料地图」，15 分钟。"
     )
     assert summaries["target_position"] == "国考：尚未确认具体主目标岗位，目标总分为 131.8 分。"
     assert all("{" not in (summary or "") for summary in summaries.values())

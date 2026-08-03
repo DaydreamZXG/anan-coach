@@ -5,6 +5,7 @@ import type {
   XingceGroupSummary,
   XingceLearnerMaterial,
   XingceLearnerQuestion,
+  XingceResultItem as XingceApiResultItem,
   XingceTaskSession,
   XingceVerificationOutcome,
 } from "../../../api/xingce-learning";
@@ -87,6 +88,9 @@ export interface XingceResultItemView {
   }>;
   resultLabel: string;
   resultTone: "success" | "warning" | "danger" | "neutral";
+  objectiveVerdict: NonNullable<XingceApiResultItem["objectiveVerdict"]>;
+  confidenceEvidence: NonNullable<XingceApiResultItem["confidenceEvidence"]>;
+  disposition: NonNullable<XingceApiResultItem["disposition"]>;
   objectiveLabel: string;
   confidenceLabel: string;
   dispositionLabel: string;
@@ -334,6 +338,18 @@ export function presentXingceResult(session: XingceTaskSession): XingceResultVie
       : null,
     reviewId: review.reviewId,
   };
+}
+
+/**
+ * 错因复盘只收真实错误/未答与低信心猜对题。
+ * “答对但没有记录信心”和“仅超过建议用时”都是事实缺口，不等于错因。
+ */
+export function xingceReflectionReviewItems(
+  items: readonly XingceResultItemView[],
+): XingceResultItemView[] {
+  return items.filter(
+    (item) => item.objectiveVerdict !== "correct" || item.confidenceEvidence === "low",
+  );
 }
 
 /** 镜像 backend xingce-cause-taxonomy@v1：只翻译已发布编码，未知编码原样展示。 */
@@ -664,6 +680,9 @@ function presentResultItem(
     factChips: resultFactChips(item, question, answer),
     resultLabel: category.label,
     resultTone: category.tone,
+    objectiveVerdict: item.objectiveVerdict,
+    confidenceEvidence: item.confidenceEvidence,
+    disposition: item.disposition,
     objectiveLabel:
       item.objectiveVerdict === "correct"
         ? "客观答对"
@@ -682,7 +701,7 @@ function presentResultItem(
     selectedAnswerText: answerText(item.selectedOptionIds, question),
     correctAnswerText: answerText(item.correctOptionIds, question),
     explanation: item.explanation ?? "这道题暂时没有解析。",
-    explanationSource: item.explanationSource ?? "解析来源未提供",
+    explanationSource: explanationSourceLabel(item.explanationSource),
     annotations: (answer?.annotations ?? []).map((stroke) => ({
       strokeId: stroke.strokeId,
       tool: stroke.tool,
@@ -712,6 +731,12 @@ function presentResultItem(
     trajectoryAvailable:
       (answer?.annotations?.length ?? 0) > 0 || (answer?.actionEvents?.length ?? 0) > 0,
   };
+}
+
+function explanationSourceLabel(source: string | null | undefined): string {
+  if (source === "own_bank" || source === "question_bank") return "题库解析";
+  if (source === "ai_rewrite") return "题库 AI 解析";
+  return source ?? "题库解析";
 }
 
 function answerText(optionIds: string[], question: XingceLearnerQuestion): string {

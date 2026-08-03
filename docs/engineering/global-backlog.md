@@ -1,0 +1,110 @@
+# 全局待办与掌控清单
+
+> **这是唯一权威的待办清单**，不是历史快照。所有改动以「新增/勾掉/移动」本清单为落点，
+> 每次收尾一个会话就回写一次。
+>
+> 权威来源（两活一档）：
+> - 本清单（当前状态 + 待办，唯一进度真相）
+> - `docs/product/2026-07-18-canonical-product-boundaries.md`（产品边界，产品负责人已确认，契约性质）
+> - `docs/engineering/_archive/`（已完结的历史文档，只供追溯，**不再作为现状依据**）
+>
+> 惯例：跨端字段改动标 `v1/v2`；旧数据缺省合法；前后端必须同源（OpenAPI 生成类型）。
+> 内容发布、PII 出口、对象归属、版本不可变有 fail-closed 守卫，遇到 403/409/429 先怀疑守卫在拦，别当 bug。
+
+## 0. 一句话状态
+
+核心学习闭环（登录 → 建档 → 今日计划 → 抽题 → 作答 → 错因）**已在 staging 真实验证通过**。
+批注锚定三层（数据契约 / 前端批注层 / AI 消费）已闭环收口。商业题库地基已完成（23.1 万题，
+拍照找原图 30/30 精确命中）。上线仍被 8 个平台侧阻塞（§3，多数属你负责的平台部分）。
+**当前待办集中在：收口 main、生产备份启用、OCR 拍照识题真实路径、平台上线材料。**
+
+## 1. ⏳ 活跃待办（唯一进度真相）
+
+> 优先级按"谁挡在接真实用户前面"排序。完成后在此勾掉并移动到 §2。
+
+| # | 事项 | 说明 / 前置 | 状态 |
+| --- | --- | --- | --- |
+| T1 | **收口 `codex/commercial-selection-repair` 分支** | 分支已 53 提交、压过 main 2 周，14 个文件仍改动中。做法：跑相关测试 → 提交 → 合回 main → 更新本清单。**不完成这条，后续每次改动都背着一整条分支的上下文** | 🔴 阻塞 |
+| T2 | **生产备份启用** | 07-27 P0.2 至今未闭合：`backup.sh` 缺 `BACKUP_ENABLED=true` 直接拒绝，timer 仍 disabled（rollback_release.sh 明文拦截）。这是"接真实用户前必做"，见 `ops/systemd/gongkao-dazi-backup.timer` | 🔴 P0 |
+| T3 | **OCR 拍照识题真实路径** | 3 个 provider（Paddle/Gemma/MinerU）已就位，但**从未在真实路径验证过「拍照 → OCR → 识别」**。主路径优先 MinerU（50 并发最稳）。前置：staging 启用一个 provider + 真实照片验证 | ⏳ P2 |
+| T4 | **回归测试补全** | 已修 20+ bug 大多无测试；至少给锚定、全对短路、配额结算、画布重试补测试 | ⏳ P1 |
+| T5 | **抽题逻辑深化验证** | 已验证能抽到题；确认知识树/难度/历史排重是否符合产品预期 | ⏳ P3 |
+| T6 | **UX-M4/M6/M7 剩余中优项** | 详见 `docs/engineering/2026-07-24-ui-ux-remediation-plan.md` | ⏳ P4 |
+| T7 | **平板旋转适配批注错位** | `onResize` 重测 `questionContentHeight` + 重新归一化笔迹，使旋转后标记不错位。独立小工程 | ⏳ 低 |
+| T8 | **平板右栏材料题组连续滚动**（粉笔式） | 已立项，方案已写，**下轮第一优先**（在 T1–T7 之后）。memory: tablet-material-group-scroll | ⏳ 已立项 |
+| T9 | **申论素材轨迹反推** | backend-first 三步路径已定，等 OCR/收口落地后再启动。memory: essay-material-trajectory-backlog | ⏳ 已立项 |
+| T10 | **前端窗口重开清单** | 题面图片渲染 → 笔锋渲染 → 平板做题大件（上表 T8） | ⏳ 排队 |
+| T11 | **图题供给地基** | `VISUAL_QUESTION_MODULES` 白名单开关默认关 + 错因诚实降级。产品决策已定（图形推理 4,023 题优先）——**grep 未见开关落地**，列为待办 | ⏳ 待办 |
+| T12 | **定位短测 `/api/v1/onboarding/placement-test*`** | 对账发现后端骨架已存在，实现可能比预想近 | ⏳ 待办 |
+| T13 | **上线阻塞逐条处置** | 见 §3 表格，其中 CR-AI-002 / CR-PAGE-001 / CR-OPS-001 是我方可修 | 🔴 阻塞 |
+
+## 2. ✅ 已收口 / 已验证（历史背景，不用再操心）
+
+> 下列已经落地，只作背景。**不要在讨论中把它当现状**；以 §1 为准。
+
+### 2.1 已验证稳定
+
+- 登录/授权/恢复：H3 死循环已修；测试账号重建。
+- 建档（onboarding）：返回链困死（M12）、无跳过改推荐词（M11）已修。
+- 今日计划/任务生成：版本门禁死锁已解。
+- 抽题逻辑：291 个合格知识点，绑定 36,957 题，全部存在。
+- 行测作答：交卷二次确认已加。
+- 错因分析：Ark `ark-code-latest` 已接通；乱码/超时/全对强问/配额悬挂已修。
+- 手写草稿：画布延迟挂载重试已修。
+- 问岸岸：403/500 链、材料引用、白名单、申论版本、降级已修。
+- 冒烟基线：真实后端 45 pass / 15 degraded / 0 fail；majors 500 已修入迁移链。
+- 审计修复：4 路审计 + UX 修复波次 20+ 项完成。
+
+### 2.2 批注锚定改造（07-31 收口）
+
+- 契约 `AnnotationAnchor{blockId, segmentIndex, segmentText}` 进后端 schema + 前端 contracts + 深拷贝。
+- 前端批注层 `anchor.ts`（句段收集/归一化/最近句段命中/位移平移，7 测试）；荧光笔 + segments prop + 滚动跟随；练习页 annotationSegments 矩形表；typecheck/lint 干净。
+- AI 消费：`load_action_trace` 汇总 `anchoredSegments` + `anchoredSummary`；契约/提示 bump（action-trace @v2、prompt @v4、definition `2026-07-31.1`）；39 测试过。
+- 内容坐标系重构（批注层从视口坐标 → 内容比例坐标）：解决负坐标 422、递归卡帧、完成态钉死三连环 bug。手机端实测滚动/保存/anchor 落库正常。平板旋转是遗留小问题（→ T7）。
+
+### 2.3 商业题库地基（08-01 收口）
+
+- **23.1 万题**（20.6 万客观 + 2.4 万判断；去重删 4.7 万真重复）；公基 6.5万 / 言语 2.5万 / 判断 2万 / 常识 1.9万 / 政治 1.9万 / 资料 1.5万 / 数量 1万。
+- 15.3 万题挂知识点标签、16.9 万题挂标准模块标签、11,796 题挂图。
+- 公基分离：6.5 万 sydw 公基独立成 gongji 模块，行测常识保持干净。
+- 拍照找原图：感知哈希四列（phash/dhash/ahash/edge_dhash）纯 PIL，staging 实测 7361 题指纹、精确匹配 30/30、近似 75%。**指纹在 staging 库，不在生产库 gongkao_dazi**。
+- 数据缺口：7667 文件缺失、pp_ 新题无 content_version（待 T3 路径验证时一并处理）。
+- 检索走数据库索引（matching 引擎），不扫全表。
+
+### 2.4 其他已收口
+
+- 做题页交互反噬修复：hover 缩放移除、长按才呼出工具条、工具条跟随滚动 + 可取消。
+- 拍照识题增强：`image_preprocess.py` 纯 PIL + Gemma adapter + MinerU adapter 三 provider 就位。
+- 发布管线解钉：release-db-compatibility 契约已到 `20260801_90`（07-27 P0.1 已闭合）。
+- worker systemd 单元补齐：cause-agent / coach-notification / commerce / data-rights / essay-review / external-learning / ilink 等 9 个单元在 `ops/systemd/`。
+- frontend_orphan 断链：后端无 `goals/workspace`、`learning-profile` 路由也无前端调用，已清干净。
+- `coding-tools-mcp` 无鉴权反代：已移除，`test_production_edge_contract.py` 断言不在 Caddyfile。
+- 视觉指纹回填：`edge_dhash` 性能 bug 修（25h→1ms），指纹已回填。
+
+## 3. 🚫 上线阻塞（NO-GO，2026-07-29 判定）
+
+> 多数属平台侧/你负责的部分。逐条处置时回写 §1 T13。
+
+| # | 阻塞 | 归属 | 当前状态 |
+| --- | --- | --- | --- |
+| CR-REL-001 | 发布对象不唯一（本地/后端/微信无同一 manifest） | 共同 | 发布管线已加固（manifest/签名/验签链，见 `ops/RUNBOOK.md`），**待复核** |
+| CR-AI-001 | OCR processor 关闭、错因 AI 对真实用户不可用 | 我 + 平台 | OCR 真实路径未验证（→ T3） |
+| CR-AI-002 | 错因失败终态泄漏配额（reservation 悬挂） | **我（要修）** | 配额 reservation 现为"同一事务运行调用 + 配额保留"（`ai/model_cost.py:409`、`governance/repository.py`），**待 staging 复测失败终态是否还会悬挂** |
+| CR-POS-001 | 岗位数据不按招录业务周期失效 | 共同 | 待办 |
+| CR-CAP-001 | 100 人并发证据不可复核 + 缺 SLO | 共同 | 待办 |
+| CR-WX-001 | 微信上架/隐私/备案/类目/AI 标识/合法域名无证据 | **你** | 待办 |
+| CR-PAGE-001 | 64 注册页中 6 页真实渲染空白 | 共同 | ✅ **已修复**：`app.json`（含 subPackages）60 页与 manifest 全量对齐，无缺失注册 |
+| CR-OPS-001 | 备份 timer/config/恢复演练缺失 | 共同 | **未闭合**（→ T2） |
+
+> 分工：CR-AI-002、CR-AI-001、CR-PAGE-001 我可修；其余需你的平台动作或商业决策。
+
+## 4. 🧭 操作备忘（活知识，单独成文）
+
+视觉套件用法、门禁四件套、生产库只读审计约定等"怎么做" → **见 `docs/engineering/operations-playbook.md`**。
+
+## 5. 🔧 技术地基（防"大脑"退化）
+
+- 错因 AI：方舟 Ark `ark-code-latest`（Auto），OpenAI 兼容端点 `https://ark.cn-beijing.volces.com/api/plan/v3`，密钥 `ark-b554...`。
+- 契约增量制度：所有跨端字段改动标注 `v1/v2`，旧数据缺省合法，前后端必须同源（OpenAPI 生成类型）。
+- fail-closed 守卫：商业数据发布权威 / PII 出口 / 对象归属 / 版本不可变（触发器等）；遇 403/409/429 先查守卫。
+- 迁移链：当前唯一 head `20260802_94`（发布契约 `20260801_90`，07-27 已解钉）。

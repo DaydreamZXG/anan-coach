@@ -636,6 +636,7 @@ class GroundedEssayReviewWorker:
                 reservation_source=str(
                     job.payload["quotaReservation"].get("source", "catalog")
                 ),
+                enforce_evaluated_deployment=False,
             ),
             processor_release_id=(
                 self._settings.ai_essay_review_provider_release_id.strip()

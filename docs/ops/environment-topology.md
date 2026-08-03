@@ -103,7 +103,7 @@ ssh -i ~/.ssh/gongkao_dazi_ed25519 root@101.96.198.253 '
 
 ## 七、相关文档
 
-- 本仓库 docs 里 P12 交接：[2026-08-01-question-bank-p12-handoff.md](../docs/engineering/2026-08-01-question-bank-p12-handoff.md)
-- 全局待办：[2026-08-01-global-backlog.md](../docs/engineering/2026-08-01-global-backlog.md)
+- 本仓库 docs 里 P12 交接：[2026-08-01-question-bank-p12-handoff.md](../engineering/2026-08-01-question-bank-p12-handoff.md)
+- 全局待办：[global-backlog.md](../engineering/global-backlog.md)
 - 机器上的运营手册：`/srv/gongkao-dazi/staging/ops/RUNBOOK.md`（生产操作，不可乱改数据）
 - 机器上的审计交接：`/srv/gongkao-dazi/staging/audit/HANDOFF-20260801-v0.md`

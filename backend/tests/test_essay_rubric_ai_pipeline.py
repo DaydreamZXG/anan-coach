@@ -24,6 +24,7 @@ from app.domains.essay_intelligence.rubric_ai_pipeline import (
     GuokaoRubricAIPipeline,
     RubricAIPipelineError,
     _acquire_task_lock,
+    _locate_material_quote,
     _release_task_lock,
     rubric_ai_task_lock_key,
 )
@@ -57,7 +58,7 @@ def test_provider_sends_only_full_product_source_and_two_strict_calls() -> None:
                 "idempotency": request.headers["x-idempotency-key"],
             }
         )
-        phase = body["response_format"]["json_schema"]["name"].rsplit("_", 1)[-1]
+        phase = "critic" if "generatorCandidate" in user_payload else "generator"
         if phase == "generator":
             output = _generator_payload(source)
         else:
@@ -77,9 +78,7 @@ def test_provider_sends_only_full_product_source_and_two_strict_calls() -> None:
 
     provider = GuokaoRubricAIProvider(
         _provider_settings(),
-        client_factory=lambda: httpx.Client(
-            transport=httpx.MockTransport(handler)
-        ),
+        client_factory=lambda: httpx.Client(transport=httpx.MockTransport(handler)),
     )
     generated = provider.generate(
         document=document,
@@ -103,16 +102,103 @@ def test_provider_sends_only_full_product_source_and_two_strict_calls() -> None:
         assert "answer" not in serialized.casefold()
         assert "考生" not in serialized
         assert all(segment.text in serialized for segment in source.segments)
-        assert captured["body"]["response_format"]["json_schema"]["strict"] is True
-        assert captured["body"]["response_format"]["json_schema"]["schema"] == (
-            captured["user"]["requiredOutputSchema"]
-        )
+        assert captured["body"]["response_format"] == {"type": "json_object"}
+        assert captured["body"]["thinking"] == {"type": "disabled"}
+        assert captured["body"]["max_tokens"] == 32_768
+        assert captured["user"]["requiredOutputSchema"]["type"] == "object"
     assert "generatorCandidate" not in seen[0]["user"]
     assert "generatorCandidate" in seen[1]["user"]
-    assert generated.provider_request_id_sha256 == _hash(
-        "raw-provider-request-id"
-    )
+    assert generated.provider_request_id_sha256 == _hash("raw-provider-request-id")
     assert not hasattr(generated, "provider_request_id")
+
+
+def test_provider_prefers_dedicated_essay_tokenrhythm_route() -> None:
+    source = _memory_source()
+    seen: dict[str, str] = {}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        seen["url"] = str(request.url)
+        seen["authorization"] = request.headers["authorization"]
+        return httpx.Response(
+            200,
+            json={
+                "choices": [{"message": {"content": json.dumps(_generator_payload(source))}}],
+                "usage": {"prompt_tokens": 100, "completion_tokens": 20},
+            },
+            headers={"x-request-id": "tokenrhythm-request"},
+        )
+
+    settings = replace(
+        _provider_settings(),
+        ai_provider_base_url="https://legacy.example/v1",
+        ai_api_key="legacy-key",
+        ai_essay_tokenrhythm_base_url="https://tokenrhythm.example/v1",
+        ai_essay_tokenrhythm_api_key="essay-key",
+    )
+    provider = GuokaoRubricAIProvider(
+        settings,
+        client_factory=lambda: httpx.Client(transport=httpx.MockTransport(handler)),
+    )
+
+    provider.generate(
+        document=build_rubric_ai_provider_document(source),
+        idempotency_key="stable-tokenrhythm-key",
+    )
+
+    assert seen == {
+        "url": "https://tokenrhythm.example/v1/chat/completions",
+        "authorization": "Bearer essay-key",
+    }
+
+
+def test_provider_rebinds_server_owned_identity_fields() -> None:
+    source = _memory_source()
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        raw = _generator_payload(source)
+        raw.update(
+            {
+                "schemaVersion": "outdated-model-version",
+                "taskVersionId": str(uuid4()),
+                "materialBundleVersionId": str(uuid4()),
+                "promptSha256": "0" * 64,
+                "materialContentSha256": "1" * 64,
+                "totalMaximum": 99,
+            }
+        )
+        return httpx.Response(
+            200,
+            json={
+                "choices": [{"message": {"content": json.dumps(raw)}}],
+                "usage": {"prompt_tokens": 100, "completion_tokens": 20},
+            },
+            headers={"x-request-id": "server-binding-request"},
+        )
+
+    provider = GuokaoRubricAIProvider(
+        _provider_settings(),
+        client_factory=lambda: httpx.Client(transport=httpx.MockTransport(handler)),
+    )
+    result = provider.generate(
+        document=build_rubric_ai_provider_document(source),
+        idempotency_key="stable-server-binding-key",
+    )
+
+    assert result.payload.task_version_id == source.task_version_id
+    assert result.payload.material_bundle_version_id == source.material_bundle_version_id
+    assert result.payload.prompt_sha256 == source.prompt_sha256
+    assert result.payload.material_content_sha256 == source.material_content_sha256
+    assert result.payload.total_maximum == source.maximum_score
+
+
+def test_quote_locator_returns_verbatim_source_span() -> None:
+    source = "基层事项，多头填报；数据平台彼此隔离。"
+    located = _locate_material_quote(source, "基层事项 多头填报")
+
+    assert located is not None
+    start, end = located
+    assert source[start:end] == "基层事项，多头填报"
+    assert _locate_material_quote(source, "基层事项已经解决") is None
 
 
 def test_production_provider_requires_a_separate_versioned_rubric_release() -> None:
@@ -144,22 +230,12 @@ def test_provider_marks_successful_response_without_usage_as_retryable() -> None
     def handler(request: httpx.Request) -> httpx.Response:
         return httpx.Response(
             200,
-            json={
-                "choices": [
-                    {
-                        "message": {
-                            "content": json.dumps(_generator_payload(source))
-                        }
-                    }
-                ]
-            },
+            json={"choices": [{"message": {"content": json.dumps(_generator_payload(source))}}]},
         )
 
     provider = GuokaoRubricAIProvider(
         _provider_settings(),
-        client_factory=lambda: httpx.Client(
-            transport=httpx.MockTransport(handler)
-        ),
+        client_factory=lambda: httpx.Client(transport=httpx.MockTransport(handler)),
     )
     with pytest.raises(RubricAIProviderError) as error:
         provider.generate(
@@ -196,9 +272,7 @@ def test_billed_invalid_structured_response_records_cost_without_publish(
     settings = _provider_settings()
     provider = GuokaoRubricAIProvider(
         settings,
-        client_factory=lambda: httpx.Client(
-            transport=httpx.MockTransport(handler)
-        ),
+        client_factory=lambda: httpx.Client(transport=httpx.MockTransport(handler)),
     )
     pipeline = GuokaoRubricAIPipeline(
         settings=settings,
@@ -213,22 +287,27 @@ def test_billed_invalid_structured_response_records_cost_without_publish(
     assert request_count == 1
 
     with db_session_factory() as session:
-        call = session.execute(
-            text(
-                "select status, input_tokens, cached_input_tokens, "
-                "output_tokens, total_cost_cny, output_fingerprint "
-                "from ai_audit.model_call_ledger"
+        call = (
+            session.execute(
+                text(
+                    "select status, input_tokens, cached_input_tokens, "
+                    "output_tokens, total_cost_cny, output_fingerprint "
+                    "from ai_audit.model_call_ledger"
+                )
             )
-        ).mappings().one()
+            .mappings()
+            .one()
+        )
         assert call["status"] == "succeeded"
         assert call["input_tokens"] == 100
         assert call["cached_input_tokens"] == 10
         assert call["output_tokens"] == 20
         assert call["total_cost_cny"] > 0
         assert len(call["output_fingerprint"]) == 64
-        assert session.execute(
-            text("select count(*) from product.essay_rubric_versions")
-        ).scalar_one() == 0
+        assert (
+            session.execute(text("select count(*) from product.essay_rubric_versions")).scalar_one()
+            == 0
+        )
 
 
 @pytest.mark.parametrize(
@@ -256,15 +335,19 @@ def test_retryable_generator_failure_replays_with_original_price_snapshot(
     assert error.value.code == error_code
 
     with db_session_factory() as session:
-        running = session.execute(
-            text(
-                "select operation, status, price_version, "
-                "input_rate_cny_per_million, "
-                "cached_input_rate_cny_per_million, "
-                "output_rate_cny_per_million "
-                "from ai_audit.model_call_ledger"
+        running = (
+            session.execute(
+                text(
+                    "select operation, status, price_version, "
+                    "input_rate_cny_per_million, "
+                    "cached_input_rate_cny_per_million, "
+                    "output_rate_cny_per_million "
+                    "from ai_audit.model_call_ledger"
+                )
             )
-        ).mappings().one()
+            .mappings()
+            .one()
+        )
         assert running == {
             "operation": "rubric_generator",
             "status": "running",
@@ -285,33 +368,26 @@ def test_retryable_generator_failure_replays_with_original_price_snapshot(
         result = second_pipeline.run_source(session, source=source, dry_run=True)
 
     assert result.generator_replayed is False
-    assert result.critic_replayed is False
-    assert provider.phases == ["generator", "generator", "critic"]
+    assert result.critic_replayed is None
+    assert provider.phases == ["generator", "generator"]
     assert provider.idempotency_keys[0] == provider.idempotency_keys[1]
     with db_session_factory() as session:
-        calls = session.execute(
-            text(
-                "select operation, status, price_version, total_cost_cny "
-                "from ai_audit.model_call_ledger order by operation"
+        calls = (
+            session.execute(
+                text(
+                    "select operation, status, price_version, total_cost_cny "
+                    "from ai_audit.model_call_ledger order by operation"
+                )
             )
-        ).mappings().all()
-        assert [item["operation"] for item in calls] == [
-            "rubric_critic",
-            "rubric_generator",
-        ]
-        assert [item["status"] for item in calls] == ["succeeded", "succeeded"]
-        by_operation = {item["operation"]: item for item in calls}
-        assert by_operation["rubric_generator"]["price_version"] == (
-            original_price.version
+            .mappings()
+            .all()
         )
+        assert [item["operation"] for item in calls] == ["rubric_generator"]
+        assert [item["status"] for item in calls] == ["succeeded"]
+        by_operation = {item["operation"]: item for item in calls}
+        assert by_operation["rubric_generator"]["price_version"] == (original_price.version)
         assert by_operation["rubric_generator"]["total_cost_cny"] == (
             original_price.cost(provider.usage).total_cost_cny
-        )
-        assert by_operation["rubric_critic"]["price_version"] == (
-            replacement_price.version
-        )
-        assert by_operation["rubric_critic"]["total_cost_cny"] == (
-            replacement_price.cost(provider.usage).total_cost_cny
         )
 
 
@@ -329,40 +405,44 @@ def test_pipeline_dry_run_replay_cost_audit_and_append_only_publish(
             session,
             task_version_ids=(source.task_version_id,),
         ) == (source,)
-        assert pipeline.discover_pending_sources(
-            session,
-            task_version_ids=(uuid4(),),
-        ) == ()
+        assert (
+            pipeline.discover_pending_sources(
+                session,
+                task_version_ids=(uuid4(),),
+            )
+            == ()
+        )
         dry_run = pipeline.run_source(session, source=source, dry_run=True)
     assert dry_run.publish_result.versions[0].action == "would_insert"
-    assert provider.phases == ["generator", "critic"]
+    assert provider.phases == ["generator"]
 
     with db_session_factory() as session:
-        assert session.execute(
-            text("select count(*) from product.essay_rubric_versions")
-        ).scalar_one() == 0
-        calls = session.execute(
-            text(
-                "select call_id, operation, status, output_fingerprint, "
-                "total_cost_cny, completed_at "
-                "from ai_audit.model_call_ledger order by operation"
+        assert (
+            session.execute(text("select count(*) from product.essay_rubric_versions")).scalar_one()
+            == 0
+        )
+        calls = (
+            session.execute(
+                text(
+                    "select call_id, operation, status, output_fingerprint, "
+                    "total_cost_cny, completed_at "
+                    "from ai_audit.model_call_ledger order by operation"
+                )
             )
-        ).mappings().all()
+            .mappings()
+            .all()
+        )
         ledger_snapshot = [dict(item) for item in calls]
-        assert [item["operation"] for item in calls] == [
-            "rubric_critic",
-            "rubric_generator",
-        ]
+        assert [item["operation"] for item in calls] == ["rubric_generator"]
         assert all(item["status"] == "succeeded" for item in calls)
         assert all(item["total_cost_cny"] > 0 for item in calls)
 
     with db_session_factory() as session:
         published = pipeline.run_source(session, source=source, dry_run=False)
     assert published.generator_replayed is True
-    assert published.critic_replayed is True
-    assert provider.phases == ["generator", "critic", "generator", "critic"]
-    assert provider.idempotency_keys[0] == provider.idempotency_keys[2]
-    assert provider.idempotency_keys[1] == provider.idempotency_keys[3]
+    assert published.critic_replayed is None
+    assert provider.phases == ["generator", "generator"]
+    assert provider.idempotency_keys[0] == provider.idempotency_keys[1]
 
     with db_session_factory() as session:
         unchanged = pipeline.run_source(session, source=source, dry_run=False)
@@ -370,77 +450,69 @@ def test_pipeline_dry_run_replay_cost_audit_and_append_only_publish(
     assert unchanged.publish_result.unchanged_count == 1
     assert unchanged.publish_result.versions[0].action == "unchanged"
     assert unchanged.generator_replayed is True
-    assert unchanged.critic_replayed is True
-    assert provider.phases == [
-        "generator",
-        "critic",
-        "generator",
-        "critic",
-        "generator",
-        "critic",
-    ]
-    assert provider.idempotency_keys[0] == provider.idempotency_keys[4]
-    assert provider.idempotency_keys[1] == provider.idempotency_keys[5]
+    assert unchanged.critic_replayed is None
+    assert provider.phases == ["generator", "generator", "generator"]
+    assert provider.idempotency_keys[0] == provider.idempotency_keys[2]
 
     with db_session_factory() as session:
-        rubric = session.execute(
-            text(
-                "select source_kind, verification_status, compilation_audit "
-                "from product.essay_rubric_versions"
+        rubric = (
+            session.execute(
+                text(
+                    "select source_kind, verification_status, compilation_audit "
+                    "from product.essay_rubric_versions"
+                )
             )
-        ).mappings().one()
+            .mappings()
+            .one()
+        )
         assert rubric["source_kind"] == "system_compiled"
         assert rubric["verification_status"] == "unverified"
-        audit = rubric["compilation_audit"]["pipelineAudit"]
-        assert audit["criticApproved"] is True
-        assert audit["generator"]["providerRequestIdSha256"] == _hash(
-            "generator-request-id"
+        assert rubric["compilation_audit"].get("pipelineAudit") is None
+        assert (
+            session.execute(text("select count(*) from ai_audit.model_call_ledger")).scalar_one()
+            == 1
         )
-        assert audit["critic"]["providerRequestIdSha256"] == _hash(
-            "critic-request-id"
-        )
-        serialized_audit = json.dumps(audit)
-        assert "generator-request-id" not in serialized_audit
-        assert "critic-request-id" not in serialized_audit
-        assert session.execute(
-            text("select count(*) from ai_audit.model_call_ledger")
-        ).scalar_one() == 2
-        replayed_ledger = session.execute(
-            text(
-                "select call_id, operation, status, output_fingerprint, "
-                "total_cost_cny, completed_at "
-                "from ai_audit.model_call_ledger order by operation"
+        replayed_ledger = (
+            session.execute(
+                text(
+                    "select call_id, operation, status, output_fingerprint, "
+                    "total_cost_cny, completed_at "
+                    "from ai_audit.model_call_ledger order by operation"
+                )
             )
-        ).mappings().all()
+            .mappings()
+            .all()
+        )
         assert [dict(item) for item in replayed_ledger] == ledger_snapshot
         assert pipeline.discover_pending_sources(session) == ()
 
 
-def test_critic_rejection_is_audited_and_never_published(
+def test_pipeline_does_not_require_a_second_critic_call(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     source = _seed_source(db_session_factory, suffix="rejected")
     provider = FakeRubricProvider(source=source, critic_approved=False)
 
     with db_session_factory() as session:
-        with pytest.raises(RubricAIPipelineError, match="Critic rejected") as error:
-            _pipeline(provider).run_source(session, source=source, dry_run=False)
-    assert error.value.code == "rubric_critic_rejected"
-    assert provider.phases == ["generator", "critic"]
+        result = _pipeline(provider).run_source(session, source=source, dry_run=False)
+    assert result.publish_result.inserted_count == 1
+    assert result.critic_call_id is None
+    assert provider.phases == ["generator"]
     with db_session_factory() as session:
-        assert session.execute(
-            text("select count(*) from product.essay_rubric_versions")
-        ).scalar_one() == 0
-        assert session.execute(
-            text(
-                "select count(*) from ai_audit.model_call_ledger "
-                "where status = 'succeeded'"
-            )
-        ).scalar_one() == 2
+        assert (
+            session.execute(text("select count(*) from product.essay_rubric_versions")).scalar_one()
+            == 1
+        )
+        assert (
+            session.execute(
+                text("select count(*) from ai_audit.model_call_ledger where status = 'succeeded'")
+            ).scalar_one()
+            == 1
+        )
 
 
 @pytest.mark.parametrize("invalid", ["quote", "score"])
-def test_deterministic_compiler_blocks_invalid_approved_critic_output(
+def test_deterministic_compiler_blocks_invalid_generator_output(
     db_session_factory: sessionmaker[Session],
     invalid: str,
 ) -> None:
@@ -450,14 +522,16 @@ def test_deterministic_compiler_blocks_invalid_approved_critic_output(
     with db_session_factory() as session:
         with pytest.raises(EssayRubricCompilationError):
             _pipeline(provider).run_source(session, source=source, dry_run=False)
-    assert provider.phases == ["generator", "critic"]
+    assert provider.phases == ["generator"]
     with db_session_factory() as session:
-        assert session.execute(
-            text("select count(*) from product.essay_rubric_versions")
-        ).scalar_one() == 0
-        assert session.execute(
-            text("select count(*) from ai_audit.model_call_ledger")
-        ).scalar_one() == 2
+        assert (
+            session.execute(text("select count(*) from product.essay_rubric_versions")).scalar_one()
+            == 0
+        )
+        assert (
+            session.execute(text("select count(*) from ai_audit.model_call_ledger")).scalar_one()
+            == 1
+        )
 
 
 def test_stable_provider_key_returning_changed_output_hard_fails(
@@ -474,14 +548,16 @@ def test_stable_provider_key_returning_changed_output_hard_fails(
         with pytest.raises(RubricAIPipelineError) as error:
             pipeline.run_source(session, source=source, dry_run=False)
     assert error.value.code == "rubric_provider_replay_mismatch"
-    assert provider.phases == ["generator", "critic", "generator"]
+    assert provider.phases == ["generator", "generator"]
     with db_session_factory() as session:
-        assert session.execute(
-            text("select count(*) from product.essay_rubric_versions")
-        ).scalar_one() == 0
-        assert session.execute(
-            text("select count(*) from ai_audit.model_call_ledger")
-        ).scalar_one() == 2
+        assert (
+            session.execute(text("select count(*) from product.essay_rubric_versions")).scalar_one()
+            == 0
+        )
+        assert (
+            session.execute(text("select count(*) from ai_audit.model_call_ledger")).scalar_one()
+            == 1
+        )
 
 
 def test_task_lock_is_exclusive_and_independent_of_provider_release(
@@ -497,10 +573,7 @@ def test_task_lock_is_exclusive_and_independent_of_provider_release(
             _acquire_task_lock(first, lock_key=lock_key)
             second_acquired = bool(
                 second.execute(
-                    text(
-                        "select pg_try_advisory_lock("
-                        "hashtextextended(:lock_key, 0))"
-                    ),
+                    text("select pg_try_advisory_lock(hashtextextended(:lock_key, 0))"),
                     {"lock_key": lock_key},
                 ).scalar_one()
             )
@@ -508,15 +581,15 @@ def test_task_lock_is_exclusive_and_independent_of_provider_release(
             second.rollback()
 
             _release_task_lock(first, lock_key=lock_key)
-            assert bool(
-                second.execute(
-                    text(
-                        "select pg_try_advisory_lock("
-                        "hashtextextended(:lock_key, 0))"
-                    ),
-                    {"lock_key": lock_key},
-                ).scalar_one()
-            ) is True
+            assert (
+                bool(
+                    second.execute(
+                        text("select pg_try_advisory_lock(hashtextextended(:lock_key, 0))"),
+                        {"lock_key": lock_key},
+                    ).scalar_one()
+                )
+                is True
+            )
             _release_task_lock(second, lock_key=lock_key)
 
 
@@ -557,9 +630,12 @@ class FakeRubricProvider:
                 "Retryable generator failure",
                 retryable=True,
             )
-        payload = RubricAIGeneratorOutput.model_validate_json(
-            json.dumps(_generator_payload(self.source))
-        )
+        raw = _generator_payload(self.source)
+        if self.invalid_final == "quote":
+            raw["points"][0]["materialEvidenceRefs"][0]["quote"] = "虚假"
+        elif self.invalid_final == "score":
+            raw["criteria"][0]["maximum"] = self.source.maximum_score - 1
+        payload = RubricAIGeneratorOutput.model_validate_json(json.dumps(raw))
         variation = "changed" if self.change_generator_replay else "stable"
         return _result(
             payload,
@@ -583,14 +659,7 @@ class FakeRubricProvider:
         )
         if self.invalid_final == "quote":
             evidence = raw["points"][0]["materialEvidenceRefs"][0]
-            evidence.update(
-                {
-                    "startOffset": 0,
-                    "endOffset": 2,
-                    "quote": "虚假",
-                    "quoteSha256": _hash("虚假"),
-                }
-            )
+            evidence["quote"] = "虚假"
         elif self.invalid_final == "score":
             raw["criteria"][0]["maximum"] = self.source.maximum_score - 1
         payload = RubricAICriticOutput.model_validate_json(json.dumps(raw))
@@ -639,9 +708,8 @@ def _result(payload, *, fingerprint_seed: str, request_id: str):
 def _generator_payload(source: RubricCompilationSource) -> dict[str, Any]:
     segment = source.segments[0]
     quote = "多头填报"
-    start = segment.text.index(quote)
     return {
-        "schemaVersion": "guokao-essay-rubric-generator-schema-v1",
+        "schemaVersion": "guokao-essay-rubric-generator-schema-v3",
         "taskVersionId": str(source.task_version_id),
         "materialBundleVersionId": str(source.material_bundle_version_id),
         "promptSha256": source.prompt_sha256,
@@ -663,18 +731,11 @@ def _generator_payload(source: RubricCompilationSource) -> dict[str, Any]:
                 "category": "problem",
                 "label": "多头填报",
                 "maximumCredit": source.maximum_score,
-                "materialSegmentIds": [segment.segment_id],
                 "materialEvidenceRefs": [
                     {
-                        "materialBundleVersionId": str(
-                            source.material_bundle_version_id
-                        ),
                         "materialId": segment.material_id,
                         "segmentId": segment.segment_id,
-                        "startOffset": start,
-                        "endOffset": start + len(quote),
                         "quote": quote,
-                        "quoteSha256": _hash(quote),
                     }
                 ],
             }
@@ -689,7 +750,7 @@ def _critic_payload(
     approved: bool = True,
 ) -> dict[str, Any]:
     return {
-        "schemaVersion": "guokao-essay-rubric-critic-schema-v1",
+        "schemaVersion": "guokao-essay-rubric-critic-schema-v3",
         "approved": approved,
         "rejectionCodes": [] if approved else ["evidence_not_sufficient"],
         "revisionSummary": "逐项复核并输出完整终稿。",
@@ -716,9 +777,7 @@ def _memory_source() -> RubricCompilationSource:
         prompt=prompt,
         prompt_sha256=_hash(prompt),
         maximum_score=20.0,
-        material_bundle_version_id=UUID(
-            "00000000-0000-0000-0000-000000000302"
-        ),
+        material_bundle_version_id=UUID("00000000-0000-0000-0000-000000000302"),
         material_content_sha256=_hash(first + second),
         segments=(
             RubricSourceSegment("material-1", "segment-1", first, _hash(first)),

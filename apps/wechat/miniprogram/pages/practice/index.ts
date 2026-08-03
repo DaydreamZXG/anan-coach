@@ -81,6 +81,7 @@ import {
 import {
   resolveSwipeNav,
   swipeSampleFromTouchEnd,
+  swipeSampleFromTouchMove,
   swipeSampleFromTouchStart,
 } from "../../task-runtime/swipe-nav";
 import { taskToolPolicy, type TaskToolPolicy } from "../../task-runtime/tool-policy/index";
@@ -1433,23 +1434,37 @@ Page<PracticePageData, PracticePageCustom>({
   onQuestionTouchStart(event) {
     const runtime = runtimes.get(this);
     if (!runtime) return;
-    runtime.swipeStart = swipeSampleFromTouchStart(event);
+    const sample = swipeSampleFromTouchStart(event);
+    runtime.swipeStart = sample;
+    runtime.swipeLatest = sample;
   },
 
   onQuestionTouchMove(event) {
     const runtime = runtimes.get(this);
     if (!runtime?.swipeStart) return;
     // 第二根手指落下（表格缩放/双指滚动）即放弃本次切题手势。
-    if (event.touches.length > 1) runtime.swipeStart = null;
+    if (event.touches.length > 1) {
+      runtime.swipeStart = null;
+      runtime.swipeLatest = null;
+      return;
+    }
+    runtime.swipeLatest = swipeSampleFromTouchMove(event) ?? runtime.swipeLatest;
   },
 
   onQuestionTouchEnd(event) {
     const runtime = runtimes.get(this);
     if (!runtime) return;
     const start = runtime.swipeStart;
+    // 微信原生 scroll-view 的 touchcancel 可能把 changedTouches 补成 (0,0)，
+    // 该坐标不是手指终点；取消事件只能使用最后一个真实 touchmove 采样。
+    const end =
+      event.type === "touchcancel"
+        ? runtime.swipeLatest
+        : (swipeSampleFromTouchEnd(event) ?? runtime.swipeLatest);
     runtime.swipeStart = null;
+    runtime.swipeLatest = null;
     if (!start || swipeNavigationBlocked(this)) return;
-    const direction = resolveSwipeNav(start, swipeSampleFromTouchEnd(event));
+    const direction = resolveSwipeNav(start, end);
     const view = this.data.view;
     if (!direction || !view) return;
     if (direction === "prev") {
@@ -1654,7 +1669,6 @@ function render(
           preferences: page.data.displayPreferences,
         }
       : createMaterialReaderState(materialPosition, page.data.displayPreferences);
-  const missing = unansweredQuestionIds(runtime.task);
   const answerSheetItems = runtime.task.questionOrder.map((questionId, index) => {
     const attempt = runtime.task?.attempts[questionId];
     return {

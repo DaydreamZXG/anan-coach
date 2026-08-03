@@ -93,7 +93,16 @@ class AccountScopedCompanionResponder:
         ) as exc:
             session.rollback()
             raise ChannelCompanionUnavailable(str(exc)) from exc
-        return result.answer.strip() or "这次没有形成可展示的回答，请稍后再问一次。"
+        answer = result.answer.strip() or "这次没有形成可展示的回答，请稍后再问一次。"
+        actions = getattr(result, "allowed_actions", ())
+        labels = [
+            str(action.label).strip()
+            for action in actions
+            if str(getattr(action, "label", "")).strip()
+        ]
+        if labels:
+            answer += "\n\n下一步：" + "；".join(labels[:3]) + "。可在小程序岸岸页继续。"
+        return answer
 
 
 def _message_command_id(source_message_id: str) -> str:

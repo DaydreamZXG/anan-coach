@@ -104,7 +104,7 @@
     <view class="section-heading material-heading">
       <view>
         <view class="section-title">给定材料</view>
-        <view class="section-meta material-source">{{view.materialSourceLabel}} · {{view.segments.length}} 段</view>
+        <view class="section-meta material-source">{{view.materialSourceLabel}} · {{view.materialParagraphCount}} 段</view>
       </view>
     </view>
     <scroll-view class="material-directory" scroll-x enhanced show-scrollbar="{{false}}">
@@ -132,7 +132,14 @@
         <view class="segment-index type-data">{{index + 1}}</view>
         <view class="segment-body">
           <view class="segment-label">{{item.directoryLabel}} · {{item.paragraphLabel}}</view>
-          <view class="segment-text">{{item.text}}</view>
+          <view
+            wx:for="{{item.paragraphs}}"
+            wx:for-item="paragraph"
+            wx:key="paragraphId"
+            class="segment-paragraph"
+          >
+            <text class="segment-text" user-select>{{paragraph.text}}</text>
+          </view>
         </view>
       </view>
     </view>

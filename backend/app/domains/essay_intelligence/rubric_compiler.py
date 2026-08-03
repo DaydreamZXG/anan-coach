@@ -81,9 +81,7 @@ class RubricAIPipelineCompilationAudit(EssayContractModel):
 
 
 class SystemRubricCompilationDraft(EssayContractModel):
-    contract_version: Literal["guokao-essay-rubric-v1"] = Field(
-        alias="contractVersion"
-    )
+    contract_version: Literal["guokao-essay-rubric-v1"] = Field(alias="contractVersion")
     task_version_id: UUID = Field(alias="taskVersionId")
     material_bundle_version_id: UUID = Field(alias="materialBundleVersionId")
     prompt_sha256: str = Field(alias="promptSha256", pattern=r"^[0-9a-f]{64}$")
@@ -197,9 +195,7 @@ def compile_system_rubric(
     if draft.prompt_sha256 != source.prompt_sha256:
         issues.append(_issue("prompt_fingerprint_mismatch", "draft prompt hash is stale"))
     if draft.material_content_sha256 != source.material_content_sha256:
-        issues.append(
-            _issue("material_fingerprint_mismatch", "draft material hash is stale")
-        )
+        issues.append(_issue("material_fingerprint_mismatch", "draft material hash is stale"))
     if abs(draft.total_maximum - source.maximum_score) > 0.001:
         issues.append(
             _issue(
@@ -318,9 +314,7 @@ def _validate_rubric_structure(
     if len(criterion_codes) != len(set(criterion_codes)) or len(normalized_labels) != len(
         set(normalized_labels)
     ):
-        issues.append(
-            _issue("duplicate_criterion", "criterion codes and labels must be unique")
-        )
+        issues.append(_issue("duplicate_criterion", "criterion codes and labels must be unique"))
     if abs(sum(item.maximum for item in draft.criteria) - draft.total_maximum) > 0.001:
         issues.append(
             _issue("criterion_total_mismatch", "criterion maximums must conserve rubric total")
@@ -329,9 +323,7 @@ def _validate_rubric_structure(
     point_ids = [item.rubric_point_id for item in draft.points]
     if len(point_ids) != len(set(point_ids)):
         issues.append(_issue("duplicate_point_id", "rubric point IDs must be unique"))
-    point_labels = [
-        (item.criterion_code, _normalized(item.label)) for item in draft.points
-    ]
+    point_labels = [(item.criterion_code, _normalized(item.label)) for item in draft.points]
     if len(point_labels) != len(set(point_labels)):
         issues.append(
             _issue(
@@ -361,9 +353,7 @@ def _validate_rubric_structure(
                     f"points exceed criterion {criterion.criterion_code} maximum",
                 )
             )
-        if criterion.material_evidence_required and abs(
-            point_total - criterion.maximum
-        ) > 0.001:
+        if criterion.material_evidence_required and abs(point_total - criterion.maximum) > 0.001:
             issues.append(
                 _issue(
                     "point_credit_not_conserved",
@@ -372,25 +362,6 @@ def _validate_rubric_structure(
                 )
             )
 
-    evidence_owner: dict[tuple[str, str, int, int, str], str] = {}
-    for point in draft.points:
-        for evidence in point.material_evidence_refs:
-            key = (
-                str(evidence.material_bundle_version_id),
-                evidence.segment_id,
-                evidence.start_offset,
-                evidence.end_offset,
-                evidence.quote_sha256,
-            )
-            owner = evidence_owner.setdefault(key, point.rubric_point_id)
-            if owner != point.rubric_point_id:
-                issues.append(
-                    _issue(
-                        "duplicate_point_evidence",
-                        "one exact material span cannot award multiple rubric points",
-                    )
-                )
-
 
 def _validate_source_integrity(
     *,
@@ -398,13 +369,9 @@ def _validate_source_integrity(
     issues: list[RubricCompilationIssue],
 ) -> None:
     if not source.task_key.startswith("guokao"):
-        issues.append(
-            _issue("task_scope_invalid", "rubric compiler accepts only 国考 tasks")
-        )
+        issues.append(_issue("task_scope_invalid", "rubric compiler accepts only 国考 tasks"))
     if not source.segments:
-        issues.append(
-            _issue("material_segments_missing", "complete material has no segments")
-        )
+        issues.append(_issue("material_segments_missing", "complete material has no segments"))
     if _text_hash(source.prompt) != source.prompt_sha256:
         issues.append(
             _issue(

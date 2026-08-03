@@ -11,6 +11,8 @@ import {
 import captureTemplate from "../miniprogram/pages/capture-import/index.wxml?raw";
 // @ts-expect-error Vite exposes mini-program templates through its raw asset loader.
 import botSheetTemplate from "../miniprogram/components/ilink-bot-sheet/index.wxml?raw";
+// @ts-expect-error Vite exposes mini-program logic through its raw asset loader.
+import botSheetLogic from "../miniprogram/components/ilink-bot-sheet/index.ts?raw";
 
 describe("official iLink photo channel", () => {
   it("keeps the wrapper contract identical to the generated account link type", () => {
@@ -73,29 +75,36 @@ describe("official iLink photo channel", () => {
     expect(requests[6]?.header?.["Idempotency-Key"]).toBe("hub-revoke-command-1");
   });
 
-  it("renders every account-link state and keeps the evidence boundary", () => {
+  it("renders every QR authorization state and retires the copied-code entry", () => {
     for (const token of [
       "status === 'loading'",
       "status === 'error'",
       "微信里的岸岸",
-      "view.linkState === 'unbound'",
-      "view.linkState === 'revoked'",
-      "view.linkState === 'pending'",
-      "view.linkState === 'bound'",
-      "view.bindingCode",
-      "连接码已过期",
-      "重新生成连接码",
+      "view.state === 'unbound'",
+      "view.state === 'revoked'",
+      "view.state === 'waiting_scan'",
+      "view.state === 'scanned'",
+      "view.state === 'connected'",
+      "view.state === 'reauth_required'",
+      "view.qrImageDataUrl",
+      "微信岸岸连接二维码",
+      "重新生成二维码",
       "view.usageCopy",
-      "view.evidenceCopy",
       'bindtap="issue"',
       'bindtap="replace"',
-      'bindtap="copyCode"',
+      'bindtap="poll"',
       "revoke",
     ]) {
       expect(botSheetTemplate).toContain(token);
     }
     expect(botSheetTemplate).toContain("直接问岸岸");
-    expect(botSheetTemplate).not.toContain("专属岸岸 Bot");
+    expect(botSheetTemplate).not.toContain("连接码");
+    expect(botSheetTemplate).not.toContain("复制连接码");
+    expect(botSheetLogic).toContain(".getHubBot()");
+    expect(botSheetLogic).toContain(".startHubBot(replacePending, key)");
+    expect(botSheetLogic).toContain(".pollHubBot(authorizationId)");
+    expect(botSheetLogic).toContain(".revokeHubBot(key)");
+    expect(botSheetLogic).toContain("stopPolling(this)");
     expect(captureTemplate).toContain("<ilink-bot-sheet");
     expect(captureTemplate).toContain("不进入公共题库");
     expect(captureTemplate).toContain("不用于训练基础模型");

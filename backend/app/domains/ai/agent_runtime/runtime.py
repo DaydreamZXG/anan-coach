@@ -2,11 +2,10 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, Protocol
 from uuid import uuid4
 
 from app.domains.ai.agent_runtime.contracts import (
-    AgentDefinition,
     AgentRuntimeViolation,
     ToolExecutionResult,
     fingerprint,
@@ -17,9 +16,28 @@ ToolHandler = Callable[[dict[str, Any]], dict[str, Any]]
 ToolEventSink = Callable[[dict[str, Any]], None]
 
 
+class RuntimeToolDefinition(Protocol):
+    name: str
+    schema_version: str
+    behavior_version: str
+    permission_policy_version: str
+    read_only: bool
+
+
+class RuntimeBudget(Protocol):
+    max_tool_calls: int
+    max_consecutive_no_progress: int
+
+
+class RuntimeAgentDefinition(Protocol):
+    tools: tuple[RuntimeToolDefinition, ...]
+    budget: RuntimeBudget
+    tool_policy_version: str
+
+
 @dataclass
 class BoundedToolRuntime:
-    definition: AgentDefinition
+    definition: RuntimeAgentDefinition
     handlers: dict[str, ToolHandler]
     event_sink: ToolEventSink
     _successful_signatures: set[str] = field(default_factory=set)
@@ -132,10 +150,7 @@ class BoundedToolRuntime:
                 "progressFingerprint": progress_fingerprint,
             }
         )
-        if (
-            self._consecutive_no_progress
-            >= self.definition.budget.max_consecutive_no_progress
-        ):
+        if self._consecutive_no_progress >= self.definition.budget.max_consecutive_no_progress:
             raise AgentRuntimeViolation("no_progress_budget_exhausted")
         return ToolExecutionResult(
             call_id=call_id,

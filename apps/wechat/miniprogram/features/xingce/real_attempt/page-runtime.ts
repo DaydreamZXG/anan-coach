@@ -27,6 +27,8 @@ export interface XingcePageRuntime {
   submitInFlight: boolean;
   /** 快滑切题手势的起点采样；多指或松手后置回 null。 */
   swipeStart: SwipeNavSample | null;
+  /** scroll-view 以 touchcancel 收尾时使用的最后一个有效移动点。 */
+  swipeLatest: SwipeNavSample | null;
   lastAutosaveElapsedSeconds: number;
   visible: boolean;
   disposed: boolean;
@@ -59,6 +61,7 @@ function createRuntime(): XingcePageRuntime {
     saveInFlight: false,
     submitInFlight: false,
     swipeStart: null,
+    swipeLatest: null,
     lastAutosaveElapsedSeconds: 0,
     visible: false,
     disposed: false,

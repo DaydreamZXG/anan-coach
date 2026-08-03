@@ -43,6 +43,37 @@ def test_stage7_golden_manifest_covers_every_routed_scenario_and_self_validates(
         assert all(report.dimension_results.values())
 
 
+def test_production_attribution_can_record_without_blocking_on_release_proof(
+    db_session: Session,
+) -> None:
+    attribution = AIGovernanceRepository().attribution(
+        db_session,
+        environment="production",
+        scenario_key="planning_explanation",
+        operation="companion_answer",
+        provider="beta-provider",
+        model="beta-model",
+        prompt_version="companion-grounded@v4",
+        schema_version="grounded-answer@v2",
+        evidence_refs=(
+            EvidenceReference(
+                kind="learning_brain",
+                sourceId="profile-beta",
+                version="1",
+                anchor="profile-evidence",
+                title="学习画像",
+            ),
+        ),
+        retrieval_bundle_id=None,
+        reservation_id=None,
+        reservation_source=None,
+        enforce_evaluated_deployment=False,
+    )
+
+    assert attribution.deployment_id is None
+    assert attribution.evaluation_state == "local_unreleased"
+
+
 def test_global_route_is_server_owned_and_blocks_pre_submit_answer_leakage() -> None:
     base = GlobalAskContext(
         routeId="pages/companion/index",
@@ -58,6 +89,10 @@ def test_global_route_is_server_owned_and_blocks_pre_submit_answer_leakage() -> 
 
     resting = route_global_question(question="今天状态很差，能休息吗", context=base)
     assert resting.companion_intent == "rest"
+
+    add_practice = route_global_question(question="帮我增加一组图推练习", context=base)
+    assert add_practice.answer_type == "plan_explanation"
+    assert add_practice.responding_agent == "planner"
 
     answering = base.model_copy(update={"task_mode": "practice", "task_stage": "answering"})
     blocked = route_global_question(question="直接告诉我正确选项", context=answering)

@@ -36,8 +36,8 @@ from app.domains.essay_intelligence.rubric_publisher import (  # noqa: E402
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=(
-            "Discover pending current Guokao essay tasks, generate and independently "
-            "criticize complete rubrics, deterministically compile them, and append-only "
+            "Discover pending current Guokao essay tasks, generate complete rubrics, "
+            "deterministically validate them, and append-only "
             "publish system_compiled + unverified versions."
         )
     )
@@ -57,7 +57,7 @@ def main(argv: list[str] | None = None) -> int:
         "--dry-run",
         action="store_true",
         help=(
-            "Run both audited model calls and deterministic compilation, but do not "
+            "Run the audited model call and deterministic compilation, but do not "
             "insert rubric versions. Model-call cost records are still persisted."
         ),
     )

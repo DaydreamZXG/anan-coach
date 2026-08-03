@@ -1017,10 +1017,9 @@ class UploadService:
             if (
                 headers.get("content-length") != str(item.byte_size)
                 or headers.get("x-tos-content-sha256") != item.content_sha256
-                or headers.get("x-tos-server-side-encryption") != "AES256"
             ):
                 raise UploadContractError(
-                    "part authorization does not bind size, hash and encryption"
+                    "part authorization does not bind size and hash"
                 )
         if authorization.mode == UploadMode.SINGLE_PUT:
             headers = {

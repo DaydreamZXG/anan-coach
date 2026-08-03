@@ -40,6 +40,56 @@ def _dashboard(*, minutes: int = 600):
     )
 
 
+def _onboarding_result():
+    return SimpleNamespace(
+        status="evidence_sufficient",
+        primary_goal=SimpleNamespace(
+            department_name="国家税务总局江西省税务局",
+            position_name="一级行政执法员",
+            target_score=SimpleNamespace(
+                lower_bound=132.5,
+                recommended=137.0,
+                upper_bound=142.5,
+            ),
+        ),
+        weekly_preference=SimpleNamespace(weekday_minutes=180, weekend_minutes=360),
+    )
+
+
+def _weekly_plan():
+    return SimpleNamespace(
+        rhythm="5+1+1",
+        days=[
+            SimpleNamespace(
+                local_date=date(2026, 8, 3 + index),
+                mode="mock" if index == 5 else "recovery" if index == 6 else "training",
+                scheduled_minutes=120 if index < 5 else 240 if index == 5 else 0,
+                completed_task_count=1 if index == 0 else 0,
+                total_task_count=2 if index < 6 else 0,
+            )
+            for index in range(7)
+        ],
+    )
+
+
+def _brain_profile():
+    return SimpleNamespace(
+        readiness="ready",
+        evidence_summary=SimpleNamespace(
+            xingce_attempt_count=12,
+            xingce_mastery_count=8,
+            essay_mastery_count=3,
+            task_execution_count=9,
+        ),
+        modules=[
+            SimpleNamespace(track="xingce"),
+            SimpleNamespace(track="xingce"),
+            SimpleNamespace(track="essay"),
+        ],
+        candidate_summary=SimpleNamespace(awaiting_confirmation=2),
+    )
+
+
 class FakePlanning:
     def __init__(self) -> None:
         self.dashboard = _dashboard()
@@ -131,6 +181,9 @@ def _control():
         planning=planning,  # type: ignore[arg-type]
         knowledge_factory=lambda _session: knowledge,  # type: ignore[arg-type]
         receipt_factory=lambda _session: receipts,  # type: ignore[arg-type]
+        onboarding_result_factory=lambda _session, _user_id: _onboarding_result(),
+        weekly_plan_factory=lambda _session, _user_id: _weekly_plan(),
+        learning_brain_factory=lambda _session, _user_id: _brain_profile(),
         clock=lambda: NOW,
     )
     return control, planning, knowledge, receipts
@@ -146,8 +199,17 @@ def test_plan_next_progress_and_help_use_current_account_dashboard() -> None:
 
     assert plan is not None and "资料分析专项" in plan.reply and "申论材料阅读" in plan.reply
     assert next_task is not None and "下一步：申论材料阅读" in next_task.reply
-    assert progress is not None and "已完成 1/3" in progress.reply and "剩余约 170 分钟" in progress.reply
-    assert help_result is not None and "调整今天 10小时" in help_result.reply and "查资料 关键词" in help_result.reply
+    assert (
+        progress is not None
+        and "已完成 1/3" in progress.reply
+        and "剩余约 170 分钟" in progress.reply
+    )
+    assert (
+        help_result is not None
+        and "调整今天 10小时" in help_result.reply
+        and "查资料 关键词" in help_result.reply
+        and "学习证据" in help_result.reply
+    )
 
 
 def test_capacity_update_preserves_state_and_uses_source_message_idempotency() -> None:
@@ -167,6 +229,36 @@ def test_capacity_update_preserves_state_and_uses_source_message_idempotency() -
     assert call["command"].energy == 4
     assert call["command"].stress == 2
     assert call["command"].confidence_level == 3
+
+
+def test_natural_capacity_request_uses_the_same_idempotent_planning_command() -> None:
+    control, planning, _knowledge, _receipts = _control()
+
+    result = control.handle(
+        None,
+        user_id=USER_ID,
+        source_message_id="capacity-natural-1",
+        text="今晚只能学一小时半，帮我重新安排一下",
+    )
+
+    assert result is not None and result.mutation_applied
+    call = planning.capacity_calls[0]
+    assert call["command_id"] == "ilink-capacity:capacity-natural-1"
+    assert call["command"].available_minutes == 90
+
+
+def test_capacity_explanation_question_does_not_mutate_the_plan() -> None:
+    control, planning, _knowledge, _receipts = _control()
+
+    result = control.handle(
+        None,
+        user_id=USER_ID,
+        source_message_id="capacity-question-1",
+        text="为什么今天只有一小时？",
+    )
+
+    assert result is None
+    assert planning.capacity_calls == []
 
 
 def test_materials_are_owner_scoped_and_delete_requires_single_use_confirmation() -> None:
@@ -203,4 +295,25 @@ def test_materials_are_owner_scoped_and_delete_requires_single_use_confirmation(
 
 def test_unmatched_text_falls_through_to_companion() -> None:
     control, _planning, _knowledge, _receipts = _control()
-    assert control.handle(None, user_id=USER_ID, source_message_id="q1", text="帮我解释这道题") is None
+    assert (
+        control.handle(None, user_id=USER_ID, source_message_id="q1", text="帮我解释这道题") is None
+    )
+
+
+def test_profile_position_weekly_and_evidence_queries_use_account_projections() -> None:
+    control, _planning, _knowledge, _receipts = _control()
+
+    profile = control.handle(None, user_id=USER_ID, source_message_id="profile-1", text="我的档案")
+    position = control.handle(None, user_id=USER_ID, source_message_id="goal-1", text="岗位目标")
+    weekly = control.handle(None, user_id=USER_ID, source_message_id="week-1", text="本周计划")
+    evidence = control.handle(
+        None, user_id=USER_ID, source_message_id="evidence-1", text="学习证据"
+    )
+
+    assert profile is not None and "档案与双科证据已齐" in profile.reply
+    assert profile is not None and "工作日 3 小时" in profile.reply
+    assert position is not None and "一级行政执法员" in position.reply
+    assert position is not None and "建议值 137 分" in position.reply
+    assert weekly is not None and "5+1+1" in weekly.reply and "整卷模考" in weekly.reply
+    assert evidence is not None and "行测作答 12 份" in evidence.reply
+    assert evidence is not None and "申论 1 个" in evidence.reply

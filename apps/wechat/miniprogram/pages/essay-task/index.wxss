@@ -155,6 +155,15 @@
   text-align: justify;
 }
 
+.segment-text {
+  display: block;
+  text-indent: 2em;
+}
+
+.segment-paragraph + .segment-paragraph {
+  margin-top: calc(22 * var(--rpx));
+}
+
 .requirement-box {
   margin-top: calc(28 * var(--rpx));
   padding: calc(24 * var(--rpx));

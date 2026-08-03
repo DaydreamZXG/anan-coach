@@ -254,7 +254,6 @@ class TosPrivateObjectStorageAdapter:
             {
                 "content-length": str(part.byte_size),
                 "x-tos-content-sha256": part.content_sha256,
-                "x-tos-server-side-encryption": "AES256",
             },
         )
         return UploadPartAuthorization(
@@ -369,11 +368,10 @@ class TosPrivateObjectStorageAdapter:
                 result.binds_content_type,
                 result.binds_content_length,
                 result.binds_content_sha256,
-                result.binds_server_side_encryption,
             )
         ):
             raise UploadContractError(
-                "TOS upload authorization must bind type, size, hash and encryption"
+                "TOS multipart authorization must bind type, size and hash"
             )
         if not result.signed_headers:
             raise UploadContractError("TOS upload authorization has no signed headers")

@@ -273,7 +273,6 @@ class FakeStorage:
                 "content-type": "application/octet-stream",
                 "content-length": str(part.byte_size),
                 "x-tos-content-sha256": part.content_sha256,
-                "x-tos-server-side-encryption": "AES256",
             },
             expires_at=expires_at,
         )

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import replace
 from hashlib import sha256
 from typing import Any
 
@@ -38,13 +39,10 @@ class HunyuanCompanionProvider(AIProvider):
     ) -> None:
         super().__init__(settings)
         self._hunyuan_settings = (
-            hunyuan_settings
-            or HunyuanCloudFunctionSettings.from_companion_environment()
+            hunyuan_settings or HunyuanCloudFunctionSettings.from_companion_environment()
         )
         try:
-            self._transport = transport or HunyuanCloudFunctionClient(
-                self._hunyuan_settings
-            )
+            self._transport = transport or HunyuanCloudFunctionClient(self._hunyuan_settings)
         except HunyuanCloudFunctionConfigurationError as exc:
             raise AIProviderConfigurationError(str(exc)) from exc
 
@@ -92,9 +90,7 @@ class HunyuanCompanionProvider(AIProvider):
             persona=persona,
         )
         prepared["providerReleaseId"] = self._hunyuan_settings.release_id.strip()
-        prepared["providerEndpointFingerprint"] = endpoint_fingerprint(
-            self._transport.endpoint
-        )
+        prepared["providerEndpointFingerprint"] = endpoint_fingerprint(self._transport.endpoint)
         prepared["providerReplayRetentionSeconds"] = 0
         prepared["model"] = self.model
         body = prepared["body"]
@@ -114,9 +110,7 @@ class HunyuanCompanionProvider(AIProvider):
             )
         expected = {
             "providerReleaseId": self._hunyuan_settings.release_id.strip(),
-            "providerEndpointFingerprint": endpoint_fingerprint(
-                self._transport.endpoint
-            ),
+            "providerEndpointFingerprint": endpoint_fingerprint(self._transport.endpoint),
             "providerReplayRetentionSeconds": 0,
             "model": self.model,
         }
@@ -152,9 +146,7 @@ class HunyuanCompanionProvider(AIProvider):
         assert isinstance(body, dict)
         messages = body["messages"]
         assert isinstance(messages, list)
-        request_id = "companion-" + sha256(
-            idempotency_key.encode("utf-8")
-        ).hexdigest()[:32]
+        request_id = "companion-" + sha256(idempotency_key.encode("utf-8")).hexdigest()[:32]
         try:
             result = self._transport.answer_companion(
                 request_id=request_id,
@@ -171,9 +163,7 @@ class HunyuanCompanionProvider(AIProvider):
                 code=exc.code,
             ) from exc
         try:
-            parsed = CompanionProviderAnswer.model_validate(
-                parse_provider_json_object(result.text)
-            )
+            parsed = CompanionProviderAnswer.model_validate(parse_provider_json_object(result.text))
         except (ValidationError, ValueError, RecursionError) as exc:
             raise AIProviderResponseError(
                 "CloudBase Hunyuan returned invalid Companion content",
@@ -200,16 +190,27 @@ class HunyuanCompanionProvider(AIProvider):
             ),
             output_fingerprint=result.output_fingerprint,
             provider_request_id_header="X-Request-Id",
-            provider_request_id_fingerprint=sha256(
-                result.request_id.encode("utf-8")
-            ).hexdigest(),
+            provider_request_id_fingerprint=sha256(result.request_id.encode("utf-8")).hexdigest(),
+            requested_actions=tuple(parsed.requested_actions),
         )
 
 
 def companion_provider(settings: Settings) -> AIProvider:
     transport = settings.ai_companion_transport.strip().casefold()
     if transport == "openai_compatible":
-        return AIProvider(settings)
+        companion_model = settings.ai_companion_model.strip()
+        return AIProvider(
+            replace(
+                settings,
+                ai_provider_base_url=(
+                    settings.ai_companion_provider_base_url.strip() or settings.ai_provider_base_url
+                ),
+                ai_api_key=(settings.ai_companion_api_key.strip() or settings.ai_api_key),
+                ai_model=companion_model or settings.ai_model,
+                ai_small_model=companion_model or settings.ai_small_model,
+                ai_high_capability_model=(companion_model or settings.ai_high_capability_model),
+            )
+        )
     if transport == "cloudbase_hunyuan":
         return HunyuanCompanionProvider(settings)
     raise AIProviderConfigurationError(

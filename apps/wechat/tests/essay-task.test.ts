@@ -474,6 +474,23 @@ describe("essay artifact forms", () => {
       },
     ]);
   });
+
+  it("restores natural paragraphs from stored material line breaks", () => {
+    const workspace = createWorkspace();
+    const first = workspace.material.segments[0];
+    if (!first) throw new Error("fixture requires one material segment");
+    first.text = "第一自然段。\n\n第二自然段。\n第三自然段。";
+
+    const view = presentEssayWorkspace(workspace, "material_annotation");
+
+    expect(view.materialParagraphCount).toBe(3);
+    expect(view.directory[0]?.segmentCount).toBe(3);
+    expect(view.segments[0]?.paragraphs.map((item) => item.text)).toEqual([
+      "第一自然段。",
+      "第二自然段。",
+      "第三自然段。",
+    ]);
+  });
 });
 
 describe("EssayIntelligenceApi", () => {

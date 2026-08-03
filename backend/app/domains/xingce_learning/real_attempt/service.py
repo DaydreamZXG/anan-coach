@@ -23,6 +23,10 @@ from app.domains.xingce_learning.cause_agent.service import (
     CauseAgentWorkflowError,
 )
 from app.domains.xingce_learning.contracts import xingce_question_count
+from app.domains.xingce_learning.explanation_policy import (
+    published_explanation as _published_explanation,
+    stored_explanation,
+)
 from app.domains.xingce_learning.real_attempt.repository import XingceAttemptRepository
 from app.domains.xingce_learning.content_version import question_content_version_id
 from app.domains.xingce_learning.mastery.service import (
@@ -64,9 +68,6 @@ from app.platform.outbox import OutboxRepository
 
 SCORING_POLICY_VERSION = "xingce-objective-factored-v2"
 RESULT_FACT_CONTRACT_VERSION = "xingce-result-facts@v1"
-PUBLISHED_EXPLANATION_STATUSES = frozenset({"verified", "ai_rewrite_accepted"})
-
-
 class XingceAttemptError(RuntimeError):
     def __init__(self, code: str, message: str, *, status_code: int) -> None:
         super().__init__(message)
@@ -1338,10 +1339,17 @@ class XingceAttemptService:
         items: list[XingceResultItem] = []
         aggregate_code: str | None = None
         if assessments:
-            items = [
-                XingceResultItem.model_validate(dict(item["result_snapshot"]))
-                for item in assessments
-            ]
+            items = []
+            for assessment in assessments:
+                snapshot = dict(assessment["result_snapshot"])
+                if not str(snapshot.get("explanation") or "").strip():
+                    fallback, fallback_source = stored_explanation(
+                        assessment.get("content_snapshot")
+                    )
+                    if fallback is not None:
+                        snapshot["explanation"] = fallback
+                        snapshot["explanationSource"] = fallback_source
+                items.append(XingceResultItem.model_validate(snapshot))
             codes = [item.result_code for item in items]
             aggregate_code = codes[0] if len(set(codes)) == 1 else "mixed"
         review_projection: AttemptReviewProjection | None = None
@@ -2072,15 +2080,6 @@ def _selection_lineage_refs(
             status_code=500,
         )
     return refs
-
-
-def _published_explanation(source: dict[str, Any]) -> tuple[str | None, str | None]:
-    status = str(source.get("analysis_status") or "").strip()
-    needs_review = bool(source.get("analysis_needs_review"))
-    preferred = str(source.get("preferred_analysis") or "").strip()
-    if status not in PUBLISHED_EXPLANATION_STATUSES or needs_review or not preferred:
-        return None, None
-    return preferred, str(source.get("analysis_source") or "published")
 
 
 def _safe_rich_html(value: object) -> str | None:

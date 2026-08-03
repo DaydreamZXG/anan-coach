@@ -56,9 +56,7 @@ class CompanionHighImpactDecision(CompanionBaseModel):
     )
     status: Literal["explain_only", "evidence_insufficient"]
     evidence_refs: list[str] = Field(alias="evidenceRefs", max_length=20)
-    requires_confirmation: Literal[True] = Field(
-        default=True, alias="requiresConfirmation"
-    )
+    requires_confirmation: Literal[True] = Field(default=True, alias="requiresConfirmation")
     prohibited_mutations: list[Literal["qualification", "primary_goal", "strategy"]] = Field(
         alias="prohibitedMutations", min_length=1
     )
@@ -82,9 +80,7 @@ class CompanionAskResponse(CompanionBaseModel):
         "failed",
     ] = Field(alias="semanticState")
     scenario_key: str = Field(alias="scenarioKey")
-    responding_agent: Literal["position", "tutor", "planner"] = Field(
-        alias="respondingAgent"
-    )
+    responding_agent: Literal["position", "tutor", "planner"] = Field(alias="respondingAgent")
     answer_type: str = Field(alias="answerType")
     policy_decision: str = Field(alias="policyDecision")
     companion_intent: Literal[
@@ -100,9 +96,7 @@ class CompanionAskResponse(CompanionBaseModel):
     confidence: Literal["low", "medium", "high"]
     limitations: list[str] = Field(max_length=8)
     knowledge_freshness: str = Field(alias="knowledgeFreshness")
-    allowed_actions: list[CompanionAllowedAction] = Field(
-        alias="allowedActions", max_length=3
-    )
+    allowed_actions: list[CompanionAllowedAction] = Field(alias="allowedActions", max_length=3)
     high_impact_decision: CompanionHighImpactDecision | None = Field(
         default=None, alias="highImpactDecision"
     )

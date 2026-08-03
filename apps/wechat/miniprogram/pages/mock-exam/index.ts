@@ -43,6 +43,7 @@ import { reduceTaskRuntime } from "../../task-runtime/state/runtime";
 import {
   resolveSwipeNav,
   swipeSampleFromTouchEnd,
+  swipeSampleFromTouchMove,
   swipeSampleFromTouchStart,
   type SwipeNavSample,
 } from "../../task-runtime/swipe-nav";
@@ -235,6 +236,8 @@ interface PageRuntime {
   submitInFlight: boolean;
   /** 快滑切题手势的起点采样；多指或松手后置回 null。 */
   swipeStart: SwipeNavSample | null;
+  /** scroll-view 以 touchcancel 收尾时使用的最后一个有效移动点。 */
+  swipeLatest: SwipeNavSample | null;
 }
 
 type MockSubmitOutcome =
@@ -586,23 +589,37 @@ Page<MockExamPageData, MockExamPageCustom>({
   onQuestionTouchStart(event) {
     const runtime = runtimes.get(this);
     if (!runtime || runtime.disposed) return;
-    runtime.swipeStart = swipeSampleFromTouchStart(event);
+    const sample = swipeSampleFromTouchStart(event);
+    runtime.swipeStart = sample;
+    runtime.swipeLatest = sample;
   },
 
   onQuestionTouchMove(event) {
     const runtime = runtimes.get(this);
     if (!runtime?.swipeStart) return;
     // 第二根手指落下（表格缩放/双指滚动）即放弃本次切题手势。
-    if (event.touches.length > 1) runtime.swipeStart = null;
+    if (event.touches.length > 1) {
+      runtime.swipeStart = null;
+      runtime.swipeLatest = null;
+      return;
+    }
+    runtime.swipeLatest = swipeSampleFromTouchMove(event) ?? runtime.swipeLatest;
   },
 
   onQuestionTouchEnd(event) {
     const runtime = runtimes.get(this);
     if (!runtime || runtime.disposed) return;
     const start = runtime.swipeStart;
+    // 微信原生 scroll-view 的 touchcancel 可能把 changedTouches 补成 (0,0)，
+    // 该坐标不是手指终点；取消事件只能使用最后一个真实 touchmove 采样。
+    const end =
+      event.type === "touchcancel"
+        ? runtime.swipeLatest
+        : (swipeSampleFromTouchEnd(event) ?? runtime.swipeLatest);
     runtime.swipeStart = null;
+    runtime.swipeLatest = null;
     if (!start || swipeNavigationBlocked(this)) return;
-    const direction = resolveSwipeNav(start, swipeSampleFromTouchEnd(event));
+    const direction = resolveSwipeNav(start, end);
     if (!direction) return;
     if (direction === "prev") {
       if (this.data.current <= 1) {
@@ -1953,6 +1970,7 @@ function bindMockSession(
     nextTrajectoryEventSeq: 1,
     submitInFlight: false,
     swipeStart: null,
+    swipeLatest: null,
   };
   runtimes.set(page, runtime);
   page.setData({
@@ -2052,6 +2070,7 @@ function disposeRuntime(runtime: PageRuntime): void {
   runtime.disposed = true;
   runtime.visible = false;
   runtime.swipeStart = null;
+  runtime.swipeLatest = null;
   stopClock(runtime);
   clearAutosave(runtime);
 }
