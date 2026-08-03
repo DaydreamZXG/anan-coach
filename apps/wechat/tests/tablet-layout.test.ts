@@ -76,6 +76,10 @@ describe("tablet responsive layout contract", () => {
     expect(responsiveStyles).toContain("--rpx: 0.5px");
     expect(tabBarStyles).toContain("@media (min-width: 600px)");
     expect(tabBarStyles).toContain("border-radius: 999px");
+    expect(tabBarStyles).toContain(
+      "@media (min-width: 600px) and (orientation: portrait)",
+    );
+    expect(tabBarStyles).toContain("width: min(320px, calc(100vw - 48px))");
     expect(responsiveStyles).toContain("--layout-readable-max");
     expect(responsiveStyles).toContain("font-size: 16px");
     expect(taskShellStyles).toContain("max-width: var(--layout-workbench-max)");

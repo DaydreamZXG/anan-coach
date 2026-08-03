@@ -84,3 +84,35 @@
     background: var(--color-primary-soft);
   }
 }
+
+/*
+ * 平板竖屏仍保留悬浮 Dock，但控制在单手可扫视的紧凑宽度内。
+ * 横屏沿用上面的宽松尺寸；这里仅收紧竖屏，避免像放大的手机导航压住内容。
+ */
+@media (min-width: 600px) and (orientation: portrait) {
+  .tab-bar {
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    width: min(320px, calc(100vw - 48px));
+    gap: 2px;
+    padding: 5px 7px;
+  }
+
+  .tab-item {
+    width: auto;
+    min-width: 0;
+    flex: 1;
+    gap: 4px;
+    padding: 5px 0;
+  }
+
+  .tab-icon-wrap,
+  .tab-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .tab-text {
+    font-size: 10px;
+    line-height: 14px;
+  }
+}

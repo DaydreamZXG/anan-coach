@@ -24,6 +24,24 @@ afterEach(() => {
 });
 
 describe("xingce practice page lifecycle", () => {
+  it("remeasures the question content after an orientation change", async () => {
+    vi.useFakeTimers();
+    const runtime = await createPracticePage();
+    const measurementsBeforeResize = runtime.setData.mock.calls.filter(
+      ([patch]) => Object.hasOwn(patch, "questionContentHeight"),
+    ).length;
+
+    runtime.page.onResize.call(runtime.page);
+    await flushMicrotasks();
+    await vi.advanceTimersByTimeAsync(120);
+
+    const measurementsAfterResize = runtime.setData.mock.calls.filter(
+      ([patch]) => Object.hasOwn(patch, "questionContentHeight"),
+    ).length;
+    expect(measurementsAfterResize).toBe(measurementsBeforeResize + 2);
+    runtime.page.onUnload.call(runtime.page);
+  });
+
   it("keeps the timer stopped and avoids a duplicate refresh after a hidden-page save", async () => {
     vi.useFakeTimers();
     const runtime = await createPracticePage();
@@ -691,6 +709,7 @@ interface CapturedPracticePage {
   onShow(this: TestPracticePage): void;
   onHide(this: TestPracticePage): void;
   onUnload(this: TestPracticePage): void;
+  onResize(this: TestPracticePage): void;
   loadTask(this: TestPracticePage): Promise<void>;
   inputDraft(this: TestPracticePage, event: WechatMiniprogram.Input): void;
   nextQuestion(this: TestPracticePage): void;

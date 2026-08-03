@@ -415,6 +415,20 @@ Page<PracticePageData, PracticePageCustom>({
     runtimes.detach(this);
   },
 
+  onResize() {
+    const runtime = runtimes.get(this);
+    if (!runtime?.task || runtime.disposed) return;
+    // 屏幕方向变化会让题干重新排版。下一渲染帧重新读取 scrollHeight，
+    // 让批注层继续用当前内容高度换算归一化笔迹，而不是沿用旋转前的旧高度。
+    afterRenderTick(() => {
+      if (runtimes.owns(this, runtime)) measureQuestionContent(this, runtime);
+    });
+    // 安卓平板有时先派发 resize、后完成横竖屏双栏排版；稳定帧再测一次。
+    setTimeout(() => {
+      if (runtimes.owns(this, runtime)) measureQuestionContent(this, runtime);
+    }, 120);
+  },
+
   async loadTask() {
     const runtime = runtimes.get(this);
     if (!runtime?.api || !runtime.requestedMode) return;

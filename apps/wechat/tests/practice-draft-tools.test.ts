@@ -27,9 +27,15 @@ interface CapturedAnnotationComponent {
   observers: {
     "mode, strokes, replayMs"(this: AnnotationObserverHost): void;
   };
+  pageLifetimes: {
+    resize(this: AnnotationObserverHost): void;
+  };
   methods: {
     clearAll(this: AnnotationTestHost): Promise<void>;
     openMore(this: AnnotationTestHost): void;
+    onTouchStart(this: AnnotationObserverHost, event: WechatMiniprogram.TouchEvent): void;
+    onTouchMove(this: AnnotationObserverHost, event: WechatMiniprogram.TouchEvent): void;
+    onTouchEnd(this: AnnotationObserverHost): void;
   };
 }
 
@@ -60,6 +66,17 @@ interface AnnotationObserverHost extends AnnotationTestHost {
 interface CanvasContext {
   scale(x: number, y: number): void;
   clearRect(x: number, y: number, width: number, height: number): void;
+  save?(): void;
+  restore?(): void;
+  beginPath?(): void;
+  moveTo?(x: number, y: number): void;
+  lineTo?(x: number, y: number): void;
+  stroke?(): void;
+  setLineDash?(segments: number[]): void;
+  lineCap?: string;
+  lineJoin?: string;
+  strokeStyle?: string;
+  lineWidth?: number;
 }
 
 afterEach(() => {
@@ -184,6 +201,93 @@ describe("practice drawable draft tools", () => {
     expect(secondContext.scale).toHaveBeenCalledOnce();
     expect(secondContext.clearRect).toHaveBeenCalled();
   });
+
+  it("remeasures and rebinds the canvas after portrait-landscape rotation", async () => {
+    const definition = await captureAnnotationComponent();
+    const portraitContext = canvasContext();
+    const landscapeContext = canvasContext();
+    const fixtures = [
+      { node: canvasNode(portraitContext), width: 320, height: 640, left: 0, top: 96 },
+      { node: canvasNode(landscapeContext), width: 720, height: 360, left: 360, top: 64 },
+    ];
+    let queryCount = 0;
+    const host: AnnotationObserverHost = {
+      data: {
+        ...cloneData(definition.data),
+        mode: "annotate",
+        strokes: [],
+        segments: [],
+        scrollTop: 120,
+        contentHeight: 1_200,
+      },
+      setData(patch) {
+        Object.assign(this.data, patch);
+      },
+      triggerEvent: vi.fn(),
+      createSelectorQuery() {
+        const fixture = fixtures[queryCount];
+        queryCount += 1;
+        if (!fixture) throw new Error("unexpected extra canvas query");
+        return {
+          select(selector) {
+            expect(selector).toBe("#annotation-canvas");
+            return { fields: vi.fn() };
+          },
+          exec(callback) {
+            callback([fixture]);
+          },
+        };
+      },
+    };
+
+    definition.observers["mode, strokes, replayMs"].call(host);
+    definition.pageLifetimes.resize.call(host);
+
+    expect(queryCount).toBe(2);
+    expect(portraitContext.scale).toHaveBeenCalledWith(2, 2);
+    expect(landscapeContext.scale).toHaveBeenCalledWith(2, 2);
+    expect(landscapeContext.clearRect).toHaveBeenCalledWith(0, 0, 720, 360);
+  });
+
+  it("uses the rotated capture layer origin instead of a stale canvas offset", async () => {
+    const definition = await captureAnnotationComponent();
+    const context = drawableCanvasContext();
+    const triggerEvent = vi.fn();
+    const host: AnnotationObserverHost = {
+      data: {
+        ...cloneData(definition.data),
+        mode: "annotate",
+        strokes: [],
+        segments: [],
+        scrollTop: 120,
+        contentHeight: 1_200,
+      },
+      setData(patch) {
+        Object.assign(this.data, patch);
+      },
+      triggerEvent,
+      createSelectorQuery() {
+        return {
+          select: () => ({ fields: vi.fn() }),
+          exec(callback) {
+            // 故意保留一个过早测得的 left/top；真实落笔必须使用事件目标的新原点。
+            callback([
+              { node: canvasNode(context), width: 720, height: 360, left: 300, top: 48 },
+            ]);
+          },
+        };
+      },
+    };
+    definition.observers["mode, strokes, replayMs"].call(host);
+
+    definition.methods.onTouchStart.call(host, drawingTouch(540, 184, 360, 64));
+    definition.methods.onTouchMove.call(host, drawingTouch(612, 244, 360, 64));
+    definition.methods.onTouchEnd.call(host);
+
+    const detail = triggerEvent.mock.calls.at(-1)?.[1] as { strokes: AnnotationStroke[] };
+    expect(detail.strokes[0]?.points[0]).toEqual(expect.objectContaining({ x: 0.25, y: 0.2 }));
+    expect(detail.strokes[0]?.points[1]).toEqual(expect.objectContaining({ x: 0.35, y: 0.25 }));
+  });
 });
 
 async function captureAnnotationComponent(
@@ -209,6 +313,37 @@ function canvasContext(): CanvasContext {
   return {
     scale: vi.fn(),
     clearRect: vi.fn(),
+  };
+}
+
+function drawableCanvasContext(): CanvasContext {
+  return {
+    ...canvasContext(),
+    save: vi.fn(),
+    restore: vi.fn(),
+    beginPath: vi.fn(),
+    moveTo: vi.fn(),
+    lineTo: vi.fn(),
+    stroke: vi.fn(),
+    setLineDash: vi.fn(),
+  };
+}
+
+function drawingTouch(
+  pageX: number,
+  pageY: number,
+  offsetLeft: number,
+  offsetTop: number,
+): WechatMiniprogram.TouchEvent {
+  const touch = { pageX, pageY, clientX: pageX, clientY: pageY, identifier: 1 };
+  return {
+    type: "touchmove",
+    timeStamp: 1,
+    target: { id: "capture", dataset: {}, offsetLeft, offsetTop },
+    currentTarget: { id: "capture", dataset: {}, offsetLeft, offsetTop },
+    detail: {},
+    touches: [touch],
+    changedTouches: [touch],
   };
 }
 

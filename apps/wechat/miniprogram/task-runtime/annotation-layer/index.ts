@@ -96,6 +96,26 @@ function runtime(instance: object): LayerRuntime {
   return value;
 }
 
+/**
+ * 横竖屏切换会改变 canvas 的节点、逻辑尺寸和页面坐标。笔迹本身使用内容
+ * 归一化坐标，可以安全保留；仅废弃与旧布局绑定的运行时对象，下一帧重新测量。
+ */
+function invalidateCanvasLayout(host: AnnotationLayerHost): void {
+  const state = runtime(host);
+  state.canvas = null;
+  state.context = null;
+  state.width = 0;
+  state.height = 0;
+  state.left = 0;
+  state.top = 0;
+  // 旋转发生在触摸手势中间时，旧触点不应跨布局继续成笔。
+  state.activeStroke = null;
+  state.activeStrokeStartedAt = 0;
+  state.lassoPath = [];
+  state.contentHeight = host.data.contentHeight;
+  state.scrollTop = host.data.scrollTop;
+}
+
 interface AnnotationLayerHost {
   data: {
     mode: string;
@@ -291,6 +311,8 @@ interface TouchPointLike {
   y?: number;
   clientX?: number;
   clientY?: number;
+  pageX?: number;
+  pageY?: number;
   /** 契约增量 v1：iOS 压感触点的按压力度（Apple Pencil 满压约 3.3333）。 */
   force?: number;
 }
@@ -309,8 +331,21 @@ function contentPoint(
   const state = runtime(host);
   const touch = (event.touches[0] ?? event.changedTouches[0]) as TouchPointLike | undefined;
   if (!touch || state.width <= 0 || state.contentHeight <= 0) return null;
-  const x = ((touch.clientX ?? touch.x ?? 0) - state.left) / state.width;
-  const y = ((touch.clientY ?? touch.y ?? 0) - state.top + state.scrollTop) / state.contentHeight;
+  const target = event.currentTarget as WechatMiniprogram.Target | undefined;
+  const targetLeft = Number.isFinite(target?.offsetLeft) ? (target?.offsetLeft ?? 0) : state.left;
+  const targetTop = Number.isFinite(target?.offsetTop) ? (target?.offsetTop ?? 0) : state.top;
+  // 捕获层与 canvas 同尺寸。落笔时优先使用当前事件目标的页面坐标，避免
+  // 横竖屏切换后 selectorQuery 缓存的旧 left/top 把整条笔迹平移。
+  const localX =
+    touch.pageX !== undefined
+      ? touch.pageX - targetLeft
+      : (touch.clientX ?? touch.x ?? 0) - state.left;
+  const localY =
+    touch.pageY !== undefined
+      ? touch.pageY - targetTop
+      : (touch.clientY ?? touch.y ?? 0) - state.top;
+  const x = localX / state.width;
+  const y = (localY + state.scrollTop) / state.contentHeight;
   if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
   return { x: Math.min(1, Math.max(0, x)), y: Math.min(1, Math.max(0, y)) };
 }
@@ -382,6 +417,20 @@ Component({
     },
     detached() {
       runtimes.delete(this);
+    },
+  },
+  pageLifetimes: {
+    resize(this: AnnotationLayerHost) {
+      if (this.data.mode === "hidden") return;
+      invalidateCanvasLayout(this);
+      scheduleRedraw(this);
+      // 部分安卓平板的 resize 事件早于双栏重排完成；布局稳定后再校准一次，
+      // 但不改任何笔迹数据。触点最终仍以上面的事件目标实时坐标为准。
+      setTimeout(() => {
+        if (this.data.mode === "hidden") return;
+        invalidateCanvasLayout(this);
+        scheduleRedraw(this, 1);
+      }, 120);
     },
   },
   methods: {
