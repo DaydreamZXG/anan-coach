@@ -31,7 +31,7 @@ from app.domains.essay_intelligence.catalog_publisher import (  # noqa: E402
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=(
-            "Publish the append-only 国考申论 v2 catalog from "
+            "Publish the append-only 公务员申论 training catalog from "
             "product.questions and product.knowledge_chunks"
         )
     )

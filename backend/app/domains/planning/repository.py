@@ -905,6 +905,18 @@ class PlanningRepository:
                           material.material_bundle_version_id
                   )
                 order by (rubric.rubric_version_id is not null) desc,
+                         exists (
+                           select 1
+                           from product.essay_material_segments source_segment
+                           where source_segment.material_bundle_version_id =
+                                 material.material_bundle_version_id
+                             and (
+                               coalesce(source_segment.source_metadata ->> 'paperTitle', '')
+                                 like '%国考%'
+                               or coalesce(source_segment.source_metadata ->> 'paperTitle', '')
+                                 like '%国家公务员%'
+                             )
+                         ) desc,
                          task.version_no desc, material.version_no desc,
                          task.created_at desc, task.task_version_id
                 limit 1
@@ -1197,7 +1209,19 @@ class PlanningRepository:
                         where segment.material_bundle_version_id =
                               material.material_bundle_version_id
                       )
-                    order by task.version_no desc, material.version_no desc,
+                    order by exists (
+                               select 1
+                               from product.essay_material_segments source_segment
+                               where source_segment.material_bundle_version_id =
+                                     material.material_bundle_version_id
+                                 and (
+                                   coalesce(source_segment.source_metadata ->> 'paperTitle', '')
+                                     like '%国考%'
+                                   or coalesce(source_segment.source_metadata ->> 'paperTitle', '')
+                                     like '%国家公务员%'
+                                 )
+                             ) desc,
+                             task.version_no desc, material.version_no desc,
                              task.created_at desc, task.task_version_id
                     limit 1
                     """
@@ -1624,7 +1648,19 @@ class PlanningRepository:
                     where segment.material_bundle_version_id =
                           material.material_bundle_version_id
                   )
-                order by task.created_at desc, task.task_version_id
+                order by exists (
+                           select 1
+                           from product.essay_material_segments source_segment
+                           where source_segment.material_bundle_version_id =
+                                 material.material_bundle_version_id
+                             and (
+                               coalesce(source_segment.source_metadata ->> 'paperTitle', '')
+                                 like '%国考%'
+                               or coalesce(source_segment.source_metadata ->> 'paperTitle', '')
+                                 like '%国家公务员%'
+                             )
+                         ) desc,
+                         task.created_at desc, task.task_version_id
                 limit 1
                 """
                 ),

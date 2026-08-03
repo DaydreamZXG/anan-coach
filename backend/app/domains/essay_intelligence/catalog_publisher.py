@@ -25,8 +25,8 @@ from app.domains.essay_intelligence.schemas import (
 )
 
 
-CATALOG_CONTRACT_VERSION = "guokao-essay-catalog-v2"
-_ADVISORY_LOCK_KEY = "guokao-essay-catalog-v2-publisher"
+CATALOG_CONTRACT_VERSION = "guokao-essay-catalog-v3"
+_ADVISORY_LOCK_KEY = "guokao-essay-catalog-v3-publisher"
 
 
 class EssayCatalogPublishError(RuntimeError):
@@ -69,14 +69,14 @@ class GuokaoEssayCatalogPublisher:
     ) -> EssayCatalogPublishResult:
         generated_at = _as_utc(now or datetime.now(UTC))
         _lock_catalog(session)
-        sources = _load_national_sources(session)
+        sources = _load_essay_sources(session)
         if not sources:
             raise EssayCatalogValidationError(
                 [
                     CatalogValidationIssue(
                         question_id="catalog",
-                        code="national_sources_missing",
-                        message="没有 paperTitle 包含“国考”或“国家公务员”的 active essay question",
+                        code="essay_sources_missing",
+                        message="没有同时具备材料与任务的 active essay question",
                     )
                 ]
             )
@@ -165,7 +165,7 @@ class GuokaoEssayCatalogPublisher:
         )
 
 
-def _load_national_sources(
+def _load_essay_sources(
     session: Session,
 ) -> list[tuple[SourceQuestion, list[SourceMaterialChunk]]]:
     rows = (
@@ -216,17 +216,12 @@ def _load_national_sources(
             ) task on true
             where question.domain = 'essay'
               and question.status = 'active'
-              and exists (
-                select 1
-                from product.knowledge_chunks national_chunk
-                where national_chunk.question_id = question.question_id
-                  and national_chunk.chunk_kind = 'material'
-                  and (
-                    coalesce(national_chunk.metadata ->> 'paperTitle', '') like '%国考%'
-                    or coalesce(national_chunk.metadata ->> 'paperTitle', '') like '%国家公务员%'
-                  )
-              )
-            order by question.question_id,
+            order by case
+                       when coalesce(task.task_paper_title, '') like '%国考%'
+                         or coalesce(task.task_paper_title, '') like '%国家公务员%'
+                       then 0 else 1
+                     end,
+                     question.question_id,
                      chunk.chunk_index nulls last,
                      chunk.knowledge_chunk_id
             """

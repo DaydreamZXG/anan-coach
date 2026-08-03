@@ -14,14 +14,13 @@ from app.contracts.guokao_shenlun import (
 )
 
 NATIONAL_PAPER_MARKERS = ("国考", "国家公务员")
+ESSAY_PAPER_MARKER = "申论"
 
 
 class EssayCatalogValidationError(ValueError):
     def __init__(self, issues: list["CatalogValidationIssue"]) -> None:
         self.issues = tuple(issues)
-        details = "; ".join(
-            f"{item.question_id}: {item.code} ({item.message})" for item in issues
-        )
+        details = "; ".join(f"{item.question_id}: {item.code} ({item.message})" for item in issues)
         super().__init__(f"Guokao essay catalog validation failed: {details}")
 
 
@@ -85,6 +84,10 @@ def is_national_paper_title(value: object) -> bool:
     return isinstance(value, str) and any(marker in value for marker in NATIONAL_PAPER_MARKERS)
 
 
+def is_essay_paper_title(value: object) -> bool:
+    return isinstance(value, str) and ESSAY_PAPER_MARKER in value and bool(value.strip())
+
+
 def compile_catalog_entry(
     question: SourceQuestion,
     chunks: list[SourceMaterialChunk],
@@ -118,7 +121,9 @@ def compile_catalog_entry(
 
     maximum_score = _parse_maximum_score(prompt, chunks)
     if maximum_score is None:
-        issues.append(_issue(question, "maximum_score_missing", "题干或材料元数据没有唯一明确的总分"))
+        issues.append(
+            _issue(question, "maximum_score_missing", "题干或材料元数据没有唯一明确的总分")
+        )
 
     try:
         paper_title, segments = _compile_material_segments(question, chunks)
@@ -126,13 +131,13 @@ def compile_catalog_entry(
         issues.extend(exc.issues)
         paper_title = ""
         segments = ()
-    if not is_national_paper_title(question.task_paper_title):
+    if not is_essay_paper_title(question.task_paper_title):
         issues.append(
-            _issue(question, "task_paper_scope_invalid", "task chunk 缺少唯一国考 paperTitle")
+            _issue(question, "task_paper_scope_invalid", "task chunk 缺少唯一申论 paperTitle")
         )
     elif paper_title and str(question.task_paper_title).strip() != paper_title:
         issues.append(
-            _issue(question, "task_material_paper_mismatch", "task 与材料不属于同一张国考试卷")
+            _issue(question, "task_material_paper_mismatch", "task 与材料不属于同一张申论试卷")
         )
 
     if issues:
@@ -207,12 +212,12 @@ def _compile_material_segments(
     group_order: list[str] = []
     for chunk in ordered_chunks:
         paper_title = chunk.metadata.get("paperTitle")
-        if not is_national_paper_title(paper_title):
+        if not is_essay_paper_title(paper_title):
             issues.append(
                 _issue(
                     question,
                     "paper_scope_invalid",
-                    f"材料 {chunk.knowledge_chunk_id} 的 paperTitle 不是国考卷",
+                    f"材料 {chunk.knowledge_chunk_id} 缺少有效申论 paperTitle",
                 )
             )
         else:
@@ -237,7 +242,9 @@ def _compile_material_segments(
         title = _normalize_text(chunk.title or "")
         if not title:
             issues.append(
-                _issue(question, "material_title_missing", f"材料 {chunk.knowledge_chunk_id} 无标题")
+                _issue(
+                    question, "material_title_missing", f"材料 {chunk.knowledge_chunk_id} 无标题"
+                )
             )
             continue
         base_title, title_index, title_count = _split_material_title(title)
@@ -255,11 +262,19 @@ def _compile_material_segments(
         metadata_count = _positive_int(raw_metadata_count)
         if "materialPartIndex" in chunk.metadata and metadata_index is None:
             issues.append(
-                _issue(question, "material_part_index_invalid", f"材料 {chunk.knowledge_chunk_id} 的 partIndex 无效")
+                _issue(
+                    question,
+                    "material_part_index_invalid",
+                    f"材料 {chunk.knowledge_chunk_id} 的 partIndex 无效",
+                )
             )
         if "materialPartCount" in chunk.metadata and metadata_count is None:
             issues.append(
-                _issue(question, "material_part_count_invalid", f"材料 {chunk.knowledge_chunk_id} 的 partCount 无效")
+                _issue(
+                    question,
+                    "material_part_count_invalid",
+                    f"材料 {chunk.knowledge_chunk_id} 的 partCount 无效",
+                )
             )
         if metadata_index is None or metadata_count is None:
             issues.append(
@@ -271,17 +286,29 @@ def _compile_material_segments(
             )
         if metadata_index is not None and title_index is not None and metadata_index != title_index:
             issues.append(
-                _issue(question, "material_part_index_conflict", f"材料 {chunk.knowledge_chunk_id} 分片序号冲突")
+                _issue(
+                    question,
+                    "material_part_index_conflict",
+                    f"材料 {chunk.knowledge_chunk_id} 分片序号冲突",
+                )
             )
         if metadata_count is not None and title_count is not None and metadata_count != title_count:
             issues.append(
-                _issue(question, "material_part_count_conflict", f"材料 {chunk.knowledge_chunk_id} 分片总数冲突")
+                _issue(
+                    question,
+                    "material_part_count_conflict",
+                    f"材料 {chunk.knowledge_chunk_id} 分片总数冲突",
+                )
             )
         part_index = metadata_index or 0
         part_count = metadata_count or 0
         if part_index > part_count:
             issues.append(
-                _issue(question, "material_part_range_invalid", f"材料 {chunk.knowledge_chunk_id} 分片序号越界")
+                _issue(
+                    question,
+                    "material_part_range_invalid",
+                    f"材料 {chunk.knowledge_chunk_id} 分片序号越界",
+                )
             )
         if base_title not in groups:
             groups[base_title] = []
@@ -293,7 +320,7 @@ def _compile_material_segments(
             _issue(
                 question,
                 "paper_title_ambiguous",
-                f"一道题必须且只能绑定一张国考卷，实际为 {sorted(paper_titles)}",
+                f"一道题必须且只能绑定一张申论试卷，实际为 {sorted(paper_titles)}",
             )
         )
 
@@ -310,7 +337,9 @@ def _compile_material_segments(
         material_order = int(next(iter(source_orders)))
         if material_order in explicit_material_orders:
             issues.append(
-                _issue(question, "material_order_duplicate", f"material_order {material_order} 重复")
+                _issue(
+                    question, "material_order_duplicate", f"material_order {material_order} 重复"
+                )
             )
             continue
         explicit_material_orders.add(material_order)

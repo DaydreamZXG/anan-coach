@@ -17,7 +17,7 @@ from app.domains.essay_intelligence.catalog_publisher import GuokaoEssayCatalogP
 NOW = datetime(2026, 7, 13, 10, tzinfo=UTC)
 
 
-def test_publisher_only_publishes_national_catalog_and_replays_idempotently(
+def test_publisher_covers_national_and_provincial_catalog_and_replays_idempotently(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     _seed_question(
@@ -40,14 +40,14 @@ def test_publisher_only_publishes_national_catalog_and_replays_idempotently(
     with db_session_factory.begin() as session:
         replay = publisher.publish(session, now=NOW)
 
-    assert first.source_question_count == 1
-    assert first.inserted_count == 1
+    assert first.source_question_count == 2
+    assert first.inserted_count == 2
     assert first.unchanged_count == 0
-    assert first.rubric_pending_count == 1
+    assert first.rubric_pending_count == 2
     assert first.versions[0].rubric_status == "pending_ai_compilation"
     assert first.versions[0].question_id == "national-summary"
     assert replay.inserted_count == 0
-    assert replay.unchanged_count == 1
+    assert replay.unchanged_count == 2
     assert replay.versions[0].task_version_id == first.versions[0].task_version_id
 
     with db_session_factory() as session:
@@ -66,8 +66,8 @@ def test_publisher_only_publishes_national_catalog_and_replays_idempotently(
             .mappings()
             .one()
         )
-        assert dict(counts) == {"tasks": 1, "bundles": 1, "segments": 2, "rubrics": 0}
-        row = (
+        assert dict(counts) == {"tasks": 2, "bundles": 2, "segments": 4, "rubrics": 0}
+        rows = (
             session.execute(
                 text(
                     """
@@ -82,14 +82,17 @@ def test_publisher_only_publishes_national_catalog_and_replays_idempotently(
                 )
             )
             .mappings()
-            .one()
+            .all()
         )
-        assert row["question_id"] == "national-summary"
-        assert row["state"] == "published"
-        assert row["completeness"] == "complete"
-        assert row["material_source_kind"] == "own_bank"
-        assert row["prompt_hash_length"] == 64
-        assert row["material_hash_length"] == 64
+        assert {row["question_id"] for row in rows} == {
+            "national-summary",
+            "provincial-summary",
+        }
+        assert all(row["state"] == "published" for row in rows)
+        assert all(row["completeness"] == "complete" for row in rows)
+        assert all(row["material_source_kind"] == "own_bank" for row in rows)
+        assert all(row["prompt_hash_length"] == 64 for row in rows)
+        assert all(row["material_hash_length"] == 64 for row in rows)
 
 
 def test_source_change_appends_coherent_task_catalog_version(
