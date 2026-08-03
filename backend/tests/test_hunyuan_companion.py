@@ -120,6 +120,23 @@ def test_hunyuan_companion_accepts_the_optional_action_protocol() -> None:
     assert result.requested_actions[0].arguments == {"availableMinutes": 90}
 
 
+def test_hunyuan_companion_keeps_grounding_strict_but_tolerates_advisory_shape_drift() -> None:
+    provider, _transport = _provider(
+        '{"answer":"可以开始资料分析。","sourceRefs":["source-1"],'
+        '"confidence":"high","gatewayMetadata":{"format":"compatible"}}'
+    )
+
+    result = provider.answer_prepared_companion_question(
+        prepared=_prepared(provider),
+        idempotency_key="companion-command-shape-drift-1",
+    )
+
+    assert result.answer == "可以开始资料分析。"
+    assert result.source_refs == ["source-1"]
+    assert result.next_actions == []
+    assert result.limitations == []
+
+
 def test_hunyuan_companion_accepts_second_release_action_tools() -> None:
     content = (
         '{"answer":"已准备周节奏预览。","nextActions":["确认周节奏"],'

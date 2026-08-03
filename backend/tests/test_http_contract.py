@@ -3,8 +3,10 @@ from __future__ import annotations
 from fastapi.testclient import TestClient
 from pydantic import BaseModel, Field
 from sqlalchemy.exc import TimeoutError as SQLAlchemyTimeoutError
+from starlette.requests import Request
 
 from app.main import create_app
+from app.platform.http import public_success_response
 
 
 class ContractRequest(BaseModel):
@@ -20,6 +22,23 @@ def test_request_id_is_echoed_for_successful_requests() -> None:
 
     assert response.status_code == 200
     assert response.headers["X-Request-ID"] == "mp-health-contract-1"
+
+
+def test_direct_success_response_encodes_public_envelope_without_route_serialization() -> None:
+    app = create_app()
+
+    @app.get("/api/v2/_direct-success-test")
+    def direct_success(request: Request):
+        return public_success_response(request=request, data={"answer": "可以学习资料分析"})
+
+    response = TestClient(app).get(
+        "/api/v2/_direct-success-test",
+        headers={"X-Request-ID": "mp-direct-success-1"},
+    )
+
+    assert response.status_code == 200
+    assert response.headers["X-Request-ID"] == "mp-direct-success-1"
+    assert response.json()["data"] == {"answer": "可以学习资料分析"}
 
 
 def test_invalid_request_id_is_replaced() -> None:

@@ -24,7 +24,7 @@ from app.domains.companion.agent import CompanionActionRequest
 
 COMPANION_PROMPT_VERSION = "companion-grounded@v5"
 SUPPORTED_COMPANION_PROMPT_VERSIONS = frozenset({"companion-grounded@v4", COMPANION_PROMPT_VERSION})
-COMPANION_RESPONSE_SCHEMA_VERSION = "grounded-answer@v2"
+COMPANION_RESPONSE_SCHEMA_VERSION = "grounded-answer@v3"
 COMPANION_PROVIDER_INPUT_CONTRACT_VERSION = "companion-provider-input@v2"
 
 
@@ -72,13 +72,16 @@ class AICompanionAnswerResult:
 
 
 class CompanionProviderAnswer(BaseModel):
-    model_config = ConfigDict(extra="forbid")
+    # The answer body and grounding references are the product contract. The
+    # model may omit advisory copy or add harmless metadata even when an
+    # OpenAI-compatible gateway accepts json_schema but does not enforce it.
+    model_config = ConfigDict(extra="ignore")
 
     answer: str = Field(min_length=1, max_length=4000)
-    next_actions: list[str] = Field(alias="nextActions", min_length=1, max_length=3)
+    next_actions: list[str] = Field(default_factory=list, alias="nextActions", max_length=3)
     source_refs: list[str] = Field(alias="sourceRefs", min_length=1, max_length=8)
     confidence: Literal["low", "medium", "high"]
-    limitations: list[str] = Field(max_length=8)
+    limitations: list[str] = Field(default_factory=list, max_length=8)
     requested_actions: list[CompanionActionRequest] = Field(
         default_factory=list,
         alias="requestedActions",

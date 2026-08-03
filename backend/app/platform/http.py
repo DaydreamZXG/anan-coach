@@ -133,6 +133,22 @@ def public_success_envelope(
     )
 
 
+def public_success_response(*, request: Request, data: T) -> JSONResponse:
+    """Return an already encoded public envelope for latency-sensitive routes."""
+
+    request_id = request_id_from(request)
+    payload = PublicApiEnvelope(
+        data=data,
+        request_id=request_id,
+        generated_at=datetime.now(UTC),
+    )
+    return JSONResponse(
+        status_code=status.HTTP_200_OK,
+        headers={REQUEST_ID_HEADER: request_id},
+        content=payload.model_dump(by_alias=True, mode="json"),
+    )
+
+
 def http_exception_response(request: Request, exc: HTTPException) -> JSONResponse:
     if not request.url.path.startswith("/api/v2/"):
         return JSONResponse(

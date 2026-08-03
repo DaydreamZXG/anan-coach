@@ -2,7 +2,8 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Request, Response, status
+from fastapi import APIRouter, Depends, Header, HTTPException, Request, status
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
@@ -34,7 +35,7 @@ from app.domains.qualification.repository import PositionRuleReleaseUnavailable
 from app.platform.http import (
     COMMON_API_ERROR_RESPONSES,
     PublicApiEnvelope,
-    public_success_envelope,
+    public_success_response,
 )
 
 router = APIRouter(prefix="/api/v1/companion", tags=["companion"])
@@ -103,12 +104,11 @@ def ask_companion(
 def ask_companion_v2(
     command: CompanionAskRequest,
     request: Request,
-    response: Response,
     idempotency_key: IdempotencyKey,
     current_user: Annotated[AuthenticatedUser, Depends(get_current_user)],
     session: Annotated[Session, Depends(get_db_session)],
     service: Annotated[CompanionService, Depends(get_companion_service)],
-) -> PublicApiEnvelope[CompanionAskResponse]:
+) -> JSONResponse:
     try:
         LearningBrainService().get_or_create_profile(
             session,
@@ -120,7 +120,7 @@ def ask_companion_v2(
             idempotency_key=idempotency_key,
             request=command,
         )
-        return public_success_envelope(request=request, response=response, data=result)
+        return public_success_response(request=request, data=result)
     except CompanionCommandConflict as exc:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
