@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 
 import appConfig from "../miniprogram/app.json";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
+import tabBarStylesRaw from "../miniprogram/custom-tab-bar/index.wxss?raw";
+// @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import responsiveStylesRaw from "../miniprogram/design-system/responsive/index.wxss?raw";
 // @ts-expect-error Vite exposes mini-program styles through its raw asset loader.
 import taskShellStylesRaw from "../miniprogram/task-runtime/task-shell/index.wxss?raw";
@@ -50,6 +52,7 @@ function ruleBodies(source: string, selector: string): string[] {
 }
 
 const responsiveStyles = normalizeRpxCalc(responsiveStylesRaw);
+const tabBarStyles = normalizeRpxCalc(tabBarStylesRaw);
 const taskShellStyles = normalizeRpxCalc(taskShellStylesRaw);
 const practiceStyles = normalizeRpxCalc(practiceStylesRaw);
 const favoritesStyles = normalizeRpxCalc(favoritesStylesRaw);
@@ -66,10 +69,23 @@ const loginStyles = normalizeRpxCalc(loginStylesRaw);
 describe("tablet responsive layout contract", () => {
   it("supports portrait and landscape without creating a second application", () => {
     expect(appConfig.window.pageOrientation).toBe("auto");
-    expect(responsiveStyles).toContain("@media (min-width: 768px)");
+    expect(responsiveStyles).toContain("@media (min-width: 600px)");
+    expect(responsiveStyles).toContain("--rpx: 0.5px");
+    expect(tabBarStyles).toContain("@media (min-width: 600px)");
+    expect(tabBarStyles).toContain("border-radius: 999px");
     expect(responsiveStyles).toContain("--layout-readable-max");
     expect(responsiveStyles).toContain("font-size: 16px");
     expect(taskShellStyles).toContain("max-width: var(--layout-workbench-max)");
+    expect(taskShellStyles).toContain("@media (min-width: 1024px)");
+  });
+
+  it("treats narrow portrait tablets as tablets without forcing wide-screen columns", () => {
+    for (const viewportWidth of [600, 744, 767]) {
+      expect(viewportWidth).toBeGreaterThanOrEqual(600);
+      expect(viewportWidth).toBeLessThan(768);
+    }
+    expect(responsiveStyles).toContain("@media (min-width: 600px)");
+    expect(taskShellStyles).toContain("@media (min-width: 768px)");
     expect(taskShellStyles).toContain("@media (min-width: 1024px)");
   });
 

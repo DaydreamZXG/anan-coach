@@ -3,7 +3,8 @@
  * Phone rules remain the default. Tablet rules use px so rpx does not enlarge
  * typography and controls with the physical width of the device.
  */
-@media (min-width: 768px) {
+/* 600px starts tablet density; layout-specific columns keep their own wider breakpoints. */
+@media (min-width: 600px) {
   page {
     --space-page-x: var(--layout-tablet-gutter);
     --space-page-top: 28px;
@@ -131,7 +132,7 @@
  * 让字号、圆角、间距回到物理合理尺寸；页面内的 rpx 字面量
  * 仅剩留白性质，放大后无碍阅读。
  */
-@media (min-width: 768px) {
+@media (min-width: 600px) {
   page {
     /* 大屏去放大总开关：全部 calc(N * var(--rpx)) 尺寸回到手机等效物理值。 */
     --rpx: 0.5px;
@@ -188,7 +189,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 600px) {
   /* 控件高度回到 44px 档，避免 88rpx 在平板放大成 90px 巨钮。 */
   .ui-button,
   button.s9-primary-button,

@@ -59,7 +59,7 @@
 }
 
 /* 平板：底部悬浮胶囊 Tab（居中、圆角全包、轻投影）。 */
-@media (min-width: 768px) {
+@media (min-width: 600px) {
   .tab-bar {
     right: 50%;
     bottom: calc(16px + env(safe-area-inset-bottom));
