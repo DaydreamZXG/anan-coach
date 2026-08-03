@@ -38,6 +38,15 @@ describe("stage 3 factored result presentation", () => {
     expect(reflectionTemplate).toContain(
       "summary-question-label summary-question-label--{{item.resultTone}}",
     );
+    expect(reflectionTemplate).toContain(">{{item.resultLabel}}</view>");
+    expect(reflectionTemplate).not.toContain("复盘·{{item.resultLabel}}");
+    expect(reflectionStyles).toMatch(
+      /\.summary-question-strip \{[^}]*display:\s*grid;[^}]*grid-template-columns:\s*repeat\(6, minmax\(0, 1fr\)\);/u,
+    );
+    expect(reflectionStyles).toMatch(
+      /@media \(min-width: 700px\) \{[^]*?\.summary-question-strip \{[^}]*grid-template-columns:\s*repeat\(10, minmax\(0, 1fr\)\);/u,
+    );
+    expect(reflectionStyles).not.toMatch(/\.summary-question-strip__item \{[^}]*flex:\s*1;/u);
     for (const tone of ["danger", "warning", "success", "neutral"]) {
       expect(reflectionStyles).toContain(`.summary-question-dot--${tone}`);
     }

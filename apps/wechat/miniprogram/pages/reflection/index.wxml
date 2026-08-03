@@ -77,7 +77,7 @@
       <view wx:if="{{result.items.length}}" class="summary-question-strip">
         <view wx:for="{{result.items}}" wx:key="questionId" class="summary-question-strip__item">
           <view class="summary-question-dot summary-question-dot--{{item.resultTone}}">{{item.positionNumber}}</view>
-          <view wx:if="{{item.resultTone !== 'success'}}" class="summary-question-label summary-question-label--{{item.resultTone}}">复盘·{{item.resultLabel}}</view>
+          <view class="summary-question-label summary-question-label--{{item.resultTone}}">{{item.resultLabel}}</view>
         </view>
       </view>
 
