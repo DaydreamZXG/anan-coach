@@ -211,6 +211,67 @@ def test_workspace_and_all_canonical_artifact_commands_are_owned_and_versioned(
         assert other_user_id != user_id
 
 
+def test_workspace_exposes_only_the_materials_named_by_the_task_prompt(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    token = "essay-material-scope-token"
+    _seed_learner_and_published_essay_content(
+        db_session_factory,
+        access_token=token,
+    )
+    ids = _content_ids(db_session_factory)
+    prompt = "请根据材料2概括主要问题。"
+    second_text = "第二则材料只服务于当前题目。"
+    with db_session_factory.begin() as session:
+        session.execute(
+            text(
+                "update product.essay_task_versions "
+                "set prompt = :prompt, prompt_sha256 = :prompt_sha "
+                "where task_version_id = cast(:task_id as uuid)"
+            ),
+            {
+                "task_id": ids["task"],
+                "prompt": prompt,
+                "prompt_sha": sha256(prompt.encode("utf-8")).hexdigest(),
+            },
+        )
+        session.execute(
+            text(
+                """
+                insert into product.essay_material_segments (
+                  material_segment_id, material_bundle_version_id, material_id,
+                  segment_id, material_order, segment_order, text, text_sha256
+                ) values (
+                  cast(:row_id as uuid), cast(:bundle_id as uuid), 'material-2',
+                  'segment-2', 2, 1, :text, :text_sha
+                )
+                """
+            ),
+            {
+                "row_id": str(uuid4()),
+                "bundle_id": ids["material"],
+                "text": second_text,
+                "text_sha": sha256(second_text.encode("utf-8")).hexdigest(),
+            },
+        )
+
+    response = _client(db_session_factory).get(
+        f"/api/v2/essay-intelligence/tasks/{ids['task']}/workspace",
+        headers={"Authorization": f"Bearer {token}"},
+    )
+
+    assert response.status_code == 200, response.text
+    workspace = response.json()["data"]
+    assert workspace["task"]["materialScope"] == {
+        "mode": "explicit",
+        "materialOrders": [2],
+    }
+    assert [
+        item["materialOrder"] for item in workspace["material"]["segments"]
+    ] == [2]
+    assert workspace["material"]["segments"][0]["text"] == second_text
+
+
 def test_workspace_and_planning_bind_review_to_the_current_answer_version(
     db_session_factory: sessionmaker[Session],
 ) -> None:

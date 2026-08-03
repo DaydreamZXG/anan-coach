@@ -62,6 +62,7 @@ from app.domains.essay_intelligence.review_service import (
 )
 from app.domains.essay_intelligence.schemas import EssayProviderReviewPayload
 from app.domains.essay_intelligence.workflow_repository import (
+    EssayReviewWorkflowRepository,
     EssayWorkflowContractError,
     EssayWorkflowNotFound,
 )
@@ -406,6 +407,66 @@ def test_attempt_and_answer_commands_are_owner_scoped_and_idempotent(
                 command_id="answer-command-1",
                 command=changed_answer,
             )
+
+
+def test_review_context_uses_the_same_prompt_scoped_materials(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    queued = _prepare_queued_review(db_session_factory)
+    prompt = "请根据材料1概括基层治理问题。"
+    extra_text = "这是一则不属于当前题目范围的材料。"
+    with db_session_factory.begin() as session:
+        bound = session.execute(
+            text(
+                "select task_version_id, material_bundle_version_id "
+                "from learning.essay_attempts "
+                "where attempt_id = cast(:attempt_id as uuid)"
+            ),
+            {"attempt_id": str(queued.attempt_id)},
+        ).mappings().one()
+        session.execute(
+            text(
+                "update product.essay_task_versions "
+                "set prompt = :prompt, prompt_sha256 = :prompt_sha "
+                "where task_version_id = :task_id"
+            ),
+            {
+                "task_id": bound["task_version_id"],
+                "prompt": prompt,
+                "prompt_sha": _hash(prompt),
+            },
+        )
+        session.execute(
+            text(
+                """
+                insert into product.essay_material_segments (
+                  material_segment_id, material_bundle_version_id,
+                  material_id, segment_id, material_order, segment_order,
+                  text, text_sha256
+                ) values (
+                  cast(:row_id as uuid), :bundle_id,
+                  'material-2', 'segment-2', 2, 1, :text, :text_sha
+                )
+                """
+            ),
+            {
+                "row_id": str(uuid4()),
+                "bundle_id": bound["material_bundle_version_id"],
+                "text": extra_text,
+                "text_sha": _hash(extra_text),
+            },
+        )
+
+    with db_session_factory() as session:
+        context = EssayReviewWorkflowRepository().load_context(
+            session,
+            user_id=queued.user_id,
+            attempt_id=queued.attempt_id,
+            answer_version_id=queued.answer_id,
+        )
+
+    assert [item.material_order for item in context.material.segments] == [1]
+    assert [item.segment_id for item in context.material.segments] == ["segment-1"]
 
 
 def test_attempt_rejects_rubric_bound_to_a_different_material_version(

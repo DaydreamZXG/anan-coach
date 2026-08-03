@@ -13,6 +13,7 @@ from app.domains.essay_intelligence.grounding import (
     GroundedReviewContext,
     GroundingValidationReport,
 )
+from app.domains.essay_intelligence.material_scope import resolve_material_scope
 from app.domains.essay_intelligence.schemas import (
     EssayAnswerVersion,
     EssayAttempt,
@@ -862,6 +863,16 @@ def _context(
     row: RowMapping,
     segments: list[RowMapping],
 ) -> GroundedReviewContext:
+    material_scope = resolve_material_scope(
+        str(row["prompt"]),
+        [int(item["material_order"]) for item in segments],
+    )
+    selected_orders = set(material_scope.material_orders)
+    scoped_segments = [
+        item
+        for item in segments
+        if int(item["material_order"]) in selected_orders
+    ]
     task = EssayTaskVersion.model_validate(
         {
             "taskVersionId": row["task_version_id"],
@@ -895,7 +906,7 @@ def _context(
                     "text": item["text"],
                     "textSha256": item["text_sha256"],
                 }
-                for item in segments
+                for item in scoped_segments
             ],
             "supersedesMaterialBundleVersionId": row[
                 "supersedes_material_bundle_version_id"

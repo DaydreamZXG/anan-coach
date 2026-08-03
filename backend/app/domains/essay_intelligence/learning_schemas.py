@@ -364,6 +364,11 @@ class EssayTaskArtifactState(ArtifactContractModel):
     )
 
 
+class EssayWorkspaceMaterialScope(ArtifactContractModel):
+    mode: Literal["explicit", "all", "fallback_all"]
+    material_orders: list[int] = Field(alias="materialOrders", min_length=1)
+
+
 class EssayWorkspaceTask(ArtifactContractModel):
     task_version_id: UUID = Field(alias="taskVersionId")
     task_key: str = Field(alias="taskKey", min_length=1, max_length=160)
@@ -378,6 +383,7 @@ class EssayWorkspaceTask(ArtifactContractModel):
     ] = Field(alias="questionType")
     word_limit: int = Field(alias="wordLimit", ge=1, le=5000)
     maximum_score: float = Field(alias="maximumScore", gt=0, le=100)
+    material_scope: EssayWorkspaceMaterialScope = Field(alias="materialScope")
 
 
 class EssayWorkspaceMaterialSegment(ArtifactContractModel):

@@ -475,6 +475,26 @@ describe("essay artifact forms", () => {
     ]);
   });
 
+  it("renders only the server-scoped material directory", () => {
+    const workspace = createWorkspace();
+    workspace.task.materialScope = { mode: "explicit", materialOrders: [2] };
+    workspace.material.segments = [
+      {
+        materialId: "material-2",
+        segmentId: "segment-2",
+        materialOrder: 2,
+        segmentOrder: 1,
+        text: "第二则材料。",
+      },
+    ];
+
+    const view = presentEssayWorkspace(workspace, "material_annotation");
+
+    expect(view.directory.map((item) => item.materialOrder)).toEqual([2]);
+    expect(view.segments.map((item) => item.segmentId)).toEqual(["segment-2"]);
+    expect(initialEssayFormDrafts(workspace).materialAnnotations).toHaveLength(1);
+  });
+
   it("restores natural paragraphs from stored material line breaks", () => {
     const workspace = createWorkspace();
     const first = workspace.material.segments[0];
@@ -692,6 +712,7 @@ function createWorkspace(options: { rubric?: boolean; review?: boolean } = {}): 
       questionType: "summary",
       wordLimit: 300,
       maximumScore: 20,
+      materialScope: { mode: "fallback_all", materialOrders: [1] },
     },
     material: {
       materialBundleVersionId: "material-version-1",

@@ -24,6 +24,7 @@ from app.domains.essay_intelligence.learning_schemas import (
     EssayTaskArtifactState,
     EssayTaskWorkspace,
     EssayWorkspaceMaterial,
+    EssayWorkspaceMaterialScope,
     EssayWorkspaceMaterialSegment,
     EssayWorkspaceProgression,
     EssayWorkspaceRubric,
@@ -36,6 +37,7 @@ from app.domains.essay_intelligence.learning_schemas import (
     ReflectionPayload,
     ReviewAcknowledgementPayload,
 )
+from app.domains.essay_intelligence.material_scope import resolve_material_scope
 from app.domains.essay_intelligence.mastery.service import EssayMasteryService
 from app.domains.essay_intelligence.schemas import (
     EssayAnswerVersion,
@@ -399,6 +401,16 @@ class EssayLearningArtifactService:
             session,
             material_bundle_version_id=material_id,
         )
+        material_scope = resolve_material_scope(
+            str(content["prompt"]),
+            [int(item["material_order"]) for item in segments],
+        )
+        selected_orders = set(material_scope.material_orders)
+        scoped_segments = [
+            item
+            for item in segments
+            if int(item["material_order"]) in selected_orders
+        ]
         artifact_state = self.current_for_task(
             session,
             user_id=user_id,
@@ -441,6 +453,10 @@ class EssayLearningArtifactService:
                 question_type=content["question_type"],
                 word_limit=int(content["word_limit"]),
                 maximum_score=float(content["maximum_score"]),
+                material_scope=EssayWorkspaceMaterialScope(
+                    mode=material_scope.mode,
+                    material_orders=list(material_scope.material_orders),
+                ),
             ),
             material=EssayWorkspaceMaterial(
                 material_bundle_version_id=content["material_bundle_version_id"],
@@ -453,7 +469,7 @@ class EssayLearningArtifactService:
                         segment_order=int(item["segment_order"]),
                         text=item["text"],
                     )
-                    for item in segments
+                    for item in scoped_segments
                 ],
             ),
             rubric_availability=EssayWorkspaceRubricAvailability(

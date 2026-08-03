@@ -5176,6 +5176,20 @@ export type EssayWorkspaceMaterial = {
 };
 
 /**
+ * EssayWorkspaceMaterialScope
+ */
+export type EssayWorkspaceMaterialScope = {
+    /**
+     * Materialorders
+     */
+    materialOrders: Array<number>;
+    /**
+     * Mode
+     */
+    mode: 'explicit' | 'all' | 'fallback_all';
+};
+
+/**
  * EssayWorkspaceMaterialSegment
  */
 export type EssayWorkspaceMaterialSegment = {
@@ -5377,6 +5391,7 @@ export type EssayWorkspaceRubricPoint = {
  * EssayWorkspaceTask
  */
 export type EssayWorkspaceTask = {
+    materialScope: EssayWorkspaceMaterialScope;
     /**
      * Maximumscore
      */
