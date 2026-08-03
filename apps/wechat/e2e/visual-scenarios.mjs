@@ -1514,7 +1514,7 @@ export const visualScenarios = [
         ],
         verificationStageLabel: "",
         sourceMasteryLabel: "",
-        validUntilLabel: "这组题保留至 07.16 23:00",
+        validUntilLabel: "这组题保留至计划当日结束",
         planVersionLabel: "已按今天的计划安排题目",
       },
       errorTitle: "",
