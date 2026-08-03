@@ -1075,21 +1075,12 @@ class PlanningRepository:
             point_extraction_id = artifact_versions.get("point_extraction")
             outline_id = artifact_versions.get("outline")
             rubric_id = _optional_str(published["rubric_version_id"])
-            if material_annotation_id is None:
-                next_stage = "baseline_due"
-                pending_reason = None
-            elif rubric_id is None:
+            if rubric_id is None:
                 next_stage = "evaluation_pending"
                 pending_reason = (
-                    "材料地图已完成；当前题目的可审计评分规程尚未发布，"
-                    "规划 Agent 暂停找点、提纲与作答，避免伪造评分依据。"
+                    "当前题目的可审计评分规程尚未发布；规划不会把材料地图、"
+                    "找点或提纲伪装成可完成的申论主任务，并会优先选择可直接作答的题目。"
                 )
-            elif point_extraction_id is None:
-                next_stage = "point_extraction_due"
-                pending_reason = None
-            elif outline_id is None:
-                next_stage = "outline_due"
-                pending_reason = None
             else:
                 next_stage = "drafting_due"
                 pending_reason = None

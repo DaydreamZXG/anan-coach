@@ -401,6 +401,10 @@ def _essay_candidate(
     if (
         snapshot.next_stage in {"content_unavailable", "evaluation_pending", "closure_unavailable"}
         or snapshot.task_version_id is None
+        or (
+            snapshot.next_stage in {"baseline_due", "drafting_due"}
+            and snapshot.rubric_version_id is None
+        )
     ):
         return None
     evidence = _shared_evidence(goal)
@@ -508,8 +512,8 @@ def _essay_candidate(
         ),
         "drafting_due": (
             "essay_drafting",
-            "依据材料与提纲完成申论作答",
-            "材料标注、要点与提纲均已形成，当前最需要补齐的是可评阅的原稿证据。",
+            "依据题目与材料完成申论作答",
+            "题目、指定材料与评分规程均已就绪；直接完成真实作答，材料地图、找点和提纲按需使用。",
             _essay_drafting_minutes(snapshot.question_type, snapshot.word_limit),
             "提交答案版本，并记录作答后的即时复盘。",
             "baseline",
@@ -585,23 +589,17 @@ def _essay_candidate(
 
 def _baseline_definition(
     snapshot: EssayPlanningSnapshot,
-    available_minutes: int,
+    _available_minutes: int,
 ) -> tuple[str, str, str, int, str, str, float, float]:
-    reading_minutes = min(15, max(10, available_minutes))
-    reason = (
-        "题目与完整材料已通过门禁，但可审计评分规程尚未发布；先完成不依赖假评分点的材料阅读。"
-        if snapshot.rubric_version_id is None
-        else "完整作答必须建立在逐段材料证据上；先完成可验收的材料阅读，不跳过找点依据。"
-    )
     return (
-        "essay_material_reading",
-        "先建立申论材料地图",
-        reason,
-        reading_minutes,
-        "完成材料分段标注，为每段保留主旨、对象与可引用证据。",
-        "material-reading",
-        0.86,
-        0.68,
+        "essay_drafting",
+        "依据题目与材料完成申论作答",
+        "先用真实作答建立能力证据；材料地图、找点和提纲只在复核发现对应偏差后作为专项训练。",
+        _essay_drafting_minutes(snapshot.question_type, snapshot.word_limit),
+        "提交答案版本，并记录作答后的即时复盘。",
+        "baseline",
+        0.95,
+        0.88,
     )
 
 

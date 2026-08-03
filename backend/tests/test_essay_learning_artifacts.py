@@ -459,7 +459,7 @@ def test_workspace_keeps_the_exact_material_rubric_when_foreign_lineage_is_newer
     ]
 
 
-def test_material_completion_advances_planning_and_rubric_pending_blocks_scored_work(
+def test_optional_material_training_does_not_fake_drafting_without_a_rubric(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     token = "essay-planning-no-rubric-token"
@@ -480,9 +480,10 @@ def test_material_completion_advances_planning_and_rubric_pending_blocks_scored_
             now=NOW,
             local_date=NOW.date(),
         )
-    assert next(item for item in initial.tasks if item.track == "essay").stage == (
-        "essay_material_reading"
-    )
+    assert not any(item.track == "essay" for item in initial.tasks)
+    assert "评分规程尚未发布" in initial.dual_track_explanation.omitted_track_reasons[
+        "essay"
+    ]
 
     artifact = client.post(
         "/api/v2/essay-intelligence/artifacts",
@@ -508,7 +509,7 @@ def test_material_completion_advances_planning_and_rubric_pending_blocks_scored_
     assert workspace["rubricAvailability"] == {"status": "pending", "rubric": None}
 
 
-def test_artifacts_drive_material_point_outline_draft_review_ack_rewrite_states(
+def test_optional_material_point_and_outline_artifacts_never_gate_initial_drafting(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     token = "essay-planning-progression-token"
@@ -527,14 +528,14 @@ def test_artifacts_drive_material_point_outline_draft_review_ack_rewrite_states(
         "progress-material",
         _material_command(ids["task"], ids["material"]),
     )
-    assert _essay_stage(db_session_factory, service, user_id) == "essay_point_extraction"
+    assert _essay_stage(db_session_factory, service, user_id) == "essay_drafting"
     point = _post(
         client,
         auth,
         "progress-point",
         _point_command(ids, material["artifactVersionId"]),
     )
-    assert _essay_stage(db_session_factory, service, user_id) == "essay_outlining"
+    assert _essay_stage(db_session_factory, service, user_id) == "essay_drafting"
     _post(
         client,
         auth,
@@ -840,7 +841,7 @@ def test_draft_or_incomplete_successors_do_not_hide_latest_consumable_content(
             local_date=NOW.date(),
         )
     upgraded_essay = next(item for item in upgraded_plan.tasks if item.track == "essay")
-    assert upgraded_essay.stage == "essay_point_extraction"
+    assert upgraded_essay.stage == "essay_drafting"
 
 
 def _material_command(task_id: str, material_id: str) -> dict[str, object]:

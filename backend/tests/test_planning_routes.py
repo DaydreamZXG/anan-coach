@@ -46,6 +46,44 @@ NOW = datetime(2026, 7, 13, 8, tzinfo=UTC)
 TOKEN = "planning-v2-route-token"
 
 
+def _make_material_reading_plan_task(
+    factory: sessionmaker[Session],
+    *,
+    task_id: str,
+) -> None:
+    completion_contract = {
+        "objective": "诊断后的申论材料地图特训",
+        "successCriteria": ["完成材料分段标注，为每段保留主旨、对象与可引用证据。"],
+        "terminalConditions": [
+            "满足验收条件并提交证据",
+            "用户主动结束并记录未完成原因",
+        ],
+        "requiresReflection": False,
+        "completionEvidenceTypes": ["essay_material_annotation", "task_execution"],
+    }
+    with factory.begin() as session:
+        session.execute(
+            text(
+                """
+                update learning.daily_plan_tasks
+                set stage = 'essay_material_reading',
+                    title = '申论专项：材料理解',
+                    reason = '最近作答证据显示材料理解需要专项训练。',
+                    estimated_minutes = 15,
+                    completion_contract = cast(:completion_contract as jsonb)
+                where task_id = cast(:task_id as uuid)
+                """
+            ),
+            {
+                "task_id": task_id,
+                "completion_contract": json.dumps(
+                    completion_contract,
+                    ensure_ascii=False,
+                ),
+            },
+        )
+
+
 def test_canonical_frozen_release_factory_satisfies_current_contract(
     db_session_factory: sessionmaker[Session],
 ) -> None:
@@ -169,15 +207,15 @@ def test_dual_track_plan_persists_one_idempotent_xingce_and_essay_budget(
     assert first.goal_gap.baseline_gap is None
     assert first.capacity.available_minutes == 45
     assert first.capacity.confirmed is False
-    assert sum(task.estimated_minutes for task in first.tasks) == 27
+    assert sum(task.estimated_minutes for task in first.tasks) == 37
     assert {task.track for task in first.tasks} == {"xingce", "essay"}
     assert {task.stage for task in first.tasks} == {
         "objective_baseline",
-        "essay_material_reading",
+        "essay_drafting",
     }
     assert first.dual_track_explanation.dual_track_constraint_applied is True
     assert first.dual_track_explanation.xingce_minutes == 12
-    assert first.dual_track_explanation.essay_minutes == 15
+    assert first.dual_track_explanation.essay_minutes == 25
     assert all(task.evidence_refs for task in first.tasks)
     xingce_task = next(task for task in first.tasks if task.track == "xingce")
     xingce_query = parse_qs(urlsplit(xingce_task.start_url).query)
@@ -407,7 +445,7 @@ def test_short_capacity_mock_day_keeps_executable_dual_track_work(
     assert "weekly_mock_capacity_insufficient" in plan.replan_reason_codes
 
 
-def test_published_material_without_rubric_still_enters_honest_essay_reading(
+def test_published_material_without_rubric_is_omitted_instead_of_faking_prerequisites(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     user_id = _seed_learner_and_published_essay_content(
@@ -423,9 +461,10 @@ def test_published_material_without_rubric_still_enters_honest_essay_reading(
             local_date=NOW.date(),
         )
 
-    essay = next(task for task in plan.tasks if task.track == "essay")
-    assert essay.stage == "essay_material_reading"
-    assert "可审计评分规程尚未发布" in essay.reason
+    assert not any(task.track == "essay" for task in plan.tasks)
+    assert "评分规程尚未发布" in plan.dual_track_explanation.omitted_track_reasons[
+        "essay"
+    ]
     assert plan.input_versions["essayRubric"] == "unavailable"
 
 
@@ -980,7 +1019,6 @@ def test_expired_essay_artifact_completion_uses_same_conflict_and_rolls_back(
     user_id = _seed_learner_and_published_essay_content(
         db_session_factory,
         access_token=token,
-        include_rubric=False,
     )
     with db_session_factory.begin() as session:
         plan = PlanningService().get_or_create_today(
@@ -989,7 +1027,8 @@ def test_expired_essay_artifact_completion_uses_same_conflict_and_rolls_back(
             now=NOW,
             local_date=NOW.date(),
         )
-    task = next(item for item in plan.tasks if item.stage == "essay_material_reading")
+    task = next(item for item in plan.tasks if item.stage == "essay_drafting")
+    _make_material_reading_plan_task(db_session_factory, task_id=str(task.id))
     task_version_id = next(
         item.entity_id for item in task.evidence_refs if item.entity_type == "essay_task_version"
     )
@@ -1173,12 +1212,12 @@ def test_material_reading_completion_accepts_owned_canonical_artifact_and_replan
     _seed_learner_and_published_essay_content(
         db_session_factory,
         access_token=token,
-        include_rubric=False,
     )
     client = _client(db_session_factory)
     auth = {"Authorization": f"Bearer {token}"}
     plan = client.get("/api/v2/plans/today", headers=auth).json()["data"]
     essay = next(task for task in plan["tasks"] if task["track"] == "essay")
+    _make_material_reading_plan_task(db_session_factory, task_id=essay["id"])
     task_id = next(
         ref["entityId"]
         for ref in essay["evidenceRefs"]
@@ -1244,11 +1283,7 @@ def test_material_reading_completion_accepts_owned_canonical_artifact_and_replan
     result = response.json()["data"]
     assert result["completion"]["execution"]["status"] == "complete"
     assert result["artifact"]["artifactType"] == "material_annotation"
-    assert not any(task["track"] == "essay" for task in result["completion"]["plan"]["tasks"])
-    assert (
-        "评分规程尚未发布"
-        in result["completion"]["plan"]["dualTrackExplanation"]["omittedTrackReasons"]["essay"]
-    )
+    assert any(task["stage"] == "essay_drafting" for task in result["completion"]["plan"]["tasks"])
     replay = client.post(
         "/api/v2/essay-intelligence/artifacts/complete-plan-task",
         headers={**auth, "Idempotency-Key": "material-atomic-complete"},

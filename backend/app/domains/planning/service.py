@@ -55,7 +55,7 @@ from app.platform.outbox import OutboxRepository
 
 
 PLAN_CONTRACT_VERSION = "daily-plan-v3"
-PLAN_ALGORITHM_VERSION = "dual-track-capacity-coverage-v4"
+PLAN_ALGORITHM_VERSION = "dual-track-direct-essay-v5"
 PLAN_BASIS = "evidence_priority_v2"
 SHANGHAI = ZoneInfo("Asia/Shanghai")
 STRATEGY_ADJUSTABLE_STAGES = {

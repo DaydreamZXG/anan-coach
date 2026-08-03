@@ -42,6 +42,8 @@ def test_capacity_driven_candidate_keeps_room_for_the_essay_track() -> None:
             "essay-task-v1",
             material_bundle_version_id="essay-material-v1",
             rubric_version_id="essay-rubric-v1",
+            question_type="summary",
+            word_limit=200,
         ),
         available_minutes=120,
     )
@@ -110,13 +112,54 @@ def test_missing_component_evidence_creates_both_baseline_tracks() -> None:
 
     assert {item.stage for item in candidates.candidates} == {
         "objective_baseline",
-        "essay_material_reading",
+        "essay_drafting",
     }
     assert all(item.evidence_refs for item in candidates.candidates)
     essay = next(item for item in candidates.candidates if item.track == "essay")
     assert {
         ref["entityType"] for ref in essay.evidence_refs
     } >= {"essay_task_version", "essay_material_bundle_version", "essay_rubric_version"}
+
+
+@pytest.mark.parametrize(
+    ("weakest_dimension", "expected_stage"),
+    (
+        ("材料理解", "essay_material_reading"),
+        ("要点覆盖", "essay_point_extraction"),
+        ("结构层次", "essay_outlining"),
+        ("语言表达", "essay_drafting"),
+    ),
+)
+def test_review_evidence_prescribes_only_the_corresponding_essay_training(
+    weakest_dimension: str,
+    expected_stage: str,
+) -> None:
+    candidates = build_dual_track_candidates(
+        goal=_goal(),
+        objective=ObjectivePlanningSnapshot(
+            False,
+            0,
+            0,
+            "资料分析",
+            "objective-v1",
+            "available",
+            None,
+        ),
+        essay=EssayPlanningSnapshot(
+            "practice_due",
+            "essay-task-v1",
+            material_bundle_version_id="essay-material-v1",
+            rubric_version_id="essay-rubric-v1",
+            question_type="summary",
+            word_limit=200,
+            weakest_dimension=weakest_dimension,
+        ),
+        available_minutes=60,
+    )
+
+    essay = next(item for item in candidates.candidates if item.track == "essay")
+    assert essay.stage == expected_stage
+    assert weakest_dimension in essay.reason
 
 
 def test_unresolved_essay_review_becomes_rewrite_instead_of_fixed_daily_prompt() -> None:
@@ -302,7 +345,7 @@ def test_missing_published_essay_content_is_explicitly_omitted() -> None:
     assert "不生成不可执行任务" in candidates.omitted_track_reasons["essay"]
 
 
-def test_short_capacity_gets_a_real_material_stage_instead_of_starving_essay() -> None:
+def test_new_essay_task_still_enters_real_drafting_when_capacity_is_short() -> None:
     candidates = build_dual_track_candidates(
         goal=_goal(readiness="partial"),
         objective=ObjectivePlanningSnapshot(True, 0, 0, None, None, "available", None),
@@ -319,12 +362,12 @@ def test_short_capacity_gets_a_real_material_stage_instead_of_starving_essay() -
     )
 
     essay = next(item for item in candidates.candidates if item.track == "essay")
-    assert essay.stage == "essay_material_reading"
-    assert essay.estimated_minutes == 15
-    assert "逐段材料证据" in essay.reason
+    assert essay.stage == "essay_drafting"
+    assert essay.estimated_minutes == 80
+    assert "真实作答" in essay.reason
 
 
-def test_unpublished_rubric_allows_reading_but_never_fakes_scored_drafting() -> None:
+def test_unpublished_rubric_omits_essay_instead_of_faking_a_prerequisite() -> None:
     candidates = build_dual_track_candidates(
         goal=_goal(),
         objective=ObjectivePlanningSnapshot(
@@ -342,10 +385,8 @@ def test_unpublished_rubric_allows_reading_but_never_fakes_scored_drafting() -> 
         available_minutes=60,
     )
 
-    essay = next(item for item in candidates.candidates if item.track == "essay")
-    assert essay.stage == "essay_material_reading"
-    assert "可审计评分规程尚未发布" in essay.reason
-    assert all(ref["entityType"] != "essay_rubric_version" for ref in essay.evidence_refs)
+    assert not any(item.track == "essay" for item in candidates.candidates)
+    assert "评分规程尚未发布" in candidates.omitted_track_reasons["essay"]
 
 
 def test_unavailable_objective_closure_has_no_synthetic_counts_or_candidates() -> None:
