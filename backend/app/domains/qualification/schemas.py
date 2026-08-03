@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Literal, TypeAlias
+from typing import Literal, TypeAlias, get_args
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -27,6 +27,7 @@ QualificationFactKey = Literal[
     "other_conditions",
 ]
 QualificationFactValue: TypeAlias = str | int | bool | list[str]
+QUALIFICATION_FACT_LIMIT = len(get_args(QualificationFactKey))
 FactVerificationStatus = Literal["reported", "confirmed", "conflicting"]
 FactSourceType = Literal["learner_report", "document", "official_import", "operator"]
 
@@ -140,7 +141,10 @@ class QualificationFactInput(QualificationBaseModel):
 class QualificationFactsUpdate(QualificationBaseModel):
     model_config = ConfigDict(populate_by_name=True, extra="forbid")
 
-    facts: list[QualificationFactInput] = Field(min_length=1, max_length=10)
+    facts: list[QualificationFactInput] = Field(
+        min_length=1,
+        max_length=QUALIFICATION_FACT_LIMIT,
+    )
 
     @model_validator(mode="after")
     def validate_unique_keys(self) -> "QualificationFactsUpdate":

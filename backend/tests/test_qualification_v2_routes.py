@@ -19,6 +19,51 @@ from app.main import create_app
 TOKEN = "qualification-v2-token"
 
 
+def test_v2_profile_accepts_the_complete_onboarding_fact_set(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _seed_user(db_session_factory)
+    response = _client(db_session_factory).put(
+        "/api/v2/qualification/profile",
+        headers={
+            "Authorization": f"Bearer {TOKEN}",
+            "Idempotency-Key": "complete-qualification-profile-1",
+        },
+        json={
+            "facts": [
+                {"key": "education", "value": "本科"},
+                {"key": "degree", "value": "学士"},
+                {"key": "major", "value": "汉语言文学"},
+                {"key": "graduation_year", "value": 2026},
+                {"key": "fresh_graduate", "value": True},
+                {"key": "gender", "value": "女"},
+                {"key": "political_status", "value": "群众"},
+                {"key": "certifications", "value": ["无"]},
+                {"key": "work_years", "value": 0},
+                {"key": "grassroots_years", "value": 0},
+                {"key": "service_project", "value": "无"},
+                {"key": "hukou", "value": "江西省赣州市"},
+            ]
+        },
+    )
+
+    assert response.status_code == 200
+    assert {fact["key"] for fact in response.json()["data"]["facts"]} == {
+        "education",
+        "degree",
+        "major",
+        "graduation_year",
+        "fresh_graduate",
+        "gender",
+        "political_status",
+        "certifications",
+        "work_years",
+        "grassroots_years",
+        "service_project",
+        "hukou",
+    }
+
+
 def test_v2_profile_eligibility_and_primary_goal_contract(
     db_session_factory: sessionmaker[Session],
 ) -> None:
