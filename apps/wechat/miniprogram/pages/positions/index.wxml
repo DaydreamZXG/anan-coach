@@ -112,8 +112,8 @@
 
       <view wx:if="{{!workspace.candidateItems.length && !workspace.primaryGoal}}" class="position-empty-card">
         <view class="position-empty-card__title">暂时没有优势推荐</view>
-        <view class="position-empty-card__copy">只有资格已确认、目标分与能力分差证据都完整的岗位，才会进入这里。</view>
-        <button hover-class="item--hover" class="secondary-pill" bindtap="openScoreSheet">补充成绩证据</button>
+        <view class="position-empty-card__copy">暂时没有同时具备资格依据和历年目标分依据的岗位；这不会阻断今日学习。</view>
+        <button hover-class="item--hover" class="secondary-pill" bindtap="openSearch">查看全部岗位</button>
       </view>
 
       <block wx:if="{{workspace.evidencePendingItems.length}}">

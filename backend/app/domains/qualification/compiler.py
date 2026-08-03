@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass
 from hashlib import sha256
 import json
@@ -14,7 +15,7 @@ from app.domains.positions.source_contract import (
 from app.domains.qualification.schemas import PositionRequirement
 
 
-COMPILER_VERSION = "guokao-position-rules-v4"
+COMPILER_VERSION = "guokao-position-rules-v5"
 SOURCE_CONDITIONS_INCOMPLETE_WARNING = "source_conditions_incomplete"
 UNRESTRICTED = {"", "不限", "无", "无要求", "不限制", "专业不限", "无特殊要求"}
 EDUCATION_OPTIONS = {
@@ -138,6 +139,7 @@ def compile_position_rules(
     position_data_version: str,
     source_conditions_complete: bool = True,
     major_catalog_names: frozenset[str] | None = None,
+    major_catalog_groups: Mapping[str, frozenset[str]] | None = None,
     major_catalog_version: str | None = None,
 ) -> CompiledPositionRules:
     requirements: list[PositionRequirement] = []
@@ -147,12 +149,25 @@ def compile_position_rules(
         if major_catalog_names
         else None
     )
+    normalized_major_groups = (
+        {
+            normalized_group: frozenset(
+                normalized_member for member in members if (normalized_member := _normalize(member))
+            )
+            for group, members in major_catalog_groups.items()
+            if (normalized_group := _normalize(group))
+        }
+        if major_catalog_groups
+        else None
+    )
     major_catalog_fingerprint = _major_catalog_fingerprint(
         names=normalized_major_catalog,
+        groups=normalized_major_groups,
         version=major_catalog_version,
     )
     if major_catalog_fingerprint is None:
         normalized_major_catalog = None
+        normalized_major_groups = None
 
     _compile_education(source, requirements, warnings, rule_set_version, position_data_version)
     _compile_major(
@@ -162,6 +177,7 @@ def compile_position_rules(
         rule_set_version,
         position_data_version,
         major_catalog_names=normalized_major_catalog,
+        major_catalog_groups=normalized_major_groups,
     )
     _compile_political(source, requirements, warnings, rule_set_version, position_data_version)
     _compile_official_payload(
@@ -276,6 +292,7 @@ def _compile_major(
     position_data_version: str,
     *,
     major_catalog_names: frozenset[str] | None,
+    major_catalog_groups: Mapping[str, frozenset[str]] | None,
 ) -> None:
     value = _normalize(source.major_required)
     if _unrestricted(value):
@@ -283,6 +300,7 @@ def _compile_major(
     parts = _parse_exact_major_options(
         value,
         major_catalog_names=major_catalog_names,
+        major_catalog_groups=major_catalog_groups,
     )
     if parts is None:
         requirements.append(
@@ -317,12 +335,14 @@ def _parse_exact_major_options(
     value: str,
     *,
     major_catalog_names: frozenset[str] | None,
+    major_catalog_groups: Mapping[str, frozenset[str]] | None,
 ) -> list[str] | None:
-    """Return only exact major names whose OR semantics are mechanically safe.
+    """Return exact majors or catalog-backed major groups with safe OR semantics.
 
-    Official category, catalogue, direction and exclusion expressions remain
-    manual-review requirements.  A terminal ``专业`` and the explicit wrappers
-    ``限``/``仅限`` are accepted as lexical aliases rather than category guesses.
+    Category names are expanded only from the immutable catalog hierarchy.
+    Direction, exclusion and relationship expressions remain manual-review
+    requirements. A terminal ``专业`` and the explicit wrappers ``限``/``仅限``
+    are accepted as lexical aliases rather than category guesses.
     """
 
     # Without one immutable catalogue snapshot, even a plain Chinese token
@@ -331,9 +351,12 @@ def _parse_exact_major_options(
         return None
     if any(char in value for char in "（）()") or re.search(r"\d", value):
         return None
-    if any(marker in value for marker in MAJOR_COMPLEX_MARKERS):
+    unsafe_markers = tuple(
+        marker for marker in MAJOR_COMPLEX_MARKERS if marker not in {"专业", "类"}
+    )
+    if any(marker in value for marker in unsafe_markers):
         return None
-    if MAJOR_CATEGORY.search(value) or re.search(r"(?:等|等专业)$", value):
+    if re.search(r"(?:等|等专业)$", value):
         return None
 
     raw_parts = _split_options(value)
@@ -350,6 +373,10 @@ def _parse_exact_major_options(
         if not part or MAJOR_EXACT_TOKEN.fullmatch(part) is None:
             return None
 
+        group_members = major_catalog_groups.get(part) if major_catalog_groups else None
+        if group_members:
+            options.extend(sorted(group_members))
+            continue
         if part in major_catalog_names:
             canonical = part
         elif part.endswith("专业") and len(part) > 2 and part[:-2] in major_catalog_names:
@@ -844,6 +871,7 @@ def _split_options(value: str) -> list[str]:
 def _major_catalog_fingerprint(
     *,
     names: frozenset[str] | None,
+    groups: Mapping[str, frozenset[str]] | None,
     version: str | None,
 ) -> str | None:
     normalized_version = (version or "").strip()
@@ -853,6 +881,7 @@ def _major_catalog_fingerprint(
         {
             "version": normalized_version,
             "names": sorted(names),
+            "groups": {key: sorted(values) for key, values in sorted((groups or {}).items())},
         },
         ensure_ascii=False,
         sort_keys=True,

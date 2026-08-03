@@ -112,7 +112,7 @@ def test_compile_release_is_audited_conservative_and_idempotent(
     assert summary.needs_confirmation_count == 1
     assert summary.no_conditions_count == 1
     assert summary.requirements_count == 8
-    assert summary.manual_review_count == 2
+    assert summary.manual_review_count == 1
 
     with db_session_factory.begin() as session:
         repeated = service.compile_draft(session, release_id=release_id, compiled_at=NOW)
@@ -153,7 +153,10 @@ def test_compile_release_is_audited_conservative_and_idempotent(
     assert len(audits) == 3
     assert sum(row["requirements_count"] for row in audits) == len(requirements)
     manual_fields = {row["fact_key"] for row in requirements if row["operator"] == "manual_review"}
-    assert manual_fields == {"major", "hukou"}
+    assert manual_fields == {"hukou"}
+    assert any(
+        row["fact_key"] == "major" and row["operator"] == "contains_any" for row in requirements
+    )
     assert all(
         row["source_reference"].startswith("product.position_snapshots:guokao-2026-fixture-v1:")
         for row in requirements

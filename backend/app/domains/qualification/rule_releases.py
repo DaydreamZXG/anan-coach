@@ -288,7 +288,11 @@ class PositionRuleReleaseService:
         if not rows:
             raise RuleReleaseContractError("The release year has no positions")
         source_conditions_complete = all(row["raw_json"] is not None for row in rows)
-        major_catalog_names, major_catalog_version = _major_catalog_snapshot(session)
+        (
+            major_catalog_names,
+            major_catalog_groups,
+            major_catalog_version,
+        ) = _major_catalog_snapshot(session)
 
         timestamp = compiled_at or datetime.now(UTC)
         status_counts = {
@@ -315,6 +319,7 @@ class PositionRuleReleaseService:
                 position_data_version=release["position_data_version"],
                 source_conditions_complete=source_conditions_complete,
                 major_catalog_names=major_catalog_names,
+                major_catalog_groups=major_catalog_groups,
                 major_catalog_version=major_catalog_version,
             )
             existing = (
@@ -636,18 +641,53 @@ class PositionRuleReleaseService:
 
 def _major_catalog_snapshot(
     session: Session,
-) -> tuple[frozenset[str] | None, str | None]:
-    names = tuple(
-        str(value).strip()
-        for value in session.execute(
-            text("select name from product.major_catalog order by code")
-        ).scalars()
-        if isinstance(value, str) and value.strip()
+) -> tuple[frozenset[str] | None, dict[str, frozenset[str]] | None, str | None]:
+    rows = (
+        session.execute(
+            text(
+                """
+            select category.code as category_code, category.name as category_name,
+                   sub.code as sub_code, sub.name as sub_name,
+                   major.code as major_code, major.name as major_name
+            from product.major_catalog major
+            join product.major_sub_categories sub on sub.code = major.sub_category_code
+            join product.major_categories category on category.code = sub.category_code
+            order by category.code, sub.code, major.code
+            """
+            )
+        )
+        .mappings()
+        .all()
     )
-    if not names:
-        return None, None
-    digest = sha256("\n".join(names).encode("utf-8")).hexdigest()
-    return frozenset(names), f"major-catalog-sha256:{digest}"
+    if not rows:
+        return None, None, None
+    names = frozenset(str(row["major_name"]).strip() for row in rows)
+    groups: dict[str, set[str]] = {}
+    for row in rows:
+        major_name = str(row["major_name"]).strip()
+        for key in ("category_name", "sub_name"):
+            group_name = str(row[key]).strip()
+            groups.setdefault(group_name, set()).add(major_name)
+    encoded_rows = "\n".join(
+        "|".join(
+            str(row[key]).strip()
+            for key in (
+                "category_code",
+                "category_name",
+                "sub_code",
+                "sub_name",
+                "major_code",
+                "major_name",
+            )
+        )
+        for row in rows
+    )
+    digest = sha256(encoded_rows.encode("utf-8")).hexdigest()
+    return (
+        names,
+        {name: frozenset(members) for name, members in groups.items()},
+        f"major-catalog-sha256:{digest}",
+    )
 
 
 def _validated_windows(

@@ -13,6 +13,9 @@ const requiredMetrics = new Set<XingceBriefingMetric>([
   "cause_decision",
 ]);
 
+const MIN_QUESTION_COUNT = 3;
+const MAX_QUESTION_COUNT = 30;
+
 export class XingceBriefingContractError extends Error {
   constructor(message: string) {
     super(message);
@@ -54,7 +57,13 @@ export function assertXingceTaskBriefing(
     throw new XingceBriefingContractError("任务说明模式无效。");
   }
   const questionCount = value.questionCount;
-  if (!value.title.trim() || !value.reason.trim() || questionCount !== 3) {
+  if (
+    !value.title.trim() ||
+    !value.reason.trim() ||
+    !Number.isInteger(questionCount) ||
+    questionCount < MIN_QUESTION_COUNT ||
+    questionCount > MAX_QUESTION_COUNT
+  ) {
     throw new XingceBriefingContractError("任务范围、原因或固定题数不完整。");
   }
   const timingBehavior = value.timing.behavior;

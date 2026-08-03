@@ -48,11 +48,14 @@ class PublishedCatalogVersion:
 class EssayCatalogPublishResult:
     contract_version: str
     source_question_count: int
+    eligible_question_count: int
+    rejected_question_count: int
     inserted_count: int
     unchanged_count: int
     rubric_pending_count: int
     dry_run: bool
     versions: tuple[PublishedCatalogVersion, ...]
+    issues: tuple[CatalogValidationIssue, ...]
 
 
 class GuokaoEssayCatalogPublisher:
@@ -61,6 +64,7 @@ class GuokaoEssayCatalogPublisher:
         session: Session,
         *,
         dry_run: bool = False,
+        allow_partial: bool = False,
         now: datetime | None = None,
     ) -> EssayCatalogPublishResult:
         generated_at = _as_utc(now or datetime.now(UTC))
@@ -84,7 +88,7 @@ class GuokaoEssayCatalogPublisher:
                 compiled.append(compile_catalog_entry(question, chunks))
             except EssayCatalogValidationError as exc:
                 issues.extend(exc.issues)
-        if issues:
+        if issues and (not allow_partial or not compiled):
             raise EssayCatalogValidationError(issues)
 
         versions: list[PublishedCatalogVersion] = []
@@ -147,7 +151,9 @@ class GuokaoEssayCatalogPublisher:
 
         return EssayCatalogPublishResult(
             contract_version=CATALOG_CONTRACT_VERSION,
-            source_question_count=len(compiled),
+            source_question_count=len(sources),
+            eligible_question_count=len(compiled),
+            rejected_question_count=len({item.question_id for item in issues}),
             inserted_count=sum(item.action in {"inserted", "would_insert"} for item in versions),
             unchanged_count=sum(item.action == "unchanged" for item in versions),
             rubric_pending_count=sum(
@@ -155,15 +161,17 @@ class GuokaoEssayCatalogPublisher:
             ),
             dry_run=dry_run,
             versions=tuple(versions),
+            issues=tuple(issues),
         )
 
 
 def _load_national_sources(
     session: Session,
 ) -> list[tuple[SourceQuestion, list[SourceMaterialChunk]]]:
-    rows = session.execute(
-        text(
-            """
+    rows = (
+        session.execute(
+            text(
+                """
             select
               question.question_id,
               question.question_type,
@@ -222,8 +230,11 @@ def _load_national_sources(
                      chunk.chunk_index nulls last,
                      chunk.knowledge_chunk_id
             """
+            )
         )
-    ).mappings().all()
+        .mappings()
+        .all()
+    )
     grouped: dict[str, tuple[SourceQuestion, list[SourceMaterialChunk]]] = {}
     for row in rows:
         question_id = str(row["question_id"])
@@ -253,9 +264,7 @@ def _load_national_sources(
                 content=str(row["content"] or ""),
                 metadata=metadata,
                 material_order=(
-                    int(row["material_order"])
-                    if row["material_order"] is not None
-                    else None
+                    int(row["material_order"]) if row["material_order"] is not None else None
                 ),
                 provenance={
                     "sourceQuestionId": _optional_str(row["source_question_id"]),
@@ -281,9 +290,10 @@ def _lock_catalog(session: Session) -> None:
 
 
 def _current_task(session: Session, *, task_key: str) -> RowMapping | None:
-    return session.execute(
-        text(
-            """
+    return (
+        session.execute(
+            text(
+                """
             select task.*
             from product.essay_task_versions task
             where task.task_key = :task_key
@@ -294,15 +304,19 @@ def _current_task(session: Session, *, task_key: str) -> RowMapping | None:
               )
             for update
             """
-        ),
-        {"task_key": task_key},
-    ).mappings().one_or_none()
+            ),
+            {"task_key": task_key},
+        )
+        .mappings()
+        .one_or_none()
+    )
 
 
 def _rubric_status(session: Session, *, task_version_id: str) -> str:
-    rows = session.execute(
-        text(
-            """
+    rows = (
+        session.execute(
+            text(
+                """
             select rubric.source_kind, rubric.verification_status, rubric.state
             from product.essay_rubric_versions rubric
             join product.essay_material_bundle_versions material
@@ -324,13 +338,15 @@ def _rubric_status(session: Session, *, task_version_id: str) -> str:
                       rubric.material_bundle_version_id
               )
             """
-        ),
-        {"task_version_id": task_version_id},
-    ).mappings().all()
+            ),
+            {"task_version_id": task_version_id},
+        )
+        .mappings()
+        .all()
+    )
     if len(rows) > 1:
         raise EssayCatalogPublishError(
-            f"Task {task_version_id} has multiple current rubrics for its "
-            "current material version"
+            f"Task {task_version_id} has multiple current rubrics for its current material version"
         )
     row = rows[0] if rows else None
     if row is None or str(row["state"]) != "published":
@@ -354,9 +370,7 @@ def _next_task_version_no(
         ).scalar_one()
     )
     if maximum > 0 and current is None:
-        raise EssayCatalogPublishError(
-            f"Task {task_key} has history but no unique current version"
-        )
+        raise EssayCatalogPublishError(f"Task {task_key} has history but no unique current version")
     if current is not None and int(current["version_no"]) != maximum:
         raise EssayCatalogPublishError(
             f"Task {task_key} current version is not the maximum version"
@@ -380,9 +394,10 @@ def _catalog_entry_matches(
         and str(current["state"]) == "published"
     ):
         return False
-    material = session.execute(
-        text(
-            """
+    material = (
+        session.execute(
+            text(
+                """
             select bundle.*,
                    (select count(*)
                     from product.essay_material_segments segment
@@ -397,9 +412,12 @@ def _catalog_entry_matches(
                       bundle.material_bundle_version_id
               )
             """
-        ),
-        {"task_version_id": str(current["task_version_id"])},
-    ).mappings().one_or_none()
+            ),
+            {"task_version_id": str(current["task_version_id"])},
+        )
+        .mappings()
+        .one_or_none()
+    )
     if material is None or not (
         str(material["completeness"]) == "complete"
         and str(material["source_kind"]) == "own_bank"

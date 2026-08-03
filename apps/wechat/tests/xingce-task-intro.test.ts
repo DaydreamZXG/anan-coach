@@ -49,22 +49,50 @@ describe("Xingce task briefing API and contract", () => {
       "复测任务缺少上次掌握记录",
     );
   });
+
+  it("accepts the capacity-driven 3 to 30 question contract", () => {
+    expect(assertXingceTaskBriefing(briefing({ questionCount: 3 }), "plan-a").questionCount).toBe(
+      3,
+    );
+    expect(assertXingceTaskBriefing(briefing({ questionCount: 30 }), "plan-a").questionCount).toBe(
+      30,
+    );
+    expect(() => assertXingceTaskBriefing(briefing({ questionCount: 2 }), "plan-a")).toThrow(
+      "固定题数不完整",
+    );
+    expect(() => assertXingceTaskBriefing(briefing({ questionCount: 31 }), "plan-a")).toThrow(
+      "固定题数不完整",
+    );
+  });
 });
 
 describe("C01 xingce task intro page", () => {
-  it("shows the frozen three-question contract and starts only with the server briefing mode", async () => {
+  it("shows a capacity-driven baseline contract and starts only with the server briefing mode", async () => {
     const runtime = await createPage((options) => {
       expect(options.method).toBe("GET");
-      options.success?.(apiSuccess(briefing({ mode: "targeted" })));
+      options.success?.(
+        apiSuccess(
+          briefing({
+            mode: "baseline",
+            questionCount: 30,
+            timing: {
+              behavior: "advisory",
+              targetSeconds: 3600,
+              perQuestionTargetSeconds: 120,
+              overtimeIsRecorded: true,
+            },
+          }),
+        ),
+      );
     }, "verification");
 
     expect(runtime.initialStatus).toBe("default");
     expect(runtime.requests).toHaveLength(1);
     expect(runtime.page.data).toMatchObject({ status: "ready", recovered: false });
     expect(runtime.page.data.view).toMatchObject({
-      modeLabel: "针对训练",
-      questionCountLabel: "3 题",
-      targetTimeLabel: "6 分钟",
+      modeLabel: "受控基线",
+      questionCountLabel: "30 题",
+      targetTimeLabel: "60 分钟",
       perQuestionTimeLabel: "2 分钟/题",
     });
     expect(runtime.page.data.view?.evidenceItems.map((item) => item.label)).toEqual([
@@ -79,7 +107,7 @@ describe("C01 xingce task intro page", () => {
 
     expect(runtime.requests).toHaveLength(1);
     expect(runtime.navigateTo).toHaveBeenCalledWith({
-      url: "/pages/practice/index?mode=targeted&planTaskId=plan-a",
+      url: "/pages/practice/index?mode=baseline&planTaskId=plan-a",
     });
   });
 

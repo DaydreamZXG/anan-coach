@@ -45,6 +45,14 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Compile and validate the complete catalog without inserting versions.",
     )
+    parser.add_argument(
+        "--allow-partial",
+        action="store_true",
+        help=(
+            "Publish every independently valid Guokao question and report invalid "
+            "questions instead of blocking the complete usable catalog."
+        ),
+    )
     args = parser.parse_args(argv)
     if not args.database_url:
         parser.error("--database-url or DATABASE_URL is required")
@@ -59,6 +67,7 @@ def main(argv: list[str] | None = None) -> int:
             result = GuokaoEssayCatalogPublisher().publish(
                 session,
                 dry_run=args.dry_run,
+                allow_partial=args.allow_partial,
             )
     except EssayCatalogValidationError as exc:
         payload = {
@@ -87,11 +96,14 @@ def main(argv: list[str] | None = None) -> int:
                 "ok": True,
                 "contractVersion": result.contract_version,
                 "sourceQuestionCount": result.source_question_count,
+                "eligibleQuestionCount": result.eligible_question_count,
+                "rejectedQuestionCount": result.rejected_question_count,
                 "insertedCount": result.inserted_count,
                 "unchangedCount": result.unchanged_count,
                 "rubricPendingCount": result.rubric_pending_count,
                 "dryRun": result.dry_run,
                 "versions": [asdict(item) for item in result.versions],
+                "issues": [asdict(item) for item in result.issues],
             },
             ensure_ascii=False,
             indent=2,

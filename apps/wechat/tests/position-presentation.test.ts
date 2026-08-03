@@ -241,8 +241,9 @@ describe("position presentation", () => {
         }),
       ),
     ).toMatchObject({
-      recommendationBucket: "eligible_evidence_pending",
-      recommendationEvidenceAvailable: false,
+      recommendationBucket: "recommended",
+      recommendationEvidenceAvailable: true,
+      recommendationEvidenceLabel: "资格与历年目标分依据完整，完成基线后补充个人分差",
     });
 
     expect(

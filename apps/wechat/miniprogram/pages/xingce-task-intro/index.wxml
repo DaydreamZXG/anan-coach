@@ -1,21 +1,22 @@
 <view class="s9-page s9-page--with-dock briefing-page">
-  <view wx:if="{{status === 'default' || status === 'loading'}}">
+  <block wx:if="{{status === 'default' || status === 'loading'}}">
     <state-view custom-class="briefing-state-view" state="loading" title="正在读取任务说明" description="先看看说明，不会开始计时。" />
-  </view>
+  </block>
 
-  <state-view
-    wx:elif="{{status === 'error'}}"
-    custom-class="briefing-state-view"
-    state="error"
-    title="{{errorTitle}}"
-    description="{{errorMessage}}"
-    request-id="{{requestId}}"
-    action-text="{{canRetry ? '重新读取' : ''}}"
-    bind:action="retry"
-  />
-  <view wx:if="{{status === 'error' && !canRetry}}" class="briefing-fallback-actions">
-    <ui-button custom-class="briefing-state-action" label="返回今日计划" bind:action="returnToday" />
-  </view>
+  <block wx:elif="{{status === 'error'}}">
+    <state-view
+      custom-class="briefing-state-view"
+      state="error"
+      title="{{errorTitle}}"
+      description="{{errorMessage}}"
+      request-id="{{requestId}}"
+      action-text="{{canRetry ? '重新读取' : ''}}"
+      bind:action="retry"
+    />
+    <view wx:if="{{!canRetry}}" class="briefing-fallback-actions">
+      <ui-button custom-class="briefing-state-action" label="返回今日计划" bind:action="returnToday" />
+    </view>
+  </block>
 
   <view wx:elif="{{status === 'expired'}}" class="expired-state">
     <state-view custom-class="briefing-state-view" state="error" title="{{errorTitle}}" description="{{errorMessage}}" request-id="{{requestId}}" />
@@ -28,7 +29,7 @@
     <ui-button wx:if="{{showLoginAction}}" custom-class="briefing-state-action" label="重新登录" bind:action="goLogin" />
   </view>
 
-  <block wx:else>
+  <block wx:elif="{{status === 'ready'}}">
     <view wx:if="{{recovered}}" class="recovery-note">已加载最新说明。</view>
     <view class="s9-hero">
       <view class="s9-title">这组题只验证一个问题</view>

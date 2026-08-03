@@ -17,6 +17,10 @@ from datetime import UTC, datetime
 
 NOW = datetime(2026, 7, 12, tzinfo=UTC)
 TEST_MAJOR_CATALOG = frozenset({"法学", "汉语言文学", "人类学"})
+TEST_MAJOR_GROUPS = {
+    "法学类": frozenset({"法学", "知识产权"}),
+    "工商管理类": frozenset({"工商管理", "会计学", "财务管理"}),
+}
 TEST_MAJOR_CATALOG_VERSION = "test-major-catalog@2022-v1"
 
 
@@ -38,6 +42,7 @@ def _compile(
     source: RawPositionConditions,
     *,
     major_catalog_names: frozenset[str] | None = TEST_MAJOR_CATALOG,
+    major_catalog_groups: dict[str, frozenset[str]] | None = None,
     major_catalog_version: str | None = TEST_MAJOR_CATALOG_VERSION,
 ):
     return compile_position_rules(
@@ -45,6 +50,7 @@ def _compile(
         rule_set_version="guokao-2026-v1",
         position_data_version="guokao-2026-fixture",
         major_catalog_names=major_catalog_names,
+        major_catalog_groups=major_catalog_groups,
         major_catalog_version=major_catalog_version,
     )
 
@@ -105,6 +111,28 @@ def test_major_category_and_hukou_are_never_guessed() -> None:
     assert by_field["hukou"].operator == "manual_review"
     assert compiled.manual_review_count == 2
     assert "major_requires_catalog_confirmation" in compiled.warnings
+
+
+def test_catalog_backed_major_categories_expand_to_deterministic_major_options() -> None:
+    compiled = _compile(
+        _source(major_required="工商管理类、法学类"),
+        major_catalog_names=TEST_MAJOR_CATALOG
+        | frozenset({"工商管理", "会计学", "财务管理", "知识产权"}),
+        major_catalog_groups=TEST_MAJOR_GROUPS,
+    )
+
+    requirement = next(item for item in compiled.requirements if item.field == "major")
+    assert requirement.operator == "contains_any"
+    assert requirement.expected == ["会计学", "工商管理", "财务管理", "法学", "知识产权"]
+    result = evaluate_eligibility(
+        facts=[_fact("education", "本科"), _fact("major", "工商管理")],
+        requirements=list(compiled.requirements),
+        rule_set_version="guokao-2026-v1",
+        position_data_version="guokao-2026-fixture",
+        evaluated_at=NOW,
+        requirements_authoritative=True,
+    )
+    assert result.status == "eligible"
 
 
 def test_exact_major_names_compile_without_treating_name_characters_as_categories() -> None:

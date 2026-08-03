@@ -261,7 +261,7 @@ describe("position discovery controller", () => {
 });
 
 describe("position workspace controller", () => {
-  it("only exposes eligible positions with complete fit evidence as advantage recommendations", async () => {
+  it("recommends qualified positions from target-score evidence before the ability baseline", async () => {
     const getPositionWorkspace = vi.fn().mockResolvedValue(
       workspaceEnvelope([
         workspaceItem({
@@ -316,14 +316,21 @@ describe("position workspace controller", () => {
     await controller.refreshPositions();
 
     const state = controller.snapshot();
-    expect(state.candidateItems.map((item) => item.positionId)).toEqual(["recommended"]);
+    expect(state.candidateItems.map((item) => item.positionId)).toEqual([
+      "recommended",
+      "eligible-evidence-pending",
+    ]);
     expect(state.candidateItems[0]).toMatchObject({
       eligibilityStatus: "eligible",
       recommendationEvidenceAvailable: true,
     });
-    expect(state.evidencePendingItems.map((item) => item.positionId)).toEqual([
-      "eligible-evidence-pending",
-    ]);
+    expect(state.candidateItems[1]).toMatchObject({
+      eligibilityStatus: "eligible",
+      recommendationBucket: "recommended",
+      recommendationEvidenceAvailable: true,
+      recommendationEvidenceLabel: "资格与历年目标分依据完整，完成基线后补充个人分差",
+    });
+    expect(state.evidencePendingItems).toEqual([]);
     expect(state.needsConfirmationItems.map((item) => item.positionId)).toEqual([
       "needs-confirmation",
     ]);

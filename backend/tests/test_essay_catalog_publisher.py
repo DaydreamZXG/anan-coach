@@ -51,21 +51,26 @@ def test_publisher_only_publishes_national_catalog_and_replays_idempotently(
     assert replay.versions[0].task_version_id == first.versions[0].task_version_id
 
     with db_session_factory() as session:
-        counts = session.execute(
-            text(
-                """
+        counts = (
+            session.execute(
+                text(
+                    """
                 select
                   (select count(*) from product.essay_task_versions) as tasks,
                   (select count(*) from product.essay_material_bundle_versions) as bundles,
                   (select count(*) from product.essay_material_segments) as segments,
                   (select count(*) from product.essay_rubric_versions) as rubrics
                 """
+                )
             )
-        ).mappings().one()
+            .mappings()
+            .one()
+        )
         assert dict(counts) == {"tasks": 1, "bundles": 1, "segments": 2, "rubrics": 0}
-        row = session.execute(
-            text(
-                """
+        row = (
+            session.execute(
+                text(
+                    """
                 select task.question_id, task.state, bundle.completeness,
                        bundle.source_kind as material_source_kind,
                        length(task.prompt_sha256) as prompt_hash_length,
@@ -74,8 +79,11 @@ def test_publisher_only_publishes_national_catalog_and_replays_idempotently(
                 join product.essay_material_bundle_versions bundle
                   on bundle.task_version_id = task.task_version_id
                 """
+                )
             )
-        ).mappings().one()
+            .mappings()
+            .one()
+        )
         assert row["question_id"] == "national-summary"
         assert row["state"] == "published"
         assert row["completeness"] == "complete"
@@ -111,25 +119,33 @@ def test_source_change_appends_coherent_task_catalog_version(
     assert second.versions[0].version_no == 2
     assert second.versions[0].task_version_id != first.versions[0].task_version_id
     with db_session_factory() as session:
-        rows = session.execute(
-            text(
-                """
+        rows = (
+            session.execute(
+                text(
+                    """
                 select version_no, task_version_id, supersedes_task_version_id
                 from product.essay_task_versions
                 where task_key = :task_key
                 order by version_no
                 """
-            ),
-            {"task_key": first.versions[0].task_key},
-        ).mappings().all()
+                ),
+                {"task_key": first.versions[0].task_key},
+            )
+            .mappings()
+            .all()
+        )
         assert len(rows) == 2
         assert rows[1]["supersedes_task_version_id"] == rows[0]["task_version_id"]
-        assert session.execute(
-            text("select count(*) from product.essay_material_bundle_versions")
-        ).scalar_one() == 2
-        assert session.execute(
-            text("select count(*) from product.essay_rubric_versions")
-        ).scalar_one() == 0
+        assert (
+            session.execute(
+                text("select count(*) from product.essay_material_bundle_versions")
+            ).scalar_one()
+            == 2
+        )
+        assert (
+            session.execute(text("select count(*) from product.essay_rubric_versions")).scalar_one()
+            == 0
+        )
 
 
 def test_validation_failure_rolls_back_entire_catalog(
@@ -154,9 +170,46 @@ def test_validation_failure_rolls_back_entire_catalog(
             GuokaoEssayCatalogPublisher().publish(session, now=NOW)
 
     with db_session_factory() as session:
-        assert session.execute(
-            text("select count(*) from product.essay_task_versions")
-        ).scalar_one() == 0
+        assert (
+            session.execute(text("select count(*) from product.essay_task_versions")).scalar_one()
+            == 0
+        )
+
+
+def test_partial_publication_keeps_valid_catalog_entries_and_reports_rejections(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    _seed_question(
+        db_session_factory,
+        question_id="national-valid-partial",
+        paper_title="国家公务员考试《申论》卷",
+        prompt="请概括问题，不超过200字。（20分）",
+    )
+    _seed_question(
+        db_session_factory,
+        question_id="national-invalid-partial",
+        paper_title="国家公务员考试《申论》卷",
+        prompt="请概括问题，不超过200字。（20分）",
+        complete=False,
+    )
+
+    with db_session_factory.begin() as session:
+        result = GuokaoEssayCatalogPublisher().publish(
+            session,
+            allow_partial=True,
+            now=NOW,
+        )
+
+    assert result.source_question_count == 2
+    assert result.eligible_question_count == 1
+    assert result.rejected_question_count == 1
+    assert result.inserted_count == 1
+    assert {issue.question_id for issue in result.issues} == {"national-invalid-partial"}
+    with db_session_factory() as session:
+        assert (
+            session.execute(text("select count(*) from product.essay_task_versions")).scalar_one()
+            == 1
+        )
 
 
 def test_dry_run_validates_without_writing(
@@ -175,9 +228,10 @@ def test_dry_run_validates_without_writing(
     assert result.inserted_count == 1
     assert result.versions[0].action == "would_insert"
     with db_session_factory() as session:
-        assert session.execute(
-            text("select count(*) from product.essay_task_versions")
-        ).scalar_one() == 0
+        assert (
+            session.execute(text("select count(*) from product.essay_task_versions")).scalar_one()
+            == 0
+        )
 
 
 def test_cli_dry_run_uses_the_same_transactional_publisher(
@@ -213,9 +267,10 @@ def test_cli_dry_run_uses_the_same_transactional_publisher(
     assert payload["rubricPendingCount"] == 1
     assert payload["dryRun"] is True
     with db_session_factory() as session:
-        assert session.execute(
-            text("select count(*) from product.essay_task_versions")
-        ).scalar_one() == 0
+        assert (
+            session.execute(text("select count(*) from product.essay_task_versions")).scalar_one()
+            == 0
+        )
 
 
 def _seed_question(

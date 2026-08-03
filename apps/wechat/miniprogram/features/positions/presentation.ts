@@ -263,20 +263,23 @@ export function positionRecommendationPresentation(
   }
 
   const fit = item.fit;
-  const hasCompleteFitEvidence =
-    fit.status !== "evidence_unavailable" &&
-    fit.evidenceStatus === "ready" &&
-    fit.band !== null &&
-    fit.scoreGap !== null &&
-    fit.evidenceReasonCodes.length === 0 &&
+  const hasGoalRecommendationEvidence =
     fit.requirementsBurden.pendingRequirementCount === 0 &&
     fit.requirementsBurden.hardConditionNotMetCount === 0 &&
-    item.targetScore !== null;
-  if (hasCompleteFitEvidence) {
+    item.targetScore !== null &&
+    !fit.evidenceReasonCodes.includes("target_score_unavailable");
+  if (hasGoalRecommendationEvidence) {
+    const scoreGapReady =
+      fit.status !== "evidence_unavailable" &&
+      fit.evidenceStatus === "ready" &&
+      fit.band !== null &&
+      fit.scoreGap !== null;
     return {
       recommendationBucket: "recommended",
       recommendationEvidenceAvailable: true,
-      recommendationEvidenceLabel: "资格、目标分与能力分差证据完整",
+      recommendationEvidenceLabel: scoreGapReady
+        ? "资格、目标分与能力分差证据完整"
+        : "资格与历年目标分依据完整，完成基线后补充个人分差",
     };
   }
   return {

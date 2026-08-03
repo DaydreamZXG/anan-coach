@@ -144,6 +144,28 @@ def test_recommendation_sort_requires_eligibility_then_uses_fit_and_burden() -> 
     )
 
 
+def test_eligible_position_with_target_score_is_recommendable_before_baseline() -> None:
+    position = _position(
+        target=_target(),
+        eligibility_status="eligible",
+        has_extra_exam=False,
+        pending_count=0,
+        not_met_count=0,
+    )
+    fit = evaluate_position_fit(
+        position=position,
+        ability=AbilityEstimateCurrent(
+            estimate=None,
+            readiness="unavailable",
+            missing_components=["xingce", "shenlun"],
+        ),
+        exam_year=2026,
+    )
+
+    assert fit.status == "evidence_unavailable"
+    assert has_position_recommendation_evidence(position=position, fit=fit)
+
+
 def test_openapi_publishes_required_workspace_fit_contract_without_probability_or_hours() -> None:
     schema = create_app().openapi()
     fit_schema = schema["components"]["schemas"]["PositionFitAssessment"]
