@@ -816,6 +816,11 @@ button.submit-button {
   }
 
   .practice-question-pane {
+    padding: 0;
+  }
+
+  /* padding 必须属于滚动内容，不能放在 scroll-view 自身，否则平板会提前裁掉底部。 */
+  .practice-question-body {
     padding: 24px 24px 112px;
   }
 

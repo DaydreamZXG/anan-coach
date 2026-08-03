@@ -854,6 +854,8 @@
   right: auto;
   bottom: auto;
   left: auto;
+  width: 100%;
+  max-width: none;
   flex: none;
   padding: calc(26 * var(--rpx)) calc(40 * var(--rpx))
     calc(calc(24 * var(--rpx)) + env(safe-area-inset-bottom));
@@ -861,6 +863,8 @@
   background: var(--figma-color-surface);
   box-shadow: var(--shadow-dock);
   backdrop-filter: none;
+  /* 清掉平板公共 fixed footer 的居中位移；当前变体已回到 flex 文档流。 */
+  transform: none;
 }
 
 .task-asset-icon {
@@ -909,6 +913,14 @@
     margin: 0;
     padding-right: var(--task-capsule-reserve);
     padding-left: var(--layout-tablet-gutter);
+  }
+
+  .task-shell--xingce .task-header-button--back {
+    margin-right: 12px;
+  }
+
+  .task-shell--xingce .task-header-actions {
+    gap: 18px;
   }
 
   .task-shell--xingce .task-content {

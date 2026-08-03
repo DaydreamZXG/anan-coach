@@ -116,6 +116,19 @@ describe("tablet responsive layout contract", () => {
     expect(materialReaderStyles).toMatch(
       /\.material-reader__inline-scroll--answering \{[^}]*max-height:\s*none/,
     );
+    expect(practiceStyles).toMatch(/\.practice-question-pane \{[^}]*padding:\s*0;/u);
+    expect(practiceStyles).toMatch(
+      /\.practice-question-body \{[^}]*padding:\s*24px 24px 112px;/u,
+    );
+    expect(taskShellStyles).toMatch(
+      /\.task-shell--xingce \.task-footer \{[^}]*width:\s*100%;[^}]*max-width:\s*none;[^}]*transform:\s*none;/u,
+    );
+    expect(taskShellStyles).toMatch(
+      /\.task-shell--xingce \.task-header-button--back \{[^}]*margin-right:\s*12px;/u,
+    );
+    expect(taskShellStyles).toMatch(
+      /\.task-shell--xingce \.task-header-actions \{[^}]*gap:\s*18px;/u,
+    );
 
     expect(mockTemplate).toContain('class="mock-workspace ');
     expect(mockTemplate).toContain('layoutVariant="xingce"');
