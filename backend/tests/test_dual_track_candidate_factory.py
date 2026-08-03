@@ -9,6 +9,78 @@ from app.domains.planning.candidates import (
     build_dual_track_candidates,
 )
 from app.domains.planning.repository import _strict_cause_decision_version_id
+from app.domains.xingce_learning.contracts import (
+    xingce_practice_minutes,
+    xingce_question_count,
+)
+
+
+def test_normal_practice_scales_with_capacity_while_verification_stays_short() -> None:
+    assert xingce_practice_minutes(available_minutes=10, question_supply=30) == 10
+    assert xingce_practice_minutes(available_minutes=20, question_supply=30) == 20
+    assert xingce_question_count(mode="targeted", estimated_minutes=20) == 10
+    assert xingce_practice_minutes(available_minutes=120, question_supply=30) == 60
+    assert xingce_question_count(mode="baseline", estimated_minutes=60) == 30
+    assert xingce_question_count(mode="verification", estimated_minutes=15) == 3
+
+
+def test_capacity_driven_candidate_keeps_room_for_the_essay_track() -> None:
+    candidates = build_dual_track_candidates(
+        goal=_goal(readiness="partial"),
+        objective=ObjectivePlanningSnapshot(
+            True,
+            0,
+            0,
+            None,
+            None,
+            "available",
+            None,
+            baseline_question_count=30,
+        ),
+        essay=EssayPlanningSnapshot(
+            "baseline_due",
+            "essay-task-v1",
+            material_bundle_version_id="essay-material-v1",
+            rubric_version_id="essay-rubric-v1",
+        ),
+        available_minutes=120,
+    )
+
+    xingce = next(item for item in candidates.candidates if item.track == "xingce")
+    essay = next(item for item in candidates.candidates if item.track == "essay")
+    assert xingce.estimated_minutes == 60
+    assert essay.estimated_minutes <= 30
+    assert xingce.estimated_minutes + essay.estimated_minutes <= 120
+
+
+@pytest.mark.parametrize(
+    ("available_minutes", "expected_blocks"),
+    ((480, 8), (600, 10), (720, 12)),
+)
+def test_fulltime_capacity_produces_multiple_independent_xingce_blocks(
+    available_minutes: int,
+    expected_blocks: int,
+) -> None:
+    candidates = build_dual_track_candidates(
+        goal=_goal(),
+        objective=ObjectivePlanningSnapshot(
+            False,
+            0,
+            0,
+            "资料分析",
+            "objective-fulltime-v1",
+            "available",
+            None,
+            targeted_question_count=30,
+        ),
+        essay=EssayPlanningSnapshot("content_unavailable", None),
+        available_minutes=available_minutes,
+    )
+
+    xingce = [item for item in candidates.candidates if item.track == "xingce"]
+    assert len(xingce) == expected_blocks
+    assert len({item.candidate_key for item in xingce}) == expected_blocks
+    assert all(item.estimated_minutes == 60 for item in xingce)
 
 
 def test_missing_component_evidence_creates_both_baseline_tracks() -> None:

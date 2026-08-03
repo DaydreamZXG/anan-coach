@@ -362,18 +362,48 @@ class BackgroundJobRepository:
             consumer_unit=consumer_unit,
             consumer_entrypoint=consumer_entrypoint,
         )
+        if session.info.get("worker_heartbeat_mode") == "shared":
+            statement = """
+                insert into platform.background_job_consumer_heartbeats
+                  as current_heartbeat (
+                    consumer_unit,
+                    consumer_entrypoint,
+                    process_instance_id,
+                    started_at,
+                    last_heartbeat_at
+                  ) values (
+                    :consumer_unit,
+                    :consumer_entrypoint,
+                    cast(:process_instance_id as uuid),
+                    statement_timestamp(),
+                    statement_timestamp()
+                  )
+                on conflict on constraint
+                  background_job_consumer_heartbeats_pkey do update
+                set consumer_entrypoint = excluded.consumer_entrypoint,
+                    process_instance_id = excluded.process_instance_id,
+                    started_at = case
+                      when current_heartbeat.process_instance_id =
+                           excluded.process_instance_id
+                        then current_heartbeat.started_at
+                      else statement_timestamp()
+                    end,
+                    last_heartbeat_at = statement_timestamp()
+                returning consumer_unit, consumer_entrypoint, process_instance_id,
+                          started_at, last_heartbeat_at
+            """
+        else:
+            statement = """
+                select *
+                from platform.pulse_background_job_consumer_heartbeat(
+                  :consumer_unit,
+                  :consumer_entrypoint,
+                  cast(:process_instance_id as uuid)
+                )
+            """
         row = (
             session.execute(
-                text(
-                    """
-                    select *
-                    from platform.pulse_background_job_consumer_heartbeat(
-                      :consumer_unit,
-                      :consumer_entrypoint,
-                      cast(:process_instance_id as uuid)
-                    )
-                    """
-                ),
+                text(statement),
                 {
                     "consumer_unit": consumer_unit,
                     "consumer_entrypoint": consumer_entrypoint,

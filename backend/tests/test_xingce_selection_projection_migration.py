@@ -340,6 +340,7 @@ def test_task_session_projection_upgrades_from_revision_76_and_remains_replaceab
             2: "projection-question-2",
             3: "projection-question-3",
         },
+        legacy_visual_schema=True,
     )
     _seed_xingce_assessments(
         db_session_factory,

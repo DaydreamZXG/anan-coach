@@ -14,7 +14,7 @@ from app.domains.positions.source_contract import (
 from app.domains.qualification.schemas import PositionRequirement
 
 
-COMPILER_VERSION = "guokao-position-rules-v3"
+COMPILER_VERSION = "guokao-position-rules-v4"
 SOURCE_CONDITIONS_INCOMPLETE_WARNING = "source_conditions_incomplete"
 UNRESTRICTED = {"", "不限", "无", "无要求", "不限制", "专业不限", "无特殊要求"}
 EDUCATION_OPTIONS = {
@@ -44,6 +44,22 @@ FRESH_GRADUATE_REMARKS = {
     "仅限应届毕业生",
     "限应届毕业生",
 }
+FRESH_GRADUATE_PATTERN = re.compile(r"(?:\d{4}届高校毕业生|应届高校毕业生|应届毕业生)")
+GENDER_REMARKS = {"男性": "男", "女性": "女"}
+CERTIFICATION_LABELS = {
+    "legal_a": "法律职业资格证书A证",
+    "cet4": "大学英语四级425分及以上",
+    "cet6": "大学英语六级425分及以上",
+    "tem8": "英语专业八级",
+    "ielts_6_5": "雅思6.5分及以上",
+    "toefl_90": "托福90分及以上",
+}
+NON_BLOCKING_REMARK_PATTERNS = (
+    re.compile(r"(?:在)?本单位最低服务年限为?\d+年"),
+    re.compile(r"本单位不提供宿舍"),
+    re.compile(r"并在外语水平一栏注明已获得的英语等级证书及成绩"),
+)
+REMARK_SPLIT = re.compile(r"[，,；;。]+")
 SERVICE_PROJECT_LABELS = {
     "大学生村官": "大学生村官",
     "农村义务教育阶段学校教师特设岗位计划": "特岗教师",
@@ -397,30 +413,161 @@ def _compile_remark(
     if _unrestricted(value):
         return
     if value in FRESH_GRADUATE_REMARKS:
-        requirements.append(
-            _requirement(
+        _append_remark_requirement(
+            source,
+            requirements,
+            field="fresh_graduate",
+            expected=True,
+            source_text=value,
+            rule_set_version=rule_set_version,
+            position_data_version=position_data_version,
+        )
+        return
+
+    unresolved: list[str] = []
+    for raw_clause in REMARK_SPLIT.split(value):
+        clause = _normalize(re.sub(r"^\d+[.、]\s*", "", raw_clause))
+        if not clause:
+            continue
+        if clause.startswith("非应届"):
+            unresolved.append(clause)
+            continue
+
+        fresh_match = FRESH_GRADUATE_PATTERN.search(clause)
+        if fresh_match is not None:
+            fresh_marker = fresh_match.group(0)
+            _append_remark_requirement(
                 source,
+                requirements,
                 field="fresh_graduate",
-                operator="equals",
                 expected=True,
-                source_text=value,
-                source_field="remark",
+                source_text=fresh_marker,
                 rule_set_version=rule_set_version,
                 position_data_version=position_data_version,
             )
-        )
+            clause = clause.replace(fresh_marker, "")
+            clause = re.sub(r"^(仅限|限)", "", clause)
+            clause = re.sub(r"报考$", "", clause)
+
+        certification_options = _certification_options(clause)
+        if certification_options is not None:
+            _append_certification_requirement(
+                source,
+                requirements,
+                expected=certification_options,
+                source_text=clause,
+                rule_set_version=rule_set_version,
+                position_data_version=position_data_version,
+            )
+            clause = ""
+
+        for label, expected in GENDER_REMARKS.items():
+            if label not in clause:
+                continue
+            _append_remark_requirement(
+                source,
+                requirements,
+                field="gender",
+                expected=expected,
+                source_text=label,
+                rule_set_version=rule_set_version,
+                position_data_version=position_data_version,
+            )
+            clause = clause.replace(label, "")
+
+        for pattern in NON_BLOCKING_REMARK_PATTERNS:
+            clause = pattern.sub("", clause)
+        clause = _normalize(clause.strip(" 、，,；;。"))
+        if clause:
+            unresolved.append(clause)
+
+    if not unresolved:
         return
     requirements.append(
         _manual_requirement(
             source,
             field="other_conditions",
-            source_text=value,
+            source_text="；".join(dict.fromkeys(unresolved)),
             source_field="remark",
             rule_set_version=rule_set_version,
             position_data_version=position_data_version,
         )
     )
     warnings.append("remark_requires_confirmation")
+
+
+def _append_remark_requirement(
+    source: RawPositionConditions,
+    requirements: list[PositionRequirement],
+    *,
+    field: str,
+    expected: object,
+    source_text: str,
+    rule_set_version: str,
+    position_data_version: str,
+) -> None:
+    if any(item.field == field and item.expected == expected for item in requirements):
+        return
+    requirements.append(
+        _requirement(
+            source,
+            field=field,
+            operator="equals",
+            expected=expected,
+            source_text=source_text,
+            source_field="remark",
+            rule_set_version=rule_set_version,
+            position_data_version=position_data_version,
+        )
+    )
+
+
+def _certification_options(clause: str) -> list[str] | None:
+    options: list[str] = []
+    if re.search(r"法律职业资格证书\s*A证", clause, flags=re.IGNORECASE):
+        options.append(CERTIFICATION_LABELS["legal_a"])
+    if "英语专业八级" in clause:
+        options.append(CERTIFICATION_LABELS["tem8"])
+    if "大学英语四级" in clause and re.search(r"(?:425|60)分", clause):
+        options.append(CERTIFICATION_LABELS["cet4"])
+    if "大学英语六级" in clause and re.search(r"(?:425|60)分", clause):
+        options.append(CERTIFICATION_LABELS["cet6"])
+    if "雅思" in clause and re.search(r"6[.]5分?(?:及以上|以上)", clause):
+        options.append(CERTIFICATION_LABELS["ielts_6_5"])
+    if "托福" in clause and re.search(r"90分?(?:及以上|以上)", clause):
+        options.append(CERTIFICATION_LABELS["toefl_90"])
+    return list(dict.fromkeys(options)) or None
+
+
+def certification_labels_from_text(value: str) -> tuple[str, ...]:
+    """Extract the canonical certificate labels used by matching and target scoring."""
+
+    return tuple(_certification_options(value) or ())
+
+
+def _append_certification_requirement(
+    source: RawPositionConditions,
+    requirements: list[PositionRequirement],
+    *,
+    expected: list[str],
+    source_text: str,
+    rule_set_version: str,
+    position_data_version: str,
+) -> None:
+    if any(item.field == "certifications" and item.expected == expected for item in requirements):
+        return
+    requirements.append(
+        _requirement(
+            source,
+            field="certifications",
+            operator="contains_any",
+            expected=expected,
+            source_text=source_text,
+            source_field="remark",
+            rule_set_version=rule_set_version,
+            position_data_version=position_data_version,
+        )
+    )
 
 
 def _compile_unmapped_raw_fields(

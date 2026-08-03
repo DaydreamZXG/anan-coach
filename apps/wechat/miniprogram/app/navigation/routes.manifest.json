@@ -27,7 +27,7 @@
     "pages/positions/compare/index",
     "pages/positions/goal/index",
     "pages/positions/briefing/index",
-    "pages/profile/qualification/index",
+    "pages/onboarding/profile/index",
     "pages/notification-settings/index",
     "pages/support/index",
     "pages/onboarding/entry/index",

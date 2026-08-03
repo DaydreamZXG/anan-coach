@@ -7,6 +7,7 @@
     "content-renderer": "../../task-runtime/content-renderer/index",
     "material-reader": "../../task-runtime/material-reader/index",
     "annotation-layer": "../../task-runtime/annotation-layer/index",
-    "state-view": "../../design-system/primitives/state-view/index"
+    "state-view": "../../design-system/primitives/state-view/index",
+    "workbench-nav": "../../components/workbench-nav/index"
   }
 }

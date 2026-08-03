@@ -6,6 +6,7 @@ import {
   trackLabel,
 } from "../../features/learning-brain/presentation";
 import { routes } from "../../app/navigation/routes";
+import { navigateBackOr } from "../../app/navigation/safe-back";
 import { currentAuthSession } from "../../auth/session";
 import { storeCompanionLaunchContext } from "../../features/companion/context-store";
 
@@ -96,7 +97,7 @@ Page({
     void this.loadSettlement();
   },
   exit() {
-    void wx.navigateBack();
+    navigateBackOr(routes.today);
   },
   returnToday() {
     void wx.switchTab({ url: routes.today });

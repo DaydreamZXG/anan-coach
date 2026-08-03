@@ -28,6 +28,7 @@ from app.domains.ai.provider import (
     AICompanionAnswerResult,
     AIProvider,
     AIProviderConfigurationError,
+    _validate_production_security,
 )
 from app.domains.auth.repository import token_hash_for_tests
 from app.domains.commerce.app_store import (
@@ -443,7 +444,6 @@ def test_companion_context_uses_only_current_canonical_essay_evidence(
     [
         ({"ai_companion_provider_release_id": ""}, "RELEASE_ID"),
         ({"ai_companion_provider_https_host_allowlist": ""}, "ALLOWLIST"),
-        ({"ai_companion_provider_dpa_confirmed": False}, "DPA"),
         ({"ai_companion_provider_idempotency_capability": ""}, "replayable"),
         ({"ai_companion_provider_idempotency_key_header": ""}, "KEY_HEADER"),
         ({"ai_companion_provider_request_id_header": ""}, "REQUEST_ID_HEADER"),
@@ -472,6 +472,15 @@ def test_production_companion_provider_fails_closed_without_verified_replay_cont
             prepared=prepared,
             idempotency_key="verified-command-key-1",
         )
+
+
+def test_production_companion_does_not_require_enterprise_dpa_attestation() -> None:
+    settings = replace(
+        _production_companion_settings(),
+        ai_companion_provider_dpa_confirmed=False,
+    )
+
+    _validate_production_security(settings)
 
 
 def test_production_provider_replay_uses_identical_key_and_request_bytes() -> None:

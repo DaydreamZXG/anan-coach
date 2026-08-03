@@ -5,7 +5,7 @@ import { assertSelectorBindsHandler, hasClassToken } from "./interaction-contrac
 
 // This suite is intentionally named *.node-test.mjs so Vitest does not collect it.
 
-const route = "pages/profile/qualification/index";
+const route = "pages/onboarding/profile/index";
 const selector = ".s9-primary-button";
 
 test("accepts a class selector bound to its declared handler", () => {

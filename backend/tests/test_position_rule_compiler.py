@@ -216,12 +216,12 @@ def test_complex_major_expressions_remain_manual_review(major_required: str) -> 
     assert "major_requires_catalog_confirmation" in compiled.warnings
 
 
-def test_unrecognized_remark_creates_a_blocking_other_condition() -> None:
-    compiled = _compile(_source(remark="须持有法律职业资格证书A证"))
+def test_unrecognized_certificate_remark_creates_a_blocking_other_condition() -> None:
+    compiled = _compile(_source(remark="须持有注册会计师资格证书"))
 
     requirement = next(item for item in compiled.requirements if item.field == "other_conditions")
     assert requirement.operator == "manual_review"
-    assert requirement.source_text == "须持有法律职业资格证书A证"
+    assert requirement.source_text == "须持有注册会计师资格证书"
     assert compiled.status == "needs_confirmation"
 
 
@@ -297,6 +297,84 @@ def test_exact_fresh_graduate_remark_is_deterministic() -> None:
     assert requirement.operator == "equals"
     assert requirement.expected is True
     assert compiled.status == "deterministic"
+
+
+@pytest.mark.parametrize(
+    ("remark", "gender"),
+    [
+        ("2026届高校毕业生，女性，在本单位最低服务年限为5年", "女"),
+        ("应届高校毕业生，男性，本单位不提供宿舍，在本单位最低服务年限为5年", "男"),
+    ],
+)
+def test_common_compound_remark_compiles_without_a_manual_gate(
+    remark: str,
+    gender: str,
+) -> None:
+    compiled = _compile(_source(remark=remark))
+
+    by_field = {item.field: item for item in compiled.requirements}
+    assert by_field["fresh_graduate"].expected is True
+    assert by_field["gender"].expected == gender
+    assert "other_conditions" not in by_field
+    assert compiled.status == "deterministic"
+    assert "remark_requires_confirmation" not in compiled.warnings
+
+
+def test_non_blocking_job_disclosures_do_not_create_qualification_gates() -> None:
+    compiled = _compile(_source(remark="本单位不提供宿舍，在本单位最低服务年限为5年"))
+
+    assert all(item.field != "other_conditions" for item in compiled.requirements)
+    assert compiled.status == "deterministic"
+
+
+def test_structured_remark_keeps_only_the_unresolved_condition_manual() -> None:
+    compiled = _compile(
+        _source(
+            remark=("2026届高校毕业生，女性，在本单位最低服务年限为5年，须持有注册会计师资格证书")
+        )
+    )
+
+    by_field = {item.field: item for item in compiled.requirements}
+    assert by_field["fresh_graduate"].expected is True
+    assert by_field["gender"].expected == "女"
+    assert by_field["other_conditions"].operator == "manual_review"
+    assert by_field["other_conditions"].source_text == "须持有注册会计师资格证书"
+    assert compiled.status == "needs_confirmation"
+
+
+@pytest.mark.parametrize("year", [2025, 2026, 2027])
+def test_fresh_graduate_remark_accepts_any_four_digit_recruitment_year(year: int) -> None:
+    compiled = _compile(_source(remark=f"{year}届高校毕业生"))
+
+    requirement = next(item for item in compiled.requirements if item.field == "fresh_graduate")
+    assert requirement.expected is True
+    assert compiled.status == "deterministic"
+
+
+def test_common_certificate_requirements_compile_to_profile_tokens() -> None:
+    english = _compile(
+        _source(
+            remark=(
+                "大学英语四级60分（100分制）或425分（710分制）及以上"
+                "（雅思成绩在6.5分以上或托福成绩在90分以上符合）"
+            )
+        )
+    )
+    legal = _compile(_source(remark="须持有法律职业资格证书A证"))
+
+    english_requirement = next(
+        item for item in english.requirements if item.field == "certifications"
+    )
+    assert english_requirement.operator == "contains_any"
+    assert english_requirement.expected == [
+        "大学英语四级425分及以上",
+        "雅思6.5分及以上",
+        "托福90分及以上",
+    ]
+    assert english.status == "deterministic"
+    legal_requirement = next(item for item in legal.requirements if item.field == "certifications")
+    assert legal_requirement.expected == ["法律职业资格证书A证"]
+    assert legal.status == "deterministic"
 
 
 def test_fingerprint_and_requirement_ids_are_stable_but_change_with_source() -> None:

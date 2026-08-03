@@ -47,14 +47,10 @@ def test_nonlocal_runtime_requires_an_immutable_application_commit(
         get_settings()
 
     monkeypatch.setenv("APP_GIT_COMMIT", "4" * 40)
-    with pytest.raises(ValueError, match="APP_DATA_RECEIPT_SHA256"):
-        get_settings()
-
-    monkeypatch.setenv("APP_DATA_RECEIPT_SHA256", "5" * 64)
     settings = get_settings()
     assert settings.environment == "preproduction"
     assert settings.application_git_commit == "4" * 40
-    assert settings.application_data_receipt_sha256 == "5" * 64
+    assert settings.application_data_receipt_sha256 == ""
 
 
 @pytest.mark.parametrize(
@@ -113,7 +109,7 @@ def test_engine_is_constructed_once_under_concurrent_cold_start(
     assert all(engine is fake_engine for engine in engines)
 
 
-def test_local_worker_heartbeat_also_requires_its_dedicated_login(
+def test_worker_heartbeat_requires_a_database_url(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     monkeypatch.setattr(
@@ -124,17 +120,22 @@ def test_local_worker_heartbeat_also_requires_its_dedicated_login(
 
     with pytest.raises(
         DatabaseConfigurationError,
-        match="required for every worker",
+        match="DATABASE_URL is required for worker heartbeats",
     ):
         session_module.get_worker_heartbeat_session_factory(
             **CAUSE_AGENT_IDENTITY,
         )
 
 
-def test_nonlocal_worker_heartbeat_requires_a_distinct_dedicated_login(
+def test_nonlocal_worker_heartbeat_accepts_the_runtime_database_as_fallback(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     runtime_url = "postgresql+psycopg://gongkao_api:api-secret@db.example/gongkao_dazi"
+    fake_engine = object()
+    monkeypatch.setattr(session_module, "create_engine", lambda *_args, **_kwargs: fake_engine)
+    monkeypatch.setattr(session_module, "_worker_heartbeat_engine", None)
+    monkeypatch.setattr(session_module, "_worker_heartbeat_session_factory", None)
+    monkeypatch.setattr(session_module, "_worker_heartbeat_runtime_identity", None)
     monkeypatch.setattr(
         session_module,
         "get_settings",
@@ -143,11 +144,16 @@ def test_nonlocal_worker_heartbeat_requires_a_distinct_dedicated_login(
             database_url=runtime_url,
         ),
     )
-    with pytest.raises(
-        DatabaseConfigurationError,
-        match="WORKER_HEARTBEAT_DATABASE_URL is required",
-    ):
-        session_module.get_worker_heartbeat_session_factory(**CAUSE_AGENT_IDENTITY)
+    factory = session_module.get_worker_heartbeat_session_factory(**CAUSE_AGENT_IDENTITY)
+
+    assert factory.kw["bind"] is fake_engine
+    assert factory.kw["info"] == {"worker_heartbeat_mode": "shared"}
+
+
+def test_explicit_worker_heartbeat_url_still_requires_a_distinct_dedicated_login(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    runtime_url = "postgresql+psycopg://gongkao_api:api-secret@db.example/gongkao_dazi"
 
     monkeypatch.setattr(
         session_module,
@@ -208,6 +214,7 @@ def test_worker_heartbeat_uses_a_bounded_independent_pool(
     factory = session_module.get_worker_heartbeat_session_factory(**CAUSE_AGENT_IDENTITY)
 
     assert factory.kw["bind"] is fake_engine
+    assert factory.kw["info"] == {"worker_heartbeat_mode": "dedicated"}
     assert captured["url"] == heartbeat_url
     options = captured["options"]
     assert isinstance(options, dict)

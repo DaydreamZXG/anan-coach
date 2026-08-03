@@ -28,6 +28,23 @@ let bindingControllerCount = 0;
 let readOnlyCount = 0;
 let platformDeviceCount = 0;
 
+async function readTemplateClosure(templatePath, seen = new Set()) {
+  const absolutePath = path.resolve(templatePath);
+  if (seen.has(absolutePath)) return "";
+  seen.add(absolutePath);
+
+  const template = await readFile(absolutePath, "utf8");
+  const includes = Array.from(
+    template.matchAll(/<include\s+[^>]*src=["']([^"']+)["'][^>]*\/?\s*>/gu),
+  );
+  const includedTemplates = await Promise.all(
+    includes.map((match) =>
+      readTemplateClosure(path.resolve(path.dirname(absolutePath), match[1]), seen),
+    ),
+  );
+  return [template, ...includedTemplates].join("\n");
+}
+
 for (const contract of pageInteractionMatrix) {
   assert.ok(
     inventory.allRoutes.includes(contract.route),
@@ -55,7 +72,7 @@ for (const contract of pageInteractionMatrix) {
       `${contract.route} has unsupported interaction event kind: ${interaction.eventKind}`,
     );
   }
-  const wxml = await readFile(path.resolve(miniProgramRoot, `${contract.route}.wxml`), "utf8");
+  const wxml = await readTemplateClosure(path.resolve(miniProgramRoot, `${contract.route}.wxml`));
   const controllerPath = path.resolve(miniProgramRoot, `${contract.route}.ts`);
   const controller = await readControllerClosure(controllerPath);
 

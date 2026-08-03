@@ -40,7 +40,8 @@ def test_question_candidates_project_per_question_and_drive_module_attribution(
     question_ids = [
         str(question["questionId"]) for question in submitted["bundle"]["questions"]
     ]
-    first, second, third = question_ids
+    first, second, third, *_ = question_ids
+    candidate_question_ids = question_ids[:3]
     review = submitted["review"]
     _reflect(client, auth, review, key="question-cause-preferred-reflection")
     _run_one(
@@ -65,7 +66,7 @@ def test_question_candidates_project_per_question_and_drive_module_attribution(
     by_question = {
         item["questionId"]: item for item in candidate["questionCandidates"]
     }
-    assert set(by_question) == set(question_ids)
+    assert set(by_question) == set(candidate_question_ids)
     assert by_question[first]["status"] == "candidate"
     assert by_question[first]["causeCode"] == "stem_misread"
     assert by_question[first]["confidence"] == "medium"
@@ -168,7 +169,7 @@ def test_explicitly_insufficient_questions_do_not_fall_back_to_session_cause(
     )
     question_ids = [
         str(question["questionId"]) for question in submitted["bundle"]["questions"]
-    ]
+    ][:3]
     review = submitted["review"]
     _reflect(client, auth, review, key="question-cause-all-insufficient-reflection")
     _run_one(

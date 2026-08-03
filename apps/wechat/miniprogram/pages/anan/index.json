@@ -1,5 +1,7 @@
 {
   "navigationStyle": "custom",
   "backgroundColor": "#F7F9FC",
-  "usingComponents": {}
+  "usingComponents": {
+    "safe-top": "../../components/safe-top/index"
+  }
 }

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from itertools import product
+from math import ceil
 from typing import Literal
 
 
@@ -14,7 +15,9 @@ TIME_FIT_WEIGHT = 0.15
 LOAD_PENALTY_WEIGHT = 0.15
 TRACK_BALANCE_MAX_BONUS = 0.12
 DUAL_TRACK_MINIMUM_MINUTES = 40
-MAX_DAILY_TASKS = 3
+MIN_DAILY_TASK_SLOTS = 3
+MAX_DAILY_TASK_SLOTS = 12
+TARGET_TASK_BLOCK_MINUTES = 60
 
 
 @dataclass(frozen=True)
@@ -101,10 +104,15 @@ def select_daily_tasks(
     if not ranked or available_minutes == 0:
         return PlanSelection((), 0, considered_tracks, False, ("no_schedulable_capacity",))
 
+    task_limit = _daily_task_limit(available_minutes)
     mandatory = [item for item in ranked if item.candidate.mandatory]
+    chosen: list[RankedCandidate] = []
+    mandatory_scheduled = False
     if mandatory:
         chosen = _fit_in_order(mandatory, available_minutes, maximum=1)
-        if chosen:
+        mandatory_scheduled = bool(chosen)
+        ranked = [item for item in ranked if not item.candidate.mandatory]
+        if mandatory_scheduled and not ranked:
             return PlanSelection(
                 tasks=tuple(chosen),
                 scheduled_minutes=_minutes(chosen),
@@ -112,8 +120,7 @@ def select_daily_tasks(
                 dual_track_constraint_applied=False,
                 explanation_codes=("mandatory_calibration_first",),
             )
-        ranked = [item for item in ranked if not item.candidate.mandatory]
-        if not ranked:
+        if not mandatory_scheduled and not ranked:
             return PlanSelection(
                 tasks=(),
                 scheduled_minutes=0,
@@ -145,20 +152,21 @@ def select_daily_tasks(
             explanation_codes=("recovery_day_no_new_learning",),
         )
 
-    chosen: list[RankedCandidate] = []
     dual_track_applied = False
-    if available_minutes >= DUAL_TRACK_MINIMUM_MINUTES:
-        pair = _best_dual_track_pair(ranked, available_minutes)
+    remaining_budget = available_minutes - _minutes(chosen)
+    if remaining_budget >= DUAL_TRACK_MINIMUM_MINUTES:
+        pair = _best_dual_track_pair(ranked, remaining_budget)
         if pair is not None:
             chosen.extend(pair)
             dual_track_applied = True
 
-    if not chosen:
-        chosen = _fit_in_order(ranked, available_minutes, maximum=1)
+    optional_chosen = len(chosen) - (1 if mandatory_scheduled else 0)
+    if optional_chosen == 0 and remaining_budget > 0:
+        chosen.extend(_fit_in_order(ranked, remaining_budget, maximum=1))
 
     used_keys = {item.candidate.candidate_key for item in chosen}
     remaining_budget = available_minutes - _minutes(chosen)
-    if remaining_budget > 0 and len(chosen) < MAX_DAILY_TASKS:
+    if remaining_budget > 0 and len(chosen) < task_limit:
         remainder = [
             item for item in ranked if item.candidate.candidate_key not in used_keys
         ]
@@ -166,12 +174,14 @@ def select_daily_tasks(
             _fit_in_order(
                 remainder,
                 remaining_budget,
-                maximum=MAX_DAILY_TASKS - len(chosen),
+                maximum=task_limit - len(chosen),
             )
         )
 
     chosen.sort(key=_rank_key)
     codes = ["evidence_weighted_priority"]
+    if mandatory_scheduled:
+        codes.append("mandatory_calibration_first")
     if mandatory:
         codes.append("mandatory_task_capacity_insufficient")
     if dual_track_applied:
@@ -264,6 +274,15 @@ def _fit_in_order(
         chosen.append(item)
         remaining -= item.candidate.estimated_minutes
     return chosen
+
+
+def _daily_task_limit(available_minutes: int) -> int:
+    """Scale visible work blocks with capacity without producing card spam."""
+
+    return min(
+        MAX_DAILY_TASK_SLOTS,
+        max(MIN_DAILY_TASK_SLOTS, ceil(available_minutes / TARGET_TASK_BLOCK_MINUTES)),
+    )
 
 
 def _rank_key(item: RankedCandidate) -> tuple[float, float, str]:

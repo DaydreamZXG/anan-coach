@@ -54,13 +54,6 @@ def cause_agent_readiness(
     release_id = settings.ai_xingce_cause_provider_release_id.strip()
     if not release_id:
         return _unavailable("xingce_cause_agent", "disabled", None)
-    if not settings.ai_xingce_cause_provider_dpa_confirmed:
-        return _unavailable(
-            "xingce_cause_agent",
-            "dpa_or_security_evidence_incomplete",
-            release_id,
-        )
-
     production_settings = replace(settings, environment="production")
     provider = CauseAgentProvider(production_settings)
     try:

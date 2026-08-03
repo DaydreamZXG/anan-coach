@@ -161,7 +161,9 @@ def test_targeted_selection_is_user_isolated_and_does_not_repeat_exposed_questio
                 18,
             ),
         ),
-        tags={"语义辨析": (1, 2, 3, 4, 5, 6)},
+        # Capacity-driven practice may consume more than the historical three
+        # questions. Preserve a second-day supply for the dedupe assertion.
+        tags={"语义辨析": tuple(range(1, 31))},
     )
     client = _client(db_session_factory)
     auth = {"Authorization": f"Bearer {token}"}
@@ -891,7 +893,7 @@ def test_valid_weakness_evidence_selects_questions_from_the_weak_module(
         )
 
     assert objective_snapshot.weakest_module == "言语理解与表达"
-    assert objective_snapshot.targeted_question_count == 3
+    assert objective_snapshot.targeted_question_count == 6
     assert selection is not None
     assert selection.module_name == "言语理解与表达"
     assert {str(item["question_id"]) for item in selection.questions} <= {
@@ -1218,6 +1220,7 @@ def _seed_targeted_learner(
     nodes: tuple[dict[str, Any], ...],
     tags: dict[str, tuple[int, ...]],
     question_ids_by_index: dict[int, str] | None = None,
+    legacy_visual_schema: bool = False,
 ) -> str:
     user_id = _seed_learner_and_published_essay_content(
         factory,
@@ -1269,6 +1272,7 @@ def _seed_targeted_learner(
                 questions=questions,
                 nodes=node_seeds,
                 reference_time=now,
+                legacy_visual_schema=legacy_visual_schema,
             )
     return user_id
 
@@ -1444,7 +1448,7 @@ def _checkpoint_and_submit(
                 }
                 for item in questions
             ],
-            "totalElapsedSeconds": 60,
+            "totalElapsedSeconds": len(questions) * 20,
         },
     )
     assert checkpoint.status_code == 200, checkpoint.text
@@ -1457,7 +1461,7 @@ def _checkpoint_and_submit(
         },
         json={
             "expectedRevision": checkpoint.json()["data"]["revision"],
-            "totalElapsedSeconds": 60,
+            "totalElapsedSeconds": len(questions) * 20,
         },
     )
 

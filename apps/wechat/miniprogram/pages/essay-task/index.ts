@@ -13,6 +13,7 @@ import { LearningMediaApi } from "../../api/learning-media";
 import { EssayHandwritingApi } from "../../api/essay-handwriting";
 import { loginUrlForReturn } from "../../app/navigation/auth-return";
 import { routes } from "../../app/navigation/routes";
+import { navigateBackOr } from "../../app/navigation/safe-back";
 import { currentAuthSession, type ActiveAuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";
 import {
@@ -651,7 +652,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
   },
 
   exit() {
-    void wx.navigateBack();
+    navigateBackOr(routes.today);
   },
 
   goLogin() {

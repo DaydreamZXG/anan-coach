@@ -82,6 +82,7 @@ interface TodayPageCustom {
   openPlanBasis(): void;
   openDailySettlement(): void;
   openWeeklyPlan(): void;
+  openMockExam(): void;
   openCaptureImport(): void;
   openQualificationProfile(): void;
   openStudyPreference(): void;
@@ -159,9 +160,7 @@ Page<TodayPageData, TodayPageCustom>({
       stressLabel: capacityScaleLabel("stress", view.stress),
       confidenceLabel: capacityScaleLabel("confidence", view.confidenceLevel),
       headerContextLabel:
-        view.positionName === "尚未确认主目标岗位"
-          ? "国考学习计划"
-          : `主目标 · ${view.positionName}`,
+        view.positionName === "目标分待生成" ? "国考学习计划" : `学习目标 · ${view.positionName}`,
     });
   },
 
@@ -198,6 +197,10 @@ Page<TodayPageData, TodayPageCustom>({
 
   openWeeklyPlan() {
     void wx.navigateTo({ url: routes.weeklyPlan });
+  },
+
+  openMockExam() {
+    void wx.navigateTo({ url: routes.mockExam });
   },
 
   openCaptureImport() {

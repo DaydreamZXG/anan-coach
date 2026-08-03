@@ -40,13 +40,31 @@ const forbiddenLegacyTopClasses = [
 ];
 
 const customRoutes = [];
+
+async function readTemplateClosure(templatePath, seen = new Set()) {
+  const absolutePath = path.resolve(templatePath);
+  if (seen.has(absolutePath)) return "";
+  seen.add(absolutePath);
+
+  const template = await readFile(absolutePath, "utf8");
+  const includes = Array.from(
+    template.matchAll(/<include\s+[^>]*src=["']([^"']+)["'][^>]*\/?\s*>/gu),
+  );
+  const includedTemplates = await Promise.all(
+    includes.map((match) =>
+      readTemplateClosure(path.resolve(path.dirname(absolutePath), match[1]), seen),
+    ),
+  );
+  return [template, ...includedTemplates].join("\n");
+}
+
 for (const route of inventory.allRoutes) {
   const pageConfigPath = path.join(miniprogramRoot, `${route}.json`);
   const pageConfig = JSON.parse(await readFile(pageConfigPath, "utf8"));
   if (pageConfig.navigationStyle !== "custom") continue;
   customRoutes.push(route);
 
-  const template = await readFile(path.join(miniprogramRoot, `${route}.wxml`), "utf8");
+  const template = await readTemplateClosure(path.join(miniprogramRoot, `${route}.wxml`));
   const safeTopContract = safeTopExceptions.get(route);
   if (safeTopContract) {
     assert.ok(

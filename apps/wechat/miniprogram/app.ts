@@ -17,6 +17,28 @@ export interface CoachAppState {
   capsuleInset: number;
 }
 
+let networkStatusListenerAttached = false;
+
+function handleNetworkStatusChange(status: WechatMiniprogram.OnNetworkStatusChangeListenerResult) {
+  if (status.isConnected) {
+    void productFontFaceManager.retry(environment.fontAssets, "network_reconnected");
+  }
+}
+
+function attachNetworkStatusListener() {
+  if (networkStatusListenerAttached) return;
+  wx.onNetworkStatusChange(handleNetworkStatusChange);
+  networkStatusListenerAttached = true;
+}
+
+function detachNetworkStatusListener() {
+  if (!networkStatusListenerAttached) return;
+  wx.offNetworkStatusChange(
+    handleNetworkStatusChange as unknown as WechatMiniprogram.OffNetworkStatusChangeCallback,
+  );
+  networkStatusListenerAttached = false;
+}
+
 App<{ globalData: CoachAppState }>({
   globalData: {
     productFont: productFontFaceManager.snapshot(),
@@ -57,17 +79,18 @@ App<{ globalData: CoachAppState }>({
         });
       }
     });
-    wx.onNetworkStatusChange((status) => {
-      if (status.isConnected) {
-        void productFontFaceManager.retry(environment.fontAssets, "network_reconnected");
-      }
-    });
+    attachNetworkStatusListener();
     void productFontFaceManager.load(environment.fontAssets, "app_launch");
     void recordCoachNotificationOpen(options).catch(() => undefined);
   },
 
   onShow(options) {
+    attachNetworkStatusListener();
     void productFontFaceManager.retry(environment.fontAssets, "app_show_retry");
     void recordCoachNotificationOpen(options).catch(() => undefined);
+  },
+
+  onHide() {
+    detachNetworkStatusListener();
   },
 });

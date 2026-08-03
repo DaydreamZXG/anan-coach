@@ -11,11 +11,11 @@ from app.domains.companion.channel import (
     ChannelCompanionResponder,
     ChannelCompanionUnavailable,
 )
+from app.domains.ilink_channel.control_plane import ILinkControlPlane
 from app.domains.ilink_channel.material_intake import (
     ILinkMaterialIntake,
     STORE_MATERIAL_COMMAND,
 )
-from app.domains.ilink_channel.plan_projection import is_plan_query, today_plan_reply
 from app.domains.ilink_channel.protocol import (
     ILinkProtocolClient,
     ILinkProtocolError,
@@ -32,6 +32,12 @@ from app.domains.ilink_channel.service import (
     query_view,
 )
 from app.domains.ilink_channel.settings import ILinkSettings
+from app.domains.planning.errors import PlanningContractError
+from app.domains.private_knowledge.projection import PrivateKnowledgeProjectionError
+from app.domains.private_knowledge.repository import (
+    PrivateKnowledgeConflict,
+    PrivateKnowledgeNotFound,
+)
 
 
 class ILinkPhotoWorkflow:
@@ -55,6 +61,7 @@ class ILinkPhotoWorkflow:
             settings=core_settings
         )
         self._clock = clock or (lambda: datetime.now(UTC))
+        self._control_plane = ILinkControlPlane(clock=self._clock)
         self._material_intake = ILinkMaterialIntake(
             settings=channel_settings,
             cipher=self._service.cipher,
@@ -106,14 +113,6 @@ class ILinkPhotoWorkflow:
                 client=client,
             )
             return
-        if is_plan_query(text_command) and message.image is None:
-            self._reply_plan_summary(
-                session,
-                user_id=user_id,
-                message=message,
-                client=client,
-            )
-            return
         if message.image is None:
             if not text_command:
                 self._send_direct(
@@ -125,6 +124,46 @@ class ILinkPhotoWorkflow:
                         "你可以直接问岸岸、发送裁剪好的单题图片，"
                         "或发送「今天练什么」查看安排。"
                     ),
+                )
+                return
+            try:
+                control = self._control_plane.handle(
+                    session,
+                    user_id=user_id,
+                    source_message_id=message.message_id,
+                    text=text_command,
+                )
+            except PlanningContractError:
+                session.rollback()
+                control = None
+                self._send_direct(
+                    client,
+                    message=message,
+                    purpose="control-plane:plan-conflict",
+                    text="计划刚刚发生了变化，这次没有重复调整。请发送「今天」查看最新安排后再试。",
+                )
+                return
+            except (
+                PrivateKnowledgeConflict,
+                PrivateKnowledgeNotFound,
+                PrivateKnowledgeProjectionError,
+            ):
+                session.rollback()
+                control = None
+                self._send_direct(
+                    client,
+                    message=message,
+                    purpose="control-plane:material-unavailable",
+                    text="资料操作这次没有完成，也没有改动你的资料。请稍后重试或发送「我的资料」刷新。",
+                )
+                return
+            if control is not None:
+                session.commit()
+                self._send_direct(
+                    client,
+                    message=message,
+                    purpose="control-plane",
+                    text=control.reply,
                 )
                 return
             self._reply_companion(
@@ -271,23 +310,6 @@ class ILinkPhotoWorkflow:
             client,
             message=message,
             purpose="command:store-material",
-            text=reply,
-        )
-
-    def _reply_plan_summary(
-        self,
-        session: Session,
-        *,
-        user_id: UUID,
-        message: InboundMessage,
-        client: ILinkProtocolClient,
-    ) -> None:
-        reply = today_plan_reply(session, user_id=user_id, now=self._clock())
-        session.rollback()
-        self._send_direct(
-            client,
-            message=message,
-            purpose="plan-query",
             text=reply,
         )
 

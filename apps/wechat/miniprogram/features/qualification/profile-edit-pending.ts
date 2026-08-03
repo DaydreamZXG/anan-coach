@@ -109,7 +109,10 @@ function isQualificationDraft(value: unknown): value is QualificationDraft {
     (value.freshGraduate === "" ||
       value.freshGraduate === "true" ||
       value.freshGraduate === "false") &&
+    typeof value.gender === "string" &&
     typeof value.politicalStatus === "string" &&
+    Array.isArray(value.certifications) &&
+    value.certifications.every((item) => typeof item === "string") &&
     Number.isSafeInteger(value.workYears) &&
     Number.isSafeInteger(value.grassrootsYears) &&
     typeof value.serviceProject === "string" &&

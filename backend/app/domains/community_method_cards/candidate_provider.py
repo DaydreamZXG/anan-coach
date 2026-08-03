@@ -19,7 +19,6 @@ from app.domains.ai.provider_contract import (
     BODY_REQUEST_ID_SOURCE,
     parse_provider_json_object,
     provider_request_audit,
-    validate_processing_approval,
     validate_provider_audit_contract,
 )
 from app.domains.community_method_cards.schemas import Track
@@ -182,12 +181,6 @@ class CommunityCandidateHttpProvider:
         if not self._settings.ai_api_key:
             raise CandidateProviderConfigurationError("AI_API_KEY is required")
         try:
-            validate_processing_approval(
-                self._settings,
-                dpa_confirmed=(
-                    self._settings.ai_community_candidate_provider_dpa_confirmed
-                ),
-            )
             validate_provider_audit_contract(
                 idempotency_capability=(
                     self._settings.ai_community_candidate_provider_idempotency_capability

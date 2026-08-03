@@ -684,7 +684,7 @@ describe("day adjustment capacity operation attempt", () => {
     expect(setData).not.toHaveBeenCalled();
     expect(scenario.page.data).toEqual(exitedData);
     expect(scenario.switchTab).not.toHaveBeenCalled();
-    expect(scenario.navigateBack).toHaveBeenCalledWith({ delta: 1 });
+    expect(scenario.navigateBack).toHaveBeenCalledTimes(1);
     expect(storedAttempts(scenario.storage)).toMatchObject([{ state: "succeeded" }]);
   });
 
@@ -813,6 +813,7 @@ async function createCapacityPage(
     captured = definition;
   });
   vi.stubGlobal("getApp", () => ({ globalData: activeSession }));
+  vi.stubGlobal("getCurrentPages", () => [{}, {}]);
   vi.stubGlobal("wx", {
     getStorageSync: (key: string) => storage.get(key) ?? "",
     setStorageSync: (key: string, value: unknown) => storage.set(key, value),
@@ -823,6 +824,7 @@ async function createCapacityPage(
       requestHandler(request, requests.length - 1);
     },
     reLaunch: vi.fn(),
+    redirectTo: vi.fn(),
     switchTab,
     navigateBack,
   });

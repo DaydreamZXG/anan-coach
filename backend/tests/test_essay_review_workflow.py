@@ -979,12 +979,12 @@ def test_formal_worker_does_not_redispatch_an_uncertain_candidate_call(
         ).all()
         assert statuses == [
             ("gemini", "valid", None),
+            ("hunyuan", "valid", None),
             (
-                "grok",
+                "tokenrhythm",
                 "provider_failed",
                 "candidate_outcome_unknown_after_interruption",
             ),
-            ("hunyuan", "valid", None),
         ]
     assert [provider.generate_calls for provider in providers] == [1, 1, 1]
 
@@ -1554,7 +1554,7 @@ def _formal_runtime_plan(
             schema_version=GROUNDED_REVIEW_PROVIDER_SCHEMA_VERSION,
         )
         for slot_id, provider in zip(
-            ("gemini", "grok", "hunyuan"),
+            ("gemini", "tokenrhythm", "hunyuan"),
             providers,
             strict=True,
         )

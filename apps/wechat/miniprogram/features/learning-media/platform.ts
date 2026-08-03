@@ -66,7 +66,7 @@ export class WechatVoiceRecorder {
     broker.active = owner;
     try {
       broker.manager.start({
-        duration: 180_000,
+        duration: 60_000,
         sampleRate: 16_000,
         numberOfChannels: 1,
         encodeBitRate: 48_000,
@@ -139,6 +139,39 @@ export async function inspectVoiceFile(localPath: string): Promise<InspectedVoic
     throw new Error("录音 SHA-256 完整性校验失败。");
   }
   return { byteSize: metadata.size, sha256: contentSha256, bytes };
+}
+
+export function readVoiceFileBase64(localPath: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    wx.getFileSystemManager().readFile({
+      filePath: localPath,
+      encoding: "base64",
+      success: (result) => {
+        if (typeof result.data === "string" && result.data.length > 0) resolve(result.data);
+        else reject(new Error("本地录音没有返回可听写内容。"));
+      },
+      fail: () => {
+        reject(new Error("本地录音草稿已不可读。"));
+      },
+    });
+  });
+}
+
+export function persistSynthesizedSpeech(audioBase64: string): Promise<string> {
+  const target = `${wx.env.USER_DATA_PATH}/anan-tts-preview.mp3`;
+  return new Promise((resolve, reject) => {
+    wx.getFileSystemManager().writeFile({
+      filePath: target,
+      data: audioBase64,
+      encoding: "base64",
+      success: () => {
+        resolve(target);
+      },
+      fail: () => {
+        reject(new Error("朗读音频未能写入本机。"));
+      },
+    });
+  });
 }
 
 export function deleteLocalVoice(localPath: string): Promise<void> {

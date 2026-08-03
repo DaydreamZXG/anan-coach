@@ -26,4 +26,12 @@ describe("today information architecture", () => {
     expect(todayTemplate).toContain("我想加练");
     expect(todayTemplate).toContain("view.dayState === 'complete'");
   });
+
+  it("keeps the existing full mock available outside the scheduled mock day", () => {
+    expect(todayTemplate).toContain("整卷模考");
+    expect(todayTemplate).toContain("135 题 · 120 分钟");
+    expect(todayTemplate).toContain("进入模考 →");
+    expect(todayTemplate).toContain('bindtap="openMockExam"');
+    expect(todayLogic).toContain("routes.mockExam");
+  });
 });

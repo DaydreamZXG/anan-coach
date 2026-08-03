@@ -6,7 +6,7 @@ from io import BytesIO
 import json
 from pathlib import Path
 import re
-from typing import Callable, Literal
+from typing import Callable, Literal, Protocol
 import zipfile
 
 import httpx
@@ -34,6 +34,7 @@ from app.domains.external_ingestion.recognition.visual_hash import (
     fingerprint_sha256,
 )
 from app.internal_services.private_objects import PrivateObjectReader
+from app.domains.xfyun.formula import FormulaRecognition, XfyunFormulaError
 
 # MinerU 公益中转 / 官方接口路径。请求格式与 mineru.net 官方一致，只是替换 base URL。
 CDN_BASE = "https://cdn-mineru.openxlab.org.cn"
@@ -90,6 +91,7 @@ class MinerURecognitionProcessor:
         maximum_pages: int,
         timeout_seconds: float = 220,
         client_factory: Callable[[], httpx.Client] | None = None,
+        formula_client: FormulaRecognizer | None = None,
     ) -> None:
         if not bearer_token.strip() or not expected_provider_release.strip():
             raise ProcessorConfigurationError("MinerU recognition provider identity is incomplete")
@@ -104,6 +106,7 @@ class MinerURecognitionProcessor:
         self._maximum_input_bytes = maximum_input_bytes
         self._maximum_output_bytes = maximum_output_bytes
         self._maximum_pages = maximum_pages
+        self._formula_client = formula_client
         self._client_factory = client_factory or (
             lambda: httpx.Client(
                 timeout=httpx.Timeout(timeout_seconds, connect=min(20, timeout_seconds)),
@@ -131,7 +134,7 @@ class MinerURecognitionProcessor:
                 prefix="anan-mineru-",
                 suffix=suffix,
             ) as source:
-                pdf_bytes, source_feature_hashes = self._prepare_pdf(
+                pdf_bytes, formula_image_bytes, source_feature_hashes = self._prepare_pdf(
                     source, mime_type=request.mime_type
                 )
         except ProcessorNotDispatchedError:
@@ -187,6 +190,12 @@ class MinerURecognitionProcessor:
 
         provider_request_id = f"mineru:{task.task_id}"
         spans = _spans_from_markdown(markdown, provider_request_id)
+        spans, provider_request_id = _apply_formula_enrichment(
+            self._formula_client,
+            image=formula_image_bytes,
+            primary_spans=spans,
+            provider_request_id=provider_request_id,
+        )
         segments = (
             _exam_segments(spans) if request.recognition_kind.value == "exam_segmentation" else ()
         )
@@ -205,7 +214,7 @@ class MinerURecognitionProcessor:
 
     def _prepare_pdf(
         self, source: Path, *, mime_type: str
-    ) -> tuple[bytes, VisualFeatureHash]:
+    ) -> tuple[bytes, bytes, VisualFeatureHash]:
         """把源文件统一转成单页 PDF 再喂 MinerU（它对 PDF/文档的解析最稳）。"""
         try:
             with Image.open(source) as opened:
@@ -213,12 +222,14 @@ class MinerURecognitionProcessor:
         except Exception as exc:
             raise ProcessorResponseError("MinerU image cannot be decoded") from exc
         hashes = VisualFeatureHash.model_validate(feature_hashes(prepared.image))
+        formula_buffer = BytesIO()
+        prepared.image.convert("RGB").save(formula_buffer, "JPEG", quality=92, optimize=True)
         buffer = BytesIO()
         prepared.image.save(buffer, "PDF", resolution=200)
         pdf = buffer.getvalue()
         if len(pdf) > self._maximum_input_bytes:
             raise ProcessorResponseError("MinerU rendered PDF exceeds its approved input capacity")
-        return pdf, hashes
+        return pdf, formula_buffer.getvalue(), hashes
 
     def _poll(
         self, client: httpx.Client, headers: dict[str, str], task_id: str
@@ -306,6 +317,59 @@ def _spans_from_markdown(markdown: str, provider_request_id: str) -> tuple[TextS
             )
         )
     return tuple(spans)
+
+
+def _spans_from_formula_lines(
+    lines: tuple[object, ...],
+    *,
+    provider_request_id: str,
+) -> tuple[TextSpan, ...]:
+    usable = [line for line in lines if str(getattr(line, "text", "")).strip()]
+    count = len(usable)
+    return tuple(
+        TextSpan(
+            spanId=f"{provider_request_id}:f:{index}",
+            text=str(getattr(line, "text")),
+            box=BoundingBox(
+                pageNo=1,
+                x=0.0,
+                y=index / count,
+                width=1.0,
+                height=1.0 / count,
+            ),
+            confidence=float(getattr(line, "confidence", 0.0)),
+        )
+        for index, line in enumerate(usable)
+    )
+
+
+def _apply_formula_enrichment(
+    formula_client: FormulaRecognizer | None,
+    *,
+    image: bytes,
+    primary_spans: tuple[TextSpan, ...],
+    provider_request_id: str,
+) -> tuple[tuple[TextSpan, ...], str]:
+    if formula_client is None:
+        return primary_spans, provider_request_id
+    try:
+        result = formula_client.recognize(image)
+    except XfyunFormulaError:
+        # Formula recognition is a specialist enhancement. Preserve the
+        # primary MinerU result and make the degraded provider outcome
+        # observable through the processor request identity.
+        return primary_spans, f"{provider_request_id}|xfyun:unavailable"
+    enriched_id = f"{provider_request_id}|xfyun:{result.request_id}"
+    if not result.has_formula:
+        return primary_spans, enriched_id
+    return (
+        _spans_from_formula_lines(result.lines, provider_request_id=enriched_id),
+        enriched_id,
+    )
+
+
+class FormulaRecognizer(Protocol):
+    def recognize(self, image: bytes) -> FormulaRecognition: ...
 
 
 _OPTION_MARKER = re.compile(r"(?:^|[\s\n])([A-H])(?:[.．、:：)）]\s*|\s+(?=\S))")

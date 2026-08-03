@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import UTC, datetime
+from hashlib import sha256
 import json
 import re
 from typing import Literal
@@ -287,6 +288,7 @@ class PositionRuleReleaseService:
         if not rows:
             raise RuleReleaseContractError("The release year has no positions")
         source_conditions_complete = all(row["raw_json"] is not None for row in rows)
+        major_catalog_names, major_catalog_version = _major_catalog_snapshot(session)
 
         timestamp = compiled_at or datetime.now(UTC)
         status_counts = {
@@ -312,6 +314,8 @@ class PositionRuleReleaseService:
                 rule_set_version=release["rule_set_version"],
                 position_data_version=release["position_data_version"],
                 source_conditions_complete=source_conditions_complete,
+                major_catalog_names=major_catalog_names,
+                major_catalog_version=major_catalog_version,
             )
             existing = (
                 session.execute(
@@ -628,6 +632,22 @@ class PositionRuleReleaseService:
         if row is None:
             raise RuleReleaseContractError("Rule release does not exist")
         return row
+
+
+def _major_catalog_snapshot(
+    session: Session,
+) -> tuple[frozenset[str] | None, str | None]:
+    names = tuple(
+        str(value).strip()
+        for value in session.execute(
+            text("select name from product.major_catalog order by code")
+        ).scalars()
+        if isinstance(value, str) and value.strip()
+    )
+    if not names:
+        return None, None
+    digest = sha256("\n".join(names).encode("utf-8")).hexdigest()
+    return frozenset(names), f"major-catalog-sha256:{digest}"
 
 
 def _validated_windows(

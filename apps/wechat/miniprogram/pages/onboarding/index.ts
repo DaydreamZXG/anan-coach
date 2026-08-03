@@ -12,7 +12,11 @@ import {
 import type { OnboardingNextStep } from "../../features/onboarding/types";
 import {
   emptyQualificationDraft,
+  qualificationCertificationOptions,
   qualificationFactsFromDraft,
+  qualificationGenderOptions,
+  qualificationPoliticalStatusOptions,
+  toggleQualificationCertification,
   type QualificationDraft,
 } from "../../features/qualification/onboarding";
 import { createIdempotencyKey } from "../../platform/command-id";
@@ -29,11 +33,21 @@ interface MajorOption {
   category: string;
 }
 
+interface CertificationOptionView {
+  value: string;
+  label: string;
+  selected: boolean;
+}
+
 interface QualificationPageData extends QualificationDraft {
+  pageTitle: string;
   educationOptions: string[];
   degreeOptions: string[];
   graduationOptions: GraduationOption[];
   serviceProjectOptions: string[];
+  genderOptions: readonly string[];
+  politicalStatusOptions: readonly string[];
+  certificationOptions: CertificationOptionView[];
   majorSuggestions: MajorOption[];
   majorCategory: string;
   graduationLabel: string;
@@ -60,9 +74,14 @@ interface QualificationPageCustom {
   chooseEducation(event: WechatMiniprogram.PickerChange): void;
   chooseDegree(event: WechatMiniprogram.PickerChange): void;
   chooseGraduation(event: WechatMiniprogram.PickerChange): void;
+  chooseGender(event: WechatMiniprogram.BaseEvent): void;
+  choosePoliticalStatus(event: WechatMiniprogram.BaseEvent): void;
+  toggleCertification(event: WechatMiniprogram.BaseEvent): void;
   chooseServiceMode(event: WechatMiniprogram.BaseEvent): void;
   chooseServiceProject(event: WechatMiniprogram.BaseEvent): void;
   chooseWorkYears(event: WechatMiniprogram.BaseEvent): void;
+  chooseGrassrootsYears(event: WechatMiniprogram.BaseEvent): void;
+  inputHukou(event: WechatMiniprogram.CustomEvent<{ value: string }>): void;
   submit(): void;
   saveAndExit(): void;
   markLater(): void;
@@ -76,11 +95,28 @@ type QualificationPage = WechatMiniprogram.Page.Instance<
 
 const educationOptions = ["大专", "本科", "硕士", "博士"];
 const degreeOptions = ["无学位", "学士", "硕士", "博士"];
+const currentGraduationYear = new Date().getFullYear();
 const graduationOptions: GraduationOption[] = [
-  { label: "2026（应届）", year: 2026, freshGraduate: "true" },
-  { label: "2025（择业期应届）", year: 2025, freshGraduate: "true" },
-  { label: "2025（社会人员）", year: 2025, freshGraduate: "false" },
-  { label: "2024 及以前", year: 2024, freshGraduate: "false" },
+  {
+    label: `${String(currentGraduationYear)}（应届）`,
+    year: currentGraduationYear,
+    freshGraduate: "true",
+  },
+  {
+    label: `${String(currentGraduationYear - 1)}（择业期应届）`,
+    year: currentGraduationYear - 1,
+    freshGraduate: "true",
+  },
+  {
+    label: `${String(currentGraduationYear - 1)}（社会人员）`,
+    year: currentGraduationYear - 1,
+    freshGraduate: "false",
+  },
+  {
+    label: `${String(currentGraduationYear - 2)} 及以前`,
+    year: currentGraduationYear - 2,
+    freshGraduate: "false",
+  },
 ];
 const serviceProjectOptions = [
   "大学生村官",
@@ -98,10 +134,17 @@ const partialSaveKeys = new WeakMap<QualificationPage, string>();
 Page<QualificationPageData, QualificationPageCustom>({
   data: {
     ...emptyQualificationDraft,
+    pageTitle: "2/5 报考资格",
     educationOptions,
     degreeOptions,
     graduationOptions,
     serviceProjectOptions,
+    genderOptions: qualificationGenderOptions,
+    politicalStatusOptions: qualificationPoliticalStatusOptions,
+    certificationOptions: qualificationCertificationOptions.map((option) => ({
+      ...option,
+      selected: false,
+    })),
     majorSuggestions: [],
     majorCategory: "",
     graduationLabel: "",
@@ -182,6 +225,26 @@ Page<QualificationPageData, QualificationPageCustom>({
     });
   },
 
+  chooseGender(event) {
+    const gender = String(event.currentTarget.dataset.value ?? "");
+    if (qualificationGenderOptions.some((option) => option === gender)) {
+      runtimes.get(this)?.controller?.changeDraft({ gender });
+    }
+  },
+
+  choosePoliticalStatus(event) {
+    const politicalStatus = String(event.currentTarget.dataset.value ?? "");
+    if (qualificationPoliticalStatusOptions.some((option) => option === politicalStatus)) {
+      runtimes.get(this)?.controller?.changeDraft({ politicalStatus });
+    }
+  },
+
+  toggleCertification(event) {
+    const value = String(event.currentTarget.dataset.value ?? "");
+    const certifications = toggleQualificationCertification(this.data.certifications, value);
+    runtimes.get(this)?.controller?.changeDraft({ certifications });
+  },
+
   chooseServiceMode(event) {
     const mode = String(event.currentTarget.dataset.mode ?? "");
     if (mode === "none") {
@@ -214,6 +277,17 @@ Page<QualificationPageData, QualificationPageCustom>({
     if (Number.isSafeInteger(workYears) && workYears >= 0) {
       runtimes.get(this)?.controller?.changeDraft({ workYears });
     }
+  },
+
+  chooseGrassrootsYears(event) {
+    const grassrootsYears = Number(event.currentTarget.dataset.value);
+    if (Number.isSafeInteger(grassrootsYears) && grassrootsYears >= 0) {
+      runtimes.get(this)?.controller?.changeDraft({ grassrootsYears });
+    }
+  },
+
+  inputHukou(event) {
+    runtimes.get(this)?.controller?.changeDraft({ hukou: event.detail.value.trimStart() });
   },
 
   submit() {
@@ -266,6 +340,10 @@ function pageState(state: QualificationControllerState): Partial<QualificationPa
   const draft = state.draft;
   return {
     ...draft,
+    certificationOptions: qualificationCertificationOptions.map((option) => ({
+      ...option,
+      selected: draft.certifications.includes(option.value),
+    })),
     graduationLabel: graduationLabel(draft),
     serviceExpanded: Boolean(draft.serviceProject && draft.serviceProject !== "无"),
     error: state.validationError || state.error?.message || "",
@@ -283,7 +361,11 @@ function pageState(state: QualificationControllerState): Partial<QualificationPa
       draft.major.trim().length < 2 ||
       draft.graduationYear < 2000 ||
       !draft.freshGraduate ||
+      !draft.gender ||
+      !draft.politicalStatus ||
+      draft.certifications.length === 0 ||
       !draft.serviceProject ||
+      (draft.serviceProject !== "无" && draft.grassrootsYears < 0) ||
       draft.workYears < 0,
     primaryActionLabel: state.pendingRecovery ? "查询原确认结果" : "继续：填写岗位偏好",
   };

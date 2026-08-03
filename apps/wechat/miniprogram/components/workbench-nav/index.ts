@@ -1,4 +1,5 @@
 import { measureSystemChrome } from "../safe-top/metrics";
+import { navigateBackOr } from "../../app/navigation/safe-back";
 
 Component({
   properties: {
@@ -34,11 +35,7 @@ Component({
         this.triggerEvent("back");
         return;
       }
-      wx.navigateBack({
-        fail() {
-          void wx.switchTab({ url: "/pages/today/index" });
-        },
-      });
+      navigateBackOr();
     },
   },
 });

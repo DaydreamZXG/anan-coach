@@ -883,7 +883,7 @@ export const visualScenarios = [
   },
   {
     id: "f14-qualification-profile-review",
-    route: "/pages/profile/qualification/index",
+    route: "/pages/onboarding/profile/index",
     authenticated: true,
     data: {
       current: 3,

@@ -165,6 +165,7 @@ def _seed_bootstrap_authority(engine: Engine) -> None:
             release_id=knowledge_release_id,
             node_id="bootstrap-node",
             question_id="bootstrap-question",
+            legacy_visual_schema=True,
         )
         activate_knowledge_release(
             session,
@@ -269,7 +270,7 @@ def test_revision_76_external_transaction_bootstrap_is_atomic_and_resumable(
         candidate_commit=CANDIDATE_COMMIT,
         rollback_commit=ROLLBACK_COMMIT,
         environment="preproduction",
-        expected_revision="20260730_88",
+        expected_revision="20260802_94",
         position_exam_code="guokao",
         position_exam_year=2026,
         position_rule_set_version="rules@candidate-v2",
@@ -362,7 +363,7 @@ publication.bootstrap_upgrade_and_begin(
     with db_engine.connect() as connection:
         assert (
             connection.execute(text("select version_num from public.alembic_version")).scalar_one()
-            == "20260730_88"
+            == "20260802_94"
         )
         assert (
             connection.execute(

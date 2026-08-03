@@ -16,6 +16,7 @@ import {
   type TaskHelpPageObjectReference,
 } from "../../api/task-help";
 import { routes } from "../../app/navigation/routes";
+import { navigateBackOr } from "../../app/navigation/safe-back";
 import { currentAuthSession, sameSessionOwner } from "../../auth/session";
 import { environment } from "../../config/environment";
 import { createCoachRepository } from "../../data/coach-repository";
@@ -531,7 +532,7 @@ Page<PracticePageData, PracticePageCustom>({
       });
       if (!result.confirm) return;
     }
-    void wx.navigateBack();
+    navigateBackOr(routes.today);
   },
 
   toggleMaterial() {

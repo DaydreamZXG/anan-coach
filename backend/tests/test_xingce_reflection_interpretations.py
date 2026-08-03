@@ -124,8 +124,7 @@ def test_item_interpretation_requires_current_answered_objective_error_and_repla
         )
         assert [item["method_correct_calculation_error"] for item in evidence] == [
             True,
-            False,
-            False,
+            *([False] * (len(items) - 1)),
         ]
         assert {str(item["disposition"]) for item in evidence} == {"answered"}
         with pytest.raises(DBAPIError, match="append-only"):

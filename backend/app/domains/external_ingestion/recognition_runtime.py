@@ -32,6 +32,8 @@ from app.domains.external_ingestion.recognition.processor import (
 from app.domains.external_ingestion.recognition.repository import SQLRecognitionRepository
 from app.domains.external_ingestion.recognition.service import RecognitionService
 from app.internal_services.private_objects import PrivateObjectReader
+from app.domains.xfyun.config import optional_credentials_from_environment
+from app.domains.xfyun.formula import XfyunFormulaClient
 
 
 def build_recognition_service(
@@ -112,6 +114,7 @@ def build_recognition_service(
             maximum_pages=settings.recognition_processor_max_pages,
         )
     elif adapter == "mineru_ocr":
+        xfyun_credentials = optional_credentials_from_environment()
         processor = MinerURecognitionProcessor(
             endpoint=endpoint,
             bearer_token=settings.recognition_processor_token,
@@ -120,6 +123,9 @@ def build_recognition_service(
             maximum_input_bytes=settings.recognition_processor_max_input_bytes,
             maximum_output_bytes=settings.recognition_processor_max_output_bytes,
             maximum_pages=settings.recognition_processor_max_pages,
+            formula_client=(
+                XfyunFormulaClient(xfyun_credentials) if xfyun_credentials is not None else None
+            ),
         )
     elif adapter == "modal_paddle_ocr":
         if settings.recognition_processor_max_pages != 1:

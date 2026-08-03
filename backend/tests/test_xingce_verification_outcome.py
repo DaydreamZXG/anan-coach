@@ -85,8 +85,8 @@ def test_verification_outcome_binds_source_and_treats_dispute_as_pending(
     assert len(verification_question_ids) == 3
     assert len(set(verification_question_ids)) == 3
     assert set(verification_question_ids).isdisjoint(source_question_ids)
-    assert set(verification_question_ids) | set(source_question_ids) == {
-        f"xingce-route-question-{index}" for index in range(1, 7)
+    assert set(verification_question_ids) | set(source_question_ids) <= {
+        f"xingce-route-question-{index}" for index in range(1, 31)
     }
     checkpoint = client.put(
         f"/api/v2/xingce/task-sessions/{verification['sessionId']}/checkpoint",

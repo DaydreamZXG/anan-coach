@@ -91,16 +91,11 @@ export const pageInteractionMatrix = [
     handler: "openQualificationProfile",
     selector: ".card-link",
   }),
-  page(
-    "pages/profile/qualification/index",
-    "f14-qualification-profile-review",
-    "维护报考资格档案",
-    {
-      handler: "next",
-      selector: ".s9-primary-button",
-      observable: false,
-    },
-  ),
+  page("pages/onboarding/profile/index", "f14-qualification-profile-review", "维护报考资格档案", {
+    handler: "submit",
+    selector: ".eligibility-primary",
+    observable: false,
+  }),
   page(
     "pages/notification-settings/index",
     "h05-coach-notification-settings-ready",

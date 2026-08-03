@@ -124,6 +124,37 @@ class ILinkRepository:
             },
         )
 
+    def pending_material_delete(self, *, user_id: UUID, code: str):
+        return self._session.execute(
+            text(
+                """
+                select * from messaging.ilink_command_receipts
+                where user_id = :user_id
+                  and command_type = 'control_material_delete_pending'
+                  and result_payload ->> 'code' = :code
+                order by created_at desc
+                limit 1
+                """
+            ),
+            {"user_id": str(user_id), "code": code},
+        ).mappings().one_or_none()
+
+    def material_delete_consumed(self, *, pending_command_id: str) -> bool:
+        return bool(
+            self._session.execute(
+                text(
+                    """
+                    select exists (
+                      select 1 from messaging.ilink_command_receipts
+                      where command_type = 'control_material_delete_consumed'
+                        and result_payload ->> 'pendingCommandId' = :pending_command_id
+                    )
+                    """
+                ),
+                {"pending_command_id": pending_command_id},
+            ).scalar_one()
+        )
+
     def upsert_pending_link(
         self,
         *,

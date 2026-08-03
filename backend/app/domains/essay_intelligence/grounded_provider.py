@@ -17,7 +17,6 @@ from app.domains.ai.provider_contract import (
     parse_provider_json_object,
     provider_failure_is_retryable,
     provider_request_audit,
-    validate_processing_approval,
     validate_provider_audit_contract,
 )
 from app.domains.essay_intelligence.grounding import GroundedReviewContext
@@ -122,10 +121,6 @@ def validate_grounded_review_provider_security(settings: Settings) -> None:
             "Grounded review provider host is not allowlisted"
         )
     try:
-        validate_processing_approval(
-            settings,
-            dpa_confirmed=settings.ai_essay_review_provider_dpa_confirmed,
-        )
         validate_provider_audit_contract(
             idempotency_capability=(
                 settings.ai_essay_review_provider_idempotency_capability

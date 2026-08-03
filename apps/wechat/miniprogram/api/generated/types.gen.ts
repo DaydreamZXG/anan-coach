@@ -3271,7 +3271,7 @@ export type EligibilityEvaluation = {
     /**
      * Missingfactkeys
      */
-    missingFactKeys: Array<'education' | 'degree' | 'major' | 'graduation_year' | 'fresh_graduate' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions'>;
+    missingFactKeys: Array<'education' | 'degree' | 'major' | 'graduation_year' | 'fresh_graduate' | 'gender' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions'>;
     /**
      * Positiondataversion
      */
@@ -7028,6 +7028,71 @@ export type LearnerProfileUpdate = {
      * Targetregion
      */
     targetRegion: string;
+};
+
+/**
+ * LearnerTargetScoreProjection
+ */
+export type LearnerTargetScoreProjection = {
+    /**
+     * Fallbacklevel
+     */
+    fallbackLevel: string | null;
+    /**
+     * Limitations
+     */
+    limitations: Array<string>;
+    /**
+     * Modelversion
+     */
+    modelVersion: string;
+    /**
+     * Profileversion
+     */
+    profileVersion: number;
+    /**
+     * Reasoncode
+     */
+    reasonCode: 'historical_cohort_ready' | 'profile_incomplete' | 'insufficient_historical_samples';
+    /**
+     * Referencepositions
+     */
+    referencePositions: Array<ReferencePositionProjection>;
+    /**
+     * Referenceyear
+     */
+    referenceYear: number;
+    /**
+     * Samplecount
+     */
+    sampleCount: number;
+    /**
+     * Status
+     */
+    status: 'available' | 'unavailable';
+    targetScore: LearnerTargetScoreRange | null;
+    /**
+     * Versionid
+     */
+    versionId?: string | null;
+};
+
+/**
+ * LearnerTargetScoreRange
+ */
+export type LearnerTargetScoreRange = {
+    /**
+     * Lower
+     */
+    lower: number;
+    /**
+     * Recommended
+     */
+    recommended: number;
+    /**
+     * Upper
+     */
+    upper: number;
 };
 
 /**
@@ -12220,6 +12285,21 @@ export type PublicApiEnvelopeImpressionResult = {
 };
 
 /**
+ * PublicApiEnvelope[LearnerTargetScoreProjection]
+ */
+export type PublicApiEnvelopeLearnerTargetScoreProjection = {
+    data: LearnerTargetScoreProjection;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[LearningBrainProfileVersion]
  */
 export type PublicApiEnvelopeLearningBrainProfileVersion = {
@@ -13045,6 +13125,21 @@ export type PublicApiEnvelopeSessionRevocationResult = {
 };
 
 /**
+ * PublicApiEnvelope[SpeechToTextResponse]
+ */
+export type PublicApiEnvelopeSpeechToTextResponse = {
+    data: SpeechToTextResponse;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
  * PublicApiEnvelope[Stage8Catalog]
  */
 export type PublicApiEnvelopeStage8Catalog = {
@@ -13184,6 +13279,21 @@ export type PublicApiEnvelopeTaskHelpResponse = {
  */
 export type PublicApiEnvelopeTaskSessionProjection = {
     data: TaskSessionProjection;
+    /**
+     * Generatedat
+     */
+    generatedAt: string;
+    /**
+     * Requestid
+     */
+    requestId: string;
+};
+
+/**
+ * PublicApiEnvelope[TextToSpeechResponse]
+ */
+export type PublicApiEnvelopeTextToSpeechResponse = {
+    data: TextToSpeechResponse;
     /**
      * Generatedat
      */
@@ -13535,7 +13645,7 @@ export type QualificationFact = {
     /**
      * Key
      */
-    key: 'education' | 'degree' | 'major' | 'graduation_year' | 'fresh_graduate' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions';
+    key: 'education' | 'degree' | 'major' | 'graduation_year' | 'fresh_graduate' | 'gender' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions';
     /**
      * Supersedesfactid
      */
@@ -13557,7 +13667,7 @@ export type QualificationFactInput = {
     /**
      * Key
      */
-    key: 'education' | 'degree' | 'major' | 'graduation_year' | 'fresh_graduate' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions';
+    key: 'education' | 'degree' | 'major' | 'graduation_year' | 'fresh_graduate' | 'gender' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions';
     /**
      * Value
      */
@@ -13589,7 +13699,7 @@ export type QualificationGap = {
     /**
      * Factkey
      */
-    factKey: 'education' | 'degree' | 'major' | 'graduation_year' | 'fresh_graduate' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions';
+    factKey: 'education' | 'degree' | 'major' | 'graduation_year' | 'fresh_graduate' | 'gender' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions';
     /**
      * Gaptype
      */
@@ -14585,6 +14695,40 @@ export type RecognizeMathInkCommand = {
 };
 
 /**
+ * ReferencePositionProjection
+ */
+export type ReferencePositionProjection = {
+    /**
+     * Department
+     */
+    department: string;
+    /**
+     * Entryscore
+     */
+    entryScore: number;
+    /**
+     * Matchedreasons
+     */
+    matchedReasons: Array<string>;
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Positionid
+     */
+    positionId: string;
+    /**
+     * Region
+     */
+    region: string;
+    /**
+     * Scoreyear
+     */
+    scoreYear: number;
+};
+
+/**
  * ReflectionCommand
  */
 export type ReflectionCommand = {
@@ -14996,7 +15140,7 @@ export type RequirementCheck = {
     /**
      * Field
      */
-    field?: 'education' | 'degree' | 'major' | 'graduation_year' | 'fresh_graduate' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions' | null;
+    field?: 'education' | 'degree' | 'major' | 'graduation_year' | 'fresh_graduate' | 'gender' | 'political_status' | 'work_years' | 'grassroots_years' | 'service_project' | 'hukou' | 'age' | 'certifications' | 'other_conditions' | null;
     /**
      * Operator
      */
@@ -16054,6 +16198,38 @@ export type SourceKind = 'camera_image' | 'image_import' | 'pdf_upload' | 'answe
  * SourceType
  */
 export type SourceType = 'text' | 'voice_transcript' | 'handwriting_extraction' | 'reflection';
+
+/**
+ * SpeechToTextRequest
+ */
+export type SpeechToTextRequest = {
+    /**
+     * Audiobase64
+     */
+    audioBase64: string;
+    /**
+     * Durationmilliseconds
+     */
+    durationMilliseconds: number;
+    /**
+     * Encoding
+     */
+    encoding?: 'lame';
+};
+
+/**
+ * SpeechToTextResponse
+ */
+export type SpeechToTextResponse = {
+    /**
+     * Providerrequestid
+     */
+    providerRequestId: string;
+    /**
+     * Transcript
+     */
+    transcript: string;
+};
 
 /**
  * Stage8Catalog
@@ -17135,6 +17311,34 @@ export type TextSpan = {
      * Text
      */
     text: string;
+};
+
+/**
+ * TextToSpeechRequest
+ */
+export type TextToSpeechRequest = {
+    /**
+     * Text
+     */
+    text: string;
+};
+
+/**
+ * TextToSpeechResponse
+ */
+export type TextToSpeechResponse = {
+    /**
+     * Audiobase64
+     */
+    audioBase64: string;
+    /**
+     * Mimetype
+     */
+    mimeType?: 'audio/mpeg';
+    /**
+     * Providerrequestid
+     */
+    providerRequestId: string;
 };
 
 /**
@@ -18816,7 +19020,7 @@ export type XingceTaskBriefing = {
     /**
      * Questioncount
      */
-    questionCount?: 3;
+    questionCount: number;
     /**
      * Reason
      */
@@ -26808,6 +27012,22 @@ export type RevokeLinkApiV2IlinkChannelLinksLinkIdRevokePostResponses = {
 
 export type RevokeLinkApiV2IlinkChannelLinksLinkIdRevokePostResponse = RevokeLinkApiV2IlinkChannelLinksLinkIdRevokePostResponses[keyof RevokeLinkApiV2IlinkChannelLinksLinkIdRevokePostResponses];
 
+export type LearnerTargetScoreApiV2LearnerTargetScoreGetData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v2/learner-target-score';
+};
+
+export type LearnerTargetScoreApiV2LearnerTargetScoreGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeLearnerTargetScoreProjection;
+};
+
+export type LearnerTargetScoreApiV2LearnerTargetScoreGetResponse = LearnerTargetScoreApiV2LearnerTargetScoreGetResponses[keyof LearnerTargetScoreApiV2LearnerTargetScoreGetResponses];
+
 export type GetLearningBrainErrorPatternApiV2LearningBrainErrorPatternsPatternIdGetData = {
     body?: never;
     path: {
@@ -31452,6 +31672,120 @@ export type GetTaskHelpApiV2TaskHelpPostResponses = {
 };
 
 export type GetTaskHelpApiV2TaskHelpPostResponse = GetTaskHelpApiV2TaskHelpPostResponses[keyof GetTaskHelpApiV2TaskHelpPostResponses];
+
+export type SpeechToTextApiV2XfyunSpeechToTextPostData = {
+    body: SpeechToTextRequest;
+    path?: never;
+    query?: never;
+    url: '/api/v2/xfyun/speech-to-text';
+};
+
+export type SpeechToTextApiV2XfyunSpeechToTextPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type SpeechToTextApiV2XfyunSpeechToTextPostError = SpeechToTextApiV2XfyunSpeechToTextPostErrors[keyof SpeechToTextApiV2XfyunSpeechToTextPostErrors];
+
+export type SpeechToTextApiV2XfyunSpeechToTextPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeSpeechToTextResponse;
+};
+
+export type SpeechToTextApiV2XfyunSpeechToTextPostResponse = SpeechToTextApiV2XfyunSpeechToTextPostResponses[keyof SpeechToTextApiV2XfyunSpeechToTextPostResponses];
+
+export type TextToSpeechApiV2XfyunTextToSpeechPostData = {
+    body: TextToSpeechRequest;
+    path?: never;
+    query?: never;
+    url: '/api/v2/xfyun/text-to-speech';
+};
+
+export type TextToSpeechApiV2XfyunTextToSpeechPostErrors = {
+    /**
+     * The request is invalid for the current business state.
+     */
+    400: PublicApiError;
+    /**
+     * Authentication is required or no longer valid.
+     */
+    401: PublicApiError;
+    /**
+     * The authenticated account cannot perform this action.
+     */
+    403: PublicApiError;
+    /**
+     * The requested resource does not exist.
+     */
+    404: PublicApiError;
+    /**
+     * The request conflicts with the current resource revision.
+     */
+    409: PublicApiError;
+    /**
+     * The request body or parameters failed validation.
+     */
+    422: PublicApiError;
+    /**
+     * The request exceeded a controlled rate or quota.
+     */
+    429: PublicApiError;
+    /**
+     * The server could not complete the request.
+     */
+    500: PublicApiError;
+    /**
+     * A required service is temporarily unavailable.
+     */
+    503: PublicApiError;
+};
+
+export type TextToSpeechApiV2XfyunTextToSpeechPostError = TextToSpeechApiV2XfyunTextToSpeechPostErrors[keyof TextToSpeechApiV2XfyunTextToSpeechPostErrors];
+
+export type TextToSpeechApiV2XfyunTextToSpeechPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: PublicApiEnvelopeTextToSpeechResponse;
+};
+
+export type TextToSpeechApiV2XfyunTextToSpeechPostResponse = TextToSpeechApiV2XfyunTextToSpeechPostResponses[keyof TextToSpeechApiV2XfyunTextToSpeechPostResponses];
 
 export type DecideAttemptCauseApiV2XingceAttemptReviewsReviewIdCauseDecisionPutData = {
     body: CauseDecisionCommand;

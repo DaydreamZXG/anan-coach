@@ -55,7 +55,7 @@ class XingceTaskBriefing(BriefingModel):
     title: str
     reason: str
     module_name: str | None = Field(default=None, alias="moduleName")
-    question_count: Literal[3] = Field(default=3, alias="questionCount")
+    question_count: int = Field(alias="questionCount", ge=3, le=30)
     timing: XingceBriefingTiming
     completion: XingceBriefingCompletion
     abandonment: XingceBriefingAbandonment

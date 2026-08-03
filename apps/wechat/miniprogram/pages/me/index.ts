@@ -221,12 +221,12 @@ Page({
       targetContextRequestId: "",
     });
     const client = new ApiClient(undefined, token);
-    const [qualification, preference, dashboard] = await Promise.allSettled([
+    const onboarding = new OnboardingApi(client);
+    const [qualification, progress] = await Promise.allSettled([
       new QualificationApi(client).getProfile(),
-      new OnboardingApi(client).getStudyPreference(),
-      new PlanningApi(client).getToday(),
+      onboarding.getProgress(),
     ]);
-    const unauthorized = [qualification, preference, dashboard].some(
+    const unauthorized = [qualification, progress].some(
       (result) =>
         result.status === "rejected" &&
         result.reason instanceof ApiClientError &&
@@ -250,6 +250,57 @@ Page({
         qualificationContextError: failure.message,
         qualificationContextRequestId: failure.requestId,
       });
+    }
+
+    if (progress.status === "rejected") {
+      const failure = profileContextFailure(progress.reason, "建档进度没有同步完成，请重试。");
+      Object.assign(changes, {
+        studyContextStatus: "error",
+        studyContextError: failure.message,
+        studyContextRequestId: failure.requestId,
+        targetContextStatus: "error",
+        targetContextError: failure.message,
+        targetContextRequestId: failure.requestId,
+      });
+      this.setData(changes);
+      return;
+    }
+
+    if (!progress.value.data.studyPreferenceReady) {
+      Object.assign(changes, {
+        studyPreferenceReady: false,
+        studyModeLabel: "待设置",
+        weekdayHoursLabel: "待设置",
+        weekendHoursLabel: "待设置",
+        studyRhythmLabel: "待设置",
+        studyContextStatus: "ready",
+        studyContextError: "",
+        studyContextRequestId: "",
+        targetPositionLabel: "完成学习时间设置后生成目标计划",
+        targetPositionDepartmentLabel: "当前建档尚未完成",
+        targetPositionStatusLabel: "待设置",
+        targetContextStatus: "ready",
+        targetContextError: "",
+        targetContextRequestId: "",
+      });
+      this.setData(changes);
+      return;
+    }
+
+    const [preference, dashboard] = await Promise.allSettled([
+      onboarding.getStudyPreference(),
+      new PlanningApi(client).getToday(),
+    ]);
+    if (
+      [preference, dashboard].some(
+        (result) =>
+          result.status === "rejected" &&
+          result.reason instanceof ApiClientError &&
+          result.reason.statusCode === 401,
+      )
+    ) {
+      this.finishLogout();
+      return;
     }
     if (preference.status === "fulfilled") {
       Object.assign(changes, studyPreferenceView(preference.value.data), {

@@ -2,7 +2,7 @@
   "navigationBarTitleText": "我的备考档案",
   "navigationStyle": "custom",
   "usingComponents": {
-    "safe-top": "../../../components/safe-top/index",
-    "state-view": "../../../design-system/primitives/state-view/index"
+    "state-view": "../../../design-system/primitives/state-view/index",
+    "workbench-nav": "../../../components/workbench-nav/index"
   }
 }

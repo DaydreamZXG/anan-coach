@@ -6,6 +6,7 @@ import type {
 } from "../../api/generated/types.gen";
 import { ApiClientError } from "../../api/client";
 import { routes } from "../../app/navigation/routes";
+import { navigateBackOr } from "../../app/navigation/safe-back";
 import { currentAuthSession, sameSessionOwner, type ActiveAuthSession } from "../../auth/session";
 import {
   plannedDuration,
@@ -39,7 +40,7 @@ const TIME_PRESETS = [
 ] as const;
 
 const MINUTES_STEP = 30;
-const MAX_VISIBLE_MINUTES = 600;
+const MAX_VISIBLE_MINUTES = 720;
 const OPERATION_ATTEMPT_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
 const CAPACITY_ATTEMPT_SCOPE = "today-capacity:update@v1";
 const UNKNOWN_OUTCOME_MESSAGE =
@@ -279,7 +280,7 @@ Page({
 
   exit() {
     invalidatePageLifecycle(this, true);
-    void wx.navigateBack({ delta: 1 });
+    navigateBackOr(routes.today);
   },
 
   adjustMinutes(event: WechatMiniprogram.BaseEvent) {

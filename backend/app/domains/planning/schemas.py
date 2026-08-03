@@ -309,8 +309,6 @@ class GoalGap(PlanningContractModel):
     def validate_readiness(self) -> "GoalGap":
         complete_values = (
             self.goal_id,
-            self.position_name,
-            self.department_name,
             self.target_score,
             self.current_score,
             self.baseline_gap,

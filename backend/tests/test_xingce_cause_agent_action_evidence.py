@@ -375,7 +375,9 @@ def _submitted_attempt_with_trace(
         access_token=token,
         include_objective_questions=False,
     )
-    seed_route_frozen_release(factory, count=6)
+    # This suite validates per-question action evidence, not capacity scaling.
+    # Limit supply so the fixture remains an intentional three-question trace.
+    seed_route_frozen_release(factory, count=3)
     client = _client(factory)
     auth = {"Authorization": f"Bearer {token}"}
     task = _xingce_task(client, auth)

@@ -3,6 +3,7 @@
   "backgroundColor": "#F7F9FC",
   "enablePullDownRefresh": false,
   "usingComponents": {
-    "state-view": "../../../design-system/primitives/state-view/index"
+    "state-view": "../../../design-system/primitives/state-view/index",
+    "workbench-nav": "../../../components/workbench-nav/index"
   }
 }

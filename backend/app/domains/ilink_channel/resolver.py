@@ -311,12 +311,6 @@ class SecondaryAnswerProvider:
             for item in os.getenv("ILINK_SECONDARY_AI_HTTPS_HOST_ALLOWLIST", "").split(",")
             if item.strip()
         }
-        self._dpa = os.getenv("ILINK_SECONDARY_AI_DPA_CONFIRMED", "").casefold() in {
-            "1",
-            "true",
-            "yes",
-            "on",
-        }
         self._client_factory = client_factory or httpx.Client
 
     def validate(self) -> None:
@@ -332,7 +326,6 @@ class SecondaryAnswerProvider:
             or not self._api_key
             or not self._model
             or not self._release
-            or not self._dpa
         ):
             raise PhotoResolutionError("secondary_answer_provider_not_approved")
 

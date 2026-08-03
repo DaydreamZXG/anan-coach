@@ -91,7 +91,7 @@
     },
     {
       "routeName": "qualificationProfile",
-      "route": "/pages/profile/qualification/index",
+      "route": "/pages/onboarding/profile/index",
       "disposition": "reuse_existing_design",
       "targetFigmaNodeIds": [
         "35:2"

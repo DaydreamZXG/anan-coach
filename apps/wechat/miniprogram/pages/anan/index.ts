@@ -6,6 +6,7 @@ import type {
   TodayDashboard,
 } from "../../api/generated/types.gen";
 import { LearningBrainApi } from "../../api/learning-brain";
+import { OnboardingApi } from "../../api/onboarding";
 import { PlanningApi } from "../../api/planning";
 import { routes } from "../../app/navigation/routes";
 import {
@@ -17,7 +18,7 @@ import {
 } from "../../features/companion/presentation";
 import { resolveCompanionAction } from "../../features/learning-brain/companion-action";
 import { errorView, requireAuthenticatedClient } from "../../features/learning-brain/presentation";
-import { ApiClientError } from "../../api/client";
+import { ApiClientError, type ApiClient } from "../../api/client";
 import { stableFingerprint } from "../../platform/command-id";
 import { OperationAttemptStore } from "../../platform/operation-attempt-store";
 import {
@@ -289,7 +290,7 @@ Page({
     });
     const [profileResult, todayResult] = await Promise.allSettled([
       new LearningBrainApi(client).getProfile().then(({ data }) => data),
-      new PlanningApi(client).getToday().then(({ data }) => data),
+      loadTodayDashboardIfReady(client),
     ]);
     if (!sameSessionOwner(currentAuthSession(), auth)) return;
     const refreshingPatch: {
@@ -307,7 +308,7 @@ Page({
       acceptedResult = true;
     }
     if (runtime.todayGeneration === todayGeneration) {
-      runtime.todaySource = settledContextSource(
+      runtime.todaySource = settledTodayContextSource(
         todayResult,
         previousToday,
         "今日计划没有加载成功，请稍后单独重试。",
@@ -358,13 +359,11 @@ Page({
     const previousToday = runtime.todaySource;
     const todayGeneration = ++runtime.todayGeneration;
     this.setData({ todayRefreshing: true });
-    const [todayResult] = await Promise.allSettled([
-      new PlanningApi(client).getToday().then(({ data }) => data),
-    ]);
+    const [todayResult] = await Promise.allSettled([loadTodayDashboardIfReady(client)]);
     runtime.todayRetryInFlight = false;
     if (!sameSessionOwner(currentAuthSession(), auth)) return;
     if (runtime.todayGeneration !== todayGeneration) return;
-    runtime.todaySource = settledContextSource(
+    runtime.todaySource = settledTodayContextSource(
       todayResult,
       previousToday,
       "今日计划没有加载成功，请稍后单独重试。",
@@ -661,6 +660,30 @@ function settledContextSource<T>(
     message: view.message,
     requestId: view.requestId,
   };
+}
+
+async function loadTodayDashboardIfReady(client: ApiClient): Promise<TodayDashboard | null> {
+  const { data: progress } = await new OnboardingApi(client).getProgress();
+  if (!progress.studyPreferenceReady) return null;
+  const { data } = await new PlanningApi(client).getToday();
+  return data;
+}
+
+function settledTodayContextSource(
+  result: PromiseSettledResult<TodayDashboard | null>,
+  previous: CompanionContextSourceState<TodayDashboard>,
+  fallback: string,
+): CompanionContextSourceState<TodayDashboard> {
+  if (result.status === "fulfilled") {
+    return result.value
+      ? { status: "ready", value: result.value }
+      : {
+          status: "unavailable",
+          message: "完成学习时间设置后，岸岸会自动读取今日计划。",
+          requestId: "",
+        };
+  }
+  return settledContextSource(result, previous, fallback);
 }
 
 function contextSourceHasValue<T>(

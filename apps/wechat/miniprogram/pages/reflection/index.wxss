@@ -662,6 +662,23 @@
   font-weight: 700;
 }
 
+.reason-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(20 * var(--rpx));
+}
+
+.reason-card__read {
+  flex: 0 0 auto;
+  padding: calc(10 * var(--rpx)) calc(18 * var(--rpx));
+  border-radius: var(--radius-capsule);
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: var(--text-micro);
+  font-weight: 700;
+}
+
 .reason-card__copy,
 .method-card__copy {
   margin-top: calc(8 * var(--rpx));
@@ -952,6 +969,10 @@
   color: var(--ink-2);
   font-size: var(--text-micro);
   font-weight: 700;
+}
+
+.voice-item__action--primary {
+  color: var(--primary);
 }
 
 .voice-summary,

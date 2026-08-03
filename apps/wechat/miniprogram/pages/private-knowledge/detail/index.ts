@@ -1,5 +1,7 @@
 import { ApiClient, ApiClientError } from "../../../api/client";
 import { PrivateKnowledgeApi, type PrivateSourceSummary } from "../../../api/private-knowledge";
+import { routes } from "../../../app/navigation/routes";
+import { navigateBackOr } from "../../../app/navigation/safe-back";
 import { currentAuthSession } from "../../../auth/session";
 import { createIdempotencyKey } from "../../../platform/command-id";
 
@@ -54,7 +56,7 @@ Page<PageData, PageCustom>({
   onLoad(options) {
     const id = options.id ?? "";
     if (!id) {
-      void wx.navigateBack();
+      navigateBackOr(routes.privateKnowledge);
       return;
     }
     this.setData({ sourceId: id });
@@ -119,7 +121,7 @@ Page<PageData, PageCustom>({
       return;
     }
     eventChannel.emit("replaceSource", { sourceId: source.sourceId });
-    void wx.navigateBack();
+    navigateBackOr(routes.privateKnowledge);
   },
 
   deleteSource() {
@@ -151,7 +153,7 @@ Page<PageData, PageCustom>({
       this.setData({ deleteSheetOpen: false });
       void wx.showToast({ title: "已移除", icon: "success" });
       setTimeout(() => {
-        void wx.navigateBack();
+        navigateBackOr(routes.privateKnowledge);
       }, 1000);
     } catch (error) {
       if (this.data.deletionBackgrounded) {
@@ -171,7 +173,7 @@ Page<PageData, PageCustom>({
     if (!this.data.busy || this.data.deletionBackgrounded) return;
     this.setData({ deletionBackgrounded: true, deleteSheetOpen: false });
     void wx.showToast({ title: "已转入后台移除", icon: "success" });
-    void wx.navigateBack();
+    navigateBackOr(routes.privateKnowledge);
   },
 
   async waitForDeletion(gateway: PrivateKnowledgeApi, deletionId: string) {
@@ -189,7 +191,7 @@ Page<PageData, PageCustom>({
       this.closeDeleteSheet();
       return;
     }
-    void wx.navigateBack();
+    navigateBackOr(routes.privateKnowledge);
   },
 
   noop() {},

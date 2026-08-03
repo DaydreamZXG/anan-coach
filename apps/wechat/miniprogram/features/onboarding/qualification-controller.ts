@@ -393,5 +393,5 @@ function required(userId: string): string {
 }
 
 function cloneDraft(draft: QualificationDraft): QualificationDraft {
-  return { ...draft };
+  return { ...draft, certifications: [...draft.certifications] };
 }

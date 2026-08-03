@@ -219,6 +219,18 @@
 
       <view class="today-col today-col--side-b">
       <view class="secondary-tools">
+        <button hover-class="item--hover" class="mock-entry" bindtap="openMockExam">
+          <view class="mock-entry__icon">
+            <image class="icon icon--small" src="/assets/icons/task/clock.svg" mode="aspectFit" />
+          </view>
+          <view class="mock-entry__body">
+            <view class="mock-entry__eyebrow">完整校准</view>
+            <view class="mock-entry__title">整卷模考</view>
+            <view class="mock-entry__meta">135 题 · 120 分钟</view>
+          </view>
+          <view class="mock-entry__action">进入模考 →</view>
+        </button>
+
         <button hover-class="item--hover" class="settlement-button {{view.hasExecutionActivity ? '' : 'settlement-button--quiet'}}" bindtap="openDailySettlement">
           <image class="icon icon--settlement" src="/assets/icons/today/circle-check-secondary.png" mode="aspectFit" />
           <text>{{view.hasExecutionActivity ? '结束今天并复盘' : '记录今天'}}</text>

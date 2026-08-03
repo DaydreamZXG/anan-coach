@@ -22,6 +22,7 @@ from app.domains.xingce_learning.real_attempt.repository import (
 from tests.knowledge_map_vocabulary_helpers import (
     activate_knowledge_release,
     bind_question_to_release_node,
+    publish_legacy_question_content,
     seed_released_module_vocabulary,
 )
 
@@ -86,6 +87,7 @@ def seed_canonical_frozen_release(
     questions: tuple[FrozenQuestionSeed, ...],
     nodes: tuple[FrozenKnowledgeNodeSeed, ...] = (FrozenKnowledgeNodeSeed(),),
     reference_time: datetime | None = None,
+    legacy_visual_schema: bool = False,
 ) -> CanonicalFrozenRelease:
     now = reference_time or datetime.now(UTC)
     release = _seed_frozen_release_storage(
@@ -95,8 +97,10 @@ def seed_canonical_frozen_release(
         nodes=nodes,
         reference_time=now,
         fresh_until=now + timedelta(days=365),
+        legacy_visual_schema=legacy_visual_schema,
     )
-    assert_canonical_frozen_release(session, release)
+    if not legacy_visual_schema:
+        assert_canonical_frozen_release(session, release)
     return release
 
 
@@ -216,6 +220,7 @@ def _seed_frozen_release_storage(
     reference_time: datetime,
     fresh_until: datetime,
     activated_at: datetime | None = None,
+    legacy_visual_schema: bool = False,
 ) -> CanonicalFrozenRelease:
     _validate_seed(release_key=release_key, questions=questions, nodes=nodes)
     release_id = str(uuid5(NAMESPACE_URL, f"gongkao-test-frozen-release:{release_key}"))
@@ -286,17 +291,24 @@ def _seed_frozen_release_storage(
     for node in nodes:
         _insert_node(session, release_id=release_id, node=node)
     _insert_questions(session, questions)
-    content_version_ids = tuple(
-        bind_question_to_release_node(
-            session,
-            release_id=release_id,
-            node_id=question.node_id,
-            question_id=question.question_id,
-            latest_recent_exam_year=question.latest_year,
-            recent_occurrence_count=max(question.occurrence_count, 1),
+    content_version_ids: list[str] = []
+    for question in questions:
+        legacy_content_version_id = (
+            publish_legacy_question_content(session, question_id=question.question_id)
+            if legacy_visual_schema
+            else None
         )
-        for question in questions
-    )
+        content_version_ids.append(
+            bind_question_to_release_node(
+                session,
+                release_id=release_id,
+                node_id=question.node_id,
+                question_id=question.question_id,
+                latest_recent_exam_year=question.latest_year,
+                recent_occurrence_count=max(question.occurrence_count, 1),
+                content_version_id=legacy_content_version_id,
+            )
+        )
     activate_knowledge_release(
         session,
         release_id=release_id,
@@ -309,7 +321,7 @@ def _seed_frozen_release_storage(
         vocab_version=_VOCAB_VERSION,
         source_fingerprint=source_fingerprint,
         question_ids=tuple(item.question_id for item in questions),
-        content_version_ids=content_version_ids,
+        content_version_ids=tuple(content_version_ids),
         reference_time=reference_time,
     )
 

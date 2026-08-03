@@ -7,9 +7,6 @@ from typing import Any
 
 import httpx
 
-from app.core.config import Settings
-
-
 REPLAYABLE_QUERYABLE = "replayable_queryable"
 NONREPLAYABLE_AUDITED = "nonreplayable_audited"
 BODY_REQUEST_ID_SOURCE = "body:id"
@@ -38,19 +35,6 @@ def parse_provider_json_object(value: object) -> dict[str, Any]:
     if not isinstance(parsed, dict):
         raise ValueError("provider content must contain exactly one JSON object")
     return parsed
-
-
-def validate_processing_approval(
-    settings: Settings,
-    *,
-    dpa_confirmed: bool,
-) -> None:
-    del settings
-    if not dpa_confirmed:
-        raise ValueError(
-            "verified processor DPA/data terms are required; an operator decision cannot "
-            "substitute for processor evidence"
-        )
 
 
 def validate_provider_audit_contract(

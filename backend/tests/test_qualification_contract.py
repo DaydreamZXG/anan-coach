@@ -96,6 +96,35 @@ def test_unmet_hard_condition_is_ineligible() -> None:
     assert result.checks[0].reason_code == "condition_not_met"
 
 
+def test_gender_requirement_uses_the_versioned_profile_fact() -> None:
+    eligible = _evaluate(
+        [_fact("gender", "女")],
+        [_requirement("gender", "equals", "女")],
+    )
+    missing = _evaluate([], [_requirement("gender", "equals", "女")])
+
+    assert eligible.status == "eligible"
+    assert eligible.checks[0].fact_id == "fact-gender"
+    assert missing.status == "needs_confirmation"
+    assert missing.missing_fact_keys == ["gender"]
+
+
+def test_certification_requirement_distinguishes_met_missing_and_explicit_none() -> None:
+    requirement = _requirement(
+        "certifications",
+        "contains_any",
+        ["大学英语六级425分及以上", "雅思6.5分及以上"],
+    )
+    eligible = _evaluate([_fact("certifications", ["雅思6.5分及以上"])], [requirement])
+    missing = _evaluate([], [requirement])
+    ineligible = _evaluate([_fact("certifications", ["无"])], [requirement])
+
+    assert eligible.status == "eligible"
+    assert missing.status == "needs_confirmation"
+    assert missing.missing_fact_keys == ["certifications"]
+    assert ineligible.status == "ineligible"
+
+
 def test_position_without_structured_requirements_never_claims_eligible() -> None:
     result = _evaluate([_fact("education", "本科")], [])
 

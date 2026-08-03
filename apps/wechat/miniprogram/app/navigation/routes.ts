@@ -24,7 +24,7 @@ export const routes = {
   positionCompare: "/pages/positions/compare/index",
   positionGoal: "/pages/positions/goal/index",
   positionBriefing: "/pages/positions/briefing/index",
-  qualificationProfile: "/pages/profile/qualification/index",
+  qualificationProfile: "/pages/onboarding/profile/index",
   notificationSettings: "/pages/notification-settings/index",
   studyPreference: "/pages/study-preference/index",
   membership: "/pages/membership/index",

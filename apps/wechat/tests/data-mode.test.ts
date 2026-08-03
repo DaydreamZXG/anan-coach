@@ -3,9 +3,11 @@ import { configureForWechatEnvVersion, environment } from "../miniprogram/config
 import { createCoachRepository } from "../miniprogram/data/coach-repository";
 
 const originalChannel = environment.releaseChannel;
+const originalApiBaseUrl = environment.apiBaseUrl;
 
 afterEach(() => {
   environment.releaseChannel = originalChannel;
+  environment.apiBaseUrl = originalApiBaseUrl;
 });
 
 describe("repository environment", () => {
@@ -17,13 +19,18 @@ describe("repository environment", () => {
 
   it("maps WeChat environment versions without exposing an alternate data mode", () => {
     expect(configureForWechatEnvVersion("develop")).toMatchObject({
+      apiBaseUrl: "https://kg.xingguoxian.cn",
       releaseChannel: "development",
     });
     expect(configureForWechatEnvVersion("trial")).toMatchObject({
+      apiBaseUrl: "https://kg.xingguoxian.cn",
       releaseChannel: "staging",
     });
     const release = configureForWechatEnvVersion("release");
-    expect(release).toMatchObject({ releaseChannel: "production" });
+    expect(release).toMatchObject({
+      apiBaseUrl: "https://kg.xingguoxian.cn",
+      releaseChannel: "production",
+    });
     expect(release).not.toHaveProperty("dataMode");
   });
 

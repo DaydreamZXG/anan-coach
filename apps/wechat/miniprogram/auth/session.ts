@@ -1,6 +1,7 @@
 const authSessionKey = "gongkao.auth.session.v1";
 const legacyAccessTokenKey = "gongkao.auth.accessToken";
 const deviceIdKey = "gongkao.installation.deviceId";
+const hydratedSessionStores = new WeakSet();
 
 interface SessionGlobalData {
   accessToken?: string;
@@ -56,6 +57,8 @@ export function currentAuthSession(): ActiveAuthSession | undefined {
     return session;
   }
 
+  if (hydratedSessionStores.has(globalData)) return undefined;
+  hydratedSessionStores.add(globalData);
   const persisted = readStorage(authSessionKey);
   const session = readPersistedSession(persisted);
   if (!session) {
@@ -98,6 +101,7 @@ export function updateAuthDisplayName(displayName?: string | null): void {
 export function clearAuthSession(): void {
   const globalData = activeSessionGlobalData();
   if (globalData) {
+    hydratedSessionStores.add(globalData);
     delete globalData.accessToken;
     delete globalData.userId;
     delete globalData.displayName;
@@ -196,7 +200,10 @@ function isLegacyAuthSession(value: unknown): value is Omit<AuthSession, "genera
 function writeAuthSession(session: ActiveAuthSession): void {
   persistSession(session);
   const globalData = activeSessionGlobalData();
-  if (globalData) applySessionToGlobalData(globalData, session);
+  if (globalData) {
+    hydratedSessionStores.add(globalData);
+    applySessionToGlobalData(globalData, session);
+  }
 }
 
 function applySessionToGlobalData(globalData: SessionGlobalData, session: ActiveAuthSession): void {

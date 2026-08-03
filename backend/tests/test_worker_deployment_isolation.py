@@ -87,10 +87,13 @@ REQUIRED_WORKLOAD_KEYS = {
         "PACKET_RENDERER_API_KEY",
         "AI_API_KEY",
         "WEKNORA_INGEST_API_KEY",
+        "XFYUN_APP_ID",
+        "XFYUN_API_KEY",
+        "XFYUN_API_SECRET",
     },
     "worker-essay-review.env": {
         "AI_API_KEY",
-        "AI_ESSAY_GROK_API_KEY",
+        "AI_ESSAY_TOKENRHYTHM_API_KEY",
         "CLOUDBASE_API_KEY",
         "AI_ESSAY_ADJUDICATOR_API_KEY",
         "AI_ESSAY_CHECKPOINT_KEYS_JSON",
@@ -121,6 +124,7 @@ FORBIDDEN_PREFIXES = {
         "UPLOAD_",
         "WECHAT_",
         "WEKNORA_",
+        "XFYUN_",
     ),
     "worker-cause-agent.env": (
         "AI_COMPANION_",
@@ -132,6 +136,7 @@ FORBIDDEN_PREFIXES = {
         "UPLOAD_",
         "WECHAT_",
         "WEKNORA_",
+        "XFYUN_",
     ),
     "worker-external-learning.env": (
         "AI_ESSAY_",
@@ -149,6 +154,7 @@ FORBIDDEN_PREFIXES = {
         "UPLOAD_",
         "WECHAT_",
         "WEKNORA_",
+        "XFYUN_",
     ),
     "worker-coach-notification.env": (
         "AI_",
@@ -158,6 +164,7 @@ FORBIDDEN_PREFIXES = {
         "TOS_",
         "UPLOAD_",
         "WEKNORA_",
+        "XFYUN_",
     ),
     "ilink-channel.env": (
         "AI_COMPANION_",
@@ -169,6 +176,7 @@ FORBIDDEN_PREFIXES = {
         "UPLOAD_",
         "WECHAT_",
         "WEKNORA_",
+        "XFYUN_",
     ),
     "ilink-worker.env": (
         "AI_ESSAY_",
@@ -178,6 +186,7 @@ FORBIDDEN_PREFIXES = {
         "UPLOAD_",
         "WECHAT_",
         "WEKNORA_",
+        "XFYUN_",
     ),
 }
 

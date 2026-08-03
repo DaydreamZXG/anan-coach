@@ -1,4 +1,6 @@
 import { EssayIntelligenceApi, type EssayTaskWorkspace } from "../../api/essay-intelligence";
+import { routes } from "../../app/navigation/routes";
+import { navigateBackOr } from "../../app/navigation/safe-back";
 import { errorView, requireAuthenticatedClient } from "../../features/learning-brain/presentation";
 import { materialDirectory } from "../../features/essay-workbench/presentation";
 
@@ -161,11 +163,11 @@ Page({
       return;
     }
     eventChannel.emit(eventName, { text });
-    void wx.navigateBack();
+    navigateBackOr(routes.today);
   },
 
   returnToWriter() {
-    void wx.navigateBack();
+    navigateBackOr(routes.today);
   },
 });
 

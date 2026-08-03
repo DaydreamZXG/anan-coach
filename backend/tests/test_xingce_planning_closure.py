@@ -418,8 +418,8 @@ def test_due_mastery_version_runs_independent_verification_and_schedules_first_r
     assert len(question_ids) == 3
     assert len(set(question_ids)) == 3
     assert set(question_ids).isdisjoint(source_question_ids)
-    assert set(question_ids) | source_question_ids == {
-        f"xingce-route-question-{index}" for index in range(1, 7)
+    assert set(question_ids) | source_question_ids <= {
+        f"xingce-route-question-{index}" for index in range(1, 31)
     }
     checkpoint = client.put(
         f"/api/v2/xingce/task-sessions/{verification['sessionId']}/checkpoint",
@@ -504,7 +504,7 @@ def test_due_mastery_version_runs_independent_verification_and_schedules_first_r
     assert versions[1]["state"] == "provisionally_mastered"
     assert versions[1]["verification_stage"] == "first_review"
     assert versions[1]["rating"] == 3
-    assert len(versions[1]["used_question_ids"]) == 6
+    assert set(versions[1]["used_question_ids"]) == source_question_ids | set(question_ids)
     assert versions[1]["source_session_id"] == verification["sessionId"]
 
 
@@ -550,7 +550,10 @@ def _submitted_attempt(
         access_token=token,
         include_objective_questions=False,
     )
-    seed_route_frozen_release(factory, count=6)
+    # Dynamic daily bundles can consume more than the historical fixed three
+    # questions. Keep a separate supply available for the verification task
+    # that these closure tests exercise.
+    seed_route_frozen_release(factory, count=30)
     client = _client(factory)
     auth = {"Authorization": f"Bearer {token}"}
     task = _xingce_task(client, auth)
@@ -586,14 +589,22 @@ def _submitted_attempt(
     }
     legacy_correct_options = ["A", "B", "C"]
     resolved_choices: list[str] = []
-    for index, (question, choice) in enumerate(zip(questions, choices, strict=True)):
+    if len(choices) > len(questions):
+        raise AssertionError("test choices exceed the frozen question bundle")
+    for index, question in enumerate(questions):
         correct_options = correct_options_by_question[question["questionId"]]
-        if choice == legacy_correct_options[index]:
+        if index >= len(choices):
+            resolved_choices.append(correct_options[0])
+            continue
+        choice = choices[index]
+        if index < len(legacy_correct_options) and choice == legacy_correct_options[index]:
             resolved_choices.append(correct_options[0])
             continue
         resolved_choices.append(
             next(option for option in ("A", "B", "C", "D") if option not in correct_options)
         )
+    elapsed_seconds = [40 + index for index in range(len(questions))]
+    total_elapsed_seconds = sum(elapsed_seconds)
     checkpoint = client.put(
         f"/api/v2/xingce/task-sessions/{started['sessionId']}/checkpoint",
         headers={**auth, "Idempotency-Key": f"checkpoint-{token}"},
@@ -608,7 +619,7 @@ def _submitted_attempt(
                     "confidence": "high",
                     "marked": False,
                     "skipped": False,
-                    "elapsedSeconds": 40 + index,
+                    "elapsedSeconds": elapsed_seconds[index],
                     "draftText": "",
                     "materialPosition": None,
                 }
@@ -616,7 +627,7 @@ def _submitted_attempt(
                     zip(questions, resolved_choices, strict=True)
                 )
             ],
-            "totalElapsedSeconds": 132,
+            "totalElapsedSeconds": total_elapsed_seconds,
         },
     )
     assert checkpoint.status_code == 200, checkpoint.text
@@ -626,7 +637,7 @@ def _submitted_attempt(
         headers={**auth, "Idempotency-Key": f"submit-{token}"},
         json={
             "expectedRevision": checkpointed["revision"],
-            "totalElapsedSeconds": 135,
+            "totalElapsedSeconds": total_elapsed_seconds + 3,
         },
     )
     assert submit.status_code == 200, submit.text

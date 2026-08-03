@@ -14,11 +14,6 @@ from app.domains.ai.capability_readiness import (
     cause_agent_readiness,
     ocr_readiness,
 )
-from app.domains.ai.external_processing import (
-    ExternalProcessingAuthorizationError,
-    ExternalProcessingRepository,
-    endpoint_fingerprint,
-)
 from app.domains.coach_notifications.template import (
     CoachTemplateConfigurationError,
     CoachTemplateRelease,
@@ -349,92 +344,6 @@ def ready(session: Annotated[Session, Depends(get_db_session)]) -> dict[str, str
                 status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
                 detail="coach notification template release is not ready",
             )
-    if runtime_environment not in _LOCAL_READINESS_ENVIRONMENTS:
-        required_capabilities = (
-            ocr_readiness(session, settings=settings, at=checked_at),
-            cause_agent_readiness(session, settings=settings, at=checked_at),
-        )
-        unavailable_capabilities = tuple(
-            capability for capability in required_capabilities if not capability.ready
-        )
-        if unavailable_capabilities:
-            reasons = ", ".join(
-                f"{capability.capability}={capability.reason}"
-                for capability in unavailable_capabilities
-            )
-            raise HTTPException(
-                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-                detail=f"required AI capabilities are not ready: {reasons}",
-            )
-        endpoint = endpoint_fingerprint(settings.ai_provider_base_url)
-        requirements = (
-            (
-                settings.ai_companion_provider_dpa_confirmed,
-                settings.ai_companion_provider_release_id,
-                "companion_answer",
-                ("learner_question", "learning_evidence"),
-            ),
-            (
-                settings.ai_companion_provider_dpa_confirmed,
-                settings.ai_companion_provider_release_id,
-                "external_question_answer_generate",
-                ("recognized_question",),
-            ),
-            (
-                settings.ai_xingce_cause_provider_dpa_confirmed,
-                settings.ai_xingce_cause_provider_release_id,
-                "cause_candidate_generate",
-                ("learning_evidence", "learner_answer"),
-            ),
-            (
-                settings.ai_community_candidate_provider_dpa_confirmed,
-                settings.ai_community_candidate_provider_release_id,
-                "community_candidate_generate",
-                ("community_content",),
-            ),
-            (
-                settings.ai_essay_review_provider_dpa_confirmed,
-                settings.ai_essay_rubric_provider_release_id,
-                "rubric_generator",
-                ("public_exam_material",),
-            ),
-            (
-                settings.ai_essay_review_provider_dpa_confirmed,
-                settings.ai_essay_rubric_provider_release_id,
-                "rubric_critic",
-                ("public_exam_material",),
-            ),
-            (
-                settings.ai_essay_review_provider_dpa_confirmed,
-                settings.ai_essay_review_provider_release_id,
-                "grounded_review_generator",
-                ("essay_answer", "public_exam_material", "grading_rubric"),
-            ),
-            (
-                settings.ai_essay_review_provider_dpa_confirmed,
-                settings.ai_essay_review_provider_release_id,
-                "grounded_review_repair",
-                ("essay_answer", "public_exam_material", "grading_rubric"),
-            ),
-        )
-        try:
-            processor_releases = ExternalProcessingRepository()
-            for approved, provider_release, purpose, data_categories in requirements:
-                if not approved:
-                    continue
-                processor_releases.require_active_release(
-                    session,
-                    declared_provider_release=provider_release,
-                    provider_endpoint_fingerprint=endpoint,
-                    purpose=purpose,
-                    data_categories=data_categories,
-                    at=checked_at,
-                )
-        except (ExternalProcessingAuthorizationError, ValueError) as exc:
-            raise HTTPException(
-                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-                detail="external AI processor release is not ready",
-            ) from exc
     return {
         "status": "ready",
         "migration": str(migration),

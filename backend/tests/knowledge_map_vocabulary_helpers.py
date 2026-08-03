@@ -2,11 +2,14 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from datetime import UTC, datetime
+import json
 
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.domains.external_ingestion.matching.catalog import SQLQuestionContentCatalog
+from app.domains.external_ingestion.matching.fingerprint import normalize_text
+from app.domains.xingce_learning.content_version import question_content_version_id
 
 
 _CANONICAL_MODULES = {
@@ -100,12 +103,15 @@ def bind_question_to_release_node(
     recent_occurrence_count: int = 0,
     latest_old_exam_year: int | None = None,
     old_occurrence_count: int = 0,
+    content_version_id: str | None = None,
 ) -> str:
     """Freeze one existing question into one draft release/node binding."""
 
-    content = SQLQuestionContentCatalog(session).publish_current(
-        question_id=question_id
-    )
+    resolved_content_version_id = content_version_id
+    if resolved_content_version_id is None:
+        resolved_content_version_id = SQLQuestionContentCatalog(session).publish_current(
+            question_id=question_id
+        ).content_version_id
     authority = (
         session.execute(
             text(
@@ -264,7 +270,7 @@ def bind_question_to_release_node(
             "release_id": release_id,
             "node_id": node_id,
             "question_id": question_id,
-            "content_version_id": content.content_version_id,
+            "content_version_id": resolved_content_version_id,
             "module_code": authority["module_code"],
             "canonical_module": authority["canonical_module"],
             "source_tag_type": authority["source_tag_type"],
@@ -279,7 +285,7 @@ def bind_question_to_release_node(
             "old_occurrence_count": old_occurrence_count,
         },
     )
-    return content.content_version_id
+    return resolved_content_version_id
 
 
 def seed_minimal_release_binding(
@@ -288,6 +294,7 @@ def seed_minimal_release_binding(
     release_id: str,
     node_id: str,
     question_id: str,
+    legacy_visual_schema: bool = False,
 ) -> str:
     node = session.execute(
         text(
@@ -333,6 +340,12 @@ def seed_minimal_release_binding(
         ),
         {"question_id": question_id},
     )
+    content_version_id = None
+    if legacy_visual_schema:
+        content_version_id = publish_legacy_question_content(
+            session,
+            question_id=question_id,
+        )
     return bind_question_to_release_node(
         session,
         release_id=release_id,
@@ -340,7 +353,91 @@ def seed_minimal_release_binding(
         question_id=question_id,
         latest_recent_exam_year=2026,
         recent_occurrence_count=1,
+        content_version_id=content_version_id,
     )
+
+
+def publish_legacy_question_content(
+    session: Session,
+    *,
+    question_id: str,
+) -> str:
+    """Publish fixture content without reading post-revision-90 visual columns."""
+
+    source = SQLQuestionContentCatalog(session)._canonical_question(  # noqa: SLF001
+        question_id=question_id
+    )
+    if source is None:
+        raise AssertionError("legacy fixture question is missing canonical content")
+    source.pop("domain", None)
+    snapshot = {
+        field: source.get(field)
+        for field in (
+            "question_id",
+            "module_name",
+            "question_type",
+            "stem",
+            "stem_html",
+            "answer",
+            "material_text",
+            "material_html",
+            "preferred_analysis",
+            "analysis_source",
+            "analysis_status",
+            "prefer_ai_analysis",
+            "analysis_needs_review",
+            "options",
+            "assets",
+        )
+    }
+    content_version_id = question_content_version_id(snapshot)
+    options = snapshot["options"] if isinstance(snapshot["options"], list) else []
+    normalized_search_text = normalize_text(
+        "\n".join(
+            (
+                str(snapshot.get("stem") or ""),
+                *(str(item.get("option_text") or "") for item in options),
+                str(snapshot.get("material_text") or ""),
+            )
+        )
+    )
+    session.execute(
+        text(
+            """
+            insert into product.question_content_versions (
+              content_version_id, question_id, track, snapshot_payload,
+              normalized_search_text, created_at
+            ) values (
+              :content_version_id, :question_id, 'xingce',
+              cast(:snapshot_payload as jsonb), :normalized_search_text,
+              transaction_timestamp()
+            )
+            on conflict (content_version_id) do nothing
+            """
+        ),
+        {
+            "content_version_id": content_version_id,
+            "question_id": question_id,
+            "snapshot_payload": json.dumps(snapshot, ensure_ascii=False, sort_keys=True),
+            "normalized_search_text": normalized_search_text,
+        },
+    )
+    session.execute(
+        text(
+            """
+            insert into product.question_content_heads (
+              question_id, content_version_id, updated_at
+            ) values (
+              :question_id, :content_version_id, transaction_timestamp()
+            )
+            on conflict (question_id) do update
+            set content_version_id = excluded.content_version_id,
+                updated_at = excluded.updated_at
+            """
+        ),
+        {"question_id": question_id, "content_version_id": content_version_id},
+    )
+    return content_version_id
 
 
 def activate_knowledge_release(

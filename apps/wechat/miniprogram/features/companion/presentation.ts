@@ -154,8 +154,7 @@ export function companionFailureView(error: unknown): CompanionFailureView {
   if (error.statusCode === 502 || error.statusCode === 503) {
     return {
       semanticState: "provider_pending",
-      message:
-        "岸岸的回答服务尚未完成安全接入，本次没有把你的学习资料发给外部模型。请保留问题编号，服务恢复后再试。",
+      message: "岸岸的回答服务暂时不可用，本次没有完成回答。请稍后重试；若仍失败，请提供问题编号。",
       requestId: error.requestId,
     };
   }

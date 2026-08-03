@@ -50,9 +50,9 @@
               </view>
               <button
                 hover-class="item--hover"
-                class="stepper-button {{minutes >= 600 || previewing || submitting ? 'control-disabled' : ''}}"
+                class="stepper-button {{minutes >= 720 || previewing || submitting ? 'control-disabled' : ''}}"
                 data-delta="{{minutesStep}}"
-                disabled="{{minutes >= 600 || previewing || submitting}}"
+                disabled="{{minutes >= 720 || previewing || submitting}}"
                 bindtap="adjustMinutes"
               >
                 <view class="plus-icon"></view>

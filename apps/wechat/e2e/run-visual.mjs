@@ -77,7 +77,7 @@ const systemChromeContracts = new Map([
   ["/pages/private-knowledge/detail/index", workbenchChrome()],
   ["/pages/private-knowledge/index", workbenchChrome()],
   ["/pages/profile/archive/index", workbenchChrome()],
-  ["/pages/profile/qualification/index", workbenchChrome()],
+  ["/pages/onboarding/profile/index", workbenchChrome()],
   ["/pages/reflection/index", workbenchChrome()],
   ["/pages/today/index", pageChrome(".today-content")],
   ["/pages/weekly-plan/index", workbenchChrome()],

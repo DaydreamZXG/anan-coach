@@ -17,7 +17,6 @@ from app.domains.ai.model_cost import ModelTokenUsage
 from app.domains.ai.provider_contract import (
     parse_provider_json_object,
     provider_request_audit,
-    validate_processing_approval,
     validate_provider_audit_contract,
 )
 
@@ -497,10 +496,6 @@ def _validate_production_security(settings: Settings) -> None:
             "Companion provider host is not allowlisted"
         )
     try:
-        validate_processing_approval(
-            settings,
-            dpa_confirmed=settings.ai_companion_provider_dpa_confirmed,
-        )
         validate_provider_audit_contract(
             idempotency_capability=(
                 settings.ai_companion_provider_idempotency_capability

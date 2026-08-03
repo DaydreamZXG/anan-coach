@@ -76,6 +76,9 @@ def test_real_nested_timing_evidence_populates_average_and_is_user_isolated(
             12,
             24,
             36,
+            12,
+            24,
+            36,
         ]
         assert all("questionElapsedSeconds" not in item for item in snapshots)
 
@@ -121,14 +124,15 @@ def test_missing_and_invalid_nested_timing_does_not_fabricate_an_average(
                 "resultCode": "correct",
                 "timingEvidence": {"elapsedSeconds": 86_401},
             },
-        ),
+        )
+        * 2,
     )
 
     with db_session_factory() as session:
         modules = LearningBrainRepository(session).xingce_modules(user_id=user_id)
 
     assert len(modules) == 1
-    assert modules[0]["attempt_count"] == 3
+    assert modules[0]["attempt_count"] == 6
     assert modules[0]["average_seconds"] is None
 
 
@@ -162,6 +166,9 @@ def _checkpoint_answers(
     command_suffix: str,
 ) -> dict:
     questions = started["bundle"]["questions"]
+    expanded_elapsed_seconds = tuple(
+        elapsed_seconds[index % len(elapsed_seconds)] for index in range(len(questions))
+    )
     response = client.put(
         f"/api/v2/xingce/task-sessions/{started['sessionId']}/checkpoint",
         headers={
@@ -175,11 +182,11 @@ def _checkpoint_answers(
                 _answer(question["questionId"], "A", "high", elapsed)
                 for question, elapsed in zip(
                     questions,
-                    elapsed_seconds,
+                    expanded_elapsed_seconds,
                     strict=True,
                 )
             ],
-            "totalElapsedSeconds": sum(elapsed_seconds),
+            "totalElapsedSeconds": sum(expanded_elapsed_seconds),
         },
     )
     assert response.status_code == 200, response.text
@@ -194,6 +201,10 @@ def _submit_timed_attempt(
     elapsed_seconds: tuple[int, int, int],
     command_suffix: str,
 ) -> None:
+    questions = started["bundle"]["questions"]
+    expanded_elapsed_seconds = tuple(
+        elapsed_seconds[index % len(elapsed_seconds)] for index in range(len(questions))
+    )
     checkpoint = _checkpoint_answers(
         client,
         auth,
@@ -206,7 +217,7 @@ def _submit_timed_attempt(
         headers={**auth, "Idempotency-Key": f"brain-timing-submit-{command_suffix}"},
         json={
             "expectedRevision": checkpoint["revision"],
-            "totalElapsedSeconds": sum(elapsed_seconds),
+            "totalElapsedSeconds": sum(expanded_elapsed_seconds),
         },
     )
     assert response.status_code == 200, response.text

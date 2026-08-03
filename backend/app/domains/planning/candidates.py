@@ -6,7 +6,10 @@ from typing import Literal
 from uuid import UUID
 
 from app.domains.planning.engine import PriorityBreakdown, TaskCandidate
-from app.domains.xingce_learning.contracts import XINGCE_QUESTION_BUNDLE_SIZE
+from app.domains.xingce_learning.contracts import (
+    XINGCE_QUICK_QUESTION_BUNDLE_SIZE,
+    xingce_practice_minutes,
+)
 
 
 AbilityReadiness = Literal["unavailable", "partial", "complete", "stale"]
@@ -33,6 +36,8 @@ class GoalPlanningSnapshot:
     positive_gap: bool
     goal_version_id: str | None
     ability_estimate_version_id: str | None
+    target_owner: str = "position_goal"
+    target_entity_type: str = "position_goal_version"
 
 
 @dataclass(frozen=True)
@@ -238,19 +243,24 @@ def _objective_candidates(
                 "role": "due_reflection",
             }
         )
-    time_fit = _time_fit(20, available_minutes)
     candidates: list[TaskCandidate] = []
     if snapshot.baseline_required and not (
         (snapshot.due_verification_count or 0) > 0 or (snapshot.due_reflection_count or 0) > 0
     ):
-        if snapshot.baseline_question_count >= XINGCE_QUESTION_BUNDLE_SIZE:
-            candidates.append(_baseline_candidate(goal, evidence, time_fit))
+        baseline_minutes = xingce_practice_minutes(
+            available_minutes=available_minutes,
+            question_supply=snapshot.baseline_question_count,
+        )
+        if baseline_minutes:
+            candidates.append(
+                _baseline_candidate(goal, evidence, baseline_minutes, available_minutes)
+            )
         return candidates
 
     if (
         snapshot.closure_readiness == "available"
         and (snapshot.due_verification_count or 0) > 0
-        and snapshot.verification_question_count >= XINGCE_QUESTION_BUNDLE_SIZE
+        and snapshot.verification_question_count >= XINGCE_QUICK_QUESTION_BUNDLE_SIZE
     ):
         candidates.append(
             TaskCandidate(
@@ -268,7 +278,7 @@ def _objective_candidates(
                     goal_gain=0.65 if goal.positive_gap else 0.45,
                     ability_gain=0.90,
                     verification_urgency=1.0,
-                    time_fit=max(time_fit, _time_fit(15, available_minutes)),
+                    time_fit=_time_fit(15, available_minutes),
                     load_penalty=0.05,
                 ),
             )
@@ -294,47 +304,72 @@ def _objective_candidates(
                     goal_gain=0.60 if goal.positive_gap else 0.42,
                     ability_gain=0.85,
                     verification_urgency=0.98,
-                    time_fit=max(time_fit, _time_fit(15, available_minutes)),
+                    time_fit=_time_fit(15, available_minutes),
                     load_penalty=0.05,
                 ),
             )
         )
     if snapshot.baseline_required:
-        if snapshot.baseline_question_count >= XINGCE_QUESTION_BUNDLE_SIZE:
-            candidates.append(_baseline_candidate(goal, evidence, time_fit))
+        baseline_minutes = xingce_practice_minutes(
+            available_minutes=available_minutes,
+            question_supply=snapshot.baseline_question_count,
+        )
+        if baseline_minutes:
+            candidates.append(
+                _baseline_candidate(goal, evidence, baseline_minutes, available_minutes)
+            )
         return candidates
-    if snapshot.targeted_question_count < XINGCE_QUESTION_BUNDLE_SIZE:
+    targeted_minutes = xingce_practice_minutes(
+        available_minutes=available_minutes,
+        question_supply=snapshot.targeted_question_count,
+    )
+    if not targeted_minutes:
         return candidates
     module = snapshot.weakest_module or "国考高频模块"
-    candidates.append(
-        TaskCandidate(
-            candidate_key=f"xingce-practice:{module}",
-            track="xingce",
-            stage="objective_practice",
-            kind="practice",
-            title=f"行测针对训练：{module}",
-            reason=f"当前证据中「{module}」的改善收益最高，先做短题组再复盘。",
-            estimated_minutes=20,
-            completion_rule="完成题组并记录答案、用时、修改、跳题和信心。",
-            start_url="/pages/xingce-task-intro/index?mode=targeted",
-            evidence_refs=tuple(evidence),
-            priority=PriorityBreakdown(
-                goal_gain=0.72 if goal.positive_gap else 0.50,
-                ability_gain=0.78,
-                verification_urgency=0.45,
-                time_fit=time_fit,
-                load_penalty=0.12,
-            ),
-            strategy_module_keys=(module,),
+    block_count = min(12, max(1, (available_minutes + targeted_minutes - 1) // targeted_minutes))
+    for block_index in range(block_count):
+        block_number = block_index + 1
+        candidates.append(
+            TaskCandidate(
+                candidate_key=(
+                    f"xingce-practice:{module}"
+                    if block_number == 1
+                    else f"xingce-practice-block-{block_number}:{module}"
+                ),
+                track="xingce",
+                stage="objective_practice",
+                kind="practice",
+                title=(
+                    f"行测针对训练：{module}"
+                    if block_number == 1
+                    else f"行测针对训练：{module}（第 {block_number} 组）"
+                ),
+                reason=(
+                    f"当前证据中「{module}」的改善收益最高；"
+                    "按独立题组分段训练，每组完成后都可以重新规划后续时间。"
+                ),
+                estimated_minutes=targeted_minutes,
+                completion_rule="完成题组并记录答案、用时、修改、跳题和信心。",
+                start_url="/pages/xingce-task-intro/index?mode=targeted",
+                evidence_refs=tuple(evidence),
+                priority=PriorityBreakdown(
+                    goal_gain=max(0.45, (0.72 if goal.positive_gap else 0.50) - block_index * 0.02),
+                    ability_gain=max(0.55, 0.78 - block_index * 0.015),
+                    verification_urgency=max(0.25, 0.45 - block_index * 0.01),
+                    time_fit=_time_fit(targeted_minutes, available_minutes),
+                    load_penalty=min(0.30, 0.12 + block_index * 0.015),
+                ),
+                strategy_module_keys=(module,),
+            )
         )
-    )
     return candidates
 
 
 def _baseline_candidate(
     goal: GoalPlanningSnapshot,
     evidence: list[dict[str, str]],
-    time_fit: float,
+    estimated_minutes: int,
+    available_minutes: int,
 ) -> TaskCandidate:
     return TaskCandidate(
         candidate_key="xingce-baseline",
@@ -343,7 +378,7 @@ def _baseline_candidate(
         kind="practice",
         title="完成一组行测受控基线",
         reason="当前行测能力证据缺失或已过期，先补可比较基线，再决定模块投入。",
-        estimated_minutes=20,
+        estimated_minutes=estimated_minutes,
         completion_rule="完成固定题组、记录用时与信心，并形成新的行测证据版本。",
         start_url="/pages/xingce-task-intro/index?mode=baseline",
         evidence_refs=tuple(evidence),
@@ -351,8 +386,8 @@ def _baseline_candidate(
             goal_gain=0.65 if goal.positive_gap else 0.45,
             ability_gain=0.95,
             verification_urgency=0.70,
-            time_fit=time_fit,
-            load_penalty=0.15,
+            time_fit=_time_fit(estimated_minutes, available_minutes),
+            load_penalty=0.35 if estimated_minutes < 20 else 0.15,
         ),
     )
 
@@ -530,7 +565,15 @@ def _essay_candidate(
             goal_gain=0.72 if goal.positive_gap else 0.50,
             ability_gain=ability_gain,
             verification_urgency=urgency,
-            time_fit=_time_fit(minutes, available_minutes),
+            # Review, rewrite, and transfer are one evidence loop. Once the
+            # learner has entered that loop, consuming the remaining study
+            # block to close it is a good fit rather than a scheduling penalty.
+            time_fit=(
+                1.0
+                if stage in {"essay_review", "essay_rewrite", "essay_transfer"}
+                and minutes <= available_minutes
+                else _time_fit(minutes, available_minutes)
+            ),
             load_penalty=0.18 if minutes >= 25 else 0.10,
         ),
         strategy_module_keys=(
@@ -699,8 +742,8 @@ def _shared_evidence(goal: GoalPlanningSnapshot) -> list[dict[str, str]]:
     if goal.goal_version_id:
         evidence.append(
             {
-                "owner": "position_goal",
-                "entityType": "position_goal_version",
+                "owner": goal.target_owner,
+                "entityType": goal.target_entity_type,
                 "entityId": goal.goal_version_id,
                 "versionId": goal.goal_version_id,
             }

@@ -4,6 +4,7 @@
   "backgroundColor": "#F7F9FC",
   "usingComponents": {
     "state-view": "../../design-system/primitives/state-view/index",
-    "ui-sheet": "../../design-system/primitives/ui-sheet/index"
+    "ui-sheet": "../../design-system/primitives/ui-sheet/index",
+    "workbench-nav": "../../components/workbench-nav/index"
   }
 }

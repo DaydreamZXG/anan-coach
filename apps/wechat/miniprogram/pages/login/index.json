@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "岸岸备考",
   "navigationStyle": "custom",
-  "usingComponents": {}
+  "usingComponents": {
+    "safe-top": "../../components/safe-top/index"
+  }
 }

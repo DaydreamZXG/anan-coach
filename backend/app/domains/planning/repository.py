@@ -21,7 +21,7 @@ from app.domains.planning.candidates import (
     ObjectivePlanningSnapshot,
 )
 from app.domains.planning.errors import PlanningContractError
-from app.domains.xingce_learning.contracts import XINGCE_QUESTION_BUNDLE_SIZE
+from app.domains.xingce_learning.contracts import XINGCE_MAX_QUESTION_BUNDLE_SIZE
 from app.domains.xingce_learning.real_attempt.repository import XingceAttemptRepository
 
 
@@ -84,6 +84,8 @@ class GoalAbilitySnapshot:
     estimate_confidence: str | None
     estimate_valid_until: datetime | None
     evidence_summary: dict[str, Any] | None
+    target_owner: str = "position_goal"
+    target_entity_type: str = "position_goal_version"
 
 
 @dataclass(frozen=True)
@@ -756,7 +758,7 @@ class PlanningRepository:
                 self._xingce_repository.select_frozen_questions(
                     session,
                     module_name=None,
-                    limit=XINGCE_QUESTION_BUNDLE_SIZE,
+                    limit=XINGCE_MAX_QUESTION_BUNDLE_SIZE,
                     user_id=user_id,
                 )
             )
@@ -764,13 +766,23 @@ class PlanningRepository:
             targeted_selection = self._xingce_repository.select_targeted_frozen_questions(
                 session,
                 module_name=str(weakest) if weakest else None,
-                limit=XINGCE_QUESTION_BUNDLE_SIZE,
+                limit=3,
                 user_id=user_id,
                 now=now,
             )
-            targeted_question_count = (
-                len(targeted_selection.questions) if targeted_selection is not None else 0
-            )
+            if targeted_selection is not None:
+                # A learning target is grounded at micro-skill level, while a
+                # full-time practice block may draw across that canonical
+                # module instead of shrinking the whole day to one 3-question
+                # node.
+                targeted_question_count = len(
+                    self._xingce_repository.select_frozen_questions(
+                        session,
+                        module_name=targeted_selection.module_name,
+                        limit=XINGCE_MAX_QUESTION_BUNDLE_SIZE,
+                        user_id=user_id,
+                    )
+                )
         if first_mastery is not None:
             verification_question_count = len(
                 self._xingce_repository.select_frozen_questions(
@@ -778,7 +790,7 @@ class PlanningRepository:
                     module_name=(
                         str(first_mastery["module_name"]) if first_mastery["module_name"] else None
                     ),
-                    limit=XINGCE_QUESTION_BUNDLE_SIZE,
+                    limit=XINGCE_MAX_QUESTION_BUNDLE_SIZE,
                     user_id=user_id,
                     excluded_question_ids=[
                         str(question_id) for question_id in first_mastery["used_question_ids"]

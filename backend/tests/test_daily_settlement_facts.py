@@ -72,7 +72,7 @@ def test_daily_settlement_retains_terminal_tasks_removed_by_replanning(
     assert settlement.completed_task_count == 1
     assert settlement.abandoned_task_count == 1
     assert settlement.open_task_count == 0
-    assert settlement.scheduled_minutes == 35
+    assert settlement.scheduled_minutes == xingce.estimated_minutes + essay.estimated_minutes
     assert settlement.elapsed_minutes == 24
     assert {item.task_id for item in settlement.tasks} == {xingce.id, essay.id}
     assert {item.status for item in settlement.tasks} == {"complete", "abandoned"}
@@ -128,7 +128,7 @@ def test_daily_settlement_combines_completed_fact_with_current_open_task(
     assert settlement.completed_task_count == 1
     assert settlement.abandoned_task_count == 0
     assert settlement.open_task_count == 1
-    assert settlement.scheduled_minutes == 35
+    assert settlement.scheduled_minutes == xingce.estimated_minutes + open_task.estimated_minutes
     assert settlement.elapsed_minutes == 19
     assert [(item.task_id, item.status) for item in settlement.tasks] == [
         (xingce.id, "complete"),

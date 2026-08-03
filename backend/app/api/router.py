@@ -41,7 +41,10 @@ from app.domains.onboarding.router import (
     v2_router as onboarding_v2_router,
 )
 from app.domains.operations.router import router as operations_router
-from app.domains.position_decision.router import router as position_decision_router
+from app.domains.position_decision.router import (
+    learner_target_router,
+    router as position_decision_router,
+)
 from app.domains.processor_disclosure.router import (
     router as processor_disclosure_router,
 )
@@ -58,6 +61,7 @@ from app.domains.taskstream.router import router as taskstream_router
 from app.domains.task_help.router import router as task_help_router
 from app.domains.task_editing.router import router as task_editing_router
 from app.domains.xingce_learning.briefing.router import router as xingce_briefing_router
+from app.domains.xfyun.router import router as xfyun_router
 from app.internal_services.router import router as internal_services_router
 
 router = APIRouter()
@@ -90,12 +94,14 @@ router.include_router(onboarding_router)
 router.include_router(onboarding_v2_router)
 router.include_router(operations_router)
 router.include_router(position_decision_router)
+router.include_router(learner_target_router)
 router.include_router(processor_disclosure_router)
 router.include_router(positions_router)
 router.include_router(taskstream_router)
 router.include_router(task_help_router)
 router.include_router(task_editing_router)
 router.include_router(xingce_briefing_router)
+router.include_router(xfyun_router)
 router.include_router(practice_router)
 router.include_router(progression_router)
 router.include_router(private_knowledge_router)

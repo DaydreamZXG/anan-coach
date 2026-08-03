@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime, timedelta
+import re
 from decimal import Decimal
 from uuid import uuid4
 
@@ -141,7 +142,7 @@ class FakeStorage:
         self.deleted: list[str] = []
 
     def delete_private(self, *, object_ref: str, operation_key: str) -> None:
-        del operation_key
+        assert re.fullmatch(r"[0-9a-f]{64}", operation_key)
         self.deleted.append(object_ref)
 
 

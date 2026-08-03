@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from datetime import UTC, datetime, timedelta
+from hashlib import sha256
 from uuid import UUID
 
 from sqlalchemy.orm import Session
@@ -118,7 +119,9 @@ class DataRightsWorker:
         for index, object_ref in enumerate(object_refs):
             self._storage.delete_private(
                 object_ref=object_ref,
-                operation_key=f"privacy-delete:{deletion_id}:{index}",
+                operation_key=sha256(
+                    f"privacy-delete:{deletion_id}:{index}".encode("utf-8")
+                ).hexdigest(),
             )
         manifest = repository.complete_deletion(
             deletion_id=deletion_id,

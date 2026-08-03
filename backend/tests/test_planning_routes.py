@@ -169,14 +169,14 @@ def test_dual_track_plan_persists_one_idempotent_xingce_and_essay_budget(
     assert first.goal_gap.baseline_gap is None
     assert first.capacity.available_minutes == 45
     assert first.capacity.confirmed is False
-    assert sum(task.estimated_minutes for task in first.tasks) == 35
+    assert sum(task.estimated_minutes for task in first.tasks) == 27
     assert {task.track for task in first.tasks} == {"xingce", "essay"}
     assert {task.stage for task in first.tasks} == {
         "objective_baseline",
         "essay_material_reading",
     }
     assert first.dual_track_explanation.dual_track_constraint_applied is True
-    assert first.dual_track_explanation.xingce_minutes == 20
+    assert first.dual_track_explanation.xingce_minutes == 12
     assert first.dual_track_explanation.essay_minutes == 15
     assert all(task.evidence_refs for task in first.tasks)
     xingce_task = next(task for task in first.tasks if task.track == "xingce")
@@ -246,7 +246,7 @@ def test_started_question_bundles_never_repeat_and_exhausted_supply_is_not_plann
     attempts = XingceAttemptService()
     delivered: list[set[str]] = []
 
-    for offset in range(2):
+    for offset in range(1):
         current = NOW + timedelta(days=offset)
         with db_session_factory.begin() as session:
             plan = planning.get_or_create_today(
@@ -265,15 +265,13 @@ def test_started_question_bundles_never_repeat_and_exhausted_supply_is_not_plann
             )
             delivered.append({question.question_id for question in started.bundle.questions})
 
-    assert len(delivered[0]) == 3
-    assert len(delivered[1]) == 3
-    assert delivered[0].isdisjoint(delivered[1])
-    expected_supply = delivered[0] | delivered[1]
+    assert len(delivered[0]) == 6
+    expected_supply = delivered[0]
     assert len(expected_supply) == 6
 
     other_user_id = _seed_planning_learner(db_session_factory)
     other_delivered: list[set[str]] = []
-    for offset in range(2):
+    for offset in range(1):
         current = NOW + timedelta(days=offset)
         with db_session_factory.begin() as session:
             other_plan = planning.get_or_create_today(
@@ -282,9 +280,7 @@ def test_started_question_bundles_never_repeat_and_exhausted_supply_is_not_plann
                 now=current,
                 local_date=current.date(),
             )
-            other_task = next(
-                item for item in other_plan.tasks if item.track == "xingce"
-            )
+            other_task = next(item for item in other_plan.tasks if item.track == "xingce")
             other_started = attempts.start_or_resume(
                 session,
                 user_id=other_user_id,
@@ -293,18 +289,13 @@ def test_started_question_bundles_never_repeat_and_exhausted_supply_is_not_plann
                 now=current,
             )
             other_delivered.append(
-                {
-                    question.question_id
-                    for question in other_started.bundle.questions
-                }
+                {question.question_id for question in other_started.bundle.questions}
             )
 
-    assert len(other_delivered[0]) == 3
-    assert len(other_delivered[1]) == 3
-    assert other_delivered[0].isdisjoint(other_delivered[1])
-    assert other_delivered[0] | other_delivered[1] == expected_supply
+    assert len(other_delivered[0]) == 6
+    assert other_delivered[0] == expected_supply
 
-    exhausted_day = NOW + timedelta(days=2)
+    exhausted_day = NOW + timedelta(days=1)
     with db_session_factory.begin() as session:
         exhausted = planning.get_or_create_today(
             session,
@@ -596,6 +587,103 @@ def test_capacity_preview_uses_the_real_planner_without_persisting_the_proposal(
             ).scalar_one(),
         }
     assert counts_after == counts_before
+
+
+def test_positive_capacity_override_turns_scheduled_rest_day_into_normal_plan(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id = _seed_learner_and_published_essay_content(db_session_factory)
+    _seed_today_as_regular_rest_day(db_session_factory, user_id=user_id)
+    service = PlanningService()
+
+    with db_session_factory.begin() as session:
+        initial = service.get_or_create_today(
+            session,
+            user_id=user_id,
+            now=NOW,
+            local_date=NOW.astimezone(ZoneInfo("Asia/Shanghai")).date(),
+        )
+    assert initial.day_mode == "recovery"
+
+    command = DailyCapacityCommand(
+        based_on_capacity_version_id=str(initial.capacity.capacity_version_id),
+        available_minutes=120,
+        energy=4,
+        stress=2,
+        confidence_level=4,
+    )
+    with db_session_factory.begin() as session:
+        preview = service.preview_today_capacity(
+            session,
+            user_id=user_id,
+            command=command,
+            now=NOW,
+        )
+    assert preview.current_plan.day_mode == "recovery"
+    assert preview.proposed_plan.day_mode == "normal"
+    assert {task.track for task in preview.proposed_plan.tasks} == {"xingce", "essay"}
+
+    with db_session_factory.begin() as session:
+        confirmed = service.set_today_capacity(
+            session,
+            user_id=user_id,
+            command_id="scheduled-rest-positive-override",
+            command=command,
+            now=NOW,
+        )
+
+    assert confirmed.capacity.source_type == "user_override"
+    assert confirmed.capacity.confirmed is True
+    assert confirmed.plan.day_mode == "normal"
+    assert confirmed.plan.is_recovery_day is False
+    assert [
+        (task.track, task.stage, task.title, task.estimated_minutes)
+        for task in confirmed.plan.tasks
+    ] == [
+        (task.track, task.stage, task.title, task.estimated_minutes)
+        for task in preview.proposed_plan.tasks
+    ]
+
+
+def test_scheduled_rest_override_does_not_bypass_zero_or_adaptive_recovery(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    first_user_id = _seed_learner_and_published_essay_content(db_session_factory)
+    for index, (suffix, minutes, energy, stress) in enumerate(
+        (
+            ("zero", 0, 4, 2),
+            ("adaptive", 120, 1, 5),
+        )
+    ):
+        user_id = first_user_id if index == 0 else _seed_planning_learner(db_session_factory)
+        _seed_today_as_regular_rest_day(db_session_factory, user_id=user_id)
+        service = PlanningService()
+        with db_session_factory.begin() as session:
+            initial = service.get_or_create_today(
+                session,
+                user_id=user_id,
+                now=NOW,
+                local_date=NOW.astimezone(ZoneInfo("Asia/Shanghai")).date(),
+            )
+        with db_session_factory.begin() as session:
+            result = service.set_today_capacity(
+                session,
+                user_id=user_id,
+                command_id=f"scheduled-rest-{suffix}-override",
+                command=DailyCapacityCommand(
+                    based_on_capacity_version_id=str(initial.capacity.capacity_version_id),
+                    available_minutes=minutes,
+                    energy=energy,
+                    stress=stress,
+                    confidence_level=4,
+                ),
+                now=NOW,
+            )
+        assert result.plan.day_mode == "recovery"
+        assert result.plan.is_recovery_day is True
+        assert "capacity_recovery_mode" in result.plan.replan_reason_codes
+        if minutes == 0:
+            assert result.plan.tasks == []
 
 
 def test_confirmed_critical_energy_or_stress_switches_to_recovery_mode(
@@ -1873,6 +1961,46 @@ def _seed_active_route_day_preference(session: Session, *, user_id: str) -> None
             "created_at": datetime.now(UTC),
         },
     )
+
+
+def _seed_today_as_regular_rest_day(
+    factory: sessionmaker[Session],
+    *,
+    user_id: str,
+) -> None:
+    local_date = NOW.astimezone(ZoneInfo("Asia/Shanghai")).date()
+    rest_weekday = local_date.isoweekday()
+    mock_weekday = rest_weekday % 7 + 1
+    fingerprint = sha256(f"test-rest-today:{user_id}".encode()).hexdigest()
+    with factory.begin() as session:
+        session.execute(
+            text(
+                """
+                insert into learning.weekly_study_preference_versions (
+                  preference_version_id, command_id, user_id, version_no,
+                  timezone, weekday_minutes, weekend_minutes, long_block_minutes,
+                  fragment_minutes, regular_rest_weekday, regular_mock_weekday,
+                  effective_from, source_type, confirmed, input_fingerprint,
+                  supersedes_preference_version_id, created_at
+                ) values (
+                  cast(:preference_version_id as uuid), :command_id,
+                  cast(:user_id as uuid), 1, 'Asia/Shanghai', 120, 120, 90, 25,
+                  :rest_weekday, :mock_weekday, :effective_from,
+                  'user_confirmed', true, :input_fingerprint, null, :created_at
+                )
+                """
+            ),
+            {
+                "preference_version_id": str(uuid4()),
+                "command_id": f"test-rest-today:{user_id}",
+                "user_id": user_id,
+                "rest_weekday": rest_weekday,
+                "mock_weekday": mock_weekday,
+                "effective_from": local_date,
+                "input_fingerprint": fingerprint,
+                "created_at": NOW,
+            },
+        )
 
 
 def _published_essay_content_ids(

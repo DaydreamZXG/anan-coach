@@ -108,11 +108,11 @@ def test_compile_release_is_audited_conservative_and_idempotent(
         summary = service.compile_draft(session, release_id=release_id, compiled_at=NOW)
 
     assert summary.position_count == 3
-    assert summary.deterministic_count == 0
-    assert summary.needs_confirmation_count == 2
+    assert summary.deterministic_count == 1
+    assert summary.needs_confirmation_count == 1
     assert summary.no_conditions_count == 1
     assert summary.requirements_count == 8
-    assert summary.manual_review_count == 4
+    assert summary.manual_review_count == 2
 
     with db_session_factory.begin() as session:
         repeated = service.compile_draft(session, release_id=release_id, compiled_at=NOW)
@@ -153,7 +153,7 @@ def test_compile_release_is_audited_conservative_and_idempotent(
     assert len(audits) == 3
     assert sum(row["requirements_count"] for row in audits) == len(requirements)
     manual_fields = {row["fact_key"] for row in requirements if row["operator"] == "manual_review"}
-    assert manual_fields == {"major", "hukou", "other_conditions"}
+    assert manual_fields == {"major", "hukou"}
     assert all(
         row["source_reference"].startswith("product.position_snapshots:guokao-2026-fixture-v1:")
         for row in requirements
@@ -162,7 +162,7 @@ def test_compile_release_is_audited_conservative_and_idempotent(
     catalog_unavailable_count = sum(
         "major_catalog_unavailable" in row["warnings"] for row in audits
     )
-    assert catalog_unavailable_count == 2
+    assert catalog_unavailable_count == 0
 
 
 def test_release_cannot_activate_until_every_position_is_compiled(

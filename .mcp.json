@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "wechat-devtools": {
+      "command": "wechatide",
+      "args": [
+        "mcp"
+      ]
+    },
+    "ocr": {
+      "command": "node",
+      "args": [
+        "tools/ocr-mcp/server.mjs"
+      ]
+    }
+  }
+}

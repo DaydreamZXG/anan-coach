@@ -3,6 +3,7 @@
   "navigationStyle": "custom",
   "backgroundColor": "#F7F9FC",
   "usingComponents": {
-    "state-view": "../../../design-system/primitives/state-view/index"
+    "state-view": "../../../design-system/primitives/state-view/index",
+    "workbench-nav": "../../../components/workbench-nav/index"
   }
 }

@@ -1,5 +1,6 @@
 import { EssayIntelligenceApi, type EssayReviewResponse } from "../../api/essay-intelligence";
 import { routes } from "../../app/navigation/routes";
+import { navigateBackOr } from "../../app/navigation/safe-back";
 import { currentAuthSession } from "../../auth/session";
 import { storeCompanionLaunchContext } from "../../features/companion/context-store";
 import { errorView, requireAuthenticatedClient } from "../../features/learning-brain/presentation";
@@ -66,7 +67,7 @@ Page({
   },
 
   exit() {
-    void wx.navigateBack();
+    navigateBackOr(routes.today);
   },
 
   rewriteAgain() {

@@ -125,10 +125,11 @@ def get_worker_heartbeat_session_factory(
     consumer_unit: str,
     consumer_entrypoint: str,
 ) -> sessionmaker[Session]:
-    """Return the function-only heartbeat authority used by worker processes.
+    """Return the database session used to publish worker heartbeats.
 
-    Every worker, including local runs, must use its own login whose only
-    inherited database privilege is executing the heartbeat pulse function.
+    A dedicated heartbeat login remains supported when configured. Small
+    deployments may omit it and reuse ``DATABASE_URL`` so workers are not
+    prevented from starting solely by an optional isolation layer.
     """
 
     global _worker_heartbeat_engine
@@ -147,20 +148,21 @@ def get_worker_heartbeat_session_factory(
         consumer_entrypoint,
     )
     settings = get_settings()
-    heartbeat_database_url = settings.worker_heartbeat_database_url.strip()
+    configured_heartbeat_url = settings.worker_heartbeat_database_url.strip()
+    heartbeat_database_url = configured_heartbeat_url or settings.database_url.strip()
     if not heartbeat_database_url:
         raise DatabaseConfigurationError(
-            "WORKER_HEARTBEAT_DATABASE_URL is required for every worker"
+            "DATABASE_URL is required for worker heartbeats"
         )
     heartbeat_url = make_url(heartbeat_database_url)
     if heartbeat_url.get_backend_name() != "postgresql":
         raise DatabaseConfigurationError("WORKER_HEARTBEAT_DATABASE_URL must use PostgreSQL")
-    if heartbeat_url.username != required_login:
+    if configured_heartbeat_url and heartbeat_url.username != required_login:
         raise DatabaseConfigurationError(
             "WORKER_HEARTBEAT_DATABASE_URL must use this consumer's dedicated "
             f"{required_login} role"
         )
-    if settings.database_url:
+    if configured_heartbeat_url and settings.database_url:
         runtime_url = make_url(settings.database_url)
         if heartbeat_url == runtime_url or (
             heartbeat_url.username is not None and heartbeat_url.username == runtime_url.username
@@ -196,6 +198,11 @@ def get_worker_heartbeat_session_factory(
             autocommit=False,
             expire_on_commit=False,
             future=True,
+            info={
+                "worker_heartbeat_mode": (
+                    "dedicated" if configured_heartbeat_url else "shared"
+                )
+            },
         )
         _worker_heartbeat_runtime_identity = requested_identity
         return _worker_heartbeat_session_factory

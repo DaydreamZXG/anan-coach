@@ -7,6 +7,7 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
 
 from app.domains.auth.repository import token_hash_for_tests
+from app.domains.xingce_learning.contracts import xingce_question_count
 from tests.factories import seed_route_frozen_release
 from tests.test_planning_routes import (
     _client,
@@ -59,6 +60,12 @@ def test_c01_briefing_is_owned_versioned_and_does_not_start_session(
             text("select count(*) from learning.xingce_task_sessions")
         ).scalar_one()
     assert count == 0
+
+
+def test_capacity_driven_briefing_uses_the_same_count_for_total_and_per_question_time() -> None:
+    count = xingce_question_count(mode="targeted", estimated_minutes=20)
+    assert count == 10
+    assert (20 * 60) // count == 120
 
 
 def test_c01_briefing_rejects_another_account_task(

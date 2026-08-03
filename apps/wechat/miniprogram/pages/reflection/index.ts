@@ -1,7 +1,9 @@
 import { ApiClient, ApiClientError } from "../../api/client";
 import { LearningMediaApi } from "../../api/learning-media";
+import { XfyunApi } from "../../api/xfyun";
 import { XingceLearningApi, type XingceTaskSession } from "../../api/xingce-learning";
 import { routes } from "../../app/navigation/routes";
+import { navigateBackOr } from "../../app/navigation/safe-back";
 import { currentAuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";
 import { storeCompanionLaunchContext } from "../../features/companion/context-store";
@@ -11,6 +13,7 @@ import {
   storeReflectionLearningMediaDraft,
 } from "../../features/learning-media/draft-store";
 import {
+  maximumReflectionVoiceDurationMilliseconds,
   maximumReflectionVoiceSegments,
   maximumReflectionVoiceTotalBytes,
   validateVoiceCollection,
@@ -20,7 +23,9 @@ import {
 import {
   deleteLocalVoice,
   ensureRecordPermission,
+  persistSynthesizedSpeech,
   persistRecordedVoice,
+  readVoiceFileBase64,
   requestRecordSetting,
   WechatVoicePreview,
   WechatVoiceRecorder,
@@ -141,6 +146,8 @@ interface ReflectionPageData {
   voiceMessage: string;
   voiceSegments: ReflectionVoiceSegmentView[];
   voiceSummary: ReflectionVoiceSummaryView;
+  speechBusy: boolean;
+  speechPlaying: boolean;
   interpretationOptions: Array<{
     questionId: string;
     positionLabel: string;
@@ -181,6 +188,8 @@ interface ReflectionPageCustom {
   openRecordPermission(): Promise<void>;
   uploadVoiceSegments(): Promise<void>;
   playVoice(event: WechatMiniprogram.BaseEvent): void;
+  transcribeVoice(event: WechatMiniprogram.BaseEvent): Promise<void>;
+  readRawText(): Promise<void>;
   deleteVoice(event: WechatMiniprogram.BaseEvent): Promise<void>;
   rerecordVoice(event: WechatMiniprogram.BaseEvent): Promise<void>;
   submitReflection(): Promise<void>;
@@ -210,6 +219,7 @@ interface ReflectionPageCustom {
 interface ReflectionRuntime {
   api: XingceLearningApi;
   mediaApi: LearningMediaApi;
+  xfyunApi: XfyunApi;
   mediaUploader: ReflectionVoiceUploadCoordinator;
   ownerUserId: string;
   sessionId: string;
@@ -225,6 +235,7 @@ interface ReflectionRuntime {
   mediaBusy: boolean;
   recorder: WechatVoiceRecorder | null;
   preview: WechatVoicePreview | null;
+  speechPreview: WechatVoicePreview | null;
   replacingSegmentId: string | null;
   causePollTimer: ReturnType<typeof setTimeout> | null;
   causePollCount: number;
@@ -278,6 +289,8 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     voiceMessage: "",
     voiceSegments: [],
     voiceSummary: presentReflectionVoiceSummary([]),
+    speechBusy: false,
+    speechPlaying: false,
     interpretationOptions: [],
     reviewItems: [],
     activeReviewItem: null,
@@ -328,6 +341,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     const runtime: ReflectionRuntime = {
       api: new XingceLearningApi(client),
       mediaApi,
+      xfyunApi: new XfyunApi(client),
       mediaUploader: new ReflectionVoiceUploadCoordinator(mediaApi),
       ownerUserId: auth.userId,
       sessionId,
@@ -345,6 +359,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       mediaBusy: false,
       recorder: null,
       preview: null,
+      speechPreview: null,
       replacingSegmentId: null,
       causePollTimer: null,
       causePollCount: 0,
@@ -378,6 +393,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     clearCausePoll(runtime);
     runtime.recorder?.dispose();
     runtime.preview?.dispose();
+    runtime.speechPreview?.dispose();
     runtimes.delete(this);
   },
 
@@ -431,7 +447,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       });
       if (!result.confirm) return;
     }
-    void wx.navigateBack();
+    navigateBackOr(routes.today);
   },
 
   handleBack() {
@@ -784,6 +800,73 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     }
   },
 
+  async transcribeVoice(event) {
+    const runtime = runtimes.get(this);
+    const segmentId = String(event.currentTarget.dataset.id ?? "");
+    const segment = runtime?.mediaDraft.voiceSegments.find((item) => item.segmentId === segmentId);
+    if (!runtime || !segment || runtime.disposed || runtime.mediaBusy || this.data.speechBusy)
+      return;
+    this.setData({ speechBusy: true, voiceMessage: "正在把这段原话转成文字…" });
+    try {
+      const audioBase64 = await readVoiceFileBase64(segment.localPath);
+      const result = await runtime.xfyunApi.speechToText({
+        audioBase64,
+        durationMilliseconds: segment.durationMilliseconds,
+      });
+      if (!runtimeIsActive(this, runtime)) return;
+      const transcript = result.transcript.trim();
+      if (!transcript) throw new Error("这段录音没有识别出清晰文字，可以重录或直接手写。");
+      const rawText = [runtime.mediaDraft.rawText.trim(), transcript].filter(Boolean).join("\n");
+      runtime.mediaDraft.rawText = rawText;
+      persistDraft(runtime);
+      this.setData({
+        rawText,
+        voiceMessage: "听写已放进上方文字，你可以继续修改后再提交。",
+      });
+    } catch (error) {
+      if (runtimeIsActive(this, runtime)) {
+        this.setData({
+          voiceMessage: error instanceof Error ? error.message : "这段录音暂时无法听写。",
+        });
+      }
+    } finally {
+      if (runtimeIsActive(this, runtime)) this.setData({ speechBusy: false });
+    }
+  },
+
+  async readRawText() {
+    const runtime = runtimes.get(this);
+    const text = this.data.rawText.trim();
+    if (!runtime || runtime.disposed || this.data.speechBusy || !text) return;
+    this.setData({ speechBusy: true });
+    try {
+      const result = await runtime.xfyunApi.textToSpeech(text);
+      const localPath = await persistSynthesizedSpeech(result.audioBase64);
+      if (!runtimeIsActive(this, runtime)) return;
+      runtime.speechPreview ??= new WechatVoicePreview();
+      runtime.speechPreview.play(
+        localPath,
+        () => {
+          if (runtimeIsActive(this, runtime)) this.setData({ speechPlaying: false });
+        },
+        (error) => {
+          if (runtimeIsActive(this, runtime)) {
+            this.setData({ speechPlaying: false, voiceMessage: error.message });
+          }
+        },
+      );
+      this.setData({ speechPlaying: true });
+    } catch (error) {
+      if (runtimeIsActive(this, runtime)) {
+        this.setData({
+          voiceMessage: error instanceof Error ? error.message : "这段文字暂时无法朗读。",
+        });
+      }
+    } finally {
+      if (runtimeIsActive(this, runtime)) this.setData({ speechBusy: false });
+    }
+  },
+
   async deleteVoice(event) {
     const segmentId = String(event.currentTarget.dataset.id ?? "");
     await removeVoiceSegment(this, segmentId, true);
@@ -1044,7 +1127,7 @@ async function beginVoiceRecording(
   page.setData({
     recordPermission: "granted",
     isRecording: true,
-    voiceMessage: "正在录制，单段最长 3 分钟。",
+    voiceMessage: "正在录制，单段最长 60 秒。",
   });
   try {
     runtime.recorder.start(
@@ -1075,7 +1158,7 @@ async function finishRecordedVoice(
   if (
     recorded.byteSize <= 0 ||
     recorded.durationMilliseconds <= 0 ||
-    recorded.durationMilliseconds > 180_000
+    recorded.durationMilliseconds > maximumReflectionVoiceDurationMilliseconds
   ) {
     runtime.replacingSegmentId = null;
     page.setData({ voiceMessage: "这段录音时长无效，请重新录制。" });
@@ -1630,6 +1713,7 @@ function invalidateForAccountChange(
   clearCausePoll(runtime);
   runtime.recorder?.dispose();
   runtime.preview?.dispose();
+  runtime.speechPreview?.dispose();
   runtimes.delete(page);
   page.setData({
     status: "unavailable",
@@ -1653,6 +1737,8 @@ function invalidateForAccountChange(
     voiceMessage: "",
     voiceSegments: [],
     voiceSummary: presentReflectionVoiceSummary([]),
+    speechBusy: false,
+    speechPlaying: false,
   });
 }
 

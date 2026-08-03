@@ -14,8 +14,10 @@ export interface Environment {
   virtualPaymentEnabled: boolean;
 }
 
+const productionApiBaseUrl = "https://kg.xingguoxian.cn";
+
 export const environment: Environment = {
-  apiBaseUrl: "https://kg.xingguoxian.cn/staging",
+  apiBaseUrl: productionApiBaseUrl,
   fontAssets: {
     mapleMonoCnRegularUrl: "https://kg.xingguoxian.cn/assets/fonts/maple-mono-cn-regular-v7.9.woff",
     mapleMonoCnBoldUrl: "https://kg.xingguoxian.cn/assets/fonts/maple-mono-cn-bold-v7.9.woff",
@@ -30,7 +32,7 @@ export function configureForWechatEnvVersion(
   envVersion: "develop" | "trial" | "release",
 ): Environment {
   const resolved: Environment = {
-    apiBaseUrl: environment.apiBaseUrl,
+    apiBaseUrl: productionApiBaseUrl,
     fontAssets: {
       mapleMonoCnRegularUrl: environment.fontAssets.mapleMonoCnRegularUrl,
       mapleMonoCnBoldUrl: environment.fontAssets.mapleMonoCnBoldUrl,

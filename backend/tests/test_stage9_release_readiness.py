@@ -593,7 +593,7 @@ def test_ready_rejects_a_legacy_unregistered_active_job(
     "environment",
     ("production", "staging", "preproduction"),
 )
-def test_deployed_ready_rejects_disabled_ocr_and_cause_capabilities(
+def test_deployed_ready_does_not_block_on_optional_ai_capabilities(
     db_session_factory: sessionmaker[Session],
     monkeypatch: pytest.MonkeyPatch,
     environment: str,
@@ -606,13 +606,11 @@ def test_deployed_ready_rejects_disabled_ocr_and_cause_capabilities(
 
     response = _client(db_session_factory).get("/ready")
 
-    assert response.status_code == 503
-    assert response.json()["detail"] == (
-        "required AI capabilities are not ready: ocr=disabled, xingce_cause_agent=disabled"
-    )
+    assert response.status_code == 200
+    assert response.json()["status"] == "ready"
 
 
-def test_ready_requires_release_for_an_approved_external_ai_scenario(
+def test_ready_does_not_require_enterprise_ai_processor_evidence(
     db_session_factory: sessionmaker[Session],
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -648,8 +646,8 @@ def test_ready_requires_release_for_an_approved_external_ai_scenario(
 
     response = _client(db_session_factory).get("/ready")
 
-    assert response.status_code == 503
-    assert response.json()["detail"] == "external AI processor release is not ready"
+    assert response.status_code == 200
+    assert response.json()["status"] == "ready"
 
 
 def _client(db_session_factory: sessionmaker[Session]) -> TestClient:

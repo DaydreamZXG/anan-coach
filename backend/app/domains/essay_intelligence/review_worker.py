@@ -1235,6 +1235,7 @@ class GroundedEssayReviewWorker:
             "repair",
             "candidate:gemini",
             "candidate:grok",
+            "candidate:tokenrhythm",
             "candidate:hunyuan",
             "adjudication",
         ):

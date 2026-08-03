@@ -306,7 +306,9 @@ def _started_session(
         access_token=token,
         include_objective_questions=False,
     )
-    seed_route_frozen_release(factory, count=6)
+    # Keep this fact-projection fixture focused on its three explicit semantic
+    # cases; dynamic bundle sizing is covered by the planning tests.
+    seed_route_frozen_release(factory, count=3)
     client = _client(factory)
     auth = {"Authorization": f"Bearer {token}"}
     task = _xingce_task(client, auth)

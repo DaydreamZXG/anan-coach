@@ -1,7 +1,7 @@
 <view class="eligibility-page">
   <workbench-nav
     id="runtime-workbench-nav"
-    title="2/5 报考资格"
+    title="{{pageTitle}}"
     back-behavior="emit"
     bind:back="back"
   />
@@ -90,6 +90,46 @@
         </view>
 
         <view class="form-card experience-card">
+          <view class="card-title">身份条件</view>
+          <view class="card-copy">性别和政治面貌只用于核验招录表中的明确限制条件。</view>
+
+          <view class="picker-label">性别</view>
+          <view class="work-options">
+            <button hover-class="item--hover"
+              wx:for="{{genderOptions}}"
+              wx:key="*this"
+              class="control-center work-option {{gender === item ? 'work-option--selected' : ''}}"
+              data-value="{{item}}"
+              bindtap="chooseGender"
+            >{{item}}</button>
+          </view>
+
+          <view class="divider"></view>
+          <view class="picker-label">政治面貌</view>
+          <view class="project-list">
+            <button hover-class="item--hover"
+              wx:for="{{politicalStatusOptions}}"
+              wx:key="*this"
+              class="project-chip {{politicalStatus === item ? 'project-chip--selected' : ''}}"
+              data-value="{{item}}"
+              bindtap="choosePoliticalStatus"
+            >{{item}}</button>
+          </view>
+
+          <view class="divider"></view>
+          <view class="picker-label">已取得证书</view>
+          <view class="project-list">
+            <button hover-class="item--hover"
+              wx:for="{{certificationOptions}}"
+              wx:key="value"
+              class="project-chip {{item.selected ? 'project-chip--selected' : ''}}"
+              data-value="{{item.value}}"
+              bindtap="toggleCertification"
+            >{{item.label}}</button>
+          </view>
+        </view>
+
+        <view class="form-card experience-card">
           <view class="card-title">服务基层项目经历</view>
           <view class="card-copy">包含大学生村官、三支一扶、特岗教师等。此项能为你解锁大量定向招录的特殊岗位，与普通工作经历严格区分。</view>
 
@@ -102,25 +142,36 @@
               <text>无服务基层项目经历</text>
               <view wx:if="{{serviceProject === '无'}}" class="option-check">✓</view>
             </button>
-            <button hover-class="item--hover"
+            <view
               class="service-option service-option--column {{serviceExpanded ? 'service-option--selected service-option--project' : ''}}"
-              data-mode="has"
-              bindtap="chooseServiceMode"
             >
-              <view class="service-option__head">
+              <button
+                hover-class="item--hover"
+                class="service-option__head"
+                data-mode="has"
+                bindtap="chooseServiceMode"
+              >
                 <text>有基层项目经历</text>
                 <view wx:if="{{serviceExpanded && serviceProject}}" class="option-check option-check--indigo">✓</view>
-              </view>
+              </button>
               <view wx:if="{{serviceExpanded}}" class="project-list">
                 <button hover-class="item--hover"
                   wx:for="{{serviceProjectOptions}}"
                   wx:key="*this"
                   class="project-chip {{serviceProject === item ? 'project-chip--selected' : ''}}"
                   data-value="{{item}}"
-                  catchtap="chooseServiceProject"
+                  bindtap="chooseServiceProject"
                 >{{item}}</button>
               </view>
-            </button>
+              <view wx:if="{{serviceExpanded}}" class="service-years">
+                <view class="picker-label">基层服务年限</view>
+                <view class="work-options">
+                  <button hover-class="item--hover" class="control-center work-option {{grassrootsYears === 0 ? 'work-option--selected' : ''}}" data-value="0" bindtap="chooseGrassrootsYears">不足 2 年</button>
+                  <button hover-class="item--hover" class="control-center work-option {{grassrootsYears === 2 ? 'work-option--selected' : ''}}" data-value="2" bindtap="chooseGrassrootsYears">2 年以上</button>
+                  <button hover-class="item--hover" class="control-center work-option {{grassrootsYears === 5 ? 'work-option--selected' : ''}}" data-value="5" bindtap="chooseGrassrootsYears">5 年以上</button>
+                </view>
+              </view>
+            </view>
           </view>
 
           <view class="divider"></view>
@@ -129,6 +180,18 @@
             <button hover-class="item--hover" class="control-center work-option {{workYears === 0 ? 'work-option--selected' : ''}}" data-value="0" bindtap="chooseWorkYears">无经验</button>
             <button hover-class="item--hover" class="control-center work-option {{workYears === 1 ? 'work-option--selected' : ''}}" data-value="1" bindtap="chooseWorkYears">2 年以下</button>
             <button hover-class="item--hover" class="control-center work-option {{workYears === 2 ? 'work-option--selected' : ''}}" data-value="2" bindtap="chooseWorkYears">2 年以上</button>
+          </view>
+
+          <view class="divider"></view>
+          <view class="picker-label">户籍或生源地（选填）</view>
+          <view class="hukou-field {{hukou ? 'hukou-field--filled' : ''}}">
+            <input
+              class="hukou-input"
+              value="{{hukou}}"
+              maxlength="60"
+              placeholder="例如：江西省赣州市"
+              bindinput="inputHukou"
+            />
           </view>
         </view>
 

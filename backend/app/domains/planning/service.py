@@ -50,11 +50,12 @@ from app.domains.planning.schemas import (
     TodayTask,
     TrackAllocation,
 )
+from app.domains.position_decision.learner_target_runtime import LearnerTargetScoreRuntime
 from app.platform.outbox import OutboxRepository
 
 
 PLAN_CONTRACT_VERSION = "daily-plan-v3"
-PLAN_ALGORITHM_VERSION = "dual-track-evidence-priority-v3"
+PLAN_ALGORITHM_VERSION = "dual-track-capacity-coverage-v4"
 PLAN_BASIS = "evidence_priority_v2"
 SHANGHAI = ZoneInfo("Asia/Shanghai")
 STRATEGY_ADJUSTABLE_STAGES = {
@@ -73,11 +74,39 @@ class PlanningService:
         *,
         repository: PlanningRepository | None = None,
         outbox: OutboxRepository | None = None,
+        learner_target: LearnerTargetScoreRuntime | None = None,
         now: Callable[[], datetime] | None = None,
     ) -> None:
         self._repository = repository or PlanningRepository()
         self._outbox = outbox or OutboxRepository()
+        self._learner_target = learner_target or LearnerTargetScoreRuntime()
         self._now = now or (lambda: datetime.now(UTC))
+
+    def _with_learner_target(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        snapshot: GoalAbilitySnapshot,
+    ) -> GoalAbilitySnapshot:
+        if snapshot.target_lower is not None and snapshot.target_upper is not None:
+            return snapshot
+        projection = self._learner_target.projection(session, user_id=user_id)
+        if projection.status != "available" or projection.target_score is None:
+            return snapshot
+        return replace(
+            snapshot,
+            goal_version_id=projection.version_id,
+            position_name="历史同类岗位目标",
+            department_name=None,
+            target_lower=projection.target_score.lower,
+            target_recommended=projection.target_score.recommended,
+            target_upper=projection.target_score.upper,
+            target_evidence_level="historical_cohort",
+            target_valid_until=None,
+            target_owner="learner_target_score",
+            target_entity_type="learner_target_score_version",
+        )
 
     def set_today_capacity(
         self,
@@ -486,12 +515,19 @@ class PlanningService:
         spent_minutes = sum(int(item["elapsed_minutes"]) for item in execution_inputs)
         remaining_minutes = max(0, capacity.available_minutes - spent_minutes)
         goal_ability = self._repository.goal_and_ability(session, user_id=user_id)
+        goal_ability = self._with_learner_target(
+            session,
+            user_id=user_id,
+            snapshot=goal_ability,
+        )
         goal_gap = _goal_gap(goal_ability, generated_at)
         planning_goal = GoalPlanningSnapshot(
             readiness=goal_gap.readiness,
             positive_gap=(goal_gap.baseline_gap or 0) > 0,
             goal_version_id=goal_ability.goal_version_id,
             ability_estimate_version_id=goal_ability.estimate_version_id,
+            target_owner=goal_ability.target_owner,
+            target_entity_type=goal_ability.target_entity_type,
         )
         objective = self._repository.objective_snapshot(
             session,
@@ -520,7 +556,14 @@ class PlanningService:
             user_id=user_id,
             before_date=day,
         )
-        scheduled_recovery_day = day.isoweekday() == preference.regular_rest_weekday
+        user_chose_to_study_today = (
+            capacity.source_type == "user_override"
+            and capacity.confirmed
+            and capacity.available_minutes > 0
+        )
+        scheduled_recovery_day = (
+            day.isoweekday() == preference.regular_rest_weekday and not user_chose_to_study_today
+        )
         adaptive_recovery_day = _needs_adaptive_recovery(capacity)
         recovery_day = scheduled_recovery_day or adaptive_recovery_day
         mock_day = day.isoweekday() == preference.regular_mock_weekday
@@ -656,7 +699,16 @@ class PlanningService:
             "profile": str(profile.profile_version),
             "weeklyPreference": preference.preference_version_id,
             "dailyCapacity": capacity.capacity_version_id,
-            "positionGoal": goal_ability.goal_version_id or "unavailable",
+            "positionGoal": (
+                goal_ability.goal_version_id or "unavailable"
+                if goal_ability.target_owner == "position_goal"
+                else "unavailable"
+            ),
+            "learnerTargetScore": (
+                goal_ability.goal_version_id or "unavailable"
+                if goal_ability.target_owner == "learner_target_score"
+                else "unavailable"
+            ),
             "abilityEstimate": goal_ability.estimate_version_id or "unavailable",
             "objectiveClosure": (objective.source_version_id or objective.closure_readiness),
             "essayClosure": (
@@ -1086,27 +1138,30 @@ def _goal_gap(snapshot: GoalAbilitySnapshot, now: datetime) -> GoalGap:
     )
     if snapshot.goal_version_id is None:
         readiness = "unavailable"
-        summary = "尚未确认主目标岗位，规划可以采集双科能力，但不计算岗位分差。"
+        summary = "历史目标分尚未生成；规划继续采集双科能力并安排学习，不以岗位选择阻断任务。"
     elif snapshot.target_evidence_level in {None, "unavailable"}:
         readiness = "partial"
-        summary = "主目标岗位已确认，但目标分区间缺少可引用样本，暂不计算岗位分差。"
+        summary = "目标参照已建立，但目标分区间缺少可引用样本，暂不计算分差。"
     elif snapshot.estimate_version_id is None or snapshot.estimate_status == "partial":
         readiness = "partial"
-        summary = "岗位目标已确认，但行测与申论尚未形成同版本完整总分估计。"
+        summary = "目标分已生成，但行测与申论尚未形成同版本完整总分估计。"
     elif (
         snapshot.estimate_valid_until is None
         or _as_utc(snapshot.estimate_valid_until) <= now
         or (snapshot.target_valid_until is not None and _as_utc(snapshot.target_valid_until) <= now)
     ):
         readiness = "stale"
-        summary = "岗位目标或双科能力证据已过期，旧区间仅供回看，不用于分差。"
+        summary = "目标分或双科能力证据已过期，旧区间仅供回看，不用于分差。"
     elif target is None or current is None or snapshot.total_recommended is None:
         readiness = "partial"
         summary = "目标分或总分区间缺少完整证据，暂不计算岗位分差。"
     else:
         readiness = "complete"
         count = (snapshot.evidence_summary or {}).get("evidenceCount", 0)
-        summary = f"引用岗位目标版本与能力估计版本，共 {count} 条当前成绩证据。"
+        if snapshot.target_owner == "learner_target_score":
+            summary = f"引用历史同类岗位目标分版本与能力估计版本，共 {count} 条当前成绩证据。"
+        else:
+            summary = f"引用岗位目标版本与能力估计版本，共 {count} 条当前成绩证据。"
     baseline_gap = (
         round(snapshot.target_recommended - snapshot.total_recommended, 2)
         if readiness == "complete"
@@ -1251,8 +1306,8 @@ def _plan_evidence_refs(
     if goal.goal_version_id:
         refs.append(
             {
-                "owner": "position_goal",
-                "entityType": "position_goal_version",
+                "owner": goal.target_owner,
+                "entityType": goal.target_entity_type,
                 "entityId": goal.goal_version_id,
                 "versionId": goal.goal_version_id,
             }
@@ -1471,6 +1526,7 @@ def _target_confidence(evidence_level: str | None) -> str:
         "direct": "high",
         "strong": "high",
         "limited": "medium",
+        "historical_cohort": "medium",
         "unavailable": "unknown",
     }.get(evidence_level or "", "unknown")
 

@@ -3,6 +3,7 @@
   "backgroundColor": "#F7F9FC",
   "usingComponents": {
     "ability-radar": "../../design-system/reporting/ability-radar/index",
-    "state-view": "../../design-system/primitives/state-view/index"
+    "state-view": "../../design-system/primitives/state-view/index",
+    "safe-top": "../../components/safe-top/index"
   }
 }

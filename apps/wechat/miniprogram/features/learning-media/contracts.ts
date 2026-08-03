@@ -7,7 +7,7 @@ import {
 } from "../../api/learning-media";
 
 export const maximumReflectionVoiceSegments = 3;
-export const maximumReflectionVoiceDurationMilliseconds = 180_000;
+export const maximumReflectionVoiceDurationMilliseconds = 60_000;
 export const maximumReflectionVoiceTotalBytes = 15 * 1024 * 1024;
 
 export type VoiceSegmentState =
@@ -68,7 +68,7 @@ export function validateVoiceSegment(segment: ReflectionVoiceSegment): void {
     segment.durationMilliseconds <= 0 ||
     segment.durationMilliseconds > maximumReflectionVoiceDurationMilliseconds
   ) {
-    throw new Error("单段录音时长必须在 3 分钟以内。");
+    throw new Error("单段录音时长必须在 60 秒以内。");
   }
   assertMimeAndFilename(segment.mimeType, segment.originalFilename);
   if (segment.state === "available") {

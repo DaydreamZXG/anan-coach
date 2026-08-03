@@ -33,7 +33,7 @@ from app.domains.essay_intelligence.review_contracts import (
 
 
 _RELEASE_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$")
-_PRICE_KEYS = frozenset({"gemini", "grok", "hunyuan", "adjudicator"})
+_PRICE_KEYS = frozenset({"gemini", "tokenrhythm", "hunyuan", "adjudicator"})
 
 
 class EssayMultiModelRuntimeConfigurationError(RuntimeError):
@@ -70,7 +70,7 @@ class EssayMultiModelRuntimePlan:
             validate_grounded_review_provider_security(settings)
             primary = GroundedEssayReviewProvider(settings)
             primary.validate_configuration()
-            secondary_settings = _secondary_settings(settings)
+            secondary_settings = _tokenrhythm_settings(settings)
             validate_grounded_review_provider_security(secondary_settings)
             secondary = GroundedEssayReviewProvider(secondary_settings)
             secondary.validate_configuration()
@@ -94,9 +94,9 @@ class EssayMultiModelRuntimePlan:
                 schema_version=GROUNDED_REVIEW_PROVIDER_SCHEMA_VERSION,
             ),
             EssayCandidateSlot(
-                slot_id="grok",
+                slot_id="tokenrhythm",
                 provider=secondary,
-                price_card=prices["grok"],
+                price_card=prices["tokenrhythm"],
                 prompt_version=GROUNDED_REVIEW_PROMPT_VERSION,
                 schema_version=GROUNDED_REVIEW_PROVIDER_SCHEMA_VERSION,
             ),
@@ -155,35 +155,35 @@ class EssayMultiModelRuntimePlan:
         )
 
 
-def _secondary_settings(settings: Settings) -> Settings:
+def _tokenrhythm_settings(settings: Settings) -> Settings:
     return replace(
         settings,
-        ai_provider_base_url=settings.ai_essay_grok_base_url,
-        ai_api_key=settings.ai_essay_grok_api_key,
-        ai_essay_review_model=settings.ai_essay_grok_model,
+        ai_provider_base_url=settings.ai_essay_tokenrhythm_base_url,
+        ai_api_key=settings.ai_essay_tokenrhythm_api_key,
+        ai_essay_review_model=settings.ai_essay_tokenrhythm_model,
         ai_essay_review_provider_release_id=(
-            settings.ai_essay_grok_provider_release_id
+            settings.ai_essay_tokenrhythm_provider_release_id
         ),
         ai_essay_review_provider_https_host_allowlist=(
-            settings.ai_essay_grok_provider_https_host_allowlist
+            settings.ai_essay_tokenrhythm_provider_https_host_allowlist
         ),
         ai_essay_review_provider_dpa_confirmed=(
-            settings.ai_essay_grok_provider_dpa_confirmed
+            settings.ai_essay_tokenrhythm_provider_dpa_confirmed
         ),
         ai_essay_review_provider_idempotency_capability=(
-            settings.ai_essay_grok_provider_idempotency_capability
+            settings.ai_essay_tokenrhythm_provider_idempotency_capability
         ),
         ai_essay_review_provider_idempotency_key_header=(
-            settings.ai_essay_grok_provider_idempotency_key_header
+            settings.ai_essay_tokenrhythm_provider_idempotency_key_header
         ),
         ai_essay_review_provider_request_id_header=(
-            settings.ai_essay_grok_provider_request_id_header
+            settings.ai_essay_tokenrhythm_provider_request_id_header
         ),
         ai_essay_review_provider_replay_retention_seconds=(
-            settings.ai_essay_grok_provider_replay_retention_seconds
+            settings.ai_essay_tokenrhythm_provider_replay_retention_seconds
         ),
-        ai_essay_review_max_input_bytes=settings.ai_essay_grok_max_input_bytes,
-        ai_essay_review_max_output_bytes=settings.ai_essay_grok_max_output_bytes,
+        ai_essay_review_max_input_bytes=settings.ai_essay_tokenrhythm_max_input_bytes,
+        ai_essay_review_max_output_bytes=settings.ai_essay_tokenrhythm_max_output_bytes,
     )
 
 
@@ -196,7 +196,7 @@ def _price_cards(raw: str) -> dict[str, ModelPriceCard]:
         ) from exc
     if not isinstance(document, dict) or set(document) != _PRICE_KEYS:
         raise EssayMultiModelRuntimeConfigurationError(
-            "Essay grading price cards must define gemini, grok, hunyuan, and adjudicator"
+            "Essay grading price cards must define gemini, tokenrhythm, hunyuan, and adjudicator"
         )
     result: dict[str, ModelPriceCard] = {}
     for key in sorted(_PRICE_KEYS):

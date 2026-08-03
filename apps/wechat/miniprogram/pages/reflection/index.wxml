@@ -195,7 +195,10 @@
       </view>
 
       <view class="reason-card">
-        <view class="reason-card__title">你也可以补充</view>
+        <view class="reason-card__head">
+          <view class="reason-card__title">你也可以补充</view>
+          <button hover-class="item--hover" class="reason-card__read" disabled="{{interactionLocked || speechBusy || !rawText}}" bindtap="readRawText">{{speechPlaying ? '朗读中' : '朗读文字'}}</button>
+        </view>
         <view class="reason-card__copy">标签和文字都是选填。不填也可以，岸岸会先根据用时、改选、排除、草稿和作答结果来判断。</view>
         <view class="tag-grid">
           <button hover-class="item--hover"
@@ -246,7 +249,7 @@
         <view class="voice-head">
           <view>
             <view class="voice-head__title">语音复盘 <text class="voice-head__optional">选填</text></view>
-            <view class="voice-head__copy">最多 3 段，单段最长 3 分钟。</view>
+            <view class="voice-head__copy">最多 3 段，单段最长 60 秒；录完可转成文字并继续修改。</view>
           </view>
           <view class="voice-head__count">{{voiceSummary.segmentCountLabel}}</view>
         </view>
@@ -268,6 +271,7 @@
             <view wx:if="{{item.failureMessage}}" class="voice-item__failure">{{item.failureMessage}}</view>
           </view>
           <view class="voice-item__actions">
+            <button hover-class="item--hover" class="control-center voice-item__action voice-item__action--primary" data-id="{{item.segmentId}}" disabled="{{interactionLocked || voiceBusy || speechBusy || !item.canOperate}}" bindtap="transcribeVoice">转文字</button>
             <button hover-class="item--hover" class="control-center voice-item__action" data-id="{{item.segmentId}}" disabled="{{interactionLocked || voiceBusy || !item.canOperate}}" bindtap="rerecordVoice">重录</button>
             <button hover-class="item--hover" class="control-center voice-item__action" data-id="{{item.segmentId}}" disabled="{{interactionLocked || voiceBusy || !item.canOperate}}" bindtap="deleteVoice">删除</button>
           </view>

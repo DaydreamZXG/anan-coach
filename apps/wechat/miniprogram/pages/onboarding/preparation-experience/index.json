@@ -2,7 +2,7 @@
   "navigationBarTitleText": "身份与状态",
   "navigationStyle": "custom",
   "usingComponents": {
-    "workbench-nav": "../../../components/workbench-nav/index",
-    "state-view": "../../../design-system/primitives/state-view/index"
+    "state-view": "../../../design-system/primitives/state-view/index",
+    "workbench-nav": "../../../components/workbench-nav/index"
   }
 }

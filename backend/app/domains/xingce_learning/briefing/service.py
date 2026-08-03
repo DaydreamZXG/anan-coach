@@ -13,6 +13,7 @@ from app.domains.xingce_learning.briefing.schemas import (
     XingceBriefingTiming,
     XingceTaskBriefing,
 )
+from app.domains.xingce_learning.contracts import xingce_question_count
 
 
 class XingceBriefingError(RuntimeError):
@@ -57,6 +58,10 @@ class XingceBriefingService:
             module_name = str(mastery["module_name"]) if mastery["module_name"] else None
             verification_stage = str(mastery["verification_stage"])
         target_seconds = int(task["estimated_minutes"]) * 60
+        question_count = xingce_question_count(
+            mode=mode,
+            estimated_minutes=int(task["estimated_minutes"]),
+        )
         evidence_types = [
             str(value)
             for value in task["completion_contract"]["completionEvidenceTypes"]
@@ -72,9 +77,10 @@ class XingceBriefingService:
             title=str(task["title"]),
             reason=str(task["reason"]),
             moduleName=module_name,
+            questionCount=question_count,
             timing=XingceBriefingTiming(
                 targetSeconds=target_seconds,
-                perQuestionTargetSeconds=max(1, target_seconds // 3),
+                perQuestionTargetSeconds=max(1, target_seconds // question_count),
             ),
             completion=XingceBriefingCompletion(
                 evidenceType=evidence_types[0],

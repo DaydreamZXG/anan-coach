@@ -286,7 +286,7 @@ export class QualificationProfileEditorController {
 }
 
 function cloneDraft(draft: QualificationDraft): QualificationDraft {
-  return { ...draft };
+  return { ...draft, certifications: [...draft.certifications] };
 }
 
 function required(value: string): string {

@@ -20,7 +20,7 @@ from app.core.config import Settings
 
 CHECKPOINT_CONTRACT_VERSION = "essay-review-checkpoint-v1"
 _CHECKPOINT_PHASE_PATTERN = re.compile(
-    r"^(?:initial|repair|candidate:(?:gemini|grok|hunyuan)|adjudication)$"
+    r"^(?:initial|repair|candidate:(?:gemini|grok|tokenrhythm|hunyuan)|adjudication)$"
 )
 
 

@@ -68,36 +68,34 @@ Page({
     const client = new ApiClient(undefined, token);
     const onboarding = new OnboardingApi(client);
     try {
-      const [
-        accountResponse,
-        progressResponse,
-        qualificationResponse,
-        planningResponse,
-        brainResponse,
-      ] = await Promise.all([
-        new AccountApi(client).getOverview(),
-        onboarding.getProgress(),
-        new QualificationApi(client).getProfile(),
-        new PlanningApi(client).getToday(),
-        new LearningBrainApi(client).getProfile(),
-      ]);
+      const [accountResponse, progressResponse, qualificationResponse, brainResponse] =
+        await Promise.all([
+          new AccountApi(client).getOverview(),
+          onboarding.getProgress(),
+          new QualificationApi(client).getProfile(),
+          new LearningBrainApi(client).getProfile(),
+        ]);
       const progress = progressResponse.data;
-      const [experience, positionPreference, preference, abilityBaseline] = await Promise.all([
-        progress.experienceProfileVersion
-          ? onboarding.getPreparationExperience().then((response) => response.data)
-          : Promise.resolve(null),
-        optionalOnboardingRecord(
-          onboarding.getPositionPreference().then((response) => response.data),
-          "position_preference_missing",
-        ),
-        progress.studyPreferenceReady
-          ? onboarding.getStudyPreference().then((response) => response.data)
-          : Promise.resolve(null),
-        optionalOnboardingRecord(
-          onboarding.getAbilityBaseline().then((response) => response.data),
-          "ability_baseline_missing",
-        ),
-      ]);
+      const [experience, positionPreference, preference, abilityBaseline, planning] =
+        await Promise.all([
+          progress.experienceProfileVersion
+            ? onboarding.getPreparationExperience().then((response) => response.data)
+            : Promise.resolve(null),
+          optionalOnboardingRecord(
+            onboarding.getPositionPreference().then((response) => response.data),
+            "position_preference_missing",
+          ),
+          progress.studyPreferenceReady
+            ? onboarding.getStudyPreference().then((response) => response.data)
+            : Promise.resolve(null),
+          optionalOnboardingRecord(
+            onboarding.getAbilityBaseline().then((response) => response.data),
+            "ability_baseline_missing",
+          ),
+          progress.studyPreferenceReady
+            ? new PlanningApi(client).getToday().then((response) => response.data)
+            : Promise.resolve(null),
+        ]);
       const modules = buildModules({
         displayName: accountResponse.data.displayName,
         progress,
@@ -106,7 +104,7 @@ Page({
         positionPreference,
         preference,
         abilityBaseline,
-        positionName: planningResponse.data.goalGap.positionName,
+        positionName: planning?.goalGap.positionName,
         abilityReadiness: brainResponse.data.readiness,
       });
       const incompleteCount = modules.filter((item) => item.statusKind === "incomplete").length;

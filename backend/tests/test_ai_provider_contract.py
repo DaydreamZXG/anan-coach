@@ -5,13 +5,11 @@ from hashlib import sha256
 import httpx
 import pytest
 
-from app.core.config import Settings
 from app.domains.ai.provider_contract import (
     NONREPLAYABLE_AUDITED,
     parse_provider_json_object,
     provider_failure_is_retryable,
     provider_request_audit,
-    validate_processing_approval,
     validate_provider_audit_contract,
 )
 
@@ -25,11 +23,6 @@ def test_provider_json_transport_accepts_only_bare_or_single_fenced_objects() ->
         parse_provider_json_object('result: {"answer":"ok"}')
     with pytest.raises(ValueError):
         parse_provider_json_object('[{"answer":"ok"}]')
-
-
-def test_operator_approval_cannot_replace_processor_evidence() -> None:
-    with pytest.raises(ValueError, match="processor DPA/data terms"):
-        validate_processing_approval(Settings(), dpa_confirmed=False)
 
 
 def test_nonreplayable_provider_declares_zero_retention_and_body_request_id() -> None:

@@ -91,6 +91,7 @@
       "name": "onboarding",
       "pages": [
         "index",
+        "profile/index",
         "entry/index",
         "preparation-experience/index",
         "position-preference/index",
@@ -114,7 +115,7 @@
     {
       "root": "pages/profile",
       "name": "profile",
-      "pages": ["qualification/index", "archive/index"]
+      "pages": ["archive/index"]
     },
     {
       "root": "pages/practice",
@@ -184,9 +185,5 @@
     }
   },
   "resizable": true,
-  "usingComponents": {
-    "safe-top": "/components/safe-top/index",
-    "workbench-nav": "/components/workbench-nav/index"
-  },
   "sitemapLocation": "sitemap.json"
 }

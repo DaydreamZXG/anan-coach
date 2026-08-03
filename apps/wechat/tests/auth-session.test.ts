@@ -37,6 +37,24 @@ afterEach(() => {
 });
 
 describe("authenticated session identity", () => {
+  it("hydrates an empty session store only once during one app lifetime", () => {
+    const getStorageSync = vi.fn((key: string) => storage.get(key) ?? "");
+    vi.stubGlobal("wx", {
+      getStorageSync,
+      setStorageSync: (key: string, value: unknown) => storage.set(key, clone(value)),
+      removeStorageSync: (key: string) => {
+        storage.delete(key);
+      },
+    });
+
+    expect(currentAuthSession()).toBeUndefined();
+    expect(currentAuthSession()).toBeUndefined();
+    expect(currentUserId()).toBeUndefined();
+
+    expect(getStorageSync).toHaveBeenCalledTimes(1);
+    expect(getStorageSync).toHaveBeenCalledWith("gongkao.auth.session.v1");
+  });
+
   it("persists the access token and stable user id as one session", () => {
     storeAuthSession("token-a", "user-a");
     globalData = {};

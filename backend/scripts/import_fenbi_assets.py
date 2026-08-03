@@ -6,7 +6,6 @@
 - image_src = 相对路径(试卷_images/xxx)，object_key = data/question-bank-export/files/<相对路径>
 """
 import json
-import os
 import sys
 from pathlib import Path
 from uuid import uuid4

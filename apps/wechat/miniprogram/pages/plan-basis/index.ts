@@ -5,6 +5,7 @@ import type {
   PlanBasisView,
 } from "../../api/generated/types.gen";
 import { registeredTaskNavigationTarget, routes } from "../../app/navigation/routes";
+import { navigateBackOr } from "../../app/navigation/safe-back";
 import { currentAuthSession } from "../../auth/session";
 import { storeCompanionLaunchContext } from "../../features/companion/context-store";
 import {
@@ -126,7 +127,7 @@ Page({
   },
 
   exit() {
-    void wx.navigateBack({ delta: 1 });
+    navigateBackOr(routes.today);
   },
 
   toggleExpanded() {

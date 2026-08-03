@@ -1,0 +1,15 @@
+{
+  "name": "ocr-mcp",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "node --check server.mjs && node -e \"require('sharp')\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "sharp": "^0.35.3"
+  }
+}

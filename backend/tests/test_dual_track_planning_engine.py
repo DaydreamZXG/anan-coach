@@ -67,7 +67,7 @@ def test_recovery_day_only_schedules_due_review_without_new_learning() -> None:
     assert selection.explanation_codes == ("recovery_day_no_new_learning",)
 
 
-def test_mandatory_mock_is_not_crowded_by_daily_drills() -> None:
+def test_mandatory_mock_keeps_priority_but_does_not_discard_remaining_capacity() -> None:
     selection = select_daily_tasks(
         [
             _candidate("mock", "mock", "weekly_mock", 120, 0.90, mandatory=True),
@@ -77,8 +77,24 @@ def test_mandatory_mock_is_not_crowded_by_daily_drills() -> None:
         available_minutes=150,
     )
 
-    assert [item.candidate.candidate_key for item in selection.tasks] == ["mock"]
-    assert selection.explanation_codes == ("mandatory_calibration_first",)
+    assert [item.candidate.candidate_key for item in selection.tasks] == ["essay", "mock"]
+    assert selection.scheduled_minutes == 145
+    assert "mandatory_calibration_first" in selection.explanation_codes
+
+
+def test_fulltime_capacity_scales_to_ten_hour_work_blocks() -> None:
+    selection = select_daily_tasks(
+        [
+            _candidate(f"xingce-{index}", "xingce", "objective_practice", 60, 0.80 - index / 100)
+            for index in range(10)
+        ]
+        + [_candidate("essay", "essay", "essay_drafting", 60, 0.84)],
+        available_minutes=600,
+    )
+
+    assert len(selection.tasks) == 10
+    assert selection.scheduled_minutes == 600
+    assert {item.candidate.track for item in selection.tasks} == {"xingce", "essay"}
 
 
 def test_unfit_mandatory_mock_does_not_erase_a_short_users_day() -> None:

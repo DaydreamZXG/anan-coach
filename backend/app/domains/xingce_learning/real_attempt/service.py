@@ -22,7 +22,7 @@ from app.domains.xingce_learning.cause_agent.service import (
     CauseAgentWorkflow,
     CauseAgentWorkflowError,
 )
-from app.domains.xingce_learning.contracts import XINGCE_QUESTION_BUNDLE_SIZE
+from app.domains.xingce_learning.contracts import xingce_question_count
 from app.domains.xingce_learning.real_attempt.repository import XingceAttemptRepository
 from app.domains.xingce_learning.content_version import question_content_version_id
 from app.domains.xingce_learning.mastery.service import (
@@ -174,12 +174,16 @@ class XingceAttemptService:
             excluded_question_ids = [
                 str(question_id) for question_id in mastery["used_question_ids"]
             ]
+        question_count = xingce_question_count(
+            mode=mode,
+            estimated_minutes=int(task["estimated_minutes"]),
+        )
         selection_context: dict[str, str] | None = None
         if mode == "targeted":
             targeted_selection = self._repository.select_targeted_frozen_questions(
                 session,
                 module_name=module_name,
-                limit=XINGCE_QUESTION_BUNDLE_SIZE,
+                limit=question_count,
                 user_id=user_id,
                 now=created_at,
             )
@@ -198,18 +202,31 @@ class XingceAttemptService:
                     "nodeType": targeted_selection.node_type,
                     "moduleName": targeted_selection.module_name,
                 }
+            elif module_name is not None:
+                source_questions = self._repository.select_frozen_questions(
+                    session,
+                    module_name=module_name,
+                    limit=question_count,
+                    user_id=user_id,
+                )
+                if len(source_questions) == question_count:
+                    selection_context = {
+                        "contractVersion": "xingce-module-selection@v1",
+                        "moduleName": module_name,
+                    }
         else:
             source_questions = self._repository.select_frozen_questions(
                 session,
                 module_name=module_name,
-                limit=XINGCE_QUESTION_BUNDLE_SIZE,
+                limit=question_count,
                 user_id=user_id,
                 excluded_question_ids=excluded_question_ids,
             )
-        if len(source_questions) < XINGCE_QUESTION_BUNDLE_SIZE:
+        if len(source_questions) < question_count:
             raise XingceAttemptError(
                 "xingce_content_unavailable",
-                "当前计划模块没有足够的三道独立题目通过内容与答案键门禁。",
+                f"当前计划模块只有 {len(source_questions)} 道可用题，"
+                f"无法完成本次 {question_count} 题训练。",
                 status_code=503,
             )
         safe_bundle, scoring_bundle = _freeze_bundle(

@@ -112,15 +112,14 @@ describe("岸岸小程序运行时", () => {
     ).toBeNull();
   });
 
-  it("外部回答服务未获安全接入时说明未发送资料并保留问题编号", () => {
+  it("外部回答服务暂不可用时给出可执行提示并保留问题编号", () => {
     const view = companionFailureView(
       new ApiClientError("刚才这一步没有成功，请稍后再试一次。", 503, "mp-anan-503"),
     );
 
     expect(view).toEqual({
       semanticState: "provider_pending",
-      message:
-        "岸岸的回答服务尚未完成安全接入，本次没有把你的学习资料发给外部模型。请保留问题编号，服务恢复后再试。",
+      message: "岸岸的回答服务暂时不可用，本次没有完成回答。请稍后重试；若仍失败，请提供问题编号。",
       requestId: "mp-anan-503",
     });
   });
@@ -195,6 +194,29 @@ describe("岸岸小程序运行时", () => {
       todaySourceStatus: "ready",
       contextNoticeVisible: false,
     });
+  });
+
+  it("学习时间尚未设置时不请求今日计划，仍允许基于学习档案提问", async () => {
+    const harness = await captureAnanPage({ studyPreferenceReady: false });
+
+    const load = harness.page.loadContext();
+    await waitForRequestCount(harness.requests, 1);
+    respondApiSuccess(
+      requestByPath(harness.requests, "/api/v2/learning-brain/profile"),
+      learningProfile(),
+    );
+    await load;
+
+    expect(harness.requests.some((request) => request.url.includes("/api/v2/plans/today"))).toBe(
+      false,
+    );
+    expect(harness.page.data).toMatchObject({
+      contextStatus: "partial",
+      askAvailable: true,
+      todaySourceStatus: "unavailable",
+      todaySourceRequestId: "",
+    });
+    expect(harness.page.data.todaySourceMessage).toContain("完成学习时间设置后");
   });
 
   it("profile 失败而 today 成功时展示 today 事实但禁发，并可单独重试 profile", async () => {
@@ -982,6 +1004,7 @@ async function captureAnanPage(
     appState?: AnanHarness["appState"];
     entropy?: AnanHarness["entropy"];
     storage?: AnanHarness["storage"];
+    studyPreferenceReady?: boolean;
   } = {},
 ): Promise<AnanHarness> {
   let definition: CapturedAnanPage | undefined;
@@ -1014,6 +1037,12 @@ async function captureAnanPage(
       return Promise.resolve({ randomValues: new Uint8Array(16).fill(entropy.value).buffer });
     },
     request: (options: AnanRequest) => {
+      if (options.url.includes("/api/v2/onboarding/progress")) {
+        respondApiSuccess(options, {
+          studyPreferenceReady: existing.studyPreferenceReady ?? true,
+        });
+        return;
+      }
       requests.push(options);
     },
     pageScrollTo: vi.fn(() => Promise.resolve()),

@@ -213,7 +213,7 @@ export function presentTodayDashboard(dashboard: TodayDashboard): TodayView {
   return {
     headline: dashboard.headline,
     rationale: dashboard.rationale,
-    positionName: dashboard.goalGap.positionName ?? "尚未确认主目标岗位",
+    positionName: dashboard.goalGap.positionName ?? "目标分待生成",
     ...gap,
     evidenceSummary: dashboard.goalGap.evidenceSummary,
     capacityVersionId: dashboard.capacity.capacityVersionId,
@@ -361,19 +361,19 @@ function presentGoalGap(dashboard: TodayDashboard) {
       currentScore: scoreRangeLabel(currentScore.lower, currentScore.upper),
       scoreGap: baselineGap,
       confidence: evidenceLabel(currentScore.confidence),
-      gapStateLabel: "岗位分差可用",
-      gapGuidance: "岗位备考线与当前两科成绩来自可比口径，可以用于安排学习。",
+      gapStateLabel: "目标分差可用",
+      gapGuidance: "历史同类岗位目标与当前两科成绩来自可比口径，可以用于安排学习。",
     };
   }
 
   if (!goalId) {
     return unavailableGoalGap(
-      "尚未确认主目标岗位",
-      "先选一个主目标岗位，岸岸才能按对应的备考线安排今天。",
+      "目标分待生成",
+      "完善专业、学历和目标地区后，岸岸会用最近完整年度的同类岗位生成目标分；学习任务不受阻断。",
     );
   }
   if (!targetScore) {
-    return unavailableGoalGap("岗位备考线依据不足", "主目标已确认，但还缺少可比较的双科分数记录。");
+    return unavailableGoalGap("目标分依据不足", "目标参照已建立，但还缺少可比较的双科分数记录。");
   }
   if (readiness === "stale") {
     return unavailableGoalGap(

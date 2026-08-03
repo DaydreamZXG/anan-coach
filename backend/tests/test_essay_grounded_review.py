@@ -290,7 +290,6 @@ def test_repair_never_forwards_internal_violation_detail_or_domain_references() 
             {"ai_essay_review_provider_https_host_allowlist": "other.example"},
             "not allowlisted",
         ),
-        ({"ai_essay_review_provider_dpa_confirmed": False}, "DPA"),
         ({"ai_essay_review_provider_idempotency_capability": ""}, "replayable"),
         ({"ai_essay_review_provider_idempotency_key_header": ""}, "KEY_HEADER"),
         ({"ai_essay_review_provider_request_id_header": ""}, "REQUEST_ID_HEADER"),

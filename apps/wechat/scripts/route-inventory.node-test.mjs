@@ -28,14 +28,14 @@ test("classifies all 60 registered routes as business pages", () => {
 test("preserves the route inventory when a business page moves between main and subpackage", () => {
   const before = {
     pages: ["pages/login/index"],
-    subPackages: [{ root: "pages/profile", pages: ["qualification/index"] }],
+    subPackages: [{ root: "pages/onboarding", pages: ["profile/index"] }],
   };
   const after = {
-    pages: ["pages/login/index", "pages/profile/qualification/index"],
+    pages: ["pages/login/index", "pages/onboarding/profile/index"],
     subPackages: [],
   };
   const manifest = {
-    businessPages: ["pages/login/index", "pages/profile/qualification/index"],
+    businessPages: ["pages/login/index", "pages/onboarding/profile/index"],
     assetEntryPages: [],
   };
 

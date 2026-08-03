@@ -379,7 +379,7 @@ describe("today dual-track planning", () => {
       },
     });
 
-    expect(missingGoal.gapStateLabel).toContain("主目标岗位");
+    expect(missingGoal.gapStateLabel).toContain("目标分");
     expect(missingScore.gapStateLabel).toContain("两科成绩还不完整");
     expect(stale.gapStateLabel).toContain("已过期");
   });

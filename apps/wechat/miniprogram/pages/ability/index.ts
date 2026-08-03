@@ -4,6 +4,7 @@ import type {
   TodayDashboard,
 } from "../../api/generated/types.gen";
 import { LearningBrainApi } from "../../api/learning-brain";
+import { OnboardingApi } from "../../api/onboarding";
 import { PlanningApi } from "../../api/planning";
 import { routes } from "../../app/navigation/routes";
 import { currentAuthSession } from "../../auth/session";
@@ -96,10 +97,13 @@ Page({
       this.setData({ status: "loading", errorMessage: "", requestId: "" });
     }
     try {
-      const [{ data: profile }, dashboardResult] = await Promise.all([
+      const [{ data: profile }, { data: progress }] = await Promise.all([
         new LearningBrainApi(client).getProfile(),
-        new PlanningApi(client).getToday().catch(() => null),
+        new OnboardingApi(client).getProgress(),
       ]);
+      const dashboardResult = progress.studyPreferenceReady
+        ? await new PlanningApi(client).getToday().catch(() => null)
+        : null;
       const estimate = profile.ability.estimate;
       const trim = (value: number): string =>
         Number.isInteger(value) ? String(value) : value.toFixed(1);

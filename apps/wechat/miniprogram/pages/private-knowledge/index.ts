@@ -7,6 +7,7 @@ import {
 } from "../../api/private-knowledge";
 import { currentAuthSession } from "../../auth/session";
 import { routes } from "../../app/navigation/routes";
+import { navigateBackOr } from "../../app/navigation/safe-back";
 import type { LocalSourceArtifactFile } from "../../features/external-learning/contracts";
 import { chooseQuestionImage, chooseQuestionPdf } from "../../features/external-learning/platform";
 import { createIdempotencyKey } from "../../platform/command-id";
@@ -602,7 +603,7 @@ Page<PageData, PageCustom>({
       this.runInBackground();
       return;
     }
-    void wx.navigateBack();
+    navigateBackOr(routes.me);
   },
 
   noop() {},
