@@ -15,7 +15,7 @@ from app.domains.positions.source_contract import (
 from app.domains.qualification.schemas import PositionRequirement
 
 
-COMPILER_VERSION = "guokao-position-rules-v5"
+COMPILER_VERSION = "guokao-position-rules-v6"
 SOURCE_CONDITIONS_INCOMPLETE_WARNING = "source_conditions_incomplete"
 UNRESTRICTED = {"", "不限", "无", "无要求", "不限制", "专业不限", "无特殊要求"}
 EDUCATION_OPTIONS = {
@@ -57,6 +57,7 @@ CERTIFICATION_LABELS = {
 }
 NON_BLOCKING_REMARK_PATTERNS = (
     re.compile(r"(?:在)?本单位最低服务年限为?\d+年"),
+    re.compile(r"(?:在)?[\u3400-\u9fff]{2,24}系统最低服务年限为?\d+年"),
     re.compile(r"本单位不提供宿舍"),
     re.compile(r"并在外语水平一栏注明已获得的英语等级证书及成绩"),
 )

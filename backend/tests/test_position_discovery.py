@@ -13,6 +13,7 @@ from app.db.session import get_db_session
 from app.domains.ability_estimation.schemas import ReportedScoreEvidenceRequest
 from app.domains.ability_estimation.service import AbilityEstimateService
 from app.domains.auth.repository import token_hash_for_tests
+from app.domains.onboarding.progress_repository import OnboardingProgressRepository
 from app.domains.positions.discovery import (
     PositionComparisonError,
     PositionDiscoveryCursorError,
@@ -247,22 +248,22 @@ def test_discovery_orders_by_eligibility_before_headcount_and_exposes_direct_sco
         )
 
     ordered_ids = [item.position_id for item in result.items]
-    assert ordered_ids[0] == ids["no_conditions"]
-    assert set(ordered_ids[1:3]) == {ids["eligible"], ids["pending"]}
+    assert ordered_ids[:2] == [ids["eligible"], ids["no_conditions"]]
+    assert ordered_ids[2] == ids["pending"]
     assert ordered_ids[3] == ids["ineligible"]
     assert [item.eligibility_status for item in result.items] == [
         "eligible",
-        "needs_confirmation",
+        "eligible",
         "needs_confirmation",
         "ineligible",
     ]
-    catalog_pending = next(item for item in result.items if item.position_id == ids["eligible"])
-    assert catalog_pending.met_count == 2
-    assert catalog_pending.pending_count == 1
-    assert catalog_pending.target_score is not None
-    assert catalog_pending.target_score.recommended == 124.48
-    assert catalog_pending.target_score.evidence_level == "direct"
-    assert "conditions_need_confirmation" in catalog_pending.reason_codes
+    catalog_matched = next(item for item in result.items if item.position_id == ids["eligible"])
+    assert catalog_matched.met_count == 3
+    assert catalog_matched.pending_count == 0
+    assert catalog_matched.target_score is not None
+    assert catalog_matched.target_score.recommended == 124.48
+    assert catalog_matched.target_score.evidence_level == "direct"
+    assert "conditions_need_confirmation" not in catalog_matched.reason_codes
     pending = next(item for item in result.items if item.position_id == ids["pending"])
     assert "conditions_need_confirmation" in pending.reason_codes
     assert "hard_condition_not_met" in result.items[3].reason_codes
@@ -290,7 +291,7 @@ def test_discovery_never_claims_eligible_when_release_source_is_incomplete(
     assert [item.position_id for item in result.items] == [ids["eligible"]]
     item = result.items[0]
     assert item.eligibility_status == "needs_confirmation"
-    assert item.pending_count == 2
+    assert item.pending_count == 1
     assert "source-conditions-incomplete" in item.pending_requirement_ids
     assert "source_conditions_incomplete" in item.reason_codes
 
@@ -389,7 +390,7 @@ def test_comparison_preserves_selection_order_and_returns_deterministic_highligh
     assert result.rule_set_version == "guokao-2026-rules-v1"
     assert result.position_data_version == "guokao-2026-discovery-v1"
     assert result.items[0].paper_type == "administrativeLaw"
-    assert result.highlights.confirmed_eligible_position_ids == []
+    assert result.highlights.confirmed_eligible_position_ids == [ids["eligible"]]
     assert result.highlights.largest_headcount_position_ids == [ids["ineligible"]]
     assert result.highlights.lowest_target_score_position_ids == [ids["eligible"]]
 
@@ -440,7 +441,7 @@ def test_comparison_binds_facts_to_the_reported_profile_version(
 
     assert result.learner_profile_version == 2
     assert result.items[0].eligibility_status == "ineligible"
-    assert result.items[1].eligibility_status == "needs_confirmation"
+    assert result.items[1].eligibility_status == "eligible"
 
 
 def test_qualification_gaps_only_reports_unresolved_inputs_that_affect_positions(
@@ -454,30 +455,16 @@ def test_qualification_gaps_only_reports_unresolved_inputs_that_affect_positions
     assert summary.learner_profile_version == 2
     assert summary.rule_set_version == "guokao-2026-rules-v1"
     assert summary.position_data_version == "guokao-2026-discovery-v1"
-    assert summary.total_affected_positions == 3
-    assert summary.complete is True
-    assert {gap.fact_key for gap in summary.gaps} == {"major", "other_conditions"}
+    assert summary.total_affected_positions == 1
+    assert summary.complete is False
+    assert {gap.fact_key for gap in summary.gaps} == {"certifications"}
     gaps = {gap.fact_key: gap for gap in summary.gaps}
-    major_gap = gaps["major"]
-    assert major_gap.gap_type == "position_confirmation"
-    assert major_gap.action == "review_position_requirement"
-    assert major_gap.affected_position_count == 3
-    assert set(major_gap.sample_position_ids) == {
-        ids["eligible"],
-        ids["pending"],
-        ids["ineligible"],
-    }
-    assert major_gap.sample_position_codes == [
-        "300110009000",
-        "300110009002",
-        "300110009003",
-    ]
-    other_gap = gaps["other_conditions"]
-    assert other_gap.gap_type == "position_confirmation"
-    assert other_gap.action == "review_position_requirement"
-    assert other_gap.affected_position_count == 1
-    assert other_gap.sample_position_ids == [ids["pending"]]
-    assert other_gap.sample_position_codes == ["300110009002"]
+    certificate_gap = gaps["certifications"]
+    assert certificate_gap.gap_type == "missing_fact"
+    assert certificate_gap.action == "complete_profile"
+    assert certificate_gap.affected_position_count == 1
+    assert certificate_gap.sample_position_ids == [ids["pending"]]
+    assert certificate_gap.sample_position_codes == ["300110009002"]
 
 
 def test_qualification_gaps_are_user_isolated_and_report_missing_facts(
@@ -501,8 +488,8 @@ def test_qualification_gaps_are_user_isolated_and_report_missing_facts(
     gaps = {(gap.fact_key, gap.gap_type): gap for gap in summary.gaps}
     assert gaps[("education", "missing_fact")].affected_position_count == 3
     assert gaps[("grassroots_years", "missing_fact")].affected_position_count == 1
-    assert gaps[("major", "position_confirmation")].affected_position_count == 3
-    assert gaps[("other_conditions", "position_confirmation")].affected_position_count == 1
+    assert gaps[("major", "missing_fact")].affected_position_count == 3
+    assert gaps[("certifications", "missing_fact")].affected_position_count == 1
     assert summary.total_affected_positions == 3
     assert summary.complete is False
 
@@ -536,12 +523,8 @@ def test_comparison_route_uses_authenticated_profile_and_returns_no_winner(
     assert gaps.status_code == 200
     gap_data = gaps.json()["data"]
     assert gap_data["learnerProfileVersion"] == 2
-    assert gap_data["gaps"][0]["factKey"] == "major"
-    assert set(gap_data["gaps"][0]["samplePositionIds"]) == {
-        ids["eligible"],
-        ids["pending"],
-        ids["ineligible"],
-    }
+    assert gap_data["gaps"][0]["factKey"] == "certifications"
+    assert gap_data["gaps"][0]["samplePositionIds"] == [ids["pending"]]
 
 
 def test_workspace_and_fit_routes_bind_active_versions_ability_and_hard_requirements(
@@ -958,12 +941,89 @@ def test_workspace_preserves_mixed_eligibility_facts_for_truthful_client_counts(
     statuses = [item.eligibility_status for item in workspace.items]
     assert statuses == [
         "eligible",
-        "needs_confirmation",
+        "eligible",
         "needs_confirmation",
         "ineligible",
     ]
-    assert sum(status == "eligible" for status in statuses) == 1
-    assert sum(status == "needs_confirmation" for status in statuses) == 2
+    assert sum(status == "eligible" for status in statuses) == 2
+    assert sum(status == "needs_confirmation" for status in statuses) == 1
+
+
+def test_workspace_honors_non_relocation_region_preference_by_default(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id, ids = _seed_discovery_world(db_session_factory)
+    with db_session_factory.begin() as session:
+        OnboardingProgressRepository().append_position_preference(
+            session,
+            user_id=user_id,
+            command_id="position-preference-jiangxi-only",
+            expected_preference_version=0,
+            preferred_regions=["江西"],
+            accepts_relocation=False,
+            accepted_position_levels=["municipal", "county_or_below"],
+            input_fingerprint="a" * 64,
+            now=NOW + timedelta(minutes=1),
+        )
+
+    service = PositionDiscoveryService()
+    with db_session_factory() as session:
+        preferred = service.workspace(
+            session,
+            user_id=user_id,
+            region=None,
+            city=None,
+            query=None,
+            limit=8,
+            cursor=None,
+        )
+        explicit_override = service.workspace(
+            session,
+            user_id=user_id,
+            region="北京",
+            city=None,
+            query=None,
+            limit=8,
+            cursor=None,
+        )
+
+    assert preferred.items
+    assert {item.region for item in preferred.items} == {"江西"}
+    assert ids["ineligible"] not in {item.position_id for item in preferred.items}
+    assert [item.position_id for item in explicit_override.items] == [ids["ineligible"]]
+
+
+def test_workspace_ranks_preferred_region_first_when_relocation_is_accepted(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    user_id, ids = _seed_discovery_world(db_session_factory)
+    with db_session_factory.begin() as session:
+        OnboardingProgressRepository().append_position_preference(
+            session,
+            user_id=user_id,
+            command_id="position-preference-jiangxi-with-relocation",
+            expected_preference_version=0,
+            preferred_regions=["江西"],
+            accepts_relocation=True,
+            accepted_position_levels=["municipal", "county_or_below"],
+            input_fingerprint="b" * 64,
+            now=NOW + timedelta(minutes=1),
+        )
+
+    with db_session_factory() as session:
+        workspace = PositionDiscoveryService().workspace(
+            session,
+            user_id=user_id,
+            region=None,
+            city=None,
+            query=None,
+            limit=8,
+            cursor=None,
+        )
+
+    regions = [item.region for item in workspace.items]
+    assert regions[:3] == ["江西", "江西", "江西"]
+    assert ids["ineligible"] in {item.position_id for item in workspace.items}
 
 
 def test_workspace_and_fit_reject_closed_release_with_stable_error(

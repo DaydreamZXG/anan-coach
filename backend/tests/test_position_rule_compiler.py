@@ -355,6 +355,14 @@ def test_non_blocking_job_disclosures_do_not_create_qualification_gates() -> Non
     assert compiled.status == "deterministic"
 
 
+def test_regional_system_service_commitment_is_not_a_pre_hire_gate() -> None:
+    compiled = _compile(_source(remark="在江西税务系统最低服务年限为5年"))
+
+    assert all(item.field != "other_conditions" for item in compiled.requirements)
+    assert compiled.status == "deterministic"
+    assert "remark_requires_confirmation" not in compiled.warnings
+
+
 def test_structured_remark_keeps_only_the_unresolved_condition_manual() -> None:
     compiled = _compile(
         _source(

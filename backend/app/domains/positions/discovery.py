@@ -13,6 +13,7 @@ from sqlalchemy.orm import Session
 
 from app.domains.ability_estimation.schemas import AbilityEstimateCurrent
 from app.domains.ability_estimation.service import AbilityEstimateService
+from app.domains.onboarding.progress_repository import OnboardingProgressRepository
 from app.domains.positions.fit import (
     evaluate_position_fit,
     position_recommendation_sort_key,
@@ -88,6 +89,7 @@ class PositionDiscoveryService:
             qualification=self._qualification
         )
         self._ability = ability or AbilityEstimateService(qualification=self._qualification)
+        self._preferences = OnboardingProgressRepository()
 
     def search(
         self,
@@ -231,6 +233,18 @@ class PositionDiscoveryService:
             session,
             user_id=user_id,
         )
+        preference = (
+            self._preferences.current_position_preference(session, user_id=user_id)
+            if region is None
+            else None
+        )
+        preferred_regions = (
+            (region,)
+            if region is not None
+            else tuple(preference.preferred_regions if preference is not None else ())
+        )
+        accepts_relocation = preference.accepts_relocation if preference is not None else True
+        preference_version = preference.preference_version if preference is not None else None
         primary_position_id = self._confirmed_primary_goal_position_id(
             session,
             user_id=user_id,
@@ -250,6 +264,9 @@ class PositionDiscoveryService:
             profile_version=profile_version,
             ability=ability,
             region=region,
+            preferred_regions=preferred_regions,
+            accepts_relocation=accepts_relocation,
+            preference_version=preference_version,
             city=city,
             query=query,
             limit=limit,
@@ -298,6 +315,9 @@ class PositionDiscoveryService:
         profile_version: int,
         ability: AbilityEstimateCurrent,
         region: str | None,
+        preferred_regions: tuple[str, ...],
+        accepts_relocation: bool,
+        preference_version: int | None,
         city: str | None,
         query: str | None,
         limit: int,
@@ -316,35 +336,73 @@ class PositionDiscoveryService:
         context = _workspace_context_fingerprint(
             base_context=base_context,
             ability=ability,
+            preference_version=preference_version,
+            preferred_regions=preferred_regions,
+            accepts_relocation=accepts_relocation,
         )
-        # The workspace is a bounded recommendation surface, not the exhaustive
-        # position search.  Its fixed pool is four times the public maximum page
-        # size, so fit ranking is never a cosmetic reorder of only the visible page.
-        rows = (
-            session.execute(
-                text(_DISCOVERY_SQL),
-                {
-                    "user_id": user_id,
-                    "profile_version": profile_version,
-                    "exam_year": release.exam_year,
-                    "rule_set_version": release.rule_set_version,
-                    "position_data_version": release.position_data_version,
-                    "current_window_closes_at": release.current_window.closes_at,
-                    "region": region,
-                    "city": city,
-                    "query": query,
-                    "query_like": f"%{query}%" if query else None,
-                    "position_ids": None,
-                    "excluded_position_id": excluded_position_id,
-                    "cursor_rank": None,
-                    "cursor_headcount": None,
-                    "cursor_position_id": None,
-                    "limit_plus_one": WORKSPACE_CANDIDATE_POOL_LIMIT,
-                },
+
+        # The workspace is a bounded recommendation surface. Preferred-region
+        # rows receive a reserved candidate pool so a national headcount sort
+        # cannot evict the user's local choices before fit ranking begins.
+        def load_rows(*, candidate_region: str | None, candidate_limit: int) -> list[Any]:
+            return list(
+                session.execute(
+                    text(_DISCOVERY_SQL),
+                    {
+                        "user_id": user_id,
+                        "profile_version": profile_version,
+                        "exam_year": release.exam_year,
+                        "rule_set_version": release.rule_set_version,
+                        "position_data_version": release.position_data_version,
+                        "current_window_closes_at": release.current_window.closes_at,
+                        "region": candidate_region,
+                        "city": city,
+                        "query": query,
+                        "query_like": f"%{query}%" if query else None,
+                        "position_ids": None,
+                        "excluded_position_id": excluded_position_id,
+                        "cursor_rank": None,
+                        "cursor_headcount": None,
+                        "cursor_position_id": None,
+                        "limit_plus_one": candidate_limit,
+                    },
+                )
+                .mappings()
+                .all()
             )
-            .mappings()
-            .all()
-        )
+
+        row_sets: list[list[Any]] = []
+        if region is not None or not preferred_regions:
+            row_sets.append(
+                load_rows(
+                    candidate_region=region,
+                    candidate_limit=WORKSPACE_CANDIDATE_POOL_LIMIT,
+                )
+            )
+        else:
+            per_region_limit = max(
+                1,
+                WORKSPACE_CANDIDATE_POOL_LIMIT // len(preferred_regions),
+            )
+            row_sets.extend(
+                load_rows(
+                    candidate_region=preferred_region,
+                    candidate_limit=per_region_limit,
+                )
+                for preferred_region in preferred_regions
+            )
+            if accepts_relocation:
+                row_sets.append(
+                    load_rows(
+                        candidate_region=None,
+                        candidate_limit=WORKSPACE_CANDIDATE_POOL_LIMIT,
+                    )
+                )
+        rows_by_position: dict[str, Any] = {}
+        for candidate_rows in row_sets:
+            for candidate in candidate_rows:
+                rows_by_position.setdefault(str(candidate["position_id"]), candidate)
+        rows = list(rows_by_position.values())
         target_scores = self._target_scores.ranges_for_positions(
             session,
             position_ids=[str(row["position_id"]) for row in rows],
@@ -371,8 +429,10 @@ class PositionDiscoveryService:
             key=lambda item: position_recommendation_sort_key(
                 position=item,
                 fit=item.fit,
+                preferred_regions=preferred_regions,
             )
         )
+        ranked = ranked[:WORKSPACE_CANDIDATE_POOL_LIMIT]
         decoded = (
             _decode_workspace_cursor(
                 cursor,
@@ -811,6 +871,9 @@ def _workspace_context_fingerprint(
     *,
     base_context: str,
     ability: AbilityEstimateCurrent,
+    preference_version: int | None,
+    preferred_regions: tuple[str, ...],
+    accepts_relocation: bool,
 ) -> str:
     estimate = ability.estimate
     payload = {
@@ -820,6 +883,9 @@ def _workspace_context_fingerprint(
             estimate.estimate_version_id if estimate is not None else None
         ),
         "abilityInputFingerprint": (estimate.input_fingerprint if estimate is not None else None),
+        "positionPreferenceVersion": preference_version,
+        "preferredRegions": preferred_regions,
+        "acceptsRelocation": accepts_relocation,
     }
     raw = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     return sha256(raw.encode("utf-8")).hexdigest()[:24]

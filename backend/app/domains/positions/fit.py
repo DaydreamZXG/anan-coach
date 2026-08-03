@@ -38,7 +38,8 @@ def position_recommendation_sort_key(
     *,
     position: PositionDiscoveryItem,
     fit: PositionFitAssessment,
-) -> tuple[int, int, int, int, float, int, int, int, int, int, str]:
+    preferred_regions: tuple[str, ...] = (),
+) -> tuple[int, int, int, int, int, float, int, int, int, int, int, str]:
     """Return the stable workspace ordering key.
 
     Qualification is the first gate.  Within the same qualification state,
@@ -52,6 +53,11 @@ def position_recommendation_sort_key(
         "needs_confirmation": 1,
         "ineligible": 2,
     }[position.eligibility_status]
+    preference_rank = (
+        preferred_regions.index(position.region)
+        if position.region in preferred_regions
+        else len(preferred_regions)
+    )
     target_evidence_rank = (
         {
             "direct": 0,
@@ -73,6 +79,7 @@ def position_recommendation_sort_key(
     burden = fit.requirements_burden
     return (
         eligibility_rank,
+        preference_rank,
         target_evidence_rank,
         evidence_rank,
         band_rank,

@@ -24,10 +24,42 @@ interface AnnotationTestHost {
 
 interface CapturedAnnotationComponent {
   data: AnnotationTestData;
+  observers: {
+    "mode, strokes, replayMs"(this: AnnotationObserverHost): void;
+  };
   methods: {
     clearAll(this: AnnotationTestHost): Promise<void>;
     openMore(this: AnnotationTestHost): void;
   };
+}
+
+interface AnnotationObserverHost extends AnnotationTestHost {
+  data: AnnotationTestData & {
+    segments: unknown[];
+    scrollTop: number;
+    contentHeight: number;
+  };
+  createSelectorQuery(): {
+    select(selector: string): {
+      fields(options: Record<string, boolean>): void;
+    };
+    exec(
+      callback: (
+        results: Array<{
+          node: { width: number; height: number; getContext(type: string): CanvasContext };
+          width: number;
+          height: number;
+          left: number;
+          top: number;
+        }>,
+      ) => void,
+    ): void;
+  };
+}
+
+interface CanvasContext {
+  scale(x: number, y: number): void;
+  clearRect(x: number, y: number, width: number, height: number): void;
 }
 
 afterEach(() => {
@@ -105,6 +137,53 @@ describe("practice drawable draft tools", () => {
 
     expect(triggerEvent).toHaveBeenCalledWith("more");
   });
+
+  it("rebinds the canvas after hidden mode destroys the previous question node", async () => {
+    const definition = await captureAnnotationComponent();
+    const firstContext = canvasContext();
+    const secondContext = canvasContext();
+    const nodes = [canvasNode(firstContext), canvasNode(secondContext)];
+    let queryCount = 0;
+    const host: AnnotationObserverHost = {
+      data: {
+        ...cloneData(definition.data),
+        mode: "annotate",
+        strokes: [],
+        segments: [],
+        scrollTop: 0,
+        contentHeight: 800,
+      },
+      setData(patch) {
+        Object.assign(this.data, patch);
+      },
+      triggerEvent: vi.fn(),
+      createSelectorQuery() {
+        const node = nodes[queryCount];
+        queryCount += 1;
+        if (!node) throw new Error("unexpected extra canvas query");
+        return {
+          select(selector) {
+            expect(selector).toBe("#annotation-canvas");
+            return { fields: vi.fn() };
+          },
+          exec(callback) {
+            callback([{ node, width: 320, height: 480, left: 0, top: 0 }]);
+          },
+        };
+      },
+    };
+
+    definition.observers["mode, strokes, replayMs"].call(host);
+    host.data.mode = "hidden";
+    definition.observers["mode, strokes, replayMs"].call(host);
+    host.data.mode = "annotate";
+    definition.observers["mode, strokes, replayMs"].call(host);
+
+    expect(queryCount).toBe(2);
+    expect(firstContext.scale).toHaveBeenCalledOnce();
+    expect(secondContext.scale).toHaveBeenCalledOnce();
+    expect(secondContext.clearRect).toHaveBeenCalled();
+  });
 });
 
 async function captureAnnotationComponent(
@@ -117,10 +196,28 @@ async function captureAnnotationComponent(
   vi.stubGlobal("wx", {
     showModal,
     showToast: vi.fn(() => Promise.resolve()),
+    nextTick: (callback: () => void) => callback(),
+    getWindowInfo: () => ({ pixelRatio: 2 }),
   });
+  vi.stubGlobal("setTimeout", vi.fn());
   await import("../miniprogram/task-runtime/annotation-layer/index");
   if (!captured) throw new Error("annotation layer was not registered");
   return captured;
+}
+
+function canvasContext(): CanvasContext {
+  return {
+    scale: vi.fn(),
+    clearRect: vi.fn(),
+  };
+}
+
+function canvasNode(context: CanvasContext) {
+  return {
+    width: 0,
+    height: 0,
+    getContext: vi.fn(() => context),
+  };
 }
 
 function cloneData(data: AnnotationTestData): AnnotationTestData {

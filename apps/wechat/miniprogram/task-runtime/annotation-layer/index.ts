@@ -352,10 +352,12 @@ Component({
   },
   observers: {
     "mode, strokes, replayMs"(this: AnnotationLayerHost) {
-      // 退出批注模式即会话结束：重置手掌抑制的压感先例标志
-      //（detached 时 runtimes.delete 已整体重置）。
+      // wx:if 会在 hidden 时销毁 canvas 节点。WeakMap 中的 context 不会
+      // 自动感知节点已卸载，若继续复用就会把下一题的笔迹画到旧节点。
+      // 隐藏时丢弃整个运行时，下次 annotate 必须重查节点并重建 context。
       if (this.data.mode === "hidden") {
-        runtime(this).sessionSawPressure = false;
+        runtimes.delete(this);
+        return;
       }
       scheduleRedraw(this);
     },
