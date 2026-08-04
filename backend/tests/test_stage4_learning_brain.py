@@ -201,7 +201,7 @@ def test_learning_brain_replays_same_inputs_without_inventing_evidence(
         assert "learning_brain" in [
             item.reference.kind for item in _context_retrieval_candidates(companion_context)
         ]
-        persona = _build_persona_prompt(companion_context)
+        persona = _build_persona_prompt()
         assert "岸岸" in persona
         assert "沈砚" not in persona
         assert (

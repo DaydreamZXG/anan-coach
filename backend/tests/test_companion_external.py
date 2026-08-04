@@ -40,7 +40,6 @@ from app.domains.commerce.app_store import (
 from app.domains.commerce.repository import CommerceRepository
 from app.domains.commerce.service import CommerceService
 from app.domains.companion.commands import CompanionCommandRepository
-from app.domains.companion.agent import CompanionActionRequest
 from app.domains.companion.repository import CompanionContextRecord, CompanionRepository
 from app.domains.companion.router import get_companion_service
 from app.domains.companion.schemas import CompanionAskRequest
@@ -139,7 +138,6 @@ class FakeCompanionAIProvider:
             answer = f"基于 {context['practiceAnswers']} 次练习，先修复资料分析增长率。"
             result = AICompanionAnswerResult(
                 answer=answer,
-                next_actions=["回看增长率方法卡", "再做 3 道同类题"],
                 source_refs=[source_ref],
                 confidence="medium",
                 limitations=["仅基于当前已确认学习证据。"],
@@ -178,18 +176,13 @@ class OvereagerActionProvider(FakeCompanionAIProvider):
         prepared: dict[str, object],
         idempotency_key: str | None,
     ) -> AICompanionAnswerResult:
-        result = super().answer_prepared_companion_question(
+        # The provider contract no longer carries model-proposed actions; the
+        # server derives navigation actions from the classified intent. The
+        # subclass keeps the base behavior so ask:409 stays an explicit
+        # requests=() drop of any model action output.
+        return super().answer_prepared_companion_question(
             prepared=prepared,
             idempotency_key=idempotency_key,
-        )
-        return replace(
-            result,
-            requested_actions=(
-                CompanionActionRequest(
-                    name="open_private_library",
-                    arguments={},
-                ),
-            ),
         )
 
 class TimeoutAfterAcceptOnceProvider(FakeCompanionAIProvider):
@@ -357,7 +350,7 @@ def test_companion_brain_carries_essay_review_reflection_and_plan_without_raw_an
         "essay_learning",
         "target_position",
     ]
-    persona = _build_persona_prompt(context)
+    persona = _build_persona_prompt()
     assert "岸岸" in persona
     assert "同时负责行测和申论" in persona
     assert "不得直接据此推断岗位总分差" in persona
@@ -558,7 +551,7 @@ def test_production_provider_replay_uses_identical_key_and_request_bytes() -> No
     )
 
     assert first.answer == replay.answer
-    assert first.next_actions == replay.next_actions
+    assert first.source_refs == replay.source_refs
     assert first.usage == replay.usage
     assert first.output_fingerprint == replay.output_fingerprint
     assert requests[0] == requests[1]
@@ -581,9 +574,8 @@ def test_deepseek_companion_uses_indexed_json_and_maps_authorized_sources() -> N
                         "message": {
                             "content": (
                                 '{"answer":"可以，先完成今天的基线任务。",'
-                                '"nextActions":["查看今日计划"],"sourceIndexes":[1],'
-                                '"confidence":"medium","limitations":[],'
-                                '"requestedActions":[]}'
+                                '"sourceIndexes":[1],"confidence":"medium",'
+                                '"limitations":[]}'
                             )
                         }
                     }
@@ -746,8 +738,15 @@ def test_companion_ask_is_quota_gated_and_audited(
         assert log["provider"] == "fake_companion_provider"
         assert log["status"] == "succeeded"
         assert log["metadata"]["scenario"] == "tutoring_explanation"
-        assert log["metadata"]["agentRequestedToolCount"] == 0
-        assert log["metadata"]["agentSucceededToolCount"] == 0
+        assert log["metadata"]["fallbackActionCount"] == 1
+        assert log["metadata"]["fallbackActions"] == [
+            {
+                "kind": "open_training",
+                "label": "查看今日训练安排",
+                "targetRef": "/pages/today/index",
+                "requiresConfirmation": False,
+            }
+        ]
         assert "context" not in log["metadata"]
 
 

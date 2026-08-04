@@ -177,7 +177,6 @@ class HunyuanCompanionProvider(AIProvider):
             ) from exc
         return AICompanionAnswerResult(
             answer=parsed.answer,
-            next_actions=parsed.next_actions,
             source_refs=parsed.source_refs,
             confidence=parsed.confidence,
             limitations=parsed.limitations,
@@ -191,7 +190,6 @@ class HunyuanCompanionProvider(AIProvider):
             output_fingerprint=result.output_fingerprint,
             provider_request_id_header="X-Request-Id",
             provider_request_id_fingerprint=sha256(result.request_id.encode("utf-8")).hexdigest(),
-            requested_actions=tuple(parsed.requested_actions),
         )
 
 

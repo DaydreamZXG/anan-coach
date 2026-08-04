@@ -156,7 +156,7 @@ def test_selected_citation_uses_public_summary_instead_of_json_excerpt() -> None
 
 
 def test_persona_forbids_internal_identifiers_in_user_answers() -> None:
-    prompt = _build_persona_prompt(_context())
+    prompt = _build_persona_prompt()
 
     assert "不得输出 JSON" in prompt
     assert "版本号或内部来源标识" in prompt

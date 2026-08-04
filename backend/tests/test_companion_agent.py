@@ -7,9 +7,10 @@ from app.domains.companion.agent import (
     execute_companion_actions,
     is_capacity_change_request,
     requested_plan_focus,
+    requested_plan_minutes,
     requested_weekly_schedule,
 )
-from app.domains.companion.service import _allowed_actions, _requested_plan_minutes
+from app.domains.companion.service import _allowed_actions
 
 
 def planner_decision() -> IntentDecision:
@@ -27,14 +28,14 @@ def planner_decision() -> IntentDecision:
 
 
 def test_extracts_explicit_same_day_capacity_without_guessing() -> None:
-    assert _requested_plan_minutes("今晚只能学1小时，帮我重新安排") == 60
-    assert _requested_plan_minutes("今天只有90分钟") == 90
-    assert _requested_plan_minutes("今天只能学1小时30分钟") == 90
-    assert _requested_plan_minutes("今天只能学1小时半") == 90
-    assert _requested_plan_minutes("今天休息，不要安排任务") == 0
-    assert _requested_plan_minutes("帮我调整一下今天的计划") is None
-    assert _requested_plan_minutes("我有8项任务") is None
-    assert _requested_plan_minutes("今天学25小时") is None
+    assert requested_plan_minutes("今晚只能学1小时，帮我重新安排") == 60
+    assert requested_plan_minutes("今天只有90分钟") == 90
+    assert requested_plan_minutes("今天只能学1小时30分钟") == 90
+    assert requested_plan_minutes("今天只能学1小时半") == 90
+    assert requested_plan_minutes("今天休息，不要安排任务") == 0
+    assert requested_plan_minutes("帮我调整一下今天的计划") is None
+    assert requested_plan_minutes("我有8项任务") is None
+    assert requested_plan_minutes("今天学25小时") is None
 
 
 def test_plan_action_carries_only_the_explicit_capacity_to_preview() -> None:
