@@ -86,11 +86,31 @@ class CauseAgentTools:
     def load_attempt_evidence(self, arguments: dict[str, Any]) -> dict[str, Any]:
         self._require_scope(arguments)
         rows = self._reviewable_attempt_rows()
+        bundle_row = self._repository.session_bundle(
+            self._session,
+            user_id=self._user_id,
+            session_id=self._session_id,
+        )
+        if bundle_row is None:
+            raise PermissionError("task session is not owned by the frozen learner scope")
+        safe_bundle = dict(bundle_row["safe_bundle"])
+        questions = {
+            str(item["questionId"]): item
+            for item in safe_bundle.get("questions", [])
+            if isinstance(item, dict) and item.get("questionId")
+        }
+        reviewable_question_ids = {str(row["question_id"]) for row in rows}
+        material_ids = {
+            str(question["materialId"])
+            for question_id, question in questions.items()
+            if question_id in reviewable_question_ids and question.get("materialId")
+        }
         return {
             "contractVersion": "xingce-attempt-evidence@v1",
             "items": [
                 {
                     "questionId": str(row["question_id"]),
+                    "question": _compact_question(questions.get(str(row["question_id"]))),
                     "resultCode": str(row["result_code"]),
                     # 原始 answer payload 还包含全量笔迹点和动作事件；
                     # 这些已由 action-trace 工具去重摘要，不再重复发给模型。
@@ -104,9 +124,20 @@ class CauseAgentTools:
                 }
                 for row in rows
             ],
+            "materials": [
+                _compact_material(material)
+                for material in safe_bundle.get("materials", [])
+                if isinstance(material, dict)
+                and str(material.get("materialId", "")) in material_ids
+            ],
             "evidenceRefs": [
                 f"assessment:{row['assessment_id']}" for row in rows
             ]
+            + list(
+                dict.fromkeys(
+                    f"content-version:{row['content_version_id']}" for row in rows
+                )
+            )
             + [
                 f"question-dispute:{row['question_id']}"
                 for row in rows
@@ -385,6 +416,61 @@ def _collect_anchored_segments(
         "anchoredSegments": segments,
         "anchoredSummary": "用户依次标记了" + "、".join(text_parts),
     }
+
+
+def _compact_question(question: Any) -> dict[str, Any] | None:
+    if not isinstance(question, dict):
+        return None
+    return {
+        "stem": str(question.get("stem", "")).strip(),
+        "materialId": (
+            str(question["materialId"]) if question.get("materialId") is not None else None
+        ),
+        "options": [
+            {
+                "optionId": str(option.get("optionId", "")),
+                "label": str(option.get("label", "")),
+                "text": str(option.get("text", "")),
+            }
+            for option in question.get("options", [])
+            if isinstance(option, dict)
+        ],
+    }
+
+
+def _compact_material(material: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "materialId": str(material.get("materialId", "")),
+        "title": material.get("title"),
+        "text": material.get("text"),
+        "content": [
+            _compact_content_block(block)
+            for block in material.get("content", [])
+            if isinstance(block, dict)
+        ],
+    }
+
+
+def _compact_content_block(block: dict[str, Any]) -> dict[str, Any]:
+    kind = str(block.get("type", ""))
+    if kind == "paragraph":
+        return {"type": kind, "text": str(block.get("text", ""))}
+    if kind == "formula":
+        return {"type": kind, "expression": str(block.get("expression", ""))}
+    if kind == "table":
+        return {
+            "type": kind,
+            "cells": [
+                {
+                    "row": cell.get("row"),
+                    "column": cell.get("column"),
+                    "text": str(cell.get("text", "")),
+                }
+                for cell in block.get("cells", [])
+                if isinstance(cell, dict)
+            ],
+        }
+    return {"type": kind, "altText": str(block.get("altText", ""))}
 
 
 def _pick(source: dict[str, Any], fields: tuple[str, ...]) -> dict[str, Any]:

@@ -440,10 +440,10 @@
   align-items: center;
   padding: calc(16 * var(--rpx)) var(--space-page-x)
     calc(calc(16 * var(--rpx)) + env(safe-area-inset-bottom));
-  border-top: calc(1 * var(--rpx)) solid var(--color-line);
-  background: var(--color-surface-a94);
-  box-shadow: var(--shadow-dock);
-  backdrop-filter: blur(calc(24 * var(--rpx)));
+  border-top: 0;
+  background: transparent;
+  box-shadow: none;
+  pointer-events: none;
 }
 
 .task-tool-button {
@@ -460,6 +460,7 @@
 .task-footer-main {
   flex: 1;
   min-width: 0;
+  pointer-events: auto;
 }
 
 @media (min-width: 768px) {

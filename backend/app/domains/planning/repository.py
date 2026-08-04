@@ -17,6 +17,7 @@ from app.domains.knowledge.module_vocabulary import (
     load_current_module_vocabulary,
 )
 from app.domains.planning.candidates import (
+    ACTIONABLE_REFLECTION_STATES,
     EssayPlanningSnapshot,
     ObjectivePlanningSnapshot,
 )
@@ -676,16 +677,14 @@ class PlanningRepository:
                     """
                     select review.review_version_id::text,
                            review.review_id::text,
-                           review.session_id::text
+                           review.session_id::text,
+                           review.state
                     from learning.xingce_attempt_review_versions review
                     join learning.xingce_task_sessions task_session
                       on task_session.session_id = review.session_id
                      and task_session.user_id = review.user_id
                     where review.user_id = cast(:user_id as uuid)
-                      and review.state in (
-                        'reflection_due', 'cause_candidate_pending',
-                        'cause_decision_due'
-                      )
+                      and review.state = any(cast(:actionable_states as text[]))
                       and task_session.state = 'submitted'
                       and not exists (
                         select 1
@@ -696,7 +695,10 @@ class PlanningRepository:
                     order by review.created_at, review.review_id
                     """
                 ),
-                {"user_id": user_id},
+                {
+                    "user_id": user_id,
+                    "actionable_states": list(ACTIONABLE_REFLECTION_STATES),
+                },
             ).mappings()
         )
         due_mastery = list(
@@ -841,6 +843,9 @@ class PlanningRepository:
             baseline_question_count=baseline_question_count,
             targeted_question_count=targeted_question_count,
             verification_question_count=verification_question_count,
+            due_reflection_state=(
+                str(first_reflection["state"]) if first_reflection is not None else None
+            ),
         )
 
     def essay_snapshot(

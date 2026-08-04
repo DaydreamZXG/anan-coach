@@ -520,7 +520,8 @@
   left: 0;
   box-sizing: border-box;
   padding: calc(32 * var(--rpx)) calc(40 * var(--rpx)) calc(48 * var(--rpx));
-  background: var(--bg);
+  background: transparent;
+  pointer-events: none;
 }
 
 .composer-surface {
@@ -535,6 +536,7 @@
   border-radius: var(--radius-capsule);
   background: var(--color-surface);
   box-shadow: var(--shadow-card-strong);
+  pointer-events: auto;
 }
 
 .composer-input {

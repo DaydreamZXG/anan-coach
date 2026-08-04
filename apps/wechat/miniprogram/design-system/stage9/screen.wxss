@@ -226,10 +226,14 @@
   box-sizing: border-box;
   padding: calc(18 * var(--rpx)) calc(32 * var(--rpx))
     calc(calc(18 * var(--rpx)) + env(safe-area-inset-bottom));
-  border-top: calc(1 * var(--rpx)) solid var(--color-line);
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: var(--shadow-dock);
-  backdrop-filter: blur(calc(26 * var(--rpx)));
+  border-top: 0;
+  background: transparent;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.s9-action-dock > * {
+  pointer-events: auto;
 }
 
 .s9-action-row {

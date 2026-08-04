@@ -36,6 +36,43 @@ class _Repository:
             }
         }
 
+    def session_bundle(self, *_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        return {
+            "safe_bundle": {
+                "questions": [
+                    {
+                        "questionId": "answered-wrong",
+                        "materialId": "material-1",
+                        "stem": "下列说法正确的是？",
+                        "options": [
+                            {"optionId": "A", "label": "A", "text": "正确选项"},
+                            {"optionId": "B", "label": "B", "text": "错误选项"},
+                        ],
+                    },
+                    {
+                        "questionId": "auto-unanswered",
+                        "materialId": None,
+                        "stem": "未作答题不应进入错因分析",
+                        "options": [],
+                    },
+                ],
+                "materials": [
+                    {
+                        "materialId": "material-1",
+                        "title": "共享材料",
+                        "text": "甲地公共服务投入持续增长。",
+                        "content": [
+                            {
+                                "type": "paragraph",
+                                "text": "甲地公共服务投入持续增长。",
+                            }
+                        ],
+                    }
+                ],
+            },
+            "scoring_bundle": {},
+        }
+
 
 def test_auto_finalized_unanswered_items_do_not_enter_cause_model_evidence() -> None:
     tools = CauseAgentTools(
@@ -58,7 +95,28 @@ def test_auto_finalized_unanswered_items_do_not_enter_cause_model_evidence() -> 
     assert [item["questionId"] for item in trace["items"]] == ["answered-wrong"]
     assert "annotations" not in attempt["items"][0]["answer"]
     assert "actionEvents" not in attempt["items"][0]["answer"]
-    assert attempt["evidenceRefs"] == ["assessment:answered-wrong"]
+    assert attempt["items"][0]["question"] == {
+        "stem": "下列说法正确的是？",
+        "materialId": "material-1",
+        "options": [
+            {"optionId": "A", "label": "A", "text": "正确选项"},
+            {"optionId": "B", "label": "B", "text": "错误选项"},
+        ],
+    }
+    assert attempt["materials"] == [
+        {
+            "materialId": "material-1",
+            "title": "共享材料",
+            "text": "甲地公共服务投入持续增长。",
+            "content": [
+                {"type": "paragraph", "text": "甲地公共服务投入持续增长。"}
+            ],
+        }
+    ]
+    assert attempt["evidenceRefs"] == [
+        "assessment:answered-wrong",
+        "content-version:content-answered-wrong",
+    ]
 
 
 def _attempt_row(

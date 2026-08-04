@@ -15,6 +15,20 @@ from app.domains.xingce_learning.contracts import (
 AbilityReadiness = Literal["unavailable", "partial", "complete", "stale"]
 ObjectiveClosureReadiness = Literal["available", "unavailable"]
 EssayClosureReadiness = Literal["available", "unavailable"]
+ActionableReflectionState = Literal[
+    "reflection_due",
+    "cause_followup_due",
+    "cause_decision_due",
+    "cause_evidence_insufficient",
+    "cause_agent_terminated",
+]
+ACTIONABLE_REFLECTION_STATES: tuple[ActionableReflectionState, ...] = (
+    "reflection_due",
+    "cause_followup_due",
+    "cause_decision_due",
+    "cause_evidence_insufficient",
+    "cause_agent_terminated",
+)
 EssayNextStage = Literal[
     "content_unavailable",
     "baseline_due",
@@ -58,6 +72,7 @@ class ObjectivePlanningSnapshot:
     baseline_question_count: int = 0
     targeted_question_count: int = 0
     verification_question_count: int = 0
+    due_reflection_state: ActionableReflectionState | None = None
 
     def __post_init__(self) -> None:
         if (
@@ -284,16 +299,22 @@ def _objective_candidates(
             )
         )
     if snapshot.closure_readiness == "available" and (snapshot.due_reflection_count or 0) > 0:
+        reflection_title, reflection_reason, reflection_completion_rule = (
+            _reflection_candidate_copy(
+                snapshot.due_reflection_state,
+                snapshot.due_reflection_count or 0,
+            )
+        )
         candidates.append(
             TaskCandidate(
                 candidate_key="xingce-due-reflection",
                 track="xingce",
                 stage="objective_reflection",
                 kind="reflection",
-                title="复盘高价值行测错题",
-                reason=f"有 {snapshot.due_reflection_count} 项错误尚未形成可验证的修复动作。",
+                title=reflection_title,
+                reason=reflection_reason,
                 estimated_minutes=15,
-                completion_rule="确认原始思路、错因候选和下一次识别信号。",
+                completion_rule=reflection_completion_rule,
                 start_url=(
                     "/pages/reflection/index?sessionId="
                     f"{snapshot.due_reflection_session_id}&reviewId="
@@ -363,6 +384,35 @@ def _objective_candidates(
             )
         )
     return candidates
+
+
+def _reflection_candidate_copy(
+    state: ActionableReflectionState | None,
+    count: int,
+) -> tuple[str, str, str]:
+    if state == "cause_followup_due":
+        return (
+            "回答岸岸的一次追问",
+            f"有 {count} 项错因还差一条关键信息，补充后岸岸会继续整理。",
+            "回答当前追问，让后台继续形成可核对的错因判断。",
+        )
+    if state in ("cause_decision_due", "cause_evidence_insufficient"):
+        return (
+            "查看岸岸整理结果",
+            f"岸岸已整理好 {count} 项错因结果，可以直接查看或调整。",
+            "查看岸岸的判断；需要时再补充或调整，不强制逐项确认。",
+        )
+    if state == "cause_agent_terminated":
+        return (
+            "处理未完成的错因整理",
+            f"有 {count} 项后台整理没有完成，可以重试、补充或暂时跳过。",
+            "选择重试、补充证据或跳过本次整理。",
+        )
+    return (
+        "复盘高价值行测错题",
+        f"有 {count} 项错误尚未形成可验证的修复动作。",
+        "写下原始思路后即可离开，岸岸会在后台继续整理。",
+    )
 
 
 def _baseline_candidate(

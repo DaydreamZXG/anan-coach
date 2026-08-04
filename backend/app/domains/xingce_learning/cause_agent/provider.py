@@ -173,6 +173,8 @@ class CauseAgentProvider:
             "contractVersion": CAUSE_AGENT_PROVIDER_INPUT_VERSION,
             "instruction": (
                 "你是行测解题 Agent。只根据 evidence 判断；不得把推测写成事实。"
+                "attempt.items[].question 是与本次作答绑定的冻结题干和选项；"
+                "共享材料只在 attempt.materials 中提供一次，按 materialId 关联。"
                 "actionTrace 与 inkFormulas 是作答动作与手写公式的客观记录："
                 "只可描述其中可见的行为和公式；某题 events 为空、没有笔画或没有"
                 "公式时，必须视为该题过程未知，不得编造作答过程或书写内容；"

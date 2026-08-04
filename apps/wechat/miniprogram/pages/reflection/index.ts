@@ -945,6 +945,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
     }
     runtime.submitting = true;
     this.setData({ interactionLocked: true, pendingMessage: "正在写入你的原话复盘…" });
+    let returnToTodayForBackgroundCause = false;
     try {
       if (!pending) {
         const voiceArtifactVersionIds = runtime.mediaDraft.voiceSegments.flatMap((segment) =>
@@ -994,6 +995,8 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       runtime.mediaDraft = loadReflectionLearningMediaDraft(runtime.ownerUserId, runtime.reviewId);
       void deleteVoiceFiles(localPaths);
       applySession(this, runtime, response.data);
+      returnToTodayForBackgroundCause =
+        response.data.review?.state === "cause_candidate_pending";
     } catch (error) {
       if (!runtimeIsActive(this, runtime)) return;
       if (error instanceof ApiClientError && error.statusCode === 409) {
@@ -1004,6 +1007,14 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       handleWriteError(this, error, "复盘提交结果尚未确认，请重试同一命令。");
     } finally {
       runtime.submitting = false;
+    }
+    if (returnToTodayForBackgroundCause && runtimeIsActive(this, runtime)) {
+      void wx.showToast({ title: "岸岸会在后台整理", icon: "none" });
+      try {
+        void wx.switchTab({ url: routes.today });
+      } catch {
+        // 导航失败时保留当前处理页；已有轮询会继续恢复结果，不能重发已成功的写入。
+      }
     }
   },
 
