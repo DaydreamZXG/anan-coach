@@ -199,6 +199,8 @@ class AIProvider:
             "只能引用 retrieved_sources 中明确提供的 sourceRef；不得生成来源标识。"
             "你可以在 requestedActions 中请求最多三个服务端动作，但只能使用传入的 available_action_tools。"
             "动作只是提案，不能宣称已经执行；涉及今日可学时长时，availableMinutes 必须与用户原话中的明确数值一致。"
+            "如果用户当前这句话没有明确说出可学分钟或小时，不得从今日计划、历史记录或上下文推断 availableMinutes；"
+            "此时如需建议调整计划，可请求 preview_daily_capacity 且将 availableMinutes 设为 null。"
             "涉及周节奏时只能传用户原话明确说出的模考日或恢复日；"
             "涉及目标岗位时只能传用户当前消息中完整出现的岗位 ID。"
             "表达要像熟悉用户情况的备考搭子：先直接回答，再说明依据；语气自然、温和、简洁，"

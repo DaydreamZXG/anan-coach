@@ -12,7 +12,7 @@ from app.domains.ai.agent_runtime.runtime import BoundedToolRuntime
 from app.domains.companion.schemas import CompanionAllowedAction
 
 
-COMPANION_AGENT_DEFINITION_RELEASE = "companion-action-agent-2026-08-03.2"
+COMPANION_AGENT_DEFINITION_RELEASE = "companion-action-agent-2026-08-04.1"
 COMPANION_ACTION_POLICY_VERSION = "companion-action-proposal@v2"
 
 Weekday = Literal[
@@ -159,6 +159,15 @@ def execute_companion_actions(
 
     def preview_capacity(arguments: dict[str, Any]) -> dict[str, Any]:
         parsed = _CapacityArguments.model_validate(arguments)
+        # The model may copy a duration from the current plan even when the
+        # learner did not ask for that duration. Keep the useful navigation
+        # proposal, but strip the invented value so the preview opens in manual
+        # mode. An explicit learner-provided value must still match exactly.
+        if explicit_minutes is None:
+            return _capacity_action(None).model_dump(
+                by_alias=True,
+                mode="json",
+            )
         if parsed.available_minutes != explicit_minutes:
             raise PermissionError("capacity proposal does not match the explicit user request")
         return _capacity_action(parsed.available_minutes).model_dump(

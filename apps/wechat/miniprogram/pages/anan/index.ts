@@ -174,6 +174,10 @@ Page({
   },
 
   onShow() {
+    if (!currentAuthSession()) {
+      void wx.reLaunch({ url: routes.login });
+      return;
+    }
     if (typeof this.getTabBar === "function") {
       this.getTabBar().setData({ active: "anan" });
     }
@@ -292,7 +296,10 @@ Page({
       new LearningBrainApi(client).getProfile().then(({ data }) => data),
       loadTodayDashboardIfReady(client),
     ]);
-    if (!sameSessionOwner(currentAuthSession(), auth)) return;
+    if (!sameSessionOwner(currentAuthSession(), auth)) {
+      this.recoverExpiredSession();
+      return;
+    }
     const refreshingPatch: {
       profileRefreshing?: boolean;
       todayRefreshing?: boolean;
@@ -336,7 +343,10 @@ Page({
       new LearningBrainApi(client).getProfile().then(({ data }) => data),
     ]);
     runtime.profileRetryInFlight = false;
-    if (!sameSessionOwner(currentAuthSession(), auth)) return;
+    if (!sameSessionOwner(currentAuthSession(), auth)) {
+      this.recoverExpiredSession();
+      return;
+    }
     if (runtime.profileGeneration !== profileGeneration) return;
     runtime.profileSource = settledContextSource(
       profileResult,
@@ -361,7 +371,10 @@ Page({
     this.setData({ todayRefreshing: true });
     const [todayResult] = await Promise.allSettled([loadTodayDashboardIfReady(client)]);
     runtime.todayRetryInFlight = false;
-    if (!sameSessionOwner(currentAuthSession(), auth)) return;
+    if (!sameSessionOwner(currentAuthSession(), auth)) {
+      this.recoverExpiredSession();
+      return;
+    }
     if (runtime.todayGeneration !== todayGeneration) return;
     runtime.todaySource = settledTodayContextSource(
       todayResult,
@@ -512,7 +525,10 @@ Page({
         attempt.idempotencyKey,
       );
       attempts.markSucceeded(companionAskScope, attempt.idempotencyKey);
-      if (!sameSessionOwner(currentAuthSession(), auth)) return;
+      if (!sameSessionOwner(currentAuthSession(), auth)) {
+        this.recoverExpiredSession();
+        return;
+      }
       this.setData({
         submitting: false,
         askAvailable: this.data.profileAskAvailable,
@@ -530,7 +546,10 @@ Page({
           attempts.markTransportUnknown(companionAskScope, attempt.idempotencyKey);
         else attempts.markTerminal(companionAskScope, attempt.idempotencyKey);
       }
-      if (!sameSessionOwner(currentAuthSession(), auth)) return;
+      if (!sameSessionOwner(currentAuthSession(), auth)) {
+        this.recoverExpiredSession();
+        return;
+      }
       const view = unknownOutcome ? transportUnknownView(error) : companionFailureView(error);
       this.setData({
         submitting: false,
@@ -559,6 +578,14 @@ Page({
       companionIntent: "companion",
     });
     this.syncAskAvailability();
+  },
+
+  recoverExpiredSession() {
+    // A 401 clears the exact session that owned the request. Do not leave the
+    // composer spinning while this page is still bound to that expired owner.
+    if (currentAuthSession()) return;
+    this.setData({ submitting: false, askAvailable: false });
+    void wx.reLaunch({ url: routes.login });
   },
 
   retryContext() {

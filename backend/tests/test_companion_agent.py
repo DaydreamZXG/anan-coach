@@ -99,6 +99,24 @@ def test_model_cannot_invent_capacity_and_server_keeps_safe_fallback() -> None:
     assert any(event["eventType"] == "failed" for event in outcome.events)
 
 
+def test_inferred_capacity_is_stripped_when_user_did_not_state_a_duration() -> None:
+    outcome = execute_companion_actions(
+        requests=[
+            CompanionActionRequest(
+                name="preview_daily_capacity",
+                arguments={"availableMinutes": 60},
+            )
+        ],
+        question_text="今天行测想学资料分析",
+        fallback_actions=[],
+    )
+
+    assert outcome.succeeded_count == 1
+    assert outcome.actions[0].target_ref == "/pages/day-adjustment/index"
+    assert outcome.actions[0].label == "预览今日计划调整"
+    assert not any(event["eventType"] == "failed" for event in outcome.events)
+
+
 def test_action_registry_exposes_private_library_without_accepting_arguments() -> None:
     outcome = execute_companion_actions(
         requests=[CompanionActionRequest(name="open_private_library", arguments={})],
