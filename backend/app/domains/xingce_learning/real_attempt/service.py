@@ -65,8 +65,6 @@ from app.domains.task_runtime.xingce_attempt import XingceTaskRuntimeRepository
 from app.domains.task_content.service import (
     TaskContentContractError,
     freeze_learner_bundle,
-    public_question_asset_url as _task_public_question_asset_url,
-    safe_rich_html as _task_safe_rich_html,
 )
 from app.platform.outbox import OutboxRepository
 
@@ -2160,10 +2158,6 @@ def _selection_lineage_refs(
     return refs
 
 
-def _safe_rich_html(value: object) -> str | None:
-    return _task_safe_rich_html(value)
-
-
 def _task_scope(task: RowMapping) -> tuple[str, str | None]:
     if task["stage"] == "objective_baseline":
         return "baseline", None
@@ -2345,7 +2339,3 @@ def _json(value: object) -> str:
 def _utc(value: datetime | None) -> datetime:
     current = value or datetime.now(UTC)
     return current.astimezone(UTC)
-
-
-def _public_question_asset_url(value: object) -> str | None:
-    return _task_public_question_asset_url(value)

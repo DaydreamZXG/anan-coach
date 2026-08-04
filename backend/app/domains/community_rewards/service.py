@@ -92,58 +92,6 @@ class CommunityRewardService:
             eligible=eligible,
         )
 
-    def consume_from_award(
-        self,
-        *,
-        award_id: UUID,
-        beneficiary_user_id: UUID,
-        value: int,
-        idempotency_key: str,
-        reason_code: str,
-        evidence_refs: tuple[str, ...],
-    ) -> tuple[CommunityRewardAward, CommunityRewardLedgerEntry]:
-        _validate_lot_mutation(
-            value=value,
-            idempotency_key=idempotency_key,
-            reason_code=reason_code,
-            evidence_refs=evidence_refs,
-        )
-        return self._repository.consume_award(
-            award_id=award_id,
-            beneficiary_user_id=beneficiary_user_id,
-            value=value,
-            idempotency_key=idempotency_key,
-            reason_code=reason_code,
-            evidence_refs=evidence_refs,
-            occurred_at=self._now(),
-        )
-
-    def reverse_unused_award_value(
-        self,
-        *,
-        award_id: UUID,
-        beneficiary_user_id: UUID,
-        value: int,
-        idempotency_key: str,
-        reason_code: str,
-        evidence_refs: tuple[str, ...],
-    ) -> tuple[CommunityRewardAward, CommunityRewardLedgerEntry]:
-        _validate_lot_mutation(
-            value=value,
-            idempotency_key=idempotency_key,
-            reason_code=reason_code,
-            evidence_refs=evidence_refs,
-        )
-        return self._repository.reverse_unused_award_value(
-            award_id=award_id,
-            beneficiary_user_id=beneficiary_user_id,
-            value=value,
-            idempotency_key=idempotency_key,
-            reason_code=reason_code,
-            evidence_refs=evidence_refs,
-            occurred_at=self._now(),
-        )
-
     def list_awards(self, *, beneficiary_user_id: UUID) -> list[CommunityRewardAward]:
         return self._repository.list_awards(beneficiary_user_id=beneficiary_user_id)
 
@@ -195,20 +143,3 @@ def _validate_policy(command: PublishRewardPolicy) -> None:
         raise CommunityRewardPolicyError(
             "rules_sha256 must cover the complete published economic policy"
         )
-
-
-def _validate_lot_mutation(
-    *,
-    value: int,
-    idempotency_key: str,
-    reason_code: str,
-    evidence_refs: tuple[str, ...],
-) -> None:
-    if value <= 0:
-        raise ValueError("value must be positive")
-    if not idempotency_key.strip():
-        raise ValueError("idempotency_key is required")
-    if not reason_code.strip():
-        raise ValueError("reason_code is required")
-    if not evidence_refs:
-        raise ValueError("at least one evidence reference is required")

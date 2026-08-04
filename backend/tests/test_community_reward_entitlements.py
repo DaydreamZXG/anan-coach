@@ -9,10 +9,7 @@ from sqlalchemy.orm import Session, sessionmaker
 
 from app.domains.commerce.repository import CommerceRepository
 from app.domains.commerce.service import CommerceService
-from app.domains.community_rewards.repository import (
-    CommunityRewardUnusedValueExceededError,
-    SqlCommunityRewardRepository,
-)
+from app.domains.community_rewards.repository import SqlCommunityRewardRepository
 from app.domains.community_rewards.schemas import CommunityRewardLedgerResponse
 from app.domains.community_rewards.service import CommunityRewardService
 
@@ -90,17 +87,6 @@ def test_catalog_quota_precedes_fifo_reward_reservation_and_direct_worker_consum
             now=lambda: NOW,
         ).get_ledger_summary(beneficiary_user_id=user_id)
         assert summary_before.ai_quota_balance == 3
-
-        with pytest.raises(CommunityRewardUnusedValueExceededError):
-            SqlCommunityRewardRepository(session).reverse_unused_award_value(
-                award_id=first_award,
-                beneficiary_user_id=user_id,
-                value=2,
-                idempotency_key=f"reverse:{first_award}",
-                reason_code="source_milestone_invalidated",
-                evidence_refs=("moderation:test",),
-                occurred_at=NOW,
-            )
 
         consumed = CommerceRepository(session).consume_feature_usage(
             reservation_key=reward.reservation_key,
