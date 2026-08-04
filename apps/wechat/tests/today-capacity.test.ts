@@ -40,6 +40,8 @@ describe("today capacity command", () => {
         energy: 2,
         stress: 4,
         confidenceLevel: 3,
+        preferredXingceModule: null,
+        xingceOnly: false,
       },
       error: "",
     });
@@ -365,7 +367,9 @@ describe("day adjustment capacity operation attempt", () => {
       "basedOnCapacityVersionId",
       "confidenceLevel",
       "energy",
+      "preferredXingceModule",
       "stress",
+      "xingceOnly",
     ]);
     expect(JSON.stringify(attempt)).not.toContain("token-a");
   });
@@ -875,6 +879,8 @@ function expectedCapacityCommand(
     energy: 2,
     stress: 4,
     confidenceLevel: 3,
+    preferredXingceModule: null,
+    xingceOnly: false,
   };
 }
 

@@ -1248,7 +1248,16 @@ class XingceAttemptService:
             },
         )
         mastery = None
-        completion = None
+        completion_payload = self._runtime_repository.completion_payload(
+            session,
+            user_id=user_id,
+            session_id=str(task_session["session_id"]),
+        )
+        completion = (
+            XingceCompletionReceipt.model_validate(completion_payload, strict=False)
+            if completion_payload is not None
+            else None
+        )
         transitioned = task_session
         if not is_revision:
             if task_session["state"] != "submitted":
@@ -1283,6 +1292,17 @@ class XingceAttemptService:
             )
             if transitioned is None:
                 raise _conflict("task session settlement state changed")
+            if completion is not None:
+                planning_repository = PlanningRepository()
+                completion = completion.model_copy(
+                    update={
+                        "plan": PlanningService(repository=planning_repository).get_or_create_today(
+                            session,
+                            user_id=user_id,
+                            now=recorded_at,
+                        )
+                    }
+                )
         _append_state_event(
             self._outbox,
             session,

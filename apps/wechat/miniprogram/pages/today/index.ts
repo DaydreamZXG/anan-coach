@@ -14,6 +14,7 @@ import { PageControllerRegistry } from "../../app/runtime/controller-registry";
 import { clearAuthSession, currentAccessToken, currentAuthSession } from "../../auth/session";
 import { environment } from "../../config/environment";
 import { consumeLatestTodayDashboard } from "../../features/planning/runtime-state";
+import { suppressNativeTabBar } from "../../platform/tab-bar";
 import {
   openWeatherLocationSetting,
   readWeatherLocation,
@@ -135,6 +136,7 @@ Page<TodayPageData, TodayPageCustom>({
   },
 
   onShow() {
+    suppressNativeTabBar();
     if (typeof this.getTabBar === "function") {
       this.getTabBar().setData({ active: "today" });
     }

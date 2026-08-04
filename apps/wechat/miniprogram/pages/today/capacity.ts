@@ -6,6 +6,8 @@ export interface CapacityDraft {
   energy: number;
   stress: number;
   confidenceLevel: number;
+  preferredXingceModule: DailyCapacityCommand["preferredXingceModule"];
+  xingceOnly: boolean;
 }
 
 export interface CapacityTimeOption {
@@ -44,13 +46,23 @@ export const capacityTimeOptions: ReadonlyArray<CapacityTimeOption> = Array.from
 }));
 
 export function capacityDraftFromVersion(
-  capacity: Pick<TodayCapacity, "availableMinutes" | "energy" | "stress" | "confidenceLevel">,
+  capacity: Pick<
+    TodayCapacity,
+    | "availableMinutes"
+    | "energy"
+    | "stress"
+    | "confidenceLevel"
+    | "preferredXingceModule"
+    | "xingceOnly"
+  >,
 ): CapacityDraft {
   return {
     availableMinutes: String(capacity.availableMinutes),
     energy: capacity.energy,
     stress: capacity.stress,
     confidenceLevel: capacity.confidenceLevel,
+    preferredXingceModule: capacity.preferredXingceModule ?? null,
+    xingceOnly: capacity.xingceOnly ?? false,
   };
 }
 
@@ -86,6 +98,8 @@ export function prepareCapacityCommand(
       energy: draft.energy,
       stress: draft.stress,
       confidenceLevel: draft.confidenceLevel,
+      preferredXingceModule: draft.preferredXingceModule ?? null,
+      xingceOnly: Boolean(draft.preferredXingceModule && draft.xingceOnly),
     },
     error: "",
   };
@@ -98,6 +112,8 @@ export function capacityCommandFingerprint(command: DailyCapacityCommand): strin
     command.energy,
     command.stress,
     command.confidenceLevel,
+    command.preferredXingceModule ?? "balanced",
+    command.xingceOnly ? "only" : "mixed",
   ].join(":");
 }
 

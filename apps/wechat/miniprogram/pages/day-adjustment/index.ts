@@ -26,6 +26,13 @@ interface EnergyOption {
   value: number;
 }
 
+type XingceModule = NonNullable<DailyCapacityCommand["preferredXingceModule"]>;
+
+interface FocusOption {
+  label: string;
+  value: XingceModule | "";
+}
+
 const ENERGY_OPTIONS: readonly EnergyOption[] = [
   { label: "有点累", value: 2 },
   { label: "正常", value: 3 },
@@ -38,6 +45,16 @@ const TIME_PRESETS = [
   { label: "4 小时", minutes: 240 },
   { label: "今天不学", minutes: 0 },
 ] as const;
+
+const FOCUS_OPTIONS: readonly FocusOption[] = [
+  { label: "综合安排", value: "" },
+  { label: "言语", value: "言语理解与表达" },
+  { label: "数量", value: "数量关系" },
+  { label: "判断", value: "判断推理" },
+  { label: "资料分析", value: "资料分析" },
+  { label: "常识", value: "常识判断" },
+  { label: "政治理论", value: "政治理论" },
+];
 
 const MINUTES_STEP = 30;
 const MAX_VISIBLE_MINUTES = 720;
@@ -89,6 +106,9 @@ Page({
     confidenceLevel: 3,
     energyOptions: ENERGY_OPTIONS,
     timePresets: TIME_PRESETS,
+    focusOptions: FOCUS_OPTIONS,
+    preferredXingceModule: "",
+    xingceOnly: false,
     minutesStep: MINUTES_STEP,
     preview: null as DailyCapacityPreview | null,
     previewChanges: [] as CapacityChangeView[],
@@ -98,6 +118,8 @@ Page({
     previewing: false,
     submitting: false,
     agentPrefillMinutes: null as number | null,
+    agentPrefillModule: null as XingceModule | null,
+    agentPrefillXingceOnly: false,
   },
 
   onLoad(options: Record<string, string | undefined> = {}) {
@@ -105,7 +127,12 @@ Page({
     runtime.visible = true;
     runtime.disposed = false;
     runtime.lifecycleGeneration += 1;
-    this.setData({ agentPrefillMinutes: parseAgentPrefillMinutes(options) });
+    const focus = parseAgentPrefillFocus(options);
+    this.setData({
+      agentPrefillMinutes: parseAgentPrefillMinutes(options),
+      agentPrefillModule: focus?.module ?? null,
+      agentPrefillXingceOnly: focus?.xingceOnly ?? false,
+    });
     void this.loadToday();
   },
 
@@ -154,6 +181,8 @@ Page({
       const unfinished = store.load(CAPACITY_ATTEMPT_SCOPE, Date.now());
       if (!unfinished || !isUnfinishedAttempt(unfinished)) {
         const agentPrefillMinutes = this.data.agentPrefillMinutes;
+        const agentPrefillModule = this.data.agentPrefillModule;
+        const hasAgentPrefill = agentPrefillMinutes !== null || agentPrefillModule !== null;
         this.setData(
           {
             status: "ready",
@@ -166,9 +195,17 @@ Page({
                   selectedDurationLabel: formatCapacityDuration(agentPrefillMinutes),
                   agentPrefillMinutes: null,
                 }),
+            ...(agentPrefillModule === null
+              ? {}
+              : {
+                  preferredXingceModule: agentPrefillModule,
+                  xingceOnly: this.data.agentPrefillXingceOnly,
+                  agentPrefillModule: null,
+                  agentPrefillXingceOnly: false,
+                }),
           },
           () => {
-            if (agentPrefillMinutes !== null) void this.generatePreview();
+            if (hasAgentPrefill) void this.generatePreview();
           },
         );
         return;
@@ -342,6 +379,34 @@ Page({
     });
   },
 
+  chooseFocus(event: WechatMiniprogram.BaseEvent) {
+    if (this.data.previewing || this.data.submitting) return;
+    const preferredXingceModule = String(event.currentTarget.dataset.value ?? "") as
+      XingceModule | "";
+    if (!FOCUS_OPTIONS.some((item) => item.value === preferredXingceModule)) return;
+    attemptRuntime(this).editBoundary = true;
+    this.setData({
+      preferredXingceModule,
+      xingceOnly: preferredXingceModule ? this.data.xingceOnly : false,
+      preview: null,
+      errorMessage: "",
+      requestId: "",
+    });
+  },
+
+  toggleXingceOnly() {
+    if (!this.data.preferredXingceModule || this.data.previewing || this.data.submitting) {
+      return;
+    }
+    attemptRuntime(this).editBoundary = true;
+    this.setData({
+      xingceOnly: !this.data.xingceOnly,
+      preview: null,
+      errorMessage: "",
+      requestId: "",
+    });
+  },
+
   commandFromDraft(): DailyCapacityCommand | null {
     const dashboard = this.data.dashboard;
     if (!dashboard) return null;
@@ -351,6 +416,8 @@ Page({
         energy: this.data.energy,
         stress: this.data.stress,
         confidenceLevel: this.data.confidenceLevel,
+        preferredXingceModule: selectedFocusModule(this.data.preferredXingceModule),
+        xingceOnly: this.data.xingceOnly,
       },
       dashboard.capacity.capacityVersionId,
     );
@@ -377,6 +444,11 @@ Page({
           ? "今天已设为休息，不安排学习任务。"
           : `今天可用 ${capacityDuration}。`;
       const goalEvidence = proposed.goalGap.evidenceSummary.trim();
+      const focusImpact = proposed.capacity.preferredXingceModule
+        ? proposed.capacity.xingceOnly
+          ? `今天只安排${proposed.capacity.preferredXingceModule}。`
+          : `今天优先安排${proposed.capacity.preferredXingceModule}。`
+        : "今天按双轨综合节奏安排。";
       this.setData({
         previewing: false,
         step: "preview",
@@ -386,6 +458,7 @@ Page({
         previewRationale: proposed.rationale,
         previewImpact: [
           `调整后安排 ${String(proposed.tasks.length)} 项任务，共 ${taskDuration}；${capacityImpact}`,
+          focusImpact,
           goalEvidence ? `目标依据：${goalEvidence}` : "",
         ]
           .filter(Boolean)
@@ -543,6 +616,23 @@ export function parseAgentPrefillMinutes(
   return Number.isSafeInteger(minutes) && minutes >= 0 && minutes <= 1440 ? minutes : null;
 }
 
+export function parseAgentPrefillFocus(
+  options: Record<string, string | undefined>,
+): { module: XingceModule; xingceOnly: boolean } | null {
+  if (options.source !== "anan") return null;
+  const module = options.preferredXingceModule ?? "";
+  if (!FOCUS_OPTIONS.some((item) => item.value === module && item.value !== "")) return null;
+  return {
+    module: module as XingceModule,
+    xingceOnly: options.xingceOnly === "1",
+  };
+}
+
+function selectedFocusModule(value: string): XingceModule | null {
+  const matched = FOCUS_OPTIONS.find((item) => item.value === value && item.value !== "");
+  return matched?.value || null;
+}
+
 function normalizedEnergy(value: number): number {
   if (value <= 2) return 2;
   if (value >= 4) return 4;
@@ -565,6 +655,8 @@ function dashboardPresentation(dashboard: TodayDashboard) {
     energy: normalizedEnergy(dashboard.capacity.energy),
     stress: dashboard.capacity.stress,
     confidenceLevel: dashboard.capacity.confidenceLevel,
+    preferredXingceModule: dashboard.capacity.preferredXingceModule ?? "",
+    xingceOnly: dashboard.capacity.xingceOnly ?? false,
     errorMessage: "",
     requestId: "",
   };
@@ -765,7 +857,9 @@ function isCapacityCanonicalInput(value: unknown): value is CapacityCanonicalInp
       "basedOnCapacityVersionId",
       "confidenceLevel",
       "energy",
+      "preferredXingceModule",
       "stress",
+      "xingceOnly",
     ])
   ) {
     return false;
@@ -778,7 +872,12 @@ function isCapacityCanonicalInput(value: unknown): value is CapacityCanonicalInp
     isBoundedInteger(command.availableMinutes, 0, 1440) &&
     isBoundedInteger(command.energy, 1, 5) &&
     isBoundedInteger(command.stress, 1, 5) &&
-    isBoundedInteger(command.confidenceLevel, 1, 5)
+    isBoundedInteger(command.confidenceLevel, 1, 5) &&
+    (command.preferredXingceModule === null ||
+      (typeof command.preferredXingceModule === "string" &&
+        FOCUS_OPTIONS.some((item) => item.value === command.preferredXingceModule))) &&
+    typeof command.xingceOnly === "boolean" &&
+    (!command.xingceOnly || command.preferredXingceModule !== null)
   );
 }
 

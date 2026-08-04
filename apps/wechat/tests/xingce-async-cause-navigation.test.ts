@@ -37,7 +37,9 @@ describe("async cause navigation", () => {
     const page = instantiate(captured);
 
     page.onLoad.call(page, { sessionId: xingceIds.session, reviewId: xingceIds.review });
-    await vi.waitFor(() => expect(page.data.status).toBe("ready"));
+    await vi.waitFor(() => {
+      expect(page.data.status).toBe("ready");
+    });
     page.startReflection.call(page);
     await page.submitReflection.call(page);
 
@@ -76,7 +78,9 @@ describe("async cause navigation", () => {
     const page = instantiate(captured);
 
     page.onLoad.call(page, { sessionId: xingceIds.session, reviewId: xingceIds.review });
-    await vi.waitFor(() => expect(page.data.status).toBe("ready"));
+    await vi.waitFor(() => {
+      expect(page.data.status).toBe("ready");
+    });
     page.startReflection.call(page);
     await expect(page.submitReflection.call(page)).resolves.toBeUndefined();
 

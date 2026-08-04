@@ -197,8 +197,11 @@ describe("practice drawable draft tools", () => {
     definition.observers["mode, strokes, replayMs"].call(host);
 
     expect(queryCount).toBe(2);
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(firstContext.scale).toHaveBeenCalledOnce();
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(secondContext.scale).toHaveBeenCalledOnce();
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(secondContext.clearRect).toHaveBeenCalled();
   });
 
@@ -244,8 +247,11 @@ describe("practice drawable draft tools", () => {
     definition.pageLifetimes.resize.call(host);
 
     expect(queryCount).toBe(2);
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(portraitContext.scale).toHaveBeenCalledWith(2, 2);
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(landscapeContext.scale).toHaveBeenCalledWith(2, 2);
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(landscapeContext.clearRect).toHaveBeenCalledWith(0, 0, 720, 360);
   });
 
@@ -285,7 +291,6 @@ describe("practice drawable draft tools", () => {
     expect(detail.strokes[0]?.points[0]).toEqual(expect.objectContaining({ x: 0.25, y: 0.1 }));
     expect(detail.strokes[0]?.points[1]).toEqual(expect.objectContaining({ x: 0.35, y: 0.2 }));
   });
-
 });
 
 async function captureAnnotationComponent(
@@ -298,7 +303,9 @@ async function captureAnnotationComponent(
   vi.stubGlobal("wx", {
     showModal,
     showToast: vi.fn(() => Promise.resolve()),
-    nextTick: (callback: () => void) => callback(),
+    nextTick: (callback: () => void) => {
+      callback();
+    },
     getWindowInfo: () => ({ pixelRatio: 2 }),
   });
   vi.stubGlobal("setTimeout", vi.fn());

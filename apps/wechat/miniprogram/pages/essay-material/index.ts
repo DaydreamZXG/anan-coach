@@ -7,7 +7,6 @@ import { materialTextParagraphs } from "../../features/essay-task/material-parag
 
 type MaterialParagraph = EssayTaskWorkspace["material"]["segments"][number] & {
   anchorId: string;
-  paragraphNumber: number;
   displayParagraphId: string;
   showAnnotation: boolean;
 };
@@ -66,18 +65,15 @@ Page({
               evidenceQuote: item.evidenceQuote ?? "",
             }))
           : [];
-      let paragraphNumber = 0;
       const materialAnchors = new Set<number>();
       const segments = workspace.material.segments.flatMap((segment) => {
         const paragraphs = materialTextParagraphs(segment.text, segment.segmentId);
         return paragraphs.map((paragraph, index) => {
-          paragraphNumber += 1;
           const firstForMaterial = !materialAnchors.has(segment.materialOrder);
           if (firstForMaterial) materialAnchors.add(segment.materialOrder);
           return {
             ...segment,
             text: paragraph.text,
-            paragraphNumber,
             displayParagraphId: paragraph.paragraphId,
             showAnnotation: index === paragraphs.length - 1,
             anchorId: firstForMaterial
@@ -102,7 +98,7 @@ Page({
         activeMaterialLabel:
           targetMaterialOrder === undefined
             ? "材料"
-            : `材料 ${String(targetMaterialOrder)} / ${String(directory.length)}`,
+            : materialReaderTitle(targetMaterialOrder, directory),
         retryAllowed: false,
       });
       if (this.data.targetAnchor) {
@@ -130,7 +126,7 @@ Page({
     const materialOrder = Number(event.currentTarget.dataset.materialOrder ?? 0);
     if (!anchor) return;
     this.setData({
-      activeMaterialLabel: `材料 ${String(materialOrder)} / ${String(this.data.directory.length)}`,
+      activeMaterialLabel: materialReaderTitle(materialOrder, this.data.directory),
       selectedSegmentId: "",
       selectedParagraphId: "",
       selectedText: "",
@@ -148,7 +144,7 @@ Page({
       selectedSegmentId: segmentId,
       selectedParagraphId: displayParagraphId,
       selectedText: text,
-      activeMaterialLabel: `材料 ${String(materialOrder)} / ${String(this.data.directory.length)}`,
+      activeMaterialLabel: materialReaderTitle(materialOrder, this.data.directory),
     });
   },
 
@@ -195,4 +191,15 @@ function parseMaterialOrder(anchor: string): number | null {
   if (!match?.[1]) return null;
   const value = Number(match[1]);
   return Number.isInteger(value) && value > 0 ? value : null;
+}
+
+function materialReaderTitle(
+  materialOrder: number,
+  directory: Array<{ materialOrder: number }>,
+): string {
+  if (directory.length <= 1) return `材料 ${String(materialOrder)}`;
+  const position = directory.findIndex((item) => item.materialOrder === materialOrder);
+  return position < 0
+    ? `材料 ${String(materialOrder)}`
+    : `材料 ${String(materialOrder)} · ${String(position + 1)}/${String(directory.length)}`;
 }
