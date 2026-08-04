@@ -9,6 +9,7 @@ import { PlanningApi } from "../../api/planning";
 import { routes } from "../../app/navigation/routes";
 import { currentAuthSession } from "../../auth/session";
 import { scoreRangeLabel } from "../../domain/presentation";
+import { ESSAY_MODULE_BASELINE, XINGCE_MODULE_BASELINE } from "../../domain/module-baselines";
 import { storeCompanionLaunchContext } from "../../features/companion/context-store";
 import { suppressNativeTabBar } from "../../platform/tab-bar";
 import {
@@ -32,24 +33,6 @@ type ModuleView = ModuleAbility & {
   statusTone: "neutral" | "warning" | "primary";
   hasEvidence: boolean;
 };
-
-const XINGCE_MODULE_BASELINE: ReadonlyArray<Pick<ModuleAbility, "moduleKey" | "displayName">> = [
-  { moduleKey: "政治理论", displayName: "政治理论" },
-  { moduleKey: "常识判断", displayName: "常识判断" },
-  { moduleKey: "言语理解与表达", displayName: "言语理解与表达" },
-  { moduleKey: "数量关系", displayName: "数量关系" },
-  { moduleKey: "判断推理", displayName: "判断推理" },
-  { moduleKey: "资料分析", displayName: "资料分析" },
-];
-
-const ESSAY_MODULE_BASELINE: ReadonlyArray<Pick<ModuleAbility, "moduleKey" | "displayName">> = [
-  { moduleKey: "point_finding", displayName: "找点与覆盖" },
-  { moduleKey: "abstraction", displayName: "概括与归纳" },
-  { moduleKey: "structure", displayName: "结构组织" },
-  { moduleKey: "expression", displayName: "表达准确性" },
-  { moduleKey: "format", displayName: "格式规范" },
-  { moduleKey: "unsupported_claim", displayName: "材料依据" },
-];
 
 const EMPTY_XINGCE_MODULES = XINGCE_MODULE_BASELINE.map(emptyXingceModule);
 const EMPTY_ESSAY_MODULES = ESSAY_MODULE_BASELINE.map(emptyEssayModule);
