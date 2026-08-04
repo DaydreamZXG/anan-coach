@@ -520,7 +520,7 @@ class CauseAgentWorker:
                         source_id=value,
                         version=value,
                     )
-                    for value in sorted(evidence.allowed_evidence_refs)
+                    for value in sorted(evidence.allowed_evidence_refs)[:50]
                 ),
                 retrieval_bundle_id=None,
                 reservation_id=UUID(str(job.payload["reservationId"])),
