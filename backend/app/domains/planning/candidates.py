@@ -8,8 +8,16 @@ from uuid import UUID
 from app.domains.planning.engine import PriorityBreakdown, TaskCandidate
 from app.domains.xingce_learning.contracts import (
     XINGCE_QUICK_QUESTION_BUNDLE_SIZE,
+    XINGCE_MINUTES_PER_QUESTION,
     xingce_practice_minutes,
 )
+
+
+# Floor of `_essay_drafting_minutes`: summary/comprehensive drafting with a
+# short word limit always lands on 25 minutes. A standard 45-minute parttime
+# day must still fit both tracks, so xingce reserves this essay floor before
+# taking its own block.
+MIN_ESSAY_DRAFTING_MINUTES = 25
 
 
 AbilityReadiness = Literal["unavailable", "partial", "complete", "stale"]
@@ -297,7 +305,12 @@ def _objective_candidates(
         )
         if baseline_minutes:
             candidates.append(
-                _baseline_candidate(goal, evidence, baseline_minutes, available_minutes)
+                _baseline_candidate(
+                    goal,
+                    evidence,
+                    _cap_xingce_block(baseline_minutes, available_minutes),
+                    available_minutes,
+                )
             )
         return candidates
 
@@ -373,6 +386,7 @@ def _objective_candidates(
         available_minutes=available_minutes,
         question_supply=snapshot.targeted_question_count,
     )
+    targeted_minutes = _cap_xingce_block(targeted_minutes, available_minutes)
     if not targeted_minutes:
         return candidates
     module = snapshot.weakest_module or "国考高频模块"
@@ -851,6 +865,25 @@ def _time_fit(task_minutes: int, available_minutes: int) -> float:
     ideal_block = min(30, max(10, available_minutes // 2))
     distance = abs(task_minutes - ideal_block)
     return round(max(0.2, 1 - distance / max(ideal_block, 1)), 3)
+
+
+def _cap_xingce_block(minutes: int, available_minutes: int) -> int:
+    """Reserve the essay drafting floor so a short day still fits both tracks.
+
+    ``xingce_practice_minutes`` sizes one focused block up to half the day,
+    but half of a 45-minute parttime day (22 minutes) plus the 25-minute
+    essay drafting floor overshoots the day, so the engine would schedule
+    only essay and starve xingce entirely.  Cap the xingce block to the room
+    that actually remains after reserving the essay floor, rounded down to a
+    whole-question block.
+    """
+
+    reserved_room = available_minutes - MIN_ESSAY_DRAFTING_MINUTES
+    minimum_block = XINGCE_QUICK_QUESTION_BUNDLE_SIZE * XINGCE_MINUTES_PER_QUESTION
+    if reserved_room < minimum_block:
+        return minutes
+    capped = (reserved_room // XINGCE_MINUTES_PER_QUESTION) * XINGCE_MINUTES_PER_QUESTION
+    return min(minutes, max(minimum_block, capped))
 
 
 def _is_canonical_uuid(value: str) -> bool:
