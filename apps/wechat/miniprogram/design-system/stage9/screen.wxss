@@ -232,7 +232,9 @@
   pointer-events: none;
 }
 
-.s9-action-dock > * {
+.s9-action-dock .s9-action-row,
+.s9-action-dock .s9-primary-button,
+.s9-action-dock .s9-secondary-button {
   pointer-events: auto;
 }
 
