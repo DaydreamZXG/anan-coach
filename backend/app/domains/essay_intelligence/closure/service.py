@@ -3,7 +3,6 @@ from __future__ import annotations
 from difflib import SequenceMatcher
 from collections.abc import Callable
 from datetime import UTC, datetime
-from hashlib import sha256
 import json
 from typing import Any, Literal
 from uuid import uuid4
@@ -34,6 +33,7 @@ from app.domains.essay_intelligence.mastery.service import (
     EssayMasteryContractError,
     EssayMasteryService,
 )
+from app.domains.essay_intelligence.review_contracts import _fingerprint
 from app.domains.essay_intelligence.workflow_repository import answer_from_row
 from app.domains.essay_intelligence.workflow_schemas import EssayAnswerCreateCommand
 from app.domains.essay_intelligence.workflow_service import EssayReviewWorkflowService
@@ -879,13 +879,3 @@ def _require_fingerprint(actual: str, expected: str) -> None:
         raise EssayClosureContractError(
             "Idempotency key already belongs to a different closure command"
         )
-
-
-def _fingerprint(value: Any) -> str:
-    encoded = json.dumps(
-        value,
-        ensure_ascii=False,
-        sort_keys=True,
-        separators=(",", ":"),
-    ).encode("utf-8")
-    return sha256(encoded).hexdigest()

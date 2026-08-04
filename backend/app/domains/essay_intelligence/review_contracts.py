@@ -13,6 +13,18 @@ GROUNDED_REVIEW_PROVIDER_NAME = "openai_compatible"
 REVIEW_EXECUTION_CONTRACT_VERSION = "essay-review-execution-v1"
 
 
+def _fingerprint(value: object) -> str:
+    """Stable content digest used to fingerprint review payloads across the domain."""
+    return sha256(
+        json.dumps(
+            value,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+
+
 def review_execution_fingerprint(
     *,
     input_fingerprint: str,

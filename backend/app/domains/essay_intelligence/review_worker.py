@@ -40,9 +40,11 @@ from app.domains.essay_intelligence.review_contracts import (
     GROUNDED_REVIEW_PROVIDER_SCHEMA_VERSION,
     REVIEW_CONTRACT_VERSION,
     RUBRIC_CONTRACT_VERSION,
+    _fingerprint,
     review_execution_fingerprint,
 )
 from app.domains.essay_intelligence.review_checkpoint import (
+    REVIEW_CHECKPOINT_PHASES,
     EssayReviewCheckpointRepository,
 )
 from app.domains.essay_intelligence.blind_adjudicator import (
@@ -1231,15 +1233,7 @@ class GroundedEssayReviewWorker:
         result: list[dict[str, str]] = []
         job = self._jobs.by_id(session, job_id=job_id)
         job_result = job.result if job is not None else None
-        for phase in (
-            "initial",
-            "repair",
-            "candidate:gemini",
-            "candidate:grok",
-            "candidate:tokenrhythm",
-            "candidate:hunyuan",
-            "adjudication",
-        ):
+        for phase in REVIEW_CHECKPOINT_PHASES:
             checkpoint = self._checkpoints.load(
                 session,
                 job_id=job_id,
@@ -1293,17 +1287,6 @@ class GroundedEssayReviewWorker:
             reservation_key=str(quota["reservationKey"]),
             commit=False,
         )
-
-
-def _fingerprint(value: object) -> str:
-    return sha256(
-        json.dumps(
-            value,
-            ensure_ascii=False,
-            sort_keys=True,
-            separators=(",", ":"),
-        ).encode("utf-8")
-    ).hexdigest()
 
 
 def _job_evidence_refs(job: BackgroundJob):

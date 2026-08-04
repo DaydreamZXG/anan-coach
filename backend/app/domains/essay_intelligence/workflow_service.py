@@ -19,7 +19,10 @@ from app.domains.essay_intelligence.multi_model_runtime import (
     EssayMultiModelRuntimePlan,
     EssayReviewExecutionIdentity,
 )
-from app.domains.essay_intelligence.review_contracts import review_execution_fingerprint
+from app.domains.essay_intelligence.review_contracts import (
+    _fingerprint,
+    review_execution_fingerprint,
+)
 from app.domains.essay_intelligence.schemas import EssayReviewRequest
 from app.domains.essay_intelligence.workflow_repository import (
     EssayReviewWorkflowRepository,
@@ -1229,17 +1232,6 @@ class EssayReviewWorkflowService:
             completed_at=job.completed_at,
             review=review,
         )
-
-
-def _fingerprint(value: object) -> str:
-    return sha256(
-        json.dumps(
-            value,
-            ensure_ascii=False,
-            sort_keys=True,
-            separators=(",", ":"),
-        ).encode("utf-8")
-    ).hexdigest()
 
 
 def _job_quota(job: BackgroundJob) -> EssayReviewQuota:
