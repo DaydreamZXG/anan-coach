@@ -693,15 +693,17 @@ def _baseline_definition(
     snapshot: EssayPlanningSnapshot,
     _available_minutes: int,
 ) -> tuple[str, str, str, int, str, str, float, float]:
+    reading_minutes = min(15, max(10, _available_minutes)) if _available_minutes else 15
     return (
-        "essay_drafting",
-        "依据题目与材料完成申论作答",
-        "先用真实作答建立能力证据；材料地图、找点和提纲只在复核发现对应偏差后作为专项训练。",
-        _essay_drafting_minutes(snapshot.question_type, snapshot.word_limit),
-        "提交答案版本，并记录作答后的即时复盘。",
-        "baseline",
-        0.95,
-        0.88,
+        "essay_material_reading",
+        "先建立申论材料地图",
+        "首次接触申论：先完整学一遍「材料阅读 → 要点提取 → 提纲 → 作答」，"
+        "之后才以「作答 → 评阅」为主、薄弱环节按需补。",
+        reading_minutes,
+        "完成材料分段标注，为每段保留主旨、对象与可引用证据。",
+        "material-reading",
+        0.86,
+        0.68,
     )
 
 

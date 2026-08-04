@@ -146,13 +146,87 @@ def test_missing_component_evidence_creates_both_baseline_tracks() -> None:
 
     assert {item.stage for item in candidates.candidates} == {
         "objective_baseline",
-        "essay_drafting",
+        "essay_material_reading",
     }
     assert all(item.evidence_refs for item in candidates.candidates)
     essay = next(item for item in candidates.candidates if item.track == "essay")
+    assert essay.stage == "essay_material_reading"
+    assert "首次接触申论" in essay.reason
     assert {
         ref["entityType"] for ref in essay.evidence_refs
     } >= {"essay_task_version", "essay_material_bundle_version", "essay_rubric_version"}
+
+
+@pytest.mark.parametrize(
+    ("next_stage", "expected_stage"),
+    (
+        ("baseline_due", "essay_material_reading"),
+        ("point_extraction_due", "essay_point_extraction"),
+        ("outline_due", "essay_outlining"),
+        ("drafting_due", "essay_drafting"),
+    ),
+)
+def test_first_time_essay_sequence_maps_each_due_stage_to_its_prerequisite_training(
+    next_stage: str,
+    expected_stage: str,
+) -> None:
+    candidates = build_dual_track_candidates(
+        goal=_goal(readiness="partial"),
+        objective=ObjectivePlanningSnapshot(
+            False,
+            0,
+            0,
+            None,
+            None,
+            "available",
+            None,
+        ),
+        essay=EssayPlanningSnapshot(
+            next_stage,  # type: ignore[arg-type]
+            "essay-task-v1",
+            material_bundle_version_id="essay-material-v1",
+            rubric_version_id="essay-rubric-v1",
+            question_type="summary",
+            word_limit=200,
+            maximum_score=20,
+        ),
+        available_minutes=60,
+    )
+    essay = next(item for item in candidates.candidates if item.track == "essay")
+    assert essay.stage == expected_stage
+
+
+def test_returning_essay_learner_defaults_to_direct_drafting_not_prerequisites() -> None:
+    candidates = build_dual_track_candidates(
+        goal=_goal(),
+        objective=ObjectivePlanningSnapshot(
+            False,
+            0,
+            0,
+            "资料分析",
+            "objective-v1",
+            "available",
+            None,
+        ),
+        essay=EssayPlanningSnapshot(
+            "drafting_due",
+            "essay-task-v1",
+            material_bundle_version_id="essay-material-v1",
+            rubric_version_id="essay-rubric-v1",
+            question_type="summary",
+            word_limit=200,
+            maximum_score=20,
+            attempt_id="attempt-1",
+            answer_version_id="answer-1",
+        ),
+        available_minutes=60,
+    )
+    essay = next(item for item in candidates.candidates if item.track == "essay")
+    assert essay.stage == "essay_drafting"
+    # 非首次直接作答：材料地图、找点、提纲只按需使用，不是主流程。
+    assert "直接完成真实作答" in essay.reason
+    assert "材料地图、找点和提纲按需使用" in essay.reason
+
 
 
 @pytest.mark.parametrize(
@@ -379,7 +453,7 @@ def test_missing_published_essay_content_is_explicitly_omitted() -> None:
     assert "不生成不可执行任务" in candidates.omitted_track_reasons["essay"]
 
 
-def test_new_essay_task_still_enters_real_drafting_when_capacity_is_short() -> None:
+def test_fresh_essay_task_enters_first_time_material_reading_even_when_capacity_is_short() -> None:
     candidates = build_dual_track_candidates(
         goal=_goal(readiness="partial"),
         objective=ObjectivePlanningSnapshot(True, 0, 0, None, None, "available", None),
@@ -396,9 +470,9 @@ def test_new_essay_task_still_enters_real_drafting_when_capacity_is_short() -> N
     )
 
     essay = next(item for item in candidates.candidates if item.track == "essay")
-    assert essay.stage == "essay_drafting"
-    assert essay.estimated_minutes == 80
-    assert "真实作答" in essay.reason
+    assert essay.stage == "essay_material_reading"
+    assert essay.estimated_minutes == 15
+    assert "首次接触申论" in essay.reason
 
 
 def test_unpublished_rubric_omits_essay_instead_of_faking_a_prerequisite() -> None:

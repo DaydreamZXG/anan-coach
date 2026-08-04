@@ -509,7 +509,7 @@ def test_optional_material_training_does_not_fake_drafting_without_a_rubric(
     assert workspace["rubricAvailability"] == {"status": "pending", "rubric": None}
 
 
-def test_optional_material_point_and_outline_artifacts_never_gate_initial_drafting(
+def test_first_time_essay_progresses_material_to_point_to_outline_to_drafting(
     db_session_factory: sessionmaker[Session],
 ) -> None:
     token = "essay-planning-progression-token"
@@ -522,20 +522,22 @@ def test_optional_material_point_and_outline_artifacts_never_gate_initial_drafti
     auth = {"Authorization": f"Bearer {token}"}
     service = PlanningService()
 
+    # 首次接触申论：先完整学一遍「材料 → 要点 → 提纲 → 作答」。
+    assert _essay_stage(db_session_factory, service, user_id) == "essay_material_reading"
     material = _post(
         client,
         auth,
         "progress-material",
         _material_command(ids["task"], ids["material"]),
     )
-    assert _essay_stage(db_session_factory, service, user_id) == "essay_drafting"
+    assert _essay_stage(db_session_factory, service, user_id) == "essay_point_extraction"
     point = _post(
         client,
         auth,
         "progress-point",
         _point_command(ids, material["artifactVersionId"]),
     )
-    assert _essay_stage(db_session_factory, service, user_id) == "essay_drafting"
+    assert _essay_stage(db_session_factory, service, user_id) == "essay_outlining"
     _post(
         client,
         auth,

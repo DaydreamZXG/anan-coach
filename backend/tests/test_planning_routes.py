@@ -207,15 +207,15 @@ def test_dual_track_plan_persists_one_idempotent_xingce_and_essay_budget(
     assert first.goal_gap.baseline_gap is None
     assert first.capacity.available_minutes == 45
     assert first.capacity.confirmed is False
-    assert sum(task.estimated_minutes for task in first.tasks) == 37
+    assert sum(task.estimated_minutes for task in first.tasks) == 27
     assert {task.track for task in first.tasks} == {"xingce", "essay"}
     assert {task.stage for task in first.tasks} == {
         "objective_baseline",
-        "essay_drafting",
+        "essay_material_reading",
     }
     assert first.dual_track_explanation.dual_track_constraint_applied is True
     assert first.dual_track_explanation.xingce_minutes == 12
-    assert first.dual_track_explanation.essay_minutes == 25
+    assert first.dual_track_explanation.essay_minutes == 15
     assert all(task.evidence_refs for task in first.tasks)
     xingce_task = next(task for task in first.tasks if task.track == "xingce")
     xingce_query = parse_qs(urlsplit(xingce_task.start_url).query)
@@ -1064,8 +1064,7 @@ def test_expired_essay_artifact_completion_uses_same_conflict_and_rolls_back(
             now=NOW,
             local_date=NOW.date(),
         )
-    task = next(item for item in plan.tasks if item.stage == "essay_drafting")
-    _make_material_reading_plan_task(db_session_factory, task_id=str(task.id))
+    task = next(item for item in plan.tasks if item.stage == "essay_material_reading")
     task_version_id = next(
         item.entity_id for item in task.evidence_refs if item.entity_type == "essay_task_version"
     )
@@ -1320,7 +1319,8 @@ def test_material_reading_completion_accepts_owned_canonical_artifact_and_replan
     result = response.json()["data"]
     assert result["completion"]["execution"]["status"] == "complete"
     assert result["artifact"]["artifactType"] == "material_annotation"
-    assert any(task["stage"] == "essay_drafting" for task in result["completion"]["plan"]["tasks"])
+    # 首次流程：材料阅读完成后，下一次推进是「要点提取」。
+    assert any(task["stage"] == "essay_point_extraction" for task in result["completion"]["plan"]["tasks"])
     replay = client.post(
         "/api/v2/essay-intelligence/artifacts/complete-plan-task",
         headers={**auth, "Idempotency-Key": "material-atomic-complete"},

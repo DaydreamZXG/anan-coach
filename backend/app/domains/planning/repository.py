@@ -1073,12 +1073,8 @@ class PlanningRepository:
                   and artifact.task_version_id = cast(:task_version_id as uuid)
                   and artifact.material_bundle_version_id =
                       cast(:material_bundle_version_id as uuid)
-                  and (
-                    artifact.artifact_type = 'material_annotation'
-                    or (
-                      artifact.artifact_type in ('point_extraction', 'outline')
-                      and artifact.rubric_version_id = cast(:rubric_version_id as uuid)
-                    )
+                  and artifact.artifact_type in (
+                    'material_annotation', 'point_extraction', 'outline'
                   )
                   and not exists (
                     select 1 from learning.essay_learning_artifact_versions successor
@@ -1093,7 +1089,6 @@ class PlanningRepository:
                     "user_id": user_id,
                     "task_version_id": str(published["task_version_id"]),
                     "material_bundle_version_id": str(published["material_bundle_version_id"]),
-                    "rubric_version_id": _optional_str(published["rubric_version_id"]),
                 },
             )
             .mappings()
@@ -1113,6 +1108,17 @@ class PlanningRepository:
                     "当前题目的可审计评分规程尚未发布；规划不会把材料地图、"
                     "找点或提纲伪装成可完成的申论主任务，并会优先选择可直接作答的题目。"
                 )
+            elif material_annotation_id is None:
+                # 首次接触申论：先完整学一遍「材料阅读 → 要点提取 → 提纲 → 作答」，
+                # 之后的推进才以「作答 → 评阅」为主、薄弱环节按需补。
+                next_stage = "baseline_due"
+                pending_reason = None
+            elif point_extraction_id is None:
+                next_stage = "point_extraction_due"
+                pending_reason = None
+            elif outline_id is None:
+                next_stage = "outline_due"
+                pending_reason = None
             else:
                 next_stage = "drafting_due"
                 pending_reason = None
