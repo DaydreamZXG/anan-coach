@@ -120,6 +120,25 @@ def test_hunyuan_companion_accepts_the_optional_action_protocol() -> None:
     assert result.requested_actions[0].arguments == {"availableMinutes": 90}
 
 
+def test_hunyuan_companion_drops_unknown_advisory_actions_without_losing_answer() -> None:
+    content = (
+        '{"answer":"可以开始资料分析。","nextActions":["进入训练"],'
+        '"sourceRefs":["source-1"],"confidence":"high","limitations":[],'
+        '"requestedActions":['
+        '{"name":"change_everything","arguments":{"minutes":999}},'
+        '{"name":"open_today_training","arguments":{"invented":true}}]}'
+    )
+    provider, _transport = _provider(content)
+
+    result = provider.answer_prepared_companion_question(
+        prepared=_prepared(provider),
+        idempotency_key="companion-command-action-drift",
+    )
+
+    assert result.answer == "可以开始资料分析。"
+    assert [action.name for action in result.requested_actions] == ["open_today_training"]
+
+
 def test_hunyuan_companion_keeps_grounding_strict_but_tolerates_advisory_shape_drift() -> None:
     provider, _transport = _provider(
         '{"answer":"可以开始资料分析。","sourceRefs":["source-1"],'
@@ -137,7 +156,7 @@ def test_hunyuan_companion_keeps_grounding_strict_but_tolerates_advisory_shape_d
     assert result.limitations == []
 
 
-def test_hunyuan_companion_accepts_second_release_action_tools() -> None:
+def test_hunyuan_companion_accepts_legacy_actions_without_advertising_tools() -> None:
     content = (
         '{"answer":"已准备周节奏预览。","nextActions":["确认周节奏"],'
         '"sourceRefs":["source-1"],"confidence":"high","limitations":[],'
@@ -158,8 +177,8 @@ def test_hunyuan_companion_accepts_second_release_action_tools() -> None:
     messages = body["messages"]
     assert isinstance(messages, list)
     payload = json.loads(messages[1]["content"])
-    tool_names = {item["name"] for item in payload["available_action_tools"]}
-    assert {"open_profile_archive", "open_weekly_plan", "view_learning_evidence"} <= tool_names
+    assert "available_action_tools" not in payload
+    assert "requestedActions" not in payload["required_schema"]
 
 
 def test_hunyuan_companion_validates_without_openai_gateway_credentials() -> None:

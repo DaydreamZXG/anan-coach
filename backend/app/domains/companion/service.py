@@ -407,7 +407,10 @@ class CompanionService:
             result.source_refs,
         )
         agent_outcome = execute_companion_actions(
-            requests=getattr(result, "requested_actions", ()),
+            # Provider actions are advisory output and are deliberately not an
+            # execution authority. The server derives navigation/preview
+            # actions from the classified intent and the user's own text.
+            requests=(),
             question_text=request.question_text,
             fallback_actions=_allowed_actions(
                 decision=route_decision,

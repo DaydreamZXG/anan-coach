@@ -40,6 +40,7 @@ from app.domains.commerce.app_store import (
 from app.domains.commerce.repository import CommerceRepository
 from app.domains.commerce.service import CommerceService
 from app.domains.companion.commands import CompanionCommandRepository
+from app.domains.companion.agent import CompanionActionRequest
 from app.domains.companion.repository import CompanionContextRecord, CompanionRepository
 from app.domains.companion.router import get_companion_service
 from app.domains.companion.schemas import CompanionAskRequest
@@ -169,6 +170,27 @@ class FakeCompanionAIProvider:
         assert prepared["providerReplayRetentionSeconds"] == 604_800
         assert idempotency_key
 
+
+class OvereagerActionProvider(FakeCompanionAIProvider):
+    def answer_prepared_companion_question(
+        self,
+        *,
+        prepared: dict[str, object],
+        idempotency_key: str | None,
+    ) -> AICompanionAnswerResult:
+        result = super().answer_prepared_companion_question(
+            prepared=prepared,
+            idempotency_key=idempotency_key,
+        )
+        return replace(
+            result,
+            requested_actions=(
+                CompanionActionRequest(
+                    name="open_private_library",
+                    arguments={},
+                ),
+            ),
+        )
 
 class TimeoutAfterAcceptOnceProvider(FakeCompanionAIProvider):
     def __init__(self) -> None:
@@ -661,7 +683,10 @@ def test_companion_ask_is_quota_gated_and_audited(
 ) -> None:
     user_id = _seed_user(db_session_factory, token="companion-token")
     _seed_profile_and_context(db_session_factory, user_id=user_id)
-    client = _make_client(db_session_factory)
+    client = _make_client(
+        db_session_factory,
+        provider=OvereagerActionProvider(),
+    )
 
     response = client.post(
         "/api/v1/companion/ask",
@@ -721,6 +746,8 @@ def test_companion_ask_is_quota_gated_and_audited(
         assert log["provider"] == "fake_companion_provider"
         assert log["status"] == "succeeded"
         assert log["metadata"]["scenario"] == "tutoring_explanation"
+        assert log["metadata"]["agentRequestedToolCount"] == 0
+        assert log["metadata"]["agentSucceededToolCount"] == 0
         assert "context" not in log["metadata"]
 
 
