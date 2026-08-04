@@ -6,6 +6,7 @@ from typing import Literal
 from uuid import UUID
 
 from app.domains.planning.engine import PriorityBreakdown, TaskCandidate
+from app.domains.planning.cause_training import ConfirmedCauseDirection
 from app.domains.xingce_learning.contracts import (
     XINGCE_QUICK_QUESTION_BUNDLE_SIZE,
     XINGCE_MINUTES_PER_QUESTION,
@@ -89,6 +90,9 @@ class ObjectivePlanningSnapshot:
     targeted_question_count: int = 0
     verification_question_count: int = 0
     due_reflection_state: ActionableReflectionState | None = None
+    # 已确认错因主导的针对性训练方向。有近期已确认错因时为该方向
+    # （含错因码、方向 key、展示名），否则为 None，候选落到模块级最弱。
+    caused_training_direction: ConfirmedCauseDirection | None = None
 
     def __post_init__(self) -> None:
         if (
@@ -398,10 +402,16 @@ def _objective_candidates(
     if not targeted_minutes:
         return candidates
     module = snapshot.weakest_module or "国考高频模块"
+    cause_direction = snapshot.caused_training_direction
     block_minutes = min(targeted_minutes, XINGCE_TASK_BLOCK_MINUTES)
     block_count = min(16, max(1, (available_minutes + block_minutes - 1) // block_minutes))
     for block_index in range(block_count):
         block_number = block_index + 1
+        base_title = (
+            f"行测针对训练：{module}（{cause_direction.display}）"
+            if cause_direction is not None and cause_direction.display
+            else f"行测针对训练：{module}"
+        )
         candidates.append(
             TaskCandidate(
                 candidate_key=(
@@ -413,13 +423,19 @@ def _objective_candidates(
                 stage="objective_practice",
                 kind="practice",
                 title=(
-                    f"行测针对训练：{module}"
+                    base_title
                     if block_number == 1
-                    else f"行测针对训练：{module}（第 {block_number} 组）"
+                    else f"{base_title}（第 {block_number} 组）"
                 ),
                 reason=(
-                    f"当前证据中「{module}」的改善收益最高；"
-                    "按独立题组分段训练，每组完成后都可以重新规划后续时间。"
+                    f"你最近确认的错因方向是「{cause_direction.display}」，"
+                    "本次针对训练按该方向选题，"
+                    f"并聚焦「{module}」模块。"
+                    if cause_direction is not None
+                    else (
+                        f"当前证据中「{module}」的改善收益最高；"
+                        "按独立题组分段训练，每组完成后都可以重新规划后续时间。"
+                    )
                 ),
                 estimated_minutes=block_minutes,
                 completion_rule="完成题组并记录答案、用时、修改、跳题和信心。",
@@ -433,6 +449,9 @@ def _objective_candidates(
                     load_penalty=min(0.30, 0.12 + block_index * 0.015),
                 ),
                 strategy_module_keys=(module,),
+                strategy_question_type=(
+                    cause_direction.focus if cause_direction is not None else None
+                ),
             )
         )
     return candidates

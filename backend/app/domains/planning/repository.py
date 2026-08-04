@@ -21,6 +21,11 @@ from app.domains.planning.candidates import (
     EssayPlanningSnapshot,
     ObjectivePlanningSnapshot,
 )
+from app.domains.planning.cause_training import (
+    ConfirmedCauseDirection,
+    direction_from_codes,
+    leading_confirmed_cause_index,
+)
 from app.domains.planning.errors import PlanningContractError
 from app.domains.xingce_learning.contracts import XINGCE_MAX_QUESTION_BUNDLE_SIZE
 from app.domains.xingce_learning.real_attempt.repository import XingceAttemptRepository
@@ -636,6 +641,113 @@ class PlanningRepository:
             for row in rows
         ]
 
+    def _recent_confirmed_cause_direction(
+        self,
+        session: Session,
+        *,
+        user_id: str,
+        now: datetime,
+        vocabulary: ReleasedModuleVocabulary | None,
+    ) -> tuple[ConfirmedCauseDirection | None, str | None]:
+        """读取近期已确认错因，解析出主导训练方向与对应的 canonical 模块。
+
+        窗口为近 14 天（对齐复测到期节奏），只取 current head 且未被
+        后继决定收回的确认错因。主导错因按 :func:`pick_leading_confirmed_cause`
+        排序选出；主导错因所在题目的模块（canonical 化）作为针对性训练的
+        模块。没有可识别方向或无法定位模块时，返回 (None, None)，
+        由调用方回退到统计最弱模块。
+        """
+
+        causes = list(
+            session.execute(
+                text(
+                    """
+                    select cause.cause_code, cause.replacement_code,
+                           cause.session_id
+                    from learning.xingce_confirmed_cause_versions cause
+                    where cause.user_id = cast(:user_id as uuid)
+                      and cause.created_at >= :now - interval '14 days'
+                      and not exists (
+                        select 1
+                        from learning.xingce_confirmed_cause_versions successor
+                        where successor.supersedes_confirmed_cause_version_id =
+                              cause.confirmed_cause_version_id
+                      )
+                      and not exists (
+                        select 1
+                        from learning.xingce_cause_decision_versions revoked_by
+                        where revoked_by.supersedes_decision_version_id =
+                              cause.decision_version_id
+                      )
+                    order by cause.created_at asc,
+                             cause.confirmed_cause_version_id asc
+                    """
+                ),
+                {"user_id": user_id, "now": now},
+            )
+            .mappings()
+            .all()
+        )
+        if not causes:
+            return None, None
+        cause_pairs = [
+            (_optional_str(row["cause_code"]), _optional_str(row["replacement_code"]))
+            for row in causes
+        ]
+        leading_index = leading_confirmed_cause_index(cause_pairs)
+        if leading_index is None:
+            return None, None
+        direction = direction_from_codes(*cause_pairs[leading_index])
+        if direction is None:
+            return None, None
+        module = self._cause_session_module(
+            session,
+            session_id=str(causes[leading_index]["session_id"]),
+            vocabulary=vocabulary,
+        )
+        return direction, module
+
+    def _cause_session_module(
+        self,
+        session: Session,
+        *,
+        session_id: str,
+        vocabulary: ReleasedModuleVocabulary | None,
+    ) -> str | None:
+        """把错因所在作答 session 的题目模块解析成 canonical 模块名。
+
+        同一 session 内多题跨模块时取出现次数最多的模块；无法 canonical
+        化或没有任何题目时返回 None。
+        """
+
+        rows = list(
+            session.execute(
+                text(
+                    """
+                    select question.module_name
+                    from learning.xingce_assessments assessment
+                    join product.questions question
+                      on question.question_id = assessment.question_id
+                    where assessment.session_id = cast(:session_id as uuid)
+                      and question.module_name is not null
+                    """
+                ),
+                {"session_id": session_id},
+            )
+            .mappings()
+            .all()
+        )
+        counts: dict[str, int] = {}
+        for row in rows:
+            module_name = str(row["module_name"])
+            canonical = vocabulary.canonicalize(module_name) if vocabulary is not None else None
+            if canonical is None:
+                continue
+            counts[canonical] = counts.get(canonical, 0) + 1
+        if not counts:
+            return None
+        return max(counts.items(), key=lambda item: (item[1], item[0]))[0]
+
     def objective_snapshot(
         self,
         session: Session,
@@ -677,6 +789,18 @@ class PlanningRepository:
             module_assessments,
             vocabulary=module_vocabulary,
         )
+        cause_direction, cause_module = self._recent_confirmed_cause_direction(
+            session,
+            user_id=user_id,
+            now=now,
+            vocabulary=module_vocabulary,
+        )
+        if (
+            cause_direction is not None
+            and preferred_xingce_module is None
+            and cause_module is not None
+        ):
+            weakest = cause_module
         recent_assessment_count = int(
             session.execute(
                 text(
@@ -873,6 +997,7 @@ class PlanningRepository:
             due_reflection_state=(
                 str(first_reflection["state"]) if first_reflection is not None else None
             ),
+            caused_training_direction=cause_direction,
         )
 
     def essay_snapshot(
