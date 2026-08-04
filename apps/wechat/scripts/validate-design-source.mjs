@@ -124,7 +124,6 @@ for (const [kind, expected] of Object.entries(expectedDispositionCounts)) {
 const profileController = readText(resolve(miniprogramRoot, "pages/me/index.ts"));
 for (const hiddenRoute of [
   "membership",
-  "support",
   "communityDraft",
   "communityStructure",
   "communityTrial",

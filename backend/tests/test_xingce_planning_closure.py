@@ -27,6 +27,20 @@ def test_all_correct_reflection_rejects_unsupported_cause_and_completes_plan(
         token="xingce-planning-complete-token",
         choices=["A", "B", "C"],
     )
+    assert submitted["completion"]["receiptId"]
+    assert all(planned["id"] != task["id"] for planned in submitted["completion"]["plan"]["tasks"])
+    with db_session_factory() as session:
+        assert (
+            session.execute(
+                text(
+                    "select status from learning.task_execution_versions "
+                    "where task_id = cast(:task_id as uuid) "
+                    "order by version_no desc limit 1"
+                ),
+                {"task_id": task["id"]},
+            ).scalar_one()
+            == "complete"
+        )
     review = submitted["review"]
     payload = {
         "expectedRevision": review["revision"],
@@ -238,48 +252,8 @@ def test_abandoned_plan_execution_is_preserved_and_late_evidence_is_linked(
         db_session_factory,
         token="xingce-planning-late-link-token",
         choices=["A", "B", "C"],
+        abandon_before_submit=True,
     )
-    with db_session_factory() as session:
-        execution = (
-            session.execute(
-                text(
-                    """
-                select execution.execution_version_id::text,
-                       execution.elapsed_minutes,
-                       plan.valid_until > now() as plan_is_valid,
-                       not exists (
-                         select 1 from learning.daily_plan_versions successor
-                         where successor.supersedes_plan_version_id =
-                               plan.plan_version_id
-                       ) as plan_is_current
-                from learning.task_execution_versions execution
-                join learning.daily_plan_versions plan
-                  on plan.plan_version_id = execution.plan_version_id
-                where execution.task_id = cast(:task_id as uuid)
-                  and execution.status = 'in_progress'
-                """
-                ),
-                {"task_id": task["id"]},
-            )
-            .mappings()
-            .one()
-        )
-        execution_id = str(execution["execution_version_id"])
-        assert execution["plan_is_valid"] is True
-        assert execution["plan_is_current"] is True
-    abandoned = client.put(
-        f"/api/v2/plans/tasks/{task['id']}/execution",
-        headers={**auth, "Idempotency-Key": "abandon-started-xingce"},
-        json={
-            "status": "abandoned",
-            "elapsedMinutes": max(3, int(execution["elapsed_minutes"])),
-            "evidenceRefs": [],
-            "abandonmentReason": "当日计划结束，但保留已开始作答的复盘入口。",
-            "basedOnExecutionVersionId": execution_id,
-        },
-    )
-    assert abandoned.status_code == 200, abandoned.text
-
     review = submitted["review"]
     reflected = client.put(
         f"/api/v2/xingce/attempt-reviews/{review['reviewId']}/reflection",
@@ -408,9 +382,7 @@ def test_due_mastery_version_runs_independent_verification_and_schedules_first_r
             ),
             {"session_id": verification["sessionId"]},
         ).scalar_one()
-    source_question_ids = {
-        str(item["questionId"]) for item in source_scoring_bundle["questions"]
-    }
+    source_question_ids = {str(item["questionId"]) for item in source_scoring_bundle["questions"]}
     correct_options_by_question = {
         str(item["questionId"]): [str(option) for option in item["correctOptionIds"]]
         for item in verification_scoring_bundle["questions"]
@@ -419,7 +391,7 @@ def test_due_mastery_version_runs_independent_verification_and_schedules_first_r
     assert len(set(question_ids)) == 3
     assert set(question_ids).isdisjoint(source_question_ids)
     assert set(question_ids) | source_question_ids <= {
-        f"xingce-route-question-{index}" for index in range(1, 31)
+        f"xingce-route-question-{index}" for index in range(1, 61)
     }
     checkpoint = client.put(
         f"/api/v2/xingce/task-sessions/{verification['sessionId']}/checkpoint",
@@ -544,8 +516,9 @@ def _submitted_attempt(
     *,
     token: str,
     choices: list[str],
+    abandon_before_submit: bool = False,
 ) -> tuple[TestClient, dict[str, str], dict[str, Any], dict[str, Any]]:
-    _seed_learner_and_published_essay_content(
+    user_id = _seed_learner_and_published_essay_content(
         factory,
         access_token=token,
         include_objective_questions=False,
@@ -553,7 +526,19 @@ def _submitted_attempt(
     # Dynamic daily bundles can consume more than the historical fixed three
     # questions. Keep a separate supply available for the verification task
     # that these closure tests exercise.
-    seed_route_frozen_release(factory, count=30)
+    seed_route_frozen_release(factory, count=60)
+    with factory.begin() as session:
+        session.execute(
+            text(
+                """
+                update learning.weekly_study_preference_versions
+                set weekday_minutes = 180, weekend_minutes = 180,
+                    long_block_minutes = 60, fragment_minutes = 30
+                where user_id = cast(:user_id as uuid)
+                """
+            ),
+            {"user_id": user_id},
+        )
     client = _client(factory)
     auth = {"Authorization": f"Bearer {token}"}
     task = _xingce_task(client, auth)
@@ -632,6 +617,46 @@ def _submitted_attempt(
     )
     assert checkpoint.status_code == 200, checkpoint.text
     checkpointed = checkpoint.json()["data"]
+    if abandon_before_submit:
+        with factory() as session:
+            execution = (
+                session.execute(
+                    text(
+                        """
+                        select execution.execution_version_id::text,
+                               execution.elapsed_minutes,
+                               plan.valid_until > now() as plan_is_valid,
+                               not exists (
+                                 select 1 from learning.daily_plan_versions successor
+                                 where successor.supersedes_plan_version_id =
+                                       plan.plan_version_id
+                               ) as plan_is_current
+                        from learning.task_execution_versions execution
+                        join learning.daily_plan_versions plan
+                          on plan.plan_version_id = execution.plan_version_id
+                        where execution.task_id = cast(:task_id as uuid)
+                          and execution.status = 'in_progress'
+                        """
+                    ),
+                    {"task_id": task["id"]},
+                )
+                .mappings()
+                .one()
+            )
+        assert execution["plan_is_valid"] is True
+        assert execution["plan_is_current"] is True
+        abandoned = client.put(
+            f"/api/v2/plans/tasks/{task['id']}/execution",
+            headers={**auth, "Idempotency-Key": f"abandon-{token}"},
+            json={
+                "status": "abandoned",
+                "elapsedMinutes": max(3, int(execution["elapsed_minutes"])),
+                "evidenceRefs": [],
+                "abandonmentReason": "当日计划结束，但保留已开始作答的复盘入口。",
+                "basedOnExecutionVersionId": str(execution["execution_version_id"]),
+            },
+        )
+        assert abandoned.status_code == 200, abandoned.text
     submit = client.post(
         f"/api/v2/xingce/task-sessions/{started['sessionId']}/submit",
         headers={**auth, "Idempotency-Key": f"submit-{token}"},

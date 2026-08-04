@@ -9,6 +9,7 @@ import type {
   WeeklyStudyPreference,
 } from "../../api/generated/types.gen";
 import { OnboardingApi } from "../../api/onboarding";
+import { suppressNativeTabBar } from "../../platform/tab-bar";
 import { PlanningApi } from "../../api/planning";
 import { QualificationApi } from "../../api/qualification";
 import {
@@ -145,6 +146,7 @@ Page({
   },
 
   onShow() {
+    suppressNativeTabBar();
     if (typeof this.getTabBar === "function") {
       this.getTabBar().setData({
         active: "me",
@@ -469,14 +471,15 @@ Page({
     if (typeof this.getTabBar === "function") {
       this.getTabBar().setData({ hidden });
     }
-    const operation = hidden
-      ? wx.hideTabBar({ animation: false })
-      : wx.showTabBar({ animation: false });
-    void operation.catch(() => undefined);
+    suppressNativeTabBar();
   },
 
   openPrivacy() {
     void wx.navigateTo({ url: routes.privacy });
+  },
+
+  openSupport() {
+    void wx.navigateTo({ url: routes.support });
   },
 
   openNotificationSettings() {

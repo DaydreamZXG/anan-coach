@@ -33,6 +33,41 @@
         </view>
 
         <view class="s9-section">
+          <view class="s9-section-head">
+            <view>
+              <view class="s9-section-title">今天重点练什么</view>
+              <view class="focus-caption">选“综合安排”时，岸岸继续兼顾行测与申论。</view>
+            </view>
+          </view>
+          <view class="s9-card focus-card">
+            <view class="focus-options">
+              <button
+                hover-class="item--hover"
+                wx:for="{{focusOptions}}"
+                wx:key="value"
+                class="control-center focus-option {{preferredXingceModule === item.value ? 'focus-option--active' : ''}}"
+                data-value="{{item.value}}"
+                disabled="{{previewing || submitting}}"
+                bindtap="chooseFocus"
+              >{{item.label}}</button>
+            </view>
+            <button
+              wx:if="{{preferredXingceModule}}"
+              hover-class="item--hover"
+              class="focus-only {{xingceOnly ? 'focus-only--active' : ''}}"
+              disabled="{{previewing || submitting}}"
+              bindtap="toggleXingceOnly"
+            >
+              <view class="focus-only__check">{{xingceOnly ? '✓' : ''}}</view>
+              <view>
+                <view class="focus-only__title">今天只练这一项</view>
+                <view class="focus-only__copy">开启后，今天不再混排其他模块和申论。</view>
+              </view>
+            </button>
+          </view>
+        </view>
+
+        <view class="s9-section">
           <view class="s9-section-head"><view class="s9-section-title">今天还能学多久</view></view>
           <view class="s9-card time-card">
             <view class="time-stepper">

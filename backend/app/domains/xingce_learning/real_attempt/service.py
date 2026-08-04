@@ -13,8 +13,13 @@ from sqlalchemy.engine import RowMapping
 from sqlalchemy.orm import Session
 
 from app.domains.commerce.repository import CommerceQuotaExceededError
+from app.domains.planning.repository import PlanningContractError, PlanningRepository
+from app.domains.planning.service import PlanningService
 from app.domains.planning.xingce_completion import complete_xingce_plan_task
-from app.domains.planning.xingce_evidence import record_pending_xingce_evidence
+from app.domains.planning.xingce_evidence import (
+    record_pending_xingce_evidence,
+    settle_xingce_evidence,
+)
 from app.domains.planning.xingce_start import start_xingce_plan_task
 from app.domains.learning_media.repository import LearningMediaRepository
 from app.domains.xingce_learning.cause_agent.repository import CauseAgentRepository
@@ -68,6 +73,8 @@ from app.platform.outbox import OutboxRepository
 
 SCORING_POLICY_VERSION = "xingce-objective-factored-v2"
 RESULT_FACT_CONTRACT_VERSION = "xingce-result-facts@v1"
+
+
 class XingceAttemptError(RuntimeError):
     def __init__(self, code: str, message: str, *, status_code: int) -> None:
         super().__init__(message)
@@ -794,6 +801,18 @@ class XingceAttemptService:
             assessment_ids=assessment_ids,
             created_at=submitted_at,
         )
+        completion = complete_xingce_plan_task(
+            session,
+            repository=self._repository,
+            user_id=user_id,
+            task_session=submitted,
+            command_id=command_id,
+            completed_at=submitted_at,
+            # Completing the question attempt closes today's practice task.
+            # Reflection evidence remains pending and is settled separately
+            # when the learner later confirms or rejects the cause judgment.
+            settle_planning_evidence=False,
+        )
         for attempt_record, assessment_id, result_item in zip(
             attempt_records,
             assessment_ids,
@@ -844,7 +863,12 @@ class XingceAttemptService:
             ],
             reason_code="xingce_attempt_group_submitted",
         )
-        projection = self._projection(session, user_id=user_id, task_session=submitted)
+        projection = self._projection(
+            session,
+            user_id=user_id,
+            task_session=submitted,
+            completion=completion,
+        )
         self._record_command(
             session,
             user_id=user_id,
@@ -1224,7 +1248,16 @@ class XingceAttemptService:
             },
         )
         mastery = None
-        completion = None
+        completion_payload = self._runtime_repository.completion_payload(
+            session,
+            user_id=user_id,
+            session_id=str(task_session["session_id"]),
+        )
+        completion = (
+            XingceCompletionReceipt.model_validate(completion_payload, strict=False)
+            if completion_payload is not None
+            else None
+        )
         transitioned = task_session
         if not is_revision:
             if task_session["state"] != "submitted":
@@ -1244,14 +1277,48 @@ class XingceAttemptService:
                     "复测绑定的掌握状态已经变化，请刷新今日计划后重试。",
                     status_code=409,
                 ) from exc
-            completion = complete_xingce_plan_task(
-                session,
-                repository=self._repository,
-                user_id=user_id,
-                task_session=task_session,
-                command_id=command_id,
-                completed_at=recorded_at,
-            )
+            # 2026-08-04 之前的会话把计划完成错误地延后到错因决策。
+            # 新会话在交卷时已写入 complete；这里只为历史会话幂等补齐。
+            if completion is None:
+                completion = complete_xingce_plan_task(
+                    session,
+                    repository=self._repository,
+                    user_id=user_id,
+                    task_session=task_session,
+                    command_id=command_id,
+                    completed_at=recorded_at,
+                )
+            else:
+                pending_evidence = self._repository.current_plan_evidence(
+                    session,
+                    user_id=user_id,
+                    session_id=str(task_session["session_id"]),
+                )
+                if (
+                    pending_evidence is not None
+                    and pending_evidence["state"] == "pending_reflection"
+                ):
+                    execution = PlanningRepository().current_task_execution(
+                        session,
+                        user_id=user_id,
+                        work_item_key=str(task_session["work_item_key"]),
+                    )
+                    if execution is None or execution["status"] not in {
+                        "complete",
+                        "abandoned",
+                    }:
+                        raise PlanningContractError(
+                            "Completed Xingce attempt is missing its task execution"
+                        )
+                    settle_xingce_evidence(
+                        session,
+                        repository=self._repository,
+                        command_id=command_id,
+                        user_id=user_id,
+                        task_session=task_session,
+                        execution_version_id=str(execution["execution_version_id"]),
+                        created_at=recorded_at,
+                    )
             transitioned = self._runtime_repository.settle_session(
                 session,
                 session_id=str(task_session["session_id"]),
@@ -1260,6 +1327,17 @@ class XingceAttemptService:
             )
             if transitioned is None:
                 raise _conflict("task session settlement state changed")
+            if completion is not None:
+                planning_repository = PlanningRepository()
+                completion = completion.model_copy(
+                    update={
+                        "plan": PlanningService(repository=planning_repository).get_or_create_today(
+                            session,
+                            user_id=user_id,
+                            now=recorded_at,
+                        )
+                    }
+                )
         _append_state_event(
             self._outbox,
             session,

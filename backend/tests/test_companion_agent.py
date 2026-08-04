@@ -6,6 +6,7 @@ from app.domains.companion.agent import (
     CompanionActionRequest,
     execute_companion_actions,
     is_capacity_change_request,
+    requested_plan_focus,
     requested_weekly_schedule,
 )
 from app.domains.companion.service import _allowed_actions, _requested_plan_minutes
@@ -99,7 +100,7 @@ def test_model_cannot_invent_capacity_and_server_keeps_safe_fallback() -> None:
     assert any(event["eventType"] == "failed" for event in outcome.events)
 
 
-def test_inferred_capacity_is_stripped_when_user_did_not_state_a_duration() -> None:
+def test_inferred_capacity_is_stripped_but_explicit_focus_is_preserved() -> None:
     outcome = execute_companion_actions(
         requests=[
             CompanionActionRequest(
@@ -112,9 +113,29 @@ def test_inferred_capacity_is_stripped_when_user_did_not_state_a_duration() -> N
     )
 
     assert outcome.succeeded_count == 1
-    assert outcome.actions[0].target_ref == "/pages/day-adjustment/index"
-    assert outcome.actions[0].label == "预览今日计划调整"
+    assert outcome.actions[0].target_ref is not None
+    assert "preferredXingceModule=%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90" in outcome.actions[
+        0
+    ].target_ref
+    assert "availableMinutes" not in outcome.actions[0].target_ref
+    assert outcome.actions[0].label == "预览今天重点练资料分析"
     assert not any(event["eventType"] == "failed" for event in outcome.events)
+
+
+def test_explicit_exclusive_module_request_opens_a_confirmable_same_day_preview() -> None:
+    focus = requested_plan_focus("今天我可以只学资料分析吗")
+    action = _allowed_actions(
+        decision=planner_decision(),
+        question_text="今天我可以只学资料分析吗",
+    )[0]
+
+    assert focus is not None
+    assert focus.module == "资料分析"
+    assert focus.xingce_only is True
+    assert action.label == "预览今天只练资料分析"
+    assert action.target_ref is not None
+    assert "xingceOnly=1" in action.target_ref
+    assert action.requires_confirmation is True
 
 
 def test_action_registry_exposes_private_library_without_accepting_arguments() -> None:
@@ -131,6 +152,7 @@ def test_action_registry_exposes_private_library_without_accepting_arguments() -
 def test_capacity_mutation_intent_does_not_treat_explanation_as_a_write() -> None:
     assert is_capacity_change_request("今晚只能学一小时，帮我重新安排")
     assert is_capacity_change_request("今天休息，不要排任务")
+    assert is_capacity_change_request("今天我可以只学资料分析吗")
     assert not is_capacity_change_request("为什么今天只有一小时？")
 
 

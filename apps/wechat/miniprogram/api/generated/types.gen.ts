@@ -2662,9 +2662,17 @@ export type DailyCapacityCommand = {
      */
     energy: number;
     /**
+     * Preferredxingcemodule
+     */
+    preferredXingceModule?: '言语理解与表达' | '数量关系' | '判断推理' | '资料分析' | '常识判断' | '政治理论' | null;
+    /**
      * Stress
      */
     stress: number;
+    /**
+     * Xingceonly
+     */
+    xingceOnly?: boolean;
 };
 
 /**
@@ -17433,6 +17441,10 @@ export type TodayCapacity = {
      */
     localDate: string;
     /**
+     * Preferredxingcemodule
+     */
+    preferredXingceModule?: '言语理解与表达' | '数量关系' | '判断推理' | '资料分析' | '常识判断' | '政治理论' | null;
+    /**
      * Sourcetype
      */
     sourceType: 'weekly_preference' | 'user_override';
@@ -17444,6 +17456,10 @@ export type TodayCapacity = {
      * Versionno
      */
     versionNo: number;
+    /**
+     * Xingceonly
+     */
+    xingceOnly?: boolean;
 };
 
 /**

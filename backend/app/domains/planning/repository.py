@@ -56,6 +56,8 @@ class CapacitySnapshot:
     energy: int
     stress: int
     confidence_level: int
+    preferred_xingce_module: str | None
+    xingce_only: bool
     confirmed: bool
     source_type: str
     input_fingerprint: str
@@ -358,12 +360,13 @@ class PlanningRepository:
                   capacity_version_id, command_id, user_id, local_date, version_no,
                   available_minutes, energy_level, stress_level, confidence_level,
                   confirmed, source_type, weekly_preference_version_id,
+                  preferred_xingce_module, xingce_only,
                   input_fingerprint, supersedes_capacity_version_id, recorded_at
                 ) values (
                   cast(:capacity_version_id as uuid), :command_id,
                   cast(:user_id as uuid), :local_date, :version_no,
                   :available_minutes, 3, 3, 3, false, 'weekly_preference',
-                  cast(:preference_version_id as uuid), :input_fingerprint,
+                  cast(:preference_version_id as uuid), null, false, :input_fingerprint,
                   cast(:supersedes_id as uuid), :recorded_at
                 ) returning *
                 """
@@ -458,12 +461,14 @@ class PlanningRepository:
                   capacity_version_id, command_id, user_id, local_date, version_no,
                   available_minutes, energy_level, stress_level, confidence_level,
                   confirmed, source_type, weekly_preference_version_id,
+                  preferred_xingce_module, xingce_only,
                   input_fingerprint, supersedes_capacity_version_id, recorded_at
                 ) values (
                   cast(:capacity_version_id as uuid), :command_id,
                   cast(:user_id as uuid), :local_date, :version_no,
                   :available_minutes, :energy, :stress, :confidence_level,
                   true, 'user_override', cast(:weekly_preference_version_id as uuid),
+                  :preferred_xingce_module, :xingce_only,
                   :input_fingerprint,
                   cast(:supersedes_capacity_version_id as uuid), :recorded_at
                 ) returning *
@@ -638,6 +643,7 @@ class PlanningRepository:
         user_id: str,
         goal: GoalAbilitySnapshot,
         now: datetime,
+        preferred_xingce_module: str | None = None,
     ) -> ObjectivePlanningSnapshot:
         module_assessments = (
             session.execute(
@@ -667,9 +673,22 @@ class PlanningRepository:
             track="xingce",
             now=now,
         )
-        weakest = _weakest_canonical_module(
+        weakest = preferred_xingce_module or _weakest_canonical_module(
             module_assessments,
             vocabulary=module_vocabulary,
+        )
+        recent_assessment_count = int(
+            session.execute(
+                text(
+                    """
+                    select count(*)
+                    from learning.xingce_assessments assessment
+                    where assessment.user_id = cast(:user_id as uuid)
+                      and assessment.created_at >= :now - interval '60 days'
+                    """
+                ),
+                {"user_id": user_id, "now": now},
+            ).scalar_one()
         )
         due_reflections = list(
             session.execute(
@@ -746,11 +765,19 @@ class PlanningRepository:
         ).scalar_one_or_none()
         first_reflection = due_reflections[0] if due_reflections else None
         first_mastery = due_mastery[0] if due_mastery else None
-        baseline_required = (
+        formal_xingce_estimate_unavailable = (
             goal.estimate_version_id is None
             or goal.xingce_recommended is None
             or goal.estimate_valid_until is None
             or _as_utc(goal.estimate_valid_until) <= _as_utc(now)
+        )
+        # 岗位分差仍只认正式双科 ability estimate；但日常行测训练
+        # 不能因申论估分尚缺失而无限重复摸底。一个完整受控题组的
+        # 真实 assessments 已足以让规划转入复盘和针对训练。
+        baseline_required = (
+            formal_xingce_estimate_unavailable
+            and recent_assessment_count < XINGCE_MAX_QUESTION_BUNDLE_SIZE
+            and preferred_xingce_module is None
         )
         baseline_question_count = 0
         targeted_question_count = 0
@@ -2659,6 +2686,12 @@ def _capacity_snapshot(row: RowMapping) -> CapacitySnapshot:
         energy=int(row["energy_level"]),
         stress=int(row["stress_level"]),
         confidence_level=int(row["confidence_level"]),
+        preferred_xingce_module=(
+            str(row["preferred_xingce_module"])
+            if row["preferred_xingce_module"] is not None
+            else None
+        ),
+        xingce_only=bool(row["xingce_only"]),
         confirmed=bool(row["confirmed"]),
         source_type=str(row["source_type"]),
         input_fingerprint=str(row["input_fingerprint"]),

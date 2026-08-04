@@ -10,6 +10,7 @@ import { routes } from "../../app/navigation/routes";
 import { currentAuthSession } from "../../auth/session";
 import { scoreRangeLabel } from "../../domain/presentation";
 import { storeCompanionLaunchContext } from "../../features/companion/context-store";
+import { suppressNativeTabBar } from "../../platform/tab-bar";
 import {
   dateTimeLabel,
   errorView,
@@ -80,6 +81,7 @@ Page({
   },
 
   onShow() {
+    suppressNativeTabBar();
     if (typeof this.getTabBar === "function") {
       this.getTabBar().setData({ active: "ability" });
     }

@@ -26,6 +26,7 @@ def complete_xingce_plan_task(
     task_session: RowMapping,
     command_id: str,
     completed_at: datetime,
+    settle_planning_evidence: bool = True,
 ) -> XingceCompletionReceipt:
     task = _source_task_for_started_session(
         session,
@@ -58,6 +59,7 @@ def complete_xingce_plan_task(
             execution=current,
             command_id=command_id,
             completed_at=completed_at,
+            settle_planning_evidence=settle_planning_evidence,
         )
     if current["status"] != "in_progress":
         raise PlanningContractError("Terminal Xingce plan task cannot be rewritten")
@@ -101,9 +103,7 @@ def complete_xingce_plan_task(
                 1440,
                 ceil(int(task_session["total_elapsed_seconds"]) / 60),
             ),
-            "evidence_refs": json.dumps(
-                [evidence_ref], ensure_ascii=False, sort_keys=True
-            ),
+            "evidence_refs": json.dumps([evidence_ref], ensure_ascii=False, sort_keys=True),
             "abandonment_reason": None,
             "input_fingerprint": input_fingerprint,
             "supersedes_execution_version_id": str(current["execution_version_id"]),
@@ -121,22 +121,25 @@ def complete_xingce_plan_task(
         task_session=task_session,
         occurred_at=completed_at,
     )
-    receipt = settle_xingce_evidence(
-        session,
-        repository=repository,
-        command_id=command_id,
-        user_id=user_id,
-        task_session=task_session,
-        execution_version_id=str(row["execution_version_id"]),
-        created_at=completed_at,
-    )
+    receipt_id = str(row["execution_version_id"])
+    if settle_planning_evidence:
+        receipt = settle_xingce_evidence(
+            session,
+            repository=repository,
+            command_id=command_id,
+            user_id=user_id,
+            task_session=task_session,
+            execution_version_id=str(row["execution_version_id"]),
+            created_at=completed_at,
+        )
+        receipt_id = str(receipt["evidence_version_id"])
     plan = PlanningService(repository=planning_repository).get_or_create_today(
         session,
         user_id=user_id,
         now=completed_at,
     )
     return XingceCompletionReceipt(
-        receiptId=str(receipt["evidence_version_id"]),
+        receiptId=receipt_id,
         settlementStatus="completed",
         plan=plan,
     )
@@ -153,6 +156,7 @@ def _link_late_evidence(
     execution: RowMapping,
     command_id: str,
     completed_at: datetime,
+    settle_planning_evidence: bool,
 ) -> XingceCompletionReceipt:
     late_evidence_id = str(uuid4())
     session_id = str(task_session["session_id"])
@@ -199,15 +203,16 @@ def _link_late_evidence(
         .mappings()
         .one()
     )
-    settle_xingce_evidence(
-        session,
-        repository=repository,
-        command_id=command_id,
-        user_id=user_id,
-        task_session=task_session,
-        execution_version_id=execution_id,
-        created_at=completed_at,
-    )
+    if settle_planning_evidence:
+        settle_xingce_evidence(
+            session,
+            repository=repository,
+            command_id=command_id,
+            user_id=user_id,
+            task_session=task_session,
+            execution_version_id=execution_id,
+            created_at=completed_at,
+        )
     plan = PlanningService(repository=planning_repository).get_or_create_today(
         session,
         user_id=user_id,
@@ -253,7 +258,7 @@ def _append_plan_state_event(
                 f"task-execution:{execution_id}",
                 f"task-session:{task_session['session_id']}:{task_session['revision']}",
             ],
-            "reasonCode": "xingce_reflection_and_cause_recorded",
+            "reasonCode": "xingce_question_attempt_submitted",
         },
         "schemaVersion": 1,
     }

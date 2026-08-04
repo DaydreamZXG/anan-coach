@@ -1,14 +1,10 @@
-import { environment } from "../../config/environment";
-
 Page({
   data: {
-    groupQrImageUrl: environment.supportGroupQrImageUrl ?? "",
-    qrAvailable: Boolean(environment.supportGroupQrImageUrl),
+    supportQrImageUrl: "/assets/wechat-support-qr.jpg",
   },
 
   previewGroupQr() {
-    const url = this.data.groupQrImageUrl;
-    if (!url) return;
+    const url = this.data.supportQrImageUrl;
     void wx.previewImage({ current: url, urls: [url] });
   },
 });

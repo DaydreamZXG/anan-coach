@@ -20,6 +20,7 @@ import { resolveCompanionAction } from "../../features/learning-brain/companion-
 import { errorView, requireAuthenticatedClient } from "../../features/learning-brain/presentation";
 import { ApiClientError, type ApiClient } from "../../api/client";
 import { stableFingerprint } from "../../platform/command-id";
+import { suppressNativeTabBar } from "../../platform/tab-bar";
 import { OperationAttemptStore } from "../../platform/operation-attempt-store";
 import {
   consumeCompanionLaunchContext,
@@ -174,6 +175,7 @@ Page({
   },
 
   onShow() {
+    suppressNativeTabBar();
     if (!currentAuthSession()) {
       void wx.reLaunch({ url: routes.login });
       return;

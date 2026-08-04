@@ -170,6 +170,89 @@ button.energy-option {
   width: auto;
 }
 
+.focus-caption {
+  margin-top: calc(8 * var(--rpx));
+  color: var(--ink-3);
+  font-size: var(--text-caption);
+  line-height: 1.5;
+}
+
+.focus-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(16 * var(--rpx));
+}
+
+button.focus-option {
+  width: auto;
+  min-height: calc(68 * var(--rpx));
+  margin: 0;
+  padding: 0 calc(24 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--line);
+  border-radius: var(--figma-radius-pill);
+  background: var(--bg);
+  color: var(--color-ink-secondary);
+  font-size: var(--text-caption);
+  font-weight: 700;
+}
+
+button.focus-option--active {
+  border-color: var(--color-primary);
+  background: var(--figma-color-cyan-soft);
+  color: var(--figma-color-cyan-deep);
+}
+
+button.focus-only {
+  display: flex;
+  width: 100%;
+  min-height: calc(104 * var(--rpx));
+  align-items: center;
+  gap: calc(20 * var(--rpx));
+  margin: calc(24 * var(--rpx)) 0 0;
+  padding: calc(20 * var(--rpx));
+  border: calc(1 * var(--rpx)) solid var(--line);
+  border-radius: var(--radius-24);
+  background: var(--bg);
+  color: var(--ink);
+  text-align: left;
+}
+
+button.focus-only--active {
+  border-color: var(--color-primary);
+  background: var(--figma-color-cyan-soft);
+}
+
+.focus-only__check {
+  display: flex;
+  width: calc(44 * var(--rpx));
+  height: calc(44 * var(--rpx));
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border: calc(2 * var(--rpx)) solid var(--line);
+  border-radius: 50%;
+  color: var(--color-surface);
+  font-size: var(--text-caption);
+  font-weight: 700;
+}
+
+.focus-only--active .focus-only__check {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
+.focus-only__title {
+  font-size: var(--text-body);
+  font-weight: 700;
+}
+
+.focus-only__copy {
+  margin-top: calc(4 * var(--rpx));
+  color: var(--ink-3);
+  font-size: var(--text-caption);
+  line-height: 1.45;
+}
+
 .suggestion-card {
   position: relative;
   box-sizing: border-box;

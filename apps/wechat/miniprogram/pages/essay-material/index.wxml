@@ -49,7 +49,6 @@
         data-text="{{item.text}}"
         bindtap="selectSegment"
       >
-        <view class="material-paragraph__number">{{item.paragraphNumber}}</view>
         <view class="material-paragraph__body">
           <text class="material-paragraph__text" user-select>{{item.text}}</text>
           <block wx:for="{{annotations}}" wx:for-item="annotation" wx:key="segmentId">

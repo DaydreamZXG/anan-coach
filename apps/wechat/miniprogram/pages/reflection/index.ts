@@ -995,8 +995,7 @@ Page<ReflectionPageData, ReflectionPageCustom>({
       runtime.mediaDraft = loadReflectionLearningMediaDraft(runtime.ownerUserId, runtime.reviewId);
       void deleteVoiceFiles(localPaths);
       applySession(this, runtime, response.data);
-      returnToTodayForBackgroundCause =
-        response.data.review?.state === "cause_candidate_pending";
+      returnToTodayForBackgroundCause = response.data.review?.state === "cause_candidate_pending";
     } catch (error) {
       if (!runtimeIsActive(this, runtime)) return;
       if (error instanceof ApiClientError && error.statusCode === 409) {
