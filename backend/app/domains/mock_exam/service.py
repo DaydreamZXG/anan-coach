@@ -14,6 +14,10 @@ from app.contracts.guokao_xingce import (
     GUOKAO_XINGCE_MODULES,
     GUOKAO_XINGCE_VICE_PROVINCIAL_BLUEPRINT,
 )
+from app.domains.ability_estimation.service import (
+    AbilityEstimateContractError,
+    AbilityEstimateService,
+)
 from app.domains.knowledge.service import KnowledgeService
 from app.domains.mock_exam.repository import (
     AssignedQuestionRecord,
@@ -43,6 +47,7 @@ from app.domains.planning.mock_completion import (
     complete_mock_plan_task,
 )
 from app.domains.progression.service import ProgressionService
+from app.domains.qualification.repository import PositionRuleReleaseUnavailable
 from app.domains.task_content.schemas import SafeQuestionBundle
 from app.domains.task_content.service import (
     TaskContentContractError,
@@ -117,12 +122,14 @@ class MockExamService:
         repository: MockExamRepository,
         knowledge_service: KnowledgeService,
         progression_service: ProgressionService,
+        ability_service: AbilityEstimateService | None = None,
     ) -> None:
         self._repository = repository
         # Kept in the constructor for dependency compatibility. Learner delivery never
         # calls KnowledgeService.get_question because QuestionDetail contains answers.
         self._knowledge_service = knowledge_service
         self._progression_service = progression_service
+        self._ability_service = ability_service or AbilityEstimateService()
 
     def create_weekly_mock(
         self,
@@ -438,6 +445,27 @@ class MockExamService:
             command_id=(idempotency_key or f"{session_id}:{expected_revision}"),
             completed_at=submitted_at,
         )
+        # Feed the in-product full-paper mock into the ability estimate. The
+        # command ID is derived from the mock exam session so a retried submit
+        # replays the persisted evidence instead of double-counting the score.
+        # A missing active position release means the ability store is not open;
+        # the scored mock must still be deliverable, so the write is best effort.
+        try:
+            self._ability_service.record_controlled_mock_score(
+                self._repository.session,
+                user_id=user_id,
+                command_id=f"controlled-mock:{session_id}",
+                source_report_version_id=session_id,
+                occurred_at=submitted_at,
+                xingce_score=review.performance_index,
+                shenlun_score=None,
+            )
+        except (
+            PositionRuleReleaseUnavailable,
+            AbilityEstimateContractError,
+            LookupError,
+        ):
+            pass
         response = MockExamSubmitResponse(
             session_id=session_id,
             status="submitted",
