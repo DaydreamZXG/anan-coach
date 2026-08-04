@@ -1457,9 +1457,9 @@ async function pollCauseCandidate(
 function scheduleCausePoll(page: ReflectionPageInstance, runtime: ReflectionRuntime): void {
   clearCausePoll(runtime);
   if (!runtimeIsActive(page, runtime)) return;
-  // 轮询上限：约 15 秒（10 次 × 1.5s）仍未出结果，停止并展示超时态，
-  // 避免 AI 归因服务挂起时用户无限转圈。
-  if (runtime.causePollCount >= 10) {
+  // 严格结构化错因分析在真实作答轨迹上可能需要约 2 分钟。
+  // 这里等待后台异步任务，不把 15 秒误报成分析失败。
+  if (runtime.causePollCount >= 140) {
     runtime.causePollCount = 0;
     page.setData({
       pendingMessage: "错因分析暂时没有完成，你的原话已保存，可稍后在今日计划继续。",

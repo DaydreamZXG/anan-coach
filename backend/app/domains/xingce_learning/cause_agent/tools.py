@@ -21,6 +21,29 @@ CAUSES = (
     ("other", "现有分类无法覆盖"),
 )
 
+_NON_REVIEWABLE_RESULT_CODES = {"unanswered", "skipped"}
+_RESULT_EVIDENCE_FIELDS = (
+    "resultCode",
+    "selectedOptionIds",
+    "correctOptionIds",
+    "answerChangeCount",
+    "factContractVersion",
+    "objectiveVerdict",
+    "disposition",
+    "confidenceEvidence",
+    "timingEvidence",
+)
+_ANSWER_EVIDENCE_FIELDS = (
+    "selectedOptionIds",
+    "eliminatedOptionIds",
+    "confidence",
+    "marked",
+    "skipped",
+    "elapsedSeconds",
+    "draftText",
+    "materialPosition",
+)
+
 
 class CauseAgentTools:
     def __init__(
@@ -37,6 +60,7 @@ class CauseAgentTools:
         self._user_id = user_id
         self._session_id = session_id
         self._reflection_version_id = reflection_version_id
+        self._reviewable_rows: list[Any] | None = None
 
     @property
     def handlers(self) -> dict[str, Any]:
@@ -61,19 +85,17 @@ class CauseAgentTools:
 
     def load_attempt_evidence(self, arguments: dict[str, Any]) -> dict[str, Any]:
         self._require_scope(arguments)
-        rows = self._repository.attempt_evidence(
-            self._session,
-            user_id=self._user_id,
-            session_id=self._session_id,
-        )
+        rows = self._reviewable_attempt_rows()
         return {
             "contractVersion": "xingce-attempt-evidence@v1",
             "items": [
                 {
                     "questionId": str(row["question_id"]),
                     "resultCode": str(row["result_code"]),
-                    "result": dict(row["result_snapshot"]),
-                    "answer": dict(row["answer_payload"]),
+                    # 原始 answer payload 还包含全量笔迹点和动作事件；
+                    # 这些已由 action-trace 工具去重摘要，不再重复发给模型。
+                    "result": _pick(dict(row["result_snapshot"]), _RESULT_EVIDENCE_FIELDS),
+                    "answer": _pick(dict(row["answer_payload"]), _ANSWER_EVIDENCE_FIELDS),
                     "contentVersionId": str(row["content_version_id"]),
                     "assessmentId": str(row["assessment_id"]),
                     # 该题存在本人未撤销的内容争议：证据仍然给出（不偷偷剔除），
@@ -121,6 +143,7 @@ class CauseAgentTools:
         if row is None:
             raise PermissionError("task session is not owned by the frozen learner scope")
         questions = list(dict(row["scoring_bundle"])["questions"])
+        reviewable_question_ids = self._reviewable_question_ids()
         published = [
             {
                 "questionId": str(item["questionId"]),
@@ -129,6 +152,7 @@ class CauseAgentTools:
                 "explanationSource": item.get("explanationSource"),
             }
             for item in questions
+            if str(item["questionId"]) in reviewable_question_ids
             if item.get("explanationSource") in {"verified", "ai_rewrite_accepted"}
         ]
         return {
@@ -158,10 +182,13 @@ class CauseAgentTools:
         if row is None:
             raise PermissionError("task session is not owned by the frozen learner scope")
         answers = list(dict(row["checkpoint"]).get("answers", []))
+        reviewable_question_ids = self._reviewable_question_ids()
         items: list[dict[str, Any]] = []
         traced_question_ids: list[str] = []
         for answer in answers:
             question_id = str(answer["questionId"])
+            if question_id not in reviewable_question_ids:
+                continue
             events = [
                 {
                     "type": str(event["type"]),
@@ -226,6 +253,7 @@ class CauseAgentTools:
             user_id=self._user_id,
             session_id=self._session_id,
         )
+        reviewable_question_ids = self._reviewable_question_ids()
         items = [
             {
                 "questionId": str(row["question_id"]),
@@ -241,6 +269,7 @@ class CauseAgentTools:
                 ),
             }
             for row in rows
+            if str(row["question_id"]) in reviewable_question_ids
         ]
         refs: list[str] = []
         for item in items:
@@ -264,6 +293,31 @@ class CauseAgentTools:
             ],
             "evidenceRefs": [f"cause-taxonomy:{CAUSE_TAXONOMY_VERSION}"],
         }
+
+    def _reviewable_attempt_rows(self) -> list[Any]:
+        """Only real answered items belong in cause analysis.
+
+        Final-submit turns untouched remainder into explicit unanswered records so the
+        attempt can be settled.  Those records are useful for completion accounting,
+        but they are not evidence that the learner "cannot do" a question and must not
+        be sent to the cause model.
+        """
+
+        if self._reviewable_rows is None:
+            rows = self._repository.attempt_evidence(
+                self._session,
+                user_id=self._user_id,
+                session_id=self._session_id,
+            )
+            self._reviewable_rows = [
+                row
+                for row in rows
+                if str(row["result_code"]) not in _NON_REVIEWABLE_RESULT_CODES
+            ]
+        return self._reviewable_rows
+
+    def _reviewable_question_ids(self) -> set[str]:
+        return {str(row["question_id"]) for row in self._reviewable_attempt_rows()}
 
 
 def _collect_anchored_segments(
@@ -331,3 +385,7 @@ def _collect_anchored_segments(
         "anchoredSegments": segments,
         "anchoredSummary": "用户依次标记了" + "、".join(text_parts),
     }
+
+
+def _pick(source: dict[str, Any], fields: tuple[str, ...]) -> dict[str, Any]:
+    return {field: source[field] for field in fields if field in source}

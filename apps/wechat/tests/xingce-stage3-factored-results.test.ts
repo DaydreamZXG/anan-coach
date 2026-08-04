@@ -159,6 +159,18 @@ describe("stage 3 factored result presentation", () => {
     });
   });
 
+  it("即使后端结果数组乱序，题号仍严格按冻结题组排列", () => {
+    const session = submittedXingceSession("incorrect");
+    if (!session.result) throw new Error("fixture result is required");
+    session.result.items = [...session.result.items].reverse();
+
+    const items = presentXingceResult(session)?.items;
+    expect(items?.map((item) => item.questionId)).toEqual(
+      session.bundle.questions.map((question) => question.questionId),
+    );
+    expect(items?.map((item) => item.positionNumber)).toEqual([1, 2, 3]);
+  });
+
   it("结果摘要只使用真实作答时长、超时和信心证据", () => {
     const session = submittedXingceSession("timeout");
     session.totalElapsedSeconds = 336;

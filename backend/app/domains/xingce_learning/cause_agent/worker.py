@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import UTC, datetime, timedelta
 import json
+import logging
 from typing import Any
 from uuid import UUID, uuid4
 
@@ -45,6 +46,9 @@ from app.domains.xingce_learning.cause_agent.tools import CauseAgentTools
 from app.domains.xingce_learning.real_attempt.repository import XingceAttemptRepository
 from app.platform.jobs import BackgroundJob, BackgroundJobRepository, JobContractError
 from app.platform.outbox import OutboxRepository
+
+
+logger = logging.getLogger(__name__)
 
 
 class CauseAgentWorker:
@@ -123,6 +127,10 @@ class CauseAgentWorker:
         try:
             return self._process_claim(session, job=job)
         except Exception:
+            logger.exception(
+                "cause-agent worker failed unexpectedly",
+                extra={"job_id": str(job.job_id), "job_type": job.job_type},
+            )
             session.rollback()
             current = self._jobs.by_id(session, job_id=job.job_id)
             if (
@@ -420,17 +428,27 @@ class CauseAgentWorker:
         # 模型在“全对”时倾向硬凑 candidate_ready，这里从数据上保证一定走
         # evidence_insufficient，避免让用户被迫确认一个不存在的错因。
         result_codes = set(evidence.attempt_result_codes.values())
-        if result_codes and result_codes <= {"correct", "guessed_correct"}:
+        if not result_codes or result_codes <= {"correct", "guessed_correct"}:
             # 全对短路：evidence_refs 来自各证据段，空证据时回退到 run 的版本引用，
             # 避免 EvidenceInsufficient 的 evidence_refs min_length=1 校验失败。
-            evidence_refs = sorted(evidence.allowed_evidence_refs)
+            evidence_refs = sorted(evidence.allowed_evidence_refs)[:20]
             if not evidence_refs:
                 evidence_refs = list(run.get("input_version_refs") or [])
             output = EvidenceInsufficient(
-                reason_code="no_incorrect_attempt",
-                explanation="本次练习全部作答正确，没有需要整理错因的题目。",
+                reason_code=(
+                    "no_incorrect_attempt" if result_codes else "no_reviewable_attempt"
+                ),
+                explanation=(
+                    "本次练习全部作答正确，没有需要整理错因的题目。"
+                    if result_codes
+                    else "本次没有可用于错因分析的真实作答；未到达的题不会被判成不会。"
+                ),
                 missing_evidence=[
-                    "attempt includes no incorrect, unanswered, or timed-out question"
+                    (
+                        "attempt includes no incorrect or timed-out answered question"
+                        if result_codes
+                        else "attempt includes no reviewable answered question"
+                    )
                 ],
                 evidence_refs=evidence_refs,
             )
@@ -508,6 +526,9 @@ class CauseAgentWorker:
                 reservation_id=UUID(str(job.payload["reservationId"])),
                 reservation_source=str(job.payload["reservationSource"]),
                 price_version=self._price_card.version,
+                # 个人测试发布不以企业式“预先登记评测发布证明”
+                # 作为模型调用门禁。调用归因、证据指纹和成本流水仍落库。
+                enforce_evaluated_deployment=False,
             ),
             processor_release_id=self._provider.provider_release_id,
             processor_endpoint_fingerprint=endpoint_fingerprint(

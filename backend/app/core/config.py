@@ -128,6 +128,7 @@ class Settings:
     ai_xingce_cause_provider_replay_retention_seconds: int = 0
     ai_xingce_cause_max_input_bytes: int = 0
     ai_xingce_cause_max_output_bytes: int = 0
+    ai_xingce_cause_timeout_seconds: float = 150.0
     ai_community_candidate_model: str = "gemini-3.5-flash"
     ai_community_candidate_provider_release_id: str = ""
     ai_community_candidate_provider_https_host_allowlist: str = ""
@@ -435,6 +436,9 @@ def get_settings() -> Settings:
         ),
         ai_xingce_cause_max_input_bytes=int(os.getenv("AI_XINGCE_CAUSE_MAX_INPUT_BYTES", "0")),
         ai_xingce_cause_max_output_bytes=int(os.getenv("AI_XINGCE_CAUSE_MAX_OUTPUT_BYTES", "0")),
+        ai_xingce_cause_timeout_seconds=float(
+            os.getenv("AI_XINGCE_CAUSE_TIMEOUT_SECONDS", "150")
+        ),
         ai_community_candidate_model=os.getenv(
             "AI_COMMUNITY_CANDIDATE_MODEL",
             os.getenv("AI_MODEL", "gemini-3.5-flash"),

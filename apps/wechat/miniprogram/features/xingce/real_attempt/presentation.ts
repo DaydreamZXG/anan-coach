@@ -312,6 +312,12 @@ export function presentXingceResult(session: XingceTaskSession): XingceResultVie
     session.bundle.questions.map((question) => [question.questionId, question] as const),
   );
   const answers = new Map(session.answers.map((answer) => [answer.questionId, answer] as const));
+  const resultByQuestion = new Map(result.items.map((item) => [item.questionId, item] as const));
+  const orderedResultItems = session.bundle.questions.map((question) => {
+    const item = resultByQuestion.get(question.questionId);
+    if (!item) throw new Error("行测结果与题组顺序不一致。");
+    return item;
+  });
   return {
     availability: "factored",
     headline: groupHeadline(group),
@@ -320,7 +326,7 @@ export function presentXingceResult(session: XingceTaskSession): XingceResultVie
     totalCount: result.totalCount,
     metrics: resultMetrics(result, session.totalElapsedSeconds, session.answers),
     confidenceCalibration: confidenceCalibration(result),
-    items: result.items.map((item, index) => {
+    items: orderedResultItems.map((item, index) => {
       const question = questions.get(item.questionId);
       if (!question) throw new Error("行测结果与题目内容不一致。");
       return presentResultItem(

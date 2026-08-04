@@ -632,13 +632,22 @@ class XingceAttemptRepository:
                       assessment.*,
                       content.snapshot_payload as content_snapshot
                     from learning.xingce_assessments assessment
+                    join learning.xingce_task_sessions task_session
+                      on task_session.session_id = assessment.session_id
+                     and task_session.user_id = assessment.user_id
+                    left join lateral jsonb_array_elements(
+                      task_session.scoring_bundle -> 'questions'
+                    ) with ordinality frozen_question(item, position)
+                      on frozen_question.item ->> 'questionId' = assessment.question_id
                     left join product.question_content_versions content
                       on content.question_id = assessment.question_id
                      and content.content_version_id = assessment.content_version_id
                      and content.track = 'xingce'
                     where assessment.user_id = cast(:user_id as uuid)
                       and assessment.session_id = cast(:session_id as uuid)
-                    order by assessment.created_at, assessment.question_id
+                    order by frozen_question.position nulls last,
+                             assessment.created_at,
+                             assessment.question_id
                     """
                 ),
                 {"user_id": user_id, "session_id": session_id},

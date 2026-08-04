@@ -73,7 +73,12 @@ class CauseAgentProvider:
     ) -> None:
         self._settings = settings
         self._client_factory = client_factory or (
-            lambda: httpx.Client(timeout=httpx.Timeout(30.0, connect=10.0))
+            lambda: httpx.Client(
+                timeout=httpx.Timeout(
+                    self._settings.ai_xingce_cause_timeout_seconds,
+                    connect=10.0,
+                )
+            )
         )
 
     @property
@@ -150,9 +155,10 @@ class CauseAgentProvider:
         if (
             self._settings.ai_xingce_cause_max_input_bytes <= 0
             or self._settings.ai_xingce_cause_max_output_bytes <= 0
+            or self._settings.ai_xingce_cause_timeout_seconds <= 0
         ):
             raise CauseAgentProviderConfigurationError(
-                "cause-agent provider size and replay limits are not production safe"
+                "cause-agent provider size, timeout, and replay limits must be positive"
             )
 
     def generate(
