@@ -19,6 +19,14 @@ from app.domains.xingce_learning.contracts import (
 # taking its own block.
 MIN_ESSAY_DRAFTING_MINUTES = 25
 
+# Per-block ceiling for xingce targeted practice. `xingce_practice_minutes`
+# sizes one focused block up to 60 minutes, but a 60-minute block is 30
+# questions and too coarse for full-time study.  Capping each block at 30
+# minutes keeps each task a checkable unit while letting full-time days
+# surface more, finer-grained xingce tasks.  Small days are unaffected:
+# their block is already under 30 minutes.
+XINGCE_TASK_BLOCK_MINUTES = 30
+
 
 AbilityReadiness = Literal["unavailable", "partial", "complete", "stale"]
 ObjectiveClosureReadiness = Literal["available", "unavailable"]
@@ -390,7 +398,8 @@ def _objective_candidates(
     if not targeted_minutes:
         return candidates
     module = snapshot.weakest_module or "国考高频模块"
-    block_count = min(12, max(1, (available_minutes + targeted_minutes - 1) // targeted_minutes))
+    block_minutes = min(targeted_minutes, XINGCE_TASK_BLOCK_MINUTES)
+    block_count = min(16, max(1, (available_minutes + block_minutes - 1) // block_minutes))
     for block_index in range(block_count):
         block_number = block_index + 1
         candidates.append(
@@ -412,7 +421,7 @@ def _objective_candidates(
                     f"当前证据中「{module}」的改善收益最高；"
                     "按独立题组分段训练，每组完成后都可以重新规划后续时间。"
                 ),
-                estimated_minutes=targeted_minutes,
+                estimated_minutes=block_minutes,
                 completion_rule="完成题组并记录答案、用时、修改、跳题和信心。",
                 start_url="/pages/xingce-task-intro/index?mode=targeted",
                 evidence_refs=tuple(evidence),
@@ -420,7 +429,7 @@ def _objective_candidates(
                     goal_gain=max(0.45, (0.72 if goal.positive_gap else 0.50) - block_index * 0.02),
                     ability_gain=max(0.55, 0.78 - block_index * 0.015),
                     verification_urgency=max(0.25, 0.45 - block_index * 0.01),
-                    time_fit=_time_fit(targeted_minutes, available_minutes),
+                    time_fit=_time_fit(block_minutes, available_minutes),
                     load_penalty=min(0.30, 0.12 + block_index * 0.015),
                 ),
                 strategy_module_keys=(module,),

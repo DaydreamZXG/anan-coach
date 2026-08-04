@@ -89,12 +89,13 @@ def test_explicit_xingce_only_focus_excludes_other_tracks_and_targets_the_module
 
 
 @pytest.mark.parametrize(
-    ("available_minutes", "expected_blocks"),
-    ((480, 8), (600, 10), (720, 12)),
+    ("available_minutes", "expected_blocks", "block_minutes"),
+    ((480, 16, 30), (600, 16, 30), (720, 16, 30)),
 )
 def test_fulltime_capacity_produces_multiple_independent_xingce_blocks(
     available_minutes: int,
     expected_blocks: int,
+    block_minutes: int,
 ) -> None:
     candidates = build_dual_track_candidates(
         goal=_goal(),
@@ -115,7 +116,7 @@ def test_fulltime_capacity_produces_multiple_independent_xingce_blocks(
     xingce = [item for item in candidates.candidates if item.track == "xingce"]
     assert len(xingce) == expected_blocks
     assert len({item.candidate_key for item in xingce}) == expected_blocks
-    assert all(item.estimated_minutes == 60 for item in xingce)
+    assert all(item.estimated_minutes == block_minutes for item in xingce)
 
 
 def test_missing_component_evidence_creates_both_baseline_tracks() -> None:
