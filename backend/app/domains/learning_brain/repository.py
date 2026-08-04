@@ -738,13 +738,112 @@ class LearningBrainRepository:
                     ) values (
                       cast(:candidate_version_id as uuid), cast(:candidate_id as uuid),
                       :command_id, cast(:user_id as uuid), :version_no,
-                      'strategy_recommendation', :status, 'rule',
-                      'strategy-candidate@v1', cast(:value as jsonb),
+                      :inference_type, :status, :producer_type,
+                      :producer_id, cast(:value as jsonb),
                       cast(:evidence_refs as jsonb), :confidence, true,
-                      :confirmation_status, 'valid', null, null,
-                      'strategy-candidate@v1', :valid_from, :expires_at,
+                      :confirmation_status, 'valid', :model_id, :prompt_version,
+                      :policy_version, :valid_from, :expires_at,
                       :input_fingerprint, cast(:supersedes_candidate_version_id as uuid),
                       :created_at
+                    )
+                    returning *
+                    """
+                ),
+                values,
+            )
+            .mappings()
+            .one()
+        )
+
+    def weekly_rhythm(
+        self,
+        *,
+        user_id: str,
+        today: date,
+    ) -> dict[str, object]:
+        row = (
+            self._session.execute(
+                text(
+                    """
+                    select
+                      preference.timezone,
+                      preference.weekday_minutes,
+                      preference.weekend_minutes,
+                      preference.regular_rest_weekday,
+                      preference.regular_mock_weekday,
+                      exists (
+                        select 1 from learning.weekly_plan_versions plan
+                        where plan.user_id = cast(:user_id as uuid)
+                          and plan.week_start <= :today
+                          and plan.week_start + 6 >= :today
+                      ) as has_weekly_plan
+                    from learning.weekly_study_preference_versions preference
+                    where preference.user_id = cast(:user_id as uuid)
+                      and preference.effective_from <= :today
+                      and not exists (
+                        select 1 from learning.weekly_study_preference_versions successor
+                        where successor.supersedes_preference_version_id =
+                              preference.preference_version_id
+                          and successor.effective_from <= :today
+                      )
+                    order by preference.effective_from desc, preference.version_no desc
+                    limit 1
+                    """
+                ),
+                {"user_id": user_id, "today": today},
+            )
+            .mappings()
+            .one_or_none()
+        )
+        if row is None:
+            return {}
+        return {
+            "timezone": str(row["timezone"]),
+            "weekdayMinutes": int(row["weekday_minutes"]),
+            "weekendMinutes": int(row["weekend_minutes"]),
+            "restWeekday": int(row["regular_rest_weekday"]),
+            "mockWeekday": int(row["regular_mock_weekday"]),
+            "hasWeeklyPlan": bool(row["has_weekly_plan"]),
+        }
+
+    def agent_suggestion_for_date(
+        self,
+        *,
+        user_id: str,
+        local_date: date,
+    ) -> RowMapping | None:
+        return (
+            self._session.execute(
+                text(
+                    """
+                    select *
+                    from learning.learning_brain_agent_suggestions
+                    where user_id = cast(:user_id as uuid)
+                      and local_date = :local_date
+                    limit 1
+                    """
+                ),
+                {"user_id": user_id, "local_date": local_date},
+            )
+            .mappings()
+            .one_or_none()
+        )
+
+    def insert_agent_suggestion(self, values: dict[str, Any]) -> RowMapping:
+        return (
+            self._session.execute(
+                text(
+                    """
+                    insert into learning.learning_brain_agent_suggestions (
+                      suggestion_id, command_id, user_id, local_date, trigger_kind,
+                      profile_version_id, candidate_version_id, input_fingerprint,
+                      created_at
+                    ) values (
+                      cast(:suggestion_id as uuid), :command_id,
+                      cast(:user_id as uuid), :local_date, :trigger_kind,
+                      cast(:profile_version_id as uuid),
+                      cast(:candidate_version_id as uuid),
+                      :input_fingerprint, :created_at
                     )
                     returning *
                     """

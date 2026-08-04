@@ -259,6 +259,12 @@ class LearningBrainService:
         command_id: str,
         command: StrategyCandidateCommand,
         now: datetime | None = None,
+        inference_type: str = "strategy_recommendation",
+        producer_type: str = "rule",
+        producer_id: str = "strategy-candidate@v1",
+        policy_version: str = STRATEGY_POLICY_VERSION,
+        model_id: str | None = None,
+        prompt_version: str | None = None,
     ) -> StrategyCandidateResult:
         created_at = _as_utc(now or datetime.now(UTC))
         if command.review_at <= created_at or command.effective_until <= created_at:
@@ -296,13 +302,19 @@ class LearningBrainService:
                 "command_id": command_id,
                 "user_id": user_id,
                 "version_no": 1,
+                "inference_type": inference_type,
                 "status": "awaiting_confirmation",
+                "producer_type": producer_type,
+                "producer_id": producer_id,
                 "value": json_value(value),
                 "evidence_refs": json_value(
                     [item.model_dump(by_alias=True, mode="json") for item in refs]
                 ),
                 "confidence": 0.5,
                 "confirmation_status": "pending",
+                "model_id": model_id,
+                "prompt_version": prompt_version,
+                "policy_version": policy_version,
                 "valid_from": created_at,
                 "expires_at": command.review_at,
                 "input_fingerprint": fingerprint,
@@ -387,11 +399,23 @@ class LearningBrainService:
                 "command_id": f"{command_id}:candidate",
                 "user_id": user_id,
                 "version_no": int(current["version_no"]) + 1,
+                "inference_type": str(current["inference_type"]),
                 "status": terminal_status,
+                "producer_type": str(current["producer_type"]),
+                "producer_id": str(current["producer_id"]),
                 "value": json_value(dict(current["value"])),
                 "evidence_refs": json_value(list(current["evidence_refs"])),
                 "confidence": float(current["confidence"]),
                 "confirmation_status": terminal_confirmation,
+                "model_id": (
+                    str(current["model_id"]) if current["model_id"] is not None else None
+                ),
+                "prompt_version": (
+                    str(current["prompt_version"])
+                    if current["prompt_version"] is not None
+                    else None
+                ),
+                "policy_version": str(current["policy_version"]),
                 "valid_from": current["valid_from"],
                 "expires_at": current["expires_at"],
                 "input_fingerprint": replay_fingerprint,

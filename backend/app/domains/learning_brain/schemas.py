@@ -204,6 +204,7 @@ class InferenceCandidateVersion(LearningBrainModel):
         "error_pattern",
         "module_interpretation",
         "strategy_recommendation",
+        "strategy_directive",
         "planning_explanation",
     ] = Field(alias="inferenceType")
     status: Literal[
