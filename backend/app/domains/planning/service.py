@@ -183,6 +183,8 @@ class PlanningService:
                 "energy": command.energy,
                 "stress": command.stress,
                 "confidence_level": command.confidence_level,
+                "preferred_xingce_module": command.preferred_xingce_module,
+                "xingce_only": command.xingce_only,
                 "weekly_preference_version_id": str(current["weekly_preference_version_id"]),
                 "input_fingerprint": input_fingerprint,
                 "supersedes_capacity_version_id": str(current["capacity_version_id"]),
@@ -200,6 +202,8 @@ class PlanningService:
                 "userId": user_id,
                 "localDate": day.isoformat(),
                 "availableMinutes": command.available_minutes,
+                "preferredXingceModule": command.preferred_xingce_module,
+                "xingceOnly": command.xingce_only,
                 "inputFingerprint": input_fingerprint,
             },
         )
@@ -534,6 +538,7 @@ class PlanningService:
             user_id=user_id,
             goal=goal_ability,
             now=generated_at,
+            preferred_xingce_module=capacity.preferred_xingce_module,
         )
         essay = self._repository.essay_snapshot(
             session,
@@ -545,6 +550,8 @@ class PlanningService:
             objective=objective,
             essay=essay,
             available_minutes=remaining_minutes,
+            preferred_xingce_module=capacity.preferred_xingce_module,
+            xingce_only=capacity.xingce_only,
         )
         strategy_decisions = self._repository.active_strategy_decisions(
             session,
@@ -1067,6 +1074,12 @@ def _capacity_from_row(row: RowMapping) -> CapacitySnapshot:
         energy=int(row["energy_level"]),
         stress=int(row["stress_level"]),
         confidence_level=int(row["confidence_level"]),
+        preferred_xingce_module=(
+            str(row["preferred_xingce_module"])
+            if row["preferred_xingce_module"] is not None
+            else None
+        ),
+        xingce_only=bool(row["xingce_only"]),
         confirmed=bool(row["confirmed"]),
         source_type=str(row["source_type"]),
         input_fingerprint=str(row["input_fingerprint"]),
@@ -1082,6 +1095,8 @@ def _today_capacity(capacity: CapacitySnapshot, local_date: date) -> TodayCapaci
         energy=capacity.energy,
         stress=capacity.stress,
         confidence_level=capacity.confidence_level,
+        preferred_xingce_module=capacity.preferred_xingce_module,
+        xingce_only=capacity.xingce_only,
         confirmed=capacity.confirmed,
         source_type=capacity.source_type,
     )

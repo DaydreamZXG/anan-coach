@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from hashlib import sha256
 from typing import Literal
 from uuid import UUID
@@ -173,27 +173,56 @@ def build_dual_track_candidates(
     objective: ObjectivePlanningSnapshot,
     essay: EssayPlanningSnapshot,
     available_minutes: int,
+    preferred_xingce_module: str | None = None,
+    xingce_only: bool = False,
 ) -> CandidateSet:
     candidates: list[TaskCandidate] = []
     omitted: dict[str, str] = {}
+    objective_snapshot = objective
+    if preferred_xingce_module is not None:
+        clear_due = xingce_only and objective.closure_readiness == "available"
+        objective_snapshot = replace(
+            objective,
+            baseline_required=False,
+            weakest_module=preferred_xingce_module,
+            due_reflection_count=0 if clear_due else objective.due_reflection_count,
+            due_verification_count=0 if clear_due else objective.due_verification_count,
+            due_reflection_session_id=None if xingce_only else objective.due_reflection_session_id,
+            due_reflection_review_id=None if xingce_only else objective.due_reflection_review_id,
+            due_reflection_version_id=None if xingce_only else objective.due_reflection_version_id,
+            due_verification_mastery_id=(
+                None if xingce_only else objective.due_verification_mastery_id
+            ),
+            due_verification_version_id=(
+                None if xingce_only else objective.due_verification_version_id
+            ),
+            due_verification_decision_version_id=(
+                None if xingce_only else objective.due_verification_decision_version_id
+            ),
+            due_reflection_state=None if xingce_only else objective.due_reflection_state,
+        )
     candidates.extend(
         _objective_candidates(
             goal=goal,
-            snapshot=objective,
+            snapshot=objective_snapshot,
             available_minutes=available_minutes,
         )
     )
-    essay_candidate = _essay_candidate(
-        goal=goal,
-        snapshot=essay,
-        available_minutes=available_minutes,
+    essay_candidate = (
+        None
+        if xingce_only
+        else _essay_candidate(
+            goal=goal,
+            snapshot=essay,
+            available_minutes=available_minutes,
+        )
     )
-    if essay_candidate is None:
+    if essay_candidate is not None:
+        candidates.append(essay_candidate)
+    elif not xingce_only:
         omitted["essay"] = essay.pending_reason or (
             "申论正式材料包与评分规程尚未发布，规划 Agent 不生成不可执行任务。"
         )
-    else:
-        candidates.append(essay_candidate)
     if not any(item.track == "xingce" for item in candidates):
         omitted["xingce"] = "当前没有满足内容与证据门禁的行测任务。"
     capability_gaps: dict[str, str] = {}
@@ -206,8 +235,8 @@ def build_dual_track_candidates(
     return CandidateSet(
         candidates=tuple(candidates),
         omitted_track_reasons=omitted,
-        due_reflection_count=objective.due_reflection_count,
-        due_verification_count=objective.due_verification_count,
+        due_reflection_count=objective_snapshot.due_reflection_count,
+        due_verification_count=objective_snapshot.due_verification_count,
         capability_gaps=capability_gaps,
     )
 

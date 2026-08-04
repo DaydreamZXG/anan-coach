@@ -628,6 +628,43 @@ def test_capacity_preview_uses_the_real_planner_without_persisting_the_proposal(
     assert counts_after == counts_before
 
 
+def test_capacity_preview_can_make_today_an_explicit_single_module_day(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    token = "planning-module-focus-preview-token"
+    _seed_learner_and_published_essay_content(
+        db_session_factory,
+        access_token=token,
+        objective_canonical_module="资料分析",
+        objective_raw_module="资料分析",
+    )
+    client = _client(db_session_factory)
+    auth = {"Authorization": f"Bearer {token}"}
+    initial = client.get("/api/v2/plans/today", headers=auth).json()["data"]
+
+    response = client.post(
+        "/api/v2/plans/today/capacity/preview",
+        headers=auth,
+        json={
+            "basedOnCapacityVersionId": initial["capacity"]["capacityVersionId"],
+            "availableMinutes": 120,
+            "energy": 3,
+            "stress": 3,
+            "confidenceLevel": 3,
+            "preferredXingceModule": "资料分析",
+            "xingceOnly": True,
+        },
+    )
+
+    assert response.status_code == 200, response.text
+    proposed = response.json()["data"]["proposedPlan"]
+    assert proposed["capacity"]["preferredXingceModule"] == "资料分析"
+    assert proposed["capacity"]["xingceOnly"] is True
+    assert proposed["tasks"]
+    assert all(task["track"] == "xingce" for task in proposed["tasks"])
+    assert all("资料分析" in task["title"] for task in proposed["tasks"])
+
+
 def test_positive_capacity_override_turns_scheduled_rest_day_into_normal_plan(
     db_session_factory: sessionmaker[Session],
 ) -> None:
@@ -1748,6 +1785,8 @@ def _seed_learner_and_published_essay_content(
     include_rubric: bool = True,
     material_version_no: int = 1,
     include_objective_questions: bool = True,
+    objective_canonical_module: str = "言语理解与表达",
+    objective_raw_module: str = "言语理解",
 ) -> str:
     user_id = str(uuid4())
     task_version_id = str(uuid4())
@@ -1762,7 +1801,11 @@ def _seed_learner_and_published_essay_content(
             {"user_id": user_id},
         )
         if include_objective_questions:
-            _seed_shared_objective_question_bank(session)
+            _seed_shared_objective_question_bank(
+                session,
+                canonical_module=objective_canonical_module,
+                raw_module=objective_raw_module,
+            )
         if access_token:
             session.execute(
                 text(
@@ -1936,8 +1979,15 @@ def _seed_shared_objective_question_bank(
     session: Session,
     *,
     count: int = 6,
+    canonical_module: str = "言语理解与表达",
+    raw_module: str = "言语理解",
 ) -> None:
-    seed_planning_shared_frozen_release(session, count=count)
+    seed_planning_shared_frozen_release(
+        session,
+        count=count,
+        canonical_module=canonical_module,
+        raw_module=raw_module,
+    )
 
 
 def _seed_planning_learner(factory: sessionmaker[Session]) -> str:

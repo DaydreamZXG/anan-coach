@@ -162,6 +162,15 @@ class DailyCapacityVersion(PlanningContractModel):
     energy: int = Field(ge=1, le=5)
     stress: int = Field(ge=1, le=5)
     confidence_level: int = Field(alias="confidenceLevel", ge=1, le=5)
+    preferred_xingce_module: Literal[
+        "言语理解与表达",
+        "数量关系",
+        "判断推理",
+        "资料分析",
+        "常识判断",
+        "政治理论",
+    ] | None = Field(default=None, alias="preferredXingceModule")
+    xingce_only: bool = Field(default=False, alias="xingceOnly")
     confirmed: bool
     source_type: Literal["weekly_preference", "user_override"] = Field(alias="sourceType")
     weekly_preference_version_id: UUID | None = Field(
@@ -177,6 +186,8 @@ class DailyCapacityVersion(PlanningContractModel):
 
     @model_validator(mode="after")
     def validate_source(self) -> "DailyCapacityVersion":
+        if self.xingce_only and self.preferred_xingce_module is None:
+            raise ValueError("xingce-only capacity requires a preferred Xingce module")
         if self.source_type == "weekly_preference":
             if self.weekly_preference_version_id is None or self.confirmed:
                 raise ValueError(
@@ -196,6 +207,21 @@ class DailyCapacityCommand(PlanningContractModel):
     energy: int = Field(ge=1, le=5)
     stress: int = Field(ge=1, le=5)
     confidence_level: int = Field(alias="confidenceLevel", ge=1, le=5)
+    preferred_xingce_module: Literal[
+        "言语理解与表达",
+        "数量关系",
+        "判断推理",
+        "资料分析",
+        "常识判断",
+        "政治理论",
+    ] | None = Field(default=None, alias="preferredXingceModule")
+    xingce_only: bool = Field(default=False, alias="xingceOnly")
+
+    @model_validator(mode="after")
+    def validate_focus(self) -> "DailyCapacityCommand":
+        if self.xingce_only and self.preferred_xingce_module is None:
+            raise ValueError("xingceOnly requires preferredXingceModule")
+        return self
 
 
 class TaskExecutionCommand(PlanningContractModel):
@@ -498,6 +524,15 @@ class TodayCapacity(PlanningContractModel):
     energy: int = Field(ge=1, le=5)
     stress: int = Field(ge=1, le=5)
     confidence_level: int = Field(alias="confidenceLevel", ge=1, le=5)
+    preferred_xingce_module: Literal[
+        "言语理解与表达",
+        "数量关系",
+        "判断推理",
+        "资料分析",
+        "常识判断",
+        "政治理论",
+    ] | None = Field(default=None, alias="preferredXingceModule")
+    xingce_only: bool = Field(default=False, alias="xingceOnly")
     confirmed: bool
     source_type: Literal["weekly_preference", "user_override"] = Field(alias="sourceType")
 

@@ -55,6 +55,39 @@ def test_capacity_driven_candidate_keeps_room_for_the_essay_track() -> None:
     assert xingce.estimated_minutes + essay.estimated_minutes <= 120
 
 
+def test_explicit_xingce_only_focus_excludes_other_tracks_and_targets_the_module() -> None:
+    result = build_dual_track_candidates(
+        goal=_goal(readiness="partial"),
+        objective=ObjectivePlanningSnapshot(
+            True,
+            0,
+            0,
+            None,
+            "objective-focus-v1",
+            "available",
+            None,
+            baseline_question_count=30,
+            targeted_question_count=30,
+        ),
+        essay=EssayPlanningSnapshot(
+            "baseline_due",
+            "essay-task-v1",
+            material_bundle_version_id="essay-material-v1",
+            rubric_version_id="essay-rubric-v1",
+            question_type="summary",
+            word_limit=200,
+        ),
+        available_minutes=120,
+        preferred_xingce_module="资料分析",
+        xingce_only=True,
+    )
+
+    assert result.candidates
+    assert all(item.track == "xingce" for item in result.candidates)
+    assert all("资料分析" in item.candidate_key for item in result.candidates)
+    assert "essay" not in result.omitted_track_reasons
+
+
 @pytest.mark.parametrize(
     ("available_minutes", "expected_blocks"),
     ((480, 8), (600, 10), (720, 12)),
