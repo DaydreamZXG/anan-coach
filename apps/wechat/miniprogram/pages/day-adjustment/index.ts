@@ -20,6 +20,7 @@ import {
   type OperationAttemptRecord,
 } from "../../platform/operation-attempt-store";
 import { formatCapacityDuration, prepareCapacityCommand } from "../today/capacity";
+import { XINGCE_MODULE_BASELINE } from "../../domain/module-baselines";
 
 interface EnergyOption {
   label: string;
@@ -46,14 +47,21 @@ const TIME_PRESETS = [
   { label: "今天不学", minutes: 0 },
 ] as const;
 
+const FOCUS_LABELS: Readonly<Record<XingceModule, string>> = {
+  言语理解与表达: "言语",
+  数量关系: "数量",
+  判断推理: "判断",
+  资料分析: "资料分析",
+  常识判断: "常识",
+  政治理论: "政治理论",
+};
+
 const FOCUS_OPTIONS: readonly FocusOption[] = [
   { label: "综合安排", value: "" },
-  { label: "言语", value: "言语理解与表达" },
-  { label: "数量", value: "数量关系" },
-  { label: "判断", value: "判断推理" },
-  { label: "资料分析", value: "资料分析" },
-  { label: "常识", value: "常识判断" },
-  { label: "政治理论", value: "政治理论" },
+  ...XINGCE_MODULE_BASELINE.map<FocusOption>((item) => ({
+    label: FOCUS_LABELS[item.moduleKey as XingceModule],
+    value: item.moduleKey as XingceModule,
+  })),
 ];
 
 const MINUTES_STEP = 30;

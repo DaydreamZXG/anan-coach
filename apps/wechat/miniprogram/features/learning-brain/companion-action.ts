@@ -4,6 +4,7 @@ import {
   routes,
   type RegisteredNavigationTarget,
 } from "../../app/navigation/routes";
+import { XINGCE_MODULE_BASELINE } from "../../domain/module-baselines";
 
 export type CompanionActionResolution =
   | { kind: "show_evidence" }
@@ -97,14 +98,7 @@ function validPlanAdjustmentTarget(url: string): boolean {
   } catch {
     return false;
   }
-  return new Set([
-    "言语理解与表达",
-    "数量关系",
-    "判断推理",
-    "资料分析",
-    "常识判断",
-    "政治理论",
-  ]).has(module);
+  return XINGCE_MODULE_BASELINE.some((item) => item.moduleKey === module);
 }
 
 function validWeeklyPreferenceTarget(url: string): boolean {
