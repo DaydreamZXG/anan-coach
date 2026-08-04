@@ -524,10 +524,10 @@ class PlanningService:
             user_id=user_id,
             snapshot=goal_ability,
         )
-        goal_gap = _goal_gap(goal_ability, generated_at)
+        gap = goal_gap(goal_ability, generated_at)
         planning_goal = GoalPlanningSnapshot(
-            readiness=goal_gap.readiness,
-            positive_gap=(goal_gap.baseline_gap or 0) > 0,
+            readiness=gap.readiness,
+            positive_gap=(gap.baseline_gap or 0) > 0,
             goal_version_id=goal_ability.goal_version_id,
             ability_estimate_version_id=goal_ability.estimate_version_id,
             target_owner=goal_ability.target_owner,
@@ -733,7 +733,7 @@ class PlanningService:
             "algorithmVersion": PLAN_ALGORITHM_VERSION,
             "date": day.isoformat(),
             "inputVersions": input_versions,
-            "goalGap": goal_gap.model_dump(by_alias=True, mode="json"),
+            "goalGap": gap.model_dump(by_alias=True, mode="json"),
             "objective": asdict(objective),
             "essay": asdict(essay),
             "capacity": asdict(capacity),
@@ -783,7 +783,7 @@ class PlanningService:
             day_mode=day_mode,
             tasks=selection.tasks,
             capacity=capacity,
-            goal_gap=goal_gap,
+            goal_gap=gap,
             essay_available=essay.next_stage != "content_unavailable",
         )
         invalidation_conditions = [
@@ -826,7 +826,7 @@ class PlanningService:
                 "day_mode": day_mode,
                 "headline": headline,
                 "rationale": rationale,
-                "goal_gap": _json(goal_gap.model_dump(by_alias=True, mode="json")),
+                "goal_gap": _json(gap.model_dump(by_alias=True, mode="json")),
                 "scheduled_minutes": selection.scheduled_minutes,
                 "due_reflection_count": candidates.due_reflection_count,
                 "due_verification_count": candidates.due_verification_count,
@@ -1132,7 +1132,7 @@ def _execution_from_row(row: RowMapping, *, prefixed: bool = False) -> TaskExecu
     )
 
 
-def _goal_gap(snapshot: GoalAbilitySnapshot, now: datetime) -> GoalGap:
+def goal_gap(snapshot: GoalAbilitySnapshot, now: datetime) -> GoalGap:
     target = (
         ScoreRange(
             lower=snapshot.target_lower,
