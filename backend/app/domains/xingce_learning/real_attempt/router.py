@@ -44,6 +44,7 @@ from app.domains.xingce_learning.rescue.service import (
     XingceRescueError,
     XingceRescueService,
 )
+from app.domains.learning_brain.agent import maybe_suggest_strategy_safely
 from app.platform.http import (
     COMMON_API_ERROR_RESPONSES,
     PublicApiEnvelope,
@@ -347,7 +348,7 @@ def decide_attempt_cause(
     session: Annotated[Session, Depends(get_db_session)],
     service: Annotated[XingceAttemptService, Depends(get_xingce_attempt_service)],
 ) -> PublicApiEnvelope[TaskSessionProjection] | JSONResponse:
-    return _write(
+    result = _write(
         request=request,
         response=response,
         session=session,
@@ -359,6 +360,15 @@ def decide_attempt_cause(
             command=command,
         ),
     )
+    # 错因是最新学习信号，确认后触发中控大脑重新评估本周策略。
+    # 静默降级：大脑失败不影响错因确认结果。
+    if isinstance(result, PublicApiEnvelope):
+        maybe_suggest_strategy_safely(
+            session,
+            user_id=current_user.user_id,
+            trigger_kind="cause_confirmed",
+        )
+    return result
 
 
 def get_xingce_rescue_service() -> XingceRescueService:

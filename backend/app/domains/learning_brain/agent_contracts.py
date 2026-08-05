@@ -30,7 +30,9 @@ class LearningBrainStrategyAction(DirectiveModel):
     可复现校验（scope 必须命中画像里存在且有证据的模块）由服务端完成。
     """
 
-    decision_type: Literal["exam_skip", "phase_deprioritize", "strategic_abandon"]
+    decision_type: Literal[
+        "exam_skip", "phase_deprioritize", "strategic_abandon", "baseline_guidance"
+    ]
     scope_type: Literal["track", "module"]
     scope_key: str = Field(min_length=1, max_length=160)
 
@@ -74,6 +76,9 @@ class LearningBrainAgentEvidence(DirectiveModel):
     goal_gap: dict
     weekly_rhythm: dict
     week: dict
+    sufficient_evidence: bool = Field(
+        default=False, alias="sufficientEvidence"
+    )
 
     @property
     def module_keys(self) -> set[str]:

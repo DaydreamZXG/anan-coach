@@ -30,6 +30,7 @@ from app.domains.companion.service import (
     ExternalQuestionConfirmationError,
     ExternalQuestionIntakeNotFoundError,
 )
+from app.domains.learning_brain.agent import maybe_suggest_strategy_safely
 from app.domains.learning_brain.service import LearningBrainContractError, LearningBrainService
 from app.domains.qualification.repository import PositionRuleReleaseUnavailable
 from app.platform.http import (
@@ -113,6 +114,11 @@ def ask_companion_v2(
         LearningBrainService().get_or_create_profile(
             session,
             user_id=current_user.user_id,
+        )
+        maybe_suggest_strategy_safely(
+            session,
+            user_id=current_user.user_id,
+            trigger_kind="on_demand",
         )
         result = service.ask(
             user_id=current_user.user_id,

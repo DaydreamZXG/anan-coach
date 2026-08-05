@@ -59,6 +59,7 @@ PLAN_ALGORITHM_VERSION = "dual-track-direct-essay-v5"
 PLAN_BASIS = "evidence_priority_v2"
 SHANGHAI = ZoneInfo("Asia/Shanghai")
 STRATEGY_ADJUSTABLE_STAGES = {
+    "objective_baseline",
     "objective_practice",
     "essay_material_reading",
     "essay_point_extraction",
@@ -1004,6 +1005,34 @@ def _apply_strategy_decisions(
             removed_tracks.add(candidate.track)
             reason_codes.append("strategy_abandon_applied")
             continue
+
+        guidance_decisions = [
+            decision for decision in matching if decision.decision_type == "baseline_guidance"
+        ]
+        if guidance_decisions:
+            # 引导型：证据不足时大脑建议先建立基线。把匹配的摸底/基础练习
+            # 候选提为高优先级（能力收益提升），reason 附大脑 rationale。
+            priority = candidate.priority
+            guidance_reason = guidance_decisions[0].rationale
+            candidate = replace(
+                candidate,
+                reason=(
+                    f"{candidate.reason} 中控大脑建议先建立基线：{guidance_reason}"
+                ),
+                evidence_refs=tuple(_unique_refs([*candidate.evidence_refs, *decision_refs])),
+                priority=replace(
+                    priority,
+                    ability_gain=round(
+                        min(1.0, priority.ability_gain / STRATEGY_PRIORITY_FACTOR),
+                        4,
+                    ),
+                    goal_gain=round(
+                        min(1.0, priority.goal_gain / STRATEGY_PRIORITY_FACTOR),
+                        4,
+                    ),
+                ),
+            )
+            reason_codes.append("strategy_baseline_guidance_applied")
 
         phase_decisions = [
             decision for decision in matching if decision.decision_type == "phase_deprioritize"

@@ -1009,6 +1009,28 @@ def _history_schema(row: RowMapping) -> ScoreEvidenceHistoryItem:
     )
 
 
+def _evidence_summary_or_empty(row: RowMapping) -> AbilityEvidenceSummary:
+    """容错脱敏/缺失的 evidence_summary。
+
+    用户行使数据删除权后 evidence_summary 被擦为 ``{"erased": true}``；此时
+    学习证据已清零，构造全 0 空摘要，让上层把它当「无证据」处理而不是
+    pydantic 校验失败。
+    """
+    raw = row["evidence_summary"]
+    if not isinstance(raw, dict) or raw.get("erased") is True:
+        # 用稳定最小时间戳，避免 datetime.now 导致 fingerprint 每次变化。
+        return AbilityEvidenceSummary(
+            evidenceCount=0,
+            xingceEvidenceCount=0,
+            shenlunEvidenceCount=0,
+            sourceCounts={},
+            latestEvidenceAt=datetime(1970, 1, 1, tzinfo=UTC),
+            missingComponents=[],
+            conflictComponents=[],
+        )
+    return AbilityEvidenceSummary.model_validate(raw)
+
+
 def _estimate_from_row(row: RowMapping) -> AbilityEstimateVersion:
     return AbilityEstimateVersion(
         estimate_version_id=str(row["estimate_version_id"]),
@@ -1020,7 +1042,7 @@ def _estimate_from_row(row: RowMapping) -> AbilityEstimateVersion:
         total=_range_from_row(row, "total"),
         confidence=row["confidence"],
         source_evidence_ids=list(row["source_evidence_ids"]),
-        evidence_summary=AbilityEvidenceSummary.model_validate(row["evidence_summary"]),
+        evidence_summary=_evidence_summary_or_empty(row),
         algorithm_version=row["algorithm_version"],
         input_fingerprint=row["input_fingerprint"],
         supersedes_estimate_version_id=(

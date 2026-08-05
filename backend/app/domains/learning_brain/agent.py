@@ -45,9 +45,14 @@ from app.domains.learning_brain.schemas import (
     LearningBrainProfileVersion,
     StrategyCandidateCommand,
 )
-from app.domains.learning_brain.service import LearningBrainService
+from app.domains.learning_brain.service import (
+    LearningBrainContractError,
+    LearningBrainService,
+)
 from app.domains.planning.repository import PlanningRepository
 from app.domains.planning.service import goal_gap
+from app.domains.planning.errors import PlanningContractError
+from app.domains.qualification.repository import PositionRuleReleaseUnavailable
 from app.platform.outbox import OutboxRepository
 
 
@@ -265,11 +270,14 @@ class LearningBrainAgentService:
             goal_gap=gap,
             weekly_rhythm=weekly_rhythm,
             week=week,
+            sufficientEvidence=bool(
+                {
+                    str(item.get("moduleKey"))
+                    for item in modules
+                    if isinstance(item, dict) and item.get("moduleKey")
+                }
+            ),
         )
-        if not evidence.module_keys:
-            raise LearningBrainAgentInsufficientEvidence(
-                "学习画像没有可引用的模块证据，无法推断本周策略；先建立基线。"
-            )
         return evidence
 
     def _candidate_command(
@@ -293,6 +301,22 @@ class LearningBrainAgentService:
             )
         scope_type = action.scope_type
         scope_key = action.scope_key
+        if action.decision_type == "baseline_guidance":
+            # 引导型：scope 限定 track（xingce/essay），不依赖模块证据——
+            # 新用户/脱敏用户没有模块证据，引导只需目标轨道。
+            if scope_type != "track" or scope_key not in {"xingce", "essay"}:
+                raise LearningBrainAgentError(
+                    "baseline_guidance requires a track scope (xingce or essay)"
+                )
+            return StrategyCandidateCommand(
+                based_on_profile_version_id=profile.profile_version_id,
+                decision_type=action.decision_type,
+                scope_type=scope_type,  # type: ignore[arg-type]
+                scope_key=scope_key,
+                rationale=directive.rationale,
+                effective_until=effective_until,
+                review_at=review_at,
+            )
         if scope_type == "track":
             if scope_key not in {"xingce", "essay"}:
                 raise LearningBrainAgentError("learning-brain agent produced an invalid track scope")
@@ -386,3 +410,44 @@ def _as_utc(value: datetime) -> datetime:
     if value.tzinfo is None or value.utcoffset() is None:
         raise ValueError("learning-brain agent timestamps must include a timezone")
     return value.astimezone(UTC)
+
+
+def maybe_suggest_strategy_safely(
+    session: Session,
+    *,
+    user_id: str,
+    trigger_kind: AgentTriggerKind,
+    service: LearningBrainAgentService | None = None,
+) -> StrategySuggestionResult | None:
+    """安全触发中控大脑策略建议（静默降级）。
+
+    供岸岸对话、错因确认等用户入口调用。大脑建议是增强项：LLM 失败、
+    证据不足或生产配置缺失时静默跳过，绝不阻断主操作（岸岸回答 / 错因确认）。
+
+    事务约定：大脑建议独立 commit（suggestion + 候选 + outbox 一次落库）；
+    任何失败回滚本会话，把干净会话交还给调用方继续主操作。
+    """
+    try:
+        result = (service or LearningBrainAgentService()).maybe_suggest_strategy(
+            session,
+            user_id=user_id,
+            trigger_kind=trigger_kind,
+        )
+    except (
+        LearningBrainAgentError,
+        LearningBrainAgentInsufficientEvidence,
+        LearningBrainProviderConfigurationError,
+        LearningBrainProviderError,
+        LearningBrainContractError,
+        PlanningContractError,
+        PositionRuleReleaseUnavailable,
+    ):
+        session.rollback()
+        return None
+    except Exception:
+        # 大脑是纯增强项：任何未预期失败（如证据字段坏数据、解析异常）都
+        # 静默降级，绝不阻断岸岸回答 / 错因确认主操作。
+        session.rollback()
+        return None
+    session.commit()
+    return result

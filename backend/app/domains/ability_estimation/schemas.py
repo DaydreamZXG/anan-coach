@@ -88,7 +88,7 @@ class ScoreRange(AbilityBaseModel):
 
 
 class AbilityEvidenceSummary(AbilityBaseModel):
-    evidence_count: int = Field(alias="evidenceCount", ge=1)
+    evidence_count: int = Field(alias="evidenceCount", ge=0)
     xingce_evidence_count: int = Field(alias="xingceEvidenceCount", ge=0)
     shenlun_evidence_count: int = Field(alias="shenlunEvidenceCount", ge=0)
     source_counts: dict[str, int] = Field(alias="sourceCounts")

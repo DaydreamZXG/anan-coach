@@ -176,7 +176,9 @@ class ErrorPatternDetail(LearningBrainModel):
     limitations: list[str]
 
 
-StrategyDecisionType = Literal["exam_skip", "phase_deprioritize", "strategic_abandon"]
+StrategyDecisionType = Literal[
+    "exam_skip", "phase_deprioritize", "strategic_abandon", "baseline_guidance"
+]
 StrategyScopeType = Literal["track", "module", "question_type"]
 
 

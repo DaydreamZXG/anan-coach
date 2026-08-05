@@ -200,11 +200,16 @@ class LearningBrainProvider:
                 "modules 里 essay 轨道）；mock_schedule 建议每周模考安排，依据"
                 "evidence.weeklyRhythm 的 mock_weekday 与剩余时间；rationale 是"
                 "面向用户的人话解释（为什么这样排，依据 focus 正确率、错因、离目标"
-                "分差）。action 只在确实需要降权/放弃时给一个取舍决策：decisionType"
-                "只能是 exam_skip / phase_deprioritize / strategic_abandon 之一，"
-                "scopeType 是 track 或 module，scopeKey 必须是 evidence."
-                "modules[].moduleKey 里存在的键；没有依据就不要给 action（null）。"
-                "只返回 JSON。"
+                "分差）。action 只在确实需要取舍时给一个决策：decisionType 可以是"
+                "exam_skip / phase_deprioritize / strategic_abandon / baseline_guidance "
+                "之一。当 evidence.sufficientEvidence 为 false（没有模块做题证据，"
+                "可能是新用户或数据已清除）时：必须输出 baseline_guidance——focus 写"
+                "「建立能力基线」，scopeType=track、scopeKey=xingce（若 essay 有证据则"
+                "essay），rationale 用 goal_gap 的分差说明为什么先摸底（如「当前距目标"
+                "还差 X 分，先完成一次能力摸底建立基线，才能针对性规划」），不要编造"
+                "模块侧重。当 sufficientEvidence 为 true 时：scopeType 是 track 或 module，"
+                "scopeKey 必须是 evidence.modules[].moduleKey 里存在的键，没有依据就"
+                "不要给 action（null）。只返回 JSON。"
             ),
             "requiredContract": LEARNING_BRAIN_DIRECTIVE_CONTRACT_VERSION,
             "requiredOutputSchema": LearningBrainStrategyEnvelope.model_json_schema(

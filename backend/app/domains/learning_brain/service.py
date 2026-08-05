@@ -726,6 +726,54 @@ def _strategy_basis(
     profile: LearningBrainProfileVersion,
     command: StrategyCandidateCommand,
 ) -> tuple[list[BrainEvidenceRef], dict[str, object]]:
+    if command.decision_type == "baseline_guidance":
+        # 引导型：新用户/脱敏用户没有模块证据，不要求 canonical module。
+        # refs 用模块证据（若有）或能力估计引用（无模块时兜底），保证
+        # evidence_refs 非空满足数据库约束；benefit 表达「先建立基线」。
+        refs = _dedupe_refs(
+            [
+                ref
+                for module in profile.modules
+                for ref in module.evidence_refs
+            ]
+        )
+        ability = profile.ability
+        ability_estimate = ability.estimate if ability.estimate is not None else None
+        if not refs and ability_estimate is not None:
+            refs = [
+                BrainEvidenceRef(
+                    owner="ability_estimation",
+                    entityType="ability_estimate_version",
+                    entityId=ability_estimate.estimate_version_id,
+                    versionId=ability_estimate.estimate_version_id,
+                    occurredAt=ability_estimate.generated_at,
+                    role="baseline_guidance_basis",
+                )
+            ]
+        if not refs:
+            # 完全无证据的新用户：用 profile 版本自身作引导引用，满足
+            # evidence_refs 非空约束（数据库要求候选至少一条引用）。
+            refs = [
+                BrainEvidenceRef(
+                    owner="learning_brain",
+                    entityType="learner_brain_profile_version",
+                    entityId=str(profile.profile_version_id),
+                    versionId=str(profile.profile_version_id),
+                    role="baseline_guidance_basis",
+                )
+            ]
+        benefit: dict[str, object] = {
+            "profileVersionId": str(profile.profile_version_id),
+            "moduleCount": len(profile.modules),
+            "evidenceCount": sum(item.evidence_count for item in profile.modules),
+            "totalRecommended": (
+                ability_estimate.total.recommended
+                if ability_estimate is not None and ability_estimate.total is not None
+                else None
+            ),
+            "claim": "证据不足，先建立能力基线后再给具体侧重。",
+        }
+        return refs, benefit
     if command.scope_type == "question_type":
         raise LearningBrainContractError(
             "question-type strategy requires a published question-type projection"
@@ -776,13 +824,33 @@ def _strategy_basis(
     return refs, benefit
 
 
+def _evidence_summary_or_empty(row: RowMapping) -> BrainEvidenceSummary:
+    """容错脱敏/缺失的 evidence_summary。
+
+    用户行使数据删除权后 evidence_summary 被擦为 ``{"erased": true}``；此时
+    学习证据已清零，构造全 0 空摘要，让大脑把它当「无证据的新用户」处理，
+    而不是 pydantic 校验失败。
+    """
+    raw = row["evidence_summary"]
+    if not isinstance(raw, dict) or raw.get("erased") is True:
+        return BrainEvidenceSummary(
+            scoreEvidenceCount=0,
+            xingceAttemptCount=0,
+            xingceMasteryCount=0,
+            essayMasteryCount=0,
+            taskExecutionCount=0,
+            externalAnswerCount=0,
+        )
+    return BrainEvidenceSummary.model_validate(raw)
+
+
 def _profile_from_row(row: RowMapping) -> LearningBrainProfileVersion:
     return LearningBrainProfileVersion(
         profileVersionId=UUID(str(row["profile_version_id"])),
         versionNo=int(row["version_no"]),
         readiness=str(row["readiness"]),
         ability=AbilityEstimateCurrent.model_validate(row["ability_snapshot"]),
-        evidenceSummary=BrainEvidenceSummary.model_validate(row["evidence_summary"]),
+        evidenceSummary=_evidence_summary_or_empty(row),
         candidateSummary=BrainCandidateSummary.model_validate(row["candidate_summary"]),
         modules=[ModuleAbility.model_validate(item) for item in row["module_abilities"]],
         errorPatterns=[

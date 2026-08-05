@@ -415,3 +415,176 @@ def test_agent_rejects_directive_without_evidence_module(
                 trigger_kind="on_demand",
                 now=NOW,
             )
+
+
+def _seed_new_user(factory: sessionmaker[Session]) -> str:
+    """造一个只有账号和岗位发布、没有做题/能力证据的新用户。"""
+    user_id = str(uuid4())
+    with factory.begin() as session:
+        session.execute(
+            text(
+                "insert into learner.users (user_id, display_name) "
+                "values (cast(:user_id as uuid), '新用户')"
+            ),
+            {"user_id": user_id},
+        )
+        seed_active_position_release(
+            session,
+            activated_at=NOW,
+            database_now=datetime.now(UTC),
+            rule_set_version="central-brain-newuser-rules",
+            position_data_version="central-brain-newuser-positions",
+        )
+    return user_id
+
+
+def _guidance_directive() -> LearningBrainStrategyInstruction:
+    return LearningBrainStrategyInstruction(
+        focus="建立能力基线",
+        cause_direction="other",
+        essay_emphasis="先摸底再定申论侧重",
+        mock_schedule="暂不安排模考",
+        rationale="当前还没有做题记录，先完成一次能力摸底建立基线，才能针对性规划本周侧重。",
+        action=LearningBrainStrategyAction(
+            decision_type="baseline_guidance",
+            scope_type="track",
+            scope_key="xingce",
+        ),
+    )
+
+
+def test_evidence_insufficient_produces_baseline_guidance_candidate(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    """新用户（无做题证据）不再抛错，而是产出 baseline_guidance 候选。"""
+
+    user_id = _seed_new_user(db_session_factory)
+    provider = _DirectiveProvider(_guidance_directive())
+    service = _agent(provider)
+    with db_session_factory.begin() as session:
+        result = service.suggest_strategy(
+            session,
+            user_id=user_id,
+            command_id=f"central-brain-guidance-{uuid4()}",
+            trigger_kind="on_demand",
+            now=NOW,
+        )
+    assert result.candidate is not None
+    candidate = result.candidate
+    assert candidate.producer_type == "agent"
+    assert candidate.status == "awaiting_confirmation"
+    assert candidate.value["decisionType"] == "baseline_guidance"
+    assert candidate.value["scopeType"] == "track"
+    assert candidate.value["scopeKey"] == "xingce"
+    assert "摸底" in candidate.value["rationale"]
+
+
+def test_erased_evidence_summary_does_not_break_profile(
+    db_session_factory: sessionmaker[Session],
+) -> None:
+    """脱敏（evidence_summary={erased:true}）用户建 profile 不炸，大脑可产引导。"""
+
+    user_id = _seed_new_user(db_session_factory)
+    with db_session_factory.begin() as session:
+        session.execute(
+            text(
+                """
+                insert into learning.ability_estimate_versions (
+                  estimate_version_id, user_id, exam_code, exam_year, status,
+                  xingce_lower, xingce_recommended, xingce_upper,
+                  shenlun_lower, shenlun_recommended, shenlun_upper,
+                  total_lower, total_recommended, total_upper,
+                  confidence, source_evidence_ids, evidence_summary,
+                  algorithm_version, input_fingerprint, generated_at, valid_until
+                ) values (
+                  cast(:estimate_id as uuid), cast(:user_id as uuid),
+                  'guokao', 2026, 'complete', 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                  'low', '[]'::jsonb, '{"erased": true}'::jsonb,
+                  'erased-test-v1', :fingerprint, :now, :valid_until
+                )
+                """
+            ),
+            {
+                "estimate_id": str(uuid4()),
+                "user_id": user_id,
+                "fingerprint": sha256(f"erased:{user_id}".encode()).hexdigest(),
+                "now": NOW - timedelta(days=1),
+                "valid_until": NOW + timedelta(days=30),
+            },
+        )
+
+    from app.domains.learning_brain.service import LearningBrainService
+
+    brain = LearningBrainService()
+    with db_session_factory.begin() as session:
+        profile = brain.get_or_create_profile(
+            session, user_id=user_id, now=NOW
+        )
+    assert profile is not None
+
+    # 脱敏用户走引导：suggest_strategy 产出 baseline_guidance，不抛错。
+    # 用固定 now 保证 profile fingerprint 稳定（脱敏数据不变时幂等）。
+    provider = _DirectiveProvider(_guidance_directive())
+    service = _agent(provider)
+    with db_session_factory.begin() as session:
+        result = service.suggest_strategy(
+            session,
+            user_id=user_id,
+            command_id=f"central-brain-erased-{uuid4()}",
+            trigger_kind="on_demand",
+            now=NOW,
+        )
+    assert result.candidate is not None
+    assert result.candidate.value["decisionType"] == "baseline_guidance"
+
+
+def test_planning_baseline_guidance_boosts_baseline_candidate() -> None:
+    """baseline_guidance 决策确认后，planning 把摸底候选提为高优先级。"""
+
+    from app.domains.planning.engine import PriorityBreakdown, TaskCandidate
+    from app.domains.planning.repository import ActiveStrategyDecision
+    from app.domains.planning.service import _apply_strategy_decisions
+    from datetime import datetime
+
+    candidate = TaskCandidate(
+        candidate_key="xingce-baseline",
+        track="xingce",
+        stage="objective_baseline",
+        kind="practice",
+        title="先来摸个底",
+        reason="先摸底",
+        estimated_minutes=30,
+        completion_rule="答完",
+        start_url="/pages/xingce-task-intro/index?mode=baseline",
+        evidence_refs=(),
+        priority=PriorityBreakdown(
+            goal_gain=0.45,
+            ability_gain=0.95,
+            verification_urgency=0.70,
+            time_fit=1.0,
+            load_penalty=0.15,
+        ),
+        strategy_module_keys=(),
+    )
+    decision = ActiveStrategyDecision(
+        decision_version_id="dv1",
+        decision_id="d1",
+        decision_type="baseline_guidance",
+        scope_type="track",
+        scope_key="xingce",
+        rationale="先完成能力摸底建立基线。",
+        evidence_refs=(),
+        effective_from=datetime(2026, 7, 20, 8, 0, tzinfo=UTC),
+        effective_until=datetime(2026, 7, 27, 8, 0, tzinfo=UTC),
+        review_at=datetime(2026, 7, 27, 8, 0, tzinfo=UTC),
+        input_fingerprint="a" * 64,
+    )
+    adjusted, omissions, reason_codes = _apply_strategy_decisions(
+        [candidate], [decision]
+    )
+    assert len(adjusted) == 1
+    boosted = adjusted[0]
+    assert boosted.priority.ability_gain > 0.95
+    assert "先建立基线" in boosted.reason
+    assert reason_codes == ["strategy_baseline_guidance_applied"]
+    assert not omissions
