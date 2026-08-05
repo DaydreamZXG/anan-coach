@@ -1705,9 +1705,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
         this.setData({
           submissionStatus: "submitting",
           submissionMessage:
-            poll.job.status === "queued"
-              ? "新题评阅正在排队。"
-              : "新题评阅正在核对答案和材料。",
+            poll.job.status === "queued" ? "新题评阅正在排队。" : "新题评阅正在核对答案和材料。",
         });
         scheduleTransferPoll(this, runtime, 2_000);
         return;
@@ -2080,9 +2078,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       ).data;
       if (!pageRuntimes.isCurrent(this, runtime, requestEpoch)) return;
       if (result.intent.status === "queued" && !result.job) {
-        throw new EssayDraftingError(
-          "评阅任务已排队，但没拿到处理记录，重新加载看看。",
-        );
+        throw new EssayDraftingError("评阅任务已排队，但没拿到处理记录，重新加载看看。");
       }
       runtime.activeReviewIntent = result.intent;
       runtime.activeReviewJobId = result.job?.jobId ?? result.intent.jobId ?? "";
@@ -2245,9 +2241,7 @@ Page<EssayTaskPageData, EssayTaskPageCustom>({
       const apiError = error instanceof ApiClientError ? error : null;
       this.setData({
         submissionStatus: "error",
-        submissionMessage: apiError
-          ? `评阅没加载出来：${apiError.message}`
-          : "评阅没加载出来。",
+        submissionMessage: apiError ? `评阅没加载出来：${apiError.message}` : "评阅没加载出来。",
       });
     }
   },

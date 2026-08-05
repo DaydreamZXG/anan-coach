@@ -214,7 +214,10 @@ function materialPayload(drafts: EssayFormDrafts): MaterialAnnotationPayload {
       const evidenceQuote = item.evidenceQuote.trim();
       return {
         segmentId: item.segmentId,
-        paragraphSummary: required(item.paragraphSummary, `${item.label}的段落主旨还没写，补一下。`),
+        paragraphSummary: required(
+          item.paragraphSummary,
+          `${item.label}的段落主旨还没写，补一下。`,
+        ),
         subjects: splitLabels(item.subjectsText, `请填写${item.label}的对象或主体。`),
         ...(evidenceQuote ? { evidenceQuote } : {}),
       };

@@ -109,11 +109,7 @@ export function presentReviewJob(job: EssayReviewJobView): ReviewDisplay {
     );
   }
   if (!job.review) {
-    return safeTerminal(
-      "failed",
-      "评阅结果不完整",
-      "这次没返回完整评阅，页面不会乱凑分数。",
-    );
+    return safeTerminal("failed", "评阅结果不完整", "这次没返回完整评阅，页面不会乱凑分数。");
   }
   return presentGroundedReview(job.review);
 }

@@ -1538,7 +1538,8 @@ Page<PracticePageData, PracticePageCustom>({
         runtime.editOwnership = null;
         stopTimer(runtime);
         this.setData({
-          errorMessage: "另一台设备正在作答。别担心，本机的提交还保留着；重新进入并确认接管后再交一次就行。",
+          errorMessage:
+            "另一台设备正在作答。别担心，本机的提交还保留着；重新进入并确认接管后再交一次就行。",
         });
         return;
       }
@@ -2131,12 +2132,7 @@ async function saveCheckpoint(
       requestId: error instanceof ApiClientError ? error.requestId : "xingce-save-error",
     });
     render(page, runtime);
-    handleInlineError(
-      page,
-      runtime,
-      error,
-      "哎，这次没保存上，别急，本机留着呢，再点一次就好。",
-    );
+    handleInlineError(page, runtime, error, "哎，这次没保存上，别急，本机留着呢，再点一次就好。");
     page.setData({
       hasPendingCheckpoint: true,
       pendingCheckpointMessage: "这次保存还没确认，重试后才能继续改，别急。",

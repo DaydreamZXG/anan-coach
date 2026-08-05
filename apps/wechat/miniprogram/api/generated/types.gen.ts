@@ -2076,7 +2076,7 @@ export type CompanionAllowedAction = {
     /**
      * Kind
      */
-    kind: 'view_evidence' | 'adjust_plan_preview' | 'supply_information' | 'open_training' | 'open_position_workspace' | 'refresh_context';
+    kind: 'view_evidence' | 'adjust_plan_preview' | 'supply_information' | 'open_training' | 'open_position_workspace' | 'refresh_context' | 'add_reflection';
     /**
      * Label
      */
@@ -2159,7 +2159,7 @@ export type CompanionAskResponse = {
     /**
      * Semanticstate
      */
-    semanticState: 'ready' | 'evidence_insufficient' | 'permission_denied' | 'security_blocked' | 'failed';
+    semanticState: 'ready' | 'evidence_insufficient' | 'permission_denied' | 'security_blocked' | 'quota_exhausted' | 'provider_pending' | 'failed';
 };
 
 /**
@@ -16518,7 +16518,7 @@ export type StrategyCandidateCommand = {
     /**
      * Decisiontype
      */
-    decisionType: 'exam_skip' | 'phase_deprioritize' | 'strategic_abandon';
+    decisionType: 'exam_skip' | 'phase_deprioritize' | 'strategic_abandon' | 'baseline_guidance';
     /**
      * Effectiveuntil
      */
@@ -16595,7 +16595,7 @@ export type StrategyDecisionVersion = {
     /**
      * Decisiontype
      */
-    decisionType: 'exam_skip' | 'phase_deprioritize' | 'strategic_abandon';
+    decisionType: 'exam_skip' | 'phase_deprioritize' | 'strategic_abandon' | 'baseline_guidance';
     /**
      * Decisionversionid
      */

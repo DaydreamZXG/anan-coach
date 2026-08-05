@@ -15,10 +15,9 @@
         <view class="brain-logo-tint" aria-hidden="true"></view>
       </view>
 
-      <view class="login-title">岸岸备考</view>
-      <view class="login-subtitle">
-        <text>岸不会走过来，但岸岸会。</text>
-        <text>上岸之前，水里的每一天也算数</text>
+      <view class="login-tagline">
+        <text>如果你暂时看不清方向，</text>
+        <text>那就先把方向盘交给我</text>
       </view>
     </view>
 

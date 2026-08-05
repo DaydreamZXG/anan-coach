@@ -373,7 +373,10 @@ function presentGoalGap(dashboard: TodayDashboard) {
     );
   }
   if (!targetScore) {
-    return unavailableGoalGap("目标分依据不足", "目标参照已经建立，还差一份可对得上的行测、申论成绩。");
+    return unavailableGoalGap(
+      "目标分依据不足",
+      "目标参照已经建立，还差一份可对得上的行测、申论成绩。",
+    );
   }
   if (readiness === "stale") {
     return unavailableGoalGap(

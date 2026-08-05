@@ -255,11 +255,7 @@ export function buildRewriteCommand(
     return {
       findingId: item.findingId,
       status: item.status,
-      learnerEvidence: required(
-        item.learnerEvidence,
-        "每个问题都要写一下新答案里改在哪。",
-        2_000,
-      ),
+      learnerEvidence: required(item.learnerEvidence, "每个问题都要写一下新答案里改在哪。", 2_000),
     };
   });
   const thinking = thinkingSnapshot(draft);

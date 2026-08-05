@@ -70,10 +70,8 @@ const OPERATION_ATTEMPT_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
 const CAPACITY_ATTEMPT_SCOPE = "today-capacity:update@v1";
 const UNKNOWN_OUTCOME_MESSAGE =
   "保存已经发出去了，结果还在确认中。别急，再点一次确认就行，不会重复调整。";
-const OLD_DAY_ATTEMPT_MESSAGE =
-  "昨天调的计划已经过期啦，没关系，按你现在的状态重新定一份就好。";
-const INVALID_ATTEMPT_MESSAGE =
-  "上一次调整没记录好，已经自动停下啦，别担心，重新生成一份就行。";
+const OLD_DAY_ATTEMPT_MESSAGE = "昨天调的计划已经过期啦，没关系，按你现在的状态重新定一份就好。";
+const INVALID_ATTEMPT_MESSAGE = "上一次调整没记录好，已经自动停下啦，别担心，重新生成一份就行。";
 
 interface CapacityCanonicalInput {
   localDate: string;

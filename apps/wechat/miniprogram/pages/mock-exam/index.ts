@@ -1346,7 +1346,10 @@ async function resumePendingCheckpoint(
       if (enterMockAuthRequired(page, runtime, error)) return false;
       page.setData({
         syncLabel: "还在核对上次进度",
-        errorMessage: errorMessage(error, "上次保存的结果还没确定，我们会接着把那次确认完，别担心。"),
+        errorMessage: errorMessage(
+          error,
+          "上次保存的结果还没确定，我们会接着把那次确认完，别担心。",
+        ),
       });
       return false;
     }
